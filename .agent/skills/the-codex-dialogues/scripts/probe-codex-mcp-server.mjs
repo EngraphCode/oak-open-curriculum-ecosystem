@@ -100,7 +100,7 @@ async function main() {
   try {
     await runProbeLegs(session, workspace, installedVersion);
   } finally {
-    session.dispose();
+    await session.dispose();
     await removeWorkspaceIfClean(workspace, SENTINEL_NAME);
   }
 }

@@ -31,33 +31,55 @@ const PINNED_REGISTRATION_ARGS = [
   'approval_policy=never',
 ];
 
+/**
+ * The record's fenced pin line is the sole version authority, so the
+ * non-duplication guards read the pinned VALUE from the record at test
+ * time and assert its exact absence in dependent documents — catching a
+ * restatement in ANY prose spelling ("pinned at X.Y.Z", `key: X.Y.Z`),
+ * not just the `codex-cli X.Y.Z` form the spelling-class matcher covers
+ * (round-7 F1: a single-spelling matcher left every other form green).
+ */
+async function readCanonicalPin(): Promise<string> {
+  const record = await readRepoDocument(RECORD_PATH);
+  return /^codex_cli_version: (\d+\.\d+\.\d+)$/m.exec(record)?.[1] ?? 'RECORD-PIN-MISSING';
+}
+
 describe('the-codex-dialogues probe evidence lockstep', () => {
   it('parses a canonical codex_cli_version pin from the probe record', async () => {
     const record = await readRepoDocument(RECORD_PATH);
-    const pin = /^codex_cli_version: (\d+\.\d+\.\d+)$/m.exec(record)?.[1] ?? 'RECORD-PIN-MISSING';
+    const pin = await readCanonicalPin();
     expect(pin).toMatch(/^\d+\.\d+\.\d+$/);
+    expect(record, 'recorded server identity agrees with the canonical pin').toContain(
+      `codex-mcp-server ${pin}`,
+    );
   });
 
   it('keeps the instrument skill referencing the canonical pin, not restating it', async () => {
     const skill = await readRepoDocument(INSTRUMENT_SKILL_PATH);
+    const pin = await readCanonicalPin();
+    expect(pin, 'canonical pin parses from the record').toMatch(/^\d+\.\d+\.\d+$/);
     expect(skill, 'semantic pointer to the canonical field').toContain(
       'the pinned `codex_cli_version` in',
     );
     expect(skill, 'resolving link to the record').toContain('](./probe-record.md)');
-    expect(skill, 'no restated version literal outside the record').not.toMatch(
-      /codex-cli \d+\.\d+\.\d+/,
+    expect(skill, 'no subject-adjacent version literal outside the record').not.toMatch(
+      /codex[- ](?:cli|mcp-server)[^\n]{0,24}\d+\.\d+\.\d+/i,
     );
+    expect(skill, 'no restatement of the pinned value in any spelling').not.toContain(pin);
   });
 
   it('keeps the Sif annex referencing the canonical pin, not restating it', async () => {
     const sif = await readRepoDocument(SIF_SKILL_PATH);
+    const pin = await readCanonicalPin();
+    expect(pin, 'canonical pin parses from the record').toMatch(/^\d+\.\d+\.\d+$/);
     expect(sif, 'semantic pointer to the canonical field').toContain('`codex_cli_version`');
     expect(sif, 'resolving link to the record').toContain(
       '](../the-codex-dialogues/probe-record.md)',
     );
-    expect(sif, 'no restated version literal outside the record').not.toMatch(
-      /codex-cli \d+\.\d+\.\d+/,
+    expect(sif, 'no subject-adjacent version literal outside the record').not.toMatch(
+      /codex[- ](?:cli|mcp-server)[^\n]{0,24}\d+\.\d+\.\d+/i,
     );
+    expect(sif, 'no restatement of the pinned value in any spelling').not.toContain(pin);
   });
 
   it('pins the tracked registration template to the exact launch contract', async () => {

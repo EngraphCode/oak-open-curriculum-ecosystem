@@ -4,18 +4,20 @@ classification: active
 description: >-
   The Subagent Invocation Framework (Sif): general doctrine for invoking
   another agent — any vendor, any arity — as bounded in-session capability,
-  plus per-binding annexes carrying verified transport and authority facts.
-  Read before building or using any agent-invoking instrument; route to a
-  concrete instrument (the-codex-dialogues, cricket, codex-helper) for the
-  actual invocation workflow.
+  plus per-binding annexes carrying each binding's transport,
+  tool-contract, and authority facts. Read before building or using any
+  agent-invoking instrument; route to a concrete instrument
+  (the-codex-dialogues, cricket, codex-helper) for the actual invocation
+  workflow.
 ---
 
 # Sif — the Subagent Invocation Framework
 
 Sif (owner-named 2026-08-01, "as in Sif, Norse god of the earth") is the
 framework layer for agent-invokes-agent capability: one general doctrine,
-plus per-binding annexes that carry the verified facts of each concrete
-transport. Instruments ride Sif; Sif is not itself an instrument. The
+plus per-binding annexes that carry each concrete transport's facts at
+their stated evidence grade (probe-verified, or an explicitly labelled
+observation-grade candidate). Instruments ride Sif; Sif is not itself an instrument. The
 first instrument is [`the-codex-dialogues`](../the-codex-dialogues/SKILL-CANONICAL.md).
 
 ## The two axes
@@ -68,11 +70,13 @@ framework defines what each plank must contain.
    authority modes (for example `danger-full-access`) are owner-held
    per ADR-180: explicit owner authorisation per invocation, externally
    isolated disposable workspace, bounded sentinel target.
-2. **Version gates.** Each binding is pinned to the version its probe
-   evidence was recorded against. At instrument-open, the installed
-   version is compared to the recorded pin; a mismatch is a loud stop
-   until the probe re-runs and the record is re-ratified. An unverified
-   upgrade must never become a silently trusted surface.
+2. **Version gates.** Each probe-verified binding is pinned to the
+   version its probe evidence was recorded against; a candidate annex
+   carries a dated observation stamp instead, and no instrument opens
+   on it. At instrument-open, the installed version is compared to the
+   recorded pin; a mismatch is a loud stop until the probe re-runs and
+   the record is re-ratified. An unverified upgrade must never become
+   a silently trusted surface.
 3. **Close-event telemetry.** One structured comms event at each
    invocation-close is the analysis record — narrative event, canonical
    `key=value;` body encoding, schemas untouched. Close events evaluate
@@ -121,8 +125,8 @@ authority to be obeyed.
 
 ## Annex A — binding: `codex mcp-server` (stdio)
 
-Verified first-hand 2026-08-02 against the pinned `codex_cli_version`
-in
+**Probe-verified.** Evidence recorded first-hand 2026-08-02 against
+the pinned `codex_cli_version` in
 [`the-codex-dialogues/probe-record.md`](../the-codex-dialogues/probe-record.md)
 (the record is the sole holder of the version literal; the runnable
 probe lives beside it at
@@ -150,10 +154,14 @@ probe lives beside it at
   source under the plank-5 data contract, never committed or
   transmitted.
 
-## Annex B — reverse binding: `claude mcp serve` (stdio)
+## Annex B — candidate reverse binding: `claude mcp serve` (stdio)
 
-Verified first-hand 2026-08-01 (Claude Code 2.1.220, server
-`claude/tengu`): serves the full Claude Code toolset over stdio,
+**Observation-grade CANDIDATE, not probe-verified.** Observed
+first-hand 2026-08-01 (Claude Code 2.1.220, server `claude/tengu`) in a
+live manual session; no probe script or probe record exists for this
+binding yet, so nothing re-verifies these facts across a Claude Code
+version bump — treat them as dated observations awaiting their probe.
+The observed surface: serves the full Claude Code toolset over stdio,
 including `Agent` + `SendMessage` — spawn a named Claude interlocutor,
 then continue it with context intact (state continuation keyed by agent
 name rather than thread id). This is the named second experiment
@@ -162,14 +170,19 @@ surface hands the caller `Bash`/`Edit`/`Write` — full Claude Code
 authority — so the reverse direction needs a read-only story
 (permission mode or allowed-tools of the serving process) proven by its
 own probe before any dialogue runs. Authority: OPEN. No dialogue on
-this binding until its probe records otherwise.
+this binding until its probe records otherwise; the annex graduates to
+a verified binding when that probe script and record land beside it.
 
 ## Adding a binding or instrument
 
 A new binding enters as an annex here carrying only probe-verified
 facts (transport, tool contract, authority surface, persistence), with
 its probe script and record landing beside the instrument that uses it.
-A new instrument is a skill of its own that states the six planks
-concretely and names its routing boundaries against the instruments
-above. Two verified bindings was this framework's factoring trigger;
+Until that probe evidence exists, an annex may hold ONLY as an
+explicitly labelled observation-grade candidate (Annex B is the worked
+instance) — the label is part of the fact set, and "verified" is
+reserved for probe-backed annexes. A new instrument is a skill of its
+own that states the six planks concretely and names its routing
+boundaries against the instruments above. One probe-verified binding
+plus one observed candidate was this framework's factoring trigger;
 keep the doctrine general and the annexes factual.

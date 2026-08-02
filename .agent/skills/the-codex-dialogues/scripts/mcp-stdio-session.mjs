@@ -3,6 +3,15 @@
  * used by the codex mcp-server probe. Deliberately dependency-free: the
  * probe must run on a fresh checkout before any build.
  *
+ * Adapts the MCP stdio transport's framing — JSON-RPC messages delimited
+ * by newlines on the child's stdin/stdout, no embedded newlines — from
+ * the MCP specification:
+ * https://modelcontextprotocol.io/specification/2025-06-18/basic/transports#stdio
+ * Divergences from the full transport: dependency-free and probe-scoped,
+ * so no message batching, no logging of the server's stderr (drained and
+ * discarded, see below), and no capability negotiation beyond what the
+ * probe itself asserts at initialize time.
+ *
  * stderr is drained and discarded — a piped-but-unconsumed stderr can fill,
  * block the child, and deadlock an otherwise valid probe run.
  */
@@ -53,9 +62,24 @@ export class McpStdioSession {
     this.#child.stdin.write(`${JSON.stringify({ jsonrpc: '2.0', method, params })}\n`);
   }
 
-  dispose() {
+  /**
+   * Terminates the child and resolves only once it has actually exited:
+   * SIGTERM first, bounded SIGKILL escalation after 5s. An unawaited
+   * kill() lets a slow or SIGTERM-ignoring server outlive disposal and
+   * race the workspace inspection/removal that follows it.
+   */
+  async dispose() {
     this.#failAllPending('session disposed');
+    if (this.#child.exitCode !== null || this.#child.signalCode !== null) {
+      return;
+    }
+    const exited = new Promise((resolve) => {
+      this.#child.once('exit', resolve);
+    });
     this.#child.kill();
+    const killTimer = setTimeout(() => this.#child.kill('SIGKILL'), 5_000);
+    await exited;
+    clearTimeout(killTimer);
   }
 
   #onData(chunk) {

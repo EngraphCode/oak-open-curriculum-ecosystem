@@ -159,7 +159,7 @@ dialogue field rides in the body as the canonical `key=value;` line
 (the same body-encoding discipline the heartbeat substrate uses):
 
 ```text
-dialogue_id=<fresh opaque id, e.g. dlg-YYYYMMDD-xxxx>; question_class=<design-fork|consensus-check|plan-pressure|other>; turn_count=<n>; stop_reason=<budget|stabilised|irreconcilable|aborted>; outcome=<position-changed|dissent-unresolved|confirmed|non-evaluable>; prior_confidence=<low|medium|high>; harness_version=<claude-code x.y.z>; codex_cli_version=<x.y.z>; synthesis_ref=<durable shared surface>;
+close_schema=1; dialogue_id=<fresh opaque id, e.g. dlg-YYYYMMDD-xxxx>; question_class=<design-fork|consensus-check|plan-pressure|other>; turn_count=<n>; stop_reason=<budget|stabilised|irreconcilable|aborted>; outcome=<position-changed|dissent-unresolved|confirmed|non-evaluable>; prior_confidence=<low|medium|high>; harness_version=<claude-code x.y.z>; codex_cli_version=<x.y.z>; synthesis_ref=<durable shared surface>;
 ```
 
 A dialogue that ends without a semantic conclusion — a `codex-reply`
@@ -181,10 +181,21 @@ Field rules:
 - `synthesis_ref` must resolve from a DURABLE SHARED surface — a
   fold-committed comms event id, a tracked report path, or the PR
   record. Never a machine-local path: the pointer must outlive the
-  trial rollouts' deletion and resolve from any checkout.
-- Field completeness is enforced by the composing seat at close time; a
-  close event with missing fields is a telemetry defect to fix at
-  source. The analysis-side parser that re-checks the corpus lands with
+  trial rollouts' deletion and resolve from any checkout. A URL ref is
+  a BARE permalink — v1 values carry no `=` or `;`, so a query-string
+  URL is undecodable.
+- **Compose-order check**: `synthesis_ref`'s target must EXIST —
+  verified resolvable (the PR comment posted and its id known, the
+  report path committed, the event id written) — BEFORE the close
+  event is composed. A predicted or placeholder ref is a protocol
+  violation, not a convenience; conserve-then-compose is part of the
+  close sequence itself (worked instance: trial dialogue 2's close
+  event was composed ahead of its synthesis surface under completion
+  pressure and needed a threaded correction event).
+- Field completeness is enforced by the composing seat at close time,
+  judged against the event's OWN decoded version (a pre-key event is
+  complete without `close_schema`); a close event with missing fields
+  is a telemetry defect to fix at source. The analysis-side parser that re-checks the corpus lands with
   the trial close-out pass (it has nothing to read before dialogues
   exist), so until then the composing seat's check is the only
   enforcement — deferred by the plan, not an oversight.
@@ -192,6 +203,45 @@ Field rules:
 Close events evaluate THIS INSTRUMENT, never the seat that ran the
 dialogue — any reading of them as seat-evaluation is out of contract
 (the FRAME-1 boundary, structural in the plan's feedback contract).
+
+### Close-event schema versions (immutable definitions)
+
+`close_schema` names which definition below decodes the body.
+Definitions are IMMUTABLE: a bump ADDS a new definition here and
+changes the emitted literal; it never mutates an existing version's
+meaning — each version's complete definition remains preserved in this
+document. The bump rule fires on SEMANTICS-ONLY changes too: a field
+whose meaning, vocabulary, or decoding shifts while every emitted byte
+stays identical is exactly the drift a shape-triggered rule cannot
+see, so any semantic change is a new version even when the line looks
+the same. Close events emitted before the `close_schema` key existed
+(the first two trial dialogues) decode as version 1. No
+substrate-level version key exists or is planned — this versioning is
+local to this instrument's close event.
+
+**Version 1** (current; the emitted literal carries `close_schema=1`):
+
+- Decoding mechanics: the body is one line of `key=value;` fields —
+  fields separated by `;` (semicolon then space), a trailing `;`
+  closes the line, keys are bare ASCII identifiers, values are literal
+  text with no escaping mechanism and therefore MUST NOT contain `;`,
+  `=`, or newlines. Field order follows the template above. An unknown
+  key is a decode error, never an extension point — additions bump the
+  version.
+- Field set and meanings: `close_schema` — this definition's number
+  (absent on pre-key events, which decode as 1) · `dialogue_id` —
+  fresh opaque id, never the Codex thread id · `question_class` — one
+  of `design-fork | consensus-check | plan-pressure | other`; the
+  class of uncertainty brought to the dialogue · `turn_count` —
+  integer count of completed exchanges · `stop_reason` — one of
+  `budget | stabilised | irreconcilable | aborted` · `outcome` — one
+  of `position-changed | dissent-unresolved | confirmed |
+  non-evaluable`, judged against the pre-registered prior ·
+  `prior_confidence` — one of `low | medium | high`, recorded before
+  the first exchange · `harness_version` — `claude-code x.y.z` of the
+  invoking seat · `codex_cli_version` — the installed CLI version the
+  dialogue ran against · `synthesis_ref` — durable shared surface
+  carrying the conserved synthesis (see the field rules).
 
 ## Data contract (rollouts and retention)
 
@@ -227,12 +277,45 @@ whichever comes first**. If FEWER THAN 3 dialogues close
 
 Three or more `position-changed` closes and the instrument continues
 beyond the trial. There is no fold-into-Cricket disposition on either
-arm — Cricket is not this instrument's alternative. The diversity null
-hypothesis rides the same window: compare dissent/agreement rates
-against a same-vendor baseline (Cricket legs on comparable question
-classes); if cross-vendor dissent is statistically indistinguishable
-from same-vendor stance-diversity, the value axis has failed however
-pleasant the dialogues felt.
+arm — Cricket is not this instrument's alternative.
+
+The diversity null hypothesis rides the same window, with its data
+contract pre-defined here so the comparison is COMPUTABLE at trial
+close-out from records that already exist (a pre-registered criterion
+with no measurement contract silently degrades into whatever the
+close-out seat improvises):
+
+- **Cross-vendor observations** — this instrument's close events. Each
+  carries `question_class` and `outcome`; a dialogue counts as MOVED
+  when its outcome is `position-changed`, as STANDING DISSENT when
+  `dissent-unresolved`, as AGREEMENT when `confirmed` (`non-evaluable`
+  closes are excluded here exactly as they are from the primary
+  threshold).
+- **Same-vendor baseline** — Cricket runs recorded in the cricket
+  tally over the same window, judged over their DELIVERED legs only
+  (the tally's own "among delivered" convention; a run with zero
+  delivered legs is excluded). The tally records no question field, so
+  classification into this instrument's `question_class` enum
+  (`design-fork` | `consensus-check` | `plan-pressure` | `other`)
+  happens at analysis time from the run's recorded seat/moment text; a
+  row too ambiguous to classify is `other`. A run counts as MOVED when
+  its row records the seat adopting a redirection, as STANDING DISSENT
+  when any delivered leg returned a non-ON-TRACK verdict with no
+  adopted redirection, as AGREEMENT when every delivered leg is
+  ON-TRACK and no redirection was adopted. Movement is judged on the
+  SAME axis as the cross-vendor side — did the perturbation move the
+  seat — never on unanimity (a unanimous panel whose redirection the
+  seat adopts is MOVED, not agreement; the tally already records
+  per-leg verdicts and adopted redirections, so no new Cricket field
+  is minted).
+- **Decision rule** — compare the MOVED + STANDING-DISSENT rate per
+  shared question class, stated qualitatively in the close-out report
+  (the trial's n is small; no significance test). If the cross-vendor
+  rate does not exceed the same-vendor rate in any shared question
+  class, the value axis has failed however pleasant the dialogues
+  felt. If the shared-class set is EMPTY, this comparison is
+  NON-EVALUABLE and is reported as exactly that — never as a pass; the
+  value-axis verdict then rests on the primary criterion alone.
 
 Missing close events do NOT count toward any threshold: at trial close,
 events are reconciled against seat transcripts and Codex-side rollouts,
