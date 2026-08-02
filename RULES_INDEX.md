@@ -5,7 +5,7 @@ always-applied repository rules. It is the discoverability surface for
 agents and humans alike, and the project-doc resolution path for
 platforms (such as Codex) that do not auto-load `.agent/rules/`.
 
-Before substantive work in this repository, read and apply every
+Before substantive work in this repository, read and apply every _relevant_
 canonical rule listed below. Treat these files as behavioural modifiers
 for the session. If a rule points to a directive, ADR, PDR, skill,
 command, or other canonical file, follow that pointer before acting in
@@ -25,8 +25,9 @@ Each rule has four on-disk forms:
 Platforms that auto-load their adapter tier (Claude, Cursor) pick up
 the canonical content via the forwarder. Platforms that do not
 auto-load (Codex, Gemini, and any other non-loader runtime) MUST read
-the canonical files in `.agent/rules/` directly. This index enumerates
-those canonical files; keeping the four on-disk forms aligned is part
+all relevant canonical files in `.agent/rules/` directly.
+
+This index enumerates those canonical files; keeping the four on-disk forms aligned is part
 of the rule-authoring contract.
 
 When adding a new rule, land all four forms plus an entry in this
@@ -55,6 +56,12 @@ and the rule's substance would otherwise inflate baseline directive
 cost beyond the
 [`directive-file-context-budget`](.agent/rules/directive-file-context-budget.md)
 without proportional value.
+
+For a non-auto-loading platform, _relevant_ is mechanically decidable
+from this index alone: every `always-on` (core) row, plus any
+`trigger-loaded` (situational) row whose Trigger / Loading Signal
+matches the session's work. Nothing else needs reading at session
+start; a situational rule loads at its trigger's moment.
 
 ## Canonical Rules
 
