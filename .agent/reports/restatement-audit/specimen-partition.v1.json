@@ -1,0 +1,12 @@
+{
+  "windows": [
+    {
+      "window": "SPEC-01",
+      "files": [
+        ".agent/practice-core/decision-records/PDR-078-liveness-heartbeat-contract.md",
+        ".agent/practice-core/practice-lineage.md",
+        ".agent/skills/curator-pass/SKILL-CANONICAL.md"
+      ]
+    }
+  ]
+}
