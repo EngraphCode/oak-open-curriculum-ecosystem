@@ -6,6 +6,7 @@ _Tags: collaboration | discovery | planning | metacognition_
 ## What happened (brief)
 
 - Compared external planning skills (superpowers: writing-plans, executing-plans, brainstorming, subagent-driven-development) against the repo's internal planning system (jc-plan, ADR-117 templates). Updated 6 internal templates and plans to incorporate lessons learned.
+  [Attribution added 2026-08-02 per PDR-115: "superpowers" is `obra/superpowers` (MIT), Jesse Vincent's skills library — the upstream was unnamed when this record was written, predating the naming rule.]
 
 ## What it was like
 

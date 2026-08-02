@@ -816,3 +816,21 @@ blind spot: the author reads intent, a reader reads text. The
 error-signature to conserve for successors — never dismiss a suppressed
 block as noise, and aim external review at your OWN doctrine's internal
 consistency first.
+
+**The licence map is the architecture made legible (owner principle
+elaboration, 2026-08-02, design lane).** Jim, ruling the design-container
+licensing simple — code MIT, curriculum content OGL, Oak brand copyright
+and not licensed — attached the WHY that `principles.md` §Separate
+Framework from Consumer does not yet carry: we keep the Oak-specific
+instance as thin as possible (ideally config passed to a general
+framework, through every level of underlying infrastructure) so that
+**the parts constrained for external use stay absolutely minimal**. The
+reusability argument and the constraint-surface argument are the same
+split seen from two sides: MIT maximises the surface others may take;
+the unlicensed remainder (the brand) stays small only because the
+architecture keeps it extractable as data. Falsifiable probe: a package
+whose licence you cannot name in one word ("SEE LICENCES.md") is a
+package where general mechanism and Oak identity cohabit — today exactly
+two, oak-design-system and oak-design-assets, both deliberate. Candidate
+graduation: a constraint-surface sentence in §Separate Framework from
+Consumer.
