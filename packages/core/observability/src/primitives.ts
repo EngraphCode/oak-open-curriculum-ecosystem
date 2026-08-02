@@ -14,8 +14,8 @@
  * (`docs/governance/typescript-practice.md` §Compiler-time Types and
  * Runtime Validation).
  *
- * @see ../../../docs/architecture/architectural-decisions/160-non-bypassable-redaction-barrier-as-principle.md
- * @see ../../../docs/governance/typescript-practice.md
+ * @see ../../../../docs/architecture/architectural-decisions/160-non-bypassable-redaction-barrier-as-principle.md
+ * @see ../../../../docs/governance/typescript-practice.md
  *
  * @packageDocumentation
  */
