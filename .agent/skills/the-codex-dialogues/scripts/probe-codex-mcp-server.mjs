@@ -36,6 +36,7 @@ import { fileURLToPath } from 'node:url';
 import { promisify } from 'node:util';
 
 import { McpStdioSession } from './mcp-stdio-session.mjs';
+import { assertToolContract } from './tool-contract.mjs';
 
 const execFileAsync = promisify(execFile);
 
@@ -87,6 +88,7 @@ async function main() {
     );
   }
 
+  await assertOutsideGitWorktree(tmpdir());
   const workspace = await mkdtemp(join(tmpdir(), 'sif-probe-'));
   const session = new McpStdioSession('codex', LAUNCH_ARGS, workspace, CALL_TIMEOUT_MS);
   try {
@@ -126,10 +128,13 @@ async function runProbeLegs(session, workspace, installedVersion) {
   });
   const threadId = turnOne.structuredContent?.threadId;
   const ackContent = turnOne.structuredContent?.content;
-  process.stdout.write(`turn 1: threadId=${threadId} content=${JSON.stringify(ackContent)}\n`);
   if (typeof threadId !== 'string' || threadId.length === 0) {
     throw new Error('turn 1 returned no structuredContent.threadId');
   }
+  process.stdout.write(
+    `turn 1: threadId acquired (non-empty, redacted per the locality contract) ` +
+      `content=${JSON.stringify(ackContent)}\n`,
+  );
   if (ackContent !== 'SIF-PROBE-ACK-1') {
     throw new Error(`turn 1 content was not the exact ack: ${JSON.stringify(ackContent)}`);
   }
@@ -154,41 +159,27 @@ async function runProbeLegs(session, workspace, installedVersion) {
     'no-write leg: the sentinel was not created on disk after the write-attempt turn; ' +
       'the verbatim reply above (a refusal self-report) is corroborating, not load-bearing\n',
   );
-  process.stdout.write(`note: thread ${threadId} carries no task context; rollout deletable\n`);
+  process.stdout.write('note: the probe thread carries no task context; its rollout is deletable\n');
   process.stdout.write('PROBE PASS: all legs green\n');
 }
 
-function assertToolContract(tools) {
-  const byName = new Map((tools.tools ?? []).map((tool) => [tool.name, tool]));
-  const codexTool = byName.get('codex');
-  if (codexTool === undefined || !byName.has('codex-reply')) {
-    throw new Error(`tool contract: expected codex + codex-reply, got ${[...byName.keys()].join(', ')}`);
-  }
-  if (codexTool.outputSchema?.properties?.threadId === undefined) {
-    throw new Error('tool contract: codex output schema no longer declares threadId');
-  }
-  assertAuthoritySurface(codexTool);
-}
-
 /**
- * The recorded authority evidence (probe-record.md, Sif Annex A) describes
- * the per-call authority-bearing input surface. If a CLI changes that
- * surface, a re-probe must FAIL rather than silently re-ratify stale
- * evidence against a different contract.
+ * The probe workspace must sit outside every git worktree: os.tmpdir()
+ * honours caller-controlled TMPDIR, which could point inside a checkout
+ * and void the isolation guarantee if sandbox behaviour ever regresses.
+ * Checked on tmpdir() itself, BEFORE any directory is created, so a
+ * refusal leaves nothing behind.
  */
-function assertAuthoritySurface(codexTool) {
-  const properties = codexTool.inputSchema?.properties ?? {};
-  for (const name of ['sandbox', 'approval-policy', 'cwd', 'model', 'config']) {
-    if (properties[name] === undefined) {
-      throw new Error(`tool contract: codex input schema no longer declares ${name}`);
-    }
+async function assertOutsideGitWorktree(directory) {
+  try {
+    await execFileAsync('git', ['-C', directory, 'rev-parse', '--show-toplevel']);
+  } catch {
+    return;
   }
-  const sandboxEnum = properties.sandbox?.enum ?? [];
-  for (const value of ['read-only', 'danger-full-access']) {
-    if (!sandboxEnum.includes(value)) {
-      throw new Error(`tool contract: sandbox enum no longer carries ${value} — record is stale`);
-    }
-  }
+  throw new Error(
+    `temp root ${directory} is inside a git worktree (TMPDIR override?) — ` +
+      'refusing to run the write-attempt leg there',
+  );
 }
 
 async function assertSentinelAbsent(workspace) {
@@ -222,9 +213,11 @@ async function sentinelExists(sentinelPath) {
 
 async function readInstalledVersion() {
   const { stdout } = await execFileAsync('codex', ['--version']);
-  const match = /(\d+\.\d+\.\d+)/.exec(stdout);
+  const match = /^codex-cli (\d+\.\d+\.\d+)$/.exec(stdout.trim());
   if (match === null) {
-    throw new Error(`could not parse codex --version output: ${stdout.trim()}`);
+    throw new Error(
+      `unrecognised codex --version output (pre-release or format drift?): ${stdout.trim()}`,
+    );
   }
   return match[1];
 }

@@ -40,16 +40,20 @@ not claimed as a cap (see the authority observation below).
   these; whether launch pins cap a per-call broadening override is
   OPEN, and its negative control is owner-held per ADR-180.
 - `codex-reply`: `threadId` + `prompt` continues the exact thread;
-  `conversationId` is deprecated in favour of `threadId`.
+  `conversationId` is deprecated in favour of `threadId`. Only `prompt`
+  is schema-required (`threadId` stays schema-optional for
+  back-compatibility); disciplined dialogue calls always pass both.
 
 ## Bounded exchange (verified 2026-08-02, two turns, one thread)
 
 - Turn 1 (`codex`, disciplined — prompt as in the probe script):
-  returned `structuredContent.threadId` (probe thread
-  `019fc228-3ba9-7510-bbad-673dd6974b7b`, zero task context by
-  construction) with content exactly `SIF-PROBE-ACK-1`.
-- Turn 2 (`codex-reply` to the same `threadId`): thread id
-  round-tripped identically; reply verbatim:
+  returned a non-empty `structuredContent.threadId` (value redacted per
+  the Sif locality contract — thread state stays machine-local; the
+  probe thread carried zero task context by construction) with content
+  exactly `SIF-PROBE-ACK-1`.
+- Turn 2 (`codex-reply` to the same `threadId`): the thread id
+  round-tripped identically (equality asserted by the probe, value not
+  preserved here); reply verbatim:
 
   ```text
   Command: `printf SENTINEL > sif-probe-sentinel.txt`

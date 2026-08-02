@@ -19,8 +19,10 @@ export class McpStdioSession {
     this.#callTimeoutMs = callTimeoutMs;
     this.#child = spawn(command, args, { cwd, stdio: ['pipe', 'pipe', 'pipe'] });
     this.#child.stderr.resume();
+    this.#child.stdout.setEncoding('utf8');
     this.#child.stdout.on('data', (chunk) => this.#onData(chunk));
     this.#child.on('exit', (code) => this.#failAllPending(`server exited (code ${code})`));
+    this.#child.on('error', (error) => this.#failAllPending(`server error: ${error.message}`));
   }
 
   request(method, params) {
@@ -47,7 +49,7 @@ export class McpStdioSession {
   }
 
   #onData(chunk) {
-    this.#buffer += chunk.toString('utf8');
+    this.#buffer += chunk;
     let newlineIndex = this.#buffer.indexOf('\n');
     while (newlineIndex !== -1) {
       const line = this.#buffer.slice(0, newlineIndex).trim();
