@@ -969,3 +969,27 @@ already externally checked.
   two-commit history window. Lesson napkined: uncommitted edits on
   the shared primary are visible to every warden sweep —
   stage-by-pathspec protects the ceremony, not the tree.
+- 2026-08-02 ~16:50Z — **RECLASSIFICATION ENACTMENT STEP 1: the
+  RULES_INDEX conversion** to core/situational, mechanical against
+  the ratified sweep table (script-applied with a refuse-on-unmapped
+  gate; recount 75 core + 47 situational = 122 rows, exactly 67+46
+  ratified plus the 8 graduate-holds — all currently core — plus the
+  post-sweep `capability-landing-decision-procedure` mint). Choices
+  recorded: (a) the 8 GRADUATE rows HOLD their current class until
+  their graduation commits execute (the index describes the live
+  estate, never a pending future); (b) situational trigger cells
+  lead with the typed instance and keep any pre-existing prose gloss;
+  (c) the new mint takes a new `surface:lever-authoring` instance —
+  the vocabulary's first post-sweep extension, landed through the
+  procedure that governs it; (d) the Classification prose now
+  carries the class definitions, the four-family vocabulary, and the
+  loader contract, with instances enumerated by the rows themselves
+  (no duplicated member tables — the index is the vocabulary's live
+  home, the sweep artefact stays frozen provenance); (e) the
+  owner's relevance predicate keeps identical substance with the
+  primary names flipped (`core` (always-on) / `situational`
+  (trigger-loaded)). Interim state named: `.mdc` wrappers for newly
+  situational rows still say `alwaysApply: true` until step 2 (the
+  wrapper pass, contested rows last) — over-loading, the safe
+  direction, per the ratified sequencing. Gates green at authoring:
+  prettier canonical, markdownlint 0, link validator OK.

@@ -39,11 +39,14 @@
   landed at `e55fb9681`; enactment sequence in the task list —
   RULES_INDEX conversion COORDINATES WITH FALCON FIRST, his
   relevance-sketch is dirty on the primary, owner-version-wins).
-  Resume order: (1) RULES_INDEX conversion to core/situational (the
-  ratified reclassification; coordinate the window with the
-  Director), landing the sweep's loader contract for ALL situational
-  rows in the same motion — the R2 mint's loader-config disposition
-  rides here; (2) WS6 landing legs incl. the three cross-family
+  Resume order: (1) reclassification enactment continues —
+  conversion DONE 2026-08-02 (75 core / 47 situational, graduate-8
+  held, vocabulary + loader contract in the index prose); NEXT the
+  step-2 wrapper pass (flip `alwaysApply` + author descriptions for
+  newly situational rows, contested rows last, description bar
+  applies), then the four proven graduations, then loader config for
+  `surface:*`/`tool:*` instances — the R2 mint's loader-config
+  disposition rides there; (2) WS6 landing legs incl. the three cross-family
   routing edges (reason stop-gate commissioning seam,
   concept-exploration surviving-question handoff, proportionality
   depth-mode escalation — never before summonability); (3) R4 scoped
