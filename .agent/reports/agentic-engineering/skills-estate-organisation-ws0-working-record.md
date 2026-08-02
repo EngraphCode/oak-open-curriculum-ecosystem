@@ -236,6 +236,76 @@ already externally checked.
      skills-lock.json + vendored externals + skills-ref validate ≈
      package-manager semantics independently reinvented; skills.sh
      is the missing remote registry.
+- 2026-08-02 ~13:15Z — MOVEMENT 2, part 1: THE HOMONYMY TEST, run
+  first per the adopted redirection — each candidate scored per lever
+  against the nine consumer-decision rows (movement-1 tranches 1-2):
+  **A. Shared KIND enum: FAILS the theatre test at every lever, and
+  more starkly than the homonymy frame predicted.** Skills:
+  summon-routing rides description text, adapters ride
+  name+description, drift/portability gates ride id-sets — no
+  mechanical consumer reads a kind value. Rules: the load decision is
+  ALREADY keyed by the ratified always-on/trigger-loaded axis; kind
+  adds nothing. Subagents: dispatch is keyed by work-substance
+  matrices. Verdict: not one label doing three different jobs — one
+  label doing ZERO mechanical jobs, three times. A shared KIND
+  survives only as input to future derived navigation, where native
+  per-corpus vocabularies (composition three-layer; activation axis;
+  subagent families) do the same job without cross-lever homonymy
+  risk. PRUNED to derived-navigation input at most.
+  **F. Shared INTENT families: same verdict as A** — navigation-only;
+  pruned identically.
+  **E. STRATUM (PDR-134, verbatim): SURVIVES** — ratified,
+  lever-independent, with real consumers (portability/packaging;
+  the WS4 grounding-direction check proves itself on two known
+  inversions). The annotation-timing question remains movement-4's.
+  **B. Concern-centric links: SURVIVES with a named live consumer** —
+  the owner's own standing ask ("how do the new skills relate to
+  metacognition, reason, concept-exploration, free-play,
+  proportionality, plan") IS a concern-map query; and movement-1
+  found the cross-lever binding practice already exists in three
+  heterogeneous mechanisms that concern links would NAME, not
+  invent. Native kinds stay native; concerns link across.
+  **D. Disclosure-tier lens (new, from the four-source pass):
+  SURVIVES as authoring doctrine, not annotation** — the tier IS each
+  lever's existing mechanical decision (rules=always via RULES_INDEX;
+  skills=on-match via catalog description; subagents=at-dispatch via
+  routing matrices). It needs no minting; its consumer is the
+  currently-undocumented AUTHORING decision "where does this
+  capability land?" (the napkin/commit companion-rule cases are its
+  worked instances). Candidate landing: a landing decision-procedure
+  in doctrine, not frontmatter.
+  **C. Vocabulary-null (repaired per-corpus organisations): remains
+  the benchmark** the survivors must beat — and after the prune the
+  distance is short: the recommendation space has narrowed to
+  [standard structure (owner-ruled, shape TBD in movement 3)] +
+  [stratum annotations] + [concern links] + [native kinds kept] +
+  [landing doctrine], versus C alone. Movement 3 weighs exactly this.
+- 2026-08-02 ~13:15Z — MOVEMENT 2, part 2: problem statement, sized
+  by the prune (scratch draft superseded; this is the record form):
+  **GAP**: landing decisions (where does a capability land; what
+  structure does a family take) and relation queries (what serves
+  this concern, across levers) are answered today by tacit knowledge
+  and whole-corpus reads; two landing conventions ran concurrently
+  this very week. **HARMS**: landing authors (live divergence),
+  agents at summon-time (description-only routing with an unmeasured
+  collection), the owner relating new capabilities to old (his
+  standing ask), portability packaging (strata illegible without
+  annotation). **MECHANISM (the design law from movement 1)**:
+  organisations decay without mechanical consumers; annotations
+  without consumers are theatre — every recommended element must land
+  WITH its consumer (generator, validator, derived index, or a
+  binding decision-procedure) in the same motion. **CONSTRAINTS**:
+  ADR-221; PDR-134 direction law; PDR-009/051; ADR-189
+  orthogonal-compose; conservation conjunct; standardised-structure
+  ruling; spec conformance (custom fields under `metadata:`; SKILL.md
+  emitted form; flat-friendly packaging per meta-learning lesson 3);
+  interim landing guidance in force with sunset at the gate.
+  **SUCCESS**: the plan's acceptance set, plus: the recommendation
+  names THE standard structure + convergence path; every surviving
+  vocabulary element carries its consumer; the two future discovery
+  plans dispositioned; warrant + falsifier + conservation case per
+  proposal. Movement 2 CLOSED; movement 3 (solution-space reflection
+  over the narrowed space) is the next stretch.
 
 - 2026-08-02 sitting A: record opened; structure drafted; routed to the
   Director for collaboration (see comms). ADR-189 prior-art gap caught

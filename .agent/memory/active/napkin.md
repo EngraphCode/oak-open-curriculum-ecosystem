@@ -740,3 +740,17 @@ in dual-active windows, re-check the staged stat in the same breath as the
 commit, and treat any count drift as a stop. Structural route: this is the
 commit-queue ceremony's exact justification — at 2+ active writers on one
 checkout, enqueue even when the queue looks empty.
+
+## 2026-08-02 ~13:25Z — inserting before a list-item anchor splits the list (Skylark hunts Nimbus, e856d5)
+
+Twice in one sitting I inserted new movement-log entries by anchoring on a
+numbered list item's FIRST line and placing content before it — each time
+splitting a multi-item entry (once also silently eating a consumed header
+that was not re-emitted). Cure adopted after the second instance: insert
+AFTER the list's final line (anchor on its unique tail), and verify entry
+ORDER with a header grep after every multi-entry edit. Same family as the
+napkin header's own truncate-race warning: positional edits on shared
+append-only logs deserve a structural check, not trust. Instrument note:
+`commit-queue complete` exits 2 after the `commit` primitive has run —
+apparently already-completed; end state correct both times (queue shows no
+live intent); read the queue, not the exit.

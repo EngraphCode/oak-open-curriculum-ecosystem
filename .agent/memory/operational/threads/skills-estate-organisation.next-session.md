@@ -29,9 +29,27 @@
   working copies on the primary (`.agent/skills/cognition/`,
   `.agent/reports/cognitive-structure/`) are HIS — never fold, never
   edit.
-- Next safe step: WS0 movement 1 legs 1–2 (consumer/decision
-  inventory + ratified-vocabulary sweep incl. ADR-189), per the
-  working record's exit criteria.
+- Next safe step: WS0 MOVEMENT 3 — solution-space reflection over the
+  NARROWED space (movement-2 homonymy test pruned shared KIND and
+  INTENT to derived-navigation inputs at most; survivors: stratum
+  annotations, concern links, native kinds, disclosure-tier landing
+  doctrine, vs the repaired vocabulary-null benchmark; structure
+  shape weighed against meta-learning lesson 3 flat-federation
+  evidence). Then movement 4: synthesis + reviewed recommendation
+  (assumptions-expert + Opus frame-challenger + cricket pair).
+- State at the 2026-08-02 compaction boundary: movements 1 AND 2
+  CLOSED (all evidence in the working record's movement log —
+  consumer inventory, ADR-189 verdict, WS6(a-c), four-source
+  learning pass incl. agentskills spec + meta-learning 26 lessons,
+  homonymy test, sized problem statement). Cricket M1→M2 panel 7-1,
+  adjudication Director-confirmed, gate OPEN. Interim landing
+  guidance (mine, Falcon-adopted verbatim, fleet-broadcast): flat
+  individuals; families hold; not retroactive; sunsets at the WS0
+  ruling. Commit-queue ceremony ACTIVE for every commit on the
+  primary (two staging races). Lane commits: d24f6e5de, 8a760018d,
+  3ff67175a + this boundary's. #711 close carded to the owner
+  (Director-held); Parallax tracked at the owner's 5fa0b2a0a —
+  audit citations pin there.
 - Acceptance bar: the plan's §Acceptance (Parallax extensibility, <20%
   3+-kind hybrids, generated indexes, grounding-direction check,
   functional conservation); WS0's own bar is the movement-4 exit
