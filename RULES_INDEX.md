@@ -159,6 +159,7 @@ without proportional value.
 | `.agent/rules/sha-prefix-in-collaboration-content.md`                      | always-on      | —                                                                                                   |
 | `.agent/rules/ship-independent-coordinate-dependent.md`                    | always-on      | —                                                                                                   |
 | `.agent/rules/silence-is-never-liveness.md`                                | always-on      | —                                                                                                   |
+| `.agent/rules/skill-naming-and-description-quality.md`                     | trigger-loaded | Creating, renaming, or editing any skill or its description; the external-skill vendoring gate      |
 | `.agent/rules/sonarqube-mcp-instructions.md`                               | trigger-loaded | SonarQube MCP server usage                                                                          |
 | `.agent/rules/source-curriculum-content-via-api-not-cdn.md`                | always-on      | —                                                                                                   |
 | `.agent/rules/source-is-typescript-esm-only.md`                            | always-on      | —                                                                                                   |

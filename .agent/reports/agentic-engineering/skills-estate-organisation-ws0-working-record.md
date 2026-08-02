@@ -910,4 +910,19 @@ already externally checked.
   → R4 scoped pass; #718 (the independent cure) settling in parallel
   (round-1 Copilot findings — all three verified real, 8-of-8 for
   the suppressed-block record — cured at 5f933cfa1, threads
-  resolved, Copilot re-requested).
+  resolved, Copilot re-requested; round 2 CLEAN, no new threads).
+- 2026-08-02 ~14:58Z — **OWNER RULE, direct to this seat (verbatim)**:
+  "all skills must have a semantically useful name and a high-quality
+  description optimised for discovery, determining applicability, and
+  best practice/bad practice examples." Enacted at occurrence as a
+  rule mint (`.agent/rules/skill-naming-and-description-quality.md` +
+  three platform adapters + the RULES_INDEX row, trigger-loaded at
+  skill authoring/vendoring moments). Consequences absorbed: (1) the
+  37-skill description backfill converts from declined pattern-debt
+  to OWNER-RULED work — tasked, worst-first by routing traffic,
+  measured by the commissioned evals pilot (the rule names the
+  trigger-eval suite as its scoring instrument); (2) R2's landing
+  procedure gains the description-quality bar as a landing check;
+  (3) the vendoring gate records description quality for externals.
+  The rule is the ruled successor to the recommendation's decision
+  point 4 — the owner answered it by ruling the bar into doctrine.
