@@ -246,4 +246,4 @@ Canonical sources: [Oak Design Kit (Figma)](https://www.figma.com/design/YcWQMMh
 
 Raw upstream values live in the committed capture tier (`studio-source/original-capture-2026-07-23/reference/`) — token names there are verbatim (including upstream quirks like "lavendar"); this system's runtime layer intentionally simplifies them. When upstream changes, re-check `colors_and_type.css` against a fresh dump.
 
-**Licence:** code MIT; docs about Oak design © Oak National Academy under OGL v3.0; general and technical docs MIT with the code; Oak trademarks and logos are covered by neither — use per the [Oak brand guidelines](https://support.thenational.academy/using-the-oak-brand).
+**Licence:** code and repo-authored docs MIT; Oak material already published on other Oak surfaces (the brand voice toolkit text, curriculum content) © Oak National Academy under OGL v3.0; Oak trademarks and logos are covered by neither — use per the [Oak brand guidelines](https://support.thenational.academy/using-the-oak-brand).
