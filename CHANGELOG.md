@@ -1,3 +1,17 @@
+# [1.142.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.141.2...v1.142.0) (2026-08-02)
+
+
+### Bug Fixes
+
+* **design:** absorb PR [#715](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/715) round 1 — inert mirror deleted, options delta ([235f021](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/235f0211a6840664ec082be998b5898e25d44d95))
+* **design:** absorb the round-2 head's suppressed-comment harvest ([58dd736](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/58dd73654c77273ac35785d3c25a39d7457fb71d))
+* **design:** absorb the third suppressed-comment harvest - three cures ([f7bb24c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f7bb24c8c55cfc750a2081e841c6c3adc838530d))
+
+
+### Features
+
+* **design:** extract the shared theme store to @oaknational/oak-design-react ([eb80d30](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/eb80d301d6cb3341286421b6e4f440e6836fe88f))
+
 ## [1.141.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.141.1...v1.141.2) (2026-08-02)
 
 ## [1.141.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.141.0...v1.141.1) (2026-08-02)
