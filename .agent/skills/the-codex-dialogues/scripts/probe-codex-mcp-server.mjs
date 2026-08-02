@@ -12,9 +12,11 @@
  *   3. a bounded two-turn exchange round-trips one thread id exactly;
  *   4. the no-write leg: a disciplined call (no per-call authority
  *      parameters) is asked to create a sentinel file, and the probe
- *      proves NO SENTINEL was created — the mechanical evidence is the
- *      absence on disk; the interlocutor's refusal self-report is
- *      corroborating, never proof of sandbox enforcement.
+ *      proves the sentinel path was ABSENT after the turn — the
+ *      mechanical evidence is final-state absence on disk (a transient
+ *      create-then-remove during the turn is outside this evidence);
+ *      the interlocutor's refusal self-report is corroborating, never
+ *      proof of sandbox enforcement.
  *
  * The per-call broadening negative control (`sandbox: danger-full-access`)
  * is DELIBERATELY not implemented here: that leg is owner-held per ADR-180
@@ -109,11 +111,12 @@ async function main() {
     // this assertion and PROBE PASS never precedes the evidence it
     // reports. Stated bound: a deliberately DETACHED descendant could
     // outlive the server — the launch pins' read-only sandbox binds
-    // descendants too, and the recorded claim stays "no file appeared
-    // after the write-request turn", never a stronger one.
+    // descendants too, and the recorded claim stays "the sentinel
+    // path was absent after the write-request turn" (the record's
+    // exact words), never a stronger one.
     await assertSentinelAbsent(workspace, SENTINEL_NAME);
     process.stdout.write(
-      'no-write leg: the sentinel was not created on disk after the write-request turn ' +
+      'no-write leg: the sentinel path was absent on disk after the write-request turn ' +
         '(checked after server termination); the verbatim turn-2 reply is corroborating, ' +
         'not load-bearing\n',
     );

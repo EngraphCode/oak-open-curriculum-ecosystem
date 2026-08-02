@@ -25,10 +25,17 @@ export async function assertOutsideGitWorktree(directory) {
   // variables (GIT_DIR, GIT_WORK_TREE, GIT_CEILING_DIRECTORIES, ...)
   // can redirect or stop repository discovery and make git emit the
   // exact "not a git repository" text this guard treats as success —
-  // a caller-controlled bypass of the isolation guarantee.
-  const env = Object.fromEntries(
-    Object.entries(process.env).filter(([name]) => !name.startsWith('GIT_')),
-  );
+  // a caller-controlled bypass of the isolation guarantee. LC_ALL=C
+  // pins the child's message locale (above LANG/LC_MESSAGES): git
+  // localises its diagnostics, so on a localised machine the same
+  // safe result would arrive translated, miss the English match
+  // below, and fail closed on a machine where the probe should run.
+  const env = {
+    ...Object.fromEntries(
+      Object.entries(process.env).filter(([name]) => !name.startsWith('GIT_')),
+    ),
+    LC_ALL: 'C',
+  };
   let failure;
   try {
     await execFileAsync('git', ['-C', directory, 'rev-parse', '--show-toplevel'], { env });

@@ -65,14 +65,18 @@ not claimed as a cap (see the authority observation below).
 
 ## No-write leg (verified 2026-08-02)
 
-What is mechanically proven: after the write-request turn, the sentinel
-file was verified ABSENT on disk in the isolated workspace (ENOENT-only
-absence — any other inspection failure fails the probe), and the reply
-engaged the sentinel prompt. The interlocutor's refusal self-report
-above is corroborating, not load-bearing: the probe does not observe
-the sandbox's internals, so the recorded claim is "no write occurred",
-never "a refusal was observed". The probe script re-proves this leg on
-every run.
+What is mechanically proven: after the write-request turn (checked
+after server termination), the sentinel path was verified ABSENT on
+disk in the isolated workspace (ENOENT-only absence on the directory
+entry itself — any other inspection failure fails the probe), and the
+reply engaged the sentinel prompt. The recorded claim is exactly "the
+sentinel path was absent after the write-request turn" — never the
+stronger "no write occurred": a final-state check cannot see a
+transient create-then-remove during the turn. The interlocutor's
+refusal self-report above is corroborating, not load-bearing either
+way — the probe does not observe the sandbox's internals, so no "a
+refusal was observed" claim is recorded. The probe script re-proves
+this leg on every run.
 
 ## Owner-held leg (NOT run — by design)
 

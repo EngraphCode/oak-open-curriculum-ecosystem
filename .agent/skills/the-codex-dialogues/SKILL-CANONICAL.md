@@ -10,7 +10,7 @@ description: >-
   uncertainty; not for task delegation (codex-helper), not for a fast
   one-shot conscience check (cricket), not for live-peer collaboration
   (a second seat + ArcAngel). Every dialogue closes with one structured
-  comms event.
+  close record — a comms event plus a tracked trial-tally row.
 ---
 
 # The Codex dialogues
@@ -162,7 +162,16 @@ or personal data.
   rollouts locally regardless — see Data contract.)
 - **Close**: conserve the synthesis, QUOTING Codex's final position
   verbatim (direct mode holds the raw turns, so fidelity is by
-  construction), then compose and append the close event.
+  construction), then compose and append the close event, then append
+  the same canonical `key=value;` line as a row to the tracked trial
+  tally
+  ([`the-codex-dialogues-trial-tally-2026-08.md`](../../reports/agentic-engineering/the-codex-dialogues-trial-tally-2026-08.md))
+  in the same close sequence — the comms event is transport; the
+  tally row is the durable copy the trial window reads, and it is
+  conserved only when it LANDS (committed and pushed with the close,
+  on whichever lane carries the dialogue's work — a row that exists
+  only in a working tree is not yet durable, and the comms event may
+  have rotated by the time anyone looks).
 
 Absorption after close: dialogue conclusions get the
 verify-before-absorb leg like any cross-model claim — dissent is
@@ -170,10 +179,15 @@ perturbation to be tested, never authority to be obeyed.
 
 ## The close event (one per dialogue, no exceptions)
 
-One canonical comms event at dialogue close is the analysis record. It
-is a NARRATIVE event — the strict comms schemas are untouched; every
-dialogue field rides in the body as the canonical `key=value;` line
-(the same body-encoding discipline the heartbeat substrate uses):
+One canonical comms event at dialogue close carries the analysis
+record, and the same line is conserved at close time as a row in the
+tracked trial tally (the Protocol's Close step): comms events are
+instance-tier transport, untracked by design (ADR-199 / PDR-094), so
+the tally row — which resolves from any checkout — is the durable
+copy. The event is a NARRATIVE event — the strict comms schemas are
+untouched; every dialogue field rides in the body as the canonical
+`key=value;` line (the same body-encoding discipline the heartbeat
+substrate uses):
 
 ```text
 close_schema=1; dialogue_id=<fresh opaque id, e.g. dlg-YYYYMMDD-xxxx>; question_class=<design-fork|consensus-check|plan-pressure|other>; turn_count=<n>; stop_reason=<budget|stabilised|irreconcilable|aborted>; outcome=<position-changed|dissent-unresolved|confirmed|non-evaluable>; prior_confidence=<low|medium|high>; harness_version=<claude-code x.y.z>; codex_cli_version=<x.y.z>; synthesis_ref=<durable shared surface>;
@@ -196,9 +210,11 @@ Field rules:
   operationally sensitive; it survives only in the local-only cleanup
   mapping (Data contract).
 - `synthesis_ref` must resolve from a DURABLE SHARED surface — a
-  fold-committed comms event id, a tracked report path, or the PR
-  record. Never a machine-local path: the pointer must outlive the
-  trial rollouts' deletion and resolve from any checkout. A URL ref is
+  tracked report path, a repo-tier record surface, or the PR record.
+  Never a machine-local path, and never an untracked comms event id
+  (instance-tier under ADR-199 / PDR-094 — it does not resolve from
+  another checkout): the pointer must outlive the trial rollouts'
+  deletion and resolve from any checkout. A URL ref is
   a BARE permalink — v1 values carry no `=` or `;`, so a query-string
   URL is undecodable.
 - **Compose-order check**: `synthesis_ref`'s target must EXIST —
@@ -280,8 +296,11 @@ transcript, embraced rather than fought, under three clauses:
   the path and shape above are the contract, not a suggestion. At the
   trial window's close-out: extract what the rollouts teach, delete
   those rollouts, delete the mapping with them. Knowledge is retained;
-  bytes are not. The close events and conserved syntheses remain the
-  durable record.
+  bytes are not. The tracked trial tally (each close line conserved at
+  occurrence — the Protocol's Close step) and the conserved syntheses
+  remain the durable record; the close events themselves are untracked
+  instance-tier transport (ADR-199 / PDR-094) and are never the only
+  copy.
 
 ## Trial window (pre-committed at ratification — the decision rule)
 
@@ -297,6 +316,17 @@ whichever comes first**. If FEWER THAN 3 dialogues close
   value claim failed its test and the instrument retires with the
   honest report.
 
+The two arms are hypotheses the review tests, not an exhaustive
+partition: with a small evaluable corpus BOTH can come back false —
+dissent DID change decisions in multi-turn dialogues, yet fewer than 3
+such closes exist (e.g. the 14-day limit is reached with two evaluable
+dialogues, both `position-changed`). That residual state is
+pre-committed to ROUTING, not verdict: it surfaces to the owner as an
+explicit scale/extension decision carrying the honest tally — never an
+improvised reading of either arm, never a silent extension. This
+clause only names where the both-arms-false state goes; the ratified
+arms and trial values above are untouched by it.
+
 Three or more `position-changed` closes and the instrument continues
 beyond the trial. There is no fold-into-Cricket disposition on either
 arm — Cricket is not this instrument's alternative.
@@ -307,8 +337,9 @@ close-out from records that already exist (a pre-registered criterion
 with no measurement contract silently degrades into whatever the
 close-out seat improvises):
 
-- **Cross-vendor observations** — this instrument's close events. Each
-  carries `question_class` and `outcome`; a dialogue counts as MOVED
+- **Cross-vendor observations** — this instrument's close records, read
+  from the tracked trial tally (the durable copy of every close line).
+  Each carries `question_class` and `outcome`; a dialogue counts as MOVED
   when its outcome is `position-changed`, as STANDING DISSENT when
   `dissent-unresolved`, as AGREEMENT when `confirmed` (`non-evaluable`
   closes are excluded here exactly as they are from the primary
@@ -357,11 +388,12 @@ for every call that omits them.
 
 Probe-verified 2026-08-02 against the pinned `codex_cli_version` in
 [`probe-record.md`](./probe-record.md) (the version literal lives ONLY
-there — doctrine references it, never restates it): a disciplined
-call's write-request turn produced NO WRITE on disk (sentinel verified
-absent, ENOENT-only; the interlocutor's refusal self-report is
-recorded verbatim as corroboration, not proof of the sandbox's
-internals). The `codex` tool schema ACCEPTS
+there — doctrine references it, never restates it): after a
+disciplined call's write-request turn the sentinel path was ABSENT on
+disk (ENOENT-only, checked after server termination — a final-state
+check, so a transient create-then-remove during the turn is outside
+this evidence; the interlocutor's refusal self-report is recorded
+verbatim as corroboration, not proof of the sandbox's internals). The `codex` tool schema ACCEPTS
 per-call `sandbox` values including `danger-full-access` — the
 broadening surface exists; whether launch pins cap it is OPEN. The
 broadening negative control is OWNER-HELD per ADR-180: explicit owner
@@ -386,8 +418,9 @@ launches `codex mcp-server` WITH the launch pins in an isolated
 temporary directory outside every checkout, verifies the tool contract
 (`codex`, `codex-reply`, `structuredContent.threadId` round-trip),
 drives one bounded two-turn exchange, proves the no-write leg (the
-requested write produced no sentinel on disk; the refusal self-report
-is corroborating, not observation), and compares the
+sentinel path absent on disk after the write-request turn, checked
+after server termination; the refusal self-report is corroborating,
+not observation), and compares the
 installed CLI version against the pin in
 [`probe-record.md`](./probe-record.md) — exiting non-zero on any
 mismatch or failed leg. Run it at every version-gate stop and before
