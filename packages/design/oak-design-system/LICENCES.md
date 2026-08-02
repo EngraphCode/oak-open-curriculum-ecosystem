@@ -4,7 +4,7 @@ Everything third-party this project loads, vendors, or recommends, with its lice
 
 ## Oak-authored code and content
 
-Oak-authored code in this workspace is covered by the repository's MIT licence (root [LICENCE](../../../LICENCE)). Oak-authored docs prose is © Oak National Academy under OGL v3.0 — the system's own licence statement (README §Licence). Curriculum content accessed via the Oak API is OGL v3.0 under the root [LICENCE-DATA.md](../../../LICENCE-DATA.md). Oak marks (last section) are copyright and not licensed; third-party items keep the licences tabled below. The constrained surface stays the exception, never the default; per-file-class dispositions are [LICENSING-MANIFEST.md](LICENSING-MANIFEST.md)'s, and this file defers to it.
+Oak-authored code in this workspace is covered by the repository's MIT licence (root [LICENCE](../../../LICENCE)). Oak-authored docs about Oak design are © Oak National Academy under OGL v3.0; general and technical docs prose is MIT with the code (owner ruling 2026-08-02; the system's own licence statement, README §Licence). Curriculum content accessed via the Oak API is OGL v3.0 under the root [LICENCE-DATA.md](../../../LICENCE-DATA.md). Oak marks (last section) are copyright and not licensed; third-party items keep the licences tabled below. The constrained surface stays the exception, never the default; per-file-class dispositions are [LICENSING-MANIFEST.md](LICENSING-MANIFEST.md)'s, and this file defers to it.
 
 ## Fonts
 
