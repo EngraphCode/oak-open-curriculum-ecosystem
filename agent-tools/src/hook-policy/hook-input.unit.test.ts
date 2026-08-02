@@ -51,6 +51,72 @@ describe('extractContentChanges', () => {
       /did not include writable content/,
     );
   });
+
+  // The five behaviours below are ported from the MCP-150 branch's router
+  // suite (PR #707 at f96149836, MCP-183 secondary port): the behaviour
+  // holds on this implementation; only the error vocabulary differs where
+  // noted. Envelope-shape behaviours the superseding architecture
+  // deliberately does NOT carry (documented Copilot object envelopes,
+  // tool-name-vs-schema disagreement) are dispositioned in #707's closure
+  // rather than ported as failing tests.
+
+  it('uses empty prior content when a Claude Edit omits old_string', () => {
+    expect(extractContentChanges({ tool_input: { new_string: 'new content' } })).toStrictEqual([
+      { newContent: 'new content', priorContent: '' },
+    ]);
+  });
+
+  it('extracts the flattened Claude payload (no tool_input envelope)', () => {
+    expect(extractContentChanges({ new_string: 'flat new', old_string: 'flat old' })).toStrictEqual(
+      [{ newContent: 'flat new', priorContent: 'flat old' }],
+    );
+  });
+
+  it('extracts the camel-case toolInput envelope', () => {
+    expect(
+      extractContentChanges({ toolInput: { new_string: 'camel new', old_string: 'camel old' } }),
+    ).toStrictEqual([{ newContent: 'camel new', priorContent: 'camel old' }]);
+  });
+
+  // The two throws below pin the EXTRACTOR's own refusal only. The
+  // system-level fail-closed guarantee for these payloads lives one seam
+  // up — no production route matches them, so the dispatcher refuses
+  // before extraction runs — and is pinned against the real route table
+  // in dispatcher.integration.test.ts.
+
+  it('throws when no container carries writable content (Copilot lifecycle-batch shape)', () => {
+    expect(() =>
+      extractContentChanges({
+        sessionId: 'copilot-session',
+        cwd: '/repo',
+        toolCalls: [
+          {
+            id: 'call-create',
+            name: 'create',
+            args: JSON.stringify({ path: '/repo/new-file.md', file_text: 'new file content' }),
+          },
+        ],
+      }),
+    ).toThrow(/did not include writable content/);
+  });
+
+  it('throws on the uncarried Copilot toolArgs envelope family (well-formed and malformed alike)', () => {
+    const base = {
+      sessionId: 'copilot-session',
+      timestamp: 1_753_426_800_000,
+      cwd: '/repo',
+      toolName: 'create',
+    };
+    expect(() => extractContentChanges({ ...base, toolArgs: '{' })).toThrow(
+      /did not include writable content/,
+    );
+    expect(() =>
+      extractContentChanges({
+        ...base,
+        toolArgs: JSON.stringify({ path: '/repo/new-file.md', file_text: 'new file content' }),
+      }),
+    ).toThrow(/did not include writable content/);
+  });
 });
 
 describe('extractContentChange', () => {
