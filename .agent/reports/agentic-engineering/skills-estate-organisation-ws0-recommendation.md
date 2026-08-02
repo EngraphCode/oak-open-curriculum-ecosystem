@@ -284,7 +284,9 @@ evidence (zero mechanical consumers for shared labels).
 
 ## R3 — The relationship map (report now; graph at its second consumer)
 
-**Delivered now, as an authored report**: the relationship map you
+**Delivered, as an authored report**
+([the relationship map](skills-estate-organisation-relationship-map.md),
+landed at the partial ruling 2026-08-02): the relationship map you
 asked for — Parallax ↔ metacognition / reason / concept-exploration /
 free-play / proportionality / plan — from the WS6(c) evidence already
 gathered (headline edges: the orchestrator's depth selection ≈

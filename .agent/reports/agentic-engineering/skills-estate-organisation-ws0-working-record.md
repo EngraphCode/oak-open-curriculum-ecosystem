@@ -861,3 +861,19 @@ already externally checked.
   (before/after trees + costs added for exactly this). Remaining act:
   route to the owner through the Director with the panel's 7-1
   adjudication attached.
+- 2026-08-02 ~14:35Z — ENACTMENT under the owner's PARTIAL RULING
+  (Director event ~14:21Z: R2/R3/R4/R5.1 ADOPTED, evals-pilot
+  commissioned, R1 HELD for his discussion — untouched at this seat):
+  (1) **R3 DELIVERED** —
+  [the relationship map report](skills-estate-organisation-relationship-map.md)
+  authored from the WS6(c) evidence; R1-independent (reads content,
+  not directories; says so). (2) **Cure PR #718 OPEN** (bot identity,
+  Copilot verified-requested, settle watch armed): lock-aware
+  `--clear` + skipped-canonical hard-fail + the ADR-125
+  external-skills truing with the owner's words; code-expert
+  CHANGES-REQUESTED round adjudicated and cured in-diff (refusal gate
+  test-covered; unreachable-SHA citation restated as dated
+  narrative; symlink contract stated; installed-but-not-locked
+  residual window named in the PR body). (3) R2 authoring next
+  (individual-or-family leg carries the R1-HELD marker, deferring to
+  the in-force interim guidance); then the R4 scoped pass.
