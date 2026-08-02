@@ -100,8 +100,9 @@ async function main() {
 }
 
 async function runProbeLegs(session, workspace, installedVersion) {
+  const proposedProtocol = '2025-06-18';
   const init = await session.request('initialize', {
-    protocolVersion: '2025-06-18',
+    protocolVersion: proposedProtocol,
     capabilities: {},
     clientInfo: { name: 'sif-probe', version: '1.0.0' },
   });
@@ -109,6 +110,12 @@ async function runProbeLegs(session, workspace, installedVersion) {
   process.stdout.write(`server: ${init.serverInfo?.name} ${serverVersion}\n`);
   if (serverVersion !== installedVersion) {
     throw new Error(`server version ${serverVersion} != CLI version ${installedVersion}`);
+  }
+  if (init.protocolVersion !== proposedProtocol) {
+    throw new Error(
+      `server negotiated MCP ${init.protocolVersion}, not the proposed ${proposedProtocol} — ` +
+        'this single-version client cannot ratify a different protocol',
+    );
   }
   if (init.capabilities?.tools === undefined) {
     throw new Error('initialize did not negotiate the tools capability — hosts may hide the tools');

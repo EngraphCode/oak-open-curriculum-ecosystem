@@ -66,6 +66,9 @@ export class McpStdioSession {
     try {
       message = JSON.parse(line);
     } catch {
+      this.#failAllPending(
+        `non-protocol line on stdout (MCP stdio requires every line to be a message): ${line.slice(0, 120)}`,
+      );
       return;
     }
     if (typeof message !== 'object' || message === null || !('id' in message)) {

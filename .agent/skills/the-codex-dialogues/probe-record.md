@@ -32,11 +32,13 @@ not claimed as a cap (see the authority observation below).
 
 - `codex`: required `prompt`; output schema `{ threadId, content }`
   (both required) — `structuredContent.threadId` is the thread handle.
-  The input schema ALSO accepts per-call `sandbox` (enum includes
-  `danger-full-access`), `approval-policy` (`untrusted`, `on-request`,
+  The input schema ALSO accepts per-call `sandbox` (enum exactly
+  `read-only` | `workspace-write` | `danger-full-access`),
+  `approval-policy` (enum exactly `untrusted` | `on-request` |
   `never`), `cwd`, `model`, `config`, `base-instructions`,
   `developer-instructions`, `compact-prompt` — the broadening surface
-  exists at the schema level. Disciplined calls never pass any of
+  exists at the schema level, and the probe asserts every property and
+  both enums exactly so drift fails a re-probe. Disciplined calls never pass any of
   these; whether launch pins cap a per-call broadening override is
   OPEN, and its negative control is owner-held per ADR-180.
 - `codex-reply`: `threadId` + `prompt` continues the exact thread;

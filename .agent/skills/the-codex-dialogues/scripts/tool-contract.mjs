@@ -36,27 +36,47 @@ function assertReplyShape(replyTool) {
       throw new Error(`tool contract: codex-reply input schema no longer declares ${name}`);
     }
   }
-  if (!(replyTool.inputSchema?.required ?? []).includes('prompt')) {
-    throw new Error('tool contract: codex-reply input schema no longer requires prompt');
+  const required = [...(replyTool.inputSchema?.required ?? [])].sort();
+  if (JSON.stringify(required) !== JSON.stringify(['prompt'])) {
+    throw new Error(
+      `tool contract: codex-reply required set is ${JSON.stringify(required)}, record says ` +
+        'exactly ["prompt"] (threadId stays optional for back-compatibility)',
+    );
   }
 }
 
 /**
  * The per-call authority surface recorded in probe-record.md: if a CLI
- * removes or reshapes it, the recorded broadening-surface observation is
- * stale and the probe must fail.
+ * removes or reshapes ANY recorded property or enum, the recorded
+ * broadening-surface observation is stale and the probe must fail.
  */
 function assertAuthoritySurface(codexTool) {
   const properties = codexTool.inputSchema?.properties ?? {};
-  for (const name of ['sandbox', 'approval-policy', 'cwd', 'model', 'config']) {
+  const recordedProperties = [
+    'sandbox',
+    'approval-policy',
+    'cwd',
+    'model',
+    'config',
+    'base-instructions',
+    'developer-instructions',
+    'compact-prompt',
+  ];
+  for (const name of recordedProperties) {
     if (properties[name] === undefined) {
       throw new Error(`tool contract: codex input schema no longer declares ${name}`);
     }
   }
-  const sandboxEnum = properties.sandbox?.enum ?? [];
-  for (const value of ['read-only', 'danger-full-access']) {
-    if (!sandboxEnum.includes(value)) {
-      throw new Error(`tool contract: sandbox enum no longer carries ${value} — record is stale`);
-    }
+  assertExactEnum(properties.sandbox, ['read-only', 'workspace-write', 'danger-full-access'], 'sandbox');
+  assertExactEnum(properties['approval-policy'], ['untrusted', 'on-request', 'never'], 'approval-policy');
+}
+
+function assertExactEnum(property, recorded, label) {
+  const actual = property?.enum ?? [];
+  if (JSON.stringify([...actual].sort()) !== JSON.stringify([...recorded].sort())) {
+    throw new Error(
+      `tool contract: ${label} enum is ${JSON.stringify(actual)}, record says ` +
+        `${JSON.stringify(recorded)} — record is stale`,
+    );
   }
 }

@@ -2,9 +2,11 @@
 name: the-codex-dialogues
 classification: active
 description: >-
-  Open a bounded multi-turn reflective dialogue with a Codex interlocutor
-  over a direct MCP connection, to probe a stated uncertainty against a
-  different vendor's prior. Use mid-task at a genuine fork or
+  From a live CLAUDE seat only: open a bounded multi-turn reflective
+  dialogue with a Codex interlocutor over a direct MCP connection, to
+  probe a stated uncertainty against a different vendor's prior. On a
+  Codex host this instrument does not run (same-vendor dialogue defeats
+  its premise — see the host check). Use mid-task at a genuine fork or
   uncertainty; not for task delegation (codex-helper), not for a fast
   one-shot conscience check (cricket), not for live-peer collaboration
   (a second seat + ArcAngel). Every dialogue closes with one structured
@@ -77,8 +79,16 @@ authority parameters (probe-verified; see Authority below). Tool
 schemas are deferred by the harness, so the registration's ambient cost
 to unrelated sessions is names-only.
 
-## Dialogue-open checks (all three, in order, every dialogue)
+## Dialogue-open checks (all four, in order, every dialogue)
 
+0. **Host check.** This instrument is the Claude→Codex binding: it runs
+   from a live CLAUDE seat. The generated cross-tool adapter makes the
+   trigger visible on every platform, so state the guard where it
+   fires: on a Codex host, STOP — a Codex seat dialoguing with a Codex
+   interlocutor is same-vendor and cannot deliver this instrument's
+   cross-vendor value (its close event would also mis-record
+   `harness_version`). The reverse binding (Sif Annex B, `claude mcp
+   serve`) is its own gated experiment, not this skill.
 1. **Registration check.** If the `codex` MCP server is absent from the
    session's MCP set (no `mcp__codex__*` tools resolvable via
    ToolSearch), STOP with the setup instruction above — never fail
