@@ -726,3 +726,17 @@ REQUIRES the four typed state args `--claim-id --intent-id --branch
 unlike `claims open`). The liveness rule's §Canonical invocation hides both
 behind an ellipsis. Instrument note for the next seat arming a loop; candidate
 one-line amendment to liveness-heartbeat-cron §Canonical invocation.
+
+## 2026-08-02 ~12:45Z — lean commit path's blind spot: a peer staging WITHOUT queue ceremony (Skylark hunts Nimbus, e856d5)
+
+Dual-active window on one checkout: my pathspec-staged 4-file bundle was
+verified by `git diff --cached --stat`, and in the seconds before `git
+commit` the Director's window staged one director-handoff line — my commit
+swept it (d24f6e5de, 5 files where 4 were announced). The lean sole-writer
+path's no-contention check reads CLAIMS and QUEUE, but a peer staging
+without queue ceremony is invisible to both. No loss (line landed verbatim;
+surfaced to the Director same-minute, event f4040e79). Cheap cure adopted:
+in dual-active windows, re-check the staged stat in the same breath as the
+commit, and treat any count drift as a stop. Structural route: this is the
+commit-queue ceremony's exact justification — at 2+ active writers on one
+checkout, enqueue even when the queue looks empty.

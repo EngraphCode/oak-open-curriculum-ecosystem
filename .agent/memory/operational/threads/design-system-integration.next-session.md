@@ -23,6 +23,7 @@ recompute live state from claims/comms/git at pickup.
 | 2026-07-26 | Skipper tracks Abyss | claude-code / fable-5 | `4144b4` | MCP-128 lane successor (Lavender→Skipper); executes the owner-ratified #565 restack |
 | 2026-07-26 | Schooner binds Trench | claude-code / claude-fable-5 | `5492d7` | MCP-128 restack successor (Skipper→Schooner, PDR-063 at owner word); continues PR-3 from the frozen inventory |
 | 2026-07-30 | Thyme weaves Hedgerow | claude-code / claude-fable-5 | `762020` | design-showcase lane (adopted claim `ebb3efe2` from Altair turns Infinity `7a97a1` at owner word 2026-07-29 — Altair held the lane 2026-07-29 unregistered on this table); landed #637 + #641; MCP-372 carrier at owner ruling; deliberate succession → Sycamore herds Xylem `028dc4` 2026-07-30 |
+| 2026-08-02 | Moss calls Loam | claude-code / claude-fable-5 | `79b433` | Design-lane seat at direct owner word (Director: Falcon hunts Flight `52841f`); movement 1: PR #710 MERGED `58e5be461` — kit 1.8.0 TS-runtime + choice() on main |
 
 ## Board state at writing (recompute, do not trust)
 
@@ -371,3 +372,38 @@ successor (Triton→Lavender), retired at owner word; claim 68088465 pending suc
 - **Resume order**: docs/ADR checklist → batched owner-wording card → PR 1
   open/shepherd/merge → PR 2 reworks #644 → lane rests (write-up + MCP-372/388/134
   true-ups). Linear MCP-372/MCP-371 carry matching pause comments.
+
+## Session update 2026-08-02 (Moss calls Loam, 79b433 — additive; design-lane movement 1)
+
+- **PR #710 MERGED** `SHA:58e5be461` (head `cc8523581`) — the owner's kit
+  TS-runtime at `95bdfee3a` shepherded to main: additive merge of main
+  (husky files take main's review-cured form; turbo.json keeps the
+  branch-side post-#710-true comment), Sonar 4×MAJOR dataset cure at the
+  generator with 3 MINOR declined on cited doctrine (ADR-153 §Membership
+  Without Widening; the canonical Window augmentation), the Copilot round
+  absorbed at `bf8b4d627` (kit core-boundary restriction in BOTH forms,
+  probe-verified green-before/fires-after; smoke→integration reclass per
+  testing-strategy's behaviour-shape test; CHANGELOG 1.8.0 entry), comment
+  true-up `cc8523581`. Kit 1.8.0 with `choice()` is on main — PR-2's hard
+  sequencing is satisfied.
+- **Movement 2 next**: the shared theme-store extraction per this record's
+  §PR-2 inventory (the Sycamore pause record + verdict pointers); **#644
+  CLOSES-WITH-POINTER at PR-2's open**; the Codex-parity execution framing
+  stays PAUSED at owner gate. #709 adjudicates as lane input (fable
+  adjudicator: development-lane; its branch-only value is the unbuilt
+  restack tail PRs 4-6).
+- Claim `44616c39` (`packages/design/**` + `demos/**`) live at this seat;
+  lane comms events `2ae5943a`/`df156c7d`/`acbf47fe` carry the movement-1
+  arc.
+- **PR-2 pre-execution review (opus) absorbed**: PROCEED with three blocking
+  revisions — union store (the hub's contrast subscription is a capability
+  the showcase copy lacks), keep factory param 2 `resolveContrastQuery` (the
+  ADR-078 seam), port the showcase placeholder option to the hub (else the
+  choice model renders a BLANK theme select for first-time hub visitors —
+  the red-first guard test pins it). Full absorption record WITH the
+  re-derived config deltas rides the PR-2 branch at
+  `.agent/reports/design/2026-08-02-pr2-theme-store-pre-execution-review.md`
+  (worktree design-showcase-lane, branch
+  `jimcresswell/mcp-372-shared-theme-store-extraction` off `58e5be461`).
+  The D1/D2/D3/D5 temp file is unrecoverable (encrypted transcript); its
+  applied form survives in the pause record + the absorption record.
