@@ -30,8 +30,8 @@ Operationalises
 - **`unknown` is type destruction** — `unknown`, `z.unknown()`, and
   `Record<string, unknown>` erase structural type information.
   They are permitted only at named external boundaries and are
-  forbidden as stand-ins for known shapes. See
-  `.agent/rules/unknown-is-type-destruction.md`.
+  forbidden as stand-ins for known shapes. See §The `unknown`
+  Boundary Exception and the Preservation Test below.
 - **Preserve type information — no widening, ever** — the type flow is
   `external input → validation → known types → strictly typed system`. The ONLY
   function that takes `unknown` (or otherwise-untyped) input is the boundary
@@ -149,6 +149,42 @@ use `'excludes' in value` (property check) not
 `Array.isArray(value)`. `Array.isArray` narrows to
 `string[]` but leaves the else branch still containing
 both union members.
+
+### The `unknown` Boundary Exception and the Preservation Test
+
+Operationalises
+[ADR-034](../architecture/architectural-decisions/034-system-boundaries-and-type-assertions.md)
+and
+[ADR-038](../architecture/architectural-decisions/038-compilation-time-revolution.md).
+`unknown`, `z.unknown()`, and `Record<string, unknown>` erase
+structural type information; they are forbidden except at named
+boundaries.
+
+Permitted: a function parameter at an incoming external boundary
+from a third-party system, where the data genuinely has no known
+shape yet; and `z.unknown()` only when the upstream schema
+genuinely declares no structure (e.g. polymorphic aggregation
+buckets from Elasticsearch).
+
+Forbidden: replacing a concrete type with `unknown` to avoid a
+type error; `z.unknown()` where a concrete Zod schema exists or
+can be generated; `z.record(z.string(), z.unknown())` as a
+stand-in for a known object shape; hand-crafting a Zod schema
+that approximates a generated shape (the shadow-schema paragraph
+above).
+
+**The preservation test.** If the type information exists
+anywhere in the pipeline — the OpenAPI spec, the generated types,
+a library's exported types — it MUST be preserved. The test runs
+on the proposed change: can the type be sourced from the schema
+or library? If yes, sourcing it is mandatory; using `unknown` in
+its place is forbidden.
+
+The narrowing operators `as const` and `satisfies SomeType`
+operate at compile time without widening; they tighten types
+rather than disable them, and are off-topic here — they are not
+type destruction. When using external libraries, prefer official
+library types and error classes over local `*Like` shapes.
 
 ### The `process.env` Boundary Exception
 

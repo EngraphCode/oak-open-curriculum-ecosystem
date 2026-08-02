@@ -10,7 +10,7 @@
 [ADR-191](191-deterministic-data-surface-agent-reasons.md) — the consuming agent is the only reasoner over `structuredContent`;
 [ADR-038](038-compilation-time-revolution.md) — compilation-time strict typing via `as const` compile-time-known data;
 [ADR-141](141-mcp-apps-standard-primary.md) — MCP Apps standard as the only UI surface (the `_meta.ui` convention on tool results that egress functions produce).
-Operationalised by the rules `strict-validation-at-boundary`, `unknown-is-type-destruction`, and `never-disable-checks`, and by `docs/governance/typescript-practice.md` §Compiler-time Types and Runtime Validation.
+Operationalised by the rules `strict-validation-at-boundary` and `never-disable-checks`, and by `docs/governance/typescript-practice.md` (§Compiler-time Types and Runtime Validation; §Preserving Type Information).
 
 ## Context
 
