@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { Linter } from 'eslint';
-import { createDesignBoundaryRules } from './boundary.js';
+import { createDesignBoundaryRules, DESIGN_PACKAGE_IMPORTS } from './boundary.js';
 
 function getRestrictedPathZones(
   rules: Partial<Linter.RulesRecord>,
@@ -162,5 +162,90 @@ describe('createDesignBoundaryRules', () => {
     expect(groups).toContain('@oaknational/result');
     expect(groups).toContain('@oaknational/eslint-plugin-standards');
     expect(groups).toContain('@oaknational/safe-path');
+
+    // The sibling enumeration stays complete as the tier grows: the React
+    // binding tier and the assets package are barred in both forms too.
+    expect(zones.some((zone) => zone.from === '../oak-design-react/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../oak-design-assets/**')).toBe(true);
+    expect(groups).toContain('@oaknational/oak-design-react');
+    expect(groups).toContain('@oaknational/oak-design-assets');
+  });
+
+  it('gives oak-design-react (the binding tier) exactly one design edge: the kit', () => {
+    const rules = createDesignBoundaryRules('oak-design-react');
+    const zones = getRestrictedPathZones(rules);
+    const groups = getRestrictedImportPatterns(rules).flatMap((pattern) => pattern.group);
+
+    // Every design-tier package EXCEPT the kit is restricted in both forms.
+    expect(zones.some((zone) => zone.from === '../design-tokens-core/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../oak-design-ink/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../oak-design-tokens/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../oak-design-assets/**')).toBe(true);
+    expect(groups).toContain('@oaknational/design-tokens-core');
+    expect(groups).toContain('@oaknational/oak-design-ink');
+    expect(groups).toContain('@oaknational/oak-design-tokens');
+    expect(groups).toContain('@oaknational/oak-design-assets');
+
+    // The deliberate absence: the ADR-213 §4 map edge
+    // (oak-design-system → tier package) stays open in both forms.
+    expect(zones.some((zone) => zone.from === '../oak-design-system/**')).toBe(false);
+    expect(groups).not.toContain('@oaknational/oak-design-system');
+
+    // The shared design-workspace tiers still bind.
+    expect(zones.some((zone) => zone.from === '../../../apps/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../../../packages/libs/**')).toBe(true);
+    expect(groups).toContain('@oaknational/oak-search-sdk');
+    expect(groups).toContain('@oaknational/agent-tools');
+  });
+});
+
+describe('design boundary pairwise completeness', () => {
+  // Every rule-building member (oak-design-assets ships no source and builds
+  // no rules — it appears as a restriction target only).
+  const MEMBERS = [
+    'design-tokens-core',
+    'oak-design-ink',
+    'oak-design-react',
+    'oak-design-system',
+    'oak-design-tokens',
+  ] as const;
+  // The complete allowed-edge map AS THE RULES STAND (importer → import).
+  // ADR-041 / ADR-213 §4 sanction: tokens → {system, design-tokens-core},
+  // ink → tokens, react → system. One extra edge is open in the rules
+  // today: ink → design-tokens-core (pre-existing scope — ADR-041 names
+  // tokens as ink's only dependency; tightening it is its own decision,
+  // recorded here so the gap is visible instead of silent).
+  const ALLOWED_EDGES: readonly (readonly [string, string])[] = [
+    ['oak-design-tokens', '@oaknational/oak-design-system'],
+    ['oak-design-tokens', '@oaknational/design-tokens-core'],
+    ['oak-design-ink', '@oaknational/oak-design-tokens'],
+    ['oak-design-ink', '@oaknational/design-tokens-core'],
+    ['oak-design-react', '@oaknational/oak-design-system'],
+  ];
+  const directoryOf = (specifier: string): string => specifier.replace('@oaknational/', '');
+
+  it('covers the full design inventory (a new package must join this table)', () => {
+    expect([...MEMBERS, 'oak-design-assets'].sort()).toEqual(
+      DESIGN_PACKAGE_IMPORTS.map(directoryOf).sort(),
+    );
+  });
+
+  it.each(MEMBERS)('restricts %s from every non-edge design package in both forms', (member) => {
+    const rules = createDesignBoundaryRules(member);
+    const zones = getRestrictedPathZones(rules);
+    const groups = getRestrictedImportPatterns(rules).flatMap((pattern) => pattern.group);
+    for (const specifier of DESIGN_PACKAGE_IMPORTS) {
+      if (directoryOf(specifier) === member) {
+        continue;
+      }
+      const allowed = ALLOWED_EDGES.some(([from, to]) => from === member && to === specifier);
+      expect(groups.includes(specifier), `${member} → ${specifier} (specifier form)`).toBe(
+        !allowed,
+      );
+      expect(
+        zones.some((zone) => zone.from === `../${directoryOf(specifier)}/**`),
+        `${member} → ${specifier} (path-zone form)`,
+      ).toBe(!allowed);
+    }
   });
 });

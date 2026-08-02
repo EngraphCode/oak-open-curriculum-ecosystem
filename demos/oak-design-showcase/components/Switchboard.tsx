@@ -29,8 +29,8 @@ import { typeSafeKeys } from '@oaknational/type-helpers';
 import { useSyncExternalStore } from 'react';
 import type { ReactElement } from 'react';
 
-import { oakThemeStore } from '../lib/oak-theme-store';
-import type { OakMotionMode, OakThemeName, OakThemeStore } from '../lib/oak-theme-store';
+import { oakThemeStore } from '@oaknational/oak-design-react';
+import type { OakMotionMode, OakThemeName, OakThemeStore } from '@oaknational/oak-design-react';
 import { LabelledSelect } from './LabelledSelect';
 import { useIdentity } from './useIdentity';
 
@@ -67,7 +67,7 @@ function ThemeMotionControls({
         id="oak-theme-select"
         label="Theme"
         value={theme}
-        options={store.themeOptions()}
+        options={store.themeOptions() ?? []}
         labels={THEME_LABELS}
         placeholderLabel="Page default"
         onChange={store.setTheme}
@@ -76,7 +76,7 @@ function ThemeMotionControls({
         id="oak-motion-select"
         label="Motion"
         value={motion}
-        options={store.motionOptions()}
+        options={store.motionOptions() ?? []}
         labels={MOTION_LABELS}
         onChange={store.setMotion}
       />

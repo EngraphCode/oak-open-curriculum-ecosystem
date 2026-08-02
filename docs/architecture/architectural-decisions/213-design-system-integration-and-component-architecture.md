@@ -395,6 +395,19 @@ need — the shape is decided here, packages only ever at need.
   fixtures-parity clauses carry dated amendments in THIS change, so no live plan
   encodes the superseded architecture.
 
+**Dated amendment (2026-08-02 — the tier landed as `@oaknational/oak-design-react`,
+design-lane PR-2):** the binding package is named at this landing per this section.
+Its first resident is non-visual: the shared `useSyncExternalStore` theme-store
+adapter (the MCP-388 `choice()` consumer), extracted from the two in-demo copies.
+The package ships with no React dependency — the adapter is factory-pure — and its
+kit edge is contract-only (a re-declared `OakThemeRuntime` interface; the kit ships
+no type declarations). The landing-sequence hard gate above is unchanged and stays
+ARMED: it binds the first COMPONENT export, and a store is not a component export;
+React, the ADR-147 gate extension, and the component seed arrive together at that
+later landing. The §4 map edge (`oak-design-system` → `oak-design-react`) exists
+from this landing in the boundary rules: the tier may import the kit, and nothing
+else in the design tier may import the tier.
+
 App-shell prerequisites for Base UI (Next 16 / React 19): `isolation: isolate` on the app root
 container (portal stacking) and `position: relative` on `body` (iOS 26+). Composed widgets are
 leaf `'use client'` files; pages and layouts stay server components.
@@ -431,6 +444,11 @@ oak-design-system ───┘     projections)           primitives)
   canonical source)
 ```
 
+```text
+oak-design-system ───→  oak-design-react  →  React app consumers
+                         (binding tier; landed 2026-08-02 — §3 dated amendment)
+```
+
 (Corrected 2026-07-23 to match ADR-041's 2026-07-21 correction, which this section had
 continued to contradict: the earlier linear chain drew a
 `design-tokens-core → oak-design-system` edge that does not exist — the two workspaces
@@ -444,7 +462,9 @@ never imports other design workspaces, apps, or sdks; its public surface is buil
 theme-switcher JS (`oak-theme.js`), plus the generated DTCG export artefact — no React,
 permanently (amended 2026-07-23: the §3-amendment component tier is a separate downstream
 package; at its landing the map gains an `oak-design-system → <tier package>` edge for React
-app consumers, and this workspace's surface is unchanged by it). `oak-design-tokens` depends on the design system (validator
+app consumers, and this workspace's surface is unchanged by it — LANDED 2026-08-02 as
+`oak-design-react`, the second map block above; the edge is contract-only until the tier's
+first component). `oak-design-react` depends on `oak-design-system` only. `oak-design-tokens` depends on the design system (validator
 consumer of the DTCG export from PR3's dual-gate window — §2 amendment 2026-07-20; token data
 source at Stage B) plus `design-tokens-core`. `oak-design-ink` depends on
 `oak-design-tokens` only. Apps and demos consume the design system's built CSS and the
