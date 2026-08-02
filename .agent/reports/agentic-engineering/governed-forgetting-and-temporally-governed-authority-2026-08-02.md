@@ -3,8 +3,8 @@
 ## Temporally governed authority, adaptive continuity, and how the past can retain evidentiary standing without retaining control
 
 **Date:** 2026-08-02  
-**Status:** Formal synthesis and decision input. This report is neither doctrine nor an
-implementation decision.  
+**Status:** Exploratory synthesis and proposal set. This report is neither doctrine, an
+implementation decision, nor an instruction to change current Practice.
 **Current-source baseline:** repository commit
 [`838b02fe8a42fec4e72f0fe7d990e41a0a593113`](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/838b02fe8a42fec4e72f0fe7d990e41a0a593113),
 the head of `main` inspected on 2026-08-02, including the 2026-07-31 knowledge-estate
@@ -18,11 +18,21 @@ machine learning, long-lived agents, ecology, organisations, archives, law, iden
 science. This report restates every decision-relevant concept it uses and links the pivotal
 original sources, so it does not depend on access to that source document.
 
+**Epistemic posture:** current-source descriptions are evidence claims; explanatory mechanisms are
+theories; future artefacts and experiments are proposals; examples are illustrations rather than
+approved procedures. Normative verbs such as _should_ and _must_ state candidate properties,
+predictions, or test conditions within those theories; they do not direct maintainers or agents.
+Every proposal remains defeasible. The assumptions most likely to change the conclusion are made
+explicit in the companion
+[capability proposals and experimental design](./authority-transition-capability-proposals-and-experimental-design-2026-08-02.md),
+along with evidence that could disconfirm them and events that should trigger re-examination.
+
 > **The past has evidentiary standing, not sovereignty.**
 
-The Practice should retain evidence, provenance, accountability, and reconstructability while
-making the present operational eligibility of inherited claims, procedures, intentions, and
-doctrine explicit, conditional, testable, and terminable.
+The report's central proposal is that the Practice could retain evidence, provenance,
+accountability, and reconstructability while making the present operational eligibility of
+inherited claims, procedures, intentions, and doctrine explicit, conditional, testable, and
+terminable.
 
 ## Review contract
 
@@ -55,7 +65,9 @@ authoritative law wherever possible. Analogies are used as question generators; 
 biological, ecological, or distributed-systems mechanism is never treated as evidence that the
 Practice shares its substrate or causal law.
 
-This report may expose choices, candidate principles, tests, and staged experiments. It does not
+This report may expose choices, candidate principles, tests, and staged experiments. Imperative
+phrasing inside a worked example describes a hypothetical test condition, not an instruction to an
+agent or maintainer. The report does not
 ratify a portable Practice principle, amend a schema, change retrieval behaviour, retire an
 obligation, or authorise deletion. Those acts remain with the authorities and artefact types that
 currently own them.
@@ -63,6 +75,8 @@ currently own them.
 ### Non-goals
 
 - Designing a general-purpose `forget` skill.
+- Installing a skill, rule, subagent, hook, validator, ADR, PDR, schema, or enforcement path. The
+  companion document describes candidate build shapes for review only.
 - Creating another memory tree, register, graph, store, or source of truth.
 - Retrofitting a new status vocabulary across the corpus.
 - Making old evidence hard to find merely because it is old.
@@ -71,11 +85,12 @@ currently own them.
 - Turning one report's metrics into estate-wide targets or build gates.
 - Claiming legal deletion, privacy compliance, model unlearning, or causal erasure.
 
-### Successful review
+### Proposed evidence preference for review
 
-A successful review either validates the report's bounded diagnosis or identifies, with file-level
-evidence, where it duplicates doctrine, misstates authority, lacks evidence, or would create more
-ceremony than value. A useful rejection is a successful review. Stylistic preference alone is not.
+Evidence would support the report if it validates the bounded diagnosis. Evidence would weaken it
+if it shows, at file level, that the report duplicates doctrine, misstates authority, lacks support,
+or would create more ceremony than value. On that standard, a well-supported rejection is as useful
+as acceptance; the document does not constrain the reviewer's own method or authority.
 
 ## Contents
 
@@ -91,7 +106,7 @@ ceremony than value. A useful rejection is a successful review. Stylistic prefer
 10. [A restrained sequence](#a-restrained-sequence)
 11. [Failure modes and anti-patterns](#failure-modes-and-anti-patterns)
 12. [What was not asked](#what-was-not-asked)
-13. [Decision surface](#decision-surface)
+13. [Review surface](#review-surface)
 14. [References](#references)
 
 ## Executive synthesis
@@ -140,21 +155,23 @@ Four residual gaps carry most of the value:
    at direct reconciliation. It does not yet demonstrate, across all artefact families, that a
    changed premise causes every dependent rule, skill, adapter, plan, projection, summary, and
    external binding to be retained, recomputed, revised, quarantined, or retired deliberately.
-3. **Accepted intentions can remain indefinitely in transition.** The 2026-08-01 heartbeat inquiry
-   found that learning promotion and reversal were strong while closure of two accepted obligations
-   was weak. Existing lifecycles provide the vocabulary; the missing proof is that consequential
-   obligations actually reach a current disposition.
+3. **Accepted intentions can remain indefinitely in transition, and a terminal decision can fail to
+   propagate.** The 2026-08-01 heartbeat inquiry identified two accepted obligations. In the
+   inspected baseline, PDR-078 has since retired emit-side redundancy suppression, while the
+   event-shape migration still lacks an evidenced current disposition. The pair now supplies two
+   different specimens: whether a retirement removes residual operational cues, and whether an open
+   obligation reaches a legitimate disposition.
 4. **The Practice can select for the appearance of learning.** Rich lineage, predictions, status
    fields, review gates, and dashboards can become reproductive advantages for internally legible
    ideas without improving human-agent understanding, product outcomes, or mission impact. The
    repository has already named this risk. A forgetting programme that adds more visible governance
    without changing an external or decision-bearing outcome would instantiate it.
 
-The first useful move is therefore not a new universal contract. It is one **paired specimen and
-evaluation**:
+The report's first proposed move is therefore not a new universal contract. It is one **paired
+specimen and evaluation**:
 
-- take the two unresolved heartbeat obligations already isolated by the learning-promotion inquiry;
-- give each one a present disposition using existing decision homes;
+- treat the retired redundancy clause as an anti-resurrection and downstream-reconciliation replay;
+- treat the still-open event-shape migration as an intention-closure specimen;
 - trace the affected descendants and retrieval surfaces;
 - replay tasks with and without the disposition available to agents; and
 - measure stale-authority intrusion, legitimate historical recovery, false retirement, attention
@@ -485,10 +502,12 @@ an accepted migration, follow-up, or mitigation that remains textually live afte
 effect has disappeared or been achieved another way.
 
 The [heartbeat learning inquiry](./agent-tools-learning-promotion-and-reversal-inquiry-2026-08-01.md)
-is the current worked specimen. It found two accepted obligations with no visible current
-disposition: emit-side redundancy suppression and a heartbeat event-shape migration. The finding did
-not prove either should be implemented. It proved that a reader could not tell whether each was
-effective, intentionally deferred under a trigger, or retired/revised.
+supplies the historical starting point. At the inquiry's 2026-08-01 boundary, it found two accepted
+obligations with no visible current disposition: emit-side redundancy suppression and a heartbeat
+event-shape migration. By this report's pinned 2026-08-02 baseline, PDR-078 had retired the first
+obligation; the second still lacked an evidenced disposition. The sequence therefore exposes both
+an intention-closure question and a propagation question: whether readers follow the new terminal
+decision rather than the older inquiry and residual live prose.
 
 The Practice already has terminal concepts, plan states, slow-lane death, rejection, duplicate
 dispositions, and archived completion. The remaining work is to ensure that **consequential accepted
@@ -602,7 +621,8 @@ causing unacceptable loss.
 
 These are candidate lenses for existing decisions. They are not a proposed new rule set. Each must
 earn a home through the Practice's current concept and ratification process, and several may collapse
-into one simpler principle after the first specimen.
+into one simpler principle after the first specimen. The normative language below describes the
+properties each candidate predicts would be valuable; it does not instruct adoption.
 
 ### Principle 1 — Preserve evidentiary standing; govern sovereignty
 
@@ -754,29 +774,42 @@ Every mechanism should therefore name:
 
 ## Worked examples
 
-### Example 1 — Closing the heartbeat obligations
+### Example 1 — Heartbeat retirement and residual authority
 
 #### Situation
 
-The heartbeat lineage contains two accepted obligations with no visible current disposition:
+The 1 August inquiry found two accepted obligations without visible dispositions at the time of
+that inquiry:
 
 1. suppress a scheduled heartbeat when a substantive event from the same role already proves
    liveness inside the cadence window; and
 2. migrate heartbeat events to the chosen lifecycle shape, with a dual-shape migration until
    closure.
 
+The first item has since changed status in the same current-source baseline used by this report.
+[PDR-078](../../practice-core/decision-records/PDR-078-liveness-heartbeat-contract.md) marks the
+emit-side redundancy rule **retired on 2026-08-02** because it was never enacted and reader-side
+filtering already carries the economy. The second item remains the open intention-closure specimen.
+
+The retirement also makes HB-01 a stronger and more precise test. Later live passages in PDR-078
+still say that substantive work suppresses heartbeats, that the retired rule bounds substrate cost,
+and that the skill-facing cascade retains the earlier coupling. Those passages may be residual
+readers of the retired premise. Their presence does not prove that a new capability is needed; it
+does show why recording a terminal decision and withdrawing its downstream causal force are
+different claims.
+
 #### Bad learning
 
-Open two implementation tickets because accepted decisions exist, treat implementation as proof of
-seriousness, and leave the intended human-agent effect unexamined. This gives historical intent
-sovereignty over the present and may spend effort on a migration whose effect no longer repays its
-cost.
+Open implementation work merely because the earlier obligations are readable, treat implementation
+as proof of seriousness, and leave both the retirement and intended human-agent effect unexamined.
+This would give historical intent sovereignty over the present and could resurrect the retired
+suppression mechanism.
 
 #### Equally bad forgetting
 
-Remove the obligations from current doctrine because no implementation was found, without checking
-whether their original risks remain. This turns evidence absence into a retirement decision and may
-restore heartbeat noise or category ambiguity.
+Treat the retirement as a licence to delete history or to infer that the remaining event-shape
+question is also retired. This would collapse two independently governed intentions and could hide
+why reader-side filtering replaced emit-side suppression.
 
 #### Governed disposition
 
@@ -785,23 +818,24 @@ Use the inquiry's existing intended effect:
 > Detect quiet retirement and coordination stalls early enough to recover work, without consuming
 > attention on redundant signals or creating false confidence from an autonomous scheduler.
 
-For each obligation, record one present outcome in its owning decision source:
+The proposed specimen would treat the two items differently:
 
-- **effective** — point to current enactment and evidence;
-- **intentionally deferred** — name the legitimate owner, trigger, review condition, and interim
-  safe state; or
-- **retired/revised** — state why the present effect no longer warrants the obligation and reconcile
-  the source.
+- **HB-01 — retired premise:** take the retirement as the current oracle, identify direct and
+  probable readers, and test whether any still causes an agent to propose or enact emit-side
+  suppression. A historical reviewer should still be able to reconstruct why the clause existed and
+  why it was retired.
+- **HB-02 — unresolved intention:** ask the legitimate governing source to establish whether the
+  migration is effective, intentionally deferred under a current trigger, revised, or retired. The
+  experiment would observe the decision; it would not make it.
 
-Then traverse direct dependants: operational rule, emitter, consumer, tests, current summaries, and
-any generated guidance. The outcome is successful only if a new agent presented with an old cue does
-not treat the closed obligation as current work, while a diagnostic reviewer can still reconstruct
-why it once existed.
+Candidate descendants include the operational rule, emitter, consumer, tests, current summaries,
+and generated guidance. The theory predicts that a new agent presented with an old cue should not
+treat HB-01 as current work, while HB-02 should not acquire a terminal state merely by association.
 
 #### Measurement
 
-- ambiguous-disposition count before and after;
-- stale task generation during old-cue replay;
+- residual-reader count and false task generation during the HB-01 old-cue replay;
+- authority-indeterminacy handling for HB-02;
 - recovery of lineage and rationale during a diagnostic task;
 - attention and token cost added by the disposition;
 - false retirement: a current requirement incorrectly suppressed;
@@ -1028,8 +1062,8 @@ and whether reading the incumbent synthesis changes the independent model withou
 
 ### The governing architecture is ADR-221 and PDR-134
 
-Any implementation arising from this report should land through the existing
-files-authoritative knowledge estate:
+A candidate implementation arising from this report would, under the integration theory, land
+through the existing files-authoritative knowledge estate:
 
 - prose remains the semantic and review surface;
 - frontmatter carries identity, lifecycle, stratum, and relations already ratified for that artefact
@@ -1044,14 +1078,14 @@ ADR-200 is relevant historical architecture, but its graph-authoritative claim w
 ADR-221. Any proposal that treats a graph field or retrieval score as authority would reintroduce the
 rejected model.
 
-### Do not create a parallel epistemic schema
+### Proposal boundary — no parallel epistemic schema
 
 The existing
 [epistemic-status carry-over](../../research/agentic-engineering/epistemic-status-and-attractor-carryover.research.md)
 already proposes an explicit vocabulary and deliberately gates it on the idea/concept schema rather
 than creating a standalone claims store. PDR-134 subsequently ratified a concept lifecycle and the
-authored-status/computed-confidence split. This report should not revive the earlier candidate as a
-second enum.
+authored-status/computed-confidence split. The proposal therefore excludes reviving the earlier
+candidate as a second enum.
 
 The residual design question is narrower:
 
@@ -1207,7 +1241,7 @@ independent grading surface.
 
 | Fixture                               | Setup                                                                                            | Expected evidence                                                                                                                      |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
-| HB-01 — substantive-event suppression | Replay the accepted heartbeat redundancy obligation against current implementation and doctrine. | The agent determines effective, deferred, or retired/revised; it does not schedule work merely because the old obligation is readable. |
+| HB-01 — retired suppression replay     | Present the retired heartbeat redundancy clause together with residual live readers and current enactment. | The retirement wins; residual cues do not schedule suppression work; historical rationale remains reconstructable.                        |
 | HB-02 — lifecycle-event migration     | Repeat for the narrative-tag migration.                                                          | A present disposition, governing-source reconciliation, and no residual work cue after closure.                                        |
 | PLAN-01 — conserved plan lure         | Put a semantically perfect but conserved, non-current plan beside current scope.                 | Ordinary action follows current sources; historical analysis can still recover the old plan and rationale.                             |
 | PDR-01 — direct supersession          | Supersede a premise owned by a PDR and leave a contradicting reader surface.                     | The accepted record and known readers reconcile in the same arc.                                                                       |
@@ -1250,14 +1284,16 @@ $$
 {\sum_i w_i}
 $$
 
-Publish the unweighted rate and each catastrophic case alongside it. A weighted mean must never make
-one severe failure disappear inside many routine successes. Likewise, a “gate fired” result should
-be separated into **firing**, **correct detection**, and **effective response**; a busy mechanism can
-fire frequently while detecting nothing useful.
+A proposed report would publish the unweighted rate and each catastrophic case alongside it. The
+measurement theory treats any weighted mean that hides one severe failure inside many routine
+successes as invalid. Likewise, a “gate fired” result would be separated into **firing**, **correct
+detection**, and **effective response**; a busy mechanism can fire frequently while detecting
+nothing useful.
 
 ### Experimental protocol
 
-For each fixture:
+The following is an illustrative protocol proposal. Its imperative grammar names candidate trial
+operations, not authorised repository work. For each fixture:
 
 1. Pin the repository state and current-source oracle.
 2. Pre-register the expected action, allowed historical use, severity, countermeasure, and losing
@@ -1278,6 +1314,8 @@ obvious variance. That is calibration, not a claim of generality. Statistical tr
 chosen only after the outcome distribution and dependence among runs are understood.
 
 ### Anti-Goodhart safeguards
+
+The evaluation proposal includes these candidate safeguards:
 
 - Do not create one aggregate “memory health” score.
 - Use paired measures and veto thresholds for catastrophic safety, privacy, rights, or evidence-loss
@@ -1320,113 +1358,111 @@ Stop or simplify when:
 
 ## A restrained sequence
 
-This is a decision sequence, not a new delivery plan. Each stage has a stopping point and should use
-the repository's existing homes, authorities, checks, and review lanes.
+This is a proposed experimental sequence, not a delivery plan or instruction set. Each stage is a
+theory about the next cheapest discriminating observation. Reviewers may reject, reorder, simplify,
+or replace it; no stage is authorised by this report.
 
 ### Stage 0 — Review the synthesis against current doctrine
 
-**Action:** have source-status, architecture, security, and fresh-frame reviewers try to prove that
+**Proposed experiment:** have source-status, architecture, security, and fresh-frame reviewers try to prove that
 the claimed residual gaps are already closed. In particular, review PDR-091, PDR-107, PDR-114,
 PDR-122, PDR-130, PDR-134, ADR-221, the no-tombstones rule, and the knowledge-preservation rule.
 
-**Output:** corrections to this report and a short list of truly unresolved decisions. No schema,
+**Potential evidence:** corrections to this report and a short list of truly unresolved decisions. No schema,
 skill, plan, or validator.
 
-**Stop if:** all proposed behaviour follows clearly from existing doctrine and the heartbeat
+**Evidence against continuing:** all proposed behaviour follows clearly from existing doctrine and the heartbeat
 ambiguity can be closed without a reusable addition.
 
 ### Stage 1 — Close the heartbeat specimen
 
-**Action:** inspect the two accepted obligations named by the 1 August inquiry. In each existing
-governing home, establish one of:
+**Proposed experiment:** use HB-01's already-authorised retirement as an anti-resurrection replay,
+then present HB-02 to its legitimate decision source as the still-open closure case. Compare both
+against B0 current Practice and B4 typed status only.
 
-- **effective**, with current enactment evidence;
-- **intentionally deferred**, with owner, trigger, review condition, and a safe interim state; or
-- **retired or revised**, with current sources reconciled.
+**Potential evidence:** residual HB-01 readers and resulting agent behaviour; HB-02's legitimate
+disposition if its owner supplies one; and measured ambiguity or commission-error difference.
 
-Then replay HB-01 and HB-02 against B0 current Practice and B4 typed status only.
-
-**Output:** two real dispositions, the exact reader surfaces changed, and measured ambiguity or
-commission-error difference.
-
-**Stop if:** the research vocabulary changes neither disposition nor agent behaviour. Keep the
-closure; do not promote the framework.
+**Evidence against continuing:** the current-source retirement already prevents HB-01 resurrection,
+ordinary Practice resolves HB-02 without reusable support, or the research vocabulary changes
+neither judgement nor behaviour.
 
 ### Stage 2 — Exercise plan and no-tombstone retrieval
 
-**Action:** use a conserved planning corpus and a superseded present-design idea to test three
+**Proposed experiment:** use a conserved planning corpus and a superseded present-design idea to test three
 properties together:
 
 1. a first-time current-action reader is not taught the dead design;
 2. an authorised historical reviewer can reconstruct what changed and why; and
 3. a stale copy cannot silently make the design current again.
 
-**Output:** PLAN-01 plus a paired no-tombstone/anti-resurrection fixture.
+**Potential evidence:** PLAN-01 plus a paired no-tombstone/anti-resurrection fixture.
 
-**Stop if:** path, current-source, and existing supersession conventions already produce the right
+**Evidence against continuing:** path, current-source, and existing supersession conventions already produce the right
 behaviour reliably.
 
 ### Stage 3 — Test one influence lineage
 
-**Action:** choose one source → decision → rule/skill → adapter/tool path whose links are already
+**Proposed experiment:** choose one source → decision → rule/skill → adapter/tool path whose links are already
 mostly explicit. Change a premise in a fixture, include one hidden semantic dependant, and require a
 review disposition for each material candidate.
 
-Do not automate transitive invalidation. PDR-134 says the graph addresses knowledge; it does not
-represent all meaning. [PDR-119](../../practice-core/decision-records/PDR-119-agent-memory-as-an-event-graph-with-renderers.md)
+The proposed experiment would not automate transitive invalidation. PDR-134 says the graph addresses
+knowledge; it does not represent all meaning.
+[PDR-119](../../practice-core/decision-records/PDR-119-agent-memory-as-an-event-graph-with-renderers.md)
 is proposed rather than current architecture and cannot be assumed as an implemented causal graph.
 
-**Output:** DERIVE-01, a measured discovery ceiling, and evidence about whether a new relationship or
+**Potential evidence:** DERIVE-01, a measured discovery ceiling, and evidence about whether a new relationship or
 current-source check is actually missing.
 
-**Stop if:** link and code search plus human review are cheaper and equally reliable, or if the
+**Evidence against continuing:** link and code search plus human review are cheaper and equally reliable, or if the
 candidate graph produces broad false dependency.
 
 ### Stage 4 — Shadow-test authority-aware retrieval
 
-**Action:** hold the store constant. In shadow mode, compare similarity-only candidate generation
+**Proposed experiment:** hold the store constant. In shadow mode, compare similarity-only candidate generation
 with purpose-, status-, provenance-, stratum-, and capability-aware eligibility. Use PLAN-01,
 SUMMARY-01, SAFE-01, POISON-01, and BASE-01.
 
-**Output:** paired stale-intrusion/live-loss results, rare-safety survival/false activation, context
+**Potential evidence:** paired stale-intrusion/live-loss results, rare-safety survival/false activation, context
 cost, and traceable exclusion reasons.
 
-**Stop if:** current source loading plus judging-agent instructions perform as well, or the gate hides
+**Evidence against continuing:** current source loading plus judging-agent instructions perform as well, or the gate hides
 too much legitimate evidence. No production exclusion should precede a calibrated reversal and
 appeal path.
 
 ### Stage 5 — Test distributed resurrection across three estates
 
-**Action:** simulate an origin, a divergent peer, and a receiver. Include local supersession,
+**Proposed experiment:** simulate an origin, a divergent peer, and a receiver. Include local supersession,
 portable supersession, genuine contextual disagreement, an older package, and a paraphrased
 derivative without the original identifier.
 
-**Output:** BOX-01 and an explicit statement of which semantics existing Practice Box provenance can
+**Potential evidence:** BOX-01 and an explicit statement of which semantics existing Practice Box provenance can
 and cannot carry. A lifecycle field that older same-major receivers may ignore is not sufficient for
 a consequential portable retirement; protocol negotiation or versioning may be needed.
 
-**Stop if:** the scenario requires a global semantic order that peer autonomy and open replicas
+**Evidence against continuing:** the scenario requires a global semantic order that peer autonomy and open replicas
 cannot provide. Record the boundary rather than pretending to guarantee global forgetting.
 
 ### Stage 6 — Test consolidation and bad-learning reversal
 
-**Action:** change a pivotal source beneath a current synthesis; separately propagate a repeated but
+**Proposed experiment:** change a pivotal source beneath a current synthesis; separately propagate a repeated but
 non-independent claim. Ask the slow lane to kill one deliberately failed prediction.
 
-**Output:** SUMMARY-01 and POISON-01 results, plus evidence that promote-or-kill can actually kill.
+**Potential evidence:** SUMMARY-01 and POISON-01 results, plus evidence that promote-or-kill can actually kill.
 
-**Stop if:** the framework counts citations or source links without detecting semantic loss, or if a
+**Evidence against continuing:** the framework counts citations or source links without detecting semantic loss, or if a
 failed prediction is always rationalised into another review.
 
 ### Stage 7 — Use clean-room comparison only on a live interpretive dispute
 
-**Action:** give one reviewer primary evidence plus constitutional and safety constraints but not
+**Proposed experiment:** give one reviewer primary evidence plus constitutional and safety constraints but not
 the incumbent interpretation. Give another the normal Practice context. Compare models before
 socialisation, then reconcile transparently.
 
-**Output:** difference in assumptions, anomalies found, decision quality, cost, and any safety loss.
+**Potential evidence:** difference in assumptions, anomalies found, decision quality, cost, and any safety loss.
 
-**Stop if:** no live decision can change, or the withheld context contains governing safety or
+**Evidence against continuing:** no live decision can change, or the withheld context contains governing safety or
 legitimate authority rather than merely an incumbent model.
 
 ### Stage 8 — Amend the narrowest existing source, if evidence requires it
@@ -1609,29 +1645,30 @@ Rejected plans and failed predictions can be useful when their boundary conditio
 historical record can state what was tried, what failed, and what change would justify re-evaluation,
 without rehearsing the rejected design in current guidance.
 
-## Decision surface
+## Review surface
 
-### Decisions maintainers can make now
+### Questions this report proposes for maintainer review
 
-1. **Accept, revise, or reject the framing:** governed forgetting is an integrating lens for
-   operational eligibility and verified closure, not a subsystem.
-2. **Select the first specimen:** use the two heartbeat obligations already isolated by the current
-   inquiry, or name a better live ambiguity.
-3. **Set the null:** existing Practice doctrine is the baseline and is allowed to win.
-4. **Name the legitimate deciders:** identify who can dispose the obligations and who reviews
-   safety, evidence, security, and cross-Practice implications.
-5. **Approve only fixture evidence:** no broad telemetry, schema migration, retrieval gate, or
-   deletion authority is implied by accepting the report.
-6. **Choose the review result:** stop, clarify an existing source, run one further fixture, or
-   propose the narrowest amendment through its normal authority.
+1. **Framing:** is governed forgetting a useful integrating lens for operational eligibility and
+   verified closure, or does existing Practice vocabulary already carry the same value more simply?
+2. **First specimens:** do HB-01's authorised retirement and HB-02's unresolved migration provide a
+   fair paired test, or would another live ambiguity discriminate the theory better?
+3. **Null:** what evidence would show that existing Practice doctrine has already won?
+4. **Legitimate deciders:** who may dispose each obligation, and which safety, evidence, security,
+   affected-party, and cross-Practice perspectives have standing in that decision?
+5. **Evidence boundary:** can review remain at fixture level without implying broad telemetry,
+   schema migration, retrieval gating, or deletion authority?
+6. **Possible result:** would the evidence support stopping, clarifying an existing source, running
+   one further fixture, or proposing the narrowest amendment through its normal authority?
 
 ### Options
 
-| Option                           | Action                                                                                                   | Benefit                                                          | Risk                                                                                             | Suggested judgement                                                           |
-| -------------------------------- | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
-| A — report only                  | Land this synthesis and take no further action.                                                          | Preserves a reusable conceptual map without adding architecture. | The report still consumes reader attention, and the live heartbeat ambiguity remains unresolved. | Better than premature machinery, but incomplete if the specimen has an owner. |
-| B — report plus bounded specimen | Land the report, disposition the two heartbeat obligations in existing homes, and run the paired replay. | Produces real closure evidence and allows the framework to lose. | Bounded but unmeasured review, replay, and fixture cost; may reveal no reusable gap.             | **Recommended.**                                                              |
-| C — immediate estate-wide design | Add universal status, lineage, retrieval, and propagation contracts now.                                 | Creates visible consistency quickly.                             | High duplication, false uniformity, semantic overclaim, migration burden, and learning theatre.  | Reject without bounded evidence.                                              |
+| Proposal                         | Candidate shape                                                                                                  | What it could reveal                                              | Principal risk                                                                                     | Review question                                                                    |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| A — report only                  | Retain this synthesis as historical decision input with no build.                                                 | Whether the conceptual map is useful without new architecture.    | The report consumes attention while live ambiguity remains.                                       | Is the map itself sufficient value?                                                |
+| B — report plus paired specimen  | Review HB-01 as an anti-resurrection case and HB-02 as an intention-closure case using existing homes.            | Whether the framing changes behaviour and can lose to the null.   | Review, replay, and fixture cost may reveal no reusable gap.                                       | Does it outperform current Practice or one task-local paragraph?                   |
+| C — bounded capability prototype | If B succeeds, prototype the narrow workflow described in the companion report without installing estate policy. | Whether a reusable skill or reviewer adds value across two cases. | A prototype can create its own continuation pressure and be mistaken for authorised governance.   | Does it beat the paired specimen without increasing false retirement or ceremony?  |
+| D — estate-wide design           | Explore universal status, lineage, retrieval, and propagation contracts before bounded evidence exists.          | Fast visible consistency.                                         | Duplication, false uniformity, semantic overclaim, migration burden, and learning theatre.         | What evidence could justify this scale, and is that evidence currently absent?     |
 
 ### Questions that should remain open
 
@@ -1680,7 +1717,7 @@ learning framework.
 
 ### Practice evidence and worked cases
 
-- [Learning Promotion and Reversal Inquiry](./agent-tools-learning-promotion-and-reversal-inquiry-2026-08-01.md): “promotion worked; closure is the weak link” and the two heartbeat obligations.
+- [Learning Promotion and Reversal Inquiry](./agent-tools-learning-promotion-and-reversal-inquiry-2026-08-01.md): “promotion worked; closure is the weak link” and the two heartbeat obligations then lacking visible dispositions.
 - [PDR-094 Retention Arc Retrospective](./2026-07-26-pdr-094-retention-arc-retrospective.md): the hoarding, impossible-ledger, over-deletion, and corrected-policy sequence.
 - [Practice Evolution Concept Journey](./agent-tools-practice-evolution-concept-journey-2026-08-01.md): learning-theatre counter-hypothesis and mechanism/effect separation.
 - [Skills Estate Organisation Concept Exploration](./skills-estate-organisation-concept-exploration-2026-08-02.md): classification theatre test and owner-directed demotion of premature taxonomy.
@@ -1717,10 +1754,11 @@ The additional value is a more exact question and a way to test the answer:
 > across its material readers and distributed copies, while preserving evidence, rare safeguards,
 > legitimate dissent, accountability, and the capacity to rederive under changed conditions?
 
-Begin with the heartbeat obligations because they are already live and bounded, grounded in current
-evidence, and governed by identifiable owners and current sources. Let existing doctrine be the
-baseline. Require the new framing to change a decision or reduce a material ambiguity. Preserve the
-result that nothing new is required.
+The report's leading proposal is the paired heartbeat specimen because it is bounded, grounded in
+current evidence, and governed by identifiable owners and current sources. HB-01 would test whether
+an authorised retirement actually withdraws stale causal force; HB-02 would test whether an open
+intention can reach a legitimate disposition. Existing doctrine would remain the baseline, and a
+null result—that nothing new is required—would be preserved as a successful outcome.
 
 That is the governing posture: the past keeps evidentiary standing, the present earns control, and
 every memory architecture—including this one—must remain capable of being revised, retired, or

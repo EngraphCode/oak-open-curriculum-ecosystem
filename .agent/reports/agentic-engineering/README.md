@@ -24,6 +24,11 @@ It complements, rather than replaces:
   eligibility without losing evidence, with current-Practice mapping, worked
   specimens, anti-patterns, and an evaluation programme designed to detect
   stale authority without manufacturing learning theatre
+- [authority-transition-capability-proposals-and-experimental-design-2026-08-02.md](./authority-transition-capability-proposals-and-experimental-design-2026-08-02.md)
+  — review-only build proposals for a bounded authority-transition skill,
+  independent reviewers, reader discovery, evals, hooks, validators, and
+  possible decision-record homes, with an explicit assumption register,
+  cross-harness degradation model, worked examples, and kill conditions
 - [agent-tools-practice-evolution-concept-journey-2026-08-01.md](./agent-tools-practice-evolution-concept-journey-2026-08-01.md)
   — journey record from a mechanism-level agent-tools review through owner-led
   corrections to a defeasible inquiry into Practice evolution, relational
