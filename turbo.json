@@ -122,7 +122,7 @@
       ]
     },
     "@oaknational/oak-design-system#test": {
-      // Own `build` (which already implies ^build): the smoke suites read the
+      // Own `build` (which already implies ^build): the integration suites read the
       // emitted dist/oak-theme.js and compare it to the committed root copy,
       // and this workspace's build is that file's sole writer.
       "dependsOn": ["build"],
