@@ -707,3 +707,157 @@ already externally checked.
   canonical/emitted seam, and conditionalised stratum on a
   derivability probe. Movement 4 (synthesis + reviewed
   recommendation) opens with the stratum derivability probe.
+- 2026-08-02 ~13:45Z — MOVEMENT 4 opening acts (probe + adjacent-plan
+  reads, all first-hand this sitting):
+  1. **Stratum derivability probe CLOSED: annotation survives.**
+     PDR-134 re-read whole (its §1 law "the stratum determines the
+     artifact's home" frames the probe). Location cannot carry
+     stratum for the lever corpora: (a) hybrids split strata at
+     SECTION grain (pr-lifecycle: practice-instance state machine +
+     repo-instance GitHub bestiary) — a path cannot carry a section
+     seam; (b) the corpora are deliberately single-rooted for the
+     adapter/loader pipelines — a physical stratum split would break
+     the generator's root assumption for zero consumer gain; (c) the
+     homing question is an authored judgement, so PDR-134's ban on
+     authored-but-derivable fields does not bite. Adjacent evidence
+     that location fails today even where the contract says home
+     should follow stratum: `oak-chrome-session-is-metered`
+     (operator-overlay by the exploration report's own example) lives
+     in the public rules corpus. Verdict: R4 = authored frontmatter
+     with section-seam marks; falsifier retained (a direction check
+     that derives everything shrinks the pass to hybrid seams).
+  2. **Adjacent plan surfaces read first-hand — THREE, not two** (the
+     search surfaced `agent-classification-taxonomy.plan.md`
+     (agent-tooling/future, ADR-135) beside the two the sweep named).
+     Dispositions, each leave-with-boundary, none superseded:
+     skills-classification-taxonomy = ADR-189's outer audience-naming
+     work (noun discipline), no interior overlap once the boundary is
+     stated; agent-skills-discovery = outward publication
+     (distributable locus), with a promotion-evidence pointer (~40
+     clients, live registry) worth recording there at promotion;
+     agent-classification-taxonomy = the subagent roster's native
+     vocabulary home — exactly the "native kinds stay native"
+     verdict's landing surface for that lever.
+  3. **Recommendation draft authored**:
+     [`skills-estate-organisation-ws0-recommendation.md`](skills-estate-organisation-ws0-recommendation.md)
+     — R1 structure standard + convergence path; R2 landing
+     procedure; R3 relations graph + the owner's relationship map;
+     R4 stratum annotation; R5 retirements (classification field;
+     `--clear` lock-blind cure; interim-guidance sunset); the
+     value-gate table vs the null; ADR-relations; conservation
+     ledger; owner decision points. Pre-review panel dispatched
+     (assumptions-expert on opus + opus frame-challenger + cricket
+     quartet in both stances); adjudication and amendments follow in
+     this log.
+  4. **Live worked instance for R2/WS5(d), at the exact hour**: the
+     owner ruled at card to track-and-land the skill-creator install
+     as a lock-pinned external (Director commits it, matching the
+     clerk-family pattern) — the vendored-external landing class
+     executing exactly as the recommendation describes it, before
+     the recommendation is even ruled on. A Director-landed
+     agent-skills survey + commissioned detailed-scan plan
+     (`agent-skills-detailed-scan.plan.md`) joins the adjacent
+     surfaces; absorb into the recommendation's disposition section
+     once landed.
+- 2026-08-02 ~14:00Z — MOVEMENT 4: pre-review panel adjudicated; the
+  recommendation REWRITTEN in place (supersedes the pre-review copy
+  that rode the Director's window to clear the links deadlock).
+  Panel composition and results:
+  1. **Cricket, eight legs (quartet × both stances): 7 ON-TRACK,
+     1 DRIFTING** — the dissent again from procedure-xhigh
+     adversarial, as at the M1→M2 boundary. Its PROPORTION fail
+     ("Badger's warden-hygiene request quoted nowhere in supplied
+     context") is REFUTED first-hand: the request is directed event
+     680a6e5b, read whole, contents verified, independently confirmed
+     by Charcoal's pickup broadcast, and discharged at a343a0fe5
+     BEFORE the leg reported. The refutation and the finding share a
+     root: the frame carried peer/owner words with dates but no event
+     IDs — so the leg's redirection is adopted even though its
+     verdict is refuted. All adopted cricket redirections: (a)
+     provenance event IDs on quoted owner words (three legs converged
+     on this); (b) falsifier-runnability stated inside each element;
+     (c) every numeric claim re-derived at revision time (proved its
+     worth immediately: the vendored-externals count moved 9 → 10
+     mid-review as skill-creator landed); (d) single-story commits
+     for owner-routed artefacts (already true at this seat).
+     Non-unanimity routes to the Director with this adjudication.
+     Instrument notes for the tally: four of eight legs' first
+     reports did not reach the dispatching seat (mailbox delivery
+     variance) and were re-requested via SendMessage — verdict
+     substance unaffected; per-leg token telemetry NOT OBTAINED
+     (teammate-mailbox delivery carries none), timestamps recorded
+     instead.
+  2. **Assumptions-expert (opus): NOT-READY, two critical findings —
+     BOTH CONFIRMED first-hand at this seat and repaired.** (i) R1's
+     stated standard omitted the bundle's real `skills/` tier
+     (`cognition/parallax/{skills,reference,evaluations,tools}`
+     verified by find) — as drafted, the convergence path produced an
+     unsummonable family with the generator exiting 0 on the skipped
+     directory; repaired: standard restated as
+     `<family-id>/skills/<skill-id>/` with named siblings,
+     before/after trees added, skipped-directory hard-fail added to
+     the generator change. (ii) The family tier's three claimed
+     mechanical consumers do not survive the recommendation's own
+     test (the Clerk precedent vendors eight skills FLAT with
+     per-skill lock entries — verified in skills-lock.json skillPath
+     values; collection frontmatter could scope the validator; the
+     generator's flat output makes nesting a cost, not a decision) —
+     repaired by re-grounding family bundles HONESTLY on the owner's
+     purpose (c) + authoring legibility + his own landed layout.
+     Further accepted: R4 rescoped (hybrid seams + the two verified
+     inversions first, check built in the same workstream; corpus
+     pass gated on ADR-221 §7's graph-tier reality — no agent-graphs
+     workspace exists, verified); R3 split (map report NOW,
+     graph form deferred to second consumer per PDR-134's
+     deferred-home discipline); leaf-id uniqueness invariant + the
+     three-part generator extension; PR #713 state corrected (Sif
+     skills not on this branch; "authored concurrently", not "both
+     live in the corpus"); the `--clear` cure LIFTED out of the gate
+     (independent immediate PR — ship-independent applies; a live
+     data-loss path must not wait three weeks on an organisation
+     ruling); before/after trees + R4 cost counts added; the
+     blocking-relations audit corrections absorbed. The reviewer's
+     corroboration absorbed too: upstream Clerk uses category
+     directories and our vendoring flattens them — a real-world
+     category tier carrying no information across a packaging
+     boundary.
+  3. **Opus frame-challenger: HOLD-WITH-AMENDMENTS, six amendments,
+     all absorbed or dispositioned.** A1 (blocking): the description
+     corpus + trigger-eval question PROMOTED from
+     unresolved-evidence footnote to owner decision point 4 — the
+     owner's quality purpose (b) landing on the estate's
+     highest-traffic organisation consumer, with the 24k-token
+     context price folded in. A2: the recommendation now scores
+     itself against "simpler" explicitly — a net ADDITION argued as
+     a trade, with the null-plus-retirements fallback stated. A3
+     (blocking): R2's disclosure-tier spine was FALSIFIED by live
+     corpus data (verified at this seat: RULES_INDEX 101 always-on /
+     22 trigger-loaded; complex-merge skill and
+     pre-merge-divergence-analysis rule share the same 100+/10+
+     trigger; commit and napkin skills self-declare always-active) —
+     R2 rebuilt on the payload-shape × disclosure-need pair with the
+     complex-merge/pre-merge pair as its shipped worked
+     adjudication; the "dissolves the homonymy question" claim
+     DROPPED (the homonymy verdict stands on its own
+     zero-consumers evidence). A4: the family test made mechanical
+     (≥2 skills sharing bundled files not independently usable;
+     collection: is the marker, never the criterion; borderline
+     root cases adjudicate to individuals). A5: thematic browsing
+     given a named carrier (map report now + WS4 index from
+     name/description/collection/stratum) + a recorded re-open
+     condition (scale/index-failure), curing the earlier
+     carrier-less rejection. A6: the four silently-dropped items
+     dispositioned in the rec (reverse-direction harvest → WS6(d)
+     candidates; description context price → decision point 4;
+     skills-ref validate → frontmatter-conformance wrap candidate;
+     meta-learning lesson 8 → the standard's seam-revision clause);
+     the category-tier search asymmetry cured by running the
+     constructive search and recording it (three buildable consumers
+     named, none needs a directory).
+  **Exit criteria check (movement 4)**: the recommendation artefact
+  exists, REVIEWED and revised; unresolved evidence named in-document;
+  every proposal carries warrant + runnable falsifier +
+  functional-conservation case; the owner can rule from it alone
+  (before/after trees + costs added for exactly this). Remaining act:
+  route to the owner through the Director with the panel's 7-1
+  adjudication attached.
