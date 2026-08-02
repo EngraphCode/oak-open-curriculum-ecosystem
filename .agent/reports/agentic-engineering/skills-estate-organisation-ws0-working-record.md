@@ -313,6 +313,93 @@ already externally checked.
      vocabulary candidate. Cross-evidence: the family's descriptions
      are more routing-complete than many oak-* skills' — relevant to
      the unstaffed 37-skill use_this_when backfill item.
+- 2026-08-02 sitting B — WS6(b) consistency review COMPLETE (report
+  read whole, 1,681 lines; all nine SKILL-CANONICAL bodies read whole,
+  1,081 lines; reference corpus probed by targeted grep with the
+  instrument sanity-checked on a known-present term; the 17-doc
+  reference corpus is a REFORMULATION — framework.md is 204 lines
+  with its own frontmatter — not a report copy):
+  **Internal consistency between the nine skills: EXCELLENT.** One
+  identity spine (`inquiry_id/inquiry_revision/basis_id/scale_region/
+  method_pass_id/domain_profiles`) preserved in every skill; one
+  seven-value run-status vocabulary (`validated|provisional|
+  inconclusive|insufficient-evidence|declined|reopened|superseded`)
+  identical everywhere; Bridge/Crosswalk Claim machinery uniform;
+  every skill carries an Admit section with bidirectionally
+  consistent sibling routing, an artifact-envelope obligation, and a
+  Practice learning-signal contract with a uniform
+  no-private-memory rule. The family treats the embedding Practice as
+  an explicit host interface (learning signals out, write-authority
+  gated) — a clean-seam model worth noting for the organisation
+  question itself.
+  **Report ↔ skills divergences (consistency findings, each verified
+  by search, not absence-assumed):**
+  1. **The F01–F21 epistemic-function registry and coverage matrix
+     exist NOWHERE in the family** (skills + reference corpus both
+     empty). The report's own mandatory core (§11.3 item 6) and
+     minimum-viable-adoption (§21.5 step 3) REQUIRE the F-scan — as
+     landed, the family cannot discharge its framework's own
+     mandatory step. Strongest unreached concept; harvest candidate:
+     a coverage-scan asset (or reference doc) carrying F01–F21 with
+     the six-state status vocabulary.
+  2. **`Crosswalk Claim` is a skills-minted term** — zero occurrences
+     in the report, whose §8.4 transformation classes are its
+     antecedent. Good sharpening; the report (the owner's living
+     draft) does not yet name it — a within-family vocabulary seam.
+  3. **The fifth depth mode `Programmatic` (§11.1) is absent** — the
+     orchestrator carries screening/core/standard/deep only;
+     parallax-learn's portfolio work covers part of the substance
+     without the mode name.
+  4. **`constitutional envelope` (§16.3) absent by name**; Charter
+     fields carry fragments (authority, constraints).
+  5. **§18's named failure-mode vocabulary** (checklist pluralism,
+     Bayesian numerology, AI ensemble illusion, ...) does not travel
+     into the family; Challenge sections carry some substance
+     implicitly. Candidate audit-protocol enrichment.
+  6. **`stratum` homonymy risk is REPORT-side only**: the report
+     defines Stratum (§6) — colliding with PDR-134's estate
+     "stratum" — but the FAMILY deliberately avoids it, using
+     `scale_region`. Boundary note for movement 2: the collision
+     enters the estate only if the report's vocabulary migrates.
+  **Reverse-direction harvest (family → estate, WS6(b) bonus):**
+  (a) parallax-audit's independence classes (independent /
+  protected-but-correlated / same-context-self-review; "an audit
+  emulated by an orchestrator is always same-context self-review")
+  are SHARPER than our reviewer-independence vocabulary — candidate
+  import for reviewer-dispatch doctrine; (b) parallax-learn's
+  dispositions (capture / distil / pattern-candidate /
+  change-proposal / reject) map almost exactly onto the PDR-014
+  pipeline (napkin → distilled → patterns → doctrine) — evidence the
+  family was authored against our Practice seam, and a natural
+  integration point for WS6(d).
+- 2026-08-02 sitting B — WS6(c) relationship-map evidence notes
+  (full map artefact is a movement-2/4 output; these are the
+  load-bearing edges, each from the two whole-corpus reads):
+  parallax(orchestrator) ↔ `proportionality` (depth selection ≈ the
+  sizing gate) + `reason` (VoI stop gate); parallax-frame ↔
+  `concept-exploration` movement 2 + `free-play` (frame generation) —
+  complementary grain: ours lighter/understanding-first, theirs
+  formal (Frame Cards, scale maps); parallax-audit ↔ adversarial
+  reviewer subagents + `cricket` + `verify-dont-trust`;
+  parallax-synthesise ↔ review-adjudication dispositions +
+  `semantic-merge` (dependence-aware corroboration ≈ our
+  different-lens divergence patterns); parallax-decide ↔ decision
+  lenses + `present-verdicts-not-menus` + owner-gates ("a validated
+  recommendation is not implementation authority" ≈
+  `precedence-is-not-approval`); parallax-learn ↔ the knowledge
+  metabolism itself; World-Return Contract ≈ our warrant+falsifier
+  discipline. Mode-of-action note: the siblings are WORKFLOWS
+  (completion contracts), the orchestrator is workflow-with-DAG (not
+  a mode); nothing in the family is an entered MODE in the
+  composition-map sense — the family fits the existing three-layer
+  vocabulary without strain. Summons edges: fully self-contained
+  (no summons into our estate; the Practice seam is an abstract
+  interface) — consistent with the vendor-safe bundle pattern.
+  **Extensibility acceptance test, provisional verdict on live
+  evidence: PASSES** — the family lands as instrument-of-thought
+  (family) / practice-instance / thinking with `collection: parallax`
+  carrying the family axis; no new top-level kind needed.
+- 2026-08-02 sitting A — corpus is a moving surface: Sif PR #713
   (Badger) lands two NEW canonicals in the flat convention (`sif`,
   `the-codex-dialogues`) while Parallax sits nested — both conventions
   are live simultaneously while the question is open. Consequences:
