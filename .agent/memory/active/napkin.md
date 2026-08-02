@@ -616,13 +616,21 @@ that touches coordination surfaces.
 - Bot identity is a pre-commit and pre-push gate, not merely a pre-PR check. I
   created and pushed the first closeout commit from an isolated worktree while
   it still inherited Jim's `user.name` and `user.email`; the later `gh api user`
-  check caught the same owner-bound identity at PR time. Cure applied without
-  rewriting pushed history: preserve that branch as abandoned, recreate the
-  verified tree from the coordination base in a fresh worktree, set and verify
-  worktree-scoped bot author/committer config while proving the primary remains
-  human, then use a minted bot token for push and PR creation. Mechanical
-  prevention should make bot-identity verification part of worktree setup and
-  refuse commit/push when the lane requires the bot but resolves the owner.
+  check caught the same owner-bound identity at PR time. The immediate cure did
+  not dispose of the first branch: it recreated the verified tree from the
+  coordination base in a fresh worktree, set and verified worktree-scoped bot
+  author/committer config while proving the primary remained human, then used a
+  minted bot token for push and PR creation. The first remote ref,
+  `caracal/practice-architecture-cold-pause` at `d8c25f3c`, remains live and has
+  no PR. It is a Caracal-created, owner-misattributed parallel ref whose
+  disposition is unresolved; its Git metadata is not evidence that Jim authored,
+  accepted, owns, or disposed of the work. The bot ref at `e6629810f` is the head
+  of draft PR #702 and differs by ten additional napkin lines; neither commit is
+  an ancestor of the other. Exclusion from a PR is not disposition, and no
+  deletion, retention, merge, or supersession decision may be inferred from
+  prose. Mechanical prevention needs both a bot-identity commit/push gate and a
+  closeout inventory that enumerates every touched local and remote ref, its PR
+  relationship, custody, and disposition authority from observable state.
 
 ### Free-Play Harvest and Visible Discards
 
