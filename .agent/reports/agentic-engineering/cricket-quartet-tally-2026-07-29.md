@@ -397,3 +397,38 @@ quartet agent definitions (MCP-161). Future quartet runs: post the tally comms e
 occurrence (transport), then append here AT OCCURRENCE (storage) — the Director's
 transport/storage ruling is a174d253, tightened by owner word 2026-08-01: every run is
 recorded, none skipped, each with per-leg token usage and run time.
+
+### Run 2026-08-02 ~13:01-13:05Z (Skylark hunts Nimbus, e856d5) — WS0 M1→M2 boundary
+
+Frame: skills-estate-organisation WS0, movement 1 closed, crossing to movement 2
+(problem space + homonymy test). Panel: Claude quartet, both stances, identical
+file-supplied frame (stance line only changed).
+
+| Role | Stance | Verdict | Tokens | Seconds | Tools |
+| --- | --- | --- | --- | --- | --- |
+| judgement-low (fable/low) | normal | ON-TRACK | 29,425 | 15.6 | 2 |
+| judgement-medium (opus/medium) | normal | ON-TRACK +redirect | 30,740 | 36.4 | 3 |
+| judgement-high (sonnet/high) | normal | ON-TRACK | 30,521 | 45.8 | 3 |
+| procedure-xhigh (haiku/xhigh) | normal | ON-TRACK | 22,456 | 55.7 | 3 |
+| judgement-low (fable/low) | adversarial | ON-TRACK | 29,474 | 16.1 | 2 |
+| judgement-medium (opus/medium) | adversarial | ON-TRACK +redirect | 29,869 | 30.2 | 3 |
+| judgement-high (sonnet/high) | adversarial | ON-TRACK | 33,947 | 58.3 | 3 |
+| procedure-xhigh (haiku/xhigh) | adversarial | DRIFTING | 22,275 | 96.3 | 2 |
+
+Split 7-1. Axis notes:
+
+- **Both medium redirections substantive and ADOPTED**: (normal) run the homonymy test
+  FIRST off the nine consumer-decision rows and let its prune size the problem statement —
+  evidence-first over essay-first; (adversarial) route the compounding flat-vs-nested
+  convention divergence to the Director now rather than holding it as a MISSING note.
+- **The 7-1 split**: adversarial procedure-xhigh read "movement 1 CLOSED" against WS6(c)'s
+  "provisionally PASSES" + WS6(b)'s enumerated family gaps and returned PROPORTION-FAIL.
+  Adjudication: category error between EVIDENCE-LEG completion (done) and ACCEPTANCE-TEST
+  discharge (fires at the family's landing per the plan's own acceptance clause); the
+  family gaps are WS6(b) OUTPUT, not unfinished WS0 work. Redirection declined with that
+  reason; the correct kernel ABSORBED as a frame-precision cure — the working record now
+  states the leg-complete ≠ test-discharged distinction explicitly. Split routed to the
+  Director with full verdicts per the contract.
+- Effort-inversion timing gradient again visible on both stances (fable/low fastest,
+  haiku/xhigh slowest); the adversarial xhigh leg ran 96s — the corpus's longest
+  procedure leg to date.

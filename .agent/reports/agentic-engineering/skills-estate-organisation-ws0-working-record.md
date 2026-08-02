@@ -143,6 +143,100 @@ already externally checked.
 
 ## Movement log (append-only)
 
+- 2026-08-02 ~13:05Z — cricket panel at the M1→M2 boundary: 7-1
+  (adversarial procedure-xhigh DRIFTING), full record in the quartet
+  tally; split routed to the Director (event 7ec235df). Adjudication:
+  the DRIFTING finding conflated EVIDENCE-LEG completion with
+  ACCEPTANCE-TEST discharge — stated here as the standing precision:
+  **movement-1 legs are complete; the extensibility acceptance test
+  is NOT discharged — it fires at the family's landing; the WS6(b)
+  family gaps are review OUTPUT, not unfinished WS0 work.** Adopted
+  redirections: homonymy-test-first ordering for movement 2; the
+  convention-divergence route to the Director.
+- 2026-08-02 ~13:20Z — OWNER COMMISSION: four-source learning pass
+  (skill-creator skill; Parallax skill-design-meta-learning; Vercel
+  skills docs; agentskills.io whole site — 8 of 9 pages fetched,
+  quickstart tutorial skipped as lowest-value, bound named). Findings
+  feed movements 1-2 as external evidence:
+  1. **Spec facts with direct estate consequences**
+     (agentskills.io/specification): frontmatter contract = name
+     (1-64, lowercase-hyphen, MUST match parent dir), description
+     (1-1024), license, compatibility (≤500), metadata (string map),
+     allowed-tools (experimental). **Our `classification` field is
+     non-spec at top level — the spec-conformant home for custom
+     fields is `metadata:`**, exactly where Parallax puts its
+     (owned/version/collection). Retirement candidate now has three
+     grounds: zero consumers, vocabulary collision, spec conformance.
+     File-reference guidance: relative from skill root, ONE level
+     deep, avoid nested chains — the WS6(a) downward-only finding now
+     has normative backing. `skills-ref validate` exists as the
+     reference validator (candidate to wrap into `skills:check`
+     rather than authoring our own frontmatter checks). The spec
+     does NOT mandate where skills live — `.agents/skills/` is a
+     CLIENT convention (which our adapter tier already targets), and
+     the spec is silent on nesting (discovery scans subdirs for
+     SKILL.md, clients bound depth ~4-6).
+  2. **Client-guide facts** (adding-skills-support): three-tier
+     loading with token budgets (catalog ~50-100/skill; body <5k);
+     project-over-user precedence; TRUST GATING for project-level
+     skills (untrusted-repo injection) — our lock-pinned vendored
+     class is ahead of the ecosystem here; skill content should be
+     compaction-exempt; catalog placement (system prompt vs tool).
+  3. **Craft corpus** (best-practices + evaluating + descriptions +
+     scripts): start-from-real-expertise (our napkin→distilled
+     pipeline IS this, institutionalised); add-what-the-agent-lacks;
+     defaults-not-menus (= present-verdicts-not-menus, independently
+     converged); explain-why-over-MUSTs; gotchas sections as
+     highest-value content; plan-validate-execute; with/without
+     baselines, assertions-with-evidence, trigger-rate testing with
+     train/validation splits (the skill-creator automates the loop).
+     Scripts: non-interactive, --help as the agent interface,
+     structured stdout vs stderr diagnostics, idempotency, dry-run,
+     bounded output.
+  4. **Ecosystem facts** (Vercel + clients + home): the standard is
+     Anthropic-originated, openly governed, adopted by ~40 clients
+     (Cursor, Copilot, VS Code, Codex, Gemini CLI, Goose, JetBrains
+     Junie, ...); a distribution ecosystem exists (`npx skills add`,
+     skills.sh registry). ADR-189's "distributable" locus has live
+     infrastructure — relevant to the external-capability plan
+     (owner-decision item 4). Our three-layer model is VALIDATED:
+     estate-specific canonicals, spec-conformant emitted adapters.
+  5. **Meta-learning doc (26 lessons) — the deepest input.** Directly
+     lane-bearing: **lesson 3 "standards-level packaging is flat;
+     runtime topology is different — package a flat federation;
+     express composition through artifacts" is evidence AGAINST deep
+     directory nesting, from the owner's own research** — the
+     nesting prior's first challenger. Lesson 1+16: descriptions are
+     a ROUTING SURFACE evaluated as a collection (false negatives,
+     sibling collisions) — the 37-description backfill is routing
+     engineering, and a collection-level trigger-eval suite is a new
+     consumer candidate our estate lacks. Lesson 8: seams are
+     provisional, split/merge on measured trigger confusion. Lesson
+     17: manifests authoritative, diagrams projected — WS4's derived
+     projections, graph edition. Lessons 14/15: skills emit learning
+     signals, the Practice owns memory; L2 = test the update policy
+     (matches PDR-014 exactly). Lessons 22/23/26: status≠lifecycle,
+     placeholders-never-ready, semantic-envelope≠wire-schema.
+  6. **Estate gap named by contrast**: oak-* skills have ZERO evals;
+     Parallax ships per-skill evals + 7 collection suites — the
+     owner's "quality demonstration" purpose made concrete. The
+     QUEUED skill-evals-pilot plan
+     (skill-evals-pilot-start-right-quick.plan.md) predates this
+     evidence and now has its instrument (the skill-creator loop +
+     the agentskills eval methodology).
+  7. **Free-play seeds (associations, not findings):** (a) the
+     DISCLOSURE-TIER lens — a rule is a capability at tier-always, a
+     skill at tier-on-match, a subagent at tier-dispatch: one
+     capability corpus, three disclosure tiers; a genuinely new
+     movement-2/3 candidate that would dissolve the homonymy question
+     rather than answer it — test against the consumer table like
+     every other candidate. (b) The description corpus is a priced
+     context surface (~100 tok × 242 loaded skills ≈ 24k tokens) —
+     directive-file-context-budget has an unpriced sibling. (c)
+     skills-lock.json + vendored externals + skills-ref validate ≈
+     package-manager semantics independently reinvented; skills.sh
+     is the missing remote registry.
+
 - 2026-08-02 sitting A: record opened; structure drafted; routed to the
   Director for collaboration (see comms). ADR-189 prior-art gap caught
   at planning time and added to the movement-1 sweep.
