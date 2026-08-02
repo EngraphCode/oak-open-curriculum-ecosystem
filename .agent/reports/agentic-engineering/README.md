@@ -8,9 +8,7 @@ It complements, rather than replaces:
 - [analysis/README.md](../../analysis/README.md) for investigations and
   evidence
 - [research/agentic-engineering/README.md](../../research/agentic-engineering/README.md)
-  for themed source-material routing
-- [reference/agentic-engineering/README.md](../../research/agentic-engineering/README.md)
-  for the concept map and seed deep dives
+  for themed source-material routing, the concept map, and seed deep dives
 
 ## Sub-Lanes
 
@@ -21,6 +19,11 @@ It complements, rather than replaces:
 
 ## Current Promoted Synthesis
 
+- [governed-forgetting-and-temporally-governed-authority-2026-08-02.md](./governed-forgetting-and-temporally-governed-authority-2026-08-02.md)
+  — cross-disciplinary synthesis of how retained history can lose operational
+  eligibility without losing evidence, with current-Practice mapping, worked
+  specimens, anti-patterns, and an evaluation programme designed to detect
+  stale authority without manufacturing learning theatre
 - [agent-tools-practice-evolution-concept-journey-2026-08-01.md](./agent-tools-practice-evolution-concept-journey-2026-08-01.md)
   — journey record from a mechanism-level agent-tools review through owner-led
   corrections to a defeasible inquiry into Practice evolution, relational
