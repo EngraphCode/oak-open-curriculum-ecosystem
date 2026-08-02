@@ -666,9 +666,9 @@ entity's absence must first prove the surface CAN carry that entity.
   `caracal/practice-architecture-cold-pause` at `SHA:d8c25f3c`, remains live and has
   no PR. It is a Caracal-created, owner-misattributed parallel ref whose
   disposition is unresolved; its Git metadata is not evidence that Jim authored,
-  accepted, owns, or disposed of the work. The bot ref at `SHA:e6629810f` is the head
-  of draft PR #702 and differs by ten additional napkin lines; neither commit is
-  an ancestor of the other. Exclusion from a PR is not disposition, and no
+  accepted, owns, or disposed of the work. The bot ref's first preservation commit
+  `SHA:e6629810f` opened draft PR #702 and differs by ten additional napkin
+  lines; neither it nor `SHA:d8c25f3c` is an ancestor of the other. Exclusion from a PR is not disposition, and no
   deletion, retention, merge, or supersession decision may be inferred from
   prose. Mechanical prevention needs both a bot-identity commit/push gate and a
   closeout inventory that enumerates every touched local and remote ref, its PR
@@ -710,5 +710,8 @@ THIRD commit — the `origin/main` conflict-resolution merge
 credentials at the owner's word, so the branch is no longer
 bot-commit-only: Caracal's two preservation commits remain bot-authored
 and untouched, and the merge commit is Director-authored housekeeping.
-Both worktrees named above were pruned clean. This entry is the
-observable final state at merge.
+Both worktrees named above were pruned clean. The branch head moved
+`SHA:e6629810f` (PR open) → `SHA:0d8438e52` (custody correction) →
+`SHA:838aebd26` (main merge) → `SHA:55c70043a` and onward through the
+review-cure commits; the PR's merged head is the observable final state,
+and this entry freezes with it.
