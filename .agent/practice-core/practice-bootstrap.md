@@ -760,8 +760,8 @@ implement an invokable consolidation skill or workflow with this abstract shape:
      concrete fitness-model record (the §Loop Health section in the
      host's three-zone-fitness-model ADR).
 7. **Manage the practice exchange.** Two directions:
-   - _Incoming_: integrate files from
-     `.agent/practice-core/decision-records/incoming/` following the
+   - _Incoming_: integrate files from the Practice Box at
+     `.agent/practice-core/incoming/` following the
      provenance chain and three-part bar. Practice evolution is not
      linear — incoming can be behind in some areas and ahead in others.
      Compare bidirectionally. Clear the box only after user-approved

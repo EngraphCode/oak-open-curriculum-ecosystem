@@ -23,8 +23,10 @@ strategy that resolves its conflict semantics;
 validation evidence:
 [`graph-team-first-worktree-run-analysis-2026-06-10.md`](../../../.agent/reports/graph-team-first-worktree-run-analysis-2026-06-10.md)
 §1 and §6.
-Operationalised by the rules `stage-by-explicit-pathspec`, `no-machine-local-paths`,
-`important-state-not-in-temp-files`, and `agent-state-observable`.
+Operationalised by the rules `stage-by-explicit-pathspec`,
+`important-state-not-in-temp-files`, and `agent-state-observable`, and by the
+machine-local-path enforcement surface (principles.md §No machine-local paths;
+the `validate-no-machine-local-paths` repo-validator and write hook).
 
 ## Context
 
@@ -75,7 +77,7 @@ the registry wins, never the branch's.**
   paths may target another stream, but they do not redefine the canonical home or mint canonical
   F-95 proof: watcher heartbeats bind to the actual absolute comms source and canonical readers
   reject a source mismatch. Machine-local paths are runtime inputs only and are never written
-  into a versioned file (`no-machine-local-paths`).
+  into a versioned file (principles.md §No machine-local paths, mechanically enforced).
 - The Director role, not the individual, owns the home. Role succession transfers it via
   PDR-064's two moments; the registries persist across holders.
 

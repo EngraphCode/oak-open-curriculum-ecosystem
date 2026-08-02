@@ -1072,3 +1072,124 @@ surface is an instance of the reports' Principle 3 pattern
 precedent both reports cite). Cures verified on main this sitting:
 PDR-078's substrate-category section now reads clause 2 as retired
 with heartbeats emitting on cadence regardless.
+
+### 2026-08-02 ~21:12Z — STEP 3 LANDED (three of four) + the day's arc; freeze boundary
+
+Reclassification step 3, executed as authority transitions per the
+task-15 integration. LANDED on origin (2423b6818..d45a0d74d):
+no-type-shortcuts 85c7a6dc8, no-skipped-tests 62fff5e79 (ADR-011/121
+provenance re-sited into testing-strategy's own bullet),
+unknown-is-type-destruction d0ccd3fd8 (preservation-test payload
+relocated whole into typescript-practice §Preserving Type
+Information; sweep's lint-coverage warrant corrected honestly to 1/4
+bullets). Closure evidence at push: classification gate 6/6,
+portability parity 119 canonical rules across four surfaces, index
+72 core / 47 situational. Reader censuses ran as four parallel
+subagents; every disposition first-hand verified before editing.
+Conserved corpora untouched throughout.
+
+The census also caught a live defect: the step-1 conversion had left
+rules-index-classification.unit.test.ts 5/6 RED on the branch
+(vocabulary renamed, paired validator not re-trued — invisible to
+docs-ceremony hooks). Owned, cured via reviewed bot PR #724, merged
+b9a246bb1 (Copilot clean; opus code-expert APPROVE with independent
+contract recompute + mutation checks). Its six non-blocking findings
+are dispositioned on the PR; findings 1-4 form the loader-contract
+follow-up unit (relocate the classification contract into
+rules-index-checks.ts with literal fixtures; add the
+trigger-vocabulary pin; drop per-row config tests; delete the
+live-tree read). Source-side citation re-points are PR #726 (open,
+Copilot requested; drive to merge at resume).
+
+PENDING: no-machine-local-paths (D) — window granted, deferred at
+the owner's ~21:10Z freeze word. Shape (census delivered, in the
+session scratchpad as census-no-machine-local-paths.md + the
+graduation-worklist.md): the rule file is part of the hook's own
+enforcement config (policy.json:317 exclude_paths names it; :322
+citation; :326 description); the cure DEFANGS relocated literals so
+the exclusion entry is deleted, not moved. Homes: principles.md §No
+machine-local paths absorbs statement+destination-test;
+safety-and-security.md takes the forbidden-shape enumeration +
+worked examples (defanged) including the ..-escape class (its only
+statement anywhere; validator cannot detect it — coverage gap to
+state to the Director); important-state-not-in-temp-files takes the
+tmp/<scratch> conventions. Operative readers: important-state (self-
+described specialisation), principles:314+577, ADR-197:26,
+PDR-038:43+247, practice-index:200. Source bits (validator :149
+message, helpers test :79) ride D's arc. Owner-directed reflection
+artefact landed at d45a0d74d
+(stack-reflection-and-building-blocks-2026-08-02.md) — the
+building-block identification routes into the backfill + evals
+pilot.
+
+### 2026-08-02 ~21:38Z — STEP 3 COMPLETE (four of four): no-machine-local-paths landed as an authority transition
+
+Resumed at owner word minutes after the freeze; the owner pacing
+directive (21:23:33Z — deliberate pace, no parallel bursts, cold
+pause when the lane empties) was absorbed as the first post-resume
+act. The Director granted the D window on top of the fold commit
+e3574388b (grant event 585759ed) and holds the #714 fold merge for
+this push-complete so D rides tonight's fold in one check-cycle.
+
+The relocation map (census in the session scratchpad,
+census-no-machine-local-paths.md — 119 hits across 95 files; the 73
+conserved hits retained untouched):
+
+- principles.md §No machine-local paths absorbs the rule statement,
+  the destination-not-syntax test, and the 2026-06-12 owner ruling
+  (whole-repo, retroactive, no exceptions); the works-for-any-user
+  lens paragraph re-pointed.
+- safety-and-security.md gains §Machine-local paths (new, under
+  Privacy Protection beside the PII-estate section): the three
+  forbidden shapes INCLUDING the dot-dot-escape class, the three
+  permitted shapes with the reference-style-link prohibition, the
+  sweep's authoring conventions, the tilde-recontamination warning,
+  the code-class follow-on lane, the detection description, and the
+  three worked examples — all DEFANGED (placeholder forms
+  throughout; the two live-matching machine-temp literals are named
+  in words so the fanged strings live in the policy file alone).
+- important-state-not-in-temp-files absorbs the repo-root tmp/ and
+  scratch-placeholder authoring conventions; its specialisation
+  framing re-anchored from the rule file to the principle (opening
+  block, composition entry, Related list).
+- Operative readers re-pointed: ADR-197 operationalisation line +
+  registry-state line; PDR-038 worked-instance narrative and
+  instance list (present-truth graduation note, structural surface
+  named as surviving); PDR-125 origin/checkout clause; the
+  practice-index PDR-038 row removed; the ARC reference's
+  repo-root-relative clause; repo-continuity's invariant line; two
+  session prompts (hook concept name trued; rule → principle).
+- policy.json: the citation string re-pointed to the two receiving
+  homes IN THIS COMMIT — verified first-hand that only the
+  machine-local helpers unit test reads the live policy, and it
+  pins patterns + exclusion behaviour, not the citation. The
+  exclude-entry deletion and group-description truing are DEFERRED
+  to the source leg: the helpers test asserts the rule path is
+  skipped by the LIVE exclude set, so the atomic pair
+  (entry deletion + fixture re-target) rides the reviewed source PR
+  on the #726 branch (base = this coordination branch) together
+  with the validator gate-message re-point and three TSDoc/comment
+  mentions (merge-bot repo-config, transcript-locator, the
+  content-audit build-registry generator). Every landed state is
+  green by construction on both legs — the class cure from the
+  step-1 red-gate lesson applied at plan time.
+
+COVERAGE GAP stated to the Director: the dot-dot-escape forbidden
+shape has NO mechanical detection — no regex in the pattern set
+covers a relative chain escaping into a per-user surface; review is
+the only net. The safety-governance section states the gap in
+place; a validator extension is routed as a pointer, not built in
+this lane.
+
+Index counts: 72 → 71 core, 47 situational unchanged. All four
+on-disk forms removed in this commit. One conserved-corpus cure the
+census's class map predicted as a link: the backlog plan
+claim-liveness-crash-reconciliation §Risks carried the estate's
+single RESOLVING link to the rule file outside excluded archives —
+the link validator flagged it at removal and it is de-linked to
+dated prose in this commit (the frozen-v1 mirror sits under an
+excluded archive path and stays untouched). Closure evidence
+recorded at push in the ceremony chain (classification gate,
+portability parity, repo validators, link validators, the
+machine-local helpers suite proven green against the interim policy
+state).

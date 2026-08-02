@@ -319,7 +319,7 @@
             "hooks/policy.json",
             "validate-no-machine-local-paths"
           ],
-          "citation": "no-machine-local-paths.md; principles.md \u00a7No machine-local paths; org policy \u2014 no PII (a user-home absolute path leaks a username)",
+          "citation": "principles.md \u00a7No machine-local paths; docs/governance/safety-and-security.md \u00a7Machine-local paths; org policy \u2014 no PII (a user-home absolute path leaks a username)",
           "reappraisal": "Use a repo-root-relative path for in-repo targets, or a platform-provided variable / tilde form (~/...) for per-user surfaces. A user-home or machine-temp absolute path resolves only on one machine and often leaks a username (PII). Portable system paths (/usr/bin, /opt/homebrew/bin) are fine; placeholder forms (/Users/<user>/) are fine."
         }
       ],

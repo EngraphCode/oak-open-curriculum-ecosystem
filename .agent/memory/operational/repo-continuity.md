@@ -555,7 +555,8 @@ authority.
 - Shared memory/state files are always writable and commit-includable when dirty.
 - No machine-local paths anywhere in the repo, ever (PII) — enforced by the
   `validate-no-machine-local-paths` repo-validator + the `machine-local-path`
-  write-hook (`.agent/rules/no-machine-local-paths.md`).
+  write-hook (shapes: `docs/governance/safety-and-security.md`
+  §Machine-local paths).
 
 [main-sonar-zero]: threads/main-sonar-ai-profile-to-zero.next-session.md
 [mcp-analytics]: threads/mcp-product-analytics.next-session.md

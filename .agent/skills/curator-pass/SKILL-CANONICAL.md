@@ -73,8 +73,8 @@ plus targeted reads). The surfaces:
 - In-repo platform plans: anything in `.agent/plans/.../current/`
   that overlaps the substrate-care lane.
 
-Record each surface and its disposition in the pass log's
-Surfaces-surveyed table.
+Carry each surface and its disposition into the close-of-pass
+broadcast (Step 8).
 
 ### Step 3 — Identify durable knowledge ready to route
 
@@ -90,9 +90,9 @@ register:
 If all three: route. If not all three: leave in place; the
 substance is not yet ready.
 
-The pass log records the routing as a one-line pointer:
-*"<concept> → <permanent home>"*. The substance lives at the
-destination, not in the log.
+The commit that lands the move records the routing as a one-line
+pointer: *"<concept> → <permanent home>"*. The substance lives at
+the destination.
 
 ### Step 4 — Identify home-gaps
 
@@ -101,8 +101,8 @@ not to force it into the nearest file; the cure is to surface the
 gap as a structural-cure proposal.
 
 Each home-gap surfacing routes to the owner as a comms event or
-directly in a routing exchange. The pass log records the gap by
-short title plus pointer to the routing event.
+directly in a routing exchange. The close-of-pass broadcast names
+the gap by short title plus pointer to the routing event.
 
 ### Step 5 — Identify structural defects
 
@@ -112,8 +112,8 @@ surfaces, adoption gaps on landed substrate, classification
 confusions — get surfaced as routing events.
 
 The substance of each defect lives at the comms event (or napkin
-entry if active-memory observation is the right home). The pass
-log records the defect by short title plus pointer.
+entry if active-memory observation is the right home). The
+close-of-pass broadcast names the defect by short title plus pointer.
 
 ### Step 6 — Drain graduation buffers
 
@@ -136,8 +136,8 @@ ratification — graduation of an entry to a principle-class
 destination, classification of a substrate ambiguity, scoping of a
 buffer migration. Route those through the normal owner-decision
 gates (AskUserQuestion or equivalent on the host platform). The
-pass log records each decision by name and verdict, not by
-substance.
+close-of-pass broadcast names each decision and its verdict, not
+its substance.
 
 ### Step 8 — Close the pass
 
@@ -158,9 +158,7 @@ the commit plus the homed substance are the curator's record, and git history
 is the pass-navigation index. The pass's observable claim is a normal active
 claim (`register-active-areas-at-session-open`); its surfaced substance rides
 the close-of-pass comms broadcast and lands in its permanent home. **Do not
-author a per-pass disposition-pointer log file.** The step-prose above that
-still mentions "the per-pass log" references this superseded surface and
-aligns to a commit-plus-broadcast record on next curator use.
+author a per-pass disposition-pointer log file.**
 
 ## Forbidden moves
 
@@ -177,25 +175,26 @@ A curator pass MUST NOT:
   upward.
 - Author principle-class changes without owner approval. The
   curator surfaces the proposal; the owner ratifies.
-- Carry substance in the per-pass log file. Substance has one
-  permanent home; the log points at it.
+- Carry substance in the pass record instead of homing it.
+  Substance has one permanent home; the commit and the
+  close-of-pass broadcast point at it.
 
 ## Closeout
 
 Standard team-member closeout shape applies when the pass runs
 inside a multi-agent session. The curator's closeout names the
-pass log file, any retained claims, and the comms broadcast event
+pass commit(s), any retained claims, and the comms broadcast event
 id that carries the substantive findings.
 
-A solo curator-pass session closes by emitting the broadcast and
-finalising the log file; no team-member-closeout broadcast is
+A solo curator-pass session closes by landing the pass commit(s)
+and emitting the broadcast; no team-member-closeout broadcast is
 required if no team is live.
 
 ## Cascade
 
 The doctrine cascade from PDR-081 includes optional adopting-repo
-ADRs that name the substrate implementation (where the per-pass
-log lives, what filename convention applies, how the pass interacts
-with quality gates). This SKILL assumes the substrate exists; if a
-repo has not yet adopted the substrate, the first curator pass
-authors it.
+ADRs that name the substrate implementation (which comms surface
+carries the close-of-pass broadcast, how pass commits are scoped and
+messaged, how the pass interacts with quality gates). This SKILL
+assumes the substrate exists; if a repo has not yet adopted the
+substrate, the first curator pass authors it.

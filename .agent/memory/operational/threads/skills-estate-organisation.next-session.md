@@ -44,13 +44,21 @@
   held, vocabulary + loader contract in the index prose); wrapper
   pass DONE 2026-08-02 (28 flips with bar-conformant descriptions,
   all specifics first-hand verified; 4 glob-scoped wrappers kept as
-  the Cursor `surface:*` loader realisation); NEXT the four proven
-  graduations (no-skipped-tests, no-type-shortcuts,
-  unknown-is-type-destruction, no-machine-local-paths — each lands
-  with its verified mechanism named and executes as an authority
-  transition per the task-15 integration: reader census, per-reader
-  disposition, closure evidence, fourth-specimen watch — see the
-  working record's ~19:55Z entry), then loader config for
+  the Cursor `surface:*` loader realisation); graduations FOUR OF
+  FOUR DONE 2026-08-02 (no-type-shortcuts 85c7a6dc8, no-skipped-tests
+  62fff5e79, unknown-is-type-destruction d0ccd3fd8 — landed as
+  authority transitions with closure evidence; no-machine-local-paths
+  landed post-resume as an authority transition, relocated to
+  principles.md §No machine-local paths, safety-and-security.md
+  §Machine-local paths (new), and important-state-not-in-temp-files;
+  index 71 core / 47 situational; full shape in the working record's
+  ~21:38Z entry; gate-cure PR #724 merged b9a246bb1 earlier, its
+  findings 1-4 form the loader-contract follow-up unit); NEXT: the D
+  mechanism source leg rides the #726 branch (policy exclude-entry
+  deletion + helpers-fixture re-target + validator-message re-point +
+  three TSDoc mentions — an atomic pair with the live-policy-reading
+  test), drive #726 to merge into the coordination branch, then
+  loader config for
   `surface:*`/`tool:*` instances — the R2 mint's loader-config
   disposition rides there; (2) WS6 landing legs incl. the three cross-family
   routing edges (reason stop-gate commissioning seam,

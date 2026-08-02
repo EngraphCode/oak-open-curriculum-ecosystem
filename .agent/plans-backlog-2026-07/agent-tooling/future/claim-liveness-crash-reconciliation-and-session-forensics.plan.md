@@ -177,8 +177,9 @@ the cures are independent.
 - **Cross-platform dead-owner detection is unreliable.** OS process-liveness is
   platform-specific; heartbeat-absence is the portable signal. The forensics CLI
   must abstract the session-store location (`~/.claude/projects/...` is
-  Claude-Code-specific and machine-local — honour
-  [`.agent/rules/no-machine-local-paths.md`](../../../rules/no-machine-local-paths.md)).
+  Claude-Code-specific and machine-local — honour the
+  no-machine-local-paths principle, at authoring time a rule file,
+  since 2026-08-02 `principles.md` §No machine-local paths).
 - **False-positive orphaning** of a live-but-paused agent (long tool call, owner
   away, deliberate idle). The liveness floor must sit above realistic gaps; a
   takeover should be reversible / re-claimable, not destructive.
