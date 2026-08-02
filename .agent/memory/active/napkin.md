@@ -591,7 +591,7 @@ entity's absence must first prove the surface CAN carry that entity.
   corrected-directions applies to SELF-authored descriptions too, not only owner
   corrections.
 
-<!-- fitness exceeded by 114 lines before this entry; needs consolidation -->
+<!-- fitness already exceeded before this entry; needs consolidation -->
 
 ## Session: 2026-08-01 — Caracal's Practice architecture inquiry and cold pause
 
@@ -663,10 +663,10 @@ entity's absence must first prove the surface CAN carry that entity.
   coordination base in a fresh worktree, set and verified worktree-scoped bot
   author/committer config while proving the primary remained human, then used a
   minted bot token for push and PR creation. The first remote ref,
-  `caracal/practice-architecture-cold-pause` at `d8c25f3c`, remains live and has
+  `caracal/practice-architecture-cold-pause` at `SHA:d8c25f3c`, remains live and has
   no PR. It is a Caracal-created, owner-misattributed parallel ref whose
   disposition is unresolved; its Git metadata is not evidence that Jim authored,
-  accepted, owns, or disposed of the work. The bot ref at `e6629810f` is the head
+  accepted, owns, or disposed of the work. The bot ref at `SHA:e6629810f` is the head
   of draft PR #702 and differs by ten additional napkin lines; neither commit is
   an ancestor of the other. Exclusion from a PR is not disposition, and no
   deletion, retention, merge, or supersession decision may be inferred from
@@ -697,3 +697,18 @@ entity's absence must first prove the surface CAN carry that entity.
   explicit.
 - Remaining unknown, not lost: whether the Practice produces genuine learning,
   mutual understanding, calmer human attention, or valuable outside outcomes.
+
+## 2026-08-02 — Director provenance reconciliation on the #702 record (Falcon hunts Flight)
+
+The custody inventory above froze before the final acts and is
+reconciled here rather than rewritten: the owner-misattributed ref
+`caracal/practice-architecture-cold-pause` (`SHA:d8c25f3c`) was DELETED
+2026-08-02 after a three-way containment proof (its whole tree is
+contained in the bot branch); PR #702 was flipped ready and gained a
+THIRD commit — the `origin/main` conflict-resolution merge
+`SHA:838aebd26`, authored by the Director seat under shared owner
+credentials at the owner's word, so the branch is no longer
+bot-commit-only: Caracal's two preservation commits remain bot-authored
+and untouched, and the merge commit is Director-authored housekeeping.
+Both worktrees named above were pruned clean. This entry is the
+observable final state at merge.

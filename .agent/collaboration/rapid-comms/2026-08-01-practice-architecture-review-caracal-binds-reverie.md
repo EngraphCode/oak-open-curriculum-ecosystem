@@ -17,7 +17,7 @@ outcome evidence at that boundary.
 
 ## Outcome
 
-The analytical journey is durable at commit `794c31042` in
+The analytical journey is durable at commit `SHA:794c31042` in
 `.agent/reports/agentic-engineering/agent-tools-practice-evolution-concept-journey-2026-08-01.md`.
 It records why the session began; the mechanism and purpose inquiries; the
 `use_this_when` metadata incident; inquiries C and D; the altitude reset; the
