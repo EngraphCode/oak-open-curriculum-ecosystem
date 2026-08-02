@@ -29,21 +29,34 @@
   working copies on the primary (`.agent/skills/cognition/`,
   `.agent/reports/cognitive-structure/`) are HIS — never fold, never
   edit.
-- Next safe step: **WS0 IS FULLY RULED — R1 ADOPTED AS RECOMMENDED**
-  (owner cards 2026-08-02 ~14:20Z partial + ~14:47Z full; the
-  working record's full-ruling entry carries the owner's
-  audience-partition words, the doctrine-level "Practice skills
-  corpus" naming, and the binding R2/WS5(d) inputs). Enactment order
-  at this seat: (1) R2 landing procedure (audience-set question
-  FIRST, then payload shape × disclosure need; succeeds the SUNSET
-  interim guidance); (2) WS6 landing legs (Parallax `git mv` to
-  `parallax/`, three-part generator extension, self-containment +
-  leaf-id uniqueness checks); (3) R4 scoped pass (hybrid seams + two
-  inversions, check built in the same workstream). R3 DELIVERED
-  (`skills-estate-organisation-relationship-map.md`). Cure PR #718
-  settling (round-1 cures at 5f933cfa1, threads resolved, Copilot
-  re-requested) — merge at full condition. Evals-pilot commissioned
-  (scope-and-plan to the owner before build).
+- Next safe step (at the 2026-08-02 ~16:00Z compaction boundary; ALL
+  state below durable on origin at `e55fb9681`): the lane now holds
+  TWO owner-ratified enactment stories — (A) WS0 fully ruled (R1
+  adopted as recommended; owner's audience-partition words +
+  "Practice skills corpus" doctrine naming + R2/WS5(d) inputs all in
+  the working record's full-ruling entry) and (B) the RULES
+  RECLASSIFICATION (challenged table ratified wholesale, artefact
+  landed at `e55fb9681`; enactment sequence in the task list —
+  RULES_INDEX conversion COORDINATES WITH FALCON FIRST, his
+  relevance-sketch is dirty on the primary, owner-version-wins).
+  Resume order: (1) R2 landing procedure — unblocked (final class
+  names = core/situational, ratified; audience-set question FIRST;
+  the descriptive-framework interface preamble per the ~15:25Z
+  ruling; description bar as landing check); (2) RULES_INDEX
+  conversion (or a fresh enactment seat via the Director); (3) WS6
+  landing legs incl. the three cross-family routing edges (reason
+  stop-gate commissioning seam, concept-exploration surviving-question
+  handoff, proportionality depth-mode escalation — never before
+  summonability); (4) R4 scoped pass; (5) three-corpora description
+  backfill + union collision matrix with the evals pilot. DONE this
+  session: R3 delivered (`skills-estate-organisation-relationship-map.md`);
+  cure PR #718 MERGED to main at `7fde660de`; the
+  naming/description rule minted + scoped to all three corpora at
+  the owner's rulings (`01129ba3a`); WS0 gate CLOSED. The
+  commit-warden singleton was handed back to the Director at this
+  freeze (cadence-drop clause); the lane claim 327d2f89 is RETAINED
+  — the seat continues at owner word and re-grounds live state
+  before acting.
 - State at 2026-08-02 movement-4 close: ALL FOUR MOVEMENTS CLOSED.
   The recommendation
   (`.agent/reports/agentic-engineering/skills-estate-organisation-ws0-recommendation.md`)

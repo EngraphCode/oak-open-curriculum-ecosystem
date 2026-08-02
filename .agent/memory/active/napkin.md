@@ -834,3 +834,56 @@ package where general mechanism and Oak identity cohabit — today exactly
 two, oak-design-system and oak-design-assets, both deliberate. Candidate
 graduation: a constraint-surface sentence in §Separate Framework from
 Consumer.
+
+## 2026-08-02 ~16:00Z — Sif lane compaction captures (Charcoal seeks Tongs, 9d3a21)
+
+- **Three output masks in one compound, at this seat's own hands (round-10 landing on
+  #713):** the message validator's failure was silenced by >/dev/null, the queue guard's
+  failure was swallowed by tail -1, and the echoed "WORKFLOW-EXIT:0" was TAIL'S exit, not
+  the workflow's — the piped-exit class, three instances in one command. State-read-before-
+  retry held (no commit had landed; the bundle stayed staged; root cause was a 104-char
+  header). Cures adopted for the rest of the arc: success verified from STATE (git log,
+  ls-remote, event files), per-leg exits echoed unpiped, message files written by tool not
+  heredoc.
+- **A sampling finder has no fixed point; cure the class, not the instance (#713 rounds
+  7-14):** suppressed-finding counts ran 5,5,2,4,3,3 with round 10 flagging two surfaces
+  unchanged since round 1 — Copilot samples a dense 14-file doctrine diff differently each
+  pass rather than converging. The Director's tally-stop ruling (materiality line: cure
+  correctness-class, disposition polish with verified failure scenarios; every item visibly
+  adjudicated on the PR; routed residue needs a named carrier) kept the loop honest and
+  bounded. The decisive move was round 12's class-kill: one assertExactSet sweep ended the
+  presence-only family the finder had landed one-instance-per-round for three rounds.
+  Graduation candidate: review-ratchet doctrine gains both lessons.
+- **Run the instrument live, not just statically (probe on #713):** three rounds of probe
+  edits shipped on node --check + suites alone; the FIRST live run (round 10) was also the
+  proof that the record's schema enumerations were complete, and each later hardening
+  (GIT_*-strip, lstat sentinel, additionalProperties pin) was validated by a fresh live
+  PASS — five consecutive. Runnable-examples-are-run applies doubly to probe/instrument
+  code; a live run is also the cheapest completeness oracle for exact-set pins.
+- **Hook fingerprint false-positive, heredoc edition:** a commit ceremony compound drew the
+  git-checkout-destruction block with no checkout anywhere in it — the fingerprint matched
+  inside heredoc PROSE. Cure per hook-policy-substring-discipline: move the prose out of
+  the shell (Write tool for message files), never synonym-swap the concept. Instrument
+  note for that rule's examples.
+
+## 2026-08-02 ~16:00Z — warden-window instrument notes, second freeze boundary (Skylark hunts Nimbus, e856d5)
+
+- **A blind `complete` closes a LIVE intent**: twice this session a
+  `commit-queue complete` chained after an unverified commit step closed an
+  intent whose commit had NOT run (the guard then refused the retry with
+  "unknown intent_id"). Cure adopted: `complete` only after the commit is
+  verified in the log, never chained behind it. Also the first counterexample
+  to the earlier "end state correct both times" note: Falcon's d41556f1
+  completed-with-exit-2 left the intent ACTIVE — always read the queue.
+- **Hook substring scan matches across compound commands**: a `git push` and a
+  later `gh api -f body=...` in ONE Bash call tripped the push-force block
+  ("push … -f" matched across the compound). Cure: split pushes from any
+  command carrying `-f` flags.
+- **`markdownlint-cli2 <explicit-file>` can match 0 files and exit 1** when
+  the repo config's globs exclude the path class — "Summary: 0 issues in 0
+  files" is a no-op, not a pass. Read the summary, not the exit.
+- **Worktree bot-identity setup**: bare `git config` in a linked worktree
+  writes the SHARED repo config even with `extensions.worktreeConfig=true` —
+  scoping requires the explicit `--worktree` flag; and cwd-pinned shells make
+  "cd primary && verify" silently run in the worktree (use `git -C <path>`).
+  Worked instance cured in ~2 min, zero impact; broadcast eee0e1e0.
