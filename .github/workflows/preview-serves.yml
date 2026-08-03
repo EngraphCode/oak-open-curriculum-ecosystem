@@ -10,61 +10,148 @@ name: preview-serves
 # runtime-only failure classes the build-time deploy-config guard cannot:
 # routing, platform composition, cold-start crashes.
 #
+# Trigger semantics (observed 2026-08-03 on run 30827202090): a
+# `deployment_status` workflow runs from the workflow file at the
+# DEPLOYMENT'S commit SHA — so this gate is live on any branch that
+# carries this file (including the PR that introduces it), and a PR whose
+# head predates this file never reports the status. That run was also
+# the gate's first live catch: it published a `failure` status against
+# a preview whose `/healthz` returned 500 behind a green `Vercel` check.
+#
+# Preconditions for "the gate reports on a PR" — the checklist the
+# ruleset phase must clear before `preview-serves` becomes required:
+#   - the head SHA carries this file (trigger semantics above);
+#   - Vercel emitted a GitHub Deployment and a success status for it
+#     (deliveries proven live on this repo: run 30827202090, 2026-08-03);
+#   - the deployment's environment name contains "Preview". ADR-163 §3
+#     records that Vercel permits `vercel --prod` from a non-main
+#     branch; such a deployment lands under a Production environment
+#     name and this gate does not cover it — a known coverage gap,
+#     not an ADR-backed exclusion;
+#   - the deployment's environment_url host is under
+#     vercel.thenational.academy (the egress allowlist below): any
+#     other host fails the job and publishes NO status, and unlike the
+#     failure/error case there is no compensating red once the
+#     context is required;
+#   - the deployment was created by vercel[bot] (the creator gate below).
+# A deployment that reports failure/error produces no status here; the
+# required `Vercel` check already covers that case red.
+#
 # Sequencing note: `preview-serves` joins the branch ruleset's required
-# checks only AFTER it has been observed reporting on a real PR (adding an
-# unreporting required status would block every merge) — the plan's
-# verification step orders this deliberately.
+# checks only AFTER it has been observed reporting a PASSING result on a
+# real PR (an unreporting required status would block every merge). That
+# addition must require the STATUS CONTEXT `preview-serves` (not this
+# workflow's job check run) and pin the context's integration to GitHub
+# Actions — the plan's verification step orders this deliberately. The
+# ruleset change lands with its paired doc changes in the same PR: an
+# ADR-121 coverage-matrix row and change-log entry, and an ADR-204
+# required-check-set update (ADR-204 has separately drifted from the
+# live ruleset — reconcile it there).
 
 on:
   deployment_status:
 
 permissions: {}
 
+# Two success events for one SHA (redeploy, webhook redelivery) must not
+# let a slower stale run overwrite a fresher verdict last-write-wins.
+concurrency:
+  group: preview-serves-${{ github.event.deployment.sha }}
+  cancel-in-progress: true
+
 jobs:
   probe:
+    name: probe
     # Vercel names preview deployment environments "Preview" (optionally
     # suffixed); production deployments are out of scope for this gate.
+    # The creator gate stops a write-access actor minting an
+    # Actions-attributed `preview-serves` green on an arbitrary SHA via a
+    # hand-crafted deployment + status (creator.login field verified
+    # 2026-08-03 on live deployment 5729994312; `performed_via_github_app`
+    # is null for Vercel deployments on this repo, so the login is the
+    # stable field).
     if: >-
       github.event.deployment_status.state == 'success' &&
       contains(github.event.deployment.environment, 'Preview') &&
-      github.event.deployment_status.environment_url != ''
+      github.event.deployment_status.environment_url != '' &&
+      github.event.deployment.creator.login == 'vercel[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       statuses: write
     steps:
       - name: Probe the deployment and publish the preview-serves status
+        shell: bash
         env:
           TARGET_URL: ${{ github.event.deployment_status.environment_url }}
           DEPLOY_SHA: ${{ github.event.deployment.sha }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
         run: |
-          set -u
+          set -euo pipefail
+
+          # Reject anything that is not a bare host after the scheme:
+          # `*` in a case pattern spans `/`, `?`, `#` and `@`, so the
+          # suffix match below does not on its own anchor the authority.
+          case "${TARGET_URL#https://}" in
+            *[!a-zA-Z0-9.-]*)
+              echo "::error::unexpected environment_url host: ${TARGET_URL}" >&2
+              exit 1
+              ;;
+          esac
+
+          # The only host family this job will egress to; also closes
+          # curl argument injection from a leading-dash environment_url.
+          case "$TARGET_URL" in
+            https://*.vercel.thenational.academy) ;;
+            *)
+              echo "::error::unexpected environment_url host: ${TARGET_URL}" >&2
+              exit 1
+              ;;
+          esac
+
           publish() {
-            state="$1"; description="$2"
+            local state="$1"
+            local description="$2"
             gh api "repos/${REPO}/statuses/${DEPLOY_SHA}" \
               -f state="$state" \
               -f context=preview-serves \
               -f description="$description" \
-              -f target_url="$TARGET_URL" >/dev/null
+              -f target_url="$TARGET_URL" >/dev/null || {
+              echo "::error::could not publish preview-serves status for ${DEPLOY_SHA}" >&2
+              return 1
+            }
           }
 
+          PROBE_CODE=000
           probe() {
-            path="$1"
-            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "${TARGET_URL}${path}" || echo 000)
+            local path="$1"
+            local code
+            code=$(curl -sS -o /dev/null -w '%{http_code}' --proto '=https' \
+              --connect-timeout 5 --max-time 10 "${TARGET_URL}${path}") || code=000
             echo "probe ${path} -> ${code}" >&2
+            PROBE_CODE="$code"
             [ "$code" = "200" ]
           }
 
-          # Bounded retries: cold starts and router propagation can lag the
-          # deployment_status event. 10 attempts x 15s covers ~2.5 minutes.
+          # Bounded retries: cold starts and router propagation can lag
+          # the deployment_status event. Wall-clock ceiling: 10 attempts
+          # x (2 probes x 10s curl budget) + 9 x 15s sleep ~= 335s, well
+          # inside the job's 10-minute timeout so the failure status is
+          # always PUBLISHED rather than the job dying silently.
           attempt=1
           max_attempts=10
           while [ "$attempt" -le "$max_attempts" ]; do
             if probe "/healthz" && probe "/.well-known/oauth-protected-resource"; then
               publish success "healthz and protected-resource metadata both serve (attempt ${attempt}/${max_attempts})"
               exit 0
+            fi
+            # An edge auth wall or host-allowlist rejection is
+            # deterministic for the deployment's lifetime — retrying
+            # cannot turn it green, so fail fast and legibly.
+            if [ "$PROBE_CODE" = "401" ] || [ "$PROBE_CODE" = "403" ]; then
+              publish failure "deployment answers ${PROBE_CODE} (auth wall or host allowlist): the probe cannot reach the app"
+              exit 1
             fi
             attempt=$((attempt + 1))
             [ "$attempt" -le "$max_attempts" ] && sleep 15
