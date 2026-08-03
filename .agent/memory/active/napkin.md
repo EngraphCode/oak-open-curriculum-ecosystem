@@ -1399,3 +1399,44 @@ The #714 thread at installation.md:93 and task #12 (WS6) are ONE story, fully sp
 - Leg 2: generator family support, exactly three changes (R1): (1) two-level discovery scoped to `<family-id>/skills/<skill-id>/` — an immediate child with SKILL-CANONICAL.md is an individual, one with a `skills/` subdir is a family, anything else stays a LOUD skip (the #718 exit-1 cure is prior art and its test pins `cognition` as skipped — that test MOVES to a neither-shape fixture); (2) family-aware canonical paths in adapter bodies (renderAdapterBody takes the bundle-relative dir, title/name still from leaf id); (3) refusal on duplicate leaf ids + corpus-wide leaf-id uniqueness as a validator check. Checker mirrors discovery — consolidate one discovery function over the CheckerFs seam (second consumer).
 - Leg 3: run the generator, commit the nine parallax skills' adapters on both surfaces (.claude/skills + .agents/skills, existing prefix convention — read it from the tree at implementation).
 - Red-first: vitest unit tests in agent-tools/tests/skills-adapter-generate/ (checker fs-map fixtures make family shapes cheap); PDR-132 two-round budget; Copilot at open; code-expert (opus) pre-merge; #714 thread PRRT_kwDOPUA_4M6V0r1I resolves when this PR merges and re-review settles — it carries a status reply saying exactly that.
+
+- ~09:00Z bulk-drift facts (upstream read first-hand at the owner's local oak-openapi checkout): the bulk generator was REBUILT 2026-07-09 (68fdfc8 "add bulk
+  data gen") and de-bugged 2026-07-22 (0eefdf6 — a one-line get-data.ts fix
+  for lessons TRUNCATED to one per unit); our local snapshot (June 10,
+  apps/oak-search-cli/bulk-downloads, gitignored) predates the new generator
+  entirely. Upstream now PUBLISHES a formal bulk JSON Schema (16.5KB, $defs)
+  at src/app/api/bulk/schema.json/ — our hand-maintained Zod templates
+  (sdk-codegen typegen/bulk/schema-templates*) have a declared upstream
+  counterpart for the first time; that comparison is TYPE-LAYER and
+  owner-collaborative per the standing lane constraint. Our download script's
+  32-subject list is hardcoded — upstream availability delta unchecked.
+  Offset/limit sentinel verdict: units handlers show ZERO behavioural diff in
+  the spec range — descriptions went generic via the new requestMetadata
+  machinery; overrides likely STAY with re-pinned sentinel text.
+
+## 2026-08-03 ~09:10Z (Magnetar/74d914): OWNER RULING — bulk schema contract, interim vs end-state (verbatim-critical)
+
+"there is no choice there... during this critical time as Matt works on the
+first submission we cannot change a foundational mechanism, so for now we
+update our hand written schema, but as soon as the release is done, making
+that contract fully derived from the upstream bulk schema is a priority."
+BINDING, two phases with the revisit condition NAMED (release completion):
+(1) INTERIM — the hand-written Zod bulk templates are manually TRUED against
+upstream's published schema (src/app/api/bulk/schema.json upstream);
+upstream's schema is the AUTHORITY the truing follows; a data-vs-schema
+mismatch is an upstream bug report, never validation-loosening. (2)
+POST-RELEASE PRIORITY — the contract becomes fully DERIVED (generated) from
+the upstream bulk schema. Context fact for the map: Matt is working on the
+FIRST SUBMISSION — foundational mechanisms hold stable estate-wide for that
+window at owner word. Decision recorded in ADR (this window's commit) per
+his instruction.
+
+- ~09:15Z owner value-frame on cost-of-change (verbatim): "cost of change is
+  something very important to me, in the broad systems and system change
+  sense, another way of looking at the same thing from my perspective is
+  'enabling rapid innovation without compromising quality or stability'."
+  Calibration data for BOTH live carriers: the design-system kernel property
+  (cost-of-change-is-the-product, Corsair's lane — relayed) and PDR-135's
+  foundations review (Vanilla's later phase — rides that brief). ADR-222 is
+  itself an instance: stability held through the release window, the
+  innovation arm (derivation) sequenced as the post-release priority.
