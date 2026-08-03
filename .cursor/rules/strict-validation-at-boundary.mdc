@@ -1,1 +1,6 @@
+---
+description: Data arriving from an external boundary (JSON.parse, API responses, file reads, SSE, WebSocket) is unknown; validate immediately to the exact expected shape (Zod, exhaustive guard, or SDK types) and never widen — as Record<string, unknown> is widening, not validation.
+alwaysApply: true
+---
+
 Read and follow `.agent/rules/strict-validation-at-boundary.md`.
