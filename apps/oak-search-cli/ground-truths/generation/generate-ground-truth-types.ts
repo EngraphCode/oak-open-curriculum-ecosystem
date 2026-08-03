@@ -25,7 +25,11 @@ import {
   type ParsedBulkData,
 } from './type-emitter';
 import { emitGroundTruthSchemas } from './schema-emitter';
-import { checkBulkDataFreshness, type BulkFreshness } from '../../src/cli/shared/bulk-freshness';
+import {
+  checkBulkDataFreshness,
+  nodeManifestFsReader,
+  type BulkFreshness,
+} from '../../src/cli/shared/bulk-freshness';
 
 // ============================================================================
 // Types
@@ -296,7 +300,7 @@ function verifyBundleVintage(bulkDir: string): Result<BulkFreshness, GenerationE
   const freshness = checkBulkDataFreshness({
     bulkDir,
     now: new Date(),
-    fs: { readFileSync: (path) => readFileSync(path, 'utf8') },
+    fs: nodeManifestFsReader,
   });
   if (!freshness.ok) {
     return err({ kind: 'validation_error', message: freshness.error.message });

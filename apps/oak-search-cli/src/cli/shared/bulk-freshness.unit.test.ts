@@ -1,12 +1,15 @@
 /**
  * Unit tests for `checkBulkDataFreshness`.
  *
- * The bulk bundle is downloaded per-checkout and gitignored, so checkouts
- * silently diverge in data vintage; `manifest.json`'s `downloadedAt` is the
- * vintage record. These tests pin the freshness contract: absent or invalid
- * manifest fails loud, data older than the named age fails loud, and a
- * fresh bundle surfaces its vintage. Deterministic `now` and an injected
- * reader — no real filesystem, no ambient clock.
+ * Bulk DATA files are downloaded per-checkout and gitignored, while the
+ * manifest and schema are tracked — so a clean checkout carries a manifest
+ * whose listed data files are absent, and checkouts with data silently
+ * diverge in vintage. These tests pin the freshness contract: an unreadable
+ * or invalid manifest fails loud, listed-but-absent data files fail loud
+ * (the tracked manifest cannot vouch for data it ships without), data older
+ * than the named age fails loud, and a fresh complete bundle surfaces its
+ * vintage. Deterministic `now` and injected readers — no real filesystem,
+ * no ambient clock.
  */
 
 import { describe, it, expect } from 'vitest';
@@ -27,14 +30,17 @@ const validManifest = {
   files: [{ file: 'maths-primary.json', sizeBytes: 123 }],
 };
 
-const readerFor = (content: string): ManifestFsReader => ({
+/** Reader whose directory holds every file the manifest lists. */
+const readerFor = (content: string, present = ['maths-primary.json']): ManifestFsReader => ({
   readFileSync: () => content,
+  readdirSync: () => present,
 });
 
 const throwingReader: ManifestFsReader = {
   readFileSync: () => {
     throw new Error('ENOENT: no such file or directory');
   },
+  readdirSync: () => [],
 };
 
 const bulkDir = '/app/bulk-downloads';
@@ -100,6 +106,40 @@ describe('checkBulkDataFreshness', () => {
     expect(result.ok).toBe(false);
     if (!result.ok) {
       expect(result.error.type).toBe('manifest_invalid');
+    }
+  });
+
+  it('returns err bulk_data_missing when listed data files are absent from the directory', () => {
+    // The manifest is TRACKED, so a clean checkout that never downloaded
+    // carries a manifest listing files that do not exist. The check must
+    // refuse — this is exactly the absent-bundle state it exists to catch.
+    const result = checkBulkDataFreshness({
+      bulkDir,
+      now: new Date('2026-08-03T12:00:00.000Z'),
+      fs: readerFor(JSON.stringify(validManifest), ['manifest.json', 'schema.json']),
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.type).toBe('bulk_data_missing');
+      expect(result.error.message).toContain('maths-primary.json');
+      expect(result.error.message).toContain('bulk:download');
+    }
+  });
+
+  it('returns err bulk_data_missing when the bulk directory is unreadable', () => {
+    const result = checkBulkDataFreshness({
+      bulkDir,
+      now: new Date('2026-08-03T12:00:00.000Z'),
+      fs: {
+        readFileSync: () => JSON.stringify(validManifest),
+        readdirSync: () => {
+          throw new Error('EACCES: permission denied');
+        },
+      },
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.type).toBe('bulk_data_missing');
     }
   });
 

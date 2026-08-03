@@ -1,16 +1,24 @@
 /**
  * Bulk-data freshness check over the bundle's `manifest.json`.
  *
- * Bulk data is downloaded per-checkout and gitignored, so checkouts
- * silently diverge in data vintage; the manifest's `downloadedAt` is the
- * bundle's vintage record (written by `scripts/download-bulk.ts`). Every
- * consumer that reads bulk data runs this check first: an absent or
- * invalid manifest fails loud, data older than the named age fails loud,
- * and a fresh bundle surfaces its vintage for the consumer to report.
+ * Bulk DATA files are downloaded per-checkout and gitignored, while the
+ * manifest and schema are TRACKED — so a clean checkout carries a manifest
+ * whose listed data files are absent, and checkouts with data silently
+ * diverge in vintage. The manifest's `downloadedAt` is the bundle's
+ * vintage record (written by `scripts/download-bulk.ts`, which rewrites
+ * the manifest with every download). Every consumer that reads bulk data
+ * runs this check first: an unreadable or invalid manifest fails loud,
+ * listed-but-absent data files fail loud (the tracked manifest cannot
+ * vouch for data it ships without — presence only, never sizes: the
+ * downloader stats the directory before writing the new manifest, so its
+ * own size entry is stale by construction), data older than the named age
+ * fails loud, and a fresh complete bundle surfaces its vintage for the
+ * consumer to report.
  *
  * FS reading and the clock are injected for testability (ADR-078).
  */
 
+import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { z } from 'zod';
 import { ok, err, type Result } from '@oaknational/result';
@@ -48,14 +56,21 @@ export interface BulkFreshness {
 
 /** Error from the bulk-data freshness check. */
 export interface BulkFreshnessError {
-  readonly type: 'manifest_missing' | 'manifest_invalid' | 'bulk_data_stale';
+  readonly type: 'manifest_missing' | 'manifest_invalid' | 'bulk_data_missing' | 'bulk_data_stale';
   readonly message: string;
 }
 
-/** Injected manifest reader; any throw is reported as a missing manifest. */
+/** Injected bundle readers; throws are reported as missing surfaces. */
 export interface ManifestFsReader {
   readonly readFileSync: (path: string) => string;
+  readonly readdirSync: (path: string) => string[];
 }
+
+/** The real-filesystem reader both production consumers use. */
+export const nodeManifestFsReader: ManifestFsReader = {
+  readFileSync: (path) => readFileSync(path, 'utf8'),
+  readdirSync: (path) => readdirSync(path),
+};
 
 /** Inputs for the freshness check. */
 interface CheckBulkDataFreshnessInputs {
@@ -118,12 +133,53 @@ function readManifest(
  * `err(BulkFreshnessError)` with an actionable message when the manifest
  * is unreadable, malformed, or the data is stale.
  */
+/**
+ * Verify every data file the manifest lists is present in the directory.
+ * Presence only, never sizes — the manifest's own size entries are stale
+ * by construction (the downloader stats before writing the manifest).
+ */
+function checkListedFilesPresent(
+  bulkDir: string,
+  files: readonly { readonly file: string }[],
+  fs: ManifestFsReader,
+): Result<true, BulkFreshnessError> {
+  let present: Set<string>;
+  try {
+    present = new Set(fs.readdirSync(bulkDir));
+  } catch {
+    return err({
+      type: 'bulk_data_missing',
+      message:
+        `Bulk download directory is not readable: ${bulkDir}\n` +
+        'Run "pnpm bulk:download" to fetch the bundle.',
+    });
+  }
+  const missing = files.map((entry) => entry.file).filter((file) => !present.has(file));
+  if (missing.length > 0) {
+    return err({
+      type: 'bulk_data_missing',
+      message:
+        `Bulk data is absent: the manifest lists ${files.length} data file(s) but ` +
+        `${missing.length} are missing from ${bulkDir} ` +
+        `(first missing: ${missing.slice(0, 3).join(', ')}).\n` +
+        'The manifest is tracked and travels with the repository; the data files are ' +
+        'downloaded per-checkout. Run "pnpm bulk:download" to fetch them.',
+    });
+  }
+  return ok(true);
+}
+
 export function checkBulkDataFreshness(
   input: CheckBulkDataFreshnessInputs,
 ): Result<BulkFreshness, BulkFreshnessError> {
   const manifestResult = readManifest(join(input.bulkDir, 'manifest.json'), input.fs);
   if (!manifestResult.ok) {
     return manifestResult;
+  }
+
+  const presence = checkListedFilesPresent(input.bulkDir, manifestResult.value.files, input.fs);
+  if (!presence.ok) {
+    return presence;
   }
 
   const { downloadedAt } = manifestResult.value;

@@ -1,5 +1,5 @@
 /** CLI commands for lifecycle ingestion operations (ADR-130). */
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { InvalidArgumentError, type Command } from 'commander';
 import type { Client } from '@elastic/elasticsearch';
 import { sanitiseForJson } from '@oaknational/observability';
@@ -24,7 +24,7 @@ import {
   type SearchCliEnvLoader,
 } from '../shared/index.js';
 import { resolveBulkDirFromInputs } from '../shared/resolve-bulk-dir.js';
-import { checkBulkDataFreshness } from '../shared/bulk-freshness.js';
+import { checkBulkDataFreshness, nodeManifestFsReader } from '../shared/bulk-freshness.js';
 import { buildLifecycleService } from './shared/build-lifecycle-service.js';
 import {
   parseLifecycleIngestOpts,
@@ -86,7 +86,10 @@ async function disconnectOakClient(oakClient: { disconnect(): Promise<void> }): 
   }
 }
 
-function failIngestPrecondition(error: { readonly message: string }): IngestPreconditionResult {
+function failIngestPrecondition(error: {
+  readonly type: string;
+  readonly message: string;
+}): IngestPreconditionResult {
   ingestLogger.error(error.message, { error: sanitiseForJson(error) });
   printError(error.message);
   process.exitCode = 1;
@@ -109,7 +112,7 @@ function validateIngestPreconditions(
   const freshnessResult = checkBulkDataFreshness({
     bulkDir: bulkResult.value,
     now: new Date(),
-    fs: { readFileSync: (path: string) => readFileSync(path, 'utf8') },
+    fs: nodeManifestFsReader,
   });
   if (!freshnessResult.ok) {
     return failIngestPrecondition(freshnessResult.error);
