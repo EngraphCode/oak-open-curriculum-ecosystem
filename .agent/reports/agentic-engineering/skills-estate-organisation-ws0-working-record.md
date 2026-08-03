@@ -1264,3 +1264,50 @@ installer channel in the same motion. The ruling strengthens the
 fused loader-config + evals-pilot recommendation standing at the
 owner's door. Next: the seven remaining #714 threads at the
 deliberate pace.
+
+### 2026-08-03 ~09:45Z — round-cure batch landed; WS6 delivered to PR #731; review round 1 adjudicated at the safety wrap
+
+The #714 remainder went from map to near-closure in one sitting.
+Round-cure batch (granted warden window, one push, verified at
+bbdf09077): 6cba5ca56 cured the Parallax payload defects red-first —
+installation.md trued to the landed layout; render_graph.py injective
+ID encoding (`_<hex>_` escapes; new test file, 4/4); both experiment
+validators report malformed permission arrays instead of crashing;
+the product validator requires an explicit
+effect_results_visible_during_run: false for fixed-horizon plans
+(suites 6/6 and 9/9). bbdf09077 realised the RULES_INDEX loader
+contract on Cursor: eighteen surface:* situational wrappers gained
+globs drawn from each canonical trigger's own text, and
+strict-validation-at-boundary.mdc regained its missing frontmatter
+with its index-mandated alwaysApply: true. Seven threads replied and
+RESOLVED with first-hand evidence (validate_bundle verified cured by
+the rehoming itself — parents[2] scopes to the bundle root; no code
+change); Copilot re-review requested. Twelve of thirteen threads
+closed; the thirteenth (generator walk) carries the #731 pointer.
+
+WS6 then went spec-to-PR in the same sitting: the R1-adopted pair —
+`git mv` of the intact bundle to `.agent/skills/parallax/` (category
+tier removed per R1's dated rejection), family-aware discovery in a
+new shared discovery.ts (two shapes only; duplicate-leaf-id refusal;
+loud skips preserved; 33/33 red-first tests), and the nine adapters
+committed on both surfaces with their Skill() permission entries
+(the portability validator's companion contract caught that
+requirement at push). PR #731 open at d271622b4, Copilot requested.
+
+The pre-merge code-expert review (opus) returned CHANGES REQUIRED —
+three verified blockers (the checker drops discovery.skipped so the
+CI leg passes states the generator refuses; the checker's new
+blanket catch reads a missing skills root as an empty corpus; a
+both-shapes root silently drops its members) plus the finding that
+the PORTABILITY validator is a third unconverted corpus walker — the
+nine family canonicals are invisible to it and lack the
+classification: frontmatter it mandates, unseen. Full report posted
+on #731 (comment, bot-authored) at the owner's make-all-work-safe
+word. Round 1 of the PDR-132 budget; the cures are the next sitting's
+first act; #731 does not merge before they land. The ARC channel with
+the Director carries the sitting's four Lichen-program answers
+(PDR-135 routes through practice-core discipline, not the landing
+procedure; the three-document split is load-bearing; registrations
+ride the PDR's review with the PDR-134/ADR-221 status flip flagged
+for a ratification pointer; VISION.md stays in recording, carves out
+at landing per never-invent-public-copy).
