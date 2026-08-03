@@ -1,0 +1,122 @@
+import path from 'node:path';
+
+import { err, isErr, ok, type Result } from '@oaknational/result';
+
+import type {
+  ContainedIdentityRead,
+  IdentityFileKind,
+  IdentityFileSystemPort,
+  IdentityPathObservation,
+} from './identity-secure-read-model.js';
+
+/** Collect and validate one immutable no-symlink path observation. */
+export function observeAndValidateIdentityPath<Handle>(
+  fileSystem: IdentityFileSystemPort<Handle>,
+  input: ContainedIdentityRead,
+): Result<void, Error> {
+  const observed = observeIdentityPath(fileSystem, input);
+  return isErr(observed) ? observed : validateIdentityPathObservation(input, observed.value);
+}
+
+/** Validate lexical roots before any injected filesystem operation is consulted. */
+export function validateIdentityContainment(
+  input: ContainedIdentityRead,
+): Result<undefined, Error> {
+  if (
+    !path.isAbsolute(input.chainRoot) ||
+    !path.isAbsolute(input.ownerRoot) ||
+    !path.isAbsolute(input.path)
+  ) {
+    return err(new Error('identity roots and member path must be absolute'));
+  }
+  if (!isWithin(input.chainRoot, input.ownerRoot)) {
+    return err(
+      new Error(`identity owner root '${input.ownerRoot}' escapes chain root '${input.chainRoot}'`),
+    );
+  }
+  return input.path === input.ownerRoot || !isWithin(input.ownerRoot, input.path)
+    ? err(new Error(`identity member '${input.path}' escapes owning root '${input.ownerRoot}'`))
+    : ok(undefined);
+}
+
+/** Decide path safety from immutable observations with no filesystem access. */
+export function validateIdentityPathObservation(
+  input: ContainedIdentityRead,
+  observation: IdentityPathObservation,
+): Result<undefined, Error> {
+  const coherent = validateIdentityContainment(input);
+  if (isErr(coherent)) {
+    return coherent;
+  }
+  const expectedPaths = identityComponentPaths(input);
+  if (observation.components.length !== expectedPaths.length) {
+    return err(new Error(`identity path observation for '${input.path}' is incomplete`));
+  }
+  for (const [index, expectedPath] of expectedPaths.entries()) {
+    const component = observation.components[index];
+    if (component?.path !== expectedPath) {
+      return err(new Error(`identity path observation for '${input.path}' is reordered`));
+    }
+    const expectedKind: IdentityFileKind =
+      index === expectedPaths.length - 1 ? 'file' : 'directory';
+    if (component.kind === 'symlink') {
+      return err(new Error(`identity path component '${expectedPath}' is a symlink`));
+    }
+    if (component.kind !== expectedKind) {
+      return err(new Error(`identity path component '${expectedPath}' is not a ${expectedKind}`));
+    }
+  }
+  return observation.canonicalPath === input.path &&
+    isWithin(input.ownerRoot, observation.canonicalPath)
+    ? ok(undefined)
+    : err(
+        new Error(
+          `identity member '${input.path}' resolves to '${observation.canonicalPath}', outside its exact lexical owner`,
+        ),
+      );
+}
+
+function observeIdentityPath<Handle>(
+  fileSystem: IdentityFileSystemPort<Handle>,
+  input: ContainedIdentityRead,
+): Result<IdentityPathObservation, Error> {
+  const coherent = validateIdentityContainment(input);
+  if (isErr(coherent)) {
+    return coherent;
+  }
+  const components = [];
+  for (const componentPath of identityComponentPaths(input)) {
+    const inspected = invoke(() => fileSystem.lstat(componentPath));
+    if (isErr(inspected)) {
+      return err(
+        new Error(`cannot inspect identity path component '${componentPath}'`, {
+          cause: inspected.error,
+        }),
+      );
+    }
+    components.push({ path: componentPath, kind: inspected.value });
+  }
+  const canonical = invoke(() => fileSystem.realpath(input.path));
+  return isErr(canonical)
+    ? err(new Error(`cannot resolve identity member '${input.path}'`, { cause: canonical.error }))
+    : ok({ components, canonicalPath: canonical.value });
+}
+
+function identityComponentPaths(input: ContainedIdentityRead): readonly string[] {
+  const segments = path.relative(input.chainRoot, input.path).split(path.sep);
+  return segments.map((_segment, index) =>
+    path.join(input.chainRoot, ...segments.slice(0, index + 1)),
+  );
+}
+
+function isWithin(base: string, candidate: string): boolean {
+  return candidate === base || candidate.startsWith(`${base}${path.sep}`);
+}
+
+function invoke<T>(operation: () => Result<T, Error>): Result<T, Error> {
+  try {
+    return operation();
+  } catch (cause: unknown) {
+    return err(cause instanceof Error ? cause : new Error(String(cause)));
+  }
+}

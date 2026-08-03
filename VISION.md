@@ -91,6 +91,14 @@ We're building capabilities that outlast any single product. Representing knowle
 as graphs is one of them — we apply it across domains, from Oak's curriculum to
 AI-enhanced development and the way we run our own work.
 
+We build those capabilities as a
+[cost-of-change gradient](docs/foundation/cost-of-change-gradient.md): core absorbs
+recurring, context-independent mechanics and their assurance burden;
+foundational systems compose them; SDKs and libraries own reusable domain
+capability; products and services primarily express policy, experience, and
+real human need. This lets us pay the cost of a genuinely shared responsibility
+once and concentrate product effort where it can create value for people.
+
 ## How we achieve this
 
 - **Our strategy** — the [strategy corpus](docs/strategy/README.md): the diagnosis,
