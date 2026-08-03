@@ -86,6 +86,11 @@ lands through their PR cycle.
   `2026-08-03-upstream-update-lane-magnetar-binds-oblivion-birch-holds-seedling.md`
   (activation pack + all owner rulings). Worktree:
   `.claude/worktrees/upstream-spec-probe`.
+- Delivered before the door-shut: PR #735 (MCP-462 spec alignment,
+  draft, commit `bcdc62373`) with Matt as assignee AND requested
+  reviewer — his code-owner approval is the gate and the handoff; Birch
+  REST-merges at full condition. MCP-463 (owner-co-designed bulk
+  truing + freshness) is their next act.
 
 ### Corsair hunts Surf (4d3282) — design lane
 
@@ -192,3 +197,11 @@ has become pertinent flows to a tracked surface like this one.
   pnpm-CLI story, MCP true-ups, ARC-colour frontmatter stamp); skills
   gate expiry 2026-08-23; codex-dialogues window to 2026-08-16; ADR-186
   window-closure signal; four PR-725 follow-ups needing carriers.
+- Routed from the update lane at the door-shut (Birch, 10:52Z entry):
+  the owner wants repo skills for updating the upstream API spec and
+  bulk schema (post-embargo authoring; the sdk-codegen runbook + this
+  lane's PR records are the worked instances); sweep residue — the
+  MCP-441 "disclose, don't bound" rationale needs re-truing (the server
+  now pages), the keywords-finer-grained-control backlog item is partly
+  delivered upstream and needs re-adjudication, and rendered-wholes.md
+  lacks a frozen-at date.
