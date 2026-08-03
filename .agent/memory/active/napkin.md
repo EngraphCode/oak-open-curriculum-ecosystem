@@ -1881,6 +1881,16 @@ resumes (channel Monitor armed at this seat).
   rotation with FRESH minted key material preferred, owner in-place
   Edit as fallback; boot-verify closes it either way.
 
+## 2026-08-03 ~16:15Z (Birch/e48fe2): #735 merge gate re-ruled — preview proof replaces Matt
+
+OWNER VERBATIM: "I don't think we should block 735 on Matt, but we
+should test the hell out of that preview to prove that a merge will
+not result in Matt being blocked." Supersedes the pass-to-Matt gate
+(same-day earlier word). New gate: FULL UAT matrix against the live
+preview (restored ~15:55Z after the owner's env repair; healthz 200,
+PRM + 401 correct, posthog accepted). Plan node re-trued. Preview
+restoration + MCP-475 arc recorded in the ticket + PR #735 comments.
+
 LOCAL-ONLY RESIDUE riding the successor coordination branch at resume
 (owner-acknowledged, no further PRs at his word): this napkin's
 uncommitted delta (Birch's owner-note verbatim + the splice fix);
@@ -1933,3 +1943,24 @@ deletes at owner word) and four branches with unmerged commits needing
 §6 content dispositions (aip-131 snapshot, agent-operability map,
 commit-queue-sameagent, mcp-128 landing page, mcp-372 true-up —
 follow-up sweep, not blind PR wrappers).
+
+## 2026-08-03 ~17:30Z (Wyvern lifts Kindling/1da2b1): compaction-boundary captures
+
+- Piped-exit recurrences at this seat, three in one session with the warnings
+  loaded (a spurious `--` argv error read as a formatting failure through
+  tail; codegen's ELIFECYCLE behind tail; a lint count through grep) — every
+  one recovered in a single step via unpiped re-runs.
+  Recognition-speed-not-immunity, tally +3.
+- Append-only shared channels under dual-active load: three anchor-slip races
+  in one day (two at the peer seat, disclosed; one avoided here). Cure adopted
+  mid-session and held: shell heredoc APPEND for every entry on a live shared
+  append-only file; Edit-anchored insertion only on surfaces with a single
+  live writer.
+- Napkin fitness is CRITICAL (rotation due); disposition: the owner has the
+  dedicated-consolidation prompt open — the rotation belongs to that named
+  session, not to a compaction boundary at depth.
+- BOUNDARY RECORD: owner-called compaction prep at this seat (~17:25Z), n=2
+  with Birch live. Freeze record + in-flight ledger in the pair channel's
+  compaction entry (committed with this capture); monitors stopped at owner
+  word after the freeze broadcast; claims retained; seat resumes
+  post-compaction and recomputes from live surfaces.
