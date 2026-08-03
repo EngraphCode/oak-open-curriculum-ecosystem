@@ -471,6 +471,7 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   2026-07-30)
 - [ADR-221: The Estate Knowledge Graph — files-authoritative, named-graph strata, concept scheme](221-estate-knowledge-graph.md)
 - [ADR-222: Bulk schema contract — interim hand-truing, then full derivation from the upstream schema](222-bulk-schema-contract-interim-truing-then-derivation.md)
+- [ADR-223: Perishable external-surface claims carry risk-based freshness metadata](223-perishable-claims-carry-risk-based-freshness-metadata.md)
   (the repo-stratum embodiment of PDR-134: authored files are authoritative and
   the graph is a derived, per-home-recomputable index; the quad's graph name is
   the public/operator seam with the clone test as a CI validator; PROV-O/SKOS/DC
