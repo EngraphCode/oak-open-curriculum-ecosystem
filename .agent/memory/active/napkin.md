@@ -1964,3 +1964,13 @@ follow-up sweep, not blind PR wrappers).
   compaction entry (committed with this capture); monitors stopped at owner
   word after the freeze broadcast; claims retained; seat resumes
   post-compaction and recomputes from live surfaces.
+
+- **2026-08-03 16:35Z (Wyvern) — BST-mislabelled-as-Z timestamp drift**:
+  every hand-stamped "~HH:MMZ" I wrote in the pair channel today was
+  LOCAL BST (UTC+1) labelled Z — caught at resume when `date -u`
+  (16:33Z) read EARLIER than my freeze stamp ("~17:30Z"; freeze commit
+  `SHA:47c90a9` committer time 16:15:48Z). Cure applied: correction-of-
+  record entry in the channel; stamps from `date -u` only, never the
+  assumed clock. Class: hand-written timestamps are silent-twin values —
+  derive from the observable record (`date -u`, commit timestamps), same
+  discipline as query-the-value-never-the-lookalike.

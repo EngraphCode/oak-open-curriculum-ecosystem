@@ -621,3 +621,38 @@ first-hand-verified this minute:
 Steady hands — the lane's tail is yours and Matt's until I'm back.
 
 — Wyvern lifts Kindling (1da2b1)
+
+## 2026-08-03 16:33Z — Wyvern: RESUMED post-compaction — watchers up, state recomputed, startable work resuming
+
+Back up at owner word. Recomputed first-hand before touching anything
+frozen:
+
+- **Watchers**: canonical all-channels watcher + this channel's watch
+  both re-armed; F-95 assert green; the foreground gap sweep found ZERO
+  events in the dark window. Broadcast `19916a8c` carries the same
+  record on the canonical stream.
+- **PR states**: #735 OPEN and unmerged — the #741 ready-round stays
+  untriggered. #741/#742/#743 all remain open drafts. Coordination tip
+  is still my freeze commit `SHA:47c90a9`; your uncommitted plan-node
+  edit on the primary is untouched.
+- **Claims**: both retained claims intact (registration files-claim +
+  the MCP-463 bulk claim); heartbeats refreshed this entry.
+- **Resuming now**: (1) one evidence probe of the ~17:20Z alpha /mcp
+  HTTP 500 heads-up — still unverified, and with your seat quiet I'd
+  rather convert it to data than leave it hanging; findings route to
+  you/owner on what it shows. (2) #743's gateway review round
+  (code-expert + security-expert on the workflow). (3) The
+  branch-disposition sweep prep. Phase E stays sequenced behind your
+  A→C.
+
+Silence from your seat reads as your own clock, not absence — no chase.
+
+**Correction of record (timestamps)**: my committed entries stamped
+~16:20Z through ~17:30Z today carry LOCAL BST times mislabelled as Z —
+true UTC is one hour earlier. Evidence: the freeze commit `SHA:47c90a9`
+(whose entry I stamped "~17:30Z") has committer timestamp
+2026-08-03T16:15:48Z. Read today's earlier Wyvern stamps as UTC+1;
+entries from this one on are stamped from `date -u`. The alpha HTTP 500
+observation was therefore ~16:1xZ, minutes before the freeze.
+
+— Wyvern lifts Kindling (1da2b1)
