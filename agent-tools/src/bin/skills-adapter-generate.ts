@@ -38,9 +38,18 @@ function parseFlags(args: readonly string[]): CliFlags {
 
 async function runCheck(repoRoot: string, prefix: string): Promise<number> {
   const result = await checkAdapters({ repoRoot, prefix });
-  if (result.drifted.length === 0 && result.missing.length === 0) {
+  if (
+    result.drifted.length === 0 &&
+    result.missing.length === 0 &&
+    result.duplicates.length === 0
+  ) {
     stdout.write('All adapters are up to date.\n');
     return 0;
+  }
+  if (result.duplicates.length > 0) {
+    stderr.write(
+      `Duplicate canonical leaf ids (the flat adapter namespace cannot hold both): ${result.duplicates.join(', ')}\n`,
+    );
   }
   if (result.missing.length > 0) {
     const missingList = result.missing.map((p) => `  ${p}`).join('\n');
@@ -72,12 +81,25 @@ async function runGenerate(repoRoot: string, flags: CliFlags): Promise<number> {
   }
   const outcome = await generateAdapters({ repoRoot, prefix: flags.prefix });
   stdout.write(`Wrote ${String(outcome.written.length)} adapter files.\n`);
+  if (outcome.duplicates.length > 0) {
+    stderr.write(
+      `ERROR — duplicate canonical leaf ids: ${outcome.duplicates.join(', ')}\n` +
+        'The adapter namespace is flat; emission is refused so neither claimant silently shadows the other. ' +
+        'Rename one canonical before regenerating.\n',
+    );
+  }
   if (outcome.skipped.length > 0) {
     stderr.write(
-      `ERROR — canonical directories with no readable SKILL-CANONICAL.md: ${outcome.skipped.join(', ')}\n` +
-        'These skills exist in the corpus but cannot be summoned in any harness. ' +
-        'Fix the canonical (or land the family-aware generator extension) before regenerating.\n',
+      `ERROR — directories with no readable SKILL-CANONICAL.md: ${outcome.skipped.join(', ')}\n` +
+        'These entries hold content no harness can summon (a root entry that is neither a flat skill ' +
+        'nor a family bundle, or a family member without a canonical). Fix the canonical before regenerating.\n',
     );
+  }
+  if (outcome.written.length === 0 && outcome.skipped.length === 0) {
+    stderr.write(
+      'ERROR — no canonicals discovered under .agent/skills; wrong working directory?\n',
+    );
+    return 1;
   }
   return generateExitCode(outcome);
 }

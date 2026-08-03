@@ -4,6 +4,7 @@ import { checkAdapters, type CheckerFs } from '../../src/skills-adapter-generate
 import {
   adapterTargetPath,
   buildAdapterFrontmatter,
+  discoverCanonicals,
   generateExitCode,
   parseFrontmatter,
   renderAdapter,
@@ -103,11 +104,147 @@ function makeFs(files: ReadonlyMap<string, string>): CheckerFs {
   };
 }
 
+const canonicalBody = '---\nname: x\ndescription: A canonical skill.\n---\n\nbody\n';
+
+function makeTreeFs(
+  directories: ReadonlyMap<string, readonly string[]>,
+  files: ReadonlyMap<string, string>,
+): CheckerFs {
+  return {
+    async readFileOrUndefined(path) {
+      return files.get(path);
+    },
+    async listSubdirectoryNames(path) {
+      return directories.get(path) ?? [];
+    },
+  };
+}
+
+describe('discoverCanonicals', () => {
+  const repoRoot = '/repo';
+
+  it('discovers flat individuals and family members together', async () => {
+    const fs = makeTreeFs(
+      new Map([
+        ['/repo/.agent/skills', ['flat-one', 'fam']],
+        ['/repo/.agent/skills/fam/skills', ['member-a', 'member-b']],
+      ]),
+      new Map([
+        ['/repo/.agent/skills/flat-one/SKILL-CANONICAL.md', canonicalBody],
+        ['/repo/.agent/skills/fam/skills/member-a/SKILL-CANONICAL.md', canonicalBody],
+        ['/repo/.agent/skills/fam/skills/member-b/SKILL-CANONICAL.md', canonicalBody],
+      ]),
+    );
+
+    const outcome = await discoverCanonicals(repoRoot, fs);
+
+    expect(outcome.skipped).toEqual([]);
+    expect(outcome.duplicates).toEqual([]);
+    expect(outcome.canonicals.map((c) => [c.id, c.relativeDir])).toEqual([
+      ['flat-one', 'flat-one'],
+      ['member-a', 'fam/skills/member-a'],
+      ['member-b', 'fam/skills/member-b'],
+    ]);
+  });
+
+  it('skips a root directory that is neither a skill nor a family', async () => {
+    const fs = makeTreeFs(new Map([['/repo/.agent/skills', ['neither']]]), new Map());
+
+    const outcome = await discoverCanonicals(repoRoot, fs);
+
+    expect(outcome.canonicals).toEqual([]);
+    expect(outcome.skipped).toEqual(['neither']);
+  });
+
+  it('skips a family member directory without a readable canonical', async () => {
+    const fs = makeTreeFs(
+      new Map([
+        ['/repo/.agent/skills', ['fam']],
+        ['/repo/.agent/skills/fam/skills', ['good', 'hollow']],
+      ]),
+      new Map([['/repo/.agent/skills/fam/skills/good/SKILL-CANONICAL.md', canonicalBody]]),
+    );
+
+    const outcome = await discoverCanonicals(repoRoot, fs);
+
+    expect(outcome.canonicals.map((c) => c.id)).toEqual(['good']);
+    expect(outcome.skipped).toEqual(['fam/skills/hollow']);
+  });
+
+  it('reports duplicate leaf ids across shapes — the flat adapter namespace must stay injective', async () => {
+    const fs = makeTreeFs(
+      new Map([
+        ['/repo/.agent/skills', ['member-a', 'fam']],
+        ['/repo/.agent/skills/fam/skills', ['member-a']],
+      ]),
+      new Map([
+        ['/repo/.agent/skills/member-a/SKILL-CANONICAL.md', canonicalBody],
+        ['/repo/.agent/skills/fam/skills/member-a/SKILL-CANONICAL.md', canonicalBody],
+      ]),
+    );
+
+    const outcome = await discoverCanonicals(repoRoot, fs);
+
+    expect(outcome.duplicates).toEqual(['member-a']);
+  });
+
+  it('skips a skill directory whose canonical fails frontmatter parsing', async () => {
+    const fs = makeTreeFs(
+      new Map([['/repo/.agent/skills', ['broken']]]),
+      new Map([['/repo/.agent/skills/broken/SKILL-CANONICAL.md', '# No frontmatter\n']]),
+    );
+
+    const outcome = await discoverCanonicals(repoRoot, fs);
+
+    expect(outcome.canonicals).toEqual([]);
+    expect(outcome.skipped).toEqual(['broken']);
+  });
+});
+
+describe('renderAdapter for family members', () => {
+  const familyMember: ParsedCanonicalSkill = {
+    id: 'parallax-frame',
+    relativeDir: 'parallax/skills/parallax-frame',
+    frontmatter: { name: 'parallax-frame', description: 'Frame an inquiry.' },
+    canonicalPath: '/repo/.agent/skills/parallax/skills/parallax-frame/SKILL-CANONICAL.md',
+    canonicalFilename: 'SKILL-CANONICAL.md',
+  };
+
+  it('links the family-relative canonical path while naming by leaf id', () => {
+    const content = renderAdapter(familyMember, 'oak-', 'claude');
+
+    expect(content).toContain('name: oak-parallax-frame');
+    expect(content).toContain(
+      'Read and follow `.agent/skills/parallax/skills/parallax-frame/SKILL-CANONICAL.md`.',
+    );
+  });
+});
+
+describe('checkAdapters over a family', () => {
+  it('reports family member adapters missing at their flat target paths', async () => {
+    const fs = makeTreeFs(
+      new Map([
+        ['/repo/.agent/skills', ['fam']],
+        ['/repo/.agent/skills/fam/skills', ['member-a']],
+      ]),
+      new Map([['/repo/.agent/skills/fam/skills/member-a/SKILL-CANONICAL.md', canonicalBody]]),
+    );
+
+    const result = await checkAdapters({ repoRoot: '/repo', prefix: 'oak-' }, fs);
+
+    expect(result.missing).toEqual([
+      adapterTargetPath('/repo', 'oak-', 'member-a', 'claude'),
+      adapterTargetPath('/repo', 'oak-', 'member-a', 'agents'),
+    ]);
+  });
+});
+
 describe('checkAdapters', () => {
   const repoRoot = '/repo';
   const prefix = 'oak-';
   const sampleCanonical: ParsedCanonicalSkill = {
     id: 'sample',
+    relativeDir: 'sample',
     frontmatter: { name: 'sample', description: 'A sample canonical skill.' },
     canonicalPath: '/repo/.agent/skills/sample/SKILL-CANONICAL.md',
     canonicalFilename: 'SKILL-CANONICAL.md',
@@ -181,11 +318,17 @@ describe('checkAdapters', () => {
 });
 
 describe('generateExitCode', () => {
-  it('returns success when nothing was skipped', () => {
-    expect(generateExitCode({ written: ['a', 'b'], skipped: [] })).toBe(0);
+  it('returns success when nothing was skipped and no leaf ids collide', () => {
+    expect(generateExitCode({ written: ['a', 'b'], skipped: [], duplicates: [] })).toBe(0);
   });
 
-  it('fails hard when any canonical directory was skipped', () => {
-    expect(generateExitCode({ written: ['a'], skipped: ['cognition'] })).toBe(1);
+  it('fails hard when any directory was skipped', () => {
+    expect(generateExitCode({ written: ['a'], skipped: ['uncategorised'], duplicates: [] })).toBe(
+      1,
+    );
+  });
+
+  it('fails hard when leaf ids collide in the flat adapter namespace', () => {
+    expect(generateExitCode({ written: [], skipped: [], duplicates: ['member-a'] })).toBe(1);
   });
 });
