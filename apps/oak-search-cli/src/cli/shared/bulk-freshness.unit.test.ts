@@ -13,6 +13,7 @@
  */
 
 import { describe, it, expect } from 'vitest';
+import trackedManifest from '../../../bulk-downloads/manifest.json';
 import {
   checkBulkDataFreshness,
   MAX_BULK_DATA_AGE_DAYS,
@@ -282,5 +283,19 @@ describe('checkBulkDataFreshness', () => {
     if (result.ok) {
       expect(result.value.ageDays).toBe(0);
     }
+  });
+
+  it('accepts the tracked manifest the downloader actually writes', () => {
+    const result = checkBulkDataFreshness({
+      bulkDir,
+      // Anchored to the artefact's own vintage: the row proves shape
+      // agreement with the real manifest and can never age into a failure.
+      now: new Date(trackedManifest.downloadedAt),
+      fs: {
+        readFileSync: () => JSON.stringify(trackedManifest),
+        readdirSync: () => trackedManifest.files.map((entry) => entry.file),
+      },
+    });
+    expect(result.ok).toBe(true);
   });
 });
