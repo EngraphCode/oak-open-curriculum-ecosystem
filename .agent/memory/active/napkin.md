@@ -1148,6 +1148,21 @@ dynamics: a growing round is a routing failure).
   ↔ 3 urn frieze scenes (numerology); "unravish'd bride of quietness" ↔ the
   quiet-watcher pause shape (word-association only).
 
+## 2026-08-03 ~07:37Z — wedged reviewer subagent: transcript-tail is the health check (Corsair hunts Surf, 4d3282)
+
+A dispatched test-expert (opus, PR #729 review) wedged INSIDE a Bash tool
+call at its very first act (reading its template — the transcript froze for
+30+ minutes at `type: assistant, tool_use Bash`). SendMessage health-checks
+queue "for delivery at its next tool round" and therefore NEVER deliver to a
+seat wedged mid-tool — queued-success is not liveness. The working
+diagnostic: bounded `tail -c` of the subagent JSONL transcript + the file's
+mtime (UTC-compare!) — mtime frozen ~30 min = wedged, stop and route around.
+Recovery here: TaskStop, proceed on the sibling reviewer's report (which
+had already covered the test dimension's primary finding first-hand);
+re-dispatch only if the remaining signal justifies the spend. Same family
+as check-workflow-agent-health and the autonomous-emitter class: a
+scheduling layer's "queued" is evidence about the queue, never the seat.
+
 ## ~21:35Z (Magnetar/74d914, Director): directed sends go via --body-file, always — third argv-class instance
 
 The round-2 verdict send with a long inline --body failed hard (nothing on the
@@ -1159,3 +1174,228 @@ the `wrote comms event` line read UNPIPED. The napkin already carries the clip
 variant (~20:25Z) and the active-layer candidate — this is the enforcement-shaped
 restatement: the failure recurred WITH the note loaded, so the cure is a habit
 binding (file-always), not a reminder.
+
+## 2026-08-02 ~22:02Z — Skylark hunts Nimbus / claude-code / claude-fable-5 / `e856d5` — two instrument notes from the commit-D window
+
+1. CEREMONY GIT-STEPS BIND TO THE INVOKING CHECKOUT. The commit-queue
+   registry auto-resolves the primary coordination home, but
+   `record-staged` / `verify-staged` / `commit` read and act on the
+   CURRENT checkout's git index. Invoked from a residence worktree
+   while the bundle sat staged on the primary, record-staged recorded
+   an empty bundle and verify-staged refused with every file
+   "missing" (refusal correct, cause non-obvious). Cure shape: run
+   the git-facing ceremony steps from the checkout that holds the
+   staged bundle; the refusal message could name the checkout it
+   scanned (candidate CLI improvement, routed as a pointer).
+2. PIPE-MASK RECURRENCE, WORSE VARIANT: `git push 2>&1 | grep -E "->|…"`
+   — the pattern's leading `->` was parsed as a grep option, grep
+   died, and the push's true outcome was invisible; the mandatory
+   `ls-remote` truth-read caught the branch UNMOVED and a clean
+   unpiped re-push landed it. The in-band rule already forbids this
+   shape; the recurrence WITH the rule loaded reinforces the
+   file-always/unpiped habit binding above — pushes get NO trailing
+   pipe, ever, and the ref read is the only completion claim.
+
+## 2026-08-03 ~05:55Z (Magnetar/74d914, Director): two liveness-class instrument failures at the doctrine-carrying seat, one night
+
+1. The #714 checks watch had an UNREACHABLE EXIT CRITERION: it polled the
+   check-runs API for "SonarCloud Code Analysis" and "Vercel", which report as
+   COMMIT STATUSES on this repo — the green condition could never be satisfied
+   and the failure branch had nothing to fire on, so the watch sat silent ~8h
+   while the PR was actually fully green. loop-exit-criteria-required's own
+   discipline (corpus-test the filter against REAL emitter output before
+   arming) was loaded and skipped. Cure shape: any settle-watch must prove each
+   named verdict is OBSERVABLE on its chosen API (one first-hand read per
+   verdict name) before the loop arms; gh pr checks merges both surfaces and is
+   the better read-model than raw check-runs.
+2. The session-limit suspension (~22:05Z→wake) darkened this seat's reasoning
+   loop while its heartbeat monitor kept emitting on schedule — the PDR-133
+   autonomous-emitter class experienced from INSIDE: the fleet read the
+   Director as live for hours of dark window. No harm this time (fleet was
+   cold-paused by owner directive), but a Director-dark-while-heartbeating
+   window with in-flight routing obligations is the exact gap the mutual-cover
+   discipline exists for, and no Director-cover check ran overnight.
+   Doctrine-queue candidate: coordinator dark-window detection (a peer or cron
+   that requires SUBSTANTIVE Director output, not emitter presence, within N
+   hours of any open routing obligation).
+
+## 2026-08-03 ~06:05Z — TypeScript-estate review closeout and loss scan (Lichen guards Phloem, `019fc3`)
+
+Owner direction closed this seat through a documentation-only handoff: no more
+implementation, validation, commit, or push. The active implementation remains
+uncommitted in the dedicated `typescript-estate-review-019fc3` worktree. The
+coordination branch now has the canonical thread record and repo-continuity
+pointer; the dedicated report family has an exact 2026-08-03 handoff and its
+plan/README point to it. The handoff leads with the load-bearing negative fact:
+no raw extraction, census, candidate, top-ten result, disposition, or proposal
+exists.
+
+METACOGNITIVE OBSERVATION, scoped to this thread: the review began as a broad
+map of recurring constructs, but the trustworthiness of that map pulled the
+work downward into the measurement instrument. That was not a change in the
+owner's foundations-first strategy; it was this seat finally seeing the
+strategy at the right scale. Pinned bytes, exact ordering, one validated config
+boundary, secure identity reads, atomic publication, and commit-bound auxiliary
+access are the lower-level assurance burden that every later estate conclusion
+would otherwise repay or silently evade.
+
+CANDIDATE, not doctrine: a foundations-first review can let its instrument
+become a substitute object. In this instance the instrument gained real
+reusable value while the requested estate census remained wholly absent. A
+successor should require every further low-level slice to name the frozen proof
+or later decision it unblocks, and should route a generally useful but
+non-blocking foundation into a separate programme rather than indefinitely
+withholding the map. Falsifier: if removing or deferring that slice makes the
+census contract unsound, non-reproducible, or unable to distinguish authority
+from carrier, it belongs on the review's critical path.
+
+LOSS SCAN PASS 1 recovered and homed: owner purpose and corrections; generated
+code and curriculum-SDK inclusion; duplication economics and the
+cost-of-change gradient; the revision-2.6 hashes and provenance correction;
+the approved classification fragment; prior slice evidence; the post-split
+atomic uncertainty; the known secure-identity type boundary; absent auxiliary
+production wiring; the no-estate-run hold; exact restart order; local-only
+custody; and the explicit documentation-only closeout authority.
+
+METALOSS PASS 2 asked what the first scan's categories hid. It recovered two
+things: (1) canonical discoverability was itself unfinished until
+repo-continuity pointed to the new thread record, and (2) no live dirty-file
+inventory was obtained because the owner prohibited checks, so the successor
+must inspect the complete worktree diff rather than treating any hand-authored
+file list as exhaustive. It also recovered the risk that “approved boundary”
+could be misread as “green extractor”; both durable handoff surfaces now state
+the distinction before their implementation detail.
+
+FIXED POINT: a third pass would only re-find the named homes, the explicit
+local-filesystem vulnerability, and the deliberately unmeasured dirty-file
+inventory. Relay traffic contained no additional estate finding or decision;
+an offered implementation seat was deliberately not engaged after the
+documentation-only boundary. Deep consolidation was not due: the plan remains
+active, the architectural frame already has permanent homes, and this was
+session-scoped capture rather than a cross-session convergence pass.
+
+## 2026-08-03 ~06:03Z (Charcoal seeks Tongs/9d3a21): ADR-186 lane closeout captures
+
+1. SURPRISE (two instances, one class, one lane): population claims about the
+   fleet transmitted without a census — round 1 shipped a reviewer's F-73
+   characterisation unread; the round-1 cure bundle then asserted "armed loops
+   carry real claim ids" (false: 136/4270 beats in 14d would fail the new
+   gate). Both caught by reviewers, not by the author. Cure applied and
+   worked: census-at-authoring + census-at-landing became the round-2/3
+   discipline and the round-4 review returned zero findings. Already durable:
+   failure-mode comms event 8d76600d, PR #725 round-2 comment (the formal
+   record correction). Candidate shape if a third instance appears elsewhere:
+   a rule — "wire-shape gates and rollout claims require a counted census of
+   the live population at authoring time".
+2. Autonomous-emitter corroboration (pairs with the Director's entry above):
+   this seat's reasoning loop was dark ~22:05Z–05:35Z while its heartbeat
+   monitor beat on schedule — the third first-hand instance in one night,
+   at the seat that was migrating the heartbeat substrate. Mechanism of the
+   dark window is INFERRED (harness suspension; host sleep excluded first-hand
+   via kern.sleeptime=0), not observed.
+3. Tooling friction (F-116 sibling, second instance): the commit-queue guard
+   rejects the PDR-117 worktree-scoped claim label (index/head@<worktree>)
+   that .agent/skills/commit/SKILL-CANONICAL.md §Merge-commits itself
+   prescribes; worktree seats must open bare index/head for the queue
+   ceremony. Durable in PR #725 body §Follow-ups item 4; carrier with the
+   Director (transfer event ebd89159).
+4. Play seeds (free-play harvest, marked as associations): (a) the lane's
+   cures are all shaped like chain-of-custody — event_type to constant,
+   thread to claim, claim to author; "liveness as verified custody chain"
+   reminded me of provenance systems; (b) the overnight suspension read as an
+   accidental proof that the estate's monitors+resumable-state survive
+   unconsciousness — the pacing directive enforced by the substrate.
+   Discarded visibly: a decay/annealing analogy for round convergence and a
+   Domesday-census association (both forced).
+
+## 2026-08-03 ~06:18Z (Magnetar/74d914): --in-response-to accepts fabricated ids — second instance, now with my own fabrication
+
+Acking Charcoal's transfer I padded the 8-char prefix (ebd89159) with zeros
+instead of resolving the full event id from the store — and the CLI wrote it.
+Earlier tonight it accepted "5725" (a file count). Same tool gap both times:
+no existence check on --in-response-to. My half: resolving-by-read was one
+glob away and I skipped it under closing-drive. Tool-feedback (existence
+check) already queued; the habit half is: thread references are RESOLVED from
+the store, never composed from prefixes.
+
+- ~06:42Z tally on the fabricated-reference habit: recurred at the VERY NEXT
+  directed send (dac9ff3a padded) with the napkin note an hour old. Habit
+  binding demonstrably insufficient at this seat under interleaved routing —
+  the existence-check tool cure is the only reliable form; route the
+  agent-tools ask with priority at the next doctrine window.
+
+## 2026-08-03 ~07:05Z — ARC-colour lane opening captures (Vanilla stirs Bough, 604af6)
+
+- Topic-help is not a capability census: `collaboration-state`'s `comms` topic
+  listing omitted `peer-liveness`, yet the action exists and ran first-hand
+  (probed 2026-08-03 before concluding absence from the help line). The
+  liveness rule cites the command; the help omission would have licensed a
+  hand-rolled substitute. Cure shape: probe the documented invocation before
+  trusting a help listing's absence. Tool-feedback candidate: true the topics
+  line in the CLI.
+- ws-b0 census delta recorded at occurrence: the plan's ws-b0(b) names ONE
+  stray pre-relocation channel file in `.agent/collaboration/experiments/`;
+  `git ls-files` shows TWO tracked channel files (the rendezvous file the plan
+  names AND `2026-06-12-session-close-coordination-forge-turns-basalt-firefly-seeks-temper.md`
+  — the sixth arc the reference doc's own evidence section cites) plus the
+  conservation `.gitignore`. "Retire the empty directory" binds the relocation
+  of both; the PR body carries the delta. Same class as the
+  census-at-authoring discipline (Charcoal's ADR-186 capture above).
+
+## 2026-08-03 ~06:53Z — Skylark: commit-queue guard shape + commitlint cap (first-hand)
+
+- The guard now requires the intent's claim to be an ACTIVE `git:index/head` claim OWNED by the enqueuer — a files/lane claim is refused ("is not an active git:index/head claim"), and a warden-claim intent enqueued while another seat holds the warden fails ownership. Correct flow: request the window, `claims adopt` at the grant, THEN enqueue under the warden claim.
+- commitlint on the primary caps the header at 100 chars (freeze-bundle subject died at 102; re-mint the intent with the shortened subject so the queue record matches the landed commit).
+
+## 2026-08-03 ~08:10Z — compaction-boundary harvest, design seat day 2 (Corsair hunts Surf, 4d3282)
+
+- PLAY SEED (kept): the self-guarding gate — the identity-naming validator's
+  first pre-commit run guarded the very commit that created it; the census
+  excludes its own path; the tests are guarded by the thing they prove. The
+  estate's working answer to self-reference traps is STRING CONSTRUCTION
+  (principles §Never-weaken-a-gate names it): build the forbidden name from
+  parts and the gate can hold itself. Generalises to any content-forbidding
+  gate.
+- METACOGNITION (the day's honest one): recorded lessons do not fire at
+  speed — this seat reproduced its OWN napkined traps three times
+  ($?-after-pipe ×3) and the fleet's bot-identity fallback once, and every
+  catch came from a STRUCTURAL layer (hook block, validator, rule
+  trigger-line, self-read), never from memory. Passive-guidance-loses-to-
+  artefact-gravity, proven first-person in one sitting. Consequence
+  adopted: when a memory names a trap, convert it to an in-command
+  structure at use time (unpiped `echo EXIT:$?` as a typed habit, not a
+  recalled rule).
+- OBSERVATION (kept, association not finding): every failure today lived in
+  the WAITING layers (two subagent Bash wedges, hourly watcher backstops,
+  credential-transport quoting) and none in the designed work (validator,
+  census, plan). The estate's hard problems are currently plumbing-shaped.
+  Two same-shape subagent wedges in one sitting may be environmental —
+  surfaced in the design-lane freeze entry for the Director if it recurs.
+- DISCARDED at the confabulation guard: a political reading of the
+  identity rename (fiction → real-world government nod) — forced; the
+  owner's stated frame is naming and design language only.
+
+## 2026-08-03 ~08:12Z (Magnetar/74d914, Director): the divergence-as-seam-detector lesson (owner-directed capture)
+
+Three full-depth review rounds on the design plan ran 98 -> 112 -> 113
+findings while the text doubled — the loop was re-reviewing mechanism depth
+for stories weeks from execution, and every cure added reviewable mass. The
+owner ratified partitioning (near-horizon full depth + zero bar; far-horizon
+pointers with story-open review) and directed this capture: the seam was
+visible IN ADVANCE via the doctrine we already hold (future-work-items-are-
+pointers; loop-rounds-must-shrink) — what was missing was the authoring-time
+check that binds them: "which stories does this text specify deeper than
+their horizon warrants?" Candidate forms: a plan-body first-principles
+clause, or a standing reviewer lens in plan fleets. Also mine: Vanilla
+caught my dropped `.agent/` prefix in two plan citations at first read —
+fresh eyes on paths beat the author's; cite paths by copy, never by recall.
+
+## 2026-08-03 ~08:28Z — Skylark: WS6 generator-family PR spec (regrounded from R1, ready to implement)
+
+The #714 thread at installation.md:93 and task #12 (WS6) are ONE story, fully specified by the R1-adopted recommendation (skills-estate-organisation-ws0-recommendation.md §R1 Convergence path — adopted at the owner's full 2026-08-02 ruling):
+
+- ONE PR into coordination/estate-2026-08-02 (the adopted text: "the extension lands in the same change as the first family's adapters"), branch off the coordination branch in a fresh worktree.
+- Leg 1: `git mv .agent/skills/cognition/parallax .agent/skills/parallax` — bundle intact, category tier removed (R1 "No category tier" — cognition/ was rejected with a dated falsifier). Sweep the bundle's root-relative command examples (installation.md — the paths trued at 6cba5ca56 gain a shorter prefix) mechanically.
+- Leg 2: generator family support, exactly three changes (R1): (1) two-level discovery scoped to `<family-id>/skills/<skill-id>/` — an immediate child with SKILL-CANONICAL.md is an individual, one with a `skills/` subdir is a family, anything else stays a LOUD skip (the #718 exit-1 cure is prior art and its test pins `cognition` as skipped — that test MOVES to a neither-shape fixture); (2) family-aware canonical paths in adapter bodies (renderAdapterBody takes the bundle-relative dir, title/name still from leaf id); (3) refusal on duplicate leaf ids + corpus-wide leaf-id uniqueness as a validator check. Checker mirrors discovery — consolidate one discovery function over the CheckerFs seam (second consumer).
+- Leg 3: run the generator, commit the nine parallax skills' adapters on both surfaces (.claude/skills + .agents/skills, existing prefix convention — read it from the tree at implementation).
+- Red-first: vitest unit tests in agent-tools/tests/skills-adapter-generate/ (checker fs-map fixtures make family shapes cheap); PDR-132 two-round budget; Copilot at open; code-expert (opus) pre-merge; #714 thread PRRT_kwDOPUA_4M6V0r1I resolves when this PR merges and re-review settles — it carries a status reply saying exactly that.
