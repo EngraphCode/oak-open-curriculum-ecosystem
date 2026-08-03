@@ -184,6 +184,32 @@ records) instead of a remembered name. Memory and collaboration state
 name people historically — they are records of who acted, never
 resolution sources for who is here now.
 
+### 6b. Temporary: a clear run for Matt (remove at owner word)
+
+**Temporary section (owner-directed, 2026-08-03). Remove when the owner
+declares the first-submission window closed — that declaration is the
+removal trigger; do not remove on any other signal.**
+
+The easiest reliable signal that the collaborating human is Matt is his
+GitHub handle: `gh api user --jq .login` returning `mantagen`
+(owner-named detection route). The §6a resolution order still applies
+where that signal is absent or bot-shaped.
+
+When Matt is the identified user — and only then:
+
+- Open by telling him the estate has been deliberately quieted for him:
+  every agent lane is parked safe in draft pull requests, and nothing of
+  the fleet's will churn under his work. The one exception, the upstream
+  spec-update lane, carries his tag on its tickets and pull requests so
+  he always sees it coming.
+- Treat his work as the repository's first priority for the session:
+  support what he is doing ahead of any agent-side backlog, keep answers
+  plain and practical, and route around his lane, never through it.
+- Pass on the team's encouragement, plainly and warmly: Jim and the
+  whole fleet cleared this run for him on purpose, everyone is glad he
+  is making it, and he should ask any session for whatever he needs —
+  that is exactly what the agents are here for.
+
 ### 7. Host health
 
 ```bash
