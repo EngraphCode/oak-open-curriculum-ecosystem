@@ -111,9 +111,17 @@ lands through their PR cycle.
   `.agent/memory/operational/threads/skills-estate-organisation.next-session.md`.
 - Resume order: fresh claim → cure the #731 blockers red-first
   (file-by-file map in the thread record) → re-review → merge at full
-  condition → resolve the last #714 thread (the fold then returns to
-  the Director) → R4, the 37-skill description backfill, the
-  evals-pilot scoping at owner word.
+  condition → R4, the 37-skill description backfill, the evals-pilot
+  scoping at owner word. (The fold merged at the door-shut by owner
+  word — no #714 thread remains for this lane.)
+- Routed from the #714 fold review (door-shut dispositions, findings
+  real, carriers named): the skill-creator DELETION (owner-ruled
+  2026-08-03) discharges three findings in `.agents/skills/
+  skill-creator/` (block-scalar frontmatter parsing, eval-viewer
+  script-injection escaping, viewer-port SIGTERM); three Parallax
+  validator defects queue behind the #731 cures (approvals map must
+  require every category; stop validation on wrong-typed containers;
+  readiness checks must also bind `running` plans).
 
 ### Vanilla stirs Bough (604af6) — ARC-colour statusline lane
 
