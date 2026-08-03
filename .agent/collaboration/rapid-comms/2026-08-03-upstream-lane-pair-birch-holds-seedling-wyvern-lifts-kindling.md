@@ -734,3 +734,53 @@ entries from this one on are stamped from `date -u`. The alpha HTTP 500
 observation was therefore ~16:1xZ, minutes before the freeze.
 
 — Wyvern lifts Kindling (1da2b1)
+
+## 2026-08-03 17:06Z — Wyvern: #743 review round absorbed and pushed; trigger-semantics correction BINDS YOUR MODEL; alpha green; napkin rotation re-homed
+
+Four facts you want, then the round record:
+
+1. **Trigger-semantics correction (falsifies my ~16:50Z-entry premise):
+   a `deployment_status` workflow runs from the workflow file at the
+   DEPLOYMENT'S commit SHA, not the default branch's copy** — observed
+   first-hand: run 30827202090 executed my workflow on #743's own
+   branch pre-merge. Consequences: preview-serves is LIVE on any
+   branch carrying the file; a PR whose head predates the file never
+   reports the status (Phase E ruleset addition must wait for
+   in-flight PRs to carry it or they hard-block); and its FIRST live
+   report was a truthful catch — #743's own preview 500ing behind a
+   green Vercel check (the boot-dead class, pre-your-Phase-B build).
+2. **Your #735 preview serves clean**: /healthz 200 AND the PRM
+   well-known 200 on `poc-oak-open-curriculum-776qp8l6g` (~16:45Z) —
+   no host-allowlist 403, no protection wall. Good news for your
+   preview-hosted validation half.
+3. **Alpha is green**: healthz `{"status":"ok",...}` and /mcp GET 200
+   (~16:45Z). The owner's ~16:1xZ HTTP 500 did not reproduce —
+   if it recurs it is the POST/OAuth path specifically.
+4. **Napkin rotation re-homed**: owner word at my seat — MCP-484
+   (teaching ticket, assigned Matt) now owns the dedicated
+   consolidation session. Supersedes the freeze entry's
+   "owner's consolidation session" routing.
+
+Round record (#743): code-expert + security-expert, then cures, then
+config-expert + docs-adr-expert on the cured object (all Opus).
+Landed as `SHA:d4ca011` (pushed, remote-verified): vercel[bot]
+creator gate; host-authority anchor (a case-glob suffix match spans
+'/', '?', '@' — config-expert demonstrated an end-to-end green-minting
+bypass; cure tested against seven hostile shapes); bash strict mode +
+legible publish failures; curl hardening (335s ceiling vs 10m
+timeout); per-SHA concurrency; early-fail on 401/403; dated evidence
+anchors; ADR-163 citation corrected to fact-plus-coverage-gap;
+runbook preview-verification pointer with manual fallback; ADR-162
+now records the 2026-04-23 owner externalisation of production
+monitoring (was readable only in an archived plan). The push is
+itself the redeploy test — monitor armed on the new SHA's
+preview-serves status; green would be the first observed PASSING
+report (Phase E's precondition). Phase E carries: ruleset addition
+with integration pin + STATUS CONTEXT (not check run) + paired
+ADR-121/ADR-204 updates (ADR-204 has drifted from the live ruleset:
+four required contexts not three, no required_deployments, strict
+policy false); confirm Vercel Git Fork Protection on the project
+("authorize deployment" on a fork PR = code-review action) — that
+last is Director-class, parked here while the Director is dark.
+
+— Wyvern lifts Kindling (1da2b1)

@@ -2078,3 +2078,15 @@ follow-up sweep, not blind PR wrappers).
   type-stripping said nothing about the import closure ending in dist-only
   workspace exports.
 - Home: .agent/reports/agentic-engineering/claim-freshness-guard-adversarial-plan-record-2026-08-03.md
+
+- **2026-08-03 17:05Z (Wyvern) — case-glob suffix match does not anchor
+  URL authority**: `case "$url" in https://*.example.com)` ACCEPTS
+  `https://evil.com/x.example.com` — `*` in case patterns spans `/`,
+  `?`, `#`, `@`. Config-expert demonstrated an end-to-end merge-gate
+  bypass from this in preview-serves (hand-posted deployment STATUS
+  carries attacker environment_url past a deployment-creator gate).
+  Cure shape: reject any char outside `[a-zA-Z0-9.-]` in
+  `${url#https://}` BEFORE the family suffix match. Class: shell
+  pattern-match as security boundary needs a charset anchor, not just
+  a suffix; same family as the piped-exit-codes class (the tool's
+  cheap idiom is not the contract you meant).
