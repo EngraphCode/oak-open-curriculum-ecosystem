@@ -148,7 +148,16 @@ default-20 heads-up) is with Aakesh. ADR-222 landed at `612e60fe0`; the
 2026-08-03 owner rulings (Matt-priority ticket carve-out, keep+re-pin
 card, type-changes-discussed-first, the ratified source-derived-test
 shape) are verbatim in the napkin's 2026-08-03 entries and enacted
-in PR #735. The lane claim `186e6899` is RETAINED; the seat continues
+in PR #735. Interleave results (Wyvern lifts Kindling, 1da2b1, n=2 pair
+at owner word, 2026-08-03 ~13:00Z): the KeywordsResponseSchema promotion
+question closed as a NO-OP — the newly named schema exists only in
+generated files; every keyword-shaped type outside them (keyword-graph
+corpus, lesson vocabulary, bulk lesson keywords, search index docs)
+models a different surface, so no consumer hand-duplicates it. The
+rendered-wholes frozen-at date now emits from its generator
+(render-wholes.mjs); the first dated regen also trued a stale
+paragraph (the download-asset fonts tip removed upstream at
+cb8281a89). The lane claim `186e6899` is RETAINED; the seat continues
 post-compaction, solo (fleet quiesced, Director dark, blockers card the
 owner). This entry supersedes the item-2 "bulk schema.json is not
 committed / author the future plan" framing above: ADR-222 now governs,
