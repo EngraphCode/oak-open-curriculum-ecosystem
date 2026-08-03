@@ -191,6 +191,13 @@ configuration and are not part of this repo baseline.
 translates this policy into native config. The policy file is the source
 of truth; native config files and repo-local scripts are derived from it.
 
+Its `platform_support` block is descriptive, per-platform activation state
+with a closed `status` vocabulary: `supported` (canonical policy natively
+enforced), `inherited` (enforced through another platform's activation),
+`identity-only` (soft identity/context hook only), and `not-activated` (no
+project activation wired). The runtime reads only `hooks.*`; the portability
+validator and health probe read only `platform_support.claude_code.status`.
+
 ## Porting to Native Activation
 
 When wiring hooks for a platform:
