@@ -1500,6 +1500,34 @@ spec-alignment PR's type diff is walked through with him before the PR
 opens; the bulk-template truing is designed with him before any template
 edit. Test-string re-pins with no type surface stay agent-side.
 
+## 2026-08-03 ~09:30Z (Birch holds Seedling/e48fe2): OWNER ANSWERS — keywords cure, upstream feedback ticket, walkthrough close (capture at occurrence)
+
+Owner answers to the type-walkthrough questions, in-session: (1) keywords
+truncation cure AGREED — description-layer pagination instruction via the
+existing TOOL_DESCRIPTION_ADDITIONS mechanism in the spec-alignment PR;
+invoker-level next-page signal stays the post-release P1. (2) Upstream
+feedback YES, as a Linear ticket: "raise a ticket in the MCP OKR Linear
+project and assign it to Aakesh, make it clear it is agent driven, I
+don't want people to think I am working" (verbatim) — Aakesh's identity
+DERIVED from the workspace user list at mint time; agent-driven marker
+per lead-AI convention. (3) Structural type changes confirmed fine as
+walked through (keywords pagination, named KeywordsResponseSchema,
+unitOptionsGroup optional). On the round-trip test his answer was "bad
+tests are a burden and an entropic hazard" + principles/testing-strategy/
+validation-strategy + metacognition + concept-exploration — the
+exploration ran at this seat; synthesis presented in-conversation
+(source-anchored differential test replacing the value pins; sentinel
+taxonomy: a content pin is admissible only when a named decision attaches
+to the value changing). RATIFIED ~09:33Z, owner verbatim: "agreed, proceed
+on that shape." Consequences bound at ratification: the round-trip test
+rework (source-anchored differential replacing all three value-pinned
+tests) rides the spec-alignment PR; the sentinel-taxonomy clause routes to
+the doctrine queue as a testing-strategy §Prove-behaviour candidate (via
+new-rule-vs-pdr-clause, never self-landed); the upstream-api-alignment
+thread record's canary item gets trued when the differential test lands
+(its re-pin disposition is superseded for this class by the structural
+cure).
+
 ## 2026-08-03 ~09:15Z (Magnetar/74d914): SEVEN OWNER CARD ANSWERS (all-open-questions batch, verbatim-critical)
 
 1. OVERRIDES (update lane): KEEP + re-pin sentinels — owner-ratified.
@@ -1532,3 +1560,76 @@ edit. Test-string re-pins with no type surface stay agent-side.
    arrives with the foundations corpus to avoid a broken-link gate); his
    sentiment woven into the closing sentence; Lichen's original conserves in
    their corpus.
+
+## 2026-08-03 ~09:40Z — Birch walkthrough closed; doctrine-queue addition (sentinel taxonomy); interaction-mode reversion
+
+Birch's ARC entry 09:35Z: the in-session type walkthrough is CLOSED, all
+four shapes owner-settled (Birch's napkin ~09:30Z carries the verbatim
+captures; this seat records pointers + the items routed here):
+
+- DOCTRINE-QUEUE ADDITION (routed from Birch, owner-ratified reshape): the
+  sentinel-taxonomy discriminator — a literal content pin in a test is
+  admissible ONLY as a designed sentinel, i.e. a named decision attaches to
+  the value changing; example-value pins do not qualify. Cure shape: a
+  one-clause testing-strategy §Prove-behaviour carve-out carrying that
+  discriminator, routed per new-rule-vs-pdr-clause. Trigger artefact: the
+  owner-ratified source-anchored differential test (generated
+  toolMcpFlatInputSchema examples vs the schema cache's declared examples;
+  red iff the generator's example mechanism breaks, silent on upstream
+  content drift) that subsumes three value-pinned tests in Birch's
+  spec-alignment PR. Context: the owner invoked metacognition +
+  concept-exploration on "bad tests are a burden and an entropic hazard"
+  and rejected the inherited re-pin disposition as unratified.
+- INTERACTION-MODE (fleet-relevant): the owner's special-case
+  points-in-conversation period at the Birch seat CLOSED ~09:35Z (his
+  word); further owner questions from any seat revert to cards.
+- THIRD TICKET at owner word: upstream-feedback ticket in the MCP OKR
+  Linear project, assigned to Aakesh (identity derived at mint), clearly
+  agent-driven — his words: "I don't want people to think I am working."
+- Birch's next acts: mint the three tickets (two lane tickets Matt-tagged
+  with blast radius + his personal note; the Aakesh upstream-feedback
+  ticket), then the spec-alignment PR on the settled shape.
+
+## 2026-08-03 ~09:50Z — ws-b0 wrap captures (Vanilla stirs Bough, 604af6)
+
+- Owner sizing reframe captured at occurrence (Director relay aa864c82, his
+  words): "I reject that adding some coloured dots will take days, the
+  foundations are in place, and Resonance contains a working example" — the
+  ARC-colour B chain is a PORT of pinned working code; remaining stories
+  price at deliberate quality, port-speed wall-clock. SUPERSEDES this seat's
+  earlier "slow serial sittings" pacing framing in its ack and broadcasts.
+  The plan node is OWNER-RATIFIED (stamp sequenced to the embargo-lift
+  ticket mint).
+- Population-claim class, instances 3+4 in one sitting at this seat
+  (enriches the Director's queued lesson): (3) the CLI topics help omits
+  `comms peer-liveness` though the action exists — probe the documented
+  invocation before concluding absence; tool-feedback routed. (4) my
+  restructure promoted inherited doc text to standing doctrine carrying an
+  internal path contradiction + a stale trigger-state claim — ALL three
+  PR-730 review findings were this class, caught by the zero-context
+  reviewer, none by self-review. Two enrichments routed to the queued item:
+  (a) PROMOTION MOMENTS ARE CENSUS MOMENTS — a restructure or graduation
+  re-asserting inherited claims censuses them at promotion time (falsifier:
+  several promotion passes finding nothing → ceremony, drop it); (b)
+  trigger clauses NAME THEIR DETECTION PATH — a doc-embedded "at first
+  observed X" clause with no sweeping consumer rots silently (the ARC
+  cross-platform trigger sat fired-unnoticed for three weeks; the shipped
+  ws-b0-r1 cure is the worked instance; sizing evidence wanted: a grep
+  census of event-gated clauses estate-wide).
+- Error signature conserved for successors (the metaloss external bound):
+  aim outside review at RE-ASSERTED INHERITED CLAIMS first — the author
+  reads conserved text as settled; a zero-context reader reads it as
+  claims.
+- Pipe-mask class recurred twice at this seat with the warnings loaded
+  (tail -1 ate a phase error; jq ate a claims-open refusal); both recovered
+  in one step via state-reads. Recognition-speed-not-immunity, tally +2.
+- Play seeds (associations, never findings): (a) the dark wing and the
+  unwatched trigger are shaped alike — presence recorded in content,
+  invisible to an index-reader; the ARC-colour delivery's
+  content-projection design is the estate-scale cure of this session's own
+  defect class. (b) ARC's graduation is codification of custom — the corpus
+  adopted (Codex join 2026-07-16, daily use) weeks before doctrine
+  ratified; the owner tripping over the display gap forced the catch-up.
+  Discarded visibly: a geology/fossil-bed analogy for evidence records
+  (decorative); "doc-only stories are the defect-density home" (n=1, too
+  neat).
