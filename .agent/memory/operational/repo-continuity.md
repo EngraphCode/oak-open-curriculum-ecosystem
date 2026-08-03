@@ -41,6 +41,20 @@ forward-asks remain.
   this file. Unless its own line says otherwise, every other lane below is
   dormant or buffered behind this effort.
 
+- **TYPESCRIPT ESTATE CONSOLIDATION REVIEW — active, incomplete local
+  measurement-foundation tranche (2026-08-02→).** The ratified review includes
+  every tracked `.ts`/`.tsx` file, generated carriers, and the curriculum SDK,
+  but no census, candidate, top-ten result, or proposal exists. Revision 2.6's
+  validated configuration/classification fragment is the strongest approved
+  boundary; secure identity is at a known red integration/type boundary,
+  atomic publication is not re-proved after its split, and auxiliary Git reads
+  are only a pure decision/transition. All implementation and review docs are
+  uncommitted in the dedicated `typescript-estate-review-019fc3` worktree by
+  owner direction. Read the [thread record](threads/typescript-estate-consolidation-review.next-session.md)
+  before touching it. Deep consolidation status: not due — the plan remains
+  active, its architectural framing already has permanent homes, and this
+  handoff captured the session-scoped execution state.
+
 - **RESTATEMENT REMEDIATION — gated lane; the settling gate for plan-corpus
   refounding.** Guiding plan (owner-approved):
   [`restatement-remediation.plan.md`](../../plans-backlog-2026-07/product-development-governance/active/restatement-remediation.plan.md)
@@ -212,6 +226,7 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
+| `typescript-estate-consolidation-review` | Whole-estate TypeScript/TSX evidence and foundations-first consolidation review, including generated code and the curriculum SDK; measurement foundation incomplete and no census yet | [record](threads/typescript-estate-consolidation-review.next-session.md) | codex / GPT-5 / Lichen guards Phloem (019fc3) / review implementer and documentation-handoff author / 2026-08-03 |
 | `mcp-product-analytics` | Submission-blocking PostHog sink and MCP analytics integration; October public-beta governance is a separate gate | [record][mcp-analytics] | Cutter hunts Lagoon / codex / GPT-5 / active implementation custody ← Kite seeks Crosswind / handoff complete and retired / 2026-07-26 |
 | `first-class-copilot-cli-practice` | Make GitHub Copilot CLI running locally an equal first-class citizen of the canonical Practice: honest identity, deliberate team join, inherited-hook policy enforcement, supported instruction/skill/agent/MCP projections, local comms/lifecycle, and live proof. The CLI-only strategic and four delivery nodes are owner-ratified; runtime remains gated behind their replacement record landing. | [record](threads/first-class-copilot-cli-practice.next-session.md) | codex / GPT-5 / Thistle holds Blossom (019f94) / replacement-plan implementer / 2026-07-24 ← copilot / gpt-5.6-sol / Thistle rides Canopy (494337) / design authority and live evidence author / 2026-07-24 |
 | `mcp-agent-facing-content` | Audit + classified registry of repo-controlled content reaching MCP consumers (the effective agent prompt); distinct from `data-sources-governance` (DATA sources). Deliverables + lane history: thread record | [record](threads/mcp-agent-facing-content.next-session.md) | claude-code / claude-fable-5 / Urchin hunts Surf / implementer — MCP-103(a) delta-refresh MERGED (#476) / 2026-07-22 (chain: thread record) |
