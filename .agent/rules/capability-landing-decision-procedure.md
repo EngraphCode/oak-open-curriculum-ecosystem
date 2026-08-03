@@ -31,6 +31,22 @@ directory; editing hook or validator configuration; and the moment a
 capability's home is being chosen. It does not fire for content
 edits within an already-landed home.
 
+## Source channels (owner ruling 2026-08-03)
+
+Verbatim: "no skills should be vendored, we have Oak skills, we have
+skills installed with `npx skills add` or `pnpm skills add` that is
+it." Exactly two legitimate skill channels exist: **Oak-authored
+skills in-repo**, and **installer-managed skills** via
+`npx skills add` / `pnpm skills add`, whose record is
+`skills-lock.json`. Content copied into the estate outside those
+channels is out-of-policy: it is removed or re-homed through the
+installer, never grandfathered. Installer-managed payloads are not
+locally patched (a local edit breaks the lock's content hash and
+forks unmanaged content) — defects route upstream. This ruling bounds
+SOURCES; it does not waive
+[`third-party-skills-require-security-review`](third-party-skills-require-security-review.md),
+which still fires at every adoption moment.
+
 ## The procedure, in order
 
 1. **Audience set first.** Which audience does this capability

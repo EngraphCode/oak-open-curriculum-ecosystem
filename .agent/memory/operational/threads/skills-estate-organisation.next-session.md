@@ -53,12 +53,18 @@
   §Machine-local paths (new), and important-state-not-in-temp-files;
   index 71 core / 47 situational; full shape in the working record's
   ~21:38Z entry; gate-cure PR #724 merged b9a246bb1 earlier, its
-  findings 1-4 form the loader-contract follow-up unit); NEXT: the D
-  mechanism source leg rides the #726 branch (policy exclude-entry
-  deletion + helpers-fixture re-target + validator-message re-point +
-  three TSDoc mentions — an atomic pair with the live-policy-reading
-  test), drive #726 to merge into the coordination branch, then
-  loader config for
+  findings 1-4 form the loader-contract follow-up unit); #726 MERGED
+  2026-08-03 (tip 171d4e182) — the D arc is COMPLETE; NEXT: the #714
+  fold-review round remainder — 5/12 threads dispositioned+resolved
+  2026-08-03 (map + full remaining-seven detail in the working
+  record's ~06:07Z entry: six Parallax defects incl. the generator
+  recursive-walk source PR, plus the surface:* Cursor globs pass —
+  one push per adjudicated round, Director merges the fold at
+  resolved+green+settled); the owner's two-channel skills ruling is
+  INSCRIBED (capability-landing-decision-procedure §Source channels)
+  and the skill-creator payload security review is RECORDED
+  (skill-creator-payload-security-review-2026-08-03.md); then loader
+  config for
   `surface:*`/`tool:*` instances — the R2 mint's loader-config
   disposition rides there; (2) WS6 landing legs incl. the three cross-family
   routing edges (reason stop-gate commissioning seam,

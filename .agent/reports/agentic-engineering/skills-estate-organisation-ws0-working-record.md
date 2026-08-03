@@ -1193,3 +1193,56 @@ recorded at push in the ceremony chain (classification gate,
 portability parity, repo validators, link validators, the
 machine-local helpers suite proven green against the interim policy
 state).
+
+### 2026-08-03 ~06:07Z — #726 MERGED; #714 round 5/12 dispositioned; owner two-channel ruling inscribed; compaction freeze
+
+PR #726 MERGED into the coordination branch (tip 171d4e182) at the
+full condition — zero unresolved threads, CLEAN, checks green,
+REST-merged as the bot, no squash. The graduation's mechanism leg is
+on the fold; the D arc is COMPLETE end to end.
+
+The Director then routed the #714 fold-review round here: 12
+unresolved threads, all skills-lane content; the fold merges at
+resolved + green and is the estate's critical path. DISPOSITIONED
+this sitting (each replied with first-hand-verified evidence and
+resolved on the PR): (1) the commit-D validator-message residue —
+verified cured at the tip by the #726 merge; (2) the skills-lock
+security-review thread — the owner's 2026-08-03 ruling settled the
+CHANNEL question ("no skills should be vendored, we have Oak skills,
+we have skills installed with `npx skills add` or `pnpm skills add`
+that is it" — inscribed verbatim as §Source channels in
+capability-landing-decision-procedure.md), and the review itself is
+now PERFORMED and recorded
+(skill-creator-payload-security-review-2026-08-03.md: nine scripts
+read; verdict safe-at-rest / safe-on-explicit-run within the user's
+own claude auth boundary; hygiene flags: the .claude/commands write
+and the CLAUDECODE unset; the rule's own text scheduled this
+backfill at next pin bump — performed early); (3+4) the two
+skill-creator defect threads (packager module root; undeclared
+PyYAML) — both verified, both routed UPSTREAM per the two-channel
+ruling (installer payloads are never locally patched: a local edit
+breaks the lock hash). The duplicate render_graph pair counts once.
+
+REMAINING at the freeze — seven threads, the next sitting's map:
+
+- Parallax (Oak-authored, per the ruling — editable lane content):
+  installation.md pre-rehoming paths (true to the landed nested
+  layout); the adapter generator/checker immediate-children-only walk
+  vs the nested layout (the R1-adopted generator-extension work item —
+  agent-tools SOURCE, lands as a reviewed PR into the coordination
+  branch per the #724/#726 pattern); render_graph.py non-injective ID
+  sanitisation (two finders, one defect — encode injectively);
+  validate_bundle.py rejecting host repos' own skills (scope the
+  exact-set assertion to the bundle layout); experiment-plan
+  validator non-string array members crash (duplicate at the product
+  validator); product validator passing fixed-horizon plans when
+  effect_results_visible_during_run is omitted (require explicit
+  boolean). Python fixes want their own red-first cycles.
+- Loader globs (P1): surface:* Cursor wrappers flipped to
+  alwaysApply:false without globs — the index's own contract (rows
+  19-24/52-70) promises loader bindings; the cure is the Cursor-globs
+  pass (the 4 kept glob-scoped wrappers are the pattern), independent
+  of the evals-gated Claude-side withdrawal still awaiting the
+  owner's word on the fused recommendation.
+- Discipline: one push per adjudicated round; re-request review after
+  the fix push; the Director merges at resolved+green+settled.
