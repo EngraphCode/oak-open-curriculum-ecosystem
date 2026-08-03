@@ -1,5 +1,5 @@
 /** CLI commands for lifecycle ingestion operations (ADR-130). */
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { InvalidArgumentError, type Command } from 'commander';
 import type { Client } from '@elastic/elasticsearch';
 import { sanitiseForJson } from '@oaknational/observability';
@@ -17,12 +17,14 @@ import {
   validateIngestEnv,
   printSuccess,
   printError,
+  printInfo,
   printJson,
   APP_ROOT,
   type CliSdkEnv,
   type SearchCliEnvLoader,
 } from '../shared/index.js';
 import { resolveBulkDirFromInputs } from '../shared/resolve-bulk-dir.js';
+import { checkBulkDataFreshness } from '../shared/bulk-freshness.js';
 import { buildLifecycleService } from './shared/build-lifecycle-service.js';
 import {
   parseLifecycleIngestOpts,
@@ -84,6 +86,13 @@ async function disconnectOakClient(oakClient: { disconnect(): Promise<void> }): 
   }
 }
 
+function failIngestPrecondition(error: { readonly message: string }): IngestPreconditionResult {
+  ingestLogger.error(error.message, { error: sanitiseForJson(error) });
+  printError(error.message);
+  process.exitCode = 1;
+  return { ok: false };
+}
+
 function validateIngestPreconditions(
   cliEnv: LifecycleIngestEnv,
   opts: ParsedLifecycleIngestOpts,
@@ -95,21 +104,24 @@ function validateIngestPreconditions(
     fs: realFs,
   });
   if (!bulkResult.ok) {
-    ingestLogger.error(bulkResult.error.message, {
-      error: sanitiseForJson(bulkResult.error),
-    });
-    printError(bulkResult.error.message);
-    process.exitCode = 1;
-    return { ok: false };
+    return failIngestPrecondition(bulkResult.error);
   }
+  const freshnessResult = checkBulkDataFreshness({
+    bulkDir: bulkResult.value,
+    now: new Date(),
+    fs: { readFileSync: (path: string) => readFileSync(path, 'utf8') },
+  });
+  if (!freshnessResult.ok) {
+    return failIngestPrecondition(freshnessResult.error);
+  }
+  ingestLogger.info('Bulk data vintage verified', { ...freshnessResult.value });
+  printInfo(
+    `Bulk data vintage: downloaded ${freshnessResult.value.downloadedAt} ` +
+      `(${freshnessResult.value.ageDays} day(s) old)`,
+  );
   const envResult = validateIngestEnv({ oakApiKey: cliEnv.OAK_API_KEY });
   if (!envResult.ok) {
-    ingestLogger.error(envResult.error.message, {
-      error: sanitiseForJson(envResult.error),
-    });
-    printError(envResult.error.message);
-    process.exitCode = 1;
-    return { ok: false };
+    return failIngestPrecondition(envResult.error);
   }
   return { ok: true, bulkDir: bulkResult.value };
 }

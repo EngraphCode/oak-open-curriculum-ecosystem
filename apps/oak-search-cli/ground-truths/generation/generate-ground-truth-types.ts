@@ -25,6 +25,7 @@ import {
   type ParsedBulkData,
 } from './type-emitter';
 import { emitGroundTruthSchemas } from './schema-emitter';
+import { checkBulkDataFreshness, type BulkFreshness } from '../../src/cli/shared/bulk-freshness';
 
 // ============================================================================
 // Types
@@ -232,7 +233,7 @@ export * from './bulk-data-manifest';
 /**
  * Generates the manifest file with generation metadata.
  */
-function generateManifestFile(allData: readonly ParsedBulkData[]): string {
+function generateManifestFile(allData: readonly ParsedBulkData[], downloadedAt: string): string {
   const lines: string[] = [];
 
   lines.push(
@@ -241,6 +242,7 @@ function generateManifestFile(allData: readonly ParsedBulkData[]): string {
     ' *',
     ' * @generated - DO NOT EDIT',
     ` * Generated at: ${new Date().toISOString()}`,
+    ` * Data downloaded at: ${downloadedAt}`,
     ' */',
     '',
     '/**',
@@ -281,14 +283,74 @@ function generateManifestFile(allData: readonly ParsedBulkData[]): string {
 /**
  * Main generator function.
  */
+/** A logger that prints in verbose mode and is silent otherwise. */
+function createVerboseLogger(verbose: boolean): (message: string) => void {
+  return verbose ? (message) => console.log(message) : () => undefined;
+}
+
+/**
+ * Verify the bundle's vintage via the shared freshness contract, mapping
+ * its error into this generator's error shape.
+ */
+function verifyBundleVintage(bulkDir: string): Result<BulkFreshness, GenerationError> {
+  const freshness = checkBulkDataFreshness({
+    bulkDir,
+    now: new Date(),
+    fs: { readFileSync: (path) => readFileSync(path, 'utf8') },
+  });
+  if (!freshness.ok) {
+    return err({ kind: 'validation_error', message: freshness.error.message });
+  }
+  return freshness;
+}
+
+/**
+ * Emits every generated artefact in order; the first failed write aborts.
+ */
+function writeGeneratedFiles(
+  outputDir: string,
+  allData: readonly ParsedBulkData[],
+  downloadedAt: string,
+): Result<readonly string[], GenerationError> {
+  const lessonSlugDataset = buildLessonSlugDataset(allData);
+  const outputs: readonly (readonly [string, string])[] = [
+    ['lesson-slugs-by-subject.ts', emitAllLessonSlugTypes(allData)],
+    ['lesson-slugs-by-subject.types.ts', emitLessonSlugDatasetTypes()],
+    ['lesson-slugs-by-subject.data.json', JSON.stringify(lessonSlugDataset, null, 2)],
+    ['ground-truth-schemas.ts', emitGroundTruthSchemas()],
+    ['bulk-data-manifest.ts', generateManifestFile(allData, downloadedAt)],
+    ['index.ts', generateIndexFile()],
+  ];
+  const filesWritten: string[] = [];
+  for (const [filename, content] of outputs) {
+    const written = writeOutputFile(outputDir, filename, content);
+    if (!written.ok) {
+      return written;
+    }
+    filesWritten.push(written.value);
+  }
+  return ok(filesWritten);
+}
+
 export async function generateGroundTruthTypes(
   options: GeneratorOptions,
 ): Promise<Result<GenerationResult, GenerationError>> {
   const { bulkDir, outputDir, verbose } = options;
+  const logVerbose = createVerboseLogger(verbose);
 
-  if (verbose) {
-    console.log(`Reading bulk data from: ${bulkDir}`);
+  logVerbose(`Reading bulk data from: ${bulkDir}`);
+
+  // Step 0: Verify the bundle's vintage before generating anything from it.
+  // Bulk data is downloaded per-checkout; generating from a silently stale
+  // bundle bakes its vintage into every generated artefact.
+  const freshness = verifyBundleVintage(bulkDir);
+  if (!freshness.ok) {
+    return freshness;
   }
+  const { downloadedAt } = freshness.value;
+  logVerbose(
+    `Bulk data vintage: downloaded ${downloadedAt} (${freshness.value.ageDays} day(s) old)`,
+  );
 
   // Step 1: Read bulk files
   const filesResult = readBulkDataFiles(bulkDir);
@@ -296,9 +358,7 @@ export async function generateGroundTruthTypes(
     return filesResult;
   }
 
-  if (verbose) {
-    console.log(`Found ${filesResult.value.length} bulk data files`);
-  }
+  logVerbose(`Found ${filesResult.value.length} bulk data files`);
 
   // Step 2: Parse all files
   const parseResult = parseAllBulkData(filesResult.value);
@@ -309,10 +369,8 @@ export async function generateGroundTruthTypes(
   const allData = parseResult.value;
   const totalLessons = allData.reduce((sum, d) => sum + d.lessonCount, 0);
 
-  if (verbose) {
-    console.log(`Parsed ${allData.length} subject/phase combinations`);
-    console.log(`Total lessons: ${totalLessons}`);
-  }
+  logVerbose(`Parsed ${allData.length} subject/phase combinations`);
+  logVerbose(`Total lessons: ${totalLessons}`);
 
   // Step 3: Ensure output directory exists
   const dirResult = ensureOutputDir(outputDir);
@@ -321,69 +379,13 @@ export async function generateGroundTruthTypes(
   }
 
   // Step 4: Generate and write files
-  const filesWritten: string[] = [];
-
-  const lessonSlugDataset = buildLessonSlugDataset(allData);
-
-  // Write lesson-slugs-by-subject loader + data files
-  const typesContent = emitAllLessonSlugTypes(allData);
-  const typesResult = writeOutputFile(outputDir, 'lesson-slugs-by-subject.ts', typesContent);
-  if (!typesResult.ok) {
-    return typesResult;
+  const writeResult = writeGeneratedFiles(outputDir, allData, downloadedAt);
+  if (!writeResult.ok) {
+    return writeResult;
   }
-  filesWritten.push(typesResult.value);
+  const filesWritten = writeResult.value;
 
-  const datasetTypesContent = emitLessonSlugDatasetTypes();
-  const datasetTypesResult = writeOutputFile(
-    outputDir,
-    'lesson-slugs-by-subject.types.ts',
-    datasetTypesContent,
-  );
-  if (!datasetTypesResult.ok) {
-    return datasetTypesResult;
-  }
-  filesWritten.push(datasetTypesResult.value);
-
-  const datasetJsonResult = writeOutputFile(
-    outputDir,
-    'lesson-slugs-by-subject.data.json',
-    JSON.stringify(lessonSlugDataset, null, 2),
-  );
-  if (!datasetJsonResult.ok) {
-    return datasetJsonResult;
-  }
-  filesWritten.push(datasetJsonResult.value);
-
-  // Write ground-truth-schemas.ts
-  const schemasContent = emitGroundTruthSchemas();
-  const schemasResult = writeOutputFile(outputDir, 'ground-truth-schemas.ts', schemasContent);
-  if (!schemasResult.ok) {
-    return schemasResult;
-  }
-  filesWritten.push(schemasResult.value);
-
-  // Write bulk-data-manifest.ts
-  const manifestContent = generateManifestFile(allData);
-  const manifestResult = writeOutputFile(outputDir, 'bulk-data-manifest.ts', manifestContent);
-  if (!manifestResult.ok) {
-    return manifestResult;
-  }
-  filesWritten.push(manifestResult.value);
-
-  // Write index.ts
-  const indexContent = generateIndexFile();
-  const indexResult = writeOutputFile(outputDir, 'index.ts', indexContent);
-  if (!indexResult.ok) {
-    return indexResult;
-  }
-  filesWritten.push(indexResult.value);
-
-  if (verbose) {
-    console.log('Generated files:');
-    for (const file of filesWritten) {
-      console.log(`  ${file}`);
-    }
-  }
+  logVerbose(['Generated files:', ...filesWritten.map((file) => `  ${file}`)].join('\n'));
 
   return ok({
     subjectsProcessed: allData.length,
