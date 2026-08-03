@@ -1824,6 +1824,21 @@ plan node upstream-update-lane-completion (re-trued). Monitors stopped:
 15-min Matt-scan cron DELETED, local dev server STOPPED. PostHog
 preview issue NOT resolved at handoff — see the handoff entry for the
 established/open split and the granted probe instrument.
+OWNER CORRECTION (~13:00Z, verbatim substance): "disappointed that you
+would suggest turning a system off to deal with the fact that it is
+misconfigured." The sinks-removal reframe was a DISABLE-SHAPED cure —
+the no-change-freezes / configure-don't-disable / no-stopgaps class
+worn as a fresh look. Mechanism: the step-way-back prompt overswung
+from mechanism-descent PAST the correct frame into system-disabling
+(metacognition §Stance Under Correction: correcting on the last
+correction's direction, not the axis's principle). Corrected verdict
+enacted: FIX THE MISCONFIGURATION IN PLACE — content-free probe
+(granted) names the defect class → owner re-enters the keyring
+byte-faithfully → redeploy → one boot verifies; the reframe's only
+surviving yield is urgency calibration (near-zero preview-analytics
+utilisation), never the cure. Matt is covered meanwhile by the local
+validation evidence on #735.
+
 CORRECTION minutes later (owner word): NOT a shutdown — "do work in an
 n=2 pair with Wyvern, collaborate on this work, open an ARC channel."
 Birch CONTINUES; the transfer brief became the pair's shared-context
@@ -1831,6 +1846,40 @@ opening in the ARC channel
 2026-08-03-upstream-lane-pair-birch-holds-seedling-wyvern-lifts-kindling.md;
 the cron/dev-server stops stand (re-armed on need); n=2 comms ceremony
 resumes (channel Monitor armed at this seat).
+
+## 2026-08-03 ~15:20Z (Birch/e48fe2): code-owner gate exemption (owner-directed, TEMPORARY MODE) + #738 agent review + five-step preview-gate plan ratified
+
+- RULESET EDIT executed at owner word ("for now we should exempt my id
+  and matt's from the codeowner requirement, otherwise he is going to
+  be stuck when I am not online"): ruleset 19395183 (Code-owner review
+  gate) gained User bypass actors jimCresswell (1314980) and mantagen
+  (12934669) alongside the two bot Integrations; PUT verified in the
+  response. Executed under the owner's ambient gh credential at his
+  explicit direction (admin scope is deliberately withheld from the
+  bot). TEMPORARY MODE with named revisit condition: revisit when a
+  second code-owner-capable review identity exists or at release
+  completion — whichever first; the exemption means owner/Matt PRs can
+  merge WITHOUT any code-owner review, so the compensating control is
+  the standing agent-review grant below.
+- STANDING GRANT (owner, saved to per-user memory): agents review
+  Matt's PRs on Jim's behalf, clearly agent-marked, bot identity;
+  surface if Matt insists on Jim personally. First exercise: PR #738
+  (retention 12mo→5y) APPROVED after three-surface consistency check +
+  estate-wide completeness sweep.
+- FIVE-STEP PREVIEW-GATE PLAN ratified in-conversation (owner-dictated,
+  exploration-refined): (1) ticket + fix PR making invalid deploy
+  config fail the BUILD (sensitive values ARE build-available — vendor
+  doc verified; Vercel check IS required — ruleset verified); (2) prove
+  the bite on the live broken env, owner or agent rotates the keyring,
+  merge; (3) add the new post-deploy check to the required list;
+  (4) GitHub-side deployment_status smoke (route to Wyvern);
+  (5) branch-scoped red-team proof. KEY FACT (owner): a PREVIOUS
+  DIRECTOR set the preview values Jul 29 — the entry path is in the
+  estate records (napkin archive 2026-07-30 window, MCP-241 trail,
+  vercel-environment-config doc) and a team-scoped agent write path
+  likely exists; records search + credential hunt open step 1, agent
+  rotation with FRESH minted key material preferred, owner in-place
+  Edit as fallback; boot-verify closes it either way.
 
 LOCAL-ONLY RESIDUE riding the successor coordination branch at resume
 (owner-acknowledged, no further PRs at his word): this napkin's
@@ -1846,3 +1895,41 @@ of those two files + two content-preserving lint reflows) — adopt or
 prune at resume. The primary checkout sits on the DEAD
 coordination/estate-2026-08-02 branch (merged 3fe18580c, remote
 deleted); the successor cuts fresh from main.
+
+## 2026-08-03 Lava lifts Brimstone — bare `gh pr create` rode the keyring again (MCP-473, PRs 739→740)
+
+Opened the MCP-473 PR with bare `gh pr create` from a fresh worktree; it rode the
+owner's keyring identity. Owner caught it live; cured per the bot-identity worked
+mechanics (mint-token assign-first, close #739, recreate #740 as the bot). Same shape
+as the 2026-07-31 instance (661→662) the rule already records. New observation worth
+keeping: the commit surface LOOKED safe (author/committer already the bot via the
+shared local config), and that safety did not transfer — commit identity and `gh`
+identity are separate credential surfaces; verifying one says nothing about the
+other. The credential-selection pause fires per WRITE per surface, not per session.
+
+## 2026-08-03 ~16:15Z (Wyvern lifts Kindling/1da2b1): OWNER WORD — branches carry at least draft PRs; adoption-failure capture
+
+Owner (2026-08-03, with the branches-page screenshot showing this seat's
+two PR-less pushes): "generally, I want branches to have at least draft
+PRs." Enacted at occurrence: draft PR #741 (mcp-463 build-ahead, stacked
+on the #735 branch, retarget-at-merge noted) + draft PR #742 (the live
+coordination branch — its fold PR, open as draft from the cut); the
+generalisation clause landed in worktree-hygiene §1 with the push-moment
+trigger and this worked instance; Enforcement section now names the
+pushed-branch-without-PR check as a live candidate.
+
+The metacognitive capture: worktree-hygiene §1 was LOADED at this seat
+all session and did not fire at either push — the seat conflated the
+final PR's merge-sequencing ("PR cuts off origin/main AFTER #735
+merges", from the plan node) with the visibility draft, which the rule
+explicitly separates (draft ≠ ready ≠ merge). Neither branch read as a
+"worktree lane" at push time (one was the coordination branch on the
+primary; one was a build-ahead), so the creation/first-commit triggers
+pattern-matched to nothing. Passive-guidance-loses-to-artefact-gravity,
+push edition; the cure is the trigger widened to the PUSH moment + the
+census check. Census at capture: two proven-merged stale refs
+(collab-sweep-2026-07-20, coordination/estate-2026-07-30-c — safe
+deletes at owner word) and four branches with unmerged commits needing
+§6 content dispositions (aip-131 snapshot, agent-operability map,
+commit-queue-sameagent, mcp-128 landing page, mcp-372 true-up —
+follow-up sweep, not blind PR wrappers).
