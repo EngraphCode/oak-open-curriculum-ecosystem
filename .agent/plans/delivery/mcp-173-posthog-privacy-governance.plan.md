@@ -173,7 +173,7 @@ or prescribe its form.
    access configuration and review evidence linked on MCP-173.
 5. **The maximum retention period is operationally true.** Events,
    residual profiles, derived data, exports, and every controllable
-   copy expire within twelve months. The product decision record
+   copy expire within five years (60 months). The product decision record
    explains which approved longitudinal question requires
    pseudonymous raw facts for that long, or sets a shorter raw-event
    period with anonymised aggregates retained for the remaining

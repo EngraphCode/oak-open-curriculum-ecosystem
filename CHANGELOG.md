@@ -1,3 +1,14 @@
+## [1.146.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.2...v1.146.3) (2026-08-03)
+
+## [1.146.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.1...v1.146.2) (2026-08-03)
+
+
+### Bug Fixes
+
+* **mcp-server:** record the env-change boot-check obligation in the UAT runbook ([94d67a3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/94d67a3c150e3cf56334130e886e68bb19d476df))
+
+## [1.146.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.0...v1.146.1) (2026-08-03)
+
 # [1.146.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.145.0...v1.146.0) (2026-08-03)
 
 
