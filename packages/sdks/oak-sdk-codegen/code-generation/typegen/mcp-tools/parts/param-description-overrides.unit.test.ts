@@ -16,19 +16,21 @@ function makeParam(description: string): ParamMetadataMap {
 
 describe('applyParamDescriptionOverrides', () => {
   it('corrects the offset description on the lessons endpoint', () => {
+    // Incoming descriptions model what the upstream spec currently serves:
+    // generic whole-list pagination wording that misses the per-unit semantics.
     const query: ParamMetadataMap = {
       offset: {
         typePrimitive: 'number',
         valueConstraint: false,
         required: false,
         description:
-          'Limit the number of lessons returned per unit. Units with zero lessons after limiting are omitted.',
+          'If limiting results returned, this allows you to return the next set of results, starting at the given offset point',
       },
       limit: {
         typePrimitive: 'number',
         valueConstraint: false,
         required: false,
-        description: 'Offset applied to lessons within each unit (not to the unit list).',
+        description: 'Limit the number of lessons, e.g. return a maximum of 300 lessons',
       },
     };
 

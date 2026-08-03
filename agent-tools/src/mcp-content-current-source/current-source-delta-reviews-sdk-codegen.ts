@@ -9,6 +9,7 @@ import {
   excluded,
   IMPLEMENTATION_ONLY,
   reviewed,
+  TEST_ONLY,
   type CurrentSourceDeltaReview,
   UPSTREAM_BULK_ONLY,
 } from './current-source-delta-review-helpers.js';
@@ -66,8 +67,17 @@ export const SDK_CODEGEN_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
     '8c8c63616d88ddc3a467810c92fb899b241b539e958110d09a1013cdc332238a',
     IMPLEMENTATION_ONLY,
   ),
+  // MCP-462: upstreamBuggyDescription strings re-pinned to upstream's new
+  // wording (2026-08-03 owner card, keep + re-pin); the module carries the
+  // served correctDescription content for the lessons offset/limit params.
+  'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/param-description-overrides.ts':
+    reviewed('e69a36e5d66cab7ea033dfa5787235e22086b5070634b561c87d32a49e4bddb1', ['C464', 'C465']),
+  // MCP-462: shared schema-cache reader consolidated at its second test
+  // consumer; test infrastructure only.
+  'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/test-helpers/schema-cache-reader.ts':
+    excluded('f5b9dab9db0897facc78f5d565844ec2ce84e40dd6621eb6f843d19d182988cc', TEST_ONLY),
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.ts':
-    reviewed('26312f46dbe23f7798a31df5c5850a7fe1c8f262e3a1c66ea1d557cbdf1bd0a0', [
+    reviewed('b9d5b7fb4c8023b7103be5c47af1cd46d0e93298ff27c14d1f22e3b1e261b426', [
       'C453',
       'C454',
       'C456',

@@ -519,7 +519,7 @@ export const PATH_OPERATIONS = [
         "schema": {
           "type": "string",
           "description": "The sequence slug identifier",
-          "example": "english-secondary"
+          "example": "english-secondary-aqa"
         }
       }
     ],
@@ -587,6 +587,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "year",
+        "description": "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used.",
         "schema": {
           "type": "string",
           "enum": [
@@ -790,12 +791,13 @@ export const PATH_OPERATIONS = [
         "schema": {
           "type": "string",
           "description": "The sequence slug identifier, including the key stage 4 option where relevant.",
-          "example": "english-primary"
+          "example": "maths-primary"
         }
       },
       {
         "in": "query",
         "name": "year",
+        "description": "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used.",
         "schema": {
           "type": "number",
           "description": "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used.",
@@ -805,6 +807,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "type",
+        "description": "Optional asset type specifier\n\nAvailable values: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers",
         "schema": {
           "type": "string",
           "enum": [
@@ -818,7 +821,7 @@ export const PATH_OPERATIONS = [
             "worksheet",
             "worksheetAnswers"
           ],
-          "description": "Optional asset type specifier\n\nAvailable values: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers",
+          "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
           "example": "slideDeck"
         }
       }
@@ -923,6 +926,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "type",
+        "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
         "schema": {
           "type": "string",
           "enum": [
@@ -936,13 +940,14 @@ export const PATH_OPERATIONS = [
             "worksheet",
             "worksheetAnswers"
           ],
-          "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+          "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
           "example": "slideDeck"
         }
       },
       {
         "in": "query",
         "name": "unit",
+        "description": "Optional unit slug to additionally filter by",
         "schema": {
           "type": "string",
           "description": "Optional unit slug to additionally filter by",
@@ -1008,12 +1013,13 @@ export const PATH_OPERATIONS = [
         "schema": {
           "type": "string",
           "description": "The lesson slug identifier",
-          "example": "child-workers-in-the-victorian-era"
+          "example": "creating-a-new-word"
         }
       },
       {
         "in": "query",
         "name": "type",
+        "description": "Optional asset type specifier\n\nAvailable values: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers",
         "schema": {
           "type": "string",
           "enum": [
@@ -1027,7 +1033,7 @@ export const PATH_OPERATIONS = [
             "worksheet",
             "worksheetAnswers"
           ],
-          "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+          "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
           "example": "slideDeck"
         }
       }
@@ -1096,6 +1102,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "offset",
+        "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
         "schema": {
           "default": 0,
           "type": "number",
@@ -1106,6 +1113,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "limit",
+        "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
         "schema": {
           "default": 20,
           "type": "number",
@@ -1117,6 +1125,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "type",
+        "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
         "schema": {
           "type": "string",
           "enum": [
@@ -1130,7 +1139,7 @@ export const PATH_OPERATIONS = [
             "worksheet",
             "worksheetAnswers"
           ],
-          "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+          "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
           "example": "slideDeck"
         }
       }
@@ -1193,13 +1202,13 @@ export const PATH_OPERATIONS = [
         "schema": {
           "type": "string",
           "description": "The lesson slug",
-          "example": "child-workers-in-the-victorian-era"
+          "example": "creating-a-new-word"
         }
       },
       {
         "in": "path",
         "name": "type",
-        "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+        "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
         "required": true,
         "schema": {
           "type": "string",
@@ -1214,7 +1223,7 @@ export const PATH_OPERATIONS = [
             "worksheet",
             "worksheetAnswers"
           ],
-          "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+          "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
           "example": "slideDeck"
         }
       }
@@ -1662,6 +1671,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "unit",
+        "description": "Optional unit slug to additionally filter by",
         "schema": {
           "type": "string",
           "description": "Optional unit slug to additionally filter by",
@@ -1671,22 +1681,24 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "offset",
+        "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
         "schema": {
           "default": 0,
-          "description": "Limit the number of lessons returned per unit. Units with zero lessons after limiting are omitted.",
+          "example": 11,
           "type": "number",
-          "example": 0
+          "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point"
         }
       },
       {
         "in": "query",
         "name": "limit",
+        "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
         "schema": {
           "default": 20,
-          "description": "Offset applied to lessons within each unit (not to the unit list).",
+          "example": 10,
           "type": "number",
           "maximum": 300,
-          "example": 20
+          "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons"
         }
       }
     ],
@@ -1790,6 +1802,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "examBoard",
+        "description": "Optional exam board slug to filter units by, e.g. 'aqa'. Only meaningful at KS4 where subjects are broken down by exam board.",
         "schema": {
           "type": "string",
           "enum": [
@@ -2056,11 +2069,12 @@ export const PATH_OPERATIONS = [
     "method": "get",
     "operationId": "getKeywords-getKeywords",
     "summary": "Keywords by subject and key stage",
-    "description": "Use when you want the vocabulary for a key stage, subject, unit, lesson, or phase — e.g. to build a glossary or attach definitions to content. Returns keywords with definition, the subject + key stage they appear in, and the lessons that use them, sorted alphabetically. All filters are optional, but pass at least one of keyStage, subject, unit, lesson, or phase.",
+    "description": "Use when you want the vocabulary for a key stage, subject, unit, lesson, or phase — e.g. to build a glossary or attach definitions to content. Returns keywords with definition, the subject + key stage they appear in, and the lessons that use them, sorted alphabetically. All filters are optional, but pass at least one of keyStage, subject, unit, lesson, or phase.\n\nRequest rules:\n\n- At least one of subject, keyStage, phase, unit or lesson must be provided - note that they are all the slug form of the values (e.g. \"ks2\" for key stage 2, \"science\" for the science subject, and \"forces-and-magnets\" for the forces and magnets unit), and that casing is important (always lowercase).",
     "parameters": [
       {
         "in": "query",
         "name": "subject",
+        "description": "Subject slug to search by, e.g. 'science' - note that casing is important here (always lowercase)",
         "schema": {
           "type": "string",
           "enum": [
@@ -2081,12 +2095,14 @@ export const PATH_OPERATIONS = [
             "rshe-pshe",
             "science",
             "spanish"
-          ]
+          ],
+          "example": "english"
         }
       },
       {
         "in": "query",
         "name": "keyStage",
+        "description": "Key stage slug to filter by, e.g. 'ks2'",
         "schema": {
           "type": "string",
           "enum": [
@@ -2094,12 +2110,14 @@ export const PATH_OPERATIONS = [
             "ks2",
             "ks3",
             "ks4"
-          ]
+          ],
+          "example": "ks1"
         }
       },
       {
         "in": "query",
         "name": "phase",
+        "description": "Phase to filter by, e.g. 'primary' or 'secondary'. Cannot be combined with keyStage.",
         "schema": {
           "type": "string",
           "enum": [
@@ -2111,6 +2129,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "unit",
+        "description": "Unit slug to search by, e.g. 'forces-and-magnets' - note that casing is important here (always lowercase)",
         "schema": {
           "type": "string"
         }
@@ -2118,8 +2137,32 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "lesson",
+        "description": "Lesson slug to search by, e.g. 'animating-text' - note that casing is important here (always lowercase)",
         "schema": {
           "type": "string"
+        }
+      },
+      {
+        "in": "query",
+        "name": "offset",
+        "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
+        "schema": {
+          "default": 0,
+          "type": "number",
+          "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
+          "example": 0
+        }
+      },
+      {
+        "in": "query",
+        "name": "limit",
+        "description": "Limit the number of keywords, e.g. return a maximum of 300 keywords",
+        "schema": {
+          "default": 20,
+          "description": "Limit the number of keywords, e.g. return a maximum of 300 keywords",
+          "type": "number",
+          "maximum": 300,
+          "example": 20
         }
       }
     ],
@@ -2129,74 +2172,7 @@ export const PATH_OPERATIONS = [
         "content": {
           "application/json": {
             "schema": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "keyword": {
-                    "type": "string",
-                    "example": "non-finite clause",
-                    "description": "The keyword text"
-                  },
-                  "description": {
-                    "type": "string",
-                    "example": "a type of subordinate clause that can start with a verb in the progressive tense",
-                    "description": "A description of the keyword"
-                  },
-                  "keyStageSlug": {
-                    "type": "string",
-                    "example": "ks2",
-                    "description": "The key stage slug associated with this keyword"
-                  },
-                  "subjectSlug": {
-                    "type": "string",
-                    "example": "science",
-                    "description": "The subject slug associated with this keyword"
-                  },
-                  "lessonSlugs": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "example": [
-                      "a-new-sentence-structure-the-non-finite-complex-sentence",
-                      "using-the-comma-rules-in-non-finite-complex-sentences",
-                      "a-new-subordinate-clause-the-non-finite-ing-clause"
-                    ],
-                    "description": "The different lesson slugs where this keyword is used"
-                  }
-                },
-                "required": [
-                  "keyword",
-                  "description",
-                  "keyStageSlug",
-                  "subjectSlug",
-                  "lessonSlugs"
-                ],
-                "additionalProperties": false
-              },
-              "ref": "KeyStageSubjectKeywordsResponseSchema",
-              "example": [
-                {
-                  "keyword": "animate",
-                  "description": "to make something move or change its appearance",
-                  "keyStageSlug": "ks2",
-                  "subjectSlug": "computing",
-                  "lessonSlugs": [
-                    "animating-text"
-                  ]
-                },
-                {
-                  "keyword": "animation",
-                  "description": "a way of making pictures or objects look as if they are moving by showing them quickly one after another",
-                  "keyStageSlug": "ks2",
-                  "subjectSlug": "computing",
-                  "lessonSlugs": [
-                    "introduction-to-animation",
-                    "programming-using-command-blocks"
-                  ]
-                }
-              ]
+              "$ref": "#/components/schemas/KeywordsResponseSchema"
             }
           }
         }
@@ -2224,6 +2200,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "filter",
+        "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer.",
         "schema": {
           "type": "string",
           "enum": [
@@ -2291,12 +2268,13 @@ export const PATH_OPERATIONS = [
         "schema": {
           "type": "string",
           "description": "The sequence slug identifier, including the key stage 4 option where relevant.",
-          "example": "english-primary"
+          "example": "maths-secondary"
         }
       },
       {
         "in": "query",
         "name": "year",
+        "description": "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used.",
         "schema": {
           "type": "number",
           "description": "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used.",
@@ -2306,27 +2284,30 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "offset",
+        "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
         "schema": {
           "default": 0,
+          "example": 101,
           "type": "number",
-          "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
-          "example": 0
+          "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point"
         }
       },
       {
         "in": "query",
         "name": "limit",
+        "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
         "schema": {
           "default": 20,
+          "example": 100,
           "type": "number",
           "maximum": 300,
-          "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
-          "example": 20
+          "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons"
         }
       },
       {
         "in": "query",
         "name": "filter",
+        "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer.",
         "schema": {
           "type": "string",
           "enum": [
@@ -2436,27 +2417,30 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "offset",
+        "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
         "schema": {
           "default": 0,
+          "example": 11,
           "type": "number",
-          "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
-          "example": 0
+          "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point"
         }
       },
       {
         "in": "query",
         "name": "limit",
+        "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
         "schema": {
           "default": 20,
+          "example": 10,
           "type": "number",
           "maximum": 300,
-          "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
-          "example": 20
+          "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons"
         }
       },
       {
         "in": "query",
         "name": "filter",
+        "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer.",
         "schema": {
           "type": "string",
           "enum": [
@@ -2530,6 +2514,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "offset",
+        "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
         "schema": {
           "default": 0,
           "type": "number",
@@ -2540,6 +2525,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "limit",
+        "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
         "schema": {
           "default": 20,
           "type": "number",
@@ -2551,6 +2537,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "filter",
+        "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer.",
         "schema": {
           "type": "string",
           "enum": [
@@ -2618,7 +2605,7 @@ export const PATH_OPERATIONS = [
         "schema": {
           "type": "string",
           "description": "The slug of the lesson",
-          "example": "joining-using-and"
+          "example": "using-vector-tools-to-draw-and-modify-shapes"
         }
       }
     ],
@@ -2686,6 +2673,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "keyStage",
+        "description": "Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase",
         "schema": {
           "type": "string",
           "enum": [
@@ -2701,6 +2689,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "subject",
+        "description": "Subject slug to filter by, e.g. 'english' - note that casing is important here, and should be lowercase",
         "schema": {
           "type": "string",
           "enum": [
@@ -2729,6 +2718,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "unit",
+        "description": "Optional unit slug to additionally filter by",
         "schema": {
           "type": "string",
           "description": "Optional unit slug to additionally filter by",
@@ -2800,6 +2790,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "examBoard",
+        "description": "Optional exam board slug to narrow the unit to a specific programme variant, e.g. 'aqa'.",
         "schema": {
           "type": "string",
           "enum": [
@@ -2809,12 +2800,14 @@ export const PATH_OPERATIONS = [
             "ocr",
             "wjec",
             "edexcelb"
-          ]
+          ],
+          "example": "aqa"
         }
       },
       {
         "in": "query",
         "name": "pathway",
+        "description": "Optional pathway slug to narrow the unit to a specific programme variant, e.g. 'gcse'.",
         "schema": {
           "type": "string",
           "enum": [
@@ -2826,6 +2819,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "tier",
+        "description": "Optional tier slug to narrow the unit to a specific programme variant, e.g. 'foundation'.",
         "schema": {
           "type": "string",
           "enum": [
@@ -2838,6 +2832,7 @@ export const PATH_OPERATIONS = [
       {
         "in": "query",
         "name": "childSubject",
+        "description": "Optional science child subject slug to narrow the unit to a specific programme variant. Only available for science units, e.g. 'biology'.",
         "schema": {
           "type": "string",
           "enum": [
@@ -2952,9 +2947,11 @@ export const PATH_OPERATIONS = [
       {
         "in": "path",
         "name": "threadSlug",
+        "description": "The thread identifier for a given unit",
         "required": true,
         "schema": {
           "type": "string",
+          "description": "The thread identifier for a given unit",
           "example": "number-multiplication-and-division"
         }
       }
