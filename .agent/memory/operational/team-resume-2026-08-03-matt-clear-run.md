@@ -19,7 +19,22 @@ seats from this document.
    EXACT agent): resume the platform session by its id prefix below
    (Claude Code: `claude --resume`, pick the session; Codex: its resume
    flow). The seat wakes with its context and recomputes state
-   first-hand per its own resume map.
+   first-hand per its own resume map. The owner-supplied verbatim
+   commands (2026-08-03):
+
+   ```bash
+   claude --worktree pds-w0-census-validator --resume "Corsair hunts Surf (4d3282) - Design"
+
+   claude --worktree skylark-clear-lock-cure --resume "Skylark hunts Nimbus (e856d5) - Agentic Mechanisms"
+
+   claude --resume "Vanilla stirs Bough (604af6) - Foundations Review"
+   ```
+
+   The Director seat resumes the same way: `claude --resume` in the
+   primary checkout, selecting the session titled "Magnetar binds
+   Oblivion". Birch needs no resume command (their session stays live
+   through the window); the Lichen seat is closed — its corpus draft PR
+   is the pickup surface, no session resume involved.
 2. **Fresh session, same identity** (fallback): start a seat on the same
    platform/model, follow `start-right-team`, and read the seat's thread
    record named below END TO END before any act. Claims were closed with
