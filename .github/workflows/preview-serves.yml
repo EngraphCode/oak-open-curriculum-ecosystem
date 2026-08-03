@@ -1,0 +1,74 @@
+name: preview-serves
+
+# Post-deploy liveness gate for preview deployments (MCP-475 Phase D). The
+# required `Vercel` status only asserts "build + deploy completed", so a
+# deployment whose app crashes at first invocation stays green and its PR
+# stays mergeable — the 2026-07-31 boot-dead-preview class. This workflow
+# fires when a deployment reports success, probes the RUNNING deployment
+# (`/healthz` and the OAuth protected-resource metadata the MCP handshake
+# needs), and publishes the `preview-serves` commit status. It catches the
+# runtime-only failure classes the build-time deploy-config guard cannot:
+# routing, platform composition, cold-start crashes.
+#
+# Sequencing note: `preview-serves` joins the branch ruleset's required
+# checks only AFTER it has been observed reporting on a real PR (adding an
+# unreporting required status would block every merge) — the plan's
+# verification step orders this deliberately.
+
+on:
+  deployment_status:
+
+permissions: {}
+
+jobs:
+  probe:
+    # Vercel names preview deployment environments "Preview" (optionally
+    # suffixed); production deployments are out of scope for this gate.
+    if: >-
+      github.event.deployment_status.state == 'success' &&
+      contains(github.event.deployment.environment, 'Preview') &&
+      github.event.deployment_status.environment_url != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      statuses: write
+    steps:
+      - name: Probe the deployment and publish the preview-serves status
+        env:
+          TARGET_URL: ${{ github.event.deployment_status.environment_url }}
+          DEPLOY_SHA: ${{ github.event.deployment.sha }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -u
+          publish() {
+            state="$1"; description="$2"
+            gh api "repos/${REPO}/statuses/${DEPLOY_SHA}" \
+              -f state="$state" \
+              -f context=preview-serves \
+              -f description="$description" \
+              -f target_url="$TARGET_URL" >/dev/null
+          }
+
+          probe() {
+            path="$1"
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 20 "${TARGET_URL}${path}" || echo 000)
+            echo "probe ${path} -> ${code}" >&2
+            [ "$code" = "200" ]
+          }
+
+          # Bounded retries: cold starts and router propagation can lag the
+          # deployment_status event. 10 attempts x 15s covers ~2.5 minutes.
+          attempt=1
+          max_attempts=10
+          while [ "$attempt" -le "$max_attempts" ]; do
+            if probe "/healthz" && probe "/.well-known/oauth-protected-resource"; then
+              publish success "healthz and protected-resource metadata both serve (attempt ${attempt}/${max_attempts})"
+              exit 0
+            fi
+            attempt=$((attempt + 1))
+            [ "$attempt" -le "$max_attempts" ] && sleep 15
+          done
+
+          publish failure "deployment reported success but the app does not serve: healthz or protected-resource metadata failed after ${max_attempts} attempts"
+          exit 1
