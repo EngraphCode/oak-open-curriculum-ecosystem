@@ -2,8 +2,10 @@
 
 > A source-backed architectural and sociotechnical reading of [`oaknational/oak-components`](https://github.com/oaknational/oak-components), with its relationship to [`oaknational/Oak-Web-Application`](https://github.com/oaknational/Oak-Web-Application) treated as essential context but not as the whole story.
 
-**Research snapshot:** 3 August 2026  
-**Primary code snapshots:** Oak Components [`e28d22a`](https://github.com/oaknational/oak-components/tree/e28d22ad346ce3de36ddbeb4b2f5f254ddf5b44e), OWA [`c4ca9a9`](https://github.com/oaknational/Oak-Web-Application/tree/c4ca9a9a246ca2d2bf81f64b4baee74eee5b0d31), AILA [`d1c15ea`](https://github.com/oaknational/oak-ai-lesson-assistant/tree/d1c15ea0064e763f928f0b4cd6f038bbb16adb46), Oak Components Sandbox [`e103d16`](https://github.com/oaknational/oak-components-sandbox/tree/e103d1635e0faeaf07112c9ffe6170676dcf254a), Resource Adapter [`4f356fc`](https://github.com/oaknational/oak-resource-adapter/tree/4f356fc388b13c5af04a813bc6f48cae85b2a91f)  
+**Research snapshot:** 3 August 2026
+
+**Primary code snapshots:** Oak Components [`e28d22a`](https://github.com/oaknational/oak-components/tree/e28d22ad346ce3de36ddbeb4b2f5f254ddf5b44e), OWA [`c4ca9a9`](https://github.com/oaknational/Oak-Web-Application/tree/c4ca9a9a246ca2d2bf81f64b4baee74eee5b0d31), AILA [`d1c15ea`](https://github.com/oaknational/oak-ai-lesson-assistant/tree/d1c15ea0064e763f928f0b4cd6f038bbb16adb46), Oak Components Sandbox [`e103d16`](https://github.com/oaknational/oak-components-sandbox/tree/e103d1635e0faeaf07112c9ffe6170676dcf254a), Resource Adapter [`4f356fc`](https://github.com/oaknational/oak-resource-adapter/tree/4f356fc388b13c5af04a813bc6f48cae85b2a91f)
+
 **Package snapshot:** `@oaknational/oak-components` 3.4.0
 
 ## Executive summary
