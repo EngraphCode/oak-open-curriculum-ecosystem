@@ -10,13 +10,14 @@ function ev(overrides: Partial<ClassifiableEvent> & { eventId: string }): Classi
     tags: [],
     titleOrSubject: 'WS status',
     bodyLength: 100,
+    isHeartbeatShaped: false,
     ...overrides,
   };
 }
 
 describe('buildTierPolicyLedger', () => {
   it('auto-dispositions a heartbeat event as routine with body-read unconfirmed', () => {
-    const ledger = buildTierPolicyLedger([ev({ eventId: 'aaaaaaaa', tags: ['heartbeat'] })]);
+    const ledger = buildTierPolicyLedger([ev({ eventId: 'aaaaaaaa', isHeartbeatShaped: true })]);
     expect(ledger.get('aaaaaaaa')).toEqual({ disposition: 'routine', bodyReadConfirmed: false });
   });
 
@@ -36,15 +37,17 @@ describe('buildTierPolicyLedger', () => {
     // Mirrors the classifyTier precedence: a both-tagged event is research-precious,
     // so the bulk heartbeat policy must NOT auto-dispose it.
     const ledger = buildTierPolicyLedger([
-      ev({ eventId: 'dddddddd', tags: ['heartbeat', 'failure-mode'] }),
+      ev({ eventId: 'dddddddd', tags: ['heartbeat', 'failure-mode'], isHeartbeatShaped: true }),
     ]);
     expect(ledger.has('dddddddd')).toBe(false);
   });
 
   it('builds entries only for the heartbeat events in a mixed batch', () => {
     const ledger = buildTierPolicyLedger([
-      ev({ eventId: 'aaaaaaaa', tags: ['heartbeat'] }),
+      ev({ eventId: 'aaaaaaaa', isHeartbeatShaped: true }),
       ev({ eventId: 'bbbbbbbb', titleOrSubject: 'team start' }),
+      // cccccccc keeps isHeartbeatShaped false: the Heartbeat-end TITLE
+      // heuristic alone must still carry it into the ledger.
       ev({ eventId: 'cccccccc', titleOrSubject: 'Heartbeat-end: agent — session-end' }),
     ]);
     expect([...ledger.keys()].sort((a, b) => a.localeCompare(b))).toEqual(['aaaaaaaa', 'cccccccc']);

@@ -6,6 +6,7 @@ import {
   deriveCollaborationIdentity,
   runCollaborationStateCli,
 } from '../../src/collaboration-state';
+import { ACTIVE_CLAIMS_SCHEMA_VERSION } from '../../src/collaboration-state/types';
 import {
   makeTempCollaborationRepo,
   readText,
@@ -80,7 +81,25 @@ describe('comms write commands report their writes', () => {
   });
 
   it('comms append in heartbeat mode reports the written event id and path', async () => {
-    const fake = createFakeCollaborationRuntime();
+    // Seed the registry row the ADR-186 lifecycle shape derives its thread
+    // from (no --thread passed here — this pins the derive path staying
+    // loud-write green for armed heartbeat loops).
+    const fake = createFakeCollaborationRuntime({
+      activeClaims: {
+        schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
+        commit_queue: [],
+        claims: [
+          {
+            claim_id: seededClaimId,
+            agent_id: senderWithId,
+            thread: 'loud-writes-thread',
+            areas: [{ kind: 'git', patterns: ['fix/loud-writes'] }],
+            claimed_at: nowIso,
+            intent: 'loud-writes heartbeat seed',
+          },
+        ],
+      },
+    });
 
     const result = await runCollaborationStateCli({
       argv: [

@@ -72,13 +72,27 @@ authoritative source of substance.
   work-evidence cross-check of §"Heartbeat-only stall diagnostic" have
   both come back negative — see §"State thresholds" and §"Claim
   auto-rebalance protocol on retirement" below.
-- The current repo phenotype (per ADR-186) emits heartbeats as comms
-  events with `tags: ["heartbeat"]` per
-  [ADR-183](../../docs/architecture/architectural-decisions/183-comms-event-tag-namespace-substrate.md)'s
-  namespace substrate, rendering as a `[HEARTBEAT]` channel token.
-  ADR-186 names `lifecycle + event_type='heartbeat'` as the canonical
-  shape going forward; both shapes are operationally valid during the
-  migration window (per ADR-186 §Migration discipline). The
+- The current repo phenotype (per ADR-186, emitter migrated
+  2026-08-02) lands heartbeats in the canonical lifecycle shape: the
+  agent-tools CLI's heartbeat mode (`comms send --tag heartbeat`)
+  emits `kind='lifecycle'` + `event_type='heartbeat'` — the token
+  cited from the exported `HEARTBEAT_EVENT_TYPE` constant, never a
+  hand-typed literal — with the
+  [ADR-183](../../docs/architecture/architectural-decisions/183-comms-event-tag-namespace-substrate.md)
+  `heartbeat` tag RETAINED through the migration window (the tag keeps
+  F-146 exclusion, the `[HEARTBEAT]` render token, and unrebuilt
+  seats' tag-only consumers working). The lifecycle envelope needs a
+  `thread`, derived from the active claim row named by `--claim-id` —
+  the row is REQUIRED (heartbeats are claim-anchored liveness; a
+  standby neither needs nor can emit one, per §Exemptions below and
+  F-73's settled disposition), must be the emitting seat's OWN claim
+  (author-match on the PDR-076a routing key — anchoring to a peer's
+  claim would manufacture false liveness tied to another seat's work),
+  and is the thread's only source — a heartbeat's thread is its claim's
+  thread by construction.
+  Legacy `narrative + tags: ["heartbeat"]` events stay
+  valid during the window, and every consumer counts BOTH shapes via
+  the shared dual filter (ADR-186 §Migration discipline). The
   identity-tuple subject-line format:
 
 ```text

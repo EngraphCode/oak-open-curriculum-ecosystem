@@ -47,6 +47,28 @@ function heartbeat(author: CollaborationAgentId, eventId: string, createdAt: str
   };
 }
 
+function lifecycleHeartbeat(
+  author: CollaborationAgentId,
+  eventId: string,
+  createdAt: string,
+): CommsEvent {
+  return {
+    schema_version: '2.0.0',
+    event_id: eventId,
+    created_at: createdAt,
+    kind: 'lifecycle',
+    event_type: 'heartbeat',
+    occurred_at: createdAt,
+    author,
+    agent_id: author,
+    thread: 'estate-coordination',
+    claim_id: 'claim-1',
+    title: `Heartbeat: ${author.agent_name}`,
+    subject: `Heartbeat: ${author.agent_name}`,
+    body: 'active; claim=x; intent=x; branch=b; cycle=c',
+  };
+}
+
 describe('comms peer-liveness', () => {
   it('classifies peers from the heartbeat event stream, most-stale-first', async () => {
     const events: readonly CommsEvent[] = [
@@ -92,6 +114,29 @@ describe('comms peer-liveness', () => {
     expect(lines[2]).toContain('Avocet tracks Crag/30fe5b-222');
     // The id-less historical row is skipped (PDR-076a: not a live peer).
     expect(result.stdout).not.toContain('Ancient Drifting Relic');
+  });
+
+  it('classifies a peer from an UNTAGGED ADR-186 lifecycle-shaped heartbeat (dual-filter consumer at the CLI seam)', async () => {
+    const events: readonly CommsEvent[] = [
+      // A migrated seat whose lifecycle heartbeat carries no tag at all —
+      // the lifecycle clause alone must keep it out of false retirement.
+      lifecycleHeartbeat(avocet, 'avocet-lifecycle', '2026-06-28T11:59:00Z'),
+      // A legacy narrative+tag peer in the same stream (the window mix).
+      heartbeat(pangolin, 'pangolin-legacy', '2026-06-28T11:58:00Z'),
+    ];
+    const fake = createFakeCollaborationRuntime({ comms: { [commsDir]: events } });
+
+    const result = await runCollaborationStateCli({
+      argv: ['--', 'comms', 'peer-liveness', '--comms-dir', commsDir, '--now', NOW],
+      env: {},
+      io: fake.runtime.io,
+    });
+
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain('2 peer(s) with heartbeats');
+    expect(result.stdout).toContain('Avocet tracks Crag/30fe5b-222');
+    expect(result.stdout).toContain('Pangolin weaves Nightfall/c680e4-111');
+    expect(result.stdout).toContain('last_heartbeat=2026-06-28T11:59:00Z');
   });
 
   // The MCP-145 distinct-labels case: two seats sharing agent_name AND
