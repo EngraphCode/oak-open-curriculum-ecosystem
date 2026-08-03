@@ -194,7 +194,7 @@ expect(wireValue).toHaveProperty(
 );
 ```
 
-See `.agent/rules/unknown-is-type-destruction.md` for the canonical rule.
+See `docs/governance/typescript-practice.md` §The `unknown` Boundary Exception and the Preservation Test for the canonical statement.
 
 ## Boundaries
 
@@ -369,7 +369,7 @@ function execute(params: unknown) {
 1. **Schema is truth** — types flow from the OpenAPI schema via SDK; everything else is derived
 2. **Define types ONCE** — from the API spec or external library, then never widen, never redefine
 3. **Types prove, assertions hope** — use type guards, not assertions
-4. **`unknown` is destruction** — permitted only at incoming third-party boundaries (see `.agent/rules/unknown-is-type-destruction.md`)
+4. **`unknown` is destruction** — permitted only at incoming third-party boundaries (see `docs/governance/typescript-practice.md` §The `unknown` Boundary Exception and the Preservation Test)
 5. **Generated code beats hand-crafted code** — import from `sdk-codegen`, don't reinvent
 
 ---

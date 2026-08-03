@@ -41,9 +41,10 @@
  *
  * Input type is `JsonLdDocument` (imported from
  * `@oaknational/graph-core/jsonld`) per the type-expert verdict on
- * the WS2.3 primitives cycle — `unknown` is forbidden by
- * `unknown-is-type-destruction` and `Record<string, unknown>`
- * violates `principles.md` §Cardinal Rule.
+ * the WS2.3 primitives cycle — `unknown` is forbidden by the
+ * preservation test (`docs/governance/typescript-practice.md` §The
+ * `unknown` Boundary Exception and the Preservation Test) and
+ * `Record<string, unknown>` violates `principles.md` §Cardinal Rule.
  *
  * @packageDocumentation
  */

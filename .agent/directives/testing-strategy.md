@@ -123,7 +123,9 @@ Formal home: [`validation-strategy.md`](validation-strategy.md) (seeded
   `xdescribe`) are forbidden outright. External-resource tests must
   fail fast with a helpful error, never silently skip. Validation
   scripts requiring external resources are standalone scripts, not
-  tests. Full rule: [`no-skipped-tests.md`][no-skip].
+  tests. Operationalises [ADR-011 (Use Vitest for
+  Testing)][adr-011-noskip] and [ADR-121 (Quality Gate
+  Surfaces)][adr-121-noskip].
 - **No conditional tests** - Conditional execution of any kind is a
   symptom of architectural failure: `skipIf`, `runIf`, conditional
   registration, runtime branching in test bodies, conditional
@@ -150,7 +152,8 @@ Formal home: [`validation-strategy.md`](validation-strategy.md) (seeded
   suites deleted; the real-corpus import design itself ruled conformant
   and retained).
 
-[no-skip]: ../rules/no-skipped-tests.md
+[adr-011-noskip]: ../../docs/architecture/architectural-decisions/011-vitest-for-testing.md
+[adr-121-noskip]: ../../docs/architecture/architectural-decisions/121-quality-gate-surfaces.md
 [no-cond]: ../rules/no-conditional-tests.md
 
 - **No ambient global state access** - Tests MUST NOT read or mutate

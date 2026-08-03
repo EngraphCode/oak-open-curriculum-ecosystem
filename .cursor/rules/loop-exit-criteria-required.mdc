@@ -1,6 +1,6 @@
 ---
-description: Every /loop, cron, scheduled wake-up, or templated repeating invocation must ship with an explicit exit criterion at invocation time. Default: stand down after five consecutive idle iterations and broadcast closeout. Loops without stop conditions become ambient context-budget tax under team load.
-alwaysApply: true
+description: Every /loop invocation, cron, scheduled wake-up, or repeating monitor prompt ships an explicit exit criterion at invocation — default: five consecutive no-op iterations trigger stand-down plus a closeout broadcast naming the loop, the criterion, and a one-line summary. Not for one-shot tasks, event-driven Monitor wake-ups (see use-monitor-for-event-driven-wake), or owner-driven manual prompts. Failure shapes — a loop firing for hours past its work horizon as ambient context-budget tax; an idle counter keyed to a condition that never occurs, leaving the stand-down structurally unreachable.
+alwaysApply: false
 ---
 
 Read and follow `.agent/rules/loop-exit-criteria-required.md`.

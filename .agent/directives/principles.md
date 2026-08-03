@@ -309,10 +309,16 @@ this way produces cleaner boundaries and simpler classification.
 - **Onboarding** - Clear onboarding path from root README to
   workspace docs to TSDoc and ADRs, observing progressive
   disclosure throughout.
-- **No machine-local paths** — Paths in version-controlled files
-  MUST resolve identically on every machine. See
-  [`.agent/rules/no-machine-local-paths.md`](../rules/no-machine-local-paths.md)
-  for the forbidden / permitted shapes.
+- **No machine-local paths** — Every path in a version-controlled
+  file MUST resolve to the same meaningful target on every machine
+  and in CI. The test is the destination, not the syntax: a
+  relative-shaped `..` chain into a per-user surface is still
+  machine-local; an absolute-shaped path rooted at a
+  platform-provided variable is still portable. Whole-repo,
+  retroactive, no exceptions (owner ruling 2026-06-12). See
+  [safety-and-security.md §Machine-local paths](../../docs/governance/safety-and-security.md#machine-local-paths)
+  for the forbidden / permitted shapes, worked examples, and
+  detection.
 - **No symlinks** — Symlinks are forbidden. Structure workspaces
   properly and use the pnpm workspace dependency graph. Any
   discovered symlinks must be removed immediately as highest
@@ -574,7 +580,7 @@ current user on a new machine, and a cold clone with no local state.
 Concretely: no named person where a role or derivation belongs
 (resolve the collaborating human per the start-right skill's
 §Collaborating Human ladder), no machine-local paths
-([no-machine-local-paths](../rules/no-machine-local-paths.md)), no
+([safety-and-security.md §Machine-local paths](../../docs/governance/safety-and-security.md#machine-local-paths)), no
 state that only exists because an earlier session happened to leave it
 ([important-state-not-in-temp-files](../rules/important-state-not-in-temp-files.md)),
 and per-user surfaces derive their user at run time rather than at

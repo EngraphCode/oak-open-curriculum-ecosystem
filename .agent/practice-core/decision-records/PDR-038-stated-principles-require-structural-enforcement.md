@@ -42,7 +42,10 @@ mappings):
   principle was sharpened to "no machine-local paths" and
   operationalised via a `no-machine-local-paths` rule with thin
   platform adapters and an entry in the host's rules index. The
-  structural surface is what closed the loop.
+  structural surface is what closed the loop. (The rule file has
+  since graduated — 2026-08-02 — its teaching substance into the
+  host's principles and safety governance docs; the validator and
+  write hook remain the structural surface.)
 - **Gate-off-fix-gate-on** was named in plan prose for weeks before
   an owner-directed graduation elevated it from pattern-candidate
   to anti-pattern doctrine, with a `never-disable-checks` rule
@@ -244,8 +247,10 @@ the original direction's failure mode).
 ## Worked Instances
 
 Three instances on the originating repo (2026-04-29 / 2026-04-30):
-the no-machine-local-paths principle and rule, the
-never-disable-checks principle and rule, and the
+the no-machine-local-paths principle and its enforcement surface (a
+rule file at first; since 2026-08-02 the host's principles and
+safety governance docs, with the validator and write hook
+unchanged), the never-disable-checks principle and rule, and the
 validation-scripts-are-not-tests principle and worked example.
 Each illustrates the same shape: prose alone was insufficient; a
 structural surface closed the loop. Host-local instance files are

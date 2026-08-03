@@ -247,4 +247,4 @@ archival reference the consolidation workflow so learning is conserved.
 ## First Question
 
 Before every decision in the plan: **could it be simpler
-without compromising quality?**
+without compromising quality or value or functionality?**

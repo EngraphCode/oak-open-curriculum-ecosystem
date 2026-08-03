@@ -29,14 +29,15 @@ const` — carries its types by derivation from the value, not by
   `unknown`, or running a runtime parse over it to "discover" a shape the
   source file already fixes, is **type destruction**, not validation.
 
-  This destruction prohibition is carried by the always-on
-  `unknown-is-type-destruction` rule
-  (`.agent/rules/unknown-is-type-destruction.md`): it forbids replacing a
+  This destruction prohibition is carried by
+  `docs/governance/typescript-practice.md` §The `unknown` Boundary
+  Exception and the Preservation Test: it forbids replacing a
   recoverable concrete type with `unknown`, and it explicitly records
   that `as const` and `satisfies` narrow at compile time _without_
-  widening — they are off-topic for the rule, not instances of it. That
-  rule operationalises ADR-034 (System Boundaries and Type Assertions);
-  the destruction framing is the rule's, not a quotation from ADR-034.
+  widening — they are off-topic for the prohibition, not instances of
+  it. That section operationalises ADR-034 (System Boundaries and Type
+  Assertions); the destruction framing is the governance doc's, not a
+  quotation from ADR-034.
 
   Runtime schema validation (Zod) stays correct at a genuine `unknown`
   boundary — third-party input whose shape is not yet established. ADR-028

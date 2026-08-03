@@ -1,6 +1,6 @@
 ---
-description: The Oak-account Chrome claude.ai session is a metered Premium team seat — browser last, one full-page read per step, report a named unknown over spending quota.
-alwaysApply: true
+description: Before driving the Oak-account Chrome claude.ai session — automation, page reads, form interactions — it is a metered shared Premium seat: reach for the browser LAST, after APIs, CLIs, MCP tools, and local reads; one full-page read per step, never scrolling sweeps or exploratory clicking; report a named quota-priced unknown rather than spending on completeness; read-only on owner-named confidentiality-blocked artefacts. Not a constraint on local or unmetered browsing. Failure shape — exploratory browsing draining the shared meter, found only when a key Oak-system interaction needs it.
+alwaysApply: false
 ---
 
 Read and follow `.agent/rules/oak-chrome-session-is-metered.md`.

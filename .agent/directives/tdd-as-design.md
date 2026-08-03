@@ -176,9 +176,10 @@ refactoring. They should be deleted or rewritten as descriptions.
 - `validation-strategy.md` (forthcoming under plan
   `validation-and-tdd-doctrine-restructure`) — the umbrella that
   positions tests as one of several validation surfaces.
-- `.agent/rules/no-skipped-tests.md`, `no-conditional-tests.md`,
+- `.agent/rules/no-conditional-tests.md`,
   `no-global-state-in-tests.md`, `test-immediate-fails.md` — the
-  rule surface operationalising this directive.
+  rule surface operationalising this directive (the skip
+  prohibition lives in `testing-strategy.md` §Rules).
 - `docs/engineering/testing-tdd-recipes.md` — recipe-level worked
   examples of the cycle at each scale; loaded by the test-expert
   on every invocation.

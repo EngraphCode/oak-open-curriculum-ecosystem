@@ -1,6 +1,6 @@
 ---
-description: Every PR comment is fixed in code or explicitly rejected (none unaddressed); after EVERY push, always re-check for NEW comments — correcting the old ones is never enough.
-alwaysApply: true
+description: Opening or taking over a pull request binds the session: no merge and no "ready" report until every comment on every surface — GraphQL reviewThreads, reviews, review and issue comments, bots and humans — is fixed in code or explicitly rejected with rationale, replied to, and resolved, re-fetched after every push and at the merge instant. mergeable means possible, never ready; readiness is mergeStateStatus CLEAN. Binds even when the oak-pr-lifecycle skill is not running: the named failure (PR #315) declared "fully green" from the checks table while a High-severity thread sat unresolved.
+alwaysApply: false
 ---
 
 Read and follow `.agent/rules/pr-comments-resolve-and-recheck.md`.

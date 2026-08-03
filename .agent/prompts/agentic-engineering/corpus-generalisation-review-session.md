@@ -136,7 +136,7 @@ to be blocked by it: ADR-200 WS2/WS4, and the salvage plan's ws1b rescued-knowle
 ### Operator discipline (unchanged)
 
 Never `--no-verify` without fresh per-commit owner authorisation; use the commit skill's ceremony;
-the `no-machine-local-paths` and `no-hedging-vocabulary` write-hooks are live (the prior session hit
+the `machine-local-path` and `no-hedging-vocabulary` write-hooks are live (the prior session hit
 both — expect indefinite-deferral words and `/Users/<user>` paths to be blocked, and reappraise
 rather than synonym-swap); the commit-queue spawned-commit workflow dies at the documented
 depcruise→turbo truncation, so fall back to a direct `git commit -F <msgfile>` with output redirected,
