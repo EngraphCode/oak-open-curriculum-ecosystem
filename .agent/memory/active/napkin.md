@@ -1440,3 +1440,95 @@ his instruction.
   foundations review (Vanilla's later phase — rides that brief). ADR-222 is
   itself an instance: stability held through the release window, the
   innovation arm (derivation) sequenced as the post-release priority.
+
+- ~09:30Z CORRECTION (owner, on the ~09:00Z bulk-facts entry): the June-10
+  snapshot-age claim was WRONG-BY-VANTAGE — a recent bulk update exists but
+  was downloaded IN A WORKTREE, and the data files are untracked, so it never
+  appeared in the principal checkout. My claim measured one checkout's copy
+  and asserted estate-wide staleness. Class: untracked-data-per-worktree
+  blindness (the third-state family, data edition). Owner directive riding
+  the correction: "we need to handle that case in future" — a freshness
+  contract for untracked data across worktrees (manifest/marker or shared
+  location) goes to the update lane's requirements. Also ruled: subjects
+  list stays HARDCODED-BUT-CORRECTED pre-submission; read from the schema
+  post-submission.
+
+## 2026-08-03 ~08:56Z — Skylark: PR #731 code-expert verdict landed AT the cold pause — adjudicate at resume, do not merge before
+
+Opus code-expert review of #731 (full report in the review-agent transcript at the skills seat; findings verified first-hand by the reviewer): THREE BLOCKERS — (1) CheckOutcome drops discovery.skipped, so the --check leg (the ONLY leg CI runs via pnpm skills:check) exits 0 on unsummonable content the generator refuses; (2) the checker's new blanket catch reads a missing/unreadable .agent/skills as an empty corpus (base threw ENOENT; clear.ts's isMissingSurface states the house contract: ENOENT→empty, else error); (3) a root holding BOTH its own canonical AND a skills/ tier silently drops all members, orphaning their adapters. Plus should-fixes: --clear runs before the duplicate refusal (destructive ordering); zero-written guard misfires on duplicate refusal; generateAdapters has no fs seam so the emission-refusal branch is untested; the PORTABILITY validator is a third unconverted corpus walker — the nine family canonicals are invisible to it and currently violate its mandatory classification: frontmatter unseen. #731 does NOT merge until the blockers cure (PDR-132 round 1).
+
+## 2026-08-03 ~08:55Z (Magnetar/74d914): OWNER RULING — Matt-priority + the update lane's Linear carve-out (verbatim-critical)
+
+"our design work, skills work, foundations review cannot get in the way of
+Matt's work, the upstream schema updates can, therefore that work, and only
+that work, should have Linear tickets, and Matt should be tagged in the
+tickets and the PR." BINDING: (1) design/skills/foundations lanes yield to
+Matt's submission work — no interaction with his surfaces; (2) the upstream
+update lane MAY touch his path — which resolves the alignment-PR timing
+question (proceeds during the window, WITH his visibility); (3) Linear
+tickets for the update lane ONLY — an explicit owner carve-out from the
+Linear embargo (all other mints still wait for the 2026-08-10 lift); tickets
+on the MCP team, plain language, Matt tagged in tickets AND the PR. Matt's
+identities are DERIVED at use (Linear workspace user list; GitHub — the
+CODEOWNERS list carries jimCresswell + mantagen; correlation verified at
+tagging time, never assumed). New seat: Birch holds Seedling (e48fe2) takes
+the update lane; ARC channel opened at owner word.
+
+- ~09:05Z owner addendum for the update-lane Linear tickets (verbatim,
+  ticket-copy source): tickets "should include information on why this has
+  the potential to break so many things, and that I will stop working on
+  anything that might clash with Matt's lane after this and only do fun
+  things that are relaxing." Blast-radius rationale for the tickets: the
+  committed schema cache is the single generation source for the API types,
+  Zod schemas, and every served MCP tool definition, and the bulk data feeds
+  search ingestion — one refresh touches all of them at once, which is
+  exactly why it is the one lane allowed to intersect Matt's work, with his
+  visibility. The personal note is HIS voice — quote or lightly polish,
+  never re-invent.
+
+## 2026-08-03 ~09:05Z (Birch holds Seedling/e48fe2): OWNER WORD — type changes are discussed BEFORE they happen (verbatim)
+
+Owner, in-session at this seat, verbatim: "I am very much expecting you to
+talk to me about type changes before they happen." This WIDENS the
+activation pack's ruling 4 beyond the three named wait-for-owner legs: ANY
+type-affecting change in the update lane — including landing the
+already-regenerated types sitting uncommitted in upstream-spec-probe, the
+sentinel/override disposition where it touches types, and every Zod
+template edit in the ADR-222 truing — is presented to the owner BEFORE it
+happens, not reviewed after. Working contract adopted at this seat: the
+spec-alignment PR's type diff is walked through with him before the PR
+opens; the bulk-template truing is designed with him before any template
+edit. Test-string re-pins with no type surface stay agent-side.
+
+## 2026-08-03 ~09:15Z (Magnetar/74d914): SEVEN OWNER CARD ANSWERS (all-open-questions batch, verbatim-critical)
+
+1. OVERRIDES (update lane): KEEP + re-pin sentinels — owner-ratified.
+2. W2.7 TILT VALUES (verbatim, substantially discharges the session): "PDS
+   has zero tilt, Oak has zero tilt on interactive or content containing
+   elements only some decoration may tilt never something a person will
+   actually need to parse if easier go for structural zero, EMC2 should lean
+   into the tilt, and use animated tilts to show the difference between
+   motion and no motion options." (His "title" read as "tilt" in context.)
+   PDS structural zero; Oak zero on interactive/content-bearing, decoration
+   MAY tilt, structural zero if easier; EMC2 leans in incl. ANIMATED tilts
+   demonstrating motion vs no-motion. Corsair trues the gate at resume.
+3. ARC-COLOUR PLAN: RATIFIED at the card; frontmatter stamp sequenced to
+   ticket-mint at embargo lift (validator: ratified⇒ticketed; only the
+   update lane mints pre-lift). Body §Review record carries it.
+4. PDR-134/ADR-221: "Yes — I ratified them." No earlier pointer named; THE
+   CARD IS THE CITABLE RATIFICATION (2026-08-03, all-open-questions batch).
+   The practice-index status-flip hunk may land citing it.
+5. SKILL-CREATOR: "we don't need it any more, delete it, putting it back is
+   trivial." Uninstall via the sanctioned installer channel (skills-lock is
+   that channel's record) — routed to the skills lane (Skylark) at resume.
+6. FOUNDATIONS SEQUENCING: premise-rejection — "I reject that adding some
+   coloured dots will take days, the foundations are in place, and Resonance
+   contains a working example." Sizing reframe: ARC colours is a PORT with a
+   working example (Resonance→castr lineage); brisk, not days; foundations
+   follows promptly. Relayed to Vanilla's resume.
+7. VISION.md: "Add it to vision, supporting the wider ecosystem includes
+   supporting the engineering parts of the ecosystem... please do edit as
+   appropriate though." LANDED this window (plain-text mention; the doc link
+   arrives with the foundations corpus to avoid a broken-link gate); his
+   sentiment woven into the closing sentence; Lichen's original conserves in
+   their corpus.

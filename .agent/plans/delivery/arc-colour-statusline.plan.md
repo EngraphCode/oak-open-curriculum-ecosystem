@@ -7,6 +7,11 @@ status: sketch
 ratified_by: null
 ratified_date: null
 ratified_where: null
+# Owner ratification GIVEN 2026-08-03 (card at the Director seat, the
+# all-open-questions batch); the frontmatter stamp completes at ticket mint
+# (embargo lift 2026-08-10) because the corpus validator binds
+# ratified-in-anchored-subtree to a named ticket, and only the update lane
+# mints tickets before the lift (owner ruling, same day).
 serves: agent-platform-citizenship
 impact_areas:
   - practice-and-estate
@@ -134,7 +139,10 @@ the readiness-reviewed record; two stories are already landed. Sequencing is
 self-correcting (each downstream gate breaks if its predecessor drifted);
 Deliverable A shares no surface with B and is parallel-safe.
 
-- **ws-b0-graduate-arc** — ARC graduates from experiment to standing
+- **ws-b0-graduate-arc** — LANDED (PR #730, merge `3fb6875e6`, full
+  condition, round 1 of 2 used; census delta — two stray files, not one —
+  and the round-1 corrections recorded on the PR). ARC graduates from
+  experiment to standing
   infrastructure (owner word 2026-08-03: "it's not an experiment any more, we
   use it all the time"). Doc-only, no dependencies, natural first story: (a)
   restructure `.agent/reference/arc-rapid-communication.md` as standing
@@ -307,5 +315,10 @@ budget with tally-stop.
   (`91da8be8f`, `3cd84b03e`). This node inherits that decision-completeness.
 - 2026-08-03: schema re-home + staleness true-up authored at the Director
   seat (Magnetar binds Oblivion, 74d914); all §Ground-truth items verified
-  first-hand on the day. Ratification: the owner's glance at this node
-  completes the stamp (born-sketch discipline).
+  first-hand on the day.
+- 2026-08-03 (later, RATIFICATION): the owner ratified this node at a card
+  (the all-open-questions batch, Director seat). The frontmatter stamp
+  completes at the ticket mint when the Linear embargo lifts (2026-08-10)
+  — the validator's ratified-means-ticketed obligation composes with the
+  owner's only-the-update-lane-mints ruling; execution proceeds on the
+  ratification meanwhile (ws-b0 already merged at the full condition).
