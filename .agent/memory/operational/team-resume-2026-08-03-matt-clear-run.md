@@ -23,6 +23,10 @@ seats from this document.
    commands (2026-08-03):
 
    ```bash
+   claude --resume "Magnetar binds Oblivion (74d914) - Director"
+
+   claude --resume "Birch holds Seedling (e48fe2) - Upstream Schema Update"
+
    claude --worktree pds-w0-census-validator --resume "Corsair hunts Surf (4d3282) - Design"
 
    claude --worktree skylark-clear-lock-cure --resume "Skylark hunts Nimbus (e856d5) - Agentic Mechanisms"
@@ -30,11 +34,11 @@ seats from this document.
    claude --resume "Vanilla stirs Bough (604af6) - Foundations Review"
    ```
 
-   The Director seat resumes the same way: `claude --resume` in the
-   primary checkout, selecting the session titled "Magnetar binds
-   Oblivion". Birch needs no resume command (their session stays live
-   through the window); the Lichen seat is closed — its corpus draft PR
-   is the pickup surface, no session resume involved.
+   Resume the Director first — its wake ceremony re-arms the
+   coordination surfaces the other seats register against. Birch's
+   command applies only if their session has ended by then (it stays
+   live through the window). The Lichen seat is closed — its corpus
+   draft PR is the pickup surface, no session resume involved.
 2. **Fresh session, same identity** (fallback): start a seat on the same
    platform/model, follow `start-right-team`, and read the seat's thread
    record named below END TO END before any act. Claims were closed with

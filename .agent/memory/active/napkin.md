@@ -1633,3 +1633,19 @@ captures; this seat records pointers + the items routed here):
   Discarded visibly: a geology/fossil-bed analogy for evidence records
   (decorative); "doc-only stories are the defect-density home" (n=1, too
   neat).
+
+## 2026-08-03 ~10:20Z — bot-identity fallback at this seat (owner-caught); cure executed
+
+FAILURE (n=1 this seat, same class as the 2026-07-31 instance cited in
+bot-identity-on-third-party-systems): this session's pushes and the #732
+PR-create ran on the ambient owner credentials (gh keyring = jimCresswell,
+https transport) — the rule's trigger line ("whose name will this surface
+display?") never fired at any write. Caught by the OWNER at the merge
+block: he could not satisfy the code-owner review on a PR authored as
+himself. Cure per the rule's worked precedent: #732 closed with an
+explanatory comment, recreated as #733 under a minted installation token
+(bot-authored, same branch, cure commit already in head); pushes from this
+seat now ride the bot-token credential-helper transport. Pushed history
+stands (grandfathering clause). The compliance lesson: the trigger is the
+WRITE, and the very first session write should have run gh auth status
+against the rule.
