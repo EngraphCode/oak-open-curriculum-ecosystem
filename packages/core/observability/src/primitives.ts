@@ -10,10 +10,12 @@
  * **no** event-shape logic; the adapters own their own event-shape wiring
  * because vendor Event types diverge between runtimes and preserving those
  * types through a shared neutral helper would require type assertions
- * forbidden by the repository's `no-type-shortcuts` rule.
+ * forbidden by the repository's type-shortcuts prohibition
+ * (`docs/governance/typescript-practice.md` §Compiler-time Types and
+ * Runtime Validation).
  *
- * @see ../../../docs/architecture/architectural-decisions/160-non-bypassable-redaction-barrier-as-principle.md
- * @see ../../../.agent/rules/no-type-shortcuts.md
+ * @see ../../../../docs/architecture/architectural-decisions/160-non-bypassable-redaction-barrier-as-principle.md
+ * @see ../../../../docs/governance/typescript-practice.md
  *
  * @packageDocumentation
  */
@@ -44,7 +46,8 @@ export function redactText(value: string, key?: string): string {
  * @remarks Intended for payloads that enter at a vendor boundary with no
  * known static shape (breadcrumb `data`, event `extra`, log `params`).
  * The `unknown` input is the permitted third-party-boundary case per
- * `.agent/rules/unknown-is-type-destruction.md`.
+ * `docs/governance/typescript-practice.md` §The `unknown` Boundary
+ * Exception and the Preservation Test.
  *
  * @example
  * ```ts

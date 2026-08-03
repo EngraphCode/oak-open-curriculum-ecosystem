@@ -15,7 +15,7 @@ import { err, type Result } from '@oaknational/result';
  * so no seat carries the mapping as session memory. The private key is the
  * one thing that stays machine-local by design; its default location is
  * DERIVED from the config (`~/.config/<appSlug>/private-key.pem`), so the
- * repo never records a machine path (`no-machine-local-paths`).
+ * repo never records a machine path (principles.md §No machine-local paths).
  */
 
 const MERGE_BOT_CONFIG_RELATIVE_PATH = path.join('.github', 'merge-bot.json');

@@ -7,7 +7,7 @@
  * project-key is the launch directory with `/`, `.`, and `\` replaced by `-`
  * (the backslash normalisation matters on Windows, where cwd is backslash-separated). The
  * path is derived from the supplied `home` and `cwd` at runtime — never a
- * machine-local literal (which the `no-machine-local-paths` hook blocks and
+ * machine-local literal (which the `machine-local-path` write hook blocks and
  * which would leak a username). Only `claude` is supported today; other vendors
  * return a typed error rather than guessing.
  *
