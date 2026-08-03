@@ -2,6 +2,40 @@
 
 Complete reference for all environment variables used across the Oak Open Curriculum Ecosystem.
 
+## Changing a deployment environment variable (procedure)
+
+Deployment environment values are live production state: a change reaches
+running deployments without any deployment of your own, and the platform
+gives them none of the review, versioning, or rollback that code gets.
+Both 2026-08-03 outages came from this surface. Follow all four steps.
+
+1. **Validate the value before entering it.** Run it through the guard
+   that will judge it — for the pseudonym keyring, the strict resolver;
+   for JSON-shaped values, a parse. A value that has never been
+   machine-checked is a value you are pasting on faith.
+2. **Never delete a record a running deployment depends on.** Deployments
+   bind variables **by internal record ID, not by name**. Deleting a
+   record and creating a replacement with the same name leaves every
+   running deployment holding a dangling reference — it sees the variable
+   as absent — while the dashboard shows a correct entry and gives no
+   indication anything is wrong. **Edit in place** where possible (the
+   record ID survives). When splitting one variable into per-environment
+   records, **add the new records first, deploy, and only then remove the
+   old one**.
+3. **Deploy, then check liveness.** A running deployment does not
+   necessarily pick up the new state, and a poisoned one never
+   self-heals. After any change, deploy and confirm the affected origins
+   answer (`/healthz`, plus an authenticated-surface probe). This step is
+   what makes an environment change complete.
+4. **If a deployed surface fails, read the runtime logs before forming
+   any theory.** The application's fail-fast messages name the failing
+   key and where to correct it. Both 2026-08-03 incidents cost hours to
+   theories that the logs would have settled in seconds.
+
+Recovery note: a production redeploy is the cure for a poisoned
+deployment. See the production build guard's own documentation for which
+commits may build.
+
 ## Credential Policy
 
 The repository policy is:
