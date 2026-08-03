@@ -1,5 +1,5 @@
 {
-  "description": "Canonical agent-hook policy for oak-mcp-ecosystem. Guardrail-only: grounding reminder, quality-gate reminder, and blocking dangerous git/history-bypass commands.",
+  "description": "Canonical agent-hook policy for oak-open-curriculum-ecosystem. Guardrail-only: grounding and quality-gate reminders (documented-only), blocking dangerous git/history-bypass shell commands, and blocking doctrine-violating Edit/Write content.",
   "version": "1.0.0",
   "hooks": {
     "preToolUse": {
@@ -337,28 +337,28 @@
   "platform_support": {
     "claude_code": {
       "status": "supported",
-      "native_surface": ".claude/settings.json hooks.PreToolUse",
-      "notes": "Bash PreToolUse is natively activated for blocked-pattern enforcement. sessionStart and preCommit remain documented-only because grounding and quality-gate reminders already live in rules, skills, and onboarding flows."
+      "native_surface": ".claude/settings.json hooks.PreToolUse (Bash, Edit, and Write matchers via the verdict shim .claude/hooks/run-pretooluse-guard.mjs)",
+      "notes": "The Bash command guard and the Edit/Write content guard (owner-approval marker plus concept-grouped doctrine blocks) are natively activated through the shared prebuilt dispatcher artefact. Read and UserPromptSubmit run separate best-effort secrets scans. sessionStart and preCommit remain documented-only because grounding and quality-gate reminders already live in rules, skills, and onboarding flows."
     },
     "cursor": {
-      "status": "unsupported",
-      "native_surface": null,
-      "notes": "No native agent hook surface at time of writing."
+      "status": "identity-only",
+      "native_surface": ".cursor/hooks.json sessionStart",
+      "notes": "Tracked soft sessionStart identity adapter only; the canonical command/content policy is not activated for Cursor. Cursor's broader upstream hook surface was not reassessed in the 2026-07-25 Codex research pass."
     },
     "gemini_cli": {
-      "status": "unsupported",
+      "status": "not-activated",
       "native_surface": null,
-      "notes": "No native agent hook surface at time of writing."
+      "notes": "Gemini / Antigravity CLI documents native hooks (workspace .agents/hooks.json), but this repository wires no project-local activation (recorded 2026-07-25)."
     },
     "github_copilot": {
-      "status": "unsupported",
+      "status": "inherited",
       "native_surface": null,
-      "notes": "No native agent hook surface at time of writing."
+      "notes": "No Copilot-native activation is wired. Copilot CLI inherits the Claude PreToolUse activation and is enforced through the dispatcher's copilot-compat-string route (observed live 2026-07-25, CLI 1.0.75)."
     },
     "codex": {
-      "status": "unsupported",
-      "native_surface": null,
-      "notes": "No native agent hook surface at time of writing."
+      "status": "identity-only",
+      "native_surface": ".codex/config.toml [[hooks.SessionStart]]",
+      "notes": "Lifecycle hooks are stable in Codex CLI 0.145.0 and the tracked config activates a soft SessionStart identity adapter. The canonical command/content guard is not yet activated on Codex PreToolUse; that enforcement vertical remains to be implemented and verified."
     }
   }
 }
