@@ -2090,3 +2090,13 @@ follow-up sweep, not blind PR wrappers).
   pattern-match as security boundary needs a charset anchor, not just
   a suffix; same family as the piped-exit-codes class (the tool's
   cheap idiom is not the contract you meant).
+
+- **2026-08-03 ~22:40Z (Wyvern) — piped-exit tally +1 (git commit | tail)**:
+  `git commit -F msg | tail -3; echo EXIT:$?` reported 0 while the
+  pre-commit hook FAILED (prettier) — the echo read tail's exit; the
+  dependent push then also failed behind the same mask. Caught only by
+  the ls-remote state-read showing the ref unmoved. Same class, fourth
+  instance at this seat; the cure that held: redirect full output to a
+  scratch file, capture `rc=$?` on the next line, tail the FILE for the
+  human-readable half. Candidate for a hook/lint on `git commit ... |`
+  patterns if the class recurs again.
