@@ -462,7 +462,12 @@ def validate(document: dict[str, Any]) -> tuple[list[str], list[str]]:
             errors.append("non-randomised designs require explicit identification_assumptions")
 
     permissions = document.get("permissions_and_scope", {})
-    excluded = set(permissions.get("excluded_operations", [])) if isinstance(permissions, dict) else set()
+    raw_excluded = permissions.get("excluded_operations", []) if isinstance(permissions, dict) else []
+    if not isinstance(raw_excluded, list):
+        raw_excluded = []
+    if any(not isinstance(item, str) for item in raw_excluded):
+        errors.append("permissions_and_scope.excluded_operations entries must all be strings")
+    excluded = {item for item in raw_excluded if isinstance(item, str)}
     if not {"participant-exposure", "data-collection", "execution"}.issubset(excluded):
         errors.append("permissions_and_scope must exclude participant exposure, data collection, and execution")
 

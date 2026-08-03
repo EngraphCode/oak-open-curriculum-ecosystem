@@ -628,11 +628,19 @@ def validate(document: dict[str, Any]) -> tuple[list[str], list[str]]:
 
     monitoring = str(document.get("inference", {}).get("monitoring_policy", "")).lower()
     visible = document.get("integrity", {}).get("effect_results_visible_during_run")
-    if "fixed-horizon" in monitoring and visible is True:
-        errors.append("fixed-horizon inference cannot expose effect results for outcome-dependent decisions during the run")
+    if "fixed-horizon" in monitoring:
+        if visible is True:
+            errors.append("fixed-horizon inference cannot expose effect results for outcome-dependent decisions during the run")
+        elif visible is not False:
+            errors.append("fixed-horizon inference requires an explicit integrity.effect_results_visible_during_run: false")
 
     permissions = document.get("permissions_and_scope", {})
-    excluded = set(permissions.get("excluded_operations", [])) if isinstance(permissions, dict) else set()
+    raw_excluded = permissions.get("excluded_operations", []) if isinstance(permissions, dict) else []
+    if not isinstance(raw_excluded, list):
+        raw_excluded = []
+    if any(not isinstance(item, str) for item in raw_excluded):
+        errors.append("permissions_and_scope.excluded_operations entries must all be strings")
+    excluded = {item for item in raw_excluded if isinstance(item, str)}
     if not {"user-exposure", "production-change", "execution"}.issubset(excluded):
         errors.append("permissions_and_scope must exclude user exposure, production change, and execution")
 

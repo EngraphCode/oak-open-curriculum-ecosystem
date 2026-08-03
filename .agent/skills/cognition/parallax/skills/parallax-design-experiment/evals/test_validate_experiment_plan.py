@@ -93,6 +93,19 @@ class ExperimentPlanValidationTests(unittest.TestCase):
         errors, _ = VALIDATOR.validate(plan)
         self.assertFalse(any("product_overlay_artifact_refs" in error for error in errors), errors)
 
+    def test_non_string_excluded_operations_reports_error_instead_of_crashing(self) -> None:
+        plan = template()
+        plan["permissions_and_scope"]["excluded_operations"] = [
+            "participant-exposure",
+            "data-collection",
+            "execution",
+            {},
+        ]
+        errors, _ = VALIDATOR.validate(plan)
+        self.assertIn(
+            "permissions_and_scope.excluded_operations entries must all be strings", errors
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
