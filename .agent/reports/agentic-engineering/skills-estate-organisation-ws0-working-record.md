@@ -1246,3 +1246,21 @@ REMAINING at the freeze — seven threads, the next sitting's map:
   owner's word on the fused recommendation.
 - Discipline: one push per adjudicated round; re-request review after
   the fix push; the Director merges at resolved+green+settled.
+
+### 2026-08-03 ~06:48Z — resume: freeze bundle landed; skills-SSOT ruling inscribed
+
+The compaction freeze lifted at the owner's resume word. The link-gate
+block was cured at the Director's seat (187a2ab2f tracks the
+TypeScript-estate thread record) and the four-file freeze bundle
+landed unchanged (45ef043ce) under a granted warden window. A further
+owner ruling arrived mid-resume and is inscribed as §Overlap and
+de-duplication in the landing procedure: where rules, skills, and
+subagents overlap in intent or content, the skill is favoured as the
+single source of truth when disambiguation or de-duplication arises,
+because only skills natively support evals; the other levers point
+rather than duplicate. Step 7's out-of-policy "vendored" heading and
+vocabulary — retired by the two-channel ruling — trued to the
+installer channel in the same motion. The ruling strengthens the
+fused loader-config + evals-pilot recommendation standing at the
+owner's door. Next: the seven remaining #714 threads at the
+deliberate pace.
