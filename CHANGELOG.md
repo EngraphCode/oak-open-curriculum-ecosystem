@@ -1,3 +1,18 @@
+# [1.144.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.143.1...v1.144.0) (2026-08-03)
+
+
+### Bug Fixes
+
+* **agent-tools:** close the --thread claim-existence bypass — heartbeats are claim-anchored ([061d2dd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/061d2dd784b7a2de083a26c2603fac622cecb745)), closes [#725](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/725)
+* **agent-tools:** drop --thread from heartbeat mode — the claim row is the thread's only source ([09f2079](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/09f20794e689cfb7aeaffe6c03b8b236a46632c0))
+* **agent-tools:** heartbeats anchor only to the emitting seat's own claim ([bc64dfc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bc64dfcc8a1655eb5584fbcd5d3531f0842251df))
+
+
+### Features
+
+* **agent-tools:** emit heartbeats in the ADR-186 lifecycle shape, tag retained (emitter leg) ([6d82b2c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6d82b2cb11edb7b2d52fd09ca4ecfc5e8704072d))
+* **agent-tools:** heartbeat dual filter in every discriminating consumer (ADR-186 consumer leg) ([273cc47](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/273cc472f0985d3750bf704886ed5e849bdb8bbd))
+
 ## [1.143.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.143.0...v1.143.1) (2026-08-02)
 
 # [1.143.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.6...v1.143.0) (2026-08-02)
