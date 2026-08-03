@@ -511,6 +511,43 @@ export function runVercelIgnoreCommand(options) {
     }
   }
 
+  // MCP-479 — a redeploy of the commit already in production must build.
+  //
+  // `VERCEL_GIT_PREVIOUS_SHA` is "the git SHA of the last successful
+  // deployment for the project and branch", so when the commit being built
+  // equals it, this build IS a rebuild of the already-released commit and
+  // cannot be a non-release build. A DIFFERENT commit whose version has not
+  // advanced still cancels below, so the guard keeps its whole purpose.
+  //
+  // Vercel exposes no variable distinguishing a redeploy from a push, so
+  // this equality is the only honest signal available. It fails safe: an
+  // absent or malformed `VERCEL_GIT_COMMIT_SHA` leaves the verdict exactly
+  // as it was before this clause existed.
+  //
+  // Why it matters: on 2026-08-03 a production outage caused by a dangling
+  // environment-variable record could not be cured by redeploying — this
+  // guard cancelled the rebuild — and recovery needed a release cut.
+  // Instant Rollback is no substitute: it re-points domains at an existing
+  // build carrying the same stale binding, and never runs this script.
+  const currentShaRaw = trimToUndefined(env.VERCEL_GIT_COMMIT_SHA);
+  let validatedCurrentSha;
+  if (currentShaRaw !== undefined) {
+    const checkedCurrent = validateGitSha(currentShaRaw);
+    if (checkedCurrent === null) {
+      stderr.write(
+        `VERCEL_GIT_COMMIT_SHA failed boundary validation (length=${currentShaRaw.length}, reason=${describeShaValidationFailure(currentShaRaw)}); ignoring it for the redeploy check.\n`,
+      );
+    } else {
+      validatedCurrentSha = checkedCurrent;
+    }
+  }
+  if (validatedSha && validatedCurrentSha && validatedCurrentSha === validatedSha) {
+    stdout.write(
+      `Continuing production build: this is a redeploy of the commit already deployed (${validatedSha}), version ${currentVersion}. The version-advance rule does not apply to rebuilding an already-released commit.\n`,
+    );
+    return { exitCode: 1 };
+  }
+
   const previousVersion = safeReadPreviousVersion(
     { gitShowFileAtSha: showCapability, gitFetchShallow: fetchCapability, stderr },
     repositoryRoot,
