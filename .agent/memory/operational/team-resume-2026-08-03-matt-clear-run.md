@@ -8,10 +8,11 @@ either merged or set to draft. Birch's work will be merged. This is so
 Matt has a clear run for his work without churn from ours."
 
 **Reopening gate (owner-agreed)**: the owner declares the
-first-submission window closed. At that word: flip #714, #729, and #731
-from draft back to ready, remove the temporary Matt block from
-`start-right.md` §6a (its text carries the same trigger), and rehydrate
-seats from this document.
+first-submission window closed. At that word: flip #729 and #731 from
+draft back to ready, remove the temporary Matt block from
+`start-right.md` §6a (its text carries the same trigger), cut a fresh
+coordination branch from main (the 2026-08-02 one merged at the
+door-shut), and rehydrate seats from this document.
 
 ## How to rehydrate a seat
 
@@ -47,6 +48,18 @@ seats from this document.
 3. Either way: the seat's first question is "what changed since my
    records froze?" — answered by recomputation, never from memory.
 
+**Cross-machine guarantee (owner principle, 2026-08-03: resume context
+that only lives locally is a defect)**: route 1 is machine-bound by
+nature — session state lives on the machine that ran it. Route 2 is the
+guarantee: everything it needs (this document, the thread records, the
+freeze entries in `director-handoff.md`, the draft PRs) is tracked and
+pushed, so any computer with a checkout can rehydrate the whole team.
+Local instance-tier state (comms events, the claims registry) is
+transport; its resume substance is homed in the pushed surfaces above.
+Birch's in-flight worktree state is re-derivable from the committed
+runbook (sdk-codegen README §Responding to Upstream Spec Changes) and
+lands through their PR cycle.
+
 ## The seats
 
 ### Magnetar binds Oblivion (74d914) — Director + commit-warden
@@ -56,10 +69,11 @@ seats from this document.
 - Resume map: `director-handoff.md` seated block (the freeze entries;
   the clear-run freeze is the latest). Wake ceremony: monitors →
   warden recompute → board first-hand → gap sweep.
-- Board at quiesce: #714 (coordination fold, draft), #729 (draft),
-  #731 (draft), #732 (Matt start-right note — merges at full
-  condition), and the Lichen corpus draft PR (below). The fold
-  ceremony runs after #731 completes post-window.
+- Board at quiesce: #729 and #731 in draft (titles jimbot-prefixed at
+  owner word); the Matt start-right note MERGED at `731fafccf`
+  (PR #733); the coordination branch (#714) MERGED at the door-shut —
+  the wrap's final act; and the Lichen corpus draft PR (below). At
+  resume the Director cuts a fresh coordination branch from main.
 
 ### Birch holds Seedling (e48fe2) — upstream update lane (LIVE through the window)
 
@@ -118,10 +132,10 @@ seats from this document.
 
 - Codex / GPT-5. Seat closed earlier at owner word; the corpus is the
   frozen artefact, not a live lane.
-- Safe state: the 125-path staged corpus commits to
-  `jimcresswell/typescript-estate-consolidation-review` under the
-  owner-authorized gate bypass (2026-08-03 card) and lives in a DRAFT
-  PR labelled WIP-red. Gates red on the WIP state by design.
+- Safe state: the 125-path corpus is committed and pushed at
+  `c69b0746c` (owner-run authorized bypass, 2026-08-03) and lives in
+  DRAFT PR #734 (jimbot-prefixed). Gates red on the WIP state by
+  design — do not merge, do not fix forward without adopting the lane.
 - Thread record:
   `.agent/memory/operational/threads/typescript-estate-consolidation-review.next-session.md`.
 - Resume route: the green-up (3 lint errors + type/build/test) is the

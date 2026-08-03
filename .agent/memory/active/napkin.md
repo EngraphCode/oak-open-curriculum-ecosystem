@@ -1649,3 +1649,19 @@ seat now ride the bot-token credential-helper transport. Pushed history
 stands (grandfathering clause). The compliance lesson: the trigger is the
 WRITE, and the very first session write should have run gh auth status
 against the rule.
+
+## 2026-08-03 ~10:45Z — card-discipline failure (n=2, owner-caught) + door-shut wrap captures
+
+OWNER VERBATIM: "I didn't know anything was waiting on me because you
+didn't show me a card." Two pending owner ACTIONS (#733 approval; the
+Lichen bypass commands) sat in prose across several messages — the
+standing card discipline was applied to the Lichen DECISION earlier the
+same hour, then dropped for the ACTIONS that followed from it. Sharpened
+rule of thumb: an owner ACTION is an owner-attention item exactly like a
+decision — if the seat is waiting on his hands, there is a card on the
+table, re-surfaced until discharged. Wrap captures alongside: the
+Corsair grant send failed silently behind a grep (pipe-mask, same-day
+recurrence); the 4e5f1032 re-adopt failed behind a tail and read as done
+until the wrap's metaloss pass re-derived the holder first-hand (cure:
+adopt/verify output unpiped, verify the registry after every
+authority-affecting write).
