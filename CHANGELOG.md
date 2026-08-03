@@ -1,3 +1,10 @@
+# [1.146.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.145.0...v1.146.0) (2026-08-03)
+
+
+### Features
+
+* **skills:** add the two upstream-update skills; true the runbook bulk section (mcp-469) ([7f149b2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7f149b2069f39144bf9086e9675fa653c3a5a579))
+
 # [1.145.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.144.2...v1.145.0) (2026-08-03)
 
 
