@@ -30,6 +30,22 @@ last_updated: 2026-08-03
 
 # Upstream update lane — completion
 
+> **State at the 2026-08-03 ~17:00Z boundary (second compaction).** The
+> lane is no longer the only moving work: a deployment-reliability
+> programme opened out of two same-day outages and now carries four
+> sibling delivery nodes (`deploy-config-fails-the-build`,
+> `release-redeploy-recovery`, `boot-failure-observability`,
+> `production-liveness-detection`; tickets MCP-475/479/480/481, PR
+> #746). Lane state: #735 has Matt's code-owner review with TWO REAL
+> generator findings to cure at the generator (`maximum: 300` dropped
+> from the MCP input boundary; `oakUrl` advertised on keyword responses
+> the runtime cannot decorate), its preview is healthy and
+> boot-verified, and the merge gate is now exhaustive preview
+> validation rather than Matt's approval (owner word). MCP-463 is built
+> by the pair seat and waits on #735 merging. Monitors and crons all
+> stopped at owner word; re-arm on resume. The napkin's 2026-08-03
+> ~17:00Z entry is the full boundary record.
+
 The executing seat is Birch holds Seedling (e48fe2), claude-code /
 claude-fable-5, lane claim `186e6899` (retained through the compaction
 boundary), session home worktree
@@ -74,10 +90,14 @@ The drive, in order:
    rulesets API per name (CodeQL, SonarCloud, run-quality-gates,
    Vercel), read per-name, never column-parsed. The Vercel check also
    yields the preview origin Matt's validation needs.
-3. Matt's code-owner approval is the structural gate AND the handoff
-   (owner refinement 2026-08-03: the PR "is to be passed to Matt").
-   Un-draft when validation converges (the draft state is the owner's
-   merged-or-draft quiesce word; this lane's PR merges — owner word).
+3. SUPERSEDED (owner word 2026-08-03 ~16:1xZ): "I don't think we
+   should block 735 on Matt, but we should test the hell out of that
+   preview to prove that a merge will not result in Matt being
+   blocked." Matt's approval is NO LONGER the merge gate; the gate is
+   exhaustive preview-hosted validation (the runbook's FULL MATRIX
+   against the live preview, evidence on the PR). Matt reviews on his
+   own clock, welcome but not blocking. Un-draft when the full-matrix
+   evidence is posted.
 4. Merge at FULL condition: every check green on the cured head, every
    thread resolved, Matt's approval present, AND the owner's gate
    refinement satisfied (mid-turn word 2026-08-03: "Landing the PRs is

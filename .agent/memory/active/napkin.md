@@ -1891,6 +1891,93 @@ preview (restored ~15:55Z after the owner's env repair; healthz 200,
 PRM + 401 correct, posthog accepted). Plan node re-trued. Preview
 restoration + MCP-475 arc recorded in the ticket + PR #735 comments.
 
+## 2026-08-03 ~17:00Z (Birch/e48fe2): COMPACTION WRAP #2 — two outages, four hardening nodes, and the session's dominant failure pattern
+
+### The pattern worth carrying (metacognition, owner-prompted twice)
+
+**I asserted mechanism from partial evidence at least four times in one
+session**, each time stating an inference as a fact and each time being
+corrected by the owner or by the record: (1) "the stored preview value is
+mangled" — I had validated the LOCAL copy and spoke about the STORED one
+(silent-twin, `query-the-value-never-the-lookalike`); (2) "process.env
+restrictions are tests-only" — invented from a two-line grep; (3) "the
+step sheet's placeholder was pasted" — a theory, written into a Linear
+ticket as root cause; (4) "recovery is instant, no deploy needed" —
+asserted, reversed, re-reversed. THE CURE IS ONE MOVE: when the
+authoritative surface (runtime logs, the code, the vendor doc) is
+unreadable, RESTORE ACCESS — never substitute inference. In the
+production incident the Vercel logs named the exact failing key the
+whole time; my token had expired, and instead of saying "I cannot see,
+fix that first" I theorised for thirty minutes and we cut a release on
+a wrong theory. Structural tripwire adopted: *about to state a
+mechanism? → have I read the authoritative surface in the last few
+minutes?* `verify-dont-trust` exists and was passively held, not fired.
+
+**Second pattern: verification scope narrower than change scope.** I
+asked the owner for an env change and verified only PREVIEW; the change
+touched PRODUCTION's row too, and took production down. Same shape as
+(1). Rule: verify every environment a change touches, not the one you
+were thinking about.
+
+**Third: speed costs shape.** The plan node was written fast to answer
+"is it visible?" and carried five real defects, all caught by Matt's
+agent, all accepted. Rushing an artefact to answer a question about the
+artefact is its own trap.
+
+### What happened (both outages, definitively diagnosed)
+
+- **Preview dead 5 days** (2026-07-31→08-03): a pseudonym-keyring value
+  failed strict validation; required `Vercel` check stayed green
+  because its predicate is "build+deploy completed" while the crash is
+  at first invocation. Cured by owner re-entry of machine-validated
+  values + redeploy; boot-verified.
+- **Production down ~13 min** (~15:45→15:58Z): the ACTIVE_KEY_ID split
+  DELETED the original env record and created two new ones.
+  **Deployments bind env by internal record ID, not by name** — the
+  running deployment held a dangling reference and saw the variable as
+  ABSENT while the dashboard showed two correct entries. It never
+  self-heals; a new deployment is required. The production build guard
+  cancels same-version redeploys, so recovery needed a release cut
+  (#744 → 1.146.2). Log evidence: `POSTHOG_PSEUDONYM_ACTIVE_KEY_ID is
+  required when posthog is selected`.
+- **Sentry finding (empirical)**: the error pipe WORKS (probe error
+  `Invalid JSON` landed in seconds, prod, release 1.146.3) but boot
+  failures are UNREPORTABLE BY CONSTRUCTION — `loadConfiguredApp`
+  resolves config BEFORE `createObservabilityOrThrow`, and Sentry is
+  built from that config. Zero Sentry events from either outage.
+
+### State at wrap (all first-hand)
+
+- **Both environments healthy**, boot-verified.
+- **Merged today**: #736 (skills), #744 (runbook/release), #738
+  (Matt's retention docs — needed owner approval; the User-type ruleset
+  bypass does NOT work, recorded on MCP-474).
+- **Open, mine**: #735 (spec alignment; Matt's agent found TWO REAL
+  generator defects — `maximum: 300` lost at the MCP input boundary,
+  and `oakUrl` advertised on keyword responses the runtime cannot
+  decorate; both cure at the GENERATOR, both need regression coverage);
+  #746 (four delivery nodes + env procedure, reworked after five
+  accepted findings, awaiting re-review).
+- **Open, Wyvern's**: #741, #742, #743, #745, #731 (#731 has
+  CHANGES_REQUESTED — routed to them on the ARC channel).
+- **Tickets**: MCP-475 (deploy gate), MCP-479 (version guard), MCP-480
+  (boot observability), MCP-481 (liveness) — all Urgent, all with
+  matching repo plan nodes. MCP-462/463 are the lane.
+- **Owner-held**: alert destination for monitor 1593267 (it has NO
+  ALERT — detection without notification); production key rotation +
+  shredding `tmp/jim-posthog-setup-steps.md` (plaintext prod key since
+  Jul 29).
+
+### Post-compaction restart
+
+Monitors/crons ALL STOPPED at owner word. Re-arm on resume: the 15-min
+Matt-scan cron (`check Linear and GitHub for messages from Matt…`), and
+a comms watcher if the pair is still live (Wyvern 1da2b1). Next work in
+order: MCP-479 (recovery floor — every future incident's cost depends
+on it), then #735's two generator cures, then MCP-480. The superseded
+`~/.claude/plans/synchronous-dancing-coral.md` is replaced by the four
+repo nodes — do not reopen it.
+
 LOCAL-ONLY RESIDUE riding the successor coordination branch at resume
 (owner-acknowledged, no further PRs at his word): this napkin's
 uncommitted delta (Birch's owner-note verbatim + the splice fix);
@@ -1974,3 +2061,20 @@ follow-up sweep, not blind PR wrappers).
   assumed clock. Class: hand-written timestamps are silent-twin values —
   derive from the observable record (`date -u`, commit timestamps), same
   discipline as query-the-value-never-the-lookalike.
+
+## 2026-08-03 Lava lifts Brimstone — session lessons (full versions pushed: adversarial-plan record on PR #745)
+
+- The ripgrep `-rn` flag-cluster typo (`-r` is --replace) fired the Bash
+  guard TWICE this session (+2 on six recorded instances); the guard bit
+  correctly both times; the spell-flags-separately habit is still not
+  automatic. (Meta: quoting the literal in this very entry fired the guard a
+  THIRD time through the heredoc — the substring matcher cannot tell a
+  mention from an invocation; recorded as a known limitation instance.)
+- `markdownlint --fix` silently rewrote wrapped doctrine prose (an
+  `ask`-plus-`log` continuation line became a `- log` bullet) — autofix over
+  meaning-dense prose needs a diff read before staging.
+- Source-direct guard premise falsified in adversarial round 1 (plan D11):
+  verification must walk the CLAIM's full dependency chain — probing Node
+  type-stripping said nothing about the import closure ending in dist-only
+  workspace exports.
+- Home: .agent/reports/agentic-engineering/claim-freshness-guard-adversarial-plan-record-2026-08-03.md
