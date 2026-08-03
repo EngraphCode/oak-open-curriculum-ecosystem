@@ -107,8 +107,9 @@ the dated record
    pair with all prior pairs' context; per-pair files cure this and the
    channel-discovery race below.
 2. **Announce the channel with exactly ONE canonical comms event** at
-   open, before the first substantive entry, naming the absolute file
-   path and the participants — for groups whose roster is unknown at
+   open, before the first substantive entry, naming the channel file
+   path (repo-root-relative, per §Protocol) and the participants — for
+   groups whose roster is unknown at
    open, the participants known so far, with the rest accreting
    on-channel (see §Running an n≥3 channel, roster accretion). The
    canonical stream is the discovery
@@ -122,7 +123,7 @@ the dated record
    missed three entries in 2026-05-27 after a channel moved paths; an
    appender derived the path from the announce TITLE instead of copying
    it verbatim from the body and appended one directory up — the
-   stray-path vector, 2026-06-11. Cures: put the absolute path in the
+   stray-path vector, 2026-06-11. Cures: put the channel path in the
    announce title as well as the body, and verify the tail-target file
    exists with the expected header before appending.)
 3. **Conserve-at-close.** ARC is working memory. Decisions, recon,
@@ -190,9 +191,15 @@ are conserved in the evaluation record.
   over more vigilance — path-and-append discipline has already failed
   twice in ten minutes across two well-grounded agents (evaluation
   record, §Known-limitation worked instances).
-- **Cross-platform pairing.** At the first Codex or Cursor seat joining
-  a channel, revisit tail/append ergonomics (they differ by platform)
-  and record the resolved shape here.
+- **Cross-platform pairing — ergonomics record outstanding.** The first
+  cross-platform pairing has already occurred: a Codex seat (Zephyr
+  turns Crosswind, Codex / GPT-5) joined and tailed a live channel on
+  2026-07-16
+  (`.agent/collaboration/rapid-comms/2026-07-16-codex-hook-experiment-lupin-herds-bark-and-zephyr-turns-crosswind.md`),
+  but the tail/append ergonomics review that pairing was meant to
+  trigger was never recorded. The outstanding follow-up: at the next
+  cross-platform pairing — or by harvesting the 2026-07-16 channel —
+  record the resolved per-platform tail/append ergonomics shape here.
 - **Zero per-message ceremony is load-bearing.** No schema, no identity
   preflight per entry. This property is plausibly the source of the
   measured latency benefit (evaluation record, §Measured benefits);
@@ -206,8 +213,9 @@ observational record is conserved in the evaluation record):
 
 - **Roster accretion replaces roster declaration.** A team assembling
   asynchronously cannot enumerate its roster at open: open with a
-  partial roster, let the canonical announce carry only the absolute
-  path, and each seat appends an identity entry on arrival. The
+  partial roster, let the canonical announce carry the channel path
+  (repo-root-relative, per §Protocol) and the participants known so
+  far, and each seat appends an identity entry on arrival. The
   canonical heartbeat surface does real rendezvous work — seats discover
   each other there before the channel exists.
 - **Addressing**: a named-addressee prefix ("Name —") for seat-specific

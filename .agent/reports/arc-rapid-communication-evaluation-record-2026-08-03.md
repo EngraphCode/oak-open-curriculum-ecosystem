@@ -10,8 +10,10 @@ statusline delivery plan, `.agent/plans/delivery/arc-colour-statusline.plan.md`,
 authored 2026-08-03; its preserved readiness-reviewed predecessor is
 [`arc-colour-statusline-infrastructure.plan.md`](../plans-backlog-2026-07/agent-tooling/active/arc-colour-statusline-infrastructure.plan.md)).
 This record conserves the evaluation evidence, the observed-arc
-histories, and the named mechanism-triggers exactly as they stood in the
-canonical reference doc at graduation. The standing protocol, conventions,
+histories, and the named mechanism-triggers as they stood in the
+canonical reference doc at graduation — with one correction found at
+the graduation PR's review: the cross-platform trigger's fired state
+(see §Named triggers). The standing protocol, conventions,
 operating constraints, and maintenance clauses now live in
 [`arc-rapid-communication.md`](../reference/arc-rapid-communication.md); this
 record is the closed evidence base that earned them.
@@ -140,7 +142,8 @@ observations below).
 
 The reference doc carried named triggers for mechanism-level work with the
 instruction "do not build ahead of these; the zero-ceremony property is the
-thing to protect". Their state at graduation:
+thing to protect". Their state at graduation, with one review-found
+correction:
 
 - **First n≥3 group channel ("gellings")** — FIRED 2026-06-11; the
   observations were folded into the reference doc's n≥3 section (the
@@ -154,9 +157,16 @@ thing to protect". Their state at graduation:
   infrastructure does not suspend YAGNI — building the helper still
   gates on first observed corruption or owner word. The trigger is
   re-expressed as a standing maintenance clause in the reference doc.
-- **First cross-platform pairing (Codex or Cursor seat)** — NOT fired at
-  graduation; tail/append ergonomics differ. Re-expressed as a standing
-  maintenance clause in the reference doc.
+- **First cross-platform pairing (Codex or Cursor seat)** — recorded as
+  NOT fired in the reference doc at graduation, but repository evidence
+  shows it HAD fired: a Codex seat (Zephyr turns Crosswind, Codex /
+  GPT-5) joined and tailed a live channel on 2026-07-16
+  (`.agent/collaboration/rapid-comms/2026-07-16-codex-hook-experiment-lupin-herds-bark-and-zephyr-turns-crosswind.md`
+  — the 12:35:28Z join entry names the live primary-checkout ARC tail).
+  The stale not-fired claim was caught at this record's PR review
+  (PR 730, round 1). The tail/append ergonomics review the trigger
+  promised was never recorded and remains outstanding — carried forward
+  as the reference doc's cross-platform maintenance clause.
 
 ## The first n≥3 instance (observed 2026-06-11)
 
