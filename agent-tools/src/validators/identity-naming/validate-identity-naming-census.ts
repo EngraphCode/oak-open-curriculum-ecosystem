@@ -24,10 +24,11 @@
  * @packageDocumentation
  */
 
+import { type ScanFile } from '../../core/tracked-file-scan.js';
+
 import {
   countVariants,
   hasAnyCount,
-  type ScanFile,
   type VariantCounts,
 } from './validate-identity-naming-tokens.js';
 
@@ -134,6 +135,33 @@ export function compareToCensus(
 /** The map key for one (kind, file) census cell. */
 function entryKey(entry: CensusEntry): string {
   return `${entry.kind} ${entry.file}`;
+}
+
+/**
+ * The duplicated (kind, file) keys in a row set.
+ *
+ * @remarks
+ * {@link compareToCensus} keys both sides by cell, so two rows claiming the
+ * same cell would make the contract's verdict depend on which one happened to
+ * win the map insertion — one row would be adjudicated and the other silently
+ * discarded. A census carrying a duplicate is malformed, not merely untidy.
+ *
+ * @param entries - The rows to check.
+ * @returns Each duplicated key once, in first-duplicate order; empty when the
+ * rows are unique.
+ */
+export function findDuplicateKeys(entries: readonly CensusEntry[]): string[] {
+  const seen = new Set<string>();
+  const duplicates = new Set<string>();
+  for (const entry of entries) {
+    const key = entryKey(entry);
+    if (seen.has(key)) {
+      duplicates.add(key);
+      continue;
+    }
+    seen.add(key);
+  }
+  return [...duplicates];
 }
 
 /**

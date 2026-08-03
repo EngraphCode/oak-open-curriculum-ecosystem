@@ -49,12 +49,6 @@ export interface VariantCounts {
   readonly initialismLower: number;
 }
 
-/** A file to scan: repo-relative path and full text content. */
-export interface ScanFile {
-  readonly path: string;
-  readonly content: string;
-}
-
 /** A live occurrence, reported for navigation (never part of the contract). */
 export interface TokenHit {
   readonly file: string;
@@ -105,6 +99,10 @@ export function hasAnyCount(counts: VariantCounts): boolean {
 export function findContentHits(file: string, content: string): TokenHit[] {
   const hits: TokenHit[] = [];
   content.split('\n').forEach((line, lineIndex) => {
+    // Columns come from the lowercased line, so a code point whose lowercase
+    // form has a different length (e.g. U+0130) shifts the name leg's column
+    // relative to the original. Tolerated: these positions are navigation
+    // only, never contract.
     const lower = line.toLowerCase();
     let index = lower.indexOf(OUTGOING_NAME);
     while (index !== -1) {

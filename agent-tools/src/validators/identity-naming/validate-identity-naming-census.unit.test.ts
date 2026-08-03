@@ -15,6 +15,7 @@ import {
   compareToCensus,
   computeLiveCounts,
   countsEqual,
+  findDuplicateKeys,
   type CensusEntry,
 } from './validate-identity-naming-census.js';
 
@@ -95,5 +96,27 @@ describe('compareToCensus', () => {
   it('countsEqual is exact over all three variants', () => {
     expect(countsEqual({ ...ZERO, name: 1 }, { ...ZERO, name: 1 })).toBe(true);
     expect(countsEqual({ ...ZERO, name: 1 }, { ...ZERO, initialismUpper: 1 })).toBe(false);
+  });
+});
+
+describe('findDuplicateKeys', () => {
+  const entry = (file: string, kind: 'content' | 'path'): CensusEntry => ({
+    file,
+    kind,
+    countByVariant: { ...ZERO, name: 1 },
+  });
+
+  it('finds nothing in a row set with one row per cell', () => {
+    expect(findDuplicateKeys([entry('a.md', 'content'), entry('b.md', 'content')])).toEqual([]);
+  });
+
+  it('does not confuse the two kinds — path and content are distinct cells', () => {
+    expect(findDuplicateKeys([entry('a.md', 'content'), entry('a.md', 'path')])).toEqual([]);
+  });
+
+  it('names each duplicated cell once, however many rows claim it', () => {
+    const rows = [entry('a.md', 'content'), entry('a.md', 'content'), entry('a.md', 'content')];
+
+    expect(findDuplicateKeys(rows)).toEqual(['content a.md']);
   });
 });
