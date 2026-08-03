@@ -12,6 +12,7 @@ endpoints + 5 schemas).
 | Vanilla stirs Spore | claude | claude-opus-4-8[1m] | 807471 | implementer | 2026-07-01 | 2026-07-01 |
 | Katydid seeks Moonbeam | claude-code | claude-fable-5 | 477cba | status-verifier (drive-by) | 2026-07-06 | 2026-07-06 |
 | Swallow guards Tailwind | claude-code | claude-fable-5 | 805902 | implementer — MCP-152/153 concept exploration + execution | 2026-07-26 | 2026-07-26 |
+| Birch holds Seedling | claude-code | claude-fable-5 | e48fe2 | implementer — the 2026-08-03 upstream update lane (MCP-462/463/464); continues across a compaction boundary | 2026-08-03 | 2026-08-03 |
 
 **Predecessor (identity fields not fully recorded):** *Bonfire turns Basalt* authored the
 plan + process notes and landed WS0 (programmes regen) and WS1 (cached-schema-default,
@@ -125,3 +126,30 @@ Ops: worktree mcp-203-bulk-rework on jimcresswell/mcp-153-ingest-run at origin/m
 (clean, no commits); both datasets in its bulk-downloads{,-archive-2026-06}; Redis
 container oak-search-redis left running; ES MCP access arrives at next session restart
 (owner-added) — prefer it over the curl+env path for future index work.
+
+## 2026-08-03 — the upstream update lane (Birch holds Seedling, e48fe2): LIVE at a compaction boundary
+
+THE CONTROLLING RESUME MAP is the delivery plan node
+[`upstream-update-lane-completion`](../../../plans/delivery/upstream-update-lane-completion.plan.md)
+— read it FIRST at any pickup; this entry is the thread-level index.
+
+State frozen at the boundary (~10:55Z, gates re-trued ~11:00Z): MCP-462
+delivered to review as draft PR #735 (head `bcdc62373`, bot-authored,
+52 files) — Matt (`mantagen`) assignee + requested reviewer per the
+owner's pass-to-Matt word; Copilot requested; MCP-462 In Progress.
+MCP-463 (ADR-222 interim bulk truing + the untracked-data freshness
+check) is the next act, sequenced after #735 merges — ALL owner-wait
+legs were CLEARED by owner word at the boundary ("clear all wait for
+owner legs now"): the truing executes autonomously under gateway
+reviewers. ADR-222 phase 2 (full derivation) and the invoker next-page
+signal proceed at their NAMED gate — release completion, per ADR-222's
+own phasing — which is sequencing, not an owner-wait. MCP-464 (keywords silent
+default-20 heads-up) is with Aakesh. ADR-222 landed at `612e60fe0`; the
+2026-08-03 owner rulings (Matt-priority ticket carve-out, keep+re-pin
+card, type-changes-discussed-first, the ratified source-derived-test
+shape) are verbatim in the napkin's 2026-08-03 entries and enacted
+in PR #735. The lane claim `186e6899` is RETAINED; the seat continues
+post-compaction, solo (fleet quiesced, Director dark, blockers card the
+owner). This entry supersedes the item-2 "bulk schema.json is not
+committed / author the future plan" framing above: ADR-222 now governs,
+and the item-3 pagination-header P1 remains open, post-release.

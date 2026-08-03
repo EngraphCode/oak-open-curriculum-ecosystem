@@ -1528,6 +1528,57 @@ thread record's canary item gets trued when the differential test lands
 (its re-pin disposition is superseded for this class by the structural
 cure).
 
+## 2026-08-03 ~10:45Z (Birch holds Seedling/e48fe2): OWNER NOTE FOR LATER — upstream-update skills (verbatim)
+
+Owner, in-session at this seat: "note for later: the repo needs skills
+specifically for updating the upstream Oak Open Curriculum API spec and
+Bulk Download schema." Route: the sdk-codegen README §Responding to
+Upstream Spec Changes is the proven runbook substance for the API-spec
+half (followed exactly twice on 2026-08-03); the bulk half's substance
+accretes in the MCP-463 lane (ADR-222 truing + freshness contract). Skill
+authoring is post-embargo work — carried to the Director's doctrine/skill
+queue via the update-lane ARC channel; the MCP-462/463 PR records are the
+worked instances the skills should distil.
+
+## 2026-08-03 ~10:58Z (Birch holds Seedling/e48fe2): compaction-boundary instrument notes + the boundary record
+
+- CREDENTIAL-HELPER QUOTING TRAP (first-hand, cost one failed push): in
+  `GH_TOKEN="$t" git -c "credential.helper=!f() { ... password=$GH_TOKEN; }; f" push`,
+  the OUTER shell expands `$GH_TOKEN` inside the double-quoted -c argument at
+  composition time — when the prefix assignment has not yet populated the
+  outer shell — so the helper echoes an EMPTY password and auth fails with
+  "Invalid username or token". Cure: `export GH_TOKEN` first and SINGLE-QUOTE
+  the helper string so expansion happens in the helper's own shell (which
+  inherits git's env). Same silent-twin family as exit-codes: a right-shaped
+  command carrying an empty value. Candidate: the bot-identity rule's push
+  example could name the single-quote requirement explicitly.
+- `pnpm agent-tools:check-commit-message` takes `-F <file>` (or -m/stdin),
+  NOT a bare path argument (bare path = exit 2 usage error); and mint-token
+  under `pnpm --silent` still prints its "token expires" note to stderr —
+  capture with `2>/dev/null` for a clean single-line token.
+- BOUNDARY RECORD: owner measured this seat at 84% and called compaction
+  prep with a continue mandate ("both PRs all the way to validated and
+  merged; everyone else is stopping, you keep going"). The resume map is
+  the plan node `upstream-update-lane-completion` (delivery corpus, born
+  sketch, primary disk) + the upstream-api-alignment thread record's
+  2026-08-03 entry; claim 186e6899 retained; monitors stopped at owner
+  word after the final broadcasts; solo posture post-compaction (no
+  heartbeat consumer, no comms writers) until the fleet returns.
+- OWNER CLEARANCE at the boundary (~11:00Z, verbatim): "clear all wait
+  for owner legs now, I don't want to be blocking on any of this work
+  from this moment on." SUPERSEDES the ~09:05Z type-walkthrough contract
+  for this lane's remaining work and the activation pack's ruling-4
+  wait-legs: the MCP-463 truing executes autonomously (gateway reviewers
+  replace the co-design pass; ADR-222 authority ordering unchanged), and
+  the KeywordsResponseSchema promotion question is lane-adjudicable.
+  NOT unlocked by this (their own rationale is release-window
+  sequencing, not owner-wait): ADR-222 phase-2 derivation and the
+  invoker next-page signal stay post-release. The plan node and thread
+  record are re-trued to the cleared state. (Splice note, Director
+~10:58Z: this entry's concurrent append landed mid-paragraph inside the
+ratification entry above; the paragraph was restored content-preserving —
+two seats appending one buffer is the seam, disclosed here.)
+
 ## 2026-08-03 ~09:15Z (Magnetar/74d914): SEVEN OWNER CARD ANSWERS (all-open-questions batch, verbatim-critical)
 
 1. OVERRIDES (update lane): KEEP + re-pin sentinels — owner-ratified.
@@ -1665,3 +1716,133 @@ recurrence); the 4e5f1032 re-adopt failed behind a tail and read as done
 until the wrap's metaloss pass re-derived the holder first-hand (cure:
 adopt/verify output unpiped, verify the registry after every
 authority-affecting write).
+
+## 2026-08-03 ~11:15Z (Magnetar/74d914): DOOR-SHUT RESIDUE — P1 verdicts + local-only items for the successor branch
+
+Owner word: note the P1s and residue locally, no further PRs; we are done.
+
+FOLD-REVIEW P1/P2 VERDICTS (all six REAL, dispositions on the merged #714's
+resolved threads, verbatim there): (1) Cursor `tool:*` loader —
+bbdf09077 flipped seven `tool:*` wrappers to alwaysApply:false with
+description-based attachment; Cursor has no command-pattern loader, so
+RULES_INDEX's loader-contract wording has no Cursor implementation for
+`tool:*`; POLICY TRUE-UP AT RESUME (true the contract wording, or revert
+the seven — owner call). (2) skill-creator holdout-during-optimization,
+(3) skill-creator silent eval-worker failure, (4) skill-creator symlink
+packaging — all die with the owner-ruled deletion. (5) Parallax
+variant-ID duplicate check (non-string evasion), (6) Parallax
+graph_id-loss skip — join the three validator defects queued behind the #731
+cures (team-resume doc carries all five Parallax items).
+
+## 2026-08-03 ~11:20Z (Birch/e48fe2, post-compaction n=1): OWNER GATE REFINEMENT + preview-env defect
+
+- OWNER VERBATIM (mid-turn, 2026-08-03): "Landing the PRs is gated on the
+  validation and the skill creation, the todo list needs updating." The two
+  upstream-update skills (update-upstream-api-spec,
+  update-bulk-download-schema) move from interleave to MERGE GATE on the
+  lane's PRs; the UAT validation is likewise a named gate. Task list +
+  plan node re-trued at occurrence.
+- PREVIEW-ENV DEFECT (first-hand, Vercel runtime logs): #735's preview
+  500s on EVERY route — boot fails at
+  "invalid PostHog product-analytics configuration: pseudonym keyring
+  failed strict validation" (content-free by design,
+  product-analytics-config.ts). First occurrence 2026-07-31T22:18Z
+  PREDATES the PR; production alpha healthy. Cure is an owner-hands
+  Vercel Preview env correction of POSTHOG_PSEUDONYM_KEYRING (contract +
+  generation command in docs/operations/environment-variables.md);
+  UAT proceeds meanwhile against a local no-auth boot of the PR head.
+
+## 2026-08-03 ~11:50Z (Birch/e48fe2): owner-caught inference-as-fact in the preview diagnosis; re-analysis record
+
+Owner correction (verbatim substance): the local .env.local "only contains
+the preview values" — my transmitted claim "the stored Preview copy is
+mangled (differs from local)" rode the unexamined assumption that local
+and preview values were entered independently. Same class as
+dont-transmit-assumptions-as-truth: the claim left this seat without its
+derivation. Cure applied at occurrence: PR #735 comment PATCHed to carry
+established-vs-open parts explicitly. ESTABLISHED first-hand: failing
+guard is exactly parseKeyring (message text unique to that guard);
+env-level and pre-PR (first occurrence 2026-07-31T22:18Z); the intended
+value passes the REAL resolver locally (authed boot with posthog
+selected served traffic — impossible on refusal). OPEN: the byte-level
+defect class in the runtime-visible stored value (candidates: wrapping
+quotes, escaped JSON, smart quotes, literal \n escape inside a JSON
+string [legal JSON → newline in decoded key → regex fail], uppercase in
+id, duplicate/branch-scoped Preview entry; a Sensitive-marked var makes
+all of these invisible post-entry). Instrument ladder: owner dashboard
+eyes (checklist above) → content-free runtime diagnostic on a THROWAWAY
+probe branch (never the PR branch) → re-set-and-redeploy (cures without
+diagnosing). Vercel CLI on this machine is personal-account
+(engraph team only) — no team env pull available to agents.
+
+## 2026-08-03 ~12:30Z (Birch/e48fe2): the goal-hook × Practice clash (owner-diagnosed) + basic-mistakes inventory + seat handoff to Wyvern
+
+OWNER DIAGNOSIS (verbatim substance): "the `goal` mechanism was clashing
+with the Practice in a strange way... I cleared the goal and now you are
+working perfectly sensibly." Inside-view mechanism, confirmed from the
+seat: the /goal stop-hook is STANDING COMPLETION DRIVE ("do not stop
+until both PRs merged") — exactly the finish-line pressure
+metacognition.md names as the fluency-failure amplifier — and in an n=1
+session there is no peer brake. Behavioural evidence: the basic-mistake
+cluster below all fired inside the goal window; behaviour normalised at
+goal-clear. ROUTE (capture-practice-tool-feedback): harness goal-hooks
+need a Practice counterweight (pacing clause or a prohibition on
+standing goal-hooks in Practice sessions) — doctrine candidate for the
+Director/consolidation.
+
+BASIC-MISTAKES INVENTORY (owner-prompted "why?", one generator):
+
+1. cwd-stickiness recurrences (3+: doubled paths, false file-not-found,
+   wrong-package script resolution) — a KNOWN napkined trap applied by
+   vigilance, not structure.
+2. Keyring diagnosis transmitted inference-as-fact — and it was the
+   SILENT-TWIN class (query-the-value-never-the-lookalike): I validated
+   the LOCAL copy and spoke about the STORED value.
+3. Skill adapters hand-written BEFORE reading the corpus README that
+   says adapters are generator-emitted (caught, regenerated).
+4. Asked the owner to eyeball Vercel sensitive env values that are
+   secret-from-everyone by design — instrument proposed without
+   grounding the system's actual capability.
+5. "process.env restrictions apply only to tests" — INVENTED scoping
+   from a two-line grep; owner-corrected: raw process.env in product
+   code violates the validated-env boundary doctrine regardless of lint
+   mechanics. (The probe design carries this constraint forward.)
+
+Common generator: acting on a fluent model instead of grounding the
+system first, amplified by the goal-hook, unchecked in n=1.
+STRUCTURAL CURES adopted and transferred: (a) every Bash call
+cd-anchored absolute; (b) one grounding sentence naming the checked
+source BEFORE proposing any instrument; (c) "who owns/generates this?"
+BEFORE authoring any artefact class new this session; (d) the felt urge
+to keep moving at a finish line is itself the tripwire — slow the last
+moves.
+
+SEAT HANDOFF at owner word: Wyvern lifts Kindling (1da2b1) succeeds
+Birch holds Seedling (e48fe2). Full transfer in the
+upstream-api-alignment thread record (2026-08-03 handoff entry) + the
+plan node upstream-update-lane-completion (re-trued). Monitors stopped:
+15-min Matt-scan cron DELETED, local dev server STOPPED. PostHog
+preview issue NOT resolved at handoff — see the handoff entry for the
+established/open split and the granted probe instrument.
+CORRECTION minutes later (owner word): NOT a shutdown — "do work in an
+n=2 pair with Wyvern, collaborate on this work, open an ARC channel."
+Birch CONTINUES; the transfer brief became the pair's shared-context
+opening in the ARC channel
+2026-08-03-upstream-lane-pair-birch-holds-seedling-wyvern-lifts-kindling.md;
+the cron/dev-server stops stand (re-armed on need); n=2 comms ceremony
+resumes (channel Monitor armed at this seat).
+
+LOCAL-ONLY RESIDUE riding the successor coordination branch at resume
+(owner-acknowledged, no further PRs at his word): this napkin's
+uncommitted delta (Birch's owner-note verbatim + the splice fix);
+Birch's resume-map files (.agent/plans/delivery/
+upstream-update-lane-completion.plan.md UNTRACKED + the
+upstream-api-alignment thread record's latest entries) — their
+substance is partially mirrored in PR #735's records and Birch's
+freeze broadcast; the abandoned preservation worktree
+.claude/worktrees/update-lane-resume-records (branch
+jimcresswell/update-lane-resume-records, zero commits, staged copies
+of those two files + two content-preserving lint reflows) — adopt or
+prune at resume. The primary checkout sits on the DEAD
+coordination/estate-2026-08-02 branch (merged 3fe18580c, remote
+deleted); the successor cuts fresh from main.
