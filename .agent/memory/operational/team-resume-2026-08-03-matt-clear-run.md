@@ -142,6 +142,30 @@ lands through their PR cycle.
   foundations review lane's first act — any capable seat, not
   necessarily a Codex one; the corpus PR is the pickup surface.
 
+## Owner working agreements homed from per-user memory (door-shut audit)
+
+The owner's principle (2026-08-03): resume context living only locally —
+including per-user Claude memory — is a defect. A door-shut audit of the
+memory corpus against tracked surfaces found most entries already have
+tracked twins (rules, napkin captures, freeze entries); these did not,
+and a cross-machine resume needs them:
+
+- **Merge mechanics** (owner rulings, standing): merge commits only —
+  never squash; agent merges are REST calls on minted bot tokens at the
+  full condition (every named check green, zero unresolved review
+  threads, MERGEABLE, and — since at least 2026-08-03 — the repo-wide
+  CODEOWNERS approval from jimCresswell or mantagen).
+- **First-major-release gates** (owner rulings): the release is gated on
+  the guidance artefact, the MCPJam test suites, and one-click install;
+  the sensitivity split stands; a thing merely executed is not thereby
+  ratified — owner sight ratifies.
+- **Priority order** (owner standing): bugs, then features, then
+  research with a protected floor; priority means importance, never
+  speed.
+
+Per-user memory remains a buffer: at each consolidation moment, whatever
+has become pertinent flows to a tracked surface like this one.
+
 ## Standing context that survives the pause
 
 - Matt-priority ruling binds fleet-wide: only the update lane mints
