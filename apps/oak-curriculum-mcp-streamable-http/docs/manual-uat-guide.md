@@ -47,6 +47,14 @@ Any running instance — it does **not** need to be deployed:
 
 Production alpha origin: `https://curriculum-mcp-alpha.oaknational.dev`.
 
+> **Environment edits need a deployment AND a boot check.** Changing a
+> deployment environment's variables can break the running functions, and a
+> production redeploy cannot restore them on its own: the production build is
+> gated to release commits (the `ignoreCommand` cancels any build whose root
+> `package.json` version has not advanced), so recovery needs a release. After
+> ANY environment change, run section 1.1 against the affected origin —
+> worked instance 2026-08-03, both preview and production.
+
 A **host** (Cursor, Claude Desktop/Code, MCPJam, ChatGPT, or this session's MCP
 integration) is the easiest way to call tools — add an HTTP MCP server pointing
 at the `/mcp` URL and complete OAuth if prompted.
