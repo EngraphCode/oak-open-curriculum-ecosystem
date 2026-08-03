@@ -832,7 +832,6 @@ const KeywordsResponseSchema = z.array(
       keyStageSlug: z.string(),
       subjectSlug: z.string(),
       lessonSlugs: z.array(z.string()),
-      oakUrl: z.url().optional(),
     })
     .strict()
 );
