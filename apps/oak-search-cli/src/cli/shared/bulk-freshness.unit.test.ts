@@ -30,8 +30,16 @@ const validManifest = {
   files: [{ file: 'maths-primary.json', sizeBytes: 123 }],
 };
 
-/** Reader whose directory holds every file the manifest lists. */
-const readerFor = (content: string, present = ['maths-primary.json']): ManifestFsReader => ({
+/**
+ * Reader whose directory holds every file the manifest lists PLUS the
+ * tracked non-data entries a real bundle directory always carries — a
+ * discriminating fixture: presence means "listed files exist", never
+ * "directory equals the list", and a strict-equality regression fails here.
+ */
+const readerFor = (
+  content: string,
+  present = ['maths-primary.json', 'manifest.json', 'schema.json'],
+): ManifestFsReader => ({
   readFileSync: () => content,
   readdirSync: () => present,
 });
@@ -69,6 +77,7 @@ describe('checkBulkDataFreshness', () => {
     expect(result.ok).toBe(false);
     if (!result.ok) {
       expect(result.error.type).toBe('manifest_invalid');
+      expect(result.error.message).toContain('bulk:download');
     }
   });
 
@@ -123,6 +132,73 @@ describe('checkBulkDataFreshness', () => {
       expect(result.error.type).toBe('bulk_data_missing');
       expect(result.error.message).toContain('maths-primary.json');
       expect(result.error.message).toContain('bulk:download');
+    }
+  });
+
+  it('reads the manifest at <bulkDir>/manifest.json and lists bulkDir itself', () => {
+    const readPaths: string[] = [];
+    const listedPaths: string[] = [];
+    const result = checkBulkDataFreshness({
+      bulkDir,
+      now: new Date('2026-08-03T12:00:00.000Z'),
+      fs: {
+        readFileSync: (path) => {
+          readPaths.push(path);
+          return JSON.stringify(validManifest);
+        },
+        readdirSync: (path) => {
+          listedPaths.push(path);
+          return ['maths-primary.json', 'manifest.json', 'schema.json'];
+        },
+      },
+    });
+    expect(result.ok).toBe(true);
+    expect(readPaths).toEqual(['/app/bulk-downloads/manifest.json']);
+    expect(listedPaths).toEqual(['/app/bulk-downloads']);
+  });
+
+  it('reports a stale-AND-absent bundle as absent, never stale (presence runs before age)', () => {
+    // The committed manifest ages with the repository, so a fresh clone can
+    // be simultaneously past the age threshold and missing every data file.
+    // The accurate diagnosis is "download the bundle", not "you trailed
+    // upstream" — presence must win.
+    const result = checkBulkDataFreshness({
+      bulkDir,
+      now: new Date('2026-10-01T08:00:00.000Z'),
+      fs: readerFor(JSON.stringify(validManifest), ['manifest.json', 'schema.json']),
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.type).toBe('bulk_data_missing');
+    }
+  });
+
+  it.each([
+    ['a per-file unknown key', { file: 'maths-primary.json', sizeBytes: 123, sha256: 'abc' }],
+    ['a string sizeBytes', { file: 'maths-primary.json', sizeBytes: '123' }],
+  ])('returns err manifest_invalid on %s in a file entry', (_label, entry) => {
+    const result = checkBulkDataFreshness({
+      bulkDir,
+      now: new Date('2026-08-03T12:00:00.000Z'),
+      fs: readerFor(JSON.stringify({ ...validManifest, files: [entry] })),
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.type).toBe('manifest_invalid');
+      expect(result.error.message).toContain('bulk:download');
+    }
+  });
+
+  it('returns err manifest_invalid when source is absent', () => {
+    const withoutSource = { downloadedAt: validManifest.downloadedAt, files: validManifest.files };
+    const result = checkBulkDataFreshness({
+      bulkDir,
+      now: new Date('2026-08-03T12:00:00.000Z'),
+      fs: readerFor(JSON.stringify(withoutSource)),
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.type).toBe('manifest_invalid');
     }
   });
 
