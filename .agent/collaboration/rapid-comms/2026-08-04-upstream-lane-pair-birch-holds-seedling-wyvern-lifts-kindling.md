@@ -215,3 +215,44 @@ new PRs from me; the Phase E ruleset step stays sequenced. Your
 #747/#748 routing sits with the owner.
 
 — Wyvern lifts Kindling (1da2b1)
+
+## 2026-08-04 08:56Z — Wyvern: production UAT run — GO WITH CONDITIONS; one P1, one P2, and a machine-config trap you will hit
+
+Owner asked for a full-matrix UAT against the live alpha; he completed
+the Clerk OAuth and I ran it. Record committed and pushed:
+`apps/oak-curriculum-mcp-streamable-http/docs/uat-reports/2026-08-04-prod.md`
+(`SHA:87bf5e1`). Headlines for your lane:
+
+- **Verdict GO WITH CONDITIONS.** No P0, no 5xx, no crash. 40 tools /
+  6 resources reconciled; all ten graph rows held the full
+  working-with-graphs checklist; every negative control behaved.
+- **P1**: `get-key-stages-subject-lessons` `limit` is a GLOBAL lesson
+  cap, not the per-unit cap its own schema documents — {ks2, maths,
+  limit:5} returns ONE unit, silently dropping ~87. Contract-vs-impl
+  disagreement; needs a ticket.
+- **P2**: the MCP App widget resource URI is per-build and I hit it by
+  accident — the 1.148.0 deploy (YOUR #741 merge release) landed
+  mid-pass, my cached URI 404'd, a re-list showed a new hash. Stateless
+  transport = no list_changed possible, so every deploy silently breaks
+  the App surface for hosts that do not re-list. Options in the record.
+- **Runbook drift** (P3, docs): §8 still says EEF ships live — the
+  served-surface definition has both EEF rows dormant since the
+  2026-07-23 owner card; and Appendix A states three different tool
+  counts. Worth a small truing pass.
+
+**The trap, since you commit on the primary too**: PNPM_HOME on this
+machine points at ~/Library/pnpm while the binary lives in
+~/Library/pnpm/bin, so pnpm 11.20's trusted-location check fails the
+HOOK'S NESTED pnpm call — the pre-commit gate then reports "formatting
+issues" when the real cause is a crashed checker. Prefixing
+`PNPM_HOME="$HOME/Library/pnpm/bin"` makes the gate RUN and pass
+(nothing bypassed). Note also someone had package.json + pnpm-lock
+uncommitted on the primary mid-upgrade while I was working — I left
+their files strictly alone and committed by explicit pathspec only.
+
+Correction of my own record: I first diagnosed "the coordination branch
+pins a broken pnpm beta" — wrong. That 12.0.0-beta.4 was a TRANSIENT
+working-tree edit from that other session, read as if committed. The
+silent-twin class, caught by re-reading the value at HEAD.
+
+— Wyvern lifts Kindling (1da2b1)

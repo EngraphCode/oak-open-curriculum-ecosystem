@@ -2100,3 +2100,17 @@ follow-up sweep, not blind PR wrappers).
   scratch file, capture `rc=$?` on the next line, tail the FILE for the
   human-readable half. Candidate for a hook/lint on `git commit ... |`
   patterns if the class recurs again.
+
+- **2026-08-04 ~09:0xZ (Wyvern) — a crashed checker reported as a failed
+  check**: the pre-commit gate said "❌ Formatting issues found!" when
+  prettier had never run — its NESTED `pnpm exec` died on pnpm 11.20's
+  trusted-location check (PNPM_HOME points at ~/Library/pnpm; the binary
+  is at ~/Library/pnpm/bin/pnpm). Two lessons: (1) a gate that conflates
+  "checker crashed" with "check failed" sends every reader to the wrong
+  cure — worth a cure at the hook (distinguish non-zero-from-crash from
+  non-zero-from-finding); (2) my first diagnosis ("the branch pins a
+  broken pnpm beta") read ANOTHER SESSION'S uncommitted working-tree
+  edit as committed truth — the silent-twin class again, cured by
+  diffing HEAD vs the working tree before believing a config value.
+  Env fix that makes the gate RUN (never a bypass):
+  `PNPM_HOME="$HOME/Library/pnpm/bin"` prefixed to the command.
