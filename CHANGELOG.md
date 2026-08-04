@@ -1,3 +1,10 @@
+## [1.148.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.2...v1.148.3) (2026-08-04)
+
+
+### Bug Fixes
+
+* **agent-tools:** probe $PNPM_HOME/bin for the pnpm launcher ([b5d3d43](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b5d3d43cfb1f49d7fe12fd31e085627d43e99571))
+
 ## [1.148.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.1...v1.148.2) (2026-08-04)
 
 
