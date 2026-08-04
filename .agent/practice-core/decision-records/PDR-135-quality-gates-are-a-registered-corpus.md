@@ -4,11 +4,13 @@ pdr_kind: contract
 
 # PDR-135: Quality Gates Are a Registered Corpus
 
-**Status**: Proposed (2026-08-04). The delivery plan this record serves was
-owner-ratified on 2026-08-04, and that ratification covers §§1–4 and §8, which
-the plan names. Sections 5 and 6 are **new** — they arrive from evidence found
-after ratification, in the first hours of the work the owner predicted would
-produce discoveries — and are marked for his word rather than assumed into it.
+**Status**: Accepted (owner-ratified 2026-08-04). The delivery plan this record
+serves was ratified the same day, covering §§1–4 and §8. Sections 5 and 6
+arrived afterwards, from evidence found in the first hours of the work the
+owner predicted would produce discoveries. They were surfaced for his word
+rather than assumed into that ratification, and he bound them both —
+accepting that §6 makes the register's validator materially larger, on the
+grounds that it is the half which catches the defects the estate actually hit.
 
 **Date**: 2026-08-04
 **Related**:
@@ -114,8 +116,6 @@ options, obey or disable, and the estate forbids the second.
 
 ### 5. A gate may report only what it verified
 
-*New in this record; see the Status note.*
-
 Three outcomes are distinct and may never be collapsed: **verified-pass**,
 **verified-fail**, and **could-not-check**. A gate that reports a pass for a
 check it did not perform is making a false statement, and a false statement is
@@ -147,8 +147,6 @@ estate's feedback debt, made countable.
 
 ### 6. Registration records reachability, at every binding grain
 
-*New in this record; see the Status note.*
-
 A gate that exists but is wired to nothing does not gate anything, and the
 estate has no way to notice. Registration therefore records **reachability**,
 and reachability is recomputed at **every grain by which the estate binds work
@@ -165,6 +163,28 @@ exactly the way an uninvoked script is, one level further down.
 A register built only from invocation sites would inherit that blind spot
 whole. Whatever grains a host uses to bind work to runners, each is a place a
 gate can silently cease to exist, and each must be recomputed.
+
+Two refinements follow from a second instance measured the same day: a
+document stating five required sections for a class of artefact, against
+validators that read only structured front matter, leaving thirteen artefacts
+non-conformant beneath a verdict of *"43 files conformant"*.
+
+- **Stated and checked are separate facts, and the gap is the finding.** A
+  register derived from invocation alone would score that validator as live,
+  wired and passing — which it is, for the half it covers. The uncovered half
+  is invisible at every level such a register models. An entry therefore
+  records the contract a gate **claims** and the contract a mechanism
+  **checks** as two fields. What differs between doctrine and enforcement is
+  almost always scope rather than existence, and only a register holding both
+  can see it.
+- **A total violation rate is evidence about the rule, not the corpus.** In
+  that same measurement, five artefacts of one kind out of five violated the
+  contract — far more likely to mean the contract was never intended to bind
+  that kind than that every instance is wrong. A validator built from the
+  stated text alone would encode the wrong reading and fail all five. Where
+  recomputation finds a rule violated universally, **the rule is the
+  suspect**, and the register records the question rather than manufacturing
+  failures.
 
 ### 7. Derivability is declared in tiers
 
