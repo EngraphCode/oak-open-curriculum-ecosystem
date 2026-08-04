@@ -117,3 +117,22 @@ whether `required_deployments: [Preview]` is still configured. Also: five valida
 have **no header docstring**, so their "enforces" lines were inferred from imports
 and constants rather than read from an authored description — those five are the
 first candidates for the description contract.
+
+## A gate hole found while writing this (unticketed as of the boundary)
+
+`pnpm skills:check` — the gate that runs at pre-push, in CI, and in `pnpm check` —
+validates adapter **drift** only. It is blind to a canonical that cannot be summoned
+at all. The `cognition/` skill directory has held no readable `SKILL-CANONICAL.md`
+since 2026-08-02 (it is a *family* directory awaiting the family-aware generator
+extension). In generate mode the tool prints
+`ERROR — … cannot be summoned in any harness` **and exits 0**; in `--check` mode —
+the mode the hooks and CI actually run — it does not mention it at all.
+
+So a skill can be invisible in every harness while every gate stays green. This is
+both a ledger entry (a gate whose stated coverage exceeds its real coverage) and a
+live defect. It matters more under the owner's ruling that skills become the source
+of truth *because* they are the only lever with eval support: the gate protecting
+that corpus currently cannot see a corpus member that has ceased to exist.
+
+Nothing gates skill **description** quality either, which the naming rule calls a
+routing defect with the same standing as a broken link.
