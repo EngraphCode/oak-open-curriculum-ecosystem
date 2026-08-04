@@ -21,8 +21,9 @@ name: preview-serves
 # environment, checked at entry (stale/redelivered events exit without
 # writing) and again immediately before the terminal write (a run
 # superseded mid-probe exits and leaves the context to the newer run).
-# `concurrency` below prevents interleaved writers; the newest-binding
-# provides the ordering that cancel-in-progress alone cannot. Once
+# `concurrency` below serialises same-SHA runs WITHOUT cancellation
+# (a stale event cancelling the newest run at the platform level was
+# the round-3 finding); the newest-binding provides ordering. Once
 # `pending` has landed, no failure path can leave an earlier success
 # standing. The residue: a publish/API failure BEFORE `pending` lands
 # leaves the PRIOR state (possibly an old success) with only the red
@@ -80,11 +81,15 @@ on:
 
 permissions: {}
 
-# Prevents two runs for one SHA writing the context interleaved; event
-# ORDERING is handled by the newest-deployment binding in the script.
+# SERIALISES runs per SHA without cancellation: a stale redelivered
+# event must never CANCEL the newest deployment's run at the platform
+# level (the cancelled owner would leave a stuck pending, or an old
+# success standing, that the in-script binding cannot undo). Queued
+# runs each hit the newest-deployment binding; only the current owner
+# writes, and a stale run exits without publishing.
 concurrency:
   group: preview-serves-${{ github.event.deployment.sha }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   probe:
