@@ -257,3 +257,32 @@ widening this lane; that routing IS the discipline, not an evasion of it.
   narrower coverage, never a hand-maintained ledger wearing a schema.
 - If no gate failure output ever routes a reader into the ledger, the description
   contract is overhead here and should be dropped to a bare register.
+
+## Tier-2 shape superseded (2026-08-04, owner-directed discussion)
+
+The §Mechanism tier-2 clause above ("reconciled out-of-band … marked with the
+date last verified") is **superseded**. The owner's repo-vs-instance lifecycle
+point, two commissioned multi-agent analyses (Wyvern's eleven-agent panel; this
+seat's eight-leg fleet, adjudicated in comms event `97b6ba5c`), and the owner's
+correction — *"if it's tracked it's not local; tracked means shared between ALL
+copies"* — settle it as:
+
+- The tracked register carries **repo-stratum content only**: the gate, its
+  mechanism files, and a tier/provenance marker. No instance descriptor, no
+  `verified_at`, no stored observation of live external state, ever (the cure
+  for invisible drift is no copy — `validators-must-recompute`).
+- The **enforcement expectation for a named deployment lives with the
+  instance itself** (the forge's own variable/settings store), readable by a
+  **non-blocking scheduled reconciler** that asserts its execution context IS
+  that instance (`GITHUB_REPOSITORY` equality — never `git remote` parsing),
+  reads the live ruleset (run token, unauthenticated fallback — the anonymous
+  read verified first-hand 2026-08-04: HTTP 200, four required contexts),
+  compares in both directions against a closed expectation, and exits
+  verified-pass / verified-fail / could-not-check per the ratified three-outcome
+  rule. The result lives in the check run, nowhere else.
+- Every non-instance checkout renders **could-not-check** for forge-enforced
+  entries — visibly, never as silence.
+- Open at re-entry: the instance-store mechanism choice (variable vs
+  environment vs app config) and its auditability; the run-token read
+  verification; ADR-204's prose-vs-live divergences (route to owner as a
+  QUESTION — the strict-policy setting may be deliberate, not drift).
