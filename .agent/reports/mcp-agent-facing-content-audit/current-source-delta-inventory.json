@@ -159,6 +159,12 @@
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/env-clerk-guards.ts",
+      "semanticSha256": "f08199cd222367d14b39eb2576d1280c1e32382fb85ce6eed043bfe7b7cc558e",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/env-product-analytics.ts",
       "semanticSha256": "5db6bd709ae01cd9ed1e9a51fe063d01f41669e3d0e9fb0e3fc924f9a5676d39",
       "itemIds": [],
@@ -166,7 +172,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/env.ts",
-      "semanticSha256": "e60da305584aefe3084546c39cd659024329a099645b3eceb1139e31fd1364ad",
+      "semanticSha256": "20106e93934aaa97f8829c03260235326f5e7a99d74f6c4aea2843ac7d192929",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },

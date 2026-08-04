@@ -13,6 +13,15 @@ const withClerkKeys = {
   CLERK_SECRET_KEY: 'sk_test_123',
 };
 
+// Production-realm keys. Required whenever a fixture sets
+// VERCEL_ENV: 'production', since the Guard 1a key-locality refinement
+// rejects pk_test_/sk_test_ keys in production.
+const withLiveClerkKeys = {
+  ...baseEnv,
+  CLERK_PUBLISHABLE_KEY: 'pk_live_123',
+  CLERK_SECRET_KEY: 'sk_live_123',
+};
+
 describe('Environment Schema', () => {
   it('requires CLERK_PUBLISHABLE_KEY when auth enabled', () => {
     const result = HttpEnvSchema.safeParse(baseEnv);
@@ -180,6 +189,57 @@ describe('Conditional Clerk keys (DANGEROUSLY_DISABLE_AUTH)', () => {
   });
 });
 
+describe('Clerk key-format locality (production)', () => {
+  // Clerk key prefixes are canonical: pk_test_/pk_live_, sk_test_/sk_live_.
+  // A production deployment holding development-realm (test) keys is the
+  // confirmed live gap this guard closes (prod /oauth/authorize 307-ing to
+  // the dev realm). See MCP-143 spec Guard 1a.
+
+  it('rejects a pk_test_ publishable key in production, on the publishable-key path', () => {
+    const result = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      CLERK_PUBLISHABLE_KEY: 'pk_test_123',
+      CLERK_SECRET_KEY: 'sk_live_123',
+      VERCEL_ENV: 'production',
+    });
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const paths = result.error.issues.map((i) => i.path.join('.'));
+      expect(paths).toContain('CLERK_PUBLISHABLE_KEY');
+    }
+  });
+
+  it('rejects an sk_test_ secret key in production, on the secret-key path', () => {
+    const result = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      CLERK_PUBLISHABLE_KEY: 'pk_live_123',
+      CLERK_SECRET_KEY: 'sk_test_123',
+      VERCEL_ENV: 'production',
+    });
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const paths = result.error.issues.map((i) => i.path.join('.'));
+      expect(paths).toContain('CLERK_SECRET_KEY');
+    }
+  });
+
+  it('accepts live keys in production', () => {
+    const result = HttpEnvSchema.safeParse({ ...withLiveClerkKeys, VERCEL_ENV: 'production' });
+    expect(result.success).toBe(true);
+  });
+
+  it('accepts test keys outside production — development, preview, and unset all pass', () => {
+    for (const env of ['development', 'preview'] as const) {
+      const result = HttpEnvSchema.safeParse({ ...withClerkKeys, VERCEL_ENV: env });
+      expect(result.success).toBe(true);
+    }
+    // unset VERCEL_ENV (local, non-Vercel) also passes
+    expect(HttpEnvSchema.safeParse(withClerkKeys).success).toBe(true);
+  });
+});
+
 describe('PostHog product-analytics selection (OBSERVABILITY_SINKS)', () => {
   const ZERO_KEY = Buffer.alloc(32, 0).toString('base64url');
   const validPostHogVars = {
@@ -300,7 +360,7 @@ describe('PostHog product-analytics selection (OBSERVABILITY_SINKS)', () => {
 
   it('rejects posthog as the only sink in production — product analytics is not a diagnostic sink', () => {
     const result = HttpEnvSchema.safeParse({
-      ...withClerkKeys,
+      ...withLiveClerkKeys,
       VERCEL_ENV: 'production',
       OBSERVABILITY_SINKS: '["posthog"]',
       ...validPostHogVars,
@@ -314,7 +374,7 @@ describe('PostHog product-analytics selection (OBSERVABILITY_SINKS)', () => {
 
   it('accepts posthog alongside a diagnostic sink in production', () => {
     const result = HttpEnvSchema.safeParse({
-      ...withClerkKeys,
+      ...withLiveClerkKeys,
       VERCEL_ENV: 'production',
       OBSERVABILITY_SINKS: '["sentry","posthog"]',
       ...validPostHogVars,
