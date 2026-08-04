@@ -578,6 +578,82 @@ export function buildSchemaWithBothExampleLevels(): OpenAPIObject {
 }
 
 /**
+ * Schema with a numeric query parameter carrying an upstream `maximum`.
+ * Mirrors the real `limit` parameter, which the upstream Oak API caps at 300.
+ */
+export function buildSchemaWithNumericConstraintParam(): OpenAPIObject {
+  return {
+    openapi: '3.0.0',
+    info: {
+      title: 'Numeric constraint schema',
+      version: '1.0.0',
+    },
+    paths: {
+      '/keywords': {
+        get: {
+          operationId: 'getKeywords',
+          parameters: [
+            {
+              name: 'limit',
+              in: 'query',
+              description: 'Limit the number of keywords',
+              schema: {
+                type: 'number',
+                default: 20,
+                maximum: 300,
+              },
+            },
+          ],
+          responses: {
+            '200': {
+              description: 'Success',
+            },
+          },
+        },
+      },
+    },
+  };
+}
+
+/**
+ * Schema with a parameter carrying a validation keyword the MCP tool
+ * generator does not propagate. Generation must fail loudly rather than
+ * emit input schemas that silently accept values the API rejects.
+ */
+export function buildSchemaWithUnpropagatedConstraintParam(): OpenAPIObject {
+  return {
+    openapi: '3.0.0',
+    info: {
+      title: 'Unpropagated constraint schema',
+      version: '1.0.0',
+    },
+    paths: {
+      '/keywords': {
+        get: {
+          operationId: 'getKeywords',
+          parameters: [
+            {
+              name: 'unit',
+              in: 'query',
+              description: 'Unit slug to search by',
+              schema: {
+                type: 'string',
+                pattern: '^[a-z-]+$',
+              },
+            },
+          ],
+          responses: {
+            '200': {
+              description: 'Success',
+            },
+          },
+        },
+      },
+    },
+  };
+}
+
+/**
  * Schema with parameter that has no example at any level.
  * The examples field should be omitted from output.
  */

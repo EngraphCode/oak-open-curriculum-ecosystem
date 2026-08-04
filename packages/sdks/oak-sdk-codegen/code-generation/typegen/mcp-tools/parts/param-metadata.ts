@@ -11,6 +11,14 @@ export interface ParamMetadata {
   readonly default?: unknown;
   /** Example value from OpenAPI schema for AI agent guidance */
   readonly example?: unknown;
+  /**
+   * Inclusive lower bound from the OpenAPI schema. Propagated into every
+   * emitted input surface so MCP callers are held to the same contract the
+   * upstream API enforces.
+   */
+  readonly minimum?: number;
+  /** Inclusive upper bound from the OpenAPI schema. */
+  readonly maximum?: number;
 }
 
 export type ParamMetadataMap = Record<string, ParamMetadata>;
@@ -24,6 +32,8 @@ export function createMutableParamMetadata(metadata: ParamMetadata): ParamMetada
     description: metadata.description,
     default: metadata.default,
     example: metadata.example,
+    minimum: metadata.minimum,
+    maximum: metadata.maximum,
   };
 }
 
