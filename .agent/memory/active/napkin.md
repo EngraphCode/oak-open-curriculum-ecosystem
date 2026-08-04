@@ -2329,3 +2329,36 @@ shredding `tmp/jim-posthog-setup-steps.md`; and the observability-debt ticket.
   straight from the text would encode a rule nobody intended; and a
   never-built gate standing beside a real one, under a shared verdict, is
   invisible at every level an invocation-site ledger models.
+
+- **2026-08-04 (Birch) — unmeasured estimates skew PESSIMISTIC, and that has a
+  cost too**: three instances inside ninety minutes, all reported to a
+  colleague before I measured, all worse than reality.
+
+  | claim I made | measured |
+  | --- | --- |
+  | ADR-168 conflict: "four overlapping hunks, a hand resolution coming" | 1 conflict hunk, 12 lines, only the status line |
+  | #749 entry-point check: "silent fail-open, defeats the guard's purpose" | fires correctly in the real wiring — his own smoke test killed it |
+  | #756: "was CLEAN, now BLOCKED" | never changed; `gh pr list` returns a stale `mergeStateStatus` |
+
+  I had been treating the verify-before-claiming reflex as protection against
+  **over**-claiming — saying a thing works when it does not. These are the
+  mirror image: saying a thing is broken, or expensive, when it is neither. The
+  cost is not smaller for being cautious-shaped. Each one would have spent
+  Matt's attention on a non-problem, and a reviewer who raises three false
+  alarms is a reviewer whose fourth finding gets discounted.
+
+  Mechanism in all three: I read a **summary** and described the underlying
+  thing — hunk headers instead of `git merge`, an isolated repro instead of the
+  real invocation, a bulk list instead of a per-item query. The summary is
+  always cheaper and always lossy in the pessimistic direction, because it
+  drops the reasons something might be fine.
+
+  The existing rule already covers the third one verbatim
+  (`read-verdicts-by-name-never-column-parse`) and I read the aggregate anyway.
+  Knowing a rule is not the same as its firing at the moment it applies — which
+  is the same lesson as MCP-496, one layer in.
+
+  Tripwire, extending the earlier one: *before a claim about SIZE or SEVERITY
+  reaches a colleague, name the instrument.* "I read the hunk headers" is not
+  "I ran the merge". Applies to good news and bad news equally; I had only been
+  applying it to good news.
