@@ -10,7 +10,7 @@
 
 ## Executive summary
 
-Oak Components is best understood as a **shared UI capability system for Oak's React applications**, not simply as a component library and not cleanly as a standalone design system. Its npm package contains at least five materially different things:
+Oak Components is best understood as a **shared UI capability system for Oak's React applications**, not simply as a component library and not cleanly as a standalone design system. Oak Components contains at least five materially different things (the first four ship in the npm package; the fifth is repository infrastructure rather than published package contents):
 
 1. a semantic design vocabulary: colour roles, spacing, typography, borders, shadows, transitions and responsive rules;
 2. a typed styling language built from those tokens and `$`-prefixed responsive props;
@@ -789,7 +789,7 @@ The approach scales while changes are selective and maintainers know the consume
 
 ### 9.11 Open issues can become long-lived background debt
 
-Issues `#207`, `#211`, `#212`, `#213`, `#237` and `#248` were all opened in June or July 2024 and remained open at the August 2026 snapshot. They cover release correctness, polymorphism, asset infrastructure, composition, SSR styling and discoverability. Some may be low priority or partially superseded, but their age makes the issue list an unreliable direct representation of active priorities.
+Issues [`#207`](https://github.com/oaknational/oak-components/issues/207), [`#211`](https://github.com/oaknational/oak-components/issues/211), [`#212`](https://github.com/oaknational/oak-components/issues/212), [`#213`](https://github.com/oaknational/oak-components/issues/213), [`#237`](https://github.com/oaknational/oak-components/issues/237) and [`#248`](https://github.com/oaknational/oak-components/issues/248) were all opened in June or July 2024 and remained open at the August 2026 snapshot. They cover release correctness, polymorphism, asset infrastructure, composition, SSR styling and discoverability. Some may be low priority or partially superseded, but their age makes the issue list an unreliable direct representation of active priorities.
 
 This is another portfolio signal: the repository has strong throughput for product-driven PRs but weaker visible closure of older cross-cutting seams.
 
