@@ -704,18 +704,52 @@ bump the semver) do.
 
 **Cancellation truth table**:
 
-| Branch (`VERCEL_GIT_COMMIT_REF`) | Current version (root `package.json`) | Previous version (`VERCEL_GIT_PREVIOUS_SHA:package.json`) | Outcome                | Reason                                                                                                                           |
-| -------------------------------- | ------------------------------------- | --------------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| not `main`                       | (not read)                            | (not read)                                                | Continue build         | Branch gate; per §1 only `main` triggers a production identifier.                                                                |
-| `main`                           | resolvable                            | unresolvable / unset                                      | Continue build         | First build OR previous SHA absent / git-unreachable; treated as "no previous to beat".                                          |
-| `main`                           | resolvable                            | resolvable, current ≤ previous                            | **CANCEL build**       | Version did not increment; this is a merge / hot-fix-on-main / accidental downgrade.                                             |
-| `main`                           | resolvable                            | resolvable, current > previous                            | Continue build         | Semantic-release commit advanced the version; the production identifier is fresh.                                                |
-| `main`                           | unresolvable                          | (not read)                                                | **CANCEL with stderr** | Build error: the current app version cannot be determined from root `package.json`. Diagnostic message printed; non-recoverable. |
+| Branch (`VERCEL_GIT_COMMIT_REF`) | Current version (root `package.json`) | Previous version (`VERCEL_GIT_PREVIOUS_SHA:package.json`)         | Outcome                | Reason                                                                                                                           |
+| -------------------------------- | ------------------------------------- | ----------------------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| not `main`                       | (not read)                            | (not read)                                                        | Continue build         | Branch gate; per §1 only `main` triggers a production identifier.                                                                |
+| `main`                           | resolvable                            | unresolvable / unset                                              | Continue build         | First build OR previous SHA absent / git-unreachable; treated as "no previous to beat".                                          |
+| `main`                           | resolvable                            | (not read) — `VERCEL_GIT_COMMIT_SHA` == `VERCEL_GIT_PREVIOUS_SHA` | Continue build         | Redeploy of the commit already deployed; a rebuild of an already-released commit is not a non-release build (third amendment).   |
+| `main`                           | resolvable                            | resolvable, current ≤ previous                                    | **CANCEL build**       | Version did not increment; this is a merge / hot-fix-on-main / accidental downgrade.                                             |
+| `main`                           | resolvable                            | resolvable, current > previous                                    | Continue build         | Semantic-release commit advanced the version; the production identifier is fresh.                                                |
+| `main`                           | unresolvable                          | (not read)                                                        | **CANCEL with stderr** | Build error: the current app version cannot be determined from root `package.json`. Diagnostic message printed; non-recoverable. |
 
 Mapping to Vercel `ignoreCommand` exit codes: exit 0 = "ignore this
 build" (Vercel cancels), exit 1 = "do not ignore" (Vercel proceeds).
-The script returns exit 0 on rows 3 (current ≤ previous) and 5
-(current unresolvable); exit 1 on rows 1, 2, 4.
+The script returns exit 0 on the current ≤ previous row and the
+current-unresolvable row; exit 1 on every other row.
+
+**Third amendment (2026-08-03, MCP-479) — the redeploy row.** The rule
+above is about which _commits_ may produce a production deployment, and
+it read as if it were about which _builds_ may run. Those differ for one
+case: rebuilding the commit that is already deployed. A production
+outage on 2026-08-03 was caused by a deployment holding a dangling
+environment-variable record reference — the code was correct and the
+environment was not — and the only cure was a fresh build of that same
+commit. The gate cancelled it, and recovery needed a release cut solely
+to satisfy this rule.
+
+Vercel's Instant Rollback is not an alternative here: it re-points
+domains at an existing build without running this script at all, and
+per Vercel's documentation it "won't update environment variables if
+you change them in the project settings", so it would have restored the
+same broken binding.
+
+The signal is derived, because Vercel exposes no variable distinguishing
+a redeploy from a push. `VERCEL_GIT_PREVIOUS_SHA` is documented as "the
+git SHA of the last successful deployment for the project and branch",
+so `VERCEL_GIT_COMMIT_SHA == VERCEL_GIT_PREVIOUS_SHA` means the build is
+a rebuild of the already-released commit — which cannot be a non-release
+build, because that commit's version already passed this very gate.
+
+The amendment is deliberately narrow. A _different_ commit whose version
+has not advanced still cancels, which is the entire purpose of §10. An
+unresolvable current version still cancels first, ahead of this row.
+`VERCEL_GIT_COMMIT_SHA` is validated at the same trust boundary as its
+sibling, and the row fails safe: absent or malformed, the verdict is
+identical to the pre-amendment table. No new environment variable, no
+operator flag, and no bypass surface is introduced — an escape hatch
+would have been the wrong shape for a gate whose value is that it cannot
+be talked out of.
 
 **Asymmetry rationale**: an unresolvable **current** version is a
 deterministic repo defect under Oak's current build topology (single
