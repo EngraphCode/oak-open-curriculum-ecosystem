@@ -16,10 +16,28 @@ function buildCanonicalYearPreprocess(): string {
 }
 
 /**
+ * Build the range suffix for a plain numeric schema.
+ *
+ * Applied only to the bare `z.number()` base: an enum base already fixes the
+ * accepted set, and the year preprocess wrapper substitutes a string enum for
+ * the numeric input, so a bound would be meaningless on either.
+ *
+ * @returns `.gte(...)` and/or `.lte(...)` in that order, or the empty string
+ */
+function buildNumericBoundSuffix(meta: ParamMetadata): string {
+  const lower = meta.minimum === undefined ? '' : `.gte(${String(meta.minimum)})`;
+  const upper = meta.maximum === undefined ? '' : `.lte(${String(meta.maximum)})`;
+  return `${lower}${upper}`;
+}
+
+/**
  * Build a Zod type string from parameter metadata.
  *
  * Generates Zod schema strings that include:
  * - Type-appropriate schemas (z.string(), z.number(), etc.)
+ * - .gte()/.lte() for numeric bounds declared upstream, so an MCP caller is
+ *   held to the same range the API enforces (tool invoke validates against
+ *   this schema before the generated request validator is reached)
  * - z.enum() for allowed values (proper JSON Schema conversion)
  * - .describe() when description is provided (preserves metadata for MCP clients)
  * - .meta() with examples in flat context when example is defined (enables AI
@@ -60,7 +78,7 @@ export function buildZodType(
         base = 'z.string()';
         break;
       case 'number':
-        base = 'z.number()';
+        base = `z.number()${buildNumericBoundSuffix(meta)}`;
         break;
       case 'boolean':
         base = 'z.boolean()';

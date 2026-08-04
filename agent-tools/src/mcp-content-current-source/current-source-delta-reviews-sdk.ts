@@ -58,7 +58,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C151', 'C152', 'C153', 'C154', 'C155', 'C156', 'C157', 'C158', 'C159'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts': reviewed(
-    '78cdabb13aea1d85623db86cc2e95424e7bbf1da5fa2b7bb175d8bc041c4bca3',
+    '0d540c388d80a7aed260e7b5cbe1329736d38ec5b6e95a5e040c6c0a59fceee4',
     [
       'C221',
       'C222',
