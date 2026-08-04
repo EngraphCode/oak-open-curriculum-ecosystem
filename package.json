@@ -92,7 +92,7 @@
     "lint:fix": "turbo run --continue lint:fix --only && pnpm lint:shell:syntax",
     "lint:clean": "rm -rf **/.eslintcache",
     "lint:shell": "pnpm lint:shell:syntax",
-    "lint:runtime-only": "eslint runtime-only-scripts/**/*.mjs",
+    "lint:runtime-only": "eslint --config eslint.runtime-only.config.mjs runtime-only-scripts/**/*.mjs",
     "lint:shell:syntax": "for f in apps/oak-curriculum-mcp-streamable-http/scripts/*.sh; do bash -n \"$f\" || exit \"$?\"; done && for f in .husky/pre-commit .husky/commit-msg .husky/pre-push .husky/pre-merge-commit .husky/prepare-commit-msg .husky/applypatch-msg .husky/pre-rebase .husky/refuse-commit-on-main.sh; do sh -n \"$f\" || exit \"$?\"; done",
     "subagents:check": "pnpm --filter @oaknational/agent-tools validate-subagents",
     "portability:check": "pnpm --filter @oaknational/agent-tools validate-portability",
@@ -148,6 +148,7 @@
   "packageManager": "pnpm@11.8.0+sha512.c1f5e7c4cb241c8f174b743851d82f42b802324afc8b0f116b96adb15aa06664948dde36960a3ba1079ba5b4b29dd0140135b94b5b5f5263592249d68e555f26",
   "license": "MIT",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
     "@mcpjam/cli": "3.15.2",
