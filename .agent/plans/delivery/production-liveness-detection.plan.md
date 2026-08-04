@@ -9,10 +9,12 @@ impact_areas:
   - analytics-and-observability
 tickets:
   - MCP-481
-depends_on: []
+depends_on:
+  - plan: boot-failure-observability
+    kind: beneficial
 owner_gates:
   - awaiting: owner-decision
-    clears_when: 'The owner names the alert destination that reliably interrupts (and it is configured on the uptime monitor and the heartbeat monitor).'
+    clears_when: 'The owner names the alert destination that reliably interrupts.'
     expires: 2026-08-06
 last_updated: 2026-08-03
 ---
@@ -21,21 +23,41 @@ last_updated: 2026-08-03
 
 ## Goal
 
-Nobody discovers a production outage by accident during unrelated work,
-which is how both 2026-08-03 outages were found.
+Nobody discovers a production outage by accident during unrelated work.
 
 ## Problem
 
-Nothing watches production between deployments. Environment changes
-take effect on running deployments without producing a deployment
-event, so deployment-triggered checks are structurally blind to that
-class — the preview outage ran five days and the production outage was
-found only because someone happened to look.
+Nothing watches production between deployments, and a deployment event
+is the only thing that currently triggers any check. Deployment-triggered
+checks therefore cover the moment of change and nothing after it: a
+deployment that is healthy when it lands and unhealthy an hour later
+passes every gate the estate has.
 
-An uptime monitor exists as of 2026-08-03 (`monitors/1593267`) with **no
-alert rule attached**. A monitor without an alert relocates the silence
-rather than ending it: it shows red on a dashboard nobody is watching,
-which is the original failure shape one layer up.
+**Corrected 2026-08-04.** An earlier draft of this node argued the gap
+differently — that environment changes take effect on *running*
+deployments, making deployment-triggered checks structurally blind to
+that class. Vercel documents the opposite:
+
+> Changes to environment variables are not applied to previous
+> deployments, they only apply to new deployments. You must redeploy
+> your project to update the value of any variables you change in the
+> deployment.
+> — [Managing environment variables](https://vercel.com/docs/environment-variables/managing-environment-variables)
+
+So an environment edit reaches production at the *next* deployment, not
+immediately. That makes the argument for this node **stronger, not
+weaker**: the damage lands at a deployment that looks routine and
+carries no signal that its configuration changed underneath it, and the
+interval between the edit and that deployment can be arbitrarily long.
+Any incident timeline built on the old premise should be re-derived
+against the vendor contract; the supported shape is
+change → redeploy → verify.
+
+An uptime monitor exists with **no alert rule attached**. A monitor
+without an alert relocates the silence rather than ending it: it shows
+red on a dashboard nobody is watching, which is the original failure
+shape one layer up. Monitor id, incident dates, and outage durations
+are recorded on MCP-481.
 
 ## Mechanism
 
@@ -66,18 +88,47 @@ produces.
    destination; verifier the owner, evidence on MCP-481.
 2. Loss of the authenticated surface raises an alert even when the
    process answers — proof: **owner-held**, the `POST /mcp` → 401
-   probe failing while `/healthz` still returns 200; evidence on
-   MCP-481.
+   probe failing while `/healthz` still returns 200; **verifier the
+   owner**, evidence on MCP-481. The probe must send
+   `Accept: application/json, text/event-stream`; without it the
+   transport returns 406 before reaching the auth layer, so the check
+   would pass identically whether auth is healthy or broken.
 3. A missed heartbeat raises an alert independently — proof:
    **owner-held**, the scheduled check-in deliberately withheld and the
-   missed-check-in alert observed; evidence on MCP-481. Distinct from
-   criteria 1 and 2: it exercises the other failure domain.
+   missed-check-in alert observed; **verifier the owner**, evidence on
+   MCP-481. Distinct from criteria 1 and 2: it exercises the other
+   failure domain.
 4. Detection-to-notification is within five minutes — proof:
    **owner-held**, a recorded timing from the criterion-1 injection
-   (probe interval plus alert latency), on MCP-481.
+   (probe interval plus alert latency); **verifier the owner**,
+   evidence on MCP-481.
 5. The heartbeat job is version-controlled and its schedule is visible
    — proof: **repo-safe**, the workflow file and its schedule in the
    repository.
+
+## Out of scope
+
+- **Diagnosis.** Both mechanisms detect; neither explains. Carrying the
+  failure text into the alert depends on
+  [`boot-failure-observability`](boot-failure-observability.plan.md),
+  which is why this node declares that dependency rather than
+  pretending to close the loop alone.
+- **Minimum shippable shape without that dependency**, stated so the
+  dependency does not become a reason to ship nothing: alerting that
+  fires on the two probes and the missed heartbeat is worth landing on
+  its own. It converts "nobody notices" into "someone is interrupted",
+  which is the whole of this node's goal. Without MCP-480 the alert
+  says only that production is unreachable, and the diagnosis cost
+  stays where it is today — worse than the full shape, far better than
+  silence.
+- **Auto-remediation.** Detection only. Restoring service is
+  [`release-redeploy-recovery`](release-redeploy-recovery.plan.md), and
+  a detector that also acts is a detector nobody trusts to be honest.
+- **Preview and development environments.** Production only. Preview
+  liveness is covered by the `preview-serves` post-deploy check, which
+  is a different mechanism on a different trigger.
+- **Choosing the alert destination.** That is the owner's gate, not a
+  todo of this node.
 
 ## Relationship to the sibling nodes
 

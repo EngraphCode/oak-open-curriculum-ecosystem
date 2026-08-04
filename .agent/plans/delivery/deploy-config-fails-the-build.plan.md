@@ -75,6 +75,27 @@ estate-wide "every built binary carries a smoke test" obligation is
 pre-existing recorded debt in `testing-strategy.md` §Smoke and needs
 its own authorisation and ticket.
 
+## Out of scope
+
+- **Validating anything the server does not itself consume.** The build
+  step runs the server's own `loadRuntimeConfig` composition rather than
+  a parallel list of expected variables. A second, hand-maintained
+  definition of "valid environment" would drift from the real one, and a
+  guard that disagrees with the thing it guards is worse than none.
+- **Replacing the `Vercel` required check.** It correctly asserts what
+  it asserts — build and deploy completed. This node adds the two
+  predicates it was never making, rather than redefining it.
+- **Runtime configuration reloading.** Resolution stays lazy at first
+  request; this node adds a build-time *rehearsal* of that resolution,
+  not a change to when the server actually resolves.
+- **Preview environment repair.** Fixing a specific broken environment
+  is operations; this node makes a broken one unable to ship.
+- **Extending `preview-serves` to production.** Production has its own
+  detection path in
+  [`production-liveness-detection`](production-liveness-detection.plan.md);
+  a deployment-triggered check cannot cover the between-deployments
+  interval, which is exactly the gap that node exists for.
+
 ## Relationship to the sibling nodes
 
 One of four responses to a single defect class — deployment

@@ -89,6 +89,27 @@ estate: **name the guard, never the value.**
    a Sentry error naming the key; verifier the lane agent, evidence
    recorded on MCP-480.
 
+## Out of scope
+
+- **Making boot failures non-fatal.** Fail-fast stays. Booting without
+  valid pseudonymisation configuration would be a privacy defect, not a
+  degraded mode, so this node changes only what the refusal *reports* —
+  never whether it refuses.
+- **Reporting the offending value.** The reporter names the failing
+  key, the rule it broke, and where to fix it. It never carries the
+  value, and the ADR-160 redaction conformance proof is the criterion
+  that keeps that true rather than merely intended.
+- **Widening the reportable surface.** Only configuration failures
+  occurring *after* valid bootstrap Sentry inputs exist are reportable.
+  A failure earlier than that has nothing to report through, and
+  pretending otherwise would add a second silent path.
+- **Rewriting the environment validator's messages.** They are already
+  exemplary; this node raises the analytics resolver to their standard
+  rather than changing the standard.
+- **Detection or alerting.** Getting the refusal into Sentry is this
+  node; noticing it and interrupting someone belongs to
+  [`production-liveness-detection`](production-liveness-detection.plan.md).
+
 ## Relationship to the sibling nodes
 
 Diagnosis arm. Siblings:
