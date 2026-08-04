@@ -741,6 +741,52 @@ so `VERCEL_GIT_COMMIT_SHA == VERCEL_GIT_PREVIOUS_SHA` means the build is
 a rebuild of the already-released commit — which cannot be a non-release
 build, because that commit's version already passed this very gate.
 
+#### Vendor sources for the two load-bearing assertions
+
+Recorded so a future maintainer can revalidate the inference against the
+vendor rather than against this document. Both pages carried
+`last_updated: 2026-04-27` when read on 2026-08-04.
+
+**[System environment variables](https://vercel.com/docs/environment-variables/system-environment-variables)**
+— `VERCEL_GIT_PREVIOUS_SHA`:
+
+> **Available at:** Build time
+>
+> The git SHA of the last successful deployment for the project and branch.
+>
+> **Note:** This variable is only exposed when an Ignored Build Step is
+> provided.
+
+Three consequences the derivation depends on, and one that was not previously
+written down:
+
+- it is **build-time only**, so nothing at runtime can re-derive this verdict;
+- "last **successful** deployment" is what makes the equality test meaningful —
+  a failed build does not advance it;
+- **it exists only because this script IS the Ignored Build Step.** The
+  variable is not ambiently available. Any future attempt to move this logic
+  out of `ignoreCommand` — into a build script, a CI job, or a runtime check —
+  silently loses its only input and the guard degrades to always-continue.
+
+`VERCEL_GIT_COMMIT_SHA`, the other half of the equality, is documented on the
+same page as "the git SHA of the commit the deployment was triggered by",
+available at both build and runtime.
+
+**[Managing environment variables](https://vercel.com/docs/environment-variables/managing-environment-variables)**
+— the rollback/environment behaviour:
+
+> Changes to environment variables are not applied to previous deployments,
+> they only apply to new deployments. You must redeploy your project to update
+> the value of any variables you change in the deployment.
+
+This is the vendor-documented general rule that the Instant Rollback note
+above is a specific case of: re-pointing a domain at an existing build does not
+re-read project settings, because **no** existing deployment re-reads them.
+Recording it here because our own operational notes have stated the opposite —
+that an environment change reaches a running deployment — and that reading is
+not supported by the vendor. Any incident timeline built on it should be
+re-derived; the supported contract is change → redeploy → verify.
+
 The amendment is deliberately narrow. A _different_ commit whose version
 has not advanced still cancels, which is the entire purpose of §10. An
 unresolvable current version still cancels first, ahead of this row.
