@@ -265,8 +265,15 @@ contract for troubleshooting:
    host and confirming a `200` response. Automated post-deploy
    verification previously scripted via `pnpm smoke:remote` was retired
    alongside the smoke-tests harness (see ADR-121 change log entry
-   2026-05-04); reattach the verification step to whichever post-deploy
-   workflow the workspace's current operational doctrine designates.
+   2026-05-04). For preview deployments whose commit carries
+   `.github/workflows/preview-serves.yml`, this verification is
+   automated: that workflow publishes the `preview-serves` commit
+   status with the probe outcome (MCP-475). On any preview deployment
+   that does not report a `preview-serves` status, perform the manual
+   check above. Production deployments have no in-repo post-deploy
+   liveness workflow — production uptime monitoring is operated
+   outside this repository by owner direction (ADR-162) — so this
+   manual check remains the production step.
 3. Check Sentry UI for:
    - **Issues**: no new issues from normal operation
    - **Performance**: traces under the correct service name and release

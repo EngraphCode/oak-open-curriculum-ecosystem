@@ -35,15 +35,19 @@ seam, extract a pure function, inject a dependency).
    only — no filesystem reads/writes, no network calls, no child
    process spawning, no timers that interact with the runtime, no
    SDK init calls with side effects. ONE named sanctioned shape
-   (owner-carded ruling 2026-08-02): a `.unit.test.ts` MAY read
-   COMMITTED repo artefacts through an owned `test-helpers/` fixture
-   surface anchored at `import.meta.dirname` (the
-   `mcp-conformance/test-helpers/fixture-loader.ts` precedent) —
-   committed bytes are fixtures by provenance, not runtime IO; the
-   helper must exist to pin real committed fixtures at their
-   canonical paths (never to make the test runnable — item 2's
-   complex-helper prohibition still binds), and the classification
-   axis stays the boundary, never the mechanism.
+   (owner-carded ruling 2026-08-02; tier wording generalised with the
+   2026-08-03 owner ratification of source-derived expectations — the
+   carve-out's own rationale is tier-agnostic): an in-process test
+   (`.unit.test.ts` or `.integration.test.ts`) MAY read COMMITTED
+   repo artefacts through an owned `test-helpers/` fixture surface
+   anchored at `import.meta.dirname` (the
+   `mcp-conformance/test-helpers/fixture-loader.ts` precedent; the
+   sdk-codegen `mcp-tools/test-helpers/schema-cache-reader.ts` worked
+   instance) — committed bytes are fixtures by provenance, not
+   runtime IO; the helper must exist to pin real committed fixtures
+   at their canonical paths (never to make the test runnable — item
+   2's complex-helper prohibition still binds), and the
+   classification axis stays the boundary, never the mechanism.
 5. **Any test (unit/integration/E2E in-process) touches
    `process.env`.** Reading OR writing `process.env` is prohibited.
    Pass literal inputs; do not inherit from shell state.
@@ -84,7 +88,15 @@ seam, extract a pure function, inject a dependency).
 14. **Test authors any function with non-trivial complexity.**
     Helpers in tests must be trivial: build a literal, wrap a call.
     Conditional logic, loops with side effects, or multi-step state
-    setup in a test function = test code testing itself.
+    setup in a test function = test code testing itself. ONE named
+    sanctioned shape (owner-ratified 2026-08-03, the meta-examples
+    round-trip rework): a test MAY author a small derivation helper
+    that projects EXPECTATIONS from a committed fixture read via item
+    4's sanctioned surface, when the projection models a DOCUMENTED
+    product contract named in a comment — deriving expectations from
+    the owning source is the ratified alternative to pinning copies
+    of upstream content, which stays admissible only as a designed
+    sentinel carrying a named decision.
 15. **Test contains skipped or pending cases** (`it.skip`,
     `describe.skip`, `test.todo`, `it.todo`, `xit`, `xdescribe`, or
     any skip/pending mechanism). Fix or delete. See
