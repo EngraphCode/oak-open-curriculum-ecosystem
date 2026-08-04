@@ -1,8 +1,37 @@
 # Upstream offset/limit Description Swap
 
 **Date**: 2026-04-14
-**Status**: Research complete — fix ready to submit upstream
+**Status**: Historical diagnosis — superseded by the upstream 2026-07 rework;
+see the dated update below. The overrides remain live under a new rationale.
 **Upstream repo**: `oak-openapi` (Oak Open API)
+
+## Update — 2026-08-03: upstream reworked the wording; overrides re-adjudicated KEEP
+
+The transposition this spike diagnosed no longer exists. Upstream's 2026-07
+spec rework (0.7.x) replaced the swapped per-unit descriptions on the lessons
+endpoint with the generic whole-list pagination wording from `commonTypes.ts`
+("If limiting results returned…" / "Limit the number of lessons, e.g. return
+a maximum of 300 lessons"). The transposition is gone, but the generic text
+does not describe the endpoint's actual behaviour — the handlers are
+unchanged and offset/limit still apply per unit, not to the whole lesson
+list (verified against the upstream source, 21 commits in the refresh range,
+2026-08-03).
+
+Disposition (owner-ratified at the 2026-08-03 card): the overrides in
+`param-description-overrides.ts` are KEPT — their `correctDescription`
+values still describe the real per-unit semantics — and each
+`upstreamBuggyDescription` is re-pinned to the new upstream wording so the
+removal-condition sentinel fires on the next upstream change. The sentinel's
+failure message now instructs re-adjudication, never removal on sight.
+
+"The Fix" and "Upstream Fix (Pending)" below describe the retired
+transposition and no longer apply as written; the remaining upstream ask is
+per-unit-accurate descriptions on this endpoint (raised via the MCP OKR
+Linear board rather than a code patch). "Local Fix (Implemented)" is trued
+in place below to describe the override mechanism's current behaviour;
+the historical sections keep their dated diagnosis in past tense. (The
+upstream limit example also moved from "100 lessons" at the time of the
+diagnosis to "300 lessons" today.)
 
 ## Summary
 
@@ -144,16 +173,17 @@ re-run `pnpm run generate:openapi`.
 ## Impact on This Repo
 
 Our codegen in `packages/sdks/oak-sdk-codegen/` faithfully
-reproduces upstream descriptions. The generated MCP tool
-`get-key-stages-subject-lessons` has swapped descriptions
-across all three surfaces:
+reproduces upstream descriptions. At the time of this diagnosis, the
+generated MCP tool `get-key-stages-subject-lessons` had swapped
+descriptions across all three surfaces:
 
 1. **TSDoc interface** — JSDoc comments on the type
 2. **JSON Schema** — `inputSchema` property descriptions
 3. **Zod schema** — `.describe()` strings
 
-These descriptions are what AI models read when deciding how
-to use the tool parameters. The swap actively misleads models.
+These descriptions are what AI models read when deciding how to use the
+tool parameters; the swap actively misled models. (All three surfaces
+now carry the corrected per-unit text via the override below.)
 
 ### Automatic propagation when fixed upstream
 
@@ -171,21 +201,23 @@ Added a parameter description override in our codegen pipeline:
 
 - **Override module**:
   `packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/param-description-overrides.ts`
-  — swaps the descriptions at codegen time, keyed by
-  `{openApiPath}:{paramName}`
+  — replaces the incorrect upstream descriptions with the per-unit
+  text at codegen time, keyed by `{openApiPath}:{paramName}`
 - **Integration point**:
   `mcp-tool-generator.ts` calls `applyParamDescriptionOverrides`
   after `buildParamMetadataForOperation`, before generating tool
   files
 - **Unit test**:
-  `param-description-overrides.unit.test.ts` — proves the swap
-  logic and non-interference on other paths/params
+  `param-description-overrides.unit.test.ts` — proves the
+  replacement mechanism and non-interference on other paths/params
 - **Removal-condition test**:
   `upstream-param-description-overrides.unit.test.ts` — reads the
-  schema cache and asserts the upstream bug persists. When the
-  upstream spec is fixed and `pnpm sdk-codegen` refreshes the
-  cache, this test will FAIL with a message telling the developer
-  to remove the override
+  schema cache and asserts the pinned upstream wording persists.
+  When upstream's wording moves and `pnpm sdk-codegen` refreshes
+  the cache, this test FAILS with a message instructing
+  RE-ADJUDICATION against the endpoint's actual behaviour — remove
+  the override only if upstream is now correct; re-pin if the new
+  wording is still wrong (this is what happened 2026-08-03)
 
 ## Upstream Fix (Pending)
 

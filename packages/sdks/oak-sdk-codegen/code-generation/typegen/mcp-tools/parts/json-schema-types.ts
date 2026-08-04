@@ -14,6 +14,10 @@ export interface JsonSchemaPropertyNumber {
   readonly default?: unknown;
   /** Example values for AI agent guidance (JSON Schema draft-07) */
   readonly examples?: readonly unknown[];
+  /** Inclusive lower bound carried through from the upstream OpenAPI schema */
+  readonly minimum?: number;
+  /** Inclusive upper bound carried through from the upstream OpenAPI schema */
+  readonly maximum?: number;
 }
 
 export interface JsonSchemaPropertyBoolean {
