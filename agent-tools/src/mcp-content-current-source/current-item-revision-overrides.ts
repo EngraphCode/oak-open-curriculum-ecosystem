@@ -5,11 +5,13 @@
 import { CURRENT_AGGREGATED_ITEM_REVISION_OVERRIDES } from './current-aggregated-item-revision-overrides.js';
 import { CURRENT_GENERATED_DESCRIPTION_REVISION_OVERRIDES } from './current-generated-description-anchor-overrides.js';
 import { CURRENT_GENERATED_ITEM_REVISION_OVERRIDES } from './current-generated-item-anchor-overrides.js';
+import { CURRENT_SPEC_REFRESH_ITEM_REVISION_OVERRIDES } from './current-spec-refresh-item-anchor-overrides.js';
 
 export const CURRENT_ITEM_REVISION_OVERRIDES = {
   ...CURRENT_GENERATED_ITEM_REVISION_OVERRIDES,
   ...CURRENT_GENERATED_DESCRIPTION_REVISION_OVERRIDES,
   ...CURRENT_AGGREGATED_ITEM_REVISION_OVERRIDES,
+  ...CURRENT_SPEC_REFRESH_ITEM_REVISION_OVERRIDES,
   C354: 'modified',
   C355: 'modified',
   C313: 'unchanged',

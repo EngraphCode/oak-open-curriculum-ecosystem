@@ -140,6 +140,37 @@ MCP-132 pull request, opened under owner credentials, was closed and
 recreated under the bot identity on the same branch; the bot-authored commit
 and bot-token push were verified end-to-end the same hour.
 
+## Personal per-person ambient bots
+
+The shared team bot is not the only sanctioned identity. An individual may run
+their OWN GitHub App as a personal, machine-local ambient git identity for their
+own agent sessions — worked instance: `emgeebot-oakenfold[bot]` (App 4482842),
+wired on one maintainer's machine as the ambient commit-author and push
+credential for the `oak-open-curriculum-ecosystem` tree via a machine-local
+`includeIf` (2026-08-04). Its mechanics and key live only on that machine
+(`~/.config/<slug>/`), never in this repo.
+
+This does not weaken the shared-bot contract above; it refines the attribution
+model:
+
+- **Team surfaces use the shared bot.** Shared-repo PRs, doctrine changes,
+  merges, and any action taken as the team use `jimbot-oakington-iii[bot]` per
+  the mechanics above. A personal ambient bot is for an individual's own agent
+  work, not for acting as the team.
+- **A personal bot answers "whose agent did this".** The shared bot says "a
+  team agent did this"; a personal ambient bot says "this maintainer's agent
+  did this". Both keep agent work off the owner's personal identity — the
+  failure class this rule exists to prevent.
+- **Same guardrails, no exceptions.** A personal bot is machine-local (its key
+  exists only where its owner put it), least-privilege (`pull-request-work`,
+  repo-scoped installation tokens minted on demand), and MUST NEVER be added to
+  any ruleset bypass list — the bypass prohibition binds every bot identity
+  equally.
+- **Not a team default.** A personal ambient bot is one maintainer's local
+  configuration; it is never provisioned for, or assumed by, other machines or
+  seats. Agents running off that machine cannot use it, and no seat may treat
+  its absence as licence to fall back to owner credentials.
+
 ## Why
 
 This agreement existed from ~2026-07-21 but lived only in conversation — it

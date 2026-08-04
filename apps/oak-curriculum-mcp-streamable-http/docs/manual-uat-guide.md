@@ -47,6 +47,14 @@ Any running instance — it does **not** need to be deployed:
 
 Production alpha origin: `https://curriculum-mcp-alpha.oaknational.dev`.
 
+> **Environment edits need a deployment AND a boot check.** Changing a
+> deployment environment's variables can break the running functions, and a
+> production redeploy cannot restore them on its own: the production build is
+> gated to release commits (the `ignoreCommand` cancels any build whose root
+> `package.json` version has not advanced), so recovery needs a release. After
+> ANY environment change, run section 1.1 against the affected origin —
+> worked instance 2026-08-03, both preview and production.
+
 A **host** (Cursor, Claude Desktop/Code, MCPJam, ChatGPT, or this session's MCP
 integration) is the easiest way to call tools — add an HTTP MCP server pointing
 at the `/mcp` URL and complete OAuth if prompted.
@@ -161,11 +169,11 @@ contract that keeps the server renderable across the whole client population.
 Run first. The live server is the source of truth; reconcile against
 [Appendix A](#appendix-a-expected-live-inventory).
 
-| #   | Method           | How             | Expected result                                                                                                                   |
-| --- | ---------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| 0.1 | `tools/list`     | List tools.     | The expected tool set is present (Appendix A lists 41 served: 40 live universal + 1 app-local). Note any **addition or removal**. |
-| 0.2 | `resources/list` | List resources. | `curriculum://model`, `docs://oak/getting-started.md`, `eef://interpretation`, and the MCP App `ui://…` widget.                   |
-| 0.3 | `prompts/list`   | Probe prompts.  | JSON-RPC error `-32601` Method not found — the app serves zero prompts (D11); a result listing ANY prompt is a defect.            |
+| #   | Method           | How             | Expected result                                                                                                                                 |
+| --- | ---------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0.1 | `tools/list`     | List tools.     | The expected tool set is present (Appendix A lists 40 served: 39 live universal + 1 app-local). Note any **addition or removal**.               |
+| 0.2 | `resources/list` | List resources. | `curriculum://model`, `docs://oak/getting-started.md`, the three `docs://oak/guidance/*` navigation documents, and the MCP App `ui://…` widget. |
+| 0.3 | `prompts/list`   | Probe prompts.  | JSON-RPC error `-32601` Method not found — the app serves zero prompts (D11); a result listing ANY prompt is a defect.                          |
 
 Any tool/resource/prompt **present but not covered below** must still be
 exercised — add a row to your record. Any item **absent** that you expected is
@@ -302,12 +310,15 @@ arrives in the honest typed shapes only.
 ## 8. EEF evidence surface
 
 The EEF (Education Endowment Foundation) Teaching and Learning Toolkit surface
-ships **live**, governed by the declarative served-surface definition
-(`src/served-surface/served-surface.ts`): the tool and the resource carry
-live rows there, and disabling either is a reviewed change to that one
-definition — there is no runtime flag. (The former
+is governed by the declarative served-surface definition
+(`src/served-surface/served-surface.ts`), and its rows there are currently
+**dormant**: `get-eef-evidence` and `eef://interpretation` do not appear in
+the live `*/list` inventories, and enabling either is a reviewed change to
+that one definition — there is no runtime flag. (The former
 `OAK_CURRICULUM_MCP_EEF_ENABLED` kill-switch and the EEF prompt are gone:
-the app serves no MCP prompts at all.)
+the app serves no MCP prompts at all.) When the rows are dormant, every row
+in this section is N-A; the section is retained because the rows below are
+the acceptance contract the surface must meet whenever it is turned live.
 
 The surface is a **deterministic projection of a fixed corpus** — the agent does
 the reasoning; the tool returns only the corpus's own facts. Treat any value the
@@ -349,12 +360,12 @@ single-answer language.
 
 ## 10. Resources
 
-| #    | Resource                           | How                         | Expected result                                                                     |
-| ---- | ---------------------------------- | --------------------------- | ----------------------------------------------------------------------------------- |
-| 10.1 | `curriculum://model`               | `resources/read`            | `application/json` domain ontology + tool guidance (resource form of 2.1).          |
-| 10.2 | `docs://oak/getting-started.md`    | `resources/read`            | `text/markdown` intro: server, auth, first steps.                                   |
-| 10.3 | `eef://interpretation`             | `resources/read` (also 8.6) | `text/markdown` EEF reasoning scaffold (live row in the served-surface definition). |
-| 10.4 | `ui://widget/oak-curriculum-app-*` | `resources/read`            | `text/html;profile=mcp-app` widget document (the MCP App surface).                  |
+| #    | Resource                           | How                         | Expected result                                                                                                  |
+| ---- | ---------------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| 10.1 | `curriculum://model`               | `resources/read`            | `application/json` domain ontology + tool guidance (resource form of 2.1).                                       |
+| 10.2 | `docs://oak/getting-started.md`    | `resources/read`            | `text/markdown` intro: server, auth, first steps.                                                                |
+| 10.3 | `eef://interpretation`             | `resources/read` (also 8.6) | N-A while the row is dormant in the served-surface definition; `text/markdown` EEF reasoning scaffold when live. |
+| 10.4 | `ui://widget/oak-curriculum-app-*` | `resources/read`            | `text/html;profile=mcp-app` widget document (the MCP App surface).                                               |
 
 ---
 
@@ -464,10 +475,11 @@ Verdict: GO / NO-GO   (no open P0/P1 to ship)
 ## Appendix A: expected live inventory
 
 The reconciliation reference for Section 0. The live `*/list` methods are
-authoritative; this is the expected full surface (37 tools / 4 resources / 7
-prompts). Tool definitions are generated from the OpenAPI schema + aggregated
-tools, so this list changes via `pnpm sdk-codegen` — update this appendix when
-Section 0 shows a drift.
+authoritative; this is the expected full surface (40 served tools / 6 served
+resources / 0 prompts, plus the dormant rows noted inline). Tool definitions
+are generated from the OpenAPI schema + aggregated tools, so this list
+changes via `pnpm sdk-codegen` — update this appendix when Section 0 shows a
+drift.
 
 **Tools — orientation (4):** `get-curriculum-model`, `get-changelog-latest`,
 `get-changelog`, `get-rate-limit`.
@@ -489,7 +501,9 @@ Section 0 shows a drift.
 **Tools — curriculum graph (4):** `get-thread-progressions`,
 `get-prior-knowledge-graph`, `get-misconception-graph`, `get-keyword-graph`.
 
-**Tools — EEF (1):** `get-eef-evidence` (live row in the served-surface definition).
+**Tools — EEF (1, DORMANT):** `get-eef-evidence` — a dormant row in the
+served-surface definition; absent from `tools/list` until a reviewed
+definition change turns it live.
 
 **Tools — assets (1):** `download-asset`.
 

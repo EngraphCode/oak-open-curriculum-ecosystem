@@ -441,6 +441,10 @@ export interface paths {
         /**
          * Keywords by subject and key stage
          * Use when you want the vocabulary for a key stage, subject, unit, lesson, or phase — e.g. to build a glossary or attach definitions to content. Returns keywords with definition, the subject + key stage they appear in, and the lessons that use them, sorted alphabetically. All filters are optional, but pass at least one of keyStage, subject, unit, lesson, or phase.
+         *
+         *     Request rules:
+         *
+         *     - At least one of subject, keyStage, phase, unit or lesson must be provided - note that they are all the slug form of the values (e.g. "ks2" for key stage 2, "science" for the science subject, and "forces-and-magnets" for the forces and magnets unit), and that casing is important (always lowercase).
          */
         get: operations["getKeywords-getKeywords"];
         put?: never;
@@ -780,22 +784,86 @@ export interface components {
          *     \}
          */
         SubjectSequenceResponseSchema: {
-            /** The unique identifier for each sequence */
+            /**
+             * The unique identifier for each sequence
+             * @example computing-secondary-core
+             */
             sequenceSlug: string;
-            /** The years for which this subject has content available for */
+            /**
+             * The years for which this subject has content available for
+             * @example [
+             *       7,
+             *       8,
+             *       9,
+             *       10,
+             *       11
+             *     ]
+             */
             years: number[];
-            /** The key stage slug identifiers for which this subject has content available for. */
+            /**
+             * The key stage slug identifiers for which this subject has content available for.
+             * @example [
+             *       \{
+             *         "keyStageTitle": "Key Stage 3",
+             *         "keyStageSlug": "ks3"
+             *       \},
+             *       \{
+             *         "keyStageTitle": "Key Stage 4",
+             *         "keyStageSlug": "ks4"
+             *       \}
+             *     ]
+             */
             keyStages: {
                 /** The key stage title for the given key stage */
                 keyStageTitle: string;
                 /** The unique identifier for a given key stage */
                 keyStageSlug: string;
             }[];
-            /** The unique identifier for the phase to which this sequence belongs */
+            /**
+             * The unique identifier for the phase to which this sequence belongs
+             * @example secondary
+             */
             phaseSlug: string;
-            /** The title for the phase to which this sequence belongs */
+            /**
+             * The title for the phase to which this sequence belongs
+             * @example Secondary
+             */
             phaseTitle: string;
-            /** The programme factors that apply to this subject at key stage 4, with the valid values for each factor. */
+            /**
+             * The programme factors that apply to this subject at key stage 4, with the valid values for each factor.
+             * @example \{
+             *       "examBoard": [
+             *         \{
+             *           "title": "AQA",
+             *           "slug": "aqa"
+             *         \},
+             *         \{
+             *           "title": "Edexcel",
+             *           "slug": "edexcel"
+             *         \},
+             *         \{
+             *           "title": "OCR",
+             *           "slug": "ocr"
+             *         \}
+             *       ],
+             *       "pathway": [
+             *         \{
+             *           "title": "Core",
+             *           "slug": "core"
+             *         \}
+             *       ],
+             *       "tier": [
+             *         \{
+             *           "title": "Foundation",
+             *           "slug": "foundation"
+             *         \},
+             *         \{
+             *           "title": "Higher",
+             *           "slug": "higher"
+             *         \}
+             *       ]
+             *     \}
+             */
             ks4ProgrammeFactors: {
                 /** The valid exam board values offered by Oak for this subject at key stage 4. */
                 examBoard?: {
@@ -1241,9 +1309,27 @@ export interface components {
          *     \}
          */
         TranscriptResponseSchema: {
-            /** The transcript for the lesson video */
+            /**
+             * The transcript for the lesson video
+             * @example Hello, I'm Mrs. Lashley. I'm looking forward to guiding you through your learning today...
+             */
             transcript: string;
-            /** The contents of the .vtt file for the lesson video, which maps captions to video timestamps. */
+            /**
+             * The contents of the .vtt file for the lesson video, which maps captions to video timestamps.
+             * @example WEBVTT
+             *
+             *     1
+             *     00:00:06.300 --\> 00:00:08.070
+             *     \<v -\>Hello, I'm Mrs. Lashley.\</v\>
+             *
+             *     2
+             *     00:00:08.070 --\> 00:00:09.240
+             *     I'm looking forward to guiding you
+             *
+             *     3
+             *     00:00:09.240 --\> 00:00:10.980
+             *     through your learning today...
+             */
             vtt: string;
             /**
              * Format: uri
@@ -1334,7 +1420,7 @@ export interface components {
             /** List of assets */
             assets: {
                 /**
-                 * Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint
+                 * Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint
                  * @example slideDeck
 
                  */
@@ -1386,7 +1472,7 @@ export interface components {
             /** List of assets */
             assets: {
                 /**
-                 * Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint
+                 * Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint
                  * @example slideDeck
 
                  */
@@ -1440,7 +1526,7 @@ export interface components {
             /** List of assets */
             assets?: {
                 /**
-                 * Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint
+                 * Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint
                  * @example slideDeck
 
                  */
@@ -1481,7 +1567,7 @@ export interface components {
             /** List of assets */
             assets: {
                 /**
-                 * Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint
+                 * Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint
                  * @example slideDeck
 
                  */
@@ -1914,11 +2000,29 @@ export interface components {
              * @example Year 3
              */
             yearTitle: string;
-            /** List of units for the specified year */
+            /**
+             * List of units for the specified year
+             * @example [
+             *       \{
+             *         "unitSlug": "2-4-and-8-times-tables-using-times-tables-to-solve-problems",
+             *         "unitTitle": "2, 4 and 8 times tables: using times tables to solve problems"
+             *       \},
+             *       \{
+             *         "unitSlug": "bridging-100-counting-on-and-back-in-10s-adding-subtracting-multiples-of-10",
+             *         "unitTitle": "Bridging 100: counting on and back in 10s, adding/subtracting multiples of 10"
+             *       \}
+             *     ]
+             */
             units: {
-                /** The unit slug identifier */
+                /**
+                 * The unit slug identifier
+                 * @example 2-4-and-8-times-tables-using-times-tables-to-solve-problems
+                 */
                 unitSlug: string;
-                /** The unit title */
+                /**
+                 * The unit title
+                 * @example 2, 4 and 8 times tables: using times tables to solve problems
+                 */
                 unitTitle: string;
                 /** The exam boards the unit appears in. Only populated for KS4 subjects when the request does not supply an `examBoard` filter. */
                 examBoards?: {
@@ -2027,6 +2131,58 @@ export interface components {
             oakUrl?: string;
         }[];
         /**
+         * @example [
+         *       \{
+         *         "keyword": "animate",
+         *         "description": "to make something move or change its appearance",
+         *         "keyStageSlug": "ks2",
+         *         "subjectSlug": "computing",
+         *         "lessonSlugs": [
+         *           "animating-text"
+         *         ]
+         *       \},
+         *       \{
+         *         "keyword": "animation",
+         *         "description": "a way of making pictures or objects look as if they are moving by showing them quickly one after another",
+         *         "keyStageSlug": "ks2",
+         *         "subjectSlug": "computing",
+         *         "lessonSlugs": [
+         *           "introduction-to-animation",
+         *           "programming-using-command-blocks"
+         *         ]
+         *       \}
+         *     ]
+         */
+        KeywordsResponseSchema: {
+            /**
+             * The keyword text
+             * @example animate
+             */
+            keyword: string;
+            /**
+             * A description of the keyword
+             * @example to make something move or change its appearance
+             */
+            description: string;
+            /**
+             * The key stage slug associated with the keyword
+             * @example ks2
+             */
+            keyStageSlug: string;
+            /**
+             * The subject slug associated with the keyword
+             * @example computing
+             */
+            subjectSlug: string;
+            /**
+             * The different lesson slugs where this keyword is used
+             * @example [
+             *       "animating-text"
+             *     ]
+             */
+            lessonSlugs: string[];
+        }[];
+        /**
          * @example \{
          *       "starterQuiz": [
          *         \{
@@ -2087,7 +2243,37 @@ export interface components {
          *     \}
          */
         QuestionForLessonsResponseSchema: {
-            /** The starter quiz questions - which test prior knowledge */
+            /**
+             * The starter quiz questions - which test prior knowledge
+             * @example [
+             *       \{
+             *         "question": "Tick the sentence with the correct punctuation.",
+             *         "questionType": "multiple-choice",
+             *         "answers": [
+             *           \{
+             *             "distractor": true,
+             *             "type": "text",
+             *             "content": "the baby cried"
+             *           \},
+             *           \{
+             *             "distractor": true,
+             *             "type": "text",
+             *             "content": "The baby cried"
+             *           \},
+             *           \{
+             *             "distractor": false,
+             *             "type": "text",
+             *             "content": "The baby cried."
+             *           \},
+             *           \{
+             *             "distractor": true,
+             *             "type": "text",
+             *             "content": "the baby cried."
+             *           \}
+             *         ]
+             *       \}
+             *     ]
+             */
             starterQuiz: ({
                 /** The question text */
                 question: string;
@@ -2218,7 +2404,37 @@ export interface components {
                     content: string;
                 })[];
             })[];
-            /** The exit quiz questions - which test on the knowledge learned in the lesson */
+            /**
+             * The exit quiz questions - which test on the knowledge learned in the lesson
+             * @example [
+             *       \{
+             *         "question": "Which word is a verb?",
+             *         "questionType": "multiple-choice",
+             *         "answers": [
+             *           \{
+             *             "distractor": true,
+             *             "type": "text",
+             *             "content": "shops"
+             *           \},
+             *           \{
+             *             "distractor": true,
+             *             "type": "text",
+             *             "content": "Jun"
+             *           \},
+             *           \{
+             *             "distractor": true,
+             *             "type": "text",
+             *             "content": "I"
+             *           \},
+             *           \{
+             *             "distractor": false,
+             *             "type": "text",
+             *             "content": "shout"
+             *           \}
+             *         ]
+             *       \}
+             *     ]
+             */
             exitQuiz: ({
                 /** The question text */
                 question: string;
@@ -3468,16 +3684,21 @@ export interface components {
          *     \}
          */
         LessonSummaryResponseSchema: {
-            /** The lesson title */
+            /**
+             * The lesson title
+             * @example Using vector tools to draw and modify shapes
+             */
             lessonTitle: string;
             /**
              * Format: uri
              * The canonical Oak National URL for the lesson
+             * @example https://www.thenational.academy/teachers/lessons/using-vector-tools-to-draw-and-modify-shapes
              */
             canonicalUrl: string;
             /**
              * Format: uri
              * The Oak National URL for the lesson
+             * @example https://www.thenational.academy/teachers/lessons/using-vector-tools-to-draw-and-modify-shapes
              */
             oakUrl: string;
             /**
@@ -3490,9 +3711,15 @@ export interface components {
              *     ]
              */
             units: {
-                /** The unit slug identifier */
+                /**
+                 * The unit slug identifier
+                 * @example developing-vector-graphics
+                 */
                 unitSlug: string;
-                /** The unit title */
+                /**
+                 * The unit title
+                 * @example Developing vector graphics
+                 */
                 unitTitle: string;
                 /** The programme-factor values that identify which variant of the unit this lesson sits in. Omitted when the unit has no programme factors. */
                 programmeFactors?: {
@@ -3529,40 +3756,118 @@ export interface components {
                     };
                 };
             }[];
-            /** The subject slug identifier */
+            /**
+             * The subject slug identifier
+             * @example computing
+             */
             subjectSlug: string;
-            /** The subject slug identifier */
+            /**
+             * The subject slug identifier
+             * @example Computing
+             */
             subjectTitle: string;
-            /** The key stage slug identifier */
+            /**
+             * The key stage slug identifier
+             * @example ks3
+             */
             keyStageSlug: string;
-            /** The key stage title */
+            /**
+             * The key stage title
+             * @example Key Stage 3
+             */
             keyStageTitle: string;
-            /** The lesson's keywords and their descriptions */
+            /**
+             * The lesson's keywords and their descriptions
+             * @example [
+             *       \{
+             *         "keyword": "vector graphic",
+             *         "description": "an image made up of lines and shapes"
+             *       \},
+             *       \{
+             *         "keyword": "z-order",
+             *         "description": "the order of overlapping objects"
+             *       \},
+             *       \{
+             *         "keyword": "layer",
+             *         "description": "the level on which an object (e.g. text, shapes and photos) can be placed relative to other objects"
+             *       \}
+             *     ]
+             */
             lessonKeywords: {
-                /** The keyword */
+                /**
+                 * The keyword
+                 * @example vector graphic
+                 */
                 keyword: string;
-                /** A definition of the keyword */
+                /**
+                 * A definition of the keyword
+                 * @example an image made up of lines and shapes
+                 */
                 description: string;
             }[];
-            /** The lesson's key learning points */
+            /**
+             * The lesson's key learning points
+             * @example [
+             *       \{
+             *         "keyLearningPoint": "Vector graphics are made from shapes described by coordinates, not pixels."
+             *       \},
+             *       \{
+             *         "keyLearningPoint": "Vector illustrations are built using simple shapes."
+             *       \},
+             *       \{
+             *         "keyLearningPoint": "Vector graphics use z-order to show which shapes are in front and are visible."
+             *       \}
+             *     ]
+             */
             keyLearningPoints: {
-                /** A key learning point */
+                /**
+                 * A key learning point
+                 * @example Vector graphics are made from shapes described by coordinates, not pixels.
+                 */
                 keyLearningPoint: string;
             }[];
-            /** The lesson’s anticipated common misconceptions and suggested teacher responses */
+            /**
+             * The lesson’s anticipated common misconceptions and suggested teacher responses
+             * @example [
+             *       \{
+             *         "misconception": "Vector graphics are made from pixels and can lose quality when resized.",
+             *         "response": "Vector graphics are made from lines and shapes. They do not lose quality when resized."
+             *       \}
+             *     ]
+             */
             misconceptionsAndCommonMistakes: {
-                /** A common misconception */
+                /**
+                 * A common misconception
+                 * @example Vector graphics are made from pixels and can lose quality when resized.
+                 */
                 misconception: string;
-                /** Suggested teacher response to a common misconception */
+                /**
+                 * Suggested teacher response to a common misconception
+                 * @example Vector graphics are made from lines and shapes. They do not lose quality when resized.
+                 */
                 response: string;
             }[];
-            /** Suggested teacher response to a common misconception */
+            /**
+             * Suggested teacher response to a common misconception
+             * @example I can use software to draw and modify vector shapes.
+             */
             pupilLessonOutcome?: string;
-            /** Helpful teaching tips for the lesson */
+            /**
+             * Helpful teaching tips for the lesson
+             * @example [
+             *       \{
+             *         "teacherTip": "You need to be familiar with the basic tools and features of vector editing software. The Inkscape tutorials may be useful — oak.link/inkscape-tutorials"
+             *       \}
+             *     ]
+             */
             teacherTips: {
+                /** @example You need to be familiar with the basic tools and features of vector editing software. The Inkscape tutorials may be useful — oak.link/inkscape-tutorials */
                 teacherTip: string;
             }[];
-            /** Full guidance about the types of lesson content for the teacher to consider (where appropriate) */
+            /**
+             * Full guidance about the types of lesson content for the teacher to consider (where appropriate)
+             * @example null
+             */
             contentGuidance: {
                 /** Category of content guidance */
                 contentGuidanceArea: string;
@@ -3573,9 +3878,15 @@ export interface components {
                 /** A detailed description of the type of content that we suggest needs guidance. */
                 contentGuidanceDescription: string;
             }[] | null;
-            /** The ID of the supervision level for the identified type of content. See ‘What are the types of content guidance?’ for more information. */
+            /**
+             * The ID of the supervision level for the identified type of content. See ‘What are the types of content guidance?’ for more information.
+             * @example null
+             */
             supervisionLevel: string | null;
-            /** Whether the lesson currently has any downloadable assets available. */
+            /**
+             * Whether the lesson currently has any downloadable assets available.
+             * @example true
+             */
             downloadsAvailable: boolean;
         };
         /**
@@ -3681,37 +3992,37 @@ export interface components {
         UnitSummaryResponseSchema: {
             /**
              * The unit slug identifier
-             * @example simple-compound-and-adverbial-complex-sentences
+             * @example programming-subroutines
              */
             unitSlug: string;
             /**
              * The unit title
-             * @example Simple, compound and adverbial complex sentences
+             * @example Programming subroutines
              */
             unitTitle: string;
             /**
              * The slug identifier for the year to which the unit belongs
-             * @example year-3
+             * @example year-10
              */
             yearSlug: string;
             /**
              * The year to which the unit belongs
-             * @example 3
+             * @example 10
              */
             year: number | string;
             /**
              * The slug identifier for the phase to which the unit belongs
-             * @example primary
+             * @example secondary
              */
             phaseSlug: string;
             /**
              * The subject identifier
-             * @example english
+             * @example computing
              */
             subjectSlug: string;
             /**
              * The slug identifier for the the key stage to which the unit belongs
-             * @example ks2
+             * @example ks4
              */
             keyStageSlug: string;
             /** Unit summary notes */
@@ -3721,33 +4032,24 @@ export interface components {
             /**
              * The prior knowledge required for the unit
              * @example [
-             *       "A simple sentence is about one idea and makes complete sense.",
-             *       "Any simple sentence contains one verb and at least one noun.",
-             *       "Two simple sentences can be joined with a co-ordinating conjunction to form a compound sentence."
+             *       "Variables can be used to store values in a program.",
+             *       "Selection can be used to choose between paths in a program.",
+             *       "Iteration can be used to repeat a set of instructions."
              *     ]
              */
             priorKnowledgeRequirements: string[];
             /**
              * National curriculum attainment statements covered in this unit
              * @example [
-             *       "Ask relevant questions to extend their understanding and knowledge",
-             *       "Articulate and justify answers, arguments and opinions",
-             *       "Speak audibly and fluently with an increasing command of Standard English"
+             *       "Use two or more programming languages, at least one of which is textual, to solve a variety of computational problems.",
+             *       "Make appropriate use of data structures.",
+             *       "Design and develop modular programs."
              *     ]
              */
             nationalCurriculumContent: string[];
             /** An explanation of where the unit sits within the sequence and why it has been placed there. */
             whyThisWhyNow?: string;
-            /**
-             * The threads that are associated with the unit
-             * @example [
-             *       \{
-             *         "slug": "developing-grammatical-knowledge",
-             *         "title": "Developing grammatical knowledge",
-             *         "order": 10
-             *       \}
-             *     ]
-             */
+            /** The threads that are associated with the unit */
             threads?: {
                 slug: string;
                 title: string;
@@ -3804,15 +4106,33 @@ export interface components {
                     title: string;
                 };
             };
+            /** If the unit is unit variant, then this is the unit's "parent" unit slug */
+            unitOptionsGroup?: string;
+            /**
+             * @example [
+             *       \{
+             *         "lessonSlug": "structured-programs",
+             *         "lessonTitle": "Structured programs",
+             *         "lessonOrder": 1,
+             *         "state": "published"
+             *       \},
+             *       \{
+             *         "lessonSlug": "subroutines-with-parameters",
+             *         "lessonTitle": "Subroutines with parameters",
+             *         "lessonOrder": 2,
+             *         "state": "new"
+             *       \}
+             *     ]
+             */
             unitLessons: {
                 /**
                  * The lesson slug identifier
-                 * @example four-types-of-simple-sentence
+                 * @example structured-programs
                  */
                 lessonSlug: string;
                 /**
                  * The title for the lesson
-                 * @example Four types of simple sentence
+                 * @example Structured programs
                  */
                 lessonTitle: string;
                 /**
@@ -3840,6 +4160,11 @@ export interface components {
          *         "title": "Number: Multiplication and division",
          *         "slug": "number-multiplication-and-division",
          *         "unitCount": 78
+         *       \},
+         *       \{
+         *         "title": "Number: Place value",
+         *         "slug": "number-place-value",
+         *         "unitCount": 56
          *       \}
          *     ]
          */
@@ -3860,12 +4185,8 @@ export interface components {
          *         "unitSlug": "unitising-and-coin-recognitions-counting-in-2s-5s-and-10s"
          *       \},
          *       \{
-         *         "unitTitle": "Programming subroutines",
-         *         "unitSlug": "programming-subroutines"
-         *       \},
-         *       \{
-         *         "unitTitle": "Programming subroutines",
-         *         "unitSlug": "programming-subroutines"
+         *         "unitTitle": "Solving problems in a range of contexts",
+         *         "unitSlug": "unitising-and-coin-recognition-solving-problems-involving-money"
          *       \}
          *     ]
          */
@@ -3961,6 +4282,7 @@ export interface operations {
     "getSequences-getSequenceUnits": {
         parameters: {
             query?: {
+                /** The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used. */
                 year?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "all-years";
             };
             header?: never;
@@ -4089,7 +4411,13 @@ export interface operations {
     "getAssets-getSequenceAssets": {
         parameters: {
             query?: {
+                /** The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used. */
                 year?: number;
+                /**
+                 * Optional asset type specifier
+                 *
+                 *     Available values: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers
+                 */
                 type?: "slideDeck" | "exitQuiz" | "exitQuizAnswers" | "starterQuiz" | "starterQuizAnswers" | "supplementaryResource" | "video" | "worksheet" | "worksheetAnswers";
             };
             header?: never;
@@ -4134,7 +4462,9 @@ export interface operations {
     "getAssets-getSubjectAssets": {
         parameters: {
             query?: {
+                /** Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint */
                 type?: "slideDeck" | "exitQuiz" | "exitQuizAnswers" | "starterQuiz" | "starterQuizAnswers" | "supplementaryResource" | "video" | "worksheet" | "worksheetAnswers";
+                /** Optional unit slug to additionally filter by */
                 unit?: string;
             };
             header?: never;
@@ -4181,6 +4511,11 @@ export interface operations {
     "getAssets-getLessonAssets": {
         parameters: {
             query?: {
+                /**
+                 * Optional asset type specifier
+                 *
+                 *     Available values: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers
+                 */
                 type?: "slideDeck" | "exitQuiz" | "exitQuizAnswers" | "starterQuiz" | "starterQuizAnswers" | "supplementaryResource" | "video" | "worksheet" | "worksheetAnswers";
             };
             header?: never;
@@ -4225,8 +4560,11 @@ export interface operations {
     "getAssets-getProgrammeAssets": {
         parameters: {
             query?: {
+                /** If limiting results returned, this allows you to return the next set of results, starting at the given offset point */
                 offset?: number;
+                /** Limit the number of lessons, e.g. return a maximum of 300 lessons */
                 limit?: number;
+                /** Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint */
                 type?: "slideDeck" | "exitQuiz" | "exitQuizAnswers" | "starterQuiz" | "starterQuizAnswers" | "supplementaryResource" | "video" | "worksheet" | "worksheetAnswers";
             };
             header?: never;
@@ -4275,7 +4613,7 @@ export interface operations {
             path: {
                 /** The lesson slug */
                 lesson: string;
-                /** Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint */
+                /** Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/\{slug\}/assets/\{type\} endpoint */
                 type: "slideDeck" | "exitQuiz" | "exitQuizAnswers" | "starterQuiz" | "starterQuizAnswers" | "supplementaryResource" | "video" | "worksheet" | "worksheetAnswers";
             };
             cookie?: never;
@@ -4519,8 +4857,11 @@ export interface operations {
     "getKeyStageSubjectLessons-getKeyStageSubjectLessons": {
         parameters: {
             query?: {
+                /** Optional unit slug to additionally filter by */
                 unit?: string;
+                /** If limiting results returned, this allows you to return the next set of results, starting at the given offset point */
                 offset?: number;
+                /** Limit the number of lessons, e.g. return a maximum of 300 lessons */
                 limit?: number;
             };
             header?: never;
@@ -4567,6 +4908,7 @@ export interface operations {
     "getAllKeyStageAndSubjectUnits-getAllKeyStageAndSubjectUnits": {
         parameters: {
             query?: {
+                /** Optional exam board slug to filter units by, e.g. 'aqa'. Only meaningful at KS4 where subjects are broken down by exam board. */
                 examBoard?: "aqa" | "edexcel" | "eduqas" | "ocr" | "wjec" | "edexcelb";
             };
             header?: never;
@@ -4739,11 +5081,20 @@ export interface operations {
     "getKeywords-getKeywords": {
         parameters: {
             query?: {
+                /** Subject slug to search by, e.g. 'science' - note that casing is important here (always lowercase) */
                 subject?: "art" | "citizenship" | "computing" | "cooking-nutrition" | "design-technology" | "english" | "french" | "geography" | "german" | "history" | "maths" | "music" | "physical-education" | "religious-education" | "rshe-pshe" | "science" | "spanish";
+                /** Key stage slug to filter by, e.g. 'ks2' */
                 keyStage?: "ks1" | "ks2" | "ks3" | "ks4";
+                /** Phase to filter by, e.g. 'primary' or 'secondary'. Cannot be combined with keyStage. */
                 phase?: "primary" | "secondary";
+                /** Unit slug to search by, e.g. 'forces-and-magnets' - note that casing is important here (always lowercase) */
                 unit?: string;
+                /** Lesson slug to search by, e.g. 'animating-text' - note that casing is important here (always lowercase) */
                 lesson?: string;
+                /** If limiting results returned, this allows you to return the next set of results, starting at the given offset point */
+                offset?: number;
+                /** Limit the number of keywords, e.g. return a maximum of 300 keywords */
+                limit?: number;
             };
             header?: never;
             path?: never;
@@ -4755,37 +5106,7 @@ export interface operations {
             200: {
                 headers?: never;
                 content: {
-                    "application/json": {
-                        /**
-                         * The keyword text
-                         * @example non-finite clause
-                         */
-                        keyword: string;
-                        /**
-                         * A description of the keyword
-                         * @example a type of subordinate clause that can start with a verb in the progressive tense
-                         */
-                        description: string;
-                        /**
-                         * The key stage slug associated with this keyword
-                         * @example ks2
-                         */
-                        keyStageSlug: string;
-                        /**
-                         * The subject slug associated with this keyword
-                         * @example science
-                         */
-                        subjectSlug: string;
-                        /**
-                         * The different lesson slugs where this keyword is used
-                         * @example [
-                         *       "a-new-sentence-structure-the-non-finite-complex-sentence",
-                         *       "using-the-comma-rules-in-non-finite-complex-sentences",
-                         *       "a-new-subordinate-clause-the-non-finite-ing-clause"
-                         *     ]
-                         */
-                        lessonSlugs: string[];
-                    }[];
+                    "application/json": components["schemas"]["KeywordsResponseSchema"];
                 };
             };
         };
@@ -4793,6 +5114,7 @@ export interface operations {
     "getQuestions-getQuestionsForLessons": {
         parameters: {
             query?: {
+                /** Optional filter for question results. Use `images` to return only questions with a question image or image answer. */
                 filter?: "images";
             };
             header?: never;
@@ -4837,9 +5159,13 @@ export interface operations {
     "getQuestions-getQuestionsForSequence": {
         parameters: {
             query?: {
+                /** The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used. */
                 year?: number;
+                /** If limiting results returned, this allows you to return the next set of results, starting at the given offset point */
                 offset?: number;
+                /** Limit the number of lessons, e.g. return a maximum of 300 lessons */
                 limit?: number;
+                /** Optional filter for question results. Use `images` to return only questions with a question image or image answer. */
                 filter?: "images";
             };
             header?: never;
@@ -4884,8 +5210,11 @@ export interface operations {
     "getQuestions-getQuestionsForKeyStageAndSubject": {
         parameters: {
             query?: {
+                /** If limiting results returned, this allows you to return the next set of results, starting at the given offset point */
                 offset?: number;
+                /** Limit the number of lessons, e.g. return a maximum of 300 lessons */
                 limit?: number;
+                /** Optional filter for question results. Use `images` to return only questions with a question image or image answer. */
                 filter?: "images";
             };
             header?: never;
@@ -4932,8 +5261,11 @@ export interface operations {
     "getQuestions-getQuestionsForProgramme": {
         parameters: {
             query?: {
+                /** If limiting results returned, this allows you to return the next set of results, starting at the given offset point */
                 offset?: number;
+                /** Limit the number of lessons, e.g. return a maximum of 300 lessons */
                 limit?: number;
+                /** Optional filter for question results. Use `images` to return only questions with a question image or image answer. */
                 filter?: "images";
             };
             header?: never;
@@ -5022,8 +5354,11 @@ export interface operations {
             query: {
                 /** Search query text snippet */
                 q: string;
+                /** Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase */
                 keyStage?: "ks1" | "ks2" | "ks3" | "ks4";
+                /** Subject slug to filter by, e.g. 'english' - note that casing is important here, and should be lowercase */
                 subject?: "art" | "citizenship" | "computing" | "cooking-nutrition" | "design-technology" | "english" | "french" | "geography" | "german" | "history" | "maths" | "music" | "physical-education" | "religious-education" | "rshe-pshe" | "science" | "spanish";
+                /** Optional unit slug to additionally filter by */
                 unit?: string;
             };
             header?: never;
@@ -5065,9 +5400,13 @@ export interface operations {
     "getUnits-getUnit": {
         parameters: {
             query?: {
+                /** Optional exam board slug to narrow the unit to a specific programme variant, e.g. 'aqa'. */
                 examBoard?: "aqa" | "edexcel" | "eduqas" | "ocr" | "wjec" | "edexcelb";
+                /** Optional pathway slug to narrow the unit to a specific programme variant, e.g. 'gcse'. */
                 pathway?: "core" | "gcse";
+                /** Optional tier slug to narrow the unit to a specific programme variant, e.g. 'foundation'. */
                 tier?: "core" | "foundation" | "higher";
+                /** Optional science child subject slug to narrow the unit to a specific programme variant. Only available for science units, e.g. 'biology'. */
                 childSubject?: "biology" | "chemistry" | "combined-science" | "physics";
             };
             header?: never;
@@ -5153,6 +5492,7 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
+                /** The thread identifier for a given unit */
                 threadSlug: string;
             };
             cookie?: never;
