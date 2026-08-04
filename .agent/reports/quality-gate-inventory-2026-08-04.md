@@ -153,3 +153,10 @@ A search caution for whoever picks this up: grepping adapter directories for
 
 Nothing gates skill **description** quality either, which the naming rule calls a
 routing defect with the same standing as a broken link.
+
+**Owner position at the boundary** (2026-08-04): the collection was intended to hold
+*all* thought-structuring skills, and the corpus should **either** endorse filesystem
+organisation **or** be flat — *"mixing is a bad idea"*. That fork, and the
+requirement that whichever shape wins the tooling must REFUSE the other rather than
+ignore it, is tracked as MCP-494. The mix is what turned a design question into nine
+invisible skills.
