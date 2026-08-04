@@ -149,8 +149,17 @@ leaves an ambiguous write.
   point at a directory that does not hold the `pnpm` binary, so the hook's *nested*
   pnpm call fails its trusted-location check and the pre-commit gate reports
   "formatting issues" for a checker that never ran. If a gate blames formatting on a
-  file you have just formatted, read the gate's own output before believing it;
-  `PNPM_HOME="$HOME/Library/pnpm/bin"` makes it run rather than skipping it.
+  file you have just formatted, read the gate's own output before believing it.
+  **Never re-point `PNPM_HOME` to make the gate run** — pnpm derives its store root
+  from `PNPM_HOME` (`pnpm store path` proves it), so a re-pointed value silently
+  creates a second store and rebinds every tree it installs into; every default-env
+  pnpm run in such a tree then demands a destructive modules purge
+  (`ERR_PNPM_ABORTED_REMOVE_MODULES_DIR_NO_TTY`), and auto-confirming that with
+  `CI=true` is a bypass (owner ruling 2026-08-04). A wrong `PNPM_HOME` is an
+  environment misconfiguration: surface it to the owner and fix the value itself;
+  worked instance 2026-08-04 (two trees rebound to an accidental
+  `$PNPM_HOME/store`, a fleet-wide write freeze, and a two-workaround stack that
+  each hid the other's cause).
 
 ## Related surfaces
 
