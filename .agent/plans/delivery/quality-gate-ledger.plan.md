@@ -3,7 +3,14 @@ id: quality-gate-ledger
 node_type: delivery
 name: "Quality-gate ledger — a register that recomputes"
 overview: "Replace hand-maintained quality-gate lists with a schema-validated ledger whose derived half is recomputed from the invocation surfaces and whose authored half carries the judgement a machine cannot hold: why each gate exists, what its failure means, and the cure. Establishes quality gates as the fourth lever corpus under the one descriptive framework, and supersedes ADR-121's coverage matrix with a generated view."
-status: sketch
+status: ratified
+ratified_by: Jim Cresswell
+ratified_date: 2026-08-04
+ratified_where: >-
+  In-session owner ratification at the Wyvern lifts Kindling seat
+  (1da2b1), 2026-08-04, in the message opening "I ratify the plan" —
+  which also set the standing expectation that bringing visible
+  structure to the gates will itself surface valuable discoveries.
 serves: planning-and-intent-estate
 impact_areas:
   - practice-and-estate
@@ -225,6 +232,23 @@ ratchet: if recomputation proves impossible for a meaningful share of gates (dyn
 dispatch, gates expressed only in vendor config), that is the shape-reconsideration
 signal, and the honest fallback is a smaller ledger covering only what can be
 recomputed rather than a large one that quietly returns to being a list.
+
+## Discovery is an expected output, not a side effect
+
+Owner expectation at ratification (2026-08-04): *"I fully expect as we start to
+bring visible structure to the quality gates we will make valuable discoveries."*
+
+The inventory already bears this out before a line of the ledger exists — fourteen
+gates wired to nothing, one of them documented as a common entrypoint; three
+non-blocking gates inside surfaces a foundation document says contain none; a parity
+guard blind to twenty of its own leaves. Each was invisible precisely because no
+artefact made the set visible.
+
+So findings are a first-class deliverable of every step, not noise to be suppressed
+in service of finishing. Each one gets a recorded disposition — cured here, ticketed
+out, or accepted with reasons — and none is silently absorbed to keep a step tidy.
+Where a finding is a live gate defect, it routes to its own ticket rather than
+widening this lane; that routing IS the discipline, not an evasion of it.
 
 ## Falsifiers held open
 
