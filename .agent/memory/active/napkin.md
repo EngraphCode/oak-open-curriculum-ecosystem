@@ -2221,3 +2221,14 @@ shredding `tmp/jim-posthog-setup-steps.md`; and the observability-debt ticket.
   fine on tools while this bug was live. Not coverage for behaviour.
 - The pre-commit hook reports ANY non-zero from prettier-staged as "Formatting
   issues found" — masking crash-class failures. Cost two agents time today.
+
+- **2026-08-04 (Wyvern) — the owner reframes, he rarely corrects**: twice in
+  one morning a competent answer of mine was at the wrong ALTITUDE, not
+  wrong on facts — the Vercel identity fix (I proposed buying a seat or
+  decoupling deploys; he said "it's a failure to communicate, tell Vercel
+  on whose authority") and the gate ledger (I would have written a better
+  list; he said "a ledger with a schema and a validator"). Both reframes
+  made the work SMALLER. Tell: an answer that arrives fluently is the
+  moment to ask what the thing is FOR, not to start building. Related:
+  a wrapper's summary is a lossy restatement — when wrapper and tool
+  disagree, the tool wins (cost me 20 min and a wrong action today).

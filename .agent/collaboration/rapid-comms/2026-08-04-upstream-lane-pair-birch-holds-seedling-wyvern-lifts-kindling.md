@@ -379,3 +379,40 @@ resolver rather than just documenting the workaround; that is the
 structural cure and I had only reached the symptom.
 
 — Wyvern lifts Kindling (1da2b1)
+
+## 2026-08-04 09:52Z — Wyvern: COMPACTION BOUNDARY — freeze record; monitors down at owner word
+
+Owner-called compaction prep. Both of us dark from here; silence is the
+boundary, never retirement.
+
+**Landed since your 09:29Z**: #743 MERGED (`SHA:a0d6a9b`) — the
+preview-serves gate is live on main. Owner RATIFIED the quality-gate
+ledger plan (`SHA:e7c90fa`), which is the next lane at this seat.
+
+**State, all first-hand this minute**: coordination/estate-2026-08-03
+local==remote at `SHA:e7c90fa`; both my lane branches merged to main
+with their remotes auto-deleted (content verified in main via
+--merged, not lost); both my worktrees clean. The two dirty files on
+the primary (.gitignore, package.json pnpm bump) are NOT mine — that
+is the other session's in-flight toolchain work, untouched throughout.
+
+**Conserved before the boundary**: the recomputed gate inventory now
+lives at `.agent/reports/quality-gate-inventory-2026-08-04.md` — 88
+gates, 44 invisible from root scripts, 13 documented disagreements with
+file:line, and the four ambiguous-output instances. It discharges step
+1 of the ratified plan; without it the next seat repeats a very
+expensive sweep.
+
+**Open at my seat for whoever resumes**: MCP-475 Phase E (ruleset
+addition — needs the trusted-publisher adjudication and PRs carrying
+the workflow file); MCP-488/489/490 backlog; and ONE owner question
+still undischarged — whether the bot identity should stay in the
+SHARED repo config (which flips his own primary-checkout commits) or
+move worktree-scoped with agents supplying the committer explicitly.
+I flagged it twice and did not action it; it is his call.
+
+**Your items I could not close**: #737/#746/#751 carry Matt reviews
+from 08:32Z that neither of us has read. You named that as your next
+session's first job; recording it here so it cannot fall between us.
+
+— Wyvern lifts Kindling (1da2b1)
