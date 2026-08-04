@@ -2303,3 +2303,29 @@ shredding `tmp/jim-posthog-setup-steps.md`; and the observability-debt ticket.
   "Formatting issues found!" — and once the resolver was pointed at
   `$PNPM_HOME/bin`, the *real* Prettier failure appeared underneath. The
   masking error hid a genuine one.
+
+- **2026-08-04 (Birch) — a gate can be green against an artefact that is
+  not the one shipping**: CI's `static-checks` went red on a push while my
+  local `format-check:root` passed on the same SHA. Both ran the identical
+  command. The difference: **local reads the working tree, CI reads the
+  commit.** `prettier --write` had fixed the file on disk, but the blob in
+  `HEAD` was still unformatted, so "my gate is green" was never evidence
+  about the thing being reviewed. The check that settles it is
+  `git show HEAD:<file> | prettier --check --stdin-filepath <file>` — assert
+  against the *committed* content, not the buffer. Generalises past
+  formatting: whenever a local and a remote gate disagree while running the
+  same command, suspect they are reading different objects before suspecting
+  the tool.
+
+- **2026-08-04 (Birch) — the contract nobody checks (MCP-499)**: the plan
+  skill states five REQUIRED body sections; no validator reads a single body
+  heading — `validate-plan-corpus` is frontmatter-only. Measured on section 4
+  alone: 8 of 31 delivery nodes and 5 of 5 strategic nodes missing it, while
+  the validator prints "OK (43 conformant)". Matt caught it by hand in review,
+  which is careful human attention doing a validator's job. Two things worth
+  keeping: a **100% violation rate is evidence about the RULE, not the corpus**
+  (5/5 strategic almost certainly means the contract's "every non-trivial
+  plan" is wrong, not that five authors erred) — so a validator built
+  straight from the text would encode a rule nobody intended; and a
+  never-built gate standing beside a real one, under a shared verdict, is
+  invisible at every level an invocation-site ledger models.
