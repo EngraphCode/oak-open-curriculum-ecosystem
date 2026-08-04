@@ -17,6 +17,19 @@ import { resolvePnpm } from '../src/spawn/pnpm-path.js';
  * runs the installed pnpm binary against a deliberately old-format lockfile.
  * The guard must be the process that refuses the install, and the lockfile
  * bytes must remain identical.
+ *
+ * The fixture pins a deliberately-absent `packageManager` version so the
+ * running pnpm is a MISMATCH. Two self-management behaviours must be neutralised
+ * or they would try to ACQUIRE that pinned version before the guard ever runs,
+ * and abort the install for the wrong reason:
+ *   - corepack's project-spec resolution — `COREPACK_ENABLE_PROJECT_SPEC=0`;
+ *   - pnpm's own `manage-package-manager-versions` (on by default in the
+ *     `@pnpm/exe` standalone that CI's setup-pnpm installs; harmless on a
+ *     non-self-managing local pnpm) — the fixture `.npmrc` plus the
+ *     `npm_config_manage_package_manager_versions` env var.
+ * Without these, a clean CI runner fetches `@pnpm/exe@<pinned>` from the
+ * registry, fails ("No matching version"), and the guard never fires — a
+ * clean-runner-only failure masked locally by `--offline` and the turbo cache.
  */
 
 const smokeDir = fileURLToPath(new URL('.', import.meta.url));
@@ -63,6 +76,9 @@ try {
     )}\n`,
   );
   writeFileSync(join(fixtureRoot, 'pnpm-lock.yaml'), originalLockfile);
+  // Stop pnpm self-switching to the pinned (absent) version before the guard
+  // runs; see the file docstring. Belt-and-braces with the env var below.
+  writeFileSync(join(fixtureRoot, '.npmrc'), 'manage-package-manager-versions=false\n');
 
   const pnpm = resolvePnpm(process.env);
   if (isErr(pnpm)) {
@@ -75,7 +91,11 @@ try {
     {
       cwd: fixtureRoot,
       encoding: 'utf8',
-      env: { ...process.env, COREPACK_ENABLE_PROJECT_SPEC: '0' },
+      env: {
+        ...process.env,
+        COREPACK_ENABLE_PROJECT_SPEC: '0',
+        npm_config_manage_package_manager_versions: 'false',
+      },
     },
   );
 
