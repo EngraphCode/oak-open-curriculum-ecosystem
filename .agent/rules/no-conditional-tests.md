@@ -1,6 +1,6 @@
 # No Conditional Tests
 
-Operationalises [ADR-011 (Use Vitest for Testing)](../../docs/architecture/architectural-decisions/011-vitest-for-testing.md), [ADR-078 (Dependency Injection for Testability)](../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md), and [`testing-strategy.md`](../directives/testing-strategy.md) §Rules. Sibling to [`no-skipped-tests.md`](no-skipped-tests.md).
+Operationalises [ADR-011 (Use Vitest for Testing)](../../docs/architecture/architectural-decisions/011-vitest-for-testing.md), [ADR-078 (Dependency Injection for Testability)](../../docs/architecture/architectural-decisions/078-dependency-injection-for-testability.md), and [`testing-strategy.md`](../directives/testing-strategy.md) §Rules. Sibling discipline: skip and pending mechanisms are governed by [`testing-strategy.md`](../directives/testing-strategy.md) §Rules.
 
 ## Rule
 
@@ -57,7 +57,7 @@ If step 3 reveals that the ambiguity is intentional and load-bearing, that is a 
 ## Cross-references
 
 - Authority: [`testing-strategy.md`](../directives/testing-strategy.md) §Rules — "No conditional tests" bullet.
-- Sibling rule: [`no-skipped-tests.md`](no-skipped-tests.md) — skip and pending mechanisms.
+- Sibling discipline: [`testing-strategy.md`](../directives/testing-strategy.md) §Rules "No skipped tests" bullet — skip and pending mechanisms.
 - Sibling rule: [`no-global-state-in-tests.md`](no-global-state-in-tests.md) — `process.env` reads/writes, `vi.stubGlobal`, `vi.mock`, `vi.doMock`.
 - Sibling rule: [`never-disable-checks.md`](never-disable-checks.md) — quality gates are never disabled; conditioning a test is the test-surface instance of the same anti-pattern.
 - Operational checklist: [`test-immediate-fails.md`](test-immediate-fails.md) — fast-gate rejection list for test-expert.

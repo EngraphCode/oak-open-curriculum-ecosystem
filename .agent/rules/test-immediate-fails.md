@@ -100,7 +100,7 @@ seam, extract a pure function, inject a dependency).
 15. **Test contains skipped or pending cases** (`it.skip`,
     `describe.skip`, `test.todo`, `it.todo`, `xit`, `xdescribe`, or
     any skip/pending mechanism). Fix or delete. See
-    `no-skipped-tests.md`.
+    `.agent/directives/testing-strategy.md` §Rules.
 16. **Test contains conditional execution** of any kind:
     `it.skipIf`, `describe.skipIf`, `it.runIf`, `describe.runIf`,
     conditional `it`/`describe` registration, runtime branching
@@ -166,7 +166,8 @@ The test-expert flags the symptom. The fix is usually upstream.
 - `.agent/rules/no-global-state-in-tests.md` — specific prohibition
   on `process.env` reads/writes, `vi.stubGlobal`, `vi.mock`,
   `vi.doMock`.
-- `.agent/rules/no-skipped-tests.md` — prohibition on skip mechanisms.
+- `.agent/directives/testing-strategy.md` §Rules — the skip-mechanism
+  prohibition (no-skipped-tests bullet).
 - `.agent/rules/no-conditional-tests.md` — prohibition on conditional
   execution and the architectural-failure diagnosis.
 - `.agent/directives/testing-strategy.md` — full authoritative

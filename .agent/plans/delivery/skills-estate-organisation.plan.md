@@ -58,6 +58,21 @@ parallel scheme ADR-221 forbids.
 0. **WS0 — THE DEEP REFLECTION (owner word 2026-08-02: a shared scheme
    across all agentic levers "only if it adds value and makes sense,
    and what that scheme should be is a matter for deep reflection").**
+   OWNER PRIOR (card answer, 2026-08-02): the `cognition/` category
+   directory and the family-bundle shape the Parallax landing
+   introduced are DELIBERATE-BUT-CHALLENGEABLE — WS0 treats them as
+   the owner's prior, may recommend against them with evidence, and
+   he rules at the gate.
+   OWNER DIRECTION (2026-08-02, verbatim: "We should be working
+   towards a standardised structure"): the WS0 recommendation names
+   THE standard structure for the skills corpus and a convergence
+   path for every landing; flat/nested coexistence is transitional
+   only; "no standard" is off the table. The owner's stated Parallax
+   purposes bind the frame: cognitive/investigative provision,
+   skill-quality demonstration, and the advanced structure+metadata
+   "both as elements in a graph, and on the file system" — the
+   organisation question carries TWIN SURFACES, filesystem structure
+   and graph-element metadata.
    A genuine multi-sitting concept-exploration at the Skills seat,
    starting from the exploration report's addendum tensions: (a) the
    HOMONYMY RISK — the levers differ in mode of action (a skill is
@@ -76,6 +91,19 @@ parallel scheme ADR-221 forbids.
    workstream is conditional on his ruling there. The
    kind/stratum/intent draft below is ONE candidate, preserved as
    WS0 input.
+   EXECUTION (implementer-authored at pickup, 2026-08-02): WS0 runs
+   as the concept-exploration workflow's own four movements — never a
+   parallel structure; the living execution surface with per-movement
+   exit criteria and the sitting map is
+   [the WS0 working record](../../reports/agentic-engineering/skills-estate-organisation-ws0-working-record.md).
+   Movement 1's ratified-vocabulary sweep includes ADR-189's
+   audience-led capability taxonomy and
+   `agent-capability-vocabulary.md` (adjacent RATIFIED vocabulary the
+   exploration report does not cite); movement 2 states each
+   candidate's relation to ADR-189's axes. The owner's conservation
+   word (2026-08-02, in-session) binds the value gate: simpler
+   "without compromising quality OR functionality" — no candidate,
+   the null included, may regress current lever behaviour.
 1. **WS1 — Vocabulary mint (concepts-first; conditional on WS0's
    owner ruling).** KIND (six values +
    collaboration-protocol from the rules corpus; primary/secondary
@@ -111,7 +139,47 @@ parallel scheme ADR-221 forbids.
    cricket's experiment-record (binding-tally authority) beside the
    tally with the skill keeping method + pointer; (c) regenerate and
    re-scope skill-composition.md as a derived view, its two
-   composition rules preserved as ratified doctrine.
+   composition rules preserved as ratified doctrine; (d) the
+   Oak-vs-external boundary (owner aside, 2026-08-02): no third-party
+   skills in `.agent/skills` — externals enter only via the
+   external-skill class in `.agents/skills` (lock-pinned, vendored;
+   the `skill add` philosophy) so upstream keeps the maintenance
+   burden and intent delineation stays clean. Core verified clean of
+   third-party skills at that date; the cure is a rule naming the
+   boundary plus a validator refusing third-party landings in core.
+6. **WS6 — Parallax family integration (owner word 2026-08-02; the
+   four asks below are verbatim lane scope).** The family is in-repo
+   and TRACKED at the owner's own commit `5fa0b2a0a` (2026-08-02;
+   safety binds the referent); #711 is redundant and its close is
+   carded to the owner. Canonical landing (structure convergence per
+   the standardised-structure direction) happens through this
+   workstream.
+   (a) LINK AUDIT: relative links inside the family are probably
+   slightly depth-incorrect after the nesting — audit every in-family
+   link, and rule whether such links are allowed in each file class
+   given the core-vs-vendor skills pattern (the docs link validator
+   passed the staged set at preservation, so any finding also names
+   the validator gap). Evidence split (implementer-authored
+   2026-08-02): the PATTERN-level audit (depth classes, link-class
+   policy, the validator gap) runs with WS0 movement 1 — stable under
+   the owner's live drafting; the link-by-link fix list is authored
+   at the landing leg only, where instance findings stop being
+   perishable. (b) CONSISTENCY REVIEW: compare the RPIF
+   report and the skills for consistency within and between
+   themselves, and harvest report concepts that did not reach the
+   skills but would be beneficial in them in some form.
+   (c) RELATIONSHIP MAP: relate the Parallax skills to metacognition,
+   reason, concept-exploration, free-play, proportionality, and the
+   other cognitive skills — overlap, summons edges, grounding
+   direction. (d) MECHANICS: frontmatter reconciliation
+   (`metadata.owned/version/collection` vs `classification`);
+   adapter-generator extension for the nested family shape; the
+   Python-tools scoping ruling vs source-is-typescript-esm-only; the
+   family's eval-suite convention as a candidate general mechanism.
+   SEQUENCING (owner word): "the organisation of the skills directory
+   will make this work easier" — WS6's review legs (a–c) run
+   alongside WS0 as evidence-gathering that informs the reflection;
+   landing and any restructuring follow the WS0 ruling.
 
 ## Acceptance (falsifiable, from the report's own falsifiers)
 
@@ -125,6 +193,11 @@ parallel scheme ADR-221 forbids.
 - The grounding-direction check finds the two known inversions
   (proportionality, concept-exploration) before WS5 cures them, and
   zero after — the validator proves itself on known positives.
+- Functional conservation (owner word 2026-08-02): every current
+  lever behaviour — skill summons, always-applied rule loading,
+  subagent dispatch, adapter generation, vendored-external operation
+  — is preserved, or its change is owner-ruled; simplification never
+  subtracts capability silently.
 
 ## Delivery
 

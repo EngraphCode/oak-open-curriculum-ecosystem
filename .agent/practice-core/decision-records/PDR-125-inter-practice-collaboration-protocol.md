@@ -96,7 +96,7 @@ below serves one of those three.
    portable, MAY appear in tracked artefacts) and `checkout` (absolute
    local path to a specific working copy — machine-local, lives ONLY in
    session environment or untracked local state, per the
-   no-machine-local-paths rule). A worktree reference adds `branch`.
+   no-machine-local-paths principle). A worktree reference adds `branch`.
    Canonical pattern-string form: `<origin-shorthand>#<branch>`.
 
 2. **Coordination-home declaration.** One substrate owns an

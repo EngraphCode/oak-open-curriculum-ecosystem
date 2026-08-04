@@ -219,7 +219,7 @@ one); a genuinely bad test (proves types, mirrors implementation, tests the
 mock) gets **deleted**. Never skip, retry-wrap, or loosen a flake — the
 wrapper silences the signal without curing the coupling; the only
 dispositions are fix-the-assertion or delete (see
-[`no-skipped-tests`](../../.agent/rules/no-skipped-tests.md)).
+[`testing-strategy`](../../.agent/directives/testing-strategy.md) §Rules).
 
 ## Acceptance Value-Proxies
 

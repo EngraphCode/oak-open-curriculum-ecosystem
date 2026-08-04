@@ -146,6 +146,7 @@ writeErrorLine('');
 writeErrorLine(
   'Machine-local absolute paths resolve only on one machine and may leak a username (PII). ' +
     'Use a repo-root-relative path for in-repo targets, or a platform variable / tilde (~) for ' +
-    'per-user surfaces. See .agent/rules/no-machine-local-paths.md.',
+    'per-user surfaces. See docs/governance/safety-and-security.md §Machine-local paths and ' +
+    '.agent/directives/principles.md §No machine-local paths.',
 );
 process.exit(1);

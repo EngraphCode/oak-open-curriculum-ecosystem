@@ -1,10 +1,6 @@
 ---
-description: >
-  Before any team-bootstrap step, run a persistent watcher over the full
-  comms event stream with self-exclusion only on the agent's identity
-  tuple. Directed-only or single-view filters miss the broadcast and
-  group events that carry team-bootstrap coordination itself.
-alwaysApply: true
+description: At team session bootstrap or rejoin after compaction/handoff, before any other bootstrap move, arm one persistent watcher over the ENTIRE comms event stream via the canonical comms watch CLI — self-exclusion only, --supervisor-pid mandatory — then run one foreground sweep covering the pre-arm gap; health-check by cursor movement, not process status. Not for solo n=1 sessions; no hand-rolled ls/jq filters, directed-only views, or wrapper loops. Failure shapes — a directed-only filter missing team-bootstrap broadcasts; a plain-background re-arm advancing the cursor while silently eating events.
+alwaysApply: false
 ---
 
 Read and follow `.agent/rules/comms-all-channels-watcher.md`.

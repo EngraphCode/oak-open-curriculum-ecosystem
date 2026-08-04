@@ -1,6 +1,0 @@
----
-description: No skipped tests. Fix it or delete it.
-globs: '**/*.test.ts'
----
-
-Read and follow `.agent/rules/no-skipped-tests.md`.

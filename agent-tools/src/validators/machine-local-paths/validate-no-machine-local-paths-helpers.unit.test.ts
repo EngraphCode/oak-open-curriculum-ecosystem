@@ -76,7 +76,10 @@ describe('scanForMachineLocalPaths', () => {
     const block = await loadBlock();
     const files: ScanFile[] = [
       { path: 'docs/example.md', content: 'path: /Users/alice/x' },
-      { path: '.agent/rules/no-machine-local-paths.md', content: 'forbidden: /Users/alice/x' },
+      {
+        path: '.agent/rules/important-state-not-in-temp-files.md',
+        content: 'forbidden: /Users/alice/x',
+      },
     ];
     const hits = scanForMachineLocalPaths(files, block);
     expect(hits.map((hit) => hit.file)).toStrictEqual(['docs/example.md']);

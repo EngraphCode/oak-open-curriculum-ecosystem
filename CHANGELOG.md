@@ -1,3 +1,51 @@
+# [1.147.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.3...v1.147.0) (2026-08-04)
+
+
+### Bug Fixes
+
+* **sdk-codegen:** cure the two generator defects found on the spec-alignment review (MCP-462) ([b1ef5a9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b1ef5a93add39ea76180979bc2eb1f0a1f6ccff5))
+
+
+### Features
+
+* **sdk-codegen:** align to the refreshed upstream spec (mcp-462) ([bcdc623](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bcdc6237360346c5398cdfb1962b9817e2954509))
+
+## [1.146.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.2...v1.146.3) (2026-08-03)
+
+## [1.146.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.1...v1.146.2) (2026-08-03)
+
+
+### Bug Fixes
+
+* **mcp-server:** record the env-change boot-check obligation in the UAT runbook ([94d67a3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/94d67a3c150e3cf56334130e886e68bb19d476df))
+
+## [1.146.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.0...v1.146.1) (2026-08-03)
+
+# [1.146.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.145.0...v1.146.0) (2026-08-03)
+
+
+### Features
+
+* **skills:** add the two upstream-update skills; true the runbook bulk section (mcp-469) ([7f149b2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7f149b2069f39144bf9086e9675fa653c3a5a579))
+
+# [1.145.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.144.2...v1.145.0) (2026-08-03)
+
+
+### Bug Fixes
+
+* **agent-tools:** shrink the machine-local-path exclusion surface after the rule's graduation ([360ee4c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/360ee4cd72c90877d6f76785f3e445aad2718915))
+* **observability:** correct [@see](https://github.com/see) citation depth in primitives.ts to repo root ([35a2e8e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/35a2e8e55c0fa63118640c2680dc8d84d071f7fc))
+* **skills:** cure the [#714](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/714) Parallax payload defects from the fold review ([6cba5ca](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6cba5ca56d98d3dfd9de1e096539f137773183fc))
+
+
+### Features
+
+* **skills:** land owner-invoked skill-creator install (anthropics/skills, lock-pinned) ([fc53710](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fc5371043451f763e6311c511946cb827149427b))
+
+## [1.144.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.144.1...v1.144.2) (2026-08-03)
+
+## [1.144.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.144.0...v1.144.1) (2026-08-03)
+
 # [1.144.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.143.1...v1.144.0) (2026-08-03)
 
 

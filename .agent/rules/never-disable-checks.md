@@ -60,8 +60,7 @@ state.
   conditional `it`/`describe` registration, or runtime if-gating
   inside a test body. Either the test proves something and runs
   deterministically, or it does not exist. See
-  [`testing-strategy.md`](../directives/testing-strategy.md),
-  [`no-skipped-tests.md`](no-skipped-tests.md), and
+  [`testing-strategy.md`](../directives/testing-strategy.md) and
   [`no-conditional-tests.md`](no-conditional-tests.md).
 - **Using `--no-verify`** without fresh per-invocation owner
   authorisation. See

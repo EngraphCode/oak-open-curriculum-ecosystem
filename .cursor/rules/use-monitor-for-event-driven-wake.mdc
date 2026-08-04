@@ -1,6 +1,6 @@
 ---
-description: Event-driven streams (comms events, log lines, CI status) run on harness Monitor with persistent:true and a line-buffered filter — never on Bash run_in_background, which writes to a file and delivers no notifications. Cure for polling failure modes.
-alwaysApply: true
+description: Arming a long-running process whose output lines should wake the agent — comms watchers (comms watch), build/test streams, file-system watchers, tail-of-log surfaces: on Monitor-capable hosts arm Monitor with persistent true, pipe-less for the comms CLI; on Codex use the relay-child composition. Never Bash run_in_background here — it delivers no notifications, so the agent must poll. Not for one-shot wait-until-complete (Bash background is right) or periodic checks with no stream to notify from. Failure shape: a wrong grep anchor silently swallowing every event while the watcher looks healthy.
+alwaysApply: false
 ---
 
 Read and follow `.agent/rules/use-monitor-for-event-driven-wake.md`.

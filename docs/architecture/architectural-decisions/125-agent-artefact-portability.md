@@ -288,8 +288,9 @@ The consolidation works as follows:
    `.claude/rules/apply-architectural-principles.md`) replaces the
    individual triggers.
 3. **Specialised rules retained** when they have unique activation
-   metadata (e.g., `no-type-shortcuts.mdc` with `globs: "**/*.ts"`)
-   that cannot be expressed by the consolidated trigger.
+   metadata (e.g., `use-result-pattern.mdc` with
+   `globs: '**/*.{ts,tsx,mts}'`) that cannot be expressed by the
+   consolidated trigger.
 
 The three-layer model is preserved: trigger → canonical rule →
 authoritative source. The consolidation reduces the number of
@@ -297,12 +298,12 @@ canonical rules and triggers, not the number of layers.
 
 **Cursor** has granular activation via `.cursor/rules/*.mdc` frontmatter:
 
-| Activation     | Mechanism               | Example                                                    |
-| -------------- | ----------------------- | ---------------------------------------------------------- |
-| Always-on      | `alwaysApply: true`     | `apply-architectural-principles.mdc` (consolidated)        |
-| File-scoped    | `globs: "**/*.test.ts"` | `no-skipped-tests.mdc`, `no-global-state-in-tests.mdc`     |
-| File-scoped    | `globs: "**/*.ts"`      | `no-type-shortcuts.mdc`, `unknown-is-type-destruction.mdc` |
-| Agent-selected | `description: "..."`    | Agent decides based on relevance                           |
+| Activation     | Mechanism                    | Example                                                    |
+| -------------- | ---------------------------- | ---------------------------------------------------------- |
+| Always-on      | `alwaysApply: true`          | `apply-architectural-principles.mdc` (consolidated)        |
+| File-scoped    | `globs: "**/*.test.ts"`      | `no-conditional-tests.mdc`, `no-global-state-in-tests.mdc` |
+| File-scoped    | `globs: '**/*.{ts,tsx,mts}'` | `use-result-pattern.mdc`, `generator-first-mindset.mdc`    |
+| Agent-selected | `description: "..."`         | Agent decides based on relevance                           |
 
 **Claude Code** has two activation mechanisms: always-on policies via the entry-point chain (`CLAUDE.md` → `AGENT.md` → `principles.md`), and path-scoped rules via `.claude/rules/*.md` with `paths` frontmatter. Path-scoped rules only load when Claude opens matching files, reducing context consumption for domain-specific policies (e.g., test rules only when editing test files). Only glob-scoped triggers have Claude rule equivalents — always-on triggers are already covered by the entry-point chain.
 

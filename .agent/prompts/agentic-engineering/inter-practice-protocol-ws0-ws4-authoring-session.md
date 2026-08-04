@@ -108,7 +108,7 @@ WS0d delivers (a). Frame every design choice against those three.
 
 - This session works across BOTH checkouts. The owner names the resonance path at
   session open — do NOT write any machine-local path into a tracked file (the
-  no-machine-local-paths rule + write-hook are absolute).
+  no-machine-local-paths principle + write-hook are absolute).
 - Register on the `agentic-engineering-enhancements` thread, open a fresh claim on
   the inter-practice-exchange lane, and arm a `[HEARTBEAT]`-FILTERED watcher — the
   resonance owner canonicalised filtered-by-default on 2026-07-06 (resonance commit

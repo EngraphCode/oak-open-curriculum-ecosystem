@@ -397,3 +397,104 @@ quartet agent definitions (MCP-161). Future quartet runs: post the tally comms e
 occurrence (transport), then append here AT OCCURRENCE (storage) — the Director's
 transport/storage ruling is a174d253, tightened by owner word 2026-08-01: every run is
 recorded, none skipped, each with per-leg token usage and run time.
+
+### Run 2026-08-02 ~13:01-13:05Z (Skylark hunts Nimbus, e856d5) — WS0 M1→M2 boundary
+
+Frame: skills-estate-organisation WS0, movement 1 closed, crossing to movement 2
+(problem space + homonymy test). Panel: Claude quartet, both stances, identical
+file-supplied frame (stance line only changed).
+
+| Role | Stance | Verdict | Tokens | Seconds | Tools |
+| --- | --- | --- | --- | --- | --- |
+| judgement-low (fable/low) | normal | ON-TRACK | 29,425 | 15.6 | 2 |
+| judgement-medium (opus/medium) | normal | ON-TRACK +redirect | 30,740 | 36.4 | 3 |
+| judgement-high (sonnet/high) | normal | ON-TRACK | 30,521 | 45.8 | 3 |
+| procedure-xhigh (haiku/xhigh) | normal | ON-TRACK | 22,456 | 55.7 | 3 |
+| judgement-low (fable/low) | adversarial | ON-TRACK | 29,474 | 16.1 | 2 |
+| judgement-medium (opus/medium) | adversarial | ON-TRACK +redirect | 29,869 | 30.2 | 3 |
+| judgement-high (sonnet/high) | adversarial | ON-TRACK | 33,947 | 58.3 | 3 |
+| procedure-xhigh (haiku/xhigh) | adversarial | DRIFTING | 22,275 | 96.3 | 2 |
+
+Split 7-1. Axis notes:
+
+- **Both medium redirections substantive and ADOPTED**: (normal) run the homonymy test
+  FIRST off the nine consumer-decision rows and let its prune size the problem statement —
+  evidence-first over essay-first; (adversarial) route the compounding flat-vs-nested
+  convention divergence to the Director now rather than holding it as a MISSING note.
+- **The 7-1 split**: adversarial procedure-xhigh read "movement 1 CLOSED" against WS6(c)'s
+  "provisionally PASSES" + WS6(b)'s enumerated family gaps and returned PROPORTION-FAIL.
+  Adjudication: category error between EVIDENCE-LEG completion (done) and ACCEPTANCE-TEST
+  discharge (fires at the family's landing per the plan's own acceptance clause); the
+  family gaps are WS6(b) OUTPUT, not unfinished WS0 work. Redirection declined with that
+  reason; the correct kernel ABSORBED as a frame-precision cure — the working record now
+  states the leg-complete ≠ test-discharged distinction explicitly. Split routed to the
+  Director with full verdicts per the contract.
+- Effort-inversion timing gradient again visible on both stances (fable/low fastest,
+  haiku/xhigh slowest); the adversarial xhigh leg ran 96s — the corpus's longest
+  procedure leg to date.
+
+## Run 2026-08-02 ~13:45Z — WS0 movement-4 pre-recommendation boundary (Skylark hunts Nimbus, e856d5)
+
+Quartet, both stances, identical file-supplied frame (stance line only
+changed), dispatched in one parallel wave beside two expert reviews
+(assumptions-expert on opus; opus frame-challenger) at the movement-4
+boundary of the skills-estate-organisation WS0.
+
+| Role | Stance | Verdict | Tokens | Seconds | Tools |
+| --- | --- | --- | --- | --- | --- |
+| judgement-low (fable/low) | normal | ON-TRACK +redirect | n/o | ~65 | — |
+| judgement-medium (opus/medium) | normal | ON-TRACK +redirect | n/o | ~61 | — |
+| judgement-high (sonnet/high) | normal | ON-TRACK | n/o | ~75 | — |
+| procedure-xhigh (haiku/xhigh) | normal | ON-TRACK | n/o | ~74 | — |
+| judgement-low (fable/low) | adversarial | ON-TRACK +redirect | n/o | ~78 | — |
+| judgement-medium (opus/medium) | adversarial | ON-TRACK +redirect | n/o | ~67 | — |
+| judgement-high (sonnet/high) | adversarial | ON-TRACK | n/o | ~98 | — |
+| procedure-xhigh (haiku/xhigh) | adversarial | DRIFTING | n/o | ~163 | — |
+
+Split 7-1. Instrument notes FIRST (this run changed the measurement
+substrate): legs were dispatched as named session teammates and
+reported via the teammate mailbox, which carries NO token telemetry —
+tokens are NOT OBTAINED (n/o) for all eight legs, seconds are derived
+from dispatch-to-idle timestamps (±10s), tool counts unobservable.
+Four of eight first reports (both medium legs, both procedure legs)
+never reached the dispatching seat and were re-requested via
+SendMessage ~8 minutes later — verdict substance unaffected, delivery
+latency excluded from the seconds column. If per-leg telemetry
+matters to the experiment, future runs should dispatch via the
+task-notification path or record harness-side counters at occurrence.
+
+Axis notes:
+
+- **Redirections substantive and ADOPTED (four converged classes)**:
+  provenance event IDs on quoted owner words (low-normal,
+  low-adversarial, and the DRIFTING leg all landed on this from
+  different directions — the frame carried dates without ruling
+  event IDs, the template's own named false-DRIFTING trigger);
+  falsifier-runnability stated inside each recommendation element
+  (medium-adversarial); every numeric claim re-derived at revision
+  time (medium-normal — vindicated within minutes: the
+  vendored-externals count moved 9 → 10 mid-review as the
+  skill-creator install landed); single-story commits for the
+  owner-routed artefact (low-normal; already true at the seat).
+- **The 7-1 split**: adversarial procedure-xhigh returned
+  PROPORTION-FAIL on "Badger's warden-hygiene request quoted nowhere
+  in supplied context". REFUTED first-hand: the request is directed
+  comms event 680a6e5b, read whole at the seat, contents verified
+  against the named files, independently confirmed by Charcoal's
+  pickup broadcast, and already discharged (commit a343a0fe5) before
+  the leg reported. Adjudication: the leg judged correctly FROM THE
+  FRAME IT WAS GIVEN — the frame omitted the provenance; the verdict
+  dies, the redirection (put event IDs in the frame) is adopted.
+  Second consecutive boundary where the dissent came from the same
+  cell (procedure-xhigh adversarial), both times on a
+  frame-supply/provenance gap rather than a real drift — a
+  calibration data point for the effort-inversion hypothesis: the
+  procedure leg is the most sensitive to frame incompleteness, in
+  both its false-positive and its catch-the-real-gap modes.
+- The expert reviews (recorded in the working record's movement-4
+  adjudication entry, not this tally) went the other way in severity:
+  assumptions-expert NOT-READY with two confirmed critical defects;
+  frame-challenger HOLD-WITH-AMENDMENTS with six absorbed amendments
+  — the cricket panel checks direction, the expert reviews check the
+  artefact, and this run is clean evidence the two instrument classes
+  are not substitutes.

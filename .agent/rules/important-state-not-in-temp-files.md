@@ -1,13 +1,16 @@
 # Important State Not In Temp Files
 
-Specialises [`no-machine-local-paths`](no-machine-local-paths.md)
+Specialises the no-machine-local-paths principle
+([principles.md §Code Design and Architectural Principles](../directives/principles.md);
+shapes in
+[safety-and-security.md §Machine-local paths](../../docs/governance/safety-and-security.md#machine-local-paths))
 for the durable-reference failure mode at the `/tmp/` class, and
 operationalises PDR-014's knowledge-flow pipeline (capture,
 distillation, graduation, enforcement) at the buffer-vs-reference
 boundary. Both companion surfaces protect durable substrate from
 non-repo references; this rule is the semantic distinction
-(*how* the path is used downstream) where `no-machine-local-paths`
-is the syntactic distinction (*what* the path looks like).
+(*how* the path is used downstream) where the machine-local-path
+ban is the syntactic distinction (*what* the path looks like).
 
 Worked instance that prompted graduation: Ferny Capture D in
 `.agent/memory/active/napkin.md` (2026-05-24) — a synthesis file at
@@ -97,11 +100,18 @@ failure mode this rule prevents.
 
 ## Composition With Other Rules
 
-- **`no-machine-local-paths`**: forbids machine-local *paths* (the
-  syntactic class). This rule forbids *durable references* to a
-  particular machine-local class (`/tmp/`). A path under
-  `/tmp/breezy-survey.md` is both — machine-local *and* not durable
-  for repo reference.
+- **The no-machine-local-paths principle** (principles.md; shapes in
+  safety-and-security.md §Machine-local paths): forbids machine-local
+  *paths* (the syntactic class). This rule forbids *durable
+  references* to a particular machine-local class (`/tmp/`). A path
+  under `/tmp/breezy-survey.md` is both — machine-local *and* not
+  durable for repo reference. Two authoring conventions from the
+  2026-06-12 whole-repo sweep live at this boundary: **runnable
+  examples** use the repo-root-relative `tmp/` directory (gitignored
+  at the repo root) rather than the OS temp root, and **historical
+  prose** that referenced OS-temp artefacts uses the `<scratch>/`
+  placeholder — the artefact was host-local and transient; the
+  placeholder records that without the forbidden literal.
 - **PDR-014 knowledge-flow pipeline** (capture, distillation,
   graduation, enforcement): `/tmp/` and equivalent platform temp
   roots are acceptable at the capture-buffer layer (transient
@@ -225,8 +235,9 @@ July 2026).
 ## Related
 
 - `.agent/directives/principles.md` §"No machine-local paths".
-- `.agent/rules/no-machine-local-paths.md` (companion rule; syntactic
-  vs durable-reference distinction).
+- `docs/governance/safety-and-security.md` §Machine-local paths (the
+  forbidden / permitted shapes; the companion syntactic-class
+  surface).
 - PDR-014 (capture → distil → graduate → enforce; the layered model
   this rule's "buffer vs reference" distinction maps onto).
 - PDR-067 (surface classification; per-user-memory as buffer).
