@@ -118,21 +118,29 @@ have **no header docstring**, so their "enforces" lines were inferred from impor
 and constants rather than read from an authored description — those five are the
 first candidates for the description contract.
 
-## Nine authored skills that no harness can summon (unticketed as of the boundary)
+## Nine authored skills that no harness can summon (cure in flight: PR #731)
 
-**Correction of record.** This section first read that a skill directory "has held
-no readable canonical" — implying a broken artefact. The owner corrected it at the
-boundary and the truth is the opposite, and worse: the artefacts are fine and the
-**tooling's model of the corpus is wrong**.
+**Correction of record — two passes.** This section first read that a skill directory
+"has held no readable canonical", implying a broken artefact. The owner corrected it
+at the boundary and the truth is the opposite, and worse: the artefacts are fine and
+the **tooling's model of the corpus is wrong**.
+
+The second correction was made on resume, 2026-08-04. The original text called this
+finding **"unticketed as of the boundary"**. That claim was wrong and had never been
+checked. PR #731 (`jimcresswell/parallax-family-generator`, opened 2026-08-03T08:45Z —
+a full day *before* the boundary, draft, CHANGES_REQUESTED) exists precisely to cure
+it, under an owner ruling of 2026-08-02. The verified finding stood; the ownership
+claim attached to it did not, because nothing was searched before asserting it.
 
 `.agent/skills/cognition/` is not a skill. It is a *collection*, and it holds the
 Parallax family at `cognition/parallax/skills/` — **nine valid
 `SKILL-CANONICAL.md` files** (`parallax`, `-frame`, `-decide`, `-learn`, `-audit`,
 `-synthesise`, `-design-inquiry`, `-design-experiment`, `-product-experiment`).
 
-Verified at the boundary: **zero of the nine are emitted as adapters** to either
-`.claude/skills/` or `.agents/skills/`. Nine skills of authored work exist in the
-corpus and are summonable in no harness at all.
+Verified at the boundary, and still true on main because #731 is unmerged: **zero of
+the nine are emitted as adapters** to either `.claude/skills/` or `.agents/skills/`.
+Nine skills of authored work exist in the corpus and are summonable in no harness at
+all.
 
 The generator's model is flat — one canonical per top-level directory — and the
 corpus has grown a nested family shape it cannot express. Its own message names the
@@ -156,7 +164,16 @@ routing defect with the same standing as a broken link.
 
 **Owner position at the boundary** (2026-08-04): the collection was intended to hold
 *all* thought-structuring skills, and the corpus should **either** endorse filesystem
-organisation **or** be flat — *"mixing is a bad idea"*. That fork, and the
-requirement that whichever shape wins the tooling must REFUSE the other rather than
-ignore it, is tracked as MCP-494. The mix is what turned a design question into nine
-invisible skills.
+organisation **or** be flat — *"mixing is a bad idea"*.
+
+PR #731 already implements an answer. It removes the category tier by intact `git mv`
+(`.agent/skills/cognition/parallax/` → `.agent/skills/parallax/`) and admits exactly
+two shapes — flat individuals, and one-tier family bundles at
+`<family-id>/skills/<skill-id>/` — refusing anything else, with duplicate leaf ids
+failing `--check` rather than last-writer-winning silently.
+
+So **MCP-494 is not a fresh design fork**; it is the reconciliation, and should be
+worked as one: does #731's two-shape rule satisfy the owner's 2026-08-04 restatement,
+and does the tooling REFUSE the non-conforming shape rather than ignore it? The mix is
+what turned a design question into nine invisible skills; the refusal behaviour is the
+part that stops it recurring.

@@ -3,17 +3,18 @@ name: set-up-worktree-lane
 classification: active
 description: >-
   Create a git worktree for a lane and configure it so every downstream surface is
-  true: worktree-scoped bot commit identity, dependencies, environment files, and a
-  draft PR at first push. Use when taking up a lane needing its own checkout, or when
-  a worktree misbehaves — commits attributed to nobody, missing env, hook failures.
-  Do not use to switch branches in place (never on the principal), for the
-  session-level residency switch alone (that is EnterWorktree), or to dispose of a
-  finished worktree. Right looks like: branch cut explicitly from origin/main,
-  identity verified on the worktree AND the principal, deps installed, .env.local
-  carried, draft PR at first push. Wrong looks like: EnterWorktree fresh mode basing
-  the branch on the principal's coordination HEAD so the lane PR ships foreign
-  commits; or the bot commit email carrying the app id instead of the bot user id,
-  which resolves to no GitHub user and silently breaks deployment attribution.
+  true: an inherited bot commit identity checked rather than re-set, dependencies,
+  environment files, and a draft PR at first push. Use when taking up a lane needing
+  its own checkout, or when a worktree misbehaves — commits attributed to nobody,
+  missing env, hook failures. Do not use to switch branches in place (never on the
+  principal), for the session-level residency switch alone (that is EnterWorktree),
+  or to dispose of a finished worktree. Right looks like: branch cut explicitly from
+  origin/main, the inherited bot identity verified with no worktree-scoped override
+  shadowing it, deps installed, .env.local carried, draft PR at first push. Wrong
+  looks like: EnterWorktree fresh mode basing the branch on the principal's
+  coordination HEAD so the lane PR ships foreign commits; or the bot commit email
+  carrying the app id instead of the bot user id, which resolves to no GitHub user
+  and silently breaks deployment attribution.
 ---
 
 # Set Up a Worktree Lane
@@ -54,29 +55,38 @@ branching from `origin/main` but has been observed basing the branch on the
 lane PR ships coordination commits riding under the story. That cost a
 close-and-recreate cycle once already (PR #673 → #674).
 
-### 2. Configure the commit identity — the step nothing else does for you
+### 2. Verify the commit identity — inherited, never re-set here
 
-A worktree created by the harness inherits the shared repo config. If that config is
-ever wrong, every worktree is wrong and nothing says so until an external system
-complains.
+The identity lives once in the clone's shared local config and every worktree
+inherits it (owner ruling 2026-08-04; doctrine in
+[`bot-identity-on-third-party-systems`](../../rules/bot-identity-on-third-party-systems.md)).
+A new worktree therefore needs no identity step at all — only a check that what it
+inherited is right:
 
-Derive the id, never transcribe it — the address embeds the **bot user id**, not the
-app id, the two sit near each other in the docs, and the wrong one produces an
-address that resolves to no GitHub user at all:
+```bash
+git -C <path> config user.email
+# expect: 307435217+jimbot-oakington-iii[bot]@users.noreply.github.com
+```
+
+If that is wrong or absent, fix the SHARED config once. Never patch this worktree: a
+`--worktree` override is a second copy that outlives the next correction and
+reintroduces the exact drift this step exists to catch.
 
 ```bash
 BOT_SLUG=$(jq -r .appSlug .github/merge-bot.json)
 BOT_ID=$(gh api "users/${BOT_SLUG}%5Bbot%5D" --jq .id)
 
-git config extensions.worktreeConfig true          # once per repository
-git -C <path> config --worktree user.name  "${BOT_SLUG}[bot]"
-git -C <path> config --worktree user.email "${BOT_ID}+${BOT_SLUG}[bot]@users.noreply.github.com"
+git config user.name  "${BOT_SLUG}[bot]"
+git config user.email "${BOT_ID}+${BOT_SLUG}[bot]@users.noreply.github.com"
 ```
 
-Deriving matters more than it looks: a literal id copied into a document is a second
-copy of a fact that already lives somewhere authoritative, and the copy is the one
-that goes stale. The identity that came out of this sequence is correct by
-construction; one transcribed by hand was wrong for days.
+Derive the id, never transcribe it — the address embeds the **bot user id**, not the
+app id, the two sit near each other in the docs, and the wrong one produces an
+address that resolves to no GitHub user at all. A literal id copied into a document
+is a second copy of a fact that already lives somewhere authoritative, and the copy
+is the one that goes stale: the identity produced by this sequence is correct by
+construction, one transcribed by hand was wrong for days. Because there is exactly
+one copy, fixing it cures every worktree at once.
 
 Committer and author are different identities by owner ruling: the **committer** is
 the acting agent (the config above); the **author** is the human whose authority the
@@ -107,13 +117,14 @@ the owning workflow rather than copying, so their manifest vintage stays honest.
 | Check | Command | Expected |
 | --- | --- | --- |
 | Identity resolves in the worktree | `git -C <path> config user.email` | the bot address above |
-| The principal is untouched | `git -C <principal> config user.name` | still the human |
+| Nothing shadows the shared copy | `git -C <path> config --worktree --get-regexp '^user\.'` | no output |
 | Base is clean | `git -C <path> log --oneline origin/main..HEAD` | only this story's commits |
 | Attribution is right | `git -C <path> log -1 --format='%an / %cn'` | author human, committer bot |
 
-The second row is not optional. With `extensions.worktreeConfig` enabled, a plain
-`git config user.*` write from inside a worktree still targets the **shared** scope
-and flips the principal's identity too — a near-miss already recorded on 2026-07-24.
+The second row is not optional, and a green first row cannot stand in for it. A
+`--worktree` override holding the *same* value reads correct today and silently keeps
+the stale one the day the shared config is corrected — which is how a single wrong id
+came to sit in nine places at once.
 
 ### 6. First push carries a draft PR
 
@@ -126,10 +137,12 @@ leaves an ambiguous write.
 ## Failure shapes this procedure exists to prevent
 
 - **Attribution that resolves to nobody** (2026-08-04). The shared config carried the
-  app id in the commit email. Six worktrees had the correct value worktree-scoped;
-  every other worktree inherited the broken one. It surfaced only as a Vercel
-  deployment warning — "Invalid git email address / No matching user / Vercel Account:
-  Unavailable" — days after the drift. Ticket MCP-490 tracks making this mechanical.
+  app id in the commit email, and worktree-scoped copies masked the fault unevenly —
+  some worktrees right, the rest broken, with no surface reporting the split. It
+  surfaced only as a Vercel deployment warning — "Invalid git email address / No
+  matching user / Vercel Account: Unavailable" — days after the drift. The cure is
+  structural and now doctrine: one copy in the shared config, so a correction cannot
+  be half-applied. Ticket MCP-490 tracks making the check mechanical.
 - **The contaminated base** (PR #673). Fresh-mode branch creation from the
   principal's HEAD; the lane PR carried coordination commits; cost a close-recreate.
 - **The gate that blames the wrong thing** (2026-08-04). `PNPM_HOME` on a machine may
