@@ -7,19 +7,35 @@ import { type PathExists } from '../core/path-exists.js';
 
 /**
  * Ordered candidate absolute paths for the pnpm binary, derived from the
- * environment: `$PNPM_HOME`, the per-user standalone install locations (macOS and
- * Linux), then the common system directories. Bare `pnpm` is never a candidate —
- * resolution must never fall back to a PATH lookup.
+ * environment: `$PNPM_HOME` (and its `bin/` subdirectory), the per-user
+ * standalone install locations (macOS and Linux), then the common system
+ * directories. Bare `pnpm` is never a candidate — resolution must never fall
+ * back to a PATH lookup.
+ *
+ * `$PNPM_HOME/bin/pnpm` is probed because pnpm's own installer treats
+ * `PNPM_HOME` as the *global bin directory* while some installations place the
+ * launcher one level down. Observed 2026-08-04: on a contributor machine whose
+ * `PNPM_HOME` held the launcher under a `bin/` subdirectory, none of the
+ * previous candidates existed, so every commit failed — and the pre-commit
+ * hook surfaced the resolver's error as "formatting issues found", which sent
+ * two separate agents hunting a formatting problem that did not exist. Adding
+ * the candidate keeps the no-PATH invariant intact: it is still an absolute
+ * path derived from the environment, never a lookup.
  */
 function pnpmCandidates(env: NodeJS.ProcessEnv): readonly string[] {
   const candidates: string[] = [];
   const pnpmHome = env.PNPM_HOME?.trim();
   if (pnpmHome !== undefined && pnpmHome.length > 0) {
-    candidates.push(`${pnpmHome}/pnpm`);
+    candidates.push(`${pnpmHome}/pnpm`, `${pnpmHome}/bin/pnpm`);
   }
   const home = env.HOME?.trim();
   if (home !== undefined && home.length > 0) {
-    candidates.push(`${home}/Library/pnpm/pnpm`, `${home}/.local/share/pnpm/pnpm`);
+    candidates.push(
+      `${home}/Library/pnpm/pnpm`,
+      `${home}/Library/pnpm/bin/pnpm`,
+      `${home}/.local/share/pnpm/pnpm`,
+      `${home}/.local/share/pnpm/bin/pnpm`,
+    );
   }
   candidates.push('/opt/homebrew/bin/pnpm', '/usr/local/bin/pnpm', '/usr/bin/pnpm');
   // Enforce the absolute-only invariant: a relative PNPM_HOME (or HOME) would pass an

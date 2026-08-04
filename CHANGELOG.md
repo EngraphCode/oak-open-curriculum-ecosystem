@@ -1,3 +1,39 @@
+# [1.149.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.5...v1.149.0) (2026-08-04)
+
+
+### Features
+
+* **skills:** add set-up-worktree-lane, the worktree creation procedure ([e440e4a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e440e4a3b045c26705a5573e40eab0d0b892bd9f))
+
+## [1.148.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.4...v1.148.5) (2026-08-04)
+
+
+### Bug Fixes
+
+* **agent-tools:** make install-version-guard smoke deterministic on clean runners ([d95219a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d95219a89e7f4506c542271e2872a3e1603c24f8))
+* **agent-tools:** nest the pin so install-version-guard smoke survives self-managing pnpm ([d2860e8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d2860e83f19f461af72fa9c72a256f796ba47e8f))
+* **tooling:** guard installs against mismatched pnpm ([de199bb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/de199bb872ae6411a8ebf5458e33358133803196))
+* **tooling:** isolate runtime-only lint from the type-aware eslint config ([832bbd9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/832bbd977d043cb65935a70cf9c43977c08eb57e))
+
+## [1.148.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.3...v1.148.4) (2026-08-04)
+
+## [1.148.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.2...v1.148.3) (2026-08-04)
+
+
+### Bug Fixes
+
+* **agent-tools:** probe $PNPM_HOME/bin for the pnpm launcher ([b5d3d43](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b5d3d43cfb1f49d7fe12fd31e085627d43e99571))
+
+## [1.148.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.1...v1.148.2) (2026-08-04)
+
+
+### Bug Fixes
+
+* **agent-tools:** close the statMtimeMs TOCTOU in the bootstrap fs binding (mcp-472) ([494264e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/494264e1a1e588c3de9834bf93ca2a53675036cf))
+* **agent-tools:** rebuild stale workspace dist in bootstrap (mcp-472) ([c7959a6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c7959a663e29dca480e0965efa0024e14b9251c1))
+
+## [1.148.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.0...v1.148.1) (2026-08-04)
+
 # [1.148.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.147.0...v1.148.0) (2026-08-04)
 
 
