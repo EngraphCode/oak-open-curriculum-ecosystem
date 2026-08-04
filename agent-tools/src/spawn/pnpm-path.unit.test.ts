@@ -109,7 +109,7 @@ describe('resolvePnpm — PNPM_HOME/bin layout (2026-08-04 regression)', () => {
     expect(result.ok && result.value).toBe('/pnpm-home/pnpm');
   });
 
-  it('finds the standalone per-user bin layout with no PNPM_HOME set', () => {
+  it('finds the Linux standalone per-user bin layout with no PNPM_HOME set', () => {
     const result = resolvePnpm(
       { HOME: '/home-dir' },
       (path) => path === '/home-dir/.local/share/pnpm/bin/pnpm',
@@ -118,11 +118,37 @@ describe('resolvePnpm — PNPM_HOME/bin layout (2026-08-04 regression)', () => {
     expect(result.ok && result.value).toBe('/home-dir/.local/share/pnpm/bin/pnpm');
   });
 
+  // The macOS sibling of the case above. This is the layout that actually broke —
+  // the observed machine had the launcher under `Library/pnpm/bin/` — so without
+  // this case the candidate that fixes the real defect could be deleted or
+  // mistyped and the suite would stay green.
+  it('finds the macOS standalone per-user bin layout with no PNPM_HOME set', () => {
+    const result = resolvePnpm(
+      { HOME: '/home-dir' },
+      (path) => path === '/home-dir/Library/pnpm/bin/pnpm',
+    );
+
+    expect(result.ok && result.value).toBe('/home-dir/Library/pnpm/bin/pnpm');
+  });
+
   it('names every searched path when pnpm is absent, so the remedy is actionable', () => {
-    const result = resolvePnpm({ PNPM_HOME: '/pnpm-home', HOME: '/home-dir' }, () => false);
+    const probed: string[] = [];
+    const result = resolvePnpm({ PNPM_HOME: '/pnpm-home', HOME: '/home-dir' }, (candidate) => {
+      probed.push(candidate);
+      return false;
+    });
 
     expect(result.ok).toBe(false);
-    expect(!result.ok && result.error.message).toContain('/pnpm-home/bin/pnpm');
+    expect(probed.length).toBeGreaterThan(0);
+
+    // "Every" is the promise in this test's name, so assert against the set the
+    // resolver actually probed rather than a hand-listed subset — otherwise a new
+    // candidate can be added without ever appearing in the error a user reads.
+    // Checking the probe set keeps the assertion true as the candidate list grows.
+    const message = result.ok ? '' : result.error.message;
+    for (const candidate of probed) {
+      expect(message).toContain(candidate);
+    }
   });
 
   it('never admits a relative candidate, keeping the absolute-only invariant', () => {
