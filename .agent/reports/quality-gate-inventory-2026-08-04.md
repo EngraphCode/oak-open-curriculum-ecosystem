@@ -118,21 +118,38 @@ have **no header docstring**, so their "enforces" lines were inferred from impor
 and constants rather than read from an authored description — those five are the
 first candidates for the description contract.
 
-## A gate hole found while writing this (unticketed as of the boundary)
+## Nine authored skills that no harness can summon (unticketed as of the boundary)
 
-`pnpm skills:check` — the gate that runs at pre-push, in CI, and in `pnpm check` —
-validates adapter **drift** only. It is blind to a canonical that cannot be summoned
-at all. The `cognition/` skill directory has held no readable `SKILL-CANONICAL.md`
-since 2026-08-02 (it is a *family* directory awaiting the family-aware generator
-extension). In generate mode the tool prints
+**Correction of record.** This section first read that a skill directory "has held
+no readable canonical" — implying a broken artefact. The owner corrected it at the
+boundary and the truth is the opposite, and worse: the artefacts are fine and the
+**tooling's model of the corpus is wrong**.
+
+`.agent/skills/cognition/` is not a skill. It is a *collection*, and it holds the
+Parallax family at `cognition/parallax/skills/` — **nine valid
+`SKILL-CANONICAL.md` files** (`parallax`, `-frame`, `-decide`, `-learn`, `-audit`,
+`-synthesise`, `-design-inquiry`, `-design-experiment`, `-product-experiment`).
+
+Verified at the boundary: **zero of the nine are emitted as adapters** to either
+`.claude/skills/` or `.agents/skills/`. Nine skills of authored work exist in the
+corpus and are summonable in no harness at all.
+
+The generator's model is flat — one canonical per top-level directory — and the
+corpus has grown a nested family shape it cannot express. Its own message names the
+cure ("or land the family-aware generator extension"), so the mismatch is *known to
+the tool* and invisible to every gate: in generate mode it prints
 `ERROR — … cannot be summoned in any harness` **and exits 0**; in `--check` mode —
-the mode the hooks and CI actually run — it does not mention it at all.
+the mode the hooks and CI actually run — it says nothing at all.
 
-So a skill can be invisible in every harness while every gate stays green. This is
-both a ledger entry (a gate whose stated coverage exceeds its real coverage) and a
-live defect. It matters more under the owner's ruling that skills become the source
-of truth *because* they are the only lever with eval support: the gate protecting
-that corpus currently cannot see a corpus member that has ceased to exist.
+This is the ledger thesis in one artefact: a gate whose stated coverage exceeds its
+real coverage, green on every surface, hiding nine missing skills. It matters more
+under the owner's ruling that skills become the source of truth *because* they are
+the only lever with eval support — the corpus we are about to make authoritative has
+a ninefold hole in its delivery path.
+
+A search caution for whoever picks this up: grepping adapter directories for
+`cognition` matches `metacognition` and reads as a false positive. Search for
+`parallax`.
 
 Nothing gates skill **description** quality either, which the naming rule calls a
 routing defect with the same standing as a broken link.
