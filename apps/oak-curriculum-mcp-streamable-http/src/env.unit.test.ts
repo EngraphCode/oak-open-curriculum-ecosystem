@@ -142,15 +142,34 @@ describe('Conditional Clerk keys (DANGEROUSLY_DISABLE_AUTH)', () => {
     }
   });
 
-  it('allows DANGEROUSLY_DISABLE_AUTH=true in preview and development', () => {
-    for (const env of ['preview', 'development'] as const) {
-      const result = HttpEnvSchema.safeParse({
-        ...baseEnv,
-        DANGEROUSLY_DISABLE_AUTH: 'true',
-        VERCEL_ENV: env,
-      });
-      expect(result.success).toBe(true);
+  it('rejects DANGEROUSLY_DISABLE_AUTH=true in preview — a deployed, internet-reachable env', () => {
+    const result = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      DANGEROUSLY_DISABLE_AUTH: 'true',
+      VERCEL_ENV: 'preview',
+    });
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const paths = result.error.issues.map((i) => i.path.join('.'));
+      expect(paths).toContain('DANGEROUSLY_DISABLE_AUTH');
     }
+  });
+
+  it('allows DANGEROUSLY_DISABLE_AUTH=true in development and when VERCEL_ENV is unset (local)', () => {
+    const development = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      DANGEROUSLY_DISABLE_AUTH: 'true',
+      VERCEL_ENV: 'development',
+    });
+    expect(development.success).toBe(true);
+
+    // Unset VERCEL_ENV = a local, non-Vercel run — the valve stays usable.
+    const local = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      DANGEROUSLY_DISABLE_AUTH: 'true',
+    });
+    expect(local.success).toBe(true);
   });
 
   describe('CANONICAL_HOST', () => {
