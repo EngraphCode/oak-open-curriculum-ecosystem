@@ -4,29 +4,57 @@ Complete reference for all environment variables used across the Oak Open Curric
 
 ## Changing a deployment environment variable (procedure)
 
-Deployment environment values are live production state: a change reaches
-running deployments without any deployment of your own, and the platform
-gives them none of the review, versioning, or rollback that code gets.
+Deployment environment values get none of the review, versioning, or
+rollback that code gets, and a change to one is not visible in any diff.
 Both 2026-08-03 outages came from this surface. Follow all four steps.
+
+**The supported contract is change → redeploy → verify.** Per Vercel:
+
+> Changes to environment variables are not applied to previous
+> deployments, they only apply to new deployments. You must redeploy your
+> project to update the value of any variables you change in the
+> deployment.
+> — [Managing environment variables](https://vercel.com/docs/environment-variables/managing-environment-variables)
+
+This is why an edit is not finished when the dashboard shows it saved.
+It is also why the danger is _delayed_ rather than immediate: a bad value
+sits harmless until some later deployment — one that may look entirely
+routine and carry no indication its configuration moved underneath it.
+
+_(Corrected 2026-08-04: this section previously stated that a change
+reaches running deployments without any deployment of your own. The
+vendor documents the opposite, and any incident timeline reasoned from
+the old claim should be re-derived.)_
 
 1. **Validate the value before entering it.** Run it through the guard
    that will judge it — for the pseudonym keyring, the strict resolver;
    for JSON-shaped values, a parse. A value that has never been
    machine-checked is a value you are pasting on faith.
-2. **Never delete a record a running deployment depends on.** Deployments
-   bind variables **by internal record ID, not by name**. Deleting a
-   record and creating a replacement with the same name leaves every
-   running deployment holding a dangling reference — it sees the variable
-   as absent — while the dashboard shows a correct entry and gives no
-   indication anything is wrong. **Edit in place** where possible (the
-   record ID survives). When splitting one variable into per-environment
-   records, **add the new records first, deploy, and only then remove the
-   old one**.
-3. **Deploy, then check liveness.** A running deployment does not
-   necessarily pick up the new state, and a poisoned one never
-   self-heals. After any change, deploy and confirm the affected origins
-   answer (`/healthz`, plus an authenticated-surface probe). This step is
-   what makes an environment change complete.
+2. **Prefer editing in place over delete-and-recreate.** Observed on
+   2026-08-03: a variable was deleted and recreated under the same name,
+   and the deployment then behaved as though the variable were absent
+   while the dashboard showed a correct entry and gave no indication
+   anything was wrong. **Edit in place** where possible. When splitting
+   one variable into per-environment records, **add the new records
+   first, deploy, and only then remove the old one**.
+
+   _Mechanism unconfirmed._ The working hypothesis is that deployments
+   bind variables by an internal record identifier rather than by name,
+   so a recreated record is a different record wearing the same label.
+   We have found no vendor documentation stating this, so it is recorded
+   as an inference from one incident, not as a platform fact. The
+   procedure above is safe whether or not the hypothesis holds, which is
+   why it is stated as the rule while the explanation is not. If you find
+   vendor documentation either way, record it here and on MCP-475.
+
+3. **Redeploy, then check liveness.** Per the contract above a change
+   reaches nothing until you redeploy, and a deployment that boots on a
+   bad value never self-heals. After any change, redeploy and confirm the
+   affected origins answer — `/healthz`, plus an authenticated-surface
+   probe sending `Accept: application/json, text/event-stream` (without
+   that header the transport returns 406 before auth is reached, so the
+   probe passes whether or not auth is healthy). This step is what makes
+   an environment change complete.
 4. **If a deployed surface fails, read the runtime logs before forming
    any theory.** The application's fail-fast messages name the failing
    key and where to correct it. Both 2026-08-03 incidents cost hours to
