@@ -15,6 +15,9 @@ import {
   type ParsedBulkData,
 } from './type-emitter';
 
+/** Fixed generation time — emitters take the clock as a value (ADR-078). */
+const generatedAt = new Date('2026-08-03T12:00:00.000Z');
+
 describe('type-emitter', () => {
   describe('toPascalCase', () => {
     it('converts hyphenated strings to PascalCase', () => {
@@ -91,22 +94,25 @@ describe('type-emitter', () => {
 
   describe('buildLessonSlugDataset', () => {
     it('builds JSON-friendly dataset metadata', () => {
-      const dataset = buildLessonSlugDataset([
-        {
-          subject: 'maths',
-          phase: 'primary',
-          sequenceSlug: 'maths-primary',
-          lessonSlugs: ['lesson-a', 'lesson-b'],
-          lessonCount: 2,
-        },
-        {
-          subject: 'science',
-          phase: 'secondary',
-          sequenceSlug: 'science-secondary',
-          lessonSlugs: ['lesson-c'],
-          lessonCount: 1,
-        },
-      ]);
+      const dataset = buildLessonSlugDataset(
+        [
+          {
+            subject: 'maths',
+            phase: 'primary',
+            sequenceSlug: 'maths-primary',
+            lessonSlugs: ['lesson-a', 'lesson-b'],
+            lessonCount: 2,
+          },
+          {
+            subject: 'science',
+            phase: 'secondary',
+            sequenceSlug: 'science-secondary',
+            lessonSlugs: ['lesson-c'],
+            lessonCount: 1,
+          },
+        ],
+        generatedAt,
+      );
 
       expect(dataset.sequenceOrder).toEqual(['maths-primary', 'science-secondary']);
       expect(dataset.totalLessonSlugCount).toBe(3);
@@ -153,7 +159,7 @@ describe('type-emitter', () => {
         },
       ];
 
-      const output = emitAllLessonSlugTypes(allData);
+      const output = emitAllLessonSlugTypes(allData, generatedAt);
 
       // Should have file header
       expect(output).toContain('/**');
@@ -182,7 +188,7 @@ describe('type-emitter', () => {
         },
       ];
 
-      const output = emitAllLessonSlugTypes(allData);
+      const output = emitAllLessonSlugTypes(allData, generatedAt);
 
       expect(output).not.toContain('AnyLessonSlug');
       expect(output).not.toContain('isValidLessonSlug');
@@ -208,7 +214,7 @@ describe('type-emitter', () => {
         },
       ];
 
-      const output = emitAllLessonSlugTypes(allData);
+      const output = emitAllLessonSlugTypes(allData, generatedAt);
 
       expect(output).toContain('export const ALL_LESSON_SLUGS');
       expect(output).toContain('new Set(lessonSlugData.allLessonSlugs)');
@@ -216,7 +222,7 @@ describe('type-emitter', () => {
     });
 
     it('handles empty data array', () => {
-      const output = emitAllLessonSlugTypes([]);
+      const output = emitAllLessonSlugTypes([], generatedAt);
 
       expect(output).toContain(
         'export const ALL_LESSON_SLUGS: ReadonlySet<string> = new Set(lessonSlugData.allLessonSlugs)',
@@ -235,7 +241,7 @@ describe('type-emitter', () => {
         },
       ];
 
-      const output = emitAllLessonSlugTypes(allData);
+      const output = emitAllLessonSlugTypes(allData, generatedAt);
 
       expect(output).toContain('const SLUG_TO_SUBJECT: ReadonlyMap<string, string>');
       expect(output).not.toContain('export const SLUG_TO_SUBJECT');
@@ -259,7 +265,7 @@ describe('type-emitter', () => {
         },
       ];
 
-      const output = emitAllLessonSlugTypes(allData);
+      const output = emitAllLessonSlugTypes(allData, generatedAt);
 
       expect(output).toContain('export const TOTAL_LESSON_SLUG_COUNT = 3');
     });
