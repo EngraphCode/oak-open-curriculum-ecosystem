@@ -182,11 +182,17 @@ describe('Conditional Clerk keys (DANGEROUSLY_DISABLE_AUTH)', () => {
 
 describe('PostHog product-analytics selection (OBSERVABILITY_SINKS)', () => {
   const ZERO_KEY = Buffer.alloc(32, 0).toString('base64url');
+  // A valid posthog-selected boot needs the PostHog inputs AND live Sentry:
+  // the "sentry" sink is only a selection marker, so SENTRY_MODE must be
+  // "sentry" (not the default "off") with a DSN for the diagnostic sink to
+  // actually deliver (MCP-361, owner-strengthened).
   const validPostHogVars = {
     POSTHOG_PROJECT_API_KEY: 'phc_test_project_key',
     POSTHOG_HOST: 'https://eu.i.posthog.com',
     POSTHOG_PSEUDONYM_ACTIVE_KEY_ID: 'k2026_01',
     POSTHOG_PSEUDONYM_KEYRING: JSON.stringify([{ id: 'k2026_01', key: ZERO_KEY }]),
+    SENTRY_MODE: 'sentry',
+    SENTRY_DSN: 'https://public@example.ingest.sentry.io/123456',
   };
 
   it('accepts a selection without posthog and requires no PostHog variables', () => {
@@ -345,7 +351,7 @@ describe('PostHog product-analytics selection (OBSERVABILITY_SINKS)', () => {
     );
 
     it.each(EVERY_ENVIRONMENT)(
-      'accepts OBSERVABILITY_SINKS=["sentry","posthog"] with the full PostHog config in %s',
+      'accepts OBSERVABILITY_SINKS=["sentry","posthog"] with the full PostHog + live-Sentry config in %s',
       (vercelEnv) => {
         const result = HttpEnvSchema.safeParse({
           ...withClerkKeys,
@@ -356,5 +362,67 @@ describe('PostHog product-analytics selection (OBSERVABILITY_SINKS)', () => {
         expect(result.success).toBe(true);
       },
     );
+
+    // The sink marker alone is not enough: SENTRY_MODE gates real delivery,
+    // so SENTRY_MODE=off (the default) boots the sink dark — the exact
+    // "false marker" an operator hits when they set only the sink. PostHog
+    // must never ship without Sentry actually active (owner-strengthened,
+    // MCP-361).
+    it.each(EVERY_ENVIRONMENT)(
+      'rejects a posthog selection with SENTRY_MODE=off (Sentry dark) in %s',
+      (vercelEnv) => {
+        const result = HttpEnvSchema.safeParse({
+          ...withClerkKeys,
+          VERCEL_ENV: vercelEnv,
+          OBSERVABILITY_SINKS: '["sentry","posthog"]',
+          ...validPostHogVars,
+          SENTRY_MODE: 'off',
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          const issue = result.error.issues.find((i) => i.path.join('.') === 'SENTRY_MODE');
+          expect(issue?.message).toContain('posthog');
+          expect(issue?.message).toContain('false marker');
+        }
+      },
+    );
+
+    it.each(EVERY_ENVIRONMENT)(
+      'rejects a posthog selection with SENTRY_MODE=sentry but no SENTRY_DSN in %s — Sentry cannot deliver',
+      (vercelEnv) => {
+        const result = HttpEnvSchema.safeParse({
+          ...withClerkKeys,
+          VERCEL_ENV: vercelEnv,
+          OBSERVABILITY_SINKS: '["sentry","posthog"]',
+          ...validPostHogVars,
+          SENTRY_DSN: undefined,
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          const paths = result.error.issues.map((i) => i.path.join('.'));
+          expect(paths).toContain('SENTRY_DSN');
+        }
+      },
+    );
+
+    it('reports every missing Sentry requirement at once (sink, SENTRY_MODE, DSN)', () => {
+      // The rule accumulates rather than stopping at the first gap, so an
+      // operator sees the whole picture. ["posthog"] alone with no Sentry
+      // config at all must surface all three paths.
+      const result = HttpEnvSchema.safeParse({
+        ...withClerkKeys,
+        OBSERVABILITY_SINKS: '["posthog"]',
+        ...validPostHogVars,
+        SENTRY_MODE: 'off',
+        SENTRY_DSN: undefined,
+      });
+      expect(result.success).toBe(false);
+      if (!result.success) {
+        const paths = result.error.issues.map((i) => i.path.join('.'));
+        expect(paths).toContain('OBSERVABILITY_SINKS');
+        expect(paths).toContain('SENTRY_MODE');
+        expect(paths).toContain('SENTRY_DSN');
+      }
+    });
   });
 });

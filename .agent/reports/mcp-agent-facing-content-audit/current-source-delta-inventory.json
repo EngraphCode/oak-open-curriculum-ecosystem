@@ -160,7 +160,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/env-product-analytics.ts",
-      "semanticSha256": "a1ef427bfd695b5fbdefe5a6804c75f00663e3998ca5d03788fee27f68422cc7",
+      "semanticSha256": "8a67d2cb8ce836a2b2c34bb7782d8b0bee67dadf437ba9e0a60b0be0baf62a36",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
