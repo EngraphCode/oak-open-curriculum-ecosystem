@@ -408,9 +408,10 @@ function safeReadPreviousVersion(deps, repositoryRoot, validatedSha) {
 
 /**
  * Implements the production-build cancellation truth table from
- * ADR-163 §10 (second amendment, 2026-04-24). Consumed by the Vercel
- * `ignoreCommand` wired in this workspace's `vercel.json`; exit `0`
- * cancels, exit `1` continues.
+ * ADR-163 §10 (second amendment, 2026-04-24; redeploy arm added by the
+ * fourth amendment, 2026-08-04). Consumed by the Vercel `ignoreCommand`
+ * wired in this workspace's `vercel.json`; exit `0` cancels, exit `1`
+ * continues.
  *
  * Rule (§10 truth table):
  *
@@ -418,6 +419,15 @@ function safeReadPreviousVersion(deps, repositoryRoot, validatedSha) {
  * - `main`, current unresolvable → CANCEL with stderr diagnostic.
  * - `main`, previous unresolvable / unset → continue (no previous to
  *   beat; first build).
+ * - `main`, `VERCEL_GIT_COMMIT_SHA === VERCEL_GIT_PREVIOUS_SHA` →
+ *   continue, WITHOUT reading either version. A redeploy of the commit
+ *   already in production cannot be a non-release build: that commit
+ *   passed this gate to reach production, and rebuilding it cannot
+ *   produce a version it did not already have. This arm is what makes
+ *   rebuilding a known-good release possible, which is the recovery
+ *   path §10 would otherwise forbid. It is evaluated BEFORE the
+ *   comparison below, so an equal-SHA rebuild never reaches the
+ *   `current ≤ previous` CANCEL.
  * - `main`, current ≤ previous (semver-precedence) → CANCEL.
  * - `main`, current \> previous → continue.
  *
@@ -426,11 +436,16 @@ function safeReadPreviousVersion(deps, repositoryRoot, validatedSha) {
  * unresolvable is dominated by transient causes. The first amendment's
  * single fail-open clause is superseded by this asymmetry.
  *
- * Trust-boundary discipline: `env.VERCEL_GIT_PREVIOUS_SHA` is treated
- * as untrusted input from Vercel's upstream-provider pass-through. It
- * is validated against `GIT_SHA_PATTERN` once at the boundary; only
- * the validated value flows into the `gitShowFileAtSha` /
- * `gitFetchShallow` capabilities, which re-validate as defence-in-depth.
+ * Trust-boundary discipline: `env.VERCEL_GIT_PREVIOUS_SHA` **and**
+ * `env.VERCEL_GIT_COMMIT_SHA` are both treated as untrusted input from
+ * Vercel's upstream-provider pass-through. Each is validated against
+ * `GIT_SHA_PATTERN` once at the boundary; only validated values flow
+ * into the `gitShowFileAtSha` / `gitFetchShallow` capabilities, which
+ * re-validate as defence-in-depth. Validating both matters because the
+ * redeploy arm turns them into an equality test: an unvalidated pair
+ * could compare equal on malformed input and continue a build the truth
+ * table means to cancel, so the arm requires BOTH to be well-formed
+ * before it fires.
  * Hostile values are treated as if previous were unset (continuing the
  * fail-open posture of the truth table) AND emit a stderr diagnostic
  * naming the offending value's length only — attacker-controlled

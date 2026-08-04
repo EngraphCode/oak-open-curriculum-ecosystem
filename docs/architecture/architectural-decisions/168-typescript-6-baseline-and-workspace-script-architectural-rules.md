@@ -227,11 +227,11 @@ deliberately **outside the unit-test surface**. This is strategy, not a gap.
 `runtime-only-scripts/**`)". Measured against the estate, that was false in
 both directions:
 
-| Directory | Actual coverage |
-| --- | --- |
-| `scripts/**` | never covered — the forcing function below governs, unchanged |
-| `runtime-only-scripts/**` | never covered, in **any** workspace |
-| `build-scripts/**` | **covered where a workspace opts in** — `apps/oak-curriculum-mcp-streamable-http` (`.ts` and `.mjs`, plus `operations/**`) and `packages/core/build-metadata` (`.mjs`) |
+| Directory                 | Actual coverage                                                                                                                                                        |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `scripts/**`              | never covered — the forcing function below governs, unchanged                                                                                                          |
+| `runtime-only-scripts/**` | never covered, in **any** workspace                                                                                                                                    |
+| `build-scripts/**`        | **covered where a workspace opts in** — `apps/oak-curriculum-mcp-streamable-http` (`.ts` and `.mjs`, plus `operations/**`) and `packages/core/build-metadata` (`.mjs`) |
 
 Eighteen test files sit under those directories estate-wide; the MCP app alone
 collects 130 tests from `build-scripts/`. A doctrine that says "never" while
@@ -254,7 +254,7 @@ Consequences:
   globs. The same reading applies to a test found under `build-scripts/` in a
   workspace that has **not** opted that directory into its globs.
 - **The `runtime-only-scripts/` structural exception (added 2026-08-04).** For
-  a §4 file the promote-to-`src/` cure is *unavailable by construction*: the
+  a §4 file the promote-to-`src/` cure is _unavailable by construction_: the
   script must run before `pnpm install`, so it cannot import from `src/`, cannot
   be built, and cannot be reduced to a thin caller over a checked module. There
   is nothing to promote it to. The forcing function has no force here — it can
@@ -268,8 +268,9 @@ Consequences:
   covered by no workspace's globs, so a test there is silently inert.
 
   This exception is narrow by construction: it is available only to files that
-  genuinely cannot be built or import a dependency. A script that *could* be
+  genuinely cannot be built or import a dependency. A script that _could_ be
   TypeScript does not qualify, and §4 already forbids it from living there.
+
 - The vitest include globs are not widened to cover `scripts/**`. Widening them
   would defeat the forcing function and pull thin glue into the checked surface
   where it does not belong.

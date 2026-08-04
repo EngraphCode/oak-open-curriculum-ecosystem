@@ -44,7 +44,7 @@ deps installed. If a script can be TypeScript and run via
 - `vercel-ignore-production-non-release-build.mjs` — Vercel
   `ignoreCommand` script. Decides whether to skip a deploy based on
   the commit's release-tag relationship, always allowing a redeploy of
-  the commit already in production (ADR-163 §10, third amendment).
+  the commit already in production (ADR-163 §10, fourth amendment).
   Runs before `pnpm install`.
   Cited by ADR-024, ADR-078, ADR-158, ADR-163 §10.
   Its unit tests live in `../build-scripts/` because this directory is

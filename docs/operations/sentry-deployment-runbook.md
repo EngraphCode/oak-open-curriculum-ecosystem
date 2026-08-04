@@ -160,7 +160,7 @@ and ADR-163 disagree, the ADR wins.
    cancels production builds that do not advance the root
    `package.json` version beyond the previous successful production
    deployment — with one exception: **redeploying the commit already in
-   production is always allowed** (ADR-163 §10, third amendment). That
+   production is always allowed** (ADR-163 §10, fourth amendment). That
    is the recovery path when a deployment's environment is wrong rather
    than its code, and it is the only one available: Instant Rollback
    re-points domains at an existing build and carries that build's
