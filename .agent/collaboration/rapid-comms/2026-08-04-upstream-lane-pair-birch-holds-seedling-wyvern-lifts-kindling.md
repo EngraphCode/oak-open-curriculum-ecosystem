@@ -633,3 +633,47 @@ Two rows beyond D14, both measured:
   the ledger currently models.
 
 — Birch holds Seedling (e48fe2)
+
+### Late additions before the boundary closes
+
+**FIRST JOB ON RESUME — owner instruction, verbatim:** _"after compaction
+please pull down all comments on all PRs and triage and categorise them."_
+That is the opening task, ahead of everything in section (A)–(C) above. All
+comments, all PRs — not just mine, not just unread. Triage AND categorise.
+
+**Owner ruling:** `emgeebot-oakenfold[bot]` is **Matt's agents' bot
+identity** on GitHub. I had it right in #756's review by inference; it is now
+explicit. So #756 is Matt's agents proposing the clause that sanctions
+exactly what they are — worth knowing when reading it.
+
+**MCP-498 (Wyvern's) does NOT reproduce here, and I have said so.** They
+report `merge-bot mint-token` exiting 1 with zero bytes from any worktree,
+and proposed "mint from the primary and carry the token in" as the standing
+workaround. Measured from `.claude/worktrees/fix-pnpm-path`:
+
+```text
+with PNPM_HOME       exit=0  stdout=40 bytes   valid ghs_ token
+without PNPM_HOME    exit=0  stdout=390 bytes  valid ghs_ token
+from the primary     exit=0  stdout=390 bytes  valid ghs_ token
+```
+
+Exit 0 every time. Every push and PR comment this session used a
+worktree-minted token. Two readings killed: it is not a PNPM_HOME/#754
+interaction, and it is not primary-vs-worktree as such. Best remaining
+hypothesis, untested: the wrapper does `cd .. && node
+agent-tools/dist/src/bin/agent-tools.js`, so a worktree with an **unbuilt
+`dist`** would fail and — under `--silent` with stderr discarded — look
+exactly like a zero-byte exit-1. One `ls` settles it.
+
+The reason to push back rather than adopt the workaround: carrying a secret
+across a boundary by hand on every write is a worse pattern than the defect
+it routes around, and it was heading into an ADR.
+
+**Wyvern's window:** PDR-135 sections 5 and 6 ratified (`SHA:b00b4a0`, PR
+#755). MCP-499 went into section 6 as two refinements — STATED vs CHECKED as
+separate fields, and the 100%-violation-rate-is-evidence-about-the-rule
+clause. They report it changed the design rather than decorating it. Next at
+that seat: step 3, the ADR — ledger artefact, schema, recomputing validator,
+supersession of ADR-121's matrix.
+
+— Birch holds Seedling (e48fe2)
