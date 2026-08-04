@@ -19,15 +19,25 @@ import { type WorkspaceDepDirEntry, type WorkspaceDepFsIo } from './bootstrap-he
  * artifact drives a rebuild rather than throwing during install.
  *
  * Unlike `watcher-staleness-io.ts` (which distinguishes ENOENT from other errno
- * and rethrows the latter), this binding maps *any* unreadable path to
- * `'missing'` via the `existsSync` gate: the fail-open bootstrap prefers to
- * rebuild over crashing the install, so absence and access failure both mean
- * "rebuild". `readDirEntries` returns every entry under `src/`, including
- * co-located `*.test.ts` — so touching a test file conservatively triggers a
- * rebuild (over-rebuild is safe; under-rebuild is the MCP-472 bug).
+ * and rethrows the latter), `statMtimeMs` maps *any* unreadable path to
+ * `'missing'` by catching every `statSync` throw: the fail-open bootstrap
+ * prefers to rebuild over crashing the install, so absence, a list/stat race,
+ * and access failure (`EACCES`/`ELOOP`) all mean "rebuild". A single guarded
+ * `statSync` — rather than an `existsSync` gate followed by `statSync` — closes
+ * the TOCTOU window the recursive `src` walk would otherwise widen (the tree may
+ * be rewritten by a concurrent `git checkout` between the two calls).
+ * `readDirEntries` returns every entry under `src/`, including co-located
+ * `*.test.ts` — so touching a test file conservatively triggers a rebuild
+ * (over-rebuild is safe; under-rebuild is the MCP-472 bug).
  */
 export const productionWorkspaceDepFsIo: WorkspaceDepFsIo = {
-  statMtimeMs: (filePath) => (existsSync(filePath) ? statSync(filePath).mtimeMs : 'missing'),
+  statMtimeMs: (filePath) => {
+    try {
+      return statSync(filePath).mtimeMs;
+    } catch {
+      return 'missing';
+    }
+  },
   dirExists: (dir) => existsSync(dir),
   readDirEntries: (dir) =>
     readdirSync(dir, { withFileTypes: true }).map((entry): WorkspaceDepDirEntry => ({
