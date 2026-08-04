@@ -1,0 +1,259 @@
+name: preview-serves
+
+# Post-deploy liveness gate for preview deployments (MCP-475 Phase D). The
+# required `Vercel` status only asserts "build + deploy completed", so a
+# deployment whose app crashes at first invocation stays green and its PR
+# stays mergeable — the 2026-07-31 boot-dead-preview class. This workflow
+# fires when a deployment reports success, probes the RUNNING deployment
+# (`/healthz` and the path-qualified OAuth protected-resource metadata the
+# MCP handshake actually advertises), and publishes the `preview-serves`
+# commit status. It catches the runtime-only failure classes the
+# build-time deploy-config guard cannot: routing, platform composition,
+# cold-start crashes.
+#
+# Status lifecycle (review round 2026-08-03, PR #743): commit statuses are
+# keyed by SHA+context and last-write-wins, so a redeploy of the same SHA
+# would otherwise leave an earlier `success` satisfying branch protection
+# while the new deployment is probed — or dead. Two mechanisms close that
+# window: (1) PENDING-FIRST — every eligible run overwrites the context
+# with `pending` before probing; (2) NEWEST-DEPLOYMENT BINDING — a run
+# publishes ONLY if its deployment is still the newest for the SHA and
+# environment, checked at entry (stale/redelivered events exit without
+# writing) and again immediately before the terminal write (a run
+# superseded mid-probe exits and leaves the context to the newer run).
+# `concurrency` below serialises same-SHA runs WITHOUT cancellation
+# (a stale event cancelling the newest run at the platform level was
+# the round-3 finding); the newest-binding provides ordering. Once
+# `pending` has landed, no failure path can leave an earlier success
+# standing. The residue: a publish/API failure BEFORE `pending` lands
+# leaves the PRIOR state (possibly an old success) with only the red
+# job as the signal — publish() bounds that window with 3 attempts;
+# re-running the workflow recovers any failure path.
+#
+# Trigger semantics (observed 2026-08-03 on run 30827202090): a
+# `deployment_status` workflow runs from the workflow file at the
+# DEPLOYMENT'S commit SHA — so this gate is live on any branch that
+# carries this file (including the PR that introduces it), and a PR whose
+# head predates this file never reports the status. That run was also
+# the gate's first live catch: it published a `failure` status against
+# a preview whose `/healthz` returned 500 behind a green `Vercel` check.
+#
+# Preconditions for "the gate reports on a PR" — the checklist the
+# ruleset phase must clear before `preview-serves` becomes required:
+#   - the head SHA carries this file (trigger semantics above);
+#   - Vercel emitted a GitHub Deployment and a success status for it
+#     (deliveries proven live on this repo: run 30827202090, 2026-08-03);
+#   - the deployment's environment name contains "Preview". ADR-163 §3
+#     records that Vercel permits `vercel --prod` from a non-main
+#     branch; such a deployment lands under a Production environment
+#     name and this gate does not cover it — a known coverage gap,
+#     not an ADR-backed exclusion;
+#   - the deployment is the NEWEST for its SHA and environment at probe
+#     time (stale or redelivered events exit without writing);
+#   - the deployment's environment_url host is under
+#     vercel.thenational.academy (the egress allowlist below): any
+#     other host publishes an `error` status (with NO target URL, so
+#     the rejected URL is never echoed) — a prior success cannot stand;
+#   - the deployment was created by vercel[bot] (the creator gate below).
+# A deployment that reports failure/error produces no status here; the
+# required `Vercel` check already covers that case red.
+#
+# Sequencing note: `preview-serves` joins the branch ruleset's required
+# checks only AFTER it has been observed reporting a PASSING result on a
+# real PR (an unreporting required status would block every merge). That
+# addition must require the STATUS CONTEXT `preview-serves` (not this
+# workflow's job check run) and pin the context's integration to GitHub
+# Actions — the plan's verification step orders this deliberately. The
+# ruleset change lands with its paired doc changes in the same PR: an
+# ADR-121 coverage-matrix row and change-log entry, and an ADR-204
+# required-check-set update (ADR-204 has separately drifted from the
+# live ruleset — reconcile it there). The same step must adjudicate the
+# trusted-publisher question raised in PR #743's review: this workflow
+# runs from branch-controlled code, so a PR can edit its own copy to
+# publish success — before the status becomes REQUIRED, publication
+# must move behind a trust boundary a PR branch cannot rewrite (a
+# default-branch-run publisher or a dedicated App), with the probe kept
+# unprivileged. Until then CODEOWNERS review of workflow changes is the
+# compensating control.
+
+on:
+  deployment_status:
+
+permissions: {}
+
+# SERIALISES runs per SHA without cancellation: a stale redelivered
+# event must never CANCEL the newest deployment's run at the platform
+# level (the cancelled owner would leave a stuck pending, or an old
+# success standing, that the in-script binding cannot undo). Queued
+# runs each hit the newest-deployment binding; only the current owner
+# writes, and a stale run exits without publishing.
+concurrency:
+  group: preview-serves-${{ github.event.deployment.sha }}
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    name: probe
+    # Vercel names preview deployment environments "Preview" (optionally
+    # suffixed); production deployments are out of scope for this gate.
+    # The creator gate stops a write-access actor minting an
+    # Actions-attributed `preview-serves` green on an arbitrary SHA via a
+    # hand-crafted deployment + status (creator.login field verified
+    # 2026-08-03 on live deployment 5729994312; `performed_via_github_app`
+    # is null for Vercel deployments on this repo, so the login is the
+    # stable field).
+    if: >-
+      github.event.deployment_status.state == 'success' &&
+      contains(github.event.deployment.environment, 'Preview') &&
+      github.event.deployment_status.environment_url != '' &&
+      github.event.deployment.creator.login == 'vercel[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      statuses: write
+      deployments: read
+    steps:
+      - name: Probe the deployment and publish the preview-serves status
+        shell: bash
+        env:
+          TARGET_URL: ${{ github.event.deployment_status.environment_url }}
+          DEPLOY_SHA: ${{ github.event.deployment.sha }}
+          DEPLOYMENT_ID: ${{ github.event.deployment.id }}
+          DEPLOY_ENV: ${{ github.event.deployment.environment }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+
+          # per_page=100 + jq max: the deployments list API documents no
+          # sort order, so newest is COMPUTED, never assumed positional.
+          api_newest_deployment_id() {
+            gh api -X GET "repos/${REPO}/deployments" \
+              -f "sha=${DEPLOY_SHA}" -f "environment=${DEPLOY_ENV}" \
+              -f per_page=100 --jq '[.[].id] | max'
+          }
+
+          publish() {
+            local state="$1"
+            local description="$2"
+            local target="${3-}"
+            local attempt_pub
+            set -- -f state="$state" -f context=preview-serves -f description="$description"
+            [ -n "$target" ] && set -- "$@" -f target_url="$target"
+            for attempt_pub in 1 2 3; do
+              if gh api "repos/${REPO}/statuses/${DEPLOY_SHA}" "$@" >/dev/null; then
+                return 0
+              fi
+              [ "$attempt_pub" -lt 3 ] && sleep 2
+            done
+            echo "::error::could not publish preview-serves ${state} status for ${DEPLOY_SHA} after 3 attempts" >&2
+            return 1
+          }
+
+          # Terminal writes re-bind to the newest deployment: if a newer
+          # deployment for this SHA started mid-probe, its run owns the
+          # context now and this run must not write over it.
+          finish() {
+            local state="$1"
+            local description="$2"
+            local n
+            n=$(api_newest_deployment_id) || {
+              echo "::error::could not re-verify newest deployment; leaving the context as it stands" >&2
+              exit 1
+            }
+            [ -n "$n" ] || {
+              echo "::error::no deployment found for ${DEPLOY_SHA} / ${DEPLOY_ENV} at finish" >&2
+              exit 1
+            }
+            if [ "$n" != "$DEPLOYMENT_ID" ]; then
+              echo "superseded by deployment ${n} mid-run — exiting without a terminal publish" >&2
+              exit 0
+            fi
+            publish "$state" "$description" "$TARGET_URL"
+          }
+
+          # Stale-event gate: deployments repeat for one SHA and webhook
+          # events can be redelivered late. Only the newest deployment's
+          # run may write the context; older events exit untouched.
+          newest=$(api_newest_deployment_id) || {
+            echo "::error::could not resolve newest deployment for ${DEPLOY_SHA}" >&2
+            exit 1
+          }
+          [ -n "$newest" ] || {
+            echo "::error::no deployment found for ${DEPLOY_SHA} / ${DEPLOY_ENV}" >&2
+            exit 1
+          }
+          if [ "$newest" != "$DEPLOYMENT_ID" ]; then
+            echo "stale deployment event (this ${DEPLOYMENT_ID}, newest ${newest}) — exiting without publishing" >&2
+            exit 0
+          fi
+
+          # Reject anything that is not a bare host after the scheme:
+          # `*` in a case pattern spans `/`, `?`, `#` and `@`, so the
+          # suffix match below does not on its own anchor the authority.
+          # Rejections PUBLISH `error` (never silence — a prior success
+          # must not stand) and never echo the rejected URL as target.
+          case "${TARGET_URL#https://}" in
+            *[!a-zA-Z0-9.-]*)
+              publish error "environment_url failed host validation; probe refused" || true
+              echo "::error::unexpected environment_url host: ${TARGET_URL}" >&2
+              exit 1
+              ;;
+          esac
+
+          # The only host family this job will egress to; also closes
+          # curl argument injection from a leading-dash environment_url.
+          case "$TARGET_URL" in
+            https://*.vercel.thenational.academy) ;;
+            *)
+              publish error "environment_url outside the allowed host family; probe refused" || true
+              echo "::error::unexpected environment_url host: ${TARGET_URL}" >&2
+              exit 1
+              ;;
+          esac
+
+          # Pending-first: overwrite any earlier verdict for this SHA the
+          # moment this deployment is known eligible, so branch protection
+          # can never accept a stale success while the probe runs.
+          publish pending "probing deployment ${DEPLOYMENT_ID} liveness" "$TARGET_URL"
+
+          PROBE_CODE=000
+          probe() {
+            local path="$1"
+            local code
+            code=$(curl -sS -o /dev/null -w '%{http_code}' --proto '=https' \
+              --connect-timeout 5 --max-time 10 "${TARGET_URL}${path}") || code=000
+            echo "probe ${path} -> ${code}" >&2
+            PROBE_CODE="$code"
+            [ "$code" = "200" ]
+          }
+
+          # Bounded retries: cold starts and router propagation can lag
+          # the deployment_status event. Wall-clock ceiling: 10 attempts
+          # x (2 probes x 10s curl budget) + 9 x 15s sleep + API checks
+          # ~= 340s, well inside the job's 10-minute timeout so the
+          # terminal status is always published rather than the job dying
+          # silently. The PRM probe uses the PATH-QUALIFIED route the MCP
+          # handshake advertises (RFC 9728 §3.1; get-prm-url.ts) — the
+          # unqualified alias serving while the qualified route breaks
+          # would fail the real handshake.
+          attempt=1
+          max_attempts=10
+          while [ "$attempt" -le "$max_attempts" ]; do
+            if probe "/healthz" && probe "/.well-known/oauth-protected-resource/mcp"; then
+              finish success "healthz and path-qualified protected-resource metadata both serve (attempt ${attempt}/${max_attempts})"
+              exit 0
+            fi
+            # An edge auth wall or host-allowlist rejection is
+            # deterministic for the deployment's lifetime — retrying
+            # cannot turn it green, so fail fast and legibly.
+            if [ "$PROBE_CODE" = "401" ] || [ "$PROBE_CODE" = "403" ]; then
+              finish failure "deployment answers ${PROBE_CODE} (auth wall or host allowlist): the probe cannot reach the app"
+              exit 1
+            fi
+            attempt=$((attempt + 1))
+            [ "$attempt" -le "$max_attempts" ] && sleep 15
+          done
+
+          finish failure "deployment reported success but the app does not serve: healthz or protected-resource metadata failed after ${max_attempts} attempts"
+          exit 1
