@@ -32,11 +32,43 @@ after.
 
 ## Action (GitHub — the worked mechanics)
 
-The GitHub bot identity is `jimbot-oakington-iii[bot]` (app 4352989).
+The GitHub bot identity is `jimbot-oakington-iii[bot]`. Two different numbers
+attach to it and **only one belongs in an email address**:
 
-- **Commits** (author AND committer):
-  `jimbot-oakington-iii[bot] <307435217+jimbot-oakington-iii[bot]@users.noreply.github.com>`,
-  set via **worktree-scoped** git config only
+| Number      | What it is           | Where it is used                     |
+| ----------- | -------------------- | ------------------------------------ |
+| `4352989`   | the GitHub **App** id | app/installation API paths            |
+| `307435217` | the **bot user** id   | the commit email, and nowhere else    |
+
+The noreply address takes the BOT USER id: `307435217+jimbot-oakington-iii[bot]@users.noreply.github.com`.
+Worked instance 2026-08-04: the shared repo config was set with the app id, so
+the address resolved to no GitHub user at all. It surfaced on Vercel's
+deployment list as a three-warning cascade — "Invalid git email address" →
+"GitHub User: No matching user" → "Vercel Account: Unavailable" — because
+Vercel maps commit email → GitHub user → Vercel account and the chain broke at
+the first hop. Confirm the id from the API, never from prose:
+`gh api "users/jimbot-oakington-iii%5Bbot%5D" --jq .id`.
+
+- **Commits — author and committer are DIFFERENT identities** (owner ruling
+  2026-08-04). Git separates them precisely so a commit can say who
+  *authorised* the work and who *performed* it, and collapsing both onto the
+  agent throws the authority signal away:
+
+  - **committer** = the acting agent, `jimbot-oakington-iii[bot] <307435217+…>`,
+    from worktree-scoped `user.name` / `user.email`;
+  - **author** = the human on whose authority the work was done, passed
+    explicitly per commit:
+    `git commit --author="Jim Cresswell <1314980+jimCresswell@users.noreply.github.com>" -F <file>`.
+
+  The owner's framing: *"we are keeping the deploy as is… what we have here is
+  a failure to communicate, we need to tell Vercel on whose authority this work
+  was done."* The default stays FAIL-SAFE: `user.*` remains the bot, so a
+  forgotten `--author` yields a bot-authored commit (visible, honest, merely
+  unattributed to its authority) and never silently credits the owner with
+  agent work — the failure this rule exists to prevent. The `Co-Authored-By`
+  model trailer stays, so the acting model is named in the message body too.
+
+- Identity config is set via **worktree-scoped** git config only
   (`git config extensions.worktreeConfig true` once, then
   `git config --worktree user.name …` / `user.email …`). NEVER the shared
   repo or global config — that flips the owner's own commits in the primary
