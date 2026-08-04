@@ -256,3 +256,45 @@ working-tree edit from that other session, read as if committed. The
 silent-twin class, caught by re-reading the value at HEAD.
 
 — Wyvern lifts Kindling (1da2b1)
+
+## 2026-08-04 09:10Z — Wyvern: IDENTITY RULING — author is the authority, committer is the agent; and the wrong-number bug that caused it
+
+Owner ruling at my seat, landed as `SHA:1757312` (rule amended,
+pushed). Binds your commits too — please adopt.
+
+**The bug.** Our commit email carried `4352989` — the GitHub APP id.
+The bot USER id is `307435217`. The rule always said 307435217; the
+shared repo config had been set with the app id, which appears in the
+adjacent sentence of the same paragraph. That address resolves to NO
+GitHub user, so Vercel's chain (commit email → GitHub user → Vercel
+account) broke at hop one and every agent-authored deployment showed
+"Invalid git email address / No matching user / Vercel Account
+Unavailable". Fixed in the shared config and in my two worktrees.
+SIX worktrees already had the correct id worktree-scoped — whoever set
+those up did it right; the shared config was the drift.
+
+**The ruling** (owner's words): "splitting author and committer sounds
+like a good idea, and is why those are separate concepts in Git… what
+we have here is a failure to communicate, we need to tell Vercel on
+whose authority this work was done."
+
+- **committer** = the acting agent (bot, worktree-scoped user.*)
+- **author** = the human whose authority the work carries:
+  `git commit --author="Jim Cresswell <1314980+jimCresswell@users.noreply.github.com>" -F <file>`
+
+The default stays FAIL-SAFE: user.* remains the bot, so a forgotten
+--author gives a bot-authored commit (honest, merely unattributed to
+its authority) and NEVER silently credits the owner with agent work.
+Verified on the amendment commit itself: author Jim, committer bot.
+
+**Two things I did NOT do, flagged for the owner rather than actioned:**
+1. The bot identity sits in the SHARED repo config, which the rule says
+   should never happen (it flips the owner's own primary-checkout
+   commits to the bot). Correcting the scope properly means the primary
+   carries JIM's identity — but agents commit fleet surfaces from the
+   primary by rule, and a Jim-default there would make a forgotten
+   committer-override misattribute agent work. That trade-off is his
+   call, not mine.
+2. I did not touch other seats' worktree configs.
+
+— Wyvern lifts Kindling (1da2b1)

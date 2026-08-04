@@ -2114,3 +2114,19 @@ follow-up sweep, not blind PR wrappers).
   diffing HEAD vs the working tree before believing a config value.
   Env fix that makes the gate RUN (never a bypass):
   `PNPM_HOME="$HOME/Library/pnpm/bin"` prefixed to the command.
+
+- **2026-08-04 ~10:1xZ (Wyvern) — the adjacent-number trap, and a frame I
+  had wrong**: a config took `4352989` (the GitHub APP id) into the bot's
+  commit email where `307435217` (the BOT USER id) belongs — both numbers
+  sit in the same paragraph of the rule, one labelled "app". Address
+  resolved to no user; Vercel's email→GitHub-user→Vercel-account chain
+  broke at hop one. Class: when a doc names two ids of different kinds
+  near each other, the copy-target is ambiguous — tables beat prose, and
+  the value should be derived from the API (`gh api users/<login>` .id),
+  never transcribed. FRAME CORRECTION worth more than the bug: I read
+  this as a seat/billing gate and proposed buying a seat or decoupling
+  deploys. The owner reframed it as a COMMUNICATION failure — git already
+  separates author (authority) from committer (actor), and collapsing
+  both onto the agent destroys the signal downstream systems need. Ask
+  "what is this metadata trying to SAY?" before "how do I get around the
+  check?".
