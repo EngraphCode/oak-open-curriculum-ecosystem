@@ -298,27 +298,63 @@ describe('PostHog product-analytics selection (OBSERVABILITY_SINKS)', () => {
     expect(result.success).toBe(true);
   });
 
-  it('rejects posthog as the only sink in production — product analytics is not a diagnostic sink', () => {
-    const result = HttpEnvSchema.safeParse({
-      ...withClerkKeys,
-      VERCEL_ENV: 'production',
-      OBSERVABILITY_SINKS: '["posthog"]',
-      ...validPostHogVars,
-    });
-    expect(result.success).toBe(false);
-    if (!result.success) {
-      const paths = result.error.issues.map((i) => i.path.join('.'));
-      expect(paths).toContain('OBSERVABILITY_SINKS');
-    }
-  });
+  describe('requires "sentry" alongside "posthog" in every environment (MCP-361)', () => {
+    // Owner ruling 2026-07-29: Sentry-as-an-observability-sink is
+    // non-negotiable. The app boots from HttpEnvSchema, so the invariant is
+    // enforced here (refineProductAnalyticsEnv), not only in the library
+    // ObservabilityEnvSchema. Stronger than the previous production-only
+    // "any diagnostic sink" rule: the required companion is "sentry"
+    // specifically, and it holds in development and preview too.
+    const EVERY_ENVIRONMENT = ['development', 'preview', 'production'] as const;
 
-  it('accepts posthog alongside a diagnostic sink in production', () => {
-    const result = HttpEnvSchema.safeParse({
-      ...withClerkKeys,
-      VERCEL_ENV: 'production',
-      OBSERVABILITY_SINKS: '["sentry","posthog"]',
-      ...validPostHogVars,
-    });
-    expect(result.success).toBe(true);
+    it.each(EVERY_ENVIRONMENT)(
+      'rejects OBSERVABILITY_SINKS=["posthog"] without "sentry" in %s',
+      (vercelEnv) => {
+        const result = HttpEnvSchema.safeParse({
+          ...withClerkKeys,
+          VERCEL_ENV: vercelEnv,
+          OBSERVABILITY_SINKS: '["posthog"]',
+          ...validPostHogVars,
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          const sinksIssue = result.error.issues.find(
+            (issue) => issue.path.join('.') === 'OBSERVABILITY_SINKS',
+          );
+          expect(sinksIssue?.message).toContain('sentry');
+          expect(sinksIssue?.message).toContain('every environment');
+        }
+      },
+    );
+
+    it.each(EVERY_ENVIRONMENT)(
+      'rejects OBSERVABILITY_SINKS=["file","posthog"] in %s — a diagnostic sink is not enough; sentry specifically is required',
+      (vercelEnv) => {
+        const result = HttpEnvSchema.safeParse({
+          ...withClerkKeys,
+          VERCEL_ENV: vercelEnv,
+          OBSERVABILITY_SINKS: '["file","posthog"]',
+          ...validPostHogVars,
+        });
+        expect(result.success).toBe(false);
+        if (!result.success) {
+          const paths = result.error.issues.map((issue) => issue.path.join('.'));
+          expect(paths).toContain('OBSERVABILITY_SINKS');
+        }
+      },
+    );
+
+    it.each(EVERY_ENVIRONMENT)(
+      'accepts OBSERVABILITY_SINKS=["sentry","posthog"] with the full PostHog config in %s',
+      (vercelEnv) => {
+        const result = HttpEnvSchema.safeParse({
+          ...withClerkKeys,
+          VERCEL_ENV: vercelEnv,
+          OBSERVABILITY_SINKS: '["sentry","posthog"]',
+          ...validPostHogVars,
+        });
+        expect(result.success).toBe(true);
+      },
+    );
   });
 });

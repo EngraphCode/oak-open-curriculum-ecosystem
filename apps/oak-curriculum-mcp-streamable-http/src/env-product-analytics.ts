@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { OBSERVABILITY_SINKS_SCHEMA } from '@oaknational/env';
-import { DIAGNOSTIC_SINK_KINDS } from '@oaknational/observability';
 import type { PostHogProductAnalyticsConfig } from '@oaknational/posthog-node';
 
 /**
@@ -75,7 +74,6 @@ interface ProductAnalyticsRefinementData {
   readonly POSTHOG_PSEUDONYM_KEYRING?: string;
   readonly POSTHOG_CAPTURE_MODE?: string;
   readonly DANGEROUSLY_DISABLE_AUTH?: string;
-  readonly VERCEL_ENV?: string;
 }
 
 function refineSelectedPostHogFields(
@@ -162,22 +160,25 @@ export function refineProductAnalyticsEnv(
     return true;
   }
 
-  // The plan's production-locality rule, scoped to the posthog selection:
-  // product analytics alone is not a diagnostic sink. The shared
-  // refineProductionLocality also rejects an EMPTY production selection,
-  // which this app cannot adopt until SENTRY_MODE retires — deviation
-  // recorded in the delivery plan.
-  if (
-    data.VERCEL_ENV === 'production' &&
-    !DIAGNOSTIC_SINK_KINDS.some((kind) => data.OBSERVABILITY_SINKS.includes(kind))
-  ) {
+  // Owner ruling 2026-07-29: Sentry-as-an-observability-sink is
+  // non-negotiable. PostHog product analytics must never ship without the
+  // Sentry diagnostic sink alongside it — in EVERY environment, not only
+  // production (MCP-361). This strictly supersedes the earlier
+  // production-only "any diagnostic sink" rule: sentry is itself a
+  // diagnostic sink, so a "file"-only selection satisfied that rule but
+  // not this one. The empty-production case stays out of scope here — this
+  // refinement only governs the posthog selection (it returns early above
+  // when posthog is absent); that deviation is recorded in the delivery
+  // plan and gated on SENTRY_MODE retiring.
+  if (!data.OBSERVABILITY_SINKS.includes('sentry')) {
     ctx.addIssue({
       code: 'custom',
       path: ['OBSERVABILITY_SINKS'],
       message:
-        'OBSERVABILITY_SINKS must include at least one diagnostic sink ' +
-        '(sentry or file) when posthog is selected in production; product ' +
-        'analytics alone does not satisfy diagnostic locality.',
+        'OBSERVABILITY_SINKS includes "posthog" but not "sentry". Sentry ' +
+        'must be selected alongside PostHog in every environment (owner ' +
+        'ruling 2026-07-29: Sentry-as-a-sink is non-negotiable; MCP-361). ' +
+        'Add "sentry" to OBSERVABILITY_SINKS.',
     });
     return true;
   }
