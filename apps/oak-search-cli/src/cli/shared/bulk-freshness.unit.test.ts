@@ -273,10 +273,35 @@ describe('checkBulkDataFreshness', () => {
     }
   });
 
-  it('clamps a future-dated manifest to age zero rather than failing on clock skew', () => {
+  it('stays fresh at exactly the maximum age', () => {
+    // downloadedAt 2026-08-01T08:00 + exactly 14 days.
     const result = checkBulkDataFreshness({
       bulkDir,
-      now: new Date('2026-07-31T08:00:00.000Z'),
+      now: new Date('2026-08-15T08:00:00.000Z'),
+      fs: readerFor(JSON.stringify(validManifest)),
+    });
+    expect(result.ok).toBe(true);
+  });
+
+  it('goes stale one millisecond past the maximum age', () => {
+    // The contract is "strictly past 14 days"; a floored day-count would
+    // ride until ~15 days, so the comparison must use exact elapsed time.
+    const result = checkBulkDataFreshness({
+      bulkDir,
+      now: new Date('2026-08-15T08:00:00.001Z'),
+      fs: readerFor(JSON.stringify(validManifest)),
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.type).toBe('bulk_data_stale');
+    }
+  });
+
+  it('tolerates future skew inside the named window as age zero', () => {
+    // now sits 4 minutes BEFORE downloadedAt — ordinary clock skew.
+    const result = checkBulkDataFreshness({
+      bulkDir,
+      now: new Date('2026-08-01T07:56:00.000Z'),
       fs: readerFor(JSON.stringify(validManifest)),
     });
     expect(result.ok).toBe(true);
@@ -285,6 +310,26 @@ describe('checkBulkDataFreshness', () => {
     }
   });
 
+  it('rejects a manifest dated beyond the tolerated future skew as invalid', () => {
+    // A day-future timestamp would suppress the staleness guard for an
+    // arbitrary period if clamped; it must fail as an invalid manifest.
+    const result = checkBulkDataFreshness({
+      bulkDir,
+      now: new Date('2026-07-31T08:00:00.000Z'),
+      fs: readerFor(JSON.stringify(validManifest)),
+    });
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.type).toBe('manifest_invalid');
+      expect(result.error.message).toContain('future');
+      expect(result.error.message).toContain('bulk:download');
+    }
+  });
+
+  // SHAPE AGREEMENT ONLY: the real tracked manifest against the strict
+  // schema, so writer/checker drift fails at the commit that introduces
+  // it. Presence and age are neutralised by construction (the listing is
+  // derived from the manifest; now derives from its own downloadedAt).
   it('accepts the tracked manifest the downloader actually writes', () => {
     const result = checkBulkDataFreshness({
       bulkDir,

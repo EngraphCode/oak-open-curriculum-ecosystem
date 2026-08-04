@@ -31,6 +31,14 @@ import { ok, err, type Result } from '@oaknational/result';
  */
 export const MAX_BULK_DATA_AGE_DAYS = 14;
 
+/**
+ * Tolerated forward clock skew between the downloader's clock and the
+ * consumer's. A manifest dated further in the future than this fails as
+ * invalid — an unbounded clamp would let a corrupt timestamp suppress
+ * the staleness guard for an arbitrary period.
+ */
+const MAX_FUTURE_SKEW_MS = 5 * 60_000;
+
 const MS_PER_DAY = 86_400_000;
 
 /**
@@ -184,9 +192,24 @@ export function checkBulkDataFreshness(
 
   const { downloadedAt } = manifestResult.value;
   const elapsedMs = input.now.getTime() - new Date(downloadedAt).getTime();
-  const ageDays = Math.max(0, Math.floor(elapsedMs / MS_PER_DAY));
 
-  if (ageDays > MAX_BULK_DATA_AGE_DAYS) {
+  if (elapsedMs < -MAX_FUTURE_SKEW_MS) {
+    return err({
+      type: 'manifest_invalid',
+      message:
+        `Bulk data manifest is dated in the future: downloadedAt ${downloadedAt} is ` +
+        `ahead of the current clock beyond the tolerated ` +
+        `${MAX_FUTURE_SKEW_MS / 60_000}-minute skew.\n` +
+        'A corrupt timestamp or a badly skewed downloader clock would otherwise ' +
+        'suppress the staleness guard. Run "pnpm bulk:download" to rewrite the ' +
+        'bundle and its manifest.',
+    });
+  }
+
+  // Staleness compares EXACT elapsed time — the floored day-count is for
+  // display only (comparing the floor would accept data until ~15 days).
+  const ageDays = Math.max(0, Math.floor(elapsedMs / MS_PER_DAY));
+  if (elapsedMs > MAX_BULK_DATA_AGE_DAYS * MS_PER_DAY) {
     return err({
       type: 'bulk_data_stale',
       message:

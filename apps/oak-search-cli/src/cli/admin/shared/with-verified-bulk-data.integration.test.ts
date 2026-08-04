@@ -129,6 +129,7 @@ describe('withVerifiedBulkData', () => {
 
     expect(handler).toHaveBeenCalledExactlyOnceWith(resolvedBulkDir);
     expect(deps.printInfo.mock.calls[0]?.[0]).toContain('2026-08-01T08:00:00.000Z');
+    expect(deps.printInfo.mock.calls[0]?.[0]).toContain('2 day(s) old');
     expect(deps.setExitCode).not.toHaveBeenCalled();
   });
 
