@@ -78,6 +78,58 @@ must disposition — none may be silently absorbed.
   express**.
 - **D13** — ADR-121 carries a self-declared unreconciled drift note at `:267`, and
   D1 shows the prose half survived the later repair.
+- **D14** — **ADR-168 §5 asserts a test-coverage guarantee that is false in both
+  directions at once.** Found and measured first-hand by Birch holds Seedling
+  (2026-08-04); cure in flight on the #751 branch. §5 states the vitest globs cover
+  `src/**` and `tests/**` and *never* `scripts/**`, `build-scripts/**`, or
+  `runtime-only-scripts/**`. Measured: `build-scripts/**` **is** in the globs for
+  `apps/oak-curriculum-mcp-streamable-http` (ts and mjs, plus `operations/**`) and for
+  `packages/core/build-metadata` (mjs) — 130 build-scripts tests collected in the MCP
+  app alone. In the other
+  direction `runtime-only-scripts/**` is in **no** workspace's globs, yet §4's own
+  canonical reference tree shows a `.unit.test.mjs` living there: 663 lines of
+  assertions about the gate guarding every production deploy, which had never run
+  once.
+
+  D14 generalises the "defined but wired to nothing" class above from *scripts* to
+  **test files**. A suite matched by no runner glob is a gate that does not exist, and
+  nothing in the estate reports it — the failure is invisible in exactly the way an
+  unregistered script is, one level down. The ledger's derived half must therefore
+  recompute **test-file reachability**, not only script, hook, and workflow invocation;
+  a ledger that enumerated only invocation sites would inherit this blind spot whole.
+
+  **Precision added on re-measure (2026-08-04).** An exhaustive cross-match of every
+  test file under `scripts/`, `build-scripts/`, `operations/` and
+  `runtime-only-scripts/` against every include glob in the repository found **22 such
+  files, 21 matched by some glob, and exactly one orphan**:
+  `apps/oak-curriculum-mcp-streamable-http/runtime-only-scripts/vercel-ignore-production-non-release-build.unit.test.mjs`.
+  The earlier phrase "18 test files estate-wide" counted files *beneath those
+  directories*, not orphans, and reads as a far larger hole than the evidence supports.
+  One never-executed suite guarding every production deploy is the finding; it does not
+  need inflating. Note also that the repository has **no** root vitest workspace file —
+  Turbo composes the per-workspace configs — so reachability must be computed
+  per-workspace, with no single glob surface to read.
+
+- **D15** — **the `oak-gates` skill is a second hand-maintained copy of ADR-121's
+  information, and it has already drifted.** `.agent/skills/gates/SKILL-CANONICAL.md:33-55`
+  hand-lists a 21-command sequence it presents as corresponding to `pnpm check`. Against
+  the live root script it is **missing `lint:shell` and `encoding:check`**, says `knip`
+  where the live script says `knip:gate`, and orders `repo-validators:check`
+  differently. The skill's own text tells the reader to "re-read `package.json` before
+  editing this list" — an instruction to be vigilant, which is precisely what a
+  generated view removes the need for. This one matters more than an ordinary doc
+  disagreement because of the owner's 2026-08-02 ruling that skills are the source of
+  truth other surfaces derive from: a stale hand-list inside the skill corpus is a
+  defect in the surface that ruling elevates.
+
+- **D16** — **two engineering docs disagree about which of them holds the quick
+  reference.** `docs/engineering/workflow.md:109-125` sends the reader to
+  `build-system.md` for "a quick reference table", but `build-system.md:159-167`
+  explicitly *disclaims* duplicating the matrix and names its own past drift incident
+  as the reason. The same workflow.md passage also lists "smoke tests" among what the
+  surfaces cover; ADR-121's change log records smoke tests as retired on 2026-05-04. A
+  pointer to a table that does not exist, beside a claim about a gate that no longer
+  runs.
 
 ## Gates defined but wired to nothing (14)
 
