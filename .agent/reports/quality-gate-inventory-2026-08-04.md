@@ -145,12 +145,23 @@ all.
 The generator's model is flat — one canonical per top-level directory — and the
 corpus has grown a nested family shape it cannot express. Its own message names the
 cure ("or land the family-aware generator extension"), so the mismatch is *known to
-the tool* and invisible to every gate: in generate mode it prints
-`ERROR — … cannot be summoned in any harness` **and exits 0**; in `--check` mode —
-the mode the hooks and CI actually run — it says nothing at all.
+the tool*. How it reaches the gates was measured first-hand on 2026-08-04, and the
+first pass of this report had the two modes **backwards**:
+
+| Mode | Exit | Says |
+| --- | --- | --- |
+| generate (`--prefix=oak-`) | **1** | `ERROR — canonical directories with no readable SKILL-CANONICAL.md: cognition`, plus the cure |
+| `--check` — what `.husky/pre-push:65` runs, via `pnpm skills:check` | **0** | `All adapters are up to date.` |
+
+The ungated mode tells the truth and fails correctly. The **gated** mode returns a
+false green — and not by silence, which is how this report first described it. It
+positively asserts that all adapters are up to date while nine canonical skills have
+none. A gate that stays quiet at least leaves room for doubt; this one answers the
+question, wrongly.
 
 This is the ledger thesis in one artefact: a gate whose stated coverage exceeds its
-real coverage, green on every surface, hiding nine missing skills. It matters more
+real coverage, green on the one surface the hooks actually run, hiding nine missing
+skills. It matters more
 under the owner's ruling that skills become the source of truth *because* they are
 the only lever with eval support — the corpus we are about to make authoritative has
 a ninefold hole in its delivery path.
