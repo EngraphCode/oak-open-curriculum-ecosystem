@@ -22,9 +22,11 @@ export const CURRENT_GENERATED_ITEM_ANCHOR_OVERRIDES = {
       '  /** Limit the number of lessons returned per unit. Units with zero lessons after limiting are omitted. Default: 20 */',
     ],
   },
+  // MCP-462: upstream's 2026-07 rework changed the limit example 20 → 10, and
+  // the generator now carries upstream's `maximum` into the input schema.
   C519: {
     [LESSONS]: [
-      String.raw`"default":20,"examples":[20]}},"additionalProperties":false,"required":["keyStage","subject"]}\nRequired: keyStage, subject`,
+      String.raw`"default":20,"examples":[10],"maximum":300}},"additionalProperties":false,"required":["keyStage","subject"]}\nRequired: keyStage, subject`,
     ],
   },
   C527: {
@@ -32,9 +34,11 @@ export const CURRENT_GENERATED_ITEM_ANCHOR_OVERRIDES = {
       '  /** Limit the number of lessons, e.g. return a maximum of 300 lessons Default: 20 */',
     ],
   },
+  // MCP-462: upstream's 2026-07 rework changed the limit example 20 → 10, and
+  // the generator now carries upstream's `maximum` into the input schema.
   C529: {
     [KEY_STAGE_QUESTIONS]: [
-      '"default":20,"examples":[20]},"filter":{"type":"string","description":"Optional filter for question results.',
+      '"default":20,"examples":[10],"maximum":300},"filter":{"type":"string","description":"Optional filter for question results.',
       String.raw`\nRequired: keyStage, subject`,
     ],
   },
@@ -43,9 +47,11 @@ export const CURRENT_GENERATED_ITEM_ANCHOR_OVERRIDES = {
       '  /** Limit the number of lessons, e.g. return a maximum of 300 lessons Default: 20 */',
     ],
   },
+  // MCP-462: upstream's 2026-07 rework fixed the "Use the this type" typo, and
+  // the generator now carries upstream's `maximum` into the input schema.
   C586: {
     [PROGRAMME_ASSETS]: [
-      '"default":20,"examples":[20]},"type":{"type":"string","description":"Use the this type',
+      '"default":20,"examples":[20],"maximum":300},"type":{"type":"string","description":"Use this type',
       String.raw`\nRequired: programme`,
     ],
   },
@@ -54,9 +60,10 @@ export const CURRENT_GENERATED_ITEM_ANCHOR_OVERRIDES = {
       '  /** Limit the number of lessons, e.g. return a maximum of 300 lessons Default: 20 */',
     ],
   },
+  // MCP-462: the generator now carries upstream's `maximum` into the input schema.
   C595: {
     [PROGRAMME_QUESTIONS]: [
-      '"default":20,"examples":[20]},"filter":{"type":"string","description":"Optional filter for question results.',
+      '"default":20,"examples":[20],"maximum":300},"filter":{"type":"string","description":"Optional filter for question results.',
       String.raw`\nRequired: programme`,
     ],
   },
@@ -90,9 +97,11 @@ export const CURRENT_GENERATED_ITEM_ANCHOR_OVERRIDES = {
       'Optional filter for question results. Use `images` to return only questions with a question image or image answer.',
     ],
   },
+  // MCP-462: upstream's 2026-07 rework changed the limit example 20 → 100, and
+  // the generator now carries upstream's `maximum` into the input schema.
   C626: {
     [SEQUENCE_QUESTIONS]: [
-      '"default":20,"examples":[20]},"filter":{"type":"string","description":"Optional filter for question results.',
+      '"default":20,"examples":[100],"maximum":300},"filter":{"type":"string","description":"Optional filter for question results.',
       String.raw`\nRequired: sequence`,
     ],
   },
