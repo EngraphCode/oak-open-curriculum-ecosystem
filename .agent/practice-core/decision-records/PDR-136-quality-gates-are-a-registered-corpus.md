@@ -2,7 +2,7 @@
 pdr_kind: contract
 ---
 
-# PDR-135: Quality Gates Are a Registered Corpus
+# PDR-136: Quality Gates Are a Registered Corpus
 
 **Status**: Accepted (owner-ratified 2026-08-04). The delivery plan this record
 serves was ratified the same day, covering §§1–4 and §8. Sections 5 and 6
