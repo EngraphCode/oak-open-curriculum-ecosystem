@@ -1,234 +1,170 @@
-# PR comment triage and fresh-eyes reassessment — 2026-08-04
+# PR comment triage and fresh-eyes reassessment — 2026-08-04 (rev 2, fleet-verified)
 
 Owner instruction (verbatim): _"after compaction please pull down all comments
 on all PRs and triage and categorise them"_, extended mid-session to _"triage
 and analyse and understand them, and reassess them and our understanding of the
 current state with fresh eyes"_.
 
-**Method.** All comment surfaces pulled for every PR in the current window
-(#729–#756: 15 open + 12 recently closed/merged): GraphQL `reviewThreads`
-(resolved-state per thread), review bodies, and issue comments — read per-item,
-never from aggregates. Every load-bearing claim below was re-verified against
-live state (per-PR `gh pr view`, `origin/main` file content, the Linear ticket
-list) before being written down. Author: Galaxy weaves Latitude (5baf4e),
-successor seat to Birch holds Seedling (e48fe2).
+**Revision 2.** The rev-1 solo synthesis was adversarially verified by an
+11-agent fleet (run `wf_95675b4e-19f`: 4 blind mappers over the raw per-PR
+JSON, a blind reducer, 5 adversarial verifiers, 1 completeness critic;
+1.34M tokens; the full result JSON is conserved beside this report as
+`pr-comment-triage-2026-08-04-fleet-result.json`). The fleet confirmed the
+spine, corrected all five load-bearing claims (two overstated, three
+understated), and refuted the enumeration's completeness. This revision
+absorbs that delta and marks every correction. The critic's one-line verdict
+on rev 1 deserves preserving verbatim: *"Strong synthesis, incomplete
+enumeration — and it failed on exactly the axis it diagnosed."* Its author
+agrees: rev 1's own footer statistics were hand-asserted and did not reconcile
+with the corpus (claimed 40 threads / 121 reviews; derived actual below).
 
-**Scope note.** "All PRs" is read as the current board (#729–#756). Older
-closed PRs carry no unresolved substance reachable from this window's records;
-widening the sweep further is a named option, not done silently.
+**Method (rev 2).** All comment surfaces pulled for PRs #729–#756 (15 open at
+capture + 12 recently closed/merged): GraphQL `reviewThreads`
+(resolved-state), review bodies including `<details>` suppressed-comments
+blocks, and issue comments. Derived corpus statistics: **27 PRs, 29 review
+threads, 113 reviews, 137 issue comments** (computed from the captured
+payloads, not asserted). Named, still-open method gaps are in §5 — the report
+now states what it structurally could not see rather than implying coverage.
 
 ---
 
 ## 1. Triage — every PR, its comment state, and who holds the next move
 
+State current as of ~14:50Z; rows marked ⚠ were corrected by the fleet pass.
+
 ### Open PRs
 
 | PR | What it is | Comment/thread state | Next move is with |
 | --- | --- | --- | --- |
-| #756 | Sanction per-person ambient bot identities (Matt's agents) | 0 threads; both code owners approved; CLEAN, auto-merge off | **Jim** — one word merges it. Note: the review suggests recording your PR-approval grant in the rule; unrecorded it dies at every context boundary |
-| #754 | pnpm launcher `$PNPM_HOME/bin` probe | 2 Copilot threads outdated + substantively cured; Matt-automation approved at head | **Merge-ready** — threads need mechanical resolution, then merge |
-| #751 | Production redeploy of the deployed commit (MCP-479) | Both threads resolved; round 5 left exactly 2 TSDoc wording items (docs-only) | **Agent seat** — two small wording cures, then re-request; rounds are converging (5 findings → 2) |
-| #748 | posthog requires sentry alongside (MCP-361) | Both threads resolved. **The DoD ruling landed: owner ruled "strengthen"; Matt implemented `refineSentryLiveForPostHog` (c6aefcad)** | **One pre-merge check** (§3.1), then code-owner approval |
-| #749 | pnpm version guard (MCP-478, Matt's) | Main thread resolved via scope-and-rebut; Birch's ADR-168 convergence proposal awaits Matt's answer; 4 rounds of Copilot suppressed comments carry one unanswered recurring finding (§3.3) | **Matt** (ADR-168 answer) + the suppressed-finding disposition |
-| #746 | Deployment-reliability plan nodes ×4 | 0 threads; findings 1/2/5 cured; 3 (bootstrap-reporter proof) and 4 (build-vs-buy) open and declared, next fresh-context engineering at this lane | **Agent seat** — already scoped in the handoff |
-| #752 | String-encoded numbers at MCP boundary (MCP-487) | 2 threads open; Birch measured the cost live (preview loses `examples`) and the benefit gone (client fixed in 2.1.221); recommends CLOSE | **Jim** — close or keep; MCP-487's title already points at the request-boundary cure |
-| #755 | PDR-135 gate-ledger register (Wyvern's lane) | 0 threads; §§5–6 ratified; step 3 (ADR) is Wyvern's named next | Wyvern's lane — no action from others |
-| #750 | Matt's draft lane-opener (MCP-483 docs) | 0 threads, CLEAN draft | Matt's lane |
-| #742 | Coordination-branch records carrier | 0 threads, perpetual draft by design | Nobody — carrier PR |
-| #729 / #731 / #734 / #745 | Draft lanes held at the clear-run owner gate (identity census; Parallax family; Lichen's frozen corpus; claim-freshness pilot) | Each holds a documented continuation contract (#729: regenerate the census against merge-time main, then un-draft; #731: 3 adjudicated blockers await its lane owner; #745: an owner-ratification gate a bot merge cannot clear) | **Gated on the owner's declared trigger** — he closes the first-submission window / reopens each lane; nothing here is deferred without a named gate |
+| #756 | Sanction per-person ambient bot identities | 0 threads; **both code-owner approvals discharged** (Matt 10:44Z; the lead-AI-under-grant approval 11:34Z); CLEAN | ⚠ **Merge word only** (auto-merge is off repo-wide). Rev 1 wrongly routed this to Jim's review queue — the review was already done. The rule-gap note (recording the approval grant) rides it |
+| #751 | Production redeploy of the deployed commit (MCP-479) | Threads resolved; ⚠ the 10:53Z suppressed set (6 items) includes a **normative ADR-163 contradiction** (two incompatible outcomes for one build condition) and a taken amendment ordinal — NOT "2 docs-only wording items" as rev 1 said | **Agent seat** — the ADR contradiction is the §2 defect class in the governing document for production deploy gating; cure before re-request |
+| #748 | posthog requires sentry alongside (MCP-361) | Both threads resolved; owner ruled "strengthen", implemented at `c6aefcad` | ⚠ **One verified-load-bearing pre-merge check**: the fleet positively established posthog IS selected in preview and development today, so if either env lacks `SENTRY_MODE=sentry` the first deploy after merge is boot-dead there. One Vercel-panel look (Jim or Matt), then merge |
+| #749 | pnpm version guard (MCP-478, Matt's) | Thread resolved via scope-and-rebut; ⚠ the ADR-121 pre-push parity finding appears in **five** consecutive Copilot suppressed sets (rev 1 said four), none answered; knip registration + `process.exit`-skips-`finally` also suppressed | **Matt** (ADR-168 convergence answer) + explicit disposition of the suppressed findings |
+| #737 | Oak Components research record | ⚠ **MISSING FROM REV 1 ENTIRELY** — open, CHANGES_REQUESTED, with two live findings from Matt's 10:06Z verdict (capability-ledger frontmatter freshness; the "based on current main" claim), both instances of the §2 class | **Agent seat** — two small record-integrity cures, then re-request |
+| #746 | Deployment-reliability plan nodes ×4 | 0 threads; findings 1/2/5 cured; 3 (bootstrap-reporter proof) and 4 (build-vs-buy) open and declared | **Agent seat** — fresh-context engineering, scoped in the handoff |
+| #752 | String-encoded numbers at MCP boundary | 2 threads open; cost measured live, benefit gone (client fixed upstream); recommend CLOSE | **Jim** — close or keep; MCP-487 already points at the request-boundary cure |
+| #755 | PDR-136 gate-ledger register (Petrel's lane) | 0 threads; §§5–6 ratified; renumbered off the double-mint | Petrel's lane |
+| #750 | Matt's draft lane-opener (MCP-483) | 0 threads, CLEAN draft | Matt's lane |
+| #742 | Coordination records carrier | Perpetual draft by design | Nobody |
+| #734 | Lichen's frozen review corpus | ⚠ **A BROKEN BRANCH, not a cleanly gated lane** (rev 1 mis-classed it): CI red across install / secret-scan / run-quality-gates / Vercel / Sonar; TS6133 in the preserved source; one unresolved thread from **github-code-quality** — a reviewer channel rev 1 never named | **Owner-gated lane with a defect list** — its continuation contract must include curing the red, and the secret-scan failure wants a look sooner than the lane's reopening |
+| #729 / #745 | Identity census; claim-freshness pilot | Held at the clear-run owner gate with documented continuation contracts; ⚠ #729's contract is corrected: Matt's actual verdict is that the branch carries 56 commits / 269 files of unrelated work — the real next move is a **re-cut onto a clean base**, not regenerate-and-undraft (rev 1's wording would have produced an unreviewable PR) | **Gated on the owner's declared trigger**; #745 additionally carries a failing Sonar gate to cure at reopen |
+| #731 | Parallax family relocation | ⚠ Three live blockers, all §2-class, unsurfaced in rev 1 (checker swallows an unreadable skills root into "all up to date"; `skipped` discarded from `CheckOutcome`; the portability validator's "41 canonicals" derives from a walk that cannot see the 9 nested family members) | Its lane owner at the clear-run gate — with the blockers now named |
 
 ### Recently closed/merged with comment substance
 
 | PR | Residue worth carrying |
 | --- | --- |
-| #735 (merged, 1.147.0) | Clean close; spawned MCP-486 (oakUrl over-advertising, 15/30 schemas + singular/plural bug) — ticketed, Backlog/High |
-| #741 (merged, 1.148.0) | Clean close; the standing CHANGES_REQUESTED was ruled non-blocking by the owner (agent-automation review, answered-with-fixes) |
-| #743 (merged, 1.148.1) | `preview-serves` live as an **informational** status; the trusted-publisher precondition is named for Phase E (publication must move behind a boundary a PR branch cannot rewrite before the status becomes REQUIRED) |
-| #747 (merged, 1.148.2) | **One un-dispositioned residual** — §3.2 below. Also the worked instance of the approval grant (merged one second after it) |
-| #753 (merged) | Server-side integration vehicle for #747's fix; no residue |
-| #744, #738, #740, #736, #733 (merged) | Clean; #738 carries the worked instance of the bot-can't-discharge-code-owner-gate defect (MCP-474 tracks the ruleset bypass fix) |
-| #739, #732 (closed) | Superseded by bot-identity re-creations (#740, #733); #732's cured threads carried the derive-don't-snapshot lesson now in the skill |
+| #754 (merged ~13:47Z by this seat) | ⚠ Rev 1's open-table row is stale. Threads were resolved pre-merge (GraphQL receipts at this seat; the fleet critic read the pre-resolution capture). Genuine residue: three suppressed date-convention items against AGENT.md on shipped files |
+| #747 (merged, 1.148.2) | ⚠ **Three** un-dispositioned residues, not one (rev 1 undercounted): the dir-read TOCTOU (recursive — every subdirectory carries the window), plus two adjacent suppressed findings. Unticketed |
+| #738 (merged, 1.146.3) | ⚠ **OWNER ATTENTION — the highest-consequence miss in the window**: the five-year retention extension merged while ADR-218 still misstates the collected data category ("session starts" after `$session_id` was removed) and the ratified plan's own gate — a recorded five-year analytical need, or the shorter-raw alternative — is unmet. A privacy commitment landed with its proof gate open |
+| #743 (merged) | `preview-serves` live as informational; trusted-publisher precondition named for Phase E |
+| #739 (closed) | ⚠ Rev 1 asserted supersession without verifying: one flagged defect **survives on merged main** (policy.json's scope description covers only git/history-bypass patterns while the live guard also blocks host-DoS patterns, wildcard staging, and the stash-based hiding of work) |
+| #735, #741, #744, #740, #736, #733, #732 | As rev 1: clean closes; MCP-486 ticketed; the derive-don't-snapshot lesson absorbed into the skill |
 
-## 2. Categorisation — what the ~180 substantive comments actually are
+## 2. Categorisation — corrected by the blind pass
 
-By disposition:
+Rev 1 compressed the window into one defect class. The blind reducer — which
+never saw rev 1 — found **nine mechanism clusters** across 155 independently
+mapped findings, and separately judged that one mechanism genuinely
+cross-cuts ~75 of ~107 clustered findings:
 
-- **Cured and verified** (the large majority): review findings answered with
-  red-first fixes and per-finding disposition tables. The round dynamics are
-  *converging* on every live PR (#751: 5→2 docs-only; #746: 5→2
-  declared-open; #754: 2→0).
-- **Waiting on a human decision** (small, enumerated): #756 word, #752
-  close/keep, #748 merge timing, ADR-168 answer (Matt), Matt-PR standing merge
-  ruling (Birch's owner-card item 5).
-- **Open and declared, with a named next actor**: #746 findings 3+4 (this
-  lane, fresh context); #743's trusted-publisher precondition (sequenced to
-  Phase E by name).
-- **Un-dispositioned residue** (new findings, §3): #747's dir-read TOCTOU;
-  #749's pre-push parity; the `examples`-survival assertion gap.
-- **Noise** (excluded mechanically): Vercel deployment tables, Sonar badges,
-  Claude/Codex overage notices, linear-linkbacks — no decisions live there.
+> "A claim about the system and the system itself are maintained by two
+> separate mechanisms, with nothing recomputing the claim at the moment it is
+> relied on."
 
-By substance class — and this is the striking one — nearly every substantive
-finding this window is the **same defect class: a declared surface detached
-from its execution path**:
+So the rev-1 thesis survives as the *dominant* mechanism — the verifier
+measured ~20 of 27 bot review-thread findings fitting it, and 9 of rev 1's 10
+table rows re-derived accurately — but "nearly every finding is one class"
+was over-compression. The clusters, with counts (full membership in the
+conserved fleet-result JSON):
 
-| Instance | Declared | Actually executed |
+1. **Hand-snapshotted claim drifts from its referent** (30) — cure: derive at
+   read time; never hand-copy a system fact into prose.
+2. **Enforcement installed off the executed path** (12) — cure: put the rule
+   on the path the property must hold on; delete the parallel definition.
+3. **Check predicate structurally incapable of falsifying the claim** (13) —
+   cure: change what the check observes, not its threshold.
+4. **Test surface never extended to the newly added or only-real path** (10)
+   — cure: the new branch's discriminating test lands with the branch.
+5. **Error/absent state collapsed into a value indistinguishable from
+   health** (8) — the `--silent` zero-bytes class; distinct generator,
+   distinct cure (fail loud at the point of failure).
+6. **Read-then-act across an unguarded mutation window** (7) — the TOCTOU
+   and cancellation-ordering family; distinct.
+7. **Finding survival depends on its carrier, not its content** (10) — the
+   suppressed-comments class generalised; a finding's channel decides whether
+   it is ever read.
+8. **One artefact carrying several independent changes with no per-change
+   ownership** (4).
+9. **Bot identity not a first-class principal in the merge/permission
+   model** (6).
+
+Clusters 1–4 and 7 are the dominant mechanism's five faces and share the
+re-derivation cure family (the gate-ledger programme's territory). Clusters
+5, 6, 8, 9 are genuinely different generators the estate should not fold in.
+
+## 3. The five rev-1 claims, as verdicted by adversarial verifiers
+
+| Claim | Verdict | Correction |
 | --- | --- | --- |
-| #735 `oakUrl` / MCP-486 | schema advertises the field | runtime never fills it (15/30 schemas) |
-| #735 numeric bounds | spec declares `maximum: 300` | MCP path never consulted the validator that carried it |
-| #752 `examples` | PR body claimed "costs nothing" | live `tools/list` lost them (measured on preview) |
-| #748 sink marker | `"sentry"` selected in config | delivery keyed on `SENTRY_MODE`, which the library declares retired |
-| #751 dead tests | ADR-168 depicted the test home | no vitest glob reached it — 663 lines never ran |
-| #751 ADR-163 comparator | ADR specified npm `semver` | a pre-install script has no `node_modules` |
-| MCP-499 plan bodies | skill states 5 required sections | validator reads frontmatter only; "OK (43 conformant)" |
-| Birch's CI red | local gate green | local read the working tree; CI read the commit |
-| #737 provenance rounds | PR body asserted blob SHA / file count / "current main" | the tree had moved; three rounds to make the record self-verifying |
-| UAT §10 PASS | run record claimed the read contract | only the inventory listing was exercised |
+| §3.1 #748 ruling discharged + env check | OVERSTATED (mildly) | Discharge confirmed from the commit record; the ruling is attested by Matt's commit/comment, not an owner artefact on the PR. Sharpened: posthog IS selected in preview/dev (verified live), so the SENTRY_MODE check is load-bearing, not precautionary |
+| §3.2 #747 residual | UNDERSTATED | Three residues, not one; the TOCTOU window recurses through every subdirectory |
+| §3.3 suppressed-comments blind spot | UNDERSTATED | Five flags on #749, not four; and rev 1 itself swept the channel on only 2 of the 11 PRs that carry it (§5) |
+| §3.4 review-economy re-pricing | UNDERSTATED / over-narrowed | 23 of 24 genuine mantagen verdicts (96%) are agent-authored; 20 of 24 mechanically triggered; but only 11 of 24 are head-change re-reviews — and the economy verdict was measured with the Claude and Codex review channels dark estate-wide on overage limits, which rev 1 classed as noise |
+| §2 one-defect-class synthesis | OVERSTATED | Dominant and genuinely shared, but four-plus distinct generators with different cures — §2 above is the corrected structure |
 
-This is one defect class wearing ten costumes: **records that assert what they
-do not derive**. The estate's live response — PDR-135's gate ledger with
-STATED vs CHECKED as separate fields, plus the owner's repo-vs-instance strata
-question — is aimed at exactly this class. The comment corpus independently
-confirms that programme is the right one.
+## 4. Owner-attention items (each on its own line, none discharged by this report)
 
-## 3. Fresh-eyes corrections and new findings
+1. **#738's undischarged privacy gate** (§1) — a five-year retention
+   commitment on pseudonymous analytics is live on main with its ratified
+   proof gate unmet and a data-category misstatement in the approved record.
+2. **#748 merge timing** — one Vercel-panel read of preview/dev `SENTRY_MODE`
+   (the precondition is now verified present), then it merges.
+3. **#756** — one merge word; review is fully discharged.
+4. **#734's failing secret-scan** — on a preserved-corpus branch, worth a look
+   ahead of the lane's owner-gated reopening.
+5. **#752** — close (recommended) or keep.
+6. Standing from the handoff: the Matt-authored-settled-PRs merge ruling;
+   the fourteen-consecutive-closed-dependabot-PRs pattern (§5) is either
+   policy to record or drift to name.
 
-Things the inherited (frozen) record says that are no longer true, or that
-thread-based triage cannot see:
+## 5. Method gaps, named (what this report structurally could not see)
 
-### 3.1 The #748 DoD ruling is DISCHARGED — the inherited owner-card item 2 is stale
+- **No check-run / commit-status / Sonar-issue surface** — the same failure
+  shape as the suppressed-comments finding, one level up: two failing Sonar
+  gates (#734, #745) and #734's red CI were invisible to a comment-only sweep.
+- **Suppressed-comments sweep executed on 2 of 11 carrying PRs** in rev 1;
+  the fleet completed #731/#735/#737/#738/#739/#743/#751/#754 and the
+  substantive finds are absorbed above; #730/#725 (below the scope floor)
+  remain unswept.
+- **The scope floor (#729) was set before the carrier-dependence finding and
+  never re-tested against it** — the fleet found unread suppressed findings
+  on merged #725/#730. The floor stands as a *named* bound now, not an
+  implied completeness claim.
+- **No dependency-currency lens**: fourteen consecutive dependabot PRs closed
+  unmerged since 20 July, including CodeQL scanner bumps closed inside this
+  window.
+- **Reviewer-channel health treated as boilerplate**: Claude and Codex
+  automated review are both off (overage) across the estate — a fact about
+  the review economy, not noise.
+- The captured payloads carry no pagination cursors, so "all comment
+  surfaces pulled" is bounded by the capture's own first-page limits
+  (`reviewThreads(first:100)`, `comments(first:100)`, `reviews(first:50)`);
+  no PR in the window approaches those bounds, but the warrant is the query
+  shape, not an assertion.
 
-The frozen handoff lists "the #748 DoD ruling Matt escalated" as an open owner
-decision. It is not: the owner ruled **"strengthen"**, Matt implemented
-`refineSentryLiveForPostHog` (SENTRY_MODE=sentry + DSN required whenever
-posthog is selected, every environment) and resolved the thread at 11:11Z.
+## 6. Where this leaves the board
 
-Two consequences the record does not yet carry:
+Rev 1's four conclusions survive with corrections absorbed: the named
+priorities are discharged; the deployment-reliability programme converges
+(#743 merged, #754 merged, #748 one check from merge, #751 one real cure +
+re-request); the open human decisions are §4's short list; and the estate's
+meta-programme (gate ledger, PDR-136, the strata verdict) is aimed at the
+dominant mechanism the blind pass independently derived — with the corrected
+understanding that four sibling generators need their own cures, which the
+cluster structure above now gives the ledger lane as evidence.
 
-- **The one live pre-merge check**: Birch's sequencing constraint stands —
-  preview and development `SENTRY_MODE` values are unverified (encrypted; CLI
-  read-only). If either lacks `SENTRY_MODE=sentry`, the first deploy after
-  #748 merges is boot-dead in that environment. Mitigation exists now:
-  `preview-serves` (merged, live) would catch it visibly — but informational,
-  not blocking. The check costs one look at the Vercel env panel (Jim or
-  Matt).
-- **MCP-495 sharpens**: the strengthen ruling makes the app *mandate* the
-  variable the library *rejects* (`refineLegacySentryMode`). The two-switch
-  contradiction is now load-bearing in a merged direction; the ADR-171
-  bridge deviation should be reconciled with the ruling before anyone
-  "completes the migration" by retiring SENTRY_MODE — the accident MCP-495
-  documents.
-
-### 3.2 Merged #747 carries an un-dispositioned correctness residual
-
-Copilot's post-fix reviews (09:08Z, 09:43Z, suppressed-comments channel)
-flagged that the cured `statMtimeMs` still has an uncured sibling: `dirExists:
-existsSync` followed by an unguarded `readdirSync`. Verified on `origin/main`
-just now — the window is real: a `src/` directory removed/replaced by a
-concurrent checkout between the two calls throws and crashes `postinstall`,
-the exact class the PR cured for `stat`. Small, real, on merged code, and
-**nobody has answered it** because it lives in the suppressed-comments channel
-no thread-based sweep reads. Unticketed.
-
-### 3.3 The suppressed-comments channel is a systematic blind spot
-
-The #747 residual is not an isolated miss. #749 has had the **same finding
-suppressed in four consecutive Copilot reviews**: its CI adds
-`lint:runtime-only` with no pre-push counterpart, violating ADR-121's
-pre-push === CI parity (verified: `.husky/pre-push` runs `lint:shell` only).
-Also in #749's suppressed set: a missing knip entry-point registration and a
-`process.exit(1)`-skips-`finally` fixture-cleanup defect. None answered.
-GraphQL `reviewThreads` + review bodies both miss these — they render only
-inside `<details>` blocks in review summaries. Anyone triaging by unresolved
-threads reads "#749: 1 thread, resolved" and sees a clean PR.
-
-This is itself an instance of the §2 defect class: the review surface we
-*read* is not the surface the findings *land on*. The gate-ledger lane
-(reachability and scope, not existence) is the right home for the general
-cure; the immediate cure is cheap — sweep suppressed comments once per PR at
-disposition time.
-
-### 3.4 The "review bottleneck" framing needs re-pricing
-
-Birch's 08:10Z board read — "every PR queued on one human's attention" — was
-true at the time but is not the current mechanism. The corpus shows
-`mantagen`'s verdicts are agent-automation re-reviews that arrive
-mechanically on head change (four PRs re-reviewed within seconds of each
-other at 08:32Z). What is *actually* human-gated now is narrower: code-owner
-approvals (dischargeable under the standing grant), auto-merge-off merge
-words, and Matt's two personal answers (ADR-168; #756 was his own). The
-review economy is largely agents-reviewing-agents with humans at the
-decision points — which is working, and means "make each re-review cheap"
-(crisp what-changed disposition comments) is the right optimisation, and
-"wait for Matt's attention" is mostly not the constraint the frozen record
-priced it as.
-
-### 3.5 One residual is valuable and unticketed
-
-From #752's arc: **nothing in any suite asserts that `examples` survive onto
-the advertised `tools/list` schema.** A generator change silently stripped
-agent-facing guidance from two parameters; every gate stayed green; it took a
-reviewer challenge plus a live two-server comparison to see it. MCP-486/487/
-488/489 are all filed; this assertion gap is not. It is the served-surface
-twin of the §2 class and cheap to close (a test importing the served schema
-asserting `examples`/`maximum`/`default` presence per parameter).
-
-## 4. Where this leaves the board (the reassessed state)
-
-1. **The owner's named priorities are genuinely discharged**: spec PRs live
-   (1.147/1.148, UAT GO WITH CONDITIONS), testing done both sides, Sentry
-   proven working behaviourally in production. The corpus supports the frozen
-   record here.
-2. **The deployment-reliability programme is converging, not sprawling**:
-   #743 merged; #751 two wording items from settled; #748 cured pending one
-   env check; #746 is honest about its two open findings; MCP-480/481/493
-   (Urgent) are the unstarted engineering tail.
-3. **The open human decisions are few and cheap**: #756 (one word), #752
-   (close, recommended), #748 timing (after the env look), ADR-168 (Matt's
-   one answer), the standing Matt-PR merge ruling. Everything else routes
-   through agent seats.
-4. **The estate's meta-programme is validated by its own week**: the gate
-   ledger (PDR-135/MCP-491) and the strata split are aimed at the single
-   defect class that ~ten independent findings this window instantiate.
-   The comment corpus is the evidence base that programme was missing.
-
-## 5. Proposals (pointers, not specs — each with warrant and falsifier)
-
-1. **Sweep suppressed comments at every PR disposition** (immediate practice;
-   candidate clause for `pr-lifecycle`'s harvesting step, which already says
-   "all comments" — the corpus shows the letter was honoured and this channel
-   still leaked). *Warrant*: §3.2/§3.3 — real findings on merged code went
-   unanswered. *Falsifier*: if the GraphQL/REST surfaces do expose these and
-   the misses were seat-specific process slips, the cure is seat habit, not
-   the skill.
-2. **Ticket the #747 dir-read TOCTOU** (small fix, same shape as the cured
-   stat). *Warrant*: verified live on main; crashes postinstall in the race
-   the module documents itself as tolerating. *Falsifier*: if the walk never
-   races a checkout in practice (no observed instance), priority is Low —
-   but the cure is ~5 lines, cheaper than the argument.
-3. **Ticket the `examples`-survival assertion** (served-surface contract
-   test). *Warrant*: §3.5 — a silent contract regression class with a
-   measured instance and no guard. *Falsifier*: if MCP-487's request-boundary
-   redesign lands a served-schema snapshot test anyway, fold it there.
-4. **Reconcile MCP-495 with the #748 "strengthen" ruling** before any
-   SENTRY_MODE migration work. *Warrant*: §3.1 — the ruling changed which
-   switch is load-bearing; MCP-495's proposed rule placement predates it.
-   *Falsifier*: if the owner intends the library schema to be retired rather
-   than bridged, MCP-495's shape changes entirely — his call, one question.
-5. **Answer #749's parity finding explicitly** (add `lint:runtime-only` to
-   pre-push, or record why not). *Warrant*: ADR-121's invariant, flagged 4×.
-   *Falsifier*: if pre-push runtime cost is the deliberate trade, say so on
-   the PR — the defect is the silence, not necessarily the gap.
-
-## 6. Unresolved evidence that could change this synthesis
-
-- Preview/development `SENTRY_MODE` values (encrypted; needs Jim or Matt) —
-  decides #748's merge timing.
-- Matt's ADR-168 answer — decides #751's final shape (withdraw-mine
-  convergence already proposed and sized: 1 hunk, 12 lines).
-- Whether the owner wants the "all PRs" sweep widened beyond #729–#756.
-
-*Report by Galaxy weaves Latitude (5baf4e), claude-code / claude-fable-5,
-2026-08-04. Corpus: 27 PRs, 40 review threads, 121 reviews, 138 issue
-comments; boilerplate excluded mechanically; every state claim re-verified
-per-item at ~13:15Z.*
+*Rev 2 by Galaxy weaves Latitude (5baf4e), claude-code / claude-fable-5,
+2026-08-04 ~14:55Z. Fleet: workflow `wf_95675b4e-19f` (11 agents, 0 errors,
+26 min, 1.34M tokens); solo rev 1 preserved in git history at `b89abe0ee`.
+Corpus statistics in the header are derived from the captured payloads.*

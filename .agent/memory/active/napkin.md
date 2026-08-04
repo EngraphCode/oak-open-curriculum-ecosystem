@@ -2402,3 +2402,92 @@ shredding `tmp/jim-posthog-setup-steps.md`; and the observability-debt ticket.
   "am I confident?" but **"what is the cheapest thing that would prove me
   wrong, and have I run it?"** If that thing costs nothing and I skipped it,
   confidence is not the issue — laziness dressed as judgement is.
+
+- **2026-08-04 (Galaxy) — the estate wrote today's diagnosis two weeks ago and
+  nothing ever read it back**: Quoll mends Lair's abandoned commit intent
+  (20 July, queue notes field) records the exact failure signature that consumed
+  this afternoon — a pnpm pin-vs-binary version drift on this machine, WITH
+  pnpm's own clear explanation of cause and fix, buried under the same lying
+  "Formatting issues found!" message. Nobody read it because no surface ever
+  reads failure notes back; the queue is write-only memory once an intent
+  abandons. Lesson at the seat: when a failure signature repeats, grep past
+  failure records for the signature BEFORE diagnosing fresh. Lesson for the
+  estate: a record that is only ever written is not knowledge; the gate-ledger
+  family (STATED vs CHECKED) applies to failure archives too. Exhibit for the
+  retrospective at owner word.
+
+- **2026-08-04 (Galaxy) — a 14-day-old queue row read as a living colleague by
+  two seats in one afternoon**: expired intents still render `phase: queued`;
+  Petrel and I both addressed Quoll (retired 20 July) as a live peer, and Petrel
+  asked it to announce itself. The claim-freshness pilot (MCP-476/ADR-223,
+  draft PR #745) is exactly the cure class for this — dated rows, clock-free
+  staleness — and it sits in draft. Interim discipline: before treating a
+  registry row as presence, read its dates; a queue row is not a seat.
+
+- **2026-08-04 (Galaxy) — one error message masked three different root causes
+  across two weeks**: "Formatting issues found!" covered corepack version drift
+  (July, Quoll's notes), the resolver path defect (#754), and the store-binding
+  purge (today). A gate that reports its guess instead of its evidence trains
+  operators to distrust it and invents fresh wrong theories per incident. #754
+  cured one layer; the class belongs with MCP-492 (tool output is the
+  interface): failing gates must surface the underlying command's actual
+  output, never a category guess.
+
+- **2026-08-04 (Galaxy) — the author of the defect-class report re-enacted the
+  class four times within the hour**: claim-close summary written before the
+  verdict was read ("commit landed" — it had not); a "recovery watch armed"
+  that never was; "#754's defect blocks this gate" without checking the fix was
+  already in-tree (it was); a usage message read as a persistent failure (my
+  own malformed argv). Mechanism: claims written under self-generated urgency
+  before their checks ran. The felt urge to keep moving IS the tripwire;
+  name-the-instrument applies to one's own records first. Owner's brake was
+  exogenous three times — crickets now arm at real cycle boundaries at this
+  seat; an unarmed cricket is the tell the executor has taken over.
+
+- **2026-08-04 (Galaxy) — everything wrong today was fast, everything right was
+  slow**: two stacked workarounds normalised fleet-wide in ~15 minutes on
+  vendor error text quoted as authorisation; the corrections (Birch's MCP-498
+  pushback, the owner's three one-line rulings, Petrel's measured root-cause)
+  were all slow and all right. Nobody set a deadline; the urgency was
+  self-generated — the queue became the self, exactly as the wake-up prior
+  predicts. No-speed-pressure is not a nicety; it is the estate's error-rate
+  control.
+
+## 2026-08-04 ~14:0xZ (Petrel holds Turbulence, a0892f) — succession-day captures; owner rulings verbatim; week-off extrication
+
+- **Owner rulings at this seat, verbatim substance, all 2026-08-04**: (1) "of
+  course relying on CI=true is a bypass" (fleet-relayed; MCP-498 rewrite must
+  never read it as the remedy); (2) "Don't merge Matt's PRs for him, ever, but
+  do review and if appropriate approve" — answers Birch's standing-ruling
+  question with NO; merge is Matt's own act; applies to mantagen AND
+  emgeebot-oakenfold[bot] (per-user memory updated); (3) "if it's tracked it's
+  not bloody local... it's shared between ALL copies, that is what tracked
+  means" — kills the tracked-descriptor "reading B" in the D7 synthesis
+  (event 97b6ba5c); instance expectations live with the INSTANCE (forge
+  variable/settings store), the repo carries portable mechanism + tier only;
+  (4) extrication: Matt received bypass permissions 2026-08-03 and merges his
+  own commits; the fleet withdraws from his surfaces for the week — "the more
+  we do the more we risk creating a situation where we are blocking".
+- **pnpm store-binding root cause** (chain + instruments: event a0585e7e;
+  confirmed by Wyvern with own instruments): PNPM_HOME re-point derived a
+  second store (`pnpm store path` proves derivation), rebound two trees;
+  default-env runs then demanded a destructive purge; CI=true auto-confirmed
+  it. Primary self-healed 13:29Z (canonical rebinding); last corrupted tree
+  mcp-463-bulk-truing is clean+merged = prunable. Doctrine fix landed in
+  set-up-worktree-lane §Failure-shapes (this commit).
+- **Session lesson (owner-prompted STOP + metacognition)**: tempo defeats
+  discipline the way missing access does — every rule I bent I held in memory
+  while the comms stream defined my cycle boundaries as "the next event", so
+  no boundary ever looked like one and Cricket never fired. The day's three
+  incidents (store binding, strata question, PDR-135 double-mint) are ONE
+  mechanism: instance-local state leaking into shared substrates. Also: the
+  Director seat sat empty all day and nobody flagged the absence — the
+  damping seat missing IS the anomaly, not the resonance. Full reflection in
+  the session; graduation candidates ride the owner-queued dedicated
+  consolidation.
+- **#748 read for the record** (review NOT submitted — extrication): current
+  head c6aefcadb is sound; the MCP-356 DoD fork is closed by owner-directed
+  strengthening (Sentry actively live: sink + SENTRY_MODE=sentry + DSN, every
+  environment, accumulating issues); tests pin the false-marker case; the
+  app/library SENTRY_MODE contradiction is the known half-finished migration,
+  made LOUDER (not worse) by this PR. Nothing blocking found.
