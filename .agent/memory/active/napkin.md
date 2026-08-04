@@ -2232,3 +2232,74 @@ shredding `tmp/jim-posthog-setup-steps.md`; and the observability-debt ticket.
   moment to ask what the thing is FOR, not to start building. Related:
   a wrapper's summary is a lossy restatement — when wrapper and tool
   disagree, the tool wins (cost me 20 min and a wrong action today).
+
+- **2026-08-04 (Birch) — access, not discipline, is what makes claims true**:
+  the sharpest lesson of two days. Yesterday the Vercel logs were unreadable
+  and a wrong theory survived thirty minutes and produced a release cut.
+  Today every check was reachable — a second MCP client, a schema read, one
+  `existsSync`, a live `tools/list`, my own session transcript — and every
+  wrong claim died within minutes. The variable was not care. **Spend thirty
+  seconds restoring an instrument rather than thirty minutes reasoning around
+  its absence.** The tripwire that follows: *before a mechanism claim reaches
+  a durable surface, name the instrument that proved it.* If the answer is
+  "reasoning", it is not proven yet.
+
+- **2026-08-04 (Birch) — the control that controlled nothing**: I ran preview
+  vs production as an A/B for MCP-487's string-coercion fix. Both returned 200.
+  I nearly wrote that up as "the fix works". It proved the opposite of what I
+  designed it to prove: the client had stopped sending strings, so neither arm
+  exercised the path. **A comparison only isolates a variable if you have
+  confirmed the variable still varies.** The instrument that settled it was my
+  own session transcript — Claude Code 2.1.220 at session open, 2.1.221 at
+  the restart, with 16 recorded instances of the error in between. Transcripts
+  are evidence about the harness, not just conversation. Consequence: MCP-487
+  buys nothing and costs `examples` on two params; recommended CLOSE.
+
+- **2026-08-04 (Birch) — a rule two careful reviewers miss in one hour is a
+  tooling gap**: Matt approved #754 at 09:26 and withdrew at 09:27 (threads
+  landed mid-review); I approved #748 at 09:59 and withdrew after finding a
+  Copilot finding from 09:43. `pr-comments-resolve-and-recheck` already says
+  to re-check. Both of us know it. Neither was reminded **at the moment the
+  verdict was submitted**, and a reviewer reading a diff for ten minutes is by
+  construction working from a stale thread list. MCP-496 raised. This is
+  `structure-over-vigilance` pointing at itself.
+
+- **2026-08-04 (Birch) — "never" in a doc is a measurable claim**: ADR-168 §5
+  said the vitest globs "never" cover `build-scripts/**`. Two workspaces opt
+  it in; 130 tests run from it in the MCP app alone. Meanwhile
+  `runtime-only-scripts/**` is covered by nothing, and §4's canonical tree
+  showed a unit test living there — 663 lines of assertions about the gate
+  guarding every production deploy that had **never executed once**. One
+  defect, both directions: the ADR *asserted* a configuration fact instead of
+  deriving it. Wyvern took it as D14 and it changed the gate ledger's design —
+  the derived half must recompute **test-file reachability**, not just script
+  invocation. A suite matched by no runner glob is a gate that does not exist,
+  and nothing reports it.
+
+- **2026-08-04 (Birch) — verify the subagent, especially when it agrees**:
+  the architecture review confirmed my SENTRY_MODE finding and **falsified**
+  my `.shape` claim — the app never composes `ObservabilityEnvSchema` at all,
+  so nothing is being dropped; the trap is armed and unfired. I had told Matt
+  `.shape` "caused this". It did not. I re-verified every load-bearing claim
+  by hand before transmitting, and found the agent's own grep list slightly
+  off (its `env-resolution` hit was a comment) — which strengthened rather
+  than weakened its point. Corrected on the PR.
+
+- **2026-08-04 (Birch) — check the live state before pricing the alarm**: I
+  wrote MCP-495 saying the dark-Sentry config "is the configuration the owner
+  asked us to prove works", which reads as *this is happening now*. It is not.
+  Production has been receiving errors all along — latest 08:38Z today, tagged
+  `release: 1.147.0`, stack frames resolved. Config-reading could not have
+  told me (values encrypted); **behaviour could**. The defect is real but
+  latent: nothing enforces the coupling, so we are one env edit from silence.
+  Urgent -> High. An alarm priced above its evidence spends the owner's
+  attention at the wrong moment.
+
+- **2026-08-04 (Birch) — slips that recur**: piped a `git commit` through
+  `tail` and read `tail`'s exit code as the commit's — the commit had NOT
+  landed. That is `exit-codes-in-band-never-piped`, which I have in memory,
+  violated while quoting other rules correctly. Also: the pnpm resolver bug
+  reproduced live in a worktree lacking the #754 fix, again reported as
+  "Formatting issues found!" — and once the resolver was pointed at
+  `$PNPM_HOME/bin`, the *real* Prettier failure appeared underneath. The
+  masking error hid a genuine one.
