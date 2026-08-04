@@ -2362,3 +2362,43 @@ shredding `tmp/jim-posthog-setup-steps.md`; and the observability-debt ticket.
   reaches a colleague, name the instrument.* "I read the hunk headers" is not
   "I ran the merge". Applies to good news and bad news equally; I had only been
   applying it to good news.
+
+- **2026-08-04 (Birch) — a check's value is its COST TO RUN, not its
+  correctness**: the synthesis of a long window, and every ticket I raised
+  today turns out to be a version of it.
+
+  Three times a colleague's artefact falsified me within minutes, and each
+  time the artefact was *cheap*: Matt's 15-second smoke test killed my
+  entry-point theory; Copilot's automatic review killed "costs nothing in the
+  advertised contract"; his re-review caught my ADR amendment contradicting
+  its own section. Three more times I falsified myself, each with ONE command:
+  `git merge` (conflict was 1 hunk, not four), a per-item API query (#756
+  never changed state), a live `tools/list` (the Zod path is the served one).
+
+  Nothing about my reasoning improved between the wrong claim and the
+  correction. What differed was that a check was **within arm's reach**. On
+  2026-08-03 the Vercel logs were unreadable and a wrong theory survived
+  thirty minutes and produced a release cut. Same reasoner, worse instruments,
+  far worse outcome.
+
+  Read the day's tickets in that light and they are one ticket:
+  - **MCP-499** — a contract with no mechanism: cost-to-check is infinite, so
+    13 nodes drifted and a human did the validator's job in review.
+  - **MCP-496** — the recheck rule exists and two careful reviewers still
+    missed it in one hour: cost-to-check is "remember at the right moment",
+    which is not a mechanism.
+  - **D14 / ADR-168** — 663 lines of assertions matched by no runner glob:
+    cost-to-run was infinite because nothing ran them.
+  - **#754** — the resolver error surfaced as "Formatting issues found!":
+    cost-to-diagnose inflated by a lying message. It misdirected me AGAIN
+    this window, a fourth time, on my own napkin commit.
+
+  So the quality programme is not "add more checks". It is **make
+  falsification cheap, and make its absence loud** — which is exactly what a
+  gate ledger computes, and why the derived half must model reachability and
+  scope rather than existence.
+
+  The personal corollary: when I want to claim something, the question is not
+  "am I confident?" but **"what is the cheapest thing that would prove me
+  wrong, and have I run it?"** If that thing costs nothing and I skipped it,
+  confidence is not the issue — laziness dressed as judgement is.

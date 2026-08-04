@@ -478,3 +478,158 @@ touched nothing in `.agent/practice-core/`. My surfaces this window:
 runtime-only script, `agent-tools/src/spawn/`, and the napkin.
 
 — Birch holds Seedling (e48fe2)
+
+---
+
+## Birch holds Seedling (e48fe2) — 2026-08-04, COMPACTION BOUNDARY (second)
+
+Owner-called. Crons and watcher stood down at his word and restarted
+simplified; silence after this is compaction, never retirement.
+
+**Why this entry is long.** The harness task list does NOT survive
+compaction — proved this window when a task id came back "Task not found"
+after the last one. Anything living only there is lost. So the three open
+task bodies are transcribed here, which is the surface that does survive.
+
+### State: everything is pushed, nothing is dirty that is mine
+
+```text
+mcp-479-redeploy-recovery      7b5e690ec  local == remote
+deploy-reliability-plan-node   aa4a33ff7  local == remote
+fix-pnpm-bin-candidate         b95851fd7  local == remote
+coordination/estate-2026-08-03 d9ac16722  local == remote
+```
+
+A worktree scan flagged `deploy-reliability-plan-node` as "unpushed=4".
+It is not: that branch tracks `origin/main`, so `@{u}..HEAD` counts
+ahead-of-main. Against its own remote it is 0. Recording the false
+positive so the next seat does not chase it.
+
+The primary's three dirty files (`.gitignore`, `package.json`,
+`.agent/reports/quality-gate-inventory-2026-08-04.md`) are NOT mine and
+were untouched all session.
+
+### Where every PR stands, and on whom
+
+| PR | state | waiting on |
+| --- | --- | --- |
+| #737 | blocked, 2 findings cured, re-requested | Matt |
+| #746 | blocked, 3 of 5 cured, 2 declared open | Matt |
+| #751 | blocked, 4 findings cured, re-requested | Matt |
+| #754 | blocked, 2 findings cured, re-requested | Matt |
+| #748 | draft — Matt escalated a DoD change | **Jim** |
+| #749 | Matt's; I reviewed, collision raised | Matt |
+| #752 | draft; recommend CLOSE | **Jim** |
+| #756 | **CLEAN, mergeable now** | **Jim** (see below) |
+
+#747 MERGED 09:59:04Z — one second after my approval under Jim's grant.
+#743 merged earlier; `preview-serves` is live on main.
+
+### THE THREE OPEN TASK BODIES, transcribed
+
+**(A) #746 findings 3 and 4 — unstarted, not blocked.**
+
+_Finding 3 (bootstrap-reporter safety proof)_ is engineering, not docs:
+ADR-160 consuming-workspace conformance proof driving KNOWN PII through
+and observing it redacted at the destination; bound reporter delay with an
+explicit timeout; prove init/capture/flush rejection or timeout never
+masks the ORIGINAL boundary error; narrow reportable config failures to
+those after valid bootstrap Sentry inputs exist.
+
+_Finding 4 (build-vs-buy)_ — partial research done, do not repeat it:
+
+- ESTABLISHED: Sentry HAS first-party uptime monitoring — evidence is not
+  docs but that Jim created monitor `1593267` on 2026-08-03. So the
+  liveness node's first mechanism IS the first-party option. Sentry also
+  has first-party Crons. Alerts route to Slack, quoted from
+  `docs.sentry.io/product/alerts/uptime-monitoring/`: _"Actions run when
+  triggers and filters match. Depending on your integrations, actions can
+  include chat notifications (Slack, Microsoft Teams, Discord)."_
+- NOT ESTABLISHED, and it decides MCP-493: whether a Sentry uptime monitor
+  can send CUSTOM REQUEST HEADERS. Without
+  `Accept: application/json, text/event-stream` the transport returns 406
+  before auth is reached, so the `POST /mcp` -> 401 probe would pass
+  whether auth is healthy or broken. Also unknown: whether Sentry Crons
+  can detect a missed check-in without an external scheduler.
+- THREE DOCS PAGES RETURNED INDEX CONTENT ONLY — `uptime-monitoring/`,
+  `crons/`, `uptime-alert-configuration/`. **Do not retry those.** Cheaper
+  instrument: one look at the monitor's own config panel by Jim or Matt.
+- Likely answer once confirmed: the node already uses first-party where it
+  exists and bespoke only for the SECOND failure domain (GH Actions ->
+  Sentry cron check-in), justified because the domains differ — the uptime
+  monitor survives a GitHub outage, the heartbeat survives a Sentry-side
+  probe gap.
+
+**(B) ADR-168 convergence — BLOCKED on Matt's reply to #749. Do not touch
+ADR-168 until he answers, or we edit one file blind.**
+
+#749 and #751 amend the same §4/§5 with two different exceptions for one
+problem. Measured, not inferred: `git merge --no-commit --no-ff` gives
+**1 conflicted file, 1 hunk, 12 lines** — only the status line. Git
+auto-resolves the other three overlapping regions.
+
+His exception is better and I said so on #749. His pre-install `.mjs`
+exports a pure function; a test on the EXISTING `src/**` surface imports
+it by relative path. Mine moves the test into `build-scripts/` and amends
+the ADR to sanction the placement — which silently depends on the
+workspace having opted `build-scripts/**` into its vitest globs, true in
+2 workspaces and false everywhere else. His holds anywhere. It applies to
+my guard too: `runVercelIgnoreCommand` is ALREADY an exported pure
+function.
+
+When he agrees, on #751: move the 36-test suite onto `src/**`; drop my
+§4/§5 placement exception; KEEP the factual half (§5's "never covers
+`build-scripts/**`" is false — 2 workspaces, 18 test files, 130 tests
+collected in the MCP app alone); and re-check ADR-163's "Unit tests"
+pointer, which moves again.
+
+**(C) Owner card for Jim — five items.**
+
+1. **CLOSE #752?** Recommend yes. The Claude Code defect it works around
+   was fixed upstream (2.1.220 -> 2.1.221, evidenced in this session's own
+   transcript); its cost is measured (`limit` and `offset` lose `examples`
+   from the advertised schema). If a host later sends string-encoded
+   numbers, cure at the request boundary, not the published schema.
+2. **The #748 DoD ruling Matt escalated** (owner-routed per MCP-356; PR
+   back to draft, he is waiting). Sink-marker satisfies MCP-361's stated
+   DoD; honouring the non-negotiable means ALSO requiring
+   `SENTRY_MODE=sentry`, which is stricter than the ticket. Decision-relevant:
+   production Sentry IS live (errors received 08:38Z today at 1.147.0), so
+   the hazard is latent, not live.
+3. **MCP-495 sequencing.** Blocker for whichever ruling strengthens:
+   PREVIEW and DEVELOPMENT env values are unverified (encrypted; CLI
+   read-only by his constraint). Production is cleared.
+4. **#756 lands on one word.** Both code owners approved, 17/17 green,
+   auto-merge OFF repo-wide so it sits indefinitely. I am HOLDING because
+   I approved it using the authority the rule it edits grants — flagged
+   that circularity on the PR — and invited his view on identity doctrine
+   there minutes earlier. **Also on it: his 2026-08-04 PR-approval grant
+   is recorded NOWHERE in the rule.** It is sanctioned by the existing
+   blocker clause and is load-bearing (it unblocked #747), but unwritten
+   it dies at every context boundary. Suggested clause is in my review.
+5. **A standing ruling would retire a whole class:** may I merge clean,
+   approved, green PRs authored by Matt or his bot without asking?
+
+### Tickets raised this window
+
+MCP-493 (uptime alert -> Slack, assigned Matt, needs his channel choice),
+MCP-495 (Sentry selected-but-dark; High), MCP-496 (approve-then-withdraw
+hit Matt and me within one hour), MCP-497 (production rejects protocol
+version 2026-07-28 — read the spec before calling it a defect),
+MCP-499 (plan body contract unenforced; 13 nodes, and that is a floor).
+
+### For your ledger specifically
+
+Two rows beyond D14, both measured:
+
+- **A gate can be green against the wrong artefact.** My CI went red while
+  local passed on the same SHA and same command — local reads the working
+  tree, CI reads the commit. Check with
+  `git show HEAD:<file> | prettier --check --stdin-filepath <file>`.
+- **MCP-499**: a contract stated in a directive with no mechanism at all,
+  standing beside a real validator under one shared verdict. An
+  invocation-site ledger scores `validate-plan-corpus` as live and passing.
+  It is — for frontmatter. The unenforced half is invisible at every level
+  the ledger currently models.
+
+— Birch holds Seedling (e48fe2)
