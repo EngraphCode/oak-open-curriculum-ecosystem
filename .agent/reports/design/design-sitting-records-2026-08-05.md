@@ -189,3 +189,48 @@ Component Standards / Oak Design Principles / A11y Documentation); the MCP
 page enumeration returns Cover only, so deep nodes are reached by link,
 not the page list. The three documentation pages are prime
 approximation-reference material for the W0.7 rubric and the Oak anchor.
+
+## The official-reference atlas — owner-assembled node map (token-stripped) and the fidelity gradient
+
+Recorded from the Director's atlas relay (2026-08-05, ARC channel; names
+verified first-hand at the Director seat where the Figma View-seat MCP
+quota allowed — three nodes pending the next quota window). Oak Design Kit
+file `YcWQMMhHPVVmc47cHHEEAl`, eight owner-assembled deep nodes:
+
+- `19798-1848` — Oak Component Standards: the kit's THREE-PROP API grammar
+  (colorScheme / size / variant, with a Figma-matches-component-API
+  alignment obligation). Direct W3 prop-API reference.
+- `11442-11157` — Oak Design Principles (content instance marked WIP).
+- `12381-529` — A11y Documentation: the official FIVE-STEP per-component
+  accessibility documentation protocol (usage description; all states incl.
+  device variants; focus order/behaviour with keyboard annotations and
+  traps; known issues and considerations; content guidance). Maps nearly
+  one-to-one onto our charter DoD + W0.7 rubric shape.
+- `2952-16660` — on the Style Tokens page (name pending quota).
+- `8831-20262` — Brand Assets, with an INLINE OWNER RULING: "brand assets
+  stay out of the repo entirely, we approximate the style of them only and
+  then loosely."
+- `21201-6385`, `3459-11008` — pending identification.
+- `8866-8323` — CheckBox: full component anatomy (spec, states,
+  label/legend layouts, a11y block, do/don't guidance); Effect styles
+  confirm lineage vocabulary (drop-shadow-lemon et al.).
+
+**The fidelity gradient — three bands plus one free layer** (owner rulings
+composed):
+
+1. Token VALUES: examine exact, use slightly off (the cartographer's
+   folly, bounds as recorded above).
+2. Compositions / STYLE: good approximation.
+3. Brand ASSETS: never in-repo; loose stylistic echo only.
+4. PRINCIPLES AND PROTOCOLS (the five-step a11y discipline, the three-prop
+   grammar): ideas transfer freely, restated in our own words with
+   attribution — the folly binds values, not disciplines.
+
+Kit page structure (owner's expanded sidebar): Cover; Design Documentation
+(Component Standards / Design Principles / A11y); Design System (Style
+Tokens / Brand Assets); Oak Components by family (Buttons ×5, Cookies,
+Form elements, Layout/Grid, Messaging ×9, Navigation ×6,
+Presentational/Carousel) with adoption-state check marks on Button /
+LeftAlignedButton / IconButton / Toast — association only, one look at W3
+story-open. Lane note: the Figma View seat is QUOTA-METERED on MCP calls —
+budget kit consultations deliberately; batch reads at story-opens.
