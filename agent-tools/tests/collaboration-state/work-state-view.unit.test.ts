@@ -167,4 +167,36 @@ describe('projectWorkState — derived cross-worktree work-state view (F-98 / sp
 
     expect(forward[0].agent).toStrictEqual(reversed[0].agent);
   });
+
+  it('binds a worktree to its agent through an UNTAGGED ADR-186 lifecycle-shaped heartbeat', () => {
+    const lifecycleHeartbeat: CommsEvent = {
+      schema_version: '2.0.0',
+      event_id: 'evt-lifecycle-bound',
+      created_at: new Date(NOW_MS - 30_000).toISOString(),
+      kind: 'lifecycle',
+      event_type: 'heartbeat',
+      occurred_at: new Date(NOW_MS - 30_000).toISOString(),
+      author: gannet,
+      agent_id: gannet,
+      thread: 'estate-coordination',
+      claim_id: 'claim-1',
+      title: `Heartbeat: ${gannet.agent_name}`,
+      subject: `Heartbeat: ${gannet.agent_name}`,
+      body: composeHeartbeatBody({
+        claimId: 'c',
+        intentId: 'c',
+        branch: 'feat/lifecycle-bound',
+        currentCycleLabel: 'cycle',
+      }),
+    };
+
+    const rows = projectWorkState({
+      worktrees: [worktree('/repo/wt-lifecycle', 'feat/lifecycle-bound')],
+      events: [lifecycleHeartbeat],
+      activeAgents: [],
+      nowMs: NOW_MS,
+    });
+
+    expect(rows[0].agent).toStrictEqual(gannet);
+  });
 });

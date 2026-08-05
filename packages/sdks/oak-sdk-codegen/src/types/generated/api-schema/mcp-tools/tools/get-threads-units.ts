@@ -22,6 +22,7 @@ const method = 'GET' as const;
  * Path parameters derived from the OpenAPI schema.
  */
 export interface ToolPathParams {
+  /** The thread identifier for a given unit */
   readonly threadSlug: string;
 }
 export interface ToolParams {
@@ -30,11 +31,11 @@ export interface ToolParams {
 
 export interface ToolArgs { readonly params: ToolParams; }
 
-export const toolInputJsonSchema = { type: 'object' as const, properties: {"thread":{"type":"string","examples":["number-multiplication-and-division"]}} as const, additionalProperties: false as const, required: ["thread"] };
-export const toolZodSchema = z.object({ params: z.object({ path: z.object({ threadSlug: z.string() }) }) });
-export const toolMcpFlatInputSchema = z.strictObject({ thread: z.string().meta({ examples: ["number-multiplication-and-division"] }) });
+export const toolInputJsonSchema = { type: 'object' as const, properties: {"thread":{"type":"string","description":"The thread identifier for a given unit","examples":["number-multiplication-and-division"]}} as const, additionalProperties: false as const, required: ["thread"] };
+export const toolZodSchema = z.object({ params: z.object({ path: z.object({ threadSlug: z.string().describe("The thread identifier for a given unit") }) }) });
+export const toolMcpFlatInputSchema = z.strictObject({ thread: z.string().describe("The thread identifier for a given unit").meta({ examples: ["number-multiplication-and-division"] }) });
 export type ToolInputSchema = z.infer<typeof toolZodSchema>;
-const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"thread":{"type":"string","examples":["number-multiplication-and-division"]}},"additionalProperties":false,"required":["thread"]}\nRequired: thread';
+const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"thread":{"type":"string","description":"The thread identifier for a given unit","examples":["number-multiplication-and-division"]}},"additionalProperties":false,"required":["thread"]}\nRequired: thread';
 export const describeToolArgs = () => toolArgsDescription;
 /**
  * Transform flat MCP arguments to nested SDK format.

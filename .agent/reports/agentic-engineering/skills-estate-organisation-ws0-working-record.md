@@ -1193,3 +1193,121 @@ recorded at push in the ceremony chain (classification gate,
 portability parity, repo validators, link validators, the
 machine-local helpers suite proven green against the interim policy
 state).
+
+### 2026-08-03 ~06:07Z — #726 MERGED; #714 round 5/12 dispositioned; owner two-channel ruling inscribed; compaction freeze
+
+PR #726 MERGED into the coordination branch (tip 171d4e182) at the
+full condition — zero unresolved threads, CLEAN, checks green,
+REST-merged as the bot, no squash. The graduation's mechanism leg is
+on the fold; the D arc is COMPLETE end to end.
+
+The Director then routed the #714 fold-review round here: 12
+unresolved threads, all skills-lane content; the fold merges at
+resolved + green and is the estate's critical path. DISPOSITIONED
+this sitting (each replied with first-hand-verified evidence and
+resolved on the PR): (1) the commit-D validator-message residue —
+verified cured at the tip by the #726 merge; (2) the skills-lock
+security-review thread — the owner's 2026-08-03 ruling settled the
+CHANNEL question ("no skills should be vendored, we have Oak skills,
+we have skills installed with `npx skills add` or `pnpm skills add`
+that is it" — inscribed verbatim as §Source channels in
+capability-landing-decision-procedure.md), and the review itself is
+now PERFORMED and recorded
+(skill-creator-payload-security-review-2026-08-03.md: nine scripts
+read; verdict safe-at-rest / safe-on-explicit-run within the user's
+own claude auth boundary; hygiene flags: the .claude/commands write
+and the CLAUDECODE unset; the rule's own text scheduled this
+backfill at next pin bump — performed early); (3+4) the two
+skill-creator defect threads (packager module root; undeclared
+PyYAML) — both verified, both routed UPSTREAM per the two-channel
+ruling (installer payloads are never locally patched: a local edit
+breaks the lock hash). The duplicate render_graph pair counts once.
+
+REMAINING at the freeze — seven threads, the next sitting's map:
+
+- Parallax (Oak-authored, per the ruling — editable lane content):
+  installation.md pre-rehoming paths (true to the landed nested
+  layout); the adapter generator/checker immediate-children-only walk
+  vs the nested layout (the R1-adopted generator-extension work item —
+  agent-tools SOURCE, lands as a reviewed PR into the coordination
+  branch per the #724/#726 pattern); render_graph.py non-injective ID
+  sanitisation (two finders, one defect — encode injectively);
+  validate_bundle.py rejecting host repos' own skills (scope the
+  exact-set assertion to the bundle layout); experiment-plan
+  validator non-string array members crash (duplicate at the product
+  validator); product validator passing fixed-horizon plans when
+  effect_results_visible_during_run is omitted (require explicit
+  boolean). Python fixes want their own red-first cycles.
+- Loader globs (P1): surface:* Cursor wrappers flipped to
+  alwaysApply:false without globs — the index's own contract (rows
+  19-24/52-70) promises loader bindings; the cure is the Cursor-globs
+  pass (the 4 kept glob-scoped wrappers are the pattern), independent
+  of the evals-gated Claude-side withdrawal still awaiting the
+  owner's word on the fused recommendation.
+- Discipline: one push per adjudicated round; re-request review after
+  the fix push; the Director merges at resolved+green+settled.
+
+### 2026-08-03 ~06:48Z — resume: freeze bundle landed; skills-SSOT ruling inscribed
+
+The compaction freeze lifted at the owner's resume word. The link-gate
+block was cured at the Director's seat (187a2ab2f tracks the
+TypeScript-estate thread record) and the four-file freeze bundle
+landed unchanged (45ef043ce) under a granted warden window. A further
+owner ruling arrived mid-resume and is inscribed as §Overlap and
+de-duplication in the landing procedure: where rules, skills, and
+subagents overlap in intent or content, the skill is favoured as the
+single source of truth when disambiguation or de-duplication arises,
+because only skills natively support evals; the other levers point
+rather than duplicate. Step 7's out-of-policy "vendored" heading and
+vocabulary — retired by the two-channel ruling — trued to the
+installer channel in the same motion. The ruling strengthens the
+fused loader-config + evals-pilot recommendation standing at the
+owner's door. Next: the seven remaining #714 threads at the
+deliberate pace.
+
+### 2026-08-03 ~09:45Z — round-cure batch landed; WS6 delivered to PR #731; review round 1 adjudicated at the safety wrap
+
+The #714 remainder went from map to near-closure in one sitting.
+Round-cure batch (granted warden window, one push, verified at
+bbdf09077): 6cba5ca56 cured the Parallax payload defects red-first —
+installation.md trued to the landed layout; render_graph.py injective
+ID encoding (`_<hex>_` escapes; new test file, 4/4); both experiment
+validators report malformed permission arrays instead of crashing;
+the product validator requires an explicit
+effect_results_visible_during_run: false for fixed-horizon plans
+(suites 6/6 and 9/9). bbdf09077 realised the RULES_INDEX loader
+contract on Cursor: eighteen surface:* situational wrappers gained
+globs drawn from each canonical trigger's own text, and
+strict-validation-at-boundary.mdc regained its missing frontmatter
+with its index-mandated alwaysApply: true. Seven threads replied and
+RESOLVED with first-hand evidence (validate_bundle verified cured by
+the rehoming itself — parents[2] scopes to the bundle root; no code
+change); Copilot re-review requested. Twelve of thirteen threads
+closed; the thirteenth (generator walk) carries the #731 pointer.
+
+WS6 then went spec-to-PR in the same sitting: the R1-adopted pair —
+`git mv` of the intact bundle to `.agent/skills/parallax/` (category
+tier removed per R1's dated rejection), family-aware discovery in a
+new shared discovery.ts (two shapes only; duplicate-leaf-id refusal;
+loud skips preserved; 33/33 red-first tests), and the nine adapters
+committed on both surfaces with their Skill() permission entries
+(the portability validator's companion contract caught that
+requirement at push). PR #731 open at d271622b4, Copilot requested.
+
+The pre-merge code-expert review (opus) returned CHANGES REQUIRED —
+three verified blockers (the checker drops discovery.skipped so the
+CI leg passes states the generator refuses; the checker's new
+blanket catch reads a missing skills root as an empty corpus; a
+both-shapes root silently drops its members) plus the finding that
+the PORTABILITY validator is a third unconverted corpus walker — the
+nine family canonicals are invisible to it and lack the
+classification: frontmatter it mandates, unseen. Full report posted
+on #731 (comment, bot-authored) at the owner's make-all-work-safe
+word. Round 1 of the PDR-132 budget; the cures are the next sitting's
+first act; #731 does not merge before they land. The ARC channel with
+the Director carries the sitting's four Lichen-program answers
+(PDR-135 routes through practice-core discipline, not the landing
+procedure; the three-document split is load-bearing; registrations
+ride the PDR's review with the PDR-134/ADR-221 status flip flagged
+for a ratification pointer; VISION.md stays in recording, carves out
+at landing per never-invent-public-copy).

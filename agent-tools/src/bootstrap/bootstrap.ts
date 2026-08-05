@@ -6,10 +6,12 @@ import path from 'node:path';
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeLine, writeErrorLine } from '../core/terminal-output.js';
 
+import { productionWorkspaceDepFsIo } from './bootstrap-helpers-io.js';
 import {
   binPathFromManifest,
   interpretSpawnOutcome,
   interpretTscOutcome,
+  workspaceDepDistIsStale,
 } from './bootstrap-helpers.js';
 
 /**
@@ -23,13 +25,14 @@ import {
  * out of the install lifecycle — enforced by the `validate-lifecycle-scripts`
  * validator.
  *
- * agent-tools imports two workspace packages (`@oaknational/result`,
- * `@oaknational/safe-path`) whose exports resolve to built `dist` only —
- * there is no source-pointing export condition. On a fresh checkout (Vercel,
- * CI, a new worktree) `postinstall` runs before any orchestrated build, so
- * this bootstrap first builds that two-package closure with each package's
- * own toolchain (`tsup` for JS, `tsc --emitDeclarationOnly` for types),
- * skipping any dep whose `dist` already exists.
+ * agent-tools imports the workspace packages listed in `WORKSPACE_DEP_DIRS`
+ * (`@oaknational/result`, `@oaknational/safe-path`, `@oaknational/type-helpers`)
+ * whose exports resolve to built `dist` only — there is no source-pointing
+ * export condition. On a fresh checkout (Vercel, CI, a new worktree)
+ * `postinstall` runs before any orchestrated build, so this bootstrap first
+ * builds that closure with each package's own toolchain (`tsup` for JS,
+ * `tsc --emitDeclarationOnly` for types), skipping any dep whose built `dist`
+ * is already current for its `src`.
  *
  * `typescript` is a direct dependency of agent-tools, so it is present in dev
  * and `--prod` installs alike; a missing compiler therefore signals a corrupt
@@ -94,15 +97,17 @@ function runStep(label: string, binPath: string, args: readonly string[], cwd: s
 
 /**
  * Build one workspace dep with its own toolchain (tsup JS + tsc declarations),
- * unless its `dist` is already present from an earlier build.
+ * unless its built `dist` is already current for the present `src`.
+ *
+ * Rebuilds on staleness, not mere absence: a warm checkout that pulls new leaf
+ * source over an old `dist` must rebuild, or agent-tools' own `tsc` fails
+ * against the stale `.d.ts` and bricks the fail-open guards (MCP-472). See
+ * {@link workspaceDepDistIsStale}.
  */
 function buildWorkspaceDep(depRelDir: string, tscBin: string): void {
   const depDir = path.join(repoRoot, depRelDir);
   const depName = path.basename(depRelDir);
-  if (
-    existsSync(path.join(depDir, 'dist', 'index.js')) &&
-    existsSync(path.join(depDir, 'dist', 'index.d.ts'))
-  ) {
+  if (!workspaceDepDistIsStale(depDir, productionWorkspaceDepFsIo)) {
     return;
   }
   const depRequire = createRequire(path.join(depDir, 'package.json'));

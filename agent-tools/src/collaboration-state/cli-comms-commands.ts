@@ -10,9 +10,13 @@ import { renderCommsLog, writeCommsEventWithReadback } from './comms-use-cases.j
 import { resolveIdentity } from './cli-identity.js';
 import { optional, required, valueOrDefault, type Options } from './cli-options.js';
 import { cliIo, type CollaborationStateCliIo, type CliRuntime } from './cli-runtime.js';
-import { composeHeartbeatBodyFromOptions } from './comms-heartbeat-cli.js';
+import {
+  buildGatedHeartbeatLifecycleEvent,
+  composeHeartbeatBodyFromOptions,
+  isHeartbeatMode,
+} from './comms-heartbeat-cli.js';
 import { validateCommsEventTags } from './comms-tag-namespace.js';
-import { assertIdentityCanWrite } from './identity-write-guard.js';
+import { registryForIdentityWrite } from './identity-write-guard.js';
 import { validateSharedStateAgentId } from './identity.js';
 import { type CollaborationStateEnvironment, type NarrativeCommsEvent } from './types.js';
 
@@ -86,7 +90,7 @@ export async function appendComms(
   if (!validation.ok) {
     throw new Error(validation.reason);
   }
-  await assertIdentityCanWrite({
+  const registry = await registryForIdentityWrite({
     options,
     agentId: identity.agent_id,
     nowIso,
@@ -96,7 +100,16 @@ export async function appendComms(
 
   const tags = validateCommsEventTags(options.tags);
   const body = await resolveAppendBody({ options, io, tags });
-  const baseEvent = await buildGatedNarrativeEvent(options, io, identity.agent_id, body, tags);
+  const baseEvent = isHeartbeatMode(tags)
+    ? await buildGatedHeartbeatLifecycleEvent({
+        options,
+        author: identity.agent_id,
+        body,
+        tags,
+        registry,
+        enforceGates: (gateInput) => enforceCommsConceptGates(io, gateInput),
+      })
+    : await buildGatedNarrativeEvent(options, io, identity.agent_id, body, tags);
   await writeCommsEventWithReadback({
     nowIso,
     store: {
@@ -219,7 +232,7 @@ async function resolveAppendBody(input: {
   readonly io: CollaborationStateCliIo;
   readonly tags: readonly string[];
 }): Promise<string> {
-  if (input.tags.includes('heartbeat')) {
+  if (isHeartbeatMode(input.tags)) {
     return composeHeartbeatBodyFromOptions(input.options);
   }
   return resolveCommsBody(input.options, input.io);

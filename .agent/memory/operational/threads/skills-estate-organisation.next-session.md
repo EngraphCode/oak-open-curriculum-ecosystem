@@ -53,12 +53,18 @@
   §Machine-local paths (new), and important-state-not-in-temp-files;
   index 71 core / 47 situational; full shape in the working record's
   ~21:38Z entry; gate-cure PR #724 merged b9a246bb1 earlier, its
-  findings 1-4 form the loader-contract follow-up unit); NEXT: the D
-  mechanism source leg rides the #726 branch (policy exclude-entry
-  deletion + helpers-fixture re-target + validator-message re-point +
-  three TSDoc mentions — an atomic pair with the live-policy-reading
-  test), drive #726 to merge into the coordination branch, then
-  loader config for
+  findings 1-4 form the loader-contract follow-up unit); #726 MERGED
+  2026-08-03 (tip 171d4e182) — the D arc is COMPLETE; NEXT: the #714
+  fold-review round remainder — 5/12 threads dispositioned+resolved
+  2026-08-03 (map + full remaining-seven detail in the working
+  record's ~06:07Z entry: six Parallax defects incl. the generator
+  recursive-walk source PR, plus the surface:* Cursor globs pass —
+  one push per adjudicated round, Director merges the fold at
+  resolved+green+settled); the owner's two-channel skills ruling is
+  INSCRIBED (capability-landing-decision-procedure §Source channels)
+  and the skill-creator payload security review is RECORDED
+  (skill-creator-payload-security-review-2026-08-03.md); then loader
+  config for
   `surface:*`/`tool:*` instances — the R2 mint's loader-config
   disposition rides there; (2) WS6 landing legs incl. the three cross-family
   routing edges (reason stop-gate commissioning seam,
@@ -124,4 +130,37 @@
 
 | Agent | Platform | Model | Prefix | Role / outcome | First | Last |
 | --- | --- | --- | --- | --- | --- | --- |
-| `Skylark hunts Nimbus` | `claude-code` | `claude-fable-5` | `e856d5` | skills-lane implementer — seat pre-warmed cold-paused, resumed at owner word; WS0 opened (working record + plan execution structure + Director collaboration) | 2026-08-02 | 2026-08-02 |
+| `Skylark hunts Nimbus` | `claude-code` | `claude-fable-5` | `e856d5` | skills-lane implementer — seat pre-warmed cold-paused, resumed at owner word; WS0 opened (working record + plan execution structure + Director collaboration) | 2026-08-02 | 2026-08-03 |
+
+## Status at the 2026-08-03 make-all-work-safe wrap
+
+State (all first-hand-verified at the wrap): #714 fold review 12/13
+threads resolved; the thirteenth (generator walk) resolves at the PR
+\#731 merge. \#731 (branch `jimcresswell/parallax-family-generator`
+at d271622b4, three commits off the coordination branch) carries the
+R1-adopted WS6 pair: Parallax relocated to `.agent/skills/parallax/`,
+family-aware discovery (discovery.ts shared by generator+checker),
+nine adapters on both surfaces with permission entries. Pre-merge
+code-expert review (opus): CHANGES REQUIRED — three blockers + the
+portability-validator gap, full report as a bot comment on #731 and
+summarised in the working record ~09:45Z entry. Round 1 of the
+PDR-132 budget used.
+
+NEXT (in order): (1) cure the #731 blockers — carry `skipped`
+through CheckOutcome into the CI check leg; ENOENT-vs-error
+classification in the discovery/checker fs defaults (the `clear.ts`
+`isMissingSurface` contract); both-shapes roots join `skipped`; plus
+the should-fixes (discovery before `--clear`; the zero-written guard
+gates on duplicates; an fs seam + test for `generateAdapters`'
+refusal branch; convert the portability validator to
+`discoverCanonicals` and give the nine family canonicals their
+`classification:` frontmatter). Red-first, one cure commit, push,
+re-review. (2) Merge #731 at the full condition (bot REST, never
+squash), resolve thread PRRT_kwDOPUA_4M6V0r1I on #714, tell the
+Director — the fold is then theirs to merge at
+resolved+green+settled. (3) Lane backlog: R4 scoped pass (task #10),
+37-skill description backfill (#13), evals-pilot scope-and-plan at
+the owner's word (the skills-SSOT-with-evals ruling §Overlap and
+de-duplication strengthens it). Standing constraints unchanged:
+Linear embargo to 2026-08-10 incl. reads; owner's untracked Parallax
+working copies never edited; deliberate pace.

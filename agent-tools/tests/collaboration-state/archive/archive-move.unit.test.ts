@@ -34,6 +34,7 @@ function ev(overrides: Partial<ClassifiableEvent> & { eventId: string }): Classi
     tags: [],
     titleOrSubject: 'WS status',
     bodyLength: 100,
+    isHeartbeatShaped: false,
     ...overrides,
   };
 }

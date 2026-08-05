@@ -1,6 +1,9 @@
 # ADR-186: Comms-Event Heartbeat Lifecycle Substrate
 
-**Status**: Accepted 2026-05-24
+**Status**: Accepted 2026-05-24; amended in place 2026-08-02
+(migration executed — implemented superset predicate recorded,
+tag retention made mandatory until closure, closure cycle
+retargeted; dated notes inline)
 **Date**: 2026-05-24
 **Related**:
 PDR-078 (liveness-heartbeat contract — the portable genotype this
@@ -32,7 +35,9 @@ field discriminates it, which CLI surfaces emit and consume) to
 each host repository's phenotype ADR.
 
 This repository's comms-event substrate (per the schema at
-`.agent/state/collaboration/comms-event.schema.json`) already
+`agent-tools/src/collaboration-state/schemas/comms-event.schema.json`;
+path corrected 2026-08-02 — the previously cited
+`.agent/state/collaboration/` copy does not exist) already
 carries three event kinds — `narrative`, `lifecycle`, and
 `directed` — and an open-string `event_type` sub-kind on
 `lifecycle` events (per the schema description: _"Examples:
@@ -78,13 +83,16 @@ The chosen realisation for this repository:
 - **Event sub-kind**: `event_type='heartbeat'`. The `event_type`
   field is open-string with `minLength: 1` per the existing
   schema; no schema amendment is required to admit the new value.
-- **Tag composition**: an emitted heartbeat MAY also carry
-  `tags: ["heartbeat"]` per ADR-183's namespace during the
-  transition window; once all emitters use `lifecycle +
-event_type='heartbeat'`, the tag becomes redundant on heartbeat
-  events specifically (but the tag remains valid for other event
-  kinds that want to carry heartbeat semantics for compositional
-  reasons).
+- **Tag composition** (restated 2026-08-02 at emitter migration):
+  an emitted heartbeat MUST also carry `tags: ["heartbeat"]` per
+  ADR-183's namespace until the §Migration-discipline closure
+  signal fires — the tag is what keeps F-146 watcher tag
+  exclusion, the `[HEARTBEAT]` render token, and pre-migration
+  tag-only consumers working through the window, so dropping it
+  early breaks all three. Only at closure does the tag become
+  redundant on heartbeat events specifically (it remains valid
+  for other event kinds that carry heartbeat semantics
+  compositionally).
 - **Identity discipline**: per PDR-027 + PDR-076a, every
   heartbeat carries the emitting agent's identity tuple `(agent_name,
 platform, model, session_id_prefix)` in the standard
@@ -118,13 +126,13 @@ non-heartbeat lifecycle events at a glance. The exact token form
 is implementation detail; the substrate guarantee is the
 distinguishability.
 
-**At-most-once render guarantee**: a single heartbeat event MUST render the `[HEARTBEAT]` channel token at most once, regardless of which mechanism produced it. An event carrying both the lifecycle-substrate discriminator (`event_type='heartbeat'`) and the legacy tag (`tags: ["heartbeat"]`) — legitimate during the migration window — MUST NOT double-render the token. The renderer implementation SHALL deduplicate across the tag-namespace path and the lifecycle-special-case path.
+**At-most-once render guarantee**: a single heartbeat event MUST render the `[HEARTBEAT]` channel token at most once, regardless of which mechanism produced it. An event carrying both the lifecycle-substrate discriminator (`event_type='heartbeat'`) and the legacy tag (`tags: ["heartbeat"]`) — legitimate during the migration window — MUST NOT double-render the token. The renderer implementation SHALL deduplicate across the tag-namespace path and the lifecycle-special-case path. (Implementation note 2026-08-02: the watcher renders the token through the tag-namespace path ONLY, so at-most-once holds by construction while the tag is retained; a lifecycle-special-case token becomes necessary exactly at window closure when the tag drops, and the closure tidy carries it.)
 
 ### Schema posture
 
 No schema amendment is needed. The existing schema at
-`.agent/state/collaboration/comms-event.schema.json` (version
-`2.0.0`) accepts `lifecycle` events with `event_type='heartbeat'`
+`agent-tools/src/collaboration-state/schemas/comms-event.schema.json`
+(version `2.0.0`) accepts `lifecycle` events with `event_type='heartbeat'`
 without modification. This is load-bearing: it lets agents adopt
 the lifecycle-heartbeat shape incrementally, without a coordinated
 all-emitters cutover or a schema migration.
@@ -165,6 +173,24 @@ via the `[HEARTBEAT]` token; the retirement-detection logic
 named in PDR-078 acquires the dual-filter discipline as part
 of its own next-cycle update.
 
+**Implemented predicate (migration executed 2026-08-02)**: the
+shared consumer predicate (`isHeartbeatEvent` in
+`agent-tools/src/collaboration-state/comms-heartbeat-body.ts`,
+consumed by the PDR-078 peer-liveness retirement detection and
+the ADR-199 archive tier projection) is a deliberate STRICT
+SUPERSET of the canonical form above: the tag clause is
+kind-agnostic — `(kind='lifecycle' AND event_type='heartbeat')
+OR (tags includes 'heartbeat')` — because the pre-migration
+consumers were already kind-agnostic on the tag and narrowing
+to `kind='narrative'` would have subtracted standing tolerance
+for no gain. A superset can only over-count liveness; the
+failure this contract exists to prevent is under-counting. The
+emitter retains the `heartbeat` tag on lifecycle-shaped events
+throughout the window, which also keeps PRE-migration tag-only
+consumers (unrebuilt seats' CLIs) counting migrated heartbeats
+— fleet-level consumer-first holds without a coordinated
+cutover.
+
 **Migration window closure signal**: the dual-shape window
 closes when (a) all named heartbeat emitters in this repository
 (SKILL §0.5 reference implementation, agent-tools CLI heartbeat
@@ -173,9 +199,20 @@ lifecycle shape, and (b) a sweep of the operational
 comms-event stream confirms zero recent `narrative + tags:
 ["heartbeat"]` events across one full team-session cycle. At
 that point a follow-on tidy cycle removes the dual-filter
-predicate's `narrative` clause and the tag becomes redundant on
-heartbeat events specifically. Until that closure cycle lands,
-consumers carry the dual filter.
+predicate's TAG clause (restated 2026-08-02 against the
+implemented superset predicate above — removing it from the
+shared `isHeartbeatEvent` updates every consumer in one move),
+drops the tag from the emitter, introduces the
+lifecycle-special-case `[HEARTBEAT]` render token the tag path
+currently supplies, and gives the F-146 watcher tag-exclusion
+mechanism a successor keyed on the lifecycle discriminator —
+exclusion is purely tag-keyed, so a tagless lifecycle heartbeat
+would otherwise re-flood every seat running the sanctioned
+`--exclude-tag heartbeat` configuration (F-146 is a cured
+friction, and hand-rolled watcher-boundary suppression is
+rule-forbidden, so no seat could patch around the regression).
+Until that closure cycle lands, consumers carry the dual filter
+and emitters retain the tag.
 
 ## Rationale
 
@@ -236,9 +273,9 @@ event_type='heartbeat'` shape; the substrate names the
   `event_type='claim-rebalance'` for retirement-rebalance
   moments) land without schema or renderer amendments.
 - Consolidation surfaces (PDR-014 capture → distil pipeline) can
-  filter the comms stream cleanly by `kind='lifecycle' AND
-event_type='heartbeat'` rather than by tag-string match against
-  narrative events.
+  filter the comms stream cleanly by
+  `kind='lifecycle' AND event_type='heartbeat'` rather than by
+  tag-string match against narrative events.
 - PDR-078's portable contract is honoured by this repo's
   phenotype without forcing other host repos to adopt the same
   realisation. A host repo with a different substrate (e.g. no
@@ -301,7 +338,7 @@ acceptance criteria:
    and references both PDR-078 and ADR-183 in §Related.
 2. `event_type='heartbeat'` is admitted by the schema without
    amendment: the field declaration at
-   `.agent/state/collaboration/comms-event.schema.json` (the
+   `agent-tools/src/collaboration-state/schemas/comms-event.schema.json` (the
    `lifecycle` event definition's `event_type` property) is
    `{ "type": "string", "minLength": 1 }`, accepting any non-
    empty string including `"heartbeat"`.
@@ -312,22 +349,26 @@ acceptance criteria:
    operational shape). When lifecycle-shaped heartbeats land, the
    renderer's tolerate-unknown rule guarantees they continue to
    surface, with the conventional `[HEARTBEAT]` token introduced
-   per the render rule above.
+   per the render rule above. (Superseded in part 2026-08-02: the
+   emitter migration landed — lifecycle-shaped heartbeats are now
+   the emitted shape and render `[LIFECYCLE] [HEARTBEAT]` via the
+   retained tag.)
 4. The ADR index at
    `docs/architecture/architectural-decisions/README.md` includes
    the ADR-186 entry.
 5. `pnpm check` passes; `pnpm --filter @oaknational/agent-tools
 test` passes.
 
-The lifecycle-shape first-instance emission (an actual `lifecycle
-
-- event_type='heartbeat'` event in the comms stream) is a Cycle 8
-  verification step concurrent with PDR-078 ratification, not an
-  ADR-186 prerequisite. ADR-186's substrate guarantees are
-  validated against the schema and renderer surfaces that already
-  exist; the lifecycle emission lands when the canonical agent-tools
-  CLI heartbeat surface migrates to the typed constant per §What
-  this costs.
+The lifecycle-shape first-instance emission (an actual
+`lifecycle + event_type='heartbeat'` event in the comms stream)
+is a Cycle 8 verification step concurrent with PDR-078
+ratification, not an ADR-186 prerequisite. ADR-186's substrate
+guarantees are validated against the schema and renderer surfaces
+that already exist; the lifecycle emission lands when the
+canonical agent-tools CLI heartbeat surface migrates to the typed
+constant per §What this costs. (Done 2026-08-02: the CLI
+heartbeat surface migrated to the typed constant; lifecycle
+emissions follow as seats rebuild.)
 
 ## Notes
 

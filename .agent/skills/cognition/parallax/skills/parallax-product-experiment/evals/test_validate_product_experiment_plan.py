@@ -114,6 +114,37 @@ class ProductExperimentPlanValidationTests(unittest.TestCase):
         errors, _ = VALIDATOR.validate(plan)
         self.assertIn("identity.domain_profiles must include digital-product-service", errors)
 
+    def test_non_string_excluded_operations_reports_error_instead_of_crashing(self) -> None:
+        plan = template()
+        plan["permissions_and_scope"]["excluded_operations"] = [
+            "user-exposure",
+            "production-change",
+            "execution",
+            {},
+        ]
+        errors, _ = VALIDATOR.validate(plan)
+        self.assertIn(
+            "permissions_and_scope.excluded_operations entries must all be strings", errors
+        )
+
+    def test_fixed_horizon_requires_explicit_visibility_false(self) -> None:
+        plan = template()
+        del plan["integrity"]["effect_results_visible_during_run"]
+        errors, _ = VALIDATOR.validate(plan)
+        self.assertIn(
+            "fixed-horizon inference requires an explicit integrity.effect_results_visible_during_run: false",
+            errors,
+        )
+
+    def test_fixed_horizon_still_rejects_visible_results(self) -> None:
+        plan = template()
+        plan["integrity"]["effect_results_visible_during_run"] = True
+        errors, _ = VALIDATOR.validate(plan)
+        self.assertIn(
+            "fixed-horizon inference cannot expose effect results for outcome-dependent decisions during the run",
+            errors,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

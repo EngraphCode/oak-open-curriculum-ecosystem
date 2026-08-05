@@ -1,5 +1,6 @@
 ---
 description: Invoke react-component-expert when changes touch React component architecture, hooks, render performance, prop API design, or component composition patterns in UI-shipping workspaces.
+globs: '**/*.tsx'
 alwaysApply: false
 ---
 

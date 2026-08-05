@@ -10,7 +10,16 @@ from pathlib import Path
 
 
 def safe_id(value: str) -> str:
-    return "n_" + re.sub(r"[^A-Za-z0-9_]", "_", value)
+    # Injective: ASCII alphanumerics pass through and every other character
+    # becomes "_<hex codepoint>_"; "_" itself is escaped, so escape boundaries
+    # are unambiguous and distinct source IDs never merge in the rendered graph.
+    encoded = []
+    for char in value:
+        if char.isascii() and char.isalnum():
+            encoded.append(char)
+        else:
+            encoded.append(f"_{ord(char):x}_")
+    return "n_" + "".join(encoded)
 
 
 def quoted(value: object) -> str:

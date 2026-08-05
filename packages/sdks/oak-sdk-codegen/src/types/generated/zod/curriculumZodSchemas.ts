@@ -824,6 +824,17 @@ const ProgrammeUnitsResponseSchema = z.array(
     })
     .strict()
 );
+const KeywordsResponseSchema = z.array(
+  z
+    .object({
+      keyword: z.string(),
+      description: z.string(),
+      keyStageSlug: z.string(),
+      subjectSlug: z.string(),
+      lessonSlugs: z.array(z.string()),
+    })
+    .strict()
+);
 const QuestionForLessonsResponseSchema = z
   .object({
     starterQuiz: z.array(
@@ -1973,6 +1984,7 @@ const UnitSummaryResponseSchema = z
       .partial()
       .strict()
       .optional(),
+    unitOptionsGroup: z.string().optional(),
     unitLessons: z.array(
       z
         .object({
@@ -2049,6 +2061,7 @@ export const rawCurriculumSchemas = {
   SubjectProgrammesResponseSchema,
   ProgrammeResponseSchema,
   ProgrammeUnitsResponseSchema,
+  KeywordsResponseSchema,
   QuestionForLessonsResponseSchema,
   QuestionsForSequenceResponseSchema,
   QuestionsForKeyStageAndSubjectResponseSchema,
@@ -2478,7 +2491,11 @@ Not for: all units across a sequence (GET /sequences/{sequence}/units); units in
   {
     method: "get",
     path: "/keywords",
-    description: `Use when you want the vocabulary for a key stage, subject, unit, lesson, or phase — e.g. to build a glossary or attach definitions to content. Returns keywords with definition, the subject + key stage they appear in, and the lessons that use them, sorted alphabetically. All filters are optional, but pass at least one of keyStage, subject, unit, lesson, or phase.`,
+    description: `Use when you want the vocabulary for a key stage, subject, unit, lesson, or phase — e.g. to build a glossary or attach definitions to content. Returns keywords with definition, the subject + key stage they appear in, and the lessons that use them, sorted alphabetically. All filters are optional, but pass at least one of keyStage, subject, unit, lesson, or phase.
+
+Request rules:
+
+- At least one of subject, keyStage, phase, unit or lesson must be provided - note that they are all the slug form of the values (e.g. &quot;ks2&quot; for key stage 2, &quot;science&quot; for the science subject, and &quot;forces-and-magnets&quot; for the forces and magnets unit), and that casing is important (always lowercase).`,
     requestFormat: "json",
     parameters: [
       {
@@ -2526,18 +2543,18 @@ Not for: all units across a sequence (GET /sequences/{sequence}/units); units in
         type: "Query",
         schema: z.string().optional(),
       },
+      {
+        name: "offset",
+        type: "Query",
+        schema: z.number().optional().default(0),
+      },
+      {
+        name: "limit",
+        type: "Query",
+        schema: z.number().lte(300).optional().default(20),
+      },
     ],
-    response: z.array(
-      z
-        .object({
-          keyword: z.string(),
-          description: z.string(),
-          keyStageSlug: z.string(),
-          subjectSlug: z.string(),
-          lessonSlugs: z.array(z.string()),
-        })
-        .strict()
-    ),
+    response: KeywordsResponseSchema,
   },
   {
     method: "get",

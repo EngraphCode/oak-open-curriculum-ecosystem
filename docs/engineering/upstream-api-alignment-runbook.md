@@ -31,19 +31,23 @@ Every schema-bearing surface in this repo has **two obligations**:
 
 The two schema-bearing surfaces:
 
-| Surface                   | Upstream                                           | Committed cache (source of truth)                                                    | Type generation                                                |
-| ------------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
-| OpenAPI / SDK / MCP tools | `open-api.thenational.academy/api/v0/swagger.json` | `packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json` (committed)    | `pnpm sdk-codegen` — schema-derived                            |
-| Bulk export               | `open-api.thenational.academy/api/bulk`            | none yet — bulk `schema.json` / `manifest.json` are not committed (still gitignored) | bulk typegen — **template-authored today, not schema-derived** |
+| Surface                   | Upstream                                           | Committed cache (source of truth)                                                                     | Type generation                                                                                                                        |
+| ------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| OpenAPI / SDK / MCP tools | `open-api.thenational.academy/api/v0/swagger.json` | `packages/sdks/oak-sdk-codegen/schema-cache/api-schema-original.json` (committed)                     | `pnpm sdk-codegen` — schema-derived                                                                                                    |
+| Bulk export               | `open-api.thenational.academy/api/bulk`            | `apps/oak-search-cli/bulk-downloads/schema.json` + `manifest.json` (committed; data files gitignored) | bulk typegen — templates hand-trued against the published schema (ADR-222 interim); full derivation is the named post-release priority |
 
 This runbook covers the **OpenAPI/SDK/MCP surface** in full — the proven flow below.
 
-The bulk surface does **not** yet meet the two obligations: its types are currently
-template-authored rather than derived from a schema, and its `schema.json` is not committed,
-so bulk drift is not yet observable via git. Bringing the bulk surface into alignment
-(commit the schema fingerprint; derive the bulk types from it) is deferred to a separate
-future plan that is not yet authored — do not follow this runbook's steps for the bulk
-surface until that alignment lands.
+The bulk surface is governed by
+[ADR-222](../architecture/architectural-decisions/222-bulk-schema-contract-interim-truing-then-derivation.md):
+upstream now publishes a formal JSON Schema for bulk files, that schema is the
+authority the hand-written templates are trued against, and a data-vs-schema
+mismatch is an upstream bug report — never validation-loosening. For the bulk
+procedure, use the
+[`update-bulk-download-schema` skill](../../.agent/skills/update-bulk-download-schema/SKILL-CANONICAL.md);
+for the OpenAPI surface below, the
+[`update-upstream-api-spec` skill](../../.agent/skills/update-upstream-api-spec/SKILL-CANONICAL.md)
+is the summonable routing over this runbook.
 
 ## Procedure
 

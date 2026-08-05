@@ -88,6 +88,14 @@ isProject: false
 
 # ARC-colour statusline infrastructure
 
+> **Superseded for execution (2026-08-03).** This node's substance is re-homed
+> into the anchored estate at
+> `.agent/plans/delivery/arc-colour-statusline.plan.md` (current schema, dated
+> staleness true-up, owner re-ask 2026-08-03 recorded). The decisions,
+> readiness-review record, expanded acceptance mechanics, and castr source map
+> below remain the preserved authoritative detail this file has always
+> carried; execution state now advances at the anchored node.
+
 ## End goal
 
 Oak's agent statusline renders, per live rapid-comms channel this session

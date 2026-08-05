@@ -68,6 +68,13 @@ export interface ClassifiableEvent {
   readonly titleOrSubject: string;
   /** Length of the event body in characters; drives the body-read requirement. */
   readonly bodyLength: number;
+  /**
+   * ADR-186 §Migration-discipline dual-filter verdict, computed at the
+   * projection seam (`event-projection.ts`) where the comms wire shape is
+   * known: `lifecycle + event_type='heartbeat'` OR a `heartbeat` tag on any
+   * kind. The classifier consumes the verdict; it never re-reads the wire.
+   */
+  readonly isHeartbeatShaped: boolean;
 }
 
 /** Per-tier retention windows (milliseconds) before an event becomes age-eligible. */
@@ -106,10 +113,14 @@ export interface DispositionDecision {
   readonly requiresBodyRead: boolean;
 }
 
-/** ADR-199: heartbeat events are `heartbeat`-tagged OR titled `Heartbeat:` / `Heartbeat-end:`. */
+/**
+ * ADR-199 + ADR-186: heartbeat events carry the projection's dual-filter
+ * verdict ({@link ClassifiableEvent.isHeartbeatShaped}) OR are titled
+ * `Heartbeat:` / `Heartbeat-end:` (the title heuristic stays as the
+ * belt-and-braces signal for hand-rolled emitters).
+ */
 const HEARTBEAT_TITLE = /^Heartbeat(-end)?:/;
 
-const HEARTBEAT_TAG = 'heartbeat';
 const RESEARCH_PRECIOUS_TAGS: readonly string[] = ['failure-mode', 'behaviour-note'];
 
 /**
@@ -131,7 +142,7 @@ export function classifyTier(event: ClassifiableEvent): AutoTier {
   if (event.tags.some((tag) => RESEARCH_PRECIOUS_TAGS.includes(tag))) {
     return 'research-precious';
   }
-  if (event.tags.includes(HEARTBEAT_TAG) || HEARTBEAT_TITLE.test(event.titleOrSubject)) {
+  if (event.isHeartbeatShaped || HEARTBEAT_TITLE.test(event.titleOrSubject)) {
     return 'heartbeat';
   }
   return 'coordination';

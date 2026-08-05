@@ -26,6 +26,8 @@
       "Skill(oak-fidelity-review:*)",
       "Skill(oak-sif)",
       "Skill(oak-sif:*)",
+      "Skill(oak-set-up-worktree-lane)",
+      "Skill(oak-set-up-worktree-lane:*)",
       "Skill(oak-the-codex-dialogues)",
       "Skill(oak-the-codex-dialogues:*)",
       "Skill(oak-concept-exploration)",
@@ -113,6 +115,10 @@
       "Skill(oak-proportionality:*)",
       "Skill(oak-ticket-management)",
       "Skill(oak-ticket-management:*)",
+      "Skill(oak-update-upstream-api-spec)",
+      "Skill(oak-update-upstream-api-spec:*)",
+      "Skill(oak-update-bulk-download-schema)",
+      "Skill(oak-update-bulk-download-schema:*)",
       "mcp__plugin_vercel_vercel__get_project"
     ],
     "deny": [

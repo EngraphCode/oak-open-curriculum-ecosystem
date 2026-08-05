@@ -1,5 +1,6 @@
 ---
 description: Invoke elasticsearch-expert when changes touch Elasticsearch mappings, queries, analysers, synonyms, ELSER, RRF, reranking, ingest, or Elastic Serverless capabilities.
+globs: 'apps/oak-search-cli/**,packages/sdks/oak-search-sdk/**,packages/libs/search-contracts/**'
 alwaysApply: false
 ---
 

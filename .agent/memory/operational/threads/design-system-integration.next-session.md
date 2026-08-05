@@ -725,3 +725,436 @@ adjudication (`.agent/reports/design/plan-review-2026-08-02/`, on origin at
 - Monitors stopped in canonical order at this freeze (heartbeat loop
   first — heartbeat-end event follows — peer-liveness poll, watcher
   last after the freeze broadcast).
+
+## Session update 2026-08-02 ~21:55Z (Corsair hunts Surf, 4d3282 — RESUMED at owner word; v2.1 DRAFT-COMPLETE)
+
+- **Resumed** via start-right-team + thorough at the owner's invocation;
+  watcher (task re-armed, F-95 green), heartbeat loop on both surfaces
+  (comms + claims), resume broadcast `efc313dd`. The round-2 verdict landed
+  by Director directed event ~21:33Z: NOT a zero round — 112 rows
+  (`findings.v2.json` + `adjudication.v2.md`, fresh run `wf_368f0694-4a8`).
+  Round-2 character shift (recorded in the adjudication): ZERO
+  false-repository-claim findings — the surviving corpus is
+  specification-depth, two seat-verdict doctrine collisions, and frame
+  sequencing.
+- **v2.1 authored and validator-green** at this seat: full corpus read
+  (all 112 rows incl. the 20 dropped-at-cap), twelve load-bearing
+  repository claims re-verified first-hand BEFORE citing (notably: live
+  `studio-source/` = 79 pages — v2's "81" was the archived capture tree,
+  EX55; zero `@layer` in kit CSS; zero `var(--oak-` in components.css; no
+  CSS→DTCG generator exists; the tier package's single-entry bundle).
+  Gates at this update: prettier clean, markdownlint 0 issues,
+  `validate-plan-corpus` 37 plans conformant.
+- **The durable set (dirty on the primary, riding the next fold)**:
+  the v2.1 plan rewrite (same id, amend-in-place),
+  `dispositions.v2.1.md` (one row per round-2 finding), the dated
+  corrections appendix on `dispositions.v2.md` (E47, E14/E66, E63 —
+  originals left as written), this entry.
+- **Structural changes a successor should know**: W1 now carries BOTH
+  first-light checkpoints (plain demo + early showcase probe, FR0) with
+  the design grammar pulled forward to W1.4; the prefers-contrast route
+  moved from W0.2(c) into W2.4 (FR8); contrast/colour-vision modelled as
+  orthogonal axes (EX28 — FLAGGED seat decision); the Oak emitter input
+  defined via a CSS→DTCG projection generator (EX0/EX57); W2.0 mints the
+  identity-data workspace; W3.0 gained the packaging story (EX14) and the
+  Director-CONFIRMED scoped ADR-213 §3 amendment recording BOTH
+  consumption shapes' roles (EX56, ruling event ~21:41Z); the charter
+  became its own ADR (EX60); wow verdicts batched with whole-demo
+  checkpoints (FR7); a fourth owner gate cards the "full component set"
+  coverage reading at W3.0 open (FR9).
+- **Next**: Director signalled; the fleet re-runs over the v2.1 text at
+  their word. Iteration continues to a zero-finding round; implementation
+  ONLY at the owner's word after it. Claim `953f9f8c` held; owner pacing
+  directive (`d0eb5858`) binds — deliberate pace, cold pause sanctioned
+  between sittings.
+
+## Session update 2026-08-03 ~06:05Z (Corsair hunts Surf, 4d3282 — NEW owner instruction: PDS/OoE identity naming replacement PLANNED)
+
+- **Owner instruction (2026-08-03, verbatim in the plan's §Direction)**: the
+  outgoing counter-identity is replaced by "Public Digital Service, PDS, a
+  clear nod to GDS" serving "the Office of Education OoE"; naming and
+  identity only (the design is near perfect; GDS colour/guideline comparison
+  is a later, separate act); end state = the outgoing word does not exist in
+  the repo. Precedence, his words: takes precedent as soon as non-disruptive
+  to other design work.
+- **Plan node authored born-sketch**:
+  `.agent/plans/delivery/public-digital-service-identity.plan.md` — census +
+  red-first zero-word validator (W0) → identity data/code rename (W1) →
+  naming universe + rendered surfaces with owner checkpoint (W2) →
+  docs/plans true-up (W3, completion plan only at its next legal edit
+  window) → records/archives in-place repair with dated head-notes, validator
+  green (W4). First-hand census at authoring: 204 occurrences, ~77 tracked
+  files, six classes; one name-bearing asset (`logo.svg`); standalone "DSE"
+  occurs only in the identity label; the brand sheet's own header already
+  reads "the public service". Validators green (38 plans conformant). Claim
+  `6dff4c64` opened over the node.
+- **Precedence encoded in the plan**: round-3 verdict absorption keeps the
+  seat first; rename work fills non-disruptive windows; the frozen
+  completion-plan text and review corpora are untouched until the round
+  closes; execution starts at the owner's ratification word; the natural
+  landing window is BEFORE completion-plan implementation (zero migration
+  cost).
+- Round-3 state unchanged: verdict still pending at the Director's seat.
+
+## Session update 2026-08-03 ~06:30Z (Corsair hunts Surf, 4d3282 — PDS plan DECISION-COMPLETE, owner-approved; execution begun)
+
+- **Owner asked for decision-complete planning** (plan mode, ~06:11Z);
+  delivered via two exhaustive exploration catalogues + an adversarial
+  mechanics pressure-test; **owner approved** (~06:30Z ExitPlanMode). The
+  decision-complete content is TRANSCRIBED into the plan node
+  (`public-digital-service-identity.plan.md`, validator-green) — that node
+  is now the durable home of every decision: the full D1 mapping table
+  (fiction vocabulary incl. Republic-of/demonym/FDSE-initialism rows), the
+  census-driven ratchet→strict validator (per-(file,kind,case-variant)
+  count contract; census self-exclusion in ratchet mode; string-constructed
+  tokens; unconditional path leg), the census schema, records-repair
+  mechanics (text-mode JSON, quote-elision for owner rulings), five PR
+  slices with reviewer sets, and the scope boundary.
+- **Two further owner cards** (~06:27Z): the tracked capture archive
+  (`original-capture-2026-07-23/` — whose PRESERVATION-README carries a
+  standing "never edited" byte-preservation ruling the repair-in-place
+  answer predated) is REMOVED at PR5 **conditional on a committed
+  value-parity audit** ("remove them only if everything of value in them
+  also exists in our tracked files"); repo boundary = the git-tracked tree
+  (gitignored instance state courtesy-swept; museum export bundles left).
+- **Execution state**: worktree `pds-w0-census-validator` (from
+  origin/main) entered; install+build running; PR1 (census generator +
+  validator) is the next code act. Claims `953f9f8c` + `6dff4c64` held.
+  Round-3 verdicts still pending — absorption preempts on arrival.
+
+## Session update 2026-08-03 ~06:50Z (Corsair hunts Surf, 4d3282 — PR1 COMMITTED + PUSHED)
+
+- **PR1 landed on its branch**: commit `a17ee7000` pushed and
+  ls-remote-verified on `origin/jimcresswell/pds-identity-w0-census-validator`
+  through the FULL pre-commit + pre-push chains. Contents: the
+  identity-naming validator split at the meaningful seam
+  (`validate-identity-naming-tokens.ts` = forbidden vocabulary + scanning;
+  `validate-identity-naming-census.ts` = the count-based ratchet contract;
+  entry script with zod boundary validation and symlink-safe reads), two
+  colocated unit-test files (12 tests), knip entry registration, both
+  package.json wirings, and the committed census (89 entries). Strict-leg
+  red-proof recorded at authoring: 89 carriers / 342 occurrence lines /
+  exit 1; ratchet mode verified green (exact match across 10,045 tracked
+  files).
+- **Owner correction absorbed mid-build** (durable in auto-memory as
+  `never-trim-docs-to-fit-limits`): never trim docs to satisfy
+  size/complexity limits — split at fundamentally meaningful seams. The
+  trimmed TSDoc was restored in full and the split above is the applied
+  cure.
+- **NEXT ACTS at this seat**: (1) open the PR from the pushed branch under
+  bot identity + request Copilot at open (source-touching) + dispatch the
+  plan's PR1 reviewer set (code-expert + test-expert, opus,
+  fan-from-brief); (2) round-3 verdict absorption STILL preempts on
+  arrival; (3) PR2 (live mechanical rename) follows PR1's merge per the
+  plan's D5 table. Watcher re-armed post-backstop (F-95 green); heartbeat
+  loop live.
+
+## Session update 2026-08-03 ~07:00Z (Corsair hunts Surf, 4d3282 — PR #729 OPEN under the bot; attribution violation self-caught and cured)
+
+- **PR #729 open**: bot-authored commit `2d33851b2` (re-authored from the
+  owner-attributed `a17ee7000` — a self-caught bot-identity-rule violation:
+  the first commit+push rode the inherited owner credentials; cured by the
+  rule's own mechanics: worktree-scoped bot config, `--amend
+  --reset-author` through the FULL chain, minted-token push with an
+  explicit SHA lease, forced update ls-remote-verified). Copilot requested
+  at open under the bot token; code-expert + test-expert (opus) dispatched
+  per the plan's PR1 reviewer row — verdicts land async at this seat.
+- **Instrument notes for the class** (napkin-worthy, recorded here at
+  occurrence): (a) an env prefix does NOT reach a double-quoted
+  credential-helper string — single-quote so `$GH_TOKEN` expands at
+  helper-run time; (b) `--force-with-lease` against a URL remote needs the
+  explicit `branch:sha` form (no remote-tracking ref to lease on); (c) the
+  `$?`-after-pipe lookalike bit twice more this sitting — exit codes
+  in-band, UNPIPED, always.
+- **PR1 residual before merge**: absorb Copilot + the two expert verdicts
+  (pr-comments-resolve-and-recheck; one push per adjudicated round);
+  full-condition merge at resolved+green+settled, never squash. Then PR2
+  per D5. Round-3 verdicts still pending and preempt on arrival.
+
+## COMPACTION FREEZE 2026-08-03 ~08:10Z (Corsair hunts Surf, 4d3282 — seat continues; resume map)
+
+Owner word at the boundary: prepare for compaction, make understanding
+durable (four lenses run; harvest below + napkin), stop monitors. Seat
+CONTINUES post-compaction. Claims `953f9f8c` + `6dff4c64` RETAINED.
+
+**RESUME STATE, exact — PR #729 cure round is MID-FLIGHT:**
+
+- PR #729 open (bot-opened, Copilot requested at open), branch
+  `jimcresswell/pds-identity-w0-census-validator`, remote tip `2d33851b2`
+  (bot-authored). Code-expert round-1 verdict: CHANGES REQUESTED (report
+  in this session's dispatch; substance mirrored in the cure list below).
+  A dispatched test-expert AND the cure implementer BOTH wedged inside
+  subagent Bash calls (frozen transcripts, no live process — napkin
+  ~07:37Z carries the diagnostic); the implementer's work is REAL and
+  survives UNCOMMITTED in the worktree `pds-w0-census-validator` on top of
+  `2d33851b2`: 6 modified + 4 new files (shared
+  `agent-tools/src/core/tracked-file-scan.ts` + test; identity-naming io
+  module + test; both validators consuming the shared module; census
+  module gains `findDuplicateKeys`).
+- **Verified at freeze**: vitest 43/43 green (5 files), type-check clean.
+  FIVE eslint findings remain, cures known: (1-2) io.ts:13-14 TSDoc code
+  spans broken across a line-wrap — rejoin each onto one line; (3)
+  `tracked-file-scan.unit.test.ts:12` no-real-io-in-tests — restructure to
+  pure-decision tests (EX44 split: fs wrappers are covered by the
+  validators' end-to-end runs, not unit tests); (4)
+  machine-local entry:48 throw → `writeErrorLine` + `process.exit(2)`
+  (mirror the identity-naming cure); (5) machine-local helpers
+  test:17 `loadBlock` throw → restructure without throw.
+- **Then the remaining ceremony**: prettier over touched files; the two
+  validators end-to-end (identity-naming must be ratchet-green;
+  machine-local must stay green); `--print-counts > f.json` must parse;
+  knip-gate (register new entry files if flagged); round-2 commit under
+  the bot (worktree git config ALREADY bot-scoped — verify before
+  committing), full chain; bot-token push (single-quoted credential
+  helper, `--force-with-lease=branch:sha` form NOT needed — fast-forward);
+  PR comment dispositioning every code-expert finding (one adjudicated
+  round); re-request review. Plan-text halves ALREADY landed on the
+  primary (D1 wording + D3 3-column truing + decision-log row).
+- **ROUND-3 VERDICT LANDED AT THE FREEZE BOUNDARY** (Director directed
+  event 2026-08-03T08:10:50Z — read it in full at resume; it arrived in
+  the watcher's final drain). Round 3 NOT zero (6 L + 17 D + 82 EX +
+  8 FR, artefacts `findings.v3.json` + `adjudication.v3.md`, uncommitted
+  on the primary). LOOP VERDICT: DIVERGING (98 → 112 → 113 while the plan
+  doubled); generator = far-horizon mechanism depth. **OWNER PARTITION
+  RULING ("Yes, partition the work"), which makes the next authoring pass
+  v2.2 RESTRUCTURE, NOT round 4**: (1) W0+W1 (the wow-first slice) keep
+  full depth and cure the near-horizon round-3 rows including three
+  adjudicated-real classes — faithfulness fixes to the round-2 rulings
+  (§3 amendment text, W3.0 studio-seed role assertions, axis token shape
+  vs EX28 composition), a NON-AUTHORING reviewer leg on W0.7, and an
+  early counter-identity taste probe (one composed page variant per
+  counter-identity at W1-time, before W2.9's sunk cost); (2) W2–W6 demote
+  to pointer-level stories (goal, gates, dependencies, acceptance SHAPE —
+  mechanism authored at story-open under pre-execution expert review,
+  PDR-132); (3) rounds-2/3 far-horizon findings CONSERVE as story-open
+  inputs via a per-story pointer table (story id → corpus row ids);
+  (4) the zero-finding bar scopes to the NEAR-HORIZON slice — scoped
+  re-review at draft-complete, then the owner's implementation word.
+  Owner's thanks relayed verbatim in the event. LESSON-CAPTURE directive:
+  specify-at-depth only within the execution horizon; the finding-tally
+  slope is the seam detector — sharpen the phrasing in the ledger if the
+  restructure teaches more.
+- **Resume priority order**: (1) read adjudication.v3 + the full directed
+  event; (2) the v2.2 partition restructure (it is the lane's front
+  item); (3) the PR #729 cure-round completion (five lint fixes + the
+  ceremony above) fills windows. PDS plan ratified + decision-complete.
+  Pacing directive stands. The wedge pattern (2 subagent Bash wedges in
+  one sitting) is in the freeze broadcast for the Director.
+- Monitors stopped at this freeze in canonical order (heartbeat loop
+  first + heartbeat-end event, freeze broadcast, ARC tail, watcher last).
+  Resume via start-right: watcher first, F-95, gap sweep, heartbeat on
+  BOTH surfaces (registry + comms) against the retained claims.
+
+## Session update 2026-08-03 ~08:30Z (Corsair hunts Surf, 4d3282 — RESUMED at owner word; OWNER GOAL STARTERS landed)
+
+- **Ceremony**: watcher re-armed (F-95 green), heartbeat loop live on both
+  retained claims (`953f9f8c`, `6dff4c64`), resume broadcast `f185662a`.
+  Round-3 adjudication (`adjudication.v3.md` incl. the ratification
+  addendum) read first per the freeze priority order.
+- **OWNER GOAL DIRECTION for the design-system work (this sitting,
+  verbatim substance — governs the v2.2 restructure):**
+  1. "A HIGHLY modular design system, extending from tokens to basic
+     structures to components to React components, with all the required
+     inbetween steps, and each higher layer depending on the lower layers,
+     but being optional, so e.g. we could create a static Astro app hosted
+     on Cloudflare without issue and it would look exactly as the selected
+     identity intended."
+  2. "Not all apps need identity switching capability, really just the
+     first two demos, we want to fully enable whitelabelling and
+     flexibility whilst decreasing the cost of taking advantage of it to
+     near zero, the identity switching demonstrates that, but it is not a
+     core feature in its own right, low-cost design changes are the core
+     feature."
+  3. "We need an additional, small demo, that is designed to highlight how
+     much the page layout can be altered by the choices within the design
+     system for identical page structure, think <https://csszengarden.com/>
+     but modern." (A fifth demo — the demo census grows beyond v2.1's
+     four.)
+  Plus the open question he posed to this seat: "what else are we trying
+  to achieve here?" — answered in-session as a goal-architecture
+  articulation (core thesis = the strategic node's configured-framework
+  kernel; the three starters as properties: layer sovereignty /
+  cost-of-change-is-the-product / expressive range over layout; derived
+  goals: licensing split made practical, identity-№N, accessibility as
+  the universality floor, quality-as-structure, design operable by
+  non-designers-and-agents, demos-as-falsifier-suite). Owner card raised
+  for ratification + the "first two demos" referent before the v2.2
+  restructure consumes it.
+- **CARD ANSWERS (same sitting, ~08:37Z)**: goal architecture RATIFIED as
+  the v2.2 governing frame; landed same-sitting in the strategic node's
+  new "Kernel additions (owner words, 2026-08-03)" section. Demo roles,
+  his words: showcase = "the primary demo"; hub = "the first instance of
+  a Claude Design app ingested and reconstructed with our tools" AND
+  "yes it should gain identity switching as a valuable demo"; third +
+  fourth = small proof demos (plain html/css; styled-components); fifth =
+  "the css zen garden like demo". Runtime-switching pair therefore =
+  showcase + hub; demo census = five. v2.2 restructure UNBLOCKED and in
+  progress at this seat under the ratified frame + partition ruling.
+
+## COLD PAUSE 2026-08-03 ~08:53Z (Corsair hunts Surf, 4d3282 — v2.2 restructure substantially landed; resume map)
+
+Owner word: cold pause. Seat CONTINUES; claims `953f9f8c` + `6dff4c64`
+RETAINED. Monitors stopped in canonical order (heartbeat loop first +
+heartbeat-end, pause broadcast, watcher last).
+
+**LANDED at this pause (uncommitted on the coordination branch, plan file
+`design-system-completion.plan.md` now v2.2 at 1010 lines):**
+
+- v2.2 header + version note (partition + ratified goal architecture + the
+  owner's cost-of-change value-frame, Director relay `7b00c9e5`); Goal·In·Out
+  trued (FIVE demos with per-demo kernel properties; switching = showcase +
+  hub, D3/X14 resolved); Direction gains the dated 2026-08-03 pointer.
+- W0/W1 REWRITTEN at full depth with the near-horizon round-3 cures absorbed:
+  EX4, EX5, EX13, EX20, EX22, EX24, EX28, EX30, EX31, EX32, EX34, EX39,
+  EX40, EX45, EX47, EX49, EX52, EX53, EX55, EX58, EX59, EX60, EX61, EX66,
+  EX68, EX69, EX70, EX75, EX78, D1, D3, D4, D5, D6, D8, D9, D10, D16, FR0
+  (new W0.10 counter-identity pre-read + taste-anchor sittings), FR1 (W0.7
+  third leg: independent design-system-expert), FR2 (cells-covered), FR3
+  (page-disposition owner card at W1.4), FR5 (W0.5 enumeration sitting),
+  FR7 (rejected-route replacement at W1.5), L2 (named CSS-reordering
+  variant), L0/L1 (in W2.0/W2.3 pointers), L4/L5 (W2 preamble sequencing +
+  item-14 rendering block).
+- W2–W6 DEMOTED to pointer stories; NEW W3.5 (hub switching) + W7
+  (layout-range zen demo); §Story-open pointer tables (rounds 2–3 conserved);
+  v2.1 far-horizon mechanism FROZEN at
+  `.agent/reports/design/plan-review-2026-08-02/v2.1-far-horizon-mechanism.md`
+  (new file). Closing sections trued: cross-demo acceptance (five),
+  sequencing (W7 + the FR4 first-pixels gate split), decision log (+5 dated
+  rows), execution seat (zero-finding bar scoped near-horizon), review
+  record (+round 3 + v2.2 entries).
+- Strategic node: §Kernel additions landed (three properties verbatim, demo
+  roles verbatim, value-frame, derived goals). Thread + comms: ratification
+  card answers recorded; Director acks `c4229344` + `940faca4`.
+
+**REMAINING to draft-complete (resume order):**
+
+1. `dispositions.v2.2.md` — the round-3 ledger: every row a recorded
+   decision (absorbed-with-landing / conserved-via-table / rejected-with-
+   ground). The absorbed list above + the far tables are the input; EX
+   rows not yet dispositioned anywhere: none known — sweep the TSV
+   (`scratchpad/v3-row-map.tsv` regenerable from findings.v3.json).
+2. Residual small edits: §Quality bar (EX47 screenshot-baseline-at-PASS as
+   rule 6; D1 batching on rule 4; EX65 standing control note; register
+   renamed wow-verdict per EX53); §Relationships (EX57 outcome-not-pointer;
+   EX62 two governance-doc obligations; EX67/EX77 narrowed + re-checked;
+   EX73 two ADR-213 §4 amendment rows); pointer-table additions (W4.2 +=
+   EX24, EX28; W4.4 += EX5; new row W5.1 = EX75, EX52; W3.0 += EX56
+   decidable seed-guard choice + EX22 card wording; W2.5 note EX66 moved to
+   W0.6).
+3. Gates over the plan: prettier/markdownlint + `repo-validators:check`
+   (plan-corpus validator).
+4. SCOPED near-horizon re-review (W0+W1 lenses only, fraction of fleet
+   cost) to zero findings, then the owner's implementation word.
+5. NOTE for PR #729's ceremony: v2.2 changed outgoing-name counts in the
+   plan AND the frozen v2.1 report adds occurrences — the identity census
+   REGENERATES against merge-time main before the ratchet merges (add to
+   the PR's pre-merge list). PR #729 cure round itself unchanged (five lint
+   fixes + ceremony, per the ~08:10Z freeze entry).
+
+## 2026-08-05 (Petrel holds Turbulence, a0892f — Director): strategic node RATIFIED; resume map partially discharged
+
+Owner word 2026-08-05 (design-lane reopening sitting): the strategic node
+`design-system-as-configured-framework` is RATIFIED — stamp landed. The
+cold-pause resume map above now reads:
+
+1. `dispositions.v2.2.md` — verdict: NEVER AUTHORED (verified first-hand:
+   absent from filesystem, all branches, all history; this map is the
+   record). Honestly recomputable — both inputs survive; the per-row
+   ledger FOLDS INTO item 4's scoped re-review, recorded in the plan's
+   §Review record. No standalone authoring act remains.
+2. Residual small edits — LANDED 2026-08-05 (ratification-and-truings PR):
+   Quality bar rule 6, the EX65 standing control note, EX53 register
+   naming, and D1 batching; §Relationships EX57/EX62/EX67/EX73/EX77;
+   pointer-table
+   additions (W4.2 += EX24+EX28, W4.4 += EX5, new W5.1 row, W3.0 += EX22).
+   Also landed: §Execution seat re-pointed (Corsair's seat closed at the
+   clear-run; executor named at the implementation word), and the owner's
+   2026-08-05 hub-search-must-work word recorded (Decision log + W0.9).
+3. Gates — ride the same PR's hook chain.
+4. SCOPED near-horizon re-review to zero — STILL OWED (now also carries
+   the per-row ledger); then the owner's implementation word.
+5. #729 census regeneration — CONFIRMED QUANTITATIVELY 2026-08-05: plan
+   file live count 4 vs census 8; the frozen v2.1 report carries 1
+   occurrence and is absent from the census. Merging without regeneration
+   reds `repo-validators:check` on main.
+
+## Previous-team handover 2026-08-05 (Moss calls Loam, 79b433 — dated context, owner-convened)
+
+The owner convened the previous design team (Corsair, Moss, Magnetar) to
+hand their understanding to the live team (Director Petrel, design seat
+Saffron), acknowledging the repo and intent have moved on. This section is
+the MOSS slice: context frozen at this seat's retirement (2026-08-02
+~19:52Z — BEFORE the Corsair v2/PDS arc above). Everything below is dated
+to that instant; on any conflict the live map and the later layers win.
+The recorded layer (session updates above, PR bodies, shared memory) is
+assumed absorbed — this section carries only what those records do not.
+
+### Review-arc operational texture (lane PRs #710–#721)
+
+- Copilot's suppressed-comments block (in the review BODY, distinct from
+  inline threads) caught three real defects on this lane, all one class:
+  records lagging decisions (PR body/absorption claims drifting from the
+  diff). Harvest EVERY review body's suppressed block; the terminal review
+  state that ended the arcs was "no claim without citation, no citation
+  duplicated".
+- Sonar's new-duplication gate fires on generator-shaped code; the cure
+  that settled it was at the generator (`createDesignSiblingZones` deriving
+  each zone's path and message from the sibling specifier). The reviewer's
+  one revision is a standing constraint: comments must not claim more
+  invariance than the mechanism enforces — membership parity there is
+  TEST-enforced, not derivation-enforced.
+- Both docs arcs (#719, #721) closed under a DECLARED operator stop with
+  residual phrasing nits recorded on the PR and deliberately uncured; the
+  convergence discipline held because rounds shrank monotonically.
+- Worked trap-cures: REST review-author filters need
+  `copilot-pull-request-reviewer[bot]` (the bare name matches nothing); a
+  compound command mixing `git push` with a later `gh api graphql -f`
+  trips the hook's history-destruction substring policy — split the
+  commands, never bypass; a stale hub `.next` cache breaks pre-commit
+  type-check after branch switches (gitignored derived cache — remove and
+  retry); any dirty memory file failing markdownlint gates EVERY primary
+  push — fix at occurrence, whoever authored it.
+
+### Design-surface "why" texture (the what is in code and docs; the why is thin)
+
+- The kit-asset manifest (showcase `tools/`) is repo-scoped ON PURPOSE: it
+  carries the hub's `oak-theme.js` serving copy, so the whole copy-set has
+  one guard home. The hub's own parity test was deleted WHOLE on
+  reviewer-verified conservation (realpath-identical kit resolution in
+  both demos; escape assertions live in the hub's inline-script contract
+  tests plus the kit chain). A new demo taking kit copies registers rows
+  there, not a new guard.
+- Armed-not-owed trigger, easy to misread as owed-now: the `.design-sync`
+  NOTES.md "no React components" line rewrites WHEN the design-sync
+  adopts the react tier — the binding condition is adoption, not time.
+- The licensing surfaces are a deliberate citation graph: LICENCES.md
+  §Oak-authored defers per-file classification to LICENSING-MANIFEST.md;
+  the kit README §Licence is the system's own statement; root LICENCE and
+  LICENCE-DATA.md are the authorities. Touching any one means re-checking
+  its cited pairs. The brand_voice.txt provenance row is deliberately in
+  verified-record form ("no public upstream URL is recorded") — an
+  epistemic-honesty choice, not a gap; do not "fix" it into an existence
+  claim.
+- oak-design-react theme-store test intent: the unsubscribe-cleanup test's
+  RETAINED second listener is what proves the notifier fired — deleting it
+  as redundant silently weakens the union obligation; the setter-guards
+  no-op twins (theme AND motion) are contract pins, not duplication.
+
+### Owner-preference grammar as experienced first-hand
+
+- The licence map was ratified THROUGH the constraint-surface frame:
+  general framework, Oak instance as thin config, the constrained-for-
+  external-use surface kept as minimal as possible. He priced the design
+  structure by that frame; new structure presented in it settles faster.
+- His two same-day docs-prose supersessions were not churn — each step was
+  a cleaner generalisation (simple model → subject split → provenance
+  split). Presenting the generalising form is what settles a fork.
+
+### Bounds and availability
+
+This seat knows NOTHING after 2026-08-02 ~19:52Z — the Corsair v2/v2.2 and
+PDS arcs, PR #729, MCP-128's move, and this week's intent are all outside
+its context; the live map wins on any conflict. The seat is live this
+sitting for Q&A, claimless, no source work; route pulls through the
+Director. This edit rides the next coordination window per
+no-handover-commits.

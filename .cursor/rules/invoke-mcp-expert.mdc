@@ -1,5 +1,6 @@
 ---
 description: Invoke mcp-expert when changes touch MCP protocol, MCP Apps Extension widgets, MCP tool/resource/prompt definitions, transport/session patterns, or MCP Apps migration work.
+globs: 'apps/oak-curriculum-mcp-streamable-http/**,**/*mcp*'
 alwaysApply: false
 ---
 

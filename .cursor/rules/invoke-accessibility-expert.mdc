@@ -1,5 +1,6 @@
 ---
 description: Invoke accessibility-expert when changes touch rendered HTML, ARIA attributes, keyboard interaction, colour contrast, focus management, or WCAG compliance in UI-shipping workspaces.
+globs: '**/*.tsx,**/*.html,**/*.css'
 alwaysApply: false
 ---
 

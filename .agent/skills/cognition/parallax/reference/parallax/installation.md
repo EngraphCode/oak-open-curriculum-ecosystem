@@ -12,12 +12,12 @@ licensing: host-repository-governs
 
 ## Package contract
 
-The ZIP contains only a canonical `.agent` package:
+The bundle is one canonical package; in this repository it is rooted at `.agent/skills/cognition/parallax/`:
 
-- `.agent/skills/parallax*` — canonical, independently invocable but deliberately non-discoverable `SKILL-CANONICAL.md` definitions, references, assets, scripts, and authored local evals;
-- `.agent/reference/parallax` — collection theory, architecture, protocols, manifests, diagrams, and sources;
-- `.agent/evaluations/parallax` — authored cross-skill integration suites;
-- `.agent/tools/parallax` — bundle validation and graph-to-Mermaid tools.
+- `skills/parallax*` — canonical, independently invocable but deliberately non-discoverable `SKILL-CANONICAL.md` definitions, references, assets, scripts, and authored local evals;
+- `reference/parallax` — collection theory, architecture, protocols, manifests, diagrams, and sources;
+- `evaluations/parallax` — authored cross-skill integration suites;
+- `tools/parallax` — bundle validation and graph-to-Mermaid tools.
 
 It contains no vendor-specific adapters, no generated evaluation results, and no Practice memory writes.
 
@@ -30,10 +30,10 @@ Do **not** replace the host repository's `.agent` root wholesale. It may contain
 3. Merge only these subtrees into their corresponding host locations:
 
    ```text
-   .agent/skills/parallax*
-   .agent/reference/parallax
-   .agent/evaluations/parallax
-   .agent/tools/parallax
+   .agent/skills/cognition/parallax/skills/parallax*
+   .agent/skills/cognition/parallax/reference/parallax
+   .agent/skills/cognition/parallax/evaluations/parallax
+   .agent/skills/cognition/parallax/tools/parallax
    ```
 
 4. Preserve host files outside those targets.
@@ -62,7 +62,7 @@ The loop at collision review means resolve or intentionally reconcile the confli
 From the host repository root, run:
 
 ```bash
-python3 .agent/tools/parallax/validate_bundle.py
+python3 .agent/skills/cognition/parallax/tools/parallax/validate_bundle.py
 ```
 
 The validator checks the expected nine canonical skills, names/descriptions, canonical non-discoverability, per-skill authored evals, trigger train/validation shape, common artifact envelopes, collection-evaluation shapes, manifest completeness, JSON parsing, graph endpoints, local links, Mermaid fence closure, and exclusion of generated Python cache files. It is a structural validator: it does not certify epistemic truth, statistical correctness, experiment readiness, execution authority, or browser rendering.
@@ -70,8 +70,8 @@ The validator checks the expected nine canonical skills, names/descriptions, can
 Render a graph projection for inspection with:
 
 ```bash
-python3 .agent/tools/parallax/render_graph.py \
-  .agent/reference/parallax/graphs/invocation.json
+python3 .agent/skills/cognition/parallax/tools/parallax/render_graph.py \
+  .agent/skills/cognition/parallax/reference/parallax/graphs/invocation.json
 ```
 
 The renderer writes Mermaid source to standard output. Rendering does not prove the graph's epistemic adequacy.
@@ -90,9 +90,9 @@ Store generated outputs, timing, grading, benchmarks, and reviewer feedback in a
 
 ## Generate vendor adapters
 
-After canonical validation and review, use the host repository's documented adapter generator. The generator should project each `.agent/skills/<name>/SKILL-CANONICAL.md` and its supporting directories into the host's discoverable vendor surfaces, preserve ownership metadata, and validate drift according to the Practice.
+After canonical validation and review, use the host repository's documented adapter generator. The generator should project each `.agent/skills/cognition/parallax/skills/<name>/SKILL-CANONICAL.md` and its supporting directories into the host's discoverable vendor surfaces, preserve ownership metadata, and validate drift according to the Practice.
 
-Do not hand-author vendor adapters inside this bundle and do not rename canonical files to `SKILL.md` under `.agent/skills`; canonical non-discoverability is intentional.
+Do not hand-author vendor adapters inside this bundle and do not rename canonical files to `SKILL.md` under the bundle's `skills/` tree; canonical non-discoverability is intentional.
 
 Where the host exposes the standards reference validator, validate each generated standards-compliant adapter as well. Adapter success does not replace behavioural invocation and output evaluation.
 
