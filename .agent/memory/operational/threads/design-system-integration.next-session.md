@@ -1050,3 +1050,30 @@ heartbeat-end, pause broadcast, watcher last).
    REGENERATES against merge-time main before the ratchet merges (add to
    the PR's pre-merge list). PR #729 cure round itself unchanged (five lint
    fixes + ceremony, per the ~08:10Z freeze entry).
+
+## 2026-08-05 (Petrel holds Turbulence, a0892f — Director): strategic node RATIFIED; resume map partially discharged
+
+Owner word 2026-08-05 (design-lane reopening sitting): the strategic node
+`design-system-as-configured-framework` is RATIFIED — stamp landed. The
+cold-pause resume map above now reads:
+
+1. `dispositions.v2.2.md` — verdict: NEVER AUTHORED (verified first-hand:
+   absent from filesystem, all branches, all history; this map is the
+   record). Honestly recomputable — both inputs survive; the per-row
+   ledger FOLDS INTO item 4's scoped re-review, recorded in the plan's
+   §Review record. No standalone authoring act remains.
+2. Residual small edits — LANDED 2026-08-05 (ratification-and-truings PR):
+   Quality bar rule 6, the EX65 standing control note, EX53 register
+   naming, and D1 batching; §Relationships EX57/EX62/EX67/EX73/EX77;
+   pointer-table
+   additions (W4.2 += EX24+EX28, W4.4 += EX5, new W5.1 row, W3.0 += EX22).
+   Also landed: §Execution seat re-pointed (Corsair's seat closed at the
+   clear-run; executor named at the implementation word), and the owner's
+   2026-08-05 hub-search-must-work word recorded (Decision log + W0.9).
+3. Gates — ride the same PR's hook chain.
+4. SCOPED near-horizon re-review to zero — STILL OWED (now also carries
+   the per-row ledger); then the owner's implementation word.
+5. #729 census regeneration — CONFIRMED QUANTITATIVELY 2026-08-05: plan
+   file live count 4 vs census 8; the frozen v2.1 report carries 1
+   occurrence and is absent from the census. Merging without regeneration
+   reds `repo-validators:check` on main.
