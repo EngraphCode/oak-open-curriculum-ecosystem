@@ -81,8 +81,12 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     '8a67d2cb8ce836a2b2c34bb7782d8b0bee67dadf437ba9e0a60b0be0baf62a36',
     IMPLEMENTATION_ONLY,
   ),
+  // MCP-143 pull request 759: Guard 1b's auth-valve condition restated as its
+  // allowed set negated (isLocalRun) for reviewer clarity. Behaviour-identical
+  // refactor of a startup validation rule; disposition unchanged — no authored
+  // agent-facing content reaches an MCP consumer from this file.
   'apps/oak-curriculum-mcp-streamable-http/src/env.ts': excluded(
-    'fa8e7ff9a903c30e8d8eb8a909d61497bc9122e8f21a18cb5485742fcf005479',
+    '0537f72528f0ae1c0de9ff41f1e43e99b16fdc5a26890885bee7d6f16288723b',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/feature-flags.ts': excluded(
