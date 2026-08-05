@@ -257,6 +257,41 @@ describe('Clerk key-format locality (production)', () => {
     // unset VERCEL_ENV (local, non-Vercel) also passes
     expect(HttpEnvSchema.safeParse(withClerkKeys).success).toBe(true);
   });
+
+  // Discriminating cases: the guard is a production ALLOWLIST (require
+  // pk_live_/sk_live_), not merely a pk_test_/sk_test_ denylist. A key whose
+  // prefix is neither test nor live — a malformed, staging, or wrong-realm
+  // key — must ALSO fail closed. A denylist keyed on the test prefix would
+  // have let these boot production against a non-live Clerk realm.
+  it('rejects an unknown-prefix publishable key in production (allowlist, not a pk_test_ denylist)', () => {
+    const result = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      CLERK_PUBLISHABLE_KEY: 'pk_foobar_123',
+      CLERK_SECRET_KEY: 'sk_live_123',
+      VERCEL_ENV: 'production',
+    });
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const paths = result.error.issues.map((i) => i.path.join('.'));
+      expect(paths).toContain('CLERK_PUBLISHABLE_KEY');
+    }
+  });
+
+  it('rejects an unknown-prefix secret key in production (allowlist, not an sk_test_ denylist)', () => {
+    const result = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      CLERK_PUBLISHABLE_KEY: 'pk_live_123',
+      CLERK_SECRET_KEY: 'sk_staging_123',
+      VERCEL_ENV: 'production',
+    });
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const paths = result.error.issues.map((i) => i.path.join('.'));
+      expect(paths).toContain('CLERK_SECRET_KEY');
+    }
+  });
 });
 
 describe('PostHog product-analytics selection (OBSERVABILITY_SINKS)', () => {
