@@ -2499,7 +2499,10 @@ shredding `tmp/jim-posthog-setup-steps.md`; and the observability-debt ticket.
   rather than write a fourth version.** Three seats hit it inside ten minutes.
   - **THE CURE**: when a fact in a durable artefact keeps going stale, replace the
     fact with the TEST that determines it. Faster corrections only move the
-    staleness window; a test plus a branch table has no window.
+    staleness window.
+  - **THE FORM IS THREE PARTS, not two — the test, ITS PRECONDITIONS, and the branch
+    table** (third part supplied by Djinn 18:07Z from a fired falsifier; see below).
+    The preconditions are the part both of us initially omitted.
   - **THE BOUNDARY**: applies to INSTRUCTIONS, not EVIDENCE. Evidence should carry
     timestamped facts with an observer named, and must never be generalised to now.
     Stripping facts out of an evidence record destroys what makes it evidence.
@@ -2526,6 +2529,29 @@ shredding `tmp/jim-posthog-setup-steps.md`; and the observability-debt ticket.
     procedural habit rather than by principle** — their own point, and the most
     useful of the three, because habits hold until pressure and principles hold
     through it.
+  - **THE FALSIFIER FIRED THE SAME DAY, and that is the strongest thing in this
+    entry.** I stated the falsifier as "an instruction in test-and-branch form that
+    still goes stale, because the TEST itself became wrong". It happened, to Djinn's
+    CANONICAL_HOST alias test: ask via a non-canonical host and compare issuer, which
+    lies if run during a rollout, because AS metadata is cached per instance at boot
+    and the fleet turns over gradually (Bilby measured a 27-second host disagreement
+    at 17:19:21Z).
+    - **How it failed is the argument FOR the form, not against it.** The repair was
+      not to abandon the test or return to asserting a value — it was to add
+      preconditions: no deploy in flight, both hosts, agreement across consecutive
+      rounds. Three lines, and it stays repaired, because rollout mechanics move far
+      more slowly than a value that changed five times in three hours. **A stale
+      value has no repair except another value that will also go stale; a flawed
+      test is repaired once.** Djinn's phrase: the form degrades gracefully.
+    - So the pattern survives its own falsifier in the strong sense — the named
+      failure mode is real, has occurred, and cost one amendment rather than a
+      recurring correction. Better evidence than the falsifier never firing.
+    - **Honest note on my own artefact**: my MCP-458 instruction DOES carry the
+      precondition (both hosts, twice, agreement; disagreement means a deploy is in
+      flight, so wait). But I got it from Bilby's mixed-binding discovery, not from
+      the principle — the same "right for the wrong reason" shape Bilby owned about
+      their runsheet. Two of three instances landed correct without the principle,
+      which is the argument for writing the principle down.
   - **Convergence claim WITHDRAWN by both of us.** Djinn and I reached the cure
     within a minute uncoordinated and initially read that as strong corroboration.
     It is not: we had both been burned by the same volatile value in the same hour,
