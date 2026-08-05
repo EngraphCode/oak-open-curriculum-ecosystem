@@ -26,12 +26,6 @@ owner_gates:
     expires: 2026-08-17
   - awaiting: owner-decision
     clears_when: >-
-      The W2.7 off-horizontal design session records tilt values for each
-      identity (evidence and priming in W2.7 and §Decision log); scheduled
-      by the executing seat when W2 opens.
-    expires: 2026-08-31
-  - awaiting: owner-decision
-    clears_when: >-
       The KNOWN-ISSUES item-14 subtree-alias ruling lands before any
       surface renders a high-contrast or colour-safe subtree (grounds in
       W0.2); nothing else blocks on it.
@@ -625,11 +619,14 @@ pre-read and per-identity owner direction sittings).
   W2.1–W2.3. Acceptance shape (`repo-safe`): each fixture proven biting once
   by mutation.
 - **W2.7 Off-horizontal dimension.** Goal: identity tilt tokenised with its
-  accessibility constraints; the owner design session prices all three
-  identities' values. Gates: the frontmatter tilt gate — no tilt render before
-  the session's committed decision artefact or the owner's dated defer word.
-  Depends: W2.1. Acceptance shape (`repo-safe`): token shape + constraint
-  tests; (`owner-held`): the session's recorded values.
+  accessibility constraints. The VALUES are owner-delivered (card answer
+  2026-08-03 ~09:15Z, verbatim in the committed napkin, `b1b5431a7`; gate
+  discharged 2026-08-05): PDS structural zero; Oak zero on interactive and
+  content-bearing elements — decoration MAY tilt, structural zero if
+  easier; EMC² leans in, including ANIMATED tilts demonstrating motion vs
+  no-motion. Gate: no tilt render before the token shape + constraints
+  land. Depends: W2.1. Acceptance shape (`repo-safe`): token shape +
+  constraint tests encoding the delivered values.
 - **W2.8 Identity asset delivery.** Goal: each identity's payload (icons,
   logo, fonts) vendored into the W2.0 home, offline-safe, licence notices
   beside them. Depends: W2.0. Acceptance shape (`repo-safe`): hermetic demo
@@ -946,6 +943,7 @@ W4.7/W5.5/W6.2 whole-demo checkpoints.
 | FIVE demos; runtime identity switching = showcase + hub only; hub = "first instance of a Claude Design app ingested and reconstructed with our tools"; plain + styled = small proof demos; fifth = the layout-range ("css zen garden like") demo | Owner card answer 2026-08-03, verbatim in the strategic node |
 | Cost-of-change value-frame: "enabling rapid innovation without compromising quality or stability" — both arms bind in every trade | Owner words 2026-08-03, relayed via Director event 7b00c9e5 |
 | The hub demo's search must WORK wherever the hub is served (live backend configured; the landed implementation is complete and tested — the verified gap is env credentials only, per the demo README) | Owner word 2026-08-05, Director session a0892f: "the search in the hub demo should _work_" |
+| W2.7 tilt values: PDS structural zero; Oak zero on interactive/content-bearing (decoration MAY tilt, structural zero if easier); EMC² leans in incl. ANIMATED tilts demonstrating motion vs no-motion — the former frontmatter session gate discharged | Owner card answer 2026-08-03 ~09:15Z, verbatim in the committed napkin (`b1b5431a7`); trued 2026-08-05 at the handover (Magnetar corroboration, first-hand napkin verification) |
 
 ## Relationships (the estate edges)
 
@@ -1046,8 +1044,12 @@ follow invoke-code-experts; cross-lane residue routes to the Director.
   branch, and all git history; the author session's own resume map in the
   `design-system-integration` thread record lists it as remaining work).
   It is honestly recomputable — both inputs survive (`findings.v3.json`
-  and this text) — and the per-row ledger FOLDS INTO the scoped
-  near-horizon re-review, which re-reads the same rows to zero. The same
+  and this text). Same-day supersession: at the owner's handover word
+  the authoring seat, convened with the previous design team, authored
+  the ledger FROM LIVING MEMORY (`dispositions.v2.2.md`, dated
+  provenance in the file; comms event `997a8970`); the scoped
+  near-horizon re-review now VERIFIES it row-by-row and runs its stated
+  completeness sweep, rather than deriving cold. The same
   truing pass landed the resume map's enumerated residual edits (Quality
   bar rule 6 and the standing control note, the register naming, D1
   batching, the §Relationships EX57/EX62/EX67/EX73/EX77 rows, the
