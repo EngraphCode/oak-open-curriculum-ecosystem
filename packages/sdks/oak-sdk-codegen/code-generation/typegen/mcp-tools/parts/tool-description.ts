@@ -70,7 +70,21 @@ NOTE: The asset \`url\` fields returned by this tool are authenticated API endpo
  */
 const GET_KEYWORDS_DISAMBIGUATION_NOTE = `
 
-WHEN TO PREFER WHICH KEYWORDS TOOL: this tool returns the LIVE full keyword set for a key stage + subject — fresh and authoritative (including KS4 during curriculum restructures), alphabetical, unranked, and large at subject scope. For a bounded frequency-ranked subset with lesson connections (token economy + relationship navigation over the curriculum graph), prefer get-keyword-graph, which serves a point-in-time curriculum snapshot.`;
+WHEN TO PREFER WHICH KEYWORDS TOOL: this tool returns the LIVE keyword set for a key stage + subject — fresh and authoritative (including KS4 during curriculum restructures), alphabetical, unranked, and large at subject scope. For a bounded frequency-ranked subset with lesson connections (token economy + relationship navigation over the curriculum graph), prefer get-keyword-graph, which serves a point-in-time curriculum snapshot.`;
+
+/**
+ * Pagination guidance for get-keywords.
+ *
+ * The upstream endpoint enforces a server-side default of \`limit=20\` (spec
+ * 0.7.x; live-verified 2026-08-03 — an unpaged science+ks1 call returned 20
+ * of 170 keywords), so an unpaged call silently returns a fraction of the
+ * keyword set and nothing in the tool result signals that more exist. Until
+ * the tool result carries a structural next-page signal, the description
+ * instructs agents to page explicitly. Remove when that signal exists.
+ */
+const GET_KEYWORDS_PAGINATION_NOTE = `
+
+NOTE: This tool is paginated — the server returns at most 20 keywords unless you pass \`limit\` (max 300), and nothing in the response indicates that more exist. For the complete set, pass \`limit: 300\` and increase \`offset\` by 300 per call until a page returns fewer than 300 keywords.`;
 
 /**
  * Guidance appended to tools that can return a large payload at broad scope.
@@ -114,7 +128,9 @@ NOTE: Programme slugs are the full form — \`<subject>-<phase>-year-<year>\` pl
  */
 export const TOOL_DESCRIPTION_ADDITIONS: ReadonlyMap<string, string> = new Map([
   ['get-rate-limit', GET_RATE_LIMIT_NOTE],
-  ['get-keywords', GET_KEYWORDS_DISAMBIGUATION_NOTE],
+  // Keywords: disambiguation vs get-keyword-graph, plus explicit paging
+  // guidance for the server-enforced limit default.
+  ['get-keywords', `${GET_KEYWORDS_DISAMBIGUATION_NOTE}${GET_KEYWORDS_PAGINATION_NOTE}`],
   // Bounded: one lesson's assets. Asset-download guidance only.
   ['get-lessons-assets', ASSET_DOWNLOAD_NOTE],
   // Whole key-stage + subject: compose the large-payload hint onto the asset note.

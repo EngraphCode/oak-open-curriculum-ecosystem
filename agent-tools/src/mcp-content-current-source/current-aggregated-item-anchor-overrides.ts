@@ -138,6 +138,14 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
       "securitySchemes: [{ type: 'oauth2', scopes: [...SCOPES_SUPPORTED] }] as const,",
     ],
   },
+  // MCP-462: the description's get-keywords references dropped "full" —
+  // the keywords endpoint is now server-paginated, so "full keyword set"
+  // was no longer accurate; this item re-pins on its unchanged opening line.
+  C222: {
+    [KEYWORD_GRAPH]: [
+      'Returns the key vocabulary for one teaching context: a bounded, frequency-ranked page of curriculum keywords, each decorated with its in-scope placing lessons.',
+    ],
+  },
   C223: {
     [KEYWORD_GRAPH]: [
       '.describe(\'Anchor subject slug (corpus key), e.g. "maths". Required, with keyStage.\')',

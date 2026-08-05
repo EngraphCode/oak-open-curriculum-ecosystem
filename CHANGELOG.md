@@ -1,3 +1,99 @@
+## [1.150.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.150.0...v1.150.1) (2026-08-05)
+
+
+### Bug Fixes
+
+* **mcp-server:** let production redeploy the commit it already runs (MCP-479) ([87b72d9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/87b72d9346933f13b4ee95ec748deb380aa94fcd))
+* **mcp-server:** point the moved guard test at the script's new relative path ([bc3696f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bc3696f89f7bf38099655784b4d1f8f2c4077812))
+
+# [1.150.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.149.1...v1.150.0) (2026-08-04)
+
+
+### Bug Fixes
+
+* **mcp-server:** enforce posthog-requires-sentry on the app boot path (MCP-361) ([61773a6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/61773a68f7b4cf18c6a9e744903e407dff67c4ae)), closes [#748](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/748)
+* **mcp-server:** require Sentry actively live when posthog is selected (MCP-361) ([c6aefca](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c6aefcadb33136daecb362d233a60e156b1ad798))
+
+
+### Features
+
+* **env:** require sentry alongside posthog in every environment (MCP-361) ([f6d4661](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f6d46615a2d49e50776bb79cda883ef0736fee03))
+
+## [1.149.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.149.0...v1.149.1) (2026-08-04)
+
+# [1.149.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.5...v1.149.0) (2026-08-04)
+
+
+### Features
+
+* **skills:** add set-up-worktree-lane, the worktree creation procedure ([e440e4a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e440e4a3b045c26705a5573e40eab0d0b892bd9f))
+
+## [1.148.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.4...v1.148.5) (2026-08-04)
+
+
+### Bug Fixes
+
+* **agent-tools:** make install-version-guard smoke deterministic on clean runners ([d95219a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d95219a89e7f4506c542271e2872a3e1603c24f8))
+* **agent-tools:** nest the pin so install-version-guard smoke survives self-managing pnpm ([d2860e8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d2860e83f19f461af72fa9c72a256f796ba47e8f))
+* **tooling:** guard installs against mismatched pnpm ([de199bb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/de199bb872ae6411a8ebf5458e33358133803196))
+* **tooling:** isolate runtime-only lint from the type-aware eslint config ([832bbd9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/832bbd977d043cb65935a70cf9c43977c08eb57e))
+
+## [1.148.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.3...v1.148.4) (2026-08-04)
+
+## [1.148.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.2...v1.148.3) (2026-08-04)
+
+
+### Bug Fixes
+
+* **agent-tools:** probe $PNPM_HOME/bin for the pnpm launcher ([b5d3d43](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b5d3d43cfb1f49d7fe12fd31e085627d43e99571))
+
+## [1.148.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.1...v1.148.2) (2026-08-04)
+
+
+### Bug Fixes
+
+* **agent-tools:** close the statMtimeMs TOCTOU in the bootstrap fs binding (mcp-472) ([494264e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/494264e1a1e588c3de9834bf93ca2a53675036cf))
+* **agent-tools:** rebuild stale workspace dist in bootstrap (mcp-472) ([c7959a6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c7959a663e29dca480e0965efa0024e14b9251c1))
+
+## [1.148.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.0...v1.148.1) (2026-08-04)
+
+# [1.148.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.147.0...v1.148.0) (2026-08-04)
+
+
+### Bug Fixes
+
+* **search-cli:** bulk freshness detects an absent bundle; docstring premise trued ([57ec55a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/57ec55a60ec2b322c2615d2f043aeb1ae7401c3c))
+* **search-cli:** exact staleness boundary and bounded future skew ([e2d1140](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e2d1140ab31a597aef85ab36922047afd3ba9c23))
+
+
+### Features
+
+* **search-cli:** bulk-data freshness contract; adr-222 truing verified (mcp-463) ([efe7ec7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/efe7ec7eebe16d8edb1c682154c74c2342bae276))
+* **search-cli:** bulk-data gate DI seam, manifest anchor, injected clock ([e5b6a44](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e5b6a44a957359115b1197b2f5315da27002fbfb))
+
+# [1.147.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.3...v1.147.0) (2026-08-04)
+
+
+### Bug Fixes
+
+* **sdk-codegen:** cure the two generator defects found on the spec-alignment review (MCP-462) ([b1ef5a9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b1ef5a93add39ea76180979bc2eb1f0a1f6ccff5))
+
+
+### Features
+
+* **sdk-codegen:** align to the refreshed upstream spec (mcp-462) ([bcdc623](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bcdc6237360346c5398cdfb1962b9817e2954509))
+
+## [1.146.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.2...v1.146.3) (2026-08-03)
+
+## [1.146.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.1...v1.146.2) (2026-08-03)
+
+
+### Bug Fixes
+
+* **mcp-server:** record the env-change boot-check obligation in the UAT runbook ([94d67a3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/94d67a3c150e3cf56334130e886e68bb19d476df))
+
+## [1.146.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.0...v1.146.1) (2026-08-03)
+
 # [1.146.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.145.0...v1.146.0) (2026-08-03)
 
 

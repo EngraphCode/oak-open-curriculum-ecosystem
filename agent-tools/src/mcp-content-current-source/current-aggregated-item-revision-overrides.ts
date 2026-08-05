@@ -37,6 +37,7 @@ export const CURRENT_AGGREGATED_ITEM_REVISION_OVERRIDES = {
   C173: 'modified',
   C174: 'modified',
   C177: 'modified',
+  C222: 'modified',
   C223: 'modified',
   C224: 'modified',
   C231: 'modified',
