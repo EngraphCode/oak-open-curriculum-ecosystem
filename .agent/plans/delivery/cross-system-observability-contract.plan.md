@@ -186,13 +186,77 @@ relying on review vigilance.
    (pre-auth, anonymous by construction); re-type the protocol-version
    property to String.
 
-### 9. Named later slice — the follow tool
+### 9. What the client sends — captured to the safe limit
+
+The MCP client side offers more visibility than the server currently
+keeps, all of it privacy-safe under the zone rule when handled as
+follows:
+
+- **`clientInfo` (name + version) from `initialize`** — software
+  identity; captured (the trio above). Ends the client-family
+  guesswork.
+- **The client `capabilities` set from `initialize`** — captured as
+  booleans (sampling, roots, elicitation, …), never payloads: which
+  advanced MCP features the client population could use, before we
+  build on them.
+- **Offered protocol version as a success dimension** — the
+  transport-rejection event covers failures; recording the version
+  dimension on successful sessions too makes protocol drift visible
+  before it rejects anyone.
+- **Transport session id** — operational continuity only; never enters
+  the usage plane verbatim (usage-plane session grouping uses its own
+  derived id).
+- **Raw user agent** — request plane only, short retention; the usage
+  plane sees the coarse client family alone.
+- **An optional `context`/intent parameter on tools** — the
+  highest-value addition and the one that must be designed, not
+  drifted into: the calling agent states why it is calling. Intent is
+  free text and agents paraphrase their users, so the zone rule
+  applies exactly as written: it reaches the usage plane only as a
+  **closed-taxonomy classification computed server-side**, and the raw
+  text is at most request-plane, short-retention — or dropped
+  entirely. The ledger carries this as an ordinary row, because the
+  rule is uniform.
+- **Inbound `traceparent`, honoured when present** — some clients and
+  gateways send W3C trace context; honouring it stitches client-side
+  retries into one request-plane trace. We advertise support; we never
+  require it.
+- **`server/discover` adoption** (once the SDK supports the current
+  protocol revision) — which clients probe versus which use the legacy
+  handshake is itself an adoption dimension, free at that point.
+
+### 10. Named later slice — the follow tool
 
 `agent-tools follow <error-url | release | sha | ticket>`: mechanically
 walk the graph in either direction and print the trail. The largest
 ease multiplier, deliberately a follow-on: it consumes the edges this
 plan lands and the map it writes; building it first would be building
 on unrecorded keys.
+
+### 11. The knowledge estate for the area
+
+**Maximum-privacy observability is an architecture area, not one
+plan**, and its knowledge gets an estate shape (owner-set 2026-08-05):
+
+- **A filesystem home**: `docs/architecture/observability/` carries the
+  area index, the contract narrative, and the **field ledger**.
+- **The field ledger is the contract's machine-readable form** — a
+  closed, additive registry with one row per field: name, kind
+  (`identifier | dimension | classification | free-text`), zone,
+  systems that may carry it, allowed values or value shape, and
+  sensitivity class. The capture-layer enforcement test **consumes the
+  ledger**, so the contract and its enforcement cannot drift apart —
+  the same recompute-not-record discipline the estate's validators
+  already follow.
+- **ADR frontmatter, piloted on this area**: the area's decision
+  records gain machine-readable frontmatter (id, title, status, date,
+  area, supersedes/amended-by), so filesystem-level organisation comes
+  from metadata plus the area index rather than from forking the
+  numbered ADR corpus — the numbering convention stays whole, and the
+  area page enumerates its ADRs by frontmatter, never by hand-kept
+  list. Retrofit of the area's existing ADRs is sequenced, not bulk;
+  estate-wide adoption of the frontmatter pattern is a second-consumer
+  decision for the owner once this pilot proves it.
 
 ### Build-vs-buy
 
@@ -206,13 +270,16 @@ a position, not a gap.
 
 ## Acceptance criteria
 
-1. **The contract document exists** carrying the graph model, the
-   three planes, the node roster with safe-limit notes, the zone rule,
-   the membrane, and the recorded residual. Proof: repo-safe — the
-   document in the PR diff; docs lint green.
-2. **The capture-layer enforcement test exists and is red-first
-   provable.** Proof: repo-safe — the test fails when a forbidden key
-   is injected, passes on the real capture surface.
+1. **The area home exists** carrying the graph model, the three
+   planes, the node roster with safe-limit notes, the zone rule, the
+   membrane, the recorded residual, and the client-side contributions
+   — as narrative plus the machine-readable field ledger. Proof:
+   repo-safe — the documents in the PR diff; docs lint green.
+2. **The capture-layer enforcement test exists, is red-first provable,
+   and reads its forbidden/allowed sets from the field ledger.** Proof:
+   repo-safe — the test fails when a forbidden key is injected or when
+   a captured field is absent from the ledger, passes on the real
+   capture surface.
 3. **An error event carries the edge request id tag, and error and
    analytics events carry the deployment id.** Proof: owner-held —
    observed events recorded on MCP-504.
@@ -240,9 +307,13 @@ a position, not a gap.
 
 ## Todos
 
-- [ ] T1: author the correlation-graph contract document + the
-      capture-layer enforcement test (one PR — the contract and its
-      teeth land together).
+- [ ] T1: author the area home (`docs/architecture/observability/`):
+      the contract narrative, the machine-readable field ledger, and
+      the capture-layer enforcement test that consumes the ledger (one
+      PR — the contract and its teeth land together and cannot drift).
+- [ ] T1b: pilot ADR frontmatter on this area's decision records (the
+      area's new ADR born with frontmatter; retrofit of existing area
+      ADRs sequenced behind it).
 - [ ] T2: edge-request-id forwarding + error-event tag, and the
       deployment-id tag on error and analytics events (one small app
       PR).
