@@ -83,23 +83,7 @@ export function decideAuxiliaryBlobRead(
     };
   }
   if (input.isTypescriptPath) {
-    return input.capturedSource === undefined
-      ? {
-          kind: 'captured-source-missing',
-          error: new EstateReviewError(
-            'SNAPSHOT_INVALID',
-            `regular TypeScript source '${input.path}' has no captured bytes`,
-          ),
-        }
-      : {
-          kind: 'captured-source',
-          read: publicRead({
-            path: input.path,
-            treeEntry: input.trackedEntry,
-            bytes: input.capturedSource.bytes,
-            contentSha256: input.capturedSource.contentSha256,
-          }),
-        };
+    return decideCapturedSourceRead(input.path, input.trackedEntry, input.capturedSource);
   }
   const cached = input.cache.entries.find(({ path }) => path === input.path);
   if (cached !== undefined) {
@@ -121,6 +105,31 @@ export function decideAuxiliaryBlobRead(
         },
       }
     : { kind: 'budget-exceeded', error: budgetError };
+}
+
+/** Decide a TypeScript path's read from the snapshot's already-captured bytes. */
+function decideCapturedSourceRead(
+  path: RepoPath,
+  trackedEntry: RegularBlobTreeEntry,
+  capturedSource: CapturedAuxiliarySource | undefined,
+): AuxiliaryBlobReadDecision {
+  return capturedSource === undefined
+    ? {
+        kind: 'captured-source-missing',
+        error: new EstateReviewError(
+          'SNAPSHOT_INVALID',
+          `regular TypeScript source '${path}' has no captured bytes`,
+        ),
+      }
+    : {
+        kind: 'captured-source',
+        read: publicRead({
+          path,
+          treeEntry: trackedEntry,
+          bytes: capturedSource.bytes,
+          contentSha256: capturedSource.contentSha256,
+        }),
+      };
 }
 
 export interface AuxiliaryBlobFetchTransition {

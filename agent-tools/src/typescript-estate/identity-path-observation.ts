@@ -52,19 +52,9 @@ export function validateIdentityPathObservation(
   if (observation.components.length !== expectedPaths.length) {
     return err(new Error(`identity path observation for '${input.path}' is incomplete`));
   }
-  for (const [index, expectedPath] of expectedPaths.entries()) {
-    const component = observation.components[index];
-    if (component?.path !== expectedPath) {
-      return err(new Error(`identity path observation for '${input.path}' is reordered`));
-    }
-    const expectedKind: IdentityFileKind =
-      index === expectedPaths.length - 1 ? 'file' : 'directory';
-    if (component.kind === 'symlink') {
-      return err(new Error(`identity path component '${expectedPath}' is a symlink`));
-    }
-    if (component.kind !== expectedKind) {
-      return err(new Error(`identity path component '${expectedPath}' is not a ${expectedKind}`));
-    }
+  const components = validateObservedComponents(input.path, expectedPaths, observation.components);
+  if (isErr(components)) {
+    return components;
   }
   return observation.canonicalPath === input.path &&
     isWithin(input.ownerRoot, observation.canonicalPath)
@@ -74,6 +64,39 @@ export function validateIdentityPathObservation(
           `identity member '${input.path}' resolves to '${observation.canonicalPath}', outside its exact lexical owner`,
         ),
       );
+}
+
+function validateObservedComponents(
+  memberPath: string,
+  expectedPaths: readonly string[],
+  components: IdentityPathObservation['components'],
+): Result<undefined, Error> {
+  for (const [index, expectedPath] of expectedPaths.entries()) {
+    const component = components[index];
+    if (component?.path !== expectedPath) {
+      return err(new Error(`identity path observation for '${memberPath}' is reordered`));
+    }
+    const expectedKind: IdentityFileKind =
+      index === expectedPaths.length - 1 ? 'file' : 'directory';
+    const kind = validateComponentKind(expectedPath, component.kind, expectedKind);
+    if (isErr(kind)) {
+      return kind;
+    }
+  }
+  return ok(undefined);
+}
+
+function validateComponentKind(
+  componentPath: string,
+  observedKind: IdentityFileKind | undefined,
+  expectedKind: IdentityFileKind,
+): Result<undefined, Error> {
+  if (observedKind === 'symlink') {
+    return err(new Error(`identity path component '${componentPath}' is a symlink`));
+  }
+  return observedKind === expectedKind
+    ? ok(undefined)
+    : err(new Error(`identity path component '${componentPath}' is not a ${expectedKind}`));
 }
 
 function observeIdentityPath<Handle>(

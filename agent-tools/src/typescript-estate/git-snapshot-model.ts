@@ -77,6 +77,15 @@ export interface AuxiliaryBlobReadObservation {
   readonly bytes: Uint8Array;
 }
 
+/**
+ * Semantic pinned-blob access: exact bytes of one tracked path at the pinned
+ * commit, never the working tree. The commit binding lives in the adapter, so
+ * a reader holding this port cannot name any other revision.
+ */
+export interface PinnedBlobReadPort {
+  read(path: RepoPath, maxBytes: number): Result<Uint8Array, EstateReviewError>;
+}
+
 /** Run-scoped access to regular blobs in the already validated pinned tree. */
 export interface GitSnapshotAuxiliaryReader {
   /** Read one exact path as defensive uninterpreted bytes or a typed failure. */

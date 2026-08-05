@@ -1,38 +1,43 @@
-import { createHash } from 'node:crypto';
-
-import { err, isErr, ok, type Result } from '@oaknational/result';
+import { assertNeverResult, err, isErr, ok, type Result } from '@oaknational/result';
 
 import type { AuxiliaryReadRecord } from './document-model.js';
+import { type AuxiliaryBlobReadRefusal, EstateReviewError } from './errors.js';
 import {
-  type AuxiliaryBlobReadRefusal,
-  EstateReviewError,
-  MissingAuxiliaryBlobRefusal,
-  NonRegularAuxiliaryBlobRefusal,
-} from './errors.js';
+  applyAuxiliaryBlobFetch,
+  decideAuxiliaryBlobRead,
+  latchAuxiliaryBlobError,
+  type AuxiliaryBlobCacheEntry,
+  type AuxiliaryBlobCacheState,
+  type CapturedAuxiliarySource,
+} from './git-snapshot-auxiliary-decision.js';
 import type {
   AuxiliaryBlobRead,
   AuxiliaryBlobReadObservation,
-  GitContext,
   GitSnapshotAuxiliaryReader,
   GitSnapshotLimits,
-  RegularBlobTreeEntry,
+  PinnedBlobReadPort,
   SnapshotSource,
   TrackedTreeEntry,
 } from './git-snapshot-model.js';
-import { runGit } from './git-snapshot-process.js';
 import type { RepoPath } from './scalar-model.js';
+import { compareUtf16 } from './utf16-order.js';
 
 interface CreateAuxiliaryReaderInput {
-  readonly context: GitContext;
-  readonly commit: string;
   readonly treeEntries: readonly TrackedTreeEntry[];
   readonly sources: readonly SnapshotSource[];
   readonly limits: GitSnapshotLimits;
+  readonly pinnedBlobs: PinnedBlobReadPort;
 }
 
-type CachedBlob = Omit<AuxiliaryBlobRead, 'byteCount'>;
-type CapturedSourceBytes = Pick<CachedBlob, 'bytes' | 'contentSha256'>;
-
+/**
+ * Run-scoped auxiliary reader over the pure decision/transition core.
+ *
+ * Every read is routed through {@link decideAuxiliaryBlobRead}; the only
+ * I/O this class performs is executing a `fetch-required` action through the
+ * injected {@link PinnedBlobReadPort}, and the only state it holds is the
+ * immutable {@link AuxiliaryBlobCacheState} replaced via
+ * {@link applyAuxiliaryBlobFetch} and {@link latchAuxiliaryBlobError}.
+ */
 export function createAuxiliaryBlobReader(
   input: CreateAuxiliaryReaderInput,
 ): GitSnapshotAuxiliaryReader {
@@ -40,165 +45,130 @@ export function createAuxiliaryBlobReader(
 }
 
 class RunScopedAuxiliaryBlobReader implements GitSnapshotAuxiliaryReader {
-  readonly #context: GitContext;
-  readonly #commit: string;
-  readonly #treeEntries: readonly TrackedTreeEntry[];
+  readonly #treeEntries: ReadonlyMap<RepoPath, TrackedTreeEntry>;
   readonly #typescriptPaths: ReadonlySet<RepoPath>;
-  readonly #typescriptBytes: ReadonlyMap<RepoPath, CapturedSourceBytes>;
+  readonly #typescriptBytes: ReadonlyMap<RepoPath, CapturedAuxiliarySource>;
   readonly #limits: GitSnapshotLimits;
-  readonly #cache = new Map<RepoPath, CachedBlob>();
-  #chargedBytes = 0;
-  #terminalError: EstateReviewError | undefined;
+  readonly #pinnedBlobs: PinnedBlobReadPort;
+  #state: AuxiliaryBlobCacheState = { entries: [], chargedBytes: 0, terminalError: null };
 
   constructor(input: CreateAuxiliaryReaderInput) {
-    this.#context = input.context;
-    this.#commit = input.commit;
-    this.#treeEntries = input.treeEntries.map(({ path, treeEntry }) => ({
-      path,
-      treeEntry: { ...treeEntry },
-    }));
+    this.#treeEntries = new Map(
+      input.treeEntries.map((entry) => [
+        entry.path,
+        { path: entry.path, treeEntry: { ...entry.treeEntry } },
+      ]),
+    );
     this.#typescriptPaths = new Set(input.sources.map(({ path }) => path));
     this.#typescriptBytes = captureSourceBytes(input.sources);
     this.#limits = { ...input.limits };
+    this.#pinnedBlobs = input.pinnedBlobs;
   }
 
   read(path: RepoPath): Result<AuxiliaryBlobRead, EstateReviewError | AuxiliaryBlobReadRefusal> {
-    if (this.#terminalError !== undefined) {
-      return err(this.#terminalError);
+    const decision = decideAuxiliaryBlobRead({
+      path,
+      trackedEntry: this.#treeEntries.get(path)?.treeEntry,
+      isTypescriptPath: this.#typescriptPaths.has(path),
+      capturedSource: this.#typescriptBytes.get(path),
+      cache: this.#state,
+      limits: this.#limits,
+    });
+    if (decision.kind === 'fetch-required') {
+      const transition = applyAuxiliaryBlobFetch(
+        this.#state,
+        decision.action,
+        this.#fetchPinned(decision.action.path, decision.action.maxBytes),
+      );
+      this.#state = transition.state;
+      return transition.result;
     }
-    const tracked = findTrackedEntry(this.#treeEntries, path);
-    if (tracked === undefined) {
-      return err(new MissingAuxiliaryBlobRefusal(path));
+    if (decision.kind === 'captured-source-missing' || decision.kind === 'budget-exceeded') {
+      this.#state = latchAuxiliaryBlobError(this.#state, decision.error);
+      return err(decision.error);
     }
-    if (!isRegularBlob(tracked.treeEntry)) {
-      return err(new NonRegularAuxiliaryBlobRefusal(path, tracked.treeEntry));
-    }
-    const cached = this.#cache.get(path);
-    const result = this.#typescriptPaths.has(path)
-      ? this.#readCapturedSource(path, tracked.treeEntry)
-      : cached === undefined
-        ? this.#readAndCache(path, tracked.treeEntry)
-        : ok(publicRead(cached));
-    if (isErr(result)) {
-      this.#terminalError = result.error;
-    }
-    return result;
+    return settledDecisionResult(decision);
   }
 
   ledger(): Result<readonly AuxiliaryReadRecord[], EstateReviewError> {
-    return this.#terminalError === undefined
+    return this.#state.terminalError === null
       ? ok(
-          this.#orderedCache().map((cached) => ({
+          this.#orderedEntries().map((cached) => ({
             path: cached.path,
             treeEntry: { ...cached.treeEntry },
             byteCount: cached.bytes.byteLength,
             contentSha256: cached.contentSha256,
           })),
         )
-      : err(this.#terminalError);
+      : err(this.#state.terminalError);
   }
 
   observations(): Result<readonly AuxiliaryBlobReadObservation[], EstateReviewError> {
-    return this.#terminalError === undefined
+    return this.#state.terminalError === null
       ? ok(
-          this.#orderedCache().map((cached) => ({
+          this.#orderedEntries().map((cached) => ({
             path: cached.path,
             treeEntry: { ...cached.treeEntry },
             bytes: Uint8Array.from(cached.bytes),
           })),
         )
-      : err(this.#terminalError);
+      : err(this.#state.terminalError);
   }
 
-  #readCapturedSource(
-    path: RepoPath,
-    treeEntry: RegularBlobTreeEntry,
-  ): Result<AuxiliaryBlobRead, EstateReviewError> {
-    const captured = this.#typescriptBytes.get(path);
-    return captured === undefined
-      ? err(
-          new EstateReviewError(
-            'SNAPSHOT_INVALID',
-            `regular TypeScript source '${path}' has no captured bytes`,
-          ),
-        )
-      : ok(publicRead({ path, treeEntry, ...captured }));
-  }
-
-  #readAndCache(
-    path: RepoPath,
-    treeEntry: RegularBlobTreeEntry,
-  ): Result<AuxiliaryBlobRead, EstateReviewError> {
-    const budget = preflightBudget(path, treeEntry.size, this.#chargedBytes, this.#limits);
-    if (isErr(budget)) {
-      return budget;
-    }
-    const bytes = runGit(
-      this.#context,
-      ['-C', this.#context.root, 'show', `${this.#commit}:${path}`],
-      this.#limits.maxAuxiliaryBlobBytesPerFile,
-      'SOURCE_READ_FAILED',
-      `Git auxiliary blob read '${path}'`,
-    );
-    if (isErr(bytes)) {
-      return bytes;
-    }
-    if (bytes.value.byteLength !== treeEntry.size) {
+  /** A throwing port implementation still lands as a typed source-read failure. */
+  #fetchPinned(path: RepoPath, maxBytes: number): Result<Uint8Array, EstateReviewError> {
+    let fetched: Result<Uint8Array, EstateReviewError>;
+    try {
+      fetched = this.#pinnedBlobs.read(path, maxBytes);
+    } catch (cause: unknown) {
       return err(
-        new EstateReviewError(
-          'SNAPSHOT_INVALID',
-          `Git tree size and auxiliary bytes differ for '${path}'`,
-        ),
+        new EstateReviewError('SOURCE_READ_FAILED', `Git auxiliary blob read '${path}' threw`, {
+          cause,
+        }),
       );
     }
-    const internalBytes = Uint8Array.from(bytes.value);
-    const cached: CachedBlob = {
-      path,
-      treeEntry: { ...treeEntry },
-      bytes: internalBytes,
-      contentSha256: createHash('sha256').update(internalBytes).digest('hex'),
-    };
-    this.#cache.set(path, cached);
-    this.#chargedBytes += cached.bytes.byteLength;
-    return ok(publicRead(cached));
+    return isErr(fetched) ? fetched : ok(fetched.value);
   }
 
-  #orderedCache(): readonly CachedBlob[] {
-    return [...this.#cache.values()].sort((left, right) =>
-      left.path < right.path ? -1 : left.path > right.path ? 1 : 0,
-    );
+  #orderedEntries(): readonly AuxiliaryBlobCacheEntry[] {
+    return [...this.#state.entries].sort((left, right) => compareUtf16(left.path, right.path));
   }
 }
 
-function preflightBudget(
-  path: RepoPath,
-  size: number,
-  chargedBytes: number,
-  limits: GitSnapshotLimits,
-): Result<undefined, EstateReviewError> {
-  if (size > limits.maxAuxiliaryBlobBytesPerFile) {
-    return err(
-      new EstateReviewError(
-        'RESOURCE_LIMIT',
-        `auxiliary blob '${path}' exceeds the per-file byte limit ${String(limits.maxAuxiliaryBlobBytesPerFile)}`,
-      ),
-    );
-  }
-  const remaining = limits.maxTotalAuxiliaryBlobBytes - chargedBytes;
-  return size <= remaining
-    ? ok(undefined)
-    : err(
-        new EstateReviewError(
-          'RESOURCE_LIMIT',
-          `auxiliary blob '${path}' exceeds the remaining run-wide byte budget ${String(remaining)}`,
-        ),
+type SettledAuxiliaryDecision = Extract<
+  ReturnType<typeof decideAuxiliaryBlobRead>,
+  { kind: 'fatal-latched' | 'missing-path' | 'nonregular-entry' | 'captured-source' | 'cache-hit' }
+>;
+
+/** Total projection of the state-free decision branches onto the read result. */
+function settledDecisionResult(
+  decision: SettledAuxiliaryDecision,
+): Result<AuxiliaryBlobRead, EstateReviewError | AuxiliaryBlobReadRefusal> {
+  switch (decision.kind) {
+    case 'fatal-latched':
+      return err(decision.error);
+    case 'missing-path':
+    case 'nonregular-entry':
+      return err(decision.refusal);
+    case 'captured-source':
+    case 'cache-hit':
+      return ok(decision.read);
+    default:
+      return assertNeverResult(
+        decision,
+        (unexpected) =>
+          new EstateReviewError(
+            'SNAPSHOT_INVALID',
+            `unexpected auxiliary decision '${unexpected}'`,
+          ),
       );
+  }
 }
 
 function captureSourceBytes(
   sources: readonly SnapshotSource[],
-): ReadonlyMap<RepoPath, CapturedSourceBytes> {
-  const captured = new Map<RepoPath, CapturedSourceBytes>();
+): ReadonlyMap<RepoPath, CapturedAuxiliarySource> {
+  const captured = new Map<RepoPath, CapturedAuxiliarySource>();
   for (const source of sources) {
     if ('bytes' in source) {
       captured.set(source.path, {
@@ -208,43 +178,4 @@ function captureSourceBytes(
     }
   }
   return captured;
-}
-
-function findTrackedEntry(
-  entries: readonly TrackedTreeEntry[],
-  path: RepoPath,
-): TrackedTreeEntry | undefined {
-  let low = 0;
-  let high = entries.length - 1;
-  while (low <= high) {
-    const middle = Math.floor((low + high) / 2);
-    const candidate = entries[middle];
-    if (candidate?.path === path) {
-      return candidate;
-    }
-    if ((candidate?.path ?? '') < path) {
-      low = middle + 1;
-    } else {
-      high = middle - 1;
-    }
-  }
-  return undefined;
-}
-
-function isRegularBlob(entry: TrackedTreeEntry['treeEntry']): entry is RegularBlobTreeEntry {
-  return (
-    entry.type === 'blob' &&
-    (entry.mode === '100644' || entry.mode === '100755') &&
-    entry.size !== null
-  );
-}
-
-function publicRead(cached: CachedBlob): AuxiliaryBlobRead {
-  return {
-    path: cached.path,
-    treeEntry: { ...cached.treeEntry },
-    bytes: Uint8Array.from(cached.bytes),
-    byteCount: cached.bytes.byteLength,
-    contentSha256: cached.contentSha256,
-  };
 }

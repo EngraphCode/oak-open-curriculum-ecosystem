@@ -7,12 +7,7 @@ import type { ExtractorIdentity } from './document-model.js';
 import { EstateReviewError } from './errors.js';
 import { identityFromMembers, type IdentityMember } from './identity-hashing.js';
 import { resolveIdentityImports } from './identity-module-specifiers.js';
-export {
-  createSecureIdentityReadPort,
-  type IdentityFileKind,
-  type IdentityFileSystemPort,
-  type IdentityReadPort,
-} from './identity-secure-read.js';
+export type { IdentityReadPort } from './identity-secure-read.js';
 import type { IdentityReadPort } from './identity-secure-read.js';
 
 const IDENTITY_SUFFIX = path.join(

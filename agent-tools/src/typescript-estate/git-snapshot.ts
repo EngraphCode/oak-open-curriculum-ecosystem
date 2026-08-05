@@ -28,6 +28,7 @@ import type {
   GitSourceSnapshot,
 } from './git-snapshot-model.js';
 import { createAuxiliaryBlobReader } from './git-snapshot-auxiliary-read.js';
+import { createPinnedGitBlobPort } from './git-snapshot-pinned-blob.js';
 import { decodeSingleLine, gitEnvironment, runGit } from './git-snapshot-process.js';
 import { readSources } from './git-snapshot-source-read.js';
 import { enumerateTree } from './git-snapshot-tree.js';
@@ -93,11 +94,10 @@ function captureFromRoot(
     treeEntries: enumeration.value.treeEntries,
     files: files.value,
     auxiliary: createAuxiliaryBlobReader({
-      context,
-      commit: commit.value,
       treeEntries: enumeration.value.treeEntries,
       sources: files.value,
       limits: input.limits,
+      pinnedBlobs: createPinnedGitBlobPort(context, commit.value),
     }),
   });
 }

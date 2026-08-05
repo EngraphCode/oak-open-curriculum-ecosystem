@@ -3,7 +3,6 @@ import { err, isErr, type Result } from '@oaknational/result';
 import {
   observeAndValidateIdentityPath,
   validateIdentityContainment,
-  validateIdentityPathObservation,
 } from './identity-path-observation.js';
 import type {
   ContainedIdentityRead,
