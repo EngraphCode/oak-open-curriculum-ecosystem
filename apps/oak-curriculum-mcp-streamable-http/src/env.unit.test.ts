@@ -469,8 +469,12 @@ describe('PostHog product-analytics selection (OBSERVABILITY_SINKS)', () => {
       (vercelEnv) => {
         const result = HttpEnvSchema.safeParse({
           // Live keys + canonical host so the `production` iteration is a
-          // VALID prod env under Guards 1a (live-realm keys) and 3
-          // (CANONICAL_HOST required); both are also accepted in dev/preview.
+          // VALID prod env across the MCP-143 guard cascade: Guard 1a requires
+          // live-realm keys in production, and Guard 3 requires CANONICAL_HOST
+          // there. Guard 3 arrives with PR-3, so on branches before that this
+          // fixture is forward-compatible with it rather than exercising it —
+          // do not read the mention as evidence the control is already live.
+          // Both values are also accepted in dev/preview.
           ...withLiveClerkKeys,
           CANONICAL_HOST: 'www.thenational.academy',
           VERCEL_ENV: vercelEnv,
