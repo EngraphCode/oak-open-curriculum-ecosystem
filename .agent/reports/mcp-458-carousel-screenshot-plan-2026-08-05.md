@@ -158,6 +158,14 @@ If it returns a restriction notice, drop it; three images satisfies the 3–5 re
 Images 1–3 are sufficient without it. Do not attempt to fix the underlying defect here —
 MCP-328 is owned elsewhere.
 
+**Pre-verification was attempted and is not available from this lane** — recorded so a
+successor does not repeat the probe. Checking the food-chains lesson's asset availability
+directly against the Curriculum API returns **HTTP 401**: the endpoint requires
+`OAK_API_KEY`, and this worktree carries no local env file. So the condition cannot be
+retired ahead of time by an unauthenticated read. It resolves at capture time (or at paste
+time for the listing's example prompts), where a connected client supplies the auth as a
+side effect of the session that needs it anyway.
+
 ### The gap I did not fill
 
 MCP-458's "what good looks like" names **"a quiz returned"**, and no approved-source prompt
@@ -170,26 +178,47 @@ coverage of one illustrative example, not compliance.
 
 ## Blockers — capture has not been attempted
 
-Two, neither mine to clear.
+One remains. The first was discharged during the session and is recorded here with its
+resolution, because the reasoning matters more than the outcome.
 
-**1. A connected client rendering the widget.** The carousel must show the *widget* panel —
-that is why #655's banner fix gates the shoot at all — so capture needs the connector
-connected in a Claude client that renders the `ui://` resource, against a
-production-representative build. That depends on a working sign-in, which is M4, the open
-submission blocker. As of 15:45Z Lane A has established that the preview named in MCP-507
-is bound to Oak-DEV rather than prod Clerk, and that the prod authorize chain is unchanged.
-Which client path can both authenticate and render the widget today is Lane A's surface
-knowledge, not mine.
+**1. A connected client rendering the widget — DISCHARGED, with one access condition.**
 
-**2. The metered Oak Chrome session is on Director hold.** Capturing a Claude client UI
+**Target: production, `https://www.thenational.academy/mcp`** (Director ruling ~16:56Z,
+superseding an earlier preview-first ruling of ~16:20Z). Production has served the closed beta
+through Claude for a week, so it is a proven vehicle — better than a preview on provenance (it
+is the app the listing points at), with no expiry, and it **decouples this ticket from the Clerk
+cutover entirely**.
+
+That decoupling is the load-bearing point: **the widget renders identically either side of the
+Clerk realm switch.** The realm governs *who can sign in*, not what the panel looks like. So
+images shot before the cutover stay accurate after it.
+
+**The access condition is on the photographer, not the photograph.** While production
+authenticates against the development Clerk instance, that instance's auth is passwordless and
+**allowlisted** — so connecting needs an account on the allowlist, not any Oak account. The
+owner has run the beta on it all week and is therefore almost certainly allowlisted; this bites
+only if the session were delegated, where it would present as an auth wall that looks like a
+defect and is not one. The condition **disappears at the cutover**, after which any Oak account
+works.
+
+*Volatile — re-check rather than inherit.* Production switched to the production Clerk realm at
+~17:02Z and was reverted to the development realm at ~17:19Z during an unrelated connector
+incident, so the allowlist condition is live as written. Before capture, read `jwks_uri` from
+`/.well-known/oauth-authorization-server` **on both hosts, requiring agreement across
+consecutive samples** — a mid-rollout read can disagree between hosts and yield a confident
+wrong answer (observed 2026-08-05 17:19:21Z, where the two hosts disagreed for 27 seconds).
+
+**2. The metered Oak Chrome session — THE ONLY REMAINING INPUT.** Capturing a Claude client UI
 means driving the Oak-account claude.ai session, which is a metered Premium team seat under
 `oak-chrome-session-is-metered` ("preserve it for key interactions with Oak related
-systems"), and the Director placed it on explicit HOLD at 15:41Z pending MG's word. I have
-not driven it and will not without that word. Per the same rule, reporting a named
-quota-priced unknown is the correct output rather than silent spend.
+systems"), held pending the owner's word. It has not been driven and will not be without that
+word. Per the same rule, reporting a named quota-priced unknown is the correct output rather
+than silent spend.
 
-Everything not gated on those two is complete: the deployment verdict, the requirements
-checklist, the shot list with paired prompt text, the risk on Image 4, and the named gap.
+Everything not gated on that one input is complete: the deployment verdict, the requirements
+checklist, the shot list with paired prompt text, the risk on Image 4, and the named gap. The
+target endpoint is settled, the vehicle is proven, and the shot list is written — the missing
+input is a browser session, not a decision.
 
 ## Who wrote this, and how
 
