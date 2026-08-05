@@ -124,3 +124,12 @@ fleet's zero-target text never moves under it.
   performant" — Director strengthening: CI PERFORMANCE BUDGETS (per-page
   assertions), not one-off measurements. NOTE: performance gates are NEW to
   the plan — a genuine plan addition.
+
+## Figma reference homing (Director routing, 2026-08-05)
+
+The owner's 2026-07-29 design-queue handover points at the **Oak Design
+Kit** Figma file, node id **2952-13167**. Recorded here deliberately
+TOKEN-STRIPPED: the owner's pasted URL carries a Figma share token, and
+this repository is public — the token never lands in-repo. Resolve the
+node at time of use via the Figma tooling against the named file and
+node id.
