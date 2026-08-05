@@ -133,3 +133,34 @@ TOKEN-STRIPPED: the owner's pasted URL carries a Figma share token, and
 this repository is public — the token never lands in-repo. Resolve the
 node at time of use via the Figma tooling against the named file and
 node id.
+
+## Owner ruling — official Oak Design Kit is reference-only (approximation, never copy)
+
+Ruled at the sitting (2026-08-05 ~15:45Z, Director relay with first-hand
+Figma reconnaissance at the Director seat):
+
+- **The ruling** (owner's words' substance): the official Oak Design Kit
+  (Figma; Oak org project 50245843; kit file `YcWQMMhHPVVmc47cHHEEAl`;
+  tokens node `2952-13167` — the 2026-07-29 design-queue handover node) is
+  COPYRIGHT OAK and must never be verbatim-copied into this public repo,
+  even with the licensing model in place. Intent: "our Oak identity and
+  themes to be a GOOD approximation of the official design kit, just to
+  demonstrate what is possible."
+- **Protocol** for W2.9 Oak-identity authorship and any kit consultation:
+  read-only via the Figma MCP (View seat, owner's account — re-verified
+  this sitting); values RE-DERIVED by judgment, never exported or copied;
+  provenance recorded in the content-provenance manifest ("approximated
+  from the official Oak Design Kit, dated"); Figma share tokens never land
+  in-repo (token-stripped pointers only).
+- **Reconnaissance** (Director, first-hand): the kit's Style Tokens node
+  carries the official taxonomy — Color / Font / Spacing (+ primitives) /
+  Border / Drop Shadow / Opacity tokens, an A11y doc banner, and theme
+  tokens for exactly TWO themes (oakDefaultTheme, oakDarkTheme). Lane
+  note: the approximation target is the VISUAL LANGUAGE; on the theme axis
+  our five-theme roster deliberately exceeds the reference.
+- **Bounds already-landed work**: the export's Oak identity is itself an
+  approximation of this class — blessed and bounded by the ruling. Sitting
+  item 3's content-provenance manifest gains an identity-values column.
+- Plan-touching deltas (W2.9 protocol note; the manifest column) ride the
+  single amendment window with the tweak-ledger deltas, per the Director's
+  process ruling.
