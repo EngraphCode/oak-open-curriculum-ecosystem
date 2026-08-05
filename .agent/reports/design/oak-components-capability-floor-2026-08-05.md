@@ -12,9 +12,22 @@ required."
 **Source**: the source-backed study *Oak Components — anatomy, intent
 and evolution* (PR #737, `research/web-app-deconstruction/docs/`
 `current-state/oak-components-anatomy-intent-and-evolution.md`;
-research snapshot 2026-08-03, package v3.4.0). The study's evidence
-classes (Observation / Inference / Hypothesis) were respected in the
-extraction: floor rows rest on Observed capability wherever possible.
+research snapshot 2026-08-03, package v3.4.0) — covering the Oak
+Components library and its counterpart consuming code in OWA. The
+study's evidence classes (Observation / Inference / Hypothesis) were
+respected in the extraction: floor rows rest on Observed capability
+wherever possible.
+
+**Owner shaping (2026-08-05, verbatim, folded at the design seat
+before PR-open)**: the floor derived from these systems "is a
+necessary but not sufficient or complete floor, we have many
+requirements beyond those systems, and where we do overlap, many of
+our floors are deliberately higher than theirs." Two consequences
+carried through this document: incompleteness is CONSTITUTIVE — this
+extraction can never be completed from this source, only joined by
+other areas' own floors (reading rule 3); and the two rows named in
+§Above-floor rows are the OC-evidenced instances of exceeding, never
+a census of where our floors sit deliberately higher.
 
 **Reading rules**:
 
@@ -54,14 +67,17 @@ extraction: floor rows rest on Observed capability wherever possible.
 | 12 | **Host setup reduction** — fonts, global styles, provider wiring done once — **without cross-layer coupling costs** | The integration-adapter role; the Cloudinary/Next peers on token-only consumers are the named anti-pattern | Kit global CSS + thin per-framework adapters |
 | 13 | **Decisions inspectable later**: why a pattern is shaped as it is survives its authors | OC's "unusually descriptive PR corpus" as institutional memory | The plan/ADR/register estate — already ours |
 
-## Two deliberate above-floor rows
+## Above-floor rows (OC-evidenced instances, not a census)
 
 Rows 2 and 11 set our floor **above** OC's demonstrated capability, on
 purpose: partial theming and episodic assurance are the two weaknesses
 the research names most sharply, and our architecture already commits
 to the stronger form. They are floor rows here because falling back to
 OC's level would be a regression against our own kernel, not because OC
-demonstrates them.
+demonstrates them. Per the owner's 2026-08-05 shaping note above, these
+two are only the instances THIS source evidences: across the overlap,
+many of our floors sit deliberately higher than OC's, and the areas
+beyond OC's scope carry their own floors from their own sources.
 
 ## Consumption
 
