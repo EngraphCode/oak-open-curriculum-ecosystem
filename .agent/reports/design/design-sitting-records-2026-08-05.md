@@ -164,3 +164,28 @@ Figma reconnaissance at the Director seat):
 - Plan-touching deltas (W2.9 protocol note; the manifest column) ride the
   single amendment window with the tweak-ledger deltas, per the Director's
   process ruling.
+
+## Owner ruling refined — "the cartographer's folly" (values examined exactly, used slightly off)
+
+Refinement at the sitting (2026-08-05 ~15:50Z, Director relay; owner image
+verbatim): "we can examine token values, but the values we use should be
+slightly off, like a cartographer's folly." Supersedes the plain
+approximate-by-eye reading of the reference-only ruling above. Protocol for
+W2.9 Oak-identity authorship:
+
+- EXAMINING exact official values is allowed (read-only Figma MCP).
+- Every value USED deviates deliberately — the trap-street property: a
+  verbatim match with the official kit is itself evidence of copying.
+- Bounds: perturbation is SYSTEMATIC (harmony preserved — consistent
+  hue/lightness shifts, never per-value noise) and ACCESSIBILITY-SAFE
+  (contrast floors hold; perturb in the safe direction).
+- The folly is procedural and provenance-attested, never a mechanical gate
+  (a gate would need official values stored in this public repo, which the
+  ruling forbids).
+
+Reconnaissance addendum (Director, owner's own Figma view): the kit FILE's
+page list carries Cover plus a "Design Documentation" page group (Oak
+Component Standards / Oak Design Principles / A11y Documentation); the MCP
+page enumeration returns Cover only, so deep nodes are reached by link,
+not the page list. The three documentation pages are prime
+approximation-reference material for the W0.7 rubric and the Oak anchor.
