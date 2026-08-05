@@ -65,7 +65,7 @@ finding has exactly one recorded decision. Applying it is mechanical.
 | 5 | Criteria 1/3/4 label console-verified acts `repo-safe` against the schema and both siblings (three seats) | **Apply**: split each into its repo-safe half (instrument named) and owner-held half (verifier + recording location) |
 | 6 | The build-env ≡ runtime-env variable-set invariant is unstated; value-level validation's warrant is unstated (three seats) | **Apply**: one mechanism paragraph naming the invariant and why the motivating failure class is value-shaped |
 | 7 | No criterion constrains what the gate may print — it consumes live key material (security) | **Apply**: criterion + unit test that gate output contains no secret bytes |
-| 8 | Presence-only Clerk validation misses wrong-instance keys; `@clerk/shared` prefix utilities catch it network-free (clerk) | **Apply** to the gate mechanism, with the recorded caveat never to call Clerk's API at build |
+| 8 | Presence-only Clerk validation misses wrong-instance keys; `@clerk/shared` prefix utilities catch it network-free (clerk) | **Apply** to the gate mechanism with **allowlist semantics** (see row 39), and the recorded caveat never to call Clerk's API at build |
 | 9 | The estate has no recorded position on ambient build-env secret exposure (security) | **Apply**: §Out of scope clause naming the exposure as platform-default and pre-existing, listing the live compensating controls |
 | 10 | Betty mitigation 1 — keys-not-values validation | **Reject with evidence**: blind to the keyring failure class that motivated the corpus; recreates the second definition of "valid" the node forecloses; the named secret's check is already presence-only |
 | 11 | Betty mitigation 2 — post-deploy-only validation | **Reject with evidence**: deletes the node's goal; `preview-serves` is preview-scoped by the node's own boundary |
@@ -117,6 +117,13 @@ finding has exactly one recorded decision. Applying it is mechanical.
 | 37 | The PR is a draft awaiting the owner (release-expert) | **Owner-gated by design**: the draft state clears only by the owner's explicit un-draft word (on return from the agreed absence, or earlier at the owner's initiative); review-readiness work proceeds regardless, so the gate holds no work |
 | 38 | "The build-time gate already shipped in #743" (barney) | **Reject**: verified false — #743 shipped the preview-serves workflow only; no gate files exist on `main` |
 
+### Disposition ledger — owner-directed additions (2026-08-05, from the second-opinion reviews of the Clerk guard series)
+
+| # | Finding (source) | Disposition |
+| --- | --- | --- |
+| 39 | Key-realm validation must be allowlist-shaped: a denylist of `pk_test_`/`sk_test_` prefixes fails open — legacy `test_…` development keys and malformed/truncated values pass in production (second-opinion review on PR #757, 2026-08-05) | **Apply**: row 8's amendment specifies allowlist semantics — the production gate passes only keys the `@clerk/shared` live-realm predicates positively recognise, and refuses everything else. The corpus prescribes the contract shape ("positively recognised live-realm key"), never a prefix list of its own |
+| 40 | The app README's Vercel section still documents `DANGEROUSLY_DISABLE_AUTH=true` as a valid optional configuration (with Clerk keys "unnecessary"), while the guard series makes exactly that a hard startup failure in preview and production (second-opinion review on PR #759, 2026-08-05) | **Check-then-apply**: if the guard-series lane has not already trued the README passage when this plan executes, amend it in the corpus's ops-docs pass so the operator contract matches the guards; if it has, record the cross-reference instead — never a duplicate edit against an in-flight sibling lane |
+
 ## Acceptance criteria
 
 1. **Every 2026-08-05 review finding has exactly one ledger row and the
@@ -149,8 +156,9 @@ finding has exactly one recorded decision. Applying it is mechanical.
 ## Todos
 
 - [ ] T1: merge `main` into the branch; re-true `release-redeploy-recovery`
-      and the two operations docs (rows 14–19, 31–35).
-- [ ] T2: amend `deploy-config-fails-the-build` (rows 1–9).
+      and the two operations docs (rows 14–19, 31–35), and run the
+      row-40 README check.
+- [ ] T2: amend `deploy-config-fails-the-build` (rows 1–9, 39).
 - [ ] T3: amend `boot-failure-observability` and
       `production-liveness-detection` (rows 20–30, including the row-28
       check).
