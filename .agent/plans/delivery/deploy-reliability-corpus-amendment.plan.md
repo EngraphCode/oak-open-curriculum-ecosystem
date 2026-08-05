@@ -50,6 +50,19 @@ Work happens as commits on the existing PR #746 branch (no new PR):
 3. **Adjudicate on-thread**: one review reply carrying the evidence for
    each rejected finding, then re-request review so the
    CHANGES_REQUESTED state can clear honestly.
+4. **Record-truing deliverables (owner-directed 2026-08-05).** The same
+   amendment round lands the two record cures the post-#751 review
+   surfaced: (a) ADR-163 §10's amendment numbering — rename the
+   redeploy-arm heading to "Fourth amendment (2026-08-04, MCP-479)" and
+   reconcile every self-reference to that single designation, leaving
+   the 2026-04-28 third amendment untouched; (b) ADR-163 §10 gains the
+   verbatim vendor definition of `VERCEL_GIT_PREVIOUS_SHA` — "The git
+   SHA of the last successful deployment for the project and branch"
+   (Vercel system-environment-variables reference, retrieved
+   2026-08-05) — so the equality arm's premise is cited rather than
+   assumed, and the divergence-after-rollback case is named where the
+   definition is quoted. The recovery node's own prose is trued to the
+   same definition (row 15).
 
 The disposition ledger below is the decision surface: every review
 finding has exactly one recorded decision. Applying it is mechanical.
@@ -77,11 +90,11 @@ finding has exactly one recorded decision. Applying it is mechanical.
 | # | Finding (source) | Disposition |
 | --- | --- | --- |
 | 14 | Frontmatter `name`/`overview` still promise the rollback the body disproves (fred, blocker) | **Apply**: rewrite both to the same-commit redeploy arm only |
-| 15 | "`VERCEL_GIT_PREVIOUS_SHA` … by construction identifies the current release" overstates the vendor semantic (two seats; vendor-verified: it is the last *successful deployment*, divergent after Instant Rollback) | **Apply**: reword to the verbatim vendor definition; add the post-rollback divergence to §Out of scope; cross-reference the `release-redeploy-guard-truing` node (PR #769) that lands the vendor facts in ADR-163 |
+| 15 | "`VERCEL_GIT_PREVIOUS_SHA` … by construction identifies the current release" overstates the vendor semantic (two seats; vendor-verified: it is the last *successful deployment*, divergent after Instant Rollback) | **Apply**: reword to the verbatim vendor definition; add the post-rollback divergence to §Out of scope; the ADR-163 vendor grounding lands in this same round (Mechanism 4) |
 | 16 | The node describes the shipped arm as future work (branch staleness) | **Apply**: re-derive as descriptive of the landed mechanism; proofs cite the shipped unit tests and the live 2026-08-05 pipeline evidence on MCP-479 |
-| 17 | The node cites ADR-163 §10 content that does not exist yet (wilma) | **Route**: cured by PR #769's ADR-163 truing; then re-verify the citation |
-| 18 | Composed guards leave the promote/rollback path ungated; runbook prescribes it (wilma) | **Partial**: vendor-verified post-rollback auto-assignment suspension (recorded via #769) reframes this; add an §Out of scope bullet naming promotion as platform-governed, not guard-governed |
-| 19 | Acceptance criterion 4 ("no duplicate amendment numbers") is currently false on `main` (barney — verified: ADR-163 lines 707/722/732 vs 894) | **Route**: cured by #769; re-verify the criterion after it lands |
+| 17 | The node cites ADR-163 §10 content that does not exist yet (wilma) | **Apply** (owner-directed 2026-08-05): the ADR-163 §10 truing is Mechanism 4 of this plan, so the citation becomes true in the same round |
+| 18 | Composed guards leave the promote/rollback path ungated; runbook prescribes it (wilma) | **Partial**: vendor-verified post-rollback auto-assignment suspension (runbook coverage rides PR #769) reframes this; add an §Out of scope bullet naming promotion as platform-governed, not guard-governed |
+| 19 | Acceptance criterion 4 ("no duplicate amendment numbers") is currently false on `main` (barney — verified: ADR-163 lines 707/722/732 vs 894) | **Apply**: Mechanism 4 cures the collision; re-verify the node's criterion against the same diff |
 
 ### Disposition ledger — `boot-failure-observability.plan.md` (MCP-480)
 
@@ -140,12 +153,19 @@ finding has exactly one recorded decision. Applying it is mechanical.
 5. **Merge happens at the owner's word.** Proof: owner-held — the owner
    (or their explicitly authorised act) un-drafts and blesses the
    merge; recorded on the PR.
+6. **ADR-163 §10 names its amendments without collision and quotes the
+   `VERCEL_GIT_PREVIOUS_SHA` definition verbatim with its retrieval
+   date** — exactly one "fourth amendment" designation for the redeploy
+   arm, no remaining "third" reference to it, the 2026-04-28 third
+   amendment untouched. Proof: repo-safe — the ADR diff plus docs lint.
 
 ## Out of scope
 
-- Executing PR #769's deliverables (ADR-163 truing, guard message,
-  rolled-back-state runbook section) — routed there; rows 17/19/31
-  depend on it only for re-verification.
+- Executing PR #769's remaining deliverables (the guard
+  cancellation-message change, the rolled-back-state runbook section,
+  the live redeploy proof). The ADR-163 §10 truing moved INTO this plan
+  (owner-directed 2026-08-05, Mechanism 4); #769's node is re-scoped
+  accordingly.
 - Any code change to the shipped guard or the estate's build scripts —
   this PR remains docs-only.
 - The estate-level build-environment secret-exposure ruling (row 9
@@ -156,8 +176,8 @@ finding has exactly one recorded decision. Applying it is mechanical.
 ## Todos
 
 - [ ] T1: merge `main` into the branch; re-true `release-redeploy-recovery`
-      and the two operations docs (rows 14–19, 31–35), and run the
-      row-40 README check.
+      and the two operations docs (rows 14–19, 31–35); land the ADR-163
+      §10 truing (Mechanism 4); run the row-40 README check.
 - [ ] T2: amend `deploy-config-fails-the-build` (rows 1–9, 39).
 - [ ] T3: amend `boot-failure-observability` and
       `production-liveness-detection` (rows 20–30, including the row-28
