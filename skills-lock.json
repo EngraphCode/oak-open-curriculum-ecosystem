@@ -54,6 +54,12 @@
       "sourceType": "github",
       "skillPath": "skills/mcp-inspector/SKILL.md",
       "computedHash": "61c823d3b9ff32af243491bb29d11303b34319f5caaa0007ecd62dc8369b49bf"
+    },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "computedHash": "5ea13a6d9f0d4bb694405d79acd00cadec0d21bb138c4dd10fcf3c500cb835c2"
     }
   }
 }

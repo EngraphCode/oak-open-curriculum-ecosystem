@@ -1,6 +1,7 @@
 import { ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
+import { claudePolicyRoutes } from './claude-adapter.js';
 import {
   dispatchPreToolUse,
   type PolicyRoute,
@@ -237,5 +238,59 @@ describe('dispatchPreToolUse', () => {
     expect(result).toStrictEqual({ exitCode: 2 });
     expect(stderr.chunks).toHaveLength(1);
     expect(stderr.chunks[0]).toContain('Claude PreToolUse hook input was not valid JSON:');
+  });
+
+  // Ported from the MCP-150 branch's router suite (PR #707 at f96149836,
+  // MCP-183 secondary port), re-homed at the seam that actually delivers
+  // the system-level guarantee: a Copilot lifecycle batch matches ZERO of
+  // the real production routes, so the dispatcher refuses it before any
+  // extraction runs. The unit-level companion in hook-input.unit.test.ts
+  // pins only the extractor's own refusal.
+  it('fails closed on a Copilot lifecycle batch: no production route matches it', async () => {
+    const stderr = collector();
+    const renderer = countingRender();
+
+    const result = await dispatchPreToolUse([...claudePolicyRoutes], renderer.render, {
+      stdin: stdinFromJson({
+        sessionId: 'copilot-session',
+        cwd: '/repo',
+        toolCalls: [
+          {
+            id: 'call-create',
+            name: 'create',
+            args: JSON.stringify({ path: '/repo/new-file.md', file_text: 'new file content' }),
+          },
+        ],
+      }),
+      stdout: collector(),
+      stderr,
+    });
+
+    expect(result).toStrictEqual({ exitCode: 2 });
+    expect(renderer.rendered).toStrictEqual([]);
+    expect(stderr.chunks).toHaveLength(1);
+    expect(stderr.chunks[0]).toContain('did not match any policy route');
+  });
+
+  it('fails closed on the Copilot toolArgs envelope: no production route matches it', async () => {
+    const stderr = collector();
+    const renderer = countingRender();
+
+    const result = await dispatchPreToolUse([...claudePolicyRoutes], renderer.render, {
+      stdin: stdinFromJson({
+        sessionId: 'copilot-session',
+        timestamp: 1_753_426_800_000,
+        cwd: '/repo',
+        toolName: 'create',
+        toolArgs: JSON.stringify({ path: '/repo/new-file.md', file_text: 'new file content' }),
+      }),
+      stdout: collector(),
+      stderr,
+    });
+
+    expect(result).toStrictEqual({ exitCode: 2 });
+    expect(renderer.rendered).toStrictEqual([]);
+    expect(stderr.chunks).toHaveLength(1);
+    expect(stderr.chunks[0]).toContain('did not match any policy route');
   });
 });

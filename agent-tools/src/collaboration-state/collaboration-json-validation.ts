@@ -64,11 +64,23 @@ export async function validateCollaborationJsonFileText(
   return validator.validateText(collaborationJsonSchemaId(filePath), text);
 }
 
+/**
+ * The ONE Ajv construction for collaboration-state schema validation —
+ * exported so in-suite schema gates mirror the product write validator by
+ * construction (same options, same format set). A separately-built test
+ * Ajv drifts: `validateFormats: false` is blind to a malformed
+ * `date-time` or `uuid`, exactly the class the formats cover.
+ */
+export function createCollaborationAjv(): Ajv {
+  const ajv = new Ajv({ allErrors: true, strict: false, validateFormats: true });
+  addCollaborationFormats(ajv);
+  return ajv;
+}
+
 export async function createCollaborationJsonSchemaValidator(
   schemaDir: string = SCHEMAS_DIR,
 ): Promise<CollaborationJsonSchemaValidator> {
-  const ajv = new Ajv({ allErrors: true, strict: false, validateFormats: true });
-  addCollaborationFormats(ajv);
+  const ajv = createCollaborationAjv();
   for (const schemaPath of SCHEMA_FILENAMES) {
     const schema: unknown = JSON.parse(await readFile(join(schemaDir, schemaPath), 'utf8'));
     if (isAnySchema(schema)) {

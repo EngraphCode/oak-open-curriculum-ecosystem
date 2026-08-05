@@ -85,15 +85,18 @@ function formatClassifiedNarrative(event: NarrativeCommsEvent, view: EventView):
 }
 
 function formatClassifiedLifecycle(event: LifecycleCommsEvent): string {
+  // Duplicate-value lines are omitted (lossless): ADR-186 heartbeats set
+  // subject=title and occurred_at=created_at, and at heartbeat cadence the
+  // extra lines are real volume on the wedge-prone watcher drain surface.
   return [
     formatWatcherEventHeader('lifecycle', event.tags),
     `from: ${formatIdentity(event.author)}`,
     `event_type: ${event.event_type}`,
     `thread: ${event.thread}`,
     `title: ${event.title}`,
-    `subject: ${event.subject}`,
+    ...(event.subject === event.title ? [] : [`subject: ${event.subject}`]),
     `created_at: ${event.created_at}`,
-    `occurred_at: ${event.occurred_at}`,
+    ...(event.occurred_at === event.created_at ? [] : [`occurred_at: ${event.occurred_at}`]),
     `claim_id: ${event.claim_id}`,
     '',
     event.body,

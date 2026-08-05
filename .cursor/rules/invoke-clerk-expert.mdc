@@ -1,5 +1,6 @@
 ---
 description: Invoke clerk-expert when changes touch Clerk middleware, token verification, OAuth proxy, PRM, @clerk/mcp-tools, or Clerk SDK usage.
+globs: '**/*clerk*,**/auth/**,apps/oak-curriculum-mcp-streamable-http/**'
 alwaysApply: false
 ---
 

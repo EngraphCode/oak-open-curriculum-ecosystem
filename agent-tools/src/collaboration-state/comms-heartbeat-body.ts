@@ -1,5 +1,7 @@
 import { z } from 'zod';
 
+import { type CommsEvent } from './types.js';
+
 /**
  * Lane A (A1) — heartbeat emitter mechanical state-binding.
  *
@@ -86,6 +88,37 @@ export function parseHeartbeatBody(body: string): HeartbeatBodyState | undefined
     currentCycleLabel,
   });
   return parsed.success ? parsed.data : undefined;
+}
+
+/**
+ * The ADR-186 lifecycle-substrate discriminator for heartbeat liveness
+ * events: `kind='lifecycle'` + `event_type=HEARTBEAT_EVENT_TYPE`. This is
+ * the single typed-constant source ADR-186 §"What this costs" mandates —
+ * emitters and consumers cite this constant by name; string-literal
+ * duplication of the token across emitter sites violates the ADR, because
+ * the renderer tolerates unknown sub-kinds and a typo'd `event_type` would
+ * silently vanish from retirement detection.
+ */
+export const HEARTBEAT_EVENT_TYPE = 'heartbeat';
+
+/**
+ * ADR-186 §"Migration discipline" heartbeat discriminator, shared by every
+ * consumer that counts heartbeats (peer-liveness retirement detection, the
+ * archive tier projection). Deliberately a STRICT SUPERSET of the ADR's
+ * canonical two-clause predicate: the tag clause stays kind-agnostic
+ * because the pre-migration consumers were already kind-agnostic and
+ * narrowing to `kind='narrative'` would subtract standing tolerance for
+ * zero gain. A superset can only over-count liveness; the failure the
+ * dual-filter contract exists to prevent is UNDER-counting (false
+ * retirement of a live peer). The window-closure tidy removes the tag
+ * clause — not the lifecycle clause — once every named emitter has landed
+ * the lifecycle shape and a full-cycle sweep shows zero legacy events.
+ */
+export function isHeartbeatEvent(event: CommsEvent): boolean {
+  if (event.kind === 'lifecycle' && event.event_type === HEARTBEAT_EVENT_TYPE) {
+    return true;
+  }
+  return event.tags?.includes('heartbeat') ?? false;
 }
 
 export { heartbeatBodyStateSchema };

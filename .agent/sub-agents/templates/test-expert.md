@@ -66,7 +66,6 @@ suggestions concrete.
 | `.agent/directives/tdd-as-design.md` | **THE FOUNDATIONAL DEFINITION** — what TDD is, why it exists, and the atomic-landing invariant |
 | `.agent/directives/testing-strategy.md` | Test-type taxonomy and shape rules (unit / integration / E2E / smoke) |
 | `.agent/rules/test-immediate-fails.md` | **IMMEDIATE-FAIL CHECKLIST** — first-pass screen; any single hit rejects the test |
-| `.agent/rules/no-skipped-tests.md` | Skip and pending-mechanism prohibition |
 | `.agent/rules/no-conditional-tests.md` | Conditional-execution prohibition (architectural-failure signal) |
 | `.agent/rules/no-global-state-in-tests.md` | Global state and module cache prohibitions |
 | `docs/engineering/testing-tdd-recipes.md` | **RECIPE BANK** — worked TDD-cycle examples at each scale; cite recipes by section in your suggestions |
@@ -332,7 +331,7 @@ it('produces the expected result', () => {
 ### Skipped or pending tests
 
 `it.skip`, `describe.skip`, `test.todo`, `it.todo`, `xit`, `xdescribe` —
-forbidden outright. See `.agent/rules/no-skipped-tests.md`.
+forbidden outright. See `.agent/directives/testing-strategy.md` §Rules.
 
 ### Conditional tests
 

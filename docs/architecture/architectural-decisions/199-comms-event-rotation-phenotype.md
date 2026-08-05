@@ -110,12 +110,12 @@ repo phenotype of PDR-094. The phenotype:
 5. **Class tiers and windows** (PDR-094 Invariant 5; windows are the
    owner-defaulted §7 sub-choices, tunable):
 
-   | Tier                              | Events                                                                   | Window before archive-move | Gate                                         |
-   | --------------------------------- | ------------------------------------------------------------------------ | -------------------------- | -------------------------------------------- |
-   | Heartbeat                         | `heartbeat`-tagged + untagged `Heartbeat:` / `Heartbeat-end:`            | 48 h                       | Aggregate cadence stats extracted once first |
-   | Diagnostic / test / noise         | test-probe / "delete me" bodies                                          | Immediate-eligible         | **Body read first** (see falsifier below)    |
-   | Coordination narrative + directed | team-starts, closeouts, rulings, handoffs, status                        | 7 d                        | Operative gate §"Absorption gate"            |
-   | Research-precious                 | `failure-mode`-tagged + genuine-signal subset of `behaviour-note`-tagged | Until graduated            | Absorbed before archive-move                 |
+   | Tier                              | Events                                                                                                                                                                       | Window before archive-move | Gate                                         |
+   | --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | -------------------------------------------- |
+   | Heartbeat                         | ADR-186 dual-filter shapes (lifecycle `event_type='heartbeat'` or `heartbeat`-tagged; classifier verdict since 2026-08-02) + untagged `Heartbeat:` / `Heartbeat-end:` titles | 48 h                       | Aggregate cadence stats extracted once first |
+   | Diagnostic / test / noise         | test-probe / "delete me" bodies                                                                                                                                              | Immediate-eligible         | **Body read first** (see falsifier below)    |
+   | Coordination narrative + directed | team-starts, closeouts, rulings, handoffs, status                                                                                                                            | 7 d                        | Operative gate §"Absorption gate"            |
+   | Research-precious                 | `failure-mode`-tagged + genuine-signal subset of `behaviour-note`-tagged                                                                                                     | Until graduated            | Absorbed before archive-move                 |
 
 6. **Heartbeat aggregate artefact.** A durable cadence-statistics summary
    (per-agent beat counts, inter-beat distributions, gap windows) written once

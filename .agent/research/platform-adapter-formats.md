@@ -25,7 +25,7 @@ This is a companion to reviewer-system-guide.md (`reviewer-system-guide.md`).
 **Always-apply rule** (no frontmatter needed):
 
 ```markdown
-Read and follow `.agent/rules/no-type-shortcuts.md`.
+Read and follow `.agent/rules/never-disable-checks.md`.
 ```
 
 **File-scoped rule** (activates only for matching paths):

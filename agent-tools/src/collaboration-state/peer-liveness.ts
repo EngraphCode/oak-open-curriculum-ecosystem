@@ -5,12 +5,15 @@ import {
   sameAgentRoutingKey,
 } from './active-agent-routing.js';
 import { commsEventAuthor } from './comms-event-accessors.js';
-import { parseHeartbeatBody } from './comms-heartbeat-body.js';
+import { isHeartbeatEvent, parseHeartbeatBody } from './comms-heartbeat-body.js';
 import { type CollaborationAgentId, type CommsEvent } from './types.js';
 
 /**
  * Peer-liveness classification over the PDR-078 heartbeat *comms-event*
- * stream (F-75). This reads peers' `tags: ["heartbeat"]` events — the
+ * stream (F-75). This reads peers' heartbeat events in BOTH ADR-186
+ * migration-window shapes via the shared {@link isHeartbeatEvent} dual
+ * filter — the legacy `narrative + tags:["heartbeat"]` shape and the
+ * canonical `lifecycle + event_type='heartbeat'` shape — the
  * ≤4-minute-cadence liveness signal — NOT the watcher's own
  * `<seen>.heartbeat.json` file (that is `watcher-staleness.ts`, a distinct
  * surface) and NOT claim freshness (`claim-reports.ts`, a deliberately coarse
@@ -60,10 +63,6 @@ export type PeerLivenessReport =
   | (PeerLivenessReportBase & { readonly state: 'active' })
   | (PeerLivenessReportBase & { readonly state: 'offline' })
   | (PeerLivenessReportBase & { readonly state: 'retired' });
-
-function isHeartbeat(event: CommsEvent): boolean {
-  return event.tags?.includes('heartbeat') ?? false;
-}
 
 export function classifyState(
   ageMs: number,
@@ -175,7 +174,7 @@ function heartbeatContribution(
   self: CollaborationAgentId | undefined,
 ): HeartbeatContribution | undefined {
   const author = commsEventAuthor(event);
-  if (!isHeartbeat(event) || author.id === undefined) {
+  if (!isHeartbeatEvent(event) || author.id === undefined) {
     return undefined;
   }
   if (self !== undefined && sameAgentRoutingKey(author, self)) {

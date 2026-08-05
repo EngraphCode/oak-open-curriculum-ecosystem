@@ -1,5 +1,5 @@
 /** CLI commands for lifecycle ingestion operations (ADR-130). */
-import { existsSync, readdirSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { InvalidArgumentError, type Command } from 'commander';
 import type { Client } from '@elastic/elasticsearch';
 import { sanitiseForJson } from '@oaknational/observability';
@@ -14,15 +14,15 @@ import {
   createEsClient,
   withEsClient,
   withLoadedCliEnv,
-  validateIngestEnv,
   printSuccess,
   printError,
+  printInfo,
   printJson,
   APP_ROOT,
   type CliSdkEnv,
   type SearchCliEnvLoader,
 } from '../shared/index.js';
-import { resolveBulkDirFromInputs } from '../shared/resolve-bulk-dir.js';
+import { withVerifiedBulkData } from './shared/with-verified-bulk-data.js';
 import { buildLifecycleService } from './shared/build-lifecycle-service.js';
 import {
   parseLifecycleIngestOpts,
@@ -48,11 +48,17 @@ const ingestDeps = {
   printError,
   setExitCode: (c: number) => (process.exitCode = c),
 };
-const realFs = { existsSync, readdirSync: (p: string) => readdirSync(p) };
-interface IngestPreconditionResult {
-  readonly ok: boolean;
-  readonly bulkDir?: string;
-}
+const realGateFs = {
+  existsSync,
+  readdirSync: (p: string) => readdirSync(p),
+  readFileSync: (p: string) => readFileSync(p, 'utf8'),
+};
+const gateDeps = {
+  logger: ingestLogger,
+  printError,
+  printInfo,
+  setExitCode: (c: number) => (process.exitCode = c),
+};
 
 async function buildIngestService(
   esClient: Client,
@@ -84,34 +90,16 @@ async function disconnectOakClient(oakClient: { disconnect(): Promise<void> }): 
   }
 }
 
-function validateIngestPreconditions(
-  cliEnv: LifecycleIngestEnv,
-  opts: ParsedLifecycleIngestOpts,
-): IngestPreconditionResult {
-  const bulkResult = resolveBulkDirFromInputs({
+/** The gate inputs every ingest command builds at entry (ADR-078 clock). */
+function gateInputFor(cliEnv: LifecycleIngestEnv, opts: ParsedLifecycleIngestOpts) {
+  return {
     bulkDirFlag: opts.bulkDir,
     bulkDirFromEnv: cliEnv.BULK_DOWNLOAD_DIR,
+    oakApiKey: cliEnv.OAK_API_KEY,
     appRoot: APP_ROOT,
-    fs: realFs,
-  });
-  if (!bulkResult.ok) {
-    ingestLogger.error(bulkResult.error.message, {
-      error: sanitiseForJson(bulkResult.error),
-    });
-    printError(bulkResult.error.message);
-    process.exitCode = 1;
-    return { ok: false };
-  }
-  const envResult = validateIngestEnv({ oakApiKey: cliEnv.OAK_API_KEY });
-  if (!envResult.ok) {
-    ingestLogger.error(envResult.error.message, {
-      error: sanitiseForJson(envResult.error),
-    });
-    printError(envResult.error.message);
-    process.exitCode = 1;
-    return { ok: false };
-  }
-  return { ok: true, bulkDir: bulkResult.value };
+    now: new Date(),
+    fs: realGateFs,
+  };
 }
 
 function handleLifecycleResult<T>(
@@ -133,29 +121,30 @@ async function runVersionedIngestAction(
   cliEnv: LifecycleIngestEnv,
   opts: ParsedLifecycleIngestOpts,
 ): Promise<void> {
-  const preconditions = validateIngestPreconditions(cliEnv, opts);
-  if (!preconditions.ok || !preconditions.bulkDir) {
-    return;
-  }
-  const bulkDir = preconditions.bulkDir;
-  const esClient = createEsClient(cliEnv);
-  await withEsClient(
-    esClient,
-    async () => {
-      const { service, oakClient } = await buildIngestService(esClient, cliEnv);
-      try {
-        const result = await withLifecycleLease(esClient, cliEnv.SEARCH_INDEX_TARGET, () =>
-          service.versionedIngest({ ...opts, bulkDir }),
-        );
-        handleLifecycleResult(result, (value) => {
-          printSuccess(`Versioned ingest complete: version ${value.version}`);
-          printJson(value);
-        });
-      } finally {
-        await disconnectOakClient(oakClient);
-      }
+  await withVerifiedBulkData(
+    gateInputFor(cliEnv, opts),
+    async (bulkDir) => {
+      const esClient = createEsClient(cliEnv);
+      await withEsClient(
+        esClient,
+        async () => {
+          const { service, oakClient } = await buildIngestService(esClient, cliEnv);
+          try {
+            const result = await withLifecycleLease(esClient, cliEnv.SEARCH_INDEX_TARGET, () =>
+              service.versionedIngest({ ...opts, bulkDir }),
+            );
+            handleLifecycleResult(result, (value) => {
+              printSuccess(`Versioned ingest complete: version ${value.version}`);
+              printJson(value);
+            });
+          } finally {
+            await disconnectOakClient(oakClient);
+          }
+        },
+        ingestDeps,
+      );
     },
-    ingestDeps,
+    gateDeps,
   );
 }
 
@@ -163,31 +152,32 @@ async function runStageAction(
   cliEnv: LifecycleIngestEnv,
   opts: ParsedLifecycleIngestOpts,
 ): Promise<void> {
-  const preconditions = validateIngestPreconditions(cliEnv, opts);
-  if (!preconditions.ok || !preconditions.bulkDir) {
-    return;
-  }
-  const bulkDir = preconditions.bulkDir;
-  const esClient = createEsClient(cliEnv);
-  await withEsClient(
-    esClient,
-    async () => {
-      const { service, oakClient } = await buildIngestService(esClient, cliEnv);
-      try {
-        const result = await withLifecycleLease(esClient, cliEnv.SEARCH_INDEX_TARGET, () =>
-          service.stage({ ...opts, bulkDir }),
-        );
-        handleLifecycleResult(result, (value) => {
-          printSuccess(
-            `Staged version ${value.version}. Promote with: admin promote --target-version ${value.version}`,
-          );
-          printJson(value);
-        });
-      } finally {
-        await disconnectOakClient(oakClient);
-      }
+  await withVerifiedBulkData(
+    gateInputFor(cliEnv, opts),
+    async (bulkDir) => {
+      const esClient = createEsClient(cliEnv);
+      await withEsClient(
+        esClient,
+        async () => {
+          const { service, oakClient } = await buildIngestService(esClient, cliEnv);
+          try {
+            const result = await withLifecycleLease(esClient, cliEnv.SEARCH_INDEX_TARGET, () =>
+              service.stage({ ...opts, bulkDir }),
+            );
+            handleLifecycleResult(result, (value) => {
+              printSuccess(
+                `Staged version ${value.version}. Promote with: admin promote --target-version ${value.version}`,
+              );
+              printJson(value);
+            });
+          } finally {
+            await disconnectOakClient(oakClient);
+          }
+        },
+        ingestDeps,
+      );
     },
-    ingestDeps,
+    gateDeps,
   );
 }
 

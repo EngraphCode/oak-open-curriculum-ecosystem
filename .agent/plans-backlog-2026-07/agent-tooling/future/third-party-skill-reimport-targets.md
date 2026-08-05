@@ -119,7 +119,13 @@ classification keys.
 If a future re-import puts upstream content back under `.agent/skills/`
 **and** `skills-adapter-generate` is then run, the same PDR-051
 prefix violation will reappear. The latent contradiction is currently
-masked only by the lock file being empty.
+masked only by the lock file being empty. [Stale as of 2026-08-02: the
+lock file now holds ten entries (clerk family, mcp-inspector,
+skill-creator). The bug is still not live, but for a different reason —
+no locked external has canonical content under `.agent/skills/`; all
+ten live only under `.agents/skills/`, per the owner's 2026-08-02
+boundary ruling (externals never enter the canonical corpus). The
+pre-condition below still binds any re-import that would change that.]
 
 Therefore, **before any re-import that lands content under
 `.agent/skills/`** (as opposed to `.agents/skills/<id>/` directly via

@@ -8,6 +8,12 @@ amended 2026-05-31 to record the dissolution of `agent-tools/scripts/` — the
 §5 forcing function applied to completion (§5a); amended 2026-07-06 to widen
 the shell-scope exception from Husky-entry-points-only to
 shell-where-it-significantly-reduces-effort (§Shell-scope exception).
+Amended 2026-08-03 to authorise the repository-root package's pre-install
+runtime tier and its constrained test seam (§4–5); amended 2026-08-04 to
+true §5's coverage claim to the estate's measured configuration and to add
+the `runtime-only-scripts/` structural exception — tests for pre-install
+scripts live in `build-scripts/`, because the promote-to-`src/` cure is
+unavailable to a file that cannot import or build (§4 reference tree, §5).
 **Date**: 2026-04-29
 **Related**:
 [ADR-150](150-continuity-surfaces-session-handoff-and-surprise-pipeline.md) —
@@ -19,8 +25,10 @@ would have applied to any vendor `ignoreCommand` shape;
 `.agent/plans/architecture-and-infrastructure/active/typescript-6-migration-and-workspace-script-rules.plan.md` —
 the executable plan whose closure this ADR records;
 [`apps/oak-curriculum-mcp-streamable-http/runtime-only-scripts/`](../../../apps/oak-curriculum-mcp-streamable-http/runtime-only-scripts/) —
-canonical reference instance of the dedicated no-compile-no-deps
-directory.
+original application-workspace reference instance of the dedicated
+no-compile-no-deps directory;
+[`runtime-only-scripts/`](../../../runtime-only-scripts/) — repository-root
+reference instance for the package-manager version guard.
 
 ## Context
 
@@ -173,26 +181,57 @@ installed). Such scripts cannot have a build step (no `tsc` or `tsx`
 is available pre-install) and cannot import from `node_modules`
 (no dependencies are installed yet).
 
-These scripts MUST live in a per-workspace dedicated directory named
-`runtime-only-scripts/`. The directory name is load-bearing — it
+A runtime-only script MUST live in a dedicated `runtime-only-scripts/`
+directory owned by the package project whose `package.json` invokes it. A
+package project may be the repository-root package or a declared workspace.
+The directory name is load-bearing — it
 makes the special case visible to readers and prevents the
 no-compile-no-deps pattern from spreading to scripts that don't
 need it.
 
-`runtime-only-scripts/` files MUST be `.mjs` (not `.ts`) because
-`.ts` requires a build step or a runtime stripper. The `.mjs`
-extension is the explicit signal that this file runs in a constrained
-environment.
+Executable `runtime-only-scripts/` files MUST be `.mjs` (not `.ts`) because
+`.ts` requires a build step or a runtime stripper. The `.mjs` extension is the
+explicit signal that this file runs in a constrained environment. Where a
+TypeScript verification surface imports the script, a sibling `.d.mts` MUST
+describe its exported API. The declaration supplies types only, never duplicate
+runtime logic, and is not executed pre-install.
 
-The repo's canonical reference instance is:
+The repo's authorised reference instances are:
+
+```text
+runtime-only-scripts/
+├── README.md
+├── validate-package-manager-version.mjs
+└── validate-package-manager-version.d.mts
+```
+
+The repository-root instance is invoked by the root
+`pnpm:devPreinstall` lifecycle hook. It must compare the running pnpm version
+with the root `packageManager` pin before pnpm can rewrite an incompatible
+lockfile, so it necessarily runs before workspace dependencies or compiled
+tooling are available. `@oaknational/agent-tools` owns its pure-decision unit
+test and shipped-lifecycle smoke.
+
+The original application-workspace reference instance is:
 
 ```text
 apps/oak-curriculum-mcp-streamable-http/runtime-only-scripts/
 ├── README.md                                           # documents the constraint
 ├── vercel-ignore-production-non-release-build.mjs      # the script itself
-├── vercel-ignore-production-non-release-build.d.mts    # types for the .mjs
-└── vercel-ignore-production-non-release-build.unit.test.mjs
+└── vercel-ignore-production-non-release-build.d.mts    # types for the .mjs
+
+apps/oak-curriculum-mcp-streamable-http/build-scripts/
+└── vercel-ignore-production-non-release-build.unit.test.mjs   # the tests
 ```
+
+The tests sit in `build-scripts/`, not beside the script. Until
+2026-08-04 this tree showed them inside `runtime-only-scripts/`, and
+because no workspace's vitest globs cover that directory (§5), **that
+suite had never run once** — a comprehensive body of assertions about the
+gate guarding every production deploy, silently collecting no results. The
+directory that makes the pre-install constraint visible is the same
+directory that makes tests invisible; keeping the two concerns in one
+place hid the second behind the first.
 
 ESLint and TypeScript treat `runtime-only-scripts/` as a tooling tier
 with relaxed structural rules (matching the existing
@@ -203,9 +242,24 @@ access.
 ### 5. Scripts are outside the unit-test surface — complexity requiring unit tests forces promotion to `src/`
 
 Rule 3 gives workspace scripts _type-check_ coverage, but scripts are
-deliberately **outside the unit-test surface**: the vitest include globs cover
+deliberately **outside the unit-test surface**. This is strategy, not a gap.
+
+**Trued 2026-08-04 — the surface is opt-in per workspace, not a blanket
+"never".** This section previously asserted that the include globs "cover
 `src/**` and `tests/**`, never `scripts/**` (nor `build-scripts/**` /
-`runtime-only-scripts/**`). This is strategy, not a gap.
+`runtime-only-scripts/**`)". Measured against the estate, that was false in
+both directions:
+
+| Directory                 | Actual coverage                                                                                                                                                        |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `scripts/**`              | never covered — the forcing function below governs, unchanged                                                                                                          |
+| `runtime-only-scripts/**` | never covered, in **any** workspace                                                                                                                                    |
+| `build-scripts/**`        | **covered where a workspace opts in** — `apps/oak-curriculum-mcp-streamable-http` (`.ts` and `.mjs`, plus `operations/**`) and `packages/core/build-metadata` (`.mjs`) |
+
+Multiple workspaces carry test files under those directories, and the MCP app
+alone collects a substantial suite from `build-scripts/`. A doctrine that says
+"never" while those tests demonstrably run is not protecting the forcing
+function — it is training readers to disbelieve the section.
 
 The exclusion is a **forcing function**. A script is thin glue — orchestration
 over already-checked library code. If a script grows complex enough to warrant
@@ -217,17 +271,46 @@ surface into `scripts/`."
 
 Consequences:
 
-- A `*.test.ts` / `*.spec.ts` file appearing under a `scripts/` or
-  `build-scripts/` directory is itself a promote-to-`src/` signal, **not** a
-  vitest-include wiring bug. Such a test does not run by design; it must not be
-  "fixed" by widening the include globs.
+- A `*.test.ts` / `*.spec.ts` file appearing under a `scripts/` directory is
+  itself a promote-to-`src/` signal, **not** a vitest-include wiring bug. Such
+  a test does not run by design; it must not be "fixed" by widening the include
+  globs. The same reading applies to a test found under `build-scripts/` in a
+  workspace that has **not** opted that directory into its globs.
+- **The `runtime-only-scripts/` structural exception (added 2026-08-04).** For
+  a §4 file the promote-to-`src/` cure is _unavailable by construction_: the
+  script must run before `pnpm install`, so it cannot import from `src/`, cannot
+  be built, and cannot be reduced to a thin caller over a checked module. There
+  is nothing to promote it to. The forcing function has no force here — it can
+  only forbid, never redirect.
+
+  So for `runtime-only-scripts/` files only: **the tests live in the workspace's
+  `build-scripts/` directory, and that workspace opts `build-scripts/**/*.unit.test.mjs`
+  into its vitest globs.** The script keeps the constrained directory that makes
+  its pre-install nature visible; its tests keep a directory where they actually
+  execute. Do **not** place them beside the script — `runtime-only-scripts/**` is
+  covered by no workspace's globs, so a test there is silently inert.
+
+  This exception is narrow by construction: it is available only to files that
+  genuinely cannot be built or import a dependency. A script that _could_ be
+  TypeScript does not qualify, and §4 already forbids it from living there.
+
 - The vitest include globs are not widened to cover `scripts/**`. Widening them
   would defeat the forcing function and pull thin glue into the checked surface
   where it does not belong.
-- Behaviour a script depends on is verified by the `src/` modules it calls
-  (unit-tested there) or by the end-to-end gate that exercises the script (e.g.
-  a validator script is covered by running its gate) — not by unit-testing the
-  script in place.
+- Behaviour ordinary scripts depend on is verified by the `src/` modules they
+  call (unit-tested there) or by the end-to-end gate that exercises the script
+  — not by unit-testing the script in place.
+- **Narrow runtime-only limit:** when genuine pre-install constraints make
+  promotion to dependency-backed TypeScript impossible, the `.mjs` MAY export
+  a small dependency-free, IO-free decision function whose inputs are explicit
+  and whose result is returned. A named test-owner workspace MAY import that
+  function through an existing `src/**` or `tests/**` unit-test surface. This
+  does not widen Vitest globs, authorise production cross-boundary imports, or
+  permit filesystem, environment, or process access in the tested unit. The
+  executable IO and adoption path MUST have a CI-reachable smoke that invokes
+  the exact shipped lifecycle command and proves refusal occurs before lockfile
+  mutation. `@oaknational/agent-tools` is the named test and smoke owner for the
+  repository-root package-manager guard.
 - Existing `*.test.ts` files under `scripts/` are pre-existing promote-to-`src/`
   debt, addressed when the script is next touched substantively — not a reason
   to widen the include.
@@ -288,9 +371,11 @@ required JS compiled from TS; ESM only, no CJS; this shell scope) is
   introduces `node ../../scripts/...`-style invocations.
 - **Code review** rejects any new `.js` or `.mjs` script in a
   workspace `scripts/` or `build-scripts/` directory.
-- `runtime-only-scripts/` directories are explicitly authorised
-  per-workspace; new ones require ADR amendment with a documented
-  pre-install constraint.
+- `runtime-only-scripts/` directories are explicitly authorised per package
+  project (the repository root or a workspace); new ones require ADR amendment
+  with a documented pre-install constraint.
+- The repository-root `runtime-only-scripts/` directory is authorised for the
+  root `pnpm:devPreinstall` package-manager version guard described in §4.
 
 ### Carried forward
 
@@ -376,6 +461,33 @@ tsconfig.build.json` pattern. The choice of `tsup` for JS emit
   confusion; Future Work #4 notes a possible mechanical check. Captured per
   ADR-150's surprise pipeline on two-instance recurrence.
 
+- **2026-08-04** — trued §5's coverage claim and added the
+  `runtime-only-scripts/` structural exception (§4 reference tree, §5).
+  Found while curing MCP-479: the Vercel `ignoreCommand` guard's extensive
+  suite lived beside the script in `runtime-only-scripts/`, exactly as §4's
+  canonical tree depicted — and had **never run once**, because no workspace's
+  vitest globs cover that directory. The gate decides whether every production
+  deploy proceeds.
+
+  Checking the globs to fix it surfaced the second half: §5's claim that they
+  "never" cover `build-scripts/**` was false in two workspaces
+  (`apps/oak-curriculum-mcp-streamable-http`, `packages/core/build-metadata`),
+  each collecting a substantial body of tests from that directory.
+
+  Both halves are the same defect — an ADR asserting a configuration fact
+  instead of deriving it, so the doc and the globs drifted apart without
+  anything failing. §5's forcing function is untouched and still governs
+  `scripts/**`; what changed is that the section now describes the estate that
+  exists. The narrow exception is justified structurally rather than by
+  precedent: a §4 file cannot import from `src/` or be built, so
+  promote-to-`src/` — §5's only prescribed cure — does not exist for it, and a
+  rule that can forbid but not redirect produces silently dead tests.
+
+  Reviewer credit: Matt (`mantagen`) rejected an earlier attempt to fix this by
+  updating the `runtime-only-scripts/README.md` alone, on the grounds that a
+  README cannot amend an accepted ADR. He was right, and the fuller defect only
+  surfaced because the amendment was written where the rule actually lives.
+
 - **2026-07-06** — widened the shell-scope exception by owner directive: from
   "the only `.sh` exception is the Husky entry points" to "shell is permitted
   where it significantly reduces effort", Husky's hook entry points remaining
@@ -385,3 +497,11 @@ tsconfig.build.json` pattern. The choice of `tsup` for JS emit
   `.agent/rules/source-is-typescript-esm-only.md` (TypeScript unless absolutely
   impractical; required JS compiled from TS; ESM only, no CJS; this shell
   scope) landed in the same change.
+
+- **2026-08-03** — authorised the repository-root `runtime-only-scripts/`
+  instance for the `pnpm:devPreinstall` version guard. Clarified that executable
+  files use `.mjs` with optional `.d.mts` declarations, and that a pure exported
+  decision may be tested from an existing workspace `src/` surface when §4's
+  pre-install constraint makes promotion impossible. The shipped lifecycle
+  remains covered by a standalone smoke that proves refusal before lockfile
+  mutation.

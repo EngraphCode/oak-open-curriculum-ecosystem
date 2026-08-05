@@ -1,7 +1,0 @@
----
-description: unknown, z.unknown(), Record<string, unknown> are type destruction. Use generated types.
-globs: '**/*.{ts,tsx,mts}'
-alwaysApply: true
----
-
-Read and follow `.agent/rules/unknown-is-type-destruction.md`.

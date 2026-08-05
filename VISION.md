@@ -92,12 +92,13 @@ as graphs is one of them — we apply it across domains, from Oak's curriculum t
 AI-enhanced development and the way we run our own work.
 
 We build those capabilities as a
-[cost-of-change gradient](docs/foundation/cost-of-change-gradient.md): core absorbs
-recurring, context-independent mechanics and their assurance burden;
+[cost-of-change gradient](docs/foundation/cost-of-change-gradient.md): the core
+absorbs recurring, context-independent mechanics and their assurance burden;
 foundational systems compose them; SDKs and libraries own reusable domain
-capability; products and services primarily express policy, experience, and
-real human need. This lets us pay the cost of a genuinely shared responsibility
-once and concentrate product effort where it can create value for people.
+capability; products and services express policy, experience, and real human
+need. Supporting the wider ecosystem includes supporting its engineering
+parts — paying the cost of a genuinely shared responsibility once, so product
+effort concentrates where it creates value for people.
 
 ## How we achieve this
 

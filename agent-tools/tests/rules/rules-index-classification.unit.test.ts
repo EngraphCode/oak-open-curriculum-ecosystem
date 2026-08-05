@@ -8,9 +8,10 @@ import {
 /**
  * WS0 acceptance test: every canonical rule file under .agent/rules/ MUST
  * appear in RULES_INDEX.md's three-column classification table with a
- * classification value of `always-on` or `trigger-loaded`. Trigger-loaded
- * rows MUST name a non-dash firing-trigger phrase; always-on rows MUST
- * use the em-dash placeholder.
+ * classification value of `core` or `situational` (the vocabulary
+ * ratified by the 2026-08-02 rules-reclassification sweep). Situational
+ * rows MUST name a non-dash firing-trigger phrase; core rows MUST use
+ * the em-dash placeholder.
  *
  * IO surfaces are injected via the test-helpers loader; the test stays
  * pure logic over the loaded strings.
@@ -79,43 +80,43 @@ describe('RULES_INDEX.md classification table', () => {
     expect(indexedRules).toStrictEqual(canonicalFiles);
   });
 
-  it('classifies every row as always-on or trigger-loaded', async () => {
+  it('classifies every row as core or situational', async () => {
     const indexMarkdown = await loadRulesIndexMarkdown();
     const rows = parseClassificationTable(indexMarkdown);
 
     expect(rows.length).toBeGreaterThan(0);
 
     for (const row of rows) {
-      expect(row.classification).toMatch(/^(always-on|trigger-loaded)$/);
+      expect(row.classification).toMatch(/^(core|situational)$/);
     }
   });
 
-  it('uses em-dash trigger for always-on rules', async () => {
+  it('uses em-dash trigger for core rules', async () => {
     const indexMarkdown = await loadRulesIndexMarkdown();
     const rows = parseClassificationTable(indexMarkdown);
-    const alwaysOnRows = rows.filter((row) => row.classification === 'always-on');
+    const coreRows = rows.filter((row) => row.classification === 'core');
 
-    expect(alwaysOnRows.length).toBeGreaterThan(0);
+    expect(coreRows.length).toBeGreaterThan(0);
 
-    for (const row of alwaysOnRows) {
+    for (const row of coreRows) {
       expect(row.trigger).toBe('—');
     }
   });
 
-  it('names a non-dash firing trigger for trigger-loaded rules', async () => {
+  it('names a non-dash firing trigger for situational rules', async () => {
     const indexMarkdown = await loadRulesIndexMarkdown();
     const rows = parseClassificationTable(indexMarkdown);
-    const triggerLoadedRows = rows.filter((row) => row.classification === 'trigger-loaded');
+    const situationalRows = rows.filter((row) => row.classification === 'situational');
 
-    expect(triggerLoadedRows.length).toBeGreaterThan(0);
+    expect(situationalRows.length).toBeGreaterThan(0);
 
-    for (const row of triggerLoadedRows) {
+    for (const row of situationalRows) {
       expect(row.trigger).not.toBe('—');
       expect(row.trigger.length).toBeGreaterThan(2);
     }
   });
 
-  it('classifies the WS0-extracted comms-watcher rule as trigger-loaded', async () => {
+  it('classifies the WS0-extracted comms-watcher rule as situational', async () => {
     const indexMarkdown = await loadRulesIndexMarkdown();
     const rows = parseClassificationTable(indexMarkdown);
     const watcherRow = rows.find(
@@ -123,10 +124,10 @@ describe('RULES_INDEX.md classification table', () => {
     );
 
     expect(watcherRow).toBeDefined();
-    expect(watcherRow?.classification).toBe('trigger-loaded');
+    expect(watcherRow?.classification).toBe('situational');
   });
 
-  it('classifies the WS0-extracted heartbeat-cron rule as trigger-loaded', async () => {
+  it('classifies the WS0-extracted heartbeat-cron rule as situational', async () => {
     const indexMarkdown = await loadRulesIndexMarkdown();
     const rows = parseClassificationTable(indexMarkdown);
     const heartbeatRow = rows.find(
@@ -134,6 +135,6 @@ describe('RULES_INDEX.md classification table', () => {
     );
 
     expect(heartbeatRow).toBeDefined();
-    expect(heartbeatRow?.classification).toBe('trigger-loaded');
+    expect(heartbeatRow?.classification).toBe('situational');
   });
 });

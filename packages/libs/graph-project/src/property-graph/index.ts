@@ -15,7 +15,8 @@
  *   property bags. This file uses the typed `NamedNode | BlankNode` terms
  *   and typed `Literal` property values from `@oaknational/graph-core/term`.
  *   Type information that exists upstream (in graph-core's Term hierarchy)
- *   MUST be preserved here per `.agent/rules/unknown-is-type-destruction.md`.
+ *   MUST be preserved here per `docs/governance/typescript-practice.md`
+ *   §The `unknown` Boundary Exception and the Preservation Test.
  * - The structure stays close enough to a GQL-shaped property graph that
  *   the `@oaknational/graph-project/projection` round-trip (this cycle's
  *   §Test discipline invariant #6) can hold without information loss for

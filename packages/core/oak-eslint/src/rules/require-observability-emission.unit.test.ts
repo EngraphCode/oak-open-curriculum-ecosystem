@@ -197,7 +197,7 @@ ruleTester.run('require-observability-emission', requireObservabilityEmissionRul
 // Schema-usage detection cases for `@oaknational/observability-events` will be
 // added when that workspace exists. They will cover patterns like
 // `eventEmit(tool_invoked, { ... })` where `tool_invoked` is a schema import.
-// Per `.agent/rules/no-skipped-tests.md`, those cases are NOT stubbed as
+// Per `.agent/directives/testing-strategy.md` §Rules, those cases are NOT stubbed as
 // `it.skip` — they are deferred from this file entirely until Wave 2 authors
 // them alongside the workspace. See
 // `.agent/plans/observability/current/observability-events-workspace.plan.md`.

@@ -306,11 +306,16 @@ through ADR-160's barrier before reaching any sink.
 Phased execution remains implementation follow-through. In summary:
 
 1. **Phase 1** (this ADR in `Proposed`; directory skeleton; plan moves).
-2. **Phase 2** (six MVP `current/` plans — including
-   `observability-events-workspace`, `synthetic-monitoring`,
-   `security-observability`, `accessibility-observability`,
+2. **Phase 2** (six MVP `current/` plans at authoring time — including
+   `observability-events-workspace`, `security-observability`,
+   `accessibility-observability`,
    `multi-sink-vendor-independence-conformance` — and eleven
    post-MVP `future/` plans each with a named promotion trigger).
+   `synthetic-monitoring` was among the original six but was
+   externalised by owner direction on 2026-04-23 (see History,
+   2026-08-03): production uptime and synthetic monitoring are
+   operated outside this repository, and the repo's obligation ends
+   at exposing a healthy `/healthz` endpoint.
 3. **Phase 3** (two explorations in full: accessibility-at-runtime,
    event-schemas-for-curriculum-analytics; six focused exploration
    briefs).
@@ -427,3 +432,15 @@ Phased execution remains implementation follow-through. In summary:
   axis, signalling the categorisation was incomplete. The convention
   is recorded as a reusable plan-collection component so future multi-axis collections (security, semantic-search,
   agentic-engineering) inherit the shape without re-deriving it.
+- **2026-08-03** — Production-monitoring boundary recorded; stale plan
+  reference corrected. Owner direction on 2026-04-23 moved synthetic
+  monitor creation, registration, cadence, alert routing, and ongoing
+  validation out of repo scope; the repository's obligation ends at
+  exposing a healthy `/healthz` endpoint. That decision had been
+  recorded only in the superseded `synthetic-monitoring` plan's
+  frontmatter (now archived), leaving this ADR's Phase 2 list claiming
+  a plan that does not exist. The Phase 2 list now carries the
+  externalisation, and the deployment runbook's post-deploy
+  verification step cites this ADR for why production has no in-repo
+  liveness workflow while previews gained one (`preview-serves`,
+  MCP-475). No principle change — a record correction.

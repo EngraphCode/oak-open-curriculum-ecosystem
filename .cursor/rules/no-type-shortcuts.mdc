@@ -1,7 +1,0 @@
----
-description: No type assertions (as), any, !. Exceptions: as const, satisfies.
-globs: '**/*.{ts,tsx,mts}'
-alwaysApply: true
----
-
-Read and follow `.agent/rules/no-type-shortcuts.md`.

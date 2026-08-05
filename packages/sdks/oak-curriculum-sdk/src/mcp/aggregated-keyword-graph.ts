@@ -13,7 +13,8 @@
  * Disambiguation contract (G4b readiness adjudication 8): this description
  * and the generated `get-keywords` description each state when to prefer the
  * other, verified end-to-end via `tools/list`. The generated tool serves the
- * LIVE full keyword set; this tool serves a bounded ranked subset of a
+ * LIVE keyword set (paginated server-side — its description carries the
+ * paging guidance); this tool serves a bounded ranked subset of a
  * point-in-time curriculum snapshot.
  *
  * @see `@oaknational/graph-corpus-sdk/curriculum` — the keyword view
@@ -96,7 +97,7 @@ Every call is anchored by subject + keyStage (both required — corpus keys, e.g
 
 Data is a point-in-time snapshot of the published curriculum (bulk export), not the live API; coverage can lag live content, materially at KS4 while subjects restructure.
 
-When to prefer which keywords tool: get-keywords returns the LIVE full keyword set for a key stage + subject — fresh, authoritative at KS4, alphabetical, unranked, and large. This tool returns a bounded frequency-ranked subset with lesson connections — token-economical, best for "the most relevant vocabulary for this teaching context" and for navigating from keywords into lessons, units, and the wider curriculum graph.
+When to prefer which keywords tool: get-keywords returns the LIVE keyword set for a key stage + subject — fresh, authoritative at KS4, alphabetical, unranked, and paginated (its description carries the paging guidance; the complete set takes limit: 300 plus offset walking). This tool returns a bounded frequency-ranked subset with lesson connections — token-economical, best for "the most relevant vocabulary for this teaching context" and for navigating from keywords into lessons, units, and the wider curriculum graph.
 
 Slugs are corpus keys — resolve them first with search, fetch, or browse-curriculum. Unknown unitSlugs/lessonSlugs are reported in the result's unknown-anchor fields, not errored; an unknown subject or keyStage returns a well-formed empty result.
 
@@ -105,7 +106,7 @@ Use this to answer questions like:
 - "Which keywords matter most in this unit?" (narrow with unitSlugs)
 - "What terms does this lesson rely on?" (narrow with lessonSlugs)
 
-Complements get-keywords (live full set), get-misconception-graph, get-prior-knowledge-graph, and get-thread-progressions on the same curriculum graph.`,
+Complements get-keywords (live set, paginated), get-misconception-graph, get-prior-knowledge-graph, and get-thread-progressions on the same curriculum graph.`,
 
   securitySchemes: [{ type: 'oauth2' as const, scopes: SCOPES_SUPPORTED }],
 

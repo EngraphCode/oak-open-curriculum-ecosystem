@@ -166,8 +166,9 @@ discipline is:
   does not make its shape unknown: the constant _is_ the schema, so there
   is no separate schema to validate it against and no runtime drift check
   to run. Typing it `unknown` or parsing it with Zod to re-derive a shape
-  the file already fixes would be type destruction (the
-  `unknown-is-type-destruction` rule), not validation.
+  the file already fixes would be type destruction (see
+  `docs/governance/typescript-practice.md` §The `unknown` Boundary
+  Exception and the Preservation Test), not validation.
 - **Oak misconception data**: The misconception graph is constructed in this
   repository from Oak bulk data as part of bulk-data processing. It is
   graph-shaped API-derived data, not a separate external raw corpus.

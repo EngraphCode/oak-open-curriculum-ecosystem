@@ -122,6 +122,119 @@ runtime payloads:
   clean verdict needs a real read of the surfaces at stake; borderline
   finds are surfaced, not adjudicated by the scanner.
 
+### Machine-local paths
+
+**Every filesystem path in a version-controlled file MUST resolve to the
+same meaningful target on every contributor's machine and in CI**
+([principles.md §Code Design and Architectural
+Principles](../../.agent/directives/principles.md)). The principle is
+reachability and meaning, not relative-vs-absolute syntax: a path can be
+relative-shaped and still be machine-local, and absolute-shaped yet
+portable (rooted at a platform-provided variable). The test is the
+destination, not the syntax. A user-home path also leaks a username —
+the PII carrier form the section above mechanically catches.
+
+Owner ruling 2026-06-12, whole-repo and retroactive: user-home roots, OS
+temp roots, and every other machine-local root are forbidden in
+version-controlled files everywhere in the repo, with no exceptions for
+any reason, ever — including historical records (the comms corpus and
+archives were swept 2026-06-12). Operational conventions from the sweep:
+
+- **Runnable examples** use the repo-root-relative `tmp/` directory
+  (gitignored at the repo root) instead of the OS temp root.
+- **Historical prose** that referenced OS-temp artefacts uses the
+  `<scratch>/` placeholder — the artefact was host-local and transient;
+  the placeholder records that without the forbidden literal.
+- **Tilde-templated per-user surfaces** (`~/.claude/...`,
+  `~/.codex/...`) are permitted shape 2 below (owner-ratified
+  2026-06-12) — but absolute paths stored INSIDE those local homes tend
+  to recontaminate the repo later; prefer repo-relative there too.
+- **Teaching and detection content** carries the forbidden literals only
+  in defanged or pattern positions — that machinery IS the ban's
+  enforcement surface.
+- **Remaining code-class carriers** (logger runtime defaults, test
+  fixtures, integration temp usage — enumerable via
+  `git grep -lF '/tmp/' -- '*.ts' '*.sh'`) are a named follow-on
+  engineering lane behind the CI validator; behaviour changes need their
+  own TDD cycles, not a sweep sed.
+
+**The three forbidden shapes:**
+
+1. **Literal absolute paths** — user-home roots (`/Users/<user>/...`,
+   `/home/<user>/...`, `C:\Users\<user>\...`) and machine-specific
+   installs (`/opt/local/lib/...`). They expose usernames and local
+   directory structure and resolve for no other contributor.
+2. **Relative paths that escape the repo into per-user surfaces** — a
+   `..` chain that lands on `~/.claude/`, `~/.cursor/`, `~/.codex/`, or
+   any OS surface (`../../../.claude/projects/<id>/memory/...`,
+   `../../../../etc/passwd`). **Relative syntax does not redeem a
+   per-user destination**: it looks repo-relative and fails for every
+   reader other than the original author. No detection regex covers this
+   shape — review is the only net.
+3. **Hardcoded usernames or user-specific path segments** — platform
+   flattened-project IDs of the form `-Users-<user>-...-<repo>` (Claude
+   Code's per-user memory directory naming), embedded usernames, and
+   author-home assumptions (`~/code/<user>/...`). Embedding such a
+   segment anywhere — even inside an otherwise-relative path — couples
+   the file to the original author's machine.
+
+**The three permitted shapes:**
+
+1. **Repo-relative paths** for in-repo content (from the repo root or a
+   sibling file).
+2. **Templated placeholders** for prose about per-user surfaces —
+   `~/.claude/projects/<project>/memory/`, `~/.cursor/chats/`. The
+   angle-bracketed placeholder signals a per-user/per-session segment
+   that resolves differently on every machine. These are prose
+   conventions, not clickable links: never author a markdown link to a
+   templated destination, and markdown reference-style link definitions
+   (`[label]: <url>`) pointing at user-specific destinations are
+   forbidden outright — they evade the simpler inline-link review by
+   hiding the URL at the bottom of the file.
+3. **Platform-provided variables** for runtime-resolved paths in hook
+   commands, settings files, and scripts (`${CLAUDE_PROJECT_DIR}/...`,
+   `${WORKSPACE_FOLDER}/...`), per ADR-167. Never use a relative
+   pseudo-path that happens to work in one environment when a platform
+   variable is available.
+
+**Detection.** Mechanically enforced twice over from one pattern set
+single-sourced in `.agent/hooks/policy.json` (`preToolUseContent` →
+`machine-local-path`): the `validate-no-machine-local-paths`
+repo-validator scans every tracked file at commit time and in CI via
+`pnpm check`, and the PreToolUse content hook blocks such paths at
+Edit/Write time. The patterns catch user-home roots on all three OS
+families, flattened-project-ID segments, and the macOS private-temp and
+per-user cache-folder roots (named here in words — the literals live
+fanged in the policy file only). Two exemptions by construction, not by
+allowlist: portable system paths (`/usr/bin`, `/opt/homebrew/bin`,
+generic `/tmp`) resolve identically everywhere and are not
+machine-local; placeholder forms (`/Users/<user>/`) teach the pattern
+without the concrete segment the regexes require. Excuses are not
+exceptions: no `eslint-disable` because a path "is fine on my machine",
+no "fix path before merge" TODOs, no "it works locally" — "locally" is
+not the bar.
+
+**Worked examples:**
+
+1. **The originating bug (2026-04-29):** an active pattern-library file
+   carried a markdown reference-style link into
+   `../../../.claude/projects/-Users-<user>-...-<repo>/memory/...` — two
+   failure modes at once: a `..` escape into the user home, and an
+   embedded flattened-project ID with a username. Fix: replace the link
+   with prose naming the file via the templated form
+   `~/.claude/projects/<project>/memory/`.
+2. **ADR-167's "absolute path" wording:** the original Decision §2
+   prescribed "MUST use an absolute path resolved against a
+   platform-provided project-root variable" — "absolute" meant
+   "fully-qualified" but invited literal absolute paths. Fix: rewritten
+   to "dynamic path rooted at a platform-provided project-root
+   variable", rejecting both bare-relative paths (the cwd trap) and
+   literal-absolute paths (machine coupling).
+3. **Research notes about per-user memory:** templated-placeholder prose
+   (`~/.claude/projects/<project>/memory/MEMORY.md`) is correct; the
+   same sentence with an embedded flattened ID, or as a clickable
+   relative link into the user home, is forbidden.
+
 ## Access Control
 
 ### Read-Only Operations (Phase 2)
@@ -328,7 +441,7 @@ defined boundary:
   session replay and fingerprinting. The pseudonym is pseudonymised
   personal data, not anonymous data: it carries transparency, access,
   retention and erasure duties. ADR-218 §5 commits this processing to
-  a maximum 12-month retention period across PostHog and every
+  a maximum 5-year (60-month) retention period across PostHog and every
   authorised copy, and to a tested person-scoped deletion route. Both
   are commitments whose operational proof is outstanding — ADR-218's
   maturity note states that acceptance does not assert retention,

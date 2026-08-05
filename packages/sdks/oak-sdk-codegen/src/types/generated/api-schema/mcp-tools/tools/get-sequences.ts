@@ -31,11 +31,11 @@ export interface ToolParams {
 
 export interface ToolArgs { readonly params: ToolParams; }
 
-export const toolInputJsonSchema = { type: 'object' as const, properties: {"sequence":{"type":"string","description":"The sequence slug identifier","examples":["english-secondary"]}} as const, additionalProperties: false as const, required: ["sequence"] };
+export const toolInputJsonSchema = { type: 'object' as const, properties: {"sequence":{"type":"string","description":"The sequence slug identifier","examples":["english-secondary-aqa"]}} as const, additionalProperties: false as const, required: ["sequence"] };
 export const toolZodSchema = z.object({ params: z.object({ path: z.object({ sequence: z.string().describe("The sequence slug identifier") }) }) });
-export const toolMcpFlatInputSchema = z.strictObject({ sequence: z.string().describe("The sequence slug identifier").meta({ examples: ["english-secondary"] }) });
+export const toolMcpFlatInputSchema = z.strictObject({ sequence: z.string().describe("The sequence slug identifier").meta({ examples: ["english-secondary-aqa"] }) });
 export type ToolInputSchema = z.infer<typeof toolZodSchema>;
-const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"sequence":{"type":"string","description":"The sequence slug identifier","examples":["english-secondary"]}},"additionalProperties":false,"required":["sequence"]}\nRequired: sequence';
+const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"sequence":{"type":"string","description":"The sequence slug identifier","examples":["english-secondary-aqa"]}},"additionalProperties":false,"required":["sequence"]}\nRequired: sequence';
 export const describeToolArgs = () => toolArgsDescription;
 /**
  * Transform flat MCP arguments to nested SDK format.

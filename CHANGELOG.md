@@ -1,3 +1,171 @@
+## [1.150.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.150.0...v1.150.1) (2026-08-05)
+
+
+### Bug Fixes
+
+* **mcp-server:** let production redeploy the commit it already runs (MCP-479) ([87b72d9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/87b72d9346933f13b4ee95ec748deb380aa94fcd))
+* **mcp-server:** point the moved guard test at the script's new relative path ([bc3696f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bc3696f89f7bf38099655784b4d1f8f2c4077812))
+
+# [1.150.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.149.1...v1.150.0) (2026-08-04)
+
+
+### Bug Fixes
+
+* **mcp-server:** enforce posthog-requires-sentry on the app boot path (MCP-361) ([61773a6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/61773a68f7b4cf18c6a9e744903e407dff67c4ae)), closes [#748](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/748)
+* **mcp-server:** require Sentry actively live when posthog is selected (MCP-361) ([c6aefca](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c6aefcadb33136daecb362d233a60e156b1ad798))
+
+
+### Features
+
+* **env:** require sentry alongside posthog in every environment (MCP-361) ([f6d4661](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f6d46615a2d49e50776bb79cda883ef0736fee03))
+
+## [1.149.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.149.0...v1.149.1) (2026-08-04)
+
+# [1.149.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.5...v1.149.0) (2026-08-04)
+
+
+### Features
+
+* **skills:** add set-up-worktree-lane, the worktree creation procedure ([e440e4a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e440e4a3b045c26705a5573e40eab0d0b892bd9f))
+
+## [1.148.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.4...v1.148.5) (2026-08-04)
+
+
+### Bug Fixes
+
+* **agent-tools:** make install-version-guard smoke deterministic on clean runners ([d95219a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d95219a89e7f4506c542271e2872a3e1603c24f8))
+* **agent-tools:** nest the pin so install-version-guard smoke survives self-managing pnpm ([d2860e8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d2860e83f19f461af72fa9c72a256f796ba47e8f))
+* **tooling:** guard installs against mismatched pnpm ([de199bb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/de199bb872ae6411a8ebf5458e33358133803196))
+* **tooling:** isolate runtime-only lint from the type-aware eslint config ([832bbd9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/832bbd977d043cb65935a70cf9c43977c08eb57e))
+
+## [1.148.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.3...v1.148.4) (2026-08-04)
+
+## [1.148.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.2...v1.148.3) (2026-08-04)
+
+
+### Bug Fixes
+
+* **agent-tools:** probe $PNPM_HOME/bin for the pnpm launcher ([b5d3d43](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b5d3d43cfb1f49d7fe12fd31e085627d43e99571))
+
+## [1.148.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.1...v1.148.2) (2026-08-04)
+
+
+### Bug Fixes
+
+* **agent-tools:** close the statMtimeMs TOCTOU in the bootstrap fs binding (mcp-472) ([494264e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/494264e1a1e588c3de9834bf93ca2a53675036cf))
+* **agent-tools:** rebuild stale workspace dist in bootstrap (mcp-472) ([c7959a6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c7959a663e29dca480e0965efa0024e14b9251c1))
+
+## [1.148.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.148.0...v1.148.1) (2026-08-04)
+
+# [1.148.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.147.0...v1.148.0) (2026-08-04)
+
+
+### Bug Fixes
+
+* **search-cli:** bulk freshness detects an absent bundle; docstring premise trued ([57ec55a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/57ec55a60ec2b322c2615d2f043aeb1ae7401c3c))
+* **search-cli:** exact staleness boundary and bounded future skew ([e2d1140](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e2d1140ab31a597aef85ab36922047afd3ba9c23))
+
+
+### Features
+
+* **search-cli:** bulk-data freshness contract; adr-222 truing verified (mcp-463) ([efe7ec7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/efe7ec7eebe16d8edb1c682154c74c2342bae276))
+* **search-cli:** bulk-data gate DI seam, manifest anchor, injected clock ([e5b6a44](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e5b6a44a957359115b1197b2f5315da27002fbfb))
+
+# [1.147.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.3...v1.147.0) (2026-08-04)
+
+
+### Bug Fixes
+
+* **sdk-codegen:** cure the two generator defects found on the spec-alignment review (MCP-462) ([b1ef5a9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b1ef5a93add39ea76180979bc2eb1f0a1f6ccff5))
+
+
+### Features
+
+* **sdk-codegen:** align to the refreshed upstream spec (mcp-462) ([bcdc623](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bcdc6237360346c5398cdfb1962b9817e2954509))
+
+## [1.146.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.2...v1.146.3) (2026-08-03)
+
+## [1.146.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.1...v1.146.2) (2026-08-03)
+
+
+### Bug Fixes
+
+* **mcp-server:** record the env-change boot-check obligation in the UAT runbook ([94d67a3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/94d67a3c150e3cf56334130e886e68bb19d476df))
+
+## [1.146.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.146.0...v1.146.1) (2026-08-03)
+
+# [1.146.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.145.0...v1.146.0) (2026-08-03)
+
+
+### Features
+
+* **skills:** add the two upstream-update skills; true the runbook bulk section (mcp-469) ([7f149b2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7f149b2069f39144bf9086e9675fa653c3a5a579))
+
+# [1.145.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.144.2...v1.145.0) (2026-08-03)
+
+
+### Bug Fixes
+
+* **agent-tools:** shrink the machine-local-path exclusion surface after the rule's graduation ([360ee4c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/360ee4cd72c90877d6f76785f3e445aad2718915))
+* **observability:** correct [@see](https://github.com/see) citation depth in primitives.ts to repo root ([35a2e8e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/35a2e8e55c0fa63118640c2680dc8d84d071f7fc))
+* **skills:** cure the [#714](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/714) Parallax payload defects from the fold review ([6cba5ca](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6cba5ca56d98d3dfd9de1e096539f137773183fc))
+
+
+### Features
+
+* **skills:** land owner-invoked skill-creator install (anthropics/skills, lock-pinned) ([fc53710](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fc5371043451f763e6311c511946cb827149427b))
+
+## [1.144.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.144.1...v1.144.2) (2026-08-03)
+
+## [1.144.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.144.0...v1.144.1) (2026-08-03)
+
+# [1.144.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.143.1...v1.144.0) (2026-08-03)
+
+
+### Bug Fixes
+
+* **agent-tools:** close the --thread claim-existence bypass — heartbeats are claim-anchored ([061d2dd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/061d2dd784b7a2de083a26c2603fac622cecb745)), closes [#725](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/725)
+* **agent-tools:** drop --thread from heartbeat mode — the claim row is the thread's only source ([09f2079](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/09f20794e689cfb7aeaffe6c03b8b236a46632c0))
+* **agent-tools:** heartbeats anchor only to the emitting seat's own claim ([bc64dfc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bc64dfcc8a1655eb5584fbcd5d3531f0842251df))
+
+
+### Features
+
+* **agent-tools:** emit heartbeats in the ADR-186 lifecycle shape, tag retained (emitter leg) ([6d82b2c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6d82b2cb11edb7b2d52fd09ca4ecfc5e8704072d))
+* **agent-tools:** heartbeat dual filter in every discriminating consumer (ADR-186 consumer leg) ([273cc47](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/273cc472f0985d3750bf704886ed5e849bdb8bbd))
+
+## [1.143.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.143.0...v1.143.1) (2026-08-02)
+
+# [1.143.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.6...v1.143.0) (2026-08-02)
+
+
+### Bug Fixes
+
+* **skills:** cure round 1 on the codex-dialogues probe and lockstep pins ([2bb17c7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2bb17c7b0515ff98acc6e64c41886c82bc4d90af))
+* **skills:** cure round 2 — narrowed no-write claim, authority-surface pin, aborted closes ([514fa8a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/514fa8af5fbf3f63526a840cae460a51ea249316))
+* **skills:** cure round 3 — thread-id redaction, isolation guard, full contract pins ([ba9f453](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ba9f453049a505e9c6fc5dbd4b8987263875d868))
+* **skills:** cure round 4 — protocol strictness, exact contract pins, claude-host guard ([b21ffcf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b21ffcfded39f8d286711fcdb294b50d424ac6b1))
+* **skills:** cure round 5 — claim vocabulary converged, fail-closed guard, identity pin ([f83e060](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f83e060dddb65ebf77c8905c440d30ff758a7029))
+* **skills:** cure round 6 — mcpServers wrapper, isError guards, terminal transport state ([e041e62](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e041e62182a79b52c573c7790945759fc8c8e5be))
+* **skills:** round-10 cures — retention contract, spawn-safe dispose, exact property-set pin ([dabd259](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/dabd259834cb29a105170d1e4bc6aaf20ba7e748))
+* **skills:** round-11 cures — reply property-set pin, stdin error containment ([e862953](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e862953a37d2e10f754c35b98538f9b61d6dd863))
+* **skills:** round-12 cure — exact-set sweep kills the presence-only class whole ([5f3a522](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5f3a522d1138caa37b42d4814e557bdf6c21c9a6))
+* **skills:** round-13 cures — claude-only baseline, env-proof guard, write-request phrasing ([b7b6219](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b7b62199353f9a7e2941b2e843adf3f4f9aae166))
+* **skills:** round-14 cures — lstat sentinel, sanitised server env, declared-surface honesty ([b2069c7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b2069c74f63ce30b64443de62e75e781341052b6))
+* **skills:** round-15 cures — tracked trial tally, total decision rule, narrowed no-write claim ([d424c5d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d424c5d02b3f5b8ea71ed2e3573d4926b2008f5b))
+* **skills:** round-16 cures — complete-entry registration check, kill-failure-safe dispose ([fdaaa5e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fdaaa5e242508088b28f817c5a9a238057e4872d))
+* **skills:** round-17 cure — compose-order example no longer lists an untracked event id ([5429db9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5429db9cd973a280cc7eaf3d6404637193df0c01))
+* **skills:** round-18 cure — tally rows count only once integrated on main ([41cebad](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/41cebad859f136505871ec01c0b4bf21bec00fc6))
+* **skills:** round-20 cures — exact additionalProperties pin, restart-after-upgrade clause ([438495a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/438495a4229476c6690995d6b3e896797ef6e3e7))
+* **skills:** round-7 cures + close-schema v1 for the codex dialogues ([9715add](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9715addf53f1d6cf368f5ff764344816db8c9fe4)), closes [#713](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/713)
+* **skills:** round-8 cures — probe evidence ordering, registration conformance, plank scoping ([2a67292](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2a67292402af064e489e4cbe9d80a646ce99f5dc))
+* **skills:** round-9 cures — single post-termination pass emission, full authority surface ([8744d55](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8744d552c94776401f6003bc33312de84c860a91))
+
+
+### Features
+
+* **skills:** add sif doctrine and the-codex-dialogues instrument (probe-first pr 1) ([137f6a2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/137f6a262c5ed249125c65dc966475ebb98891b1))
+
 ## [1.142.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.5...v1.142.6) (2026-08-02)
 
 ## [1.142.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.142.4...v1.142.5) (2026-08-02)

@@ -2,7 +2,7 @@
 id: the-codex-dialogues
 node_type: delivery
 name: "The Codex dialogues — direct cross-vendor reflective dialogue for a live seat"
-overview: "A live Claude seat opens a bounded multi-turn reflective dialogue with a Codex interlocutor over a direct MCP connection to a read-only-defaulted codex mcp-server (a launch default, not an enforced cap — the restriction is skill discipline); one structured comms event at dialogue close is the analysis record. First step toward invoking third-party agents as ordinary in-session capability."
+overview: "A live Claude seat opens a bounded multi-turn reflective dialogue with a Codex interlocutor over a direct MCP connection to a read-only-defaulted codex mcp-server (a launch default, not an enforced cap — the restriction is skill discipline); one structured close record per dialogue — emitted as a comms event and conserved in the tracked trial tally — is the analysis record. First step toward invoking third-party agents as ordinary in-session capability."
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -149,9 +149,10 @@ never committed and never transmitted, existing solely so the
 close-out pass can select exactly the trial dialogues' rollouts; at
 the trial window's close-out, the analysis pass extracts what the
 rollouts teach, deletes those rollouts, and deletes the mapping with
-them (knowledge is retained, bytes are not; the close events and
-conserved syntheses remain the durable record; the close EVENT still
-never carries the thread id).
+them (knowledge is retained, bytes are not; the tracked trial tally
+and conserved syntheses remain the durable record — close events are
+untracked instance-tier transport; the close EVENT still never
+carries the thread id, and neither does its tally row).
 
 ## Theory of change and impact — and the structures that keep them honest
 
@@ -210,7 +211,8 @@ second consumer:
 - **Feedback contract** (reporting into the
   `outcome-informed-practice-learning` strategic strand): the close
   event is the signal; its provenance
-  is the emitting seat; its custody is the fold-committed comms stream;
+  is the emitting seat; its custody is the tracked trial tally (the
+  comms stream is its transport);
   its expiry is the trial window's decision point; its PERMISSIBLE
   DECISIONS are about THIS INSTRUMENT only — close events evaluate the
   instrument, never seat performance, and any reading of them as
@@ -302,8 +304,11 @@ second consumer:
    a NARRATIVE event whose body is the canonical `key=value;` line
    the skill composes — the same body-encoding discipline the
    heartbeat substrate already uses — and field completeness is
-   enforced by the skill's composer and re-checked by the
-   analysis-side parser, leaving the comms schemas untouched in PR 1.
+   enforced by the skill's composer at close time; the analysis-side
+   parser that re-checks the corpus lands with the trial close-out
+   pass (it has nothing to read before dialogues exist), so the
+   composer's check is the only PR-1 enforcement, and the comms
+   schemas stay untouched in PR 1.
    Fields: dialogue id (the Codex thread id is NOT carried in the
    event — it is closed, never protocol-resumed, and operationally
    sensitive; a fresh opaque id is, and the thread id survives only in
@@ -311,15 +316,20 @@ second consumer:
    class, turn count, stop reason,
    harness and Codex CLI versions, outcome flag (position-changed /
    dissent-unresolved / confirmed), and a pointer to the conserved
-   synthesis on a DURABLE SHARED surface — a fold-committed comms
-   event, a tracked report, or the PR record, never a machine-local
-   path — so the pointer outlives the trial rollouts' deletion and
-   resolves from any checkout. The event rides the
-   fold-committed comms substrate: durable, greppable, analyzable — no
+   synthesis on a DURABLE SHARED surface — a tracked report, a
+   repo-tier record surface, or the PR record, never a machine-local
+   path and never an untracked comms event — so the pointer outlives
+   the trial rollouts' deletion and resolves from any checkout. The
+   event rides the comms substrate — no
    bespoke store, no hooks, no CLI (owner ruling 2026-08-01, superseding
    the sketch's ledger machinery; the seat's session transcript and the
    Codex-side rollout that persists by default under the Codex home are
-   free second and third analysis sources in direct mode).
+   free second and third analysis sources in direct mode). Comms events
+   are untracked instance-tier state under ADR-199/PDR-094 (the
+   substrate is transport, not storage), so each close line is also
+   conserved at occurrence in the tracked trial tally — the durable,
+   greppable copy the trial window reads — keeping the no-machinery
+   ruling intact.
 
 ## Invariants — stated honestly
 
@@ -381,10 +391,12 @@ the tools), so the probe is the durable contract evidence.
   the canonical stream with every field present in the canonical body
   encoding. Proof: owner-held — one real
   seat, one real uncertainty, linked from the implementation PR.
-- Authority evidenced: a disciplined call's write attempt is refused,
-  AND the per-call broadening attempt's outcome is recorded (cap or
-  default — whichever the harness proves). Proof: repo-safe probe
-  output for the disciplined-refusal leg; the broadening negative
+- Authority evidenced: a disciplined call's write-request turn leaves
+  the sentinel path absent on disk (the reply's refusal report is
+  corroborating only — the probe does not observe the sandbox's
+  internals), AND the per-call broadening attempt's outcome is
+  recorded (cap or default — whichever the harness proves). Proof:
+  repo-safe probe output for the no-write leg; the broadening negative
   control is owner-held per ADR-180 — explicit authorisation per
   invocation, externally isolated disposable workspace, bounded
   sentinel write.
@@ -432,15 +444,18 @@ quoted.
 - Reusing or resuming Codex threads across dialogues.
 - Pinning the Codex model; the CLI's configured default stays outside
   this contract.
-- A Codex-initiated Claude dialogue — out of v1 scope but NO LONGER an
-  unverified asymmetry: `claude mcp serve` (probed first-hand
-  2026-08-01, Claude Code 2.1.220, server `claude/tengu`) exposes the
+- A Codex-initiated Claude dialogue — out of v1 scope but no longer an
+  UNOBSERVED asymmetry: `claude mcp serve` (observed first-hand
+  2026-08-01, Claude Code 2.1.220, server `claude/tengu` — an
+  observation-grade candidate binding: no probe script or record yet,
+  see Sif Annex B) exposes the
   full Claude Code toolset over stdio, including the `Agent` +
   `SendMessage` pair — spawn a named Claude interlocutor, then continue
   it with context intact — i.e. layer-B state continuation keyed by
   agent name rather than thread id. This is the named SECOND EXPERIMENT
   (owner word, 2026-08-01), and it meets the factoring trigger: the
-  dialogue doctrine is now general across two verified bindings, so the
+  dialogue doctrine is now general across one probe-verified binding
+  plus one observed candidate, so the
   skill is authored two-layer from day one — the Subagent Invocation
   Framework (Sif) general doctrine + per-binding annexes. Its own open question is authority:
   the serve surface hands the caller Bash/Edit/Write — full Claude Code
@@ -468,11 +483,13 @@ quoted.
   fought.
 - Claude Code MCP registration and deferred tool schemas: VERIFIED
   2026-08-01 at <https://code.claude.com/docs/en/mcp>.
-- `claude mcp serve` (the reverse binding): VERIFIED first-hand
-  2026-08-01 by live MCP probe — Claude Code 2.1.220 serves its full
-  toolset over stdio (`Agent`, `SendMessage`, `Bash`, `Read`, `Edit`,
-  `Write`, and the rest); `Agent` + `SendMessage` provide named-agent
-  multi-turn continuation. Authority pinning on this surface: OPEN —
-  its own probe gates the reverse experiment.
+- `claude mcp serve` (the reverse binding): OBSERVED first-hand
+  2026-08-01 in a live manual session — Claude Code 2.1.220 serves its
+  full toolset over stdio (`Agent`, `SendMessage`, `Bash`, `Read`,
+  `Edit`, `Write`, and the rest); `Agent` + `SendMessage` provide
+  named-agent multi-turn continuation. Observation-grade candidate
+  facts (no probe script or record exists for this binding — Sif Annex
+  B carries the label). Authority pinning on this surface: OPEN — its
+  own probe gates the reverse experiment.
 - Claude Code hooks (the named hardening path only): VERIFIED 2026-08-01
   at <https://code.claude.com/docs/en/hooks>.

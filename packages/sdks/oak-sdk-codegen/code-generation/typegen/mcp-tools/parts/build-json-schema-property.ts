@@ -34,9 +34,30 @@ function buildStringProperty(meta: ParamMetadata): JsonSchemaPropertyString {
   return base;
 }
 
+/**
+ * Numeric range bounds carried through from the upstream OpenAPI schema.
+ *
+ * These reach the MCP client through `tools/list`, so omitting them
+ * advertises a looser contract than the API honours.
+ */
+function buildNumericBounds(meta: ParamMetadata): {
+  readonly minimum?: number;
+  readonly maximum?: number;
+} {
+  const out: { minimum?: number; maximum?: number } = {};
+  if (meta.minimum !== undefined) {
+    out.minimum = meta.minimum;
+  }
+  if (meta.maximum !== undefined) {
+    out.maximum = meta.maximum;
+  }
+  return out;
+}
+
 function buildNumberProperty(meta: ParamMetadata): JsonSchemaPropertyNumber {
   const common = buildCommon(meta);
-  const base: JsonSchemaPropertyNumber = { type: 'number', ...common };
+  const bounds = buildNumericBounds(meta);
+  const base: JsonSchemaPropertyNumber = { type: 'number', ...common, ...bounds };
   if (meta.valueConstraint && Array.isArray(meta.allowedValues)) {
     return { ...base, enum: meta.allowedValues };
   }
