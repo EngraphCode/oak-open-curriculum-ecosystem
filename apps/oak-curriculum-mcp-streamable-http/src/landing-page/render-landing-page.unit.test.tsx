@@ -100,9 +100,14 @@ describe('renderLandingPageHtml', () => {
       expect(html).not.toContain('res.cloudinary.com');
     });
 
-    it('takes its logo and rule artwork from the design system', () => {
-      expect(html).toContain('/oak-ds/assets/logo-full-black.svg');
-      expect(html).toContain('/oak-ds/assets/icons/header-underline.svg');
+    it('takes its logo and rule artwork from the design system, routed-base-prefixed', () => {
+      // Asserted as whole attribute values, not substrings. Bare-path
+      // substrings matched the pre-MCP-509 root-relative markup AND the
+      // routed markup identically, so these two assertions sat inside the
+      // green-while-broken surface while every other assertion in this file
+      // was moved onto the routed base.
+      expect(html).toContain(`src="${OAK_DS_BASE}/assets/logo-full-black.svg"`);
+      expect(html).toContain(`src="${OAK_DS_BASE}/assets/icons/header-underline.svg"`);
     });
   });
 

@@ -66,7 +66,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/app/static-asset-paths.ts",
-      "semanticSha256": "bea3543c6ad3b1817fa11e8dbd2063fd41636580c5a5e4888f8c01f7b5b03d6d",
+      "semanticSha256": "ff135d5160da12e36b0f4ae6f7acd42e61748d3f21315e2bb0b7a75474197bfe",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -654,7 +654,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/test-helpers/static-root-fixture.ts",
-      "semanticSha256": "6350420bb5d4e36cbca9264a0a7b704ebb3dd6ce57027e6073bc60f007447a8d",
+      "semanticSha256": "c015f386674e82f3873ee3706db2a4a7936cab025b4c687455230113b2ff3fd5",
       "itemIds": [],
       "exclusionReason": "Test support only; this file does not reach an MCP consumer."
     },
