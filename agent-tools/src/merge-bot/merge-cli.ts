@@ -132,15 +132,27 @@ async function pollUntilActionable(context: {
       return 0;
     }
     if (verdictAwaitsSettlement(outcome.value.verdictState) && poll < parsed.maxPolls) {
-      input.stdout.write(
-        `poll ${poll}/${parsed.maxPolls}: ${outcome.value.verdictState} — retrying in ${parsed.intervalSeconds}s\n`,
-      );
+      writeProgress(parsed, poll, outcome.value.verdictState, input);
       await sleep(parsed.intervalSeconds * MILLIS_PER_SECOND);
       continue;
     }
     writeRefusal(outcome.value, parsed.json, input);
     return 3;
   }
+}
+
+function writeProgress(
+  parsed: MergeArgs,
+  poll: number,
+  verdictState: string,
+  input: MergeActionInput,
+): void {
+  // Under --json, stdout carries EXACTLY the outcome object a machine
+  // parses; progress is diagnostics and moves to stderr.
+  const progress = parsed.json ? input.stderr : input.stdout;
+  progress.write(
+    `poll ${poll}/${parsed.maxPolls}: ${verdictState} — retrying in ${parsed.intervalSeconds}s\n`,
+  );
 }
 
 function writeMerged(

@@ -8,17 +8,25 @@ import { resolveMintTokenConfig } from './resolve-config.js';
 import { permissionNamesFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
 
 /**
- * CLI for the `merge-bot` topic (AIP-158).
+ * CLI for the `merge-bot` topic (AIP-158, MCP-508).
  *
- * `merge-bot mint-token` prints a short-lived GitHub App installation token
- * to stdout (and nothing else there), so callers can run operations as the
- * bot. Assign it, then use it — never the `GH_TOKEN=$(…) gh …` prefix form,
- * which cannot fail fast: a failing mint leaves `GH_TOKEN` empty, `gh` reads
- * empty as UNSET, and the command runs as the signed-in human.
+ * `merge-bot merge` is the sanctioned landing path: it mints its own token,
+ * reads the settlement verdict, and merges ONLY on SETTLE-READY — never
+ * squash, the verdicted tip's sha pinned in the call:
  *
  * ```bash
- * token=$(pnpm --silent agent-tools merge-bot mint-token --scope pull-request-work) || exit 1
- * GH_TOKEN="$token" gh pr merge <n> --auto --merge
+ * pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>
+ * ```
+ *
+ * `merge-bot mint-token` prints a short-lived GitHub App installation token
+ * to stdout (and nothing else there), for OTHER operations run as the bot
+ * (pushes, API reads). Assign it, then use it — never the
+ * `GH_TOKEN=$(…) gh …` prefix form, which cannot fail fast: a failing mint
+ * leaves `GH_TOKEN` empty, `gh` reads empty as UNSET, and the command runs
+ * as the signed-in human.
+ *
+ * ```bash
+ * token=$(pnpm --silent agent-tools merge-bot mint-token --scope <scope-name>) || exit 1
  * ```
  *
  * The bot is not a ruleset bypass actor, so its merges bind to required

@@ -312,6 +312,17 @@ describe('runMergeBotCli merge', () => {
     expect(run.urls.filter((url) => url.endsWith('/access_tokens'))).toHaveLength(1);
   });
 
+  it('keeps --json stdout pure on a polled run: progress to stderr, outcome alone on stdout', async () => {
+    const run = runMerge({
+      args: [...EXPECT_ARGS, '--json'],
+      readings: [runningChecksReading(), settledReading()],
+    });
+
+    expect(await run.exit).toBe(0);
+    expect(JSON.parse(run.out())).toEqual({ kind: 'merged', sha: 'mergesha1' });
+    expect(run.errText()).toContain('poll 1/');
+  });
+
   it('exhausts the poll budget on a persistent wait verdict as a typed refusal', async () => {
     const run = runMerge({
       args: [...EXPECT_ARGS, '--max-polls', '2'],
