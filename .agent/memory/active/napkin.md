@@ -469,3 +469,14 @@ to the next dedicated consolidation rather than patching the word list.
   closure into the main slice (it moves runtime seam-adjacent code).
   DESIGN WAKE now awaits only the owner's word (both reviews
   delivered).
+- CORRECTION (metaloss catch at compaction prep, ~15:2xZ): the
+  "claims-sweep archived-while-live" practice defect logged from
+  Drake's handoff is PARTLY PHANTOM — the claim e57f6a78 was closed
+  DELIBERATELY by the Director at 13:25:51Z (owner word "I am closing
+  out Drake"; closure summary in closed-claims.archive.json), not by
+  an anonymous freshness sweep. Drake's wrap, running in parallel,
+  found it archived and inferred a sweep. The RESIDUAL real question
+  is narrower: a deliberate Director closure is invisible to the seat
+  being closed — the closure act could emit a directed/broadcast
+  signal so a parallel wrap attributes it correctly. Rides the
+  handoff-CLI commission's scope.
