@@ -38,8 +38,12 @@ quoted; relay provenance is named per entry.
 Recorded from the Director's enumeration-ledger broadcast (comms event
 2026-08-05T15:32:15Z; owner chat at the Director seat ~15:10–16:25Z,
 screenshots read first-hand at that seat). Numbering is the owner's — his
-message has no item 5. **Blocking words are DIRECTOR PROPOSALS pending the
-owner's one-pass confirmation**; owner words are verbatim where quoted.
+message has no item 5. **Blocking words were recorded as DIRECTOR
+PROPOSALS pending the owner's one-pass confirmation; on 2026-08-06 the
+owner CONFIRMED the one-pass AS PROPOSED — all ten items and all three
+instruments, no deltas (Director broadcast, comms event
+2026-08-06T06:12:16Z). Every "Proposed:" word below now stands as an
+owner word.** Owner words are verbatim where quoted.
 Process ruling (Director): these words arrived mid-re-review — plan
 amendments adjudicate in ONE window with the re-review's close, so the
 fleet's zero-target text never moves under it.
@@ -194,8 +198,9 @@ approximation-reference material for the W0.7 rubric and the Oak anchor.
 
 Recorded from the Director's atlas relay (2026-08-05, ARC channel; names
 verified first-hand at the Director seat where the Figma View-seat MCP
-quota allowed — three nodes pending the next quota window). Oak Design Kit
-file `YcWQMMhHPVVmc47cHHEEAl`, eight owner-assembled deep nodes:
+quota allowed; the final three names landed owner-named at the day's
+close). Oak Design Kit file `YcWQMMhHPVVmc47cHHEEAl`, eight
+owner-assembled deep nodes:
 
 - `19798-1848` — Oak Component Standards: the kit's THREE-PROP API grammar
   (colorScheme / size / variant, with a Figma-matches-component-API
@@ -206,11 +211,16 @@ file `YcWQMMhHPVVmc47cHHEEAl`, eight owner-assembled deep nodes:
   device variants; focus order/behaviour with keyboard annotations and
   traps; known issues and considerations; content guidance). Maps nearly
   one-to-one onto our charter DoD + W0.7 rubric shape.
-- `2952-16660` — on the Style Tokens page (name pending quota).
+- `2952-16660` — the design tokens themselves, on the Style Tokens page
+  (owner-named at day close).
 - `8831-20262` — Brand Assets, with an INLINE OWNER RULING: "brand assets
   stay out of the repo entirely, we approximate the style of them only and
   then loosely."
-- `21201-6385`, `3459-11008` — pending identification.
+- `21201-6385` — Buttons, the component-family page (owner-named at day
+  close).
+- `3459-11008` — Button, the component itself under Buttons (owner-named
+  at day close). With `21201-6385` this is the direct W3
+  Buttons-story reference pair.
 - `8866-8323` — CheckBox: full component anatomy (spec, states,
   label/legend layouts, a11y block, do/don't guidance); Effect styles
   confirm lineage vocabulary (drop-shadow-lemon et al.).
@@ -234,3 +244,138 @@ Presentational/Carousel) with adoption-state check marks on Button /
 LeftAlignedButton / IconButton / Toast — association only, one look at W3
 story-open. Lane note: the Figma View seat is QUOTA-METERED on MCP calls —
 budget kit consultations deliberately; batch reads at story-opens.
+
+## The sitting's closing exchanges (owner words ~16:05–16:45Z, folded at the 2026-08-06 morning resume)
+
+Provenance: every entry below was relayed by the Director on the
+design-lane ARC channel on 2026-08-05 after this seat's compaction
+freeze, and folded here at the next write window (2026-08-06 morning)
+per the durability hierarchy. Where a later owner word supersedes an
+earlier one, both moments are recorded in superseding order.
+
+### Design-licensing resolution — two moments
+
+**Moment 1 (~16:05–16:12Z, Director-verified first-hand).** The Figma
+kit is UNLICENSED (copyright Oak), so the cartographer's folly binds its
+values. Oak Components (`github.com/oaknational/oak-components`) is MIT
+and public. The owner's want, verbatim: the buttons "are probably pretty
+close to the ones in Oak Components... in fact we would like them to be
+identical, but we haven't figured out the best mechanical pipeline and
+proof for that yet."
+
+**Moment 2 — owner supersession (~16:20Z).**
+
+- PURPOSE, the owner's words: the design restriction exists so nobody
+  can easily "throw up sites that can pretend to be an Oak site or
+  create assets claiming Oak backs or supports or condones them."
+  Anti-impersonation is the test every design-licensing decision serves.
+- The Moment-1 reading "identity via the MIT channel is licence-clean"
+  is WITHDRAWN as an implementation route: NO CODE IMPORTS from Oak
+  Components, despite MIT. Recorded ground: its styled-components
+  consumption path conflicts with our layer model (CSS-first, framework
+  adapters thin). Reference-reading the public repo stays legitimate;
+  consuming its code does not happen.
+- The parity instrument is reframed: the Oak identity is "visibly
+  CORRECT" (as good as Oak, in many ways better) yet "distinct at the
+  folly level" — so the W3 Buttons story-open pointer becomes a
+  TWO-SIDED proof: a similarity bound (perceptually correct against the
+  reference) AND a distinctness bound (the folly deviation present).
+  Pointer-grade until story open; not co-designed here.
+
+### Provenance disclosure and the trap-street audit (executed)
+
+The owner supplied the palette's provenance: our Oak LIGHT theme derives
+from sampling rendered `www.thenational.academy` pages, DARK was
+believed derived from light, and the values were therefore
+assumed-but-not-proven distinct from the official kit. The owner pulled
+the trap-street audit forward from the story-open queue; the Director
+executed it first-hand the same evening against Oak Components' MIT
+source (`color.ts` / `dark.theme.ts` / `default.theme.ts` at main):
+
+- PALETTE: our dtcg `palette.json` carries 83 literal values; Oak
+  Components primitives 76; EXACT hex matches 68. The light families
+  (greys, green `#287c34`, mint/aqua/lavender/pink/lemon/amber/red/
+  navy...) are byte-identical copies.
+- DARK, the owner's derived-from-light belief REFUTED at the primitive
+  level: our palette contains Oak Components' dedicated designed dark
+  primitives verbatim (dark-mint `#2e5338`, dark-lavender `#38488b`,
+  the full dark-\* families). Our dark inherited OC's designed dark
+  palette; the mapping vocabulary is also same-family.
+- GENUINELY OURS (15 values): the hc-\* high-contrast family; the ci-\*
+  colour-safe family (Okabe-Ito scientific palette — provenance safe,
+  attributed); dark-red30/50 (we extended dark where OC lacks reds);
+  amber110; lavender20; black-true.
+- MEANING: legally clean (MIT source) — but "distinct at the folly
+  level" is FALSE today for 68 values. The identity story gains a
+  bounded work item: a SYSTEMATIC FOLLY PASS over the 68
+  (harmony-preserving, family-consistent perturbation in the
+  contrast-floor-safe direction), with the designed re-baselines riding
+  it (the contrast-pairings manifest, the 810-value dtcg-CSS
+  consistency gate, screenshot baselines where they exist).
+- CAVEAT: the reference was Oak Components (the kit's implementation),
+  not the Figma kit directly; one metered Figma spot-check at story
+  open seals the kit-vs-OC hop.
+- PROVENANCE-MANIFEST truth: our palette's honest provenance line is
+  "Oak Components values via site derivation, exact" until the folly
+  pass converts it to "approximated, folly-verified, dated".
+
+### The folly mechanism sketch (owner-endorsed ~16:40Z)
+
+The owner endorsed the mechanism shape ("genuinely excited"); scope is
+the identity story, boundary calls bless at the story card:
+
+- A deterministic SEEDED GENERATOR, not hand-nudging: per-FAMILY
+  systematic transforms in OKLCH (hue ~+1.2deg, lightness ~+0.6%
+  scale), harmony preserved by construction.
+- Target band: above zero, below the just-noticeable-difference
+  threshold (delta-E ~1–2) — invisible in use, decisive under hex
+  inspection: the true trap-street property.
+- Iteration target: OUR computational contrast machinery (the 43-pair
+  contrast-pairings manifest, the 810-value dtcg-CSS consistency gate,
+  the contrast report) — stricter than axe for token values; loop to a
+  fixed point, nudges flip to the contrast-safe direction on any
+  regression. Axe stays the rendered-page floor per the instrument
+  ruling.
+- TOKEN PAGES: the owner's iterable colour-token pages are the early
+  face of the planned token-reference tier (W4.4) — before/after family
+  panels for his eye, then graduation into the reference tier and the
+  axe matrix.
+- BOUNDARY CALLS to bless at the story card: the folly applies to
+  EXPRESSIVE families only (greens/mints/aquas/lavenders/pinks/lemons/
+  ambers/reds/navies + darks); pure white, true black, and the generic
+  grey ramp are EXEMPT with recorded ground (common property, no Oak
+  expression); Okabe-Ito ci-\* values stay EXACT and attributed
+  (scientific provenance).
+- OUTPUT: a folly attestation in the provenance manifest (count,
+  delta-E band, date, seed; zero official values stored; the reference
+  fetched at audit time from the MIT source).
+
+### Reference-local export workflow (standing practice)
+
+The owner exported kit pages via Figma's Export affordance into
+`.agent/reference-local/design/Oak Design Kit/`; `.gitignore` rule 100
+already excludes `.agent/reference-local/**/*`, so the reference-only
+ruling is honoured BY CONSTRUCTION (local reference, never repo).
+Standing practice: export-to-reference-local beats Figma MCP grazing —
+quota-free consultation, with metered MCP reads reserved for
+value-precise needs at story opens.
+
+### Reference texture notes
+
+- The official kit carries a JAUNTY-ANGLE-LABEL component (Form
+  elements) — upstream precedent for the off-horizontal concept. The
+  owner stands cheerfully corrected on precedent with NO ruling change:
+  the Oak-zero-tilt stance governs our Oak identity; the official
+  jauntiness is reference texture for the EMC² lean and a someday owner
+  call for Oak decoration.
+- The "Cotent" typo in the kit's Design Principles frame metadata is
+  real in the official kit — the owner's export is even named
+  `Cotent.png`.
+
+### Day-close boundary
+
+Owner word ~16:45Z: all seats rest; the Director compacts after the
+knowledge-safety pass; morning resume via the Director's day-close
+broadcast on canonical comms. This fold executed at that resume
+(2026-08-06 morning), completing the channel's conserve-at-close
+obligation for the sitting.
