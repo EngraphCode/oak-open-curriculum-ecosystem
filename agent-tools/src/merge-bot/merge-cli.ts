@@ -162,8 +162,11 @@ async function pollUntilActionable(context: {
     // ONE clock read per poll, serving both the deadline and the verdict.
     const at = nowIso();
     // The parse-time budget counts only SLEEP; this is the wall clock, and it
-    // gates the round BEFORE a merge call can be fired inside it.
-    if (poll > 1 && deadlinePassed(at, context.run.deadline)) {
+    // gates the round BEFORE a merge call can be fired inside it — on EVERY
+    // iteration including the first (R5). A token can already be inside its
+    // margin at the moment the loop opens: minting is not instantaneous, and
+    // nothing bounds the gap between the mint and the first reading.
+    if (deadlinePassed(at, context.run.deadline)) {
       input.stderr.write(`merge-bot merge: ${deadlineMessage(at, context.run.deadline)}\n`);
       return 1;
     }

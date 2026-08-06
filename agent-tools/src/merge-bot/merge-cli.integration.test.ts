@@ -266,6 +266,25 @@ describe('runMergeBotCli merge', () => {
     expect(run.urls.filter((url) => url.endsWith('/pulls/42/merge'))).toHaveLength(0);
   });
 
+  it('applies the deadline on the FIRST iteration — a token already inside its margin never acts', async () => {
+    // R5: the margin check binds every iteration INCLUDING THE FIRST. A
+    // settled reading is supplied deliberately: the only thing standing
+    // between it and an irreversible merge PUT is the first-poll deadline
+    // check, so guarding it from poll 2 onwards left a token already inside
+    // its expiry margin free to merge on the reading it opened with.
+    const run = runMerge({
+      args: [...EXPECT_ARGS],
+      readings: [settledReading()],
+      overrides: { nowIsoImpl: () => '2026-08-06T09:56:00Z' },
+    });
+
+    expect(await run.exit).toBe(1);
+    expect(run.errText()).toContain('2026-08-06T09:55:00.000Z');
+    expect(run.urls.filter((url) => url.endsWith('/pulls/42/merge'))).toHaveLength(0);
+    // Not one sleep: the run stops before the loop ever comes round.
+    expect(run.sleeps).toEqual([]);
+  });
+
   it('refuses to poll at all when the minted token expiry is unparseable — no deadline, no merge call', async () => {
     const run = runMerge({
       args: [...EXPECT_ARGS],
