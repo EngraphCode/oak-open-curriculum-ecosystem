@@ -1,8 +1,8 @@
 import { err, ok, type Result } from '@oaknational/result';
 
 import { resolveTrustedGit } from '../core/trusted-git.js';
-import { realGitExecutor, type GitCommandResult, type GitExecutor } from './git-executor.js';
 import { clearedCredentialConfig, scrubbedCredentialEnv } from './git-credential-chain.js';
+import { realGitExecutor, type GitCommandResult, type GitExecutor } from './git-executor.js';
 import {
   realTokenFileStore,
   removeQuietly,

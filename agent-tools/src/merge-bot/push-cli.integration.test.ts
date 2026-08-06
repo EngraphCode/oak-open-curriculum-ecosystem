@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
 import { runMergeBotCli, type MergeBotCliInput } from './cli.js';
-import type { GithubApiFetch } from './mint-installation-token.js';
 import { GIT_CREDENTIAL_RESOLUTION_CHAIN } from './git-credential-chain.js';
 import type { GitCommandResult, GitExecutor } from './git-executor.js';
+import type { GithubApiFetch } from './mint-installation-token.js';
 import { pushHead, type TokenFileStore } from './push-git.js';
 
 import { generateKeyPairSync } from 'node:crypto';

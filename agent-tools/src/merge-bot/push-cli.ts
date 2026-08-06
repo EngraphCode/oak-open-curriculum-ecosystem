@@ -1,9 +1,9 @@
 import { ok, type Result } from '@oaknational/result';
 
+import type { GitExecutor } from './git-executor.js';
 import { mintForConfig, type MintSeams } from './mint-for-config.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import { parsePushArgs, PUSH_USAGE, type PushArgs } from './push-args.js';
-import type { GitExecutor } from './git-executor.js';
 import {
   currentBranch,
   pushHead,
