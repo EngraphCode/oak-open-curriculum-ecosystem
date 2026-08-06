@@ -171,3 +171,13 @@ section-field match on W0/W1/Direction/Goal/Quality-bar/Relationships/
 frontmatter). A sweep of the full 113-row corpus against this list is
 the cheap completeness check at re-review time — any row not named here
 and not in a pointer table is a genuine gap in this ledger.
+
+## Dated correction (2026-08-05, re-review round 1 — Saffron guards Hedgerow, 8a4280)
+
+The Coverage claim's "every OTHER D row" enumeration cites **D17**, which
+does not exist: `droppedAtCap_unverified` has 17 elements, valid indices
+**D0–D16** (D16 is separately ledgered in the EX40+D16 row). Off-by-one in
+the enumeration's tail; every genuine D row is independently accounted for
+— verified by the 2026-08-05 completeness sweep (113/113 rows, zero gaps)
+and the row-by-row ledger verification (57/57). Original text left as
+written per the file's dated-provenance discipline.

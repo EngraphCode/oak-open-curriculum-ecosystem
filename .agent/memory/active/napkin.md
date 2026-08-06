@@ -2131,6 +2131,20 @@ follow-up sweep, not blind PR wrappers).
   "what is this metadata trying to SAY?" before "how do I get around the
   check?".
 
+## 2026-08-03 ~08:45Z (Magnetar/74d914): upstream-spec-probe lane constraint (owner word, verbatim-critical)
+
+Owner, on the spec-alignment findings: "please be very careful before chasing
+any type issues, there are correct and non-trivial approaches here, and I
+will work with you to identify and apply them." BINDING on the lane: the
+type-layer legs (the z.toJSONSchema examples round-trip contract, the
+KeywordsResponseSchema promotion's generated types, anything in the zod/
+openapi-zod-client-adapter layer) are OWNER-COLLABORATIVE — identified and
+applied WITH him, never autonomously cured. The non-type legs (override
+re-evaluation needs the live-API semantics probe first; served-tool-table
+artefact regen) still wait for routing. The probe worktree
+(upstream-spec-probe, refreshed cache + regen uncommitted) is the lane's
+opening state; this constraint rides any routing brief VERBATIM.
+
 ## 2026-08-04T09:28Z (Birch/e48fe2): COMPACTION WRAP #3 — the day the instruments paid, and the claim-before-check pattern got its name
 
 ### The pattern, now with a mechanism (owner-prompted twice: "complexity spiralling", "reflect")
@@ -2629,3 +2643,37 @@ shredding `tmp/jim-posthog-setup-steps.md`; and the observability-debt ticket.
   bites any seat writing an incident report about a git hazard. Rewording prose is
   not bypassing a guard when there is no action to guard; `hook-policy-substring-discipline`
   owns the shape.
+
+## Carried unprocessed from PR #781's branch (merge-cure, 2026-08-06)
+
+The 2026-08-05 entry below rode only the audit branch and sat outside the
+2026-08-06 rotation's corpus (verified absent from both the archive and the
+rotated napkin at cure time, first-hand). Carried verbatim per the
+carried-unprocessed convention; the next consolidation pass processes it.
+
+## 2026-08-05 (Petrel/a0892f, Director): local-work audit day + memory graduation audit — operational learnings
+
+- **rev-parse without --verify bit TWICE in one day** (stale-checkout grep gave a false
+  "fabricated" verdict against a correct reviewer claim; branch-existence checks echoed
+  the ref name and read as DIVERGES). `git rev-parse --verify --quiet` or nothing. The
+  false verdict wrongly discredited Barney's ADR-163 collision finding — corrected in
+  the record same-day.
+- **Owner deletion pattern**: every `git branch -D` / `worktree remove` from the agent
+  side hit the permission prompt; the owner runs deletion blocks himself. Compose them
+  as paste-ready one-liners; don't retry denied deletes.
+- **Multi-ref push = one gate chain**: pushing N branches separately runs the full
+  pre-push estate chain N times (~3 min each); one `git push remote refA refB refC`
+  runs it once. The batch-loop failures that preceded this learning were never
+  root-caused (kept output, but overwrote per-iteration) — the corrected mechanic made
+  them moot.
+- **Zero-local-only audits must include no-upstream branches**: `%(upstream:track)`
+  filtering misses branches with no upstream configured entirely — enumerate ALL heads
+  and resolve `origin/<name>` with --verify per branch.
+- **Vendor-memory audit landed** (report + fleet JSON in .agent/reports/,
+  2026-08-05): 27 high-value unlanded learnings incl. one live repo defect (dangling
+  `linear-mcp-team-and-project-hygiene` pointer in ticket-management SKILL); 236 of 362
+  memory files unindexed in MEMORY.md (dark to sessions). Curator pass at reopening.
+- **Director seat assumed** (owner-designated, session renamed): a2286c53 adopted per
+  the Falcon->Magnetar record's own flip instruction; stale warden row adopted-then-
+  closed (n=1, no contention); design seat Saffron (8a4280) registered cold same hour —
+  n=2 mode active, wake by directed event.
