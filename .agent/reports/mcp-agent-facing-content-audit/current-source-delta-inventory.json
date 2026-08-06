@@ -66,13 +66,13 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/app/static-asset-paths.ts",
-      "semanticSha256": "75ec72e78389124bcb0f7e881e0ae45f8ce0e0df1b4e5f1ef035e9a77e842c03",
+      "semanticSha256": "bea3543c6ad3b1817fa11e8dbd2063fd41636580c5a5e4888f8c01f7b5b03d6d",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/app/static-content.ts",
-      "semanticSha256": "17ed6c9d1d12ef8bbd0b953c3a0b52213867066699100632b548962b1c055299",
+      "semanticSha256": "9542ba7291bc52484c37a4efb8833120b0769f2190e6cfa1ca00e71a025109b7",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -225,13 +225,13 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/design-system-refs.ts",
-      "semanticSha256": "db743e3bd9e6062ec741e3756133c91034bde439e85b3dc8369e92efe60308c3",
+      "semanticSha256": "b0a04c5a2aef2dc8295a5317e6f8cfc6448c2f5f91e12e00bd06bb3a5f3feb22",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/landing-page-document.tsx",
-      "semanticSha256": "7b911a1ae13a5a064e6d2c47dd50604240b4701a60993dd211dad68b0a392f8e",
+      "semanticSha256": "f758bca210a8ae72e596919393801b8762a75e1f250f82f63d1278629eb29579",
       "itemIds": [
         "C341",
         "C353"

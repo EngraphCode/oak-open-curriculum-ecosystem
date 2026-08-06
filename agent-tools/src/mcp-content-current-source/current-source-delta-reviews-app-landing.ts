@@ -16,11 +16,11 @@ import {
 export const APP_LANDING_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> = {
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/design-system-refs.ts':
     excluded(
-      'db743e3bd9e6062ec741e3756133c91034bde439e85b3dc8369e92efe60308c3',
+      'b0a04c5a2aef2dc8295a5317e6f8cfc6448c2f5f91e12e00bd06bb3a5f3feb22',
       IMPLEMENTATION_ONLY,
     ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/landing-page-document.tsx':
-    reviewed('7b911a1ae13a5a064e6d2c47dd50604240b4701a60993dd211dad68b0a392f8e', ['C341', 'C353']),
+    reviewed('f758bca210a8ae72e596919393801b8762a75e1f250f82f63d1278629eb29579', ['C341', 'C353']),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx': reviewed(
     'c797cf038730f25cdc0410d0cba0bd4cd94072832a4cf612214b4d09db669be8',
     ['C343', 'C344', 'C345', 'C346', 'C347', 'C348', 'C349', 'C350', 'C351', 'C352'],
