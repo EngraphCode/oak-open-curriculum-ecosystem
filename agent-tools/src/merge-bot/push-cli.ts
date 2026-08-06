@@ -3,12 +3,12 @@ import { ok, type Result } from '@oaknational/result';
 import { mintForConfig, type MintSeams } from './mint-for-config.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import { parsePushArgs, PUSH_USAGE, type PushArgs } from './push-args.js';
+import type { GitExecutor } from './git-executor.js';
 import {
   currentBranch,
   pushHead,
   resolveGitContext,
   type GitContext,
-  type GitExecutor,
   type TokenFileStore,
 } from './push-git.js';
 import {
@@ -99,7 +99,7 @@ function refuseTargetBranch(branch: string): string | undefined {
  * Identity, git, and the target branch — all of it BEFORE the mint, so a
  * refusal never mints a token it will not use.
  */
-function prepare(parsed: PushArgs, input: PushActionInput): Prepared {
+async function prepare(parsed: PushArgs, input: PushActionInput): Promise<Prepared> {
   const identity = resolveBotIdentity({}, input.identityInput);
   if (!identity.ok) {
     return { kind: 'failed', exit: 2, message: identity.error.message };
@@ -108,7 +108,7 @@ function prepare(parsed: PushArgs, input: PushActionInput): Prepared {
   if (!git.ok) {
     return { kind: 'failed', exit: 1, message: git.error.message };
   }
-  const branch = targetBranch(parsed, git.value, input);
+  const branch = await targetBranch(parsed, git.value, input);
   if (!branch.ok) {
     return { kind: 'failed', exit: 1, message: branch.error.message };
   }
@@ -123,10 +123,10 @@ function targetBranch(
   parsed: PushArgs,
   git: GitContext,
   input: PushActionInput,
-): Result<string, Error> {
+): Promise<Result<string, Error>> {
   return parsed.branch === undefined
     ? currentBranch(git, { cwd: input.repoRoot, env: input.baseEnv ?? process.env })
-    : ok(parsed.branch);
+    : Promise.resolve(ok(parsed.branch));
 }
 
 function writeRefusal(reason: string, json: boolean, input: PushActionInput): void {
@@ -163,7 +163,7 @@ export async function runPushAction(
     input.stderr.write(`merge-bot push: ${parsed.error.message}\n`);
     return 2;
   }
-  const prepared = prepare(parsed.value, input);
+  const prepared = await prepare(parsed.value, input);
   if (prepared.kind === 'failed') {
     input.stderr.write(`merge-bot push: ${prepared.message}\n`);
     return prepared.exit;
@@ -206,21 +206,29 @@ async function mintAndPush(
 }
 
 /** The transfer and its reporting, split from the mint for the size gate. */
-function transferAndReport(
+async function transferAndReport(
   prepared: Extract<Prepared, { kind: 'ready' }>,
   parsed: PushArgs,
   input: PushActionInput,
   token: string,
-): number {
+): Promise<number> {
   const { identity, git, branch } = prepared;
   const remote = `https://github.com/${identity.owner}/${identity.repoName}.git`;
-  const pushed = pushHead(git, {
+  const pushed = await pushHead(git, {
     remote,
     branch,
     cwd: input.repoRoot,
     token,
     baseEnv: input.baseEnv ?? process.env,
     tokenFiles: input.tokenFiles,
+    // git's transfer output — and the whole pre-push gate chain's underneath
+    // it — reaches the operator live, chunk by chunk, and is never held in a
+    // buffer this command sized (R1). The gates can talk for as long as they
+    // like; a run that goes minutes without a word is now the gates' silence
+    // to explain, not this command's.
+    onOutput: (chunk) => {
+      input.stderr.write(chunk);
+    },
   });
   // A failure to STAGE the credential file (full temp root, unwritable) is an
   // operational failure: no push was attempted.
@@ -229,8 +237,9 @@ function transferAndReport(
     return 1;
   }
   const result = pushed.value;
-  // git's transfer output is diagnostics on BOTH paths: stdout stays free for
-  // the outcome object a machine parses.
+  // The streaming executor keeps nothing back, so this forwards only what an
+  // executor chose to capture instead. Either way it is diagnostics and it
+  // goes to stderr: stdout stays free for the outcome object a machine parses.
   input.stderr.write(`${result.stdout}${result.stderr}`);
   if (result.status !== 0) {
     input.stderr.write(`merge-bot push: git push exited ${result.status}\n`);

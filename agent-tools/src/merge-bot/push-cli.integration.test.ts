@@ -3,12 +3,8 @@ import { describe, expect, it } from 'vitest';
 import { runMergeBotCli, type MergeBotCliInput } from './cli.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import { GIT_CREDENTIAL_RESOLUTION_CHAIN } from './git-credential-chain.js';
-import {
-  pushHead,
-  type GitCommandResult,
-  type GitExecutor,
-  type TokenFileStore,
-} from './push-git.js';
+import type { GitCommandResult, GitExecutor } from './git-executor.js';
+import { pushHead, type TokenFileStore } from './push-git.js';
 
 import { generateKeyPairSync } from 'node:crypto';
 
@@ -358,11 +354,14 @@ describe('merge-bot push credential discipline', () => {
     expect(run.errText()).not.toContain(TOKEN);
   });
 
-  it('removes the token directory even when the git seam throws in breach of its value contract', () => {
+  it('removes the token directory even when the git seam throws in breach of its value contract', async () => {
     const store = tokenStoreFake();
     const exec: GitExecutor = throwing('seam breach');
 
-    expect(() =>
+    // The seam is awaited, so a breach surfaces as a rejection; the token
+    // directory must be gone by the time it does — the `finally` runs on the
+    // settled call, never on a call still in flight.
+    await expect(
       pushHead(
         { file: GIT_PATH, exec },
         {
@@ -374,7 +373,7 @@ describe('merge-bot push credential discipline', () => {
           tokenFiles: store.store,
         },
       ),
-    ).toThrow('seam breach');
+    ).rejects.toThrow('seam breach');
     expect(store.removed).toEqual([STORE_DIR]);
   });
 

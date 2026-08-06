@@ -1,8 +1,7 @@
-import { spawnSync } from 'node:child_process';
-
 import { err, ok, type Result } from '@oaknational/result';
 
 import { resolveTrustedGit } from '../core/trusted-git.js';
+import { realGitExecutor, type GitCommandResult, type GitExecutor } from './git-executor.js';
 import { clearedCredentialConfig, scrubbedCredentialEnv } from './git-credential-chain.js';
 import {
   realTokenFileStore,
@@ -31,28 +30,6 @@ import {
 
 export type { TokenFileStore } from './push-token-file.js';
 
-/** The fields of a completed git invocation the push action reads. */
-export interface GitCommandResult {
-  /** The process exit status; negative when the binary could not be run at all. */
-  readonly status: number;
-  readonly stdout: string;
-  readonly stderr: string;
-}
-
-/**
- * The git seam, execFile-shaped and VALUE-returning (ADR-088): a non-zero
- * exit is a result to read, never a throw to catch. The real `child_process`
- * translation lives at one boundary, in {@link realGitExecutor}.
- */
-export type GitExecutor = (
-  file: string,
-  args: readonly string[],
-  options: {
-    readonly cwd: string;
-    readonly env: Readonly<Record<string, string | undefined>>;
-  },
-) => GitCommandResult;
-
 /** A resolved git binary plus the executor that runs it. */
 export interface GitContext {
   readonly file: string;
@@ -71,21 +48,6 @@ export interface GitContext {
  */
 const CREDENTIAL_HELPER =
   '!f() { echo username=x-access-token; echo "password=$(cat "$GH_PUSH_TOKEN_FILE")"; }; f';
-
-/** The real `child_process` translation, at exactly one boundary. */
-function realGitExecutor(): GitExecutor {
-  return (file, args, options) => {
-    const result = spawnSync(file, [...args], {
-      cwd: options.cwd,
-      env: { ...options.env },
-      encoding: 'utf8',
-    });
-    if (result.error !== undefined) {
-      return { status: -1, stdout: '', stderr: `cannot run git: ${result.error.message}` };
-    }
-    return { status: result.status ?? -1, stdout: result.stdout, stderr: result.stderr };
-  };
-}
 
 /**
  * The git binary by ABSOLUTE path (SonarCloud S4036) — `resolveTrustedGit`
@@ -149,12 +111,16 @@ function pushArgv(remote: string, branch: string): readonly string[] {
   ];
 }
 
-/** Ask git which branch HEAD is on — never inferred from the environment. */
-export function currentBranch(
+/**
+ * Ask git which branch HEAD is on — never inferred from the environment. No
+ * output sink: a branch name is output this tool controls, so capturing it is
+ * a fact about the call rather than an unexamined buffer.
+ */
+export async function currentBranch(
   git: GitContext,
   options: { readonly cwd: string; readonly env: Readonly<Record<string, string | undefined>> },
-): Result<string, Error> {
-  const result = git.exec(git.file, ['rev-parse', '--abbrev-ref', 'HEAD'], options);
+): Promise<Result<string, Error>> {
+  const result = await git.exec(git.file, ['rev-parse', '--abbrev-ref', 'HEAD'], options);
   if (result.status !== 0) {
     return err(
       new Error(
@@ -173,11 +139,15 @@ export function currentBranch(
  * file in a fresh private directory whose path rides the environment; the
  * directory is removed whatever the push's outcome — even a git seam that
  * throws in breach of its value-returning contract — so the token outlives
- * the transfer by nothing. That lifetime holds BECAUSE the seam is
- * synchronous: widening {@link GitExecutor} to return a Promise would remove
- * the file before git reads it.
+ * the transfer by nothing. That lifetime rests on the `finally` running only
+ * once the call has SETTLED: the awaited git call keeps the file on disk for
+ * exactly as long as git is reading it, and not one turn longer.
+ *
+ * The gate chain's output goes to `onOutput` as git produces it — never into
+ * a buffer this function holds (R1) — which is also why an operator watching
+ * a long gate run sees it progress instead of waiting in silence.
  */
-export function pushHead(
+export async function pushHead(
   git: GitContext,
   input: {
     readonly remote: string;
@@ -186,8 +156,9 @@ export function pushHead(
     readonly token: string;
     readonly baseEnv: Readonly<Record<string, string | undefined>>;
     readonly tokenFiles?: TokenFileStore;
+    readonly onOutput?: (chunk: string) => void;
   },
-): Result<GitCommandResult, Error> {
+): Promise<Result<GitCommandResult, Error>> {
   const store = input.tokenFiles ?? realTokenFileStore();
   const staged = stageTokenFile(store, input.token);
   if (!staged.ok) {
@@ -196,9 +167,10 @@ export function pushHead(
   let result: GitCommandResult;
   let warning: string | undefined;
   try {
-    result = git.exec(git.file, pushArgv(input.remote, input.branch), {
+    result = await git.exec(git.file, pushArgv(input.remote, input.branch), {
       cwd: input.cwd,
       env: pushEnv(staged.value.tokenPath, input.baseEnv),
+      ...(input.onOutput === undefined ? {} : { onOutput: input.onOutput }),
     });
   } finally {
     warning = removeQuietly(store, staged.value.dir);

@@ -8,7 +8,8 @@ import type { GithubApiFetch } from './mint-installation-token.js';
 import { mintForConfig, type MintedToken } from './mint-for-config.js';
 import { PUSH_USAGE } from './push-args.js';
 import { runPushAction, type PushActionInput } from './push-cli.js';
-import type { GitExecutor, TokenFileStore } from './push-git.js';
+import type { GitExecutor } from './git-executor.js';
+import type { TokenFileStore } from './push-git.js';
 import { resolveMintTokenConfig } from './resolve-config.js';
 import { permissionNamesFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
 
