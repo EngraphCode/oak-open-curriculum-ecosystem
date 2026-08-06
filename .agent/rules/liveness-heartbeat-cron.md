@@ -117,6 +117,18 @@ instance 2026-07-15: a Director seat read continuously live on the
 comms stream while its claim read stale for ~15 hours, peer-caught at
 succession). Neither surface alone is liveness: the comms stream is
 authoritative for intent, the registry check for age.
+
+**Both commands have REQUIRED arguments that the ellipsis above hides** — each
+fails loud, and arming the loop cost one seat two re-arms discovering them
+(2026-08-02, first-hand):
+
+- `comms send --tag heartbeat` requires the four typed state arguments
+  `--claim-id`, `--intent-id`, `--branch`, `--current-cycle-label`; the heartbeat
+  body is composed from them, so none is optional.
+- `claims heartbeat` requires an explicit `--now <iso>`. It has **no F-89-style
+  current-time default**, unlike `claims open` — the asymmetry between the two
+  commands is the trap.
+
 Platform-specific shapes:
 
 - **Claude Code**: the `Monitor` tool with `persistent: true` and a

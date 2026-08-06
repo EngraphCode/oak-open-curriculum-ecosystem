@@ -215,6 +215,46 @@ the sentence, observable to you as you write and to a reader as they read. Gate
 on the artefact the fluent claim omits, not on the feeling you hoped to notice.
 The smoother and more convenient the claim, the harder the citation is owed.
 
+## Name the Instrument
+
+The sibling of *Citation or Silence* one step over: that section gates a claim
+about **current state** on a source you read; this one gates a claim about **how
+something works, how big it is, or how bad it is** on the instrument that
+measured it.
+
+> Before a claim about a mechanism, a size, or a severity reaches a durable
+> surface or a colleague, **name the instrument that proved it.** If the answer
+> is "reasoning", it is not proven yet.
+
+Four points, each paid for in this estate:
+
+- **"I ran the command myself" is not the check.** First-hand is about whether
+  the evidence supports the claim, not about who ran the command — running it
+  makes interpretation *feel* like observation. The full failure shape, its seven
+  variants and its two-arm cure are the pattern
+  `observation-that-does-not-bear-on-the-claim`; the free arm is *ask whether
+  anything you already know contradicts the claim* before hunting for a test.
+- **Restore access rather than reasoning around its absence.** When the
+  authoritative surface (runtime logs, the code, the vendor doc) is unreadable,
+  say so and fix that first. Thirty seconds restoring an instrument beats thirty
+  minutes theorising without one — measured, on consecutive days, at one seat:
+  logs unreadable produced a thirty-minute wrong theory and a release cut on it;
+  every check reachable killed every wrong claim within minutes.
+- **This applies to bad news exactly as to good.** Unmeasured estimates skew
+  **pessimistic**, because a summary is cheaper than the thing and drops the
+  reasons something might be fine — hunk headers instead of a real merge, an
+  isolated repro instead of the real invocation, a bulk listing instead of a
+  per-item query. A reviewer who raises three false alarms is a reviewer whose
+  fourth finding gets discounted.
+- **Cost, not correctness, decides whether a check runs.** A check that exists
+  but costs "remember at the right moment" is not a mechanism. The design
+  consequence — make falsification cheap and make its absence loud — is the
+  pattern `falsification-cost-determines-claim-quality`.
+
+The personal form, at the moment of wanting to assert: not *"am I confident?"*
+but **"what is the cheapest thing that would prove me wrong, and have I run
+it?"**
+
 ## Claims Crossing Boundaries Carry Their Derivation
 
 The transmitting-side dual of `patterns/referent-narrowing.md` (which governs

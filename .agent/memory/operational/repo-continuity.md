@@ -405,60 +405,35 @@ F-41 CLI tail).
    NEXT: merge the branch PR, then the Phase 0 restart on a NEW BRANCH** (revision queue +
    landing set) — see the §Current State corpus-generalisation entry; the self-contained
    restart brief is the AEE thread record §PHASE 0.
-0a. **Deep consolidation status: COMPLETE 2026-07-30 (Ingot tracks Slag,
-   be4ac9, owner-named dedicated pass on `coordination/estate-2026-07-30-c`;
-   n=2 with Director Falcon hunts Flight, cold-paused mid-pass).** The
-   5,333-line napkin (the heaviest recorded fleet-traffic week, ~15 seats)
-   fully processed bottom-up and rotated (`archive/napkin-2026-07-30.md`,
-   cmp-proven); all raw sources swept FIRST per the owner's ordering (46
-   experience letters read whole; 177 tagged comms events; four platform
-   memories; ~140 handoff records risk-sampled; non-repo plans; conversations
-   / escalations / practice box). `distilled.md` drained empty (both entries
-   graduated on their own routing); `pending-graduations` holds only 2
-   trigger-gated entries; `open-questions` empty. Headline graduations: the
-   referent/derivation synthesis (verify-dont-trust §Claims Crossing
-   Boundaries + referent-narrowing transmitting-dual), the
-   frame-free-absolutes pattern, the PDR-063 amendment bundle (assumption
-   ledger, claim-class decay, wrap-grade handovers, warm/cold vocabulary —
-   discharges the ratification-ledger residual), pr-lifecycle read-mechanics
-   and cure-is-a-claim, liveness reading calibrations, exit-codes propagation
-   idiom, identifier-integrity (validators-recompute), analysability-is-part-
-   of-correctness (development-practice), harnesses-adapt (testing-strategy),
-   offer-with-costless-decline (agent-collaboration), instrument-strata
-   (invoke-code-experts), recognition-speed value model (passive-guidance),
-   recurrence-evidence ledger (action-time design-space plan), both gotchas
-   homes extended, MCP-446/447 minted from the 2026-07-26 config-expert
-   latent findings the napkin carried for triage. **Residuals (named,
-   routed):** the comms archive-move for ~7,600 post-07-23 events (extraction
-   complete via this rotation; the move runs at the next pass with the
-   watermark + provenance gates fresh — the curator-disposition input-channel
-   tooling gap rides the storage-redesign lane unchanged);
-   `director-handoff.md` block-by-block curation stays Director-routed. Next
-   deep consolidation fires on the ordinary triggers, not inherited debt.
-   Prior passes (each pass's record is its archive + commits): 2026-07-26
-   (Magnetar guards Perigee), 2026-07-23 (Magma mends Sulphur), 2026-07-20
-   (Siren lifts Trench), 2026-07-14 (Dolphin weaves Reef — PDR-127/128),
-   2026-07-08 (Corsair guards Channel), 2026-07-06 (Zenith wakes Perigee),
-   2026-07-02 (Rosemary stirs Bracken).
-0b. **Comms-corpus full-journey knowledge-transfer run: COMPLETE 2026-07-31
-   (Ingot tracks Slag, be4ac9).** Every phase discharged and verified: the
-   knowledge merged to main via PR 668 (`103af40ea`), the closing record via
-   PR 670; P5 spend executed per owner cards (4,879 events deleted through
-   2026-07-28T15:18:57Z, zero fingerprint hits, 3,592 retained in the live
-   3-day window — this DISCHARGES §0a's comms archive-move residual); P7
-   cold-reader probe 30/30 zero misses. The completed plan
-   (`plans-backlog-2026-07/agentic-engineering-enhancements/current/comms-corpus-full-journey-knowledge-transfer.plan.md`)
-   carries the full phase evidence and the keep-set recipe; the discovery
-   report
-   (`reports/agentic-engineering/comms-corpus-knowledge-transfer/discovery-report-2026-07-31.md`)
-   is the permanent run record (census, pipeline, five-class ontology +
-   accepted critique, tiered-sight articulation, spend/probe records).
-   Successor bounds, stated: comms events younger than the 3-day window were
-   NOT processed by this run (they are the live stream); the plan's
-   archive-move from `current/` is the next curation pass's routine act; the
-   §Future doctrine seed (tiered-sight / multi-machine PDR candidate) is on
-   the Director's map with the seven routed doctrine seeds (estate ARC,
-   2026-07-31T13:47Z).
+0a. **Deep-consolidation carried work (the only part a next curator needs).** The
+   ordinary triggers govern when the next pass fires; there is no inherited debt
+   beyond these named items:
+   - **Comms-event rotation (`consolidate-docs` step 3a) has not been run since
+     2026-07-31.** Extraction is complete through the 2026-08-06 pass, so the
+     outstanding act is the class-tiered archive-move itself, which must run with
+     the watermark and provenance gates fresh — never blind. Events younger than
+     their class window are the live coordination stream and are never moved. The
+     curator-disposition input-channel tooling gap rides the
+     comms-watch-storage-redesign lane.
+   - **`director-handoff.md` curation is outstanding and is its own bounded
+     sitting** (not a slice of a napkin pass). The file is ~1,430 lines and far
+     past critical on every axis, which is a routing signal and never a licence to
+     trim it. The work has a specific shape: its durable role doctrine has already
+     graduated to PDR-117, so what remains is a stack of superseded `CURRENT
+     HANDOFF STATE` blocks whose lane and roster state is explicitly historical but
+     which carry ~42 numbered owner rulings marked binding. Each ruling needs a
+     homed-or-not check before its block can drain — draining first would lose
+     binding owner words, which is why fitness pressure must not drive it. A
+     successor can size the work by checking rulings 1–42 against their homes.
+   - **The tiered-sight / multi-machine PDR candidate** (machine-local vs
+     repo-bound state classes; the nothing-load-bearing-on-one-machine invariant;
+     the standing pipeline replacing one-off rescue) is a doctrine seed on the
+     Director's map, reconciling with PDR-094 / ADR-199 rather than duplicating
+     them. Its substance is the comms-corpus discovery report §Tiered sight.
+   - **Directive-file graduations** wait on a session with headroom under
+     `directive-file-context-budget` (below 30% context); the two settled items and
+     their homes are rows in `pending-graduations.md`.
+
 2. The relative-link integrity item is accepted as a future validator lane, not
    implemented tooling; promote the plan only on its recorded trigger.
 2a. `agent-collaboration.md` is hard-over on lines (380/360) after the injected-asymmetry doctrine
