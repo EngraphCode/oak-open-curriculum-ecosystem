@@ -2119,7 +2119,7 @@
       {
         "memory": "generality-depth-gradient.md",
         "verdict": "partial",
-        "evidence": "The concrete OUTPUTS of the principle are present and gate-exercised: the 4-theme matrix (light/dark/high-contrast/colour-safe) in docs/governance/design-token-practice.md and .agent/skills/design-system-usage/SKILL-CANONICAL.md; the Freedonia/EMC counter-identities exist in the design system per ADR-213.",
+        "evidence": "The concrete OUTPUTS of the principle are present and gate-exercised: the 4-theme matrix (light/dark/high-contrast/colour-safe) in docs/governance/design-token-practice.md and .agent/skills/design-system-usage/SKILL-CANONICAL.md; the two counter-identities exist in the design system per ADR-213.",
         "gap": "The general ARTICULATED philosophy — \"the deeper the layer, the more general it must be\", investment-bar rising with depth, counter-instances as falsifiers against generality-by-assertion, and the constraint-surface corollary linking generality to the licensing-minimalism ruling — is not written down anywhere as a standalone principle; it exists only as scattered concrete instances, not as the load-bearing rationale the memory names it as.",
         "suggested_home": ".agent/directives/principles.md",
         "graduation_value": "high"
