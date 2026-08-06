@@ -338,6 +338,114 @@ round via the-codex-dialogues before the rewrite executes; any
 findings route as amendment proposals under the anti-erosion taxonomy,
 never as silent edits to this ratified base.
 
+## The Sol-max round (dlg-20260806-solm, the-codex-dialogues)
+
+Owner-ordered final adversarial round on the RATIFIED mandate at
+maximum reasoning effort (`gpt-5.6-sol`, `model_reasoning_effort=max`
+bound at the ambient Codex config layer — dialogue calls stayed
+disciplined, no per-call authority parameters; codex-cli 0.146.1,
+re-pinned the same day via the probe's candidate mode). Three
+exchanges; closed at stabilisation.
+
+Pre-registered prior: the mandate is execution-ready; remaining risks
+are execution-time, not structural; confidence HIGH. Verdict on the
+prior: REFUTED on structure — two of the adopted cures are semantic
+amendments, not additions.
+
+**The six findings and their adjudicated dispositions:**
+
+1. **Binding-status contradiction** (wow inside a blocking excellence
+   slab's rubric AND in the non-floor register). Cure: ROW CLASSING —
+   rubric-v0 rows are classed BLOCKING-FLOOR (the must-fail degraded
+   classes: templated output, structural dishonesty, contrast
+   failures) or RECORDED-ASPIRATION (scored at named moments, never
+   blocking); wow appears only in aspiration rows, so the register
+   entry stays true. The acceptance question for uncovered surfaces is
+   itself a classed blocking meta-row (it becomes the
+   KNOWN-CLASSIFICATION conjunct below), never a side channel. Claim
+   language narrows to "absence of specified degradation", never
+   "visual excellence achieved".
+2. **Unbound quantifiers — closure protects only named sets** (the
+   round's best finding). Cure: universe-level closure. The
+   conformance predicate is REPLACED:
+   `MEETS-FLOOR(s,v) ≔ KNOWN-CLASSIFICATION(s,v) ∧ ∀R[(blocking(R,v) ∧
+   applicable(R,s,v)) ⇒ green(R,s,v)]` — classification is a SET of
+   classes (route, artefact, modality, identity, state, adaptation),
+   the coverage registry is enumerated MECHANICALLY from build output,
+   and an unregistered class fails CI by construction. A registered
+   absence NEVER satisfies MEETS-FLOOR — it can only support a
+   separate owner-authorised RELEASE-PERMITTED predicate (the
+   non-floor register is thereby not an escape hatch through the
+   floor). Adaptation honesty composes with the accessibility slab's
+   REQUIRED-adaptation set (declare-none fails the required-set leg);
+   "declared" includes UI claims, documentation, token names, and
+   system-preference hooks.
+3. **Oracle independence.** The witness can certify its own shared
+   mistake; the missing external sensor makes the floor an
+   internal-conformance floor until cured. Adopted: a WITNESS-LEVEL
+   DEFEATER — `DEFEATS(o,w)` fires on contradicts-guarantee OR
+   exposes-coverage-gap (row mapping is subsequent diagnosis, never a
+   precondition); severe credible field observations trigger
+   PROVISIONAL SUSPENSION before reproducibility is established.
+   Until the intake channel exists, claim language scopes to internal
+   conformance.
+4. **Row-wise truth does not compose.** Endpoint fixtures cannot see
+   path-dependent interactions (Sol's escape instance: an identity
+   switch after nested content scopes are established leaves an
+   A-derived footer token only when pagination occurs). Adopted: a
+   METAMORPHIC OBLIGATION — declare the important transformations
+   (identity switch, pagination, adaptation toggling, content-scope
+   nesting) and test that guarantees survive their composition and
+   orderings; intersection fixtures are evidence within that strategy,
+   not the strategy.
+5. **Agent-composition guarantee.** Existential passes are not a
+   guarantee (population semantics: N runs × M pinned models, a
+   repetition rule, a lower-bound statistic), and gate-passing proves
+   gate learnability, not brief fitness. Adopted:
+   `G(p) ∧ SATISFIES-BRIEF(p, brief)` via KNOWN-ANSWER BRIEFS (the
+   estate's existing known-answer-first pattern); until built, the
+   guarantee is honestly renamed GATE-SYNTAX SUFFICIENCY.
+6. **Witness validity.** A pinned witness has no validity lease and a
+   commit does not identify a released object. Adopted:
+   `LIVE(w,t) ≔ artifact-digest-matches(w) ∧ context-current(w,t) ∧
+   t < expiry(w) ∧ ¬DEFEATED(w)`; context sensors must prove they ran
+   at lease renewal.
+
+**The structural classification (Sol forced; the seat conceded):** the
+MEETS-FLOOR replacement and witness defeasibility (evidence immutable,
+current status defeasible) are SEMANTIC amendments — v2 floor
+semantics requiring owner ratification under the mandate's own
+versioning discipline. The slab taxonomy, value door, authority model,
+and blocking set stand unmodified.
+
+**The agreed staging shape (proportionality round):** v2-IMMEDIATE =
+row classing, KNOWN-CLASSIFICATION, the MEETS-FLOOR/RELEASE-PERMITTED
+split, and defeasible LIVE status including artefact-digest binding
+and manual severe-evidence suspension. STAGEABLE behind fail-closed
+absent-instrument register entries with correspondingly narrowed
+claims = full metamorphic coverage (claims stop at covered row-level
+conformance), automated context sensors (claims stop at pinned-context
+attestation), agent-population statistics (claims stop at gate-syntax
+demonstration).
+
+**Codex final position, verbatim:** "I accept the staging shape with
+one correction: v2 must immediately bind row classing,
+`KNOWN-CLASSIFICATION`, the `MEETS-FLOOR`/`RELEASE-PERMITTED` split,
+and defeasible `LIVE` status—including artefact-digest binding and
+manual severe-evidence suspension—otherwise a mismatched release or
+known field harm can retain current-conformance status. Full
+metamorphic coverage, automated context sensors, and agent-population
+statistics are stageable behind fail-closed absent-instrument entries
+only while claims stop respectively at covered row-level conformance,
+pinned-context attestation, and gate-syntax demonstration; under that
+sequencing, the v2 mandate is structurally coherent and the remaining
+risks are execution-time."
+
+**Owner item from this round:** ratify the v2 semantic amendments
+(carded at occurrence). At the owner's word, the design seat's rewrite
+incorporates v2 semantics and the staged items land in the coverage
+registry as named absent instruments.
+
 ## Execution
 
 At the owner's ratification of this shaping, the design seat (at wake)
