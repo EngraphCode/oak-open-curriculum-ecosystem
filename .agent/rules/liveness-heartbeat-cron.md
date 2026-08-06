@@ -124,10 +124,28 @@ fails loud, and arming the loop cost one seat two re-arms discovering them
 
 - `comms send --tag heartbeat` requires the four typed state arguments
   `--claim-id`, `--intent-id`, `--branch`, `--current-cycle-label`; the heartbeat
-  body is composed from them, so none is optional.
+  body is composed from them, so none is optional. It **also requires `--title`**,
+  which the heartbeat-mode help text does not list among the mode's requirements
+  (2026-08-06, first-hand: a third re-arm).
 - `claims heartbeat` requires an explicit `--now <iso>`. It has **no F-89-style
   current-time default**, unlike `claims open` — the asymmetry between the two
   commands is the trap.
+- `claims heartbeat` takes **ONLY** `--active`, `--claim-id`, `--now`. It
+  **REJECTS `--platform` and `--model`** (exit 2, `unknown option`), unlike every
+  sibling `claims`/`comms` command that requires them. So the ellipsis cuts BOTH
+  ways: it hides required arguments on one command and forbidden ones on the
+  other, and filling it by analogy with the siblings is the failure (2026-08-06,
+  first-hand: a Director loop whose comms leg ran green while its registry leg
+  failed every tick — the F-92 shape the loop exists to prevent, caught only
+  because the loop emitted its failures instead of swallowing them).
+
+**Make the loop emit its own failures.** A heartbeat loop that swallows stderr on
+both legs cannot report a half-dead heartbeat: the comms stream reads live while
+the registry silently staleness-expires. The canonical invocation's `|| echo` on
+each leg is load-bearing, not decoration — it is what turns F-92 from a
+succession-time discovery into a first-tick one. After arming, RECOMPUTE the
+result rather than trusting the exit code: read `heartbeat_at` back off the claim
+row and confirm it advanced.
 
 Platform-specific shapes:
 

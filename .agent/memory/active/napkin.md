@@ -322,3 +322,23 @@ to the next dedicated consolidation rather than patching the word list.
   resolves it confidently either way. What made the union safe was proving the DRAIN
   lossless first (`cmp` of the archive's head against the pre-rotation file) — after that
   the rotation could stand and only the un-homed appends needed carrying.
+
+## Session: 2026-08-06 — MCP-143 cascade review
+
+### Patterns to Remember
+
+- PR readiness in a stack was determined by current head binding, unresolved review state,
+  conflict state, and explicit gates rather than draft status: #761 was non-draft but
+  unchanged since a blocking review and conflicting with #759, while draft #772 was correctly
+  excluded from approval.
+
+### Surprise
+
+- **Expected**: Bash ANSI-C quoting (`$'...'`) would safely carry a multiline GitHub review
+  body to `gh pr review`.
+- **Actual**: the shell-security detector rejected the benign command as a dangerous expansion
+  pattern.
+- **Why expectation failed**: the detector conservatively classifies that expansion syntax,
+  independent of the quoted content.
+- **Behaviour change**: pipe literal single-quoted `printf` lines to `--body-file -` for
+  multiline GitHub review bodies; this passed without weakening shell safety.
