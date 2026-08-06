@@ -243,8 +243,17 @@ stdout only (expiry to stderr) so command substitution never leaks extras.
 that output is as sensitive as the token itself and must not be pasted
 anywhere the plain form would be safe.
 
-Tokens belong in the environment, never in a URL. Pushes use a
-credential-helper that reads `GH_TOKEN` (see
-[`bot-identity-on-third-party-systems`](../../.agent/rules/bot-identity-on-third-party-systems.md)) —
-a token baked into a remote URL is visible in the process list to anything
-that can read it.
+Tokens belong in the environment, never in a URL — a token baked into a
+remote URL is visible in the process list to anything that can read it.
+The front-door push carries this discipline as behaviour:
+
+```bash
+pnpm agent-tools merge-bot push
+```
+
+It mints its own token, resolves the current branch from git itself, and
+hands the transfer to the git binary with a static credential helper
+reading the token from the child environment only — never argv, no force
+flags, no `--no-verify`, and pushes to the default branch refuse by name
+(see
+[`bot-identity-on-third-party-systems`](../../.agent/rules/bot-identity-on-third-party-systems.md)).

@@ -23,9 +23,13 @@ import { permissionNamesFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
  * pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>
  * ```
  *
+ * `merge-bot push` pushes the invoking worktree's HEAD under the bot
+ * identity — token in the child environment only, no force, no
+ * `--no-verify`, default-branch targets refused by name.
+ *
  * `merge-bot mint-token` prints a short-lived GitHub App installation token
- * to stdout (and nothing else there), for the OTHER bot writes (pushes,
- * gh pr create/edit, comments, review replies, thread resolution,
+ * to stdout (and nothing else there), for the OTHER bot writes
+ * (gh pr create/edit, comments, review replies, thread resolution,
  * update-branch). Assign it, then use it — never the `GH_TOKEN=$(…) gh …`
  * prefix form, which cannot fail fast: a failing mint leaves `GH_TOKEN`
  * empty, `gh` reads empty as UNSET, and the command runs as the signed-in
