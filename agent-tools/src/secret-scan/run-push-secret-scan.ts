@@ -14,7 +14,7 @@ import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-import { computePushScanRanges } from './compute-push-scan-ranges.js';
+import { computePushScanRanges, degradedScanWarning } from './compute-push-scan-ranges.js';
 
 export interface PushSecretScanArgs {
   remoteName: string;
@@ -57,16 +57,26 @@ export function parseArgs(
 /**
  * Run `scanRange` over each computed range. `scanRange` returns true when a
  * range is clean, false when gitleaks reports a leak or fails to run. Pure
- * orchestration over an injected scanner.
+ * orchestration over an injected scanner and an injected warning sink.
+ *
+ * A scan that has lost its incremental range is announced through `warn`
+ * BEFORE the first range runs (R6) — after the walk, an operator has already
+ * spent the minutes the warning exists to explain.
  *
  * @returns the process exit code: 0 when every range is clean, 1 otherwise.
  */
 export function runPushSecretScan(
   args: PushSecretScanArgs,
   scanRange: (range: string) => boolean,
+  warn: (message: string) => void,
 ): number {
+  const ranges = computePushScanRanges(args);
+  const degraded = degradedScanWarning(ranges, args);
+  if (degraded !== undefined) {
+    warn(degraded);
+  }
   let allClean = true;
-  for (const range of computePushScanRanges(args)) {
+  for (const range of ranges) {
     if (!scanRange(range)) {
       allClean = false;
     }
@@ -99,5 +109,7 @@ function scanRangeWithGitleaks(range: string): boolean {
 const currentFilePath = fileURLToPath(import.meta.url);
 if (process.argv[1] === currentFilePath) {
   const args = parseArgs(process.argv.slice(2), (path) => readFileSync(path, 'utf8'));
-  process.exit(runPushSecretScan(args, scanRangeWithGitleaks));
+  process.exit(
+    runPushSecretScan(args, scanRangeWithGitleaks, (message) => process.stderr.write(message)),
+  );
 }

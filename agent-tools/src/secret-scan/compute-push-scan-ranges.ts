@@ -19,6 +19,14 @@
  */
 const isZeroObjectId = (objectId: string): boolean => /^0+$/.test(objectId);
 
+/**
+ * The UNSCOPED exclusion set — "not reachable from any remote-tracking ref".
+ * Every incremental range is scoped to one destination remote
+ * (`--not --remotes=<name>`); this bare form is the fallback, and it walks a
+ * superset of history whose size is bounded by nothing.
+ */
+const UNSCOPED_EXCLUSION = '--not --remotes';
+
 export interface ComputePushScanRangesInput {
   /**
    * Raw `pre-push` stdin: newline-separated
@@ -50,13 +58,13 @@ export function computePushScanRanges({
   // Fall back to scanning local commits not yet on any remote. A push that
   // supplies ref lines but scans nothing (all deletions) must NOT reach here.
   if (refLines.length === 0) {
-    return ['HEAD --not --remotes'];
+    return [`HEAD ${UNSCOPED_EXCLUSION}`];
   }
 
   // Exclude commits already on the DESTINATION remote, scoped by its name, so a
   // first push of existing commits to a *second* remote still scans them. Fall
   // back to all remotes when the destination is an unnamed URL.
-  const notAlreadyPushed = remoteName ? `--not --remotes=${remoteName}` : '--not --remotes';
+  const notAlreadyPushed = remoteName ? `--not --remotes=${remoteName}` : UNSCOPED_EXCLUSION;
 
   const ranges: string[] = [];
   for (const refLine of refLines) {
@@ -76,4 +84,40 @@ export function computePushScanRanges({
     );
   }
   return ranges;
+}
+
+/**
+ * The loud half of the degradation (R6): this scan exists to walk only the
+ * commits being pushed, and two inputs cost it that guarantee — a destination
+ * given as a bare URL (no remote name, so no remote-tracking refs to scope
+ * against) and a run git supplied no ref lines for. Either way the walk widens
+ * to a full-history superset, correct but unbounded: measured at 5,009 commits
+ * on this repository, with nothing on either stream to say so.
+ *
+ * Derived from the ranges the caller is ACTUALLY about to scan, never from a
+ * second reading of the inputs: a parallel re-derivation is free to drift out
+ * of agreement with the thing it describes.
+ *
+ * @returns the warning to surface, or undefined when every range stayed
+ * incremental.
+ */
+export function degradedScanWarning(
+  ranges: readonly string[],
+  { remoteName }: ComputePushScanRangesInput,
+): string | undefined {
+  if (!ranges.some((range) => range.endsWith(UNSCOPED_EXCLUSION))) {
+    return undefined;
+  }
+  const cause =
+    remoteName === ''
+      ? 'the push destination is a bare URL, so there is no named remote whose tracking refs could bound the scan'
+      : 'git supplied no ref lines, so there is no pushed range to scan';
+  return (
+    `secret scan: DEGRADED — scanning full history, not just the pushed commits.\n` +
+    `  Cause: ${cause}.\n` +
+    `  Effect: the walk covers every commit not reachable from any remote (thousands, ` +
+    `not tens) and takes correspondingly longer. Results stay correct.\n` +
+    `  Fix: push to a NAMED remote (git remote add / git push <name>) to restore the ` +
+    `incremental range.\n`
+  );
 }
