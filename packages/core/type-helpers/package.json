@@ -25,7 +25,8 @@
     "lint:fix": "eslint --fix .",
     "type-check": "tsc -p tsconfig.lint.json --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "mutate": "stryker run"
   },
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",
