@@ -1,3 +1,11 @@
+## [1.152.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.152.2...v1.152.3) (2026-08-06)
+
+
+### Bug Fixes
+
+* **plugin:** name the plugin Oak National Academy, per the submission doc ([d68e9ca](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d68e9cacd7f5b397ee01a38bba38cf0fb178fdf8))
+* **plugin:** point the shipped MCP binding at the production endpoint ([a460d0a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a460d0ab1d4f64c071bd6ff66cc8c70c5ce56592))
+
 ## [1.152.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.152.1...v1.152.2) (2026-08-06)
 
 
