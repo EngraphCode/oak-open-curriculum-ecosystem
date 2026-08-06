@@ -24,12 +24,19 @@ export const APP_LANDING_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
   // C341 (page title) and C353 (app-version meta) are unchanged.
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/landing-page-document.tsx':
     reviewed('df935e7db27b730c57fbb55bed5a802dc0e9cbbfcd2d085c8e4385f1697b84dc', ['C341', 'C353']),
-  // MCP-511: the OAuth link's href moved from the unqualified well-known path
-  // to the derived path-qualified metadata URL. A destination address, not
-  // agent-facing or user-facing TEXT — every cited item's wording is
-  // unchanged, including the link's own label ("OAuth 2.1 authorisation").
+  // MCP-516: two access claims were restated because Clerk moved to production
+  // and sign-in is open to anyone with an Oak account. C343's status tag reads
+  // "Public Beta" (was "Invite Only Private Beta") and C349's sentence names
+  // the account rather than an invitation. Both are owner-authored wordings
+  // replacing statements that had become false; the dispositions are unchanged
+  // and the anchors are re-pointed at the new verbatim text.
+  //
+  // MCP-511 (still current): the OAuth link's href moved from the unqualified
+  // well-known path to the derived path-qualified metadata URL. A destination
+  // address, not agent-facing or user-facing TEXT — the link's own label
+  // ("OAuth 2.1 authorisation") is unchanged.
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx': reviewed(
-    '3799bfc7326ac9cd4a7f54ed7aca7ed4418c33d5f0450f2c2df1ba55042380be',
+    '19ba0a42e7631c9d40ec08a8ca35bf2c8162ff89b50eb6ce5a4366b07e2c665d',
     ['C343', 'C344', 'C345', 'C346', 'C347', 'C348', 'C349', 'C350', 'C351', 'C352'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/resources-section.tsx':
