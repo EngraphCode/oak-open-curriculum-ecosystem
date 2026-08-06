@@ -480,3 +480,55 @@ to the next dedicated consolidation rather than patching the word list.
   being closed — the closure act could emit a directed/broadcast
   signal so a parallel wrap attributes it correctly. Rides the
   handoff-CLI commission's scope.
+
+## 2026-08-06 MCP-517/518 adversarial fleet assessment (Baobab turns Seedling, 66aee6)
+
+- Ran the owner-specified 23-seat review (10 haiku-high / 4 sonnet-med / 2 opus-med / 1 fable-low
+  adversaries + 6 opus-high vendor-doc verifiers) over the Clerk wrong-domain-handshake diagnosis
+  and shim fix. Verdict after critical assessment: root cause and fix CONFIRMED and UPGRADED —
+  Clerk's own "Deploy a Clerk app behind a proxy" guide mandates forwarding exactly
+  `X-Forwarded-Host` + `X-Forwarded-Proto`, so the shim implements the vendor contract app-side
+  (the proxy chain cannot: Cloudflare must rewrite Host for Vercel routing; Vercel's edge
+  overwrites inbound x-forwarded-host — now DOC-confirmed, not just probe-inferred).
+- New trigger folded into MCP-517: `shouldForceHandshakeForCrossDomain` (Clerk source) forces a
+  handshake on VALID sessions when the document GET's Referer is cross-origin to the PERCEIVED
+  origin — with perceived=alpha, every same-site www navigation onto /mcp handshakes → 422. The
+  bug was near-deterministic for signed-in users, not a 60s-expiry race.
+- Mechanics corrections: production handshake return delivers payload as a COOKIE on the FAPI 307
+  (no `__clerk_handshake` query param, no clean-URL second redirect — dev-instance-only
+  behaviours); redirect-loop bound is strict `=== 3`. Vercel's Node launcher derives the
+  Express-visible Host FROM x-forwarded-host, so any platform-level header transform would
+  corrupt Host and defeat the DNS-rebinding guard — in-app middleware is the ONLY placement
+  honouring never-touch-Host.
+- MCP-518 minted (owner ruling: page fully public; auth contract is per-surface; surface fork
+  `selectsHtmlLeg` currently mounts AFTER the global Clerk conditional). MCP spec 2026-07-28 (a
+  revision the estate had not yet absorbed): GET SSE stream endpoint REMOVED from Streamable
+  HTTP; `Mcp-Method`/`Mcp-Name` REQUIRED on MCP POSTs; normative "MCP Servers MUST NOT use
+  sessions for authentication".
+- Fleet-ops lessons, first-hand: (1) Workflow `args` reached the script as a STRING — my
+  invocation encoded the object as a JSON literal that arrived stringified — so `${args.briefPath}`
+  interpolated "undefined" into every prompt; strong seats self-recovered by SEARCHING for the
+  brief (scratchpad/napkin), three seats honestly self-voided (their brief-dependent conclusions
+  discarded at assessment). Verify interpolated values appear in at least one prompt before
+  fan-out. (2) Haiku-high seats confabulated context under ambiguity (invented a PR, misread bake
+  vs runtime) — their findings need line-item verification before acceptance; the confirmed-tier
+  labels from haiku are not trustworthy on their own. (3) Opus-high doc verifiers were the
+  highest-yield seats per token: two claim REFUTATIONS and the vendor-guide upgrade all came from
+  them.
+- deriveSelfOrigin normalisation inconsistency (validates lowercased/port-stripped hostname,
+  returns origin from raw Host) — latent hygiene defect, routed as candidate small ticket, NOT
+  absorbed into MCP-517.
+
+## 2026-08-06T16:53Z (Petrel holds Turbulence, a0892f) — unregistered peer finding received
+
+- A teammate idle-notification from a seat self-named "counterpoint" (timestamped
+  2026-08-06T09:01Z, delivered ~16:50Z) carried three design-floor review claims:
+  Axis 2 precedent fails on inspection; the a11y candidate binds the proxy, not
+  the property; a consistency proof is owed before convergence. At receipt the
+  name matched NOTHING on the estate (active-claims.json, comms events, channels
+  — searched first-hand). Conserved here unverified and attributed as received;
+  routed into the design-wake payload for verification inside the combined cure
+  window (adjudication a729c466 lineage). Directed reply sent asking for PDR-027
+  identity and the findings' durable home; design-lane convergence hold restated
+  (owner-gated wake). Verification of the claims themselves is NOT this entry —
+  the wake-window seat runs it.
