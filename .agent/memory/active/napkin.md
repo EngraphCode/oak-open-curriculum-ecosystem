@@ -370,3 +370,37 @@ to the next dedicated consolidation rather than patching the word list.
   submission process". Different meanings, both legitimate — a seat
   reading one lane's label through the other's vocabulary should not
   flag it as inconsistency.
+- FAILURE MODE (own seat, caught by owner question 2026-08-06 ~12:55Z):
+  merged PR #795 WITHOUT reading Copilot's review-submission BODY for
+  suppressed findings — the exact reviewThreads-only undercount the
+  pr-lifecycle skill names ("suppressed findings live only in review
+  submission bodies... have run real at a striking rate"). Three real
+  suppressed findings existed on the merged plan (value.raw vs
+  value.cooked; protocol-relative handling ineffective as specced;
+  Todo omitting the @import guard). The trigger fired, the mechanics
+  were lost — the RULES_INDEX digest-truncation class at a seat that
+  HAD the full skill. Cure adopted: every settle-watch and merge
+  decision now includes a suppressed-comments read of the latest
+  review body; structural cure candidate routed to the tooling lane
+  (settlement verdicts could carry an undispositioned-suppressed
+  count).
+- FAILURE MODE (own seat, 2026-08-06 ~13:04Z): declared a SAME-MACHINE
+  peer seat dark on remote-only work evidence (PR updatedAt, remote
+  tip, comms stream) and dispatched a takeover round — the delegated
+  agent found the seat's WORKTREE three minutes warm (dirty-tree file
+  mtimes) with cures in flight, and correctly halted before any write.
+  The liveness doctrine's work-evidence cross-check names remote
+  surfaces; for SAME-MACHINE seats the decisive cheap instrument is
+  the seat's worktree dirty state + mtimes, and I skipped it. Cure:
+  any dark-seat verdict about a same-machine seat requires a worktree
+  mtime check first; the takeover declaration should have carried it.
+  The delegated agent's halt discipline (no-risk-of-loss, consult
+  before racing a dirty tree) is the pattern to repeat.
+- OWNER COMMISSION (2026-08-06 ~13:28Z, at Drake's closeout): a HANDOFF
+  CLI tool joins the collaboration tools — Drake had to work around
+  worktree isolation to write their handoff files. Third instance of
+  the same generator (comms CLI, watch commands, now handoff writes):
+  every recurring coordination act becomes a front-door command.
+  Route: the tooling-lane successor's queue, shaped at the Director's
+  tooling-lane state review; binds to the new operational requirements
+  (R3 interactive class, R9 contract closure).
