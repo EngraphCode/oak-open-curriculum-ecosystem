@@ -55,8 +55,6 @@ export interface MergeBotCliInput {
   readonly readReadingImpl?: (options: ReadPrStateOptions) => PrStateReading;
   readonly sleepImpl?: (ms: number) => Promise<void>;
   readonly nowIsoImpl?: () => string;
-  /** Base environment for the merge action's tokenised gh executor (the topic passes process.env). */
-  readonly baseEnv?: Readonly<Record<string, string | undefined>>;
 }
 
 const USAGE = `merge-bot mint-token --scope <${TOKEN_SCOPE_NAMES.join('|')}> [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
@@ -93,7 +91,6 @@ function mergeActionInputFrom(input: MergeBotCliInput): MergeActionInput {
     readReadingImpl: input.readReadingImpl,
     sleepImpl: input.sleepImpl,
     nowIsoImpl: input.nowIsoImpl,
-    baseEnv: input.baseEnv,
   };
 }
 

@@ -34,7 +34,13 @@ interface MergeExecutionSeams {
   readonly fetchImpl?: GithubApiFetch;
   readonly mintSeams?: MintSeams;
   readonly ghPath?: string;
-  /** Base environment for the tokenised gh executor (CLI passes process.env). */
+  /**
+   * Base environment for the tokenised gh executor. Defaults to
+   * `process.env` at the leaf (the default-seam pattern: reality enters at
+   * exactly one injectable point): Node REPLACES a provided child env rather
+   * than merging it, so injecting GH_TOKEN forces constructing the whole
+   * environment, and gh needs PATH and friends underneath.
+   */
   readonly baseEnv?: Readonly<Record<string, string | undefined>>;
 }
 
@@ -79,13 +85,25 @@ function apiHeaders(token: string): Record<string, string> {
   };
 }
 
+/**
+ * The child environment for a tokenised gh call: the base WHOLESALE with
+ * GH_TOKEN injected LAST, so a stale token in the base can never win over
+ * the freshly minted one.
+ */
+export function tokenisedEnv(
+  token: string,
+  baseEnv: Readonly<Record<string, string | undefined>>,
+): Record<string, string | undefined> {
+  return { ...baseEnv, GH_TOKEN: token };
+}
+
 /** Wraps an executor so every gh call runs under the minted token, never the keyring. */
 function tokenisedExecutor(
   token: string,
   baseEnv: Readonly<Record<string, string | undefined>>,
 ): GhCommandExecutor {
   return (file, args, options) =>
-    execFileSync(file, args, { ...options, env: { ...baseEnv, GH_TOKEN: token } });
+    execFileSync(file, args, { ...options, env: tokenisedEnv(token, baseEnv) });
 }
 
 async function readMergeSettings(
@@ -173,7 +191,7 @@ export async function runMergeExecution(
     ((options: ReadPrStateOptions): PrStateReading =>
       readPrStateReading({
         ...options,
-        execFileSync: tokenisedExecutor(token, input.seams.baseEnv ?? {}),
+        execFileSync: tokenisedExecutor(token, input.seams.baseEnv ?? process.env),
       }));
   const reading = readReading({
     target: { number: input.prNumber, repo: `${input.identity.owner}/${input.identity.repoName}` },

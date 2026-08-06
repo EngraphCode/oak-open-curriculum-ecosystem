@@ -50,8 +50,6 @@ export interface MergeActionInput {
   readonly sleepImpl?: (ms: number) => Promise<void>;
   /** Clock seam for the settlement verdict's quiet window. */
   readonly nowIsoImpl?: () => string;
-  /** Base environment for the tokenised gh executor (the topic passes process.env). */
-  readonly baseEnv?: Readonly<Record<string, string | undefined>>;
 }
 
 function mintSeamsFrom(input: MergeActionInput): MintSeams {
@@ -97,7 +95,6 @@ function executionSeams(
     mint: () => Promise.resolve(minted),
     ...(input.fetchImpl === undefined ? {} : { fetchImpl: input.fetchImpl }),
     ...(input.readReadingImpl === undefined ? {} : { readReading: input.readReadingImpl }),
-    ...(input.baseEnv === undefined ? {} : { baseEnv: input.baseEnv }),
   };
 }
 

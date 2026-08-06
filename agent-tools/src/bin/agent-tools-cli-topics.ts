@@ -166,16 +166,7 @@ export async function runMergeBotTopic(
     const message = cause instanceof Error ? cause.message : String(cause);
     return { exitCode: 2, stdout: '', stderr: `merge-bot: ${message}\n` };
   }
-  const exitCode = await runMergeBotCli({
-    args,
-    env: input.env,
-    repoRoot: root,
-    stdout,
-    stderr,
-    // The merge action's tokenised gh executor needs the real environment
-    // (PATH and friends) underneath its GH_TOKEN injection.
-    baseEnv: process.env,
-  });
+  const exitCode = await runMergeBotCli({ args, env: input.env, repoRoot: root, stdout, stderr });
   return { exitCode, stdout: buffer.text(), stderr: stderr.text() };
 }
 

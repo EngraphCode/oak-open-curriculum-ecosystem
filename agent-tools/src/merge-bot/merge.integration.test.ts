@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { PrStateReading } from '../pr-watch/state-types.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
-import { runMergeExecution, type MergeExecutionInput } from './merge.js';
+import { runMergeExecution, tokenisedEnv, type MergeExecutionInput } from './merge.js';
 
 /**
  * Integration over injected ports (constant fakes, no process, no network):
@@ -201,5 +201,13 @@ describe('runMergeExecution', () => {
     }
     expect(readingRead).toBe(false);
     expect(calls.length).toBe(0);
+  });
+});
+
+describe('tokenisedEnv', () => {
+  it('injects the fresh token LAST — a stale GH_TOKEN in the base never wins', () => {
+    const env = tokenisedEnv('fresh-token', { PATH: '/usr/bin', GH_TOKEN: 'stale-token' });
+
+    expect(env).toEqual({ PATH: '/usr/bin', GH_TOKEN: 'fresh-token' });
   });
 });
