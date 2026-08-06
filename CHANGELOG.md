@@ -1,3 +1,11 @@
+## [1.152.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.152.4...v1.152.5) (2026-08-06)
+
+
+### Bug Fixes
+
+* **mcp-http:** anchor the routed asset base and fetch every reference it guards ([9c1bacf](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9c1bacfa9d4df1ee623ddf39cd7a6867a9865a0a))
+* **mcp-http:** match subresource tags case-insensitively ([60ba39b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/60ba39bfd5ab40e811f33b4b89507de800da1ef2))
+
 ## [1.152.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.152.3...v1.152.4) (2026-08-06)
 
 
