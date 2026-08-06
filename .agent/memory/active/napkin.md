@@ -112,16 +112,20 @@ Headline graduations (the commits and the homes are the record):
   again in this window. Interim fleet practice unchanged — bare `index/head` with
   the worktree named in the intent text.
 
-## Carried unprocessed — five sections the 2026-08-06 pass never saw
+## Carried unprocessed — seven sections the 2026-08-06 pass never saw
 
-The 2026-08-06 dedicated consolidation ran on a locally-cut branch and never fetched
-`origin/coordination/estate-2026-08-06`, so the five sections below sat outside its
-corpus: they are NOT in `archive/napkin-2026-08-06.md` and were never processed. Carried
-verbatim at the branch reconciliation (Wisteria lifts Verdure, c4294f, 2026-08-06) after
-proving all 119 substantive lines absent from both that archive and the rotated napkin
-above. They are unprocessed capture awaiting the next pass, not settled doctrine. Two
-lines exceed the 100-character width as their authoring seats wrote them and are carried
-unaltered; the pass that processes them rewraps them.
+The 2026-08-06 dedicated consolidation ran on a locally-cut branch and processed only what
+that branch carried, so the seven sections below sat outside its corpus: they are NOT in
+`archive/napkin-2026-08-06.md` and were never processed. They come from the jimbot fleet on
+a second machine — Saffron guards Hedgerow, Petrel holds Turbulence, Siskin mends Downdraft
+and Drake spins Obsidian — whose seats are not visible in this machine's claim registry,
+because `active-claims.json` is machine-local by construction. Carried verbatim across two
+merge rounds at the branch reconciliation (Wisteria lifts Verdure, c4294f, 2026-08-06) after
+proving all 154 substantive lines absent from both that archive and the rotated napkin
+above. They are unprocessed capture awaiting the next pass, not settled doctrine. Three
+lines exceed the 100-character width as their authoring seats wrote them; all three are
+level-two headings, which cannot be wrapped, so they are carried unaltered and the pass
+that processes them re-titles or drains them.
 
 ## 2026-08-05 ~15:00Z (Saffron guards Hedgerow, 8a4280) — owner-channel answers: emission is not delivery
 
@@ -251,6 +255,45 @@ delivered to the owner 2026-08-05 ~14:58Z at his ask.
   watcher was down during the two owner-pause windows; foreground sweeps covered
   both (final sweep ~07:18Z caught the Director adjudication); events after that
   sweep are outside this seat's visibility.
+
+## 2026-08-06 ~08:35Z (Drake spins Obsidian, 46636e) — two vocabulary catches, one generator: status words that close what is open
+
+The owner tripwired "deferral" (~08:05Z) and then "banked" (~08:30Z) at this
+seat in one morning. Both survived the write-time concept gate because the
+gate enumerates words ("parked", "held") while the class is the MOVE:
+status vocabulary that converts an open obligation into a closed-sounding
+state. The distinction that resolved it: a record is a RECEIPT when the
+value act completed (review reports posted, probe results, tally rows) and
+a PROMISSORY NOTE when only intent or partial state was conserved (the
+mutation canary's "banked evidence" stood in for the full run it never got;
+the topology report's "drafted, awaiting read" aged the same way). Named
+instances: the canary (step 2c) and topology report (step 2b) both
+described as banked assets across a whole day while their value acts
+remained undone. Cures adopted at the seat, effective immediately:
+(1) status vocabulary is now "conserved — done" or "recorded, unredeemed —
+next act + holder named", nothing between; (2) a review disposition
+discharges when its test-pin LANDS, never when adopted in prose (applied
+live to the slice-1 amendment ledger: A5 + decision-core discharged with
+mutation proof; A1/A3/A4/A6/A7 adopted-unredeemed with named landing
+points). Structural-cure candidate for the innate-immunity layer: the gate
+would need to catch the receipt-vs-note SHAPE (an asset-word applied to a
+surface whose value act has no completion evidence), which is a
+consolidation-time adaptive-immunity check, not a write-time grep — route
+to the next dedicated consolidation rather than patching the word list.
+
+## 2026-08-06 wrap seeds (Petrel holds Turbulence, a0892f)
+
+- Play seed (association with a datum, not a proven finding): today's
+  three examination instruments over the SAME artefact (the capability
+  floor) found almost fully DISJOINT defect sets — adversarial
+  self-review 7 findings; three-expert Opus panel ~30 (three v1 claims
+  withdrawn); cross-vendor Codex dialogue 7 more (ratification refused,
+  all seven additions new). Near-zero overlap across instruments.
+  The striking datum is the NON-OVERLAP RATE: examination-angle
+  diversity ~ orthogonal defect coverage. Evidence for the estate's
+  multi-instrument review doctrine, roughly quantified for the first
+  time. Route: the retrospective (owner-deferred, open) is this
+  seed's natural consumer; discard freely if it does not serve.
 
 ## New session observations append below.
 

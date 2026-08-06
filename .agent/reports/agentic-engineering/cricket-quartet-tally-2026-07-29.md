@@ -597,3 +597,49 @@ ratification card answer ("Ratified — stamp and merge") arrived
 mid-panel via the Director — the stamp commit executed between the
 waves without perturbing the frame (the panel judges the census/build
 question, which the ratification does not move).
+
+## Run 2026-08-06 ~08:16Z — owner-called full review, two-lane seat state (Drake spins Obsidian, 46636e)
+
+Owner-called ("Time for a full Cricket review"), not a plan-named
+moment: the frame covered both lanes at the seat — the frozen
+extraction pilot and the tooling lane mid-slice-1-design. Full
+two-quartet suite via the task-notification path; real telemetry.
+
+| Role | Stance | Verdict | Tokens | Seconds | Tools |
+| --- | --- | --- | --- | --- | --- |
+| judgement-low (fable/low) | normal | ON-TRACK +redirect | 28,885 | 17 | 1 |
+| judgement-medium (opus/medium) | normal | ON-TRACK +redirect | 29,261 | 22 | 2 |
+| judgement-high (sonnet/high) | normal | ON-TRACK | 32,629 | 46 | 2 |
+| procedure-xhigh (haiku/xhigh) | normal | ON-TRACK | 22,286 | 74 | 2 |
+| judgement-low (fable/low) | adversarial | ON-TRACK +redirect | 28,879 | 13 | 1 |
+| judgement-medium (opus/medium) | adversarial | DRIFTING | 29,795 | 25 | 2 |
+| judgement-high (sonnet/high) | adversarial | ON-TRACK +redirect | 36,226 | 85 | 2 |
+| procedure-xhigh (haiku/xhigh) | adversarial | ON-TRACK | 22,561 | 75 | 2 |
+
+Split 7-1, with FIVE of eight legs converging on one axis: the #734
+cure list (Director review of record) sat at NEXT position 3, un-read
+and un-sized — "an unsized item cannot be ordered", and the seat had
+absorbed the owner's deferral-tripwire correction the same hour, so
+an un-sized deferral was exactly the fresh lesson's shape. The
+DRIFTING leg (adversarial-medium) made that self-contradiction its
+verdict.
+
+Adjudication at the seat: the finding was CORRECT at frame time and
+was DISCHARGED MID-PANEL — the redirect from the first two normal
+legs was executed between the waves (the #734 review read
+first-hand: security-cure substance UPHELD; changes-required = Sonar
+new-code gate ERROR, ~24 mechanical smell cures in the corpus files,
+sized at roughly a sitting). Priced ordering, adopted: slice 1 first
+(owner ordering word), the Sonar cure round at slice 1's merge
+boundary, slice 1.5 after. The adversarial-high leg's unresolved
+question (is the cure list inside the pilot freeze?) is answered from
+the record: the review landed AFTER the freeze event and the Director
+queued it to this lane explicitly — lane work, not frozen-pilot work.
+
+Calibration notes: (1) mid-panel discharge produces a stale-referent
+DRIFTING — the panel judged the frame, not the live seat; the
+verdict's substance transfers as confirmation the discharge was
+right, not as live drift. (2) The effort-inversion pattern recurred
+softly: the opus cell carried the sharpest formulation of the real
+finding in both stances; the fable/haiku cells passed the frame in
+both.
