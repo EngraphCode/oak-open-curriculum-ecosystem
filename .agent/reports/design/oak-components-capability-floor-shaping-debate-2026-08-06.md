@@ -116,11 +116,82 @@ precedent citation first-hand. The cross-vendor instrument
 (the-codex-dialogues) was unavailable this session (no MCP
 registration); its trial remains open for the next genuine fork.
 
+## The cross-vendor round (dlg-20260806-flor, the-codex-dialogues)
+
+After the same-vendor convergence, the owner registered the Codex MCP
+instrument (launch pins verified; version gate exact at 0.146.0) and the
+converged structure took a foreign prior as perturbation — three
+exchanges, stop reason stabilised, outcome POSITION-CHANGED against the
+pre-registered prior ("sound and ready for owner ratification,
+confidence HIGH"): Codex refused ratification as written and forced
+SEVEN structural additions the same-vendor debate never reached:
+
+1. **Whole-floor witness, not pairwise consistency** — pairwise
+   compatibility never entails joint satisfiability; the obligation is a
+   constructive witness: an IMMUTABLE TUPLE (commit SHA, registry/census
+   revisions, lockfile + instrument versions, environment matrix) with a
+   fresh all-row result over that exact tuple; cached greens from
+   different commits never compose; re-established at every amendment.
+2. **Anti-evasion closure on versioned sets** — entry closure alone
+   leaves an endogenous escape hatch (delete the awkward theme and the
+   floor passes): each set gains an authoritative discovery source with
+   a registry-matches-estate check, omission-as-failure, reviewed
+   removals, retained deltas.
+3. **Staleness semantics corrected** — the OC snapshot proves HISTORICAL
+   ATTAINABILITY, never permanent transferable feasibility;
+   shape-invariance warrants carry explicit revalidation triggers.
+4. **Continuous domestic renewal** — "we built it once" is not a
+   warrant; the row's instrument exercising the capability in CI IS the
+   standing revalidation; amendment-time-only checking is too sparse for
+   a never-fall-below floor.
+5. **Binding semantics section, fail-closed** — definitions, precedence,
+   and instrument-error semantics are binding apparatus (one normative
+   status, two kinds of binding content): an error, missing audit, or
+   inconclusive judgment is NEVER an accidental pass.
+6. **Error-bounded proxy question** — the generator question extends to:
+   "what false-good and false-bad states does this proxy admit, and are
+   those errors explicitly bounded?"; the computable-a11y row's text
+   carries its explicit non-coverage (provision capability, never
+   accessible experiences).
+7. **Amendment anti-erosion** — every change classified (strengthening /
+   semantic clarification / coverage change / instrument substitution /
+   weakening); substitutions prove equal-or-better detection over the
+   previous instrument's retained failure corpus; an enlarged false-good
+   region or narrowed obligation IS a weakening regardless of editorial
+   label; weakening requires explicit owner ratification with the LOST
+   GUARANTEE NAMED; normative and instrument deltas retained.
+
+Codex's final position of record (verbatim, rendered at request in the
+estate's concept-exploration Output Contract shape): "The amended
+structure is ratification-ready. Its load-bearing elements are domestic
+normative authority; OC as snapshot-bound historical attainability
+evidence and conditionally revalidated shape-invariance evidence;
+binding semantics with non-pass defaults; anti-evasion closure over
+versioned sets; continuous domestic renewal through CI; bounded proxy
+error; an immutable whole-floor witness tuple; and amendment
+anti-erosion. This ratifies the structure, not the thirteen rows." Its
+named falsifiers for the next phase: "any row retains an open
+quantifier, accidental-pass state, unbounded proxy error, or procedure
+that does not reliably fire"; "results require different commits,
+registries, environments, or incompatible configurations"; "a
+substitute loses detection, or a lost guarantee is obscured by
+editorial classification." Unresolved evidence, per Codex: the actual
+rows, instruments, failure corpora, environment matrix, and
+named-moment procedures remain uninspected.
+
+Both interlocutors' positions moved: Codex withdrew its own
+no-interpretive-preamble objection at the binding-semantics
+distinction and its OC-revalidation demand for continuously-exercised
+domestic warrants.
+
 ## Execution
 
 At the owner's ratification of this shaping, the design seat (at wake)
-rewrites the floor per §Outcome: authority model, row 9, row 6 +
-provision register, the computable-a11y row, per-row firing
-observations/instruments with closure rules, the consistency pass, and
-the generator question — then the floor proceeds to its ratification
-moment per the existing consumption wiring.
+rewrites the floor per §Outcome AND §The cross-vendor round: authority
+model, row 9, row 6 + provision register, the computable-a11y row,
+per-row firing observations/instruments with closure rules AND
+anti-evasion quartets, the binding semantics section (fail-closed), the
+error-bounded proxy question per row, the whole-floor witness tuple as
+the consistency obligation, and the amendment anti-erosion taxonomy —
+then the floor proceeds to its ratification moment per the existing
+consumption wiring.
