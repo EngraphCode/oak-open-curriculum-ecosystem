@@ -4520,16 +4520,16 @@
     {
       "auditId": "C222",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts",
             "anchors": [
               {
-                "tokenCount": 481,
-                "tokenSha256": "4bc6bdde71b4fe6db6db121b246dffadca5ce36c3e1bc41183e8c433674b29e9",
-                "indexToken": "hasMoreLessons",
-                "indexOffset": 198
+                "tokenCount": 30,
+                "tokenSha256": "2b84e2c605965671f695b37858424b0d34b3246f2eaea697615bcbb505d7624f",
+                "indexToken": "decorated",
+                "indexOffset": 21
               }
             ]
           }
@@ -6807,10 +6807,10 @@
             "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx",
             "anchors": [
               {
-                "tokenCount": 4,
-                "tokenSha256": "66b7ecb60aa33481234fe28cf6df5b3fb22afb0ade95984c92c57faab4639c8c",
-                "indexToken": "Private",
-                "indexOffset": 2
+                "tokenCount": 2,
+                "tokenSha256": "302ce3d9ea7d2ceadb7b69462fc0e6e86035f1a20d84bad78ef7d2af351bbffe",
+                "indexToken": "Public",
+                "indexOffset": 0
               }
             ]
           }
@@ -6921,10 +6921,10 @@
             "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx",
             "anchors": [
               {
-                "tokenCount": 18,
-                "tokenSha256": "fd344879d77617c11554aee7cb0905d3e7dc0009f81d0d6815bb6c3f797338c9",
-                "indexToken": "invitation",
-                "indexOffset": 16
+                "tokenCount": 12,
+                "tokenSha256": "0b5688a01bf5681cc80f4eb46c78dfc86beab2b1dd84aed1963c3b2de6be8985",
+                "indexToken": "prompted",
+                "indexOffset": 3
               }
             ]
           }
@@ -8236,8 +8236,8 @@
               {
                 "tokenCount": 37,
                 "tokenSha256": "d1a369c18ff6b61559c3935753be35f4b9e4d00799b6dd89c267df14a6765fbc",
-                "indexToken": "resources",
-                "indexOffset": 32
+                "indexToken": "Always",
+                "indexOffset": 28
               }
             ]
           }
@@ -8741,16 +8741,16 @@
     {
       "auditId": "C458",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.ts",
             "anchors": [
               {
-                "tokenCount": 89,
-                "tokenSha256": "8aa3023ec38e2dd46d946c320d0a38f00cb7c16ae0e3f7829b72d77dc8907f57",
-                "indexToken": "authoritative",
-                "indexOffset": 28
+                "tokenCount": 14,
+                "tokenSha256": "cc3a8104ed58f4c234a141ef8a888e049d11a9cdc5f44eb872a6ee23342033de",
+                "indexToken": "KEYWORDS",
+                "indexOffset": 4
               }
             ]
           }
@@ -8855,16 +8855,16 @@
     {
       "auditId": "C464",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/param-description-overrides.ts",
             "anchors": [
               {
-                "tokenCount": 67,
-                "tokenSha256": "fa013305b5421c2b3465056f0f4f163a23abfafc816ad91b8c498d79f8af20e6",
-                "indexToken": "offset",
-                "indexOffset": 18
+                "tokenCount": 42,
+                "tokenSha256": "292269a807ac3f3b51993182030b8a2aac945ffad48acebd303a0357a61ca137",
+                "indexToken": "applied",
+                "indexOffset": 26
               }
             ]
           }
@@ -8874,16 +8874,16 @@
     {
       "auditId": "C465",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/param-description-overrides.ts",
             "anchors": [
               {
-                "tokenCount": 67,
-                "tokenSha256": "551fed95befa50de7ce078aa06838f5cee71720e64b4cfe040d6700055644c34",
-                "indexToken": "limit",
-                "indexOffset": 18
+                "tokenCount": 45,
+                "tokenSha256": "a30057d2c7e7c48d5614190073ef8d8891e399ca75b31a9b8fa4444ededad9b2",
+                "indexToken": "omitted",
+                "indexOffset": 41
               }
             ]
           }
@@ -9671,16 +9671,16 @@
     {
       "auditId": "C507",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-assets.ts",
             "anchors": [
               {
-                "tokenCount": 66,
-                "tokenSha256": "579bf081790c249cf1e286057e0c245aaf42619e0d17fd42ddd049f82d6dcc82",
+                "tokenCount": 65,
+                "tokenSha256": "25331312d030eaea00e8717bafd1eb3048fad8e1ec52d5760b43518567838c59",
                 "indexToken": "Allowed",
-                "indexOffset": 44
+                "indexOffset": 43
               }
             ]
           }
@@ -9709,16 +9709,22 @@
     {
       "auditId": "C509",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-assets.ts",
             "anchors": [
               {
-                "tokenCount": 428,
-                "tokenSha256": "22c376b7e6befe8c5a2640d3aee4a748479334b3720f70742b68ca71568bd085",
+                "tokenCount": 14,
+                "tokenSha256": "7eaee30adc776ddf35fcc8ac254e6950408f28335db9e90d5f64542a47e72216",
                 "indexToken": "following",
                 "indexOffset": 11
+              },
+              {
+                "tokenCount": 20,
+                "tokenSha256": "0eeeaefff37af9b21f481903d11038659a67b7bdb9062b9627863ded0a6a5d4d",
+                "indexToken": "conjunction",
+                "indexOffset": 13
               }
             ]
           }
@@ -9886,10 +9892,10 @@
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-lessons.ts",
             "anchors": [
               {
-                "tokenCount": 42,
-                "tokenSha256": "eb926c7daaf8a5e205c0d7ef44d17ef76cdf5b936722f4313239079d5dd156b2",
+                "tokenCount": 48,
+                "tokenSha256": "b506eaba417dc5e8ecd422b20f0dc372bbf09e947946ce5ca7e35101f2758eff",
                 "indexToken": "nRequired",
-                "indexOffset": 37
+                "indexOffset": 43
               }
             ]
           }
@@ -10057,10 +10063,10 @@
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-questions.ts",
             "anchors": [
               {
-                "tokenCount": 39,
-                "tokenSha256": "251d99e545c3239f6ea80c2d753b248469f388ac699c3f9d07281e69d26a133d",
-                "indexToken": "Optional",
-                "indexOffset": 33
+                "tokenCount": 45,
+                "tokenSha256": "1bd32a0786a4d157be422a5836183c3dfc338740d9e2bb5d2525964fdd1c6733",
+                "indexToken": "20",
+                "indexOffset": 4
               },
               {
                 "tokenCount": 6,
@@ -10171,16 +10177,22 @@
     {
       "auditId": "C536",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-units.ts",
             "anchors": [
               {
-                "tokenCount": 310,
-                "tokenSha256": "531d676c29ba1aa17ec60072816e6f6fa2381dfdf42eac1a703b7d0874c26ded",
+                "tokenCount": 14,
+                "tokenSha256": "7eaee30adc776ddf35fcc8ac254e6950408f28335db9e90d5f64542a47e72216",
                 "indexToken": "following",
                 "indexOffset": 11
+              },
+              {
+                "tokenCount": 26,
+                "tokenSha256": "adf009d82379beb8f60764716d438f336213f00739aeb18125916e4bca615bc1",
+                "indexToken": "Optional",
+                "indexOffset": 18
               }
             ]
           }
@@ -10312,8 +10324,8 @@
               {
                 "tokenCount": 9,
                 "tokenSha256": "27e364a84f94b5f44ee240c812a25050e83d254aca2261586c52d8e98b2aadcd",
-                "indexToken": "description",
-                "indexOffset": 0
+                "indexToken": "Keywords",
+                "indexOffset": 3
               }
             ]
           }
@@ -10329,8 +10341,8 @@
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-keywords.ts",
             "anchors": [
               {
-                "tokenCount": 18,
-                "tokenSha256": "cdb40bf66b9bf2c19951aa418be16ecd262ac2f9d398a2cc767de51f93737a19",
+                "tokenCount": 17,
+                "tokenSha256": "4a440f07d90f655bd88b0e139765ca5cc944a72549c3e5baa5c74e2960ccbc81",
                 "indexToken": "KEYWORDS",
                 "indexOffset": 7
               }
@@ -10342,16 +10354,22 @@
     {
       "auditId": "C547",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-keywords.ts",
             "anchors": [
               {
-                "tokenCount": 236,
-                "tokenSha256": "2b3cb0c597c0e84f6e58f12caf654c2c41fd934cbce71df1a3a74d433ef6fd12",
+                "tokenCount": 14,
+                "tokenSha256": "7eaee30adc776ddf35fcc8ac254e6950408f28335db9e90d5f64542a47e72216",
                 "indexToken": "following",
                 "indexOffset": 11
+              },
+              {
+                "tokenCount": 56,
+                "tokenSha256": "c19f3c6e4810704cc3b3d075ccaf5a4742a3d69efa99b85569cda3e837eefcfe",
+                "indexToken": "limiting",
+                "indexOffset": 19
               }
             ]
           }
@@ -10475,16 +10493,22 @@
     {
       "auditId": "C555",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-assets.ts",
             "anchors": [
               {
-                "tokenCount": 66,
-                "tokenSha256": "579bf081790c249cf1e286057e0c245aaf42619e0d17fd42ddd049f82d6dcc82",
-                "indexToken": "Allowed",
-                "indexOffset": 44
+                "tokenCount": 7,
+                "tokenSha256": "a07935ccbeeb31c12147c91f070a641fd955da674cba1d30df01c43ebe59ab57",
+                "indexToken": "specifier",
+                "indexOffset": 6
+              },
+              {
+                "tokenCount": 24,
+                "tokenSha256": "0c8dfe54134ea4a91eb14b5adb4d83af86f79c2f55e5af224af3a6f79d8e8b9d",
+                "indexToken": "Available",
+                "indexOffset": 0
               }
             ]
           }
@@ -10494,16 +10518,22 @@
     {
       "auditId": "C556",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-assets.ts",
             "anchors": [
               {
-                "tokenCount": 209,
-                "tokenSha256": "2289ee82916055ab7510c4888c484c5a9ad727e892628413687a19e98540a9fd",
+                "tokenCount": 14,
+                "tokenSha256": "7eaee30adc776ddf35fcc8ac254e6950408f28335db9e90d5f64542a47e72216",
                 "indexToken": "following",
                 "indexOffset": 11
+              },
+              {
+                "tokenCount": 31,
+                "tokenSha256": "f9cbe39fc69d11052261ba885745e97cff0add828a04b89a17a87baa29f8b75a",
+                "indexToken": "nAvailable",
+                "indexOffset": 27
               }
             ]
           }
@@ -10703,16 +10733,22 @@
     {
       "auditId": "C569",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-summary.ts",
             "anchors": [
               {
-                "tokenCount": 94,
-                "tokenSha256": "55d8eec02776c30f09e22cd0508bcaa0fad16d37a330204d8322098f88becb81",
+                "tokenCount": 14,
+                "tokenSha256": "7eaee30adc776ddf35fcc8ac254e6950408f28335db9e90d5f64542a47e72216",
                 "indexToken": "following",
                 "indexOffset": 11
+              },
+              {
+                "tokenCount": 49,
+                "tokenSha256": "9d1fe5603942d1062695310b99d81526b0df9e77aba7222ff82a6b698aaa2997",
+                "indexToken": "description",
+                "indexOffset": 14
               }
             ]
           }
@@ -10969,16 +11005,16 @@
     {
       "auditId": "C585",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-assets.ts",
             "anchors": [
               {
-                "tokenCount": 66,
-                "tokenSha256": "579bf081790c249cf1e286057e0c245aaf42619e0d17fd42ddd049f82d6dcc82",
+                "tokenCount": 65,
+                "tokenSha256": "25331312d030eaea00e8717bafd1eb3048fad8e1ec52d5760b43518567838c59",
                 "indexToken": "Allowed",
-                "indexOffset": 44
+                "indexOffset": 43
               }
             ]
           }
@@ -10994,8 +11030,8 @@
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-assets.ts",
             "anchors": [
               {
-                "tokenCount": 37,
-                "tokenSha256": "cacf516098a5f72292cc8b58a633e8f4bbbf3ae4ebb767f349ec8d38e0547efe",
+                "tokenCount": 42,
+                "tokenSha256": "93a3b8db695513feb7477c06a27bbcc909d82be026e8520061eb0f3b6fc9a4ff",
                 "indexToken": "default",
                 "indexOffset": 1
               },
@@ -11152,10 +11188,10 @@
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-questions.ts",
             "anchors": [
               {
-                "tokenCount": 39,
-                "tokenSha256": "251d99e545c3239f6ea80c2d753b248469f388ac699c3f9d07281e69d26a133d",
+                "tokenCount": 45,
+                "tokenSha256": "2c7f7c00e2370006f3fbea44eb8d00e9083e4bd0dc6d76be4d0b9b2bb083b246",
                 "indexToken": "Optional",
-                "indexOffset": 33
+                "indexOffset": 39
               },
               {
                 "tokenCount": 4,
@@ -11518,22 +11554,22 @@
     {
       "auditId": "C614",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts",
             "anchors": [
               {
-                "tokenCount": 19,
-                "tokenSha256": "e1967ac4da43a363450f118b3e26d4f6b2b5c33d59c8189a011286e0505e3512",
-                "indexToken": "identifier",
-                "indexOffset": 6
+                "tokenCount": 52,
+                "tokenSha256": "102d5fae978006972f35c222f0eb3e77f7b8091a88d1f7fd4f9e1851a8466b41",
+                "indexToken": "toolZodSchema",
+                "indexOffset": 2
               },
               {
-                "tokenCount": 494,
-                "tokenSha256": "97e0f0a93009e1ffbd5d6cde2c84fc84af582c321e0012d83a43f7397415538a",
-                "indexToken": "strictObject",
-                "indexOffset": 205
+                "tokenCount": 42,
+                "tokenSha256": "fa93147a0026757689d519b1db131e2afbd9ea5928575fe8b20b77c0cec7f815",
+                "indexToken": "meta",
+                "indexOffset": 28
               }
             ]
           }
@@ -11543,22 +11579,22 @@
     {
       "auditId": "C615",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts",
             "anchors": [
               {
-                "tokenCount": 38,
-                "tokenSha256": "fd5a05622dfc39eee6fce5f50ebca7cdf700b59640d93bbc282000a92ba4f1a7",
-                "indexToken": "readonly",
-                "indexOffset": 32
+                "tokenCount": 52,
+                "tokenSha256": "102d5fae978006972f35c222f0eb3e77f7b8091a88d1f7fd4f9e1851a8466b41",
+                "indexToken": "toolZodSchema",
+                "indexOffset": 2
               },
               {
-                "tokenCount": 494,
-                "tokenSha256": "97e0f0a93009e1ffbd5d6cde2c84fc84af582c321e0012d83a43f7397415538a",
-                "indexToken": "strictObject",
-                "indexOffset": 205
+                "tokenCount": 42,
+                "tokenSha256": "fa93147a0026757689d519b1db131e2afbd9ea5928575fe8b20b77c0cec7f815",
+                "indexToken": "meta",
+                "indexOffset": 28
               }
             ]
           }
@@ -11568,22 +11604,22 @@
     {
       "auditId": "C616",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts",
             "anchors": [
               {
-                "tokenCount": 89,
-                "tokenSha256": "99ad81aaa609a213c68071ca0846870ebc29598c246ccf98de4fa7b48bad9508",
-                "indexToken": "Available",
-                "indexOffset": 7
+                "tokenCount": 52,
+                "tokenSha256": "102d5fae978006972f35c222f0eb3e77f7b8091a88d1f7fd4f9e1851a8466b41",
+                "indexToken": "toolZodSchema",
+                "indexOffset": 2
               },
               {
-                "tokenCount": 494,
-                "tokenSha256": "97e0f0a93009e1ffbd5d6cde2c84fc84af582c321e0012d83a43f7397415538a",
-                "indexToken": "strictObject",
-                "indexOffset": 205
+                "tokenCount": 42,
+                "tokenSha256": "fa93147a0026757689d519b1db131e2afbd9ea5928575fe8b20b77c0cec7f815",
+                "indexToken": "meta",
+                "indexOffset": 28
               }
             ]
           }
@@ -11593,16 +11629,22 @@
     {
       "auditId": "C617",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts",
             "anchors": [
               {
-                "tokenCount": 359,
-                "tokenSha256": "5769cf415de7fe2f9f26252cb0299b7d25647bfbd03f38dee0373808aa024877",
+                "tokenCount": 14,
+                "tokenSha256": "7eaee30adc776ddf35fcc8ac254e6950408f28335db9e90d5f64542a47e72216",
                 "indexToken": "following",
                 "indexOffset": 11
+              },
+              {
+                "tokenCount": 46,
+                "tokenSha256": "46c89419cd50836a438126a4d40e68e85d68f683a77a120bd33ea5d022fb5233",
+                "indexToken": "maths",
+                "indexOffset": 40
               }
             ]
           }
@@ -11764,8 +11806,8 @@
               {
                 "tokenCount": 16,
                 "tokenSha256": "adcc67e1e274a631d2baedd91fe32a4003e8e31a60878bc585ad296946fe35cc",
-                "indexToken": "maximum",
-                "indexOffset": 12
+                "indexToken": "Limit",
+                "indexOffset": 0
               }
             ]
           }
@@ -11806,10 +11848,10 @@
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-questions.ts",
             "anchors": [
               {
-                "tokenCount": 39,
-                "tokenSha256": "251d99e545c3239f6ea80c2d753b248469f388ac699c3f9d07281e69d26a133d",
-                "indexToken": "Optional",
-                "indexOffset": 33
+                "tokenCount": 45,
+                "tokenSha256": "51e0f143c0fb0cd41482c713066aeecd0eabd81789bb6a147c33f031bcabea3a",
+                "indexToken": "20",
+                "indexOffset": 4
               },
               {
                 "tokenCount": 4,
@@ -12020,22 +12062,22 @@
     {
       "auditId": "C636",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences.ts",
             "anchors": [
               {
-                "tokenCount": 9,
-                "tokenSha256": "90cdf2d08155059b7a828461bb9047d3d2c6282abcf5fb7258e5495a63e5cad9",
-                "indexToken": "identifier",
-                "indexOffset": 6
+                "tokenCount": 47,
+                "tokenSha256": "b2f991bcaa9bc2fb3f3bafcd8e86c080db5af9f94e239436c921d0fef036228a",
+                "indexToken": "describe",
+                "indexOffset": 31
               },
               {
-                "tokenCount": 91,
-                "tokenSha256": "e49f1c1626c1211e17a3ae19bc9162f2c2fdfbf3d3fa7def3fa48c11fa79a40f",
-                "indexToken": "strictObject",
-                "indexOffset": 53
+                "tokenCount": 34,
+                "tokenSha256": "454e2ea07972d10862f7dc5307a7532ada6f89de605ac7bb730ba758a45735ba",
+                "indexToken": "meta",
+                "indexOffset": 18
               }
             ]
           }
@@ -12045,16 +12087,22 @@
     {
       "auditId": "C637",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences.ts",
             "anchors": [
               {
-                "tokenCount": 91,
-                "tokenSha256": "82efde3d563f920b67a656dc85fdc7b775c3950963f268e9e633ae2db7ee08da",
+                "tokenCount": 14,
+                "tokenSha256": "7eaee30adc776ddf35fcc8ac254e6950408f28335db9e90d5f64542a47e72216",
                 "indexToken": "following",
                 "indexOffset": 11
+              },
+              {
+                "tokenCount": 38,
+                "tokenSha256": "20fbee91bcba00002f7b8fdbea22784cba6480e697548c4df21cf9d2b158e8f2",
+                "indexToken": "description",
+                "indexOffset": 14
               }
             ]
           }
@@ -12637,16 +12685,22 @@
     {
       "auditId": "C665",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads-units.ts",
             "anchors": [
               {
-                "tokenCount": 139,
-                "tokenSha256": "8f15a9b4c769cc03edda1cd3423113efe25ca1a0305518fa8527fbb4416e2718",
-                "indexToken": "strictObject",
-                "indexOffset": 107
+                "tokenCount": 43,
+                "tokenSha256": "688704df7e9807645c67799bae7d20b0a658d6404c6a89ba5a86780aa988c0d9",
+                "indexToken": "multiplication",
+                "indexOffset": 35
+              },
+              {
+                "tokenCount": 39,
+                "tokenSha256": "115b939cbb28d6493082e019844f09d735f45305ccd21af5233961b4589bf83b",
+                "indexToken": "meta",
+                "indexOffset": 21
               }
             ]
           }
@@ -12656,16 +12710,22 @@
     {
       "auditId": "C666",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads-units.ts",
             "anchors": [
               {
-                "tokenCount": 84,
-                "tokenSha256": "8c36dc7b4ede3b4c0c6a952cee7d5a16a9b724362b955b169eaf79b917d695be",
+                "tokenCount": 14,
+                "tokenSha256": "7eaee30adc776ddf35fcc8ac254e6950408f28335db9e90d5f64542a47e72216",
                 "indexToken": "following",
                 "indexOffset": 11
+              },
+              {
+                "tokenCount": 43,
+                "tokenSha256": "688704df7e9807645c67799bae7d20b0a658d6404c6a89ba5a86780aa988c0d9",
+                "indexToken": "multiplication",
+                "indexOffset": 35
               }
             ]
           }
@@ -12820,22 +12880,22 @@
     {
       "auditId": "C674",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-units-summary.ts",
             "anchors": [
               {
-                "tokenCount": 8,
-                "tokenSha256": "358773bacd67324a75dbfbbae422987811730d909a8231a119560151dbca92c8",
-                "indexToken": "The",
-                "indexOffset": 3
+                "tokenCount": 40,
+                "tokenSha256": "8af1a5e3a88db135ee5f037da32e08a0b284064ea569423701563c46e2a4c04e",
+                "indexToken": "strictObject",
+                "indexOffset": 6
               },
               {
-                "tokenCount": 346,
-                "tokenSha256": "2f3624db3e8dd95682ba21c40e7ccd604a353ed6e37954d2903fbebe151480a7",
-                "indexToken": "strictObject",
-                "indexOffset": 187
+                "tokenCount": 79,
+                "tokenSha256": "f5f7e4a74a2926c49c83eba475517f7cf61b770f23d7502620e0406e666f44cb",
+                "indexToken": "meta",
+                "indexOffset": 63
               }
             ]
           }
@@ -12845,16 +12905,22 @@
     {
       "auditId": "C675",
       "evidence": {
-        "revision": "unchanged",
+        "revision": "modified",
         "targets": [
           {
             "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-units-summary.ts",
             "anchors": [
               {
-                "tokenCount": 232,
-                "tokenSha256": "454aa2e5133bc382bbe628037636f38ccac2d4ca06db070872d085cfa1075722",
+                "tokenCount": 14,
+                "tokenSha256": "7eaee30adc776ddf35fcc8ac254e6950408f28335db9e90d5f64542a47e72216",
                 "indexToken": "following",
                 "indexOffset": 11
+              },
+              {
+                "tokenCount": 51,
+                "tokenSha256": "5822efdfb288da6d9a8696e9a23d03d725f052f864abf6d443f5b55a5b61d64c",
+                "indexToken": "board",
+                "indexOffset": 20
               }
             ]
           }

@@ -6,7 +6,7 @@ import {
   runVercelIgnoreCommand,
   scrubbedGitEnv,
   validateGitSha,
-} from './vercel-ignore-production-non-release-build.mjs';
+} from '../runtime-only-scripts/vercel-ignore-production-non-release-build.mjs';
 
 /**
  * Tests cover three concerns:
@@ -659,5 +659,164 @@ describe('runVercelIgnoreCommand — boundary validation of VERCEL_GIT_PREVIOUS_
     expect(stdout.text()).toContain('previous=unknown (treating as first build)');
     expect(stderr.text()).toBe('');
     expect(fakeGitShow.calls).toStrictEqual([]);
+  });
+});
+
+/**
+ * MCP-479 — a redeploy of the commit already in production must build.
+ *
+ * The §10 truth table cancels any production build whose version has not
+ * advanced. That is right for a NEW commit on main, but it also cancelled
+ * the operator action needed to recover from a bad deployment environment:
+ * rebuilding the commit already in production. On 2026-08-03 a production
+ * outage caused by a dangling environment-variable record could not be
+ * cured by redeploying — the guard cancelled the rebuild — and recovery
+ * needed a release cut. Instant Rollback is no substitute: it re-points
+ * domains at an existing build and carries the same stale environment
+ * binding, and never runs this script at all.
+ *
+ * Vercel exposes no variable distinguishing a redeploy from a push, so the
+ * signal is derived from two documented ones: `VERCEL_GIT_PREVIOUS_SHA` is
+ * "the git SHA of the last successful deployment for the project and
+ * branch", so when it equals `VERCEL_GIT_COMMIT_SHA` the build IS a rebuild
+ * of the already-released commit and cannot be a non-release build.
+ */
+describe('runVercelIgnoreCommand — redeploy of the already-deployed commit (MCP-479)', () => {
+  it('continues when the commit being built is the last successfully deployed commit, without consulting git', () => {
+    const stdout = captureWriter();
+    const stderr = captureWriter();
+    const fakeGitShow = queuedGitShow();
+    const fakeGitFetch = queuedGitFetch();
+
+    const result = runVercelIgnoreCommand({
+      repositoryRoot: REPOSITORY_ROOT,
+      env: {
+        VERCEL_GIT_COMMIT_REF: 'main',
+        VERCEL_GIT_COMMIT_SHA: VALID_SHA,
+        VERCEL_GIT_PREVIOUS_SHA: VALID_SHA,
+      },
+      stdout,
+      stderr,
+      readFile: packageReadFile('1.5.0'),
+      gitShowFileAtSha: fakeGitShow,
+      gitFetchShallow: fakeGitFetch,
+    });
+
+    expect(result).toStrictEqual({ exitCode: 1 });
+    expect(stdout.text()).toContain('redeploy');
+    expect(stdout.text()).toContain('1.5.0');
+    // The previous version is irrelevant once the commit is known to be the
+    // deployed one, so no git subprocess should be spawned to read it.
+    expect(fakeGitShow.calls).toStrictEqual([]);
+    expect(fakeGitFetch.calls).toStrictEqual([]);
+    expect(stderr.text()).toBe('');
+  });
+
+  it('still cancels a DIFFERENT commit whose version has not advanced — the guard keeps its purpose', () => {
+    const stdout = captureWriter();
+    const stderr = captureWriter();
+    const fakeGitShow = queuedGitShow({
+      kind: 'return',
+      text: JSON.stringify({ version: '1.5.0' }),
+    });
+    const fakeGitFetch = queuedGitFetch();
+
+    const result = runVercelIgnoreCommand({
+      repositoryRoot: REPOSITORY_ROOT,
+      env: {
+        VERCEL_GIT_COMMIT_REF: 'main',
+        VERCEL_GIT_COMMIT_SHA: VALID_SHA_OTHER,
+        VERCEL_GIT_PREVIOUS_SHA: VALID_SHA,
+      },
+      stdout,
+      stderr,
+      readFile: packageReadFile('1.5.0'),
+      gitShowFileAtSha: fakeGitShow,
+      gitFetchShallow: fakeGitFetch,
+    });
+
+    expect(result).toStrictEqual({ exitCode: 0 });
+    expect(stdout.text()).toContain('Cancelling production build');
+  });
+
+  it('behaves exactly as before when VERCEL_GIT_COMMIT_SHA is absent, so an unverified variable cannot change the verdict', () => {
+    const stdout = captureWriter();
+    const stderr = captureWriter();
+    const fakeGitShow = queuedGitShow({
+      kind: 'return',
+      text: JSON.stringify({ version: '1.5.0' }),
+    });
+    const fakeGitFetch = queuedGitFetch();
+
+    const result = runVercelIgnoreCommand({
+      repositoryRoot: REPOSITORY_ROOT,
+      env: {
+        VERCEL_GIT_COMMIT_REF: 'main',
+        VERCEL_GIT_PREVIOUS_SHA: VALID_SHA,
+      },
+      stdout,
+      stderr,
+      readFile: packageReadFile('1.5.0'),
+      gitShowFileAtSha: fakeGitShow,
+      gitFetchShallow: fakeGitFetch,
+    });
+
+    expect(result).toStrictEqual({ exitCode: 0 });
+    expect(stdout.text()).toContain('Cancelling production build');
+  });
+
+  it('refuses a malformed VERCEL_GIT_COMMIT_SHA at the trust boundary and never echoes its bytes', () => {
+    const stdout = captureWriter();
+    const stderr = captureWriter();
+    const hostileSha = `--upload-pack=${'x'.repeat(26)}`;
+    const fakeGitShow = queuedGitShow({
+      kind: 'return',
+      text: JSON.stringify({ version: '1.5.0' }),
+    });
+    const fakeGitFetch = queuedGitFetch();
+
+    const result = runVercelIgnoreCommand({
+      repositoryRoot: REPOSITORY_ROOT,
+      env: {
+        VERCEL_GIT_COMMIT_REF: 'main',
+        VERCEL_GIT_COMMIT_SHA: hostileSha,
+        VERCEL_GIT_PREVIOUS_SHA: VALID_SHA,
+      },
+      stdout,
+      stderr,
+      readFile: packageReadFile('1.5.0'),
+      gitShowFileAtSha: fakeGitShow,
+      gitFetchShallow: fakeGitFetch,
+    });
+
+    expect(result).toStrictEqual({ exitCode: 0 });
+    expect(stdout.text()).toContain('Cancelling production build');
+    expect(stderr.text()).toContain('VERCEL_GIT_COMMIT_SHA failed boundary validation');
+    expect(stderr.text()).toContain('reason=leading-dash');
+    expect(stderr.text()).not.toContain('upload-pack');
+  });
+
+  it('cancels ahead of the redeploy allowance when the current version is unresolvable, because that is a repo defect', () => {
+    const stdout = captureWriter();
+    const stderr = captureWriter();
+    const fakeGitShow = queuedGitShow();
+    const fakeGitFetch = queuedGitFetch();
+
+    const result = runVercelIgnoreCommand({
+      repositoryRoot: REPOSITORY_ROOT,
+      env: {
+        VERCEL_GIT_COMMIT_REF: 'main',
+        VERCEL_GIT_COMMIT_SHA: VALID_SHA,
+        VERCEL_GIT_PREVIOUS_SHA: VALID_SHA,
+      },
+      stdout,
+      stderr,
+      readFile: packageReadFile('MISSING_VERSION'),
+      gitShowFileAtSha: fakeGitShow,
+      gitFetchShallow: fakeGitFetch,
+    });
+
+    expect(result).toStrictEqual({ exitCode: 0 });
+    expect(stderr.text()).toContain('current app version could not be determined');
   });
 });

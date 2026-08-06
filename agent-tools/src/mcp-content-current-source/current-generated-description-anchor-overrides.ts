@@ -44,7 +44,7 @@ export const CURRENT_GENERATED_DESCRIPTION_ANCHOR_OVERRIDES = {
   C544: { [`${ROOT}/get-keywords.ts`]: ['description: "Keywords by subject and key stage'] },
   C546: {
     [`${ROOT}/get-keywords.ts`]: [
-      String.raw`\n\nWHEN TO PREFER WHICH KEYWORDS TOOL: this tool returns the LIVE full keyword set`,
+      String.raw`\n\nWHEN TO PREFER WHICH KEYWORDS TOOL: this tool returns the LIVE keyword set`,
     ],
   },
   C550: { [`${ROOT}/get-lessons-assets.ts`]: ['description: "Downloadable assets for a lesson'] },

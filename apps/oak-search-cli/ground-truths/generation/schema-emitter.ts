@@ -45,9 +45,10 @@ export function emitSlugEnumSchema(data: ParsedBulkData): string {
 /**
  * Generates complete Zod schema file for ground truth validation.
  *
+ * @param now - Generation time (injected; no ambient clock)
  * @returns Complete TypeScript source file content
  */
-export function emitGroundTruthSchemas(): string {
+export function emitGroundTruthSchemas(now: Date): string {
   const lines: string[] = [];
 
   // File header
@@ -58,7 +59,7 @@ export function emitGroundTruthSchemas(): string {
     ' * Provides runtime validation for ground truth entries.',
     ' *',
     ' * @generated - DO NOT EDIT',
-    ` * Generated at: ${new Date().toISOString()}`,
+    ` * Generated at: ${now.toISOString()}`,
     ' */',
     '',
     "import { typeSafeKeys } from '@oaknational/type-helpers';",
