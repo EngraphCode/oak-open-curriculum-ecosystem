@@ -2491,3 +2491,96 @@ shredding `tmp/jim-posthog-setup-steps.md`; and the observability-debt ticket.
   environment, accumulating issues); tests pin the false-marker case; the
   app/library SENTRY_MODE contradiction is the known half-finished migration,
   made LOUDER (not worse) by this PR. Nothing blocking found.
+
+## 2026-08-05 ~15:00Z (Saffron guards Hedgerow, 8a4280) — owner-channel answers: emission is not delivery
+
+Owner asked a direct question mid-turn (emeritus-seat closure); I composed the
+answer as interstitial text between tool calls and kept working — twice. The
+harness contract says mid-turn text may not be shown; only a turn's FINAL
+message is delivery-guaranteed. He had to ask three times (question → "please
+answer" → "we have rules"). The class is the estate's own delivery-vs-emission
+distinction (seen-cursor/NOTIFY family) applied to the owner channel: I verify
+delivery for pushes and heartbeats and assumed it for the channel that matters
+most. Second mechanism: queue momentum inverted channel priority — both answers
+pivoted to work in the same breath ("…meanwhile, continuing"), the shape that
+says the question interrupted the real work; the owner channel IS the primary
+channel. Cure adopted (structural): a mid-turn owner question ends the turn —
+finish at most the in-flight tool call, then the answer is the turn's final
+message, zero tool calls after it; a re-ask is proof of failed delivery,
+answer again unconditionally, never cite the earlier emission. Analysis
+delivered to the owner 2026-08-05 ~14:58Z at his ask.
+
+## 2026-08-05 ~16:00Z (Saffron guards Hedgerow, 8a4280) — compaction-boundary captures
+
+- **The non-&&-compound built a decoy worktree at my own hands**: `git worktree
+  add -b` failed (branch existed) but my semicolon-joined compound carried on —
+  `mkdir -p` manufactured a plain directory inside the primary at the worktree
+  path, and `git -C` there resolved to the PRIMARY's config and HEAD, so the
+  "verification" lines described the wrong repo. Caught only by reading the
+  add's own error line. Same momentum-generator as the answer-first miss
+  earlier: verification discounted at a boundary. Cure held for the rest of
+  the session: worktree/compound operations are &&-chained with an explicit
+  worktree-marker test (`test -f "$WT/.git"`), and one Edit-anchor miss later
+  in the same arc was caught by the tool's refusal and cured by re-reading —
+  anchors from fresh reads, never remembered text.
+- **Heartbeat CLI divergence, both observations dated**: main's `comms send`
+  rejects the typed heartbeat args; the mode lives on `comms append`
+  (probed, first tick verified on both surfaces). Corsair's counter-datum:
+  the send shape WORKED on the 2026-08-02-main worktree lineage. The
+  liveness rule's §Canonical invocation names send only — truing candidate
+  carries BOTH dated observations (moved-or-regressed between lineages),
+  routed to the Director in my team-start (event 2b4a9d05).
+- **Handover-as-verification, the day's structural lesson**: the owner's
+  verify-critically word turned reception into a correction-generating
+  machine — three catch-chains fired (tilt-values custody-vs-absorption;
+  Moss's exemplar-cure delta; the adopter-kind split), each existing ONLY
+  because received claims were verified, not absorbed. Falsifiable seed for
+  a future retrospective: a handover's yield tracks the receiver's
+  verification rate, not the transmitters' completeness.
+- **Free-play association (retained, unforced)**: the PDS census ratchet and
+  the cartographer's folly are the same estate's two polarity instruments —
+  one proves EXACT match (rename completeness), the other proves deliberate
+  NON-match (copy detection); trap streets and known-answer baselines are one
+  epistemic device. Left as an association, not a finding.
+- **Boundary record**: owner-called compaction prep ~15:52Z mid-cure-round;
+  sensible point reached at PR #785 open (cure round fully on the remote).
+  Session products: PRs #783 (floor, draft, owner shaping folded), #784
+  (sitting records: verdict 1 + full W0.5 tweak ledger + both kit rulings),
+  #785 (re-review cures, draft, re-run pending under the slope rule); #729
+  ceremony executed to merge-ready (Director adjudicates); ARC channel open
+  with the Director (substance conserved into the round record + sitting
+  records per conserve-at-close). Claim 645b9e0b RETAINED; monitors stopped
+  at the boundary in canonical order; the seat resumes post-compaction via
+  start-right and recomputes from live surfaces.
+
+## 2026-08-06 play seed (Petrel holds Turbulence, a0892f — free-play harvest)
+
+- Play seed (association, not finding): the cartographer's-folly
+  perturbation is shaped like MUSICAL TEMPERAMENT — equal temperament
+  detunes every interval slightly from just intonation, imperceptible
+  locally, buying system-level freedom (free modulation) at that cost.
+  The folly's per-family systematic OKLCH transforms are a temperament,
+  never per-value noise: a principled small detune buying legal safety
+  and provable provenance. May help name the perturbation principle when
+  the folly work item is authored. Route: design-lane folly story author
+  reads this at story-open; discard freely if it does not serve.
+
+## 2026-08-06 worktree-permission encoding (Siskin mends Downdraft, fb11e8 — quick Q&A session)
+
+- **Grounded fact (docs-derived via claude-code-guide subagent, NOT
+  first-hand tested)**: `ExitWorktree` never prompts (documented
+  "Permission required: No" — no rule needed); `EnterWorktree` prompts
+  only for paths OUTSIDE `.claude/worktrees/`; the permission rule is the
+  bare string `"EnterWorktree"` — these tools accept no `(...)` specifier.
+  Source: code.claude.com tools-reference + permissions docs, read
+  2026-08-06. Falsifier: next session's first EnterWorktree to a sibling
+  worktree path should not prompt.
+- **Landed (working tree only)**: `"EnterWorktree"` added to project
+  `.claude/settings.json` permissions.allow — encodes Jim's 2026-07-31
+  standing worktree-entry grant structurally (structure over vigilance).
+  UNCOMMITTED on the main working tree (main is behind 4 of origin/main
+  at capture). Owner acknowledged in-chat. Follow-up with a named owner:
+  any next session lands it via branch + PR (never commit on main); cut
+  from origin/main, carrying only this one line — do not sweep the design
+  lane's dirty files (napkin, design-system thread record, two untracked
+  handover/comms files) which are theirs.

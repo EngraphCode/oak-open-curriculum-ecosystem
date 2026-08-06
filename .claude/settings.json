@@ -2,6 +2,7 @@
   "skillListingBudgetFraction": 0.03,
   "permissions": {
     "allow": [
+      "EnterWorktree",
       "WebSearch",
       "WebFetch(domain:www.elastic.co)",
       "WebFetch(domain:playwright.dev)",
