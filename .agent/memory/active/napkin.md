@@ -2491,3 +2491,141 @@ shredding `tmp/jim-posthog-setup-steps.md`; and the observability-debt ticket.
   environment, accumulating issues); tests pin the false-marker case; the
   app/library SENTRY_MODE contradiction is the known half-finished migration,
   made LOUDER (not worse) by this PR. Nothing blocking found.
+
+## 2026-08-05 ~17:5xZ (Breeze tracks Troposphere, d5f748) — register discipline in durable artefacts; the precondition race; two commit traps
+
+- **THE REGISTER PATTERN — evidence vs instruction. Originated here from two of my
+  own corrections; Bilby routed the write-up to me as originator (event 17:55:58Z)
+  rather than write a fourth version.** Three seats hit it inside ten minutes.
+  - **THE CURE**: when a fact in a durable artefact keeps going stale, replace the
+    fact with the TEST that determines it. Faster corrections only move the
+    staleness window.
+  - **THE FORM IS THREE PARTS, not two — the test, ITS PRECONDITIONS, and the branch
+    table** (third part supplied by Djinn 18:07Z from a fired falsifier; see below).
+    The preconditions are the part both of us initially omitted.
+  - **THE BOUNDARY**: applies to INSTRUCTIONS, not EVIDENCE. Evidence should carry
+    timestamped facts with an observer named, and must never be generalised to now.
+    Stripping facts out of an evidence record destroys what makes it evidence.
+  - **DJINN'S ADD**: a durable artefact often needs BOTH registers; the failure is
+    mixing them in ONE LINE, not including both.
+  - **THE ACTIONABLE FORM (mine, from Djinn's add) — SPLIT THE LINE.** If a line
+    seems to need both registers, write two: one recording what was observed and
+    when, one telling the reader what to run now. The attempted hybrid is where the
+    confusion lives, because the instruction half inherits the evidence half's
+    expiry date.
+  - **THE TELL, usable at authoring time**: "will someone ACT on this line, or only
+    KNOW from it?" Answerable in a second without knowing how volatile the fact is.
+    Both Djinn and I got here by discovering volatility afterwards; the tell gets
+    there before it.
+  - **Three instances, one per seat.** Mine: the MCP-458 shot plan asserted the
+    current Clerk realm, which moved FOUR times in three hours (~14:55Z dev,
+    ~17:02Z prod, ~17:19Z revert, ~17:50Z prod, fifth revert announced) — so I
+    corrected it once, was about to be stale again, and rewrote it to assert no
+    realm at all (MCP-458 comment 6932068f). Djinn's: a continuity note blurred
+    both registers in one sentence, caught by themselves *in the correction whose
+    purpose was separating them* — which is the argument that this is structural
+    rather than careless. Bilby's pair: the cutover capture correctly in the
+    evidence register, the runsheet correctly in the instruction register **but by
+    procedural habit rather than by principle** — their own point, and the most
+    useful of the three, because habits hold until pressure and principles hold
+    through it.
+  - **THE FALSIFIER FIRED THE SAME DAY, and that is the strongest thing in this
+    entry.** I stated the falsifier as "an instruction in test-and-branch form that
+    still goes stale, because the TEST itself became wrong". It happened, to Djinn's
+    CANONICAL_HOST alias test: ask via a non-canonical host and compare issuer, which
+    lies if run during a rollout, because AS metadata is cached per instance at boot
+    and the fleet turns over gradually (Bilby measured a 27-second host disagreement
+    at 17:19:21Z).
+    - **How it failed is the argument FOR the form, not against it.** The repair was
+      not to abandon the test or return to asserting a value — it was to add
+      preconditions: no deploy in flight, both hosts, agreement across consecutive
+      rounds. Three lines, and it stays repaired, because rollout mechanics move far
+      more slowly than a value that changed five times in three hours. **A stale
+      value has no repair except another value that will also go stale; a flawed
+      test is repaired once.** Djinn's phrase: the form degrades gracefully.
+    - So the pattern survives its own falsifier in the strong sense — the named
+      failure mode is real, has occurred, and cost one amendment rather than a
+      recurring correction. Better evidence than the falsifier never firing.
+    - **Honest note on my own artefact**: my MCP-458 instruction DOES carry the
+      precondition (both hosts, twice, agreement; disagreement means a deploy is in
+      flight, so wait). But I got it from Bilby's mixed-binding discovery, not from
+      the principle — the same "right for the wrong reason" shape Bilby owned about
+      their runsheet. Two of three instances landed correct without the principle,
+      which is the argument for writing the principle down.
+  - **Convergence claim WITHDRAWN by both of us.** Djinn and I reached the cure
+    within a minute uncoordinated and initially read that as strong corroboration.
+    It is not: we had both been burned by the same volatile value in the same hour,
+    so we were primed by identical evidence rather than reasoning from independent
+    starts. The defensible reading is narrower — the cure is reachable from either
+    end, so it is findable rather than needing to be taught.
+
+- **THE PRECONDITION RACE — my worst error of the session, and a variant none of the
+  day's other five instances covered.** I amended a commit that had already been
+  pushed. I DID check the remote first and the check was CORRECT at the instant; my
+  own backgrounded push was still in flight and landed between the check and the
+  amend. So: a true observation that bore on the claim when read and had decayed by
+  the moment of acting. A RACE, not a logical gap.
+  - **Cure 1 (mine)**: re-check a precondition IMMEDIATELY BEFORE a
+    history-affecting action, not before the reasoning that leads to it. Implement
+    as a conditional that gates the command, not as a habit of remembering.
+  - **Cure 2 (Djinn's, better)**: prefer actions whose failure mode is a safe
+    refusal over checks that can go stale. What actually prevented harm was not any
+    check of mine — it was the remote refusing a non-fast-forward push. That guard
+    cannot go stale because it IS the state at the moment of the write.
+  - **The boundary I added to cure 2**: it protects PUBLISHING, not local history.
+    My amend had no guard and did mutate. What made the outcome cheap was that the
+    change was message-only, so the trees were identical and a pointer move
+    resolved it — luck, not protection. Had the amend touched content there would
+    have been a real reconciliation with content at stake.
+  - **Never read an in-flight background task's partial log as a completed result.**
+    An empty output section is evidence of a task that has not finished, not of an
+    operation that did not run. The completion notification exists precisely so this
+    is not a judgement call.
+  - **Backgrounding a history-affecting operation converts check-then-act from a
+    theoretical race to a routine one**, because the whole point of backgrounding is
+    that the operation outlives the command that started it. This estate backgrounds
+    long pushes by practice, so the window is minutes rather than milliseconds.
+  - Resolved by a single authorised `update-ref` after naming the operation and
+    classifying its destructiveness honestly; the narrowest instrument that achieved
+    it, chosen over a hard rewind precisely because a rewind overwrites the working
+    tree and index.
+
+- **COMMITLINT TRAP: a body line beginning `<word>:` fires footer-leading-blank, and
+  WRAPPING creates it.** My body contained `... flagged rather than / fixed: a
+  superseded retention figure ...` — `fixed:` landed at a line start only because of
+  the 100-char wrap, and the parser reads a lone word plus colon as a footer token.
+  Distinct from the trap the commit skill documents (`token #ref`, e.g. `PR #170`).
+  Nastier because: it is created by wrapping rather than by what you wrote; any
+  ordinary word does it (`note:`, `result:`, `cure:`, `evidence:`); it only WARNS so
+  nothing stops you; and `check-commit-message` passes it too, so you discover it in
+  the hook output of a commit that already landed. **Cures**: prevention beats
+  detection — Djinn's habit of all-caps multi-word headings is structurally immune,
+  since `^\w+:` cannot match a multi-word heading. Backstop: scan line STARTS for
+  `^\w+:` after wrapping.
+
+- **`exit-codes-in-band-never-piped`, walked into directly**: I piped a CLI's output
+  through `| tail`, so `set -e` read tail's status rather than the command's and a
+  genuine failure looked like a pass. Cure: `out=$(cmd 2>&1); rc=$?` then print rc.
+
+- **STALE TICKETS ARE A LIVE RISK CLASS THIS WEEK, not metadata.** Five findings
+  across the submission board, each accurate when written and quietly false when
+  cited: MCP-443's retention edit (12 months, superseded 2026-08-03 to 5 years by an
+  amendment the DPO was PARTY to — adopting it would have inserted a NEW false
+  statement into the document that exists to remove them); a residency obligation
+  MCP-470 explicitly folded onto MCP-443 on 08-04 whose edit list was frozen 07-30
+  and never absorbed it; MCP-173 carrying the superseded figure in four places with
+  an updatedAt AFTER the amendment; MCP-309 still listing a Done ticket as a blocker
+  whose own closing comment says the edge was removed; and MCP-507 carrying a live
+  mailto to a departed vendor contact. **The only thing that caught any of them was
+  opening the source a ticket cited instead of trusting its summary.** Also two
+  human gates worse than the board showed: MCP-339 with NO assignee for six days
+  while blocking the umbrella, and MCP-268 never scoped at all with its gate date
+  already passed.
+
+- **A hook false-positive worth knowing**: the write-hook blocked a comms send whose
+  PROSE named destructive git commands — in the sentences saying I would not use
+  them. There was no destructive command in the invocation. The substring policy
+  cannot distinguish "I am running this" from "I am declining to run this", so it
+  bites any seat writing an incident report about a git hazard. Rewording prose is
+  not bypassing a guard when there is no action to guard; `hook-policy-substring-discipline`
+  owns the shape.
