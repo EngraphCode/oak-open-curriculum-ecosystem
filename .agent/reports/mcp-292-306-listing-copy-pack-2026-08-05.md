@@ -131,10 +131,26 @@ Assembled from MCP-444 §11, with one time-sensitive addition.
 
 ```text
 The connector is read-only and requires signing in with an Oak account; there are no client
-IDs or secrets to configure. Requests are rate limited to 1,000 per window. The current
-allowance is readable at any time via the get-rate-limit tool and the X-RateLimit-* headers
-returned on every call, and checking the allowance does not count against the quota.
+IDs or secrets to configure. Requests are rate limited to 1,000 per hour (sliding window).
+The current allowance is readable at any time via the get-rate-limit tool and the
+X-RateLimit-* headers returned on every call, and checking the allowance does not count
+against the quota.
 ```
+
+**Aligned to the submission document (owner direction, 2026-08-06).** This field previously
+read "1,000 per window", which named no period. The Anthropic submission draft states
+"1,000 requests per hour (sliding window), enforced per API key by the upstream Oak
+Curriculum API", and that document is the authority for submitted wording. Where this pack
+and the draft disagree, the draft wins and this pack is the stale copy.
+
+**Unresolved, and it undercuts this field's own advice.** Calling `get-rate-limit` through
+the connector on 2026-08-06 returned `limit=0, remaining=0, reset=0`. That tool documents
+that response as meaning "an unlimited API key with no rate cap". So a reviewer who follows
+this field's instruction to check the allowance sees no cap at all, which contradicts the
+stated 1,000 per hour. Either the connector's upstream key is uncapped and the number does
+not describe what a connector user experiences, or the tool is not reporting the cap that
+applies. Worth settling before paste time — the field invites the reviewer to run exactly
+the call that disagrees with it. Tracked on MCP-513.
 
 **Time-sensitive — must be re-stated at paste time.** MCP-292 records that what someone
 needs before connecting is *"an invitation, while sign-in is gated"*. Sign-in is invite-only
