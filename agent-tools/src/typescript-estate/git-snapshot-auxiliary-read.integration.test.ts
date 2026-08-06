@@ -72,7 +72,8 @@ describe('pinned auxiliary blob reads integration', () => {
       '--no-lazy-fetch',
       '-C',
       '/repo',
-      'show',
+      'cat-file',
+      'blob',
       `${COMMIT}:config.json`,
     ]);
     expect(unwrapOrThrow(snapshot.auxiliary.ledger())).toEqual([

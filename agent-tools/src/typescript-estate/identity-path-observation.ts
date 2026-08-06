@@ -6,16 +6,50 @@ import type {
   ContainedIdentityRead,
   IdentityFileKind,
   IdentityFileSystemPort,
+  IdentityNodeObservation,
   IdentityPathObservation,
 } from './identity-secure-read-model.js';
 
-/** Collect and validate one immutable no-symlink path observation. */
+/**
+ * Collect and validate one immutable no-symlink path observation, returning
+ * the validated LEAF node identity. When `expected` is supplied (the
+ * post-read phase), a leaf whose identity has changed since the pre-open
+ * phase is refused even if the path shape still validates.
+ */
 export function observeAndValidateIdentityPath<Handle>(
   fileSystem: IdentityFileSystemPort<Handle>,
   input: ContainedIdentityRead,
-): Result<void, Error> {
+  expected?: IdentityNodeObservation,
+): Result<IdentityNodeObservation, Error> {
   const observed = observeIdentityPath(fileSystem, input);
-  return isErr(observed) ? observed : validateIdentityPathObservation(input, observed.value);
+  if (isErr(observed)) {
+    return observed;
+  }
+  const valid = validateIdentityPathObservation(input, observed.value);
+  if (isErr(valid)) {
+    return valid;
+  }
+  return leafIdentityFrom(input, observed.value, expected);
+}
+
+function leafIdentityFrom(
+  input: ContainedIdentityRead,
+  observation: IdentityPathObservation,
+  expected?: IdentityNodeObservation,
+): Result<IdentityNodeObservation, Error> {
+  const leaf = observation.components.at(-1);
+  if (leaf?.kind !== 'file' || leaf.device === undefined || leaf.inode === undefined) {
+    return err(new Error(`identity member '${input.path}' carries no node identity`));
+  }
+  const identity: IdentityNodeObservation = {
+    kind: leaf.kind,
+    device: leaf.device,
+    inode: leaf.inode,
+  };
+  return expected !== undefined &&
+    (identity.device !== expected.device || identity.inode !== expected.inode)
+    ? err(new Error(`identity member '${input.path}' changed identity between validation phases`))
+    : ok(identity);
 }
 
 /** Validate lexical roots before any injected filesystem operation is consulted. */
@@ -117,7 +151,12 @@ function observeIdentityPath<Handle>(
         }),
       );
     }
-    components.push({ path: componentPath, kind: inspected.value });
+    components.push({
+      path: componentPath,
+      kind: inspected.value?.kind,
+      device: inspected.value?.device,
+      inode: inspected.value?.inode,
+    });
   }
   const canonical = invoke(() => fileSystem.realpath(input.path));
   return isErr(canonical)

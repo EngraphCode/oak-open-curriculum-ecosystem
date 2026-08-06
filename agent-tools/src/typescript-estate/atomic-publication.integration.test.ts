@@ -91,8 +91,11 @@ const PHASE_FAILURES: readonly {
     },
   },
   {
+    // A failing containment recheck now surfaces at its EARLIEST phase — the
+    // post-materialise assert added for the symlink-window cure — so no bytes
+    // are ever written outside a root that stopped being contained.
     label: 'pre-commit containment',
-    expectedMessage: 'pre-rename containment recheck failed',
+    expectedMessage: 'materialised output directory failed the containment recheck',
     publication: {
       ...ACCEPTING_PUBLICATION,
       checkBeforeCommit: () => err(new Error('directory swapped')),

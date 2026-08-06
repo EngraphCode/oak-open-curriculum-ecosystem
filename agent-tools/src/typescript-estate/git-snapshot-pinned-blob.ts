@@ -17,7 +17,10 @@ export function createPinnedGitBlobPort(context: GitContext, commit: string): Pi
     read: (path, maxBytes) =>
       runGit(
         context,
-        ['-C', context.root, 'show', `${commit}:${path}`],
+        // `cat-file blob` refuses an empty path and a tree path outright,
+        // where `show <commit>:<dir>` would exit 0 with a tree LISTING —
+        // structurally wrong bytes returned as a "pinned blob".
+        ['-C', context.root, 'cat-file', 'blob', `${commit}:${path}`],
         maxBytes,
         'SOURCE_READ_FAILED',
         `Git auxiliary blob read '${path}'`,

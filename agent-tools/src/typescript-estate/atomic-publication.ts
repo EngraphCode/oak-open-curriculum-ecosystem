@@ -112,6 +112,13 @@ function prepareDirectoryAndTarget<Handle>(
   if (isErr(materialised)) {
     return publicationFailure('cannot materialise contained output directory', materialised.error);
   }
+  const materialisedContained = invoke(() => publication.checkBeforeCommit(target));
+  if (isErr(materialisedContained)) {
+    return publicationFailure(
+      'materialised output directory failed the containment recheck',
+      materialisedContained.error,
+    );
+  }
   return refuseSymlinkTarget(finalTarget, () => publication.inspectTargetBeforeCreate(finalTarget));
 }
 

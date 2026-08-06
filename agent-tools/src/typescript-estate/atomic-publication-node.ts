@@ -48,7 +48,7 @@ export function createNodeAtomicPublicationPort(
       }),
     materialiseDirectory: (target) =>
       tryVoid(() => {
-        mkdirSync(target.outDirectory, { recursive: true });
+        materialiseContained(invokingGitRoot, target.outDirectory);
       }),
     inspectTargetBeforeCreate: (target) => inspectKind(target.path),
     createExclusive: (target) =>
@@ -112,6 +112,29 @@ function writeAll(handle: number, bytes: Uint8Array): void {
   let written = 0;
   while (written < bytes.length) {
     written += writeSync(handle, bytes, written, bytes.length - written);
+  }
+}
+
+/**
+ * Create the output chain one level at a time, asserting realpath containment
+ * after every level, so `mkdir` can never follow a symlinked component out of
+ * the root (a recursive mkdir resolves hostile links silently).
+ */
+function materialiseContained(invokingGitRoot: string, outDirectory: string): void {
+  const missing: string[] = [];
+  let current = outDirectory;
+  while (statNoFollow(current) === undefined) {
+    missing.unshift(current);
+    const parent = path.dirname(current);
+    if (parent === current) {
+      break;
+    }
+    current = parent;
+  }
+  assertPathWithinBase(current, invokingGitRoot);
+  for (const level of missing) {
+    mkdirSync(level);
+    assertPathWithinBase(level, invokingGitRoot);
   }
 }
 

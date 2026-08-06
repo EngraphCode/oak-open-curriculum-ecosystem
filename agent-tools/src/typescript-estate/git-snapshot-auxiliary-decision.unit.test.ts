@@ -77,6 +77,19 @@ describe('auxiliary blob read decision', () => {
         contentSha256: 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad',
       }),
     );
+
+    const laterHit = decideAuxiliaryBlobRead({
+      path: 'config.json',
+      trackedEntry: REGULAR_ENTRY,
+      isTypescriptPath: false,
+      capturedSource: undefined,
+      cache: transition.state,
+      limits: LIMITS,
+    });
+    expect(laterHit).toMatchObject({
+      kind: 'cache-hit',
+      read: { bytes: Uint8Array.from([0x61, 0x62, 0x63]) },
+    });
   });
 
   it('latches an operational fetch failure without changing the cache charge', () => {
@@ -193,6 +206,30 @@ describe('auxiliary blob read decision: every non-fetch branch is a no-action li
         byteCount: 3,
         contentSha256: CACHED_ENTRY.contentSha256,
       },
+    });
+  });
+
+  it('allows a blob at exactly the per-file limit', () => {
+    const atLimit: RegularBlobTreeEntry = { ...REGULAR_ENTRY, size: 4 };
+
+    const decision = decideAuxiliaryBlobRead({ ...BASE_INPUT, trackedEntry: atLimit });
+
+    expect(decision).toEqual({
+      kind: 'fetch-required',
+      action: { path: 'config.json', treeEntry: atLimit, maxBytes: 4 },
+    });
+  });
+
+  it('allows a blob whose size exactly equals the remaining run-wide budget', () => {
+    const decision = decideAuxiliaryBlobRead({
+      ...BASE_INPUT,
+      path: 'other.json',
+      cache: { ...CACHED_STATE, chargedBytes: 5 },
+    });
+
+    expect(decision).toEqual({
+      kind: 'fetch-required',
+      action: { path: 'other.json', treeEntry: REGULAR_ENTRY, maxBytes: 4 },
     });
   });
 

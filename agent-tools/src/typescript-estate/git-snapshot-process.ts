@@ -13,6 +13,10 @@ export function gitEnvironment(environment: NodeJS.ProcessEnv): Readonly<Record<
     }
   }
   allowed.GIT_NO_LAZY_FETCH = '1';
+  // Determinism by construction, not by git's internal call graph: no system
+  // or user gitconfig (filters, pagers, external diff) can touch pinned reads.
+  allowed.GIT_CONFIG_NOSYSTEM = '1';
+  allowed.GIT_CONFIG_GLOBAL = '/dev/null';
   return allowed;
 }
 

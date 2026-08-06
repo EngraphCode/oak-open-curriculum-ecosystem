@@ -29,8 +29,14 @@ const SCRUBBED_ENVIRONMENT = {
   LANG: 'C.UTF-8',
   LC_ALL: 'C',
   GIT_NO_LAZY_FETCH: '1',
+  GIT_CONFIG_NOSYSTEM: '1',
+  GIT_CONFIG_GLOBAL: '/dev/null',
 } as const;
-const MINIMAL_ENVIRONMENT = { GIT_NO_LAZY_FETCH: '1' } as const;
+const MINIMAL_ENVIRONMENT = {
+  GIT_NO_LAZY_FETCH: '1',
+  GIT_CONFIG_NOSYSTEM: '1',
+  GIT_CONFIG_GLOBAL: '/dev/null',
+} as const;
 
 const DISCOVER_FROM_CALLER = {
   executable: '/trusted/git',

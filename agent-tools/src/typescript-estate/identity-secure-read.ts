@@ -7,6 +7,7 @@ import {
 import type {
   ContainedIdentityRead,
   IdentityFileSystemPort,
+  IdentityNodeObservation,
   IdentityReadPort,
   IdentitySecureFilePort,
 } from './identity-secure-read-model.js';
@@ -15,6 +16,7 @@ export type {
   ContainedIdentityRead,
   IdentityFileKind,
   IdentityFileSystemPort,
+  IdentityNodeObservation,
   IdentityPathComponentObservation,
   IdentityPathObservation,
   IdentityReadPort,
@@ -25,14 +27,16 @@ export type {
 export function createIdentitySecureFilePort<Handle>(
   fileSystem: IdentityFileSystemPort<Handle>,
 ): IdentitySecureFilePort<Handle> {
-  const validate = (input: ContainedIdentityRead) =>
-    observeAndValidateIdentityPath(fileSystem, input);
   return {
     canonicalRealpath: (pathValue) => invoke(() => fileSystem.realpath(pathValue)),
-    validateBeforeOpen: validate,
+    validateBeforeOpen: (input) => observeAndValidateIdentityPath(fileSystem, input),
     openNoFollow: (pathValue) => invoke(() => fileSystem.openReadNoFollow(pathValue)),
-    readRegularDescriptor: (input, handle) => readRegularDescriptor(fileSystem, input, handle),
-    validateBeforeAccept: validate,
+    readRegularDescriptor: (input, handle, expected) =>
+      readRegularDescriptor(fileSystem, input, handle, expected),
+    validateBeforeAccept: (input, expected) => {
+      const revalidated = observeAndValidateIdentityPath(fileSystem, input, expected);
+      return isErr(revalidated) ? revalidated : { ok: true, value: undefined };
+    },
     close: (handle) => invoke(() => fileSystem.close(handle)),
   };
 }
@@ -69,16 +73,19 @@ function secureRead<Handle>(
           cause: opened.error,
         }),
       )
-    : readValidateAndClose(operations, input, opened.value);
+    : readValidateAndClose(operations, input, opened.value, before.value);
 }
 
 function readValidateAndClose<Handle>(
   operations: IdentitySecureFilePort<Handle>,
   input: ContainedIdentityRead,
   handle: Handle,
+  expected: IdentityNodeObservation,
 ): Result<Uint8Array, Error> {
-  const bytes = invoke(() => operations.readRegularDescriptor(input, handle));
-  const outcome = isErr(bytes) ? bytes : afterReadValidation(operations, input, bytes.value);
+  const bytes = invoke(() => operations.readRegularDescriptor(input, handle, expected));
+  const outcome = isErr(bytes)
+    ? bytes
+    : afterReadValidation(operations, input, bytes.value, expected);
   const closed = invoke(() => operations.close(handle));
   if (isErr(closed)) {
     const causes = isErr(outcome) ? [outcome.error, closed.error] : [closed.error];
@@ -91,8 +98,9 @@ function afterReadValidation<Handle>(
   operations: IdentitySecureFilePort<Handle>,
   input: ContainedIdentityRead,
   bytes: Uint8Array,
+  expected: IdentityNodeObservation,
 ): Result<Uint8Array, Error> {
-  const after = invoke(() => operations.validateBeforeAccept(input));
+  const after = invoke(() => operations.validateBeforeAccept(input, expected));
   return isErr(after) ? after : { ok: true, value: bytes };
 }
 
@@ -100,6 +108,7 @@ function readRegularDescriptor<Handle>(
   fileSystem: IdentityFileSystemPort<Handle>,
   input: ContainedIdentityRead,
   handle: Handle,
+  expected: IdentityNodeObservation,
 ): Result<Uint8Array, Error> {
   const descriptor = invoke(() => fileSystem.fstat(handle));
   if (isErr(descriptor)) {
@@ -107,8 +116,15 @@ function readRegularDescriptor<Handle>(
       new Error(`cannot inspect identity descriptor '${input.path}'`, { cause: descriptor.error }),
     );
   }
-  if (descriptor.value !== 'file') {
+  if (descriptor.value.kind !== 'file') {
     return err(new Error(`identity member '${input.path}' is not a regular descriptor`));
+  }
+  if (descriptor.value.device !== expected.device || descriptor.value.inode !== expected.inode) {
+    return err(
+      new Error(
+        `identity descriptor '${input.path}' is not the validated node; refusing swapped ancestry`,
+      ),
+    );
   }
   const bytes = invoke(() => fileSystem.read(handle));
   return isErr(bytes)

@@ -7,6 +7,7 @@ import {
   createSecureIdentityReadPort,
   validateIdentityPathObservation,
   type ContainedIdentityRead,
+  type IdentityNodeObservation,
   type IdentitySecureFilePort,
 } from './identity-secure-read.js';
 
@@ -15,6 +16,7 @@ interface Handle {
 }
 
 const HANDLE: Handle = { identity: 'member-handle' };
+const LEAF_NODE: IdentityNodeObservation = { kind: 'file', device: 7, inode: 42 };
 const INPUT: ContainedIdentityRead = {
   chainRoot: '/checkout',
   ownerRoot: '/checkout/agent-tools/dist',
@@ -24,7 +26,7 @@ const BYTES = Buffer.from('export {};\n');
 
 const ACCEPTING_OPERATIONS: IdentitySecureFilePort<Handle> = {
   canonicalRealpath: (path) => ok(path),
-  validateBeforeOpen: () => ok(undefined),
+  validateBeforeOpen: () => ok(LEAF_NODE),
   openNoFollow: () => ok(HANDLE),
   readRegularDescriptor: () => ok(BYTES),
   validateBeforeAccept: () => ok(undefined),
