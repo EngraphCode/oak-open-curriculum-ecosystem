@@ -11,6 +11,7 @@ import {
 import { createFakeHttpObservability } from './test-helpers/observability-fakes.js';
 import { createMockRuntimeConfig } from './test-helpers/auth-error-test-helpers.js';
 import { renderLandingPageHtml } from './landing-page/index.js';
+import { ROUTED_ASSET_BASE } from './app/static-asset-paths.js';
 
 /**
  * The design system reaches the browser as ordinary static assets.
@@ -95,12 +96,20 @@ describe('Oak Open Curriculum Design System static serving', () => {
     // The scrape accepts an absolute origin prefix so ABSOLUTE references —
     // og:image is emitted absolute for crawlers — are covered too, not just
     // root-relative ones: this test's name promises the whole rendered page.
+    // The path prefix is DERIVED, not spelled: these references moved under
+    // the routed base in MCP-509, and a literal `/oak-` here silently matched
+    // nothing afterwards — a zero-match scrape that still asserted "every
+    // referenced asset is served" over an empty set. The
+    // `expect(length).toBeGreaterThan(0)` below is what caught that, and it is
+    // the reason this test keeps its own vacuity guard.
     const html = renderLandingPageHtml();
     const referenced = [
       ...new Set(
-        [...html.matchAll(/"(?:https?:\/\/[^"/]+)?(\/oak-(?:ds|assets)\/[^"]+)"/g)].map(
-          (match) => match[1],
-        ),
+        [
+          ...html.matchAll(
+            new RegExp(`"(?:https?://[^"/]+)?(${ROUTED_ASSET_BASE}/oak-(?:ds|assets)/[^"]+)"`, 'g'),
+          ),
+        ].map((match) => match[1]),
       ),
     ];
 
@@ -112,6 +121,73 @@ describe('Oak Open Curriculum Design System static serving', () => {
         .set('Host', 'localhost');
       expect(res.status, assetPath).toBe(200);
     }
+  });
+
+  it('references every first-party asset from inside the canonical routed surface', () => {
+    // MCP-509. The canonical deployment reaches this app through a Cloudflare
+    // origin rule scoped to `/mcp` and `/mcp/*`. A root-relative reference
+    // therefore never arrives here at all — it stays on the main website and
+    // returns its 404 HTML, so the canonical page renders unstyled with no
+    // logo and no favicon while every request this app *does* receive is
+    // healthy. The page cannot observe that from the inside, which is why the
+    // invariant is asserted on the rendered markup rather than over HTTP.
+    //
+    // Scoped to SUBRESOURCES — the things the browser fetches to render the
+    // page (`<link>`, `<img>`, `<script>`), not everything that looks like a
+    // path. Two exclusions are deliberate, not laziness:
+    //
+    //  - An `<a href>` is a destination, not a subresource. The page links to
+    //    the main Oak site and to GitHub, and those are absolute off-origin
+    //    URLs whose *paths* would look first-party if the origin were stripped.
+    //  - `/.well-known/oauth-protected-resource` is a first-party ENDPOINT
+    //    with its own edge route, and forcing it under the asset base would
+    //    break OAuth discovery. Not every first-party path is an asset.
+    //
+    // The suite's older scrape was prefix-scoped to `/oak-ds/` and
+    // `/oak-assets/`, so `/favicons/*` and `/landing-page.css` were never
+    // covered — and those were exactly the paths that 404'd in production
+    // while this suite stayed green. Matching by tag instead of by prefix is
+    // what closes that hole: a newly-added subresource cannot opt out.
+    const html = renderLandingPageHtml();
+    const subresourceRefs = [
+      ...new Set(
+        [...html.matchAll(/<(?:link|img|script)\b[^>]*?\b(?:href|src)="([^"]+)"/g)]
+          .map((match) => match[1] ?? '')
+          .filter((ref) => ref.startsWith('/')),
+      ),
+    ];
+
+    expect(subresourceRefs.length).toBeGreaterThan(0);
+
+    const escaped = subresourceRefs.filter((ref) => !ref.startsWith(`${ROUTED_ASSET_BASE}/`));
+    expect(
+      escaped,
+      `these subresources sit outside ${ROUTED_ASSET_BASE}/ and 404 on the canonical host`,
+    ).toEqual([]);
+  });
+
+  it('serves the routed asset paths ahead of the MCP accept and auth gates', async () => {
+    // `/mcp/*` also carries the MCP accept-header gate and Clerk auth. Assets
+    // survive only because the static mount is registered before both, so a
+    // browser's `Accept: text/css` is not a 406 and an unauthenticated GET is
+    // not a 401. Reordering those mounts would break the page while leaving
+    // every MCP request correct — this test is what makes that visible.
+    const res = await request(app)
+      .get(`${ROUTED_ASSET_BASE}/oak-ds/styles.css`)
+      .set('Host', 'localhost')
+      .set('Accept', 'text/css,*/*;q=0.1');
+
+    expect(res.status).toBe(200);
+    expect(res.headers['content-type']).toContain('text/css');
+  });
+
+  it('still serves the unprefixed paths, so the alpha surface keeps rendering', async () => {
+    // The alpha host serves this app at its own root and is a declared
+    // compatibility surface (MCP-509 acceptance). Retiring the root mount
+    // would break it silently.
+    const res = await request(app).get('/oak-ds/styles.css').set('Host', 'localhost');
+
+    expect(res.status).toBe(200);
   });
 
   it('refuses to construct the app when the static root lacks the copied assets', async () => {

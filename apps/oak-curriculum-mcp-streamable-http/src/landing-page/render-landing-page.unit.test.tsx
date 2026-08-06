@@ -10,6 +10,8 @@
 import { describe, expect, it } from 'vitest';
 
 import { PAGE_DESCRIPTION } from './components/page-sections.js';
+import { OAK_DS_BASE, SHARE_IMAGE_PATH } from './components/design-system-refs.js';
+import { ROUTED_ASSET_BASE } from '../app/static-asset-paths.js';
 import { renderLandingPageHtml } from './render-landing-page.js';
 
 /** React's escaping of text nodes, for comparing against rendered output. */
@@ -74,7 +76,9 @@ describe('renderLandingPageHtml', () => {
 
   describe('asset posture', () => {
     it('loads the design system from the app-served copy', () => {
-      expect(html).toContain('<link rel="stylesheet" href="/oak-ds/styles.css"/>');
+      // Routed-base-prefixed since MCP-509: the canonical host forwards only
+      // `/mcp*` to this app, so a root-relative stylesheet never arrives.
+      expect(html).toContain(`<link rel="stylesheet" href="${OAK_DS_BASE}/styles.css"/>`);
     });
 
     it('keeps the page stylesheet after the system stylesheet, unmanaged by React', () => {
@@ -82,8 +86,8 @@ describe('renderLandingPageHtml', () => {
       // the system's classes) and holds only because NEITHER link carries
       // React's `precedence` prop — with it, React hoists the stylesheet
       // into its managed precedence group and silently inverts the order.
-      const systemPos = html.indexOf('href="/oak-ds/styles.css"');
-      const pagePos = html.indexOf('href="/landing-page.css"');
+      const systemPos = html.indexOf(`href="${OAK_DS_BASE}/styles.css"`);
+      const pagePos = html.indexOf(`href="${ROUTED_ASSET_BASE}/landing-page.css"`);
 
       expect(systemPos).toBeGreaterThan(-1);
       expect(pagePos).toBeGreaterThan(systemPos);
@@ -213,8 +217,10 @@ describe('renderLandingPageHtml', () => {
       const deployed = renderLandingPageHtml({ vercelHost: 'mcp.example.test' });
 
       expect(deployed).toContain('property="og:url" content="https://mcp.example.test"');
+      // Absolute AND routed-base-prefixed: a crawler fetching the card image
+      // hits the canonical host from outside, so it needs both halves right.
       expect(deployed).toContain(
-        'property="og:image" content="https://mcp.example.test/oak-assets/assets/oak-national-academy-logo-512.png"',
+        `property="og:image" content="https://mcp.example.test${SHARE_IMAGE_PATH}"`,
       );
       expect(deployed).toContain('rel="canonical" href="https://mcp.example.test"');
     });
