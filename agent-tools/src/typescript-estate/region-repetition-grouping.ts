@@ -134,7 +134,7 @@ function groupsFromBuckets(
       groups.push(group.value);
     }
   }
-  return ok(groups.sort((left, right) => compareUtf16(left.fingerprint, right.fingerprint)));
+  return ok(groups.toSorted((left, right) => compareUtf16(left.fingerprint, right.fingerprint)));
 }
 
 function cloneGroup(

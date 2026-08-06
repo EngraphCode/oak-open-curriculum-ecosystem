@@ -153,7 +153,7 @@ function frameTreeRecord(record: Uint8Array): Result<FramedTreeRecord, EstateRev
 }
 
 function parseHeader(value: string): Result<ParsedHeader, EstateReviewError> {
-  const match = /^([0-7]{6}) (blob|tree|commit) ([a-f0-9]{40,64}) +([0-9]+|-)$/u.exec(value);
+  const match = /^([0-7]{6}) (blob|tree|commit) ([a-f0-9]{40,64}) +(\d+|-)$/u.exec(value);
   if (match === null) {
     return err(new EstateReviewError('SNAPSHOT_INVALID', 'invalid Git tree record content'));
   }

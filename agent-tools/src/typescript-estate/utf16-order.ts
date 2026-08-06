@@ -6,5 +6,8 @@
  * ordering primitive for paths, identifiers, and emitted string fields.
  */
 export function compareUtf16(left: string, right: string): -1 | 0 | 1 {
-  return left < right ? -1 : left > right ? 1 : 0;
+  if (left < right) {
+    return -1;
+  }
+  return left > right ? 1 : 0;
 }

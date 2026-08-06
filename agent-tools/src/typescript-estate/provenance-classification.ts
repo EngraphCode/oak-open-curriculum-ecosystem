@@ -111,7 +111,7 @@ function collectSignals(
     });
   }
 
-  return deduplicateSignals(signals.sort(compareSignals));
+  return deduplicateSignals(signals.toSorted(compareSignals));
 }
 
 function pathMatcherMatches(
@@ -119,8 +119,8 @@ function pathMatcherMatches(
   matcher: ProvenanceClassificationConfig['generatedPathMatchers'][number],
 ): boolean {
   if (matcher.kind === 'complete-path-segment') {
-    const segments = path.split('/').filter((segment) => segment.length > 0);
-    return matcher.values.some((value) => segments.includes(value));
+    const segments = new Set(path.split('/').filter((segment) => segment.length > 0));
+    return matcher.values.some((value) => segments.has(value));
   }
   const basename = path.slice(path.lastIndexOf('/') + 1);
   return matcher.values.some((value) => basename.endsWith(value));
@@ -201,23 +201,17 @@ function signalProducerPaths(signal: ProvenanceSignal): readonly RepoPath[] {
 }
 
 function compareOptionalString(left: string | undefined, right: string | undefined): number {
-  return left === undefined
-    ? right === undefined
-      ? 0
-      : -1
-    : right === undefined
-      ? 1
-      : compareUtf16(left, right);
+  if (left === undefined) {
+    return right === undefined ? 0 : -1;
+  }
+  return right === undefined ? 1 : compareUtf16(left, right);
 }
 
 function compareOptionalNumber(left: number | undefined, right: number | undefined): number {
-  return left === undefined
-    ? right === undefined
-      ? 0
-      : -1
-    : right === undefined
-      ? 1
-      : left - right;
+  if (left === undefined) {
+    return right === undefined ? 0 : -1;
+  }
+  return right === undefined ? 1 : left - right;
 }
 
 function compareStringSequences(left: readonly string[], right: readonly string[]): number {

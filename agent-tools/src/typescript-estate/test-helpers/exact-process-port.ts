@@ -2,6 +2,7 @@ import { err, unwrapOrThrow } from '@oaknational/result';
 import { typeSafeEntries } from '@oaknational/type-helpers';
 
 import type { ProcessInvocation, ProcessPort, ProcessResult } from '../ports.js';
+import { compareUtf16 } from '../utf16-order.js';
 
 export interface ExactProcessResponse {
   readonly invocation: ProcessInvocation;
@@ -46,9 +47,7 @@ function invocationKey(input: ProcessInvocation): string {
     input.executable,
     input.args,
     input.cwd,
-    typeSafeEntries(input.env).sort(([left], [right]) =>
-      left < right ? -1 : left > right ? 1 : 0,
-    ),
+    typeSafeEntries(input.env).sort(([left], [right]) => compareUtf16(left, right)),
     input.maxStdoutBytes,
     input.maxStderrBytes,
   ]);

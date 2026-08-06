@@ -6,7 +6,11 @@ import { err, isErr, ok, type Result } from '@oaknational/result';
 import { EstateReviewError } from './errors.js';
 import type { GraphNode } from './graph-model.js';
 import type { GraphNodeInput } from './graph-node-input.js';
-import { compareGraphText, validateGraphRepoPath } from './graph-validation.js';
+import {
+  compareGraphText,
+  validateGraphRepoPath,
+  withoutTrailingSlashes,
+} from './graph-validation.js';
 import type { GraphNodeKind } from './graph-vocabulary.js';
 import { lengthFrame } from './length-framing.js';
 import type { RepoPath, Sha256 } from './scalar-model.js';
@@ -124,7 +128,7 @@ function deriveArtefactIdentity(
       path: null,
     });
   }
-  const prefix = identity.prefix.replace(/\/+$/u, '');
+  const prefix = withoutTrailingSlashes(identity.prefix);
   if (prefix.length === 0 || !isSha256(identity.memberSetSha256)) {
     return err(
       new EstateReviewError(
@@ -181,16 +185,14 @@ function validateComponents(components: readonly string[]): Result<undefined, Es
   const invalid = components.find(
     (component) => component.length === 0 || component.includes('\0'),
   );
-  return invalid === undefined
-    ? ok(undefined)
-    : err(
-        new EstateReviewError(
-          'VALIDATION_FAILED',
-          invalid.length === 0
-            ? 'graph identity components must be non-empty'
-            : 'graph identity components must not contain NUL',
-        ),
-      );
+  if (invalid === undefined) {
+    return ok(undefined);
+  }
+  const reason =
+    invalid.length === 0
+      ? 'graph identity components must be non-empty'
+      : 'graph identity components must not contain NUL';
+  return err(new EstateReviewError('VALIDATION_FAILED', reason));
 }
 
 function hashNode(

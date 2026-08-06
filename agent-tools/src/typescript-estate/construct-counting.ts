@@ -15,6 +15,7 @@ import {
 import type { AlgorithmDefinition, DataStructureDefinition } from './config-analysis-model.js';
 import type { ConstructCount } from './analysis-model.js';
 import { EstateReviewError } from './errors.js';
+import { compareUtf16 } from './utf16-order.js';
 
 export interface ConstructCountingConfig {
   readonly runtimeValueStructures: readonly DataStructureDefinition[];
@@ -122,7 +123,7 @@ function compareDefinitionIds(
   left: DataStructureDefinition | AlgorithmDefinition,
   right: DataStructureDefinition | AlgorithmDefinition,
 ): number {
-  return left.id < right.id ? -1 : left.id > right.id ? 1 : 0;
+  return compareUtf16(left.id, right.id);
 }
 
 function syntaxKindsByName(): ReadonlyMap<string, number> {

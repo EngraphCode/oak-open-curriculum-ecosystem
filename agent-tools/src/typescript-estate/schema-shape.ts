@@ -35,7 +35,7 @@ export function extractSchemaShapes(
       shapes.push(shape.value);
     }
   }
-  return ok(shapes.sort(compareSchemaShapes));
+  return ok(shapes.toSorted(compareSchemaShapes));
 }
 
 function schemaShapeFromObservation(

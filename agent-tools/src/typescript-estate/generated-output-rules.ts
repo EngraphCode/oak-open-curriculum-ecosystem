@@ -115,12 +115,7 @@ function validateEvidencePath(
 }
 
 function isRegularTreeEntry(entry: TrackedTreeEntry['treeEntry'] | undefined): boolean {
-  return (
-    entry !== undefined &&
-    entry.type === 'blob' &&
-    REGULAR_MODES.has(entry.mode) &&
-    entry.size !== null
-  );
+  return entry?.type === 'blob' && REGULAR_MODES.has(entry.mode) && entry.size !== null;
 }
 
 function findOverlappingPrefixes(

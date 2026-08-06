@@ -88,7 +88,7 @@ function isNodeBuiltinSpecifier(specifier: string): boolean {
 }
 
 function isNodeBuiltinSegment(segment: string): boolean {
-  return segment !== '.' && segment !== '..' && /^[A-Za-z0-9_][A-Za-z0-9._-]*$/u.test(segment);
+  return segment !== '.' && segment !== '..' && /^\w[\w.-]*$/u.test(segment);
 }
 
 function isExternalPackageSpecifier(specifier: string): boolean {

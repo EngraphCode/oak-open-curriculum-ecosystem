@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
@@ -27,6 +27,27 @@ function fail(message: string): never {
   process.exit(1);
 }
 
+/**
+ * Fixed, root-owned directories. Every child process this smoke starts
+ * resolves its `git` binary inside this list and runs with the list as its
+ * entire PATH, so no writable directory on the ambient PATH can shadow the
+ * executable the smoke means to exercise.
+ */
+const TRUSTED_BIN_DIRECTORIES: readonly string[] = ['/usr/bin', '/bin', '/usr/local/bin'];
+const PINNED_PATH = TRUSTED_BIN_DIRECTORIES.join(path.delimiter);
+
+function trustedExecutable(name: string): string {
+  for (const directory of TRUSTED_BIN_DIRECTORIES) {
+    const candidate = path.join(directory, name);
+    if (existsSync(candidate)) {
+      return candidate;
+    }
+  }
+  return fail(`'${name}' is absent from every trusted directory (${PINNED_PATH})`);
+}
+
+const GIT_EXECUTABLE = trustedExecutable('git');
+
 const realProcessPort: ProcessPort = {
   run(input: ProcessInvocation): ProcessResult {
     const outcome = spawnSync(input.executable, input.args, {
@@ -45,7 +66,10 @@ const realProcessPort: ProcessPort = {
 };
 
 function git(root: string, ...args: readonly string[]): string {
-  const outcome = spawnSync('git', ['-C', root, ...args], { encoding: 'utf8' });
+  const outcome = spawnSync(GIT_EXECUTABLE, ['-C', root, ...args], {
+    encoding: 'utf8',
+    env: { ...process.env, PATH: PINNED_PATH },
+  });
   if (outcome.status !== 0) {
     fail(`git ${args.join(' ')} failed: ${outcome.stderr}`);
   }
@@ -68,10 +92,10 @@ try {
   writeFileSync(pinnedPath, 'drifted-bytes\n');
 
   const context: GitContext = {
-    executable: 'git',
+    executable: GIT_EXECUTABLE,
     cwd: root,
     root,
-    env: gitEnvironment(process.env),
+    env: gitEnvironment({ ...process.env, PATH: PINNED_PATH }),
     stderrLimit: 4096,
     process: realProcessPort,
   };

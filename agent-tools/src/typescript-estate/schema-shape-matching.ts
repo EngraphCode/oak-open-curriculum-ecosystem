@@ -53,7 +53,7 @@ export function matchSchemaShapes(
       }
     }
   }
-  return ok(matches.sort(compareSchemaShapeMatches));
+  return ok(matches.toSorted(compareSchemaShapeMatches));
 }
 
 function isCompleteSchemaShape(shape: SchemaShape): shape is CompleteSchemaShape {

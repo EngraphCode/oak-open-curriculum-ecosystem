@@ -32,13 +32,9 @@ import {
   type TypeLiteralNode,
 } from 'typescript';
 
-import {
-  SCHEMA_SHAPE_UNSUPPORTED_REASONS,
-  type SchemaShapeKind,
-  type SchemaShapeUnsupportedReason,
-} from './file-vocabulary.js';
+import type { SchemaShapeKind, SchemaShapeUnsupportedReason } from './file-vocabulary.js';
 
-export { SCHEMA_SHAPE_UNSUPPORTED_REASONS as UNSUPPORTED_REASONS };
+export { SCHEMA_SHAPE_UNSUPPORTED_REASONS as UNSUPPORTED_REASONS } from './file-vocabulary.js';
 
 export interface ShapeObservation {
   readonly kind: SchemaShapeKind;
