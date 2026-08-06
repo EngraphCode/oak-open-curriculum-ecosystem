@@ -799,3 +799,17 @@ carried-unprocessed convention; the next consolidation pass processes it.
   the Falcon->Magnetar record's own flip instruction; stale warden row adopted-then-
   closed (n=1, no contention); design seat Saffron (8a4280) registered cold same hour —
   n=2 mode active, wake by directed event.
+
+## 2026-08-03 ~08:45Z (Magnetar/74d914): upstream-spec-probe lane constraint (owner word, verbatim-critical)
+
+Owner, on the spec-alignment findings: "please be very careful before chasing
+any type issues, there are correct and non-trivial approaches here, and I
+will work with you to identify and apply them." BINDING on the lane: the
+type-layer legs (the z.toJSONSchema examples round-trip contract, the
+KeywordsResponseSchema promotion's generated types, anything in the zod/
+openapi-zod-client-adapter layer) are OWNER-COLLABORATIVE — identified and
+applied WITH him, never autonomously cured. The non-type legs (override
+re-evaluation needs the live-API semantics probe first; served-tool-table
+artefact regen) still wait for routing. The probe worktree
+(upstream-spec-probe, refreshed cache + regen uncommitted) is the lane's
+opening state; this constraint rides any routing brief VERBATIM.

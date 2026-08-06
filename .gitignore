@@ -340,3 +340,4 @@ packages/design/oak-design-system/.sync-staging/
 # in packages/design/oak-design-system — un-tracked 2026-07-28, MCP-333, with
 # the bytes preserved in the branch history that merged via PR #569)
 packages/design/oak-open-curriculum-design-system-tna-24072026-1141/
+.env*
