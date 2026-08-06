@@ -54,16 +54,17 @@ terminal-state coverage) built in.
   9457a815): the backlog is release/deploy watch + heartbeat-loop
   commands; `pr-watch` already exists as the pattern exemplar; in-repo
   plans only until the Linear embargo lifts 2026-08-10.
-- **Named tooling gap** (flagged the same hour, event 7ba78908):
-  `merge-bot` has `mint-token` only — the settled-green REST merge
-  still needs a `gh` wrapper each time. A `merge-bot merge` subcommand
+- **Named tooling gap** (flagged the same hour, event 7ba78908;
+  DISCHARGED by slice 1 — `merge-bot merge` landed via PR #790):
+  `merge-bot` had `mint-token` only — the settled-green REST merge
+  needed a `gh` wrapper each time. The `merge-bot merge` subcommand
   subsumes the PR settle-watch (poll to settled, then merge) — one
   command, not two.
 - **Build-vs-buy**: the vendor surface is GitHub's REST API, already
   consumed via the estate's own minted-token discipline. GitHub's
   first-party merge automation IS available in bot identity (the
-  sanctioned `gh pr merge --auto` form is documented in merge-bot's
-  own header, and PDR-131 permits arming it at settled-READY under a
+  bot-merge path is documented in `docs/engineering/merge-bot.md`,
+  and PDR-131 permits arming auto-merge at settled-READY under a
   Director grant) — it is rejected on capability, not identity:
   GitHub enforces only checks and review threads, never the estate's
   round-owed and body-tally settlement legs, so auto-merge cannot
