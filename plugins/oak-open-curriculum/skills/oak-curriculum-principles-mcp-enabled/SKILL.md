@@ -16,7 +16,7 @@ description: >-
   base, and subject principles.
 license: Curriculum principles © Oak National Academy. See references/sources.md.
 compatibility: >-
-  Requires the Oak Curriculum MCP server (curriculum-mcp-alpha.oaknational.dev)
+  Requires the Oak Curriculum MCP server (www.thenational.academy/mcp)
   connected to the agent. Designed to be used alongside the
   oak-curriculum-principles skill. If the MCP is unavailable, fall back to that
   self-contained skill.

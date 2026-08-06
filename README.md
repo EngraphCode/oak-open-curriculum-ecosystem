@@ -24,7 +24,7 @@ development, and how we run our own work.
 
 ---
 
-**Current status: Invite-Only Alpha** — The alpha MCP app server is live at `curriculum-mcp-alpha.oaknational.dev`.
+**Current status: Public Beta** — The MCP app server is live at `www.thenational.academy/mcp`. Anyone can create an Oak account to connect; there is no invitation or allowlist. The `curriculum-mcp-alpha.oaknational.dev` host remains available as a compatibility surface.
 
 ---
 

@@ -8,6 +8,47 @@
  * bundle's graph — the shared constants live here, on the `src/` side of
  * that boundary, and the build script imports downward from it.
  */
+import { MCP_RESOURCE_PATH } from '../served-origin.js';
+
+/**
+ * URL prefix every first-party asset reference sits beneath.
+ *
+ * @remarks
+ * MCP-509. The canonical deployment reaches this app through a Cloudflare
+ * origin rule scoped to `/mcp` and `/mcp/*`; a root-relative asset request
+ * never arrives here at all, it stays on the main website and gets that
+ * site's 404 HTML. So the page's own references must live inside the routed
+ * surface, and the static mount must answer there.
+ *
+ * **Derived, not a fourth copy of `'/mcp'`.** The edge rule is scoped to the
+ * path this app publishes as its MCP resource, so that path — not a literal
+ * spelled here — is what the asset base has to equal. Deriving it means a
+ * change to the resource path moves the assets with it, and cannot leave the
+ * markup pointing somewhere the edge does not forward. Spelling it again
+ * would rebuild the MCP-509 defect in miniature: every consumer and every
+ * test composes from this constant, so an independent literal here could
+ * drift to a value the edge never routes while the whole suite stayed green.
+ * `MCP_RESOURCE_PATH` is itself pinned to a literal by the published
+ * protected-resource metadata (`auth-routes.integration.test.ts`).
+ *
+ * Widening the Cloudflare rule instead — claiming root-level `/oak-ds/*` or
+ * `/favicons/*` on `www` — would put this app in the main website's
+ * namespace, a collision review nobody has done. Staying inside the existing
+ * contained route needs no edge change at all.
+ *
+ * Assets survive the shared prefix because the static mount is registered
+ * BEFORE the `/mcp` accept-header gate (see `application.ts` ordering): a
+ * browser sends `Accept: text/css` with no `text/event-stream`, which that
+ * gate answers with a 406. `express.static` calls `next()` on a miss, so
+ * `GET /mcp` and `POST /mcp` still reach the MCP handler untouched. Both
+ * properties are asserted in `oak-ds-static.integration.test.ts`.
+ *
+ * Clerk is not part of that ordering, despite the shared prefix. Its context
+ * middleware runs earlier than the static mount and only attaches context;
+ * its enforcement is bound to the exact `/mcp` routes, which no asset path
+ * can match. No mount order produces a 401 on an asset.
+ */
+export const ROUTED_ASSET_BASE = MCP_RESOURCE_PATH;
 
 /** Directory name the copied design system occupies under the served root. */
 export const OAK_DS_PUBLIC_DIRNAME = 'oak-ds';
