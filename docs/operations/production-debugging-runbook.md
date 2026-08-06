@@ -82,7 +82,7 @@ Authentication wiring now emits dedicated instrumentation:
 
 - `auth.bootstrap.step.start` / `auth.bootstrap.step.finish` for `clerkMiddleware.create`, `clerkMiddleware.install`, `oauth.metadata.register`, `mcp.auth.register`
 - `auth.bootstrap.step.error` when any step throws (includes duration and error context)
-- When `DANGEROUSLY_DISABLE_AUTH=true`, the unauthenticated path is recorded as `auth.disabled.register`
+- When `DANGEROUSLY_DISABLE_AUTH=true`, the unauthenticated path is recorded as `auth.disabled.register` — **local runs only**. A deployed environment rejects that flag at startup, so `auth.disabled.register` never appears in preview or production logs; if you see it there, the deployment is not running this build.
 
 ```bash
 # Validate Clerk instrumentation completed

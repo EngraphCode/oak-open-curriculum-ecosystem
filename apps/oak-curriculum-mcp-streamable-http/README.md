@@ -337,10 +337,13 @@ The server uses **Clerk OAuth** for production authentication. All requests to `
 
 ### Development Authentication
 
-For local development only:
+A local-development valve only:
 
-- Set `DANGEROUSLY_DISABLE_AUTH=true` to bypass authentication
-- **NEVER** enable this in production or preview environments
+- Set `DANGEROUSLY_DISABLE_AUTH=true` to bypass authentication on a local run
+- **Every deployed environment rejects it.** This is enforced, not advised: when
+  `VERCEL_ENV` names any deployed environment (including one that does not exist
+  yet), `DANGEROUSLY_DISABLE_AUTH=true` fails startup rather than serving
+  unauthenticated. A local run means `VERCEL_ENV` unset or `development`.
 
 ### MCP Client Configuration
 
