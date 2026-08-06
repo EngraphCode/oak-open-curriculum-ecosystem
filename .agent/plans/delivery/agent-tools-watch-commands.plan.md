@@ -3,19 +3,17 @@ id: agent-tools-watch-commands
 node_type: delivery
 name: "Agent-tools watch commands: the recurring watch patterns as front-door CLI"
 overview: "Give every seat the recurring watch patterns — heartbeat loop, release/deploy watch, settled-green merge — as single front-door agent-tools commands, retiring per-session tmp-script reinvention."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-06
+ratified_where: "Owner card answers at the Director seat 2026-08-06 ('Early ticket mint — stamp now' + 'merge-bot merge first'), relayed to the executing seat as directed comms event 28e101ba-9e38-49e1-a91a-c4d87c39d783; PR #789"
 serves: agent-platform-citizenship
 impact_areas:
   - practice-and-estate
-tickets: []
+tickets:
+  - MCP-508
 depends_on: []
-owner_gates:
-  - awaiting: "owner-decision"
-    clears_when: "a Linear ticket is named in tickets AND the ratification stamp lands — the serving strategic node is ticket-anchored (validator: plan-execution-anchors), so the owner either authorises an early ticket mint or the stamp lands with the ticket at the embargo lift"
-    expires: 2026-08-10
+owner_gates: []
 last_updated: 2026-08-06
 ---
 
@@ -189,10 +187,10 @@ prose each session must re-read.
 
 Sequence is definite (1 → 2 → 3); no conditional triggers. Slices are
 independent landings; slice 2 carries the `liveness-heartbeat-cron`
-re-point in the same PR. Slice ordering note for the ratification
-card: `merge-bot merge` is scope the ruling did not name (it cures
-the gap flagged the same hour, event 7ba78908) and is placed first on
-recorded pain — the owner may reorder at the stamp.
+re-point in the same PR. The ordering was surfaced on the ratification
+card (`merge-bot merge` cures the gap flagged the same hour, event
+7ba78908, but was scope the ruling did not name) and the owner
+confirmed it at the stamp: "merge-bot merge first".
 
 ## Review path
 
