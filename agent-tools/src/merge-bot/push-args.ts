@@ -1,5 +1,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 
+import { isLegalBranchName, realRefFormatOracle, type RefFormatOracle } from './ref-format.js';
+
 /**
  * The argv contract for `merge-bot push`. Split from `push-cli.ts` to keep
  * both files inside the size and complexity gates (the seam `merge-args.ts`
@@ -61,20 +63,18 @@ const REFUSED_FLAGS: Readonly<Record<string, string>> = {
 };
 
 /**
- * Git branch grammar, narrowed to what the estate cuts. The value lands
- * inside a `HEAD:<branch>` refspec in git's OWN argv, so it must never be
- * able to read as an option (`-x`, `--upload-pack=…`) or as a ref git
- * rejects late (`a..b`, a trailing `/`, a `.lock` suffix).
+ * A value that reads as a flag is a forgotten `--branch` argument, never a
+ * branch anyone meant to push: refuse it rather than cutting a remote branch
+ * literally called `--json`. This guard is ours and it is about argv INTENT —
+ * git's ref grammar has no opinion here (the oracle passes the full ref name
+ * `refs/heads/--json`), and legality is its question, asked separately below.
  */
-const BRANCH_GRAMMAR = /^[A-Za-z0-9][A-Za-z0-9._/-]*$/u;
+function readsAsFlag(value: string): boolean {
+  return value.startsWith('-');
+}
 
-function isBranchName(value: string): boolean {
-  return (
-    BRANCH_GRAMMAR.test(value) &&
-    !value.includes('..') &&
-    !value.endsWith('/') &&
-    !value.endsWith('.lock')
-  );
+function isBranchName(value: string, oracle: RefFormatOracle): boolean {
+  return !readsAsFlag(value) && isLegalBranchName(value, oracle);
 }
 
 interface CollectedPushFlags {
@@ -82,23 +82,33 @@ interface CollectedPushFlags {
   json: boolean;
 }
 
+/**
+ * The oracle enters HERE (the default-seam pattern the rest of this command
+ * uses) rather than at the parser's head, so parsing an argv with no
+ * `--branch` never reaches for a git binary at all.
+ */
 function consumeBranch(
   state: CollectedPushFlags,
   value: string | undefined,
+  refFormatOracle: RefFormatOracle | undefined,
 ): Result<undefined, Error> {
   // A repeated --branch is refused rather than last-wins: WHICH branch a push
   // lands on must never be decided by argv order.
   if (state.branch !== undefined) {
     return err(new Error('--branch given more than once — pass it exactly once'));
   }
-  if (value === undefined || !isBranchName(value)) {
+  const oracle = refFormatOracle ?? realRefFormatOracle();
+  if (value === undefined || !isBranchName(value, oracle)) {
     return err(new Error(`--branch needs a git branch name, got "${value ?? ''}"\n${PUSH_USAGE}`));
   }
   state.branch = value;
   return ok(undefined);
 }
 
-export function parsePushArgs(rest: readonly string[]): Result<PushArgs, Error> {
+export function parsePushArgs(
+  rest: readonly string[],
+  seams: { readonly refFormatOracle?: RefFormatOracle } = {},
+): Result<PushArgs, Error> {
   const state: CollectedPushFlags = { json: false };
   for (let index = 0; index < rest.length; index += 1) {
     const flag = rest[index] ?? '';
@@ -113,7 +123,7 @@ export function parsePushArgs(rest: readonly string[]): Result<PushArgs, Error> 
     if (flag !== '--branch') {
       return err(new Error(`unknown argument "${flag}"\n${PUSH_USAGE}`));
     }
-    const consumed = consumeBranch(state, rest[index + 1]);
+    const consumed = consumeBranch(state, rest[index + 1], seams.refFormatOracle);
     if (!consumed.ok) {
       return consumed;
     }

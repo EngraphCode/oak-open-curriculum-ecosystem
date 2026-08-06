@@ -72,6 +72,23 @@ describe('parsePushArgs', () => {
     }
   });
 
+  it('rejects every ref shape git itself rejects — legality is the oracle question, not ours', () => {
+    // R9: these four all satisfied the hand-rolled grammar this parser used to
+    // carry, and `git check-ref-format` rejects every one — a trailing dot, a
+    // doubled slash, a dot-leading component, and a `.lock` component that is
+    // not the last. A lookalike admits precisely the shapes nobody thinks to
+    // write down, which is why the oracle is asked instead of imitated. The
+    // real `git check-ref-format` runs here, unfaked: asking anything else
+    // would restore the lookalike one layer up.
+    for (const bad of ['foo.', 'foo//bar', 'foo/.bar', 'foo.lock/bar']) {
+      const parsed = parsePushArgs(['--branch', bad]);
+      expect(parsed.ok, `expected git to reject "${bad}"`).toBe(false);
+      if (!parsed.ok) {
+        expect(parsed.error.message).toContain('--branch');
+      }
+    }
+  });
+
   it('accepts the branch shapes the estate actually cuts', () => {
     for (const good of ['main', 'jimcresswell/mcp-508-merge-bot-merge', 'release-1.2.3', 'x_y']) {
       expect(parsePushArgs(['--branch', good]).ok).toBe(true);
