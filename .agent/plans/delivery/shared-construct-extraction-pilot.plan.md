@@ -3,10 +3,10 @@ id: shared-construct-extraction-pilot
 node_type: delivery
 name: "Shared-construct extraction pilot: the fleet workflow-stage scaffolding"
 overview: "Run the identify→factor→test→document→land chain once at n=1: extract the twice-implemented fleet workflow-stage scaffolding into one assured package, making the worked pipeline the template for every later extraction."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-06
+ratified_where: "Owner card at the Director seat 2026-08-06 (card answer: 'Ratified — stamp and merge'), relayed to the executing seat as directed comms event 827985ad-a863-423d-8b79-c29bb8c9197d; PR #786"
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate
