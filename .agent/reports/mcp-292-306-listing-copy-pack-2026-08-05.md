@@ -134,9 +134,27 @@ The connector is read-only and requires signing in with an Oak account; there ar
 IDs or secrets to configure. Oak does not impose a per-user or per-key request quota on this
 connector. The service sits behind Cloudflare and Vercel, whose platform-level protections
 apply to volumetric and abusive traffic; normal interactive use by a teacher or an assistant
-is well within them. The get-rate-limit tool and the X-RateLimit-* response headers report
-the current allowance at any time, and checking does not count against it.
+is well within them. The get-rate-limit tool reports the current allowance at any time and
+explains what its response means; checking does not count against the quota.
 ```
+
+**THIS FIELD IS AUTHORITATIVE — the submission draft's version is stale.** The Anthropic
+submission draft still reads "1,000 requests per hour (sliding window), enforced per API key
+by the upstream Oak Curriculum API". That claim is withdrawn (see below) and must not be
+pasted. An earlier revision of this pack said the draft wins wherever the two differ; that
+precedence is reversed for this field, because the draft carries the number this field exists
+to remove. Correcting the draft is listed as an outstanding item.
+
+**Raw `X-RateLimit-*` headers deliberately dropped from the paste copy.** An earlier draft of
+this replacement pointed reviewers at the tool *or* the headers. That was a trap: the headers
+carry the same figures, but a bare `X-RateLimit-Limit: 0` reads naturally as "no allowance"
+when it in fact means "no cap". Only the `get-rate-limit` tool's own description states that
+convention — *"A response of limit=0, remaining=0, reset=0 indicates an unlimited API key
+with no rate cap"* — so the tool is self-explaining and the headers are not. Pointing a
+reviewer at an ambiguous signal and then asserting the text and the tool agree would have
+been worse than saying nothing. (The header convention above is inferred from the tool's
+documented behaviour over the same upstream values, not read from a header specification —
+another reason not to put it in outbound copy.)
 
 **No rate-limit figure, by owner ruling (2026-08-06).** Earlier revisions of this field named
 "1,000 per window" and then "1,000 per hour (sliding window)". Both are withdrawn: there is
@@ -289,12 +307,19 @@ fill from what we hold.
 2. **One-liner cap** — 55 vs 200 unresolved; copy written to 55 so it is safe either way.
 3. **Categories** — GAP; needs the live form's option list.
 4. **Documentation URL** — does not exist yet; record the dependency (MCP-301 / MCP-308).
-5. **Connection requirements** — truth changes at the M4 boundary; re-state at paste time.
+5. **Connection requirements** — settled. The M4 boundary has passed and sign-in is open
+   (owner verified against production 2026-08-06 with a non-Oak email, no invitation), so the
+   field above stands as written; do not reintroduce the invitation caveat.
 6. **Residency sentence** — owner framing exists; final wording sits with the DPO.
 7. **Example prompt 4** — run it first; drop if the assets call refuses (MCP-328).
 8. **Sponsored content answer** — recommend `No`; Jim's call.
 9. **Result-size line** — add once MCP-441 settles (MCP-444 §11).
 10. **`support` link URI** — re-check if MCP-438 lands first.
+11. **Correct the submission draft's rate-limit field** — the draft still states "1,000
+    requests per hour (sliding window), enforced per API key by the upstream Oak Curriculum
+    API". There is no such limit (MCP-513). Until the draft is edited, the false number is
+    still pastable from it; use Field 5 above instead, which supersedes it. ADR-070, the
+    figure's origin, also still asserts the limit (MCP-515).
 
 Choices 1, 3 and 8 are human decisions. Everything else is a verification or a dependency
 with a known owner.
