@@ -35,9 +35,20 @@ import { ROUTED_ASSET_BASE } from './app/static-asset-paths.js';
  * browser retrieves on its own is in scope, which is wider than the
  * `link|img|script` this scrape started with — `<source>`, `<use>` and
  * `<iframe>` are all ways a first-party reference could otherwise opt out.
+ *
+ * Case-INSENSITIVE, and the flag is load-bearing rather than tidiness: HTML
+ * tag and attribute names are case-insensitive, so a lower-case-only scrape
+ * lets `<IMG SRC="/x.png">` opt out of this guard silently — the same
+ * "reference escapes the check" failure MCP-509 exists to prevent. CodeQL
+ * `js/bad-tag-filter` raises exactly this. Do not strip the `i` as noise.
+ *
+ * The `i` must travel on the ATTRIBUTE pattern too. With it here alone, an
+ * upper-case tag would newly match, then find no attribute through a
+ * case-sensitive extractor, and its reference would be dropped without a
+ * failure — a wider hole than the one being closed.
  */
 const SUBRESOURCE_TAG_PATTERN =
-  /<(?:link|img|script|source|use|image|video|audio|track|iframe|embed|object)\b[^>]*>/g;
+  /<(?:link|img|script|source|use|image|video|audio|track|iframe|embed|object)\b[^>]*>/gi;
 
 /**
  * URL-bearing attributes, `data-*` lazy-loading mirrors included.
@@ -49,11 +60,11 @@ const SUBRESOURCE_TAG_PATTERN =
  * after the hyphen, so `data-src` is collected as well — which is intended,
  * since a lazy-loaded reference is fetched just the same.
  */
-const URL_ATTRIBUTE_PATTERN = /\b(?:href|src|srcset|imagesrcset|poster|data)="([^"]+)"/g;
+const URL_ATTRIBUTE_PATTERN = /\b(?:href|src|srcset|imagesrcset|poster|data)="([^"]+)"/gi;
 
 /** Image references that live in `<meta content>` rather than in a fetchable tag. */
 const META_IMAGE_PATTERN =
-  /<meta\b[^>]*\b(?:property|name)="(?:og:image|twitter:image|msapplication-TileImage)"[^>]*\bcontent="([^"]+)"/g;
+  /<meta\b[^>]*\b(?:property|name)="(?:og:image|twitter:image|msapplication-TileImage)"[^>]*\bcontent="([^"]+)"/gi;
 
 /**
  * `rel` values the browser actually fetches.
