@@ -404,3 +404,68 @@ to the next dedicated consolidation rather than patching the word list.
   Route: the tooling-lane successor's queue, shaped at the Director's
   tooling-lane state review; binds to the new operational requirements
   (R3 interactive class, R9 contract closure).
+
+## 2026-08-06 Clerk wrong-domain handshake diagnosis (Baobab turns Seedling, 66aee6)
+
+- Diagnosed the owner-reported production bug (owner HAR, 2026-08-06 15:29 BST): browsing
+  `www.thenational.academy/mcp` with an expired Clerk `__session` 307'd to
+  `clerk.thenational.academy/v1/client/handshake` with
+  `redirect_url=https://curriculum-mcp-alpha.oaknational.dev/mcp`; FAPI 422'd
+  (`form_param_value_invalid` on `redirect_url`), stranding the browser. Live-reproduced with a
+  synthetic `__client_uat=1` cookie probe through BOTH `www` and the alpha host — the app never
+  sees the public hostname.
+- Mechanism chain, each link instrument-named: Cloudflare origin route (Cloud-Config
+  `header_transforms.tf` `http_request_origin`, MCP-172) rewrites Host to the alpha domain
+  (structural — Vercel selects the project by Host); the app deliberately runs no `trust proxy`
+  and passes no origin config to `clerkMiddleware`
+  (`apps/oak-curriculum-mcp-streamable-http/src/global-auth-context.ts:40`); `@clerk/backend`
+  3.13.1 `deriveUrlFromHeaders` builds the handshake `redirect_url` purely from
+  `x-forwarded-host` → `host` (source-read on disk, byte-identical upstream through 3.16.0);
+  Vercel's edge strips/overwrites an incoming `x-forwarded-host` before the function
+  (probe-proven), so no proxy-side header cure exists.
+- Clerk handshake `redirect_url` validation proved domain-scoped, not a configurable allowlist:
+  instance domain + any subdomain accepted (unregistered `foo-not-real.thenational.academy`
+  passed; alpha and evil.example.com 422'd). Docs' error table names a different code than the
+  live API returns; trust the live response.
+- Recommended cure (NOT executed this session — diagnosis-only seat): app-side middleware
+  before `clerkMiddleware` that sets `x-forwarded-host`/`x-forwarded-proto` from
+  `CANONICAL_HOST` — config-truth replacing edge-derived headers, consistent with the app's
+  no-trust-proxy stance. Conditional-vs-unconditional application is the same design fork as
+  the #761 alias defect; route through that lane.
+- Non-cures recorded so they are not re-litigated: Cloudflare `X-Forwarded-Host` transform
+  (Vercel strips it), Clerk allowed-origins / subdomain-allowlist (does not govern handshake
+  `redirect_url`), satellite domain for `oaknational.dev` (instance-level — shared with Aila
+  per ADR-053 — needs a CNAME, and still returns the user to a host holding none of their
+  cookies), `proxyUrl`/`frontendApiProxy` (moves the FAPI base only; validation effect
+  unverified).
+- Trigger scoping for support: signed-out browsers never handshake (no cookies), which is why
+  the page "usually works"; the failure arms once MCP-client auth via the Clerk website leaves
+  real browser cookies, and fires whenever the short-lived session JWT is stale at visit time.
+
+## 2026-08-06 afternoon — the two owner-ordered lane reviews (Director verdicts, conserved at compaction prep)
+
+- TOOLING LANE (delivered in chat ~14:30Z): the lane shipped two plan
+  nodes, the #790 command pair (10/10 threads resolved, round-2 cures
+  landed at SHA:69be3844b), #792, the #734 cure, #788. MATERIAL
+  CORRECTION to the handoff's "mechanical from here": the five
+  suppressed findings S1-S5 are undispositioned at the tip — S4
+  (spawnSync 1 MiB vs measured 1.77 MiB gate output) means the shipped
+  push command cannot complete a normal push (empirical; Drake's own
+  pushes rode /tmp shell transports — the command was never
+  live-fired). Successor's first act: S1-S5 disposition round (cures
+  bound by R1/R5/R6/R9), THEN the dogfood merge, then #792. Behind
+  it: pattern-survey return, handoff-CLI commission, token-revocation
+  pointer, bootstrap generator fix, slice-2 gate (expires 2026-08-20).
+  Practice defects logged: claim archived-while-live by a freshness
+  sweep (heartbeat-dead-across-compaction read as retirement);
+  reviewer-idle-means-finished harvest pattern.
+- PATTERN-SEARCH LANE (delivered ~14:5xZ): healthy, dormant by
+  design, cheapest wake in the estate — census contract frozen
+  (d0368b2a + f2b5ebdf), opener #788 merge-ready (paused label), main
+  slice (Classes 2+4) unblocked-unstarted with the owner placement
+  word recorded ("workflow-runtime now", promotion trigger named),
+  #734 awaiting owner review. Resumption = one seat + merge #788 +
+  main slice + Cricket M3/M4; rider: carry R8 live-fire + R9 contract
+  closure into the main slice (it moves runtime seam-adjacent code).
+  DESIGN WAKE now awaits only the owner's word (both reviews
+  delivered).
