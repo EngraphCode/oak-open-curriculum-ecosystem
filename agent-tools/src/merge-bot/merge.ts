@@ -1,14 +1,13 @@
 import { execFileSync } from 'node:child_process';
 
 import { err, ok, type Result } from '@oaknational/result';
-import { z } from 'zod';
 
-import { parseWithSchema } from '../core/schema-parse.js';
 import type { GhCommandExecutor } from '../pr-watch/gh.js';
 import { readPrStateReading, type ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading, PrVerdict } from '../pr-watch/state-types.js';
 import { computePrVerdict } from '../pr-watch/states.js';
 import { decideMergeAction } from './merge-decision.js';
+import { readMergeSettings, realFetch, putMerge } from './merge-github-api.js';
 import { mintForConfig, type MintedToken, type MintSeams } from './mint-for-config.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import type { BotIdentity } from './resolve-identity.js';
@@ -25,12 +24,20 @@ import type { BotIdentity } from './resolve-identity.js';
  * changing method (the never-squash ruling as behaviour).
  */
 
+/**
+ * A failed PR-state reading, typed so the poll loop can classify it as
+ * retryable-within-budget (security H4): pr-watch's reader throws by design
+ * on transients (mergeable UNKNOWN, a moved head, a gh non-zero exit), and
+ * that throw must never escape into the usage-error exit path.
+ */
+export class ReadingUnavailableError extends Error {}
+
 /** The seams a caller may inject; the CLI supplies the real composition. */
 interface MergeExecutionSeams {
   /** Mint thunk (defaults to mintForConfig at scope pull-request-work). */
   readonly mint?: () => Promise<Result<MintedToken, Error>>;
-  /** Reading assembly (defaults to pr-watch's gh-backed reading). */
-  readonly readReading?: (options: ReadPrStateOptions) => PrStateReading;
+  /** Reading assembly (defaults to pr-watch's gh-backed reading, throw-translated). */
+  readonly readReading?: (options: ReadPrStateOptions) => Result<PrStateReading, Error>;
   readonly fetchImpl?: GithubApiFetch;
   readonly mintSeams?: MintSeams;
   readonly ghPath?: string;
@@ -68,28 +75,6 @@ export type MergeOutcome =
       readonly evidence: readonly string[];
     };
 
-const GITHUB_API = 'https://api.github.com';
-
-/** Only the field this gate consumes; unknown repo fields are irrelevant here. */
-const mergeSettingsSchema = z.object({ allow_merge_commit: z.boolean() });
-
-const mergeResponseSchema = z.object({ merged: z.literal(true), sha: z.string().min(1) });
-
-function realFetch(): GithubApiFetch {
-  return async (url, init) => {
-    const response = await fetch(url, init);
-    return { status: response.status, json: () => response.json() };
-  };
-}
-
-function apiHeaders(token: string): Record<string, string> {
-  return {
-    accept: 'application/vnd.github+json',
-    authorization: `Bearer ${token}`,
-    'content-type': 'application/json',
-  };
-}
-
 /**
  * The child environment for a tokenised gh call: the base WHOLESALE with
  * GH_TOKEN injected LAST, so a stale token in the base can never win over
@@ -109,63 +94,6 @@ function tokenisedExecutor(
 ): GhCommandExecutor {
   return (file, args, options) =>
     execFileSync(file, args, { ...options, env: tokenisedEnv(token, baseEnv) });
-}
-
-async function readMergeSettings(
-  fetchImpl: GithubApiFetch,
-  token: string,
-  identity: BotIdentity,
-): Promise<Result<boolean, Error>> {
-  const response = await fetchImpl(`${GITHUB_API}/repos/${identity.owner}/${identity.repoName}`, {
-    method: 'GET',
-    headers: apiHeaders(token),
-  });
-  if (response.status !== 200) {
-    return err(new Error(`repo settings read answered ${response.status}`));
-  }
-  const parsed = parseWithSchema({
-    label:
-      'repo merge settings (allow_merge_commit is REQUIRED — a missing field refuses, never assumes)',
-    schema: mergeSettingsSchema,
-    value: await response.json(),
-  });
-  if (!parsed.ok) {
-    return parsed;
-  }
-  return ok(parsed.value.allow_merge_commit);
-}
-
-async function putMerge(
-  fetchImpl: GithubApiFetch,
-  token: string,
-  input: { readonly identity: BotIdentity; readonly prNumber: number; readonly headRefOid: string },
-): Promise<Result<string, Error>> {
-  const response = await fetchImpl(
-    `${GITHUB_API}/repos/${input.identity.owner}/${input.identity.repoName}/pulls/${input.prNumber}/merge`,
-    {
-      method: 'PUT',
-      headers: apiHeaders(token),
-      body: JSON.stringify({ merge_method: 'merge', sha: input.headRefOid }),
-    },
-  );
-  const body: unknown = await response.json();
-  if (response.status !== 200) {
-    const message = z.object({ message: z.string() }).safeParse(body);
-    return err(
-      new Error(
-        `merge endpoint answered ${response.status} for verdicted tip ${input.headRefOid}: ${message.success ? message.data.message : 'no message'}`,
-      ),
-    );
-  }
-  const parsed = parseWithSchema({
-    label: 'merge response',
-    schema: mergeResponseSchema,
-    value: body,
-  });
-  if (!parsed.ok) {
-    return parsed;
-  }
-  return ok(parsed.value.sha);
 }
 
 function defaultMint(input: MergeExecutionInput): () => Promise<Result<MintedToken, Error>> {
@@ -191,20 +119,44 @@ export async function runMergeExecution(
   }
   const token = minted.value.token;
 
-  const readReading =
-    input.seams.readReading ??
-    ((options: ReadPrStateOptions): PrStateReading =>
-      readPrStateReading({
-        ...options,
-        execFileSync: tokenisedExecutor(token, input.seams.baseEnv ?? process.env),
-      }));
+  const readReading = input.seams.readReading ?? defaultReadReading(token, input.seams.baseEnv);
   const reading = readReading({
     target: { number: input.prNumber, repo: `${input.identity.owner}/${input.identity.repoName}` },
     ghPath: input.seams.ghPath,
     expectedReviewers: input.expectedReviewers,
   });
+  if (!reading.ok) {
+    return reading;
+  }
 
-  return gateAndMerge({ input, reading, token });
+  return gateAndMerge({ input, reading: reading.value, token });
+}
+
+/**
+ * The real reading with its throw translated at this one boundary (ADR-088):
+ * pr-watch's reader throws on transients by design, and the poll loop needs
+ * that failure as a typed value it can retry within the budget.
+ */
+function defaultReadReading(
+  token: string,
+  baseEnv: Readonly<Record<string, string | undefined>> | undefined,
+): (options: ReadPrStateOptions) => Result<PrStateReading, Error> {
+  return (options) => {
+    try {
+      return ok(
+        readPrStateReading({
+          ...options,
+          execFileSync: tokenisedExecutor(token, baseEnv ?? process.env),
+        }),
+      );
+    } catch (cause) {
+      return err(
+        new ReadingUnavailableError(
+          `PR state reading failed: ${cause instanceof Error ? cause.message : String(cause)}`,
+        ),
+      );
+    }
+  };
 }
 
 /** The verdict → settings-gate → decide → merge tail, split for the size gate. */

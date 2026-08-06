@@ -1,9 +1,14 @@
-import { ok } from '@oaknational/result';
+import { err, ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import type { PrStateReading } from '../pr-watch/state-types.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
-import { runMergeExecution, tokenisedEnv, type MergeExecutionInput } from './merge.js';
+import {
+  ReadingUnavailableError,
+  runMergeExecution,
+  tokenisedEnv,
+  type MergeExecutionInput,
+} from './merge.js';
 
 /**
  * Integration over injected ports (constant fakes, no process, no network):
@@ -85,7 +90,7 @@ function makeInput(
         Promise.resolve(
           ok({ token: 'test-token-value', expiresAt: '2026-08-06T10:00:00Z', installationId: 7 }),
         ),
-      readReading: () => reading,
+      readReading: () => ok(reading),
       fetchImpl,
     },
     ...overrides,
@@ -194,7 +199,7 @@ describe('runMergeExecution', () => {
           Promise.resolve(ok({ token: '', expiresAt: '2026-08-06T10:00:00Z', installationId: 7 })),
         readReading: () => {
           readingRead = true;
-          return makeReading();
+          return ok(makeReading());
         },
       },
     };
@@ -207,6 +212,94 @@ describe('runMergeExecution', () => {
     }
     expect(readingRead).toBe(false);
     expect(calls.length).toBe(0);
+  });
+});
+
+describe('runMergeExecution — unreadable responses and reading failures (security D2/H4)', () => {
+  it('reports merge state UNKNOWN when the PUT body is unreadable — a typed error, never a thrown escape into the usage path', async () => {
+    // A 200 whose body-read dies (edge drop mid-body): the merge very likely
+    // LANDED — reporting this as anything but state-unknown invites a
+    // supervisor retry against an already-merged PR.
+    const { fetchImpl } = makeFetchPort({});
+    const dyingFetch: GithubApiFetch = (url, init) => {
+      if (String(url).endsWith('/pulls/42/merge')) {
+        return Promise.resolve({
+          status: 200,
+          json: () => Promise.reject(new Error('socket hang up')),
+        });
+      }
+      return fetchImpl(url, init);
+    };
+
+    const outcome = await runMergeExecution(makeInput(makeReading(), dyingFetch));
+
+    expect(outcome.ok).toBe(false);
+    if (!outcome.ok) {
+      expect(outcome.error.message).toContain('UNKNOWN');
+      expect(outcome.error.message).toContain(HEAD_OID);
+      expect(outcome.error.message).toContain('re-read');
+    }
+  });
+
+  it('an unreadable body behind a gateway status is also state-UNKNOWN, naming the status', async () => {
+    const { fetchImpl } = makeFetchPort({});
+    const gatewayFetch: GithubApiFetch = (url, init) => {
+      if (String(url).endsWith('/pulls/42/merge')) {
+        return Promise.resolve({
+          status: 502,
+          json: () => Promise.reject(new Error('unexpected token < in JSON')),
+        });
+      }
+      return fetchImpl(url, init);
+    };
+
+    const outcome = await runMergeExecution(makeInput(makeReading(), gatewayFetch));
+
+    expect(outcome.ok).toBe(false);
+    if (!outcome.ok) {
+      expect(outcome.error.message).toContain('UNKNOWN');
+      expect(outcome.error.message).toContain('502');
+    }
+  });
+
+  it('surfaces an unreadable settings body as a typed error naming the read', async () => {
+    const { fetchImpl } = makeFetchPort({});
+    const badSettingsFetch: GithubApiFetch = (url, init) => {
+      if (String(url).endsWith('/repos/acme/widgets')) {
+        return Promise.resolve({
+          status: 200,
+          json: () => Promise.reject(new Error('socket hang up')),
+        });
+      }
+      return fetchImpl(url, init);
+    };
+
+    const outcome = await runMergeExecution(makeInput(makeReading(), badSettingsFetch));
+
+    expect(outcome.ok).toBe(false);
+    if (!outcome.ok) {
+      expect(outcome.error.message).toContain('repo settings');
+    }
+  });
+
+  it('a failed reading surfaces as the typed ReadingUnavailableError the poll loop can classify', async () => {
+    const { fetchImpl } = makeFetchPort({});
+    const input = makeInput(makeReading(), fetchImpl);
+    const withFailingReading: MergeExecutionInput = {
+      ...input,
+      seams: {
+        ...input.seams,
+        readReading: () => err(new ReadingUnavailableError('mergeable UNKNOWN — transient')),
+      },
+    };
+
+    const outcome = await runMergeExecution(withFailingReading);
+
+    expect(outcome.ok).toBe(false);
+    if (!outcome.ok) {
+      expect(outcome.error).toBeInstanceOf(ReadingUnavailableError);
+      expect(outcome.error.message).toContain('transient');
+    }
   });
 });
 

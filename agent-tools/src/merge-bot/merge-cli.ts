@@ -4,7 +4,12 @@ import type { ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading } from '../pr-watch/state-types.js';
 import { parseMergeArgs, type MergeArgs } from './merge-args.js';
 import { verdictAwaitsSettlement } from './merge-decision.js';
-import { runMergeExecution, type MergeExecutionInput, type MergeOutcome } from './merge.js';
+import {
+  ReadingUnavailableError,
+  runMergeExecution,
+  type MergeExecutionInput,
+  type MergeOutcome,
+} from './merge.js';
 import { mintForConfig, type MintedToken, type MintSeams } from './mint-for-config.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import {
@@ -45,8 +50,8 @@ export interface MergeActionInput {
   readonly fetchImpl?: GithubApiFetch;
   readonly readFileImpl?: (path: string) => Promise<string>;
   readonly nowEpochSeconds?: () => number;
-  /** Reading seam (defaults to pr-watch's gh-backed reading inside merge.ts). */
-  readonly readReadingImpl?: (options: ReadPrStateOptions) => PrStateReading;
+  /** Reading seam (defaults to pr-watch's gh-backed reading, throw-translated, inside merge.ts). */
+  readonly readReadingImpl?: (options: ReadPrStateOptions) => Result<PrStateReading, Error>;
   readonly sleepImpl?: (ms: number) => Promise<void>;
   /** Clock seam for the settlement verdict's quiet window. */
   readonly nowIsoImpl?: () => string;
@@ -110,8 +115,8 @@ async function pollUntilActionable(context: {
   const nowIso = input.nowIsoImpl ?? ((): string => new Date().toISOString());
   const seams = executionSeams(input, context.minted);
 
-  // Bounded despite the open loop head: continuing requires poll < maxPolls,
-  // and every other branch returns.
+  // Bounded despite the open loop head: continuing requires poll < maxPolls
+  // (enforced by retryLabel), and every other branch returns.
   for (let poll = 1; ; poll += 1) {
     const outcome = await runMergeExecution({
       identity: context.identity,
@@ -120,6 +125,12 @@ async function pollUntilActionable(context: {
       nowIso: nowIso(),
       seams,
     });
+    const retry = retryLabel(outcome, poll, parsed.maxPolls);
+    if (retry !== undefined) {
+      writeProgress(parsed, poll, retry, input);
+      await sleep(parsed.intervalSeconds * MILLIS_PER_SECOND);
+      continue;
+    }
     if (!outcome.ok) {
       input.stderr.write(`merge-bot merge: ${outcome.error.message}\n`);
       return 1;
@@ -128,14 +139,34 @@ async function pollUntilActionable(context: {
       writeMerged(outcome.value, parsed.json, input);
       return 0;
     }
-    if (verdictAwaitsSettlement(outcome.value.verdictState) && poll < parsed.maxPolls) {
-      writeProgress(parsed, poll, outcome.value.verdictState, input);
-      await sleep(parsed.intervalSeconds * MILLIS_PER_SECOND);
-      continue;
-    }
     writeRefusal(outcome.value, parsed.json, input);
     return 3;
   }
+}
+
+/**
+ * Whether this poll outcome is worth another poll, and the progress label if
+ * so. Two retryable shapes: a wait-class verdict (it resolves by time), and a
+ * failed READING after a working first poll (a transient — a FIRST-poll
+ * failure is a broken environment and fails fast). Everything else lands on
+ * a terminal path.
+ */
+function retryLabel(
+  outcome: Awaited<ReturnType<typeof runMergeExecution>>,
+  poll: number,
+  maxPolls: number,
+): string | undefined {
+  if (poll >= maxPolls) {
+    return undefined;
+  }
+  if (!outcome.ok) {
+    return outcome.error instanceof ReadingUnavailableError && poll > 1
+      ? `reading unavailable (${outcome.error.message})`
+      : undefined;
+  }
+  return outcome.value.kind === 'refused' && verdictAwaitsSettlement(outcome.value.verdictState)
+    ? outcome.value.verdictState
+    : undefined;
 }
 
 function writeProgress(

@@ -1,8 +1,10 @@
+import { err, ok } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import type { PrStateReading } from '../pr-watch/state-types.js';
 import { runMergeBotCli, type MergeBotCliInput } from './cli.js';
 import { parseMergeArgs } from './merge-args.js';
+import { ReadingUnavailableError } from './merge.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 
 import { generateKeyPairSync } from 'node:crypto';
@@ -145,7 +147,7 @@ function runMerge(input: {
     readReadingImpl: (options) => {
       expectSeen.push(options.expectedReviewers ?? []);
       const next = readings.length > 1 ? readings.shift() : readings[0];
-      return next ?? input.readings[0];
+      return ok(next ?? input.readings[0]);
     },
     sleepImpl: (ms) => {
       sleeps.push(ms);
@@ -355,6 +357,39 @@ describe('runMergeBotCli merge', () => {
     // leak exactly here.
     expect(run.out()).not.toContain(TOKEN);
     expect(run.errText()).not.toContain(TOKEN);
+  });
+
+  it('fails fast on a FIRST-poll reading failure — a broken environment never burns the budget', async () => {
+    const run = runMerge({
+      args: [...EXPECT_ARGS],
+      readings: [settledReading()],
+      overrides: {
+        readReadingImpl: () => err(new ReadingUnavailableError('gh not found')),
+      },
+    });
+
+    expect(await run.exit).toBe(1);
+    expect(run.sleeps).toEqual([]);
+    expect(run.errText()).toContain('gh not found');
+  });
+
+  it('retries a TRANSIENT reading failure within the budget after a working first poll', async () => {
+    const sequence = [
+      ok(runningChecksReading()),
+      err(new ReadingUnavailableError('mergeable UNKNOWN — transient')),
+      ok(settledReading()),
+    ];
+    const run = runMerge({
+      args: [...EXPECT_ARGS],
+      readings: [settledReading()],
+      overrides: {
+        readReadingImpl: () => sequence.shift() ?? ok(settledReading()),
+      },
+    });
+
+    expect(await run.exit).toBe(0);
+    expect(run.sleeps).toHaveLength(2);
+    expect(run.out()).toContain('reading unavailable');
   });
 
   it('surfaces a moved tip as an operational failure without leaking the token', async () => {

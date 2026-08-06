@@ -82,7 +82,8 @@ export function signAppJwt(input: {
   return `${header}.${payload}.${signature}`;
 }
 
-async function readJsonBody(
+/** Result-translating body read — the one boundary where a response body's rejection becomes a value. */
+export async function readJsonBody(
   response: { readonly json: () => Promise<unknown> },
   label: string,
 ): Promise<Result<unknown, Error>> {

@@ -1,3 +1,5 @@
+import type { Result } from '@oaknational/result';
+
 import type { ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading } from '../pr-watch/state-types.js';
 import { MERGE_USAGE } from './merge-args.js';
@@ -52,7 +54,7 @@ export interface MergeBotCliInput {
   readonly readFileImpl?: (path: string) => Promise<string>;
   readonly nowEpochSeconds?: () => number;
   /** Merge-action seams (same discipline as the block above). */
-  readonly readReadingImpl?: (options: ReadPrStateOptions) => PrStateReading;
+  readonly readReadingImpl?: (options: ReadPrStateOptions) => Result<PrStateReading, Error>;
   readonly sleepImpl?: (ms: number) => Promise<void>;
   readonly nowIsoImpl?: () => string;
 }
