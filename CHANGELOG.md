@@ -1,3 +1,10 @@
+## [1.152.7](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.152.6...v1.152.7) (2026-08-06)
+
+
+### Bug Fixes
+
+* **build:** declare CANONICAL_HOST to the landing-page bake task ([be5cf86](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/be5cf86538c5c64eed70403cc7bf2ec3c4916dde))
+
 ## [1.152.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.152.5...v1.152.6) (2026-08-06)
 
 ## [1.152.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.152.4...v1.152.5) (2026-08-06)
