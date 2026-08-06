@@ -81,8 +81,10 @@ export async function runMergeAction(
   }
   input.stderr.write(SWEEP_NOTE);
   // Minted ONCE; every poll runs under this token (the budget bound above).
+  // Scope is the merge-only set: a merge never needs `workflows: write`
+  // (security D3; provenance on the scope table).
   const minted = await mintForConfig(
-    { ...identity.value, scope: 'pull-request-work' },
+    { ...identity.value, scope: 'pull-request-merge' },
     mintSeamsFrom(input),
   );
   if (!minted.ok) {

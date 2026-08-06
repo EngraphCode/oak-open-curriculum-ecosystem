@@ -52,6 +52,14 @@ function requirePositiveInt(flag: string, value: string): Result<number, Error> 
   return ok(Number(value));
 }
 
+/**
+ * GitHub login grammar plus the app `[bot]` suffix. A blank or garbage
+ * `--expect` value would satisfy the declared-set gate while naming a
+ * reviewer that can never be OWED — the one-token way around the
+ * settlement guarantee (security D4).
+ */
+const EXPECT_GRAMMAR = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})?(?:\[bot\])?$/u;
+
 interface CollectedMergeFlags {
   readonly singles: Partial<Record<SingleFlag, number>>;
   readonly expect: string[];
@@ -88,6 +96,9 @@ function consumeValueFlag(
     return err(new Error(`${flag} needs a value\n${MERGE_USAGE}`));
   }
   if (flag === '--expect') {
+    if (!EXPECT_GRAMMAR.test(value)) {
+      return err(new Error(`--expect must be a GitHub login (got "${value}")\n${MERGE_USAGE}`));
+    }
     state.expect.push(value);
     return ok(undefined);
   }

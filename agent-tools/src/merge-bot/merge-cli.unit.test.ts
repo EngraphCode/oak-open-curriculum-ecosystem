@@ -82,14 +82,19 @@ function capture(): { text: () => string; sink: Pick<NodeJS.WriteStream, 'write'
   };
 }
 
-/** Serves mint, repo-settings, and merge endpoints; records every call URL. */
+/** Serves mint, repo-settings, and merge endpoints; records every call URL and body. */
 function mergeFetch(input: { mergeStatus?: number; mergeBody?: unknown } = {}): {
   fetchImpl: GithubApiFetch;
   urls: string[];
+  bodies: { url: string; body: string }[];
 } {
   const urls: string[] = [];
-  const fetchImpl: GithubApiFetch = (url) => {
+  const bodies: { url: string; body: string }[] = [];
+  const fetchImpl: GithubApiFetch = (url, init) => {
     urls.push(url);
+    if (init?.body !== undefined) {
+      bodies.push({ url, body: String(init.body) });
+    }
     if (url.endsWith('/installation')) {
       return Promise.resolve({ status: 200, json: () => Promise.resolve({ id: 55 }) });
     }
@@ -110,7 +115,7 @@ function mergeFetch(input: { mergeStatus?: number; mergeBody?: unknown } = {}): 
       json: () => Promise.resolve({ allow_merge_commit: true }),
     });
   };
-  return { fetchImpl, urls };
+  return { fetchImpl, urls, bodies };
 }
 
 function runMerge(input: {
@@ -126,12 +131,13 @@ function runMerge(input: {
   sleeps: number[];
   expectSeen: (readonly string[])[];
   urls: string[];
+  bodies: { url: string; body: string }[];
 } {
   const out = capture();
   const errSink = capture();
   const sleeps: number[] = [];
   const expectSeen: (readonly string[])[] = [];
-  const { fetchImpl, urls } = input.fetch ?? mergeFetch();
+  const { fetchImpl, urls, bodies } = input.fetch ?? mergeFetch();
   const readings = [...input.readings];
   const exit = runMergeBotCli({
     args: ['merge', ...input.args],
@@ -156,7 +162,7 @@ function runMerge(input: {
     nowIsoImpl: () => '2026-08-06T09:00:00Z',
     ...input.overrides,
   });
-  return { exit, out: out.text, errText: errSink.text, sleeps, expectSeen, urls };
+  return { exit, out: out.text, errText: errSink.text, sleeps, expectSeen, urls, bodies };
 }
 
 const EXPECT_ARGS = ['--pr', '42', '--expect', 'copilot-pull-request-reviewer'] as const;
@@ -209,6 +215,15 @@ describe('parseMergeArgs', () => {
     expect(wordy.ok).toBe(false);
     if (!wordy.ok) {
       expect(wordy.error.message).toContain('--pr');
+    }
+
+    // '0' discriminates the [1-9] anchor a plain \d+ would not (test-review
+    // D-3): --max-polls 0 would silently disable polling, --interval 0 a
+    // zero-budget hot loop.
+    const zero = parseMergeArgs(['--pr', '0', '--expect', 'reviewer']);
+    expect(zero.ok).toBe(false);
+    if (!zero.ok) {
+      expect(zero.error.message).toContain('--pr');
     }
   });
 
@@ -263,6 +278,39 @@ describe('runMergeBotCli merge', () => {
     expect(run.errText()).toContain('every expected reviewer leg settled');
     expect(run.out()).not.toContain(TOKEN);
     expect(run.errText()).not.toContain(TOKEN);
+  });
+
+  it('mints the merge-only scope — never workflows write (security D3)', async () => {
+    const run = runMerge({ args: [...EXPECT_ARGS], readings: [settledReading()] });
+
+    expect(await run.exit).toBe(0);
+    const mint = run.bodies.find((call) => call.url.endsWith('/access_tokens'));
+    expect(mint).toBeDefined();
+    expect(JSON.parse(mint?.body ?? '{}').permissions).toEqual({
+      pull_requests: 'write',
+      contents: 'write',
+    });
+  });
+
+  it('rejects blank, flag-shaped, and non-login --expect values (security D4)', async () => {
+    for (const bad of ['', '  ', '$(whoami)']) {
+      const parsed = parseMergeArgs(['--pr', '42', '--expect', bad]);
+      expect(parsed.ok).toBe(false);
+      if (!parsed.ok) {
+        expect(parsed.error.message).toContain('--expect');
+      }
+    }
+    // A flag-shaped value must not be swallowed as a reviewer name (D-2).
+    const flagShaped = parseMergeArgs(['--pr', '42', '--expect', '--json']);
+    expect(flagShaped.ok).toBe(false);
+    if (!flagShaped.ok) {
+      expect(flagShaped.error.message).toContain('--expect');
+    }
+    // Real logins, including the app [bot] suffix, pass.
+    expect(parseMergeArgs(['--pr', '42', '--expect', 'copilot-pull-request-reviewer']).ok).toBe(
+      true,
+    );
+    expect(parseMergeArgs(['--pr', '42', '--expect', 'jimbot-oakington-iii[bot]']).ok).toBe(true);
   });
 
   it('passes the declared --expect set through to the reading', async () => {

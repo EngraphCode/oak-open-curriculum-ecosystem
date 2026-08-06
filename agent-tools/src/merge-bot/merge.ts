@@ -2,7 +2,7 @@ import { execFileSync } from 'node:child_process';
 
 import { err, ok, type Result } from '@oaknational/result';
 
-import type { GhCommandExecutor } from '../pr-watch/gh.js';
+import { parsePrTarget, type GhCommandExecutor, type PrTarget } from '../pr-watch/gh.js';
 import { readPrStateReading, type ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading, PrVerdict } from '../pr-watch/state-types.js';
 import { computePrVerdict } from '../pr-watch/states.js';
@@ -78,13 +78,24 @@ export type MergeOutcome =
 /**
  * The child environment for a tokenised gh call: the base WHOLESALE with
  * GH_TOKEN injected LAST, so a stale token in the base can never win over
- * the freshly minted one.
+ * the freshly minted one. The host is pinned and the enterprise-token
+ * fallbacks stripped alongside (security H1): an ambient GH_HOST would steer
+ * gh's READS to another host — where GH_TOKEN does not even apply and gh
+ * falls back to stored human credentials — while the merge PUT stays pinned
+ * to api.github.com; the reading and the act must run against the same host
+ * under the same identity.
  */
 export function tokenisedEnv(
   token: string,
   baseEnv: Readonly<Record<string, string | undefined>>,
 ): Record<string, string | undefined> {
-  return { ...baseEnv, GH_TOKEN: token };
+  return {
+    ...baseEnv,
+    GH_HOST: 'github.com',
+    GH_ENTERPRISE_TOKEN: undefined,
+    GITHUB_ENTERPRISE_TOKEN: undefined,
+    GH_TOKEN: token,
+  };
 }
 
 /** Wraps an executor so every gh call runs under the minted token, never the keyring. */
@@ -98,7 +109,7 @@ function tokenisedExecutor(
 
 function defaultMint(input: MergeExecutionInput): () => Promise<Result<MintedToken, Error>> {
   return () =>
-    mintForConfig({ ...input.identity, scope: 'pull-request-work' }, input.seams.mintSeams ?? {});
+    mintForConfig({ ...input.identity, scope: 'pull-request-merge' }, input.seams.mintSeams ?? {});
 }
 
 /** Run the whole merge execution over the injected (or real) seams. */
@@ -119,9 +130,13 @@ export async function runMergeExecution(
   }
   const token = minted.value.token;
 
+  const target = mergeTarget(input);
+  if (!target.ok) {
+    return target;
+  }
   const readReading = input.seams.readReading ?? defaultReadReading(token, input.seams.baseEnv);
   const reading = readReading({
-    target: { number: input.prNumber, repo: `${input.identity.owner}/${input.identity.repoName}` },
+    target: target.value,
     ghPath: input.seams.ghPath,
     expectedReviewers: input.expectedReviewers,
   });
@@ -130,6 +145,26 @@ export async function runMergeExecution(
   }
 
   return gateAndMerge({ input, reading: reading.value, token });
+}
+
+/**
+ * The PR target through pr-watch's OWN reviewed grammar (security H2): the
+ * identity path's looser owner/name patterns must not be the last check on
+ * the irreversible path. `parsePrTarget` throws on bad grammar; translated
+ * here at the one boundary.
+ */
+function mergeTarget(input: MergeExecutionInput): Result<PrTarget, Error> {
+  try {
+    return ok(
+      parsePrTarget(String(input.prNumber), `${input.identity.owner}/${input.identity.repoName}`),
+    );
+  } catch (cause) {
+    return err(
+      new Error(
+        `merge target rejected by PR-target grammar: ${cause instanceof Error ? cause.message : String(cause)}`,
+      ),
+    );
+  }
 }
 
 /**
