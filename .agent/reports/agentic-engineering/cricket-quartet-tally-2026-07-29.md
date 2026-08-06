@@ -498,3 +498,59 @@ Axis notes:
   — the cricket panel checks direction, the expert reviews check the
   artefact, and this run is clean evidence the two instrument classes
   are not substitutes.
+## Run 2026-08-06 ~06:20Z — extraction-pilot Cricket moment 1: plan node landed (PR #786), before census (Drake spins Obsidian, 46636e)
+
+The shared-construct-extraction-pilot node's first named conscience
+moment: fired after the plan node landed on PR #786, before any census
+work, per the node's own §Conscience checks. Full two-quartet suite;
+legs dispatched via the task-notification path, so per-leg telemetry is
+real (tokens from harness usage counters, seconds from duration_ms).
+
+| Role | Stance | Verdict | Tokens | Seconds | Tools |
+| --- | --- | --- | --- | --- | --- |
+| judgement-low (fable/low) | normal | ON-TRACK +redirect | 28,846 | 19 | 1 |
+| judgement-medium (opus/medium) | normal | DRIFTING | 28,852 | 17 | 1 |
+| judgement-high (sonnet/high) | normal | DRIFTING | 34,136 | 62 | 2 |
+| procedure-xhigh (haiku/xhigh) | normal | ON-TRACK | 29,707 | 113 | 2 |
+| judgement-low (fable/low) | adversarial | ON-TRACK +redirect | 28,846 | 20 | 1 |
+| judgement-medium (opus/medium) | adversarial | DRIFTING | 30,677 | 41 | 2 |
+| judgement-high (sonnet/high) | adversarial | DRIFTING | 38,039 | 109 | 2 |
+| procedure-xhigh (haiku/xhigh) | adversarial | ON-TRACK | 22,061 | 106 | 2 |
+
+Split 4-4, and cleanly dimensional: all four DRIFTING verdicts came
+from the judgement-medium (opus) and judgement-high (sonnet) cells in
+both stances; both fable and both haiku cells returned ON-TRACK. All
+four DRIFTING legs converged on ONE redirect axis — do not hold the
+census behind hygiene slices 2b/2c; 2a is endorsed by every leg.
+
+Adjudication at the seat (grounded in the landed node text):
+
+- **"Census-behind-Cricket is an invented gate": REJECTED.** The gate
+  is plan-named — the node's §Conscience checks reads "(1) after the
+  plan node lands, before the census". The adversarial-medium leg's
+  own UNGROUNDED conceded this resolution. The gate is now discharged
+  by this very run.
+- **"2b/2c must not gate the census": ACCEPTED — and it is what the
+  plan already says.** The session-plan execution notes make Step 1
+  and 2a/2b/2c mutually independent; the strict ordering is 3→4→5
+  only. The DRIFTING verdicts caught a serialisation implied by the
+  frame's NEXT wording, not by the plan. Cure adopted: with moment 1
+  discharged, the census starts next, with 2b/2c as parallel slices.
+- **"2b has no extraction-chain consumer": PARTIALLY REJECTED.** The
+  node names 2b's consumers (§6 encoding proposals as design input;
+  the scaffolding finding as candidate evidence) — but they bind at
+  census/design time, so the timing half of the objection stands and
+  is absorbed by the same cure.
+- **Calibration note for the effort-inversion hypothesis**: the split
+  tracked the judgement-capability axis, not the stance axis — the
+  opus/sonnet judgement cells challenged the frame's sequencing claim
+  against the quoted principle, while fable-low and haiku-procedure
+  accepted the frame's own gate citation as sufficient. The frame
+  under-supplied the plan's execution-note sequencing (mutual
+  independence of the hygiene slices), and the higher-effort
+  judgement cells were the ones that noticed the gap — same class as
+  the 2026-08-02 provenance finding: frame incompleteness, surfaced
+  by different cells this time.
+
+Split routed to the sitting Director (Petrel holds Turbulence) with
+complete verdicts and this adjudication, per §Adjudicate the panel.

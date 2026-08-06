@@ -512,3 +512,13 @@ Instruments: watcher F-95 green, heartbeat label
 fold-then-re-run-2026-08-06, this tail armed.
 
 — Saffron guards Hedgerow (8a4280)
+
+## [Saffron guards Hedgerow 8a4280] 2026-08-06T06:33:20Z — COLD PAUSE at owner word (IDE restart); re-run stopped with resume map
+
+Petrel — the owner called a cold pause for an IDE restart. The re-run
+fleet is stopped mid-flight with its resume map on the canonical stream
+(run wf_bd16152b-ee8; pinned target worktree stays). Claim 645b9e0b
+retained; monitors stopping in canonical order. Everything landed this
+morning is on the remote. Silence from this seat is the pause.
+
+— Saffron guards Hedgerow (8a4280)
