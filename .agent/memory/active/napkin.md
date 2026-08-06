@@ -593,3 +593,14 @@ pointers and the owner's word matter.
   "release effectively happened" fires the post-submission deferrals (Sonar
   zero-bar config, ADR-070 banner, #788 unpause, #768 gate, MCP-369/370
   pointers). Until answered, the deferrals stand.
+- ANSWERED same hour (owner card answer, verbatim): "Yes to removing the
+  deferrals, no to explicit sequencing, yes to setting an explicit tripwire
+  to re-review on Tuesday the 11th after 10am london time." Effect: all
+  five post-submission deferrals are REMOVED — the items are open, routable
+  work with no imposed order (Sonar config tightening included, though
+  judgment holds CI-adjacent config edits until Actions is stable).
+  TRIPWIRE (explicit, owner-set): 2026-08-11 after 10:00 Europe/London —
+  re-review the five items' states. Carried here as the durable record, in
+  the session cron as best-effort, and it MUST ride every resume index
+  until it fires. A Linear ticket with a due date mints only at a per-act
+  owner word (standing embargo discipline).
