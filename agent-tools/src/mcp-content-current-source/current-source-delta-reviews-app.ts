@@ -189,8 +189,13 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // MCP-351: the landing page's canonical-URL resolution promoted here as the
   // one per-deployment self-description derivation; C355's endpoint URL
   // strings relocated with it.
+  // MCP-511: adds `resolveServedPrmUrl` and the well-known prefix constant, so
+  // this module is now the one home for both self-descriptions — the endpoint
+  // and its protected-resource metadata URL. C355 re-anchors on the same
+  // endpoint construction; the addition is a derived address built from the
+  // constants already here, carrying no new authored text.
   'apps/oak-curriculum-mcp-streamable-http/src/served-origin.ts': reviewed(
-    '0cc2add70d350afd3957791b29b4663bc4cc56813e6e6865c4d4900977cb4b70',
+    '24c3c95488ee833c38c519badc175eab7d37406fd7276b7014013eee4aa61bee',
     ['C355'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/served-surface/filter-guidance-content.ts': excluded(

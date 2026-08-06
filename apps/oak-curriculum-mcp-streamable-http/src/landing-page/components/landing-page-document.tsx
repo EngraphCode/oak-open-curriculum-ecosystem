@@ -133,6 +133,7 @@ export function LandingPageDocument({
   resources,
   siteOrigin,
   mcpEndpointUrl,
+  protectedResourceMetadataUrl,
   appVersion,
 }: LandingPageViewProps): JSX.Element {
   return (
@@ -159,7 +160,10 @@ export function LandingPageDocument({
             <section data-region="content">
               <div className="oak-band band-lemon">
                 <div className="oak-container">
-                  <ConnectSection mcpEndpointUrl={mcpEndpointUrl} />
+                  <ConnectSection
+                    mcpEndpointUrl={mcpEndpointUrl}
+                    protectedResourceMetadataUrl={protectedResourceMetadataUrl}
+                  />
                 </div>
               </div>
               <div className="oak-container oak-stack">

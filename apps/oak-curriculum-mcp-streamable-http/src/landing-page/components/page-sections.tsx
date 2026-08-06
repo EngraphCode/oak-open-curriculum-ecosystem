@@ -90,11 +90,16 @@ export function PageHero(): JSX.Element {
  * Connection instructions, including the per-deployment config snippet.
  *
  * @param mcpEndpointUrl - The endpoint URL, derived once on the build side.
+ * @param protectedResourceMetadataUrl - Path-qualified PRM URL, likewise derived
+ *   once (MCP-511): the unqualified `/.well-known/oauth-protected-resource`
+ *   does not reach this app on the canonical deployment.
  */
 export function ConnectSection({
   mcpEndpointUrl,
+  protectedResourceMetadataUrl,
 }: {
   readonly mcpEndpointUrl: string;
+  readonly protectedResourceMetadataUrl: string;
 }): JSX.Element {
   return (
     <section className="oak-stack oak-stack--s oak-prose connect" aria-labelledby="connect-title">
@@ -126,7 +131,7 @@ export function ConnectSection({
       </pre>
       <p>
         This server uses{' '}
-        <a className="oak-link" href="/.well-known/oauth-protected-resource">
+        <a className="oak-link" href={protectedResourceMetadataUrl}>
           OAuth 2.1 authorisation
         </a>
         {'. '}
