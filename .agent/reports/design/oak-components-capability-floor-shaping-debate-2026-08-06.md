@@ -184,14 +184,140 @@ no-interpretive-preamble objection at the binding-semantics
 distinction and its OC-revalidation demand for continuously-exercised
 domestic warrants.
 
+## The floor-space round (owner + Director, in-chat, 2026-08-06 ~09:20-09:35Z)
+
+The owner reframed the whole exercise: the OC slab "was only ever part
+of the floor" — floors generate from PURPOSES, and the comparator
+covered one purpose. The owner RATIFIED the slab structure in principle
+("Yes, that sounds right, I like that") including its key property:
+the estate moves forward with an INCOMPLETE set of slabs. The taxonomy,
+as worked in the conversation:
+
+**Slabs by warrant source** (each with its own evidence base and
+instruments, joined by the whole-floor witness and the non-floor
+register):
+
+1. OC-comparable capability — the 13 rows as amended (this document's
+   earlier sections). Warrant: OC snapshot + domestic.
+2. Multi-identity kernel — cross-identity token isolation (computable);
+   identity completeness (W2.5's matrix); identity-addition cost (new
+   identity touches only registry + token tiers — diff-scope checkable).
+   Warrant: the kernel + owner identity/tilt/motion words. OC has no
+   axis here.
+3. Anti-impersonation & provenance — the cartographer's folly as a
+   TWO-SIDED BAND (the only direction-inverted floor: at-most-this-
+   similar AND at-least-this-good); brand assets absent; the
+   content-provenance manifest; OGL attribution machinery
+   (census-checkable). Framework: rights/integrity — violation is a
+   legal-reputational event, not a quality regression. Warrant: owner
+   rulings 2026-08-05.
+4. Educational-artifact readability — print/paper polarity, classroom-
+   projection contrast (harsher than WCAG screen assumptions),
+   cognitive-load/no-messy-arrangements, document-artifact fidelity,
+   UK spelling. DEGREE-different: the content domain is teaching
+   materials, children, projectors, paper.
+5. Compliance — OGL attribution, licence integrity. Legal, computable.
+6. Accessibility-and-honesty — the computable-a11y row; the estate's
+   WCAG 2.2 AA bar incl. non-axe legs; HONEST PREFERENCE ADAPTATION
+   (every declared adaptation genuinely adapts — the floor against
+   lying UI, born from the owner's creature reduced-motion catch).
+7. Performance — Lighthouse CI budgets; the CSS tier's zero-runtime
+   claim. Domestic warrant.
+8. Agent experience — DTCG machine-legibility (the 810-value
+   dtcg-CSS agreement check); AGENT-COMPOSITION SUFFICIENCY (a cold
+   agent given only the skill + tokens composes a gate-passing page
+   without reading component source — CI-testable; estate-native, no
+   known precedent in any design system). Warrant: PDR-111.
+9. Portability — cold-clone build, any-user-any-machine,
+   lockfile-rebuild survivability. Domestic, computable.
+
+**Two further slabs at the owner's word (2026-08-06): VISUAL DESIGN
+EXCELLENCE and USER EXPERIENCE DESIGN EXCELLENCE** — the owner
+suspected they might be umbrellas; the resolution is SLAB WITH UMBRELLA
+FUNCTION via the checkability split: each (a) cross-references the
+computable parts other slabs carry; (b) carries judgment-residue rows
+with rubric instruments at named moments (the debate-legitimated
+class); (c) hosts the acceptance question for uncovered surfaces (the
+review-lens function).
+
+- UX excellence: warrant = GDS (the owner's named source — user-
+  researched at national scale, rationale published per pattern; an
+  evidence class STRONGER than OC's). Values cross shape-free through
+  reading rule 2 — the same door OC came through, which answers the
+  owner's constraint ("we don't want all our designs to end up looking
+  GDS — we have the PDS identity for that"): GDS's shape belongs to
+  the PDS identity alone; the VALUES (errors state what-happened +
+  how-to-recover; action-name consistency through a flow; labels never
+  placeholder-vanish; legible journey start/end; one job per element;
+  empty states invite action) are identity-independent. Some legs
+  computable (label presence, error adjacency, action-name traces).
+- Visual excellence: THREE warrant sources, because GDS is plain by
+  philosophy and cannot warrant the expressive end — (1) GDS for the
+  clarity floor (type-scale discipline, spacing rhythm); (2) design-
+  craft theory (the frontend-design skill's floor-shaped principles:
+  STRUCTURAL HONESTY — every structural device encodes something true
+  about the content, with no-messy-arrangements as its Oak instance;
+  SIGNATURE RESTRAINT — boldness budgeted to one element, unearned
+  decoration cut; typography-carries-personality per identity; the
+  ANTI-TEMPLATE FALSIFIER — "would this design appear regardless of
+  subject?" as a named, checkable failure mode); (3) the DOMESTIC
+  warrant: the W0.7 wow-rubric (calibration corpus, must-fail degraded
+  variants, novel-deviation catch) IS the instrument, owner-calibrated.
+  Evidence hygiene note: the craft theory and GDS content design
+  CONVERGE INDEPENDENTLY on several values — the strongest warrant
+  class available.
+
+**Echoes of bad ideas, named and refused**: parity-tracking a
+comparator (cured by the authority rewrite; kept as standing warning);
+specimen galleries as ceremony; APP FEATURES MIS-HOMED AS SYSTEM FLOORS
+(editable-slides is a demo-app feature; the system floor beneath it is
+document-artifact capability only); the folly misread as
+security-through-obscurity (it is provenance watermarking; the doc
+forecloses the reading).
+
+**The meta-findings (the owner's "failing to realise about failing to
+realise")**: (1) every floor so far came from artifact-shaped sources —
+the discovery process has NO EXTERNAL SENSOR (no floor yet generated by
+a teacher, a SEND classroom, old hardware, a non-UK OGL reuser; the two
+best floors of the day came from the owner looking at pixels — the
+sensor working once, by luck of attention). Cure: a named intake
+channel from real use to floor amendments. (2) Absences are not yet
+decisions: the NON-FLOOR REGISTER makes every absence deliberate —
+values held elsewhere on purpose (wow, cross-identity coherence, taste
+= owner-held; the audit-layer residue) vs never-considered. (3) The
+standing discovery generator is the PURPOSE CENSUS, re-run
+periodically: each purpose of the system asks which slab covers it.
+
+**BLOCKING SET — Director proposal, AWAITING OWNER WORD** (the owner:
+"we do need a few to be blocking before we continue"): blocking at
+first light = anti-impersonation/provenance (folly + manifest);
+accessibility-and-honesty; BOTH excellence slabs in rubric-v0 form (no
+new delay — W0.7 already gates first light; this widens what the
+rubric carries); educational-artifact blocking instances (worksheet
+contrast; structural honesty); OGL attribution on content-consuming
+pages. Non-blocking, land-as-built: agent-experience, portability,
+performance budgets (instruments land with the planned sitemap/axe/
+Lighthouse work), the full identity matrix beyond W2.5's existing
+gates, compliance beyond attribution.
+
+**OPEN AT THE COMPACTION BOUNDARY — the two prepared questions** (the
+owner: "we will work on that when I come back"): (1) the blocking set
+as proposed, or his deltas; (2) the excellence-slab treatment
+(slab-with-umbrella-function; three-source visual warrant; GDS through
+the value door). At his word, the full mandate card renders and the
+design seat's rewrite mandate becomes: the 13 amended rows + the slab
+registry + the two excellence slabs + the blocking set + the non-floor
+register + the purpose census.
+
 ## Execution
 
 At the owner's ratification of this shaping, the design seat (at wake)
-rewrites the floor per §Outcome AND §The cross-vendor round: authority
-model, row 9, row 6 + provision register, the computable-a11y row,
-per-row firing observations/instruments with closure rules AND
-anti-evasion quartets, the binding semantics section (fail-closed), the
-error-bounded proxy question per row, the whole-floor witness tuple as
-the consistency obligation, and the amendment anti-erosion taxonomy —
-then the floor proceeds to its ratification moment per the existing
-consumption wiring.
+rewrites the floor per §Outcome, §The cross-vendor round, AND §The
+floor-space round: authority model, row 9, row 6 + provision register,
+the computable-a11y row, per-row firing observations/instruments with
+closure rules AND anti-evasion quartets, the binding semantics section
+(fail-closed), the error-bounded proxy question per row, the
+whole-floor witness tuple as the consistency obligation, the amendment
+anti-erosion taxonomy, the slab registry with the two excellence slabs
+and the non-floor register — then the floor proceeds to its
+ratification moment per the existing consumption wiring.
