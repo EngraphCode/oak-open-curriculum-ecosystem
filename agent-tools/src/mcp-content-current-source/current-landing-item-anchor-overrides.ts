@@ -18,7 +18,7 @@ export const CURRENT_LANDING_ITEM_ANCHOR_OVERRIDES = {
     [LANDING_DOCUMENT]: ["const PAGE_TITLE = 'Oak Curriculum MCP (HTTP)';"],
   },
   C343: {
-    [PAGE_SECTIONS]: ['Invite Only Private Beta'],
+    [PAGE_SECTIONS]: ['Public Beta'],
   },
   C345: {
     [PAGE_SECTIONS]: ['Status: ok • Route: <code>/mcp</code> • Auth: OAuth 2.1'],
@@ -37,7 +37,7 @@ export const CURRENT_LANDING_ITEM_ANCHOR_OVERRIDES = {
   },
   C349: {
     [PAGE_SECTIONS]: [
-      'You will be prompted to log in. Access is currently for internal staff or by invitation.',
+      'You will be prompted to log in with an Oak account, which anyone can create.',
     ],
   },
   C350: {

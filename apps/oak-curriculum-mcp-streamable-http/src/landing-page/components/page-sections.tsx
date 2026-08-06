@@ -65,7 +65,7 @@ export function PageHero(): JSX.Element {
           <span aria-hidden="true">›</span>
           <span aria-current="page">Oak Curriculum MCP</span>
         </nav>
-        <span className="oak-tag oak-tag--white">Invite Only Private Beta</span>
+        <span className="oak-tag oak-tag--white">Public Beta</span>
         <h1 id="title" className="oak-heading-1">
           Oak Curriculum MCP
         </h1>
@@ -135,7 +135,7 @@ export function ConnectSection({
           OAuth 2.1 authorisation
         </a>
         {'. '}
-        You will be prompted to log in. Access is currently for internal staff or by invitation.
+        You will be prompted to log in with an Oak account, which anyone can create.
       </p>
     </section>
   );
