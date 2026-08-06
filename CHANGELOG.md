@@ -1,3 +1,36 @@
+# [1.152.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.151.2...v1.152.0) (2026-08-06)
+
+
+### Bug Fixes
+
+* **mcp-streamable-http:** require live Clerk keys in production (Guard 1a allowlist, [#757](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/757)) ([537a727](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/537a727e84523d03abf57dfb2ddc5eba84b2603d))
+
+
+### Features
+
+* **mcp-http:** reject development-realm Clerk keys in production ([b0dd4f5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b0dd4f5887cc5452aad1c8b29497320ecfa99c0b))
+
+## [1.151.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.151.1...v1.151.2) (2026-08-06)
+
+## [1.151.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.151.0...v1.151.1) (2026-08-06)
+
+# [1.151.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.150.2...v1.151.0) (2026-08-06)
+
+
+### Features
+
+* **agent-tools:** identity-naming census validator for the PDS rename ([2d33851](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2d33851b20970a4374eab6dccdf041318a51adb2))
+
+## [1.150.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.150.1...v1.150.2) (2026-08-05)
+
+## [1.150.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.150.0...v1.150.1) (2026-08-05)
+
+
+### Bug Fixes
+
+* **mcp-server:** let production redeploy the commit it already runs (MCP-479) ([87b72d9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/87b72d9346933f13b4ee95ec748deb380aa94fcd))
+* **mcp-server:** point the moved guard test at the script's new relative path ([bc3696f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bc3696f89f7bf38099655784b4d1f8f2c4077812))
+
 # [1.150.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.149.1...v1.150.0) (2026-08-04)
 
 

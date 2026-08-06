@@ -256,10 +256,15 @@ Runtime metadata is resolved fail-fast where the selected mode needs it:
 Vercel production builds have an additional repo-owned gate:
 
 - previews and development builds always continue
-- production continues only when the root repo `package.json` version is greater
-  than the previous successful production deployment version
-- production builds that would reuse the previous semantic-release version are
-  cancelled via `vercel.json` `ignoreCommand`, rather than failing during build
+- production continues when the root repo `package.json` version is greater than
+  the previous successful production deployment version, **or** when the build is
+  a redeploy of the commit already in production
+  (`VERCEL_GIT_COMMIT_SHA == VERCEL_GIT_PREVIOUS_SHA`) — rebuilding a
+  known-good release is the recovery path, and cancelling it was the defect
+  MCP-479 cured (ADR-163 §10, fourth amendment)
+- production builds that would reuse the previous semantic-release version on a
+  **different** commit are cancelled via `vercel.json` `ignoreCommand`, rather
+  than failing during build
 - the gate reads the previous deployed root `package.json` via
   `VERCEL_GIT_PREVIOUS_SHA`
 
