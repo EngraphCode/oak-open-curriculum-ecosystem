@@ -224,10 +224,9 @@ Summary:
   - `OAK_API_KEY` — Oak Curriculum API key
   - `ELASTICSEARCH_URL` — Elasticsearch endpoint (server fails at startup without this)
   - `ELASTICSEARCH_API_KEY` — Elasticsearch API key (server fails at startup without this)
-  - `CLERK_PUBLISHABLE_KEY` — Clerk publishable key for OAuth (not required when `DANGEROUSLY_DISABLE_AUTH=true`)
-  - `CLERK_SECRET_KEY` — Clerk secret key for auth middleware (not required when `DANGEROUSLY_DISABLE_AUTH=true`)
+  - `CLERK_PUBLISHABLE_KEY` — Clerk publishable key for OAuth
+  - `CLERK_SECRET_KEY` — Clerk secret key for auth middleware
 - Optional env:
-  - `DANGEROUSLY_DISABLE_AUTH` — set to `true` to disable auth (makes Clerk keys optional)
   - `ALLOWED_HOSTS` (comma-separated, must include your primary hostname; supports `*` wildcards). Applied consistently to OAuth metadata endpoints and `/mcp` auth challenge/resource URL generation — unless `CANONICAL_HOST` is set, which supersedes per-request derivation for those URLs.
   - `CANONICAL_HOST` — the address this server is served at when an edge presents a different Host to the origin (see [Canonical address](#canonical-address)). Bare hostname; startup-validated.
   - `LOG_LEVEL` (default `info`, use `debug` for staging)
