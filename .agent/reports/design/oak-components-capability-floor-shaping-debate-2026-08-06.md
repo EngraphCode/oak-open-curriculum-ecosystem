@@ -442,15 +442,88 @@ sequencing, the v2 mandate is structurally coherent and the remaining
 risks are execution-time."
 
 **Owner item from this round:** ratify the v2 semantic amendments
-(carded at occurrence). At the owner's word, the design seat's rewrite
-incorporates v2 semantics and the staged items land in the coverage
-registry as named absent instruments.
+(carded at occurrence). Disposition: the card rendered; the owner
+chose "Discuss a point first", took the Director's adjudication of the
+six findings, and then DELEGATED the final shape (next section).
+
+## The v2 final shape (owner-delegated decision, 2026-08-06)
+
+Owner word, in-chat, after the Director's adjudication of the Sol-max
+findings: "I am happy for you to decide that final shape at this
+point." Scope of the delegation: the v2 ratification and its open
+governance textures — no new floor scope. Decisions taken at the
+Director seat, each with its governing rationale stated so the
+decision carries its own correction path:
+
+**D1 — v2 RATIFIED as staged** (per §The Sol-max round): the two
+semantic amendments and the v2-immediate set (row classing,
+KNOWN-CLASSIFICATION, the MEETS-FLOOR/RELEASE-PERMITTED split,
+defeasible LIVE status with artefact-digest binding and manual
+severe-evidence suspension) bind at v2; full metamorphic coverage,
+automated context sensors, and agent-population statistics stage
+behind fail-closed absent-instrument entries with narrowed claims.
+
+**D2 — RELEASE-PERMITTED is loud on estate surfaces, silent on
+user-facing faces.** Invoking it requires: an owner card at the moment
+of invocation (the authority is constitutively the owner's and does
+not delegate); a registry row naming surface, gap, warrant, closure
+condition, and horizon; and per-build CI visibility. The exception
+expires at its closure condition and re-cards if it outlives its
+horizon. A teacher- or pupil-facing artefact never carries conformance
+chrome — the loudness is for the estate, not the classroom. Governing
+rationale: a quiet exception recreates the escape hatch one level up
+(no-stopgaps; owner attention belongs at action moments).
+
+**D3 — severe-credible judgment is two-key and fail-closed.** Any
+seat files an observation. HARM-CLASS observations (a child-facing
+accessibility failure in real use; a provenance or impersonation
+event) get immediate provisional suspension by the Director/custodian
+seat — suspend first, verify second — with the owner carded at the
+suspension moment; QUALITY-CLASS observations route as ordinary
+defeater candidates with no suspension. Reinstatement only by the
+defeater clause's re-instrumentation. Cost bound making this safe: a
+wrong suspension narrows claims for the verification window; it never
+destroys work or evidence.
+
+**D4 — the declared-transformations list is a versioned floor
+element** under the anti-erosion taxonomy (adding a transformation is
+tightening and free; removing one is weakening and owner-gated). v2
+initial list: identity switch (including mid-artefact), pagination and
+print reflow, adaptation toggling, content-scope nesting. New entries
+arrive only via the purpose census or a coverage-gap defeat — never
+via reviewer enthusiasm (the endless-quest guard applied to testing).
+
+**D5 — the coverage registry is GENERATED, never hand-authored.** It
+extends the existing build enumeration (the sitemap/axe pass): every
+enumerated output maps to a class-set row in a tracked, generated
+registry; CI fails on unmapped outputs (fail-closed at the universe
+level). Class dimensions at v2: route, artefact, modality, identity,
+state, adaptation — a dimension without an enumerating instrument is
+itself a named absent instrument. A hand-authored registry row is a
+defect: universe closure that depends on vigilance is not closure.
+
+**D6 — one CLAIMS table, no scattered hedges.** The rewritten floor
+carries a single table mapping every public claim to its current
+honest scope: "internal conformance" (until the external intake
+channel exists), "absence of specified degradation" (excellence floor
+rows), "gate-syntax sufficiency" (until known-answer briefs exist),
+"pinned-context attestation" (until context sensors exist). Claim
+upgrades ride instrument landings, never prose edits. The
+SATISFIES-BRIEF instrument's named build trigger: before the
+agent-composition claim upgrades; its pattern is the estate's existing
+known-answer-first ground-truth methodology.
+
+With this section, the floor-shaping conversation of 2026-08-05/06 is
+CLOSED end to end: taxonomy ratified, blocking set ratified, excellence
+treatment ratified, full mandate ratified, v2 semantics ratified by
+delegation, final governance shape decided and recorded.
 
 ## Execution
 
 At the owner's ratification of this shaping, the design seat (at wake)
-rewrites the floor per §Outcome, §The cross-vendor round, AND §The
-floor-space round: authority model, row 9, row 6 + provision register,
+rewrites the floor per §Outcome, §The cross-vendor round, §The
+floor-space round, §Ratification, §The Sol-max round, AND §The v2
+final shape: authority model, row 9, row 6 + provision register,
 the computable-a11y row, per-row firing observations/instruments with
 closure rules AND anti-evasion quartets, the binding semantics section
 (fail-closed), the error-bounded proxy question per row, the
