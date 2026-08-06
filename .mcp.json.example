@@ -1,5 +1,10 @@
 {
   "mcpServers": {
+    "codex-dialogues": {
+      "type": "stdio",
+      "command": "codex",
+      "args": ["mcp-server", "-c", "sandbox_mode=read-only", "-c", "approval_policy=never"]
+    },
     "next-devtools": {
       "command": "npx",
       "args": ["-y", "next-devtools-mcp@latest"]

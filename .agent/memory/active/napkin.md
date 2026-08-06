@@ -2620,3 +2620,42 @@ delivered to the owner 2026-08-05 ~14:58Z at his ask.
   watcher was down during the two owner-pause windows; foreground sweeps covered
   both (final sweep ~07:18Z caught the Director adjudication); events after that
   sweep are outside this seat's visibility.
+
+## 2026-08-06 ~08:35Z (Drake spins Obsidian, 46636e) — two vocabulary catches, one generator: status words that close what is open
+
+The owner tripwired "deferral" (~08:05Z) and then "banked" (~08:30Z) at this
+seat in one morning. Both survived the write-time concept gate because the
+gate enumerates words ("parked", "held") while the class is the MOVE:
+status vocabulary that converts an open obligation into a closed-sounding
+state. The distinction that resolved it: a record is a RECEIPT when the
+value act completed (review reports posted, probe results, tally rows) and
+a PROMISSORY NOTE when only intent or partial state was conserved (the
+mutation canary's "banked evidence" stood in for the full run it never got;
+the topology report's "drafted, awaiting read" aged the same way). Named
+instances: the canary (step 2c) and topology report (step 2b) both
+described as banked assets across a whole day while their value acts
+remained undone. Cures adopted at the seat, effective immediately:
+(1) status vocabulary is now "conserved — done" or "recorded, unredeemed —
+next act + holder named", nothing between; (2) a review disposition
+discharges when its test-pin LANDS, never when adopted in prose (applied
+live to the slice-1 amendment ledger: A5 + decision-core discharged with
+mutation proof; A1/A3/A4/A6/A7 adopted-unredeemed with named landing
+points). Structural-cure candidate for the innate-immunity layer: the gate
+would need to catch the receipt-vs-note SHAPE (an asset-word applied to a
+surface whose value act has no completion evidence), which is a
+consolidation-time adaptive-immunity check, not a write-time grep — route
+to the next dedicated consolidation rather than patching the word list.
+
+## 2026-08-06 wrap seeds (Petrel holds Turbulence, a0892f)
+
+- Play seed (association with a datum, not a proven finding): today's
+  three examination instruments over the SAME artefact (the capability
+  floor) found almost fully DISJOINT defect sets — adversarial
+  self-review 7 findings; three-expert Opus panel ~30 (three v1 claims
+  withdrawn); cross-vendor Codex dialogue 7 more (ratification refused,
+  all seven additions new). Near-zero overlap across instruments.
+  The striking datum is the NON-OVERLAP RATE: examination-angle
+  diversity ~ orthogonal defect coverage. Evidence for the estate's
+  multi-instrument review doctrine, roughly quantified for the first
+  time. Route: the retrospective (owner-deferred, open) is this
+  seed's natural consumer; discard freely if it does not serve.
