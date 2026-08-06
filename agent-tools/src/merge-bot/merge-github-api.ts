@@ -2,7 +2,7 @@ import { err, ok, type Result } from '@oaknational/result';
 import { z } from 'zod';
 
 import { parseWithSchema } from '../core/schema-parse.js';
-import { readJsonBody, type GithubApiFetch } from './mint-installation-token.js';
+import { readJsonBody, sendGithubRequest, type GithubApiFetch } from './mint-installation-token.js';
 import type { BotIdentity } from './resolve-identity.js';
 
 /**
@@ -43,10 +43,16 @@ export async function readMergeSettings(
   token: string,
   identity: BotIdentity,
 ): Promise<Result<boolean, Error>> {
-  const response = await fetchImpl(`${GITHUB_API}/repos/${identity.owner}/${identity.repoName}`, {
-    method: 'GET',
-    headers: apiHeaders(token),
-  });
+  const sent = await sendGithubRequest(
+    fetchImpl,
+    `${GITHUB_API}/repos/${identity.owner}/${identity.repoName}`,
+    { method: 'GET', headers: apiHeaders(token) },
+    'repo settings read',
+  );
+  if (!sent.ok) {
+    return sent;
+  }
+  const response = sent.value;
   if (response.status !== 200) {
     return err(new Error(`repo settings read answered ${response.status}`));
   }
@@ -66,27 +72,66 @@ export async function readMergeSettings(
   return ok(parsed.value.allow_merge_commit);
 }
 
-/** PUT the merge (method `merge`, the VERDICTED tip's sha); returns the merge-commit sha. */
-export async function putMerge(
+interface MergeCallInput {
+  readonly identity: BotIdentity;
+  readonly prNumber: number;
+  readonly headRefOid: string;
+}
+
+/**
+ * The one merge-state-UNKNOWN wording, shared by every failure AFTER the PUT
+ * left: it names the PR, the verdicted tip, and the re-read instruction, so a
+ * supervisor never retries blind against a merge that may already have landed.
+ */
+function mergeStateUnknown(input: MergeCallInput, detail: string): Error {
+  return new Error(
+    `merge state UNKNOWN for PR #${input.prNumber} at tip ${input.headRefOid} — the PUT was sent and ${detail}; re-read the PR before retrying`,
+  );
+}
+
+/**
+ * Send the merge PUT. A REJECTED request is not a request that never
+ * happened: a connection dropping while the response headers were in flight
+ * can follow a merge that LANDED, so it reports the same indeterminate state
+ * as an unreadable body — never an ordinary operational failure.
+ */
+async function sendMergePut(
   fetchImpl: GithubApiFetch,
   token: string,
-  input: { readonly identity: BotIdentity; readonly prNumber: number; readonly headRefOid: string },
-): Promise<Result<string, Error>> {
-  const response = await fetchImpl(
+  input: MergeCallInput,
+): Promise<Result<Awaited<ReturnType<GithubApiFetch>>, Error>> {
+  const sent = await sendGithubRequest(
+    fetchImpl,
     `${GITHUB_API}/repos/${input.identity.owner}/${input.identity.repoName}/pulls/${input.prNumber}/merge`,
     {
       method: 'PUT',
       headers: apiHeaders(token),
       body: JSON.stringify({ merge_method: 'merge', sha: input.headRefOid }),
     },
+    'the merge PUT',
   );
+  return sent.ok ? sent : err(mergeStateUnknown(input, sent.error.message));
+}
+
+/** PUT the merge (method `merge`, the VERDICTED tip's sha); returns the merge-commit sha. */
+export async function putMerge(
+  fetchImpl: GithubApiFetch,
+  token: string,
+  input: MergeCallInput,
+): Promise<Result<string, Error>> {
+  const sent = await sendMergePut(fetchImpl, token, input);
+  if (!sent.ok) {
+    return sent;
+  }
+  const response = sent.value;
   const body = await readJsonBody(response, 'merge response');
   if (!body.ok) {
     // The PUT was SENT: an unreadable answer (edge drop mid-body, gateway
     // HTML) leaves the merge state indeterminate.
     return err(
-      new Error(
-        `merge state UNKNOWN for PR #${input.prNumber} at tip ${input.headRefOid} — the PUT was sent, answered ${response.status}, and its body was unreadable (${body.error.message}); re-read the PR before retrying`,
+      mergeStateUnknown(
+        input,
+        `it answered ${response.status} with an unreadable body (${body.error.message})`,
       ),
     );
   }

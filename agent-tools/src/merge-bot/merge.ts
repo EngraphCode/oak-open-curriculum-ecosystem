@@ -6,7 +6,7 @@ import { parsePrTarget, type GhCommandExecutor, type PrTarget } from '../pr-watc
 import { readPrStateReading, type ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading, PrVerdict } from '../pr-watch/state-types.js';
 import { computePrVerdict } from '../pr-watch/states.js';
-import { decideMergeAction } from './merge-decision.js';
+import { decideMergeAction, type MergeDecision } from './merge-decision.js';
 import { readMergeSettings, realFetch, putMerge } from './merge-github-api.js';
 import { mintForConfig, type MintedToken, type MintSeams } from './mint-for-config.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
@@ -34,7 +34,7 @@ export class ReadingUnavailableError extends Error {}
 
 /** The seams a caller may inject; the CLI supplies the real composition. */
 interface MergeExecutionSeams {
-  /** Mint thunk (defaults to mintForConfig at scope pull-request-work). */
+  /** Mint thunk (defaults to mintForConfig at scope pull-request-merge). */
   readonly mint?: () => Promise<Result<MintedToken, Error>>;
   /** Reading assembly (defaults to pr-watch's gh-backed reading, throw-translated). */
   readonly readReading?: (options: ReadPrStateOptions) => Result<PrStateReading, Error>;
@@ -194,7 +194,21 @@ function defaultReadReading(
   };
 }
 
-/** The verdict → settings-gate → decide → merge tail, split for the size gate. */
+/** A typed refusal carrying the verdict it fired on, by name and by evidence. */
+function refused(reason: string, verdict: PrVerdict): Result<MergeOutcome, Error> {
+  return ok({ kind: 'refused', reason, verdictState: verdict.state, evidence: verdict.evidence });
+}
+
+/**
+ * The verdict → eligibility → settings-gate → merge tail. Eligibility is
+ * classified BEFORE the settings endpoint is touched: that GET is a fallible
+ * network call, so asking it first turned every documented typed refusal
+ * (MERGED, CHECKS-RED, …) into an operational failure whenever the read
+ * failed. The decision core is untouched — `allowMergeCommit: true` asks it
+ * one question, whether this verdict is mergeable at all — and the REAL
+ * setting then goes through the same function, so the never-squash refusal
+ * keeps its one canonical wording.
+ */
 async function gateAndMerge(context: {
   readonly input: MergeExecutionInput;
   readonly reading: PrStateReading;
@@ -202,25 +216,23 @@ async function gateAndMerge(context: {
 }): Promise<Result<MergeOutcome, Error>> {
   const { input, reading, token } = context;
   const verdict = computePrVerdict(reading, input.nowIso);
+  const decide = (allowMergeCommit: boolean): MergeDecision =>
+    decideMergeAction({ verdict, allowMergeCommit, expectedDeclared: reading.expectedDeclared });
+
+  const eligible = decide(true);
+  if (eligible.kind === 'refuse') {
+    return refused(eligible.reason, verdict);
+  }
   const fetchImpl = input.seams.fetchImpl ?? realFetch();
   const allowMergeCommit = await readMergeSettings(fetchImpl, token, input.identity);
   if (!allowMergeCommit.ok) {
     return allowMergeCommit;
   }
-
-  const decision = decideMergeAction({
-    verdict,
-    allowMergeCommit: allowMergeCommit.value,
-    expectedDeclared: reading.expectedDeclared,
-  });
+  const decision = decide(allowMergeCommit.value);
   if (decision.kind === 'refuse') {
-    return ok({
-      kind: 'refused',
-      reason: decision.reason,
-      verdictState: verdict.state,
-      evidence: verdict.evidence,
-    });
+    return refused(decision.reason, verdict);
   }
+
   const merged = await putMerge(fetchImpl, token, {
     identity: input.identity,
     prNumber: input.prNumber,

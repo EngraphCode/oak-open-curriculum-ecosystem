@@ -71,6 +71,19 @@ describe('parseMergeArgs', () => {
     }
   });
 
+  it('rejects a --pr beyond the safe-integer range rather than silently rounding it', () => {
+    // 9007199254740993 rounds to ...992 through Number(): the digit regex
+    // admits it, and the command would then act on a DIFFERENT PR than the
+    // operator supplied — the one confusion an irreversible act must not have.
+    const unsafe = parseMergeArgs(['--pr', '9007199254740993', '--expect', 'reviewer']);
+
+    expect(unsafe.ok).toBe(false);
+    if (!unsafe.ok) {
+      expect(unsafe.error.message).toContain('--pr');
+      expect(unsafe.error.message).toContain('safe integer');
+    }
+  });
+
   it('requires at least one --expect, teaching why a defaulted set cannot merge', () => {
     const parsed = parseMergeArgs(['--pr', '42']);
 

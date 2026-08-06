@@ -49,7 +49,9 @@ function capture(): { text: () => string; sink: Pick<NodeJS.WriteStream, 'write'
 }
 
 /** Serves mint, repo-settings, and merge endpoints; records every call URL and body. */
-function mergeFetch(input: { mergeStatus?: number; mergeBody?: unknown } = {}): {
+function mergeFetch(
+  input: { mergeStatus?: number; mergeBody?: unknown; tokenExpiresAt?: string } = {},
+): {
   fetchImpl: GithubApiFetch;
   urls: string[];
   bodies: { url: string; body: string }[];
@@ -67,7 +69,11 @@ function mergeFetch(input: { mergeStatus?: number; mergeBody?: unknown } = {}): 
     if (url.endsWith('/access_tokens')) {
       return Promise.resolve({
         status: 201,
-        json: () => Promise.resolve({ token: TOKEN, expires_at: '2026-08-06T10:00:00Z' }),
+        json: () =>
+          Promise.resolve({
+            token: TOKEN,
+            expires_at: input.tokenExpiresAt ?? '2026-08-06T10:00:00Z',
+          }),
       });
     }
     if (url.endsWith('/pulls/42/merge')) {
@@ -240,6 +246,36 @@ describe('runMergeBotCli merge', () => {
     expect(await run.exit).toBe(3);
     expect(run.sleeps).toHaveLength(1);
     expect(run.errText()).toContain('CHECKS-RUNNING');
+  });
+
+  it('stops at the WALL-CLOCK deadline rather than firing a merge call that could straddle token expiry', async () => {
+    // The parse-time budget counts only SLEEP; request time is unbounded, so
+    // a slow round of reads can carry the final PUT past the token hour. The
+    // deadline comes from the MINTED token's own expiry (10:00) less a
+    // five-minute margin, and the clock reaches 09:56 on the second poll.
+    const clock = ['2026-08-06T09:00:00Z', '2026-08-06T09:56:00Z'];
+    const run = runMerge({
+      args: [...EXPECT_ARGS],
+      readings: [runningChecksReading(), settledReading()],
+      overrides: { nowIsoImpl: () => clock.shift() ?? '2026-08-06T09:56:00Z' },
+    });
+
+    expect(await run.exit).toBe(1);
+    expect(run.errText()).toContain('2026-08-06T09:55:00.000Z');
+    expect(run.errText()).toContain('2026-08-06T10:00:00Z');
+    expect(run.urls.filter((url) => url.endsWith('/pulls/42/merge'))).toHaveLength(0);
+  });
+
+  it('refuses to poll at all when the minted token expiry is unparseable — no deadline, no merge call', async () => {
+    const run = runMerge({
+      args: [...EXPECT_ARGS],
+      readings: [settledReading()],
+      fetch: mergeFetch({ tokenExpiresAt: 'whenever' }),
+    });
+
+    expect(await run.exit).toBe(1);
+    expect(run.errText()).toContain('whenever');
+    expect(run.urls.filter((url) => url.endsWith('/pulls/42/merge'))).toHaveLength(0);
   });
 
   it('reports a refusal machine-readably under --json', async () => {

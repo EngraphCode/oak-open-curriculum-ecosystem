@@ -1,15 +1,17 @@
-import type { Result } from '@oaknational/result';
+import { ok, type Result } from '@oaknational/result';
 
 import type { ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading } from '../pr-watch/state-types.js';
 import { MERGE_USAGE, parseMergeArgs, type MergeArgs } from './merge-args.js';
 import { verdictAwaitsSettlement } from './merge-decision.js';
 import {
-  ReadingUnavailableError,
-  runMergeExecution,
-  type MergeExecutionInput,
-  type MergeOutcome,
-} from './merge.js';
+  deadlineMessage,
+  deadlinePassed,
+  mergeDeadlineFrom,
+  type MergeDeadline,
+} from './merge-deadline.js';
+import { reportOutcome, writeProgress } from './merge-report.js';
+import { ReadingUnavailableError, runMergeExecution, type MergeExecutionInput } from './merge.js';
 import { mintForConfig, type MintedToken, type MintSeams } from './mint-for-config.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import {
@@ -89,26 +91,54 @@ export async function runMergeAction(
     return 2;
   }
   input.stderr.write(SWEEP_NOTE);
-  // Minted ONCE; every poll runs under this token (the budget bound above).
-  // Scope is the merge-only set: a merge never needs `workflows: write`
-  // (security D3; provenance on the scope table).
+  const run = await mintWithDeadline(identity.value, input);
+  if (!run.ok) {
+    input.stderr.write(`merge-bot merge: ${run.error.message}\n`);
+    return 1;
+  }
+  return pollUntilActionable({
+    parsed: parsed.value,
+    identity: identity.value,
+    run: run.value,
+    input,
+  });
+}
+
+/** The ONE minted token and the wall-clock deadline derived from ITS expiry. */
+interface MintedRun {
+  readonly token: MintedToken;
+  readonly deadline: MergeDeadline;
+}
+
+/**
+ * Mint ONCE — every poll runs under this token — and bound the loop by the
+ * token's own stated expiry. Scope is the merge-only set: a merge never needs
+ * `workflows: write` (security D3; provenance on the scope table).
+ */
+async function mintWithDeadline(
+  identity: BotIdentity,
+  input: MergeActionInput,
+): Promise<Result<MintedRun, Error>> {
   const minted = await mintForConfig(
-    { ...identity.value, scope: 'pull-request-merge' },
+    { ...identity, scope: 'pull-request-merge' },
     mintSeamsFrom(input),
   );
   if (!minted.ok) {
-    input.stderr.write(`merge-bot merge: ${minted.error.message}\n`);
-    return 1;
+    return minted;
   }
-  return pollUntilActionable({ parsed: parsed.value, identity: identity.value, minted, input });
+  const deadline = mergeDeadlineFrom(minted.value.expiresAt);
+  if (!deadline.ok) {
+    return deadline;
+  }
+  return ok({ token: minted.value, deadline: deadline.value });
 }
 
 function executionSeams(
   input: MergeActionInput,
-  minted: Result<MintedToken, Error>,
+  minted: MintedToken,
 ): MergeExecutionInput['seams'] {
   return {
-    mint: () => Promise.resolve(minted),
+    mint: () => Promise.resolve(ok(minted)),
     ...(input.fetchImpl === undefined ? {} : { fetchImpl: input.fetchImpl }),
     ...(input.readReadingImpl === undefined ? {} : { readReading: input.readReadingImpl }),
   };
@@ -117,41 +147,39 @@ function executionSeams(
 async function pollUntilActionable(context: {
   readonly parsed: MergeArgs;
   readonly identity: BotIdentity;
-  readonly minted: Result<MintedToken, Error>;
+  readonly run: MintedRun;
   readonly input: MergeActionInput;
 }): Promise<number> {
   const { parsed, input } = context;
   const sleep =
     input.sleepImpl ?? ((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)));
   const nowIso = input.nowIsoImpl ?? ((): string => new Date().toISOString());
-  const seams = executionSeams(input, context.minted);
+  const seams = executionSeams(input, context.run.token);
 
   // Bounded despite the open loop head: continuing requires poll < maxPolls
   // (enforced by retryLabel), and every other branch returns.
   for (let poll = 1; ; poll += 1) {
+    // ONE clock read per poll, serving both the deadline and the verdict.
+    const at = nowIso();
+    // The parse-time budget counts only SLEEP; this is the wall clock, and it
+    // gates the round BEFORE a merge call can be fired inside it.
+    if (poll > 1 && deadlinePassed(at, context.run.deadline)) {
+      input.stderr.write(`merge-bot merge: ${deadlineMessage(at, context.run.deadline)}\n`);
+      return 1;
+    }
     const outcome = await runMergeExecution({
       identity: context.identity,
       prNumber: parsed.prNumber,
       expectedReviewers: parsed.expect,
-      nowIso: nowIso(),
+      nowIso: at,
       seams,
     });
     const retry = retryLabel(outcome, poll, parsed.maxPolls);
-    if (retry !== undefined) {
-      writeProgress(parsed, poll, retry, input);
-      await sleep(parsed.intervalSeconds * MILLIS_PER_SECOND);
-      continue;
+    if (retry === undefined) {
+      return reportOutcome(outcome, parsed, input);
     }
-    if (!outcome.ok) {
-      input.stderr.write(`merge-bot merge: ${outcome.error.message}\n`);
-      return 1;
-    }
-    if (outcome.value.kind === 'merged') {
-      writeMerged(outcome.value, parsed.json, input);
-      return 0;
-    }
-    writeRefusal(outcome.value, parsed.json, input);
-    return 3;
+    writeProgress(parsed, poll, retry, input);
+    await sleep(parsed.intervalSeconds * MILLIS_PER_SECOND);
   }
 }
 
@@ -178,50 +206,4 @@ function retryLabel(
   return outcome.value.kind === 'refused' && verdictAwaitsSettlement(outcome.value.verdictState)
     ? outcome.value.verdictState
     : undefined;
-}
-
-function writeProgress(
-  parsed: MergeArgs,
-  poll: number,
-  verdictState: string,
-  input: MergeActionInput,
-): void {
-  // Under --json, stdout carries EXACTLY the outcome object a machine
-  // parses; progress is diagnostics and moves to stderr.
-  const progress = parsed.json ? input.stderr : input.stdout;
-  progress.write(
-    `poll ${poll}/${parsed.maxPolls}: ${verdictState} — retrying in ${parsed.intervalSeconds}s\n`,
-  );
-}
-
-/** The verdict evidence, printed line-per-ground (security H3: never silent). */
-function writeEvidence(evidence: readonly string[], input: MergeActionInput): void {
-  for (const line of evidence) {
-    input.stderr.write(`  grounds: ${line}\n`);
-  }
-}
-
-function writeMerged(
-  outcome: Extract<MergeOutcome, { kind: 'merged' }>,
-  json: boolean,
-  input: MergeActionInput,
-): void {
-  if (json) {
-    input.stdout.write(`${JSON.stringify(outcome)}\n`);
-    return;
-  }
-  input.stdout.write(`merged: merge commit ${outcome.sha}\n`);
-  writeEvidence(outcome.evidence, input);
-}
-
-function writeRefusal(
-  outcome: Extract<MergeOutcome, { kind: 'refused' }>,
-  json: boolean,
-  input: MergeActionInput,
-): void {
-  if (json) {
-    input.stdout.write(`${JSON.stringify(outcome)}\n`);
-  }
-  input.stderr.write(`merge-bot merge: refused: ${outcome.reason}\n`);
-  writeEvidence(outcome.evidence, input);
 }

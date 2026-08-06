@@ -33,7 +33,10 @@ export const MERGE_USAGE = `merge-bot merge --pr <number> --expect <reviewer> [-
   ${MAX_BUDGET_SECONDS}s, keeping the whole budget inside GitHub's one-hour
   installation-token TTL); every other verdict is an immediate typed
   refusal, and an exhausted poll budget also exits 3, reporting the last
-  verdict.
+  verdict. That budget counts SLEEP alone, so polling ALSO stops (exit 1,
+  naming the deadline) once the wall clock reaches five minutes before the
+  minted token's own stated expiry — no merge call is ever fired in a round
+  that could straddle it.
   --expect declares the expected reviewer set (repeatable; REQUIRED here —
   source it from the repository's automatic-review configuration; a
   defaulted or blank set never merges).
@@ -59,7 +62,19 @@ function requirePositiveInt(flag: string, value: string): Result<number, Error> 
   if (!/^[1-9]\d*$/u.test(value)) {
     return err(new Error(`${flag} requires a positive integer, got "${value}"\n${MERGE_USAGE}`));
   }
-  return ok(Number(value));
+  const parsed = Number(value);
+  // The digit regex admits values past 2^53-1, which `Number` silently ROUNDS
+  // (9007199254740993 becomes ...992): the command would then act on a
+  // different PR than the operator supplied.
+  if (!Number.isSafeInteger(parsed)) {
+    return err(
+      new Error(
+        `${flag} requires a safe integer (at most ${Number.MAX_SAFE_INTEGER}), got "${value}" — ` +
+          `larger values round to a DIFFERENT number\n${MERGE_USAGE}`,
+      ),
+    );
+  }
+  return ok(parsed);
 }
 
 /**

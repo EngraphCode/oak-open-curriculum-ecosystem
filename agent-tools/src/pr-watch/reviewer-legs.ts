@@ -27,8 +27,9 @@ export interface HarvestedReview {
  * One expected reviewer's leg for the current tip. A SKIPPED leg carries its
  * reason STRUCTURALLY — settlement classifies on `skipReason`, never on the
  * prose `detail` (security D1, 2026-08-06): a quota skip is an owner-ruled
- * settled state, while a timeout skip means NOBODY reviewed and must never
- * read merge-eligible.
+ * settled state, while a timeout skip means THAT expected reviewer never
+ * reviewed this tip and must never read merge-eligible — other legs in the
+ * same round may well be SATISFIED.
  */
 export type ReviewerLeg =
   | {

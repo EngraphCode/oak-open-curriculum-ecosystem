@@ -178,7 +178,34 @@ describe('runMergeExecution', () => {
       expect(outcome.error.message).toContain('empty');
     }
     expect(readingRead).toBe(false);
-    expect(calls.length).toBe(0);
+    expect(calls).toHaveLength(0);
+  });
+
+  it('classifies the verdict BEFORE reading repo settings: a MERGED PR refuses by name even with the settings endpoint down', async () => {
+    // Ordering as behaviour: the settings GET is a fallible network call, so
+    // asking it before the verdict is classified turns a DOCUMENTED typed
+    // refusal (exit 3) into an operational failure (exit 1) whenever that
+    // read fails — on a PR that was already merged, no less.
+    const calls: string[] = [];
+    const settingsDownFetch: GithubApiFetch = (url) => {
+      calls.push(String(url));
+      return Promise.reject(new Error('getaddrinfo ENOTFOUND api.github.com'));
+    };
+
+    const outcome = await runMergeExecution(
+      makeInput(makeReading({ state: 'MERGED' }), settingsDownFetch),
+    );
+
+    expect(outcome.ok).toBe(true);
+    if (outcome.ok) {
+      expect(outcome.value.kind).toBe('refused');
+      if (outcome.value.kind === 'refused') {
+        expect(outcome.value.verdictState).toBe('MERGED');
+        expect(outcome.value.reason).toContain('MERGED');
+      }
+    }
+    // Not merely "the merge endpoint was never called": NOTHING was fetched.
+    expect(calls).toHaveLength(0);
   });
 });
 
@@ -246,6 +273,45 @@ describe('runMergeExecution — unreadable responses and reading failures (secur
     expect(outcome.ok).toBe(false);
     if (!outcome.ok) {
       expect(outcome.error.message).toContain('repo settings');
+    }
+  });
+
+  it('translates a REJECTED settings request into a typed error naming the read, never a throw', async () => {
+    // A rejected promise, not a status: DNS failure, connection reset, TLS
+    // refusal. Unwrapped it escapes as a throw onto the usage-error path.
+    const { fetchImpl } = makeFetchPort({});
+    const downFetch: GithubApiFetch = (url, init) =>
+      String(url).endsWith('/repos/acme/widgets')
+        ? Promise.reject(new Error('ECONNRESET'))
+        : fetchImpl(url, init);
+
+    const outcome = await runMergeExecution(makeInput(makeReading(), downFetch));
+
+    expect(outcome.ok).toBe(false);
+    if (!outcome.ok) {
+      expect(outcome.error.message).toContain('repo settings');
+      expect(outcome.error.message).toContain('request failed');
+      expect(outcome.error.message).toContain('ECONNRESET');
+    }
+  });
+
+  it('reports merge state UNKNOWN when the PUT itself is REJECTED — the request left, so the merge may have landed', async () => {
+    // Same class as the unreadable body and the same answer: a connection
+    // dropping while the response headers were in flight can follow a merge
+    // that already landed.
+    const { fetchImpl } = makeFetchPort({});
+    const droppedFetch: GithubApiFetch = (url, init) =>
+      String(url).endsWith('/pulls/42/merge')
+        ? Promise.reject(new Error('socket hang up'))
+        : fetchImpl(url, init);
+
+    const outcome = await runMergeExecution(makeInput(makeReading(), droppedFetch));
+
+    expect(outcome.ok).toBe(false);
+    if (!outcome.ok) {
+      expect(outcome.error.message).toContain('UNKNOWN');
+      expect(outcome.error.message).toContain(HEAD_OID);
+      expect(outcome.error.message).toContain('re-read');
     }
   });
 
