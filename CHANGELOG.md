@@ -1,3 +1,10 @@
+## [1.152.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.152.3...v1.152.4) (2026-08-06)
+
+
+### Bug Fixes
+
+* **mcp-http:** link the path-qualified protected-resource metadata URL ([15e0a77](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/15e0a7744a588d934cf6ea17b2f6eb4201a9306c))
+
 ## [1.152.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.152.2...v1.152.3) (2026-08-06)
 
 
