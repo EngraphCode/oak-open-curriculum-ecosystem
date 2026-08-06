@@ -576,3 +576,20 @@ pointers and the owner's word matter.
   is the EXTERNAL Anthropic form draft — Field 5 must be pasted from the
   corrected listing-copy pack, never the stale draft; MCP-515's ADR-070
   banner is deferred post-submission by standing owner ruling.
+
+## 2026-08-06 ~19:50Z (Petrel holds Turbulence, a0892f) — owner re-pricings: release effectively happened; entropy-decrease cycle opens
+
+- Owner word (2026-08-06 evening, verbatim anchors): MCP-103 "no longer a
+  blocker for release, which has effectively already happened" — re-priced
+  blocker → "high value enabler"; "I don't want to build 103 yet, but if we
+  can do useful preparatory work that is fine" (the in-flight build seat was
+  redirected to preparatory-only the same minute); "Let's start to decrease
+  the entropy and increase the order"; open PRs: "analyse and merge them,
+  but not while github is broken" (the disposition map in reports/ is the
+  analysis, execution queued at Actions recovery); "In parallel I am
+  re-opening the design lane" (owner-run relaunch; wake payload = a729c466 +
+  shaping record through §v2 + axis-2 addendum; claim 645b9e0b lineage).
+- OPEN QUESTION routed to the owner as a card the same hour: whether
+  "release effectively happened" fires the post-submission deferrals (Sonar
+  zero-bar config, ADR-070 banner, #788 unpause, #768 gate, MCP-369/370
+  pointers). Until answered, the deferrals stand.
