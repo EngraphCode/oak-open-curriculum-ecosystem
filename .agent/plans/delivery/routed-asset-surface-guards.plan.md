@@ -45,9 +45,9 @@ two homes and no single tool sees both:
 
    **Detection predicate**: in JSX `href`/`src` attributes on
    subresource-bearing elements (`link`, `img`, `script`) and in
-   exported path constants — a string literal, or a template literal
-   whose leading static text, starts with `/` (protocol-relative `//`
-   exempt) is an error. Nothing else is. The check reads the COOKED
+   exported path constants — a string literal that starts with `/`, or
+   a template literal whose leading static text starts with `/`
+   (protocol-relative `//` exempt in both cases), is an error. Nothing else is. The check reads the COOKED
    value (`quasis[0].value.cooked`), never the raw source spelling: an
    escaped leading slash (`\u002F`, `\/`) cooks to `/` and must still
    fire, and the RuleTester suite carries an escaped-leading-slash
