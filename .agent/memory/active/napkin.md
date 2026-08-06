@@ -294,6 +294,17 @@ to the next dedicated consolidation rather than patching the word list.
   multi-instrument review doctrine, roughly quantified for the first
   time. Route: the retrospective (owner-deferred, open) is this
   seed's natural consumer; discard freely if it does not serve.
+- Third data point (2026-08-06 midday, dlg-20260806-solm): the Sol-max
+  round found six MORE findings disjoint from all five prior
+  examinations — and the LENS explains the disjointness: every prior
+  pass interrogated the floor as CONTENT (rows, warrants,
+  instruments); Sol-max interrogated it as a FORMAL SYSTEM
+  (predicates, quantifier binding, oracle independence, proof
+  composition, validity over time). Refined seed: it is not
+  instrument diversity per se that buys orthogonal coverage — it is
+  ANALYTICAL-REGISTER diversity (content vs formal-system vs
+  field-use, the third still unsensed). The retrospective remains the
+  consumer.
 
 ## New session observations append below.
 
