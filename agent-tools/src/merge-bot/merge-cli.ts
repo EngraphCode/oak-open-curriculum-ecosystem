@@ -2,7 +2,7 @@ import type { Result } from '@oaknational/result';
 
 import type { ReadPrStateOptions } from '../pr-watch/state-gh.js';
 import type { PrStateReading } from '../pr-watch/state-types.js';
-import { parseMergeArgs, type MergeArgs } from './merge-args.js';
+import { MERGE_USAGE, parseMergeArgs, type MergeArgs } from './merge-args.js';
 import { verdictAwaitsSettlement } from './merge-decision.js';
 import {
   ReadingUnavailableError,
@@ -26,21 +26,24 @@ import {
  * 3 typed refusal — an already-MERGED PR exits 3, because another actor's
  * merge is never this invocation's success.
  *
- * Build-vs-pass-through (owner principle 2026-08-06: build value in, pass
- * through where a binary already provides it): the reading passes through
- * `gh`; the settlement verdict and identity discipline are built value no
- * binary provides. The merge call itself is the one adjudicated exception —
- * `gh pr merge --match-head-commit` covers the tip pin, but returns no
- * machine-readable merge-commit sha, so the REST PUT is kept for the
- * structured outcome and the test-pinned body; the endpoint's own 405
- * enforcement still stands underneath our settings gate.
+ * Build-vs-pass-through (owner principle 2026-08-06, recorded in
+ * `.agent/plans/delivery/agent-tools-watch-commands.plan.md` Decisions:
+ * build value in, pass through where a binary already provides it): the
+ * reading passes through `gh`; the settlement verdict and identity
+ * discipline are built value no binary provides. The merge call itself is
+ * the one adjudicated exception — `gh pr merge --match-head-commit` covers
+ * the tip pin, but returns no machine-readable merge-commit sha, so the
+ * REST PUT is kept for the structured outcome and the test-pinned body; the
+ * endpoint's own 405 enforcement still stands underneath our settings gate.
  */
 
 const MILLIS_PER_SECOND = 1000;
 
+// A statement of fact, not an imperative: topic-layer stderr is buffered, so
+// this line can land AFTER the merge — the actionable "run it before merging"
+// instruction lives in MERGE_USAGE, which the operator reads pre-flight.
 const SWEEP_NOTE =
-  'note: the pr-lifecycle merge-base deletion sweep is NOT discharged by this command — ' +
-  'read every deletion the merge-base diff prints before merging.\n';
+  'note: the pr-lifecycle merge-base deletion sweep is NOT discharged by this command.\n';
 
 /** The action's composition surface; cli.ts forwards its own injection seams. */
 export interface MergeActionInput {
@@ -69,6 +72,12 @@ export async function runMergeAction(
   rest: readonly string[],
   input: MergeActionInput,
 ): Promise<number> {
+  // The most likely first command a new operator types (docs review C3) —
+  // it must reach the usage text on stdout, never the unknown-flag path.
+  if (rest[0] === '--help' || rest[0] === '-h') {
+    input.stdout.write(MERGE_USAGE);
+    return 0;
+  }
   const parsed = parseMergeArgs(rest);
   if (!parsed.ok) {
     input.stderr.write(`merge-bot merge: ${parsed.error.message}\n`);

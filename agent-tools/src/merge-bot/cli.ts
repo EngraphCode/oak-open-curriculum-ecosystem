@@ -21,20 +21,24 @@ import { permissionNamesFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
  * ```
  *
  * `merge-bot mint-token` prints a short-lived GitHub App installation token
- * to stdout (and nothing else there), for OTHER operations run as the bot
- * (pushes, API reads). Assign it, then use it — never the
- * `GH_TOKEN=$(…) gh …` prefix form, which cannot fail fast: a failing mint
- * leaves `GH_TOKEN` empty, `gh` reads empty as UNSET, and the command runs
- * as the signed-in human.
+ * to stdout (and nothing else there), for the OTHER bot writes (pushes,
+ * gh pr create/edit, comments, review replies, thread resolution,
+ * update-branch). Assign it, then use it — never the `GH_TOKEN=$(…) gh …`
+ * prefix form, which cannot fail fast: a failing mint leaves `GH_TOKEN`
+ * empty, `gh` reads empty as UNSET, and the command runs as the signed-in
+ * human.
  *
  * ```bash
  * token=$(pnpm --silent agent-tools merge-bot mint-token --scope <scope-name>) || exit 1
  * ```
  *
- * The bot is not a ruleset bypass actor, so its merges bind to required
- * checks — the sanctioned direct-merge path under the 2026-07-21 owner
- * rulings (`--admin` always banned; direct `--merge` banned on
- * bypass-capable accounts).
+ * The bot is absent from the protections ruleset's bypass list — its one
+ * bypass is the separate code-owner review gate (owner ruling 2026-07-21,
+ * verified against the rulesets API 2026-07-31; `docs/engineering/merge-bot.md`
+ * carries the split) — so its merges bind to required checks and threads.
+ * The sanctioned direct-merge path under the 2026-07-21 owner rulings
+ * (`--admin` always banned; direct `--merge` banned on bypass-capable
+ * accounts).
  */
 
 interface MergeBotEnvironment {

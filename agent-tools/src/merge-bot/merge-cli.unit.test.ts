@@ -476,6 +476,15 @@ describe('runMergeBotCli merge', () => {
     expect(run.errText()).toContain('single authority');
   });
 
+  it('answers merge --help with the usage on stdout, exit 0 — never the unknown-flag path', async () => {
+    const run = runMerge({ args: ['--help'], readings: [settledReading()] });
+
+    expect(await run.exit).toBe(0);
+    expect(run.out()).toContain('merge --pr');
+    expect(run.out()).toContain('--expect declares');
+    expect(run.urls).toEqual([]);
+  });
+
   it('documents the merge action and the undischarged sweep in the usage text', async () => {
     const out = capture();
     const errSink = capture();

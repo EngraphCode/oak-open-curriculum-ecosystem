@@ -1,5 +1,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 
+import { SETTLEMENT_WAIT_STATES } from './merge-decision.js';
+
 /**
  * The argv contract for `merge-bot merge`. Split from `merge-cli.ts` to keep
  * both files inside the size and complexity gates (the same seam
@@ -8,7 +10,7 @@ import { err, ok, type Result } from '@oaknational/result';
 
 const DEFAULT_INTERVAL_SECONDS = 30;
 const DEFAULT_MAX_POLLS = 90;
-/** 50 minutes: the whole budget must end well inside the token's one-hour life. */
+/** 50 minutes: the whole budget must end well inside GitHub's one-hour installation-token TTL. */
 const MAX_BUDGET_SECONDS = 3000;
 
 export interface MergeArgs {
@@ -24,13 +26,21 @@ export const MERGE_USAGE = `merge-bot merge --pr <number> --expect <reviewer> [-
   Merges the PR via the sanctioned REST path when — and only when — the
   settlement verdict is SETTLE-READY: merge-commit method always (refusing
   when repo settings disallow merge commits, never a squash fallback), the
-  VERDICTED tip's sha in the body (a moved tip answers 409, never an
-  unverdicted merge). Wait-class verdicts (SETTLING-QUIET-WINDOW,
-  CHECKS-RUNNING, WAITING-REVIEW-RUN-LIVE) poll under ONE minted token
-  (default ${DEFAULT_INTERVAL_SECONDS}s x ${DEFAULT_MAX_POLLS} polls; --interval x --max-polls must stay within
-  ${MAX_BUDGET_SECONDS}s of the token's one-hour life); every other verdict is an
-  immediate typed refusal. Exit map: 0 merged, 1 operational failure,
-  2 usage, 3 typed refusal — an already-MERGED PR exits 3.
+  VERDICTED tip's sha in the body (a moved tip answers 409 — an operational
+  failure, exit 1 — never an unverdicted merge). Wait-class verdicts
+  (${SETTLEMENT_WAIT_STATES.join(', ')}) poll under ONE minted
+  token (default ${DEFAULT_INTERVAL_SECONDS}s x ${DEFAULT_MAX_POLLS} polls; --interval x --max-polls must not exceed
+  ${MAX_BUDGET_SECONDS}s, keeping the whole budget inside GitHub's one-hour
+  installation-token TTL); every other verdict is an immediate typed
+  refusal, and an exhausted poll budget also exits 3, reporting the last
+  verdict.
+  --expect declares the expected reviewer set (repeatable; REQUIRED here —
+  source it from the repository's automatic-review configuration; a
+  defaulted or blank set never merges).
+  --json puts EXACTLY the outcome object on stdout; progress moves to
+  stderr.
+  Exit map: 0 merged, 1 operational failure, 2 usage, 3 typed refusal —
+  an already-MERGED PR exits 3.
   The pr-lifecycle merge-base deletion sweep is NOT discharged by this
   command — run it against the branch before merging.
 `;
@@ -147,9 +157,9 @@ export function parseMergeArgs(rest: readonly string[]): Result<MergeArgs, Error
   if (budgetSeconds > MAX_BUDGET_SECONDS) {
     return err(
       new Error(
-        `--interval x --max-polls is ${budgetSeconds}s — the poll budget must stay within ` +
-          `${MAX_BUDGET_SECONDS}s (50 minutes) so the ONE minted installation token ` +
-          '(one-hour lifetime) outlives the final merge call.',
+        `--interval x --max-polls is ${budgetSeconds}s — the poll budget must not exceed ` +
+          `${MAX_BUDGET_SECONDS}s, so the ONE minted installation token ` +
+          "(GitHub's one-hour TTL) outlives the final merge call.",
       ),
     );
   }

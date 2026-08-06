@@ -22,14 +22,20 @@ export type MergeDecision =
  * time alone — checks finishing, a live review run completing, the quiet
  * window elapsing. Every other verdict needs an operator act or is
  * terminal, so polling on it would burn the budget silently; the CLI
- * refuses those immediately instead.
+ * refuses those immediately instead. Exported as the ONE authority the
+ * usage text derives from — the list must never be transcribed by hand.
  */
+export const SETTLEMENT_WAIT_STATES = [
+  'SETTLING-QUIET-WINDOW',
+  'CHECKS-RUNNING',
+  'WAITING-REVIEW-RUN-LIVE',
+] as const satisfies readonly PrVerdict['state'][];
+
+/** Widened at the declaration, so membership needs no assertion. */
+const WAIT_STATE_SET: ReadonlySet<PrVerdict['state']> = new Set(SETTLEMENT_WAIT_STATES);
+
 export function verdictAwaitsSettlement(state: PrVerdict['state']): boolean {
-  return (
-    state === 'SETTLING-QUIET-WINDOW' ||
-    state === 'CHECKS-RUNNING' ||
-    state === 'WAITING-REVIEW-RUN-LIVE'
-  );
+  return WAIT_STATE_SET.has(state);
 }
 
 export function decideMergeAction(input: {

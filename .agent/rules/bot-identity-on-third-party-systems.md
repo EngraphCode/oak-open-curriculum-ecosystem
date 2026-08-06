@@ -89,7 +89,14 @@ the first hop. Confirm the id from the API, never from prose:
   `--worktree`-scoped `user.*` override is a second copy of a single fact and
   is removed with `git config --worktree --unset-all user.name` (likewise
   `user.email`). The `Co-Authored-By` model trailer stays.
-- **PR creation, comments, review replies, thread resolution, merges**: a
+- **Merges**: the front-door command, which mints its own least-privilege
+  token and merges only at the settlement verdict:
+
+  ```bash
+  pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>
+  ```
+
+- **PR creation, comments, review replies, thread resolution**: a
   minted installation token exported as `GH_TOKEN` for the `gh` invocation.
   **Assign it first and stop if the mint fails** — never the
   `GH_TOKEN=$(…) gh …` prefix form:

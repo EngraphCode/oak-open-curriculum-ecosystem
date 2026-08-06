@@ -567,8 +567,14 @@ owner parameters. **The step-back trigger is
    ever bound to the tip), the quiet window anchors on the checks-green
    window from item 3. MERGE-READY is a settled round that landed zero new
    findings, plus every Phase 7 gate leg.
-5. **The merge boundary.** Merging takes exactly two sanctioned shapes,
-   both issued at a freshly RECOMPUTED full gate: the explicit
+5. **The merge boundary.** Merging takes exactly three sanctioned shapes,
+   all issued at a freshly RECOMPUTED full gate. For BOT merges the front
+   door is `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>`
+   (MCP-508): it recomputes this settlement verdict itself, merges only on
+   SETTLE-READY with the verdicted tip's sha pinned, and refuses by
+   verdict name — including SETTLED-NO-REVIEW, the timeout-settled round
+   this SKILL's item 4 anchor describes, which is watch-endable but NEVER
+   merge-eligible. The two non-bot shapes remain: the explicit
    `gh pr merge --merge` command, or ARMING auto-merge — permitted
    exactly and only **at settled-READY under a Director grant**
    (PDR-131, 2026-07-20; arming before settlement remains forbidden —
