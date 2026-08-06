@@ -26,12 +26,6 @@ owner_gates:
     expires: 2026-08-17
   - awaiting: owner-decision
     clears_when: >-
-      The W2.7 off-horizontal design session records tilt values for each
-      identity (evidence and priming in W2.7 and §Decision log); scheduled
-      by the executing seat when W2 opens.
-    expires: 2026-08-31
-  - awaiting: owner-decision
-    clears_when: >-
       The KNOWN-ISSUES item-14 subtree-alias ruling lands before any
       surface renders a high-contrast or colour-safe subtree (grounds in
       W0.2); nothing else blocks on it.
@@ -42,7 +36,7 @@ owner_gates:
       optional React component set" — full mapping-decision coverage with
       curated component minting (§Decision log, flagged seat reading).
     expires: 2026-09-07
-last_updated: 2026-08-02
+last_updated: 2026-08-05
 ---
 
 # Design-system completion — five demos, identity contract, React tier, the wow bar (v2.2)
@@ -430,7 +424,10 @@ is split accordingly (§Sequencing, FR4 r3).
   first pixels — FR4 r3). Acceptance (`repo-safe`: validators green over the
   surfaces that exist at landing; red-proofs recorded incl. the HTML arm).
 - **W0.9 Hub wow pre-read** (FR6 r2, zero-cost, `owner-held`). Serve the
-  EXISTING hub, the owner browses it end-to-end in Chrome. Acceptance
+  EXISTING hub — with its search backend configured so search WORKS live
+  (owner word 2026-08-05; the landed search implementation is complete and
+  tested, the gap is env credentials only, per the demo README) — and the
+  owner browses it end-to-end in Chrome. Acceptance
   (explicit per D5 r3 — `owner-held`: verdict recorded in the wow-verdict
   register; `repo-safe`: on a FAIL verdict, linked scoped visual-cure stories
   minted into this plan's body with named budget lines in the same sitting —
@@ -622,11 +619,14 @@ pre-read and per-identity owner direction sittings).
   W2.1–W2.3. Acceptance shape (`repo-safe`): each fixture proven biting once
   by mutation.
 - **W2.7 Off-horizontal dimension.** Goal: identity tilt tokenised with its
-  accessibility constraints; the owner design session prices all three
-  identities' values. Gates: the frontmatter tilt gate — no tilt render before
-  the session's committed decision artefact or the owner's dated defer word.
-  Depends: W2.1. Acceptance shape (`repo-safe`): token shape + constraint
-  tests; (`owner-held`): the session's recorded values.
+  accessibility constraints. The VALUES are owner-delivered (card answer
+  2026-08-03 ~09:15Z, verbatim in the committed napkin, `b1b5431a7`; gate
+  discharged 2026-08-05): PDS structural zero; Oak zero on interactive and
+  content-bearing elements — decoration MAY tilt, structural zero if
+  easier; EMC² leans in, including ANIMATED tilts demonstrating motion vs
+  no-motion. Gate: no tilt render before the token shape + constraints
+  land. Depends: W2.1. Acceptance shape (`repo-safe`): token shape +
+  constraint tests encoding the delivered values.
 - **W2.8 Identity asset delivery.** Goal: each identity's payload (icons,
   logo, fonts) vendored into the W2.0 home, offline-safe, licence notices
   beside them. Depends: W2.0. Acceptance shape (`repo-safe`): hermetic demo
@@ -822,18 +822,19 @@ the authoring seat reads, BEFORE mechanism authoring:
 | W2.8 | EX79 |
 | W2.9 | FR0, FR2 |
 | W2.10 | EX33 |
-| W3.0 | EX11, EX14, EX54, EX56 |
+| W3.0 | EX11, EX14, EX22, EX54, EX56 |
 | W3.1 | D13, L3, EX15, EX16, EX54 |
 | W3.2 | EX17, EX26 |
 | W3.3 | D0, EX23, EX73 |
 | W3.4 | EX27 |
 | W3.5 | (new story — no round-3 rows; W3.3's rows apply where it consumes them) |
-| W4.2 | D12, D14, EX37, FR7 |
+| W4.2 | D12, D14, EX24, EX28, EX37, FR7 |
 | W4.3 | D11 |
-| W4.4 | EX46, EX76 |
+| W4.4 | EX5, EX46, EX76 |
 | W4.5 | EX43, EX44 |
 | W4.6 | EX18, EX19 |
 | W4.7 | D7, FR2 |
+| W5.1 | EX52, EX75 |
 | W5.2 | FR6 |
 | W5.3 | EX21, EX25, EX80 |
 | W6.1 | EX50, EX51 |
@@ -842,7 +843,9 @@ the authoring seat reads, BEFORE mechanism authoring:
 
 Rows anchored on near-horizon sections (W0/W1, the instrument, the quality
 bar, §Relationships) are NOT in these tables — they are cured in the
-near-horizon text itself, with dispositions recorded in `dispositions.v2.2.md`.
+near-horizon text itself; their per-row disposition ledger rides the scoped
+near-horizon re-review (see §Review record — the intended standalone
+`dispositions.v2.2.md` was never authored).
 
 ## Cross-demo acceptance (all five, owner amendments 2026-08-02 and 2026-08-03)
 
@@ -868,9 +871,10 @@ near-horizon text itself, with dispositions recorded in `dispositions.v2.2.md`.
 
 1. Rendered in the owner's Chrome at each checkpoint — pixels, never artefact
    paths. The owner's verdict is the gate. The verdict's RECORD (D6): a
-   fidelity-register entry stating PASS / FAIL / ITERATE, the qualities
-   judged, and the date — so the owner-held criterion has a resolvable record.
-2. Beneath his eye, always-on: the fidelity register; the W0.7 rubric +
+   wow-verdict-register entry (the register W0.7 mints — EX53 r3) stating
+   PASS / FAIL / ITERATE, the qualities judged, the cells covered, and the
+   date — so the owner-held criterion has a resolvable record.
+2. Beneath his eye, always-on: the wow-verdict register; the W0.7 rubric +
    accessibility-expert leg run BEFORE any render is shown; the mechanical
    gates green first.
 3. A page failing the checkpoint iterates within its PR. **Owner wow
@@ -881,11 +885,22 @@ near-horizon text itself, with dispositions recorded in `dispositions.v2.2.md`.
    a recorded exception / re-scope / extend that page's budget — owner word
    wherever the landed bar changes.
 4. A wow failure on a fidelity-clean page auto-promotes the design change in
-   the W0.5 intake — the owner's verdict, not the intake default, decides
-   priority.
+   the W0.5 intake, batched with the sitting's other promotions (D1 r3) —
+   the owner's verdict, not the intake default, decides priority.
 5. Verdicts are BATCHED (FR7): the owner sees composed page sets and, at each
    demo's close, the whole demo end-to-end — never a drip of single-page
    asks; the rubric's cohesion clause judges the whole.
+6. Every owner PASS lands that page's rendered screenshot baseline in the
+   same PR (EX47 r3), so later work beneath approved pixels (the W4
+   consumption-path conversions, refactors) is proven against the approved
+   rendering mechanically — pixel preservation is never asserted "identical
+   by construction".
+
+Standing checkpoint note (EX65 r3, from the first rendered control onward):
+each sitting that views a theme or identity control prices the EX28(4)
+axis-model implication — whether that control's shape survives W2.4's
+contrast/colour-vision axes — until W2.4's story open states the re-facing
+decision.
 
 ## Sequencing and PR discipline
 
@@ -927,6 +942,8 @@ W4.7/W5.5/W6.2 whole-demo checkpoints.
 | Goal architecture ratified (layer sovereignty / cost-of-change-is-the-product / expressive range spans structure + six derived goals); homed in the strategic node §Kernel additions | Owner card 2026-08-03 |
 | FIVE demos; runtime identity switching = showcase + hub only; hub = "first instance of a Claude Design app ingested and reconstructed with our tools"; plain + styled = small proof demos; fifth = the layout-range ("css zen garden like") demo | Owner card answer 2026-08-03, verbatim in the strategic node |
 | Cost-of-change value-frame: "enabling rapid innovation without compromising quality or stability" — both arms bind in every trade | Owner words 2026-08-03, relayed via Director event 7b00c9e5 |
+| The hub demo's search must WORK wherever the hub is served (live backend configured; the landed implementation is complete and tested — the verified gap is env credentials only, per the demo README) | Owner word 2026-08-05, Director session a0892f: "the search in the hub demo should _work_" |
+| W2.7 tilt values: PDS structural zero; Oak zero on interactive/content-bearing (decoration MAY tilt, structural zero if easier); EMC² leans in incl. ANIMATED tilts demonstrating motion vs no-motion — the former frontmatter session gate discharged | Owner card answer 2026-08-03 ~09:15Z, verbatim in the committed napkin (`b1b5431a7`); trued 2026-08-05 at the handover (Magnetar corroboration, first-hand napkin verification) |
 
 ## Relationships (the estate edges)
 
@@ -935,8 +952,11 @@ W4.7/W5.5/W6.2 whole-demo checkpoints.
   plan re-home `ws-gate-extension` → W2.10, `ws-owned-component-tier` → W3,
   and `ws-fixtures-parity` → W3.0/W3.1, each naming this node as carrier —
   after which no cross-corpus blocking edge exists (EX75: `depends_on: []`
-  is true, not a workaround); ADR-213 §3's executor pointer updates;
-  `ws-hub-migration`'s stale status is trued. Stage B
+  is true, not a workaround); ADR-213 §3 takes the EX57 r3 cure in its
+  dated amendment — the gate-extension OUTCOME stated as the ship condition
+  for the first component export, the plan-name executor pointer deleted
+  (permanent docs never point at plan nodes; W2.10 is recorded as carrier
+  in this body only); `ws-hub-migration`'s stale status is trued. Stage B
   (`ws-stage-b-convergence`), `ws-views-direct-kit-css`,
   `pr2-consistency-check`, and the design-sync batch STAY owned there; this
   plan's demos bind only the kit CSS surface during the window, and W4.4
@@ -950,20 +970,31 @@ W4.7/W5.5/W6.2 whole-demo checkpoints.
 - **`mcp-137-design-system-semantic-merge` (ratified)** — adjacent
   conservation lane; no shared workstreams; its re-synced studio baseline is
   an input to W0.5's intake routing.
-- **Strategic node companion edit**: `design-system-as-configured-framework`
-  re-points `serves` to TOOLS-2 with APP-1 named in prose, and its review
-  citation gains the report path per the legend convention (EX64) — rides
-  this node's landing change.
+- **Strategic node companion edits — CLOSED (EX67/EX77 r3)**: the `serves`
+  re-point to TOOLS-2 landed 2026-08-02 (`e3574388b`, dated fact); the
+  review citation's report path (EX64) landed 2026-08-05 with the
+  ratification stamp. No companion edit rides this node's landing change.
 - **ADR obligations by workstream**: W0.3 → the new Demos Charter ADR +
   ADR-213 one-line pointer amendment (EX60); W1.1/W5.1 → ADR-041 demos rows
   - demos matrix row (EX73); W2.0 → ADR-041 design-row amendment (EX66);
   W2.1 → ADR-213 §2 identity-configuration amendment with the Oak clause
   (EX57); W2.2 → ADR-041 intra-design + ADR-213 §4 emitter-relation
-  amendment (EX58); W2.5 → ADR-147 §Standard + ADR-121 matrix amendments,
-  widened to true the stale CI clauses (EX62); W3.0 → ADR-213 §3 scoped
-  consumption-mechanism amendment (EX56, Director-confirmed) + the §3
-  landing-sequence set; W6.3 → ADR-217/MCP-448 routing. Each amendment is an
-  acceptance line of the workstream that triggers it.
+  amendment (EX58); W2.3 → dated ADR-213 §4 amendment recording the
+  codegen-into-kit relation (which workspace writes, which files are
+  generated, how drift is gated) beside the standing no-runtime-import
+  invariant (EX73 r3); W2.5 → ADR-147 §Standard + ADR-121 matrix
+  amendments (the stale-CI truing itself rides W0.6 per EX66 r3);
+  W2.1/W2.4 → dated amendment to
+  `docs/governance/design-token-practice.md` (identity-authored trees, the
+  axis model, the selector set — EX62 r3); W2.1/W2.5 → dated addition to
+  `docs/governance/accessibility-practice.md` (forced-colours adaptation
+  obligations + the demos-tier SC additions, the charter citing that home —
+  EX62 r3); W3.3 → dated ADR-213 §4 amendment extending the kit's
+  enumerated public surface to the identity runtime (EX73 r3); W3.0 →
+  ADR-213 §3 scoped consumption-mechanism amendment (EX56,
+  Director-confirmed) + the §3 landing-sequence set; W6.3 →
+  ADR-217/MCP-448 routing. Each amendment is an acceptance line of the
+  workstream that triggers it.
 
 ## PR-709
 
@@ -973,7 +1004,9 @@ routing of the ADR-217 delivery tail.
 
 ## Execution seat
 
-Corsair hunts Surf (4d3282) — the authoring and executing seat (PDR-117). Per
+Authored at the design seat Corsair hunts Surf (4d3282) per PDR-117; that
+seat closed at the 2026-08-03 clear-run, and the executing seat is named at
+the owner's implementation word (dated truing 2026-08-05). Per
 the 2026-08-03 partition ruling, the zero-finding bar scopes to the
 NEAR-HORIZON slice (W0 + W1): the node routes to execution when a SCOPED
 re-review (near-horizon lenses only) closes with zero surviving findings AND
@@ -1002,9 +1035,24 @@ follow invoke-code-experts; cross-lane residue routes to the Director.
   Adjudication + the owner's partition ratification: `adjudication.v3.md`.
 - v2.2: this text, authored by the executing seat 2026-08-03 under the
   ratified partition and goal architecture. Near-horizon round-3 rows are
-  cured in the W0/W1 text with dispositions in `dispositions.v2.2.md`;
-  far-horizon rows conserve via §Story-open pointer tables; the v2.1
-  far-horizon mechanism is frozen at
+  cured in the W0/W1 text; far-horizon rows conserve via §Story-open
+  pointer tables; the v2.1 far-horizon mechanism is frozen at
   `.agent/reports/design/plan-review-2026-08-02/v2.1-far-horizon-mechanism.md`.
+- Ledger truing (2026-08-05, Director session a0892f): the intended
+  `dispositions.v2.2.md` was NEVER AUTHORED — the 2026-08-03 cold pause
+  froze before it (first-hand verified: absent from the filesystem, every
+  branch, and all git history; the author session's own resume map in the
+  `design-system-integration` thread record lists it as remaining work).
+  It is honestly recomputable — both inputs survive (`findings.v3.json`
+  and this text). Same-day supersession: at the owner's handover word
+  the authoring seat, convened with the previous design team, authored
+  the ledger FROM LIVING MEMORY (`dispositions.v2.2.md`, dated
+  provenance in the file; comms event `997a8970`); the scoped
+  near-horizon re-review now VERIFIES it row-by-row and runs its stated
+  completeness sweep, rather than deriving cold. The same
+  truing pass landed the resume map's enumerated residual edits (Quality
+  bar rule 6 and the standing control note, the register naming, D1
+  batching, the §Relationships EX57/EX62/EX67/EX73/EX77 rows, the
+  pointer-table additions).
   Next review act: the SCOPED near-horizon re-review at draft-complete, to
   zero findings, then the owner's implementation word.

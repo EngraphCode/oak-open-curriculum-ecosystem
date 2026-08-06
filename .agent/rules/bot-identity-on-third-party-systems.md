@@ -3,8 +3,8 @@
 **TRIGGER — read this line at EVERY write to a third-party system, not at
 "merges":** the rule fires on ANY action — a comment, a review reply, a
 thread resolution, a PR creation, a label edit — the moment before the call,
-as a named credential-selection step: *whose name will this surface
-display?* Three seats in one session (2026-07-26) each filed this rule under
+as a named credential-selection step: _whose name will this surface
+display?_ Three seats in one session (2026-07-26) each filed this rule under
 the noun in its tooling's name ("merge-bot") and posted under the owner's
 identity at non-merge writes; a fourth (2026-07-31) opened a roll-up PR with
 bare `gh pr create` and caught it only at the pre-merge compliance read,
@@ -35,10 +35,10 @@ after.
 The GitHub bot identity is `jimbot-oakington-iii[bot]`. Two different numbers
 attach to it and **only one belongs in an email address**:
 
-| Number      | What it is           | Where it is used                     |
-| ----------- | -------------------- | ------------------------------------ |
-| `4352989`   | the GitHub **App** id | app/installation API paths            |
-| `307435217` | the **bot user** id   | the commit email, and nowhere else    |
+| Number      | What it is            | Where it is used                   |
+| ----------- | --------------------- | ---------------------------------- |
+| `4352989`   | the GitHub **App** id | app/installation API paths         |
+| `307435217` | the **bot user** id   | the commit email, and nowhere else |
 
 The noreply address takes the BOT USER id: `307435217+jimbot-oakington-iii[bot]@users.noreply.github.com`.
 Worked instance 2026-08-04: the shared repo config was set with the app id, so
@@ -51,7 +51,7 @@ the first hop. Confirm the id from the API, never from prose:
 
 - **Commits — author and committer are DIFFERENT identities** (owner ruling
   2026-08-04). Git separates them precisely so a commit can say who
-  *authorised* the work and who *performed* it, and collapsing both onto the
+  _authorised_ the work and who _performed_ it, and collapsing both onto the
   agent throws the authority signal away:
 
   - **committer** = the acting agent, `jimbot-oakington-iii[bot] <307435217+…>`,
@@ -60,9 +60,9 @@ the first hop. Confirm the id from the API, never from prose:
     explicitly per commit:
     `git commit --author="Jim Cresswell <1314980+jimCresswell@users.noreply.github.com>" -F <file>`.
 
-  The owner's framing: *"we are keeping the deploy as is… what we have here is
+  The owner's framing: _"we are keeping the deploy as is… what we have here is
   a failure to communicate, we need to tell Vercel on whose authority this work
-  was done."* The default stays FAIL-SAFE: `user.*` remains the bot, so a
+  was done."_ The default stays FAIL-SAFE: `user.*` remains the bot, so a
   forgotten `--author` yields a bot-authored commit (visible, honest, merely
   unattributed to its authority) and never silently credits the owner with
   agent work — the failure this rule exists to prevent. The `Co-Authored-By`
@@ -70,8 +70,8 @@ the first hop. Confirm the id from the API, never from prose:
 
 - **Identity config lives in the clone's shared local config** — `.git/config`,
   written once with a plain `git config user.name …` / `user.email …` (owner
-  ruling 2026-08-04: *"keep the bot identity locally shared, not in version
-  control"*). One clone, one copy: every worktree inherits it, a newly created
+  ruling 2026-08-04: _"keep the bot identity locally shared, not in version
+  control"_). One clone, one copy: every worktree inherits it, a newly created
   worktree needs no identity step, and no per-worktree duplicate can survive a
   correction to the shared value. A plain `git config user.*` write reaches
   this scope even with `extensions.worktreeConfig` enabled, so the ordinary
@@ -83,13 +83,29 @@ the first hop. Confirm the id from the API, never from prose:
   **Global** — `--global` reaches the owner's every other repository.
 
   The consequence is deliberate: every commit made in this clone is
-  *committed by* the bot, the owner's own included. Authority is carried by
+  _committed by_ the bot, the owner's own included. Authority is carried by
   `--author` above, not by the config — which is exactly why git keeps the two
   fields apart. Verify from any worktree with `git config user.email`; a
   `--worktree`-scoped `user.*` override is a second copy of a single fact and
   is removed with `git config --worktree --unset-all user.name` (likewise
   `user.email`). The `Co-Authored-By` model trailer stays.
-- **PR creation, comments, review replies, thread resolution, merges**: a
+
+- **Merges**: the front-door command, which mints its own least-privilege
+  token and merges only at the settlement verdict:
+
+  ```bash
+  pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>
+  ```
+
+- **Pushes**: the front-door command, which mints its own token and hands
+  the transfer to the git binary with the token in the child environment
+  only (no force, no `--no-verify`, default-branch targets refused):
+
+  ```bash
+  pnpm agent-tools merge-bot push
+  ```
+
+- **PR creation, comments, review replies, thread resolution**: a
   minted installation token exported as `GH_TOKEN` for the `gh` invocation.
   **Assign it first and stop if the mint fails** — never the
   `GH_TOKEN=$(…) gh …` prefix form:
@@ -107,10 +123,6 @@ the first hop. Confirm the id from the API, never from prose:
   first-hand 2026-07-29: `GH_TOKEN="" gh auth status` reports the human
   account with `repo` and `workflow` scopes, and a failing mint captures zero
   bytes through the direct entry point.
-- **Pushes**: bot-token transport — a credential-helper that reads the token
-  from the environment, e.g.
-  `git -c credential.helper= -c "credential.helper=!f() { echo username=x-access-token; echo password=$GH_TOKEN; }; f" push https://github.com/<org>/<repo>.git HEAD:<branch>`.
-  Never bake the token into a remote URL or any config file.
 
 ## Action (all other systems)
 
