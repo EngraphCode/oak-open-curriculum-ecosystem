@@ -2,7 +2,7 @@
 
 ## Stability across scales, governed capability boundaries, and definitions that serve many operational surfaces
 
-**Date:** 2026-08-04  
+**Date:** 4 August 2026  
 **Status:** Exploratory synthesis and outcome portfolio. This report proposes and tests ideas; it
 does not ratify doctrine, author implementation work, or replace existing Practice decisions.  
 **Relationship:** deepens

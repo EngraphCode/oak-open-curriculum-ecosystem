@@ -2,7 +2,7 @@
 
 ## Authority transitions, live coordination, execution, evidence, learning, and evolutionary control
 
-**Date:** 2026-08-04  
+**Date:** 4 August 2026  
 **Status:** Exploratory synthesis and outcome portfolio. This report proposes questions,
 relationships, experiments, and possible directions. It does not ratify Practice doctrine or
 author implementation work.  

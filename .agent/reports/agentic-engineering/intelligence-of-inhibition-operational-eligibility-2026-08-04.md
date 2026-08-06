@@ -2,7 +2,7 @@
 
 ## Operational eligibility, regulator ecologies, and the governance of action, non-action, and reconsideration in the Practice
 
-**Date:** 2026-08-04  
+**Date:** 4 August 2026  
 **Status:** Exploratory synthesis and proposal set. This report is neither Practice doctrine nor an
 implementation decision.  
 **Relationship:** companion to
@@ -669,7 +669,7 @@ The answer is a governed field of eligibility:
 - [Governed Forgetting and Temporally Governed Authority](./governed-forgetting-and-temporally-governed-authority-2026-08-02.md)
 - [Authority Transition Capability Proposals](./authority-transition-capability-proposals-and-experimental-design-2026-08-02.md)
 - [The Practice as an Operational System](./practice-operational-system-diagnosis-and-outcome-portfolio-2026-08-04.md)
-- [Regulation, Extension, and Semantic Projection](./practice-regulation-extension-and-semantic-projection-2026-08-04.md)
+- [Regulation, Extension, and Semantic Projection in the Practice](./practice-regulation-extension-and-semantic-projection-2026-08-04.md)
 
 ### Research
 
