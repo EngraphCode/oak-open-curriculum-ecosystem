@@ -248,13 +248,17 @@ describe('parseMergeArgs', () => {
 });
 
 describe('runMergeBotCli merge', () => {
-  it('merges a settled PR: exit 0, sha on stdout, sweep note on stderr, token in neither stream', async () => {
+  it('merges a settled PR: exit 0, sha on stdout, sweep note and grounds on stderr, token in neither stream', async () => {
     const run = runMerge({ args: [...EXPECT_ARGS], readings: [settledReading()] });
 
     expect(await run.exit).toBe(0);
     expect(run.out()).toContain('mergesha1');
     expect(run.errText()).toContain('merge-base deletion sweep');
     expect(run.errText()).toContain('NOT discharged');
+    // The irreversible act discloses its grounds (security H3): the verdict
+    // evidence prints, so "merged with nobody having reviewed" can never be
+    // silent.
+    expect(run.errText()).toContain('every expected reviewer leg settled');
     expect(run.out()).not.toContain(TOKEN);
     expect(run.errText()).not.toContain(TOKEN);
   });
@@ -269,11 +273,13 @@ describe('runMergeBotCli merge', () => {
     expect(run.expectSeen[0]).toEqual(['rev-a', 'rev-b']);
   });
 
-  it('emits the structured outcome under --json', async () => {
+  it('emits the structured outcome with its grounds under --json', async () => {
     const run = runMerge({ args: [...EXPECT_ARGS, '--json'], readings: [settledReading()] });
 
     expect(await run.exit).toBe(0);
-    expect(JSON.parse(run.out())).toEqual({ kind: 'merged', sha: 'mergesha1' });
+    const outcome: unknown = JSON.parse(run.out());
+    expect(outcome).toMatchObject({ kind: 'merged', sha: 'mergesha1' });
+    expect(JSON.stringify(outcome)).toContain('every expected reviewer leg settled');
   });
 
   it('refuses a non-wait verdict immediately: exit 3, verdict named, no sleep', async () => {
@@ -288,6 +294,7 @@ describe('runMergeBotCli merge', () => {
     expect(run.errText()).toContain('CHECKS-RED');
     expect(run.sleeps).toEqual([]);
     expect(run.errText()).not.toContain(TOKEN);
+    expect(run.out()).not.toContain(TOKEN);
   });
 
   it('exits 3 on MERGED — another actor merging is never this invocation succeeding', async () => {
@@ -319,7 +326,7 @@ describe('runMergeBotCli merge', () => {
     });
 
     expect(await run.exit).toBe(0);
-    expect(JSON.parse(run.out())).toEqual({ kind: 'merged', sha: 'mergesha1' });
+    expect(JSON.parse(run.out())).toMatchObject({ kind: 'merged', sha: 'mergesha1' });
     expect(run.errText()).toContain('poll 1/');
   });
 
@@ -343,6 +350,11 @@ describe('runMergeBotCli merge', () => {
     expect(await run.exit).toBe(3);
     const outcome: unknown = JSON.parse(run.out());
     expect(outcome).toMatchObject({ kind: 'refused', verdictState: 'DRAFT' });
+    // A7 holds on the one refusal path whose stdout carries a serialised
+    // product object — any future outcome field bearing token material would
+    // leak exactly here.
+    expect(run.out()).not.toContain(TOKEN);
+    expect(run.errText()).not.toContain(TOKEN);
   });
 
   it('surfaces a moved tip as an operational failure without leaking the token', async () => {

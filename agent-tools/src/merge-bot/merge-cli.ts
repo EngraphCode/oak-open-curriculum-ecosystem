@@ -152,6 +152,13 @@ function writeProgress(
   );
 }
 
+/** The verdict evidence, printed line-per-ground (security H3: never silent). */
+function writeEvidence(evidence: readonly string[], input: MergeActionInput): void {
+  for (const line of evidence) {
+    input.stderr.write(`  grounds: ${line}\n`);
+  }
+}
+
 function writeMerged(
   outcome: Extract<MergeOutcome, { kind: 'merged' }>,
   json: boolean,
@@ -162,6 +169,7 @@ function writeMerged(
     return;
   }
   input.stdout.write(`merged: merge commit ${outcome.sha}\n`);
+  writeEvidence(outcome.evidence, input);
 }
 
 function writeRefusal(
@@ -173,4 +181,5 @@ function writeRefusal(
     input.stdout.write(`${JSON.stringify(outcome)}\n`);
   }
   input.stderr.write(`merge-bot merge: refused: ${outcome.reason}\n`);
+  writeEvidence(outcome.evidence, input);
 }

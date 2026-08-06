@@ -53,14 +53,19 @@ export interface MergeExecutionInput {
   readonly seams: MergeExecutionSeams;
 }
 
-/** The execution outcome: merged, or a typed refusal the caller reports by name. */
+/**
+ * The execution outcome: merged, or a typed refusal the caller reports by
+ * name. BOTH arms carry the verdict's evidence lines (security H3): an
+ * irreversible act must record the grounds it fired on, machine-readably.
+ */
 export type MergeOutcome =
-  | { readonly kind: 'merged'; readonly sha: string }
+  | { readonly kind: 'merged'; readonly sha: string; readonly evidence: readonly string[] }
   | {
       readonly kind: 'refused';
       readonly reason: string;
       /** The verdict as a FIELD, so the poll loop reads it by name, never by parsing prose. */
       readonly verdictState: PrVerdict['state'];
+      readonly evidence: readonly string[];
     };
 
 const GITHUB_API = 'https://api.github.com';
@@ -134,7 +139,7 @@ async function putMerge(
   fetchImpl: GithubApiFetch,
   token: string,
   input: { readonly identity: BotIdentity; readonly prNumber: number; readonly headRefOid: string },
-): Promise<Result<MergeOutcome, Error>> {
+): Promise<Result<string, Error>> {
   const response = await fetchImpl(
     `${GITHUB_API}/repos/${input.identity.owner}/${input.identity.repoName}/pulls/${input.prNumber}/merge`,
     {
@@ -160,7 +165,7 @@ async function putMerge(
   if (!parsed.ok) {
     return parsed;
   }
-  return ok({ kind: 'merged', sha: parsed.value.sha });
+  return ok(parsed.value.sha);
 }
 
 function defaultMint(input: MergeExecutionInput): () => Promise<Result<MintedToken, Error>> {
@@ -222,11 +227,20 @@ async function gateAndMerge(context: {
     expectedDeclared: reading.expectedDeclared,
   });
   if (decision.kind === 'refuse') {
-    return ok({ kind: 'refused', reason: decision.reason, verdictState: verdict.state });
+    return ok({
+      kind: 'refused',
+      reason: decision.reason,
+      verdictState: verdict.state,
+      evidence: verdict.evidence,
+    });
   }
-  return putMerge(fetchImpl, token, {
+  const merged = await putMerge(fetchImpl, token, {
     identity: input.identity,
     prNumber: input.prNumber,
     headRefOid: reading.headRefOid,
   });
+  if (!merged.ok) {
+    return merged;
+  }
+  return ok({ kind: 'merged', sha: merged.value, evidence: verdict.evidence });
 }

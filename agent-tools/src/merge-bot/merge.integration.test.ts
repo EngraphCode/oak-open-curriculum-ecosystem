@@ -101,7 +101,12 @@ describe('runMergeExecution', () => {
 
     expect(outcome.ok).toBe(true);
     if (outcome.ok) {
-      expect(outcome.value).toEqual({ kind: 'merged', sha: 'mergesha1' });
+      expect(outcome.value).toMatchObject({ kind: 'merged', sha: 'mergesha1' });
+      // The irreversible act carries its own grounds (security H3): the
+      // verdict evidence travels on the outcome, machine-readably.
+      if (outcome.value.kind === 'merged') {
+        expect(outcome.value.evidence.join('\n')).toContain('every expected reviewer leg settled');
+      }
     }
     const mergeCall = calls.find((call) => call.url.endsWith('/pulls/42/merge'));
     expect(mergeCall).toBeDefined();
@@ -128,6 +133,7 @@ describe('runMergeExecution', () => {
         // The verdict travels as a FIELD so the CLI poll loop reads it by
         // name, never by parsing the prose reason.
         expect(outcome.value.verdictState).toBe('CHECKS-RED');
+        expect(outcome.value.evidence.join('\n')).toContain('failed check: lint');
       }
     }
     expect(calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(false);

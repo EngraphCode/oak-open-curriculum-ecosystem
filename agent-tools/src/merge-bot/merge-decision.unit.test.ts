@@ -75,15 +75,51 @@ describe('decideMergeAction', () => {
 });
 
 describe('verdictAwaitsSettlement', () => {
-  // The CLOSED partition of the verdict set: exactly these three verdicts
-  // resolve by waiting (checks finishing, a live review run completing, the
-  // quiet window elapsing). Everything else needs an operator act or is
-  // terminal, so polling on it would burn the budget silently. Iterating the
-  // whole set means a verdict state added later FAILS here until it is
-  // deliberately classified.
-  const waitStates = ['SETTLING-QUIET-WINDOW', 'CHECKS-RUNNING', 'WAITING-REVIEW-RUN-LIVE'];
+  // The CLOSED partition of the verdict set: exactly three verdicts resolve
+  // by waiting (checks finishing, a live review run completing, the quiet
+  // window elapsing). Everything else needs an operator act or is terminal,
+  // so polling on it would burn the budget silently. The `satisfies` record
+  // is the compile-time anchor: a verdict state added later fails TYPE-CHECK
+  // here until it is deliberately classified (test-review D-1 cure — the
+  // earlier includes() form defaulted BOTH sides to false for a new state).
+  const CLASSIFICATION = {
+    'SETTLE-READY': false,
+    'SETTLING-QUIET-WINDOW': true,
+    DRAFT: false,
+    'WAITING-REVIEW-RUN-LIVE': true,
+    'SILENT-WAIT-NO-REVIEWER': false,
+    'SILENT-WAIT-RUN-DEAD': false,
+    'SILENT-WAIT-RUNS-UNREADABLE': false,
+    'CHECKS-RUNNING': true,
+    'CHECKS-RED': false,
+    'THREADS-OPEN': false,
+    'BEHIND-BASE': false,
+    'ARMED-BEHIND-RED': false,
+    'QUOTA-SKIPPED': false,
+    'SETTLED-NO-REVIEW': false,
+    MERGED: false,
+    CLOSED: false,
+    'CONFLICT-DIRTY': false,
+  } satisfies Record<PrVerdict['state'], boolean>;
 
   it.each(PR_VERDICT_STATES)('classifies %s deliberately', (state) => {
-    expect(verdictAwaitsSettlement(state)).toBe(waitStates.includes(state));
+    expect(verdictAwaitsSettlement(state)).toBe(CLASSIFICATION[state]);
+  });
+});
+
+describe('decideMergeAction — the timeout-skip settled round (security D1)', () => {
+  it('refuses SETTLED-NO-REVIEW by name — a round nobody reviewed never merges', () => {
+    const decision = decideMergeAction({
+      ...baseInput,
+      verdict: {
+        state: 'SETTLED-NO-REVIEW',
+        evidence: ['round settled ONLY by timeout — an expected reviewer never reviewed this tip'],
+      },
+    });
+
+    expect(decision.kind).toBe('refuse');
+    if (decision.kind === 'refuse') {
+      expect(decision.reason).toContain('SETTLED-NO-REVIEW');
+    }
   });
 });
