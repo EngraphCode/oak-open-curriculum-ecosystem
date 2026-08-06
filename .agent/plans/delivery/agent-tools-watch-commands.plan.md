@@ -189,8 +189,10 @@ prose each session must re-read.
    machinery: mint plus credential injection OVER the git binary,
    pass-through per the owner's 2026-08-06 principle (build value only
    where the binary provides none). Replaces the per-session
-   credential-helper script recipe. Builds on slice 1's modules, so
-   its branch cuts from main after PR #790 lands.
+   credential-helper script recipe. Builds on slice 1's modules and
+   RIDES PR #790 as a delimited rider (owner call 2026-08-06: with
+   both automatic reviewers constrained, review rounds are the scarce
+   resource — one shared-context round beats two summons).
 3. **`heartbeat-loop` + `watch-arm`** (slice 2 — reshaped; the
    frontmatter owner gate holds it) — the bootstrap pair from the
    2026-08-06 deferral-tripwire re-assessment: the claim-anchored
