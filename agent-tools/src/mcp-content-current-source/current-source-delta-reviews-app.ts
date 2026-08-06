@@ -65,6 +65,13 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     'f16f8e80a7f92af82f82408e5365e92a6f2758afdd6d2d6d43886a212bb11f67',
     IMPLEMENTATION_ONLY,
   ),
+  // MCP-517: states the configured canonical origin in the forwarded headers
+  // origin-deriving middleware reads. Request plumbing only — it authors no
+  // served text and reaches no MCP consumer's content.
+  'apps/oak-curriculum-mcp-streamable-http/src/canonical-forwarded-headers.ts': excluded(
+    '8bc762cc936a9cc86a398a6f2009700f8c1a196977dabd6fe56ecad7076321fd',
+    IMPLEMENTATION_ONLY,
+  ),
   'apps/oak-curriculum-mcp-streamable-http/src/canonical-origin.ts': excluded(
     '01d279a964b9f05d18c8a7b56724aafe1e17f71c2eb98897d15fa7fd5199cabe',
     IMPLEMENTATION_ONLY,
