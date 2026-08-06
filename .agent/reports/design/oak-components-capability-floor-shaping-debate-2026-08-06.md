@@ -288,8 +288,9 @@ values held elsewhere on purpose (wow, cross-identity coherence, taste
 standing discovery generator is the PURPOSE CENSUS, re-run
 periodically: each purpose of the system asks which slab covers it.
 
-**BLOCKING SET — Director proposal, AWAITING OWNER WORD** (the owner:
-"we do need a few to be blocking before we continue"): blocking at
+**BLOCKING SET — Director proposal, RATIFIED AS PROPOSED at the
+owner's card answer, 2026-08-06 (see §Ratification)** (the owner: "we
+do need a few to be blocking before we continue"): blocking at
 first light = anti-impersonation/provenance (folly + manifest);
 accessibility-and-honesty; BOTH excellence slabs in rubric-v0 form (no
 new delay — W0.7 already gates first light; this widens what the
@@ -300,14 +301,42 @@ performance budgets (instruments land with the planned sitemap/axe/
 Lighthouse work), the full identity matrix beyond W2.5's existing
 gates, compliance beyond attribution.
 
-**OPEN AT THE COMPACTION BOUNDARY — the two prepared questions** (the
-owner: "we will work on that when I come back"): (1) the blocking set
-as proposed, or his deltas; (2) the excellence-slab treatment
-(slab-with-umbrella-function; three-source visual warrant; GDS through
-the value door). At his word, the full mandate card renders and the
-design seat's rewrite mandate becomes: the 13 amended rows + the slab
-registry + the two excellence slabs + the blocking set + the non-floor
-register + the purpose census.
+**THE TWO PREPARED QUESTIONS — both CLOSED at the owner's return,
+2026-08-06 (see §Ratification)** (the owner: "we will work on that
+when I come back"): (1) the blocking set as proposed, or his deltas;
+(2) the excellence-slab treatment (slab-with-umbrella-function;
+three-source visual warrant; GDS through the value door). At his word,
+the full mandate card rendered and the design seat's rewrite mandate
+became: the 13 amended rows + the slab registry + the two excellence
+slabs + the blocking set + the non-floor register + the purpose
+census.
+
+## Ratification (2026-08-06, owner card answers at return)
+
+The two prepared questions and the full-mandate card rendered at the
+owner's return from the compaction boundary; verbatim selections:
+
+1. Blocking set: **"As proposed"** — the five named groups gate at
+   first light; everything else lands as built and tightens by
+   amendment.
+2. Excellence-slab treatment: **"Stands as shaped"** —
+   slab-with-umbrella-function, the three-source visual warrant, GDS
+   through the value door only.
+3. Full rewrite mandate: **"Ratify"** — the 13 amended rows + the
+   nine-slab registry + the two excellence slabs + the blocking set +
+   the non-floor register + the purpose census + the structural
+   machinery (authority model, whole-floor witness tuple, fail-closed
+   binding semantics, per-row instruments with anti-evasion quartets,
+   the error-bounded proxy question, the amendment anti-erosion
+   taxonomy).
+
+The design seat's rewrite mandate is COMPLETE and fires at that seat's
+wake (wake condition unchanged: the watch tooling landing — owner
+word, event a5a18df8). Post-ratification instruction (owner, same
+hour): the ratified mandate takes one further cross-vendor adversarial
+round via the-codex-dialogues before the rewrite executes; any
+findings route as amendment proposals under the anti-erosion taxonomy,
+never as silent edits to this ratified base.
 
 ## Execution
 
