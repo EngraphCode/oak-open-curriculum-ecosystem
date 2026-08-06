@@ -1,15 +1,7 @@
-import { readFile } from 'node:fs/promises';
-
-import { err, ok, type Result } from '@oaknational/result';
-
-import {
-  mintInstallationToken,
-  resolveInstallationId,
-  signAppJwt,
-  type GithubApiFetch,
-} from './mint-installation-token.js';
-import { resolveMintTokenConfig, type MintTokenConfig } from './resolve-config.js';
-import { permissionNamesFor, TOKEN_SCOPE_NAMES, TOKEN_SCOPES } from './token-scopes.js';
+import type { GithubApiFetch } from './mint-installation-token.js';
+import { mintForConfig, type MintedToken } from './mint-for-config.js';
+import { resolveMintTokenConfig } from './resolve-config.js';
+import { permissionNamesFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
 
 /**
  * CLI for the `merge-bot` topic (AIP-158).
@@ -66,89 +58,7 @@ ${TOKEN_SCOPE_NAMES.map((name) => `    ${name}: ${permissionNamesFor(name).join(
   Other 403s (ruleset refusals, rate limits) are not scope problems.
 `;
 
-function realFetch(): GithubApiFetch {
-  return async (url, init) => {
-    const response = await fetch(url, init);
-    return { status: response.status, json: () => response.json() };
-  };
-}
-
-function signJwtResult(
-  appId: string,
-  privateKeyPem: string,
-  nowEpochSeconds: number,
-): Result<string, Error> {
-  try {
-    return ok(signAppJwt({ appId, privateKeyPem, nowEpochSeconds }));
-  } catch (cause) {
-    return err(
-      new Error(
-        `cannot sign the app JWT (is the PEM a valid private key?): ${cause instanceof Error ? cause.message : String(cause)}`,
-      ),
-    );
-  }
-}
-
-async function readKeyResult(
-  keyPath: string,
-  readFileImpl: MergeBotCliInput['readFileImpl'],
-): Promise<Result<string, Error>> {
-  const readKey = readFileImpl ?? ((path: string) => readFile(path, 'utf8'));
-  try {
-    return ok(await readKey(keyPath));
-  } catch (cause) {
-    return err(
-      new Error(
-        `cannot read private key at ${keyPath}: ${cause instanceof Error ? cause.message : String(cause)}`,
-      ),
-    );
-  }
-}
-
-async function mintForConfig(
-  config: MintTokenConfig,
-  input: MergeBotCliInput,
-): Promise<Result<{ token: string; expiresAt: string; installationId: number }, Error>> {
-  const privateKeyPem = await readKeyResult(config.keyPath, input.readFileImpl);
-  if (!privateKeyPem.ok) {
-    return privateKeyPem;
-  }
-
-  const now = input.nowEpochSeconds ?? ((): number => Math.floor(Date.now() / 1000));
-  const fetchImpl = input.fetchImpl ?? realFetch();
-  const appJwt = signJwtResult(config.appId, privateKeyPem.value, now());
-  if (!appJwt.ok) {
-    return appJwt;
-  }
-
-  const installation = await resolveInstallationId({
-    appJwt: appJwt.value,
-    owner: config.owner,
-    repo: config.repoName,
-    fetchImpl,
-  });
-  if (!installation.ok) {
-    return installation;
-  }
-
-  const minted = await mintInstallationToken({
-    appJwt: appJwt.value,
-    installationId: installation.value,
-    repoName: config.repoName,
-    permissions: TOKEN_SCOPES[config.scope],
-    fetchImpl,
-  });
-  if (!minted.ok) {
-    return minted;
-  }
-  return ok({ ...minted.value, installationId: installation.value });
-}
-
-function writeSuccess(
-  outcome: { token: string; expiresAt: string; installationId: number },
-  json: boolean,
-  input: MergeBotCliInput,
-): void {
+function writeSuccess(outcome: MintedToken, json: boolean, input: MergeBotCliInput): void {
   if (json) {
     input.stdout.write(`${JSON.stringify(outcome)}\n`);
     return;
@@ -182,7 +92,11 @@ export async function runMergeBotCli(input: MergeBotCliInput): Promise<number> {
     return 2;
   }
 
-  const outcome = await mintForConfig(config.value, input);
+  const outcome = await mintForConfig(config.value, {
+    fetchImpl: input.fetchImpl,
+    readFileImpl: input.readFileImpl,
+    nowEpochSeconds: input.nowEpochSeconds,
+  });
   if (!outcome.ok) {
     input.stderr.write(`merge-bot mint-token: ${outcome.error.message}\n`);
     return 1;
