@@ -9,9 +9,9 @@ import type { BotIdentity } from './resolve-identity.js';
  * The merge execution's two REST calls: the settings-gate read and the merge
  * PUT. Split from `merge.ts` to keep both files inside the size gates. Every
  * response body goes through the Result-translating reader — an unreadable
- * answer to the PUT reports the merge state as UNKNOWN (security D2): the
- * call was sent, so anything firmer invites a supervisor retry against an
- * already-merged PR.
+ * answer to the PUT, and any 5xx answer readable or not, reports the merge
+ * state as UNKNOWN (security D2): the call was sent, so anything firmer
+ * invites a supervisor retry against an already-merged PR.
  */
 
 const GITHUB_API = 'https://api.github.com';
@@ -113,6 +113,23 @@ async function sendMergePut(
   return sent.ok ? sent : err(mergeStateUnknown(input, sent.error.message));
 }
 
+/**
+ * Translate a READABLE non-200 answer to the PUT: only 4xx is the endpoint's
+ * own deterministic refusal (405 method disallowed, 409 moved tip) — the
+ * merge did not happen, and saying so plainly is safe. A readable 5xx proves
+ * NOTHING: a gateway can answer 502/503 after the upstream accepted the PUT.
+ */
+function readableFailure(input: MergeCallInput, status: number, bodyValue: unknown): Error {
+  const message = z.object({ message: z.string() }).safeParse(bodyValue);
+  const detail = message.success ? message.data.message : 'no message';
+  if (status >= 500) {
+    return mergeStateUnknown(input, `it answered ${status} (${detail})`);
+  }
+  return new Error(
+    `merge endpoint answered ${status} for verdicted tip ${input.headRefOid}: ${detail}`,
+  );
+}
+
 /** PUT the merge (method `merge`, the VERDICTED tip's sha); returns the merge-commit sha. */
 export async function putMerge(
   fetchImpl: GithubApiFetch,
@@ -136,12 +153,7 @@ export async function putMerge(
     );
   }
   if (response.status !== 200) {
-    const message = z.object({ message: z.string() }).safeParse(body.value);
-    return err(
-      new Error(
-        `merge endpoint answered ${response.status} for verdicted tip ${input.headRefOid}: ${message.success ? message.data.message : 'no message'}`,
-      ),
-    );
+    return err(readableFailure(input, response.status, body.value));
   }
   const parsed = parseWithSchema({
     label: 'merge response',
@@ -149,7 +161,16 @@ export async function putMerge(
     value: body.value,
   });
   if (!parsed.ok) {
-    return parsed;
+    // The invariant after the PUT leaves: only 200-and-schema-valid is
+    // MERGED, only a readable 4xx is definitely-not-merged, and EVERYTHING
+    // else — including a 200 whose body does not say `merged: true` — is
+    // indeterminate.
+    return err(
+      mergeStateUnknown(
+        input,
+        `it answered 200 with an unrecognisable body (${parsed.error.message})`,
+      ),
+    );
   }
   return ok(parsed.value.sha);
 }

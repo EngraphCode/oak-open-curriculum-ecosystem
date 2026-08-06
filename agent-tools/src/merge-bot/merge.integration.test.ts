@@ -256,6 +256,42 @@ describe('runMergeExecution — unreadable responses and reading failures (secur
     }
   });
 
+  it('a READABLE 5xx is still state-UNKNOWN — a gateway can answer 502 after the upstream accepted the PUT', async () => {
+    // Unlike the 409 above (the endpoint's own deterministic refusal — the
+    // merge did NOT happen), a 5xx proves nothing either way: the PUT left,
+    // and only a re-read can say whether it landed.
+    const { fetchImpl, calls } = makeFetchPort({
+      mergeStatus: 502,
+      mergeBody: { message: 'Bad gateway' },
+    });
+
+    const outcome = await runMergeExecution(makeInput(makeReading(), fetchImpl));
+
+    expect(outcome.ok).toBe(false);
+    if (!outcome.ok) {
+      expect(outcome.error.message).toContain('UNKNOWN');
+      expect(outcome.error.message).toContain('502');
+      expect(outcome.error.message).toContain('re-read');
+    }
+    // Indeterminate means STOP: exactly one PUT was ever sent.
+    expect(calls.filter((call) => call.url.endsWith('/pulls/42/merge'))).toHaveLength(1);
+  });
+
+  it('a 200 whose body does not say merged is state-UNKNOWN too — never a deterministic parse error', async () => {
+    // The invariant after the PUT leaves: only 200-and-schema-valid is
+    // MERGED, only a readable 4xx is definitely-not-merged, everything else
+    // is indeterminate — including a 200 answering with an edge envelope.
+    const { fetchImpl } = makeFetchPort({ mergeBody: {} });
+
+    const outcome = await runMergeExecution(makeInput(makeReading(), fetchImpl));
+
+    expect(outcome.ok).toBe(false);
+    if (!outcome.ok) {
+      expect(outcome.error.message).toContain('UNKNOWN');
+      expect(outcome.error.message).toContain('re-read');
+    }
+  });
+
   it('surfaces an unreadable settings body as a typed error naming the read', async () => {
     const { fetchImpl } = makeFetchPort({});
     const badSettingsFetch: GithubApiFetch = (url, init) => {

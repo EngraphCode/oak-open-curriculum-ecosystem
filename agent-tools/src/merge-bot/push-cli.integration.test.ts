@@ -2,17 +2,26 @@ import { describe, expect, it } from 'vitest';
 
 import { runMergeBotCli, type MergeBotCliInput } from './cli.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
-import type { GitCommandResult, GitExecutor } from './push-git.js';
+import {
+  pushHead,
+  type GitCommandResult,
+  type GitExecutor,
+  type TokenFileStore,
+} from './push-git.js';
 
 import { generateKeyPairSync } from 'node:crypto';
 
 /**
  * The `merge-bot push` front door over injected seams (fetch, key, config,
- * git): the exit map (0=pushed, 1=operational, 2=usage, 3=typed refusal), the
- * never-commit-to-main refusal as behaviour, and the credential discipline —
- * the token reaches git ONLY as `GH_PUSH_TOKEN` in the child environment, read
- * by a static credential helper, and appears in NEITHER argv nor either output
- * stream on any path. The pure argv contract lives in push-args.unit.test.ts.
+ * git, token store): the exit map (0=pushed, 1=operational, 2=usage, 3=typed
+ * refusal), the never-commit-to-main refusal as behaviour, and the credential
+ * discipline — the token lives in a 0600 file inside a private directory for
+ * exactly the push's duration, the child environment carries only that file's
+ * PATH (`GH_PUSH_TOKEN_FILE`) for the static credential helper to read, and
+ * the token itself appears in NEITHER argv nor the environment nor either
+ * output stream on any path: the pre-push hook chain and every descendant it
+ * spawns inherit that environment, so an env dump there must never print a
+ * live write token. The pure argv contract lives in push-args.unit.test.ts.
  */
 
 const { privateKey } = generateKeyPairSync('rsa', {
@@ -89,10 +98,49 @@ function mintFetch(token = TOKEN): {
 
 const BASE_ENV = { PATH: '/usr/bin', HOME: '/test-home' } as const;
 
+const STORE_DIR = '/fake-secret-store/merge-bot-push-x1';
+
+interface TokenWrite {
+  readonly path: string;
+  readonly content: string;
+  readonly mode: number;
+}
+
+/** Records every prefix, write and removal; no filesystem is ever touched. */
+function tokenStoreFake(overrides: Partial<TokenFileStore> = {}): {
+  store: TokenFileStore;
+  prefixes: string[];
+  writes: TokenWrite[];
+  removed: string[];
+} {
+  const prefixes: string[] = [];
+  const writes: TokenWrite[] = [];
+  const removed: string[] = [];
+  return {
+    store: {
+      mkdtemp: (prefix) => {
+        prefixes.push(prefix);
+        return STORE_DIR;
+      },
+      writeFile: (path, content, mode) => {
+        writes.push({ path, content, mode });
+      },
+      remove: (dir) => {
+        removed.push(dir);
+      },
+      ...overrides,
+    },
+    prefixes,
+    writes,
+    removed,
+  };
+}
+
 function runPush(input: {
   readonly args?: readonly string[];
   readonly git?: ReturnType<typeof gitFake>;
   readonly fetch?: ReturnType<typeof mintFetch>;
+  readonly store?: ReturnType<typeof tokenStoreFake>;
   readonly overrides?: Partial<MergeBotCliInput>;
 }): {
   exit: Promise<number>;
@@ -101,11 +149,15 @@ function runPush(input: {
   calls: GitCall[];
   urls: string[];
   bodies: { url: string; body: string }[];
+  prefixes: string[];
+  writes: TokenWrite[];
+  removed: string[];
 } {
   const out = capture();
   const errSink = capture();
   const { gitExecutor, calls } = input.git ?? gitFake();
   const { fetchImpl, urls, bodies } = input.fetch ?? mintFetch();
+  const { store, prefixes, writes, removed } = input.store ?? tokenStoreFake();
   const exit = runMergeBotCli({
     args: ['push', ...(input.args ?? [])],
     env: { HOME: '/test-home' },
@@ -120,13 +172,36 @@ function runPush(input: {
     gitExecutor,
     gitPath: GIT_PATH,
     baseEnv: BASE_ENV,
+    tokenFiles: store,
     ...input.overrides,
   });
-  return { exit, out: out.text, errText: errSink.text, calls, urls, bodies };
+  return {
+    exit,
+    out: out.text,
+    errText: errSink.text,
+    calls,
+    urls,
+    bodies,
+    prefixes,
+    writes,
+    removed,
+  };
 }
 
 function pushCall(calls: readonly GitCall[]): GitCall | undefined {
   return calls.find((call) => call.args.includes('push'));
+}
+
+/**
+ * A library-shaped fixture that THROWS: the boundary translations under test
+ * exist precisely to catch this shape (ADR-088's translate-at-the-boundary
+ * arm), so describing those states needs exactly one throwing fake — this
+ * one, shared by every breach test below.
+ */
+function throwing(message: string): () => never {
+  return () => {
+    throw new Error(message);
+  };
 }
 
 describe('runMergeBotCli push', () => {
@@ -141,8 +216,10 @@ describe('runMergeBotCli push', () => {
     expect(run.calls[0]?.args).toEqual(['rev-parse', '--abbrev-ref', 'HEAD']);
     expect(run.calls[0]?.cwd).toBe('/repo');
   });
+});
 
-  it('puts the token ONLY in the child environment, behind a static credential helper', async () => {
+describe('merge-bot push credential discipline', () => {
+  it('pins the exact push call: helpers cleared, the static file-reading helper, no bypass, no credential in argv', async () => {
     const run = runPush({});
 
     expect(await run.exit).toBe(0);
@@ -155,25 +232,142 @@ describe('runMergeBotCli push', () => {
       '-c',
       'credential.helper=',
       '-c',
-      'credential.helper=!f() { echo username=x-access-token; echo "password=$GH_PUSH_TOKEN"; }; f',
+      'credential.helper=!f() { echo username=x-access-token; echo "password=$(cat "$GH_PUSH_TOKEN_FILE")"; }; f',
       'push',
       REMOTE,
       `HEAD:${BRANCH}`,
     ]);
     expect(push?.args.join(' ')).not.toContain(TOKEN);
     expect(push?.args).not.toContain('--no-verify');
-    // Exactly ONE environment variable carries the token, and it is the one
-    // the helper reads: a second carrier would widen the leak surface to every
-    // child git itself spawns (hooks included).
+  });
+
+  it('keeps the token OUT of the child environment: a 0600 file, its path in env, removed after', async () => {
+    const run = runPush({});
+
+    expect(await run.exit).toBe(0);
+    const push = pushCall(run.calls);
+    // NO environment variable carries the token itself: git exports this
+    // environment to the pre-push hook chain (pnpm, turbo, every test the
+    // gates run), and an env dump there must never print a live write token.
     const carriers = Object.entries(push?.env ?? {})
       .filter(([, value]) => value === TOKEN)
       .map(([name]) => name);
-    expect(carriers).toEqual(['GH_PUSH_TOKEN']);
-    // The base environment travels wholesale — git needs it — with the token
+    expect(carriers).toEqual([]);
+    // What the environment carries is the PATH to the 0600 token file the
+    // helper reads — a path is harmless in any env dump.
+    expect(push?.env.GH_PUSH_TOKEN_FILE).toBe(`${STORE_DIR}/token`);
+    expect(run.writes).toEqual([{ path: `${STORE_DIR}/token`, content: TOKEN, mode: 0o600 }]);
+    // Prompting stays disabled: an unanswered helper must fail loudly, never
+    // fall back to asking the signed-in human. The fail-closed property of an
+    // empty or missing token file rests entirely on this variable.
+    expect(push?.env.GIT_TERMINAL_PROMPT).toBe('0');
+    // The directory is requested under the named prefix at the OS temp root —
+    // never inside the worktree, where a stray `git add -A` could commit it.
+    expect(run.prefixes).toEqual(['merge-bot-push-']);
+    // The base environment travels wholesale — git needs it — with the path
     // spread on top, never replacing it.
     expect(push?.env.PATH).toBe('/usr/bin');
+    // The private directory is gone by the time the action returns.
+    expect(run.removed).toEqual([STORE_DIR]);
   });
 
+  it('the helper literal is byte-identical even when git reports a hostile branch name — nothing is interpolated', async () => {
+    const hostile = 'lane-$(id)`x`';
+    const run = runPush({
+      git: gitFake({ revParse: { status: 0, stdout: `${hostile}\n`, stderr: '' } }),
+    });
+
+    expect(await run.exit).toBe(0);
+    const push = pushCall(run.calls);
+    expect(push?.args[3]).toBe(
+      'credential.helper=!f() { echo username=x-access-token; echo "password=$(cat "$GH_PUSH_TOKEN_FILE")"; }; f',
+    );
+    // The hostile name lands ONLY as data inside the refspec argv element.
+    expect(push?.args.at(-1)).toBe(`HEAD:${hostile}`);
+  });
+
+  it('a token-staging failure is an operational failure: exit 1, no push, the half-staged directory removed', async () => {
+    // The write fails AFTER the directory exists — the richer state: the
+    // failure is translated (exit 1, an operational message, never the
+    // usage path) AND the half-staged directory does not outlive it.
+    const store = tokenStoreFake({ writeFile: throwing('ENOSPC: no space left on device') });
+    const run = runPush({ store });
+
+    expect(await run.exit).toBe(1);
+    expect(run.errText()).toContain('cannot stage the push credential file');
+    expect(run.errText()).not.toContain(TOKEN);
+    expect(run.removed).toEqual([STORE_DIR]);
+    expect(pushCall(run.calls)).toBeUndefined();
+  });
+
+  it('a cleanup failure surfaces as a warning and never changes a landed push outcome', async () => {
+    const store = tokenStoreFake();
+    store.store = {
+      ...store.store,
+      remove: (dir) => {
+        store.removed.push(dir);
+        throwing('EBUSY: resource busy')();
+      },
+    };
+    const run = runPush({ store });
+
+    // The push LANDED; a failed removal must not misreport it — the same
+    // completed-mutation-misreported class the merge side guards against.
+    expect(await run.exit).toBe(0);
+    expect(run.out()).toContain(BRANCH);
+    expect(run.errText()).toContain('not removed');
+    expect(run.errText()).not.toContain(TOKEN);
+  });
+
+  it('removes the token directory even when the git seam throws in breach of its value contract', () => {
+    const store = tokenStoreFake();
+    const exec: GitExecutor = throwing('seam breach');
+
+    expect(() =>
+      pushHead(
+        { file: GIT_PATH, exec },
+        {
+          remote: REMOTE,
+          branch: BRANCH,
+          cwd: '/repo',
+          token: TOKEN,
+          baseEnv: BASE_ENV,
+          tokenFiles: store.store,
+        },
+      ),
+    ).toThrow('seam breach');
+    expect(store.removed).toEqual([STORE_DIR]);
+  });
+
+  it('removes a stale GH_PUSH_TOKEN from the base environment — the hook chain must not inherit it', async () => {
+    const run = runPush({
+      overrides: { baseEnv: { ...BASE_ENV, GH_PUSH_TOKEN: 'stale-old-token' } },
+    });
+
+    expect(await run.exit).toBe(0);
+    const push = pushCall(run.calls);
+    // The value-level check is the proof: Node drops undefined-valued env
+    // entries at spawn, so no representation of the stale token survives.
+    const values = Object.values(push?.env ?? {});
+    expect(values).not.toContain('stale-old-token');
+  });
+
+  it('removes the token file directory even when the push itself fails', async () => {
+    const store = tokenStoreFake();
+    const run = runPush({
+      git: gitFake({
+        push: { status: 1, stdout: '', stderr: '! [rejected] HEAD -> lane (non-fast-forward)\n' },
+      }),
+      store,
+    });
+
+    expect(await run.exit).toBe(1);
+    expect(run.writes).toEqual([{ path: `${STORE_DIR}/token`, content: TOKEN, mode: 0o600 }]);
+    expect(run.removed).toEqual([STORE_DIR]);
+  });
+});
+
+describe('merge-bot push outcomes and refusals', () => {
   it('mints the pull-request-work scope — a push can touch .github/workflows', async () => {
     const run = runPush({});
 
@@ -213,9 +407,12 @@ describe('runMergeBotCli push', () => {
       expect(await run.exit).toBe(3);
       expect(run.errText()).toContain(branch);
       expect(run.errText()).toContain('pull request');
-      // A refusal mints no token and runs no push: the refusal is the whole
-      // behaviour, not a check the push then ignores.
+      // A refusal mints no token, creates no directory, writes no token file,
+      // and runs no push: the refusal is the whole behaviour, not a check the
+      // push then ignores.
       expect(run.urls).toEqual([]);
+      expect(run.prefixes).toEqual([]);
+      expect(run.writes).toEqual([]);
       expect(pushCall(run.calls)).toBeUndefined();
     }
   });
@@ -240,6 +437,7 @@ describe('runMergeBotCli push', () => {
     expect(await run.exit).toBe(3);
     expect(run.errText()).toContain('detached');
     expect(run.urls).toEqual([]);
+    expect(run.writes).toEqual([]);
     expect(pushCall(run.calls)).toBeUndefined();
   });
 
@@ -269,7 +467,7 @@ describe('runMergeBotCli push', () => {
   });
 
   it('never lets an EMPTY token reach git — the run fails first', async () => {
-    // An empty GH_PUSH_TOKEN would make the helper emit an empty password and
+    // An empty token file would make the helper emit an empty password and
     // git fall back to prompting: the signed-in human, under the bot's name.
     // The state pinned here is that no push runs; which of the two guards
     // fires (the mint's own schema, or the point-of-use backstop in
@@ -278,6 +476,7 @@ describe('runMergeBotCli push', () => {
 
     expect(await run.exit).toBe(1);
     expect(run.errText()).toMatch(/token/u);
+    expect(run.writes).toEqual([]);
     expect(pushCall(run.calls)).toBeUndefined();
   });
 

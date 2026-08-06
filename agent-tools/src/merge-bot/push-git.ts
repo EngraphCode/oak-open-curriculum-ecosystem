@@ -3,18 +3,32 @@ import { spawnSync } from 'node:child_process';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { resolveTrustedGit } from '../core/trusted-git.js';
+import {
+  realTokenFileStore,
+  removeQuietly,
+  stageTokenFile,
+  type TokenFileStore,
+} from './push-token-file.js';
 
 /**
- * The git plumbing behind `merge-bot push`, and with it the whole credential
- * discipline in ONE reviewable file: the static credential helper, the child
- * environment that carries the token, and the argv that carries none of it.
- * Split from `push-cli.ts` at the size gate — the same seam `merge-args.ts`
- * and `merge-cli.ts` record for the merge action.
+ * The git plumbing behind `merge-bot push`: the static credential helper, the
+ * child environment that carries only the token FILE's path, and the argv
+ * that carries none of it. With `push-token-file.ts` (the 0600 file's
+ * lifecycle) this is the whole credential discipline, split at the size gate
+ * — the same seam `merge-args.ts` and `merge-cli.ts` record for the merge
+ * action.
  *
  * The push itself is the git binary's work. Nothing here re-implements any
  * part of it; the file exists so that the ONE place a token meets a child
  * process is small enough to read in a sitting.
+ *
+ * The claim to hold is exactly this: the hook chain can no longer capture the
+ * token ACCIDENTALLY (an env dump prints a path, not a credential). A hook
+ * descendant that names the path can still read the file — same-user access
+ * is not a boundary this transport can draw.
  */
+
+export type { TokenFileStore } from './push-token-file.js';
 
 /** The fields of a completed git invocation the push action reads. */
 export interface GitCommandResult {
@@ -46,12 +60,16 @@ export interface GitContext {
 
 /**
  * The one credential helper, as a static literal: it echoes the app-token
- * username and reads the password from the environment. Nothing is
- * interpolated into it, so no value from argv, config or the network can ever
- * become part of the shell fragment git runs.
+ * username and reads the password from the token FILE named by
+ * `GH_PUSH_TOKEN_FILE`. Nothing is interpolated into it, so no value from
+ * argv, config or the network can ever become part of the shell fragment git
+ * runs. Reading a file rather than an environment variable keeps the token
+ * itself out of the environment git exports to the pre-push hook chain —
+ * pnpm, turbo, and every test the gates spawn — where any env dump would
+ * print it; the env names only a path.
  */
 const CREDENTIAL_HELPER =
-  '!f() { echo username=x-access-token; echo "password=$GH_PUSH_TOKEN"; }; f';
+  '!f() { echo username=x-access-token; echo "password=$(cat "$GH_PUSH_TOKEN_FILE")"; }; f';
 
 /** The real `child_process` translation, at exactly one boundary. */
 function realGitExecutor(): GitExecutor {
@@ -88,18 +106,26 @@ export function resolveGitContext(seams: {
 }
 
 /**
- * The child environment for the push: the base WHOLESALE with the token added
- * LAST, so a stale `GH_PUSH_TOKEN` in the base can never win over the freshly
- * minted one. Terminal prompting is disabled alongside: if the helper ever
- * failed to answer, git must fail loudly rather than fall back to asking a
- * human — under shared credentials that human's identity is what the push
- * would carry.
+ * The child environment for the push: the base WHOLESALE, any stale
+ * `GH_PUSH_TOKEN` REMOVED (the hook chain must not inherit a token this
+ * invocation did not place), and the token-file path added LAST so a stale
+ * path in the base can never win over the fresh one. Terminal prompting is
+ * disabled alongside: if the helper ever failed to answer, git must fail
+ * loudly rather than fall back to asking a human — under shared credentials
+ * that human's identity is what the push would carry. (Node drops
+ * undefined-valued entries when building the child environment, so the
+ * explicit undefined is a true removal, not an empty value.)
  */
 function pushEnv(
-  token: string,
+  tokenPath: string,
   baseEnv: Readonly<Record<string, string | undefined>>,
 ): Record<string, string | undefined> {
-  return { ...baseEnv, GIT_TERMINAL_PROMPT: '0', GH_PUSH_TOKEN: token };
+  return {
+    ...baseEnv,
+    GH_PUSH_TOKEN: undefined,
+    GIT_TERMINAL_PROMPT: '0',
+    GH_PUSH_TOKEN_FILE: tokenPath,
+  };
 }
 
 /**
@@ -139,7 +165,15 @@ export function currentBranch(
     : ok(branch);
 }
 
-/** Hand the whole transfer to git, with the token reaching it only through the environment. */
+/**
+ * Hand the whole transfer to git. The token reaches it only through a 0600
+ * file in a fresh private directory whose path rides the environment; the
+ * directory is removed whatever the push's outcome — even a git seam that
+ * throws in breach of its value-returning contract — so the token outlives
+ * the transfer by nothing. That lifetime holds BECAUSE the seam is
+ * synchronous: widening {@link GitExecutor} to return a Promise would remove
+ * the file before git reads it.
+ */
 export function pushHead(
   git: GitContext,
   input: {
@@ -148,10 +182,23 @@ export function pushHead(
     readonly cwd: string;
     readonly token: string;
     readonly baseEnv: Readonly<Record<string, string | undefined>>;
+    readonly tokenFiles?: TokenFileStore;
   },
-): GitCommandResult {
-  return git.exec(git.file, pushArgv(input.remote, input.branch), {
-    cwd: input.cwd,
-    env: pushEnv(input.token, input.baseEnv),
-  });
+): Result<GitCommandResult, Error> {
+  const store = input.tokenFiles ?? realTokenFileStore();
+  const staged = stageTokenFile(store, input.token);
+  if (!staged.ok) {
+    return staged;
+  }
+  let result: GitCommandResult;
+  let warning: string | undefined;
+  try {
+    result = git.exec(git.file, pushArgv(input.remote, input.branch), {
+      cwd: input.cwd,
+      env: pushEnv(staged.value.tokenPath, input.baseEnv),
+    });
+  } finally {
+    warning = removeQuietly(store, staged.value.dir);
+  }
+  return ok(warning === undefined ? result : { ...result, stderr: `${result.stderr}${warning}\n` });
 }

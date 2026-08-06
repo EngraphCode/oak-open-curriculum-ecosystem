@@ -8,7 +8,7 @@ import type { GithubApiFetch } from './mint-installation-token.js';
 import { mintForConfig, type MintedToken } from './mint-for-config.js';
 import { PUSH_USAGE } from './push-args.js';
 import { runPushAction, type PushActionInput } from './push-cli.js';
-import type { GitExecutor } from './push-git.js';
+import type { GitExecutor, TokenFileStore } from './push-git.js';
 import { resolveMintTokenConfig } from './resolve-config.js';
 import { permissionNamesFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
 
@@ -24,8 +24,10 @@ import { permissionNamesFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
  * ```
  *
  * `merge-bot push` pushes the invoking worktree's HEAD under the bot
- * identity — token in the child environment only, no force, no
- * `--no-verify`, default-branch targets refused by name.
+ * identity — the token in a transfer-lifetime 0600 file whose path rides the
+ * child environment (never the token itself: hooks inherit that
+ * environment), no force, no `--no-verify`, default-branch targets refused
+ * by name.
  *
  * `merge-bot mint-token` prints a short-lived GitHub App installation token
  * to stdout (and nothing else there), for the OTHER bot writes
@@ -68,10 +70,11 @@ export interface MergeBotCliInput {
   readonly readReadingImpl?: (options: ReadPrStateOptions) => Result<PrStateReading, Error>;
   readonly sleepImpl?: (ms: number) => Promise<void>;
   readonly nowIsoImpl?: () => string;
-  /** Push-action seams: the git binary, its executor, and the child's base environment. */
+  /** Push-action seams: the git binary, its executor, the child's base environment, the token file's lifecycle. */
   readonly gitExecutor?: GitExecutor;
   readonly gitPath?: string;
   readonly baseEnv?: Readonly<Record<string, string | undefined>>;
+  readonly tokenFiles?: TokenFileStore;
 }
 
 const USAGE = `merge-bot mint-token --scope <${TOKEN_SCOPE_NAMES.join('|')}> [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
@@ -129,6 +132,7 @@ function pushActionInputFrom(input: MergeBotCliInput): PushActionInput {
     gitExecutor: input.gitExecutor,
     gitPath: input.gitPath,
     baseEnv: input.baseEnv,
+    tokenFiles: input.tokenFiles,
   };
 }
 

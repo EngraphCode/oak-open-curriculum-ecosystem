@@ -9,6 +9,7 @@ import {
   resolveGitContext,
   type GitContext,
   type GitExecutor,
+  type TokenFileStore,
 } from './push-git.js';
 import {
   resolveBotIdentity,
@@ -51,10 +52,12 @@ export interface PushActionInput {
    * Base environment for the git child. Defaults to `process.env` at the leaf
    * (the default-seam pattern `merge.ts`'s `tokenisedEnv` records): Node
    * REPLACES a provided child env rather than merging it, so injecting the
-   * token forces constructing the whole environment, and git needs PATH and
-   * friends underneath.
+   * token-file path forces constructing the whole environment, and git needs
+   * PATH and friends underneath.
    */
   readonly baseEnv?: Readonly<Record<string, string | undefined>>;
+  /** The token file's lifecycle (mkdtemp/write/remove); tests inject a recording fake. */
+  readonly tokenFiles?: TokenFileStore;
 }
 
 /** The outcome a machine reads under --json. */
@@ -178,12 +181,11 @@ async function mintAndPush(
   parsed: PushArgs,
   input: PushActionInput,
 ): Promise<number> {
-  const { identity, git, branch } = prepared;
   // Scope is the whole landing span: a push can carry `.github/workflows`
   // changes, which GitHub refuses without `workflows: write` (the scope table
   // carries that observation's provenance).
   const minted = await mintForConfig(
-    { ...identity, scope: 'pull-request-work' },
+    { ...prepared.identity, scope: 'pull-request-work' },
     mintSeamsFrom(input),
   );
   if (!minted.ok) {
@@ -200,14 +202,33 @@ async function mintAndPush(
     );
     return 1;
   }
+  return transferAndReport(prepared, parsed, input, minted.value.token);
+}
+
+/** The transfer and its reporting, split from the mint for the size gate. */
+function transferAndReport(
+  prepared: Extract<Prepared, { kind: 'ready' }>,
+  parsed: PushArgs,
+  input: PushActionInput,
+  token: string,
+): number {
+  const { identity, git, branch } = prepared;
   const remote = `https://github.com/${identity.owner}/${identity.repoName}.git`;
-  const result = pushHead(git, {
+  const pushed = pushHead(git, {
     remote,
     branch,
     cwd: input.repoRoot,
-    token: minted.value.token,
+    token,
     baseEnv: input.baseEnv ?? process.env,
+    tokenFiles: input.tokenFiles,
   });
+  // A failure to STAGE the credential file (full temp root, unwritable) is an
+  // operational failure: no push was attempted.
+  if (!pushed.ok) {
+    input.stderr.write(`merge-bot push: ${pushed.error.message}\n`);
+    return 1;
+  }
+  const result = pushed.value;
   // git's transfer output is diagnostics on BOTH paths: stdout stays free for
   // the outcome object a machine parses.
   input.stderr.write(`${result.stdout}${result.stderr}`);

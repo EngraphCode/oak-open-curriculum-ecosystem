@@ -24,11 +24,14 @@ export const PUSH_USAGE = `merge-bot push [--branch <name>] [--json]
   as one command. The push itself IS the git binary; this command injects the
   bot identity and refuses by type, and adds no transfer behaviour of its own.
 
-  The token reaches git ONLY through the child environment, read there by a
-  static credential helper: never in argv, never in a remote URL, never on
-  either output stream. An empty minted token fails before any git call — an
-  empty variable would make the helper emit an empty password and git would
-  fall back to prompting, which is the signed-in human.
+  The token reaches git ONLY through a 0600 file that lives exactly as long
+  as the transfer, read by a static credential helper; the child environment
+  carries the file's path, never the token — the pre-push hook chain inherits
+  that environment, and an env dump there must never print a live credential.
+  Never in argv, never in a remote URL, never on either output stream. An
+  empty minted token fails before any git call — an empty credential would
+  make the helper emit an empty password and git would fall back to
+  prompting, which is the signed-in human.
 
   There is no force flag and no --no-verify pass-through of any kind. Hooks
   run; a rejected non-fast-forward is answered by merging, never by
