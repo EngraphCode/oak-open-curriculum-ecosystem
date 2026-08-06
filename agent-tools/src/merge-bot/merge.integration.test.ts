@@ -3,12 +3,8 @@ import { describe, expect, it } from 'vitest';
 
 import type { PrStateReading } from '../pr-watch/state-types.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
-import {
-  ReadingUnavailableError,
-  runMergeExecution,
-  tokenisedEnv,
-  type MergeExecutionInput,
-} from './merge.js';
+import { ReadingUnavailableError, runMergeExecution, type MergeExecutionInput } from './merge.js';
+import { settledReading, SETTLED_HEAD_OID } from './test-helpers/pr-state-reading.js';
 
 /**
  * Integration over injected ports (constant fakes, no process, no network):
@@ -19,38 +15,9 @@ import {
  * body (never-squash and tip-consistency as behaviour).
  */
 
-const HEAD_OID = 'abc123def456abc123def456abc123def456abc1';
+const HEAD_OID = SETTLED_HEAD_OID;
 
-function makeReading(overrides: Partial<PrStateReading> = {}): PrStateReading {
-  return {
-    number: 42,
-    url: 'https://github.com/acme/widgets/pull/42',
-    state: 'OPEN',
-    isDraft: false,
-    mergeable: 'MERGEABLE',
-    mergeStateStatus: 'CLEAN',
-    headRefOid: HEAD_OID,
-    checks: { total: 3, passed: 3, failed: 0, pending: 0 },
-    namedChecks: [{ name: 'lint', bucket: 'passed' }],
-    checksGreenAt: '2026-08-06T08:00:00Z',
-    reviewThreads: { total: 1, unresolved: 0 },
-    autoMergeArmed: false,
-    reviewRequests: [],
-    expectedReviewers: ['copilot-pull-request-reviewer'],
-    expectedDeclared: true,
-    reviews: [
-      {
-        author: 'copilot-pull-request-reviewer',
-        state: 'COMMENTED',
-        body: 'review round complete',
-        commitOid: HEAD_OID,
-        submittedAt: '2026-08-06T08:05:00Z',
-      },
-    ],
-    reviewRuns: { kind: 'read', runs: [] },
-    ...overrides,
-  };
-}
+const makeReading = settledReading;
 
 /** A fetch port capturing every call; responses served from a constant table. */
 function makeFetchPort(input: {
@@ -300,31 +267,6 @@ describe('runMergeExecution — unreadable responses and reading failures (secur
       expect(outcome.error).toBeInstanceOf(ReadingUnavailableError);
       expect(outcome.error.message).toContain('transient');
     }
-  });
-});
-
-describe('tokenisedEnv', () => {
-  it('injects the fresh token LAST — a stale GH_TOKEN in the base never wins', () => {
-    const env = tokenisedEnv('fresh-token', { PATH: '/usr/bin', GH_TOKEN: 'stale-token' });
-
-    expect(env.GH_TOKEN).toBe('fresh-token');
-    expect(env.PATH).toBe('/usr/bin');
-  });
-
-  it('pins the host and strips the enterprise-token fallbacks (security H1)', () => {
-    // An ambient GH_HOST would steer gh's READS off github.com — where the
-    // injected GH_TOKEN does not apply and gh falls back to stored human
-    // credentials — while the merge PUT stays pinned to api.github.com.
-    const env = tokenisedEnv('fresh-token', {
-      GH_HOST: 'ghe.example.com',
-      GH_ENTERPRISE_TOKEN: 'enterprise-secret',
-      GITHUB_ENTERPRISE_TOKEN: 'legacy-secret',
-    });
-
-    expect(env.GH_HOST).toBe('github.com');
-    expect(env.GH_ENTERPRISE_TOKEN).toBeUndefined();
-    expect(env.GITHUB_ENTERPRISE_TOKEN).toBeUndefined();
-    expect(env.GH_TOKEN).toBe('fresh-token');
   });
 });
 

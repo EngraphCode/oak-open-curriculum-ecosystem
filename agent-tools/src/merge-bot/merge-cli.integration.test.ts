@@ -3,18 +3,20 @@ import { describe, expect, it } from 'vitest';
 
 import type { PrStateReading } from '../pr-watch/state-types.js';
 import { runMergeBotCli, type MergeBotCliInput } from './cli.js';
-import { parseMergeArgs } from './merge-args.js';
 import { ReadingUnavailableError } from './merge.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
+import { settledReading } from './test-helpers/pr-state-reading.js';
 
 import { generateKeyPairSync } from 'node:crypto';
 
 /**
- * The `merge-bot merge` front door: argv contract, exit map (0=merged,
- * 1=operational, 2=usage, 3=typed refusal — MERGED exits 3), the bounded
- * poll loop under ONE minted token, and the two review pins: the minted
- * token appears in NEITHER output stream on any path (A7), and the
- * pr-lifecycle merge-base deletion sweep is named as undischarged (A6).
+ * The `merge-bot merge` front door over injected seams (fetch, key, config,
+ * reading, sleep, clocks): exit map (0=merged, 1=operational, 2=usage,
+ * 3=typed refusal — MERGED exits 3), the bounded poll loop under ONE minted
+ * token, and the two review pins: the minted token appears in NEITHER
+ * output stream on any path (A7), and the pr-lifecycle merge-base deletion
+ * sweep is named as undischarged (A6). The pure argv contract lives in
+ * merge-args.unit.test.ts.
  */
 
 const { privateKey } = generateKeyPairSync('rsa', {
@@ -24,42 +26,6 @@ const { privateKey } = generateKeyPairSync('rsa', {
 });
 
 const TOKEN = 'sekrit-installation-token';
-const HEAD_OID = 'abc123def456abc123def456abc123def456abc1';
-
-/** A settled reading — quiet window comfortably elapsed at the injected now. */
-function settledReading(overrides: Partial<PrStateReading> = {}): PrStateReading {
-  // Twin of merge.integration.test.ts's fixture; kept local because each file
-  // varies different legs and a shared mutable fixture module would couple
-  // their variation needs.
-  return {
-    number: 42,
-    url: 'https://github.com/acme/widgets/pull/42',
-    state: 'OPEN',
-    isDraft: false,
-    mergeable: 'MERGEABLE',
-    mergeStateStatus: 'CLEAN',
-    headRefOid: HEAD_OID,
-    checks: { total: 3, passed: 3, failed: 0, pending: 0 },
-    namedChecks: [{ name: 'lint', bucket: 'passed' }],
-    checksGreenAt: '2026-08-06T08:00:00Z',
-    reviewThreads: { total: 1, unresolved: 0 },
-    autoMergeArmed: false,
-    reviewRequests: [],
-    expectedReviewers: ['copilot-pull-request-reviewer'],
-    expectedDeclared: true,
-    reviews: [
-      {
-        author: 'copilot-pull-request-reviewer',
-        state: 'COMMENTED',
-        body: 'review round complete',
-        commitOid: HEAD_OID,
-        submittedAt: '2026-08-06T08:05:00Z',
-      },
-    ],
-    reviewRuns: { kind: 'read', runs: [] },
-    ...overrides,
-  };
-}
 
 function runningChecksReading(): PrStateReading {
   return settledReading({
@@ -167,110 +133,16 @@ function runMerge(input: {
 
 const EXPECT_ARGS = ['--pr', '42', '--expect', 'copilot-pull-request-reviewer'] as const;
 
-describe('parseMergeArgs', () => {
-  it('parses the full flag line', () => {
-    const parsed = parseMergeArgs([
-      ...EXPECT_ARGS,
-      '--expect',
-      'second-reviewer',
-      '--json',
-      '--interval',
-      '20',
-      '--max-polls',
-      '10',
-    ]);
-
-    expect(parsed.ok).toBe(true);
-    if (parsed.ok) {
-      expect(parsed.value).toEqual({
-        prNumber: 42,
-        expect: ['copilot-pull-request-reviewer', 'second-reviewer'],
-        json: true,
-        intervalSeconds: 20,
-        maxPolls: 10,
-      });
-    }
-  });
-
-  it('defaults the poll budget inside the token hour', () => {
-    const parsed = parseMergeArgs([...EXPECT_ARGS]);
-
-    expect(parsed.ok).toBe(true);
-    if (parsed.ok) {
-      expect(parsed.value.intervalSeconds).toBe(30);
-      expect(parsed.value.maxPolls).toBe(90);
-      expect(parsed.value.intervalSeconds * parsed.value.maxPolls).toBeLessThanOrEqual(3000);
-      expect(parsed.value.json).toBe(false);
-    }
-  });
-
-  it('requires --pr as a positive integer', () => {
-    const missing = parseMergeArgs(['--expect', 'reviewer']);
-    expect(missing.ok).toBe(false);
-    if (!missing.ok) {
-      expect(missing.error.message).toContain('--pr');
-    }
-
-    const wordy = parseMergeArgs(['--pr', 'seventeen', '--expect', 'reviewer']);
-    expect(wordy.ok).toBe(false);
-    if (!wordy.ok) {
-      expect(wordy.error.message).toContain('--pr');
-    }
-
-    // '0' discriminates the [1-9] anchor a plain \d+ would not (test-review
-    // D-3): --max-polls 0 would silently disable polling, --interval 0 a
-    // zero-budget hot loop.
-    const zero = parseMergeArgs(['--pr', '0', '--expect', 'reviewer']);
-    expect(zero.ok).toBe(false);
-    if (!zero.ok) {
-      expect(zero.error.message).toContain('--pr');
-    }
-  });
-
-  it('requires at least one --expect, teaching why a defaulted set cannot merge', () => {
-    const parsed = parseMergeArgs(['--pr', '42']);
-
-    expect(parsed.ok).toBe(false);
-    if (!parsed.ok) {
-      expect(parsed.error.message).toContain('--expect');
-      expect(parsed.error.message).toContain('defaulted');
-    }
-  });
-
-  it('bounds interval times max-polls under the one-hour token lifetime', () => {
-    const over = parseMergeArgs([...EXPECT_ARGS, '--interval', '60', '--max-polls', '51']);
-    expect(over.ok).toBe(false);
-    if (!over.ok) {
-      expect(over.error.message).toContain('hour');
-      expect(over.error.message).toContain('3060');
-    }
-
-    const atBound = parseMergeArgs([...EXPECT_ARGS, '--interval', '60', '--max-polls', '50']);
-    expect(atBound.ok).toBe(true);
-  });
-
-  it('refuses a repeated single-valued flag and unknown flags', () => {
-    const repeated = parseMergeArgs([...EXPECT_ARGS, '--pr', '43']);
-    expect(repeated.ok).toBe(false);
-    if (!repeated.ok) {
-      expect(repeated.error.message).toContain('more than once');
-    }
-
-    const unknown = parseMergeArgs([...EXPECT_ARGS, '--wat', 'x']);
-    expect(unknown.ok).toBe(false);
-    if (!unknown.ok) {
-      expect(unknown.error.message).toContain('--wat');
-    }
-  });
-});
-
 describe('runMergeBotCli merge', () => {
   it('merges a settled PR: exit 0, sha on stdout, sweep note and grounds on stderr, token in neither stream', async () => {
     const run = runMerge({ args: [...EXPECT_ARGS], readings: [settledReading()] });
 
     expect(await run.exit).toBe(0);
     expect(run.out()).toContain('mergesha1');
-    expect(run.errText()).toContain('merge-base deletion sweep');
+    expect(
+      run.errText(),
+      'A6 sentinel: re-adjudicate amendment A6 before changing the sweep note',
+    ).toContain('merge-base deletion sweep');
     expect(run.errText()).toContain('NOT discharged');
     // The irreversible act discloses its grounds (security H3): the verdict
     // evidence prints, so "merged with nobody having reviewed" can never be
@@ -290,27 +162,6 @@ describe('runMergeBotCli merge', () => {
       pull_requests: 'write',
       contents: 'write',
     });
-  });
-
-  it('rejects blank, flag-shaped, and non-login --expect values (security D4)', async () => {
-    for (const bad of ['', '  ', '$(whoami)']) {
-      const parsed = parseMergeArgs(['--pr', '42', '--expect', bad]);
-      expect(parsed.ok).toBe(false);
-      if (!parsed.ok) {
-        expect(parsed.error.message).toContain('--expect');
-      }
-    }
-    // A flag-shaped value must not be swallowed as a reviewer name (D-2).
-    const flagShaped = parseMergeArgs(['--pr', '42', '--expect', '--json']);
-    expect(flagShaped.ok).toBe(false);
-    if (!flagShaped.ok) {
-      expect(flagShaped.error.message).toContain('--expect');
-    }
-    // Real logins, including the app [bot] suffix, pass.
-    expect(parseMergeArgs(['--pr', '42', '--expect', 'copilot-pull-request-reviewer']).ok).toBe(
-      true,
-    );
-    expect(parseMergeArgs(['--pr', '42', '--expect', 'jimbot-oakington-iii[bot]']).ok).toBe(true);
   });
 
   it('passes the declared --expect set through to the reading', async () => {
@@ -497,6 +348,9 @@ describe('runMergeBotCli merge', () => {
 
     expect(await exit).toBe(0);
     expect(out.text()).toContain('merge --pr');
-    expect(out.text()).toContain('merge-base deletion sweep');
+    expect(
+      out.text(),
+      'A6 sentinel: re-adjudicate amendment A6 before removing the sweep from usage',
+    ).toContain('merge-base deletion sweep');
   });
 });
