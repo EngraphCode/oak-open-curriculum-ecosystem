@@ -131,26 +131,52 @@ Assembled from MCP-444 §11, with one time-sensitive addition.
 
 ```text
 The connector is read-only and requires signing in with an Oak account; there are no client
-IDs or secrets to configure. Requests are rate limited to 1,000 per hour (sliding window).
-The current allowance is readable at any time via the get-rate-limit tool and the
-X-RateLimit-* headers returned on every call, and checking the allowance does not count
-against the quota.
+IDs or secrets to configure. Oak does not impose a per-user or per-key request quota on this
+connector. The service sits behind Cloudflare and Vercel, whose platform-level protections
+apply to volumetric and abusive traffic; normal interactive use by a teacher or an assistant
+is well within them. The get-rate-limit tool reports the current allowance at any time and
+explains what its response means; checking does not count against the quota.
 ```
 
-**Aligned to the submission document (owner direction, 2026-08-06).** This field previously
-read "1,000 per window", which named no period. The Anthropic submission draft states
-"1,000 requests per hour (sliding window), enforced per API key by the upstream Oak
-Curriculum API", and that document is the authority for submitted wording. Where this pack
-and the draft disagree, the draft wins and this pack is the stale copy.
+**THIS FIELD IS AUTHORITATIVE — the submission draft's version is stale.** The Anthropic
+submission draft still reads "1,000 requests per hour (sliding window), enforced per API key
+by the upstream Oak Curriculum API". That claim is withdrawn (see below) and must not be
+pasted. An earlier revision of this pack said the draft wins wherever the two differ; that
+precedence is reversed for this field, because the draft carries the number this field exists
+to remove. Correcting the draft is listed as an outstanding item.
 
-**Unresolved, and it undercuts this field's own advice.** Calling `get-rate-limit` through
-the connector on 2026-08-06 returned `limit=0, remaining=0, reset=0`. That tool documents
-that response as meaning "an unlimited API key with no rate cap". So a reviewer who follows
-this field's instruction to check the allowance sees no cap at all, which contradicts the
-stated 1,000 per hour. Either the connector's upstream key is uncapped and the number does
-not describe what a connector user experiences, or the tool is not reporting the cap that
-applies. Worth settling before paste time — the field invites the reviewer to run exactly
-the call that disagrees with it. Tracked on MCP-513.
+**Raw `X-RateLimit-*` headers deliberately dropped from the paste copy.** An earlier draft of
+this replacement pointed reviewers at the tool *or* the headers. That was a trap: the headers
+carry the same figures, but a bare `X-RateLimit-Limit: 0` reads naturally as "no allowance"
+when it in fact means "no cap". Only the `get-rate-limit` tool's own description states that
+convention — *"A response of limit=0, remaining=0, reset=0 indicates an unlimited API key
+with no rate cap"* — so the tool is self-explaining and the headers are not. Pointing a
+reviewer at an ambiguous signal and then asserting the text and the tool agree would have
+been worse than saying nothing. (The header convention above is inferred from the tool's
+documented behaviour over the same upstream values, not read from a header specification —
+another reason not to put it in outbound copy.)
+
+**No rate-limit figure, by owner ruling (2026-08-06).** Earlier revisions of this field named
+"1,000 per window" and then "1,000 per hour (sliding window)". Both are withdrawn: there is
+no such limit. MG: *"we don't impose any ourselves and neither does the upstream API
+(apparently that ADR is ancient and stale)... but it's behind cloudflare/vercel which have
+some 'reasonable use' clause we should put in instead of this 1000 rate limit."* Jim,
+independently: *"All mcp connections share a single API key, that API has no rate limit."*
+
+**Where the number came from, so it is not reintroduced.** ADR-070 (2025-12-07) recorded a
+1,000 requests/hour limit as a property of *the Oak API*, having observed it on the key in
+use at the time. It travelled ADR-070 → MCP-444 §11 → this pack → the submission draft,
+faithfully copied at every step and never rechecked against the surface it described. The
+figure was real when measured; its scope was lost in transit. ADR-070 still asserts it and is
+tracked for a superseding note on MCP-515.
+
+**Why the wording is shaped this way.** It states what does NOT exist rather than implying a
+cap, so no figure has to be defended. And it keeps the `get-rate-limit` reference because the
+tool is real: it currently reports no cap, which now AGREES with the text. Previously the
+field invited a reviewer to run the very call that contradicted it — a first-hand check on
+2026-08-06 returned `limit=0, remaining=0, reset=0`, which that tool documents as an
+unlimited key. No platform figure is quoted because neither Cloudflare's nor Vercel's
+protections publish one that could honestly be stated here.
 
 **Time-sensitive — must be re-stated at paste time.** MCP-292 records that what someone
 needs before connecting is *"an invitation, while sign-in is gated"*. Sign-in is invite-only
@@ -281,12 +307,19 @@ fill from what we hold.
 2. **One-liner cap** — 55 vs 200 unresolved; copy written to 55 so it is safe either way.
 3. **Categories** — GAP; needs the live form's option list.
 4. **Documentation URL** — does not exist yet; record the dependency (MCP-301 / MCP-308).
-5. **Connection requirements** — truth changes at the M4 boundary; re-state at paste time.
+5. **Connection requirements** — settled. The M4 boundary has passed and sign-in is open
+   (owner verified against production 2026-08-06 with a non-Oak email, no invitation), so the
+   field above stands as written; do not reintroduce the invitation caveat.
 6. **Residency sentence** — owner framing exists; final wording sits with the DPO.
 7. **Example prompt 4** — run it first; drop if the assets call refuses (MCP-328).
 8. **Sponsored content answer** — recommend `No`; Jim's call.
 9. **Result-size line** — add once MCP-441 settles (MCP-444 §11).
 10. **`support` link URI** — re-check if MCP-438 lands first.
+11. **Correct the submission draft's rate-limit field** — the draft still states "1,000
+    requests per hour (sliding window), enforced per API key by the upstream Oak Curriculum
+    API". There is no such limit (MCP-513). Until the draft is edited, the false number is
+    still pastable from it; use Field 5 above instead, which supersedes it. ADR-070, the
+    figure's origin, also still asserts the limit (MCP-515).
 
 Choices 1, 3 and 8 are human decisions. Everything else is a verification or a dependency
 with a known owner.
