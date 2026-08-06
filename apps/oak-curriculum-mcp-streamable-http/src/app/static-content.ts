@@ -118,14 +118,22 @@ function mountStaticAssets(app: Express, log: Logger, staticRoot?: string): void
   // stays because the alpha host serves this app at its own root and is a
   // declared compatibility surface; retiring it would break that page
   // silently. One handler, two prefixes: the two cannot drift apart.
-  // `redirect: false` and `index: false` are load-bearing on the routed
-  // mount, not hardening. Mounted at `/mcp`, a bare `GET /mcp` arrives as a
-  // request for the mount's own directory: with express.static's defaults that
-  // is a 301 to `/mcp/` (or an `index.html` probe), which would swallow the
-  // request before the HTML negotiation and the MCP protocol legs behind it
-  // ever ran. Off, a directory request falls through to `next()` — so `GET
-  // /mcp` still negotiates HTML, `POST /mcp` still reaches the handler, and
-  // only real files under the prefix are served here.
+  // `redirect: false` is load-bearing on the routed mount, not hardening.
+  // Mounted at `/mcp`, a bare `GET /mcp` arrives as a request for the mount's
+  // own directory, and with express.static's default that is a 301 to `/mcp/`,
+  // which would swallow the request before the HTML negotiation and the MCP
+  // protocol legs behind it ever ran. Off, a directory request falls through
+  // to `next()` — so `GET /mcp` still negotiates HTML and `POST /mcp` still
+  // reaches the handler. `mcp-html-negotiation.integration.test.ts` demands
+  // `GET /mcp` return the baked page byte-exactly, so it fails on a 301.
+  //
+  // `index: false` is hardening rather than load-bearing: the served root has
+  // no `index.html`, so the probe finds nothing today. It is set so that
+  // adding one could never turn `GET /mcp` into a static response.
+  //
+  // Both options apply to the root mount too, since one handler serves both
+  // prefixes: a root-level directory request falls through instead of
+  // redirecting. Nothing depends on the old behaviour.
   const serveAssets = expressStatic(resolution.value, {
     etag: true,
     maxAge: 0,
