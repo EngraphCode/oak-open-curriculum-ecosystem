@@ -108,18 +108,30 @@ interface ProductionSafetyData {
  * @returns `true` when a fatal issue was added and refinement should stop.
  */
 function refineProductionSafety(data: ProductionSafetyData, ctx: z.RefinementCtx): boolean {
-  // Production safety: DANGEROUSLY_DISABLE_AUTH must NEVER be true in production.
-  // This makes misconfiguration a hard startup failure rather than a silent bypass.
-  if (
-    data.DANGEROUSLY_DISABLE_AUTH === 'true' &&
-    data.VERCEL_ENV === RELEASE_ENVIRONMENTS.production
-  ) {
+  // Deployment safety: DANGEROUSLY_DISABLE_AUTH must NEVER be true in a
+  // DEPLOYED environment — production OR preview (MCP-143 Guard 1b).
+  // Disabling auth on an internet-reachable deployment would expose an
+  // unauthenticated MCP endpoint, so misconfiguration is a hard startup
+  // failure rather than a silent bypass.
+  //
+  // The valve is permitted on a LOCAL run only, which is exactly two cases:
+  // VERCEL_ENV unset (not running on Vercel at all) or VERCEL_ENV
+  // `development`. The condition is written as that ALLOWED set, negated —
+  // rather than as chained `!==` comparisons — so the guard reads as its
+  // intent: auth may only be disabled on a local run. Anything else,
+  // including any future Vercel environment name we do not yet know about,
+  // is treated as deployed and fails closed.
+  const isLocalRun =
+    data.VERCEL_ENV === undefined || data.VERCEL_ENV === RELEASE_ENVIRONMENTS.development;
+
+  if (data.DANGEROUSLY_DISABLE_AUTH === 'true' && !isLocalRun) {
     ctx.addIssue({
       code: 'custom',
       path: ['DANGEROUSLY_DISABLE_AUTH'],
       message:
-        'DANGEROUSLY_DISABLE_AUTH cannot be true in production. ' +
-        'This flag is for local development only.',
+        'DANGEROUSLY_DISABLE_AUTH cannot be true outside development. ' +
+        'This flag is for local development only; preview and production ' +
+        'deployments must run with auth enabled.',
     });
     return true;
   }

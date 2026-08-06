@@ -1,3 +1,17 @@
+## [1.152.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.152.1...v1.152.2) (2026-08-06)
+
+
+### Bug Fixes
+
+* **mcp-http:** keep landing-page assets inside the routed /mcp surface ([dd6aff0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/dd6aff00a378f6e3be541d1c97e5bcc0bc24388d))
+
+## [1.152.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.152.0...v1.152.1) (2026-08-06)
+
+
+### Bug Fixes
+
+* **mcp-http:** reject DANGEROUSLY_DISABLE_AUTH outside development ([a28244c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a28244cd92d87aa3066863228c3f363d8e431251))
+
 # [1.152.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.151.2...v1.152.0) (2026-08-06)
 
 

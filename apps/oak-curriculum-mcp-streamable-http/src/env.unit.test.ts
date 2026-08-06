@@ -142,15 +142,34 @@ describe('Conditional Clerk keys (DANGEROUSLY_DISABLE_AUTH)', () => {
     }
   });
 
-  it('allows DANGEROUSLY_DISABLE_AUTH=true in preview and development', () => {
-    for (const env of ['preview', 'development'] as const) {
-      const result = HttpEnvSchema.safeParse({
-        ...baseEnv,
-        DANGEROUSLY_DISABLE_AUTH: 'true',
-        VERCEL_ENV: env,
-      });
-      expect(result.success).toBe(true);
+  it('rejects DANGEROUSLY_DISABLE_AUTH=true in preview — a deployed, internet-reachable env', () => {
+    const result = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      DANGEROUSLY_DISABLE_AUTH: 'true',
+      VERCEL_ENV: 'preview',
+    });
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const paths = result.error.issues.map((i) => i.path.join('.'));
+      expect(paths).toContain('DANGEROUSLY_DISABLE_AUTH');
     }
+  });
+
+  it('allows DANGEROUSLY_DISABLE_AUTH=true in development and when VERCEL_ENV is unset (local)', () => {
+    const development = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      DANGEROUSLY_DISABLE_AUTH: 'true',
+      VERCEL_ENV: 'development',
+    });
+    expect(development.success).toBe(true);
+
+    // Unset VERCEL_ENV = a local, non-Vercel run — the valve stays usable.
+    const local = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      DANGEROUSLY_DISABLE_AUTH: 'true',
+    });
+    expect(local.success).toBe(true);
   });
 
   describe('CANONICAL_HOST', () => {
@@ -450,8 +469,12 @@ describe('PostHog product-analytics selection (OBSERVABILITY_SINKS)', () => {
       (vercelEnv) => {
         const result = HttpEnvSchema.safeParse({
           // Live keys + canonical host so the `production` iteration is a
-          // VALID prod env under Guards 1a (live-realm keys) and 3
-          // (CANONICAL_HOST required); both are also accepted in dev/preview.
+          // VALID prod env across the MCP-143 guard cascade: Guard 1a requires
+          // live-realm keys in production, and Guard 3 requires CANONICAL_HOST
+          // there. Guard 3 arrives with PR-3, so on branches before that this
+          // fixture is forward-compatible with it rather than exercising it —
+          // do not read the mention as evidence the control is already live.
+          // Both values are also accepted in dev/preview.
           ...withLiveClerkKeys,
           CANONICAL_HOST: 'www.thenational.academy',
           VERCEL_ENV: vercelEnv,

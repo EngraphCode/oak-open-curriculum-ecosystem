@@ -12,7 +12,7 @@ import fs from 'node:fs';
 import type { Logger } from '@oaknational/logger';
 import { err, ok, type Result } from '@oaknational/result';
 
-import { OAK_ASSETS_MARKER, OAK_DS_MARKER } from './static-asset-paths.js';
+import { OAK_ASSETS_MARKER, OAK_DS_MARKER, ROUTED_ASSET_BASE } from './static-asset-paths.js';
 
 function addRootLandingPage(
   app: Express,
@@ -111,7 +111,29 @@ function mountStaticAssets(app: Express, log: Logger, staticRoot?: string): void
   // cure and belong to the asset-versioning follow-up. Applies to the whole
   // root (favicons included) — a deliberate simplification recorded in the
   // PR's deviation ledger.
-  app.use(expressStatic(resolution.value, { etag: true, maxAge: 0 }));
+  //
+  // Mounted at BOTH the root and the routed base (MCP-509). The routed mount
+  // is the one the canonical host can actually reach — Cloudflare only sends
+  // `/mcp*` here, so a root-relative request never arrives. The root mount
+  // stays because the alpha host serves this app at its own root and is a
+  // declared compatibility surface; retiring it would break that page
+  // silently. One handler, two prefixes: the two cannot drift apart.
+  // `redirect: false` and `index: false` are load-bearing on the routed
+  // mount, not hardening. Mounted at `/mcp`, a bare `GET /mcp` arrives as a
+  // request for the mount's own directory: with express.static's defaults that
+  // is a 301 to `/mcp/` (or an `index.html` probe), which would swallow the
+  // request before the HTML negotiation and the MCP protocol legs behind it
+  // ever ran. Off, a directory request falls through to `next()` — so `GET
+  // /mcp` still negotiates HTML, `POST /mcp` still reaches the handler, and
+  // only real files under the prefix are served here.
+  const serveAssets = expressStatic(resolution.value, {
+    etag: true,
+    maxAge: 0,
+    redirect: false,
+    index: false,
+  });
+  app.use(serveAssets);
+  app.use(ROUTED_ASSET_BASE, serveAssets);
 }
 
 /** What the static-content mount needs from the app's options. */
