@@ -6921,8 +6921,8 @@
             "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx",
             "anchors": [
               {
-                "tokenCount": 17,
-                "tokenSha256": "7bcfe832b2f3fbeb96878380d1079eb141b9860499ec28e961071d417715e057",
+                "tokenCount": 12,
+                "tokenSha256": "0b5688a01bf5681cc80f4eb46c78dfc86beab2b1dd84aed1963c3b2de6be8985",
                 "indexToken": "prompted",
                 "indexOffset": 3
               }

@@ -36,9 +36,7 @@ export const CURRENT_LANDING_ITEM_ANCHOR_OVERRIDES = {
     [PAGE_SECTIONS]: ['Designed for teachers, this service connects your AI assistant to Oak'],
   },
   C349: {
-    [PAGE_SECTIONS]: [
-      'You will be prompted to log in with an Oak account, which anyone can create.',
-    ],
+    [PAGE_SECTIONS]: ['You will be prompted to sign in with your Oak account.'],
   },
   C350: {
     [PAGE_SECTIONS]: ['<h2 className="oak-heading-5">Documentation</h2>'],

@@ -36,7 +36,7 @@ export const APP_LANDING_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
   // address, not agent-facing or user-facing TEXT — the link's own label
   // ("OAuth 2.1 authorisation") is unchanged.
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx': reviewed(
-    '19ba0a42e7631c9d40ec08a8ca35bf2c8162ff89b50eb6ce5a4366b07e2c665d',
+    'b36fa7dc1d53e4386c16aa20bdd446da3440c2ad529f5712f52ccea13aef497e',
     ['C343', 'C344', 'C345', 'C346', 'C347', 'C348', 'C349', 'C350', 'C351', 'C352'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/resources-section.tsx':
