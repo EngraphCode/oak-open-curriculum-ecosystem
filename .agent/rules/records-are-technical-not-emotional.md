@@ -34,6 +34,42 @@ policy back to its giver first (the three minutes this costs is nothing;
 a licence read as a mandate once deleted six weeks of archive inside the
 hour, 2026-07-26).
 
+## Evidence and instruction are two registers — never one line
+
+The register discipline above governs *authority*; this one governs *decay*. A
+durable artefact usually needs both registers. **The failure is mixing them in
+one LINE**, because the instruction half then inherits the evidence half's expiry
+date.
+
+- **EVIDENCE** — state the fact, timestamp it, name who observed it, never
+  generalise it to now. A historical record whose facts are timestamped is not
+  stale when the world moves; it is still exactly true about its moment.
+- **INSTRUCTION** — state the test and the branches, never bake in the current
+  answer.
+
+**The authoring-time tell:** *will someone ACT on this line, or only KNOW from
+it?* If they will act, it must carry the test; if they will only know, a
+timestamped fact is right and a test would be noise.
+
+**The actionable form: if a line seems to need both registers, split it into two
+lines** — one recording what was observed and when, one telling the reader what
+to run now. The attempted hybrid is where the confusion lives.
+
+The corollary for facts that keep going stale: **replace the fact with the TEST
+that determines it** (three parts — the test, its PRECONDITIONS, and a branch
+table). Faster corrections do not fix a perishable fact; they only move the
+staleness window. Worked instance 2026-08-05: a deployment's auth realm moved
+five times in three hours; an instruction asserting the realm needed a correction
+per transition, and the same instruction rewritten to assert no realm at all
+survived the fifth transition with no edit — same document, opposite answer, no
+author involved.
+
+Boundary, so the cure is not over-read: this moves the fragility **from the value
+to the test**, it does not remove it. A test-and-branch instruction still rots if
+the test itself becomes wrong — the discriminator stops discriminating, or the
+branch table misses a state. A test is simply a far slower-moving thing than a
+value.
+
 ## When an expunge request fires
 
 If the owner asks for something to be removed from the record, the request
