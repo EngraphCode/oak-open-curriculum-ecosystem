@@ -606,3 +606,24 @@ pointers and the owner's word matter.
   grant: MCP-519 minted (due 2026-08-11, assigned to the owner, the five
   items enumerated, agent-authorship marked), the session cron deleted.
   MCP-519 IS the tripwire; this entry is its provenance.
+
+## 2026-08-06 ~20:05Z (Petrel holds Turbulence, a0892f) — the S1–S5 round closed; a doctrine specimen conserved
+
+- The #790 S1–S5 disposition round completed in one proportional pass
+  (implementer seat: five red-first cures + live-fire smoke; Opus reviewer:
+  LAND-WITH-FIXES; three fixes landed same hour; 4,146 tests green; pushed
+  to the PR at SHA:a5cd19f9d with disposition comment, Copilot leg, and
+  approval bound). DOCTRINE SPECIMEN for the evals case (engineering
+  direction D2): the S3 cure and its green test shared one wrong belief
+  about what githooks(5) delivers (an empty remote name on bare-URL
+  pushes; reality: the URL itself), so the detector watched the exact
+  range shape that is NOT the degraded case — an ~836× silent over-scan
+  (measured 5,016 vs 6 commits) survived a red-first test because the
+  test pinned an input git cannot produce. Caught ONLY by the reviewer
+  running real-git evidence (a probe hook echoing $1). Third dated
+  instance of the oracle-independence class in two days; the
+  evidence-running reviewer is the instrument that keeps working.
+- Conformance-sweep residue (recorded, untouched by the round): the
+  gh-executor buffer seam (same class as S4), a token-lifetime timing
+  pin, one docblock over-claim, one --no-verify in a hook-less smoke
+  fixture repo (cosmetic, one-word deletion when next opened).
