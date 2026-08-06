@@ -253,3 +253,29 @@ delivered to the owner 2026-08-05 ~14:58Z at his ask.
   sweep are outside this seat's visibility.
 
 ## New session observations append below.
+
+## 2026-08-06 branch reconciliation (Wisteria lifts Verdure, c4294f)
+
+- FAILURE MODE (the day's structural one): two branches carried the name
+  `coordination/estate-2026-08-06` — the remote cut at `6f6286167`, the local cut later
+  from main at `93333dc7f` with NO upstream tracking. The dedicated consolidation ran on
+  the local one, never fetched the remote, and so processed a corpus missing five napkin
+  sections from four seats. Its own record claimed "solo seat, fleet dark". The cure that
+  worked was mechanical, not vigilance: `git rev-list --left-right --count
+  <remote>...HEAD` before believing any claim about who was active. Cheap, and it would
+  have fired at pass open.
+- CORRECTION (mine, caught mid-proof): `grep -Fq "$line"` consumed every `-`-prefixed
+  line as an option, so 13 of 132 lines were never tested while the loop reported a
+  clean 0-duplicates result. A proof can read green having tested nothing. Use `grep -Fq
+  --` whenever the needle is untrusted text. This is the same class as the carried
+  `tail`-masks-exit-code correction above, which also recurred on me this session.
+- INSTRUMENT GAP (fitness): the prose-width hard limit (100) is applied to markdown
+  HEADINGS, which are structurally unwrappable — the only cure available is rewriting the
+  heading text, so a carried section title over 100 chars has NO compliant lossless fix.
+  Two such headings from Saffron guards Hedgerow are carried unaltered and read as a hard
+  finding. Candidate cure is a heading carve-out in the width check; not self-landed.
+- OBSERVATION (semantic merge, worked): a rotation on one side and an append on the other
+  is the dangerous napkin shape, because neither side's change is wrong and a line-merge
+  resolves it confidently either way. What made the union safe was proving the DRAIN
+  lossless first (`cmp` of the archive's head against the pre-rotation file) — after that
+  the rotation could stand and only the un-homed appends needed carrying.
