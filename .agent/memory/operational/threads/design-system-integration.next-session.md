@@ -1050,3 +1050,111 @@ heartbeat-end, pause broadcast, watcher last).
    REGENERATES against merge-time main before the ratchet merges (add to
    the PR's pre-merge list). PR #729 cure round itself unchanged (five lint
    fixes + ceremony, per the ~08:10Z freeze entry).
+
+## 2026-08-05 (Petrel holds Turbulence, a0892f — Director): strategic node RATIFIED; resume map partially discharged
+
+Owner word 2026-08-05 (design-lane reopening sitting): the strategic node
+`design-system-as-configured-framework` is RATIFIED — stamp landed. The
+cold-pause resume map above now reads:
+
+1. `dispositions.v2.2.md` — verdict: NEVER AUTHORED (verified first-hand:
+   absent from filesystem, all branches, all history; this map is the
+   record). Honestly recomputable — both inputs survive; the per-row
+   ledger FOLDS INTO item 4's scoped re-review, recorded in the plan's
+   §Review record. No standalone authoring act remains.
+2. Residual small edits — LANDED 2026-08-05 (ratification-and-truings PR):
+   Quality bar rule 6, the EX65 standing control note, EX53 register
+   naming, and D1 batching; §Relationships EX57/EX62/EX67/EX73/EX77;
+   pointer-table
+   additions (W4.2 += EX24+EX28, W4.4 += EX5, new W5.1 row, W3.0 += EX22).
+   Also landed: §Execution seat re-pointed (Corsair's seat closed at the
+   clear-run; executor named at the implementation word), and the owner's
+   2026-08-05 hub-search-must-work word recorded (Decision log + W0.9).
+3. Gates — ride the same PR's hook chain.
+4. SCOPED near-horizon re-review to zero — STILL OWED (now also carries
+   the per-row ledger); then the owner's implementation word.
+5. #729 census regeneration — CONFIRMED QUANTITATIVELY 2026-08-05: plan
+   file live count 4 vs census 8; the frozen v2.1 report carries 1
+   occurrence and is absent from the census. Merging without regeneration
+   reds `repo-validators:check` on main.
+
+## Previous-team handover 2026-08-05 (Moss calls Loam, 79b433 — dated context, owner-convened)
+
+The owner convened the previous design team (Corsair, Moss, Magnetar) to
+hand their understanding to the live team (Director Petrel, design seat
+Saffron), acknowledging the repo and intent have moved on. This section is
+the MOSS slice: context frozen at this seat's retirement (2026-08-02
+~19:52Z — BEFORE the Corsair v2/PDS arc above). Everything below is dated
+to that instant; on any conflict the live map and the later layers win.
+The recorded layer (session updates above, PR bodies, shared memory) is
+assumed absorbed — this section carries only what those records do not.
+
+### Review-arc operational texture (lane PRs #710–#721)
+
+- Copilot's suppressed-comments block (in the review BODY, distinct from
+  inline threads) caught three real defects on this lane, all one class:
+  records lagging decisions (PR body/absorption claims drifting from the
+  diff). Harvest EVERY review body's suppressed block; the terminal review
+  state that ended the arcs was "no claim without citation, no citation
+  duplicated".
+- Sonar's new-duplication gate fires on generator-shaped code; the cure
+  that settled it was at the generator (`createDesignSiblingZones` deriving
+  each zone's path and message from the sibling specifier). The reviewer's
+  one revision is a standing constraint: comments must not claim more
+  invariance than the mechanism enforces — membership parity there is
+  TEST-enforced, not derivation-enforced.
+- Both docs arcs (#719, #721) closed under a DECLARED operator stop with
+  residual phrasing nits recorded on the PR and deliberately uncured; the
+  convergence discipline held because rounds shrank monotonically.
+- Worked trap-cures: REST review-author filters need
+  `copilot-pull-request-reviewer[bot]` (the bare name matches nothing); a
+  compound command mixing `git push` with a later `gh api graphql -f`
+  trips the hook's history-destruction substring policy — split the
+  commands, never bypass; a stale hub `.next` cache breaks pre-commit
+  type-check after branch switches (gitignored derived cache — remove and
+  retry); any dirty memory file failing markdownlint gates EVERY primary
+  push — fix at occurrence, whoever authored it.
+
+### Design-surface "why" texture (the what is in code and docs; the why is thin)
+
+- The kit-asset manifest (showcase `tools/`) is repo-scoped ON PURPOSE: it
+  carries the hub's `oak-theme.js` serving copy, so the whole copy-set has
+  one guard home. The hub's own parity test was deleted WHOLE on
+  reviewer-verified conservation (realpath-identical kit resolution in
+  both demos; escape assertions live in the hub's inline-script contract
+  tests plus the kit chain). A new demo taking kit copies registers rows
+  there, not a new guard.
+- Armed-not-owed trigger, easy to misread as owed-now: the `.design-sync`
+  NOTES.md "no React components" line rewrites WHEN the design-sync
+  adopts the react tier — the binding condition is adoption, not time.
+- The licensing surfaces are a deliberate citation graph: LICENCES.md
+  §Oak-authored defers per-file classification to LICENSING-MANIFEST.md;
+  the kit README §Licence is the system's own statement; root LICENCE and
+  LICENCE-DATA.md are the authorities. Touching any one means re-checking
+  its cited pairs. The brand_voice.txt provenance row is deliberately in
+  verified-record form ("no public upstream URL is recorded") — an
+  epistemic-honesty choice, not a gap; do not "fix" it into an existence
+  claim.
+- oak-design-react theme-store test intent: the unsubscribe-cleanup test's
+  RETAINED second listener is what proves the notifier fired — deleting it
+  as redundant silently weakens the union obligation; the setter-guards
+  no-op twins (theme AND motion) are contract pins, not duplication.
+
+### Owner-preference grammar as experienced first-hand
+
+- The licence map was ratified THROUGH the constraint-surface frame:
+  general framework, Oak instance as thin config, the constrained-for-
+  external-use surface kept as minimal as possible. He priced the design
+  structure by that frame; new structure presented in it settles faster.
+- His two same-day docs-prose supersessions were not churn — each step was
+  a cleaner generalisation (simple model → subject split → provenance
+  split). Presenting the generalising form is what settles a fork.
+
+### Bounds and availability
+
+This seat knows NOTHING after 2026-08-02 ~19:52Z — the Corsair v2/v2.2 and
+PDS arcs, PR #729, MCP-128's move, and this week's intent are all outside
+its context; the live map wins on any conflict. The seat is live this
+sitting for Q&A, claimless, no source work; route pulls through the
+Director. This edit rides the next coordination window per
+no-handover-commits.

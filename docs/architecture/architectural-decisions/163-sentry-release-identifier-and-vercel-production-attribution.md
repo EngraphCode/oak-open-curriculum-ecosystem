@@ -696,26 +696,117 @@ each subject to the ignoreCommand check.
 > release-identifier rule, because §1 is keepable only if production
 > deploys correspond exactly to semantic-release commits.
 
-A production build on `main` MUST be cancelled unless the commit
+A production build on `main` MUST be cancelled unless **either** the commit
 advances the root `package.json` semver beyond the previously-deployed
-version. Merge commits (which carry the previous semver) do not
-trigger a production deploy; only semantic-release commits (which
-bump the semver) do.
+version, **or** the build is a redeploy of the commit already in production
+(`VERCEL_GIT_COMMIT_SHA == VERCEL_GIT_PREVIOUS_SHA`). Merge commits (which
+carry the previous semver) do not trigger a production deploy; only
+semantic-release commits (which bump the semver) and redeploys of the
+already-released commit do.
+
+The redeploy arm is not a loosening (fourth amendment, 2026-08-04). The rule
+this section exists to keep is _"production deploys correspond exactly to
+semantic-release commits"_, and a redeploy of the commit already in production
+**is** that commit — it passed this very gate to get there, and rebuilding it
+cannot introduce a version that did not. Without the arm the rule forbids the
+one operation that recovers a broken production environment: rebuilding a known-good
+release. That is the reverse of what §10 protects, and it is why the previous
+wording was a defect rather than a deliberately strict choice.
 
 **Cancellation truth table**:
 
-| Branch (`VERCEL_GIT_COMMIT_REF`) | Current version (root `package.json`) | Previous version (`VERCEL_GIT_PREVIOUS_SHA:package.json`) | Outcome                | Reason                                                                                                                           |
-| -------------------------------- | ------------------------------------- | --------------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| not `main`                       | (not read)                            | (not read)                                                | Continue build         | Branch gate; per §1 only `main` triggers a production identifier.                                                                |
-| `main`                           | resolvable                            | unresolvable / unset                                      | Continue build         | First build OR previous SHA absent / git-unreachable; treated as "no previous to beat".                                          |
-| `main`                           | resolvable                            | resolvable, current ≤ previous                            | **CANCEL build**       | Version did not increment; this is a merge / hot-fix-on-main / accidental downgrade.                                             |
-| `main`                           | resolvable                            | resolvable, current > previous                            | Continue build         | Semantic-release commit advanced the version; the production identifier is fresh.                                                |
-| `main`                           | unresolvable                          | (not read)                                                | **CANCEL with stderr** | Build error: the current app version cannot be determined from root `package.json`. Diagnostic message printed; non-recoverable. |
+| Branch (`VERCEL_GIT_COMMIT_REF`) | Current version (root `package.json`) | Previous version (`VERCEL_GIT_PREVIOUS_SHA:package.json`)         | Outcome                | Reason                                                                                                                                      |
+| -------------------------------- | ------------------------------------- | ----------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| not `main`                       | (not read)                            | (not read)                                                        | Continue build         | Branch gate; per §1 only `main` triggers a production identifier.                                                                           |
+| `main`                           | resolvable                            | unresolvable / unset                                              | Continue build         | First build OR previous SHA absent / git-unreachable; treated as "no previous to beat".                                                     |
+| `main`                           | resolvable                            | (not read) — `VERCEL_GIT_COMMIT_SHA` == `VERCEL_GIT_PREVIOUS_SHA` | Continue build         | Redeploy of the commit already deployed; a rebuild of an already-released commit is not a non-release build (fourth amendment, 2026-08-04). |
+| `main`                           | resolvable                            | resolvable, current ≤ previous                                    | **CANCEL build**       | Version did not increment; this is a merge / hot-fix-on-main / accidental downgrade.                                                        |
+| `main`                           | resolvable                            | resolvable, current > previous                                    | Continue build         | Semantic-release commit advanced the version; the production identifier is fresh.                                                           |
+| `main`                           | unresolvable                          | (not read)                                                        | **CANCEL with stderr** | Build error: the current app version cannot be determined from root `package.json`. Diagnostic message printed; non-recoverable.            |
 
 Mapping to Vercel `ignoreCommand` exit codes: exit 0 = "ignore this
 build" (Vercel cancels), exit 1 = "do not ignore" (Vercel proceeds).
-The script returns exit 0 on rows 3 (current ≤ previous) and 5
-(current unresolvable); exit 1 on rows 1, 2, 4.
+The script returns exit 0 on the current ≤ previous row and the
+current-unresolvable row; exit 1 on every other row.
+
+**Third amendment (2026-08-03, MCP-479) — the redeploy row.** The rule
+above is about which _commits_ may produce a production deployment, and
+it read as if it were about which _builds_ may run. Those differ for one
+case: rebuilding the commit that is already deployed. A production
+outage on 2026-08-03 was caused by a deployment holding a dangling
+environment-variable record reference — the code was correct and the
+environment was not — and the only cure was a fresh build of that same
+commit. The gate cancelled it, and recovery needed a release cut solely
+to satisfy this rule.
+
+Vercel's Instant Rollback is not an alternative here: it re-points
+domains at an existing build without running this script at all, and
+per Vercel's documentation it "won't update environment variables if
+you change them in the project settings", so it would have restored the
+same broken binding.
+
+The signal is derived, because Vercel exposes no variable distinguishing
+a redeploy from a push. `VERCEL_GIT_PREVIOUS_SHA` is documented as "the
+git SHA of the last successful deployment for the project and branch",
+so `VERCEL_GIT_COMMIT_SHA == VERCEL_GIT_PREVIOUS_SHA` means the build is
+a rebuild of the already-released commit — which cannot be a non-release
+build, because that commit's version already passed this very gate.
+
+#### Vendor sources for the two load-bearing assertions
+
+Recorded so a future maintainer can revalidate the inference against the
+vendor rather than against this document. Both pages carried
+`last_updated: 2026-04-27` when read on 2026-08-04.
+
+**[System environment variables](https://vercel.com/docs/environment-variables/system-environment-variables)**
+— `VERCEL_GIT_PREVIOUS_SHA`:
+
+> **Available at:** Build time
+>
+> The git SHA of the last successful deployment for the project and branch.
+>
+> **Note:** This variable is only exposed when an Ignored Build Step is
+> provided.
+
+Three consequences the derivation depends on, and one that was not previously
+written down:
+
+- it is **build-time only**, so nothing at runtime can re-derive this verdict;
+- "last **successful** deployment" is what makes the equality test meaningful —
+  a failed build does not advance it;
+- **it exists only because this script IS the Ignored Build Step.** The
+  variable is not ambiently available. Any future attempt to move this logic
+  out of `ignoreCommand` — into a build script, a CI job, or a runtime check —
+  silently loses its only input and the guard degrades to always-continue.
+
+`VERCEL_GIT_COMMIT_SHA`, the other half of the equality, is documented on the
+same page as "the git SHA of the commit the deployment was triggered by",
+available at both build and runtime.
+
+**[Managing environment variables](https://vercel.com/docs/environment-variables/managing-environment-variables)**
+— the rollback/environment behaviour:
+
+> Changes to environment variables are not applied to previous deployments,
+> they only apply to new deployments. You must redeploy your project to update
+> the value of any variables you change in the deployment.
+
+This is the vendor-documented general rule that the Instant Rollback note
+above is a specific case of: re-pointing a domain at an existing build does not
+re-read project settings, because **no** existing deployment re-reads them.
+Recording it here because our own operational notes have stated the opposite —
+that an environment change reaches a running deployment — and that reading is
+not supported by the vendor. Any incident timeline built on it should be
+re-derived; the supported contract is change → redeploy → verify.
+
+The amendment is deliberately narrow. A _different_ commit whose version
+has not advanced still cancels, which is the entire purpose of §10. An
+unresolvable current version still cancels first, ahead of this row.
+`VERCEL_GIT_COMMIT_SHA` is validated at the same trust boundary as its
+sibling, and the row fails safe: absent or malformed, the verdict is
+identical to the pre-amendment table. No new environment variable, no
+operator flag, and no bypass surface is introduced — an escape hatch
+would have been the wrong shape for a gate whose value is that it cannot
+be talked out of.
 
 **Asymmetry rationale**: an unresolvable **current** version is a
 deterministic repo defect under Oak's current build topology (single
@@ -757,16 +848,37 @@ node` headed so `vercel.json`'s `ignoreCommand` invokes it
   directly to the canonical implementation at the same path. The
   literal command string is owned by `vercel.json`, not by this ADR.
 - **Unit tests**:
-  `apps/oak-curriculum-mcp-streamable-http/runtime-only-scripts/vercel-ignore-production-non-release-build.unit.test.mjs`
+  `apps/oak-curriculum-mcp-streamable-http/build-scripts/vercel-ignore-production-non-release-build.unit.test.mjs`
   covers all rows of the truth table above and is the proof for the
-  rule itself.
-- **Comparator**: the version comparison uses the npm `semver`
-  package's `semver.lte` function rather than hand-rolled comparison
-  logic. `semver.valid()` validates both current and previous version
-  strings; `semver.lte(current, previous)` determines the
-  cancel/continue outcome on rows 3 and 4. The package is declared as
-  a `devDependency` of the `apps/oak-curriculum-mcp-streamable-http`
-  workspace (build-time tooling for the one consumer only).
+  rule itself. The suite lives in `build-scripts/`, not beside the
+  script: `runtime-only-scripts/**` is matched by no workspace's vitest
+  globs, so while it sat there it had never executed once (ADR-168 §4,
+  §5, amended 2026-08-04). A proof that cannot run is not a proof, and
+  nothing reported its absence.
+- **Comparator**: the script **cannot** use the npm `semver` package — it runs
+  before `pnpm install`, so no dependency is importable (§4 of ADR-168). It
+  carries an **inlined, Node-built-ins-only** semver parser and `lte`
+  comparison, implementing semver §2 (build metadata ignored) and §11
+  (prerelease precedence). That comparison decides the two
+  version-comparison rows — `current ≤ previous` (**CANCEL**) and
+  `current > previous` (continue). Named rather than numbered because
+  inserting the redeploy row shifted their positions, which is precisely how
+  a numbered reference goes quietly false.
+
+  Correctness is held by **parity, not by duplication of trust**:
+  `packages/core/build-metadata/src/semver.ts` is the canonical
+  npm-`semver`-backed implementation, and
+  `packages/core/build-metadata/tests/semver-parity.test.ts` asserts the two
+  agree. The inlined copy is a constraint of the pre-install environment, not
+  a preference — and the parity test is what stops it drifting into a second
+  opinion about what a version means.
+
+  _(Corrected 2026-08-04, fourth amendment: this paragraph previously described
+  `semver.valid()` / `semver.lte()` from the npm package as the mechanism. That
+  was never true of this script — a pre-install file has no `node_modules` — so
+  the ADR documented an implementation that could not exist in the environment
+  it was specifying.)_
+
 - **Wiring integration test — removed**: Enforcement §6 (added by the
   first amendment) was removed because the wiring drift surface it
   would have guarded was structurally eliminated by relocating the

@@ -3,10 +3,10 @@ id: design-system-as-configured-framework
 node_type: strategic
 name: "The design system as a configured framework"
 overview: "The Oak Open Curriculum Design System as a layered, identity-agnostic framework in which Oak itself is configuration: general mechanism below, identity data above, with the constrained (non-MIT) surface kept structurally minimal. Professional-designer visual quality is the acceptance bar for every surface that presents the system."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell (owner)"
+ratified_date: 2026-08-05
+ratified_where: "Owner word, Director session Petrel holds Turbulence (a0892f), 2026-08-05: 'Strategic node ratified' — given in the design-lane reopening sitting with the fix-all-known-issues instruction"
 serves: TOOLS-2
 impact_areas:
   - design-system
@@ -14,7 +14,7 @@ gate_expiry_default: P21D
 depends_on: []
 owner_gates: []
 tickets: []
-last_updated: 2026-08-03
+last_updated: 2026-08-05
 ---
 
 # The design system as a configured framework
@@ -83,8 +83,9 @@ The identity-as-configuration thesis is the same split the licensing model makes
 argument and the constraint-surface argument are one architecture seen from two sides —
 the open-by-default bet this node serves (TOOLS-2); the demos it powers are the visual
 front door of the MCP-app strand (APP-1), which consumes this strand's outcome without
-owning it. (Serves edge re-pointed APP-1 → TOOLS-2, 2026-08-02, v1-review finding E65:
-the node's own argument makes the choice.)
+owning it. (Serves edge re-pointed APP-1 → TOOLS-2, 2026-08-02, v1-review finding E65 —
+`.agent/reports/design/plan-review-2026-08-02/findings.v1.json`, array-index convention
+per that ledger's preamble: the node's own argument makes the choice.)
 Every delivery decision in this strand resolves against the kernel above: mechanism
 generalises downward, identity thins upward, and quality claims become structural
 (schemas, gates, generated documentation) rather than remembered.
