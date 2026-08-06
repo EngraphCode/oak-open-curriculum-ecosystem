@@ -15,7 +15,21 @@ const LOCAL = '1111111111111111111111111111111111111111';
 const REMOTE = '2222222222222222222222222222222222222222';
 const ZERO = '0000000000000000000000000000000000000000';
 
-function run(args: { remoteName: string; refsText: string }): {
+/**
+ * What `merge-bot push` actually hands the hook. git passes the push
+ * destination through verbatim, so a push to a URL arrives as the URL — never
+ * as an empty string — and `push-cli.ts` builds exactly this shape for every
+ * bot push.
+ */
+const BARE_URL = 'https://github.com/oaknational/oak-open-curriculum-ecosystem.git';
+
+const CONFIGURED = ['origin', 'upstream'] as const;
+
+function run(args: {
+  remoteName: string;
+  refsText: string;
+  configuredRemotes?: readonly string[];
+}): {
   exit: number;
   scanned: string[];
   warnings: string[];
@@ -23,7 +37,7 @@ function run(args: { remoteName: string; refsText: string }): {
   const scanned: string[] = [];
   const warnings: string[] = [];
   const exit = runPushSecretScan(
-    args,
+    { ...args, configuredRemotes: args.configuredRemotes ?? CONFIGURED },
     (range) => {
       scanned.push(range);
       return true;
@@ -35,20 +49,35 @@ function run(args: { remoteName: string; refsText: string }): {
 
 describe('runPushSecretScan', () => {
   it('warns loudly when a bare-URL destination turns the incremental scan into a full-history walk', () => {
-    // No named remote means no remote-tracking refs to scope the exclusion
-    // against, so the range widens to "not on ANY remote" — a superset that
-    // measured 5,009 commits on this repository while reporting nothing.
+    // The destination names no configured remote, so there are no
+    // remote-tracking refs to scope the exclusion against. Scoping to the URL
+    // is worse than useless: `--remotes=<URL>` is a glob matched against
+    // refs/remotes/*, it matches nothing, and the walk excludes nothing —
+    // 5,014 commits against 0 for the unscoped form.
     const result = run({
-      remoteName: '',
+      remoteName: BARE_URL,
       refsText: `refs/heads/lane ${LOCAL} refs/heads/lane ${ZERO}`,
     });
 
     expect(result.exit).toBe(0);
     expect(result.warnings).toHaveLength(1);
-    // The operator is told WHAT was lost and WHAT it costs, not merely that
-    // something is unusual.
-    expect(result.warnings[0]).toContain('full history');
-    expect(result.warnings[0]).toContain('remote');
+    // The operator is told WHAT was lost and WHAT it costs, and the message
+    // names the destination that cost it.
+    expect(result.warnings[0]).toContain('not a configured remote');
+    expect(result.warnings[0]).toContain(BARE_URL);
+    // The range never carries the URL as a ref glob.
+    expect(result.scanned).toEqual([`${LOCAL} --not --remotes`]);
+  });
+
+  it('warns for a filesystem-path destination too — no scheme, still no tracking refs', () => {
+    // A path destination carries neither "://" nor "@", so recognising it
+    // rests on it naming no configured remote, never on its spelling.
+    const result = run({
+      remoteName: '/srv/mirrors/oak.git',
+      refsText: `refs/heads/lane ${LOCAL} refs/heads/lane ${ZERO}`,
+    });
+
+    expect(result.warnings).toHaveLength(1);
     expect(result.scanned).toEqual([`${LOCAL} --not --remotes`]);
   });
 
@@ -56,6 +85,7 @@ describe('runPushSecretScan', () => {
     const result = run({ remoteName: 'origin', refsText: '' });
 
     expect(result.warnings).toHaveLength(1);
+    expect(result.warnings[0]).toContain('no ref lines');
     expect(result.scanned).toEqual(['HEAD --not --remotes']);
   });
 
@@ -82,7 +112,11 @@ describe('runPushSecretScan', () => {
 
   it('reports a leak as a non-zero exit', () => {
     const exit = runPushSecretScan(
-      { remoteName: 'origin', refsText: `refs/heads/lane ${LOCAL} refs/heads/lane ${REMOTE}` },
+      {
+        remoteName: 'origin',
+        refsText: `refs/heads/lane ${LOCAL} refs/heads/lane ${REMOTE}`,
+        configuredRemotes: CONFIGURED,
+      },
       () => false,
       () => undefined,
     );

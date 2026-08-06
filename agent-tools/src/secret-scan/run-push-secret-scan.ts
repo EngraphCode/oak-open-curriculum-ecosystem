@@ -14,11 +14,34 @@ import { spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-import { computePushScanRanges, degradedScanWarning } from './compute-push-scan-ranges.js';
+import { resolveTrustedGit } from '../core/trusted-git.js';
+import {
+  computePushScanRanges,
+  degradedScanWarning,
+  type ComputePushScanRangesInput,
+} from './compute-push-scan-ranges.js';
 
-export interface PushSecretScanArgs {
-  remoteName: string;
-  refsText: string;
+export type PushSecretScanArgs = ComputePushScanRangesInput;
+
+/**
+ * Ask git which remotes are configured. Whether the push destination can
+ * scope the scan is git's fact, not a guess from the destination's spelling —
+ * git hands the hook a remote NAME or the destination verbatim, and only
+ * membership here tells the two apart. Output is a short list git controls,
+ * so capturing it is a fact about the call rather than an unexamined buffer.
+ */
+function readConfiguredRemotes(): string[] {
+  const result = spawnSync(resolveTrustedGit(), ['remote'], { encoding: 'utf8' });
+  if (result.error !== undefined || result.status !== 0) {
+    // No list means nothing can be treated as scopable — the safe direction:
+    // the scan widens and says so, rather than building a glob that matches
+    // nothing while reporting success.
+    return [];
+  }
+  return result.stdout
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line.length > 0);
 }
 
 /**
@@ -29,6 +52,7 @@ export interface PushSecretScanArgs {
 export function parseArgs(
   argv: readonly string[],
   readFile: (path: string) => string,
+  configuredRemotes: readonly string[],
 ): PushSecretScanArgs {
   let remoteName = '';
   let refsText = '';
@@ -51,7 +75,7 @@ export function parseArgs(
         break;
     }
   }
-  return { remoteName, refsText };
+  return { remoteName, refsText, configuredRemotes };
 }
 
 /**
@@ -108,7 +132,11 @@ function scanRangeWithGitleaks(range: string): boolean {
 
 const currentFilePath = fileURLToPath(import.meta.url);
 if (process.argv[1] === currentFilePath) {
-  const args = parseArgs(process.argv.slice(2), (path) => readFileSync(path, 'utf8'));
+  const args = parseArgs(
+    process.argv.slice(2),
+    (path) => readFileSync(path, 'utf8'),
+    readConfiguredRemotes(),
+  );
   process.exit(
     runPushSecretScan(args, scanRangeWithGitleaks, (message) => process.stderr.write(message)),
   );

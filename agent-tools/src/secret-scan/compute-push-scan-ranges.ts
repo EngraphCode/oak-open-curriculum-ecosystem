@@ -35,21 +35,37 @@ export interface ComputePushScanRangesInput {
    */
   refsText: string;
   /**
-   * The push destination's remote name (the hook's first argument). Empty for a
-   * push to a bare URL, where there are no remote-tracking refs to scope against.
+   * The push destination exactly as git names it in the hook's first argument
+   * (githooks(5)): a remote NAME when the push went to a configured remote,
+   * and otherwise the destination itself — a URL or a filesystem path, passed
+   * through verbatim. It is empty only when nothing invoked this as a hook.
    */
   remoteName: string;
+  /**
+   * The repository's configured remote names (`git remote`). The destination
+   * is scopable only if it appears here: `--remotes=<glob>` is matched against
+   * `refs/remotes/*`, so a destination that names no remote produces a glob
+   * matching nothing — an exclusion set that excludes nothing.
+   */
+  configuredRemotes: readonly string[];
+}
+
+/**
+ * Whether the destination can scope the exclusion — i.e. whether it names a
+ * remote that HAS remote-tracking refs. Decided by membership, never by the
+ * destination's spelling: a filesystem-path destination carries neither
+ * `://` nor `@`, so any URL-shaped heuristic would wave it through.
+ */
+function isScopableRemote({ remoteName, configuredRemotes }: ComputePushScanRangesInput): boolean {
+  return remoteName !== '' && configuredRemotes.includes(remoteName);
 }
 
 /**
  * @returns one gitleaks `--log-opts` range string per scan to run. An empty
  * array means "scan nothing" — e.g. a push that only deletes refs.
  */
-export function computePushScanRanges({
-  refsText,
-  remoteName,
-}: ComputePushScanRangesInput): string[] {
-  const refLines = refsText
+export function computePushScanRanges(input: ComputePushScanRangesInput): string[] {
+  const refLines = input.refsText
     .split('\n')
     .map((line) => line.trim())
     .filter((line) => line.length > 0);
@@ -62,9 +78,13 @@ export function computePushScanRanges({
   }
 
   // Exclude commits already on the DESTINATION remote, scoped by its name, so a
-  // first push of existing commits to a *second* remote still scans them. Fall
-  // back to all remotes when the destination is an unnamed URL.
-  const notAlreadyPushed = remoteName ? `--not --remotes=${remoteName}` : UNSCOPED_EXCLUSION;
+  // first push of existing commits to a *second* remote still scans them. A
+  // destination that names no configured remote cannot scope anything, so it
+  // falls back to the unscoped set rather than building a glob that silently
+  // matches nothing.
+  const notAlreadyPushed = isScopableRemote(input)
+    ? `--not --remotes=${input.remoteName}`
+    : UNSCOPED_EXCLUSION;
 
   const ranges: string[] = [];
   for (const refLine of refLines) {
@@ -88,36 +108,39 @@ export function computePushScanRanges({
 
 /**
  * The loud half of the degradation (R6): this scan exists to walk only the
- * commits being pushed, and two inputs cost it that guarantee — a destination
- * given as a bare URL (no remote name, so no remote-tracking refs to scope
- * against) and a run git supplied no ref lines for. Either way the walk widens
- * to a full-history superset, correct but unbounded: measured at 5,009 commits
- * on this repository, with nothing on either stream to say so.
+ * commits being pushed, and two inputs cost it that guarantee — a run git
+ * supplied no ref lines for, and a destination that names no configured
+ * remote. Either way the exclusion stops being scoped to where the commits
+ * are going, and with no remote-tracking refs at all it is the whole history.
  *
  * Derived from the ranges the caller is ACTUALLY about to scan, never from a
  * second reading of the inputs: a parallel re-derivation is free to drift out
  * of agreement with the thing it describes.
  *
  * @returns the warning to surface, or undefined when every range stayed
- * incremental.
+ * scoped to its destination.
  */
 export function degradedScanWarning(
   ranges: readonly string[],
-  { remoteName }: ComputePushScanRangesInput,
+  input: ComputePushScanRangesInput,
 ): string | undefined {
   if (!ranges.some((range) => range.endsWith(UNSCOPED_EXCLUSION))) {
     return undefined;
   }
+  // Which degradation this is follows from the inputs that distinguish them:
+  // a run with no ref lines has no pushed range at all, and a run with ref
+  // lines got here because its destination could not scope the exclusion.
   const cause =
-    remoteName === ''
-      ? 'the push destination is a bare URL, so there is no named remote whose tracking refs could bound the scan'
-      : 'git supplied no ref lines, so there is no pushed range to scan';
+    input.refsText.trim() === ''
+      ? 'git supplied no ref lines, so there is no pushed range to scan and the whole local history stands in for one'
+      : `the push destination "${input.remoteName}" is not a configured remote, so it has no remote-tracking refs to scope the exclusion against`;
   return (
-    `secret scan: DEGRADED — scanning full history, not just the pushed commits.\n` +
+    `secret scan: DEGRADED — the scan is no longer scoped to the push destination.\n` +
     `  Cause: ${cause}.\n` +
-    `  Effect: the walk covers every commit not reachable from any remote (thousands, ` +
-    `not tens) and takes correspondingly longer. Results stay correct.\n` +
-    `  Fix: push to a NAMED remote (git remote add / git push <name>) to restore the ` +
-    `incremental range.\n`
+    `  Effect: commits are excluded if they are on ANY remote rather than on the ` +
+    `destination, so commits already pushed elsewhere go unscanned; with no ` +
+    `remote-tracking refs at all this walks the entire history. Findings stay correct.\n` +
+    `  Fix: push to a NAMED remote (git remote add <name> <url>, then git push <name>) ` +
+    `to restore the destination-scoped range.\n`
   );
 }
