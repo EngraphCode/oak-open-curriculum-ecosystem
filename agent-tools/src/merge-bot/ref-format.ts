@@ -1,5 +1,8 @@
 import { spawnSync } from 'node:child_process';
 
+import { err, ok, type Result } from '@oaknational/result';
+
+import type { PathExists } from '../core/path-exists.js';
 import { resolveTrustedGit } from '../core/trusted-git.js';
 
 /**
@@ -23,18 +26,39 @@ import { resolveTrustedGit } from '../core/trusted-git.js';
 export type RefFormatOracle = (fullRefName: string) => boolean;
 
 /**
+ * There is no oracle to ask: no trusted git binary was found. Named as a type
+ * so the front door can tell it apart from a malformed argument — a machine
+ * whose git sits outside the trusted directories has an OPERATIONAL problem,
+ * and answering it with a usage dump sends the operator to fix their spelling.
+ */
+export class RefFormatOracleUnavailableError extends Error {}
+
+/**
  * git's own answer. The name is passed as a FULL ref (`refs/heads/<branch>`)
  * because that is the form `git-check-ref-format` documents its rules
  * against; `--branch` is a different question (it also expands `@{-1}`-style
  * shorthand against a repository, which a name being validated must not get).
+ *
+ * The binary is resolved ONCE, here, and its throw translated at this one
+ * boundary (ADR-088, the pattern `resolveGitContext` uses): resolving inside
+ * the returned closure would let the throw escape through whatever
+ * Result-typed function later asks the question.
  */
-export function realRefFormatOracle(): RefFormatOracle {
-  return (fullRefName) => {
-    const result = spawnSync(resolveTrustedGit(), ['check-ref-format', fullRefName], {
+export function realRefFormatOracle(exists?: PathExists): Result<RefFormatOracle, Error> {
+  let gitPath: string;
+  try {
+    gitPath = exists === undefined ? resolveTrustedGit() : resolveTrustedGit(exists);
+  } catch (cause) {
+    return err(
+      new RefFormatOracleUnavailableError(cause instanceof Error ? cause.message : String(cause)),
+    );
+  }
+  return ok((fullRefName) => {
+    const result = spawnSync(gitPath, ['check-ref-format', fullRefName], {
       stdio: ['ignore', 'ignore', 'ignore'],
     });
     return result.error === undefined && result.status === 0;
-  };
+  });
 }
 
 /** Whether `branch` is a legal branch name, per git. */

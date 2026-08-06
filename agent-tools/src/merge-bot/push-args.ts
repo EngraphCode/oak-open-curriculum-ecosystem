@@ -1,5 +1,6 @@
 import { err, ok, type Result } from '@oaknational/result';
 
+import type { PathExists } from '../core/path-exists.js';
 import { isLegalBranchName, realRefFormatOracle, type RefFormatOracle } from './ref-format.js';
 
 /**
@@ -82,23 +83,38 @@ interface CollectedPushFlags {
   json: boolean;
 }
 
+/** The seams this parser will construct for itself when not supplied one. */
+export interface PushArgsSeams {
+  readonly refFormatOracle?: RefFormatOracle;
+  /** Existence probe for locating the git binary the default oracle asks. */
+  readonly pathExists?: PathExists;
+}
+
 /**
  * The oracle enters HERE (the default-seam pattern the rest of this command
  * uses) rather than at the parser's head, so parsing an argv with no
- * `--branch` never reaches for a git binary at all.
+ * `--branch` never reaches for a git binary at all. Constructing it can FAIL —
+ * a machine with no trusted git has no oracle to ask — and that failure is
+ * returned, never thrown: this function's whole contract is its Result.
  */
 function consumeBranch(
   state: CollectedPushFlags,
   value: string | undefined,
-  refFormatOracle: RefFormatOracle | undefined,
+  seams: PushArgsSeams,
 ): Result<undefined, Error> {
   // A repeated --branch is refused rather than last-wins: WHICH branch a push
   // lands on must never be decided by argv order.
   if (state.branch !== undefined) {
     return err(new Error('--branch given more than once — pass it exactly once'));
   }
-  const oracle = refFormatOracle ?? realRefFormatOracle();
-  if (value === undefined || !isBranchName(value, oracle)) {
+  const oracle =
+    seams.refFormatOracle === undefined
+      ? realRefFormatOracle(seams.pathExists)
+      : ok(seams.refFormatOracle);
+  if (!oracle.ok) {
+    return err(oracle.error);
+  }
+  if (value === undefined || !isBranchName(value, oracle.value)) {
     return err(new Error(`--branch needs a git branch name, got "${value ?? ''}"\n${PUSH_USAGE}`));
   }
   state.branch = value;
@@ -107,7 +123,7 @@ function consumeBranch(
 
 export function parsePushArgs(
   rest: readonly string[],
-  seams: { readonly refFormatOracle?: RefFormatOracle } = {},
+  seams: PushArgsSeams = {},
 ): Result<PushArgs, Error> {
   const state: CollectedPushFlags = { json: false };
   for (let index = 0; index < rest.length; index += 1) {
@@ -123,7 +139,7 @@ export function parsePushArgs(
     if (flag !== '--branch') {
       return err(new Error(`unknown argument "${flag}"\n${PUSH_USAGE}`));
     }
-    const consumed = consumeBranch(state, rest[index + 1], seams.refFormatOracle);
+    const consumed = consumeBranch(state, rest[index + 1], seams);
     if (!consumed.ok) {
       return consumed;
     }

@@ -4,6 +4,7 @@ import type { GitExecutor } from './git-executor.js';
 import { mintForConfig, type MintSeams } from './mint-for-config.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import { parsePushArgs, PUSH_USAGE, type PushArgs } from './push-args.js';
+import { RefFormatOracleUnavailableError } from './ref-format.js';
 import {
   currentBranch,
   pushHead,
@@ -161,7 +162,8 @@ export async function runPushAction(
   const parsed = parsePushArgs(rest);
   if (!parsed.ok) {
     input.stderr.write(`merge-bot push: ${parsed.error.message}\n`);
-    return 2;
+    // A missing git binary is an operational failure, never a usage mistake.
+    return parsed.error instanceof RefFormatOracleUnavailableError ? 1 : 2;
   }
   const prepared = await prepare(parsed.value, input);
   if (prepared.kind === 'failed') {
@@ -221,11 +223,9 @@ async function transferAndReport(
     token,
     baseEnv: input.baseEnv ?? process.env,
     tokenFiles: input.tokenFiles,
-    // git's transfer output — and the whole pre-push gate chain's underneath
-    // it — reaches the operator live, chunk by chunk, and is never held in a
-    // buffer this command sized (R1). The gates can talk for as long as they
-    // like; a run that goes minutes without a word is now the gates' silence
-    // to explain, not this command's.
+    // git's transfer output — and the pre-push gate chain's underneath it —
+    // reaches the operator live, chunk by chunk, never held in a buffer this
+    // command sized (R1). The gates may talk for as long as they like.
     onOutput: (chunk) => {
       input.stderr.write(chunk);
     },
@@ -238,8 +238,8 @@ async function transferAndReport(
   }
   const result = pushed.value;
   // The streaming executor keeps nothing back, so this forwards only what an
-  // executor chose to capture instead. Either way it is diagnostics and it
-  // goes to stderr: stdout stays free for the outcome object a machine parses.
+  // executor captured instead. Diagnostics either way, and stderr either way:
+  // stdout stays free for the outcome object a machine parses.
   input.stderr.write(`${result.stdout}${result.stderr}`);
   if (result.status !== 0) {
     input.stderr.write(`merge-bot push: git push exited ${result.status}\n`);
