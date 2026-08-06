@@ -562,3 +562,17 @@ waking seat: read the LATEST resume index FIRST, then the payload records
 (a729c466 + the shaping record through §v2 final shape) — the trigger
 history (three re-pricings today) is irrelevant at wake; only the payload
 pointers and the owner's word matter.
+
+## 2026-08-06 ~19:10Z (Petrel holds Turbulence, a0892f) — MCP-103 workspace shape RATIFIED
+
+- Owner ratified the content-audit report §12.2 recommendation (in-session
+  card, 2026-08-06): ONE content workspace with per-domain views,
+  provenance, diffs, and live/dormant status derived from the MCP-101
+  allowlist. Ratification recorded here at occurrence; the Linear comment
+  awaits a per-act write grant. The build routed to an implementer seat the
+  same hour (worktree, no-push, Director reviews). MCP-144's compliance
+  review start-gate consumes this ratification. Related same-hour findings
+  (submission-truth investigation): MCP-513's only residual falsehood risk
+  is the EXTERNAL Anthropic form draft — Field 5 must be pasted from the
+  corrected listing-copy pack, never the stale draft; MCP-515's ADR-070
+  banner is deferred post-submission by standing owner ruling.
