@@ -45,9 +45,10 @@ two homes and no single tool sees both:
 
    **Detection predicate**: in JSX `href`/`src` attributes on
    subresource-bearing elements (`link`, `img`, `script`) and in
-   exported path constants — a string literal that starts with `/`, or
-   a template literal whose leading static text starts with `/`
-   (protocol-relative `//` exempt in both cases), is an error. Nothing else is. The check reads the COOKED
+   exported path constants — a string literal that starts with `/` is
+   an error, and so is a template literal whose leading static text
+   starts with `/` (protocol-relative `//` exempt in both cases).
+   Nothing else is. The check reads the COOKED
    value (`quasis[0].value.cooked`), never the raw source spelling: an
    escaped leading slash (`\u002F`, `\/`) cooks to `/` and must still
    fire, and the RuleTester suite carries an escaped-leading-slash
@@ -124,18 +125,22 @@ the merge). Internal detail and pickup state ride MCP-510.
 ## Acceptance criteria (each with a proof — required)
 
 1. The rule rejects a root-relative string literal and a
-   root-relative-leading template literal in scope, and accepts the
-   expression-led derived form — proof `repo-safe`: RuleTester unit
-   tests in the plugin (JSX cases under a `.tsx` filename), including
-   the exact message text.
+   root-relative-leading template literal in scope — including the
+   escaped-leading-slash spellings (`\u002F`, `\/`), which cook to `/`
+   and must fire — and accepts the expression-led derived form — proof
+   `repo-safe`: RuleTester unit tests in the plugin (JSX cases under a
+   `.tsx` filename), including the exact message text and the
+   escaped-leading-slash case.
 2. The rule is armed for the app's `src/landing-page/**` and
    `src/app/**` (minus `static-asset-paths.ts`) and the repository
    lints green — proof `repo-safe`: the lint gate in pre-commit/CI.
 3. The walk assertion fails on a synthetic root-relative `url(/…)`
    fixture AND on a synthetic root-relative `@import '/…'` fixture,
-   passes on the real published corpus, and fails on an empty corpus —
-   proof `repo-safe`: the integration test's two red-fixture cases,
-   green-corpus case, and non-empty case.
+   skips protocol-relative `//` targets as external in BOTH reference
+   classes, passes on the real published corpus, and fails on an empty
+   corpus — proof `repo-safe`: the integration test's two red-fixture
+   cases, the two protocol-relative-skipped cases, the green-corpus
+   case, and the non-empty case.
 4. The change introduces zero new Sonar issues — proof `repo-safe`:
    the SonarCloud PR analysis (estate bar, owner word 2026-08-06:
    zero new issues; the configured gate threshold is not the bar).
