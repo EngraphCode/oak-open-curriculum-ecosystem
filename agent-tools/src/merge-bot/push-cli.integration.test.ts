@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { runMergeBotCli, type MergeBotCliInput } from './cli.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
+import { GIT_CREDENTIAL_RESOLUTION_CHAIN } from './git-credential-chain.js';
 import {
   pushHead,
   type GitCommandResult,
@@ -225,12 +226,15 @@ describe('merge-bot push credential discipline', () => {
     expect(await run.exit).toBe(0);
     const push = pushCall(run.calls);
     expect(push?.file).toBe(GIT_PATH);
-    // The whole call, pinned: inherited helpers cleared, then the ONE static
-    // helper literal; the remote carries no credentials; the refspec is
-    // HEAD:<branch>. Nothing else is on the line — no force, no --no-verify.
+    // The whole call, pinned: every config-sourced arm of git's credential
+    // chain cleared, then the ONE static helper literal; the remote carries
+    // no credentials; the refspec is HEAD:<branch>. Nothing else is on the
+    // line — no force, no --no-verify.
     expect(push?.args).toEqual([
       '-c',
       'credential.helper=',
+      '-c',
+      'core.askPass=',
       '-c',
       'credential.helper=!f() { echo username=x-access-token; echo "password=$(cat "$GH_PUSH_TOKEN_FILE")"; }; f',
       'push',
@@ -271,6 +275,41 @@ describe('merge-bot push credential discipline', () => {
     expect(run.removed).toEqual([STORE_DIR]);
   });
 
+  it('closes EVERY arm of git credential-resolution chain, walked from the documented table', async () => {
+    // R9: the contract belongs to git, so the whole chain is enumerated in
+    // push-git.ts and walked here rather than sampled. Each arm is asserted
+    // against the artefact that actually reaches git — the child environment
+    // and the argv — not against the list itself.
+    const inherited = Object.fromEntries(
+      GIT_CREDENTIAL_RESOLUTION_CHAIN.filter((arm) => arm.source === 'env').map((arm) => [
+        arm.name,
+        '/usr/local/bin/leaky-askpass',
+      ]),
+    );
+    const run = runPush({ overrides: { baseEnv: { ...BASE_ENV, ...inherited } } });
+
+    expect(await run.exit).toBe(0);
+    const push = pushCall(run.calls);
+    const args = push?.args ?? [];
+    const env = push?.env ?? {};
+    // Node drops undefined-valued entries at spawn, so undefined is a true
+    // removal: no inherited askpass program reaches git.
+    const leaked = GIT_CREDENTIAL_RESOLUTION_CHAIN.filter(
+      (arm) => arm.source === 'env' && env[arm.name] !== undefined,
+    ).map((arm) => arm.name);
+    expect(leaked).toEqual([]);
+    const uncleared = GIT_CREDENTIAL_RESOLUTION_CHAIN.filter(
+      (arm) => arm.source === 'config' && !args.includes(`${arm.name}=`),
+    ).map((arm) => arm.name);
+    expect(uncleared).toEqual([]);
+    // The terminal arm, closed by its own variable rather than by removal.
+    expect(env.GIT_TERMINAL_PROMPT).toBe('0');
+    // Clearing must never disarm the ONE helper this command installs: the
+    // helper is set AFTER the clear that would otherwise wipe it.
+    const helperIndex = args.findIndex((arg) => arg.includes('x-access-token'));
+    expect(helperIndex).toBeGreaterThan(args.indexOf('credential.helper='));
+  });
+
   it('the helper literal is byte-identical even when git reports a hostile branch name — nothing is interpolated', async () => {
     const hostile = 'lane-$(id)`x`';
     const run = runPush({
@@ -279,7 +318,7 @@ describe('merge-bot push credential discipline', () => {
 
     expect(await run.exit).toBe(0);
     const push = pushCall(run.calls);
-    expect(push?.args[3]).toBe(
+    expect(push?.args).toContain(
       'credential.helper=!f() { echo username=x-access-token; echo "password=$(cat "$GH_PUSH_TOKEN_FILE")"; }; f',
     );
     // The hostile name lands ONLY as data inside the refspec argv element.

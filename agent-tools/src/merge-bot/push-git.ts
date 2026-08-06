@@ -3,6 +3,7 @@ import { spawnSync } from 'node:child_process';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { resolveTrustedGit } from '../core/trusted-git.js';
+import { clearedCredentialConfig, scrubbedCredentialEnv } from './git-credential-chain.js';
 import {
   realTokenFileStore,
   removeQuietly,
@@ -108,13 +109,13 @@ export function resolveGitContext(seams: {
 /**
  * The child environment for the push: the base WHOLESALE, any stale
  * `GH_PUSH_TOKEN` REMOVED (the hook chain must not inherit a token this
- * invocation did not place), and the token-file path added LAST so a stale
- * path in the base can never win over the fresh one. Terminal prompting is
- * disabled alongside: if the helper ever failed to answer, git must fail
- * loudly rather than fall back to asking a human — under shared credentials
- * that human's identity is what the push would carry. (Node drops
- * undefined-valued entries when building the child environment, so the
- * explicit undefined is a true removal, not an empty value.)
+ * invocation did not place), every env-sourced arm of git's credential chain
+ * removed with it (`git-credential-chain.ts` holds the table), and the
+ * token-file path added LAST so a stale path in the base can never win over
+ * the fresh one. Terminal prompting is disabled alongside: if the helper ever
+ * failed to answer, git must fail loudly rather than fall back to asking a
+ * human — under shared credentials that human's identity is what the push
+ * would carry.
  */
 function pushEnv(
   tokenPath: string,
@@ -123,21 +124,23 @@ function pushEnv(
   return {
     ...baseEnv,
     GH_PUSH_TOKEN: undefined,
+    ...scrubbedCredentialEnv(),
     GIT_TERMINAL_PROMPT: '0',
     GH_PUSH_TOKEN_FILE: tokenPath,
   };
 }
 
 /**
- * The push call's argv: inherited helpers cleared (a configured keychain
- * helper must never answer for the bot), then the one static helper. The
- * token is NOT here — argv is visible in the process list to anything that
- * can read it — and neither is any bypass: no force flag, no `--no-verify`.
+ * The push call's argv: every config-sourced arm of the credential chain
+ * cleared (a configured keychain helper, or a configured askpass program,
+ * must never answer for the bot), then the one static helper — last, so the
+ * clear it follows cannot disarm it. The token is NOT here — argv is visible
+ * in the process list to anything that can read it — and neither is any
+ * bypass: no force flag, no `--no-verify`.
  */
 function pushArgv(remote: string, branch: string): readonly string[] {
   return [
-    '-c',
-    'credential.helper=',
+    ...clearedCredentialConfig(),
     '-c',
     `credential.helper=${CREDENTIAL_HELPER}`,
     'push',
