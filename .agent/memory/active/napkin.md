@@ -353,3 +353,20 @@ to the next dedicated consolidation rather than patching the word list.
   independent of the quoted content.
 - **Behaviour change**: pipe literal single-quoted `printf` lines to `--body-file -` for
   multiline GitHub review bodies; this passed without weakening shell safety.
+
+## 2026-08-06 midday (Petrel holds Turbulence, a0892f)
+
+- MISTAKE (self-inflicted, ARC protocol): appended a channel entry with a
+  TIMESTAMP_MARKER placeholder, then substituted it via an in-place
+  python rewrite — a truncate-and-rewrite that every live `tail -F`
+  reads as rotation and replays wholesale (both tails replayed;
+  confirmed first-hand). The protocol names this exact trap. Cure
+  restored: compose the COMPLETE entry (timestamp included) before the
+  single `>>` append; never post-edit a live channel file for any
+  reason; corrections are new entries.
+- Label vocabularies (owner clarification 2026-08-06): Matt's lane uses
+  `pre-submission` = "before the submission happens"; the jimbot fleet's
+  `paused for submission` = "we won't cause turbulence during the
+  submission process". Different meanings, both legitimate — a seat
+  reading one lane's label through the other's vocabulary should not
+  flag it as inconsistency.
