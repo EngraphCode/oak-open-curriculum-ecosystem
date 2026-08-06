@@ -600,7 +600,9 @@ pointers and the owner's word matter.
   work with no imposed order (Sonar config tightening included, though
   judgment holds CI-adjacent config edits until Actions is stable).
   TRIPWIRE (explicit, owner-set): 2026-08-11 after 10:00 Europe/London —
-  re-review the five items' states. Carried here as the durable record, in
-  the session cron as best-effort, and it MUST ride every resume index
-  until it fires. A Linear ticket with a due date mints only at a per-act
-  owner word (standing embargo discipline).
+  re-review the five items' states. Owner corrected the mechanism the same
+  hour ("this session is unlikely to still be running in 5 days, the
+  tripwire should be cloud based") — that word was the per-act Linear
+  grant: MCP-519 minted (due 2026-08-11, assigned to the owner, the five
+  items enumerated, agent-authorship marked), the session cron deleted.
+  MCP-519 IS the tripwire; this entry is its provenance.
