@@ -532,3 +532,22 @@ to the next dedicated consolidation rather than patching the word list.
   identity and the findings' durable home; design-lane convergence hold restated
   (owner-gated wake). Verification of the claims themselves is NOT this entry —
   the wake-window seat runs it.
+
+## 2026-08-06T17:05Z (Petrel holds Turbulence, a0892f) — counterpoint identity resolved (correction)
+
+- The 16:53Z "unregistered peer" entry above is corrected by the seat's own
+  reply: "counterpoint" is this session's own pre-compaction debate
+  interlocutor, bound at the shaping record's opening ("the Director seat
+  versus a spawned Opus interlocutor ('counterpoint')") — the compaction
+  dropped the spawn from working memory, and the search instrument covered
+  claims/comms surfaces only, where subagents correctly never register. Its
+  three findings were already homed in the shaping record (§Outcome items
+  1–7, closing corrections) — by this seat, pre-compaction. One real gap
+  surfaced by the reply: the axis-2 precedent inspection evidence was
+  unrecorded; conserved same hour as a dated addendum to the shaping record
+  (evidence-conservation, no mandate change), all three quotes re-verified
+  against principles.md first-hand. Lesson (instrument-scope class): a
+  "matched nothing" identity verdict is only as wide as the surfaces
+  searched — tracked reports can bind names that state surfaces never
+  carry; post-compaction, add the session's own spawn history to the
+  search set before declaring a peer unknown.

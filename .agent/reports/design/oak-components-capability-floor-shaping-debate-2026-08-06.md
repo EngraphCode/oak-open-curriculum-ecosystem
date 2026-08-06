@@ -531,3 +531,33 @@ whole-floor witness tuple as the consistency obligation, the amendment
 anti-erosion taxonomy, the slab registry with the two excellence slabs
 and the non-floor register — then the floor proceeds to its
 ratification moment per the existing consumption wiring.
+
+## Addendum — axis-2 precedent inspection evidence (conserved 2026-08-06, post-ratification)
+
+Evidence-conservation only — no mandate change; the anti-erosion
+taxonomy governs amendments and this entry proposes none. §Outcome
+item 3 records the axis-2 outcome ("No preamble") and the telemetry
+notes the interlocutor "refuted the Director's own precedent citation
+first-hand", but the inspection evidence itself was never recorded.
+It surfaced at the interlocutor's hand-back (idle notification
+timestamped 09:01Z, identity resolved 16:53Z; the interlocutor
+correctly declined to edit this ratified base and routed the evidence
+to the Director). The three `principles.md` lines that defeat the
+preamble analogy, re-verified first-hand at conservation (2026-08-06,
+lines 18, 24–25, 40–41):
+
+> All of these principles MUST be followed at all times.
+
+> apply these lenses **in order**; the first that decisively resolves
+> the question governs
+
+> A question arriving as an either/or is usually a false frame (owner
+> standing directive, 2026-06-29).
+
+The framing text of `principles.md` carries the same normative status
+as its numbered lenses — a universal quantifier, an operative
+instruction, and an owner standing directive all sit in framing prose
+— so the document labels nothing non-binding and cannot serve as
+precedent for a non-binding preamble. This completes the record behind
+item 3's outcome; the wake-window seat consumes it with the rest of
+this record.
