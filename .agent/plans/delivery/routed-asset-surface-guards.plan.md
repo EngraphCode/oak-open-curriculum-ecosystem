@@ -76,9 +76,14 @@ two homes and no single tool sees both:
 
 2. **Published-CSS assertion** inside the existing `@import`-closure
    walk in
-   `apps/oak-curriculum-mcp-streamable-http/build-scripts/copy-oak-ds.integration.test.ts`
-   (`collectUrlReferences`): one `target.startsWith('/')` check (with
-   `//` exempt) BEFORE `resolveRelative`, extended to cover the
+   `apps/oak-curriculum-mcp-streamable-http/build-scripts/copy-oak-ds.integration.test.ts`:
+   one leading-`/` check (with `//` exempt) on BOTH reference classes
+   the walk already collects — `url(...)` targets
+   (`collectUrlReferences`) AND `@import` targets
+   (`collectImportClosure`), since a bare root-relative
+   `@import '/assets/x.css'` rides the same normalisation and would
+   otherwise stay green (Copilot review finding on this PR, adopted)
+   — each check BEFORE `resolveRelative`, extended to cover the
    tracked `public/landing-page.css` via the existing helper, with a
    non-empty-corpus assertion so an absent build output can never
    read as a pass. Placement justification, verified at plan-author
@@ -101,8 +106,8 @@ helper, and flat-config `files`-glob arming all confirmed against the
 live tree; the published-CSS corpus confirmed currently clean, so the
 assertion lands green with a red synthetic fixture proving it bites.
 
-Precondition (landed): PR #794 merged 2026-08-06 (tip `dd6aff00a`,
-merge `cf954e6c`) — `ROUTED_ASSET_BASE` exists on main at
+Precondition (landed): PR #794 merged 2026-08-06 (tip `SHA:dd6aff00a`,
+merge `SHA:cf954e6c`) — `ROUTED_ASSET_BASE` exists on main at
 `src/app/static-asset-paths.ts`. The pickup seat branches from a base
 containing it (main; note the 2026-08-06 coordination branch predates
 the merge). Internal detail and pickup state ride MCP-510.
@@ -117,10 +122,11 @@ the merge). Internal detail and pickup state ride MCP-510.
 2. The rule is armed for the app's `src/landing-page/**` and
    `src/app/**` (minus `static-asset-paths.ts`) and the repository
    lints green — proof `repo-safe`: the lint gate in pre-commit/CI.
-3. The `url()`-walk assertion fails on a synthetic root-relative
-   `url(/…)` fixture, passes on the real published corpus, and fails
-   on an empty corpus — proof `repo-safe`: the integration test's
-   red-fixture, green-corpus, and non-empty cases.
+3. The walk assertion fails on a synthetic root-relative `url(/…)`
+   fixture AND on a synthetic root-relative `@import '/…'` fixture,
+   passes on the real published corpus, and fails on an empty corpus —
+   proof `repo-safe`: the integration test's two red-fixture cases,
+   green-corpus case, and non-empty case.
 4. The change introduces zero new Sonar issues — proof `repo-safe`:
    the SonarCloud PR analysis (estate bar, owner word 2026-08-06:
    zero new issues; the configured gate threshold is not the bar).
