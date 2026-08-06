@@ -6,6 +6,9 @@ import { MERGE_USAGE } from './merge-args.js';
 import { runMergeAction, type MergeActionInput } from './merge-cli.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import { mintForConfig, type MintedToken } from './mint-for-config.js';
+import { PUSH_USAGE } from './push-args.js';
+import { runPushAction, type PushActionInput } from './push-cli.js';
+import type { GitExecutor } from './push-git.js';
 import { resolveMintTokenConfig } from './resolve-config.js';
 import { permissionNamesFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
 
@@ -61,6 +64,10 @@ export interface MergeBotCliInput {
   readonly readReadingImpl?: (options: ReadPrStateOptions) => Result<PrStateReading, Error>;
   readonly sleepImpl?: (ms: number) => Promise<void>;
   readonly nowIsoImpl?: () => string;
+  /** Push-action seams: the git binary, its executor, and the child's base environment. */
+  readonly gitExecutor?: GitExecutor;
+  readonly gitPath?: string;
+  readonly baseEnv?: Readonly<Record<string, string | undefined>>;
 }
 
 const USAGE = `merge-bot mint-token --scope <${TOKEN_SCOPE_NAMES.join('|')}> [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
@@ -79,7 +86,8 @@ ${TOKEN_SCOPE_NAMES.map((name) => `    ${name}: ${permissionNamesFor(name).join(
   --scope, not a broken bot: an ungranted permission fails the mint with a 422.
   Other 403s (ruleset refusals, rate limits) are not scope problems.
 
-${MERGE_USAGE}`;
+${MERGE_USAGE}
+${PUSH_USAGE}`;
 
 /** Forward the CLI's injection seams to the merge action. */
 function mergeActionInputFrom(input: MergeBotCliInput): MergeActionInput {
@@ -97,6 +105,26 @@ function mergeActionInputFrom(input: MergeBotCliInput): MergeActionInput {
     readReadingImpl: input.readReadingImpl,
     sleepImpl: input.sleepImpl,
     nowIsoImpl: input.nowIsoImpl,
+  };
+}
+
+/** Forward the CLI's injection seams to the push action. */
+function pushActionInputFrom(input: MergeBotCliInput): PushActionInput {
+  return {
+    identityInput: {
+      envHome: input.env.HOME,
+      repoRoot: input.repoRoot,
+      readConfigFileImpl: input.readConfigFileImpl,
+    },
+    repoRoot: input.repoRoot ?? process.cwd(),
+    stdout: input.stdout,
+    stderr: input.stderr,
+    fetchImpl: input.fetchImpl,
+    readFileImpl: input.readFileImpl,
+    nowEpochSeconds: input.nowEpochSeconds,
+    gitExecutor: input.gitExecutor,
+    gitPath: input.gitPath,
+    baseEnv: input.baseEnv,
   };
 }
 
@@ -121,6 +149,9 @@ export async function runMergeBotCli(input: MergeBotCliInput): Promise<number> {
   }
   if (action === 'merge') {
     return runMergeAction(rest, mergeActionInputFrom(input));
+  }
+  if (action === 'push') {
+    return runPushAction(rest, pushActionInputFrom(input));
   }
   if (action !== 'mint-token') {
     input.stderr.write(`merge-bot: unknown action "${action}"\n${USAGE}`);
