@@ -91,3 +91,18 @@ stands.
 
 Everything else is another seat's clock (C, E, #750) or a deliberate
 hold (#772, #807).
+
+## Strikes (2026-08-06 ~21:00Z)
+
+Merged: #781 and #790 (owner's hand, 20:39/20:40 — cluster A's audit
+and the whole S1–S5 tooling chain head); #755, #764, #770, #775, #780,
+#785 (owner batch, 20:45–20:57 — the gate-ledger pair, the #746
+amendment plan, the Birch harvest, the standing edits, and the design
+cure round). Effects: #746's steps are now applicable (its amendment
+is on main); the gate-ledger lane's PR-1..6 are routable; the design
+lane's open set is #783/#784/#787/#737. Remaining in ceremony: #800
+(suppressed-findings cured at fbd67e638) and #767 (third CodeQL
+re-fire) — both merge at CLEAN. The owner also applied effort labels
+across the estate; the label ledger
+(`docs/engineering/pr-label-ledger.md`) is the authority from this
+strike onward.
