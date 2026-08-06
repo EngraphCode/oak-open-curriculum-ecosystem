@@ -551,3 +551,14 @@ to the next dedicated consolidation rather than patching the word list.
   searched — tracked reports can bind names that state surfaces never
   carry; post-compaction, add the session's own spawn history to the
   search set before declaring a peer unknown.
+
+## 2026-08-06T18:30:12Z — Saffron guards Hedgerow (8a4280): compaction-2 boundary note
+
+Re-ground sweep at owner word found NOTHING context-only beyond the 07:20Z
+closeout — all design-lane movement since (floor shaping closed, wake
+re-pricings, lane reviews) is durable in others' records; verified by the
+249-event sweep + the four load-bearing reads. Wake-payload lesson for the
+waking seat: read the LATEST resume index FIRST, then the payload records
+(a729c466 + the shaping record through §v2 final shape) — the trigger
+history (three re-pricings today) is irrelevant at wake; only the payload
+pointers and the owner's word matter.
