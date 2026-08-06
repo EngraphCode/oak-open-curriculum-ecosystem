@@ -2584,3 +2584,39 @@ delivered to the owner 2026-08-05 ~14:58Z at his ask.
   from origin/main, carrying only this one line — do not sweep the design
   lane's dirty files (napkin, design-system thread record, two untracked
   handover/comms files) which are theirs.
+
+## 2026-08-06T07:19:05Z — Saffron guards Hedgerow (8a4280): wrap captures at seat end (fresh relaunch succession)
+
+- SURPRISE (platform): Claude Code v2.1.223 worktree isolation landed mid-fleet-day —
+  worktree-RESIDENT seats refused Monitor arms + principal git; my primary-resident
+  monitors passed the whole time. Residency determines the guard, not the command.
+  Cure adopted fleet-wide (owner-worded): launch at principal, arm monitors, THEN
+  enter lanes; CLI is the front door; recurring watches belong in agent-tools
+  (ruling 6 backlog: heartbeat-loop + release/deploy watch commands).
+- LESSON (the round-2 structural diagnosis, Director-endorsed): point-instance cures
+  on multiply-stated invariants leave CURE-EDGE RESIDUE — round 1's 20 cures spawned
+  ≥6 of round 2's 9 findings (uncured sibling statements; two contracts cured
+  separately leaving their intersection open; deletion cures whose pointer-claimed
+  re-homing never landed). Standing cure discipline, adopted for the combined
+  window: grep-enumerate EVERY statement of a touched invariant before editing;
+  verify EVERY pointer's landing after a deletion cure.
+- CORRECTION (recurring, twice more today): piping a CLI through tail masked its
+  real error both times (concept-gate block on "parked"; comms direct usage error).
+  The exit-codes-in-band rule caught both within one step. Never pipe a command
+  whose failure surface you need to read.
+- OBSERVATION: the comms concept gate blocked "parked" as indefinite-deferral
+  vocabulary and the reappraisal text was right — the state had a named gate
+  (Director wake) and saying so was the better title. The gate works as designed.
+- LOSS-SCAN (wrap, written at occurrence): (1) the round-2 DURABLE RECORD is
+  deliberately deferred to the combined cure window (per the round-1 pattern:
+  record rides the cures) — its substance is durable meanwhile in the round-2
+  package (comms events 89ca156c/70f47b9d), the Director's adjudication event
+  a729c466, and the design ARC file; the successor authors the record at the
+  window. (2) The read-only pinned worktree .claude/worktrees/re-run-target
+  (568160df7) is RETAINED for the delta-verify — do not prune before the window
+  closes. (3) UNRESOLVED INFERENCE, do not inherit as fact: whether this seat was
+  "launched-in-worktree" (Director's classification) — its monitors armed clean,
+  which fits primary residency; residual doubt stands. (4) Blind-spot bound: my
+  watcher was down during the two owner-pause windows; foreground sweeps covered
+  both (final sweep ~07:18Z caught the Director adjudication); events after that
+  sweep are outside this seat's visibility.

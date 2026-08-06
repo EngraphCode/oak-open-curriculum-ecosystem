@@ -554,3 +554,46 @@ Adjudication at the seat (grounded in the landed node text):
 
 Split routed to the sitting Director (Petrel holds Turbulence) with
 complete verdicts and this adjudication, per §Adjudicate the panel.
+
+## Run 2026-08-06 ~06:58Z — extraction-pilot Cricket moment 2: contract freeze, before build (Drake spins Obsidian, 46636e)
+
+The pilot node's second named moment: fired on the frozen extraction
+contract (census event d0368b2a — five duplication classes, ten-gate
+assessment, placement verdict deviating from the plan's packages/libs
+default on gate evidence). Full two-quartet suite via the
+task-notification path; real per-leg telemetry.
+
+| Role | Stance | Verdict | Tokens | Seconds | Tools |
+| --- | --- | --- | --- | --- | --- |
+| judgement-low (fable/low) | normal | ON-TRACK | 29,005 | 16 | 1 |
+| judgement-medium (opus/medium) | normal | ON-TRACK +redirect | 29,461 | 39 | 2 |
+| judgement-high (sonnet/high) | normal | ON-TRACK | 30,248 | 26 | 2 |
+| procedure-xhigh (haiku/xhigh) | normal | ON-TRACK | 22,409 | 56 | 2 |
+| judgement-low (fable/low) | adversarial | ON-TRACK | 29,113 | 15 | 1 |
+| judgement-medium (opus/medium) | adversarial | ON-TRACK +redirect | 30,520 | 33 | 2 |
+| judgement-high (sonnet/high) | adversarial | ON-TRACK +redirect | 32,583 | 46 | 2 |
+| procedure-xhigh (haiku/xhigh) | adversarial | ON-TRACK | 22,157 | 102 | 2 |
+
+Split 8-0 — the first unanimous panel of the pilot (M1 split 4-4 on
+the capability axis; the M1 cure — grounding the sequencing claims in
+the plan's own text and carding the deviation — removed exactly the
+gap the M1 DRIFTING cells caught, and this frame carried that
+grounding from the start).
+
+Redirects, all ADOPTED: (1) start the opener slice (Class 1 + Class 3,
+placement-independent) in parallel with the ARC adjudication rather
+than behind it (both medium-adversarial and high-adversarial); (2)
+tighten the byte-equality wording where the contract text travels
+next — "zero byte-identical FILE pairs" coexists with "code-equal
+run-data.ts (docblock-only diff)" and "byte-duplicate deriveInlined
+FUNCTION BODY"; the extraction-PR text states the granularity
+explicitly (medium-adversarial); (3) card the placement fork as a
+verdict-shaped single ask carrying the reversibility fact
+(medium-normal; delivered to the Director on the ARC channel before
+the panel closed).
+
+Owner-gate interleave worth recording: the owner's PR #786
+ratification card answer ("Ratified — stamp and merge") arrived
+mid-panel via the Director — the stamp commit executed between the
+waves without perturbing the frame (the panel judges the census/build
+question, which the ratification does not move).
