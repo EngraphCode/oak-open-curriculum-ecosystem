@@ -9,12 +9,13 @@
  *
  * The 2026-08-06 pass retired the invite-only positioning at the owner's word
  * (MCP-509, carrying the copy work raised under MCP-128): the status tag now
- * reads "Public Beta", and the access line names an Oak account anyone can
- * create rather than internal staff or an invitation. Both statements are true
- * as read — Clerk is on production and sign-in is open, which the owner
- * verified against production with a non-Oak email and no invitation. That is
- * the condition these words depend on: if access is ever narrowed again, this
- * page states something false and both strings must change with it.
+ * reads "Public Beta", and the access line asks the reader to sign in with
+ * their Oak account rather than naming internal staff or an invitation. Both
+ * statements are true as read — Clerk is on production and sign-in is open,
+ * which the owner verified against production with a non-Oak email and no
+ * invitation. That is the condition these words depend on: if access is ever
+ * narrowed again, this page states something false and both strings must
+ * change with it.
  *
  * The one value that is not authored is the connection snippet's URL, which
  * arrives through the view-props seam (`mcpEndpointUrl`), derived ONCE at
@@ -144,7 +145,7 @@ export function ConnectSection({
           OAuth 2.1 authorisation
         </a>
         {'. '}
-        You will be prompted to log in with an Oak account, which anyone can create.
+        You will be prompted to sign in with your Oak account.
       </p>
     </section>
   );
