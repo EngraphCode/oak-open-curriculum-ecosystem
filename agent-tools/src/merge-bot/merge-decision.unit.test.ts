@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import type { PrVerdict } from '../pr-watch/state-types.js';
-import { decideMergeAction } from './merge-decision.js';
+import { PR_VERDICT_STATES, type PrVerdict } from '../pr-watch/state-types.js';
+import { decideMergeAction, verdictAwaitsSettlement } from './merge-decision.js';
 
 /**
  * The verdict→action mapping is the heart of `merge-bot merge`: it acts only
@@ -71,5 +71,19 @@ describe('decideMergeAction', () => {
     if (decision.kind === 'refuse') {
       expect(decision.reason).toContain('--expect');
     }
+  });
+});
+
+describe('verdictAwaitsSettlement', () => {
+  // The CLOSED partition of the verdict set: exactly these three verdicts
+  // resolve by waiting (checks finishing, a live review run completing, the
+  // quiet window elapsing). Everything else needs an operator act or is
+  // terminal, so polling on it would burn the budget silently. Iterating the
+  // whole set means a verdict state added later FAILS here until it is
+  // deliberately classified.
+  const waitStates = ['SETTLING-QUIET-WINDOW', 'CHECKS-RUNNING', 'WAITING-REVIEW-RUN-LIVE'];
+
+  it.each(PR_VERDICT_STATES)('classifies %s deliberately', (state) => {
+    expect(verdictAwaitsSettlement(state)).toBe(waitStates.includes(state));
   });
 });

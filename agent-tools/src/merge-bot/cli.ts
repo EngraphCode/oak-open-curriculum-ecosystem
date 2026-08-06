@@ -1,3 +1,7 @@
+import type { ReadPrStateOptions } from '../pr-watch/state-gh.js';
+import type { PrStateReading } from '../pr-watch/state-types.js';
+import { MERGE_USAGE } from './merge-args.js';
+import { runMergeAction, type MergeActionInput } from './merge-cli.js';
 import type { GithubApiFetch } from './mint-installation-token.js';
 import { mintForConfig, type MintedToken } from './mint-for-config.js';
 import { resolveMintTokenConfig } from './resolve-config.js';
@@ -39,6 +43,12 @@ export interface MergeBotCliInput {
   readonly fetchImpl?: GithubApiFetch;
   readonly readFileImpl?: (path: string) => Promise<string>;
   readonly nowEpochSeconds?: () => number;
+  /** Merge-action seams (same discipline as the block above). */
+  readonly readReadingImpl?: (options: ReadPrStateOptions) => PrStateReading;
+  readonly sleepImpl?: (ms: number) => Promise<void>;
+  readonly nowIsoImpl?: () => string;
+  /** Base environment for the merge action's tokenised gh executor (the topic passes process.env). */
+  readonly baseEnv?: Readonly<Record<string, string | undefined>>;
 }
 
 const USAGE = `merge-bot mint-token --scope <${TOKEN_SCOPE_NAMES.join('|')}> [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
@@ -56,7 +66,28 @@ ${TOKEN_SCOPE_NAMES.map((name) => `    ${name}: ${permissionNamesFor(name).join(
   A 403 reading "Resource not accessible by integration" means the wrong
   --scope, not a broken bot: an ungranted permission fails the mint with a 422.
   Other 403s (ruleset refusals, rate limits) are not scope problems.
-`;
+
+${MERGE_USAGE}`;
+
+/** Forward the CLI's injection seams to the merge action. */
+function mergeActionInputFrom(input: MergeBotCliInput): MergeActionInput {
+  return {
+    identityInput: {
+      envHome: input.env.HOME,
+      repoRoot: input.repoRoot,
+      readConfigFileImpl: input.readConfigFileImpl,
+    },
+    stdout: input.stdout,
+    stderr: input.stderr,
+    fetchImpl: input.fetchImpl,
+    readFileImpl: input.readFileImpl,
+    nowEpochSeconds: input.nowEpochSeconds,
+    readReadingImpl: input.readReadingImpl,
+    sleepImpl: input.sleepImpl,
+    nowIsoImpl: input.nowIsoImpl,
+    baseEnv: input.baseEnv,
+  };
+}
 
 function writeSuccess(outcome: MintedToken, json: boolean, input: MergeBotCliInput): void {
   if (json) {
@@ -77,11 +108,20 @@ export async function runMergeBotCli(input: MergeBotCliInput): Promise<number> {
     input.stderr.write(USAGE);
     return 2;
   }
+  if (action === 'merge') {
+    return runMergeAction(rest, mergeActionInputFrom(input));
+  }
   if (action !== 'mint-token') {
     input.stderr.write(`merge-bot: unknown action "${action}"\n${USAGE}`);
     return 2;
   }
+  return runMintTokenAction(rest, input);
+}
 
+async function runMintTokenAction(
+  rest: readonly string[],
+  input: MergeBotCliInput,
+): Promise<number> {
   const config = resolveMintTokenConfig(rest, {
     envHome: input.env.HOME,
     repoRoot: input.repoRoot,

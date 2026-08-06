@@ -125,6 +125,9 @@ describe('runMergeExecution', () => {
       expect(outcome.value.kind).toBe('refused');
       if (outcome.value.kind === 'refused') {
         expect(outcome.value.reason).toContain('CHECKS-RED');
+        // The verdict travels as a FIELD so the CLI poll loop reads it by
+        // name, never by parsing the prose reason.
+        expect(outcome.value.verdictState).toBe('CHECKS-RED');
       }
     }
     expect(calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(false);
@@ -152,6 +155,7 @@ describe('runMergeExecution', () => {
       expect(outcome.value.kind).toBe('refused');
       if (outcome.value.kind === 'refused') {
         expect(outcome.value.reason).toContain('merge commits');
+        expect(outcome.value.verdictState).toBe('SETTLE-READY');
       }
     }
     expect(calls.some((call) => call.url.endsWith('/pulls/42/merge'))).toBe(false);

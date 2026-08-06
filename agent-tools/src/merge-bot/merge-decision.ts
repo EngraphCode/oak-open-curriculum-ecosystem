@@ -17,6 +17,21 @@ import type { PrVerdict } from '../pr-watch/state-types.js';
 export type MergeDecision =
   { readonly kind: 'merge' } | { readonly kind: 'refuse'; readonly reason: string };
 
+/**
+ * The verdicts a bounded poll may legitimately outwait: each resolves by
+ * time alone — checks finishing, a live review run completing, the quiet
+ * window elapsing. Every other verdict needs an operator act or is
+ * terminal, so polling on it would burn the budget silently; the CLI
+ * refuses those immediately instead.
+ */
+export function verdictAwaitsSettlement(state: PrVerdict['state']): boolean {
+  return (
+    state === 'SETTLING-QUIET-WINDOW' ||
+    state === 'CHECKS-RUNNING' ||
+    state === 'WAITING-REVIEW-RUN-LIVE'
+  );
+}
+
 export function decideMergeAction(input: {
   readonly verdict: PrVerdict;
   readonly allowMergeCommit: boolean;

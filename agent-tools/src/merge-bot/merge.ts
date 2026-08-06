@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { parseWithSchema } from '../core/schema-parse.js';
 import type { GhCommandExecutor } from '../pr-watch/gh.js';
 import { readPrStateReading, type ReadPrStateOptions } from '../pr-watch/state-gh.js';
-import type { PrStateReading } from '../pr-watch/state-types.js';
+import type { PrStateReading, PrVerdict } from '../pr-watch/state-types.js';
 import { computePrVerdict } from '../pr-watch/states.js';
 import { decideMergeAction } from './merge-decision.js';
 import { mintForConfig, type MintedToken, type MintSeams } from './mint-for-config.js';
@@ -50,7 +50,12 @@ export interface MergeExecutionInput {
 /** The execution outcome: merged, or a typed refusal the caller reports by name. */
 export type MergeOutcome =
   | { readonly kind: 'merged'; readonly sha: string }
-  | { readonly kind: 'refused'; readonly reason: string };
+  | {
+      readonly kind: 'refused';
+      readonly reason: string;
+      /** The verdict as a FIELD, so the poll loop reads it by name, never by parsing prose. */
+      readonly verdictState: PrVerdict['state'];
+    };
 
 const GITHUB_API = 'https://api.github.com';
 
@@ -199,7 +204,7 @@ async function gateAndMerge(context: {
     expectedDeclared: reading.expectedDeclared,
   });
   if (decision.kind === 'refuse') {
-    return ok({ kind: 'refused', reason: decision.reason });
+    return ok({ kind: 'refused', reason: decision.reason, verdictState: verdict.state });
   }
   return putMerge(fetchImpl, token, {
     identity: input.identity,
