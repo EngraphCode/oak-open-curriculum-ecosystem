@@ -13,8 +13,10 @@ import { pushHead, resolveGitContext } from '../src/merge-bot/push-git';
  *
  * git runs the repository's whole pre-push gate chain, and that chain's
  * output flows back through this seam. Its volume is the gates' to decide,
- * never this command's (R1), so it is streamed — and the only way to know
- * that is to put more than a buffer's worth through it and watch.
+ * never this command's (R1), so it is conserved in files and replayed in
+ * full — never buffered in a size this command chose, never carried on a
+ * Node pipe (F-112) — and the only way to know that is to put more than a
+ * buffer's worth through it and watch.
  *
  * Two legs. The first drives twice the measured corpus through the executor
  * itself; the second is the live fire (R8): a real repository, a real bare
