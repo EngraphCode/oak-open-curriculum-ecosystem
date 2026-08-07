@@ -866,3 +866,19 @@ opening state; this constraint rides any routing brief VERBATIM.
   preparatory branch pushed to the remote (loss-risk closed); the two
   spent cure worktrees pruned (proven merged); no monitors, tasks, or
   crons remain.
+
+## 2026-08-07 ~09:5xZ (Panther rides Midnight, 7efb00) — seating: the branch moved under a benched seat
+
+- NEAR-MISS (caught by tooling, not vigilance): this seat grounded ~08:2xZ on
+  coordination/estate-2026-08-06 @17dc8a3f1, then benched (cold → warm pause at owner
+  word). While it was benched the owner cured two review rounds on the fold, #791 MERGED
+  (14c8a7ce2, 08:44Z), and the estate rotated to coordination/2026-08-07-91db0c — the
+  primary checkout switched branches under the paused session. The first seating-block
+  Edit fired against the pre-fold snapshot and the Edit tool's file-state guard refused
+  it; nothing was written wrong. Cure adopted at the seat: after ANY benched window,
+  re-run the branch/HEAD/status triad before editing shared continuity surfaces — a
+  bench is a grounding boundary, not a continuation.
+- Instrument note: the comms stream carried NONE of this — fold, cures, and rotation are
+  git-side acts. A seat watching comms alone reads a quiet morning. The instruments that
+  see it are the MCP-521 interim check (`git rev-list --left-right --count` vs the
+  remote) and a plain `git log` at wake; both are cheap enough to run unconditionally.
