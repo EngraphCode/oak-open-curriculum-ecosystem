@@ -1,3 +1,10 @@
+## [1.153.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.3...v1.153.4) (2026-08-07)
+
+
+### Bug Fixes
+
+* **mcp-server:** state the canonical origin in the headers Clerk reads ([78db1c7](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/78db1c764ab7ebb1da627ca889b8be7e8022b528))
+
 ## [1.153.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.2...v1.153.3) (2026-08-07)
 
 ## [1.153.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.1...v1.153.2) (2026-08-07)
