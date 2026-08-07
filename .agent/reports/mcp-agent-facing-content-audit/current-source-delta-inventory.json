@@ -171,6 +171,12 @@
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/conditional-clerk-middleware.ts",
+      "semanticSha256": "30652a639378d1e8963ebb383bac042ee591eecf07a4e9035c39fab1b5d269c1",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/env-clerk-guards.ts",
       "semanticSha256": "fceb09166d44b587a2093664fd9595c3a9741662ad5efb3efd197ce59e083274",
       "itemIds": [],
@@ -389,6 +395,12 @@
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/mcp-middleware.ts",
       "semanticSha256": "330e97824013a4fd69bfc0c259ba7fb977e1127f11359d597a333c8d58428250",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/mcp-public-browser-leg.ts",
+      "semanticSha256": "959581bc8a8ca60e63e6badef9a0d74914a3b8bf6108f9640ef6d55deb2d3ffb",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
