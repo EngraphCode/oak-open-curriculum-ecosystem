@@ -52,7 +52,7 @@ export interface PushActionInput {
   readonly gitPath?: string;
   /**
    * Base environment for the git child. Defaults to `process.env` at the leaf
-   * (the default-seam pattern `merge.ts`'s `tokenisedEnv` records): Node
+   * (the default-seam pattern `merge.ts`'s `readEnv` records): Node
    * REPLACES a provided child env rather than merging it, so injecting the
    * token-file path forces constructing the whole environment, and git needs
    * PATH and friends underneath.
