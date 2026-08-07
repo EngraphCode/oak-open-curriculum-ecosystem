@@ -561,8 +561,8 @@ day — the missing damping seat *is* the signal.
   "the machinery is proven" from a run that had actually returned a 500; a fault
   dismissed as an artefact of direct navigation that the in-flow retest showed was
   real. **Read the body, not the status; the run is the arbiter, not the
-  "should".** (The host's enforcement surface for this is its verification rule;
-  on this host, `verify-dont-trust` § Name the Instrument.)
+  "should".** (The Practice's enforcement surface for this class is its
+  verification rule — `verify-dont-trust` § Name the Instrument.)
 - **Staging earns its keep, repeatedly.** The owner's prove-on-dev-first ruling,
   adapted to a preview bound to the production auth realm when the dev instance
   could not cover the leg, caught a real launch blocker plus two further

@@ -9,7 +9,10 @@ impact_areas:
   - practice-and-estate
 gate_expiry_default: P21D
 depends_on: []
-owner_gates: []
+owner_gates:
+  - awaiting: owner-decision
+    clears_when: "The owner ratifies the register's shape and each direction's promotion trigger"
+    expires: 2026-08-28
 tickets: []
 last_updated: 2026-08-06
 ---
