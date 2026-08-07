@@ -20,10 +20,11 @@ edges:
 ## Context
 
 Design systems commonly ship JavaScript-heavy component runtimes. This
-system's consumers include server-rendered HTML surfaces (ADR-217) where a
-scripting dependency would be a structural mismatch, and the reference
-source's styled-components runtime is exactly the coupling being avoided
-(DDR-006).
+system's consumers include server-rendered HTML surfaces
+([ADR-217](../../architecture/architectural-decisions/217-server-rendered-html-in-the-mcp-app.md))
+where a scripting dependency would be a structural mismatch, and the
+reference source's styled-components runtime is exactly the coupling being
+avoided (DDR-006).
 
 ## Decision
 
@@ -36,8 +37,9 @@ consumers, never shipped as styled behaviour.
 ## Consequences
 
 - Consumers adopt the system with a stylesheet and one script; no framework
-  lock-in at the styling layer (ADR-213 keeps the React tier separate and
-  optional).
+  lock-in at the styling layer
+  ([ADR-213](../../architecture/architectural-decisions/213-design-system-integration-and-component-architecture.md)
+  keeps the React tier separate and optional).
 - The theme applier is the only place where runtime state and CSS meet,
   which is what makes the choice model (DDR-003) enforceable.
 - Behaviour proposals route to headless primitives or the consumer, never

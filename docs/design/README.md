@@ -9,8 +9,7 @@ last_updated: 2026-08-07
 # Design Decision Records (DDRs)
 
 > **Navigation**: [Docs Home](../README.md) |
-> [Architectural Decisions](../architecture/architectural-decisions/README.md) |
-> [Design-system completion plan](../../.agent/plans/delivery/design-system-completion.plan.md)
+> [Architectural Decisions](../architecture/architectural-decisions/README.md)
 
 Design Decision Records capture decisions about the **design system as a
 designed artefact** — visual language, theming, palette derivation, licensing
@@ -37,13 +36,22 @@ graph tooling ingests them, never the reverse.
 Edge types (all lists, all optional):
 
 - `depends_on` — DDRs this decision presupposes.
-- `constrains` — DDRs or surfaces this decision bounds.
+- `constrains` — DDRs this decision bounds (DDR ids only).
 - `supersedes` / `superseded_by` — replacement lineage (paired).
-- `informed_by` — non-DDR inputs (research, reports, plan nodes, PRs).
-- `related` — ADRs, PDRs, and other records sharing substance.
+- `informed_by` — inputs that shaped the decision (research, reports, PRs).
+- `related` — records sharing substance (ADRs, PDRs, licence surfaces, PRs).
 
-Status lifecycle: `proposed` → `accepted` (decision made, provenance dated)
-→ `ratified` (explicit owner word recorded) → `superseded`.
+DDRs cite durable surfaces and artefact identities (a PR number, a repo
+path), never lifecycle moments; execution detail lives in plans, and plans
+cite DDRs — never the reverse.
+
+Status grades the DECISION's authority: `proposed` (not yet decided) →
+`accepted` (decided — at a delegated seat, or landed through owner-merged
+work without explicit ratifying word) → `ratified` (explicit owner word on
+the decision itself) → `superseded`.
+
+The mermaid overview below is a curated subset: every drawn edge is a
+declared edge with its declared direction; not every declared edge is drawn.
 
 ## Template
 
@@ -52,12 +60,13 @@ Status lifecycle: `proposed` → `accepted` (decision made, provenance dated)
 ddr: DDR-NNN
 title: <decision as a sentence>
 status: proposed | accepted | ratified | superseded
-date: YYYY-MM-DD
+date: YYYY-MM-DD # date of the decision, not of the record
 deciders: <who decided, at what authority>
 edges:
   depends_on: []
   constrains: []
   supersedes: []
+  superseded_by: []
   informed_by: []
   related: []
 ---
@@ -82,9 +91,9 @@ edges:
 | [DDR-003](design-decisions/003-theme-state-is-the-choice-never-the-applied-value.md) | Theme state is the choice, never the applied value | accepted |
 | [DDR-004](design-decisions/004-five-themes-access-themes-are-first-class.md)         | Five themes; access themes are first-class         | accepted |
 | [DDR-005](design-decisions/005-licence-follows-provenance.md)                        | Licence follows provenance                         | ratified |
-| [DDR-006](design-decisions/006-oak-components-is-reference-never-dependency.md)      | Oak Components is reference, never dependency      | accepted |
-| [DDR-007](design-decisions/007-palette-values-derive-never-copy.md)                  | Palette values derive, never copy                  | accepted |
-| [DDR-008](design-decisions/008-floor-conformance-is-a-closed-predicate.md)           | Floor conformance is a closed predicate            | ratified |
+| [DDR-006](design-decisions/006-oak-components-is-reference-never-dependency.md)      | Oak Components is reference, never dependency      | ratified |
+| [DDR-007](design-decisions/007-palette-values-derive-never-copy.md)                  | Palette values derive, never copy                  | ratified |
+| [DDR-008](design-decisions/008-floor-conformance-is-a-closed-predicate.md)           | Floor conformance is a closed predicate            | accepted |
 
 ```mermaid
 graph TD

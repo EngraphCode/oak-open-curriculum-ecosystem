@@ -1,9 +1,9 @@
 ---
 ddr: DDR-008
 title: Floor conformance is a closed predicate
-status: ratified
+status: accepted
 date: 2026-08-06
-deciders: Jim Cresswell (owner ratifications, shaping close)
+deciders: Director seat under owner delegation (2026-08-06)
 edges:
   depends_on: [DDR-006]
   constrains: []
@@ -11,7 +11,7 @@ edges:
   informed_by:
     - .agent/reports/design/oak-components-capability-floor-shaping-debate-2026-08-06.md
   related:
-    - 'PR #783 — the floor draft this shape supersedes in substance'
+    - 'PR #783 — the capability floor document this shape supersedes in substance'
 ---
 
 # DDR-008: Floor conformance is a closed predicate
@@ -33,8 +33,8 @@ Floor conformance is a **closed, mechanical predicate** (the v2 shape):
 - **Witnesses are defeasible**: each carries LIVE status and decays to
   non-witnessing when its evidence goes stale, rather than rotting as a
   permanent claim.
-- **RELEASE-PERMITTED** is loud on the estate and silent on the artefact,
-  with a per-invocation owner card.
+- **RELEASE-PERMITTED** is loud on the estate and silent on user-facing
+  artefacts, with a per-invocation owner card.
 - **Suspension of a harm-class obligation needs two keys**, never one
   actor.
 - Transformations over the floor are **versioned**; the coverage registry
@@ -52,7 +52,7 @@ Floor conformance is a **closed, mechanical predicate** (the v2 shape):
 
 ## Provenance
 
-- Shaping record through §"The v2 final shape" (on main), closing the
-  2026-08-05/06 floor conversation: owner ratifications, a cross-vendor
-  challenge round, and the owner's delegation of the final shape
-  (2026-08-06).
+- Shaping record through §"The v2 final shape", closing the 2026-08-05/06
+  floor conversation: owner ratifications of the intermediate positions, a
+  cross-vendor challenge round, and the final shape decided at the Director
+  seat under the owner's delegation (2026-08-06).

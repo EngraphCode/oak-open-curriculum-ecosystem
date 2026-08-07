@@ -28,11 +28,12 @@ masquerade as user choices.
 
 Observable theme state is the **explicit user choice only**. The applied
 theme is presentation output and never round-trips into state. The kit
-contract is the `choice(): OakThemeName | null` accessor (MCP-388); the
-shared store exposes a two-level snapshot — `undefined` = no runtime (the
-hydration gate), `''` = runtime present, no explicit choice — and
+exposes the choice through a dedicated accessor (MCP-388), and the shared
+store's snapshot distinguishes no-runtime from no-explicit-choice; the store
 deliberately carries no contrast-media mirror (probe-proven inert under this
-model: the OS-contrast path writes only the applied attribute).
+model: the OS-contrast path writes only the applied attribute). The accessor
+signature and sentinel encodings live at their home,
+`packages/design/oak-design-react/README.md`.
 
 ## Consequences
 
@@ -45,7 +46,9 @@ model: the OS-contrast path writes only the applied attribute).
 
 ## Provenance
 
-- Kit 1.8.0 `choice()` accessor: PR #710 (2026-08-02). Shared store with the
-  two-level snapshot: PR #715 (same day; ADR-213 §3 tier landing).
+- Kit 1.8.0 choice accessor: PR #710 (2026-08-02). Shared store with the
+  two-level snapshot: PR #715 (same day; the
+  [ADR-213](../../architecture/architectural-decisions/213-design-system-integration-and-component-architecture.md)
+  §3 tier landing).
 - The conflation defect and its cure trace through PR #644
   (closed-with-pointer at #715's landing).

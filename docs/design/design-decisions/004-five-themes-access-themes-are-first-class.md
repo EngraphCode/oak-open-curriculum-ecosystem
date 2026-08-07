@@ -10,8 +10,7 @@ edges:
   supersedes: []
   informed_by:
     - demos/oak-curriculum-hub/components/ThemeSwitcher.tsx
-  related:
-    - .agent/plans/delivery/design-system-completion.plan.md
+  related: []
 ---
 
 # DDR-004: Five themes; access themes are first-class

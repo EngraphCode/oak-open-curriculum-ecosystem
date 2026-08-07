@@ -9,10 +9,8 @@ edges:
   constrains: [DDR-002, DDR-008]
   supersedes: []
   informed_by:
-    - .agent/plans/strategic/design-system-as-configured-framework.plan.md
-    - 'PR #737 — Oak Components anatomy, intent and evolution (research, open)'
-  related:
-    - .agent/plans/delivery/design-system-completion.plan.md
+    - 'PR #737 — Oak Components anatomy, intent and evolution'
+  related: []
 ---
 
 # DDR-001: The design system is a configured framework

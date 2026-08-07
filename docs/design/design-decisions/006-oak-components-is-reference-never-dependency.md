@@ -1,16 +1,16 @@
 ---
 ddr: DDR-006
 title: Oak Components is reference, never dependency
-status: accepted
+status: ratified
 date: 2026-08-05
-deciders: Jim Cresswell (owner shaping); design lane
+deciders: Jim Cresswell (owner shaping words, 2026-08-05); design lane
 edges:
   depends_on: [DDR-002]
   constrains: [DDR-007, DDR-008]
   supersedes: []
   informed_by:
-    - 'PR #737 — Oak Components anatomy, intent and evolution (research, open)'
-    - 'PR #783 — Oak Components capability-and-value floor (draft)'
+    - 'PR #737 — Oak Components anatomy, intent and evolution'
+    - 'PR #783 — Oak Components capability-and-value floor'
   related:
     - .agent/reports/design/oak-components-capability-floor-shaping-debate-2026-08-06.md
 ---

@@ -31,9 +31,9 @@ Licence is determined by **where the material originated**, never by what it
 is about:
 
 - Code and repo-authored prose: **MIT**.
-- Material already published on an Oak surface outside this repo (brand
-  voice toolkit text, curriculum content): **© Oak National Academy, OGL
-  v3.0**.
+- Material already published on an Oak surface outside this repo and its
+  apps (brand voice toolkit text, curriculum content): **© Oak National
+  Academy, OGL v3.0**.
 - Oak trademarks, logos, and brand elements: covered by **neither** —
   reserved, never licensed by this repo.
 
@@ -42,9 +42,10 @@ is about:
 - New authored material needs no licence decision — its provenance decides.
 - The constrained surface (Oak-published, Oak-marked) is the enumerated
   exception; MIT is the default, stated once at the root.
-- The provenance rule is stated identically on every licence surface (kit
-  README §Licence, LICENCES.md, LICENSING-MANIFEST.md) so the surfaces
-  cannot disagree; edits land across all three in one change.
+- Every licence surface (the kit README's licence statement, LICENCES.md,
+  LICENSING-MANIFEST.md) states the same provenance rule in substance and
+  cites the same authority chain; per-file-class dispositions belong to
+  LICENSING-MANIFEST.md alone.
 
 ## Provenance
 
