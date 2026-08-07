@@ -39,7 +39,7 @@ plan, not here.
 
 - Palette review checks derivability: same seed, same output; a value equal
   to a reference value without an attribution row is a defect.
-- Contrast machinery (across all five themes, DDR-004) binds every
+- Contrast machinery (across all four palette themes, DDR-004) binds every
   derivation — a derived value that breaks it is re-derived, never waived.
 - The audit that motivated this decision lives in the sitting records;
   execution sequencing lives in the completion plan, not here.
