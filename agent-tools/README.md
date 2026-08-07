@@ -449,6 +449,28 @@ bundle, run `record-staged` once and do not re-stage that file afterwards.
 registry after that changes the payload being verified and `verify-staged`
 reports the recursion with corrective guidance.
 
+## Claude statusline quick reference
+
+The Claude Code statusline is rendered by the built adapter
+`dist/src/claude/statusline-identity.js`, invoked via the project shim
+`.claude/scripts/statusline-identity.mjs` (configured in
+`.claude/settings.json` `statusLine`). It reads the JSON payload Claude
+Code passes on stdin and renders identity, coordination glyphs, model,
+context/usage percentages, and git location. Environment controls:
+
+- `OAK_STATUSLINE_LOGO` — logo style: `braille-sharp` (default),
+  `braille`, `quad`, `sextant`, or `none` (two-line layout).
+- `OAK_STATUSLINE_MOTION` — set to disable the logo animation cycle.
+- `OAK_STATUSLINE_LOG_FILE` — diagnosis logging: set to a path ending
+  `.log` and the adapter appends one timestamped line per invocation
+  carrying the raw stdin payload (malformed and noop payloads included);
+  unset means no logging; a non-`.log` path is refused. Logging failures
+  are swallowed — the statusline never breaks for its own diagnostics.
+  Set it per-machine in `.claude/settings.local.json` under `env` (e.g.
+  `".logs/statusline.log"` — the repo's gitignored log directory) and
+  restart the session; usage-segment diagnosis walkthrough:
+  [troubleshooting §Statusline segments missing](../docs/operations/troubleshooting.md#statusline-segments-missing-or-payload-diagnosis).
+
 ## `claude-agent-ops` quick reference
 
 - `status [--watch]` — list known background agents and their current phase

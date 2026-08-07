@@ -338,6 +338,31 @@ positional args instead:
 
 ## Agent Workflow Issues
 
+### Statusline Segments Missing, or Payload Diagnosis
+
+When an expected statusline segment does not render (context %, session
+or weekly usage %, identity, git location), the question splits: is the
+adapter dropping it, or did the harness never send the field? The
+adapter deliberately drops absent fields — for example the usage
+percentages render only when the payload carries `rate_limits`, which
+Claude Code includes only for Claude.ai subscriber auth after the first
+model response.
+
+To see exactly what the harness sends, set the diagnosis log and
+restart the session:
+
+```json
+// .claude/settings.local.json (machine-local, untracked)
+{ "env": { "OAK_STATUSLINE_LOG_FILE": ".logs/statusline.log" } }
+```
+
+Each statusline invocation then appends one timestamped line with the
+raw stdin payload to the named `.log` file (the path must end `.log`;
+`.logs/` is the repo's gitignored log directory). Read the latest line
+and check which fields are present. Unset the variable to stop logging.
+Mechanism reference:
+[agent-tools README §Claude statusline quick reference](../../agent-tools/README.md#claude-statusline-quick-reference).
+
 ### Background Reviewer Agents Not Returned
 
 Reviewer sub-agents dispatched near the end of a conversation
