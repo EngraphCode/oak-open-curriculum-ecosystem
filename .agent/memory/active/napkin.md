@@ -80,3 +80,19 @@ record).
   (JSON leaves included), so the gap is per-validator, not structural. Cured at
   source this pass (references restated portably at owner word); the validator
   gap rides the Director packet as a tooling pointer.
+
+## Next-session brief (owner-agreed 2026-08-07): the step-6a longitudinal napkin synthesis
+
+- A fresh session runs `consolidate-docs` step 6a (archive-scale historical
+  synthesis). Corpus window: ALL napkins archived since the 2026-05-29
+  synthesis marker — 37 files (`archive/napkin-*` dated 2026-05-30 onward,
+  incl. `napkin-2026-08-07.md`), ~2.9MB. Rationale recorded at the 2026-08-07
+  closeout: the marker protocol starts there (three prior reports through
+  2026-05-29 in `research/agentic-engineering/continuity-memory-and-knowledge-flow/`);
+  the window spans the estate's three regime changes (June solo→team comms
+  substrate, July fleet/coordination-branch era, hardened August practice), and
+  longitudinal value concentrates at regime boundaries; a smaller N strands
+  napkins outside every future marker window. Report home + processed-marker
+  duty per step 6a; the estate's napkin-corpus-analysis pipeline
+  (`agent-tools/src/corpus-analysis/`) is the sized engine (~20-25 mapper
+  windows).
