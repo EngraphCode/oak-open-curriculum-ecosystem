@@ -22,7 +22,7 @@ import { SCOPES_SUPPORTED } from '../scopes-supported.js';
  */
 export const SEARCH_TOOL_DEF = {
   title: 'Search Curriculum',
-  description: `Search Oak's curriculum using semantic search across all four content indexes.
+  description: `Hybrid lexical and semantic search across lessons, units and threads, plus lexical sequence search (scoped)
 
 Required parameters: \`scope\` (which index to search) and \`query\` (your search query). For \`threads\` scope, \`query\` may be omitted if \`subject\` or \`keyStage\` is provided.
 

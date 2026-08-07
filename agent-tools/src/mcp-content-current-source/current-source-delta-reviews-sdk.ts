@@ -83,7 +83,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C246', 'C247', 'C248', 'C249', 'C250', 'C251'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/tool-definition.ts': reviewed(
-    '31efd948175661a2eeccf1020a56288617179e607517727ee75564cd5f6e775c',
+    '1440c68d8d72dce84e14cba44345f08f9b220234469b9627befddc37f18db818',
     ['C065', 'C066', 'C067', 'C068'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts': reviewed(
