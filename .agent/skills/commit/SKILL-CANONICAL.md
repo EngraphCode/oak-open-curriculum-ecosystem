@@ -583,10 +583,14 @@ layer.)
 (observed 2026-06-17) was FIXED at `b2ae96898` per F-112: the mechanism was
 a Node child-stdio socketpair on the spawned git's stderr poisoning the hook
 chain (hook shell SIGPIPE at the handover; `set -e` silent exit 1); the
-workflow's `runInheritedProcess` now gives children file-backed stdio and
-replays the conserved output on completion, reporting exit code and signal
-distinctly. The workflow is the proper path and works from Claude Code.
-A plain `git commit` typed at a direct terminal is unaffected.
+workflow's child runner (now `runFileBackedChild`) gives children
+file-backed stdio and replays the conserved output on completion,
+reporting exit code and signal distinctly. The workflow is the proper path and works from Claude Code.
+A plain `git commit` typed at a direct terminal is unaffected. The same
+class hit `merge-bot push` on 2026-08-07 (its git child was still on pipe
+stdio) and was cured the same way: the runner now lives at its shared home
+`agent-tools/src/core/file-backed-child.ts` and the push executor runs
+through it — the F-112 register entry carries the push-path instance.
 
 **Observation (active 2026-04-23, Cursor)**: when `git commit` is invoked from
 the Cursor Shell tool with stdout/stderr streaming live, the pre-commit
