@@ -834,3 +834,35 @@ re-evaluation needs the live-API semantics probe first; served-tool-table
 artefact regen) still wait for routing. The probe worktree
 (upstream-spec-probe, refreshed cache + regen uncommitted) is the lane's
 opening state; this constraint rides any routing brief VERBATIM.
+
+## 2026-08-07 ~09:1xZ (Petrel holds Turbulence, a0892f) — wrap: verification outcome, a correction, and the calibration lesson
+
+- OUTCOME (production verified): after a fresh interactive OAuth grant, the
+  full canonical path proved end-to-end on www — discovery (PRM + AS
+  metadata consistent), DCR (201 with real credentials), interactive grant,
+  and five authenticated tools returning real curriculum data (rate-limit
+  unlimited-key shape matching MCP-513's truth; semantic search returning
+  three genuine KS3 lessons with full pedagogical payloads). The
+  submission-critical path is proven live.
+- CORRECTION to the 2026-08-07 ~09:0xZ canonical-URL entry above: the
+  failing "specimen" was a STALE CACHED OAUTH GRANT (alpha-era resource
+  binding held by this session's client) refusing to present against www's
+  PRM — correct RFC 8707 client conduct, and NOT evidence about the alpha
+  URL's viability. Alpha-client impact remains untested (one strict-client
+  datum only); the alpha domain's future is an open owner choice.
+- CALIBRATION LESSON (owner-corrected, morning of 2026-08-07): three rushed
+  conclusions in one arc — "alpha can no longer work" from one client
+  refusal; "flipped in v1.153.0" with no timeline evidence; MCP-307 closed
+  fast while its own DoD asked for real-client verification on both hosts.
+  The owner's word: "stop rushing to conclusions, slow down, discuss." The
+  cure that worked every time this 24h was the direct test (the #767 merge
+  attempt, the DCR probe, the fresh-grant tool run) — verify-dont-trust
+  §Name the Instrument was already the rule; the miss was applying it
+  under narrative momentum. Scope: this seat, standing; candidates for the
+  retrospective's orthogonal-coverage corpus.
+- WRAP: day record at
+  `.agent/reports/agentic-engineering/estate-order-outage-and-verification-2026-08-06-07.md`;
+  machine-local handoff record written per no-handover-commits; the 103
+  preparatory branch pushed to the remote (loss-risk closed); the two
+  spent cure worktrees pruned (proven merged); no monitors, tasks, or
+  crons remain.
