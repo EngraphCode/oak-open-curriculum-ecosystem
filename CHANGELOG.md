@@ -1,3 +1,11 @@
+## [1.153.10](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.9...v1.153.10) (2026-08-07)
+
+
+### Bug Fixes
+
+* **agent-tools:** knip gate names crash-class child deaths on the surviving stream ([12ab8ef](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/12ab8efc6a76e4a66effa13ef9d2605d9accc27e))
+* **agent-tools:** merge-bot push gives git file-backed stdio via shared core runner (F-112) ([5e72530](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5e725306b21deb25d9a0d2aeb8cd37d568c37db5))
+
 ## [1.153.9](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.8...v1.153.9) (2026-08-07)
 
 ## [1.153.8](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.7...v1.153.8) (2026-08-07)
