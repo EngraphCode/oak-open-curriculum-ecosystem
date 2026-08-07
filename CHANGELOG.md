@@ -1,3 +1,12 @@
+## [1.153.8](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.7...v1.153.8) (2026-08-07)
+
+
+### Bug Fixes
+
+* **agent-tools:** cure the review round — regression test and obligation sweep ([dbc35f8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/dbc35f8ec18d6c4d27ee7d4bf27addf851cbccbb))
+* **agent-tools:** cure the suppressed-comment residues — two more statements ([e0c7cf6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e0c7cf65027659a6d36f7062564468db75bb437f))
+* **agent-tools:** plan validity is repo-internal — remove the ticket-existence obligation ([8687bf6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8687bf6f0025bb72053a4dc937a22808534df283))
+
 ## [1.153.7](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.6...v1.153.7) (2026-08-07)
 
 

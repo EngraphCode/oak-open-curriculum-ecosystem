@@ -175,7 +175,7 @@ detection/selection per the four-demo amendment — the kit-owned identity runti
   his card answer and recorded in the charter ADR's provenance. Where earlier rounds
   asserted repository states first-hand reads falsify, this text carries the
   verified state.
-- Landing path: plan nodes land in the anchored subtree under the plans conformance
+- Landing path: plan nodes land under the plans conformance
   validator; demo workspaces land under the `demos/` tier rules (strict TS, shared
   ESLint, TDD, WCAG 2.2 AA) with the W1.1/W5.1 plumbing stories carrying the
   workspace-registration contract.
