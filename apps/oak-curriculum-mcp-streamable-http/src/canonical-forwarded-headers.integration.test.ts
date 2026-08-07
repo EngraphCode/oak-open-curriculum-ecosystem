@@ -69,7 +69,7 @@ const EDGE_SUPPLIED_HEADERS = {
  */
 async function headersAfterShim(
   canonicalHost: string | undefined,
-  sentHeaders: Record<string, string>,
+  sentHeaders: Readonly<Record<string, string>>,
 ): Promise<IncomingHttpHeaders> {
   const app = express();
   const shim = createCanonicalForwardedHeaders(canonicalHost);
@@ -119,7 +119,7 @@ async function assembleApp(
  */
 async function observeAtClerk(
   env: Record<string, string>,
-  sentHeaders: Record<string, string>,
+  sentHeaders: Readonly<Record<string, string>>,
 ): Promise<IncomingHttpHeaders> {
   const captured: { headers?: IncomingHttpHeaders } = {};
   const captureClerk: RequestHandler = (req, _res, next) => {
@@ -154,7 +154,7 @@ async function observeAtClerk(
  */
 async function pageStatus(
   env: Record<string, string>,
-  sentHeaders: Record<string, string>,
+  sentHeaders: Readonly<Record<string, string>>,
 ): Promise<number> {
   const app = await assembleApp(env, (_req, _res, next) => next());
 
