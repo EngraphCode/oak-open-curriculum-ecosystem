@@ -882,3 +882,20 @@ opening state; this constraint rides any routing brief VERBATIM.
   git-side acts. A seat watching comms alone reads a quiet morning. The instruments that
   see it are the MCP-521 interim check (`git rev-list --left-right --count` vs the
   remote) and a plain `git log` at wake; both are cheap enough to run unconditionally.
+
+## 2026-08-07 ~10:55Z — Curator pass captures (Gull lifts Nimbus, 3da0ae)
+
+- **Filtered-output duplicate send (own hands):** piped `comms direct` through
+  `grep -oE '"event_id": …'` — but that verb prints `wrote comms event <id>`, not JSON, so
+  a SUCCESSFUL send read as silence and I re-sent, minting a duplicate directed event
+  (5314ffdc + dafaa66f, same subject/body). The wrapped-exit/filtered-view class one verb
+  over: derive output filters from the verb's OBSERVED output (comms send prints JSON;
+  comms direct prints a prose line) — the same schema-vs-observed discipline the watcher
+  rule teaches for notification filters. Cure applied: read the unfiltered surface before
+  any retry of a write-shaped command; the second send was the error, not the first.
+- **Comms concept gate vs doctrine clause names:** the gate's expediency-hedging block
+  fires on "carve-out", which is the LITERAL name of testing-strategy.md's
+  designed-sentinel clause (and appeared in the drained register row's target field). A
+  seat conversing on comms ABOUT that clause must paraphrase its name. Reappraisal path
+  worked (rephrased in one pass); noting the naming collision — either the clause name
+  eventually earns a gate-safe rename, or this stays a known paraphrase point.
