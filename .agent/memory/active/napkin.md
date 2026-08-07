@@ -1000,3 +1000,50 @@ directive-headroom seat); Director adjudications on f81076d9.
 - Session restart mid-pass killed watcher/heartbeat/F-75 (tasks b4xxolaxt/b3purjrog/
   bza9dxisi); re-armed fresh (b6zjqxrxw/bxfeee9lr/bqfbv0yfd), parity 0/0 before and
   after, gap sweep clean.
+
+## 2026-08-07 — design seat (8a4280), review-debt closure arc
+
+- **Residency resets between turns**: the Bash shell's cwd reverted to the
+  primary checkout THREE times today (after backgrounded commands / system
+  turns), twice putting git chains in the wrong tree (both failed safe by
+  &&-chaining and exact-match Edits). Cure adopted: every git-affecting
+  chain opens with an explicit `cd`; a mismatched validator banner or an
+  impossible line number is the decoy tell.
+- **Sweep the invariant's vocabulary VARIANTS**: the dead ticket obligation
+  survived my class sweep in two files because it wore different words
+  ("derived anchoring", "execution lives in Linear") than the phrase I
+  grepped ("anchored subtree"). Copilot's SUPPRESSED comments (collapsed
+  review-body block — fetch them explicitly, they're not threads) caught
+  both. Same generator as cure-edge residue, one level down: enumerate
+  synonyms before declaring a sweep complete.
+- **Configure-checks-not-blindly-obey fired late**: I minted a ticket to
+  satisfy a validator whose premise the owner had overruled the same day
+  (knot named by the owner; matrix resolved at lens 1; Cricket 5–3).
+  The tell: manufacturing an external-service write to satisfy a repo
+  check. Repo validity must be derivable from the repo alone.
+
+## 2026-08-07 ~16:1xZ (Gull lifts Nimbus, 3da0ae) — continuation items 3-8 dispositioned
+
+- Item 3 LANDED: PDR-015 third 2026-08-07 amendment (tier calibration — low-tier
+  findings need line-item verification, opus doc-verifiers highest per-token yield),
+  citing the fleet-topology run record as provenance.
+- Item 4 LANDED: canonical-URL ruling homed at
+  docs/operations/production-debugging-runbook.md §Production Endpoints and Hosts
+  (owner-corrected precision kept: no version-flip timeline claim).
+- Item 5 VERIFIED-AND-CURED: the day record was missing the MCP-517/518 arc entirely —
+  pointer landed in its §Rulings to the fleet-topology run record; diagnosis substance
+  stays on the tickets.
+- Item 6 LANDED: multi-ref push = one gate chain → pr-lifecycle §Tree and gates.
+- Item 7 DISPOSITIONED: Cursor + Gemini vendor memory stores are EMPTY (no curated
+  surfaces; chats/ai-tracking are session logs, GEMINI.md zero lines). Codex carries a
+  substantial git-versioned corpus (~/.codex/memories: MEMORY.md 1,421 lines,
+  raw_memories.md 3,120 lines, 46 rollout summaries, a skills dir) — a Claude-standard
+  graduation audit over it is fleet-scale and owner-priced; ROUTED as a sized candidate
+  in the closing packet, deliberately not run from this seat.
+- Item 8 PROCESSED: practice box drained-to-receipt — resonance bundle receipted
+  (event 795ab080) with all ten dispositions appended to the bundle file. Notable:
+  PDR-117 host-indirection offer verified ALREADY-CONVERGED; real-fs testing-doctrine
+  offer registered as an owner-priced candidate, directive-budget-gated.
+- Mid-pass estate movement, no impact on this claim: Director succession shadow opened
+  (Plover lifts Troposphere b10c37 standby behind Panther 7efb00, event 093c254a);
+  Saffron 8a4280 heartbeat freshened (F-75 retired→offline transition = wake signal).

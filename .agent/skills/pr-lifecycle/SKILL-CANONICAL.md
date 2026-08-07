@@ -93,7 +93,11 @@ into the permanent record):
    resolving it solo is how approved versions get silently reverted.
 2. **Tree and gates**: working tree clean; a successful push already ran the
    full pre-push gate suite, so a clean push IS the local-green proof — do not
-   re-run gates just to re-confirm it.
+   re-run gates just to re-confirm it. When several branches need pushing,
+   push them as ONE multi-ref command (`git push origin refA refB refC`) —
+   the pre-push gate chain runs once per push invocation, not per ref, so N
+   separate pushes pay the ~3-minute suite N times for the same tree
+   (first-hand, 2026-08-06).
 3. **Worktree PRs**: a worktree's branch should have carried a draft PR from
    its first commit (`worktree-hygiene` §1); this skill takes it to ready.
 4. **Scope the PR for review, not for tidiness**: an artefact that invites

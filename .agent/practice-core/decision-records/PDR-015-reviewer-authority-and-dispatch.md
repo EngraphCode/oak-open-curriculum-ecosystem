@@ -26,6 +26,15 @@ against each other).
 
 ## Amendment Log
 
+- **2026-08-07 amendment (third) — tier calibration from the
+  2026-08-06 MCP-517/518 fleet (Gull lifts Nimbus / claude-code /
+  claude-fable-5; continuity-memory-and-knowledge-flow thread;
+  landing first-hand fleet-ops evidence from the napkin corpus at the
+  dedicated consolidation).** Low-tier finder legs confabulate under
+  ambiguity, so their findings and confidence labels require
+  line-item verification; high-tier doc-verifier legs measured
+  highest yield per token. New bullet in §Dispatch model floor.
+
 - **2026-08-07 amendment (second) — prior-art before design review;
   plans of consequence get a tiered fleet review (Gull lifts Nimbus /
   claude-code / claude-fable-5; continuity-memory-and-knowledge-flow
@@ -513,6 +522,24 @@ disciplines follow:
   keeping unblocked surfaces moving. Never fall back to a less
   capable tier, never silently drop the dispatch, and critically
   assess fallback output like any substitute.
+- **Tier calibration, first-hand (2026-08-06 MCP-517/518 adversarial
+  fleet, 23 seats over the Clerk wrong-domain diagnosis; full run
+  record:
+  `.agent/reports/agentic-engineering/fleet-topology-adversarial-review-2026-08-06.md`).**
+  Two
+  measured behaviours refine tier-per-leg dispatch. Low-tier finder
+  seats (haiku-high) confabulated context under ambiguity — one
+  invented a PR, one misread bake vs runtime — so a low-tier leg's
+  findings, INCLUDING its own confidence labels, require line-item
+  verification before acceptance; the tier buys coverage, never
+  trust. High-tier vendor-doc verifiers (opus-high) were the fleet's
+  highest-yield seats per token: both claim refutations and the
+  vendor-guide upgrade that settled the diagnosis came from the six
+  doc-verifier seats. Where a fleet budget forces a choice, fund the
+  verification legs at high tier before widening the finder pool —
+  the same atomic-judgment/verification split
+  [PDR-122](PDR-122-agentic-judgment-pipelines.md) prescribes for
+  judgment pipelines.
 
 ### Prior-art and plan-of-consequence dispatch disciplines (2026-08-07 amendment)
 
