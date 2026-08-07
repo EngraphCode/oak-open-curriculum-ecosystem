@@ -1,5 +1,6 @@
 ---
 ddr: DDR-007
+iri: urn:uuid:18aa1bc0-1221-4344-808b-a1ff28481f51
 title: Palette values derive, never copy
 status: ratified
 date: 2026-08-05
@@ -17,8 +18,9 @@ edges:
 ## Context
 
 The Figma kit and Oak Components palettes are Oak-copyrighted expression. A
-2026-08-05 audit found 68 of 83 palette values in this repo were exact Oak
-Components matches — meaning a **verbatim value match is treated as evidence
+2026-08-05 audit found 68 of the 83 audited hex palette values in this repo
+were exact Oak Components matches (the palette's four RGB-literal veil
+values sit with the execution audit, not this record) — meaning a **verbatim value match is treated as evidence
 of copying**, and independent derivation needs to be demonstrable, not
 asserted.
 

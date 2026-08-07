@@ -1,5 +1,6 @@
 ---
 ddr: DDR-005
+iri: urn:uuid:83d0dc71-072b-458b-876c-f4b9ad92d087
 title: Licence follows provenance
 status: ratified
 date: 2026-08-02

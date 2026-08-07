@@ -1,5 +1,6 @@
 ---
 ddr: DDR-002
+iri: urn:uuid:76c0baf7-ad70-45db-9255-1f608bc5b102
 title: CSS-first, with one shipped behaviour
 status: ratified
 date: 2026-08-02

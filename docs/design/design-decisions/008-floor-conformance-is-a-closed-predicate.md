@@ -1,5 +1,6 @@
 ---
 ddr: DDR-008
+iri: urn:uuid:e62b037b-4810-4fbd-9019-41503ac7f5eb
 title: Floor conformance is a closed predicate
 status: accepted
 date: 2026-08-06
@@ -27,13 +28,21 @@ shaping debate closed the shape.
 Floor conformance is a **closed, mechanical predicate** (the v2 shape):
 
 - **MEETS-FLOOR** is a conformance predicate with universe-level closure —
-  every floor item is either met-with-witness or explicitly excepted;
-  nothing is silently out of scope.
-- **Witnesses are defeasible**: each carries LIVE status and decays to
-  non-witnessing when its evidence goes stale, rather than rotting as a
-  permanent claim.
+  every floor item is met-with-witness, or the artefact does not meet the
+  floor; an exception never satisfies the predicate. Every unmet item is
+  either cured or carried as a loud RELEASE-PERMITTED exception; nothing
+  is silently out of scope.
+- **Witnesses are defeasible**: each carries LIVE status bound to an
+  artefact digest — it decays to non-witnessing when the artefact it
+  witnessed changes or its evidence goes stale, and it can be manually
+  suspended on severe credible evidence (two-key, below) — never rotting
+  as a permanent claim.
 - **RELEASE-PERMITTED** is loud on the estate and silent on user-facing
-  artefacts, with a per-invocation owner card.
+  artefacts: each invocation takes an owner card at the moment of
+  invocation, a registry row naming surface, gap, warrant, closure
+  condition, and horizon, and per-build CI visibility; the exception
+  expires at its closure condition and re-cards if it outlives its
+  horizon.
 - **Suspension of a harm-class obligation needs two keys**, never one
   actor.
 - Transformations over the floor are **versioned**; the coverage registry

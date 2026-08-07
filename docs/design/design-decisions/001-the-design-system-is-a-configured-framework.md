@@ -1,5 +1,6 @@
 ---
 ddr: DDR-001
+iri: urn:uuid:b0783be7-dec7-4428-99a4-406bc3986bd6
 title: The design system is a configured framework
 status: ratified
 date: 2026-08-05

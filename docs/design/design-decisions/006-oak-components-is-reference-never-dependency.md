@@ -1,5 +1,6 @@
 ---
 ddr: DDR-006
+iri: urn:uuid:2d0b2b3d-fa9f-4948-9dc7-eca4a390140a
 title: Oak Components is reference, never dependency
 status: ratified
 date: 2026-08-05

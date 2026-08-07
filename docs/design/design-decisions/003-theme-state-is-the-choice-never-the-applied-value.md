@@ -1,5 +1,6 @@
 ---
 ddr: DDR-003
+iri: urn:uuid:4869815c-44a0-49fd-a813-bc8d3b86b8c3
 title: Theme state is the choice, never the applied value
 status: accepted
 date: 2026-08-02

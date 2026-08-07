@@ -25,8 +25,9 @@ re-derive the decision from scattered plans, reports, and PR bodies.
 Founded 2026-08-07 at the owner's direction (Linear MCP-527), seeded by
 harvest from the existing corpus — the strategic node, the completion plan,
 the design reports, and the merged PR record. A DDR states the decision and
-its consequences; execution detail stays in plans
-(`adrs-state-should-be-means-live-in-plans` applies here unchanged).
+its consequences; execution detail stays in plans — the same discipline the
+ADR corpus holds (decision records state the should-be; the means live in
+plans).
 
 ## The graph
 
@@ -60,6 +61,7 @@ declared edge with its declared direction; not every declared edge is drawn.
 ```markdown
 ---
 ddr: DDR-NNN
+iri: urn:uuid:<UUID-class, minted once at file creation — ADR-221 §3>
 title: <decision as a sentence>
 status: proposed | accepted | ratified | superseded
 date: YYYY-MM-DD # date of the decision, not of the record
