@@ -70,3 +70,13 @@ record).
   (incl. Saffron's 2026-08-07 quartet×2 tally); folly-story temperament +
   polarity associations; design-wake loss-scan pointers (design lane, opens at
   owner word).
+
+## 2026-08-07 ~17:0xZ (Gull lifts Nimbus, 3da0ae) — validator gap confirmed empirically
+
+- validate-no-machine-local-paths scanned 10,121 tracked files GREEN while the
+  staged sweep data still carried two tilde-path references inside JSON string
+  leaves — empirical confirmation of the JSON-leaf gap a 2026-07-31 stream event
+  first named. The identity-naming ratchet DID catch its class in the same file
+  (JSON leaves included), so the gap is per-validator, not structural. Cured at
+  source this pass (references restated portably at owner word); the validator
+  gap rides the Director packet as a tooling pointer.
