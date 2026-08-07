@@ -43,10 +43,20 @@ import { MCP_RESOURCE_PATH } from '../served-origin.js';
  * `GET /mcp` and `POST /mcp` still reach the MCP handler untouched. Both
  * properties are asserted in `oak-ds-static.integration.test.ts`.
  *
- * Clerk is not part of that ordering, despite the shared prefix. Its context
- * middleware runs earlier than the static mount and only attaches context;
- * its enforcement is bound to the exact `/mcp` routes, which no asset path
- * can match. No mount order produces a 401 on an asset.
+ * Clerk is not part of that ordering, despite the shared prefix, and no mount
+ * order produces a 401 on an asset: enforcement is bound to the exact `/mcp`
+ * routes, which no asset path can match.
+ *
+ * It does NOT follow that Clerk merely attaches context here — this comment
+ * said so and was wrong (MCP-518). Its middleware runs ahead of the static
+ * mount and can answer the request itself: `@clerk/backend`'s handshake
+ * eligibility fires on any GET whose `Sec-Fetch-Dest` is `document` or
+ * `iframe`, or — with that header absent — whose `Accept` starts with
+ * `text/html`, and a fetch matching that shape was measured being 307'd to
+ * the Clerk handshake before ever reaching this mount. That is why these
+ * asset prefixes are named in `clerk-skip-surfaces.ts`: the ordering argument
+ * above rules out a 401, not a redirect. Both mounted copies of each tree are
+ * named there — the routed one and the root one the alpha host serves from.
  */
 export const ROUTED_ASSET_BASE = MCP_RESOURCE_PATH;
 
