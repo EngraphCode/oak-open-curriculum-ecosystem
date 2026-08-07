@@ -83,6 +83,22 @@ edit script that mutates a register without post-condition asserts is a claim, n
 one inverted-slice register edit spawned three bot findings across two rounds; mutation
 scripts carry their own asserts.
 
+## Dispositions are grounded in verified failure scenarios
+
+Before writing any reply or disposition on a review finding, name the
+concrete inputs/state → wrong-output scenario and VERIFY it first-hand — or
+verify it cannot occur. Route or refute only on that evidence, never on "a
+downstream layer compensates" or on style-level reasoning: across a
+326-thread review corpus analysed twice (2026-07-16, one context-aware pass
+plus one context-blind pass), every disposition later proven wrong was
+grounded in compensating-layer or style-level reasoning, and every
+disposition that survived re-raises was grounded in a verified concrete
+failure scenario or its verified absence. The test discriminates in both
+directions: the estate errs both by over-curing style findings (each
+cure-push mints a fresh review round) and by under-curing real ones behind
+routing language. Durable boundary enforcement beats live-path compensation
+(`strict-validation-at-boundary`).
+
 ## A real issue is fixed only when a check guards it
 
 A comment identifying a **real** issue is "fixed" only when the code is corrected AND a
