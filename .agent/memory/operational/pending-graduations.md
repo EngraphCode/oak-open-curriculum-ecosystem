@@ -116,6 +116,32 @@ debt register, 2026-07-08).
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
 
+- **Ends before means, front of chain first: what/why/why-now established in
+  CONVERSATION with the owner before building ANY structure; probing
+  artefacts/code/deployments is still means-side**
+  `[captured: 2026-08-07 | source: vendor-memory graduation audit 2026-08-05
+  (memory ends-before-means-front-of-chain-first, owner teaching 2026-07-2x)
+  | target: principles.md near §First Question, or metacognition.md |
+  trigger: a fresh seat with directive-file headroom —
+  directive-file-context-budget gated this row past the 2026-08-07 curator
+  pass, which landed its 16 non-directive siblings | size: one short
+  paragraph | status: pending]`
+- **Generality-depth gradient, articulated: the deeper the layer, the more
+  general it must be; investment bar rises with depth; counter-instances are
+  falsifiers against generality-by-assertion**
+  `[captured: 2026-08-07 | source: vendor-memory graduation audit 2026-08-05
+  (memory generality-depth-gradient) | target: principles.md §Context
+  Specificity Gradient (articulation of the WHY) | trigger: fresh seat with
+  directive-file headroom, as the row above | size: a few sentences |
+  status: pending]`
+- **Owner channel: answer first — when an owner message lands mid-turn, the
+  next output is a direct text answer/acknowledgement before any further
+  tool-call chain**
+  `[captured: 2026-08-07 | source: vendor-memory graduation audit 2026-08-05
+  (memory owner-channel-answer-first) | target: user-collaboration.md
+  §Working Model | trigger: fresh seat with directive-file headroom, as the
+  rows above | size: one short paragraph | status: pending]`
+
 <!-- Register drained to empty at the 2026-08-07 curator pass (Gull lifts Nimbus, fresh
 seat clearing the directive-file-context-budget gate both rows were held on): the
 constraint-surface sentence (Badger, 2026-08-02) graduated to principles.md §Separate
