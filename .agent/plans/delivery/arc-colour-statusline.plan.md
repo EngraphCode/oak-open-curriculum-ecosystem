@@ -21,7 +21,7 @@ owner_gates: []
 # removed by the plan-node schema §2026-08-07 amendment, PR #817), so
 # the stamp completed 2026-08-07. A visibility ticket may still be
 # minted as working practice.
-last_updated: 2026-08-03
+last_updated: 2026-08-07
 ---
 
 # ARC-colour statusline — per-channel identity-coloured feather badges
@@ -312,8 +312,14 @@ budget with tally-stop.
   seat (Magnetar binds Oblivion, 74d914); all §Ground-truth items verified
   first-hand on the day.
 - 2026-08-03 (later, RATIFICATION): the owner ratified this node at a card
-  (the all-open-questions batch, Director seat). The frontmatter stamp
-  completes at the ticket mint when the Linear embargo lifts (2026-08-10)
-  — the validator's ratified-means-ticketed obligation composes with the
-  owner's only-the-update-lane-mints ruling; execution proceeds on the
+  (the all-open-questions batch, Director seat). The entry's original
+  stamp-completion condition — the ticket mint at the Linear embargo's end
+  (2026-08-10) under the validator's ratified-means-ticketed obligation —
+  is superseded by the 2026-08-07 entry below; execution proceeded on the
   ratification meanwhile (ws-b0 already merged at the full condition).
+- 2026-08-07 (STAMP COMPLETION): both premises of the 2026-08-03 entry's
+  condition dissolved — the Linear embargo lifted 2026-08-06 and the
+  ticket-existence obligation was removed by the plan-node schema
+  §2026-08-07 amendment (PR #817) — so the frontmatter stamp completed
+  2026-08-07 on the 2026-08-03 ratification word. A visibility ticket
+  remains optional working practice.

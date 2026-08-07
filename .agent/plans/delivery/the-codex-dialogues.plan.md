@@ -25,7 +25,7 @@ owner_gates: []
 # embargo); both premises dissolved, so the stamp completed 2026-08-07
 # with the 2026-08-01 word as its record. A visibility ticket may still
 # be minted as working practice.
-last_updated: 2026-08-01
+last_updated: 2026-08-07
 ---
 
 # The Codex dialogues — direct cross-vendor reflective dialogue for a live seat

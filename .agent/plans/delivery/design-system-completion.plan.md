@@ -15,15 +15,15 @@ depends_on: []
 # depends_on is empty and TRUE: this node's landing change carries dated
 # re-homing amendments that make THIS node the owner of the backlog
 # workstreams it absorbs (§Relationships), so no standing cross-corpus
-# blocking edge exists. The backlog corpus sits outside the anchored
-# id-space by construction; nothing here waits on work owned there.
+# blocking edge exists. The backlog corpus sits outside the conformant
+# plans corpus by construction; nothing here waits on work owned there.
+# The former ticket-mint gate (its record, conserved): it held ONLY the
+# tickets field — substance owner-ratified 2026-08-02 (§Owner rulings).
+# Both premises dissolved (embargo lifted 2026-08-06; ticket-existence
+# obligation removed by the plan-node schema §2026-08-07 amendment,
+# PR #817), so the gate DISCHARGED 2026-08-07 with tickets left [] — a
+# visibility ticket remains optional working practice.
 owner_gates:
-  - awaiting: external-input
-    clears_when: >-
-      Ticket mint at the Linear embargo's end (08:00 Europe/London
-      2026-08-10) fills the tickets field — substance owner-ratified
-      2026-08-02; provenance in §Owner rulings.
-    expires: 2026-08-17
   - awaiting: owner-decision
     clears_when: >-
       The KNOWN-ISSUES item-14 subtree-alias ruling lands before any
@@ -36,7 +36,7 @@ owner_gates:
       optional React component set" — full mapping-decision coverage with
       curated component minting (§Decision log, flagged seat reading).
     expires: 2026-09-07
-last_updated: 2026-08-05
+last_updated: 2026-08-07
 ---
 
 # Design-system completion — five demos, identity contract, React tier, the wow bar (v2.2)
@@ -122,14 +122,18 @@ Narrative moved out of frontmatter per the delivery contract (EX63); gate number
 below track the CURRENT frontmatter array (dated renumber 2026-08-05: the former
 gate 2 — the W2.7 off-horizontal session gate — DISCHARGED 2026-08-05, its values
 owner-delivered at the 2026-08-03 card; the priming evidence and the corrected
-attribution record now live with W2.7 and §Decision log). Gate 1: the
-ticket-mint gate holds ONLY the tickets field — it does not gate ratification (the
-v1 conflation, round-1 E63/X4); the stamp completes when a fleet round closes clean
-and the owner's implementation word arrives, and the subtree is unanchored until the
-mint. Gate 2 (item-14): grounds are round-1 E11/E31/E32, carried in W0.2(b). Gate 3
-(the W3.0 coverage card): the seat reading it confirms is FR9's — a mapping DECISION
-per class (including no-construct) satisfies "full set" via curated minting; the row
-is flagged in §Decision log until his word.
+attribution record now live with W2.7 and §Decision log. Dated renumber
+2026-08-07: the former gate 1 — the ticket-mint gate — DISCHARGED 2026-08-07; it
+held ONLY the tickets field and never gated ratification (the v1 conflation,
+round-1 E63/X4); its premises dissolved when the Linear embargo lifted
+2026-08-06 and the plan-node schema §2026-08-07 amendment, PR #817, removed the
+ticket-existence obligation — ticket minting is optional working practice, and
+the stamp still completes when a fleet round closes clean and the owner's
+implementation word arrives). Gate 1 (item-14): grounds are round-1
+E11/E31/E32, carried in W0.2(b). Gate 2 (the W3.0 coverage card): the seat
+reading it confirms is FR9's — a mapping DECISION per class (including
+no-construct) satisfies "full set" via curated minting; the row is flagged in
+§Decision log until his word.
 
 ## Goal · In · Out
 
