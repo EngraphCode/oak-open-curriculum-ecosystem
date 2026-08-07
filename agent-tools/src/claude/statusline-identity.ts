@@ -10,7 +10,9 @@
  * checkout with linked worktrees — the shared coordination branch on its own row.
  *
  * The logo style is read from `OAK_STATUSLINE_LOGO` (`braille-sharp` default;
- * `braille`/`quad`/`sextant` alternatives; `none` for the two-line layout). The
+ * `braille`/`quad`/`sextant` alternatives; `none` for the two-line layout).
+ * Setting `OAK_STATUSLINE_LOG_FILE` to a `*.log` path appends each invocation's
+ * raw stdin payload there for diagnosis (see `statusline-debug-log.ts`). The
  * agent-identity name (PDR-027) comes from the built `agent-identity` CLI. Git
  * facts come from {@link gatherGitFacts} against the working directory in the
  * payload; the session-shape glyphs from two cheap reads of the primary
@@ -38,6 +40,7 @@ import { parseCollaborationRegistry } from '../collaboration-state/state-parsers
 import { type CollaborationRegistry } from '../collaboration-state/types.js';
 import { resolveLogoStyle } from './oak-logo.js';
 import { BOLD, RED, RESET } from './statusline-ansi.js';
+import { appendDebugLogEntry, resolveDebugLogPath } from './statusline-debug-log.js';
 import { createFsFrameStore, LOGO_FRAME_STATE_DIR } from './statusline-frame-store.js';
 import { gatherGitFacts } from './statusline-git-io.js';
 import { planStatuslineExecution, type StatuslinePlan } from './statusline-identity-input.js';
@@ -62,6 +65,12 @@ process.stdin.on('end', () => {
 });
 
 function emitStatusline(rawJson: string): void {
+  // Optional diagnosis log, before planning: malformed and noop payloads are
+  // exactly the invocations a debugging session needs to see.
+  const debugLogPath = resolveDebugLogPath(process.env);
+  if (debugLogPath !== undefined) {
+    appendDebugLogEntry(debugLogPath, rawJson, new Date().toISOString());
+  }
   const plan: StatuslinePlan = planStatuslineExecution(rawJson);
   if (plan.kind === 'noop') {
     return;
