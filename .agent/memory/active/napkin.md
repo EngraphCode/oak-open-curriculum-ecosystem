@@ -899,3 +899,10 @@ opening state; this constraint rides any routing brief VERBATIM.
   seat conversing on comms ABOUT that clause must paraphrase its name. Reappraisal path
   worked (rephrased in one pass); noting the naming collision — either the clause name
   eventually earns a gate-safe rename, or this stays a known paraphrase point.
+- **F-75 comparator class, near-instance 4 (caught pre-arm by the protocol):** aligning
+  this seat's poll to the Director's v4 stable-key spec, `tr -s '[:space:]' ' '` squeezed
+  the NEWLINES too — one-line output that would have broken the comm(1) delta silently.
+  Caught by the byte-verify-before-arming step (od on real output), not by review: the
+  per-line-safe squeeze is sed `s/[[:space:]]+/ /g` (sed cannot match the newline within
+  a line). Corroborates both the byte-verify discipline and the front-door
+  `peer-liveness --diff` case — four defect shapes in one day of hand-rolled comparators.
