@@ -26,6 +26,15 @@ against each other).
 
 ## Amendment Log
 
+- **2026-08-07 amendment (second) — prior-art before design review;
+  plans of consequence get a tiered fleet review (Gull lifts Nimbus /
+  claude-code / claude-fable-5; continuity-memory-and-knowledge-flow
+  thread; landing two owner-endorsed 2026-07-31 candidates from the
+  napkin corpus at the dedicated consolidation).** A design brief's
+  first line is the plan-corpus prior-art search result; a plan of
+  consequence gets a tiered fleet review before execution. New
+  §Prior-art and plan-of-consequence dispatch disciplines sub-section.
+
 - **2026-08-07 amendment — dispatch model floor and unavailability
   fallback (Gull lifts Nimbus / claude-code / claude-fable-5;
   continuity-memory-and-knowledge-flow thread; landing two standing
@@ -504,6 +513,35 @@ disciplines follow:
   keeping unblocked surfaces moving. Never fall back to a less
   capable tier, never silently drop the dispatch, and critically
   assess fallback output like any substitute.
+
+### Prior-art and plan-of-consequence dispatch disciplines (2026-08-07 amendment)
+
+Two dispatch-time disciplines from the 2026-07-31 worked evidence:
+
+- **A design brief opens with the plan-corpus prior-art search
+  result as its first line.** A multi-perspective design review (3
+  fleet seats, 2 high-tier reviewers, a conscience octet) invented
+  six candidates for a shape whose superior answer already sat
+  owner-accepted in the plan corpus — both independent high-tier
+  lenses found it, but by luck of good reviewers, not by process; a
+  two-minute grep of `.agent/plans/` before authoring the brief
+  would have reframed the whole review as "enrich the accepted
+  design". Honest accounting: this is cost-REDUCTION, not
+  waste-elimination — the duplicated day also produced finds a
+  prior-art-first brief would likely not have surfaced. The
+  record-first discipline that already fires for owner rulings fires
+  for design priors too.
+- **A plan of consequence gets a tiered fleet review before
+  execution** (owner-endorsed in-session, 2026-07-31). The worked
+  topology — low/middle/high tiers plus experts plus a
+  frame-challenger, 31 agents over a Director-authored plan — caught
+  23 blocking defects including the author's own shallow grounding,
+  for one fleet run. Prediction (PDR-130 fast-lane line): a plan of
+  consequence reviewed this way before execution avoids its class of
+  wrong-thing-built; falsified if a fleet-passed plan still fails at
+  execution on a defect class the topology claims to catch.
+  "Consequence" is judged by blast radius (multi-seat execution,
+  owner-visible surfaces, hard-to-reverse moves), not by page count.
 
 ## Rationale
 

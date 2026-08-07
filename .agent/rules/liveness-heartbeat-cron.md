@@ -255,6 +255,19 @@ active-on-lane. Direct ping with a one-cadence reply window; if silent,
 broadcast takeover or route-adjustment intent before acting. See
 PDR-078 §6.
 
+**Coordinator dark-window check** (fourth autonomous-emitter instance,
+experienced from inside, 2026-08-0x): a session-limit suspension
+darkened a Director seat's reasoning loop overnight while its heartbeat
+monitor kept emitting on schedule — the fleet read the Director as live
+for hours. When the DIRECTOR/coordinator seat holds any open routing
+obligation, peers apply the stall diagnostic above TO THAT SEAT on a
+bounded cadence: require SUBSTANTIVE Director output (a routing event,
+an adjudication, an absorption ack — not emitter presence) within a
+small number of hours of any open obligation, and fire the
+ping-before-escalate path on silence. This is the §Mutual cover
+discipline (the detector cannot detect itself) extended from
+watcher-file staleness to substantive-output staleness.
+
 **The autonomous-emitter generator** (three instances, 2026-07-20/21):
 heartbeat loops run in the platform's background-task layer,
 independent of the reasoning loop — a SUSPENDED harness (or a seat
