@@ -1,3 +1,10 @@
+## [1.153.12](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.11...v1.153.12) (2026-08-07)
+
+
+### Bug Fixes
+
+* **agent-tools:** merge-bot reads ride the keyring; writes keep the minted token ([01ec2e9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/01ec2e92631e7d09888b096a92c6912c2fb45cae)), closes [#820](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/820)
+
 ## [1.153.11](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.10...v1.153.11) (2026-08-07)
 
 ## [1.153.10](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.9...v1.153.10) (2026-08-07)
