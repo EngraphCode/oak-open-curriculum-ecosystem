@@ -1047,3 +1047,10 @@ directive-headroom seat); Director adjudications on f81076d9.
 - Mid-pass estate movement, no impact on this claim: Director succession shadow opened
   (Plover lifts Troposphere b10c37 standby behind Panther 7efb00, event 093c254a);
   Saffron 8a4280 heartbeat freshened (F-75 retired→offline transition = wake signal).
+- **Cricket tally (2026-08-07, plan-validity amendment verdict)**: quartet×2.
+  Normal: low 28.3k/16s, med 28.3k/15s, high 31.0k/32s, xhigh 21.8k/74s — all
+  ON-TRACK. Adversarial: low 28.3k/16s DRIFTING, med 39.8k/25s DRIFTING,
+  high 29.6k/42s DRIFTING, xhigh 24.7k/71s ON-TRACK. 5–3 non-unanimous;
+  owner present, disposition surfaced to him directly; absorbed the split-PR,
+  provenance, and memory-reconciliation redirections, rejected the
+  conditional-obligation shape on the owner's verbatim principle.
