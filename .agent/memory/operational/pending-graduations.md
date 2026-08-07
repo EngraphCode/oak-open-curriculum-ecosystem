@@ -116,25 +116,14 @@ debt register, 2026-07-08).
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
 
-- **Constraint-surface sentence: the licence map is the architecture made
-  legible (minimal externally-constrained surface is the same split as
-  reusability, seen from the other side)**
-  `[captured: 2026-08-02 | source: napkin 2026-08-02 ~13:40Z (Badger, owner
-  principle elaboration in the design lane) | target: principles.md §Separate
-  Framework from Consumer | trigger: a consolidation session with directive-file
-  headroom — this is a DIRECTIVE edit and directive-file-context-budget requires
-  session context below 30%, which the 2026-08-06 dedicated pass did not have at
-  its graduation boundary | size: one or two sentences | status: pending]`
-- **Sentinel taxonomy: a literal content pin in a test is admissible ONLY as a
-  designed sentinel (a named decision attaches to the value changing);
-  example-value pins do not qualify**
-  `[captured: 2026-08-03 | source: napkin 2026-08-03 ~09:30Z/~09:40Z (Birch,
-  owner-ratified reshape after a metacognition + concept-exploration run on
-  "bad tests are a burden and an entropic hazard"); trigger artefact is the
-  owner-ratified source-anchored differential test that subsumed three
-  value-pinned tests | target: testing-strategy.md §Prove-behaviour carve-out |
-  trigger: same directive-file headroom constraint as the row above; route per
-  new-rule-vs-pdr-clause, never self-landed | size: one clause | status: pending]`
+<!-- Register drained to empty at the 2026-08-07 curator pass (Gull lifts Nimbus, fresh
+seat clearing the directive-file-context-budget gate both rows were held on): the
+constraint-surface sentence (Badger, 2026-08-02) graduated to principles.md §Separate
+Framework from Consumer as the licence-map paragraph; the sentinel-taxonomy row (Birch,
+2026-08-03) was found ALREADY LANDED in testing-strategy.md §Prove-behaviour as the
+designed-sentinel admissibility clause (commit 92defb609, owner doctrine 2026-08-03,
+MCP-462 trigger artefact named in place) — home verified live first-hand, row removed as
+already-graduated. The commits and the homes are the record. -->
 
 <!-- Register drained to empty at the 2026-07-20 dedicated consolidation (Siren lifts
 Trench): the F-92 heartbeat-loop item was already terminal (duplicate of F-92, whose cure

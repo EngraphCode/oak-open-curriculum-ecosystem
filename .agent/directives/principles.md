@@ -203,6 +203,16 @@ workspace. The framework defines the contract; the consumer provides
 the specifics. The test: "Could a non-Oak consumer use this component
 unchanged?" If not, extract the Oak-specific parts.
 
+The licence map is this same split made legible (owner doctrine
+2026-08-02): keeping the Oak-specific instance thin — ideally
+configuration passed to a general framework — is what keeps the
+externally-constrained surface absolutely minimal, because the
+permissively-licensed framework is the surface others may take and
+the reserved remainder (the Oak brand) stays small only while the
+architecture keeps it extractable. A component whose licence cannot
+be named in one word is one where general mechanism and Oak identity
+cohabit.
+
 ### Context Specificity Gradient
 
 Every capability decomposes by context specificity. Push functionality
