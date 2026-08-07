@@ -970,3 +970,33 @@ points, handover-as-verification falsifiable seed, calibration lesson), folly-st
 temperament + polarity associations, design-wake loss-scan pointers. (11) Awaiting
 elsewhere: 3 directive-gated register rows + goal-hook pacing candidate (fresh
 directive-headroom seat); Director adjudications on f81076d9.
+
+## 2026-08-07 ~16:0xZ (Gull lifts Nimbus, 3da0ae) — 7c audit landed; continuation map advances
+
+- 7c thread-register audit COMPLETE (continuation map item 1): findings routed as
+  directed event d3d9bedd; Director ack 1e1f53ef with dispositions. Conserved here as
+  the audit trail (the flag-count precedent needs it durable): SIX active threads
+  first-flagged stale 2026-08-07 — agent-operability (2026-07-01), main-sonar (07-06),
+  oak-slack-assistants (07-08), continuity-memory (07-08; cures at this pass's closeout
+  identity row), strategy-and-plan (07-18), statusline (07-23). Repeat-flag at a later
+  pass moves them to Paused; single-flag does not.
+- Index cures 11-12 executed under a Director-granted claim-scope extension (event
+  1e1f53ef): skills-estate-organisation row ADDED to §Active Threads; five stale
+  Latest-identity cells trued to their records (upstream-api-alignment → Birch 08-03,
+  agent-naming → Moss 08-02, orientation → Juniper 07-28, mcp-agent-facing-content →
+  Smelter 07-27, design-system-integration → Corsair 08-02). Extension consumed; claim
+  areas revert to the memory surfaces.
+- Schema-deviation follow-ups REGISTERED per Director disposition (fold only if
+  mechanically cheap while in those records): statusline table lacks
+  session_id_prefix + first_session; oak-slack-assistants lacks first_session, merged
+  platform/model; design-system-integration Date-variant lacks the first/last pair;
+  agentic-engineering-enhancements identity table MISSING the Ingot tracks Slag row
+  (be4ac9, 2026-07-31 — the index's own cited latest identity).
+- Item 2 discharged: queue debt (190 expired entries) + agent-naming retirement now at
+  the owner via the Director's channel. Item 3 first leg: Workflow stringified-args
+  REJECTED duplicate — the platform's live Workflow tool doc now carries the exact
+  warning (verified this session). Remaining item-3 residue: haiku line-item
+  verification + opus doc-verifier per-token yield → PDR-015/122 calibration evidence.
+- Session restart mid-pass killed watcher/heartbeat/F-75 (tasks b4xxolaxt/b3purjrog/
+  bza9dxisi); re-armed fresh (b6zjqxrxw/bxfeee9lr/bqfbv0yfd), parity 0/0 before and
+  after, gap sweep clean.
