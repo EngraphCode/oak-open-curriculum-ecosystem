@@ -167,3 +167,40 @@ record).
 - Live-fire discipline paid twice: the cure's own branch pushed by its own fixed
   binary through the exact chain that killed knip four times; then the stranded
   design commit through the same binary. Composition proof no unit tier could give.
+
+## 2026-08-07 ~21:2xZ (Civet spins Cavern, 054f5e, design lane) — own-mistake log: fabricated sha in a pinned merge call
+
+- The #820 REST merge's first call carried a full sha I hand-extended from the
+  9-char short form instead of resolving it (`git rev-parse` was one command
+  away) — drew a 409, the pin refusing a wrong sha as designed. The scripted
+  fallback then fetched the live headRefOid and retried blind; post-merge
+  verification proved that oid WAS the granted pin (branch never moved), so
+  the outcome complied — but the fallback shape would have merged an
+  unreviewed tip had the branch moved in the window, voiding the Director's
+  sha-pin re-grant. Class: the SILENT-TWIN/lookalike (an ambient value of the
+  right SHAPE stood in for the derived value). Cure applied forward: a pinned
+  write resolves its pin first-hand (`git rev-parse`/`--json headRefOid`)
+  BEFORE the call, and a pin-mismatch 409 is a STOP-AND-RECOUNT, never a
+  fetch-and-retry. Recorded honestly on the PR's recount comment at
+  occurrence; scope: standing seat practice.
+
+## 2026-08-07 ~21:4xZ (Nettle weaves Root, 5cfa11) — longitudinal run executed end to end
+
+- The step-6a longitudinal synthesis EXECUTED this session at owner word
+  (ratified, ceiling pre-approved): 37 napkins → 572 leaves → 80 candidates → 35 keep /
+  44 kill / 1 reroute → meta → deterministic close (integrity empty, zero
+  recompute diff). Report + marker: `research/.../historical-napkin-synthesis-2026-08-07.md`
+  (processed marker 2026-08-07). Two novel patterns homed
+  (`tool-default-scan-set-drift`, `collaboration-cli-interface-drift`); 34
+  survivors duplicate-of-home (driver-verified); Choice-B MISS dispositioned
+  graduate-with-gap-named per standing doctrine. Cricket quartet ×2 at the close
+  boundary: 6:2, both DRIFTING redirections executed pre-close (tally file
+  carries the run). Plan `longitudinal-napkin-synthesis-2026-08` stays LIVE for
+  the owner's morning glance — acceptance proven, archival is the owner's act.
+- Operational gotchas (new captures): the Workflow tool resolves `scriptPath`
+  against the CALLER'S CWD, not the repo root — launch seeded artefacts with
+  absolute paths (bit once, 2026-08-07). Commitlint header cap bit once at 106
+  chars (cap 100). The plan-estate anchoring validator coupled MCP-531's ticket
+  to a sibling plan's validity (MCP-532 true-up minted), and PR #817 deleted
+  that machinery the same evening — a worked instance of validator-coupling
+  churn resolved by fix-the-generator.

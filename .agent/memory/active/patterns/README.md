@@ -230,7 +230,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Wire-Format-Aware Redaction** -- Use this when: Telemetry redaction protects structured objects or URLs, but secrets can also travel through raw encoded strings such as application/x-www-form-urlencoded request bodies. → [wire-format-aware-redaction.md](wire-format-aware-redaction.md)
 - **Workaround Debt Compounds Through Rationalisation** *(anti-pattern)* -- Use this when: A workaround exists in the codebase and someone is explaining why it's justified, necessary, or acceptable — especially when the explanation invokes 'different purposes' or 'separate concerns'. → [workaround-debt-compounds-through-rationalisation.md](workaround-debt-compounds-through-rationalisation.md)
 
-### Process (115)
+### Process (116)
 
 - **A Description Is Not a Check** *(anti-pattern)* -- Use this when: About to act on, transmit, or review a DESCRIPTION of an artefact — a commit message, a code comment, a handoff summary, a self-report, a probe's green output — instead of reading the artefact itself; and at review-routing time, deciding where to point external scrutiny. → [description-is-not-a-check.md](description-is-not-a-check.md)
 - **A Fidelity Audit Is Not a Currency Audit** *(anti-pattern)* -- Use this when: Verifying a claim that rests on an inherited surface (a record, a thread note, a prior session's framing) before relying on it. → [fidelity-audit-is-not-currency-audit.md](fidelity-audit-is-not-currency-audit.md)
@@ -337,6 +337,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Three Levels of Reference Quality** -- Use this when: Documentation, portable content, or cross-repo material references concepts from another context — choose the right level of self-containment. → [three-levels-of-reference-quality.md](three-levels-of-reference-quality.md)
 - **Tool Error as Question** → [tool-error-as-question.md](tool-error-as-question.md)
 - **Tool Output Framing Bias** *(anti-pattern)* -- Use this when: building a plan from a single tool run and the tool's groupings, counts, or categories are being adopted as plan structure without independent verification. → [tool-output-framing-bias.md](tool-output-framing-bias.md)
+- **Tool-Default Scan-Set Drift** *(anti-pattern)* -- Use this when: Citing any sweep, search, or lint result — including a healthy non-empty one — without stating the file-selection semantics that defined the set the tool actually visited (dot-directories, .gitignore handling, hidden files). → [tool-default-scan-set-drift.md](tool-default-scan-set-drift.md)
 - **Under Context Pressure, Offload the Breadth; Keep the Design Verdict and the Loss-Scan Yourself** -- Use this when: A deep-context session is running low on budget but still has high-value work to land — reviewing, drafting, mechanical edits, gate runs. → [offload-breadth-keep-verdict-and-loss-scan.md](offload-breadth-keep-verdict-and-loss-scan.md)
 - **UX predates visual design** → [ux-predates-visual-design.md](ux-predates-visual-design.md)
 - **Vendor-Doc Review for Unknown Unknowns** -- Use this when: >-. → [vendor-doc-review-for-unknown-unknowns.md](vendor-doc-review-for-unknown-unknowns.md)
@@ -366,7 +367,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **test-claim-assertion-parity** → [test-claim-assertion-parity.md](test-claim-assertion-parity.md)
 - **Views Take State as Props; a Two-Line Binder Owns the Hook** -- Use this when: A React component both fetches/derives async state (via a hook) and renders it — and its tests are reaching for vi.mock, module mocking, or fetch stubbing to control what renders. → [view-binder-di-seam.md](view-binder-di-seam.md)
 
-### Agent (41)
+### Agent (42)
 
 - **A Real Observation That Does Not Bear on the Claim** *(anti-pattern)* -- Use this when: About to cite a first-hand observation as evidence for a config, mechanism, or state claim — especially when the surface you read reports a DERIVED value, or when the observation was made some time before the action it licenses. → [observation-that-does-not-bear-on-the-claim.md](observation-that-does-not-bear-on-the-claim.md)
 - **Adversarial-Verify Plus a Self-Pass Over the Verifier's Own Downgrades** -- Use this when: Running a multi-agent verification or triage round (fleet review, adversarial-verify, open-question triage) and about to accept the verifier's/triage-agent's confirmed set as the complete result. → [adversarial-verify-plus-self-pass-on-refutations.md](adversarial-verify-plus-self-pass-on-refutations.md)
@@ -374,6 +375,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Amending Doctrine Binds the Editor** *(anti-pattern)* -- Use this when: Editing any skill, rule, directive, or governance doc while running live work the same document governs. → [amending-doctrine-binds-the-editor.md](amending-doctrine-binds-the-editor.md)
 - **Audit Rule Body When Extending With a New Prohibition** -- Use this when: Adding a new "X is forbidden" / "X must not appear" / "do not Y" clause to an existing rule, ADR, governance doc, or directive. → [audit-rule-body-on-prohibition-extension.md](audit-rule-body-on-prohibition-extension.md)
 - **Bounded Structured Output for Workflow Fan-Outs** -- Use this when: Authoring a Workflow script that uses agent({schema}) fan-out, passing args into it, or consuming its verify-stage results. → [bounded-structured-output-for-workflows.md](bounded-structured-output-for-workflows.md)
+- **Collaboration-CLI Interface Drift** *(anti-pattern)* -- Use this when: Composing any collaboration-CLI invocation from help text or skill prose alone, or reading a non-zero exit after a CLI write as proof the write failed. → [collaboration-cli-interface-drift.md](collaboration-cli-interface-drift.md)
 - **Cure-Edge Residue** *(anti-pattern)* -- Use this when: Curing any finding on an invariant the estate states in more than one place, or executing a deletion cure whose disposition claims the content was re-homed. → [cure-edge-residue.md](cure-edge-residue.md)
 - **Deleting an Operational Memory/State Surface → Reconcile the Substrate-Contracts Manifest in the Same Commit** -- Use this when: Retiring or deleting an operational memory or state surface (a directory, register, or convention) that may have a contract entry in the PDR-049/050 substrate manifest. → [reconcile-substrate-manifest-on-surface-deletion.md](reconcile-substrate-manifest-on-surface-deletion.md)
 - **Different-Lens Reviewer Divergence** → [different-lens-reviewer-divergence.md](different-lens-reviewer-divergence.md)
