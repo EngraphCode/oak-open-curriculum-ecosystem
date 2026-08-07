@@ -153,7 +153,13 @@ function settleFromCapture(
     replay(sinks.stderr, stderrContent);
     stderrText = stderrContent.toString('utf8');
   }
-  return { exitCode: code ?? (signal === null ? 0 : 128), signal, stderr: stderrText };
+  // One convention across both arms (the #820 review's finding A): a signal
+  // death is the 128 sentinel with the signal named; the (null, null) cell —
+  // unreachable in Node's close-event contract, probe-proven across six
+  // termination modes — maps to the -1 could-not-run sentinel, never to
+  // success. A failure must not be readable as success even from a cell
+  // that should not exist.
+  return { exitCode: code ?? (signal === null ? -1 : 128), signal, stderr: stderrText };
 }
 
 function replay(sink: FileBackedChildReplaySinks['stdout'], content: Buffer): void {
