@@ -142,3 +142,28 @@ record).
   (62M authorised, July calibration 246 candidates), executing at Nettle weaves Root under
   MCP-531; this seat's earlier opener-ready ROUTE (d30dbb66) is superseded by that direct
   owner launch — route stands discharged, not pending.
+
+## 2026-08-07 evening — design seat (Saffron guards Hedgerow, 8a4280): the merge-bot act
+
+- F-112 second instance, first-hand: the push executor's pipe stdio poisoned the
+  pre-push chain — and the DIAGNOSIS LINE written to stderr was itself eaten by the
+  stream whose failure it reported. Corollary now in the register and the pattern
+  file: diagnosis must never ride only the channel whose failure it reports. The
+  knip gate now names crash-class deaths on stdout (the stream that survived).
+- A `git add` chain aborts at its first bad pathspec and the commit lands PARTIAL —
+  an already-moved old path poisoned the whole add; caught by `--stat` showing
+  0 insertions. Repair: stage properly, amend the unpushed commit. Always read the
+  cached stat before the commit message.
+- Reviewer-fleet ROI (code-expert + test-expert, opus): two REVISE rounds, 13 real
+  findings including a proven guard-that-does-not-bite (they BUILT the mutant and
+  ran my suite against it) and a name-collision the whole estate would have tripped
+  on. Delta-verify by RESUMING the same agent conserves its context. One mis-step:
+  a `fork` spawn where a SendMessage continuation was meant — stopped and redone.
+- Doctrine motion: the spawn-topology contract test is now the ONE sanctioned spawn
+  shape, authority IN testing-strategy.md (the rule item is a pointer) — the
+  reviewer's placement finding: substance in the directive, rules never fork it.
+- Transient GitHub 403 on bot branch-create (exit 128, reason conserved by the new
+  reporting); immediate retry succeeded. Watch for recurrence; not a pattern yet.
+- Live-fire discipline paid twice: the cure's own branch pushed by its own fixed
+  binary through the exact chain that killed knip four times; then the stranded
+  design commit through the same binary. Composition proof no unit tier could give.
