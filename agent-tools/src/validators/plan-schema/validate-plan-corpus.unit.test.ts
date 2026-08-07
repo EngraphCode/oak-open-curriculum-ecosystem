@@ -330,6 +330,21 @@ describe('validateCorpus — cross-file resolution', () => {
     expect(validateCorpus(corpus(), choiceRegistry(), impactAreas())).toEqual([]);
   });
 
+  it('accepts a ratified ticketless delivery plan beside a ticketed strategic sibling — no ticket-existence obligation at any level (2026-08-07 amendment)', () => {
+    // Red-proof by history: this exact corpus failed under the removed
+    // derived-anchoring rule (the ticketed strategic node anchored the
+    // subtree, rejecting its ratified ticketless delivery plan).
+    const files = [
+      parsedFixture('strategic/fixture-release.plan.md', [
+        ...STRATEGIC_LINES,
+        'tickets:',
+        '  - MCP-101',
+      ]),
+      parsedFixture('delivery/fixture-lane.plan.md', ratified(ticketless(DELIVERY_LINES))),
+    ];
+    expect(validateCorpus(files, choiceRegistry(), impactAreas())).toEqual([]);
+  });
+
   it('rejects an empty corpus — never a vacuous green', () => {
     const failures = validateCorpus([], choiceRegistry(), impactAreas());
     expect(failures.length).toBeGreaterThan(0);

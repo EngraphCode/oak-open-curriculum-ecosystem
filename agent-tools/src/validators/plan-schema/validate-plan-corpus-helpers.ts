@@ -69,8 +69,7 @@ export function validatePlanFile(
  * Corpus-level rules over the file-level-valid plans: non-emptiness,
  * id uniqueness, `serves` resolution (strategic → published choice
  * registry; delivery/runbook → a strategic node in the corpus),
- * `impact_areas` registry membership, `depends_on` resolution, and
- * execution-anchor consistency for ratified delivery plans.
+ * `impact_areas` registry membership, and `depends_on` resolution.
  *
  * @returns Path-anchored failures; empty means the corpus coheres.
  */
