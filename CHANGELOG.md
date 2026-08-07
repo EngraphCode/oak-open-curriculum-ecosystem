@@ -1,3 +1,32 @@
+# [1.153.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.152.8...v1.153.0) (2026-08-07)
+
+
+### Bug Fixes
+
+* **agent-tools:** a timeout-settled round is SETTLED-NO-REVIEW, never merge-eligible (MCP-508) ([9a3bf33](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9a3bf3301efe767614c09cca428522b4b2136f84))
+* **agent-tools:** branch legality asks git check-ref-format (R9, MCP-508) ([6b8d5d3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6b8d5d3c75d040faa5f249c92774ad0a60ec633b))
+* **agent-tools:** close every arm of git credential-resolution chain (R9, MCP-508) ([5e00518](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5e00518d46d11ca203eb877a7451e3c0e8b99d47))
+* **agent-tools:** merge-bot least-privilege scope, login grammar, host and target pins (MCP-508) ([45e920b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/45e920b96609ebac5de5cdd4bf2b4ea681e0a5a2)), closes [#557](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/557)
+* **agent-tools:** merge-bot review round — refusals before settings, rejections, deadline (MCP-508) ([2153742](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2153742e325ad62dc112cfc81ed117d9cc838956))
+* **agent-tools:** merge-bot round 2 — post-PUT ambiguity is UNKNOWN, push token off env (MCP-508) ([69be384](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/69be3844b80276ad9779112c418c6daa4cac2810))
+* **agent-tools:** merge-bot unreadable answers and reading failures land on typed paths (MCP-508) ([e590ad4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e590ad4488b1aedef46508c463ac5f9fb839f1c7))
+* **agent-tools:** scope the pre-push scan by what git actually passes (R6, MCP-508) ([aa088b1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aa088b16236799aa7d1691d46c3ed2eb0d8edc54))
+* **agent-tools:** stream the push output instead of buffering it (R1/R2/R8, MCP-508) ([3a1800a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3a1800abfeca65b81dd4aa2f2166d99a701493cc))
+* **agent-tools:** the merge deadline binds the FIRST poll too (R5, MCP-508) ([4b16bac](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4b16bac3fc491846d58f3984d84de6593873c794))
+* **agent-tools:** the pre-push scan says when it degrades to full history (R6, MCP-508) ([bcacd14](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bcacd1466299f0834645fb5e39c4aa3c9574aa40))
+* **agent-tools:** the ref oracle returns its failure instead of throwing it (MCP-508) ([a5cd19f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a5cd19f9d8a89ff618609962e8b338d252138548))
+* **mcp-server:** sign in with your Oak account on the landing page ([b9b5f34](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b9b5f34eaa1ae0f24be820d8b23317c3b07fe92e))
+* **reports:** drop outgoing counter-identity literal from fleet result ([109221b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/109221bb57976fa7242e8a258642d630bd17a26d))
+
+
+### Features
+
+* **agent-tools:** merge-bot merge CLI — the settled-green merge at the front door (MCP-508) ([c03f03b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c03f03b2d6ad2391fab1bb01630724acc61ab6f4))
+* **agent-tools:** merge-bot merge execution over injected ports (MCP-508) ([0f335b2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0f335b22a235fda26a618d8812d42e9f9a1da4dd)), closes [#reads-empty-as-unset](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/reads-empty-as-unset)
+* **agent-tools:** merge-bot push — the bot-identity push at the front door (MCP-508 slice 1.5) ([148b27c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/148b27c0b36412d4eaccdc920e0a12e20b14f53d))
+* **agent-tools:** merge-bot topic streams live stdout; --json stdout stays pure (MCP-508) ([3490a2d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3490a2dfdc8cd0a94ab6770a44e635b2f4a77f5b)), closes [mint-then-#pr-merge](https://github.com/mint-then-/issues/pr-merge)
+* **agent-tools:** merge-bot verdict-to-action decision core (MCP-508) ([8f66896](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8f668968807b12548eab98b11c0b165be0c3f80e))
+
 ## [1.152.8](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.152.7...v1.152.8) (2026-08-06)
 
 
