@@ -3540,3 +3540,22 @@ commit SHA and the closing plan reference.
 - **Status**: OPEN. The rule's §Why This Rule Is Strict now points here;
   a future drain of any register this row migrates to re-trues that
   pointer first (the generator this row's own history proves).
+
+### F-155 — the prose-width hard limit fires on markdown headings, which are structurally unwrappable
+
+- **Source**: Wisteria lifts Verdure (`c4294f`), 2026-08-06 branch reconciliation,
+  first-hand; homed from the napkin at the 2026-08-07 consolidation slice.
+- **Observed**: the fitness prose-width check (100 chars) is applied to markdown
+  HEADINGS. A heading cannot be wrapped — the only compliant fix is rewriting the
+  heading text, so a carried section title over 100 chars has NO compliant
+  lossless fix. Two carried napkin headings from another seat read as hard
+  findings while being faithful verbatim carriage.
+- **Expected**: width discipline on prose lines; headings judged by a rule that
+  acknowledges their unwrappability (a heading carve-out, or a re-title-at-
+  processing convention).
+- **Candidate cure / promotion trigger**: a heading exemption (or separate
+  threshold) in the width check. Promotes when a seat takes the fitness-tooling
+  lane, or when a third faithful-carriage instance reads as a hard finding.
+- **Status**: OPEN. Interim practice: carry foreign headings unaltered; the pass
+  that processes them re-titles or drains them (the 2026-08-06 reconciliation's
+  own convention).

@@ -88,13 +88,12 @@ Headline graduations (the commits and the homes are the record):
 
 ## Live carried items (pointers with owners, not new observations)
 
-- **Two graduations BLOCKED by a standing rule, registered as decision-debt** in
-  `pending-graduations.md`: the constraint-surface sentence (→ `principles.md`
-  §Separate Framework from Consumer) and the sentinel-taxonomy clause (→
-  `testing-strategy.md` §Prove-behaviour). Both are directive-file edits and
-  `directive-file-context-budget` requires session context below 30%, which this
-  pass did not have at its graduation boundary. A fresh session clears both
-  cheaply; the substance is settled and needs authoring only.
+- **Both blocked graduations LANDED at the 2026-08-07 curator pass** (fresh seat,
+  commit df747bace): the constraint-surface sentence is live in `principles.md`
+  §Separate Framework from Consumer; the sentinel-taxonomy clause was found
+  already live in `testing-strategy.md` §Prove-behaviour (92defb609). The
+  register now carries three NEW directive-gated rows from the vendor-memory
+  audit, awaiting the next fresh directive-headroom seat.
 - **Doctrine-queue items needing the `new-rule-vs-pdr-clause` DECISION** (not
   graduations — the home is genuinely undecided, so they are not register rows):
   prior-art-search as the first line of any design brief; the plan-of-consequence
@@ -906,3 +905,15 @@ opening state; this constraint rides any routing brief VERBATIM.
   per-line-safe squeeze is sed `s/[[:space:]]+/ /g` (sed cannot match the newline within
   a line). Corroborates both the byte-verify discipline and the front-door
   `peer-liveness --diff` case — four defect shapes in one day of hand-rolled comparators.
+- **Owner correction (2026-08-07 ~afternoon, verbatim substance): "If I give you a prompt
+  I expect you to carry it out, or at the very least put up a card asking if I am sure...
+  I do not expect you to opt out silently. I came here after several hours expecting to
+  find completed work."** Generator: this seat surfaced a legitimate feasibility conflict
+  (Lane 2 launched into the spent Lane 1 seat) as in-channel PROSE + quiet standby — an
+  owner fork with no card and no push notification, while the owner was away. The
+  surface-decisions-as-cards rule and the notify-at-action-moment clause (landed into
+  owner-attention-at-action-moments THIS SESSION by this seat) both already covered it:
+  recurrence-despite-home, the PDR-098 signal class. The cure at the moment of a
+  conflict-with-an-owner-instruction: card with "proceed anyway" option + push
+  notification, THEN hold; prose-then-wait is an ambient queue, invisible by design.
+  Consequence paid: ~3h owner wall-clock lost; override then re-issued and work begun.

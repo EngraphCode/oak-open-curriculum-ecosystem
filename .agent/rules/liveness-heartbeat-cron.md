@@ -286,6 +286,16 @@ comms-silent yet substantively active on a PR; a takeover fired on
 comms-evidence alone reads an active seat as stalled (two worked
 instances, 2026-06-10/11; owner-approved 2026-06-11).
 
+For a SAME-MACHINE seat the decisive cheap instrument is the seat's own
+worktree: dirty-tree state plus file mtimes. Any dark-seat verdict about
+a same-machine seat requires that worktree mtime check FIRST — remote
+surfaces and comms can both read silent while the worktree is minutes
+warm with cures in flight (worked instance 2026-08-06 ~13:04Z: a
+takeover round dispatched on remote-only evidence was halted by the
+delegated agent finding the "dark" seat's worktree three minutes warm;
+the halt discipline — no-risk-of-loss, consult before racing a dirty
+tree — is the pattern to repeat).
+
 ### Surfacing peer heartbeat-silence (F-75)
 
 The stall diagnostic above is *pull*: an agent must remember to look. The
