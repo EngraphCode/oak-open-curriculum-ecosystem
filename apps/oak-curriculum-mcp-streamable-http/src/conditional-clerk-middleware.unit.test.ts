@@ -357,6 +357,165 @@ describe('shouldSkipClerkMiddleware — the surface fork on /mcp', () => {
 });
 
 /**
+ * Case variants of the public surface (MCP-518, review correction).
+ *
+ * Express matches routes and mounts case-insensitively unless
+ * `case sensitive routing` is enabled, and this app never enables it. So
+ * `/MCP` is served by the same handlers as `/mcp` — and until the skip
+ * comparisons were normalised, it was served THROUGH Clerk and stayed
+ * handshake-eligible, which is precisely the defect MCP-518 exists to close.
+ *
+ * The final case is the load-bearing one: rather than enumerating the variants
+ * anyone happened to think of, it asserts that the decision is invariant under
+ * case for every path the suite exercises. A predicate that cured `/MCP` by
+ * spelling `/MCP` would pass the enumerated cases and fail that one.
+ */
+describe('shouldSkipClerkMiddleware — case variants of the public surface', () => {
+  const browserGet = (path: string): SkipCheckArg =>
+    createMockRequest(path, undefined, {
+      method: 'GET',
+      accept: BROWSER_ACCEPT,
+      secFetchDest: 'document',
+    });
+
+  const PAGE_VARIANTS = ['/MCP', '/Mcp', '/mCP', '/MCP/', '/Mcp/'];
+
+  it.each(PAGE_VARIANTS)('skips Clerk for a browser document GET of %s', (path) => {
+    expect(testShouldSkipClerkMiddleware(browserGet(path))).toBe(true);
+  });
+
+  it.each(PAGE_VARIANTS)('keeps Clerk on protocol traffic to %s', (path) => {
+    const req = createMockRequest(path, { method: 'tools/list' }, { accept: PROTOCOL_ACCEPT });
+    expect(testShouldSkipClerkMiddleware(req)).toBe(false);
+  });
+
+  it.each(['/MCP/OAK-DS/styles.css', '/Oak-Ds/styles.css', '/MCP/Oak-Assets/logo.png'])(
+    'skips Clerk for a subresource fetch at %s',
+    (path) => {
+      const req = createMockRequest(path, undefined, {
+        method: 'GET',
+        accept: 'text/css,*/*;q=0.1',
+        secFetchDest: 'style',
+      });
+      expect(testShouldSkipClerkMiddleware(req)).toBe(true);
+    },
+  );
+
+  it.each(['/HEALTHZ', '/OAuth/Token', '/.Well-Known/OpenID-Configuration'])(
+    'skips Clerk for the already-public path %s',
+    (path) => {
+      expect(testShouldSkipClerkMiddleware(createMockRequest(path, undefined))).toBe(true);
+    },
+  );
+
+  it('decides every mixed-case path exactly as it decides the lowercase one', () => {
+    const paths = [
+      '/',
+      '/mcp',
+      '/mcp/',
+      '/mcp/oak-ds/styles.css',
+      '/oak-assets/assets/logo.png',
+      '/healthz',
+      '/oauth/token',
+      '/assets/download/lesson/worksheet',
+      '/mcpfake',
+      '/not-a-public-path',
+    ];
+    const shapes: readonly { method: string; accept?: string; secFetchDest?: string }[] = [
+      { method: 'GET', accept: BROWSER_ACCEPT, secFetchDest: 'document' },
+      { method: 'GET', accept: '*/*', secFetchDest: 'document' },
+      { method: 'GET', accept: PROTOCOL_ACCEPT },
+      { method: 'POST', accept: PROTOCOL_ACCEPT },
+    ];
+
+    // Guards against a vacuous pass: the assertion below is only meaningful
+    // while the matrix actually contains paths whose case can differ.
+    const variants = paths.flatMap((path) =>
+      [path.toUpperCase(), toTitleCase(path)].filter((variant) => variant !== path),
+    );
+    expect(variants.length).toBeGreaterThan(0);
+
+    for (const path of paths) {
+      for (const shape of shapes) {
+        const canonical = testShouldSkipClerkMiddleware(
+          createMockRequest(path, { method: 'tools/list' }, shape),
+        );
+        for (const variant of [path.toUpperCase(), toTitleCase(path)]) {
+          expect(
+            testShouldSkipClerkMiddleware(
+              createMockRequest(variant, { method: 'tools/list' }, shape),
+            ),
+            `${shape.method} ${variant} decided differently from ${path}`,
+          ).toBe(canonical);
+        }
+      }
+    }
+  });
+});
+
+/**
+ * The root landing page (MCP-518, review correction).
+ *
+ * `static-content.ts` answers `GET /` with the same baked artefact the `/mcp`
+ * negotiation serves — it is one page at two URLs, and the alpha host's front
+ * door is the `/` one. Forking only `/mcp` left the identical page running
+ * through Clerk and handshake-eligible at the other address.
+ */
+describe('shouldSkipClerkMiddleware — the root landing page', () => {
+  it('skips Clerk for a browser document GET of /', () => {
+    const req = createMockRequest('/', undefined, {
+      method: 'GET',
+      accept: BROWSER_ACCEPT,
+      secFetchDest: 'document',
+    });
+    expect(testShouldSkipClerkMiddleware(req)).toBe(true);
+  });
+
+  it('skips Clerk for a document navigation to / whose Accept names no HTML type', () => {
+    const req = createMockRequest('/', undefined, {
+      method: 'GET',
+      accept: '*/*',
+      secFetchDest: 'document',
+    });
+    expect(testShouldSkipClerkMiddleware(req)).toBe(true);
+  });
+
+  it('leaves Clerk on a request to / that names the stream media type', () => {
+    // Nothing protocol-shaped is served at `/`, so this can only ever mean
+    // more auth, never less — the fork stays one predicate rather than
+    // acquiring a per-path exception.
+    const req = createMockRequest('/', undefined, {
+      method: 'GET',
+      accept: 'text/html, text/event-stream',
+      secFetchDest: 'document',
+    });
+    expect(testShouldSkipClerkMiddleware(req)).toBe(false);
+  });
+
+  it('leaves Clerk on a POST to /', () => {
+    const req = createMockRequest('/', { method: 'tools/call' }, { method: 'POST' });
+    expect(testShouldSkipClerkMiddleware(req)).toBe(false);
+  });
+
+  it('does not extend the page skip to a sibling path', () => {
+    const req = createMockRequest('/other', undefined, {
+      method: 'GET',
+      accept: BROWSER_ACCEPT,
+      secFetchDest: 'document',
+    });
+    expect(testShouldSkipClerkMiddleware(req)).toBe(false);
+  });
+});
+
+/** Upper-cases the first letter of each path segment, leaving the rest alone. */
+function toTitleCase(path: string): string {
+  return path.replaceAll(
+    /(^|\/)([a-z])/g,
+    (_match, sep: string, ch: string) => sep + ch.toUpperCase(),
+  );
+}
+
+/**
  * Creates a minimal mock request object for testing shouldSkipClerkMiddleware.
  *
  * @param path - The request path

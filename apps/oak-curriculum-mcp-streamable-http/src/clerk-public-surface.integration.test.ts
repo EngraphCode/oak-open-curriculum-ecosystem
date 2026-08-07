@@ -183,6 +183,145 @@ describe('the public /mcp surface never reaches Clerk (MCP-518)', () => {
   });
 });
 
+/**
+ * The same surface reached by a case variant of its path (MCP-518 review).
+ *
+ * Express matches routes and mounts case-insensitively by default, so `/MCP`
+ * is served by the same handlers as `/mcp`. These cases probe the assembled
+ * app rather than the predicate: the question is not "would the predicate
+ * skip" but "did the built app answer without the auth vendor ever running",
+ * which is the only form in which the bypass was observable.
+ */
+describe('case variants of the public /mcp surface never reach Clerk (MCP-518)', () => {
+  const PAGE_VARIANTS = ['/MCP', '/Mcp', '/MCP/'];
+
+  it.each(PAGE_VARIANTS)('serves %s as the page with no auth vendor involved', async (path) => {
+    const { app, reachedClerk } = await createHarness();
+
+    const res = await request(app)
+      .get(path)
+      .set('Host', SERVED_HOST)
+      .set('Accept', BROWSER_ACCEPT)
+      .set('Sec-Fetch-Dest', 'document')
+      .set('Cookie', SIGNED_IN_COOKIES);
+
+    expect(res.status, `${path} did not serve the page`).toBe(200);
+    expect(res.headers['content-type']).toMatch(/text\/html/);
+    expect(res.text).toBe(FAKE_LANDING_PAGE_HTML);
+    // The three observable faces of the defect: the redirect, the vendor's
+    // headers, and the vendor having run at all.
+    expect(res.status).not.toBe(307);
+    expect(clerkHeaderNames(res.headers)).toStrictEqual([]);
+    expect(reachedClerk).not.toHaveBeenCalled();
+  });
+
+  it('keeps Clerk on protocol traffic addressed to a case variant', async () => {
+    // The complement: normalising the skip comparisons must not hand the
+    // protocol leg a way to arrive without auth context.
+    const { app, reachedClerk } = await createHarness();
+
+    const res = await request(app)
+      .post('/MCP')
+      .set('Host', SERVED_HOST)
+      .set('Accept', PROTOCOL_ACCEPT)
+      .send({ jsonrpc: '2.0', id: 1, method: 'tools/list' });
+
+    expect(res.status).toBe(401);
+    expect(reachedClerk).toHaveBeenCalledWith('POST /MCP');
+  });
+
+  it('refuses to skip an upper-cased stream media type, and the gate still refuses it', async () => {
+    // The safety hinge of the whole fork, and the one place the two
+    // case rules deliberately disagree. The skip predicate matches
+    // `text/event-stream` case-INsensitively while the accept gate matches it
+    // case-sensitively, so an upper-cased Accept is refused by both: Clerk
+    // stays on, and the gate answers 406 rather than letting it through.
+    // Erring wide in the predicate can only ever leave auth switched on.
+    const { app, reachedClerk } = await createHarness();
+
+    const res = await request(app)
+      .get('/mcp')
+      .set('Host', SERVED_HOST)
+      .set('Accept', 'TEXT/EVENT-STREAM')
+      .set('Cookie', SIGNED_IN_COOKIES);
+
+    expect(res.status).toBe(406);
+    expect(reachedClerk).toHaveBeenCalledWith('GET /mcp');
+  });
+
+  it("keeps Clerk off a mixed-case fetch of the page's own stylesheet", async () => {
+    const { app, reachedClerk } = await createHarness();
+
+    const res = await request(app)
+      .get(`${ROUTED_ASSET_BASE}/${OAK_DS_MARKER}`.toUpperCase())
+      .set('Host', SERVED_HOST)
+      .set('Accept', 'text/css,*/*;q=0.1')
+      .set('Cookie', SIGNED_IN_COOKIES);
+
+    expect(clerkHeaderNames(res.headers)).toStrictEqual([]);
+    expect(reachedClerk).not.toHaveBeenCalled();
+  });
+});
+
+/**
+ * The root landing page (MCP-518 review).
+ *
+ * `GET /` serves the identical baked artefact. The owner ruling is about the
+ * page, not about one of its URLs, so the fork covers both doors — and for
+ * the alpha host, `/` is the front one.
+ */
+describe('the root landing page never reaches Clerk (MCP-518)', () => {
+  it('serves / to a signed-in browser without Clerk seeing the request', async () => {
+    const { app, reachedClerk } = await createHarness();
+
+    const res = await request(app)
+      .get('/')
+      .set('Host', SERVED_HOST)
+      .set('Accept', BROWSER_ACCEPT)
+      .set('Sec-Fetch-Dest', 'document')
+      .set('Cookie', SIGNED_IN_COOKIES);
+
+    expect(res.status).toBe(200);
+    expect(res.text).toBe(FAKE_LANDING_PAGE_HTML);
+    expect(res.status).not.toBe(307);
+    expect(clerkHeaderNames(res.headers)).toStrictEqual([]);
+    expect(res.headers['set-cookie']).toBeUndefined();
+    expect(reachedClerk).not.toHaveBeenCalled();
+  });
+
+  it('tells intermediaries that / now varies by Accept and may not be stored', async () => {
+    // Whether the auth vendor runs on this URL — and so whether the response
+    // carries its headers — became Accept-dependent when the fork reached `/`.
+    // The same two directives its `/mcp` twin sets are what stop a cache from
+    // pairing one request's answer with another's.
+    const { app } = await createHarness();
+
+    const res = await request(app)
+      .get('/')
+      .set('Host', SERVED_HOST)
+      .set('Accept', BROWSER_ACCEPT)
+      .set('Sec-Fetch-Dest', 'document');
+
+    expect(res.headers['cache-control']).toBe('no-store');
+    expect(res.headers['vary']).toMatch(/Accept/i);
+  });
+
+  it("keeps Clerk off the root-mounted copy of the page's static assets", async () => {
+    const { app, reachedClerk } = await createHarness();
+
+    for (const marker of [OAK_DS_MARKER, OAK_ASSETS_MARKER]) {
+      const res = await request(app)
+        .get(`/${marker}`)
+        .set('Host', SERVED_HOST)
+        .set('Cookie', SIGNED_IN_COOKIES);
+
+      expect(res.status, `/${marker} was not served`).toBe(200);
+      expect(clerkHeaderNames(res.headers)).toStrictEqual([]);
+    }
+    expect(reachedClerk).not.toHaveBeenCalled();
+  });
+});
+
 describe('the MCP protocol leg still reaches Clerk (MCP-518)', () => {
   it('routes a conformant protocol POST through Clerk', async () => {
     const { app, reachedClerk } = await createHarness();

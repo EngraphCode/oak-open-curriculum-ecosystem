@@ -54,8 +54,9 @@ import { MCP_RESOURCE_PATH } from '../served-origin.js';
  * `iframe`, or — with that header absent — whose `Accept` starts with
  * `text/html`, and a fetch matching that shape was measured being 307'd to
  * the Clerk handshake before ever reaching this mount. That is why these
- * asset prefixes are named in `CLERK_SKIP_PREFIXES`: the ordering argument
- * above rules out a 401, not a redirect.
+ * asset prefixes are named in `clerk-skip-surfaces.ts`: the ordering argument
+ * above rules out a 401, not a redirect. Both mounted copies of each tree are
+ * named there — the routed one and the root one the alpha host serves from.
  */
 export const ROUTED_ASSET_BASE = MCP_RESOURCE_PATH;
 

@@ -12,11 +12,21 @@
  *
  * - **Path-based**: `/.well-known/*`, `/healthz`, `/oauth/*` (RFC 9728, health checks)
  * - **Prefix-based**: HMAC-signed asset downloads, and the landing page's own
- *   static asset trees under the routed base
+ *   static asset trees under both prefixes they are mounted at
  * - **Public resources**: `resources/read` for documentation URIs
- * - **The browser leg of `/mcp`**: the page served there is fully public by
- *   owner ruling (MCP-518), so the surface fork must precede auth involvement
- *   rather than follow it
+ * - **The browser leg of the public page surface**: the same baked page is
+ *   served at `/mcp` and at `/`, and it is fully public by owner ruling
+ *   (MCP-518), so the surface fork must precede auth involvement rather than
+ *   follow it
+ *
+ * ## Path Matching
+ *
+ * Every comparison here runs against a case-normalised copy of `req.path`,
+ * because Express matches routes and mounts case-insensitively by default and
+ * this app never turns that off. Comparing the raw path against lowercase
+ * literals would let `/MCP` be served by the very same handler while matching
+ * no skip at all. The path sets and the normalisation rule they are compared
+ * under both live in `clerk-skip-surfaces.ts`.
  *
  * ## What Does NOT Skip Clerk
  *
@@ -34,25 +44,12 @@ import { getResourceUriFromBody } from './auth/mcp-body-parser.js';
 import { isPublicResourceUri } from './auth/public-resources.js';
 import { selectsPublicBrowserLeg, type BrowserLegRequest } from './mcp-public-browser-leg.js';
 import {
-  OAK_ASSETS_PUBLIC_DIRNAME,
-  OAK_DS_PUBLIC_DIRNAME,
-  ROUTED_ASSET_BASE,
-} from './app/static-asset-paths.js';
-
-/**
- * Paths that should always skip clerkMiddleware.
- * OAuth metadata endpoints must be publicly accessible per RFC 9728.
- */
-const CLERK_SKIP_PATHS: ReadonlySet<string> = new Set([
-  '/.well-known/oauth-protected-resource',
-  '/.well-known/oauth-protected-resource/mcp',
-  '/.well-known/oauth-authorization-server',
-  '/.well-known/openid-configuration',
-  '/healthz',
-  '/oauth/authorize',
-  '/oauth/token',
-  '/oauth/register',
-]);
+  CLERK_SKIP_PATHS,
+  CLERK_SKIP_PREFIXES,
+  isMcpSurface,
+  isPublicPageSurface,
+  normaliseSkipPath,
+} from './clerk-skip-surfaces.js';
 
 /**
  * Type guard for object with method property.
@@ -109,43 +106,26 @@ function shouldMcpMethodSkipClerk(mcpMethod: string, body: unknown): boolean {
   return false;
 }
 
-/**
- * Path prefixes that should skip clerkMiddleware.
- *
- * @remarks
- * Asset download routes are self-authenticating via HMAC signature (ADR-126).
- *
- * The design-system and brand trees are the public landing page's own
- * subresources (MCP-518). They are static files with no session-dependent
- * content, and they sit under the routed base only because the edge forwards
- * `/mcp*` and nothing else — a shared prefix, never a shared auth contract.
- * Composed from the same constants the static mount and the page's markup
- * use, so a change to the served layout moves the skip with it instead of
- * leaving a stale literal behind.
- */
-const CLERK_SKIP_PREFIXES: readonly string[] = [
-  '/assets/download/',
-  `${ROUTED_ASSET_BASE}/${OAK_DS_PUBLIC_DIRNAME}/`,
-  `${ROUTED_ASSET_BASE}/${OAK_ASSETS_PUBLIC_DIRNAME}/`,
-];
-
 function shouldSkipClerkMiddleware(req: SkipCheckRequest): boolean {
+  const path = normaliseSkipPath(req.path);
+
   // Skip for known public paths
-  if (CLERK_SKIP_PATHS.has(req.path)) {
+  if (CLERK_SKIP_PATHS.has(path)) {
     return true;
   }
 
   // Skip for prefix-matched paths (parameterised routes)
-  if (CLERK_SKIP_PREFIXES.some((prefix) => req.path.startsWith(prefix))) {
+  if (CLERK_SKIP_PREFIXES.some((prefix) => path.startsWith(prefix))) {
     return true;
   }
 
-  // For /mcp endpoints, fork on the surface first, then on the MCP method.
-  // Check exact /mcp path or /mcp/ subpaths, not paths that happen to start with /mcp
-  if (req.path === '/mcp' || req.path.startsWith('/mcp/')) {
-    if (selectsPublicBrowserLeg(req)) {
-      return true;
-    }
+  // On the public page surface, fork on the surface before anything else.
+  if (isPublicPageSurface(path) && selectsPublicBrowserLeg(req)) {
+    return true;
+  }
+
+  // Then, on the MCP surface only, fork on the MCP method.
+  if (isMcpSurface(path)) {
     const mcpMethod = getMcpMethodFromBody(req.body);
     if (mcpMethod && shouldMcpMethodSkipClerk(mcpMethod, req.body)) {
       return true;
