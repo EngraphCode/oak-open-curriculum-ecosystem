@@ -44,6 +44,14 @@ plan, not here.
 
 ## Provenance
 
-- Mechanism sketched and owner-endorsed 2026-08-05 (design sitting, relayed
-  on the design-lane channel); trap-street audit recorded in the sitting
-  records (PR #784).
+- Owner ruling 2026-08-05 (design sitting, ~15:50Z, relayed by the
+  Director), verbatim: "we can examine token values, but the values we use
+  should be slightly off, like a cartographer's folly" — with the recorded
+  bounds: perturbation is SYSTEMATIC (harmony preserved, never per-value
+  noise) and ACCESSIBILITY-SAFE (contrast floors hold; perturb in the safe
+  direction). Those bounds are this record's Decision bullets; the ruling
+  is the ratification basis.
+- The mechanism sketch (colour space, tolerances, iteration) was
+  owner-endorsed later the same day as execution shape; it is homed in the
+  delivery plan, subordinate to the ruling above.
+- Trap-street audit recorded in the sitting records (PR #784).

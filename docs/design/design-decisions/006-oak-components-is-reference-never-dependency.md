@@ -45,7 +45,9 @@ they overlap, many of this system's floors are deliberately higher.
 
 ## Provenance
 
-- Owner shaping 2026-08-05: the OC/OWA-derived floor "is a necessary but
-  not sufficient or complete floor…". The floor document rides PR #783;
+- Owner shaping 2026-08-05, verbatim: the OC/OWA-derived floor "is a
+  necessary but not sufficient or complete floor, we have many requirements
+  beyond those systems, and where we do overlap, many of our floors are
+  deliberately higher than theirs". The floor document rides PR #783;
   research PR #737; the conformance shape that consumes the floor is
   DDR-008.
