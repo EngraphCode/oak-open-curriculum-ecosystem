@@ -115,3 +115,30 @@ record).
   closed 2026-07-04). Cause: read step statuses from a frontmatter grep without
   reading the plan's own supersession banner. The plan node carries the
   corrected engine facts.
+
+## 2026-08-07 ~20:2xZ (Plover lifts Troposphere, b10c37, Director) — owner decision cards land; a cross-file validity coupling observed and structurally cured upstream
+
+- Owner rulings at the Director decision cards (all four answered ~20:12Z): #817 merge word
+  given — but the recompute-at-the-decision-moment read found the owner had ALREADY merged it
+  himself at 20:08:18Z, so no duplicate merge fired (the first-hand recompute is what stood
+  between this seat and a second merge attempt on a merged PR). Codex vendor-memory corpus
+  audit AUTHORISED (routed as a bounded lane, next free seat). Goal-hook pacing clause
+  RATIFIED — registered as pending-graduations row 4, parser count verified 3→4. Queue
+  cleanup: owner verbatim "Create a repo plan for it, not all work needs a linear ticket" —
+  plan node commit-queue-front-door-cleanup authored, tickets empty by owner word.
+- The owner's queue-cleanup wording is a per-item nuance on ticket-first discipline: the
+  repo plan can be the WHOLE record when the owner says so; a ticket is visibility metadata
+  (consistent with #817's merged substance), never an obligation to invent. Scope: standing.
+- Cross-file validity coupling, observed live (~20:15Z): Nettle's longitudinal plan naming
+  MCP-531 ANCHORED the outcome-informed-practice-learning subtree, which turned the
+  pre-existing ratified-but-ticketless shared-construct-extraction-pilot plan red in the
+  corpus validator — plan A's landing changed plan B's validity with no edit to B. The cure
+  arrived structurally minutes later: the owner's #817 merge DELETED the anchors machinery
+  (validity is repo-internal). Merged main in (db02d819a, zero-overlap proven) rather than
+  patching B; the class lesson — a corpus rule keyed on a subtree property makes landings
+  couple across files — is worth recalling if a future corpus rule proposes subtree-keyed
+  obligations.
+- Longitudinal pass state absorbed: plan ratified with the validate ceiling pre-approved
+  (62M authorised, July calibration 246 candidates), executing at Nettle weaves Root under
+  MCP-531; this seat's earlier opener-ready ROUTE (d30dbb66) is superseded by that direct
+  owner launch — route stands discharged, not pending.

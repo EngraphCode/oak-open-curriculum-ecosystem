@@ -141,6 +141,17 @@ debt register, 2026-07-08).
   (memory owner-channel-answer-first) | target: user-collaboration.md
   §Working Model | trigger: fresh seat with directive-file headroom, as the
   rows above | size: one short paragraph | status: pending]`
+- **Goal-hook pacing clause (owner-ratified 2026-08-07): under any standing
+  goal-hook, boundary rituals (grounding sentence, falsifier-check) bind
+  HARDER, and n=1 sessions treat the goal as direction, never as permission
+  to skip gates**
+  `[captured: 2026-08-07 | source: Director verdict event f81076d9 (cure
+  shape (a) adjudicated on standing owner principles; prohibition rejected
+  under additions-never-subtract); owner ratification 2026-08-07 at the
+  Director decision card (Plover seat, b10c37) | target: metacognition.md
+  (or the goal-hook's own guidance) as the counterweight clause | trigger:
+  fresh seat with directive-file headroom, as the rows above | size: one
+  short paragraph | status: pending]`
 
 <!-- Register drained to empty at the 2026-08-07 curator pass (Gull lifts Nimbus, fresh
 seat clearing the directive-file-context-budget gate both rows were held on): the
