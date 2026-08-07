@@ -96,3 +96,22 @@ record).
   duty per step 6a; the estate's napkin-corpus-analysis pipeline
   (`agent-tools/src/corpus-analysis/`) is the sized engine (~20-25 mapper
   windows).
+
+## 2026-08-07 ~19:5xZ (Nettle weaves Root, 5cfa11) — step-6a brief homed as a plan node
+
+- The owner-agreed step-6a brief (previous section) is now carried
+  authoritatively by the delivery plan node
+  `.agent/plans/delivery/longitudinal-napkin-synthesis-2026-08.plan.md` (born
+  sketch, awaiting the ratification stamp), with the 2026-08-07 reflection-pass
+  amendments adopted at owner word: seam-aligned partition re-derivation,
+  banked-verdict dedup against the July discovery run, post-run-driver
+  first-hand recompute, explicit marker-chain statement, launch proportionality
+  pass. The napkin section above stays as the historical brief; the plan node
+  governs at pickup.
+- Own-mistake log (same pass): the first reflection report called the v3
+  extraction-grain plan "pending" — wrong. It was superseded 2026-06-30 by
+  `napkin-corpus-discovery-run.plan.md`, whose refinements are as-built and
+  whose full run executed 2026-07-01/02 (validate calibration failed; salvage
+  closed 2026-07-04). Cause: read step statuses from a frontmatter grep without
+  reading the plan's own supersession banner. The plan node carries the
+  corrected engine facts.
