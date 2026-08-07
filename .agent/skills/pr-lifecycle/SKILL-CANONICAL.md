@@ -255,6 +255,27 @@ surfaces. Partial reads produce false "no problems" verdicts:
   new defects, three of those in hardening no ticket asked for — before
   this ruling landed). Underlying principles:
   `concept-exploration` §Loop Dynamics; sizing gate: `proportionality`.
+- **A sampling finder has no fixed point — cure the CLASS, not the instance.**
+  A bot reviewer over a large, dense diff *samples* it differently each pass
+  rather than converging: measured suppressed-finding counts across one arc ran
+  5, 5, 2, 4, 3, 3, and round 10 flagged two surfaces that had been unchanged
+  since round 1. Waiting for such a loop to reach zero is waiting on a process
+  that has no zero. Two moves end it:
+  - **The class-kill.** When a finder lands one instance per round of the same
+    shape, stop curing instances and close the family in one move — a single
+    exact-set assertion ended a presence-only family that had recurred for three
+    consecutive rounds.
+  - **Tally-then-step-back at ~4 settled rounds**, with the materiality line
+    stated: cure correctness-class findings, disposition polish with a verified
+    failure scenario, make every item visibly adjudicated on the PR, and give any
+    routed residue a named carrier. Convergence then means *the loop closed
+    honestly*, not *the finder went quiet*.
+- **A growing round is a routing failure.** If the surface under review expands
+  between rounds, the loop cannot converge by construction — freeze the text and
+  route the additions, rather than reviewing a moving target (worked instance: a
+  design plan whose three full-depth rounds ran 98 → 112 → 113 findings while the
+  text doubled, because each cure added reviewable mass; the cure was partitioning
+  by horizon, not more rounds).
 - Order by blocking force and risk, not by tool order; root causes before
   echoes.
 - Sonar findings keep their per-site channel: **owner-dispositioned with

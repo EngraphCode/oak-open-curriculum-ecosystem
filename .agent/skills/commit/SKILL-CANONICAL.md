@@ -120,6 +120,22 @@ Run these steps **before** formulating the commit message.
    `pull request 170` or move the reference to the real footer. Em-dashes
    and bullet shapes are innocent.
 
+   **Second shape, created by WRAPPING (bisected 2026-08-05):** a body line
+   that BEGINS `<word>:` — one ordinary word plus a colon — also parses as a
+   footer token and fires the same rule. This one is nastier than the
+   `token #ref` shape for three reasons: the wrap creates it rather than
+   anything you wrote (the same sentence on one line is fine); any plausible
+   mid-sentence word triggers it (`fixed:`, `note:`, `result:`, `evidence:`,
+   `cure:`), so a 100-char wrap can push one to a line start; and it only
+   WARNS, so the commit lands and `check-commit-message` exits 0 on it — you
+   discover it in the hook output of a commit that has already succeeded.
+   **Cure: after wrapping a body, scan line STARTS for `^\w+:` and reword or
+   rewrap.** `no-warning-toleration` has no carve-out for "it only warned", so
+   an unpushed commit carrying it is amended (which the safety rules permit)
+   — but read the amend precondition below before doing so: a pushed commit is
+   never amended to clear a cosmetic warning, and one seat inverted exactly
+   that proportion under this pressure.
+
    **The `commit-msg` hook is the real gate — do not test the checker.** The
    `.husky/commit-msg` hook runs commitlint on every commit unconditionally; the
    pre-draft `check-commit-message` script is an optional convenience to catch a
@@ -667,7 +683,21 @@ Additional prohibitions:
   Branch first; if commits are already stranded on local `main`, fetch,
   preserve them on a branch, and re-home `main` to `origin/main`.
 - **Never** force-push to `main` / `master`.
-- **Never** amend commits already pushed to remote.
+- **Never** amend commits already pushed to remote. The precondition needs one
+  extra clause, because the plain form does not hold under backgrounding: the
+  question is not "has this been pushed?" but **"has this been pushed — as of
+  now, with nothing in flight that could change the answer?"** Read the remote
+  ref at the instant of the amend, not before the reasoning that leads to it,
+  AND confirm no push, background task, or other seat's operation is running
+  against that ref. Worked instance 2026-08-05: a seat read the remote ref, got
+  a correct "not pushed" answer, and amended — while its own backgrounded
+  commit-and-push task was still in flight and landed in between. The push was
+  then correctly refused as non-fast-forward, so nothing was lost, and the
+  reconciliation was cheap only because the amend had changed the message alone;
+  an amend that also touched content would have left divergent content with no
+  clean pointer move available. The general shape is the pattern
+  `observation-that-does-not-bear-on-the-claim` § the race; the operative
+  discipline is that an in-flight task's partial log is never a completed result.
 - If a pre-commit or commit-msg hook fails, **fix the underlying issue** — no
   shortcuts, no hook bypassing.
 

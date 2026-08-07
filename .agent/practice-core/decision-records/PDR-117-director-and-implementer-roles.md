@@ -176,6 +176,14 @@ the awareness (Director, minimum action).**
 - **Verification honesty.** Distinguishes **RUN-verified** (a gate actually
   exercised the change) from **CONSTRUCTION-verified** (a no-op the gate cannot
   reach); never claims a method verified what it cannot reach.
+- **Declares its own idleness** (owner standing directive, 2026-08-02, verbatim:
+  *"whenever you, or any agent, has downtime, please let the Director know that
+  you are available to help move some of the older PRs, draft or ready, towards
+  merge"*). Downtime is reported, not filled: a waiting seat tells the Director it
+  is available and the Director routes from the live board, oldest-first. This is
+  the honest inverse of a Director filling free seats with surfaced hygiene work —
+  an idle seat that announces itself surfaces the priority question, while one that
+  quietly finds its own work makes busyness read as alignment.
 
 ### The routing contract (Director ↔ Implementer ↔ Owner)
 
@@ -511,3 +519,61 @@ surface-splitting instance classes stop recurring; falsified if a later
 consolidation finds arcs re-fragmented to ticket grain after this date,
 or finds coherence-surface-grain routing producing measurably worse
 contention or seat tenure than the ticket-grain default it replaced.
+
+## Amendment (2026-08-05) — Seat count is a function of parallel work, not of function count
+
+Evidence: a product-submission arc at the host (2026-08-05), retrospected by
+its sitting Director at the arc's close and graduated at the host's
+2026-08-06 dedicated consolidation; the host's records conserve the specifics.
+
+**The function is not the seat.** A Submission-Manager function — tracking the
+submission path, helping the owner on non-code gates, surfacing ownerless
+blockers — delivered real value on this arc: it caught two lapsed gates, drove a
+blocker diagnosis, and off-loaded content work from the Director. But instantiated
+as a **standing seat** alongside a Director (and briefly an endpoint seat) on a
+*small, owner-active* push, it over-instantiated; the owner's word for the result
+was "ridiculous".
+
+The refined doctrine, stated as a test rather than a headcount:
+
+> **The multi-seat model earns its keep on genuine PARALLEL implementer work.**
+> When the critical path narrows to a single owner-gated or infrastructure-gated
+> blocker, there is no parallel work — **fold the functions into fewer seats.**
+
+**Convergence discipline (Director craft).** The over-instantiation was visible as
+a specific shape: three seats all investigating and all broadcasting about ONE
+blocker. When a single blocker pulls multiple seats in, keep **one investigating
+seat plus the Director**, and route the rest away or stand them down. Over-
+broadcast is the Director's own version of this anti-pattern — minimum-action
+means substance only, and a Director narrating a blocker it is not investigating
+is churn wearing a coordination costume.
+
+**The absent damping seat is the anomaly.** On an adjacent day the Director seat
+sat empty for a full working day and no seat flagged the absence. A fleet running
+without its coordination seat should read as an anomaly to surface, not as a quiet
+day — the missing damping seat *is* the signal.
+
+**Two craft lessons the arc paid for, carried here because they are Director-side:**
+
+- **Verify empirically; never bank an inferred hope.** Three reversals in one arc,
+  each an optimistic inference that only the empirical run corrected: a
+  capability read as enabled from a status code whose BODY said it was disabled;
+  "the machinery is proven" from a run that had actually returned a 500; a fault
+  dismissed as an artefact of direct navigation that the in-flow retest showed was
+  real. **Read the body, not the status; the run is the arbiter, not the
+  "should".** (The Practice's enforcement surface for this class is its
+  verification rule — `verify-dont-trust` § Name the Instrument.)
+- **Staging earns its keep, repeatedly.** The owner's prove-on-dev-first ruling,
+  adapted to a preview bound to the production auth realm when the dev instance
+  could not cover the leg, caught a real launch blocker plus two further
+  server-side defects — all before submission, with the production surface
+  untouched. Rehearsal is not ceremony when the rehearsal surface can be bound to
+  the real dependency.
+
+Expected observable effect + falsifier (PDR-130 fast-lane obligation): seat counts
+fall to Director-plus-one when the critical path is a single gated blocker, and the
+all-seats-on-one-blocker shape stops recurring; falsified if a later arc shows a
+folded roster measurably *slower* to clear its blocker than a standing multi-seat
+roster on comparable work, or if the fold leaves a non-code gate ownerless again —
+which would mean the SM function needed its own seat after all and the cost was
+correctly paid.

@@ -105,6 +105,7 @@ packages/sdks/oak-sdk-codegen/reference/*.json
 .logs/*
 !.logs/.gitignore
 logs/
+*.har
 # Operational diagnostic traces (see
 # .agent/memory/operational/diagnostics/README.md) — tracked so
 # patterns are visible across sessions and machines.
