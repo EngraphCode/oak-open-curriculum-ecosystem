@@ -6,7 +6,6 @@ date: 2026-08-05
 deciders: Jim Cresswell (owner shaping words, 2026-08-05); design lane
 edges:
   depends_on: [DDR-002]
-  constrains: [DDR-007, DDR-008]
   supersedes: []
   informed_by:
     - 'PR #737 — Oak Components anatomy, intent and evolution'
@@ -40,12 +39,13 @@ they overlap, many of this system's floors are deliberately higher.
   design workspace is non-conformant on sight.
 - Floor rows derived from Oak Components are evidence, never a census;
   incompleteness of the derived floor is constitutive (owner shaping,
-  2026-08-05, carried verbatim in the floor document).
+  2026-08-05, carried verbatim in the floor document — PR #783).
 - Reading the reference deeply is encouraged; resemblance in VALUES is
   governed separately by DDR-007.
 
 ## Provenance
 
 - Owner shaping 2026-08-05: the OC/OWA-derived floor "is a necessary but
-  not sufficient or complete floor…". Floor draft PR #783; research PR #737;
-  the conformance shape that consumes the floor is DDR-008.
+  not sufficient or complete floor…". The floor document rides PR #783;
+  research PR #737; the conformance shape that consumes the floor is
+  DDR-008.

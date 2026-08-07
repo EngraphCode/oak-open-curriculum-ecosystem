@@ -1,12 +1,15 @@
 ---
-title: 'Design Decision Records'
-type: design
+boundary: B2-Architecture
 doc_role: index
+authority: design-decision-navigation
 status: active
-last_updated: 2026-08-07
+last_reviewed: 2026-08-07
 ---
 
 # Design Decision Records (DDRs)
+
+**Last Updated**: 2026-08-07
+**Status**: Active design-decision index
 
 > **Navigation**: [Docs Home](../README.md) |
 > [Architectural Decisions](../architecture/architectural-decisions/README.md)
@@ -36,7 +39,6 @@ graph tooling ingests them, never the reverse.
 Edge types (all lists, all optional):
 
 - `depends_on` — DDRs this decision presupposes.
-- `constrains` — DDRs this decision bounds (DDR ids only).
 - `supersedes` / `superseded_by` — replacement lineage (paired).
 - `informed_by` — inputs that shaped the decision (research, reports, PRs).
 - `related` — records sharing substance (ADRs, PDRs, licence surfaces, PRs).
@@ -64,7 +66,6 @@ date: YYYY-MM-DD # date of the decision, not of the record
 deciders: <who decided, at what authority>
 edges:
   depends_on: []
-  constrains: []
   supersedes: []
   superseded_by: []
   informed_by: []
@@ -111,8 +112,6 @@ graph TD
   DDR006 -->|depends_on| DDR002
   DDR007 -->|depends_on| DDR005
   DDR007 -->|depends_on| DDR006
+  DDR008 -->|depends_on| DDR001
   DDR008 -->|depends_on| DDR006
-  DDR005 -->|constrains| DDR006
-  DDR005 -->|constrains| DDR007
-  DDR001 -->|constrains| DDR008
 ```

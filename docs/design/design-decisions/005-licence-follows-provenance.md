@@ -6,7 +6,6 @@ date: 2026-08-02
 deciders: Jim Cresswell (owner)
 edges:
   depends_on: []
-  constrains: [DDR-006, DDR-007]
   supersedes: []
   informed_by:
     - packages/design/oak-design-system/LICENCES.md

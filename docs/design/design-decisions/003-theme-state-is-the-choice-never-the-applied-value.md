@@ -6,10 +6,9 @@ date: 2026-08-02
 deciders: design lane; owner-merged landings
 edges:
   depends_on: [DDR-002]
-  constrains: []
   supersedes: []
   informed_by:
-    - 'PR #644 (closed with pointer), PR #710, PR #715 — the choice-model landings'
+    - 'PR #644, PR #710, PR #715 — the choice-model landings'
   related:
     - docs/architecture/architectural-decisions/213-design-system-integration-and-component-architecture.md
 ---
@@ -32,8 +31,9 @@ exposes the choice through a dedicated accessor (MCP-388), and the shared
 store's snapshot distinguishes no-runtime from no-explicit-choice; the store
 deliberately carries no contrast-media mirror (probe-proven inert under this
 model: the OS-contrast path writes only the applied attribute). The accessor
-signature and sentinel encodings live at their home,
-`packages/design/oak-design-react/README.md`.
+signature lives on the store's exported `OakThemeRuntime` contract
+(`packages/design/oak-design-react/src/oak-theme-store.ts`); the sentinel
+encodings live in `packages/design/oak-design-react/README.md`.
 
 ## Consequences
 
@@ -50,5 +50,5 @@ signature and sentinel encodings live at their home,
   two-level snapshot: PR #715 (same day; the
   [ADR-213](../../architecture/architectural-decisions/213-design-system-integration-and-component-architecture.md)
   §3 tier landing).
-- The conflation defect and its cure trace through PR #644
-  (closed-with-pointer at #715's landing).
+- The conflation defect and its cure trace through PR #644; #715's
+  landing superseded it, and the pointer trail is recorded on that PR.

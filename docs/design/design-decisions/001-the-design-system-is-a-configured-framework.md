@@ -6,9 +6,9 @@ date: 2026-08-05
 deciders: Jim Cresswell (owner)
 edges:
   depends_on: []
-  constrains: [DDR-002, DDR-008]
   supersedes: []
   informed_by:
+    - 'PR #782 — the strategic node ratification (the informing artefact)'
     - 'PR #737 — Oak Components anatomy, intent and evolution'
   related: []
 ---
@@ -43,6 +43,13 @@ general; semantic tokens are never Oak-specific.
 ## Provenance
 
 - Strategic node ratified by owner word 2026-08-05 (session a0892f);
-  ratification stamp landed in PR #782.
-- The generality-depth gradient and configuration boundary are carried by
-  the strategic node and the design-system completion plan.
+  ratification stamp landed in PR #782 — that node is this decision's
+  informing artefact, and this record now carries its decision substance.
+- The generality-depth gradient, in-record (owner kernel, 2026-08-02/03):
+  the system is layered with the most reusable layers at the bottom and
+  the most specific at the top; each higher layer depends on the lower
+  layers and every layer is optional and complete, down to a zero-runtime
+  static consumer with full identity fidelity; deeper layers are more
+  general, and semantic tokens are never Oak-specific. The configuration
+  boundary is where Oak-specific values enter — ideally no more than
+  config passed to a general framework.

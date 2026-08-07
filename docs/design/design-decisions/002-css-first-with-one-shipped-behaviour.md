@@ -6,7 +6,6 @@ date: 2026-08-02
 deciders: Jim Cresswell (owner)
 edges:
   depends_on: [DDR-001]
-  constrains: [DDR-003]
   supersedes: []
   informed_by:
     - .design-sync/conventions.md

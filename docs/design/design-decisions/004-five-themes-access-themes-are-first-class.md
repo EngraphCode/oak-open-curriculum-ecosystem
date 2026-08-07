@@ -6,7 +6,6 @@ date: 2026-08-02
 deciders: design lane, standing owner accessibility posture
 edges:
   depends_on: [DDR-002]
-  constrains: []
   supersedes: []
   informed_by:
     - demos/oak-curriculum-hub/components/ThemeSwitcher.tsx
@@ -41,5 +40,7 @@ contrast machinery, and testing.
 - The hub ThemeSwitcher carries the working statement ("the access themes
   are not optional extras") and offers all five; landed through the
   2026-08-02 lane (PRs #710/#715).
-- The completion plan's quality bar carries the per-theme coverage
-  obligations.
+- The per-theme coverage obligation, in-record: rendered accessibility and
+  contrast gates run per identity × theme cell across the full five-theme
+  roster with the cell count pinned, so a shrinking matrix is visible;
+  execution sequencing is the delivery plan's concern, not this record's.

@@ -3,12 +3,12 @@ boundary: cross-boundary
 doc_role: index
 authority: docs-root-navigation
 status: active
-last_reviewed: 2026-07-28
+last_reviewed: 2026-08-07
 ---
 
 # Documentation for Oak Open Curriculum Ecosystem
 
-**Last Updated**: 2026-07-28
+**Last Updated**: 2026-08-07
 **Status**: Active index
 
 ## Getting Started

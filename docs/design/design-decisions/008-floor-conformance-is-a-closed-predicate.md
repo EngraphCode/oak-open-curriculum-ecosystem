@@ -5,8 +5,7 @@ status: accepted
 date: 2026-08-06
 deciders: Director seat under owner delegation (2026-08-06)
 edges:
-  depends_on: [DDR-006]
-  constrains: []
+  depends_on: [DDR-001, DDR-006]
   supersedes: []
   informed_by:
     - .agent/reports/design/oak-components-capability-floor-shaping-debate-2026-08-06.md

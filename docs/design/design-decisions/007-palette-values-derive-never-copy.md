@@ -6,7 +6,6 @@ date: 2026-08-05
 deciders: Jim Cresswell (owner endorsement, 2026-08-05); design lane
 edges:
   depends_on: [DDR-005, DDR-006]
-  constrains: []
   supersedes: []
   informed_by:
     - 'PR #784 — design sitting records 2026-08-05, carrying the trap-street audit'
