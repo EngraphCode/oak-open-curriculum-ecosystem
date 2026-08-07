@@ -3,10 +3,10 @@ import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { runInheritedProcess, type InheritedProcessReplaySinks } from '../src/commit-queue/process';
+import { runFileBackedChild, type FileBackedChildReplaySinks } from '../src/core/file-backed-child';
 
 /**
- * F-112 invariant tests for {@link runInheritedProcess} — real `spawn`,
+ * F-112 invariant tests for {@link runFileBackedChild} — real `spawn`,
  * deterministic synthetic children, no git, no global state.
  *
  * The pinned F-112 mechanism: Node-created pipes on a spawned
@@ -23,7 +23,7 @@ const node = process.execPath;
 const cwd = tmpdir();
 
 interface CollectedReplay {
-  readonly sinks: InheritedProcessReplaySinks;
+  readonly sinks: FileBackedChildReplaySinks;
   stdoutText(): string;
   stderrText(): string;
 }
@@ -41,11 +41,11 @@ function collectReplay(): CollectedReplay {
   };
 }
 
-function run(script: string, sinks: InheritedProcessReplaySinks = collectReplay().sinks) {
-  return runInheritedProcess({ command: node, args: ['-e', script], cwd, replaySinks: sinks });
+function run(script: string, sinks: FileBackedChildReplaySinks = collectReplay().sinks) {
+  return runFileBackedChild({ command: node, args: ['-e', script], cwd, replaySinks: sinks });
 }
 
-describe('runInheritedProcess (F-112 invariants)', () => {
+describe('runFileBackedChild (F-112 invariants)', () => {
   it('never hands the child Node pipes for stdout/stderr', async () => {
     // Node's child-stdio "pipes" are socketpairs (libuv), so the guard
     // must refuse sockets AND FIFOs — file-backed stdio is neither.
@@ -98,6 +98,27 @@ describe('runInheritedProcess (F-112 invariants)', () => {
     expect(result.stderr).not.toContain('o'.repeat(4096));
   });
 
+  it('interleaves both streams in write order under combinedOutput, through the stdout sink alone', async () => {
+    // One shared file description: the kernel orders writes as a terminal
+    // would, so a failing gate's stderr verdict stays beside the stdout
+    // that explains it (the merge-bot push's transcript shape).
+    const replayed = collectReplay();
+    const result = await runFileBackedChild({
+      command: node,
+      args: [
+        '-e',
+        `process.stdout.write('OUT-1|'); process.stderr.write('ERR-1|'); process.stdout.write('OUT-2');`,
+      ],
+      cwd,
+      combinedOutput: true,
+      replaySinks: replayed.sinks,
+    });
+
+    expect(replayed.stdoutText()).toBe('OUT-1|ERR-1|OUT-2');
+    expect(replayed.stderrText()).toBe('');
+    expect(result.stderr).toBe('');
+  });
+
   it('reports the child real exit code', async () => {
     const result = await run('process.exit(7);');
 
@@ -112,9 +133,41 @@ describe('runInheritedProcess (F-112 invariants)', () => {
     expect(result.exitCode).toBe(128);
   });
 
+  it('passes a provided child environment through', async () => {
+    // The env option arrived with the merge-bot push consumer (its git child
+    // carries the credential-file path in env).
+    const explicit = collectReplay();
+    await runFileBackedChild({
+      command: node,
+      args: ['-e', `process.stdout.write(String(process.env.F112_PROBE));`],
+      cwd,
+      env: { F112_PROBE: 'explicit-env-arrived' },
+      replaySinks: explicit.sinks,
+    });
+
+    expect(explicit.stdoutText()).toBe('explicit-env-arrived');
+  });
+
+  it('inherits the parent environment when env is omitted', async () => {
+    // The pre-option behaviour must hold: an omitted env inherits — the
+    // mutant `env: options.env ?? {}` would strip PATH/HOME from the commit
+    // workflow's git child. The CHILD reads its own PATH here (the string is
+    // evaluated in the child, not the test process); the assertion leans on
+    // the ambient fact that every runner environment sets PATH.
+    const inherited = collectReplay();
+    await runFileBackedChild({
+      command: node,
+      args: ['-e', `process.stdout.write(String(process.env.PATH ? 'inherited' : 'empty'));`],
+      cwd,
+      replaySinks: inherited.sinks,
+    });
+
+    expect(inherited.stdoutText()).toBe('inherited');
+  });
+
   it('rejects on an unspawnable command without corrupting later use', async () => {
     await expect(
-      runInheritedProcess({
+      runFileBackedChild({
         command: join(cwd, 'f112-no-such-binary'),
         args: [],
         cwd,
