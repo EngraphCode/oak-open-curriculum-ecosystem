@@ -607,6 +607,27 @@ pointers and the owner's word matter.
   items enumerated, agent-authorship marked), the session cron deleted.
   MCP-519 IS the tripwire; this entry is its provenance.
 
+## 2026-08-07 ~09:0xZ (Petrel holds Turbulence, a0892f) — OWNER RULING: the canonical MCP URL, forever
+
+- Owner ruling (2026-08-07 morning, verbatim): "www…/mcp is now and forever
+  the canonical url" — `https://www.thenational.academy/mcp` is THE client
+  URL, permanently. Context: the morning production test found v1.153.0's
+  canonical-host work flipped PRM self-description to canonical on BOTH
+  hosts, so alpha-registered spec clients now fail RFC 8707 resource
+  validation (this session's own connector was the specimen; the tracked
+  `.mcp.json` primary entry already pointed at www — the session's runtime
+  binding was stale from launch). Ruling discharges MCP-307's open decision
+  (recorded and closed on the ticket at the same hour); the dead
+  `oak-curriculum-alpha` entry removed from `.mcp.json` in the same change.
+  Canonical auth chain verified first-hand: 401 → WWW-Authenticate →
+  suffixed PRM 200 with matching resource. Known-open residue unchanged:
+  MCP-347 (root PRM path unrouted). Owner refinement same hour: "we may or
+  may not continue to enable the alpha domain, but www is the production
+  domain" — alpha's continued SERVING is an open owner choice; the ruling
+  binds the client/production URL and self-description only. Also learned:
+  `.mcp.json` is deliberately gitignored machine-local config — the
+  alpha-entry removal is local state, not a commit.
+
 ## 2026-08-06 ~20:05Z (Petrel holds Turbulence, a0892f) — the S1–S5 round closed; a doctrine specimen conserved
 
 - The #790 S1–S5 disposition round completed in one proportional pass
