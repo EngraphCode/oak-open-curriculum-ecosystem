@@ -81,8 +81,8 @@ literal — a naive literal block on "never" / "rather than" / "instead of"
 would have an unacceptable false-positive rate. The hook can carry only a
 narrow set of genuinely high-signal banner literals; the structural form
 needs a smarter detector or an output-time review pass. That enforcement
-increment is tracked in
-[`pending-graduations.md`](../memory/operational/pending-graduations.md).
+increment is tracked as **F-154** in the
+[frictions register](../memory/operational/frictions-register.md).
 
 ## Corrected Directions: Re-True the Artifacts, Harvest the Facts
 

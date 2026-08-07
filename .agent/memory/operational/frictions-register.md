@@ -3509,3 +3509,34 @@ commit SHA and the closing plan reference.
   for unparseable files; (3) test doctrine: schema-touching changes must
   exercise the old-reader × new-event compat cell (no rebuild-everything
   suite can reach it).
+
+### F-154 — negation-contrast tombstone detection has no enforcement layer (structural form exceeds the innate hook)
+
+- **Source**: Gull lifts Nimbus (`3da0ae`), 2026-08-07 curator pass;
+  Director verdict event 2026-08-07T10:51Z (policy.json probed at the
+  Director seat: zero hits for the tombstone class). Substance carried
+  from `no-tombstones-for-removed-ideas` §Why This Rule Is Strict, whose
+  tracking pointer previously named the pending-graduations register — a
+  drainable buffer — and dangled when the 2026-07-20 drain discharged
+  rows without verifying inbound pointers.
+- **Observed**: the negation-contrast memorial form ("DELETED, not
+  reshaped", "X rather than Y", "built fresh, never a bridge") is a
+  STRUCTURAL pattern — a negation bound to a dead concept — not a fixed
+  literal. A naive literal block on "never" / "rather than" / "instead
+  of" would have an unacceptable false-positive rate, so the write-time
+  innate-immunity hook (`.agent/hooks/policy.json`) carries no entry for
+  the class, and the reflex recurs at write time, including inside
+  tombstone-removal work itself (corpus-proven recursive instances,
+  2026-05→06).
+- **Expected**: an enforcement increment for the structural form — a
+  smarter detector (negation verb within clause distance of a
+  removed-concept referent) or an output-time review pass — plus, at
+  most, a narrow set of genuinely high-signal banner literals in the
+  innate hook.
+- **Candidate cure / promotion trigger**: design the structural detector
+  as agent-tooling work (route: agent-tooling backlog). Promotes to a
+  plan when a seat takes the lane or when a fresh corpus instance shows
+  the reflex landing on a permanent doc despite the rule tier.
+- **Status**: OPEN. The rule's §Why This Rule Is Strict now points here;
+  a future drain of any register this row migrates to re-trues that
+  pointer first (the generator this row's own history proves).
