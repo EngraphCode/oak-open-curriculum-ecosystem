@@ -52,7 +52,7 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
   },
   C066: {
     [SEARCH_DEF]: [
-      'description: `Hybrid lexical and semantic search across lessons, units and threads,',
+      'description: `Hybrid lexical and semantic search across lessons, units, threads and sequences,',
     ],
   },
   C067: {

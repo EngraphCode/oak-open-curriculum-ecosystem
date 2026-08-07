@@ -1133,10 +1133,10 @@
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/tool-definition.ts",
             "anchors": [
               {
-                "tokenCount": 15,
-                "tokenSha256": "46ad90b21ed78f9f2627e29afe047cd5f8b5da66960fd49ce9c4c0815b5024a6",
-                "indexToken": "Hybrid",
-                "indexOffset": 3
+                "tokenCount": 17,
+                "tokenSha256": "1e3aaa9364eb9f36a3b5290e68f1db48446896a1fddfd6df4d4794e2bbe7cfab",
+                "indexToken": "semantic",
+                "indexOffset": 6
               }
             ]
           }

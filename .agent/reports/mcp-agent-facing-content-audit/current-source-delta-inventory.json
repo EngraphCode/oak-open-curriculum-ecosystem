@@ -883,7 +883,7 @@
     },
     {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/tool-definition.ts",
-      "semanticSha256": "1440c68d8d72dce84e14cba44345f08f9b220234469b9627befddc37f18db818",
+      "semanticSha256": "592fe681cd227863d083916ad74e380dcfd0e18605d694965232f89f3e078cef",
       "itemIds": [
         "C065",
         "C066",
