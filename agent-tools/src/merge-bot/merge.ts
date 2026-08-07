@@ -105,7 +105,9 @@ export function readEnv(
 }
 
 /** Wraps an executor so every read-path gh call runs on the keyring, host-pinned. */
-function readExecutor(baseEnv: Readonly<Record<string, string | undefined>>): GhCommandExecutor {
+export function readExecutor(
+  baseEnv: Readonly<Record<string, string | undefined>>,
+): GhCommandExecutor {
   return (file, args, options) => execFileSync(file, args, { ...options, env: readEnv(baseEnv) });
 }
 
