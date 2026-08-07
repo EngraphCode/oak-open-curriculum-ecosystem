@@ -9,8 +9,9 @@
  * Design bindings, all from the ratified contract:
  *
  * - Three node types (`strategic | delivery | runbook`); no `kind`
- *   axis and no frontmatter execution state — execution lives in
- *   Linear via the `tickets` edge, never here.
+ *   axis and no frontmatter execution state — when the operator's
+ *   tracker holds the work, execution state lives there via the
+ *   optional `tickets` edge; it never lives here.
  * - `status` carries ratification state ONLY
  *   (`sketch | ratified | archived | superseded`): every plan is born
  *   `sketch` and governs no work until its stamp
