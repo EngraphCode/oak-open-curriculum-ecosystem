@@ -57,8 +57,10 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     'ff135d5160da12e36b0f4ae6f7acd42e61748d3f21315e2bb0b7a75474197bfe',
     IMPLEMENTATION_ONLY,
   ),
+  // MCP-518: `/` now sets the `Vary: Accept` and `no-store` its `/mcp` twin
+  // already sets. Response headers only; the document is byte-identical.
   'apps/oak-curriculum-mcp-streamable-http/src/app/static-content.ts': excluded(
-    '9542ba7291bc52484c37a4efb8833120b0769f2190e6cfa1ca00e71a025109b7',
+    '80673279324e14c6ffc5b83aa97a96f6850b591f8d5baa458fc254e36fa6475b',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/application.ts': excluded(

@@ -16,6 +16,14 @@
  *
  * Requests deliberately arrive carrying the forwarded headers Vercel's edge
  * supplies, which is the shape production sends.
+ *
+ * The second scale observes Clerk on the MCP PROTOCOL leg. It used a browser
+ * document GET of `/mcp` until MCP-518 made that leg skip Clerk outright — the
+ * page there is public by owner ruling, so a page view no longer touches the
+ * auth path and cannot report on it. The protocol leg is where Clerk still
+ * runs, and it is the leg whose perceived origin the handshake depends on, so
+ * moving the vehicle strengthens the observation rather than weakening it. The
+ * page's own behaviour under the shim is asserted separately, below.
  */
 
 import express from 'express';
@@ -82,29 +90,12 @@ async function headersAfterShim(
   return captured.headers ?? {};
 }
 
-interface ClerkObservation {
-  readonly headers: IncomingHttpHeaders;
-  readonly servedStatus: number;
-}
-
-/**
- * Runs a browser-shaped document GET through the whole assembly and reports both
- * the headers as Clerk sees them and the status the app went on to serve.
- *
- * @param env - Env overrides for the app under test
- * @param sentHeaders - Headers the request arrives with
- */
-async function observeAtClerk(
+/** Assembles the real app with `clerkMiddleware` replaced by the given handler. */
+async function assembleApp(
   env: Record<string, string>,
-  sentHeaders: Readonly<Record<string, string>>,
-): Promise<ClerkObservation> {
-  const captured: { headers?: IncomingHttpHeaders } = {};
-  const captureClerk: RequestHandler = (req, _res, next) => {
-    captured.headers = { ...req.headers };
-    next();
-  };
-
-  const app = await createApp({
+  clerkMiddleware: RequestHandler,
+): Promise<Awaited<ReturnType<typeof createApp>>> {
+  return await createApp({
     staticRoot: await getScratchStaticRoot(),
     runtimeConfig: createMockRuntimeConfig({ env }),
     observability: createFakeHttpObservability(),
@@ -112,8 +103,60 @@ async function observeAtClerk(
     getLandingPageHtml: () =>
       '<!doctype html><html lang="en-GB"><body>test landing page</body></html>',
     upstreamMetadata: TEST_UPSTREAM_METADATA,
-    clerkMiddlewareFactory: () => captureClerk,
+    clerkMiddlewareFactory: () => clerkMiddleware,
   });
+}
+
+/**
+ * Runs a conformant MCP protocol request through the whole assembly and reports
+ * the headers as Clerk sees them.
+ *
+ * The vehicle is a protocol POST rather than a browser page view because that is
+ * the leg Clerk still runs on (MCP-518 — see the file header).
+ *
+ * @param env - Env overrides for the app under test
+ * @param sentHeaders - Headers the request arrives with
+ */
+async function observeAtClerk(
+  env: Record<string, string>,
+  sentHeaders: Readonly<Record<string, string>>,
+): Promise<IncomingHttpHeaders> {
+  const captured: { headers?: IncomingHttpHeaders } = {};
+  const captureClerk: RequestHandler = (req, _res, next) => {
+    captured.headers = { ...req.headers };
+    next();
+  };
+
+  const app = await assembleApp(env, captureClerk);
+
+  await request(app)
+    .post('/mcp')
+    .set('Accept', 'application/json, text/event-stream')
+    .set('Host', REQUEST_HOST)
+    .set(sentHeaders)
+    .send({ jsonrpc: '2.0', id: 1, method: 'tools/list' });
+
+  // A silent miss would make every header assertion vacuous, so the absence of
+  // a capture fails in its own right.
+  expect(
+    captured.headers,
+    'Clerk middleware never ran for the protocol POST — the assembly changed and these tests no longer observe the auth path',
+  ).toBeDefined();
+  return captured.headers ?? {};
+}
+
+/**
+ * The status a browser document GET of the public page receives through the
+ * whole assembly, with the shim mounted ahead of everything.
+ *
+ * @param env - Env overrides for the app under test
+ * @param sentHeaders - Headers the request arrives with
+ */
+async function pageStatus(
+  env: Record<string, string>,
+  sentHeaders: Readonly<Record<string, string>>,
+): Promise<number> {
+  const app = await assembleApp(env, (_req, _res, next) => next());
 
   const response = await request(app)
     .get('/mcp')
@@ -121,13 +164,7 @@ async function observeAtClerk(
     .set('Host', REQUEST_HOST)
     .set(sentHeaders);
 
-  // A silent miss would make every header assertion vacuous, so the absence of
-  // a capture fails in its own right.
-  expect(
-    captured.headers,
-    'Clerk middleware never ran for GET /mcp — the assembly changed and these tests no longer observe the auth path',
-  ).toBeDefined();
-  return { headers: captured.headers ?? {}, servedStatus: response.status };
+  return response.status;
 }
 
 describe('canonical origin in forwarded headers (MCP-517)', () => {
@@ -204,20 +241,18 @@ describe('canonical origin in forwarded headers (MCP-517)', () => {
 
   describe('when the headers become it', () => {
     it('Clerk already perceives the canonical origin by the time it runs', async () => {
-      const { headers } = await observeAtClerk({ CANONICAL_HOST }, EDGE_SUPPLIED_HEADERS);
+      const headers = await observeAtClerk({ CANONICAL_HOST }, EDGE_SUPPLIED_HEADERS);
 
       expect(headers['x-forwarded-host']).toBe(CANONICAL_HOST);
       expect(headers['x-forwarded-proto']).toBe('https');
     });
 
     it('serves the page as normal, so the rebinding guard downstream still passes', async () => {
-      const { servedStatus } = await observeAtClerk({ CANONICAL_HOST }, EDGE_SUPPLIED_HEADERS);
-
-      expect(servedStatus).toBe(200);
+      expect(await pageStatus({ CANONICAL_HOST }, EDGE_SUPPLIED_HEADERS)).toBe(200);
     });
 
     it('mounts nothing without CANONICAL_HOST, so Clerk keeps per-request derivation', async () => {
-      const { headers } = await observeAtClerk({}, EDGE_SUPPLIED_HEADERS);
+      const headers = await observeAtClerk({}, EDGE_SUPPLIED_HEADERS);
 
       expect(headers['x-forwarded-host']).toBe(DEPLOYMENT_HOST);
       expect(headers['x-forwarded-proto']).toBe('http');

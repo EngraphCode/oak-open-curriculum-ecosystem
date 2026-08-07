@@ -72,7 +72,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/app/static-content.ts",
-      "semanticSha256": "9542ba7291bc52484c37a4efb8833120b0769f2190e6cfa1ca00e71a025109b7",
+      "semanticSha256": "80673279324e14c6ffc5b83aa97a96f6850b591f8d5baa458fc254e36fa6475b",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -165,8 +165,20 @@
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/clerk-skip-surfaces.ts",
+      "semanticSha256": "fac659994388ebd20d267596eb2fac3344dcc2bb836771cefa7b3334dafa441b",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/compose-product-analytics-runtime.ts",
       "semanticSha256": "df0cfab0201177986caa0454d94407077f5930f45a8e34d6d15f6ea4b625b35b",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/conditional-clerk-middleware.ts",
+      "semanticSha256": "075f96234f69d44fa7429d3d818bf5520f1bd9f54737342cd40805063cd36de4",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -389,6 +401,12 @@
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/mcp-middleware.ts",
       "semanticSha256": "330e97824013a4fd69bfc0c259ba7fb977e1127f11359d597a333c8d58428250",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/mcp-public-browser-leg.ts",
+      "semanticSha256": "959581bc8a8ca60e63e6badef9a0d74914a3b8bf6108f9640ef6d55deb2d3ffb",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
