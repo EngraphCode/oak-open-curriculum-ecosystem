@@ -6,10 +6,13 @@ overview: >-
   Seats become register entries with no freshness TTL, changed only by
   protocol events; liveness stays evidence-based and decaying; glance
   surfaces read each fact from its own source.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-07
+ratified_where: >-
+  In-session owner word "Ratified, land the stamps", 2026-08-07
+  (Director seat, Panther rides Midnight 7efb00); the diagnosis and
+  design verdict were reached with the owner earlier the same session.
 serves: coordination-substrate
 impact_areas:
   - practice-and-estate

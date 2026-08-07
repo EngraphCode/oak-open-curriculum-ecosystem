@@ -5,10 +5,14 @@ name: "Coordination branch names become a mechanical production with join-before
 overview: >-
   One front-door command derives, adopts, or mints the day's coordination
   branch; a validator refuses hand-authored names outside the grammar.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-07
+ratified_where: >-
+  In-session owner word "Ratified, land the stamps", 2026-08-07
+  (Director seat, Panther rides Midnight 7efb00); the underlying design
+  was agreed owner + lead AI 2026-08-06 (recorded on MCP-521 at the
+  time, homed here).
 serves: coordination-substrate
 impact_areas:
   - practice-and-estate

@@ -7,10 +7,14 @@ overview: >-
   repository is a governed system whose knowledge lives entirely in the
   repository — losing any third-party surface loses schedule state only, never
   design.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-07
+ratified_where: >-
+  In-session owner word "Ratified, land the stamps", 2026-08-07,
+  following presentation of all three nodes (Director seat, Panther
+  rides Midnight 7efb00); commissioning instruction and the verbatim
+  revocation principle earlier in the same session.
 serves: FRAME-1
 impact_areas:
   - practice-and-estate
