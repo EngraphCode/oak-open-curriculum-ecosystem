@@ -204,3 +204,45 @@ record).
   to a sibling plan's validity (MCP-532 true-up minted), and PR #817 deleted
   that machinery the same evening — a worked instance of validator-coupling
   churn resolved by fix-the-generator.
+
+## 2026-08-07 ~22:4xZ (Civet spins Cavern, 054f5e, design lane) — the point-instance-cure generator caught me the same night I read its diagnosis
+
+- The #814 thread round's DDR-004 cure fixed the Decision paragraph and left
+  three downstream statements asserting the corrected-away shape (incl. the
+  pinned gate-matrix count — identity × 5 over-counting would have broken the
+  shrinking-matrix detector from day one). This is EXACTLY the round-2
+  structural diagnosis I absorbed in warm-up hours earlier ("cures applied to
+  the cited statement of a multiply-stated invariant but not the class") —
+  reading a generator's diagnosis does not immunise against it. The
+  delta-verify reviewer caught it; cure was class-wide (grep the invariant's
+  vocabulary before closing any cure — the completion-plan discipline
+  "grep-enumerate every statement of each touched invariant" applies to
+  RECORD edits, not just plan edits). Scope: standing seat practice; the
+  vocabulary-variants sweep from the handoff §6 is the same lesson one
+  surface over.
+
+## 2026-08-07 ~23:4xZ (Plover lifts Troposphere, b10c37, Director) — the away-window night: grant-shape record and two own-hands lessons
+
+- The per-PR merge-eligibility grant shape ran six boundaries tonight (#821, #822, #820
+  re-grant, #814 grant + refresh, #823 conditional) and held at every one: conditions
+  recomputed at the boundary, sha-pins that void on movement, settled reads quoted in PR
+  recount comments, and stop-and-route firing twice (#820 tip moved by the CI re-fire;
+  #814 tip moved by real cures) with zero judgment calls made at the seat under pressure.
+  The #823 round added the record-first precondition: a grant premise (the review verdict)
+  must be ON THE PR RECORD before the grant fires — verified absent, required, posted
+  within a minute, merged fourteen minutes later fully auditable. Candidate pattern for a
+  morning consolidation pass; the napkin is the capture, not the home.
+- Concept-gate catch at this seat (~21:02Z): my grants body used "parking" as the REJECTED
+  alternative and the gate fired its indefinite-deferral block on the word regardless —
+  the same class as Firefly's resume-broadcast catch and Gull's carve-out collision.
+  Rephrased in one pass. The gate reading quoted-pathogen vocabulary is a known paraphrase
+  point, not a defect.
+- Filtered-output lesson, own hands (~21:02Z, two retries paid): my `tail -1` on the comms
+  direct failure swallowed the gate's refusal reason twice before I read the unfiltered
+  surface — the exact schema-vs-observed/filtered-view class Gull logged at 10:55Z this
+  morning, recurring at the Director's seat the same day. Cure re-applied: read the
+  unfiltered failure surface before any retry of a write-shaped command.
+- Dated operational constraint for the map (Civet's find, absorbed): the keyring account
+  sat at 77 of the vendor's 100-run agent-task window at ~23:23Z; past 100 the runs leg
+  reads truncated and merge-bot's run-deadness assert goes conservative — will read as a
+  behaviour change if unflagged.
