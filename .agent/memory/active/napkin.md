@@ -917,3 +917,56 @@ opening state; this constraint rides any routing brief VERBATIM.
   conflict-with-an-owner-instruction: card with "proceed anyway" option + push
   notification, THEN hold; prose-then-wait is an ambient queue, invisible by design.
   Consequence paid: ~3h owner wall-clock lost; override then re-issued and work begun.
+
+## 2026-08-07 ~15:3xZ — CONSOLIDATION BOUNDARY RECORD (Gull lifts Nimbus, 3da0ae): owner-called compaction prep; the pass CONTINUES post-compaction
+
+Owner word at the boundary: "we will continue the dedicated consolidation after
+compaction." Claim de328d24 (consolidator) RETAINED across the boundary; monitors
+stopped in canonical order; the resuming seat regrounds via start-right and this record.
+Landed so far (commits are the record): 70c009ea4, 8fe3fea06, 247ce4afe this pass, on
+top of the morning curator commits. Owner correction mid-pass, absorbed and binding:
+NO bounded-slice frame — the whole consolidate-until-done goal stands; PDR-063 is
+measured-only; this boundary is owner-called compaction, not a budget freeze.
+
+**PROCESSED (dispositions live in homes/commits — do not re-process):** Magnetar lane
+constraint → thread record; receipt-vs-promissory → records rule; same-machine
+worktree-mtime + coordinator dark-window → liveness rule; F-155 heading-width;
+cure-edge-residue + red-first-test-with-a-wrong-oracle patterns (index regenerated,
+227); grep --, rev-parse --verify, identity-search-scope → verify-dont-trust;
+rotation+append cmp-first → semantic-merge; v2.1.223 launch-at-principal →
+worktree-residency; prior-art-first + plan-of-consequence fleet review → PDR-015;
+goal-hook fork → Director event f81076d9 (verdict: pacing clause, owner card at
+Director discretion); Siskin EnterWorktree row verified LANDED (settings.json line 5);
+heartbeat send-vs-append divergence RESOLVED superseded (send mode proven live at this
+seat all day); Breeze register/precondition/commitlint/piped/stale-tickets/hook-FP
+entries verified DUPLICATES of rich existing homes; ARC truncate trap + suppressed-
+findings recurrence + handoff-CLI commission: already routed, carried; MCP-143 ANSI-C
+surprise REJECTED thin; label-vocabularies REJECTED window-scoped; pr-readiness
+pattern DUPLICATE of pr-lifecycle doctrine; open-questions register verified EMPTY;
+7d claims audit: Swordfish 496e1625 archived (owner-closed lane, 5d stale);
+dd3f640f NOT archived — holder LIVE, staleness is the singular-claim-loop F-92 shape
+(surface to Panther: its loop needs a second claims-heartbeat leg); 645b9e0b NOT
+archived — deliberately retained design-wake anchor, retention stands.
+
+**REMAINING (the continuation map, in order):** (1) 7c thread-register freshness six
+checks (repo-continuity §Active Threads at line 222 vs 20 thread records; retirement
+banners). (2) Warden debt to Director: 190 expired commit-queue entries (no front-door
+cleanup command; do not hand-edit live substrate without one). (3) Fleet-ops dispatch
+lessons (napkin MCP-517/518 section): haiku line-item verification + opus-doc-verifier
+yield → PDR-015/122 candidates; Workflow stringified-args likely platform-documented
+duplicate. (4) Canonical-URL ruling ("www…/mcp now and forever", 2026-08-07 entry) —
+verify/land a repo ops-doc home. (5) Clerk wrong-domain diagnosis + non-cures — verify
+the day record (reports/agentic-engineering/estate-order-outage-and-verification-
+2026-08-06-07.md) carries them; land pointer if not. (6) Multi-ref push single
+gate-chain one-liner — candidate home pr-lifecycle. (7) Platform-memory sweeps: Codex/
+Cursor/Gemini inventory dispositions (Claude covered by 2026-08-05 audit + today's
+curator pass). (8) Practice box .agent/practice-core/incoming/ check. (9) Step 3a on
+merits: extraction complete through 2026-08-06 rotation; events SINCE then (~60+ incl.
+today's) need the sweep; provenance gate (pnpm --filter @oaknational/agent-tools
+comms-provenance-check) + watermark + class windows before any move. (10) Napkin
+rotation (step 6) ONLY after remaining behaviour-changing items disposition — carried
+seeds staying for named consumers: retrospective corpus (instrument-diversity ×3 data
+points, handover-as-verification falsifiable seed, calibration lesson), folly-story
+temperament + polarity associations, design-wake loss-scan pointers. (11) Awaiting
+elsewhere: 3 directive-gated register rows + goal-hook pacing candidate (fresh
+directive-headroom seat); Director adjudications on f81076d9.
