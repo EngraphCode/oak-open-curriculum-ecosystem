@@ -1,0 +1,137 @@
+# Developer Experience
+
+What a developer sees and feels while working in this estate: the
+session surfaces that carry information to you, the feedback loops that
+answer your changes, and where each one is documented in depth. This is
+the index and the statusline deep-dive; the practical how-do-I-direct-
+the-work guide is
+[Working with this Repo for Devs](working-with-this-repo-for-devs.md).
+
+## The surfaces you work through
+
+- **Your chat session** — the primary channel. Opening moves, directing
+  the work, and what the agents do around your ask:
+  [Working with this Repo for Devs](working-with-this-repo-for-devs.md).
+- **The statusline** — the always-on glance surface at the bottom of a
+  session. Covered in depth below; the Claude Code statusline is by far
+  the most capable and the most complex.
+- **Owner-attention cards** — decisions and actions that need a human
+  land as visible cards at their action moment, never as ambient queue
+  items buried in prose.
+- **Pull requests and tickets** — the work's outward projection: PRs
+  carry the change and its review; Linear tickets carry schedule state
+  and point at repository knowledge, never replace it.
+
+## The feedback loops that answer your changes
+
+- **Quality gates** — `pnpm check` and the per-workspace gates;
+  reference: [Build System](build-system.md) and
+  [Tooling](tooling.md).
+- **Hooks** — pre-commit and pre-push run the gate estate; policy hooks
+  block known-hazardous operations with an explanation and a citation
+  rather than failing silently.
+- **Validators** — repo validators (plan corpus, collaboration state,
+  design-system consistency, and friends) run in CI and pre-commit;
+  reference: [Build System](build-system.md).
+- **When something looks wrong** —
+  [Troubleshooting](../operations/troubleshooting.md), including the
+  statusline payload-diagnosis walkthrough referenced below.
+
+## Statuslines
+
+Each agent platform renders its own statusline; capability varies
+widely. The estate's identity derivation (PDR-027 display names) is
+platform-shared — the same session seed derives the same name
+everywhere — but what each platform can _display_ differs, from a bare
+session title to the full Claude Code glance surface below. The
+platform-support notes live in
+[agent-tools docs/agent-identity.md](../../agent-tools/docs/agent-identity.md).
+
+### The Claude Code statusline
+
+The most complex statusline in the estate: a multi-row glance surface
+rendered by the built adapter
+`agent-tools/dist/src/claude/statusline-identity.js`, invoked through
+the project shim `.claude/scripts/statusline-identity.mjs` (wired in
+`.claude/settings.json` `statusLine`, refreshing every few seconds).
+Claude Code pipes a JSON payload to the command on every refresh; the
+adapter renders what the payload and the repository's coordination
+state support, and deliberately drops what is absent.
+
+#### What the rows show
+
+- **Identity row** — the session's derived agent name and join-key
+  prefix, e.g. `Panther rides Midnight (7efb00)`, with coordination
+  glyphs:
+  - 🧭 — this session holds the Director seat (renders while the
+    session's director-role claim is fresh in the collaboration
+    registry);
+  - 👪 / 🤝 / 🧍 — team shape: directed team / peers / confident solo;
+  - 👀 — others are active and this session is not registered
+    (be collision-aware);
+  - 🪶 — a live ArcAngel rapid-comms channel involves this session.
+- **Model and usage row** — the model name, then the usage gauges:
+  `ctx:` (context-window %), `s:` (session / five-hour usage %), `w:`
+  (weekly / seven-day usage %), each with a reset countdown where the
+  payload provides one.
+- **Git location rows** — the checkout name and working branch, a
+  `coord:` row naming the shared coordination branch, and — when the
+  session sits in a linked worktree — the worktree's own name and
+  branch. Location facts fail LOUD: an unexpected git error renders a
+  visible token, never a silent fallback.
+- **Owner-jobs segment** — a count of open owner-attention items with a
+  link, read from the owner-jobs register when present.
+- **The Oak logo column** — the acorn mark on the left (animated for
+  the default style; see the controls below).
+
+#### Why a segment may be absent
+
+The adapter drops absent fields rather than rendering stale or zero
+values:
+
+- The **session and weekly usage gauges** render only when the payload
+  carries `rate_limits` — Claude Code includes it only for Claude.ai
+  subscriber auth, only after the first model response in the session.
+  Console API-key billing never populates it.
+- The **Director demark and team glyphs** need the collaboration
+  registry to be readable from the primary checkout, and the demark
+  needs the session's own director-role claim to be fresh.
+- **Cosmetic details** (dirty mark, worktree name, glyphs) degrade to
+  absent on read failures; only the location facts fail loud.
+
+#### Environment controls
+
+Set per-machine in `.claude/settings.local.json` under `env`:
+
+- `OAK_STATUSLINE_LOGO` — logo style: `braille-sharp` (default),
+  `braille`, `quad`, `sextant`, or `none` for the compact two-line
+  layout.
+- `OAK_STATUSLINE_MOTION` — set to disable the logo animation cycle.
+- `OAK_STATUSLINE_LOG_FILE` — the diagnosis log: a path ending `.log`
+  makes the adapter append one timestamped line per invocation carrying
+  the stdin payload as received (line breaks collapsed); unset means no
+  logging, a set non-`.log` value renders a loud statusline warning, and
+  write failures are swallowed (the statusline never breaks for its own
+  diagnostics). The log grows unbounded and carries session ids and
+  paths — delete it after the diagnosis. Walkthrough:
+  [Troubleshooting §Statusline Segments Missing](../operations/troubleshooting.md#statusline-segments-missing-or-payload-diagnosis).
+
+Quick reference (same controls, terser):
+[agent-tools README §Claude statusline quick reference](../../agent-tools/README.md#claude-statusline-quick-reference).
+
+### Other platforms
+
+Cursor and Codex sessions derive the same identity through their
+platform hooks but render minimal surfaces (session titles rather than
+live glance rows); the current per-platform state, including the Codex
+statusline item allowlist note, is tracked in
+[agent-tools docs/agent-identity.md](../../agent-tools/docs/agent-identity.md).
+
+## Further reading
+
+- [Working with this Repo for Devs](working-with-this-repo-for-devs.md)
+  — directing the work day to day.
+- [Tooling](tooling.md) and [Build System](build-system.md) — the
+  command and gate estate.
+- [Troubleshooting](../operations/troubleshooting.md) — when a surface
+  disagrees with you.
