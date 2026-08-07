@@ -57,9 +57,11 @@ record).
   `index/head@<worktree>` label the commit skill prescribes; plus the
   lane-claim-at-enqueue facet, 2026-08-03). Interim practice unchanged — bare
   `index/head` with the worktree named in the intent text.
-- **Codex vendor-memory corpus audit candidate** (sized 2026-08-07: ~4.6k lines
-  plus 46 rollout summaries, git-versioned at `~/.codex/memories/`; Cursor and
-  Gemini stores verified empty) — owner-priced fleet job, routed to the
+- **Codex vendor-memory corpus audit candidate** — the Codex CLI's per-user
+  memory store on the owner's workstation (machine-local by construction, like
+  the Claude corpus the 2026-08-05 audit covered; sized 2026-08-07 at ~4.6k
+  lines plus 46 rollout summaries, locally git-versioned; the Cursor and Gemini
+  per-user stores on the same machine verified empty) — owner-priced fleet job, routed to the
   Director; the Claude corpus was audited 2026-08-05.
 - **Named-consumer seeds, held in `archive/napkin-2026-08-07.md` at their dated
   entries** (pointer-carry; the archive is the substance): retrospective corpus
