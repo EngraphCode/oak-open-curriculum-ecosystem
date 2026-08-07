@@ -26,6 +26,17 @@ against each other).
 
 ## Amendment Log
 
+- **2026-08-07 amendment — dispatch model floor and unavailability
+  fallback (Gull lifts Nimbus / claude-code / claude-fable-5;
+  continuity-memory-and-knowledge-flow thread; landing two standing
+  owner rulings from the 2026-08-05 vendor-memory graduation audit,
+  owner word of 2026-07-26 and 2026-07-31).** Expert reviewer
+  dispatches pass a high-capability model explicitly (the estate's
+  current reviewer default: `model: "opus"`), and any
+  model-unavailability fallback goes UP in capability at lower effort,
+  never down. New §Dispatch model floor and unavailability fallback
+  sub-section in the Decision area.
+
 - **2026-05-14 amendment — audit-shape surface framing for parallel
   reviewer dispatch (Riverine Swimming Hull / claude-code /
   claude-opus-4-7-1m; agentic-engineering-enhancements thread;
@@ -462,6 +473,37 @@ The corollary for plan WS0 dispatch: expect **concrete cycle-shape
 correctives** from each reviewer, not just nudges. Each reviewer's
 absence is a specific gap in the audit-shape coverage, not a
 generic loss of redundancy.
+
+### Dispatch model floor and unavailability fallback (2026-08-07 amendment)
+
+Reviewer verdicts steer dispositions and merges, so the owner prices
+reviewer quality above reviewer cost (owner word, 2026-07-26: "next
+time you run reviewers, please make them Opus"). Two dispatch-time
+disciplines follow:
+
+- **Model floor.** Every expert reviewer dispatch (code, config, test,
+  type, security, MCP experts and similar) passes a high-capability
+  model explicitly — in this estate's current tiering,
+  `model: "opus"` — rather than inheriting the agent definition's
+  default. Bulk mechanical fan-outs (classification sweeps, corpus
+  maps) stay tier-per-leg; an owner-priced fleet shape is owner word
+  and overrides. A reviewer or adjudication leg may run on a
+  higher-than-default tier where its judgment weight warrants (owner,
+  2026-08-06).
+- **Fallback goes UP, never down** (owner word, 2026-07-31: "when a
+  model is unavailable, please fall back to a more capable model,
+  potentially at a lower effort setting to keep execution time
+  similar"; generalised same day to ALL model-unavailability cases).
+  On a dispatch failure caused by model unavailability: retry once
+  briefly, then re-dispatch on the next MORE capable model with
+  effort reduced a notch. Capability floors are quality floors;
+  effort is the knob that keeps wall-clock comparable. Edge cases
+  resolve toward intent: already top tier → stay, reduce effort; no
+  lower effort exists → next-highest at its lowest; a
+  platform-internal non-selectable model → short-cadence retry while
+  keeping unblocked surfaces moving. Never fall back to a less
+  capable tier, never silently drop the dispatch, and critically
+  assess fallback output like any substitute.
 
 ## Rationale
 
