@@ -14,6 +14,13 @@ import {
 } from './current-source-delta-review-helpers.js';
 
 export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> = {
+  // MCP-517: two bootstrap step names added to the measured-step union so the
+  // canonical-forwarded-headers install is billed to itself rather than to
+  // Clerk's. Boot-time diagnostics only; serves no agent-facing content.
+  'apps/oak-curriculum-mcp-streamable-http/src/auth-instrumentation.ts': excluded(
+    'edb46bf7322dd0396c25ac7b4e254fb8bb94dc92f579b9a0c6666a5cc3569ea1',
+    IMPLEMENTATION_ONLY,
+  ),
   // MCP-351: the published PRM resource composes the shared
   // MCP_RESOURCE_PATH constant; the served document is byte-identical.
   'apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts': reviewed(
@@ -57,6 +64,13 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
   // that retirement); the file now composes SDK-owned URI sets only.
   'apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts': excluded(
     '75bbea61c4b91c53a1ec93133852f9841844f94eb448973f9bbecfd855239227',
+    IMPLEMENTATION_ONLY,
+  ),
+  // MCP-517: mounts the canonical-forwarded-headers shim immediately ahead of
+  // the global Clerk middleware so Clerk perceives the served address. Mount
+  // order and header plumbing only; no served content changes.
+  'apps/oak-curriculum-mcp-streamable-http/src/global-auth-context.ts': excluded(
+    '8b2b566c8acc474aae9191216f8154a1d31ccae70f2d0bc585a157fdcc8c481c',
     IMPLEMENTATION_ONLY,
   ),
 };
