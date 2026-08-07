@@ -61,7 +61,7 @@ const EDGE_SUPPLIED_HEADERS = {
  */
 async function headersAfterShim(
   canonicalHost: string | undefined,
-  sentHeaders: Record<string, string>,
+  sentHeaders: Readonly<Record<string, string>>,
 ): Promise<IncomingHttpHeaders> {
   const app = express();
   const shim = createCanonicalForwardedHeaders(canonicalHost);
@@ -96,7 +96,7 @@ interface ClerkObservation {
  */
 async function observeAtClerk(
   env: Record<string, string>,
-  sentHeaders: Record<string, string>,
+  sentHeaders: Readonly<Record<string, string>>,
 ): Promise<ClerkObservation> {
   const captured: { headers?: IncomingHttpHeaders } = {};
   const captureClerk: RequestHandler = (req, _res, next) => {
