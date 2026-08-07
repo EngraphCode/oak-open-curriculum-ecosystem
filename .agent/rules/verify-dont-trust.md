@@ -462,6 +462,21 @@ in sync and one fetch would have shown it).
   first — a `clean` / `rm -rf` prelude on a command that may crash deletes
   tracked artefacts (a diagnostic `sdk-codegen` once deleted ~100 tracked files
   this way).
+- A proof loop whose probe consumes its own input as options — `grep -Fq "$line"`
+  ate every `-`-prefixed needle as a flag, so 13 of 132 lines were never tested
+  while the loop reported a clean zero-duplicates result (2026-08-06). Use
+  `grep -Fq -- "$needle"` whenever the needle is untrusted text; a proof can
+  read green having tested nothing.
+- `git rev-parse` without `--verify` echoes the ref NAME on a missing ref — two
+  false verdicts in one day (a "fabricated" verdict against a correct reviewer
+  claim; branch-existence checks reading as DIVERGES). `git rev-parse --verify
+  --quiet` or nothing (2026-08-05).
+- A "matched nothing" identity verdict scoped to the surfaces searched — a
+  post-compaction seat declared its own pre-compaction subagent an unregistered
+  peer because the search covered claims/comms only, where subagents correctly
+  never register (2026-08-06). An identity search's negative is only as wide as
+  its surface set; post-compaction, add the session's own spawn history before
+  declaring a peer unknown.
 
 ## Timestamp-Zone Discipline
 
