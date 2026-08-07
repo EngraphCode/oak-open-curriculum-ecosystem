@@ -1,3 +1,12 @@
+## [1.153.6](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.5...v1.153.6) (2026-08-07)
+
+
+### Bug Fixes
+
+* **mcp-sdk:** align the search tool description summary with the submission document ([3415d1f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3415d1f03a3c6753bf56c8fedb2a71d8ebc47c29))
+* **mcp-sdk:** correct the search summary to hybrid retrieval on all four indexes ([fba8d8a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fba8d8aa83afe02702d5930c60b0c6a8bf133b78)), closes [#815](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/815)
+* **plugin:** order misconceptions by teaching sequence, not consequence ([b6e62ea](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b6e62eaf34b02cdbfad1e80c86f823aebac118bc))
+
 ## [1.153.5](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.4...v1.153.5) (2026-08-07)
 
 ## [1.153.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.3...v1.153.4) (2026-08-07)
