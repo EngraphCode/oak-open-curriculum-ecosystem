@@ -522,8 +522,9 @@ contention or seat tenure than the ticket-grain default it replaced.
 
 ## Amendment (2026-08-05) — Seat count is a function of parallel work, not of function count
 
-Evidence: the MCP-submission arc, retrospected by its sitting Director at the
-arc's close and graduated at the 2026-08-06 dedicated consolidation.
+Evidence: a product-submission arc at the host (2026-08-05), retrospected by
+its sitting Director at the arc's close and graduated at the host's
+2026-08-06 dedicated consolidation; the host's records conserve the specifics.
 
 **The function is not the seat.** A Submission-Manager function — tracking the
 submission path, helping the owner on non-code gates, surfacing ownerless

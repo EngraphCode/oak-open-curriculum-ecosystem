@@ -262,7 +262,7 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
-> ### ▶ SITTING DIRECTOR: Wisteria lifts Verdure (`c4294f`), seated 2026-08-06 10:20Z at MG's word ("you plus 2"); claim `c3050091`, thread `mcp-submission-drive`, role director. No Moment-1 pre-position — Firefly's cast stood down 2026-08-05 ~18:10Z and the seat was vacant.
+> ### ▶ SITTING DIRECTOR: Petrel holds Turbulence (`a0892f`), estate Director (claim `a2286c53`), current as of 2026-08-07. EVIDENCE (dated, not current): Wisteria lifts Verdure (`c4294f`) seated 2026-08-06 10:20Z at MG's word ("you plus 2") for the submission drive (claim `c3050091`, thread `mcp-submission-drive`); Firefly's cast stood down 2026-08-05 ~18:10Z and the seat was briefly vacant.
 >
 > **SEATING BLOCK 2026-08-06 ~10:20Z — THE SUBMISSION DRIVE OPENS. Two registers as Firefly established: §STATE carries tests, never values; §EVIDENCE carries timestamped facts that must not be read as current.**
 >
