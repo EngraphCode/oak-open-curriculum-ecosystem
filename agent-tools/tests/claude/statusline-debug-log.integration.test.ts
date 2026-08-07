@@ -47,10 +47,26 @@ describe('appendDebugLogEntry', () => {
     ]);
   });
 
-  it('flattens a multi-line payload so one invocation is one greppable line', () => {
+  it('collapses line breaks so one invocation is one greppable line', () => {
     const { fs, appended } = fakeFs();
-    appendDebugLogEntry('/d/s.log', '{\n  "a": 1\n}', '2026-08-07T15:00:00.000Z', fs);
+    appendDebugLogEntry('/d/s.log', '{\n"a": 1\n}', '2026-08-07T15:00:00.000Z', fs);
     expect(appended[0]?.data).toBe('2026-08-07T15:00:00.000Z { "a": 1 }\n');
+  });
+
+  it('trims the trailing newline the harness sends, keeping the entry one line', () => {
+    // Claude Code's real payload arrives newline-terminated; without the trim
+    // every logged line would end with a stray space-newline pair.
+    const { fs, appended } = fakeFs();
+    appendDebugLogEntry('/d/s.log', '{"a":1}\n', '2026-08-07T15:00:00.000Z', fs);
+    expect(appended[0]?.data).toBe('2026-08-07T15:00:00.000Z {"a":1}\n');
+  });
+
+  it('preserves internal whitespace — the logged payload stays faithful to what arrived', () => {
+    // Only line breaks are collapsed: a doubled space inside a JSON string
+    // value must survive, or the "payload as received" claim is false.
+    const { fs, appended } = fakeFs();
+    appendDebugLogEntry('/d/s.log', '{"cwd":"/a  b/c"}', '2026-08-07T15:00:00.000Z', fs);
+    expect(appended[0]?.data).toBe('2026-08-07T15:00:00.000Z {"cwd":"/a  b/c"}\n');
   });
 
   it('accumulates successive invocations as successive lines through the same seam', () => {

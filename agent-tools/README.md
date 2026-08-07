@@ -463,9 +463,12 @@ context/usage percentages, and git location. Environment controls:
 - `OAK_STATUSLINE_MOTION` — set to disable the logo animation cycle.
 - `OAK_STATUSLINE_LOG_FILE` — diagnosis logging: set to a path ending
   `.log` and the adapter appends one timestamped line per invocation
-  carrying the raw stdin payload (malformed and noop payloads included);
-  unset means no logging; a non-`.log` path is refused. Logging failures
-  are swallowed — the statusline never breaks for its own diagnostics.
+  carrying the stdin payload as received, line breaks collapsed
+  (malformed and noop payloads included); unset means no logging; a
+  set non-`.log` value renders a loud statusline warning. Write
+  failures are swallowed — the statusline never breaks for its own
+  diagnostics. The log grows unbounded and carries session ids and
+  paths: delete it after the diagnosis.
   Set it per-machine in `.claude/settings.local.json` under `env` (e.g.
   `".logs/statusline.log"` — the repo's gitignored log directory) and
   restart the session; usage-segment diagnosis walkthrough:

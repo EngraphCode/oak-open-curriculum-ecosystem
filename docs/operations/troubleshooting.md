@@ -357,9 +357,24 @@ restart the session:
 ```
 
 Each statusline invocation then appends one timestamped line with the
-raw stdin payload to the named `.log` file (the path must end `.log`;
-`.logs/` is the repo's gitignored log directory). Read the latest line
-and check which fields are present. Unset the variable to stop logging.
+payload as received (line breaks collapsed to keep one line per
+invocation) to the named `.log` file; `.logs/` is the repo's gitignored
+log directory. Read the latest line and check which fields are present.
+
+Reading the outcomes honestly:
+
+- **A set value that does not end `.log` renders a loud statusline
+  warning** and logs nothing — misconfiguration is never silent.
+- **No file and no warning?** Check the adapter is current before
+  concluding anything: the shim runs the BUILT adapter, so a stale
+  `agent-tools/dist` silently predates the feature —
+  `grep -c OAK_STATUSLINE_LOG_FILE agent-tools/dist/src/claude/statusline-identity.js`
+  returning `0` means rebuild (`pnpm --filter @oaknational/agent-tools build`).
+- **Hygiene**: the log grows unbounded (one line per refresh), carries
+  session ids and project paths, and a pre-existing file's permissions
+  are not retightened — delete the file after the diagnosis, don't just
+  unset the variable.
+
 Mechanism reference:
 [agent-tools README §Claude statusline quick reference](../../agent-tools/README.md#claude-statusline-quick-reference).
 

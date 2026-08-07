@@ -40,7 +40,7 @@ import { parseCollaborationRegistry } from '../collaboration-state/state-parsers
 import { type CollaborationRegistry } from '../collaboration-state/types.js';
 import { resolveLogoStyle } from './oak-logo.js';
 import { BOLD, RED, RESET } from './statusline-ansi.js';
-import { appendDebugLogEntry, resolveDebugLogPath } from './statusline-debug-log.js';
+import { appendDebugLogEntry, resolveDebugLogConfig } from './statusline-debug-log.js';
 import { createFsFrameStore, LOGO_FRAME_STATE_DIR } from './statusline-frame-store.js';
 import { gatherGitFacts } from './statusline-git-io.js';
 import { planStatuslineExecution, type StatuslinePlan } from './statusline-identity-input.js';
@@ -66,17 +66,21 @@ process.stdin.on('end', () => {
 
 function emitStatusline(rawJson: string): void {
   // Optional diagnosis log, before planning: malformed and noop payloads are
-  // exactly the invocations a debugging session needs to see.
-  const debugLogPath = resolveDebugLogPath(process.env);
-  if (debugLogPath !== undefined) {
-    appendDebugLogEntry(debugLogPath, rawJson, new Date().toISOString());
+  // exactly the invocations a debugging session needs to see. A set-but-invalid
+  // value renders LOUD below — an operator who set the variable must never read
+  // silence as "the harness sent nothing".
+  const debugLog = resolveDebugLogConfig(process.env);
+  if (debugLog.kind === 'enabled') {
+    appendDebugLogEntry(debugLog.path, rawJson, new Date().toISOString());
   }
   const plan: StatuslinePlan = planStatuslineExecution(rawJson);
   if (plan.kind === 'noop') {
     return;
   }
+  const warningPrefix =
+    debugLog.kind === 'invalid' ? `${RED}${BOLD}⚠ statusline: ${debugLog.warning}${RESET}\n` : '';
   try {
-    process.stdout.write(renderFromInputs(plan.inputs));
+    process.stdout.write(warningPrefix + renderFromInputs(plan.inputs));
   } catch (cause) {
     // Fail loud, never blank: an unexpected fault renders a visible token so the
     // issue is seen, rather than crashing the adapter to an empty statusline.

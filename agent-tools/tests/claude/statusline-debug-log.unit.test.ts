@@ -1,25 +1,41 @@
-import { resolveDebugLogPath } from '../../src/claude/statusline-debug-log';
+import { resolveDebugLogConfig } from '../../src/claude/statusline-debug-log';
 
-describe('resolveDebugLogPath', () => {
-  it('returns undefined when OAK_STATUSLINE_LOG_FILE is unset', () => {
-    expect(resolveDebugLogPath({})).toBeUndefined();
+describe('resolveDebugLogConfig', () => {
+  it('resolves disabled when OAK_STATUSLINE_LOG_FILE is unset', () => {
+    expect(resolveDebugLogConfig({})).toEqual({ kind: 'disabled' });
   });
 
-  it('returns undefined for an empty or whitespace-only value', () => {
-    expect(resolveDebugLogPath({ OAK_STATUSLINE_LOG_FILE: '' })).toBeUndefined();
-    expect(resolveDebugLogPath({ OAK_STATUSLINE_LOG_FILE: '   ' })).toBeUndefined();
+  it('resolves disabled for an empty or whitespace-only value', () => {
+    expect(resolveDebugLogConfig({ OAK_STATUSLINE_LOG_FILE: '' })).toEqual({ kind: 'disabled' });
+    expect(resolveDebugLogConfig({ OAK_STATUSLINE_LOG_FILE: '   ' })).toEqual({ kind: 'disabled' });
   });
 
-  it('returns the path when the value ends with .log', () => {
-    expect(resolveDebugLogPath({ OAK_STATUSLINE_LOG_FILE: '/tmp/statusline.log' })).toBe(
-      '/tmp/statusline.log',
-    );
+  it('resolves enabled with the path when the value ends with .log', () => {
+    expect(resolveDebugLogConfig({ OAK_STATUSLINE_LOG_FILE: '/tmp/statusline.log' })).toEqual({
+      kind: 'enabled',
+      path: '/tmp/statusline.log',
+    });
   });
 
-  it('refuses a path without the .log suffix — the append-anywhere guard', () => {
-    // The env var drives a file append, so the surface is deliberately narrowed
-    // to *.log destinations; anything else resolves to "logging disabled".
-    expect(resolveDebugLogPath({ OAK_STATUSLINE_LOG_FILE: '/tmp/notes.txt' })).toBeUndefined();
-    expect(resolveDebugLogPath({ OAK_STATUSLINE_LOG_FILE: '/tmp/log' })).toBeUndefined();
+  it('trims surrounding whitespace from the value — a padded shell export must not leak into the path', () => {
+    // Untrimmed, '  /tmp/x.log' has dirname '  /tmp' and mkdir would create a
+    // directory literally named with a leading space, relative to the cwd.
+    expect(resolveDebugLogConfig({ OAK_STATUSLINE_LOG_FILE: '  /tmp/statusline.log  ' })).toEqual({
+      kind: 'enabled',
+      path: '/tmp/statusline.log',
+    });
+  });
+
+  it('resolves invalid, with a renderable warning, for a set value without the .log suffix', () => {
+    // Set-but-wrong is a misconfiguration and must fail loud: silence here
+    // would read as "the harness sent nothing" — a false diagnosis from the
+    // diagnostic instrument itself.
+    const config = resolveDebugLogConfig({ OAK_STATUSLINE_LOG_FILE: '/tmp/notes.txt' });
+    expect(config.kind).toBe('invalid');
+    if (config.kind === 'invalid') {
+      expect(config.warning).toContain('OAK_STATUSLINE_LOG_FILE');
+      expect(config.warning).toContain('.log');
+    }
+    expect(resolveDebugLogConfig({ OAK_STATUSLINE_LOG_FILE: '/tmp/log' }).kind).toBe('invalid');
   });
 });
