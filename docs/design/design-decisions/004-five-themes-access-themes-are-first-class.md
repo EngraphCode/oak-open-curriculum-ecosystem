@@ -34,10 +34,11 @@ testing.
 ## Consequences
 
 - A consumer control that lists a subset of themes is non-conformant.
-- Palette work (DDR-007) runs its contrast machinery across the full set —
-  a perturbation acceptable in light/dark but failing in high-contrast is
-  rejected.
-- Token additions land in all five themes or not at all.
+- Palette work (DDR-007) runs its contrast machinery across all four
+  palette themes — a perturbation acceptable in light/dark but failing in
+  high-contrast is rejected.
+- Token additions land in all four palette themes or not at all
+  (`system` has no tree to land in — it resolves).
 
 ## Provenance
 
@@ -45,6 +46,8 @@ testing.
   are not optional extras") and offers all five; landed through the
   2026-08-02 lane (PRs #710/#715).
 - The per-theme coverage obligation, in-record: rendered accessibility and
-  contrast gates run per identity × theme cell across the full five-theme
-  roster with the cell count pinned, so a shrinking matrix is visible;
+  contrast gates run per identity × palette-theme cell across the four
+  token-bearing themes (`system` is gated through its light and dark
+  resolutions, never as a fifth cell) with the cell count pinned, so a
+  shrinking matrix is visible;
   execution sequencing is the delivery plan's concern, not this record's.
