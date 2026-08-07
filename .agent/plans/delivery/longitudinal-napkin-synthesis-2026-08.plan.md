@@ -6,22 +6,19 @@ overview: >-
   Run the consolidate-docs step-6a archive-scale synthesis over the 37-napkin
   window since the 2026-05-29 marker on the as-built corpus-analysis engine,
   and conserve every finding.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: Jim
+ratified_date: 2026-08-07
+ratified_where: >-
+  Owner word 2026-08-07 in session Nettle weaves Root (5cfa11), recorded
+  verbatim in comms event 4abd7f53-eab2-4785-877b-956e47ce6030
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate
-tickets: []
+tickets:
+  - MCP-531
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      Owner authorises the validate-stage token ceiling at launch, priced from
-      the launch preflight's candidate projection (the pre-spend gate the
-      tooling hard-aborts on).
-    expires: 2026-08-10
+owner_gates: []
 last_updated: 2026-08-07
 ---
 
@@ -83,6 +80,15 @@ by replaying adjudication; integrity violations must be empty).
    ceiling from the preflight's candidate projection (probe-calibrated
    voters-per-candidate arithmetic) before the owner gate clears — the July
    run's calibration failure is the named risk this prices.
+
+**Dated amendment (2026-08-07, owner word at ratification)**: the
+validate-ceiling owner gate is discharged by pre-approval — "I pre-approve
+the validate ceiling, whatever value it is" (comms event
+`4abd7f53-eab2-4785-877b-956e47ce6030`). Amendment 5 still computes and
+records the ceiling before dispatch; approval no longer blocks. Execution
+was owner-directed to the reflecting seat (Nettle weaves Root, 5cfa11) in
+the same word, superseding the plan's Director-routed-fresh-seat default
+for this run; the Director is informed via the comms stream.
 
 ## Acceptance criteria (each with a proof)
 
