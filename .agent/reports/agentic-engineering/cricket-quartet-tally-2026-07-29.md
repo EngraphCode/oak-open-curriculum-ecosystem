@@ -689,3 +689,101 @@ right, not as live drift. (2) The effort-inversion pattern recurred
 softly: the opus cell carried the sharpest formulation of the real
 finding in both stances; the fable/haiku cells passed the frame in
 both.
+
+## Run 2026-08-07 ~20:51-20:55Z — Civet spins Cavern (054f5e), design-lane pickup merge boundary
+
+**Moment**: first major decision point of the Civet design-lane tenure (owner word,
+2026-08-07 in-session: "full Cricket suite at all major decision points"). Formed
+intent checked: merge #821/#822 (docs-only, green, settled) now; dispatch an
+in-session opus code-expert review of #820 (source; all automated reviewers
+credit-starved) before its merge; SLOWLY pace. Platform panel (Claude):
+judgement-low/medium/high + procedure-xhigh, both stances — eight legs.
+
+**Verdicts**: 7× ON-TRACK, 1× WRONG-PRIORITY (procedure-xhigh adversarial) —
+NON-UNANIMOUS → routed to the Director (Plover lifts Troposphere b10c37) per the
+standing contract. The dissent's case: delaying #820 reorders the handoff
+instruction ("merge at full condition" names no review leg); the reviewed-PR rule
+was cited in prose, not by file id; a self-commissioned review risks rubber-stamp.
+All eight legs (dissent included) endorse merging #821/#822 immediately.
+
+**Per-leg telemetry** (subagent tokens / wall ms):
+
+| Leg | Stance | Verdict | Tokens | ms |
+| --- | --- | --- | --- | --- |
+| judgement-low | normal | ON-TRACK | 29,529 | 15,777 |
+| judgement-low | adversarial | ON-TRACK | 29,596 | 17,626 |
+| judgement-medium | normal | ON-TRACK | 29,541 | 20,644 |
+| judgement-medium | adversarial | ON-TRACK | 30,025 | 35,359 |
+| judgement-high | normal | ON-TRACK | 30,697 | 37,629 |
+| judgement-high | adversarial | ON-TRACK | 30,893 | 47,707 |
+| procedure-xhigh | normal | ON-TRACK | 23,022 | 155,949 |
+| procedure-xhigh | adversarial | WRONG-PRIORITY | 22,651 | 101,194 |
+
+Total ≈ 225,954 subagent tokens; wall ≈ 4 min (parallel).
+
+**Panel value realised before any verdict landed**: the medium-normal leg's
+don't-serialise redirect and the medium-adversarial leg's pre-commit-the-bar
+redirect were both executed mid-panel (review dispatched in background; the #820
+disposition rule written and timestamped BEFORE the review dispatch — scratchpad
+`pr-820-disposition-rule.md`). The low-adversarial suppressed-Copilot re-check ran
+and came back clean (only the overage notice exists). The high-adversarial
+housekeeping check on #821 ran and confirmed dated gate-discharge records only.
+
+**Calibration notes**: (1) the effort-inversion pattern recurred — the compiled
+procedure (xhigh) produced both the slowest legs and the only dissent, and the
+dissent's Q3 hinges on a fact the judgement legs verified from memory (the rule's
+existence) while the procedure leg correctly refused to trust an unnamed citation:
+the dissent is partly a FRAME-SUPPLY defect (the invoker cited the rule in prose
+without its file/memory id), the pair-era frame-provenance cure applying again.
+(2) Adjudication inputs routed with the panel, not self-ruled: the exact phrasing
+"code enters via reviewed PR" lives in owner-word per-user memory (not an
+`.agent/rules/` file), while the always-applied tier carries `invoke-code-experts`
+and the estate's own `merge-bot merge` REQUIRES a declared `--expect` reviewer set
+— the instrument itself encodes reviewer settlement inside "full condition".
+
+**Outcome (appended 2026-08-07 ~21:28Z per the Director's loop-closure
+addition)**: the routed 7:1 run RESOLVED. Director adjudication adopted the
+seat's recommendation (review-before-merge for the source PR under the
+pre-committed rule); the opus code-expert review returned APPROVE with zero
+blocking findings (seven non-blocking, dispositioned on the PR); #821/#822
+merged under per-PR grants at recomputed boundaries (735c5a330, c45fcf087);
+#820 merged at 21:27Z (merge commit 658f6c844) after a secret-scan
+network-flake re-fire, a SETTLED-NO-REVIEW stop-and-route, and an explicit
+Director RE-GRANT on verified byte-identity. Wall-clock, panel-launch to
+#820 merged: ~36 minutes, of which ~10 was the deliberately-matured quiet
+window. The dissenting leg's practical residue — the review rule's citation
+must carry its file/memory id in the frame — is adopted as standing frame
+practice for future runs.
+
+## Run: 2026-08-07 ~21:3xZ — Nettle weaves Root (5cfa11), longitudinal-run close (MCP-531)
+
+Moment: the conservation/close boundary of the longitudinal napkin synthesis —
+close-now vs re-run on the Choice-B recall MISS, plus the C06/C55 novelty calls
+and same-night plan archival. Full quartet, both stances, all eight parallel.
+
+| Leg | Stance | Verdict | Tokens | Runtime (ms) |
+| --- | --- | --- | ---: | ---: |
+| judgement-low | normal | ON-TRACK | 29,076 | 14,114 |
+| judgement-low | adversarial | ON-TRACK | 29,022 | 19,909 |
+| judgement-medium | normal | ON-TRACK | 29,582 | 19,849 |
+| judgement-medium | adversarial | DRIFTING | 29,580 | 24,250 |
+| judgement-high | normal | ON-TRACK | 36,629 | 53,126 |
+| judgement-high | adversarial | DRIFTING | 33,411 | 47,129 |
+| procedure-xhigh | normal | ON-TRACK | 37,165 | 75,259 |
+| procedure-xhigh | adversarial | ON-TRACK | 24,980 | 148,401 |
+
+Total ≈ 249,445 subagent tokens; wall ≈ 2.5 min (parallel). Tally 6:2,
+non-unanimous → routed to the Director with resolution attached.
+
+**Outcome (recorded at occurrence)**: both DRIFTING redirections were executed
+BEFORE the synthesis report finalised — (1) the voter-verdict hand-check on the
+miss-carrying kills (C39/C40/C65 unanimous four-conjunct kills; C58 consistent
+not-artefact kill) reworded the Choice-B verdict from "fixture aged" alone to
+the dual fixture-age + adversary-de-duplication reading; (2) C55 was verified
+against the F-73/F-89/F-116 register rows and C06 against the sibling pattern
+files before either pattern was created; (3) the plan stays LIVE tonight — no
+archival — preserving the owner's morning checkpoint. The adversarial-stance
+legs again produced all the dissent and all the executed value; the normal
+legs converged fast. Effort inversion recurred in the opposite direction from
+the #820 run: here procedure-xhigh (both stances) endorsed while
+judgement-high adversarial dissented on verification depth.

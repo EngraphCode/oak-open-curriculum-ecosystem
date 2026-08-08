@@ -246,3 +246,105 @@ record).
   sat at 77 of the vendor's 100-run agent-task window at ~23:23Z; past 100 the runs leg
   reads truncated and merge-bot's run-deadness assert goes conservative — will read as a
   behaviour change if unflagged.
+
+## 2026-08-08 ~00:4xZ (Civet spins Cavern, 054f5e) — the piped-exit lookalike's fourth strike this window, now with || compounding
+
+- The slice-3 push "succeeded" with IN-BAND-EXIT:0 while the branch never left
+  the machine: `node <wrong-path> | tail -2 || node <fallback> | tail -2` — the
+  first pipeline's TAIL exited 0, so `||` short-circuited and the fallback
+  NEVER RAN, and my in-band echo read the tail's 0. Two composed failures:
+  (1) relative-path arithmetic from a nested worktree (`../../` from
+  .claude/worktrees/X lands in .claude/, not the repo root — count the
+  levels or use the worktree's own dist, which turbo's shared cache
+  materialises during the commit hooks); (2) the $?-after-pipe class now has
+  a || variant — a piped command inside an || chain makes the WHOLE branch
+  decision ride the pipe's last element. Cure applied and standing: push
+  commands run BARE (no pipe, no ||), exit echoed on the next line, and the
+  remote ref ls-remote-verified as the success predicate (the only honest
+  one). Caught by the ls-remote verify, not by any exit code.
+
+## 2026-08-08 ~01:0xZ (Civet spins Cavern, 054f5e) — a failed cd let a git chain land a commit on the Director's branch
+
+- The #787 re-fire chain did `git worktree add <new> <branch>` (FAILED — the
+  branch already lives in Saffron's design-plan-truings worktree) then
+  `cd <new>` (FAILED — never created) — and the chain CONTINUED in the
+  primary checkout, committing the empty re-fire commit onto
+  coordination/2026-08-07-91db0c (89c1a2be9, local only; the pre-push knip
+  gate then failed the push, so nothing reached the remote). Two composed
+  cures, standing: (1) EVERY inline cd carries `|| exit 1` — the monitor
+  arms already do; the inline chains now must; (2) before any worktree add,
+  `git worktree list` for the branch — a lane branch's worktree usually
+  already exists and is the RIGHT place to work. Left-and-surfaced to the
+  Director per no-risk-of-loss (an empty commit removes nothing, but reset
+  on a shared branch is the barred class regardless of proof). The gate
+  chain was the backstop that held.
+
+## 2026-08-08 ~09:0xZ (Civet spins Cavern, 054f5e) — compaction-freeze lens harvest (metacognition / free-play / concept-exploration / wrap)
+
+- METACOGNITION: the night's four self-misses (fabricated sha, two
+  under-scoped cure sweeps, the failed-cd wrong-branch commit) share ONE
+  generator — a chain continuing past a failed or unverified precondition.
+  The class cure, standing at this seat: verify the precondition's OUTCOME
+  (not its issuance) before the next dependent act — resolve-then-pin,
+  sweep-at-the-invariant's-home-range, cd-with-exit-guard,
+  worktree-list-before-add are all instances of one discipline. Also: the
+  reliability-ladder note for the unsealed work — this seat knows the
+  payload from RECORDS; the authoring sitting re-reads the PRIMARY events
+  before any cure (routed to the Director as the sitting's first act).
+- FREE PLAY (seeds as associations; one discard made): (a) the merge
+  recount comments are shaped like the cartographer's folly — deliberate
+  visible provenance at every landing; (b) seals protect OWNER SEQUENCING
+  from agent industriousness, not work from loss — the airlock vocabulary's
+  real function; (c) the reviewer-drought night proved a playbook: when
+  external reviewers die, in-session opus reviewers against PRE-COMMITTED
+  disposition rules + Director grants preserved the review invariant end to
+  end — pattern-grade, worth a future pattern file if it recurs. Discarded:
+  a forced rhythm-reading of the watcher's hourly deaths.
+- CONCEPT-EXPLORATION: justified no-run — the unsealed work is well-formed
+  (mechanisms specified in the mandate + shaping record); its one output
+  (primary-sources-first) is in the routing note.
+- WRAP loss-scan (freeze form; claim retained, seat continues): in-context
+  knowledge → this entry + the thread record's freeze entry; scratchpad
+  artefacts → substance already on PR records/comms (disposition rules
+  quoted in adjudication comments; morning cell delivered d58826bd); dirty
+  primary surfaces (napkin, frictions register, thread record, tally) →
+  named in the freeze broadcast, ride the Director's fold; monitors →
+  stopping at owner word in canonical order. Metaloss pass: nothing further
+  found beyond these classes — the fixed point.
+
+## 2026-08-08 ~09:1xZ (Nettle weaves Root, 5cfa11) — wrap: surprises + loss-scan findings
+
+- **Corpus findings fired live on the seat that ran the corpus** (two structured
+  surprises, same session as the synthesis): (1) `git commit | tail` ate a
+  pre-commit failure's exit code and let the chained `git push` run — the C01
+  class (all-11-window finding) biting its own analyst; cure was in-band
+  `COMMIT_EXIT:$?` unpiped, applied on the retry. (2) The wrapped-`+` MD004
+  trap fired inside the napkin note recording the run (C07 class) — the killed
+  C40 shape (authoring-a-cure-precedes-violating-it) demonstrated twice in one
+  evening. Both strengthen the report's finding 1: reading is not inhibition;
+  interfaces are (the lint and the validator caught both).
+- **Loss-scan findings (6e.2, written per the standing rule)**: (a) voter
+  free-text rationales live only in machine-local workflow transcript dirs —
+  the committed checkpoints carry structured verdicts + quorum math, judged
+  decision-sufficient (they sufficed for the Cricket-demanded kill hand-check);
+  stated as a bound, not cured. (b) This seat's comms watcher was dark
+  ~22:00Z→09:00Z; the whole-night authority is the Director's morning summary,
+  not this seat's event slice. (c) The partition script's exact parameters
+  (260KB target, 1.15 slack, oversize-own-window) live in the report prose and
+  this entry; the committed partition JSON is the authoritative result.
+  (d) Per-user memory (MEMORY.md) checked — no additions warranted; the repo
+  carries everything durable. (e) `~/.claude/plans/` scanned — present, no
+  session-authored plans, nothing to route. (f) Comms-log knowledge curation:
+  events authored-by/addressed-to this seat re-read; all behaviour-changing
+  substance already mirrored (ratification → plan stamp; closeout → thread
+  record); the Director map-sync's "62M" ceiling misquote needs no cure — the
+  real 25M is in the plan, report, and checkpoint commits. (g) Promises sweep:
+  zero silent drops (archival + MCP-531 Done discharged this morning; fixture
+  re-freeze + banked-verdict pointers homed in report + thread record;
+  retrospective offer routed in the final owner report). **Metaloss fixed
+  point**: a further pass would only re-find the voter-prose bound, the
+  overnight-watcher gap, and the script-parameter residue — all named above;
+  the recursion closes here. External bound: this scan cannot certify itself;
+  outside eyes caught nothing the scan missed THIS time, but the session's own
+  error signature (the v3-"pending" misread, caught only on deeper first-hand
+  verification) is where a successor should point external scrutiny.

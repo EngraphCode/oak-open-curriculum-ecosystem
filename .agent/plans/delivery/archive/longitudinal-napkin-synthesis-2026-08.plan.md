@@ -6,7 +6,7 @@ overview: >-
   Run the consolidate-docs step-6a archive-scale synthesis over the 37-napkin
   window since the 2026-05-29 marker on the as-built corpus-analysis engine,
   and conserve every finding.
-status: ratified
+status: archived
 ratified_by: Jim
 ratified_date: 2026-08-07
 ratified_where: >-
@@ -19,10 +19,24 @@ tickets:
   - MCP-531
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-07
+last_updated: 2026-08-08
 ---
 
 # Longitudinal napkin synthesis (step 6a, 2026-08 window)
+
+> **ARCHIVED 2026-08-08 — completed, acceptance criteria proven.** The run
+> executed 2026-08-07 (all four checkpointed stages green; deterministic close
+> with empty integrity and zero recompute diff; landing commit `14f79e226`).
+> The owner approved the synthesis report and directed archival 2026-08-08
+> in-session ("Perfect, please archive the plan, I approve the report"). The
+> report is the durable record:
+> `.agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/historical-napkin-synthesis-2026-08-07.md`
+> (processed marker 2026-08-07). Goal disposition: **served** — the archive
+> window is synthesised, dispositioned, and conserved; two novel patterns
+> graduated; the marker chain extends. Deviations recorded in the report's
+> §Limitations (amendment 2's dedup landed at novelty stratification, not
+> validate dispatch). Follow-on pointers live in the report §Routing decisions
+> (fixture re-freeze; banked-verdict pre-filter), not here.
 
 ## Goal
 
