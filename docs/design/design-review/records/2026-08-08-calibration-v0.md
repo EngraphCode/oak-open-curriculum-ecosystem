@@ -286,36 +286,54 @@ PDS_DIR=$(find "$DS/whitelabel" -mindepth 1 -maxdepth 1 -type d ! -name creature
 OUT=${1:?target dir}
 for n in 1 2 3 4 5 6 7 8; do mkdir -p "$OUT/page-$n"; done
 cp "$DS/whitelabel/creature/index.html" "$OUT/page-1/index.html"
-cp "$DS/whitelabel/creature/brand-full.css" "$DS/whitelabel/creature/icons.css" "$OUT/page-1/"
+cp "$DS/whitelabel/creature/brand-full.css" "$DS/whitelabel/creature/brand-a.css" \
+  "$DS/whitelabel/creature/icons.css" "$DS/whitelabel/creature/logo.svg" "$OUT/page-1/"
 cp "$FX/fixture-c.html" "$OUT/page-2/index.html"
 cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/page-2/"
 cp "$PDS_DIR/index.html" "$OUT/page-3/index.html"
-cp "$PDS_DIR/brand-full.css" "$PDS_DIR/icons.css" "$OUT/page-3/"
+cp "$PDS_DIR/brand-full.css" "$PDS_DIR/brand-a.css" "$PDS_DIR/icons.css" "$PDS_DIR/logo.svg" "$OUT/page-3/"
 cp "$DS/ui_kits/oak/index.html" "$OUT/page-4/index.html"
 cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/page-4/"
 cp "$FX/fixture-d.html" "$OUT/page-5/index.html"
-cp "$PDS_DIR/brand-full.css" "$PDS_DIR/icons.css" "$OUT/page-5/"
+cp "$PDS_DIR/brand-full.css" "$PDS_DIR/brand-a.css" "$PDS_DIR/icons.css" "$PDS_DIR/logo.svg" "$OUT/page-5/"
+mkdir -p "$OUT/page-6/app" "$OUT/page-6/components" "$OUT/page-6/lib" "$OUT/page-6/public"
 cp demos/oak-design-showcase/app/page.tsx demos/oak-design-showcase/app/layout.tsx \
-  demos/oak-design-showcase/app/globals.css "$OUT/page-6/"
-mkdir -p "$OUT/page-6/components"
+  demos/oak-design-showcase/app/globals.css "$OUT/page-6/app/"
 cp demos/oak-design-showcase/components/*.tsx demos/oak-design-showcase/components/useIdentity.ts \
   "$OUT/page-6/components/" 2>/dev/null || true
+cp demos/oak-design-showcase/lib/inline-script.ts "$OUT/page-6/lib/"
+cp demos/oak-design-showcase/public/oak-theme.js "$OUT/page-6/public/"
 cp "$FX/fixture-a.html" "$OUT/page-7/index.html"
 cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/page-7/"
 cp "$FX/fixture-b.html" "$OUT/page-8/index.html"
 cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/page-8/"
 ```
 
-System stylesheets stay at their canonical repo paths
-(`packages/design/oak-design-system/{colors_and_type.css,components.css,print.css,oak-theme.js}`)
-and are named to the legs as the resolution target for `../../*`
-references. Stated bounds for a rerun: page-5's staged copy carries the
-committed fixture's sanitised strings (this run's staged copy predated
-the sanitisation — the enumerated divergence set above); its decorative
-`aria-hidden` icon glyphs are inert under the renamed class, which
-touches no criterion note either leg recorded. The `2>/dev/null || true`
-on the components copy tolerates the showcase's unit-test siblings; the
-component list judged this run is enumerated in the method section.
+Scope claim, sharpened (review round 2, from the delta pass's suppressed
+comments): this recipe reassembles the SOURCE-READ corpus — the material
+a leg reads and judges, with the live repository tree beside it — never a
+standalone render bundle. The staged pages' `../../*` references do not
+resolve inside `$OUT`; legs are pointed at the canonical repo paths
+(`packages/design/oak-design-system/{colors_and_type.css,components.css,print.css,oak-theme.js}`
+and the export's `assets/` tree) as the stated resolution context,
+exactly as this run was. Renderable-bundle assembly is out of scope for
+the v0 manual instrument and becomes a real requirement only if a future
+revision mechanises rendering.
+
+Fidelity notes: the identity pages' local closures (`brand-a.css` via the
+brand import, `logo.svg`) and the showcase's `lib`/`public` dependencies
+are copied by the recipe above although THIS run's staging omitted them —
+the legs resolved those through the live tree, so a rerun staged this way
+is strictly closer to the judged totality; the divergence direction is
+recorded here. Page-6 preserves the showcase's `app/`-relative directory
+shape for the same reason (this run staged it flattened; the source read
+was unaffected, the shape is now faithful). Remaining page-5 bounds: its
+staged copy carries the committed fixture's sanitised strings (this run's
+staged copy predated the sanitisation — the enumerated divergence set
+above); its decorative `aria-hidden` icon glyphs are inert under the
+renamed class. The `2>/dev/null || true` on the components copy tolerates
+the showcase's unit-test siblings; the component list judged this run is
+enumerated in the method section.
 
 ## The motion-scope bound (stated per the derivation note)
 
