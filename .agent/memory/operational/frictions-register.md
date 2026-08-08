@@ -2434,6 +2434,19 @@ below is a cross-reference index, not a second source of truth.
   conserved end-to-end); two real gate failures during landing surfaced with full
   output — the truncation used to swallow exactly these. Queue-workflow commits from
   Claude Code are unblocked, including the memory-drain plan's loop commits.
+- **Second instance (push path), observed and cured 2026-08-07 (Saffron guards
+  Hedgerow)**: `merge-bot push`'s `streamingGitCall` still spawned git with pipe
+  stdio, so the class recurred one wrapper over — reproduced four times first-hand:
+  the pre-push chain's knip child died with empty output at the depcruise→knip
+  handover, an instrumented diagnosis line written to stderr was ITSELF eaten by the
+  poisoned stream, and git's exit code arrived null (reported as `-1`), while the
+  identical hook chain run directly (`sh .husky/pre-push` to a file) passed green.
+  Cure: the runner moved to its shared home `agent-tools/src/core/file-backed-child.ts`
+  (third consumer) and the push executor consumes it; `GitCommandResult` and
+  `RepoCheckCommandResult` now carry the killing signal distinctly; the knip gate
+  prints a crash-class diagnosis line on the SURVIVING stream (stdout) when the child
+  dies without a verdict. Corollary pinned by the eaten-diagnosis observation:
+  diagnosis must never ride only the channel whose failure it reports.
 
 ### F-113 — `commit-queue enqueue`/`guard` usage text omits required `--id`; `guard` error names the claim kind but not the re-enqueue cure
 
