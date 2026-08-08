@@ -33,7 +33,7 @@ quoted; relay provenance is named per entry.
   `packages/design/oak-design-system/studio-source/`), at the owner's
   instruction. Export-sitting verdicts follow below as they arrive.
 
-## W0.5 enumeration sitting — the owner's export tweak ledger (10 items + 3 instruments)
+## W0.5 enumeration sitting — the owner's export tweak ledger (nine items, owner-numbered 1–10 with no item 5, + 3 instruments)
 
 Recorded from the Director's enumeration-ledger broadcast (comms event
 2026-08-05T15:32:15Z; owner chat at the Director seat ~15:10–16:25Z,
@@ -44,6 +44,9 @@ owner CONFIRMED the one-pass AS PROPOSED — all ten items and all three
 instruments, no deltas (Director broadcast, comms event
 2026-08-06T06:12:16Z). Every "Proposed:" word below now stands as an
 owner word.** Owner words are verbatim where quoted.
+**Count note (2026-08-08 comment-adjudication pass)**: "all ten items"
+follows the owner's numbering (1–10 with no item 5); the ledger holds
+NINE items — the numbering is the owner's, the item count is nine.
 Process ruling (Director): these words arrived mid-re-review — plan
 amendments adjudicate in ONE window with the re-review's close, so the
 fleet's zero-target text never moves under it.
@@ -257,8 +260,9 @@ earlier one, both moments are recorded in superseding order.
 
 **Moment 1 (~16:05–16:12Z, Director-verified first-hand).** The Figma
 kit is UNLICENSED (copyright Oak), so the cartographer's folly binds its
-values. Oak Components (`github.com/oaknational/oak-components`) is MIT
-and public. The owner's want, verbatim: the buttons "are probably pretty
+values. Oak Components
+([github.com/oaknational/oak-components](https://github.com/oaknational/oak-components))
+is MIT and public. The owner's want, verbatim: the buttons "are probably pretty
 close to the ones in Oak Components... in fact we would like them to be
 identical, but we haven't figured out the best mechanical pipeline and
 proof for that yet."
@@ -292,7 +296,12 @@ the trap-street audit forward from the story-open queue; the Director
 executed it first-hand the same evening against Oak Components' MIT
 source (`color.ts` / `dark.theme.ts` / `default.theme.ts` at main):
 
-- PALETTE: our dtcg `palette.json` carries 83 literal values; Oak
+- PALETTE: our dtcg `palette.json` carries 83 literal hex values
+  [scope correction 2026-08-08: the file carries 87 `$value` literals —
+  the 83 hex values this audit covered plus four RGB alpha literals
+  (`shadow-veil`, `shadow-veil-deep`, `veil-ink`, `veil-black`) outside
+  the audited hex set, still needing a provenance disposition; that
+  disposition rides the provenance-manifest work item]; Oak
   Components primitives 76; EXACT hex matches 68. The light families
   (greys, green `#287c34`, mint/aqua/lavender/pink/lemon/amber/red/
   navy...) are byte-identical copies.
@@ -330,8 +339,10 @@ the identity story, boundary calls bless at the story card:
 - Target band: above zero, below the just-noticeable-difference
   threshold (delta-E ~1–2) — invisible in use, decisive under hex
   inspection: the true trap-street property.
-- Iteration target: OUR computational contrast machinery (the 43-pair
-  contrast-pairings manifest, the 810-value dtcg-CSS consistency gate,
+- Iteration target: OUR computational contrast machinery (the 42-pair
+  contrast-pairings manifest [count corrected 2026-08-08: 42 pairs at
+  the sitting and today; `EXPECTED_MANIFEST_PAIR_COUNT = 42`], the
+  810-value dtcg-CSS consistency gate,
   the contrast report) — stricter than axe for token values; loop to a
   fixed point, nudges flip to the contrast-safe direction on any
   regression. Axe stays the rendered-page floor per the instrument
@@ -352,13 +363,16 @@ the identity story, boundary calls bless at the story card:
 
 ### Reference-local export workflow (standing practice)
 
-The owner exported kit pages via Figma's Export affordance into
-`.agent/reference-local/design/Oak Design Kit/`; `.gitignore` rule 100
-already excludes `.agent/reference-local/**/*`, so the reference-only
-ruling is honoured BY CONSTRUCTION (local reference, never repo).
-Standing practice: export-to-reference-local beats Figma MCP grazing —
-quota-free consultation, with metered MCP reads reserved for
-value-precise needs at story opens.
+The owner exported kit pages via Figma's Export affordance into his
+machine-local reference area under the repository's gitignored
+local-reference convention, so the reference-only ruling is honoured
+BY CONSTRUCTION (local reference, never repo). Standing practice:
+export-to-local-reference beats Figma MCP grazing — quota-free
+consultation on the exporting machine, with metered MCP reads reserved
+for value-precise needs at story opens. [Path reference removed
+2026-08-08: the local-reference convention forbids in-repo references
+to its directory; exports are per-machine and never a repo dependency
+— a consulting seat re-exports locally or uses metered MCP reads.]
 
 ### Reference texture notes
 
@@ -379,3 +393,36 @@ knowledge-safety pass; morning resume via the Director's day-close
 broadcast on canonical comms. This fold executed at that resume
 (2026-08-06 morning), completing the channel's conserve-at-close
 obligation for the sitting.
+
+## Adjudication addendum — PR-comment pass (2026-08-08, Director seat)
+
+Adjudicated from PR #784's review comments (Codex and Copilot), each
+verified first-hand before absorption; the counts above carry their
+own dated corrections. Four findings bind FUTURE instruments, not this
+record — recorded here so the register migration and the story cards
+inherit them:
+
+1. **Folly attestation pins its upstream**: the attestation records an
+   immutable upstream reference (Oak Components commit sha or content
+   digest) fetched at audit time. A sha stores no official values, so
+   reproducibility is gained without storing what the ruling forbids.
+2. **Delta-E names its formula**: "delta-E ~1–2" is not reproducible
+   until the story card names the formula and threshold convention
+   (CIE76, CIEDE2000 and OKLCH-native deltas differ materially). The
+   choice belongs to the story card per the owner's boundary-calls
+   ruling; the just-noticeable-difference claim binds once named.
+3. **Attestation semantics under exemptions**: the zero-exact-match
+   claim binds the NON-EXEMPT expressive families only; exempt values
+   (pure white, true black, the generic grey ramp; ci-\* exact by
+   scientific provenance) are enumerated in the attestation with their
+   recorded grounds, so the attestation stays truthful.
+4. **Editable-slides data boundary (ledger item 9)**: at story mint,
+   the story defines the data boundary — localStorage persists across
+   sessions and is readable by any script on the origin, so the story
+   carries auto-clear or expiry, a reliable reset, and
+   no-sensitive-input guidance. "Privacy trivial" was sitting
+   shorthand, not a design conclusion.
+
+These four route to the design seat's story cards (the folly/identity
+story, the editable-slides mint); the register migration carries them
+with the verdict rows.
