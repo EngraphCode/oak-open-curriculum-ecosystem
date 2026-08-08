@@ -158,3 +158,30 @@ named other carrier), `duplicate-of` (same defect as the named row).
 | X28 | applied | W3.1 — per-family fixtures at each landing; W0.8 instrument covers literals continuously |
 | X29 | applied | W4.4 + W4.5 — the token page is a census row bound to assertions |
 | X30 | applied | §Cross-demo — keyboard-complete over every interactive element |
+
+## Corrections (dated appendix, 2026-08-02 — round-2 adjudicated; original rows above left as written)
+
+Appended by the executing seat after the round-2 fleet review
+(`findings.v2.json`, `adjudication.v2.md`); the original rows are the record the
+round-2 fleet read and are not rewritten. Each correction names what was actually
+true.
+
+- **E47** — recorded `applied — Every story names describing surface + first RED`;
+  round-2 EX40 verified only 3 of 40 stories named a describing surface. Corrected
+  disposition: `absorbed-with-correction` — v2.1 states one describing surface per
+  WORKSTREAM (each preamble) with stories tagging their boundaries against it.
+- **E14/E66** — recorded `applied — no re-wrap mandate remains, so the §3 rejection
+  stands unamended`; round-2 EX18/EX56/EX68 (three-expert convergence,
+  Director-verified) showed W3.0's unconditional mapping rule was the wholesale
+  shape, and the kit-class-painting decision collides with §3's descriptive
+  consumption-mechanism clause. Corrected disposition: the mapping vocabulary gains
+  the no-construct default (Director ruling), and W3.0 carries a dated §3 amendment
+  scoped to the consumption-mechanism description recording both shapes' roles —
+  the REJECTION itself stands unamended, which is the part the original rows got
+  right.
+- **E63** — recorded the sketch-vs-ratified deviation only; round-2 EX63 showed the
+  finding's other half (multi-paragraph decision narrative in frontmatter
+  `clears_when`, against the delivery contract) was undischarged and survived into
+  v2's gates. Corrected disposition: `absorbed-with-correction` — v2.1 reduces
+  every `clears_when` to one sentence and moves provenance to the body (§Owner
+  rulings).

@@ -54,6 +54,19 @@ cheap, and requiring it even for throwaways is the point — "committed work on 
 with no PR" is the single state this rule exists to forbid, so nothing is ever silently
 dropped.
 
+**The clause generalises beyond worktree lanes to EVERY pushed branch** (owner word,
+2026-08-03: "generally, I want branches to have at least draft PRs"), and the firing
+moment includes the FIRST PUSH, not only creation and first commit. The coordination
+branch opens its fold PR as a draft at the cut and rides it to the fold; a build-ahead
+lane stacks its draft on the branch it builds on and retargets at that branch's merge
+(push an empty commit after the retarget — required checks do not re-run on a base
+retarget alone); a probe branch gets its draft at push and closes with the probe.
+History-only preservation still uses `preserve/` tags (§6), never a parked PR. Worked
+instance, 2026-08-03: two branches (a build-ahead lane and the fresh coordination
+branch) sat pushed and PR-less for an hour with this rule loaded — the owner noticed
+from the branches page before any seat did; the creation/first-commit triggers had not
+fired because neither branch read as a worktree lane at push time.
+
 ### 2. One bounded lane per worktree
 
 A worktree owns one bounded lane — one coherent change set heading to one PR — not a
@@ -120,9 +133,29 @@ retired:
 - unique information NOT in `main` and not worth keeping → consciously drop it ("if
   there is no information worth preserving, that is fine").
 
-Destructive removal (`git worktree remove`, branch deletion) is
-owner-authorisation-gated and never removes information not first confirmed in `main` or
-consciously released (`never-use-git-to-remove-work`).
+**Standing prune policy for the proven class** (owner grant 2026-07-21:
+"Pruning worktrees that are provably safe to remove should absolutely be
+standing policy"; widened 2026-08-05: "anything proven on main can be
+deleted, and in fact should be deleted as a standing protocol, to keep the
+local environment tidy, no redundant branches, no redundant worktrees").
+Provably safe = BOTH, proven per item: (a) `git status --porcelain` empty
+in the worktree, and (b) its HEAD an ancestor of a freshly-fetched
+`origin/main` (`git merge-base --is-ancestor`). Items passing both prune
+without a per-item ask: `git worktree remove` (never `--force` — its
+dirty-refusal is a safety net) plus `git worktree prune` for gone
+registrations, and plain branch deletion for proven local branches. A
+content-superseded branch (every file proven present newer on main by
+content comparison, not SHA ancestry) also deletes, with the comparison
+recorded first. Anything failing either proof, the active lanes, and
+platform-managed `.claude/worktrees/*` are NEVER touched. Worked instance:
+2026-07-21, 50 → 9 registrations (37 proven removals + 5 stale prunes),
+zero losses.
+
+Destructive removal OUTSIDE the proven class (`git worktree remove` of
+anything dirty or unmerged, deletion of any branch not ancestor- or
+content-proven) remains owner-authorisation-gated and never removes
+information not first confirmed in `main` or consciously released
+(`never-use-git-to-remove-work`).
 
 A third disposition exists for a branch worth preserving as HISTORY but not landing:
 an **annotated tag** (`git tag -a preserve/<name> <tip> -m "<why kept>"`, pushed)
@@ -236,7 +269,9 @@ holding a worktree.
 
 ## Enforcement
 
-Behavioural at worktree creation and retirement. The draft-PR-on-creation discipline is
-observable (every branch with work has a PR on the list); the content-check-before-removal
+Behavioural at worktree creation, first push, and retirement. The draft-PR discipline is
+observable (every pushed branch with work has a PR on the list); the content-check-before-removal
 is the named retirement step; the cross-worktree map makes a forgotten worktree visible.
-Future hardening could add a check that flags any local worktree branch with no open PR.
+Future hardening could add a check that flags any pushed branch with no open PR — the
+2026-08-03 worked instance above is the evidence that the behavioural clause alone does
+not hold, so this check is a live candidate, not speculative hardening.

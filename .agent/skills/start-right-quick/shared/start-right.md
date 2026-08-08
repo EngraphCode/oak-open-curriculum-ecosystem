@@ -184,6 +184,31 @@ records) instead of a remembered name. Memory and collaboration state
 name people historically — they are records of who acted, never
 resolution sources for who is here now.
 
+**Temporary — a clear run for Matt (owner-directed, 2026-08-03; remove
+when the owner declares the first-submission window closed — that
+declaration is the removal trigger, no other signal).** The easiest
+reliable signal that the collaborating human is Matt is his GitHub
+handle: `gh api user --jq .login` returning `mantagen` (owner-named
+detection route); the resolution order above applies where that signal
+is absent or bot-shaped. When — and only when — Matt is the identified
+user:
+
+- Open with a warm welcome that reflects the fleet's CURRENT quiet
+  state, derived from the live surfaces this workflow already loads
+  (open pull requests and their draft flags, active claims) — the
+  standing owner intent is that agent lanes stay parked in draft pull
+  requests so nothing churns under his work, with only the upstream
+  spec-update lane allowed near his surfaces and always tagged to him.
+  Say what is true at session open, never a remembered snapshot.
+- Treat his work as the repository's first priority for the session:
+  support what he is doing ahead of any agent-side backlog, keep
+  answers plain and practical, and route around his lane, never
+  through it.
+- Pass on the team's encouragement, plainly and warmly: Jim and the
+  whole fleet cleared this run for him on purpose, everyone is glad he
+  is making it, and he should ask any session for whatever he needs —
+  that is exactly what the agents are here for.
+
 ### 7. Host health
 
 ```bash
@@ -380,6 +405,20 @@ Apply session priority ordering:
 1. **Bugs first** — fix known defects before anything else
 2. **Unfinished planned work second** — complete in-progress items
 3. **New work last** — only start new items when the above are clear
+
+Research holds a **protected floor** under this ordering (owner standing
+guidance, 2026-07-25, "with some flex"): the full order is bugs >
+features > speculative research, but practice/meta research — the
+improve-how-we-improve loop — keeps a protected minimum share of
+attention, because a pure strict ordering starves the meta-level
+permanently (there is always another feature) and the estate's
+compounding value comes precisely from that loop. The floor is
+protection against starvation, never an escape from the ordering:
+research never jumps the queue past a live bug or a committed feature —
+it just never goes to zero. When every seat has been on bugs/features
+for a sustained stretch, deliberately seat or timebox a research slice
+rather than letting "one more feature" defer it forever. "Some flex"
+means judgment on the boundaries, not suspension of the shape.
 
 ## Guiding Questions
 

@@ -3,8 +3,9 @@
  *
  * Each override corrects a specific parameter description that is wrong in the
  * upstream schema. Overrides are keyed by `{path}:{paramName}` and include the
- * incorrect upstream description so that a schema-cache test can detect when the
- * upstream bug is fixed and flag the override for removal.
+ * incorrect upstream description so that a schema-cache test can detect when
+ * the upstream wording moves and flag the override for re-adjudication
+ * (removal if upstream is now correct; re-pin if still wrong).
  *
  * @see upstream-param-description-overrides.unit.test.ts — removal-condition test
  */
@@ -21,20 +22,25 @@ interface ParamDescriptionOverride {
 /**
  * Map of `{openApiPath}:{paramName}` to override definitions.
  *
- * When the upstream spec is fixed, the schema-cache test will detect that
- * the cached description no longer matches `upstreamBuggyDescription` and
- * fail, signalling that the override should be removed.
+ * When the upstream wording moves, the schema-cache test detects that the
+ * cached description no longer matches `upstreamBuggyDescription` and fails,
+ * signalling that the override needs re-adjudication against the endpoint's
+ * actual behaviour.
  */
 const PARAM_DESCRIPTION_OVERRIDES: Readonly<Record<string, ParamDescriptionOverride>> = {
+  // The upstream defect evolved (spec 0.7.x, 2026-07): the original swapped
+  // descriptions became generic whole-list pagination text, but the handler
+  // behaviour is unchanged and remains per-unit — so the overrides stay
+  // (keep + re-pin ratified at the 2026-08-03 owner card).
   '/key-stages/{keyStage}/subject/{subject}/lessons:offset': {
     correctDescription: 'Offset applied to lessons within each unit (not to the unit list).',
     upstreamBuggyDescription:
-      'Limit the number of lessons returned per unit. Units with zero lessons after limiting are omitted.',
+      'If limiting results returned, this allows you to return the next set of results, starting at the given offset point',
   },
   '/key-stages/{keyStage}/subject/{subject}/lessons:limit': {
     correctDescription:
       'Limit the number of lessons returned per unit. Units with zero lessons after limiting are omitted.',
-    upstreamBuggyDescription: 'Offset applied to lessons within each unit (not to the unit list).',
+    upstreamBuggyDescription: 'Limit the number of lessons, e.g. return a maximum of 300 lessons',
   },
 };
 
@@ -67,7 +73,8 @@ export function applyParamDescriptionOverrides(
  *
  * The test reads the schema cache and checks whether each override's
  * `upstreamBuggyDescription` still matches the cached description. When it
- * no longer matches, the upstream bug has been fixed and the override can
- * be removed.
+ * no longer matches, the upstream wording has moved and the override is
+ * re-adjudicated: removed if upstream now describes the behaviour correctly,
+ * re-pinned if the new wording is still wrong.
  */
 export { PARAM_DESCRIPTION_OVERRIDES };

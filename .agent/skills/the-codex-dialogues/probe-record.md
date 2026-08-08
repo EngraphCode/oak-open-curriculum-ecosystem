@@ -12,13 +12,21 @@ probe at the new version.
 ## Pinned versions
 
 ```text
-codex_cli_version: 0.146.0
+codex_cli_version: 0.146.1
 ```
 
-- Server identity at initialize: `codex-mcp-server 0.146.0` (title
+- Server identity at initialize: `codex-mcp-server 0.146.1` (title
   "Codex").
-- Harness at recording: Claude Code 2.1.220; node v24.18.0; macOS
+- Harness at recording: Claude Code 2.1.223; node v24.18.0; macOS
   (Darwin 25.6.0).
+- Pin history: 0.146.0 recorded 2026-08-02 (Claude Code 2.1.220);
+  0.146.1 re-proven 2026-08-06 via the probe's `--candidate` mode
+  (all legs green: tool contract with both enums exact, threadId
+  round-trip, bounded two-turn exchange, no-write leg with the
+  sentinel path absent after server termination). The candidate run's
+  turn-2 reply matched the recorded verbatim shape below character for
+  character, so the exchange and no-write sections stand unchanged as
+  the evidence of record.
 
 ## Launch contract (verified)
 

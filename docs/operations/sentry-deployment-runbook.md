@@ -159,11 +159,17 @@ and ADR-163 disagree, the ADR wins.
    is wired as `ignoreCommand` in the workspace `vercel.json`. It
    cancels production builds that do not advance the root
    `package.json` version beyond the previous successful production
-   deployment.
+   deployment — with one exception: **redeploying the commit already in
+   production is always allowed** (ADR-163 §10, fourth amendment). That
+   is the recovery path when a deployment's environment is wrong rather
+   than its code, and it is the only one available: Instant Rollback
+   re-points domains at an existing build and carries that build's
+   original environment binding with it.
 
 Net effect: Vercel's production Build Command only ever runs on a
-`semantic-release` version-bump commit. Preview builds run on every
-commit pushed to a branch with an open PR.
+`semantic-release` version-bump commit, or on a rebuild of the commit
+already deployed. Preview builds run on every commit pushed to a branch
+with an open PR.
 
 **Inside the Vercel Build Command** (§L-8, 2026-04-21 onwards): Vercel
 runs the workspace's default `build` script (no `vercel.json`
@@ -259,8 +265,15 @@ contract for troubleshooting:
    host and confirming a `200` response. Automated post-deploy
    verification previously scripted via `pnpm smoke:remote` was retired
    alongside the smoke-tests harness (see ADR-121 change log entry
-   2026-05-04); reattach the verification step to whichever post-deploy
-   workflow the workspace's current operational doctrine designates.
+   2026-05-04). For preview deployments whose commit carries
+   `.github/workflows/preview-serves.yml`, this verification is
+   automated: that workflow publishes the `preview-serves` commit
+   status with the probe outcome (MCP-475). On any preview deployment
+   that does not report a `preview-serves` status, perform the manual
+   check above. Production deployments have no in-repo post-deploy
+   liveness workflow — production uptime monitoring is operated
+   outside this repository by owner direction (ADR-162) — so this
+   manual check remains the production step.
 3. Check Sentry UI for:
    - **Issues**: no new issues from normal operation
    - **Performance**: traces under the correct service name and release

@@ -130,4 +130,37 @@
 
 | Agent | Platform | Model | Prefix | Role / outcome | First | Last |
 | --- | --- | --- | --- | --- | --- | --- |
-| `Skylark hunts Nimbus` | `claude-code` | `claude-fable-5` | `e856d5` | skills-lane implementer — seat pre-warmed cold-paused, resumed at owner word; WS0 opened (working record + plan execution structure + Director collaboration) | 2026-08-02 | 2026-08-02 |
+| `Skylark hunts Nimbus` | `claude-code` | `claude-fable-5` | `e856d5` | skills-lane implementer — seat pre-warmed cold-paused, resumed at owner word; WS0 opened (working record + plan execution structure + Director collaboration) | 2026-08-02 | 2026-08-03 |
+
+## Status at the 2026-08-03 make-all-work-safe wrap
+
+State (all first-hand-verified at the wrap): #714 fold review 12/13
+threads resolved; the thirteenth (generator walk) resolves at the PR
+\#731 merge. \#731 (branch `jimcresswell/parallax-family-generator`
+at d271622b4, three commits off the coordination branch) carries the
+R1-adopted WS6 pair: Parallax relocated to `.agent/skills/parallax/`,
+family-aware discovery (discovery.ts shared by generator+checker),
+nine adapters on both surfaces with permission entries. Pre-merge
+code-expert review (opus): CHANGES REQUIRED — three blockers + the
+portability-validator gap, full report as a bot comment on #731 and
+summarised in the working record ~09:45Z entry. Round 1 of the
+PDR-132 budget used.
+
+NEXT (in order): (1) cure the #731 blockers — carry `skipped`
+through CheckOutcome into the CI check leg; ENOENT-vs-error
+classification in the discovery/checker fs defaults (the `clear.ts`
+`isMissingSurface` contract); both-shapes roots join `skipped`; plus
+the should-fixes (discovery before `--clear`; the zero-written guard
+gates on duplicates; an fs seam + test for `generateAdapters`'
+refusal branch; convert the portability validator to
+`discoverCanonicals` and give the nine family canonicals their
+`classification:` frontmatter). Red-first, one cure commit, push,
+re-review. (2) Merge #731 at the full condition (bot REST, never
+squash), resolve thread PRRT_kwDOPUA_4M6V0r1I on #714, tell the
+Director — the fold is then theirs to merge at
+resolved+green+settled. (3) Lane backlog: R4 scoped pass (task #10),
+37-skill description backfill (#13), evals-pilot scope-and-plan at
+the owner's word (the skills-SSOT-with-evals ruling §Overlap and
+de-duplication strengthens it). Standing constraints unchanged:
+Linear embargo to 2026-08-10 incl. reads; owner's untracked Parallax
+working copies never edited; deliberate pace.

@@ -82,7 +82,22 @@
       // otherwise replay another environment's baked host) AND visible under
       // strict envMode (APP_VERSION_OVERRIDE is in no default passthrough).
       // Same reasoning as sdk-codegen's env block above.
-      "env": ["VERCEL_ENV", "VERCEL_URL", "VERCEL_PROJECT_PRODUCTION_URL", "APP_VERSION_OVERRIDE"],
+      //
+      // CANONICAL_HOST is the HIGHEST-PRECEDENCE input to that bake and was
+      // missing from this list (MCP-516). Both halves of the comment above
+      // then failed at once, on production: the variable was set correctly two
+      // days before the defect surfaced, but the task hash did not change when
+      // it was added, so a cached bake made without it was replayed — and
+      // under strict envMode the bake could not read it anyway, falling
+      // through to VERCEL_PROJECT_PRODUCTION_URL, which IS declared. The
+      // canonical host served a page describing itself as another deployment.
+      "env": [
+        "CANONICAL_HOST",
+        "VERCEL_ENV",
+        "VERCEL_URL",
+        "VERCEL_PROJECT_PRODUCTION_URL",
+        "APP_VERSION_OVERRIDE"
+      ],
       "outputs": [
         "dist/**",
         ".tsup/**",
@@ -372,6 +387,19 @@
         "$TURBO_ROOT$/vitest.config.base.ts"
       ]
     },
+    "@oaknational/agent-tools#test": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "**/*.ts",
+        "vitest.config.ts",
+        "$TURBO_ROOT$/vitest.config.ts",
+        "$TURBO_ROOT$/vitest.config.base.ts",
+        "$TURBO_ROOT$/runtime-only-scripts/**"
+      ]
+    },
     "@oaknational/research-evidence#test": {
       "dependsOn": ["^build"],
       "cache": true,
@@ -442,7 +470,9 @@
         "vitest.e2e.config.ts",
         "$TURBO_ROOT$/vitest.e2e.config.base.ts",
         "$TURBO_ROOT$/test.setup.no-network.ts",
-        "$TURBO_ROOT$/.codex/hooks/practice-session-identity.mjs"
+        "$TURBO_ROOT$/.codex/hooks/practice-session-identity.mjs",
+        "$TURBO_ROOT$/package.json",
+        "$TURBO_ROOT$/runtime-only-scripts/**"
       ]
     },
     "test:ui": {

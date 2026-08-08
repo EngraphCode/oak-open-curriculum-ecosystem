@@ -496,6 +496,37 @@ describe('drainRelevantEvents — sanctioned excludeTags mechanism (F-146)', () 
     expect(drained.excludedEventIds).toStrictEqual(['hb-1']);
   });
 
+  it('drops an ADR-186 lifecycle-shaped heartbeat carrying the migration-window tag (F-146 parity across shapes — reserve seats stay unflooded post-migration)', async () => {
+    const lifecycleHeartbeat: LifecycleCommsEvent = {
+      schema_version: '2.0.0',
+      event_id: 'lifecycle-hb-1',
+      created_at: '2026-05-21T08:02:00Z',
+      kind: 'lifecycle',
+      event_type: 'heartbeat',
+      occurred_at: '2026-05-21T08:02:00Z',
+      author: peer,
+      agent_id: peer,
+      thread: 'estate-coordination',
+      claim_id: 'claim-1',
+      title: 'Heartbeat: peer — lane',
+      subject: 'Heartbeat: peer — lane',
+      body: 'active; claim=c; intent=i; branch=b; cycle=y',
+      tags: ['heartbeat'],
+    };
+
+    const drained = await drainRelevantEvents({
+      messages: [lifecycleHeartbeat],
+      seenIds: new Set(),
+      self,
+      excludeTags: excludeHeartbeat,
+    });
+
+    expect(drained.output).toBe('');
+    expect(drained.eventCount).toBe(0);
+    expect(drained.eventIds).toStrictEqual([]);
+    expect(drained.excludedEventIds).toStrictEqual(['lifecycle-hb-1']);
+  });
+
   it('never excludes a directed-kind event addressed to the agent, whatever its tags', async () => {
     const directedHeartbeat = createDirectedCommsMessage({
       eventId: 'directed-hb',

@@ -58,7 +58,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C151', 'C152', 'C153', 'C154', 'C155', 'C156', 'C157', 'C158', 'C159'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts': reviewed(
-    '78cdabb13aea1d85623db86cc2e95424e7bbf1da5fa2b7bb175d8bc041c4bca3',
+    '0d540c388d80a7aed260e7b5cbe1329736d38ec5b6e95a5e040c6c0a59fceee4',
     [
       'C221',
       'C222',
@@ -83,7 +83,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C246', 'C247', 'C248', 'C249', 'C250', 'C251'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/tool-definition.ts': reviewed(
-    '31efd948175661a2eeccf1020a56288617179e607517727ee75564cd5f6e775c',
+    '592fe681cd227863d083916ad74e380dcfd0e18605d694965232f89f3e078cef',
     ['C065', 'C066', 'C067', 'C068'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts': reviewed(

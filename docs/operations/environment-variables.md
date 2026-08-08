@@ -65,18 +65,18 @@ cp apps/oak-search-cli/.env.example apps/oak-search-cli/.env.local
 
 ### Optional Development
 
-| Variable                          | Purpose                                                                                                                                                                                                                                             | Default                                 | Used By                                   |
-| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | ----------------------------------------- |
-| `LOG_LEVEL`                       | Logging verbosity (`debug`, `info`, `warn`, `error`)                                                                                                                                                                                                | `info`                                  | Workspace runtime                         |
-| `DANGEROUSLY_DISABLE_AUTH`        | **Development only** - completely bypasses authentication                                                                                                                                                                                           | `false`                                 | HTTP MCP server (NEVER use in production) |
-| `ALLOWED_HOSTS`                   | Comma-separated list of allowed hostnames                                                                                                                                                                                                           | Auto-detected (localhost or Vercel URL) | HTTP MCP server                           |
-| `CANONICAL_HOST`                  | Address the server is served at behind an edge that overrides the Host; fixes every self-description URL                                                                                                                                            | Unset (self-describe per request)       | HTTP MCP server                           |
-| `OBSERVABILITY_SINKS`             | JSON array selecting observability sinks, e.g. `'["sentry","posthog"]'`; `posthog` requires the full PostHog set below and, in production, at least one diagnostic sink alongside it                                                                | `[]`                                    | HTTP MCP server                           |
-| `POSTHOG_PROJECT_API_KEY`         | PostHog project ingestion key (`phc_`-class, write-only); required only when `posthog` is selected                                                                                                                                                  | Unset                                   | HTTP MCP server                           |
-| `POSTHOG_HOST`                    | Must be exactly `https://eu.i.posthog.com` when `posthog` is selected — no other region is accepted                                                                                                                                                 | Unset                                   | HTTP MCP server                           |
-| `POSTHOG_PSEUDONYM_ACTIVE_KEY_ID` | Id of the keyring entry used for new actor projections; must resolve exactly one entry                                                                                                                                                              | Unset                                   | HTTP MCP server                           |
-| `POSTHOG_PSEUDONYM_KEYRING`       | JSON array of `{ "id", "key" }` records; each `key` is a 43-char unpadded base64url encoding of exactly 32 bytes (generate with `node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"`), ids and key material unique | Unset                                   | HTTP MCP server                           |
-| `POSTHOG_CAPTURE_MODE`            | Never supported: any non-empty value fails startup when `posthog` is selected (the capture transport is fixed by the reviewed adapter)                                                                                                              | Unset                                   | HTTP MCP server                           |
+| Variable                          | Purpose                                                                                                                                                                                                                                             | Default                                 | Used By           |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | ----------------- |
+| `LOG_LEVEL`                       | Logging verbosity (`debug`, `info`, `warn`, `error`)                                                                                                                                                                                                | `info`                                  | Workspace runtime |
+| `DANGEROUSLY_DISABLE_AUTH`        | **Local development only** - completely bypasses authentication; rejected in every deployed environment                                                                                                                                             | `false`                                 | HTTP MCP server   |
+| `ALLOWED_HOSTS`                   | Comma-separated list of allowed hostnames                                                                                                                                                                                                           | Auto-detected (localhost or Vercel URL) | HTTP MCP server   |
+| `CANONICAL_HOST`                  | Public address the server is reached at when an edge overrides the Host; fixes every self-description URL, and the origin Clerk derives from the forwarded headers                                                                                  | Unset (self-describe per request)       | HTTP MCP server   |
+| `OBSERVABILITY_SINKS`             | JSON array selecting observability sinks, e.g. `'["sentry","posthog"]'`; `posthog` requires the full PostHog set below and, in production, at least one diagnostic sink alongside it                                                                | `[]`                                    | HTTP MCP server   |
+| `POSTHOG_PROJECT_API_KEY`         | PostHog project ingestion key (`phc_`-class, write-only); required only when `posthog` is selected                                                                                                                                                  | Unset                                   | HTTP MCP server   |
+| `POSTHOG_HOST`                    | Must be exactly `https://eu.i.posthog.com` when `posthog` is selected — no other region is accepted                                                                                                                                                 | Unset                                   | HTTP MCP server   |
+| `POSTHOG_PSEUDONYM_ACTIVE_KEY_ID` | Id of the keyring entry used for new actor projections; must resolve exactly one entry                                                                                                                                                              | Unset                                   | HTTP MCP server   |
+| `POSTHOG_PSEUDONYM_KEYRING`       | JSON array of `{ "id", "key" }` records; each `key` is a 43-char unpadded base64url encoding of exactly 32 bytes (generate with `node -e "console.log(require('node:crypto').randomBytes(32).toString('base64url'))"`), ids and key material unique | Unset                                   | HTTP MCP server   |
+| `POSTHOG_CAPTURE_MODE`            | Never supported: any non-empty value fails startup when `posthog` is selected (the capture transport is fixed by the reviewed adapter)                                                                                                              | Unset                                   | HTTP MCP server   |
 
 When `posthog` is selected, the HTTP MCP server also relies on `@vercel/functions` as a runtime dependency: its `waitUntil` hook bounds post-response event delivery on Vercel. The hook needs no environment variable and no local setup — off Vercel the registration is a verified no-op and delivery still settles on the local event loop.
 
@@ -128,7 +128,7 @@ CLERK_SECRET_KEY=your_clerk_secret_key_here
 
 ```bash
 OAK_API_KEY=your_oak_api_key_here
-DANGEROUSLY_DISABLE_AUTH=true  # NEVER use in production!
+DANGEROUSLY_DISABLE_AUTH=true  # Local development only; rejected in deployed environments
 ```
 
 **Complete reference**: See `apps/oak-curriculum-mcp-streamable-http/README.md` and [`apps/oak-curriculum-mcp-streamable-http/docs/vercel-environment-config.md`](../../apps/oak-curriculum-mcp-streamable-http/docs/vercel-environment-config.md).
@@ -209,7 +209,7 @@ This allows you to contribute code, tests, and documentation without needing to 
 
 ### Production Keys
 
-- **NEVER** set `DANGEROUSLY_DISABLE_AUTH=true` in production
+- **NEVER** set `DANGEROUSLY_DISABLE_AUTH=true` in preview or production
 - Always use separate production keys
 - Monitor key usage for anomalies
 
@@ -241,7 +241,7 @@ echo "OAK_API_KEY=your_key_here" >> apps/oak-curriculum-mcp-streamable-http/.env
 CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
 CLERK_SECRET_KEY=your_clerk_secret_key_here
 
-# Option 2: Bypass auth for local dev (NOT for production)
+# Option 2: Bypass auth for local dev (rejected in deployed environments)
 DANGEROUSLY_DISABLE_AUTH=true
 ```
 

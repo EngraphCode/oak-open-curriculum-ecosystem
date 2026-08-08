@@ -27,9 +27,9 @@
     "additionCount": 11,
     "availableCount": 684,
     "retiredCount": 44,
-    "unchangedCount": 518,
+    "unchangedCount": 496,
     "expandedCount": 0,
-    "modifiedCount": 86,
+    "modifiedCount": 108,
     "relocatedCount": 68,
     "addedCount": 12,
     "workspaceScopeInCount": 612,
@@ -5403,7 +5403,7 @@
           "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -10302,7 +10302,7 @@
           "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -10428,7 +10428,7 @@
           "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/param-description-overrides.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -10449,7 +10449,7 @@
           "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/param-description-overrides.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -11324,7 +11324,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -11366,9 +11366,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -11912,9 +11912,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-units.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -12129,9 +12129,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-keywords.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -12290,9 +12290,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -12311,9 +12311,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -12570,9 +12570,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-summary.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -12892,7 +12892,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -13487,7 +13487,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 2
         }
@@ -13508,7 +13508,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 2
         }
@@ -13529,7 +13529,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 2
         }
@@ -13550,9 +13550,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -13949,7 +13949,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 2
         }
@@ -13970,9 +13970,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -14558,9 +14558,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads-units.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -14579,9 +14579,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads-units.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -14747,7 +14747,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-units-summary.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 2
         }
@@ -14768,9 +14768,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-units-summary.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {

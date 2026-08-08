@@ -288,6 +288,56 @@ describe('decorateOakUrls', () => {
     });
   });
 
+  describe('non-resource response schemas', () => {
+    function buildKeywordsSchema(extraSchemas: Record<string, SchemaObject> = {}): OpenAPIObject {
+      return {
+        openapi: '3.1.0',
+        info: { title: 'Test', version: '1.0.0' },
+        paths: {},
+        components: {
+          schemas: {
+            KeywordsResponseSchema: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  keyword: { type: 'string' },
+                  description: { type: 'string' },
+                },
+              },
+            },
+            ...extraSchemas,
+          },
+        },
+      };
+    }
+
+    it('does not advertise oakUrl on keyword records', () => {
+      const result = decorateOakUrls(buildKeywordsSchema());
+      const schema = result.components?.schemas?.KeywordsResponseSchema;
+
+      if (!schema || '$ref' in schema || !schema.items || '$ref' in schema.items) {
+        throw new Error('Expected an array schema with inline item properties');
+      }
+
+      expect(schema.items.properties).not.toHaveProperty('oakUrl');
+      expect(schema.items.properties).toHaveProperty('keyword');
+    });
+
+    it('still decorates resource response schemas alongside it', () => {
+      const input = buildKeywordsSchema({
+        UnitSummaryResponseSchema: {
+          type: 'object',
+          properties: { unitTitle: { type: 'string' } },
+        },
+      });
+
+      const props = getSchemaProperties(decorateOakUrls(input), 'UnitSummaryResponseSchema');
+
+      expect(props.oakUrl).toHaveProperty('type', 'string');
+    });
+  });
+
   it('does not mutate the input schema', () => {
     const input = buildSchemaWithUpstreamOakUrl();
     const inputCopy = structuredClone(input);

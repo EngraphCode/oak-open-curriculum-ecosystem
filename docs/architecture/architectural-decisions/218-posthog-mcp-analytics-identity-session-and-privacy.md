@@ -1,7 +1,8 @@
 # ADR-218: PostHog MCP Analytics Identity, Session, and Privacy Boundary
 
-**Status**: Accepted (revised 2026-07-27; implementation and October
-public-beta enablement remain to be proven)
+**Status**: Accepted (revised 2026-07-27; amended 2026-08-03 — retention
+period 12 months → 5 years, see the Amendment at the end; implementation and
+October public-beta enablement remain to be proven)
 **Date**: 2026-07-26
 **Related**:
 [ADR-112](112-per-request-mcp-transport.md) — fresh server and
@@ -299,8 +300,9 @@ Before public capture is enabled, Oak must also have:
 - an MCP-specific privacy notice and an approved lawful basis;
 - an approved data-minimising event and identifier allowlist;
 - least-privilege access to unaggregated rows;
-- a maximum 12-month retention period across PostHog and every
-  authorised copy;
+- a maximum 5-year (60-month) retention period across PostHog and every
+  authorised copy (amended 2026-08-03 from 12 months — see the Amendment
+  at the end);
 - a tested request-for-deletion route across PostHog and every
   authorised copy; and
 - a documented separation between PostHog, Sentry, and any
@@ -549,3 +551,26 @@ controls, or deletion route are already live.
 - [ICO storage-and-access technology guidance](https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/guidance-on-the-use-of-storage-and-access-technologies/)
 - [ICO right-to-object guidance](https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/individual-rights/individual-rights/right-to-object/)
 - [MCP elicitation](https://modelcontextprotocol.io/specification/2025-11-25/client/elicitation)
+
+## Amendment: Retention period 12 months → 5 years (2026-08-03)
+
+§5 originally committed this processing to a maximum **12-month** retention
+period. That figure was a provisional default carried from an early note with
+no recorded reasoning (established by investigation, 2026-08-03). It is
+amended to a maximum **5 years (60 months)**, aligning MCP analytics retention
+with the period Oak already applies to main-website (OWA) analytics and other
+products.
+
+Decided 2026-08-03 by the project owner with the DPO/privacy lead and the
+product and analytics leads; the author of the original provisional figure was
+consulted before the change. Rationale: MCP usage analytics do not differ in
+nature from Oak's other products, so retention stays in line with them; a
+12-month window makes year-on-year comparison impossible; and what is
+collected is deliberately minimal (session starts and tool usage — no content,
+no IP or location, pseudonymous identifiers only), so a shorter window is not
+warranted on data-minimisation grounds.
+
+This amendment revises the decision record only. The enforced PostHog
+configuration (project retention setting and the Oak-owned scheduled deletion
+job) is re-based from 12 months to 5 years separately, tracked in Linear. The
+tested person-scoped deletion route committed in §5 is unchanged.

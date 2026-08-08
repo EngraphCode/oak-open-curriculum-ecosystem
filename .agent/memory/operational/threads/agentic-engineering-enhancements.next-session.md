@@ -24,6 +24,32 @@ feedback-mechanism arc, taxonomy work) is retained in git and in the
 work brief and the recent identity stretch, per
 [`continuity-practice.md` §Disposition](../../../directives/continuity-practice.md).
 
+## LONGITUDINAL STEP-6A SYNTHESIS — EXECUTED AND ARCHIVED (2026-08-07/08, Nettle weaves Root, 5cfa11, implementer)
+
+Identity: `Nettle weaves Root` (`claude-code` / `fable-5` / `5cfa11`), implementer,
+first_session 2026-08-07, last_session 2026-08-08. The owner-ratified
+archive-scale synthesis (consolidate-docs step 6a) ran end to end on the
+corpus-analysis engine: 37 napkins since the 2026-05-29 marker → 572 leaves →
+80 candidates → 35 keep / 44 kill / 1 reroute → deterministic close (integrity
+empty, zero recompute diff). Report + **processed marker 2026-08-07**:
+[`historical-napkin-synthesis-2026-08-07.md`](../../../research/agentic-engineering/continuity-memory-and-knowledge-flow/historical-napkin-synthesis-2026-08-07.md).
+Two novel patterns graduated (`tool-default-scan-set-drift`,
+`collaboration-cli-interface-drift`); Choice-B recall MISS dispositioned
+graduate-with-gap-named (dual mechanism, §Recall of the report). Owner
+approved the report and archival 2026-08-08; plan archived at
+`.agent/plans/delivery/archive/longitudinal-napkin-synthesis-2026-08.plan.md`
+(inline path — the link validator's target set excludes archive directories by
+design); MCP-531 Done. **Grounded execution knowledge for the next archive-scale
+runner**: the tooling README launch-card is accurate first-hand (build →
+Workflow → commit per stage); launch seeded artefacts with ABSOLUTE
+scriptPath (the Workflow tool resolves relative paths against the caller's
+cwd); re-freeze the recall fixture from the marker-chain reports covering the
+NEW window before spending (the frozen 18-baseline fixture is calibrated to
+February–June); a banked-verdict pre-filter at validate dispatch is a
+legitimate engine refinement pointer (report §Limitations). **Next safe step
+on this lane**: none — the lane is complete; the next step-6a pass triggers
+per consolidate-docs' own checklist, starting after marker 2026-08-07.
+
 ## SESSION-CLOSE DOCTRINE RE-TRUED — wrap closes every session (2026-07-28, Juniper holds Tendril, 3dfd3b, implementer)
 
 - Owner ruling (verbatim substance): "it was never my intention to use wrap for 'big sessions', it is
@@ -799,6 +825,7 @@ passes) is in git history and the [`curator-passes/`](../curator-passes/) ledger
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
+| `Nettle weaves Root` | `claude-code` | `fable-5` | `5cfa11` | `longitudinal-step-6a-synthesis (plan, run, conservation, archive)` | 2026-08-07 | 2026-08-08 |
 | `Magnetar guards Perigee` | `claude-code` | `fable-5` | `565521` | `dedicated-consolidation + PDR-094 v3/v4 owner-worded correction` | 2026-07-26 | 2026-07-26 |
 | `Moonless Lurking Dusk` | `claude` | `Opus 4.8` | `0641a3` | `dedicated-knowledge-curation` | 2026-06-01 | 2026-06-01 |
 | `Shaded Veiling Mirror` | `codex` | `GPT-5` | `019e88` | `dedicated-curation+closeout` | 2026-06-02 | 2026-06-02 |

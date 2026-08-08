@@ -31,6 +31,7 @@ function pastCoordinationEvent(eventId: string): ClassifiableEvent {
     tags: [],
     titleOrSubject: 'WS status',
     bodyLength: 100,
+    isHeartbeatShaped: false,
   };
 }
 

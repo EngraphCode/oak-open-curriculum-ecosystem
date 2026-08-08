@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   ACTIVE_BELOW_MS,
   RETIRED_AT_OR_ABOVE_MS,
+  latestHeartbeatByPeer,
   peerHeartbeatLiveness,
 } from '../../src/collaboration-state/peer-liveness';
 import { uuidV5Schema } from '../../src/collaboration-state/agent-id';
@@ -246,5 +247,74 @@ describe('peerHeartbeatLiveness — peer heartbeat-silence classification over t
     // the corrupt event does not hide the live peerB.
     expect(reports).toHaveLength(1);
     expect(reports[0].identity.agent_name).toBe('Avocet tracks Crag');
+  });
+});
+
+describe('peerHeartbeatLiveness — ADR-186 lifecycle-shaped heartbeats (dual-filter consumer contract)', () => {
+  function lifecycleHeartbeatAt(
+    author: CollaborationAgentId,
+    ageMs: number,
+    branch = 'feat/lifecycle-lane',
+  ): CommsEvent {
+    eventCounter += 1;
+    return {
+      schema_version: '2.0.0',
+      event_id: `evt-${eventCounter}`,
+      created_at: new Date(NOW_MS - ageMs).toISOString(),
+      kind: 'lifecycle',
+      event_type: 'heartbeat',
+      occurred_at: new Date(NOW_MS - ageMs).toISOString(),
+      author,
+      agent_id: author,
+      thread: 'estate-coordination',
+      claim_id: 'claim-1',
+      title: `Heartbeat: ${author.agent_name}`,
+      subject: `Heartbeat: ${author.agent_name}`,
+      body: `active; claim=x; intent=x; branch=${branch}; cycle=c`,
+    };
+  }
+
+  it('classifies a peer from an UNTAGGED lifecycle-shaped heartbeat — the lifecycle clause alone carries it', () => {
+    const reports = peerHeartbeatLiveness({
+      events: [lifecycleHeartbeatAt(peerA, 60_000)],
+      nowMs: NOW_MS,
+    });
+
+    expect(reports).toHaveLength(1);
+    expect(reports[0].state).toBe('active');
+    expect(reports[0].identity).toStrictEqual(peerA);
+  });
+
+  it('counts a mixed-shape stream — one migrated peer, one legacy peer, both reported (the window guarantee)', () => {
+    const reports = peerHeartbeatLiveness({
+      events: [lifecycleHeartbeatAt(peerA, 60_000), heartbeatAt(peerB, 5 * 60_000)],
+      nowMs: NOW_MS,
+    });
+
+    expect(reports.map((r) => [r.identity.agent_name, r.state])).toStrictEqual([
+      ['Avocet tracks Crag', 'offline'],
+      ['Pangolin weaves Nightfall', 'active'],
+    ]);
+  });
+
+  it('takes the latest heartbeat per peer ACROSS shapes — a newer lifecycle heartbeat supersedes an older narrative one', () => {
+    const reports = peerHeartbeatLiveness({
+      events: [heartbeatAt(peerA, 11 * 60_000), lifecycleHeartbeatAt(peerA, 30_000)],
+      nowMs: NOW_MS,
+    });
+
+    expect(reports).toHaveLength(1);
+    expect(reports[0].state).toBe('active');
+    expect(reports[0].ageMs).toBe(30_000);
+  });
+
+  it('binds branch from the canonical body of a lifecycle-shaped heartbeat (the work-state agent↔branch link)', () => {
+    const latest = latestHeartbeatByPeer([
+      lifecycleHeartbeatAt(peerA, 60_000, 'feat/migrated-lane'),
+    ]);
+
+    const entries = [...latest.values()];
+    expect(entries).toHaveLength(1);
+    expect(entries[0].branch).toBe('feat/migrated-lane');
   });
 });
