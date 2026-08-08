@@ -1,0 +1,257 @@
+---
+boundary: B2-Architecture
+doc_role: record
+authority: design-review
+status: active
+last_reviewed: 2026-08-08
+---
+
+# Graded calibration of rubric v0 — 2026-08-08
+
+The W0.7 calibration run (PR-B): the three-leg instrument judged an
+eight-page corpus with known intended labels, and this record measures each
+leg — and the rubric itself — against those labels. **Rubric revision
+calibrated: v0** (the revision named by
+[`../rubric.md`](../rubric.md) at its minting). Run by the design seat
+(Civet spins Cavern, 054f5e) under the 2026-08-08 Director ruling on the
+calibration frame: both expert legs dispatched on opus; legs blind to
+intended labels.
+
+## The corpus
+
+Derived per the minting record's fixture-corpus derivation note
+([`2026-08-08-register-minting.md`](./2026-08-08-register-minting.md)):
+the export's own closed three-front-page set, the owner-rejected showcase
+root, three seat-authored degraded variants of the Oak front page, and a
+held-out pair on the PDS identity's front page (unmutated + one novel
+mutation). Each degraded fixture is scoped to fail ONLY its targeted
+criteria — that scoping is what makes the calibration per-criterion sharp.
+Fixture files in [`calibration-v0-fixtures/`](./calibration-v0-fixtures/)
+carry neutral names (`fixture-a` … `fixture-d`) so no filename could leak a
+label into the blind staging; this record is the label key.
+
+| staged id | source                                                                        | intended label | targeted criteria                                 |
+| --------- | ----------------------------------------------------------------------------- | -------------- | ------------------------------------------------- |
+| page-1    | EMC² front page (`studio-source/whitelabel/creature/index.html`), unmutated   | MUST-PASS      | —                                                 |
+| page-2    | `fixture-c.html` (Oak front page, structural degradation)                     | MUST-FAIL      | 3, 5 (secondary: 2)                               |
+| page-3    | PDS front page (unmutated; held-out)                                          | MUST-PASS      | —                                                 |
+| page-4    | Oak front page (`studio-source/ui_kits/oak/index.html`), unmutated            | MUST-PASS      | —                                                 |
+| page-5    | `fixture-d.html` (PDS front page, novel messy-arrangement mutation; held-out) | MUST-FAIL      | 7 (secondary: 2, 3)                               |
+| page-6    | showcase root (`demos/oak-design-showcase/app/page.tsx` + components)         | MUST-FAIL      | (owner rejection 2026-08-05 — register Verdict 1) |
+| page-7    | `fixture-a.html` (Oak front page, type/colour degradation)                    | MUST-FAIL      | 1, 4                                              |
+| page-8    | `fixture-b.html` (Oak front page, collage/rotation degradation)               | MUST-FAIL      | 7 (secondary: 2, 3, 5)                            |
+
+Fixture construction notes:
+
+- `fixture-a`: raw hex (`#1f9e4b`, `#e05c00`), off-scale sizes (27px / 19px
+  / 23px), same-role headings styled divergently, a text role
+  (`--text-primary`) as a decorative fill. Region grammar left intact.
+- `fixture-b`: the featured region's grid replaced by an absolutely
+  positioned collage of overlapping cards at arbitrary per-element angles
+  (-7°, 4.5°, -2.8°, 9°, -5.2°). Tokens and type classes left clean.
+- `fixture-c`: TrustBand and Newsletter free-floated outside any region, a
+  hand-rolled raw-px grid where kit layout classes exist, an h1 → h4 skip,
+  and a duplicated Hero as a competing primary focus. Colour and type left
+  clean.
+- `fixture-d` (the NOVEL held-out mutation): the PDS page's subject tags
+  scattered absolutely at mixed arbitrary angles, overlapping the list
+  beneath. Everything else derives from the source page, with one recorded
+  divergence: the COMMITTED fixture's brand strings (title, wordmark,
+  prose mentions, icon-class prefix, template query params) are sanitised
+  to the target-state identity naming, because the identity-naming
+  ratchet's census contract rightly refuses any NEW tracked file carrying
+  the pre-rename token. The staged corpus copy the legs judged carried the
+  source page's original strings; the divergence is brand-name text only
+  and touches no criterion.
+
+## Method
+
+- **Staging**: each page copied to a neutral `page-N/` directory in
+  session scratch space with the sibling assets it references (oak
+  composition sources, identity brand CSS, showcase components), order
+  randomised, no labels. System stylesheets resolved at their canonical
+  repo paths.
+- **Legs**: (1) the seat's own pass; (2) accessibility-expert, opus;
+  (3) design-system-expert, opus, fresh context. Expert legs received the
+  rubric path, the corpus paths, the per-identity judging bounds, and the
+  exhaustive per-criterion output contract — nothing else. Both legs
+  instructed not to assume any corpus composition.
+- **Blindness bound, stated**: the SEAT leg authored the corpus and is
+  structurally non-blind for this calibration; its verdicts were recorded
+  and sealed BEFORE either expert leg was dispatched, judged against the
+  rubric text rather than the labels, and are scored with that bound
+  named. The two expert legs carry the blind test.
+- **Fail semantics**: any criterion FAIL fails the page (the rubric's
+  blocking rule).
+
+## Results
+
+### Seat leg (non-blind; sealed before expert dispatch)
+
+| page   | intended  | seat overall       | criteria non-PASS                                  |
+| ------ | --------- | ------------------ | -------------------------------------------------- |
+| page-1 | MUST-PASS | PASS               | —                                                  |
+| page-2 | MUST-FAIL | FAIL               | 2 FAIL, 3 FAIL, 5 FAIL, 6 ITERATE                  |
+| page-3 | MUST-PASS | PASS               | —                                                  |
+| page-4 | MUST-PASS | PASS               | — (motion-scope bound stated below)                |
+| page-5 | MUST-FAIL | FAIL               | 2 FAIL, 3 FAIL, 7 FAIL, 5/6 ITERATE                |
+| page-6 | MUST-FAIL | **ITERATE (miss)** | 3, 5, 6 ITERATE — no hard FAIL under v0 as written |
+| page-7 | MUST-FAIL | FAIL               | 1 FAIL, 4 FAIL                                     |
+| page-8 | MUST-FAIL | FAIL               | 2 FAIL, 3 FAIL, 5 FAIL, 7 FAIL, 6 ITERATE          |
+
+### Accessibility-expert leg (blind, opus)
+
+The leg stated its judging lines up front (motion: kit-token-carried quiet
+motion is the kit's own contract, the clause judged page-authored motion;
+raw pixels: FAIL where they govern layout, ITERATE where fixed-art;
+overall: any FAIL blocks, any ITERATE without FAIL → ITERATE) so its
+verdicts are reproducible.
+
+| page   | intended  | leg overall      | criteria non-PASS                                                                                                                                                                         |
+| ------ | --------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| page-1 | MUST-PASS | **FAIL (block)** | 7 FAIL (two per-element angles with no angle token anywhere in the brand contract); 1, 2, 5 ITERATE                                                                                       |
+| page-2 | MUST-FAIL | FAIL             | 2, 3, 5, 6, 7 FAIL; 1, 4 ITERATE                                                                                                                                                          |
+| page-3 | MUST-PASS | ITERATE          | 1, 2 ITERATE (raw weight/tracking; off-scale literals)                                                                                                                                    |
+| page-4 | MUST-PASS | **FAIL (block)** | 2, 7 FAIL — the shared hero's own absolutely-positioned card cluster (its source comment names it a marketing collage), which collides at the SC 1.4.10 reflow condition; 1, 4, 5 ITERATE |
+| page-5 | MUST-FAIL | FAIL             | 2, 3, 5, 6, 7 FAIL; 1 ITERATE                                                                                                                                                             |
+| page-6 | MUST-FAIL | **PASS (miss)**  | — called "the corpus's access benchmark" (zero authored raw values; role-correct link re-pointing; audit-clean focus ring strategy; layout-stable hydration)                              |
+| page-7 | MUST-FAIL | FAIL             | 1, 2, 3, 4, 6, 7 FAIL (incl. a calculated 3.68:1 breach on the raw orange at 19px); 5 ITERATE                                                                                             |
+| page-8 | MUST-FAIL | FAIL             | 2, 3, 5, 6, 7 FAIL (incl. focus-obscuration under overlap, SC 2.4.11); 1 ITERATE                                                                                                          |
+
+Leg-reported cross-cutting findings (export composition, not any one page):
+the four Oak-composed pages share an inline-styled button component rather
+than `.oak-btn`, so the kit's double focus ring never applies to them; the
+pinned `width=1280` viewport plus query-less grids leaves the composition
+unreflowable (SC 1.4.10); a decorative subject icon duplicates its adjacent
+label for screen readers; the newsletter input has no visible label.
+
+### Design-system-expert leg (blind, opus)
+
+| page   | intended  | leg overall     | criteria non-PASS                                                                                     |
+| ------ | --------- | --------------- | ----------------------------------------------------------------------------------------------------- |
+| page-1 | MUST-PASS | ITERATE         | 1, 2, 5, 7 ITERATE (raw literals where tokens exist; tilts are raw because no tilt token exists)      |
+| page-2 | MUST-FAIL | FAIL            | 2, 3, 5, 6 FAIL; 1 ITERATE                                                                            |
+| page-3 | MUST-PASS | ITERATE         | 1, 2, 5 ITERATE (raw literals; hand-rolled list rows)                                                 |
+| page-4 | MUST-PASS | PASS            | —                                                                                                     |
+| page-5 | MUST-FAIL | FAIL            | 2, 3, 5, 6, 7 FAIL; 1 ITERATE                                                                         |
+| page-6 | MUST-FAIL | **PASS (miss)** | — (called its globals.css "the cleanest consumption surface in the corpus")                           |
+| page-7 | MUST-FAIL | FAIL            | 1, 3, 4, 6 FAIL; 2, 5 ITERATE (incl. a measured ~3.68:1 contrast breach on the raw `#e05c00` at 19px) |
+| page-8 | MUST-FAIL | FAIL            | 2, 3, 5, 6, 7 FAIL; 1 ITERATE                                                                         |
+
+Leg-reported instrument findings (verbatim substance, condensed):
+
+1. **The rubric's anchor contains the thing criterion 7 forbids**: the
+   shared Oak `Hero` carries an absolutely-positioned decorative cluster
+   its own source names a marketing collage (`sections.js:5`). The leg
+   treated the canonical cluster as baseline and scored only
+   page-INTRODUCED overlap/rotation — and flagged this as the sharpest v0
+   ambiguity ("that one ruling moves four verdicts").
+2. **Silent-lookalike token defect, export-wide**: `z-index:
+var(--layer-3, 30)` on all three white-label toolbars — `--layer-3`
+   exists nowhere in the estate, every toolbar runs on the raw `30`
+   fallback while `--layer-sticky: 40` sits unused. An export-wide cure,
+   not a page defect.
+3. **No tilt token exists**: every decorative rotation in the corpus is a
+   raw literal by necessity — criterion 7's "tokenised angles" clause is
+   currently unsatisfiable, so identities that carry angles need a tilt
+   scale before the clause can be met rather than merely failed.
+4. **Motion self-reference**: `.oak-btn` carries a token-governed
+   transition, so every Oak page including the reference "carries motion";
+   the leg scored motion PRESENCE as page-introduced only and asked the
+   instrument to say so explicitly.
+5. **Does the token contract bind the export itself?** The leg returned
+   ITERATE on the two unmutated white-label pages (raw literals where
+   tokens exist) and asked for an explicit ruling: canonical-exports-PASS
+   -by-construction, or the contract binds the export too (the leg's
+   reading, and the one it applied).
+
+## Scoring against intended labels
+
+| page   | intended  | seat    | a11y (blind) | design-system (blind) | reading                                                                                                              |
+| ------ | --------- | ------- | ------------ | --------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| page-1 | MUST-PASS | PASS    | FAIL         | ITERATE               | FALSE POSITIVE (one blind leg blocks); root: the tokenised-angles clause vs an identity-ruled but untokenisable tilt |
+| page-2 | MUST-FAIL | FAIL    | FAIL         | FAIL                  | HIT ×3; targeted criteria (3, 5; secondary 2) named by every leg                                                     |
+| page-3 | MUST-PASS | PASS    | ITERATE      | ITERATE               | pass-with-iterations, no block; raises the does-the-contract-bind-the-export question                                |
+| page-4 | MUST-PASS | PASS    | FAIL         | PASS                  | FALSE POSITIVE (one blind leg blocks); root: the canonical hero collage self-reference                               |
+| page-5 | MUST-FAIL | FAIL    | FAIL         | FAIL                  | HIT ×3 — the HELD-OUT NOVEL mutation caught by both blind legs                                                       |
+| page-6 | MUST-FAIL | ITERATE | PASS         | PASS                  | **MISS ×3 — the measured v0 gap**                                                                                    |
+| page-7 | MUST-FAIL | FAIL    | FAIL         | FAIL                  | HIT ×3; both targeted criteria (1, 4) named by every leg                                                             |
+| page-8 | MUST-FAIL | FAIL    | FAIL         | FAIL                  | HIT ×3                                                                                                               |
+
+Summary numbers:
+
+- **Degradation detection (blind legs): 4/4 fixtures caught by BOTH legs**,
+  every targeted criterion named in the notes, including the held-out
+  novel mutation the corpus author never described to either leg.
+- **The owner-rejection miss: 0/3 legs blocked the showcase root.** Both
+  blind legs PASSED it; the accessibility leg praised it. The one page
+  with a real owner FAIL (register Verdict 1) is invisible to rubric v0.
+- **Specificity on must-pass pages (blind legs)**: the design-system leg
+  blocked 0/3; the accessibility leg blocked 2/3 — both blocks trace to
+  ONE root ambiguity (the rubric's anchor containing untokenised angles
+  and its own collage). Under the any-leg-FAIL-blocks rule, v0 would have
+  routed two canonical export pages to the Director — the false-positive
+  rate the rubric declared unmeasured is now measured, and the rule-3
+  routing (a block is a Director disposition, never a silent gate) is
+  demonstrated load-bearing.
+- **Inter-leg overall agreement: 6/8.** Both divergences (pages 1 and 4)
+  share the single self-reference root; each leg stated the judging line
+  it invented to cope, which is exactly the reproducibility evidence a
+  revision needs.
+
+Register note: this calibration writes NO rows into the wow-verdict
+register. The register records the instrument's live verdicts on renders
+headed for (or blocked from) the owner; a calibration run is the
+instrument testing itself against known labels, and its verdicts are
+homed here. The showcase root's owner verdict is already the register's
+migrated Verdict-1 pre-read row.
+
+## Findings and revision implications
+
+1. **The measured miss (headline)**: rubric v0 cannot see the ground on
+   which the owner rejected the showcase root. Its criteria audit token
+   discipline, grammar, and calm — the showcase satisfies all three while
+   demonstrating almost nothing, and "a design showcase must DEMONSTRATE
+   the design language" (expressive range, composed content, first-paint
+   impression) appears nowhere in the criteria. The v0.1 revision needs a
+   criterion — or a distinct wow-bar gate — for demonstrated expressive
+   range, and the register's miss-rate obligation has its first measured
+   data point.
+2. **The canonical-anchor self-reference must be ruled, once, in rubric
+   text**: (a) whether the export's own pages score PASS-by-construction
+   or the token contract binds them too (both legs asked; they chose
+   opposite lines); (b) the Oak hero's own marketing-collage cluster —
+   inside or outside criterion 7 (this single ruling moves four
+   verdicts); (c) the motion boundary — kit-token-carried quiet
+   transitions vs page-authored motion (a literal reading fails every
+   page that uses a kit button); (d) criterion 2's line between
+   layout-governing raw pixels and fixed-art dimensions.
+3. **The tokenised-angles clause is currently unsatisfiable**: no tilt
+   token exists anywhere in the estate, so EMC²'s identity-ruled angles
+   can only be raw literals. Either the token estate mints a tilt scale
+   (W2-class token work) or v0.1 rewords the clause to bind
+   identity-ruled systematic angles pending tokenisation.
+4. **Estate cure candidates surfaced by the legs** (routed to the
+   Director's board as pointers; none belongs to this PR): the
+   `--layer-3` silent-fallback lookalike on all three export toolbars
+   (the token does not exist; `--layer-sticky` sits unused); the export
+   composition's inline-styled button lacking the kit's double focus
+   ring; the pinned `width=1280` viewport vs SC 1.4.10 reflow; kit raw
+   dimension caps in the shared composition sources; the decorative
+   subject icon's duplicated alt; the newsletter input's missing visible
+   label.
+5. **Follow-on**: the rubric is a living instrument — v0.1 authoring is
+   its own sitting (this record is its input), and per the rubric's own
+   contract every revision triggers recalibration; this corpus and its
+   fixtures are reusable for that run.
+
+## The motion-scope bound (stated per the derivation note)
+
+The unmutated Oak front page's composition sources carry hover transitions
+via `var(--motion-quick)` (`shared.js:88`, `sections.js:355`). This
+calibration reads the Oak no-motion stance as binding ANIMATION and
+entrance motion; quiet affordance transitions inside the kit's 120/200ms
+floor are within stance, and reduced-motion HONOURING is the
+charter/a11y-suite's territory (the rubric's own scope bound). A future
+rubric revision may tighten this reading; the bound is recorded so the
+MUST-PASS label on the Oak page is honest about what it asserts.
