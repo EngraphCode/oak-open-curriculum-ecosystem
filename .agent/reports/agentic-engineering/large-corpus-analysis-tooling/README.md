@@ -78,6 +78,11 @@ instrument, never the milestone.
 
 ## Operational notes (verified first-hand)
 
+- Launch seeded artefacts with an ABSOLUTE `scriptPath`: the Workflow tool resolves a
+  relative path against the CALLER'S current working directory, not the repo root, and a
+  build step typically leaves the shell in `agent-tools/` (first-hand, 2026-08-07
+  longitudinal run — the relative launch failed on a doubled `agent-tools/agent-tools/`
+  path).
 - The Workflow tool's `.output` file wraps the script's return under `.result` (alongside
   `summary`, `logs`, `totalTokens`). Every stage returns a typed envelope discriminated on `ok` —
   inspect it before committing a checkpoint; a failure is a value, not an exception.

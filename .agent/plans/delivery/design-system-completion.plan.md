@@ -1,8 +1,8 @@
 ---
 id: design-system-completion
 node_type: delivery
-name: "Design-system completion — four demos, identity contract, React tier, the wow bar (v2.1)"
-overview: "Complete the Oak Open Curriculum Design System as a layered identity-agnostic framework, proven by four demos at the owner's wow bar: a path-named generated census with per-page dispositions, first light on the plain demo AND an early showcase probe before machinery spend, a schema'd identity/theme contract (orthogonal contrast/colour-vision axes, base-plus-overlay token trees, an emitter with a defined Oak input), the curated React tier on the ADR-213 §3 shape with a packaging story, the showcase rebuilt inside a design grammar with density as a designed quantity, and cross-demo theme behaviour stated as resolved-rendering observables."
+name: "Design-system completion — five demos, identity contract, React tier, the wow bar (v2.2)"
+overview: "Complete the Oak Open Curriculum Design System as a layered identity-agnostic framework, proven by five demos at the owner's wow bar: a path-named generated census with per-page dispositions, first light on the plain demo AND an early showcase probe before machinery spend, a schema'd identity/theme contract (orthogonal contrast/colour-vision axes, base-plus-overlay token trees, an emitter with a defined Oak input), the curated React tier on the ADR-213 §3 shape with a packaging story (the hub gaining identity switching through it), the showcase rebuilt inside a design grammar with density as a designed quantity, the layout-range zen demo proving expressive range over layout, and cross-demo theme behaviour stated as resolved-rendering observables."
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -15,15 +15,15 @@ depends_on: []
 # depends_on is empty and TRUE: this node's landing change carries dated
 # re-homing amendments that make THIS node the owner of the backlog
 # workstreams it absorbs (§Relationships), so no standing cross-corpus
-# blocking edge exists. The backlog corpus sits outside the anchored
-# id-space by construction; nothing here waits on work owned there.
+# blocking edge exists. The backlog corpus sits outside the conformant
+# plans corpus by construction; nothing here waits on work owned there.
+# The former ticket-mint gate (its record, conserved): it held ONLY the
+# tickets field — substance owner-ratified 2026-08-02 (§Owner rulings).
+# Both premises dissolved (embargo lifted 2026-08-06; ticket-existence
+# obligation removed by the plan-node schema §2026-08-07 amendment,
+# PR #817), so the gate DISCHARGED 2026-08-07 with tickets left [] — a
+# visibility ticket remains optional working practice.
 owner_gates:
-  - awaiting: external-input
-    clears_when: >-
-      Ticket mint at the Linear embargo's end (08:00 Europe/London
-      2026-08-10) fills the tickets field — substance owner-ratified
-      2026-08-02; provenance in §Owner rulings.
-    expires: 2026-08-17
   - awaiting: owner-decision
     clears_when: >-
       The KNOWN-ISSUES item-14 subtree-alias ruling lands before any
@@ -36,7 +36,7 @@ owner_gates:
       optional React component set" — full mapping-decision coverage with
       curated component minting (§Decision log, flagged seat reading).
     expires: 2026-09-07
-last_updated: 2026-08-05
+last_updated: 2026-08-08
 ---
 
 # Design-system completion — five demos, identity contract, React tier, the wow bar (v2.2)
@@ -47,7 +47,7 @@ loop verdict (98 → 112 → 113 findings while the plan doubled); the owner rat
 the partition at the card ("Yes, partition the work"): near-horizon stories (W0 +
 W1, the wow-first slice) keep full depth, cure the round-3 near-horizon rows, and
 alone carry the zero-finding bar (scoped re-review at draft-complete); far-horizon
-workstreams (W2–W6) demote to pointer-level stories — goal, gates, dependencies,
+workstreams (W2–W7) demote to pointer-level stories — goal, gates, dependencies,
 acceptance SHAPE — whose mechanism is authored at each story's open under
 per-story expert review (PDR-132). Rounds-2/3 far-horizon findings are conserved
 as story-open inputs in §Story-open pointer tables, never as plan blockers. Same
@@ -86,7 +86,11 @@ Tailwind v4 since origin); owner ruling at the card: the hub STAYS as-is and the
 path lives elsewhere. 6. The showcase app showcases React and Tailwind with our
 system. 7. Oak-specific parts stay as thin as possible — ideally config passed to a
 general framework. 8. The showcase retains the three identities at all times: Oak,
-EMC², Freedonia DSE. 9. Freedonia has more off-horizontal elements; Oak has none.
+EMC², Freedonia DSE. 9. Freedonia has more off-horizontal elements; Oak has none. [Dated
+supersession, 2026-08-03 tilt card (recorded at re-review round 2, finding 5):
+the delivered values reverse this attribution — PDS (this identity, renamed)
+structural zero; EMC² leans in. The off-horizontal elements belong to the
+EMC²/creature identity, repo-verified at W0.4's tilt-attribution record.]
 10. #709 disposition is §PR-709 below. 11. A new design seat executes (Corsair hunts
 Surf, 4d3282). Amendment (same day): "we need a third demo and fourth demo, one for
 plain html and css, one for React and nextjs and styled components, all with working
@@ -118,19 +122,27 @@ taste anchor.
 
 ## Owner rulings and gate provenance
 
-Narrative moved out of frontmatter per the delivery contract (EX63). Gate 1: the
-ticket-mint gate holds ONLY the tickets field — it does not gate ratification (the
-v1 conflation, round-1 E63/X4); the stamp completes when a fleet round closes clean
-and the owner's implementation word arrives, and the subtree is unanchored until the
-mint. Gate 2: the session is primed with the corrected attribution evidence (round-1
-E7/E78 — the landed Freedonia is today the most orthogonal identity and
-EMC²/creature carries the existing rotations; the owner's "Freedonia has more
-off-horizontal elements, Oak has none" is the TARGET, priced at the session); the
-token-shape scaffold with its accessibility constraints lands first so the session
-prices real, in-envelope options; W2's other stories do not block on it. Gate 3:
-grounds are round-1 E11/E31/E32, carried in W0.2(b). Gate 4: the seat reading it
-confirms is FR9's — a mapping DECISION per class (including no-construct) satisfies
-"full set" via curated minting; the row is flagged in §Decision log until his word.
+Narrative moved out of frontmatter per the delivery contract (EX63); gate numbers
+below track the CURRENT frontmatter array (dated renumber 2026-08-05: the former
+gate 2 — the W2.7 off-horizontal session gate — DISCHARGED 2026-08-05, its values
+owner-delivered at the 2026-08-03 card. The discharge's records, at their real
+homes (trued at re-review round 2, finding 5): the delivered VALUES live at W2.7
+with their provenance chain (the 2026-08-03 card answer, committed napkin
+`b1b5431a7`); the CORRECTED ATTRIBUTION record is W0.4's tilt-attribution census
+line (creature carries the rotations; the PDS-to-be identity is orthogonal —
+repo-verified); and §Direction point 9's original attribution carries
+its dated supersession note in place. Dated renumber
+2026-08-07: the former gate 1 — the ticket-mint gate — DISCHARGED 2026-08-07; it
+held ONLY the tickets field and never gated ratification (the v1 conflation,
+round-1 E63/X4); its premises dissolved when the Linear embargo lifted
+2026-08-06 and the plan-node schema §2026-08-07 amendment, PR #817, removed the
+ticket-existence obligation — ticket minting is optional working practice, and
+the stamp still completes when a fleet round closes clean and the owner's
+implementation word arrives). Gate 1 (item-14): grounds are round-1
+E11/E31/E32, carried in W0.2(b). Gate 2 (the W3.0 coverage card): the seat
+reading it confirms is FR9's — a mapping DECISION per class (including
+no-construct) satisfies "full set" via curated minting; the row is flagged in
+§Decision log until his word.
 
 ## Goal · In · Out
 
@@ -158,8 +170,11 @@ Stage B token-source convergence and the dual-gate window's closure (owned by
 `design-system-integration` `ws-stage-b-convergence`; this plan's demos consume ONLY
 the kit's own CSS surface for the window's duration — round-1 E1/E70); css-modules
 consumption (dropped by the four-demo amendment); RTL/logical-properties
-internationalisation; data-visualisation palettes; terminal (`oak-design-ink`),
-print, and deck target upgrades beyond keeping existing behaviour green; the MCP-app
+internationalisation; data-visualisation palettes; terminal (`oak-design-ink`)
+and deck target upgrades beyond keeping existing behaviour green — print TARGET
+upgrades likewise stay out, while per-identity PRINT PROJECTIONS entered scope
+as W2.11 at the confirmed W0.5 ledger (item 7; dated boundary move 2026-08-08);
+the MCP-app
 hydration/theme-control DELIVERY tail that ADR-217 §1's 2026-07-31 amendment assigns
 to MCP-448 (never absorbed here — EX65); Linear ticket true-ups before the
 2026-08-10 embargo end; runtime identity switching outside the showcase and the
@@ -176,7 +191,7 @@ detection/selection per the four-demo amendment — the kit-owned identity runti
   his card answer and recorded in the charter ADR's provenance. Where earlier rounds
   asserted repository states first-hand reads falsify, this text carries the
   verified state.
-- Landing path: plan nodes land in the anchored subtree under the plans conformance
+- Landing path: plan nodes land under the plans conformance
   validator; demo workspaces land under the `demos/` tier rules (strict TS, shared
   ESLint, TDD, WCAG 2.2 AA) with the W1.1/W5.1 plumbing stories carrying the
   workspace-registration contract.
@@ -191,30 +206,40 @@ detection/selection per the four-demo amendment — the kit-owned identity runti
   (read-nextjs-docs-before-coding).
 - Record-consumer clause: the census artefacts are read by the W4.5 matrix gate and
   the coverage reviews; the disposition ledgers are read by the re-review fleet; the
-  charter ADR is read by demo READMEs and every demo story's DoD; the fidelity
-  register is read at every checkpoint. No write-only records.
+  charter ADR is read by demo READMEs and every demo story's DoD; the wow-verdict
+  register (the register W0.7 mints — EX53) is read at every checkpoint, while the
+  landed hub fidelity register keeps its own hub-scoped consumers. No write-only
+  records.
 - Describing-surface convention (EX40): each workstream preamble names the
   workstream's describing surface; each story tags its test boundary against it, and
   a story whose boundary differs says so inline. A story with no taggable boundary
-  is scaffolding and says that too.
+  is scaffolding and says that too. Owner-held-only stories are exempt — the
+  acceptance typing discharges the clause. Far-horizon pointer stories (W2–W7,
+  the 2026-08-03 partition) tag at story open when their mechanism is authored —
+  acceptance-shape rows carry no tag (both clauses stated at re-review round 2,
+  finding 3's class sweep).
 
 ## Workstreams
 
 Sequencing (FR0/FR8): W0 → W1 (first light: the plain demo AND the early showcase
 probe) → W2 and W3 in parallel lanes (W2.10's gate lands atomically with W3.1's
 first family — EX46) → W4 page landings continue beneath approved pixels → W5 →
-W6. W1 needs only the named W0 stories (W0.1 census, W0.2(a)/(b) stabilise, W0.3
-charter, W0.7 instrument v0, W0.8 re-homes, W0.9 hub pre-read); the plain demo
-consumes the kit directly (`oak-theme.js` is framework-neutral). W4.4 alone blocks
-on W2.2's emitted projections (D2). Every story is sliced to single-story PRs on
-the PDR-132 two-round budget.
+W7 → W6 (§Sequencing is the fuller statement; W7 may run any time after first
+light). W1 needs the named W0 stories (W0.1 census, W0.2(a)/(b) stabilise, W0.3
+charter, W0.5 enumeration sitting — before W1.2's page selection per FR5, W0.7
+instrument v0, W0.8 re-homes, W0.9 hub pre-read, and W0.10's sittings for the
+W1.5 counter-identity variants); the plain demo consumes the kit directly
+(`oak-theme.js` is framework-neutral). W4.4 alone blocks on W2.2's emitted
+projections (D2). Every story is sliced to single-story PRs on the PDR-132
+two-round budget.
 
 ### W0 — Ground truth, stabilise, instruments, charter
 
 Describing surface: per instrument — pure-classifier unit tests over INJECTED
 file lists plus thin red-proven walker scripts wired into `pnpm check` (EX45
 r3 trues the boundary; the `css-literal-values` / `validate-authored-css`
-split stands), and the new hub Playwright/axe suites. Groundwork machinery
+split stands), and the new hub Playwright/axe suites under the charter
+DoD's both-arrays contract (re-review round 2, finding 2). Groundwork machinery
 here (instruments, validators, harness re-homing) is W0's charge and does not
 offend the wow-first ruling, which governs authored-scope machinery — token
 systems, component libraries, design grammars (D4 r3); the first-pixels gate
@@ -232,7 +257,9 @@ is split accordingly (§Sequencing, FR4 r3).
   expected class count stated in the parity line so a shrinking domain is
   visible. Two committed, dated artefacts derived mechanically: (a) the **page
   census** — every page artefact enumerated by filesystem walk at a dated
-  commit, each row dispositioned; PAGE-row vocabulary is RESTRICTED (FR3 r3):
+  commit, each row dispositioned and recording the page's FRAMING-PROSE
+  state (the W0.5 item-10 owner-voice class reads this column at rebuild);
+  PAGE-row vocabulary is RESTRICTED (FR3 r3):
   `express-composed` or `owner-accepted-exclusion` at census time — a page
   folding or demoting to reference is HIS call, batched into one owner card at
   W1.4's page-set finalisation, never a seat disposition; (b) the **feature
@@ -251,10 +278,14 @@ is split accordingly (§Sequencing, FR4 r3).
   are literal-input unit tests; the walker stays `readdirSync` + hand-off
   guarded by the non-vacuity leg; the method-independent parity counts (export
   page-file count; distinct `.oak-` class count; token-root count) are
-  walker-level acceptance lines, never tests. Acceptance (`repo-safe`:
+  walker-level acceptance lines, never tests. The showcase `sitemap.xml` is
+  a third mechanical derivation from the page census (W0.5 instrument,
+  owner word: "a comprehensive sitemap.xml"), with the axe/Lighthouse page
+  lists DERIVED from the sitemap and a parity line of the same
+  method-independent class. Acceptance (`repo-safe`:
   classifier tests + walker in `pnpm check` + committed artefacts + the parity
-  lines; drift-guarded by W6.4): both artefacts committed with zero
-  undispositioned rows.
+  lines incl. the sitemap derivation's; drift-guarded by W6.4): both
+  artefacts committed with zero undispositioned rows.
 - **W0.2 Stabilise.** (a) Verify every existing design gate FIRST-HAND,
   committing a dated baseline snapshot of gate states at W0 start (D12); red
   gates are named with linked fix PRs and fixed before anything else, each fix
@@ -263,17 +294,32 @@ is split accordingly (§Sequencing, FR4 r3).
   accessibility-class entries have exactly ONE disposition — fix (ADR-147
   zero-tolerance); others fix / accept-with-record / defer. The
   dark-link-on-lemon pairing (4.48:1) gets a SCOPED ROLE TOKEN as its default
-  cure (EX4 r3): a `text.link-on-decorative-5` role authored in both polarity
-  arms and declared in the band scope — THAT token joins
-  `dtcg/contrast-pairings.json` with the 42 → 43 re-baseline against it (or
-  this story states that the manifest gains a scope field, decided at
-  authoring — never the global `text.link` re-point the manifest cannot
-  scope). Item 14 (subtree dialect-alias breadth) is the frontmatter owner
+  cure (EX4 r3; declaration shape Director-resolved 2026-08-05 at the
+  re-review): a `text.link-on-decorative-5` role authored in both polarity
+  arms, DECLARED at top-level `:root` (the site the landed dtcg↔CSS
+  consistency gate's comparand reads) with band-scoped APPLICATION — the
+  band rule consumes `var(--text-link-on-decorative-5)`, so the scope lives
+  in the application, never the declaration. THAT token joins
+  `dtcg/contrast-pairings.json` with TWO deliberate re-baselines in the
+  expectations module, per its own no-silent-bumps header: the manifest
+  pair count 42 → 43 AND the comparand size 167 → 168 (a typed colour leaf
+  joins every composed theme's comparand). The recorded fallback stays: the
+  manifest gains a scope field, decided at authoring — never the global
+  `text.link` re-point the manifest cannot scope. Item 14 (subtree dialect-alias breadth) is the frontmatter owner
   gate with a STATED DEFAULT on expiry (EX40/D16 r3): item 14's own interim
   rule — subtree HC/colour-safe surfaces use `--surface-decorative-N` roles
   directly, with the alias-breadth ruling upgrading the surface later rather
   than gating it; when the ruling is taken it is taken against the POST-axis
-  block set (EX13 r3). Acceptance (`repo-safe`: the named suites green with
+  block set (EX13 r3). New dated triage entry (W0.5 sitting item 6,
+  owner-confirmed 2026-08-06): the creature (EMC²) whitelabel page does not
+  honour reduced motion — accessibility-class, so its ONE disposition is
+  FIX, BLOCKING wherever that page renders; the cured pair must be
+  genuinely distinct (his words: the reduced arm still travels on hover,
+  and the full arm "needs more motion in order for that to be visible").
+  Describing-surface tag (EX40, added at re-review
+  round 2): this story's boundary differs from the preamble's — it is the
+  EXISTING design gate suites plus the committed dated baseline snapshot.
+  Acceptance (`repo-safe`: the named suites green with
   the baseline snapshot and defect tests in the PR). The `prefers-contrast`
   route is NOT here — it is new product behaviour and lives in W2.4 (FR8 r2).
 - **W0.3 The Demos Charter as doctrine.** The charter lands as its OWN new ADR
@@ -305,9 +351,17 @@ is split accordingly (§Sequencing, FR4 r3).
   plus the tier's additions — SC 2.4.11 with a concrete cell, SC 2.4.3/1.3.2,
   SC 1.4.13, SC 2.5.7, "state is never colour alone" as a checked criterion,
   the kit's stricter 44px floor referenced from the kit's own contract; a
-  **shipped-page axis statement** (EX31 r3): axe runs over each demo's
-  COMPOSED pages across identity × the FULL palette-theme roster with the
-  pinned cell count — the W2.5 specimen carrier is an additional
+  **shipped-page axis statement** (EX31 r3; the W0.5 "every page in every
+  theme ... as a minimum" instrument, owner-confirmed): axe runs over each
+  demo's COMPOSED pages across identity × the FULL palette-theme roster
+  with the pinned cell count — the page list DERIVED from the
+  census-generated sitemap where the demo carries one (method-independent
+  parity; W0.1) — and every cell's assertion reads BOTH result arrays —
+  `violations` empty AND `incomplete` first-hand-cleared via a
+  CLEARED_INCOMPLETE allowlist keyed by rule and target (the landed
+  MCP-app `landing-page.spec.ts` discipline: swallowed incompletes read as
+  green while carrying unreviewed potential violations, on a kit with a
+  recorded 4.48:1 near-miss) — the W2.5 specimen carrier is an additional
   state-coverage leg, never the substitute; the non-axe instrument cells
   (EX32 r3): SC 1.4.11 focus-indicator contrast, SC 1.4.10 reflow at 320px,
   SC 1.4.12 text spacing, each naming its instrument from W0.8's hoist; the
@@ -317,7 +371,13 @@ is split accordingly (§Sequencing, FR4 r3).
   asserting name/role/value plus a non-colour selected indicator; the
   demos-tier TEST-NAMING convention including the browser-suite
   suffix/directory, with `--passWithNoTests=false` on every new workspace's
-  test script (EX52 r3); and a named manual-review pass (the W0.7 legs) for
+  test script AND a named vitest-visible unit test landing WITH the
+  workspace so green-from-cold is reachable at every landed state (EX52 r3;
+  paired at re-review round 2, finding 7) — the browser-suite class this
+  convention names is defined into `.agent/directives/testing-strategy.md`
+  by the dated
+  amendment this story's ADR obligation carries (§Relationships; re-review
+  round 2, finding 8); and a named manual-review pass (the W0.7 legs) for
   what automation cannot reach. The correction set is DERIVED MECHANICALLY
   (grep for the superseded description — EX68 r3) and SPLIT by artefact kind
   (EX60 r3): the ADR + `demos/README.md`'s §Charter as pointer-plus-links
@@ -328,15 +388,26 @@ is split accordingly (§Sequencing, FR4 r3).
   W5.1), where they describe something true. `packages/design/README.md`
   gains its two missing workspaces. The ADR INDEX entry is an acceptance line
   (EX61 r3). Charter sequencing: the ADR merges before W1.1 opens (D1 r2).
+  Describing-surface tag (EX40, added at re-review round 2): doctrine
+  artefacts — scaffolding-class per the convention, said here.
   Acceptance (`repo-safe`: `check:docs` + the estate validator; the ADR PR
-  diff; the index entry; the governance-doc addition): ADR landed, pointer
+  diff; the index entry; the governance-doc addition; the dated
+  `.agent/directives/testing-strategy.md` amendment diff): ADR landed, pointer
   edits in place, citations resolve.
 - **W0.4 Identity census.** What differentiates the three identities today —
   brand.css contents, the non-`:root` rule inventory per identity (verified:
-  the PDS-to-be identity 5 of 6 blocks non-root; creature 11 of 12 incl.
-  component-state and HC blocks), CDN asset dependencies, tilt attribution
-  (creature carries the rotations; the PDS-to-be identity is orthogonal
-  today). W2's named input (L2 r2). Acceptance (`repo-safe`, explicit per D8
+  the PDS-to-be identity 5 of 6 blocks non-root; creature — the kit's
+  register name for the EMC² identity, `whitelabel/creature/`, "Educate My
+  Creature Too"; bound here at re-review round 2, finding 9 — 11 of 12 incl.
+  component-state and HC blocks), CDN asset dependencies, and the tilt
+  attribution — the former gate 2's CORRECTED ATTRIBUTION RECORD (re-review
+  round 2, finding 5): creature carries the rotations; the PDS-to-be
+  identity is orthogonal today. W2's named input (L2 r2). Describing-surface tag (EX40): this
+  story's boundary DIFFERS from the W0 preamble's — its describing surface
+  is the committed census artefact's parity and acceptance lines, never a
+  test that re-reads the artefact's contents (that shape is the audit-a-
+  record class the convention exists to bar). Acceptance (`repo-safe`,
+  explicit per D8
   r3): the committed census artefact contains all four named content classes
   per identity with verified counts, parity-checked against W0.1's scope.
 - **W0.5 Export-tweaks intake.** The owner's tweak list channel is OPEN and
@@ -350,33 +421,102 @@ is split accordingly (§Sequencing, FR4 r3).
   arrival; the executing seat reads the intake at each workstream open; a
   wow-checkpoint failure on a fidelity-clean page AUTO-PROMOTES the
   corresponding design change per §Quality bar rule 4 (batched, D1 r3).
-  Iteration is LOCAL. Acceptance (`owner-held`: the enumeration sitting held
-  and recorded; the intake surface confirmed at the W1.3 checkpoint).
+  Iteration is LOCAL. THE SITTING IS HELD AND ITS LEDGER CONFIRMED (dated
+  fold, 2026-08-08, the a729c466 combined window): held 2026-08-05 at the
+  owner's export sitting; confirmed one-pass AS PROPOSED 2026-08-06 (comms
+  event `0d5afca6`; the pre-registered sitting record rides PR #784).
+  Numbering is the owner's — his message has no item 5. The ten items, each
+  with his confirmed word and its carrier: (1) asset-closure class —
+  BLOCKING for first light; manifest-guarded closure at W1.1's kit-copy
+  parity rows (the export's sibling-layout failure class,
+  `validate-kit-assets` precedent, W0.8(b)). (2) Oak no-messy-arrangements
+  — BLOCKING on any Oak-identity first-light page; the Oak taste-anchor
+  rule (ordered, calm, no overlap/collage — his verbatim ground: "Oak
+  design is to maximise readability for everyone, including those with
+  non-typical neurological makeup, so it would never use messy
+  arrangements like this"; stated at W0.10's anchor definition) + the W0.7
+  rubric's ordered-calm readability criterion. (3) content-provenance manifest — BLOCKING, safety
+  class: every persona, institution, testimonial, statistic, and product
+  name in the export/rebuild verified-real-and-appropriate or
+  verified-fictional (the export instances cure at occurrence; the manifest
+  gates the rebuild at W1.2's first-light pages and W4.2's landings),
+  carrying an identity-values column for the W2.9 reference protocol. (4)
+  EMC² tilt systematic-consistency — NON-BLOCKING; the W2.7 constraint row
+  (W2.9 inherits it via its W2.7 dependency).
+  (6) motion — per-identity MOTION STANCES owner-delivered (Oak: none; PDS:
+  none; EMC² the motion identity, full/reduced genuinely distinct), riding
+  W2.7 beside the tilt values; the creature reduced-motion DEFECT is
+  BLOCKING wherever that page renders (W0.2(b) triage entry); the EMC²
+  motion-pair demo is NON-BLOCKING new scope (honest preference adaptation;
+  W1.4 page-set candidate). (7) worksheet contrast — the instance BLOCKING
+  via the W2.5 matrix (a matrix that misses it is wrong); per-identity
+  print projections NON-BLOCKING as the W2.11 named story. (8)
+  discoverability — the example slides and worksheet become first-class
+  navigation entries: NON-BLOCKING for the W1.5 probe, BLOCKING at W1.4's
+  page-set finalisation. (9) editable slides — NON-BLOCKING
+  post-first-light story, W4.8 (localStorage-only). (10) White-Labelling
+  footer copy — BLOCKING on the pages it appears on; owner draft wording
+  recorded: "our design system can support multiple identities, theme
+  preferences and accessibility needs"; the class: every export page's
+  framing prose gets an owner-voice pass at rebuild, the W0.1 census
+  recording each page's prose state. The three INSTRUMENTS (owner words,
+  same sitting): the showcase `sitemap.xml` GENERATED from the W0.1 page
+  census with the axe/Lighthouse page lists DERIVED from it
+  (method-independent parity); every page × every theme axe-checked in
+  Playwright AS A MINIMUM (the W0.3 axis statement; the non-axe legs stay
+  named beside it); Lighthouse as CI PERFORMANCE BUDGETS per page — a
+  genuine plan addition (cross-demo acceptance; wiring rides the W1.1
+  plumbing contract). Acceptance (`owner-held`: the enumeration sitting held
+  and recorded — DISCHARGED as above; the intake surface confirmed at the
+  W1.3 checkpoint).
 - **W0.6 Hub browser proof surface.** The hub's real cross-demo delta
   (verified first-hand: pre-paint `oak-theme.js` inline + store-backed
   five-theme and motion selection EXIST; no `test:ui`/`test:a11y` scripts
   exist): land Playwright + axe describing the EXISTING behaviour, wired as
   `test:ui`/`test:a11y`, with a recorded MUTATION PROOF per assertion group.
-  SLICED ROUTE-BY-ROUTE (EX30 r3): each PR lands one route's cells TOGETHER
+  Every axe cell in these suites runs under the charter DoD's BOTH-ARRAYS
+  contract — `violations` empty AND `incomplete` first-hand-cleared via a
+  CLEARED_INCOMPLETE allowlist keyed by rule and target (re-review round 2,
+  finding 2: browser axe lands results in `incomplete` at
+  unresolvable-background nodes — the in-estate proof is the MCP-app
+  landing-page case — so a violations-only browser suite is blind exactly
+  where the jsdom disable's compensating note applied). SLICED
+  ROUTE-BY-ROUTE (EX30 r3): each PR lands one route's cells TOGETHER
   with the fixes that make them green (ADR-147 zero-tolerance; never
   `skipRules`; no red gate ever exists), the remediation set
   discovery-bounded and sequenced before the W6.2 hub checkpoint at the
   latest. The hub's EXISTING jsdom axe backstop is named, and retirement of
   its `color-contrast` rule disable is an acceptance line of the
-  browser-suite landing (EX39 r3 — browser axe measures what the disable
-  compensated for). This story also carries the ADR-147 §Tooling / ADR-121
+  browser-suite landing (EX39 r3; ground TRUED at re-review round 2:
+  browser axe measures what the disable compensated for ONLY under the
+  both-arrays contract — at unresolvable-background nodes its results land
+  in `incomplete`, not `violations`); the retirement's semantics are
+  stated: the disable and its documented compensating reviewer-recompute
+  note retire TOGETHER, the BOTH-ARRAYS browser suite is named as the
+  replacing instrument, and the jsdom suite's enumerated component STATES
+  are either covered by browser-suite cells or their residual is recorded
+  — never a re-enable of `color-contrast` under a DOM-emulation runner,
+  where axe's results land in `incomplete` and an assertion on violations
+  alone is unfalsifiable; the same principle binds the browser suite
+  itself at unresolvable-background nodes, which is why the both-arrays
+  contract is the retirement's precondition. This story also carries the ADR-147 §Tooling / ADR-121
   stale-CI TRUING (EX66 r3 — moved from W2.5: state the landed CI position
   as an outcome, delete the plan-item pointers), since it is the first story
   that lands new CI-run a11y suites. The hub's 548 arbitrary-value
   occurrences are recorded as an accessibility RISK (untokenised colour is
   ungated colour), not only token debt. Acceptance (`repo-safe`: the suites
-  green in CI at the ci.yml `test:a11y` leg, route-sliced with fixes; the
-  mutation proofs; the disable retired; the truing diffs).
+  green in CI at the ci.yml `test:a11y` leg, route-sliced with fixes;
+  every axe cell reading both arrays with its CLEARED_INCOMPLETE allowlist
+  committed; the mutation proofs; the disable retired; the truing diffs).
 - **W0.7 The design-review instrument, v0** (FR8 r2: manual, off the critical
   path's engineering). A COMMITTED RUBRIC document with explicit criteria
   derived from the export's own design language (type scale usage, spatial
   rhythm, hierarchy, colour discipline, composition grammar, a CROSS-PAGE
-  COHESION clause), applied at every checkpoint by THREE legs before any
+  COHESION clause, and the ORDERED-CALM READABILITY criterion — the owner's
+  no-messy-arrangements rule, W0.5 item 2: readability for everyone
+  including those with non-typical neurological makeup; no
+  overlapping/collaged arrangements on Oak), applied at every checkpoint by
+  THREE legs before any
   render reaches the owner: the seat's own pass, the paired
   accessibility-expert leg, and an INDEPENDENT fresh-context
   design-system-expert leg (FR1 r3 — opus, per invoke-design-system-expert;
@@ -396,8 +536,22 @@ is split accordingly (§Sequencing, FR4 r3).
   register (EX53 r3), schema-validated on the landed `fidelity-register.ts`
   precedent — with a stated row schema: page, demo, verdict
   (PASS/FAIL/ITERATE), the qualities judged, the CELLS COVERED (identity ×
-  theme — FR2 r3), owner-statement date. Mechanisation of the rubric is a
-  later, separately sliced story — never W1's dependency. Acceptance
+  theme — FR2 r3), owner-statement date, and the INSTRUMENT-LEG RESULTS —
+  the three W0.7 legs' verdicts against the rubric, REQUIRED at
+  checkpoint-class rows (W1.3, W1.5, W2.9, the §Quality bar checkpoints)
+  and optional at the W0.9/W0.10 pre-reads, which run before this
+  instrument exists (re-review round 2, finding 6: the earned-authority
+  miss-rate needs every leg's verdicts recorded, and this field is their
+  named per-row home). An instrument FAIL that blocks a
+  render routes to the Director in the Quality-bar rule-3 shape (findings,
+  screenshot, blocker assessment) for a named disposition — the instrument's
+  false-positive rate is unmeasured at v0, and wow-first sequencing must not
+  wait silently on an unearned block. Mechanisation of the rubric is a
+  later, separately sliced story — never W1's dependency. Describing-surface
+  tag (EX40): this story's outputs are committed records (rubric,
+  calibration record, register schema) — scaffolding-class per the
+  convention, said here; the register's behavioural consumers are the
+  checkpoints that read it. Acceptance
   (`repo-safe`: rubric + graded calibration record with the enumerated
   fixture corpus + the schema-validated register committed).
 - **W0.8 Shared instruments re-homed** (EX69/EX70/EX72/EX37 r2; SPLIT per
@@ -407,7 +561,9 @@ is split accordingly (§Sequencing, FR4 r3).
   roster derived from the workspace inventory, PLUS its HTML ARM (EX49 r3:
   `.html` `<style>` blocks and `style=` attributes parsed through the same
   pure `findLiteralDesignValues` classifier, red-proven on a planted hex in a
-  fixture page) — the IDENTITY leg is migration-state-scoped (EX70 r3): it
+  fixture page, and carrying its OWN non-vacuity leg — a per-demo page
+  roster whose zero-page scan fails loud; the landed walker's single
+  CSS-file guard cannot see an HTML arm scanning nothing) — the IDENTITY leg is migration-state-scoped (EX70 r3): it
   covers the W2.0 home's identity layers only and joins per identity at that
   identity's W2.2 migration landing, where its acceptance lives; the hub's
   authored CSS is OUT under the as-is ruling (stated, not implied); (b)
@@ -416,18 +572,33 @@ is split accordingly (§Sequencing, FR4 r3).
   gate, hermetic cross-origin interception, apply-state) — gets its OWN HOME
   (EX69 r3): a design-tier test-support workspace whose ADR-041 row permits
   `design` outbound, with a real `exports` entry and its own
-  `@playwright/test`/`@axe-core/playwright` deps; the `no-cross-demo`
+  `@playwright/test`/`@axe-core/playwright` deps; the hoisted axe helper
+  UPGRADES at the hoist to the both-arrays contract (violations empty AND
+  incomplete first-hand-cleared via CLEARED_INCOMPLETE, per the W0.3 DoD —
+  the landed showcase helper reads violations only, and hoisting that shape
+  would propagate the swallowed-incomplete blindness to every demo); the
+  `no-cross-demo`
   depcruise rule lands in the SAME PR red-proven against the pre-hoist shape.
-  The hoist list also carries the non-axe instruments (EX32 r3): the
-  focus-ring contrast comparator and the 320px reflow measure, consumed by
-  every demo's DoD cells. Sequenced before W1's WORKSPACE landings (never the
+  The hoist list also carries the non-axe instruments (EX32 r3; completed
+  at re-review round 2, finding 1): the focus-ring contrast comparator, the
+  320px reflow measure, and the SC 1.4.12 TEXT-SPACING measure — the
+  standard text-spacing overrides (line height 1.5×, paragraph 2×, letter
+  0.12×, word 0.16×) applied through the shared harness with
+  overflow/clipping asserted, built on the landed overflow-measure pattern
+  (`demos/oak-curriculum-hub/tools/measure-320.ts`); before this entry the
+  estate had NO text-spacing instrument (grep-verified 2026-08-08) while
+  the charter DoD's third non-axe cell demanded one from this hoist —
+  consumed by every demo's DoD cells. Sequenced before W1's WORKSPACE landings (never the
   first pixels — FR4 r3). Acceptance (`repo-safe`: validators green over the
   surfaces that exist at landing; red-proofs recorded incl. the HTML arm).
 - **W0.9 Hub wow pre-read** (FR6 r2, zero-cost, `owner-held`). Serve the
   EXISTING hub — with its search backend configured so search WORKS live
   (owner word 2026-08-05; the landed search implementation is complete and
   tested, the gap is env credentials only, per the demo README) — and the
-  owner browses it end-to-end in Chrome. Acceptance
+  owner browses it end-to-end in Chrome. Describing-surface tag (EX40,
+  added at re-review round 2): the conditional repo-safe leg's object is
+  this plan body itself (minted stories) — scaffolding-class, said here.
+  Acceptance
   (explicit per D5 r3 — `owner-held`: verdict recorded in the wow-verdict
   register; `repo-safe`: on a FAIL verdict, linked scoped visual-cure stories
   minted into this plan's body with named budget lines in the same sitting —
@@ -438,13 +609,17 @@ is split accordingly (§Sequencing, FR4 r3).
   two counter-identities (EMC² and the identity being renamed to PDS, owner
   instruction 2026-08-03), the owner browses, verdicts land in the
   wow-verdict register; then one owner DIRECTION SITTING per counter-identity
-  mints that identity's own taste anchor — the analogue of the export's
-  demonstrated language for Oak — and the W0.7 rubric gains its per-identity
+  mints that identity's own taste anchor — the analogue of Oak's anchor,
+  which is the export's demonstrated language plus the no-messy-arrangements
+  rule (W0.5 item 2) — and the W0.7 rubric gains its per-identity
   language section at the same sitting, so W2.9's instrument pass judges each
   identity against its own anchor and the first counter-identity wow signal
   arrives at MINIMUM sunk cost, never after the full W2 machinery spend. The
   cheap early probe rides W1: one composed page variant per counter-identity
-  joins the W1.5 checkpoint. Acceptance (`owner-held`: pre-read verdicts +
+  joins the W1.5 checkpoint. Describing-surface tag (EX40, added at
+  re-review round 2): the repo-safe leg is a committed-record boundary (the
+  rubric's per-identity sections) — scaffolding-class like W0.7's outputs,
+  said here. Acceptance (`owner-held`: pre-read verdicts +
   both sittings recorded; `repo-safe`: the rubric's per-identity sections
   committed).
 
@@ -457,7 +632,9 @@ binds hardest — BEFORE W2/W3 spend. The first renders double as live
 calibration sittings for W0.7's rubric. Intra-workstream sequencing is
 explicit (D3 r3): W1.2 starts only after W1.1's workspace is registered and
 green in `pnpm check` (the PROVISIONAL W1.2 render for the first-pixels gate
-needs only W0.2(a) + W0.7 v0 + W0.9 — §Sequencing, FR4 r3). Describing
+needs only W0.2(a) + W0.7 v0 + W0.9, plus W0.5's blocking tweaks where
+they touch the chosen pages — §Sequencing, FR4/FR5 r3; trued at re-review
+round 2, finding 4). Describing
 surface: the demos' Playwright `test:ui`/`test:a11y` suites per the charter
 DoD.
 
@@ -474,15 +651,32 @@ DoD.
   by W0.8); knip/prettier/markdownlint entries; the per-workspace TURBO task
   entries with outputs and input exclusions mirroring the landed demos, and
   the `.dependency-cruiser.mjs` exclusion for the demo's served
-  `oak-theme.js` copy (EX75 r3); vitest base-config pattern + the charter's
+  `oak-theme.js` copy (EX75 r3); the per-page Lighthouse CI budget wiring
+  (the W0.5 instrument: the workspace's budget config + CI leg, its page
+  list derived from the census-generated sitemap where the demo carries
+  one); the DEMO-TIER vitest config pattern — NOT
+  the base config, whose include globs collect `tests/**/*.spec.ts` where
+  the browser suites live: co-located include globs with `tests/` excluded
+  so Playwright specs run via `test:ui`/`test:a11y` only (the showcase's
+  landed config is the precedent) — plus the charter's
   test-naming convention with `--passWithNoTests=false` (EX52 r3);
   Playwright wired as `test:ui`/`test:a11y`; the shared harness consumed
   from W0.8's test-support home; the kit-copy delivery + parity rows for the
-  demo's served kit assets (EX70 r2); this workspace's README +
+  demo's served kit assets (EX70 r2) — landed AS this workspace's first
+  vitest-visible co-located unit test on the showcase precedent
+  (`tools/kit-asset-parity.unit.test.ts`), which is what makes
+  `--passWithNoTests=false` green from cold at this landing PR (re-review
+  round 2, finding 7 — zero added scope); this workspace's README +
   `package.json` description land here per the W0.3 split (EX60 r3). No
   app-shell prerequisites — this demo ships no React (EX19 r2 correction).
+  Describing-surface tag (EX40, added at re-review round 2):
+  workspace-plumbing scaffolding-class, said here — the kit-asset parity
+  unit test is the story's one behavioural boundary.
   Acceptance (`repo-safe`: `pnpm check` green from cold with the workspace
-  in; the ADR-041 row-and-column amendment diff in the PR).
+  in, the parity unit test vitest-visible; the Lighthouse budget wiring
+  pattern present per this contract — the showcase carries the live
+  per-page budget requirement (cross-demo acceptance); the ADR-041
+  row-and-column amendment diff in the PR).
 - **W1.2 The export's three composed pages, authored fresh against the live
   kit.** Fresh authoring — the `studio-source/` pages STAY under
   studio-source; the demo authors its own markup expressing the same
@@ -501,8 +695,15 @@ DoD.
   there. Pre-paint via parser-blocking head script per the charter. Zero raw
   literals — gated by W0.8's walker WITH its HTML arm (EX49 r3; never "by
   construction"). Blocking tweaks from W0.5's enumeration sitting that touch
-  these pages land in this authoring (FR5 r3). Acceptance (`repo-safe`:
-  `test:ui` + `test:a11y` per the charter DoD incl. the no-flash cells;
+  these pages land in this authoring (FR5 r3) — at the confirmed ledger
+  that means: the asset-closure class (item 1), the Oak
+  no-messy-arrangements rule (item 2), the content-provenance manifest
+  instances (item 3), the creature reduced-motion defect where that page is
+  chosen (item 6), and the White-Labelling footer copy where it appears
+  (item 10). Acceptance (`repo-safe`:
+  `test:ui` + `test:a11y` per the charter DoD incl. the no-flash cells; the
+  content-provenance manifest complete over the chosen pages — item 3 is
+  blocking here and the acceptance carries it;
   `owner-held`: wow checkpoint below).
 - **W1.3 Wow checkpoint #1** (`owner-held`): rendered in the owner's Chrome
   (pixels, never artefact paths), verdicts recorded per page in the
@@ -526,12 +727,21 @@ DoD.
   requirement and the W7 precursor (L2 r3) — admissible per the envelope's
   DOM-order rule. The page-set FINALISATION carries the batched owner card
   for every page-census row not `express-composed` (FR3 r3 — his word on
-  folds/reference demotions, one card). The specimen-grid rule stands: a
+  folds/reference demotions, one card); the finalisation is also where W0.5
+  item 8 BINDS — the example lesson slides and example worksheet enter the
+  page set as first-class navigation entries (non-blocking for the W1.5
+  probe, blocking here). The specimen-grid rule stands: a
   surface whose primary content is the feature itself FAILS the coverage
   matrix by definition; the bounded exception is the reference tier, designed
   to the same wow bar; low-glamour census rows may satisfy the matrix in the
   reference tier without per-gap owner ceremony. The artefact is finalised
   before any W4.2 landing; later changes reopen THIS story (D15 r2).
+  Describing-surface tag (EX40; re-review round 2, finding 3): this story's
+  boundary DIFFERS from the W1 preamble's — its describing surface is the
+  committed page-set artefact's rows and their derivation consumers (W4.5's
+  matrix derives from it; the finalisation card consumes it), never a test
+  that re-reads the artefact's contents (the audit-a-record shape the
+  convention bars — the same disambiguation W0.4 carries).
   Acceptance (`repo-safe`: the committed page-set artefact with budgets and
   declared sequences; `owner-held`: the batched page-disposition card).
 - **W1.5 Early showcase wow probe** (`owner-held` — FR0 r2). One or two pages
@@ -554,7 +764,10 @@ DoD.
   modules and their geometry tests are named in W4.2's generated inventory
   so their dispositions are recorded, never lost. The counter-identity probe
   variants (one composed page per counter-identity — W0.10/FR0 r3) join this
-  checkpoint. Acceptance (explicit per D9 r3 — `owner-held`: the probe pages
+  checkpoint. Describing-surface tag (EX40, added at re-review round 2): the
+  repo-safe legs sit outside the W1 preamble's suites — a landed route
+  replacement and the rule-6 screenshot baselines — said here.
+  Acceptance (explicit per D9 r3 — `owner-held`: the probe pages
   rendered at the checkpoint with the three-leg W0.7 pass run first,
   verdicts + cells in the wow-verdict register; the checkpoint is the
   go/no-go for W2/W3 spend at this bar; `repo-safe`: the rejected-route
@@ -613,7 +826,9 @@ pre-read and per-identity owner direction sittings).
   OS-signal cell, the cell count pinned so a shrinking matrix is visible.
   Gates: item-14 as W2.4. Depends: W2.2, W2.4. Acceptance shape (`repo-safe`):
   the matrix wired into `pnpm check`; pinned cell count; the widened
-  ADR-147/ADR-121 amendment diffs.
+  ADR-147/ADR-121 amendment diffs; the W0.5 item-7 worksheet-contrast
+  instance (`Worksheet.dc.html?brand=creature`, body copy washed out) named
+  as a must-catch case — a matrix that misses it is wrong.
 - **W2.6 Standing falsifiers.** Goal: identity-№N, theme-№N, thinness, and
   every-census-axis-reachable stand in CI as red-proven tripwires. Depends:
   W2.1–W2.3. Acceptance shape (`repo-safe`): each fixture proven biting once
@@ -625,22 +840,60 @@ pre-read and per-identity owner direction sittings).
   content-bearing elements — decoration MAY tilt, structural zero if
   easier; EMC² leans in, including ANIMATED tilts demonstrating motion vs
   no-motion. Gate: no tilt render before the token shape + constraints
-  land. Depends: W2.1. Acceptance shape (`repo-safe`): token shape +
-  constraint tests encoding the delivered values.
+  land. Constraint row (W0.5 item 4, owner-confirmed): EMC² rotation is
+  SYSTEMATIC — tokenised fixed angles, never per-element random ("still
+  consistent, not random, that would make it hard for some people to
+  read"). The per-identity MOTION STANCES ride here as the motion analogue
+  of the tilt values (W0.5 item 6, owner-delivered): Oak none; PDS none;
+  EMC² the motion identity with full and reduced-motion genuinely distinct
+  — the EMC² motion-pair page (ringing animations vs without) is the
+  demonstrating surface, non-blocking new scope, W1.4 page-set candidate.
+  Depends: W2.1. Acceptance shape (`repo-safe`): token shape +
+  constraint tests encoding the delivered values, the
+  systematic-consistency row, and the motion stances.
 - **W2.8 Identity asset delivery.** Goal: each identity's payload (icons,
   logo, fonts) vendored into the W2.0 home, offline-safe, licence notices
-  beside them. Depends: W2.0. Acceptance shape (`repo-safe`): hermetic demo
-  suites + licence rows.
+  beside them, with the manifest-guarded ASSET CLOSURE (W0.5 item 1's
+  class: every referenced asset resolves inside the served tree — the
+  export's sibling-layout failure class) and the content-provenance rows
+  (item 3) beside the licence notices. Depends: W2.0. Acceptance shape
+  (`repo-safe`): hermetic demo suites + licence rows + the closure gate +
+  the content-provenance rows present per identity payload.
 - **W2.9 Identity design authorship.** Goal: the counter-identities authored
   to the wow bar as first-class design work, each judged against its OWN taste
   anchor (minted before W2 opened — FR0 r3) and across its FULL theme roster,
-  never only its default (FR2 r3). Depends: W2.2; W2.7's session for any tilt
-  values. Acceptance shape (`owner-held`): rendered identity checkpoints on
-  composed-page carriers; (`repo-safe`): instrument records committed.
+  never only its default (FR2 r3). Reference protocol (owner rulings
+  2026-08-05, folded per the Director's process ruling): the official Oak
+  Design Kit is reference-only — values may be EXAMINED exactly (read-only
+  Figma access, quota-metered; the export-to-reference-local practice) and
+  every EXPRESSIVE PALETTE value USED deviates deliberately per the
+  cartographer's-folly ruling, canonical at DDR-007 with its own bounds
+  (systematic, harmony-preserving, accessibility-safe perturbation;
+  exempt classes — the attributed exact `ci-*` scientific values among
+  them — stay exact per that record); provenance lands in the
+  content-provenance manifest's identity-values column (W0.5 item 3). The
+  Oak identity authorship carries the bounded SYSTEMATIC FOLLY PASS over
+  the 68 byte-identical palette values found by the 2026-08-05 trap-street
+  audit, with the designed re-baselines riding it; the W3 Buttons
+  story-open pointer is TWO-SIDED — a similarity bound (perceptually
+  correct against the reference) AND a distinctness bound (the folly
+  deviation present). Pointer-grade until story open. Depends: W2.2;
+  W2.7's session for any tilt values. Acceptance shape (`owner-held`):
+  rendered identity checkpoints on composed-page carriers; (`repo-safe`):
+  instrument records committed; the folly attestation in the provenance
+  manifest.
 - **W2.10 ADR-147 gate extension for `oak-design-react`.** Goal: the tier's
   rendered accessibility gate. Depends: lands atomically with W3.1's first
   component family. Acceptance shape (`repo-safe`): the extended gate green on
   the first family; the non-vacuity leg red-proven.
+- **W2.11 Per-identity print projections (NEW at the confirmed W0.5
+  ledger, item 7 — owner word 0d5afca6).** Goal: paper-destined artefacts
+  get a DEFINED print/paper polarity per identity — a dark-first identity
+  never ships an unreadable worksheet; the projections join W2.5's checked
+  surface. Depends: W2.2, W2.5. Acceptance shape (`repo-safe`):
+  per-identity print-projection cells in the W2.5 matrix; the W0.1 census
+  print/deck `owner-accepted-exclusion` rows re-dispositioned against this
+  story at its open. Mechanism at story open.
 
 ### W3 — The React component tier (pointer stories — mechanism at story open)
 
@@ -648,7 +901,7 @@ Binding rulings carried forward: CURATED adoption on the ADR-213 §3 shape —
 coverage means a recorded mapping DECISION for every W0.1 census class, with
 no-construct / stays-class-only the DEFAULT outcome; the coverage reading of
 the owner's "full optional React component set" is carded to him at W3.0 open
-(frontmatter gate 4); the §3 amendment records BOTH consumption shapes' roles
+(frontmatter gate 3); the §3 amendment records BOTH consumption shapes' roles
 exactly as the Director ruled (EX56: the studio seeds remain the tier-3
 token-sufficiency proof, adopted tier components paint via kit recipe classes,
 and the rejection + curation doctrine are unchanged) — the round-3 faithfulness
@@ -658,7 +911,7 @@ at adoption, never wrapped.
 - **W3.0 Packaging, landing-sequence obligations + the mapping rule.** Goal:
   the tier package ships correctly (directive preservation, per-component
   exports, react peers) and the mapping-decision contract with its mechanical
-  completeness check exists before any family lands. Gates: frontmatter gate 4
+  completeness check exists before any family lands. Gates: frontmatter gate 3
   (the coverage card) at open. Acceptance shape (`repo-safe`): packaging
   tests; the completeness check red-proven; the §3 amendment diff faithful to
   the ruling as given.
@@ -704,8 +957,9 @@ r3).
   generated and dispositioned to zero rows, declared-sequence focus-order
   checks standing. Depends: W1.4's page-set artefact; W2/W3 only where a page
   consumes them. Acceptance shape (`repo-safe`): suites green at every
-  landing + zero undispositioned inventory rows; (`owner-held`): page-batch
-  wow checkpoints per §Quality bar.
+  landing + zero undispositioned inventory rows + the content-provenance
+  manifest complete over each landed page (item 3 gates the rebuild);
+  (`owner-held`): page-batch wow checkpoints per §Quality bar.
 - **W4.3 Export-page expression per the census dispositions.** Goal: every
   express-composed and fold-into-composition row lands on a named showcase
   surface within its page's feature budget. Depends: the W4.2 cadence.
@@ -727,6 +981,16 @@ r3).
   rebuilt showcase end-to-end; the minimum owner-viewed cell set covers every
   identity × both polarities plus high-contrast and colour-safe at least once
   (FR2 r3).
+- **W4.8 Editable slides (NEW at the confirmed W0.5 ledger, item 9 —
+  owner word 0d5afca6; post-first-light).** Goal: text-editable demo slides
+  with working buttons — convert to PDF, print, save via localStorage
+  (implying a reset) — the document-artefact workflow property;
+  localStorage-only keeps privacy trivial. Depends: sequenced after first
+  light; the W1.4 page set names the slides surface. Acceptance shape
+  (`repo-safe`): demo suites over the edit, persist, reset,
+  convert-to-PDF, and print cells — every named button behaviour has a
+  cell; (`owner-held`): wow checkpoint. Mechanism at story open under
+  per-story review.
 
 ### W5 — The styled-components demo (pointer stories — mechanism at story open)
 
@@ -756,7 +1020,7 @@ never a second full-feature showcase.
 - **W5.5 Wow checkpoint** (`owner-held`): page batches, then the whole demo
   end-to-end, owner-viewed cells per FR2 r3.
 
-### W7 — The layout-range demo (NEW — owner word 2026-08-03, "css zen garden like")
+### W7 — The layout-range demo (pointer story — mechanism at story open; NEW — owner word 2026-08-03, "css zen garden like")
 
 The fifth demo, SMALL by design, proving the kernel's third property:
 IDENTICAL semantic page structure rendered under radically different layouts
@@ -778,8 +1042,12 @@ wow checkpoint over every variant.
 - **W6.1 Cross-demo verification, mechanical.** Goal: the resolved-rendering
   cells (theme, identity, motion, before-first-paint, JS-disabled) green in
   all FIVE demos; the hub's story is verification of its existing wiring with
-  recorded mutation proofs. Acceptance shape (`repo-safe`): the named cells
-  green in every demo.
+  recorded mutation proofs. The W0.5 instrument derivations verify here
+  (census→sitemap→axe page-list parity as cross-demo cells where a demo
+  carries a sitemap; the Lighthouse budgets leg over the showcase's derived
+  page list, its scoped carrier), and the motion cell is judged against
+  the per-identity stances (W2.7). Acceptance shape (`repo-safe`): the named
+  cells green in every demo.
 - **W6.2 Hub whole-demo checkpoint** (`owner-held`): the end-to-end browse
   closing the hub reading against the finished estate, owner-viewed cells per
   FR2 r3.
@@ -822,6 +1090,7 @@ the authoring seat reads, BEFORE mechanism authoring:
 | W2.8 | EX79 |
 | W2.9 | FR0, FR2 |
 | W2.10 | EX33 |
+| W2.11 | (new story — no round-3 rows; owner-worded at the confirmed W0.5 ledger, item 7) |
 | W3.0 | EX11, EX14, EX22, EX54, EX56 |
 | W3.1 | D13, L3, EX15, EX16, EX54 |
 | W3.2 | EX17, EX26 |
@@ -834,6 +1103,7 @@ the authoring seat reads, BEFORE mechanism authoring:
 | W4.5 | EX43, EX44 |
 | W4.6 | EX18, EX19 |
 | W4.7 | D7, FR2 |
+| W4.8 | (new story — no round-3 rows; owner-worded at the confirmed W0.5 ledger, item 9) |
 | W5.1 | EX52, EX75 |
 | W5.2 | FR6 |
 | W5.3 | EX21, EX25, EX80 |
@@ -843,9 +1113,11 @@ the authoring seat reads, BEFORE mechanism authoring:
 
 Rows anchored on near-horizon sections (W0/W1, the instrument, the quality
 bar, §Relationships) are NOT in these tables — they are cured in the
-near-horizon text itself; their per-row disposition ledger rides the scoped
-near-horizon re-review (see §Review record — the intended standalone
-`dispositions.v2.2.md` was never authored).
+near-horizon text itself; their per-row disposition ledger is
+`dispositions.v2.2.md` (authored from living memory 2026-08-05 with dated
+provenance in the file, superseding the earlier never-authored state), which
+the 2026-08-05 scoped re-review verified row-by-row — 57/57 rows, with its
+stated 113-row completeness sweep clean (see §Review record).
 
 ## Cross-demo acceptance (all five, owner amendments 2026-08-02 and 2026-08-03)
 
@@ -853,13 +1125,26 @@ near-horizon re-review (see §Review record — the intended standalone
   W6.1 (resolved rendering + the two before-first-paint observables;
   persistence; high-contrast and colour-safe reachable from the visible theme
   control — control present, keyboard-operable, ≤2 activations from page load;
-  reduced motion at the mechanical floor per D11).
+  reduced motion at the mechanical floor per D11, judged against the
+  per-identity motion stances of W0.5 item 6: Oak none, PDS none, EMC²
+  genuinely distinct full/reduced).
+- Lighthouse CI PERFORMANCE BUDGETS per page (W0.5 instrument, owner word:
+  "prove it is performant"; Director strengthening: budgets, not one-off
+  measurements). The requirement is SHOWCASE-SCOPED — the owner's stated
+  surface ("every showcase page") — with the page list derived from the
+  census-generated sitemap (method-independent parity). The wiring pattern
+  is defined once in the W1.1 plumbing contract, so any demo later adopting
+  budgets inherits the mechanism; the showcase carries the requirement.
 - Styling sourced solely from the design system through each demo's declared
   consumption path. Zero raw literals at point of use for the showcase, plain,
   styled, and layout-range demos (instruments per demo: W0.8 walker, W4.6
   class-string check, W5.4 template detector; the layout-range demo's
-  instrument is named at its story open — its variants are configuration, so
-  the walker covers it by construction unless its mechanism says otherwise). The hub's measured debt (548
+  instrument is named at its story open — never assumed covered). The named
+  CSS instrument's documented blind spot is stated, not implied: at-rule
+  params (media/container queries) are outside its declaration walk, so
+  literal breakpoints are held by the documented-kit-constants convention
+  and the instrument proves the invariant only inside declaration blocks it
+  reaches. The hub's measured debt (548
   arbitrary-value occurrences, first-hand count 2026-08-02) is RECORDED as
   accepted standing debt under its as-is ruling AND as an accessibility risk
   (EX32 — untokenised colour is ungated colour), reduced opportunistically,
@@ -872,8 +1157,10 @@ near-horizon re-review (see §Review record — the intended standalone
 1. Rendered in the owner's Chrome at each checkpoint — pixels, never artefact
    paths. The owner's verdict is the gate. The verdict's RECORD (D6): a
    wow-verdict-register entry (the register W0.7 mints — EX53 r3) stating
-   PASS / FAIL / ITERATE, the qualities judged, the cells covered, and the
-   date — so the owner-held criterion has a resolvable record.
+   PASS / FAIL / ITERATE, the qualities judged, the cells covered, the
+   date, and — at checkpoint-class rows — the instrument-leg results
+   (re-review round 2, finding 6) — so the owner-held criterion has a
+   resolvable record and the miss-rate mechanism its per-row inputs.
 2. Beneath his eye, always-on: the wow-verdict register; the W0.7 rubric +
    accessibility-expert leg run BEFORE any render is shown; the mechanical
    gates green first.
@@ -908,16 +1195,29 @@ W0 → W1 (first light ×2) → W2 ∥ W3 → W4 → W5 → W7 → W6, with W2's
 chain explicit (its preamble, L4 r3), W2.10 landing atomically with W3.1's
 first family, W4.4 blocking on W2.2, each W3 family independent, and W7 free
 to run any time after first light. The FIRST-PIXELS gate is SPLIT from the
-plumbing gate (FR4 r3): W1.5 and a provisional W1.2 render gate only on
-W0.2(a) stabilise + W0.7's v0 rubric + W0.9's pre-read; W0.1's mechanised
-census, the charter ADR, and W0.8's re-homing proceed in parallel and gate
-the W1.1/W5.1 workspace landings and W4 — never the first pixels in front of
-the owner. Small single-story PRs; each PR: bot identity, Copilot at open,
+plumbing gate (FR4 r3): the PROVISIONAL W1.2 render gates only on W0.2(a)
+stabilise + W0.7's v0 rubric + W0.9's pre-read (plus W0.5's blocking tweaks
+where they touch the chosen pages — FR5); W1.5 additionally carries its own
+stated prerequisites — W1.4's committed page-set naming (seeded by W0.1's
+census rows) and W0.10's sittings for the counter-identity variants; W0.1's
+mechanised census, the charter ADR, and W0.8's re-homing otherwise proceed
+in parallel and gate the W1.1/W5.1 workspace landings and W4 — never the
+first pixels in front of the owner. Small single-story PRs; each PR: bot identity, Copilot at open,
 full-condition merge, review-round budget TWO with tally-stop at budget
 (PDR-132). Renders to the owner at every W1/W4/W5/W7 batch landing and the
 W4.7/W5.5/W6.2 whole-demo checkpoints.
 
 ## Decision log (owner word unless marked seat-verdict)
+
+Design decisions carried canonically by the
+[Design Decision Record corpus](../../../docs/design/README.md) are listed
+here with their record — whether or not a log row below restates them: the
+configured-framework frame → DDR-001; CSS-first/one-behaviour →
+DDR-002; the theme choice model → DDR-003; the five-theme roster with
+access themes first-class → DDR-004; licence-follows-provenance → DDR-005;
+the Oak Components reference posture → DDR-006; palette derivation →
+DDR-007; floor conformance → DDR-008. New design decisions mint a DDR at
+occurrence; this log stays the execution-context view.
 
 | Decision | Provenance |
 | --- | --- |
@@ -926,7 +1226,7 @@ W4.7/W5.5/W6.2 whole-demo checkpoints.
 | Tailwind showcased; other varieties as further demos | Card answer (custom) |
 | css-modules deferred | Follows from the four-demo set; reversible |
 | Wow bar applies to each and every demo | "look at each and every demo and think 'wow'" |
-| Off-horizontal: target delta priced at the W2.7 session, all three identities | Point 9 + corrected attribution evidence |
+| Off-horizontal: tilt VALUES owner-delivered (2026-08-03 card, verbatim in the committed napkin `b1b5431a7`); the W2.7 session confirms-and-records against the token shape — the former W2.7 off-horizontal session gate discharged 2026-08-05 | Point 9 (superseded in place, dated note) + the corrected attribution record at W0.4 + the 2026-08-03 card answer |
 | Iteration LOCAL; Claude Design at owner-instigated moments only | Post-v1 ruling 2026-08-02 |
 | Wow-first decomposition; W1 carries BOTH first-light checkpoints | Post-v1 ruling; FR0 applied |
 | Tier components paint via kit classes; Tailwind = composition vocabulary on wrappers only | Seat verdict (Corsair, 2026-08-02) per round-1 E15 + EX15; §3 amendment records both shapes' roles (Director-ruled 2026-08-02) |
@@ -936,14 +1236,14 @@ W4.7/W5.5/W6.2 whole-demo checkpoints.
 | Identity = authored configuration (manifest + emitter); Oak references its generated projection | Seat verdict (Corsair, 2026-08-02) per EX0/EX57; ADR-213 §2 dated amendment carries it |
 | Contrast + colour-vision as orthogonal axes composing with polarity | Seat decision (Corsair, 2026-08-02) per EX28 — FLAGGED for owner/Director; carried by W2.1/W2.4 |
 | Tier polymorphism: render/`asChild` slot, element union `button \| a` | Seat decision (Corsair, 2026-08-02) per EX24 |
-| "Full component set" = full mapping-decision coverage with curated minting | Seat reading per FR9 — FLAGGED; owner card at W3.0 open (frontmatter gate 4) |
+| "Full component set" = full mapping-decision coverage with curated minting | Seat reading per FR9 — FLAGGED; owner card at W3.0 open (frontmatter gate 3) |
 | Review topology: tiered fleet, zero-finding round before implementation | Ultracode directive 2026-08-02 |
 | PARTITION: near-horizon (W0+W1) full depth + zero-finding bar; far-horizon (W2–W7) pointer stories, mechanism at story open; rounds-2/3 far findings conserved as story-open inputs | Owner card 2026-08-03 ("Yes, partition the work"); adjudication.v3.md §Ratification addendum |
 | Goal architecture ratified (layer sovereignty / cost-of-change-is-the-product / expressive range spans structure + six derived goals); homed in the strategic node §Kernel additions | Owner card 2026-08-03 |
 | FIVE demos; runtime identity switching = showcase + hub only; hub = "first instance of a Claude Design app ingested and reconstructed with our tools"; plain + styled = small proof demos; fifth = the layout-range ("css zen garden like") demo | Owner card answer 2026-08-03, verbatim in the strategic node |
 | Cost-of-change value-frame: "enabling rapid innovation without compromising quality or stability" — both arms bind in every trade | Owner words 2026-08-03, relayed via Director event 7b00c9e5 |
 | The hub demo's search must WORK wherever the hub is served (live backend configured; the landed implementation is complete and tested — the verified gap is env credentials only, per the demo README) | Owner word 2026-08-05, Director session a0892f: "the search in the hub demo should _work_" |
-| W2.7 tilt values: PDS structural zero; Oak zero on interactive/content-bearing (decoration MAY tilt, structural zero if easier); EMC² leans in incl. ANIMATED tilts demonstrating motion vs no-motion — the former frontmatter session gate discharged | Owner card answer 2026-08-03 ~09:15Z, verbatim in the committed napkin (`b1b5431a7`); trued 2026-08-05 at the handover (Magnetar corroboration, first-hand napkin verification) |
+| W2.7 tilt values: PDS structural zero; Oak zero on interactive/content-bearing (decoration MAY tilt, structural zero if easier); EMC² leans in incl. ANIMATED tilts demonstrating motion vs no-motion — the former W2.7 off-horizontal session gate discharged | Owner card answer 2026-08-03 ~09:15Z, verbatim in the committed napkin (`b1b5431a7`); trued 2026-08-05 at the handover (Magnetar corroboration, first-hand napkin verification) |
 
 ## Relationships (the estate edges)
 
@@ -975,7 +1275,15 @@ W4.7/W5.5/W6.2 whole-demo checkpoints.
   review citation's report path (EX64) landed 2026-08-05 with the
   ratification stamp. No companion edit rides this node's landing change.
 - **ADR obligations by workstream**: W0.3 → the new Demos Charter ADR +
-  ADR-213 one-line pointer amendment (EX60); W1.1/W5.1 → ADR-041 demos rows
+  ADR-213 one-line pointer amendment (EX60) + the dated
+  `.agent/directives/testing-strategy.md` amendment DEFINING the
+  browser-suite test class
+  (Playwright UI/a11y suites: `.spec.ts` under `tests/`, wired via
+  `test:ui`/`test:a11y`) alongside the `e2e-tests/`/`*.e2e.test.ts`
+  system-test class — completing the directive's own "Use Playwright for
+  UI E2E tests" clause, which names the class without shaping it; the
+  shape is landed practice at the showcase suites and the MCP app's
+  visual suite (re-review round 2, finding 8); W1.1/W5.1 → ADR-041 demos rows
   - demos matrix row (EX73); W2.0 → ADR-041 design-row amendment (EX66);
   W2.1 → ADR-213 §2 identity-configuration amendment with the Oak clause
   (EX57); W2.2 → ADR-041 intra-design + ADR-213 §4 emitter-relation
@@ -1054,5 +1362,71 @@ follow invoke-code-experts; cross-lane residue routes to the Director.
   bar rule 6 and the standing control note, the register naming, D1
   batching, the §Relationships EX57/EX62/EX67/EX73/EX77 rows, the
   pointer-table additions).
-  Next review act: the SCOPED near-horizon re-review at draft-complete, to
-  zero findings, then the owner's implementation word.
+- Scoped re-review round 1 (2026-08-05, run `wf_ca61fcdf-52c`, 18 agents
+  over pinned main `188a0c8a5`): NOT zero — 20 real findings (3 confirmed
+  under adversarial verification, 17 beyond-cap adjudicated real first-hand
+  at the design seat; 7 refuted with grounds read and accepted);
+  `dispositions.v2.2.md` verified row-by-row (57/57, one phantom-D17
+  citation nit) and its 113-row completeness sweep clean. Director
+  adjudication same day (set accepted; the W0.2(b) declaration shape
+  resolved); every finding cured in this change. Round record:
+  `.agent/reports/design/plan-review-2026-08-02/re-review-2026-08-05.md`.
+  Next review act at that entry's writing: the scoped re-review re-runs
+  under the slope rule — superseded by the entry below.
+- Scoped re-review round 2 (2026-08-06, fleet run `wf_bd16152b-ee8`, 15
+  agents, 5 lenses, ~1.16M subagent tokens, over pinned `568160df7`): NOT
+  near-zero — 17 raw → 9 REAL after adversarial verification and first-hand
+  adjudication at the design seat (6 MATERIAL, 3 MINOR; 7 refutations'
+  grounds read and accepted). SLOPE 20 → 9: shrinking but not near-zero, so
+  per the slope rule THE LOOP STOPPED for structural diagnosis — no round 3.
+  Structural diagnosis (seat-authored, Director-accepted): at least six of
+  the nine are CURE-EDGE RESIDUE of round 1's point-instance curing —
+  multiply-stated invariants cured at the cited statement but not the
+  class, contracts cured separately leaving their intersection open, and
+  deletion cures whose pointer-claimed re-homing never landed.
+- Director adjudication (2026-08-06, directed event; mandate re-broadcast
+  as event `a729c466`): round-2 result ENDORSED in full, two findings
+  spot-verified first-hand. Disposition adopted: ONE COMBINED WINDOW — the
+  nine cures applied CLASS-WIDE (grep-enumerate every statement of each
+  touched invariant; verify every pointer's landing), folded WITH the
+  already-confirmed W0.5 amendment set, closed by a scoped DELTA-VERIFY
+  over the touched statements only — never a full round 3. The zero bar is
+  preserved: the owner's IMPLEMENTATION WORD comes at the delta-verify's
+  clean close. The heavier state-once-point-elsewhere refactor is a named
+  post-first-light hardening pointer — recorded, not scheduled. The window
+  remained SEALED until the owner's design work-word (the a729c466
+  payload; Saffron→Civet handoff 2026-08-07 carries the seat chain).
+- Combined window EXECUTED (2026-08-08, this change): the window opened at
+  the owner's word ("Time to unseal, time to make progress"), Director
+  ROUTE `b7e4b897`. The nine cures applied CLASS-WIDE with the statement
+  enumeration run as an 11-leg read-only workflow (`wf_45de2e3c-68c`, 0
+  errors) before any edit, and the confirmed W0.5 set folded (ten items,
+  three instruments, the two process-ruling riders — the W0.5 story
+  carries the ledger; W2.11 and W4.8 minted at pointer grade on the
+  owner's "named story"/"minted story" words). Pre-authoring gate: the
+  full Cricket quartet ×2 (5 ON-TRACK / 3 DRIFTING, all
+  provenance-class), routed non-unanimous to the Director and adjudicated
+  PROCEED with every dissent dissolved on primary sources. The durable
+  round-2 record authors with this window:
+  `.agent/reports/design/plan-review-2026-08-02/re-review-2026-08-06.md`
+  (findings, refutation grounds, structural diagnosis, cure and fold
+  accounting). The scoped delta-verify record is appended below at its
+  close; the owner's implementation word cards from the Director's seat
+  at the clean close.
+- Scoped DELTA-VERIFY (2026-08-08, closing this window): round 1 — ten
+  adversarial class-completeness legs + the same-reviewer leg
+  (docs-adr-expert at opus) over the touched statements
+  (`wf_034bd28a-b2f`, 11 legs, 0 errors) returned 6 blocking findings,
+  adjudicated at the seat into 4 defect classes against the pre-committed
+  disposition rule and ALL CURED in-window (the class-5 §Direction
+  taste-calibration splice REVERTED — dated records stay untouched; the
+  Lighthouse wiring landed in the W1.1 contract; the testing-strategy
+  amendment joined W0.3's acceptance line; the framing-prose column joined
+  the W0.1 census). Round 2 — the scoped same-reviewer re-verify over the
+  six re-touched sites: CLEAN, zero blocking findings; three of its six
+  non-blocking observations absorbed with the reviewer's own wording
+  (W1.1's acceptance carries the Lighthouse leg; the testing-strategy
+  cites carry the directive path; item 4 notes W2.9's inheritance), three
+  recorded and routed in the round-2 record. Slope 6 → 0: THE ZERO BAR IS
+  MET for the combined window. The next gate is the OWNER'S IMPLEMENTATION
+  WORD, carded from the Director's seat.

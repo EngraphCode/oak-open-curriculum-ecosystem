@@ -13,6 +13,15 @@ const withClerkKeys = {
   CLERK_SECRET_KEY: 'sk_test_123',
 };
 
+// Production-realm keys. Required whenever a fixture sets
+// VERCEL_ENV: 'production', since the Guard 1a key-locality refinement
+// rejects pk_test_/sk_test_ keys in production.
+const withLiveClerkKeys = {
+  ...baseEnv,
+  CLERK_PUBLISHABLE_KEY: 'pk_live_123',
+  CLERK_SECRET_KEY: 'sk_live_123',
+};
+
 describe('Environment Schema', () => {
   it('requires CLERK_PUBLISHABLE_KEY when auth enabled', () => {
     const result = HttpEnvSchema.safeParse(baseEnv);
@@ -133,15 +142,34 @@ describe('Conditional Clerk keys (DANGEROUSLY_DISABLE_AUTH)', () => {
     }
   });
 
-  it('allows DANGEROUSLY_DISABLE_AUTH=true in preview and development', () => {
-    for (const env of ['preview', 'development'] as const) {
-      const result = HttpEnvSchema.safeParse({
-        ...baseEnv,
-        DANGEROUSLY_DISABLE_AUTH: 'true',
-        VERCEL_ENV: env,
-      });
-      expect(result.success).toBe(true);
+  it('rejects DANGEROUSLY_DISABLE_AUTH=true in preview — a deployed, internet-reachable env', () => {
+    const result = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      DANGEROUSLY_DISABLE_AUTH: 'true',
+      VERCEL_ENV: 'preview',
+    });
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const paths = result.error.issues.map((i) => i.path.join('.'));
+      expect(paths).toContain('DANGEROUSLY_DISABLE_AUTH');
     }
+  });
+
+  it('allows DANGEROUSLY_DISABLE_AUTH=true in development and when VERCEL_ENV is unset (local)', () => {
+    const development = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      DANGEROUSLY_DISABLE_AUTH: 'true',
+      VERCEL_ENV: 'development',
+    });
+    expect(development.success).toBe(true);
+
+    // Unset VERCEL_ENV = a local, non-Vercel run — the valve stays usable.
+    const local = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      DANGEROUSLY_DISABLE_AUTH: 'true',
+    });
+    expect(local.success).toBe(true);
   });
 
   describe('CANONICAL_HOST', () => {
@@ -177,6 +205,92 @@ describe('Conditional Clerk keys (DANGEROUSLY_DISABLE_AUTH)', () => {
         expect(paths).toContain('CANONICAL_HOST');
       }
     });
+  });
+});
+
+describe('Clerk key-format locality (production)', () => {
+  // Clerk key prefixes are canonical: pk_test_/pk_live_, sk_test_/sk_live_.
+  // A production deployment holding development-realm (test) keys is the
+  // confirmed live gap this guard closes (prod /oauth/authorize 307-ing to
+  // the dev realm). See MCP-143 spec Guard 1a.
+
+  it('rejects a pk_test_ publishable key in production, on the publishable-key path', () => {
+    const result = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      CLERK_PUBLISHABLE_KEY: 'pk_test_123',
+      CLERK_SECRET_KEY: 'sk_live_123',
+      VERCEL_ENV: 'production',
+    });
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const paths = result.error.issues.map((i) => i.path.join('.'));
+      expect(paths).toContain('CLERK_PUBLISHABLE_KEY');
+    }
+  });
+
+  it('rejects an sk_test_ secret key in production, on the secret-key path', () => {
+    const result = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      CLERK_PUBLISHABLE_KEY: 'pk_live_123',
+      CLERK_SECRET_KEY: 'sk_test_123',
+      VERCEL_ENV: 'production',
+    });
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const paths = result.error.issues.map((i) => i.path.join('.'));
+      expect(paths).toContain('CLERK_SECRET_KEY');
+    }
+  });
+
+  it('accepts live keys in production', () => {
+    const result = HttpEnvSchema.safeParse({ ...withLiveClerkKeys, VERCEL_ENV: 'production' });
+    expect(result.success).toBe(true);
+  });
+
+  it('accepts test keys outside production — development, preview, and unset all pass', () => {
+    for (const env of ['development', 'preview'] as const) {
+      const result = HttpEnvSchema.safeParse({ ...withClerkKeys, VERCEL_ENV: env });
+      expect(result.success).toBe(true);
+    }
+    // unset VERCEL_ENV (local, non-Vercel) also passes
+    expect(HttpEnvSchema.safeParse(withClerkKeys).success).toBe(true);
+  });
+
+  // Discriminating cases: the guard is a production ALLOWLIST (require
+  // pk_live_/sk_live_), not merely a pk_test_/sk_test_ denylist. A key whose
+  // prefix is neither test nor live — a malformed, staging, or wrong-realm
+  // key — must ALSO fail closed. A denylist keyed on the test prefix would
+  // have let these boot production against a non-live Clerk realm.
+  it('rejects an unknown-prefix publishable key in production (allowlist, not a pk_test_ denylist)', () => {
+    const result = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      CLERK_PUBLISHABLE_KEY: 'pk_foobar_123',
+      CLERK_SECRET_KEY: 'sk_live_123',
+      VERCEL_ENV: 'production',
+    });
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const paths = result.error.issues.map((i) => i.path.join('.'));
+      expect(paths).toContain('CLERK_PUBLISHABLE_KEY');
+    }
+  });
+
+  it('rejects an unknown-prefix secret key in production (allowlist, not an sk_test_ denylist)', () => {
+    const result = HttpEnvSchema.safeParse({
+      ...baseEnv,
+      CLERK_PUBLISHABLE_KEY: 'pk_live_123',
+      CLERK_SECRET_KEY: 'sk_staging_123',
+      VERCEL_ENV: 'production',
+    });
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      const paths = result.error.issues.map((i) => i.path.join('.'));
+      expect(paths).toContain('CLERK_SECRET_KEY');
+    }
   });
 });
 
@@ -354,7 +468,15 @@ describe('PostHog product-analytics selection (OBSERVABILITY_SINKS)', () => {
       'accepts OBSERVABILITY_SINKS=["sentry","posthog"] with the full PostHog + live-Sentry config in %s',
       (vercelEnv) => {
         const result = HttpEnvSchema.safeParse({
-          ...withClerkKeys,
+          // Live keys + canonical host so the `production` iteration is a
+          // VALID prod env across the MCP-143 guard cascade: Guard 1a requires
+          // live-realm keys in production, and Guard 3 requires CANONICAL_HOST
+          // there. Guard 3 arrives with PR-3, so on branches before that this
+          // fixture is forward-compatible with it rather than exercising it —
+          // do not read the mention as evidence the control is already live.
+          // Both values are also accepted in dev/preview.
+          ...withLiveClerkKeys,
+          CANONICAL_HOST: 'www.thenational.academy',
           VERCEL_ENV: vercelEnv,
           OBSERVABILITY_SINKS: '["sentry","posthog"]',
           ...validPostHogVars,

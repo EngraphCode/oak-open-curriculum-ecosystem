@@ -93,7 +93,11 @@ into the permanent record):
    resolving it solo is how approved versions get silently reverted.
 2. **Tree and gates**: working tree clean; a successful push already ran the
    full pre-push gate suite, so a clean push IS the local-green proof — do not
-   re-run gates just to re-confirm it.
+   re-run gates just to re-confirm it. When several branches need pushing,
+   push them as ONE multi-ref command (`git push origin refA refB refC`) —
+   the pre-push gate chain runs once per push invocation, not per ref, so N
+   separate pushes pay the ~3-minute suite N times for the same tree
+   (first-hand, 2026-08-06).
 3. **Worktree PRs**: a worktree's branch should have carried a draft PR from
    its first commit (`worktree-hygiene` §1); this skill takes it to ready.
 4. **Scope the PR for review, not for tidiness**: an artefact that invites
@@ -255,6 +259,27 @@ surfaces. Partial reads produce false "no problems" verdicts:
   new defects, three of those in hardening no ticket asked for — before
   this ruling landed). Underlying principles:
   `concept-exploration` §Loop Dynamics; sizing gate: `proportionality`.
+- **A sampling finder has no fixed point — cure the CLASS, not the instance.**
+  A bot reviewer over a large, dense diff *samples* it differently each pass
+  rather than converging: measured suppressed-finding counts across one arc ran
+  5, 5, 2, 4, 3, 3, and round 10 flagged two surfaces that had been unchanged
+  since round 1. Waiting for such a loop to reach zero is waiting on a process
+  that has no zero. Two moves end it:
+  - **The class-kill.** When a finder lands one instance per round of the same
+    shape, stop curing instances and close the family in one move — a single
+    exact-set assertion ended a presence-only family that had recurred for three
+    consecutive rounds.
+  - **Tally-then-step-back at ~4 settled rounds**, with the materiality line
+    stated: cure correctness-class findings, disposition polish with a verified
+    failure scenario, make every item visibly adjudicated on the PR, and give any
+    routed residue a named carrier. Convergence then means *the loop closed
+    honestly*, not *the finder went quiet*.
+- **A growing round is a routing failure.** If the surface under review expands
+  between rounds, the loop cannot converge by construction — freeze the text and
+  route the additions, rather than reviewing a moving target (worked instance: a
+  design plan whose three full-depth rounds ran 98 → 112 → 113 findings while the
+  text doubled, because each cure added reviewable mass; the cure was partitioning
+  by horizon, not more rounds).
 - Order by blocking force and risk, not by tool order; root causes before
   echoes.
 - Sonar findings keep their per-site channel: **owner-dispositioned with
@@ -567,8 +592,14 @@ owner parameters. **The step-back trigger is
    ever bound to the tip), the quiet window anchors on the checks-green
    window from item 3. MERGE-READY is a settled round that landed zero new
    findings, plus every Phase 7 gate leg.
-5. **The merge boundary.** Merging takes exactly two sanctioned shapes,
-   both issued at a freshly RECOMPUTED full gate: the explicit
+5. **The merge boundary.** Merging takes exactly three sanctioned shapes,
+   all issued at a freshly RECOMPUTED full gate. For BOT merges the front
+   door is `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>`
+   (MCP-508): it recomputes this settlement verdict itself, merges only on
+   SETTLE-READY with the verdicted tip's sha pinned, and refuses by
+   verdict name — including SETTLED-NO-REVIEW, the timeout-settled round
+   this SKILL's item 4 anchor describes, which is watch-endable but NEVER
+   merge-eligible. The two non-bot shapes remain: the explicit
    `gh pr merge --merge` command, or ARMING auto-merge — permitted
    exactly and only **at settled-READY under a Director grant**
    (PDR-131, 2026-07-20; arming before settlement remains forbidden —
