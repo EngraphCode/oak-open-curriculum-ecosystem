@@ -170,6 +170,15 @@ swaps state and never layout.
 | 6 cross-page cohesion | FAIL    | The subject browse that same-identity sibling page-4 renders through the kit's `SubjectGrid` is here a hand-scattered card pile — same-role elements diverging across pages.                                                                                                                                                |
 | 7 ordered-calm        | FAIL    | Five hand-picked rotations — `rotate(-7deg)`, `4.5deg`, `-2.8deg`, `9deg`, `-5.2deg` (`page-8/index.html:32-56`) — over deliberately overlapping cards carrying real prose: both fail clauses at once, overlap/collage on an Oak page and unsystematic per-element rotation, against the owner's verbatim readability rule. |
 
+> **Erratum (record-keeper annotation, 2026-08-08 review round 1; the
+> harvested text above is conserved unedited).** The criterion-3 row's
+> SC 2.4.11 focus-obscuration clause is inapplicable: the collage cards
+> contain only headings and paragraphs — nothing focusable — so keyboard
+> focus cannot be obscured here. The row's valid substance (DOM order vs
+> visual order divergence, and opaque later-painted cards occluding
+> earlier cards' TEXT) stands unchanged, as does the criterion-3 FAIL it
+> grounds.
+
 ---
 
 **One note for the Director on the instrument itself, not on any page:**

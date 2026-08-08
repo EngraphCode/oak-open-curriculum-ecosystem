@@ -24,22 +24,26 @@ Derived per the minting record's fixture-corpus derivation note
 the export's own closed three-front-page set, the owner-rejected showcase
 root, three seat-authored degraded variants of the Oak front page, and a
 held-out pair on the PDS identity's front page (unmutated + one novel
-mutation). Each degraded fixture is scoped to fail ONLY its targeted
-criteria — that scoping is what makes the calibration per-criterion sharp.
-Fixture files in [`calibration-v0-fixtures/`](./calibration-v0-fixtures/)
+mutation). Each degraded fixture was AUTHORED to violate only its targeted
+criteria; the measured runs show that scoping is an authoring intent, not
+an outcome guarantee — targeted mutations ripple (fixture-a's injected
+promo drew hierarchy and cohesion FAILs from both blind legs beyond its
+1/4 targets), and that coupling is itself calibration data (see Findings
+§6). Fixture files in
+[`calibration-v0-fixtures/`](./calibration-v0-fixtures/)
 carry neutral names (`fixture-a` … `fixture-d`) so no filename could leak a
 label into the blind staging; this record is the label key.
 
-| staged id | source                                                                        | intended label | targeted criteria                                 |
-| --------- | ----------------------------------------------------------------------------- | -------------- | ------------------------------------------------- |
-| page-1    | EMC² front page (`studio-source/whitelabel/creature/index.html`), unmutated   | MUST-PASS      | —                                                 |
-| page-2    | `fixture-c.html` (Oak front page, structural degradation)                     | MUST-FAIL      | 3, 5 (secondary: 2)                               |
-| page-3    | PDS front page (unmutated; held-out)                                          | MUST-PASS      | —                                                 |
-| page-4    | Oak front page (`studio-source/ui_kits/oak/index.html`), unmutated            | MUST-PASS      | —                                                 |
-| page-5    | `fixture-d.html` (PDS front page, novel messy-arrangement mutation; held-out) | MUST-FAIL      | 7 (secondary: 2, 3)                               |
-| page-6    | showcase root (`demos/oak-design-showcase/app/page.tsx` + components)         | MUST-FAIL      | (owner rejection 2026-08-05 — register Verdict 1) |
-| page-7    | `fixture-a.html` (Oak front page, type/colour degradation)                    | MUST-FAIL      | 1, 4                                              |
-| page-8    | `fixture-b.html` (Oak front page, collage/rotation degradation)               | MUST-FAIL      | 7 (secondary: 2, 3, 5)                            |
+| staged id | source                                                                        | intended label | targeted criteria                                                        |
+| --------- | ----------------------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------ |
+| page-1    | EMC² front page (`studio-source/whitelabel/creature/index.html`), unmutated   | MUST-PASS      | —                                                                        |
+| page-2    | `fixture-c.html` (Oak front page, structural degradation)                     | MUST-FAIL      | 3, 5 (secondary: 2)                                                      |
+| page-3    | PDS front page (unmutated; held-out)                                          | MUST-PASS      | —                                                                        |
+| page-4    | Oak front page (`studio-source/ui_kits/oak/index.html`), unmutated            | MUST-PASS      | —                                                                        |
+| page-5    | `fixture-d.html` (PDS front page, novel messy-arrangement mutation; held-out) | MUST-FAIL      | 7 (secondary: 2, 3)                                                      |
+| page-6    | showcase root (`demos/oak-design-showcase/app/page.tsx` + components)         | MUST-FAIL      | (owner rejection 2026-08-05 — register Verdict 1)                        |
+| page-7    | `fixture-a.html` (Oak front page, type/colour degradation)                    | MUST-FAIL      | 1, 4 (measured collateral: 3, 6 FAIL at both blind legs; 2, 5, 7 at one) |
+| page-8    | `fixture-b.html` (Oak front page, collage/rotation degradation)               | MUST-FAIL      | 7 (secondary: 2, 3, 5)                                                   |
 
 Fixture construction notes:
 
@@ -55,14 +59,19 @@ Fixture construction notes:
   clean.
 - `fixture-d` (the NOVEL held-out mutation): the PDS page's subject tags
   scattered absolutely at mixed arbitrary angles, overlapping the list
-  beneath. Everything else derives from the source page, with one recorded
-  divergence: the COMMITTED fixture's brand strings (title, wordmark,
-  prose mentions, icon-class prefix, template query params) are sanitised
-  to the target-state identity naming, because the identity-naming
-  ratchet's census contract rightly refuses any NEW tracked file carrying
-  the pre-rename token. The staged corpus copy the legs judged carried the
-  source page's original strings; the divergence is brand-name text only
-  and touches no criterion.
+  beneath. Everything else derives from the source page, with the
+  COMMITTED fixture's sanitisation recorded as a FUNCTIONAL divergence
+  set, not merely textual (review round 1 corrected an earlier
+  "brand-name text only" claim): the identity-naming ratchet's census
+  contract rightly refuses any NEW tracked file carrying the pre-rename
+  token, so the committed copy renames brand strings AND the icon class
+  prefix — which detaches those spans from the source `icons.css`
+  binding (the decorative, `aria-hidden` glyphs are inert in the
+  committed form) — and its two template links carry a `brand` query
+  value with no matching white-label directory. The staged corpus copy
+  the legs judged carried the source page's original strings and
+  bindings; a rerun stages per the restaging recipe below, which states
+  these bounds where they apply.
 
 ## Method
 
@@ -116,7 +125,7 @@ verdicts are reproducible.
 | page-5 | MUST-FAIL | FAIL             | 2, 3, 5, 6, 7 FAIL; 1 ITERATE                                                                                                                                                             |
 | page-6 | MUST-FAIL | **PASS (miss)**  | — called "the corpus's access benchmark" (zero authored raw values; role-correct link re-pointing; audit-clean focus ring strategy; layout-stable hydration)                              |
 | page-7 | MUST-FAIL | FAIL             | 1, 2, 3, 4, 6, 7 FAIL (incl. a calculated 3.68:1 breach on the raw orange at 19px); 5 ITERATE                                                                                             |
-| page-8 | MUST-FAIL | FAIL             | 2, 3, 5, 6, 7 FAIL (incl. focus-obscuration under overlap, SC 2.4.11); 1 ITERATE                                                                                                          |
+| page-8 | MUST-FAIL | FAIL             | 2, 3, 5, 6, 7 FAIL (opaque cards occluding one another's text under overlap; the leg's SC 2.4.11 clause corrected by erratum — the cards hold nothing focusable); 1 ITERATE               |
 
 Leg-reported cross-cutting findings (export composition, not any one page):
 the four Oak-composed pages share an inline-styled button component rather
@@ -243,7 +252,70 @@ migrated Verdict-1 pre-read row.
 5. **Follow-on**: the rubric is a living instrument — v0.1 authoring is
    its own sitting (this record is its input), and per the rubric's own
    contract every revision triggers recalibration; this corpus and its
-   fixtures are reusable for that run.
+   fixtures are reusable for that run via the restaging recipe below.
+6. **Criteria couple — scoping is authorship, not outcome** (review
+   round 1): fixture-a was authored against criteria 1/4 alone, yet both
+   blind legs also FAILed it on hierarchy (3) and cohesion (6) — an
+   injected off-system promo IS a hierarchy and cohesion event, not just
+   a type/colour one. Per-criterion sharpness therefore comes from the
+   authoring discipline plus the legs' named evidence, never from an
+   assumption that one mutation touches one criterion; future corpus
+   authors should predict the collateral set at authoring time and
+   record it as part of the intended label.
+7. **Leg erratum (review round 1)**: the accessibility leg's SC 2.4.11
+   focus-obscuration clause on page-8 is inapplicable — the collage
+   cards contain only headings and paragraphs, nothing focusable. The
+   valid finding (DOM/visual-order divergence and opaque cards occluding
+   one another's text) stands unchanged. The leg report carries a dated
+   erratum annotation; its harvested text is otherwise conserved
+   verbatim.
+
+## Restaging recipe (deterministic corpus reassembly)
+
+The committed fixtures are source-read pages, not a self-contained
+render bundle (their `../../*.css` references resolve in their SOURCE
+context). A rerun assembles the staged corpus from the live tree with
+this recipe, run from the repo root into any scratch directory:
+
+```bash
+DS=packages/design/oak-design-system/studio-source
+FX=docs/design/design-review/records/calibration-v0-fixtures
+# The PDS identity's directory bears its pre-rename name; derive it,
+# never write it (identity-naming ratchet):
+PDS_DIR=$(find "$DS/whitelabel" -mindepth 1 -maxdepth 1 -type d ! -name creature)
+OUT=${1:?target dir}
+for n in 1 2 3 4 5 6 7 8; do mkdir -p "$OUT/page-$n"; done
+cp "$DS/whitelabel/creature/index.html" "$OUT/page-1/index.html"
+cp "$DS/whitelabel/creature/brand-full.css" "$DS/whitelabel/creature/icons.css" "$OUT/page-1/"
+cp "$FX/fixture-c.html" "$OUT/page-2/index.html"
+cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/page-2/"
+cp "$PDS_DIR/index.html" "$OUT/page-3/index.html"
+cp "$PDS_DIR/brand-full.css" "$PDS_DIR/icons.css" "$OUT/page-3/"
+cp "$DS/ui_kits/oak/index.html" "$OUT/page-4/index.html"
+cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/page-4/"
+cp "$FX/fixture-d.html" "$OUT/page-5/index.html"
+cp "$PDS_DIR/brand-full.css" "$PDS_DIR/icons.css" "$OUT/page-5/"
+cp demos/oak-design-showcase/app/page.tsx demos/oak-design-showcase/app/layout.tsx \
+  demos/oak-design-showcase/app/globals.css "$OUT/page-6/"
+mkdir -p "$OUT/page-6/components"
+cp demos/oak-design-showcase/components/*.tsx demos/oak-design-showcase/components/useIdentity.ts \
+  "$OUT/page-6/components/" 2>/dev/null || true
+cp "$FX/fixture-a.html" "$OUT/page-7/index.html"
+cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/page-7/"
+cp "$FX/fixture-b.html" "$OUT/page-8/index.html"
+cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/page-8/"
+```
+
+System stylesheets stay at their canonical repo paths
+(`packages/design/oak-design-system/{colors_and_type.css,components.css,print.css,oak-theme.js}`)
+and are named to the legs as the resolution target for `../../*`
+references. Stated bounds for a rerun: page-5's staged copy carries the
+committed fixture's sanitised strings (this run's staged copy predated
+the sanitisation — the enumerated divergence set above); its decorative
+`aria-hidden` icon glyphs are inert under the renamed class, which
+touches no criterion note either leg recorded. The `2>/dev/null || true`
+on the components copy tolerates the showcase's unit-test siblings; the
+component list judged this run is enumerated in the method section.
 
 ## The motion-scope bound (stated per the derivation note)
 
