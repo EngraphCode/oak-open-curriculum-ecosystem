@@ -1131,6 +1131,28 @@ follow invoke-code-experts; cross-lane residue routes to the Director.
   adjudication same day (set accepted; the W0.2(b) declaration shape
   resolved); every finding cured in this change. Round record:
   `.agent/reports/design/plan-review-2026-08-02/re-review-2026-08-05.md`.
-  Next review act: the scoped re-review RE-RUNS over this cured text under
-  the slope rule (near-zero or stop and diagnose structure — never a third
-  full round), then the owner's implementation word.
+  Next review act at that entry's writing: the scoped re-review re-runs
+  under the slope rule — superseded by the entry below.
+- Scoped re-review round 2 (2026-08-06, fleet run `wf_bd16152b-ee8`, 15
+  agents, 5 lenses, ~1.16M subagent tokens, over pinned `568160df7`): NOT
+  near-zero — 17 raw → 9 REAL after adversarial verification and first-hand
+  adjudication at the design seat (6 MATERIAL, 3 MINOR; 7 refutations'
+  grounds read and accepted). SLOPE 20 → 9: shrinking but not near-zero, so
+  per the slope rule THE LOOP STOPPED for structural diagnosis — no round 3.
+  Structural diagnosis (seat-authored, Director-accepted): at least six of
+  the nine are CURE-EDGE RESIDUE of round 1's point-instance curing —
+  multiply-stated invariants cured at the cited statement but not the
+  class, contracts cured separately leaving their intersection open, and
+  deletion cures whose pointer-claimed re-homing never landed.
+- Director adjudication (2026-08-06, directed event; mandate re-broadcast
+  as event `a729c466`): round-2 result ENDORSED in full, two findings
+  spot-verified first-hand. Disposition adopted: ONE COMBINED WINDOW — the
+  nine cures applied CLASS-WIDE (grep-enumerate every statement of each
+  touched invariant; verify every pointer's landing), folded WITH the
+  already-confirmed W0.5 amendment set, closed by a scoped DELTA-VERIFY
+  over the touched statements only — never a full round 3. The zero bar is
+  preserved: the owner's IMPLEMENTATION WORD comes at the delta-verify's
+  clean close. The heavier state-once-point-elsewhere refactor is a named
+  post-first-light hardening pointer — recorded, not scheduled. The window
+  remains SEALED, opening at the owner's design work-word (the a729c466
+  payload; Saffron→Civet handoff 2026-08-07 carries the seat chain).
