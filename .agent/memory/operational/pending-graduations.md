@@ -152,6 +152,17 @@ debt register, 2026-07-08).
   (or the goal-hook's own guidance) as the counterweight clause | trigger:
   fresh seat with directive-file headroom, as the rows above | size: one
   short paragraph | status: pending]`
+- **File-emitting watchers need an explicit read cadence or a wake
+  mechanism, or they are half-armed — an emit-to-file watcher whose buffer
+  is swept only at wake boundaries can sit on directed routings for tens of
+  minutes while reading as armed**
+  `[captured: 2026-08-08 | source: worked instance at the design seat (an
+  ARC opener and an ADOPT ruling sat ~25 min in a file-emitting watcher
+  buffer, owner-flagged; cure applied the same window — live Monitor tail
+  plus per-turn buffer sweep; agreed Director+design over the ARC pairing) |
+  target: use-monitor-for-event-driven-wake (clause), cross-referenced from
+  comms-all-channels-watcher | trigger: next curator pass or a fresh seat
+  with headroom | size: one short paragraph | status: pending]`
 
 <!-- Register drained to empty at the 2026-08-07 curator pass (Gull lifts Nimbus, fresh
 seat clearing the directive-file-context-budget gate both rows were held on): the

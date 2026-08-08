@@ -106,6 +106,14 @@ candidates the first time a landing tests them against the
 smallest-useful-number principle; the tree is cheap to re-cut
 precisely because projections are flat.
 
+Two annotation-time edges named by the design seat (2026-08-08, ARC
+pairing) for WS2/WS3 to carry: fidelity-review ↔ the W0.7
+design-review instrument (shared judge-against-reference shape; the
+calibration record cites the skill's vocabulary), and
+design-system-usage → the design-values-come-from-the-system rule's
+concern (the skill operationalises that rule; the edge makes the
+pairing discoverable).
+
 ### Family mechanics
 
 - Member ids are globally unique in the flat namespace
