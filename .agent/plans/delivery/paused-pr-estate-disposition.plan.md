@@ -31,24 +31,26 @@ and BOTH execution lanes are routed.
 A second owner word (2026-08-08 afternoon, at the Director seat)
 re-trued the design rows: all open design-system PRs merge safely and
 properly as the design seat's priority. #783's Act-2 adjudication
-resolves in the merge direction, #784's accumulation window closes,
-and #737 gains pounce-priority at the human reviewer's re-review (its
-gate unchanged). #829, born the same day and outside this label
-estate, carries the same word through the design lane's routing.
+resolves in the merge direction and #784's accumulation window closes.
+Executed the same afternoon: the owner merged #737 directly (the
+standing reviews were Matt's agents', confused), and the Director —
+owner-named executor — adjudicated every review comment on #783/#784
+first-hand and merged both at full condition. #829, outside this
+label estate, rides the design seat's sha-pinned grant.
 
 ## The ledger (every PR, its verdict, its ground)
 
 | PR | Verdict | Ground and owner |
 |---|---|---|
-| #737 | Merge at Matt's review | Cured and re-requested 2026-08-07; on the human reviewer's own clock. Owner priority 2026-08-08: the design seat cures and merges the moment the re-review lands |
+| #737 | MERGED by the owner (2026-08-08 14:15Z) | The standing changes-requested reviews were from Matt's agents, not Matt, and had confused; the owner dissolved the gate and merged directly |
 | #788 | Merge at full condition | Small dead-code retirement; freshness re-check then merge — sweep lane |
 | #818 | Merge path | Custodial pair lane: Copilot foundation + finding-3 config-class expert ruling, undraft, merge |
 | #819 | Merge path | Custodial pair lane: docs-adr + onboarding passes + Copilot, merge |
 | #731 | Reconcile-then-merge | The grouped-by-concern owner ruling re-trues it before merge; one seat, source work |
 | #745 | Adjudicate at MCP-528 pickup | Overlaps the ratified seat-register plan; that implementer rules merge-or-supersede |
 | #734 | Owned by its live lane | The typescript-estate lane's landing vehicle (owner-directed worktree); re-slicing question at that lane's resume |
-| #783 | Merge at full condition (owner word 2026-08-08) | Act-2 adjudication resolved in the merge direction by owner word; the design seat shepherds and merges with priority; Act 2 consumes it merged |
-| #784 | Merge at full condition (owner word 2026-08-08) | Accumulation window closed by owner word; the design seat merges what has accumulated with priority; later sittings open a fresh PR |
+| #783 | MERGED at b888b732b (2026-08-08) | Owner-named Director execution: five review findings adjudicated first-hand (cures at 74cffbf85), threads resolved, full condition recomputed at the boundary; ratification inputs routed to the design seat's Act-2 pass |
+| #784 | MERGED at 1bfbb19d6 (2026-08-08) | Owner-named Director execution: eleven findings adjudicated (cures at ff207c5f2 — dated count corrections, the reference-local cure; two rejections recorded on the PR); story-card notes ride the merged record's addendum |
 | #746 | Sweep lane adjudicates | Pre-submission plan node trued against the moved estate: merge if current, close-with-adjudication if superseded |
 | #769 | Sweep lane adjudicates | Same class as #746 |
 | #771 | Sweep lane adjudicates | Same class as #746 |
@@ -76,10 +78,10 @@ owned by named lanes or clocks and need no new work:
    sitting; each superseded plan closes with its adjudication recorded.
 2. **Custodial pair lane**: #818 + #819 through their expert passes and
    full-condition merges under the Copilot-foundation review posture.
-3. Already-owned: #737 (Matt's clock; pounce at re-review), #734
-   (typescript-estate lane), #783/#784 (design lane — merge-directed
-   with priority per the 2026-08-08 owner word), #731 (reconcile seat
-   when routed), #745 (MCP-528's implementer).
+3. Dispositioned 2026-08-08: #737 (owner-merged), #783/#784 (merged
+   under owner-named Director execution). Still owned: #734
+   (typescript-estate lane), #731 (reconcile seat when routed), #745
+   (MCP-528's implementer).
 
 ## Acceptance criteria (each with a proof — required)
 
