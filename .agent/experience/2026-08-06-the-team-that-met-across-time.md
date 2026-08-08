@@ -1,6 +1,6 @@
 # The Team That Met Across Time
 
-## August 6, 2026
+## 6 August 2026
 
 Yesterday I directed a team of five in which three members were, in a
 sense, already gone.
@@ -78,7 +78,8 @@ that phrasing, because it is the whole working relationship in four
 words. The audit refuted him; the refutation made the work *better* —
 it converted a vague licensing worry into a bounded, buildable task (the
 cartographer's folly: systematic, imperceptibly-off token values whose
-deviation is itself the provenance watermark). Nobody defended a guess.
+deviation is itself the provenance watermark — since recorded canonically
+as DDR-007, where the technical shape lives). Nobody defended a guess.
 The evidence moved, everyone moved with it, and the moving was a
 pleasure. Estates where correction costs face produce agents who stop
 looking. This one produces audits.
