@@ -1,12 +1,22 @@
+---
+boundary: B2-Architecture
+doc_role: instrument
+authority: design-review
+status: active
+last_reviewed: 2026-08-08
+---
+
 # The design-review rubric — v0
 
 Minted by the completion plan's W0.7 (the design-review instrument), revision
 **v0**, 2026-08-08. This rubric is a LIVING instrument: every revision
 triggers recalibration, and each graded calibration record under
 [`records/`](./records/) names the revision it calibrated. The wow-verdict
-register beside this file records every verdict the instrument and the owner
-produce, so the instrument's miss-rate against the owner's actual verdicts
-is measurable — its blocking authority is earned, never assumed.
+register beside this file ([`wow-verdict-register.json`](./wow-verdict-register.json),
+schema-validated by `agent-tools/src/validators/wow-verdict-register/`)
+records every verdict the instrument and the owner produce, so the
+instrument's miss-rate against the owner's actual verdicts is measurable —
+its blocking authority is earned, never assumed.
 
 ## The instrument
 
@@ -22,11 +32,15 @@ affirmed in the 2026-08-08 Director ruling at this rubric's minting);
 fallback goes UP in capability at lower effort, never down.
 
 Each leg judges against the criteria below AND free-form, returning
-PASS / FAIL / ITERATE per page with per-criterion notes. Legs are
-dispatched blind: no leg sees another leg's verdict, an intended label,
-or the owner's prior words about the page. Every leg's verdicts land in
-the wow-verdict register's instrument-leg results (required at
-checkpoint-class rows).
+PASS / FAIL / ITERATE per page WITH a verdict for every one of the seven
+criteria (a note is required on any non-PASS criterion — per-criterion
+evidence is what calibrates the instrument; the register schema refuses
+a partial evaluation). Legs are dispatched blind: no leg sees another
+leg's verdict, an intended label, or the owner's prior words about the
+page. Every leg's verdicts land in the wow-verdict register's
+instrument-leg results (required at checkpoint-class rows; a render a
+leg blocks is recorded as an `instrument-blocked` row carrying the
+Director disposition, never an invented owner verdict).
 
 **Fail semantics**: any leg's FAIL blocks the render from reaching the
 owner. A blocking FAIL routes to the Director in the Quality-bar rule-3
@@ -142,6 +156,14 @@ none.
   item 2 (ordered-calm), item 4 (systematic rotation), item 6 (motion
   stances), the taste-anchor definition at the plan's W0.10.
 - The official Oak Design Kit's five-step per-component accessibility
-  documentation protocol — an idea restated in our own words with
-  attribution, per the fidelity gradient (band 4: principles and protocols
-  transfer freely; the folly binds values, not disciplines).
+  documentation protocol (kit file `YcWQMMhHPVVmc47cHHEEAl`, A11y
+  Documentation node `12381-529` — a token-stripped pointer per the
+  estate convention; resolve via the Figma tooling at time of use). The
+  kit documents five steps PER COMPONENT (usage description; all states
+  incl. device variants; focus order and keyboard behaviour; known
+  issues; content guidance); our restatement adapts the protocol IDEA to
+  a per-PAGE three-leg review with per-criterion recording — the unit of
+  application differs, the discipline transfers. Restated in our own
+  words with attribution per the fidelity gradient (band 4: principles
+  and protocols transfer freely; the folly binds values, not
+  disciplines).

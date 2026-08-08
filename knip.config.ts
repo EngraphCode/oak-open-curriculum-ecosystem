@@ -254,7 +254,7 @@ const config: KnipConfig = {
       // load. studio-source/ is the explicitly separated non-production
       // studio material (see its README) and is the only part out of scope.
       entry: ['src/oak-theme.ts'],
-      project: ['src/**/*.ts', 'design-review/**/*.ts', '*.js'],
+      project: ['src/**/*.ts', '*.js'],
     },
     'packages/design/oak-design-tokens': {
       // Source entry behind the dist-pointing `./terminal-theme` export
