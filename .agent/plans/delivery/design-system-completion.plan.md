@@ -673,9 +673,10 @@ DoD.
   workspace-plumbing scaffolding-class, said here — the kit-asset parity
   unit test is the story's one behavioural boundary.
   Acceptance (`repo-safe`: `pnpm check` green from cold with the workspace
-  in, the parity unit test vitest-visible; the Lighthouse budget config and
-  CI leg wired; the ADR-041 row-and-column
-  amendment diff in the PR).
+  in, the parity unit test vitest-visible; the Lighthouse budget wiring
+  pattern present per this contract — the showcase carries the live
+  per-page budget requirement (cross-demo acceptance); the ADR-041
+  row-and-column amendment diff in the PR).
 - **W1.2 The export's three composed pages, authored fresh against the live
   kit.** Fresh authoring — the `studio-source/` pages STAY under
   studio-source; the demo authors its own markup expressing the same
@@ -700,7 +701,9 @@ DoD.
   instances (item 3), the creature reduced-motion defect where that page is
   chosen (item 6), and the White-Labelling footer copy where it appears
   (item 10). Acceptance (`repo-safe`:
-  `test:ui` + `test:a11y` per the charter DoD incl. the no-flash cells;
+  `test:ui` + `test:a11y` per the charter DoD incl. the no-flash cells; the
+  content-provenance manifest complete over the chosen pages — item 3 is
+  blocking here and the acceptance carries it;
   `owner-held`: wow checkpoint below).
 - **W1.3 Wow checkpoint #1** (`owner-held`): rendered in the owner's Chrome
   (pixels, never artefact paths), verdicts recorded per page in the
@@ -854,7 +857,8 @@ pre-read and per-identity owner direction sittings).
   class: every referenced asset resolves inside the served tree — the
   export's sibling-layout failure class) and the content-provenance rows
   (item 3) beside the licence notices. Depends: W2.0. Acceptance shape
-  (`repo-safe`): hermetic demo suites + licence rows + the closure gate.
+  (`repo-safe`): hermetic demo suites + licence rows + the closure gate +
+  the content-provenance rows present per identity payload.
 - **W2.9 Identity design authorship.** Goal: the counter-identities authored
   to the wow bar as first-class design work, each judged against its OWN taste
   anchor (minted before W2 opened — FR0 r3) and across its FULL theme roster,
@@ -862,9 +866,11 @@ pre-read and per-identity owner direction sittings).
   2026-08-05, folded per the Director's process ruling): the official Oak
   Design Kit is reference-only — values may be EXAMINED exactly (read-only
   Figma access, quota-metered; the export-to-reference-local practice) and
-  every value USED deviates deliberately per the cartographer's-folly
-  ruling, canonical at DDR-007 (systematic, harmony-preserving,
-  accessibility-safe perturbation); provenance lands in the
+  every EXPRESSIVE PALETTE value USED deviates deliberately per the
+  cartographer's-folly ruling, canonical at DDR-007 with its own bounds
+  (systematic, harmony-preserving, accessibility-safe perturbation;
+  exempt classes — the attributed exact `ci-*` scientific values among
+  them — stay exact per that record); provenance lands in the
   content-provenance manifest's identity-values column (W0.5 item 3). The
   Oak identity authorship carries the bounded SYSTEMATIC FOLLY PASS over
   the 68 byte-identical palette values found by the 2026-08-05 trap-street
@@ -951,8 +957,9 @@ r3).
   generated and dispositioned to zero rows, declared-sequence focus-order
   checks standing. Depends: W1.4's page-set artefact; W2/W3 only where a page
   consumes them. Acceptance shape (`repo-safe`): suites green at every
-  landing + zero undispositioned inventory rows; (`owner-held`): page-batch
-  wow checkpoints per §Quality bar.
+  landing + zero undispositioned inventory rows + the content-provenance
+  manifest complete over each landed page (item 3 gates the rebuild);
+  (`owner-held`): page-batch wow checkpoints per §Quality bar.
 - **W4.3 Export-page expression per the census dispositions.** Goal: every
   express-composed and fold-into-composition row lands on a named showcase
   surface within its page's feature budget. Depends: the W4.2 cadence.
@@ -980,9 +987,10 @@ r3).
   (implying a reset) — the document-artefact workflow property;
   localStorage-only keeps privacy trivial. Depends: sequenced after first
   light; the W1.4 page set names the slides surface. Acceptance shape
-  (`repo-safe`): demo suites over the edit/persist/reset cells;
-  (`owner-held`): wow checkpoint. Mechanism at story open under per-story
-  review.
+  (`repo-safe`): demo suites over the edit, persist, reset,
+  convert-to-PDF, and print cells — every named button behaviour has a
+  cell; (`owner-held`): wow checkpoint. Mechanism at story open under
+  per-story review.
 
 ### W5 — The styled-components demo (pointer stories — mechanism at story open)
 
@@ -1034,10 +1042,11 @@ wow checkpoint over every variant.
 - **W6.1 Cross-demo verification, mechanical.** Goal: the resolved-rendering
   cells (theme, identity, motion, before-first-paint, JS-disabled) green in
   all FIVE demos; the hub's story is verification of its existing wiring with
-  recorded mutation proofs. The W0.5 instrument derivations verify here as
-  cross-demo cells (census→sitemap→axe/Lighthouse page-list parity;
-  per-page performance budgets), and the motion cell is judged against the
-  per-identity stances (W2.7). Acceptance shape (`repo-safe`): the named
+  recorded mutation proofs. The W0.5 instrument derivations verify here
+  (census→sitemap→axe page-list parity as cross-demo cells where a demo
+  carries a sitemap; the Lighthouse budgets leg over the showcase's derived
+  page list, its scoped carrier), and the motion cell is judged against
+  the per-identity stances (W2.7). Acceptance shape (`repo-safe`): the named
   cells green in every demo.
 - **W6.2 Hub whole-demo checkpoint** (`owner-held`): the end-to-end browse
   closing the hub reading against the finished estate, owner-viewed cells per
@@ -1121,10 +1130,11 @@ stated 113-row completeness sweep clean (see §Review record).
   genuinely distinct full/reduced).
 - Lighthouse CI PERFORMANCE BUDGETS per page (W0.5 instrument, owner word:
   "prove it is performant"; Director strengthening: budgets, not one-off
-  measurements): per-page budget assertions in CI for every showcase page,
-  the page list derived from the census-generated sitemap
-  (method-independent parity); budget wiring lands with each demo
-  workspace's plumbing per the W1.1 contract.
+  measurements). The requirement is SHOWCASE-SCOPED — the owner's stated
+  surface ("every showcase page") — with the page list derived from the
+  census-generated sitemap (method-independent parity). The wiring pattern
+  is defined once in the W1.1 plumbing contract, so any demo later adopting
+  budgets inherits the mechanism; the showcase carries the requirement.
 - Styling sourced solely from the design system through each demo's declared
   consumption path. Zero raw literals at point of use for the showcase, plain,
   styled, and layout-range demos (instruments per demo: W0.8 walker, W4.6
