@@ -3559,3 +3559,37 @@ commit SHA and the closing plan reference.
 - **Status**: OPEN. Interim practice: carry foreign headings unaltered; the pass
   that processes them re-titles or drains them (the 2026-08-06 reconciliation's
   own convention).
+
+### F-156 — merge-bot merge injects the minted app token into the OAuth-only review-run probe
+
+- **Source**: Civet spins Cavern (`054f5e`), 2026-08-07 ~20:58Z, first live
+  firing of the MCP-508 merge arm (#821/#822 merge attempts), first-hand.
+- **Observed**: `merge-bot merge` wraps EVERY gh invocation in the
+  tokenised executor (`merge.ts` — GH_TOKEN = minted installation token,
+  injected last by design). The review-run liveness probe
+  (`gh agent-task list`, `review-runs.ts`) runs under that same env and
+  gh refuses: "this command requires an OAuth token" — installation tokens
+  cannot use the agent-task surface. The leg degrades typed and
+  `decideMergeAction` refuses with "review-run liveness unavailable"
+  (exit 3). Reproduced: the identical command succeeds under the ambient
+  keyring OAuth auth.
+- **Expected**: reads ride the keyring path, writes ride the minted token
+  (the estate's standing split — handoff §6, bot-identity rules). The
+  liveness probe is a READ; it should execute under the base env, not the
+  tokenised executor.
+- **Candidate cure / promotion trigger**: route the agent-task probe (and
+  any other read-only leg) through the untokenised base executor inside
+  `merge-bot merge`, with a test pinning the env split. Promotes when a
+  seat takes the merge-bot lane (natural window: alongside the #820 F-112
+  cure family, same module). Related-but-distinct design question routed
+  to the owner's morning: whether QUOTA-SKIPPED (owner-ruled settled,
+  2026-07-21) should ever be COMMAND-merge-eligible — tonight it is
+  handled by per-PR Director grants on the manual REST shape, the
+  instrument untouched.
+- **Status**: CURED — PR #823 (merge commit 2fc5eae83, head 89ec41860,
+  2026-08-08): the read path runs on a pinned token-free environment
+  (keyring-deterministic, host pinned, enterprise fallbacks stripped) while
+  the merge PUT keeps the minted token via fetch; the env split is pinned by
+  `readEnv` unit tests AND a real-child contract test that kills the
+  env-drop mutant at the mechanism. The QUOTA-SKIPPED command-mergeability
+  design question remains SEPARATE, on the Director's morning board.
