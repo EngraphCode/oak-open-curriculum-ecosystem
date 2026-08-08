@@ -36,7 +36,7 @@ const config = defineConfigArray(
   },
   configs.strict,
   {
-    files: ['src/**/*.ts'],
+    files: ['src/**/*.ts', 'design-review/**/*.ts'],
     languageOptions: {
       globals: { ...globals.browser, ...globals.es2021 },
       parserOptions: { projectService: false, project: wsTsProject, tsconfigRootDir: thisDir },

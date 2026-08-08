@@ -15,12 +15,16 @@ import { baseTestConfig } from '../../../vitest.config.base';
  * injected fakes, or compared byte-for-byte with the committed copy. They
  * are not smoke tests: smoke invokes the artefact exactly as production
  * does, with no fakes and no feature assertions. They are named
- * *.integration.test.ts; the include below is scoped to exactly that
- * category so the taxonomy's one-category-per-config rule holds.
+ * *.integration.test.ts. The design-review tree's suite is UNIT-class (a
+ * pure boundary parser; its committed JSON enters as imported data, never
+ * IO); its include is a tree CATCH-ALL because mergeConfig CONCATENATES
+ * includes with the base config's — src/ inherits the base catch-all,
+ * design-review/ does not, and a category-scoped glob there would let a
+ * differently-named future suite silently never run.
  */
 export default mergeConfig(baseTestConfig, {
   test: {
     environment: 'happy-dom',
-    include: ['src/**/*.integration.test.ts'],
+    include: ['src/**/*.integration.test.ts', 'design-review/**/*.test.ts'],
   },
 });
