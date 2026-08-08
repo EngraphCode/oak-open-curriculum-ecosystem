@@ -5,10 +5,12 @@ name: Commit-queue front-door cleanup command
 overview: >-
   A front-door agent-tools command that archives terminal and expired
   commit-queue entries so the live registry reads clean without hand-editing.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-08
+ratified_where: >-
+  Owner decision card at the Director seat 2026-08-08 morning ("Ratify");
+  recorded on comms event 7b609205-293c-4702-9dd6-a975414e9cda
 serves: coordination-substrate
 impact_areas:
   - practice-and-estate
