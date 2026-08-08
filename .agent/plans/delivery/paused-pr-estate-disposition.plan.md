@@ -28,19 +28,27 @@ ledger — the record that no PR was silently dropped. The owner answered
 the ledger's three forks the same sitting: #766 merges as research docs,
 and BOTH execution lanes are routed.
 
+A second owner word (2026-08-08 afternoon, at the Director seat)
+re-trued the design rows: all open design-system PRs merge safely and
+properly as the design seat's priority. #783's Act-2 adjudication
+resolves in the merge direction, #784's accumulation window closes,
+and #737 gains pounce-priority at the human reviewer's re-review (its
+gate unchanged). #829, born the same day and outside this label
+estate, carries the same word through the design lane's routing.
+
 ## The ledger (every PR, its verdict, its ground)
 
 | PR | Verdict | Ground and owner |
 |---|---|---|
-| #737 | Merge at Matt's review | Cured and re-requested 2026-08-07; on the human reviewer's own clock |
+| #737 | Merge at Matt's review | Cured and re-requested 2026-08-07; on the human reviewer's own clock. Owner priority 2026-08-08: the design seat cures and merges the moment the re-review lands |
 | #788 | Merge at full condition | Small dead-code retirement; freshness re-check then merge — sweep lane |
 | #818 | Merge path | Custodial pair lane: Copilot foundation + finding-3 config-class expert ruling, undraft, merge |
 | #819 | Merge path | Custodial pair lane: docs-adr + onboarding passes + Copilot, merge |
 | #731 | Reconcile-then-merge | The grouped-by-concern owner ruling re-trues it before merge; one seat, source work |
 | #745 | Adjudicate at MCP-528 pickup | Overlaps the ratified seat-register plan; that implementer rules merge-or-supersede |
 | #734 | Owned by its live lane | The typescript-estate lane's landing vehicle (owner-directed worktree); re-slicing question at that lane's resume |
-| #783 | Design lane owns | Feeds Act 2 of the unsealed payload; the design seat adjudicates merge-or-supersede inside Act 2 |
-| #784 | Design lane owns | Accumulating sitting-records register; merges when its window closes |
+| #783 | Merge at full condition (owner word 2026-08-08) | Act-2 adjudication resolved in the merge direction by owner word; the design seat shepherds and merges with priority; Act 2 consumes it merged |
+| #784 | Merge at full condition (owner word 2026-08-08) | Accumulation window closed by owner word; the design seat merges what has accumulated with priority; later sittings open a fresh PR |
 | #746 | Sweep lane adjudicates | Pre-submission plan node trued against the moved estate: merge if current, close-with-adjudication if superseded |
 | #769 | Sweep lane adjudicates | Same class as #746 |
 | #771 | Sweep lane adjudicates | Same class as #746 |
@@ -68,9 +76,10 @@ owned by named lanes or clocks and need no new work:
    sitting; each superseded plan closes with its adjudication recorded.
 2. **Custodial pair lane**: #818 + #819 through their expert passes and
    full-condition merges under the Copilot-foundation review posture.
-3. Already-owned: #737 (Matt's clock), #734 (typescript-estate lane),
-   #783/#784 (design lane), #731 (reconcile seat when routed), #745
-   (MCP-528's implementer).
+3. Already-owned: #737 (Matt's clock; pounce at re-review), #734
+   (typescript-estate lane), #783/#784 (design lane — merge-directed
+   with priority per the 2026-08-08 owner word), #731 (reconcile seat
+   when routed), #745 (MCP-528's implementer).
 
 ## Acceptance criteria (each with a proof — required)
 
