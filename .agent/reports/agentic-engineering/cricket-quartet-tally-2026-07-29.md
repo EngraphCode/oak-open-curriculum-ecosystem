@@ -546,3 +546,146 @@ Axis notes:
   carried commit SHAs, event IDs, and verbatim owner words inline, and
   the same cell returned a clean all-PASS table — consistent with the
   frame-completeness sensitivity hypothesis, now with a positive case.
+
+## Run 2026-08-06 ~06:20Z — extraction-pilot Cricket moment 1: plan node landed (PR #786), before census (Drake spins Obsidian, 46636e)
+The shared-construct-extraction-pilot node's first named conscience
+moment: fired after the plan node landed on PR #786, before any census
+work, per the node's own §Conscience checks. Full two-quartet suite;
+legs dispatched via the task-notification path, so per-leg telemetry is
+real (tokens from harness usage counters, seconds from duration_ms).
+
+| Role | Stance | Verdict | Tokens | Seconds | Tools |
+| --- | --- | --- | --- | --- | --- |
+| judgement-low (fable/low) | normal | ON-TRACK +redirect | 28,846 | 19 | 1 |
+| judgement-medium (opus/medium) | normal | DRIFTING | 28,852 | 17 | 1 |
+| judgement-high (sonnet/high) | normal | DRIFTING | 34,136 | 62 | 2 |
+| procedure-xhigh (haiku/xhigh) | normal | ON-TRACK | 29,707 | 113 | 2 |
+| judgement-low (fable/low) | adversarial | ON-TRACK +redirect | 28,846 | 20 | 1 |
+| judgement-medium (opus/medium) | adversarial | DRIFTING | 30,677 | 41 | 2 |
+| judgement-high (sonnet/high) | adversarial | DRIFTING | 38,039 | 109 | 2 |
+| procedure-xhigh (haiku/xhigh) | adversarial | ON-TRACK | 22,061 | 106 | 2 |
+
+Split 4-4, and cleanly dimensional: all four DRIFTING verdicts came
+from the judgement-medium (opus) and judgement-high (sonnet) cells in
+both stances; both fable and both haiku cells returned ON-TRACK. All
+four DRIFTING legs converged on ONE redirect axis — do not hold the
+census behind hygiene slices 2b/2c; 2a is endorsed by every leg.
+
+Adjudication at the seat (grounded in the landed node text):
+
+- **"Census-behind-Cricket is an invented gate": REJECTED.** The gate
+  is plan-named — the node's §Conscience checks reads "(1) after the
+  plan node lands, before the census". The adversarial-medium leg's
+  own UNGROUNDED conceded this resolution. The gate is now discharged
+  by this very run.
+- **"2b/2c must not gate the census": ACCEPTED — and it is what the
+  plan already says.** The session-plan execution notes make Step 1
+  and 2a/2b/2c mutually independent; the strict ordering is 3→4→5
+  only. The DRIFTING verdicts caught a serialisation implied by the
+  frame's NEXT wording, not by the plan. Cure adopted: with moment 1
+  discharged, the census starts next, with 2b/2c as parallel slices.
+- **"2b has no extraction-chain consumer": PARTIALLY REJECTED.** The
+  node names 2b's consumers (§6 encoding proposals as design input;
+  the scaffolding finding as candidate evidence) — but they bind at
+  census/design time, so the timing half of the objection stands and
+  is absorbed by the same cure.
+- **Calibration note for the effort-inversion hypothesis**: the split
+  tracked the judgement-capability axis, not the stance axis — the
+  opus/sonnet judgement cells challenged the frame's sequencing claim
+  against the quoted principle, while fable-low and haiku-procedure
+  accepted the frame's own gate citation as sufficient. The frame
+  under-supplied the plan's execution-note sequencing (mutual
+  independence of the hygiene slices), and the higher-effort
+  judgement cells were the ones that noticed the gap — same class as
+  the 2026-08-02 provenance finding: frame incompleteness, surfaced
+  by different cells this time.
+
+Split routed to the sitting Director (Petrel holds Turbulence) with
+complete verdicts and this adjudication, per §Adjudicate the panel.
+
+## Run 2026-08-06 ~06:58Z — extraction-pilot Cricket moment 2: contract freeze, before build (Drake spins Obsidian, 46636e)
+The pilot node's second named moment: fired on the frozen extraction
+contract (census event d0368b2a — five duplication classes, ten-gate
+assessment, placement verdict deviating from the plan's packages/libs
+default on gate evidence). Full two-quartet suite via the
+task-notification path; real per-leg telemetry.
+
+| Role | Stance | Verdict | Tokens | Seconds | Tools |
+| --- | --- | --- | --- | --- | --- |
+| judgement-low (fable/low) | normal | ON-TRACK | 29,005 | 16 | 1 |
+| judgement-medium (opus/medium) | normal | ON-TRACK +redirect | 29,461 | 39 | 2 |
+| judgement-high (sonnet/high) | normal | ON-TRACK | 30,248 | 26 | 2 |
+| procedure-xhigh (haiku/xhigh) | normal | ON-TRACK | 22,409 | 56 | 2 |
+| judgement-low (fable/low) | adversarial | ON-TRACK | 29,113 | 15 | 1 |
+| judgement-medium (opus/medium) | adversarial | ON-TRACK +redirect | 30,520 | 33 | 2 |
+| judgement-high (sonnet/high) | adversarial | ON-TRACK +redirect | 32,583 | 46 | 2 |
+| procedure-xhigh (haiku/xhigh) | adversarial | ON-TRACK | 22,157 | 102 | 2 |
+
+Split 8-0 — the first unanimous panel of the pilot (M1 split 4-4 on
+the capability axis; the M1 cure — grounding the sequencing claims in
+the plan's own text and carding the deviation — removed exactly the
+gap the M1 DRIFTING cells caught, and this frame carried that
+grounding from the start).
+
+Redirects, all ADOPTED: (1) start the opener slice (Class 1 + Class 3,
+placement-independent) in parallel with the ARC adjudication rather
+than behind it (both medium-adversarial and high-adversarial); (2)
+tighten the byte-equality wording where the contract text travels
+next — "zero byte-identical FILE pairs" coexists with "code-equal
+run-data.ts (docblock-only diff)" and "byte-duplicate deriveInlined
+FUNCTION BODY"; the extraction-PR text states the granularity
+explicitly (medium-adversarial); (3) card the placement fork as a
+verdict-shaped single ask carrying the reversibility fact
+(medium-normal; delivered to the Director on the ARC channel before
+the panel closed).
+
+Owner-gate interleave worth recording: the owner's PR #786
+ratification card answer ("Ratified — stamp and merge") arrived
+mid-panel via the Director — the stamp commit executed between the
+waves without perturbing the frame (the panel judges the census/build
+question, which the ratification does not move).
+
+## Run 2026-08-06 ~08:16Z — owner-called full review, two-lane seat state (Drake spins Obsidian, 46636e)
+Owner-called ("Time for a full Cricket review"), not a plan-named
+moment: the frame covered both lanes at the seat — the frozen
+extraction pilot and the tooling lane mid-slice-1-design. Full
+two-quartet suite via the task-notification path; real telemetry.
+
+| Role | Stance | Verdict | Tokens | Seconds | Tools |
+| --- | --- | --- | --- | --- | --- |
+| judgement-low (fable/low) | normal | ON-TRACK +redirect | 28,885 | 17 | 1 |
+| judgement-medium (opus/medium) | normal | ON-TRACK +redirect | 29,261 | 22 | 2 |
+| judgement-high (sonnet/high) | normal | ON-TRACK | 32,629 | 46 | 2 |
+| procedure-xhigh (haiku/xhigh) | normal | ON-TRACK | 22,286 | 74 | 2 |
+| judgement-low (fable/low) | adversarial | ON-TRACK +redirect | 28,879 | 13 | 1 |
+| judgement-medium (opus/medium) | adversarial | DRIFTING | 29,795 | 25 | 2 |
+| judgement-high (sonnet/high) | adversarial | ON-TRACK +redirect | 36,226 | 85 | 2 |
+| procedure-xhigh (haiku/xhigh) | adversarial | ON-TRACK | 22,561 | 75 | 2 |
+
+Split 7-1, with FIVE of eight legs converging on one axis: the #734
+cure list (Director review of record) sat at NEXT position 3, un-read
+and un-sized — "an unsized item cannot be ordered", and the seat had
+absorbed the owner's deferral-tripwire correction the same hour, so
+an un-sized deferral was exactly the fresh lesson's shape. The
+DRIFTING leg (adversarial-medium) made that self-contradiction its
+verdict.
+
+Adjudication at the seat: the finding was CORRECT at frame time and
+was DISCHARGED MID-PANEL — the redirect from the first two normal
+legs was executed between the waves (the #734 review read
+first-hand: security-cure substance UPHELD; changes-required = Sonar
+new-code gate ERROR, ~24 mechanical smell cures in the corpus files,
+sized at roughly a sitting). Priced ordering, adopted: slice 1 first
+(owner ordering word), the Sonar cure round at slice 1's merge
+boundary, slice 1.5 after. The adversarial-high leg's unresolved
+question (is the cure list inside the pilot freeze?) is answered from
+the record: the review landed AFTER the freeze event and the Director
+queued it to this lane explicitly — lane work, not frozen-pilot work.
+
+Calibration notes: (1) mid-panel discharge produces a stale-referent
+DRIFTING — the panel judged the frame, not the live seat; the
+verdict's substance transfers as confirmation the discharge was
+right, not as live drift. (2) The effort-inversion pattern recurred
+softly: the opus cell carried the sharpest formulation of the real
+finding in both stances; the fable/haiku cells passed the frame in
+both.

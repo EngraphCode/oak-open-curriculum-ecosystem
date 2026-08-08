@@ -143,6 +143,28 @@ Director, or to the owner at an action moment — never a licence to fall back
 to owner credentials. The fallback happens only when the owner explicitly
 permits it, and the owner generally instigates it.
 
+## Standing owner-granted exceptions (dated, narrow)
+
+- **Copilot review requests (granted 2026-08-06).** Owner word, verbatim:
+  "there is standing permission to use my/user credentials for requesting
+  reviews from copilot." Scope: requesting a GitHub Copilot code review on
+  a pull request, and nothing else. Mechanics: the REST
+  `requested_reviewers` endpoint accepts
+  `copilot-pull-request-reviewer[bot]` only from a HUMAN user token — a
+  bot/app token gets `422` (tooling-lane probe + first-hand human-token
+  success, both 2026-08-06), so the owner's ambient `gh` keyring is the
+  only working path. The worked command:
+
+  ```bash
+  gh api -X POST repos/<org>/<repo>/pulls/<n>/requested_reviewers \
+    -f "reviewers[]=copilot-pull-request-reviewer[bot]"
+  ```
+
+  The surface displays the owner as the requester — the grant's accepted
+  consequence. This exception licenses exactly this action class; every
+  other write on the system stays under the bot identity, and the grant is
+  never precedent for any other fallback.
+
 ## History and grandfathering
 
 History pushed under owner credentials before the 2026-07-23 re-assertion

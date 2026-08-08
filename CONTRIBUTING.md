@@ -100,6 +100,9 @@ Most of what you need as a contributor is grouped by section under
   pipeline, provider system, and the
   [ADR index](docs/architecture/architectural-decisions/README.md)
   (the architectural source of truth)
+- [Design](docs/design/README.md) — the
+  [Design Decision Record](docs/design/README.md) corpus for the
+  design system as a designed artefact
 - [Engineering](docs/engineering/README.md) — workflow, tooling,
   extension points
 - [Operations](docs/operations/README.md) — environment variables,

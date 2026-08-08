@@ -15,15 +15,15 @@ depends_on: []
 # depends_on is empty and TRUE: this node's landing change carries dated
 # re-homing amendments that make THIS node the owner of the backlog
 # workstreams it absorbs (§Relationships), so no standing cross-corpus
-# blocking edge exists. The backlog corpus sits outside the anchored
-# id-space by construction; nothing here waits on work owned there.
+# blocking edge exists. The backlog corpus sits outside the conformant
+# plans corpus by construction; nothing here waits on work owned there.
+# The former ticket-mint gate (its record, conserved): it held ONLY the
+# tickets field — substance owner-ratified 2026-08-02 (§Owner rulings).
+# Both premises dissolved (embargo lifted 2026-08-06; ticket-existence
+# obligation removed by the plan-node schema §2026-08-07 amendment,
+# PR #817), so the gate DISCHARGED 2026-08-07 with tickets left [] — a
+# visibility ticket remains optional working practice.
 owner_gates:
-  - awaiting: external-input
-    clears_when: >-
-      Ticket mint at the Linear embargo's end (08:00 Europe/London
-      2026-08-10) fills the tickets field — substance owner-ratified
-      2026-08-02; provenance in §Owner rulings.
-    expires: 2026-08-17
   - awaiting: owner-decision
     clears_when: >-
       The KNOWN-ISSUES item-14 subtree-alias ruling lands before any
@@ -36,7 +36,7 @@ owner_gates:
       optional React component set" — full mapping-decision coverage with
       curated component minting (§Decision log, flagged seat reading).
     expires: 2026-09-07
-last_updated: 2026-08-05
+last_updated: 2026-08-07
 ---
 
 # Design-system completion — five demos, identity contract, React tier, the wow bar (v2.2)
@@ -122,14 +122,18 @@ Narrative moved out of frontmatter per the delivery contract (EX63); gate number
 below track the CURRENT frontmatter array (dated renumber 2026-08-05: the former
 gate 2 — the W2.7 off-horizontal session gate — DISCHARGED 2026-08-05, its values
 owner-delivered at the 2026-08-03 card; the priming evidence and the corrected
-attribution record now live with W2.7 and §Decision log). Gate 1: the
-ticket-mint gate holds ONLY the tickets field — it does not gate ratification (the
-v1 conflation, round-1 E63/X4); the stamp completes when a fleet round closes clean
-and the owner's implementation word arrives, and the subtree is unanchored until the
-mint. Gate 2 (item-14): grounds are round-1 E11/E31/E32, carried in W0.2(b). Gate 3
-(the W3.0 coverage card): the seat reading it confirms is FR9's — a mapping DECISION
-per class (including no-construct) satisfies "full set" via curated minting; the row
-is flagged in §Decision log until his word.
+attribution record now live with W2.7 and §Decision log. Dated renumber
+2026-08-07: the former gate 1 — the ticket-mint gate — DISCHARGED 2026-08-07; it
+held ONLY the tickets field and never gated ratification (the v1 conflation,
+round-1 E63/X4); its premises dissolved when the Linear embargo lifted
+2026-08-06 and the plan-node schema §2026-08-07 amendment, PR #817, removed the
+ticket-existence obligation — ticket minting is optional working practice, and
+the stamp still completes when a fleet round closes clean and the owner's
+implementation word arrives). Gate 1 (item-14): grounds are round-1
+E11/E31/E32, carried in W0.2(b). Gate 2 (the W3.0 coverage card): the seat
+reading it confirms is FR9's — a mapping DECISION per class (including
+no-construct) satisfies "full set" via curated minting; the row is flagged in
+§Decision log until his word.
 
 ## Goal · In · Out
 
@@ -175,7 +179,7 @@ detection/selection per the four-demo amendment — the kit-owned identity runti
   his card answer and recorded in the charter ADR's provenance. Where earlier rounds
   asserted repository states first-hand reads falsify, this text carries the
   verified state.
-- Landing path: plan nodes land in the anchored subtree under the plans conformance
+- Landing path: plan nodes land under the plans conformance
   validator; demo workspaces land under the `demos/` tier rules (strict TS, shared
   ESLint, TDD, WCAG 2.2 AA) with the W1.1/W5.1 plumbing stories carrying the
   workspace-registration contract.
@@ -973,6 +977,16 @@ W4.7/W5.5/W6.2 whole-demo checkpoints.
 
 ## Decision log (owner word unless marked seat-verdict)
 
+Design decisions carried canonically by the
+[Design Decision Record corpus](../../../docs/design/README.md) are listed
+here with their record — whether or not a log row below restates them: the
+configured-framework frame → DDR-001; CSS-first/one-behaviour →
+DDR-002; the theme choice model → DDR-003; the five-theme roster with
+access themes first-class → DDR-004; licence-follows-provenance → DDR-005;
+the Oak Components reference posture → DDR-006; palette derivation →
+DDR-007; floor conformance → DDR-008. New design decisions mint a DDR at
+occurrence; this log stays the execution-context view.
+
 | Decision | Provenance |
 | --- | --- |
 | Hub stays Tailwind-mapped; plain path lives elsewhere | Card answer 2026-08-02 |
@@ -1117,6 +1131,28 @@ follow invoke-code-experts; cross-lane residue routes to the Director.
   adjudication same day (set accepted; the W0.2(b) declaration shape
   resolved); every finding cured in this change. Round record:
   `.agent/reports/design/plan-review-2026-08-02/re-review-2026-08-05.md`.
-  Next review act: the scoped re-review RE-RUNS over this cured text under
-  the slope rule (near-zero or stop and diagnose structure — never a third
-  full round), then the owner's implementation word.
+  Next review act at that entry's writing: the scoped re-review re-runs
+  under the slope rule — superseded by the entry below.
+- Scoped re-review round 2 (2026-08-06, fleet run `wf_bd16152b-ee8`, 15
+  agents, 5 lenses, ~1.16M subagent tokens, over pinned `568160df7`): NOT
+  near-zero — 17 raw → 9 REAL after adversarial verification and first-hand
+  adjudication at the design seat (6 MATERIAL, 3 MINOR; 7 refutations'
+  grounds read and accepted). SLOPE 20 → 9: shrinking but not near-zero, so
+  per the slope rule THE LOOP STOPPED for structural diagnosis — no round 3.
+  Structural diagnosis (seat-authored, Director-accepted): at least six of
+  the nine are CURE-EDGE RESIDUE of round 1's point-instance curing —
+  multiply-stated invariants cured at the cited statement but not the
+  class, contracts cured separately leaving their intersection open, and
+  deletion cures whose pointer-claimed re-homing never landed.
+- Director adjudication (2026-08-06, directed event; mandate re-broadcast
+  as event `a729c466`): round-2 result ENDORSED in full, two findings
+  spot-verified first-hand. Disposition adopted: ONE COMBINED WINDOW — the
+  nine cures applied CLASS-WIDE (grep-enumerate every statement of each
+  touched invariant; verify every pointer's landing), folded WITH the
+  already-confirmed W0.5 amendment set, closed by a scoped DELTA-VERIFY
+  over the touched statements only — never a full round 3. The zero bar is
+  preserved: the owner's IMPLEMENTATION WORD comes at the delta-verify's
+  clean close. The heavier state-once-point-elsewhere refactor is a named
+  post-first-light hardening pointer — recorded, not scheduled. The window
+  remains SEALED, opening at the owner's design work-word (the a729c466
+  payload; Saffron→Civet handoff 2026-08-07 carries the seat chain).

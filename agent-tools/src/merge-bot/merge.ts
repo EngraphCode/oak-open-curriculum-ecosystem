@@ -42,10 +42,10 @@ interface MergeExecutionSeams {
   readonly mintSeams?: MintSeams;
   readonly ghPath?: string;
   /**
-   * Base environment for the tokenised gh executor. Defaults to
+   * Base environment for the read-path gh executor. Defaults to
    * `process.env` at the leaf (the default-seam pattern: reality enters at
    * exactly one injectable point): Node REPLACES a provided child env rather
-   * than merging it, so injecting GH_TOKEN forces constructing the whole
+   * than merging it, so pinning the read env forces constructing the whole
    * environment, and gh needs PATH and friends underneath.
    */
   readonly baseEnv?: Readonly<Record<string, string | undefined>>;
@@ -76,17 +76,22 @@ export type MergeOutcome =
     };
 
 /**
- * The child environment for a tokenised gh call: the base WHOLESALE with
- * GH_TOKEN injected LAST, so a stale token in the base can never win over
- * the freshly minted one. The host is pinned and the enterprise-token
- * fallbacks stripped alongside (security H1): an ambient GH_HOST would steer
- * gh's READS to another host — where GH_TOKEN does not even apply and gh
- * falls back to stored human credentials — while the merge PUT stays pinned
- * to api.github.com; the reading and the act must run against the same host
- * under the same identity.
+ * The child environment for a READ-path gh call: pinned host, stripped
+ * enterprise fallbacks, and NO token of any kind — reads run on the
+ * session's own gh auth (keyring OAuth), writes on the minted token via
+ * fetch. The split is the estate's standing identity discipline made
+ * structural, and it is what keeps the `gh agent-task` review-run probe
+ * alive: that surface refuses app installation tokens outright (F-156 —
+ * the merge arm's first live firing died on exactly this, the probe
+ * inheriting the minted GH_TOKEN). A stale ambient GH_TOKEN is stripped
+ * for the same determinism the old write-path injection had: the read
+ * identity is the keyring, never whatever token happened to be in the
+ * environment. The host stays pinned (security H1): an ambient GH_HOST
+ * would steer reads to another host while the merge PUT stays pinned to
+ * api.github.com by construction (`merge-github-api.ts`) — the reading
+ * and the act must run against the same host.
  */
-export function tokenisedEnv(
-  token: string,
+export function readEnv(
   baseEnv: Readonly<Record<string, string | undefined>>,
 ): Record<string, string | undefined> {
   return {
@@ -94,17 +99,16 @@ export function tokenisedEnv(
     GH_HOST: 'github.com',
     GH_ENTERPRISE_TOKEN: undefined,
     GITHUB_ENTERPRISE_TOKEN: undefined,
-    GH_TOKEN: token,
+    GH_TOKEN: undefined,
+    GITHUB_TOKEN: undefined,
   };
 }
 
-/** Wraps an executor so every gh call runs under the minted token, never the keyring. */
-function tokenisedExecutor(
-  token: string,
+/** Wraps an executor so every read-path gh call runs on the keyring, host-pinned. */
+export function readExecutor(
   baseEnv: Readonly<Record<string, string | undefined>>,
 ): GhCommandExecutor {
-  return (file, args, options) =>
-    execFileSync(file, args, { ...options, env: tokenisedEnv(token, baseEnv) });
+  return (file, args, options) => execFileSync(file, args, { ...options, env: readEnv(baseEnv) });
 }
 
 function defaultMint(input: MergeExecutionInput): () => Promise<Result<MintedToken, Error>> {
@@ -134,7 +138,7 @@ export async function runMergeExecution(
   if (!target.ok) {
     return target;
   }
-  const readReading = input.seams.readReading ?? defaultReadReading(token, input.seams.baseEnv);
+  const readReading = input.seams.readReading ?? defaultReadReading(input.seams.baseEnv);
   const reading = readReading({
     target: target.value,
     ghPath: input.seams.ghPath,
@@ -173,7 +177,6 @@ function mergeTarget(input: MergeExecutionInput): Result<PrTarget, Error> {
  * that failure as a typed value it can retry within the budget.
  */
 function defaultReadReading(
-  token: string,
   baseEnv: Readonly<Record<string, string | undefined>> | undefined,
 ): (options: ReadPrStateOptions) => Result<PrStateReading, Error> {
   return (options) => {
@@ -181,7 +184,7 @@ function defaultReadReading(
       return ok(
         readPrStateReading({
           ...options,
-          execFileSync: tokenisedExecutor(token, baseEnv ?? process.env),
+          execFileSync: readExecutor(baseEnv ?? process.env),
         }),
       );
     } catch (cause) {

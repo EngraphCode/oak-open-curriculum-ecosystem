@@ -57,12 +57,21 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     'ff135d5160da12e36b0f4ae6f7acd42e61748d3f21315e2bb0b7a75474197bfe',
     IMPLEMENTATION_ONLY,
   ),
+  // MCP-518: `/` now sets the `Vary: Accept` and `no-store` its `/mcp` twin
+  // already sets. Response headers only; the document is byte-identical.
   'apps/oak-curriculum-mcp-streamable-http/src/app/static-content.ts': excluded(
-    '9542ba7291bc52484c37a4efb8833120b0769f2190e6cfa1ca00e71a025109b7',
+    '80673279324e14c6ffc5b83aa97a96f6850b591f8d5baa458fc254e36fa6475b',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/application.ts': excluded(
     'f16f8e80a7f92af82f82408e5365e92a6f2758afdd6d2d6d43886a212bb11f67',
+    IMPLEMENTATION_ONLY,
+  ),
+  // MCP-517: states the configured canonical origin in the forwarded headers
+  // origin-deriving middleware reads. Request plumbing only — it authors no
+  // served text and reaches no MCP consumer's content.
+  'apps/oak-curriculum-mcp-streamable-http/src/canonical-forwarded-headers.ts': excluded(
+    '8bc762cc936a9cc86a398a6f2009700f8c1a196977dabd6fe56ecad7076321fd',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/canonical-origin.ts': excluded(
