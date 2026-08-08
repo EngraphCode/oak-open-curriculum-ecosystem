@@ -348,3 +348,26 @@ record).
   outside eyes caught nothing the scan missed THIS time, but the session's own
   error signature (the v3-"pending" misread, caught only on deeper first-hand
   verification) is where a successor should point external scrutiny.
+
+## 2026-08-08 ~10:4xZ (Plover lifts Troposphere, b10c37, Director) — the fold's three instrument lessons, all first-hand
+
+- BOT-IDENTITY MISS, twice in one act: created fold PR #825 (and earlier closed #806)
+  under the OWNER's ambient gh credential — never asked "whose name displays?" at the
+  write. The cure attempt then made it WORSE: `node dist/src/merge-bot/cli.js mint-token`
+  exits 0 printing NOTHING (wrong entry point — no env), my guard checked exit code only,
+  and the empty GH_TOKEN fell back to ambient auth = #826 also owner-attributed. The
+  standing constraint names this exact shape: mint fails → STOP, never keyring-fallback —
+  and an EMPTY READ IS A FAILURE whatever the exit code. Working path: the documented
+  `pnpm --silent agent-tools merge-bot mint-token --scope <s>` front door, guarded by
+  TOKEN LENGTH (≥20), author VERIFIED on the created artefact before proceeding. #827
+  landed correctly bot-authored. Frictions candidate: the direct-dist silent-empty-success
+  (F-157 shape); register row at the next curation touch.
+- SETTLE-RACE at the merge: the watch read run-quality-gates SUCCESS; the REST merge got
+  405 "required check is queued" — a fresh run had re-queued between read and call. The
+  refusal is the ruleset working; the cure was wait-and-recompute, not retry-harder. The
+  recount discipline's "recomputed at the boundary" includes the seconds between the
+  watch's last read and the merge call itself.
+- PUSH KILLED BY OWN TIMEOUT: the first fold push died at my 2-minute Bash default while
+  the pre-push chain ran — the fold skill names 600s for exactly this. Exit 143 mid-hook
+  is self-inflicted, not a defect; nothing transferred; the re-push with the right budget
+  landed clean.
