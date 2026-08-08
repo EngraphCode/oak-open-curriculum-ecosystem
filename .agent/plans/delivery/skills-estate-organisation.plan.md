@@ -24,7 +24,7 @@ owner_gates:
       after that). The commissioning word is on record (2026-08-02,
       in-session): foundational work, long-term returns.
     expires: 2026-08-23
-last_updated: 2026-08-02
+last_updated: 2026-08-08
 ---
 
 # Skills-estate organisation
@@ -58,6 +58,18 @@ parallel scheme ADR-221 forbids.
 0. **WS0 — THE DEEP REFLECTION (owner word 2026-08-02: a shared scheme
    across all agentic levers "only if it adds value and makes sense,
    and what that scheme should be is a matter for deep reflection").**
+   **OWNER RULING 2026-08-07 (no debate; captured at the Skills seat,
+   riding its freeze broadcast, comms event 0e99bc22; homed here
+   2026-08-08 as the permanent record): canonical skill definitions
+   GROUP BY CONCERN; vendor projections STAY FLAT; PR #731 reconciles
+   with this ruling before it merges.** This rules the
+   filesystem-structure axis WS0 carried: concern-grouped canonicals
+   are the standard, and the R1-era rejection of category directories
+   (the basis of #731's relocation commit) is superseded on that
+   axis. WS0's remaining open matter narrows to the annotation
+   scheme (kind / stratum / intent), the concern vocabulary itself,
+   and the rules/subagents extension — the movements below continue
+   for those.
    OWNER PRIOR (card answer, 2026-08-02): the `cognition/` category
    directory and the family-bundle shape the Parallax landing
    introduced are DELIBERATE-BUT-CHALLENGEABLE — WS0 treats them as
