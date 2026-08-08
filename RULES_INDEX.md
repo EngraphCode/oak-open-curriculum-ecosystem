@@ -37,6 +37,20 @@ of the rule-authoring contract.
 When adding a new rule, land all four forms plus an entry in this
 index in the same commit.
 
+**A rule's opening carries its compliance mechanics, not only its trigger.**
+Rules are read through lossy intermediaries: a context-constrained seat, a
+digest, a summary line, a non-loader platform's partial read. Those readers
+reliably receive the **trigger** ("when does this fire?") and reliably lose the
+**mechanics** ("what does compliance actually require?") — and a seat that knows a
+rule fired but not how to comply authors a confident, wrong compliance plan
+rather than asking. The observable failure is not silence; it is fluent
+non-compliance that cites the rule correctly. So put the load-bearing mechanics —
+the command, the ordering constraint, the thing that must be true — inside the
+trigger-first opening where a truncated read still reaches it, and leave the
+worked instances and rationale below for the full read. (Graduated 2026-08-06
+from a 2026-07-27 first-contact specimen; the register held it for a second
+sighting, which the promote-on-first-instance direction does not require.)
+
 ## Classification
 
 Each rule is classified by when it loads into the active session
@@ -137,6 +151,7 @@ start; a situational rule loads at its trigger's moment.
 | `.agent/rules/invoke-react-component-expert.md`                            | situational    | surface:react-component — React component edit (hooks, render, prop API, composition)                                      |
 | `.agent/rules/invoke-sentry-expert.md`                                     | situational    | surface:observability — Sentry / OpenTelemetry / observability change                                                      |
 | `.agent/rules/knowledge-preservation-over-fitness-warnings.md`             | core           | —                                                                                                                          |
+| `.agent/rules/linear-mcp-team-and-project-hygiene.md`                      | situational    | tool:linear — any ticket mint, move, re-project, or placement audit                                                        |
 | `.agent/rules/lint-after-edit.md`                                          | situational    | surface:source-authoring                                                                                                   |
 | `.agent/rules/liveness-heartbeat-cron.md`                                  | situational    | session:team — Team session bootstrap                                                                                      |
 | `.agent/rules/local-broken-code-never-leaves.md`                           | core           | —                                                                                                                          |

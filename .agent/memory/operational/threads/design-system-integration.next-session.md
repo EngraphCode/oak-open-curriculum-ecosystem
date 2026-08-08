@@ -25,6 +25,7 @@ recompute live state from claims/comms/git at pickup.
 | 2026-07-30 | Thyme weaves Hedgerow | claude-code / claude-fable-5 | `762020` | design-showcase lane (adopted claim `ebb3efe2` from Altair turns Infinity `7a97a1` at owner word 2026-07-29 — Altair held the lane 2026-07-29 unregistered on this table); landed #637 + #641; MCP-372 carrier at owner ruling; deliberate succession → Sycamore herds Xylem `028dc4` 2026-07-30 |
 | 2026-08-02 | Moss calls Loam | claude-code / claude-fable-5 | `79b433` | Design-lane seat at direct owner word (Director: Falcon hunts Flight `52841f`); movement 1: PR #710 MERGED `58e5be461` — kit 1.8.0 TS-runtime + choice() on main |
 | 2026-08-02 | Corsair hunts Surf | claude-code / claude-fable-5 | `4d3282` | Design-lane successor seat at direct owner word (evening, post-Moss retirement); standby, warm pause — activation gated on the ratified design-system completion plan node + Director/owner word |
+| 2026-08-07 | Civet spins Cavern | claude-code / claude-fable-5 | `054f5e` | Design-lane successor (Saffron→Civet, PDR-063 deliberate succession at owner word, Director ACTIVATE 20:46Z); claim `645b9e0b` adopted 20:46Z after the handoff record read end to end |
 
 ## Board state at writing (recompute, do not trust)
 
@@ -1158,3 +1159,92 @@ its context; the live map wins on any conflict. The seat is live this
 sitting for Q&A, claimless, no source work; route pulls through the
 Director. This edit rides the next coordination window per
 no-handover-commits.
+
+## Session update 2026-08-07 ~20:50Z (Civet spins Cavern, 054f5e — additive; lane adopted at deliberate succession)
+
+- **Succession executed** (Saffron guards Hedgerow 8a4280 → this seat): owner named the
+  successor in-session at Saffron's seat; Saffron froze the lane to the handoff record
+  (machine-local per the operating model:
+  `.agent/state/collaboration/handoffs/645b9e0b-design-lane-saffron-to-civet.md` — the
+  deep state at this boundary); Director ACTIVATE word 20:46Z (directed event). Claim
+  `645b9e0b` adopted via `claims adopt` after the record was read end to end; active-seat
+  liveness pair live (watcher heartbeat-excluded + F-75 diff-poll + 240s two-leg
+  heartbeat loop).
+- **Queue at adoption (recompute at any later pickup)**: merge #820 (merge-bot F-112
+  push-path cure, live-fire proven) + #821 (suppressed-round docs cures) + #822
+  (design-lane-review-debt plan node) at full condition → #814 DDR cure round 2 (12
+  findings, comment 5218785245, delegated decisions in the handoff record §3 — do not
+  re-open) → slice 2 ddr-graph validator → slice 3 completion-plan §Review record truing
+  → slice 4 (#787 merge; #806 OWNER-CARD only, review-gated; #737 cure + re-request
+  mantagen). The SEALED two-act payload (combined window `a729c466` + capability-floor
+  rewrite) opens ONLY at the owner's work-word.
+- **Window posture binding this tenure**: owner away ~10h from 20:30Z; pace SLOWLY;
+  pre-approval lifts no standing rule; constitutively-owner items hold to morning with a
+  card; blocks route to the Director (Plover lifts Troposphere b10c37). Owner word to
+  this seat (2026-08-07, in-session): full Cricket suite at all major decision points,
+  tally rows at occurrence.
+
+## Session update 2026-08-08 ~01:35Z (Civet spins Cavern, 054f5e — additive; the review-debt queue is DISCHARGED)
+
+- **Seven merges this window, every one at a Director-granted recomputed
+  boundary** (recounts on each PR): #820 (merge-bot F-112 push cure), #821
+  (suppressed-round plan cures), #822 (the review-debt plan node), #814 (the
+  DDR corpus — four-round docs-adr convergence, 12→2→1→1-line→LAND; ADR-221
+  §3 minted identities, the estate's first), #823 (the F-156 read/write
+  identity split; register CURED at the merge moment), #824 (the completion
+  plan's §Review record trued through round 2 + the sealed a729c466 mandate),
+  #787 (the formation letter; three threads adjudicated). #737 dispositioned
+  to the human reviewer's clock (cure + body re-pin + re-request); #806's
+  owner card held at the Director's seat for the morning.
+- **Remaining on the lane**: slice 2 (the ddr-graph edge validator) fully
+  specified with FIVE named acceptance items in the session task register and
+  the #820/#823 records — its own sitting. THE SEALED PAYLOAD (combined
+  window a729c466 cures + capability-floor rewrite) remains sealed; it opens
+  at the OWNER'S design work-word, and the completion plan's §Review record
+  now carries the true opening state.
+- **Morning-board items from this window** (at the Director's seat): #806
+  card; the 89c1a2be9 stray-empty-commit drop (owner's call); the
+  QUOTA-SKIPPED command-mergeability design question; the 77/100 agent-task
+  run-window constraint; the ADR-221 §3 estate-wide adoption gap.
+
+## COMPACTION FREEZE 2026-08-08 ~09:10Z (Civet spins Cavern, 054f5e — seat continues; THE PAYLOAD IS UNSEALED; resume map)
+
+- **OWNER WORD at this seat** (2026-08-08 morning, verbatim substance):
+  "Time to unseal, time to make progress" — the a729c466 payload is OPEN.
+  Suggested next steps routed to the Director (event `7388cc9a`): Act 1 the
+  combined window first (primary-sources-first authoring sitting → nine
+  cures CLASS-WIDE + W0.5 fold, one docs PR → scoped delta-verify → at the
+  clean close the zero bar is met and the OWNER'S IMPLEMENTATION WORD cards
+  from the Director's seat → W0/W1 first light); Act 2 the capability-floor
+  rewrite to the v2 final shape after (or parallel at Director routing);
+  slice 2 (edge validator, five acceptance items) interleaves.
+- **RESUME STATE, exact**: claim `645b9e0b` RETAINED (seat continues;
+  silence from 054f5e after the freeze broadcast is the boundary, not
+  retirement). The review-debt queue is fully discharged (seven merges
+  2026-08-07/08: #820/#821/#822/#814/#823/#824/#787 — recounts on each);
+  #737 at the human reviewer's clock; #806 + four design questions on the
+  Director's morning board. At resume: re-arm via start-right (watcher
+  first, F-95, gap sweep, heartbeat pair against the retained claim), then
+  FIRST ACT = read the Director's routing answer to `7388cc9a`; if the
+  window's authoring sitting is this seat's, begin at the PRIMARY sources
+  (the 2026-08-06 ~06:55Z round-2 adjudication event, mandate `a729c466`,
+  W0.5 confirmed set event `0d5afca6`, the plan's §Review record) — never
+  this seat's summaries.
+- **Known-at-freeze bounds**: the payload substance is record-derived at
+  this seat (no first-hand re-read since warm-up); PR states dated to their
+  merge moments; the night's per-PR grants were WINDOW-SCOPED and do not
+  carry forward — post-window merges revert to standing practice unless the
+  Director re-rules. Dirty primary surfaces (napkin, frictions register,
+  this record, cricket tally) ride the Director's fold per
+  no-handover-commits.
+
+- **ROUTE ANSWERED BEFORE THE FREEZE COMPLETED** (Director broadcast
+  2026-08-08 09:07:27Z): the proposal is adopted — Act 1's authoring
+  sitting is THIS seat's at post-compaction resume (claim `645b9e0b`, no
+  alternative named), primary-sources-first; delta-verify same-reviewer
+  opus; the implementation-word card from the Director's seat at the clean
+  close; Act 2 sequenced after; slice 2 interleaves. Same broadcast window
+  (09:07:25Z rulings record): the stray 89c1a2be9 drops at the authorised
+  fold; #806 CLOSED with adjudication; queue-cleanup plan ratified;
+  longitudinal node to archive. The resume's first act is therefore the
+  Act-1 sitting directly.

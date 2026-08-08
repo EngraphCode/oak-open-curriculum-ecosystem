@@ -116,22 +116,51 @@ debt register, 2026-07-08).
 
 <!-- New pending-graduation capture appends below as inline-bracket entries. -->
 
-- **Provenance-erasing APIs (a `get()` that erases choice-vs-fallback forces
-  consumers to bind a lookalike or privately re-derive)**
-  `[captured: 2026-07-30 | source: napkin 2026-07-30 ~06:28Z (Thyme) +
-  MCP-388 06:24Z comment (connective frame) | target: rule or PDR clause
-  beside query-the-value / validators-recompute / fix-the-generator |
-  trigger: a THIRD paid instance anywhere in the estate (first two: showcase
-  PR #637 dead control; hub MCP-372 slice-1 duplicated demo stores) |
-  size: small clause | status: pending]`
-- **Digest-truncated rules: fired-known, mechanics-dark (a rules digest
-  carrying triggers but not compliance mechanics produces confident wrong
-  compliance plans)**
-  `[captured: 2026-07-27 | source: napkin 2026-07-27 Peony first-contact +
-  Squall specimen note | target: trigger-first rule-indexing doctrine (rules
-  carry a compliance-mechanics line inside the trigger-first opening) |
-  trigger: a SECOND specimen of a constrained seat acting on a trigger-only
-  digest read | size: small clause + authoring convention | status: pending]`
+- **Ends before means, front of chain first: what/why/why-now established in
+  CONVERSATION with the owner before building ANY structure; probing
+  artefacts/code/deployments is still means-side**
+  `[captured: 2026-08-07 | source: vendor-memory graduation audit 2026-08-05
+  (memory ends-before-means-front-of-chain-first, owner teaching 2026-07-2x)
+  | target: principles.md near §First Question, or metacognition.md |
+  trigger: a fresh seat with directive-file headroom —
+  directive-file-context-budget gated this row past the 2026-08-07 curator
+  pass, which landed its 16 non-directive siblings | size: one short
+  paragraph | status: pending]`
+- **Generality-depth gradient, articulated: the deeper the layer, the more
+  general it must be; investment bar rises with depth; counter-instances are
+  falsifiers against generality-by-assertion**
+  `[captured: 2026-08-07 | source: vendor-memory graduation audit 2026-08-05
+  (memory generality-depth-gradient) | target: principles.md §Context
+  Specificity Gradient (articulation of the WHY) | trigger: fresh seat with
+  directive-file headroom, as the row above | size: a few sentences |
+  status: pending]`
+- **Owner channel: answer first — when an owner message lands mid-turn, the
+  next output is a direct text answer/acknowledgement before any further
+  tool-call chain**
+  `[captured: 2026-08-07 | source: vendor-memory graduation audit 2026-08-05
+  (memory owner-channel-answer-first) | target: user-collaboration.md
+  §Working Model | trigger: fresh seat with directive-file headroom, as the
+  rows above | size: one short paragraph | status: pending]`
+- **Goal-hook pacing clause (owner-ratified 2026-08-07): under any standing
+  goal-hook, boundary rituals (grounding sentence, falsifier-check) bind
+  HARDER, and n=1 sessions treat the goal as direction, never as permission
+  to skip gates**
+  `[captured: 2026-08-07 | source: Director verdict event f81076d9 (cure
+  shape (a) adjudicated on standing owner principles; prohibition rejected
+  under additions-never-subtract); owner ratification 2026-08-07 at the
+  Director decision card (Plover seat, b10c37) | target: metacognition.md
+  (or the goal-hook's own guidance) as the counterweight clause | trigger:
+  fresh seat with directive-file headroom, as the rows above | size: one
+  short paragraph | status: pending]`
+
+<!-- Register drained to empty at the 2026-08-07 curator pass (Gull lifts Nimbus, fresh
+seat clearing the directive-file-context-budget gate both rows were held on): the
+constraint-surface sentence (Badger, 2026-08-02) graduated to principles.md §Separate
+Framework from Consumer as the licence-map paragraph; the sentinel-taxonomy row (Birch,
+2026-08-03) was found ALREADY LANDED in testing-strategy.md §Prove-behaviour as the
+designed-sentinel admissibility clause (commit 92defb609, owner doctrine 2026-08-03,
+MCP-462 trigger artefact named in place) — home verified live first-hand, row removed as
+already-graduated. The commits and the homes are the record. -->
 
 <!-- Register drained to empty at the 2026-07-20 dedicated consolidation (Siren lifts
 Trench): the F-92 heartbeat-loop item was already terminal (duplicate of F-92, whose cure

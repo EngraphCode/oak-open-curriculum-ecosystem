@@ -7,6 +7,7 @@ import { parsePushArgs, PUSH_USAGE, type PushArgs } from './push-args.js';
 import { RefFormatOracleUnavailableError } from './ref-format.js';
 import {
   currentBranch,
+  describeGitChildEnd,
   pushHead,
   resolveGitContext,
   type GitContext,
@@ -51,7 +52,7 @@ export interface PushActionInput {
   readonly gitPath?: string;
   /**
    * Base environment for the git child. Defaults to `process.env` at the leaf
-   * (the default-seam pattern `merge.ts`'s `tokenisedEnv` records): Node
+   * (the default-seam pattern `merge.ts`'s `readEnv` records): Node
    * REPLACES a provided child env rather than merging it, so injecting the
    * token-file path forces constructing the whole environment, and git needs
    * PATH and friends underneath.
@@ -223,9 +224,8 @@ async function transferAndReport(
     token,
     baseEnv: input.baseEnv ?? process.env,
     tokenFiles: input.tokenFiles,
-    // git's transfer output — and the pre-push gate chain's underneath it —
-    // reaches the operator live, chunk by chunk, never held in a buffer this
-    // command sized (R1). The gates may talk for as long as they like.
+    // git's transfer output — and the gate chain's underneath — arrives in
+    // full on completion: files, never a Node pipe or sized buffer (R1; F-112).
     onOutput: (chunk) => {
       input.stderr.write(chunk);
     },
@@ -237,12 +237,12 @@ async function transferAndReport(
     return 1;
   }
   const result = pushed.value;
-  // The streaming executor keeps nothing back, so this forwards only what an
-  // executor captured instead. Diagnostics either way, and stderr either way:
+  // The file-backed executor replays everything through the sink, so this
+  // forwards only what an executor captured instead. Stderr either way:
   // stdout stays free for the outcome object a machine parses.
   input.stderr.write(`${result.stdout}${result.stderr}`);
   if (result.status !== 0) {
-    input.stderr.write(`merge-bot push: git push exited ${result.status}\n`);
+    input.stderr.write(`merge-bot push: git push ${describeGitChildEnd(result)}\n`);
     return 1;
   }
   writePushed({ kind: 'pushed', branch, remote }, parsed.json, input);

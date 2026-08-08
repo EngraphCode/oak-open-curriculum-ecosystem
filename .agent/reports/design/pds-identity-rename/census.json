@@ -312,7 +312,7 @@
       "file": ".agent/plans/delivery/design-system-completion.plan.md",
       "kind": "content",
       "countByVariant": {
-        "name": 4,
+        "name": 2,
         "initialismUpper": 0,
         "initialismLower": 0
       },
@@ -321,7 +321,7 @@
           "mappingRole": "d1-table",
           "contextKind": "mixed",
           "dispositionClass": "rename-in-place",
-          "count": 4
+          "count": 2
         }
       ]
     },
