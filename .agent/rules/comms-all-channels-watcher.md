@@ -50,6 +50,25 @@ also carries `heartbeat` still emits); excluded events never consume
 the `--max-events-per-drain` batch bound and never count toward the
 watcher's `emitted_count`.
 
+**The proven standby/quiet-pause configuration** (owner-priced 2026-08-02: a
+warm-paused seat's full watcher was delivering ~15 empty heartbeat ticks per hour
+into context, and the owner asked for "just enough for the Director to wake
+you"). The shape that satisfied both this rule and the economy:
+
+- `comms watch --exclude-tag heartbeat` — `directed` and `group` always surface
+  whatever their tags, so an activation still arrives instantly; and
+- the mandatory F-75 pairing run as a **diff-only anomaly poll**: peer-liveness
+  every ~10 minutes with its **baseline seeded at arm time**, so already-retired
+  seats never emit and only *newly* degraded peers do.
+
+Measured result: zero empty ticks, and a directed activation reached the seat
+immediately. Falsifier for the configuration: a quiet-configured standby that
+misses coordination a full watcher would have delivered — the exposure is
+heartbeat-borne information only, which the poll covers by construction. Reserve-
+seat freshness is load-bearing economics, not a nicety: a standby that burns
+context on a heartbeat firehose shortens the very tenure the bench exists to
+extend.
+
 **Excluding `heartbeat` MANDATORILY pairs with the F-75
 `comms peer-liveness` poll** (see
 [`liveness-heartbeat-cron` §Surfacing peer heartbeat-silence](liveness-heartbeat-cron.md))

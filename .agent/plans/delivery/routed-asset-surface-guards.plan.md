@@ -45,10 +45,15 @@ two homes and no single tool sees both:
 
    **Detection predicate**: in JSX `href`/`src` attributes on
    subresource-bearing elements (`link`, `img`, `script`) and in
-   exported path constants — a string literal, or a template literal
-   whose leading static text (`quasis[0].value.raw`), starts with `/`
-   (protocol-relative `//` exempt) is an error. Nothing else is. An
-   expression-led template (the live pattern:
+   exported path constants — a string literal that starts with `/` is
+   an error, and so is a template literal whose leading static text
+   starts with `/` (protocol-relative `//` exempt in both cases).
+   Nothing else is. The check reads the COOKED
+   value (`quasis[0].value.cooked`), never the raw source spelling: an
+   escaped leading slash (`\u002F`, `\/`) cooks to `/` and must still
+   fire, and the RuleTester suite carries an escaped-leading-slash
+   case proving it (suppressed Copilot finding on PR #795, adopted).
+   An expression-led template (the live pattern:
    `` `${OAK_DS_BASE}/styles.css` ``) is by construction not a
    root-relative literal and needs no special clause; the rule never
    names app identifiers (no app knowledge in the estate-wide
@@ -77,13 +82,18 @@ two homes and no single tool sees both:
 2. **Published-CSS assertion** inside the existing `@import`-closure
    walk in
    `apps/oak-curriculum-mcp-streamable-http/build-scripts/copy-oak-ds.integration.test.ts`:
-   one leading-`/` check (with `//` exempt) on BOTH reference classes
-   the walk already collects — `url(...)` targets
-   (`collectUrlReferences`) AND `@import` targets
-   (`collectImportClosure`), since a bare root-relative
-   `@import '/assets/x.css'` rides the same normalisation and would
-   otherwise stay green (Copilot review finding on this PR, adopted)
-   — each check BEFORE `resolveRelative`, extended to cover the
+   one leading-`/` check on BOTH reference classes the walk already
+   collects — `url(...)` targets (`collectUrlReferences`) AND
+   `@import` targets (`collectImportClosure`), since a bare
+   root-relative `@import '/assets/x.css'` rides the same
+   normalisation and would otherwise stay green (Copilot review
+   finding on this PR, adopted) — each check BEFORE `resolveRelative`.
+   Protocol-relative `//` targets are not merely exempt from the
+   root-relative check: they are SKIPPED AS EXTERNAL before resolution
+   in both classes, and the suite proves it — today's collectors would
+   otherwise manifest-check `url(//cdn/…)` as a local path and queue
+   `@import '//cdn/…'` as a package file (suppressed Copilot finding
+   on PR #795, adopted). The walk is extended to cover the
    tracked `public/landing-page.css` via the existing helper, with a
    non-empty-corpus assertion so an absent build output can never
    read as a pass. Placement justification, verified at plan-author
@@ -115,18 +125,22 @@ the merge). Internal detail and pickup state ride MCP-510.
 ## Acceptance criteria (each with a proof — required)
 
 1. The rule rejects a root-relative string literal and a
-   root-relative-leading template literal in scope, and accepts the
-   expression-led derived form — proof `repo-safe`: RuleTester unit
-   tests in the plugin (JSX cases under a `.tsx` filename), including
-   the exact message text.
+   root-relative-leading template literal in scope — including the
+   escaped-leading-slash spellings (`\u002F`, `\/`), which cook to `/`
+   and must fire — and accepts the expression-led derived form — proof
+   `repo-safe`: RuleTester unit tests in the plugin (JSX cases under a
+   `.tsx` filename), including the exact message text and the
+   escaped-leading-slash case.
 2. The rule is armed for the app's `src/landing-page/**` and
    `src/app/**` (minus `static-asset-paths.ts`) and the repository
    lints green — proof `repo-safe`: the lint gate in pre-commit/CI.
 3. The walk assertion fails on a synthetic root-relative `url(/…)`
    fixture AND on a synthetic root-relative `@import '/…'` fixture,
-   passes on the real published corpus, and fails on an empty corpus —
-   proof `repo-safe`: the integration test's two red-fixture cases,
-   green-corpus case, and non-empty case.
+   skips protocol-relative `//` targets as external in BOTH reference
+   classes, passes on the real published corpus, and fails on an empty
+   corpus — proof `repo-safe`: the integration test's two red-fixture
+   cases, the two protocol-relative-skipped cases, the green-corpus
+   case, and the non-empty case.
 4. The change introduces zero new Sonar issues — proof `repo-safe`:
    the SonarCloud PR analysis (estate bar, owner word 2026-08-06:
    zero new issues; the configured gate threshold is not the bar).
@@ -134,10 +148,13 @@ the merge). Internal detail and pickup state ride MCP-510.
 ## Todos
 
 - One single-story PR (default round budget, PDR-132): the rule + its
-  `.unit.test.ts` suite + the plugin README table row + the app
-  lint-config arming + the `url()`-walk assertion. The two guards
-  ship together because each is small and they share one story —
-  "the routed-asset surface cannot silently regress."
+  `.unit.test.ts` suite (including the escaped-leading-slash case) +
+  the plugin README table row + the app lint-config arming + the
+  walk assertions on BOTH reference classes (`url(...)` AND
+  `@import`, each with its red fixture, plus the
+  protocol-relative-skipped-as-external proof). The two guards ship
+  together because each is small and they share one story — "the
+  routed-asset surface cannot silently regress."
 
 ## Out of scope
 

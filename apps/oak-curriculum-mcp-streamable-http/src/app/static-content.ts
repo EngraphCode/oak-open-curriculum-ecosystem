@@ -24,7 +24,15 @@ function addRootLandingPage(
     log.debug('landing.get', { path: req.path, method: req.method });
     // The baked artefact, rendered once at build time — no React, no
     // derivation, no per-request render (owner ruling; ADR-217 lineage).
-    res.type('text/html').send(getLandingPageHtml());
+    //
+    // `Vary: Accept` and `no-store` match what the `/mcp` negotiation sets on
+    // the same document (`mcp-middleware.ts`). Both became load-bearing here
+    // once the public-browser fork reached `/` (MCP-518): whether the auth
+    // vendor runs on this URL — and so whether the response carries its
+    // headers — now depends on `Accept`, and no intermediary may pair one
+    // request's answer with another's.
+    res.vary('Accept');
+    res.type('text/html').set('Cache-Control', 'no-store').send(getLandingPageHtml());
   });
 }
 

@@ -133,6 +133,8 @@ engineering system) ·
 testing, accessibility, security) ·
 [Architecture](docs/architecture/README.md) (ADRs, OpenAPI pipeline,
 provider system) ·
+[Design](docs/design/README.md) (design decision records for the
+design system) ·
 [Engineering](docs/engineering/README.md) (workflow, tooling,
 extending) ·
 [Operations](docs/operations/README.md) (env vars, troubleshooting, [runbook index](docs/operations/README.md#runbook-index)) ·
