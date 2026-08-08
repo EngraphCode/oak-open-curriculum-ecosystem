@@ -145,6 +145,22 @@ permits it, and the owner generally instigates it.
 
 ## Standing owner-granted exceptions (dated, narrow)
 
+- **GitHub PR approvals (granted 2026-08-04).** Owner word, verbatim: "I do
+  not have to approve PRs, you can use my identity to do that, that is
+  permitted." Scope: submitting a PR _approval_ review as `jimCresswell`,
+  and nothing else — commits, PR creation, comments, review bodies, merges,
+  and every other write stay on the bot. Why it was granted: the code-owner
+  review ruleset (`require_code_owner_review: true`) means a PR authored by
+  one code owner needs the _other_ code owner's approval, so every PR
+  authored by the second code owner sat blocked on the owner personally — a
+  standing bottleneck this user-instigated grant removes. Two riders bind:
+  the agent reviews first-hand before approving (the grant licenses the
+  credential, never an unreviewed approval), and it intersects the
+  author-cannot-review constraint — GitHub forbids the PR author reviewing
+  its own PR in any state, so on bot-authored PRs the agent review of
+  record rides a bot COMMENT while any approve/changes-requested state
+  needs a non-author account.
+
 - **Copilot review requests (granted 2026-08-06).** Owner word, verbatim:
   "there is standing permission to use my/user credentials for requesting
   reviews from copilot." Scope: requesting a GitHub Copilot code review on

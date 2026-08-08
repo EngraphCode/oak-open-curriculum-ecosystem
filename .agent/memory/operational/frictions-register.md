@@ -3522,3 +3522,87 @@ commit SHA and the closing plan reference.
   for unparseable files; (3) test doctrine: schema-touching changes must
   exercise the old-reader × new-event compat cell (no rebuild-everything
   suite can reach it).
+
+### F-154 — negation-contrast tombstone detection has no enforcement layer (structural form exceeds the innate hook)
+
+- **Source**: Gull lifts Nimbus (`3da0ae`), 2026-08-07 curator pass;
+  Director verdict event 2026-08-07T10:51Z (policy.json probed at the
+  Director seat: zero hits for the tombstone class). Substance carried
+  from `no-tombstones-for-removed-ideas` §Why This Rule Is Strict, whose
+  tracking pointer previously named the pending-graduations register — a
+  drainable buffer — and dangled when the 2026-07-20 drain discharged
+  rows without verifying inbound pointers.
+- **Observed**: the negation-contrast memorial form ("DELETED, not
+  reshaped", "X rather than Y", "built fresh, never a bridge") is a
+  STRUCTURAL pattern — a negation bound to a dead concept — not a fixed
+  literal. A naive literal block on "never" / "rather than" / "instead
+  of" would have an unacceptable false-positive rate, so the write-time
+  innate-immunity hook (`.agent/hooks/policy.json`) carries no entry for
+  the class, and the reflex recurs at write time, including inside
+  tombstone-removal work itself (corpus-proven recursive instances,
+  2026-05→06).
+- **Expected**: an enforcement increment for the structural form — a
+  smarter detector (negation verb within clause distance of a
+  removed-concept referent) or an output-time review pass — plus, at
+  most, a narrow set of genuinely high-signal banner literals in the
+  innate hook.
+- **Candidate cure / promotion trigger**: design the structural detector
+  as agent-tooling work (route: agent-tooling backlog). Promotes to a
+  plan when a seat takes the lane or when a fresh corpus instance shows
+  the reflex landing on a permanent doc despite the rule tier.
+- **Status**: OPEN. The rule's §Why This Rule Is Strict now points here;
+  a future drain of any register this row migrates to re-trues that
+  pointer first (the generator this row's own history proves).
+
+### F-155 — the prose-width hard limit fires on markdown headings, which are structurally unwrappable
+
+- **Source**: Wisteria lifts Verdure (`c4294f`), 2026-08-06 branch reconciliation,
+  first-hand; homed from the napkin at the 2026-08-07 consolidation slice.
+- **Observed**: the fitness prose-width check (100 chars) is applied to markdown
+  HEADINGS. A heading cannot be wrapped — the only compliant fix is rewriting the
+  heading text, so a carried section title over 100 chars has NO compliant
+  lossless fix. Two carried napkin headings from another seat read as hard
+  findings while being faithful verbatim carriage.
+- **Expected**: width discipline on prose lines; headings judged by a rule that
+  acknowledges their unwrappability (a heading carve-out, or a re-title-at-
+  processing convention).
+- **Candidate cure / promotion trigger**: a heading exemption (or separate
+  threshold) in the width check. Promotes when a seat takes the fitness-tooling
+  lane, or when a third faithful-carriage instance reads as a hard finding.
+- **Status**: OPEN. Interim practice: carry foreign headings unaltered; the pass
+  that processes them re-titles or drains them (the 2026-08-06 reconciliation's
+  own convention).
+
+### F-156 — merge-bot merge injects the minted app token into the OAuth-only review-run probe
+
+- **Source**: Civet spins Cavern (`054f5e`), 2026-08-07 ~20:58Z, first live
+  firing of the MCP-508 merge arm (#821/#822 merge attempts), first-hand.
+- **Observed**: `merge-bot merge` wraps EVERY gh invocation in the
+  tokenised executor (`merge.ts` — GH_TOKEN = minted installation token,
+  injected last by design). The review-run liveness probe
+  (`gh agent-task list`, `review-runs.ts`) runs under that same env and
+  gh refuses: "this command requires an OAuth token" — installation tokens
+  cannot use the agent-task surface. The leg degrades typed and
+  `decideMergeAction` refuses with "review-run liveness unavailable"
+  (exit 3). Reproduced: the identical command succeeds under the ambient
+  keyring OAuth auth.
+- **Expected**: reads ride the keyring path, writes ride the minted token
+  (the estate's standing split — handoff §6, bot-identity rules). The
+  liveness probe is a READ; it should execute under the base env, not the
+  tokenised executor.
+- **Candidate cure / promotion trigger**: route the agent-task probe (and
+  any other read-only leg) through the untokenised base executor inside
+  `merge-bot merge`, with a test pinning the env split. Promotes when a
+  seat takes the merge-bot lane (natural window: alongside the #820 F-112
+  cure family, same module). Related-but-distinct design question routed
+  to the owner's morning: whether QUOTA-SKIPPED (owner-ruled settled,
+  2026-07-21) should ever be COMMAND-merge-eligible — tonight it is
+  handled by per-PR Director grants on the manual REST shape, the
+  instrument untouched.
+- **Status**: CURED — PR #823 (merge commit 2fc5eae83, head 89ec41860,
+  2026-08-08): the read path runs on a pinned token-free environment
+  (keyring-deterministic, host pinned, enterprise fallbacks stripped) while
+  the merge PUT keeps the minted token via fetch; the env split is pinned by
+  `readEnv` unit tests AND a real-child contract test that kills the
+  env-drop mutant at the mechanism. The QUOTA-SKIPPED command-mergeability
+  design question remains SEPARATE, on the Director's morning board.
