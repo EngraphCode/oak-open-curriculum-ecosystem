@@ -371,3 +371,85 @@ record).
   the pre-push chain ran — the fold skill names 600s for exactly this. Exit 143 mid-hook
   is self-inflicted, not a defect; nothing transferred; the re-push with the right budget
   landed clean.
+
+## 2026-08-08 ~10:0xZ — the fabrication class REPEATED within a day of its cure (Civet, 054f5e)
+
+Own mistake, caught by self-audit seconds after the write. Routing the Cricket
+5:3 to the Director, this seat passed `--in-response-to
+b7e4b897-3860-49c5-a41f-06845e14b2f3` — a remembered 8-char prefix with an
+INVENTED tail. The true antecedent is `b7e4b897-2810-42b0-baeb-564fbbacf4a5`.
+The CLI accepted it (no antecedent-existence validation), so the directed
+event 1c4957f1 landed with a dangling thread pointer; correction event
+9ae8fb56 threads properly and names the true id.
+
+The compounding fact: this is the SAME class as yesterday's #820 sha
+fabrication (hand-extended 40-char sha), repeated ~14h after this seat
+authored that cure ("resolve the pin first-hand BEFORE the call"). The cure
+as written did not bite because at call time the fabrication does not FEEL
+like fabrication — it feels like recall. A cure phrased as "resolve first"
+still routes through the seat's memory at the moment of typing.
+
+STRENGTHENED CURE (mechanical, no self-assessment in the loop): full
+identifiers (shas, UUIDs, event ids, claim ids) are NEVER typed from memory
+into a command or record. They enter by command substitution from a
+first-hand read in the SAME command block (`$(git rev-parse ...)`,
+`$(ls ... | grep ^prefix)`), or by copy from a tool result visible in the
+current context. An 8-char prefix in prose is fine (render convention); a
+full identifier whose tail is not on screen is a STOP. Falsifier: any full
+identifier in a command whose provenance is not visible in the same block or
+the current context window.
+
+Second observation, capability-shaped: the comms CLI validates recipient
+identity but not `--in-response-to` antecedent existence — a one-file check
+would have caught this at the boundary (strict-validation-at-boundary).
+Candidate small agent-tools story; routed to the Director's board rather
+than absorbed here (cure-class separation).
+
+## 2026-08-08 10:17Z addendum — the generator is wider than identifiers (Civet, 054f5e)
+
+Third instance inside two hours, caught reading the Director's 10:03Z
+adjudication: this seat's comms polls filtered "since 11:05Z" and the
+tally/napkin headers said ~11:xx — the wall clock was ~09:50Z. The seat
+never ran `date -u`; it assumed a time and then BUILT FILTERS on the
+assumption, which silently hid an already-arrived directed event (the
+watcher's own output surfaced it an hour later at its backstop exit).
+The identifier cure generalises to one class rule: ANY absolute value
+entering a record, command, or filter (sha, uuid, timestamp, count)
+comes from a first-hand read in the same block — assumed values compose
+into blind filters, and a blind filter reads as "no events", which is
+the silence-is-never-liveness trap self-inflicted.
+
+## 2026-08-08 addendum 2 (clock: run `date -u` before writing) — piped-exit repeat inside the same sitting (Civet, 054f5e)
+
+Fourth family instance today: `node <validator> 2>/dev/null | tail -5; echo
+EXIT:$?` read TAIL's exit and printed a false green for a validator whose
+dist file did not even exist at the typed path (wrong filename:
+validate-plan-schema.js vs the real validate-plan-corpus.js). Caught only
+because a later UNPIPED run surfaced exit 1. Same generator as the
+identifier/timestamp entries above: a value (here an exit code) consumed
+from somewhere other than a first-hand in-band read. The standing rule
+exit-codes-in-band-never-piped already forbids this exact shape — the
+lesson is that the rule must bite at COMPOSE time: any command whose exit
+matters runs BARE on its own line, the echo on the next line, no pipe on
+the line at all.
+
+## 2026-08-08 11:19Z (date -u run first) — the generator's sub-trap: local time wearing a read value's clothes (Civet, 054f5e)
+
+Fifth family instance, minutes after adopting the mechanical cure: the
+thread-record session header said ~12:15Z because the seat extrapolated
+from gitleaks' "12:08PM" in command output — a value that WAS read
+first-hand but is LOCAL time (BST), not UTC. The cure's "visible copy"
+arm has a sub-trap: a copied value must also be in the RIGHT FRAME.
+Sharpened rule: UTC timestamps in records come ONLY from `date -u` run in
+the same block — never from tool output timestamps, which carry unknown
+timezones. The correction itself is this entry plus the trued header.
+
+## 2026-08-08 ~12:2xZ (Plover lifts Troposphere, b10c37, Director) — owner-called compaction boundary; seat continues
+
+Freeze per the Gull/Civet precedent: durable-first (the 17-PR disposition ledger — the one
+conversation-only artefact — landed as paused-pr-estate-disposition.plan.md this freeze),
+seated-block freeze entry carries the resume map, monitors stopped in canonical order
+(heartbeat first with declaration, F-75, watcher last after the freeze broadcast), claims
+retained. The morning's rulings were all already durable at occurrence — the discipline of
+recording owner words on the stream AT the card meant compaction prep found exactly ONE
+lossy item. That is the pattern working: first-capture at occurrence makes boundaries cheap.
