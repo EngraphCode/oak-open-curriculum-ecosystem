@@ -1,7 +1,7 @@
 ---
 status: active
-evidence_snapshot: 2026-07-19 pinned sources
-last_updated: 2026-07-20
+evidence_snapshot: 2026-08-03 pinned sources
+last_updated: 2026-08-08
 ---
 
 # Capability coverage
