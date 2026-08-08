@@ -10,9 +10,11 @@ minimum, there will be other areas where a high floor is simply
 required."
 
 **Source**: the source-backed study *Oak Components — anatomy, intent
-and evolution* (PR #737, `research/web-app-deconstruction/docs/`
+and evolution* (`research/web-app-deconstruction/docs/`
 `current-state/oak-components-anatomy-intent-and-evolution.md`;
-research snapshot 2026-08-03, package v3.4.0) — covering the Oak
+research snapshot 2026-08-03, package v3.4.0; landed on `main` via
+PR #737, merge commit `67d23056e` — the pinned source revision for
+this extraction) — covering the Oak
 Components library and its counterpart consuming code in OWA. The
 study's evidence classes (Observation / Inference / Hypothesis) were
 respected in the extraction: floor rows rest on Observed capability
@@ -25,7 +27,7 @@ requirements beyond those systems, and where we do overlap, many of
 our floors are deliberately higher than theirs." Two consequences
 carried through this document: incompleteness is CONSTITUTIVE — this
 extraction can never be completed from this source, only joined by
-other areas' own floors (reading rule 3); and the two rows named in
+other areas' own floors (reading rule 3); and the rows named in
 §Above-floor rows are the OC-evidenced instances of exceeding, never
 a census of where our floors sit deliberately higher.
 
@@ -59,7 +61,7 @@ a census of where our floors sit deliberately higher.
 | 4 | **Layout and typography primitives** sufficient to compose full pages with zero raw values | OakBox/OakFlex/OakGrid + seven typography families | Kit composition classes; thin React wrappers above |
 | 5 | **Interaction capital, implemented once**: modal (focus trap/return, escape/backdrop, scroll), disclosure, dropdown (keyboard nav, outside-click), feedback (toast/tooltip/banner), navigation patterns — APG-conformant, reduced-motion aware, announced where stateful; fixes propagate to every variant | The research's core value claim: the "interaction kernel" and the internal-mechanism "assurance membrane" | A shared mechanism layer (kit + React tier), never per-demo |
 | 6 | **Reduced rediscovery as the value test**: no consumer re-derives focus order, theme semantics, spacing rhythm, loading behaviour, announcements, or visual policy | The study's master framing of OC's delivered value | Every layer — the acceptance question for any new surface |
-| 7 | **Entry at any altitude**: theme-only, tokens-only, primitives, controls, full recipes — all supported consumption modes | OC's five modes of reuse; AILA consuming tokens + layout under a different stack (the strongest portability evidence) | Layer sovereignty (kernel property) — met by construction; must not regress |
+| 7 | **Entry at any altitude**: theme-only, tokens-only, primitives, controls, interaction patterns, full recipes — all supported consumption modes | OC's six modes of reuse (study §8.5: theme/global styles; tokens/style helpers; layout/typography primitives; branded controls; complex interaction patterns; product-level recipes); AILA consuming tokens + layout under a different stack (the strongest portability evidence) | Layer sovereignty (kernel property) — met by construction; must not regress |
 | 8 | **Stable local extension** without forking | AILA's styled wrappers as healthy extension; "stable extension points" named as the most portable layer | A named extension mechanism per layer |
 | 9 | **Import stability under internal reorganisation**, plus versioned, provenance-signed releases with rollback checkpoints | The single-doorway lesson: 353-file and 999-file reorganisations were non-breaking; 434 versions in 30 months with SemVer + npm provenance | Per-layer export contracts, each stating its own stability promise — the layered restatement of OC's flat doorway (a Director proposal, not the study's) |
 | 10 | **Inspectable specimens**: every public pattern viewable in named states by non-engineers | Storybook as the organisational boundary object across design/eng/QA/product | The showcase + reference tier |
@@ -69,13 +71,16 @@ a census of where our floors sit deliberately higher.
 
 ## Above-floor rows (OC-evidenced instances, not a census)
 
-Rows 2 and 11 set our floor **above** OC's demonstrated capability, on
-purpose: partial theming and episodic assurance are the two weaknesses
-the research names most sharply, and our architecture already commits
-to the stronger form. They are floor rows here because falling back to
-OC's level would be a regression against our own kernel, not because OC
-demonstrates them. Per the owner's 2026-08-05 shaping note above, these
-two are only the instances THIS source evidences: across the overlap,
+Rows 2, 10 and 11 set our floor **above** OC's demonstrated capability,
+on purpose. Partial theming (row 2) and episodic assurance (row 11) are
+the two weaknesses the research names most sharply; complete Storybook
+discoverability (row 10) sits in the study's own "what remains partial"
+synthesis, with open issue #248's incomplete prop visibility for a core
+button as the direct evidence. Our architecture already commits to the
+stronger form in each case. They are floor rows here because falling
+back to OC's level would be a regression against our own kernel, not
+because OC demonstrates them. Per the owner's 2026-08-05 shaping note
+above, these are only the instances THIS source evidences: across the overlap,
 many of our floors sit deliberately higher than OC's, and the areas
 beyond OC's scope carry their own floors from their own sources.
 
