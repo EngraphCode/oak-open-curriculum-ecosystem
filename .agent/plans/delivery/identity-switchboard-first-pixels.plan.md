@@ -190,14 +190,24 @@ slice per the standing rule.
    budgets rebinding at this re-authoring per PDR-132:
    - PR-1a — extract the shared fidelity core (support, image-diff,
      dev-server, fidelity-report, fidelity-report-sections, fidelity-html,
-     register core, review runner, pairing-map schema) to a new
-     `packages/design/fidelity-review` workspace package; the hardened
-     showcase versions are canonical (the hub's three inherited defects —
-     the decodeURIComponent crash, the relative-npm_execpath lookup, the
-     loose register schema — die by construction); the hub migrates to
-     the package and its copies delete. Single story: consolidation at
-     the second consumer; the PDR-132 size warning fires and the PR body
-     states the mostly-moved-code ground.
+     register core, five app-neutral runner helpers, and the
+     decodeUrlPath/resolveWithinRoot path guard as `static-path-guard`)
+     to a new `packages/libs/fidelity-review` workspace package
+     (correction 2026-08-09 at build, pre-execution review concurring:
+     libs foundation tier, NOT packages/design — the design container is
+     ADR-041's token-chain matrix and `validate-boundaries` enumerates
+     libs, so registration is build-load-bearing; ADR-041 takes a
+     one-line dated amendment). The hardened showcase versions are
+     canonical (the hub's three inherited defects — the
+     decodeURIComponent crash, the relative-npm_execpath lookup, the
+     loose register schema — die by construction). Pairing-map schemas
+     stay app-local behind structural package types; capture-checks and
+     each app's runner stay app-local; the hub migrates and its copies
+     delete. May land as two slices cut at the mechanical/cure seam per
+     the pre-execution review; the PDR-132 size warning fires and each
+     PR body states the mostly-moved-code ground. Residue (byte-identical
+     export-server serve mechanics) is a named follow-up ticket, not a
+     silent deferral.
    - PR-1b — #834 merges main after PR-1a lands and swaps its copied
      modules for package imports; its remaining diff is the genuinely
      app-local code already through three review rounds (export overlay +
