@@ -10,13 +10,13 @@ description: Reflective thinking — read and apply the metacognition directive.
 metacognition prompt ratified in
 PDR-029 and the rush-impulse structural cue adopted in ADR-172.
 The directive itself lives at
-[`../../directives/metacognition.md`](../../directives/metacognition.md).
+[`../../../directives/metacognition.md`](../../../directives/metacognition.md).
 The outward pair — structuring a problem, argument, or decision rather than reflecting on the
 thinker — is [`reason`](../reason/SKILL-CANONICAL.md).
 
 ## Workflow
 
-1. Read [`../../directives/metacognition.md`](../../directives/metacognition.md)
+1. Read [`../../../directives/metacognition.md`](../../../directives/metacognition.md)
    end to end.
 2. Apply it to the work in front of you, not as a summary exercise but as a
    pre-action or boundary reflection. Ask:

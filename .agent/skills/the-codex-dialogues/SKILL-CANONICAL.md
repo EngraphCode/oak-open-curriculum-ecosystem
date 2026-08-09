@@ -41,7 +41,7 @@ it over real exchanges could change your position.
 Route elsewhere when:
 
 - you want a fast bounded second opinion on priority, framing, or
-  proportion — [`cricket`](../cricket/SKILL-CANONICAL.md) (one-shot
+  proportion — [`cricket`](../cognition/cricket/SKILL-CANONICAL.md) (one-shot
   conscience panel; its rubber-ducking triggers are NOT this skill's);
 - you want a task done and a result returned —
   [`codex-helper`](../codex-helper/SKILL-CANONICAL.md) (`codex exec`

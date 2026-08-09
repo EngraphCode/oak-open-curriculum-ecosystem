@@ -186,5 +186,5 @@ Two inward checks drawn from the
   made). Name the falsifier before you act on the belief.
 
 For structuring an *outward* problem, argument, or decision — rather than reflecting on your own
-thinking — use [`reason`](../skills/reason/SKILL-CANONICAL.md); this directive is the inward half
+thinking — use [`reason`](../skills/cognition/reason/SKILL-CANONICAL.md); this directive is the inward half
 of that pair.

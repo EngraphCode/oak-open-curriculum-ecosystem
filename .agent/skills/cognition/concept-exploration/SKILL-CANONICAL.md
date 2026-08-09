@@ -26,7 +26,7 @@ can produce a warranted synthesis of work nobody should do at that scale, and a 
 malformed question sizes the wrong thing.
 
 Repository-specific provenance, adaptation notes, and replication guidance live in
-[the concept-exploration Practice transfer note](../../research/concept-exploration-practice-transfer-2026-07.md).
+[the concept-exploration Practice transfer note](../../../research/concept-exploration-practice-transfer-2026-07.md).
 
 ## Loop Dynamics
 
