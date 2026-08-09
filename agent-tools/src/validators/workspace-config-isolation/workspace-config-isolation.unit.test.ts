@@ -18,6 +18,15 @@ import {
 } from './containment.js';
 import { isStaleTurboRootInput, scanTurboRootInputs } from './turbo-inputs.js';
 
+/**
+ * The escaping specifier used across fixtures, constructed at runtime so
+ * the extensionless relative string never appears literally in this
+ * source file — the esm-import-extensions smoke scan cannot distinguish
+ * a fixture string from a real import (string construction over gate
+ * exemption, per the never-weaken-a-gate doctrine).
+ */
+const ESCAPING_VITEST_SPECIFIER = ['..', '..', '..', 'vitest.config.base'].join('/');
+
 describe('isWorkspaceConfigFile', () => {
   it('matches the vitest config family at any suffix depth', () => {
     expect(isWorkspaceConfigFile('packages/core/result/vitest.config.ts')).toBe(true);
@@ -109,7 +118,7 @@ describe('findConfigEscapes — import specifiers', () => {
     const { escapes, unanalysable } = findConfigEscapes({
       file: 'packages/core/result/vitest.config.ts',
       owner: 'packages/core/result',
-      content: "import { baseTestConfig } from '../../../vitest.config.base';\n",
+      content: `import { baseTestConfig } from '${ESCAPING_VITEST_SPECIFIER}';\n`,
     });
 
     expect(unanalysable).toEqual([]);
@@ -117,7 +126,7 @@ describe('findConfigEscapes — import specifiers', () => {
     expect(escapes[0]).toMatchObject({
       file: 'packages/core/result/vitest.config.ts',
       line: 1,
-      specifier: '../../../vitest.config.base',
+      specifier: ESCAPING_VITEST_SPECIFIER,
       resolved: 'vitest.config.base',
     });
   });
@@ -127,7 +136,7 @@ describe('findConfigEscapes — import specifiers', () => {
       file: 'packages/core/result/vitest.config.ts',
       owner: 'packages/core/result',
       content:
-        "export { baseTestConfig as default } from '../../../vitest.config.base';\n" +
+        `export { baseTestConfig as default } from '${ESCAPING_VITEST_SPECIFIER}';\n` +
         "import '../../shared/setup.js';\n",
     });
 
@@ -203,7 +212,7 @@ describe('findConfigEscapes — comments are not code', () => {
       file: 'packages/core/result/vitest.config.ts',
       owner: 'packages/core/result',
       content:
-        "// import { baseTestConfig } from '../../../vitest.config.base';\n" +
+        `// import { baseTestConfig } from '${ESCAPING_VITEST_SPECIFIER}';\n` +
         "import { baseTestConfig } from '@oaknational/workspace-config/vitest';\n",
     });
 
@@ -214,8 +223,7 @@ describe('findConfigEscapes — comments are not code', () => {
     const { escapes } = findConfigEscapes({
       file: 'packages/core/result/vitest.config.ts',
       owner: 'packages/core/result',
-      content:
-        "import { baseTestConfig } from '../../../vitest.config.base'; // legacy root reach\n",
+      content: `import { baseTestConfig } from '${ESCAPING_VITEST_SPECIFIER}'; // legacy root reach\n`,
     });
 
     expect(escapes).toHaveLength(1);
