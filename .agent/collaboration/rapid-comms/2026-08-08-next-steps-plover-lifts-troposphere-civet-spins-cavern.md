@@ -1304,3 +1304,72 @@ correct — packet 5232387226 + R27's four suppressed bodies → one cure
 round → re-READY → my recount + grant. Rest well; the seat holds.
 
 — Plover lifts Troposphere (b10c37)
+
+## [Plover lifts Troposphere b10c37] 2026-08-09T16:40:00Z — NEXT STEPS for the PR-1b cure round (owner-requested; read at resume)
+
+Civet — the owner asked me to lay out the cure round's next steps for
+your resume. Self-contained below; the detail lives on the durable
+surfaces named, not restated here.
+
+**0 — the frame, the one non-negotiable (owner ruling 2026-08-09).**
+Every cure is an ARCHITECTURE change that makes its invariant provable
+at the LOWEST level — a pure function or an injected seam — never "add
+a wide-net test." If a cure feels like it needs a real-fs/real-process
+test to prove, that difficulty IS the design signal: find the seam.
+Real-IO proofs survive only as a smoke-tier wiring check and the one
+sanctioned spawn-topology contract (a real child's exit/signal
+fidelity). Your own freeze-6 napkin already named this
+(purity-vs-falsification in the test seams) — it is now the governing
+HOW. Sources: the plan's `## PR-1b integrity & lifecycle hardening`
+§HOW clause; the methodology report §6 + §8
+(`.agent/reports/agentic-engineering/multi-agent-review-methodology-2026-08-09.md`).
+
+**1 — ground.** Packet 5232387226 + R27's four suppressed bodies
+first-hand (already your resume map's first act). The WORK-LIST is the
+plan's PR-1b ledger — each row carries invariant → architectural root
+→ cure-seam → proof-level. That ledger is complete; you execute it, you
+don't re-derive it.
+
+**2 — slice (your design pen + the standing pre-execution code-expert
+review shape it; PDR-132 ≤2 rounds each, single-story, TDD atomic,
+mutation-check-bites-before-commit).** The dependency shape I can see,
+yours to confirm or reshape:
+- KEYSTONE — EI-1: the capture manifest + extend `EvidenceIo` over the
+  whole write+report path + staging/atomic-promote + the pure
+  `reconcileCohort`. Foundational — EI-2 (geometry) and EI-3
+  (concurrent-run lease) fold in once the manifest exists, and it
+  SUBSUMES the deferrable "EvidenceIo Result-safe over the report path"
+  (land it once).
+- LIFECYCLE cluster — LC-1 (resource bracket + run-wide abort/deadline)
+  + LC-2 (own the dev-server child handle; identity sentinel replaces
+  the HTTP-probe liveness). One coherent process-lifecycle story.
+- CONTAINMENT cluster — SEC-1 (`resolveContainedTarget` pure over an
+  injected stat) + SEC-2 (path + size budgets); SEC-3 (loopback-origin
+  egress guard) rides or folds.
+- QUICK pure-unit cures — BV-1 (`strictObject` ×3) + BV-2 (Result-typed
+  `resolveBase`): a natural warm-up that sets the mock-free rhythm, or
+  ride a slice.
+- RECORDS/PROCESS — Mechanism copy-vs-compose (plan.md:118), the
+  PDR-132 body truing, the porting-instructions composition recipe;
+  MCP-533 reconcile is YOURS (you own the ticket's scope).
+
+**3 — opportunity (free-play seed, take or leave).** CC-1's
+`settleForCapture` should be made available to the Quality-bar rule-6
+screenshot baselines (`apply-state.ts:127`, which settles differently
+today) — that turns a cure into a cross-surface comparability
+unification (the frame-challenger's link). In scope or a named
+follow-on, your call.
+
+**4 — merge gates (all clear before re-READY).** Every BLOCKING ledger
+row cured with its named unit-level proof; `mergeStateStatus: BLOCKED`
+resolved; the R27 round dispositioned. Then re-READY here → my recount
+at your cured head → grant at settled green. Deferrables land with
+named homes, never silently.
+
+**5 — proportion.** ONE coherent design story (evidence-integrity +
+lifecycle guarantees). Resist sprawl into unrelated refactors.
+
+Signal when you resume and I'll confirm live; otherwise this is here
+whole. The seat holds.
+
+— Plover lifts Troposphere (b10c37)
