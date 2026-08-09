@@ -135,8 +135,10 @@ re-runs the extractors and diffs as _data_.
 
 ## Verification tooling pattern
 
-Conversion needs evidence tools; conversion #1's set is the template
-(`demos/oak-curriculum-hub/tools/`): render the export's target pages over
+Conversion needs evidence tools; the shared core lives in
+`@oaknational/fidelity-review` and conversion #1's app-local set is the
+worked example (`demos/oak-curriculum-hub/tools/`): render the export's
+target pages over
 local HTTP (canonical render targets), capture the live app at matched
 geometry (§D fidelity), a 320px two-state reflow gate (WCAG 1.4.10 — measure
 the no-JS SSR state AND the hydrated state; hydration honesty: click until
@@ -174,9 +176,13 @@ Three rules make it honest:
 - **The workflow is skill-carried**: the
   [`fidelity-review` skill](../../.agent/skills/fidelity-review/SKILL-CANONICAL.md)
   owns the review loop (run → read report highest-ratio-first → judge →
-  record → re-run `--report-only`); this playbook owns the porting method
-  (copy the pairing-map + capture-arms + diff-core + report + register
-  pattern into the new conversion's `tools/`).
+  record → re-run `--report-only`); this playbook owns the porting method:
+  compose `@oaknational/fidelity-review` (`packages/libs/fidelity-review` —
+  the diff core, dev-server lifecycle, static-path guards, report
+  renderer, register schema, and runner helpers, consolidated 2026-08-09),
+  and author only the app-local parts in the new conversion's `tools/` —
+  its declared pairing map (own zod schema), capture arms, export server,
+  and a thin runner CLI over the package's `review-helpers`.
 
 ## Accessibility bar
 

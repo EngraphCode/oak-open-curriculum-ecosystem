@@ -1,3 +1,30 @@
+## [1.155.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.155.1...v1.155.2) (2026-08-09)
+
+## [1.155.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.155.0...v1.155.1) (2026-08-09)
+
+# [1.155.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.154.4...v1.155.0) (2026-08-09)
+
+
+### Bug Fixes
+
+* **agent-tools:** close the adjudicated security/test cure round (S1-S4, T2-T5) ([8703c30](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8703c30ff32e7af58548c0b9540867ef8339c044))
+* **agent-tools:** cure the Sonar new-code round on the estate instrument ([#734](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/734)) ([b161a3d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b161a3dfd1397325cc274c7fd8f6deea4cf7dfba))
+* **agent-tools:** empty-corpus check refusal; portability walks the concern tier ([6dcf8b8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6dcf8b83a7fad7563f7b28d639b78d96c728237d))
+* **agent-tools:** green the estate-review foundation (handoff steps 2-5) ([d16ba0e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d16ba0e7daf90df333cc4ffe27eaf0f82faffad3))
+* **agent-tools:** retire the dead scalar alias; reorder the composite null guard ([2a699c5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2a699c535e8d2e4c14e50a95435810f7a2f38b06))
+* **agent-tools:** surface skipped directories in the adapter checker ([cf7d027](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cf7d0273359bc5414adc41ef0f8116665f545426))
+* **skills:** conform the nine members to the classification contract; true the topology doc ([3d97bc4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3d97bc40146e438038f5a10e814b9d15f0a3b000))
+
+
+### Features
+
+* **agent-tools:** family-aware skills adapter discovery ([82a90b6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/82a90b641c5154108b976551c26822650c376daa))
+* **skills:** commit the Parallax family's generated adapters ([d271622](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d271622b46ea85c6efb3440cb9d6a4dc9e0e260e))
+
+## [1.154.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.154.3...v1.154.4) (2026-08-09)
+
+## [1.154.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.154.2...v1.154.3) (2026-08-09)
+
 ## [1.154.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.154.1...v1.154.2) (2026-08-09)
 
 ## [1.154.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.154.0...v1.154.1) (2026-08-09)
