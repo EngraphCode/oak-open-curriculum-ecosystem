@@ -29,6 +29,16 @@ its consequences; execution detail stays in plans — the same discipline the
 ADR corpus holds (decision records state the should-be; the means live in
 plans).
 
+## Sibling: the design-review instrument
+
+[`design-review/`](./design-review/) is the design-review instrument's
+home — the W0.7 rubric (a living instrument document), the owner-editable
+wow-verdict register data, and the instrument's dated records. It is a
+sibling artefact class, not a DDR: the rubric steers calls (its FAIL
+blocks a render), so it lives here rather than in any report tree, and
+its register's boundary parser lives with the estate's validators at
+`agent-tools/src/validators/wow-verdict-register/`.
+
 ## The graph
 
 The corpus is a graph from day 1. The ADR corpus already carries typed edges

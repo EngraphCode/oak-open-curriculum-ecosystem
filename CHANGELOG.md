@@ -1,3 +1,20 @@
+## [1.154.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.154.0...v1.154.1) (2026-08-09)
+
+# [1.154.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.18...v1.154.0) (2026-08-08)
+
+
+### Features
+
+* **design:** mint the W0.7 design-review instrument — rubric v0 + wow-verdict register ([67cf5da](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/67cf5da631a986dfb2c429e3b15fbeccd4544fad)), closes [#784](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/784)
+
+## [1.153.18](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.17...v1.153.18) (2026-08-08)
+
+## [1.153.17](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.16...v1.153.17) (2026-08-08)
+
+## [1.153.16](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.15...v1.153.16) (2026-08-08)
+
+## [1.153.15](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.14...v1.153.15) (2026-08-08)
+
 ## [1.153.14](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.13...v1.153.14) (2026-08-08)
 
 ## [1.153.13](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.153.12...v1.153.13) (2026-08-08)

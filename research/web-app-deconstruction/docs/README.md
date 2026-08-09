@@ -45,6 +45,7 @@ This is the durable record of the Oak web-app deconstruction. It links OWA and O
 - [Freshness and failure](./current-state/freshness-and-failure.md)
 - [Accessibility and assurance](./current-state/accessibility-and-assurance.md)
 - [Oak Components boundary](./current-state/component-boundary.md)
+- [Oak Components anatomy, intent, coupling and value](./current-state/oak-components-anatomy-intent-and-evolution.md)
 - [Teacher discovery-to-download journey](./current-state/journeys/teacher-discovery-to-download.md)
 - [Pupil lesson-to-results journey](./current-state/journeys/pupil-lesson-to-results.md)
 - [Account-to-saved-content journey](./current-state/journeys/account-to-saved-content.md)
