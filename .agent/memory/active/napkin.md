@@ -348,3 +348,307 @@ record).
   outside eyes caught nothing the scan missed THIS time, but the session's own
   error signature (the v3-"pending" misread, caught only on deeper first-hand
   verification) is where a successor should point external scrutiny.
+
+## 2026-08-08 ~10:4xZ (Plover lifts Troposphere, b10c37, Director) — the fold's three instrument lessons, all first-hand
+
+- BOT-IDENTITY MISS, twice in one act: created fold PR #825 (and earlier closed #806)
+  under the OWNER's ambient gh credential — never asked "whose name displays?" at the
+  write. The cure attempt then made it WORSE: `node dist/src/merge-bot/cli.js mint-token`
+  exits 0 printing NOTHING (wrong entry point — no env), my guard checked exit code only,
+  and the empty GH_TOKEN fell back to ambient auth = #826 also owner-attributed. The
+  standing constraint names this exact shape: mint fails → STOP, never keyring-fallback —
+  and an EMPTY READ IS A FAILURE whatever the exit code. Working path: the documented
+  `pnpm --silent agent-tools merge-bot mint-token --scope <s>` front door, guarded by
+  TOKEN LENGTH (≥20), author VERIFIED on the created artefact before proceeding. #827
+  landed correctly bot-authored. Frictions candidate: the direct-dist silent-empty-success
+  (F-157 shape); register row at the next curation touch.
+- SETTLE-RACE at the merge: the watch read run-quality-gates SUCCESS; the REST merge got
+  405 "required check is queued" — a fresh run had re-queued between read and call. The
+  refusal is the ruleset working; the cure was wait-and-recompute, not retry-harder. The
+  recount discipline's "recomputed at the boundary" includes the seconds between the
+  watch's last read and the merge call itself.
+- PUSH KILLED BY OWN TIMEOUT: the first fold push died at my 2-minute Bash default while
+  the pre-push chain ran — the fold skill names 600s for exactly this. Exit 143 mid-hook
+  is self-inflicted, not a defect; nothing transferred; the re-push with the right budget
+  landed clean.
+
+## 2026-08-08 ~10:0xZ — the fabrication class REPEATED within a day of its cure (Civet, 054f5e)
+
+Own mistake, caught by self-audit seconds after the write. Routing the Cricket
+5:3 to the Director, this seat passed `--in-response-to
+b7e4b897-3860-49c5-a41f-06845e14b2f3` — a remembered 8-char prefix with an
+INVENTED tail. The true antecedent is `b7e4b897-2810-42b0-baeb-564fbbacf4a5`.
+The CLI accepted it (no antecedent-existence validation), so the directed
+event 1c4957f1 landed with a dangling thread pointer; correction event
+9ae8fb56 threads properly and names the true id.
+
+The compounding fact: this is the SAME class as yesterday's #820 sha
+fabrication (hand-extended 40-char sha), repeated ~14h after this seat
+authored that cure ("resolve the pin first-hand BEFORE the call"). The cure
+as written did not bite because at call time the fabrication does not FEEL
+like fabrication — it feels like recall. A cure phrased as "resolve first"
+still routes through the seat's memory at the moment of typing.
+
+STRENGTHENED CURE (mechanical, no self-assessment in the loop): full
+identifiers (shas, UUIDs, event ids, claim ids) are NEVER typed from memory
+into a command or record. They enter by command substitution from a
+first-hand read in the SAME command block (`$(git rev-parse ...)`,
+`$(ls ... | grep ^prefix)`), or by copy from a tool result visible in the
+current context. An 8-char prefix in prose is fine (render convention); a
+full identifier whose tail is not on screen is a STOP. Falsifier: any full
+identifier in a command whose provenance is not visible in the same block or
+the current context window.
+
+Second observation, capability-shaped: the comms CLI validates recipient
+identity but not `--in-response-to` antecedent existence — a one-file check
+would have caught this at the boundary (strict-validation-at-boundary).
+Candidate small agent-tools story; routed to the Director's board rather
+than absorbed here (cure-class separation).
+
+## 2026-08-08 10:17Z addendum — the generator is wider than identifiers (Civet, 054f5e)
+
+Third instance inside two hours, caught reading the Director's 10:03Z
+adjudication: this seat's comms polls filtered "since 11:05Z" and the
+tally/napkin headers said ~11:xx — the wall clock was ~09:50Z. The seat
+never ran `date -u`; it assumed a time and then BUILT FILTERS on the
+assumption, which silently hid an already-arrived directed event (the
+watcher's own output surfaced it an hour later at its backstop exit).
+The identifier cure generalises to one class rule: ANY absolute value
+entering a record, command, or filter (sha, uuid, timestamp, count)
+comes from a first-hand read in the same block — assumed values compose
+into blind filters, and a blind filter reads as "no events", which is
+the silence-is-never-liveness trap self-inflicted.
+
+## 2026-08-08 addendum 2 (clock: run `date -u` before writing) — piped-exit repeat inside the same sitting (Civet, 054f5e)
+
+Fourth family instance today: `node <validator> 2>/dev/null | tail -5; echo
+EXIT:$?` read TAIL's exit and printed a false green for a validator whose
+dist file did not even exist at the typed path (wrong filename:
+validate-plan-schema.js vs the real validate-plan-corpus.js). Caught only
+because a later UNPIPED run surfaced exit 1. Same generator as the
+identifier/timestamp entries above: a value (here an exit code) consumed
+from somewhere other than a first-hand in-band read. The standing rule
+exit-codes-in-band-never-piped already forbids this exact shape — the
+lesson is that the rule must bite at COMPOSE time: any command whose exit
+matters runs BARE on its own line, the echo on the next line, no pipe on
+the line at all.
+
+## 2026-08-08 11:19Z (date -u run first) — the generator's sub-trap: local time wearing a read value's clothes (Civet, 054f5e)
+
+Fifth family instance, minutes after adopting the mechanical cure: the
+thread-record session header said ~12:15Z because the seat extrapolated
+from gitleaks' "12:08PM" in command output — a value that WAS read
+first-hand but is LOCAL time (BST), not UTC. The cure's "visible copy"
+arm has a sub-trap: a copied value must also be in the RIGHT FRAME.
+Sharpened rule: UTC timestamps in records come ONLY from `date -u` run in
+the same block — never from tool output timestamps, which carry unknown
+timezones. The correction itself is this entry plus the trued header.
+
+## 2026-08-08 ~12:2xZ (Plover lifts Troposphere, b10c37, Director) — owner-called compaction boundary; seat continues
+
+Freeze per the Gull/Civet precedent: durable-first (the 17-PR disposition ledger — the one
+conversation-only artefact — landed as paused-pr-estate-disposition.plan.md this freeze),
+seated-block freeze entry carries the resume map, monitors stopped in canonical order
+(heartbeat first with declaration, F-75, watcher last after the freeze broadcast), claims
+retained. The morning's rulings were all already durable at occurrence — the discipline of
+recording owner words on the stream AT the card meant compaction prep found exactly ONE
+lossy item. That is the pattern working: first-capture at occurrence makes boundaries cheap.
+
+## 2026-08-08 14:05Z (date -u read) — compaction-freeze harvest, the unseal-to-first-light day (Civet, 054f5e)
+
+METACOGNITION BITE — the generator family closed its arc. Yesterday's
+"chains past unverified preconditions" generalised through five instances
+today into one law: A VALUE OR CLAIM ENTERS THE WORK ONLY FROM A
+FIRST-HAND, RIGHT-FRAME READ — never memory (uuid tail), never an assumed
+clock (blind comms filters), never a piped exit (false green), never a
+wrong-frame copy (local time as UTC), and never a spliced-in owner word
+whose home is a DATED record (the class-5 catch). The compounding
+observation worth keeping: the mechanical cure (command-substitution /
+visible-copy / date -u / bare exits) held for the REST of the day once
+adopted — and where my own judgment failed anyway (the dated-record
+splice), the ESTATE'S structure caught it (the pre-committed rule + the
+adversarial fleet), which is the owner's structure-over-vigilance
+principle working exactly as designed. The Director self-caught the same
+piped-exit class at their own freeze — the family is estate-wide, and the
+cure text (any exit that matters runs BARE on its own line) belongs in
+doctrine, not just two napkins. Candidate graduation.
+
+FREE-PLAY SEEDS: (1) the Copilot-foundation ruling now has a COMPLETE
+worked cycle (request → materialise → harvest incl. suppressed →
+one-push cure → disposition → grant citing the case → merge) — the
+merge-decision truing story should encode from this instance, not from
+the abstract ruling; (2) the W0 baseline's environment-artefact
+separation (run-shape reds, cold-machine Playwright, transient
+ECONNREFUSED) seeds a demos-tier cold-start note under the
+works-for-any-machine lens; (3) the wow path is now three legs (W0.7 v0
+rubric, W0.9 owner browse + search env credentials, W1.2 pages with
+blocking tweaks) — small enough to name in one card.
+
+CONCEPT-EXPLORATION: justified NO-RUN at this freeze — every near-horizon
+question is well-formed under the cured plan (mechanism-at-story-open);
+the one genuinely open concept (the production-validation durable
+discipline) is at the Director's exploration by owner word.
+
+## 2026-08-08 14:50Z (date -u read) — resume-window harvest (Civet, 054f5e)
+
+The one-law held at its first two post-adoption tests this window: (1) a
+`grep -l` for "SUPERSESSION" returned ANOTHER seat's supersession event
+and the comms CLI's typed refusal (recipient-identity check) caught the
+mis-aimed reply before it landed — structure catching what fluency
+missed, again; (2) an `echo EXIT:$?` after a `| grep` pipe read grep's
+exit, not the CLI's — caught at COMPOSE-review this time, and the cure
+was read-the-state-first (the reply was verified on the stream by
+reading the newest event, not by trusting the echoed zero).
+
+Provenance lesson (Director, estate-wide, worked instance #737): a
+CHANGES_REQUESTED under a colleague's credentials may be their AGENTS'
+review, not the human's — verify provenance before treating a standing
+review as the human gate. The owner dissolved the gate by merging
+directly.
+
+## 2026-08-08 15:30Z (date -u read) — two instrument notes from the W0.7 PR-A window (Civet, 054f5e)
+
+Family instance (uuid-tail, second occurrence): a comms reply carried a
+ruling event id whose PREFIX was read first-hand but whose tail was
+stitched from a DIFFERENT event's remembered tail — the CLI's
+antecedent-existence check refused it ("directed message not found") and
+the id was re-derived from disk by ls. The cure text stands: identifiers
+enter commands ONLY whole, by command substitution from the surface that
+owns them; a prefix is never a handle to complete from memory. (Notably:
+the comms CLI DOES check --to-event-id existence on reply — the routed
+agent-tools gap is specifically send's --in-response-to.)
+
+Mechanism note, estate-useful: GitHub's REST requested_reviewers endpoint
+SILENTLY DROPS the Copilot reviewer handle (returns 200 with the handle
+absent — tried both bot-login and "Copilot" forms); the working request
+path is the GitHub MCP request_copilot_review tool. A silent drop that
+reads as success is the query-the-lookalike shape on a vendor surface.
+
+## 2026-08-08 16:23Z (date -u read in the same block; the heading first said 16:25Z — an authored guess trued at occurrence, the family again) — second-compaction freeze harvest (Civet, 054f5e)
+
+METACOGNITION BITE — the window's real lesson is the HALF-ARMED WATCHER:
+my monitors were all live and F-95 attested, yet the owner had to tell me
+I was missing the Director's communications — the watcher EMITS to a file
+but nothing made me READ it between wakes. Awareness is consumption, not
+process existence. Cure adopted mid-window (the ARC tail as an
+event-driven Monitor; the canonical watcher buffer swept at every turn
+boundary) and the doctrine line is queued as a pending-graduations row at
+the Director's seat with this instance as provenance. A NARRATION-layer
+instance of the one-law also fired: I mis-narrated the #830 mint commit
+as 0c0c6f659 (the #829 cure sha) for a full window — values in PROSE need
+first-hand reads exactly as values in commands do; caught benign at the
+push readout.
+
+FREE-PLAY SEEDS: (1) the instrument-blocked row class encodes THE ABSENCE
+of an owner verdict as first-class structure — shaped like
+silence-is-never-liveness generalised to data schemas; association only.
+(2) The first n=2 ARC working session ran agenda → five answers →
+adoption in ~20 min wall-clock — dialogue on the channel, state on
+canonical felt like the estate's first genuinely conversational
+inter-agent session. (3) Review-driven design: the register schema is
+substantially better than its first cut because four reviewers attacked
+it in sequence — the layered-review machine acting as a DESIGN
+instrument, not just a defect net.
+
+CONCEPT-EXPLORATION: justified NO-RUN — every near-horizon question is
+well-formed (PR-B frame ruled; the lane's sequencing adopted at the
+Director's 16:18Z ARC entry).
+
+## 2026-08-08 17:21Z (date -u read) — heartbeat re-arm first-tick catch: rule-text drift vs the live CLI (Civet, 054f5e)
+
+At the post-compaction re-arm, the heartbeat loop's comms leg failed its
+first tick: `comms send` REJECTS `--created-at` (exit 2, unknown option;
+the timestamp option is `--now`). The liveness rule's §Loop hygiene
+"one timestamp per tick" bullet still reads "pass it to both `--now` and
+`--created-at`" — rule text drifted from the CLI surface (the flag was
+presumably renamed/unified). The loop's mandated loud-failure design
+(`|| echo` with captured stderr) surfaced it on the FIRST tick exactly as
+the rule intends — the ellipsis-trap family's documentation pattern
+working. Cure applied (re-armed with `--now`); the rule's bullet needs a
+one-word true-up — doctrine pointer for the Director's board at the next
+curation touch, not absorbed here (cure-class separation). The loop ran
+one corrected cycle before standing down again at the Director's n=2
+re-confirmation — mode artefact, disclosed on the ARC channel.
+
+## 2026-08-09 ~09:2xZ (Civet, 054f5e) — pull-forward freeze harvest (metacognition / free-play / concept-exploration / wrap)
+
+METACOGNITION: two bites this window. (1) The concept gate blocked
+"parked" in the new plan node — the CONCEPT was sound (the census carries
+a named resume gate: this node's completion), so the cure was stating the
+gate explicitly, not a synonym; the gate biting on a paraphrase point and
+being answered with structure is the intended shape. (2) The
+census-momentum bias check held: the owner's path question was answered
+from the completion plan's own first-light text (census off the critical
+path), and the export-page anatomy — previously records-derived — was
+verified by a first-hand exploration sweep BEFORE the plan closed
+decisions on it. Also: the bot-push transient 403 took its SECOND
+recorded instance (first: 2026-08-07 branch-create at the design seat);
+immediate-retry cured both — a pattern claim becomes fair at a third.
+
+FREE-PLAY SEEDS: (1) the pull-forward makes the first judged checkpoint
+THE page the owner called good — the highest-signal wow-bar calibration
+available; (2) the fidelity instrument and the W0.7 rubric run their
+first JOINT outing on it (adherence diff + design-language judgement —
+two instruments, one render); (3) query-addressable identity
+(`?brand=`) buys capture cells, the export's "Open full page" behaviour,
+and Playwright state application in one mechanism.
+
+CONCEPT-EXPLORATION: closed — the "clash boundary" concept is now
+operational (the fidelity register's disposition classes ARE the rule;
+six deliberate divergences pre-named in the plan node).
+
+WRAP: this freeze IS the new plan's step 0 by owner word. The census
+cycle-plan v2 was conserved out of session scratch into the w01-census
+worktree (W01-CYCLE-PLAN-v2.md, untracked, beside the untracked
+census-types.ts) per important-state-not-in-temp-files — the census
+resume gate may sit days out and the scratchpad would not survive.
+
+## 2026-08-09 ~07:2xZ (Civet, 054f5e) — watcher re-arm cadence for a worktree-resident seat
+
+The canonical watcher's 1-hour timeout backstop fires on schedule, and a
+worktree-isolated session cannot re-arm it in place: the isolation guard
+refuses the canonical invocation (and, in the w01-census worktree, even
+`echo $PPID` — the guard's complexity bar varies by worktree). The working
+pattern, twice-proven this morning: ExitWorktree(keep) → arm from the
+primary → F-95 assert → re-enter. Cost ~30s per hour; the alternative
+(arming with the Monitor rooted in the worktree) was refused in every
+tried shape. Scope: this session shape (worktree-resident seat with
+primary-homed monitors); a structural cure would be a guard allowance for
+the canonical watch invocation, which rides the Director's tooling board
+if the churn starts to bite.
+
+## 2026-08-08 ~18:0xZ (Civet, 054f5e) — two mechanism notes from the PR-B window
+
+- The worktree-isolated session guard (Bash AND file tools) blocks writes
+  to shared-checkout paths — correct behaviour, and the clean pattern for
+  a lane seat that must touch primary-resident surfaces (ARC channel,
+  thread record) is ExitWorktree(keep) → write → re-enter as needed, not
+  fighting the guard. The guard also refuses compound Bash in-worktree;
+  the single-command shape with post-hoc verification (e.g. PR author
+  check AFTER create when the token-length pre-guard can't ride along)
+  preserves the bot-identity invariant the pre-guard existed for.
+- An Edit-tool append to a tail -F–monitored file re-emits the WHOLE file
+  (Edit rewrites; tail reads truncate+rewrite). Shell `>>` appends are
+  tail-friendly. Harmless once, but an ARC channel watched by an
+  event-driven tail should be appended with `>>` when the emitting seat
+  controls the mechanism — otherwise every entry re-notifies the peer
+  with the full history.
+
+- 2026-08-09 (Plover b10c37): commitlint `footer-leading-blank` warning fires
+  whenever a WRAPPED body line begins with `<word>:` plus a space (worked
+  twice: lines starting `adjudication:` and `complete:`) — the conventional
+  parser reads it as a footer token mid-body. Cure at draft time: scan the
+  wrapped body for a line-initial `word:` and rewrap. Caught pre-commit the
+  first time, post-push the second (warning is non-blocking so it slips
+  through when the check output is only grepped for problems).
+
+- 2026-08-09 (Plover b10c37): diagnosed a "stuck synchronize event" on #807 and
+  routed a nudge — WRONG premise, corrected by the lane seat (Wren, 08:49Z):
+  the repo carried TWO remote branches (prefixed `jimcresswell/...` at the new
+  sha; unprefixed at the old) and the PR's head was the unprefixed one, so no
+  event was ever owed. The falsifying field (`headRefName`) was already in a
+  prior tool read this session. Lesson applied forward: before diagnosing a
+  platform fault on a PR, recompute the ref PAIR first (`headRefName` vs the
+  branch just pushed) — a name mismatch is the cheap check that precedes any
+  webhook theory. Peer-refusal-on-false-premise worked exactly as doctrine
+  intends.

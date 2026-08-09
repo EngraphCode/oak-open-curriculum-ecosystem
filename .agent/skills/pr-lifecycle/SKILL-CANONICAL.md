@@ -144,7 +144,12 @@ ruleset does NOT bind `.design-sync/`, `.agent/plans/`, or
 fired), so absence there is configuration, not a skipped reviewer; and a
 claude[bot] review SKIP is a spend-limit signature, not a blocker — an
 organisation review-overage exhaustion is a capability ceiling to note,
-never a gate to wait on.
+never a gate to wait on. Request mechanics (first-hand 2026-08-08,
+PRs #829/#830): GitHub's REST `requested_reviewers` endpoint SILENTLY
+DROPS the Copilot handle — 200 response, no error, handle absent from
+the resulting request — so request Copilot through the GitHub MCP
+`request_copilot_review` tool (or the web UI), never the bare REST
+endpoint, and verify the reviewer actually appears on the PR.
 
 ### Title and description are CLAIMS about the diff — derive them from it
 

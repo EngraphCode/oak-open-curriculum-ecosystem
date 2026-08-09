@@ -197,8 +197,9 @@ failure instance from the 2026-06-11 team window:
   that outlives the end event can emit a stale "active" heartbeat after
   peers have already read the stand-down.
 - **One timestamp per tick.** Derive a single timestamp per tick and pass
-  it to both `--now` and `--created-at`; two `$(date)` calls can race a
-  second boundary and the CLI rejects the resulting created_at-in-future
+  it to every consumer in the tick (the `--now` option on both `comms send`
+  and `claims heartbeat`); two `$(date)` calls can race a second boundary
+  and the CLI rejects the resulting created_at-in-future
   (worked instance 2026-06-11).
 - **Failures report with captured stderr.** A loop that swallows stderr
   makes its own failures undiagnosable (worked instance: a transient emit
