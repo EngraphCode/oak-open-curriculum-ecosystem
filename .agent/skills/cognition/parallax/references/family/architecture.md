@@ -77,21 +77,19 @@ Skills are stateless. The Practice supplies durable memory, inquiry continuity, 
 ## Package boundary
 
 ```text
-.agent/
-├── skills/
-│   ├── parallax/
-│   ├── parallax-frame/
-│   ├── parallax-design-inquiry/
-│   ├── parallax-design-experiment/
-│   ├── parallax-product-experiment/
-│   ├── parallax-synthesise/
-│   ├── parallax-decide/
-│   ├── parallax-audit/
-│   └── parallax-learn/
-├── reference/
-│   └── parallax/                  # This collection-level corpus and graph manifests
-└── evaluations/
-    └── parallax/                  # Cross-skill and system-level evals
+.agent/skills/cognition/
+├── parallax/                      # Root member; also carries the shared surfaces
+│   ├── references/family/         # This collection-level corpus and graph manifests
+│   ├── evaluations/               # Cross-skill and system-level evals
+│   └── scripts/                   # Graph-to-Mermaid tool
+├── parallax-frame/
+├── parallax-design-inquiry/
+├── parallax-design-experiment/
+├── parallax-product-experiment/
+├── parallax-synthesise/
+├── parallax-decide/
+├── parallax-audit/
+└── parallax-learn/
 ```
 
 Each skill owns its `SKILL-CANONICAL.md`, focused references/assets/scripts, and local `evals/evals.json`. Collection evaluations cover routing, co-activation, hand-offs, cross-domain composition, reopening, and recursive learning.
