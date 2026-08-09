@@ -32,7 +32,7 @@ const PairKindSchema = z.enum([
 ]);
 
 const PairSchema = z
-  .object({
+  .strictObject({
     /** Stable pair identifier — the disposition register keys findings on it. */
     id: z.string().regex(/^[a-z0-9-]+$/),
     kind: PairKindSchema,

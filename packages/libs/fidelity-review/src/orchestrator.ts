@@ -48,8 +48,12 @@ export function resolveRunFlags(
   if (!width.ok) {
     return err(width.error.message);
   }
+  const base = resolveBase(argv, env, defaultBase);
+  if (!base.ok) {
+    return err(base.error.message);
+  }
   return ok({
-    base: resolveBase(argv, env, defaultBase),
+    base: base.value,
     width: width.value,
     reportOnly: argv.includes('--report-only'),
     keepServer: argv.includes('--keep-server'),

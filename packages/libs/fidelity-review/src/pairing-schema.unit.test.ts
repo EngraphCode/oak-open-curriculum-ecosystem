@@ -60,4 +60,19 @@ describe('buildPairingMapSchema', () => {
 
     expect(outcome.success).toBe(false);
   });
+
+  it('rejects an unknown map-level key — a misspelled field must fail, never silently strip', () => {
+    const outcome = MapSchema.safeParse({ ...validMap, exemptSurface: [] });
+
+    expect(outcome.success).toBe(false);
+  });
+
+  it('rejects an unknown key on an exempt-surface entry', () => {
+    const outcome = MapSchema.safeParse({
+      ...validMap,
+      exemptSurfaces: [{ route: '/', reason: 'recorded', rational: 'typo of reason' }],
+    });
+
+    expect(outcome.success).toBe(false);
+  });
 });

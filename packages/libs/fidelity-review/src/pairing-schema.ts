@@ -15,8 +15,12 @@ import { z } from 'zod';
  * returned schema enforces the map-level invariants every app shares:
  * `version: 1`, at least one pair, `exemptSurfaces` entries each naming
  * a route and a reason (absence of a canonical target is a recorded
- * fact, never silence), and unique pair ids (the disposition register
- * keys findings on them). App-specific map invariants chain `.refine`
+ * fact, never silence), unique pair ids (the disposition register
+ * keys findings on them), and unknown-key rejection at the map and
+ * exempt-entry levels — a misspelled field fails loudly instead of
+ * silently stripping (strict-validation-at-boundary; the per-pair
+ * strictness is each app schema's own obligation). App-specific map
+ * invariants chain `.refine`
  * on the result — zod's refine clones, so chained schemas stay
  * distinct objects.
  */
@@ -27,18 +31,18 @@ export function buildPairingMapSchema<P extends z.ZodType<{ id: string }>>(
     version: z.ZodLiteral<1>;
     pairs: z.ZodArray<P>;
     exemptSurfaces: z.ZodArray<
-      z.ZodObject<{ route: z.ZodString; reason: z.ZodString }, z.core.$strip>
+      z.ZodObject<{ route: z.ZodString; reason: z.ZodString }, z.core.$strict>
     >;
   },
-  z.core.$strip
+  z.core.$strict
 > {
   return z
-    .object({
+    .strictObject({
       version: z.literal(1),
       pairs: z.array(pairSchema).min(1),
       /** Routes with no canonical target — absence is a recorded fact. */
       exemptSurfaces: z.array(
-        z.object({
+        z.strictObject({
           route: z.string().min(1),
           reason: z.string().min(1),
         }),

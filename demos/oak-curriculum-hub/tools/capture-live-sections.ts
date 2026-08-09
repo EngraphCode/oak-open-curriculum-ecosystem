@@ -115,8 +115,11 @@ export async function captureLiveSections(base: string): Promise<Result<number, 
 }
 
 async function main(): Promise<Result<void, string>> {
-  const base = resolveBase(process.argv.slice(2), process.env, DEFAULT_BASE);
-  const failures = await captureLiveSections(base);
+  const baseRes = resolveBase(process.argv.slice(2), process.env, DEFAULT_BASE);
+  if (!baseRes.ok) {
+    return err(`CAPTURE FAIL: ${baseRes.error.message}`);
+  }
+  const failures = await captureLiveSections(baseRes.value);
   if (!failures.ok) {
     return failures;
   }

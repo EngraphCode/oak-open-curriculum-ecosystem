@@ -38,6 +38,16 @@ describe('PairingMapSchema invariants', () => {
 
     expect(parsed.success).toBe(false);
   });
+
+  it('rejects an unknown key on a pair — a misspelled field must fail, never silently strip', () => {
+    const parsed = PairingMapSchema.safeParse({
+      version: 1,
+      pairs: [{ ...minimalPair, note: 'typo of notes' }],
+      exemptSurfaces: [],
+    });
+
+    expect(parsed.success).toBe(false);
+  });
 });
 
 describe('the declared pairing map', () => {

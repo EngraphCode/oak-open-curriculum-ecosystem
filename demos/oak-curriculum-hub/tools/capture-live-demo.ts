@@ -150,7 +150,11 @@ async function main(): Promise<Result<void, string>> {
   if (!widthRes.ok) {
     return err(`CAPTURE FAIL: ${describeThrown(widthRes.error)}`);
   }
-  const base = resolveBase(argv, process.env, DEFAULT_BASE);
+  const baseRes = resolveBase(argv, process.env, DEFAULT_BASE);
+  if (!baseRes.ok) {
+    return err(`CAPTURE FAIL: ${describeThrown(baseRes.error)}`);
+  }
+  const base = baseRes.value;
   const routes = resolveRoutes(argv);
 
   const up = await assertServerUp(base, SERVER_HINT);

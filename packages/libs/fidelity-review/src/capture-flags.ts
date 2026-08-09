@@ -52,21 +52,82 @@ export function resolveWidth(
   return ok(width);
 }
 
+/** The raw base input: the `--base` value when the flag is present, else
+ *  BASE_URL from env, else the app's default. A `--base` with no
+ *  following value is a stated error (mirror of rawWidthInput): the
+ *  silent fall-through previously let `--base` at argv end run against
+ *  a base the user did not ask for, and `--base --report-only` eat the
+ *  mode flag as its value. */
+function rawBaseInput(
+  argv: readonly string[],
+  env: NodeJS.ProcessEnv,
+  defaultBase: string,
+): Result<string, Error> {
+  const flagIdx = argv.indexOf('--base');
+  if (flagIdx === -1) {
+    return ok(env.BASE_URL ?? defaultBase);
+  }
+  const fromFlag = argv.at(flagIdx + 1);
+  if (fromFlag === undefined) {
+    return err(new Error('--base requires a value (an http(s) loopback URL)'));
+  }
+  return ok(fromFlag);
+}
+
+/** Loopback hosts the capture tool may talk to — exact matches only, so
+ *  a lookalike (`localhost.evil.example`) never passes. */
+const LOOPBACK_HOSTS: ReadonlySet<string> = new Set(['localhost', '127.0.0.1', '[::1]']);
+
+/** The capture-egress origin guard: this tool only ever drives a LOCAL
+ *  dev/export server, so a base whose host is not exactly loopback is
+ *  refused — an internal or cloud-metadata target must never become
+ *  "evidence" (the SSRF class from the 2026-08-09 assurance round).
+ *  Pure; also the origin authority the browser-request allowlist
+ *  compares against. */
+export function allowLoopbackOrigin(base: string): Result<URL, Error> {
+  let url: URL;
+  try {
+    url = new URL(base);
+  } catch {
+    return err(
+      new Error(`invalid base URL ${JSON.stringify(base)} (expected http(s)://<loopback>)`),
+    );
+  }
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+    return err(new Error(`base URL scheme must be http(s), got ${JSON.stringify(url.protocol)}`));
+  }
+  if (!LOOPBACK_HOSTS.has(url.hostname)) {
+    return err(
+      new Error(
+        `base URL host ${JSON.stringify(url.hostname)} is not loopback — capture egress is confined to localhost, 127.0.0.1, [::1]`,
+      ),
+    );
+  }
+  return ok(url);
+}
+
 /** Resolve the base URL of the running app. Override: `--base <url>` or
  *  BASE_URL. `defaultBase` is the app's own dev port — and its host should
  *  be `localhost`, NOT `127.0.0.1`: `next dev` blocks cross-origin dev
  *  resources from 127.0.0.1, so hydration chunks never load and any
  *  hydration-dependent surface silently renders its SSR fallback — a
  *  wrong capture target the blank classifier cannot catch (hub team
- *  finding, 2026-07-02). */
+ *  finding, 2026-07-02). Every accepted base is a validated loopback
+ *  origin (allowLoopbackOrigin). */
 export function resolveBase(
   argv: readonly string[],
   env: NodeJS.ProcessEnv,
   defaultBase: string,
-): string {
-  const flagIdx = argv.indexOf('--base');
-  const fromFlag = flagIdx === -1 ? undefined : argv.at(flagIdx + 1);
-  return stripTrailing(fromFlag ?? env.BASE_URL ?? defaultBase, '/');
+): Result<string, Error> {
+  const raw = rawBaseInput(argv, env, defaultBase);
+  if (!raw.ok) {
+    return raw;
+  }
+  const origin = allowLoopbackOrigin(raw.value);
+  if (!origin.ok) {
+    return err(origin.error);
+  }
+  return ok(stripTrailing(raw.value, '/'));
 }
 
 /** The device scale factor of the matched-geometry convention: every

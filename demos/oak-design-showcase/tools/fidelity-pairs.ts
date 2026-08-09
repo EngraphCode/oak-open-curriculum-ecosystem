@@ -34,7 +34,7 @@ import { targetFragmentsFor } from '../lib/identities';
 const PairKindSchema = z.enum(['page-fullpage', 'page-abovefold', 'reference-only']);
 
 const PairSchema = z
-  .object({
+  .strictObject({
     /** Stable pair identifier — the disposition register keys findings on it. */
     id: z.string().regex(/^[a-z0-9-]+$/),
     kind: PairKindSchema,
