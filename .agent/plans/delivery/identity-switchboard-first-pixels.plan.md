@@ -212,6 +212,21 @@ slice per the standing rule.
      modules for package imports; its remaining diff is the genuinely
      app-local code already through three review rounds (export overlay +
      path guards, pairs map, capture config, `lib/identities`).
+     Amendment 2026-08-09 (at the swap head's settle): the same gate
+     re-fired at 8.1% against the 3% condition — the residual
+     duplication being the run-orchestrator skeleton and the map-level
+     pairing-schema wrapper both apps still carried as twins, so
+     `consolidate-at-second-consumer` directs the same cure one layer
+     up, inside PR-1b (a separate extraction PR off main could not be
+     honest: the second consumer exists only on this branch). They join
+     the package as `/orchestrator` and `/pairing-schema`;
+     `assertServerUp` joins `dev-server` (bounded, one copy);
+     the matched-geometry scale constant joins `capture-flags`; both
+     apps collapse to composition roots; and the hub's corrupt-evidence
+     drift (a PNG decode error rendered into the report's missing-paths
+     list) unifies to the ruled fail-the-run policy. Capture arms, pair
+     schemas, and each CLI's `main` stay app-local. Round budgets
+     rebind at this re-authoring per PDR-132.
 3. PR-2 — the two routes + `SegmentedControl` + route CSS + unit tests +
    Playwright cells (the a11y matrix gains the new routes' identity ×
    theme cells and the no-flash first-paint cell) + the

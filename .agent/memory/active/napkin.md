@@ -1057,3 +1057,26 @@ artifacts) but not deep-read at day-end — recorded as a bound, not a
 completed sweep. Loss-scan pass 2 fixed point: a third pass re-finds
 only comms-ephemerality (cured by the new thread record) and the
 pending-CI bound (recorded); recursion closed.
+
+## 2026-08-09 ~14:5xZ (Civet, 054f5e) — pr-1b cure round: play seeds + a preservation-claim lesson
+
+FREE-PLAY SEEDS (marked as associations): (1) the duplication gate is
+behaving as consolidate-at-second-consumer's SENSOR — a converging
+series (21.5% → 8.1% → structural zero), each firing smaller because
+each cure moves a layer into the package; the gate is pricing, not
+just blocking. (2) The clone detector's side-by-side put the two
+orchestrators in one frame, which is how the hub's missing
+custom-base attach branch became visible — to VERIFY at MCP-534
+triage (ensureDevServer's attach-first probe may already cover it),
+an association, not a finding. Discarded visibly: a control-pills ↔
+fleet-lanes analogy — aesthetics, no operational content.
+
+LESSON (metacognition, worked): my "the hub's corrupt-PNG degradation
+is deliberate policy and must survive" was a RECORD-DERIVED
+preservation claim; the pre-execution reviewer killed it with code
+evidence (`missing` is documented as evidence PATHS; the hub stuffed
+a decode error into it — drift, not policy). The reviewer's
+sunk-cost/preservation-language flag is a lens worth turning on my
+own design inputs BEFORE dispatch: any "X is deliberate" claim whose
+provenance is a summary rather than the code deserves the falsifier
+first.
