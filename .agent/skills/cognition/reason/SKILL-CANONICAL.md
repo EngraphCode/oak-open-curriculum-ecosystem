@@ -17,7 +17,7 @@ description: >-
 [`metacognition`](../metacognition/SKILL-CANONICAL.md) — metacognition reflects on the thinker
 (inward, "am I about to do the right thing?"); this disciplines the thinking (outward, "how do I
 structure this problem well?"). It actuates the deep
-[grammar of thinking](../../reference/grammar-of-thinking.md): this skill carries the few moves
+[grammar of thinking](../../../reference/grammar-of-thinking.md): this skill carries the few moves
 that fire on everyday work; the reference is the depth behind them and the yardstick for complex
 rewrites and high-stakes planning. Grounded in PDR-029 (the perturbation-mechanism bundle that ratified the metacognition prompt)
 and PDR-035 (agent-work capabilities are Practice substance).
@@ -163,5 +163,5 @@ analysed past the point where a cheaper safe experiment would produce the needed
 
 For depth on any move — the reliability ladder, system classification, feedback and leverage,
 decision-under-uncertainty, fallacies as diagnostics — read
-[the grammar of thinking](../../reference/grammar-of-thinking.md). That reference is also the
+[the grammar of thinking](../../../reference/grammar-of-thinking.md). That reference is also the
 yardstick to read against for complex rewrites and high-stakes planning.

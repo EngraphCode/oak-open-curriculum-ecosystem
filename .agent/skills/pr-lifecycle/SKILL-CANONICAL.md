@@ -118,7 +118,7 @@ into the permanent record):
    changeset crossing the PDR's warning thresholds is re-examined for
    hidden second stories NOW — at open, splitting is cheap; over budget,
    it is expensive. The general form of this check is the
-   [`proportionality`](../proportionality/SKILL-CANONICAL.md) gate's SCOPE
+   [`proportionality`](../cognition/proportionality/SKILL-CANONICAL.md) gate's SCOPE
    axis; run it here when the changeset's size is genuinely in question,
    and note that its LEVEL axis also applies at open — a question standing
    owner word already answers is not an escalation.
@@ -765,7 +765,7 @@ owner parameters. **The step-back trigger is
   trigger fires: **STOP
   fix-pushing.** Step back and run concept exploration over the FULL finding
   corpus for the shared generator, paired with the
-  [`proportionality`](../proportionality/SKILL-CANONICAL.md) gate over the PR
+  [`proportionality`](../cognition/proportionality/SKILL-CANONICAL.md) gate over the PR
   itself — the exploration finds the generator, the gate asks whether the
   changeset, the review instrument, or the seat answering is the wrong size,
   which is the question a corpus read alone does not pose. Fix the CLASS in
