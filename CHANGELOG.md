@@ -1,3 +1,17 @@
+# [1.156.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.155.2...v1.156.0) (2026-08-09)
+
+
+### Bug Fixes
+
+* **fidelity-review:** round-1 review cures across seven specialist lenses ([d39d3e6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d39d3e658bbee7c0d88657cfad482353d3932e79))
+* **fidelity-review:** sonar re-fire cures — zero new issues restored ([a626036](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a6260362c0f67c50128d377d87c2418b570a7cf8))
+* **oak-curriculum-hub:** harvest copilot round-2 suppressed findings ([d49f757](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d49f7572cdcfd81512fc9606a00e07256fdec806))
+
+
+### Features
+
+* **fidelity-review:** shared fidelity core lands as a foundation lib ([22bfb4b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/22bfb4b54b843417f748834ec8d4a0ff84571f97))
+
 ## [1.155.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.155.1...v1.155.2) (2026-08-09)
 
 ## [1.155.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.155.0...v1.155.1) (2026-08-09)
