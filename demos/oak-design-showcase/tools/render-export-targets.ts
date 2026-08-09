@@ -29,7 +29,15 @@ import { ok, err, type Result } from '@oaknational/result';
 import { portOf, resolveExportRoots, serveRoots } from './export-server';
 import { EXPORT_RENDER_TARGETS, type ExportRenderTarget } from './fidelity-pairs';
 import { isRenderSuspect, isRequiredResourceFailure, type RenderMetrics } from './capture-checks';
-import { MATCHED_GEOMETRY_SCALE } from '@oaknational/fidelity-review/capture-flags';
+import {
+  isAllowedRequestUrl,
+  MATCHED_GEOMETRY_SCALE,
+} from '@oaknational/fidelity-review/capture-flags';
+import {
+  captureShot,
+  createOriginGuard,
+  settleForCapture,
+} from '@oaknational/fidelity-review/capture-settle';
 import { describeThrown } from '@oaknational/fidelity-review/support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -123,11 +131,10 @@ async function renderTarget(
       waitUntil: 'networkidle',
       timeout: 60000,
     });
-    await page.evaluate(async () => {
-      await document.fonts.ready;
-    });
-    await page.addStyleTag({ content: '*{animation:none!important;transition:none!important}' });
-    await page.waitForTimeout(2000);
+    // The shared settle runs once so the metrics read a settled page;
+    // captureShot settles again per shot (idempotent), so the shutter
+    // can never fire unsettled.
+    await settleForCapture(page);
     metrics = await measureRender(page, resp === null ? 0 : resp.status());
   } finally {
     watch.dispose();
@@ -142,7 +149,8 @@ async function renderTarget(
   // a diagnosis starts from; the run itself fails at the arm boundary.
   for (const shot of target.shots) {
     const out = path.join(OUT_DIR, `export-${shot.pairId}.png`);
-    await page.screenshot({ path: out, fullPage: shot.kind === 'full' });
+    const bytes = await captureShot(page, { fullPage: shot.kind === 'full' });
+    fs.writeFileSync(out, bytes);
     process.stdout.write(`  wrote export-${shot.pairId}.png\n`);
   }
   return suspect;
@@ -188,18 +196,25 @@ export async function renderExportTargets(width: number): Promise<Result<void, s
  *  render looked blank. */
 async function renderAll(base: string, width: number): Promise<boolean> {
   const browser = await chromium.launch({ headless: true });
+  const guard = createOriginGuard((url) => isAllowedRequestUrl(url, new URL(base).origin));
   let suspect = false;
   try {
     const ctx = await browser.newContext({
       viewport: { width, height: 1000 },
       deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
     });
+    await ctx.route('**/*', (route) => guard.handleRoute(route));
     const page = await ctx.newPage();
+    page.on('response', (response) => guard.noteResponseUrl(response.url()));
     for (const target of EXPORT_RENDER_TARGETS) {
       suspect = (await renderTarget(page, base, target)) || suspect;
     }
   } finally {
     await browser.close();
+  }
+  for (const violation of guard.violations()) {
+    process.stdout.write(`EGRESS VIOLATION: ${violation}\n`);
+    suspect = true;
   }
   return suspect;
 }

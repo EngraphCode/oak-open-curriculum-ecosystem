@@ -22,7 +22,15 @@ import { chromium } from '@playwright/test';
 import type { Locator, Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
-import { MATCHED_GEOMETRY_SCALE } from '@oaknational/fidelity-review/capture-flags';
+import {
+  isAllowedRequestUrl,
+  MATCHED_GEOMETRY_SCALE,
+} from '@oaknational/fidelity-review/capture-flags';
+import {
+  captureElementShot,
+  createOriginGuard,
+  settleForCapture,
+} from '@oaknational/fidelity-review/capture-settle';
 import { EXPORT_DIR, portOf, serveDir } from './export-server';
 import { runTool } from '@oaknational/fidelity-review/support';
 
@@ -85,10 +93,11 @@ async function captureSection(
       await page.waitForTimeout(250);
     }
     await aside.locator('button[aria-current]').filter({ hasText: target.section }).first().click();
-    await page.waitForTimeout(700); // section swap + entry animations
-    await page
-      .locator('#main')
-      .screenshot({ path: path.join(outDir, `export-${target.slug}.png`) });
+    await page.waitForTimeout(700); // section swap: give the click's DOM change time to land
+    fs.writeFileSync(
+      path.join(outDir, `export-${target.slug}.png`),
+      await captureElementShot(page, page.locator('#main')),
+    );
     process.stdout.write(`PASS capture: ${target.slug}\n`);
     return false;
   } catch (error) {
@@ -108,9 +117,10 @@ async function captureBottomControls(page: Page, outDir: string): Promise<boolea
       }
     });
     await page.waitForTimeout(400);
-    await page
-      .locator('#main')
-      .screenshot({ path: path.join(outDir, 'export-bottom-controls.png') });
+    fs.writeFileSync(
+      path.join(outDir, 'export-bottom-controls.png'),
+      await captureElementShot(page, page.locator('#main')),
+    );
     process.stdout.write('PASS capture: bottom-controls\n');
     return false;
   } catch (error) {
@@ -122,15 +132,20 @@ async function captureBottomControls(page: Page, outDir: string): Promise<boolea
 /** Open the export in a fresh browser and capture every target; returns the failure count. */
 async function driveExport(port: number, outDir: string): Promise<number> {
   const browser = await chromium.launch();
+  const base = `http://127.0.0.1:${port}`;
+  const guard = createOriginGuard((url) => isAllowedRequestUrl(url, new URL(base).origin));
   const page = await browser.newPage({
     viewport: { width: 1440, height: 2200 },
     deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
   });
-  await page.goto(`http://127.0.0.1:${port}/Oak%20Course.dc.html`, { waitUntil: 'networkidle' });
-  await page.evaluate(async () => {
-    await document.fonts.ready;
-  });
-  await page.waitForTimeout(600);
+  await page.route('**/*', (route) => guard.handleRoute(route));
+  page.on('response', (response) => guard.noteResponseUrl(response.url()));
+  await page.goto(`${base}/Oak%20Course.dc.html`, { waitUntil: 'networkidle' });
+  // The shared settle runs once up front (this arm previously settled
+  // globally WITHOUT the animation kill — a comparability drift);
+  // captureElementShot settles again per shot, so every section shot
+  // fires under the identical recipe.
+  await settleForCapture(page);
 
   const aside = page.locator('aside[aria-label="Course navigation"]');
   let failures = 0;
@@ -144,6 +159,10 @@ async function driveExport(port: number, outDir: string): Promise<number> {
   }
 
   await browser.close();
+  for (const violation of guard.violations()) {
+    process.stderr.write(`EGRESS VIOLATION: ${violation}\n`);
+    failures += 1;
+  }
   return failures;
 }
 

@@ -31,7 +31,15 @@ import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
-import { MATCHED_GEOMETRY_SCALE } from '@oaknational/fidelity-review/capture-flags';
+import {
+  isAllowedRequestUrl,
+  MATCHED_GEOMETRY_SCALE,
+} from '@oaknational/fidelity-review/capture-flags';
+import {
+  captureShot,
+  createOriginGuard,
+  settleForCapture,
+} from '@oaknational/fidelity-review/capture-settle';
 import { assertExportDir, EXPORT_DIR, portOf, serveDir } from './export-server';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 
@@ -71,11 +79,10 @@ async function renderTarget(page: Page, base: string, target: RenderTarget): Pro
     waitUntil: 'networkidle',
     timeout: 60000,
   });
-  await page.evaluate(async () => {
-    await document.fonts.ready;
-  });
-  await page.addStyleTag({ content: '*{animation:none!important;transition:none!important}' });
-  await page.waitForTimeout(2000);
+  // The shared settle runs once so the measurement reads a settled
+  // page; captureShot settles again per shot (idempotent), so the
+  // shutter can never fire unsettled.
+  await settleForCapture(page);
   const m = await page.evaluate(() => ({
     h: document.body.scrollHeight,
     len: document.body.innerText.length,
@@ -85,11 +92,14 @@ async function renderTarget(page: Page, base: string, target: RenderTarget): Pro
   process.stdout.write(
     `${target.file}: HTTP=${status} bodyH=${m.h} textLen=${m.len} -> ${good ? 'OK' : 'SUSPECT (blank?)'}\n`,
   );
-  await page.screenshot({ path: path.join(OUT_DIR, `${target.base}.png`), fullPage: true });
-  await page.screenshot({
-    path: path.join(OUT_DIR, `${target.base}-abovefold.png`),
-    fullPage: false,
-  });
+  fs.writeFileSync(
+    path.join(OUT_DIR, `${target.base}.png`),
+    await captureShot(page, { fullPage: true }),
+  );
+  fs.writeFileSync(
+    path.join(OUT_DIR, `${target.base}-abovefold.png`),
+    await captureShot(page, { fullPage: false }),
+  );
   process.stdout.write(`  wrote ${target.base}.png + ${target.base}-abovefold.png\n`);
   return !good;
 }
@@ -100,16 +110,23 @@ async function renderAll(base: string, width: number): Promise<boolean> {
     `viewport CSS width = ${width}px (deviceScaleFactor ${MATCHED_GEOMETRY_SCALE} → ${width * MATCHED_GEOMETRY_SCALE}px PNGs)\n`,
   );
   const browser = await chromium.launch({ headless: true });
+  const guard = createOriginGuard((url) => isAllowedRequestUrl(url, new URL(base).origin));
   const ctx = await browser.newContext({
     viewport: { width, height: 1000 },
     deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
   });
+  await ctx.route('**/*', (route) => guard.handleRoute(route));
   const page = await ctx.newPage();
+  page.on('response', (response) => guard.noteResponseUrl(response.url()));
   let suspect = false;
   for (const target of TARGETS) {
     suspect = (await renderTarget(page, base, target)) || suspect;
   }
   await browser.close();
+  for (const violation of guard.violations()) {
+    process.stdout.write(`EGRESS VIOLATION: ${violation}\n`);
+    suspect = true;
+  }
   return suspect;
 }
 

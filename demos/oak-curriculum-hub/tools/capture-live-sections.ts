@@ -17,7 +17,16 @@ import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
-import { MATCHED_GEOMETRY_SCALE, resolveBase } from '@oaknational/fidelity-review/capture-flags';
+import {
+  isAllowedRequestUrl,
+  MATCHED_GEOMETRY_SCALE,
+  resolveBase,
+} from '@oaknational/fidelity-review/capture-flags';
+import {
+  captureElementShot,
+  createOriginGuard,
+  settleForCapture,
+} from '@oaknational/fidelity-review/capture-settle';
 import { assertServerUp } from '@oaknational/fidelity-review/dev-server';
 import { DEFAULT_BASE, SERVER_HINT } from './capture-checks';
 import { FIDELITY_PAIRS, type FidelityPair } from './fidelity-pairs';
@@ -44,14 +53,6 @@ export function sectionCaptureLooksBlank(measure: RegionMeasure | undefined): bo
   return measure.boxHeight < 100 || measure.textLength < 50;
 }
 
-async function settle(page: Page): Promise<void> {
-  await page.evaluate(async () => {
-    await document.fonts.ready;
-  });
-  await page.addStyleTag({ content: '*{animation:none!important;transition:none!important}' });
-  await page.waitForTimeout(700);
-}
-
 async function measureRegion(page: Page): Promise<RegionMeasure | undefined> {
   const region = page.locator(CONTENT_REGION);
   if ((await region.count()) === 0) {
@@ -66,7 +67,10 @@ async function measureRegion(page: Page): Promise<RegionMeasure | undefined> {
 async function captureOne(page: Page, base: string, pair: FidelityPair): Promise<boolean> {
   try {
     await page.goto(`${base}${pair.liveRoute}`, { waitUntil: 'domcontentloaded' });
-    await settle(page);
+    // The shared settle runs once so the region measurement reads a
+    // settled page; captureElementShot settles again (idempotent), so
+    // the shutter can never fire unsettled.
+    await settleForCapture(page);
     if (pair.id === 'bottom-controls') {
       await page.evaluate((selector) => {
         document.querySelector(selector)?.scrollIntoView({ block: 'end' });
@@ -77,13 +81,44 @@ async function captureOne(page: Page, base: string, pair: FidelityPair): Promise
       process.stderr.write(`FAIL capture ${pair.id}: content region blank or absent\n`);
       return true;
     }
-    await page.locator(CONTENT_REGION).screenshot({ path: path.resolve(DEMO_DIR, pair.livePng) });
+    fs.writeFileSync(
+      path.resolve(DEMO_DIR, pair.livePng),
+      await captureElementShot(page, page.locator(CONTENT_REGION)),
+    );
     process.stdout.write(`PASS capture: ${pair.id}\n`);
     return false;
   } catch (error: unknown) {
     process.stderr.write(`FAIL capture ${pair.id}: ${describeThrown(error).slice(0, 200)}\n`);
     return true;
   }
+}
+
+/** Drive every target through one guarded browser page; returns the
+ *  failure count (capture failures + egress violations). */
+async function driveSectionCaptures(
+  base: string,
+  targets: readonly FidelityPair[],
+): Promise<number> {
+  const browser = await chromium.launch({ headless: true });
+  const guard = createOriginGuard((url) => isAllowedRequestUrl(url, new URL(base).origin));
+  const page = await browser.newPage({
+    viewport: { width: 1440, height: 2200 },
+    deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
+  });
+  await page.route('**/*', (route) => guard.handleRoute(route));
+  page.on('response', (response) => guard.noteResponseUrl(response.url()));
+  let failures = 0;
+  for (const target of targets) {
+    if (await captureOne(page, base, target)) {
+      failures += 1;
+    }
+  }
+  await browser.close();
+  for (const violation of guard.violations()) {
+    process.stderr.write(`EGRESS VIOLATION: ${violation}\n`);
+    failures += 1;
+  }
+  return failures;
 }
 
 /** Capture every section-element pair's live side; Result carries the
@@ -97,18 +132,7 @@ export async function captureLiveSections(base: string): Promise<Result<number, 
   for (const target of targets) {
     fs.mkdirSync(path.dirname(path.resolve(DEMO_DIR, target.livePng)), { recursive: true });
   }
-  const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage({
-    viewport: { width: 1440, height: 2200 },
-    deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
-  });
-  let failures = 0;
-  for (const target of targets) {
-    if (await captureOne(page, base, target)) {
-      failures += 1;
-    }
-  }
-  await browser.close();
+  const failures = await driveSectionCaptures(base, targets);
   const line = failures === 0 ? 'RESULT: ALL CAPTURED' : `RESULT: ${failures} FAILURES`;
   process.stdout.write(`${line}\n`);
   return ok(failures);

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   ANIMATION_KILL_CSS,
+  captureElementShot,
   captureShot,
   createOriginGuard,
   FONTS_READY_BUDGET_MS,
@@ -71,6 +72,28 @@ describe('captureShot', () => {
     await captureShot(page, { fullPage: false });
 
     expect(log.at(-1)).toBe('shot(fullPage=false)');
+  });
+});
+
+describe('captureElementShot', () => {
+  it('settles the PAGE before shooting the element, under the identical recipe', async () => {
+    const { page, log } = pageFake();
+    const element = {
+      screenshot: async () => {
+        log.push('element-shot');
+        return Buffer.from('element-png');
+      },
+    };
+
+    const bytes = await captureElementShot(page, element);
+
+    expect(log).toEqual([
+      `evaluate(budget=${FONTS_READY_BUDGET_MS})`,
+      'style(animation-kill)',
+      `wait(${SETTLE_MS})`,
+      'element-shot',
+    ]);
+    expect(bytes.toString()).toBe('element-png');
   });
 });
 

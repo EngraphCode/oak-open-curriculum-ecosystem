@@ -17,13 +17,23 @@
  * applies (blank classification, base/width resolution) lives in
  * capture-checks.ts and is unit-tested there.
  */
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
 
-import { isSuspect, MATCHED_GEOMETRY_SCALE } from '@oaknational/fidelity-review/capture-flags';
+import {
+  isAllowedRequestUrl,
+  isSuspect,
+  MATCHED_GEOMETRY_SCALE,
+} from '@oaknational/fidelity-review/capture-flags';
+import {
+  captureShot,
+  createOriginGuard,
+  settleForCapture,
+} from '@oaknational/fidelity-review/capture-settle';
 import type { FidelityPair } from './fidelity-pairs';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -41,11 +51,11 @@ async function captureRoute(
     waitUntil: 'domcontentloaded',
     timeout: 60000,
   });
-  await page.evaluate(async () => {
-    await document.fonts.ready;
-  });
-  await page.addStyleTag({ content: '*{animation:none!important;transition:none!important}' });
-  await page.waitForTimeout(2000); // settle: hydration + font swap + late layout
+  // The shared settle runs once here so the blank measurement reads a
+  // settled page; captureShot settles again per shot (idempotent —
+  // fonts resolve instantly, the animation kill re-applies) so the
+  // shutter can never fire unsettled.
+  await settleForCapture(page);
   const m = await page.evaluate(() => ({
     h: document.body.scrollHeight,
     len: document.body.innerText.length,
@@ -57,7 +67,8 @@ async function captureRoute(
   );
   for (const pair of pairs) {
     const out = path.resolve(DEMO_DIR, pair.livePng);
-    await page.screenshot({ path: out, fullPage: pair.kind !== 'page-abovefold' });
+    const bytes = await captureShot(page, { fullPage: pair.kind !== 'page-abovefold' });
+    fs.writeFileSync(out, bytes);
     process.stdout.write(`  wrote ${pair.livePng}\n`);
   }
   return blank;
@@ -77,6 +88,7 @@ export async function captureLivePages(
     byRoute.set(pair.liveRoute, group);
   }
   const browser = await chromium.launch({ headless: true });
+  const guard = createOriginGuard((url) => isAllowedRequestUrl(url, new URL(base).origin));
   let suspect = false;
   try {
     // Context/page creation sits INSIDE the protected region: a rejection
@@ -85,12 +97,18 @@ export async function captureLivePages(
       viewport: { width, height: 1000 },
       deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
     });
+    await ctx.route('**/*', (route) => guard.handleRoute(route));
     const page = await ctx.newPage();
+    page.on('response', (response) => guard.noteResponseUrl(response.url()));
     for (const [route, routePairs] of byRoute) {
       suspect = (await captureRoute(page, base, route, routePairs)) || suspect;
     }
   } finally {
     await browser.close();
+  }
+  for (const violation of guard.violations()) {
+    process.stdout.write(`EGRESS VIOLATION: ${violation}\n`);
+    suspect = true;
   }
   return suspect;
 }

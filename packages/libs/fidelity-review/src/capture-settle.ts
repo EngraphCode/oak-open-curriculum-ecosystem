@@ -82,6 +82,23 @@ export async function captureShot(
   return page.screenshot({ fullPage: opts.fullPage });
 }
 
+/** An element shutter (Playwright Locator/ElementHandle screenshot). */
+export interface ElementShotTarget {
+  readonly screenshot: () => Promise<Buffer>;
+}
+
+/** The sanctioned ELEMENT shot: settle the page, then shoot the
+ *  element — the element-region counterpart of captureShot, under the
+ *  identical settle so section evidence stays comparable with page
+ *  evidence. */
+export async function captureElementShot(
+  page: SettlePage,
+  element: ElementShotTarget,
+): Promise<Buffer> {
+  await settleForCapture(page);
+  return element.screenshot();
+}
+
 /** The route-interception surface the guard drives — structural over
  *  Playwright's Route, so the block/continue decision proves with a
  *  plain fake. */
