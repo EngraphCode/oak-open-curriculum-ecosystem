@@ -33,6 +33,7 @@ import { oakThemeStore } from '@oaknational/oak-design-react';
 import type { OakMotionMode, OakThemeName, OakThemeStore } from '@oaknational/oak-design-react';
 import { LabelledSelect } from './LabelledSelect';
 import { useIdentity } from './useIdentity';
+import type { IdentitySlug } from './useIdentity';
 
 const THEME_LABELS: Readonly<Record<OakThemeName, string>> = {
   light: 'Light',
@@ -46,7 +47,7 @@ const MOTION_LABELS: Readonly<Record<OakMotionMode, string>> = {
   reduced: 'Reduced',
   full: 'Full',
 };
-const IDENTITY_LABELS: Readonly<Record<string, string>> = {
+const IDENTITY_LABELS: Readonly<Record<IdentitySlug, string>> = {
   oak: 'Oak',
   freedonia: 'Freedonia DSE',
   creature: 'EMC²',
