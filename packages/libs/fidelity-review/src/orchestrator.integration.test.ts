@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { DevServerHandle } from './dev-server';
 import {
+  buildAndWriteReport,
   captureAndReport,
   collectPairResults,
   diffPair,
@@ -196,8 +197,10 @@ const PAIR: FidelityPair = {
 function ioWith(overrides: Partial<EvidenceIo>): EvidenceIo {
   return {
     exists: () => true,
-    read: () => onePixelPng(),
-    writeDiff: () => undefined,
+    read: () => ok(onePixelPng()),
+    writeDiff: () => ok(undefined),
+    readRegister: () => ok('{"version":1,"entries":[]}'),
+    writeReportFile: () => ok(undefined),
     ...overrides,
   };
 }
@@ -220,7 +223,7 @@ describe('diffPair', () => {
       ioWith({
         read: () => {
           reads += 1;
-          return onePixelPng();
+          return ok(onePixelPng());
         },
       }),
     );
@@ -236,6 +239,7 @@ describe('diffPair', () => {
       ioWith({
         writeDiff: (name) => {
           written.push(name);
+          return ok(undefined);
         },
       }),
     );
@@ -246,11 +250,122 @@ describe('diffPair', () => {
   });
 
   it('fails the run on corrupt evidence — never a normal report row', () => {
-    const outcome = diffPair(PAIR, ioWith({ read: () => Buffer.from('not a png') }));
+    const outcome = diffPair(PAIR, ioWith({ read: () => ok(Buffer.from('not a png')) }));
 
     expect(outcome.ok).toBe(false);
     expect(outcome.ok ? undefined : outcome.error).toContain('corrupt evidence');
     expect(outcome.ok ? undefined : outcome.error).toContain(PAIR.id);
+  });
+
+  it('fails the run when existing evidence is unreadable — the io failure carries through', () => {
+    const outcome = diffPair(
+      PAIR,
+      ioWith({ read: () => err('evidence unreadable at x — EACCES') }),
+    );
+
+    expect(outcome.ok).toBe(false);
+    expect(outcome.ok ? undefined : outcome.error).toContain('unreadable');
+  });
+
+  it('fails the run when the diff PNG cannot be written', () => {
+    const outcome = diffPair(
+      PAIR,
+      ioWith({ writeDiff: () => err('diff write failed at d — ENOSPC') }),
+    );
+
+    expect(outcome.ok).toBe(false);
+    expect(outcome.ok ? undefined : outcome.error).toContain('diff write failed');
+  });
+
+  it('reports a non-zero changed ratio for differing evidence — magnitude flows, never gates', () => {
+    // onePixelPng is a red opaque pixel; the export side here is GREEN,
+    // so the single compared pixel differs and the ratio is exactly 1.
+    const green = new PNG({ width: 1, height: 1 });
+    green.data[1] = 255;
+    green.data[3] = 255;
+    const outcome = diffPair(
+      PAIR,
+      ioWith({
+        read: (candidate) =>
+          candidate === PAIR.exportPng ? ok(PNG.sync.write(green)) : ok(onePixelPng()),
+      }),
+    );
+
+    expect(outcome.ok ? outcome.value.status : undefined).toBe('diffed');
+    expect(outcome.ok ? outcome.value.diff?.changedRatio : undefined).toBe(1);
+  });
+});
+
+describe('buildAndWriteReport (injected io)', () => {
+  const FLAGS = { base: 'http://localhost:3020', width: 1440, reportOnly: true, keepServer: false };
+  const CFG = {
+    map: { version: 1 as const, pairs: [PAIR], exemptSurfaces: [] },
+    demoDir: '/demo',
+  };
+
+  it('writes results.json and index.html through the injected writer on a full cohort', () => {
+    const written: string[] = [];
+    const outcome = buildAndWriteReport(
+      FLAGS,
+      'report-only',
+      '2026-08-09T17:00:00Z',
+      CFG,
+      ioWith({
+        writeReportFile: (name) => {
+          written.push(name);
+          return ok(undefined);
+        },
+      }),
+    );
+
+    expect(outcome.ok).toBe(true);
+    expect(written).toEqual(['results.json', 'index.html']);
+  });
+
+  it('refuses an absent register by name — dispositions are the report, not an optional extra', () => {
+    const outcome = buildAndWriteReport(
+      FLAGS,
+      'report-only',
+      '2026-08-09T17:00:00Z',
+      CFG,
+      ioWith({ readRegister: () => ok(undefined) }),
+    );
+
+    expect(outcome.ok).toBe(false);
+    expect(outcome.ok ? undefined : outcome.error).toContain('register not found');
+  });
+
+  it('fails on an unreadable or invalid register', () => {
+    const unreadable = buildAndWriteReport(
+      FLAGS,
+      'report-only',
+      '2026-08-09T17:00:00Z',
+      CFG,
+      ioWith({ readRegister: () => err('register unreadable at r — EACCES') }),
+    );
+    const invalid = buildAndWriteReport(
+      FLAGS,
+      'report-only',
+      '2026-08-09T17:00:00Z',
+      CFG,
+      ioWith({ readRegister: () => ok('{"nope":true}') }),
+    );
+
+    expect(unreadable.ok).toBe(false);
+    expect(invalid.ok).toBe(false);
+  });
+
+  it('fails the run when a report file cannot be written — the mutant a void writer would hide', () => {
+    const outcome = buildAndWriteReport(
+      FLAGS,
+      'report-only',
+      '2026-08-09T17:00:00Z',
+      CFG,
+      ioWith({ writeReportFile: () => err('report write failed at index.html — ENOSPC') }),
+    );
+
+    expect(outcome.ok).toBe(false);
+    expect(outcome.ok ? undefined : outcome.error).toContain('report write failed');
   });
 });
 

@@ -12,23 +12,40 @@
  * means a mechanical failure only: capture arm failed, register
  * invalid, server never ready, corrupt evidence, teardown failed.
  */
-import fs from 'node:fs';
-import path from 'node:path';
-
 import { err, ok, type Result } from '@oaknational/result';
 
 import { MATCHED_GEOMETRY_SCALE, resolveBase, resolveWidth } from './capture-flags';
 import type { DevServerHandle } from './dev-server';
 import { diffPngs } from './image-diff';
 import type { FidelityPair, PairingMap } from './pairing-types';
+import { parseRegister } from './register';
 import type { PairResult, RunMeta } from './report';
-import { loadRegister, summariseToStdout, writeReport } from './review-helpers';
+import { summariseToStdout, writeReport } from './review-helpers';
 import { describeThrown } from './support';
 
 // Re-exported because CaptureRun.report and buildAndWriteReport are
 // typed on it — a composition root implementing the interface needs
 // the name without reaching into an internal module.
 export { type ServerMode } from './report';
+// The evidence-io seam and the demo-root layout convention live in
+// evidence-io.ts; re-exported here because the orchestrator's own
+// signatures are typed on them and the composition roots compose both.
+export {
+  nodeEvidenceIo,
+  registerPathFor,
+  reportDirFor,
+  type DiffWriteIo,
+  type EvidenceIo,
+  type EvidenceReadIo,
+  type RegisterReadIo,
+  type ReportWriteIo,
+} from './evidence-io';
+import {
+  registerPathFor,
+  type DiffWriteIo,
+  type EvidenceIo,
+  type EvidenceReadIo,
+} from './evidence-io';
 
 export interface RunFlags {
   readonly base: string;
@@ -60,35 +77,16 @@ export function resolveRunFlags(
   });
 }
 
-/** The run's report directory for a demo root. The renderer's evidence
- *  links assume this EXACT position — two levels below the demo root
- *  (fidelity-html resolves `../../<evidence>`), so the location is the
- *  package's convention, never a caller choice. */
-export function reportDirFor(demoDir: string): string {
-  return path.join(demoDir, 'demo-evidence', 'fidelity-report');
-}
-
-/** The owner-edited disposition register's location under a demo root. */
-export function registerPathFor(demoDir: string): string {
-  return path.join(demoDir, 'fidelity-register.json');
-}
-
-/** Evidence IO, injected so diffPair's four outcomes prove with fakes
- *  and in-memory PNGs — no real filesystem in any test tier. Paths are
- *  demo-root-relative exactly as the pairing map declares them. */
-export interface EvidenceIo {
-  readonly exists: (demoRelativePath: string) => boolean;
-  readonly read: (demoRelativePath: string) => Buffer;
-  readonly writeDiff: (diffPngName: string, bytes: Buffer) => void;
-}
-
 /** Diff one declared pair. Absent evidence is a reportable row
  *  (missing-evidence); an ineligible pair is a reference-only row; a
  *  PNG that exists but cannot be decoded is CORRUPT evidence — a
  *  mechanical failure that fails the run, never a normal report row
  *  (`missing` is documented as evidence PATHS, so a decode error
  *  rendered there would mislead the report's reader). */
-export function diffPair(pair: FidelityPair, io: EvidenceIo): Result<PairResult, string> {
+export function diffPair(
+  pair: FidelityPair,
+  io: EvidenceReadIo & DiffWriteIo,
+): Result<PairResult, string> {
   const missing = [pair.exportPng, pair.livePng].filter((candidate) => !io.exists(candidate));
   if (missing.length > 0) {
     return ok({ pair, status: 'missing-evidence', missing });
@@ -96,12 +94,23 @@ export function diffPair(pair: FidelityPair, io: EvidenceIo): Result<PairResult,
   if (!pair.diffEligible) {
     return ok({ pair, status: 'reference-only' });
   }
-  const outcome = diffPngs(io.read(pair.exportPng), io.read(pair.livePng));
+  const exportBytes = io.read(pair.exportPng);
+  if (!exportBytes.ok) {
+    return err(`fidelity: ${exportBytes.error}`);
+  }
+  const liveBytes = io.read(pair.livePng);
+  if (!liveBytes.ok) {
+    return err(`fidelity: ${liveBytes.error}`);
+  }
+  const outcome = diffPngs(exportBytes.value, liveBytes.value);
   if (!outcome.ok) {
     return err(`fidelity: corrupt evidence for pair ${pair.id} — ${outcome.error}`);
   }
   const diffPngName = `diff-${pair.id}.png`;
-  io.writeDiff(diffPngName, outcome.value.diffPng);
+  const wrote = io.writeDiff(diffPngName, outcome.value.diffPng);
+  if (!wrote.ok) {
+    return err(`fidelity: ${wrote.error}`);
+  }
   const { changedRatio, exportDims, liveDims, croppedTo, caveats } = outcome.value;
   return ok({
     pair,
@@ -145,25 +154,25 @@ export function buildAndWriteReport(
   serverMode: RunMeta['serverMode'],
   generatedAt: string,
   cfg: ReportConfig,
+  io: EvidenceIo,
 ): Result<void, string> {
-  const reportDir = reportDirFor(cfg.demoDir);
-  const register = loadRegister(registerPathFor(cfg.demoDir));
+  const rawRegister = io.readRegister();
+  if (!rawRegister.ok) {
+    return err(`fidelity: ${rawRegister.error}`);
+  }
+  if (rawRegister.value === undefined) {
+    return err(`fidelity: register not found at ${registerPathFor(cfg.demoDir)}`);
+  }
+  const register = parseRegister(rawRegister.value);
   if (!register.ok) {
     return register;
   }
-  const io: EvidenceIo = {
-    exists: (candidate) => fs.existsSync(path.resolve(cfg.demoDir, candidate)),
-    read: (candidate) => fs.readFileSync(path.resolve(cfg.demoDir, candidate)),
-    writeDiff: (name, bytes) => {
-      fs.writeFileSync(path.join(reportDir, name), bytes);
-    },
-  };
   const results = collectPairResults(cfg.map.pairs, (pair) => diffPair(pair, io));
   if (!results.ok) {
     return results;
   }
   summariseToStdout(results.value, register.value);
-  writeReport(
+  return writeReport(
     results.value,
     register.value,
     {
@@ -174,9 +183,8 @@ export function buildAndWriteReport(
       generatedAt,
     },
     cfg.map,
-    reportDir,
+    io,
   );
-  return ok(undefined);
 }
 
 /** The app-supplied collaborators of one capture-and-report run. */

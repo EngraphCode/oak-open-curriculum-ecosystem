@@ -27,6 +27,7 @@ import { assertServerUp, ensureDevServer } from '@oaknational/fidelity-review/de
 import {
   buildAndWriteReport,
   captureAndReport,
+  nodeEvidenceIo,
   reportDirFor,
   resolveRunFlags,
   type CaptureRun,
@@ -58,10 +59,13 @@ async function capturePhase(base: string, width: number): Promise<Result<void, s
 }
 
 function report(flags: RunFlags, serverMode: ServerMode): Result<void, string> {
-  return buildAndWriteReport(flags, serverMode, new Date().toISOString(), {
-    map: FIDELITY_PAIRS,
-    demoDir: DEMO_DIR,
-  });
+  return buildAndWriteReport(
+    flags,
+    serverMode,
+    new Date().toISOString(),
+    { map: FIDELITY_PAIRS, demoDir: DEMO_DIR },
+    nodeEvidenceIo(DEMO_DIR),
+  );
 }
 
 async function main(): Promise<Result<void, string>> {
