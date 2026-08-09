@@ -1,3 +1,11 @@
+## [1.156.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.156.3...v1.156.4) (2026-08-09)
+
+
+### Bug Fixes
+
+* **turbo:** add own-build edge for agent-tools lint:fix ([ceb6d43](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ceb6d4366374be3f53cacda594b8bd21c216bc5c))
+* **turbo:** declare own-build edges for tasks that consume their own generated output ([9f44d49](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9f44d49ca43bf78db31bf6ef29b8632b1f720719))
+
 ## [1.156.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.156.2...v1.156.3) (2026-08-09)
 
 ## [1.156.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.156.1...v1.156.2) (2026-08-09)
