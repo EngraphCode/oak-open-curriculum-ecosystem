@@ -890,3 +890,54 @@ channel where their first resume act sweeps.
   (fragment mounting leaves 68 rules inapplicable). The unit-proof
   docblock now states that scope limit — overclaiming a proof's scope
   is its own defect class.
+
+## 2026-08-09 ~13:0xZ (Wren calls Downdraft, 6b29b5) — todo-1 landing harvest
+
+- PATHSPEC COMMIT DROPPED STAGED-NEW FILES (F-candidate, register from
+  transcript): the commit-queue workflow's inner pathspec-scoped git
+  commit carried a 118-path intent but committed only 111 — exactly
+  the four staged-new src modules of the new package were dropped
+  while their sibling package files landed; not gitignored (checked),
+  in the intent list (registry-verified). Cure was a follow-up
+  four-file commit. VERIFY THE COMMIT CONTENT, not the exit code:
+  git show --stat after every landing.
+- TS2883 PORTABLE-DECLARATION CLASS: a dist-consumed config package
+  whose factories return types built over a dependency's types needs
+  (a) explicit exported return-type aliases AND (b) a `export type {
+  X } from 'dep'` re-export so consumers' inferred default-export
+  types are nameable through the package. The alias alone does NOT
+  stick (utility types expand); the re-export is load-bearing.
+- ESM-only exports maps need a "default" condition when configs are
+  loaded by mixed-mode loaders (vite externalize-deps require path);
+  Node 24 require(esm) makes it safe.
+- The esm-import-extensions smoke scan reads FIXTURE STRINGS as
+  imports — extensionless relative specifiers in test fixtures must
+  be runtime-constructed (never-weaken-a-gate: string construction
+  over exemption).
+- UNEXPLAINED, recorded honestly: a full `pnpm check` (clean+rebuild)
+  ran green minutes before the commit hook found 24 type-check tasks
+  red on an unchanged tree; the red was real (reproduced directly).
+  Hypothesis space: turbo cache-key/env divergence between the two
+  invocations. Not diagnosed; the cures were verified first-hand.
+- Copilot review request via merge-bot token did not attach on #836
+  (both 'copilot-pull-request-reviewer[bot]' and 'Copilot' logins
+  accepted-but-dropped) — selective-not-ceremony applies; retry at
+  settle or owner-click.
+
+## 2026-08-09 ~13:5xZ — Plover lifts Troposphere (b10c37): two instrument lessons from the open-surface-zero drive
+
+- **A required check can be ABSENT, not failing — and absence is invisible
+  to a failing-checks filter.** PR #771's draft-era head never triggered a
+  Vercel deployment, so the merge API refused with "Required status check
+  'Vercel' is expected" while my `select(status != SUCCESS)` filter showed
+  zero failures. The recount discipline is presence AND success for each
+  required check BY NAME (the four from the rulesets API), never
+  no-failures. Cure that worked: `pulls/N/update-branch` re-fires the full
+  set; settle-watch then merge.
+- **Sibling-form relative links are structurally invisible to
+  path-substring greps.** WS7 group 1's pre-execution map (opus,
+  thorough) still missed 13 inbound links of the form `../metacognition/`
+  from skills that stay flat — no `skills/<name>` substring exists in
+  them. The markdown-link VALIDATOR (11,608 links checked) is the honest
+  sweep instrument for canonical moves; text grep is only a supplement.
+  Standing for every later WS7 group PR.
