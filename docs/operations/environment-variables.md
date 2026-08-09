@@ -29,7 +29,13 @@ the old claim should be re-derived.)_
 1. **Validate the value before entering it.** Run it through the guard
    that will judge it — for the pseudonym keyring, the strict resolver;
    for JSON-shaped values, a parse. A value that has never been
-   machine-checked is a value you are pasting on faith.
+   machine-checked is a value you are pasting on faith. Feed the
+   candidate value to the check on stdin or from a gitignored file (a
+   workspace `.env.local`) — never as a shell argument, which lands in
+   shell history and process listings. A local boot with the candidate
+   value in the app's `.env.local` runs the same fail-fast resolution a
+   deployment runs — see
+   [vercel-environment-config](../../apps/oak-curriculum-mcp-streamable-http/docs/vercel-environment-config.md).
 2. **Prefer editing in place over delete-and-recreate.** Observed on
    2026-08-03: a variable was deleted and recreated under the same name,
    and the deployment then behaved as though the variable were absent
@@ -61,8 +67,13 @@ the old claim should be re-derived.)_
    theories that the logs would have settled in seconds.
 
 Recovery note: a production redeploy is the cure for a poisoned
-deployment. See the production build guard's own documentation for which
-commits may build.
+deployment — the build guard admits a rebuild of the commit already in
+production (ADR-163 §10, fourth amendment). See the production build
+guard's own documentation for which commits may build. The rolled-back
+state (after a Vercel Instant Rollback) behaves differently: a rollback
+runs no build and suspends production domain auto-assignment until an
+explicit Undo Rollback or promotion — see the vendor-sourced notes in
+[ADR-163 §10](../architecture/architectural-decisions/163-sentry-release-identifier-and-vercel-production-attribution.md).
 
 ## Credential Policy
 
@@ -192,6 +203,11 @@ CLERK_SECRET_KEY=your_clerk_secret_key_here
 OAK_API_KEY=your_oak_api_key_here
 DANGEROUSLY_DISABLE_AUTH=true  # Local development only; rejected in deployed environments
 ```
+
+The rejection is enforced at startup, not merely advised — see the app
+README's
+[Development Authentication](../../apps/oak-curriculum-mcp-streamable-http/README.md#development-authentication)
+section for the enforcement contract.
 
 **Complete reference**: See `apps/oak-curriculum-mcp-streamable-http/README.md` and [`apps/oak-curriculum-mcp-streamable-http/docs/vercel-environment-config.md`](../../apps/oak-curriculum-mcp-streamable-http/docs/vercel-environment-config.md).
 

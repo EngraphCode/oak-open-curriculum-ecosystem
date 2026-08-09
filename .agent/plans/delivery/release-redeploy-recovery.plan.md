@@ -1,8 +1,8 @@
 ---
 id: release-redeploy-recovery
 node_type: delivery
-name: 'Recovery: let a known-good release be rebuilt and rolled back'
-overview: 'Change the production build guard so any release commit may build — restoring redeploy and rollback — while non-release commits still never reach production.'
+name: 'Recovery: the deployed release can be rebuilt (same-commit redeploy)'
+overview: 'The production build guard admits a rebuild of the commit already in production — the same-commit redeploy arm shipped for MCP-479 — while non-release commits still never reach production.'
 status: sketch
 serves: first-major-release
 impact_areas:
@@ -11,7 +11,7 @@ tickets:
   - MCP-479
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-03
+last_updated: 2026-08-09
 ---
 
 # Recovery: rebuild a known-good release
@@ -24,24 +24,24 @@ spotting the problem.
 
 ## Problem
 
-`vercel-ignore-production-non-release-build.mjs` cancels any production
-build whose root `package.json` version has not advanced beyond the
-deployed version. A redeploy of the current release re-runs the guard
-at the same version and is therefore always cancelled, and an older
-release is cancelled too — so neither redeploy nor rollback is
-possible.
+Until 2026-08-04, `vercel-ignore-production-non-release-build.mjs`
+cancelled any production build whose root `package.json` version had
+not advanced beyond the deployed version. A redeploy of the current
+release re-ran the guard at the same version and was therefore always
+cancelled — so the release already in production could not be rebuilt.
 
-The consequence is structural: when a deployment is healthy as a build
-but broken by its environment, the repository contains no change to
-make, and the guard rejects the only build that would help. Recovery
-then requires manufacturing a version bump, which couples incident
-response to the release process. Incident narrative, timings, and the
-owner ruling that authorised this node are recorded on MCP-479.
+The consequence was structural: when a deployment was healthy as a
+build but broken by its environment, the repository contained no change
+to make, and the guard rejected the only build that would help.
+Recovery then required manufacturing a version bump, which coupled
+incident response to the release process. Incident narrative, timings,
+and the owner ruling that authorised this node are recorded on MCP-479.
 
 ## Mechanism
 
-Add a same-commit redeploy arm to the existing version-ordering
-predicate, leaving that predicate otherwise intact.
+The guard carries a same-commit redeploy arm beside the existing
+version-ordering predicate (shipped 2026-08-04, PR #751), leaving that
+predicate otherwise intact.
 
 - **Builds:** a commit whose version advanced (unchanged), **and** a
   rebuild of the commit already in production, identified by
@@ -54,13 +54,14 @@ predicate, leaving that predicate otherwise intact.
 The parity contract with `packages/core/build-metadata/src/semver.ts`
 stays intact; the anti-drift parity test still governs.
 
-**This is narrower than an earlier draft of this node promised, and the
-narrowing is deliberate.** The draft said "any commit that carries a
-release version — including … any earlier one (rollback)". Selecting an
-*earlier* release is not implementable through this guard: Vercel
-exposes no variable naming the deploy's intent, so the only honest
-signal available is the equality above, which by construction only
-identifies the current release. An earlier release still cancels.
+**The arm is deliberately narrow: it identifies the last successfully
+deployed commit, nothing wider.** Vercel documents
+`VERCEL_GIT_PREVIOUS_SHA` as "The git SHA of the last successful
+deployment for the project and branch" (system-environment-variables
+reference, retrieved 2026-08-05) and exposes no variable naming a
+deploy's intent, so the equality above is the only honest signal
+available. Selecting an *earlier* release is not expressible through
+this guard, and an earlier release still cancels.
 
 Rolling back to an earlier release therefore remains **unsolved by this
 node**, and the two candidate routes both have named costs recorded in
@@ -70,33 +71,41 @@ stale environment binding that caused the 2026-08-03 outage; and a
 revert-and-release cut is the status quo this node exists to avoid.
 Naming the gap is the honest state — see §Out of scope.
 
-**Decision-record dependency.** This mechanism contradicts ADR-163 §10
-as accepted, which required every production build on `main` to advance
-the semver. Landing it therefore requires amending that decision, not
-merely implementing against it. The amendment (§10 normative rule plus
-its truth table, designated the *fourth amendment*) is part of this
-node's delivery, not a follow-up.
+**Decision record.** This mechanism contradicted ADR-163 §10 as
+accepted, which required every production build on `main` to advance
+the semver, so landing it carried the decision amendment with it:
+ADR-163 §10's normative rule and truth table now state the redeploy
+arm as the fourth amendment (2026-08-04, MCP-479), with the vendor
+definition of `VERCEL_GIT_PREVIOUS_SHA` quoted verbatim beside the
+equality it warrants.
 
 ## Acceptance criteria
 
 1. A rebuild of the deployed commit continues rather than cancels —
-   proof: **repo-safe**, the guard's unit tests covering the redeploy
-   arm with `VERCEL_GIT_COMMIT_SHA == VERCEL_GIT_PREVIOUS_SHA`.
+   proof: **repo-safe**, the shipped guard unit tests
+   (`apps/oak-curriculum-mcp-streamable-http/build-scripts/vercel-ignore-production-non-release-build.unit.test.mjs`,
+   the MCP-479 redeploy block) covering the
+   `VERCEL_GIT_COMMIT_SHA == VERCEL_GIT_PREVIOUS_SHA` continue case.
 2. A commit that is **not** the deployed one and whose version has not
-   advanced still cancels — proof: **repo-safe**, the guard's unit
-   tests covering that arm. This is the criterion that keeps the
-   narrowing honest: it fails if the redeploy arm is ever widened into
-   "any release version builds".
+   advanced still cancels — proof: **repo-safe**, the same suite's
+   different-commit cancel test, plus the live 2026-08-05 pipeline
+   evidence recorded on MCP-479 (a merge commit cancelled by the
+   ignored build step; a release commit built and deployed). This is
+   the criterion that keeps the narrowing honest: it fails if the
+   redeploy arm is ever widened into "any release version builds".
 3. Both SHA inputs are validated before the equality is trusted —
-   proof: **repo-safe**, unit tests asserting that a malformed
-   `VERCEL_GIT_COMMIT_SHA` or `VERCEL_GIT_PREVIOUS_SHA` leaves the
-   verdict exactly as it was before the arm existed. An equality test
-   on unvalidated input could compare equal on malformed values and
-   continue a build the truth table means to cancel.
+   proof: **repo-safe**, the same suite's trust-boundary tests
+   asserting that a malformed or absent `VERCEL_GIT_COMMIT_SHA` or
+   `VERCEL_GIT_PREVIOUS_SHA` leaves the verdict exactly as it was
+   before the arm existed. An equality test on unvalidated input could
+   compare equal on malformed values and continue a build the truth
+   table means to cancel.
 4. ADR-163 §10 states one unambiguous rule — proof: **repo-safe**, the
-   §10 normative sentence carries the redeploy arm rather than a table
-   row contradicting the sentence above it, and no reference in the
-   repo designates two different changes by the same amendment number.
+   §10 normative sentence carries the redeploy arm as the fourth
+   amendment (2026-08-04, MCP-479) with no table row contradicting the
+   sentence above it, and no reference in the repo designates two
+   different changes by the same amendment number (re-verified
+   2026-08-09 in the amendment round that cured the heading collision).
 5. The predicate is stated where an operator will find it — proof:
    **repo-safe**, the guard's own TSDoc names which commits build and
    which cancel, including the arm's evaluation order relative to the
@@ -106,7 +115,9 @@ node's delivery, not a follow-up.
    owner from the Vercel dashboard observed to build rather than
    cancel; evidence recorded on MCP-479 with the deployment id. This is
    the only criterion the repo cannot prove for itself, because the
-   guard's inputs are supplied by Vercel at build time.
+   guard's inputs are supplied by Vercel at build time. It is the one
+   criterion still open; the observation todo is carried by
+   [`release-redeploy-guard-truing`](release-redeploy-guard-truing.plan.md).
 
 ## Out of scope
 
@@ -117,6 +128,18 @@ node's delivery, not a follow-up.
   revert-and-release cut (the status quo) is an acceptable answer, so
   this needs its own node with its own mechanism. It is not a todo of
   this one.
+- **The rolled-back state and promotion.** Vendor-verified 2026-08-05:
+  after an Instant Rollback, Vercel suspends auto-assignment of
+  production domains until an explicit Undo Rollback or promotion, and
+  `VERCEL_GIT_PREVIOUS_SHA` ("the last successful deployment") diverges
+  from the deployment serving traffic, so the equality arm does not
+  identify the serving release in that state. Promotion out of a
+  rollback is platform-governed, not guard-governed — the composed
+  guards deliberately leave it ungated. The post-rollback operating
+  facts and their runbook coverage are
+  [`release-redeploy-guard-truing`](release-redeploy-guard-truing.plan.md)'s
+  deliverable; ADR-163 §10 records the divergence beside the quoted
+  vendor definition.
 - **Changing the version-ordering predicate itself.** The existing rule
   is correct for every commit that is not the deployed one, and this
   node adds an arm beside it rather than replacing it.
@@ -140,4 +163,6 @@ Recovery arm of the deployment-reliability response. Siblings:
 Detection without recovery leaves an outage standing; this node is the
 floor under every other incident response.
 
-*Authored by Birch holds Seedling (e48fe2, agent), 2026-08-03.*
+*Authored by Birch holds Seedling (e48fe2, agent), 2026-08-03. Amended
+2026-08-09 per the adjudicated 2026-08-05 eleven-expert review
+(`deploy-reliability-corpus-amendment`, rows 14–19, 35).*

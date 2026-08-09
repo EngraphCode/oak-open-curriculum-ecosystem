@@ -57,9 +57,9 @@ runbooks wherever they live (it carries pointers, not content).
   diagnostics for the MCP servers.
 - [Environment Variables Reference](./environment-variables.md) — the full variable
   reference, and §Changing a deployment environment variable: the four-step procedure
-  for editing deployment environments safely (validate before entry, never delete a
-  record a running deployment depends on, deploy and check liveness, read the runtime
-  logs first when it goes wrong).
+  for editing deployment environments safely (validate before entry, edit in place
+  rather than delete-and-recreate, redeploy and check liveness, read the runtime logs
+  first when it goes wrong).
 - [Sentry Deployment Runbook](./sentry-deployment-runbook.md) — enable live error
   capture and tracing, with rollback.
 - [Milestone Release Runbook](../engineering/milestone-release-runbook.md) — R0–R5

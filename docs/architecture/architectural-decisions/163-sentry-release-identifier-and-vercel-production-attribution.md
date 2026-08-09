@@ -729,7 +729,7 @@ build" (Vercel cancels), exit 1 = "do not ignore" (Vercel proceeds).
 The script returns exit 0 on the current ≤ previous row and the
 current-unresolvable row; exit 1 on every other row.
 
-**Third amendment (2026-08-03, MCP-479) — the redeploy row.** The rule
+**Fourth amendment (2026-08-04, MCP-479) — the redeploy row.** The rule
 above is about which _commits_ may produce a production deployment, and
 it read as if it were about which _builds_ may run. Those differ for one
 case: rebuilding the commit that is already deployed. A production
@@ -756,7 +756,10 @@ build, because that commit's version already passed this very gate.
 
 Recorded so a future maintainer can revalidate the inference against the
 vendor rather than against this document. Both pages carried
-`last_updated: 2026-04-27` when read on 2026-08-04.
+`last_updated: 2026-04-27` when read on 2026-08-04; the
+`VERCEL_GIT_PREVIOUS_SHA` definition below was re-verified verbatim
+against the system-environment-variables reference on 2026-08-05
+(MCP-479 review round).
 
 **[System environment variables](https://vercel.com/docs/environment-variables/system-environment-variables)**
 — `VERCEL_GIT_PREVIOUS_SHA`:
@@ -782,6 +785,18 @@ written down:
 `VERCEL_GIT_COMMIT_SHA`, the other half of the equality, is documented on the
 same page as "the git SHA of the commit the deployment was triggered by",
 available at both build and runtime.
+
+One divergence case is named here because the definition invites
+misreading (recorded 2026-08-05, MCP-479): "last successful deployment"
+is not "the deployment currently serving production". The two diverge
+exactly after a Vercel Instant Rollback, which re-points production
+domains at an older deployment without running a build —
+`VERCEL_GIT_PREVIOUS_SHA` keeps naming the newer, rolled-back-from
+deployment, so in a rolled-back state the equality arm does not identify
+the serving release. Per Vercel's Instant Rollback reference (verified
+2026-08-05), a rollback also suspends auto-assignment of production
+domains until an explicit Undo Rollback or promotion, so recovery from
+that state is platform-governed promotion, not a guard-governed rebuild.
 
 **[Managing environment variables](https://vercel.com/docs/environment-variables/managing-environment-variables)**
 — the rollback/environment behaviour:
