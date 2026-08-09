@@ -24,7 +24,7 @@ development, and how we run our own work.
 
 ---
 
-**Current status: Invite-Only Alpha** — The alpha MCP app server is live at `curriculum-mcp-alpha.oaknational.dev`.
+**Current status: Public Beta** — The MCP app server is live at `www.thenational.academy/mcp`. Anyone can create an Oak account to connect; there is no invitation or allowlist. The `curriculum-mcp-alpha.oaknational.dev` host remains available as a compatibility surface.
 
 ---
 
@@ -133,6 +133,8 @@ engineering system) ·
 testing, accessibility, security) ·
 [Architecture](docs/architecture/README.md) (ADRs, OpenAPI pipeline,
 provider system) ·
+[Design](docs/design/README.md) (design decision records for the
+design system) ·
 [Engineering](docs/engineering/README.md) (workflow, tooling,
 extending) ·
 [Operations](docs/operations/README.md) (env vars, troubleshooting, [runbook index](docs/operations/README.md#runbook-index)) ·

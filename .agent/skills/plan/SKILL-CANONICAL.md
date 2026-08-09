@@ -110,8 +110,10 @@ is not ratified.
   hand-kept list.
 - `impact_areas` — the product areas the plan changes, drawn from the
   closed, additive [registry](../../plans/impact-areas.md).
-- `tickets` — every delivery plan names at least one Linear ticket (the
-  delivery-state edge; ticket-first per `linear-ticket-first`).
+- `tickets` — optional visibility metadata, always (plan-node schema
+  §2026-08-07 amendment: validity is repo-internal, never dependent on
+  an external service). When the operator's tracker holds the work,
+  name it as a thin pointer (ticket-first as working practice).
 - `depends_on` — each dependency classified `blocking` or `beneficial`;
   for each `beneficial` dependency, the body states the minimum
   shippable shape without it.

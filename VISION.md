@@ -91,8 +91,9 @@ We're building capabilities that outlast any single product. Representing knowle
 as graphs is one of them — we apply it across domains, from Oak's curriculum to
 AI-enhanced development and the way we run our own work.
 
-We build those capabilities as a cost-of-change gradient: the core absorbs
-recurring, context-independent mechanics and their assurance burden;
+We build those capabilities as a
+[cost-of-change gradient](docs/foundation/cost-of-change-gradient.md): the core
+absorbs recurring, context-independent mechanics and their assurance burden;
 foundational systems compose them; SDKs and libraries own reusable domain
 capability; products and services express policy, experience, and real human
 need. Supporting the wider ecosystem includes supporting its engineering

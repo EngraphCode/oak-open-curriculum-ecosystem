@@ -180,3 +180,19 @@ report §4. The day's incident record (pnpm store-binding; two stacked
 workarounds; owner rulings) lives in the napkin 2026-08-04 entries,
 MCP-498 (rewritten), and the comms stream; a retrospective is proposed
 at owner word.
+
+## 2026-08-03 ~08:45Z — BINDING lane constraint (owner word, verbatim-critical; Magnetar binds Oblivion, 74d914)
+
+Owner, on the spec-alignment findings: "please be very careful before chasing
+any type issues, there are correct and non-trivial approaches here, and I
+will work with you to identify and apply them." BINDING on the lane: the
+type-layer legs (the z.toJSONSchema examples round-trip contract, the
+KeywordsResponseSchema promotion's generated types, anything in the zod/
+openapi-zod-client-adapter layer) are OWNER-COLLABORATIVE — identified and
+applied WITH him, never autonomously cured. The non-type legs (override
+re-evaluation needs the live-API semantics probe first; served-tool-table
+artefact regen) wait for routing. The probe worktree (upstream-spec-probe,
+refreshed cache + regen uncommitted) is the lane's opening state; this
+constraint rides any routing brief VERBATIM. (Homed from the napkin at the
+2026-08-07 consolidation; the constraint was captured 2026-08-03 and had no
+thread-record presence until now.)
