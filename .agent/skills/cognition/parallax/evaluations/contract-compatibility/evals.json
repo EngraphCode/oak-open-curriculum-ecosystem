@@ -10,7 +10,7 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Inspect every artifact template under .agent/skills/parallax*/assets. Verify the common Parallax envelope across YAML and JSON without editing files. Report every missing, renamed, wrongly typed, or semantically incompatible field.",
+      "prompt": "Inspect every artifact template under .agent/skills/cognition/parallax*/assets. Verify the common Parallax envelope across YAML and JSON without editing files. Report every missing, renamed, wrongly typed, or semantically incompatible field.",
       "expected_output": "A deterministic compatibility report covering the common envelope while allowing documented artifact-specific extensions.",
       "assertions": [
         "Every template is checked for schema_version, artifact_id, artifact_type, artifact_revision, inquiry_id, inquiry_revision, status, created_at, created_by, producing_skill, execution_context, inputs, permissions_and_scope, identity, assumptions, uncertainties, provenance, validity_domain, defeaters, and reopen_when",

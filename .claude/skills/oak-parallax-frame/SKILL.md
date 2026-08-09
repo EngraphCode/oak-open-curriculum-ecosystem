@@ -5,4 +5,4 @@ description: Use this skill when the question, construct, boundary, unit of anal
 
 # Parallax Frame (Claude Code)
 
-Read and follow `.agent/skills/parallax/skills/parallax-frame/SKILL-CANONICAL.md`.
+Read and follow `.agent/skills/cognition/parallax-frame/SKILL-CANONICAL.md`.

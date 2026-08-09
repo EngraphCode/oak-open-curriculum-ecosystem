@@ -5,4 +5,4 @@ description: Use this skill to turn one or more reasonably stable questions or f
 
 # Parallax Design Inquiry (Cross-tool)
 
-Read and follow `.agent/skills/parallax/skills/parallax-design-inquiry/SKILL-CANONICAL.md`.
+Read and follow `.agent/skills/cognition/parallax-design-inquiry/SKILL-CANONICAL.md`.

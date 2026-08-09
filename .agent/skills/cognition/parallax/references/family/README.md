@@ -12,7 +12,7 @@ licensing: host-repository-governs
 
 Parallax is a portable collection of agent skills for disciplined inquiry, experimental design, synthesis, decision-making, assurance, and recursive learning. It supports investigation, science, software engineering, and digital product development without reducing those domains to a single method or standard of warrant.
 
-This directory is the collection-level reference corpus. The independently invocable canonical definitions live in `.agent/skills/*/SKILL-CANONICAL.md`; they are deliberately non-discoverable to vendor scanners. The embedding repository generates discoverable adapters from them. This corpus explains their shared theory, protocol, topology, and governance. It is not itself a skill and is not automatically loaded into an agent's context.
+This directory is the collection-level reference corpus. The independently invocable canonical definitions live in `.agent/skills/cognition/parallax*/SKILL-CANONICAL.md`; they are deliberately non-discoverable to vendor scanners. The embedding repository generates discoverable adapters from them. This corpus explains their shared theory, protocol, topology, and governance. It is not itself a skill and is not automatically loaded into an agent's context.
 
 ## Collection status
 
@@ -62,7 +62,7 @@ The catalogue is flat for standards-compliant discovery. Runtime relationships a
 | Terms | [glossary.md](glossary.md) |
 | Primary sources | [references.md](references.md) |
 
-Machine-readable graph definitions are in [`graphs/`](graphs/). Collection-level integration evaluations are in `.agent/evaluations/parallax/`; skill-local evaluations remain inside each skill directory. Authored evaluations are executable specifications, not evidence that the collection has passed them.
+Machine-readable graph definitions are in [`graphs/`](graphs/). Collection-level integration evaluations are in `.agent/skills/cognition/parallax/evaluations/`; skill-local evaluations remain inside each skill directory. Authored evaluations are executable specifications, not evidence that the collection has passed them.
 
 ## Collection at a glance
 

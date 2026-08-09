@@ -12,15 +12,42 @@
     "bundled_license": false
   },
   "skills": [
-    { "name": "parallax", "path": "../../skills/parallax" },
-    { "name": "parallax-frame", "path": "../../skills/parallax-frame" },
-    { "name": "parallax-design-inquiry", "path": "../../skills/parallax-design-inquiry" },
-    { "name": "parallax-design-experiment", "path": "../../skills/parallax-design-experiment" },
-    { "name": "parallax-product-experiment", "path": "../../skills/parallax-product-experiment" },
-    { "name": "parallax-synthesise", "path": "../../skills/parallax-synthesise" },
-    { "name": "parallax-decide", "path": "../../skills/parallax-decide" },
-    { "name": "parallax-audit", "path": "../../skills/parallax-audit" },
-    { "name": "parallax-learn", "path": "../../skills/parallax-learn" }
+    {
+      "name": "parallax",
+      "path": "../../../parallax"
+    },
+    {
+      "name": "parallax-frame",
+      "path": "../../../parallax-frame"
+    },
+    {
+      "name": "parallax-design-inquiry",
+      "path": "../../../parallax-design-inquiry"
+    },
+    {
+      "name": "parallax-design-experiment",
+      "path": "../../../parallax-design-experiment"
+    },
+    {
+      "name": "parallax-product-experiment",
+      "path": "../../../parallax-product-experiment"
+    },
+    {
+      "name": "parallax-synthesise",
+      "path": "../../../parallax-synthesise"
+    },
+    {
+      "name": "parallax-decide",
+      "path": "../../../parallax-decide"
+    },
+    {
+      "name": "parallax-audit",
+      "path": "../../../parallax-audit"
+    },
+    {
+      "name": "parallax-learn",
+      "path": "../../../parallax-learn"
+    }
   ],
   "documentation": [
     "README.md",
@@ -52,20 +79,19 @@
     "graphs/scale-decomposition.json",
     "graphs/learning.json"
   ],
-  "collection_evaluations": "../../evaluations/parallax",
+  "collection_evaluations": "../../evaluations",
   "evaluation_suites": [
-    "../../evaluations/parallax/routing/evals.json",
-    "../../evaluations/parallax/composition/evals.json",
-    "../../evaluations/parallax/cross-domain/evals.json",
-    "../../evaluations/parallax/reopening/evals.json",
-    "../../evaluations/parallax/recursive-learning/evals.json",
-    "../../evaluations/parallax/metamorphic-scale/evals.json",
-    "../../evaluations/parallax/contract-compatibility/evals.json"
+    "../../evaluations/routing/evals.json",
+    "../../evaluations/composition/evals.json",
+    "../../evaluations/cross-domain/evals.json",
+    "../../evaluations/reopening/evals.json",
+    "../../evaluations/recursive-learning/evals.json",
+    "../../evaluations/metamorphic-scale/evals.json",
+    "../../evaluations/contract-compatibility/evals.json"
   ],
   "evaluation_status": "authored-not-yet-executed",
   "tools": [
-    "../../tools/parallax/validate_bundle.py",
-    "../../tools/parallax/render_graph.py"
+    "../../scripts/render_graph.py"
   ],
   "invariants": [
     "typed-question-warrant",

@@ -3,11 +3,12 @@
  * checker so both walk the corpus identically.
  *
  * Two standard shapes live under `.agent/skills/`: a flat individual
- * (`<id>/SKILL-CANONICAL.md`) and a family bundle
- * (`<family-id>/skills/<id>/SKILL-CANONICAL.md` — one `skills/` tier, no
- * deeper). A root entry that is neither shape, a family member without a
- * canonical, and a canonical with unparseable frontmatter are all skipped
- * loudly: they hold content no harness can summon.
+ * (`<id>/SKILL-CANONICAL.md`) and a concern-tier member
+ * (`<concern>/<id>/SKILL-CANONICAL.md` — one concern tier, no deeper, per
+ * the ratified skills-estate structure). A root entry that is neither
+ * shape, a concern member without a canonical, and a canonical with
+ * unparseable frontmatter are all skipped loudly: they hold content no
+ * harness can summon.
  */
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -24,7 +25,7 @@ export interface CanonicalFrontmatter {
 export interface ParsedCanonical {
   readonly id: string;
   /** Directory of the canonical relative to `.agent/skills/` — the leaf id
-   * for a flat individual, `<family-id>/skills/<id>` for a family member. */
+   * for a flat individual, `<concern>/<id>` for a concern-tier member. */
   readonly relativeDir: string;
   readonly frontmatter: CanonicalFrontmatter;
   readonly canonicalPath: string;
@@ -101,13 +102,13 @@ async function discoverRootEntry(
     canonicals.push(flat);
     return;
   }
-  const memberIds = await fs.listSubdirectoryNames(join(canonicalsRoot, rootId, 'skills'));
+  const memberIds = await fs.listSubdirectoryNames(join(canonicalsRoot, rootId));
   if (memberIds.length === 0) {
     skipped.push(rootId);
     return;
   }
   for (const memberId of memberIds) {
-    const relativeDir = `${rootId}/skills/${memberId}`;
+    const relativeDir = `${rootId}/${memberId}`;
     const member = await parseCanonicalAt(canonicalsRoot, relativeDir, fs);
     if (member === 'absent' || member === 'unparseable') {
       skipped.push(relativeDir);

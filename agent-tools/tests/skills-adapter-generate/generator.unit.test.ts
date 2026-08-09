@@ -123,16 +123,16 @@ function makeTreeFs(
 describe('discoverCanonicals', () => {
   const repoRoot = '/repo';
 
-  it('discovers flat individuals and family members together', async () => {
+  it('discovers flat individuals and concern-tier members together', async () => {
     const fs = makeTreeFs(
       new Map([
         ['/repo/.agent/skills', ['flat-one', 'fam']],
-        ['/repo/.agent/skills/fam/skills', ['member-a', 'member-b']],
+        ['/repo/.agent/skills/fam', ['member-a', 'member-b']],
       ]),
       new Map([
         ['/repo/.agent/skills/flat-one/SKILL-CANONICAL.md', canonicalBody],
-        ['/repo/.agent/skills/fam/skills/member-a/SKILL-CANONICAL.md', canonicalBody],
-        ['/repo/.agent/skills/fam/skills/member-b/SKILL-CANONICAL.md', canonicalBody],
+        ['/repo/.agent/skills/fam/member-a/SKILL-CANONICAL.md', canonicalBody],
+        ['/repo/.agent/skills/fam/member-b/SKILL-CANONICAL.md', canonicalBody],
       ]),
     );
 
@@ -142,12 +142,12 @@ describe('discoverCanonicals', () => {
     expect(outcome.duplicates).toEqual([]);
     expect(outcome.canonicals.map((c) => [c.id, c.relativeDir])).toEqual([
       ['flat-one', 'flat-one'],
-      ['member-a', 'fam/skills/member-a'],
-      ['member-b', 'fam/skills/member-b'],
+      ['member-a', 'fam/member-a'],
+      ['member-b', 'fam/member-b'],
     ]);
   });
 
-  it('skips a root directory that is neither a skill nor a family', async () => {
+  it('skips a root directory that is neither a skill nor a concern tier', async () => {
     const fs = makeTreeFs(new Map([['/repo/.agent/skills', ['neither']]]), new Map());
 
     const outcome = await discoverCanonicals(repoRoot, fs);
@@ -156,30 +156,30 @@ describe('discoverCanonicals', () => {
     expect(outcome.skipped).toEqual(['neither']);
   });
 
-  it('skips a family member directory without a readable canonical', async () => {
+  it('skips a concern member directory without a readable canonical', async () => {
     const fs = makeTreeFs(
       new Map([
         ['/repo/.agent/skills', ['fam']],
-        ['/repo/.agent/skills/fam/skills', ['good', 'hollow']],
+        ['/repo/.agent/skills/fam', ['good', 'hollow']],
       ]),
-      new Map([['/repo/.agent/skills/fam/skills/good/SKILL-CANONICAL.md', canonicalBody]]),
+      new Map([['/repo/.agent/skills/fam/good/SKILL-CANONICAL.md', canonicalBody]]),
     );
 
     const outcome = await discoverCanonicals(repoRoot, fs);
 
     expect(outcome.canonicals.map((c) => c.id)).toEqual(['good']);
-    expect(outcome.skipped).toEqual(['fam/skills/hollow']);
+    expect(outcome.skipped).toEqual(['fam/hollow']);
   });
 
   it('reports duplicate leaf ids across shapes — the flat adapter namespace must stay injective', async () => {
     const fs = makeTreeFs(
       new Map([
         ['/repo/.agent/skills', ['member-a', 'fam']],
-        ['/repo/.agent/skills/fam/skills', ['member-a']],
+        ['/repo/.agent/skills/fam', ['member-a']],
       ]),
       new Map([
         ['/repo/.agent/skills/member-a/SKILL-CANONICAL.md', canonicalBody],
-        ['/repo/.agent/skills/fam/skills/member-a/SKILL-CANONICAL.md', canonicalBody],
+        ['/repo/.agent/skills/fam/member-a/SKILL-CANONICAL.md', canonicalBody],
       ]),
     );
 
@@ -201,33 +201,33 @@ describe('discoverCanonicals', () => {
   });
 });
 
-describe('renderAdapter for family members', () => {
+describe('renderAdapter for concern-tier members', () => {
   const familyMember: ParsedCanonicalSkill = {
     id: 'parallax-frame',
-    relativeDir: 'parallax/skills/parallax-frame',
+    relativeDir: 'cognition/parallax-frame',
     frontmatter: { name: 'parallax-frame', description: 'Frame an inquiry.' },
     canonicalPath: '/repo/.agent/skills/parallax/skills/parallax-frame/SKILL-CANONICAL.md',
     canonicalFilename: 'SKILL-CANONICAL.md',
   };
 
-  it('links the family-relative canonical path while naming by leaf id', () => {
+  it('links the concern-relative canonical path while naming by leaf id', () => {
     const content = renderAdapter(familyMember, 'oak-', 'claude');
 
     expect(content).toContain('name: oak-parallax-frame');
     expect(content).toContain(
-      'Read and follow `.agent/skills/parallax/skills/parallax-frame/SKILL-CANONICAL.md`.',
+      'Read and follow `.agent/skills/cognition/parallax-frame/SKILL-CANONICAL.md`.',
     );
   });
 });
 
-describe('checkAdapters over a family', () => {
-  it('reports family member adapters missing at their flat target paths', async () => {
+describe('checkAdapters over a concern tier', () => {
+  it('reports concern member adapters missing at their flat target paths', async () => {
     const fs = makeTreeFs(
       new Map([
         ['/repo/.agent/skills', ['fam']],
-        ['/repo/.agent/skills/fam/skills', ['member-a']],
+        ['/repo/.agent/skills/fam', ['member-a']],
       ]),
-      new Map([['/repo/.agent/skills/fam/skills/member-a/SKILL-CANONICAL.md', canonicalBody]]),
+      new Map([['/repo/.agent/skills/fam/member-a/SKILL-CANONICAL.md', canonicalBody]]),
     );
 
     const result = await checkAdapters({ repoRoot: '/repo', prefix: 'oak-' }, fs);

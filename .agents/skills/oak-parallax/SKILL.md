@@ -5,4 +5,4 @@ description: Use this skill to orchestrate a proportionate, end-to-end inquiry w
 
 # Parallax (Cross-tool)
 
-Read and follow `.agent/skills/parallax/skills/parallax/SKILL-CANONICAL.md`.
+Read and follow `.agent/skills/cognition/parallax/SKILL-CANONICAL.md`.

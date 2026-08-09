@@ -57,7 +57,7 @@ Generated outputs, timings, grading, and benchmarks belong in an evaluation work
 
 ### Collection evaluation
 
-The suites in `.agent/evaluations/parallax/` cover:
+The suites in `.agent/skills/cognition/parallax/evaluations/` cover:
 
 - routing and sibling disambiguation;
 - composition, protected parallelism, and hand-offs;

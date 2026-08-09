@@ -5,4 +5,4 @@ description: Designs, audits, analyses, and learns from controlled experiments f
 
 # Parallax Product Experiment (Claude Code)
 
-Read and follow `.agent/skills/parallax/skills/parallax-product-experiment/SKILL-CANONICAL.md`.
+Read and follow `.agent/skills/cognition/parallax-product-experiment/SKILL-CANONICAL.md`.

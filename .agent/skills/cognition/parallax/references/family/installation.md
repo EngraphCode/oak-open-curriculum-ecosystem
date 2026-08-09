@@ -12,12 +12,12 @@ licensing: host-repository-governs
 
 ## Package contract
 
-The bundle is one canonical package; in this repository it is rooted at `.agent/skills/parallax/`:
+The collection is one canonical package; in this repository it lands as flat namespaced members under the cognition concern:
 
-- `skills/parallax*` — canonical, independently invocable but deliberately non-discoverable `SKILL-CANONICAL.md` definitions, references, assets, scripts, and authored local evals;
-- `reference/parallax` — collection theory, architecture, protocols, manifests, diagrams, and sources;
-- `evaluations/parallax` — authored cross-skill integration suites;
-- `tools/parallax` — bundle validation and graph-to-Mermaid tools.
+- `.agent/skills/cognition/parallax*` — the nine canonical, independently invocable but deliberately non-discoverable `SKILL-CANONICAL.md` member definitions with their references, assets, scripts, and authored local evals;
+- `.agent/skills/cognition/parallax/references/family/` — collection theory, architecture, protocols, manifests, diagrams, and sources (this corpus), homed under the root member;
+- `.agent/skills/cognition/parallax/evaluations/` — authored cross-skill integration suites;
+- `.agent/skills/cognition/parallax/scripts/` — the graph-to-Mermaid tool and its test.
 
 It contains no vendor-specific adapters, no generated evaluation results, and no Practice memory writes.
 
@@ -30,11 +30,11 @@ Do **not** replace the host repository's `.agent` root wholesale. It may contain
 3. Merge only these subtrees into their corresponding host locations:
 
    ```text
-   .agent/skills/parallax/skills/parallax*
-   .agent/skills/parallax/reference/parallax
-   .agent/skills/parallax/evaluations/parallax
-   .agent/skills/parallax/tools/parallax
+   .agent/skills/cognition/parallax*
    ```
+
+   (The family's shared corpus, evaluations, and scripts travel inside
+   the root member `.agent/skills/cognition/parallax/`.)
 
 4. Preserve host files outside those targets.
 5. If the host already contains a Parallax version, compare manifests and changelogs/Practice decisions; do not overwrite local changes blindly.
@@ -59,19 +59,17 @@ The loop at collision review means resolve or intentionally reconcile the confli
 
 ## Validate the canonical package
 
-From the host repository root, run:
-
-```bash
-python3 .agent/skills/parallax/tools/parallax/validate_bundle.py
-```
-
-The validator checks the expected nine canonical skills, names/descriptions, canonical non-discoverability, per-skill authored evals, trigger train/validation shape, common artifact envelopes, collection-evaluation shapes, manifest completeness, JSON parsing, graph endpoints, local links, Mermaid fence closure, and exclusion of generated Python cache files. It is a structural validator: it does not certify epistemic truth, statistical correctness, experiment readiness, execution authority, or browser rendering.
+Structural validation is owned by the host repository's own gates: the
+adapter generator/checker walks the corpus and fails loudly on skipped,
+duplicate, drifted, or missing entries, and the portability validator
+checks canonical frontmatter. (The bundle-era standalone validator
+retired with the bundle shape.)
 
 Render a graph projection for inspection with:
 
 ```bash
-python3 .agent/skills/parallax/tools/parallax/render_graph.py \
-  .agent/skills/parallax/reference/parallax/graphs/invocation.json
+python3 .agent/skills/cognition/parallax/scripts/render_graph.py \
+  .agent/skills/cognition/parallax/references/family/graphs/invocation.json
 ```
 
 The renderer writes Mermaid source to standard output. Rendering does not prove the graph's epistemic adequacy.
@@ -90,9 +88,9 @@ Store generated outputs, timing, grading, benchmarks, and reviewer feedback in a
 
 ## Generate vendor adapters
 
-After canonical validation and review, use the host repository's documented adapter generator. The generator should project each `.agent/skills/parallax/skills/<name>/SKILL-CANONICAL.md` and its supporting directories into the host's discoverable vendor surfaces, preserve ownership metadata, and validate drift according to the Practice.
+After canonical validation and review, use the host repository's documented adapter generator. The generator should project each `.agent/skills/cognition/<name>/SKILL-CANONICAL.md` and its supporting directories into the host's discoverable vendor surfaces, preserve ownership metadata, and validate drift according to the Practice.
 
-Do not hand-author vendor adapters inside this bundle and do not rename canonical files to `SKILL.md` under the bundle's `skills/` tree; canonical non-discoverability is intentional.
+Do not hand-author vendor adapters inside this bundle and do not rename canonical files to `SKILL.md` under `.agent/skills/cognition/`; canonical non-discoverability is intentional.
 
 Where the host exposes the standards reference validator, validate each generated standards-compliant adapter as well. Adapter success does not replace behavioural invocation and output evaluation.
 

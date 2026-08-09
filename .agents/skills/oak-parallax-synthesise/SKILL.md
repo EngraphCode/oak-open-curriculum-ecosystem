@@ -5,4 +5,4 @@ description: Use this skill when two or more existing claims, evidence streams, 
 
 # Parallax Synthesise (Cross-tool)
 
-Read and follow `.agent/skills/parallax/skills/parallax-synthesise/SKILL-CANONICAL.md`.
+Read and follow `.agent/skills/cognition/parallax-synthesise/SKILL-CANONICAL.md`.

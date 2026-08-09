@@ -5,4 +5,4 @@ description: Use this skill when an action, commitment, rollout, experiment, def
 
 # Parallax Decide (Claude Code)
 
-Read and follow `.agent/skills/parallax/skills/parallax-decide/SKILL-CANONICAL.md`.
+Read and follow `.agent/skills/cognition/parallax-decide/SKILL-CANONICAL.md`.

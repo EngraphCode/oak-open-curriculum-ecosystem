@@ -5,4 +5,4 @@ description: Use this skill to independently challenge an inquiry, experiment, s
 
 # Parallax Audit (Cross-tool)
 
-Read and follow `.agent/skills/parallax/skills/parallax-audit/SKILL-CANONICAL.md`.
+Read and follow `.agent/skills/cognition/parallax-audit/SKILL-CANONICAL.md`.

@@ -5,4 +5,4 @@ description: Designs, critiques, preregisters, analyses, and learns from prospec
 
 # Parallax Design Experiment (Claude Code)
 
-Read and follow `.agent/skills/parallax/skills/parallax-design-experiment/SKILL-CANONICAL.md`.
+Read and follow `.agent/skills/cognition/parallax-design-experiment/SKILL-CANONICAL.md`.

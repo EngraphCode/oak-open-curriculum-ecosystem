@@ -2,7 +2,7 @@
  * Skills adapter generator.
  *
  * Discovers canonical skills under `.agent/skills/` (flat individuals and
- * family bundles — see `discovery.ts`) and emits two adapter surfaces per
+ * concern-tier members — see `discovery.ts`) and emits two adapter surfaces per
  * skill:
  *
  *   - `.claude/skills/<prefix><id>/SKILL.md`  — Claude Code adapter

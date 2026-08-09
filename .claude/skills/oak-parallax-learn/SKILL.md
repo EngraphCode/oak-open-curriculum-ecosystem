@@ -5,4 +5,4 @@ description: Use this skill when outcomes, completed inquiries, experiment resul
 
 # Parallax Learn (Claude Code)
 
-Read and follow `.agent/skills/parallax/skills/parallax-learn/SKILL-CANONICAL.md`.
+Read and follow `.agent/skills/cognition/parallax-learn/SKILL-CANONICAL.md`.
