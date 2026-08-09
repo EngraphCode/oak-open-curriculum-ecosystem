@@ -1590,3 +1590,55 @@ no-handover-commits.
   schedules on the carried key (three-leg pre-read per the rubric, then
   the owner browse moment routed via the Director). The Director folds
   the coordination branch ~09:42Z; this lane's dirty surfaces ride it.
+
+## COMPACTION FREEZE 3 — 2026-08-09 ~09:25Z (Civet spins Cavern, 054f5e — seat continues; OWNER PULL-FORWARD is the executing input; resume map)
+
+- **THE MORNING'S ARC**: resume → #831 rounds 2–3 adopted → owner card
+  answered (cpd row authorised + `OAK_API_KEY` carried; W0.9 unblocked)
+  → **#831 MERGED `f1192ce22` under grant `dd56dfb2` — W0.7 COMPLETE**
+  → estate folded/rotated by the Director (#832, live branch
+  `coordination/2026-08-09-8f473f`) → W0.1 census opened (worktree
+  `w01-census`; pre-execution review PROCEED-WITH-REVISIONS; fred's
+  home verdict; the Director ruled both gates: sitemap re-sequencing
+  ADOPTED, `oak-design-tokens` home RATIFIED, ADR-213 §2 read
+  confirmed) → **the OWNER worded a PULL-FORWARD and selected build on
+  its plan**.
+- **THE EXECUTING INPUT at resume**: the delivery node
+  `.agent/plans/delivery/identity-switchboard-first-pixels.plan.md`
+  (landed `af736ac4f`, pushed, corpus-validator green; born `sketch` —
+  the ratification stamp is the owner's one-word act, un-asked). Read
+  it END TO END at resume; it is decision-complete. Its step 0 (this
+  freeze) is DONE at this entry. FIRST IMPLEMENTATION ACT: todo 2 —
+  PR-1, the fidelity tooling port into the showcase (fresh worktree
+  off origin/main; per-cycle code-expert pre-execution review before
+  any code, per the standing rule).
+- **RESUME CEREMONY** (owner's standing word: restart all monitors):
+  (1) canonical watcher FIRST + F-95 assert (arm from the PRIMARY —
+  the worktree isolation guard refuses the arm in-worktree; napkin
+  2026-08-09 ~07:2x carries the round-trip pattern); (2) gap sweep —
+  canonical buffer AND the ARC channel end-to-end; (3) F-75 delta
+  poll; (4) heartbeat pair on the retained claim UNLESS n=2 is
+  re-confirmed live with the Director (then heartbeats stay down per
+  PDR-082; re-arm the ARC tail either way if the channel is open).
+- **CENSUS STATE (resume gated on the pull-forward node's completion,
+  its todo 5)**: worktree `w01-census` LIVE, branch
+  `jimcresswell/design-w01-census` at base `8f473f867`, carrying TWO
+  untracked files — `packages/design/oak-design-tokens/src/design-census/census-types.ts`
+  (slice A's types, authored) and `W01-CYCLE-PLAN-v2.md` (the
+  adjudicated cycle plan v2, conserved from session scratch: homes per
+  fred's ratified verdict; ledger-split dispositions with exclusion
+  fingerprints; derived stylesheet domain; pinned parity methods;
+  four-PR slicing; the blindness-preserving notes). The pre-execution
+  review's findings and both Director rulings are summarised in the
+  ARC channel entries 2026-08-09T07:28:47Z / 07:40:59Z / 07:53:04Z.
+- **KNOWN-AT-FREEZE BOUNDS**: monitors ALL DOWN (a platform process
+  restart killed them ~09:0xZ — none is running; verified by TaskList,
+  no re-arm-to-stop was needed); claim `645b9e0b` RETAINED; the plan
+  node is the ONLY commit this freeze adds (`af736ac4f`); dirty
+  primary surfaces (napkin, this record, the ARC channel's post-fold
+  entries) ride the Director's next fold per no-handover-commits. The
+  bot-push transient 403 took its second instance this morning
+  (immediate-retry cure held). W0.9 remains unblocked and UNCHANGED
+  (it stays with design-system-completion). The Director's standing
+  flow (recount + grant at ready signals) governs the pull-forward's
+  PRs as it did #830/#831.

@@ -570,6 +570,53 @@ curation touch, not absorbed here (cure-class separation). The loop ran
 one corrected cycle before standing down again at the Director's n=2
 re-confirmation — mode artefact, disclosed on the ARC channel.
 
+## 2026-08-09 ~09:2xZ (Civet, 054f5e) — pull-forward freeze harvest (metacognition / free-play / concept-exploration / wrap)
+
+METACOGNITION: two bites this window. (1) The concept gate blocked
+"parked" in the new plan node — the CONCEPT was sound (the census carries
+a named resume gate: this node's completion), so the cure was stating the
+gate explicitly, not a synonym; the gate biting on a paraphrase point and
+being answered with structure is the intended shape. (2) The
+census-momentum bias check held: the owner's path question was answered
+from the completion plan's own first-light text (census off the critical
+path), and the export-page anatomy — previously records-derived — was
+verified by a first-hand exploration sweep BEFORE the plan closed
+decisions on it. Also: the bot-push transient 403 took its SECOND
+recorded instance (first: 2026-08-07 branch-create at the design seat);
+immediate-retry cured both — a pattern claim becomes fair at a third.
+
+FREE-PLAY SEEDS: (1) the pull-forward makes the first judged checkpoint
+THE page the owner called good — the highest-signal wow-bar calibration
+available; (2) the fidelity instrument and the W0.7 rubric run their
+first JOINT outing on it (adherence diff + design-language judgement —
+two instruments, one render); (3) query-addressable identity
+(`?brand=`) buys capture cells, the export's "Open full page" behaviour,
+and Playwright state application in one mechanism.
+
+CONCEPT-EXPLORATION: closed — the "clash boundary" concept is now
+operational (the fidelity register's disposition classes ARE the rule;
+six deliberate divergences pre-named in the plan node).
+
+WRAP: this freeze IS the new plan's step 0 by owner word. The census
+cycle-plan v2 was conserved out of session scratch into the w01-census
+worktree (W01-CYCLE-PLAN-v2.md, untracked, beside the untracked
+census-types.ts) per important-state-not-in-temp-files — the census
+resume gate may sit days out and the scratchpad would not survive.
+
+## 2026-08-09 ~07:2xZ (Civet, 054f5e) — watcher re-arm cadence for a worktree-resident seat
+
+The canonical watcher's 1-hour timeout backstop fires on schedule, and a
+worktree-isolated session cannot re-arm it in place: the isolation guard
+refuses the canonical invocation (and, in the w01-census worktree, even
+`echo $PPID` — the guard's complexity bar varies by worktree). The working
+pattern, twice-proven this morning: ExitWorktree(keep) → arm from the
+primary → F-95 assert → re-enter. Cost ~30s per hour; the alternative
+(arming with the Monitor rooted in the worktree) was refused in every
+tried shape. Scope: this session shape (worktree-resident seat with
+primary-homed monitors); a structural cure would be a guard allowance for
+the canonical watch invocation, which rides the Director's tooling board
+if the churn starts to bite.
+
 ## 2026-08-08 ~18:0xZ (Civet, 054f5e) — two mechanism notes from the PR-B window
 
 - The worktree-isolated session guard (Bash AND file tools) blocks writes
@@ -594,3 +641,14 @@ re-confirmation — mode artefact, disclosed on the ARC channel.
   wrapped body for a line-initial `word:` and rewrap. Caught pre-commit the
   first time, post-push the second (warning is non-blocking so it slips
   through when the check output is only grepped for problems).
+
+- 2026-08-09 (Plover b10c37): diagnosed a "stuck synchronize event" on #807 and
+  routed a nudge — WRONG premise, corrected by the lane seat (Wren, 08:49Z):
+  the repo carried TWO remote branches (prefixed `jimcresswell/...` at the new
+  sha; unprefixed at the old) and the PR's head was the unprefixed one, so no
+  event was ever owed. The falsifying field (`headRefName`) was already in a
+  prior tool read this session. Lesson applied forward: before diagnosing a
+  platform fault on a PR, recompute the ref PAIR first (`headRefName` vs the
+  branch just pushed) — a name mismatch is the cheap check that precedes any
+  webhook theory. Peer-refusal-on-false-premise worked exactly as doctrine
+  intends.
