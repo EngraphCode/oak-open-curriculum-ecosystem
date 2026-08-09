@@ -3606,3 +3606,54 @@ commit SHA and the closing plan reference.
   `readEnv` unit tests AND a real-child contract test that kills the
   env-drop mutant at the mechanism. The QUOTA-SKIPPED command-mergeability
   design question remains SEPARATE, on the Director's morning board.
+
+### F-157 — commit-queue inner pathspec commit dropped four staged-new files from a 118-path intent
+
+- **Source**: Wren calls Downdraft (6b29b5) 2026-08-09 ~12:5xZ, PR #836
+  landing; intent `ae26a40a` (registry-verified to contain the four
+  paths); session transcript holds the full sequence.
+- **Observed**: the `commit-queue -- commit` workflow's inner
+  pathspec-scoped `git commit` produced commit `2fa212021` containing 111
+  of the intent's 118 paths — exactly the four staged-new
+  `packages/core/workspace-config/src/*` modules were dropped while their
+  seven staged-new sibling package files (README, configs, manifest)
+  landed. Not gitignored (`git check-ignore` exit 1); present in the
+  enqueue list; `record-staged`/verify raised nothing; workflow exited 0.
+  The tree stayed green (hooks run on the working tree), so the defect
+  was invisible until a content check of the commit itself.
+- **Expected**: the inner commit carries every intent path, or the
+  workflow fails loudly naming the paths it could not commit; exit 0
+  with a partial commit is the worst outcome (a green lie).
+- **Mitigation (applied)**: follow-up commit `39a891df4` landed the four
+  files; standing discipline adopted at this seat — after EVERY
+  commit-queue landing, verify the commit content (`git show --stat`)
+  against the intent, never the exit code alone.
+- **Candidate structural cure**: reproduce with a staged-new-files intent
+  in a scratch repo; suspect the pathspec-argv handling for A-status
+  entries in the spawned `git commit -- <paths>`; then fix the intake or
+  add a post-commit intent-vs-commit diff that fails the workflow on any
+  dropped path. Route: agent-tooling backlog.
+
+### F-158 — full `pnpm check` green minutes before the same tree's pre-commit turbo run found 24 type-check tasks red
+
+- **Source**: Wren calls Downdraft (6b29b5) 2026-08-09 ~12:4xZ, PR #836
+  landing (check task `b77b2u17n` exit 0 at ~12:36Z; commit-hook task
+  `bt8nbsjww` exit 1 at ~12:40Z, 49 cached / 24 type-check misses that
+  then failed with real TS2883 errors, reproduced directly).
+- **Observed**: `pnpm check` (secrets → clean → full turbo suite →
+  validators → knip → depcruise → format) exited 0; nothing edited the
+  worktree afterwards except `git add`; the commit hook's turbo run then
+  cache-missed 24 type-check tasks and failed them. The red was REAL
+  (`pnpm --filter @oaknational/result type-check` reproduced TS2883
+  standalone), meaning the check's green verdict for those tasks was
+  computed against different effective inputs.
+- **Expected**: two turbo runs over an unchanged tree agree; a green
+  full-suite check is trustworthy for the commit that follows it.
+- **Mitigation**: treat the hook as the verdict of record; on any
+  check-vs-hook divergence, reproduce the failing task directly before
+  trusting either.
+- **Candidate structural cure**: diff the two runs' task hash inputs
+  (turbo `--dry=json` env + input capture at both invocation sites —
+  check script vs husky hook environment); suspects are env-var
+  divergence in hashed `env` keys or `$TURBO_DEFAULT$` input-set
+  divergence between invocations. Route: agent-tooling backlog.
