@@ -49,16 +49,40 @@ config files.
 
 ## Evidence (all first-hand, 2026-08-09; counts re-derived at review)
 
-- **53 config files across 28 workspaces** reach the repo root by
+- **53 config files across 29 workspaces** reach the repo root by
   relative path, against **three** root bases: 24 `vitest.config.ts`
   → `vitest.config.base`, 23 `tsup.config.ts` → `tsup.config.base.js`
-  (the NodeNext specifier for root `tsup.config.base.ts`; three
-  factory flavours `createLibConfig` / `createAppConfig` /
-  `createSdkConfig`), and 6 files in 4 workspaces →
-  `vitest.e2e.config.base` (including `vitest.smoke.config.ts` and
+  (the `.js` specifier for root `tsup.config.base.ts` under the
+  repo-wide `bundler` module resolution; three factory flavours
+  `createLibConfig` / `createAppConfig` / `createSdkConfig`), and 6
+  files in 4 workspaces → `vitest.e2e.config.base` (4
+  `vitest.e2e.config.ts` plus `vitest.smoke.config.ts` and
   `vitest.experiment.config.ts` in `apps/oak-search-cli`). Escape
   depth varies from `../` to `../../../../` — the class, not one
   specifier, is the target.
+- **A fourth root file moves with them**: `test.setup.no-network.ts`,
+  which the e2e base loads by path arithmetic against its own module
+  URL (`vitest.e2e.config.base.ts:26`) — a relative escape no import
+  scanner sees. Left at root, the moved base resolves it into the
+  package's `dist/` where it does not exist and every e2e suite in
+  four workspaces fails to boot. `turbo.json` also names it twice.
+- **The naive package shape hard-fails turbo** (measured on the
+  pinned turbo 2.10.6 in a scratch two-package repo): a
+  devDependency-only cycle between the standards package and the
+  config package (`oak-eslint`'s own configs are among the 53, so it
+  would devDepend on `workspace-config`, which under estate
+  convention would devDepend back) exits 1 on every `turbo run`. The
+  package-scoped `dependsOn: []` override silences the failure but
+  leaves a "Circular package dependency" WARNING on every turbo
+  command and a pnpm cyclic-workspace warning on every install —
+  disqualified twice under no-warning-toleration. The cure is
+  structural: zero internal workspace dependencies (below).
+- **The stale turbo input is five entries, not one, and turbo is
+  silent about all of them** (measured): `$TURBO_ROOT$/vitest.config.ts`
+  at `turbo.json:293/386/398/411/433`; a live dry-run shows it
+  surviving into resolved task definitions and contributing zero
+  hashed files with no warning — the silent-cache-invalidation class
+  the validator leg targets, demonstrated on the live tree.
 - **The invisibility is three layers deep**: (1) the shared ESLint
   `ignores` list globally ignores every tsup config
   (`'**/tsup.config.ts'`, `'**/tsup.config.*'`) — those files are
@@ -127,21 +151,55 @@ loud; the census makes the *silencing of checks* itself a policed
 surface. Decisions, made:
 
 - **`@oaknational/workspace-config`** at `packages/core/workspace-config`
-  (core layer, the `oak-eslint` precedent), exporting the vitest base
-  test config, the vitest e2e base, and the three tsup factories. The
-  root `vitest.config.base.ts`, `vitest.e2e.config.base.ts`, and
-  `tsup.config.base.ts` files MOVE into it and are deleted at the
-  root in the same landing — move, never bridge; no re-export shim
-  survives. Like the standards package it is consumed from `dist/`;
-  turbo's `dependsOn: ["^build"]` orders the build for turbo-driven
-  runs, the package's own config files import nothing from itself
-  (the self-bootstrap exception), and direct in-workspace tool
-  invocation without a prior build inherits the same estate property
-  the standards package already has.
+  (core layer, the `oak-eslint` precedent), with subpath exports
+  `./vitest`, `./vitest-e2e`, `./tsup`, and `./no-network-setup` —
+  never one barrel, because a barrel would pull `tsup` into every
+  vitest config's module graph and five consuming workspaces have no
+  `tsup` in their closure at all. The root `vitest.config.base.ts`,
+  `vitest.e2e.config.base.ts`, `tsup.config.base.ts`, and
+  `test.setup.no-network.ts` files MOVE into `src/` and are deleted
+  at the root in the same landing — move, never bridge. The base
+  files keep their filenames (depcruise's existing
+  `vitest\.config`/`tsup\.config` orphan-exemption patterns then
+  cover them with zero new exclusion entries); the setup file is
+  renamed `no-network.setup.ts` in the move so the existing
+  `\.setup\.` pattern covers it too, and the e2e base's
+  path-arithmetic line becomes the bare specifier
+  `'@oaknational/workspace-config/no-network-setup'` (order-safe
+  under `mergeConfig` — the no-network setup stays first). Export
+  NAMES stay identical (`baseTestConfig`, `baseE2EConfig`, the three
+  factories; the e2e base's redundant default export is dropped), so
+  every migration site is a one-token specifier swap.
+- **The package declares ZERO internal workspace dependencies** (the
+  measured turbo-cycle evidence above): its own `eslint.config.ts`
+  is hand-rolled on raw `typescript-eslint` — the exact
+  self-bootstrap precedent `oak-eslint` already sets — and its own
+  config files import from `./src/` (within-workspace relative, so
+  the new validator passes it by construction; never a self-reference
+  through `exports`, which is chicken-and-egg on a cold build). This
+  is the estate's second standards-package exemption and is
+  registered as such in the disabled-checks census. `tsup` and
+  `vitest` are optional `peerDependencies` (the built configs execute
+  in the consumer's resolution context) plus devDependencies for the
+  package's own build. Build mirrors `oak-eslint` (`tsup && tsc
+  --emitDeclarationOnly`) — the declarations are load-bearing for
+  consumer type-checks. Consumed from `dist/`; turbo's
+  `dependsOn: ["^build"]` orders the build for turbo-driven runs;
+  direct in-workspace tool invocation without a prior build inherits
+  the same estate property the standards package already has (stated
+  in the package README).
 - **Consumption**: each consuming workspace adds the `workspace:*`
-  devDependency and imports by package name. Package imports resolve
-  inside Stryker's symlinked sandbox, per-workspace tooling, and any
-  future consumer that copies a workspace subtree.
+  devDependency and imports by package name.
+  `pnpm-workspace.yaml` enumerates `packages/core/*` members
+  individually — the new package needs its explicit line or
+  `workspace:*` fails at install. `knip.config.ts` gains the
+  compiled-package entry block (the `oak-eslint` precedent at its
+  line 217); the root `tsup` devDependency and its knip
+  `ignoreDependencies` entry are deleted together (its only root
+  importer is the moving base; root `vitest` STAYS — the
+  field-integrity config uses it). Package imports resolve inside
+  Stryker's symlinked sandbox, per-workspace tooling, and any future
+  consumer that copies a workspace subtree.
 - **ESLint coverage of config files is a commissioned outcome**
   (second owner word above), landing with the same strictness as any
   source file: delete both tsup globs from the shared `ignores`
@@ -153,21 +211,54 @@ surface. Decisions, made:
   `'import-x/no-relative-packages': 'error'` binding (deleting the
   hatch alone would leave the rule unbound — the exact
   looks-covered-is-not defect this plan kills); the six workspaces
-  with no config-file block gain one carrying the binding. The rule
-  is proven to fire (§Evidence); a committed lint fixture in the
+  with no config-file block gain one carrying the binding. Two
+  measured constraints on the binding: the config-file `files` glob
+  widens to the `vitest*.config.ts` class — the literal
+  `'vitest.config.ts'` glob misses six of the 53 (e2e, smoke,
+  experiment) — and the binding is the SINGLE named rule, never a
+  `...boundaryRules` spread, because the spread carries
+  `import-x/no-extraneous-dependencies` with
+  `devDependencies: false`, which would turn every migrated config
+  file red on its `workspace:*` devDependency import. The rule is
+  proven to fire (§Evidence); a committed lint fixture in the
   standards package's own test suite keeps it firing.
 - **A dedicated repo validator is the second, drift-immune gate** (the
-  `validate-no-machine-local-paths` shape): scan every
-  `{vitest,tsup,eslint,tsconfig-adjacent}` config file in every
-  workspace for relative imports that resolve outside that workspace's
-  directory; exit non-zero naming file and import. Deterministic and
-  independent of lint configuration, resolver behaviour, and rebuild
-  state — the three surfaces this incident showed can silently defeat
-  lint. A second leg fails on any `$TURBO_ROOT$` input path in
-  `turbo.json` that does not resolve to an existing file — killing
-  the silent-cache-invalidation class and curing the pre-existing
-  stale entry. Wired into `repo-validators:check` (pre-commit + CI);
-  ships with fixture red-proofs for both legs.
+  `validate-no-machine-local-paths` shape, run from source via tsx —
+  the CI static-checks job installs without building, so the
+  validator imports nothing from `workspace-config`). Leg (a):
+  lexical containment — resolve the `pnpm-workspace.yaml` globs to
+  workspace directories, take the longest-prefix owner per config
+  file (`{vitest*,tsup,eslint}.config` across
+  `.ts/.mts/.cts/.js/.mjs/.cjs`), `path.resolve` every static
+  relative specifier, finding iff the resolved path escapes the
+  owner. Containment is a directory question — never resolve to a
+  real file (no extension mapping, no realpath; determinism against
+  any checkout), and the `import.meta.url` path-arithmetic pattern
+  is a second scanned class (the e2e setup line is the motivating
+  instance). Non-literal import arguments fail loud as unanalysable.
+  Leg (b): `$TURBO_ROOT$` inputs — strip a leading `!` (negations
+  are existence-exempt); no glob metacharacter → the file must
+  exist; glob → the leading literal prefix must exist. Applied to
+  today's tree this yields exactly the five stale entries and
+  nothing else (measured — the red-proof). `turbo.json` is JSONC, so
+  the leg parses it with a comment-tolerant parser (`jsonc-parser`
+  as an agent-tools devDependency — none is in the tree today).
+  Deterministic and independent of lint configuration, resolver
+  behaviour, and rebuild state — the three surfaces this incident
+  showed can silently defeat lint. Wired into
+  `repo-validators:check` (pre-commit + CI); fixture red-proofs for
+  both legs.
+- **The redundant turbo inputs are DELETED, not re-pointed**
+  (measured): once consumers carry the `workspace:*` edge, turbo
+  folds `workspace-config#build`'s hash into every consumer task via
+  `dependsOn: ["^build"]` — a dependency-source edit changes the
+  consumer's task hash with no `$TURBO_ROOT$` input at all.
+  Re-pointing the twelve base-config entries at package source would
+  create cache keys that track `src/` while consumers read `dist/` —
+  the next stale-input candidate. The five stale
+  `vitest.config.ts` entries and the two `test.setup.no-network.ts`
+  entries are cured in the same pass; the `$TURBO_ROOT$/eslint.config.ts`
+  legs correctly stay (the root ESLint config is not a package).
 - **Ordering, not co-landing**: todo 1 lands the migration AND the
   validator in one PR, so every subsequent landed state is guarded;
   todo 2's un-ignoring lands green only after that cure. The reverse
@@ -178,17 +269,30 @@ surface. Decisions, made:
   as generated/ephemeral output (stays, with grounds recorded in the
   disabled-checks register) or content-bearing source (un-ignored,
   findings cured). Dispositions already measured: the two tsup globs
-  (deleted, above); `reference/` (dead glob — the directory does not
-  exist; deleted); `commitlint.config.js` (root JS config, never
-  linted — cured in the audit); `research/` (35 loose TS files never
-  linted plus the `research-evidence` workspace member — registered
-  with measured grounds, cured as its own PR in todo 2's arc since
-  the loose files need a lint-project decision).
-- **Directive truing lands with the move**: principles.md §Tooling
+  (deleted, above); `reference/` AND `commitlint.config.js` (both
+  dead globs — no `reference/` directory exists, and the commitlint
+  config is `commitlint.config.mjs`, so the `.js` entry ignores
+  nothing; both deleted, and whether `commitlint.config.mjs` is
+  inside the lint surface is the live audit question in their
+  place); `research/` (35 loose TS files never linted plus the
+  `research-evidence` workspace member — registered with measured
+  grounds, cured as its own PR in todo 2's arc since the loose files
+  need a lint-project decision).
+- **Doc truing lands with the move** (misleading docs are blocking;
+  every surface enumerated first-hand): principles.md §Tooling
   reads "the canonical patterns defined in the base configs at the
-  repo root" — true today, false after the migration. The line is
-  re-pointed at the config-workspace convention in the same landing
-  (misleading docs are blocking).
+  repo root" — true today, false after the migration; re-pointed at
+  the config-workspace convention. Also in the landing:
+  testing-strategy.md's two root-base references (lines ~620/628),
+  ADR-010 (the tsup-base decision record — its stated decision
+  changes, an amendment not a stale-mention edit), ADR-168 line ~415
+  (lists "resolve the vitest.config.base coupling" as open work this
+  PR closes — a status change), the false comment at
+  `apps/oak-curriculum-mcp-streamable-http/build-scripts/esbuild-config.ts:16`
+  ("tsup.config.base.ts survives at the repo root"), and the root
+  `tsconfig.json` include (keep the `*.config.base.ts` glob —
+  `stryker.config.base.ts` stays — and true the `stryker.config.mjs`
+  entry, which names a file that does not exist at root).
 - **The disabled-checks census** generalises the lesson: a validator
   enumerating the estate's check-disabling surfaces (ESLint `'off'`
   entries and `eslint-disable` pragmas, Sonar exclusions,
@@ -208,27 +312,33 @@ surface. Decisions, made:
 ## Todos (sliced per PDR-132 §5; classes named per todo)
 
 1. **The isolation cure** (source/config sweep):
-   `@oaknational/workspace-config` package; all 53 imports across 28
-   workspaces migrated to package imports with `workspace:*`
-   devDependencies; the three root base files deleted; `turbo.json`
-   `$TURBO_ROOT$` inputs and the root `tsconfig.json` include
-   re-pointed; the boundary repo validator (both legs) with fixture
-   red-proofs wired into `repo-validators:check`. This crosses the
-   PDR-132 §2 size warnings deliberately and is re-examined here at
-   authoring: it is one mechanical story (the same one-line import
-   swap 53 times plus one small package plus one validator), and
-   fragmenting it would move cost into integration; it proceeds as
-   one PR. The probe-worktree seed edits fold in here.
+   `@oaknational/workspace-config` package (zero internal deps,
+   subpath exports, the four moved files per the Mechanism); all 53
+   imports across 29 workspaces migrated (counts re-derived at
+   execution) with `workspace:*` devDependencies; root files
+   deleted; `pnpm-workspace.yaml` member line; the redundant turbo
+   inputs deleted and the five stale entries cured; root
+   `tsconfig.json` include trued; `knip.config.ts` compiled-package
+   entry plus the root-tsup deletion pair; the doc-truing surfaces
+   from the Mechanism; the boundary repo validator (both legs) with
+   fixture red-proofs wired into `repo-validators:check`. This
+   crosses the PDR-132 §2 size warnings deliberately and is
+   re-examined here at authoring: it is one mechanical story (the
+   same one-token specifier swap 53 times plus one small package
+   plus one validator), and fragmenting it would move cost into
+   integration; it proceeds as one PR. The probe-worktree seed edits
+   fold in here.
 2. **Lint de-hatching (commissioned; config sweep)**: both tsup globs
    removed from the shared `ignores`, the full ignores-list audit
    dispositioned (each entry registered-with-grounds or
    un-ignored-and-cured, per the Mechanism's measured dispositions),
-   the 20 hatches replaced with explicit `'error'` bindings, the six
-   absent config-file blocks added, the committed firing fixture
-   landed in the standards package's test suite; the principles.md
-   §Tooling truing rides here. Lands after todo 1 — the migration is
-   what lets the un-ignoring land green. The `research/` cure lands
-   as its own PR inside this todo's arc.
+   the 20 hatches replaced with explicit `'error'` bindings (single
+   rule, never the `boundaryRules` spread), the six absent
+   config-file blocks added, the `files` glob widened to the
+   `vitest*.config.ts` class, the committed firing fixture landed in
+   the standards package's test suite. Lands after todo 1 — the
+   migration is what lets the un-ignoring land green. The
+   `research/` cure lands as its own PR inside this todo's arc.
 3. **Stryker duplicate retired** (small source change):
    `vitest.config.stryker.ts` deleted, `stryker.config.mjs` pointed
    at the real `vitest.config.ts`, canary re-run banked under
@@ -252,8 +362,9 @@ surface. Decisions, made:
   findings, with its committed fixture red-proof showing it fires.
 - The shared bases live only in `@oaknational/workspace-config`; no
   root copies, no bridge; every `$TURBO_ROOT$` input in `turbo.json`
-  resolves — `repo-safe`: root base files absent; the turbo-input
-  validator leg green; full `pnpm check` green estate-wide.
+  resolves — `repo-safe`: all four moved files absent at root; the
+  turbo-input validator leg green; full `pnpm check` green
+  estate-wide.
 - The Stryker canary runs against the real `vitest.config.ts` with
   `vitest.config.stryker.ts` deleted — `repo-safe`: the banked re-run
   log under `mutation-evidence/` showing config load and a completed
@@ -302,14 +413,17 @@ surface. Decisions, made:
 ## Notes
 
 - Born sketch 2026-08-09, ratified the same day (stamp in
-  frontmatter). The `assumptions-expert` review pass ran 2026-08-09
-  before presentation (verdict:
-  not-ready on measurement grounds); this revision re-measured every
-  flagged count first-hand (53/28/3 confirmed), added the
-  `vitest.e2e.config.base` class, the `depends_on` edge, the
-  turbo.json scope, the de-hatch replace-not-delete restatement, and
-  the two requested probe measurements. Findings and dispositions
-  live in the review transcript and this file's history.
+  frontmatter). Review trail, all 2026-08-09: the
+  `assumptions-expert` pass before presentation (verdict: not-ready
+  on measurement grounds; every flagged count re-measured first-hand
+  and cured before the stamp), then the pre-execution `code-expert`
+  design review (proceed-with-changes: the turbo cycle, the fourth
+  root file, the depcruise orphan disposition, the glob-aware turbo
+  predicate) with its two empirical claims independently CONFIRMED
+  by `config-expert` (scratch-repo turbo dry-runs; the exact
+  five-entry stale-input enumeration). All dispositions are folded
+  into this body; the transcripts and this file's history carry the
+  detail.
 - The probe worktree carries only regenerable seed edits; losing it
   costs minutes. Its branch: `jimcresswell/vitest-config-workspace`.
 - Linear ticket: mint when the standing ticket embargo lifts
