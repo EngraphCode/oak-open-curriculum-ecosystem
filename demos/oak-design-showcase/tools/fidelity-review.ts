@@ -25,6 +25,7 @@ import { fileURLToPath } from 'node:url';
 
 import { assertServerUp, ensureDevServer } from '@oaknational/fidelity-review/dev-server';
 import {
+  acquireRunLease,
   buildAndWriteReport,
   captureAndReport,
   createCaptureSession,
@@ -53,25 +54,33 @@ const DEMO_DIR = path.resolve(TOOLS_DIR, '..');
  *  left them (the staged shots remain under demo-evidence/.staging/ as
  *  diagnostics). Any arm failure is mechanical and fails the run. */
 async function capturePhase(base: string, width: number): Promise<Result<void, string>> {
-  const session = createCaptureSession(
-    nodeCaptureStageIo(DEMO_DIR, `${Date.now()}-${process.pid}`),
-    {
+  const runId = `${Date.now()}-${process.pid}`;
+  // EI-3: one run per evidence set — a concurrent run refuses loudly
+  // with the holder named instead of interleaving writes.
+  const lease = acquireRunLease(DEMO_DIR, runId);
+  if (!lease.ok) {
+    return err(`fidelity: ${lease.error}`);
+  }
+  try {
+    const session = createCaptureSession(nodeCaptureStageIo(DEMO_DIR, runId), {
       base,
       widthCssPx: width,
       deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
       startedAt: new Date().toISOString(),
       now: () => new Date().toISOString(),
-    },
-  );
-  const render = await renderExportTargets(width, session);
-  if (!render.ok) {
-    return render;
+    });
+    const render = await renderExportTargets(width, session);
+    if (!render.ok) {
+      return render;
+    }
+    const suspect = await captureLivePages(base, width, FIDELITY_PAIRS.pairs, session);
+    if (suspect) {
+      return err('fidelity: a live page capture looked blank — investigate before trusting diffs');
+    }
+    return session.promote();
+  } finally {
+    lease.value();
   }
-  const suspect = await captureLivePages(base, width, FIDELITY_PAIRS.pairs, session);
-  if (suspect) {
-    return err('fidelity: a live page capture looked blank — investigate before trusting diffs');
-  }
-  return session.promote();
 }
 
 function report(serverMode: ServerMode): Result<void, string> {

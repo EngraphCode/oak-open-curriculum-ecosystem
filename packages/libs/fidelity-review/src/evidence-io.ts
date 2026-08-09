@@ -63,8 +63,12 @@ export interface EvidenceIo
   extends EvidenceReadIo, DiffWriteIo, RegisterReadIo, ReportWriteIo, ManifestReadIo {}
 
 /** Read a text file that may legitimately be absent (absent is its own
- *  named state, never an error); an unreadable EXISTING file errs. */
-function readTextIfExists(filePath: string, label: string): Result<string | undefined, string> {
+ *  named state, never an error); an unreadable EXISTING file errs.
+ *  Exported for the sibling real-io modules (run-lease-io). */
+export function readTextIfExists(
+  filePath: string,
+  label: string,
+): Result<string | undefined, string> {
   try {
     if (!fs.existsSync(filePath)) {
       return ok(undefined);

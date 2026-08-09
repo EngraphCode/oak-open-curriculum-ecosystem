@@ -29,6 +29,7 @@ import { fileURLToPath } from 'node:url';
 
 import { assertServerUp, ensureDevServer } from '@oaknational/fidelity-review/dev-server';
 import {
+  acquireRunLease,
   buildAndWriteReport,
   captureAndReport,
   createCaptureSession,
@@ -67,16 +68,32 @@ function pageRoutes(): readonly string[] {
  *  leaves canonical evidence — and its manifest — exactly as the last
  *  good run left them. Any arm failure is mechanical and fails the run. */
 async function capturePhase(base: string, width: number): Promise<Result<void, string>> {
-  const session = createCaptureSession(
-    nodeCaptureStageIo(DEMO_DIR, `${Date.now()}-${process.pid}`),
-    {
-      base,
-      widthCssPx: width,
-      deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
-      startedAt: new Date().toISOString(),
-      now: () => new Date().toISOString(),
-    },
-  );
+  const runId = `${Date.now()}-${process.pid}`;
+  // EI-3: one run per evidence set — a concurrent run refuses loudly
+  // with the holder named instead of interleaving writes.
+  const lease = acquireRunLease(DEMO_DIR, runId);
+  if (!lease.ok) {
+    return err(`fidelity: ${lease.error}`);
+  }
+  try {
+    return await capturePhaseUnderLease(base, width, runId);
+  } finally {
+    lease.value();
+  }
+}
+
+async function capturePhaseUnderLease(
+  base: string,
+  width: number,
+  runId: string,
+): Promise<Result<void, string>> {
+  const session = createCaptureSession(nodeCaptureStageIo(DEMO_DIR, runId), {
+    base,
+    widthCssPx: width,
+    deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
+    startedAt: new Date().toISOString(),
+    now: () => new Date().toISOString(),
+  });
   const render = await renderCanonicalTargets(width, session);
   if (!render.ok) {
     return render;
