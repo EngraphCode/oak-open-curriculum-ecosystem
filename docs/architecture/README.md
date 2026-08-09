@@ -46,7 +46,7 @@ block in the ADR index:
   - `apps/` – application runtimes (MCP servers, search CLI)
   - `packages/sdks/` – SDK packages (`@oaknational/curriculum-sdk`, `@oaknational/oak-search-sdk`)
   - `packages/core/` – foundational shared code and provider-neutral primitives (result/env/observability/eslint/openapi adapter)
-  - `packages/libs/` – shared runtime libraries (foundation libs: logger/env-resolution/search-contracts; adapter lib: sentry-node)
+  - `packages/libs/` – shared runtime libraries; the foundation/adapter tier membership is enumerated in [ADR-041](architectural-decisions/041-workspace-structure-option-a.md), the single source for it (this line stopped restating the list after drifting four packages behind it)
 - Boundaries enforced by custom ESLint rules in `packages/core/oak-eslint`
 - Provider composition is app-local (logger/clock/storage/search retrieval), then injected into server/tool layers
 - Apps load runtime config at entry boundaries and inject dependencies (DI) into servers and tools

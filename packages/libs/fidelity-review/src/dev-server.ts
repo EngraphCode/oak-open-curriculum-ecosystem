@@ -3,19 +3,23 @@
  * already answering on the base URL (and never touch it), spawn `pnpm dev`
  * when the port is free — with a bounded ready-wait and a teardown that
  * only ever kills what this module spawned, proves the port released, and
- * prints the proof (no-unbounded-host-load: every wait is bounded, no
- * orphaned process survives an exit path).
+ * prints the proof (no-unbounded-host-load: every wait is bounded).
+ * OWNERSHIP CONTRACT: a spawned handle's `stop()` must be called on every
+ * exit path by the caller that received it — the child is detached, so an
+ * orchestrator that exits without stopping leaves the group alive. This
+ * module guarantees the teardown WORKS; the handle owner guarantees it
+ * RUNS (typically via try/finally around the capture body).
  */
 import { spawn } from 'node:child_process';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+// Explicit module import, never the ambient global (lib boundary rule):
+// this module owns the spawned dev server's process lifecycle — group
+// kill, pnpm self-identification via npm_execpath, progress lines.
+import process from 'node:process';
 
 import { err, ok, type Result } from '@oaknational/result';
 
 import { describeThrown } from './support';
-
-const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
-const DEMO_DIR = path.resolve(TOOLS_DIR, '..');
 
 const READY_WAIT_MS = 120_000;
 const POLL_MS = 1000;
@@ -47,6 +51,13 @@ export function resolveDevCommand(
   if (npmExecPath === undefined || npmExecPath === '') {
     return err(
       'dev-server: npm_execpath is not set — run this tool through a pnpm script (e.g. pnpm tool:fidelity)',
+    );
+  }
+  if (!path.isAbsolute(npmExecPath)) {
+    // A relative value would spawn via PATH lookup, exactly the search the
+    // absolute-paths contract above exists to prevent (Sonar S4036).
+    return err(
+      `dev-server: npm_execpath (${npmExecPath}) is not an absolute path — refusing a PATH lookup`,
     );
   }
   const lowerBasename = path.basename(npmExecPath).toLowerCase();
@@ -112,8 +123,42 @@ function stopSpawned(pid: number, base: string): () => Promise<Result<void, stri
   };
 }
 
-/** Attach to a responding dev server, or spawn one and wait until it is ready. */
-export async function ensureDevServer(base: string): Promise<Result<DevServerHandle, string>> {
+/** Spawn the detached dev-server group in `demoDir`; returns its pid. */
+function spawnDevServer(command: DevCommand, demoDir: string): Result<number, string> {
+  const child = spawn(command.bin, command.args, {
+    cwd: demoDir,
+    detached: true,
+    stdio: 'ignore',
+  });
+  // Without a listener, a spawn failure (e.g. ENOENT on a stale
+  // npm_execpath) emits an unhandled 'error' event and crashes a caller
+  // that handled our Result and kept running — shared-library code must
+  // tolerate exactly that caller. The failure still surfaces: the ready
+  // poll times out and returns err.
+  child.on('error', (error: unknown) => {
+    process.stdout.write(`dev-server: spawn error — ${describeThrown(error)}\n`);
+  });
+  const pid = child.pid;
+  if (pid === undefined) {
+    return err('dev-server: spawn produced no pid');
+  }
+  child.unref();
+  return ok(pid);
+}
+
+/** Attach to a responding dev server, or spawn one and wait until it is ready.
+ *  `demoDir` is the app directory whose `pnpm dev` answers on `base` — a
+ *  REQUIRED parameter, because this module lives in a shared package and
+ *  must never guess the app root from its own location (a wrong guess
+ *  spawns in a script-less directory and burns the whole ready-wait
+ *  before failing with a misleading not-ready error). */
+export async function ensureDevServer(
+  base: string,
+  demoDir: string,
+): Promise<Result<DevServerHandle, string>> {
+  if (!path.isAbsolute(demoDir)) {
+    return err(`dev-server: demoDir (${demoDir}) must be an absolute path`);
+  }
   if (await responds(base)) {
     process.stdout.write(`dev server already up at ${base} — attaching (will not stop it)\n`);
     return ok({ mode: 'attached' });
@@ -122,16 +167,11 @@ export async function ensureDevServer(base: string): Promise<Result<DevServerHan
   if (!command.ok) {
     return err(command.error);
   }
-  const child = spawn(command.value.bin, command.value.args, {
-    cwd: DEMO_DIR,
-    detached: true,
-    stdio: 'ignore',
-  });
-  const pid = child.pid;
-  if (pid === undefined) {
-    return err('dev-server: spawn produced no pid');
+  const spawned = spawnDevServer(command.value, demoDir);
+  if (!spawned.ok) {
+    return spawned;
   }
-  child.unref();
+  const pid = spawned.value;
   process.stdout.write(`spawned pnpm dev (pid ${pid}), waiting for ${base}…\n`);
   const ready = await pollUntil(() => responds(base), READY_WAIT_MS);
   if (!ready) {

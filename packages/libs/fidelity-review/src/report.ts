@@ -3,13 +3,21 @@
  * register in, one self-contained zero-JS HTML document out. The report is
  * the review surface — side-by-side export | live | diff per pair, the
  * recorded judgments beside them, and a copy-ready register snippet for
- * anything not yet judged. It is itself a rendered UI, so it meets the org
- * accessibility mandate (WCAG 2.2 AA; proven by the jest-axe test).
+ * anything not yet judged. It is itself a rendered UI held to the org
+ * accessibility mandate (WCAG 2.2 AA). The jest-axe test proves the
+ * fragment-level rules (18 run under div-mounting); page-level rules
+ * (lang, title, landmarks, contrast) are outside its reach and were
+ * verified by a browser-level axe run at review time — do not read the
+ * unit test as the whole proof.
  *
  * File IO stays in the orchestrator: this module never touches disk.
  */
-import { FIDELITY_PAIRS, type FidelityPair, type PairingMap } from './fidelity-pairs';
-import { entriesForPair, newEntryTemplate, type FidelityRegister } from './fidelity-register';
+import type { FidelityPair, PairingMap } from './pairing-types';
+
+// Re-exported so consumers can anchor their own maps and fixtures
+// (`satisfies PairingMap`) without a subpath for a types-only module.
+export type { FidelityPair, PairingMap } from './pairing-types';
+import { entriesForPair, newEntryTemplate, type FidelityRegister } from './register';
 import { escapeHtml, fromReportDir } from './fidelity-html';
 import { exemptSection, globalEntriesSection, orphanedEntries } from './fidelity-report-sections';
 
@@ -40,7 +48,9 @@ export interface RunMeta {
   readonly base: string;
   readonly widthCssPx: number;
   readonly deviceScaleFactor: number;
-  readonly serverMode: 'attached' | 'spawned';
+  /** `report-only` states honestly that no server was contacted and the
+   *  evidence PNGs are whatever the last capture run left on disk. */
+  readonly serverMode: 'attached' | 'spawned' | 'report-only';
   readonly generatedAt: string;
 }
 
@@ -111,8 +121,12 @@ function pairMeta(result: PairResult): string {
   }
   if (result.diff !== undefined) {
     const { exportDims, liveDims, croppedTo, caveats } = result.diff;
+    // Number() at each interpolation is the library-boundary sanitiser:
+    // identity for the declared number types, a hard coercion for any
+    // consumer that lies through the structural type (and the taint
+    // barrier CodeQL's html-constructed-from-input model recognises).
     items.push(
-      `<li>Export ${exportDims.width}×${exportDims.height}px, live ${liveDims.width}×${liveDims.height}px, compared over ${croppedTo.width}×${croppedTo.height}px</li>`,
+      `<li>Export ${Number(exportDims.width)}×${Number(exportDims.height)}px, live ${Number(liveDims.width)}×${Number(liveDims.height)}px, compared over ${Number(croppedTo.width)}×${Number(croppedTo.height)}px</li>`,
     );
     for (const caveat of caveats) {
       items.push(`<li>Caveat: <code>${escapeHtml(caveat)}</code></li>`);
@@ -129,8 +143,13 @@ function dispositionBlock(result: PairResult, register: FidelityRegister, date: 
   const entries = entriesForPair(register, result.pair.id);
   if (entries.length === 0) {
     const template = JSON.stringify(newEntryTemplate(result.pair.id, date), null, 2);
+    // tabindex="0": the template overflows horizontally at narrow widths
+    // and `pre { overflow-x: auto }` makes it a scrollable region — without
+    // a tabstop a keyboard-only reviewer cannot scroll it (WCAG 2.1.1; not
+    // every browser makes scrollers focusable). The region role + per-pair
+    // label keep the tabstop meaningful to a screen reader.
     return `<p>No register entry yet. Judge the pair, then add to <code>fidelity-register.json</code>:</p>
-<pre><code>${escapeHtml(template)}</code></pre>`;
+<pre tabindex="0" role="region" aria-label="Register entry template for ${escapeHtml(result.pair.id)}"><code>${escapeHtml(template)}</code></pre>`;
   }
   const rendered = entries
     .map(
@@ -170,12 +189,15 @@ const REPORT_CSS = `
   .skip-link:focus { position: static; }
 `;
 
-/** Render the whole report document body (wrapped in a minimal page shell). */
+/** Render the whole report document body (wrapped in a minimal page shell).
+ *  The pairing map is a required parameter — this module renders plain data
+ *  and never imports the declared configuration, so its tests build wholly
+ *  literal fixtures. */
 export function renderReportHtml(
   results: readonly PairResult[],
   register: FidelityRegister,
   meta: RunMeta,
-  map: PairingMap = FIDELITY_PAIRS,
+  map: PairingMap,
 ): string {
   const date = meta.generatedAt.slice(0, 10);
   const sections = results.map((result) => pairSection(result, register, date)).join('\n');
@@ -192,7 +214,7 @@ export function renderReportHtml(
 <a class="skip-link" href="#summary">Skip to summary</a>
 <main>
 <h1>Fidelity review — canonical export vs live demo</h1>
-<p>Generated ${escapeHtml(meta.generatedAt)} against ${escapeHtml(meta.base)} at ${meta.widthCssPx} CSS px (scale ${meta.deviceScaleFactor}, dev server ${escapeHtml(meta.serverMode)}). Ratios triage; judgments live in <code>fidelity-register.json</code>.</p>
+<p>Generated ${escapeHtml(meta.generatedAt)} against ${escapeHtml(meta.base)} at ${Number(meta.widthCssPx)} CSS px (scale ${Number(meta.deviceScaleFactor)}, server ${escapeHtml(meta.serverMode)}${meta.serverMode === 'report-only' ? ' — no capture ran; evidence is from the last capture run' : ''}). Ratios triage; judgments live in <code>fidelity-register.json</code>.</p>
 <section id="summary">
 <h2>Summary</h2>
 ${summaryTable(results)}
