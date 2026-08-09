@@ -12,20 +12,42 @@ import { ok, err, type Result } from '@oaknational/result';
 
 import { stripTrailing } from './support';
 
+/** The raw width input: the `--width` value when the flag is present,
+ *  else WIDTH from env. A `--width` with no following value is a
+ *  stated error — a silent fall-through to env/default would hand the
+ *  user a width they did not ask for. */
+function rawWidthInput(
+  argv: readonly string[],
+  env: NodeJS.ProcessEnv,
+): Result<string | undefined, Error> {
+  const flagIdx = argv.indexOf('--width');
+  if (flagIdx === -1) {
+    return ok(env.WIDTH);
+  }
+  const fromFlag = argv.at(flagIdx + 1);
+  if (fromFlag === undefined) {
+    return err(new Error('--width requires a value (an integer 320..5000)'));
+  }
+  return ok(fromFlag);
+}
+
 /** Resolve the viewport CSS width (the matched-geometry standard, 1440).
  *  Override: `--width 1280` or WIDTH=1280. */
 export function resolveWidth(
   argv: readonly string[],
   env: NodeJS.ProcessEnv,
 ): Result<number, Error> {
-  const flagIdx = argv.indexOf('--width');
-  const fromFlag = flagIdx === -1 ? undefined : argv.at(flagIdx + 1);
-  const raw = fromFlag ?? env.WIDTH;
+  const raw = rawWidthInput(argv, env);
+  if (!raw.ok) {
+    return raw;
+  }
   // Number(), not parseInt: '1440px' and '1440.5' must be rejected, not
   // silently truncated to a plausible integer.
-  const width = raw !== undefined && raw !== '' ? Number(raw) : 1440;
+  const width = raw.value !== undefined && raw.value !== '' ? Number(raw.value) : 1440;
   if (!Number.isInteger(width) || width < 320 || width > 5000) {
-    return err(new Error(`invalid --width ${JSON.stringify(raw)} (expected integer 320..5000)`));
+    return err(
+      new Error(`invalid --width ${JSON.stringify(raw.value)} (expected integer 320..5000)`),
+    );
   }
   return ok(width);
 }
@@ -46,6 +68,13 @@ export function resolveBase(
   const fromFlag = flagIdx === -1 ? undefined : argv.at(flagIdx + 1);
   return stripTrailing(fromFlag ?? env.BASE_URL ?? defaultBase, '/');
 }
+
+/** The device scale factor of the matched-geometry convention: every
+ *  capture arm shoots at this scale AND the report meta declares it —
+ *  one constant consumed at both ends, because an arm that drifted
+ *  while the meta stayed hardcoded would make the rendered "scale 2" a
+ *  lie about the PNGs. Peer of resolveWidth's 1440 default. */
+export const MATCHED_GEOMETRY_SCALE = 2;
 
 /** Blank-render classifier: a real page is HTTP 200 with meaningful body
  *  height AND visible text. Returns true when the capture is SUSPECT

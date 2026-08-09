@@ -7,6 +7,7 @@ import { summaryLines } from './review-helpers';
 const PAIR = {
   id: 'picker-oak-fold',
   kind: 'page-abovefold',
+  diffEligible: true,
   exportPng: 'demo-evidence/export-picker-oak-fold.png',
   livePng: 'demo-evidence/live-picker-oak-fold.png',
   liveRoute: '/specimen',

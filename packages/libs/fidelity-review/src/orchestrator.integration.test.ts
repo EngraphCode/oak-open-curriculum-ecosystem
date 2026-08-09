@@ -1,0 +1,273 @@
+import { err, ok, type Result } from '@oaknational/result';
+import { PNG } from 'pngjs';
+import { describe, expect, it } from 'vitest';
+
+import type { DevServerHandle } from './dev-server';
+import {
+  captureAndReport,
+  collectPairResults,
+  diffPair,
+  type CaptureRun,
+  type EvidenceIo,
+  type RunFlags,
+} from './orchestrator';
+import type { FidelityPair } from './pairing-types';
+import type { PairResult } from './report';
+
+/* The teardown bracket is the no-unbounded-host-load invariant: a
+ * spawned dev server must be reaped on EVERY exit path. Collaborators
+ * are injected, so the bracket proves with plain-function fakes and no
+ * real processes, sockets, or filesystem — and diffPair's four
+ * outcomes prove the same way, with in-memory PNGs. */
+
+const FLAGS: RunFlags = {
+  base: 'http://localhost:3020',
+  width: 1440,
+  reportOnly: false,
+  keepServer: false,
+};
+
+function spawnedHandle(stopResult: Result<void, string> = ok(undefined)): {
+  handle: DevServerHandle;
+  stops: () => number;
+} {
+  let stops = 0;
+  return {
+    handle: {
+      mode: 'spawned',
+      stop: () => {
+        stops += 1;
+        return Promise.resolve(stopResult);
+      },
+    },
+    stops: () => stops,
+  };
+}
+
+function runWith(overrides: Partial<CaptureRun>): CaptureRun {
+  return {
+    assertServerUp: () => Promise.resolve(ok(undefined)),
+    capturePhase: () => Promise.resolve(ok(undefined)),
+    report: () => ok(undefined),
+    ...overrides,
+  };
+}
+
+describe('captureAndReport', () => {
+  it('captures, reports with the server mode, and stops a spawned server', async () => {
+    const { handle, stops } = spawnedHandle();
+    const modes: string[] = [];
+
+    const outcome = await captureAndReport(
+      FLAGS,
+      handle,
+      runWith({
+        report: (serverMode) => {
+          modes.push(serverMode);
+          return ok(undefined);
+        },
+      }),
+    );
+
+    expect(outcome.ok).toBe(true);
+    expect(modes).toEqual(['spawned']);
+    expect(stops()).toBe(1);
+  });
+
+  it('fails the run when the report arm fails, still stopping the spawned server', async () => {
+    const { handle, stops } = spawnedHandle();
+
+    const outcome = await captureAndReport(
+      FLAGS,
+      handle,
+      runWith({ report: () => err('fidelity: register not found at /nowhere') }),
+    );
+
+    expect(outcome.ok ? undefined : outcome.error).toBe('fidelity: register not found at /nowhere');
+    expect(stops()).toBe(1);
+  });
+
+  it('stops the spawned server when the capture phase fails, preserving the failure', async () => {
+    const { handle, stops } = spawnedHandle();
+
+    const outcome = await captureAndReport(
+      FLAGS,
+      handle,
+      runWith({ capturePhase: () => Promise.resolve(err('a live page capture looked blank')) }),
+    );
+
+    expect(outcome.ok ? undefined : outcome.error).toBe('a live page capture looked blank');
+    expect(stops()).toBe(1);
+  });
+
+  it('stops the spawned server when reachability fails, and never captures', async () => {
+    const { handle, stops } = spawnedHandle();
+    let captured = 0;
+
+    const outcome = await captureAndReport(
+      FLAGS,
+      handle,
+      runWith({
+        assertServerUp: () => Promise.resolve(err('no server reachable at http://localhost:3020')),
+        capturePhase: () => {
+          captured += 1;
+          return Promise.resolve(ok(undefined));
+        },
+      }),
+    );
+
+    expect(outcome.ok ? undefined : outcome.error).toContain('no server reachable');
+    expect(captured).toBe(0);
+    expect(stops()).toBe(1);
+  });
+
+  it('stops the spawned server when a capture arm throws, converting to a mechanical failure', async () => {
+    const { handle, stops } = spawnedHandle();
+
+    const outcome = await captureAndReport(
+      FLAGS,
+      handle,
+      runWith({
+        capturePhase: () => Promise.reject(new Error('page.goto: net::ERR_CONNECTION_RESET')),
+      }),
+    );
+
+    expect(outcome.ok ? undefined : outcome.error).toContain('ERR_CONNECTION_RESET');
+    expect(stops()).toBe(1);
+  });
+
+  it('honours --keep-server by leaving the spawned server running', async () => {
+    const { handle, stops } = spawnedHandle();
+
+    const outcome = await captureAndReport({ ...FLAGS, keepServer: true }, handle, runWith({}));
+
+    expect(outcome.ok).toBe(true);
+    expect(stops()).toBe(0);
+  });
+
+  it('never stops an attached server (it was not ours to stop)', async () => {
+    const outcome = await captureAndReport(FLAGS, { mode: 'attached' }, runWith({}));
+
+    expect(outcome.ok).toBe(true);
+  });
+
+  it('composes a teardown failure onto an earlier failure instead of masking either', async () => {
+    const { handle } = spawnedHandle(err('pid 123 did not release the port'));
+
+    const outcome = await captureAndReport(
+      FLAGS,
+      handle,
+      runWith({ capturePhase: () => Promise.resolve(err('capture failed')) }),
+    );
+
+    expect(outcome.ok ? undefined : outcome.error).toBe(
+      'capture failed; then pid 123 did not release the port',
+    );
+  });
+
+  it('surfaces a teardown failure even when the run itself succeeded', async () => {
+    const { handle } = spawnedHandle(err('pid 123 did not release the port'));
+
+    const outcome = await captureAndReport(FLAGS, handle, runWith({}));
+
+    expect(outcome.ok ? undefined : outcome.error).toBe('pid 123 did not release the port');
+  });
+});
+
+/** A valid single-pixel PNG, encoded in memory. */
+function onePixelPng(): Buffer {
+  const png = new PNG({ width: 1, height: 1 });
+  png.data[0] = 255;
+  png.data[1] = 0;
+  png.data[2] = 0;
+  png.data[3] = 255;
+  return PNG.sync.write(png);
+}
+
+const PAIR: FidelityPair = {
+  id: 'picker-oak-fold',
+  kind: 'page-abovefold',
+  exportPng: 'demo-evidence/export-picker-oak-fold.png',
+  livePng: 'demo-evidence/live-picker-oak-fold.png',
+  liveRoute: '/specimen',
+  diffEligible: true,
+};
+
+function ioWith(overrides: Partial<EvidenceIo>): EvidenceIo {
+  return {
+    exists: () => true,
+    read: () => onePixelPng(),
+    writeDiff: () => undefined,
+    ...overrides,
+  };
+}
+
+describe('diffPair', () => {
+  it('reports absent evidence as a missing-evidence row naming the absent paths', () => {
+    const outcome = diffPair(PAIR, ioWith({ exists: (candidate) => candidate === PAIR.exportPng }));
+
+    expect(outcome.ok ? outcome.value : undefined).toEqual({
+      pair: PAIR,
+      status: 'missing-evidence',
+      missing: [PAIR.livePng],
+    });
+  });
+
+  it('reports an ineligible pair as reference-only without touching the images', () => {
+    let reads = 0;
+    const outcome = diffPair(
+      { ...PAIR, diffEligible: false },
+      ioWith({
+        read: () => {
+          reads += 1;
+          return onePixelPng();
+        },
+      }),
+    );
+
+    expect(outcome.ok ? outcome.value.status : undefined).toBe('reference-only');
+    expect(reads).toBe(0);
+  });
+
+  it('diffs eligible evidence and writes the diff PNG named by pair id', () => {
+    const written: string[] = [];
+    const outcome = diffPair(
+      PAIR,
+      ioWith({
+        writeDiff: (name) => {
+          written.push(name);
+        },
+      }),
+    );
+
+    expect(outcome.ok ? outcome.value.status : undefined).toBe('diffed');
+    expect(outcome.ok ? outcome.value.diff?.changedRatio : undefined).toBe(0);
+    expect(written).toEqual(['diff-picker-oak-fold.png']);
+  });
+
+  it('fails the run on corrupt evidence — never a normal report row', () => {
+    const outcome = diffPair(PAIR, ioWith({ read: () => Buffer.from('not a png') }));
+
+    expect(outcome.ok).toBe(false);
+    expect(outcome.ok ? undefined : outcome.error).toContain('corrupt evidence');
+    expect(outcome.ok ? undefined : outcome.error).toContain(PAIR.id);
+  });
+});
+
+const pairOf = (id: string): FidelityPair => ({ ...PAIR, id });
+
+describe('collectPairResults (early stop)', () => {
+  it('stops at the first mechanical failure and reports it', () => {
+    const seen: string[] = [];
+    const diffOne = (pair: FidelityPair): Result<PairResult, string> => {
+      seen.push(pair.id);
+      return pair.id === 'b' ? err('corrupt evidence for pair b') : ok({ pair, status: 'diffed' });
+    };
+
+    const outcome = collectPairResults([pairOf('a'), pairOf('b'), pairOf('c')], diffOne);
+
+    expect(outcome.ok ? undefined : outcome.error).toBe('corrupt evidence for pair b');
+    // 'c' is never diffed: the failure is run-fatal, not a report row.
+    expect(seen).toEqual(['a', 'b']);
+  });
+});

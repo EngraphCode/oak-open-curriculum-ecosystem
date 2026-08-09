@@ -17,9 +17,9 @@ import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
-import { resolveBase } from '@oaknational/fidelity-review/capture-flags';
-import { DEFAULT_BASE } from './capture-checks';
-import { assertServerUp } from './capture-live-demo';
+import { MATCHED_GEOMETRY_SCALE, resolveBase } from '@oaknational/fidelity-review/capture-flags';
+import { assertServerUp } from '@oaknational/fidelity-review/dev-server';
+import { DEFAULT_BASE, SERVER_HINT } from './capture-checks';
 import { FIDELITY_PAIRS, type FidelityPair } from './fidelity-pairs';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 
@@ -89,9 +89,9 @@ async function captureOne(page: Page, base: string, pair: FidelityPair): Promise
 /** Capture every section-element pair's live side; Result carries the
  *  failure count so callers decide exit semantics. */
 export async function captureLiveSections(base: string): Promise<Result<number, string>> {
-  const up = await assertServerUp(base);
+  const up = await assertServerUp(base, SERVER_HINT);
   if (!up.ok) {
-    return err(`CAPTURE FAIL: ${describeThrown(up.error)}`);
+    return err(`CAPTURE FAIL: ${up.error}`);
   }
   const targets = FIDELITY_PAIRS.pairs.filter((pair) => pair.kind === 'section-element');
   for (const target of targets) {
@@ -100,7 +100,7 @@ export async function captureLiveSections(base: string): Promise<Result<number, 
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage({
     viewport: { width: 1440, height: 2200 },
-    deviceScaleFactor: 2,
+    deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
   });
   let failures = 0;
   for (const target of targets) {

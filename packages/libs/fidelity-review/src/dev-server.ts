@@ -146,6 +146,26 @@ function spawnDevServer(command: DevCommand, demoDir: string): Result<number, st
   return ok(pid);
 }
 
+/** How long an attach-mode reachability ASSERTION retries before failing.
+ *  Long enough to ride out a transient listen gap or a slow first
+ *  compile of '/', short enough that a genuinely-down server fails in
+ *  seconds — attach-mode contact is an assertion, not a spawn wait
+ *  (that generosity is READY_WAIT_MS's). */
+const ATTACH_ASSERT_MS = 10_000;
+
+/** Assert something is answering on `base`, without touching it — the
+ *  attach-mode counterpart of ensureDevServer's ready wait, reusing the
+ *  same bounded probe (a one-shot unbounded fetch here previously hung
+ *  forever on a server that accepted but never responded, and each app
+ *  carried its own copy). `hint` is the app's own start-it advice,
+ *  rendered into the failure. */
+export async function assertServerUp(base: string, hint: string): Promise<Result<void, string>> {
+  if (await pollUntil(() => responds(base), ATTACH_ASSERT_MS)) {
+    return ok(undefined);
+  }
+  return err(`no server reachable at ${base} within ${ATTACH_ASSERT_MS / 1000}s. ${hint}`);
+}
+
 /** Attach to a responding dev server, or spawn one and wait until it is ready.
  *  `demoDir` is the app directory whose `pnpm dev` answers on `base` — a
  *  REQUIRED parameter, because this module lives in a shared package and

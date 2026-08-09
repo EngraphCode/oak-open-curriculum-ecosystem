@@ -1,10 +1,9 @@
 /*
- * App-neutral pieces of the fidelity-review runner. Each demo app keeps
- * its own tools/fidelity-review.ts CLI — flag parsing, capture arms, pair
- * map, and orchestration order are app policy — and composes these
- * helpers, which carry the invariant register-load / summarise / report-
- * write mechanics. Paths arrive as parameters: this module lives in a
- * shared package and never derives an app location from its own.
+ * The register-load / summarise / report-write mechanics the run
+ * orchestrator composes (each demo app's tools/fidelity-review.ts CLI
+ * keeps only its composition root: paths, capture arms, main). Paths
+ * arrive as parameters: this module lives in a shared package and
+ * never derives an app location from its own.
  */
 import fs from 'node:fs';
 import path from 'node:path';

@@ -31,6 +31,7 @@ import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
+import { MATCHED_GEOMETRY_SCALE } from '@oaknational/fidelity-review/capture-flags';
 import { assertExportDir, EXPORT_DIR, portOf, serveDir } from './export-server';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 
@@ -96,10 +97,13 @@ async function renderTarget(page: Page, base: string, target: RenderTarget): Pro
 /** Launch the browser and render every target; true when any render looked blank. */
 async function renderAll(base: string, width: number): Promise<boolean> {
   process.stdout.write(
-    `viewport CSS width = ${width}px (deviceScaleFactor 2 → ${width * 2}px PNGs)\n`,
+    `viewport CSS width = ${width}px (deviceScaleFactor ${MATCHED_GEOMETRY_SCALE} → ${width * MATCHED_GEOMETRY_SCALE}px PNGs)\n`,
   );
   const browser = await chromium.launch({ headless: true });
-  const ctx = await browser.newContext({ viewport: { width, height: 1000 }, deviceScaleFactor: 2 });
+  const ctx = await browser.newContext({
+    viewport: { width, height: 1000 },
+    deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
+  });
   const page = await ctx.newPage();
   let suspect = false;
   for (const target of TARGETS) {

@@ -13,15 +13,10 @@ describe('PairingMapSchema invariants', () => {
     diffEligible: true,
   };
 
-  it('rejects duplicate pair ids', () => {
-    const parsed = PairingMapSchema.safeParse({
-      version: 1,
-      pairs: [minimalPair, minimalPair],
-      exemptSurfaces: [],
-    });
-
-    expect(parsed.success).toBe(false);
-  });
+  /* The map-level invariants (unique ids, version literal, exempt
+   * surfaces) are proven with their schema in
+   * @oaknational/fidelity-review/pairing-schema; this suite owns only
+   * the pair-level refinements this app declares. */
 
   it('rejects a reference-only pair marked diff-eligible', () => {
     const parsed = PairingMapSchema.safeParse({

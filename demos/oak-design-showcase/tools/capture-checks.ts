@@ -17,6 +17,40 @@ import { isSuspect } from '@oaknational/fidelity-review/capture-flags';
  *  team finding, 2026-07-02). */
 export const DEFAULT_BASE = 'http://localhost:3020';
 
+/** The app's own start-it advice, rendered into the shared
+ *  reachability assertion's failure line. */
+export const SERVER_HINT =
+  'Start it first (from the app dir: pnpm dev -> :3020), or pass --base <url>.';
+
+/** Resource types whose same-origin failure silently corrupts the whole
+ *  render: an unresolved stylesheet, script, or font leaves a
+ *  text-heavy page unstyled while it still passes the height/text blank
+ *  classifier — exactly the wrong-target class the overlay exists to
+ *  prevent. `image` and `other` are deliberately excluded: a failed
+ *  image changes pixels the diff itself surfaces, and `other` covers
+ *  Chromium's automatic /favicon.ico probe, which no export page
+ *  declares and which would otherwise red-light every run. */
+const REQUIRED_RESOURCE_TYPES: ReadonlySet<string> = new Set(['stylesheet', 'script', 'font']);
+
+/** True when one observed request is a required-resource failure: a
+ *  required type, from the overlay's own origin (a remote origin's
+ *  failure is not evidence the export tree is mis-served), that either
+ *  failed at the network level (`status` undefined) or answered an
+ *  error status — the export server 404s unresolved paths, which is
+ *  not a network failure. Pure. */
+export function isRequiredResourceFailure(
+  resourceType: string,
+  url: string,
+  base: string,
+  status?: number,
+): boolean {
+  return (
+    REQUIRED_RESOURCE_TYPES.has(resourceType) &&
+    url.startsWith(base) &&
+    (status === undefined || status >= 400)
+  );
+}
+
 export interface RenderMetrics {
   readonly status: number;
   readonly bodyHeight: number;

@@ -31,6 +31,16 @@ describe('resolveWidth', () => {
       expect(result.ok).toBe(false);
     }
   });
+
+  it('rejects a valueless --width flag instead of silently falling through', () => {
+    // A user typing `--width` with no value must hear about it — a
+    // silent fall-through to env/default hands them a width they did
+    // not ask for.
+    const result = resolveWidth(['--width'], { ...ENV, WIDTH: '1280' });
+
+    expect(result.ok).toBe(false);
+    expect(result.ok ? undefined : result.error.message).toContain('--width requires a value');
+  });
 });
 
 describe('resolveBase', () => {

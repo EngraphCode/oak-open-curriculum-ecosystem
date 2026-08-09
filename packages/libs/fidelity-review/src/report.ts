@@ -13,10 +13,6 @@
  * File IO stays in the orchestrator: this module never touches disk.
  */
 import type { FidelityPair, PairingMap } from './pairing-types';
-
-// Re-exported so consumers can anchor their own maps and fixtures
-// (`satisfies PairingMap`) without a subpath for a types-only module.
-export type { FidelityPair, PairingMap } from './pairing-types';
 import { entriesForPair, newEntryTemplate, type FidelityRegister } from './register';
 import { escapeHtml, fromReportDir } from './fidelity-html';
 import { exemptSection, globalEntriesSection, orphanedEntries } from './fidelity-report-sections';
@@ -44,13 +40,16 @@ export interface PairResult {
   readonly missing?: readonly string[];
 }
 
+/** How the run reached (or did not reach) the app server. */
+export type ServerMode = 'attached' | 'spawned' | 'report-only';
+
 export interface RunMeta {
   readonly base: string;
   readonly widthCssPx: number;
   readonly deviceScaleFactor: number;
   /** `report-only` states honestly that no server was contacted and the
    *  evidence PNGs are whatever the last capture run left on disk. */
-  readonly serverMode: 'attached' | 'spawned' | 'report-only';
+  readonly serverMode: ServerMode;
   readonly generatedAt: string;
 }
 

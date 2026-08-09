@@ -20,7 +20,7 @@
  * "did it produce a non-blank capture", enforced live on every run.
  *
  * §D GEOMETRY: the viewport width is the CSS LAYOUT width (heading wrap, max-widths, breakpoints).
- * The PNG pixel dimensions are width × deviceScaleFactor (2). Compare wrap/layout against a
+ * The PNG pixel dimensions are width × deviceScaleFactor (MATCHED_GEOMETRY_SCALE). Compare wrap/layout against a
  * canonical target only with both captures' CSS width + dSF known; never compare raw pixel dims.
  *
  * PLACEMENT: a workspace-internal dev tool of @oaknational/oak-curriculum-hub — `tsx` and
@@ -47,30 +47,25 @@ import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
-import { isSuspect, resolveBase, resolveWidth } from '@oaknational/fidelity-review/capture-flags';
+import {
+  isSuspect,
+  MATCHED_GEOMETRY_SCALE,
+  resolveBase,
+  resolveWidth,
+} from '@oaknational/fidelity-review/capture-flags';
+import { assertServerUp } from '@oaknational/fidelity-review/dev-server';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 
-import { DEFAULT_BASE, isUnhydrated, resolveRoutes, routeToBase } from './capture-checks';
+import {
+  DEFAULT_BASE,
+  isUnhydrated,
+  resolveRoutes,
+  routeToBase,
+  SERVER_HINT,
+} from './capture-checks';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.resolve(TOOLS_DIR, '..', 'demo-evidence');
-
-export async function assertServerUp(base: string): Promise<Result<number, Error>> {
-  try {
-    const res = await fetch(base, { method: 'GET' });
-    // any HTTP response (even a 404 for '/') proves something is listening
-    return ok(res.status);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    return err(
-      new Error(
-        `no demo server reachable at ${base}. Start it first (from the app dir: pnpm dev -> :3010) ` +
-          `and coordinate the port with the styling lane, or pass --base <url>. cause: ${message}`,
-        { cause: error },
-      ),
-    );
-  }
-}
 
 function verdictFor(blank: boolean, unhydrated: boolean): string {
   if (blank) {
@@ -121,7 +116,7 @@ async function captureRoute(page: Page, base: string, route: string): Promise<bo
 function logRunHeader(base: string, width: number, routes: readonly string[]): void {
   process.stdout.write(`live demo base = ${base}\n`);
   process.stdout.write(
-    `viewport CSS width = ${width}px (deviceScaleFactor 2 -> ${width * 2}px PNGs)\n`,
+    `viewport CSS width = ${width}px (deviceScaleFactor ${MATCHED_GEOMETRY_SCALE} -> ${width * MATCHED_GEOMETRY_SCALE}px PNGs)\n`,
   );
   process.stdout.write(`routes = ${routes.join(', ')}\n`);
 }
@@ -133,7 +128,10 @@ export async function runCaptures(
   routes: readonly string[],
 ): Promise<boolean> {
   const browser = await chromium.launch({ headless: true });
-  const ctx = await browser.newContext({ viewport: { width, height: 1000 }, deviceScaleFactor: 2 });
+  const ctx = await browser.newContext({
+    viewport: { width, height: 1000 },
+    deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
+  });
   const page = await ctx.newPage();
   let suspect = false;
   try {
@@ -155,9 +153,9 @@ async function main(): Promise<Result<void, string>> {
   const base = resolveBase(argv, process.env, DEFAULT_BASE);
   const routes = resolveRoutes(argv);
 
-  const up = await assertServerUp(base);
+  const up = await assertServerUp(base, SERVER_HINT);
   if (!up.ok) {
-    return err(`CAPTURE FAIL: ${describeThrown(up.error)}`);
+    return err(`CAPTURE FAIL: ${up.error}`);
   }
   fs.mkdirSync(OUT_DIR, { recursive: true });
   logRunHeader(base, widthRes.value, routes);

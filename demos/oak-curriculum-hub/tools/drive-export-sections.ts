@@ -22,6 +22,7 @@ import { chromium } from '@playwright/test';
 import type { Locator, Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
+import { MATCHED_GEOMETRY_SCALE } from '@oaknational/fidelity-review/capture-flags';
 import { EXPORT_DIR, portOf, serveDir } from './export-server';
 import { runTool } from '@oaknational/fidelity-review/support';
 
@@ -123,7 +124,7 @@ async function driveExport(port: number, outDir: string): Promise<number> {
   const browser = await chromium.launch();
   const page = await browser.newPage({
     viewport: { width: 1440, height: 2200 },
-    deviceScaleFactor: 2,
+    deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
   });
   await page.goto(`http://127.0.0.1:${port}/Oak%20Course.dc.html`, { waitUntil: 'networkidle' });
   await page.evaluate(async () => {

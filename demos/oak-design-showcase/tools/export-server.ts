@@ -109,7 +109,18 @@ function handleStaticRequest(
     'content-type':
       CONTENT_TYPES.get(path.extname(resolved).toLowerCase()) ?? 'application/octet-stream',
   });
-  fs.createReadStream(resolved).pipe(res);
+  const stream = fs.createReadStream(resolved);
+  // An unreadable file (EACCES, vanished after the lookup) emits 'error'
+  // on the stream; without a listener that is an uncaught exception in
+  // the HTTP callback, bypassing the tool's cleanup boundary. The
+  // headers are already written, so DESTROY the socket — the browser
+  // then records a failed subresource request, which the render arm's
+  // required-resource watch turns into a mechanical failure instead of
+  // a clean 200 with a truncated body passing the capture self-checks.
+  stream.on('error', (error: unknown) => {
+    res.destroy(error instanceof Error ? error : new Error(String(error)));
+  });
+  stream.pipe(res);
 }
 
 /** Serve the overlay roots on an ephemeral localhost port. */

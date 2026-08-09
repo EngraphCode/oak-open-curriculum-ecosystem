@@ -51,6 +51,11 @@ export function routeToBase(route: string): string {
  *  blank classifier live in `@oaknational/fidelity-review/capture-flags`. */
 export const DEFAULT_BASE = 'http://localhost:3010';
 
+/** The app's own start-it advice, rendered into the shared
+ *  reachability assertion's failure line. */
+export const SERVER_HINT =
+  'Start it first (from the app dir: pnpm dev -> :3010) and coordinate the port with the styling lane, or pass --base <url>.';
+
 /** Resolve the route list (default DEFAULT_ROUTES). Override: `--routes /a,/b`. */
 export function resolveRoutes(argv: readonly string[]): string[] {
   const flagIdx = argv.indexOf('--routes');

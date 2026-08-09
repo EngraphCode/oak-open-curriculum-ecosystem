@@ -22,30 +22,12 @@ import { fileURLToPath } from 'node:url';
 
 import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
-import { ok, err, type Result } from '@oaknational/result';
 
-import { isSuspect } from '@oaknational/fidelity-review/capture-flags';
+import { isSuspect, MATCHED_GEOMETRY_SCALE } from '@oaknational/fidelity-review/capture-flags';
 import type { FidelityPair } from './fidelity-pairs';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DEMO_DIR = path.resolve(TOOLS_DIR, '..');
-
-export async function assertServerUp(base: string): Promise<Result<number, Error>> {
-  try {
-    const res = await fetch(base, { method: 'GET' });
-    // any HTTP response (even a 404 for '/') proves something is listening
-    return ok(res.status);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    return err(
-      new Error(
-        `no showcase server reachable at ${base}. Start it first (from the app dir: pnpm dev -> :3020), ` +
-          `or pass --base <url>. cause: ${message}`,
-        { cause: error },
-      ),
-    );
-  }
-}
 
 /** Capture every pair declared on one live route from a single page load;
  *  true when the capture looks blank. */
@@ -101,7 +83,7 @@ export async function captureLivePages(
     // here must still close the browser, or the Chromium process leaks.
     const ctx = await browser.newContext({
       viewport: { width, height: 1000 },
-      deviceScaleFactor: 2,
+      deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
     });
     const page = await ctx.newPage();
     for (const [route, routePairs] of byRoute) {

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { isRenderSuspect } from './capture-checks';
+import { isRenderSuspect, isRequiredResourceFailure } from './capture-checks';
 
 /* resolveWidth/resolveBase/isSuspect behaviour is proven in
  * @oaknational/fidelity-review's capture-flags suite; this file owns the
@@ -64,5 +64,51 @@ describe('isRenderSuspect on framed pages', () => {
         true,
       ),
     ).toBe(true);
+  });
+});
+
+describe('isRequiredResourceFailure', () => {
+  const BASE = 'http://127.0.0.1:4173';
+
+  it.each([
+    [
+      'a same-origin stylesheet 404 — the silent-unstyle class',
+      'stylesheet',
+      `${BASE}/styles.css`,
+      404,
+      true,
+    ],
+    ['a same-origin script 404', 'script', `${BASE}/app.js`, 404, true],
+    [
+      'a same-origin font network failure (no status — destroyed socket)',
+      'font',
+      `${BASE}/fonts/Lexend.ttf`,
+      undefined,
+      true,
+    ],
+    [
+      'a same-origin image 404 — the diff itself surfaces changed pixels',
+      'image',
+      `${BASE}/logo.png`,
+      404,
+      false,
+    ],
+    ["Chromium's automatic favicon probe (type other)", 'other', `${BASE}/favicon.ico`, 404, false],
+    [
+      'a cross-origin stylesheet 404 — not evidence the export tree is mis-served',
+      'stylesheet',
+      'https://elsewhere.example/styles.css',
+      404,
+      false,
+    ],
+    [
+      'a same-origin stylesheet that served cleanly',
+      'stylesheet',
+      `${BASE}/styles.css`,
+      200,
+      false,
+    ],
+  ] as const)('judges %s', (_label, resourceType, url, status, expected) => {
+    expect(isRequiredResourceFailure(resourceType, url, BASE, status)).toBe(expected);
   });
 });

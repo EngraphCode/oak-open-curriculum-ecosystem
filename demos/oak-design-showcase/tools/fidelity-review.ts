@@ -1,14 +1,17 @@
 /*
- * The fidelity review orchestrator: one command that serves the canonical
- * export over the studio overlay, ensures the dev server, captures both
- * sides at matched geometry, perceptually diffs every eligible pair, and
- * writes the review surface — demo-evidence/fidelity-report/index.html +
- * results.json — with the disposition register rendered beside each pair.
+ * The fidelity review CLI: one command that serves the canonical export
+ * over the studio overlay, ensures the dev server, captures both sides
+ * at matched geometry, perceptually diffs every eligible pair, and
+ * writes the review surface — demo-evidence/fidelity-report/index.html
+ * + results.json — with the disposition register rendered beside each
+ * pair. The run skeleton (flags, diff loop, report assembly, the
+ * teardown bracket) is @oaknational/fidelity-review/orchestrator; this
+ * file keeps only the showcase's composition root: paths, capture
+ * arms, and a main that attaches to custom bases.
  *
- * EXIT SEMANTICS: diff magnitude NEVER affects the exit code (the diff is
- * triage; acceptance stays human judgment). Non-zero means a mechanical
- * failure only: capture arm failed, register invalid, server never ready,
- * teardown failed.
+ * EXIT SEMANTICS: diff magnitude NEVER affects the exit code (the diff
+ * is triage; acceptance stays human judgment). Non-zero means a
+ * mechanical failure only — see the orchestrator module header.
  *
  * USAGE:
  *   pnpm --filter @oaknational/oak-design-showcase tool:fidelity
@@ -17,29 +20,29 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
-import { resolveBase, resolveWidth } from '@oaknational/fidelity-review/capture-flags';
-import { ensureDevServer, type DevServerHandle } from '@oaknational/fidelity-review/dev-server';
-import { diffPngs } from '@oaknational/fidelity-review/image-diff';
-import { type PairResult, type RunMeta } from '@oaknational/fidelity-review/report';
+import { assertServerUp, ensureDevServer } from '@oaknational/fidelity-review/dev-server';
 import {
-  loadRegister,
-  summariseToStdout,
-  writeReport,
-} from '@oaknational/fidelity-review/review-helpers';
+  buildAndWriteReport,
+  captureAndReport,
+  reportDirFor,
+  resolveRunFlags,
+  type CaptureRun,
+  type RunFlags,
+  type ServerMode,
+} from '@oaknational/fidelity-review/orchestrator';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 import { ok, err, type Result } from '@oaknational/result';
 
-import { DEFAULT_BASE } from './capture-checks';
-import { assertServerUp, captureLivePages } from './capture-live-pages';
+import { DEFAULT_BASE, SERVER_HINT } from './capture-checks';
+import { captureLivePages } from './capture-live-pages';
 import { FIDELITY_PAIRS } from './fidelity-pairs';
 import { renderExportTargets } from './render-export-targets';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DEMO_DIR = path.resolve(TOOLS_DIR, '..');
-const REPORT_DIR = path.join(DEMO_DIR, 'demo-evidence', 'fidelity-report');
-const REGISTER_PATH = path.join(DEMO_DIR, 'fidelity-register.json');
 
 /** Run both capture arms; any arm failure is mechanical and fails the run. */
 async function capturePhase(base: string, width: number): Promise<Result<void, string>> {
@@ -54,145 +57,43 @@ async function capturePhase(base: string, width: number): Promise<Result<void, s
   return ok(undefined);
 }
 
-/** Diff one eligible pair and write its diff PNG into the report dir.
- *  Absent evidence is a reportable row (missing-evidence); a PNG that
- *  exists but cannot be decoded is CORRUPT evidence — a mechanical failure
- *  that must fail the run, never a normal report row. */
-function diffPair(pair: (typeof FIDELITY_PAIRS.pairs)[number]): Result<PairResult, string> {
-  const exportPath = path.resolve(DEMO_DIR, pair.exportPng);
-  const livePath = path.resolve(DEMO_DIR, pair.livePng);
-  const missing = [pair.exportPng, pair.livePng].filter(
-    (candidate) => !fs.existsSync(path.resolve(DEMO_DIR, candidate)),
-  );
-  if (missing.length > 0) {
-    return ok({ pair, status: 'missing-evidence', missing });
-  }
-  if (!pair.diffEligible) {
-    return ok({ pair, status: 'reference-only' });
-  }
-  const outcome = diffPngs(fs.readFileSync(exportPath), fs.readFileSync(livePath));
-  if (!outcome.ok) {
-    return err(`fidelity: corrupt evidence for pair ${pair.id} — ${outcome.error}`);
-  }
-  const diffPngName = `diff-${pair.id}.png`;
-  fs.writeFileSync(path.join(REPORT_DIR, diffPngName), outcome.value.diffPng);
-  const { changedRatio, exportDims, liveDims, croppedTo, caveats } = outcome.value;
-  return ok({
-    pair,
-    status: 'diffed',
-    diff: { changedRatio, diffPngName, exportDims, liveDims, croppedTo, caveats },
+function report(flags: RunFlags, serverMode: ServerMode): Result<void, string> {
+  return buildAndWriteReport(flags, serverMode, new Date().toISOString(), {
+    map: FIDELITY_PAIRS,
+    demoDir: DEMO_DIR,
   });
-}
-
-interface Flags {
-  readonly base: string;
-  readonly width: number;
-  readonly reportOnly: boolean;
-  readonly keepServer: boolean;
-}
-
-function parseFlags(): Result<Flags, string> {
-  const argv = process.argv.slice(2);
-  const width = resolveWidth(argv, process.env);
-  if (!width.ok) {
-    return err(width.error.message);
-  }
-  return ok({
-    base: resolveBase(argv, process.env, DEFAULT_BASE),
-    width: width.value,
-    reportOnly: argv.includes('--report-only'),
-    keepServer: argv.includes('--keep-server'),
-  });
-}
-
-/** Diff every pair against the register and write the report + results. */
-function buildAndWriteReport(
-  flags: Flags,
-  serverMode: RunMeta['serverMode'],
-): Result<void, string> {
-  const register = loadRegister(REGISTER_PATH);
-  if (!register.ok) {
-    return register;
-  }
-  const results: PairResult[] = [];
-  for (const pair of FIDELITY_PAIRS.pairs) {
-    const outcome = diffPair(pair);
-    if (!outcome.ok) {
-      return outcome;
-    }
-    results.push(outcome.value);
-  }
-  summariseToStdout(results, register.value);
-  writeReport(
-    results,
-    register.value,
-    {
-      base: flags.base,
-      widthCssPx: flags.width,
-      deviceScaleFactor: 2,
-      serverMode,
-      generatedAt: new Date().toISOString(),
-    },
-    FIDELITY_PAIRS,
-    REPORT_DIR,
-  );
-  return ok(undefined);
-}
-
-/** Capture both sides, then report. The spawned server is reaped on EVERY
- *  path — a thrown Playwright/Node error, a failed reachability check, or
- *  a failed capture must never leave the detached dev process alive
- *  (no-unbounded-host-load); the finally block is the single teardown. */
-async function captureAndReport(
-  flags: Flags,
-  server: DevServerHandle,
-): Promise<Result<void, string>> {
-  let reported: Result<void, string> = err('fidelity: run did not start');
-  try {
-    const up = await assertServerUp(flags.base);
-    if (!up.ok) {
-      reported = err(`fidelity: ${describeThrown(up.error)}`);
-    } else {
-      const captured = await capturePhase(flags.base, flags.width);
-      reported = captured.ok ? buildAndWriteReport(flags, server.mode) : captured;
-    }
-  } catch (error) {
-    reported = err(`fidelity: ${describeThrown(error)}`);
-  } finally {
-    if (server.mode === 'spawned' && !flags.keepServer) {
-      const stopped = await server.stop();
-      if (!stopped.ok) {
-        reported = err(reported.ok ? stopped.error : `${reported.error}; then ${stopped.error}`);
-      }
-    }
-  }
-  return reported;
 }
 
 async function main(): Promise<Result<void, string>> {
-  const flags = parseFlags();
+  const flags = resolveRunFlags(process.argv.slice(2), process.env, DEFAULT_BASE);
   if (!flags.ok) {
     return flags;
   }
-  fs.mkdirSync(REPORT_DIR, { recursive: true });
+  fs.mkdirSync(reportDirFor(DEMO_DIR), { recursive: true });
 
   if (flags.value.reportOnly) {
-    return buildAndWriteReport(flags.value, 'report-only');
+    return report(flags.value, 'report-only');
   }
+
+  const run: CaptureRun = {
+    assertServerUp: (base) => assertServerUp(base, SERVER_HINT),
+    capturePhase,
+    report: (serverMode) => report(flags.value, serverMode),
+  };
 
   // A custom --base is never spawned: the workspace dev script binds the
   // default port, so spawning for any other base would wait the full
   // ready deadline on a port nothing will answer. Custom bases attach to
   // a pre-started server or fail loud.
   if (flags.value.base !== DEFAULT_BASE) {
-    return captureAndReport(flags.value, { mode: 'attached' });
+    return captureAndReport(flags.value, { mode: 'attached' }, run);
   }
 
   const server = await ensureDevServer(flags.value.base, DEMO_DIR);
   if (!server.ok) {
     return server;
   }
-  return captureAndReport(flags.value, server.value);
+  return captureAndReport(flags.value, server.value, run);
 }
 
 const invokedPath = process.argv.at(1);

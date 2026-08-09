@@ -10,12 +10,11 @@ import { createLibConfig } from '../../../tsup.config.base.js';
 export default createLibConfig({
   entry: [
     'src/support.ts',
-    'src/image-diff.ts',
     'src/dev-server.ts',
     'src/static-path-guard.ts',
     'src/capture-flags.ts',
     'src/register.ts',
-    'src/report.ts',
-    'src/review-helpers.ts',
+    'src/pairing-schema.ts',
+    'src/orchestrator.ts',
   ],
 });

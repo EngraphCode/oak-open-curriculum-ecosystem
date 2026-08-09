@@ -33,6 +33,7 @@ const META: RunMeta = {
 const FOLD_PAIR = {
   id: 'picker-oak-fold',
   kind: 'page-abovefold',
+  diffEligible: true,
   exportPng: 'demo-evidence/export-picker-oak-fold.png',
   livePng: 'demo-evidence/live-picker-oak-fold.png',
   liveRoute: '/specimen',
@@ -41,6 +42,7 @@ const FOLD_PAIR = {
 const FULL_PAIR = {
   id: 'picker-oak-full',
   kind: 'page-fullpage',
+  diffEligible: true,
   exportPng: 'demo-evidence/export-picker-oak-full.png',
   livePng: 'demo-evidence/live-picker-oak-full.png',
   liveRoute: '/specimen',
@@ -50,6 +52,7 @@ const FULL_PAIR = {
 const CHROME_PAIR = {
   id: 'picker-chrome',
   kind: 'reference-only',
+  diffEligible: false,
   exportPng: 'demo-evidence/export-picker-chrome.png',
   livePng: 'demo-evidence/live-picker-chrome.png',
   liveRoute: '/switchboard',
