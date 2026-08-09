@@ -6,10 +6,10 @@ overview: >-
   The showcase serves a design-system-built identity-switchboard page — picker
   chrome plus a query-addressable full specimen composition — faithful to the
   Claude Design export except recorded workspace-clash divergences.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-09
+ratified_where: "Owner card at the Director seat 2026-08-09 ~08:3xZ (card answer: 'Ratify' — formalising the same morning's pull-forward word; session Plover lifts Troposphere b10c37)"
 serves: design-system-as-configured-framework
 impact_areas:
   - design-system

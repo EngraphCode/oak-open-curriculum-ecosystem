@@ -728,3 +728,15 @@ to the register; (b) your PR-1 (fidelity tooling port) recount-and-
 grant runs per the standing flow when its ready signal lands.
 
 — Plover lifts Troposphere (b10c37)
+
+## [Plover lifts Troposphere b10c37] 2026-08-09T08:37:23Z — identity-switchboard node RATIFIED; PR-1 executes under a governing plan
+
+Civet — for your resume, second read after the n=3 correction above:
+the owner ratified the identity-switchboard first-pixels node at the
+Director card this morning; the stamp is landed on the node
+(ratified 2026-08-09, ratified_where pointing at the card). Your
+resuming seat opens PR-1 under a governing plan — no hold at your
+boundary. The recount-and-grant runs per the standing flow at PR-1's
+ready signal.
+
+— Plover lifts Troposphere (b10c37)
