@@ -1,0 +1,186 @@
+/*
+ * The declared pairing map for the showcase fidelity review: which
+ * canonical-export render pairs with which live-app capture, at what
+ * comparison kind, plus the surfaces that HAVE no export target (recorded,
+ * never silent). Engineering config — schema-validated at module load so a
+ * drifted entry fails the import loudly (the hub's zod-at-module-init
+ * pattern).
+ *
+ * NAMING: pair ids and every evidence basename use TARGET-STATE identity
+ * naming (`picker-oak-*` / `picker-pds-*` / `picker-emc2-*`), derived from
+ * the imported identity list through lib/identities — the pre-rename brand
+ * slug is never written in this file, keeping the identity-naming ratchet
+ * at zero delta (its census-exact contract bars the token in new tracked
+ * files, including the register's evidence paths downstream).
+ *
+ * The register of JUDGMENTS about these pairs lives separately in
+ * fidelity-register.json (owner-editable); this module only declares what
+ * is comparable and how.
+ */
+import { z } from 'zod';
+
+import { IDENTITIES } from '../components/useIdentity';
+import { targetFragmentsFor } from '../lib/identities';
+
+/**
+ * How a pair is compared:
+ * - `page-fullpage` / `page-abovefold` — full-route screenshots at matched
+ *   geometry (1440 CSS px, 2x scale); fullpage heights legitimately differ,
+ *   so the diff crops to the common intersection and carries a caveat.
+ * - `reference-only` — unmatched-geometry references rendered side-by-side
+ *   for judgment, never pixel-diffed.
+ */
+const PairKindSchema = z.enum(['page-fullpage', 'page-abovefold', 'reference-only']);
+
+const PairSchema = z
+  .object({
+    /** Stable pair identifier — the disposition register keys findings on it. */
+    id: z.string().regex(/^[a-z0-9-]+$/),
+    kind: PairKindSchema,
+    /** Demo-dir-relative path of the canonical-export render PNG. */
+    exportPng: z.string().min(1),
+    /** Demo-dir-relative path of the live-app capture PNG. */
+    livePng: z.string().min(1),
+    /** The live route (with any query) that produces `livePng`. */
+    liveRoute: z.string().min(1),
+    /** False for pairs whose geometry makes a pixel diff meaningless. */
+    diffEligible: z.boolean(),
+    /** Per-pair triage caveat rendered in the report. */
+    notes: z.string().optional(),
+  })
+  .refine((pair) => pair.kind !== 'reference-only' || !pair.diffEligible, {
+    message: 'reference-only pairs must not be diff-eligible (unmatched geometry)',
+  });
+
+export const PairingMapSchema = z
+  .object({
+    version: z.literal(1),
+    pairs: z.array(PairSchema).min(1),
+    /** Routes with no canonical target — absence is a recorded fact. */
+    exemptSurfaces: z.array(
+      z.object({
+        route: z.string().min(1),
+        reason: z.string().min(1),
+      }),
+    ),
+  })
+  .refine((map) => new Set(map.pairs.map((pair) => pair.id)).size === map.pairs.length, {
+    message: 'pair ids must be unique',
+  });
+
+export type FidelityPair = z.infer<typeof PairSchema>;
+export type PairingMap = z.infer<typeof PairingMapSchema>;
+
+/** One export page load for the render arm: the URL (export-server-relative)
+ *  and the PNG per pair to write from it, named by pair id. */
+export interface ExportRenderTarget {
+  readonly url: string;
+  readonly shots: readonly { readonly pairId: string; readonly kind: 'fold' | 'full' }[];
+}
+
+/** The six diff-eligible ids the declared map must carry — static
+ *  target-state names; the ShowcaseMapSchema refine below fails the module
+ *  load when the derivation stops producing them, so no throw statement is
+ *  needed here (ADR-088: zod's parse is the single module-init boundary). */
+const DIFF_PAIR_IDS = [
+  'picker-oak-fold',
+  'picker-oak-full',
+  'picker-pds-fold',
+  'picker-pds-full',
+  'picker-emc2-fold',
+  'picker-emc2-full',
+] as const;
+
+const fragmentsResult = targetFragmentsFor(IDENTITIES);
+const fragments: Readonly<Record<string, string>> = fragmentsResult.ok ? fragmentsResult.value : {};
+
+/** demo-evidence path for one side of a pair — the single naming rule. */
+function evidencePng(side: 'export' | 'live', pairId: string): string {
+  return `demo-evidence/${side}-${pairId}.png`;
+}
+
+const specimenPairs: FidelityPair[] = IDENTITIES.flatMap((slug) => {
+  const fragment = fragments[slug];
+  if (fragment === undefined) {
+    return []; // derivation failure — the ShowcaseMapSchema refine fails the load
+  }
+  const liveRoute = `/identity-switchboard/specimen?brand=${slug}`;
+  return (['fold', 'full'] as const).map((crop) => {
+    const id = `picker-${fragment}-${crop}`;
+    return {
+      id,
+      kind: crop === 'fold' ? ('page-abovefold' as const) : ('page-fullpage' as const),
+      exportPng: evidencePng('export', id),
+      livePng: evidencePng('live', id),
+      liveRoute,
+      diffEligible: true,
+      ...(crop === 'full'
+        ? { notes: 'full-page heights differ; ratio reads over the common top region' }
+        : {}),
+    };
+  });
+});
+
+/** The export specimen URL per identity: the export's own ?brand= guard
+ *  treats an absent/empty value as the Oak base, so the base identity loads
+ *  the bare page rather than pointing at a brand directory that never
+ *  existed in the export. */
+function exportSpecimenUrl(slug: string): string {
+  return fragments[slug] === 'oak'
+    ? 'whitelabel/specimen.html'
+    : `whitelabel/specimen.html?brand=${slug}`;
+}
+
+const CHROME_PAIR_ID = 'picker-chrome';
+
+export const EXPORT_RENDER_TARGETS: readonly ExportRenderTarget[] = [
+  ...IDENTITIES.map((slug) => {
+    const fragment = fragments[slug];
+    return {
+      url: exportSpecimenUrl(slug),
+      shots: [
+        { pairId: `picker-${fragment}-fold`, kind: 'fold' as const },
+        { pairId: `picker-${fragment}-full`, kind: 'full' as const },
+      ],
+    };
+  }),
+  {
+    url: 'Identity Switchboard.html',
+    shots: [{ pairId: CHROME_PAIR_ID, kind: 'full' as const }],
+  },
+];
+
+/** The generic schema plus this map's own completeness invariant: every
+ *  target-state specimen pair must be present, so an identity-derivation
+ *  failure (see lib/identities.ts) fails the import loudly instead of
+ *  shipping a silently thinner map. */
+const ShowcaseMapSchema = PairingMapSchema.refine(
+  (map) => DIFF_PAIR_IDS.every((id) => map.pairs.some((pair) => pair.id === id)),
+  {
+    message: `the declared map must carry all six specimen pairs (${DIFF_PAIR_IDS.join(', ')}) — identity derivation failed; see lib/identities.ts${fragmentsResult.ok ? '' : ` (${fragmentsResult.error})`}`,
+  },
+);
+
+export const FIDELITY_PAIRS: PairingMap = ShowcaseMapSchema.parse({
+  version: 1,
+  pairs: [
+    ...specimenPairs,
+    {
+      id: CHROME_PAIR_ID,
+      kind: 'reference-only',
+      exportPng: evidencePng('export', CHROME_PAIR_ID),
+      livePng: evidencePng('live', CHROME_PAIR_ID),
+      liveRoute: '/identity-switchboard',
+      diffEligible: false,
+      notes:
+        'picker chrome diverges by ruled design (responsive frame vs the export scale() fit; segmented theme control vs native select) — side-by-side judgment only',
+    },
+  ],
+  exemptSurfaces: [
+    {
+      route: '/',
+      reason:
+        'owner-rejected as the switchboard surface — the root route is W1.5 scope (design-system-completion) and is judged by the W0.7 instrument, not export fidelity',
+    },
+  ],
+});
