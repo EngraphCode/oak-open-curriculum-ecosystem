@@ -1,0 +1,82 @@
+{
+  "name": "@oaknational/fidelity-review",
+  "version": "0.0.0-development",
+  "private": true,
+  "description": "Shared fidelity capture/diff/report core for the demo apps: image diffing, dev-server lifecycle, static-path guards, report rendering, and the disposition register schema",
+  "type": "module",
+  "exports": {
+    "./support": {
+      "types": "./dist/support.d.ts",
+      "import": "./dist/support.js",
+      "default": "./dist/support.js"
+    },
+    "./image-diff": {
+      "types": "./dist/image-diff.d.ts",
+      "import": "./dist/image-diff.js",
+      "default": "./dist/image-diff.js"
+    },
+    "./dev-server": {
+      "types": "./dist/dev-server.d.ts",
+      "import": "./dist/dev-server.js",
+      "default": "./dist/dev-server.js"
+    },
+    "./static-path-guard": {
+      "types": "./dist/static-path-guard.d.ts",
+      "import": "./dist/static-path-guard.js",
+      "default": "./dist/static-path-guard.js"
+    },
+    "./fidelity-register": {
+      "types": "./dist/fidelity-register.d.ts",
+      "import": "./dist/fidelity-register.js",
+      "default": "./dist/fidelity-register.js"
+    },
+    "./fidelity-report": {
+      "types": "./dist/fidelity-report.d.ts",
+      "import": "./dist/fidelity-report.js",
+      "default": "./dist/fidelity-report.js"
+    },
+    "./review-helpers": {
+      "types": "./dist/review-helpers.d.ts",
+      "import": "./dist/review-helpers.js",
+      "default": "./dist/review-helpers.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup && tsc --emitDeclarationOnly --project tsconfig.build.json",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "test:coverage": "vitest run --coverage",
+    "type-check": "tsc -p tsconfig.lint.json --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "clean": "rm -rf dist .turbo"
+  },
+  "dependencies": {
+    "@oaknational/result": "workspace:*",
+    "pixelmatch": "^7.2.0",
+    "pngjs": "^7.0.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@oaknational/eslint-plugin-standards": "workspace:*",
+    "@types/jest-axe": "^3.5.9",
+    "@types/node": "^24.13.3",
+    "@types/pngjs": "^6.0.5",
+    "eslint": "^10.8.0",
+    "globals": "^17.7.0",
+    "happy-dom": "^20.11.1",
+    "jest-axe": "^10.0.0",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oaknational/oak-open-curriculum-ecosystem.git",
+    "directory": "packages/libs/fidelity-review"
+  },
+  "license": "MIT"
+}

@@ -104,6 +104,7 @@ describe('createLibBoundaryRules', () => {
   it('keeps observability out of the library inventory', () => {
     expect(LIB_PACKAGES).toEqual([
       'env-resolution',
+      'fidelity-review',
       'graph-ingest',
       'graph-project',
       'logger',
@@ -113,6 +114,7 @@ describe('createLibBoundaryRules', () => {
     ]);
     expect(FOUNDATION_LIB_PACKAGES).toEqual([
       'env-resolution',
+      'fidelity-review',
       'graph-ingest',
       'graph-project',
       'logger',
@@ -130,6 +132,7 @@ describe('createLibBoundaryRules', () => {
 
     expect(blockedLibs).toEqual([
       '../env-resolution/**',
+      '../fidelity-review/**',
       '../graph-ingest/**',
       '../graph-project/**',
       '../posthog-node/**',

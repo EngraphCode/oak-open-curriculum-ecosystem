@@ -267,6 +267,22 @@ const config: KnipConfig = {
     'packages/libs/env-resolution': {
       project: ['src/**/*.ts'],
     },
+    'packages/libs/fidelity-review': {
+      // No src/index.ts barrel by design: the package exposes per-module
+      // subpath exports so app diffs stay mechanical and each consumer
+      // pulls only the modules it uses. Every subpath source is therefore
+      // an explicit entry (knip's default entry is the absent index).
+      entry: [
+        'src/support.ts',
+        'src/image-diff.ts',
+        'src/dev-server.ts',
+        'src/static-path-guard.ts',
+        'src/fidelity-register.ts',
+        'src/fidelity-report.ts',
+        'src/review-helpers.ts',
+      ],
+      project: ['src/**/*.ts'],
+    },
     'packages/libs/graph-ingest': {
       // Source entries behind the dist-pointing exports map (see oak-eslint
       // note on the removed `development` condition). Only the subpaths not

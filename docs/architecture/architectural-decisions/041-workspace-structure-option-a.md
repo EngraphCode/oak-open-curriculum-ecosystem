@@ -22,7 +22,10 @@ Adopt Option A (conventional) with clear directories:
   - foundation libs (`env-resolution`, `logger`, `search-contracts`;
     dated amendment 2026-07-31 per ADR-221 obligation 4: `graph-ingest`
     and `graph-project` classify as foundation libs — transport-agnostic
-    substrate, no vendor adapter nature)
+    substrate, no vendor adapter nature; dated amendment 2026-08-09:
+    `fidelity-review` classifies as a foundation lib — the demo apps'
+    shared fidelity capture/diff/report core, consolidated at its second
+    consumer, depending on core packages and npm only)
   - adapter libs (`sentry-node`)
 - `packages/sdks/` – SDK packages (curriculum-sdk, oak-search-sdk)
 - `packages/design/` – design-tier workspaces (row trued 2026-08-02; the

@@ -4,7 +4,7 @@
  * fidelity-report.ts so the renderer module stays within its size budget;
  * same pure-renderer contract (no IO).
  */
-import type { PairingMap } from './fidelity-pairs';
+import type { PairingMap } from './pairing-types';
 import { GLOBAL_PAIR_ID, type FidelityRegister } from './fidelity-register';
 import { escapeHtml, fromReportDir } from './fidelity-html';
 

@@ -224,6 +224,7 @@ export const coreBoundaryRules: Partial<Linter.RulesRecord> = {
  */
 export const FOUNDATION_LIB_PACKAGES = [
   'env-resolution',
+  'fidelity-review',
   'graph-ingest',
   'graph-project',
   'logger',

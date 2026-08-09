@@ -5,20 +5,13 @@
  * formatting, and the single process boundary every tool funnels its failure
  * Result through (use-result-pattern / ADR-088 — the tools do not throw).
  */
-import type { Result } from '@oaknational/result';
+// Explicit module import, never the ambient global (lib boundary rule):
+// runTool IS the process boundary — the one place the package touches
+// exit codes and stdout — and the import keeps that visible in the graph
+// (the logger package's node.ts sets this shape).
+import process from 'node:process';
 
-/** Strip every leading and trailing occurrence of `char` — a linear scan. */
-export function trimEdges(value: string, char: string): string {
-  let start = 0;
-  let end = value.length;
-  while (start < end && value.charAt(start) === char) {
-    start += 1;
-  }
-  while (end > start && value.charAt(end - 1) === char) {
-    end -= 1;
-  }
-  return value.slice(start, end);
-}
+import type { Result } from '@oaknational/result';
 
 /** Strip every trailing occurrence of `char` — a linear scan. */
 export function stripTrailing(value: string, char: string): string {
