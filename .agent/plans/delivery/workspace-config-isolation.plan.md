@@ -339,12 +339,20 @@ surface. Decisions, made:
    the standards package's test suite. Lands after todo 1 — the
    migration is what lets the un-ignoring land green. The
    `research/` cure lands as its own PR inside this todo's arc.
-3. **Stryker duplicate retired** (small source change):
-   `vitest.config.stryker.ts` deleted, `stryker.config.mjs` pointed
-   at the real `vitest.config.ts`, canary re-run banked under
-   `mutation-evidence/` as the end-to-end proof that package imports
-   resolve in the sandbox. Waits on `mutation-testing-core-canary`
-   landing those files (the frontmatter's blocking edge).
+3. **Stryker config cured — the silent fallback dies** (small source
+   change): measured 2026-08-09, `stryker.config.mjs` on main names
+   `vitest.stryker.config.ts` — a file that does NOT exist — and a
+   dry-run SUCCEEDS anyway (11 tests), so mutation testing currently
+   works through a silent fallback, the fail-fast violation class
+   this estate bans. Cure: point `vitest.configFile` at the real
+   `vitest.config.ts` (possible once todo 1 merges — and a sandboxed
+   dry-run on the merged branch already ran green through the package
+   imports, retiring todo 3's one open question early), delete the
+   duplicate-config comment scar, and bank a canary re-run under
+   `mutation-evidence/` as the end-to-end proof. This SUPERSEDES the
+   canary plan's restore-the-conserved-copy step — reconcile that
+   plan's todo in the same landing. Executable immediately after
+   todo 1 merges.
 4. **Disabled-checks census mechanism** (source): the register
    schema, the census validator with fixture red-proof, mechanical
    day-1 seeding of all ~320 rows (source location as grounds),
@@ -354,6 +362,37 @@ surface. Decisions, made:
    cures routed to their owning lanes.
 6. **Closing re-derivation** (record class): acceptance criteria
    re-proven against the live tree; plan archived with dispositions.
+
+## Known issues at execution (recorded 2026-08-09; every row has a named immediate home)
+
+- **Stryker silent fallback on a missing config file** — cured by
+  todo 3 (reshaped above), executable the moment todo 1 merges.
+- **Declaration-portability and loader-resolution classes in the new
+  package** — CURED in PR #836 itself (exported `WorkspaceTsupConfig` +
+  `Options` re-export for TS2883; `default` export condition for
+  the vite `require` path); recorded here as evidence, no action.
+- **Install-time peer-range lag warnings** (`typescript` 6.0.3 vs
+  third-party `^5` ranges: tsconfck, openapi-typescript, a
+  typescript-eslint 8.56.1 resolution) — pre-existing estate-wide,
+  surfaced on every install; home: Director-routed cure lane
+  (`peerDependencyRules.allowedVersions` extension or dependency
+  bumps), out of this plan's scope but named so it is not re-lost.
+- **Pre-existing `no-throw-statement` warning surface** (15 in
+  graph-core, 37 in oak-search-sdk, more in research-evidence and
+  agent-tools — active WARNINGS, not disables, so outside the census'
+  register) — home: Director-routed no-warning-toleration lane;
+  broadcast 2026-08-09.
+- **Commit-tooling defects observed during this plan's landing** —
+  frictions register F-157 (the inner pathspec commit dropped four
+  staged-new files from a 118-path intent; workflow exited 0) and
+  F-158 (full `pnpm check` green minutes before the same tree's
+  commit-hook turbo run found 24 real type-check reds); home:
+  agent-tooling backlog via the register; interim disciplines
+  recorded in the entries (verify commit content, hook is the verdict
+  of record).
+- **Copilot review request does not attach via the merge-bot token**
+  (two attempts on #836, both silently dropped); home: retry at
+  settle or owner-click; selective-not-ceremony applies.
 
 ## Acceptance criteria (each with a proof)
 
