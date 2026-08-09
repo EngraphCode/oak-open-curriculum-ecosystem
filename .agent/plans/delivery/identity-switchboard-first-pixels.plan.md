@@ -122,8 +122,13 @@ Copy the hub's tools (`export-server`, `dev-server`, `image-diff`,
 with SIX diff-eligible pairs — three identities × {fold, full}: the
 specimen route `?brand=<slug>` vs the export's
 `whitelabel/specimen.html?brand=<slug>` served by the ephemeral export
-server rooted at `packages/design/oak-design-system/studio-source/`
-(capture tooling only — nothing app-serves the fenced tree) — plus ONE
+server over the STUDIO OVERLAY — `studio-source/` falling back to the
+design-system package root (correction 2026-08-09 at PR-1, #834: the
+export pages link kit CSS studio-relatively and `studio-source/` holds
+no root CSS, so the single-root serve this clause first named renders
+them unstyled; the overlay is the clause's intent, verified rendering
+styled first-hand) — capture tooling only, nothing app-serves the
+fenced tree — plus ONE
 `reference-only` chrome pair (picker page vs the export picker, divergent
 by ruled design). Pair ids use target-state naming (`picker-oak-*`,
 `picker-pds-*`, `picker-emc2-*`); slugs derive from the imported constant
