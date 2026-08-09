@@ -35,6 +35,11 @@
       "import": "./dist/pairing-schema.js",
       "default": "./dist/pairing-schema.js"
     },
+    "./capture-manifest": {
+      "types": "./dist/capture-manifest.d.ts",
+      "import": "./dist/capture-manifest.js",
+      "default": "./dist/capture-manifest.js"
+    },
     "./capture-settle": {
       "types": "./dist/capture-settle.d.ts",
       "import": "./dist/capture-settle.js",
