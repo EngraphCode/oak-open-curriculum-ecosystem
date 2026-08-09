@@ -642,6 +642,41 @@ if the churn starts to bite.
   first time, post-push the second (warning is non-blocking so it slips
   through when the check output is only grepped for problems).
 
+## 2026-08-09 ~08:5xZ (Wren calls Downdraft, 6b29b5, mutation lane) — slice-1 field notes
+
+- TWO-BRANCHES LOOKALIKE, worked instance at #807: the PR's head was the
+  UNPREFIXED `mutation-testing-core-canary` while the lane worktree tracked
+  `jimcresswell/mutation-testing-core-canary` — identical shas until the
+  slice-1 push, so a push to the prefixed twin read as "PR sync stuck" at
+  two seats (a Director ACTION was issued on that premise). The discriminating
+  read was `gh pr view --json headRefName` against `git ls-remote | grep
+  <name>` — the empty-commit nudge would have touched the wrong ref. Cure
+  executed: fast-forward push `prefixed:unprefixed`; synchronize fired
+  instantly. Class rule: before curing any "stuck PR event", read
+  headRefName VERBATIM and list every same-suffixed remote ref.
+- `pnpm --filter <ws> run <script> -- --flag` forwarded the literal `--` into
+  the script's argv (stryker read it as a config path and failed loud); the
+  working shape omitted `--`. One bite, 2026-08-09.
+- Evidence banking vs `.gitignore:104 *.log`: committed run logs need the
+  `.log.txt` rename — this IS why the spike's dry-run log was `.txt`; the
+  mechanism confirmed first-hand when both fresh logs vanished from
+  git status.
+- Stryker outputs embed absolute machine paths (logs, report.json
+  projectRoot, report.html) — the PII validator rightly reds them; portable
+  restatement (`<repo-root>` prefix swap) in the banked copies was the cure,
+  per the 2026-08-07 references-restated-portably precedent.
+- First real-resolution `pnpm install` on a merged tree carried a ~650-line
+  lockfile rewrite: pnpm 11.20 renormalising `supports-color` optional-peer
+  threads estate-wide, zero new package versions (verified: no new
+  `resolution: {integrity` lines). Any first dep-touching PR after a
+  normalisation-relevant pnpm bump carries this noise; one body sentence
+  explains it.
+- Filtered-read class, self-caught once more: a `tail -2` on a failing
+  `claims close` swallowed the usage error (`missing required option
+  --now`); the unfiltered rerun surfaced it in one read. The claims
+  open/close asymmetry (open defaults --now per F-89; close requires it)
+  is a sibling of the documented heartbeat-arg asymmetry.
+
 - 2026-08-09 (Plover b10c37): diagnosed a "stuck synchronize event" on #807 and
   routed a nudge — WRONG premise, corrected by the lane seat (Wren, 08:49Z):
   the repo carried TWO remote branches (prefixed `jimcresswell/...` at the new

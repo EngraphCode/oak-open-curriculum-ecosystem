@@ -1,0 +1,165 @@
+---
+id: open-surface-zero
+node_type: delivery
+name: "Open-surface zero: every PR merged or closed, every branch carried by a PR"
+overview: "Drive the whole open surface to zero unmanaged items — every open PR merged or closed with recorded grounds, every pushed branch either carried by a draft PR or dispositioned — oldest first, executing from the census ledger below, and graduate the pushed-implies-PR invariant so the state cannot recur."
+status: sketch
+serves: outcome-informed-practice-learning
+impact_areas:
+  - practice-and-estate
+tickets: []
+depends_on: []
+owner_gates: []
+last_updated: 2026-08-09
+---
+
+# Open-surface zero
+
+## Goal
+
+The open surface is fully managed: every open PR is merged or closed
+with recorded grounds, every pushed branch is carried by a PR or
+dispositioned (merged work preserved, else deleted with provenance
+surfaced), and the standing invariant the owner named 2026-08-09 —
+**"if it is worth pushing it is worth opening a draft PR"** — is
+graduated into enforced practice so the unmanaged state cannot
+silently recur.
+
+Commissioning word (2026-08-09, owner): "I would like a plan to exist
+to either merge or close all of them, including the ones we don't
+have yet, and I would like that plan to start moving, oldest PR first
+unless there is good reason to do it otherwise."
+
+This node **supersedes `paused-pr-estate-disposition.plan.md`** for
+the still-open remainder: that plan's recorded adjudications carry
+forward by reference into the ledger below (its completed rows stay
+its own record; it archives with `superseded_by: open-surface-zero`
+at this node's ratification).
+
+## Mechanism
+
+A census-anchored disposition ledger plus oldest-first execution.
+Thoroughness is every item carrying a recorded decision, not every
+item spawning its own cycle: items whose adjudication already exists
+execute directly; items without one get their first-hand adjudication
+at their queue slot (merge / close / fold-into / supersede — grounds
+recorded on the PR or branch at the decision). Execution slots split
+by executor class: **Director-executable** (docs/plan PRs, merges at
+recorded adjudications, branch dispositions) run from the Director
+seat immediately; **seat-needing** (code reconciles) surface as ONE
+dated owner ask each at their queue slot. The silent-waiting failure
+this plan cures is recorded honestly: the #731 reconcile stood
+"opener-ready awaiting a seat" for a day with no visible ask reaching
+the owner; under this plan every waiting lane carries a dated
+owner-visible ask or a Director execution slot — no third state.
+
+Counts below are census-anchored (2026-08-09 ~09:5xZ) and re-derived
+at execution time; substance preservation outranks stale arithmetic.
+
+## The census ledger (2026-08-09; oldest first)
+
+### Open PRs — ours to disposition (jimbot/bot/owner-draft)
+
+| PR | Opened | Item | Standing adjudication at census |
+|----|--------|------|--------------------------------|
+| #731 | 08-03 | Parallax family relocation (draft) | DETERMINATE (ratified skills structure, WS6): retire the superseded family-bundle walker shape, keep reusable machinery, land Parallax as `cognition/parallax-*`. Seat-needing — the ask fires first in the queue. |
+| #734 | 08-03 | typescript-estate measurement foundations | Carried ledger row: the typescript-estate lane owns it; adjudicate merge-vs-close at slot if that lane stays unstaffed. |
+| #745 | 08-03 | claim-freshness pilot (draft) | Carried ledger row: MCP-528's implementer consumes it; adjudicate at slot. |
+| #746 | 08-03 | deploy-reliability plan node (draft) | No standing adjudication — first-hand at slot (Director-executable, docs). |
+| #766 | 08-04 | MCP-501 research (owner draft) | ADJUDICATED: merges as research docs (plans-truing sweep). Director-executable. |
+| #769 | 08-05 | release-redeploy guard-truing plan (draft) | Plans-truing sweep set — adjudications recorded; Director-executable. |
+| #771 | 08-05 | observability-contract plan (draft) | Plans-truing sweep set; Director-executable. |
+| #774 | 08-05 | sdk-v2 spike plan (draft) | Plans-truing sweep set; Director-executable. |
+| #788 | 08-06 | extraction-pilot opener refactor | ADJUDICATED to merge (plans-truing sweep). Director-executable. |
+| #792 | 08-06 | watch-commands node amendment | Plans-truing sweep set; Director-executable. |
+| #805 | 08-06 | fleet-topology writeup (WIP preview) | First-hand at slot: complete-and-merge vs close-as-preserved. |
+| #807 | 08-06 | mutation canary slice 1 | IN FLIGHT this morning (ratified canary plan; merge at full condition after this fold's precondition). |
+| #818 | 08-07 | statusline logging (draft) | Custodial pair — standing route; Director-executable adjudication at slot, seat ask if code work surfaces. |
+| #819 | 08-07 | developer-experience home (draft) | Custodial pair, as #818. |
+
+### Open PRs — tracked, not ours to execute
+
+| PR | Opened | Whose | Posture |
+|----|--------|-------|---------|
+| #750 | 08-03 | mantagen (Matt's agents) | Tracked; nudge-free per colleagues-on-trust; surfaced to the owner in the plan's closing report if still open then. |
+| #761 | 08-04 | emgeebot (MCP-143 PR-3) | Same series as #772/pr5; coordinate with that lane's owner at slot. |
+| #768 | 08-05 | mantagen | As #750. |
+| #772 | 08-05 | mantagen | As #750. |
+| #816 | 08-07 | emgeebot (tenure record) | Docs record; adjudicate merge at slot with provenance check. |
+
+(#833, the live coordination fold, is ceremony — not a disposition item.)
+
+### Branches with no PR (draft-PR-or-disposition; oldest-first at slot)
+
+Real orphans at census — 19 after excluding `gh-readonly-queue/*`
+(GitHub merge-queue internals, platform-managed) and
+`jimcresswell/mutation-testing-core-canary` (the prefixed twin of the
+PR #807 head; deleted at that PR's merge as its recorded disposition):
+`agent/n8n-practice-comparative-research`,
+`agent/persistent-reflex-layer-report`,
+`chore/aip-131-primary-estate-snapshot`,
+`claude/mcp-143-clerk-guards-pr5` (emgeebot series — coordinate),
+`docs/agent-operability-deferred-work-map`,
+`docs/copilot-cli-practice-citizenship`,
+`docs/first-class-copilot-agent-support`,
+`feat/mcp-128-landing-public-beta`,
+`fix/claude-hook-hardening`,
+`fix/mcp-143-guard-cascade`,
+`fix/mcp-507-oauth-facade`,
+`jimcresswell/commit-queue-sameagent-id-routing`,
+`jimcresswell/jim-next-2026-08-04`,
+`jimcresswell/mcp-103-content-workspace`,
+`jimcresswell/mcp-372-hub-demo-conformance-true-up…`,
+`jimcresswell/mcp-475-preview-build-validation`,
+`jimcresswell/mcp-487-sanitise-numeric-input`,
+`test/emgeebot-ambient-verify`.
+Per branch at slot: read content first-hand → already-merged/superseded
+⇒ surface provenance and propose deletion (never unprompted removal);
+live value ⇒ open the draft PR that should have existed; unclear ⇒
+one-line owner ask. Owner-authored branches (`jimcresswell/jim-next…`)
+get the ask, never a unilateral disposition.
+
+## Acceptance criteria (each with a proof)
+
+- Every census PR row carries an executed disposition (merged sha or
+  closed-with-grounds link), re-derived against the live PR list at
+  completion — `owner-held`: the closing report enumerates each row's
+  outcome with links; the owner confirms nothing is silently dropped.
+- Zero branches without PRs (excluding platform-managed refs), against
+  a fresh `ls-remote` at completion — `repo-safe`: the census script's
+  no-PR sweep returns empty at the closing run.
+- The pushed-implies-PR invariant has a durable enforcement home
+  (rule/sweep graduated through the estate's rules process), not just
+  this plan's memory — `owner-held`: the landed rule or sweep named in
+  the closing report.
+- No disposition removed work without surfaced provenance and, for
+  deletions, an owner word — `owner-held`: deletion asks visible in
+  the record.
+
+## Out of scope
+
+- Executing Matt's (mantagen) lanes — tracked and reported, moved by
+  their owner.
+- Re-litigating adjudications already recorded in the superseded
+  ledger — they carry forward; only genuinely new facts reopen one.
+- The coordination-branch fold cycle (its own doctrine governs).
+- Bulk branch deletion without per-branch first-hand reads — speed
+  never licenses skipping the read.
+
+## Todos (oldest-first; slices sized at pickup per PDR-132)
+
+1. **#731 Parallax reconcile — the queue's head and the owner's named
+   surprise**: fire the single dated seat ask (or Director-execution
+   ruling if the owner prefers) immediately at ratification; the
+   reconcile shape is determinate in the ratified skills plan (WS6).
+2. **Director-executable backlog, oldest first**: #734/#745
+   adjudications; #746; then the plans-truing set (#766, #769, #771,
+   #774, #788, #792) at their recorded adjudications; #805; the
+   custodial pair (#818/#819).
+3. **Orphan-branch sweep, oldest first** per the ledger's per-branch
+   procedure (draft PRs opened as found-live; deletion asks batched
+   into ONE owner card per sweep round, never one-per-branch).
+4. **Invariant graduation**: route "pushed ⇒ draft PR exists" through
+   the rules process with the census sweep as its enforcement arm.
+5. **Closing report**: re-derived census, every row's outcome, the
+   superseded ledger archived with its pointer.
