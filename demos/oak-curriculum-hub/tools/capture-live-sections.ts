@@ -32,7 +32,7 @@ import {
   type CaptureSession,
 } from '@oaknational/fidelity-review/orchestrator';
 import { assertServerUp } from '@oaknational/fidelity-review/dev-server';
-import { DEFAULT_BASE, SERVER_HINT } from './capture-checks';
+import { APP_SENTINEL, DEFAULT_BASE, SERVER_HINT } from './capture-checks';
 import { FIDELITY_PAIRS, type FidelityPair } from './fidelity-pairs';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 
@@ -143,7 +143,7 @@ export async function captureLiveSections(
   width: number,
   session: CaptureSession,
 ): Promise<Result<number, string>> {
-  const up = await assertServerUp(base, SERVER_HINT);
+  const up = await assertServerUp(base, SERVER_HINT, APP_SENTINEL);
   if (!up.ok) {
     return err(`CAPTURE FAIL: ${up.error}`);
   }

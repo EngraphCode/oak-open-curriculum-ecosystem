@@ -19,7 +19,11 @@ import process from 'node:process';
 
 import { err, ok, type Result } from '@oaknational/result';
 
+import { resolveDevCommand, type DevCommand } from './dev-command';
+import { probeIdentity, type ServerSentinel } from './server-identity';
 import { describeThrown } from './support';
+
+export { judgeServerIdentity, type IdentityProbe, type ServerSentinel } from './server-identity';
 
 const READY_WAIT_MS = 120_000;
 const POLL_MS = 1000;
@@ -30,45 +34,7 @@ export type DevServerHandle =
   | { readonly mode: 'attached' }
   | { readonly mode: 'spawned'; readonly stop: () => Promise<Result<void, string>> };
 
-export interface DevCommand {
-  readonly bin: string;
-  readonly args: readonly string[];
-}
-
-const JS_ENTRY_EXTENSIONS = ['.js', '.cjs', '.mjs'] as const;
-
-/**
- * Resolve the `pnpm dev` invocation to absolute paths — never a PATH search
- * (Sonar S4036): the pnpm that launched this tool announces itself via
- * `npm_execpath`. A JS entry (corepack's pnpm.mjs, nvm's pnpm.cjs) runs under
- * the current node binary; a native pnpm binary runs directly by its absolute
- * path. Anything else fails loud — this repo is pnpm-only.
- */
-export function resolveDevCommand(
-  npmExecPath: string | undefined,
-  nodeBin: string,
-): Result<DevCommand, string> {
-  if (npmExecPath === undefined || npmExecPath === '') {
-    return err(
-      'dev-server: npm_execpath is not set — run this tool through a pnpm script (e.g. pnpm tool:fidelity)',
-    );
-  }
-  if (!path.isAbsolute(npmExecPath)) {
-    // A relative value would spawn via PATH lookup, exactly the search the
-    // absolute-paths contract above exists to prevent (Sonar S4036).
-    return err(
-      `dev-server: npm_execpath (${npmExecPath}) is not an absolute path — refusing a PATH lookup`,
-    );
-  }
-  const lowerBasename = path.basename(npmExecPath).toLowerCase();
-  if (!lowerBasename.includes('pnpm')) {
-    return err(`dev-server: npm_execpath (${npmExecPath}) is not pnpm — this repo is pnpm-only`);
-  }
-  if (JS_ENTRY_EXTENSIONS.some((ext) => lowerBasename.endsWith(ext))) {
-    return ok({ bin: nodeBin, args: [npmExecPath, 'dev'] });
-  }
-  return ok({ bin: npmExecPath, args: ['dev'] });
-}
+export { resolveDevCommand, type DevCommand } from './dev-command';
 
 async function responds(base: string): Promise<boolean> {
   try {
@@ -76,6 +42,22 @@ async function responds(base: string): Promise<boolean> {
     return true;
   } catch {
     return false;
+  }
+}
+
+/** Signal-0 probe of the spawned process GROUP — the primary release
+ *  proof: POSIX keeps the pgid reserved while any member exists, so
+ *  ESRCH here means the whole group is gone. An HTTP probe can be
+ *  defeated by a socket-holding-but-header-withholding server; this
+ *  cannot. */
+function groupGone(pid: number): boolean {
+  try {
+    process.kill(-pid, 0);
+    return false;
+  } catch (error: unknown) {
+    const code =
+      error !== null && typeof error === 'object' && 'code' in error ? error.code : undefined;
+    return code === 'ESRCH';
   }
 }
 
@@ -104,21 +86,34 @@ function stopSpawned(pid: number, base: string): () => Promise<Result<void, stri
       // pnpm alone orphans the next process holding the port.
       process.kill(-pid, 'SIGTERM');
     } catch (error: unknown) {
+      if (groupGone(pid)) {
+        // Idempotent teardown: already-gone IS the goal state (a natural
+        // exit or a second stop() call reads as success, never failure).
+        process.stdout.write(`dev server group ${pid} already gone\n`);
+        return ok(undefined);
+      }
       return err(`dev-server: SIGTERM failed — ${describeThrown(error)}`);
     }
-    const released = await pollUntil(async () => !(await responds(base)), SIGTERM_GRACE_MS);
+    // Primary release proof: the process GROUP is gone (signal-0 probe);
+    // the port answer is printed corroboration only.
+    const released = await pollUntil(() => Promise.resolve(groupGone(pid)), SIGTERM_GRACE_MS);
     if (!released) {
       try {
         process.kill(-pid, 'SIGKILL');
       } catch {
         // The group died between the poll and the kill — that is the goal state.
       }
-      const killed = await pollUntil(async () => !(await responds(base)), RELEASE_WAIT_MS);
+      const killed = await pollUntil(() => Promise.resolve(groupGone(pid)), RELEASE_WAIT_MS);
       if (!killed) {
-        return err(`dev-server: pid ${pid} did not release ${base} after SIGKILL`);
+        return err(`dev-server: process group ${pid} survived SIGKILL`);
       }
     }
-    process.stdout.write(`dev server pid ${pid} terminated, ${base} released\n`);
+    const stillAnswering = await responds(base);
+    process.stdout.write(
+      stillAnswering
+        ? `dev server group ${pid} gone — WARNING: something still answers on ${base} (foreign server?)\n`
+        : `dev server group ${pid} gone, ${base} released\n`,
+    );
     return ok(undefined);
   };
 }
@@ -159,11 +154,15 @@ const ATTACH_ASSERT_MS = 10_000;
  *  forever on a server that accepted but never responded, and each app
  *  carried its own copy). `hint` is the app's own start-it advice,
  *  rendered into the failure. */
-export async function assertServerUp(base: string, hint: string): Promise<Result<void, string>> {
-  if (await pollUntil(() => responds(base), ATTACH_ASSERT_MS)) {
-    return ok(undefined);
+export async function assertServerUp(
+  base: string,
+  hint: string,
+  sentinel: ServerSentinel,
+): Promise<Result<void, string>> {
+  if (!(await pollUntil(() => responds(base), ATTACH_ASSERT_MS))) {
+    return err(`no server reachable at ${base} within ${ATTACH_ASSERT_MS / 1000}s. ${hint}`);
   }
-  return err(`no server reachable at ${base} within ${ATTACH_ASSERT_MS / 1000}s. ${hint}`);
+  return probeIdentity(base, sentinel);
 }
 
 /** Attach to a responding dev server, or spawn one and wait until it is ready.
@@ -175,11 +174,18 @@ export async function assertServerUp(base: string, hint: string): Promise<Result
 export async function ensureDevServer(
   base: string,
   demoDir: string,
+  sentinel: ServerSentinel,
 ): Promise<Result<DevServerHandle, string>> {
   if (!path.isAbsolute(demoDir)) {
     return err(`dev-server: demoDir (${demoDir}) must be an absolute path`);
   }
   if (await responds(base)) {
+    // The attach path is where the wrong-service hazard is LARGEST (a
+    // custom --base typed while another app runs) — identity gates it.
+    const identity = await probeIdentity(base, sentinel);
+    if (!identity.ok) {
+      return err(identity.error);
+    }
     process.stdout.write(`dev server already up at ${base} — attaching (will not stop it)\n`);
     return ok({ mode: 'attached' });
   }
@@ -191,13 +197,28 @@ export async function ensureDevServer(
   if (!spawned.ok) {
     return spawned;
   }
-  const pid = spawned.value;
+  return awaitSpawnedReady(spawned.value, base, sentinel);
+}
+
+/** Wait for the spawned group to answer AND prove it is ours; any
+ *  failure reaps the group before erring. */
+async function awaitSpawnedReady(
+  pid: number,
+  base: string,
+  sentinel: ServerSentinel,
+): Promise<Result<DevServerHandle, string>> {
   process.stdout.write(`spawned pnpm dev (pid ${pid}), waiting for ${base}…\n`);
   const ready = await pollUntil(() => responds(base), READY_WAIT_MS);
   if (!ready) {
-    const stop = stopSpawned(pid, base);
-    await stop();
+    await stopSpawned(pid, base)();
     return err(`dev-server: not ready within ${READY_WAIT_MS / 1000}s`);
+  }
+  // Ready = answering AND provably OURS: a startup race that bound a
+  // different service on the port is a loud identity failure here.
+  const identity = await probeIdentity(base, sentinel);
+  if (!identity.ok) {
+    await stopSpawned(pid, base)();
+    return err(identity.error);
   }
   return ok({ mode: 'spawned', stop: stopSpawned(pid, base) });
 }

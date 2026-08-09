@@ -44,7 +44,7 @@ import { MATCHED_GEOMETRY_SCALE } from '@oaknational/fidelity-review/capture-fla
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 import { err, type Result } from '@oaknational/result';
 
-import { DEFAULT_BASE, SERVER_HINT } from './capture-checks';
+import { APP_SENTINEL, DEFAULT_BASE, SERVER_HINT } from './capture-checks';
 import { runCaptures } from './capture-live-demo';
 import { captureLiveSections } from './capture-live-sections';
 import { driveExportSections } from './drive-export-sections';
@@ -140,12 +140,12 @@ async function main(): Promise<Result<void, string>> {
   }
 
   const run: CaptureRun = {
-    assertServerUp: (base) => assertServerUp(base, SERVER_HINT),
+    assertServerUp: (base) => assertServerUp(base, SERVER_HINT, APP_SENTINEL),
     capturePhase,
     report: (serverMode) => report(serverMode),
   };
 
-  const server = await ensureDevServer(flags.value.base, DEMO_DIR);
+  const server = await ensureDevServer(flags.value.base, DEMO_DIR, APP_SENTINEL);
   if (!server.ok) {
     return server;
   }

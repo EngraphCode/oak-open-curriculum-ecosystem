@@ -67,6 +67,7 @@ import { assertServerUp } from '@oaknational/fidelity-review/dev-server';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 
 import {
+  APP_SENTINEL,
   DEFAULT_BASE,
   isUnhydrated,
   resolveRoutes,
@@ -190,7 +191,7 @@ async function main(): Promise<Result<void, string>> {
   const base = baseRes.value;
   const routes = resolveRoutes(argv);
 
-  const up = await assertServerUp(base, SERVER_HINT);
+  const up = await assertServerUp(base, SERVER_HINT, APP_SENTINEL);
   if (!up.ok) {
     return err(`CAPTURE FAIL: ${up.error}`);
   }
