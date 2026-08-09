@@ -38,6 +38,11 @@ export interface CheckOutcome {
    * green over it certifies an incomplete corpus (worked instance: nine
    * canonicals sat unsummonable on main behind a green `--check`). */
   readonly skipped: readonly string[];
+  /** How many canonicals discovery produced. Zero is never a healthy estate
+   * state — it means a missing or unreadable `.agent/skills` root (the
+   * injected fs collapses read errors to empty lists), and check mode must
+   * refuse rather than certify an empty corpus as up to date. */
+  readonly canonicalCount: number;
 }
 
 export type CheckerFs = DiscoveryFs;
@@ -81,5 +86,11 @@ export async function checkAdapters(
     }
   }
 
-  return { drifted, missing, duplicates: discovery.duplicates, skipped: discovery.skipped };
+  return {
+    drifted,
+    missing,
+    duplicates: discovery.duplicates,
+    skipped: discovery.skipped,
+    canonicalCount: discovery.canonicals.length,
+  };
 }

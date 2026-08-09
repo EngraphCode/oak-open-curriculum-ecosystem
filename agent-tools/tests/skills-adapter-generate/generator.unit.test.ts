@@ -277,6 +277,18 @@ describe('checkAdapters', () => {
     expect(result.missing).toEqual([]);
   });
 
+  it('reports the discovered canonical count so an empty corpus can refuse loudly', async () => {
+    const directories = new Map<string, readonly string[]>([['/repo/.agent/skills', []]]);
+    const files = new Map<string, string>();
+
+    const result = await checkAdapters(
+      { repoRoot: '/repo', prefix: 'oak-' },
+      makeTreeFs(directories, files),
+    );
+
+    expect(result.canonicalCount).toBe(0);
+  });
+
   it('surfaces skipped directories — content no harness can summon must fail the check', async () => {
     const directories = new Map([['/repo/.agent/skills', ['ghost']]]);
     const files = new Map<string, string>();
