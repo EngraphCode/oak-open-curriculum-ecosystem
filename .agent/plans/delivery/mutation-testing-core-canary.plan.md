@@ -3,7 +3,10 @@ id: mutation-testing-core-canary
 node_type: delivery
 name: "Mutation-testing capability canary on the simplest core package"
 overview: "Complete the proven Stryker canary rapidly: one small PR restores the conserved spike configs in a shape that clears the type-check blocker, runs the full mutation pass on type-helpers, and lands a doctrine-bound survivor ledger."
-status: sketch
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-09
+ratified_where: "Owner card at the Director seat 2026-08-09 ~07:4xZ (card answer: 'Ratify as scoped' — the re-scope supersession was surfaced on the card; session Plover lifts Troposphere b10c37)"
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate
