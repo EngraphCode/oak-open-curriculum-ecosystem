@@ -371,6 +371,22 @@ surface. Decisions, made:
   package** — CURED in PR #836 itself (exported `WorkspaceTsupConfig` +
   `Options` re-export for TS2883; `default` export condition for
   the vite `require` path); recorded here as evidence, no action.
+- **Cold-install failure at the root postinstall** (found 2026-08-09
+  by the PR's own CI, Actions run 31316920558, after the freeze-window
+  push): the install-time bootstrap builds the agent-tools leaf
+  closure with each package's own tsup, and the migrated leaf tsup
+  configs import `@oaknational/workspace-config/tsup` from `dist` —
+  absent on a cold checkout, so every cold `pnpm install` (CI, Vercel,
+  fresh clones) died before any build could exist. CURED in PR #836
+  (commit cd822f20f: workspace-config joins the bootstrap's
+  install-time closure at position 0 — sound precisely because of the
+  zero-internal-deps invariant — with per-dep staleness witness
+  artifacts replacing the assumed `dist/index` barrel). Recorded as
+  evidence with the general lesson: a dist-consumed config package has
+  THREE consumer classes — turbo-ordered runs, direct tool invocation,
+  and install-time hooks — and the third is structurally invisible to
+  every warm-tree check, so cold-install verdicts come only from CI or
+  a genuinely cleaned closure.
 - **Install-time peer-range lag warnings** (`typescript` 6.0.3 vs
   third-party `^5` ranges: tsconfck, openapi-typescript, a
   typescript-eslint 8.56.1 resolution) — pre-existing estate-wide,

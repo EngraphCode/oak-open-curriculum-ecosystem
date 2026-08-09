@@ -967,3 +967,38 @@ channel where their first resume act sweeps.
   table, a11y's browser-level axe) — they found what static reading
   structurally cannot. Evidence depth beat lens count; a future panel
   could be five lenses with probe budgets rather than seven readers.
+
+## 2026-08-09 ~14:0xZ (Wren calls Downdraft, 6b29b5) — compaction-freeze harvest 2
+
+METACOGNITION BITES (two, both structural): (1) the commit ceremony's
+fingerprints verify the STAGED set, never the COMMITTED set — F-157
+proved a green workflow can lie at the last hop; the inherited "exit 0
+= intent landed" assumption died inside the estate's most ceremonial
+path. Discipline until the cure lands: git show --stat after every
+landing. (2) An uncommitted edit on the SHARED primary checkout is
+fleet-visible state, not private drafting — my in-flight plan edit
+blocked every seat's push through the working-tree markdownlint gate,
+and a mid-freeze peer had to cure my line to leave. Write-then-commit
+promptly on the primary, or draft in scratch and land whole.
+
+FREE-PLAY SEEDS: (1) F-157's structural cure is one cheap line —
+post-commit, diff intent.files against git show --name-only and fail
+loud on any drop; kills the class. (2) Gates that NAME the cure in
+their failure text turn coordination events into mechanical merges —
+the isolation validator fired three times for real today (live
+red-proof, root-deletion fallout, fidelity-review absorption) and each
+firing carried its own recipe; Civet executed the adjacency from my
+error text alone. (3) F-158 wants a task-hash parity probe: two turbo
+--dry=json runs from the two invocation contexts, diffed on env keys +
+input sets.
+
+CONCEPT-EXPLORATION: justified no-run — every open question is formed
+and homed (register rows with candidate cures; plan known-issues
+ledger with named homes).
+
+WINDOW STATE at freeze: PR #836 open, current with main (absorption
+merge 5a8105c4b pushed), review with Jim + mantagen; plan ratified,
+todo 2 next (probe-worktree seeds), todo 3 executable at merge;
+known-issues ledger landed via Civet's rewrap commit 839f20dac (their
+message, my section's content — attribution noted, content correct);
+F-157/F-158 registered.
