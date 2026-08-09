@@ -277,6 +277,18 @@ describe('checkAdapters', () => {
     expect(result.missing).toEqual([]);
   });
 
+  it('surfaces skipped directories — content no harness can summon must fail the check', async () => {
+    const directories = new Map([['/repo/.agent/skills', ['ghost']]]);
+    const files = new Map<string, string>();
+
+    const result = await checkAdapters(
+      { repoRoot: '/repo', prefix: 'oak-' },
+      makeTreeFs(directories, files),
+    );
+
+    expect(result.skipped).toEqual(['ghost']);
+  });
+
   it('detects drift in a modified adapter', async () => {
     const claude = expectedAdapter('claude');
     const agents = expectedAdapter('agents');

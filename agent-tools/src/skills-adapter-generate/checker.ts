@@ -32,6 +32,12 @@ export interface CheckOutcome {
    * on-disk adapter can only match one claimant, silently shadowing the
    * other. Mirrors the generator's emission refusal. */
   readonly duplicates: readonly string[];
+  /** Directories discovery walked past without producing a canonical — a
+   * failing state in check mode exactly as in generate mode: a skipped
+   * directory is content no harness can summon, and a checker that stays
+   * green over it certifies an incomplete corpus (worked instance: nine
+   * canonicals sat unsummonable on main behind a green `--check`). */
+  readonly skipped: readonly string[];
 }
 
 export type CheckerFs = DiscoveryFs;
@@ -75,5 +81,5 @@ export async function checkAdapters(
     }
   }
 
-  return { drifted, missing, duplicates: discovery.duplicates };
+  return { drifted, missing, duplicates: discovery.duplicates, skipped: discovery.skipped };
 }

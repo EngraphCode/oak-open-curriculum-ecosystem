@@ -36,15 +36,11 @@ function parseFlags(args: readonly string[]): CliFlags {
   return { clear, check, prefix };
 }
 
-async function runCheck(repoRoot: string, prefix: string): Promise<number> {
-  const result = await checkAdapters({ repoRoot, prefix });
-  if (
-    result.drifted.length === 0 &&
-    result.missing.length === 0 &&
-    result.duplicates.length === 0
-  ) {
-    stdout.write('All adapters are up to date.\n');
-    return 0;
+function reportCheckFailures(result: Awaited<ReturnType<typeof checkAdapters>>): void {
+  if (result.skipped.length > 0) {
+    stderr.write(
+      `Skipped directories (content no harness can summon): ${result.skipped.join(', ')}\n`,
+    );
   }
   if (result.duplicates.length > 0) {
     stderr.write(
@@ -60,6 +56,20 @@ async function runCheck(repoRoot: string, prefix: string): Promise<number> {
     stderr.write(`Drifted adapters:\n${driftedList}\n`);
   }
   stderr.write('Run `pnpm skills:check` after regenerating to confirm.\n');
+}
+
+async function runCheck(repoRoot: string, prefix: string): Promise<number> {
+  const result = await checkAdapters({ repoRoot, prefix });
+  const failureCount =
+    result.drifted.length +
+    result.missing.length +
+    result.duplicates.length +
+    result.skipped.length;
+  if (failureCount === 0) {
+    stdout.write('All adapters are up to date.\n');
+    return 0;
+  }
+  reportCheckFailures(result);
   return 1;
 }
 
