@@ -11,10 +11,11 @@ const config: KnipConfig = {
     // @latest once floated; 3.15.2 pins that dep exactly (2.0.0-beta.4), and
     // the "scoped pnpm override" a prior comment cited no longer exists.
     '@mcpjam/cli',
-    // Stryker mutation testing (invoked via CLI, not imports)
-    '@stryker-mutator/core',
+    // Stryker mutation testing: core and vitest-runner are now referenced by
+    // packages/core/type-helpers/stryker.config.mjs (knip's stryker plugin
+    // resolves them), so only the checker — installed for future typed
+    // mutation runs, referenced by no config yet — still needs the ignore.
     '@stryker-mutator/typescript-checker',
-    '@stryker-mutator/vitest-runner',
     // ESLint ecosystem: consumed transitively via typescript-eslint flat config
     '@typescript-eslint/eslint-plugin',
     '@typescript-eslint/parser',
@@ -105,6 +106,7 @@ const config: KnipConfig = {
         'src/validators/markdown-links/validate-markdown-links.ts',
         'src/validators/pretooluse-guard-routing/validate-pretooluse-guard-routing.ts',
         'src/validators/policy-reappraisal/validate-policy-reappraisal.ts',
+        'src/validators/identity-naming/validate-identity-naming.ts',
         'src/validators/check-ci-parity/validate-check-ci-parity.ts',
         'src/validators/plan-schema/validate-plan-corpus.ts',
         'src/validators/plan-schema/check-plan-gate-drift.ts',

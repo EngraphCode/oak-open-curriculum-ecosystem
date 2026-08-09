@@ -29,6 +29,33 @@ The deny payload surfaces the current rule citation so the doctrinal
 anchor travels with the refusal. This rule is the permanent home for
 the older distilled lesson.
 
+## The Commit Is Also a Sweep (shared-tree discipline)
+
+Staging discipline alone does not close the class: **a bare
+`git commit` takes the WHOLE index**, so on a shared checkout a
+pathspec-clean `git add` followed by a bare commit still ships every
+file any peer staged in between. Five recorded instances in one week
+(2026-08-01 → 2026-08-07) shaped the cure, including a Director
+seating commit that swept six of a peer's staged consolidation files
+(2026-08-07, attribution corrected on the stream the same hour) and a
+race that interleaved between the two halves of a single `&&`-chained
+add-and-commit — chaining does not close the window. On any shared
+tree:
+
+1. **Prefer pathspec on the COMMIT itself** (`git commit -- <paths>`),
+   not just on the add — it commits only the named paths regardless of
+   what else sits in the index.
+2. **Immediately before every commit, run
+   `git diff --cached --name-only` UNTRUNCATED and read it.** A
+   non-empty pre-existing index holding paths you did not stage is a
+   stop-and-coordinate, never a commit — and a head-truncated status
+   read that hides staged rows counts as not having looked.
+3. **Inspect the staged diff CONTENT before any ceremony commit** (a
+   merge, fold, or seating-block commit) — a +4/−2 file list can still
+   carry a peer's working-tree edits swept into the index
+   (2026-08-02 instance: a contract violation rode two commits on
+   origin).
+
 ## Why
 
 Wildcard staging silently bundles unrelated work into a single commit.

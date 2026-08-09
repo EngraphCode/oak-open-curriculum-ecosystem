@@ -26,6 +26,7 @@
 import type { JSX } from 'react';
 
 import type { LandingPageViewProps } from '../view-props.js';
+import { ROUTED_ASSET_BASE } from '../../app/static-asset-paths.js';
 import {
   OAK_DS_BASE,
   OAK_MINT,
@@ -103,12 +104,25 @@ function DocumentHead({
       <meta name="theme-color" content={OAK_MINT} />
       <ShareMetadata siteOrigin={siteOrigin} />
       {appVersion !== undefined && <meta name="app-version" content={appVersion} />}
-      <link rel="icon" href="/favicons/favicon.ico" sizes="any" />
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png" />
-      <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png" />
-      <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png" />
+      {/* Every href below is routed-base-prefixed (MCP-509): the canonical
+          host only forwards `/mcp*` to this app, so a root-relative asset
+          request lands on the main website's 404 instead. */}
+      <link rel="icon" href={`${ROUTED_ASSET_BASE}/favicons/favicon.ico`} sizes="any" />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href={`${ROUTED_ASSET_BASE}/favicons/favicon-32x32.png`}
+      />
+      <link
+        rel="icon"
+        type="image/png"
+        sizes="16x16"
+        href={`${ROUTED_ASSET_BASE}/favicons/favicon-16x16.png`}
+      />
+      <link rel="apple-touch-icon" href={`${ROUTED_ASSET_BASE}/favicons/apple-touch-icon.png`} />
       <link rel="stylesheet" href={`${OAK_DS_BASE}/styles.css`} />
-      <link rel="stylesheet" href="/landing-page.css" />
+      <link rel="stylesheet" href={`${ROUTED_ASSET_BASE}/landing-page.css`} />
     </head>
   );
 }
@@ -119,6 +133,7 @@ export function LandingPageDocument({
   resources,
   siteOrigin,
   mcpEndpointUrl,
+  protectedResourceMetadataUrl,
   appVersion,
 }: LandingPageViewProps): JSX.Element {
   return (
@@ -145,7 +160,10 @@ export function LandingPageDocument({
             <section data-region="content">
               <div className="oak-band band-lemon">
                 <div className="oak-container">
-                  <ConnectSection mcpEndpointUrl={mcpEndpointUrl} />
+                  <ConnectSection
+                    mcpEndpointUrl={mcpEndpointUrl}
+                    protectedResourceMetadataUrl={protectedResourceMetadataUrl}
+                  />
                 </div>
               </div>
               <div className="oak-container oak-stack">

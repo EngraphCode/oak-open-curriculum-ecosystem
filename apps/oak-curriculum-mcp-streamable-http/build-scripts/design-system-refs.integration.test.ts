@@ -18,7 +18,7 @@
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
 
-import { OAK_DS_PUBLIC_DIRNAME } from '../src/app/static-asset-paths.js';
+import { OAK_DS_PUBLIC_DIRNAME, ROUTED_ASSET_BASE } from '../src/app/static-asset-paths.js';
 import { OAK_DS_BASE, OAK_MINT } from '../src/landing-page/components/design-system-refs.js';
 import { resolveOakDsPackageRoot } from './copy-oak-ds.js';
 import { readPackageText } from './test-helpers/oak-ds-fixtures.js';
@@ -42,7 +42,11 @@ describe('design-system references', () => {
   it('serves the design system from the directory the copy step publishes', () => {
     // The URL prefix in the markup and the directory the build writes are one
     // decision. Split them and the page 404s every asset with a green suite.
-    expect(OAK_DS_BASE).toBe(`/${OAK_DS_PUBLIC_DIRNAME}`);
+    //
+    // Since MCP-509 the prefix carries a third participant: the routed base the
+    // canonical host actually forwards to this app. All three are now one
+    // decision, so this assertion composes them rather than naming a literal.
+    expect(OAK_DS_BASE).toBe(`${ROUTED_ASSET_BASE}/${OAK_DS_PUBLIC_DIRNAME}`);
   });
 
   it('pins the theme-colour literal to the design system’s mint token', async () => {

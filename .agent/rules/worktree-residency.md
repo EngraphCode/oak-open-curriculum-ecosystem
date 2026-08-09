@@ -64,6 +64,17 @@ residency with `EnterWorktree` before its first lane action.
    arm time and keep it for life (documented). Keep the explicit
    `cd <repo-root> || exit 1` first line on every arm as
    belt-and-braces (the watcher rule's existing discipline).
+
+   **Platform-isolation refinement (owner-worded fleet cure,
+   2026-08-06):** Claude Code v2.1.223 landed worktree isolation
+   mid-fleet-day — worktree-RESIDENT seats refused Monitor arms and
+   principal-checkout git while primary-resident monitors passed the
+   whole time. Residency determines the guard, not the command. The
+   fleet order under isolation-affected versions: **launch at the
+   principal, arm monitors THERE, then enter lanes** — a monitor a
+   lane needs armed from inside the worktree may be refused outright.
+   The CLI is the front door; recurring watches belong in agent-tools
+   (the watch-commands backlog).
 5. **Residency never re-homes coordination surfaces.** Comms, claims,
    and the commit queue stay resolved to the PRIMARY coordination home
    with explicit absolute paths, per `worktree-hygiene` clause 8 and

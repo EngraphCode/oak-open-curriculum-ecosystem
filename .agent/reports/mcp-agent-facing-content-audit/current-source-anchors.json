@@ -1133,10 +1133,10 @@
             "file": "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/tool-definition.ts",
             "anchors": [
               {
-                "tokenCount": 14,
-                "tokenSha256": "87232a094e1a73af5ed71d69905ba9d11d17112233fc66ef7f952caca12d3993",
-                "indexToken": "using",
-                "indexOffset": 8
+                "tokenCount": 17,
+                "tokenSha256": "1e3aaa9364eb9f36a3b5290e68f1db48446896a1fddfd6df4d4794e2bbe7cfab",
+                "indexToken": "semantic",
+                "indexOffset": 6
               }
             ]
           }
@@ -6807,10 +6807,10 @@
             "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx",
             "anchors": [
               {
-                "tokenCount": 4,
-                "tokenSha256": "66b7ecb60aa33481234fe28cf6df5b3fb22afb0ade95984c92c57faab4639c8c",
-                "indexToken": "Private",
-                "indexOffset": 2
+                "tokenCount": 2,
+                "tokenSha256": "302ce3d9ea7d2ceadb7b69462fc0e6e86035f1a20d84bad78ef7d2af351bbffe",
+                "indexToken": "Public",
+                "indexOffset": 0
               }
             ]
           }
@@ -6921,10 +6921,10 @@
             "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx",
             "anchors": [
               {
-                "tokenCount": 18,
-                "tokenSha256": "fd344879d77617c11554aee7cb0905d3e7dc0009f81d0d6815bb6c3f797338c9",
-                "indexToken": "invitation",
-                "indexOffset": 16
+                "tokenCount": 12,
+                "tokenSha256": "0b5688a01bf5681cc80f4eb46c78dfc86beab2b1dd84aed1963c3b2de6be8985",
+                "indexToken": "prompted",
+                "indexOffset": 3
               }
             ]
           }
