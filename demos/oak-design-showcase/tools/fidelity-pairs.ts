@@ -72,9 +72,13 @@ export type FidelityPair = z.infer<typeof PairSchema>;
 export type PairingMap = z.infer<typeof PairingMapSchema>;
 
 /** One export page load for the render arm: the URL (export-server-relative)
- *  and the PNG per pair to write from it, named by pair id. */
+ *  and the PNG per pair to write from it, named by pair id. `expectsFrame`
+ *  marks pages that host the specimen in an iframe — the render self-check
+ *  must refuse a frameless render of such a page rather than passing on
+ *  the chrome's own metrics. */
 export interface ExportRenderTarget {
   readonly url: string;
+  readonly expectsFrame: boolean;
   readonly shots: readonly { readonly pairId: string; readonly kind: 'fold' | 'full' }[];
 }
 
@@ -185,5 +189,11 @@ export const EXPORT_RENDER_TARGETS: readonly ExportRenderTarget[] = (() => {
     shots.push({ pairId: pair.id, kind: pair.kind === 'page-abovefold' ? 'fold' : 'full' });
     byUrl.set(url, shots);
   }
-  return [...byUrl.entries()].map(([url, shots]) => ({ url, shots }));
+  return [...byUrl.entries()].map(([url, shots]) => ({
+    url,
+    // The picker chrome hosts the specimen in an iframe; the specimen
+    // pages are unframed.
+    expectsFrame: url === 'Identity Switchboard.html',
+    shots,
+  }));
 })();

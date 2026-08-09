@@ -49,6 +49,13 @@ export function resolveDevCommand(
       'dev-server: npm_execpath is not set — run this tool through a pnpm script (e.g. pnpm tool:fidelity)',
     );
   }
+  if (!path.isAbsolute(npmExecPath)) {
+    // A relative value would spawn via PATH lookup, exactly the search the
+    // absolute-paths contract above exists to prevent (Sonar S4036).
+    return err(
+      `dev-server: npm_execpath (${npmExecPath}) is not an absolute path — refusing a PATH lookup`,
+    );
+  }
   const lowerBasename = path.basename(npmExecPath).toLowerCase();
   if (!lowerBasename.includes('pnpm')) {
     return err(`dev-server: npm_execpath (${npmExecPath}) is not pnpm — this repo is pnpm-only`);

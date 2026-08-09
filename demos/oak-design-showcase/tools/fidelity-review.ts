@@ -21,7 +21,7 @@ import { fileURLToPath } from 'node:url';
 
 import { ok, err, type Result } from '@oaknational/result';
 
-import { resolveBase, resolveWidth } from './capture-checks';
+import { DEFAULT_BASE, resolveBase, resolveWidth } from './capture-checks';
 import { assertServerUp, captureLivePages } from './capture-live-pages';
 import { ensureDevServer, type DevServerHandle } from './dev-server';
 import { FIDELITY_PAIRS } from './fidelity-pairs';
@@ -49,31 +49,34 @@ async function capturePhase(base: string, width: number): Promise<Result<void, s
   return ok(undefined);
 }
 
-/** Diff one eligible pair and write its diff PNG into the report dir. */
-function diffPair(pair: (typeof FIDELITY_PAIRS.pairs)[number]): PairResult {
+/** Diff one eligible pair and write its diff PNG into the report dir.
+ *  Absent evidence is a reportable row (missing-evidence); a PNG that
+ *  exists but cannot be decoded is CORRUPT evidence — a mechanical failure
+ *  that must fail the run, never a normal report row. */
+function diffPair(pair: (typeof FIDELITY_PAIRS.pairs)[number]): Result<PairResult, string> {
   const exportPath = path.resolve(DEMO_DIR, pair.exportPng);
   const livePath = path.resolve(DEMO_DIR, pair.livePng);
   const missing = [pair.exportPng, pair.livePng].filter(
     (candidate) => !fs.existsSync(path.resolve(DEMO_DIR, candidate)),
   );
   if (missing.length > 0) {
-    return { pair, status: 'missing-evidence', missing };
+    return ok({ pair, status: 'missing-evidence', missing });
   }
   if (!pair.diffEligible) {
-    return { pair, status: 'reference-only' };
+    return ok({ pair, status: 'reference-only' });
   }
   const outcome = diffPngs(fs.readFileSync(exportPath), fs.readFileSync(livePath));
   if (!outcome.ok) {
-    return { pair, status: 'missing-evidence', missing: [outcome.error] };
+    return err(`fidelity: corrupt evidence for pair ${pair.id} — ${outcome.error}`);
   }
   const diffPngName = `diff-${pair.id}.png`;
   fs.writeFileSync(path.join(REPORT_DIR, diffPngName), outcome.value.diffPng);
   const { changedRatio, exportDims, liveDims, croppedTo, caveats } = outcome.value;
-  return {
+  return ok({
     pair,
     status: 'diffed',
     diff: { changedRatio, diffPngName, exportDims, liveDims, croppedTo, caveats },
-  };
+  });
 }
 
 function loadRegister(): Result<FidelityRegister, string> {
@@ -140,7 +143,14 @@ function buildAndWriteReport(
   if (!register.ok) {
     return register;
   }
-  const results = FIDELITY_PAIRS.pairs.map((pair) => diffPair(pair));
+  const results: PairResult[] = [];
+  for (const pair of FIDELITY_PAIRS.pairs) {
+    const outcome = diffPair(pair);
+    if (!outcome.ok) {
+      return outcome;
+    }
+    results.push(outcome.value);
+  }
   summariseToStdout(results, register.value);
   writeReport(results, register.value, {
     base: flags.base,
@@ -152,17 +162,31 @@ function buildAndWriteReport(
   return ok(undefined);
 }
 
-/** Capture both sides, then report; tear down a spawned server on every path. */
+/** Capture both sides, then report. The spawned server is reaped on EVERY
+ *  path — a thrown Playwright/Node error, a failed reachability check, or
+ *  a failed capture must never leave the detached dev process alive
+ *  (no-unbounded-host-load); the finally block is the single teardown. */
 async function captureAndReport(
   flags: Flags,
   server: DevServerHandle,
 ): Promise<Result<void, string>> {
-  const captured = await capturePhase(flags.base, flags.width);
-  const reported = captured.ok ? buildAndWriteReport(flags, server.mode) : captured;
-  if (server.mode === 'spawned' && !flags.keepServer) {
-    const stopped = await server.stop();
-    if (!stopped.ok) {
-      return err(reported.ok ? stopped.error : `${reported.error}; then ${stopped.error}`);
+  let reported: Result<void, string> = err('fidelity: run did not start');
+  try {
+    const up = await assertServerUp(flags.base);
+    if (!up.ok) {
+      reported = err(`fidelity: ${describeThrown(up.error)}`);
+    } else {
+      const captured = await capturePhase(flags.base, flags.width);
+      reported = captured.ok ? buildAndWriteReport(flags, server.mode) : captured;
+    }
+  } catch (error) {
+    reported = err(`fidelity: ${describeThrown(error)}`);
+  } finally {
+    if (server.mode === 'spawned' && !flags.keepServer) {
+      const stopped = await server.stop();
+      if (!stopped.ok) {
+        reported = err(reported.ok ? stopped.error : `${reported.error}; then ${stopped.error}`);
+      }
     }
   }
   return reported;
@@ -179,13 +203,17 @@ async function main(): Promise<Result<void, string>> {
     return buildAndWriteReport(flags.value, 'report-only');
   }
 
+  // A custom --base is never spawned: the workspace dev script binds the
+  // default port, so spawning for any other base would wait the full
+  // ready deadline on a port nothing will answer. Custom bases attach to
+  // a pre-started server or fail loud.
+  if (flags.value.base !== DEFAULT_BASE) {
+    return captureAndReport(flags.value, { mode: 'attached' });
+  }
+
   const server = await ensureDevServer(flags.value.base);
   if (!server.ok) {
     return server;
-  }
-  const up = await assertServerUp(flags.value.base);
-  if (!up.ok) {
-    return err(`fidelity: ${describeThrown(up.error)}`);
   }
   return captureAndReport(flags.value, server.value);
 }

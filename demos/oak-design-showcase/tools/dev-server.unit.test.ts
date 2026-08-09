@@ -36,7 +36,9 @@ describe('resolveDevCommand', () => {
       args: ['dev'],
     });
   });
+});
 
+describe('resolveDevCommand refusals', () => {
   it('fails loud when npm_execpath is absent (tool run outside a pnpm script)', () => {
     const result = resolveDevCommand(undefined, NODE_BIN);
     expect(!result.ok && result.error).toContain('npm_execpath is not set');
@@ -45,6 +47,11 @@ describe('resolveDevCommand', () => {
   it('fails loud when npm_execpath is empty', () => {
     const result = resolveDevCommand('', NODE_BIN);
     expect(!result.ok && result.error).toContain('npm_execpath is not set');
+  });
+
+  it('rejects a relative npm_execpath — a PATH lookup is never spawned', () => {
+    const result = resolveDevCommand('pnpm', NODE_BIN);
+    expect(!result.ok && result.error).toContain('not an absolute path');
   });
 
   it('rejects a non-pnpm package manager — this repo is pnpm-only', () => {

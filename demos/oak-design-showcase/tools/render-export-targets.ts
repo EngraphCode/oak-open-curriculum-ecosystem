@@ -84,7 +84,7 @@ async function renderTarget(
   await page.addStyleTag({ content: '*{animation:none!important;transition:none!important}' });
   await page.waitForTimeout(2000);
   const metrics = await measureRender(page, resp === null ? 0 : resp.status());
-  const suspect = isRenderSuspect(metrics);
+  const suspect = isRenderSuspect(metrics, target.expectsFrame);
   logRender(target.url, metrics, suspect);
   for (const shot of target.shots) {
     const out = path.join(OUT_DIR, `export-${shot.pairId}.png`);

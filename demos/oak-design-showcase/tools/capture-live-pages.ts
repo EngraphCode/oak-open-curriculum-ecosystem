@@ -95,10 +95,15 @@ export async function captureLivePages(
     byRoute.set(pair.liveRoute, group);
   }
   const browser = await chromium.launch({ headless: true });
-  const ctx = await browser.newContext({ viewport: { width, height: 1000 }, deviceScaleFactor: 2 });
-  const page = await ctx.newPage();
   let suspect = false;
   try {
+    // Context/page creation sits INSIDE the protected region: a rejection
+    // here must still close the browser, or the Chromium process leaks.
+    const ctx = await browser.newContext({
+      viewport: { width, height: 1000 },
+      deviceScaleFactor: 2,
+    });
+    const page = await ctx.newPage();
     for (const [route, routePairs] of byRoute) {
       suspect = (await captureRoute(page, base, route, routePairs)) || suspect;
     }

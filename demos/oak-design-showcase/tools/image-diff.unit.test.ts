@@ -25,7 +25,7 @@ describe('diffPngs on matched dimensions', () => {
 
     const result = diffPngs(image, solidPng(10, 10, [255, 255, 255, 255]));
 
-    expect(result.ok).toBe(true);
+    expect(result.ok ? undefined : result.error).toBeUndefined();
     if (result.ok) {
       expect(result.value.changedRatio).toBe(0);
       expect(result.value.caveats).toHaveLength(0);
@@ -39,7 +39,7 @@ describe('diffPngs on matched dimensions', () => {
 
     const result = diffPngs(white, black);
 
-    expect(result.ok).toBe(true);
+    expect(result.ok ? undefined : result.error).toBeUndefined();
     if (result.ok) {
       expect(result.value.changedRatio).toBe(1);
     }
@@ -62,7 +62,7 @@ describe('diffPngs on mismatched dimensions', () => {
 
     const result = diffPngs(tall, short);
 
-    expect(result.ok).toBe(true);
+    expect(result.ok ? undefined : result.error).toBeUndefined();
     if (result.ok) {
       expect(result.value.croppedTo).toStrictEqual({ width: 10, height: 10 });
       expect(result.value.exportDims).toStrictEqual({ width: 10, height: 30 });
@@ -78,7 +78,7 @@ describe('diffPngs on mismatched dimensions', () => {
 
     const result = diffPngs(white, black);
 
-    expect(result.ok).toBe(true);
+    expect(result.ok ? undefined : result.error).toBeUndefined();
     if (result.ok) {
       const decoded = PNG.sync.read(result.value.diffPng);
       expect({ width: decoded.width, height: decoded.height }).toStrictEqual({

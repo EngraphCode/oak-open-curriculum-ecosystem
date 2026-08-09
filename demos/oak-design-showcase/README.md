@@ -149,4 +149,7 @@ design system. Enforced by instrument, not review vigilance:
   (`fidelity-register.json`). Diff magnitude never gates: non-zero exit
   means a mechanical failure only. Flags: `--base <url>`, `--width <px>`,
   `--report-only`, `--keep-server`. Until the `/identity-switchboard` routes
-  land, a run reports the live side as missing evidence — expected.
+  land, a FULL run fails at the live-capture arm (the routes 404 and the
+  blank self-check refuses them — by design); use `--report-only` to build
+  the report from whatever evidence exists, which shows the live side as
+  missing.

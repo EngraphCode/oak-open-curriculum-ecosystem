@@ -23,8 +23,8 @@ describe('resolveWidth', () => {
     expect(result.ok ? result.value : result.error).toBe(1920);
   });
 
-  it('rejects non-integer and out-of-range widths loudly', () => {
-    for (const bad of ['abc', '319', '5001']) {
+  it('rejects non-integer, suffixed, fractional, and out-of-range widths loudly', () => {
+    for (const bad of ['abc', '319', '5001', '1440px', '1440.5']) {
       const result = resolveWidth(['--width', bad], NO_ENV);
 
       expect(result.ok).toBe(false);
@@ -68,34 +68,43 @@ describe('isSuspect', () => {
 describe('isRenderSuspect', () => {
   it('accepts a healthy unframed page', () => {
     expect(
-      isRenderSuspect({
-        status: 200,
-        bodyHeight: 5949,
-        textLength: 3544,
-        frameTextLength: undefined,
-      }),
+      isRenderSuspect(
+        {
+          status: 200,
+          bodyHeight: 5949,
+          textLength: 3544,
+          frameTextLength: undefined,
+        },
+        false,
+      ),
     ).toBe(false);
   });
 
   it('flags an unframed page that fails the generic blank thresholds', () => {
     expect(
-      isRenderSuspect({ status: 200, bodyHeight: 120, textLength: 40, frameTextLength: undefined }),
+      isRenderSuspect(
+        { status: 200, bodyHeight: 120, textLength: 40, frameTextLength: undefined },
+        false,
+      ),
     ).toBe(true);
     expect(
-      isRenderSuspect({
-        status: 404,
-        bodyHeight: 5949,
-        textLength: 3544,
-        frameTextLength: undefined,
-      }),
+      isRenderSuspect(
+        { status: 404, bodyHeight: 5949, textLength: 3544, frameTextLength: undefined },
+        false,
+      ),
     ).toBe(true);
   });
+});
 
+describe('isRenderSuspect on framed pages', () => {
   it('counts a healthy frame toward a thin parent — the picker chrome shape', () => {
     // The picker page's own text sits above the threshold only barely; its
     // iframe's specimen text carries the rest.
     expect(
-      isRenderSuspect({ status: 200, bodyHeight: 1297, textLength: 190, frameTextLength: 3544 }),
+      isRenderSuspect(
+        { status: 200, bodyHeight: 1297, textLength: 190, frameTextLength: 3544 },
+        true,
+      ),
     ).toBe(false);
   });
 
@@ -103,7 +112,16 @@ describe('isRenderSuspect', () => {
     // The wrong-target class the generic classifier cannot see: healthy
     // chrome around a specimen that never loaded.
     expect(
-      isRenderSuspect({ status: 200, bodyHeight: 1297, textLength: 383, frameTextLength: 0 }),
+      isRenderSuspect({ status: 200, bodyHeight: 1297, textLength: 383, frameTextLength: 0 }, true),
+    ).toBe(true);
+  });
+
+  it('flags a page expected to host a frame that renders none — healthy chrome around an unmounted specimen', () => {
+    expect(
+      isRenderSuspect(
+        { status: 200, bodyHeight: 1297, textLength: 383, frameTextLength: undefined },
+        true,
+      ),
     ).toBe(true);
   });
 });

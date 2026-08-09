@@ -20,12 +20,14 @@ describe('parseRegister', () => {
   it('accepts a well-formed register', () => {
     const result = parseRegister(JSON.stringify({ version: 1, entries: [validEntry] }));
 
-    expect(result.ok).toBe(true);
+    expect(result.ok ? undefined : result.error).toBeUndefined();
     if (result.ok) {
       expect(result.value.entries).toHaveLength(1);
     }
   });
+});
 
+describe('parseRegister rejections', () => {
   it('rejects invalid JSON with a readable error, never a throw', () => {
     const result = parseRegister('{not json');
 
@@ -41,6 +43,22 @@ describe('parseRegister', () => {
         version: 1,
         entries: [{ ...validEntry, id: 'other-pair/masthead-search-width' }],
       }),
+    );
+
+    expect(result.ok).toBe(false);
+  });
+
+  it('rejects an entry carrying an unknown field — a typo must never be silently stripped', () => {
+    const result = parseRegister(
+      JSON.stringify({ version: 1, entries: [{ ...validEntry, dispositionn: 'fix' }] }),
+    );
+
+    expect(result.ok).toBe(false);
+  });
+
+  it('rejects an impossible calendar date', () => {
+    const result = parseRegister(
+      JSON.stringify({ version: 1, entries: [{ ...validEntry, date: '2026-99-99' }] }),
     );
 
     expect(result.ok).toBe(false);
@@ -67,7 +85,7 @@ describe('entriesForPair', () => {
       }),
     );
 
-    expect(parsed.ok).toBe(true);
+    expect(parsed.ok ? undefined : parsed.error).toBeUndefined();
     if (parsed.ok) {
       expect(entriesForPair(parsed.value, 'picker-oak-full')).toHaveLength(1);
       expect(entriesForPair(parsed.value, 'no-such-pair')).toHaveLength(0);
