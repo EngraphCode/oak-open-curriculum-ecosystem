@@ -68,6 +68,10 @@ PR #745 seat slice → orphan sweep → invariant graduation → closing
 report. In parallel: #746 executes via the ratified corpus-amendment
 plan (subagent, owner's un-draft word still gates its merge); the
 pair #836 and #834 land at their own seats; #774 holds per its row.
+**Pause (owner word 2026-08-09 ~15:4xZ): all remaining rows pause at
+safe states until 2026-08-10 — the rest of the day is design-lane
+only. In-flight completions (the #746 amendment round, the
+turbo-edges PR) finish as make-safe; nothing new starts.**
 
 ## The census ledger (2026-08-09; oldest first)
 

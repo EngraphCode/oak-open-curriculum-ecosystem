@@ -1002,3 +1002,58 @@ todo 2 next (probe-worktree seeds), todo 3 executable at merge;
 known-issues ledger landed via Civet's rewrap commit 839f20dac (their
 message, my section's content — attribution noted, content correct);
 F-157/F-158 registered.
+
+## 2026-08-09 ~15:4xZ — Plover lifts Troposphere (b10c37): practice-tool feedback at owner word
+
+- **Codex-dialogues review leg rated HIGH VALUE by the owner** (his word:
+  "running the codex dialogues approach is high value"), on the #836
+  evidence: independent convergence on every core finding plus two novel
+  ones (turbo glob-resolution gap; explicit hypothesis-boundary honesty).
+  Candidate graduation: a Codex leg joins the standing review-round shape
+  for significant PRs (alongside Copilot + expert legs) — route through
+  the rules process, not assumed. Mechanics that worked: read-only
+  sandbox, approval-policy never, cwd at the checkout, self-contained
+  brief with the review dimensions left open for independent judgment.
+
+## 2026-08-09 ~14:5xZ (Wren calls Downdraft, 6b29b5) — day-end wrap harvest (post-resume window)
+
+SURPRISES/CORRECTIONS: (1) The freeze broadcast's "full gates green" was
+FALSE at utterance — the absorption push's CI run concluded failure at
+13:52Z while the freeze claim rode on local gates + an earlier run. The
+class is finish-line fluency (the metacognition directive's "commits
+pushed — said before the push", exactly); discipline adopted: a CI-green
+claim names the CONCLUDED run id, and a push during wind-down leaves an
+obligation to watch or hand off the run. (2) The primary repo was
+silently SHALLOW (3 boundary entries in .git/shallow, origin unknown) —
+discovered only when a merge with main's new tip failed "unrelated
+histories"; cured with git fetch --unshallow. Shaped like the Stryker
+silent-fallback class: a tool proceeding happily on partial substrate.
+(3) claude[bot] on #836 is a spend-limit skip notice, not a review (org
+overage cap reached) — spend-errors-retry discipline applied, recorded
+not escalated.
+
+METACOGNITION BITE (framing): my plan dispositioned depcruise by its
+CONFIGURATION ("polices layer direction only, orphan rule excludes
+config files") rather than its NATURE (a dependency resolver) — the
+owner's "I was hoping you would arrive at dependency cruiser" means the
+right-tool question was askable at plan-author time. Reflex to keep:
+when writing an instrument's disposition into Evidence, ask "is this
+what the tool IS, or what our config currently makes it do?"
+
+candidate: pattern — "warm masks cold": three instances in one lane
+(fresh-worktree eslint crash, fresh-worktree knip crash, CI postinstall
+cold-install) plus the shallow-repo find; the generator is state that
+every long-lived local tree accumulates and no fresh environment has.
+A dist-consumed package has THREE consumer classes (turbo-ordered,
+direct-invocation, install-time) and only cold environments exercise
+the third. Possible enforcement home: the packet's follow-up 7
+(bootstrap-closure ordering check) covers the narrow form; the broad
+form may deserve a distilled.md entry after a second out-of-lane
+instance.
+
+BOUNDS RECORDED: CI verdict on 7b22b71e8 pending at wrap; the
+~/.claude/plans surface was listed (5 files, other-session plan-mode
+artifacts) but not deep-read at day-end — recorded as a bound, not a
+completed sweep. Loss-scan pass 2 fixed point: a third pass re-finds
+only comms-ephemerality (cured by the new thread record) and the
+pending-CI bound (recorded); recursion closed.
