@@ -817,3 +817,76 @@ re-fire, checks in flight. Zero local dirt in the PR worktree. The
 READY signal is post-compaction work by construction (checks + Copilot
 round 3 must land), and the Director's own freeze routes it to the ARC
 channel where their first resume act sweeps.
+
+## 2026-08-09 ~11:3xZ (Wren calls Downdraft, 6b29b5) — todo-1 pre-execution review harvest
+
+- TURBO TRAVERSES devDependencies FOR ^build: a devDependency-only
+  package cycle hard-fails `turbo run build` (exit 1), and the
+  package-scoped `dependsOn: []` override silences the failure but
+  leaves a "Circular package dependency" WARNING — an override is a
+  bypass, not a cure. Consequence class: a shared-config package that
+  every workspace devDepends on can itself devDepend on NOTHING
+  internal. The reviewer proved this in a scratch turbo repo before
+  any code existed — probe-budget on the highest-uncertainty claim.
+- PATH-ARITHMETIC ESCAPES: `resolve(dirname(fileURLToPath(
+  import.meta.url)), 'file.ts')` is a cross-boundary reach a
+  specifier scanner never sees (the e2e base's setupFiles line). A
+  boundary validator scanning import specifiers needs the
+  path-arithmetic pattern class too, or its TSDoc names the gap.
+- LEXICAL CONTAINMENT beats resolution: "does this relative
+  specifier leave the workspace directory" is answerable with
+  path.resolve alone — never resolve to a real file, which deletes
+  the extension-mapping/index/exports edge cases AND keeps the
+  verdict checkout-independent (no realpath, symlinks-by-policy
+  absent).
+- Stale-reference counts multiply: the "one" stale $TURBO_ROOT$
+  turbo input was FIVE occurrences; a singular-instance assumption
+  about config drift undercounts by default — enumerate, never spot.
+
+## 2026-08-09 ~12:1xZ (Wren calls Downdraft, 6b29b5) — owner correction mid-scaffold
+
+- OWNER WORD (verbatim): "tests prove behaviour, not configuration,
+  and tests are not always the right tool for a piece of validation."
+  Fired on two just-authored unit-test files asserting the config
+  package's exported VALUES (targets, formats, include globs) —
+  configuration duplicated into a change-detector. Deleted, plus the
+  package's test script and purposeless vitest.config.ts. The
+  package's assurance case now stated in its README: consuming proof
+  (estate gates through the exports) + validator fixture red-proof +
+  canary sandbox probe. Check-fires fixtures REMAIN test-shaped
+  (they prove behaviour of the check). Homed durably in per-user
+  memory (tests-prove-behaviour-not-configuration).
+- Worktree guard note confirmed again: complex Monitor arms refuse
+  from a worktree session — exit, arm at primary, re-enter (re-arm 5
+  followed this path).
+
+## 2026-08-09T13:02Z — PR-1a consolidation window (Civet spins Cavern): mechanism notes
+
+- Library reclassification changes the threat model, not just the path:
+  byte-identical code moved from a demo app into packages/libs fired
+  CodeQL's library-input HTML taint rule (exported params = untrusted)
+  AND the libs tier's no-ambient-process boundary. Plan the cures for
+  the RECLASSIFICATION when consolidating, not just the move. The
+  sanctioned process shape is logger node.ts's explicit
+  `import process from 'node:process'`.
+- exit-codes-in-band caught live: `pnpm check | tail; echo EXIT:$?`
+  reported tail's 0 while the run had FAILED (the notification said
+  "completed (exit 0)"). Only `cmd > log 2>&1; echo $?` is honest.
+  The failure it hid was real (a boundary-list test).
+- `git rm` stages immediately: a later pathspec `git add` + bare
+  `git commit` swept the staged deletions into the WRONG commit —
+  the atomic-landing breach the test reviewer flagged came from exactly
+  this. In a multi-commit build, read the staged set before each
+  commit; a bare commit takes the whole index.
+- Reviewer conflicts resolve by evidence depth, not arrival order: the
+  pre-execution reviewer ruled capture-checks stays app-local
+  ("deliberate strictness"); the deep architecture pass diffed the
+  copies and found an UNPORTED BUG FIX (parseInt accepting '1440px') —
+  drift recast as choice. The deep verdict won because it verified.
+- A seven-lens opus panel on a ~50-file consolidation PR converged
+  cleanly: every high finding was CONFIRMED-with-repro, near-zero
+  overlap between lenses, and the a11y browser-level run found a real
+  WCAG 2.1.1 violation the unit axe proof structurally cannot see
+  (fragment mounting leaves 68 rules inapplicable). The unit-proof
+  docblock now states that scope limit — overclaiming a proof's scope
+  is its own defect class.

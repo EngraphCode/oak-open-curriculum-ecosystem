@@ -1393,7 +1393,7 @@ no-handover-commits.
   → the register migration + story cards, in the merged record itself.
 - **NOW OPEN: the W0.7 v0 sitting** (rubric + graded calibration with
   enumerated fixture corpus + wow-verdict register mint on the
-  `demos/oak-curriculum-hub/tools/fidelity-register.ts` precedent —
+  `packages/libs/fidelity-review/src/fidelity-register.ts` precedent (moved from the hub tools at the 2026-08-09 consolidation) —
   zod-at-the-boundary, owner-editable JSON, vitest parse test SAME PR
   per schemas-from-day-1). Pre-sitting reads done: W0.7/W0.10 story
   text, the precedent trio, studio-source pages enumerated (3 composed
