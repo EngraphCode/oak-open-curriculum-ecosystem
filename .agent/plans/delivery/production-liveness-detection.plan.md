@@ -15,8 +15,8 @@ depends_on:
 owner_gates:
   - awaiting: owner-decision
     clears_when: 'The owner names the alert destination that reliably interrupts.'
-    expires: 2026-08-06
-last_updated: 2026-08-03
+    expires: 2026-08-31
+last_updated: 2026-08-09
 ---
 
 # Detection: production loss is noticed within five minutes
@@ -33,10 +33,7 @@ checks therefore cover the moment of change and nothing after it: a
 deployment that is healthy when it lands and unhealthy an hour later
 passes every gate the estate has.
 
-**Corrected 2026-08-04.** An earlier draft of this node argued the gap
-differently — that environment changes take effect on *running*
-deployments, making deployment-triggered checks structurally blind to
-that class. Vercel documents the opposite:
+The vendor contract sharpens the gap. Per Vercel:
 
 > Changes to environment variables are not applied to previous
 > deployments, they only apply to new deployments. You must redeploy
@@ -44,14 +41,11 @@ that class. Vercel documents the opposite:
 > deployment.
 > — [Managing environment variables](https://vercel.com/docs/environment-variables/managing-environment-variables)
 
-So an environment edit reaches production at the *next* deployment, not
-immediately. That makes the argument for this node **stronger, not
-weaker**: the damage lands at a deployment that looks routine and
-carries no signal that its configuration changed underneath it, and the
-interval between the edit and that deployment can be arbitrarily long.
-Any incident timeline built on the old premise should be re-derived
-against the vendor contract; the supported shape is
-change → redeploy → verify.
+An environment edit reaches production at the *next* deployment, not
+immediately — so the damage lands at a deployment that looks routine
+and carries no signal that its configuration changed underneath it, and
+the interval between the edit and that deployment can be arbitrarily
+long. The supported operating shape is change → redeploy → verify.
 
 An uptime monitor exists with **no alert rule attached**. A monitor
 without an alert relocates the silence rather than ending it: it shows
@@ -68,12 +62,55 @@ rather than merely that the process answers, a distinction a future
 auth-layer break would depend on. An alert rule routes to a destination
 that interrupts (owner gate above).
 
+A bare 401 cannot distinguish the app's auth layer from an edge
+answering in front of it, so the probe asserts an app-only artefact:
+the `WWW-Authenticate` challenge naming the protected-resource-metadata
+resource, which only the app's auth layer emits. The edge in front of
+the app is thereby a named probe-path dependency — the probe exercises
+edge plus app, and an edge-served 401 without the challenge is a
+failure, not a pass.
+
+The `POST /mcp` → 401 check needs three instrument capabilities, each
+recorded with its own evidence status (2026-08-05):
+
+- **custom request headers** (the `Accept` header) — discharged: the
+  owner's console screenshot shows the monitor's header configuration;
+- **a non-2xx expected-status assertion** (401 as healthy) — not
+  discharged: the status-code assertion capability is Early Access, not
+  GA, so its availability to this organisation is verified at execution
+  pickup;
+- **a non-GET request method** (`POST`) — not discharged: verified on
+  the same surface at pickup.
+
+If the assertion capability is unavailable, the fallback is named: the
+independent heartbeat probe (mechanism 2) carries the auth assertion —
+its scheduled job asserts the 401-with-challenge response itself and
+withholds the check-in on failure — and the uptime monitor keeps only
+the `/healthz` 200 probe.
+
+Confirmed 2026-08-05, resolving an earlier finding that conflated
+headers with authentication: the probe's headers cover `Accept` only
+(`Accept: application/json, text/event-stream`, without which the
+transport answers 406 before the auth layer is reached); no credential
+of any kind enters the uptime monitor configuration — the probe asserts
+the *unauthenticated* surface, and a **200** on `POST /mcp` is a
+failure, because it would mean the auth layer stopped challenging.
+
 **2. Independent heartbeat.** A scheduled job probes production and
 checks in to a Sentry cron monitor **only when the probe passes**, so a
 missed check-in is itself the alert — silence cannot be mistaken for
 health. Deliberately a different failure domain from the uptime
 monitor: the uptime probe survives a scheduler outage, the heartbeat
 survives a probe-side gap.
+
+**Decision-record dependency.** ADR-162 records the owner's 2026-04-23
+externalisation of production synthetic monitoring (recorded 2026-08-03
+by PR #743): monitoring is operated outside this repository, and the
+repo's obligation ends at exposing a healthy `/healthz`. Criterion 5's
+version-controlled heartbeat workflow reverses that direction for this
+one job, so delivering it includes amending ADR-162's record — the
+amendment is part of this node's delivery, not a follow-up, the same
+pattern the recovery node used for ADR-163 §10.
 
 Both mechanisms detect and neither diagnoses; the alert must carry the
 failure text that
@@ -98,10 +135,17 @@ produces.
    missed-check-in alert observed; **verifier the owner**, evidence on
    MCP-481. Distinct from criteria 1 and 2: it exercises the other
    failure domain.
-4. Detection-to-notification is within five minutes — proof:
-   **owner-held**, a recorded timing from the criterion-1 injection
-   (probe interval plus alert latency); **verifier the owner**,
-   evidence on MCP-481.
+4. Detection-to-notification is within five minutes, with **Failure
+   Tolerance named as a required monitor parameter** — proof:
+   **owner-held**, a recorded timing from the criterion-1 injection;
+   **verifier the owner**, evidence on MCP-481. The arithmetic must
+   clear five minutes with the tolerance included: detection time is
+   probe interval × failure tolerance, plus alert latency. Sentry's
+   default tolerance of three consecutive failures at a one-minute
+   interval reaches detection at three minutes, leaving two for
+   notification — within the target; the same default at a five-minute
+   interval reaches fifteen, which fails this criterion. The monitor
+   configuration therefore records interval and tolerance together.
 5. The heartbeat job is version-controlled and its schedule is visible
    — proof: **repo-safe**, the workflow file and its schedule in the
    repository.
@@ -138,4 +182,6 @@ other guarantee waits on someone noticing. Siblings:
 [`release-redeploy-recovery`](release-redeploy-recovery.plan.md),
 [`boot-failure-observability`](boot-failure-observability.plan.md).
 
-*Authored by Birch holds Seedling (e48fe2, agent), 2026-08-03.*
+*Authored by Birch holds Seedling (e48fe2, agent), 2026-08-03. Amended
+2026-08-09 per the adjudicated 2026-08-05 eleven-expert review
+(`deploy-reliability-corpus-amendment`, rows 24–30 and 35).*

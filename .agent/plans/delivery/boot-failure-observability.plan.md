@@ -11,7 +11,7 @@ tickets:
   - MCP-480
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-03
+last_updated: 2026-08-09
 ---
 
 # Diagnosis: boot failures reach Sentry
@@ -30,9 +30,9 @@ Two failures, one boundary.
 runtime config before constructing observability, and Sentry is built
 *from* that config. A configuration failure therefore throws before any
 Sentry client exists. Proven empirically on 2026-08-03: zero Sentry
-events from two outages (107 production 500s, five days of dead
-previews), while a deliberate probe error reached Sentry in seconds —
-the error pipe works; boot is simply upstream of it.
+events from either of the day's two outages (scale and duration figures
+recorded on MCP-480), while a deliberate probe error reached Sentry in
+seconds — the error pipe works; boot is simply upstream of it.
 
 **Under-informative.** The environment validator's message is
 exemplary: it names the failing key, the rule, and where to fix it. The
@@ -41,7 +41,8 @@ configuration: pseudonym keyring failed strict validation`, which does
 not distinguish JSON parsing, strict shape, base64url canonicality, or
 uniqueness. Content-free was a deliberate secret-safety choice and the
 caution is right, but it overshot: the same boundary now carries two
-diagnostic doctrines, and the opaque one cost hours.
+diagnostic doctrines, and the opaque one's diagnosis cost is recorded
+on MCP-480.
 
 Fail-fast itself is correct and stays — booting without valid
 pseudonymisation configuration would be a privacy defect, not a
@@ -53,14 +54,28 @@ degraded mode.
 Sentry client" — the following clauses are the deliverable, because
 this sits inside the ADR-218 privacy posture:
 
-- activates only from strictly valid live-mode inputs; `off` and
-  `fixture` modes remain authoritative and make no network call;
+- activates only from Sentry inputs that parse strictly under the
+  shared `SentryEnvSchema` (`@oaknational/env`) with live mode
+  selected; `off` and `fixture` modes remain authoritative and make no
+  network call, and on inputs the schema rejects the reporter stays
+  silent — no activation, no network call, no new failure;
 - sanitises through the shared redaction barrier, with no bypass path;
 - never includes the invalid value, only the guard that rejected it;
 - awaits a **bounded flush** before `boundaryError` rethrows, since an
   unflushed capture on an immediately-throwing path is no capture;
 - failure of the reporter itself never masks or delays the original
   boundary error.
+
+The activation axis is stated against the surface as it exists. This
+app still resolves the shared `SentryEnvSchema` and gates delivery on
+`SENTRY_MODE` (`off` / `fixture` / `sentry`); the ADR-171 orthogonal
+axes (`OBSERVABILITY_SINKS` typed list, fixture as an orthogonal tee)
+are the recorded successor shape, and the app's migration to them is
+named implementation debt in its `docs/observability.md`. The migration
+edge for this reporter is declared here: when the app adopts the axes,
+"live mode selected" restates as "the `sentry` sink selected", the
+fixture tee stays no-network, and the redaction barrier remains
+unconditional on both shapes.
 
 **2. Guards name the guard.** The keyring resolver reports which check
 failed plus shape facts — entry count, id pattern match, key length,
@@ -75,7 +90,9 @@ estate: **name the guard, never the value.**
    reporter, asserting the captured event's content.
 2. `off` and `fixture` modes make no network call from the bootstrap
    reporter — proof: **repo-safe**, the same suite asserting zero
-   transport interactions in those modes.
+   transport interactions in those modes (the mode axis as the app
+   implements it today; the declared migration edge restates this
+   criterion on the ADR-171 axes when the app migrates).
 3. No captured event contains the offending value — proof:
    **repo-safe**, assertion over the captured payload for the invalid
    input's byte content.
@@ -88,6 +105,11 @@ estate: **name the guard, never the value.**
    **owner-held**, a deliberately invalid preview environment producing
    a Sentry error naming the key; verifier the lane agent, evidence
    recorded on MCP-480.
+7. Invalid Sentry inputs leave the reporter silent — proof:
+   **repo-safe**, tests driving the boot boundary with Sentry inputs
+   that fail `SentryEnvSchema` and asserting no activation, zero
+   transport interactions, and the original boundary error propagating
+   unchanged.
 
 ## Out of scope
 
@@ -117,7 +139,11 @@ Diagnosis arm. Siblings:
 [`release-redeploy-recovery`](release-redeploy-recovery.plan.md),
 [`production-liveness-detection`](production-liveness-detection.plan.md).
 Detection tells you production is down; this node is what tells you
-why, and without it an alert reproduces the thirty-minute diagnosis
-cost of 2026-08-03.
+why, and without it an alert reproduces the 2026-08-03 diagnosis cost
+recorded on MCP-480.
 
-*Authored by Birch holds Seedling (e48fe2, agent), 2026-08-03.*
+*Authored by Birch holds Seedling (e48fe2, agent), 2026-08-03. Amended
+2026-08-09 per the adjudicated 2026-08-05 eleven-expert review
+(`deploy-reliability-corpus-amendment`, rows 20–23; row 23 records the
+bounded-reporter design verified sound, with the evidence to be cited
+at execution pickup).*
