@@ -1689,3 +1689,90 @@ no-handover-commits.
   vitest green-through-worker-death harness gap, the hub-side inherited
   defects). Owner word this window: cure gate races via the CLEAN
   SCRIPT (root pnpm clean + ordered turbo build), never raw rm.
+
+## COMPACTION FREEZE 5 (2026-08-09T13:55:59Z) — Civet spins Cavern (054f5e); ALL PROCESSES STOPPED at owner word; resume RE-ARMS
+
+Owner word: "prepare for compaction ... and then stop all processes" —
+unlike freeze 4, the monitors are STOPPED at this freeze. The resume
+ceremony RE-ARMS per start-right (watcher first, F-95 assert, foreground
+gap sweep, heartbeat pair with label pr1b-settle or the next cycle's);
+nothing is retained running. Claim 645b9e0b-afea-4743-8cc6-5dad3ad39575
+RETAINED as a registry row (heartbeats stop with the processes; the
+resume re-heartbeats before anything else).
+
+STATE AT FREEZE (all first-hand):
+
+- PR-1a COMPLETE: #835 "Consolidate the fidelity tooling core at its
+  second consumer" MERGED to main at 365a6f7c7 under Director grant
+  5B2F71AD (fold ruling: option (b) seam accepted — the Director
+  independently derived the same risk-of-loss bar; the ruling text is
+  on the ARC channel at 13:33:00Z). Branch deleted, worktree
+  fidelity-consolidation PRUNED (ancestry proven). The package lives at
+  packages/libs/fidelity-review (foundation lib, ADR-041 dated
+  amendment; subpaths support/image-diff/dev-server/static-path-guard/
+  capture-flags/register/report/review-helpers; no barrel). The Sonar
+  duplication condition that blocked #834 is structurally cleared.
+- PR-1b IN FLIGHT: #834 head c0d415726 = c8957e293 (merge of post-835
+  main) + the swap commit (showcase consumes the package; app-local
+  keeps pairing map, studio-overlay export server + export-paths
+  overlay decisions importing the shared guards, frame-aware
+  classifiers, runner CLI; register schema tests live with the schema,
+  app keeps the live-register parse proof in
+  fidelity-register-live.unit.test.ts; deps pixelmatch/pngjs/jest-axe
+  and their types DROPPED, @oaknational/fidelity-review workspace:* added).
+  Gates green locally at the freeze: build, unit tests, type-check,
+  lint, knip:gate, identity ratchet census-exact (95 carriers). CI on
+  c0d415726 + a fresh Copilot round were IN FLIGHT at freeze (Copilot
+  requested 13:53Z). Prior review state: 16/16 threads resolved across
+  rounds 1-3 pre-merge-era; the new round reviews the swap.
+- The #835 review corpus (for context at resume): seven-lens opus panel
+  plus Copilot x3 and CodeQL, ~35 findings, all cured or recorded; MCP-534
+  carries the re-scoped follow-ups (serveStatic, withDevServer bracket,
+  corrupt-evidence policy, CLI flag-parse hardening). MCP-533 said
+  "Fixes" on #835 — VERIFY its Linear state at resume; the story
+  completes when #834 lands.
+- 835×836 ADJACENCY (Wren, settled on the canonical wire 13:07Z): the
+  second lander absorbs — for #836's main-merge that is the package's
+  vitest.config.ts/tsup.config.ts one-token swaps to
+  @oaknational/workspace-config subpaths + the devDependency; their
+  validator names the files. No hold, merge order free.
+- Coordination branch coordination/2026-08-09-b5f347 at b0be7c79b +
+  this freeze's continuity commit. Plan node amended through cd341a99a
+  (libs-tier correction). Worktrees: identity-switchboard-pr1 LIVE and
+  CLEAN at pushed head c0d415726; w01-census untouched (untracked
+  W01-CYCLE-PLAN-v2.md + census-types.ts carry state).
+
+RESUME MAP (execute in order):
+
+1. Resume ceremony per start-right — RE-ARM everything (nothing
+   survived the stop): canonical all-channels watcher from PRIMARY,
+   F-95 assert, foreground gap sweep (watcher buffer + ARC channel +
+   canonical stream since 2026-08-09T13:55:59Z), heartbeat pair (claim 645b9e0b,
+   intent identity-switchboard-first-pixels, branch
+   jimcresswell/design-identity-switchboard-pr1, cycle label per the
+   live state), peer-liveness read.
+2. Read #834 first-hand: checks on c0d415726 (Sonar leg included — the
+   swap should hold the duplication clearance; re-fire via empty commit
+   if the analysis dropped), the fresh Copilot round (harvest BODIES
+   incl. suppressed blocks), thread state. Disposition any findings
+   (batch, one push per round), then READY to the Plover-Civet ARC
+   channel — the Director runs recount+grant (#834 needs its OWN
+   grant). At merge: delete branch, prune worktree ONLY after PR-2's
+   plan is considered (the worktree carries nothing unpushed; PR-2
+   starts from a fresh worktree off post-834 main per
+   never-switch-branch-on-primary).
+3. Todo 3 — PR-2 (task #2): the two routes + SegmentedControl + route
+   CSS + unit tests + Playwright cells (identity x theme matrix +
+   no-flash first-paint) + provenance rows + root nav link, per the
+   plan node's §Mechanism verbatim. CARRIED OBLIGATION: move
+   @oaknational/result devDep → dependencies in the SAME commit that
+   makes lib/identities.ts app-reachable; zod stays dev. Per-cycle
+   code-expert pre-execution review BEFORE any PR-2 code (the standing
+   rule; the PR-1a pre-review's worked shape is the model).
+4. Then PR-3 (evidence) and the census return per the plan's todos 4-5.
+
+The governing plan node: .agent/plans/delivery/
+identity-switchboard-first-pixels.plan.md (owner-ratified; amended
+2026-08-09 with the PR-1 split + libs-tier correction). Standing
+memories govern as always; the ARC channel is the Director dialogue
+surface; owner cards issue from the Director's seat only.

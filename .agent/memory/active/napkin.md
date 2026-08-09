@@ -941,3 +941,29 @@ channel where their first resume act sweeps.
   them. The markdown-link VALIDATOR (11,608 links checked) is the honest
   sweep instrument for canonical moves; text grep is only a supplement.
   Standing for every later WS7 group PR.
+
+## FREEZE-5 LENS HARVEST (Civet spins Cavern, ~13:55Z)
+
+- Concept-exploration: consolidate-at-second-consumer completed its FULL
+  arc inside one window — gate refusal → rule fires → extraction →
+  both consumers migrated → the refusing gate passes. The rule's
+  "a required quality gate will refuse it" clause proved literally
+  true, twice (refusal at #834, clearance at #835/#834-swap). The
+  durable generalisation: RECLASSIFICATION IS THE EVENT — moving code
+  into a library changes its threat model (CodeQL library-input),
+  its lint tier (no-ambient-process), and its contract obligations
+  (every caller-shape must hold), independent of any code change.
+- Metacognition: the risk-of-loss bar held at BOTH seats without
+  coordination — I refused the fold under the standing rule, and the
+  Director independently derived the same refusal from their own seat's
+  reading ("my merge authority covers merges, never history rewrites").
+  Structure-over-vigilance demonstrated at the fleet level. Counter-
+  example the same window: the exit-code-piping slip — a rule I could
+  recite failed under batching pressure; rules held as HABIT (the
+  unpiped form as the only form ever typed) survive pressure that
+  rules held as knowledge do not.
+- Free play: the seven-lens opus panel's marginal value concentrated
+  in the two lenses that ran LIVE PROBES (security's 29-row adversarial
+  table, a11y's browser-level axe) — they found what static reading
+  structurally cannot. Evidence depth beat lens count; a future panel
+  could be five lenses with probe budgets rather than seven readers.
