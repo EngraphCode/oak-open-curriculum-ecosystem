@@ -1160,3 +1160,21 @@ resume map → thread record; the assurance-packet pointer → resume map
 lesson → this entry; everything else already homed (plan node, PR
 body, MCP-533/534, claims registry). Second pass over the scan added
 no new loss class.
+
+## 2026-08-09 ~16:2xZ — Plover lifts Troposphere (b10c37): shared-index commit-seam is a recurring class — cure is explicit-pathspec at the COMMIT verb
+
+- **Third instance in two days of one seat's commit sweeping another seat's
+  staged files on the shared primary checkout** (freeze-5: Civet swept Wren's
+  isolation draft; freeze-6 reverse: my `614d7d585` swept Civet's three staged
+  freeze files). Every instance preserved content + pushed — no loss — but the
+  attribution/labelling is wrong (peer files ride a commit whose subject is
+  someone else's work).
+- **Root**: `git add -- <my files>` followed by a BARE `git commit` commits the
+  whole staged index, including anything a peer already staged. The
+  stage-by-explicit-pathspec rule was being honored at `add` but not at `commit`.
+- **Cure (extends stage-by-explicit-pathspec to the commit verb)**: on a shared
+  checkout, ALWAYS `git commit -- <explicit paths>` (or `git commit <paths>`),
+  never a bare `git commit` after `git add`. The pathspec on `commit` bounds the
+  landing to exactly the intended files regardless of index state. Candidate for
+  a hook: warn on bare `git commit` when the staged set exceeds the last `add`'s
+  pathspec. Graduation-worthy — [[stage-by-explicit-pathspec]] sibling.
