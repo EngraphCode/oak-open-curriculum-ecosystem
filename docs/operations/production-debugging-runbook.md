@@ -2,8 +2,25 @@
 
 This runbook provides step-by-step debugging workflows for the Oak Open Curriculum Ecosystem using Phase 2 observability features (correlation IDs, timing metrics, error enrichment).
 
-**Last Updated**: 2026-03-07  
+**Last Updated**: 2026-08-07  
 **Applies To**: HTTP Server (Vercel), Legacy Stdio Server (local/Claude Desktop)
+
+## Production Endpoints and Hosts
+
+- **The canonical client URL is `https://www.thenational.academy/mcp` —
+  permanently** (owner ruling, 2026-08-07: "www…/mcp is now and forever the
+  canonical url"). Clients, connector configs, and documentation point here;
+  never re-point a client at a legacy host.
+- `curriculum-mcp-alpha.oaknational.dev` is a legacy compatibility host;
+  whether it continues to serve is an open owner choice, and the ruling binds
+  the client/production URL and self-description only.
+- The OAuth protected-resource metadata self-describes the canonical host on
+  BOTH hosts (verified in production 2026-08-07), so a client holding an
+  alpha-era resource binding refuses to present its token per RFC 8707 —
+  correct client conduct, not a server defect. The cure is re-registering the
+  client against the canonical URL, never loosening resource validation.
+- Known residue: the root protected-resource-metadata path is unrouted
+  (MCP-347).
 
 ## Overview of Observability Features
 

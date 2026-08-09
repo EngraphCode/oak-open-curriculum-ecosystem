@@ -53,17 +53,16 @@ const writtenWrappers: string[] = [];
 const issues: string[] = [];
 
 const canonicalSkillDirs = await listSubdirs(repoRoot, '.agent/skills');
-for (const skillDir of canonicalSkillDirs) {
-  const skillPath = `.agent/skills/${skillDir}/SKILL-CANONICAL.md`;
-  if (!(await exists(repoRoot, skillPath))) {
-    continue;
-  }
+const validatedCanonicalPaths: string[] = [];
+
+async function validateCanonicalFrontmatter(skillPath: string): Promise<void> {
   const content = await readText(repoRoot, skillPath);
   const frontmatter = extractFrontmatter(content);
   if (!frontmatter) {
     issues.push(`${skillPath}: missing YAML frontmatter block`);
-    continue;
+    return;
   }
+  validatedCanonicalPaths.push(skillPath);
   const classification = getFrontmatterValue(frontmatter, 'classification');
   if (!classification) {
     issues.push(`${skillPath}: missing required 'classification' frontmatter`);
@@ -71,6 +70,26 @@ for (const skillDir of canonicalSkillDirs) {
     issues.push(
       `${skillPath}: 'classification' must be 'active' or 'passive', got '${classification}'`,
     );
+  }
+}
+
+// The ratified skills-estate shape is exactly two levels: a flat individual
+// (`<id>/SKILL-CANONICAL.md`) or a concern-tier member
+// (`<concern>/<id>/SKILL-CANONICAL.md`). A root entry with no canonical is
+// walked one level deeper so concern members are validated like flat
+// members; entries with neither shape are the adapter checker's loud-skip
+// territory, not this validator's.
+for (const skillDir of canonicalSkillDirs) {
+  const skillPath = `.agent/skills/${skillDir}/SKILL-CANONICAL.md`;
+  if (await exists(repoRoot, skillPath)) {
+    await validateCanonicalFrontmatter(skillPath);
+    continue;
+  }
+  for (const memberDir of await listSubdirs(repoRoot, `.agent/skills/${skillDir}`)) {
+    const memberPath = `.agent/skills/${skillDir}/${memberDir}/SKILL-CANONICAL.md`;
+    if (await exists(repoRoot, memberPath)) {
+      await validateCanonicalFrontmatter(memberPath);
+    }
   }
 }
 
@@ -205,7 +224,7 @@ if (await exists(repoRoot, CLAUDE_SETTINGS_PATH)) {
   }
 }
 
-const stats = `${canonicalSkillDirs.length} canonical skills, ${canonicalRules.length} canonical rules, ${canonicalAgentNames.length} reviewer adapters, ${cursorRules.length} Cursor triggers, ${claudeRules.length} Claude rules, ${agentsRules.length} .agents rules`;
+const stats = `${validatedCanonicalPaths.length} canonical skills, ${canonicalRules.length} canonical rules, ${canonicalAgentNames.length} reviewer adapters, ${cursorRules.length} Cursor triggers, ${claudeRules.length} Claude rules, ${agentsRules.length} .agents rules`;
 
 export { reportPortabilityValidation } from './portability-report.js';
 

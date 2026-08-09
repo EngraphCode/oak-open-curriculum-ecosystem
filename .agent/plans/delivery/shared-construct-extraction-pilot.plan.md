@@ -10,10 +10,11 @@ ratified_where: "Owner card at the Director seat 2026-08-06 (card answer: 'Ratif
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate
-tickets: []
+tickets:
+  - MCP-532
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-06
+last_updated: 2026-08-09
 ---
 
 # Shared-construct extraction pilot: the fleet workflow-stage scaffolding
@@ -115,12 +116,15 @@ removal condition.
       docs PR with its probe-evidence JSON (its §6 encoding proposals are
       this pilot's design input; its scaffolding finding is this pilot's
       candidate evidence).
-   c. Complete the mutation canary in its worktree: fix the mutate script
-      to `stryker run stryker.config.ts`, run the full type-helpers pass,
-      bank `run.log`/`report.json`/`report.html`, classify every survivor
-      (no test authored at a mutant), then close the canary — its output
-      is capability evidence consumed by this pilot's assurance step, not
-      a rollout.
+   c. Consume the mutation canary's banked evidence in this pilot's
+      assurance step — capability evidence, not a rollout. *(Amended
+      2026-08-09: the ratified `mutation-testing-core-canary` node owns
+      the completion steps this item previously restated — including a
+      `stryker run stryker.config.ts` script fix its `.mjs` mechanism
+      has since replaced. Executed 2026-08-09: full pass, survivor
+      ledger, and reports banked at
+      `packages/core/type-helpers/mutation-evidence/`, landing via
+      PR 807.)*
 3. **Duplication census** (read-only, one sitting): enumerate the shared
    responsibilities across the two scaffolding directories precisely
    (shared vs domain-specific member by member), run the ten promotion

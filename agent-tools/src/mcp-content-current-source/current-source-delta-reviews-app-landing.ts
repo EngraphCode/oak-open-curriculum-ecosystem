@@ -16,13 +16,27 @@ import {
 export const APP_LANDING_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> = {
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/design-system-refs.ts':
     excluded(
-      'db743e3bd9e6062ec741e3756133c91034bde439e85b3dc8369e92efe60308c3',
+      'b0a04c5a2aef2dc8295a5317e6f8cfc6448c2f5f91e12e00bd06bb3a5f3feb22',
       IMPLEMENTATION_ONLY,
     ),
+  // MCP-511: the protected-resource metadata URL now arrives through the
+  // view-props seam and is passed to ConnectSection. Prop plumbing only —
+  // C341 (page title) and C353 (app-version meta) are unchanged.
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/landing-page-document.tsx':
-    reviewed('7b911a1ae13a5a064e6d2c47dd50604240b4701a60993dd211dad68b0a392f8e', ['C341', 'C353']),
+    reviewed('df935e7db27b730c57fbb55bed5a802dc0e9cbbfcd2d085c8e4385f1697b84dc', ['C341', 'C353']),
+  // MCP-516: two access claims were restated because Clerk moved to production
+  // and sign-in is open to anyone with an Oak account. C343's status tag reads
+  // "Public Beta" (was "Invite Only Private Beta") and C349's sentence names
+  // the account rather than an invitation. Both are owner-authored wordings
+  // replacing statements that had become false; the dispositions are unchanged
+  // and the anchors are re-pointed at the new verbatim text.
+  //
+  // MCP-511 (still current): the OAuth link's href moved from the unqualified
+  // well-known path to the derived path-qualified metadata URL. A destination
+  // address, not agent-facing or user-facing TEXT — the link's own label
+  // ("OAuth 2.1 authorisation") is unchanged.
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/page-sections.tsx': reviewed(
-    'c797cf038730f25cdc0410d0cba0bd4cd94072832a4cf612214b4d09db669be8',
+    'b36fa7dc1d53e4386c16aa20bdd446da3440c2ad529f5712f52ccea13aef497e',
     ['C343', 'C344', 'C345', 'C346', 'C347', 'C348', 'C349', 'C350', 'C351', 'C352'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/components/resources-section.tsx':
@@ -45,8 +59,11 @@ export const APP_LANDING_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
   ),
   // MCP-351: the bake now calls the shared served-origin module; the derived
   // view-props values are unchanged.
+  // MCP-511: one further derived value — the path-qualified protected-resource
+  // metadata URL, from the same served-origin module. C369's content is
+  // unchanged; this adds a derived address, not copy.
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/derive-view-props.ts': reviewed(
-    '3e93b0bec4ebcd8beba7c1cad86199ccd37e58af0858e47e9e89c35bad2cbbfa',
+    '034d095e165d480945ae09da1e24d9b934b120078888e8167c082821f0bbccca',
     ['C369'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/index.ts': excluded(
@@ -62,7 +79,7 @@ export const APP_LANDING_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
     DELETED_SOURCE,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/view-props.ts': excluded(
-    '937dcd100db80d18463b6f3b8bf2aa6f6c78bc7693d5ef4fd7778bfa2c466fef',
+    '3010afc5fd0454c0009a014c68669109b4bc208e86cb9bcc11b04b1b85d9eb00',
     IMPLEMENTATION_ONLY,
   ),
   // MCP-434: safe-area insets moved from inline padding to composed
