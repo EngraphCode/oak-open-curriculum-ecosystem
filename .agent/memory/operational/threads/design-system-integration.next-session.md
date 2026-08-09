@@ -1896,10 +1896,19 @@ register, write failure, happy path), diffPair unreadable/write-fail
 cases, and the non-zero changed-ratio magnitude case (R13 done).
 Package 139 tests green; both apps green at the commit.
 
-REMAINING (execute from the addendum's re-sequenced slices, order
-binding — 3iii's three pieces are INSEPARABLE, land together for a
-green tree: without staging no manifest exists, so report-only
-enforcement cannot precede the writer half): 3iii staging under
+3iii COMPLETE (all three pieces): SHA:8a88989d9 capture session
+(stage/promote/manifest-last + verifyCohortEvidence + nodeCaptureStageIo);
+SHA:0b6fedb17 report-side enforcement (loadReconciledCohort — manifest
+required, reconciled, hash-verified; report meta derives from the
+MANIFEST, buildAndWriteReport signature dropped flags; first run after
+merge must be a full capture, PR body must state it); SHA:f612ffa94
+arms pivot (one session per run at each root, promotion only on full
+success; direct arm mains are stage-only diagnostic runs; --out
+deleted; EI-2 width threaded into hub section arms; R7 folded —
+RENDER_WIDTH env replaced by WIDTH). EI-1 + EI-2 cured.
+
+REMAINING (superseded detail above retained for provenance): 3iii-as-
+originally-sketched staging under
 demo-evidence/.staging/<runId>/ + promoteRun (rename-per-file,
 manifest last by rename) + verifyCohortEvidence + arms' Buffer pivot
 to a package CaptureSession (created at each composition root:
