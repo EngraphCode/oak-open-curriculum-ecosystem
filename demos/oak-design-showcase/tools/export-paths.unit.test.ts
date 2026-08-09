@@ -104,4 +104,14 @@ describe('resolveAcrossRoots guards', () => {
 
     expect(resolveAcrossRoots(ROOTS, '/%zz', exists)).toBeUndefined();
   });
+
+  it('refuses decoded backslashes — POSIX admission must never disagree with host resolution', () => {
+    // On Windows, path.resolve treats the decoded backslash as a
+    // separator, so `/fonts/..%5Cpackage.json` would pass the declared
+    // /fonts/ prefix here yet serve the undeclared package.json there.
+    const exists = (): boolean => true;
+
+    expect(resolveAcrossRoots(ROOTS, '/fonts/..%5Cpackage.json', exists)).toBeUndefined();
+    expect(resolveAcrossRoots(ROOTS, String.raw`/fonts/..\package.json`, exists)).toBeUndefined();
+  });
 });

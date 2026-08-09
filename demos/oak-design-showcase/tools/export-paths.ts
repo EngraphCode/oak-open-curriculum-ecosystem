@@ -59,6 +59,14 @@ export function resolveAcrossRoots(
   if (urlPath === undefined) {
     return undefined;
   }
+  // Decoded backslashes are refused outright: this module judges paths
+  // with POSIX rules while per-root resolution uses host rules, and on
+  // Windows `/fonts/..%5Cpackage.json` would wear the declared /fonts/
+  // prefix here yet resolve through the backslash as a separator —
+  // serving an undeclared file. No export URL legitimately contains one.
+  if (urlPath.includes('\\')) {
+    return undefined;
+  }
   // The admit predicate judges the CANONICAL path, matching what per-root
   // resolution actually serves (path.resolve applies the same dot-segment
   // collapse): `/fonts/../package.json` canonicalises to `/package.json`
