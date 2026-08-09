@@ -192,7 +192,7 @@ function indent(depth: number): string {
 }
 
 function isJsonComposite(value: unknown): value is JsonComposite {
-  return typeof value === 'object' && value !== null;
+  return value !== null && typeof value === 'object';
 }
 
 function isJsonArray(value: JsonComposite): value is readonly unknown[] {

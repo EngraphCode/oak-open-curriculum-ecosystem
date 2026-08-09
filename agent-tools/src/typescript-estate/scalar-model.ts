@@ -1,6 +1,3 @@
-/** Values validated as non-empty at the document boundary. */
-export type NonEmptyString = string;
-
 /** Repository-relative POSIX path validated at the document boundary. */
 export type RepoPath = string;
 
