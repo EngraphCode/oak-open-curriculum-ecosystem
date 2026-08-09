@@ -136,9 +136,15 @@ ever decided.
    restore `vitest.config.stryker.ts` from its conserved copy (vitest
    loads `.ts` natively — proven in the dry run); set the `mutate`
    script to the bare `stryker run` (auto-discovery now works);
-   re-prove the dry run; run the full mutation pass; bank `run.log`,
-   `report.json`, `report.html` under
-   `packages/core/type-helpers/mutation-evidence/`; author the
+   re-prove the dry run; run the full mutation pass; bank `run.log`
+   and `report.json` under
+   `packages/core/type-helpers/mutation-evidence/` (dated amendment
+   2026-08-09, Director ruling at execution: `report.html` is NOT
+   banked — it is machine-generated markup fully regenerable from
+   `report.json` via Stryker's report app, and committing it drew two
+   MAJOR Sonar findings on generated content; dropping it preserves
+   all knowledge with no exclusion and no hand-edit of a generated
+   artefact); author the
    survivor-disposition ledger under the design constraint above;
    verify `pnpm check` green in the workspace (type-check and
    `knip:gate` both — if knip flags the string-referenced

@@ -3,7 +3,10 @@ id: open-surface-zero
 node_type: delivery
 name: "Open-surface zero: every PR merged or closed, every branch carried by a PR"
 overview: "Drive the whole open surface to zero unmanaged items — every open PR merged or closed with recorded grounds, every pushed branch either carried by a draft PR or dispositioned — oldest first, executing from the census ledger below, and graduate the pushed-implies-PR invariant so the state cannot recur."
-status: sketch
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-09
+ratified_where: "Owner card at the Director seat 2026-08-09 ~10:1xZ (card answers: 'Ratify' + '#731 executor: Director executes it'; session Plover lifts Troposphere b10c37)"
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate

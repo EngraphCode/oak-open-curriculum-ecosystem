@@ -6,7 +6,8 @@ overview: >-
   Every PR labelled "paused for submission" carries a recorded disposition —
   merge at condition, close with adjudication, or hold at a named gate — and
   a named owner; execution is sized to the unique substance.
-status: sketch
+status: superseded
+superseded_by: open-surface-zero
 ratified_by: null
 ratified_date: null
 ratified_where: null
