@@ -53,7 +53,27 @@ export interface ReportWriteIo {
   readonly writeReportFile: (name: string, content: string) => Result<void, string>;
 }
 
-export interface EvidenceIo extends EvidenceReadIo, DiffWriteIo, RegisterReadIo, ReportWriteIo {}
+/** Reading the capture manifest (the run's commit record): `undefined`
+ *  means no capture has ever promoted — its own named refusal. */
+export interface ManifestReadIo {
+  readonly readManifest: () => Result<string | undefined, string>;
+}
+
+export interface EvidenceIo
+  extends EvidenceReadIo, DiffWriteIo, RegisterReadIo, ReportWriteIo, ManifestReadIo {}
+
+/** Read a text file that may legitimately be absent (absent is its own
+ *  named state, never an error); an unreadable EXISTING file errs. */
+function readTextIfExists(filePath: string, label: string): Result<string | undefined, string> {
+  try {
+    if (!fs.existsSync(filePath)) {
+      return ok(undefined);
+    }
+    return ok(fs.readFileSync(filePath, 'utf8'));
+  } catch (error: unknown) {
+    return err(`${label} unreadable at ${filePath} — ${describeThrown(error)}`);
+  }
+}
 
 /** The one real EvidenceIo: node fs rooted at `demoDir`, every leg
  *  catching into a Result so no fs throw escapes the seam. */
@@ -76,17 +96,7 @@ export function nodeEvidenceIo(demoDir: string): EvidenceIo {
         return err(`diff write failed at ${name} — ${describeThrown(error)}`);
       }
     },
-    readRegister: () => {
-      const registerPath = registerPathFor(demoDir);
-      try {
-        if (!fs.existsSync(registerPath)) {
-          return ok(undefined);
-        }
-        return ok(fs.readFileSync(registerPath, 'utf8'));
-      } catch (error: unknown) {
-        return err(`register unreadable at ${registerPath} — ${describeThrown(error)}`);
-      }
-    },
+    readRegister: () => readTextIfExists(registerPathFor(demoDir), 'register'),
     writeReportFile: (name, content) => {
       try {
         fs.writeFileSync(path.join(reportDir, name), content);
@@ -95,6 +105,11 @@ export function nodeEvidenceIo(demoDir: string): EvidenceIo {
         return err(`report write failed at ${name} — ${describeThrown(error)}`);
       }
     },
+    readManifest: () =>
+      readTextIfExists(
+        path.join(demoDir, 'demo-evidence', CAPTURE_MANIFEST_NAME),
+        'capture manifest',
+      ),
   };
 }
 

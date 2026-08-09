@@ -12,6 +12,7 @@ import {
   type EvidenceIo,
   type RunFlags,
 } from './orchestrator';
+import { contentHashOf } from './capture-manifest';
 import type { FidelityPair } from './pairing-types';
 import type { PairResult } from './report';
 
@@ -194,6 +195,24 @@ const PAIR: FidelityPair = {
   diffEligible: true,
 };
 
+/** A manifest whose entries hash the fixture evidence exactly — the
+ *  cohort the default fakes serve. */
+function manifestFor(pair: FidelityPair): string {
+  const hash = contentHashOf(onePixelPng());
+  return JSON.stringify({
+    version: 1,
+    base: 'http://localhost:3020',
+    startedAt: '2026-08-09T17:00:00Z',
+    promotedAt: '2026-08-09T17:03:00Z',
+    entries: [pair.exportPng, pair.livePng].map((relativePath) => ({
+      relativePath,
+      widthCssPx: 1440,
+      deviceScaleFactor: 2,
+      contentHash: hash,
+    })),
+  });
+}
+
 function ioWith(overrides: Partial<EvidenceIo>): EvidenceIo {
   return {
     exists: () => true,
@@ -201,6 +220,7 @@ function ioWith(overrides: Partial<EvidenceIo>): EvidenceIo {
     writeDiff: () => ok(undefined),
     readRegister: () => ok('{"version":1,"entries":[]}'),
     writeReportFile: () => ok(undefined),
+    readManifest: () => ok(manifestFor(PAIR)),
     ...overrides,
   };
 }
@@ -296,37 +316,82 @@ describe('diffPair', () => {
   });
 });
 
-describe('buildAndWriteReport (injected io)', () => {
-  const FLAGS = { base: 'http://localhost:3020', width: 1440, reportOnly: true, keepServer: false };
+describe('buildAndWriteReport (injected io, manifest-enforced)', () => {
   const CFG = {
     map: { version: 1 as const, pairs: [PAIR], exemptSurfaces: [] },
     demoDir: '/demo',
   };
 
-  it('writes results.json and index.html through the injected writer on a full cohort', () => {
-    const written: string[] = [];
+  it('writes results.json and index.html, with report meta derived from the MANIFEST', () => {
+    const written = new Map<string, string>();
     const outcome = buildAndWriteReport(
-      FLAGS,
       'report-only',
-      '2026-08-09T17:00:00Z',
+      '2026-08-09T18:00:00Z',
       CFG,
       ioWith({
-        writeReportFile: (name) => {
-          written.push(name);
+        writeReportFile: (name, content) => {
+          written.set(name, content);
           return ok(undefined);
         },
       }),
     );
 
     expect(outcome.ok).toBe(true);
-    expect(written).toEqual(['results.json', 'index.html']);
+    expect([...written.keys()]).toEqual(['results.json', 'index.html']);
+    // The meta is the manifest's capture provenance, not this invocation's.
+    expect(written.get('results.json')).toContain('"base": "http://localhost:3020"');
+    expect(written.get('results.json')).toContain('"widthCssPx": 1440');
+  });
+
+  it('refuses to report with NO capture manifest — a cohort must have been promoted', () => {
+    const outcome = buildAndWriteReport(
+      'report-only',
+      '2026-08-09T18:00:00Z',
+      CFG,
+      ioWith({ readManifest: () => ok(undefined) }),
+    );
+
+    expect(outcome.ok).toBe(false);
+    expect(outcome.ok ? undefined : outcome.error).toContain('no capture manifest');
+  });
+
+  it('refuses a malformed or invalid manifest by name', () => {
+    const notJson = buildAndWriteReport(
+      'report-only',
+      '2026-08-09T18:00:00Z',
+      CFG,
+      ioWith({ readManifest: () => ok('not json {') }),
+    );
+    const invalid = buildAndWriteReport(
+      'report-only',
+      '2026-08-09T18:00:00Z',
+      CFG,
+      ioWith({ readManifest: () => ok('{"version":2}') }),
+    );
+
+    expect(notJson.ok).toBe(false);
+    expect(invalid.ok).toBe(false);
+  });
+
+  it('refuses TAMPERED evidence — canonical bytes that no longer hash to the manifest', () => {
+    const green = new PNG({ width: 1, height: 1 });
+    green.data[1] = 255;
+    green.data[3] = 255;
+    const outcome = buildAndWriteReport(
+      'report-only',
+      '2026-08-09T18:00:00Z',
+      CFG,
+      ioWith({ read: () => ok(PNG.sync.write(green)) }),
+    );
+
+    expect(outcome.ok).toBe(false);
+    expect(outcome.ok ? undefined : outcome.error).toContain('does not match');
   });
 
   it('refuses an absent register by name — dispositions are the report, not an optional extra', () => {
     const outcome = buildAndWriteReport(
-      FLAGS,
       'report-only',
-      '2026-08-09T17:00:00Z',
+      '2026-08-09T18:00:00Z',
       CFG,
       ioWith({ readRegister: () => ok(undefined) }),
     );
@@ -337,16 +402,14 @@ describe('buildAndWriteReport (injected io)', () => {
 
   it('fails on an unreadable or invalid register', () => {
     const unreadable = buildAndWriteReport(
-      FLAGS,
       'report-only',
-      '2026-08-09T17:00:00Z',
+      '2026-08-09T18:00:00Z',
       CFG,
       ioWith({ readRegister: () => err('register unreadable at r — EACCES') }),
     );
     const invalid = buildAndWriteReport(
-      FLAGS,
       'report-only',
-      '2026-08-09T17:00:00Z',
+      '2026-08-09T18:00:00Z',
       CFG,
       ioWith({ readRegister: () => ok('{"nope":true}') }),
     );
@@ -357,9 +420,8 @@ describe('buildAndWriteReport (injected io)', () => {
 
   it('fails the run when a report file cannot be written — the mutant a void writer would hide', () => {
     const outcome = buildAndWriteReport(
-      FLAGS,
       'report-only',
-      '2026-08-09T17:00:00Z',
+      '2026-08-09T18:00:00Z',
       CFG,
       ioWith({ writeReportFile: () => err('report write failed at index.html — ENOSPC') }),
     );

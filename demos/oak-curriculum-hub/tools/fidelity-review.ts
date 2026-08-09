@@ -35,7 +35,6 @@ import {
   reportDirFor,
   resolveRunFlags,
   type CaptureRun,
-  type RunFlags,
   type ServerMode,
 } from '@oaknational/fidelity-review/orchestrator';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
@@ -88,9 +87,8 @@ async function capturePhase(base: string, width: number): Promise<Result<void, s
   return ok(undefined);
 }
 
-function report(flags: RunFlags, serverMode: ServerMode): Result<void, string> {
+function report(serverMode: ServerMode): Result<void, string> {
   return buildAndWriteReport(
-    flags,
     serverMode,
     new Date().toISOString(),
     { map: FIDELITY_PAIRS, demoDir: DEMO_DIR },
@@ -106,13 +104,13 @@ async function main(): Promise<Result<void, string>> {
   fs.mkdirSync(reportDirFor(DEMO_DIR), { recursive: true });
 
   if (flags.value.reportOnly) {
-    return report(flags.value, 'report-only');
+    return report('report-only');
   }
 
   const run: CaptureRun = {
     assertServerUp: (base) => assertServerUp(base, SERVER_HINT),
     capturePhase,
-    report: (serverMode) => report(flags.value, serverMode),
+    report: (serverMode) => report(serverMode),
   };
 
   const server = await ensureDevServer(flags.value.base, DEMO_DIR);

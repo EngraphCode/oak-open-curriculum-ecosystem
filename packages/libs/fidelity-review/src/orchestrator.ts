@@ -14,7 +14,8 @@
  */
 import { err, ok, type Result } from '@oaknational/result';
 
-import { MATCHED_GEOMETRY_SCALE, resolveBase, resolveWidth } from './capture-flags';
+import { resolveBase, resolveWidth } from './capture-flags';
+import { loadReconciledCohort } from './cohort-loading';
 import type { DevServerHandle } from './dev-server';
 import { diffPngs } from './image-diff';
 import type { FidelityPair, PairingMap } from './pairing-types';
@@ -30,6 +31,7 @@ export { type ServerMode } from './report';
 // The evidence-io seam and the demo-root layout convention live in
 // evidence-io.ts; re-exported here because the orchestrator's own
 // signatures are typed on them and the composition roots compose both.
+export { type ManifestReadIo } from './evidence-io';
 export {
   nodeCaptureStageIo,
   nodeEvidenceIo,
@@ -157,14 +159,21 @@ export interface ReportConfig {
 /** Diff every pair against the register and write the report + results
  *  into the package's conventional locations under `demoDir`.
  *  `generatedAt` arrives from the composition root so meta assembly has
- *  no hidden clock. */
+ *  no hidden clock. The evidence cohort is reconciled against the
+ *  capture manifest FIRST: mixed, incomplete, drifted, or tampered
+ *  evidence refuses by name instead of being reported over, and the
+ *  report meta (base, geometry) derives from the manifest — the flags
+ *  are capture inputs, never report truth. */
 export function buildAndWriteReport(
-  flags: RunFlags,
   serverMode: RunMeta['serverMode'],
   generatedAt: string,
   cfg: ReportConfig,
   io: EvidenceIo,
 ): Result<void, string> {
+  const cohort = loadReconciledCohort(cfg.map.pairs, io);
+  if (!cohort.ok) {
+    return cohort;
+  }
   const rawRegister = io.readRegister();
   if (!rawRegister.ok) {
     return err(`fidelity: ${rawRegister.error}`);
@@ -185,9 +194,9 @@ export function buildAndWriteReport(
     results.value,
     register.value,
     {
-      base: flags.base,
-      widthCssPx: flags.width,
-      deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
+      base: cohort.value.base,
+      widthCssPx: cohort.value.widthCssPx,
+      deviceScaleFactor: cohort.value.deviceScaleFactor,
       serverMode,
       generatedAt,
     },
