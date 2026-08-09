@@ -59,6 +59,16 @@ owner-visible ask or a Director execution slot — no third state.
 Counts below are census-anchored (2026-08-09 ~09:5xZ) and re-derived
 at execution time; substance preservation outranks stale arithmetic.
 
+**Execution order re-based to impact (owner word 2026-08-09 ~14:5xZ:
+"Agreed, impact order please" — the commissioning word's
+good-reason clause exercised).** The standing order for the
+remainder: finish the in-flight set (#766 cure round, WS7 group 1;
+the PR #792 merged at the word) → #816 → #805 → #819 → #818 → the
+PR #745 seat slice → orphan sweep → invariant graduation → closing
+report. In parallel: #746 executes via the ratified corpus-amendment
+plan (subagent, owner's un-draft word still gates its merge); the
+pair #836 and #834 land at their own seats; #774 holds per its row.
+
 ## The census ledger (2026-08-09; oldest first)
 
 ### Open PRs — ours to disposition (jimbot/bot/owner-draft)
