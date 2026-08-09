@@ -10,9 +10,10 @@ status: active
 cures, and the post-arbitrage hedge.**
 
 Every vendor fact in this exploration was read first-hand from Anthropic's
-published documentation or consumer terms on 2026-08-04. They are time-pinned,
-not guaranteed to persist; §9 lists the re-verification triggers, and §11
-separates verified fact from estimate and owner's call.
+published documentation or consumer terms on 2026-08-04, and re-verified
+against the sources listed in the References section on 2026-08-09. They are
+time-pinned, not guaranteed to persist; §9 lists the re-verification triggers,
+and §11 separates verified fact from estimate and owner's call.
 
 ## 1. Summary
 
@@ -42,48 +43,61 @@ budget enforcement, and blast-radius containment are properties a single
 consolidated account would not have. The job is not to eliminate the boundaries
 but to make crossing them free where crossing them is wanted.
 
-## 2. Standing facts (verified 2026-08-04)
+## 2. Standing facts (verified 2026-08-04; sources re-read 2026-08-09)
 
-Each fact below was read first-hand on the pin date from the named source.
+Each fact below was read first-hand from the named source on the pin date and
+again on 2026-08-09; the References section carries every URL and access date.
 
 1. **The consumer terms do not limit how many accounts one person may hold.**
-   (Anthropic Consumer Terms.)
+   (Anthropic [Consumer Terms](https://www.anthropic.com/legal/consumer-terms).)
 2. **Account sharing is prohibited**: "You may not share your Account login
    information … or make your Account available to anyone else." One person
    operating several accounts they own is not sharing; any other human using
-   one of them is. (Consumer Terms.)
+   one of them is.
+   ([Consumer Terms](https://www.anthropic.com/legal/consumer-terms).)
 3. **Automated access is prohibited** "except when you are accessing our
    Services via an Anthropic API Key **or where we otherwise explicitly permit
    it**." Claude Code's own product surface on subscription auth — scheduled
    tasks, channels, headless `-p` mode, Remote Control, unattended sessions —
    is that explicit permission. The prohibition targets scripting the claude.ai
-   web surface, not using Claude Code as shipped. (Consumer Terms + Claude Code
-   docs.)
+   web surface, not using Claude Code as shipped.
+   ([Consumer Terms](https://www.anthropic.com/legal/consumer-terms);
+   [Use Claude Code with your Pro or Max plan](https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan).)
 4. **Usage limits** on subscription plans are a rolling 5-hour window plus a
    weekly window, shared across all models **and with claude.ai chat and Cowork
-   on the same login**. (Claude Code docs, costs page.)
+   on the same login**.
+   ([What is the Max plan?](https://support.claude.com/en/articles/11049741-what-is-the-max-plan);
+   [How do usage and length limits work?](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work);
+   [costs docs](https://code.claude.com/docs/en/costs).)
 5. **Usage credits** allow metered continuation past an allowance. While
    drawing on them, prompt-cache lifetime drops from 1 hour to 5 minutes —
    heavy overflow is priced twice, once in metered tokens and once in extra
-   cache misses. (Costs page.)
+   cache misses.
+   ([Manage usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409-manage-usage-credits-for-paid-claude-plans);
+   [costs docs](https://code.claude.com/docs/en/costs).)
 6. **OpenTelemetry export works on every auth type** and streams per-user token
-   and cost metrics to your own observability stack. (Costs page.)
+   and cost metrics to your own observability stack.
+   ([Costs docs](https://code.claude.com/docs/en/costs).)
 7. **Channels** (research preview) push external events into a running session
    over an MCP server, are two-way, and can declare a **permission relay**
    capability so an allowlisted remote sender can approve or deny tool use.
    Auth: claude.ai login or Console API key. Custom channels are buildable;
    during the preview they need the development flag or an org
-   `allowedChannelPlugins` entry. (Channels docs.)
+   `allowedChannelPlugins` entry.
+   ([Channels docs](https://code.claude.com/docs/en/channels).)
 8. **`/usage` prices sessions at standard list rates**, giving a per-session
-   API-equivalent dollar figure regardless of plan. (Costs page.)
+   API-equivalent dollar figure regardless of plan.
+   ([Costs docs](https://code.claude.com/docs/en/costs).)
 9. **Products serving other people must use API keys**: offering claude.ai
-   login or subscription rate limits to third parties is not permitted. (Agent
-   SDK docs.)
+   login or subscription rate limits to third parties is not permitted.
+   ([Agent SDK overview](https://code.claude.com/docs/en/agent-sdk/overview).)
 10. **Enterprise/Team seats do not sell a bigger per-identity envelope**:
     allowances are per-seat, one member per seat, with the same window
     structure; continuation past the allowance is usage credits at metered
     rates. Consolidation into one business identity at subscription economics
-    is not a product that exists. (Costs page.)
+    is not a product that exists.
+    ([Costs docs](https://code.claude.com/docs/en/costs);
+    [pricing](https://claude.com/pricing).)
 
 ## 3. The operating model: accounts are ledgers, not identities
 
@@ -106,13 +120,19 @@ monitoring, or vigilance:
   decays; here, which credentials a lane runs under _is_ the attribution. The
   observability pane (§5, Visibility) reads it out; nothing has to remember to
   tag.
-- **Budget enforcement is physical.** A lane cannot overspend its envelope; the
-  window throttles it. No spend alerts anyone must read, no caps anyone must
-  check — an envelope that runs dry. This is structure-over-vigilance applied
-  to money.
-- **Blast radius is contained.** A runaway loop in one lane exhausts its own
-  account and stops. Every other lane's capacity — and the owner's interactive
-  work — is untouched. Under a single pooled account, the same runaway starves
+- **Budget enforcement is physical — given one provisioned invariant: usage
+  credits stay disabled on every lane account.** With usage credits enabled, an
+  exhausted window continues on metered billing (§2.5) and the fixed-price
+  envelope silently becomes an open meter. The envelope holds if and only if
+  usage credits are off; provisioning (P1) sets and verifies that per account,
+  so the guarantee is checked structure, not memory. With the invariant held, a
+  lane cannot overspend its envelope; the window throttles it. No spend alerts
+  anyone must read, no caps anyone must check — an envelope that runs dry. This
+  is structure-over-vigilance applied to money.
+- **Blast radius is contained.** With usage credits disabled (the same
+  invariant), a runaway loop in one lane exhausts its own account and stops.
+  Every other lane's capacity — and the owner's interactive work — is
+  untouched. Under a single pooled account, the same runaway starves
   everything.
 - **Priority becomes an allocation act, and exhaustion becomes signal.**
   Importance ordering stops being a stated rule and becomes resourcing: a
@@ -131,8 +151,9 @@ an owner-tunable dial, not doctrine.
 
 ## 4. Topology: one human, many envelopes, any machines
 
-**The invariant that carries compliance: human ↔ account is one-to-one,
-permanently.** Accounts are budget lines, never people. Machines are execution
+**The invariant that carries compliance: every account belongs to exactly one
+human, permanently — one human may hold many accounts, but no account is ever
+shared.** Accounts are budget lines, never people. Machines are execution
 substrate and do not affect the identity question, provided every machine is
 the person's own (their laptop, or VMs whose OS user is that person) and every
 session on them is operated by or for that person alone.
@@ -146,8 +167,8 @@ Two topologies, both compliant, mixable:
 - **VM per lane, OS user = the person.** The VM boundary gives credential
   isolation for free (each VM's `~/.claude` belongs to one envelope), plus
   resource isolation and clean lifecycle. The OS username matching the person
-  is fine and natural; it is the _human_ mapping that must stay 1:1, and it
-  does.
+  is fine and natural; it is each account's exclusivity to the one human that
+  must hold, and it does.
 
 The mechanism, either way:
 
@@ -223,8 +244,10 @@ The recurring rhythm, kept deliberately small:
 ## 7. The arbitrage, measured
 
 **Why it exists.** Subscriptions are priced against typical usage; Anthropic's
-own published enterprise figures put average metered consumption at $150–250
-per developer per month — roughly one x20 subscription's list price. A user who
+own published enterprise figures
+([costs docs](https://code.claude.com/docs/en/costs)) put average metered
+consumption at $150–250 per developer per month — roughly one x20
+subscription's list price. A user who
 maxes the windows extracts a large multiple of typical consumption at flat
 price.
 
@@ -250,7 +273,9 @@ migration ranking in §8.
 
 **The arbitrage is not guaranteed to persist, and the direction of travel is
 visible.** Weekly caps were introduced precisely in response to continuous
-multi-session heavy use. The usage-credit cache-lifetime penalty (§2.5) prices
+multi-session heavy use (unverified against Anthropic's public surfaces,
+2026-08-09 — the stated rationale went to subscribers by email in 2025-07 and
+survives only in press reporting). The usage-credit cache-lifetime penalty (§2.5) prices
 heavy overflow twice. Consumer terms and pricing can change without notice, and
 multi-account extraction at 10–40× is the exact usage shape future revisions
 would target. Nothing in the current setup is cheating — and none of it is a
@@ -263,9 +288,11 @@ new enforcement or account-linking behaviour; changes to the usage-credit
 mechanism.
 
 **The hedge is portability, and it is nearly free.** The CLI and the Agent SDK
-are the same engine — same tools, same agent loop, same context management,
+are the same engine — same tools, same agent loop, same context management
+([Agent SDK overview](https://code.claude.com/docs/en/agent-sdk/overview)) —
 with the full Claude Code system prompt available in the SDK as the
-`claude_code` preset. Everything that makes the lanes work — CLAUDE.md, skills,
+`claude_code` preset
+([modifying system prompts](https://code.claude.com/docs/en/agent-sdk/modifying-system-prompts)). Everything that makes the lanes work — CLAUDE.md, skills,
 hooks, channel wiring, lane logic — lives in git and is account-independent.
 The billing identity is configuration in the registry. A forced migration is
 therefore a config swap, not an architecture change.
@@ -300,9 +327,10 @@ a crisis.
 
 ## 9. Compliance boundaries — the three bright lines
 
-1. **Human ↔ account stays one-to-one, forever.** No other person ever accesses
-   any account, for any reason, including collaborators. (This is the single
-   written-terms clause the setup could drift across; §2.2.)
+1. **Each account stays exclusive to its one human, forever.** One person may
+   hold many accounts; no other person ever accesses any of them, for any
+   reason, including collaborators. (This is the single written-terms clause
+   the setup could drift across; §2.2.)
 2. **Nothing on subscription auth serves third parties.** The moment agents do
    work _for other people as a product or service_, that workload moves to API
    keys (§2.9).
@@ -311,7 +339,7 @@ a crisis.
 
 Re-verify the terms and the product mechanics **at time of use** whenever the
 use materially changes or a watch trigger (§8) fires. Every vendor fact here is
-a 2026-08-04 snapshot.
+a 2026-08-04 snapshot, re-verified 2026-08-09 against the References sources.
 
 ## 10. Proposals
 
@@ -319,8 +347,10 @@ Each with its warrant and its falsifier, per the exploration contract.
 
 - **P1 — Registry-driven envelope provisioning.** One tracked registry file
   (lane → account → config dir → machines → channel identity) plus a
-  provisioning script from signup to registered envelope. _Warrant_: kills
-  recurring auth cost; makes mis-attribution structurally hard. _Falsifier_: if
+  provisioning script from signup to registered envelope, including verifying
+  that usage credits are disabled on the account (§3's envelope invariant).
+  _Warrant_: kills recurring auth cost; makes mis-attribution structurally
+  hard. _Falsifier_: if
   a month after adoption, account juggling still consumes owner attention in a
   typical week, the cure has failed and the mechanism needs redesign.
 - **P2 — The channel aggregation plane.** One custom channel every lane reports
@@ -368,39 +398,121 @@ once P1 is scripted.
 
 ## 11. Verification ledger
 
-| Status                                | Item                                                                                                                                                                   |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Fact** (read first-hand 2026-08-04) | Everything in §2, with sources named there                                                                                                                             |
-| **Estimate**                          | The 10–40× multiplier; the ≈$200/month x20 list price; the $1,000–1,400/month fleet cost                                                                               |
-| **Owner's call**                      | Lane taxonomy; number of envelopes; float size; which account is the Remote Control primary; the fixed-vs-dynamic allocation dial                                      |
-| **To verify at time of use**          | Current pricing in billing currency; terms diffs against the §2 snapshot; channels preview status; seat-allowance sizes if the Enterprise comparison ever becomes live |
+| Status                                                    | Item                                                                                                                                                                   |
+| --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Fact** (read first-hand 2026-08-04; re-read 2026-08-09) | Everything in §2, with sources linked there and in §References                                                                                                         |
+| **Estimate**                                              | The 10–40× multiplier; the ≈$200/month x20 list price; the $1,000–1,400/month fleet cost                                                                               |
+| **Owner's call**                                          | Lane taxonomy; number of envelopes; float size; which account is the Remote Control primary; the fixed-vs-dynamic allocation dial                                      |
+| **To verify at time of use**                              | Current pricing in billing currency; terms diffs against the §2 snapshot; channels preview status; seat-allowance sizes if the Enterprise comparison ever becomes live |
 
 ## Appendix — play harvest
 
 Associations surfaced by the free-play pass over this material. Marked as
 associations — reports that a resemblance appeared — never as findings.
 
-- **This is shaped like envelope budgeting** (the cash-envelope tradition).
+- **This is shaped like envelope budgeting** (the cash-envelope tradition;
+  [Wikipedia: Envelope system](https://en.wikipedia.org/wiki/Envelope_system)).
   Kept because it imports a mature failure catalogue: envelope systems fail by
   inter-envelope borrowing, by category proliferation (too many envelopes →
   admin swamps benefit), and by treating an empty envelope as shame rather than
-  signal. All three transplant directly (P5, P4's falsifier, and the §6
-  exhaustion protocol respectively).
-- **This is shaped like cloud FinOps** — reserved instances vs on-demand. Kept
-  because the discipline that grew around reserved capacity
-  (utilisation-of-commitment as the health metric, rightsizing at review
-  boundaries, coverage planning) is the mature template for envelope
-  operations, and its vocabulary drops in unchanged (§7).
-- **This reminded me of the soft budget constraint** (Kornai): an actor whose
-  budget never binds does not economise. Kept as the inversion that makes the
-  arbitrage's _closing_ partly benign — hard envelopes are already teaching the
-  efficiency that repricing would otherwise force traumatically (§8.3).
+  signal. (The failure catalogue is this document's reading of the tradition's
+  practice lore, not the linked article's content.) All three transplant
+  directly (P5, P4's falsifier, and the §6 exhaustion protocol respectively).
+- **This is shaped like cloud FinOps** — reserved instances vs on-demand
+  ([FinOps Framework](https://www.finops.org/framework/)). Kept because the
+  discipline that grew around reserved capacity (utilisation-of-commitment as
+  the health metric, rightsizing at review boundaries, coverage planning) is
+  the mature template for envelope operations, and its vocabulary drops in
+  unchanged (§7).
+- **This reminded me of the soft budget constraint** (Kornai; see Kornai,
+  Maskin and Roland,
+  ["Understanding the Soft Budget Constraint"](https://www.aeaweb.org/articles?id=10.1257/002205103771799999),
+  Journal of Economic Literature 41(4), 2003): an actor whose budget never
+  binds does not economise. Kept as the inversion that makes the arbitrage's
+  _closing_ partly benign — hard envelopes are already teaching the efficiency
+  that repricing would otherwise force traumatically (§8.3).
 - **The word "account" itself** carries the auth sense and the ledger sense;
   the whole model is the move from one to the other. Kept as §3's opening.
-- **This looks shaped like database sharding** — the registry as shard map,
-  cross-lane work as the expensive cross-shard join. Kept small: it predicts
-  where the pain concentrates (§5, Workflow).
+- **This looks shaped like database sharding**
+  ([Wikipedia: Shard (database architecture)](https://en.wikipedia.org/wiki/Shard_%28database_architecture%29)) —
+  the registry as shard map, cross-lane work as the expensive cross-shard join.
+  Kept small: it predicts where the pain concentrates (§5, Workflow).
 - **Discarded, visibly**: "the 5-hour windows as a liturgy of hours" — a
   monastic-rhythm metaphor that arrived fluently and added colour but no
   content; the practical residue (window-aware scheduling) stands on its own in
   §6.3. Discarded per the confabulation guard.
+
+## References
+
+Every source below was fetched first-hand on 2026-08-09; §2's facts were
+originally read on 2026-08-04 from the same surfaces.
+
+Anthropic sources:
+
+- Anthropic,
+  [Consumer Terms of Service](https://www.anthropic.com/legal/consumer-terms)
+  (effective 2025-10-08; accessed 2026-08-09) — account-count silence (§2.1),
+  the account-sharing prohibition (§2.2), the automated-access clause (§2.3).
+- Claude Code docs,
+  [Manage costs effectively](https://code.claude.com/docs/en/costs) (accessed
+  2026-08-09) — seat windows shared with Claude chat and Cowork (§2.4, §2.10),
+  the usage-credit cache-lifetime drop from 1 hour to 5 minutes (§2.5),
+  OpenTelemetry export on every setup (§2.6), `/usage` priced at standard list
+  rates (§2.8), per-seat allowances and usage-credit continuation (§2.10), and
+  the $150–250 per developer per month enterprise figure (§7).
+- Claude Help Center,
+  [What is the Max plan?](https://support.claude.com/en/articles/11049741-what-is-the-max-plan)
+  (accessed 2026-08-09) — Max 5x/20x tiers and list prices, the five-hour
+  session reset, the weekly limit across all models (§2.4, §7, §11).
+- Claude Help Center,
+  [How do usage and length limits work?](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work)
+  (accessed 2026-08-09) — all Claude product surfaces on one login count
+  towards the same usage limit (§2.4).
+- Claude Help Center,
+  [Use Claude Code with your Pro or Max plan](https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan)
+  (accessed 2026-08-09) — usage shared across Claude and Claude Code on one
+  subscription; Claude Code on subscription auth as a supported product
+  surface (§2.3, §2.4).
+- Claude Help Center,
+  [Manage usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409-manage-usage-credits-for-paid-claude-plans)
+  (accessed 2026-08-09) — usage credits as opt-in, explicitly enabled metered
+  continuation at standard API rates (§2.5, §3).
+- Claude Code docs,
+  [Push events into a running session with channels](https://code.claude.com/docs/en/channels)
+  (accessed 2026-08-09) — research-preview status, two-way MCP event push,
+  permission relay, claude.ai or Console API key auth, custom channels, the
+  development flag, `allowedChannelPlugins` (§2.7).
+- Claude Agent SDK docs,
+  [Agent SDK overview](https://code.claude.com/docs/en/agent-sdk/overview)
+  (accessed 2026-08-09) — "Anthropic does not allow third party developers to
+  offer claude.ai login or rate limits for their products" (§2.9); the SDK
+  gives "the same tools, agent loop, and context management that power Claude
+  Code" (§8).
+- Claude Agent SDK docs,
+  [Modifying system prompts](https://code.claude.com/docs/en/agent-sdk/modifying-system-prompts)
+  (accessed 2026-08-09) — the `claude_code` system-prompt preset (§8).
+- Claude, [Pricing](https://claude.com/pricing) (accessed 2026-08-09) —
+  per-seat Team pricing and the Enterprise seat-plus-usage structure (§2.10).
+
+External concepts adopted in the appendix:
+
+- Wikipedia,
+  [Envelope system](https://en.wikipedia.org/wiki/Envelope_system) (accessed
+  2026-08-09) — the cash-envelope budgeting tradition.
+- FinOps Foundation, [FinOps Framework](https://www.finops.org/framework/)
+  (accessed 2026-08-09) — the cloud financial-operations discipline, including
+  rate and usage optimisation.
+- Kornai, Maskin and Roland,
+  ["Understanding the Soft Budget Constraint"](https://www.aeaweb.org/articles?id=10.1257/002205103771799999),
+  Journal of Economic Literature 41(4), 2003, pp. 1095–1136 (accessed
+  2026-08-09) — the soft-budget-constraint concept.
+- Wikipedia,
+  [Shard (database architecture)](https://en.wikipedia.org/wiki/Shard_%28database_architecture%29)
+  (accessed 2026-08-09) — horizontal partitioning and the cost of cross-shard
+  access.
+
+One claim remains unverified against an Anthropic-published surface: §8's
+statement of _why_ weekly caps were introduced. Anthropic's stated rationale
+(continuous 24/7 background use, account sharing and reselling) went to
+subscribers by email in 2025-07 and survives only in press reporting; it is
+marked unverified at the claim.
