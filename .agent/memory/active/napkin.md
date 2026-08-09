@@ -1080,3 +1080,83 @@ sunk-cost/preservation-language flag is a lens worth turning on my
 own design inputs BEFORE dispatch: any "X is deliberate" claim whose
 provenance is a summary rather than the code deserves the falsifier
 first.
+
+## 2026-08-09 ~16:4xZ — Plover lifts Troposphere (b10c37): the wide-net assurance round paid off exactly where the theory said it would
+
+- **#834 full-work commission (45-agent fleet + 3 Codex xhigh, 4 surfaces)
+  found a substantial merge-blocking surface that FIVE prior review rounds
+  (4 Copilot + 4 opus legs) missed — and the miss was STRUCTURAL, named by
+  the reviewers themselves**: the integration suite uses no real
+  fs/sockets/processes, so it cannot falsify evidence-provenance,
+  cross-platform process trees, or cleanup ownership. The load-bearing
+  finding (a failed/blank capture overwrites canonical evidence and
+  report-only trusts it) was QUINTUPLE-confirmed across all four surfaces
+  PLUS the PR's own suppressed R27 Copilot comments — i.e. it was ALWAYS
+  in the record, collapsed, unengaged. Lesson for the review shape: for a
+  tool whose product IS evidence, an assurance round MUST include a leg
+  that attacks evidence-integrity/provenance directly, and MUST read the
+  suppressed blocks (the standing rule held again).
+- **Multi-model convergence is the trust signal.** Three independent Codex
+  xhigh reviews with no contact agreeing on the same three spines
+  (evidence-integrity, cleanup-on-throw, dev-server semantics) is stronger
+  than any single opus verdict; the fleet added the scales Codex couldn't
+  carry (design-frame, a11y/tokens, process, positives). The frame-
+  challenger's unique payoff: connecting the un-consolidated settle recipe
+  to an EXISTING third capture consumer (rule-6 baselines) — a
+  cross-surface link no runtime-focused leg would find.
+- **Verify pass earned its keep both directions**: refuted 5 of 21
+  contested (a haiku link-sweep leg was unreliable — 3 false "not ported"
+  claims), and light-checked 5 graduation positives (all held).
+
+## 2026-08-09 ~17:0xZ (Civet, 054f5e) — freeze-6 lens harvest
+
+REASON: the window's exemplar decision structure — cure-inside-#834 vs
+extraction PR — resolved on a single warrant (the second consumer
+exists only on the branch, so an extraction PR off main would land
+one-consumer machinery, dishonest by the very rule being enforced);
+the warrant held through four review surfaces unchanged. The
+corrupt-evidence adjudication is the paired exemplar: claim →
+falsifier → code evidence → unification, with my own record-derived
+premise the one killed.
+
+METACOGNITION: (1) check-singleton violation, MINE — a background
+`pnpm check` raced the pre-commit validator chain in the same
+worktree; one commit cycle burnt on a phantom missing-dist failure.
+The rule exists and I carry it; throughput instinct overrode it.
+Discipline: serialise check-runners per tree; parallelise across
+SURFACES (reviewers, comms), never across gates in one checkout.
+(2) verify-dont-trust fired productively twice on reviewer premises:
+the zero-consumers claim re-verified before demoting subpaths; the
+"map-refine has no consumer" premise corrected first-hand (the
+showcase's six-ids invariant chains it), saving a true docblock.
+(3) The owner's assurance round exposed a STRUCTURAL blindness in my
+test design: the DI seam that made the orchestrator suite pure also
+made it unable to falsify evidence-provenance, cross-platform process
+trees, and cleanup ownership — purity and falsification power trade
+off, and the choice of seam decides which truths tests can reach. A
+standing lens for PR-2's test design.
+
+PROPORTIONALITY: the cure batch sat right on the API-freezes-at-merge
+ground (4 opus legs, ~35 files) — and the owner then priced #834
+HIGHER still with the full-work commission: the gate's "too light"
+arm demonstrated by the owner's own act, a calibration point for what
+first-major-release surfaces warrant.
+
+CONCEPT (formed, napkin-grade): the duplication gate behaves as a
+CONVERGING consolidation sensor — 21.5% → 8.1% → structural zero,
+each firing pricing exactly the next shared layer at the moment its
+second consumer appears. The rule's enforcement clause is also its
+detector.
+
+FREE-PLAY (harvest with visible discard): kept — each freeze's resume
+map gets SHORTER as standing surfaces absorb the continuity burden
+(plan node, PR body, MCP tickets, and now the Director's adjudicated
+packet built explicitly as the durable resume surface). Discarded as
+forced: cold-pause-then-freeze numerology.
+
+WRAP loss scan (fixed point reached in two passes): the freeze-6
+resume map → thread record; the assurance-packet pointer → resume map
+(already durable on #834 as comment 5232387226); the check-singleton
+lesson → this entry; everything else already homed (plan node, PR
+body, MCP-533/534, claims registry). Second pass over the scan added
+no new loss class.

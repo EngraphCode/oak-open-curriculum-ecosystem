@@ -1776,3 +1776,83 @@ identity-switchboard-first-pixels.plan.md (owner-ratified; amended
 2026-08-09 with the PR-1 split + libs-tier correction). Standing
 memories govern as always; the ARC channel is the Director dialogue
 surface; owner cards issue from the Director's seat only.
+
+## COMPACTION FREEZE 6 (2026-08-09T17:05:00Z) — Civet spins Cavern (054f5e); processes already stopped by the preceding cold pause; resume RE-ARMS
+
+Owner word: "prepare for compaction ... and then stop all processes."
+The stop clause was ALREADY satisfied: the seat cold-paused at the
+owner's earlier word minutes before this freeze (heartbeat pair
+stopped first with heartbeat-end, watcher last, cold-pause broadcast
+14:55Z-era; verified again at this freeze — no monitors run). Claim
+645b9e0b-afea-4743-8cc6-5dad3ad39575 RETAINED as a registry row.
+
+STATE AT FREEZE (all first-hand unless marked):
+
+- #834 (PR-1b) head db980a967 = swap (c0d415726) + cure round 5
+  (7634c0ca8: /orchestrator with the EvidenceIo seam +
+  /pairing-schema + assertServerUp into dev-server +
+  MATCHED_GEOMETRY_SCALE + resolveWidth fail-fast + three subpaths
+  demoted; both apps composition roots; hub corrupt-evidence unified
+  to fail-the-run) + db980a967 (overlay refuses decoded backslashes).
+  All four prior Copilot threads resolved with recorded dispositions;
+  PR body carries the cure-round-5 section; MCP-534 carries five new
+  follow-ups (comment 6ecf2d15); MCP-533 Done since #835.
+- ASSURANCE ROUND (owner-commissioned while this seat was paused;
+  read from the Director's ARC entry 16:45:00Z, uncommitted at my
+  read): 45-agent multi-model fleet + three Codex max-effort reviews
+  over db980a967. Verdict CURES-NEEDED, NO GRANT — one cure round
+  before merge. My five rounds' cures all verified SOUND (win32
+  traversal, injection defences, image-diff math, 8-path teardown,
+  diff-never-gates invariant). The NEW surface (what assigned lenses
+  structurally could not reach): evidence-integrity (a failed/blank
+  capture overwrites canonical PNGs and report-only trusts them —
+  quintuple-confirmed), capture-comparability (the 5-line settle
+  recipe un-consolidated despite carrying the same invariant as the
+  scale constant; ties to rule-6 baselines), lifecycle cleanup-on-
+  throw, fs-target containment (symlink/FIFO via the untracked vendor
+  root), pairing z.object → strictObject, plus deferrables and record
+  truings. The ADJUDICATED PACKET is durable on #834 as comment
+  5232387226 — the designed resume surface. Copilot round R27
+  (15:23:05Z) carries FOUR undispositioned SUPPRESSED findings, all
+  corroborating the fleet. mergeStateStatus BLOCKED.
+- Fleet: Wren PAUSED until 2026-08-10 (owner word; their #836 holds
+  the depcruise re-slice). The design-lane-only word covered
+  2026-08-09. Director live at the freeze, holding the board.
+- Coordination branch coordination/2026-08-09-b5f347: this freeze's
+  continuity commit rides ARC + napkin + this record (the ARC file
+  and napkin also carry the Director's uncommitted 16:4xZ entries —
+  append-only, attribution in headers, named in the commit message).
+  Worktrees: identity-switchboard-pr1 CLEAN at pushed db980a967;
+  w01-census parked (untracked W01-CYCLE-PLAN-v2.md +
+  design-census/ carry slice-A state, behind 75 by design).
+
+RESUME MAP (execute in order):
+
+1. Resume ceremony per start-right — RE-ARM everything: canonical
+   all-channels watcher from PRIMARY, F-95 assert, heartbeat pair
+   (claim 645b9e0b, intent identity-switchboard-first-pixels, branch
+   jimcresswell/design-identity-switchboard-pr1, cycle label
+   pr1b-cure-round-6), foreground gap sweep since
+   2026-08-09T17:05:00Z, peer-liveness read.
+2. #834 cure round 6: read FIRST-HAND the adjudicated packet (PR
+   comment 5232387226) AND Copilot R27's four suppressed bodies AND
+   checks on db980a967. The packet clusters the cures into one
+   coherent design story (evidence-integrity + comparability lead);
+   adjudicate per verify-dont-trust, pre-execution code-expert review
+   per the standing rule, ONE batched push, dispositions + thread
+   resolutions, re-READY on the ARC channel → Director recount +
+   grant + sha-pinned merge. Test-design lens from the napkin: choose
+   seams for falsification power, not only purity — the packet's
+   evidence-provenance classes need fs-level truth.
+3. PR-2 (task #2) from a fresh worktree off post-834 main:
+   per-cycle pre-execution review BEFORE code; plan §Mechanism
+   verbatim; carried obligations — @oaknational/result devDep →
+   dependencies in the same commit that makes lib/identities.ts
+   app-reachable; the live capture arm gains the expectsFrame check
+   with the routes (Copilot thread disposition, resolved with this
+   home). Then PR-3 evidence, then the census return (task #4).
+
+Governing plan: .agent/plans/delivery/
+identity-switchboard-first-pixels.plan.md (ratified; amended through
+the 2026-08-09 PR-1b cure amendment). Standing memories govern; owner
+cards issue from the Director's seat only.

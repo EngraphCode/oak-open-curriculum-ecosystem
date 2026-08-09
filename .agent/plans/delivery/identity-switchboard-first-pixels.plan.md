@@ -16,7 +16,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-09
+last_updated: 2026-08-09  # PR-1b hardening ledger + acceptance added
 ---
 
 # Identity switchboard in the showcase — first-pixels pull-forward
@@ -227,6 +227,21 @@ slice per the standing rule.
      list) unifies to the ruled fail-the-run policy. Capture arms, pair
      schemas, and each CLI's `main` stay app-local. Round budgets
      rebind at this re-authoring per PDR-132.
+   - PR-1b hardening (assurance round, 2026-08-09) — the owner-commissioned
+     full-work review (45-agent multi-model fleet + three Codex reviews at
+     max effort, four independent surfaces on head `db980a967`; method and
+     economics captured in
+     `.agent/reports/agentic-engineering/multi-agent-review-methodology-2026-08-09.md`)
+     returned CURES-NEEDED. #834 is **not mergeable** until the ledger in
+     `## PR-1b integrity & lifecycle hardening` below is cleared. The
+     completed cures of the prior five rounds are verified sound; the new
+     surface is evidence-integrity + capture-comparability + lifecycle +
+     fs-target containment + boundary strictness. Every cure is authored as
+     an architecture change that pulls its invariant down to a unit-provable
+     seam (owner ruling 2026-08-09, §HOW below); real-fs/real-process proofs
+     survive only as smoke-tier wiring checks and the one sanctioned
+     spawn-topology contract. Round budgets rebind at this re-authoring per
+     PDR-132; the code-expert pre-execution review fires before the slice.
 3. PR-2 — the two routes + `SegmentedControl` + route CSS + unit tests +
    Playwright cells (the a11y matrix gains the new routes' identity ×
    theme cells and the no-flash first-paint cell) + the
@@ -238,6 +253,191 @@ slice per the standing rule.
    `design-system-completion`.
 5. Return: the census resumes at its slice-A boundary; completion note
    here.
+
+## PR-1b integrity & lifecycle hardening — the cure ledger (assurance round, 2026-08-09)
+
+Complete record of what #834 needs fixing and how, from the four-surface
+assurance round (adjudicated packet: PR #834 comment 5232387226; per-surface
+raw records in the session review collation; method report cited in the PR-1b
+todo). Ordered by theme. Each row: the **invariant** at stake, the
+**architectural root** (why it is not unit-provable today), the **cure** (the
+seam or decomposition), and the **proof** it lands with.
+
+### HOW — the governing rule for every cure below (owner ruling, 2026-08-09)
+
+> Tests that use the filesystem and network have their place — full-system
+> smoke tests — but almost everything can be more effectively proven with
+> lower-level testing, and if that is hard, that difficulty is typically
+> exposing a weakness in the architectural design rather than a lack of
+> wide-net testing.
+
+Every cure is therefore authored as an **architecture change that makes the
+invariant provable at the lowest level** — a pure function or an injected seam
+(ADR-078) — never as "add a wide-net test." The reason each defect below evaded
+five review rounds is that the current shape pushes its proof out to the
+real-fs/real-process boundary; the cure pulls it back. Real IO proofs survive
+only in two narrow forms: a **smoke-tier** check that the wiring holds on the
+real artefact, and the one **spawn-topology contract** (a bounded synthetic
+child) reserved for a real child's signal/exit fidelity where no seam below can
+carry the proof. Neither is the primary proof of any invariant here. Every cure
+lands test-and-code atomic (TDD), and the guard is shown to bite (mutation
+check) before the commit.
+
+### Blocking — evidence integrity (the tool's core invariant; confirmed on 4 surfaces + R27)
+
+- **EI-1 — a failed/blank/404 capture must never become trusted evidence.**
+  Root: capture writes go straight to canonical names
+  (`capture-live-pages.ts:58-61`, `render-export-targets.ts:143-145`,
+  `capture-live-sections.ts:80`), and `buildAndWriteReport`
+  (`orchestrator.ts:145-174`) reconstructs its filesystem dependencies
+  internally — the `EvidenceIo` seam is injected only into `diffPair`, so the
+  "report-only refuses a mixed/incomplete cohort" invariant has no unit-level
+  hold. Cure: (a) a first-class **capture manifest** value — base, per-arm
+  width, scale, pair set, timestamps, content hashes, and a completed-run
+  marker; (b) extend `EvidenceIo` over the whole capture-write and
+  report-read path; (c) capture stages into an isolated run directory and
+  **atomically promotes** only on a complete manifest; (d) a **pure**
+  `reconcileCohort(manifest, requestedFlags) -> Result<Report, MixedCohort>`.
+  Proof: `reconcileCohort` is unit-tested over in-memory manifests
+  (mixed-geometry rejected, incomplete-run rejected, matching cohort accepted)
+  — mock-free, no filesystem. One smoke-tier round proves stage→promote wiring.
+- **EI-2 — a report must state the geometry the evidence was shot at.** Root:
+  `orchestrator.ts:165-170` writes current flags as truth unconditionally, and
+  the hub SECTION arms hardcode 1440 (`drive-export-sections.ts:123-128`,
+  `capture-live-sections.ts:91-104`) while page arms honour `--width`. Cure:
+  geometry is per-arm/per-pair in the manifest (EI-1); report-only derives it
+  from the manifest; width threads into both section arms; report-feeding
+  hardcoded widths deleted. Proof: the manifest-to-report meta mapping is a
+  pure function, unit-tested.
+- **EI-3 — concurrent runs must not corrupt a shared evidence set.** Root: no
+  run lease; A spawns and stops the shared server mid-B-capture; both write
+  fixed paths. Cure: a per-consumer run lease over the isolated run dir + the
+  atomic promotion of EI-1 (one mechanism serves both). Proof: the lease
+  acquire/refuse decision is a pure function over an injected clock+lockfile
+  fake.
+
+### Blocking — capture comparability (the fleet's frame-challenger finding)
+
+- **CC-1 — export and live sides must be captured under the same settle, or no
+  disposition's warrant holds.** Root: the five-line settle recipe
+  (`document.fonts.ready` + animation-kill + `waitForTimeout(2000)`) is
+  byte-duplicated across five arms (`capture-live-demo.ts:89-92`,
+  `capture-live-sections.ts:49-51`, `render-canonical-targets.ts:75-78`,
+  `capture-live-pages.ts:45-48`, `render-export-targets.ts:127-130`) — there is
+  no single settle unit, so comparability is unprovable. Cure: consolidate into
+  one package function `settleForCapture(page, opts)`; every arm calls it; make
+  it available to the Quality-bar rule-6 screenshot baselines
+  (`apply-state.ts:127`, which today settles differently — the frame-challenger's
+  cross-surface link). Proof: the settle sequence is one unit over an injected
+  page fake (ordered-call assertion); "every arm uses it" is an **ESLint
+  boundary rule** forbidding a direct `waitForTimeout` in capture arms — a
+  structural gate, not a test (the-kind-fits-the-class). NOT covered by MCP-534
+  (serve mechanics only).
+
+### Blocking — lifecycle & cleanup (Codex ×3 + fleet round-audit)
+
+- **LC-1 — every acquired browser/server is released on every path.** Root:
+  cleanup lives in success-path control flow (`render-canonical-targets.ts:98-133`,
+  `drive-export-sections.ts:123-161`, `capture-live-demo.ts:130-142`,
+  `capture-live-sections.ts:100-111`); an unbounded `document.fonts.ready` can
+  hang teardown; no top-level CLI SIGINT/SIGTERM handler reaps the detached
+  child. Cure: a resource-**bracket** abstraction (`withResource(acquire, use)`
+  guaranteeing release) owning browser and server handles; a run-wide
+  `AbortSignal`/deadline threaded through nav→fonts→eval→screenshot→report; a
+  signal handler that reaps the detached child. Proof: the bracket is a pure
+  higher-order function unit-tested with a fake whose release is asserted on the
+  throw path — zero real processes.
+- **LC-2 — "server released/ready" must mean the child actually is.** Root:
+  liveness is inferred from a 2s HTTP probe (`dev-server.ts:73-79`) that a
+  socket-holding, header-withholding server defeats, and a startup race can bind
+  the wrong service with no identity check (`dev-server.ts:182-202`) — the
+  mechanism behind SOL-1's "infra failure presented as product divergence." Cure:
+  own the child handle and observe its exit event; verify an app/route/identity
+  sentinel on the served response; prove group termination independent of HTTP;
+  prove the port re-bindable. Proof: "released = child-exited" and
+  "ready = identity-sentinel-seen" are a pure state machine over an injected
+  process-handle + response fake; the ONE real-process test is the sanctioned
+  spawn-topology contract for a real child's exit/signal fidelity.
+
+### Blocking — fs-target containment (Codex SOL-3, double-confirmed)
+
+- **SEC-1 — a served path must resolve to a regular file inside the root.**
+  Root: containment is lexical (`static-path-guard.ts:35-40` admits it) and the
+  servers `stat`/`createReadStream` follow symlinks/FIFOs
+  (`export-server.ts` hub:46-67 / showcase:98-123); the untracked vendor export
+  root cannot be assumed clean; the showcase accepts every non-directory node and
+  splits `existsSync`→`statSync` (R27 suppressed comment names this exactly).
+  Cure: `resolveContainedTarget(root, urlPath, statFn) -> Result<RegularFile,
+  Escape>` — pure over an injected stat (lstat/realpath) result; regular-files
+  only; stream from the validated opened handle. Proof: unit-tested with fake
+  stat results (symlink-escape rejected, FIFO rejected, vanish-between-checks
+  handled) — no real filesystem; one real symlink at smoke tier proves wiring.
+- **SEC-2 — evidence paths and image sizes are bounded.** Root: schemas are
+  `z.string().min(1)` (`fidelity-pairs.ts` both apps); `orchestrator.ts:150-154`
+  does uncontained `path.resolve`; PNG decode allocates `w×h×4` unbounded; literal
+  `?`/`#` read raw by fs but emitted unencoded to report URLs
+  (`fidelity-html.ts:10-15`). Cure: a safe-relative-path schema + root containment
+  on every read/write + size/dimension budgets + URL-encoded segments. Proof: the
+  path-validation schema and the budget check are pure functions, unit-tested.
+- **SEC-3 (adversarial-input model) — capture egress is confined to the declared
+  origin.** Root: unvalidated `--base` (`capture-flags.ts:62-69`) and
+  unrestricted browser subresources permit SSRF (needs CLI/env or page-content
+  control; no direct remote HTTP input). Cure: `allowLoopbackOrigin(base) ->
+  Result<Origin, Rejected>` pure guard + a browser-request allowlist to the
+  declared origin + redirect re-check. Proof: the origin guard is a pure unit;
+  the request-interception allowlist proves at integration tier (a code seam).
+
+### Blocking — boundary strictness (Codex SOL-2 + R27 + fleet second wave)
+
+- **BV-1 — the pairing boundary rejects unknown keys.** Root: `z.object` (not
+  `strictObject`) at `pairing-schema.ts:23-46` and both apps' `fidelity-pairs.ts`
+  silently strips a misspelled/obsolete field — a direct strict-validation-at-
+  boundary violation, untested. Cure: `z.strictObject` at all three levels. Proof:
+  a unit test per level (unknown key rejected) — always was unit-shaped, simply
+  never written.
+- **BV-2 — `resolveBase` rejects a flag-shaped/missing value** (R27 suppressed
+  comment at `orchestrator.ts:52`; asymmetric with the red-first `resolveWidth`
+  already landed). Cure: Result-typed `resolveBase`, require a following value,
+  validate an HTTP(S) URL. Proof: pure unit test, mirroring `resolveWidth`.
+
+### Deferrable — land with a named home, never silently
+
+`EvidenceIo` made Result-safe over the whole report path (subsumed by EI-1);
+idempotent teardown (ESRCH-on-already-stopped reads as success); NodeNext
+declaration portability (`.js`-qualified specifiers or bundled `.d.ts` + a
+NodeNext consumer smoke); explicit static-server limits (header/timeout/conn
+caps); the report positional-contract constraint is a package-internal HTML
+detail (`fidelity-html.ts:15` `../../` literal) — compute the depth instead of
+literalising it; the register schema pins no observed ratio / export fingerprint
+/ geometry, so `orphanedEntries` is its only staleness signal and its evidence
+lives in a gitignored tree a clean checkout cannot verify (design the register
+to carry the judged fingerprint).
+
+### Records & process cures (some Director-side)
+
+- `## Mechanism` still says "Copy the hub's tools" in the decision-complete
+  section (the copy-vs-compose correction landed only in the todo) — true the
+  Mechanism clause.
+- MCP-533 is marked Done while its described PR-1b scope is unmerged — reconcile
+  at the lane's resume (it owns the ticket's scope).
+- The PR body's PDR-132 round-budget claim is inaccurate at the current head —
+  true it.
+- Porting instructions name 3 of the 7 needed public modules, point at no worked
+  example, and do not distinguish the two export-server shapes — the skill/playbook
+  porting section needs the composition recipe.
+- Test-coverage gaps that let the EI/LC defects ship: `buildAndWriteReport` /
+  orchestrator-wiring / `loadRegister` / `writeReport` and `export-server`'s named
+  failure branches are untested, and the magnitude-invariant is asserted only at
+  `changedRatio=0`. Each EI/LC/SEC/BV cure above closes its own gap by
+  construction — the untested state IS the design debt this ledger repays.
+
+### Positives verified in the round (route to the rules process, not this PR)
+
+The overlay's exports-map-bounded package-root fallback (converts wrong-target-
+passes-blank-classifier from invisible to mechanical — the best new design in the
+arc); the diff-magnitude-never-gates invariant surviving two refactors; the
+reactive-consolidation-at-the-duplication-gate pattern; the dated-in-place
+plan-correction discipline.
 
 ## Out of scope (YAGNI)
 
@@ -259,6 +459,13 @@ reloads (deliberate showcase behaviour, recorded).
 - `owner-held`: the browse verdict recorded as a checkpoint row with the
   owner's Director-relayed words as `source`; on PASS, the screenshot
   baselines landed.
+- PR-1b hardening (`repo-safe` + `owner-held`): every blocking row in
+  `## PR-1b integrity & lifecycle hardening` cleared, each with the
+  unit-level proof its cure names (mock-free where the seam allows; the
+  smoke-tier wiring check and the single spawn-topology contract are the
+  only real-IO proofs); the guard shown to bite (mutation check) before
+  each landing; the `mergeStateStatus: BLOCKED` and the R27 undispositioned
+  round both resolved. #834 does not merge until this clears.
 
 ## Review notes (plan-body-first-principles-check)
 
