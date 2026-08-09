@@ -9,16 +9,17 @@
  */
 
 /** One declared comparison pair, as the report renderer consumes it.
- *  `notes` is declared `string | undefined` because that is what a
- *  zod-inferred optional produces — the wider form stays assignable if
- *  exactOptionalPropertyTypes ever lands. */
+ *  Note for a future exactOptionalPropertyTypes adoption: zod-inferred
+ *  optionals produce `string | undefined`, so `notes` would need the
+ *  explicit union restored then (today the plain optional is identical
+ *  and the redundant union is a Sonar S4782 smell). */
 export interface FidelityPair {
   readonly id: string;
   readonly kind: string;
   readonly exportPng: string;
   readonly livePng: string;
   readonly liveRoute: string;
-  readonly notes?: string | undefined;
+  readonly notes?: string;
 }
 
 /** An app's declared pairing map, as the report renderer consumes it —

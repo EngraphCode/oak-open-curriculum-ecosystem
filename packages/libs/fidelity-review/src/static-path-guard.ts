@@ -47,8 +47,8 @@ export function resolveWithinRoot(rootDir: string, rawUrl: string): string | und
     return undefined;
   }
   const urlPath = decodeUrlPath(rawUrl);
-  if (urlPath === undefined || !urlPath.startsWith('/')) {
-    // Only origin-form targets are fs-resolvable requests: absolute-form
+  if (!urlPath?.startsWith('/')) {
+    // Undefined (malformed) — or a non-origin-form target: absolute-form
     // ('http://…'), authority-form, and asterisk-form targets would
     // otherwise resolve to nonsense in-root paths via dot-segment
     // collapse rather than being refused.
