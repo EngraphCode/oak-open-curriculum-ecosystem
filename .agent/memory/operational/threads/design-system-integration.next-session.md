@@ -1856,3 +1856,55 @@ Governing plan: .agent/plans/delivery/
 identity-switchboard-first-pixels.plan.md (ratified; amended through
 the 2026-08-09 PR-1b cure amendment). Standing memories govern; owner
 cards issue from the Director's seat only.
+
+## Cure round 6 IN PROGRESS (2026-08-09 ~17:25Z) — Civet spins Cavern (054f5e); progress marker, recompute from the PR branch
+
+Director RELEASED the seat to cure round 6 at the owner's word (ARC
+16:44Z entry; absorption acknowledged and affirmed). Executing input:
+the slice design WITH its pre-execution adjudication addendum at
+`.agent/reports/design/2026-08-09-pr1b-cure-round-6-slice-design.md`
+ON THE PR BRANCH (SHA:2dc5d427c) — the opus pre-execution review
+returned 8 must-fixes (M1 manifest re-keying by relativePath with
+derived provenance; M2 ratified-origin allowlist; M3 ban-the-shutter
+ESLint gate; M4 group-gone release proof; M5 sentinel on the attach
+path; M6 lease self+liveness; M7 real-IO proof homes; M8 in-page fonts
+bound, no AbortSignal), ALL adjudicated into the addendum before code.
+
+LANDED AND PUSHED on jimcresswell/design-identity-switchboard-pr1:
+
+- SHA:aacc4ea58 slice 1 — BV-1 strictObject ×3 red-first; BV-2
+  Result-typed resolveBase + allowLoopbackOrigin; R6 call sites.
+- SHA:(slice 2a) — capture-settle package half: settleForCapture /
+  captureShot / captureElementShot / createOriginGuard /
+  isAllowedRequestUrl / RATIFIED_EXTERNAL_ORIGINS; /capture-settle
+  subpath.
+- SHA:f8d2b6d7c slice 2b — all six arms shoot through the one settle;
+  ESLint screenshot gate both demos (mutation-proven); origin-guard
+  wiring per arm; apply-state census consolidated.
+- SHA:e58e0edd0 slice 3i — capture-manifest pure core: schema,
+  contentHashOf, sideProvenance/isPromotableTarget, reconcileCohort
+  (incomplete/vendor-claim/drift/mixed-geometry refusals);
+  /capture-manifest subpath.
+
+REMAINING (execute from the addendum's re-sequenced slices, order
+binding): 3ii EvidenceIo role-split (read/diff-write/capture-write/
+manifest legs, Result-typed) + nodeEvidenceIo + buildAndWriteReport
+injection + loadRegister leg (R12); 3iii staging under
+demo-evidence/.staging/<runId>/ + promoteRun (rename-per-file,
+manifest last by rename) + verifyCohortEvidence + arms' Buffer pivot
+to writeEvidence + EI-2 width threading into hub section arms + R7
+fold of the hub-local resolveWidth; 3iv lease (M6 shape:
+runId/pid/hostname + holderLiveness probe + release leg); slice 4 LC
+(withResource, hub try/finally, signal reaper, M4 group-gone probe,
+M5 sentinel via judgeServerIdentity on assertServerUp AND both
+ensureDevServer branches, spawn-topology contract in package tests/);
+slice 5 SEC-1 handle-yielding resolveContainedTarget (R1 sequence)
+in both export-servers + SEC-2 pixel-budget/safe-path/URL-encode +
+R13; slice 6 records (plan Mechanism truing, PR body PDR-132 truing +
+cure-round section + one-re-baseline note, porting recipe with NINE
+modules, MCP-533 reconcile at merge) + smoke homes (M7). Then: R27's
+four suppressed findings dispositioned + threads resolved, re-READY
+on ARC → Director recount + grant + sha-pinned REST merge (merge
+method merge, never squash). Gates at every commit, serial per
+check-singleton. All slice-1/2 gates were green at their commits
+(package 132, hub 324, showcase 101 at last full pass).
