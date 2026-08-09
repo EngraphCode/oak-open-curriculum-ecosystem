@@ -97,3 +97,49 @@ export function nodeEvidenceIo(demoDir: string): EvidenceIo {
     },
   };
 }
+
+import { CAPTURE_MANIFEST_NAME } from './capture-manifest';
+import type { CaptureStageIo } from './capture-session';
+
+/** The one real CaptureStageIo: staging under
+ *  demo-evidence/.staging/<runId>/ (same filesystem as the canonical
+ *  tree, so every promotion rename is atomic per file), promotion by
+ *  rename to the declared path, and the manifest committed by
+ *  temp-write + rename so a torn write is a parse failure, never a
+ *  plausible half-truth. */
+export function nodeCaptureStageIo(demoDir: string, runId: string): CaptureStageIo {
+  const stagingDir = path.join(demoDir, 'demo-evidence', '.staging', runId);
+  return {
+    stageWrite: (rel, bytes) => {
+      try {
+        const target = path.join(stagingDir, rel);
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        fs.writeFileSync(target, bytes);
+        return ok(undefined);
+      } catch (error: unknown) {
+        return err(`stage write failed at ${rel} — ${describeThrown(error)}`);
+      }
+    },
+    promoteFile: (rel) => {
+      try {
+        const target = path.resolve(demoDir, rel);
+        fs.mkdirSync(path.dirname(target), { recursive: true });
+        fs.renameSync(path.join(stagingDir, rel), target);
+        return ok(undefined);
+      } catch (error: unknown) {
+        return err(`promotion failed at ${rel} — ${describeThrown(error)}`);
+      }
+    },
+    writeManifest: (manifestJson) => {
+      try {
+        const evidenceDir = path.join(demoDir, 'demo-evidence');
+        const tempPath = path.join(evidenceDir, `.${CAPTURE_MANIFEST_NAME}.tmp`);
+        fs.writeFileSync(tempPath, manifestJson);
+        fs.renameSync(tempPath, path.join(evidenceDir, CAPTURE_MANIFEST_NAME));
+        return ok(undefined);
+      } catch (error: unknown) {
+        return err(`manifest write failed — ${describeThrown(error)}`);
+      }
+    },
+  };
+}

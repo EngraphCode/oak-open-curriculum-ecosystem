@@ -31,6 +31,7 @@ export { type ServerMode } from './report';
 // evidence-io.ts; re-exported here because the orchestrator's own
 // signatures are typed on them and the composition roots compose both.
 export {
+  nodeCaptureStageIo,
   nodeEvidenceIo,
   registerPathFor,
   reportDirFor,
@@ -40,6 +41,14 @@ export {
   type RegisterReadIo,
   type ReportWriteIo,
 } from './evidence-io';
+// The capture-session staging surface, composed by each app's capture
+// phase; the pure manifest half lives on the /capture-manifest subpath.
+export {
+  createCaptureSession,
+  type CaptureSession,
+  type CaptureSessionMeta,
+  type CaptureStageIo,
+} from './capture-session';
 import {
   registerPathFor,
   type DiffWriteIo,

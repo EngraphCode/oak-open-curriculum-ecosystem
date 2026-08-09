@@ -175,3 +175,42 @@ export function reconcileCohort(
     promotedAt: manifest.promotedAt,
   });
 }
+
+/** The read legs cohort verification needs — structurally identical to
+ *  the orchestrator's EvidenceReadIo, declared locally so the runtime
+ *  import edge stays one-directional (evidence-io consumes this module
+ *  for the manifest filename; a value cycle back would be a boundary
+ *  smell). */
+interface CohortReadIo {
+  readonly exists: (demoRelativePath: string) => boolean;
+  readonly read: (demoRelativePath: string) => Result<Buffer, string>;
+}
+
+/**
+ * Prove the canonical bytes ARE the manifest's bytes: every entry
+ * present and hash-matching. A mismatch means a torn promotion or a
+ * manual edit — either way the evidence set is not the recorded run
+ * and must be refused, not reported over. Pure over the injected io.
+ */
+export function verifyCohortEvidence(
+  manifest: CaptureManifest,
+  io: CohortReadIo,
+): Result<void, string> {
+  for (const entry of manifest.entries) {
+    if (!io.exists(entry.relativePath)) {
+      return err(
+        `canonical evidence missing at ${entry.relativePath} despite a manifest entry — torn promotion; re-run the capture`,
+      );
+    }
+    const bytes = io.read(entry.relativePath);
+    if (!bytes.ok) {
+      return err(bytes.error);
+    }
+    if (contentHashOf(bytes.value) !== entry.contentHash) {
+      return err(
+        `canonical evidence at ${entry.relativePath} does not match the capture manifest — torn promotion or a manual edit; re-run the capture`,
+      );
+    }
+  }
+  return ok(undefined);
+}
