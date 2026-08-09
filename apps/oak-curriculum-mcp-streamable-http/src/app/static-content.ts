@@ -12,7 +12,7 @@ import fs from 'node:fs';
 import type { Logger } from '@oaknational/logger';
 import { err, ok, type Result } from '@oaknational/result';
 
-import { OAK_ASSETS_MARKER, OAK_DS_MARKER } from './static-asset-paths.js';
+import { OAK_ASSETS_MARKER, OAK_DS_MARKER, ROUTED_ASSET_BASE } from './static-asset-paths.js';
 
 function addRootLandingPage(
   app: Express,
@@ -24,7 +24,15 @@ function addRootLandingPage(
     log.debug('landing.get', { path: req.path, method: req.method });
     // The baked artefact, rendered once at build time — no React, no
     // derivation, no per-request render (owner ruling; ADR-217 lineage).
-    res.type('text/html').send(getLandingPageHtml());
+    //
+    // `Vary: Accept` and `no-store` match what the `/mcp` negotiation sets on
+    // the same document (`mcp-middleware.ts`). Both became load-bearing here
+    // once the public-browser fork reached `/` (MCP-518): whether the auth
+    // vendor runs on this URL — and so whether the response carries its
+    // headers — now depends on `Accept`, and no intermediary may pair one
+    // request's answer with another's.
+    res.vary('Accept');
+    res.type('text/html').set('Cache-Control', 'no-store').send(getLandingPageHtml());
   });
 }
 
@@ -111,7 +119,37 @@ function mountStaticAssets(app: Express, log: Logger, staticRoot?: string): void
   // cure and belong to the asset-versioning follow-up. Applies to the whole
   // root (favicons included) — a deliberate simplification recorded in the
   // PR's deviation ledger.
-  app.use(expressStatic(resolution.value, { etag: true, maxAge: 0 }));
+  //
+  // Mounted at BOTH the root and the routed base (MCP-509). The routed mount
+  // is the one the canonical host can actually reach — Cloudflare only sends
+  // `/mcp*` here, so a root-relative request never arrives. The root mount
+  // stays because the alpha host serves this app at its own root and is a
+  // declared compatibility surface; retiring it would break that page
+  // silently. One handler, two prefixes: the two cannot drift apart.
+  // `redirect: false` is load-bearing on the routed mount, not hardening.
+  // Mounted at `/mcp`, a bare `GET /mcp` arrives as a request for the mount's
+  // own directory, and with express.static's default that is a 301 to `/mcp/`,
+  // which would swallow the request before the HTML negotiation and the MCP
+  // protocol legs behind it ever ran. Off, a directory request falls through
+  // to `next()` — so `GET /mcp` still negotiates HTML and `POST /mcp` still
+  // reaches the handler. `mcp-html-negotiation.integration.test.ts` demands
+  // `GET /mcp` return the baked page byte-exactly, so it fails on a 301.
+  //
+  // `index: false` is hardening rather than load-bearing: the served root has
+  // no `index.html`, so the probe finds nothing today. It is set so that
+  // adding one could never turn `GET /mcp` into a static response.
+  //
+  // Both options apply to the root mount too, since one handler serves both
+  // prefixes: a root-level directory request falls through instead of
+  // redirecting. Nothing depends on the old behaviour.
+  const serveAssets = expressStatic(resolution.value, {
+    etag: true,
+    maxAge: 0,
+    redirect: false,
+    index: false,
+  });
+  app.use(serveAssets);
+  app.use(ROUTED_ASSET_BASE, serveAssets);
 }
 
 /** What the static-content mount needs from the app's options. */

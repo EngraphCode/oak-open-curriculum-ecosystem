@@ -51,7 +51,9 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
     [UNIVERSAL_EXECUTOR]: ['summary: `${title}: ${String(result.value.status)}`,'],
   },
   C066: {
-    [SEARCH_DEF]: ["description: `Search Oak's curriculum using semantic search across all four"],
+    [SEARCH_DEF]: [
+      'description: `Hybrid lexical and semantic search across lessons, units, threads and sequences,',
+    ],
   },
   C067: {
     [SEARCH_DEF]: ["title: 'Search Curriculum',"],

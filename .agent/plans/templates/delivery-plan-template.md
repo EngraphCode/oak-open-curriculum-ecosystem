@@ -20,8 +20,9 @@ serves: <strategic node id>
 impact_areas:
   - <area from impact-areas.md>
 tickets:
-  - <Linear issue ID, e.g. MCP-000 — required before ratification;
-    execution state lives there, never here>
+  - <Linear issue ID, e.g. MCP-000 — optional, always (2026-08-07
+    amendment); a thin visibility pointer when the operator's tracker
+    holds the work — execution state lives there, never here>
 depends_on: []
 # depends_on:
 #   - plan: <plan-id>

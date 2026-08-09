@@ -25,6 +25,7 @@ recompute live state from claims/comms/git at pickup.
 | 2026-07-30 | Thyme weaves Hedgerow | claude-code / claude-fable-5 | `762020` | design-showcase lane (adopted claim `ebb3efe2` from Altair turns Infinity `7a97a1` at owner word 2026-07-29 — Altair held the lane 2026-07-29 unregistered on this table); landed #637 + #641; MCP-372 carrier at owner ruling; deliberate succession → Sycamore herds Xylem `028dc4` 2026-07-30 |
 | 2026-08-02 | Moss calls Loam | claude-code / claude-fable-5 | `79b433` | Design-lane seat at direct owner word (Director: Falcon hunts Flight `52841f`); movement 1: PR #710 MERGED `58e5be461` — kit 1.8.0 TS-runtime + choice() on main |
 | 2026-08-02 | Corsair hunts Surf | claude-code / claude-fable-5 | `4d3282` | Design-lane successor seat at direct owner word (evening, post-Moss retirement); standby, warm pause — activation gated on the ratified design-system completion plan node + Director/owner word |
+| 2026-08-07 | Civet spins Cavern | claude-code / claude-fable-5 | `054f5e` | Design-lane successor (Saffron→Civet, PDR-063 deliberate succession at owner word, Director ACTIVATE 20:46Z); claim `645b9e0b` adopted 20:46Z after the handoff record read end to end |
 
 ## Board state at writing (recompute, do not trust)
 
@@ -1158,3 +1159,434 @@ its context; the live map wins on any conflict. The seat is live this
 sitting for Q&A, claimless, no source work; route pulls through the
 Director. This edit rides the next coordination window per
 no-handover-commits.
+
+## Session update 2026-08-07 ~20:50Z (Civet spins Cavern, 054f5e — additive; lane adopted at deliberate succession)
+
+- **Succession executed** (Saffron guards Hedgerow 8a4280 → this seat): owner named the
+  successor in-session at Saffron's seat; Saffron froze the lane to the handoff record
+  (machine-local per the operating model:
+  `.agent/state/collaboration/handoffs/645b9e0b-design-lane-saffron-to-civet.md` — the
+  deep state at this boundary); Director ACTIVATE word 20:46Z (directed event). Claim
+  `645b9e0b` adopted via `claims adopt` after the record was read end to end; active-seat
+  liveness pair live (watcher heartbeat-excluded + F-75 diff-poll + 240s two-leg
+  heartbeat loop).
+- **Queue at adoption (recompute at any later pickup)**: merge #820 (merge-bot F-112
+  push-path cure, live-fire proven) + #821 (suppressed-round docs cures) + #822
+  (design-lane-review-debt plan node) at full condition → #814 DDR cure round 2 (12
+  findings, comment 5218785245, delegated decisions in the handoff record §3 — do not
+  re-open) → slice 2 ddr-graph validator → slice 3 completion-plan §Review record truing
+  → slice 4 (#787 merge; #806 OWNER-CARD only, review-gated; #737 cure + re-request
+  mantagen). The SEALED two-act payload (combined window `a729c466` + capability-floor
+  rewrite) opens ONLY at the owner's work-word.
+- **Window posture binding this tenure**: owner away ~10h from 20:30Z; pace SLOWLY;
+  pre-approval lifts no standing rule; constitutively-owner items hold to morning with a
+  card; blocks route to the Director (Plover lifts Troposphere b10c37). Owner word to
+  this seat (2026-08-07, in-session): full Cricket suite at all major decision points,
+  tally rows at occurrence.
+
+## Session update 2026-08-08 ~01:35Z (Civet spins Cavern, 054f5e — additive; the review-debt queue is DISCHARGED)
+
+- **Seven merges this window, every one at a Director-granted recomputed
+  boundary** (recounts on each PR): #820 (merge-bot F-112 push cure), #821
+  (suppressed-round plan cures), #822 (the review-debt plan node), #814 (the
+  DDR corpus — four-round docs-adr convergence, 12→2→1→1-line→LAND; ADR-221
+  §3 minted identities, the estate's first), #823 (the F-156 read/write
+  identity split; register CURED at the merge moment), #824 (the completion
+  plan's §Review record trued through round 2 + the sealed a729c466 mandate),
+  #787 (the formation letter; three threads adjudicated). #737 dispositioned
+  to the human reviewer's clock (cure + body re-pin + re-request); #806's
+  owner card held at the Director's seat for the morning.
+- **Remaining on the lane**: slice 2 (the ddr-graph edge validator) fully
+  specified with FIVE named acceptance items in the session task register and
+  the #820/#823 records — its own sitting. THE SEALED PAYLOAD (combined
+  window a729c466 cures + capability-floor rewrite) remains sealed; it opens
+  at the OWNER'S design work-word, and the completion plan's §Review record
+  now carries the true opening state.
+- **Morning-board items from this window** (at the Director's seat): #806
+  card; the 89c1a2be9 stray-empty-commit drop (owner's call); the
+  QUOTA-SKIPPED command-mergeability design question; the 77/100 agent-task
+  run-window constraint; the ADR-221 §3 estate-wide adoption gap.
+
+## COMPACTION FREEZE 2026-08-08 ~09:10Z (Civet spins Cavern, 054f5e — seat continues; THE PAYLOAD IS UNSEALED; resume map)
+
+- **OWNER WORD at this seat** (2026-08-08 morning, verbatim substance):
+  "Time to unseal, time to make progress" — the a729c466 payload is OPEN.
+  Suggested next steps routed to the Director (event `7388cc9a`): Act 1 the
+  combined window first (primary-sources-first authoring sitting → nine
+  cures CLASS-WIDE + W0.5 fold, one docs PR → scoped delta-verify → at the
+  clean close the zero bar is met and the OWNER'S IMPLEMENTATION WORD cards
+  from the Director's seat → W0/W1 first light); Act 2 the capability-floor
+  rewrite to the v2 final shape after (or parallel at Director routing);
+  slice 2 (edge validator, five acceptance items) interleaves.
+- **RESUME STATE, exact**: claim `645b9e0b` RETAINED (seat continues;
+  silence from 054f5e after the freeze broadcast is the boundary, not
+  retirement). The review-debt queue is fully discharged (seven merges
+  2026-08-07/08: #820/#821/#822/#814/#823/#824/#787 — recounts on each);
+  #737 at the human reviewer's clock; #806 + four design questions on the
+  Director's morning board. At resume: re-arm via start-right (watcher
+  first, F-95, gap sweep, heartbeat pair against the retained claim), then
+  FIRST ACT = read the Director's routing answer to `7388cc9a`; if the
+  window's authoring sitting is this seat's, begin at the PRIMARY sources
+  (the 2026-08-06 ~06:55Z round-2 adjudication event, mandate `a729c466`,
+  W0.5 confirmed set event `0d5afca6`, the plan's §Review record) — never
+  this seat's summaries.
+- **Known-at-freeze bounds**: the payload substance is record-derived at
+  this seat (no first-hand re-read since warm-up); PR states dated to their
+  merge moments; the night's per-PR grants were WINDOW-SCOPED and do not
+  carry forward — post-window merges revert to standing practice unless the
+  Director re-rules. Dirty primary surfaces (napkin, frictions register,
+  this record, cricket tally) ride the Director's fold per
+  no-handover-commits.
+
+- **ROUTE ANSWERED BEFORE THE FREEZE COMPLETED** (Director broadcast
+  2026-08-08 09:07:27Z): the proposal is adopted — Act 1's authoring
+  sitting is THIS seat's at post-compaction resume (claim `645b9e0b`, no
+  alternative named), primary-sources-first; delta-verify same-reviewer
+  opus; the implementation-word card from the Director's seat at the clean
+  close; Act 2 sequenced after; slice 2 interleaves. Same broadcast window
+  (09:07:25Z rulings record): the stray 89c1a2be9 drops at the authorised
+  fold; #806 CLOSED with adjudication; queue-cleanup plan ratified;
+  longitudinal node to archive. The resume's first act is therefore the
+  Act-1 sitting directly.
+
+## Session update 2026-08-08 ~11:10Z (Civet spins Cavern, 054f5e — ACT 1 EXECUTED to the zero bar; PR #828 open)
+
+- **The a729c466 combined window is EXECUTED and CLEAN**: at the owner's
+  unseal word and the Director's ROUTE, this seat re-read the four primary
+  sources first-hand, ran the full Cricket quartet ×2 (5:3 → Director
+  PROCEED, all dissents dissolved on primaries), enumerated every touched
+  invariant via an 11-leg read-only workflow (`wf_45de2e3c-68c`), authored
+  the nine cures CLASS-WIDE + the confirmed W0.5 fold (ten items, three
+  instruments, two riders; W2.11/W4.8 minted at pointer grade), and closed
+  with the mandated delta-verify (`wf_034bd28a-b2f` + scoped re-verify):
+  round 1 six blockers all cured in-window, round 2 CLEAN, slope 6 → 0.
+  THE ZERO BAR IS MET.
+- **PR #828** (`jimcresswell/design-combined-window-cures`, commit
+  `b82e44192`, bot-pushed/bot-opened, full gate green incl. the
+  identity-naming ratchet): the plan + the durable round-2 record
+  `re-review-2026-08-06.md`. Copilot requested as selective bonus. Merge
+  shepherds under standing full-condition practice at settle.
+- **NEXT GATE: the owner's IMPLEMENTATION WORD**, carded from the
+  Director's seat (clean-close report: event `6c0fbc61`). At his word:
+  W0/W1 first light. Interleave during the wait: slice 2 (the ddr-graph
+  edge validator, five acceptance items) after #828 settles.
+- **Process record, honest**: the delta-verify's class-5 catch was this
+  seat's own splice of the item-2 rule into the DATED 2026-08-02
+  taste-calibration record — reverted; dated records stay untouched. The
+  napkin gained the day's one-generator family (fabricated event-id tail,
+  assumed wall-clock in comms filters, piped-exit false green) with the
+  mechanical cure: absolute values enter commands/records only by
+  command-substitution or visible copy. Routed residue at the Director's
+  board: pointer-table rows for W5.4/W5.5/W6.3/W6.4; "frontmatter gate 3"
+  numbering at three sites; the comms CLI's missing --in-response-to
+  antecedent check.
+
+## Session update 2026-08-08 ~13:50Z (Civet spins Cavern, 054f5e — #828 MERGED; FIRST LIGHT IS OPEN)
+
+- **#828 MERGED** (merge commit `7ecfc187c`, sha-pinned REST at the granted
+  head `cddd87cad`; recount comment quotes the grant event `6d3c9726`).
+  Boundary recomputed at the moment: rollup SUCCESS incl. SonarCloud by
+  name, 0 unresolved threads, 0 body tally, >2h quiet. The Copilot round
+  (nine findings incl. three suppressed) was cured in one push and fully
+  dispositioned before the grant. Remote branch deleted post-merge.
+- **THE IMPLEMENTATION WORD IS GIVEN** (owner card, Director event
+  `a080375f`): W0/W1 first light opens ON THIS MERGE. The
+  production-validation leg (2b4e5ce6) binds into W0/W1's DoD at
+  authoring time when design work first lands on service surfaces.
+- **First-light opening, per the plan's own prescription**: W0.2(a) —
+  verify every existing design gate FIRST-HAND with a dated baseline
+  snapshot at W0 start; red gates fixed before anything else. W0.1 census
+  - W0.3 charter proceed in parallel per §Sequencing. The provisional
+  first-pixels render gates on W0.2(a) + W0.7 v0 + W0.9 + the W0.5
+  blocking tweaks. Slice 2 (edge validator) re-slots at seat routing.
+- Also on the stream: owner ruled #766 merges as research docs (rides the
+  plans-truing sweep route; not this lane's).
+
+## Session update 2026-08-08 ~14:2xZ (Civet spins Cavern, 054f5e — FIRST LIGHT'S FIRST DELIVERABLE ON PR #829)
+
+- **W0.2(a) EXECUTED end to end at first light's open**: ten design gates
+  verified first-hand at `7ecfc187c` (dependency-aware turbo, forced fresh
+  — zero cache echoes; both showcase Playwright legs 15+22 passed after
+  the cold-machine chromium install). ZERO RED GATES — the dated baseline
+  `w0-gate-baseline-2026-08-08.md` is on **PR #829** (commit `226f3711f`,
+  Copilot requested selectively). Three environment artefacts recorded and
+  separated (run-shape false reds without dependency builds; Playwright
+  install; transient ECONNREFUSED under broken builds only).
+- **First-pixels path state**: W0.2(a) leg GREEN. Remaining legs: W0.7 v0
+  (rubric + register mint), W0.9 (hub pre-read — NEEDS the hub search env
+  credentials per the owner's 2026-08-05 word; owner-side item for a card
+  at its action moment), and the W0.5 blocking tweaks on the chosen pages
+  (land in W1.2's authoring). W0.1 census + W0.3 charter proceed in
+  parallel. Slice 2 re-slots between stories.
+
+## COMPACTION FREEZE 2026-08-08 ~14:05Z (Civet spins Cavern, 054f5e — seat continues; FIRST LIGHT IS RUNNING; resume map)
+
+- **THE DAY'S ARC, CLOSED**: owner unseal word → Act-1 combined window
+  authored class-wide + W0.5 fold → delta-verify 6→0 CLEAN → Cricket 5:3
+  Director-dissolved → **#828 MERGED** at the granted pin (`7ecfc187c`) →
+  **the owner's IMPLEMENTATION WORD** (event `a080375f`) → FIRST LIGHT
+  OPEN → **W0.2(a) executed** (ten gates first-hand, ZERO RED) → its
+  baseline on **PR #829** (`226f3711f`, Copilot requested, checks green
+  at freeze with 0 failures/19 contexts).
+- **RESUME STATE, exact**: claim `645b9e0b` RETAINED. At resume: re-arm
+  via start-right (watcher first, F-95, gap sweep, heartbeat pair on the
+  retained claim — heartbeat branch label = the live story's branch).
+  FIRST ACT: shepherd **#829** to merge — harvest the Copilot round
+  (bodies incl. suppressed), disposition, standing full-condition merge;
+  if the claude leg quota-skips again the settle read repeats the #828
+  shape → per-PR Director grant (the recorded interim; #828's grant
+  `6d3c9726` is the worked instance, NEVER a precedent to skip the
+  merge-decision truing story). THEN the next first-light sitting at seat
+  routing: **W0.7 v0** (rubric + wow-verdict register mint — the register
+  absorbs the #784 pre-registered verdicts under the optional-field arm)
+  with W0.1 census + W0.3 charter ADR available as parallel sittings;
+  slice 2 (edge validator, five acceptance items) re-slots between
+  stories; Act 2 (capability-floor rewrite, #783 floor) schedulable at
+  routing. **W0.9 needs the hub search env credentials** (owner word
+  2026-08-05) — an owner-side item whose card issues from the Director's
+  seat at its action moment; it gates a first-pixels leg.
+- **Known-at-freeze bounds**: #829 unmerged (its round un-harvested);
+  the Director was ALSO compacting at this freeze (their records pushed
+  `4d5d99f36`) — expect their resume lag on routed items. Worktrees:
+  `first-light-w02a` is LIVE (#829's branch); `design-combined-window`'s
+  branch is merged (prunable under the provably-safe policy at a quiet
+  moment). Dirty primary surfaces (napkin, this record incl. the
+  Director's one-character MD004 peer-repair at line 1299, cricket tally)
+  ride the next fold per no-handover-commits. The per-PR grants of
+  2026-08-07/08 are ALL window/PR-scoped — none carries forward.
+
+## Session update 2026-08-08 ~14:50Z (Civet spins Cavern, 054f5e — resume; #829 MERGED; the owner's four-PR sweep is COMPLETE)
+
+- **Post-compaction resume ran the full ceremony**: watcher re-armed +
+  F-95 attested, F-75 delta poll re-armed, heartbeat pair on the retained
+  claim (intent `pr-merge-sweep`), gap sweep absorbed. The Director's
+  merge-sweep ROUTE (`6219f078`, owner word "I want all of those PRs
+  merged safely and properly") was acknowledged, then SUPERSEDED at
+  `8a8e48b7` (owner word ~14:3xZ): #737 was owner-merged directly at
+  14:15Z (`67d23056e` — the standing CHANGES_REQUESTED was from Matt's
+  AGENTS, not Matt; provenance lesson estate-wide), and the owner named
+  the DIRECTOR executor for #783/#784. This seat's scope narrowed to
+  #829 then first light.
+- **#829 round 1, first-hand**: Copilot returned two REAL findings
+  (no suppressed block). Both CONFIRMED: (1) method not independently
+  reproducible (`--filter=...` abbreviation); (2) gate inventory
+  incomplete — re-enumeration from package scripts caught THREE absent
+  test suites (`design-tokens-core`, `oak-design-system` as Copilot
+  named, plus `oak-design-ink`). Cure `0c0c6f659`, one push: the three
+  suites ran forced at the pinned sha ALL GREEN (97+13+1 tests), table
+  completed to THIRTEEN gates with its derivation basis stated
+  (`build`/`test`/`validate*` scripts across `packages/design/*` + both
+  rendering consumers; `oak-design-assets` explicitly zero-script; lint
+  excluded as the static-checks CI leg), exact commands recorded
+  verbatim. Threads 2/2 resolved, tally posted.
+- **#829 MERGED** at the Director's grant (`a088a325`, recomputed
+  14:47Z): boundary re-verified at the merge moment, sha-pinned bot REST
+  merge at `0c0c6f659`, merge commit `4e1bb0fc3`, recount comment quotes
+  the grant, branch auto-deleted. **The four-PR sweep is COMPLETE**:
+  #737 (owner) → #783 (`b888b732b`) + #784 (`1bfbb19d6`, both Director)
+  → #829 (this seat). W0.2(a) is landed as main's dated thirteen-gate
+  zero-red baseline; the first-pixels W0.2(a) leg is GREEN.
+- **Inbound durable routings absorbed**: #783 ratification inputs
+  (row-2 obligation wording; row-to-story enforcement wiring) → this
+  seat's Act-2 ratification pass; #784 addendum (upstream pin, delta-E
+  formula, exemption-aware attestation, editable-slides data boundary)
+  → the register migration + story cards, in the merged record itself.
+- **NOW OPEN: the W0.7 v0 sitting** (rubric + graded calibration with
+  enumerated fixture corpus + wow-verdict register mint on the
+  `demos/oak-curriculum-hub/tools/fidelity-register.ts` precedent —
+  zod-at-the-boundary, owner-editable JSON, vitest parse test SAME PR
+  per schemas-from-day-1). Pre-sitting reads done: W0.7/W0.10 story
+  text, the precedent trio, studio-source pages enumerated (3 composed
+  export pages). Sitting-frame Cricket (quartet ×2) runs at the shape
+  decision. Still to read at the sitting: the rejected-page identity +
+  the #784 pre-registered verdicts (both now ON MAIN in
+  design-sitting-records-2026-08-05.md).
+
+## Session update 2026-08-08 ~15:30Z (Civet spins Cavern, 054f5e — W0.7 PR-A OPEN at #830)
+
+- **The W0.7 sitting cleared its gate**: Cricket quartet ×2 at the frame,
+  6:2 non-unanimous → routed with resolutions → Director ruling
+  `0cfdd701` PROCEED (both dissents verified-dissolved at their seat; one
+  tightening adopted into the rubric: EVERY expert leg on opus).
+- **PR-A built, pre-reviewed, and OPEN: #830** (branch
+  `jimcresswell/design-w07-rubric-register`, worktree `w07-instrument`).
+  Lands: rubric v0 (seven criteria; ordered-calm verbatim;
+  FAIL-blocks-render + rule-3 routing; Oak-only sections, W0.10 mints the
+  rest), the wow-verdict register (zod boundary on the hub precedent;
+  checkpoint/pre-read arm mechanical; local ParseResult because ADR-213
+  §4 keeps the kit trunk-neutral — the design-boundary lint refused
+  @oaknational/result; seeded with the migrated Verdict-1 row), unit
+  suite (28 tests), minting record (four #784 inheritances + corpus
+  derivation). Pre-PR reviews (code/test/config experts, opus): ~15
+  findings cured — JSON-import test shape (no IO), unit-class rename,
+  message-bearing expect-guards, partial-leg rejection arm, knip scope,
+  vitest tree catch-all (mergeConfig CONCATENATES — a scoped glob leaves
+  a silent-skip hazard), identity-ratchet rewording. Lockfile delta
+  beyond three zod lines = pinned pnpm 11.20.0's deterministic
+  re-resolution, A/B-verified and named in the commit.
+- **In flight at record time**: CodeQL Analyze(actions) failed transient
+  (ECONNRESET at bundle download) — re-run armed on run conclusion;
+  Copilot requested via the MCP tool (REST endpoint silently drops the
+  handle — napkin note). Composite settle watch running; disposition
+  round then signal-ready per the #828/#829 flow.
+- **Routed residue on the Director's board**: design-boundary
+  relative-path zones target src/** only (createDesignBoundaryRules,
+  packages/core/oak-eslint) — design-review/ trees get the
+  package-specifier arm only.
+- **NEXT after #830 merges**: PR-B — the blind three-leg graded
+  calibration (fixture corpus per the minting record: oak +
+  EMC²/creature front pages must-pass with the motion-scope bound
+  stated; rejected showcase root + three degraded oak-page variants
+  must-fail; the PDS-identity front page held out, unmutated must-pass +
+  novel messy-arrangement mutation must-fail); BOTH expert legs on opus
+  per the ruling. Then W0.1 census / W0.3 charter at routing; W0.9 at
+  the owner's browse.
+
+## COMPACTION FREEZE 2 — 2026-08-08 ~16:24Z (Civet spins Cavern, 054f5e — seat continues; #830 re-cut pushed and dispositioned; resume map)
+
+- **THE WINDOW'S ARC**: resume → four-PR sweep completed (#829 merged at
+  the granted pin, 4e1bb0fc3) → W0.7 sitting (Cricket 6:2 → PROCEED with
+  the all-legs-opus tightening) → PR-A built, pre-reviewed (three opus
+  experts), #830 OPENED → the friction-ratchet fired on the kit home →
+  assumptions-expert split recommendation → Director ADOPT ruling →
+  **the re-cut executed and pushed** (mint `67cf5da63` → re-home
+  `463097a8c`): parser + suites at
+  agent-tools/src/validators/wow-verdict-register/ (estate Result, 25
+  tests incl. byte-level integration proof), rubric/records/data at
+  docs/design/design-review/ (frontmatter + README pointer), six kit
+  config hunks + lockfile churn REVERTED (zero delta vs main). The
+  Copilot round (3 inline + 1 suppressed) ALL ADOPTED in the same push
+  — closed rosters, doc-hygiene pointer, exhaustive per-criterion legs,
+  and the instrument-blocked third row class (schema extension recorded
+  in the minting record). Threads 3/3 resolved, tally posted.
+- **n=2 MODE was ACTIVE at freeze** (PDR-082; ARC channel
+  2026-08-08-next-steps-plover-…-civet-…; both heartbeats down by
+  declared intent; mutual mode confirmed by the Director 16:07Z). The
+  Director's 16:18Z entry ADOPTED the lane sequencing and stands by for
+  the #830 ready signal.
+- **SHA NAMING CORRECTION for the record**: the #830 mint commit is
+  `67cf5da63`; `0c0c6f659` is #829's cure commit — earlier narration
+  conflated them.
+- **RESUME MAP, exact (owner word: restart ALL monitors post-compaction)**:
+  claim `645b9e0b` RETAINED. At resume: (1) canonical watcher FIRST +
+  F-95 assert; (2) gap sweep — canonical buffer AND the ARC channel file
+  (read new entries end-to-end; the half-armed-watcher lesson: sweep the
+  watcher buffer at every turn boundary); (3) F-75 delta poll; (4)
+  heartbeat pair on the retained claim UNLESS n=2 is re-confirmed live
+  with the Director (then heartbeats stay down by PDR-082 and the ARC
+  tail Monitor re-arms instead — re-arm it either way if the channel is
+  still open). FIRST ACT: **#830 ready signal** — recompute checks at
+  `463097a8c` (they were running at freeze; claude auth was renewed by
+  the owner mid-window so the claude review leg may materialise);
+  at green + threads 0 + Sonar settled, signal READY (directed,
+  canonical) — the Director recounts and grants; merge sha-pinned as
+  before. THEN: **PR-B** — the blind three-leg graded calibration
+  (corpus per the minting record's derivation note; BOTH expert legs on
+  opus per ruling `0cfdd701`; legs blind to intended labels; record
+  names rubric revision v0). ADOPTED SEQUENCING AFTER PR-B: W0.1 census
+  sitting (+ W0.3 charter parallel) → slice 2 in review waits → W0.9 at
+  the credentials-card discharge (the Director issues that card when
+  PR-B enters review). Worktrees: `w07-instrument` LIVE (#830);
+  `first-light-w02a` merged (prunable provably-safe). Dirty
+  coordination-branch surfaces (napkin, this record, cricket tally with
+  both of today's runs) ride the next fold per no-handover-commits.
+
+## Session update 2026-08-08 17:21Z (Civet spins Cavern, 054f5e — post-compaction resume 2; #830 MERGED)
+
+- **Resume ran the freeze map exactly**: canonical watcher first (Monitor,
+  F-95 green), gap sweep via cursor replay (3 events — the Director's n=2
+  heartbeat-end 16:07Z and their own freeze 16:23:44Z; nothing else moved
+  while both seats were dark), F-75 delta poll re-armed (fresh baseline),
+  ARC tail re-armed. The heartbeat pair was armed per the map's
+  Director-dark arm, then STOOD DOWN minutes later when the Director's
+  17:18:46Z resume entry re-confirmed n=2 live (mode recomputed at their
+  seat: no third seat; one corrected-arm heartbeat cycle ran in the
+  window — mode artefact, disclosed on the ARC channel). One first-tick
+  catch: `comms send` REJECTS `--created-at` (the option is `--now`) —
+  the loop's loud-failure design surfaced it immediately; napkin carries
+  the rule-text drift note.
+- **#830 MERGED at `8840c3c8f`** (mergedAt 17:20:14Z): the Director
+  resumed first, ran the recount first-hand, and issued grant `cb6a0cd3`
+  (ARC 17:18:46Z + directed 17:19:25Z); this seat recounted at the
+  executing boundary (head unmoved at the pin `463097a8c`, 19/19 checks
+  SUCCESS, 0 unresolved threads, MERGEABLE) and executed the standing
+  sha-pinned bot REST merge. Branch auto-deleted; recount comment
+  `5227247465` quotes the grant. **The W0.7 instrument (rubric v0 +
+  wow-verdict register + parser at agent-tools) is ON MAIN.**
+- **NOW OPEN: PR-B** — the blind three-leg graded calibration per the
+  adopted order (Director 16:18Z, re-affirmed at their resume): fixture
+  corpus per the minting record's derivation note (oak + creature front
+  pages must-pass with the motion-scope bound stated; rejected showcase
+  root + three degraded oak-page variants must-fail; PDS-identity front
+  page held out — unmutated must-pass + novel messy-arrangement mutation
+  must-fail); BOTH expert legs on opus per ruling `0cfdd701`; legs blind
+  to intended labels; the record names rubric revision v0. Branch off
+  fresh main in a worktree; the Director issues the W0.9 credentials
+  card when PR-B enters review.
+
+## Session update 2026-08-08 17:56Z (Civet spins Cavern, 054f5e — PR-B EXECUTED and OPEN at #831)
+
+- **The calibration ran end to end in one window**: worktree
+  `w07-calibration` cut off the #830 merge commit (branch
+  `jimcresswell/design-w07-calibration`); eight-page corpus staged
+  ANONYMISED in scratch (`page-N/`, randomised, sibling assets carried);
+  four must-fail fixtures authored with neutral names, each scoped to
+  its targeted criteria; seat leg recorded and SEALED before dispatch
+  (non-blind bound stated); both expert legs dispatched blind on opus.
+- **Results (full detail in
+  `docs/design/design-review/records/2026-08-08-calibration-v0.md` +
+  the three leg reports beside it)**: blind legs caught 4/4 fixtures
+  with targeted criteria named, incl. the held-out novel mutation; BOTH
+  blind legs PASSED the owner-rejected showcase root — **the measured
+  v0 miss** (demonstrated expressive range is not a criterion; headline
+  v0.1 input); two canonical pages drew one-leg blocks tracing to ONE
+  root (the rubric's anchor carries untokenised angles and its own hero
+  collage — "moves four verdicts"); inter-leg agreement 6/8. Register
+  gains NO rows (calibration ≠ live verdicts; ground in the record).
+- **Estate findings routed to the Director** (ARC 17:56:10Z): the
+  `--layer-3` silent-fallback lookalike; the export's inline button
+  lacking the kit double focus ring; `width=1280` vs SC 1.4.10; no tilt
+  token (criterion 7's tokenised-angles clause unsatisfiable); rubric
+  v0.1 authoring as a sitting-class follow-on; the liveness-rule
+  `--created-at`→`--now` doctrine micro-drift.
+- **PR #831 OPEN** at `ca5420a61`, bot-authored verified, Copilot
+  requested via the MCP path, full local gate suite green at commit.
+  The identity-naming ratchet forced brand-string sanitisation on the
+  committed held-out fixture (recorded divergence, criterion-neutral;
+  staged judged copies untouched). The Director's W0.9 credentials card
+  fires now per the standing commitment. Next: shepherd #831 (harvest
+  Copilot round incl. suppressed bodies, disposition, full-condition
+  merge per the standing flow) → then W0.1 census sitting (+ W0.3
+  parallel) per the adopted order.
+
+## Session update 2026-08-09 06:26Z (Civet spins Cavern, 054f5e — #831 MERGED; W0.7 COMPLETE; W0.9 unblocked)
+
+- **The #831 review arc ran three rounds overnight-and-morning, all
+  adopted**: round 1 (5 findings — criteria-coupling truth, SC 2.4.11
+  erratum with the leg report conserved verbatim, fixture-d functional
+  divergence set, restaging recipe; cure `e27db0805`); round 2 (5
+  suppressed — recipe asset closure + source-read scope claim;
+  `ea48991e8`); round 3 (3 suppressed — per-leg-explicit collateral,
+  false-positive analysis separated onto its THREE grounds incl. the
+  page-4 canonical-raw-geometry block, blindness-preserving permutation
+  recipe; folded with the cpd row into `e6486cbfd`). The claude review
+  leg materialised but quota-skipped (the #828 shape, on the record).
+- **The owner answered the W0.9 card on the morning of 2026-08-09**:
+  (1) the Sonar cpd row AUTHORISED — landed with rationale citing
+  "owner-authorised 2026-08-09, PR #831" on `.sonarcloud.properties`
+  (fixtures dir only, duplication detection only, full analysis
+  retained; the record carries the matching gate note); Sonar went
+  GREEN on the landing. (2) `OAK_API_KEY` carried into the hub's
+  `.env.local` BY THE DIRECTOR — **W0.9's hub pre-read is UNBLOCKED**.
+- **#831 MERGED at `f1192ce22`** (mergedAt 06:25:08Z) under Director
+  grant `dd56dfb2`, sha-pinned at `e6486cbfd`, boundary recount clean
+  (19/19 incl. Sonar, 0 threads), branch auto-deleted, recount comment
+  `5230144488`. **W0.7 IS COMPLETE**: instrument minted (#830),
+  calibrated blind (#831), the measured v0 miss (the showcase-rejection
+  gap) banked as rubric v0.1's input, register discipline holding.
+- **NOW OPEN per the adopted order**: the W0.1 census sitting (sitemap +
+  axe/Lighthouse page-list derivation; feeds W1.4's IA) with W0.3
+  charter ADR as the parallel light leg; the W0.9 hub pre-read
+  schedules on the carried key (three-leg pre-read per the rubric, then
+  the owner browse moment routed via the Director). The Director folds
+  the coordination branch ~09:42Z; this lane's dirty surfaces ride it.
