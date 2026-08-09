@@ -107,7 +107,16 @@ function getLessonSlugConstantNames(sequenceSlug: string): {
 // Code Generation
 // ============================================================================
 
-export function buildLessonSlugDataset(allData: readonly ParsedBulkData[]): LessonSlugDataset {
+/**
+ * Builds the JSON-backed lesson slug dataset.
+ *
+ * @param allData - Parsed bulk data for every subject/phase
+ * @param now - Generation time (injected; no ambient clock)
+ */
+export function buildLessonSlugDataset(
+  allData: readonly ParsedBulkData[],
+  now: Date,
+): LessonSlugDataset {
   const sequences: Record<string, LessonSlugDatasetSequenceData> = {};
   const allLessonSlugs: string[] = [];
 
@@ -123,7 +132,7 @@ export function buildLessonSlugDataset(allData: readonly ParsedBulkData[]): Less
   }
 
   return {
-    generatedAt: new Date().toISOString(),
+    generatedAt: now.toISOString(),
     totalLessonSlugCount: allLessonSlugs.length,
     sequenceOrder: allData.map((data) => data.sequenceSlug),
     allLessonSlugs,
@@ -190,8 +199,11 @@ export function emitLessonSlugDatasetTypes(): string {
 
 /**
  * Generates the loader module that reads the JSON-backed lesson slug dataset.
+ *
+ * @param allData - Parsed bulk data for every subject/phase
+ * @param now - Generation time (injected; no ambient clock)
  */
-export function emitAllLessonSlugTypes(allData: readonly ParsedBulkData[]): string {
+export function emitAllLessonSlugTypes(allData: readonly ParsedBulkData[], now: Date): string {
   const lines: string[] = [];
   const totalCount = allData.reduce((sum, data) => sum + data.lessonCount, 0);
 
@@ -203,7 +215,7 @@ export function emitAllLessonSlugTypes(allData: readonly ParsedBulkData[]): stri
     ' * Uses a JSON-backed loader to avoid monolithic generated TypeScript data files.',
     ' *',
     ' * @generated - DO NOT EDIT',
-    ` * Generated at: ${new Date().toISOString()}`,
+    ` * Generated at: ${now.toISOString()}`,
     ' */',
     '',
     "import rawLessonSlugData from './lesson-slugs-by-subject.data.json';",

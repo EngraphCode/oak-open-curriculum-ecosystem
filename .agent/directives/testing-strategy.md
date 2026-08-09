@@ -104,7 +104,17 @@ Formal home: [`validation-strategy.md`](validation-strategy.md) (seeded
   antithesis — it pins bytes, proves no behaviour, fails loud on a
   harmless change; and the cure for a **content-quality invariant**
   (a firewall, e.g. "no curriculum data in this prose") is NOT a
-  grep test but **construction plus human review**.
+  grep test but **construction plus human review**. The
+  **designed-sentinel carve-out** (owner doctrine 2026-08-03): a
+  literal content pin is admissible only when a named decision
+  attaches to the value changing and the failure message instructs
+  re-adjudication of that decision, never removal-on-sight —
+  correction-layer override sentinels qualify; example-value pins
+  do not, and their cure is a source-anchored test of the
+  generating mechanism, red only when the mechanism breaks and
+  silent on upstream content drift (trigger artefact: the MCP-462
+  differential examples test that replaced three value-pinned
+  tests).
 - **No useless tests** - Each test must prove something useful
   about the product code. If a test is only testing the test or
   mocks, delete it.
@@ -178,6 +188,20 @@ Formal home: [`validation-strategy.md`](validation-strategy.md) (seeded
   violates the principle of using the right tool for the job. Use
   the right tool: ESLint for boundary enforcement, Playwright for
   browser testing, vitest for runtime logic.
+  ONE named sanctioned shape (recorded 2026-08-07 with the F-112
+  push-path landing; the shape the F-112 commit-path cure
+  established — see the `file-backed-stdio-for-spawned-gate-children`
+  pattern): a SPAWN-TOPOLOGY CONTRACT test — where the behaviour
+  under test IS a real child's stdio topology or exit/signal
+  fidelity and no DI seam below it can carry the proof (a fake would
+  model libuv engine semantics, the "double models the engine"
+  trap) — may spawn a bounded, deterministic, synthetic child
+  (`node -e`, literal env, no shell), homed in the workspace's
+  integration-test directory, kept apart from the seam-shaped suite
+  (worked instance: `agent-tools/tests/`). The seam-shaped remainder
+  of any such suite stays spawn-free via ADR-078 injection;
+  composition with real binaries belongs at smoke tier.
+  `test-immediate-fails.md` item 8 points here.
 
 - **No reading the `.agent/` knowledge substrate in tests** - Tests MUST
   NOT read from `.agent/**/*` for any reason (owner doctrine 2026-06-22,

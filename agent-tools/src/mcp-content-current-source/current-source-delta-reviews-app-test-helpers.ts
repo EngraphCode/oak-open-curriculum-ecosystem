@@ -44,7 +44,7 @@ export const APP_TEST_HELPERS_DELTA_REVIEWS: Readonly<Record<string, CurrentSour
     TEST_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/test-helpers/static-root-fixture.ts': excluded(
-    '6350420bb5d4e36cbca9264a0a7b704ebb3dd6ce57027e6073bc60f007447a8d',
+    'c015f386674e82f3873ee3706db2a4a7936cab025b4c687455230113b2ff3fd5',
     TEST_ONLY,
   ),
   // MCP-411 (ADR-219): the limiter DI fakes deleted with the in-code

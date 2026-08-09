@@ -7,6 +7,9 @@
 import { describe, it, expect } from 'vitest';
 import { emitGroundTruthSchemas, emitSlugEnumSchema, type ParsedBulkData } from './schema-emitter';
 
+/** Fixed generation time — emitters take the clock as a value (ADR-078). */
+const generatedAt = new Date('2026-08-03T12:00:00.000Z');
+
 describe('schema-emitter', () => {
   describe('emitSlugEnumSchema', () => {
     it('generates comment with slug count', () => {
@@ -41,7 +44,7 @@ describe('schema-emitter', () => {
 
   describe('emitGroundTruthSchemas', () => {
     it('generates complete schema file with imports', () => {
-      const output = emitGroundTruthSchemas();
+      const output = emitGroundTruthSchemas(generatedAt);
 
       // Should have imports
       expect(output).toContain("import { typeSafeKeys } from '@oaknational/type-helpers';");
@@ -54,7 +57,7 @@ describe('schema-emitter', () => {
     });
 
     it('generates RelevanceScoreSchema as internal const', () => {
-      const output = emitGroundTruthSchemas();
+      const output = emitGroundTruthSchemas(generatedAt);
 
       expect(output).toContain('const RelevanceScoreSchema = z.union([');
       expect(output).not.toContain('export const RelevanceScoreSchema');
@@ -64,7 +67,7 @@ describe('schema-emitter', () => {
     });
 
     it('generates QueryCategorySchema as internal const', () => {
-      const output = emitGroundTruthSchemas();
+      const output = emitGroundTruthSchemas(generatedAt);
 
       expect(output).toContain('const QueryCategorySchema = z.enum([');
       expect(output).not.toContain('export const QueryCategorySchema');
@@ -77,7 +80,7 @@ describe('schema-emitter', () => {
     });
 
     it('generates QueryPrioritySchema as internal const', () => {
-      const output = emitGroundTruthSchemas();
+      const output = emitGroundTruthSchemas(generatedAt);
 
       expect(output).toContain('const QueryPrioritySchema = z.enum([');
       expect(output).not.toContain('export const QueryPrioritySchema');
@@ -88,7 +91,7 @@ describe('schema-emitter', () => {
     });
 
     it('generates KeyStageSchema as internal const', () => {
-      const output = emitGroundTruthSchemas();
+      const output = emitGroundTruthSchemas(generatedAt);
 
       expect(output).toContain('const KeyStageSchema = z.enum([');
       expect(output).not.toContain('export const KeyStageSchema');
@@ -99,7 +102,7 @@ describe('schema-emitter', () => {
     });
 
     it('generates GroundTruthQuerySchema as internal const with validation', () => {
-      const output = emitGroundTruthSchemas();
+      const output = emitGroundTruthSchemas(generatedAt);
 
       expect(output).toContain('const GroundTruthQuerySchema = z.object({');
       expect(output).not.toContain('export const GroundTruthQuerySchema');
@@ -112,7 +115,7 @@ describe('schema-emitter', () => {
     });
 
     it('includes query length validation', () => {
-      const output = emitGroundTruthSchemas();
+      const output = emitGroundTruthSchemas(generatedAt);
 
       // Should validate query word count
       expect(output).toContain('.min(1)');
@@ -120,27 +123,27 @@ describe('schema-emitter', () => {
     });
 
     it('includes expectedRelevance non-empty validation', () => {
-      const output = emitGroundTruthSchemas();
+      const output = emitGroundTruthSchemas(generatedAt);
 
       // Should require at least one entry in expectedRelevance
       expect(output).toContain('typeSafeKeys(obj).length > 0');
     });
 
     it('does not generate AnyLessonSlugSchema (slug validation lives in lesson-slugs-by-subject)', () => {
-      const output = emitGroundTruthSchemas();
+      const output = emitGroundTruthSchemas(generatedAt);
 
       expect(output).not.toContain('AnyLessonSlugSchema');
     });
 
     it('generates validation function', () => {
-      const output = emitGroundTruthSchemas();
+      const output = emitGroundTruthSchemas(generatedAt);
 
       expect(output).toContain('export function validateGroundTruthQuery(');
       expect(output).toContain('GroundTruthQuerySchema.safeParse(');
     });
 
     it('does not export individual schema types (schemas are internal building blocks)', () => {
-      const output = emitGroundTruthSchemas();
+      const output = emitGroundTruthSchemas(generatedAt);
 
       expect(output).not.toContain('export type RelevanceScore');
       expect(output).not.toContain('export type QueryCategory');

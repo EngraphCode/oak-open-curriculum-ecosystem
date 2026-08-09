@@ -15,6 +15,7 @@ import { generateDefinitionsFile } from './parts/generate-definitions-file.js';
 import { generateScopesSupportedFile } from './parts/generate-scopes-supported-file.js';
 import { generateRootIndexFile } from './parts/generate-index-file.js';
 import { getParameterPrimitiveType, extractExampleValue } from './parts/param-utils.js';
+import { assertConstraintsArePropagated, readNumericBound } from './parts/param-constraints.js';
 import type { ParamMetadata, ParamMetadataMap } from './parts/param-metadata.js';
 import { createMutableParamMetadata } from './parts/param-metadata.js';
 import { generateToolDescriptorFile } from './parts/generate-tool-descriptor-file.js';
@@ -96,6 +97,7 @@ function extractParamMetadata(param: ParameterObject): ParamMetadata {
   const primitiveType = getParameterPrimitiveType(param);
   const isRequired = param.required === true;
   const schema = getSchema(param);
+  assertConstraintsArePropagated(param.name, schema);
   const enumValues = Array.isArray(schema?.enum) ? schema.enum : undefined;
   const primitiveEnumValues = enumValues
     ?.map((value) => {
@@ -122,6 +124,8 @@ function extractParamMetadata(param: ParameterObject): ParamMetadata {
     description: paramDescription ?? schemaDescription,
     default: schema && 'default' in schema ? schema.default : undefined,
     example: paramExample ?? schemaExample,
+    minimum: readNumericBound(schema, 'minimum'),
+    maximum: readNumericBound(schema, 'maximum'),
   };
 }
 

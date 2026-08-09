@@ -454,6 +454,26 @@ before relying on the review.
   explicitly rejected with rationale, or deliberately deferred with
   owner-visible evidence).
 
+### Review output names whose work it reviewed (owner directive, 2026-08-05)
+
+Owner directive, standing: **every review agent signs off naming which agent's
+work it is reviewing.** All review output — approvals, change-requests, inline
+comments — states the authoring agent's PDR-027 identity plus the reviewed
+PR/SHA, and closes with the reviewer's own identity and model.
+
+    Reviewed <author-agent-name>'s work on <PR>#<n> / <SHA>. — <reviewer identity> · <model>
+
+Motivating instance: a second-opinion `CHANGES_REQUESTED` did not name the
+authoring agent, and in a rotating-cast fleet the review provenance was then
+unrecoverable from the artefact — a reader could not tell whose work had been
+judged, by whom, against which head. Attribution makes both halves legible at the
+point of reading.
+
+Two riders from the same window: a review of rendered Markdown records its **WCAG
+pass** for the rendered semantics (heading hierarchy included), and a finding is
+attributed to **the PR that introduced it**, never to the stack head that
+happened to surface it.
+
 ## Finding Adjudication Is Dual-Use
 
 These clauses apply to ALL other-agent review input — specialist sub-agents,

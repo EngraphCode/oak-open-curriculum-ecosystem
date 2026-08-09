@@ -38,7 +38,7 @@
 
 import { existsSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { getAllGroundTruthEntries } from '../../src/lib/search-quality/ground-truth-archive/registry/index.js';
 import { typeSafeKeys, typeSafeEntries } from '@oaknational/curriculum-sdk';
 import {
@@ -750,8 +750,11 @@ function main(): void {
   process.exit(1);
 }
 
-// Only run main() when executed directly as a script, not when imported for testing
-const isMainModule = import.meta.url === `file://${process.argv[1]}`;
+// Only run main() when executed directly as a script, not when imported for
+// testing. pathToFileURL matches import.meta.url's percent-encoding; a raw
+// template comparison silently no-ops on any checkout path with a space.
+const isMainModule =
+  process.argv[1] !== undefined && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (isMainModule) {
   main();
 }

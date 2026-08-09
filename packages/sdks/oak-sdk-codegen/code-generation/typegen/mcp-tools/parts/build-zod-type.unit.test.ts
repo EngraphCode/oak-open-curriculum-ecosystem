@@ -251,6 +251,96 @@ describe('buildZodType', () => {
       expect(buildZodType(meta, 'param', 'flat')).toBe('z.string().meta({ examples: ["val"] })');
     });
   });
+
+  describe('numeric range constraints', () => {
+    it('emits .lte() for a maximum', () => {
+      const meta: ParamMetadata = {
+        typePrimitive: 'number',
+        valueConstraint: false,
+        required: false,
+        maximum: 300,
+      };
+      expect(buildZodType(meta, 'limit', 'flat')).toBe('z.number().lte(300)');
+    });
+
+    it('emits .gte() for a minimum', () => {
+      const meta: ParamMetadata = {
+        typePrimitive: 'number',
+        valueConstraint: false,
+        required: false,
+        minimum: 1,
+      };
+      expect(buildZodType(meta, 'limit', 'flat')).toBe('z.number().gte(1)');
+    });
+
+    it('emits .gte() before .lte() when both bounds are present', () => {
+      const meta: ParamMetadata = {
+        typePrimitive: 'number',
+        valueConstraint: false,
+        required: false,
+        minimum: 1,
+        maximum: 300,
+      };
+      expect(buildZodType(meta, 'limit', 'flat')).toBe('z.number().gte(1).lte(300)');
+    });
+
+    it('chains bounds before .describe() and .meta()', () => {
+      const meta: ParamMetadata = {
+        typePrimitive: 'number',
+        valueConstraint: false,
+        required: false,
+        description: 'Limit the number of keywords',
+        example: 20,
+        maximum: 300,
+      };
+      expect(buildZodType(meta, 'limit', 'flat')).toBe(
+        'z.number().lte(300).describe("Limit the number of keywords").meta({ examples: [20] })',
+      );
+    });
+
+    it('emits bounds in nested context too, so SDK invoke validation matches', () => {
+      const meta: ParamMetadata = {
+        typePrimitive: 'number',
+        valueConstraint: false,
+        required: false,
+        maximum: 300,
+      };
+      expect(buildZodType(meta, 'limit', 'nested')).toBe('z.number().lte(300)');
+    });
+
+    it('does not emit bounds on a non-numeric base', () => {
+      const meta: ParamMetadata = {
+        typePrimitive: 'string',
+        valueConstraint: false,
+        required: false,
+        maximum: 300,
+      };
+      expect(buildZodType(meta, 'slug', 'flat')).toBe('z.string()');
+    });
+
+    it('does not emit bounds on an enum base', () => {
+      const meta: ParamMetadata = {
+        typePrimitive: 'number',
+        valueConstraint: true,
+        required: false,
+        allowedValues: [1, 2, 3],
+        maximum: 300,
+      };
+      expect(buildZodType(meta, 'tier', 'flat')).toBe('z.enum([1, 2, 3] as const)');
+    });
+
+    it('does not emit bounds on the year preprocess wrapper', () => {
+      const meta: ParamMetadata = {
+        typePrimitive: 'number',
+        valueConstraint: false,
+        required: false,
+        maximum: 11,
+      };
+      const result = buildZodType(meta, 'year', 'flat');
+      expect(result).toContain('z.preprocess(');
+      expect(result).not.toContain('.lte(');
+    });
+  });
 });
 
 describe('buildZodFields', () => {
