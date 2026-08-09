@@ -28,25 +28,44 @@ Commissioning word (2026-08-09, owner, in-session): create the
 worktree, turn the validators back on, author this decision-complete
 plan, and add a periodic sweep for disabled validators and checks.
 
+Second owner word (2026-08-09, in-session, verbatim): "please stop the
+tsup files being ignored, and fix the ignoring all the way down,
+'strict, everywhere, all the time' is a central concept in this repo".
+This elevates lint coverage of config files from defence-in-depth to a
+commissioned outcome in its own right: no source-file class is exempt
+from lint, and every layer of the ignoring — the shared `ignores`
+globs, the src-only rule binding, the decoy `'off'` hatches — is
+cured, not worked around.
+
 ## Evidence (all first-hand, 2026-08-09)
 
 - **40 config files** reach the repo root by relative path: 18
   `vitest.config.ts` (`../../../vitest.config.base`) and 22
   `tsup.config.ts` (`../../{1,2}/tsup.config.base.js`, three factory
   flavours: `createLibConfig` / `createAppConfig` / `createSdkConfig`).
-- **The invisibility is three layers deep, plus one unproven path**:
-  (1) the shared ESLint `ignores` list globally ignores every tsup
-  config (`'**/tsup.config.ts'`, `'**/tsup.config.*'`) — those files
-  are never linted at all; (2) the boundary rules
-  (`import-x/no-relative-packages: 'error'`) bind only to
-  `files: ['src/**/*.ts']`; (3) the shared base config's config-file
-  block AND 20 workspace-local copies carried explicit `'off'` lines
-  for the boundary rules — suppressing rules that never bound there
-  (decoys implying coverage that did not exist); and (4) with layers
-  1–3 removed in a probe worktree, the rule still did not observably
-  fire on an unshadowed `vitest.config.ts` — resolver/package-boundary
-  detection is an unproven path, which is why enforcement below is NOT
-  an ESLint-only bet.
+- **The invisibility is three layers deep**: (1) the shared ESLint
+  `ignores` list globally ignores every tsup config
+  (`'**/tsup.config.ts'`, `'**/tsup.config.*'`) — those files are
+  never linted at all. The second glob's own comment says it targets
+  ephemeral bundled artefacts, but those are already covered by the
+  adjacent `'**/*.bundled_*.mjs'` entry, so its only real effect is
+  ignoring source files; deleting both globs loses nothing. (2) The
+  boundary rules (`import-x/no-relative-packages: 'error'`) bind only
+  to `files: ['src/**/*.ts']`. (3) The shared base config's
+  config-file block AND 20 workspace-local copies carried explicit
+  `'off'` lines for the boundary rules — suppressing rules that never
+  bound there (decoys implying coverage that did not exist).
+- **The rule fires once the layers are removed** (proven first-hand,
+  2026-08-09): with the tsup globs deleted from the shared `ignores`
+  and `import-x/no-relative-packages: 'error'` bound to the
+  config-file block, a rebuild of the standards package (consumed
+  from `dist/` — an earlier probe that edited `src/` without
+  rebuilding produced a false "rule does not fire" reading) and a
+  lint of `graph-core` yields exactly the two expected errors:
+  `tsup.config.ts:1` on `../../../tsup.config.base.js` and
+  `vitest.config.ts:1` on `../../../vitest.config.base`, with no
+  parser errors from the newly-linted file. The pre-migration
+  violations themselves are the red-proof of the lint arm.
 - depcruise polices layer direction only, and its orphan rule excludes
   config files with the comment "standalone by design" — which is
   exactly what they are not.
@@ -58,8 +77,10 @@ plan, and add a periodic sweep for disabled validators and checks.
   archived). A package-based convention would have needed no duplicate.
 - A probe worktree (`.claude/worktrees/vitest-config-workspace`,
   branch renamed to `jimcresswell/vitest-config-workspace`, local
-  only) carries the seed edits: the base-config hatch removed and the
-  boundary rule bound to config files.
+  only) carries the seed edits: the base-config hatch removed, the
+  boundary rule bound to config files, and the tsup globs deleted
+  from the shared `ignores` — the state in which the firing proof
+  above was measured.
 
 ## Mechanism
 
@@ -78,24 +99,37 @@ surface. Decisions, made:
   and imports by package name. Package imports resolve inside
   Stryker's symlinked sandbox, per-workspace tooling, and any future
   consumer that copies a workspace subtree.
-- **The enforcement gate is a dedicated repo validator** (the
+- **ESLint coverage of config files is a commissioned outcome**
+  (second owner word above), landing with the same strictness as any
+  source file: delete both tsup globs from the shared `ignores`
+  (nothing is lost — the bundled-artefact ephemera the second glob
+  claims to target are covered by `'**/*.bundled_*.mjs'`), bind
+  `import-x/no-relative-packages` to the config-file block in the
+  shared base, and delete every workspace-local `'off'` hatch. The
+  rule is proven to fire (§Evidence); a committed lint fixture in the
+  standards package's own test suite keeps it firing — a rule whose
+  coverage can silently vanish is the defect class this plan exists
+  to kill.
+- **A dedicated repo validator is the second, drift-immune gate** (the
   `validate-no-machine-local-paths` shape): scan every
   `{vitest,tsup,eslint,tsconfig-adjacent}` config file in every
   workspace for relative imports that resolve outside that workspace's
-  directory; exit non-zero naming file and import. Deterministic,
-  immune to lint-config drift, wired into `repo-validators:check`
-  (pre-commit + CI) — chosen over an ESLint-only gate because ESLint
-  demonstrated three failure layers plus the unproven firing path
-  above. Ships with a fixture red-proof (the validator demonstrably
-  fires on a violation before it guards anything).
-- **ESLint coverage lands as defence-in-depth, not the gate**: remove
-  the tsup globs from the shared `ignores`, bind
-  `import-x/no-relative-packages` to config files in the shared base,
-  delete every workspace-local `'off'` hatch, and prove the rule fires
-  with a lint fixture — or, if the unproven resolver path defeats a
-  bounded effort, record that finding in the PR and let the validator
-  stand as sole gate (the decision criterion is the red-proof, not
-  taste).
+  directory; exit non-zero naming file and import. Deterministic and
+  independent of lint configuration, resolver behaviour, and rebuild
+  state — the three surfaces this incident showed can silently defeat
+  lint. Wired into `repo-validators:check` (pre-commit + CI); ships
+  with a fixture red-proof.
+- **The whole shared `ignores` list is audited under the same word**
+  ("fix the ignoring all the way down"): every entry is dispositioned
+  as generated/ephemeral output (stays, with grounds recorded in the
+  disabled-checks register) or content-bearing source (un-ignored,
+  findings cured). Entries already flagged first-hand beyond the tsup
+  globs: `commitlint.config.js`, `reference/`, `research/`.
+- **Directive truing lands with the move**: principles.md §Tooling
+  reads "the canonical patterns defined in the base configs at the
+  repo root" — true today, false after the migration. The line is
+  re-pointed at the config-workspace convention in the same landing
+  (misleading docs are blocking).
 - **Cure and coverage land together**: enabling enforcement before the
   migration is estate-wide red; migrating without enforcement invites
   silent regression. One landing keeps every landed state correct.
@@ -121,10 +155,14 @@ surface. Decisions, made:
    `repo-validators:check`. Mechanical 40-file sweep + one small
    package + one validator = one story; the probe-worktree seed edits
    fold in here.
-2. **Lint de-hatching (defence-in-depth)**: shared `ignores` tsup
-   globs removed, boundary rule bound for config files, all 20 local
-   hatches deleted, firing proven by fixture (or the bounded negative
-   finding recorded per the mechanism's decision criterion).
+2. **Lint de-hatching (commissioned)**: both tsup globs removed from
+   the shared `ignores`, the full ignores-list audit dispositioned
+   (each entry registered-with-grounds or un-ignored-and-cured),
+   boundary rule bound for config files, all 20 local hatches
+   deleted, the committed firing fixture landed in the standards
+   package's test suite; the principles.md §Tooling truing rides
+   here. Lands immediately behind todo 1 — the migration is what
+   lets the un-ignoring land green.
 3. **Stryker duplicate retired**: `vitest.stryker.config.ts` deleted,
    `stryker.config.mjs` pointed at the real `vitest.config.ts`, canary
    re-run banked under `mutation-evidence/` as the end-to-end proof
@@ -150,9 +188,13 @@ surface. Decisions, made:
   register with grounds, and an unregistered disable fails CI —
   `repo-safe` for the mechanism (validator + fixture); `owner-held`
   for the register's contested rows (his card answers recorded).
-- The 20 lint hatches are gone — `repo-safe`: the hatch grep returns
-  zero; the de-hatch PR carries the firing fixture or the recorded
-  negative finding.
+- The 20 lint hatches are gone and no source-file class is ignored —
+  `repo-safe`: the hatch grep returns zero; every surviving `ignores`
+  entry has a registered generated/ephemeral disposition; the
+  de-hatch PR carries the committed firing fixture.
+- principles.md §Tooling names the config-workspace convention, not
+  root base configs — `repo-safe`: the stale line is absent from the
+  landed tree.
 
 ## Out of scope
 
