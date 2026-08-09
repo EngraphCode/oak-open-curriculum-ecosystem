@@ -92,6 +92,7 @@
     "validate-notion-fence": "cd .. && pnpm exec tsx agent-tools/src/validators/notion-fence/validate-notion-fence.ts",
     "validate-reference-direction": "cd .. && pnpm exec tsx agent-tools/src/validators/reference-direction/validate-reference-direction.ts",
     "validate-no-machine-local-paths": "cd .. && pnpm exec tsx agent-tools/src/validators/machine-local-paths/validate-no-machine-local-paths.ts",
+    "validate-workspace-config-isolation": "cd .. && pnpm exec tsx agent-tools/src/validators/workspace-config-isolation/validate-workspace-config-isolation.ts",
     "validate-identity-naming": "cd .. && pnpm exec tsx agent-tools/src/validators/identity-naming/validate-identity-naming.ts",
     "validate-markdown-links": "cd .. && pnpm exec tsx agent-tools/src/validators/markdown-links/validate-markdown-links.ts",
     "validate-mcp-content-current-source": "cd .. && pnpm exec turbo run sdk-codegen build --filter=@oaknational/oak-curriculum-mcp-streamable-http^... --output-logs=errors-only && pnpm exec tsx agent-tools/src/mcp-content-current-source/validate-current-source.ts",
@@ -108,6 +109,7 @@
   },
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",
+    "@oaknational/workspace-config": "workspace:*",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.17",
     "esbuild": ">=0.28.1",
@@ -123,6 +125,7 @@
     "@oaknational/type-helpers": "workspace:*",
     "ajv": "^8.20.0",
     "ink": "^7.1.1",
+    "jsonc-parser": "^3.3.1",
     "react": "^19.2.8",
     "smol-toml": "^1.7.0",
     "tinyglobby": "^0.2.17",

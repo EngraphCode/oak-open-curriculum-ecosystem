@@ -114,9 +114,6 @@ importers:
       supertest:
         specifier: ^7.2.2
         version: 7.2.2(supports-color@10.2.2)
-      tsup:
-        specifier: ^8.5.1
-        version: 8.5.1(jiti@2.7.0)(postcss@8.5.23)(supports-color@10.2.2)(tsx@4.23.1)(typescript@6.0.3)(yaml@2.9.0)
       tsx:
         specifier: ^4.23.1
         version: 4.23.1
@@ -147,6 +144,9 @@ importers:
       ink:
         specifier: ^7.1.1
         version: 7.1.1(@types/react@19.2.17)(react@19.2.8)
+      jsonc-parser:
+        specifier: ^3.3.1
+        version: 3.3.1
       react:
         specifier: ^19.2.8
         version: 19.2.8
@@ -172,6 +172,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../packages/core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../packages/core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -299,6 +302,9 @@ importers:
       '@oaknational/sdk-codegen':
         specifier: workspace:*
         version: link:../../packages/sdks/oak-sdk-codegen
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../packages/core/workspace-config
       '@playwright/test':
         specifier: ^1.62.0
         version: 1.62.0
@@ -444,6 +450,9 @@ importers:
       '@oaknational/search-contracts':
         specifier: workspace:*
         version: link:../../packages/libs/search-contracts
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../packages/core/workspace-config
       '@types/unzipper':
         specifier: ^0.10.11
         version: 0.10.11
@@ -651,6 +660,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -685,6 +697,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -722,6 +737,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../workspace-config
       '@types/jsonld':
         specifier: ^1.5.15
         version: 1.5.15
@@ -801,6 +819,9 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
     devDependencies:
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -835,6 +856,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -863,6 +887,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -890,6 +917,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -914,6 +944,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -938,6 +971,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../workspace-config
       '@stryker-mutator/api':
         specifier: ^9.6.1
         version: 9.6.1
@@ -960,6 +996,30 @@ importers:
         specifier: ^4.1.10
         version: 4.1.10(@opentelemetry/api@1.9.1)(@types/node@24.13.3)(@vitest/coverage-v8@4.1.10)(happy-dom@20.11.1)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.1)(yaml@2.9.0))
 
+  packages/core/workspace-config:
+    devDependencies:
+      '@eslint/js':
+        specifier: ^10.0.1
+        version: 10.0.1(eslint@10.8.0(jiti@2.7.0)(supports-color@10.2.2))
+      '@types/node':
+        specifier: ^24.13.3
+        version: 24.13.3
+      eslint:
+        specifier: ^10.8.0
+        version: 10.8.0(jiti@2.7.0)(supports-color@10.2.2)
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(jiti@2.7.0)(postcss@8.5.23)(supports-color@10.2.2)(tsx@4.23.1)(typescript@6.0.3)(yaml@2.9.0)
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+      typescript-eslint:
+        specifier: ^8.65.0
+        version: 8.65.0(eslint@10.8.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@opentelemetry/api@1.9.1)(@types/node@24.13.3)(@vitest/coverage-v8@4.1.10)(happy-dom@20.11.1)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.23.1)(yaml@2.9.0))
+
   packages/design/design-tokens-core:
     dependencies:
       '@oaknational/result':
@@ -972,6 +1032,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -1002,6 +1065,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -1038,6 +1104,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -1062,6 +1131,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -1099,6 +1171,9 @@ importers:
       '@oaknational/oak-design-system':
         specifier: workspace:*
         version: link:../oak-design-system
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -1133,6 +1208,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -1170,6 +1248,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/jsonld':
         specifier: ^1.5.15
         version: 1.5.15
@@ -1201,6 +1282,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -1232,6 +1316,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/express':
         specifier: ^5.0.6
         version: 5.0.6
@@ -1278,6 +1365,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -1312,6 +1402,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -1355,6 +1448,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@sentry/cli':
         specifier: ^3.6.2
         version: 3.6.2
@@ -1392,6 +1488,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -1444,6 +1543,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -1499,6 +1601,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -1548,6 +1653,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3
@@ -1569,6 +1677,9 @@ importers:
       '@oaknational/eslint-plugin-standards':
         specifier: workspace:*
         version: link:../../../../packages/core/oak-eslint
+      '@oaknational/workspace-config':
+        specifier: workspace:*
+        version: link:../../../../packages/core/workspace-config
       '@types/node':
         specifier: ^24.13.3
         version: 24.13.3

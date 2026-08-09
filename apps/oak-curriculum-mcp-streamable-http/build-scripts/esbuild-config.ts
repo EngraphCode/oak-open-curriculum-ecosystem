@@ -12,9 +12,10 @@
  *
  * Build-contract invariants previously encoded by
  * `tsup.config.base.ts → createAppConfig(...)` and the app's
- * `tsup.config.ts`. Both files are deleted by this lane (§L-8 WS2.3);
- * `tsup.config.base.ts` survives at the repo root for other apps and
- * libraries that have not migrated to esbuild.
+ * `tsup.config.ts`. Both files were deleted by that lane (§L-8
+ * WS2.3); the shared tsup factories now live in
+ * `@oaknational/workspace-config/tsup` for the apps and libraries
+ * that have not migrated to esbuild.
  *
  * Deliberate divergence from the tsup baseline:
  *

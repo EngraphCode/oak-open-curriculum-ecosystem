@@ -67,6 +67,7 @@
   },
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",
+    "@oaknational/workspace-config": "workspace:*",
     "@types/jsonld": "^1.5.15",
     "@types/n3": "^1.26.1",
     "@types/node": "^24.13.3",

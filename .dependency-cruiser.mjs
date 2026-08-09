@@ -69,6 +69,11 @@ export default {
           'graph-corpus-sdk/src/(eef-strands|threads)/index\\.ts$',
           // Closed PostHog adapter entry point consumed via package.json "exports"
           'posthog-node/src/index\\.ts$',
+          // workspace-config subpath-export module consumed via package.json
+          // "exports" (./vitest-e2e). Its moved-in siblings are already
+          // covered by the vitest.config/tsup.config/.setup. patterns above;
+          // this is the one filename those patterns miss.
+          'workspace-config/src/vitest\\.e2e\\.config\\.base\\.ts$',
           // SDK and TypeDoc entry points consumed via tsup + typedoc.json
           'oak-curriculum-sdk/src/types/(schema-bridge|public-types)\\.ts$',
         ],

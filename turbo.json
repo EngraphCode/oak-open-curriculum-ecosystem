@@ -49,7 +49,6 @@
       "inputs": [
         "$TURBO_DEFAULT$",
         "$TURBO_ROOT$/tsconfig.base.json",
-        "$TURBO_ROOT$/tsup.config.base.ts",
         "tsconfig.json",
         "tsconfig.build.json",
         "tsup.config.ts",
@@ -65,7 +64,6 @@
       "inputs": [
         "$TURBO_DEFAULT$",
         "$TURBO_ROOT$/tsconfig.base.json",
-        "$TURBO_ROOT$/tsup.config.base.ts",
         "tsconfig.json",
         "tsconfig.build.json",
         "tsup.config.ts",
@@ -108,7 +106,6 @@
       "inputs": [
         "$TURBO_DEFAULT$",
         "$TURBO_ROOT$/tsconfig.base.json",
-        "$TURBO_ROOT$/tsup.config.base.ts",
         // The bake stamps the root package version into the page's
         // app-version meta (ROOT_PACKAGE_VERSION fallback), so a release
         // bump must invalidate this task or a cache hit replays the
@@ -143,13 +140,7 @@
       "dependsOn": ["build"],
       "cache": true,
       "outputs": [],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "src/**/*.ts",
-        "oak-theme.js",
-        "vitest.config.ts",
-        "$TURBO_ROOT$/vitest.config.base.ts"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", "src/**/*.ts", "oak-theme.js", "vitest.config.ts"]
     },
     "@oaknational/oak-curriculum-mcp-streamable-http#test": {
       // Own `build` (which already implies ^build): suites that construct
@@ -163,12 +154,7 @@
       "dependsOn": ["build"],
       "cache": true,
       "outputs": [],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "**/*.ts",
-        "vitest.config.ts",
-        "$TURBO_ROOT$/vitest.config.base.ts"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", "**/*.ts", "vitest.config.ts"]
     },
     "@oaknational/oak-curriculum-hub#build": {
       "dependsOn": ["^build"],
@@ -233,13 +219,7 @@
       "dependsOn": ["^build"],
       "cache": true,
       "outputs": [],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "src/**/*.ts",
-        "src/**/*.json",
-        "vitest.config.ts",
-        "$TURBO_ROOT$/vitest.config.base.ts"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", "src/**/*.ts", "src/**/*.json", "vitest.config.ts"]
     },
     "@oaknational/oak-design-tokens#type-check": {
       "dependsOn": ["^build"],
@@ -286,13 +266,7 @@
       "dependsOn": ["^build", "sdk-codegen"],
       "cache": true,
       "outputs": [],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "**/*.ts",
-        "vitest.config.ts",
-        "$TURBO_ROOT$/vitest.config.ts",
-        "$TURBO_ROOT$/vitest.config.base.ts"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", "**/*.ts", "vitest.config.ts"]
     },
     "@oaknational/sdk-codegen#type-check": {
       "dependsOn": ["^build", "sdk-codegen"],
@@ -379,13 +353,7 @@
       "dependsOn": ["^build"],
       "cache": true,
       "outputs": [],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "**/*.ts",
-        "vitest.config.ts",
-        "$TURBO_ROOT$/vitest.config.ts",
-        "$TURBO_ROOT$/vitest.config.base.ts"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", "**/*.ts", "vitest.config.ts"]
     },
     "@oaknational/agent-tools#test": {
       "dependsOn": ["^build"],
@@ -395,8 +363,6 @@
         "$TURBO_DEFAULT$",
         "**/*.ts",
         "vitest.config.ts",
-        "$TURBO_ROOT$/vitest.config.ts",
-        "$TURBO_ROOT$/vitest.config.base.ts",
         "$TURBO_ROOT$/runtime-only-scripts/**"
       ]
     },
@@ -408,8 +374,6 @@
         "$TURBO_DEFAULT$",
         "**/*.ts",
         "vitest.config.ts",
-        "$TURBO_ROOT$/vitest.config.ts",
-        "$TURBO_ROOT$/vitest.config.base.ts",
         "$TURBO_ROOT$/research/web-app-deconstruction/**/*.md",
         "$TURBO_ROOT$/research/web-app-deconstruction/**/*.json",
         "$TURBO_ROOT$/research/web-app-deconstruction/**/*.yaml",
@@ -430,8 +394,6 @@
         "$TURBO_DEFAULT$",
         "**/*.ts",
         "vitest.config.ts",
-        "$TURBO_ROOT$/vitest.config.ts",
-        "$TURBO_ROOT$/vitest.config.base.ts",
         "stryker.config.ts",
         "$TURBO_ROOT$/stryker.config.base.ts"
       ]
@@ -440,25 +402,13 @@
       "dependsOn": ["^build"],
       "cache": true,
       "outputs": [],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "widget/**/*.ts",
-        "widget/**/*.tsx",
-        "vitest.widget.config.ts",
-        "$TURBO_ROOT$/vitest.config.base.ts"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", "widget/**/*.ts", "widget/**/*.tsx", "vitest.widget.config.ts"]
     },
     "test:e2e": {
       "dependsOn": ["build"],
       "outputs": [],
       "cache": true,
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "e2e-tests/**/*.ts",
-        "vitest.e2e.config.ts",
-        "$TURBO_ROOT$/vitest.e2e.config.base.ts",
-        "$TURBO_ROOT$/test.setup.no-network.ts"
-      ]
+      "inputs": ["$TURBO_DEFAULT$", "e2e-tests/**/*.ts", "vitest.e2e.config.ts"]
     },
     "@oaknational/agent-tools#test:e2e": {
       "dependsOn": ["build"],
@@ -468,8 +418,6 @@
         "$TURBO_DEFAULT$",
         "e2e-tests/**/*.ts",
         "vitest.e2e.config.ts",
-        "$TURBO_ROOT$/vitest.e2e.config.base.ts",
-        "$TURBO_ROOT$/test.setup.no-network.ts",
         "$TURBO_ROOT$/.codex/hooks/practice-session-identity.mjs",
         "$TURBO_ROOT$/package.json",
         "$TURBO_ROOT$/runtime-only-scripts/**"

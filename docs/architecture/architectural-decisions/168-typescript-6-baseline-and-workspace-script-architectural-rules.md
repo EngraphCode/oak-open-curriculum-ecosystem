@@ -379,13 +379,16 @@ required JS compiled from TS; ESM only, no CJS; this shell scope) is
 
 ### Carried forward
 
-- **Test config coupling**: 19 workspaces' `vitest.config.ts` files
-  import from `../../../vitest.config.base.ts`. This is the same
-  shape as the workspace-to-root-script ban but for **configs**,
-  not **scripts**. Whether configs are subject to the same ban is
-  an open question; this ADR does not resolve it. A separate plan
-  (`config-architecture-standardisation-plan.md`)
-  carries it.
+- **Test config coupling** — RESOLVED 2026-08-09: workspace config
+  files importing root bases by relative path (`vitest.config.ts` →
+  `../../../vitest.config.base.ts` and siblings) ARE subject to the
+  same ban as workspace-to-root scripts. The bases moved into
+  `@oaknational/workspace-config`, consumed via declared
+  `workspace:*` dependencies, with the boundary enforced by
+  `validate-workspace-config-isolation`. See
+  `.agent/plans/delivery/workspace-config-isolation.plan.md` (which
+  supersedes the config-architecture-standardisation pointer this
+  entry previously carried).
 - **`oak-eslint` build pattern**: this commit aligned `oak-eslint`
   to the repo-wide `tsup && tsc --emitDeclarationOnly --project
 tsconfig.build.json` pattern. The choice of `tsup` for JS emit
@@ -413,7 +416,8 @@ tsconfig.build.json` pattern. The choice of `tsup` for JS emit
 ## Future Work
 
 1. Resolve the `vitest.config.base.ts` coupling under the same
-   architectural lens (see Carried forward).
+   architectural lens — DONE 2026-08-09; see Carried forward's
+   resolution note and the History entry.
 2. Extract the workspace-script-ban into a portable Practice-Core
    doctrine if a second repo adopting the practice surfaces the
    same pattern. Currently this ADR is local to this monorepo.
@@ -463,6 +467,14 @@ tsconfig.build.json` pattern. The choice of `tsup` for JS emit
 
 - **2026-08-04** — trued §5's coverage claim and added the
   `runtime-only-scripts/` structural exception (§4 reference tree, §5).
+
+- **2026-08-09** — the Carried-forward config-coupling question
+  resolved: the root config bases (vitest, vitest e2e, tsup, and the
+  no-network setup) moved into `@oaknational/workspace-config`,
+  consumed via declared `workspace:*` dependencies and enforced by
+  the `validate-workspace-config-isolation` repo validator. The
+  §5 pointer comment on the vitest include globs moved with the base
+  file into the package unchanged.
   Found while curing MCP-479: the Vercel `ignoreCommand` guard's extensive
   suite lived beside the script in `runtime-only-scripts/`, exactly as §4's
   canonical tree depicted — and had **never run once**, because no workspace's

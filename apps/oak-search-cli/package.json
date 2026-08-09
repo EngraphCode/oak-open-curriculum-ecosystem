@@ -65,6 +65,7 @@
     "@elastic/transport": "^9.3.7",
     "@oaknational/eslint-plugin-standards": "workspace:*",
     "@oaknational/search-contracts": "workspace:*",
+    "@oaknational/workspace-config": "workspace:*",
     "@types/unzipper": "^0.10.11",
     "dotenv": "^17.4.2",
     "eslint": "^10.8.0",
