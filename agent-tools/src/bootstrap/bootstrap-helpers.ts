@@ -11,9 +11,6 @@ import path from 'node:path';
 
 import { z } from 'zod';
 
-/** The two canonical artifacts every leaf workspace dep's `dist` must hold. */
-const DIST_ARTIFACTS = ['index.js', 'index.d.ts'] as const;
-
 /** One directory entry: its name and whether it is itself a directory. */
 export interface WorkspaceDepDirEntry {
   readonly name: string;
@@ -77,20 +74,29 @@ function newestFileMtimeMs(dir: string, io: WorkspaceDepFsIo): number | undefine
  * `agent-tools/dist` (MCP-472; the "freshness != liveness" class). Fresh
  * checkouts escape the original bug because `dist` is absent and so build.
  *
- * Stale when either canonical dist artifact (`dist/index.js`, `dist/index.d.ts`)
- * is missing, or the newest file under `src/` is strictly newer than the oldest
- * present dist artifact. The oldest dist artifact is the reference so that a
- * single out-of-date artifact (e.g. a stale `.d.ts`) still forces a rebuild; the
- * strict comparison means a freshly built `dist` (written after its sources) is
- * never treated as stale, so a warm checkout with unchanged source still skips.
+ * Stale when any witness dist artifact is missing, or the newest file under
+ * `src/` is strictly newer than the oldest present witness artifact. The
+ * witnesses are per-dep: each dep names one bundler output and one declaration
+ * output from its own `dist` (a leaf package's `index.js` + `index.d.ts`; a
+ * no-barrel config package's named entries), so the decision proves both build
+ * steps ran without assuming a barrel the package does not ship. The oldest
+ * witness is the reference so that a single out-of-date artifact (e.g. a stale
+ * `.d.ts`) still forces a rebuild; the strict comparison means a freshly built
+ * `dist` (written after its sources) is never treated as stale, so a warm
+ * checkout with unchanged source still skips.
  *
  * @param depDir - Absolute path to the workspace dep directory (holds `src/` and `dist/`).
+ * @param distArtifacts - The dep's witness artifact names, relative to its `dist/`.
  * @param io - The filesystem seam supplying mtimes and the `src` directory walk.
  * @returns `true` when a rebuild is required, `false` when the built `dist` is current.
  */
-export function workspaceDepDistIsStale(depDir: string, io: WorkspaceDepFsIo): boolean {
+export function workspaceDepDistIsStale(
+  depDir: string,
+  distArtifacts: readonly string[],
+  io: WorkspaceDepFsIo,
+): boolean {
   const distArtifactMtimesMs: number[] = [];
-  for (const artifact of DIST_ARTIFACTS) {
+  for (const artifact of distArtifacts) {
     const mtimeMs = io.statMtimeMs(path.join(depDir, 'dist', artifact));
     if (mtimeMs === 'missing') {
       return true;
