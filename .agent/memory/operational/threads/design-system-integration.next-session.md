@@ -1886,14 +1886,30 @@ LANDED AND PUSHED on jimcresswell/design-identity-switchboard-pr1:
   (incomplete/vendor-claim/drift/mixed-geometry refusals);
   /capture-manifest subpath.
 
+ALSO LANDED: SHA:d8ebc46fe slice 3ii — evidence-io module (role-split
+Result-typed seam: EvidenceReadIo/DiffWriteIo/RegisterReadIo/
+ReportWriteIo + nodeEvidenceIo, re-exported via /orchestrator);
+buildAndWriteReport takes injected io; loadRegister deleted whole
+(parseRegister stays the pure half); writeReport through the injected
+writer; new proofs for buildAndWriteReport (absent/unreadable/invalid
+register, write failure, happy path), diffPair unreadable/write-fail
+cases, and the non-zero changed-ratio magnitude case (R13 done).
+Package 139 tests green; both apps green at the commit.
+
 REMAINING (execute from the addendum's re-sequenced slices, order
-binding): 3ii EvidenceIo role-split (read/diff-write/capture-write/
-manifest legs, Result-typed) + nodeEvidenceIo + buildAndWriteReport
-injection + loadRegister leg (R12); 3iii staging under
+binding — 3iii's three pieces are INSEPARABLE, land together for a
+green tree: without staging no manifest exists, so report-only
+enforcement cannot precede the writer half): 3iii staging under
 demo-evidence/.staging/<runId>/ + promoteRun (rename-per-file,
 manifest last by rename) + verifyCohortEvidence + arms' Buffer pivot
-to writeEvidence + EI-2 width threading into hub section arms + R7
-fold of the hub-local resolveWidth; 3iv lease (M6 shape:
+to a package CaptureSession (created at each composition root:
+stage(relativePath, bytes) hashes+stages+records; promote() renames
+per file then writes the manifest LAST by rename; discard() leaves
+staging as diagnostics) + buildAndWriteReport's reconcile/derive
+wiring (meta ALWAYS derives from the manifest — flags become capture
+inputs only; ManifestReadIo leg joins EvidenceIo) + EI-2 width
+threading into hub section arms + R7 fold of the hub-local
+resolveWidth; 3iv lease (M6 shape:
 runId/pid/hostname + holderLiveness probe + release leg); slice 4 LC
 (withResource, hub try/finally, signal reaper, M4 group-gone probe,
 M5 sentinel via judgeServerIdentity on assertServerUp AND both
