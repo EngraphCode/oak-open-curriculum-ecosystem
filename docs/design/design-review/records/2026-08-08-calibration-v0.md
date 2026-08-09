@@ -34,16 +34,16 @@ promo drew hierarchy and cohesion FAILs from both blind legs beyond its
 carry neutral names (`fixture-a` … `fixture-d`) so no filename could leak a
 label into the blind staging; this record is the label key.
 
-| staged id | source                                                                        | intended label | targeted criteria                                                        |
-| --------- | ----------------------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------ |
-| page-1    | EMC² front page (`studio-source/whitelabel/creature/index.html`), unmutated   | MUST-PASS      | —                                                                        |
-| page-2    | `fixture-c.html` (Oak front page, structural degradation)                     | MUST-FAIL      | 3, 5 (secondary: 2)                                                      |
-| page-3    | PDS front page (unmutated; held-out)                                          | MUST-PASS      | —                                                                        |
-| page-4    | Oak front page (`studio-source/ui_kits/oak/index.html`), unmutated            | MUST-PASS      | —                                                                        |
-| page-5    | `fixture-d.html` (PDS front page, novel messy-arrangement mutation; held-out) | MUST-FAIL      | 7 (secondary: 2, 3)                                                      |
-| page-6    | showcase root (`demos/oak-design-showcase/app/page.tsx` + components)         | MUST-FAIL      | (owner rejection 2026-08-05 — register Verdict 1)                        |
-| page-7    | `fixture-a.html` (Oak front page, type/colour degradation)                    | MUST-FAIL      | 1, 4 (measured collateral: 3, 6 FAIL at both blind legs; 2, 5, 7 at one) |
-| page-8    | `fixture-b.html` (Oak front page, collage/rotation degradation)               | MUST-FAIL      | 7 (secondary: 2, 3, 5)                                                   |
+| staged id | source                                                                        | intended label | targeted criteria                                                                                                                                                                                                                  |
+| --------- | ----------------------------------------------------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| page-1    | EMC² front page (`studio-source/whitelabel/creature/index.html`), unmutated   | MUST-PASS      | —                                                                                                                                                                                                                                  |
+| page-2    | `fixture-c.html` (Oak front page, structural degradation)                     | MUST-FAIL      | 3, 5 (secondary: 2)                                                                                                                                                                                                                |
+| page-3    | PDS front page (unmutated; held-out)                                          | MUST-PASS      | —                                                                                                                                                                                                                                  |
+| page-4    | Oak front page (`studio-source/ui_kits/oak/index.html`), unmutated            | MUST-PASS      | —                                                                                                                                                                                                                                  |
+| page-5    | `fixture-d.html` (PDS front page, novel messy-arrangement mutation; held-out) | MUST-FAIL      | 7 (secondary: 2, 3)                                                                                                                                                                                                                |
+| page-6    | showcase root (`demos/oak-design-showcase/app/page.tsx` + components)         | MUST-FAIL      | (owner rejection 2026-08-05 — register Verdict 1)                                                                                                                                                                                  |
+| page-7    | `fixture-a.html` (Oak front page, type/colour degradation)                    | MUST-FAIL      | 1, 4 (measured collateral: 3 and 6 FAIL at both blind legs; 2 FAIL at the accessibility leg / ITERATE at the design-system leg; 5 ITERATE at both; 7 FAIL at the accessibility leg only, under its canonical-collage judging line) |
+| page-8    | `fixture-b.html` (Oak front page, collage/rotation degradation)               | MUST-FAIL      | 7 (secondary: 2, 3, 5)                                                                                                                                                                                                             |
 
 Fixture construction notes:
 
@@ -72,6 +72,15 @@ Fixture construction notes:
   the legs judged carried the source page's original strings and
   bindings; a rerun stages per the restaging recipe below, which states
   these bounds where they apply.
+
+Gate note: the fixtures' constitutive duplication (each fixture IS its
+source page with a scoped mutation) fails SonarCloud's new-duplication
+condition by construction — measured 25.4% > 3% on this PR with ZERO
+issues of any kind. Duplication detection is excluded for the fixtures
+directory alone via `sonar.cpd.exclusions` (full analysis still
+applies), owner-authorised 2026-08-09 on this PR under the config
+surface's standing test: non-production material, organised and kept
+explicitly as calibration source in its own fenced directory.
 
 ## Method
 
@@ -196,17 +205,25 @@ Summary numbers:
   blind legs PASSED it; the accessibility leg praised it. The one page
   with a real owner FAIL (register Verdict 1) is invisible to rubric v0.
 - **Specificity on must-pass pages (blind legs)**: the design-system leg
-  blocked 0/3; the accessibility leg blocked 2/3 — both blocks trace to
-  ONE root ambiguity (the rubric's anchor containing untokenised angles
-  and its own collage). Under the any-leg-FAIL-blocks rule, v0 would have
-  routed two canonical export pages to the Director — the false-positive
-  rate the rubric declared unmeasured is now measured, and the rule-3
-  routing (a block is a Director disposition, never a silent gate) is
-  demonstrated load-bearing.
+  blocked 0/3; the accessibility leg blocked 2/3. Both blocks belong to
+  the canonical-anchor self-reference FAMILY (does the contract bind the
+  export's own material?), but they rest on THREE distinct grounds, and
+  no single ruling clears them all (round-3 precision, from the leg
+  evidence): page-1 blocks on criterion 7's tokenised-angles clause
+  against identity-ruled but untokenisable tilts; page-4 blocks on
+  criterion 7 read literally against the canonical hero collage AND
+  independently on criterion 2 against the canonical hero's raw
+  positional geometry (`accessibility-leg.md` page-4 row) — ruling the
+  collage baseline would still leave page-4 blocked on spatial rhythm.
+  Under the any-leg-FAIL-blocks rule, v0 would have routed two canonical
+  export pages to the Director — the false-positive rate the rubric
+  declared unmeasured is now measured, and the rule-3 routing (a block
+  is a Director disposition, never a silent gate) is demonstrated
+  load-bearing.
 - **Inter-leg overall agreement: 6/8.** Both divergences (pages 1 and 4)
-  share the single self-reference root; each leg stated the judging line
-  it invented to cope, which is exactly the reproducibility evidence a
-  revision needs.
+  sit in the same self-reference family, on the three distinct grounds
+  above; each leg stated the judging line it invented to cope, which is
+  exactly the reproducibility evidence a revision needs.
 
 Register note: this calibration writes NO rows into the wow-verdict
 register. The register records the instrument's live verdicts on renders
@@ -284,29 +301,42 @@ FX=docs/design/design-review/records/calibration-v0-fixtures
 # never write it (identity-naming ratchet):
 PDS_DIR=$(find "$DS/whitelabel" -mindepth 1 -maxdepth 1 -type d ! -name creature)
 OUT=${1:?target dir}
-for n in 1 2 3 4 5 6 7 8; do mkdir -p "$OUT/page-$n"; done
-cp "$DS/whitelabel/creature/index.html" "$OUT/page-1/index.html"
+# BLINDNESS (round-3 cure): this record's label-key table discloses THIS
+# run's page-N mapping, so a fixed mapping would leak every intended
+# label to any future blind leg. The recipe therefore stages each SOURCE
+# into src-K (K = the label-key table's row order), then assigns staged
+# page ids by a FRESH random permutation, writing the run's key OUTSIDE
+# the corpus directory — the key never enters an expert leg's context.
+for k in 1 2 3 4 5 6 7 8; do mkdir -p "$OUT/src-$k"; done
+cp "$DS/whitelabel/creature/index.html" "$OUT/src-1/index.html"
 cp "$DS/whitelabel/creature/brand-full.css" "$DS/whitelabel/creature/brand-a.css" \
-  "$DS/whitelabel/creature/icons.css" "$DS/whitelabel/creature/logo.svg" "$OUT/page-1/"
-cp "$FX/fixture-c.html" "$OUT/page-2/index.html"
-cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/page-2/"
-cp "$PDS_DIR/index.html" "$OUT/page-3/index.html"
-cp "$PDS_DIR/brand-full.css" "$PDS_DIR/brand-a.css" "$PDS_DIR/icons.css" "$PDS_DIR/logo.svg" "$OUT/page-3/"
-cp "$DS/ui_kits/oak/index.html" "$OUT/page-4/index.html"
-cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/page-4/"
-cp "$FX/fixture-d.html" "$OUT/page-5/index.html"
-cp "$PDS_DIR/brand-full.css" "$PDS_DIR/brand-a.css" "$PDS_DIR/icons.css" "$PDS_DIR/logo.svg" "$OUT/page-5/"
-mkdir -p "$OUT/page-6/app" "$OUT/page-6/components" "$OUT/page-6/lib" "$OUT/page-6/public"
+  "$DS/whitelabel/creature/icons.css" "$DS/whitelabel/creature/logo.svg" "$OUT/src-1/"
+cp "$FX/fixture-c.html" "$OUT/src-2/index.html"
+cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/src-2/"
+cp "$PDS_DIR/index.html" "$OUT/src-3/index.html"
+cp "$PDS_DIR/brand-full.css" "$PDS_DIR/brand-a.css" "$PDS_DIR/icons.css" "$PDS_DIR/logo.svg" "$OUT/src-3/"
+cp "$DS/ui_kits/oak/index.html" "$OUT/src-4/index.html"
+cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/src-4/"
+cp "$FX/fixture-d.html" "$OUT/src-5/index.html"
+cp "$PDS_DIR/brand-full.css" "$PDS_DIR/brand-a.css" "$PDS_DIR/icons.css" "$PDS_DIR/logo.svg" "$OUT/src-5/"
+mkdir -p "$OUT/src-6/app" "$OUT/src-6/components" "$OUT/src-6/lib" "$OUT/src-6/public"
 cp demos/oak-design-showcase/app/page.tsx demos/oak-design-showcase/app/layout.tsx \
-  demos/oak-design-showcase/app/globals.css "$OUT/page-6/app/"
+  demos/oak-design-showcase/app/globals.css "$OUT/src-6/app/"
 cp demos/oak-design-showcase/components/*.tsx demos/oak-design-showcase/components/useIdentity.ts \
-  "$OUT/page-6/components/" 2>/dev/null || true
-cp demos/oak-design-showcase/lib/inline-script.ts "$OUT/page-6/lib/"
-cp demos/oak-design-showcase/public/oak-theme.js "$OUT/page-6/public/"
-cp "$FX/fixture-a.html" "$OUT/page-7/index.html"
-cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/page-7/"
-cp "$FX/fixture-b.html" "$OUT/page-8/index.html"
-cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/page-8/"
+  "$OUT/src-6/components/" 2>/dev/null || true
+cp demos/oak-design-showcase/lib/inline-script.ts "$OUT/src-6/lib/"
+cp demos/oak-design-showcase/public/oak-theme.js "$OUT/src-6/public/"
+cp "$FX/fixture-a.html" "$OUT/src-7/index.html"
+cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/src-7/"
+cp "$FX/fixture-b.html" "$OUT/src-8/index.html"
+cp "$DS/ui_kits/oak/shared.js" "$DS/ui_kits/oak/sections.js" "$OUT/src-8/"
+# Fresh permutation; the generated key lands BESIDE $OUT, never inside it.
+k=1
+printf '%s\n' 1 2 3 4 5 6 7 8 | sort -R | while read -r p; do
+  mv "$OUT/src-$k" "$OUT/page-$p"
+  printf 'page-%s = label-key row %s\n' "$p" "$k" >> "$OUT-label-key.txt"
+  k=$((k + 1))
+done
 ```
 
 Scope claim, sharpened (review round 2, from the delta pass's suppressed
