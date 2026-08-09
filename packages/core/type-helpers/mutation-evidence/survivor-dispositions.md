@@ -20,8 +20,10 @@ mutant. The mutation score is evidence, never a target.
   **17 killed, 1 survived, 0 timeout, 0 no-coverage, 0 errors** (score
   94.44).
 - Post-cure pass: `run-post-cure.log.txt` — same mutant set, 11 tests;
-  **18 killed, 0 survived** (score 100.00). `report.json` and
-  `report.html` reflect this final pass.
+  **18 killed, 0 survived** (score 100.00). `report.json` reflects this
+  final pass and is the report of record; the HTML projection is not
+  banked — it is regenerable from the json via Stryker's report app
+  (owner-ruled 2026-08-09; grounds in the canary plan's dated amendment).
 
 ## Survivor 1 of 1 — `ConditionalExpression`, `src/index.ts:21:9`
 
