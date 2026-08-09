@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { GLOBAL_PAIR_ID } from './fidelity-register';
+import { GLOBAL_PAIR_ID } from '@oaknational/fidelity-review/register';
 import { EXPORT_RENDER_TARGETS, FIDELITY_PAIRS, PairingMapSchema } from './fidelity-pairs';
 
 describe('PairingMapSchema invariants', () => {

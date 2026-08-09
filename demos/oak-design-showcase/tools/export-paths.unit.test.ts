@@ -2,13 +2,12 @@ import path from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import {
-  decodeUrlPath,
-  exportsSurfaceAdmits,
-  resolveAcrossRoots,
-  resolveWithinRoot,
-  type OverlayRoot,
-} from './export-paths';
+import { exportsSurfaceAdmits, resolveAcrossRoots, type OverlayRoot } from './export-paths';
+
+/* decodeUrlPath and resolveWithinRoot behaviour (decode, traversal,
+ * malformed escapes, NULs, canonical roots) is proven in
+ * @oaknational/fidelity-review's static-path-guard suite; this file owns
+ * only the overlay-shaped decisions built on top of them. */
 
 const STUDIO = path.resolve('/served/studio-source');
 const KIT = path.resolve('/served/kit-root');
@@ -21,52 +20,6 @@ const KIT_ADMITS = exportsSurfaceAdmits([
   './fonts/*',
 ]);
 const ROOTS: readonly OverlayRoot[] = [{ dir: STUDIO }, { dir: KIT, admits: KIT_ADMITS }];
-
-describe('decodeUrlPath', () => {
-  it('decodes and strips the query', () => {
-    expect(decodeUrlPath('/whitelabel/specimen.html?brand=x')).toBe('/whitelabel/specimen.html');
-    expect(decodeUrlPath('/Identity%20Switchboard.html')).toBe('/Identity Switchboard.html');
-  });
-
-  it('answers a malformed percent-escape with nothing, never a throw', () => {
-    // This runs inside the http request listener — a throw there kills the
-    // capture run with a raw URIError instead of a 404.
-    expect(decodeUrlPath('/%zz')).toBeUndefined();
-    expect(decodeUrlPath('/fonts/Lexend%')).toBeUndefined();
-  });
-});
-
-describe('resolveWithinRoot', () => {
-  it('resolves an in-root request to its filesystem path', () => {
-    expect(resolveWithinRoot(STUDIO, '/Identity%20Switchboard.html')).toBe(
-      path.join(STUDIO, 'Identity Switchboard.html'),
-    );
-  });
-
-  it('strips a query string before resolving', () => {
-    expect(resolveWithinRoot(STUDIO, '/whitelabel/specimen.html?brand=x')).toBe(
-      path.join(STUDIO, 'whitelabel', 'specimen.html'),
-    );
-  });
-
-  it('rejects traversal out of the root', () => {
-    expect(resolveWithinRoot(STUDIO, '/../secrets.txt')).toBeUndefined();
-    expect(resolveWithinRoot(STUDIO, '/a/../../b.txt')).toBeUndefined();
-    expect(resolveWithinRoot(STUDIO, '/%2e%2e/escape.txt')).toBeUndefined();
-  });
-
-  it('rejects a sibling directory sharing the root as a string prefix', () => {
-    expect(resolveWithinRoot(STUDIO, '/../studio-source-evil/x.txt')).toBeUndefined();
-  });
-
-  it('rejects the bare root itself (a directory, not a file)', () => {
-    expect(resolveWithinRoot(STUDIO, '/')).toBeUndefined();
-  });
-
-  it('rejects a malformed percent-escape rather than throwing', () => {
-    expect(resolveWithinRoot(STUDIO, '/%zz')).toBeUndefined();
-  });
-});
 
 describe('exportsSurfaceAdmits', () => {
   const admits = exportsSurfaceAdmits(['.', './styles.css', './fonts/*']);

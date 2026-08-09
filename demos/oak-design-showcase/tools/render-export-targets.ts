@@ -29,7 +29,7 @@ import { ok, err, type Result } from '@oaknational/result';
 import { portOf, resolveExportRoots, serveRoots } from './export-server';
 import { EXPORT_RENDER_TARGETS, type ExportRenderTarget } from './fidelity-pairs';
 import { isRenderSuspect, type RenderMetrics } from './capture-checks';
-import { describeThrown } from './support';
+import { describeThrown } from '@oaknational/fidelity-review/support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.resolve(TOOLS_DIR, '..', 'demo-evidence');

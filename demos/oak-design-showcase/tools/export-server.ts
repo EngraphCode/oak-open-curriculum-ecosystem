@@ -33,7 +33,7 @@ import { typeSafeKeys } from '@oaknational/type-helpers';
 import { z } from 'zod';
 
 import { exportsSurfaceAdmits, resolveAcrossRoots, type OverlayRoot } from './export-paths';
-import { describeThrown } from './support';
+import { describeThrown } from '@oaknational/fidelity-review/support';
 
 const CONTENT_TYPES = new Map<string, string>([
   ['.html', 'text/html; charset=utf-8'],

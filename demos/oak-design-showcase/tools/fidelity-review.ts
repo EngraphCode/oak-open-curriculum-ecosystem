@@ -19,17 +19,22 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { resolveBase, resolveWidth } from '@oaknational/fidelity-review/capture-flags';
+import { ensureDevServer, type DevServerHandle } from '@oaknational/fidelity-review/dev-server';
+import { diffPngs } from '@oaknational/fidelity-review/image-diff';
+import { type PairResult, type RunMeta } from '@oaknational/fidelity-review/report';
+import {
+  loadRegister,
+  summariseToStdout,
+  writeReport,
+} from '@oaknational/fidelity-review/review-helpers';
+import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 import { ok, err, type Result } from '@oaknational/result';
 
-import { DEFAULT_BASE, resolveBase, resolveWidth } from './capture-checks';
+import { DEFAULT_BASE } from './capture-checks';
 import { assertServerUp, captureLivePages } from './capture-live-pages';
-import { ensureDevServer, type DevServerHandle } from './dev-server';
 import { FIDELITY_PAIRS } from './fidelity-pairs';
-import { parseRegister, type FidelityRegister } from './fidelity-register';
-import { renderReportHtml, type PairResult, type RunMeta } from './fidelity-report';
-import { diffPngs } from './image-diff';
 import { renderExportTargets } from './render-export-targets';
-import { describeThrown, runTool } from './support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DEMO_DIR = path.resolve(TOOLS_DIR, '..');
@@ -79,40 +84,6 @@ function diffPair(pair: (typeof FIDELITY_PAIRS.pairs)[number]): Result<PairResul
   });
 }
 
-function loadRegister(): Result<FidelityRegister, string> {
-  if (!fs.existsSync(REGISTER_PATH)) {
-    return err(`fidelity: register not found at ${REGISTER_PATH}`);
-  }
-  return parseRegister(fs.readFileSync(REGISTER_PATH, 'utf8'));
-}
-
-function summariseToStdout(results: readonly PairResult[], register: FidelityRegister): void {
-  for (const result of results) {
-    const ratio =
-      result.diff === undefined ? result.status : `${(result.diff.changedRatio * 100).toFixed(2)}%`;
-    const judged = register.entries.some((entry) => entry.pairId === result.pair.id);
-    process.stdout.write(
-      `PAIR ${result.pair.id}: ${ratio} disposition=${judged ? 'recorded' : 'UNREGISTERED'}\n`,
-    );
-  }
-}
-
-function writeReport(
-  results: readonly PairResult[],
-  register: FidelityRegister,
-  meta: RunMeta,
-): void {
-  fs.writeFileSync(
-    path.join(REPORT_DIR, 'results.json'),
-    JSON.stringify({ meta, results }, null, 2),
-  );
-  fs.writeFileSync(
-    path.join(REPORT_DIR, 'index.html'),
-    renderReportHtml(results, register, meta, FIDELITY_PAIRS),
-  );
-  process.stdout.write(`report -> ${path.relative(process.cwd(), REPORT_DIR)}/index.html\n`);
-}
-
 interface Flags {
   readonly base: string;
   readonly width: number;
@@ -127,7 +98,7 @@ function parseFlags(): Result<Flags, string> {
     return err(width.error.message);
   }
   return ok({
-    base: resolveBase(argv, process.env),
+    base: resolveBase(argv, process.env, DEFAULT_BASE),
     width: width.value,
     reportOnly: argv.includes('--report-only'),
     keepServer: argv.includes('--keep-server'),
@@ -139,7 +110,7 @@ function buildAndWriteReport(
   flags: Flags,
   serverMode: RunMeta['serverMode'],
 ): Result<void, string> {
-  const register = loadRegister();
+  const register = loadRegister(REGISTER_PATH);
   if (!register.ok) {
     return register;
   }
@@ -152,13 +123,19 @@ function buildAndWriteReport(
     results.push(outcome.value);
   }
   summariseToStdout(results, register.value);
-  writeReport(results, register.value, {
-    base: flags.base,
-    widthCssPx: flags.width,
-    deviceScaleFactor: 2,
-    serverMode,
-    generatedAt: new Date().toISOString(),
-  });
+  writeReport(
+    results,
+    register.value,
+    {
+      base: flags.base,
+      widthCssPx: flags.width,
+      deviceScaleFactor: 2,
+      serverMode,
+      generatedAt: new Date().toISOString(),
+    },
+    FIDELITY_PAIRS,
+    REPORT_DIR,
+  );
   return ok(undefined);
 }
 
@@ -211,7 +188,7 @@ async function main(): Promise<Result<void, string>> {
     return captureAndReport(flags.value, { mode: 'attached' });
   }
 
-  const server = await ensureDevServer(flags.value.base);
+  const server = await ensureDevServer(flags.value.base, DEMO_DIR);
   if (!server.ok) {
     return server;
   }

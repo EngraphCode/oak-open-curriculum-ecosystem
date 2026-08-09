@@ -24,7 +24,7 @@ import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
-import { isSuspect } from './capture-checks';
+import { isSuspect } from '@oaknational/fidelity-review/capture-flags';
 import type { FidelityPair } from './fidelity-pairs';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
