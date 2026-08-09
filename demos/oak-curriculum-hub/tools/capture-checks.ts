@@ -5,9 +5,23 @@
  * and what counts as a bad capture) lives apart from the mechanism (how the
  * browser is driven); every function here is pure and side-effect free.
  */
+import { stripTrailing } from '@oaknational/fidelity-review/support';
 import { ok, err, type Result } from '@oaknational/result';
 
-import { stripTrailing, trimEdges } from './support';
+/** Strip every leading and trailing occurrence of `char` — a linear scan.
+ *  Lives here, not in the shared package: `routeToBase` below is this
+ *  helper's only consumer in the whole repo. */
+function trimEdges(value: string, char: string): string {
+  let start = 0;
+  let end = value.length;
+  while (start < end && value.charAt(start) === char) {
+    start += 1;
+  }
+  while (end > start && value.charAt(end - 1) === char) {
+    end -= 1;
+  }
+  return value.slice(start, end);
+}
 
 /** The stable content routes that exist and are §D-capturable by default. /course (hydration-
  *  witnessed player) and /curriculum (the E3 showcase) joined at build-complete; /lesson/[slug]

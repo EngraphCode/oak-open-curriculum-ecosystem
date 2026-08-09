@@ -12,6 +12,7 @@ import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { resolveWithinRoot } from '@oaknational/fidelity-review/static-path-guard';
 import { err, ok, type Result } from '@oaknational/result';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -32,19 +33,11 @@ const CONTENT_TYPES = new Map<string, string>([
 ]);
 
 /**
- * Resolve a request URL to a filesystem path inside `rootDir`, or undefined
- * when the request escapes the root. Pure decision: canonicalise FIRST
- * (resolve() normalises any ../ segments), then validate with a
- * sep-suffixed prefix check — which also rejects sibling directories that
- * share `rootDir` as a string prefix. No filesystem access here.
+ * The traversal/decode guard is the shared static-path-guard (a malformed
+ * percent-escape is a 404 decision there, never a URIError thrown inside
+ * this module's http listener — the crash the local copy of this guard
+ * used to carry).
  */
-export function resolveWithinRoot(rootDir: string, rawUrl: string): string | undefined {
-  const queryIdx = rawUrl.indexOf('?');
-  const urlPath = decodeURIComponent(queryIdx === -1 ? rawUrl : rawUrl.slice(0, queryIdx));
-  const resolved = path.resolve(rootDir, `.${urlPath}`);
-  return resolved.startsWith(rootDir + path.sep) ? resolved : undefined;
-}
-
 function handleStaticRequest(
   dir: string,
   req: http.IncomingMessage,

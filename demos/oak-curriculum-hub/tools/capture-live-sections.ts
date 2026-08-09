@@ -20,7 +20,7 @@ import { ok, err, type Result } from '@oaknational/result';
 import { resolveBase } from './capture-checks';
 import { assertServerUp } from './capture-live-demo';
 import { FIDELITY_PAIRS, type FidelityPair } from './fidelity-pairs';
-import { describeThrown, runTool } from './support';
+import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DEMO_DIR = path.resolve(TOOLS_DIR, '..');

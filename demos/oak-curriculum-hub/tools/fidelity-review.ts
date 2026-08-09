@@ -17,21 +17,26 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
+import { ensureDevServer, type DevServerHandle } from '@oaknational/fidelity-review/dev-server';
+import { type PairResult, type RunMeta } from '@oaknational/fidelity-review/fidelity-report';
+import { diffPngs } from '@oaknational/fidelity-review/image-diff';
+import {
+  loadRegister,
+  summariseToStdout,
+  writeReport,
+} from '@oaknational/fidelity-review/review-helpers';
+import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 import { ok, err, type Result } from '@oaknational/result';
 
 import { resolveBase, resolveWidth } from './capture-checks';
 import { assertServerUp, runCaptures } from './capture-live-demo';
 import { captureLiveSections } from './capture-live-sections';
-import { ensureDevServer, type DevServerHandle } from './dev-server';
 import { driveExportSections } from './drive-export-sections';
 import { FIDELITY_PAIRS } from './fidelity-pairs';
-import { parseRegister, type FidelityRegister } from './fidelity-register';
-import { renderReportHtml, type PairResult, type RunMeta } from './fidelity-report';
-import { diffPngs } from './image-diff';
 import { renderCanonicalTargets } from './render-canonical-targets';
-import { describeThrown, runTool } from './support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DEMO_DIR = path.resolve(TOOLS_DIR, '..');
@@ -102,37 +107,6 @@ function diffPair(pair: (typeof FIDELITY_PAIRS.pairs)[number]): PairResult {
   };
 }
 
-function loadRegister(): Result<FidelityRegister, string> {
-  if (!fs.existsSync(REGISTER_PATH)) {
-    return err(`fidelity: register not found at ${REGISTER_PATH}`);
-  }
-  return parseRegister(fs.readFileSync(REGISTER_PATH, 'utf8'));
-}
-
-function summariseToStdout(results: readonly PairResult[], register: FidelityRegister): void {
-  for (const result of results) {
-    const ratio =
-      result.diff === undefined ? result.status : `${(result.diff.changedRatio * 100).toFixed(2)}%`;
-    const judged = register.entries.some((entry) => entry.pairId === result.pair.id);
-    process.stdout.write(
-      `PAIR ${result.pair.id}: ${ratio} disposition=${judged ? 'recorded' : 'UNREGISTERED'}\n`,
-    );
-  }
-}
-
-function writeReport(
-  results: readonly PairResult[],
-  register: FidelityRegister,
-  meta: RunMeta,
-): void {
-  fs.writeFileSync(
-    path.join(REPORT_DIR, 'results.json'),
-    JSON.stringify({ meta, results }, null, 2),
-  );
-  fs.writeFileSync(path.join(REPORT_DIR, 'index.html'), renderReportHtml(results, register, meta));
-  process.stdout.write(`report -> ${path.relative(process.cwd(), REPORT_DIR)}/index.html\n`);
-}
-
 interface Flags {
   readonly base: string;
   readonly width: number;
@@ -159,19 +133,25 @@ function buildAndWriteReport(
   flags: Flags,
   serverMode: RunMeta['serverMode'],
 ): Result<void, string> {
-  const register = loadRegister();
+  const register = loadRegister(REGISTER_PATH);
   if (!register.ok) {
     return register;
   }
   const results = FIDELITY_PAIRS.pairs.map((pair) => diffPair(pair));
   summariseToStdout(results, register.value);
-  writeReport(results, register.value, {
-    base: flags.base,
-    widthCssPx: flags.width,
-    deviceScaleFactor: 2,
-    serverMode,
-    generatedAt: new Date().toISOString(),
-  });
+  writeReport(
+    results,
+    register.value,
+    {
+      base: flags.base,
+      widthCssPx: flags.width,
+      deviceScaleFactor: 2,
+      serverMode,
+      generatedAt: new Date().toISOString(),
+    },
+    FIDELITY_PAIRS,
+    REPORT_DIR,
+  );
   return ok(undefined);
 }
 
@@ -199,10 +179,12 @@ async function main(): Promise<Result<void, string>> {
   fs.mkdirSync(REPORT_DIR, { recursive: true });
 
   if (flags.value.reportOnly) {
-    return buildAndWriteReport(flags.value, 'attached');
+    // 'report-only' states honestly that no server was contacted — the
+    // prior 'attached' label was a falsehood in the landed report meta.
+    return buildAndWriteReport(flags.value, 'report-only');
   }
 
-  const server = await ensureDevServer(flags.value.base);
+  const server = await ensureDevServer(flags.value.base, DEMO_DIR);
   if (!server.ok) {
     return server;
   }

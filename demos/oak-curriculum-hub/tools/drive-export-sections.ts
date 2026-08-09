@@ -23,7 +23,7 @@ import type { Locator, Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
 import { EXPORT_DIR, portOf, serveDir } from './export-server';
-import { runTool } from './support';
+import { runTool } from '@oaknational/fidelity-review/support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 

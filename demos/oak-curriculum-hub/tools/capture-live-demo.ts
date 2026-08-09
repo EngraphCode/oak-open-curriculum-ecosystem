@@ -55,7 +55,7 @@ import {
   resolveWidth,
   routeToBase,
 } from './capture-checks';
-import { describeThrown, runTool } from './support';
+import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.resolve(TOOLS_DIR, '..', 'demo-evidence');
