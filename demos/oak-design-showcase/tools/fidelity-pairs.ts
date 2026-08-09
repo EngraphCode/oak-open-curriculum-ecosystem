@@ -131,10 +131,12 @@ const CHROME_PAIR_ID = 'picker-chrome';
  *  target-state specimen pair must be present, so an identity-derivation
  *  failure (see lib/identities.ts) fails the import loudly instead of
  *  shipping a silently thinner map. */
+const EXPECTED_IDS = DIFF_PAIR_IDS.join(', ');
+const DERIVATION_NOTE = fragmentsResult.ok ? '' : ` (${fragmentsResult.error})`;
 const ShowcaseMapSchema = PairingMapSchema.refine(
   (map) => DIFF_PAIR_IDS.every((id) => map.pairs.some((pair) => pair.id === id)),
   {
-    message: `the declared map must carry all six specimen pairs (${DIFF_PAIR_IDS.join(', ')}) — identity derivation failed; see lib/identities.ts${fragmentsResult.ok ? '' : ` (${fragmentsResult.error})`}`,
+    message: `the declared map must carry all six specimen pairs (${EXPECTED_IDS}) — identity derivation failed; see lib/identities.ts${DERIVATION_NOTE}`,
   },
 );
 

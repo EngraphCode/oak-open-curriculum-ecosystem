@@ -83,8 +83,14 @@ export function resolveAcrossRoots(
   if (urlPath === undefined) {
     return undefined;
   }
+  // The admit predicate judges the CANONICAL path, matching what per-root
+  // resolution actually serves (path.resolve applies the same dot-segment
+  // collapse): `/fonts/../package.json` canonicalises to `/package.json`
+  // BEFORE the surface check, so an admitted-looking prefix on a relative
+  // hop can never smuggle an undeclared file through the fallback root.
+  const canonical = path.posix.normalize(urlPath);
   for (const root of roots) {
-    if (root.admits !== undefined && !root.admits(urlPath)) {
+    if (root.admits !== undefined && !root.admits(canonical)) {
       continue;
     }
     const resolved = resolveWithinRoot(root.dir, rawUrl);

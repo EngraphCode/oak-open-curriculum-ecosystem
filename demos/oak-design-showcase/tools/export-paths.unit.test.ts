@@ -111,6 +111,16 @@ describe('resolveAcrossRoots (the studio overlay)', () => {
     expect(resolveAcrossRoots(ROOTS, '/DECISIONS.md', exists)).toBeUndefined();
   });
 
+  it('judges the surface on the canonical path — an admitted prefix cannot smuggle a relative hop', () => {
+    // '/fonts/../package.json' wears the declared /fonts/ prefix but
+    // canonicalises to /package.json, which the surface refuses; resolution
+    // would otherwise serve exactly that undeclared file.
+    const exists = (candidate: string): boolean => candidate.startsWith(KIT);
+
+    expect(resolveAcrossRoots(ROOTS, '/fonts/../package.json', exists)).toBeUndefined();
+    expect(resolveAcrossRoots(ROOTS, '/fonts/%2e%2e/package.json', exists)).toBeUndefined();
+  });
+
   it('prefers the first root when the file exists in both', () => {
     const exists = (): boolean => true;
 
