@@ -65,8 +65,8 @@ at execution time; substance preservation outranks stale arithmetic.
 
 | PR | Opened | Item | Standing adjudication at census |
 |----|--------|------|--------------------------------|
-| #731 | 08-03 | Parallax family relocation (draft) | DETERMINATE (ratified skills structure, WS6): retire the superseded family-bundle walker shape, keep reusable machinery, land Parallax as `cognition/parallax-*`. Seat-needing — the ask fires first in the queue. |
-| #734 | 08-03 | typescript-estate measurement foundations | Carried ledger row: the typescript-estate lane owns it; adjudicate merge-vs-close at slot if that lane stays unstaffed. |
+| #731 | 08-03 | Parallax family relocation (draft) | DETERMINATE (ratified skills structure, WS6): retire the superseded family-bundle walker shape, keep reusable machinery, land Parallax as `cognition/parallax-*`. Seat-needing — the ask fires first in the queue. **EXECUTED 2026-08-09: MERGED `1356579ca`** (grant `86E976CA`; owner card "dismiss via bot" on the stale Aug-3 review; Director-executed at the owner's naming). |
+| #734 | 08-03 | typescript-estate measurement foundations | Carried ledger row: the typescript-estate lane owns it; adjudicate merge-vs-close at slot if that lane stays unstaffed. **EXECUTED 2026-08-09: MERGED `dab59963f`** (grant `440D4744`; owner card: four S6564 issues ACCEPTED with residual-risk authorisation, recorded server-side per-issue; own-review gate waived "merge on green"; Director-executed per the 10:16Z re-homing). |
 | #745 | 08-03 | claim-freshness pilot (draft) | Carried ledger row: MCP-528's implementer consumes it; adjudicate at slot. |
 | #746 | 08-03 | deploy-reliability plan node (draft) | No standing adjudication — first-hand at slot (Director-executable, docs). |
 | #766 | 08-04 | MCP-501 research (owner draft) | ADJUDICATED: merges as research docs (plans-truing sweep). Director-executable. |
@@ -76,7 +76,7 @@ at execution time; substance preservation outranks stale arithmetic.
 | #788 | 08-06 | extraction-pilot opener refactor | ADJUDICATED to merge (plans-truing sweep). Director-executable. |
 | #792 | 08-06 | watch-commands node amendment | Plans-truing sweep set; Director-executable. |
 | #805 | 08-06 | fleet-topology writeup (WIP preview) | First-hand at slot: complete-and-merge vs close-as-preserved. |
-| #807 | 08-06 | mutation canary slice 1 | IN FLIGHT this morning (ratified canary plan; merge at full condition after this fold's precondition). |
+| #807 | 08-06 | mutation canary slice 1 | **EXECUTED 2026-08-09: MERGED `d502341e7`** (grant `4a1db233`; ratified canary plan complete, evidence on main). |
 | #818 | 08-07 | statusline logging (draft) | Custodial pair — standing route; Director-executable adjudication at slot, seat ask if code work surfaces. |
 | #819 | 08-07 | developer-experience home (draft) | Custodial pair, as #818. |
 

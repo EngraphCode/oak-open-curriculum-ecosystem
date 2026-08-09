@@ -25,7 +25,7 @@ owner_gates:
       after that ratification). The structure ruling itself cleared
       2026-08-08 — see §The ratified structure.
     expires: 2026-08-23
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 ---
 
 # Skills-estate organisation
@@ -185,6 +185,18 @@ a core owner value).
    NO canonical deeper than `<concern>/<skill>/`; tree position
    agrees with the declared primary concern. Summons cycles are
    exempt by design — the two-graph invariant is the check's core.
+   **Amendment (2026-08-09, owner-linked spec):** the validator set
+   additionally runs the agentskills.io reference validator
+   (`skills-ref validate`) over every generated projection. Spec read
+   first-hand 2026-08-09: `name` + `description` required (name
+   lowercase-hyphen, no leading/trailing/consecutive hyphens, ≤64
+   chars, must equal the directory name; description ≤1024);
+   optional `license`/`compatibility`/`metadata`/`allowed-tools`;
+   SKILL.md under 500 lines recommended. Sampled projections conform
+   (oak-commit, oak-parallax-frame). The canonical files' top-level
+   `classification:` key stays internal to SKILL-CANONICAL.md (not a
+   spec artifact); publishing canonicals as spec skills would move it
+   under `metadata:`.
 5. **WS5 — Named cures from the exploration's tension list.** (a)
    Lift the portable core of pr-lifecycle's review-round state
    machine to a practice-stratum pattern cited by proportionality and
@@ -247,7 +259,10 @@ a core owner value).
    move (single-line diff across all 18 adapters, both vendor
    surfaces), all other skills' adapters byte-identical. WS7 must
    amend either the clause or the adapter template before its first
-   move.
+   move. (f) **COMPLETED 2026-08-09: PR #731 MERGED `1356579ca`**
+   (grant `86E976CA`) at the owner's dismiss-via-bot card word on the
+   stale Aug-3 review; conservation proofs held exactly; head branch
+   deleted. WS7 is now routable.
 7. **WS7 — Estate migration.** One PR per concern group moving the
    flat canonicals into their concern, each proven
    conservation-clean: regenerated adapters byte-identical,
