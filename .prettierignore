@@ -38,6 +38,10 @@ apps/oak-curriculum-mcp/src/test/mocks/generated/
 # Bulk downloads data
 apps/oak-search-cli/bulk-downloads/**
 
+# Stryker mutation reports (generated evidence artefacts, never authored)
+**/mutation-evidence/report.html
+**/mutation-evidence/report.json
+
 # API schema files
 **/*.api.json
 **/*.schema.json
