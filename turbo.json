@@ -403,6 +403,20 @@
         "**/*.ts"
       ]
     },
+    "@oaknational/agent-tools#lint:fix": {
+      // Same constraint as #lint: the fix pass is type-aware over tsconfig.lint.json, which includes the dist-consuming smoke-tests.
+      "dependsOn": ["build", "^build"],
+      "cache": false,
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/eslint.config.ts",
+        "$TURBO_ROOT$/tsconfig.base.json",
+        "eslint.config.ts",
+        "tsconfig.lint.json",
+        "**/*.ts"
+      ]
+    },
     "@oaknational/agent-tools#type-check": {
       // smoke-tests consume this package's own dist by design (../dist/src imports only exist after this package's own build).
       "dependsOn": ["build", "^build"],
