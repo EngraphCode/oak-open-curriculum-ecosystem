@@ -27,14 +27,17 @@ import { assertServerUp, ensureDevServer } from '@oaknational/fidelity-review/de
 import {
   buildAndWriteReport,
   captureAndReport,
+  createCaptureSession,
+  nodeCaptureStageIo,
   nodeEvidenceIo,
   reportDirFor,
   resolveRunFlags,
   type CaptureRun,
   type ServerMode,
 } from '@oaknational/fidelity-review/orchestrator';
+import { MATCHED_GEOMETRY_SCALE } from '@oaknational/fidelity-review/capture-flags';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
-import { ok, err, type Result } from '@oaknational/result';
+import { err, type Result } from '@oaknational/result';
 
 import { DEFAULT_BASE, SERVER_HINT } from './capture-checks';
 import { captureLivePages } from './capture-live-pages';
@@ -44,17 +47,31 @@ import { renderExportTargets } from './render-export-targets';
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DEMO_DIR = path.resolve(TOOLS_DIR, '..');
 
-/** Run both capture arms; any arm failure is mechanical and fails the run. */
+/** Run both capture arms through ONE staged session; promotion happens
+ *  only after every arm succeeds, so a failed or suspect run leaves the
+ *  canonical evidence — and its manifest — exactly as the last good run
+ *  left them (the staged shots remain under demo-evidence/.staging/ as
+ *  diagnostics). Any arm failure is mechanical and fails the run. */
 async function capturePhase(base: string, width: number): Promise<Result<void, string>> {
-  const render = await renderExportTargets(width);
+  const session = createCaptureSession(
+    nodeCaptureStageIo(DEMO_DIR, `${Date.now()}-${process.pid}`),
+    {
+      base,
+      widthCssPx: width,
+      deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
+      startedAt: new Date().toISOString(),
+      now: () => new Date().toISOString(),
+    },
+  );
+  const render = await renderExportTargets(width, session);
   if (!render.ok) {
     return render;
   }
-  const suspect = await captureLivePages(base, width, FIDELITY_PAIRS.pairs);
+  const suspect = await captureLivePages(base, width, FIDELITY_PAIRS.pairs, session);
   if (suspect) {
     return err('fidelity: a live page capture looked blank — investigate before trusting diffs');
   }
-  return ok(undefined);
+  return session.promote();
 }
 
 function report(serverMode: ServerMode): Result<void, string> {

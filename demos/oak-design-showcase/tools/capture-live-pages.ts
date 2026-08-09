@@ -17,10 +17,6 @@
  * applies (blank classification, base/width resolution) lives in
  * capture-checks.ts and is unit-tested there.
  */
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
 import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
 
@@ -34,10 +30,8 @@ import {
   createOriginGuard,
   settleForCapture,
 } from '@oaknational/fidelity-review/capture-settle';
+import type { CaptureSession } from '@oaknational/fidelity-review/orchestrator';
 import type { FidelityPair } from './fidelity-pairs';
-
-const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
-const DEMO_DIR = path.resolve(TOOLS_DIR, '..');
 
 /** Capture every pair declared on one live route from a single page load;
  *  true when the capture looks blank. */
@@ -46,6 +40,7 @@ async function captureRoute(
   base: string,
   route: string,
   pairs: readonly FidelityPair[],
+  session: CaptureSession,
 ): Promise<boolean> {
   const resp = await page.goto(`${base}${route}`, {
     waitUntil: 'domcontentloaded',
@@ -66,10 +61,13 @@ async function captureRoute(
     `${route}: HTTP=${status} bodyH=${m.h} textLen=${m.len} -> ${blank ? 'SUSPECT (blank/placeholder?)' : 'OK'}\n`,
   );
   for (const pair of pairs) {
-    const out = path.resolve(DEMO_DIR, pair.livePng);
     const bytes = await captureShot(page, { fullPage: pair.kind !== 'page-abovefold' });
-    fs.writeFileSync(out, bytes);
-    process.stdout.write(`  wrote ${pair.livePng}\n`);
+    const staged = session.stage(pair.livePng, bytes);
+    if (!staged.ok) {
+      process.stdout.write(`  STAGE FAIL ${pair.livePng}: ${staged.error}\n`);
+      return true;
+    }
+    process.stdout.write(`  staged ${pair.livePng}\n`);
   }
   return blank;
 }
@@ -80,6 +78,7 @@ export async function captureLivePages(
   base: string,
   width: number,
   pairs: readonly FidelityPair[],
+  session: CaptureSession,
 ): Promise<boolean> {
   const byRoute = new Map<string, FidelityPair[]>();
   for (const pair of pairs) {
@@ -101,7 +100,7 @@ export async function captureLivePages(
     const page = await ctx.newPage();
     page.on('response', (response) => guard.noteResponseUrl(response.url()));
     for (const [route, routePairs] of byRoute) {
-      suspect = (await captureRoute(page, base, route, routePairs)) || suspect;
+      suspect = (await captureRoute(page, base, route, routePairs, session)) || suspect;
     }
   } finally {
     await browser.close();

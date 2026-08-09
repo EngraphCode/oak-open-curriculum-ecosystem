@@ -31,14 +31,17 @@ import { assertServerUp, ensureDevServer } from '@oaknational/fidelity-review/de
 import {
   buildAndWriteReport,
   captureAndReport,
+  createCaptureSession,
+  nodeCaptureStageIo,
   nodeEvidenceIo,
   reportDirFor,
   resolveRunFlags,
   type CaptureRun,
   type ServerMode,
 } from '@oaknational/fidelity-review/orchestrator';
+import { MATCHED_GEOMETRY_SCALE } from '@oaknational/fidelity-review/capture-flags';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
-import { ok, err, type Result } from '@oaknational/result';
+import { err, type Result } from '@oaknational/result';
 
 import { DEFAULT_BASE, SERVER_HINT } from './capture-checks';
 import { runCaptures } from './capture-live-demo';
@@ -49,7 +52,6 @@ import { renderCanonicalTargets } from './render-canonical-targets';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DEMO_DIR = path.resolve(TOOLS_DIR, '..');
-const EXPORT_SECTIONS_OUT = path.join(DEMO_DIR, 'demo-evidence', 'export-sections');
 
 /** The page routes the live capture arm must shoot: every non-section pair's
  *  route (section pairs are captured per-element by their own arm). */
@@ -60,31 +62,44 @@ function pageRoutes(): readonly string[] {
   return [...new Set(routes)];
 }
 
-/** Run all four capture arms; any arm failure is mechanical and fails the run. */
+/** Run all four capture arms through ONE staged session; promotion
+ *  happens only after every arm succeeds, so a failed or suspect run
+ *  leaves canonical evidence — and its manifest — exactly as the last
+ *  good run left them. Any arm failure is mechanical and fails the run. */
 async function capturePhase(base: string, width: number): Promise<Result<void, string>> {
-  const render = await renderCanonicalTargets(width);
+  const session = createCaptureSession(
+    nodeCaptureStageIo(DEMO_DIR, `${Date.now()}-${process.pid}`),
+    {
+      base,
+      widthCssPx: width,
+      deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
+      startedAt: new Date().toISOString(),
+      now: () => new Date().toISOString(),
+    },
+  );
+  const render = await renderCanonicalTargets(width, session);
   if (!render.ok) {
     return render;
   }
-  const sections = await driveExportSections(EXPORT_SECTIONS_OUT);
+  const sections = await driveExportSections(width, session);
   if (!sections.ok) {
     return err(sections.error);
   }
   if (sections.value > 0) {
     return err(`fidelity: ${sections.value} export-section capture(s) failed`);
   }
-  const live = await runCaptures(base, width, pageRoutes());
+  const live = await runCaptures(base, width, pageRoutes(), session);
   if (live) {
     return err('fidelity: a live page capture looked blank — investigate before trusting diffs');
   }
-  const liveSections = await captureLiveSections(base);
+  const liveSections = await captureLiveSections(base, width, session);
   if (!liveSections.ok) {
     return err(liveSections.error);
   }
   if (liveSections.value > 0) {
     return err(`fidelity: ${liveSections.value} live-section capture(s) failed`);
   }
-  return ok(undefined);
+  return session.promote();
 }
 
 function report(serverMode: ServerMode): Result<void, string> {

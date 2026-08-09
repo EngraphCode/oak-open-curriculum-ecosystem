@@ -18,10 +18,6 @@
  * parent's innerText). The pure classification lives in capture-checks.ts
  * (isRenderSuspect) and is unit-tested there.
  */
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
 import { chromium } from '@playwright/test';
 import type { Page, Request, Response } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
@@ -39,9 +35,7 @@ import {
   settleForCapture,
 } from '@oaknational/fidelity-review/capture-settle';
 import { describeThrown } from '@oaknational/fidelity-review/support';
-
-const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
-const OUT_DIR = path.resolve(TOOLS_DIR, '..', 'demo-evidence');
+import type { CaptureSession } from '@oaknational/fidelity-review/orchestrator';
 
 /** The picker chrome hosts the specimen in an iframe; a blank frame with a
  *  healthy parent is exactly the wrong-target class the generic classifier
@@ -119,6 +113,7 @@ async function renderTarget(
   page: Page,
   base: string,
   target: ExportRenderTarget,
+  session: CaptureSession,
 ): Promise<boolean> {
   // Attached per target and disposed after its settle window (the
   // specimen document.writes brand sheets and fonts arrive late), so
@@ -145,26 +140,32 @@ async function renderTarget(
   }
   const suspect = isRenderSuspect(metrics, target.expectsFrame) || resourceFailures.length > 0;
   logRender(target.url, metrics, suspect);
-  // Shots are still written on a suspect render — they are the evidence
-  // a diagnosis starts from; the run itself fails at the arm boundary.
+  // Shots are still STAGED on a suspect render — the staging area is
+  // the diagnosis surface; a failed run never promotes, so canonical
+  // evidence stays exactly as the last good run left it.
   for (const shot of target.shots) {
-    const out = path.join(OUT_DIR, `export-${shot.pairId}.png`);
     const bytes = await captureShot(page, { fullPage: shot.kind === 'full' });
-    fs.writeFileSync(out, bytes);
-    process.stdout.write(`  wrote export-${shot.pairId}.png\n`);
+    const staged = session.stage(`demo-evidence/export-${shot.pairId}.png`, bytes);
+    if (!staged.ok) {
+      process.stdout.write(`  STAGE FAIL export-${shot.pairId}.png: ${staged.error}\n`);
+      return true;
+    }
+    process.stdout.write(`  staged export-${shot.pairId}.png\n`);
   }
   return suspect;
 }
 
 /** Serve the overlay and render every declared export target at `width` CSS
  *  px — the importable core the fidelity orchestrator composes. */
-export async function renderExportTargets(width: number): Promise<Result<void, string>> {
+export async function renderExportTargets(
+  width: number,
+  session: CaptureSession,
+): Promise<Result<void, string>> {
   const rootsRes = resolveExportRoots();
   if (!rootsRes.ok) {
     return rootsRes;
   }
   const roots = rootsRes.value;
-  fs.mkdirSync(OUT_DIR, { recursive: true });
   const server = await serveRoots(roots);
   const portRes = portOf(server);
   if (!portRes.ok) {
@@ -179,7 +180,7 @@ export async function renderExportTargets(width: number): Promise<Result<void, s
 
   let suspect: boolean;
   try {
-    suspect = await renderAll(base, width);
+    suspect = await renderAll(base, width, session);
   } finally {
     server.close();
   }
@@ -194,7 +195,7 @@ export async function renderExportTargets(width: number): Promise<Result<void, s
 
 /** Launch the browser and render every declared target; true when any
  *  render looked blank. */
-async function renderAll(base: string, width: number): Promise<boolean> {
+async function renderAll(base: string, width: number, session: CaptureSession): Promise<boolean> {
   const browser = await chromium.launch({ headless: true });
   const guard = createOriginGuard((url) => isAllowedRequestUrl(url, new URL(base).origin));
   let suspect = false;
@@ -207,7 +208,7 @@ async function renderAll(base: string, width: number): Promise<boolean> {
     const page = await ctx.newPage();
     page.on('response', (response) => guard.noteResponseUrl(response.url()));
     for (const target of EXPORT_RENDER_TARGETS) {
-      suspect = (await renderTarget(page, base, target)) || suspect;
+      suspect = (await renderTarget(page, base, target, session)) || suspect;
     }
   } finally {
     await browser.close();

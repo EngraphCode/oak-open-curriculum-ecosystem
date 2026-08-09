@@ -23,7 +23,6 @@
  *   # direct form, from the repo root:
  *   tsx demos/oak-curriculum-hub/tools/render-canonical-targets.ts
  */
-import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -34,17 +33,23 @@ import { ok, err, type Result } from '@oaknational/result';
 import {
   isAllowedRequestUrl,
   MATCHED_GEOMETRY_SCALE,
+  resolveWidth,
 } from '@oaknational/fidelity-review/capture-flags';
 import {
   captureShot,
   createOriginGuard,
   settleForCapture,
 } from '@oaknational/fidelity-review/capture-settle';
+import {
+  createCaptureSession,
+  nodeCaptureStageIo,
+  type CaptureSession,
+} from '@oaknational/fidelity-review/orchestrator';
 import { assertExportDir, EXPORT_DIR, portOf, serveDir } from './export-server';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
-const OUT_DIR = path.resolve(TOOLS_DIR, '..', 'demo-evidence');
+const DEMO_DIR = path.resolve(TOOLS_DIR, '..');
 
 interface RenderTarget {
   file: string;
@@ -56,25 +61,13 @@ const TARGETS: readonly RenderTarget[] = [
   { file: 'Oak Standards.dc.html', base: 'standards-canonical-render' },
 ];
 
-/**
- * Viewport CSS width for the render. This is the LAYOUT width (heading wrap, max-widths, breakpoints)
- * — distinct from the PNG's pixel dimensions, which are width × deviceScaleFactor. Default 1440 is the
- * §D matched-width standard so the canonical targets compare apples-to-apples with a 1440 live capture.
- * Override: `--width 1280` or `RENDER_WIDTH=1280`.
- */
-function resolveWidth(): Result<number, string> {
-  const flagIdx = process.argv.indexOf('--width');
-  const fromFlag = flagIdx === -1 ? undefined : process.argv.at(flagIdx + 1);
-  const raw = fromFlag ?? process.env.RENDER_WIDTH;
-  const width = raw !== undefined && raw !== '' ? Number.parseInt(raw, 10) : 1440;
-  if (!Number.isInteger(width) || width < 320 || width > 5000) {
-    return err(`invalid --width ${JSON.stringify(raw)} (expected 320..5000)`);
-  }
-  return ok(width);
-}
-
 /** Render one export page (full-page + above-the-fold PNGs); returns true when it looks blank. */
-async function renderTarget(page: Page, base: string, target: RenderTarget): Promise<boolean> {
+async function renderTarget(
+  page: Page,
+  base: string,
+  target: RenderTarget,
+  session: CaptureSession,
+): Promise<boolean> {
   const resp = await page.goto(`${base}/${encodeURIComponent(target.file)}`, {
     waitUntil: 'networkidle',
     timeout: 60000,
@@ -92,20 +85,24 @@ async function renderTarget(page: Page, base: string, target: RenderTarget): Pro
   process.stdout.write(
     `${target.file}: HTTP=${status} bodyH=${m.h} textLen=${m.len} -> ${good ? 'OK' : 'SUSPECT (blank?)'}\n`,
   );
-  fs.writeFileSync(
-    path.join(OUT_DIR, `${target.base}.png`),
+  const full = session.stage(
+    `demo-evidence/${target.base}.png`,
     await captureShot(page, { fullPage: true }),
   );
-  fs.writeFileSync(
-    path.join(OUT_DIR, `${target.base}-abovefold.png`),
+  const fold = session.stage(
+    `demo-evidence/${target.base}-abovefold.png`,
     await captureShot(page, { fullPage: false }),
   );
-  process.stdout.write(`  wrote ${target.base}.png + ${target.base}-abovefold.png\n`);
+  if (!full.ok || !fold.ok) {
+    process.stdout.write(`  STAGE FAIL ${target.base}\n`);
+    return true;
+  }
+  process.stdout.write(`  staged ${target.base}.png + ${target.base}-abovefold.png\n`);
   return !good;
 }
 
 /** Launch the browser and render every target; true when any render looked blank. */
-async function renderAll(base: string, width: number): Promise<boolean> {
+async function renderAll(base: string, width: number, session: CaptureSession): Promise<boolean> {
   process.stdout.write(
     `viewport CSS width = ${width}px (deviceScaleFactor ${MATCHED_GEOMETRY_SCALE} → ${width * MATCHED_GEOMETRY_SCALE}px PNGs)\n`,
   );
@@ -120,7 +117,7 @@ async function renderAll(base: string, width: number): Promise<boolean> {
   page.on('response', (response) => guard.noteResponseUrl(response.url()));
   let suspect = false;
   for (const target of TARGETS) {
-    suspect = (await renderTarget(page, base, target)) || suspect;
+    suspect = (await renderTarget(page, base, target, session)) || suspect;
   }
   await browser.close();
   for (const violation of guard.violations()) {
@@ -132,12 +129,14 @@ async function renderAll(base: string, width: number): Promise<boolean> {
 
 /** Serve the export and render every canonical target at `width` CSS px —
  *  the importable core the fidelity orchestrator composes. */
-export async function renderCanonicalTargets(width: number): Promise<Result<void, string>> {
+export async function renderCanonicalTargets(
+  width: number,
+  session: CaptureSession,
+): Promise<Result<void, string>> {
   const exportDirRes = assertExportDir();
   if (!exportDirRes.ok) {
     return exportDirRes;
   }
-  fs.mkdirSync(OUT_DIR, { recursive: true });
   const server = await serveDir(EXPORT_DIR);
   const portRes = portOf(server);
   if (!portRes.ok) {
@@ -146,7 +145,7 @@ export async function renderCanonicalTargets(width: number): Promise<Result<void
   const base = `http://127.0.0.1:${portRes.value}`;
   process.stdout.write(`serving ${EXPORT_DIR} at ${base}\n`);
 
-  const suspect = await renderAll(base, width);
+  const suspect = await renderAll(base, width, session);
   server.close();
   if (suspect) {
     return err(
@@ -158,11 +157,24 @@ export async function renderCanonicalTargets(width: number): Promise<Result<void
 }
 
 async function main(): Promise<Result<void, string>> {
-  const widthRes = resolveWidth();
+  // Shared strict resolver (R7): '1440px'/'1440.5' reject instead of
+  // silently truncating; WIDTH env replaces the old RENDER_WIDTH.
+  const widthRes = resolveWidth(process.argv.slice(2), process.env);
   if (!widthRes.ok) {
-    return widthRes;
+    return err(widthRes.error.message);
   }
-  return renderCanonicalTargets(widthRes.value);
+  // Diagnostic run: staged only, never promoted (see capture-live-demo).
+  const session = createCaptureSession(
+    nodeCaptureStageIo(DEMO_DIR, `diagnostic-${Date.now()}-${process.pid}`),
+    {
+      base: 'http://127.0.0.1:0',
+      widthCssPx: widthRes.value,
+      deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
+      startedAt: new Date().toISOString(),
+      now: () => new Date().toISOString(),
+    },
+  );
+  return renderCanonicalTargets(widthRes.value, session);
 }
 
 const invokedPath = process.argv.at(1);

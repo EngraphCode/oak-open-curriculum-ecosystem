@@ -9,7 +9,6 @@
  * Requires the dev server already running (the capture-live-demo
  * convention); the fidelity orchestrator owns server lifecycle.
  */
-import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -27,6 +26,11 @@ import {
   createOriginGuard,
   settleForCapture,
 } from '@oaknational/fidelity-review/capture-settle';
+import {
+  createCaptureSession,
+  nodeCaptureStageIo,
+  type CaptureSession,
+} from '@oaknational/fidelity-review/orchestrator';
 import { assertServerUp } from '@oaknational/fidelity-review/dev-server';
 import { DEFAULT_BASE, SERVER_HINT } from './capture-checks';
 import { FIDELITY_PAIRS, type FidelityPair } from './fidelity-pairs';
@@ -64,7 +68,12 @@ async function measureRegion(page: Page): Promise<RegionMeasure | undefined> {
 }
 
 /** Capture one section pair; true on failure (logged, run continues). */
-async function captureOne(page: Page, base: string, pair: FidelityPair): Promise<boolean> {
+async function captureOne(
+  page: Page,
+  base: string,
+  pair: FidelityPair,
+  session: CaptureSession,
+): Promise<boolean> {
   try {
     await page.goto(`${base}${pair.liveRoute}`, { waitUntil: 'domcontentloaded' });
     // The shared settle runs once so the region measurement reads a
@@ -81,10 +90,14 @@ async function captureOne(page: Page, base: string, pair: FidelityPair): Promise
       process.stderr.write(`FAIL capture ${pair.id}: content region blank or absent\n`);
       return true;
     }
-    fs.writeFileSync(
-      path.resolve(DEMO_DIR, pair.livePng),
+    const staged = session.stage(
+      pair.livePng,
       await captureElementShot(page, page.locator(CONTENT_REGION)),
     );
+    if (!staged.ok) {
+      process.stderr.write(`FAIL capture ${pair.id}: ${staged.error}\n`);
+      return true;
+    }
     process.stdout.write(`PASS capture: ${pair.id}\n`);
     return false;
   } catch (error: unknown) {
@@ -97,19 +110,21 @@ async function captureOne(page: Page, base: string, pair: FidelityPair): Promise
  *  failure count (capture failures + egress violations). */
 async function driveSectionCaptures(
   base: string,
+  width: number,
   targets: readonly FidelityPair[],
+  session: CaptureSession,
 ): Promise<number> {
   const browser = await chromium.launch({ headless: true });
   const guard = createOriginGuard((url) => isAllowedRequestUrl(url, new URL(base).origin));
   const page = await browser.newPage({
-    viewport: { width: 1440, height: 2200 },
+    viewport: { width, height: 2200 },
     deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
   });
   await page.route('**/*', (route) => guard.handleRoute(route));
   page.on('response', (response) => guard.noteResponseUrl(response.url()));
   let failures = 0;
   for (const target of targets) {
-    if (await captureOne(page, base, target)) {
+    if (await captureOne(page, base, target, session)) {
       failures += 1;
     }
   }
@@ -123,16 +138,17 @@ async function driveSectionCaptures(
 
 /** Capture every section-element pair's live side; Result carries the
  *  failure count so callers decide exit semantics. */
-export async function captureLiveSections(base: string): Promise<Result<number, string>> {
+export async function captureLiveSections(
+  base: string,
+  width: number,
+  session: CaptureSession,
+): Promise<Result<number, string>> {
   const up = await assertServerUp(base, SERVER_HINT);
   if (!up.ok) {
     return err(`CAPTURE FAIL: ${up.error}`);
   }
   const targets = FIDELITY_PAIRS.pairs.filter((pair) => pair.kind === 'section-element');
-  for (const target of targets) {
-    fs.mkdirSync(path.dirname(path.resolve(DEMO_DIR, target.livePng)), { recursive: true });
-  }
-  const failures = await driveSectionCaptures(base, targets);
+  const failures = await driveSectionCaptures(base, width, targets, session);
   const line = failures === 0 ? 'RESULT: ALL CAPTURED' : `RESULT: ${failures} FAILURES`;
   process.stdout.write(`${line}\n`);
   return ok(failures);
@@ -143,7 +159,18 @@ async function main(): Promise<Result<void, string>> {
   if (!baseRes.ok) {
     return err(`CAPTURE FAIL: ${baseRes.error.message}`);
   }
-  const failures = await captureLiveSections(baseRes.value);
+  // Diagnostic run: staged only, never promoted (see capture-live-demo).
+  const session = createCaptureSession(
+    nodeCaptureStageIo(DEMO_DIR, `diagnostic-${Date.now()}-${process.pid}`),
+    {
+      base: baseRes.value,
+      widthCssPx: 1440,
+      deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
+      startedAt: new Date().toISOString(),
+      now: () => new Date().toISOString(),
+    },
+  );
+  const failures = await captureLiveSections(baseRes.value, 1440, session);
   if (!failures.ok) {
     return failures;
   }

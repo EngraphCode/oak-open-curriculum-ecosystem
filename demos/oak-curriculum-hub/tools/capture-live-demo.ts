@@ -39,7 +39,6 @@
  *   # direct form, from the repo root:
  *   BASE_URL=http://localhost:3011 tsx demos/oak-curriculum-hub/tools/capture-live-demo.ts
  */
-import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -59,6 +58,11 @@ import {
   createOriginGuard,
   settleForCapture,
 } from '@oaknational/fidelity-review/capture-settle';
+import {
+  createCaptureSession,
+  nodeCaptureStageIo,
+  type CaptureSession,
+} from '@oaknational/fidelity-review/orchestrator';
 import { assertServerUp } from '@oaknational/fidelity-review/dev-server';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 
@@ -71,7 +75,7 @@ import {
 } from './capture-checks';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
-const OUT_DIR = path.resolve(TOOLS_DIR, '..', 'demo-evidence');
+const DEMO_DIR = path.resolve(TOOLS_DIR, '..');
 
 function verdictFor(blank: boolean, unhydrated: boolean): string {
   if (blank) {
@@ -84,7 +88,12 @@ function verdictFor(blank: boolean, unhydrated: boolean): string {
 }
 
 /** Capture one route (full-page + above-the-fold PNGs); returns true when the capture is bad. */
-async function captureRoute(page: Page, base: string, route: string): Promise<boolean> {
+async function captureRoute(
+  page: Page,
+  base: string,
+  route: string,
+  session: CaptureSession,
+): Promise<boolean> {
   const outBase = routeToBase(route);
   // domcontentloaded, NOT networkidle — next dev's HMR websocket keeps the network busy forever.
   const resp = await page.goto(`${base}${route}`, {
@@ -109,15 +118,23 @@ async function captureRoute(page: Page, base: string, route: string): Promise<bo
   process.stdout.write(
     `${route}: HTTP=${status} bodyH=${m.h} textLen=${m.len} hidden=${m.hidden} -> ${verdictFor(blank, unhydrated)}\n`,
   );
-  fs.writeFileSync(
-    path.join(OUT_DIR, `${outBase}-live.png`),
+  const full = session.stage(
+    `demo-evidence/${outBase}-live.png`,
     await captureShot(page, { fullPage: true }),
   );
-  fs.writeFileSync(
-    path.join(OUT_DIR, `${outBase}-live-abovefold.png`),
+  const fold = session.stage(
+    `demo-evidence/${outBase}-live-abovefold.png`,
     await captureShot(page, { fullPage: false }),
   );
-  process.stdout.write(`  wrote ${outBase}-live.png + ${outBase}-live-abovefold.png\n`);
+  if (!full.ok) {
+    process.stdout.write(`  STAGE FAIL ${outBase}: ${full.error}\n`);
+    return true;
+  }
+  if (!fold.ok) {
+    process.stdout.write(`  STAGE FAIL ${outBase}: ${fold.error}\n`);
+    return true;
+  }
+  process.stdout.write(`  staged ${outBase}-live.png + ${outBase}-live-abovefold.png\n`);
   return blank || unhydrated;
 }
 
@@ -134,6 +151,7 @@ export async function runCaptures(
   base: string,
   width: number,
   routes: readonly string[],
+  session: CaptureSession,
 ): Promise<boolean> {
   const browser = await chromium.launch({ headless: true });
   const guard = createOriginGuard((url) => isAllowedRequestUrl(url, new URL(base).origin));
@@ -147,7 +165,7 @@ export async function runCaptures(
     const page = await ctx.newPage();
     page.on('response', (response) => guard.noteResponseUrl(response.url()));
     for (const route of routes) {
-      suspect = (await captureRoute(page, base, route)) || suspect;
+      suspect = (await captureRoute(page, base, route, session)) || suspect;
     }
   } finally {
     await browser.close();
@@ -176,10 +194,22 @@ async function main(): Promise<Result<void, string>> {
   if (!up.ok) {
     return err(`CAPTURE FAIL: ${up.error}`);
   }
-  fs.mkdirSync(OUT_DIR, { recursive: true });
   logRunHeader(base, widthRes.value, routes);
 
-  const suspect = await runCaptures(base, widthRes.value, routes);
+  // Direct invocation is a DIAGNOSTIC run: shots stage under
+  // demo-evidence/.staging/ and are never promoted — canonical evidence
+  // and its manifest change only through the full tool:fidelity run.
+  const session = createCaptureSession(
+    nodeCaptureStageIo(DEMO_DIR, `diagnostic-${Date.now()}-${process.pid}`),
+    {
+      base,
+      widthCssPx: widthRes.value,
+      deviceScaleFactor: MATCHED_GEOMETRY_SCALE,
+      startedAt: new Date().toISOString(),
+      now: () => new Date().toISOString(),
+    },
+  );
+  const suspect = await runCaptures(base, widthRes.value, routes, session);
   if (suspect) {
     return err(
       'CAPTURE SUSPECT: a target looked blank/placeholder — investigate before trusting the PNGs',
