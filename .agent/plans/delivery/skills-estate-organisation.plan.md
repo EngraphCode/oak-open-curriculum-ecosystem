@@ -217,6 +217,37 @@ a core owner value).
    pickup; either way #731 closes-or-merges with its machinery
    preserved and its branch state reconciled against a main that has
    moved ~477 commits.
+   **Execution note (2026-08-09, Director-executor rulings at pickup,
+   grounded in the pre-execution code-expert review):** (a) the true
+   starting state differs from this section's authoring-time premise —
+   main ALREADY holds the full 110-file bundle at
+   `.agent/skills/cognition/parallax/` (landed `6cba5ca56`/`5fa0b2a0a`)
+   with NO adapters, so its nine canonicals are unsummonable and the
+   adapter checker's `--check` mode is blind to the gap (it discards
+   the discovery `skipped` list); the reconcile therefore includes the
+   checker fix, landed test-first. (b) Target CONFIRMED as this
+   section's words: `cognition/<member>` — a one-tier collapse; the
+   acceptance clause's "flat members" contrasts with the bundle shape,
+   not the concern tier. (c) The §Family mechanics defaults FAILED
+   their own pickup-verification clause (`.agent/reference/` demands a
+   PDR-032 owner-vet ceremony for a 35-file promotion;
+   `.agent/evaluations/` is scoped to search-quality experiments) —
+   family-shared assets home instead under the root member
+   (`cognition/parallax/references|evaluations|scripts/`), member-local
+   by convention. (d) The Python files stay Python: the
+   `source-is-typescript-esm-only` rule's own line 44 permits
+   occasional Python alongside shell, so no ports; the four
+   member-local validators move intact, `validate_bundle.py` retires
+   with the bundle after a dependency read, `render_graph.py` + test
+   re-home as root-member scripts. (e) The Depth acceptance bullet's
+   companion claim "regenerated adapters byte-identical" is
+   UNSATISFIABLE for any canonical move while adapter bodies embed the
+   source path — WS6 proves conservation as: adapter directory names +
+   frontmatter byte-identical, the body pointer line's change IS the
+   move (single-line diff across all 18 adapters, both vendor
+   surfaces), all other skills' adapters byte-identical. WS7 must
+   amend either the clause or the adapter template before its first
+   move.
 7. **WS7 — Estate migration.** One PR per concern group moving the
    flat canonicals into their concern, each proven
    conservation-clean: regenerated adapters byte-identical,
