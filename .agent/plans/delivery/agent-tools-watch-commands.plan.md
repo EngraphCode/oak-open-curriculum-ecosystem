@@ -13,11 +13,8 @@ impact_areas:
 tickets:
   - MCP-508
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: "The owner ratifies (or reshapes) the slice-2 bootstrap pair: heartbeat-loop + watch-arm with the F-75 fold, replacing the original slice-2/3 ordering"
-    expires: 2026-08-20
-last_updated: 2026-08-06
+owner_gates: []
+last_updated: 2026-08-09
 ---
 
 # Agent-tools watch commands: the recurring watch patterns as front-door CLI
@@ -180,7 +177,8 @@ prose each session must re-read.
 
 ## Todos (each slice a single-story PR; PDR-132 budgets bind at authoring)
 
-1. **`merge-bot merge`** — BUILT, under owner review at PR #790:
+1. **`merge-bot merge`** — LANDED (PR #790 merged 2026-08-06; the
+   recorded tooling gap discharged — truing 2026-08-09 at reconcile):
    the settled-green merge as one front-door command, eleven atomic
    landings, a three-expert Opus review round fully adjudicated (the
    critical SETTLED-NO-REVIEW settlement cure landed estate-wide) and
@@ -190,12 +188,14 @@ prose each session must re-read.
    machinery: mint plus credential injection OVER the git binary,
    pass-through per the owner's 2026-08-06 principle (build value only
    where the binary provides none). Replaces the per-session
-   credential-helper script recipe. Builds on slice 1's modules and
-   RIDES PR #790 as a delimited rider (owner call 2026-08-06: with
-   both automatic reviewers constrained, review rounds are the scarce
+   credential-helper script recipe. LANDED with PR #790 as its
+   delimited rider, merged 2026-08-06 (owner call: with both
+   automatic reviewers constrained, review rounds are the scarce
    resource — one shared-context round beats two summons).
-3. **`heartbeat-loop` + `watch-arm`** (slice 2 — reshaped; the
-   frontmatter owner gate holds it) — the bootstrap pair from the
+3. **`heartbeat-loop` + `watch-arm`** (slice 2 — reshaped;
+   **RATIFIED at the owner card 2026-08-09** (Director seat): the
+   bootstrap pair replaces the original slice-2/3 ordering and the
+   2026-08-06 frontmatter gate cleared at that word) — the pair from the
    2026-08-06 deferral-tripwire re-assessment: the claim-anchored
    heartbeat loop and the standard watcher arm ceremony (with the
    F-75 fold), landing with the rule re-point in
@@ -213,7 +213,8 @@ prose each session must re-read.
    suite is owner-mandated at four junctures: schema freeze,
    validator landing, CLI landing, node-amendment close.
 
-Sequence: 1 (built) → 1.5 → the owner's slice-2 word → 3 → 4, with 5
+Sequence: 1 and 1.5 (landed, PR #790) → slice 2 (ratified
+2026-08-09) → release/deploy-watch → onward, with 5
 scheduling at the tooling seat's next free cycle — held BEHIND the
 codebase pattern survey per the owner's 2026-08-06 proportionality
 word (the survey resumes ahead of further tooling beyond slice 1.5).
