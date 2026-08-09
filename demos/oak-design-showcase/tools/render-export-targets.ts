@@ -9,10 +9,14 @@
  * Served-over-HTTP + networkidle is required, not optional: the specimen
  * document.writes its brand sheets from the ?brand= query, and the picker
  * chrome hydrates its specimen iframe — neither completes over file://.
- * Each render is self-checked for a real (non-blank) result; the picker
- * chrome additionally requires a non-empty iframe document, because its own
- * body text sits close to the generic blank threshold (the iframe's content
- * does not count toward the parent's innerText).
+ *
+ * CORRECTNESS MECHANISM (the hub's, carried; why there is no unit test at
+ * this driving level): the run is self-validating — each render is checked
+ * for a real (non-blank) result, and the picker chrome additionally
+ * requires a non-empty iframe document because its own body text sits
+ * close to the generic threshold (iframe content does not count toward the
+ * parent's innerText). The pure classification lives in capture-checks.ts
+ * (isRenderSuspect) and is unit-tested there.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -22,9 +26,9 @@ import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
-import { assertExportRoots, EXPORT_ROOTS, portOf, serveRoots } from './export-server';
+import { portOf, resolveExportRoots, serveRoots } from './export-server';
 import { EXPORT_RENDER_TARGETS, type ExportRenderTarget } from './fidelity-pairs';
-import { isSuspect } from './capture-checks';
+import { isRenderSuspect, type RenderMetrics } from './capture-checks';
 import { describeThrown } from './support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -40,24 +44,6 @@ async function iframeTextLength(page: Page): Promise<number | undefined> {
     return undefined;
   }
   return frame.evaluate(() => document.body.innerText.length);
-}
-
-interface RenderMetrics {
-  readonly status: number;
-  readonly bodyHeight: number;
-  readonly textLength: number;
-  readonly frameTextLength: number | undefined;
-}
-
-/** Pure blank classification: the parent page counts its iframe's text
- *  toward the generic threshold, and a framed page with an empty frame is
- *  suspect in its own right. */
-export function isRenderSuspect(m: RenderMetrics): boolean {
-  const framed = m.frameTextLength !== undefined;
-  const effectiveText = m.textLength + (m.frameTextLength ?? 0);
-  return (
-    isSuspect(m.status, m.bodyHeight, effectiveText) || (framed && (m.frameTextLength ?? 0) < 200)
-  );
 }
 
 async function measureRender(page: Page, status: number): Promise<RenderMetrics> {
@@ -111,21 +97,22 @@ async function renderTarget(
 /** Serve the overlay and render every declared export target at `width` CSS
  *  px — the importable core the fidelity orchestrator composes. */
 export async function renderExportTargets(width: number): Promise<Result<void, string>> {
-  const rootsRes = assertExportRoots();
+  const rootsRes = resolveExportRoots();
   if (!rootsRes.ok) {
     return rootsRes;
   }
+  const roots = rootsRes.value;
   fs.mkdirSync(OUT_DIR, { recursive: true });
-  const server = await serveRoots(EXPORT_ROOTS);
+  const server = await serveRoots(roots);
   const portRes = portOf(server);
   if (!portRes.ok) {
     server.close();
     return err(`RENDER FAIL: ${describeThrown(portRes.error)}`);
   }
   const base = `http://127.0.0.1:${portRes.value}`;
-  process.stdout.write(`serving export overlay [${EXPORT_ROOTS.join(' -> ')}] at ${base}\n`);
   process.stdout.write(
-    `viewport CSS width = ${width}px (deviceScaleFactor 2 -> ${width * 2}px PNGs)\n`,
+    `serving export overlay [${roots.map((root) => root.dir).join(' -> ')}] at ${base}\n` +
+      `viewport CSS width = ${width}px (deviceScaleFactor 2 -> ${width * 2}px PNGs)\n`,
   );
 
   let suspect: boolean;

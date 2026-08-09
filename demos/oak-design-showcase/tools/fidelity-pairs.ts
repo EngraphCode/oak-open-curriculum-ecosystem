@@ -121,34 +121,7 @@ const specimenPairs: FidelityPair[] = IDENTITIES.flatMap((slug) => {
   });
 });
 
-/** The export specimen URL per identity: the export's own ?brand= guard
- *  treats an absent/empty value as the Oak base, so the base identity loads
- *  the bare page rather than pointing at a brand directory that never
- *  existed in the export. */
-function exportSpecimenUrl(slug: string): string {
-  return fragments[slug] === 'oak'
-    ? 'whitelabel/specimen.html'
-    : `whitelabel/specimen.html?brand=${slug}`;
-}
-
 const CHROME_PAIR_ID = 'picker-chrome';
-
-export const EXPORT_RENDER_TARGETS: readonly ExportRenderTarget[] = [
-  ...IDENTITIES.map((slug) => {
-    const fragment = fragments[slug];
-    return {
-      url: exportSpecimenUrl(slug),
-      shots: [
-        { pairId: `picker-${fragment}-fold`, kind: 'fold' as const },
-        { pairId: `picker-${fragment}-full`, kind: 'full' as const },
-      ],
-    };
-  }),
-  {
-    url: 'Identity Switchboard.html',
-    shots: [{ pairId: CHROME_PAIR_ID, kind: 'full' as const }],
-  },
-];
 
 /** The generic schema plus this map's own completeness invariant: every
  *  target-state specimen pair must be present, so an identity-derivation
@@ -184,3 +157,33 @@ export const FIDELITY_PAIRS: PairingMap = ShowcaseMapSchema.parse({
     },
   ],
 });
+
+/** The export page behind one pair. The specimen's own ?brand= guard treats
+ *  an absent value as the Oak base, so the base identity loads the bare
+ *  page rather than pointing at a brand directory the export never had;
+ *  the reference-only pair targets the picker chrome itself. */
+function exportUrlFor(pair: FidelityPair): string {
+  if (pair.kind === 'reference-only') {
+    return 'Identity Switchboard.html';
+  }
+  const query = pair.liveRoute.split('?').at(1) ?? '';
+  const slug = new URLSearchParams(query).get('brand') ?? '';
+  return pair.id.startsWith('picker-oak-')
+    ? 'whitelabel/specimen.html'
+    : `whitelabel/specimen.html?brand=${slug}`;
+}
+
+/** The render arm's targets, derived FROM the validated map — the schema
+ *  parse above is the single failure point, so no second derivation path
+ *  can run ahead of validation and emit orphan pair ids. Pairs sharing an
+ *  export page collapse to one load with one shot per pair. */
+export const EXPORT_RENDER_TARGETS: readonly ExportRenderTarget[] = (() => {
+  const byUrl = new Map<string, { pairId: string; kind: 'fold' | 'full' }[]>();
+  for (const pair of FIDELITY_PAIRS.pairs) {
+    const url = exportUrlFor(pair);
+    const shots = byUrl.get(url) ?? [];
+    shots.push({ pairId: pair.id, kind: pair.kind === 'page-abovefold' ? 'fold' : 'full' });
+    byUrl.set(url, shots);
+  }
+  return [...byUrl.entries()].map(([url, shots]) => ({ url, shots }));
+})();

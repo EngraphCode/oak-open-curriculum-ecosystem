@@ -3,9 +3,14 @@ import { describe, expect, it } from 'vitest';
 
 expect.extend(toHaveNoViolations);
 
-import { FIDELITY_PAIRS } from './fidelity-pairs';
-import { parseRegister } from './fidelity-register';
+import type { FidelityPair, PairingMap } from './fidelity-pairs';
+import type { FidelityRegister } from './fidelity-register';
 import { renderReportHtml, type PairResult, type RunMeta } from './fidelity-report';
+
+// Wholly literal fixtures: the renderer takes plain data, so nothing here
+// derives from the declared pairing map — a reorder or re-declaration of
+// the live configuration cannot move these tests. Literal fixtures need no
+// live brand slug, so the naming ratchet is untouched.
 
 const META: RunMeta = {
   base: 'http://localhost:3020',
@@ -15,88 +20,109 @@ const META: RunMeta = {
   generatedAt: '2026-08-09T12:00:00Z',
 };
 
-function fixtureResults(): PairResult[] {
-  const [first, second, third] = FIDELITY_PAIRS.pairs;
-  if (first === undefined || second === undefined || third === undefined) {
-    return [];
-  }
-  return [
-    {
-      pair: first,
-      status: 'diffed',
-      diff: {
-        changedRatio: 0.0123,
-        diffPngName: `diff-${first.id}.png`,
-        exportDims: { width: 2880, height: 2000 },
-        liveDims: { width: 2880, height: 2000 },
-        croppedTo: { width: 2880, height: 2000 },
-        caveats: [],
-      },
-    },
-    {
-      pair: { ...second, notes: 'contains <script> unsafe & chars' },
-      status: 'diffed',
-      diff: {
-        changedRatio: 0.4,
-        diffPngName: `diff-${second.id}.png`,
-        exportDims: { width: 2880, height: 9000 },
-        liveDims: { width: 2880, height: 7000 },
-        croppedTo: { width: 2880, height: 7000 },
-        caveats: ['height-mismatch:-2000px'],
-      },
-    },
-    { pair: third, status: 'missing-evidence', missing: [third.livePng] },
-  ];
-}
+const FOLD_PAIR = {
+  id: 'picker-oak-fold',
+  kind: 'page-abovefold',
+  exportPng: 'demo-evidence/export-picker-oak-fold.png',
+  livePng: 'demo-evidence/live-picker-oak-fold.png',
+  liveRoute: '/specimen',
+  diffEligible: true,
+} satisfies FidelityPair;
 
-const parsedRegister = parseRegister(
-  JSON.stringify({
-    version: 1,
-    entries: [
-      {
-        id: `${FIDELITY_PAIRS.pairs[0]?.id ?? 'x'}/known-divergence`,
-        pairId: FIDELITY_PAIRS.pairs[0]?.id ?? 'x',
-        kind: 'feature',
-        summary: 'A recorded judgment.',
-        evidence: ['demo-evidence/live-picker-oak-fold.png'],
-        disposition: 'deliberate',
-        rationale: 'Ratified.',
-        author: 'design-lane',
-        date: '2026-08-09',
-      },
-      {
-        id: 'global/token-source-convergence',
-        pairId: 'global',
-        kind: 'visual',
-        summary: 'Token-source convergence shifts values on every pair.',
-        evidence: ['demo-evidence/live-picker-oak-fold.png'],
-        disposition: 'deliberate',
-        rationale: 'Ratified (ADR-213).',
-        author: 'design-lane',
-        date: '2026-08-09',
-      },
-      {
-        id: 'gone-pair/old-finding',
-        pairId: 'gone-pair',
-        kind: 'visual',
-        summary: 'Entry whose pair no longer exists.',
-        evidence: ['demo-evidence/old.png'],
-        disposition: 'matched',
-        rationale: 'From an earlier export.',
-        author: 'design-lane',
-        date: '2026-08-01',
-      },
-    ],
-  }),
-);
-const register = parsedRegister.ok ? parsedRegister.value : { version: 1 as const, entries: [] };
+const FULL_PAIR = {
+  id: 'picker-oak-full',
+  kind: 'page-fullpage',
+  exportPng: 'demo-evidence/export-picker-oak-full.png',
+  livePng: 'demo-evidence/live-picker-oak-full.png',
+  liveRoute: '/specimen',
+  diffEligible: true,
+  notes: 'contains <script> unsafe & chars',
+} satisfies FidelityPair;
+
+const CHROME_PAIR = {
+  id: 'picker-chrome',
+  kind: 'reference-only',
+  exportPng: 'demo-evidence/export-picker-chrome.png',
+  livePng: 'demo-evidence/live-picker-chrome.png',
+  liveRoute: '/switchboard',
+  diffEligible: false,
+} satisfies FidelityPair;
+
+const MAP = {
+  version: 1,
+  pairs: [FOLD_PAIR, FULL_PAIR, CHROME_PAIR],
+  exemptSurfaces: [{ route: '/', reason: 'owner-rejected surface; judged elsewhere' }],
+} satisfies PairingMap;
+
+const RESULTS: readonly PairResult[] = [
+  {
+    pair: FOLD_PAIR,
+    status: 'diffed',
+    diff: {
+      changedRatio: 0.0123,
+      diffPngName: 'diff-picker-oak-fold.png',
+      exportDims: { width: 2880, height: 2000 },
+      liveDims: { width: 2880, height: 2000 },
+      croppedTo: { width: 2880, height: 2000 },
+      caveats: [],
+    },
+  },
+  {
+    pair: FULL_PAIR,
+    status: 'diffed',
+    diff: {
+      changedRatio: 0.4,
+      diffPngName: 'diff-picker-oak-full.png',
+      exportDims: { width: 2880, height: 9000 },
+      liveDims: { width: 2880, height: 7000 },
+      croppedTo: { width: 2880, height: 7000 },
+      caveats: ['height-mismatch:-2000px'],
+    },
+  },
+  { pair: CHROME_PAIR, status: 'missing-evidence', missing: [CHROME_PAIR.livePng] },
+];
+
+const REGISTER = {
+  version: 1,
+  entries: [
+    {
+      id: 'picker-oak-fold/known-divergence',
+      pairId: 'picker-oak-fold',
+      kind: 'feature',
+      summary: 'A recorded judgment.',
+      evidence: ['demo-evidence/live-picker-oak-fold.png'],
+      disposition: 'deliberate',
+      rationale: 'Ratified.',
+      author: 'design-lane',
+      date: '2026-08-09',
+    },
+    {
+      id: 'global/token-source-convergence',
+      pairId: 'global',
+      kind: 'visual',
+      summary: 'Token-source convergence shifts values on every pair.',
+      evidence: ['demo-evidence/live-picker-oak-fold.png'],
+      disposition: 'deliberate',
+      rationale: 'Ratified (ADR-213).',
+      author: 'design-lane',
+      date: '2026-08-09',
+    },
+    {
+      id: 'gone-pair/old-finding',
+      pairId: 'gone-pair',
+      kind: 'visual',
+      summary: 'Entry whose pair no longer exists.',
+      evidence: ['demo-evidence/old.png'],
+      disposition: 'matched',
+      rationale: 'From an earlier export.',
+      author: 'design-lane',
+      date: '2026-08-01',
+    },
+  ],
+} satisfies FidelityRegister;
 
 describe('renderReportHtml', () => {
-  const html = renderReportHtml(fixtureResults(), register, META);
-
-  it('starts from a fixture register that parses', () => {
-    expect(parsedRegister.ok).toBe(true);
-  });
+  const html = renderReportHtml(RESULTS, REGISTER, META, MAP);
 
   it('renders every pair with its status and any caveats', () => {
     expect(html).toContain('picker-oak-fold');
@@ -121,7 +147,7 @@ describe('renderReportHtml', () => {
   });
 
   it('lists the exempt surfaces with reasons', () => {
-    expect(html).toContain('owner-rejected as the switchboard surface');
+    expect(html).toContain('owner-rejected surface; judged elsewhere');
   });
 
   it('references live evidence relative to the report directory', () => {
@@ -141,7 +167,7 @@ describe('renderReportHtml', () => {
 });
 
 describe('renderReportHtml global scope', () => {
-  const html = renderReportHtml(fixtureResults(), register, META);
+  const html = renderReportHtml(RESULTS, REGISTER, META, MAP);
 
   it('renders global-scope judgments in their own section, never as orphans', () => {
     expect(html).toContain('Global judgments (apply to every pair)');

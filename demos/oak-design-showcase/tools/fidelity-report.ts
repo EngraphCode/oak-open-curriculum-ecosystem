@@ -8,7 +8,7 @@
  *
  * File IO stays in the orchestrator: this module never touches disk.
  */
-import { FIDELITY_PAIRS, type FidelityPair, type PairingMap } from './fidelity-pairs';
+import type { FidelityPair, PairingMap } from './fidelity-pairs';
 import { entriesForPair, newEntryTemplate, type FidelityRegister } from './fidelity-register';
 import { escapeHtml, fromReportDir } from './fidelity-html';
 import { exemptSection, globalEntriesSection, orphanedEntries } from './fidelity-report-sections';
@@ -40,7 +40,9 @@ export interface RunMeta {
   readonly base: string;
   readonly widthCssPx: number;
   readonly deviceScaleFactor: number;
-  readonly serverMode: 'attached' | 'spawned';
+  /** `report-only` states honestly that no server was contacted and the
+   *  evidence PNGs are whatever the last capture run left on disk. */
+  readonly serverMode: 'attached' | 'spawned' | 'report-only';
   readonly generatedAt: string;
 }
 
@@ -170,12 +172,15 @@ const REPORT_CSS = `
   .skip-link:focus { position: static; }
 `;
 
-/** Render the whole report document body (wrapped in a minimal page shell). */
+/** Render the whole report document body (wrapped in a minimal page shell).
+ *  The pairing map is a required parameter — this module renders plain data
+ *  and never imports the declared configuration, so its tests build wholly
+ *  literal fixtures. */
 export function renderReportHtml(
   results: readonly PairResult[],
   register: FidelityRegister,
   meta: RunMeta,
-  map: PairingMap = FIDELITY_PAIRS,
+  map: PairingMap,
 ): string {
   const date = meta.generatedAt.slice(0, 10);
   const sections = results.map((result) => pairSection(result, register, date)).join('\n');
@@ -192,7 +197,7 @@ export function renderReportHtml(
 <a class="skip-link" href="#summary">Skip to summary</a>
 <main>
 <h1>Fidelity review — canonical export vs live demo</h1>
-<p>Generated ${escapeHtml(meta.generatedAt)} against ${escapeHtml(meta.base)} at ${meta.widthCssPx} CSS px (scale ${meta.deviceScaleFactor}, dev server ${escapeHtml(meta.serverMode)}). Ratios triage; judgments live in <code>fidelity-register.json</code>.</p>
+<p>Generated ${escapeHtml(meta.generatedAt)} against ${escapeHtml(meta.base)} at ${meta.widthCssPx} CSS px (scale ${meta.deviceScaleFactor}, server ${escapeHtml(meta.serverMode)}${meta.serverMode === 'report-only' ? ' — no capture ran; evidence is from the last capture run' : ''}). Ratios triage; judgments live in <code>fidelity-register.json</code>.</p>
 <section id="summary">
 <h2>Summary</h2>
 ${summaryTable(results)}

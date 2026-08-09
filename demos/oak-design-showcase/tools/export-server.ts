@@ -12,11 +12,16 @@
  *
  * Cure: a TWO-ROOT OVERLAY reproducing the studio's layout — resolve every
  * request against `studio-source/` first, then fall back to the package
- * root (kit CSS, `fonts/`, `assets/`). Path resolution stays a pure,
- * separately-testable decision (canonicalise, then prefix-check per root,
- * existence injected) so the traversal guard has behaviour tests without
- * IO. Roots are resolved through the declared `@oaknational/oak-design-system`
- * dependency, never a relative escape from this workspace.
+ * root. The fallback is BOUNDED to the package's own declared exports
+ * surface (its exports-map keys: kit CSS, fonts/, assets/, dtcg/ …), so
+ * the server never exposes undeclared package internals (package.json,
+ * docs, src/) on even an ephemeral port, and a kit-asset re-home that the
+ * exports map absorbs for normal consumers fails HERE loudly instead of
+ * silently un-styling the diff target. Path decisions are pure and
+ * separately tested in export-paths.ts. Roots resolve lazily through the
+ * declared `@oaknational/oak-design-system` dependency and return a
+ * Result, so a broken workspace link reaches the tool's formatted failure
+ * line instead of dying as a raw MODULE_NOT_FOUND at import time.
  */
 import fs from 'node:fs';
 import http from 'node:http';
@@ -24,17 +29,11 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
+import { typeSafeKeys } from '@oaknational/type-helpers';
+import { z } from 'zod';
 
-/** The design-system package root, resolved through the declared workspace
- *  dependency (its exports map exposes `./styles.css` at the package root —
- *  the same idiom as tools/dev-open.ts). */
-const KIT_ROOT = path.dirname(
-  createRequire(import.meta.url).resolve('@oaknational/oak-design-system/styles.css'),
-);
-
-/** The overlay, first root wins: the tracked canonical export tree, then the
- *  kit CSS/fonts/assets its pages reference studio-relatively. */
-export const EXPORT_ROOTS: readonly string[] = [path.join(KIT_ROOT, 'studio-source'), KIT_ROOT];
+import { exportsSurfaceAdmits, resolveAcrossRoots, type OverlayRoot } from './export-paths';
+import { describeThrown } from './support';
 
 const CONTENT_TYPES = new Map<string, string>([
   ['.html', 'text/html; charset=utf-8'],
@@ -48,43 +47,51 @@ const CONTENT_TYPES = new Map<string, string>([
   ['.pdf', 'application/pdf'],
 ]);
 
-/**
- * Resolve a request URL to a filesystem path inside `rootDir`, or undefined
- * when the request escapes the root. Pure decision: canonicalise FIRST
- * (resolve() normalises any ../ segments), then validate with a
- * sep-suffixed prefix check — which also rejects sibling directories that
- * share `rootDir` as a string prefix. No filesystem access here.
- */
-export function resolveWithinRoot(rootDir: string, rawUrl: string): string | undefined {
-  const queryIdx = rawUrl.indexOf('?');
-  const urlPath = decodeURIComponent(queryIdx === -1 ? rawUrl : rawUrl.slice(0, queryIdx));
-  const resolved = path.resolve(rootDir, `.${urlPath}`);
-  return resolved.startsWith(rootDir + path.sep) ? resolved : undefined;
-}
+const PackageExportsSchema = z.object({ exports: z.record(z.string(), z.unknown()) });
 
 /**
- * Resolve a request across the ordered overlay roots: the first root whose
- * traversal guard admits the path AND whose tree contains the file wins. A
- * URL that escapes a root resolves nowhere in that root — escape is never
- * retried as another root's in-tree path. Existence is injected so the
- * decision stays pure.
+ * Resolve the overlay roots through the declared workspace dependency (its
+ * exports map exposes `./styles.css` at the package root — the same idiom
+ * as tools/dev-open.ts), bounding the package-root fallback to the
+ * package's own declared exports surface. Every failure names its actual
+ * cause — a broken link, a missing studio tree, an unreadable manifest —
+ * because each is cured differently.
  */
-export function resolveAcrossRoots(
-  roots: readonly string[],
-  rawUrl: string,
-  exists: (candidate: string) => boolean,
-): string | undefined {
-  for (const root of roots) {
-    const resolved = resolveWithinRoot(root, rawUrl);
-    if (resolved !== undefined && exists(resolved)) {
-      return resolved;
-    }
+export function resolveExportRoots(): Result<readonly OverlayRoot[], string> {
+  let kitRoot: string;
+  try {
+    kitRoot = path.dirname(
+      createRequire(import.meta.url).resolve('@oaknational/oak-design-system/styles.css'),
+    );
+  } catch (error) {
+    return err(
+      `export-server: cannot resolve @oaknational/oak-design-system — the workspace link is broken; re-run pnpm install. cause: ${describeThrown(error)}`,
+    );
   }
-  return undefined;
+  const studioRoot = path.join(kitRoot, 'studio-source');
+  if (!fs.existsSync(studioRoot)) {
+    return err(
+      `export-server: ${studioRoot} is missing — the design-system package no longer carries the canonical export tree; the fidelity targets are gone, not un-installed`,
+    );
+  }
+  let manifest: z.infer<typeof PackageExportsSchema>;
+  try {
+    manifest = PackageExportsSchema.parse(
+      JSON.parse(fs.readFileSync(path.join(kitRoot, 'package.json'), 'utf8')),
+    );
+  } catch (error) {
+    return err(
+      `export-server: cannot read the design-system exports map (the fallback root's declared surface): ${describeThrown(error)}`,
+    );
+  }
+  return ok([
+    { dir: studioRoot },
+    { dir: kitRoot, admits: exportsSurfaceAdmits(typeSafeKeys(manifest.exports)) },
+  ]);
 }
 
 function handleStaticRequest(
-  roots: readonly string[],
+  roots: readonly OverlayRoot[],
   req: http.IncomingMessage,
   res: http.ServerResponse,
 ): void {
@@ -106,7 +113,7 @@ function handleStaticRequest(
 }
 
 /** Serve the overlay roots on an ephemeral localhost port. */
-export function serveRoots(roots: readonly string[]): Promise<http.Server> {
+export function serveRoots(roots: readonly OverlayRoot[]): Promise<http.Server> {
   const server = http.createServer((req, res) => {
     handleStaticRequest(roots, req, res);
   });
@@ -124,18 +131,4 @@ export function portOf(server: http.Server): Result<number, Error> {
     return err(new Error('static server did not bind a TCP port'));
   }
   return ok(address.port);
-}
-
-/** Fail loud when either overlay root is absent. Both are TRACKED repo
- *  content reached through the workspace link, so absence means a broken
- *  install (re-run `pnpm install`), never a missing re-pull. */
-export function assertExportRoots(): Result<void, string> {
-  for (const root of EXPORT_ROOTS) {
-    if (!fs.existsSync(root)) {
-      return err(
-        `export overlay root not found: ${root} — the @oaknational/oak-design-system workspace link is broken; re-run pnpm install`,
-      );
-    }
-  }
-  return ok(undefined);
 }

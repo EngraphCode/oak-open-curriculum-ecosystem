@@ -9,7 +9,7 @@ describe('targetFragmentsFor on the live identity list', () => {
   const result = targetFragmentsFor(IDENTITIES);
 
   it('maps every live identity to a target-state fragment', () => {
-    expect(result.ok).toBe(true);
+    expect(result.ok ? undefined : result.error).toBeUndefined();
     if (result.ok) {
       expect(typeSafeKeys(result.value)).toHaveLength(IDENTITIES.length);
       expect(typeSafeValues(result.value).toSorted((a, b) => a.localeCompare(b))).toStrictEqual([
@@ -26,7 +26,7 @@ describe('targetFragmentsFor on the live identity list', () => {
     // tracked file.
     const pending = IDENTITIES.find((slug) => slug !== 'oak' && slug !== 'creature');
 
-    expect(result.ok).toBe(true);
+    expect(result.ok ? undefined : result.error).toBeUndefined();
     expect(pending).toBeDefined();
     if (result.ok && pending !== undefined) {
       expect(result.value.oak).toBe('oak');

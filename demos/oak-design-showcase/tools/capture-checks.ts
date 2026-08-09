@@ -45,3 +45,25 @@ export function resolveBase(argv: readonly string[], env: NodeJS.ProcessEnv): st
 export function isSuspect(status: number, bodyHeight: number, textLength: number): boolean {
   return !(status === 200 && bodyHeight > 400 && textLength > 200);
 }
+
+export interface RenderMetrics {
+  readonly status: number;
+  readonly bodyHeight: number;
+  readonly textLength: number;
+  /** The specimen iframe's visible text length; undefined when the page
+   *  hosts no frame. */
+  readonly frameTextLength: number | undefined;
+}
+
+/** Frame-aware blank classification for the export-render arm: the parent
+ *  page counts its iframe's text toward the generic threshold (the picker
+ *  chrome's own text sits near it), and a framed page with an empty frame
+ *  is suspect in its own right — the wrong-target class the generic
+ *  classifier cannot see. Pure. */
+export function isRenderSuspect(m: RenderMetrics): boolean {
+  const framed = m.frameTextLength !== undefined;
+  const effectiveText = m.textLength + (m.frameTextLength ?? 0);
+  return (
+    isSuspect(m.status, m.bodyHeight, effectiveText) || (framed && (m.frameTextLength ?? 0) < 200)
+  );
+}

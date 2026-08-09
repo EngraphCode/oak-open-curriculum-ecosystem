@@ -8,9 +8,14 @@
  * `waitUntil: 'domcontentloaded'`, NOT networkidle: `next dev` holds an HMR
  * websocket open for the page's lifetime, so networkidle never fires (the
  * hub's carried first-hand cure). Then `document.fonts.ready` + disable
- * animations + a short settle, THEN screenshot. Each capture is
- * self-checked for a real (non-blank) render; the run fails loud on any
- * suspect capture rather than diffing a wrong target.
+ * animations + a short settle, THEN screenshot.
+ *
+ * CORRECTNESS MECHANISM (the hub's, carried; why there is no unit test at
+ * this driving level): the run is self-validating — each capture is
+ * checked for a real (non-blank) render and the run fails loud on any
+ * suspect capture rather than diffing a wrong target. The pure policy it
+ * applies (blank classification, base/width resolution) lives in
+ * capture-checks.ts and is unit-tested there.
  */
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

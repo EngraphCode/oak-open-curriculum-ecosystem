@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { GLOBAL_PAIR_ID } from './fidelity-register';
-import { FIDELITY_PAIRS, PairingMapSchema } from './fidelity-pairs';
+import { EXPORT_RENDER_TARGETS, FIDELITY_PAIRS, PairingMapSchema } from './fidelity-pairs';
 
 describe('PairingMapSchema invariants', () => {
   const minimalPair = {
@@ -35,22 +35,21 @@ describe('PairingMapSchema invariants', () => {
 });
 
 describe('the declared pairing map', () => {
-  it('parses against its own schema at module load', () => {
-    // The map's CONTENT is configuration — verified by reading it, not by
-    // asserting it here (testing-strategy: tests prove behaviour). This
-    // test pins only the load-time validation behaviour: a drifted map
-    // fails the import, so consumers never see an unvalidated map.
-    expect(FIDELITY_PAIRS.version).toBe(1);
-    expect(FIDELITY_PAIRS.pairs.length).toBeGreaterThan(0);
-  });
-
   it('declares six diff-eligible specimen pairs under target-state naming plus one reference-only chrome pair', () => {
+    // A designed sentinel of the identity-naming decision, deliberately
+    // restating the expected id set: it catches EXTRA or renamed ids the
+    // product's own presence-refine cannot see. If this fails, do not edit
+    // the list to match — re-adjudicate against the naming ratchet
+    // (lib/identities.ts and the plan node's target-state naming clause).
     const diffable = FIDELITY_PAIRS.pairs.filter((pair) => pair.diffEligible).map((p) => p.id);
     const referenceOnly = FIDELITY_PAIRS.pairs
       .filter((pair) => !pair.diffEligible)
       .map((p) => p.id);
 
-    expect(diffable.toSorted((a, b) => a.localeCompare(b))).toStrictEqual([
+    expect(
+      diffable.toSorted((a, b) => a.localeCompare(b)),
+      'diff-eligible pair ids drifted from the ratified target-state set — re-adjudicate the naming-ratchet decision, never edit this list to match',
+    ).toStrictEqual([
       'picker-emc2-fold',
       'picker-emc2-full',
       'picker-oak-fold',
@@ -73,7 +72,28 @@ describe('the declared pairing map', () => {
   });
 
   it('records the owner-rejected root route as exempt, with its reason', () => {
-    expect(FIDELITY_PAIRS.exemptSurfaces.some((surface) => surface.route === '/')).toBe(true);
+    // Sentinel of a ratified decision (the plan node's exemptSurfaces
+    // clause): if this fails on a deliberate un-exemption of the root
+    // route, that is a plan amendment — record it there, then update here.
+    const root = FIDELITY_PAIRS.exemptSurfaces.find((surface) => surface.route === '/');
+
+    expect(
+      root,
+      'the root route left the exempt set — a plan-level decision; amend the plan node before this list',
+    ).toBeDefined();
+    expect(root?.reason).toContain('owner-rejected');
+  });
+});
+
+describe('the export render targets', () => {
+  it('cover every declared pair exactly once, derived from the validated map', () => {
+    const shotPairIds = EXPORT_RENDER_TARGETS.flatMap((target) =>
+      target.shots.map((shot) => shot.pairId),
+    );
+
+    expect(shotPairIds.toSorted((a, b) => a.localeCompare(b))).toStrictEqual(
+      FIDELITY_PAIRS.pairs.map((pair) => pair.id).toSorted((a, b) => a.localeCompare(b)),
+    );
   });
 });
 

@@ -103,7 +103,10 @@ function writeReport(
     path.join(REPORT_DIR, 'results.json'),
     JSON.stringify({ meta, results }, null, 2),
   );
-  fs.writeFileSync(path.join(REPORT_DIR, 'index.html'), renderReportHtml(results, register, meta));
+  fs.writeFileSync(
+    path.join(REPORT_DIR, 'index.html'),
+    renderReportHtml(results, register, meta, FIDELITY_PAIRS),
+  );
   process.stdout.write(`report -> ${path.relative(process.cwd(), REPORT_DIR)}/index.html\n`);
 }
 
@@ -173,7 +176,7 @@ async function main(): Promise<Result<void, string>> {
   fs.mkdirSync(REPORT_DIR, { recursive: true });
 
   if (flags.value.reportOnly) {
-    return buildAndWriteReport(flags.value, 'attached');
+    return buildAndWriteReport(flags.value, 'report-only');
   }
 
   const server = await ensureDevServer(flags.value.base);
