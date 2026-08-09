@@ -7,8 +7,10 @@ export function escapeHtml(value: string): string {
     .replaceAll('"', '&quot;');
 }
 
-/** Resolve a demo-dir-relative evidence path from the report directory
- *  (demo-evidence/fidelity-report/ → the demo root is two levels up). */
+/** Resolve a demo-dir-relative evidence path from the report directory.
+ *  The `../../` is a positional contract: the report dir must sit exactly two
+ *  levels below the demo root (demo-evidence/fidelity-report/) — moving the
+ *  report dir means changing this resolver in the same commit. */
 export function fromReportDir(demoRelativePath: string): string {
   return `../../${demoRelativePath}`;
 }

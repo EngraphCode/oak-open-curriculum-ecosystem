@@ -19,6 +19,7 @@ packages:
   - packages/core/workspace-config
   - packages/design/*
   - packages/libs/env-resolution
+  - packages/libs/fidelity-review
   - packages/libs/graph-ingest
   - packages/libs/graph-project
   - packages/libs/logger

@@ -32,7 +32,7 @@ import type { Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
 import { assertExportDir, EXPORT_DIR, portOf, serveDir } from './export-server';
-import { describeThrown, runTool } from './support';
+import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.resolve(TOOLS_DIR, '..', 'demo-evidence');

@@ -285,6 +285,12 @@ const config: KnipConfig = {
     'packages/libs/env-resolution': {
       project: ['src/**/*.ts'],
     },
+    'packages/libs/fidelity-review': {
+      // No src/index.ts barrel by design (per-module subpath exports);
+      // knip resolves the dist-pointing subpath exports back to their
+      // sources unaided, so no explicit entries are needed.
+      project: ['src/**/*.ts'],
+    },
     'packages/libs/graph-ingest': {
       // Source entries behind the dist-pointing exports map (see oak-eslint
       // note on the removed `development` condition). Only the subpaths not

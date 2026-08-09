@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { resolveDevCommand } from './dev-server';
+import { ensureDevServer, resolveDevCommand } from './dev-server';
 
 const NODE_BIN = '/versions/node/v24.15.0/bin/node';
 
@@ -36,7 +36,9 @@ describe('resolveDevCommand', () => {
       args: ['dev'],
     });
   });
+});
 
+describe('resolveDevCommand refusals', () => {
   it('fails loud when npm_execpath is absent (tool run outside a pnpm script)', () => {
     const result = resolveDevCommand(undefined, NODE_BIN);
     expect(!result.ok && result.error).toContain('npm_execpath is not set');
@@ -47,8 +49,24 @@ describe('resolveDevCommand', () => {
     expect(!result.ok && result.error).toContain('npm_execpath is not set');
   });
 
+  it('rejects a relative npm_execpath — a PATH lookup is never spawned', () => {
+    const result = resolveDevCommand('pnpm', NODE_BIN);
+    expect(!result.ok && result.error).toContain('not an absolute path');
+  });
+
   it('rejects a non-pnpm package manager — this repo is pnpm-only', () => {
     const result = resolveDevCommand('/usr/lib/node_modules/npm/bin/npm-cli.js', NODE_BIN);
     expect(!result.ok && result.error).toContain('pnpm-only');
+  });
+});
+
+describe('ensureDevServer demoDir contract', () => {
+  it('refuses a relative demoDir before touching the network or spawning', async () => {
+    const result = await ensureDevServer('http://localhost:3999', 'demos/oak-curriculum-hub');
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error).toContain('must be an absolute path');
+    }
   });
 });

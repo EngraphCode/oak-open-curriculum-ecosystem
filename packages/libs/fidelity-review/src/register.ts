@@ -25,7 +25,7 @@ const DispositionSchema = z.enum(['fix', 'deliberate', 'investigate', 'matched',
 const FindingKindSchema = z.enum(['visual', 'feature', 'content', 'token']);
 
 const RegisterEntrySchema = z
-  .object({
+  .strictObject({
     /** `<pairId>/<finding-slug>` — stable across export refreshes. */
     id: z.string().regex(/^[a-z0-9-]+\/[a-z0-9-]+$/),
     /** The pairing-map pair this finding was observed on, or the reserved
@@ -39,13 +39,17 @@ const RegisterEntrySchema = z
     rationale: z.string().min(1),
     /** A role handle (e.g. "director-9") — never a personal name or email. */
     author: z.string().min(1),
-    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    /** A real ISO calendar date — 2026-99-99 is a typo, not a record. */
+    date: z.iso.date(),
   })
   .refine((entry) => entry.id.startsWith(`${entry.pairId}/`), {
     message: 'entry id must be prefixed by its pairId',
   });
 
-const RegisterSchema = z.object({
+// strictObject, not object: this is an owner-edited JSON boundary, and a
+// typo'd field name must be rejected loudly, never silently stripped from
+// the machine-read register (strict-validation-at-boundary).
+const RegisterSchema = z.strictObject({
   version: z.literal(1),
   entries: z.array(RegisterEntrySchema),
 });
