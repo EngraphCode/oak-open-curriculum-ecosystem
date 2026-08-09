@@ -127,9 +127,11 @@ pairing discoverable).
   `.agent/evaluations/parallax/` — with member skills linking them.
   The implementer verifies the default against those surfaces'
   conventions at pickup.
-- Vendor projections stay flat and byte-stable: canonical moves must
-  leave regenerated adapters byte-identical — the conservation
-  instrument #731 proved.
+- Vendor projections stay flat and byte-stable in their load-bearing
+  surfaces: canonical moves keep adapter directory names + frontmatter
+  byte-identical, with body diffs confined to the moved skills'
+  pointer lines — the conservation instrument #731 proved (wording
+  amended 2026-08-09 per WS6 note (e)).
 
 ## Why this shape (first principles, not cowpath)
 
@@ -264,11 +266,17 @@ a core owner value).
    stale Aug-3 review; conservation proofs held exactly; head branch
    deleted. WS7 is now routable.
 7. **WS7 — Estate migration.** One PR per concern group moving the
-   flat canonicals into their concern, each proven
-   conservation-clean: regenerated adapters byte-identical,
-   `portability:check` green, full gates green. Placement judgment
-   calls (†) are re-judged in each group's PR. The transitional
-   flat/nested coexistence ends when the last flat canonical moves.
+   flat canonicals into their concern, each proven conservation-clean
+   per the WS6-proven instrument (clause amended 2026-08-09,
+   discharging note (e)): adapter directory names + frontmatter
+   byte-identical, the moved group's adapter bodies differing ONLY in
+   the canonical-pointer line, every other skill's adapters
+   byte-identical; plus `portability:check` green, full gates green.
+   Placement judgment calls (†) are re-judged in each group's PR. The
+   transitional flat/nested coexistence ends when the last flat
+   canonical moves. Executor (owner card 2026-08-09): Director-run
+   subagent implementers at the Director seat, expert-reviewed,
+   landing via normal PRs.
 
 ## Acceptance (falsifiable)
 
@@ -281,8 +289,12 @@ a core owner value).
   tree shape — the extensibility proof under the ratified rules.
 - Fewer than ~20% of skills provoke placement debate; breach re-cuts
   the concern vocabulary rather than accumulating exceptions.
-- Every canonical move leaves regenerated adapters byte-identical —
-  runtime summons names never change.
+- Every canonical move preserves runtime summons names and adapter
+  contracts: adapter directory names + frontmatter byte-identical,
+  body diffs confined to the moved skills' canonical-pointer lines,
+  all other adapters byte-identical (amended 2026-08-09 from
+  "regenerated adapters byte-identical" — unsatisfiable while adapter
+  bodies embed the source path, WS6 note (e)).
 - Every index consumer-visible after WS4 is generated; a hand edit to
   a derived index fails a check.
 - The grounding-direction check finds the two known inversions
