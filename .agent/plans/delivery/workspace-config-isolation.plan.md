@@ -3,7 +3,10 @@ id: workspace-config-isolation
 node_type: delivery
 name: "Workspace-config isolation: shared config bases become a declared dependency, enforced"
 overview: "Move the root vitest/tsup/e2e config bases into a config workspace consumed via declared package dependencies, cure all 53 parent-relative config imports, and land enforcement that cannot silently vanish — a dedicated repo validator plus de-hatched lint coverage plus a standing disabled-checks census."
-status: sketch
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-09
+ratified_where: "Owner ratification card at the implementer seat 2026-08-09 ~11:1xZ (card answer: 'Ratify as presented', on the plan at 5698208fc; session Wren calls Downdraft 6b29b5 — the seat the owner commissioned directly in-session, both commissioning words quoted in §Goal)"
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate
@@ -298,9 +301,9 @@ surface. Decisions, made:
 
 ## Notes
 
-- Born-sketch: the owner's commissioning words are cited above; the
-  ratification stamp is his act on presentation. The
-  `assumptions-expert` review pass ran 2026-08-09 (verdict:
+- Born sketch 2026-08-09, ratified the same day (stamp in
+  frontmatter). The `assumptions-expert` review pass ran 2026-08-09
+  before presentation (verdict:
   not-ready on measurement grounds); this revision re-measured every
   flagged count first-hand (53/28/3 confirmed), added the
   `vitest.e2e.config.base` class, the `depends_on` edge, the
