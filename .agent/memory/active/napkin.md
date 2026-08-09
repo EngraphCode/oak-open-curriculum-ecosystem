@@ -1178,3 +1178,19 @@ no new loss class.
   landing to exactly the intended files regardless of index state. Candidate for
   a hook: warn on bare `git commit` when the staged set exceeds the last `add`'s
   pathspec. Graduation-worthy — [[stage-by-explicit-pathspec]] sibling.
+
+## 2026-08-09T16:45Z — Civet spins Cavern (054f5e): directed hold ≠ idle waiting (concept-exploration, window 7 resume)
+
+A directed hold is a synchronisation barrier, not idleness. The
+idle-waiting-is-resource-waste rule targets UNDIRECTED idleness (a
+seat with startable work silently watching). A hold qualifies as a
+barrier when all four hold: (1) owner/Director word created it,
+(2) an event-driven wake is armed, (3) the state is honestly
+observable (heartbeat cycle label names the wait and its discharge),
+(4) the discharge condition is defined. Under those four, resisting
+the throughput instinct to "find startable work" (the same instinct
+behind the check-singleton violation) is correct. Falsifier: if
+Director confirmations routinely arrive saying grounding should
+already have started, the hold's default scope is too conservative —
+widen it to include read-only grounding of the already-directed
+first act.
