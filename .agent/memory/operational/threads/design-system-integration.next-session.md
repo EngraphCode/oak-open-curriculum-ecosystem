@@ -1905,7 +1905,11 @@ merge must be a full capture, PR body must state it); SHA:f612ffa94
 arms pivot (one session per run at each root, promotion only on full
 success; direct arm mains are stage-only diagnostic runs; --out
 deleted; EI-2 width threaded into hub section arms; R7 folded —
-RENDER_WIDTH env replaced by WIDTH). EI-1 + EI-2 cured.
+RENDER_WIDTH env replaced by WIDTH). EI-1 + EI-2 cured. 3iv ALSO COMPLETE: SHA:1ad8c78be — liveness-driven
+run lease (judgeRunLease pure: acquire/refresh/reclaim; live holder
+NEVER reclaimed; TTL only for foreign-host unknowable liveness;
+run-lease-io real side with signal-0 pid probe); both capturePhases
+take-then-release in a finally. THE ENTIRE EI THEME IS CURED.
 
 REMAINING (superseded detail above retained for provenance): 3iii-as-
 originally-sketched staging under
