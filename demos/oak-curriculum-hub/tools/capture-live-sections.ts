@@ -17,7 +17,8 @@ import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
-import { resolveBase } from './capture-checks';
+import { resolveBase } from '@oaknational/fidelity-review/capture-flags';
+import { DEFAULT_BASE } from './capture-checks';
 import { assertServerUp } from './capture-live-demo';
 import { FIDELITY_PAIRS, type FidelityPair } from './fidelity-pairs';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
@@ -114,7 +115,7 @@ export async function captureLiveSections(base: string): Promise<Result<number, 
 }
 
 async function main(): Promise<Result<void, string>> {
-  const base = resolveBase(process.argv.slice(2), process.env);
+  const base = resolveBase(process.argv.slice(2), process.env, DEFAULT_BASE);
   const failures = await captureLiveSections(base);
   if (!failures.ok) {
     return failures;

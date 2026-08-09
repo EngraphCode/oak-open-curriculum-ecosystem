@@ -1,10 +1,11 @@
 import { createLibConfig } from '../../../tsup.config.base.js';
 
 /*
- * No src/index.ts barrel by design: the package exposes per-module subpath
- * exports (see package.json `exports`) so each consumer pulls only the
- * modules it uses and app migration diffs stay mechanical. Every subpath
- * source is therefore its own build entry.
+ * No src/index.ts barrel by design: a barrel would couple every consumer
+ * to every module — importing escapeHtml would drag in dev-server's
+ * child_process surface. Per-module subpath exports (see package.json
+ * `exports`) keep each consumer's dependency surface exactly what it
+ * uses. Every subpath source is therefore its own build entry.
  */
 export default createLibConfig({
   entry: [
@@ -12,8 +13,9 @@ export default createLibConfig({
     'src/image-diff.ts',
     'src/dev-server.ts',
     'src/static-path-guard.ts',
-    'src/fidelity-register.ts',
-    'src/fidelity-report.ts',
+    'src/capture-flags.ts',
+    'src/register.ts',
+    'src/report.ts',
     'src/review-helpers.ts',
   ],
 });

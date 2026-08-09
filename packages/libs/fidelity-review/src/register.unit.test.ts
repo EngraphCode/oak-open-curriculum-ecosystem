@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { entriesForPair, newEntryTemplate, parseRegister } from './fidelity-register';
+import { entriesForPair, newEntryTemplate, parseRegister } from './register';
 
 /* Each app additionally proves its OWN live fidelity-register.json parses
  * against this schema (an app-local test beside the app's register file);

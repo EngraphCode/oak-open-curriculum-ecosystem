@@ -268,19 +268,9 @@ const config: KnipConfig = {
       project: ['src/**/*.ts'],
     },
     'packages/libs/fidelity-review': {
-      // No src/index.ts barrel by design: the package exposes per-module
-      // subpath exports so app diffs stay mechanical and each consumer
-      // pulls only the modules it uses. Every subpath source is therefore
-      // an explicit entry (knip's default entry is the absent index).
-      entry: [
-        'src/support.ts',
-        'src/image-diff.ts',
-        'src/dev-server.ts',
-        'src/static-path-guard.ts',
-        'src/fidelity-register.ts',
-        'src/fidelity-report.ts',
-        'src/review-helpers.ts',
-      ],
+      // No src/index.ts barrel by design (per-module subpath exports);
+      // knip resolves the dist-pointing subpath exports back to their
+      // sources unaided, so no explicit entries are needed.
       project: ['src/**/*.ts'],
     },
     'packages/libs/graph-ingest': {

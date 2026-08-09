@@ -24,8 +24,13 @@ Adopt Option A (conventional) with clear directories:
     and `graph-project` classify as foundation libs — transport-agnostic
     substrate, no vendor adapter nature; dated amendment 2026-08-09:
     `fidelity-review` classifies as a foundation lib — the demo apps'
-    shared fidelity capture/diff/report core, consolidated at its second
-    consumer, depending on core packages and npm only)
+    shared fidelity capture/diff/report core, extracted when its second
+    consumer arrived, depending on core packages and npm only. It is
+    dev-time tooling consumed as a devDependency — the tier's "runtime
+    libraries" phrase describes the common case, not a gate, and the
+    tier's test is dependency shape, not ship surface. It is also the
+    first lib whose consumers are `demos/` workspaces; the lib boundary
+    rules now guard the reverse libs→demos edge)
   - adapter libs (`sentry-node`)
 - `packages/sdks/` – SDK packages (curriculum-sdk, oak-search-sdk)
 - `packages/design/` – design-tier workspaces (row trued 2026-08-02; the

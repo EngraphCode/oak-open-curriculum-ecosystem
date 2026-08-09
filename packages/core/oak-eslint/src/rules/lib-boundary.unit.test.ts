@@ -141,6 +141,7 @@ describe('createLibBoundaryRules', () => {
     ]);
     expect(zones.some((zone) => zone.message.includes('Foundation library'))).toBe(true);
     expect(zones.some((zone) => zone.from === '../../../apps/**')).toBe(true);
+    expect(zones.some((zone) => zone.from === '../../../demos/**')).toBe(true);
     expect(zones.some((zone) => zone.from === '../../../agent-tools/**')).toBe(true);
   });
 

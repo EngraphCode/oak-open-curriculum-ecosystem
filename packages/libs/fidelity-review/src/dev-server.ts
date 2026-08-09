@@ -3,8 +3,12 @@
  * already answering on the base URL (and never touch it), spawn `pnpm dev`
  * when the port is free — with a bounded ready-wait and a teardown that
  * only ever kills what this module spawned, proves the port released, and
- * prints the proof (no-unbounded-host-load: every wait is bounded, no
- * orphaned process survives an exit path).
+ * prints the proof (no-unbounded-host-load: every wait is bounded).
+ * OWNERSHIP CONTRACT: a spawned handle's `stop()` must be called on every
+ * exit path by the caller that received it — the child is detached, so an
+ * orchestrator that exits without stopping leaves the group alive. This
+ * module guarantees the teardown WORKS; the handle owner guarantees it
+ * RUNS (typically via try/finally around the capture body).
  */
 import { spawn } from 'node:child_process';
 import path from 'node:path';
@@ -119,6 +123,29 @@ function stopSpawned(pid: number, base: string): () => Promise<Result<void, stri
   };
 }
 
+/** Spawn the detached dev-server group in `demoDir`; returns its pid. */
+function spawnDevServer(command: DevCommand, demoDir: string): Result<number, string> {
+  const child = spawn(command.bin, command.args, {
+    cwd: demoDir,
+    detached: true,
+    stdio: 'ignore',
+  });
+  // Without a listener, a spawn failure (e.g. ENOENT on a stale
+  // npm_execpath) emits an unhandled 'error' event and crashes a caller
+  // that handled our Result and kept running — shared-library code must
+  // tolerate exactly that caller. The failure still surfaces: the ready
+  // poll times out and returns err.
+  child.on('error', (error: unknown) => {
+    process.stdout.write(`dev-server: spawn error — ${describeThrown(error)}\n`);
+  });
+  const pid = child.pid;
+  if (pid === undefined) {
+    return err('dev-server: spawn produced no pid');
+  }
+  child.unref();
+  return ok(pid);
+}
+
 /** Attach to a responding dev server, or spawn one and wait until it is ready.
  *  `demoDir` is the app directory whose `pnpm dev` answers on `base` — a
  *  REQUIRED parameter, because this module lives in a shared package and
@@ -140,16 +167,11 @@ export async function ensureDevServer(
   if (!command.ok) {
     return err(command.error);
   }
-  const child = spawn(command.value.bin, command.value.args, {
-    cwd: demoDir,
-    detached: true,
-    stdio: 'ignore',
-  });
-  const pid = child.pid;
-  if (pid === undefined) {
-    return err('dev-server: spawn produced no pid');
+  const spawned = spawnDevServer(command.value, demoDir);
+  if (!spawned.ok) {
+    return spawned;
   }
-  child.unref();
+  const pid = spawned.value;
   process.stdout.write(`spawned pnpm dev (pid ${pid}), waiting for ${base}…\n`);
   const ready = await pollUntil(() => responds(base), READY_WAIT_MS);
   if (!ready) {

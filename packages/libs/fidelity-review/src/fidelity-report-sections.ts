@@ -5,7 +5,7 @@
  * same pure-renderer contract (no IO).
  */
 import type { PairingMap } from './pairing-types';
-import { GLOBAL_PAIR_ID, type FidelityRegister } from './fidelity-register';
+import { GLOBAL_PAIR_ID, type FidelityRegister } from './register';
 import { escapeHtml, fromReportDir } from './fidelity-html';
 
 /** Judgments recorded against the reserved global scope — they apply to every

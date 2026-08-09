@@ -1,4 +1,4 @@
-import { parseRegister } from '@oaknational/fidelity-review/fidelity-register';
+import { parseRegister } from '@oaknational/fidelity-review/register';
 import { describe, expect, it } from 'vitest';
 
 import liveRegister from '../fidelity-register.json';

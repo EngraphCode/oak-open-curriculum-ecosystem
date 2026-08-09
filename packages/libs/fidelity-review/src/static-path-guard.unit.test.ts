@@ -18,6 +18,15 @@ describe('decodeUrlPath', () => {
     expect(decodeUrlPath('/%zz')).toBeUndefined();
     expect(decodeUrlPath('/fonts/Lexend%')).toBeUndefined();
   });
+
+  it('rejects an embedded NUL — a decoded %00 would make fs calls throw downstream', () => {
+    expect(decodeUrlPath('/%00')).toBeUndefined();
+    expect(decodeUrlPath('/ok%00.html')).toBeUndefined();
+  });
+
+  it('rejects an overlong-UTF-8 traversal encoding as malformed', () => {
+    expect(decodeUrlPath('/%c0%ae%c0%ae/secrets.txt')).toBeUndefined();
+  });
 });
 
 describe('resolveWithinRoot', () => {
@@ -39,6 +48,28 @@ describe('resolveWithinRoot', () => {
     expect(resolveWithinRoot(ROOT, '/%2e%2e/escape.txt')).toBeUndefined();
   });
 
+  it('rejects traversal hidden behind a %2f-encoded separator — decode MUST precede resolve', () => {
+    // If decode and resolve were ever reordered, this row is the one that
+    // catches it: the encoded separator only becomes a path boundary after
+    // decoding, and the resolved path then escapes the root.
+    expect(resolveWithinRoot(ROOT, '/..%2fsecrets.txt')).toBeUndefined();
+    expect(resolveWithinRoot(ROOT, '/a%2f..%2f..%2fb.txt')).toBeUndefined();
+  });
+
+  it('treats a double-encoded dot-dot as a literal in-root segment (the decode is single-pass)', () => {
+    expect(resolveWithinRoot(ROOT, '/%252e%252e/escape.txt')).toBe(
+      path.join(ROOT, '%2e%2e', 'escape.txt'),
+    );
+  });
+
+  it('rejects a NUL-carrying request rather than returning a path fs calls choke on', () => {
+    expect(resolveWithinRoot(ROOT, '/ok%00.html')).toBeUndefined();
+  });
+
+  it('contains an absolute-form request target (Node passes the full URI as req.url)', () => {
+    expect(resolveWithinRoot(ROOT, 'http://evil.example/../../etc/passwd')).toBeUndefined();
+  });
+
   it('rejects a sibling directory sharing the root as a string prefix', () => {
     expect(resolveWithinRoot(ROOT, '/../export-root-evil/x.txt')).toBeUndefined();
   });
@@ -49,5 +80,15 @@ describe('resolveWithinRoot', () => {
 
   it('rejects a malformed percent-escape rather than throwing', () => {
     expect(resolveWithinRoot(ROOT, '/%zz')).toBeUndefined();
+  });
+
+  it('judges the canonical root, not the caller spelling — a trailing separator still serves', () => {
+    expect(resolveWithinRoot(`${ROOT}${path.sep}`, '/specimen.html')).toBe(
+      path.join(ROOT, 'specimen.html'),
+    );
+  });
+
+  it('refuses a relative root — the same contract shape as dev-server demoDir, no ambient cwd', () => {
+    expect(resolveWithinRoot('served-export', '/specimen.html')).toBeUndefined();
   });
 });

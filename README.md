@@ -322,7 +322,7 @@ Search uses Elasticsearch with 4-way reciprocal rank fusion (ELSER sparse vector
 | `apps/`            | The canonical HTTP MCP server and the semantic search CLI                                                                                                |
 | `packages/sdks/`   | Curriculum SDK (code-generation, MCP metadata) and Search SDK (ES retrieval)                                                                             |
 | `packages/core/`   | Foundational packages: `Result<T, E>` type, env schema contracts, observability primitives, type helpers, ESLint configs                                 |
-| `packages/libs/`   | Shared libraries: env-resolution, structured logging, search contracts, and Sentry adapters                                                              |
+| `packages/libs/`   | Shared libraries: env-resolution, structured logging, search contracts, fidelity-review tooling, and Sentry adapters                                     |
 | `packages/design/` | Design token pipeline and reusable design primitives: DTCG source format, CSS custom property generation, WCAG AA contrast validation, Ink UI primitives |
 | `demos/`           | Demonstration web apps at full estate standards: the Curriculum Hub (live search + content stack) and the design-system showcase                         |
 | `agent-tools/`     | Agent workflow CLIs: `claude-agent-ops`, `cursor-session-from-claude-session`, and `codex-reviewer-resolve`                                              |
@@ -364,6 +364,7 @@ Search uses Elasticsearch with 4-way reciprocal rank fusion (ELSER sparse vector
 | --------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
 | [`@oaknational/logger`](packages/libs/logger/README.md)                     | Structured logger with sink fan-out, redaction, and trace correlation         |
 | [`@oaknational/env-resolution`](packages/libs/env-resolution/README.md)     | Environment resolution pipeline — `.env` discovery, validation, and injection |
+| [`@oaknational/fidelity-review`](packages/libs/fidelity-review/README.md)   | Shared fidelity capture/diff/report core for the demo apps                    |
 | [`@oaknational/search-contracts`](packages/libs/search-contracts/README.md) | Canonical semantic-search field and stage contracts                           |
 | [`@oaknational/sentry-node`](packages/libs/sentry-node/README.md)           | Shared Sentry Node config, sinks, fixture runtime, and flush helpers          |
 

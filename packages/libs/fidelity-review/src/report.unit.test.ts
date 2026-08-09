@@ -3,15 +3,19 @@
 /* The package suite runs under the base node environment; this file alone
  * needs a DOM (runtime via the pragma above, types via the lib reference)
  * because the renderer's output carries a WCAG 2.2 AA claim proven with
- * jest-axe against the parsed document. */
+ * jest-axe against the parsed document. KNOWN SCOPE: a lib reference is
+ * program-wide (lib files declare globals), so lint/type-check would not
+ * catch a src module reaching for a DOM global — the build program
+ * (tsconfig.build.json excludes tests, so no DOM lib) rejects it, and CI
+ * runs the build as its own job. */
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { describe, expect, it } from 'vitest';
 
 expect.extend(toHaveNoViolations);
 
 import type { FidelityPair, PairingMap } from './pairing-types';
-import type { FidelityRegister } from './fidelity-register';
-import { renderReportHtml, type PairResult, type RunMeta } from './fidelity-report';
+import type { FidelityRegister } from './register';
+import { renderReportHtml, type PairResult, type RunMeta } from './report';
 
 // Wholly literal fixtures: the renderer takes plain data, so nothing here
 // derives from the declared pairing map — a reorder or re-declaration of
@@ -51,8 +55,9 @@ const CHROME_PAIR = {
   liveRoute: '/switchboard',
 } satisfies FidelityPair;
 
+// The boundary type carries only what the renderer reads (exempt
+// surfaces); per-pair data reaches it inside each PairResult.
 const MAP = {
-  pairs: [FOLD_PAIR, FULL_PAIR, CHROME_PAIR],
   exemptSurfaces: [{ route: '/', reason: 'owner-rejected surface; judged elsewhere' }],
 } satisfies PairingMap;
 
@@ -125,6 +130,25 @@ const REGISTER = {
 
 describe('renderReportHtml', () => {
   const html = renderReportHtml(RESULTS, REGISTER, META, MAP);
+
+  it('makes the copy-ready template keyboard-operable — a scrollable pre carries a labelled tabstop', () => {
+    // The template pre scrolls horizontally at narrow widths; without
+    // tabindex a keyboard-only reviewer cannot scroll it (WCAG 2.1.1).
+    expect(html).toContain('<pre tabindex="0" role="region"');
+    expect(html).toContain('aria-label="Register entry template for picker-oak-full"');
+  });
+
+  it('states a report-only run in the meta line, and only then', () => {
+    const reportOnlyHtml = renderReportHtml(
+      RESULTS,
+      REGISTER,
+      { ...META, serverMode: 'report-only' },
+      MAP,
+    );
+
+    expect(reportOnlyHtml).toContain('no capture ran; evidence is from the last capture run');
+    expect(html).not.toContain('no capture ran');
+  });
 
   it('renders every pair with its status and any caveats', () => {
     expect(html).toContain('picker-oak-fold');

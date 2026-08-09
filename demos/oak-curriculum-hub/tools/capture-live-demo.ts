@@ -47,15 +47,10 @@ import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { ok, err, type Result } from '@oaknational/result';
 
-import {
-  isSuspect,
-  isUnhydrated,
-  resolveBase,
-  resolveRoutes,
-  resolveWidth,
-  routeToBase,
-} from './capture-checks';
+import { isSuspect, resolveBase, resolveWidth } from '@oaknational/fidelity-review/capture-flags';
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
+
+import { DEFAULT_BASE, isUnhydrated, resolveRoutes, routeToBase } from './capture-checks';
 
 const TOOLS_DIR = path.dirname(fileURLToPath(import.meta.url));
 const OUT_DIR = path.resolve(TOOLS_DIR, '..', 'demo-evidence');
@@ -157,7 +152,7 @@ async function main(): Promise<Result<void, string>> {
   if (!widthRes.ok) {
     return err(`CAPTURE FAIL: ${describeThrown(widthRes.error)}`);
   }
-  const base = resolveBase(argv, process.env);
+  const base = resolveBase(argv, process.env, DEFAULT_BASE);
   const routes = resolveRoutes(argv);
 
   const up = await assertServerUp(base);

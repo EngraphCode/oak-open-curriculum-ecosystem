@@ -314,6 +314,15 @@ export function createLibBoundaryRules(libName: LibPackage): Partial<Linter.Rule
         'Libraries cannot depend on apps. Libraries must remain reusable across applications.',
     },
     {
+      // The demos→libs direction became load-bearing when fidelity-review
+      // landed as the first lib whose consumers are demos (ADR-041 dated
+      // amendment 2026-08-09); this zone guards the reverse edge.
+      target: './src/**' as const,
+      from: '../../../demos/**' as const,
+      message:
+        'Libraries cannot depend on demos. Demos consume workspace package surfaces, never the reverse (ADR-041).',
+    },
+    {
       target: './src/**' as const,
       from: '../../../agent-tools/**' as const,
       message: TOOLING_BOUNDARY_MESSAGE,

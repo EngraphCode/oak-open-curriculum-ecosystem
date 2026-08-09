@@ -14,8 +14,8 @@ import process from 'node:process';
 
 import { err, type Result } from '@oaknational/result';
 
-import { parseRegister, type FidelityRegister } from './fidelity-register';
-import { renderReportHtml, type PairResult, type RunMeta } from './fidelity-report';
+import { parseRegister, type FidelityRegister } from './register';
+import { renderReportHtml, type PairResult, type RunMeta } from './report';
 import type { PairingMap } from './pairing-types';
 
 /** Load and strictly parse the disposition register at `registerPath`. */
@@ -26,18 +26,30 @@ export function loadRegister(registerPath: string): Result<FidelityRegister, str
   return parseRegister(fs.readFileSync(registerPath, 'utf8'));
 }
 
-/** One line per pair: diff ratio (or status) and disposition state. */
+/** One line per pair: diff ratio (or the status when there is no diff)
+ *  and whether the register carries a disposition for it. Pure — the
+ *  three decisions here (two-decimal percentage, status fallback,
+ *  recorded/UNREGISTERED verdict) are the summary's behaviour, and they
+ *  test as data-in/data-out. */
+export function summaryLines(
+  results: readonly PairResult[],
+  register: FidelityRegister,
+): readonly string[] {
+  return results.map((result) => {
+    const ratio =
+      result.diff === undefined ? result.status : `${(result.diff.changedRatio * 100).toFixed(2)}%`;
+    const judged = register.entries.some((entry) => entry.pairId === result.pair.id);
+    return `PAIR ${result.pair.id}: ${ratio} disposition=${judged ? 'recorded' : 'UNREGISTERED'}`;
+  });
+}
+
+/** Thin writer over {@link summaryLines}. */
 export function summariseToStdout(
   results: readonly PairResult[],
   register: FidelityRegister,
 ): void {
-  for (const result of results) {
-    const ratio =
-      result.diff === undefined ? result.status : `${(result.diff.changedRatio * 100).toFixed(2)}%`;
-    const judged = register.entries.some((entry) => entry.pairId === result.pair.id);
-    process.stdout.write(
-      `PAIR ${result.pair.id}: ${ratio} disposition=${judged ? 'recorded' : 'UNREGISTERED'}\n`,
-    );
+  for (const line of summaryLines(results, register)) {
+    process.stdout.write(`${line}\n`);
   }
 }
 

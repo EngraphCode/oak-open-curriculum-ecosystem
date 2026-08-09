@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import type { PairingMap } from './pairing-types';
-import type { FidelityRegister } from './fidelity-register';
+import type { FidelityRegister } from './register';
 import { exemptSection, globalEntriesSection, orphanedEntries } from './fidelity-report-sections';
 
 const REGISTER = {
@@ -76,15 +76,6 @@ describe('orphanedEntries', () => {
 describe('exemptSection', () => {
   it('lists every exempt surface with its reason', () => {
     const map = {
-      pairs: [
-        {
-          id: 'picker-oak-fold',
-          kind: 'page-abovefold',
-          exportPng: 'demo-evidence/export-picker-oak-fold.png',
-          livePng: 'demo-evidence/live-picker-oak-fold.png',
-          liveRoute: '/specimen',
-        },
-      ],
       exemptSurfaces: [{ route: '/', reason: 'no export target ships for this route' }],
     } satisfies PairingMap;
 

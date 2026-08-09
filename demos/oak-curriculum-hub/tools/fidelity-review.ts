@@ -20,8 +20,9 @@ import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
+import { resolveBase, resolveWidth } from '@oaknational/fidelity-review/capture-flags';
 import { ensureDevServer, type DevServerHandle } from '@oaknational/fidelity-review/dev-server';
-import { type PairResult, type RunMeta } from '@oaknational/fidelity-review/fidelity-report';
+import { type PairResult, type RunMeta } from '@oaknational/fidelity-review/report';
 import { diffPngs } from '@oaknational/fidelity-review/image-diff';
 import {
   loadRegister,
@@ -31,7 +32,7 @@ import {
 import { describeThrown, runTool } from '@oaknational/fidelity-review/support';
 import { ok, err, type Result } from '@oaknational/result';
 
-import { resolveBase, resolveWidth } from './capture-checks';
+import { DEFAULT_BASE } from './capture-checks';
 import { assertServerUp, runCaptures } from './capture-live-demo';
 import { captureLiveSections } from './capture-live-sections';
 import { driveExportSections } from './drive-export-sections';
@@ -121,7 +122,7 @@ function parseFlags(): Result<Flags, string> {
     return err(width.error.message);
   }
   return ok({
-    base: resolveBase(argv, process.env),
+    base: resolveBase(argv, process.env, DEFAULT_BASE),
     width: width.value,
     reportOnly: argv.includes('--report-only'),
     keepServer: argv.includes('--keep-server'),
@@ -155,17 +156,32 @@ function buildAndWriteReport(
   return ok(undefined);
 }
 
-/** Capture both sides, then report; tear down a spawned server on every path. */
+/** Capture both sides, then report. The spawned server is reaped on EVERY
+ *  path — a thrown Playwright/Node error, a failed reachability check, or
+ *  a failed capture must never leave the detached dev process alive (the
+ *  dev-server module's ownership contract: stop() runs here because the
+ *  handle was received here); the finally block is the single teardown. */
 async function captureAndReport(
   flags: Flags,
   server: DevServerHandle,
 ): Promise<Result<void, string>> {
-  const captured = await capturePhase(flags.base, flags.width);
-  const reported = captured.ok ? buildAndWriteReport(flags, server.mode) : captured;
-  if (server.mode === 'spawned' && !flags.keepServer) {
-    const stopped = await server.stop();
-    if (!stopped.ok) {
-      return err(reported.ok ? stopped.error : `${reported.error}; then ${stopped.error}`);
+  let reported: Result<void, string> = err('fidelity: run did not start');
+  try {
+    const up = await assertServerUp(flags.base);
+    if (!up.ok) {
+      reported = err(`fidelity: ${describeThrown(up.error)}`);
+    } else {
+      const captured = await capturePhase(flags.base, flags.width);
+      reported = captured.ok ? buildAndWriteReport(flags, server.mode) : captured;
+    }
+  } catch (error) {
+    reported = err(`fidelity: ${describeThrown(error)}`);
+  } finally {
+    if (server.mode === 'spawned' && !flags.keepServer) {
+      const stopped = await server.stop();
+      if (!stopped.ok) {
+        reported = err(reported.ok ? stopped.error : `${reported.error}; then ${stopped.error}`);
+      }
     }
   }
   return reported;
@@ -187,10 +203,6 @@ async function main(): Promise<Result<void, string>> {
   const server = await ensureDevServer(flags.value.base, DEMO_DIR);
   if (!server.ok) {
     return server;
-  }
-  const up = await assertServerUp(flags.value.base);
-  if (!up.ok) {
-    return err(`fidelity: ${describeThrown(up.error)}`);
   }
   return captureAndReport(flags.value, server.value);
 }
