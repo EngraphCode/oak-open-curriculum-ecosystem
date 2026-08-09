@@ -15,6 +15,7 @@ export default createLibConfig({
     'src/capture-flags.ts',
     'src/register.ts',
     'src/pairing-schema.ts',
+    'src/capture-settle.ts',
     'src/orchestrator.ts',
   ],
 });

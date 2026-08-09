@@ -35,6 +35,11 @@
       "import": "./dist/pairing-schema.js",
       "default": "./dist/pairing-schema.js"
     },
+    "./capture-settle": {
+      "types": "./dist/capture-settle.d.ts",
+      "import": "./dist/capture-settle.js",
+      "default": "./dist/capture-settle.js"
+    },
     "./orchestrator": {
       "types": "./dist/orchestrator.d.ts",
       "import": "./dist/orchestrator.js",

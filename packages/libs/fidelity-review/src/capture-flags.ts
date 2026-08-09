@@ -137,6 +137,37 @@ export function resolveBase(
  *  lie about the PNGs. Peer of resolveWidth's 1440 default. */
 export const MATCHED_GEOMETRY_SCALE = 2;
 
+/** External origins the rendered surfaces are RATIFIED to reference —
+ *  the kit-authored counter-brand sheets pull webfonts from these
+ *  (provenance: the showcase's third-party-origin census in
+ *  tests/apply-state.ts, consolidated here at its second consumer).
+ *  The capture egress allowlist admits exactly declared-origin ∪ this
+ *  set: stripping the fonts from capture would silently change every
+ *  captured pixel on BOTH sides and void the registers' warrants. */
+export const RATIFIED_EXTERNAL_ORIGINS: readonly string[] = [
+  'https://fonts.googleapis.com',
+  'https://fonts.gstatic.com',
+  'https://cdn.jsdelivr.net',
+];
+
+/** The capture-egress request predicate: a browser request is allowed
+ *  iff its origin is the declared (loopback) capture origin or a
+ *  ratified external origin — anything else must never contribute to
+ *  evidence (SSRF/exfil class). Unparseable URLs are refused. Pure. */
+export function isAllowedRequestUrl(
+  url: string,
+  declaredOrigin: string,
+  ratified: readonly string[] = RATIFIED_EXTERNAL_ORIGINS,
+): boolean {
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return false;
+  }
+  return parsed.origin === declaredOrigin || ratified.includes(parsed.origin);
+}
+
 /** Blank-render classifier: a real page is HTTP 200 with meaningful body
  *  height AND visible text. Returns true when the capture is SUSPECT
  *  (looks blank / a placeholder). Pure — the self-check. */

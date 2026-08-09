@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest';
 
-import { allowLoopbackOrigin, isSuspect, resolveBase, resolveWidth } from './capture-flags';
+import {
+  allowLoopbackOrigin,
+  isAllowedRequestUrl,
+  isSuspect,
+  resolveBase,
+  resolveWidth,
+} from './capture-flags';
 
 const ENV: NodeJS.ProcessEnv = { NODE_ENV: 'test' };
 const DEFAULT_BASE = 'http://localhost:3010';
@@ -123,6 +129,32 @@ describe('allowLoopbackOrigin', () => {
       const result = allowLoopbackOrigin(base);
 
       expect(result.ok).toBe(false);
+    }
+  });
+});
+
+describe('isAllowedRequestUrl', () => {
+  const declared = 'http://localhost:3020';
+
+  it('admits the declared origin and the ratified external font origins', () => {
+    for (const url of [
+      'http://localhost:3020/identity-switchboard',
+      'https://fonts.googleapis.com/css2?family=Lexend',
+      'https://fonts.gstatic.com/s/lexend/x.woff2',
+      'https://cdn.jsdelivr.net/npm/some-kit-asset.css',
+    ]) {
+      expect(isAllowedRequestUrl(url, declared)).toBe(true);
+    }
+  });
+
+  it('refuses every other origin, port drift on the declared host, and unparseable URLs', () => {
+    for (const url of [
+      'http://localhost:3030/other-app',
+      'http://169.254.169.254/latest/meta-data',
+      'https://evil.example/x.css',
+      'not a url',
+    ]) {
+      expect(isAllowedRequestUrl(url, declared)).toBe(false);
     }
   });
 });
