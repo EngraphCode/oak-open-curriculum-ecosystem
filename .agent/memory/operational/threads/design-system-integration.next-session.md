@@ -1642,3 +1642,50 @@ no-handover-commits.
   (it stays with design-system-completion). The Director's standing
   flow (recount + grant at ready signals) governs the pull-forward's
   PRs as it did #830/#831.
+
+## COMPACTION FREEZE 4 — 2026-08-09T10:56:00Z (Civet spins Cavern, 054f5e — seat continues; PR-1 AT REVIEW-SETTLE; resume map)
+
+- **THE WINDOW'S ARC**: resume from freeze 3 → full re-arm (n=3
+  correction + node RATIFIED absorbed) → PR-1 built under the
+  pre-execution review's PROCEED-WITH-REVISIONS (all findings adopted;
+  the load-bearing cure: the plan's single-root export serve was
+  unworkable — the two-root STUDIO OVERLAY landed, proven styled
+  first-hand) → **#834 OPEN** (four foundation commits) → three review
+  cure rounds pushed: `6150cf8e8` (test-expert + architecture-fred:
+  bounded overlay via the declared exports surface, pure leaves,
+  literal fixtures, README invariant trued), `70f2585b2` (Copilot 15:
+  12 adopted, 3 adopted-in-modified-form via no-conditional-tests
+  §Diagnosis 5's owner-carded expect-guard ruling), `9e6b2f86a`
+  (Copilot round-2's REAL BYPASS — the admit predicate now judges the
+  canonical path — plus the Sonar S4624 cure). 16/16 threads
+  replied+resolved; Copilot RE-REQUESTED at `9e6b2f86a`; claude-bot
+  self-skipped (org overage, the #807 precedent). The plan node's
+  export-server clause carries its dated overlay correction
+  (`5c5c66e18` on coordination/2026-08-09-b5f347).
+- **AT RESUME (the executing input)**: (1) resume ceremony per
+  start-right — monitors were RETAINED alive through this freeze
+  (canonical watcher bfkjf5en4, heartbeat pair by10bgi80, ARC tail
+  btp68xjdi, pr-watch bvex97ypl — persistent monitors survive
+  compaction; VERIFY via F-95 assert + TaskList rather than re-arm;
+  re-arm only what died); (2) sweep the watcher buffer AND the ARC
+  channel; (3) read #834 state first-hand (one-shot pr-watch): needed
+  for full condition = all checks green incl. Sonar re-fire on
+  `9e6b2f86a` + Copilot round-3 harvest (re-requested; absorb +
+  disposition any findings) + threads still 0; (4) at full condition
+  post the **READY signal to the ARC channel** — the Director (Plover,
+  itself frozen at owner word ~10:52Z) sweeps that channel as its FIRST
+  resume act and runs recount+grant; do NOT chase, the flow is standing.
+- **THEN**: todo 3 — PR-2 (task #2 carries the config-review
+  obligation: @oaknational/result moves to dependencies in the same
+  commit that makes lib/identities.ts app-reachable). PR-2 scope is the
+  plan node's §Mechanism verbatim (routes, SegmentedControl, route CSS,
+  tests incl. no-flash cell, provenance rows, nav link).
+- **STANDING STATE**: claim 645b9e0b RETAINED; n=3 full protocol (Wren
+  6b29b5 live on workspace-config-isolation; Plover frozen-continuing);
+  worktree `identity-switchboard-pr1` LIVE and CLEAN at `9e6b2f86a`
+  (pushed); w01-census worktree untouched (census resume gate = this
+  node's todo 5; G1/G2 rulings carry); three board items homed with the
+  Director (ARC 10:40:45Z: the .next build/type-check gate race ×2, the
+  vitest green-through-worker-death harness gap, the hub-side inherited
+  defects). Owner word this window: cure gate races via the CLEAN
+  SCRIPT (root pnpm clean + ordered turbo build), never raw rm.

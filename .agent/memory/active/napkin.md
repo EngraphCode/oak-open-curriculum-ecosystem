@@ -676,6 +676,13 @@ if the churn starts to bite.
   --now`); the unfiltered rerun surfaced it in one read. The claims
   open/close asymmetry (open defaults --now per F-89; close requires it)
   is a sibling of the documented heartbeat-arg asymmetry.
+- Sharper filtered-read variant, same session: `comms send ... | grep
+  event_id` on a FAILING send matched the CLI's usage string (it contains
+  `--event-id`) — the filter displayed the error surface while filtering
+  out the error LINE, so the failure read as a malformed success. A grep
+  whose pattern can match the tool's own usage/help text is a
+  self-blinding filter; failing sends re-ran unfiltered with `--body-file`
+  (the documented shell-interpretation bypass) and landed.
 
 - 2026-08-09 (Plover b10c37): diagnosed a "stuck synchronize event" on #807 and
   routed a nudge — WRONG premise, corrected by the lane seat (Wren, 08:49Z):
@@ -687,3 +694,126 @@ if the churn starts to bite.
   branch just pushed) — a name mismatch is the cheap check that precedes any
   webhook theory. Peer-refusal-on-false-premise worked exactly as doctrine
   intends.
+
+## 2026-08-09 ~10:3xZ (Wren calls Downdraft, 6b29b5) — compaction-freeze harvest (metacognition / free-play / concept-exploration)
+
+METACOGNITION BITE — the owner's framing ("turn the validators back
+on") was itself a hypothesis, and the probes falsified it in the useful
+direction: the boundary validators were never AIMED at config files
+(shared ignores eat tsup configs entirely; boundary rules bind
+src-only; the 'off' switches suppressed rules that never bound there —
+decoys implying coverage that did not exist; and with all three layers
+removed, the rule STILL did not observably fire — resolver path
+unproven). Executing the literal ask (delete the off-lines) would have
+shipped the appearance of a cure. The lesson generalises the
+safety-asks-bind-the-referent memory: a cure instruction binds the
+COVERAGE the owner believes exists, and the first act is measuring
+whether it ever did. Full evidence in
+`workspace-config-isolation.plan.md` §Evidence.
+
+FREE-PLAY SEEDS (associations, not findings): (1) DECOY OFF-SWITCHES
+are a detectable class — an 'off' entry for a rule never enabled in
+that scope is machine-findable, and the planned disabled-checks census
+could flag exactly that shape (a disable disabling nothing = the
+strongest signal a coverage belief is false). (2) Stryker's
+subtree-copying sandbox is an ACCIDENTAL ISOLATION TESTER — any tool
+that copies a workspace subtree live-probes workspace
+self-containedness; the estate could get isolation testing for free by
+noticing which tools already do this. (3) "standalone by design"
+comments are assumption archaeology — design claims in config comments
+age without any check ever reading them.
+
+CONCEPT-EXPLORATION: justified no-run — the unshaped morning finding
+crystallised into a decision-complete plan node with all forks decided
+on measured evidence; no unshaped residue remains.
+
+Operational captures from the window: the concept-gate fired on
+"carve-out" used DESCRIPTIVELY (quoted-pathogen class, third recorded
+instance) — reappraised honestly, the design was uniform, restated as
+the precise mechanisms. Owner-redirect vs Director-ruling collision
+(both landed within 60s) resolved by owner-word precedence + one
+reroute event carrying lane pause AND ruling ack — the map stayed
+current with zero contradiction windows.
+
+## 2026-08-09 10:41Z (Civet, 054f5e) — PR-1 window: three mechanism notes
+
+- The pre-commit turbo gate RACES `next build` against `tsc` over
+  .next/types in both Next demos (two first-hand instances this window:
+  validator.ts referencing a not-yet-generated routes.js while tsconfig
+  includes .next/types/**). Working cure at owner word: root `pnpm
+  clean` then an ORDERED `turbo run build --filter=<app>` before the
+  commit; structural cure (dependsOn edge or tsconfig exclude) is on
+  the Director's board. Also learned: root clean wipes workspace dists,
+  so a bare `next build` then fails module resolution — always rebuild
+  through turbo so the dependency graph restores first.
+- Reviewer-conflict adjudication pattern that worked: Copilot cited
+  no-conditional-tests against the expect-guard idiom while the
+  test-expert sanctioned it; the RULE ITSELF (§Diagnosis 5, owner-carded
+  amendment 2026-08-02) names the message-bearing expect-guard as the
+  sanctioned shape — reading the cited rule end-to-end beat both
+  reviewers' summaries, and the cure (upgrade to message-bearing form)
+  satisfied both. Apply-whole-rules works on review findings too.
+- The worktree isolation guard blocks Write of files containing
+  machine-local absolute paths (scratchpad probe scripts included);
+  the portable shape is argv-passed module paths resolved at runtime —
+  cheaper than fighting the fingerprint, and the probe stays reusable.
+
+## 2026-08-09 ~10:4xZ (Wren calls Downdraft, 6b29b5) — post-compaction un-ignore probe
+
+- STALE-DIST FALSE NEGATIVE (the layer-4 mystery, solved): the
+  standards package is consumed from `dist/` (`exports` → dist), so
+  the earlier probe that edited `src/` and re-ran lint without
+  rebuilding recorded "rule does not observably fire" against config
+  that never loaded. One `pnpm --filter … build` later,
+  `import-x/no-relative-packages` fires perfectly on graph-core's
+  tsup.config.ts and vitest.config.ts (the real violations). General
+  class: before recording a NEGATIVE capability finding about a built
+  artefact, prove the artefact under test contains your change —
+  a build step between source and consumer converts "edited" into
+  "untested" silently. Pairs with dont-transmit-assumptions-as-truth
+  ("impossible" fires the falsifier first).
+- `'**/tsup.config.*'` in the shared ignores claims (comment) to
+  target bundled ephemera, but `'**/*.bundled_*.mjs'` on the next
+  line already covers those; the glob's only real effect is ignoring
+  source tsup configs. A disable whose stated grounds are satisfied
+  elsewhere = another decoy shape for the census to flag.
+- Pre-existing, not mine, not absorbed: graph-core lint shows 15
+  `@oaknational/no-throw-statement` WARNINGS in src/test files on the
+  probe branch (cut from main). no-warning-toleration says these are
+  someone's cure item — routed to Director rather than absorbed into
+  the isolation lane.
+
+## 2026-08-09 10:55Z (Civet, 054f5e) — freeze-4 lens harvest (metacognition / concept-exploration / free-play / wrap)
+
+METACOGNITION: the reviewer cascade on #834 earned its cost — four
+independent surfaces (pre-execution gateway, two focused specialists,
+Copilot twice, Sonar) each caught a DISTINCT real defect class with
+almost no overlap. The sharpest instance: my own leak probe verified the
+surface bound I designed, and Copilot's round 2 found the bypass I
+didn't design against (relative hop wearing an admitted prefix) — a
+probe tests the author's threat model; an independent adversary tests
+its edges. Pair them, always.
+
+CONCEPT-EXPLORATION: "declared surface" matured through three states in
+one PR: whole-tree serve → exports-map allowlist → CANONICAL-PATH-judged
+allowlist. The closing invariant is consistency, not restriction: the
+admit predicate and per-root resolution must judge the SAME canonical
+form (both reduce to normalize(urlPath) for in-root results). A guard
+that judges a different representation than the executor serves is a
+bypass waiting for its input. Sibling fork worth remembering:
+normalize() CLAMPS root-escapes into the root (RFC remove_dot_segments)
+while the prefix guard REJECTS them — clamping in the shared decode
+seam would have silently weakened the reject-escapes contract; the cure
+belonged at the one consumer that needed it.
+
+FREE PLAY: the one unresolved thread at settle was a genuine security
+catch on code written the same morning — the review system at its best,
+and a good calibration anchor for what a READY signal is worth.
+
+WRAP: freeze lands at review-settle: three cure rounds pushed
+(6150cf8e8, 70f2585b2, 9e6b2f86a), 16/16 threads replied+resolved,
+Copilot re-requested at the head, Sonar's one MAJOR cured awaiting the
+re-fire, checks in flight. Zero local dirt in the PR worktree. The
+READY signal is post-compaction work by construction (checks + Copilot
+round 3 must land), and the Director's own freeze routes it to the ARC
+channel where their first resume act sweeps.

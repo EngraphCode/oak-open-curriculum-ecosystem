@@ -179,7 +179,29 @@ slice per the standing rule.
 1. Step 0 — compaction preparation at plan landing (above). DONE marker
    lands in the thread record's freeze entry.
 2. PR-1 — fidelity tooling port + pairs + seeded register + `tool:fidelity`
-   script (tools only; no page).
+   script (tools only; no page). Amendment 2026-08-09 (at #834's settle):
+   the merge-required Sonar gate refused the copy shape —
+   new-duplicated-lines 21.5% against the 3% condition, the counterparts
+   the hub's own `tools/` copies — and `consolidate-at-second-consumer`
+   directs the cure (its text names duplication-density gate refusal as
+   its enforcement; path/IO guards are its consolidation floor; the
+   fidelity-review skill's app-local-until-WS2 deferral cannot license a
+   second copy landing against a required gate). PR-1 splits, round
+   budgets rebinding at this re-authoring per PDR-132:
+   - PR-1a — extract the shared fidelity core (support, image-diff,
+     dev-server, fidelity-report, fidelity-report-sections, fidelity-html,
+     register core, review runner, pairing-map schema) to a new
+     `packages/design/fidelity-review` workspace package; the hardened
+     showcase versions are canonical (the hub's three inherited defects —
+     the decodeURIComponent crash, the relative-npm_execpath lookup, the
+     loose register schema — die by construction); the hub migrates to
+     the package and its copies delete. Single story: consolidation at
+     the second consumer; the PDR-132 size warning fires and the PR body
+     states the mostly-moved-code ground.
+   - PR-1b — #834 merges main after PR-1a lands and swaps its copied
+     modules for package imports; its remaining diff is the genuinely
+     app-local code already through three review rounds (export overlay +
+     path guards, pairs map, capture config, `lib/identities`).
 3. PR-2 — the two routes + `SegmentedControl` + route CSS + unit tests +
    Playwright cells (the a11y matrix gains the new routes' identity ×
    theme cells and the no-flash first-paint cell) + the
