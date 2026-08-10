@@ -419,7 +419,10 @@ PR #836:
       registered earlier in `WORKSPACE_DEPS`.
    h. Turbo-glob resolution (Codex): positive `$TURBO_ROOT$` globs are
       checked only to their leading literal directory — require ≥1
-      tracked-file match with turbo-compatible semantics.
+      tracked-file match with turbo-compatible semantics. Red-proof
+      material named by Copilot round 4 (2026-08-10): the three
+      `research/**/*.{js,cjs,mjs}` entries match zero files today
+      (measured; pre-existing on main).
    i. Estate-wide syntactic bar for non-literal dynamic imports AND
       non-literal `require(expr)` calls — the depcruise rules see only
       resolvable (literal) sites for both forms (probe-verified for
@@ -432,7 +435,23 @@ PR #836:
       from.path alternation hand-encodes workspace root locations;
       evaluate deriving it from `pnpm-workspace.yaml` (or a validator
       leg asserting every expanded member dir is matched) so a new
-      workspace root cannot silently sit outside the rule.
+      workspace root cannot silently sit outside the rule. The
+      derivation also subsumes the depth gap Copilot round 4 named
+      (config files below a workspace root; zero instances today, and
+      the naive any-depth regex is rejected by depcruise's safe-regex
+      guard — measured).
+   k. Transitive bootstrap staleness (Copilot round 4): a
+      workspace-config rebuild does not invalidate the leaf deps'
+      staleness skip — propagate upstream-rebuilt state or count the
+      shared config's dist artifacts as leaf inputs. Bounded exposure
+      meanwhile: cold installs unaffected; turbo's `^build` edge
+      rebuilds leaves on the next orchestrated build.
+   l. Registry-publication falsifier (Copilot round 4, recorded
+      condition): the phantom-deps rule enforces declaredness, and the
+      `workspace:*` protocol cannot drift silently ONLY while
+      `@oaknational/workspace-config` has no registry presence (a
+      non-workspace range fails install). If the package is ever
+      published, add a manifest-level protocol check with a red-proof.
 
 ## Known issues at execution (recorded 2026-08-09; every row has a named immediate home)
 
