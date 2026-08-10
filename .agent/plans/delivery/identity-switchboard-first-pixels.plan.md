@@ -40,6 +40,26 @@ in Chrome, with every divergence from the export recorded and dispositioned,
 never silent. On completion the lane resumes the design census at its
 slice-A boundary (the named resume gate: todo 5).
 
+### Governing steer — ends before means (owner recalibration, 2026-08-10)
+
+The END this lane serves is **near-zero-cost exploratory app experiments**:
+whitelabelling is the proof that *presentation is data*, and the showcase must
+SHOW that power — the wow page is the demonstration. The fidelity instrument
+(the whole PR-1b hardening ledger) is **means**, never the end. Two bindings on
+routing and adjudication, in force from here:
+
+1. **Cure round 6 completes at LEDGER-MINIMUM depth.** Where a hardening row
+   honestly permits deferral (named home, no false-evidence exposure), defer it
+   — the instrument earns exactly the rigour that protects the demonstration's
+   trust, no gold-plating. Evidence-integrity rows (the tool must never certify
+   false evidence) are the floor that does NOT defer; instrument ergonomics and
+   completeness beyond that floor defer to a named follow-on. The Director's
+   grant bar moves accordingly: blocking = the evidence-integrity floor +
+   `mergeStateStatus` + R27 dispositions, not the entire ledger.
+2. **Every READY from this lane states DISTANCE-TO-PIXELS**, not only
+   gates-green — the metric that matters is how close the owner is to browsing
+   the wow page, and each lane signal reports it.
+
 ## Step 0 — compaction preparation (owner word: the very first step)
 
 Executed at this plan's landing, before any implementation: napkin lens
