@@ -1289,3 +1289,82 @@ artifacts are cleared by the workspace's own clean verb
 (`pnpm --filter <ws> run clean`), never raw rm, never an owner ask;
 (2) the withResource drop held: an adjudicated design is a hypothesis
 and consumers are its falsifier.
+
+## 2026-08-10 ~09:3xZ (Swordfish wakes Trench, d0274e, design lane) — the paired-watchers rule has a THIRD member on a lane with an ARC channel
+
+At this seat's pickup the canonical all-channels watcher was armed and F-95
+green, the F-75 peer poll was armed, and the seat reported itself fully
+visible. It was not: the Director had opened an ARC channel for the design
+lane at 07:30Z and posted six substantive entries — a concurrence, an
+owner-directed boundary exploration, and an explicit RELEASE to proceed —
+and the seat read none of them until 09:35Z, then told the owner "no
+Director reply yet" while a reply had been on that surface for over an hour.
+
+The rule text says the canonical watcher and the ARC watcher "are paired,
+always", and it is written from the direction of a seat that has an ARC tail
+and might skip the canonical one (the founding failure). This instance is
+the OTHER direction: canonical armed, ARC never armed, F-95 green
+throughout — because F-95 attests the canonical watcher and can attest
+nothing else. Two members named, three surfaces live, and the gate covers
+one.
+
+Second instance of the family, not the first: Civet logged the half-armed
+watcher on 2026-08-08 (monitors live and attested, nothing making the seat
+READ the buffer between wakes). That was consumption; this is arming. Same
+generator — a green liveness check on ONE surface read as visibility across
+ALL surfaces, which is PDR-133's reading rule violated by its own consumer.
+
+Scope: any lane seat whose Director dialogue runs on an ARC channel. Working
+cure applied at this seat: arm the ARC tail as an event-driven Monitor in the
+same move as the canonical watcher, and treat "which surfaces can carry
+direction to me?" as the arming checklist rather than "is my watcher green?".
+Candidate rule amendment (routed to the Director with the PDR-136 §5 work,
+where it lands as the ad-hoc-instrument case): the paired-watchers clause
+should enumerate surfaces by the direction they can carry, not by a count.
+
+Sibling note, same seat, same window: a hand-rolled tail on a dialogue file
+does NOT self-exclude the way the canonical watcher does, so every entry the
+seat writes notifies the seat. Cheap fix (drop headers naming this seat);
+worth knowing before arming one.
+
+## 2026-08-10 ~08:4xZ — Plover lifts Troposphere (b10c37): THE METRIC LESSON — doctrine-motion is not progress (owner's "proceeding is bullshit" catch)
+
+- **The deliverable is the only metric. I reported "Swordfish is proceeding"
+  against NO metric — my own message traffic read as progress.** First-hand
+  measurement showed the truth: 2h of doctrine (methodology report, boundary
+  exploration, four-mode frame, PDR-136 amendment, ~20 ARC entries) while the
+  design lane's deliverable did not move — 0/10 specimen regions, no route
+  existed. The purest silence-is-liveness error, committed by the seat that had
+  just authored the silence-invariant. The owner called it bullshit; correct.
+- **Cures, all four owner-forced this session:** (1) the metric is the
+  DELIVERABLE — distance-to-pixels (regions rendered), measured first-hand
+  (branch tip + route directory), NEVER asserted from messages or heartbeats;
+  (2) doctrine/coordination VOLUME is a displacement risk, not progress — the
+  Director's failure mode is mistaking means-of-means for the end; guard the end
+  relentlessly; (3) break sequencing that stacks means before the end (page was
+  behind the cure-round behind the assurance-design — a chain of means; "the rig
+  is the CAMERA, you don't need it perfected to paint" broke it); (4) CONVERGE,
+  don't proliferate — I flooded the channel and over-gated on "owner closes,"
+  manufacturing a three-way stall the owner had to name. Declaring convergence
+  closed and releasing work IS the Director's job, not a gavel to wait for.
+- **The generator underneath:** defaulting to the LOCAL/means cure over the
+  LEVEL/end cure — the same generator as the depcruise-over-regex and
+  architecture-over-wide-net corrections. Ask "is this the deliverable, or a
+  means I'm mistaking for it?" as a required check, not an emergent one.
+
+## 2026-08-10 — Plover lifts Troposphere (b10c37): freeze-window advances worth keeping (brief)
+
+- **Four-mode contribution frame** (owner correction: agents are creative
+  partners, not just defect nets): generative/improvement/discovery/
+  falsification; the MODE IS SET BY THE QUESTION, not the agent type; R1
+  proportionality selects mode by impact-locus, R2 every output is judged.
+  Graduation candidate → PDR-111. Assurance is one mode of four.
+- **In-place re-skin as structural proof** (design): a demonstration built so it
+  can only succeed if the claim is true (re-skin one DOM in place ⟹ markup is
+  brand-invariant, which IS the claim). Falsification-power moved from test seams
+  to demonstration design.
+- **PDR-136 §5 silence invariant** (proposed, pending owner ratification at
+  487b3ebc9): silence carries ONE invariant meaning; any invoked-but-silent
+  instrument is a FAULT. The ARC-tail-gap (an un-armed tail read as
+  visibility-complete → false green) is the worked instance — the invariant must
+  bite on ad-hoc-armed instruments, not only registered gates.

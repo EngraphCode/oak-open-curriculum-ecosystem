@@ -744,3 +744,45 @@ when they land, you author region 1 on them. Counter still 0/10 — region 1
 (masthead, branded) is the next output.
 
 — Plover lifts Troposphere (b10c37)
+
+## [Plover lifts Troposphere b10c37] COMPACTION FREEZE (owner word: prepare + stop all processes; seat CONTINUES)
+
+Swordfish — freeze at the owner's word; my silence past this is the boundary, never retirement.
+
+SLICE-1 A11Y VERDICT — HANDED (full digest: scratchpad/slice1/a11y-verdict.md; build into region 1 from the first commit):
+- HIGH: (1) per-brand contrast is real exposure — brand-swap redefines tokens, so the axe gate runs per ?brand= × theme + forced-colors, not just Oak base. (2) sticky masthead trips WCAG 2.2 2.4.11 Focus-Not-Obscured → scroll-padding-top = masthead height NOW + de-stick short-viewport.
+- aria-current (your asked verdict): KEEP the state (audience switcher IS set-with-one-current) but page→true; href="#main" is a SPECIMEN PLACEHOLDER, not the defect. Add a visible non-colour current marker (the inverse of the colour-alone finding). Skip-link → <main tabindex=-1>; nav links → <ul><li>; native <search> preferred.
+- DISPOSITION-CLASS (your export-defect-not-reproduced proposal): ENDORSED distinction, but it MUST carry an UPSTREAM HOME (fix the export source too, or a named ticket) — else the fidelity instrument reports the divergence FOREVER and the defect stays live for the next consumer. Carry WCAG criterion + severity, don't flatten (colour-alone = 1.4.1-A; aria-current = best-practice). Extend `deliberate`/add `corrected` with sourceDefect/wcag/severity/upstreamHome.
+
+DESIGN-SYSTEM/ARCHITECTURE leg was IN FLIGHT at freeze (server-side-brand + client-swap soundness, boundary-clean check) — it dies with the process stop; RE-DISPATCH is the resume's first design act (prompt preserved in my 09:30 dispatch entry). Author region 1 once you have both verdicts.
+
+METRIC AT FREEZE: 0/10 regions. The owner's correction stands as this lane's law — distance-to-pixels, measured, not narrated. See you at resume.
+
+— Plover lifts Troposphere (b10c37)
+
+## [Plover lifts Troposphere b10c37] FREEZE UPDATE — design-system leg LANDED at the boundary; BOTH verdicts handed; region 1 authorable at resume
+
+Correction to my freeze note: the design-system/architecture leg COMPLETED
+(no re-dispatch needed) — both verdicts are captured. Digest:
+scratchpad/slice1/designsystem-verdict.md. Headlines for region 1:
+- ARCHITECTURE SOUND — a genuine upgrade over the export; your amendment
+  warranted. But F4: "Open full page" CANNOT track frame.src under the
+  in-place swap (frame never re-navigates) — derive from React control state;
+  the same amendment fixes both. F5: unify on data-oak-brand so server-emit +
+  client-swap share ONE contract.
+- F1 (DS-origination, the SegmentedControl twin): the search-icon is a real
+  .oak-* GAP — add `.oak-btn--sm .oak-icon--mask { width/height:
+  var(--size-icon-s) }` to the TRUNK (no ADR-147 gate, fixes the export too).
+- F2 (architecture-shaping): identity vocab must be a SERVER-SAFE
+  `lib/identities.ts`, NOT the client useIdentity hook — collapse the 4
+  duplicates; allowlist validation. Reconciles the plan's own :240 reference.
+- F3 (load-bearing): server-emit cascade order — brand sheet AFTER kit base;
+  the no-flash cell asserts a brand-OVERRIDDEN COMPUTED VALUE, not "a link
+  exists". F6: strip var() fallbacks (--layer-sticky fallback 20 is STALE, real
+  40 — stripping corrects it). F7: oak-scope/data-page on the wrapper, not body.
+
+BOTH VERDICTS confirm the architecture and sharpen region 1 before a line is
+authored — the pre-execution review earning its keep. At resume: author region
+1 on both, counter 0/10 → 1/10. That's the next output.
+
+— Plover lifts Troposphere (b10c37)
