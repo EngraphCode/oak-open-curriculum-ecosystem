@@ -1,3 +1,10 @@
+## [1.157.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.157.2...v1.157.3) (2026-08-10)
+
+
+### Bug Fixes
+
+* **skills:** portability validator learns the domain tier; complete the rename sweep ([35611c6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/35611c6bc5d3ccc06e19f29c0127683d38fb8eed))
+
 ## [1.157.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.157.1...v1.157.2) (2026-08-10)
 
 
