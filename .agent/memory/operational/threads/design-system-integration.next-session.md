@@ -2081,3 +2081,68 @@ RESUME MAP — ends-first, binding:
    falsification power. The page IS the story: three identities ×
    one specimen, re-skinning at query level — the near-zero-cost
    demonstration the whole programme exists for.
+
+## COMPACTION FREEZE 1 (2026-08-10 ~09:5xZ) — Swordfish wakes Trench (054f5e successor, d0274e); seat CONTINUES; resume RE-ARMS
+
+Owner word: prepare for compaction; owner chose COMPACT-AND-REJOIN over
+hand-off-and-retire. Claim `645b9e0b-afea-4743-8cc6-5dad3ad39575` RETAINED.
+Silence past the freeze broadcast is the boundary, never retirement. Written
+as an INDEX for a stranger, not a summary — the substance lives in the homes
+named below and is not restated here.
+
+**READ THIS FIRST — the plan node contradicts the owner's ruling and will
+build the wrong thing.** `identity-switchboard-first-pixels.plan.md`
+§"Shape: two routes" still says the picker frames the specimen "in an IFRAME
+whose src the controls drive". Driving the src IS a reload, and the owner
+ruled 2026-08-10 that the TRANSITION is the hero, with the Director
+concurring on in-place re-skin. Until that clause is amended the ARC entries
+are authoritative. Amending it is the first records act.
+
+STATE, all first-hand:
+
+- **#834 MERGED** `6804726e2` — `packages/libs/fidelity-review` is on main.
+- **PR-2 lane LIVE**: worktree `identity-switchboard-pr2`, branch
+  `jimcresswell/design-identity-switchboard-pr2`, cut from a verified-clean
+  `origin/main`. FOUR files uncommitted and GREEN (build, type-check,
+  identity ratchet all pass; lint/authored-css/tests NOT yet run).
+- **2 of 10 specimen regions render** (utility, masthead) with the brand
+  applied server-side. Proven by curl against the dev server: a known brand
+  yields `data-identity` plus `<link rel="stylesheet" href="/brands/…">` IN
+  THE INITIAL HTML; an unknown value narrows to the base identity with no
+  sheet.
+- **Slice-1 pre-execution review DISPATCHED by the Director** (two focused
+  opus legs; the Director dispatches because this session may not use the
+  Agent tool). Their freeze broadcast says both verdicts are handed over —
+  LOCATION UNVERIFIED BY ME. Find them before authoring: ARC channel first,
+  then `director-handoff.md`.
+
+RESUME ORDER:
+
+1. Re-arm per start-right: canonical watcher from PRIMARY + F-95 assert; ARC
+   tail on the design-lane channel (BOTH — a green F-95 attests the canonical
+   watcher and nothing else; this seat lost two hours to exactly that);
+   heartbeat pair on the retained claim; foreground gap sweep; peer-liveness.
+2. Find and absorb the two slice-1 verdicts.
+3. Amend the plan's shape clause (above), and fold in the two carried
+   promises: the two-page scope + in-place re-skin with the Director's
+   structural-proof reasoning, and the correction that the fidelity rig is
+   the design-iteration CAMERA so its value is concurrent with the page, not
+   gated behind it.
+4. Author the remaining eight regions, then gates, then PR.
+
+WHERE THE DURABLE THINGS ARE (index, not restatement):
+
+- Design mechanism + why: ARC channel `2026-08-10-design-lane-plover-…`
+  entries at 09:15 and 09:25, and the Director's 09:10 strengthening.
+- The roster/hook split and why the split went that direction: the docblock
+  of `demos/oak-design-showcase/components/brand-identity-binding.ts`.
+- R27 dispositions incl. the deferred one: PR #834 comment 5237793004.
+- This seat's error signature and the null-state finding with falsifiers:
+  napkin, commit `99ec656c2`.
+- Cure-round depth bound: plan §DEPTH, commit `b4ed8ea1d`.
+
+KNOWN BOUNDS: two export defects found so far (a checked state carried by
+colour alone; `aria-current="page"` on an in-page anchor) are UNCURED and
+awaiting a reviewer verdict — a fidelity disposition class for
+export-defect-deliberately-not-reproduced is proposed, not agreed. The
+Director is frozen, so its dispatch verdicts may land before it returns.
