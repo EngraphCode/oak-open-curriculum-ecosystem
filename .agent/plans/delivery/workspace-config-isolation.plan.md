@@ -420,10 +420,14 @@ PR #836:
    h. Turbo-glob resolution (Codex): positive `$TURBO_ROOT$` globs are
       checked only to their leading literal directory — require ≥1
       tracked-file match with turbo-compatible semantics.
-   i. Estate-wide syntactic dynamic-import bar — the depcruise rule
-      sees only resolvable (literal) sites; a syntactic instrument
-      (ESLint `no-restricted-syntax` on ImportExpression) closes the
-      non-literal form estate-wide; lands with todo 2's reshaped arc.
+   i. Estate-wide syntactic bar for non-literal dynamic imports AND
+      non-literal `require(expr)` calls — the depcruise rules see only
+      resolvable (literal) sites for both forms (probe-verified for
+      import; the require analog was Copilot-confirmed on the swap
+      round, 2026-08-10); the live `@oaknational/no-dynamic-import`
+      ESLint rule already bars every dynamic-import form in LINTED
+      files, so the residue is config files until todo 2 lands plus a
+      require-form rule; lands with todo 2's reshaped arc.
    j. Workspace-root drift in the depcruise rule regexes — the
       from.path alternation hand-encodes workspace root locations;
       evaluate deriving it from `pnpm-workspace.yaml` (or a validator
