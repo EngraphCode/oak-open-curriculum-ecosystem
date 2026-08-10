@@ -1,13 +1,14 @@
 /**
- * Canonical-skill tree walk for the portability validator.
- *
- * The ratified skills-estate shape is three tiers, closed: flat
- * (`<id>/SKILL-CANONICAL.md`), concern member (`<concern>/<id>/`), and
- * domain member (`<concern>/<domain>/<id>/`, owner-ruled 2026-08-10 —
- * e.g. `domain-craft/ui-design/`). A fourth level is never walked.
- * Directories with no canonical at any tier are the adapter checker's
- * loud-skip territory, not this validator's.
+ * Portability-validator consumer of the shared skills-tree topology walker
+ * (`skills-adapter-generate/skill-tree-walk.ts` — the canonical owner of
+ * the three-tier shape, consolidated at its second consumer, 2026-08-10).
+ * This consumer collects existing canonical paths for
+ * frontmatter/classification validation and the flat leaf-name namespace
+ * for skills-lock shadow detection; dead-end directories are the adapter
+ * checker's loud-skip territory, not this validator's.
  */
+
+import { walkSkillTree } from '../../skills-adapter-generate/skill-tree-walk.js';
 
 export interface SkillsWalkFs {
   listSubdirs(relPath: string): Promise<readonly string[]>;
@@ -24,45 +25,22 @@ export interface CanonicalSkillWalk {
 /**
  * Collect every canonical `SKILL-CANONICAL.md` at the three ratified tiers,
  * so frontmatter validation and the skills-lock cross-reference see the
- * same corpus.
+ * same corpus the adapter generator serves.
  */
 export async function collectCanonicalSkillPaths(fs: SkillsWalkFs): Promise<CanonicalSkillWalk> {
   const walk: CanonicalSkillWalk = { canonicalPaths: [], leafNames: [] };
-  for (const rootDir of await fs.listSubdirs('.agent/skills')) {
-    if (await collectIfCanonical(fs, walk, rootDir)) {
-      continue;
-    }
-    await collectConcernMembers(fs, walk, rootDir);
-  }
+  await walkSkillTree(
+    {
+      listChildDirectories: (relativeDir) =>
+        fs.listSubdirs(relativeDir === '' ? '.agent/skills' : `.agent/skills/${relativeDir}`),
+      hasCanonical: (relativeDir) => fs.exists(`.agent/skills/${relativeDir}/SKILL-CANONICAL.md`),
+    },
+    {
+      onCanonical(relativeDir) {
+        walk.canonicalPaths.push(`.agent/skills/${relativeDir}/SKILL-CANONICAL.md`);
+        walk.leafNames.push(relativeDir.split('/').at(-1) ?? relativeDir);
+      },
+    },
+  );
   return walk;
-}
-
-/** Concern tier: direct members, or one domain tier below — never deeper. */
-async function collectConcernMembers(
-  fs: SkillsWalkFs,
-  walk: CanonicalSkillWalk,
-  concernDir: string,
-): Promise<void> {
-  for (const memberDir of await fs.listSubdirs(`.agent/skills/${concernDir}`)) {
-    const memberRel = `${concernDir}/${memberDir}`;
-    if (await collectIfCanonical(fs, walk, memberRel)) {
-      continue;
-    }
-    for (const leafDir of await fs.listSubdirs(`.agent/skills/${memberRel}`)) {
-      await collectIfCanonical(fs, walk, `${memberRel}/${leafDir}`);
-    }
-  }
-}
-
-async function collectIfCanonical(
-  fs: SkillsWalkFs,
-  walk: CanonicalSkillWalk,
-  relDir: string,
-): Promise<boolean> {
-  if (!(await fs.exists(`.agent/skills/${relDir}/SKILL-CANONICAL.md`))) {
-    return false;
-  }
-  walk.canonicalPaths.push(`.agent/skills/${relDir}/SKILL-CANONICAL.md`);
-  walk.leafNames.push(relDir.split('/').at(-1) ?? relDir);
-  return true;
 }

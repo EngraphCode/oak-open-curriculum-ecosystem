@@ -17,6 +17,8 @@ import { join } from 'node:path';
 
 import { parse as parseYaml } from 'yaml';
 
+import { walkSkillTree } from './skill-tree-walk.js';
+
 const CANONICAL_FILENAME = 'SKILL-CANONICAL.md';
 
 export interface CanonicalFrontmatter {
@@ -70,8 +72,8 @@ const realDiscoveryFs: DiscoveryFs = {
 };
 
 /**
- * Discover every canonical skill under `.agent/skills/`, honouring the two
- * standard shapes.
+ * Discover every canonical skill under `.agent/skills/` via the shared
+ * three-tier topology walker.
  */
 export async function discoverCanonicals(
   repoRoot: string,
@@ -81,74 +83,34 @@ export async function discoverCanonicals(
   const skipped: string[] = [];
   const canonicalsRoot = join(repoRoot, '.agent', 'skills');
 
-  for (const rootId of await fs.listSubdirectoryNames(canonicalsRoot)) {
-    await discoverRootEntry(canonicalsRoot, rootId, fs, canonicals, skipped);
-  }
+  // Topology lives in the shared walker (the canonical owner of the
+  // three-tier shape); this consumer parses frontmatter and reports skips.
+  // A directory whose canonical file exists but fails parsing reaches
+  // onCanonical and is skipped there — the walker only probes presence.
+  await walkSkillTree(
+    {
+      listChildDirectories: (relativeDir) =>
+        fs.listSubdirectoryNames(join(canonicalsRoot, relativeDir)),
+      hasCanonical: async (relativeDir) =>
+        (await fs.readFileOrUndefined(join(canonicalsRoot, relativeDir, CANONICAL_FILENAME))) !==
+        undefined,
+    },
+    {
+      async onCanonical(relativeDir) {
+        const parsed = await parseCanonicalAt(canonicalsRoot, relativeDir, fs);
+        if (parsed === 'absent' || parsed === 'unparseable') {
+          skipped.push(relativeDir);
+        } else {
+          canonicals.push(parsed);
+        }
+      },
+      onDeadEnd(relativeDir) {
+        skipped.push(relativeDir);
+      },
+    },
+  );
 
   return { canonicals, skipped, duplicates: duplicateLeafIds(canonicals) };
-}
-
-async function discoverRootEntry(
-  canonicalsRoot: string,
-  rootId: string,
-  fs: DiscoveryFs,
-  canonicals: ParsedCanonical[],
-  skipped: string[],
-): Promise<void> {
-  const flat = await parseCanonicalAt(canonicalsRoot, rootId, fs);
-  if (flat === 'unparseable') {
-    skipped.push(rootId);
-    return;
-  }
-  if (flat !== 'absent') {
-    canonicals.push(flat);
-    return;
-  }
-  const memberIds = await fs.listSubdirectoryNames(join(canonicalsRoot, rootId));
-  if (memberIds.length === 0) {
-    skipped.push(rootId);
-    return;
-  }
-  for (const memberId of memberIds) {
-    const relativeDir = `${rootId}/${memberId}`;
-    const member = await parseCanonicalAt(canonicalsRoot, relativeDir, fs);
-    if (member === 'unparseable') {
-      skipped.push(relativeDir);
-    } else if (member !== 'absent') {
-      canonicals.push(member);
-    } else {
-      await discoverDomainTier(canonicalsRoot, relativeDir, fs, canonicals, skipped);
-    }
-  }
-}
-
-/**
- * A concern member without its own canonical is a candidate domain tier
- * (`<concern>/<domain>/`): its children are leaf skills. The tree closes
- * here — a domain child without a parseable canonical is skipped loudly
- * whatever it contains, so a fourth level can never ride in silently.
- */
-async function discoverDomainTier(
-  canonicalsRoot: string,
-  domainDir: string,
-  fs: DiscoveryFs,
-  canonicals: ParsedCanonical[],
-  skipped: string[],
-): Promise<void> {
-  const leafIds = await fs.listSubdirectoryNames(join(canonicalsRoot, domainDir));
-  if (leafIds.length === 0) {
-    skipped.push(domainDir);
-    return;
-  }
-  for (const leafId of leafIds) {
-    const relativeDir = `${domainDir}/${leafId}`;
-    const leaf = await parseCanonicalAt(canonicalsRoot, relativeDir, fs);
-    if (leaf === 'absent' || leaf === 'unparseable') {
-      skipped.push(relativeDir);
-    } else {
-      canonicals.push(leaf);
-    }
-  }
 }
 
 async function parseCanonicalAt(
