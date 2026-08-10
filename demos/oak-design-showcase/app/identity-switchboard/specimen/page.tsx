@@ -29,16 +29,23 @@ function UtilityRegion(): React.JSX.Element {
     <div className="oak-region util" data-region="utility">
       <div className="oak-container oak-cluster oak-cluster--s util-inner">
         <span className="oak-body-3">You are viewing the</span>
-        <nav className="oak-cluster oak-cluster--s" aria-label="Audience">
-          <a className="oak-link oak-body-3" href="#main">
-            teacher
-          </a>
-          <span className="oak-body-3" aria-hidden="true">
-            ·
-          </span>
-          <a className="oak-link oak-body-3" href="#main">
-            pupil
-          </a>
+        {/* The audience switcher is a set with one current member, so it
+            keeps aria-current — with the value `true`, not `page`: teacher
+            and pupil are audiences, not pages (a11y review ruling). The
+            current one also carries a visible non-colour marker in CSS. */}
+        <nav aria-label="Audience">
+          <ul className="oak-cluster oak-cluster--s nav-list">
+            <li>
+              <a className="oak-link oak-body-3" href="#main" aria-current="true">
+                teacher
+              </a>
+            </li>
+            <li>
+              <a className="oak-link oak-body-3" href="#main">
+                pupil
+              </a>
+            </li>
+          </ul>
         </nav>
         <span className="oak-body-3">experience</span>
         <a className="oak-link oak-body-3 push" href="#main">
@@ -49,28 +56,46 @@ function UtilityRegion(): React.JSX.Element {
   );
 }
 
+function SiteNav(): React.JSX.Element {
+  return (
+    <nav aria-label="Main">
+      <ul className="oak-cluster oak-cluster--s site-nav nav-list">
+        <li>
+          <a className="oak-link oak-body-2" href="#browse">
+            Subjects
+          </a>
+        </li>
+        <li>
+          <a className="oak-link oak-body-2" href="#browse">
+            Units
+          </a>
+        </li>
+        <li>
+          <a className="oak-link oak-body-2" href="#lesson">
+            Lessons
+          </a>
+        </li>
+        <li>
+          <a className="oak-link oak-body-2" href="#resources">
+            Guidance
+          </a>
+        </li>
+        <li>
+          <a className="oak-link oak-body-2" href="#support">
+            Support
+          </a>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+
 function MastheadRegion(): React.JSX.Element {
   return (
     <header className="oak-region mast" data-region="masthead">
       <div className="oak-container oak-cluster mast-inner">
         <span className="oak-heading-6 brand-name">The learning service</span>
-        <nav className="oak-cluster oak-cluster--s site-nav" aria-label="Main">
-          <a className="oak-link oak-body-2" href="#browse">
-            Subjects
-          </a>
-          <a className="oak-link oak-body-2" href="#browse">
-            Units
-          </a>
-          <a className="oak-link oak-body-2" href="#lesson">
-            Lessons
-          </a>
-          <a className="oak-link oak-body-2" href="#resources">
-            Guidance
-          </a>
-          <a className="oak-link oak-body-2" href="#support">
-            Support
-          </a>
-        </nav>
+        <SiteNav />
         <search className="oak-cluster oak-cluster--s site-search">
           <label className="oak-visually-hidden" htmlFor="site-q">
             Search
@@ -101,10 +126,24 @@ export default async function SpecimenPage({
       {identity === BASE_IDENTITY ? null : (
         <link rel="stylesheet" href={`/brands/${identity}/brand.css`} />
       )}
-      <div className="oak-canvas" data-identity={identity}>
+      {/* The skip link sits BEFORE the canvas, not inside it: the kit's
+          reading-flow: grid-rows enhancement on .oak-canvas sorts an
+          absolutely-positioned, area-less child to the END of sequential
+          navigation — the exact inverse of a skip link's job (found by this
+          route's red keyboard cell; trunk cure routed to the DS slice as a
+          reading-order pin on .oak-skip-link). */}
+      <a className="oak-skip-link" href="#main">
+        Skip to content
+      </a>
+      {/* oak-scope arms the kit's element-level typography; data-page="unit"
+          selects the page-type map whose named areas ARE this specimen's
+          region inventory (hero/facets/results/detail/resources/support/cta)
+          — without it, main has no grid. tabIndex on main is what lets the
+          skip link actually deliver focus, not just scroll. */}
+      <div className="oak-canvas oak-scope" data-page="unit" data-identity={identity}>
         <UtilityRegion />
         <MastheadRegion />
-        <main id="main" className="oak-main oak-region" data-region="main" />
+        <main id="main" className="oak-main oak-region" data-region="main" tabIndex={-1} />
       </div>
     </>
   );

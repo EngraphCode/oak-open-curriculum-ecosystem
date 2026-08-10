@@ -85,6 +85,31 @@ test.describe('specimen: identity is server-applied and in effect at first paint
   });
 });
 
+test.describe('specimen: keyboard and state semantics', () => {
+  test('the skip link delivers focus to main', async ({ page }) => {
+    await interceptExternalOrigins(page);
+    await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}`);
+    await page.keyboard.press('Tab');
+    await expect(page.locator('.oak-skip-link')).toBeFocused();
+    await page.keyboard.press('Enter');
+    // Focus LANDS (tabIndex -1 on main), never merely scrolls.
+    await expect(page.locator('#main')).toBeFocused();
+  });
+
+  test('the current audience is marked, and not by colour alone', async ({ page }) => {
+    await interceptExternalOrigins(page);
+    await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}`);
+    const audience = page.locator('nav[aria-label="Audience"]');
+    await expect(audience.locator('a[aria-current="true"]')).toHaveCount(1);
+    // The non-colour marker: computed weight separates current from not —
+    // a distinction forced-colors cannot erase.
+    const weights = await audience.evaluate((nav) =>
+      [...nav.querySelectorAll('a')].map((anchor) => getComputedStyle(anchor).fontWeight),
+    );
+    expect(new Set(weights).size).toBeGreaterThan(1);
+  });
+});
+
 /** Open the picker hermetically and resolve its stage down to the framed
  *  specimen's live Frame, with the mount-time facts later assertions
  *  compare against. */

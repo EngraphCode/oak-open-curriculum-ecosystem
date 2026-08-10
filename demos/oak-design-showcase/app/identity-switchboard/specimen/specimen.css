@@ -56,3 +56,19 @@
   inline-size: var(--size-icon-s);
   block-size: var(--size-icon-s);
 }
+
+/* Nav lists are real lists (consistent with the export's other navs); the
+   reset is layout only — the semantics live in the markup. */
+.nav-list {
+  list-style: none;
+  margin: 0;
+  padding-inline-start: 0;
+}
+
+/* The current audience carries a non-colour marker — weight plus a heavier
+   underline — so the state survives forced-colors. The deliberate inverse
+   of the export's checked-state-by-colour-alone defect. */
+.nav-list a[aria-current='true'] {
+  font-weight: var(--weight-semibold);
+  text-decoration-thickness: var(--border-solid-m);
+}
