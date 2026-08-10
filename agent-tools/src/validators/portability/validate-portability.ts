@@ -21,6 +21,7 @@ import { fileURLToPath } from 'node:url';
 import { isJsonObject } from '../../core/json.js';
 import { resolveRepoRoot } from '../../core/repo-root.js';
 import {
+  collectCanonicalSkillPaths,
   getClaudeHookPortabilityIssues,
   getReviewerAdapterParityIssues,
   getRulesIndexPortabilityIssues,
@@ -52,7 +53,11 @@ const fixMode = process.argv.includes('--fix');
 const writtenWrappers: string[] = [];
 const issues: string[] = [];
 
-const canonicalSkillDirs = await listSubdirs(repoRoot, '.agent/skills');
+const { canonicalPaths: discoveredCanonicalPaths, leafNames: canonicalLeafNames } =
+  await collectCanonicalSkillPaths({
+    listSubdirs: (relPath) => listSubdirs(repoRoot, relPath),
+    exists: (relPath) => exists(repoRoot, relPath),
+  });
 const validatedCanonicalPaths: string[] = [];
 
 async function validateCanonicalFrontmatter(skillPath: string): Promise<void> {
@@ -73,24 +78,14 @@ async function validateCanonicalFrontmatter(skillPath: string): Promise<void> {
   }
 }
 
-// The ratified skills-estate shape is exactly two levels: a flat individual
-// (`<id>/SKILL-CANONICAL.md`) or a concern-tier member
-// (`<concern>/<id>/SKILL-CANONICAL.md`). A root entry with no canonical is
-// walked one level deeper so concern members are validated like flat
-// members; entries with neither shape are the adapter checker's loud-skip
-// territory, not this validator's.
-for (const skillDir of canonicalSkillDirs) {
-  const skillPath = `.agent/skills/${skillDir}/SKILL-CANONICAL.md`;
-  if (await exists(repoRoot, skillPath)) {
-    await validateCanonicalFrontmatter(skillPath);
-    continue;
-  }
-  for (const memberDir of await listSubdirs(repoRoot, `.agent/skills/${skillDir}`)) {
-    const memberPath = `.agent/skills/${skillDir}/${memberDir}/SKILL-CANONICAL.md`;
-    if (await exists(repoRoot, memberPath)) {
-      await validateCanonicalFrontmatter(memberPath);
-    }
-  }
+// The ratified skills-estate shape is three tiers, closed: flat
+// (`<id>/`), concern member (`<concern>/<id>/`), and domain member
+// (`<concern>/<domain>/<id>/`, owner-ruled 2026-08-10). The shared walker
+// owns the traversal so this validator and the lock cross-reference see
+// the same corpus; entries with no canonical at any tier are the adapter
+// checker's loud-skip territory, not this validator's.
+for (const skillPath of discoveredCanonicalPaths) {
+  await validateCanonicalFrontmatter(skillPath);
 }
 
 const CANONICAL_RULE_OR_SKILL_PATTERN = /\.agent\/rules\/|\.agent\/skills\//;
@@ -163,7 +158,7 @@ if (await exists(repoRoot, SKILLS_LOCK_PATH)) {
   try {
     const lockedSkills = getSkillsLockEntries(await readJson(repoRoot, SKILLS_LOCK_PATH));
     issues.push(
-      ...getSkillsLockCrossReferenceIssues(lockedSkills, canonicalSkillDirs, SKILLS_LOCK_PATH),
+      ...getSkillsLockCrossReferenceIssues(lockedSkills, canonicalLeafNames, SKILLS_LOCK_PATH),
     );
   } catch (error) {
     issues.push(

@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",
+    "@oaknational/workspace-config": "workspace:*",
     "@stryker-mutator/api": "^9.6.1",
     "@types/node": "^24.13.3",
     "eslint": "^10.8.0",

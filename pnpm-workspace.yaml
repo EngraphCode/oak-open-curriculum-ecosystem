@@ -16,6 +16,7 @@ packages:
   - packages/core/result
   - packages/core/safe-path
   - packages/core/type-helpers
+  - packages/core/workspace-config
   - packages/design/*
   - packages/libs/env-resolution
   - packages/libs/fidelity-review

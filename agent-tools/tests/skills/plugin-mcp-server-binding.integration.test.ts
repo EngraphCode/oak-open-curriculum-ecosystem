@@ -32,8 +32,23 @@ const PLUGIN_MCP_CONFIG_PATH = 'plugins/oak-open-curriculum/.mcp.json';
 const MCP_ENABLED_SKILL_PATH =
   'plugins/oak-open-curriculum/skills/oak-curriculum-principles-mcp-enabled/SKILL.md';
 
-/** The server key the plugin registers; renaming it is a breaking change for installed users. */
-const SERVER_KEY = 'oak-curriculum';
+/**
+ * The server key the plugin registers; renaming it is a breaking change for installed users.
+ *
+ * @remarks
+ * Renamed from `oak-curriculum` to `oak-open-curriculum` by owner decision
+ * (MCP-536, 2026-08-10), accepting that break. The reason is accuracy, not
+ * tidiness: what this plugin publishes is Oak's *open* curriculum, licensed
+ * under the Open Government Licence — not Oak's copyrighted material — so the
+ * key names the thing correctly and matches the plugin's own name.
+ *
+ * The key is not private to the plugin. It is duplicated in the landing page's
+ * copy-paste config snippet (`create-snippet.ts`), which is the manual install
+ * path, and anchored there as audited content item C354. A future rename must
+ * move every surface together — renaming only one de-synchronises the two
+ * installation routes, which is worse than the inconsistency it would fix.
+ */
+const SERVER_KEY = 'oak-open-curriculum';
 
 const PluginMcpConfigSchema = z.object({
   mcpServers: z

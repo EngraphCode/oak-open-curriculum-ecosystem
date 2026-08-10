@@ -1,24 +1,37 @@
 ---
-name: fidelity-review
+name: claude-design-pipeline
 classification: active
 description: >-
-  Run the export↔implementation fidelity review for a Claude-Design-converted
-  app: serve the canonical export and the dev server, capture both sides at
-  matched geometry, perceptually diff every declared pair, review the
-  side-by-side report, and record a disposition (fix / deliberate /
-  investigate / matched / superseded) for every finding in the tracked
-  divergence register. Use when judging visual/feature fidelity against a
-  canonical export, before a §D-class sign-off, or when integrating an export
-  refresh.
+  Work the Claude Design pipeline for a converted app — conversion playbook,
+  byte-sacred export refresh via the claude-design MCP, and its core: the
+  export↔implementation fidelity review (serve the canonical export and the
+  dev server, capture both sides at matched geometry, perceptually diff every
+  declared pair, review the side-by-side report, and record a disposition —
+  fix / deliberate / investigate / matched / superseded — for every finding
+  in the tracked divergence register). Use when converting or refreshing a
+  Claude Design export, judging visual/feature fidelity against a canonical
+  export, or before a §D-class sign-off.
 ---
 
-# Fidelity Review
+# Claude Design Pipeline
+
+## The pipeline at a glance
+
+**Convert** (the
+[conversion playbook](../../../../../docs/engineering/claude-design-conversion-playbook.md))
+→ **refresh** the byte-sacred export via the claude-design MCP →
+**fidelity review** (this skill's core, below) → the tracked **divergence
+register** that ingestion tooling reads. The
+`@oaknational/fidelity-review` package is the machinery; this skill is the
+judgment workflow around it.
+
+## Fidelity review
 
 Compare a converted app against its canonical Claude Design export and leave
 **every divergence with a recorded judgment**. The diff is triage; the
 judgment is the deliverable. This is the agent-judged reconcile step of the
 Claude-Design ingestion pipeline
-([productionisation plan WS2](../../plans-backlog-2026-07/curriculum-hub-demo/current/productionisation-and-reuse.plan.md)
+([productionisation plan WS2](../../../../plans-backlog-2026-07/curriculum-hub-demo/current/productionisation-and-reuse.plan.md)
 — "there is likely no deterministic route"): tools surface differences, an
 agent or human decides what each one means.
 
@@ -39,7 +52,7 @@ agent or human decides what each one means.
    author (never a personal name), and a date.
 4. **The export is byte-sacred.** Never format, fix, or edit the canonical
    export; refresh it via the claude-design MCP
-   (see the [conversion playbook](../../../docs/engineering/claude-design-conversion-playbook.md)).
+   (see the [conversion playbook](../../../../../docs/engineering/claude-design-conversion-playbook.md)).
 
 ## Worked instance — the Curriculum Hub demo
 
@@ -92,6 +105,6 @@ app-local capture arms and export server at matched geometry with the
 app's own default base and `SERVER_HINT`, and compose the package's
 `/orchestrator` in a `tools/fidelity-review.ts` that keeps only paths,
 capture arms, and `main`. The
-[conversion playbook](../../../docs/engineering/claude-design-conversion-playbook.md)
+[conversion playbook](../../../../../docs/engineering/claude-design-conversion-playbook.md)
 §"Fidelity review and the divergence register" carries the method; this
 skill carries the workflow.

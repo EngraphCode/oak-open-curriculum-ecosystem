@@ -44,7 +44,7 @@ Work through each principle. For each, the **probe questions** drive the judgeme
 ### 4. Flexible
 
 - Probe: Can a teacher adapt this safely? Is it mapped to the national curriculum? Are threads signposted so adaptation preserves coherence? Is core vs adaptable distinguished?
-- Strong: modular; NC-mapped; threads visible; suggestions not mandates; single ambitious pathway.
+- Strong: modular; mapped to the national curriculum; threads visible; suggestions not mandates; single ambitious pathway.
 - Weak: rigid lock-step; no mapping; adaptation would silently break the sequence; an implied single "correct" delivery.
 
 ### 5. Diverse

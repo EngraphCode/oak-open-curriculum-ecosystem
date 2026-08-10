@@ -212,7 +212,7 @@ Three rules make it honest:
   pipeline's diff stage reads so ratified divergences are not re-flagged on
   a refresh (productionisation plan WS2 stage 2).
 - **The workflow is skill-carried**: the
-  [`fidelity-review` skill](../../.agent/skills/fidelity-review/SKILL-CANONICAL.md)
+  [`claude-design-pipeline` skill](../../.agent/skills/domain-craft/ui-design/claude-design-pipeline/SKILL-CANONICAL.md)
   owns the review loop (run → read report highest-ratio-first → judge →
   record → re-run `--report-only`); this playbook owns the porting method:
   compose `@oaknational/fidelity-review` (`packages/libs/fidelity-review`,
