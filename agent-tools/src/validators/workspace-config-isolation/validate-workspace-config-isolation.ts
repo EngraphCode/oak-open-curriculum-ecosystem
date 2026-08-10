@@ -1,23 +1,29 @@
 #!/usr/bin/env node
 
 /**
- * Workspace-config-isolation validator.
+ * Workspace-config-isolation validator — the resolver-invisible legs.
  *
- * Enforces the owner's rule verbatim — "Workspaces must NEVER import
- * from outside of themselves except via explicit package.json
- * dependencies" — over every tracked workspace tooling config file, and
- * keeps turbo's `$TURBO_ROOT$` inputs honest (a stale input silently
- * hashes zero files; turbo emits no warning). Predicate semantics and
- * the two scanned pattern classes live in the helpers module; this bin
- * only performs I/O and composes them.
+ * The owner's rule — "Workspaces must NEVER import from outside of
+ * themselves except via explicit package.json dependencies" — is
+ * enforced for static config-file imports by the dependency-cruiser
+ * rules `workspace-config-containment` and
+ * `workspace-config-no-phantom-deps` (root `.dependency-cruiser.mjs`;
+ * owner ruling 2026-08-09: dependency checks run on a dependency
+ * resolver). This bin owns what that resolver cannot see: literal
+ * `import.meta.url` path arithmetic (containment-checked lexically),
+ * the refusal channel for non-literal constructs, and turbo's
+ * `$TURBO_ROOT$` inputs (a stale input silently hashes zero files;
+ * turbo emits no warning). Predicate semantics live in the helpers
+ * module; this bin only performs I/O and composes them.
  *
  * Wired into root `repo-validators:check` (pre-commit + CI). Runs from
  * source via tsx — the CI static-checks job installs without building,
  * so this file imports nothing from any built workspace package.
  *
  * Exit 0 = clean; exit 1 = at least one escape or stale turbo input;
- * exit 2 = refusal — an unanalysable construct or unreadable input (the
- * scan never silently skips).
+ * exit 2 = refusal — an unanalysable construct, unreadable input, or a
+ * degenerate scan set (the scan never silently skips and never reports
+ * success over nothing checked).
  *
  * @packageDocumentation
  */
@@ -34,6 +40,7 @@ import { listTrackedFiles } from '../../core/tracked-file-scan.js';
 import {
   expandWorkspaceGlobs,
   findConfigEscapes,
+  isDegenerateScan,
   isWorkspaceConfigFile,
   resolveOwner,
   type EscapeFinding,
@@ -63,6 +70,17 @@ const trackedFiles = listTrackedFiles(repoRoot);
 const workspaceDirs = expandWorkspaceGlobs(packagesEntry, trackedFiles);
 const configFiles = trackedFiles.filter((file) => isWorkspaceConfigFile(file));
 
+if (
+  isDegenerateScan({ workspaceCount: workspaceDirs.length, configFileCount: configFiles.length })
+) {
+  writeErrorLine(
+    `validate-workspace-config-isolation: degenerate scan set (${String(workspaceDirs.length)} ` +
+      `workspaces, ${String(configFiles.length)} config files) — a manifest-shape or ` +
+      'config-family change has emptied the input set; refusing rather than passing over nothing.',
+  );
+  process.exit(2);
+}
+
 const escapes: EscapeFinding[] = [];
 const unanalysable: UnanalysableFinding[] = [];
 for (const file of configFiles) {
@@ -89,8 +107,10 @@ if (unanalysable.length > 0) {
 
 if (escapes.length === 0 && turboFindings.length === 0) {
   writeLine(
-    `✓ workspace-config isolation holds (${String(configFiles.length)} config files, ` +
-      `${String(workspaceDirs.length)} workspaces, turbo inputs resolve)`,
+    `✓ workspace-config resolver-invisible legs hold (${String(configFiles.length)} config ` +
+      `files, ${String(workspaceDirs.length)} workspaces: path arithmetic contained, no ` +
+      'unanalysable constructs, turbo inputs resolve; static-import containment is enforced ' +
+      'by the dependency-cruiser boundary rules)',
   );
   process.exit(0);
 }

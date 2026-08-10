@@ -1,24 +1,25 @@
 /**
- * Leg (a) of the workspace-config-isolation validator: lexical
- * containment of workspace tooling config files.
+ * Leg (a) of the workspace-config-isolation validator: the containment
+ * classes a dependency resolver structurally cannot see.
  *
  * @remarks
- * A workspace config file must not reach outside its owning workspace
- * by relative path. Containment is a DIRECTORY question, so the check
- * never resolves to a real file: no extension mapping, no index
- * resolution, no `exports`-map handling, no `realpathSync` (symlinks
- * are forbidden by policy, and a lexical verdict is identical on every
- * checkout). Two pattern classes are scanned: static import/export
- * specifiers, and the
- * `resolve(dirname(fileURLToPath(import.meta.url)), '<literal>')`
- * path-arithmetic shape — a relative escape no specifier scanner sees
- * (the e2e base's setup line was the motivating instance). Non-literal
- * dynamic imports and non-literal path arithmetic are UNANALYSABLE and
- * fail loud rather than silently passing.
+ * Static import/export containment of config files is enforced by the
+ * dependency-cruiser rules `workspace-config-containment` and
+ * `workspace-config-no-phantom-deps` in the root `.dependency-cruiser.mjs`
+ * (owner ruling 2026-08-09: a dependency check runs on a dependency
+ * resolver, never textual pattern-matching). This module owns the
+ * remainder — probe-verified 2026-08-10 to be invisible to the resolver:
+ * the `resolve(dirname(fileURLToPath(import.meta.url)), '<literal>')`
+ * path-arithmetic shape (a relative escape that is runtime path building,
+ * not an import), and the refusal channel for non-literal dynamic imports
+ * and non-literal path arithmetic, which are UNANALYSABLE and fail loud
+ * rather than silently passing.
  *
- * Root-owned config files (owner `''`) pass trivially — every relative
- * import from the repo root stays inside it. That is scope definition,
- * not coverage: the root files' own hygiene is the lint arm's job.
+ * Containment is a DIRECTORY question, so the check never resolves to a
+ * real file: no extension mapping, no index resolution, no `exports`-map
+ * handling, no `realpathSync` (a lexical verdict is identical on every
+ * checkout). Root-owned config files (owner `''`) pass trivially — every
+ * relative reach from the repo root stays inside it.
  *
  * @packageDocumentation
  */
@@ -129,8 +130,6 @@ interface ScanContext {
   readonly content: string;
 }
 
-const STATIC_SPECIFIER = /(?:import|export)\s(?:[\s\S]*?\sfrom\s)?\s*['"]([^'"\n]+)['"]/g;
-const SIDE_EFFECT_IMPORT = /import\s+['"]([^'"\n]+)['"]/g;
 const DYNAMIC_IMPORT = /import\s*\(\s*(['"]?)/g;
 const PATH_ARITHMETIC =
   /resolve\(\s*dirname\(\s*fileURLToPath\(\s*import\.meta\.url\s*\)\s*\)\s*,\s*(['"]?)([^'")\n]*)['"]?\s*\)/g;
@@ -152,31 +151,6 @@ function escapeAt(
     resolved,
     owner: context.owner,
   };
-}
-
-function scanSpecifiers(context: ScanContext): readonly EscapeFinding[] {
-  const seen = new Set<string>();
-  const escapes: EscapeFinding[] = [];
-  const matches = [
-    ...context.content.matchAll(STATIC_SPECIFIER),
-    ...context.content.matchAll(SIDE_EFFECT_IMPORT),
-  ];
-  for (const match of matches) {
-    const specifier = match[1] ?? '';
-    if (!specifier.startsWith('.')) {
-      continue;
-    }
-    const key = `${String(match.index)}:${specifier}`;
-    if (seen.has(key)) {
-      continue;
-    }
-    seen.add(key);
-    const finding = escapeAt(context, match.index, specifier);
-    if (finding !== undefined) {
-      escapes.push(finding);
-    }
-  }
-  return escapes;
 }
 
 function scanDynamicImports(context: ScanContext): readonly UnanalysableFinding[] {
@@ -215,12 +189,14 @@ function scanPathArithmetic(context: ScanContext): ContainmentScan {
 }
 
 /**
- * Scan one config file's content for workspace escapes.
+ * Scan one config file's content for the resolver-invisible escape
+ * classes: literal path arithmetic (containment-checked lexically) and
+ * non-literal constructs (refused).
  *
- * @remarks Lexical only: a specifier is resolved with `path.posix`
- * against the file's directory and compared against the owner
- * directory. Package specifiers (no leading `.`) are out of scope —
- * they are exactly the sanctioned mechanism.
+ * @remarks Lexical only: a literal target is resolved with `path.posix`
+ * against the file's directory and compared against the owner directory.
+ * Static import/export specifiers are deliberately NOT scanned here —
+ * dependency-cruiser owns them (see the module remark).
  */
 export function findConfigEscapes(input: {
   readonly file: string;
@@ -235,7 +211,23 @@ export function findConfigEscapes(input: {
   };
   const arithmetic = scanPathArithmetic(context);
   return {
-    escapes: [...scanSpecifiers(context), ...arithmetic.escapes],
+    escapes: arithmetic.escapes,
     unanalysable: [...scanDynamicImports(context), ...arithmetic.unanalysable],
   };
+}
+
+/**
+ * Is the scan's input set degenerate — zero workspaces or zero config
+ * files?
+ *
+ * @remarks A manifest-shape change (`packages/*\/*` tidying, a rename of
+ * the config-file family) can silently empty the scan set; a validator
+ * printing success over nothing checked is the silent-fallback class
+ * this estate bans, so the bin refuses (exit 2) instead of passing.
+ */
+export function isDegenerateScan(input: {
+  readonly workspaceCount: number;
+  readonly configFileCount: number;
+}): boolean {
+  return input.workspaceCount === 0 || input.configFileCount === 0;
 }

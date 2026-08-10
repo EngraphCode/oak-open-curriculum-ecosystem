@@ -13,19 +13,11 @@ import { describe, expect, it } from 'vitest';
 import {
   expandWorkspaceGlobs,
   findConfigEscapes,
+  isDegenerateScan,
   isWorkspaceConfigFile,
   resolveOwner,
 } from './containment.js';
 import { isStaleTurboRootInput, scanTurboRootInputs } from './turbo-inputs.js';
-
-/**
- * The escaping specifier used across fixtures, constructed at runtime so
- * the extensionless relative string never appears literally in this
- * source file — the esm-import-extensions smoke scan cannot distinguish
- * a fixture string from a real import (string construction over gate
- * exemption, per the never-weaken-a-gate doctrine).
- */
-const ESCAPING_VITEST_SPECIFIER = ['..', '..', '..', 'vitest.config.base'].join('/');
 
 describe('isWorkspaceConfigFile', () => {
   it('matches the vitest config family at any suffix depth', () => {
@@ -113,58 +105,18 @@ describe('resolveOwner', () => {
   });
 });
 
-describe('findConfigEscapes — import specifiers', () => {
-  it('fires on a relative import that leaves the workspace (the red-proof)', () => {
+describe('findConfigEscapes — static specifiers are the resolver’s job', () => {
+  it('does not scan static import specifiers (dependency-cruiser owns them)', () => {
     const { escapes, unanalysable } = findConfigEscapes({
       file: 'packages/core/result/vitest.config.ts',
       owner: 'packages/core/result',
-      content: `import { baseTestConfig } from '${ESCAPING_VITEST_SPECIFIER}';\n`,
-    });
-
-    expect(unanalysable).toEqual([]);
-    expect(escapes).toHaveLength(1);
-    expect(escapes[0]).toMatchObject({
-      file: 'packages/core/result/vitest.config.ts',
-      line: 1,
-      specifier: ESCAPING_VITEST_SPECIFIER,
-      resolved: 'vitest.config.base',
-    });
-  });
-
-  it('fires on export-from and side-effect import escapes', () => {
-    const { escapes } = findConfigEscapes({
-      file: 'packages/core/result/vitest.config.ts',
-      owner: 'packages/core/result',
       content:
-        `export { baseTestConfig as default } from '${ESCAPING_VITEST_SPECIFIER}';\n` +
-        "import '../../shared/setup.js';\n",
-    });
-
-    expect(escapes.map((finding) => finding.line)).toEqual([1, 2]);
-  });
-
-  it('passes package imports and within-workspace relative imports', () => {
-    const { escapes, unanalysable } = findConfigEscapes({
-      file: 'packages/core/workspace-config/tsup.config.ts',
-      owner: 'packages/core/workspace-config',
-      content:
-        "import { createLibConfig } from './src/tsup.config.base.js';\n" +
         "import { baseTestConfig } from '@oaknational/workspace-config/vitest';\n" +
-        "import { defineConfig } from 'tsup';\n",
+        "import { helper } from './src/helper.js';\n",
     });
 
     expect(escapes).toEqual([]);
     expect(unanalysable).toEqual([]);
-  });
-
-  it('passes deep relative chains that stay inside the workspace', () => {
-    const { escapes } = findConfigEscapes({
-      file: 'packages/core/result/vitest.e2e.config.ts',
-      owner: 'packages/core/result',
-      content: "import { helper } from './e2e/../src/helper.js';\n",
-    });
-
-    expect(escapes).toEqual([]);
   });
 });
 
@@ -207,13 +159,13 @@ describe('findConfigEscapes — comments are not code', () => {
     expect(unanalysable).toEqual([]);
   });
 
-  it('ignores a commented-out escape import', () => {
+  it('ignores a commented-out path-arithmetic escape', () => {
     const { escapes } = findConfigEscapes({
-      file: 'packages/core/result/vitest.config.ts',
+      file: 'packages/core/result/vitest.e2e.config.ts',
       owner: 'packages/core/result',
       content:
-        `// import { baseTestConfig } from '${ESCAPING_VITEST_SPECIFIER}';\n` +
-        "import { baseTestConfig } from '@oaknational/workspace-config/vitest';\n",
+        '// setupFiles: [resolve(dirname(fileURLToPath(import.meta.url)), ' +
+        "'../../../test.setup.no-network.ts')],\n",
     });
 
     expect(escapes).toEqual([]);
@@ -221,12 +173,28 @@ describe('findConfigEscapes — comments are not code', () => {
 
   it('still fires on code that precedes a trailing comment', () => {
     const { escapes } = findConfigEscapes({
-      file: 'packages/core/result/vitest.config.ts',
+      file: 'packages/core/result/vitest.e2e.config.ts',
       owner: 'packages/core/result',
-      content: `import { baseTestConfig } from '${ESCAPING_VITEST_SPECIFIER}'; // legacy root reach\n`,
+      content:
+        'const setup = resolve(dirname(fileURLToPath(import.meta.url)), ' +
+        "'../../../test.setup.no-network.ts'); // legacy root reach\n",
     });
 
     expect(escapes).toHaveLength(1);
+  });
+});
+
+describe('isDegenerateScan', () => {
+  it('refuses a zero-workspace scan (the manifest-tidy red-proof)', () => {
+    expect(isDegenerateScan({ workspaceCount: 0, configFileCount: 55 })).toBe(true);
+  });
+
+  it('refuses a zero-config-file scan (the family-rename red-proof)', () => {
+    expect(isDegenerateScan({ workspaceCount: 34, configFileCount: 0 })).toBe(true);
+  });
+
+  it('passes a populated scan set', () => {
+    expect(isDegenerateScan({ workspaceCount: 34, configFileCount: 103 })).toBe(false);
   });
 });
 
