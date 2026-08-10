@@ -2434,8 +2434,12 @@ STATE, all first-hand at freeze:
   DDR-009 + reference-first rule + playbook's two governing rules +
   width-guard validator. Suite 62/62 on the built artefact.
 - Both branches local == remote, verified by ls-remote. PR-2 worktree
-  CLEAN. Draft solely against the org review-credit wall; Copilot request
-  silently dropped (repo-wide condition, Wren-documented).
+  CLEAN. Draft solely against the org review-credit wall. CORRECTION at
+  freeze: the "repo-wide Copilot outage" was the Director's stale-read
+  error (requests never appear in reviewRequests; reviews land async) —
+  my "silently dropped" inherited it. #846's reviews list reads empty at
+  freeze but a review may land async; resume RE-CHECKS the reviews list
+  first-hand before repeating either claim.
 - Two dev servers still run on this host: showcase dev :3020 (this
   worktree's), export static :3030 — disposable, restartable, not state.
 
