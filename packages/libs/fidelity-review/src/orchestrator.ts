@@ -33,6 +33,7 @@ export { type ServerMode } from './report';
 // signatures are typed on them and the composition roots compose both.
 export { type ManifestReadIo } from './evidence-io';
 export { acquireRunLease } from './run-lease-io';
+export { registerRunTeardown, type SignalProcess } from './run-teardown';
 export {
   nodeCaptureStageIo,
   nodeEvidenceIo,
