@@ -32,12 +32,16 @@ export async function expectNoAxeViolations(page: Page): Promise<void> {
   expect(results.violations).toEqual([]);
 }
 
-/** The forced-colors variant: every rule except color-contrast, which axe
- *  reads from UNFORCED author colours in this mode and so measures a
- *  fiction — a live probe (2026-08-10) showed the same elements computing
- *  correctly forced CanvasText/LinkText while axe reported the author
- *  values. Contrast under forced colors is the system palette's property
- *  by construction; every other rule stays live. */
+/** The forced-colors variant: every rule except color-contrast, which is
+ *  a vendor defect in this mode, open at axe-core 4.12.1
+ *  (dequelabs/axe-core#3978, since v4.6): axe derives the foreground from
+ *  -webkit-text-fill-color, which stays at the UNFORCED author value,
+ *  while the background uses the forced background-color — the ratio
+ *  mixes author ink with forced paper and measures neither palette. A
+ *  live probe (2026-08-10) reproduced the signature here: the same
+ *  elements computed forced CanvasText/LinkText while axe reported
+ *  author values. Re-examine this disable at any axe-core upgrade;
+ *  every other rule stays live. */
 export async function expectNoAxeViolationsForcedColors(page: Page): Promise<void> {
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
