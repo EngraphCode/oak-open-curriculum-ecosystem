@@ -127,6 +127,17 @@ ever decided.
 
 ## Todos (definite order; each a single-story PR within its PDR-132 budget)
 
+> **Amendment (2026-08-10)**: slice 1's duplicate-config mechanism
+> (`vitest.config.stryker.ts`, restored below because the real config's
+> repo-root reach could not resolve in Stryker's sandbox) is RETIRED by
+> the workspace-config-isolation plan's todo 3 (PR #847): the real
+> `vitest.config.ts` now imports `@oaknational/workspace-config/vitest`,
+> which resolves in the sandbox, so `stryker.config.mjs` points at the
+> real config, the duplicate is deleted, and
+> `mutation-evidence/run-real-config.log.txt` banks the re-run (18/18
+> killed, 100%, zero errors). The restore language below is historical
+> record of slice 1 as executed, not live instruction.
+
 1. **Slice 1 — complete and land the type-helpers canary (the rapid
    deliverable, lands via PR #807 re-cut on fresh main).** In the
    existing clean `mutation-canary` worktree: merge current
