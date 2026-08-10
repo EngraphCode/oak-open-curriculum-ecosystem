@@ -103,6 +103,19 @@ function escapeAt(
   index: number,
   specifier: string,
 ): EscapeFinding | undefined {
+  if (path.posix.isAbsolute(specifier)) {
+    // Runtime `resolve` discards the base for an absolute target, so it
+    // escapes by construction — `path.posix.join` would instead treat it
+    // as a child and silently read it as contained (Copilot round,
+    // 2026-08-10).
+    return {
+      file: context.file,
+      line: lineOf(context.content, index),
+      specifier,
+      resolved: path.posix.normalize(specifier),
+      owner: context.owner,
+    };
+  }
   const resolved = path.posix.normalize(path.posix.join(context.fileDir, specifier));
   const rel = path.posix.relative(context.owner, resolved);
   if (!rel.startsWith('..') && !path.posix.isAbsolute(rel)) {

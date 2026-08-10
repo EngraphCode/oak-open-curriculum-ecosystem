@@ -133,6 +133,18 @@ describe('findConfigEscapes — path arithmetic', () => {
     expect(escapes[0]?.resolved).toBe('test.setup.no-network.ts');
   });
 
+  it('fires on an absolute target, which runtime resolve would escape to directly', () => {
+    const { escapes } = findConfigEscapes({
+      file: 'packages/core/result/vitest.e2e.config.ts',
+      owner: 'packages/core/result',
+      content:
+        "setupFiles: [resolve(dirname(fileURLToPath(import.meta.url)), '/etc/outside.ts')],\n",
+    });
+
+    expect(escapes).toHaveLength(1);
+    expect(escapes[0]?.resolved).toBe('/etc/outside.ts');
+  });
+
   it('passes an import.meta.url resolve that stays inside the workspace', () => {
     const { escapes } = findConfigEscapes({
       file: 'packages/core/workspace-config/src/vitest.e2e.config.base.ts',

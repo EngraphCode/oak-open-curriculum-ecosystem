@@ -149,7 +149,11 @@ const config: KnipConfig = {
         // pattern as corpus-analysis above.
         'src/restatement-audit/workflows/*.workflow.ts',
       ],
-      project: ['src/**/*.{ts,tsx}'],
+      // tests/ is inside the project so tests-only dependencies are traced
+      // (the depcruise red-proof helper imports dependency-cruiser from
+      // tests/test-helpers/ — widened 2026-08-10; test files are entries via
+      // the vitest plugin).
+      project: ['src/**/*.{ts,tsx}', 'tests/**/*.ts'],
       // TypeScript-estate review instrument (owner-ratified plan
       // typescript-estate-consolidation-review, staged contract): the module's
       // exported surface is contract-anchored for slices that are

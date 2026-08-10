@@ -5,29 +5,33 @@
  * `workspace-config-no-phantom-deps`, `no-commonjs-require`, and
  * `no-dynamic-import`.
  *
- * The rules under test are imported BY REFERENCE from the real root
- * `.dependency-cruiser.mjs` — never copied — so this suite reddens the
- * moment a rule is renamed, weakened, or deleted. Fixtures live in a
- * temp tree laid out under `packages/core/…` so the rules' workspace
- * regexes match; committed fixture files named like real configs would
- * themselves be scanned by the gates they prove (forbidden — see the
+ * The rules AND the enforcement options under test load BY REFERENCE
+ * from the real root `.dependency-cruiser.mjs` — never copied — so this
+ * suite reddens the moment a rule is renamed, weakened, deleted, or
+ * nullified by an options change (effective enforcement is
+ * forbidden × options: an options.exclude entry alone once silenced
+ * three of the four rules). The cruise runs in-process through the
+ * library API — no child processes (testing-strategy §"No process
+ * spawning in in-process tests"). Fixtures live in a temp tree laid out
+ * under `packages/core/…` so the rules' workspace regexes match;
+ * committed fixture files named like real configs would themselves be
+ * scanned by the gates they prove (forbidden — see the
  * workspace-config-isolation unit suite header).
  */
 
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { z } from 'zod';
 
 import {
+  cruiseFixture,
   makeDepcruiseFixture,
-  runDepcruiseJson,
   type DepcruiseFixture,
+  type FixtureViolation,
 } from './test-helpers/depcruise-fixture.js';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const realConfigUrl = pathToFileURL(path.join(repoRoot, '.dependency-cruiser.mjs')).href;
 
 const RULE_NAMES = [
   'workspace-config-containment',
@@ -36,62 +40,26 @@ const RULE_NAMES = [
   'no-dynamic-import',
 ] as const;
 
-const cruiseResultSchema = z.object({
-  summary: z.object({
-    violations: z.array(
-      z.object({
-        from: z.string(),
-        to: z.string(),
-        rule: z.object({ name: z.string(), severity: z.string() }),
-      }),
-    ),
-  }),
-});
-
-type CruiseViolation = z.infer<typeof cruiseResultSchema>['summary']['violations'][number];
-
 let fixture: DepcruiseFixture;
-let violations: readonly CruiseViolation[];
+let violations: readonly FixtureViolation[];
 
 function violationsMatching(input: {
   readonly ruleName: string;
   readonly from: string;
   readonly to?: string;
-}): readonly CruiseViolation[] {
+}): readonly FixtureViolation[] {
   return violations.filter(
     (violation) =>
-      violation.rule.name === input.ruleName &&
-      violation.rule.severity === 'error' &&
+      violation.ruleName === input.ruleName &&
+      violation.ruleSeverity === 'error' &&
       violation.from === input.from &&
       (input.to === undefined || violation.to === input.to),
   );
 }
 
-beforeAll(() => {
+beforeAll(async () => {
   fixture = makeDepcruiseFixture('oak-depcruise-rules-');
   const write = fixture.writeFile;
-
-  // The fixture config imports the REAL rules AND the real options by
-  // reference (only the four rules kept, so fixture noise — orphans,
-  // layer rules — stays out). Effective enforcement is forbidden ×
-  // options: a rule can be nullified by an options.exclude entry alone,
-  // so proving the rules under substitute options proves nothing (the
-  // finding-1 class). Only tsConfig/progress/reporterOptions are
-  // dropped — they reference repo-root files and terminal state, not
-  // enforcement semantics.
-  write(
-    'dc.mjs',
-    [
-      `import real from ${JSON.stringify(realConfigUrl)};`,
-      `const names = new Set(${JSON.stringify([...RULE_NAMES])});`,
-      'const { tsConfig, progress, reporterOptions, ...enforcementOptions } = real.options;',
-      'export default {',
-      '  forbidden: real.forbidden.filter((rule) => names.has(rule.name)),',
-      '  options: enforcementOptions,',
-      '};',
-      '',
-    ].join('\n'),
-  );
 
   // Violating fixtures — one per rule.
   write(
@@ -116,7 +84,7 @@ beforeAll(() => {
 
   // A resolvable-but-undeclared npm package: the copied-config class the
   // phantom rule exists for. Lives in the fixture's node_modules so the
-  // edge must SURVIVE the real options (the finding-1 exclusion class).
+  // edge must SURVIVE the real options (the exclusion-nullification class).
   write(
     'node_modules/phantom-pkg/package.json',
     JSON.stringify({ name: 'phantom-pkg', main: 'index.js' }),
@@ -135,13 +103,12 @@ beforeAll(() => {
     ["import { thing } from './src/thing.js';", 'export const config = thing;', ''].join('\n'),
   );
 
-  const stdout = runDepcruiseJson({
+  violations = await cruiseFixture({
     repoRoot,
     fixtureDir: fixture.dir,
-    configRelative: 'dc.mjs',
+    ruleNames: RULE_NAMES,
     scanDir: 'packages',
   });
-  violations = cruiseResultSchema.parse(JSON.parse(stdout)).summary.violations;
 });
 
 afterAll(() => {
@@ -187,7 +154,7 @@ describe('dependency-cruiser boundary rules (red-proofs against the real config)
     ).toHaveLength(1);
   });
 
-  it('workspace-config-no-phantom-deps survives the real options for a node_modules-resolved undeclared package (the finding-1 class)', () => {
+  it('workspace-config-no-phantom-deps survives the real options for a node_modules-resolved undeclared package (the exclusion-nullification class)', () => {
     expect(
       violationsMatching({
         ruleName: 'workspace-config-no-phantom-deps',

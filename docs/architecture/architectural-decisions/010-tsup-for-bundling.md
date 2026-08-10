@@ -133,7 +133,9 @@ consumed via declared `workspace:*` dependencies as
 The root-relative import convention this ADR's 2026-04-14 revision
 established was the violation class that broke any consumer copying a
 workspace subtree (Stryker's sandbox first) and was invisible to lint;
-the boundary is now enforced by `validate-workspace-config-isolation`.
+the boundary is now enforced by the dependency-cruiser rules (static
+imports and undeclared dependencies) plus
+`validate-workspace-config-isolation` (the resolver-invisible legs).
 The `$TURBO_ROOT$/tsup.config.base.ts` inputs this ADR added are
 DELETED, not re-pointed: consumers reach the package through
 `dependsOn: ["^build"]`, which folds its build hash into every

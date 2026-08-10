@@ -405,8 +405,10 @@ Use the right tool for the job:
 All workspace tooling configuration MUST follow the canonical
 patterns exported by `@oaknational/workspace-config`, consumed as a
 declared `workspace:*` dependency — never by a relative path that
-leaves the workspace (the boundary is enforced by
-`validate-workspace-config-isolation`). Workspace configs extend the
+leaves the workspace (static imports and undeclared dependencies are
+enforced by the dependency-cruiser boundary rules;
+`validate-workspace-config-isolation` owns the resolver-invisible
+legs). Workspace configs extend the
 shared bases — they do not replace them. This applies to
 `vitest.config.ts`, `tsup.config.ts`, and all other tooling;
 `tsconfig.json` `extends` chains are the one root-anchored
