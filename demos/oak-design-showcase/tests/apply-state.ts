@@ -59,7 +59,7 @@ const EXPECTED_COLOR_SCHEME: Record<ThemeName, string> = {
  *  under abort; that does not weaken the a11y claim — the kit's contract
  *  pairs fills with borders, icons AND text, so text carries every
  *  state's meaning. */
-async function interceptExternalOrigins(page: Page): Promise<Set<string>> {
+export async function interceptExternalOrigins(page: Page): Promise<Set<string>> {
   const abortedOrigins = new Set<string>();
   await page.route('**/*', (route) => {
     const url = new URL(route.request().url());

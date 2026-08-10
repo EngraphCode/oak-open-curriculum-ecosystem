@@ -1,0 +1,38 @@
+/* ============================================================
+   Picker route — layout only.
+
+   Same discipline as the specimen's sheet: every declaration is
+   layout or spacing in token roles. The picker chrome must not
+   introduce colour or type VALUES, because the page's claim is
+   that presentation is data and the chrome is the frame around
+   that claim.
+   ============================================================ */
+
+.picker-head {
+  padding-block: var(--space-24);
+}
+
+.picker-lede {
+  max-inline-size: var(--measure-prose);
+}
+
+.picker-controls {
+  align-items: end;
+  padding-block-end: var(--space-8);
+}
+
+.picker-status {
+  padding-block-end: var(--space-8);
+}
+
+/* The stage carries no brand of its own — it is a viewport onto the
+   specimen, so it is SHAPED like one: a 16/10 screen ratio, width-driven
+   and responsive. The stationary rectangle matters — if the frame resized
+   on each swap, the eye would read the movement rather than the re-skin.
+   (A bare ratio carries no design value per the classifier's own doctrine;
+   the kit has no viewport-height token to compose here.) */
+.picker-stage {
+  inline-size: 100%;
+  aspect-ratio: 16 / 10;
+  border: var(--border-solid-s) solid var(--border-neutral-lighter);
+}

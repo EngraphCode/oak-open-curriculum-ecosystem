@@ -32,7 +32,7 @@ import type { ReactElement } from 'react';
 import { oakThemeStore } from '@oaknational/oak-design-react';
 import type { OakMotionMode, OakThemeName, OakThemeStore } from '@oaknational/oak-design-react';
 import { LabelledSelect } from './LabelledSelect';
-import { useIdentity } from './useIdentity';
+import { useIdentity } from './brand-identity-binding';
 import type { IdentitySlug } from './useIdentity';
 
 const THEME_LABELS: Readonly<Record<OakThemeName, string>> = {
@@ -47,7 +47,11 @@ const MOTION_LABELS: Readonly<Record<OakMotionMode, string>> = {
   reduced: 'Reduced',
   full: 'Full',
 };
-const IDENTITY_LABELS: Readonly<Record<IdentitySlug, string>> = {
+// Exported so the picker's frame-bound control names identities identically.
+// The record stays HERE rather than moving to the roster module: its keys are
+// slug literals, and relocating them mid-rename would move census occurrences
+// for no gain. Exporting moves no text.
+export const IDENTITY_LABELS: Readonly<Record<IdentitySlug, string>> = {
   oak: 'Oak',
   freedonia: 'Freedonia DSE',
   creature: 'EMC²',

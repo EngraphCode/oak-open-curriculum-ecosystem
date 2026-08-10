@@ -1,0 +1,58 @@
+/* ============================================================
+   Specimen route — layout only.
+
+   Every declaration here is layout or spacing expressed in token
+   roles. Colour, type and border VALUES belong to the kit's classes
+   and the identity's override sheet: that separation is the whole
+   demonstration, so a raw colour in this file would be the page
+   contradicting its own claim.
+
+   The export's inline `style` on the search icon lives here instead —
+   the workspace bans inline styles, and a token-role class is the
+   correct home regardless.
+   ============================================================ */
+
+.util {
+  padding-block: var(--space-8);
+  border-block-end: var(--border-solid-s) solid var(--border-neutral-lighter);
+}
+
+.util-inner {
+  align-items: center;
+}
+
+/* Pushes the trailing utility link to the far edge without a float or a
+   spacer element. */
+.push {
+  margin-inline-start: auto;
+}
+
+.mast {
+  padding-block: var(--space-16);
+  border-block-end: var(--border-solid-m) solid var(--border-primary);
+}
+
+.mast-inner {
+  align-items: center;
+  gap: var(--space-24);
+}
+
+.brand-name {
+  margin-inline-end: var(--space-16);
+}
+
+.site-nav {
+  align-items: center;
+}
+
+/* The search cluster takes the slack in the masthead row so the nav sits
+   left and the sign-in control sits right. */
+.site-search {
+  align-items: center;
+  margin-inline-start: auto;
+}
+
+.search-icon {
+  inline-size: var(--size-icon-s);
+  block-size: var(--size-icon-s);
+}
