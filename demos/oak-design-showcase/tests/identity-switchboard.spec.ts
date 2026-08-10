@@ -22,7 +22,9 @@
 import { expect, test } from '@playwright/test';
 import type { Frame, Locator, Page } from '@playwright/test';
 
+import { FRAME_VIEWPORT_WIDTH } from '../app/identity-white-labelling/scaled-frame';
 import { BASE_IDENTITY, IDENTITIES, type IdentitySlug } from '../components/useIdentity';
+import { MEASUREMENT_WIDTH_VALUES } from '../tools/measurement-widths';
 import { assertOnlyKnownExternalOrigins, interceptExternalOrigins } from './apply-state';
 
 const COUNTER_BRANDS = IDENTITIES.filter((slug) => slug !== BASE_IDENTITY);
@@ -125,6 +127,34 @@ test.describe('specimen: keyboard and state semantics', () => {
       [...nav.querySelectorAll('a')].map((anchor) => getComputedStyle(anchor).fontWeight),
     );
     expect(new Set(weights).size).toBeGreaterThan(1);
+  });
+});
+
+test.describe('side-by-side: three identities, one specimen route', () => {
+  test('frames simulate the canonical canvas width and all three brands render', async ({
+    page,
+  }) => {
+    // The simulated viewport is pinned to the canonical set (DDR-009): the
+    // client component promises it, this cell enforces it.
+    expect(MEASUREMENT_WIDTH_VALUES).toContain(FRAME_VIEWPORT_WIDTH);
+
+    await interceptExternalOrigins(page);
+    await page.goto('/identity-white-labelling');
+    const frames = page.locator('.frame iframe');
+    await expect(frames).toHaveCount(IDENTITIES.length);
+    // Every frame's document reaches the identity its column names, and
+    // its simulated width is the canonical cell.
+    for (const [index, identity] of IDENTITIES.entries()) {
+      const handle = await frames.nth(index).elementHandle();
+      const frame = await handle?.contentFrame();
+      expect(frame, `frame ${identity} must resolve`).not.toBeNull();
+      if (frame === null || frame === undefined) {
+        continue;
+      }
+      await expect(frame.locator('[data-identity]')).toHaveAttribute('data-identity', identity);
+    }
+    const width = await frames.first().evaluate((el) => el.style.width);
+    expect(width).toBe(`${FRAME_VIEWPORT_WIDTH}px`);
   });
 });
 

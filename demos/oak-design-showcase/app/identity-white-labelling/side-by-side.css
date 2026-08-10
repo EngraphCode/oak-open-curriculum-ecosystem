@@ -1,0 +1,71 @@
+/* ============================================================
+   Side-by-side page — layout only, tokens throughout.
+
+   The frames hold a fixed 3/4 stage (a stable rectangle per column)
+   whose inner iframe renders at the canonical canvas width and is
+   scale-fitted by the client component.
+   ============================================================ */
+
+.page-head {
+  padding-block: var(--space-24);
+}
+
+.page-lede {
+  max-inline-size: var(--measure-prose);
+  color: var(--text-subdued);
+}
+
+.page-nav {
+  margin-block-start: var(--space-16);
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-16);
+  padding-block: var(--space-24);
+}
+
+.col {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 4;
+  gap: var(--space-8);
+  min-inline-size: 0;
+  align-content: start;
+}
+
+.col-title {
+  margin: 0;
+}
+
+.col-code {
+  font-size: var(--font-size-2);
+}
+
+.col-desc {
+  margin: 0;
+  color: var(--text-subdued);
+}
+
+.frame {
+  border: var(--border-solid-m) solid var(--border-primary);
+  border-radius: var(--radius-container);
+  overflow: hidden;
+  background: var(--bg-primary);
+  aspect-ratio: 3 / 4;
+}
+
+/* The client component owns the iframe's simulated viewport size (one
+   source for the number); this sheet carries only the invariants. */
+.frame iframe {
+  border: 0;
+  transform-origin: 0 0;
+  display: block;
+}
+
+@media (max-width: 960px) {
+  .cols {
+    grid-template-columns: 1fr;
+  }
+}
