@@ -21,6 +21,8 @@
  * Adding a width means naming the failure class the current set misses;
  * removing one means naming which entry's class another cell now covers.
  */
+import { err, ok, type Result } from '@oaknational/result';
+
 export interface MeasurementWidth {
   /** Viewport width in CSS pixels. */
   readonly width: number;
@@ -70,3 +72,18 @@ export const MEASUREMENT_WIDTHS: readonly MeasurementWidth[] = [
 export const MEASUREMENT_WIDTH_VALUES: readonly number[] = MEASUREMENT_WIDTHS.map(
   (entry) => entry.width,
 );
+
+/** Refuse a free-hand capture width (DDR-009's enforcement seam): two
+ *  captures of the same pair are comparable only when taken at the same
+ *  places, so the tooling accepts canonical widths and nothing else. The
+ *  error carries the set, so the cure is in the message. */
+export function assertCanonicalWidth(width: number): Result<number, string> {
+  if (MEASUREMENT_WIDTH_VALUES.includes(width)) {
+    return ok(width);
+  }
+  return err(
+    `width ${width} is not a canonical measurement width (DDR-009) — use one of: ${MEASUREMENT_WIDTH_VALUES.join(
+      ', ',
+    )}`,
+  );
+}

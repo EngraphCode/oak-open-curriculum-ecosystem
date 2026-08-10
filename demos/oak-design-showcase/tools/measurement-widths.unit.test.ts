@@ -6,7 +6,11 @@
  */
 import { describe, expect, it } from 'vitest';
 
-import { MEASUREMENT_WIDTHS, MEASUREMENT_WIDTH_VALUES } from './measurement-widths';
+import {
+  MEASUREMENT_WIDTHS,
+  MEASUREMENT_WIDTH_VALUES,
+  assertCanonicalWidth,
+} from './measurement-widths';
 
 const KIT_WIDTH_SEAM = 840;
 
@@ -35,5 +39,22 @@ describe('the canonical measurement widths', () => {
 
   it('include the export design canvas as the primary comparison cell', () => {
     expect(MEASUREMENT_WIDTH_VALUES).toContain(1440);
+  });
+});
+
+describe('assertCanonicalWidth (the DDR-009 enforcement seam)', () => {
+  it('accepts every canonical width', () => {
+    for (const width of MEASUREMENT_WIDTH_VALUES) {
+      expect(assertCanonicalWidth(width)).toStrictEqual({ ok: true, value: width });
+    }
+  });
+
+  it('refuses a free-hand width, and the cure is in the message', () => {
+    const result = assertCanonicalWidth(1280);
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error).toContain('DDR-009');
+      expect(result.error).toContain('1440');
+    }
   });
 });
