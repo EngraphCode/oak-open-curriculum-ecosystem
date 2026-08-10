@@ -1,8 +1,9 @@
 /**
- * The canonical measurement widths (owner-directed, 2026-08-10): every
- * fidelity capture, geometry probe, and visual comparison measures at these
- * CSS-pixel viewport widths, so that "looks the same" is judged at the same
- * places every time and coverage is an argument rather than a habit.
+ * The canonical measurement widths (DDR-009, owner-directed 2026-08-10):
+ * every fidelity capture, geometry probe, and visual comparison measures at
+ * these CSS-pixel viewport widths, so that "looks the same" is judged at the
+ * same places every time and coverage is an argument rather than a habit.
+ * The DDR governs the discipline; this module owns the values.
  *
  * The set is DERIVED, not invented. Sources, in order of authority:
  *
