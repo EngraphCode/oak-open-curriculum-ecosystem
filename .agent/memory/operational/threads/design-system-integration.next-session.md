@@ -2480,8 +2480,11 @@ WHERE THE DURABLE THINGS ARE (index):
 - Formation letter: .agent/experience/2026-08-10-swordfish-wakes-trench.md.
 
 KNOWN BOUNDS: the fidelity stdout summary reads UNREGISTERED over
-global-scope register entries (instrument note, routed); the axe×
-forced-colors carve-out is probe-warranted in apply-state.ts's helper
-docblock; light-dark() arm pairing is POSITIONAL with the background's
+global-scope register entries (instrument note, routed); the axe
+forced-colors contrast disable is a vendor defect open at axe-core
+4.12.1 (dequelabs/axe-core#3978), probe-corroborated, cited in
+apply-state.ts's helper docblock, re-examined at any axe upgrade
+(landed 32f79416c after the owner flagged the advocacy register of the
+previous wording); light-dark() arm pairing is POSITIONAL with the background's
 arms (cost one wrong-way commit to learn — recorded in the creature
 sheet comment).
