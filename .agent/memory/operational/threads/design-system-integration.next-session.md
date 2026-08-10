@@ -2408,3 +2408,14 @@ mutually broken for any skip link placed inside the canvas. Cure shape: a
 `reading-order` pin on `.oak-skip-link` in the trunk. Found by a red
 Playwright cell on the specimen (PR-2, `2d70f12d0`); page-level placement
 cure landed there; minimal repro isolated ancestry, not the element.
+
+### PR #846 open — 2026-08-10 evening (Swordfish wakes Trench, d0274e)
+
+The rebuilt identity-switchboard estate is a DRAFT PR: #846, head
+efe69380, bot-authored. Everything above (outline → verdicts → rebuild →
+matrix → register → doctrine) is landed and pushed on
+jimcresswell/design-identity-switchboard-pr2. Draft solely against the
+org review-credit wall; Copilot request silently dropped (repo-wide
+condition, recorded). Next session: un-draft when credits return, absorb
+review, then the queued domain items (design-system-usage re-truing/
+split; the five-item DS trunk slice named in the ARC entry).
