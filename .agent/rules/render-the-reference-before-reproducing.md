@@ -45,7 +45,7 @@ last.
   and the measurement-widths module: the WHERE of every capture.
 - [The Claude Design conversion playbook](../../docs/engineering/claude-design-conversion-playbook.md)
   §"Reference first" — this rule's application inside that pipeline.
-- [`fidelity-review` SKILL](../skills/fidelity-review/SKILL-CANONICAL.md)
+- [`claude-design-pipeline` SKILL](../skills/domain-craft/ui-design/claude-design-pipeline/SKILL-CANONICAL.md)
   — the comparison-and-disposition workflow this rule front-loads.
 - [`design-values-come-from-the-system`](design-values-come-from-the-system.md)
   — the sibling discipline for the build side of the same work.
