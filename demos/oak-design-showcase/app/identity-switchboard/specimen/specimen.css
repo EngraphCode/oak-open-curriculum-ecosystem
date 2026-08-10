@@ -12,13 +12,33 @@
    correct home regardless.
    ============================================================ */
 
+/* The utility band is INVERTED — the reference's dark strip above the
+   masthead; its links take the inverted text colour with it. */
 .util {
-  padding-block: var(--space-8);
-  border-block-end: var(--border-solid-s) solid var(--border-neutral-lighter);
+  background: var(--bg-inverted);
+  color: var(--text-inverted);
+}
+
+.util .oak-link {
+  color: var(--text-inverted);
 }
 
 .util-inner {
   align-items: center;
+  padding-block: var(--space-8);
+}
+
+/* The audience pair reads "teacher · pupil": the dot is presentation, so
+   it lives here rather than as markup in the (list-marked) nav; each item
+   spaces its own separator, mirroring the crumbs pattern. */
+.audience-list li {
+  display: flex;
+  gap: var(--gap-s);
+  align-items: center;
+}
+
+.audience-list li:not(:last-child)::after {
+  content: '·';
 }
 
 /* Pushes the trailing utility link to the far edge without a float or a
@@ -27,29 +47,55 @@
   margin-inline-start: auto;
 }
 
+/* Sticky masthead, as the reference has it. Adopting stickiness adopts
+   the WCAG 2.2 2.4.11 obligation with it: the scroll-padding below keeps
+   a focused control from being revealed UNDER the bar, and short
+   viewports de-stick entirely so the bar can never dominate the screen. */
 .mast {
-  padding-block: var(--space-16);
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--layer-sticky);
+  background: var(--bg-primary);
   border-block-end: var(--border-solid-m) solid var(--border-primary);
+}
+
+/* Focus-not-obscured (2.4.11): the masthead's own height, derived from
+   the tokens that build it — block padding both sides plus the control
+   row's target height. */
+html {
+  scroll-padding-block-start: calc(var(--space-16) * 2 + var(--size-target));
+}
+
+@media (max-height: 500px) {
+  .mast {
+    position: static;
+  }
 }
 
 .mast-inner {
   align-items: center;
-  gap: var(--space-24);
+  gap: var(--space-16);
+  padding-block: var(--space-16);
 }
 
 .brand-name {
-  margin-inline-end: var(--space-16);
+  margin: 0;
 }
 
+/* Nav gathers RIGHT with the search beside it, per the reference. */
 .site-nav {
   align-items: center;
+  margin-inline-start: auto;
 }
 
-/* The search cluster takes the slack in the masthead row so the nav sits
-   left and the sign-in control sits right. */
 .site-search {
   align-items: center;
-  margin-inline-start: auto;
+  margin-inline-start: var(--gap-m);
+}
+
+/* The narrow input is what keeps the whole masthead on one row. */
+.site-search .oak-input {
+  inline-size: var(--space-160);
 }
 
 .search-icon {
@@ -81,8 +127,13 @@
   padding-inline: var(--band-pad);
 }
 
+/* No block padding of its own: the kit's band carries the rhythm (fluid
+   40→64, components.css --band-pad — a deliberate trunk evolution past the
+   export's flush band). Measured divergence from the reference at wide
+   widths, dispositioned deliberate on the trunk's own recorded intent;
+   duplicating the padding here was the defect. */
 .hero-inner {
-  padding-block: var(--space-40);
+  padding-block: 0;
 }
 
 .hero-crumbs {

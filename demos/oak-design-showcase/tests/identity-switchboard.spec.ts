@@ -96,6 +96,24 @@ test.describe('specimen: keyboard and state semantics', () => {
     await expect(page.locator('#main')).toBeFocused();
   });
 
+  test('sticky masthead carries its focus-not-obscured cure', async ({ page }) => {
+    await interceptExternalOrigins(page);
+    await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}`);
+    // Adopting the reference's sticky masthead adopts WCAG 2.2 2.4.11 with
+    // it: the scroll container must pad by the bar's height so a focused
+    // control is never revealed underneath it.
+    const cure = await page.evaluate(() => {
+      const mast = document.querySelector('[data-region="masthead"]');
+      return {
+        mastPosition: mast === null ? '' : getComputedStyle(mast).position,
+        scrollPadding: getComputedStyle(document.documentElement).scrollPaddingTop,
+      };
+    });
+    expect(cure.mastPosition).toBe('sticky');
+    expect(cure.scrollPadding).not.toBe('auto');
+    expect(Number.parseFloat(cure.scrollPadding)).toBeGreaterThan(0);
+  });
+
   test('the current audience is marked, and not by colour alone', async ({ page }) => {
     await interceptExternalOrigins(page);
     await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}`);

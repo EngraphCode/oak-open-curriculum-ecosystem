@@ -35,7 +35,7 @@ function UtilityRegion(): React.JSX.Element {
             and pupil are audiences, not pages (a11y review ruling). The
             current one also carries a visible non-colour marker in CSS. */}
         <nav aria-label="Audience">
-          <ul className="oak-cluster oak-cluster--s nav-list">
+          <ul className="oak-cluster oak-cluster--s nav-list audience-list">
             <li>
               <a className="oak-link oak-body-3" href="#main" aria-current="true">
                 teacher
@@ -58,9 +58,11 @@ function UtilityRegion(): React.JSX.Element {
 }
 
 function SiteNav(): React.JSX.Element {
+  // The auto margin lives on the flex CHILD (the nav element), not the list
+  // inside it — that is what gathers nav + search + sign-in right.
   return (
-    <nav aria-label="Main">
-      <ul className="oak-cluster oak-cluster--s site-nav nav-list">
+    <nav aria-label="Main" className="site-nav">
+      <ul className="oak-cluster oak-cluster--s nav-list">
         <li>
           <a className="oak-link oak-body-2" href="#browse">
             Subjects
