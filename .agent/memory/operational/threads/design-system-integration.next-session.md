@@ -2419,3 +2419,65 @@ org review-credit wall; Copilot request silently dropped (repo-wide
 condition, recorded). Next session: un-draft when credits return, absorb
 review, then the queued domain items (design-system-usage re-truing/
 split; the five-item DS trunk slice named in the ARC entry).
+
+## COMPACTION FREEZE 2 (2026-08-10 ~17:2xZ) — Swordfish wakes Trench (d0274e); seat CONTINUES; resume RE-ARMS
+
+Owner word: prepare for compaction. Claim
+`645b9e0b-afea-4743-8cc6-5dad3ad39575` RETAINED. Silence past the freeze
+broadcast is the boundary, never retirement. An INDEX, not a summary.
+
+STATE, all first-hand at freeze:
+
+- **PR #846 OPEN, DRAFT**, head `efe69380`, bot-authored — the whole
+  rebuilt estate: specimen (10 regions), picker, side-by-side, 18-cell
+  conformance matrix, fidelity register (every divergence dispositioned),
+  DDR-009 + reference-first rule + playbook's two governing rules +
+  width-guard validator. Suite 62/62 on the built artefact.
+- Both branches local == remote, verified by ls-remote. PR-2 worktree
+  CLEAN. Draft solely against the org review-credit wall; Copilot request
+  silently dropped (repo-wide condition, Wren-documented).
+- Two dev servers still run on this host: showcase dev :3020 (this
+  worktree's), export static :3030 — disposable, restartable, not state.
+
+RESUME ORDER:
+
+1. Re-arm per start-right: canonical watcher from PRIMARY (**watch
+   posture: `--exclude-tag heartbeat` + the F-75 delta poll pair** — the
+   sanctioned standby economy; a directed/group event still surfaces
+   instantly) + F-95 assert; ARC tail on the design-lane channel;
+   heartbeat pair on the retained claim (model string `Opus-5`, NOT the
+   long form — the registry's identity-route check refuses mismatches);
+   foreground gap sweep.
+2. Check the two external waits: review credits (un-draft #846 when they
+   return) and the coordination fold #842 (Director's).
+3. Then the queued domain items, in order: design-system-usage
+   re-truing/split (AFTER the skills-estate lane's move of that file
+   lands — racing it is the named hazard), then the five-item DS trunk
+   slice (list in the 17:0x ARC entry and the PR-846-open entry above).
+
+WHERE THE DURABLE THINGS ARE (index):
+
+- The day's method + rulings: conversion playbook §two governing rules +
+  §Reference first; rule render-the-reference-before-reproducing;
+  DDR-009 + tools/measurement-widths.ts.
+- Every fidelity divergence + rationale: fidelity-register.json (6
+  entries, global scope).
+- The matrix's defect classes + cures: commit fd27de13a's message is the
+  narrative; the brand-sheet cures live in studio-source/whitelabel +
+  public/brands (byte-parity held).
+- The day's error classes (absence-detector-as-verdict; partial-tally-as-
+  distribution; the cure): failure-mode event 75c6b6da + the Cricket
+  adjudication section above + tally report
+  .agent/reports/agentic-engineering/cricket-quartet-tally-2026-08-10.md.
+- Owner rulings of record: spec-not-source + chrome-freedom (playbook +
+  register entry picker-chrome/chrome-diverges-by-design); canonical
+  widths (DDR-009); the three yeses (playbook/rule/validators — all
+  landed).
+- Formation letter: .agent/experience/2026-08-10-swordfish-wakes-trench.md.
+
+KNOWN BOUNDS: the fidelity stdout summary reads UNREGISTERED over
+global-scope register entries (instrument note, routed); the axe×
+forced-colors carve-out is probe-warranted in apply-state.ts's helper
+docblock; light-dark() arm pairing is POSITIONAL with the background's
+arms (cost one wrong-way commit to learn — recorded in the creature
+sheet comment).
