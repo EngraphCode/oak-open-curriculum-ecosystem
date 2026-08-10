@@ -137,3 +137,19 @@ design system. Enforced by instrument, not review vigilance:
   (`prefers-contrast: more` auto-selecting high-contrast; forced colors),
   and keyboard focus visibility in both polarities. The `system`-follows-
   device ride itself is a behaviour test in the UI suite.
+
+## Fidelity review
+
+- `pnpm tool:fidelity` — captures the Claude Design canonical export (served
+  over the studio overlay: `studio-source/` falling back to the
+  design-system package root for kit CSS, fonts and assets) and the running
+  showcase at matched geometry (1440 CSS px, 2x scale), perceptually diffs
+  every declared pair, and writes the review surface to
+  `demo-evidence/fidelity-report/index.html` beside the disposition register
+  (`fidelity-register.json`). Diff magnitude never gates: non-zero exit
+  means a mechanical failure only. Flags: `--base <url>`, `--width <px>`,
+  `--report-only`, `--keep-server`. Until the `/identity-switchboard` routes
+  land, a FULL run fails at the live-capture arm (the routes 404 and the
+  blank self-check refuses them — by design); use `--report-only` to build
+  the report from whatever evidence exists, which shows the live side as
+  missing.

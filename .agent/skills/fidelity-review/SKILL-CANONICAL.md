@@ -84,13 +84,14 @@ target — absence is recorded, never silent).
 
 The shared core lives in `@oaknational/fidelity-review`
 (`packages/libs/fidelity-review` — consolidated at its second consumer,
-2026-08-09): the diff core, dev-server lifecycle, static-path guards,
-report renderer, register schema, and the app-neutral runner helpers.
-Porting means composing it, not copying it: declare the app's pairing
-map (its own zod schema — pair kinds legitimately differ per app), seed
-a register, author the app-local capture arms and export server at
-matched geometry, and wire a thin `tools/fidelity-review.ts` CLI over
-the package's `review-helpers`. The
+2026-08-09; its README's §Modules is the authoritative enumeration).
+Porting means composing it, not copying it: declare the app's own PAIR
+schema (pair kinds legitimately differ per app) and wrap it with the
+package's `buildPairingMapSchema`, seed a register, author the
+app-local capture arms and export server at matched geometry with the
+app's own default base and `SERVER_HINT`, and compose the package's
+`/orchestrator` in a `tools/fidelity-review.ts` that keeps only paths,
+capture arms, and `main`. The
 [conversion playbook](../../../docs/engineering/claude-design-conversion-playbook.md)
 §"Fidelity review and the divergence register" carries the method; this
 skill carries the workflow.
