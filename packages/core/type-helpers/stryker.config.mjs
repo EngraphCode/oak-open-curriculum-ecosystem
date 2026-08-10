@@ -52,8 +52,11 @@ const config = {
 
   // Explicit unit + integration test selection per the Oak test-scope
   // contract (unit/integration/E2E). E2E tests must never enter a
-  // mutation run; this list has no `*.e2e.test.ts` member.
-  testFiles: ['src/**/*.unit.test.ts', 'src/**/*.integration.test.ts'],
+  // mutation run — the brace set has no `e2e` member. One braced glob
+  // rather than two patterns: a separate per-category pattern warns when
+  // its category has no files yet (this workspace is unit-only today),
+  // and mutation runs are warning-free by rule.
+  testFiles: ['src/**/*.{unit,integration}.test.ts'],
 
   // A bad glob must fail loudly, never report a false "success".
   allowEmpty: false,
