@@ -250,6 +250,134 @@ html {
   justify-content: center;
 }
 
+/* ============ detail region ============ */
+
+.detail-pad {
+  padding-block: var(--space-32);
+}
+
+.detail-h {
+  margin: 0 0 var(--space-24);
+}
+
+.lede {
+  margin: 0;
+  max-inline-size: var(--measure-prose);
+}
+
+/* The 16:9 stand-in for the lesson video. The hatch stripe widths ride the
+   space scale (the export used near-identical raw pixels; tokens here). */
+.media-slot {
+  aspect-ratio: 16 / 9;
+  border: var(--border-solid-s) dashed var(--border-neutral);
+  border-radius: var(--radius-container);
+  background: repeating-linear-gradient(
+    to bottom right,
+    var(--bg-subtle),
+    var(--bg-subtle) var(--space-8),
+    var(--bg-primary) var(--space-8),
+    var(--bg-primary) var(--space-16)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-slot span {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2);
+  color: var(--text-subdued);
+}
+
+.aside-card p,
+.aside-card h3,
+.tip-body {
+  margin: 0;
+}
+
+.mis-block {
+  margin-block-start: var(--gap-m);
+}
+
+/* ============ resources / support / cta / footer ============ */
+
+.res-inner {
+  padding-block: var(--space-40);
+}
+
+.res-card h3,
+.res-card p {
+  margin: 0;
+}
+
+.support-pad {
+  padding-block: var(--space-40);
+}
+
+.support-pad h2 {
+  margin: 0 0 var(--space-24);
+}
+
+.cta-inner {
+  padding-block: var(--space-40);
+}
+
+.cta-inner h2 {
+  margin: 0;
+}
+
+.cta-form {
+  align-items: flex-end;
+}
+
+.cta-field {
+  flex: 1;
+  min-inline-size: var(--space-240);
+}
+
+.foot {
+  background: var(--bg-inverted);
+  color: var(--text-inverted);
+}
+
+.foot .oak-link {
+  color: var(--text-inverted);
+}
+
+.foot-inner {
+  padding-block: var(--space-40);
+}
+
+.foot-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--space-160), 100%), 1fr));
+  gap: var(--gap-l);
+}
+
+.foot-cols nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-s);
+}
+
+.foot-cols nav .col-h {
+  font-weight: var(--weight-bold);
+}
+
+.foot .blurb {
+  margin: 0;
+}
+
+.foot hr {
+  border: 0;
+  border-block-start: var(--border-solid-s) solid var(--border-neutral);
+  margin-block: var(--space-24);
+}
+
+.legal {
+  margin-inline-start: auto;
+}
+
 /* Tab row: the underline carries the current state (a non-colour marker),
    sitting on the row's own baseline rule. */
 .tabs {

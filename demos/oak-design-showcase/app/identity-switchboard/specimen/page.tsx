@@ -22,9 +22,13 @@
  */
 import { BASE_IDENTITY, resolveIdentity } from '../../../components/useIdentity';
 
+import { DetailRegion } from './detail';
 import { FacetsRegion } from './facets';
+import { FooterRegion } from './footer';
 import { HeroRegion } from './hero';
+import { ResourcesRegion } from './resources';
 import { ResultsRegion } from './results';
+import { CtaRegion, SupportRegion } from './support';
 import './specimen.css';
 
 function UtilityRegion(): React.JSX.Element {
@@ -152,14 +156,12 @@ export default async function SpecimenPage({
           <HeroRegion />
           <FacetsRegion />
           <ResultsRegion />
-          {/* Remaining unit-map regions land slice by slice; the sections
-              exist now so the grid places every named area from the start. */}
-          <section className="oak-region" data-region="detail" />
-          <section className="oak-region" data-region="resources" />
-          <section className="oak-region" data-region="support" />
-          <section className="oak-region" data-region="cta" />
+          <DetailRegion />
+          <ResourcesRegion />
+          <SupportRegion />
+          <CtaRegion />
         </main>
-        <footer className="oak-region" data-region="footer" />
+        <FooterRegion />
       </div>
     </>
   );
