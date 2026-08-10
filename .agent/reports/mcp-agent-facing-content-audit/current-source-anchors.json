@@ -7028,8 +7028,8 @@
             "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/create-snippet.ts",
             "anchors": [
               {
-                "tokenCount": 20,
-                "tokenSha256": "32bab5b37fd93b42d46f0daa96d92bbde6adda57887e12c5b4010c788bc9b5e4",
+                "tokenCount": 22,
+                "tokenSha256": "68134f94b8f13da61bfcb7fe8f11a84d6faf69377c9a9095450652d858a738cf",
                 "indexToken": "mcpServers",
                 "indexOffset": 1
               }

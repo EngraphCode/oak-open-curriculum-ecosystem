@@ -30,7 +30,7 @@
  * // Returns:
  * // '
  * //   "mcpServers": {
- * //     "oak-curriculum": {
+ * //     "oak-open-curriculum": {
  * //       "type": "http",
  * //       "url": "https://my-app.vercel.app/mcp"
  * //     }
@@ -41,7 +41,7 @@
 export function createSnippet(mcpEndpointUrl: string): string {
   return `
   "mcpServers": {
-    "oak-curriculum": {
+    "oak-open-curriculum": {
       "type": "http",
       "url": "${mcpEndpointUrl}"
     }
