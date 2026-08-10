@@ -43,6 +43,12 @@ ratified first-class. Do not let that frame in the door.
 
 ## Reference first
 
+**And visual first** (owner directive, 2026-08-10): every comparison
+against the reference includes a rendered-image pair at matched canonical
+widths, looked at with eyes — computed-style probes corroborate and
+localise but never substitute (the probe-said-match-while-pixels-differed
+incident is recorded in the reference-first rule).
+
 Before anything is built against the export, RENDER the export and look
 at it (`render-the-reference-before-reproducing` is the always-applied
 rule; this section is its application here):

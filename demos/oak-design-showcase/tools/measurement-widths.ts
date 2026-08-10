@@ -56,6 +56,12 @@ export const MEASUREMENT_WIDTHS: readonly MeasurementWidth[] = [
     warrant: 'first common width past the 840px seam — proves the wide maps at their lower edge',
   },
   {
+    width: 1280,
+    label: 'switchboard-canvas',
+    warrant:
+      "the export switchboard's framed canvas — the picker-parity cell: side-by-side demo comparison happens here (dated amendment 2026-08-10, owner-directed)",
+  },
+  {
     width: 1440,
     label: 'canvas',
     warrant:

@@ -63,6 +63,17 @@ Amendment is by warrant: adding a width means naming the failure class the
 current set misses; removing one means naming which remaining cell now
 covers its class.
 
+## Dated amendment — 1280 joins the set (2026-08-10, owner-directed)
+
+`1280 / switchboard-canvas` joins the canonical set. Failure class it
+catches: picker-parity — the export's own switchboard frames its specimen
+at a 1280 canvas, and the owner's side-by-side comparison of the two
+demos happens THERE, so a picker defaulting to any other width shows
+every proportion ~12% off and manufactures phantom deltas (observed
+2026-08-10: "black outlines, curved corners, smaller fonts" were one
+scale artefact). The picker opens at 1280; the standalone-specimen
+fidelity convention stays at 1440.
+
 ## Consequences
 
 - Coverage is an argument, not a habit: every report can print why each

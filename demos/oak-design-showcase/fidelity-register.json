@@ -12,8 +12,8 @@
         "demo-evidence/export-picker-oak-fold.png",
         "demo-evidence/live-picker-oak-fold.png"
       ],
-      "disposition": "deliberate",
-      "rationale": "The home page's measured ruling (globals.css .util): an inverted interactive band under brand re-polarisation loses the canonical focus ring with no token to reinstate it — measured invisible in creature/high-contrast. Upstream home: the kit's inverted-ring token contract, routed with the DS trunk slice. Landed fd27de13a.",
+      "disposition": "superseded",
+      "rationale": "Owner reprice 2026-08-10 (screenshot comparison): appearance converges — the strip is now inverted like the reference, with the .foot ring pattern carrying the canonical focus ring on the inverted surface (--focus-ring-inverted on every control). The original blocker (no token to restore the ring) had already been solved for the footer; the cure generalises. The kit inverted-ring token contract stays routed with the DS trunk slice.",
       "author": "design-lane-implementer",
       "date": "2026-08-10"
     },
@@ -26,8 +26,8 @@
         "app/identity-switchboard/specimen/specimen.css",
         "demo-evidence/diff-picker-oak-full.png"
       ],
-      "disposition": "deliberate",
-      "rationale": "The trunk deliberately evolved --band-pad past the export (components.css: 'a demarcated region needs breathing room — OWA header rhythm; pages/brands re-point'). The rebuild adopts the system's current voice rather than re-pointing it back to a pre-evolution value; the residual diff below the hero is the ripple of this one offset. Landed 40614715d.",
+      "disposition": "superseded",
+      "rationale": "Owner reprice 2026-08-10 (screenshot comparison: 'content size and margins in the green header'): the hero converges on the reference's measured rhythm — band flush, inner padding-block 40px, content inset from the container alone (was: band-pad fluid 40-64 on all four sides, +64px inline inset). Scope: the hero; the remaining bands keep the trunk rhythm pending the next fidelity pass.",
       "author": "design-lane-implementer",
       "date": "2026-08-10"
     },

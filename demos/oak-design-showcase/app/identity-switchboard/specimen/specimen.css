@@ -12,16 +12,20 @@
    correct home regardless.
    ============================================================ */
 
-/* RECORDED DIVERGENCE from the reference's dark utility strip: the
-   interactive band is deliberately NOT inverted, per the home page's
-   measured ruling (globals.css .util) — the canonical focus ring needs
-   --focus-ring-inverted on every control on an inverted surface, and a
-   brand that re-polarises the band has no token to restore it (measured
-   invisible in creature/high-contrast). Upstream home: the kit's
-   inverted-ring token contract, routed with the DS slice. */
+/* Inverted like the reference (owner reprice 2026-08-10: appearance
+   converges — superseding the earlier non-inverted divergence). The ring
+   cure is the .foot pattern: every control on the inverted surface rides
+   the kit's inverted family, including the focus ring. */
 [data-page='unit'] .util {
-  background: var(--bg-subtle);
-  color: var(--text-primary);
+  background: var(--bg-inverted);
+  color: var(--text-inverted);
+  --text-link: var(--text-inverted);
+  --text-link-hover: var(--text-inverted);
+  --text-link-visited: var(--text-inverted);
+}
+
+[data-page='unit'] .util a {
+  --focus-ring: var(--focus-ring-inverted);
 }
 
 [data-page='unit'] .util-inner {
@@ -131,13 +135,17 @@ html {
   padding-inline: var(--band-pad);
 }
 
-/* No block padding of its own: the kit's band carries the rhythm (fluid
-   40→64, components.css --band-pad — a deliberate trunk evolution past the
-   export's flush band). Measured divergence from the reference at wide
-   widths, dispositioned deliberate on the trunk's own recorded intent;
-   duplicating the padding here was the defect. */
+/* The hero band is FLUSH and its inner carries the reference's measured
+   40px block rhythm (owner reprice 2026-08-10: the green header's size
+   and margins converge on the export — superseding the earlier
+   trunk-rhythm divergence; measured export: band pads 0, inner
+   padding-block 40, content inset 24 from the container alone). */
+[data-page='unit'] .hero-band {
+  padding: 0;
+}
+
 [data-page='unit'] .hero-inner {
-  padding-block: 0;
+  padding-block: var(--space-40);
 }
 
 [data-page='unit'] .hero-crumbs {

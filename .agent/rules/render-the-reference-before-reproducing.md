@@ -39,6 +39,18 @@ nothing required the reference to be SEEN before building began. This rule
 closes that path: the comparison exists from the first commit, not the
 last.
 
+## Comparison is visual first (owner directive, 2026-08-10)
+
+Comparing a rebuild against its reference ALWAYS includes comparing
+IMAGES — capture both sides at the same canonical viewport and look at
+them — never markup, styling, or computed styles alone. The failure mode
+is recorded from the day the directive landed: a computed-style probe
+over matched selectors reported near-total equality while the rendered
+pair showed an inverted band, a 64px content inset, and a rhythm
+divergence the probe's selectors never framed, plus a scale artefact
+computed styles cannot see at all. Computed values corroborate and
+localise; only the rendered pair decides. DDR-010 carries the method.
+
 ## Related Surfaces
 
 - [DDR-009 — measurement happens at canonical widths](../../docs/design/design-decisions/009-measurement-happens-at-canonical-widths.md)

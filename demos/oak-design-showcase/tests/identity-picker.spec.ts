@@ -15,6 +15,7 @@
 import { expect, test } from '@playwright/test';
 import type { Frame, Locator, Page } from '@playwright/test';
 
+import { SWITCHBOARD_CANVAS_WIDTH } from '../components/canonical-widths';
 import { BASE_IDENTITY, IDENTITIES, type IdentitySlug } from '../components/useIdentity';
 import { MEASUREMENT_WIDTH_VALUES } from '../tools/measurement-widths';
 import {
@@ -119,6 +120,16 @@ async function chooseWidthAndExpectInEffect(
     .toBe(width);
 }
 
+/** The controls open on the ruled defaults: the system theme (people, not
+ *  pages, own the colour scheme) and the export switchboard's own framed
+ *  canvas, so the two demos read identically side by side. */
+async function expectRuledDefaults(page: Page): Promise<void> {
+  await expect(page.getByRole('combobox', { name: 'Theme' })).toHaveValue('system');
+  await expect(page.getByRole('combobox', { name: 'Width' })).toHaveValue(
+    `${SWITCHBOARD_CANVAS_WIDTH}`,
+  );
+}
+
 test.describe('picker: every control is an in-place change', () => {
   test('brand changes inside the frame with no navigation', async ({ page }) => {
     const opened = await openPickerStage(page);
@@ -151,6 +162,8 @@ test.describe('picker: every control is an in-place change', () => {
       return;
     }
     const { aborted, stage, frame, mountSrc } = opened;
+
+    await expectRuledDefaults(page);
 
     await chooseThemeAndExpectInEffect(page, frame, 'dark');
 

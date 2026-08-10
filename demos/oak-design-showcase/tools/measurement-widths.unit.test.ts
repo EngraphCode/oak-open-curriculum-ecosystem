@@ -50,7 +50,7 @@ describe('assertCanonicalWidth (the DDR-009 enforcement seam)', () => {
   });
 
   it('refuses a free-hand width, and the cure is in the message', () => {
-    const result = assertCanonicalWidth(1280);
+    const result = assertCanonicalWidth(1337);
     expect(result.ok).toBe(false);
     if (!result.ok) {
       expect(result.error).toContain('DDR-009');

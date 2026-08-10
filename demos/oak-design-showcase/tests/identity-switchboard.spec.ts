@@ -14,6 +14,7 @@
  * imported roster, which keeps the identity-naming census untouched.
  */
 import { expect, test } from '@playwright/test';
+import type { Page } from '@playwright/test';
 
 import { DEFAULT_VIEWPORT_WIDTH, VIEWPORT_WIDTHS } from '../components/canonical-widths';
 import { BASE_IDENTITY, IDENTITIES } from '../components/useIdentity';
@@ -25,6 +26,21 @@ import {
 } from './apply-state';
 
 const COUNTER_BRANDS = IDENTITIES.filter((slug) => slug !== BASE_IDENTITY);
+
+/** The hero band's computed ground — the decorative surface the
+ *  colour-safe distinctness claim measures. */
+async function heroBandBackground(page: Page): Promise<string> {
+  return page.evaluate(() => {
+    const band = document.querySelector('.hero-band');
+    return band === null ? '' : getComputedStyle(band).backgroundColor;
+  });
+}
+
+async function applySpecimenThemeAttribute(page: Page, theme: string): Promise<void> {
+  await page.evaluate((value) => {
+    document.documentElement.dataset['theme'] = value;
+  }, theme);
+}
 
 test.describe('specimen: identity is server-applied and in effect at first paint', () => {
   test('each counter-brand changes computed style relative to the base', async ({ page }) => {
@@ -46,6 +62,24 @@ test.describe('specimen: identity is server-applied and in effect at first paint
         .not.toBe(baseFont);
     }
     assertOnlyKnownExternalOrigins(aborted);
+  });
+
+  test('colour-safe is visibly distinct from light', async ({ page }) => {
+    await interceptExternalOrigins(page);
+    await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}`);
+    // Owner ruling 2026-08-10: colour-safe is a distinct maximum-legibility
+    // mode, never a light lookalike — the decorative surfaces flatten to
+    // neutral, so the hero band's computed ground must MOVE between the
+    // two themes.
+    await applySpecimenThemeAttribute(page, 'light');
+    const light = await heroBandBackground(page);
+    expect(light).not.toBe('');
+    await applySpecimenThemeAttribute(page, 'colour-safe');
+    await expect
+      .poll(async () => heroBandBackground(page), {
+        message: 'colour-safe must not render the light decorative surface',
+      })
+      .not.toBe(light);
   });
 
   test('an unknown brand value narrows to the base identity', async ({ page }) => {

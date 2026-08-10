@@ -116,7 +116,7 @@ function UnitMetrics(): React.JSX.Element {
 export function HeroRegion(): React.JSX.Element {
   return (
     <section className="oak-region" data-region="hero" aria-label="Unit overview">
-      <div className="oak-band band-pad">
+      <div className="oak-band hero-band">
         <div className="oak-container hero-inner">
           <Breadcrumbs />
           <div className="oak-flow">
