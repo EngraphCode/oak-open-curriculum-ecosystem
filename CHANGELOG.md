@@ -1,3 +1,26 @@
+# [1.157.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.156.4...v1.157.0) (2026-08-10)
+
+
+### Bug Fixes
+
+* **fidelity:** strict pairing boundaries and a validated loopback base (BV-1, BV-2, SEC-3 guard) ([aacc4ea](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aacc4ea580dacb5d8a3777d6893766545fe97f66))
+* **showcase:** copilot-round cures — frame contract, lifecycle teardown, strict register ([70f2585](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/70f2585b240b43d03a01d7eed094eedd0427519b)), closes [#834](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/834)
+* **showcase:** overlay refuses decoded backslashes — posix admission vs host resolution ([db980a9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/db980a967ab1f21738122340fa2b12180415881c))
+* **showcase:** surface guard judges the canonical path; unnest refine template ([9e6b2f8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9e6b2f86a4b8e25ad9eaa59383a0978dabc2eeb9))
+
+
+### Features
+
+* **fidelity:** capture manifest with pure cohort reconciliation (EI-1/EI-2 core) ([e58e0ed](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e58e0edd0b9c5069afc68050fe74c5e3e5315da5))
+* **fidelity:** capture session stages, promotes, and commits the manifest last (EI-1 writer half) ([8a88989](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/8a88989d9ffb923e09b1fbf03d91ae0489d6b650))
+* **fidelity:** identity-gated reachability and group-gone release (LC-2, M4, M5) ([3b1509d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3b1509d9a250aae28d84df9a2f64d16c10558d21))
+* **fidelity:** liveness-driven run lease serialises the evidence set (EI-3) ([1ad8c78](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1ad8c78be207d995906e4d3328b5f573923beea3))
+* **fidelity:** one settle recipe, one sanctioned shot, one egress guard (CC-1, SEC-3) ([d28166f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d28166f693243a3933cf90b9a62b82305722dcc4))
+* **fidelity:** signal reaper for interrupted runs (LC-1 signal leg; wiring lands next) ([573c860](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/573c860d3c21fda7cde900aa97bb4b3b48dd2eda))
+* **fidelity:** the report trusts only a reconciled, hash-verified cohort (EI-1/EI-2 reader half) ([0b6fedb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0b6fedb1705b814049edfe7a63124cc214a7bba9))
+* **showcase:** fidelity foundations — port, overlay server, derivation ([5c2980e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5c2980ef76083734b98e4a75ccf4231cf9750d54))
+* **showcase:** pairing map, capture arms, and the fidelity orchestrator ([baf9f4b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/baf9f4b82770fca6fe9c5712b1cfa5aa0c15a492))
+
 ## [1.156.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.156.3...v1.156.4) (2026-08-09)
 
 
