@@ -135,10 +135,16 @@ verified-real-or-fictional; rides the page PR.
 
 ### Fidelity machinery (ported per the fidelity-review skill's porting section)
 
-Copy the hub's tools (`export-server`, `dev-server`, `image-diff`,
-`fidelity-report*`, `fidelity-html`, `fidelity-register`,
-`fidelity-review`, `capture-checks`) into
-`demos/oak-design-showcase/tools/`; author a showcase `fidelity-pairs.ts`
+COMPOSE the showcase's fidelity tooling from the shared package
+`@oaknational/fidelity-review` (correction 2026-08-10, truing this
+decision-complete clause to what PR-1a actually landed — it read "copy
+the hub's tools", and the copy shape was refused by the merge-required
+duplication gate; `consolidate-at-second-consumer` directed the
+extraction, the hub migrated to the same package, and its copies
+deleted. The correction had landed only in the PR-1 todo). Only the
+genuinely app-local surfaces stay in `demos/oak-design-showcase/tools/`:
+the export overlay and its path guards, the pairing map, capture config,
+and the runner's `main`; author a showcase `fidelity-pairs.ts`
 with SIX diff-eligible pairs — three identities × {fold, full}: the
 specimen route `?brand=<slug>` vs the export's
 `whitelabel/specimen.html?brand=<slug>` served by the ephemeral export
@@ -302,6 +308,39 @@ child) reserved for a real child's signal/exit fidelity where no seam below can
 carry the proof. Neither is the primary proof of any invariant here. Every cure
 lands test-and-code atomic (TDD), and the guard is shown to bite (mutation
 check) before the commit.
+
+### DEPTH — how far each cure goes (owner recalibration, 2026-08-10)
+
+The §HOW ruling above says how a cure is SHAPED. This says how FAR it goes,
+and it was set after this node was ratified — the frame arrived on
+2026-08-10, the ratification stamp is 2026-08-09, so the ledger below was
+authored under a frame that no longer governs on its own.
+
+> The design work exists to decrease the cost of exploratory app
+> experiments to near zero — hence whitelabelling, hence the need to show
+> how powerful and efficient the system is.
+
+The wow page is that demonstration; this instrument is MEANS. So the round
+completes at **ledger-minimum depth**: the ledger is the bound and nothing
+beyond it, and where a row admits a named home, DEFER rather than cure.
+Every status and READY report states DISTANCE-TO-PIXELS, not gates-green.
+
+The per-row test is therefore: **does this row block the merge, or does it
+improve an instrument that cannot yet do its job?** — because six of the
+showcase's seven declared pairs target `/identity-switchboard/specimen`,
+a route PR-2 has not built yet. The map is a red test for a page that does
+not exist, and EI-1 is what makes that red HONEST: before it, a 404
+capture wrote a blank PNG the report trusted; after it, the run refuses.
+That is the cure round's real warrant, and it is also its bound — further
+hardening of a showcase-side instrument buys nothing until PR-2 lands.
+(The hub consumer is live today and is not covered by this bound.)
+
+Scope discipline: ledger MEMBERSHIP is the Director's — the adjudicated
+packet (PR comment 5232387226) is theirs and the round was
+owner-commissioned. This clause bounds DEPTH within rows, never which
+rows exist. The
+non-override clause of `proportionality` binds here in full: this changes
+how much is built, never whether the built thing is correct.
 
 ### Blocking — evidence integrity (the tool's core invariant; confirmed on 4 surfaces + R27)
 
