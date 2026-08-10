@@ -106,6 +106,26 @@ candidates the first time a landing tests them against the
 smallest-useful-number principle; the tree is cheap to re-cut
 precisely because projections are flat.
 
+### Amendment 2026-08-10b (owner word, Director-recorded): WS8 — spec supporting directories + evals, general
+
+The owner's restated intent (2026-08-10) recovers what WS6 left as a
+"candidate general mechanism": **WS8 — every skill may carry the full
+agentskills.io supporting-file set** (spec §optional-directories:
+`scripts/`, `references/`, `assets/`) **canonical-side**, with the
+projection transform carrying them into vendor entry skills per the
+spec, and **per-skill evals** per the spec's evaluating-skills method.
+Grounding: canonical `SKILL-CANONICAL.md` files are transformed before
+forming vendor `SKILL.md` entry files, so canonical-side structure
+(including WS2's graph frontmatter, which stays internal or re-homes
+under spec `metadata:`) never leaks non-spec content into projections.
+The Parallax family's member-local
+`cognition/parallax/references|evaluations|scripts/` (WS6 executed) is
+the worked template. The executing seat designs the transform's
+directory carriage (today the generator emits pointer-only SKILL.md
+files; carrying supporting dirs is new machinery, test-first) and the
+eval convention's home; sequenced after the WS7 group moves, beside
+WS2's annotation pass.
+
 ### Amendment 2026-08-10 (owner rulings, Director-recorded)
 
 1. **`domain-craft/` gains domain subdirectories** —
