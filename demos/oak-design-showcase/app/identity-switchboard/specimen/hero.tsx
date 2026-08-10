@@ -41,7 +41,7 @@ function HeroActions(): React.JSX.Element {
       </button>
       <button className="oak-btn oak-btn--secondary" type="button">
         <span className="oak-icon--mask ic-download icon-s" aria-hidden="true" />
-        Download all resources
+        {'Download all resources'}
       </button>
       <button
         className="oak-icon-btn oak-icon-btn--secondary"

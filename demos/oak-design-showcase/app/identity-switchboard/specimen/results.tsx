@@ -97,16 +97,16 @@ function TermLedger({
 function ResultsBar(): React.JSX.Element {
   return (
     <div className="oak-cluster results-bar">
-      <p className="oak-body-2" role="status">
+      <output className="oak-body-2">
         Showing <strong>6</strong> of 6 lessons
-      </p>
+      </output>
       <div className="oak-cluster oak-cluster--s">
         <span className="oak-tag oak-tag--aqua">
-          45 minutes
+          {'45 minutes'}
           <span className="oak-icon--mask ic-cross icon-s" aria-hidden="true" />
         </span>
         <span className="oak-tag oak-tag--aqua">
-          60 minutes
+          {'60 minutes'}
           <span className="oak-icon--mask ic-cross icon-s" aria-hidden="true" />
         </span>
       </div>
@@ -146,7 +146,9 @@ export function ResultsRegion(): React.JSX.Element {
           Browse the unit sequence
         </h2>
         <ResultsBar />
-        <div className="oak-banner oak-banner--info" role="status">
+        {/* Static at load — a live-region role would announce nothing and
+            is dropped; the banner is plain informational content. */}
+        <div className="oak-banner oak-banner--info">
           <span className="oak-icon--mask ic-info icon-s" aria-hidden="true" />
           <div>
             <strong>Updated for 2026.</strong> This unit was revised in line with the latest

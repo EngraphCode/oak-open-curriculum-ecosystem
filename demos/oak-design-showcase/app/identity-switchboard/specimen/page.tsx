@@ -112,7 +112,7 @@ function MastheadRegion(): React.JSX.Element {
           <input className="oak-input" id="site-q" type="search" placeholder="Search lessons…" />
           <button className="oak-btn oak-btn--sm oak-btn--secondary" type="button">
             <span className="oak-icon--mask ic-search icon-s" aria-hidden="true" />
-            Search
+            {'Search'}
           </button>
         </search>
         <button className="oak-btn oak-btn--sm" type="button">

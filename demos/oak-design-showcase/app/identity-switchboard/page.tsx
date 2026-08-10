@@ -74,10 +74,10 @@ function useFrameTheme(resolveTarget: () => Document | null): {
       return;
     }
     if (theme === '') {
-      root.removeAttribute('data-theme');
+      delete root.dataset['theme'];
       return;
     }
-    root.setAttribute('data-theme', theme);
+    root.dataset['theme'] = theme;
   }, [theme, resolveTarget]);
 
   const setTheme = useCallback((value: string): void => {

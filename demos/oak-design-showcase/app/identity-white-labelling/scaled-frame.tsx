@@ -17,6 +17,15 @@ import type { ReactElement } from 'react';
 import { DEFAULT_VIEWPORT_WIDTH } from '../../components/canonical-widths';
 import { useScaledViewport } from '../../components/useScaledViewport';
 
+/** Drop any persisted theme attribute from a framed document so the
+ *  columns stay comparable at page default. A module-level function: the
+ *  mutation targets the frame's own document, outside React's state. */
+function dropPersistedTheme(root: HTMLElement | undefined): void {
+  if (root !== undefined) {
+    delete root.dataset['theme'];
+  }
+}
+
 export function ScaledFrame({
   src,
   title,
@@ -35,7 +44,7 @@ export function ScaledFrame({
         src={src}
         title={title}
         onLoad={() => {
-          iframeRef.current?.contentDocument?.documentElement.removeAttribute('data-theme');
+          dropPersistedTheme(iframeRef.current?.contentDocument?.documentElement);
         }}
       />
     </div>

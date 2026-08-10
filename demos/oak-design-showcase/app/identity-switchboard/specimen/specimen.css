@@ -209,10 +209,6 @@ html {
   justify-content: space-between;
 }
 
-[data-page='unit'] .results-bar p {
-  margin: 0;
-}
-
 [data-page='unit'] .term-h {
   margin: 0;
   color: var(--text-subdued);
@@ -368,6 +364,7 @@ html {
 /* Muted text on the inverted band rides the kit's audited inverted
    family, never the ordinary subdued role. */
 [data-page='unit'] .foot .blurb {
+  margin: 0;
   color: var(--text-inverted-subdued);
 }
 
@@ -397,10 +394,6 @@ html {
 
 [data-page='unit'] .foot-cols nav .col-h {
   font-weight: var(--weight-bold);
-}
-
-[data-page='unit'] .foot .blurb {
-  margin: 0;
 }
 
 [data-page='unit'] .foot hr {
