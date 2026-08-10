@@ -72,3 +72,110 @@
   font-weight: var(--weight-semibold);
   text-decoration-thickness: var(--border-solid-m);
 }
+
+/* ============ hero region ============ */
+
+/* The band's inline padding rides the brand map's --band-pad token so a
+   counter-brand can recompose the band without touching markup. */
+.band-pad {
+  padding-inline: var(--band-pad);
+}
+
+.hero-inner {
+  padding-block: var(--space-40);
+}
+
+.hero-crumbs {
+  margin-block-end: var(--space-16);
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-s);
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.crumbs li {
+  display: flex;
+  gap: var(--gap-s);
+  align-items: center;
+}
+
+.crumbs li:not(:last-child)::after {
+  content: '/';
+  color: var(--text-subdued);
+}
+
+.crumbs .here {
+  color: var(--text-subdued);
+}
+
+.kicker {
+  margin: 0;
+  color: var(--text-subdued);
+}
+
+.headline {
+  margin: 0;
+}
+
+.standfirst {
+  margin: 0;
+  max-inline-size: var(--measure-prose);
+  justify-self: var(--key-justify);
+}
+
+.hero-icon {
+  inline-size: var(--size-icon-s);
+  block-size: var(--size-icon-s);
+}
+
+/* Tab row: the underline carries the current state (a non-colour marker),
+   sitting on the row's own baseline rule. */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-m);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-block-end: var(--border-solid-m) solid var(--border-neutral);
+}
+
+.tabs a {
+  display: inline-block;
+  padding-block: var(--space-12);
+  text-decoration: none;
+  color: var(--text-subdued);
+  border-block-end: var(--border-solid-l) solid transparent;
+  margin-block-end: calc(-1 * var(--border-solid-m));
+}
+
+.tabs a[aria-current='page'] {
+  color: var(--text-primary);
+  font-weight: var(--weight-semibold);
+  border-block-end-color: var(--border-primary);
+}
+
+.tabs a:hover {
+  color: var(--text-primary);
+}
+
+.metrics-wrap {
+  padding-block: var(--space-24);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--space-160), 100%), 1fr));
+  gap: var(--gap-m);
+  margin: 0;
+}
+
+.metric dd {
+  margin: 0;
+}

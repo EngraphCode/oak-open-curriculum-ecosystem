@@ -22,6 +22,7 @@
  */
 import { BASE_IDENTITY, resolveIdentity } from '../../../components/useIdentity';
 
+import { HeroRegion } from './hero';
 import './specimen.css';
 
 function UtilityRegion(): React.JSX.Element {
@@ -143,7 +144,18 @@ export default async function SpecimenPage({
       <div className="oak-canvas oak-scope" data-page="unit" data-identity={identity}>
         <UtilityRegion />
         <MastheadRegion />
-        <main id="main" className="oak-main oak-region" data-region="main" tabIndex={-1} />
+        <main id="main" className="oak-main oak-region" data-region="main" tabIndex={-1}>
+          <HeroRegion />
+          {/* Remaining unit-map regions land slice by slice; the sections
+              exist now so the grid places every named area from the start. */}
+          <section className="oak-region" data-region="facets" />
+          <section className="oak-region" data-region="results" />
+          <section className="oak-region" data-region="detail" />
+          <section className="oak-region" data-region="resources" />
+          <section className="oak-region" data-region="support" />
+          <section className="oak-region" data-region="cta" />
+        </main>
+        <footer className="oak-region" data-region="footer" />
       </div>
     </>
   );
