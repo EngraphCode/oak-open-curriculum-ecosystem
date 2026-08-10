@@ -25,15 +25,16 @@
  * records the observed dry run without it (dry-run-scoped evidence; the
  * full-run evidence is `mutation-evidence/run.log.txt`).
  *
- * `vitest.configFile` points at `vitest.stryker.config.ts`, a
- * self-contained duplicate of this workspace's real `vitest.config.ts`
- * (see that file's own docstring). The duplicate existed because the
- * real config once imported a repo-root shared base that could not
- * resolve inside Stryker's per-workspace sandbox
- * (`mutation-evidence/dry-run.log.txt` records that reproduced failure).
- * The real config now imports `@oaknational/workspace-config/vitest`,
- * which resolves in the sandbox — item 3 of the isolation plan retires
- * the duplicate and points this field at the real config.
+ * `vitest.configFile` points at the workspace's REAL `vitest.config.ts`.
+ * It once pointed at a self-contained duplicate
+ * (`vitest.stryker.config.ts`, now deleted): the real config used to
+ * import a repo-root shared base that could not resolve inside Stryker's
+ * per-workspace sandbox (`mutation-evidence/dry-run.log.txt` records the
+ * reproduced failure). The workspace-config isolation landing made the
+ * real config import `@oaknational/workspace-config/vitest`, which
+ * resolves through the sandbox's symlinked `node_modules` —
+ * `mutation-evidence/run-real-config.log.txt` banks the re-run proving
+ * config load and a completed pass against the real config.
  *
  * @type {import('@stryker-mutator/api/core').PartialStrykerOptions}
  */
@@ -42,7 +43,7 @@ const config = {
   testRunner: 'vitest',
   plugins: ['@stryker-mutator/vitest-runner'],
   coverageAnalysis: 'perTest',
-  vitest: { configFile: 'vitest.stryker.config.ts' },
+  vitest: { configFile: 'vitest.config.ts' },
 
   // Production mutation surface: authored source only. Test files are
   // excluded by extension; `dist/` is build output and is never under
