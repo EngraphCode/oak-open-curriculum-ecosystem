@@ -29,8 +29,9 @@
  * It once pointed at a self-contained duplicate
  * (`vitest.stryker.config.ts`, now deleted): the real config used to
  * import a repo-root shared base that could not resolve inside Stryker's
- * per-workspace sandbox (`mutation-evidence/dry-run.log.txt` records the
- * reproduced failure). The workspace-config isolation landing made the
+ * per-workspace sandbox (`mutation-evidence/mechanics-report.md`
+ * §"Obstacle 1" records the reproduced failure; `dry-run.log.txt` holds
+ * the later successful duplicate-config dry run). The workspace-config isolation landing made the
  * real config import `@oaknational/workspace-config/vitest`, which
  * resolves through the sandbox's symlinked `node_modules` —
  * `mutation-evidence/run-real-config.log.txt` banks the re-run proving
