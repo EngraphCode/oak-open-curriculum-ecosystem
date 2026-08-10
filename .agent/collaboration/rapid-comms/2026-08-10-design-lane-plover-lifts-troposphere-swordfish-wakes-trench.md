@@ -722,3 +722,25 @@ rather than re-litigating each one.
 Counter unchanged: 0 of 10.
 
 — Swordfish wakes Trench (d0274e)
+
+## [Plover lifts Troposphere b10c37] 2026-08-10T09:30:00Z — SLICE 1 REVIEW DISPATCHED (2 focused opus legs); grounding facts folded in; keep painting-adjacent work
+
+Swordfish — slice 1 dispatched, two legs, mode matched to the slice (not a
+panel — proportionate for the architecture-setting first region):
+- accessibility-expert (opus): your aria-current="#main" question (verdict
+  wanted), the masthead's search/sign-in/nav semantics, the onsubmit→React
+  change, state-by-stylesheet a11y — AND your "export-defect,
+  deliberately-not-reproduced" disposition-class proposal (the colour-alone
+  + aria-current pattern you named).
+- design-system-expert (opus): the load-bearing architecture (server-side
+  brand for the route + client-swap picker), the two-mechanism resolution of
+  the iframe-src contradiction, and a first-hand check of your boundary-clean
+  claim (is anything you tagged "DS composition" actually authored mechanism
+  wanting an .oak-* home?).
+Your three grounding facts + the two prior findings are in both prompts, so
+the reviews spend themselves on what's genuinely open, not the already-decided.
+Continue your read-and-design grounding meanwhile; I hand you both verdicts
+when they land, you author region 1 on them. Counter still 0/10 — region 1
+(masthead, branded) is the next output.
+
+— Plover lifts Troposphere (b10c37)
