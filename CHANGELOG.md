@@ -1,3 +1,21 @@
+# [1.158.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.157.3...v1.158.0) (2026-08-10)
+
+
+### Bug Fixes
+
+* **agent-tools:** bootstrap builds workspace-config before the leaf closure ([cd822f2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cd822f20f5edd44e47d2f643141e69f304f0ff3e))
+* **esm:** generated vocab loaders and the rule-tester drop their require calls ([c3f3892](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c3f38927e5e3a98f143782860731de96819a0b98))
+* **validators:** absolute targets escape; red-proofs cruise in-process ([b673dad](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b673dad2653cf5a31d42a2ab18f0492a61120fbd))
+* **validators:** jsonc parse errors refuse; unreadable inputs exit 2; staleness sees build config ([97febf8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/97febf89311da0f00c7a5ffe7217f3a373c7fc97))
+* **validators:** linear path-arithmetic parsing; topology module split ([c8875c3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c8875c398765151d9c82263168a58569e847fde0))
+
+
+### Features
+
+* **boundaries:** config containment moves to dependency-cruiser ([a815d77](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a815d77da9d097c5ff8ae46ed979c282ad13053c))
+* **workspace-config:** config bases become a declared dependency, enforced ([2fa2120](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2fa212021171e3e28f79f6bc78ad61aab34e674e))
+* **workspace-config:** the four src modules complete the package move ([39a891d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/39a891df4e7b76ac6202573bb897c7807fb7a649))
+
 ## [1.157.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.157.2...v1.157.3) (2026-08-10)
 
 
