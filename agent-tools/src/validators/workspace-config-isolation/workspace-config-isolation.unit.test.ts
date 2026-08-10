@@ -275,12 +275,13 @@ describe('scanTurboRootInputs', () => {
       '}',
     ].join('\n');
 
-    const findings = scanTurboRootInputs({
+    const scan = scanTurboRootInputs({
       turboJsonText,
       fileExists: (candidate) => candidate === 'tsconfig.base.json',
     });
 
-    expect(findings).toEqual([
+    expect(scan.parseErrors).toEqual([]);
+    expect(scan.findings).toEqual([
       { entry: '$TURBO_ROOT$/vitest.config.ts', line: 5 },
       { entry: '$TURBO_ROOT$/vitest.config.ts', line: 8 },
     ]);
@@ -289,6 +290,16 @@ describe('scanTurboRootInputs', () => {
   it('ignores $TURBO_ROOT$ strings outside inputs arrays', () => {
     const turboJsonText = '{"tasks": {"test": {"outputs": ["$TURBO_ROOT$/missing/**"]}}}';
 
-    expect(scanTurboRootInputs({ turboJsonText, fileExists: () => false })).toEqual([]);
+    expect(scanTurboRootInputs({ turboJsonText, fileExists: () => false }).findings).toEqual([]);
+  });
+
+  it('surfaces JSONC parse errors instead of scanning recoverable fragments (the red-proof)', () => {
+    // Truncated mid-array: the fault-tolerant visitor would happily visit
+    // what it can recover and report a clean scan without onError.
+    const truncated = '{"tasks": {"test": {"inputs": ["$TURBO_ROOT$/tsconfig.base.json",';
+
+    const scan = scanTurboRootInputs({ turboJsonText: truncated, fileExists: () => true });
+
+    expect(scan.parseErrors.length).toBeGreaterThan(0);
   });
 });

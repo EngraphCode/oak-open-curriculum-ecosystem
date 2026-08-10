@@ -21,9 +21,21 @@ import { visit } from 'jsonc-parser';
 import { lineOf } from './text-position.js';
 
 /** One `$TURBO_ROOT$` input entry that resolves to nothing on disk. */
-export interface TurboInputFinding {
+interface TurboInputFinding {
   readonly entry: string;
   readonly line: number;
+}
+
+/** One JSONC parse error the fault-tolerant visitor would otherwise swallow. */
+interface TurboParseError {
+  readonly code: number;
+  readonly line: number;
+}
+
+/** The scan's two outcome streams: findings, and parse errors that refuse the scan. */
+export interface TurboInputScan {
+  readonly findings: readonly TurboInputFinding[];
+  readonly parseErrors: readonly TurboParseError[];
 }
 
 const GLOB_METACHARACTER = /[*?[{]/;
@@ -54,13 +66,21 @@ export function isStaleTurboRootInput(
 /**
  * Scan turbo.json (JSONC) for stale `$TURBO_ROOT$` entries inside
  * `inputs` arrays, reporting each occurrence with its line.
+ *
+ * @remarks `jsonc-parser`'s visitor is fault-tolerant: without an
+ * `onError` handler it silently accepts malformed JSONC and visits only
+ * the recoverable fragments, so a truncated turbo.json could scan as
+ * clean. Parse errors are therefore first-class output — the bin
+ * refuses (exit 2) on any, per the validator's fail-loud contract
+ * (Copilot round, 2026-08-10).
  */
 export function scanTurboRootInputs(input: {
   readonly turboJsonText: string;
   readonly fileExists: (repoRelativePath: string) => boolean;
-}): readonly TurboInputFinding[] {
+}): TurboInputScan {
   const { turboJsonText, fileExists } = input;
   const findings: TurboInputFinding[] = [];
+  const parseErrors: TurboParseError[] = [];
   let currentProperty = '';
   let inInputs = false;
   let arrayDepth = 0;
@@ -93,7 +113,10 @@ export function scanTurboRootInputs(input: {
         findings.push({ entry: value, line: lineOf(turboJsonText, offset) });
       }
     },
+    onError(code, offset) {
+      parseErrors.push({ code, line: lineOf(turboJsonText, offset) });
+    },
   });
 
-  return findings;
+  return { findings, parseErrors };
 }

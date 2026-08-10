@@ -49,7 +49,17 @@ import {
 const repoRoot = resolveRepoRoot(import.meta.url);
 
 function readRepoFile(relativePath: string): string {
-  return readFileSync(path.join(repoRoot, relativePath), 'utf8');
+  try {
+    return readFileSync(path.join(repoRoot, relativePath), 'utf8');
+  } catch (error) {
+    // The documented contract: an unreadable input is a REFUSAL (exit 2),
+    // never conflated with a finding (exit 1) or an uncaught crash.
+    writeErrorLine(
+      `validate-workspace-config-isolation: cannot read ${relativePath}: ` +
+        `${error instanceof Error ? error.message : String(error)}`,
+    );
+    return process.exit(2);
+  }
 }
 
 const manifest: unknown = parseYaml(readRepoFile('pnpm-workspace.yaml'));
@@ -88,10 +98,24 @@ for (const file of configFiles) {
   unanalysable.push(...result.unanalysable);
 }
 
-const turboFindings = scanTurboRootInputs({
+const turboScan = scanTurboRootInputs({
   turboJsonText: readRepoFile('turbo.json'),
   fileExists: (relativePath) => existsSync(path.join(repoRoot, relativePath)),
 });
+const turboFindings = turboScan.findings;
+
+if (turboScan.parseErrors.length > 0) {
+  writeErrorLine(
+    `✖ turbo.json did not parse cleanly as JSONC — the scan refuses rather than reporting ` +
+      `over recoverable fragments:`,
+  );
+  for (const parseError of turboScan.parseErrors) {
+    writeErrorLine(
+      `  turbo.json:${String(parseError.line)}  parse error ${String(parseError.code)}`,
+    );
+  }
+  process.exit(2);
+}
 
 if (unanalysable.length > 0) {
   writeErrorLine(

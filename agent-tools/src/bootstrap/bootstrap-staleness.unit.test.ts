@@ -131,6 +131,35 @@ describe('workspaceDepDistIsStale', () => {
     expect(workspaceDepDistIsStale(DEP_DIR, LEAF_ARTIFACTS, io)).toBe(false);
   });
 
+  it('is stale when only a build-config input changed (the warm-pull build-config case)', () => {
+    const io = fakeIo({
+      fileMtimes: {
+        [DIST_JS]: 150,
+        [DIST_DTS]: 150,
+        [SRC_INDEX]: 100,
+        [path.join(DEP_DIR, 'tsup.config.ts')]: 200,
+      },
+      dirEntries: { [SRC_DIR]: [file('index.ts')] },
+    });
+
+    expect(workspaceDepDistIsStale(DEP_DIR, LEAF_ARTIFACTS, io)).toBe(true);
+  });
+
+  it('skips when the build-config inputs are older than the built dist', () => {
+    const io = fakeIo({
+      fileMtimes: {
+        [DIST_JS]: 150,
+        [DIST_DTS]: 150,
+        [SRC_INDEX]: 100,
+        [path.join(DEP_DIR, 'tsup.config.ts')]: 90,
+        [path.join(DEP_DIR, 'tsconfig.build.json')]: 80,
+      },
+      dirEntries: { [SRC_DIR]: [file('index.ts')] },
+    });
+
+    expect(workspaceDepDistIsStale(DEP_DIR, LEAF_ARTIFACTS, io)).toBe(false);
+  });
+
   it('witnesses the dep’s own artifact names, so a no-barrel config package skips when warm', () => {
     // A dep with named entries and no dist/index.js (the workspace-config shape):
     // judged against its own witness pair it reads current, where the leaf pair

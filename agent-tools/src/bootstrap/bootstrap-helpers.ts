@@ -62,9 +62,12 @@ function newestFileMtimeMs(dir: string, io: WorkspaceDepFsIo): number | undefine
   return newest;
 }
 
+/** Build-config inputs whose change must rebuild a dep exactly as a src change does. */
+const BUILD_CONFIG_INPUTS = ['tsup.config.ts', 'tsconfig.build.json'] as const;
+
 /**
  * Decide whether a leaf workspace dep's built `dist` is stale relative to its
- * `src` — i.e. whether the install bootstrap must rebuild it.
+ * inputs — i.e. whether the install bootstrap must rebuild it.
  *
  * `buildWorkspaceDep` must rebuild whenever the source has changed since the
  * last build, not merely when `dist` is absent. A warm checkout that pulls new
@@ -74,8 +77,10 @@ function newestFileMtimeMs(dir: string, io: WorkspaceDepFsIo): number | undefine
  * `agent-tools/dist` (MCP-472; the "freshness != liveness" class). Fresh
  * checkouts escape the original bug because `dist` is absent and so build.
  *
- * Stale when any witness dist artifact is missing, or the newest file under
- * `src/` is strictly newer than the oldest present witness artifact. The
+ * Stale when any witness dist artifact is missing, or the newest input —
+ * any file under `src/`, or a present build-config input
+ * (`tsup.config.ts`, `tsconfig.build.json`) — is strictly newer than the
+ * oldest present witness artifact. The
  * witnesses are per-dep: each dep names one bundler output and one declaration
  * output from its own `dist` (a leaf package's `index.js` + `index.d.ts`; a
  * no-barrel config package's named entries), so the decision proves both build
@@ -104,11 +109,19 @@ export function workspaceDepDistIsStale(
     distArtifactMtimesMs.push(mtimeMs);
   }
   const oldestDistMtimeMs = Math.min(...distArtifactMtimesMs);
+  // Build configuration shapes the outputs as much as source does: a warm
+  // pull changing only tsup.config.ts or tsconfig.build.json must rebuild,
+  // or the witness artifacts stay newer than every source and stale dist
+  // ships (Copilot round, 2026-08-10 — the warm-pull sibling of MCP-472).
+  const buildConfigMtimesMs = BUILD_CONFIG_INPUTS.map((name) =>
+    io.statMtimeMs(path.join(depDir, name)),
+  ).filter((mtimeMs): mtimeMs is number => mtimeMs !== 'missing');
   const newestSrcMtimeMs = newestFileMtimeMs(path.join(depDir, 'src'), io);
-  if (newestSrcMtimeMs === undefined) {
+  const newestInputMtimeMs = Math.max(newestSrcMtimeMs ?? -Infinity, ...buildConfigMtimesMs);
+  if (newestInputMtimeMs === -Infinity) {
     return false;
   }
-  return newestSrcMtimeMs > oldestDistMtimeMs;
+  return newestInputMtimeMs > oldestDistMtimeMs;
 }
 
 /** The relevant fields of a `child_process.spawnSync` result for the tsc run. */
