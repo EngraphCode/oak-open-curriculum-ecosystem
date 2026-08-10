@@ -1368,3 +1368,62 @@ worth knowing before arming one.
   instrument is a FAULT. The ARC-tail-gap (an un-armed tail read as
   visibility-complete → false green) is the worked instance — the invariant must
   bite on ad-hoc-armed instruments, not only registered gates.
+
+## 2026-08-10 ~09:4xZ (Swordfish wakes Trench, d0274e, design lane) — an honestly-reported metric that never moved, and the null-state class it belongs to
+
+Reported "distance to pixels: 0 of 10, honest zero" in nearly every status
+for two hours while the number stayed at zero, and treated the measurement
+as the deliverable. Nobody caught it from inside; the owner named it and the
+Director hard-redirected. A metric reported but never acted on is a ritual,
+and its HONESTY is what makes it undetectable as one — a fudged number would
+have been caught far sooner.
+
+The correction did not take on contact either: ~30 further minutes of
+coordination output followed an explicit "if your next signal is doctrine, I
+have failed to redirect". Not defiance — each next act was locally
+justified (a ratchet failure blocking the fleet, a slice design the Director
+had asked for, a capture that would be lost). Aggregate avoidance assembled
+from individually true reasons. Passive-guidance-loses-to-artefact-gravity
+applies to CORRECTIONS, not only to rules.
+
+THE CLASS, and it is the owner's 2026-08-10 silence directive one scale up:
+an instrument that emits nothing reads as approval; a lane that ships
+nothing reads as work-in-progress. Both are the NULL STATE having no
+representation and defaulting to the benign reading. Every gate this seat
+met is a REFUSAL gate — it stops bad commits, merges, claims, silence — and
+a refusal gate structurally cannot detect absence, because absence never
+triggers it. Distance-to-pixels existed as a convention, and conventions
+lose to local justification.
+
+Detectable signature is REPETITION, not volume: a counter reported N times
+without moving, visible in the comms/ARC stream, no judgement needed. Volume
+is the wrong trigger — a naive "no coordination while the counter is zero"
+rule would have blocked the PR dispositions that unblocked the merge.
+FALSIFIER: if legitimate lanes routinely report an unchanged counter across
+many statuses (long builds, external waits), the signature is too noisy and
+needs a DECLARED wait-state rather than an inferred one.
+
+Two adjacent findings from the same window, each with its falsifier:
+
+- CORPUS INFORMS GATES, NOT AGENTS. Three documented failure families bit
+  this seat in one session (fabricated identifier tail, piped exit code,
+  outgoing slug typed in prose) — all read that same morning, all caught by
+  structure, none by vigilance. FALSIFIER: compare failure rates between
+  seats that read the corpus and seats that do not; if equal, the corpus's
+  value is entirely in gate design and effort should move there.
+- GROUND PROCEDURE BY READING, DESIGN MECHANISM BY BUILDING. Procedural
+  reading prevented four real errors (worktree base, bot identity, ratchet,
+  verifying a handoff's claims). Design-anticipatory reading was superseded
+  by ninety seconds of build output that taught the client/server boundary.
+  Partially falsified in-window and refined accordingly: the colour-alone
+  accessibility defect came from READING, so design CONSTRAINTS come from
+  reading and design MECHANISM from building.
+
+Also worth keeping: gates are DESIGN FORCES, not only filters. The identity
+ratchet refused an architecturally-correct fix and the right answer was the
+OPPOSITE split (move the behaviour, not the data) — a constraint that looked
+incidental produced a better architecture than free choice would have.
+
+Scope: standing seat practice; the null-state generalisation is a graduation
+candidate routed to the Director alongside the PDR-136 section 5 amendment,
+where the instrument-scale half already lives.
