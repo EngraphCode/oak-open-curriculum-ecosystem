@@ -7,7 +7,8 @@
  * that hard-fails every `turbo run` (measured on turbo 2.10.6). It is the
  * estate's second standards-package exemption; the first is
  * `packages/core/oak-eslint/eslint.config.ts`, hand-rolled for the same
- * self-bootstrap reason. Registered in the disabled-checks census.
+ * self-bootstrap reason. Registration in the disabled-checks census is
+ * pending — the census mechanism is the isolation plan's todo 4.
  */
 
 import tseslint from 'typescript-eslint';

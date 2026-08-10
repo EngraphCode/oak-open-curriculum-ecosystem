@@ -4,8 +4,10 @@ Shared workspace tooling configuration, consumed only through declared
 `package.json` dependencies. This package exists so that no workspace
 config file ever reaches outside its workspace by relative path — the
 violation class it replaced was invisible to lint three layers deep and
-broke any consumer that copies a workspace subtree (Stryker's sandbox
-was the first casualty).
+broke tool sandboxes that resolve inside a single workspace (Stryker's
+was the first casualty). A fully copyable workspace subtree additionally
+needs the tsconfig `extends` chain packaged the same way — a recorded
+follow-up in the isolation plan, not yet covered here.
 
 ## Exports
 

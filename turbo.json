@@ -113,7 +113,6 @@
         "$TURBO_ROOT$/package.json",
         "tsconfig.json",
         "tsconfig.build.json",
-        "tsup.config.ts",
         "src/**/*.ts",
         "!src/**/*.test.ts",
         "!src/**/*.spec.ts",
@@ -438,7 +437,7 @@
         "$TURBO_DEFAULT$",
         "**/*.ts",
         "vitest.config.ts",
-        "stryker.config.ts",
+        "stryker.config.mjs",
         "$TURBO_ROOT$/stryker.config.base.ts"
       ]
     },

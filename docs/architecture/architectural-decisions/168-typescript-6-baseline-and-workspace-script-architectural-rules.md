@@ -384,8 +384,11 @@ required JS compiled from TS; ESM only, no CJS; this shell scope) is
   `../../../vitest.config.base.ts` and siblings) ARE subject to the
   same ban as workspace-to-root scripts. The bases moved into
   `@oaknational/workspace-config`, consumed via declared
-  `workspace:*` dependencies, with the boundary enforced by
-  `validate-workspace-config-isolation`. See
+  `workspace:*` dependencies, with the boundary enforced by the
+  dependency-cruiser rules in `.dependency-cruiser.mjs` (owner ruling
+  2026-08-10: dependency checks run on a dependency resolver) plus
+  `validate-workspace-config-isolation` for the resolver-invisible
+  legs. See
   `.agent/plans/delivery/workspace-config-isolation.plan.md` (which
   supersedes the config-architecture-standardisation pointer this
   entry previously carried).
@@ -467,14 +470,6 @@ tsconfig.build.json` pattern. The choice of `tsup` for JS emit
 
 - **2026-08-04** — trued §5's coverage claim and added the
   `runtime-only-scripts/` structural exception (§4 reference tree, §5).
-
-- **2026-08-09** — the Carried-forward config-coupling question
-  resolved: the root config bases (vitest, vitest e2e, tsup, and the
-  no-network setup) moved into `@oaknational/workspace-config`,
-  consumed via declared `workspace:*` dependencies and enforced by
-  the `validate-workspace-config-isolation` repo validator. The
-  §5 pointer comment on the vitest include globs moved with the base
-  file into the package unchanged.
   Found while curing MCP-479: the Vercel `ignoreCommand` guard's extensive
   suite lived beside the script in `runtime-only-scripts/`, exactly as §4's
   canonical tree depicted — and had **never run once**, because no workspace's
@@ -499,6 +494,16 @@ tsconfig.build.json` pattern. The choice of `tsup` for JS emit
   updating the `runtime-only-scripts/README.md` alone, on the grounds that a
   README cannot amend an accepted ADR. He was right, and the fuller defect only
   surfaced because the amendment was written where the rule actually lives.
+
+- **2026-08-09** — the Carried-forward config-coupling question
+  resolved: the root config bases (vitest, vitest e2e, tsup, and the
+  no-network setup) moved into `@oaknational/workspace-config`,
+  consumed via declared `workspace:*` dependencies and enforced by
+  the dependency-cruiser boundary rules plus the
+  `validate-workspace-config-isolation` validator's resolver-invisible
+  legs (the enforcement split of the 2026-08-10 right-tool ruling). The
+  §5 pointer comment on the vitest include globs moved with the base
+  file into the package unchanged.
 
 - **2026-07-06** — widened the shell-scope exception by owner directive: from
   "the only `.sh` exception is the Husky entry points" to "shell is permitted

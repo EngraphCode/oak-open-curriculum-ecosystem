@@ -27,11 +27,13 @@
  *
  * `vitest.configFile` points at `vitest.stryker.config.ts`, a
  * self-contained duplicate of this workspace's real `vitest.config.ts`
- * (see that file's own docstring). Stryker's sandbox only ever contains
- * this workspace's directory tree; the real `vitest.config.ts` imports a
- * repo-root shared base three levels up, which cannot resolve inside the
- * sandbox. `mutation-evidence/dry-run.log.txt` records the reproduced
- * failure with the real config and the working dry run with this one.
+ * (see that file's own docstring). The duplicate existed because the
+ * real config once imported a repo-root shared base that could not
+ * resolve inside Stryker's per-workspace sandbox
+ * (`mutation-evidence/dry-run.log.txt` records that reproduced failure).
+ * The real config now imports `@oaknational/workspace-config/vitest`,
+ * which resolves in the sandbox — the isolation plan's todo 3 retires
+ * the duplicate and points this field at the real config.
  *
  * @type {import('@stryker-mutator/api/core').PartialStrykerOptions}
  */
