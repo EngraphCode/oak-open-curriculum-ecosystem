@@ -1,3 +1,10 @@
+## [1.157.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.157.0...v1.157.1) (2026-08-10)
+
+
+### Bug Fixes
+
+* **plugin:** rename the MCP server key to oak-open-curriculum ([1cb0211](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1cb0211acda4318484aca07de3f6ecd262dbf278))
+
 # [1.157.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.156.4...v1.157.0) (2026-08-10)
 
 
