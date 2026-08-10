@@ -18,5 +18,7 @@ export default createLibConfig({
     'src/capture-settle.ts',
     'src/capture-manifest.ts',
     'src/orchestrator.ts',
+    'src/visual-stats.ts',
+    'src/png-codec.ts',
   ],
 });
