@@ -5,9 +5,12 @@
  *
  * THE TRANSITION IS THE POINT (owner ruling 2026-08-10: the moment of change
  * is the key communicator of capability). So the frame is navigated EXACTLY
- * ONCE, at mount, and every identity change afterwards swaps the brand
- * stylesheet INSIDE the frame's own document. Nothing reloads; the DOM the
- * viewer is looking at is the same DOM before and after.
+ * ONCE, at mount, and every control afterwards mutates presentation data in
+ * place: identity swaps the brand stylesheet INSIDE the frame's own
+ * document, theme sets the attribute the kit's cascade keys on, width
+ * resizes the frame's simulated viewport (owner ask 2026-08-10: identity,
+ * width and theme). Nothing reloads; the DOM the viewer is looking at is
+ * the same DOM before and after every control.
  *
  * That choice is also what makes the demonstration honest. An in-place
  * re-skin can only succeed if the markup is genuinely identity-invariant — if
@@ -23,12 +26,20 @@
  * frozen at the mount-time identity and would send a viewer somewhere other
  * than what they are looking at.
  */
+import { typeSafeKeys } from '@oaknational/type-helpers';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 
+import type { OakThemeName } from '@oaknational/oak-design-react';
 import { LabelledSelect } from '../../components/LabelledSelect';
-import { IDENTITY_LABELS } from '../../components/Switchboard';
+import { IDENTITY_LABELS, THEME_LABELS } from '../../components/Switchboard';
 import { useIdentity } from '../../components/brand-identity-binding';
+import {
+  DEFAULT_VIEWPORT_WIDTH,
+  VIEWPORT_WIDTHS,
+  VIEWPORT_WIDTH_LABELS,
+} from '../../components/canonical-widths';
+import { useScaledViewport } from '../../components/useScaledViewport';
 import { BASE_IDENTITY, type IdentitySlug } from '../../components/useIdentity';
 
 import './picker.css';
@@ -37,14 +48,63 @@ import './picker.css';
  *  sees is the unbranded kit and every brand is arrived at by transition. */
 const FRAME_SRC = `/identity-switchboard/specimen?brand=${BASE_IDENTITY}`;
 
+const THEME_OPTIONS: readonly OakThemeName[] = typeSafeKeys(THEME_LABELS);
+
+function isThemeName(value: string): value is OakThemeName {
+  const names: readonly string[] = THEME_OPTIONS;
+  return names.includes(value);
+}
+
+/** '' is the no-choice sentinel: the specimen at page default, attribute
+ *  absent — exactly the mount state, so the placeholder never lies. */
+type FrameTheme = OakThemeName | '';
+
+/** Theme INSIDE the frame: the kit's cascade keys on the root `data-theme`
+ *  attribute, so applying a theme is an attribute write on the framed
+ *  document — presentation as data, same no-reload story as identity. */
+function useFrameTheme(resolveTarget: () => Document | null): {
+  readonly theme: FrameTheme;
+  readonly setTheme: (value: string) => void;
+} {
+  const [theme, setThemeState] = useState<FrameTheme>('');
+
+  useEffect(() => {
+    const root = resolveTarget()?.documentElement;
+    if (root === null || root === undefined) {
+      return;
+    }
+    if (theme === '') {
+      root.removeAttribute('data-theme');
+      return;
+    }
+    root.setAttribute('data-theme', theme);
+  }, [theme, resolveTarget]);
+
+  const setTheme = useCallback((value: string): void => {
+    if (value === '' || isThemeName(value)) {
+      setThemeState(value);
+    }
+  }, []);
+
+  return { theme, setTheme };
+}
+
 function PickerControls({
   identity,
   identities,
   setIdentity,
+  theme,
+  setTheme,
+  width,
+  setWidth,
 }: {
   readonly identity: IdentitySlug;
   readonly identities: readonly IdentitySlug[];
   readonly setIdentity: (value: string) => void;
+  readonly theme: FrameTheme;
+  readonly setTheme: (value: string) => void;
+  readonly width: number;
+  readonly setWidth: (value: string) => void;
 }): ReactElement {
   return (
     <div className="oak-cluster oak-cluster--l picker-controls">
@@ -55,6 +115,23 @@ function PickerControls({
         options={identities}
         labels={IDENTITY_LABELS}
         onChange={setIdentity}
+      />
+      <LabelledSelect
+        id="picker-theme-select"
+        label="Theme"
+        value={theme}
+        options={THEME_OPTIONS}
+        labels={THEME_LABELS}
+        placeholderLabel="Page default"
+        onChange={setTheme}
+      />
+      <LabelledSelect
+        id="picker-width-select"
+        label="Width"
+        value={`${width}`}
+        options={VIEWPORT_WIDTHS.map((value) => `${value}`)}
+        labels={VIEWPORT_WIDTH_LABELS}
+        onChange={setWidth}
       />
       <a className="oak-link oak-body-2" href={`/identity-switchboard/specimen?brand=${identity}`}>
         Open this identity as a full page
@@ -103,34 +180,62 @@ function useSpecimenFrame(): {
   return { frameRef, resolveTarget, markReady };
 }
 
+/** Width state narrowed at the control boundary: only canonical widths
+ *  (DDR-009) exist as options, and only canonical widths can land. */
+function useFrameWidth(): { readonly width: number; readonly setWidth: (value: string) => void } {
+  const [width, setWidthState] = useState<number>(DEFAULT_VIEWPORT_WIDTH);
+  const setWidth = useCallback((value: string): void => {
+    const parsed = Number(value);
+    if (VIEWPORT_WIDTHS.includes(parsed)) {
+      setWidthState(parsed);
+    }
+  }, []);
+  return { width, setWidth };
+}
+
 export default function IdentityPickerPage(): ReactElement {
   const { frameRef, resolveTarget, markReady } = useSpecimenFrame();
   const { identity, identities, setIdentity } = useIdentity(resolveTarget);
+  const { theme, setTheme } = useFrameTheme(resolveTarget);
+  const { width, setWidth } = useFrameWidth();
+  const stageRef = useRef<HTMLDivElement>(null);
+  useScaledViewport(stageRef, frameRef, width);
 
   return (
     <div className="oak-canvas" data-page="identity-picker">
       <header className="oak-region oak-container picker-head">
         <h1 className="oak-heading-4">One page, any identity</h1>
         <p className="oak-body-2 picker-lede">
-          The panel below is a single rendered page. Changing the identity swaps only design data —
-          the markup underneath never changes, and the page never reloads.
+          The panel below is a single rendered page. Changing the identity, theme or width swaps
+          only design data — the markup underneath never changes, and the page never reloads.
         </p>
       </header>
 
       <main id="main" className="oak-main oak-region oak-container" tabIndex={-1}>
-        <PickerControls identity={identity} identities={identities} setIdentity={setIdentity} />
+        <PickerControls
+          identity={identity}
+          identities={identities}
+          setIdentity={setIdentity}
+          theme={theme}
+          setTheme={setTheme}
+          width={width}
+          setWidth={setWidth}
+        />
 
         <p aria-live="polite" className="oak-body-3 picker-status">
-          Showing {IDENTITY_LABELS[identity]}
+          Showing {IDENTITY_LABELS[identity]} ·{' '}
+          {theme === '' ? 'Page default' : THEME_LABELS[theme]} ·{' '}
+          {VIEWPORT_WIDTH_LABELS[`${width}`] ?? `${width} px`}
         </p>
 
-        <iframe
-          className="picker-stage"
-          ref={frameRef}
-          src={FRAME_SRC}
-          title="Specimen page, re-skinned in place"
-          onLoad={markReady}
-        />
+        <div ref={stageRef} className="picker-stage">
+          <iframe
+            ref={frameRef}
+            src={FRAME_SRC}
+            title="Specimen page, re-skinned in place"
+            onLoad={markReady}
+          />
+        </div>
       </main>
     </div>
   );

@@ -13,7 +13,7 @@
  */
 import { AxeBuilder } from '@axe-core/playwright';
 import { expect } from '@playwright/test';
-import type { Browser, Page } from '@playwright/test';
+import type { Browser, Frame, Page } from '@playwright/test';
 
 import type { OakThemeName } from '@oaknational/oak-design-react';
 import { RATIFIED_EXTERNAL_ORIGINS } from '@oaknational/fidelity-review/capture-flags';
@@ -24,6 +24,16 @@ export const PALETTE_THEMES = ['light', 'dark', 'high-contrast', 'colour-safe'] 
 export type Identity = (typeof IDENTITIES)[number];
 /** The runtime's closed theme union is the single source of the five names. */
 export type ThemeName = OakThemeName;
+
+/** Computed face of the specimen's brand-name — the element every identity
+ *  restyles. Polled by callers: the value, not the poll, is the claim.
+ *  Shared by the specimen and picker specs. */
+export async function brandNameFont(target: Page | Frame): Promise<string> {
+  return target.evaluate(() => {
+    const name = document.querySelector('.brand-name');
+    return name === null ? '' : getComputedStyle(name).fontFamily;
+  });
+}
 
 export async function expectNoAxeViolations(page: Page): Promise<void> {
   const results = await new AxeBuilder({ page })

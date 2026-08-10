@@ -28,11 +28,25 @@
 /* The stage carries no brand of its own — it is a viewport onto the
    specimen, so it is SHAPED like one: a 16/10 screen ratio, width-driven
    and responsive. The stationary rectangle matters — if the frame resized
-   on each swap, the eye would read the movement rather than the re-skin.
-   (A bare ratio carries no design value per the classifier's own doctrine;
-   the kit has no viewport-height token to compose here.) */
+   on each swap, the eye would read the movement rather than the re-skin;
+   the width control changes the SIMULATED viewport inside, never the
+   stage. (A bare ratio carries no design value per the classifier's own
+   doctrine; the kit has no viewport-height token to compose here.) */
 [data-page='identity-picker'] .picker-stage {
   inline-size: 100%;
   aspect-ratio: 16 / 10;
   border: var(--border-solid-s) solid var(--border-neutral-lighter);
+  overflow: hidden;
+}
+
+/* The scale-fit hook owns the frame's simulated size and scale (one
+   source for the numbers); this sheet carries only the invariants plus
+   the pre-hydration default, so the server shell fills the stage until
+   the hook takes over. */
+[data-page='identity-picker'] .picker-stage iframe {
+  border: 0;
+  display: block;
+  transform-origin: 0 0;
+  inline-size: 100%;
+  block-size: 100%;
 }

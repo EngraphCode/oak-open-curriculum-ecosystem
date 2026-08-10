@@ -35,7 +35,9 @@ import { LabelledSelect } from './LabelledSelect';
 import { useIdentity } from './brand-identity-binding';
 import type { IdentitySlug } from './useIdentity';
 
-const THEME_LABELS: Readonly<Record<OakThemeName, string>> = {
+// Exported so the picker's frame-bound theme control names themes
+// identically to the home switchboard (same discipline as IDENTITY_LABELS).
+export const THEME_LABELS: Readonly<Record<OakThemeName, string>> = {
   light: 'Light',
   dark: 'Dark',
   system: 'Match device',

@@ -1,5 +1,7 @@
 /**
- * The identity-switchboard pages' mechanism proofs.
+ * The specimen and side-by-side pages' mechanism proofs. (The picker's
+ * proofs live in identity-picker.spec.ts — one route per spec once the
+ * picker grew its own control surface.)
  *
  * SPECIMEN — presentation is data, applied server-side. Navigation is the
  * only input: the probe goes to `?brand=` and asserts the brand is IN
@@ -8,54 +10,21 @@
  * rides the initial HTML, so there is no post-load application step for a
  * flash to hide in.
  *
- * PICKER — the transition is the hero, so the proof is that there is no
- * navigation to hide behind: a sentinel planted on the frame document's
- * root dataset before the swap must still be there after it (a reload
- * manufactures a FRESH document, so the sentinel's survival is document
- * identity itself), the frame's src must still name the MOUNT identity
- * (why the external link derives from control state, not the frame), and
- * the brand must be in effect inside the frame's own document.
- *
  * No identity slug is typed in this file: every name derives from the
  * imported roster, which keeps the identity-naming census untouched.
  */
 import { expect, test } from '@playwright/test';
-import type { Frame, Locator, Page } from '@playwright/test';
 
-import { FRAME_VIEWPORT_WIDTH } from '../app/identity-white-labelling/scaled-frame';
-import { BASE_IDENTITY, IDENTITIES, type IdentitySlug } from '../components/useIdentity';
+import { DEFAULT_VIEWPORT_WIDTH, VIEWPORT_WIDTHS } from '../components/canonical-widths';
+import { BASE_IDENTITY, IDENTITIES } from '../components/useIdentity';
 import { MEASUREMENT_WIDTH_VALUES } from '../tools/measurement-widths';
-import { assertOnlyKnownExternalOrigins, interceptExternalOrigins } from './apply-state';
+import {
+  assertOnlyKnownExternalOrigins,
+  brandNameFont,
+  interceptExternalOrigins,
+} from './apply-state';
 
 const COUNTER_BRANDS = IDENTITIES.filter((slug) => slug !== BASE_IDENTITY);
-
-/** Computed face of the specimen's brand-name — the element every identity
- *  restyles. Polled by callers: the value, not the poll, is the claim. */
-async function brandNameFont(target: Page | Frame): Promise<string> {
-  return target.evaluate(() => {
-    const name = document.querySelector('.brand-name');
-    return name === null ? '' : getComputedStyle(name).fontFamily;
-  });
-}
-
-/** The swapped brand is IN EFFECT inside the frame: the binder's link is
- *  present with the right href, and the computed face has moved off the
- *  base face. */
-async function expectBrandInEffect(
-  frame: Frame,
-  identity: IdentitySlug,
-  baseFont: string,
-): Promise<void> {
-  await expect(frame.locator(`link[data-oak-brand="${identity}"]`)).toHaveAttribute(
-    'href',
-    `/brands/${identity}/brand.css`,
-  );
-  await expect
-    .poll(async () => brandNameFont(frame), {
-      message: 'the swapped brand must reach computed style inside the frame',
-    })
-    .not.toBe(baseFont);
-}
 
 test.describe('specimen: identity is server-applied and in effect at first paint', () => {
   test('each counter-brand changes computed style relative to the base', async ({ page }) => {
@@ -134,9 +103,11 @@ test.describe('side-by-side: three identities, one specimen route', () => {
   test('frames simulate the canonical canvas width and all three brands render', async ({
     page,
   }) => {
-    // The simulated viewport is pinned to the canonical set (DDR-009): the
-    // client component promises it, this cell enforces it.
-    expect(MEASUREMENT_WIDTH_VALUES).toContain(FRAME_VIEWPORT_WIDTH);
+    // The client-safe width data is pinned to the canonical set (DDR-009):
+    // the components module mirrors it as data, this cell enforces equality
+    // so drift is loud, and the default frame width is a member.
+    expect([...VIEWPORT_WIDTHS]).toEqual([...MEASUREMENT_WIDTH_VALUES]);
+    expect(VIEWPORT_WIDTHS).toContain(DEFAULT_VIEWPORT_WIDTH);
 
     await interceptExternalOrigins(page);
     await page.goto('/identity-white-labelling');
@@ -154,72 +125,6 @@ test.describe('side-by-side: three identities, one specimen route', () => {
       await expect(frame.locator('[data-identity]')).toHaveAttribute('data-identity', identity);
     }
     const width = await frames.first().evaluate((el) => el.style.width);
-    expect(width).toBe(`${FRAME_VIEWPORT_WIDTH}px`);
-  });
-});
-
-/** Open the picker hermetically and resolve its stage down to the framed
- *  specimen's live Frame, with the mount-time facts later assertions
- *  compare against. */
-async function openPickerStage(page: Page): Promise<{
-  readonly aborted: ReadonlySet<string>;
-  readonly stage: Locator;
-  readonly frame: Frame;
-  readonly mountSrc: string;
-  readonly baseFont: string;
-} | null> {
-  const aborted = await interceptExternalOrigins(page);
-  await page.goto('/identity-switchboard');
-  const stage = page.locator('iframe.picker-stage');
-  const frame = await (await stage.elementHandle())?.contentFrame();
-  expect(frame, 'the stage frame must resolve').not.toBeNull();
-  if (frame === null || frame === undefined) {
-    return null;
-  }
-  await expect(frame.locator('[data-region="masthead"]')).toBeVisible();
-  return {
-    aborted,
-    stage,
-    frame,
-    mountSrc: (await stage.getAttribute('src')) ?? '',
-    baseFont: await brandNameFont(frame),
-  };
-}
-
-test.describe('picker: the swap is an in-place re-skin', () => {
-  test('brand changes inside the frame with no navigation', async ({ page }) => {
-    const opened = await openPickerStage(page);
-    if (opened === null) {
-      return;
-    }
-    const { aborted, stage, frame, mountSrc, baseFont } = opened;
-
-    // The no-reload sentinel: a reload manufactures a fresh document, so a
-    // dataset mark on the document root cannot survive one.
-    await frame.evaluate(() => {
-      document.documentElement.dataset['pickerSentinel'] = 'planted';
-    });
-
-    const firstCounterBrand = COUNTER_BRANDS[0];
-    expect(firstCounterBrand, 'the roster must hold a counter-brand').toBeDefined();
-    if (firstCounterBrand === undefined) {
-      return;
-    }
-    await page.getByRole('combobox', { name: 'Identity' }).selectOption(firstCounterBrand);
-
-    await expectBrandInEffect(frame, firstCounterBrand, baseFont);
-
-    // No navigation happened: same document, same src, same mount identity.
-    await expect
-      .poll(async () => frame.evaluate(() => document.documentElement.dataset['pickerSentinel']))
-      .toBe('planted');
-    await expect(stage).toHaveAttribute('src', mountSrc);
-
-    // The external link derives from CONTROL state — the frame's frozen src
-    // would name the mount identity and send the viewer somewhere else.
-    await expect(
-      page.getByRole('link', { name: 'Open this identity as a full page' }),
-    ).toHaveAttribute('href', `/identity-switchboard/specimen?brand=${firstCounterBrand}`);
-    assertOnlyKnownExternalOrigins(aborted);
+    expect(width).toBe(`${DEFAULT_VIEWPORT_WIDTH}px`);
   });
 });
