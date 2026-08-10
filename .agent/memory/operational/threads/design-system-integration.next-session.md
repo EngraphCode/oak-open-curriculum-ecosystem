@@ -2146,3 +2146,129 @@ colour alone; `aria-current="page"` on an in-page anchor) are UNCURED and
 awaiting a reviewer verdict — a fidelity disposition class for
 export-defect-deliberately-not-reproduced is proposed, not agreed. The
 Director is frozen, so its dispatch verdicts may land before it returns.
+
+## PLAN OUTLINE — 2026-08-10, post-verdict slicing (Swordfish wakes Trench, d0274e)
+
+**Status: pre-Cricket draft.** Supersedes the FREEZE 1 resume order item 4
+("author the remaining eight regions"), which was written before either
+slice-1 verdict had been read and would have propagated an unreviewed
+pattern across eight regions.
+
+**Not a new plan node.** `identity-switchboard-first-pixels.plan.md` is
+owner-ratified and its SCOPE is unchanged. Both verdicts confirmed the
+architecture. What changed is sequencing and authoring facts, so this is a
+slice plan against the ratified node — authoring a second node would be
+invented obligation (plan skill §Pre-Author Scope-Vocabulary Check).
+
+### Goal and mechanism (inherited, restated for the slicer)
+
+Goal: the two pages that demonstrate presentation-is-data, so the cost of an
+exploratory app experiment approaches zero. Mechanism: one composition,
+re-skinned by data alone; the MOMENT OF TRANSITION is the communicator of
+capability (owner ruling 2026-08-10), which a working in-place re-skin can
+only achieve if the markup is genuinely identity-invariant — so the
+mechanism is its own proof and cannot cheat.
+
+### Step 0 — two zero-cost verifications, before any slice is shaped
+
+Neither is a PR. Both determine downstream slice shape, so they run first.
+
+1. **Cascade order (verdict F3).** The root layout imports the kit base as a
+   module; the brand sheet arrives via React 19 hoisting. Nothing currently
+   guarantees the brand sheet lands AFTER the kit base, and equal-specificity
+   later-wins IS the mechanism. Read the computed value directly. If the
+   cascade is wrong, a design fix-slice precedes everything else; if right,
+   the work is one assertion folded into the region slice.
+2. **Identity ratchet: does the census accept a MOVE?** `lib/identities.ts`
+   already exists and is tracked. The open question is whether a removal from
+   one registered path plus an addition to another, with both census entries
+   updated in the same change, is ratchet-neutral. This decides whether
+   verdict F2 lands as a move or stays satisfied-in-place.
+
+### Slices (each a single-story PR, sized at authoring time per PDR-132)
+
+- **S1 — DS trunk: small-button mask-icon sizing.** Verdict F1: the kit sizes
+  img-based small-button icons but not mask icons; the specimen's inline
+  style was papering a real trunk gap. CSS rule, not a React component, so no
+  ADR-147 gate. Fixes the export too. Separate workspace, so separate PR, and
+  it precedes the specimen consuming it.
+- **S2 — Regions 1-2, verdict-compliant, with the mechanism proven.** The
+  a11y verdict's markup rulings (list-marked nav, focusable main, the
+  audience-current state kept but re-tokened, a visible non-colour current
+  marker), the attribute contract unified per F5, the page-scope marker moved
+  onto the wrapper per F7 (already the house pattern; the specimen is simply
+  missing it), and the no-flash assertion asserting a brand-OVERRIDDEN
+  COMPUTED VALUE rather than the presence of a link. Test and product code
+  land together (atomic-landing invariant). This slice SETS THE PATTERN the
+  remaining eight follow, which is why it precedes them.
+- **S3 — The picker, in-place re-skin.** The transition, in front of the
+  owner, over the two-region specimen. Carries F4: the external "open full
+  page" link cannot track a frame src that never re-navigates, so it derives
+  from control state — the single amendment that fixes the link and the plan's
+  shape clause together, because they share one root assumption.
+- **S4-S6 — The remaining eight regions**, in batches, on S2's established
+  pattern. Mechanical once the pattern is set; this is where the region
+  counter moves.
+- **S7 — Side-by-side page.** The second ratified page.
+- **S8 — Conformance matrix.** A11y verdict HIGH-1: brand-swap redefines
+  tokens, so contrast is per-identity, not base-only — the axe gate runs per
+  identity x per theme, plus a forced-colours cell. This is a real widening of
+  the gate, and it is the instrument that makes the whitelabel claim safe to
+  repeat for the NEXT tenant, not just this one.
+
+### Routed to named homes — deliberately NOT absorbed
+
+Per the loop-dynamics discipline: correct and adjacent is not sufficient for
+in-loop cure.
+
+- The segmented-control colour-alone cure (DS trunk, its own story).
+- The fidelity disposition-class extension. The a11y verdict ENDORSED the
+  source-defect-versus-taste-divergence distinction but ruled that a
+  not-reproduced disposition MUST carry an upstream home, or the instrument
+  reports the divergence forever AND the defect stays live for the next
+  consumer. That makes it schema work plus an upstream fix or ticket —
+  instrument work, which the owner's frame prices as MEANS. It does not gate
+  the pages.
+- Naming drift between identity slugs, display labels, and plan pair-ids
+  (flagged by the design-system verdict as out of slice 1).
+
+### Records acts (not slices; they carry no PR)
+
+- Amend the ratified node's shape clause. It still describes driving a frame's
+  src, which is a reload and contradicts the owner's transition ruling. Two
+  independent detections now: this seat's, and verdict F4's shared-root
+  finding.
+- Correct the `brand-identity-binding.ts` docblock. Its rationale for the
+  roster/hook split rests on an unverified premise — that relocating the
+  roster was gate-forbidden. The refusal was about a NEW path, not the
+  pattern; the destination already existed. Durable and wrong is worse than
+  absent.
+- Home both slice-1 verdicts out of the Director's session temp directory.
+  They gate the next PR and the Director is retired.
+
+### Acceptance, each with its proof type
+
+1. A brand-overridden computed value differs per identity at first paint —
+   repo-safe.
+2. The picker re-skins with no frame navigation — repo-safe (assert document
+   identity survives the swap).
+3. Ten regions render — repo-safe count, plus owner-held "reads as a real
+   product".
+4. Axe clean across the identity x theme x forced-colours matrix — repo-safe.
+5. The transition lands as wow — owner-held, seen in Chrome. Artefact paths
+   are not the done-test.
+
+### Two counters, because the lane carries two claims
+
+`n/10 regions` tracks the wow claim. It does not track the MECHANISM claim,
+which currently has no strong proof and which the entire near-zero-cost
+thesis rests on. Ten regions of an unproven mechanism is ten regions of a
+possibly-false claim. Both get reported at every status.
+
+### Considered and rejected
+
+Drop the in-place swap; serve each identity as a plain server-rendered page
+and show three frames side by side. Materially simpler, and it still
+demonstrates that presentation is data — but it discards the transition,
+which the owner named as the key communicator of capability. The complexity
+is warranted by the stated goal, not by taste.
