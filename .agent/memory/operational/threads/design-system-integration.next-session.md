@@ -2272,3 +2272,127 @@ and show three frames side by side. Materially simpler, and it still
 demonstrates that presentation is data — but it discards the transition,
 which the owner named as the key communicator of capability. The complexity
 is warranted by the stated goal, not by taste.
+
+### Cricket adjudication of the outline — 2026-08-10
+
+Panel: the Claude effort-inversion quartet, both stances, eight legs. All
+eight returned.
+
+Final tokens: 6 DRIFTING / 2 ON-TRACK. All four normal legs DRIFTING; the
+adversarial wave split 2-2.
+
+A reading error worth preserving, because it is the same class this seat has
+now made three times in one window: at 6-of-8 the tokens fell PERFECTLY along
+the stance line, and that pattern was reported as the finding. The two
+outstanding legs broke it — and they were the two that landed the sharpest
+hits. A pattern computed over a partial set was transmitted as a property of
+the whole. Same shape as reading a tool's classification as a verdict and a
+gate's refusal as a prohibition: A LOCAL OBSERVATION PROMOTED TO A GENERAL
+TRUTH BEFORE THE SET WAS CLOSED.
+
+CONVERGENT across all eight:
+
+- Restore the outgoing heartbeat (done before any verdict landed).
+- Surface the DUE coordination branch rather than self-fix (done).
+- Cascade-order verification is genuine de-risking, NOT stall-continuation.
+  Three adversarial legs attacked it on exactly that charge; the two that
+  engaged its substance both conceded it survives, because equal-specificity
+  later-wins IS the override mechanism and a false premise there invalidates
+  both owner-named pages.
+- Sequencing implementation slices under an already-ratified node is the
+  implementer's job. Routing every ordering call upward is deference-as-safety
+  — the thing this check exists to counterweight. The Director's own PDR-117
+  ruling, arriving independently, agrees.
+
+DIVERGENT, and the divergence is where the value was:
+
+The four normal legs judged the plan's GOVERNANCE (liveness, branch, scope
+authority) and passed its CONTENT. The two late adversarial legs judged its
+CONTENT and found three ordering defects the other six waved through. Both
+readings are correct about different objects; neither is noise.
+
+ADOPTED — from the two late adversarial legs, changing the plan materially:
+
+1. DROP verification 0(b) as a standalone gate. "Does the census accept a
+   MOVE between two registered paths" has no pixel consumer and is answered
+   FOR FREE by attempting the move inside the slice and running the
+   validator. The killing observation: reasoning about what the ratchet will
+   permit, instead of testing it in place, is THE SAME SHAPE AS THE ERROR
+   ALREADY ON THIS SEAT'S RECORD this window. The plan reproduced its own
+   diagnosed failure mode one level up, and six legs missed it.
+2. DROP the trunk mask-icon slice from the HEAD of the order. It appears
+   nowhere in the owner's ruling and displaces the only two slices that move
+   the region counter or put the transition in front of the owner. Verified
+   first-hand what the leg flagged as its own ungrounded assumption: regions
+   1-2 DO consume a small button with a mask icon (the masthead search
+   control), so the dependency is real — but the specimen already sizes it
+   with a local class, so the trunk fix is NOT a prerequisite. Consumption
+   real, prerequisite false: displacement wearing a dependency argument.
+   Promote it when a region provably needs it beyond the local class.
+3. ORDER the records act. The governing node's superseded iframe-src shape
+   clause was sitting UNORDERED in the records-acts list. It must be amended
+   BEFORE the picker slice is authored, because the picker is built against
+   the opposite shape. An unordered records act next to a slice that
+   contradicts it is a live trap for whoever authors first.
+
+RESULTING ORDER: amend the shape clause; cascade-order check folded into the
+slice, not standing alone; picker/transition and regions at the head; trunk
+icon fix and the census move demoted into slices that actually consume them.
+
+ADOPTED — the panel's sharpest hit, changing the order:
+
+Pull the picker/transition slice FORWARD, ahead of the trunk CSS fix and
+ahead of re-authoring the two already-rendering regions. The reasoning, from
+the one leg that found this independently of the liveness correction and held
+it across both its passes: the owner's verbatim ruling names TWO artefacts,
+and the outline buried them at positions 3 and 7 of 8. The outline ordered by
+ENGINEERING DEPENDENCY; the owner orders by WHAT DEMONSTRATES CAPABILITY. The
+picker runs over the current two regions, so pulling it forward costs no
+rework.
+
+A stronger argument the panel did not make, which settles it: the picker is
+where the MECHANISM claim gets proven in its strongest form — an in-place
+re-skin with no navigation. Pulling it forward flips the mechanism counter
+from 0/1 sooner, and that counter is load-bearing for the whole
+near-zero-cost thesis. Picker-early therefore serves the owner's stated hero
+AND the strongest self-finding at once.
+
+ADOPTED — anti-stall guard: fold the cascade-order verification's result
+directly into the slice's computed-value assertion, so the mechanism claim
+flips inside a PR and never becomes standalone analysis. Time-box both
+checks. This is the guard that keeps Step 0 from becoming the thing the
+owner already corrected once.
+
+ADOPTED — routing: a committed thread record is not routing. One leg's phrase
+is the keeper — "beyond the passively-committed thread record". Writing to a
+record the reader may never open had been quietly counted as having routed
+it. DISCHARGED: the Director replied and ruled slice order and the
+routed-away set to this seat under PDR-117, holding only convergence and two
+non-blocking owner-substance edges.
+
+REJECTED, with reason: the most aggressive adversarial redirection — drop
+Step 0 entirely and start the picker immediately, resolving cascade order
+during PR review. Rejected because a sibling adversarial leg attacked the
+same target with the same charge and conceded that cascade order survives:
+it is the override mechanism itself, cheap, with a named consumer. Its
+underlying instinct is nonetheless ABSORBED rather than dismissed — the check
+must not stand alone as a gate, which is exactly what folding it into the
+slice's own assertion achieves. Same destination, arrived at without
+abandoning the proof.
+
+One leg withdrew its own original redirection after the frame correction.
+
+GROUNDED BY THIS SEAT, closing two "ungrounded" flags the panel raised:
+
+- The PR-2 worktree sits on its own branch and its merge-base equals its own
+  HEAD, so NO slice work stakes onto the DUE coordination branch. One leg
+  inferred this; it is now verified.
+- Discovered while verifying it: origin/main has advanced by one release
+  commit since the worktree was cut, touching nothing under the showcase or
+  the design kit. No conflict risk; the branch should still take main before
+  its PR.
+
+STILL UNGROUNDED, honestly: the panel could not verify Director liveness, the
+branch stamp, or the ratification independently — all were taken on this
+seat's account. Given this seat had just been wrong about exactly one of
+those, that is the right place for a reader's scepticism to sit.
