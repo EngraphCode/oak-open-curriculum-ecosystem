@@ -93,7 +93,10 @@ entirely inside our workspaces:
   FIRST PAINT — no flash of the Oak base before the brand (a Playwright
   cell proves it; the exact link-injection mechanics are the execution
   cycle's call within this stated shape and acceptance).
-- `app/identity-switchboard/page.tsx` — the picker chrome: header
+- **[Superseded 2026-08-10 by the owner's in-place re-skin ruling — the
+  frame navigates once and controls mutate presentation data inside the
+  framed document; dated amendment rides PR #846.]**
+  `app/identity-switchboard/page.tsx` — the picker chrome: header
   (`oak-heading-4` plus the export's framing prose MINUS its stale "wind
   the contract back to Part A" sentence — the prose is flagged for the
   owner-voice batch at the checkpoint, the W0.5 item-10 class); the
