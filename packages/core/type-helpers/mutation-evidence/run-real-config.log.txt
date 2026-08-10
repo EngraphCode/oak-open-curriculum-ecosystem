@@ -1,12 +1,12 @@
 $ stryker run
-[33m21:11:20 (30869) WARN ProjectReader[39m Glob pattern "src/**/*.integration.test.ts" did not match any test files.
-[32m21:11:20 (30869) INFO ProjectReader[39m Found 1 of 24 file(s) to be mutated.
-[32m21:11:20 (30869) INFO ProjectReader[39m Found 1 test file(s) matching --testFiles patterns.
-[32m21:11:20 (30869) INFO Instrumenter[39m Instrumented 1 source file(s) with 18 mutant(s)
-[32m21:11:20 (30869) INFO ConcurrencyTokenProvider[39m Creating 13 test runner process(es).
-[32m21:11:21 (30869) INFO BroadcastReporter[39m Detected that current console does not support the "progress" reporter, downgrading to "progress-append-only" reporter
-[32m21:11:22 (30869) INFO DryRunExecutor[39m Starting initial test run (vitest test runner with "perTest" coverage analysis). This may take a while.
-[32m21:11:22 (30869) INFO DryRunExecutor[39m Initial test run succeeded. Ran 11 tests in 0 seconds (net 2.0918759999999565 ms, overhead 434.90812400000004 ms).
+21:11:20 (30869) WARN ProjectReader Glob pattern "src/**/*.integration.test.ts" did not match any test files.
+21:11:20 (30869) INFO ProjectReader Found 1 of 24 file(s) to be mutated.
+21:11:20 (30869) INFO ProjectReader Found 1 test file(s) matching --testFiles patterns.
+21:11:20 (30869) INFO Instrumenter Instrumented 1 source file(s) with 18 mutant(s)
+21:11:20 (30869) INFO ConcurrencyTokenProvider Creating 13 test runner process(es).
+21:11:21 (30869) INFO BroadcastReporter Detected that current console does not support the "progress" reporter, downgrading to "progress-append-only" reporter
+21:11:22 (30869) INFO DryRunExecutor Starting initial test run (vitest test runner with "perTest" coverage analysis). This may take a while.
+21:11:22 (30869) INFO DryRunExecutor Initial test run succeeded. Ran 11 tests in 0 seconds (net 2.0918759999999565 ms, overhead 434.90812400000004 ms).
 
 All tests/index.unit.test.ts
   ✓ typeSafeKeys returns keys preserving literal types (killed 6)
@@ -29,6 +29,6 @@ File      |  total | covered | # killed | # timeout | # survived | # no cov | # 
 All files | 100.00 |  100.00 |       18 |         0 |          0 |        0 |        0 |
  index.ts | 100.00 |  100.00 |       18 |         0 |          0 |        0 |        0 |
 ----------|--------|---------|----------|-----------|------------|----------|----------|
-[32m21:11:24 (30869) INFO JsonReporter[39m Your report can be found at: file://<repo-root>/packages/core/type-helpers/mutation-evidence/report.json
-[32m21:11:24 (30869) INFO HtmlReporter[39m Your report can be found at: file://<repo-root>/packages/core/type-helpers/mutation-evidence/report.html
-[32m21:11:24 (30869) INFO MutationTestExecutor[39m Done in 4 seconds.
+21:11:24 (30869) INFO JsonReporter Your report can be found at: file://<repo-root>/packages/core/type-helpers/mutation-evidence/report.json
+21:11:24 (30869) INFO HtmlReporter Your report can be found at: file://<repo-root>/packages/core/type-helpers/mutation-evidence/report.html
+21:11:24 (30869) INFO MutationTestExecutor Done in 4 seconds.
