@@ -40,7 +40,7 @@ function HeroActions(): React.JSX.Element {
         Start the unit
       </button>
       <button className="oak-btn oak-btn--secondary" type="button">
-        <span className="oak-icon--mask ic-download hero-icon" aria-hidden="true" />
+        <span className="oak-icon--mask ic-download icon-s" aria-hidden="true" />
         Download all resources
       </button>
       <button

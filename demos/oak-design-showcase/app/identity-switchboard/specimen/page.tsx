@@ -22,7 +22,9 @@
  */
 import { BASE_IDENTITY, resolveIdentity } from '../../../components/useIdentity';
 
+import { FacetsRegion } from './facets';
 import { HeroRegion } from './hero';
+import { ResultsRegion } from './results';
 import './specimen.css';
 
 function UtilityRegion(): React.JSX.Element {
@@ -105,7 +107,7 @@ function MastheadRegion(): React.JSX.Element {
           </label>
           <input className="oak-input" id="site-q" type="search" placeholder="Search lessons…" />
           <button className="oak-btn oak-btn--sm oak-btn--secondary" type="button">
-            <span className="oak-icon--mask ic-search search-icon" aria-hidden="true" />
+            <span className="oak-icon--mask ic-search icon-s" aria-hidden="true" />
             Search
           </button>
         </search>
@@ -148,10 +150,10 @@ export default async function SpecimenPage({
         <MastheadRegion />
         <main id="main" className="oak-main oak-region" data-region="main" tabIndex={-1}>
           <HeroRegion />
+          <FacetsRegion />
+          <ResultsRegion />
           {/* Remaining unit-map regions land slice by slice; the sections
               exist now so the grid places every named area from the start. */}
-          <section className="oak-region" data-region="facets" />
-          <section className="oak-region" data-region="results" />
           <section className="oak-region" data-region="detail" />
           <section className="oak-region" data-region="resources" />
           <section className="oak-region" data-region="support" />

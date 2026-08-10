@@ -98,7 +98,10 @@ html {
   inline-size: var(--space-160);
 }
 
-.search-icon {
+/* Small mask-icon sizing, one class for every inline icon on the page —
+   the app-local stand-in until the trunk's mask-icon sizing gap is cured
+   (routed to the DS slice). */
+.icon-s {
   inline-size: var(--size-icon-s);
   block-size: var(--size-icon-s);
 }
@@ -180,9 +183,71 @@ html {
   justify-self: var(--key-justify);
 }
 
-.hero-icon {
-  inline-size: var(--size-icon-s);
-  block-size: var(--size-icon-s);
+/* ============ facets + results regions ============ */
+
+.facets-pad,
+.results-pad {
+  padding-block: var(--space-32);
+}
+
+.facets-pad fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.facets-pad legend {
+  padding: 0;
+}
+
+.m0 {
+  margin: 0;
+}
+
+.results-bar {
+  justify-content: space-between;
+}
+
+.results-bar p {
+  margin: 0;
+}
+
+.term-h {
+  margin: 0;
+  color: var(--text-subdued);
+}
+
+/* The lesson ledger: numbered rows on hairline rules. */
+.ledger {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-block-end: var(--border-solid-s) solid var(--border-neutral);
+}
+
+.ledger li {
+  display: flex;
+  gap: var(--gap-m);
+  align-items: baseline;
+  padding-block: var(--space-16);
+  border-block-start: var(--border-solid-s) solid var(--border-neutral);
+}
+
+.ledger .num {
+  min-inline-size: var(--space-32);
+  color: var(--text-subdued);
+}
+
+.ledger .entry {
+  flex: 1;
+}
+
+.ledger .entry p {
+  margin: var(--space-4) 0 0;
+}
+
+.pagenav {
+  justify-content: center;
 }
 
 /* Tab row: the underline carries the current state (a non-colour marker),
