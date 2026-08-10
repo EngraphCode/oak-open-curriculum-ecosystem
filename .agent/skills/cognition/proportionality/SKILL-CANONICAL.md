@@ -15,11 +15,11 @@ description: >-
 
 **Governance**: the pre-decision sizing gate that runs alongside
 [`concept-exploration`](../concept-exploration/SKILL-CANONICAL.md) and ahead of the
-[`principles.md` decision lenses](../../directives/principles.md#decision-lenses--order-of-resolution).
+[`principles.md` decision lenses](../../../directives/principles.md#decision-lenses--order-of-resolution).
 Concept exploration asks *"is this the right question?"*; this asks *"is this the right
 SIZE of question, and the right LEVEL to answer it?"* It carries the general form of a
 principle several surfaces already operationalise in their own domains — most
-completely [PDR-132](../../practice-core/decision-records/PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md),
+completely [PDR-132](../../../practice-core/decision-records/PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md),
 whose owner framing is this skill's thesis: *the shaping principle must reach work at
 planning time, because at PR time "that is too late to plan work"*.
 
@@ -30,7 +30,7 @@ position for a sixth:
 
 - **Position 1** pre-empts architectural excellence — the door lens 1 categorically closes.
 - **Position 2** pre-empts strictness, becoming *"strictness is disproportionate here"* — the
-  escape hatch [`no-escape-hatches`](../../directives/principles.md#strict-and-complete) bans.
+  escape hatch [`no-escape-hatches`](../../../directives/principles.md#strict-and-complete) bans.
 - **Position 3 or later** never fires: lenses 1–2 almost always resolve a shape question
   first.
 
@@ -57,7 +57,7 @@ Proportionality bounds **scope, instrument weight, and attention cost**. It neve
 
 *"This is smaller than I was treating it as"* is a valid finding. *"This is small enough
 to do badly"* is the expediency
-[§Architectural Excellence](../../directives/principles.md#architectural-excellence-over-expediency)
+[§Architectural Excellence](../../../directives/principles.md#architectural-excellence-over-expediency)
 categorically excludes, wearing this gate as a disguise. The word *proportionate* is
 exactly what a rush impulse reaches for, so the clause is absolute in the same register as
 the doctrine it protects: a proportionality finding may change what is built and how much
@@ -65,7 +65,7 @@ review it earns; it may never change whether the built thing is correct.
 
 ## Why lens 1 needs it
 
-[§Architectural Excellence](../../directives/principles.md#architectural-excellence-over-expediency)
+[§Architectural Excellence](../../../directives/principles.md#architectural-excellence-over-expediency)
 is absolute by design, and absoluteness has a known failure mode: it supplies no stopping
 condition. Unchecked, it produces rabbit-holing, generic-ideal drift, and craft-as-value —
 each step locally excellent, the aggregate a global pessimisation.
@@ -78,16 +78,16 @@ excellence still decides the shape; proportionality decides how much shape is in
 
 This skill is the general principle. Each surface below owns the operational detail for its
 domain and is the single source of truth there. A restatement here would be the DRY
-violation [§Documentation Is Infrastructure](../../directives/principles.md#documentation-is-infrastructure)
+violation [§Documentation Is Infrastructure](../../../directives/principles.md#documentation-is-infrastructure)
 names as a real defect.
 
 - **Review loops** —
-  [`pr-lifecycle`](../pr-lifecycle/SKILL-CANONICAL.md) §"The review-round state machine"
+  [`pr-lifecycle`](../../pr-lifecycle/SKILL-CANONICAL.md) §"The review-round state machine"
   item 2 owns convergence: the tally store, the mechanical step-back predicate, the epoch
   reset, and the generator-recurrence classification. It is the fully-worked instrument;
   build the tally, or the trigger cannot fire.
 - **Changeset size** —
-  [PDR-132](../../practice-core/decision-records/PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md)
+  [PDR-132](../../../practice-core/decision-records/PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md)
   owns the round budget and binds it at authoring time.
 - **Absorbing adjacent findings** — `pr-lifecycle`'s two-class disposition ruling
   (owner-ratified 2026-07-25) owns the in-flight recovery: CLASS F cures in the PR, CLASS P
@@ -99,12 +99,12 @@ names as a real defect.
   sufficiency** — correct, relevant, and proportionate are separate conjuncts, tested
   separately.
 - **Judgement pipelines** —
-  [`agentic-judgment-conserve-by-default`](../../rules/agentic-judgment-conserve-by-default.md)
+  [`agentic-judgment-conserve-by-default`](../../../rules/agentic-judgment-conserve-by-default.md)
   places rigour on the irreversible side. That is this gate's instrument axis with the
   asymmetry named: cheap checks are proportionate where errors are visible and reversible,
   never where they are silent and terminal.
 - **Assurance rigour** —
-  [§Agentic Quality](../../directives/principles.md#agentic-quality) risk-tiers assurance to
+  [§Agentic Quality](../../../directives/principles.md#agentic-quality) risk-tiers assurance to
   the harm of getting it wrong, *"never uniform"*.
 
 **When a domain instance exists, run it.** This skill does not substitute for the

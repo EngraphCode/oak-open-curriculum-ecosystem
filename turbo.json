@@ -163,7 +163,8 @@
       "inputs": ["$TURBO_DEFAULT$", "!.next/**", "$TURBO_ROOT$/tsconfig.base.json"]
     },
     "@oaknational/oak-curriculum-hub#type-check": {
-      "dependsOn": ["^build"],
+      // tsconfig includes .next/types/** which this package's own `next build` generates.
+      "dependsOn": ["build", "^build"],
       "cache": true,
       "outputs": [],
       "inputs": ["$TURBO_DEFAULT$", "!.next/**", "$TURBO_ROOT$/tsconfig.base.json"]
@@ -186,7 +187,8 @@
       "inputs": ["$TURBO_DEFAULT$", "!.next/**", "$TURBO_ROOT$/tsconfig.base.json"]
     },
     "@oaknational/oak-design-showcase#type-check": {
-      "dependsOn": ["^build"],
+      // tsconfig includes .next/types/** which this package's own `next build` generates.
+      "dependsOn": ["build", "^build"],
       "cache": true,
       "outputs": [],
       "inputs": ["$TURBO_DEFAULT$", "!.next/**", "$TURBO_ROOT$/tsconfig.base.json"]
@@ -354,6 +356,48 @@
       "cache": true,
       "outputs": [],
       "inputs": ["$TURBO_DEFAULT$", "**/*.ts", "vitest.config.ts"]
+    },
+    "@oaknational/agent-tools#lint": {
+      // smoke-tests consume this package's own dist by design (built-form smokes), and lint is type-aware over the tsconfig that includes them.
+      "dependsOn": ["build", "^build"],
+      "cache": true,
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/eslint.config.ts",
+        "$TURBO_ROOT$/tsconfig.base.json",
+        "eslint.config.ts",
+        "tsconfig.lint.json",
+        "**/*.ts"
+      ]
+    },
+    "@oaknational/agent-tools#lint:fix": {
+      // Same constraint as #lint: the fix pass is type-aware over tsconfig.lint.json, which includes the dist-consuming smoke-tests.
+      "dependsOn": ["build", "^build"],
+      "cache": false,
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/eslint.config.ts",
+        "$TURBO_ROOT$/tsconfig.base.json",
+        "eslint.config.ts",
+        "tsconfig.lint.json",
+        "**/*.ts"
+      ]
+    },
+    "@oaknational/agent-tools#type-check": {
+      // smoke-tests consume this package's own dist by design (../dist/src imports only exist after this package's own build).
+      "dependsOn": ["build", "^build"],
+      "cache": true,
+      "outputs": [],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/tsconfig.base.json",
+        "tsconfig.json",
+        "tsconfig.build.json",
+        "tsconfig.lint.json",
+        "**/*.ts"
+      ]
     },
     "@oaknational/agent-tools#test": {
       "dependsOn": ["^build"],

@@ -14,7 +14,7 @@ description: >-
 # Retrospective
 
 **Governance**: a workflow in the
-[skill-composition hierarchy](../../reference/skill-composition.md).
+[skill-composition hierarchy](../../../reference/skill-composition.md).
 Imported and adapted 2026-07-20 from the Resonance estate (a private
 sibling Practice repo — no public upstream URL exists; source
 repo-relative path `.agent/skills/retrospective/SKILL-CANONICAL.md`;
@@ -30,7 +30,7 @@ its README protects. Summons the modes
 [`reason`](../reason/SKILL-CANONICAL.md)) throughout; optionally summons
 [`free-play`](../free-play/SKILL-CANONICAL.md) over the arc's material;
 routes its proposals per
-[PDR-130](../../practice-core/decision-records/PDR-130-two-speed-learning.md).
+[PDR-130](../../../practice-core/decision-records/PDR-130-two-speed-learning.md).
 
 ## Use When
 
