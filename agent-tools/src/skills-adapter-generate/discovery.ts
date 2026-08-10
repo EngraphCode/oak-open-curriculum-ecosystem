@@ -2,13 +2,15 @@
  * Canonical skill discovery, shared by the adapter generator and the drift
  * checker so both walk the corpus identically.
  *
- * Two standard shapes live under `.agent/skills/`: a flat individual
- * (`<id>/SKILL-CANONICAL.md`) and a concern-tier member
- * (`<concern>/<id>/SKILL-CANONICAL.md` — one concern tier, no deeper, per
- * the ratified skills-estate structure). A root entry that is neither
- * shape, a concern member without a canonical, and a canonical with
- * unparseable frontmatter are all skipped loudly: they hold content no
- * harness can summon.
+ * Three standard shapes live under `.agent/skills/`: a flat individual
+ * (`<id>/SKILL-CANONICAL.md`), a concern-tier member
+ * (`<concern>/<id>/SKILL-CANONICAL.md`), and a domain-tier member
+ * (`<concern>/<domain>/<id>/SKILL-CANONICAL.md` — the owner-ruled
+ * 2026-08-10 domain subdirectories, e.g. `domain-craft/ui-design/`; one
+ * domain tier under a concern, never deeper). A root entry that is none of
+ * these shapes, a member directory without a canonical, a fourth tree
+ * level, and a canonical with unparseable frontmatter are all skipped
+ * loudly: they hold content no harness can summon.
  */
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -110,10 +112,41 @@ async function discoverRootEntry(
   for (const memberId of memberIds) {
     const relativeDir = `${rootId}/${memberId}`;
     const member = await parseCanonicalAt(canonicalsRoot, relativeDir, fs);
-    if (member === 'absent' || member === 'unparseable') {
+    if (member === 'unparseable') {
+      skipped.push(relativeDir);
+    } else if (member !== 'absent') {
+      canonicals.push(member);
+    } else {
+      await discoverDomainTier(canonicalsRoot, relativeDir, fs, canonicals, skipped);
+    }
+  }
+}
+
+/**
+ * A concern member without its own canonical is a candidate domain tier
+ * (`<concern>/<domain>/`): its children are leaf skills. The tree closes
+ * here — a domain child without a parseable canonical is skipped loudly
+ * whatever it contains, so a fourth level can never ride in silently.
+ */
+async function discoverDomainTier(
+  canonicalsRoot: string,
+  domainDir: string,
+  fs: DiscoveryFs,
+  canonicals: ParsedCanonical[],
+  skipped: string[],
+): Promise<void> {
+  const leafIds = await fs.listSubdirectoryNames(join(canonicalsRoot, domainDir));
+  if (leafIds.length === 0) {
+    skipped.push(domainDir);
+    return;
+  }
+  for (const leafId of leafIds) {
+    const relativeDir = `${domainDir}/${leafId}`;
+    const leaf = await parseCanonicalAt(canonicalsRoot, relativeDir, fs);
+    if (leaf === 'absent' || leaf === 'unparseable') {
       skipped.push(relativeDir);
     } else {
-      canonicals.push(member);
+      canonicals.push(leaf);
     }
   }
 }
