@@ -106,6 +106,26 @@ candidates the first time a landing tests them against the
 smallest-useful-number principle; the tree is cheap to re-cut
 precisely because projections are flat.
 
+### Amendment 2026-08-10c (owner word, Director-recorded): WS9 candidate — skill-craft skills + eval tooling
+
+The owner names a coming need (2026-08-10, verbatim substance): "we
+are going to need skills about skills — skill design, writing, eval
+design, eval running, how to use mcpjam to help, how to test evals in
+claude, codex etc… we need skill skills and we need tools to help run
+skill evals." Recorded as a WS9 CANDIDATE (pointers, not specs — the
+landing rule applies: minting a `skill-craft` concern, or homing these
+under an existing thin concern, is a deliberate recorded act at
+authoring time). Members sketched: skill-design, skill-writing,
+eval-design, eval-running, cross-platform eval-testing (Claude, Codex,
+… — mcpjam assisting where skills wrap MCP surfaces). Tooling half:
+the WS8-general eval runner as agent-tools machinery. Sequencing
+insight: the `skill-standard-pilot` node's S3 (first eval execution)
+generates the evidence these skills are authored FROM — pilot first,
+harvest its transcripts and frictions into the skill-craft corpus.
+Existing scattered craft to consolidate, not duplicate: the
+skill-naming-and-description-quality rule, the subagent-architect
+agent, Anthropic's skill-creator, the spec's skill-creation pages.
+
 ### Amendment 2026-08-10b (owner word, Director-recorded): WS8 — spec supporting directories + evals, general
 
 The owner's restated intent (2026-08-10) recovers what WS6 left as a

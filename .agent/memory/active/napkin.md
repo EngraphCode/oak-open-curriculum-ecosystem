@@ -1470,3 +1470,7 @@ round-2 pointer cure landed; Copilot re-requested. Labels: jimbot
 applied+verified on 12 PRs (both identities, open + today's merged).
 MCP-540 links both PRs. Register rows 7a-7l carry every routed
 follow-up.
+
+## 2026-08-10 ~21:0xZ — Plover lifts Troposphere (b10c37): evening freeze index
+
+Seat continues across compaction; freeze entry in director-handoff §COMPACTION FREEZE (evening) is the resume map. Day's arc: three merges (#845 ui-design space + walker consolidation, #836 isolation, #847 opened), the fold one review-leg from landing under the owner's newly-worded standing merge policy, skill-standard pilot plan authored → adversarially reviewed → six blockers adopted (two of them the day's own proxy-read class caught in my authoring: a DDR filename read as a verdict; first-authorship claimed over the live parallax eval convention — the review instrument catching the author is the system working). WS9 skill-craft candidate recorded at owner word with the harvest sequencing (pilot S3 transcripts feed the skill-skills).
