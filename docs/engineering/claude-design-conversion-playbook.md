@@ -135,8 +135,10 @@ re-runs the extractors and diffs as _data_.
 
 ## Verification tooling pattern
 
-Conversion needs evidence tools; conversion #1's set is the template
-(`demos/oak-curriculum-hub/tools/`): render the export's target pages over
+Conversion needs evidence tools; the shared core lives in
+`@oaknational/fidelity-review` and conversion #1's app-local set is the
+worked example (`demos/oak-curriculum-hub/tools/`): render the export's
+target pages over
 local HTTP (canonical render targets), capture the live app at matched
 geometry (§D fidelity), a 320px two-state reflow gate (WCAG 1.4.10 — measure
 the no-JS SSR state AND the hydrated state; hydration honesty: click until
@@ -147,7 +149,7 @@ config with a provenance citation, not carried as extra vendor files).
 
 ## Fidelity review and the divergence register
 
-Comparison is a workflow, not a gate. One orchestrator
+Comparison is a workflow, not a gate. One command
 (`tool:fidelity` in conversion #1) serves the canonical export, ensures the
 dev server (attach when up, spawn with bounded ready-wait and process-group
 teardown when free), captures both sides at matched geometry, perceptually
@@ -174,9 +176,15 @@ Three rules make it honest:
 - **The workflow is skill-carried**: the
   [`fidelity-review` skill](../../.agent/skills/fidelity-review/SKILL-CANONICAL.md)
   owns the review loop (run → read report highest-ratio-first → judge →
-  record → re-run `--report-only`); this playbook owns the porting method
-  (copy the pairing-map + capture-arms + diff-core + report + register
-  pattern into the new conversion's `tools/`).
+  record → re-run `--report-only`); this playbook owns the porting method:
+  compose `@oaknational/fidelity-review` (`packages/libs/fidelity-review`,
+  consolidated at its second consumer 2026-08-09 — its README's §Modules
+  is the authoritative enumeration), and author only the app-local parts
+  in the new conversion's `tools/` — the app's own PAIR schema wrapped
+  with the package's `buildPairingMapSchema`, capture arms, export
+  server, default base and `SERVER_HINT`, and a `tools/fidelity-review.ts`
+  composing the package's `/orchestrator` with only paths, capture arms,
+  and `main` of its own.
 
 ## Accessibility bar
 

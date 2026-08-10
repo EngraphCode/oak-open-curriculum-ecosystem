@@ -82,11 +82,16 @@ target — absence is recorded, never silent).
 
 ## Porting to a new conversion
 
-The mechanism is app-local by design (the pipeline workspace lands at WS2
-activation): copy the `tools/` fidelity modules' pattern — a declared
-pairing map, the shared export server, capture arms at matched geometry, the
-diff core, the report renderer, a seeded register — and adjust the pairing
-map to the new app's surfaces. The
+The shared core lives in `@oaknational/fidelity-review`
+(`packages/libs/fidelity-review` — consolidated at its second consumer,
+2026-08-09; its README's §Modules is the authoritative enumeration).
+Porting means composing it, not copying it: declare the app's own PAIR
+schema (pair kinds legitimately differ per app) and wrap it with the
+package's `buildPairingMapSchema`, seed a register, author the
+app-local capture arms and export server at matched geometry with the
+app's own default base and `SERVER_HINT`, and compose the package's
+`/orchestrator` in a `tools/fidelity-review.ts` that keeps only paths,
+capture arms, and `main`. The
 [conversion playbook](../../../docs/engineering/claude-design-conversion-playbook.md)
 §"Fidelity review and the divergence register" carries the method; this
 skill carries the workflow.

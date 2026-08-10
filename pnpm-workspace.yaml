@@ -18,6 +18,7 @@ packages:
   - packages/core/type-helpers
   - packages/design/*
   - packages/libs/env-resolution
+  - packages/libs/fidelity-review
   - packages/libs/graph-ingest
   - packages/libs/graph-project
   - packages/libs/logger

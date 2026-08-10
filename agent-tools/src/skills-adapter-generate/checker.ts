@@ -6,33 +6,46 @@
  * gate CI / pre-merge runs against drift between canonical sources and their
  * generated adapter pointers.
  *
- * I/O is injected through a minimal {@link CheckerFs} interface so unit tests
- * can pass a deterministic in-memory map without touching the real filesystem.
+ * Discovery is shared with the generator ({@link discoverCanonicals}) so the
+ * checker walks exactly the corpus the generator would emit — flat
+ * individuals and family bundles alike. I/O is injected through the
+ * {@link DiscoveryFs} seam so unit tests can pass a deterministic in-memory
+ * map without touching the real filesystem.
  */
 import { readFile, readdir } from 'node:fs/promises';
-import { join } from 'node:path';
 
 import {
   adapterTargetPath,
-  parseFrontmatter,
+  discoverCanonicals,
   renderAdapter,
   type AdapterSurface,
+  type DiscoveryFs,
   type GeneratorOptions,
-  type ParsedCanonicalSkill,
 } from './generator.js';
 
-const CANONICAL_FILENAME = 'SKILL-CANONICAL.md';
 const SURFACES: readonly AdapterSurface[] = ['claude', 'agents'];
 
 export interface CheckOutcome {
   readonly drifted: readonly string[];
   readonly missing: readonly string[];
+  /** Leaf ids contending for one flat adapter name — a failing state: the
+   * on-disk adapter can only match one claimant, silently shadowing the
+   * other. Mirrors the generator's emission refusal. */
+  readonly duplicates: readonly string[];
+  /** Directories discovery walked past without producing a canonical — a
+   * failing state in check mode exactly as in generate mode: a skipped
+   * directory is content no harness can summon, and a checker that stays
+   * green over it certifies an incomplete corpus (worked instance: nine
+   * canonicals sat unsummonable on main behind a green `--check`). */
+  readonly skipped: readonly string[];
+  /** How many canonicals discovery produced. Zero is never a healthy estate
+   * state — it means a missing or unreadable `.agent/skills` root (the
+   * injected fs collapses read errors to empty lists), and check mode must
+   * refuse rather than certify an empty corpus as up to date. */
+  readonly canonicalCount: number;
 }
 
-export interface CheckerFs {
-  readFileOrUndefined(path: string): Promise<string | undefined>;
-  listSubdirectoryNames(path: string): Promise<readonly string[]>;
-}
+export type CheckerFs = DiscoveryFs;
 
 const defaultCheckerFs: CheckerFs = {
   async readFileOrUndefined(path) {
@@ -43,8 +56,12 @@ const defaultCheckerFs: CheckerFs = {
     }
   },
   async listSubdirectoryNames(path) {
-    const dirents = await readdir(path, { withFileTypes: true });
-    return dirents.filter((d) => d.isDirectory()).map((d) => d.name);
+    try {
+      const dirents = await readdir(path, { withFileTypes: true });
+      return dirents.filter((d) => d.isDirectory()).map((d) => d.name);
+    } catch {
+      return [];
+    }
   },
 };
 
@@ -54,14 +71,9 @@ export async function checkAdapters(
 ): Promise<CheckOutcome> {
   const drifted: string[] = [];
   const missing: string[] = [];
-  const canonicalsRoot = join(options.repoRoot, '.agent', 'skills');
-  const canonicalIds = await fs.listSubdirectoryNames(canonicalsRoot);
+  const discovery = await discoverCanonicals(options.repoRoot, fs);
 
-  for (const id of canonicalIds) {
-    const parsed = await loadCanonical(canonicalsRoot, id, fs);
-    if (parsed === undefined) {
-      continue;
-    }
+  for (const parsed of discovery.canonicals) {
     for (const surface of SURFACES) {
       const target = adapterTargetPath(options.repoRoot, options.prefix, parsed.id, surface);
       const expected = renderAdapter(parsed, options.prefix, surface);
@@ -74,22 +86,11 @@ export async function checkAdapters(
     }
   }
 
-  return { drifted, missing };
-}
-
-async function loadCanonical(
-  canonicalsRoot: string,
-  id: string,
-  fs: CheckerFs,
-): Promise<ParsedCanonicalSkill | undefined> {
-  const path = join(canonicalsRoot, id, CANONICAL_FILENAME);
-  const text = await fs.readFileOrUndefined(path);
-  if (text === undefined) {
-    return undefined;
-  }
-  const frontmatter = parseFrontmatter(text);
-  if (frontmatter === undefined) {
-    return undefined;
-  }
-  return { id, frontmatter, canonicalPath: path, canonicalFilename: CANONICAL_FILENAME };
+  return {
+    drifted,
+    missing,
+    duplicates: discovery.duplicates,
+    skipped: discovery.skipped,
+    canonicalCount: discovery.canonicals.length,
+  };
 }
