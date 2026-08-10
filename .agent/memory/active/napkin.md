@@ -1194,3 +1194,98 @@ Director confirmations routinely arrive saying grounding should
 already have started, the hold's default scope is too conservative —
 widen it to include read-only grounding of the already-directed
 first act.
+
+## 2026-08-10T06:35Z — Civet spins Cavern (054f5e): FREEZE 7 lens harvest (cure round 6 mid-flight, 12 commits landed)
+
+**Owner correction (feedback, standing):** a stale derived artifact
+(.next) blocking a gate is cleared by the BUILD GRAPH'S OWN CLEAN VERB
+(`pnpm --filter <ws> run clean` — the workspace script the turbo graph
+declares), never by raw `rm -rf` (rejected) and never by escalating the
+choice to the owner (also corrected: "you shouldn't have asked").
+Derived-artifact hygiene is structured-command territory: the estate
+provides the verb; use it. Generalises use-built-agent-tools-cli to
+build outputs.
+
+**Reason:** the architecture-over-wide-net warrant held as a GENERATOR
+across twelve commits — every cure reduced to pull-the-invariant-down;
+no cure was "add a test" alone. The one design deviation (withResource
+dropped) was warranted by the consumer test and recorded dated in the
+module header + commit body: an adjudicated design is a hypothesis;
+consumers are its falsifier.
+
+**Concept-exploration (formed):** the lint caps (complexity 8, 50-line
+functions, 250-line files) fired five times during the round and each
+firing forced the SAME decomposition move the assurance doctrine
+prescribes at scale — the linter is the micro-sensor of the
+pull-provability-down signal (peer of the Sonar duplication gate as a
+consolidation sensor, napkin 2026-08-09).
+
+**Metacognition:** the freeze word arrived mid-reshape; commit-first-
+then-freeze held (work-safety before records). The overnight idle ran
+under a cure-round heartbeat label — the label names the CYCLE, not
+instantaneous activity; honest, noted. One rejected tool call this
+window (the raw rm) — the correction above is its cure.
+
+**Proportionality:** ~2000 lines / 12 commits against the
+owner-commissioned assurance packet — proportionate to an instrument
+whose product is trust; the withResource drop is the same lens in the
+small (no consumer, no abstraction).
+
+**Free play (keep-seed):** the oak-app identity sentinel doubles later
+as wow-checkpoint provenance — proof the owner's browse tab is OUR app
+on the declared port, the same falsification-power move at the human
+checkpoint. Discards: none held back.
+
+## 2026-08-10T06:50Z — Civet spins Cavern (054f5e): FREEZE 7 — the owner's waaay-back recalibration (this entry supersedes the mechanical harvest I had drafted)
+
+**The owner's stated WHY (verbatim intent, standing):** "Part of the
+motivation for the design work is to decrease the cost of exploratory
+app experiments to near zero, hence the support for whitelabelling,
+hence the need to show how powerful and efficient our system is."
+The design system is the machinery of near-zero-cost experiments;
+whitelabelling is the proof that presentation is data; the showcase
+exists to DEMONSTRATE that power. The wow moment is not "this page is
+pretty" — it is "this page proves a whole class of products is now
+cheap." The switchboard page is dependency injection for visual
+identity made visible: ?brand= is the constructor argument, and the
+demo's real subject is d(product)/d(effort).
+
+**The metacognitive finding (mine to own):** my proportionality passes
+kept pricing each cure against "an instrument whose product is trust"
+— a frame one level too low, and recursively inflated by the work
+already done on the instrument. The question I never fired:
+"is the LEDGER proportionate to the plan's END?" The estate already
+names this rule (ends-before-means front-of-chain-first;
+re-apply-first-question-at-elaboration-boundaries) and I applied it at
+every elaboration boundary EXCEPT the outermost. The cure round was
+owner-commissioned — the depth was priced by him, not smuggled by me —
+but the SEAT never surfaced ends-denominated status. Cure: from now on
+READY/re-READY reports state DISTANCE-TO-PIXELS (ends-denominated),
+not only gates-green (means-denominated).
+
+**Formed concept (home candidate):** the owner uses compaction
+boundaries as STEERING moments, not just preservation moments — freeze
+6 carried the assurance commission in, freeze 7 carried the ends
+recalibration in. A freeze is the estate's rudder. Corollary: freeze
+records should always end with "what would the owner redirect here?"
+asked genuinely.
+
+**Reframe worth keeping (free play):** the fidelity register's
+disposition vocabulary (deliberate/fix/matched) is the GOVERNANCE of
+cheap experimentation — it is how you keep taste while moving fast.
+In the near-zero-cost world, divergence is not a defect class, it is
+the product surface; the register makes divergence deliberate.
+
+**Consequence for the work (binding at resume):** finish cure round 6
+at LEDGER-MINIMUM depth — the ledger is the bound, nothing beyond it,
+prefer named-home deferral wherever it allows; then PR-2 immediately.
+PR-2 is not the next task, it is THE POINT: the page that shows an
+entire product re-skinning at query level. Twelve commits of
+instrument hardening are only worth their cost when the pixels they
+will judge exist.
+
+**Also this window (standing owner corrections):** (1) stale derived
+artifacts are cleared by the workspace's own clean verb
+(`pnpm --filter <ws> run clean`), never raw rm, never an owner ask;
+(2) the withResource drop held: an adjudicated design is a hypothesis
+and consumers are its falsifier.

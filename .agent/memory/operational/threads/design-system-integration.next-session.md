@@ -1937,3 +1937,147 @@ on ARC → Director recount + grant + sha-pinned REST merge (merge
 method merge, never squash). Gates at every commit, serial per
 check-singleton. All slice-1/2 gates were green at their commits
 (package 132, hub 324, showcase 101 at last full pass).
+
+## COMPACTION FREEZE 7 (2026-08-10T06:35:00Z) — Civet spins Cavern (054f5e); cure round 6 mid-flight at 12 commits; resume RE-ARMS
+
+Owner word: "prepare for compaction ... then stop all processes."
+Claim 645b9e0b-afea-4743-8cc6-5dad3ad39575 RETAINED. Worktree
+identity-switchboard-pr1 CLEAN at pushed SHA:573c860d3 (12 cure
+commits on #834); primary clean at this freeze commit.
+
+LANDED SINCE THE LAST MARKER: SHA:3b1509d9a slice 4a (identity-gated
+reachability: judgeServerIdentity pure + oak-app sentinel metas in both
+app layouts + APP_SENTINEL constants threaded through assertServerUp
+AND both ensureDevServer branches; group-gone release proof via
+signal-0 group probe with idempotent teardown; server-identity +
+dev-command modules split on size). SHA:573c860d3 slice 4b
+(registerRunTeardown SIGINT/SIGTERM reaper, teardown-once, pure over a
+process fake; withResource DROPPED at its consumer test — deviation
+from the adjudicated design recorded dated in the module header:
+captureAndReport is the proven server bracket, arms bracket browsers
+with try/finally; no dead exports).
+
+RESUME MAP (execute in order after the start-right re-arm — watcher
+from PRIMARY, F-95, heartbeat pair claim 645b9e0b cycle
+pr1b-cure-round-6, gap sweep since 2026-08-10T06:35Z, peer-liveness):
+
+1. Slice 4 remainder: wire registerRunTeardown into BOTH composition
+   roots (spawned mode only; unregister in a finally around
+   captureAndReport); hub arms' try/finally — render-canonical-targets
+   renderAll (browser) + server.close in finally, drive-export-sections
+   driveExport (browser) + server.close in finally,
+   capture-live-sections driveSectionCaptures (browser); the
+   spawn-topology contract in packages/libs/fidelity-review/tests/
+   (bounded synthetic child; group-term/exit fidelity — the ONE
+   sanctioned real-process test).
+2. Slice 5 SEC-1: resolveContainedTarget in static-path-guard per the
+   adjudicated R1 sequence (lstat refuses non-regular incl. FIFO →
+   open O_RDONLY|O_NOFOLLOW → fstat ino/dev compare → realpath
+   containment re-check; ContainedFile carries {fd,size,realPath});
+   both export-servers stream from the validated handle with the fd
+   closed on EVERY non-serving path (overlay walk continues, destroyed
+   socket); state the intermediate-component race as a LIMIT. SEC-2:
+   total-pixel budget PRIMARY (~80M px) + per-axis sanity, read from
+   the PNG header (signature + IHDR) BEFORE PNG.sync.read in
+   image-diff; safe-relative-path refinement in the pairing schemas
+   (relative, no .., no backslash, no ?/#); URL-encoded segments in
+   fidelity-html. Smoke homes per testing-strategy §smoke: smoke-tests/
+   dirs + CI-wired scripts (SEC-1 symlink smoke; staging→promotion
+   smoke).
+3. Slice 6 records: plan §Mechanism "Copy the hub's tools" → compose
+   (dated, primary); PR body — PDR-132 truing + cure-round-6 design
+   story + FIRST RUN AFTER MERGE MUST BE A FULL CAPTURE (report-only
+   refuses until a manifest exists) + the ONE evidence re-baseline note
+   (CC-1+SEC-3 changed pixels by design; dispositions re-warrant once);
+   porting recipe naming NINE public modules + the two export-server
+   shapes + both worked examples; deferrables to MCP-534 with names
+   (NodeNext declaration portability; static-server limits; register
+   fingerprint design). MCP-533 reconcile at the merge moment.
+4. R27 dispositions: all four suppressed findings are cured by this
+   round (capture-live-pages:61 + render-export-targets:145 →
+   staging/promotion; orchestrator:52 → BV-2; export-server:102 →
+   SEC-1) — but the export-server:102 thread resolves HONESTLY only
+   after SEC-1 lands. Replies + resolutions in one batch.
+5. Post-build panel BEFORE re-READY (opus): security-expert (SEC,
+   deep) + test-expert (tier homing + falsification power, deep) +
+   code-expert gateway. Absorb, cure, then gates green SERIALLY
+   (package + both apps + knip + full pnpm check; check-singleton).
+6. Re-READY on the ARC channel → Director recount at the cured head +
+   grant + sha-pinned REST merge (method merge, never squash). At
+   merge: MCP-533 comment; worktree prune only after PR-2 planning
+   considered. Then PR-2 per task #2 (fresh worktree off post-834
+   main; carried obligations in task + plan).
+
+Standing correction captured this freeze (napkin, same stamp): stale
+DERIVED artifacts are cleared by the workspace's own clean verb
+(`pnpm --filter <ws> run clean`), never raw rm, never an owner ask.
+
+## COMPACTION FREEZE 7 (2026-08-10T06:55:00Z) — Civet spins Cavern (054f5e); the owner's waaay-back recalibration governs the resume
+
+Owner word this freeze, in order: (1) "prepare for compaction ... and
+then stop all processes"; (2) a correction — stale DERIVED artifacts
+are cleared by the workspace's own clean verb (`pnpm --filter <ws> run
+clean`), never raw rm, never an owner ask; (3) the RECALIBRATION that
+now governs this lane: step waaay back — the design work exists to
+DECREASE THE COST OF EXPLORATORY APP EXPERIMENTS TO NEAR ZERO, hence
+whitelabelling, hence the need to SHOW how powerful and efficient the
+system is. The wow page is the demonstration that identity is a
+parameter (?brand= is the constructor argument) and that a whole class
+of products is now cheap. Everything else on this lane — the fidelity
+instrument included — is means.
+
+Claim 645b9e0b-afea-4743-8cc6-5dad3ad39575 RETAINED by this seat.
+A STANDBY SUCCESSOR registered at owner word this morning: Swordfish
+wakes Trench (claude / Opus 5 / d0274e), warm-paused, activates only
+at Director/owner word and ADOPTS the claim then. Whichever seat
+resumes, THIS section is the map; recompute #834 first-hand.
+
+STATE: worktree identity-switchboard-pr1 CLEAN at pushed
+SHA:573c860d3 — twelve cure commits on #834 (BV, CC-1 + shutter gate +
+SEC-3 egress, EI-1/2/3 complete, identity sentinel + group-gone
+release, signal reaper; withResource dropped at its consumer test,
+recorded). mergeStateStatus BLOCKED as expected. Primary clean at this
+freeze commit. Full slice-by-slice detail: the cure-round-6 markers
+above and the slice-design addendum on the PR branch
+(SHA:2dc5d427c).
+
+RESUME MAP — ends-first, binding:
+
+0. THE POINT IS PR-2 (the switchboard pixels). Cure round 6 completes
+   at LEDGER-MINIMUM depth only: the ledger is the bound, nothing
+   beyond it, prefer named-home deferral (MCP-534) wherever a row
+   allows. Every re-READY/status report states DISTANCE-TO-PIXELS,
+   not only gates-green.
+1. Re-arm per start-right (watcher from PRIMARY, F-95, heartbeat pair
+   claim 645b9e0b cycle pr1b-cure-round-6, gap sweep since this
+   stamp, peer-liveness).
+2. Cure-round remainder, minimum sufficient: (a) wire
+   registerRunTeardown into both roots (spawned mode, unregister in a
+   finally); hub arms' try/finally (render-canonical-targets browser +
+   server, drive-export-sections browser + server,
+   capture-live-sections browser); spawn-topology contract in
+   packages/libs/fidelity-review/tests/. (b) SEC-1
+   resolveContainedTarget per the adjudicated R1 sequence in both
+   export-servers (fd streamed, closed on every non-serving path;
+   intermediate-component race STATED as a limit); SEC-2 total-pixel
+   budget from the PNG header before decode + safe-relative-path
+   schema refinement + URL-encoded report segments; smoke homes per
+   testing-strategy §smoke. (c) Records: plan §Mechanism copy→compose
+   truing; PR body (PDR-132 truing, cure-round story,
+   FIRST-RUN-MUST-CAPTURE note, ONE-re-baseline note); porting recipe
+   (nine modules, two server shapes, worked examples); deferrables to
+   MCP-534 by name. (d) R27 dispositions — all four cured by the
+   round; export-server:102 resolves only after SEC-1 lands. (e)
+   Post-build opus panel (security + test + gateway, as committed to
+   the Director), absorb, gates green serially, full pnpm check.
+3. Re-READY on ARC with an ends-denominated status → Director recount
+   with grant + sha-pinned REST merge (method merge, never squash). At
+   merge: MCP-533 comment. Worktree prune only after PR-2 planning.
+4. PR-2 immediately: fresh worktree off post-834 main; per-cycle
+   pre-execution review BEFORE code; plan §Mechanism verbatim; carried
+   obligations — @oaknational/result devDep→dependencies in the commit
+   that makes lib/identities.ts app-reachable; the live capture arm
+   gains expectsFrame with the routes; test seams chosen for
+   falsification power. The page IS the story: three identities ×
+   one specimen, re-skinning at query level — the near-zero-cost
+   demonstration the whole programme exists for.
