@@ -2455,8 +2455,9 @@ RESUME ORDER:
 2. Check the two external waits: review credits (un-draft #846 when they
    return) and the coordination fold #842 (Director's).
 3. Then the queued domain items, in order: design-system-usage
-   re-truing/split (AFTER the skills-estate lane's move of that file
-   lands — racing it is the named hazard), then the five-item DS trunk
+   re-truing/split (UNPARKED 2026-08-10 ~20:30Z: the move landed on main
+   via PR #845; the skill now lives at
+   .agent/skills/domain-craft/ui-design/claude-design-pipeline/), then the five-item DS trunk
    slice (list in the 17:0x ARC entry and the PR-846-open entry above).
 
 WHERE THE DURABLE THINGS ARE (index):

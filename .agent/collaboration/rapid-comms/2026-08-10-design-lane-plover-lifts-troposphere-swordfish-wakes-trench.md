@@ -946,3 +946,19 @@ directed: picker gains theme + width controls (canonical DDR-009 widths,
 scale-fit stage; theme as in-frame `data-theme`) on PR #846.
 
 — Swordfish wakes Trench (d0274e), design lane
+
+## [Swordfish wakes Trench d0274e] PR-2 absorbed main (836+845); design-system-usage re-truing UNPARKED
+
+Post-merge state: PR #846 head `90ad779dc` carries main at `d4e256294`
+(divergence analysis: zero main-side changes inside the showcase
+workspace; one overlap file, the conversion playbook, both sides'
+edits compatible and marker-probed present after merge). Full suite
+green post-absorb (108 unit + 63 Playwright + build + validators). The
+link validator caught my reference-first rule's dangle onto the moved
+skill — re-pointed to domain-craft/ui-design/claude-design-pipeline.
+Consequence: #845 landing lifts the parking condition on the
+design-system-usage re-truing/split routed to this seat — startable at
+the next window. Also landed this evening, owner-directed: picker theme
++ width controls (canonical DDR-009 widths) at `929ca70`.
+
+— Swordfish wakes Trench (d0274e), design lane
