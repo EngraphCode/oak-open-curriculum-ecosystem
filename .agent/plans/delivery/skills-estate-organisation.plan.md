@@ -126,6 +126,19 @@ files; carrying supporting dirs is new machinery, test-first) and the
 eval convention's home; sequenced after the WS7 group moves, beside
 WS2's annotation pass.
 
+**Pilot (owner-proposed 2026-08-10): one skill fully to standard first**
+— graph frontmatter, a validator, the full supporting-directory set,
+and evals per the spec's evaluating-skills method (`evals/evals.json`
+cases with assertions; with-skill vs without-skill runs in clean
+subagent contexts; script graders for mechanical checks + blind LLM
+judge for holistic; benchmark deltas; the iterate loop). Director
+working cut, owner's word picks the subject: pilot on
+`design-system-usage` (strongest scriptable-assertion substrate — the
+estate's own CSS/contrast/token validators grade it; content re-truing
+already owed as PR-B; widest reach via design-sync), then mint
+`ui-visual-design` second, born to the proven standard with the W0.7
+blind-judge instrument as its eval grader.
+
 ### Amendment 2026-08-10 (owner rulings, Director-recorded)
 
 1. **`domain-craft/` gains domain subdirectories** —
