@@ -5,7 +5,7 @@
    decorated, nocturnal. All garnish: audited text pairings stay flat. */
 @import url('brand-a.css');
 :root {
-  color-scheme: dark; /* dark-first: the bedtime arcade is the native face */
+  /* Polarity is the PERSON'S, never the brand's (owner ruling 2026-08-10: pages do not have a preferred colour scheme, people do) — the arcade's dark face serves dark-scheme devices and the explicit Dark choice; the light arms serve the rest. */
   /* Display type — the fairground voice */
   --font-display: 'Baloo 2', var(--font-sans);
   --weight-display: 800;

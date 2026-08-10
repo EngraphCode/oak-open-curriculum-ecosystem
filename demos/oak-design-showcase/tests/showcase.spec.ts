@@ -81,19 +81,20 @@ test.describe('theme switching', () => {
 });
 
 test.describe('theme no-choice state and motion axis', () => {
-  test('no-choice reads as Page default and the first Light choice bites', async ({ page }) => {
+  test('no-choice reads as the system default and an explicit Dark bites', async ({ page }) => {
     const aborted = await openShowcase(page);
     const themeSelect = page.getByRole('combobox', { name: 'Theme' });
-    // Six runtime states, not five: with nothing chosen the control must
-    // not claim "Light" — under a dark-first brand that misreports the
-    // page AND makes the first click on Light a dead control (a select
-    // fires change only when its value actually changes).
-    await expect(themeSelect).toHaveValue('');
+    // The control displays the APPLIED model (owner ruling 2026-08-10):
+    // with nothing chosen it truthfully reads the system default — under
+    // every identity, since polarity belongs to the person, never the
+    // brand — and an explicit override changes the value, so the change
+    // event fires by construction.
+    await expect(themeSelect).toHaveValue('system');
     await applyIdentity(page, 'creature');
-    await expect(themeSelect).toHaveValue('');
-    const noChoiceBackground = await bodyBackground(page);
-    await applyTheme(page, 'light');
-    expect(await bodyBackground(page)).not.toBe(noChoiceBackground);
+    await expect(themeSelect).toHaveValue('system');
+    const systemBackground = await bodyBackground(page);
+    await applyTheme(page, 'dark');
+    expect(await bodyBackground(page)).not.toBe(systemBackground);
     assertOnlyKnownExternalOrigins(aborted);
   });
 
@@ -102,10 +103,11 @@ test.describe('theme no-choice state and motion axis', () => {
     const aborted = await openShowcase(page);
     // The runtime's auto path applies high-contrast pre-paint…
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'high-contrast');
-    // …but no explicit choice exists, so the control must read "Page
-    // default" — a claimed value would also make selecting High contrast
-    // a dead first click (no change event on an already-selected value).
-    await expect(page.getByRole('combobox', { name: 'Theme' })).toHaveValue('');
+    // …and the control reads exactly what is applied: the applied model
+    // shows 'High contrast', truthfully — re-selecting it is a no-op on a
+    // state that already holds, and every other choice changes the value
+    // and fires (owner ruling 2026-08-10: display the applied theme).
+    await expect(page.getByRole('combobox', { name: 'Theme' })).toHaveValue('high-contrast');
     assertOnlyKnownExternalOrigins(aborted);
   });
 
@@ -135,19 +137,22 @@ test.describe('identity switching', () => {
     assertOnlyKnownExternalOrigins(aborted);
   });
 
-  test('the dark-first counter-brand is dark with no theme chosen', async ({ page }) => {
+  test('the counter-brand follows the device scheme with no theme chosen', async ({ page }) => {
+    // Polarity belongs to the person, never the brand (owner ruling
+    // 2026-08-10): with no explicit choice the arcade renders its dark
+    // arms under a dark device and its light arms under a light one —
+    // proven against the same page's EXPLICIT dark and light renders.
+    await page.emulateMedia({ colorScheme: 'dark' });
     const aborted = await openShowcase(page);
     await applyIdentity(page, 'creature');
-    // Captured BEFORE any theme interaction — the no-choice premise: the
-    // brand's polarity lever applies because no explicit choice exists.
-    const noChoiceBackground = await bodyBackground(page);
     await expect(page.locator('html')).not.toHaveAttribute('data-theme');
+    const darkDeviceBackground = await bodyBackground(page);
     await applyTheme(page, 'dark');
     const explicitDarkBackground = await bodyBackground(page);
     await applyTheme(page, 'light');
     const explicitLightBackground = await bodyBackground(page);
-    expect(noChoiceBackground).toBe(explicitDarkBackground);
-    expect(noChoiceBackground).not.toBe(explicitLightBackground);
+    expect(darkDeviceBackground).toBe(explicitDarkBackground);
+    expect(darkDeviceBackground).not.toBe(explicitLightBackground);
     assertOnlyKnownExternalOrigins(aborted);
   });
 });

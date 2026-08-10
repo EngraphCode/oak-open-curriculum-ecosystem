@@ -2,7 +2,7 @@
    GENERATED from src/oak-theme.ts (tsc type-erasure only; comments survive).
    Edit the source, then run the workspace build and sync:runtime scripts —
    the committed root copy is byte-parity-gated by the workspace test suite.
-   Themes: "light" (default) | "dark" | "system" | "high-contrast" | "colour-safe".
+   Themes: "system" (default — follows OS) | "light" | "dark" | "high-contrast" | "colour-safe".
    Persists to localStorage("oak-theme"); applies before first paint when
    loaded synchronously in <head> as a script element with src "oak-theme.js".
    (This comment must never contain a literal closing-script sequence: the file
@@ -45,7 +45,7 @@ interface Window {
 
 (function (): void {
   const KEY = 'oak-theme';
-  const THEMES: OakThemeName[] = ['light', 'dark', 'system', 'high-contrast', 'colour-safe'];
+  const THEMES: OakThemeName[] = ['system', 'light', 'dark', 'high-contrast', 'colour-safe'];
   // Equality-form membership so the raw storage string narrows without a
   // type assertion (ADR-153 §Membership Without Widening).
   function isThemeName(s: string | null): s is OakThemeName {
@@ -93,7 +93,7 @@ interface Window {
     return null;
   }
   function get(): OakThemeName {
-    return current || stored() || auto() || 'light';
+    return current || stored() || auto() || 'system';
   }
   // The explicit choice, or null when none exists. The kit-contract accessor
   // (MCP-388): downstream stores render "no choice" honestly from this,

@@ -10,7 +10,7 @@
    3. COMPONENT   --btn-* --input-* … (see components.css) —
       per-part decisions, composed from roles + scales. Shared by
       the CSS class library AND the compiled React components.
-   Themes: (default light) · data-theme="dark" · "system" (follows OS)
+   Themes: (default system — follows OS) · data-theme="light" · "dark"
            · "high-contrast" · "colour-safe" (colour-vision-deficiency)
    Apply data-theme to <html> or any subtree; oak-theme.js persists it.
    WCAG 2.2 AA throughout.
@@ -272,7 +272,11 @@
    white-label override surface (see brand.css). Themes and re-brands
    override ONLY canonical roles, never the aliases in 2b. */
 :root {
-  color-scheme: light; /* default: light. data-theme switches below. */
+  /* Default: SYSTEM. Pages do not have a preferred colour scheme, people
+     do (owner ruling 2026-08-10) — with no data-theme the page follows the
+     OS via light-dark(). Explicit data-theme choices switch below; a brand
+     may re-polarise its own default via brand.css (the polarity lever). */
+  color-scheme: light dark;
 
   --text-primary: light-dark(var(--oak-black), var(--oak-white));
   --text-subdued: light-dark(var(--oak-grey60), var(--oak-grey30));
@@ -702,6 +706,27 @@
   --border-error: var(--oak-ci-vermilion);
   --border-brand: var(--oak-ci-blue);
   --border-warning: var(--oak-ci-ochre);
+
+  /* Decoratives flatten to neutral (owner ruling 2026-08-10: colour-safe
+     is a DISTINCT maximum-legibility mode, never a light lookalike).
+     Under colour-vision deficiency, ambient hue is noise that camouflages
+     meaning-bearing colour — with the decorative surfaces neutral, the
+     only hue left on the page IS meaning (status, links, focus), and text
+     sits on maximum-contrast ground. Subdued text strengthens for the
+     same reason. Decoratives never carry meaning, so nothing is lost. */
+  --surface-decorative-1: var(--oak-grey20);
+  --surface-decorative-1-soft: var(--oak-grey10);
+  --surface-decorative-1-subtle: var(--oak-grey10);
+  --surface-decorative-2: var(--oak-grey20);
+  --surface-decorative-2-soft: var(--oak-grey10);
+  --surface-decorative-2-subtle: var(--oak-grey10);
+  --surface-decorative-3: var(--oak-grey20);
+  --surface-decorative-3-soft: var(--oak-grey10);
+  --surface-decorative-3-subtle: var(--oak-grey10);
+  --surface-decorative-4: var(--oak-grey20);
+  --surface-decorative-4-soft: var(--oak-grey10);
+  --surface-decorative-4-subtle: var(--oak-grey10);
+  --text-subdued: var(--oak-grey70);
 }
 
 /* ---------- 4. BASE ---------- */

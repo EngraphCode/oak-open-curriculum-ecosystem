@@ -35,7 +35,7 @@ import { LabelledSelect } from '../../components/LabelledSelect';
 import { IDENTITY_LABELS, THEME_LABELS } from '../../components/Switchboard';
 import { useIdentity } from '../../components/brand-identity-binding';
 import {
-  DEFAULT_VIEWPORT_WIDTH,
+  SWITCHBOARD_CANVAS_WIDTH,
   VIEWPORT_WIDTHS,
   VIEWPORT_WIDTH_LABELS,
 } from '../../components/canonical-widths';
@@ -55,33 +55,28 @@ function isThemeName(value: string): value is OakThemeName {
   return names.includes(value);
 }
 
-/** '' is the no-choice sentinel: the specimen at page default, attribute
- *  absent — exactly the mount state, so the placeholder never lies. */
-type FrameTheme = OakThemeName | '';
-
 /** Theme INSIDE the frame: the kit's cascade keys on the root `data-theme`
  *  attribute, so applying a theme is an attribute write on the framed
- *  document — presentation as data, same no-reload story as identity. */
+ *  document — presentation as data, same no-reload story as identity.
+ *  System is the default (owner ruling 2026-08-10): the control opens on
+ *  it, and applying it explicitly matches the specimen's own no-attribute
+ *  state now that polarity belongs to the person, never the page. */
 function useFrameTheme(resolveTarget: () => Document | null): {
-  readonly theme: FrameTheme;
+  readonly theme: OakThemeName;
   readonly setTheme: (value: string) => void;
 } {
-  const [theme, setThemeState] = useState<FrameTheme>('');
+  const [theme, setThemeState] = useState<OakThemeName>('system');
 
   useEffect(() => {
     const root = resolveTarget()?.documentElement;
     if (root === null || root === undefined) {
       return;
     }
-    if (theme === '') {
-      delete root.dataset['theme'];
-      return;
-    }
     root.dataset['theme'] = theme;
   }, [theme, resolveTarget]);
 
   const setTheme = useCallback((value: string): void => {
-    if (value === '' || isThemeName(value)) {
+    if (isThemeName(value)) {
       setThemeState(value);
     }
   }, []);
@@ -101,7 +96,7 @@ function PickerControls({
   readonly identity: IdentitySlug;
   readonly identities: readonly IdentitySlug[];
   readonly setIdentity: (value: string) => void;
-  readonly theme: FrameTheme;
+  readonly theme: OakThemeName;
   readonly setTheme: (value: string) => void;
   readonly width: number;
   readonly setWidth: (value: string) => void;
@@ -122,7 +117,6 @@ function PickerControls({
         value={theme}
         options={THEME_OPTIONS}
         labels={THEME_LABELS}
-        placeholderLabel="Page default"
         onChange={setTheme}
       />
       <LabelledSelect
@@ -181,9 +175,11 @@ function useSpecimenFrame(): {
 }
 
 /** Width state narrowed at the control boundary: only canonical widths
- *  (DDR-009) exist as options, and only canonical widths can land. */
+ *  (DDR-009) exist as options, and only canonical widths can land. Opens
+ *  at the export switchboard's own framed canvas so the two demos read
+ *  identically side by side (owner comparison, 2026-08-10). */
 function useFrameWidth(): { readonly width: number; readonly setWidth: (value: string) => void } {
-  const [width, setWidthState] = useState<number>(DEFAULT_VIEWPORT_WIDTH);
+  const [width, setWidthState] = useState<number>(SWITCHBOARD_CANVAS_WIDTH);
   const setWidth = useCallback((value: string): void => {
     const parsed = Number(value);
     if (VIEWPORT_WIDTHS.includes(parsed)) {
@@ -223,8 +219,7 @@ export default function IdentityPickerPage(): ReactElement {
         />
 
         <p aria-live="polite" className="oak-body-3 picker-status">
-          Showing {IDENTITY_LABELS[identity]} ·{' '}
-          {theme === '' ? 'Page default' : THEME_LABELS[theme]} ·{' '}
+          Showing {IDENTITY_LABELS[identity]} · {THEME_LABELS[theme]} ·{' '}
           {VIEWPORT_WIDTH_LABELS[`${width}`] ?? `${width} px`}
         </p>
 

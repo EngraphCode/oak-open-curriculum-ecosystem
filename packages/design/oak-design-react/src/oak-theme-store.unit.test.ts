@@ -1,17 +1,15 @@
 /**
- * The store's snapshot and notification contract. The theme snapshot is the
- * CHOICE model read through the runtime's own `choice()` accessor — never
- * the applied html attribute — with a two-level result: undefined = no
- * runtime (the consumers' hydration gate), '' = no explicit choice. The
- * choice-model semantics themselves (persisted choice, the automatic
- * contrast route staying no-choice, session choice surviving failed
- * persistence, membership validation of stored values) are the KIT's
- * behaviour, pinned by its own integration suite — re-asserting them here
- * through a fake runtime would test the fake. The store carries no
- * contrast-media mirror by design (see the module docblock): no exposed
- * snapshot can change on that trigger under the choice model. All
- * collaborators are simple injected fakes (no-global-state-in-tests /
- * ADR-078).
+ * The store's snapshot and notification contract. The theme snapshot is
+ * the APPLIED model read through the runtime's get() (owner ruling
+ * 2026-08-10: the control displays what is applied — the system default,
+ * an automatic contrast route, or an explicit choice; there is no
+ * page-default sentinel). undefined = no runtime (the consumers'
+ * hydration gate). The applied-model semantics themselves (persisted
+ * choice applied pre-paint, the automatic contrast route, membership
+ * validation of stored values) are the KIT's behaviour, pinned by its own
+ * integration suite — re-asserting them here through a fake runtime would
+ * test the fake. All collaborators are simple injected fakes
+ * (no-global-state-in-tests / ADR-078).
  */
 import { describe, expect, it, vi } from 'vitest';
 
@@ -26,16 +24,18 @@ function fakeRuntimeWorld(seededChoice: OakThemeName | null = null): {
   // page and records it as the in-memory current choice, which choice()
   // reports ahead of any persisted (seeded) value.
   let current: OakThemeName | null = null;
-  let applied: OakThemeName | undefined;
+  // A persisted (seeded) choice is applied pre-paint by the real runtime,
+  // so the fake boots with it applied too.
+  let applied: OakThemeName | undefined = seededChoice ?? undefined;
   let motion: OakMotionMode = 'system';
   const runtime: OakThemeRuntime = {
     set: (t: OakThemeName) => {
       current = t;
       applied = t;
     },
-    get: () => applied ?? 'light',
+    get: () => applied ?? 'system',
     choice: () => current ?? seededChoice,
-    themes: ['light', 'dark', 'high-contrast'],
+    themes: ['system', 'light', 'dark', 'high-contrast'],
     motion: {
       get: () => motion,
       set: (m: OakMotionMode) => {
@@ -66,16 +66,16 @@ describe('createOakThemeStore snapshots', () => {
   it('forwards the runtime option lists when a runtime exists', () => {
     const { runtime } = fakeRuntimeWorld();
     const store = storeOver(runtime);
-    expect(store.themeOptions()).toEqual(['light', 'dark', 'high-contrast']);
+    expect(store.themeOptions()).toEqual(['system', 'light', 'dark', 'high-contrast']);
     expect(store.motionOptions()).toEqual(['system', 'reduced', 'full']);
   });
 
-  it('reports the no-choice state as the empty sentinel, never as light', () => {
+  it('reports the applied system default in the no-choice state', () => {
     const { runtime } = fakeRuntimeWorld();
-    expect(storeOver(runtime).getTheme()).toBe('');
+    expect(storeOver(runtime).getTheme()).toBe('system');
   });
 
-  it('forwards the runtime-reported explicit choice', () => {
+  it('forwards the runtime-applied persisted choice', () => {
     const { runtime } = fakeRuntimeWorld('dark');
     expect(storeOver(runtime).getTheme()).toBe('dark');
   });
@@ -129,7 +129,7 @@ describe('createOakThemeStore setter guards', () => {
     store.subscribe(listener);
     store.setTheme('not-a-theme');
     expect(listener).not.toHaveBeenCalled();
-    expect(store.getTheme()).toBe('');
+    expect(store.getTheme()).toBe('system');
   });
 
   it('ignores a value outside the runtime motion list without notifying', () => {

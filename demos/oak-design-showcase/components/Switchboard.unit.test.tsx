@@ -12,13 +12,13 @@ function fakeRuntimeWorld(): {
   let applied: OakThemeName | undefined;
   let motion: OakMotionMode = 'system';
   const runtime: OakThemeRuntime = {
-    get: () => applied ?? 'light',
+    get: () => applied ?? 'system',
     set: (t: OakThemeName) => {
       applied = t;
     },
     // Mirrors the real runtime: a set() through this session IS the choice.
     choice: () => applied ?? null,
-    themes: ['light', 'dark', 'system', 'high-contrast', 'colour-safe'],
+    themes: ['system', 'light', 'dark', 'high-contrast', 'colour-safe'],
     motion: {
       get: () => motion,
       set: (m: OakMotionMode) => {
@@ -41,11 +41,12 @@ describe('Switchboard', () => {
     expect(
       screen.getByRole('combobox', { name: 'Motion' }).querySelectorAll('option'),
     ).toHaveLength(3);
-    // Five themes plus the non-choosable "Page default" placeholder, which
-    // is the selected display in the no-choice state.
+    // Five themes, no placeholder: the live control displays the APPLIED
+    // model, which is the system default when nothing is chosen (owner
+    // ruling 2026-08-10 — there is no page-default state).
     const themeSelect = screen.getByRole('combobox', { name: 'Theme' });
-    expect(themeSelect.querySelectorAll('option')).toHaveLength(6);
-    expect(themeSelect).toHaveProperty('value', '');
+    expect(themeSelect.querySelectorAll('option')).toHaveLength(5);
+    expect(themeSelect).toHaveProperty('value', 'system');
   });
 });
 

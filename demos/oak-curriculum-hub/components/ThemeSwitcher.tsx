@@ -96,7 +96,6 @@ export default function ThemeSwitcher({
         options={store.themeOptions() ?? []}
         labels={THEME_LABELS}
         onChange={store.setTheme}
-        placeholderLabel="Page default"
       />
       <AxisSelect
         id="oak-motion-select"

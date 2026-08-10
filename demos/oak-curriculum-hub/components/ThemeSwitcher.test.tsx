@@ -25,7 +25,7 @@ expect.extend(toHaveNoViolations);
 // bound, not a silent cap.
 const axeOptions = { rules: { 'color-contrast': { enabled: false } } };
 
-const THEMES: OakThemeName[] = ['light', 'dark', 'system', 'high-contrast', 'colour-safe'];
+const THEMES: OakThemeName[] = ['system', 'light', 'dark', 'high-contrast', 'colour-safe'];
 const MODES: OakMotionMode[] = ['system', 'reduced', 'full'];
 
 function fakeRuntime(): {
@@ -35,7 +35,8 @@ function fakeRuntime(): {
 } {
   // Mirrors the real runtime's contract: set() records the in-memory
   // current choice, which choice() reports; with no set() there is no
-  // explicit choice and choice() is null while get() collapses to light.
+  // explicit choice and choice() is null while get() collapses to the
+  // system default (the applied model).
   let current: OakThemeName | null = null;
   let motion: OakMotionMode = 'system';
   const set = vi.fn((t: OakThemeName) => {
@@ -45,7 +46,7 @@ function fakeRuntime(): {
     motion = m;
   });
   const runtime: OakThemeRuntime = {
-    get: () => current ?? 'light',
+    get: () => current ?? 'system',
     set,
     choice: () => current,
     themes: [...THEMES],
@@ -71,7 +72,7 @@ describe('ThemeSwitcher rendering contract', () => {
     // Five themes plus the non-choosable "Page default" placeholder ('') —
     // the truthful rendering of the no-choice snapshot. Motion has no
     // placeholder: 'system' is its concrete no-choice semantic.
-    expect(themeValues).toEqual(['', ...THEMES]);
+    expect(themeValues).toEqual([...THEMES]);
     expect(motionValues).toEqual(MODES);
     expect(await axe(container, axeOptions)).toHaveNoViolations();
   });
@@ -82,21 +83,19 @@ describe('ThemeSwitcher rendering contract', () => {
     expect(container.innerHTML).toBe('');
   });
 
-  it('renders the Page default placeholder, never a blank control, with no explicit choice', () => {
-    // The choice model: with no explicit user choice the snapshot is '' —
-    // the select must read truthfully as the placeholder ("Page default"),
-    // not pin a concrete theme the page is not necessarily showing, and
-    // never render as a blank control (a controlled select with no matching
-    // option). Guard written red-first against the pre-choice-model hub.
+  it('reads the applied system default with no explicit choice', () => {
+    // The applied model (owner ruling 2026-08-10): with no explicit user
+    // choice the control truthfully reads what is applied — the system
+    // default — never a page-default sentinel and never a blank control
+    // (a controlled select with no matching option).
     const { runtime } = fakeRuntime();
     const store = storeWith(runtime);
     render(<ThemeSwitcher store={store} />);
     const themeSelect = screen.getByLabelText<HTMLSelectElement>('Theme');
-    expect(themeSelect.value).toBe('');
-    const placeholder = Array.from(themeSelect.querySelectorAll('option')).find(
-      (option) => option.value === '',
+    expect(themeSelect.value).toBe('system');
+    expect(Array.from(themeSelect.querySelectorAll('option')).every((o) => o.value !== '')).toBe(
+      true,
     );
-    expect(placeholder?.textContent).toBe('Page default');
   });
 });
 

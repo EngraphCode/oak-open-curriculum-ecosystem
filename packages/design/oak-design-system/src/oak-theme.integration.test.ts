@@ -123,10 +123,10 @@ function createWorld(options?: {
 }
 
 describe('oakTheme choice() — the explicit-choice accessor', () => {
-  it('reports null with no stored or session choice, while get() collapses to light', () => {
+  it('reports null with no stored or session choice, while get() collapses to the system default', () => {
     const world = createWorld();
     expect(world.window.oakTheme?.choice()).toBeNull();
-    expect(world.window.oakTheme?.get()).toBe('light');
+    expect(world.window.oakTheme?.get()).toBe('system');
   });
 
   it('reports null under the automatic contrast route while get() reports high-contrast', () => {

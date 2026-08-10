@@ -43,7 +43,10 @@ export type OakMotionMode = 'system' | 'reduced' | 'full';
  *  contrast route) governs. A select pinned to a real value in that state
  *  would misreport the page AND make the first click on that value a dead
  *  control (selects only fire change when the value actually changes). */
-export type OakThemeSnapshot = OakThemeName | '';
+/** The applied theme (owner ruling 2026-08-10: the control displays what
+ *  is APPLIED — the system default, an automatic contrast route, or an
+ *  explicit choice — never a page-default sentinel). */
+export type OakThemeSnapshot = OakThemeName;
 
 /** The oakTheme runtime's public API, re-declared verbatim from
  *  `oak-design-system/src/oak-theme.ts` (contract-only edge — see the
@@ -120,19 +123,13 @@ export function createOakThemeStore(
         listeners.delete(listener);
       };
     },
-    // Theme reads the CHOICE model through the runtime's own accessor. The
-    // result is two-level by design: undefined = no runtime (the demos'
-    // hydration gate), '' = runtime present but no explicit choice. The kit
-    // returns null for no-choice; '' is this store's select-shaped spelling.
-    // Motion needs no such split: the runtime's 'system' IS its no-choice
-    // semantic (no attribute set).
-    getTheme: () => {
-      const runtime = resolveRuntime();
-      if (runtime === undefined) {
-        return undefined;
-      }
-      return runtime.choice() ?? '';
-    },
+    // Theme reads the APPLIED model through the runtime's get(): the system
+    // default when nothing is chosen, the automatic contrast route when the
+    // OS asks, the explicit choice once made (owner ruling 2026-08-10 —
+    // there is no page-default state to display). undefined = no runtime
+    // (the demos' hydration gate). Motion already worked this way:
+    // 'system' IS its no-choice semantic.
+    getTheme: () => resolveRuntime()?.get() ?? undefined,
     getMotion: () => resolveRuntime()?.motion.get() ?? undefined,
     getServerSnapshot: () => undefined,
     ...createSetters(resolveRuntime, emit),
