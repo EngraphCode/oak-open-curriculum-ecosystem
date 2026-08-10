@@ -37,16 +37,14 @@ import { resolveRepoRoot } from '../../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../../core/terminal-output.js';
 import { listTrackedFiles } from '../../core/tracked-file-scan.js';
 
+import { findConfigEscapes, type EscapeFinding, type UnanalysableFinding } from './containment.js';
+import { scanTurboRootInputs } from './turbo-inputs.js';
 import {
   expandWorkspaceGlobs,
-  findConfigEscapes,
   isDegenerateScan,
   isWorkspaceConfigFile,
   resolveOwner,
-  type EscapeFinding,
-  type UnanalysableFinding,
-} from './containment.js';
-import { scanTurboRootInputs } from './turbo-inputs.js';
+} from './workspace-topology.js';
 
 const repoRoot = resolveRepoRoot(import.meta.url);
 

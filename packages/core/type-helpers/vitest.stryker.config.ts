@@ -15,7 +15,7 @@ import { defineConfig } from 'vitest/config';
  * failure). The real config now imports
  * `@oaknational/workspace-config/vitest`, which resolves through the
  * sandbox's symlinked `node_modules`, so this duplicate is scheduled for
- * deletion: the isolation plan's todo 3 points `vitest.configFile` at the
+ * deletion: item 3 of the isolation plan points `vitest.configFile` at the
  * real `vitest.config.ts` and banks a canary re-run as proof.
  *
  * Until that lands, this file is read by Stryker's vitest runner alone,

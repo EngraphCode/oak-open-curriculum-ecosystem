@@ -32,7 +32,7 @@
  * resolve inside Stryker's per-workspace sandbox
  * (`mutation-evidence/dry-run.log.txt` records that reproduced failure).
  * The real config now imports `@oaknational/workspace-config/vitest`,
- * which resolves in the sandbox — the isolation plan's todo 3 retires
+ * which resolves in the sandbox — item 3 of the isolation plan retires
  * the duplicate and points this field at the real config.
  *
  * @type {import('@stryker-mutator/api/core').PartialStrykerOptions}

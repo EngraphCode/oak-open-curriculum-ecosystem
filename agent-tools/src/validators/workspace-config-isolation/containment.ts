@@ -53,76 +53,6 @@ export interface ContainmentScan {
   readonly unanalysable: readonly UnanalysableFinding[];
 }
 
-const CONFIG_FILE_BASENAME =
-  /^(?:vitest|tsup|eslint|stryker)(?:\.[\w-]+)*\.config\.(?:ts|mts|cts|js|mjs|cjs)$/;
-
-/**
- * Is this repo-relative path a workspace tooling config file in scope?
- *
- * @remarks The vitest family is a glob by design: `vitest.e2e.config.ts`,
- * `vitest.smoke.config.ts`, and `vitest.experiment.config.ts` all carry
- * real escapes today and a literal `vitest.config.ts` match would
- * silently exempt them. Declaration files never match.
- */
-export function isWorkspaceConfigFile(filePath: string): boolean {
-  const base = path.posix.basename(filePath);
-  if (base.endsWith('.d.ts')) {
-    return false;
-  }
-  return CONFIG_FILE_BASENAME.test(base);
-}
-
-/**
- * Expand `pnpm-workspace.yaml` member entries into repo-relative
- * workspace directories, using the tracked-file list as the directory
- * source of truth (a directory is a member candidate iff it holds a
- * tracked `package.json`).
- *
- * @remarks Supports the two shapes the manifest uses: literal
- * directories and single-level `<prefix>/*` globs. A literal entry is
- * kept only when its `package.json` is tracked — a stale manifest line
- * must not manufacture a phantom owner.
- */
-export function expandWorkspaceGlobs(
-  entries: readonly string[],
-  trackedFiles: readonly string[],
-): readonly string[] {
-  const packageDirs = new Set(
-    trackedFiles
-      .filter((file) => path.posix.basename(file) === 'package.json')
-      .map((file) => path.posix.dirname(file)),
-  );
-
-  const dirs = entries.flatMap((entry) => {
-    if (entry.endsWith('/*')) {
-      const prefix = entry.slice(0, -2);
-      return [...packageDirs].filter((dir) => path.posix.dirname(dir) === prefix);
-    }
-    return packageDirs.has(entry) ? [entry] : [];
-  });
-  return [...dirs].sort((a, b) => a.localeCompare(b));
-}
-
-/**
- * The owning workspace of a repo-relative file: the longest member
- * directory that path-prefixes it (`''` = repo root).
- *
- * @remarks Longest-prefix matters: a workspace member can be nested
- * inside a non-member directory (the research-evidence case), and a
- * plain first-match would mis-assign it. The prefix test is
- * boundary-aware — `packages/core/result` does not own
- * `packages/core/result-extras/`.
- */
-export function resolveOwner(workspaceDirs: readonly string[], filePath: string): string {
-  let owner = '';
-  for (const dir of workspaceDirs) {
-    if (filePath.startsWith(`${dir}/`) && dir.length > owner.length) {
-      owner = dir;
-    }
-  }
-  return owner;
-}
-
 interface ScanContext {
   readonly file: string;
   readonly owner: string;
@@ -131,8 +61,42 @@ interface ScanContext {
 }
 
 const DYNAMIC_IMPORT = /import\s*\(\s*(['"]?)/g;
-const PATH_ARITHMETIC =
-  /resolve\(\s*dirname\(\s*fileURLToPath\(\s*import\.meta\.url\s*\)\s*\)\s*,\s*(['"]?)([^'")\n]*)['"]?\s*\)/g;
+/**
+ * Matches the call shape up to and including the comma — fixed tokens
+ * joined by `\s*`, so the regex is linear (Sonar S8786: the previous
+ * single-regex form parsed the target argument too, and its
+ * optional-quote/negated-class tail backtracked super-linearly). The
+ * target argument is parsed with plain string operations instead.
+ */
+const PATH_ARITHMETIC_CALL =
+  /resolve\(\s*dirname\(\s*fileURLToPath\(\s*import\.meta\.url\s*\)\s*\)\s*,\s*/g;
+
+/** The parsed target of one path-arithmetic call: a literal string, or a refusal. */
+interface PathArithmeticTarget {
+  readonly literal: string | undefined;
+}
+
+/**
+ * Parse the argument that follows the matched call shape. A quoted
+ * string closed on the same line is the literal target; anything else
+ * (no quote, unterminated quote, newline first) is non-literal and
+ * refused by the caller.
+ */
+function parsePathArithmeticTarget(rest: string): PathArithmeticTarget {
+  const quote = rest.charAt(0);
+  if (quote !== "'" && quote !== '"') {
+    return { literal: undefined };
+  }
+  const close = rest.indexOf(quote, 1);
+  if (close === -1) {
+    return { literal: undefined };
+  }
+  const literal = rest.slice(1, close);
+  if (literal.includes('\n')) {
+    return { literal: undefined };
+  }
+  return { literal };
+}
 
 function escapeAt(
   context: ScanContext,
@@ -170,8 +134,9 @@ function scanDynamicImports(context: ScanContext): readonly UnanalysableFinding[
 function scanPathArithmetic(context: ScanContext): ContainmentScan {
   const escapes: EscapeFinding[] = [];
   const unanalysable: UnanalysableFinding[] = [];
-  for (const match of context.content.matchAll(PATH_ARITHMETIC)) {
-    if (match[1] === '') {
+  for (const match of context.content.matchAll(PATH_ARITHMETIC_CALL)) {
+    const target = parsePathArithmeticTarget(context.content.slice(match.index + match[0].length));
+    if (target.literal === undefined) {
       unanalysable.push({
         file: context.file,
         line: lineOf(context.content, match.index),
@@ -180,7 +145,7 @@ function scanPathArithmetic(context: ScanContext): ContainmentScan {
       });
       continue;
     }
-    const finding = escapeAt(context, match.index, match[2] ?? '');
+    const finding = escapeAt(context, match.index, target.literal);
     if (finding !== undefined) {
       escapes.push(finding);
     }
@@ -214,20 +179,4 @@ export function findConfigEscapes(input: {
     escapes: arithmetic.escapes,
     unanalysable: [...scanDynamicImports(context), ...arithmetic.unanalysable],
   };
-}
-
-/**
- * Is the scan's input set degenerate — zero workspaces or zero config
- * files?
- *
- * @remarks A manifest-shape change (`packages/*\/*` tidying, a rename of
- * the config-file family) can silently empty the scan set; a validator
- * printing success over nothing checked is the silent-fallback class
- * this estate bans, so the bin refuses (exit 2) instead of passing.
- */
-export function isDegenerateScan(input: {
-  readonly workspaceCount: number;
-  readonly configFileCount: number;
-}): boolean {
-  return input.workspaceCount === 0 || input.configFileCount === 0;
 }

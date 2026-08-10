@@ -10,14 +10,14 @@
 
 import { describe, expect, it } from 'vitest';
 
+import { findConfigEscapes } from './containment.js';
+import { isStaleTurboRootInput, scanTurboRootInputs } from './turbo-inputs.js';
 import {
   expandWorkspaceGlobs,
-  findConfigEscapes,
   isDegenerateScan,
   isWorkspaceConfigFile,
   resolveOwner,
-} from './containment.js';
-import { isStaleTurboRootInput, scanTurboRootInputs } from './turbo-inputs.js';
+} from './workspace-topology.js';
 
 describe('isWorkspaceConfigFile', () => {
   it('matches the vitest config family at any suffix depth', () => {

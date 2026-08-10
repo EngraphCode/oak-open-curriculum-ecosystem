@@ -8,7 +8,7 @@
  * estate's second standards-package exemption; the first is
  * `packages/core/oak-eslint/eslint.config.ts`, hand-rolled for the same
  * self-bootstrap reason. Registration in the disabled-checks census is
- * pending — the census mechanism is the isolation plan's todo 4.
+ * pending — the census mechanism is item 4 of the isolation plan.
  */
 
 import tseslint from 'typescript-eslint';
