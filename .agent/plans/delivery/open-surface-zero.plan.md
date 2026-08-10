@@ -108,10 +108,13 @@ turbo-edges PR) finish as make-safe; nothing new starts.**
 
 ### Branches with no PR (draft-PR-or-disposition; oldest-first at slot)
 
-Real orphans at census — 19 after excluding `gh-readonly-queue/*`
-(GitHub merge-queue internals, platform-managed) and
+Real orphans — 18 at the 2026-08-10 live recount (`git ls-remote`
+minus open-PR heads, `main`, and coordination), after excluding
+`gh-readonly-queue/*` (GitHub merge-queue internals,
+platform-managed). The census's original 19 included
 `jimcresswell/mutation-testing-core-canary` (the prefixed twin of the
-PR #807 head; deleted at that PR's merge as its recorded disposition):
+PR #807 head), since deleted at that PR's merge as its recorded
+disposition — the recount confirms the 18 listed, no omissions:
 `agent/n8n-practice-comparative-research`,
 `agent/persistent-reflex-layer-report`,
 `chore/aip-131-primary-estate-snapshot`,

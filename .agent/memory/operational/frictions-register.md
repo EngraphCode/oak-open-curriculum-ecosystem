@@ -3657,3 +3657,29 @@ commit SHA and the closing plan reference.
   check script vs husky hook environment); suspects are env-var
   divergence in hashed `env` keys or `$TURBO_DEFAULT$` input-set
   divergence between invocations. Route: agent-tooling backlog.
+
+### F-159 — Claude Code TUI silently switches session model at quota exhaustion; no resume-time lineage check exists
+
+- **Source**: Director seat (b10c37) 2026-08-10, owner-confirmed: the TUI
+  began switching models when the Fable quota ran out instead of stopping.
+  The Director seat (registry lineage `claude-fable-5`) ran the whole
+  post-compaction day on Opus 4.8; Swordfish's F-92 heartbeat collision
+  the same morning was the same class caught by accident.
+- **Observed**: a seat's session model can differ from its registered
+  lineage with NO surfaced signal. The day's error profile split exactly
+  along the enforcement boundary: every mechanical guard (hooks,
+  ratchets, skills:check, merge-bot refusal ladder, F-95) held
+  model-independently; prose-recorded judgement disciplines
+  (deciding-surface reads, re-read-before-declaring, value-lens-first)
+  regressed to error types not seen for months.
+- **Expected**: a seat knows and surfaces its own model discontinuity at
+  resume, the way the git triad surfaces branch/head state.
+- **Mitigation**: at every resume/start-right, compare the session's
+  declared model against the claims registry row; mismatch = surface
+  loudly to the owner before substantive work.
+- **Candidate structural cure**: a resume-time lineage check in
+  start-right (session model vs `agent_id.model` on held claims), and a
+  graduation sweep over the prose-only judgement disciplines to identify
+  which have earned mechanical enforcement (the day's evidence: prose is
+  vigilance; only enforcement is structure). Route: agent-tooling backlog
+  - PDR-014 graduation pipeline.

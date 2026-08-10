@@ -68,7 +68,15 @@ tool: its silent-pass classes (literal dynamic imports, unrecognised
 path idioms, comment-stripping bypasses) are the instrument's shape,
 not bugs to patch one spelling at a time. This generalises the section
 above — prefer the instrument that exercises the property's real path
-over a textual shadow of it. Worked instance: the
+over a textual shadow of it.
+
+The module-system policy those rules enforce (owner ruling
+2026-08-09): this estate is **strictly ESM — zero `require`
+statements**; the presence of a `require` IS the finding, never a
+style note. **Dynamic `import()` is strongly discouraged**: it errors
+by default, with any sanctioned use carried as a recorded,
+per-instance exemption in the rule configuration — never a silent
+allowance. Worked instance: the
 workspace-config-isolation containment leg (2026-08-09) — its
 replacement with dependency-cruiser rules was ruled at the owner's
 word; the isolation lane executes it.
