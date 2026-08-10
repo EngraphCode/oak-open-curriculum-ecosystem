@@ -403,10 +403,17 @@ Use the right tool for the job:
   `docs/agent-guidance/archive/sentry-guidance.md`)
 
 All workspace tooling configuration MUST follow the canonical
-patterns defined in the base configs at the repo root. Workspace
-configs extend base configs — they do not replace them. This applies
-to `vitest.config.ts`, `tsconfig.json`, `eslint.config.ts`, and all
-other tooling. Deviations cause silent quality-gate leaks (e.g. E2E
+patterns exported by `@oaknational/workspace-config`, consumed as a
+declared `workspace:*` dependency — never by a relative path that
+leaves the workspace (static imports and undeclared dependencies are
+enforced by the dependency-cruiser boundary rules;
+`validate-workspace-config-isolation` owns the resolver-invisible
+legs). Workspace configs extend the
+shared bases — they do not replace them. This applies to
+`vitest.config.ts`, `tsup.config.ts`, and all other tooling;
+`tsconfig.json` `extends` chains are the one root-anchored
+convention that remains (an `extends` reference is not a module
+import). Deviations cause silent quality-gate leaks (e.g. E2E
 tests running under `pnpm test`, disabled lint rules, weakened
 type-checking). See [Testing Strategy: Canonical Vitest
 Configuration][vitest-config] for vitest-specific patterns. E2E
