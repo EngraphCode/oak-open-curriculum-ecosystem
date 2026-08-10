@@ -1435,3 +1435,38 @@ Resumed into a frozen fleet under a standing "design lane is the only focus" wor
 ## 2026-08-10 ~19:0xZ — Plover lifts Troposphere (b10c37): the model-switch day — mechanical practice held, prose practice did not
 
 Owner-confirmed cause of the day's unusual error profile: the Claude Code TUI began silently switching models at quota exhaustion (Fable → Opus 4.8 on this seat; Swordfish's F-92 collision was the same class). The natural experiment's result: every MECHANICALLY-ENFORCED discipline held model-independently (hooks caught wildcard-stage and indefinite-deferral vocabulary; the identity ratchet caught the census move; skills:check caught unsummonable dirs; the merge-bot refusal ladder blocked every premature merge; F-95 gated claims) — while PROSE-ONLY judgement disciplines (deciding-surface reads, re-read-before-declaring, value-lens-first) regressed to error types months absent, despite the full rule corpus being loaded in context. Sharpest evidence yet for structure-over-vigilance: prose is vigilance and rides the model; only enforcement is structure and rides the estate. Graduation candidates this identifies: (1) resume-time session-model vs registry-lineage check (F-159); (2) PR-state declarations flow through the settlement-verdict instrument, never ad-hoc field reads (would have prevented both this seat's false outage call and the premature settled-green). Route: PDR-014 graduate → enforce.
+
+## 2026-08-10 ~21:0xZ (Wren calls Downdraft, 6b29b5) — compaction-freeze harvest 3 (the merge-day window)
+
+METACOGNITION BITES: (1) The bot-identity discipline covers every WRITE
+CHANNEL, not every write: pushes carried the bot (repo config) while
+`gh pr create` silently carried the owner's gh login — PR 847 landed
+owner-authored and was recreated as 848 under the mint-token front door
+at owner word. The standing question "whose name will this surface
+display?" must fire PER CHANNEL (push, gh CLI, REST, GraphQL, MCP), not
+per session. (2) A duplicate-head `gh pr create` returns the EXISTING
+PR's URL with exit 0 — a close-then-recreate that parses the create
+output before the close cites its own predecessor as its successor
+(happened; corrected in a follow-up comment). Parse-the-result-shape
+before citing it in a public record.
+
+FREE-PLAY SEEDS: (1) The reversible sentinel probe (replace a config
+with a bare throw; the run failing on that exact error proves the file
+is loaded; put the original back byte-identically) generalizes to ANY
+config-load claim — candidate pattern: "prove loading by reversible
+breakage"; Copilot demanded it and it was cheap and decisive. (2)
+Failed tool runs leave different residue than successful ones — the
+deliberately-failed Stryker probe left .stryker-tmp behind and an
+unrelated lint gate crawled it; hygiene checks calibrated on happy-path
+runs miss failure-path residue. DISCARD (visible): "unify the settle
+watches into one parametrized monitor tool" — premature tooling; the
+per-head shell loops are honest and die with their heads.
+
+WINDOW STATE at freeze: #836 MERGED (d4e256294) — the full depcruise
+swap arc from owner ruling to live, four adjudicated rounds, capped
+honestly at the sampling floor. #848 (successor of 847, bot-authored,
+jimbot-labelled) open at c38bd4e66 with two rounds dispositioned and a
+round-2 pointer cure landed; Copilot re-requested. Labels: jimbot
+applied+verified on 12 PRs (both identities, open + today's merged).
+MCP-540 links both PRs. Register rows 7a-7l carry every routed
+follow-up.

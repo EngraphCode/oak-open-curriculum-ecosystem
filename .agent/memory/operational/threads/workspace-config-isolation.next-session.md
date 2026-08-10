@@ -10,20 +10,39 @@ Controlling plan:
 (RATIFIED 2026-08-09, known-issues ledger inside). The canary plan remains
 ratified-live; its restore step is superseded by this plan's todo 3.
 
-## Current Continuation
+## Current Continuation (frozen 2026-08-10 ~21:0xZ, compaction freeze 3)
 
-- **Branch**: `jimcresswell/workspace-config-isolation` (worktree
-  `.claude/worktrees/workspace-config-isolation-pr1`), PR **#836**, head
-  `7b22b71e8` (pushed 2026-08-09 ~14:4xZ). **CI verdict on that head was
-  PENDING when this record froze** — check the run before asserting green;
-  the prior head's failure (run 31316920558) was real and is cured below.
-- **Claims**: `377c0b30` (this lane, retained at day-end close 2026-08-09
-  with this record as the handoff reason) and `04883b1e` (open-surface-zero,
-  owner-PAUSED, retained by prior owner direction).
-- **Merge state**: Director packet verdict BLOCKED with enumerated cures;
-  merge grant follows the recount at settled green. The adjudicated packet is
-  durable at PR #836 comment 5232026823; addendum 2 (Codex leg + ESM ruling)
-  is a follow-up comment on the same PR.
+- **#836 is MERGED to main** (merge commit `d4e256294`, 2026-08-10
+  20:08:40Z, merge-bot at SETTLE-READY under the Director's sha-pinned
+  grant at `97febf893`). The whole swap arc is live: package, migration,
+  four depcruise rules under the three owner rulings, resolver-invisible
+  validator legs, cold-install bootstrap cure. Post-merge quiet-window
+  harvest ran CLEAN.
+- **Todo 3 is executed as PR #848** (branch
+  `jimcresswell/stryker-real-config`, worktree
+  `.claude/worktrees/stryker-real-config`, head `c38bd4e66`): Stryker
+  points at the real `vitest.config.ts`, the duplicate is deleted, the
+  re-run is banked (18/18, 100%, zero warnings) PLUS the reversible
+  config-load sentinel probe (`mutation-evidence/config-load-probe.md`).
+  #848 is the BOT-AUTHORED successor of #847 (closed at the owner's
+  identity directive — `gh pr create` had run under the owner's gh
+  login; the mint-token front door now covers PR creation too). Two
+  review rounds fully dispositioned (cure shas `aa69109b8`,
+  `c38bd4e66`); Copilot re-requested on #848; ticket MCP-540 links
+  both. NEXT: tally #848's rounds at the standing rigour, settle,
+  Director recount, merge-bot merge, Phase-8 harvest, worktree cleanup.
+- **Owner directive (2026-08-10, standing)**: all fleet PRs are
+  BOT-authored (mint-token for every write channel including
+  `gh pr create`), and every PR from either identity carries the
+  `jimbot` label (applied+verified on 12 PRs this window).
+- **Claims**: `377c0b30` (this lane) and `04883b1e` (osz,
+  owner-paused) retained at the freeze; heartbeats stopped with the
+  freeze broadcast.
+- **Plan state**: isolation plan todos 1 and 3 DONE (todo 3 completes
+  at #848's merge); todo 2 (de-hatch, reshaped by the right-tool
+  ruling) next; todos 4-5 (census) behind it; register rows 7a-7l
+  carry every routed follow-up. The canary plan carries its dated
+  retirement amendment.
 
 ## Three owner rulings landed 2026-08-09 (all after ratification; all binding)
 
@@ -121,4 +140,4 @@ ratified-live; its restore step is superseded by this plan's todo 3.
 
 | platform | model | agent_name | role | last_session |
 |---|---|---|---|---|
-| claude-code | claude-fable-5 | Wren calls Downdraft | implementer | 2026-08-09 |
+| claude-code | claude-fable-5 | Wren calls Downdraft | implementer | 2026-08-10 |
