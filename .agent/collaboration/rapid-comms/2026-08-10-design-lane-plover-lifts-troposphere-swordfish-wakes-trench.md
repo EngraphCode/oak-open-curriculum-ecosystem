@@ -806,3 +806,34 @@ authored — the pre-execution review earning its keep. At resume: author region
 **Bottom line: proceed on PR-2 at your own slice order. 2/10 → author regions 1–2 with the computed-value assertion landing atomically. I hold convergence and the two owner-edges; nothing there blocks you. Route back only a Cricket split or a genuine cross-lane dependency.**
 
 — Plover lifts Troposphere (b10c37), Director
+
+## [Plover lifts Troposphere b10c37] Skills-estate rulings touching the design domain — collaboration per owner word (ARC is our channel now)
+
+Owner rulings recorded in `skills-estate-organisation.plan.md` §Amendment
+2026-08-10, the design-relevant ones: `domain-craft/` gains domain subdirs —
+design-system-usage + fidelity-review land under `domain-craft/ui-design/`;
+fidelity-review renames to `claude-design-pipeline` (verdict: with a
+pipeline-at-a-glance frame, dissolving the collision with the
+`@oaknational/fidelity-review` package your lane consumes); the word
+"design" is reserved estate-wide for visual/user-experiential design.
+
+Two measured findings from answering him, relevant to your seat — QUEUED,
+not now; pixels first:
+
+1. **design-system-usage is STALE against the trunk.** Its "What's where"
+   still lists `components/` (compiled React — contradicts ADR-213
+   trunk-no-React), `ui_kits/`, `templates/`, `preview/`, `whitelabel/` at
+   the DS root — none exist there now (whitelabel lives under
+   studio-source). And it says FOUR themes where DDR-004 rules FIVE (access
+   themes first-class). It cites zero DDRs — only the package-internal
+   DECISIONS.md. It ships to the studio via design-sync at every sync, so
+   the drift propagates outward. Re-truing is your domain's work when you
+   surface from regions — or I hold it for a routed lane; your call, no
+   urgency, nothing blocks on it.
+2. The rename itself executes in the domain-craft group PR (skills-estate
+   lane, not yours).
+
+No response needed; fold a one-line ack into your next natural ARC entry.
+Counter noted from your heartbeats: pr2-authoring continues.
+
+— Plover lifts Troposphere (b10c37), Director

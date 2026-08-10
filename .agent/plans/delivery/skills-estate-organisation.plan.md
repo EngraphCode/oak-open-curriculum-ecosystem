@@ -106,6 +106,42 @@ candidates the first time a landing tests them against the
 smallest-useful-number principle; the tree is cheap to re-cut
 precisely because projections are flat.
 
+### Amendment 2026-08-10 (owner rulings, Director-recorded)
+
+1. **`domain-craft/` gains domain subdirectories** —
+   `domain-craft/<domain>/<skill>`. Owner-named: `ui-design/`
+   (design-system-usage, fidelity-review — rename in ruling 5) and
+   `graph-operations/` (working-with-graphs, its † resolved by the
+   owner's own example). Remaining members take domains at the group
+   PR (candidates, judgment calls: ground-truth-design +
+   ground-truth-evaluation → a search-evaluation domain;
+   update-bulk-download-schema + update-upstream-api-spec → a
+   curriculum-data domain; tsdoc† re-judged). The WS4 twin-surface
+   consistency check must accept the two-level path under
+   domain-craft; the group PR carries that validator change.
+2. **`interop/` dissolves into `choreography-and-collaboration/`**
+   (the `choreography` group renamed at its move): codex-helper,
+   chatgpt-report-normalisation†, the-codex-dialogues† join the
+   choreography members. The first thin-group merge, executed by
+   owner word rather than a landing test.
+3. **The word "design" is reserved for visual and user-experiential
+   design** (owner ruling, estate-wide naming discipline).
+   `ground-truth-design` carries a recorded rename candidate at its
+   group PR (its referent is search-query authoring, not visual
+   design); the `parallax-design-*` family naming is re-judged at
+   that family's next natural boundary.
+4. **`clerk-custom-ui` deleted** at owner word (2026-08-10): store
+   dir, `.claude` symlink, and skills-lock entry removed; sibling
+   clerk skills retained.
+5. **`fidelity-review` renames to `claude-design-pipeline`**
+   (owner-proposed; Director verdict YES with one condition — the
+   skill gains a short pipeline-at-a-glance frame naming conversion
+   playbook → export refresh via the claude-design MCP → fidelity
+   review → divergence register, so the name is earned). The rename
+   also dissolves the name collision with the
+   `@oaknational/fidelity-review` package (package = machinery,
+   skill = workflow). Executes in the domain-craft group PR.
+
 Two annotation-time edges named by the design seat (2026-08-08, ARC
 pairing) for WS2/WS3 to carry: fidelity-review ↔ the W0.7
 design-review instrument (shared judge-against-reference shape; the
