@@ -1,3 +1,10 @@
+## [1.157.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.157.1...v1.157.2) (2026-08-10)
+
+
+### Bug Fixes
+
+* **plugin:** name national curriculum statements, not "mapping" ([321e864](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/321e864771b86bdbd5e57c0ca1b6624875c006b7))
+
 ## [1.157.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.157.0...v1.157.1) (2026-08-10)
 
 
