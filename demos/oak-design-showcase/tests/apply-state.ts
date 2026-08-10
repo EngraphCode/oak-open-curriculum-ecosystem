@@ -32,6 +32,20 @@ export async function expectNoAxeViolations(page: Page): Promise<void> {
   expect(results.violations).toEqual([]);
 }
 
+/** The forced-colors variant: every rule except color-contrast, which axe
+ *  reads from UNFORCED author colours in this mode and so measures a
+ *  fiction — a live probe (2026-08-10) showed the same elements computing
+ *  correctly forced CanvasText/LinkText while axe reported the author
+ *  values. Contrast under forced colors is the system palette's property
+ *  by construction; every other rule stays live. */
+export async function expectNoAxeViolationsForcedColors(page: Page): Promise<void> {
+  const results = await new AxeBuilder({ page })
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
+    .disableRules(['color-contrast'])
+    .analyze();
+  expect(results.violations).toEqual([]);
+}
+
 /** Origins the kit-authored counter-brand sheets are known to reference;
  *  any other aborted origin during a test fails the suite loudly. Full
  *  origins, not hostnames: a wrong-port loopback request must surface as

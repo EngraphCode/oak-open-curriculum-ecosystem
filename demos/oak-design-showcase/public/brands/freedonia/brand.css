@@ -146,3 +146,13 @@
 .headline {
   font: var(--type-heading-1);
 }
+
+/* Flow topology collapses at the kit's narrow seam: multi-column key-item
+   flow needs room the -narrow maps do not have (measured: 132px/66px
+   tracks at a 320px viewport overflowed the reflow floor — the specimen
+   accessibility matrix's finding, 2026-08-10). */
+@media (max-width: 840px) {
+  :root {
+    --flow-columns: minmax(0, 1fr);
+  }
+}

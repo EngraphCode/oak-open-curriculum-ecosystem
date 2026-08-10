@@ -55,6 +55,11 @@
   --bg-neutral: light-dark(#f6e8ef, #4d3a4d);
   --bg-neutral-stronger: light-dark(#ecd8e2, #342635);
   --bg-inverted: light-dark(#331f30, #fffdf8);
+  /* The kit's inverted-band contract (brand.css: a brand that re-points
+     --bg-inverted must keep the inverted family >=4.5:1 against it):
+     the subdued twin rides the brand's own audited subdued pair —
+     measured 1.61:1 with the kit default (specimen matrix, 2026-08-10). */
+  --text-inverted-subdued: light-dark(#e3cede, #5f4460);
   /* Elevation family stays in the PLUM world (contract paper rule): the
      secondary plate is the page sheet; raised/overlay lift by lightening
      the plum, never Oak's cool greys */
@@ -253,4 +258,14 @@
   --main-areas: 'hero' 'featured' 'support' 'context';
   --main-columns-narrow: minmax(0, 1fr);
   --main-areas-narrow: 'hero' 'featured' 'support' 'context';
+}
+
+/* Flow topology collapses at the kit's narrow seam: multi-column key-item
+   flow needs room the -narrow maps do not have (measured: 132px/66px
+   tracks at a 320px viewport overflowed the reflow floor — the specimen
+   accessibility matrix's finding, 2026-08-10). */
+@media (max-width: 840px) {
+  :root {
+    --flow-columns: minmax(0, 1fr);
+  }
 }

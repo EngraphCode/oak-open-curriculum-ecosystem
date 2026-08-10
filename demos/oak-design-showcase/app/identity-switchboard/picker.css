@@ -8,20 +8,20 @@
    that claim.
    ============================================================ */
 
-.picker-head {
+[data-page='identity-picker'] .picker-head {
   padding-block: var(--space-24);
 }
 
-.picker-lede {
+[data-page='identity-picker'] .picker-lede {
   max-inline-size: var(--measure-prose);
 }
 
-.picker-controls {
+[data-page='identity-picker'] .picker-controls {
   align-items: end;
   padding-block-end: var(--space-8);
 }
 
-.picker-status {
+[data-page='identity-picker'] .picker-status {
   padding-block-end: var(--space-8);
 }
 
@@ -31,7 +31,7 @@
    on each swap, the eye would read the movement rather than the re-skin.
    (A bare ratio carries no design value per the classifier's own doctrine;
    the kit has no viewport-height token to compose here.) */
-.picker-stage {
+[data-page='identity-picker'] .picker-stage {
   inline-size: 100%;
   aspect-ratio: 16 / 10;
   border: var(--border-solid-s) solid var(--border-neutral-lighter);

@@ -53,6 +53,39 @@ const BREAKDOWN: readonly BreakdownRow[] = [
   },
 ];
 
+/** SC 1.4.10 excepts a data table from reflow only when it scrolls in
+ *  its OWN container — and a scrollable region must be reachable by
+ *  keyboard with an accessible name (the axe finding that shaped this). */
+function BreakdownTable(): React.JSX.Element {
+  return (
+    <div className="table-scroll" role="region" aria-label="Lesson breakdown" tabIndex={0}>
+      <table className="oak-table">
+        <caption className="oak-heading-6">Lesson breakdown</caption>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Lesson</th>
+            <th scope="col">Length</th>
+            <th scope="col">Worksheet</th>
+            <th scope="col">Quiz</th>
+          </tr>
+        </thead>
+        <tbody>
+          {BREAKDOWN.map((row) => (
+            <tr key={row.number}>
+              <td>{row.number}</td>
+              <td>{row.lesson}</td>
+              <td>{row.length}</td>
+              <td>{row.worksheet}</td>
+              <td>{row.quiz}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export function ResourcesRegion(): React.JSX.Element {
   return (
     <section
@@ -76,29 +109,7 @@ export function ResourcesRegion(): React.JSX.Element {
             </a>
           ))}
         </div>
-        <table className="oak-table">
-          <caption className="oak-heading-6">Lesson breakdown</caption>
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Lesson</th>
-              <th scope="col">Length</th>
-              <th scope="col">Worksheet</th>
-              <th scope="col">Quiz</th>
-            </tr>
-          </thead>
-          <tbody>
-            {BREAKDOWN.map((row) => (
-              <tr key={row.number}>
-                <td>{row.number}</td>
-                <td>{row.lesson}</td>
-                <td>{row.length}</td>
-                <td>{row.worksheet}</td>
-                <td>{row.quiz}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <BreakdownTable />
       </div>
     </section>
   );

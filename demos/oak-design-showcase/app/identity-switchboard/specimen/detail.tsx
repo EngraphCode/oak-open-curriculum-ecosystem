@@ -27,10 +27,12 @@ function LessonArticle(): React.JSX.Element {
       </div>
       <dl className="oak-keywords">
         <div className="oak-keyword">
-          <dt>evaporate</dt>—<dd>to turn from a liquid into a gas.</dd>
+          <dt>evaporate</dt>
+          <dd>to turn from a liquid into a gas.</dd>
         </div>
         <div className="oak-keyword">
-          <dt>water vapour</dt>—<dd>water as a gas, spread out in the air.</dd>
+          <dt>water vapour</dt>
+          <dd>water as a gas, spread out in the air.</dd>
         </div>
       </dl>
       <details className="oak-accordion">
