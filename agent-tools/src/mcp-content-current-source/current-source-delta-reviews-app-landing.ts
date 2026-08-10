@@ -53,8 +53,13 @@ export const APP_LANDING_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
     'df1dc60bea02eb3c0ff243c7a3dcee632610adaf2c241e2f9531a2e33fb49d7a',
     ['C357', 'C362', 'C363', 'C364', 'C365', 'C366', 'C367', 'C368'],
   ),
+  // MCP-536: the snippet's MCP server key is renamed `oak-curriculum` →
+  // `oak-open-curriculum` to match the plugin's own name, by owner decision. The
+  // published surface is Oak's OPEN curriculum (OGL-licensed), not its
+  // copyrighted material, so the key now names the thing accurately. C354 is
+  // otherwise unchanged: same template, same interpolated endpoint.
   'apps/oak-curriculum-mcp-streamable-http/src/landing-page/create-snippet.ts': reviewed(
-    '24c94ac7e14c6f998b84db525cf1f0a656ebb8a0269d25fc002722741b0a3359',
+    'f564b6889d1841cb5187f3772443db5806a36c8c261a63816d862c6561a09073',
     ['C354'],
   ),
   // MCP-351: the bake now calls the shared served-origin module; the derived
