@@ -92,10 +92,10 @@ misconceptionsAndCommonMistakes: [
 
 ```text
 browse-curriculum({ subject: "history", keyStage: "ks4" })   // see options/structure
-get-units-summary({ ... })                                    // read NC statements + options
+get-units-summary({ ... })                                    // read national curriculum statements + options
 ```
 
-**Use it:** make your material modular and NC-mapped the way Oak's is, so a teacher can localise an example without breaking the sequence.
+**Use it:** make your material modular and mapped to the national curriculum the way Oak's is, so a teacher can localise an example without breaking the sequence.
 
 ---
 
