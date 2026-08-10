@@ -154,8 +154,8 @@ working first realisation in the demo — the fidelity review (`tool:fidelity`: 
 dev-server lifecycle + both capture arms + pixelmatch triage + a side-by-side report) with the
 **divergence register BUILT** as `demos/oak-curriculum-hub/fidelity-register.json`
 (zod-validated; dispositions fix/deliberate/investigate/matched/superseded; keys stable across
-export refreshes) and the workflow carried by the `fidelity-review` skill
-(`.agent/skills/fidelity-review/SKILL-CANONICAL.md`). Stage 2's reader consumes that register;
+export refreshes) and the workflow carried by the `claude-design-pipeline` skill
+(`.agent/skills/domain-craft/ui-design/claude-design-pipeline/SKILL-CANONICAL.md`). Stage 2's reader consumes that register;
 stage 5 generalises the demo's `tools/image-diff.ts` (correction 2026-08-09: this
 generalisation landed early — the diff core and the shared fidelity machinery now live in
 `packages/libs/fidelity-review`, a foundation lib per ADR-041's dated amendment, consolidated

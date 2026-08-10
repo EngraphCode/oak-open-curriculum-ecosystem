@@ -7,6 +7,7 @@ import {
   getReviewerAdapterParityIssues,
   getRulesIndexPortabilityIssues,
   getSkillPermissionIssues,
+  collectCanonicalSkillPaths,
   getSkillsLockCrossReferenceIssues,
   HOOK_POLICY_PATH,
   isClaudeHookWired,
@@ -400,6 +401,62 @@ describe('getSkillPermissionIssues', () => {
   });
 });
 
+describe('collectCanonicalSkillPaths', () => {
+  const makeWalkFs = (
+    dirs: ReadonlyMap<string, readonly string[]>,
+    canonicals: ReadonlySet<string>,
+  ) => ({
+    async listSubdirs(relPath: string) {
+      return dirs.get(relPath) ?? [];
+    },
+    async exists(relPath: string) {
+      return canonicals.has(relPath);
+    },
+  });
+
+  it('collects flat, concern-tier, and domain-tier canonicals with their leaf names', async () => {
+    const fs = makeWalkFs(
+      new Map([
+        ['.agent/skills', ['flat-one', 'cognition', 'domain-craft']],
+        ['.agent/skills/cognition', ['reason']],
+        ['.agent/skills/domain-craft', ['ui-design']],
+        ['.agent/skills/domain-craft/ui-design', ['claude-design-pipeline']],
+      ]),
+      new Set([
+        '.agent/skills/flat-one/SKILL-CANONICAL.md',
+        '.agent/skills/cognition/reason/SKILL-CANONICAL.md',
+        '.agent/skills/domain-craft/ui-design/claude-design-pipeline/SKILL-CANONICAL.md',
+      ]),
+    );
+
+    const result = await collectCanonicalSkillPaths(fs);
+
+    expect(result.canonicalPaths).toStrictEqual([
+      '.agent/skills/flat-one/SKILL-CANONICAL.md',
+      '.agent/skills/cognition/reason/SKILL-CANONICAL.md',
+      '.agent/skills/domain-craft/ui-design/claude-design-pipeline/SKILL-CANONICAL.md',
+    ]);
+    expect(result.leafNames).toStrictEqual(['flat-one', 'reason', 'claude-design-pipeline']);
+  });
+
+  it('never walks a fourth level — the tree closes at the domain tier', async () => {
+    const fs = makeWalkFs(
+      new Map([
+        ['.agent/skills', ['fam']],
+        ['.agent/skills/fam', ['dom']],
+        ['.agent/skills/fam/dom', ['too-deep']],
+        ['.agent/skills/fam/dom/too-deep', ['deeper']],
+      ]),
+      new Set(['.agent/skills/fam/dom/too-deep/deeper/SKILL-CANONICAL.md']),
+    );
+
+    const result = await collectCanonicalSkillPaths(fs);
+
+    expect(result.canonicalPaths).toStrictEqual([]);
+    expect(result.leafNames).toStrictEqual([]);
+  });
+});
+
 describe('getSkillsLockCrossReferenceIssues', () => {
   const completeEntry = {
     source: 'clerk/skills',
@@ -425,8 +482,18 @@ describe('getSkillsLockCrossReferenceIssues', () => {
         'skills-lock.json',
       ),
     ).toContain(
-      'skills-lock.json: external skill "oak-plan" collides with canonical .agent/skills/oak-plan/ — external skills must never shadow canonical practice skills (rename or remove one)',
+      'skills-lock.json: external skill "oak-plan" collides with the canonical practice skill "oak-plan" — external skills must never shadow canonical practice skills (rename or remove one)',
     );
+  });
+
+  it('reports a collision against a domain-tier leaf name — nested canonicals must not be shadowable', () => {
+    expect(
+      getSkillsLockCrossReferenceIssues(
+        [['claude-design-pipeline', completeEntry]],
+        ['claude-design-pipeline'],
+        'skills-lock.json',
+      ),
+    ).toContainEqual(expect.stringContaining('collides with the canonical practice skill'));
   });
 
   it('reports each absent or empty provenance field while accepting present ones', () => {
