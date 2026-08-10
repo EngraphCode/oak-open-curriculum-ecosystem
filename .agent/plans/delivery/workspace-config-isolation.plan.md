@@ -309,6 +309,37 @@ surface. Decisions, made:
   across the surfaces — registration is therefore its own sweep
   (todo 5), separate from the mechanism (todo 4).
 
+## Mechanism amendment (2026-08-10, owner-ruled — supersedes the validator leg (a) shape above)
+
+Three owner rulings landed after ratification and reshaped the
+enforcement instruments; recorded here at occurrence, executed inside
+PR #836:
+
+- **Dependency-cruiser is the containment instrument** ("if we use
+  regex it is because we are using the wrong tool… dep cruise is
+  clearly the right tool for the job"; doctrine in
+  validation-strategy.md §Gate integrity). Leg (a)'s static-specifier
+  regex scan is REPLACED by four depcruise rules in
+  `.dependency-cruiser.mjs`: `workspace-config-containment` (a `$1`
+  workspace back-reference, probe-verified on 18.1.0),
+  `workspace-config-no-phantom-deps` (built-in undeclared-dependency
+  detection — the packet's H3 substance), `no-commonjs-require`, and
+  `no-dynamic-import`. A check-fires integration test imports the real
+  rules by reference and red-proofs each. The cruise scope gained the
+  nested research workspaces so no pnpm-workspace member sits outside
+  the rule.
+- **ESM ruling**: zero `require` statements estate-wide at error
+  severity (the three generated vocab loaders were the only sites —
+  cured at the generator, fs-read replacing `createRequire`), and
+  dynamic `import()` at error severity with a named per-site exemption
+  set (empty at landing; estate-wide zero measured).
+- **What stays bespoke in the validator** (probe-verified
+  resolver-invisible): literal `import.meta.url` path arithmetic,
+  the non-literal refusal channel (depcruise emits NO edge for a
+  non-literal dynamic import), and the turbo-inputs JSONC leg — plus a
+  new degenerate-scan guard (exit 2 on zero workspaces or zero config
+  files).
+
 ## Todos (sliced per PDR-132 §5; classes named per todo)
 
 1. **The isolation cure** (source/config sweep):
@@ -362,6 +393,42 @@ surface. Decisions, made:
    cures routed to their owning lanes.
 6. **Closing re-derivation** (record class): acceptance criteria
    re-proven against the live tree; plan archived with dispositions.
+7. **Enforcement-completeness follow-ups** (recorded per the #836
+   review packet + Codex addendum, 2026-08-09/10 — each lands with a
+   red-proof, never as a silent gap; sliced into single-story PRs at
+   pickup):
+   a. tsconfig-`extends` leg — package the base tsconfig as a
+      `@oaknational/workspace-config` export (TypeScript resolves
+      package-specifier `extends`); true the "crosses no resolver
+      boundary" ground in this plan's Out of scope and in
+      principles.md §Tooling.
+   b. Path-arithmetic idiom coverage — the validator matches one
+      spelling; `new URL(rel, import.meta.url)`,
+      `fileURLToPath(new URL(...))`, the two-step `dirname` form,
+      `join(...)`, and `import.meta.dirname` pass silently.
+   c. Config-VALUE relative strings (`setupFiles:
+      ['../../x.ts']` escapes with no import statement).
+   d. Comment-stripping robustness (`/*` inside string globs; the
+      quote-parity false-refusal).
+   e. Config file-class widening — playwright/vite/next/postcss/
+      esbuild configs are unscanned by rule and validator alike.
+   f. Exit-2-on-unreadable — documented in the bin, unimplemented
+      (`readRepoFile` throws → exit 1 + stack).
+   g. Bootstrap-closure ordering check (the cold-install recurrence
+      class): every config import in the install-time closure must be
+      registered earlier in `WORKSPACE_DEPS`.
+   h. Turbo-glob resolution (Codex): positive `$TURBO_ROOT$` globs are
+      checked only to their leading literal directory — require ≥1
+      tracked-file match with turbo-compatible semantics.
+   i. Estate-wide syntactic dynamic-import bar — the depcruise rule
+      sees only resolvable (literal) sites; a syntactic instrument
+      (ESLint `no-restricted-syntax` on ImportExpression) closes the
+      non-literal form estate-wide; lands with todo 2's reshaped arc.
+   j. Workspace-root drift in the depcruise rule regexes — the
+      from.path alternation hand-encodes workspace root locations;
+      evaluate deriving it from `pnpm-workspace.yaml` (or a validator
+      leg asserting every expanded member dir is matched) so a new
+      workspace root cannot silently sit outside the rule.
 
 ## Known issues at execution (recorded 2026-08-09; every row has a named immediate home)
 
