@@ -2396,3 +2396,15 @@ STILL UNGROUNDED, honestly: the panel could not verify Director liveness, the
 branch stamp, or the ratification independently — all were taken on this
 seat's account. Given this seat had just been wrong about exactly one of
 those, that is the right place for a reader's scepticism to sit.
+
+### Routed addition — 2026-08-10, from the specimen's red keyboard cell
+
+The DS trunk slice gains a third item beside the segmented-control cure and
+the mask-icon sizing gap: `.oak-skip-link` loses to the kit's own
+`reading-flow: grid-rows` enhancement — an absolutely-positioned, area-less
+canvas child sorts to the END of sequential focus, the inverse of a skip
+link's job. The two rules ship side by side in `components.css` and are
+mutually broken for any skip link placed inside the canvas. Cure shape: a
+`reading-order` pin on `.oak-skip-link` in the trunk. Found by a red
+Playwright cell on the specimen (PR-2, `2d70f12d0`); page-level placement
+cure landed there; minimal repro isolated ancestry, not the element.
