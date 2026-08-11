@@ -17,6 +17,12 @@ export async function createRedisClient(url: string): Promise<Redis | null> {
       maxRetriesPerRequest: 3,
       retryStrategy: (times) => (times > 3 ? null : Math.min(times * 200, 1000)),
       lazyConnect: true,
+      // ioredis 6 defaults to RESP3, whose HELLO handshake needs Redis
+      // server >= 6.0 — and THIS adapter degrades a failed connection to
+      // "continuing without cache" with every gate green, so a protocol
+      // mismatch would be silent. Pin the v5 wire protocol explicitly;
+      // lift to RESP3 only with the deployed server version verified >= 6.
+      protocol: 2,
     });
     await client.connect();
     await client.ping();
