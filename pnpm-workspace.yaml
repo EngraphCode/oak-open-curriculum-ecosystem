@@ -41,13 +41,17 @@ packages:
 # (1440 min) from resolution, so a freshly-published compromised release ages —
 # giving the ecosystem time to detect and yank it — before it can enter the
 # tree. pnpm's default is 0 (no floor); this line introduces the floor.
-# Mechanism, verified first-hand 2026-08-11 on pnpm 11.20: the resolver
-# SILENTLY picks the newest version older than the floor (exit 0, no warning)
-# — it does not refuse or prompt — so a just-published release simply stays
-# out of resolution until it ages past the floor. The exclusion is INVISIBLE
-# to `pnpm outdated` too: its "latest" is computed under the same floor, so
+# Mechanism, verified first-hand 2026-08-11 on pnpm 11.20 — two outcomes:
+# when the requested range admits an older mature version, the resolver
+# SILENTLY picks the newest version older than the floor (exit 0, no
+# warning, no prompt) — a just-published release simply stays out of
+# resolution until it ages past the floor. The exclusion is INVISIBLE to
+# `pnpm outdated` too: its "latest" is computed under the same floor, so
 # age-floored rows read current — surface them from publish-date reads
-# (`pnpm view <pkg> time`), never from outdated's silence.
+# (`pnpm view <pkg> time`), never from outdated's silence. When NOTHING
+# mature satisfies the request (an exact pin to a too-young version),
+# pnpm instead refuses loudly with ERR_PNPM_NO_MATURE_MATCHING_VERSION,
+# naming each too-young package.
 # Applies to all (incl. transitive) deps at resolution time; frozen-lockfile
 # installs (CI) are unaffected. Allow-list a genuinely-needed young package
 # via minimumReleaseAgeExclude.
@@ -67,6 +71,25 @@ peerDependencyRules:
     eslint-plugin-react>eslint: '10'
     eslint-plugin-react-hooks>eslint: '10'
 overrides:
+  # Security floor, added 2026-08-11 (MCP-549 wave): three HIGH undici
+  # WebSocket-client advisories — invalid server_max_window_bits unhandled
+  # exception and permessage-deflate unbounded memory (both patched in
+  # 6.24.0), fragment-count DoS (patched in 6.27.0) — with NO patched 5.x
+  # release. The @ai-sdk provider fleet reaches undici ^5.29.0 through
+  # @ai-sdk/provider-utils 3.x/4.x under @mcpjam/sdk (dev-only MCP
+  # debugging instrument; the resolution entered with @mcpjam/cli 3.19.0
+  # in this wave). Demonstrated necessity: no version move escapes —
+  # cli 3.15.2→3.20.0 and sdk 2.3.0→3.0.0 all pin the provider fleet on
+  # provider-utils 3.x, and provider-utils 3.0.31 AND 4.0.42 both declare
+  # undici ^5.29.0 (provider-utils 5.x rides undici ^7.28.0, but the
+  # fleet declares ^3 and does not admit it). Parent-scoped so ONLY the
+  # provider-utils consumers cross to 6.x — the @actions and @elastic
+  # chains keep their own already-patched lines — and bounded <7 at the
+  # nearest patched major. The cross beyond the declared ^5 is verified
+  # by booting the mcpjam instrument on the new resolution (MCP-381
+  # prior art: a forced version in this chain broke that boot). Remove
+  # when the @ai-sdk provider fleet reaches provider-utils >=5.
+  '@ai-sdk/provider-utils>undici': '>=6.27.0 <7'
   # Pin @types/node to the Node 24 LTS line across the whole tree, including
   # transitive peers (vite/vitest pull @types/node@26 as an optional peer).
   # Matches engines.node 24.x and keeps every workspace — including those that
