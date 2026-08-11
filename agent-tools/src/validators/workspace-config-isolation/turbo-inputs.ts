@@ -86,10 +86,8 @@ const TURBO_ROOT_PREFIX = '$TURBO_ROOT$/';
  * leg never evaluates negations). A `$TURBO_ROOT$` occurrence not in
  * leading `$TURBO_ROOT$/` prefix form is unanalysable.
  */
-export function classifyTurboRootInput(
-  entry: string,
-  trackedFiles: readonly string[],
-): TurboEntryVerdict {
+/** Structural checks on the entry's macro form, ahead of any matching. */
+function macroFormVerdict(entry: string): TurboEntryVerdict | undefined {
   if (entry.startsWith('!')) {
     return { kind: 'exempt' };
   }
@@ -98,6 +96,27 @@ export function classifyTurboRootInput(
       kind: 'unsupported',
       reason: `$TURBO_ROOT$ occurrence outside leading '${TURBO_ROOT_PREFIX}' prefix form`,
     };
+  }
+  if (entry.slice(TURBO_ROOT_PREFIX.length).includes('$TURBO_ROOT$')) {
+    // A repeated macro would otherwise fall through to the literal arm and
+    // read as a dead FINDING; it is malformed input the leg cannot
+    // evaluate, so it refuses (Copilot round 2 suppressed comment,
+    // 2026-08-11 — harvested per the suppressed-comments discipline).
+    return {
+      kind: 'unsupported',
+      reason: `repeated $TURBO_ROOT$ occurrence — the macro is valid only as the single leading prefix`,
+    };
+  }
+  return undefined;
+}
+
+export function classifyTurboRootInput(
+  entry: string,
+  trackedFiles: readonly string[],
+): TurboEntryVerdict {
+  const formVerdict = macroFormVerdict(entry);
+  if (formVerdict !== undefined) {
+    return formVerdict;
   }
   const relative = entry.slice(TURBO_ROOT_PREFIX.length);
   if (!GLOB_CANDIDATE.test(relative)) {

@@ -343,6 +343,12 @@ describe('classifyTurboRootInput — the pinned turbo-glob matcher', () => {
     expect(classifyTurboRootInput('$TURBO_ROOT$', tracked).kind).toBe('unsupported');
     expect(classifyTurboRootInput('packages/$TURBO_ROOT$/x.ts', tracked).kind).toBe('unsupported');
   });
+
+  it('refuses a repeated $TURBO_ROOT$ macro instead of misreading it as a dead literal', () => {
+    const repeated = classifyTurboRootInput('$TURBO_ROOT$/foo/$TURBO_ROOT$/bar', tracked);
+    expect(repeated.kind).toBe('unsupported');
+    expect(repeated.kind === 'unsupported' && repeated.reason).toContain('repeated');
+  });
 });
 
 describe('scanTurboRootInputs', () => {
