@@ -1,26 +1,31 @@
 /**
  * Skills adapter generator.
  *
- * Discovers canonical skills under `.agent/skills/` (flat individuals and
- * concern-tier members — see `discovery.ts`) and emits two adapter surfaces per
- * skill:
+ * Discovers canonical skills under `.agent/skills/` (flat individuals,
+ * concern-tier members, and domain-tier members — see `discovery.ts`) and
+ * emits two adapter surfaces per skill:
  *
  *   - `.claude/skills/<prefix><id>/SKILL.md`  — Claude Code adapter
  *   - `.agents/skills/<prefix><id>/SKILL.md`  — cross-tool stub (Codex, Cursor, Gemini)
  *
  * Adapters are stub pointers: their body links back to the canonical, which
- * remains the single source of truth for workflow content.
+ * remains the single source of truth for workflow content. Supporting
+ * directories (`scripts/`, `references/`, `assets/` — never `evals/`) are
+ * carried beside each adapter as byte-stable copies, and carried copies
+ * whose canonical source is gone are pruned — see `carriage.ts`.
  */
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 
 import { stringify as stringifyYaml } from 'yaml';
 
+import { realCarriageWriteFs, syncCarriage } from './carriage.js';
 import {
   discoverCanonicals,
   type CanonicalFrontmatter,
   type ParsedCanonical,
 } from './discovery.js';
+import { isDiscoveryComplete, sweepStaleProjections } from './projection-roots.js';
 
 export { discoverCanonicals, parseFrontmatter, type DiscoveryFs } from './discovery.js';
 
@@ -29,12 +34,31 @@ const ADAPTER_FILENAME = 'SKILL.md';
 export interface GeneratorOptions {
   readonly repoRoot: string;
   readonly prefix: string;
+  /**
+   * Lock-pinned vendored skill ids from `skills-lock.json` — the projection
+   * directories generation cannot re-create and the root sweep must never
+   * touch. Pass the loaded set explicitly; an empty set is a statement that
+   * nothing is vendored, never a default.
+   */
+  readonly lockedIds: ReadonlySet<string>;
 }
 
 export interface GenerateOutcome {
   readonly written: readonly string[];
   readonly skipped: readonly string[];
   readonly duplicates: readonly string[];
+  /** Carried copies removed because their canonical source is gone. A cure
+   * the run applied, reported for observability — never a failure state. */
+  readonly pruned: readonly string[];
+  /** Refusals — canonical-side symlinks and seam read failures. A refused
+   * skill emits NOTHING (no adapter, no carriage, no pruning): destructive
+   * reconciliation over a partially observed tree is how valid copies get
+   * deleted. A refusal fails the run. */
+  readonly refused: readonly string[];
+  /** Whole stale projection-root entries the sweep removed (directories,
+   * root-level links) — reported separately from `pruned` so the operator
+   * never reads a swept directory as an orphaned carried file. */
+  readonly sweptStale: readonly string[];
 }
 
 interface AdapterFrontmatter {
@@ -47,37 +71,102 @@ export type ParsedCanonicalSkill = ParsedCanonical;
 
 /**
  * Discover, parse, and emit adapters for every canonical skill under
- * `.agent/skills/`. Idempotent — re-running yields byte-identical adapter
- * files when the canonicals are unchanged. Duplicate leaf ids refuse the
- * whole emission: the adapter namespace is flat, and writing either claimant
- * would silently shadow the other.
+ * `.agent/skills/`, carrying each skill's supporting directories beside the
+ * adapter and pruning orphaned carried copies. Idempotent — re-running
+ * yields byte-identical projection files when the canonicals are unchanged.
+ * Duplicate leaf ids refuse the whole emission: the adapter namespace is
+ * flat, and writing either claimant would silently shadow the other.
  */
 export async function generateAdapters(options: GeneratorOptions): Promise<GenerateOutcome> {
-  const written: string[] = [];
   const discovery = await discoverCanonicals(options.repoRoot);
+  const empty = {
+    written: [],
+    pruned: [],
+    refused: [],
+    sweptStale: [],
+    skipped: discovery.skipped,
+    duplicates: discovery.duplicates,
+  };
 
   if (discovery.duplicates.length > 0) {
-    return { written, skipped: discovery.skipped, duplicates: discovery.duplicates };
+    return empty;
   }
-  for (const parsed of discovery.canonicals) {
-    const claudeWritten = await emitAdapter(options, parsed, 'claude');
-    const agentsWritten = await emitAdapter(options, parsed, 'agents');
-    written.push(claudeWritten, agentsWritten);
+  // NOTHING runs over an incomplete discovery — not the sweep and not
+  // emission. A skipped directory or an empty canonical set means an
+  // unreadable canonical or skills root read as absent, so both the
+  // expected-projection set AND the per-skill write targets are
+  // unverified: the round-4 probe showed a symlinked projection root
+  // being written through (and its contents deleted) exactly because
+  // emission continued while the sweep had stood down. The run already
+  // exits non-zero on the skipped / no-canonicals streams; a
+  // half-applied cure over an unobserved tree is the shape this round
+  // deletes.
+  if (!isDiscoveryComplete(discovery)) {
+    return empty;
   }
+  // Sweep BEFORE emission: stale directories (canonical deleted or renamed)
+  // and root-level symlinks leave the surfaces first, so no adapter is ever
+  // written into or through an entry the sweep is about to adjudicate. A
+  // sweep read failure refuses the whole run.
+  const sweepOutcome = await sweepStaleProjections({
+    repoRoot: options.repoRoot,
+    prefix: options.prefix,
+    lockedIds: options.lockedIds,
+    canonicalIds: discovery.canonicals.map((parsed) => parsed.id),
+    discoveryComplete: true,
+  });
+  if (sweepOutcome.refusedRun.length > 0) {
+    return { ...empty, refused: [...sweepOutcome.refusedRun] };
+  }
+  const emitted = await emitAllAdapters(options, discovery.canonicals);
+  return { ...empty, ...emitted, sweptStale: [...sweepOutcome.pruned] };
+}
 
-  return { written, skipped: discovery.skipped, duplicates: discovery.duplicates };
+async function emitAllAdapters(
+  options: GeneratorOptions,
+  canonicals: readonly ParsedCanonical[],
+): Promise<Pick<GenerateOutcome, 'written' | 'pruned' | 'refused'>> {
+  const written: string[] = [];
+  const pruned: string[] = [];
+  const refused: string[] = [];
+  for (const parsed of canonicals) {
+    for (const surface of ['claude', 'agents'] as const) {
+      const emitted = await emitAdapter(options, parsed, surface);
+      written.push(...emitted.written);
+      pruned.push(...emitted.pruned);
+      refused.push(...emitted.refused);
+    }
+  }
+  return { written, pruned, refused };
+}
+
+interface EmitAdapterOutcome {
+  readonly written: readonly string[];
+  readonly pruned: readonly string[];
+  readonly refused: readonly string[];
 }
 
 async function emitAdapter(
   options: GeneratorOptions,
   parsed: ParsedCanonical,
   surface: AdapterSurface,
-): Promise<string> {
+): Promise<EmitAdapterOutcome> {
   const target = adapterTargetPath(options.repoRoot, options.prefix, parsed.id, surface);
+  // Carriage first: a refused sync (canonical symlink, seam read failure)
+  // refuses the whole skill on this surface — not even the adapter stub is
+  // written over a state the run could not fully observe.
+  const carriage = await syncCarriage(
+    dirname(parsed.canonicalPath),
+    dirname(target),
+    realCarriageWriteFs,
+  );
+  if (carriage.refused.length > 0) {
+    return { written: [], pruned: [], refused: carriage.refused };
+  }
   const fileContent = renderAdapter(parsed, options.prefix, surface);
   await mkdir(dirname(target), { recursive: true });
   await writeFile(target, fileContent, 'utf8');
-  return target;
+  return { written: [target, ...carriage.carried], pruned: carriage.pruned, refused: [] };
 }
 
 export function renderAdapter(
@@ -147,10 +236,14 @@ function toTitleCase(id: string): string {
 /**
  * A skipped directory means a canonical the generator could not read —
  * content sitting in the corpus that no harness can summon. A duplicate
- * leaf id means two canonicals contending for one flat adapter name.
- * Both states must fail loudly rather than ride a warning line to a
- * zero exit (which is how an unsummonable corpus stays silently green).
+ * leaf id means two canonicals contending for one flat adapter name. A
+ * refusal means a canonical symlink or a read failure stopped a skill's
+ * emission. All three states must fail loudly rather than ride a warning
+ * line to a zero exit (which is how an unsummonable corpus stays silently
+ * green).
  */
 export function generateExitCode(outcome: GenerateOutcome): number {
-  return outcome.skipped.length > 0 || outcome.duplicates.length > 0 ? 1 : 0;
+  return outcome.skipped.length > 0 || outcome.duplicates.length > 0 || outcome.refused.length > 0
+    ? 1
+    : 0;
 }

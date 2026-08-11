@@ -1920,3 +1920,25 @@ Review-ratchet worked instance: nine rounds on the skill PR (9/2/1/3/3/2/2/3/0),
   worktree cwd (no-op adds, pathspec failures, up-to-date pushes reading as
   green). Cure: one cwd per background chain — split multi-checkout work into
   separate commands, each opening with its own explicit `cd || exit 1`.
+
+## 2026-08-11 — pilot-s1a carriage lane (worktree agent-a1ddadee)
+
+S1a executed: carriage machinery + 134-file estate sweep + design-sync
+declaration landed as PR #851 (draft, MCP-547). Lane-scope learnings:
+(1) vitest deep-equality distinguishes Buffer from Uint8Array even when
+bytes match — a byte-asserting test helper returns plain Uint8Array or
+the assertion fails on the wrapper (hit in carriage.integration, fixed
+in the sandbox helper). (2) sonarjs/no-alphabetical-sort forces a
+comparator; the estate precedent is `localeCompare(b, 'en')`, and en
+collation orders case-insensitively — 'SKILL.md' sorts AFTER lowercase
+paths, so switching a default sort to the pinned comparator reorders
+expected lists (one test expectation updated). (3) The pre-commit hook
+chain (format + knip + more) exceeded the 2-minute default Bash timeout
+on first run in a fresh worktree — commit with a long timeout; the
+2-min kill left no commit and no stale lock (checked before retry).
+(4) `merge-bot mint-token` writes the token to stdout and the expiry
+line to stderr — capture-to-file gets a clean single-line token.
+(5) The plan's "~109 files under the parallax tree" counts evals/
+evaluations too; the carried class (references/scripts/assets) is 63
+in cognition + 4 codex-dialogues scripts = 67 per surface — recorded
+in the PR so the acceptance number reads honestly against the plan.
