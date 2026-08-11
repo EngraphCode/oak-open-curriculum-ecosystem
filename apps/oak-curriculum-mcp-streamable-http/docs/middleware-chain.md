@@ -94,11 +94,12 @@ sequenceDiagram
         PathMiddleware->>PathMiddleware: Validate Accept header
         PathMiddleware->>PathMiddleware: Check MCP readiness
 
-        PathMiddleware->>Handler: Pass to route handler
-        alt Auth enabled
+        alt Method is GET
+            PathMiddleware->>Handler: 405 stream refusal (MCP-545, no auth leg)
+        else POST, auth enabled
             Handler->>Handler: Validate OAuth token (mcpAuthClerk)
             Handler->>Handler: Process MCP request
-        else Auth disabled
+        else POST, auth disabled
             Handler->>Handler: Process MCP request (no auth)
         end
     else Path is /healthz
@@ -286,7 +287,10 @@ flowchart TD
 
     ReadyCheck --> ServerReady{Server ready?}
     ServerReady -->|Timeout| Return503[Return 503]
-    ServerReady -->|Yes| AuthMode{Auth enabled?}
+    ServerReady -->|Yes| MethodCheck{Method?}
+
+    MethodCheck -->|GET| Return405[Return 405 + Allow: POST]
+    MethodCheck -->|POST| AuthMode{Auth enabled?}
 
     AuthMode -->|Yes| McpAuth[mcpAuthClerk]
     AuthMode -->|No| RawHandler[Raw MCP Handler]
