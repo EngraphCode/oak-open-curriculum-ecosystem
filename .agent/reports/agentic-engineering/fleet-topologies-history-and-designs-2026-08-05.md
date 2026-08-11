@@ -7,11 +7,17 @@ did not, what have we learned, what should we try next, and how do we stop havin
 all of it. Every claim below is anchored to a file and a section or line. Where the evidence is
 thin or contested, the report says so rather than rounding it up.
 
+**Success criterion**: the report gives a later owner or fleet designer a source-traceable census
+whose aggregate counts reconcile to the raw probe corpus, reports material gaps and disagreements,
+and keeps historical observations distinct from proposals. It succeeds as a retrieval and decision
+input; it does not succeed by turning the proposals below into doctrine.
+
 The evidence comes from three places: a set of documents read first-hand for this report; a
 sweep of twelve overlapping reader probes over roughly 20,000 lines of estate history, which
 returned 102 topology sightings and 76 observations about how fleet knowledge is stored; and
-three fleet runs from tonight, which are themselves data. Section 7 records exactly what was
-read and what was missed.
+two fleet dispatch attempts from tonight, one of which also produced a separately useful failure
+outcome.
+Section 7 records exactly what was read and what was missed.
 
 ---
 
@@ -20,7 +26,7 @@ read and what was missed.
 The twelve probes deliberately overlapped, so the same run was often seen two or three times
 from different reading windows. Merging those sightings, **102 raw sightings collapse to 40
 distinct arrangements.** One further arrangement (the cross-examination design fleet) was read
-first-hand for this report but fell outside every probe's window, and two more were run tonight,
+first-hand for this report but fell outside every probe's window, and two more were attempted tonight,
 giving **43 arrangements in the census below**.
 
 The merge is honest in one direction and conservative in the other: where two probes described
@@ -42,7 +48,7 @@ the arrangement is in the estate's own written record, not of how often it ran.
 | Four-seat doctrine quorum (PDR-101) | quorum | 4 seats per doctrine batch | 3 | Pays at batch scale; oversized for one file. |
 | Claim-verification fleet over a record | fan-out | 7, 8, 9, 12, 14, 18, 22, 25 agents | 10 | Reliable at catching a single author's own drift. |
 | Tiered plan-review fleet | tiered fan-out | 31 agents, ~2.9M tokens, 19 min | 1 | Caught 23 blocking defects in one run. |
-| Disposition-table fleet | tiered fan-out | 14 agents (11 Sonnet, 2 Opus) | 1 | Produced the model-tier stance gradient finding. |
+| Disposition-table fleet | tiered fan-out | 14 dispatched (12 Sonnet: 11 valid + 1 invalid; 2 Opus) | 1 | Produced the model-tier stance gradient finding. |
 | Adversarial pre-spend verification panel | panel | ~450k tokens gating a 30M-token spend | 1 | Cheapest insurance measured anywhere. |
 | Two-reader cross-attestation | pair | 2 independent first-hand readers | 1 | Named the lane's strongest reliability mechanism. |
 | Self-run refuter pass over own synthesis | single | 1 author + 1 self-refuter pass | 1 | Overturned 4 of 6 of its own claims. |
@@ -84,11 +90,11 @@ the arrangement is in the estate's own written record, not of how often it ran.
 | --- | --- | --- | --- | --- |
 | Director + worktree-isolated implementers | team roles | 1 Director + N implementers | 6 | Zero shared-tree collisions across many generations. |
 | Succession / standby / overlap handoff | team roles | 2 seats overlapping per transition | 9 | Overlap beats a clean baton pass. |
-| Compound adversarial pair | pair | 2 seats checking each other | 3 | Worth it at bounded decision edges only. |
+| Compound adversarial pair | pair | 2 seats checking each other | 4 | Worth it at bounded decision edges only. |
 | n=2 collaboration mode (PDR-082) | team roles | 2 seats, owner-visible | 2 | Protocol overhead is non-linear in team size. |
 | n=3 team under a Director | team roles | 3 seats + Director | 1 | Disjoint boundaries held all session, zero collisions. |
 | Compact → reground → fork | pipeline | 1 baseline fanned to N siblings | 1 | ~10 minutes of prep saved per forked seat. |
-| Four-seat peer team without a Director threshold | team roles | 4 Opus seats | 1 | 90 minutes "alive" while delivering nothing. |
+| Director-led four-Opus-seat team, then three-seat peer mode | team roles | 1 Director + 3 executing seats; Director later dissolved | 1 | Coordination stayed "alive" for 90 minutes without merged delivery; peer mode began only after the team reduced to three. |
 | Substrate-external fleet member (Copilot) | team roles | 1 external seat + a proxying Director | 1 | Worked as a citizen; the tooling did not reach it. |
 | Cross-estate exchange | 2 estates | 1 session each side | 1 | Convergent designs from opposite sides. |
 | Relay seat as host-load coordinator | serialiser | 3 gate chains through 1 relay | 1 | Converged three heavy chains on one 8-core host. |
@@ -103,9 +109,9 @@ the arrangement is in the estate's own written record, not of how often it ran.
 | Tiered model fallback under vendor overload | policy | 1 | Blocked: the dispatch surface cannot express the tier. |
 | Structured-output workflow fan-out | mechanism family | 1 | Fails at predictable mechanical points; see §3. |
 
-### 1.7 Tonight's three arrangements
+### 1.7 Tonight's two dispatch attempts and one failure outcome
 
-These are fresh, and they are included because two of them failed in instructive ways.
+These are fresh. The third item is an outcome of the overlapping sweep, not a third dispatch.
 
 - **The tmux swarm dispatch.** Spawning a swarm through tmux reported success while no server
   was running. Nothing was ever going to arrive. This is the same class as the comms watcher
@@ -120,11 +126,13 @@ These are fresh, and they are included because two of them failed in instructive
   Twelve returned. The overlap was the point: where two probes read the same window, their
   agreement is a coverage check and their disagreement is a signal (§1.8). This is the owner's
   overlapping-landscape design run for real, one tier up from the Haiku sketch.
-- **The retry-cap recurrence.** Three of the fifteen probes died on the structured-output
-  retry cap — the same failure that killed 15 of 81 verifier units on PR #336 in July and left
+- **The retry-cap outcome.** Three of the fifteen probes died on the structured-output retry
+  cap — the same mechanism that killed 15 of 81 verifier units on PR #336 in July and left
   their findings with no verdict at all. That failure is written down, in a failure log
   addressed to "the next fleet author", with three named cure candidates. None was built. It
-  recurred tonight at a 20% death rate, matching the 19% recorded then.
+  recurred tonight at a 20% death rate, close to the 19% recorded then. A separate earlier
+  3-of-15 verifier loss was caused by a provider session limit, not by this retry cap; it is
+  evidence for the same sparse-results hazard, not a recurrence of the same mechanism.
 
 ### 1.8 Where the probes disagreed, and what that tells us
 
@@ -132,7 +140,7 @@ Overlap was designed in, so disagreement is data rather than noise.
 
 1. **The reduce-stage ceiling: 580 or 581 leaves.** One probe reported "a proven precedent
    ceiling (581 leaves in this estate)". The source says 580, in three separate places
-   (`.agent/memory/active/napkin.md` line 141, "precedent maxed at 580 leaves"; the P2 discovery
+   (`.agent/memory/active/archive/napkin-2026-08-06.md` line 141, "precedent maxed at 580 leaves"; the P2 discovery
    report's cure line; the salvage plan's evidence base). This is a probe transcription error,
    not a source ambiguity, and it is exactly the drift the tiered-sight doctrine predicts when a
    number passes upward through a summary.
@@ -238,7 +246,8 @@ as the strongest available signal that a roster is earning its cost.
 **Reserving frame-challenge for the top tier.** In the 14-agent disposition fleet, all 11 valid
 Sonnet agents filed SOUND-WITH-CHANGES inside the handed frame — one of them while personally
 holding evidence that should have made the frame unsound. Both Opus seats rejected the frame
-itself. Direction, severity, frame-judgement is the observed ordering of what a higher tier buys.
+itself; the remaining Sonnet response was invalid. Direction, severity, frame-judgement is the
+observed ordering of what a higher tier buys.
 
 **Batching review rounds.** One PR's batched adjudication converged 41 → 6 → 2 findings in three
 rounds, where sibling PRs under one-cure-one-push discipline sustained ten-plus rounds. One push
@@ -265,15 +274,19 @@ deterministic breaker, then a tenth-scale pilot.
 
 **Asserting quorum independence instead of measuring it.** Mean pairwise inter-lens correlation
 came out at 0.548 for the Sonnet regime and 0.544 for a banked Opus regime — near-identical —
-giving about 1.4 effective votes out of 3 in both. Different prompts on the same model do not
-manufacture independence, and neither does a different model family. Cross-regime agreement was
-only 59.6%, with 18 of 19 disagreements one-directional toward kill.
+giving a diagnostic estimate of about 1.4 effective votes out of 3 in both. That calculation
+uses agreement on live candidates and therefore cannot distinguish sound agreement from
+correlated error; a canary-labelled truth set is required before treating it as an effective
+error-vote count. Different prompts on the same model do not manufacture independence, and
+neither does a different model family. Cross-regime agreement was only 59.6%, with 18 of 19
+disagreements one-directional toward kill.
 
 **Verifier deaths on the structured-output retry cap.** 15 of 81 verifier units died on PR #336
 carrying no verdict, and were silently dropped from the ledger's first draft — caught only
-because a post-merge reviewer noticed the arithmetic did not close. The same cap killed 3 of 15
-verifiers on an earlier run while the workflow reported completing normally, and 3 of 15 probes
-tonight. A "completed" workflow tells you nothing about coverage.
+because a post-merge reviewer noticed the arithmetic did not close. A provider session limit
+separately killed 3 of 15 verifiers on an earlier run while the workflow reported completing
+normally, and the retry cap killed 3 of 15 probes tonight. A "completed" workflow tells you
+nothing about coverage, but the two 3-of-15 losses must not be conflated causally.
 
 **Losing the linkage at export.** The same run's durable extract carries all 81 finding bodies
 and all 66 verdict bodies but no key joining them, so the 15 unverified findings are bounded as a
@@ -376,13 +389,15 @@ The corollary is counter-intuitive and useful: narrow scope makes deep tiers che
 Opus-high re-read cost only ~2.4× a wide Sonnet pass per candidate, because narrow scope removes
 waste. Tier-escalation-on-failure is therefore a cheap default, not a luxury.
 
-**Model tier buys a specific thing, in a specific order.** Direction is stable across tiers;
-severity is not; frame-judgement only appears at the top. A fleet handed a wrong frame will
-classify faithfully within it unless someone is mandated to reject it.
+**Model tier buys a specific thing, in a specific order.** Direction was usually stable across
+tiers in this corpus, with the exceptions in §1.8; severity was not, and frame-judgement appeared
+only at the top. A fleet handed a wrong frame will classify faithfully within it unless someone
+is mandated to reject it.
 
 **Independence must be measured, never asserted.** Prompt diversity is not lens diversity, and
-lens diversity is not statistical independence. The estate has the correlation numbers to prove
-it, computed for free over already-committed checkpoints.
+lens diversity is not statistical independence. The estate's correlation numbers demonstrate
+dependence in the observed verdicts, but only canary-labelled joint correctness can distinguish
+shared soundness from correlated error and estimate an effective error-vote count.
 
 **A cure is a claim.** It gets the same verification tier as the finding it cured. Layered
 reviewer → cure → gate chains are not redundancy; they are the correction for how fluent a wrong
@@ -399,8 +414,8 @@ declared terminal-round criterion, and finding *altitude* marching outward is a 
 than falling counts.
 
 **Team-protocol overhead is non-linear in team size.** Substrate that is justified at four or
-more rotating seats is pure ceremony at two owner-visible seats. Below four agents the estate's
-own ruling is peer coordination without a formal Director.
+more rotating seats is pure ceremony at two owner-visible seats. Below four agents, peer
+coordination without a formal Director is the default unless the owner explicitly directs otherwise.
 
 **Verification fleets check what was claimed; they cannot see what was never claimed.** A
 loss-scan is a structurally different instrument from a verification fleet, and both are needed.
@@ -500,7 +515,7 @@ reliably the knowledge in them reaches the agent who needs it *at the moment of 
 | Per-user memory and rules | Standing behavioural rulings | The only mechanism that surfaces automatically. Repeatedly the fastest home for a one-line cure. Cannot hold a design. |
 | Skills (`oak-cricket`, `oak-sif`, `pr-lifecycle`, `start-right-team`) | Invokable procedure | Most discoverable structured encoding; genuinely hardened over many sessions. But reading a skill did not stop at least one seat repeating the exact mistake it documents. |
 | Decision records (PDR-117, 082, 122, 130, 133, 134) | Doctrine with falsifiers and worked instances | The most durable layer. Each carries an amendment history, a falsifiability clause and named second-instance evidence, so you can see how the doctrine actually evolved under use. Slow by design. |
-| Executable pipeline code (`agent-tools/src/corpus-analysis/workflows/`, `agent-tools/src/restatement-audit/workflows/`) | Runnable fleet stages, typed schemas, stage guards, unit tests | The only encoding that *runs*. Also the clearest defect: the two directories re-implement the same scaffolding — `stage-io`, `agent-schemas`, `stage-guards`, `prompts`, per-stage `.workflow.ts` — sharing nothing but a generic `parseWithSchema` helper. |
+| Executable pipeline code (`agent-tools/src/corpus-analysis/workflows/`, `agent-tools/src/restatement-audit/workflows/`) | Runnable fleet stages, typed schemas, stage guards, unit tests | The only encoding that *runs*. Shared build machinery already lives in `agent-tools/src/workflow-build/`, and restatement-audit imports corpus-analysis orchestration and harness types. The remaining duplication is narrower: module-local stage IO, guards, run-input contracts and build adapters. |
 | Named reports (this directory) | The richest fleet content in the estate | Worst discoverability by a distance. See §6.2. |
 | Registers and tallies (cricket tallies, F-numbered frictions, pending-graduations, stray-code register) | Accumulated measurements across many runs | Genuine institutional memory. The F-codes are cited across months; the cricket tally is the only fleet record carrying per-leg tokens and runtime. Under-used elsewhere. |
 | Pattern files (`.agent/memory/active/patterns/`) | Single reusable shapes with a proven instance and a barrier block | Cheap to scan, checked in, greppable. But 223 files, of which about 12 are fleet-related, and no fleet index — you find one by already knowing the shape. |
@@ -539,26 +554,28 @@ indexed. The patterns are already written; only the retrieval path is missing.
 *Falsifier*: a month in which no dispatching seat cites a library entry.
 *Maintainer*: whoever runs the curation pass; the barrier block already gates graduation.
 
-**P2 — One shared fleet-stage library in agent-tools.**
-The corpus-analysis and restatement-audit pipelines have each independently built stage IO,
-agent schemas, stage guards, prompt derivation and per-stage workflow entry points. Consolidate
-them into one parameterised layer, and put the mechanisms the reports keep asking for into it:
-a zod single-source-of-truth for output schemas derived into prompts; anti-stub helpers with
-minimum-length constraints and quote anchors; a `calibrationGate(stage, tiers, criterion)`
-helper; a per-fleet declaration block generator (counts, tiers, ceilings, halt bindings,
-acceptance gate); and a bounded-output guard capping arrays by construction.
-*Warrant*: the duplication is verified, not inferred — the two directories share no fleet code.
-The estate's own `consolidate-at-second-consumer` rule says the second consumer is the trigger,
-and we are at the second consumer. Every helper listed is a named mechanism candidate in the
+**P2 — Extract only the remaining shared stage contracts in agent-tools.**
+The corpus-analysis and restatement-audit pipelines already share the workflow-build core;
+restatement-audit also imports corpus-analysis orchestration, harness types and an agent-schema
+type. Do not replace that working boundary with one parameterised whole-pipeline layer. Instead,
+measure the remaining mirrored stage IO, guards, run-input contracts and build adapters, then
+extract only domain-neutral contracts or mechanisms that are genuinely identical. Keep domain
+schemas, prompts and adjudication local. Candidates to test at that boundary include anti-stub helpers
+with minimum-length constraints and quote anchors, a `calibrationGate(stage, tiers, criterion)`
+helper, a per-fleet declaration block generator (counts, tiers, ceilings, halt bindings,
+acceptance gate), and a bounded-output guard capping arrays by construction.
+*Warrant*: broad build and orchestration reuse is already present. The remaining duplication is
+verified by the mirrored module-local boundary files, while cross-imports show which abstractions
+have already fitted real variation. Every candidate helper listed is a named mechanism in the
 fleet-design-patterns capture (patterns 1, 3, 6, 7, 11) or in the bounded-structured-output
-pattern file.
+pattern file; each still needs a consumer-shape check before extraction.
 *This proposal absorbs the skeleton's fourth candidate.* That candidate proposed "named saved
 workflows" in a `.claude/workflows/` registry. **No such directory exists in this repository** —
 the executable fleet encoding that actually exists is the two agent-tools pipelines above. The
 substance of the idea (encode once, invoke by name, evolve under review) is right and lands here
 instead.
-*Falsifier*: a third pipeline is built and does not use the shared layer, which would mean the
-abstraction did not fit the real variation.
+*Falsifier*: a third pipeline cannot use an extracted contract without domain-specific branches,
+which would mean the narrower abstraction still does not fit the real variation.
 *Maintainer*: the agent-tools lane.
 
 **P3 — A one-page topology record for every significant run.**
@@ -625,7 +642,7 @@ necessary and, on this evidence, not sufficient.
 - `.agent/reports/agentic-engineering/README.md`, and the file listing of that directory
 - `.agent/memory/active/patterns/` listing, and six fleet-relevant pattern files
 - `agent-tools/src/corpus-analysis/workflows/` and `agent-tools/src/restatement-audit/workflows/`
-  listings and import graphs
+  listings, `agent-tools/src/workflow-build/`, and their import graphs
 - `.agent/memory/operational/threads/` listing
 
 ### 7.2 The probe sweep
@@ -635,7 +652,7 @@ estate history. Twelve returned, producing 102 topology sightings and 76 encodin
 banked at `.agent/reports/agentic-engineering/fleet-topology-probe-results-2026-08-05.json`.
 
 Windows covered: the July napkin archives (07-06 ×2, 07-08, 07-14, 07-20 ×2, 07-23, 07-26, 07-30
-×2) and the live napkin; the pre-July archives (May–June, by targeted grep rather than full
+×2) and the then-live napkin now archived as `napkin-2026-08-06.md`; the pre-July archives (May–June, by targeted grep rather than full
 read); the `large-corpus-analysis-tooling/` report sub-lane (six files in full); three concept
 explorations and the comms-corpus discovery report; four decision records and nine pattern files.
 
@@ -643,7 +660,8 @@ explorations and the comms-corpus discovery report; four decision records and ni
 
 - **Two probes read from a different worktree** than the one this report was written in. Line
   numbers in their citations do not always match this checkout (the live napkin is 2,493 lines
-  here against the 2,554 they reported). Verification was therefore done by content search, not
+  here against the 2,554 they reported). That source window is now immutable at
+  `.agent/memory/active/archive/napkin-2026-08-06.md`. Verification was therefore done by content search, not
   by line number.
 - **The pre-July sweep was grep-driven, not exhaustive.** Its own coverage note records that
   "subagent" matched 49 files, "parallel" 65 and "team session" 76 — too many to open at that
@@ -690,7 +708,7 @@ pre-spend panel; and the ~80% withdrawal-refutation rate.
 
 **One probe-versus-source mismatch was found.** The `napkin-0726-current` probe reported the
 reduce-stage precedent ceiling as "581 leaves in this estate". The source says 580, consistently,
-in `.agent/memory/active/napkin.md` ("precedent maxed at 580 leaves"), in the P2 discovery
+in `.agent/memory/active/archive/napkin-2026-08-06.md` ("precedent maxed at 580 leaves"), in the P2 discovery
 report's cure line ("shard under the pipeline's proven 580-leaf scale") and in the salvage plan's
 evidence base ("map 580 leaves"). The report uses 580.
 

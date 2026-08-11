@@ -215,27 +215,27 @@
     },
     {
      "mechanism": "Graduated pattern files under patterns/ (e.g. description-is-not-a-check.md, frozen-text-false-authority.md, referent-narrowing.md)",
-     "where_seen": "napkin lines 27-30 (naming two new patterns), 547-548 (referent-narrowing graduation while still collecting instances)",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-30.md lines 27-30 (naming two new patterns), 547-548 (referent-narrowing graduation while still collecting instances)",
      "assessment": "The intended durable home for cross-instance shapes; usable if a reader knows to check patterns/ before re-deriving a class, but discoverability depends on the reader recognizing the shape first \u2014 patterns are found reactively, not indexed by trigger."
     },
     {
      "mechanism": "Cricket tally/record mechanism referenced but not shown in this range",
-     "where_seen": "napkin lines 3140-3141 ('Tally file update rides the next consolidation')",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-30.md lines 3140-3141 ('Tally file update rides the next consolidation')",
      "assessment": "Named as the durable home for A/B panel run statistics but its actual location/schema is not visible in this file range \u2014 encoding exists per the per-user memory rule cricket-tally-records-tokens-and-runtime, but this napkin only points at it rather than carrying the data."
     },
     {
      "mechanism": "Director handoff record with an explicit durable-vs-derivable content split, re-trued at each boundary",
-     "where_seen": "napkin lines 2701-2720",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-30.md lines 2701-2720",
      "assessment": "A concrete, actionable encoding discipline for succession chains (command-over-value for derivable facts) discovered mid-session via a failure, then applied to the file same-hour \u2014 usable going forward but only as good as each writer's discipline; the file itself had grown to 860 lines against its own 320-line limit before the fix."
     },
     {
      "mechanism": "Formation letters in .agent/experience/ carrying subjective/succession narrative separate from technical handoff",
-     "where_seen": "napkin lines 149-151, 252",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-30.md lines 149-151, 252",
      "assessment": "A distinct durable home used to keep succession's subjective/register content out of technical handoff records \u2014 narrow but purpose-fit; discoverability depends on knowing the directory convention exists."
     },
     {
      "mechanism": "Per-user memory entries generated from napkin captures (e.g. workflow-fanouts-economise-model-tier)",
-     "where_seen": "napkin lines 112-114 (fan-out economy lesson homed to per-user memory same hour)",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-30.md lines 112-114 (fan-out economy lesson homed to per-user memory same hour)",
      "assessment": "Cross-session durable and visible at every future session's system-reminder context \u2014 the most reliably re-surfaced encoding mechanism observed, since it appears automatically rather than requiring an active search."
     }
    ],
@@ -274,17 +274,17 @@
      "cost_signals": "none numeric for cricket itself; a comparable single Opus subagent dispatch cost ~162k tokens / 48 tool uses / ~10 min",
      "evidence": [
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "3914-3919",
        "quote": "R6 tally: 4/8 delivered (Fable-n/Fable-a/Sonnet-a ON-TRACK, Opus-n DRIFTING); 4/8 idle-without-verdict ... idle-no-delivery now observed BEYOND haiku in quartet round 1"
       },
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "3501-3510",
        "quote": "cricket2-haiku-adversarial delivered ON-TRACK ... on a deliver-your-verdict ping ... RE-RAN and produced a contradictory DRIFTING ... the ping manufactures a contradictory second verdict"
       },
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "4245",
        "quote": "the cricket quartet delivered 8/8 for the first time today \u2014 both haiku legs included"
       }
@@ -304,7 +304,7 @@
      "cost_signals": "ten review rounds on one PR; no token/time figure given",
      "evidence": [
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "3695-3723",
        "quote": "Failure mode (owner-surfaced at round 9): unbounded adversarial finder (Copilot) + compliant executor + per-push re-request = a review ratchet."
       }
@@ -324,7 +324,7 @@
      "cost_signals": "none numeric",
      "evidence": [
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "3181-3200",
        "quote": "FOUR Copilot rounds, strictly shrinking (3 findings \u2192 4 real low-confidence qualifiers \u2192 3 absorbed + ADR-161 fenced \u2192 1 in-diff cure + 2 routed)."
       }
@@ -344,17 +344,17 @@
      "cost_signals": "a comparable single-Opus-reviewer dispatch elsewhere cost ~162k tokens / 48 tool uses / ~10 minutes",
      "evidence": [
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "4043",
        "quote": "Demanded instruments beat four Opus analysts, three for three. ... Expert conflict on mechanism \u2192 discharge by the cheapest discriminating experiment, never by eloquence."
       },
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "4770-4774",
        "quote": "three specialists on one plan found MUTUALLY exclusive mechanisms ... Probes beat citations when they disagree."
       },
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "3853-3857",
        "quote": "COMPLEMENTARY DETECTORS, one worked day: instruments caught rule-shaped defects the four Opus reviewers missed ... judgment caught green-shaped defects no instrument can see"
       }
@@ -374,17 +374,17 @@
      "cost_signals": "none numeric",
      "evidence": [
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "2701-2720",
        "quote": "A Director handoff carries two content classes and only ONE may be inherited. DURABLE: owner rulings verbatim ... DERIVABLE: lane state, PR numbers, branch positions, next steps \u2014 half-life in tens of minutes."
       },
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "4108-4117",
        "quote": "the owner NAMED A SUCCESSOR \u2014 Bora binds Thermal (258cbb) \u2014 so this is a DELIBERATE SUCCESSION ... AUTHORITY REMAINS WITH LYNX until Bora's Moment 2 active-acknowledgement."
       },
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "4820-4822",
        "quote": "Six clean successions observed today across four variants; the exploration capture record is the durable home: .agent/reports/agentic-engineering/succession-and-conscience-concept-exploration-capture-2026-07-30.md"
       }
@@ -404,12 +404,12 @@
      "cost_signals": "none",
      "evidence": [
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "4116",
        "quote": "Tarsier hunts Underbrush (facf59) registered STANDBY successor-in-waiting to Schooner (20:51Z) \u2014 the owner is staffing the night shift."
       },
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "4119-4128",
        "quote": "STANDBY\u2192ACTIVE SUCCESSION worked end-to-end as doctrine describes ... register standby (no claim, no heartbeat, watcher only) \u2192 predecessor's deliberate-succession directed event + record \u2192 WAIT for their explicit heartbeat-end"
       }
@@ -429,7 +429,7 @@
      "cost_signals": "none numeric",
      "evidence": [
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "5008-5011",
        "quote": "Cross-model second opinion earned itself on first use: Plover (GPT-5) caught the in_reply_to legacy-alias blind spot nobody in the all-Claude chain had questioned (114-vs-0 corpus fact)"
       }
@@ -449,7 +449,7 @@
      "cost_signals": "none",
      "evidence": [
       {
-       "file": "napkin-2026-07-30.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-30.md",
        "lines": "4577-4583",
        "quote": "if Opus is still overloaded, we can fall back to Fable-low, but critically assess all output ... 'Fable-low' runs as Fable-at-inherited-effort."
       }
@@ -459,42 +459,42 @@
    "encoding_mechanisms": [
     {
      "mechanism": "cricket-quartet-tally-2026-07-29.md \u2014 durable per-round tally record superseding an earlier two-pair tally",
-     "where_seen": "napkin-2026-07-30.md lines 3792-3793",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-30.md lines 3792-3793",
      "assessment": "Discoverable and load-bearing \u2014 the single canonical record every seat appends tallies to and reads to know the current cricket topology (pair vs quartet); activation is gated by branch merge, giving it a clean versioned lifecycle."
     },
     {
      "mechanism": "MCP-386 ticket \u2014 encodes the retrieval-first reviewer ladder and seat-D unnamed-dispatch discrimination test",
-     "where_seen": "napkin-2026-07-30.md lines 3988-3993, 4002-4003, 4245",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-30.md lines 3988-3993, 4002-4003, 4245",
      "assessment": "Usable as a living design doc \u2014 updated repeatedly as new failure instances accrued, accumulating the fleet's operational knowledge about reviewer-dispatch reliability in one place."
     },
     {
      "mechanism": "PDR-063 \u00a7Deliberate succession \u2014 the succession/handoff ceremony (Moment-1/Moment-2, four-section record, wrap-grade handover)",
-     "where_seen": "napkin-2026-07-30.md lines 3813-3822, 4108-4117",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-30.md lines 3813-3822, 4108-4117",
      "assessment": "Highly reusable \u2014 cited and followed verbatim across at least six successions in one day; graduation candidate language explicitly proposes strengthening it further."
     },
     {
      "mechanism": "director-handoff.md sitting block \u2014 carries owner rulings verbatim across every Director succession",
-     "where_seen": "napkin-2026-07-30.md lines 2714-2716, 3454-3456, 4053-4054",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-30.md lines 2714-2716, 3454-3456, 4053-4054",
      "assessment": "Central and load-bearing but showed a real failure mode (durable/derivable content mixed caused stale-fact inheritance) before the command-not-value cure was applied."
     },
     {
      "mechanism": "succession-and-conscience-concept-exploration-capture-2026-07-30.md \u2014 report synthesising six same-day successions across four variants",
-     "where_seen": "napkin-2026-07-30.md lines 4820-4822",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-30.md lines 4820-4822",
      "assessment": "A deliberate meta-record of the fleet's own succession topology \u2014 high discoverability by name, likely the best single source for this estate's succession shapes across one day."
     },
     {
      "mechanism": "PDR-133 ledger \u2014 accumulates NOTIFY-dark / liveness-gap instances across seats and platforms",
-     "where_seen": "napkin-2026-07-30.md lines 3935-3941, 4164-4166, 5057-5059",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-30.md lines 3935-3941, 4164-4166, 5057-5059",
      "assessment": "Cross-referenced repeatedly as the home for a recurring platform-shape defect; its per-platform declaration obligation is credited with making a cross-platform pattern visible."
     },
     {
      "mechanism": "Formation letters (.agent/experience/*-formation-letter.md) \u2014 per-seat retrospective written at retirement",
-     "where_seen": "napkin-2026-07-30.md lines 4193-4196, 4715-4717, 4933-4935",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-30.md lines 4193-4196, 4715-4717, 4933-4935",
      "assessment": "Routine, mechanically produced at every closeout; described as 'the estate's lsof', suggesting real diagnostic value though entries here only reference existence, not contents."
     },
     {
      "mechanism": "Rule directed-routing-requires-absorption-ack, newly minted",
-     "where_seen": "napkin-2026-07-30.md lines 4787-4789",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-30.md lines 4787-4789",
      "assessment": "A concrete instance of promoting a proven design into a filed, trigger-loaded rule plus RULES_INDEX row \u2014 high discoverability by construction, but only after a full plan-and-review cycle."
     }
    ],
@@ -509,7 +509,7 @@
    ],
    "coverage": {
     "files_read": [
-     "napkin-2026-07-30.md lines 2701-5333, full assigned range, read in three sequential chunks"
+     ".agent/memory/active/archive/napkin-2026-07-30.md lines 2701-5333, full assigned range, read in three sequential chunks"
     ],
     "bounds_applied": "Read exact assigned range 2700-5333 end-to-end; file continues past 5333 (final captured entry may extend beyond)."
    },
@@ -711,32 +711,32 @@
    "encoding_mechanisms": [
     {
      "mechanism": "Napkin rotation with dedicated bottom-up processing: extract behaviour-changing entries, graduate to homes, verify, archive with cmp byte-identity proof.",
-     "where_seen": "napkin-2026-07-20.md lines 11-53 (rotation preamble)",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md lines 11-53 (rotation preamble)",
      "assessment": "Usable/discoverable with a verifiable proof step, but repeatedly falls behind capture volume (napkin 'far past rotation scale' cited by three separate seats)."
     },
     {
      "mechanism": "Handoff records (per-seat markdown) carrying next-acts, rulings, deferred-work, pointed to by claim.handoff_record_path.",
-     "where_seen": "throughout, e.g. lines 910-913, 1517-1518, 2621-2622",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md throughout, e.g. lines 910-913, 1517-1518, 2621-2622",
      "assessment": "Effective continuity mechanism, but explicitly noted as going stale within minutes -- successors must re-verify, not trust."
     },
     {
      "mechanism": "Comms events (append-only stream) as round-trip-at-occurrence conservation of decisions at the moment they happen.",
-     "where_seen": "repeated across closeout entries, e.g. lines 1074-1078, 1504-1506",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md repeated across closeout entries, e.g. lines 1074-1078, 1504-1506",
      "assessment": "Primary defence against context loss, consistently invoked; still shows gaps (e.g. claims-registry heartbeat never bumped despite comms heartbeat firing)."
     },
     {
      "mechanism": "pending-graduations.md staging buffer for tooling-fix/doctrine candidates awaiting a dedicated consolidation pass.",
-     "where_seen": "lines 946-948, 1044-1048",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md lines 946-948, 1044-1048",
      "assessment": "Usable as a named queue, but items sit unactioned across multiple sessions -- backlog risk for known bugs."
     },
     {
      "mechanism": "PDR/rule ratification landing standing doctrine mid-session via comms broadcast, then routed to permanent-doc consolidation.",
-     "where_seen": "lines 1529-1536, 1334-1341",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md lines 1529-1536, 1334-1341",
      "assessment": "Fast fleet-wide propagation, but doctrine 'demonstrably under-delivered on behaviour change' in this range -- falsifiers attached to force re-evaluation."
     },
     {
      "mechanism": "Frictions register with numbered F-codes recording tooling anomalies with reproduction recipes and unconfirmed hypotheses.",
-     "where_seen": "lines 84-89, 933-935; F-92/95/116/138/144/145 cited throughout",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md lines 84-89, 933-935; F-92/95/116/138/144/145 cited throughout",
      "assessment": "Discoverable, numbered, cross-referenced across many sessions -- functions as genuine institutional memory for recurring tool traps."
     }
    ],
@@ -1063,47 +1063,47 @@
    "encoding_mechanisms": [
     {
      "mechanism": "Per-user memory entries (agents-always-have-commit-permission, dispositions-need-verified-failure-scenarios, etc.)",
-     "where_seen": "napkin lines 2510-2512, 2626-2631, 3832, 4727-4733, 4504-4506",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md lines 2510-2512, 2626-2631, 3832, 4727-4733, 4504-4506",
      "assessment": "highly discoverable cross-session cure mechanism (auto-loaded at session start); used repeatedly as the durable home for standing behavioural rulings from a single fleet run's surprise."
     },
     {
      "mechanism": "Napkin entries with structured loss-scan / recursive-metaloss / consolidation-disposition sections",
-     "where_seen": "throughout, e.g. lines 2544-2570, 2608-2663, 3743-3796, 3968-4029",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md throughout, e.g. lines 2544-2570, 2608-2663, 3743-3796, 3968-4029",
      "assessment": "a deliberate, repeatedly-applied protocol (write at occurrence, scan for undurable knowledge, challenge the scan itself); the file itself is explicitly flagged as far past its own rotation/fitness threshold."
     },
     {
      "mechanism": "PR bodies / review threads / disposition tables (scratchpad JSON files)",
-     "where_seen": "lines 3493-3497, 3524-3530, 4288-4291",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md lines 3493-3497, 3524-3530, 4288-4291",
      "assessment": "durable but explicitly flagged as LOW-DISCOVERY ('nobody greps closed PRs') \u2014 the load-bearing subset is deliberately re-homed into a more discoverable register."
     },
     {
      "mechanism": "Stray-code / adjudication register (tracked, on main, linked from Linear)",
-     "where_seen": "line 4289-4291",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md lines 4289-4291",
      "assessment": "explicit design choice to move verdicts out of low-discovery PR comments into a tracked, main-branch, Linear-linked register."
     },
     {
      "mechanism": "Named reports (e.g. invented-gate-substrate-sweep-2026-07-15.md, f8-discriminating-experiment.v1.md)",
-     "where_seen": "lines 2638, 3453, 3826-3827",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md lines 2638, 3453, 3826-3827",
      "assessment": "structured, path-addressable durable homes for fleet-run findings; reusable by pointer in later handoffs, e.g. F8 report amended in place rather than duplicated."
     },
     {
      "mechanism": "Handoff/thread-record chains (per-Director-seat handoff records)",
-     "where_seen": "lines 2620-2622, 3599-3601, 4649-4650",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md lines 2620-2622, 3599-3601, 4649-4650",
      "assessment": "the operative cross-session continuity mechanism; explicitly the recommended trust anchor over any single napkin snapshot ('trust the CHAIN, not any single snapshot')."
     },
     {
      "mechanism": "Cricket A/B tally file (cricket-ab-tally-2026-07-16.md)",
-     "where_seen": "lines 4338-4340, 4416-4417, 4430-4436, 4649-4650",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md lines 4338-4340, 4416-4417, 4430-4436, 4649-4650",
      "assessment": "a running, named ledger of cricket-pair convergence/divergence outcomes used to build a corpus-level hypothesis across many independent invocations."
     },
     {
      "mechanism": "ADR/PDR doctrine text and pr-lifecycle skill amendments",
-     "where_seen": "lines 2824-2835, 3798-3806, 4085-4091",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md lines 2824-2835, 3798-3806, 4085-4091",
      "assessment": "the intended top-tier durable home for process cures, but shown twice in this range to lag behind live owner rulings \u2014 doctrine-blindness-while-editing-doctrine recurred, so freshness is not self-maintaining."
     },
     {
      "mechanism": "Standing Director-seat workflow-authorisation constraint (owner-go + declared count + declared tier)",
-     "where_seen": "lines 2629-2631",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-20.md lines 2629-2631",
      "assessment": "a lightweight, easily-checked governance rule minted directly from the 150-agent blowout failure; enforcement mechanism not shown in this excerpt."
     }
    ],
@@ -1550,32 +1550,32 @@
    "encoding_mechanisms": [
     {
      "mechanism": "PDR-064 succession record (Moment-1/Moment-2 protocol) + self-contained per-seat handoff records under handoffs/",
-     "where_seen": "zenith napkin archive, throughout curriculum-hub-demo sessions (e.g. lines 302-310, 334-345, 362-369)",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-06-zenith-dedicated-consolidation.md throughout curriculum-hub-demo sessions (e.g. lines 302-310, 334-345, 362-369)",
      "assessment": "Highly reusable/discoverable within-repo: named consistently by PDR number across a dozen+ transitions, credited for making whole-generation rotation clean; the self-contained record format is the load-bearing artefact."
     },
     {
      "mechanism": "director-handoff.md \u00a7Standing lessons (graduated Director-craft entries)",
-     "where_seen": "zenith napkin archive lines 33-34",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-06-zenith-dedicated-consolidation.md lines 33-34",
      "assessment": "A durable permanent-doc home for cross-session Director operating lessons; discoverable by any future Director-seat agent reading that file at session start."
     },
     {
      "mechanism": "napkin.md rotation/archive mechanism (fitness_line_target/limit frontmatter + archive/ dir)",
-     "where_seen": "both files' frontmatter and rotation headers",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-06-zenith-dedicated-consolidation.md and .agent/memory/active/archive/napkin-2026-07-06-nettle-consolidation.md frontmatter and rotation headers",
      "assessment": "Effective as a drainable buffer with an explicit fitness threshold, but multiple entries record rotation falling behind (napkin reaching ~515, ~1320 lines before a deferred drain) -- honoured in spirit, not always on schedule under load."
     },
     {
      "mechanism": "PDR-089 'passive-guidance-loses-to-artefact-gravity' naming for recurring failures",
-     "where_seen": "zenith napkin, recurring citations e.g. lines 232-241, 421-423, 497",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-06-zenith-dedicated-consolidation.md recurring citations, e.g. lines 232-241, 421-423, 497",
      "assessment": "A reusable diagnostic label distinguishing 'a new lesson' from 'a known passive-doctrine failure recurring' -- consistently applied across many agent sessions as a shared taxonomy for fleet-wide self-correction."
     },
     {
      "mechanism": "F-numbered frictions register + pending-graduations buffer for tooling/doctrine candidates",
-     "where_seen": "zenith napkin lines 1080-1087 (F-120 dist-brick), 1248-1252 (claims-close ENOENT), 61-76 (F-110 broker)",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-06-zenith-dedicated-consolidation.md lines 1080-1087 (F-120 dist-brick), 1248-1252 (claims-close ENOENT), 61-76 (F-110 broker)",
      "assessment": "Prevents re-capturing the same friction repeatedly by routing to a structural-cure register instead of another passive napkin note; requires a later dedicated consolidation pass to actually land the cure."
     },
     {
      "mechanism": "comms rapid-comms / ARC channel + all-channels watcher (Monitor-based, filtered [HEARTBEAT] by default per inbound doctrine)",
-     "where_seen": "zenith napkin lines 854-864, 928-936",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-06-zenith-dedicated-consolidation.md lines 854-864, 928-936",
      "assessment": "Live coordination transport for concurrent sessions; explicitly NOT durable -- durable substance must still be conserved to canonical homes separately, so this alone is insufficient encoding for fleet-topology knowledge."
     }
    ],
@@ -1616,12 +1616,12 @@
      "lessons": "Quorum operating economics: ~70-120K tokens/seat, ~5-7 min wall-clock in parallel, 1-4 batch-altering findings per batch - worth the cost at doctrine-batch scale, oversized for a one-file graduation.",
      "evidence": [
       {
-       "file": "archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
        "lines": "50-53",
        "quote": "The PDR-101 quorum earned its cost on batch 1: four seats converged on an SSOT-duplication defect ... Reviewer convergence on the same defect from four genuinely distinct lenses is the strong signal form."
       },
       {
-       "file": "archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
        "lines": "76-79",
        "quote": "a PDR-101 four-seat quorum over a ~20-file doctrine batch ran ~70-120K tokens/seat, ~5-7 min wall-clock in parallel, and each batch produced 1-4 genuinely batch-altering findings"
       }
@@ -1641,7 +1641,7 @@
      "lessons": "Convergent finding (two independent reviewers, different lenses) is the strong-signal form and validates the full roster.",
      "evidence": [
       {
-       "file": "archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
        "lines": "218-227",
        "quote": "The 6-reviewer post-execution gateway on the tranche-3 cycles-1-2 detector build (41 files, 312 tests) surfaced ONE Important defect ... found INDEPENDENTLY by both security-expert AND code-expert from different lenses."
       }
@@ -1661,7 +1661,7 @@
      "lessons": "Reviewing before execution (not just after) catches classes of defect that a post-hoc gateway cannot.",
      "evidence": [
       {
-       "file": "archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
        "lines": "207-211",
        "quote": "Pre-execution review (two-moments rule) earned its cost on first use at tranche scale: ~154k tokens returned 7 contract ambiguities RESOLVED + 7 landed-decision contradictions BEFORE any code"
       }
@@ -1681,7 +1681,7 @@
      "lessons": "Consistent with prior rounds: the adversarial roster keeps paying at tranche scale.",
      "evidence": [
       {
-       "file": "archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
        "lines": "506-512",
        "quote": "R0b gateway economics (7 seats, ~505k tokens, 2-8 min parallel): yield = 2 CONVERGENT must-fix classes ... Consistent with Stoat/Goshawk rounds: the roster keeps paying at tranche scale."
       }
@@ -1701,7 +1701,7 @@
      "lessons": "Corroborates prior rounds' economics - the roster keeps paying at tranche scale.",
      "evidence": [
       {
-       "file": "archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
        "lines": "399-403",
        "quote": "Reviewer-economics corroboration (cycles 3-4 gateway, six seats): 48-160k tokens/seat (~664k total), ~4-11 min each in parallel; yield = 2 convergent must-fixes + 1 fail-open defect + ~14 genuine improvements"
       }
@@ -1721,7 +1721,7 @@
      "lessons": "Adversarial review of freshly-built detector tooling is not optional overhead; matches a donor estate's measured result.",
      "evidence": [
       {
-       "file": "archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
        "lines": "143-147",
        "quote": "the tranche-1 three-layer chain (code+test+security) produced 17+5 real findings incl. two S1-blockers and a security class the builders missed - every layer paid."
       }
@@ -1741,17 +1741,17 @@
      "lessons": "candidate pattern standby-runway-handoff, now with instances across push, pull, and clear-at-arrival shapes; graduate at next consolidation.",
      "evidence": [
       {
-       "file": "archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
        "lines": "121-127",
        "quote": "The standby / successor-in-waiting seat contract ran clean end-to-end: watcher + team-start registration, no heartbeat, no claim ... adoption = ACK broadcast + claim open in one move, n=2 owner-visible declared."
       },
       {
-       "file": "archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
        "lines": "344-347",
        "quote": "Warm-standby pickup, third worked instance (Wildfire->Stoat->Leopard->Goshawk): this time runway-already-clear at arrival (no wait state) - adopt + ACK as first coordination-visible move directly after grounding."
       },
       {
-       "file": "archive/napkin-2026-07-23.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-23.md",
        "lines": "927-941",
        "quote": "forks cut from a certified fixed-point baseline are 'ready to go straight away, which cuts maybe ten minutes of prep time' per seat ... the successor-in-waiting pattern (Heron forked as Barque's eventual successor) - standby seats can now be staged for free from the same base."
       }
@@ -1771,7 +1771,7 @@
      "lessons": "candidate pattern/PDR if a second instance recurs; the relay-seat-as-load-coordinator role is the interesting novel part.",
      "evidence": [
       {
-       "file": "archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
        "lines": "70-75",
        "quote": "three heavy gate chains (two oak sessions + a resonance-estate merge, invisible to each other's streams) converged on one host at 1-min load ~19; the exchange seat (Kiln) relayed a one-heavy-chain-at-a-time sequencing between the estates' streams"
       }
@@ -1791,17 +1791,17 @@
      "lessons": "Class cure = cite grounding events in every pair's supplied context, and define colliding terms; cited frames converge. Cadence non-compliance (mandate: cycle boundaries, hourly, paired) recurred across seats and was routed to the next curation pass as possibly needing a structural cue rather than diligence.",
      "evidence": [
       {
-       "file": "archive/napkin-2026-07-23.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-23.md",
        "lines": "171-179",
        "quote": "Cricket A/B (Forge tenure, toward the flip tally): six divergences adjudicated - context-supply class x4, vocabulary-collision x1 (UNSAFE-redirection), escalating-evidence-bar x2. Class cures standing: cite grounding events in every pair's supplied context; define colliding terms."
       },
       {
-       "file": "archive/napkin-2026-07-23.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-23.md",
        "lines": "190-193",
        "quote": "Cricket A/B: one further divergent pair (Foehn, #450 r1 verdict routing) - sonnet ON-TRACK / haiku DRIFTING, context-supply class; cure applied by inlining the PDR passages in the routing event."
       },
       {
-       "file": "archive/napkin-2026-07-23.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-23.md",
        "lines": "514-518",
        "quote": "Cricket mandate not honoured at this seat: zero paired cricket invocations across a ~1.5h active window (mandate: cycle boundaries, at least hourly, PAIRED for the A/B tally)."
       }
@@ -1821,7 +1821,7 @@
      "lessons": "Convergence is a governance property, not an emergent one; finding ALTITUDE marching outward (settlement internals -> input boundary -> CLI/help -> plan/PR description) is a stronger convergence signal than falling counts.",
      "evidence": [
       {
-       "file": "archive/napkin-2026-07-23.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-23.md",
        "lines": "489-497",
        "quote": "bot review of an evolving tip is a REFLEXIVE loop - each cure push mints fresh surface and a competent reviewer finds true findings on any fresh surface, so the per-round finding count does NOT decay to zero organically (this arc: 4->7->5->4->4->3, flat where the SKILL predicate expects decrease)."
       }
@@ -1841,12 +1841,12 @@
      "lessons": "Owner-discovered discipline: compact first (distill), reground second (verify distillation against live terrain and authoritative external surfaces), fork third (replicate the certified baseline) - the reground step catches compaction's lossy errors before inheritance amplifies them.",
      "evidence": [
       {
-       "file": "archive/napkin-2026-07-23.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-23.md",
        "lines": "872-887",
        "quote": "Forks inherit the FULL context, so forking from a long live session spawns siblings with little runway and replicates any context defects N times. ... compact first (distill), reground second ... fork third (replicate the certified baseline)."
       },
       {
-       "file": "archive/napkin-2026-07-23.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-23.md",
        "lines": "927-941",
        "quote": "Owner observation at first fleet-forking (2026-07-23): forks cut from a certified fixed-point baseline are 'ready to go straight away, which cuts maybe ten minutes of prep time' per seat"
       }
@@ -1866,12 +1866,12 @@
      "lessons": "The claims registry's agent_id rows are ground truth for seat occupancy - comms silence and frozen records are never evidence a singleton seat is open. A fork/duplicate's first act must be identity derivation from its own session id before any comms write; memory of being the lead is not tenure of the lead (tenure = registry row + continuity + owner witness).",
      "evidence": [
       {
-       "file": "archive/napkin-2026-07-23.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-23.md",
        "lines": "852-870",
        "quote": "concluded the Director seat was open, and adopted the live Director's claim - overwriting the agent_id row of a seat mid-sitting with the owner. Caught in ~60s by the live watcher"
       },
       {
-       "file": "archive/napkin-2026-07-23.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-23.md",
        "lines": "889-908",
        "quote": "it woke carrying the lead seat's FULL memory, concluded it WAS the lead, read the sitting seat's authentic comms events as impersonation, and issued corrections in the lead's name ... FORK/DUPLICATE SOLIPSISM - inherited memory of being a seat reads as tenure of the seat."
       }
@@ -1891,12 +1891,12 @@
      "lessons": "Event awareness is not convergence ownership; a compound state read (mergeStateStatus + unresolved threads + check rollup, one call) is the only sanctioned PR-state read regardless of the narrowness of the prompting signal; a semantic merge needs an era-witness assertion (newest heading + newest identity row of each side present in the result), not just set-diff proofs.",
      "evidence": [
       {
-       "file": "archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
        "lines": "601-613",
        "quote": "Owner correction (2026-07-08, PR #324) ... Leopard was corrected for this exact shape on #317 ... the cure was graduated into pr-lifecycle Phase 6, I read that napkin entry at session open - and still ran scheduled 8.5-minute nap-probes"
       },
       {
-       "file": "archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
+       "file": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md",
        "lines": "743-750",
        "quote": "the compound query (mergeStateStatus + unresolved threads + check rollup, ONE call) is the ONLY sanctioned PR-state read, for any question, however narrow the prompting signal."
       }
@@ -1907,37 +1907,37 @@
    "encoding_mechanisms": [
     {
      "mechanism": "PDR-101 quorum protocol (four-seat doctrine-batch review)",
-     "where_seen": "napkin-2026-07-08-corsair-dedicated-consolidation.md lines 33-35, 50-53, 76-79",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md lines 33-35, 50-53, 76-79",
      "assessment": "Named, ratified protocol with recorded operating economics (tokens/seat, wall-clock, findings/batch); reused across at least two graduation batches in this window - discoverable and reusable, though sizing guidance (oversized for one-file graduations) is only in napkin prose, not yet in a rule file per this range."
     },
     {
      "mechanism": "pr-lifecycle skill/Phase 6-7 amendments (settle-probe, terminal-condition watch, truly-green merge gate)",
-     "where_seen": "napkin-2026-07-08 lines 294-301, 601-613, 711-731, 743-750",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md lines 294-301, 601-613, 711-731, 743-750",
      "assessment": "Repeatedly cited as the graduation target for review-convergence and settle-probe lessons; multiple seats read it at session open, showing it functions as a real transferable doctrine surface, though at least one seat still repeated the corrected mistake after reading it (transfer is imperfect)."
     },
     {
      "mechanism": "Napkin file itself (this document) as the mandatory at-occurrence capture surface for metaloss/loss-scan findings",
-     "where_seen": "napkin-2026-07-08 lines 446-451; napkin-2026-07-23 throughout (wrap loss-scans, fixed-point closes)",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md lines 446-451; .agent/memory/active/archive/napkin-2026-07-23.md throughout (wrap loss-scans, fixed-point closes)",
      "assessment": "Owner standing rule makes the napkin the canonical drain-then-graduate buffer for fleet/topology lessons; highly discoverable within the estate's own workflow (read at every session open) but is explicitly a session-mortal-adjacent buffer requiring periodic rotation/graduation to permanent homes to avoid loss."
     },
     {
      "mechanism": "handoffs/ directory (machine-local, gitignored, PDR-063) as durable-but-not-tracked successor-facing record",
-     "where_seen": "napkin-2026-07-08 lines 228-233, 546-547, 700-709",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md lines 228-233, 546-547, 700-709",
      "assessment": "Repeatedly used to conserve gateway verdicts and adjudications that would otherwise live only in session-mortal scratchpad/task outputs; usable within a single machine but explicitly NOT tracked in git, so it does not travel across machines/forks and one instance record shows a peer wrongly believed it rode a merged PR."
     },
     {
      "mechanism": "standby-runway-handoff pattern candidate (not yet a graduated pattern file)",
-     "where_seen": "napkin-2026-07-08 lines 121-127, 245-248, 256-260, 344-347; napkin-2026-07-23 lines 927-941",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md lines 121-127, 245-248, 256-260, 344-347; .agent/memory/active/archive/napkin-2026-07-23.md lines 927-941",
      "assessment": "Recurred in three distinct shapes (push, pull, clear-at-arrival) across many seats before this range ends, explicitly flagged 'graduate at the next consolidation' - a well-evidenced but still-informal encoding, discoverable only by reading napkin history rather than a named doctrine file within this scope."
     },
     {
      "mechanism": "Cricket A/B tally (skill oak-cricket) with per-run recorded divergence class and cure",
-     "where_seen": "napkin-2026-07-23 lines 171-179, 190-193, 514-518, 694-695, 828-830",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-23.md lines 171-179, 190-193, 514-518, 694-695, 828-830",
      "assessment": "A designed, mandated instrument with a running tally and named cure classes (context-supply, vocabulary-collision, escalating-evidence-bar); reused across many tenures, but cadence compliance itself repeatedly failed, suggesting the encoding communicates the mechanism well but not yet the obligation to invoke it."
     },
     {
      "mechanism": "Compact-reground-fork pipeline (owner-discovered discipline for fleet forking)",
-     "where_seen": "napkin-2026-07-23 lines 872-887, 927-941",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-07-23.md lines 872-887, 927-941",
      "assessment": "A freshly-discovered, not-yet-codified sequencing discipline; captured in napkin prose with explicit corollaries (fork points as deliberate ceremony, externalised state) but 'feeds the transfer-mechanisms conversation and any future fork doctrine' - i.e. acknowledged as pre-doctrine at range-end."
     }
    ],
@@ -1951,8 +1951,8 @@
    ],
    "coverage": {
     "files_read": [
-     "/Users/jim/code/oak/oak-open-curriculum-ecosystem-worktrees/typescript-estate-review-019fc3/.agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md (full, 750 lines)",
-     "/Users/jim/code/oak/oak-open-curriculum-ecosystem-worktrees/typescript-estate-review-019fc3/.agent/memory/active/archive/napkin-2026-07-23.md (full, 968 lines, read in two passes: 1-820 and 821-968)"
+     ".agent/memory/active/archive/napkin-2026-07-08-corsair-dedicated-consolidation.md (full, 750 lines)",
+     ".agent/memory/active/archive/napkin-2026-07-23.md (full, 968 lines, read in two passes: 1-820 and 821-968)"
     ],
     "bounds_applied": "Both files existed at the given paths and were read in their entirety end to end within the specified line ranges; no truncation of either file's content occurred (the tool-level page split of the second file was purely a display artifact, not a scope cut)."
    },
@@ -1979,7 +1979,7 @@
      "cost_signals": "~2.9M subagent tokens, 19 minutes wall-clock",
      "evidence": [
       {
-       "file": ".agent/memory/active/napkin.md",
+       "file": ".agent/memory/active/archive/napkin-2026-08-06.md",
        "lines": "1074-1082",
        "quote": "Plan-of-consequence \u2192 tiered fleet review, graduation candidate: the 31-agent low/middle/high + experts + frame-challenger topology over a Director-authored plan caught 23 blocking defects incl. the author's shallow grounding, for one fleet run (~2.9M subagent tokens, 19 min)."
       }
@@ -1999,12 +1999,12 @@
      "cost_signals": "~170k tokens sunk on stalled reducer turns before sharding to 537+444",
      "evidence": [
       {
-       "file": ".agent/memory/active/napkin.md",
+       "file": ".agent/memory/active/archive/napkin-2026-08-06.md",
        "lines": "118-129",
        "quote": "Instantiation (owner, same hour): Haiku fleet with OVERLAPPING regions as the first landscape (disagreement field = free salience map; offset strides heal boundaries; ~half the cost of single-coverage Sonnet), then Sonnet, then Opus, Fable overwatch"
       },
       {
-       "file": ".agent/memory/active/napkin.md",
+       "file": ".agent/memory/active/archive/napkin-2026-08-06.md",
        "lines": "137-148",
        "quote": "a single corpus-reducer fed 981 leaves (est. ~105k-token prompt, opus/high) produced THREE consecutive thinking-only turns over ~35 minutes and never reached its schema-forced output call \u2014 the output budget burned on deliberation each turn, ~170k tokens sunk"
       }
@@ -2035,11 +2035,11 @@
      "date": "2026-07-25",
      "shape": "fan-out",
      "scale": "14 agents",
-     "model_tiers": "11 Sonnet (mixed xhigh and low effort) plus Opus seats",
+     "model_tiers": "12 Sonnet dispatched (11 valid at mixed xhigh and low effort, 1 invalid quota-degraded response) plus 2 Opus seats",
      "task_class": "disposition-table review over an every-entry-mandate corpus",
      "status": "run",
      "what_worked": "Both Opus seats challenged the handed frame itself (one as neutral adjudicator, one as red-team) rather than merely classifying within it.",
-     "what_failed": "All 11 valid Sonnet agents filed SOUND-WITH-CHANGES inside the handed frame, one while personally holding UNSOUND-grade evidence (12 undispositioned files against an every-entry mandate) without escalating the frame.",
+     "what_failed": "All 11 valid Sonnet agents filed SOUND-WITH-CHANGES inside the handed frame, one while personally holding UNSOUND-grade evidence (12 undispositioned files against an every-entry mandate) without escalating the frame; the remaining Sonnet response was invalid under quota degradation.",
      "lessons": "Direction < severity < frame-judgement gradient: Haiku vs Sonnet diverge on severity; Sonnet vs Opus diverge on stance/frame. Fleet doctrine adopted: at least one mandate-only Opus frame-challenger per fleet; Sonnet fleets get frame-rejection as a mechanical tripwire criterion.",
      "cost_signals": "not stated",
      "evidence": [
@@ -2069,7 +2069,7 @@
        "quote": "Cricket A/B tally (+2 pairs, Cormorant design-lane): pairs C and D both formally divergent... in BOTH, the haiku variant differed only in SEVERITY grading, never in the redirection; substance identical across all eight verdicts"
       },
       {
-       "file": ".agent/memory/active/napkin.md",
+       "file": ".agent/memory/active/archive/napkin-2026-08-06.md",
        "lines": "292-297",
        "quote": "Ran an owner-directed multi-perspective design review (3 fleet seats, 2 Opus reviewers, a Cricket octet) on the display-prefix shape"
       }
@@ -2109,7 +2109,7 @@
      "cost_signals": "not stated",
      "evidence": [
       {
-       "file": ".agent/memory/active/napkin.md",
+       "file": ".agent/memory/active/archive/napkin-2026-08-06.md",
        "lines": "848-856",
        "quote": "A sampling finder has no fixed point; cure the class, not the instance (#713 rounds 7-14): suppressed-finding counts ran 5,5,2,4,3,3 with round 10 flagging two surfaces unchanged since round 1"
       }
@@ -2174,12 +2174,12 @@
      "cost_signals": "not stated",
      "evidence": [
       {
-       "file": ".agent/memory/active/napkin.md",
+       "file": ".agent/memory/active/archive/napkin-2026-08-06.md",
        "lines": "1842-1848",
        "quote": "CORRECTION minutes later (owner word): NOT a shutdown \u2014 \"do work in an n=2 pair with Wyvern, collaborate on this work, open an ARC channel.\""
       },
       {
-       "file": ".agent/memory/active/napkin.md",
+       "file": ".agent/memory/active/archive/napkin-2026-08-06.md",
        "lines": "1780-1791",
        "quote": "the `goal` mechanism was clashing with the Practice in a strange way... I cleared the goal and now you are working perfectly sensibly... the /goal stop-hook is STANDING COMPLETION DRIVE... and in an n=1 session there is no peer brake"
       }
@@ -2199,7 +2199,7 @@
      "cost_signals": "not stated",
      "evidence": [
       {
-       "file": ".agent/memory/active/napkin.md",
+       "file": ".agent/memory/active/archive/napkin-2026-08-06.md",
        "lines": "390-406",
        "quote": "Two parallel Opus reviewer dispatches (type, architecture) froze at EXACTLY 21:38:59Z mid-run \u2014 260KB/315KB of transcript activity, then nothing... the same-second freeze across independent agents is a shared-substrate signature"
       }
@@ -2214,7 +2214,7 @@
     },
     {
      "mechanism": "new-rule-vs-pdr-clause routing process",
-     "where_seen": ".agent/memory/active/napkin.md lines 1074-1082 (31-agent fleet graduation candidate), lines 289-311 (record-first-for-design-priors cure)",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-08-06.md lines 1074-1082 (31-agent fleet graduation candidate), lines 289-311 (record-first-for-design-priors cure)",
      "assessment": "The estate's standard channel for turning a worked fleet-topology observation into standing doctrine (a rule or a PDR clause) rather than letting the lesson live only in a napkin entry; discoverable via the named rule file but requires an active routing act, not automatic graduation."
     },
     {
@@ -2229,17 +2229,17 @@
     },
     {
      "mechanism": "reviewer-subagents-run-on-opus / reviewer-dispatch-model-fallback (per-user memory rules)",
-     "where_seen": "referenced across napkin.md model-unavailability fallback entry, lines 225-240",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-08-06.md model-unavailability fallback entry, lines 225-240",
      "assessment": "Encodes model-tier selection and fallback-direction doctrine (always fall back UP in capability at lower effort) for every reviewer dispatch, generalised fleet-wide by an owner ruling captured at occurrence; concise and applies uniformly."
     },
     {
      "mechanism": "oak-sif skill and oak-cricket skill (subagent-invocation framework and conscience-panel instrument)",
-     "where_seen": "skill listing (oak-sif, oak-cricket); referenced throughout both napkin files wherever a cricket pair or subagent dispatch is invoked",
+     "where_seen": ".agents/skills/oak-sif/SKILL.md and .agents/skills/oak-cricket/SKILL.md; references throughout .agent/memory/active/archive/napkin-2026-07-26.md and .agent/memory/active/archive/napkin-2026-08-06.md",
      "assessment": "Packaged, invokable doctrine for bounded in-session agent invocation and for the specific normal+adversarial cricket panel shape; the most discoverable encoding since it is a first-class skill rather than a buried napkin line, though its content itself was not read in this pass (out of scope)."
     },
     {
      "mechanism": "review-ratchet convergence doctrine (per-user memory rule, extended by the #713 sampling-finder capture)",
-     "where_seen": ".agent/memory/active/napkin.md lines 848-856",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-08-06.md lines 848-856",
      "assessment": "Names an operator stop condition (tally at ~4 rounds) for multi-round reviewer fan-outs; the #713 capture explicitly proposes extending it with the class-kill technique, showing the doctrine is actively revised from worked instances rather than static."
     }
    ],
@@ -2255,8 +2255,8 @@
    ],
    "coverage": {
     "files_read": [
-     "/Users/jim/code/oak/oak-open-curriculum-ecosystem-worktrees/typescript-estate-review-019fc3/.agent/memory/active/archive/napkin-2026-07-26.md (full, 918 lines)",
-     "/Users/jim/code/oak/oak-open-curriculum-ecosystem/.agent/memory/active/napkin.md (full, read to line 2554, end of file)"
+     ".agent/memory/active/archive/napkin-2026-07-26.md (full, 918 lines)",
+     ".agent/memory/active/archive/napkin-2026-08-06.md (full, read to line 2554, end of file)"
     ],
     "bounds_applied": "Both files exist and were read end-to-end; no truncation \u2014 the archive file's and live napkin's final entries both read as complete closing entries, not mid-entry cuts."
    },
@@ -2449,32 +2449,32 @@
    "encoding_mechanisms": [
     {
      "mechanism": "PDR-122 (agentic-judgment pipelines) + companion rule agentic-judgment-conserve-by-default, amended on the measured quorum-diversity finding",
-     "where_seen": "corpus-generalisation-phase0-design-record-2026-07-05.md \u00a7(e) and \u00a7Kernel invariants",
+     "where_seen": ".agent/reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-phase0-design-record-2026-07-05.md \u00a7(e) and \u00a7Kernel invariants",
      "assessment": "High-durability, high-discoverability ratified doctrine other design decisions cite by invariant number; explicit landing home for tuned rules (independence-measured-not-asserted, calibration-locked regime changes)."
     },
     {
      "mechanism": "Regime registry + two-hash CalibrationStamp (regimeHash\u00d7promptHash, measuredEffectiveVotes, measuredInterLensPhi, blindnessFigure, exposureDiff) enforced 3-tier",
-     "where_seen": "corpus-generalisation-phase0-design-record-2026-07-05.md \u00a7(d)",
+     "where_seen": ".agent/reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-phase0-design-record-2026-07-05.md \u00a7(d)",
      "assessment": "Designed-only but concretely specified reusable mechanism making PDR-122 invariant 6 machine-checkable; not yet built, so discoverable only via this report/plan, not a runnable artefact."
     },
     {
      "mechanism": "README.md runbook for the corpus-analysis pipeline (pnpm build-run-artefact per stage, checkpoint commit protocol, resume-on-quota-trip)",
-     "where_seen": "README.md lines 18-89",
+     "where_seen": ".agent/reports/agentic-engineering/large-corpus-analysis-tooling/README.md lines 18-89",
      "assessment": "Directly runnable, versioned operational encoding \u2014 the clearest repeatable fleet-run procedure in scope; explicitly ties runs to PDR-122 and consolidate-until-done."
     },
     {
      "mechanism": "Burn-analysis method of record (transcript raw-token summation, quota/price calibration constants, per-agent-type unit-cost table, agent-count formulas)",
-     "where_seen": "burn-analysis-2026-07-02.md, generalised into D5 'permanent burn accounting'",
+     "where_seen": ".agent/reports/agentic-engineering/large-corpus-analysis-tooling/burn-analysis-2026-07-02.md, generalised into D5 'permanent burn accounting'",
      "assessment": "Reusable cost-instrumentation pattern (ground-truth vs biased UI counters) promoted from a one-off analysis into a ratified kernel feature within this scope."
     },
     {
      "mechanism": "salvage-driver tooling / salvage-tiers.ts typed conservation invariant, frozen-math replay of banked ensembles",
-     "where_seen": "discovery-run-salvage-report-2026-07-02.md; cited as exemplar in corpus-generalisation-research-2026-07-03.md",
+     "where_seen": ".agent/reports/agentic-engineering/large-corpus-analysis-tooling/discovery-run-salvage-report-2026-07-02.md; cited as exemplar in .agent/reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-research-2026-07-03.md",
      "assessment": "Working, reused code mechanism explicitly named as the pattern the rest of the pipeline should be back-ported to \u2014 high reuse value, moderately discoverable via cross-references."
     },
     {
      "mechanism": "Provenance/verification legend ([V]/[L]/[O] tags) marking verification status of every claim",
-     "where_seen": "corpus-generalisation-research-2026-07-03.md lines 14-28, carried through review and phase0 record",
+     "where_seen": ".agent/reports/agentic-engineering/large-corpus-analysis-tooling/corpus-generalisation-research-2026-07-03.md lines 14-28, carried through review and phase0 record",
      "assessment": "Lightweight, cheap documentation convention that made a later adversarial review tractable (targeted exactly the [V] claims); not promoted to a named skill/template within this scope."
     }
    ],
@@ -2750,10 +2750,10 @@
    "probe": "pre-july-archives",
    "topology_instances": [
     {
-     "name": "Misty Director session \u2014 4-Opus-seat team (Misty/Lunar/Wooded/Eclipsed/Hushed/Twilit rotating)",
+     "name": "Misty Director session \u2014 four concurrent Opus seats with rotating occupants (Misty/Lunar/Wooded/Eclipsed/Hushed/Twilit)",
      "date": "2026-05-25",
      "shape": "team-roles",
-     "scale": "4 Opus seats: Misty (Director), Wooded, Eclipsed, Hushed (marshal), Twilit",
+     "scale": "4 concurrent Opus seats: 1 Director plus 3 executing seats; Misty, Lunar, Wooded, Eclipsed, Hushed and Twilit rotated through them; the Director later dissolved, leaving 3-seat peer mode",
      "model_tiers": "claude-opus-4-7 (Director seat explicitly Opus; other seats co-located as Opus seats)",
      "task_class": "multi-agent coordinated delivery cycles under Director-led coordination substrate",
      "status": "run",
@@ -2873,7 +2873,7 @@
    "encoding_mechanisms": [
     {
      "mechanism": "Napkin entries tagged by named session-agent + Director/marshal role plus 'graduation candidate' flags routing to PDR/rule promotion",
-     "where_seen": ".agent/memory/active/archive/napkin-2026-05-25-misty-director-session.md; napkin-2026-06-14-comms-research-closeout.md",
+     "where_seen": ".agent/memory/active/archive/napkin-2026-05-25-misty-director-session.md; .agent/memory/active/archive/napkin-2026-06-14-comms-research-closeout.md",
      "assessment": "Discoverable via filename/grep on 'graduation candidate', but topology facts are buried in narrative prose, requiring targeted reading rather than a query."
     },
     {
@@ -3113,27 +3113,27 @@
    "encoding_mechanisms": [
     {
      "mechanism": "Practice Decision Records (PDR) with Status/Falsifiability/Worked-instances/Amendment sections",
-     "where_seen": "PDR-117, PDR-082, PDR-130, PDR-134",
+     "where_seen": ".agent/practice-core/decision-records/PDR-117-director-and-implementer-roles.md; .agent/practice-core/decision-records/PDR-082-n2-collaboration-mode.md; .agent/practice-core/decision-records/PDR-130-two-speed-learning.md; .agent/practice-core/decision-records/PDR-134-knowledge-strata-carriers-and-the-concept-layer.md",
      "assessment": "Highly discoverable and durable: each PDR carries a related-PDR cross-reference graph, an explicit falsifiability section with named second-instance evidence paths, and dated amendment sections that accrete new worked-instance-derived clauses in place rather than forking a new document \u2014 a legible, append-only history of how each fleet-topology doctrine actually evolved under use."
     },
     {
      "mechanism": "Named pattern files in .agent/memory/active/patterns/ with polarity/proven_in/proven_date/barrier front matter",
-     "where_seen": "bounded-structured-output-for-workflows.md, adversarial-verify-plus-self-pass-on-refutations.md, adversarially-verify-own-synthesis.md, breadth-as-evasion.md, others",
+     "where_seen": ".agent/memory/active/patterns/bounded-structured-output-for-workflows.md; .agent/memory/active/patterns/adversarial-verify-plus-self-pass-on-refutations.md; .agent/memory/active/patterns/adversarially-verify-own-synthesis.md; .agent/memory/active/patterns/breadth-as-evasion.md; others in .agent/memory/active/patterns/",
      "assessment": "Usable as a checked-in, greppable library: each file states a single reusable shape with an explicit proven_in worked instance, a proven_date, and a barrier block (broadly_applicable/proven_by_implementation/prevents_recurring_mistake/stable) that functions as a graduation gate \u2014 cheap for an agent to scan use_this_when and decide relevance before reading the body."
     },
     {
      "mechanism": "PDR-130 two-speed learning register (fast lane vs slow lane) with mandatory prediction+falsifier per graduation",
-     "where_seen": "PDR-130-two-speed-learning.md",
+     "where_seen": ".agent/practice-core/decision-records/PDR-130-two-speed-learning.md",
      "assessment": "A meta-mechanism governing how ALL the other encoding mechanisms (rules, skills, validators, PDRs) get minted: every graduation must carry a one-sentence expected-effect-and-falsifier, and constitutional-class concepts route through a dated quarterly-reviewed slow-lane register rather than same-day promotion."
     },
     {
      "mechanism": "PDR-134 knowledge-strata/carrier contract (ontology/practice/repo/operator strata; prose/front-matter/concept-scheme carriers)",
-     "where_seen": "PDR-134-knowledge-strata-carriers-and-the-concept-layer.md",
+     "where_seen": ".agent/practice-core/decision-records/PDR-134-knowledge-strata-carriers-and-the-concept-layer.md",
      "assessment": "A stack-neutral portability contract, not itself a topology record, but decides WHERE fleet-topology knowledge like PDR-117/PDR-082 is allowed to live and how cross-instance concept sharing must work; usable mainly by a host's own architectural decision records."
     },
     {
      "mechanism": "start-right-team SKILL as the operational entry point for Director/Implementer roles and n=2 mode",
-     "where_seen": "referenced throughout PDR-117 and PDR-082, e.g. 'the SKILL becomes the operational entry point; this PDR is the doctrine source'",
+     "where_seen": ".agent/practice-core/decision-records/PDR-117-director-and-implementer-roles.md and .agent/practice-core/decision-records/PDR-082-n2-collaboration-mode.md, e.g. 'the SKILL becomes the operational entry point; this PDR is the doctrine source'",
      "assessment": "Named but not read in this pass (out of scope); PDRs describe it as the operational carrier at team-start with the PDR as doctrine source \u2014 a two-layer encoding (skill=mechanism, PDR=rationale/evidence) for both topologies covered here."
     }
    ],
