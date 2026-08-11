@@ -24,7 +24,7 @@ description: >-
 
 **Governance**: the knowledge home is
 [`docs/engineering/build-system.md` §Dependency updates](../../../docs/engineering/build-system.md)
-— agent-run sweeps not Dependabot-npm, the two held majors and their
+— agent-run sweeps not Dependabot-npm, the held majors and their
 lift conditions, the `minimumReleaseAge` mechanism. This skill is the
 summonable routing: the decision tree, the verification tail, and the
 failure shapes, applied at the moment a trigger fires. The override
@@ -135,11 +135,13 @@ the selected version, never the floor:
    parent (`parent@1>child` — pnpm's documented dependent-scoped
    selector): an unqualified `parent>child` binds every consumed
    version of that parent, so it cannot isolate one line.
-6. **The fix crosses a held major** (TS 6.x, `@types/node` 24.x — see
-   build-system.md for the live list and lift conditions) → STOP and
-   surface; the hold's lift condition governs, never the sweep.
-7. **The target version is younger than `minimumReleaseAge` (1440
-   min)** → two outcomes, both verified first-hand 2026-08-11 on
+6. **The fix crosses a held major** (build-system.md §Dependency
+   updates carries the LIVE hold list and lift conditions — read it,
+   never a remembered copy) → STOP and surface; the hold's lift
+   condition governs, never the sweep.
+7. **The target version is younger than the configured
+   `minimumReleaseAge` floor** (read the value from
+   pnpm-workspace.yaml) → two outcomes, both verified first-hand 2026-08-11 on
    pnpm 11.20. When the requested range admits an older mature
    version, the resolver SILENTLY excludes the young one and picks
    the newest version older than the floor — exit 0, no warning.
