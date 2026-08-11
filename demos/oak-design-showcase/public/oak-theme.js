@@ -135,6 +135,17 @@
     // No matchMedia (or no event support): the pre-paint application above
     // already ran; live OS contrast changes simply will not re-apply.
   }
+  // Motion application captures nothing, so it lives at this scope as the
+  // sibling of apply() — the rest of the motion axis (keys, membership,
+  // persistence) stays assembled inside createMotion below.
+  function applyMotion(m) {
+    const el = document.documentElement;
+    if (!m || m === 'system') {
+      delete el.dataset.motion;
+    } else {
+      el.dataset.motion = m;
+    }
+  }
   // The motion axis is orthogonal to themes (see the header), so its whole
   // assembly — keys, membership, application, persistence — lives here and
   // only the finished API joins the runtime object below.
@@ -150,14 +161,6 @@
       );
     }
     let mcurrent = null;
-    function mapply(m) {
-      const el = document.documentElement;
-      if (!m || m === 'system') {
-        delete el.dataset.motion;
-      } else {
-        el.dataset.motion = m;
-      }
-    }
     function mget() {
       if (mcurrent) {
         return mcurrent;
@@ -182,9 +185,9 @@
         // Persistence is best-effort: the in-memory mode below still wins.
       }
       mcurrent = m;
-      mapply(m);
+      applyMotion(m);
     }
-    mapply(mget());
+    applyMotion(mget());
     return { set: mset, get: mget, modes: MODES.slice() };
   }
   // Typed from the Window contract it fulfils, so the global declaration
