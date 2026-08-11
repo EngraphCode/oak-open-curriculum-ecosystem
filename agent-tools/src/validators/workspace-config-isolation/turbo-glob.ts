@@ -101,7 +101,11 @@ export function isTrackedDirectoryPrefix(
   relative: string,
   trackedFiles: readonly string[],
 ): boolean {
-  const directory = relative.replace(/\/+$/u, '');
+  let end = relative.length;
+  while (end > 0 && relative[end - 1] === '/') {
+    end -= 1;
+  }
+  const directory = relative.slice(0, end);
   if (directory === '') {
     return trackedFiles.length > 0;
   }
