@@ -1,3 +1,10 @@
+## [1.162.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.162.0...v1.162.1) (2026-08-11)
+
+
+### Bug Fixes
+
+* **agent-tools:** true the turbo-glob validator to turbo's measured semantics (MCP-553) ([c7a67a0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c7a67a08a9326d636afa4f73a2d77ca38a7b8e67)), closes [#850](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/850)
+
 # [1.162.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.161.1...v1.162.0) (2026-08-11)
 
 
