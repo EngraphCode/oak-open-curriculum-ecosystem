@@ -30,4 +30,26 @@ describe('normaliseAutomaticProperties', () => {
 
     expect(normaliseAutomaticProperties('$mcp_initialize', properties, SNAPSHOT)).toBeNull();
   });
+
+  it('strips the @posthog/mcp 0.11.x auto-captured client-identity properties', () => {
+    const properties: UnknownProperties = {
+      oak_client_family: 'chatgpt',
+      $mcp_protocol_version: SUPPORTED_PROTOCOL_VERSIONS[0],
+      $mcp_is_error: false,
+      $mcp_client_user_agent: 'claude-ai/1.0',
+      $mcp_vendor_client: 'anthropic',
+    };
+
+    const normalised = normaliseAutomaticProperties('$mcp_initialize', properties, SNAPSHOT);
+
+    expect(normalised, 'a valid initialize event must survive normalisation').not.toBeNull();
+    expect(
+      normalised,
+      'an undeclared upstream property must never reach the sink; declaring it is a reviewed policy edit',
+    ).not.toHaveProperty('$mcp_client_user_agent');
+    expect(
+      normalised,
+      'an undeclared upstream property must never reach the sink; declaring it is a reviewed policy edit',
+    ).not.toHaveProperty('$mcp_vendor_client');
+  });
 });
