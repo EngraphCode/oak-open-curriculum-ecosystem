@@ -3,18 +3,36 @@ id: mutation-testing-core-canary
 node_type: delivery
 name: "Mutation-testing capability canary on the simplest core package"
 overview: "Complete the proven Stryker canary rapidly: one small PR restores the conserved spike configs in a shape that clears the type-check blocker, runs the full mutation pass on type-helpers, and lands a doctrine-bound survivor ledger."
-status: ratified
+status: archived
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-08-09
 ratified_where: "Owner card at the Director seat 2026-08-09 ~07:4xZ (card answer: 'Ratify as scoped' — the re-scope supersession was surfaced on the card; session Plover lifts Troposphere b10c37)"
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate
-tickets: []
+tickets:
+  - MCP-540
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-09
+last_updated: 2026-08-11
 ---
+
+> **ARCHIVED 2026-08-11 — completed.** Both todos landed and every
+> acceptance criterion is proven: slice 1's canary run is banked and
+> was then RE-RUN against the real `vitest.config.ts` by the
+> isolation plan's todo 3 (PR #848, merge `bb40ecdf5`, 2026-08-11 —
+> 18/18 mutants killed, 100% score, zero warnings, plus the
+> reversible config-load sentinel probe as provenance), retiring the
+> duplicate-config mechanism per the 2026-08-10 amendment below; the
+> survivor-disposition criterion is satisfied over an EMPTY survivor
+> list (100% kill); the evidence-artefact list in the first criterion
+> is governed by the 2026-08-09 dated ruling in slice 1
+> (`report.html` deliberately not banked — regenerable from
+> `report.json`); todo 2's pilot-plan re-point landed (pre-work item
+> (c) of `shared-construct-extraction-pilot.plan.md` carries the
+> dated pointer). Estate-wide roll-out is owner-committed future work
+> ("everywhere, but later, and in stages", 2026-08-11), carried at
+> the isolation plan's Out of scope — never by this archived node.
 
 # Mutation-testing capability canary on the simplest core package
 

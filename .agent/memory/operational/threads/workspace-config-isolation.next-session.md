@@ -10,39 +10,45 @@ Controlling plan:
 (RATIFIED 2026-08-09, known-issues ledger inside). The canary plan remains
 ratified-live; its restore step is superseded by this plan's todo 3.
 
-## Current Continuation (frozen 2026-08-10 ~21:0xZ, compaction freeze 3)
+## Current Continuation (updated 2026-08-11, decision-complete arc ratified)
 
-- **#836 is MERGED to main** (merge commit `d4e256294`, 2026-08-10
-  20:08:40Z, merge-bot at SETTLE-READY under the Director's sha-pinned
-  grant at `97febf893`). The whole swap arc is live: package, migration,
-  four depcruise rules under the three owner rulings, resolver-invisible
-  validator legs, cold-install bootstrap cure. Post-merge quiet-window
-  harvest ran CLEAN.
-- **Todo 3 is executed as PR #848** (branch
-  `jimcresswell/stryker-real-config`, worktree
-  `.claude/worktrees/stryker-real-config`, head `c38bd4e66`): Stryker
-  points at the real `vitest.config.ts`, the duplicate is deleted, the
-  re-run is banked (18/18, 100%, zero warnings) PLUS the reversible
-  config-load sentinel probe (`mutation-evidence/config-load-probe.md`).
-  #848 is the BOT-AUTHORED successor of #847 (closed at the owner's
-  identity directive — `gh pr create` had run under the owner's gh
-  login; the mint-token front door now covers PR creation too). Two
-  review rounds fully dispositioned (cure shas `aa69109b8`,
-  `c38bd4e66`); Copilot re-requested on #848; ticket MCP-540 links
-  both. NEXT: tally #848's rounds at the standing rigour, settle,
-  Director recount, merge-bot merge, Phase-8 harvest, worktree cleanup.
-- **Owner directive (2026-08-10, standing)**: all fleet PRs are
-  BOT-authored (mint-token for every write channel including
-  `gh pr create`), and every PR from either identity carries the
-  `jimbot` label (applied+verified on 12 PRs this window).
-- **Claims**: `377c0b30` (this lane) and `04883b1e` (osz,
-  owner-paused) retained at the freeze; heartbeats stopped with the
-  freeze broadcast.
-- **Plan state**: isolation plan todos 1 and 3 DONE (todo 3 completes
-  at #848's merge); todo 2 (de-hatch, reshaped by the right-tool
-  ruling) next; todos 4-5 (census) behind it; register rows 7a-7l
-  carry every routed follow-up. The canary plan carries its dated
-  retirement amendment.
+- **#848 MERGED** (`bb40ecdf5`, 2026-08-11, merge-bot under Director
+  grant `113D7A7F`) — todo 3 complete; canary fully complete for
+  type-helpers; MCP-540 Done; both lane worktrees pruned, branches
+  swept. (#836 merged `d4e256294` 2026-08-10; both arcs live on main.)
+- **Owner rulings 2026-08-11** (all in durable memory): error findings
+  get fixed, never warranted; an exemption in an enforcement surface
+  is an alarm bell — fix or change policy, with a clock; "residue"
+  registers get critical assessment then sequencing or rejection;
+  mutation roll-out is owner-committed — "everywhere, but later, and
+  in stages" (carried at the isolation plan's Out of scope).
+- **The decision-complete completion arc is RATIFIED** (owner
+  approval in-session 2026-08-11; both review passes folded — 23
+  findings): the isolation plan carries its 2026-08-11 Amendment
+  (register triage ledger, todo-2 reshape, census enrichment, slices
+  S1/S2, criteria rewrites, new stamp); the successor node
+  `workspace-config-enforcement-hardening` (H1–H4) is born-ratified;
+  the canary plan is ARCHIVED completed. Full sequence: S1 → S2 →
+  todo 2 ∥ todo 4 → todo 5 → H1→H2→H3→H4 → todo 6.
+- **In flight**: S1 = MCP-542 (worktree
+  `.claude/worktrees/mcp-542-turbo-globs`, branch
+  `jimcresswell/mcp-542-turbo-zero-match-globs` from main) — pin
+  matcher (tracked = `git ls-files`; turbo-subset globs, refuse
+  outside it), derive the dead set (js/cjs/mjs certain; the yaml
+  entry disputed between instruments — derivation decides), ≥1-match
+  validator leg + red-proof, root-tsconfig stale stryker include, and
+  the three stale plan-path references from the canary archival
+  (stryker.config.mjs docstring, mechanics-report.md ×2,
+  survivor-dispositions.md → archive/ path). Next: S2 =
+  search-contracts whole-package move (Director PROCEED + owner
+  ratification; full surface enumerated in the plan Amendment incl.
+  boundary.ts machinery deletion, `'contracts'` role, ADR-041/138
+  amendments same PR, twelve-file field-integrity proof).
+- **Standing**: all fleet PRs bot-authored (mint-token every write
+  channel incl. `gh pr create`); every PR carries the `jimbot` label;
+  Copilot review binds async ~5min, re-request per head move; my own
+  REST replies mint empty jimbot COMMENTED reviews — exclude from any
+  recount.
 
 ## Three owner rulings landed 2026-08-09 (all after ratification; all binding)
 
@@ -75,7 +81,7 @@ ratified-live; its restore step is superseded by this plan's todo 3.
 - Dynamic `import()` and `require()` are first-class analyzed dependency
   types.
 
-## Next safe step — the depcruise swap cycle (this lane holds the design pen)
+## The depcruise swap cycle — EXECUTED (steps below completed via #836/#848; conserved as the worked record; the live sequence is the plan Amendment's Execution order)
 
 1. **Verify first-hand before designing**: (a) depcruise's cruise scope
    currently INCLUDES workspace-root config files (if not, extending the
