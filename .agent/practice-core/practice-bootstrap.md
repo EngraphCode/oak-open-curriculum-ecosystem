@@ -409,7 +409,7 @@ prefix.
 | session-handoff  | `.agent/skills/session-handoff/SKILL-CANONICAL.md`            | Refresh the continuity contract, close own collaboration claims, update decision threads, capture surprises, and escalate into the consolidate-docs skill only when due.                     |
 | gates            | `.agent/skills/gates/SKILL-CANONICAL.md`                      | Run `type-check -> lint -> build -> test`. All blocking; restart after any fix.                                                                                                                                                        |
 | commit           | `.agent/skills/commit/SKILL-CANONICAL.md`                     | Check status, review diff, verify gates, stage selectively, and use a conventional commit. Never force push, amend pushed commits, or use `--no-verify`.                                                                                |
-| consolidate-docs | `.agent/skills/consolidate-docs/SKILL-CANONICAL.md`           | Verify docs current. Graduate settled content. Extract patterns. Rotate napkin. Manage fitness. Integrate incoming Practice Box. Broadcast outgoing context. See §Consolidation Workflow.                                              |
+| consolidate-docs | `.agent/skills/knowledge/consolidate-docs/SKILL-CANONICAL.md` | Verify docs current. Graduate settled content. Extract patterns. Rotate napkin. Manage fitness. Integrate incoming Practice Box. Broadcast outgoing context. See §Consolidation Workflow.                                              |
 | plan             | `.agent/skills/plan/SKILL-CANONICAL.md`                       | Read directives. Create plan with outcome, impact, value mechanism, acceptance criteria, risks, and non-goals.                                                                                                                         |
 
 ## Skills (.agent/skills/)
@@ -488,7 +488,7 @@ Surprise follows an explicit pipeline: capture → distil → graduate → enfor
 Surprise becomes durable only when it changes future behaviour and clears the
 usual graduation bar.
 
-### Napkin (.agent/skills/napkin/SKILL.md)
+### Napkin (.agent/skills/knowledge/napkin/SKILL-CANONICAL.md)
 
 The napkin is the capture stage of the learning loop. It is always active.
 
