@@ -38,8 +38,11 @@ Current Continuation below.
   at the compaction boundary — "please question all remaining steps",
   following the S2 warrant collapse below).** Every step re-derived
   from first principles; the failure shape hunted was
-  symmetry-with-the-landed-cure posing as a warrant. VERDICTS
-  (awaiting the owner's word only where marked):
+  symmetry-with-the-landed-cure posing as a warrant. VERDICTS — ALL
+  RESOLVED AT THE SEAT via the decision matrix (owner word
+  2026-08-11: "why are you waiting on me, run the decision matrix";
+  lenses run in order, first decisive governs; NOTHING remains
+  owner-pending):
   - SOUND, unchanged: merge #850; Linear-ticket monitors (owner
     commission); todo 2 de-hatch (owner's verbatim word); census
     todos 4–5 (the exemption-alarm ruling made structural — with one
@@ -48,8 +51,9 @@ Current Continuation below.
     coverage-assert (guards for failure classes actually experienced);
     S2-as-re-scoped + its two review survivors (field-integrity
     phantom, assertNever gap).
-  - H3 tsconfig-extends: RECOMMEND DROP (owner's un-ratify needed —
-    it was a ratified scope delta). Warrant was symmetry only: the
+  - H3 tsconfig-extends: DROPPED (lens 2 precondition fails — the
+    boundary rule binds IMPORTS and an extends reference is not one;
+    lens 3 decisive — simpler with quality intact). Warrant was symmetry only: the
     Stryker sandbox, the sole empirical forcing consumer, ran the
     canary at 100% with root-anchored extends untouched; no live
     consumer copies subtrees; reviewer sized it over-band; and the
@@ -59,7 +63,9 @@ Current Continuation below.
     import)" — doctrine already contradicts the step. Returns to
     Out-of-scope with that ground; re-enters only with a named
     consumer.
-  - H1: SLIM (plan re-scope). KEEP the idiom standardisation
+  - H1: SLIMMED (lens 3 decisive both ways — the standardisation
+    makes the estate simpler; the scanner guarded a
+    construction-eliminated channel). KEEP the idiom standardisation
     (~40 sites → native import.meta.dirname — standalone
     simplification; the validator's recognition problem collapses
     with it), the small refusal rewrite, and the fs-unreadable bin
@@ -79,8 +85,9 @@ Current Continuation below.
   the documented generated-contract exception, already implemented
   FIRST-CLASS in ESLint (`searchContractsSdkException`, tested); the
   exemption alarm's legitimate target was depcruise's crude per-file
-  `pathNot` FORM, not the edge. CORRECTED RECOMMENDATION (awaiting
-  the owner's confirming word before the plan's dated re-scope): keep
+  `pathNot` FORM, not the edge. CORRECTED SHAPE — RESOLVED at the
+  seat by the decision matrix (owner direction 2026-08-11; the plan's
+  dated re-scope lands at resume): keep
   the package a lib; re-scope MCP-543 to a small PR replacing the
   anonymous `pathNot` with a NAMED lawful-edge rule (search-contracts
   → sdk-codegen generated contract exports) citing ADR-138/041 in the

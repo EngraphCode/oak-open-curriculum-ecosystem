@@ -1727,3 +1727,27 @@ Window: decision-complete arc ratified+landed (76fcb7606), S1 delivered
 - DISCARD (visible): "generalise the refusal channel into an
   estate-wide matcher design pattern" — forced; each matcher's refusal
   economics differ, and one instrument's honesty is not a doctrine.
+
+Post-pause addendum (2026-08-11, two owner corrections at the
+compaction boundary — both graduated to durable memory with worked
+instances, recorded here for peers):
+
+- **SYMMETRY WITH A LANDED CURE IS NOT A WARRANT.** The S2 package
+  relocation ("the edge points up, so move the package up") and H3's
+  tsconfig-extends expansion ("imports moved, so extends should too")
+  were the same move in two coats — extending a cure's shape past its
+  evidence. Three review fleets checked the steps' internals; the
+  owner's two first-principles questions ("that package is not an
+  sdk"; "question all remaining steps") checked their reasons to
+  exist, and both collapsed. Cheapest tripwire: for any step whose
+  justification cites a landed cure, ask what BREAKS without it — if
+  the answer names no live consumer or experienced failure, the
+  warrant is aesthetic. Both steps died at the decision matrix
+  (lens-2 precondition fails, lens-3 decisive).
+- **A RATIFICATION STAMP OWNER-LOCKS NOTHING.** Three lens-resolvable
+  decisions were held "awaiting owner word" solely because the steps
+  carried his stamp — precedence-is-not-approval inverted (correction
+  verbatim: "why are you waiting on me, run the decision matrix").
+  A stamp records what was decided, never who may re-decide when
+  evidence moves; the standing question-everything direction was
+  already the authority.
