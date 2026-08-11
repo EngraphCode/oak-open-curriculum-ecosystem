@@ -13,7 +13,14 @@
  *
  * An absent surface root is fine (nothing to reconcile); any other listing
  * failure lands in `failures`, because reading a failure as "empty" would
- * certify or delete over a surface that was never actually observed.
+ * certify or delete over a surface that was never actually observed. Two
+ * deliberate bounds: a stray REGULAR FILE at a surface root is outside
+ * this sweep's contract (the roots hold skill directories; a loose file
+ * is inert and left for a human), and a lock-pinned NAME is exempt
+ * whatever its kind — including the estate's nine committed vendored
+ * symlinks, a REGISTERED carve-out (exemption-removal plan register; cure
+ * routed: vendoring writes real files to both surfaces, then the
+ * exemption narrows to real directories only).
  */
 import { join } from 'node:path';
 
@@ -21,6 +28,18 @@ import { realCarriageWriteFs, type CarriageReadFs } from './carriage-fs.js';
 import { byPath } from './carriage-walk.js';
 
 const PROJECTION_SURFACE_ROOTS = ['.claude/skills', '.agents/skills'] as const;
+
+/** The shared checker/generator completeness contract: reconciliation and
+ * emission may act only when discovery saw the WHOLE canonical estate — a
+ * skipped directory or an empty set means an unreadable canonical or
+ * skills root read as absent, and acting on the partial set deletes or
+ * overwrites legitimate projections. */
+export function isDiscoveryComplete(discovery: {
+  readonly skipped: readonly string[];
+  readonly canonicals: readonly unknown[];
+}): boolean {
+  return discovery.skipped.length === 0 && discovery.canonicals.length > 0;
+}
 
 /** The sweep's finding streams — `failures` non-empty means `stale` is
  * not a complete verdict and nothing may act on it. */
@@ -45,9 +64,34 @@ export async function findStaleProjectionEntries(input: {
   const expected = new Set(input.canonicalIds.map((id) => `${input.prefix}${id}`));
   const stale: string[] = [];
   const failures: string[] = [];
+  const lockCollisions = [...input.lockedIds].filter((name) => expected.has(name));
+  if (lockCollisions.length > 0) {
+    // A vendored id colliding with a projection name would be pruned or
+    // overwritten by carriage; the state is unrepresentable by refusal.
+    failures.push(
+      `lock-pinned id(s) collide with expected projection name(s): ${lockCollisions.join(', ')} — ` +
+        `rename the canonical or the vendored entry before reconciling`,
+    );
+  }
   for (const surface of PROJECTION_SURFACE_ROOTS) {
+    const root = join(input.repoRoot, surface);
+    // The surface root ITSELF must be a real directory: readdir follows a
+    // symlinked root, so every verdict and removal would act on (and
+    // delete inside) whatever tree the link points at.
+    const parentOthers = await input.fs.listOtherEntryNames(join(root, '..'));
+    if (parentOthers.kind === 'failure') {
+      failures.push(parentOthers.message);
+      continue;
+    }
+    if (parentOthers.value.includes(surface.split('/')[1] ?? 'skills')) {
+      failures.push(
+        `projection surface root is a symlink or other non-regular entry: ${root} — ` +
+          `refusing to reconcile through it; replace it with a real directory`,
+      );
+      continue;
+    }
     await sweepSurfaceRoot({
-      root: join(input.repoRoot, surface),
+      root,
       expected,
       lockedIds: input.lockedIds,
       fs: input.fs,

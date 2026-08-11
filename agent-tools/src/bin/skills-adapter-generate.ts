@@ -15,29 +15,8 @@ import { argv, exit, stderr, stdout } from 'node:process';
 
 import { checkAdapters } from '../skills-adapter-generate/checker.js';
 import { clearGeneratedAdapters, readLockedSkillIds } from '../skills-adapter-generate/clear.js';
+import { CLI_USAGE, parseCliFlags, type CliFlags } from '../skills-adapter-generate/cli-flags.js';
 import { generateAdapters, generateExitCode } from '../skills-adapter-generate/generator.js';
-
-interface CliFlags {
-  readonly clear: boolean;
-  readonly check: boolean;
-  readonly prefix: string;
-}
-
-function parseFlags(args: readonly string[]): CliFlags {
-  let clear = false;
-  let check = false;
-  let prefix = '';
-  for (const arg of args) {
-    if (arg === '--clear') {
-      clear = true;
-    } else if (arg === '--check') {
-      check = true;
-    } else if (arg.startsWith('--prefix=')) {
-      prefix = arg.slice('--prefix='.length);
-    }
-  }
-  return { clear, check, prefix };
-}
 
 function reportCheckFailures(result: Awaited<ReturnType<typeof checkAdapters>>): void {
   if (result.skipped.length > 0) {
@@ -144,6 +123,13 @@ function reportGenerateOutcome(outcome: Awaited<ReturnType<typeof generateAdapte
       `Pruned ${String(outcome.pruned.length)} orphaned carried files:\n${prunedList}\n`,
     );
   }
+  if (outcome.sweptStale.length > 0) {
+    const sweptList = outcome.sweptStale.map((p) => `  ${p}`).join('\n');
+    stdout.write(
+      `Removed ${String(outcome.sweptStale.length)} stale projection-root entries ` +
+        `(no discovered canonical, not lock-pinned):\n${sweptList}\n`,
+    );
+  }
   if (outcome.duplicates.length > 0) {
     stderr.write(
       `ERROR — duplicate canonical leaf ids: ${outcome.duplicates.join(', ')}\n` +
@@ -167,15 +153,16 @@ function reportGenerateOutcome(outcome: Awaited<ReturnType<typeof generateAdapte
 }
 
 async function main(): Promise<number> {
-  const flags = parseFlags(argv.slice(2));
-  if (flags.prefix === '') {
-    stderr.write(
-      'ERROR — --prefix is required (this estate pins `--prefix=oak-` via the root ' +
-        '`pnpm skills:generate` / `pnpm skills:check` scripts). An unprefixed run would ' +
-        'mint a second skill estate the pinned checker never inspects.\n',
-    );
+  const parsed = parseCliFlags(argv.slice(2));
+  if (parsed.kind === 'help') {
+    stdout.write(`${CLI_USAGE}\n`);
+    return 0;
+  }
+  if (parsed.kind === 'error') {
+    stderr.write(`ERROR — ${parsed.message}\n${CLI_USAGE}\n`);
     return 2;
   }
+  const flags = parsed.flags;
   const repoRoot = process.cwd();
   // Both modes are lock-aware: the projection-root sweep must know which
   // directories are vendored externals generation cannot re-create, and an

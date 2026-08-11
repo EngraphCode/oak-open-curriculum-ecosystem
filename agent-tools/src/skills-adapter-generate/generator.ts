@@ -25,7 +25,7 @@ import {
   type CanonicalFrontmatter,
   type ParsedCanonical,
 } from './discovery.js';
-import { sweepStaleProjections } from './projection-roots.js';
+import { isDiscoveryComplete, sweepStaleProjections } from './projection-roots.js';
 
 export { discoverCanonicals, parseFrontmatter, type DiscoveryFs } from './discovery.js';
 
@@ -55,6 +55,10 @@ export interface GenerateOutcome {
    * reconciliation over a partially observed tree is how valid copies get
    * deleted. A refusal fails the run. */
   readonly refused: readonly string[];
+  /** Whole stale projection-root entries the sweep removed (directories,
+   * root-level links) — reported separately from `pruned` so the operator
+   * never reads a swept directory as an orphaned carried file. */
+  readonly sweptStale: readonly string[];
 }
 
 interface AdapterFrontmatter {
@@ -74,37 +78,58 @@ export type ParsedCanonicalSkill = ParsedCanonical;
  * flat, and writing either claimant would silently shadow the other.
  */
 export async function generateAdapters(options: GeneratorOptions): Promise<GenerateOutcome> {
-  const written: string[] = [];
-  const pruned: string[] = [];
-  const refused: string[] = [];
   const discovery = await discoverCanonicals(options.repoRoot);
-  const base = { skipped: discovery.skipped, duplicates: discovery.duplicates };
+  const empty = {
+    written: [],
+    pruned: [],
+    refused: [],
+    sweptStale: [],
+    skipped: discovery.skipped,
+    duplicates: discovery.duplicates,
+  };
 
   if (discovery.duplicates.length > 0) {
-    return { written, pruned, refused, ...base };
+    return empty;
+  }
+  // NOTHING runs over an incomplete discovery — not the sweep and not
+  // emission. A skipped directory or an empty canonical set means an
+  // unreadable canonical or skills root read as absent, so both the
+  // expected-projection set AND the per-skill write targets are
+  // unverified: the round-4 probe showed a symlinked projection root
+  // being written through (and its contents deleted) exactly because
+  // emission continued while the sweep had stood down. The run already
+  // exits non-zero on the skipped / no-canonicals streams; a
+  // half-applied cure over an unobserved tree is the shape this round
+  // deletes.
+  if (!isDiscoveryComplete(discovery)) {
+    return empty;
   }
   // Sweep BEFORE emission: stale directories (canonical deleted or renamed)
   // and root-level symlinks leave the surfaces first, so no adapter is ever
-  // written into or through an entry the sweep is about to adjudicate. The
-  // sweep runs ONLY over a COMPLETE discovery: a skipped directory or an
-  // empty canonical set means the expected-projection set is not fully
-  // known (an unreadable canonical or skills root reads as absent there),
-  // and sweeping against it would delete legitimate projections — the
-  // exact destructive-under-partial-observation shape this round cures.
-  // Either state already fails the run on its own stream. A sweep read
-  // failure likewise refuses the whole run.
+  // written into or through an entry the sweep is about to adjudicate. A
+  // sweep read failure refuses the whole run.
   const sweepOutcome = await sweepStaleProjections({
     repoRoot: options.repoRoot,
     prefix: options.prefix,
     lockedIds: options.lockedIds,
     canonicalIds: discovery.canonicals.map((parsed) => parsed.id),
-    discoveryComplete: discovery.skipped.length === 0 && discovery.canonicals.length > 0,
+    discoveryComplete: true,
   });
   if (sweepOutcome.refusedRun.length > 0) {
-    return { written, pruned, refused: [...sweepOutcome.refusedRun], ...base };
+    return { ...empty, refused: [...sweepOutcome.refusedRun] };
   }
-  pruned.push(...sweepOutcome.pruned);
-  for (const parsed of discovery.canonicals) {
+  const emitted = await emitAllAdapters(options, discovery.canonicals);
+  return { ...empty, ...emitted, sweptStale: [...sweepOutcome.pruned] };
+}
+
+async function emitAllAdapters(
+  options: GeneratorOptions,
+  canonicals: readonly ParsedCanonical[],
+): Promise<Pick<GenerateOutcome, 'written' | 'pruned' | 'refused'>> {
+  const written: string[] = [];
+  const pruned: string[] = [];
+  const refused: string[] = [];
+  for (const parsed of canonicals) {
     for (const surface of ['claude', 'agents'] as const) {
       const emitted = await emitAdapter(options, parsed, surface);
       written.push(...emitted.written);
@@ -112,8 +137,7 @@ export async function generateAdapters(options: GeneratorOptions): Promise<Gener
       refused.push(...emitted.refused);
     }
   }
-
-  return { written, pruned, refused, ...base };
+  return { written, pruned, refused };
 }
 
 interface EmitAdapterOutcome {

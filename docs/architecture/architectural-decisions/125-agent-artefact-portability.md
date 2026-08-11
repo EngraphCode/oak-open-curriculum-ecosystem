@@ -58,7 +58,7 @@ Live skill counts surface in the directory listing — counts in this ADR drift;
 
 ### Layer 2: Platform Adapters (thin wrappers)
 
-Each platform has thin wrappers that reference canonical content. Skill adapters are emitted by the `agent-tools:skills-adapter-generate` CLI; manual edits are forbidden by header comment in every emitted file. Owned skills carry a configurable prefix (default `oak-`) in adapter directories. Vendored external skills (recorded in `skills-lock.json`) are not adapters and are not generated: they live directly in `.agents/skills/` under their upstream names and are never canonicalised (see §Externally installed skills).
+Each platform has thin wrappers that reference canonical content. Skill adapters are emitted by the `agent-tools:skills-adapter-generate` CLI; manual edits are forbidden by header comment in every emitted file. Owned skills carry a REQUIRED prefix (`oak-` in this estate, pinned by the root `pnpm skills:generate` / `pnpm skills:check` scripts; the CLI refuses an unprefixed run) in adapter directories. Vendored external skills (recorded in `skills-lock.json`) are not adapters and are not generated: they live directly in `.agents/skills/` under their upstream names and are never canonicalised (see §Externally installed skills).
 
 #### Cross-tool skill alias (`.agents/`)
 
@@ -351,7 +351,7 @@ A trigger file MUST NOT:
 4. **Supporting files**: optional `references/`, `scripts/`, `assets/` directories under canonical, copied bytewise into both adapter trees by the generator.
 5. **Owned vs vendored**: every canonical skill under `.agent/skills/` is Oak-authored and Practice-governed. Third-party skills never become canonicals — they are vendored into `.agents/skills/` and recorded in `skills-lock.json` (see §Externally installed skills); the portability validator cross-references lock entries against the adapter tree.
 6. **Adapter surfaces**: exactly two — `.agents/skills/` (cross-tool alias, read by Cursor/Copilot CLI/Codex/Gemini/Amp) and `.claude/skills/` (Claude Code only). No other skill adapter surfaces are emitted.
-7. **Generator-mandatory**: adapters are emitted by `agent-tools:skills-adapter-generate`. Manual edits forbidden by header comment in every emitted file; drift gate fails CI on divergence.
+7. **Generator-mandatory**: adapters are emitted by `pnpm skills:generate`. Manual edits forbidden by header comment in every emitted file; drift gate fails CI on divergence.
 8. **No compatibility aliases**: canonical IDs are stable; only the configurable owned-skill prefix is applied at adapter emission.
 9. **Classification**: every canonical `SKILL-CANONICAL.md` MUST include a `classification` field in its YAML frontmatter: `active` (invoked via slash) or `passive` (guidance consumed by workflows or linked from other artefacts).
 10. **Body portability**: a canonical skill body is either **portable** or **repo-bound**. A portable body carries its own content and contains no host specifics — neither repo names nor host _concepts_ ("Practice", "claims", "threads") — and travels between repos by transplantation or seeding (PDR-005), since skills are not Core-plasmid content. A repo-bound body reads the host corpus at runtime and is hydrated canonical content (ADR-165). Both use the identical placement and adapter surfaces above; portability is a body-content discipline the structural drift and wrapper gates cannot detect, so its guard is the PDR-108 three-context test plus a host-concept screen at authoring and review. The portable teaching-surface pattern is [PDR-112](../../../.agent/practice-core/decision-records/PDR-112-teaching-surface-family-across-a-portability-seam.md).
@@ -623,7 +623,7 @@ until the directories are removed, their contents are transitional and must not
 be treated as the canonical workflow surface. Canonical command behaviour is
 being subsumed into skills as the unified user-and-model-invokable workflow
 surface. Adapters are emitted by
-`pnpm agent-tools:skills-adapter-generate`; manual edits forbidden by
+`pnpm skills:generate`; manual edits forbidden by
 header comment in every emitted file; `pnpm portability:check` now
 includes a drift gate and the new contract checks. Owned skills carry
 `metadata.owned: true` in canonical frontmatter and a configurable

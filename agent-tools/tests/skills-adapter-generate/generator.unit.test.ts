@@ -564,6 +564,7 @@ describe('generateExitCode', () => {
         duplicates: [],
         pruned: [],
         refused: [],
+        sweptStale: [],
       }),
     ).toBe(0);
   });
@@ -576,6 +577,20 @@ describe('generateExitCode', () => {
         duplicates: [],
         pruned: [],
         refused: [],
+        sweptStale: [],
+      }),
+    ).toBe(1);
+  });
+
+  it('fails hard when any emission was refused', () => {
+    expect(
+      generateExitCode({
+        written: ['a'],
+        skipped: [],
+        duplicates: [],
+        pruned: [],
+        refused: ['canonical carried tree contains a symlink'],
+        sweptStale: [],
       }),
     ).toBe(1);
   });
@@ -588,13 +603,21 @@ describe('generateExitCode', () => {
         duplicates: ['member-a'],
         pruned: [],
         refused: [],
+        sweptStale: [],
       }),
     ).toBe(1);
   });
 
   it('treats pruned orphans as a successful cure, not a failure', () => {
     expect(
-      generateExitCode({ written: ['a'], skipped: [], duplicates: [], pruned: ['b'], refused: [] }),
+      generateExitCode({
+        written: ['a'],
+        skipped: [],
+        duplicates: [],
+        pruned: ['b'],
+        refused: [],
+        sweptStale: [],
+      }),
     ).toBe(0);
   });
 });

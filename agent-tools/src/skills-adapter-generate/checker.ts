@@ -32,7 +32,7 @@ import {
   type GeneratorOptions,
   type ParsedCanonicalSkill,
 } from './generator.js';
-import { findStaleProjectionEntries } from './projection-roots.js';
+import { findStaleProjectionEntries, isDiscoveryComplete } from './projection-roots.js';
 
 const SURFACES: readonly AdapterSurface[] = ['claude', 'agents'];
 
@@ -132,7 +132,7 @@ export async function checkAdapters(
   // projection must never be reported stale. The skipped stream itself
   // already fails the check.
   let stale: readonly string[] = [];
-  if (discovery.skipped.length === 0 && discovery.canonicals.length > 0) {
+  if (isDiscoveryComplete(discovery)) {
     const sweep = await findStaleProjectionEntries({
       repoRoot: options.repoRoot,
       prefix: options.prefix,

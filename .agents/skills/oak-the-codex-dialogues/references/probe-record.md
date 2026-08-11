@@ -3,7 +3,7 @@
 This record is the durable contract evidence for the binding (the
 vendor's MCP reference has drifted; the probe against the installed CLI
 is the source of truth). The version pin below is machine-read by
-[`scripts/probe-codex-mcp-server.mjs`](./scripts/probe-codex-mcp-server.mjs)
+[`scripts/probe-codex-mcp-server.mjs`](../scripts/probe-codex-mcp-server.mjs)
 (anchored line match) and by the lockstep test in `agent-tools`; the
 skill's dialogue-open version gate stops on any mismatch with the
 installed CLI. Update this file only alongside a reviewed re-run of the

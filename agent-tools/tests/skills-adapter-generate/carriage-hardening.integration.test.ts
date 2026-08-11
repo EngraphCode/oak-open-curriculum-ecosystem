@@ -260,6 +260,23 @@ describe('projection-root reconciliation over a real filesystem', () => {
     expect(repoPathExists(root, '.agents/skills/oak-parallax/scripts/render_graph.py')).toBe(true);
   });
 
+  it('reports no stale entries while discovery is incomplete — the checker never demands a sweep the generator refuses', async () => {
+    const root = sandboxRepo();
+    seedSkill(root);
+    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+
+    renameRepoPath(
+      root,
+      `${CANONICAL_DIR}/SKILL-CANONICAL.md`,
+      '.agent/skills/parked-canonical-two.md',
+    );
+
+    const result = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+
+    expect(result.skipped.length).toBeGreaterThan(0);
+    expect(result.stale).toEqual([]);
+  });
+
   it('never sweeps against an empty canonical set: an empty skills root protects every projection', async () => {
     const root = sandboxRepo();
     seedSkill(root);
