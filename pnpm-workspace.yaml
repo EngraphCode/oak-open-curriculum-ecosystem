@@ -104,9 +104,11 @@ overrides:
   # the quadratic-expansion advisory — the whole tree already resolves 5.x
   # under this floor, so no major cross occurs. Reaches the tree through
   # glob/minimatch tooling chains; no production reachability established.
-  # Left unbounded: 5.x is the current line — add a bound if 6.x ships.
+  # Bounded below 6 pre-emptively (no 6.x published at 2026-08-11): an
+  # open floor admits the next major the day it ships, so the bound is
+  # structural rather than conditional on watching the registry.
   # Remove when every dependent's declared floor reaches >=5.0.9.
-  brace-expansion: '>=5.0.9'
+  brace-expansion: '>=5.0.9 <6'
   csstype: '>=3.2.3'
   # Floor kept aligned with the manifests' esbuild ranges (^0.28.2 as of
   # 2026-08-11, per lockfile-rebuild-survivability §override-alignment).
@@ -153,10 +155,11 @@ overrides:
   # edge (ADR-219). express-rate-limit declares ip-address
   # ^10.2.0. The range admits the patch, but the lockfile is derived
   # (lockfile-rebuild-survivability): a good version recorded there is not a
-  # constraint, so the CVE floor earns the override. Left unbounded: 10.x is
-  # the current line — add a bound if 11.x ships. Drop the floor when
+  # constraint, so the CVE floor earns the override. Bounded below 11
+  # pre-emptively (no 11.x published at 2026-08-11) — an open floor
+  # admits the next major the day it ships. Drop the floor when
   # express-rate-limit's own declared floor exceeds 10.3.1.
-  ip-address: '>=10.3.1'
+  ip-address: '>=10.3.1 <11'
   'js-cookie': '>=3.0.7'
   # Security floor, raised 2026-08-11 (MCP-549): quadratic CPU consumption in
   # !!omap resolution (high; CVE-2026-59870; patched in 4.3.1). Dev/tooling
@@ -184,13 +187,13 @@ overrides:
   # 8.4.31 (GHSA-qx2v-qp2m-jg93, XSS via unescaped </style> in stringify
   # output; patched in 8.5.10); now also covers path traversal in previous
   # source-map auto-loading (high; patched in 8.5.18). Build-time surface only.
-  # Left unbounded: 8.x is the current line, so there is no major to guard
-  # against yet — add a bound if 9.x ships. Raised 2026-08-11 to 8.5.26 to
+  # Bounded below 9 pre-emptively (no 9.x published at 2026-08-11) — an
+  # open floor admits the next major the day it ships. Raised 2026-08-11 to 8.5.26 to
   # keep the override aligned with the three direct manifests' ^8.5.26
   # (lockfile-rebuild-survivability §override-alignment) — no new postcss
   # advisory at this raise. Remove when next's nested postcss floor and the
   # direct manifests all clear the newest patched line.
-  postcss: '>=8.5.26'
+  postcss: '>=8.5.26 <9'
   qs: '>=6.15.2'
   rollup: '>=4.59.0'
   sucrase: '>=3.35.1'
