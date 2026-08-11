@@ -99,7 +99,10 @@ the selected version, never the floor:
    admit the target — then the manifest edit IS the intended record,
    not churn.
 2. **Transitive with a DIRECT parent whose bump re-resolves it** →
-   update the parent (`pnpm update -r <parent>`). Verify the cure is
+   refresh the parent with the same discipline as step 1
+   (`pnpm update -r --no-save <parent>` when the declared range
+   already admits the curing release; edit the manifest only when it
+   does not). Verify the cure is
    tree-wide: a direct-parent bump creates a fresh node whose subtree
    resolves newest-in-range, but TRANSITIVE instances of the same
    parent keep their old pins and their vulnerable subtrees (worked
@@ -154,7 +157,14 @@ the selected version, never the floor:
    the row reads current (observed 2026-08-11). An outdated-zero
    therefore does not mean fully-current: name age-floored rows from
    publish-date reads (`pnpm view <pkg> time`), never from outdated's
-   silence. Wait the floor out, or make a deliberate
+   silence. The age-floored SET is discoverable only exhaustively:
+   outdated suppresses the very names you would probe, so at
+   sweep-exit census every DIRECT dependency — `pnpm view <pkg>
+   version` (registry latest, floor-blind) against the
+   resolved/wanted version — and classify each gap by publish date:
+   younger than the floor's window = age-floored (arrives next
+   sweep); older = a held or missed row that needs a named cause.
+   Wait the floor out, or make a deliberate
    `minimumReleaseAgeExclude` entry as its own reviewed decision —
    never a workaround.
 8. **The advisory's patched version does not exist for the resolved
