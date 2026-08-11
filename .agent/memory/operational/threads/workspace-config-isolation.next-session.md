@@ -34,6 +34,68 @@ Current Continuation below.
   monitors over the lane's live tickets (comments + status since a
   baseline) and fold ticket commentary into every settle tally.
   Explicitly sequenced AFTER the pause, never during.
+- **OWNER-ORDERED RE-ADJUDICATION OF ALL REMAINING STEPS (2026-08-11,
+  at the compaction boundary — "please question all remaining steps",
+  following the S2 warrant collapse below).** Every step re-derived
+  from first principles; the failure shape hunted was
+  symmetry-with-the-landed-cure posing as a warrant. VERDICTS
+  (awaiting the owner's word only where marked):
+  - SOUND, unchanged: merge #850; Linear-ticket monitors (owner
+    commission); todo 2 de-hatch (owner's verbatim word); census
+    todos 4–5 (the exemption-alarm ruling made structural — with one
+    sharpening: the sweep CURES first and registers second, so the
+    register never becomes a warrant-shelf at scale); H4 + H2's
+    coverage-assert (guards for failure classes actually experienced);
+    S2-as-re-scoped + its two review survivors (field-integrity
+    phantom, assertNever gap).
+  - H3 tsconfig-extends: RECOMMEND DROP (owner's un-ratify needed —
+    it was a ratified scope delta). Warrant was symmetry only: the
+    Stryker sandbox, the sole empirical forcing consumer, ran the
+    canary at 100% with root-anchored extends untouched; no live
+    consumer copies subtrees; reviewer sized it over-band; and the
+    LIVE principles.md §Tooling (as re-trued at the #836 landing) now
+    states "tsconfig.json extends chains are the one root-anchored
+    convention that remains (an extends reference is not a module
+    import)" — doctrine already contradicts the step. Returns to
+    Out-of-scope with that ground; re-enters only with a named
+    consumer.
+  - H1: SLIM (plan re-scope). KEEP the idiom standardisation
+    (~40 sites → native import.meta.dirname — standalone
+    simplification; the validator's recognition problem collapses
+    with it), the small refusal rewrite, and the fs-unreadable bin
+    test. DROP the config-VALUE leg (an instrument built to find
+    nothing: two live strings, both lint-ignored targets, the one
+    historical escape already structurally cured — the class gets a
+    recorded pointer, not a scanner).
+  - S2b path re-points: DEMOTED to a rider on the next PR touching
+    those files; never a standalone PR.
+- **S2 (MCP-543) IS CONTESTED BY THE OWNER — EXECUTION BLOCKED**
+  (2026-08-11, at the compaction boundary, verbatim: "that package is
+  not an sdk, it's a lib supporting an sdk, why would we move it?").
+  The challenge caught a real warrant flaw: the move's doctrinal hook
+  (principles §Layer Role Topology, "SDKs own field inventories")
+  adjudicates apps-vs-sdks, not libs-vs-sdks; ADR-138's RATIFIED
+  decision places the package in libs with the sdk-codegen edge as
+  the documented generated-contract exception, already implemented
+  FIRST-CLASS in ESLint (`searchContractsSdkException`, tested); the
+  exemption alarm's legitimate target was depcruise's crude per-file
+  `pathNot` FORM, not the edge. CORRECTED RECOMMENDATION (awaiting
+  the owner's confirming word before the plan's dated re-scope): keep
+  the package a lib; re-scope MCP-543 to a small PR replacing the
+  anonymous `pathNot` with a NAMED lawful-edge rule (search-contracts
+  → sdk-codegen generated contract exports) citing ADR-138/041 in the
+  rule comment — policy changed at its owning level, no per-file
+  warrant shape survives. The deeper alternative (emit generated
+  contracts into a lower-layer package so the edge points down by
+  construction) is recorded as a pointer, not proposed now.
+  Independent survivors of the dead move, each its own small row:
+  the field-integrity eleven-files truth + dead include line 30
+  (ledger item 1 below), and the `assertNever` exhaustiveness gap in
+  `createSdkBoundaryRules` (ledger item 2's backstop half). The
+  ledger below is preserved as the review record; items tied to the
+  relocation (role addition, boundary-machinery deletion, ADR
+  amendments, lockfile/mdc/README moves) are MOOT unless the owner
+  rules for the move after all.
 - **THEN S2** (MCP-543) cuts its branch under the corrected contract.
   The plan Amendment's S2 section needs its dated correction commit
   BEFORE the branch cuts. The COMPLETE correction ledger (pre-execution
