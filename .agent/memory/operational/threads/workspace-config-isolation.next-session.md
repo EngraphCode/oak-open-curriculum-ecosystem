@@ -11,7 +11,39 @@ Controlling plan:
 archived (completed 2026-08-11) and todo 3 is complete — see the
 Current Continuation below.
 
-## Current Continuation (S1 SETTLED 2026-08-11 ~16:2xZ — #850 MERGED `3afe99113`; census extracted at owner word; next = S1b → MCP-543 → de-hatch)
+## Current Continuation (COMPACTION FREEZE 2026-08-11 ~19:1xZ — owner card answers set the queue: S1b in-session → vendoring-symlinks PR → MCP-543 → de-hatch; census after the smalls)
+
+- **OWNER CARD ANSWERS (2026-08-11 ~19:1xZ, all four recommendations
+  taken)**: (1) S1b continues IN THIS SESSION post-compaction; (2) the
+  nine lock-pinned vendored `.claude/skills` symlinks get a PROMPT
+  small vendoring PR in the near queue (write real files to both
+  surfaces, delete the links, narrow the sweep's lock handling —
+  honouring principles' remove-immediately doctrine over the
+  register-swept alternative; ticket mints at cut); (3) the #850
+  SonarCloud measure/issue-divergence phantom is RECORD-ONLY (re-open
+  only on recurrence — evidence bundle: gate 15>14,
+  per-file measure pinned turbo-glob.ts, five empty index reads plus
+  the owner's UI confirmation, green recompute after construct
+  removal); (4) the exemption-removal programme's first session comes
+  AFTER the lane smalls land.
+- **#851 INTERLUDE (Director-routed, complete at this seat)**: the
+  skill-carriage cure arc ran here 2026-08-11 ~16:5x–19:1xZ — three
+  commits on `jimcresswell/skill-standard-s1a-carriage` (head
+  `e28ab7367`): every Warden blocker + suppressed batch cured with the
+  Warden's probes as executable red cases; the internal opus round's
+  critical (emission over incomplete discovery) cured as wholesale
+  refusal; the security round's three finds (canonical carried-ROOT
+  symlink followed; `--prefix` value traversal; ancestor-symlink
+  defeating the root guard) cured with red tests. All threads
+  resolved, dispositions + security addendum on the PR, both post-push
+  Copilot entries declared as 20k-line size-skips. MERGE IS
+  DIRECTOR-SIDE (Plover, unfiltered recount at CI-green +
+  mantagen-clean; comms thread d1393c91→6f183263). Worktree
+  `agent-a1ddadee828a9ec41` stays until merged; MCP-547 → Done at
+  merge. Two seat decisions named in the recount record: wholesale
+  emission refusal on incomplete discovery; skills-lock.json as the
+  single protected authority for vendored entries whatever their
+  on-disk kind.
 
 - **#850 MERGED `3afe99113`** (2026-08-11 16:19Z, owner-armed
   auto-merge, merge-commit method, his approval 16:18Z). The resumed

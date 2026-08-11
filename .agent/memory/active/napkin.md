@@ -1832,3 +1832,62 @@ instances, recorded here for peers):
   (recount + sha-pinned grant) WITHDRAWS cleanly when the owner takes
   the merge into his own hands; the map update to the Director is the
   only obligation that survives.
+
+## 2026-08-11 ~18:5xZ — Forge lifts Kindling (336fe7): MCP-549 merge drive complete; three instrument findings
+
+All three lane PRs merged by the bot at verdicted settle (#855 81974a65d, #856 163296d3b, #857 45c7291e0). Three instrument findings from the drive, each first-hand:
+
+1. **Native GitHub PR stacks block the bot-merge instrument**: sync merge endpoint 403s on stack members ("use the asynchronous merge endpoint"), base edits 422, and the vendor's only stack-merge route is `gh stack merge` under operator credentials. `gh stack unstack <n>` dissolves server-side from anywhere and accepts a minted bot token. Doctrine shape until merge-bot speaks the async endpoint: stacks for review-time structure, dissolve at the merge boundary.
+2. **merge-bot stale-attempt blindness**: its check reader takes worst-of ALL check-run instances on a tip; a cancelled/failed superseded attempt (duplicate-trigger race) reads as a live red while GitHub's own latest-per-name evaluation is green. Cure at the instrument: read latest-per-name. Workaround used: re-run the cancelled runs so their instances flip, or arm auto-merge (fires when the platform's own evaluation clears).
+3. **Copilot does NOT auto-re-review on push** in this repo (falsified an assumption imported from a sibling lane): every post-push round needs an explicit re-request, and the MCP request tool returns silently — verify by reading reviewRequests.
+Review-ratchet worked instance: nine rounds on the skill PR (9/2/1/3/3/2/2/3/0), every finding externally verified before adoption, closed by a declared final-round structure with the Director tallied at the boundary. The falsified-premise sweep theme held to the end: the last finding cured was a PR *body* still carrying a premise the code had already retired.
+
+## 2026-08-11 — Wren calls Downdraft (6b29b5), #851 cure-arc harvest
+
+- GUARD THE NODE, NOT ONLY ITS CHILDREN — the arc's recurring defect
+  class, three independent instances in one PR: the carriage refusal
+  inspected entries INSIDE carried roots but followed a symlinked root
+  itself; the surface-root guard checked the root but not its
+  ancestors; emission checked per-skill state but not
+  discovery-completeness above it. When writing a containment check,
+  ask what holds THE CHECKED THING ITSELF, and its whole ancestry —
+  a guard one level too low reads as coverage while the level above
+  stays open.
+- THE PATHOGEN FILTER IMPROVED THE DESIGN: comms rejected a Director
+  signal for exception-shaped language ("stay exempt", "carve-out");
+  the forced rewrite ("skills-lock.json is the single authority for
+  vendored entries whatever their kind") was a strictly better design
+  statement. When the filter fires on your own prose, treat it as a
+  free design review, not an obstacle.
+- REVIEWER-DIED-MID-VERDICT HARVEST PATTERN: an opus reviewer ran 40+
+  min of sandbox probes then died without a final report (only
+  tool-use in the transcript). Idle-means-finished applied; the
+  PROBES were the substance — their raw outputs demonstrated two real
+  destructive gaps first-hand, cured before any verdict existed, and
+  the interrupted last probe was completable by hand from its own
+  argv. Harvest evidence, not only conclusions.
+- realpath ON AN ABSENT TAIL must resolve the nearest existing
+  ancestor and re-append (macOS tmpdir's /var -> /private/var made an
+  identity-fallback realpath refuse every sandbox); an
+  ancestry-resolution helper is the honest shape for
+  guard-comparisons over paths that may not exist yet.
+- zsh DOES NOT WORD-SPLIT unquoted parameter expansions — bit three
+  times in one arc (a conditional flag expansion, and two built
+  file-arg strings). Use ${=VAR} for deliberate splitting; the same
+  class as the rule-documented timeout-prefix note.
+- `git add <deleted-rename-source>` FATALS when the deletion is
+  already staged (git mv stages both endpoints at mv time) — stage
+  only working-tree-present paths and let the staged rename ride; and
+  the `git add -A -- <paths>` escape is hook-blocked by design.
+- COPILOT HAS A 20,000-LINE DIFF CEILING: past it, every request
+  returns a size-skip notice, not a review — a capability skip to
+  declare for the recount (classification grounds, not exclusion:
+  the unfiltered recount reads everything and classifies).
+- Commit-ceremony friction ×4 in one bundle, each its own cause
+  (broken markdown link from a moved file's OWN outbound link;
+  whole-workspace lint catching what targeted lint missed —
+  max-lines after a formatter reflow; knip catching dead re-exports
+  a refactor left; statement/line caps re-tripping after cures).
+  The layered gates surface serially — budget for the ladder, and
+  run the WORKSPACE-scoped lint before the ceremony, not the
+  file-scoped one.
