@@ -25,7 +25,7 @@ owner_gates:
       after that ratification). The structure ruling itself cleared
       2026-08-08 — see §The ratified structure.
     expires: 2026-08-23
-last_updated: 2026-08-08
+last_updated: 2026-08-10
 ---
 
 # Skills-estate organisation
@@ -106,6 +106,95 @@ candidates the first time a landing tests them against the
 smallest-useful-number principle; the tree is cheap to re-cut
 precisely because projections are flat.
 
+### Amendment 2026-08-10c (owner word, Director-recorded): WS9 candidate — skill-craft skills + eval tooling
+
+The owner names a coming need (2026-08-10, verbatim substance): "we
+are going to need skills about skills — skill design, writing, eval
+design, eval running, how to use mcpjam to help, how to test evals in
+claude, codex etc… we need skill skills and we need tools to help run
+skill evals." Recorded as a WS9 CANDIDATE (pointers, not specs — the
+landing rule applies: minting a `skill-craft` concern, or homing these
+under an existing thin concern, is a deliberate recorded act at
+authoring time). Members sketched: skill-design, skill-writing,
+eval-design, eval-running, cross-platform eval-testing (Claude, Codex,
+… — mcpjam assisting where skills wrap MCP surfaces). Tooling half:
+the WS8-general eval runner as agent-tools machinery. Sequencing
+insight: the `skill-standard-pilot` node's S3 (first eval execution)
+generates the evidence these skills are authored FROM — pilot first,
+harvest its transcripts and frictions into the skill-craft corpus.
+Existing scattered craft to consolidate, not duplicate: the
+skill-naming-and-description-quality rule, the subagent-architect
+agent, Anthropic's skill-creator, the spec's skill-creation pages.
+
+### Amendment 2026-08-10b (owner word, Director-recorded): WS8 — spec supporting directories + evals, general
+
+The owner's restated intent (2026-08-10) recovers what WS6 left as a
+"candidate general mechanism": **WS8 — every skill may carry the full
+agentskills.io supporting-file set** (spec §optional-directories:
+`scripts/`, `references/`, `assets/`) **canonical-side**, with the
+projection transform carrying them into vendor entry skills per the
+spec, and **per-skill evals** per the spec's evaluating-skills method.
+Grounding: canonical `SKILL-CANONICAL.md` files are transformed before
+forming vendor `SKILL.md` entry files, so canonical-side structure
+(including WS2's graph frontmatter, which stays internal or re-homes
+under spec `metadata:`) never leaks non-spec content into projections.
+The Parallax family's member-local
+`cognition/parallax/references|evaluations|scripts/` (WS6 executed) is
+the worked template. The executing seat designs the transform's
+directory carriage (today the generator emits pointer-only SKILL.md
+files; carrying supporting dirs is new machinery, test-first) and the
+eval convention's home; sequenced after the WS7 group moves, beside
+WS2's annotation pass.
+
+**Pilot (owner-proposed 2026-08-10): one skill fully to standard first**
+— graph frontmatter, a validator, the full supporting-directory set,
+and evals per the spec's evaluating-skills method (`evals/evals.json`
+cases with assertions; with-skill vs without-skill runs in clean
+subagent contexts; script graders for mechanical checks + blind LLM
+judge for holistic; benchmark deltas; the iterate loop). Director
+working cut, owner's word picks the subject: pilot on
+`design-system-usage` (strongest scriptable-assertion substrate — the
+estate's own CSS/contrast/token validators grade it; content re-truing
+already owed as PR-B; widest reach via design-sync), then mint
+`ui-visual-design` second, born to the proven standard with the W0.7
+blind-judge instrument as its eval grader.
+
+### Amendment 2026-08-10 (owner rulings, Director-recorded)
+
+1. **`domain-craft/` gains domain subdirectories** —
+   `domain-craft/<domain>/<skill>`. Owner-named: `ui-design/`
+   (design-system-usage, fidelity-review — rename in ruling 5) and
+   `graph-operations/` (working-with-graphs, its † resolved by the
+   owner's own example). Remaining members take domains at the group
+   PR (candidates, judgment calls: ground-truth-design +
+   ground-truth-evaluation → a search-evaluation domain;
+   update-bulk-download-schema + update-upstream-api-spec → a
+   curriculum-data domain; tsdoc† re-judged). The WS4 twin-surface
+   consistency check must accept the two-level path under
+   domain-craft; the group PR carries that validator change.
+2. **`interop/` dissolves into `choreography-and-collaboration/`**
+   (the `choreography` group renamed at its move): codex-helper,
+   chatgpt-report-normalisation†, the-codex-dialogues† join the
+   choreography members. The first thin-group merge, executed by
+   owner word rather than a landing test.
+3. **The word "design" is reserved for visual and user-experiential
+   design** (owner ruling, estate-wide naming discipline).
+   `ground-truth-design` carries a recorded rename candidate at its
+   group PR (its referent is search-query authoring, not visual
+   design); the `parallax-design-*` family naming is re-judged at
+   that family's next natural boundary.
+4. **`clerk-custom-ui` deleted** at owner word (2026-08-10): store
+   dir, `.claude` symlink, and skills-lock entry removed; sibling
+   clerk skills retained.
+5. **`fidelity-review` renames to `claude-design-pipeline`**
+   (owner-proposed; Director verdict YES with one condition — the
+   skill gains a short pipeline-at-a-glance frame naming conversion
+   playbook → export refresh via the claude-design MCP → fidelity
+   review → divergence register, so the name is earned). The rename
+   also dissolves the name collision with the
+   `@oaknational/fidelity-review` package (package = machinery,
+   skill = workflow). Executes in the domain-craft group PR.
+
 Two annotation-time edges named by the design seat (2026-08-08, ARC
 pairing) for WS2/WS3 to carry: fidelity-review ↔ the W0.7
 design-review instrument (shared judge-against-reference shape; the
@@ -127,9 +216,11 @@ pairing discoverable).
   `.agent/evaluations/parallax/` — with member skills linking them.
   The implementer verifies the default against those surfaces'
   conventions at pickup.
-- Vendor projections stay flat and byte-stable: canonical moves must
-  leave regenerated adapters byte-identical — the conservation
-  instrument #731 proved.
+- Vendor projections stay flat and byte-stable in their load-bearing
+  surfaces: canonical moves keep adapter directory names + frontmatter
+  byte-identical, with body diffs confined to the moved skills'
+  pointer lines — the conservation instrument #731 proved (wording
+  amended 2026-08-09 per WS6 note (e)).
 
 ## Why this shape (first principles, not cowpath)
 
@@ -185,6 +276,18 @@ a core owner value).
    NO canonical deeper than `<concern>/<skill>/`; tree position
    agrees with the declared primary concern. Summons cycles are
    exempt by design — the two-graph invariant is the check's core.
+   **Amendment (2026-08-09, owner-linked spec):** the validator set
+   additionally runs the agentskills.io reference validator
+   (`skills-ref validate`) over every generated projection. Spec read
+   first-hand 2026-08-09: `name` + `description` required (name
+   lowercase-hyphen, no leading/trailing/consecutive hyphens, ≤64
+   chars, must equal the directory name; description ≤1024);
+   optional `license`/`compatibility`/`metadata`/`allowed-tools`;
+   SKILL.md under 500 lines recommended. Sampled projections conform
+   (oak-commit, oak-parallax-frame). The canonical files' top-level
+   `classification:` key stays internal to SKILL-CANONICAL.md (not a
+   spec artifact); publishing canonicals as spec skills would move it
+   under `metadata:`.
 5. **WS5 — Named cures from the exploration's tension list.** (a)
    Lift the portable core of pr-lifecycle's review-round state
    machine to a practice-stratum pattern cited by proportionality and
@@ -217,12 +320,52 @@ a core owner value).
    pickup; either way #731 closes-or-merges with its machinery
    preserved and its branch state reconciled against a main that has
    moved ~477 commits.
+   **Execution note (2026-08-09, Director-executor rulings at pickup,
+   grounded in the pre-execution code-expert review):** (a) the true
+   starting state differs from this section's authoring-time premise —
+   main ALREADY holds the full 110-file bundle at
+   `.agent/skills/cognition/parallax/` (landed `6cba5ca56`/`5fa0b2a0a`)
+   with NO adapters, so its nine canonicals are unsummonable and the
+   adapter checker's `--check` mode is blind to the gap (it discards
+   the discovery `skipped` list); the reconcile therefore includes the
+   checker fix, landed test-first. (b) Target CONFIRMED as this
+   section's words: `cognition/<member>` — a one-tier collapse; the
+   acceptance clause's "flat members" contrasts with the bundle shape,
+   not the concern tier. (c) The §Family mechanics defaults FAILED
+   their own pickup-verification clause (`.agent/reference/` demands a
+   PDR-032 owner-vet ceremony for a 35-file promotion;
+   `.agent/evaluations/` is scoped to search-quality experiments) —
+   family-shared assets home instead under the root member
+   (`cognition/parallax/references|evaluations|scripts/`), member-local
+   by convention. (d) The Python files stay Python: the
+   `source-is-typescript-esm-only` rule's own line 44 permits
+   occasional Python alongside shell, so no ports; the four
+   member-local validators move intact, `validate_bundle.py` retires
+   with the bundle after a dependency read, `render_graph.py` + test
+   re-home as root-member scripts. (e) The Depth acceptance bullet's
+   companion claim "regenerated adapters byte-identical" is
+   UNSATISFIABLE for any canonical move while adapter bodies embed the
+   source path — WS6 proves conservation as: adapter directory names +
+   frontmatter byte-identical, the body pointer line's change IS the
+   move (single-line diff across all 18 adapters, both vendor
+   surfaces), all other skills' adapters byte-identical. WS7 must
+   amend either the clause or the adapter template before its first
+   move. (f) **COMPLETED 2026-08-09: PR #731 MERGED `1356579ca`**
+   (grant `86E976CA`) at the owner's dismiss-via-bot card word on the
+   stale Aug-3 review; conservation proofs held exactly; head branch
+   deleted. WS7 is now routable.
 7. **WS7 — Estate migration.** One PR per concern group moving the
-   flat canonicals into their concern, each proven
-   conservation-clean: regenerated adapters byte-identical,
-   `portability:check` green, full gates green. Placement judgment
-   calls (†) are re-judged in each group's PR. The transitional
-   flat/nested coexistence ends when the last flat canonical moves.
+   flat canonicals into their concern, each proven conservation-clean
+   per the WS6-proven instrument (clause amended 2026-08-09,
+   discharging note (e)): adapter directory names + frontmatter
+   byte-identical, the moved group's adapter bodies differing ONLY in
+   the canonical-pointer line, every other skill's adapters
+   byte-identical; plus `portability:check` green, full gates green.
+   Placement judgment calls (†) are re-judged in each group's PR. The
+   transitional flat/nested coexistence ends when the last flat
+   canonical moves. Executor (owner card 2026-08-09): Director-run
+   subagent implementers at the Director seat, expert-reviewed,
+   landing via normal PRs.
 
 ## Acceptance (falsifiable)
 
@@ -235,8 +378,12 @@ a core owner value).
   tree shape — the extensibility proof under the ratified rules.
 - Fewer than ~20% of skills provoke placement debate; breach re-cuts
   the concern vocabulary rather than accumulating exceptions.
-- Every canonical move leaves regenerated adapters byte-identical —
-  runtime summons names never change.
+- Every canonical move preserves runtime summons names and adapter
+  contracts: adapter directory names + frontmatter byte-identical,
+  body diffs confined to the moved skills' canonical-pointer lines,
+  all other adapters byte-identical (amended 2026-08-09 from
+  "regenerated adapters byte-identical" — unsatisfiable while adapter
+  bodies embed the source path, WS6 note (e)).
 - Every index consumer-visible after WS4 is generated; a hand edit to
   a derived index fails a check.
 - The grounding-direction check finds the two known inversions

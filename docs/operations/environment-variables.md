@@ -2,6 +2,75 @@
 
 Complete reference for all environment variables used across the Oak Open Curriculum Ecosystem.
 
+## Changing a deployment environment variable (procedure)
+
+Deployment environment values get none of the review, versioning, or
+rollback that code gets, and a change to one is not visible in any diff.
+Incident evidence on MCP-475 shows why this surface needs an explicit
+procedure. Follow all four steps.
+
+**The supported contract is change → redeploy → verify.** Per Vercel:
+
+> Changes to environment variables are not applied to previous
+> deployments, they only apply to new deployments. You must redeploy your
+> project to update the value of any variables you change in the
+> deployment.
+> — [Managing environment variables](https://vercel.com/docs/environment-variables/managing-environment-variables)
+
+This is why an edit is not finished when the dashboard shows it saved.
+It is also why the danger is _delayed_ rather than immediate: a bad value
+sits harmless until some later deployment — one that may look entirely
+routine and carry no indication its configuration moved underneath it.
+
+_(Corrected 2026-08-04: this section previously stated that a change
+reaches running deployments without any deployment of your own. The
+vendor documents the opposite, and any incident timeline reasoned from
+the old claim should be re-derived.)_
+
+1. **Validate the value before entering it.** Run it through the guard
+   that will judge it — for the pseudonym keyring, the strict resolver;
+   for JSON-shaped values, a parse. A value that has never been
+   machine-checked is a value you are pasting on faith. Feed the
+   candidate value to the check on stdin or from a gitignored file (a
+   workspace `.env.local`) — never as a shell argument, which lands in
+   shell history and process listings. A local boot with the candidate
+   value in the app's `.env.local` runs the same fail-fast resolution a
+   deployment runs — see
+   [vercel-environment-config](../../apps/oak-curriculum-mcp-streamable-http/docs/vercel-environment-config.md).
+2. **Stage replacement settings before removing old ones.** Vercel's
+   documented boundary is deployment-based: changing a project setting
+   does not mutate an existing deployment, and the next deployment reads
+   the settings then in force. Edit in place when the scope is unchanged.
+   When splitting one variable into per-environment records, add the new
+   records first, deploy and verify the intended environment, and only
+   then remove the obsolete setting. This order follows directly from
+   the documented change → redeploy boundary.
+
+3. **Redeploy, then check liveness.** Per the contract above a change
+   reaches nothing until you redeploy, and a deployment that boots on a
+   bad value never self-heals. After any change, confirm `/healthz`
+   returns 200, then send an unauthenticated `POST /mcp` with
+   `Accept: application/json, text/event-stream`. It must return 401 with
+   the app's correct protected-resource-metadata `WWW-Authenticate`
+   challenge. A 200, 406, missing challenge, or challenge naming the
+   wrong protected-resource metadata URL is a failed verification. This
+   step is what makes an environment change complete.
+4. **If a deployed surface fails, read the runtime logs before forming
+   any theory.** The application's fail-fast messages name the failing
+   key and where to correct it. The incident evidence and diagnosis cost
+   belong on the linked ticket, not in this repeatable procedure.
+
+Recovery note: a production redeploy is the cure for a poisoned
+deployment — outside Vercel's rolled-back state, the build guard admits a
+rebuild of the last successfully deployed commit (ADR-163 §10, fourth
+amendment). See the production build
+guard's [ADR-163 §10 contract](../architecture/architectural-decisions/163-sentry-release-identifier-and-vercel-production-attribution.md#10-production-builds-require-a-semantic-release-commit)
+for which commits may build. The rolled-back state (after a Vercel
+Instant Rollback) behaves differently: a rollback runs no build and
+suspends production domain auto-assignment until an explicit Undo
+Rollback or promotion; the same ADR section records the vendor-sourced
+boundary.
+
 ## Credential Policy
 
 The repository policy is:
@@ -130,6 +199,11 @@ CLERK_SECRET_KEY=your_clerk_secret_key_here
 OAK_API_KEY=your_oak_api_key_here
 DANGEROUSLY_DISABLE_AUTH=true  # Local development only; rejected in deployed environments
 ```
+
+The rejection is enforced at startup, not merely advised — see the app
+README's
+[Development Authentication](../../apps/oak-curriculum-mcp-streamable-http/README.md#development-authentication)
+section for the enforcement contract.
 
 **Complete reference**: See `apps/oak-curriculum-mcp-streamable-http/README.md` and [`apps/oak-curriculum-mcp-streamable-http/docs/vercel-environment-config.md`](../../apps/oak-curriculum-mcp-streamable-http/docs/vercel-environment-config.md).
 

@@ -1,3 +1,59 @@
+## [1.159.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.2...v1.159.3) (2026-08-11)
+
+## [1.159.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.1...v1.159.2) (2026-08-11)
+
+
+### Bug Fixes
+
+* **ci:** remove incorrect CodeQL deviation annotations ([68fd504](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/68fd50402b556d05708c2b466566ae05fa0be839))
+
+## [1.159.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.0...v1.159.1) (2026-08-11)
+
+# [1.159.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.158.3...v1.159.0) (2026-08-11)
+
+
+### Bug Fixes
+
+* **agent-tools:** drain freshness diagnostics on failure ([99a98d6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/99a98d6aab38882934682bb7c7954ed7431a7c80))
+* **agent-tools:** enforce explicit freshness pin declarations ([c2a7dd3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c2a7dd37ac8526f6f7515b9172603fe4eb708717))
+* **agent-tools:** reject malformed freshness pins ([3f110cb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3f110cb8bbff4cd824f48bb1cfd14f58477552b6))
+* **agent-tools:** simplify freshness finding formatting ([c29025f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c29025fea018bb4593ba23bbc843a315926d62e2))
+
+
+### Features
+
+* **agent-tools:** claim-freshness validator, dated platform_support rows, ADR-223 (mcp-476) ([5310fbe](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5310fbe50a9805f445d77023eb28c458d66b8abb))
+
+## [1.158.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.158.2...v1.158.3) (2026-08-11)
+
+## [1.158.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.158.1...v1.158.2) (2026-08-11)
+
+## [1.158.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.158.0...v1.158.1) (2026-08-11)
+
+
+### Bug Fixes
+
+* **type-helpers:** stryker runs the real vitest config; the silent fallback dies ([386bfa2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/386bfa28991575f6766fd4de54abca3e2926328c))
+* **type-helpers:** warning-free test selection; config-load probe banked ([aa69109](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aa69109b8b7b8783fda1bebd07607c22228f6ae5))
+
+# [1.158.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.157.3...v1.158.0) (2026-08-10)
+
+
+### Bug Fixes
+
+* **agent-tools:** bootstrap builds workspace-config before the leaf closure ([cd822f2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cd822f20f5edd44e47d2f643141e69f304f0ff3e))
+* **esm:** generated vocab loaders and the rule-tester drop their require calls ([c3f3892](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c3f38927e5e3a98f143782860731de96819a0b98))
+* **validators:** absolute targets escape; red-proofs cruise in-process ([b673dad](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b673dad2653cf5a31d42a2ab18f0492a61120fbd))
+* **validators:** jsonc parse errors refuse; unreadable inputs exit 2; staleness sees build config ([97febf8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/97febf89311da0f00c7a5ffe7217f3a373c7fc97))
+* **validators:** linear path-arithmetic parsing; topology module split ([c8875c3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c8875c398765151d9c82263168a58569e847fde0))
+
+
+### Features
+
+* **boundaries:** config containment moves to dependency-cruiser ([a815d77](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a815d77da9d097c5ff8ae46ed979c282ad13053c))
+* **workspace-config:** config bases become a declared dependency, enforced ([2fa2120](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2fa212021171e3e28f79f6bc78ad61aab34e674e))
+* **workspace-config:** the four src modules complete the package move ([39a891d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/39a891df4e7b76ac6202573bb897c7807fb7a649))
+
 ## [1.157.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.157.2...v1.157.3) (2026-08-10)
 
 

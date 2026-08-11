@@ -1393,7 +1393,7 @@ no-handover-commits.
   → the register migration + story cards, in the merged record itself.
 - **NOW OPEN: the W0.7 v0 sitting** (rubric + graded calibration with
   enumerated fixture corpus + wow-verdict register mint on the
-  `demos/oak-curriculum-hub/tools/fidelity-register.ts` precedent —
+  `packages/libs/fidelity-review/src/fidelity-register.ts` precedent (moved from the hub tools at the 2026-08-09 consolidation) —
   zod-at-the-boundary, owner-editable JSON, vitest parse test SAME PR
   per schemas-from-day-1). Pre-sitting reads done: W0.7/W0.10 story
   text, the precedent trio, studio-source pages enumerated (3 composed
@@ -1642,3 +1642,906 @@ no-handover-commits.
   (it stays with design-system-completion). The Director's standing
   flow (recount + grant at ready signals) governs the pull-forward's
   PRs as it did #830/#831.
+
+## COMPACTION FREEZE 4 — 2026-08-09T10:56:00Z (Civet spins Cavern, 054f5e — seat continues; PR-1 AT REVIEW-SETTLE; resume map)
+
+- **THE WINDOW'S ARC**: resume from freeze 3 → full re-arm (n=3
+  correction + node RATIFIED absorbed) → PR-1 built under the
+  pre-execution review's PROCEED-WITH-REVISIONS (all findings adopted;
+  the load-bearing cure: the plan's single-root export serve was
+  unworkable — the two-root STUDIO OVERLAY landed, proven styled
+  first-hand) → **#834 OPEN** (four foundation commits) → three review
+  cure rounds pushed: `6150cf8e8` (test-expert + architecture-fred:
+  bounded overlay via the declared exports surface, pure leaves,
+  literal fixtures, README invariant trued), `70f2585b2` (Copilot 15:
+  12 adopted, 3 adopted-in-modified-form via no-conditional-tests
+  §Diagnosis 5's owner-carded expect-guard ruling), `9e6b2f86a`
+  (Copilot round-2's REAL BYPASS — the admit predicate now judges the
+  canonical path — plus the Sonar S4624 cure). 16/16 threads
+  replied+resolved; Copilot RE-REQUESTED at `9e6b2f86a`; claude-bot
+  self-skipped (org overage, the #807 precedent). The plan node's
+  export-server clause carries its dated overlay correction
+  (`5c5c66e18` on coordination/2026-08-09-b5f347).
+- **AT RESUME (the executing input)**: (1) resume ceremony per
+  start-right — monitors were RETAINED alive through this freeze
+  (canonical watcher bfkjf5en4, heartbeat pair by10bgi80, ARC tail
+  btp68xjdi, pr-watch bvex97ypl — persistent monitors survive
+  compaction; VERIFY via F-95 assert + TaskList rather than re-arm;
+  re-arm only what died); (2) sweep the watcher buffer AND the ARC
+  channel; (3) read #834 state first-hand (one-shot pr-watch): needed
+  for full condition = all checks green incl. Sonar re-fire on
+  `9e6b2f86a` + Copilot round-3 harvest (re-requested; absorb +
+  disposition any findings) + threads still 0; (4) at full condition
+  post the **READY signal to the ARC channel** — the Director (Plover,
+  itself frozen at owner word ~10:52Z) sweeps that channel as its FIRST
+  resume act and runs recount+grant; do NOT chase, the flow is standing.
+- **THEN**: todo 3 — PR-2 (task #2 carries the config-review
+  obligation: @oaknational/result moves to dependencies in the same
+  commit that makes lib/identities.ts app-reachable). PR-2 scope is the
+  plan node's §Mechanism verbatim (routes, SegmentedControl, route CSS,
+  tests incl. no-flash cell, provenance rows, nav link).
+- **STANDING STATE**: claim 645b9e0b RETAINED; n=3 full protocol (Wren
+  6b29b5 live on workspace-config-isolation; Plover frozen-continuing);
+  worktree `identity-switchboard-pr1` LIVE and CLEAN at `9e6b2f86a`
+  (pushed); w01-census worktree untouched (census resume gate = this
+  node's todo 5; G1/G2 rulings carry); three board items homed with the
+  Director (ARC 10:40:45Z: the .next build/type-check gate race ×2, the
+  vitest green-through-worker-death harness gap, the hub-side inherited
+  defects). Owner word this window: cure gate races via the CLEAN
+  SCRIPT (root pnpm clean + ordered turbo build), never raw rm.
+
+## COMPACTION FREEZE 5 (2026-08-09T13:55:59Z) — Civet spins Cavern (054f5e); ALL PROCESSES STOPPED at owner word; resume RE-ARMS
+
+Owner word: "prepare for compaction ... and then stop all processes" —
+unlike freeze 4, the monitors are STOPPED at this freeze. The resume
+ceremony RE-ARMS per start-right (watcher first, F-95 assert, foreground
+gap sweep, heartbeat pair with label pr1b-settle or the next cycle's);
+nothing is retained running. Claim 645b9e0b-afea-4743-8cc6-5dad3ad39575
+RETAINED as a registry row (heartbeats stop with the processes; the
+resume re-heartbeats before anything else).
+
+STATE AT FREEZE (all first-hand):
+
+- PR-1a COMPLETE: #835 "Consolidate the fidelity tooling core at its
+  second consumer" MERGED to main at 365a6f7c7 under Director grant
+  5B2F71AD (fold ruling: option (b) seam accepted — the Director
+  independently derived the same risk-of-loss bar; the ruling text is
+  on the ARC channel at 13:33:00Z). Branch deleted, worktree
+  fidelity-consolidation PRUNED (ancestry proven). The package lives at
+  packages/libs/fidelity-review (foundation lib, ADR-041 dated
+  amendment; subpaths support/image-diff/dev-server/static-path-guard/
+  capture-flags/register/report/review-helpers; no barrel). The Sonar
+  duplication condition that blocked #834 is structurally cleared.
+- PR-1b IN FLIGHT: #834 head c0d415726 = c8957e293 (merge of post-835
+  main) + the swap commit (showcase consumes the package; app-local
+  keeps pairing map, studio-overlay export server + export-paths
+  overlay decisions importing the shared guards, frame-aware
+  classifiers, runner CLI; register schema tests live with the schema,
+  app keeps the live-register parse proof in
+  fidelity-register-live.unit.test.ts; deps pixelmatch/pngjs/jest-axe
+  and their types DROPPED, @oaknational/fidelity-review workspace:* added).
+  Gates green locally at the freeze: build, unit tests, type-check,
+  lint, knip:gate, identity ratchet census-exact (95 carriers). CI on
+  c0d415726 + a fresh Copilot round were IN FLIGHT at freeze (Copilot
+  requested 13:53Z). Prior review state: 16/16 threads resolved across
+  rounds 1-3 pre-merge-era; the new round reviews the swap.
+- The #835 review corpus (for context at resume): seven-lens opus panel
+  plus Copilot x3 and CodeQL, ~35 findings, all cured or recorded; MCP-534
+  carries the re-scoped follow-ups (serveStatic, withDevServer bracket,
+  corrupt-evidence policy, CLI flag-parse hardening). MCP-533 said
+  "Fixes" on #835 — VERIFY its Linear state at resume; the story
+  completes when #834 lands.
+- 835×836 ADJACENCY (Wren, settled on the canonical wire 13:07Z): the
+  second lander absorbs — for #836's main-merge that is the package's
+  vitest.config.ts/tsup.config.ts one-token swaps to
+  @oaknational/workspace-config subpaths + the devDependency; their
+  validator names the files. No hold, merge order free.
+- Coordination branch coordination/2026-08-09-b5f347 at b0be7c79b +
+  this freeze's continuity commit. Plan node amended through cd341a99a
+  (libs-tier correction). Worktrees: identity-switchboard-pr1 LIVE and
+  CLEAN at pushed head c0d415726; w01-census untouched (untracked
+  W01-CYCLE-PLAN-v2.md + census-types.ts carry state).
+
+RESUME MAP (execute in order):
+
+1. Resume ceremony per start-right — RE-ARM everything (nothing
+   survived the stop): canonical all-channels watcher from PRIMARY,
+   F-95 assert, foreground gap sweep (watcher buffer + ARC channel +
+   canonical stream since 2026-08-09T13:55:59Z), heartbeat pair (claim 645b9e0b,
+   intent identity-switchboard-first-pixels, branch
+   jimcresswell/design-identity-switchboard-pr1, cycle label per the
+   live state), peer-liveness read.
+2. Read #834 first-hand: checks on c0d415726 (Sonar leg included — the
+   swap should hold the duplication clearance; re-fire via empty commit
+   if the analysis dropped), the fresh Copilot round (harvest BODIES
+   incl. suppressed blocks), thread state. Disposition any findings
+   (batch, one push per round), then READY to the Plover-Civet ARC
+   channel — the Director runs recount+grant (#834 needs its OWN
+   grant). At merge: delete branch, prune worktree ONLY after PR-2's
+   plan is considered (the worktree carries nothing unpushed; PR-2
+   starts from a fresh worktree off post-834 main per
+   never-switch-branch-on-primary).
+3. Todo 3 — PR-2 (task #2): the two routes + SegmentedControl + route
+   CSS + unit tests + Playwright cells (identity x theme matrix +
+   no-flash first-paint) + provenance rows + root nav link, per the
+   plan node's §Mechanism verbatim. CARRIED OBLIGATION: move
+   @oaknational/result devDep → dependencies in the SAME commit that
+   makes lib/identities.ts app-reachable; zod stays dev. Per-cycle
+   code-expert pre-execution review BEFORE any PR-2 code (the standing
+   rule; the PR-1a pre-review's worked shape is the model).
+4. Then PR-3 (evidence) and the census return per the plan's todos 4-5.
+
+The governing plan node: .agent/plans/delivery/
+identity-switchboard-first-pixels.plan.md (owner-ratified; amended
+2026-08-09 with the PR-1 split + libs-tier correction). Standing
+memories govern as always; the ARC channel is the Director dialogue
+surface; owner cards issue from the Director's seat only.
+
+## COMPACTION FREEZE 6 (2026-08-09T17:05:00Z) — Civet spins Cavern (054f5e); processes already stopped by the preceding cold pause; resume RE-ARMS
+
+Owner word: "prepare for compaction ... and then stop all processes."
+The stop clause was ALREADY satisfied: the seat cold-paused at the
+owner's earlier word minutes before this freeze (heartbeat pair
+stopped first with heartbeat-end, watcher last, cold-pause broadcast
+14:55Z-era; verified again at this freeze — no monitors run). Claim
+645b9e0b-afea-4743-8cc6-5dad3ad39575 RETAINED as a registry row.
+
+STATE AT FREEZE (all first-hand unless marked):
+
+- #834 (PR-1b) head db980a967 = swap (c0d415726) + cure round 5
+  (7634c0ca8: /orchestrator with the EvidenceIo seam +
+  /pairing-schema + assertServerUp into dev-server +
+  MATCHED_GEOMETRY_SCALE + resolveWidth fail-fast + three subpaths
+  demoted; both apps composition roots; hub corrupt-evidence unified
+  to fail-the-run) + db980a967 (overlay refuses decoded backslashes).
+  All four prior Copilot threads resolved with recorded dispositions;
+  PR body carries the cure-round-5 section; MCP-534 carries five new
+  follow-ups (comment 6ecf2d15); MCP-533 Done since #835.
+- ASSURANCE ROUND (owner-commissioned while this seat was paused;
+  read from the Director's ARC entry 16:45:00Z, uncommitted at my
+  read): 45-agent multi-model fleet + three Codex max-effort reviews
+  over db980a967. Verdict CURES-NEEDED, NO GRANT — one cure round
+  before merge. My five rounds' cures all verified SOUND (win32
+  traversal, injection defences, image-diff math, 8-path teardown,
+  diff-never-gates invariant). The NEW surface (what assigned lenses
+  structurally could not reach): evidence-integrity (a failed/blank
+  capture overwrites canonical PNGs and report-only trusts them —
+  quintuple-confirmed), capture-comparability (the 5-line settle
+  recipe un-consolidated despite carrying the same invariant as the
+  scale constant; ties to rule-6 baselines), lifecycle cleanup-on-
+  throw, fs-target containment (symlink/FIFO via the untracked vendor
+  root), pairing z.object → strictObject, plus deferrables and record
+  truings. The ADJUDICATED PACKET is durable on #834 as comment
+  5232387226 — the designed resume surface. Copilot round R27
+  (15:23:05Z) carries FOUR undispositioned SUPPRESSED findings, all
+  corroborating the fleet. mergeStateStatus BLOCKED.
+- Fleet: Wren PAUSED until 2026-08-10 (owner word; their #836 holds
+  the depcruise re-slice). The design-lane-only word covered
+  2026-08-09. Director live at the freeze, holding the board.
+- Coordination branch coordination/2026-08-09-b5f347: this freeze's
+  continuity commit rides ARC + napkin + this record (the ARC file
+  and napkin also carry the Director's uncommitted 16:4xZ entries —
+  append-only, attribution in headers, named in the commit message).
+  Worktrees: identity-switchboard-pr1 CLEAN at pushed db980a967;
+  w01-census parked (untracked W01-CYCLE-PLAN-v2.md +
+  design-census/ carry slice-A state, behind 75 by design).
+
+RESUME MAP (execute in order):
+
+1. Resume ceremony per start-right — RE-ARM everything: canonical
+   all-channels watcher from PRIMARY, F-95 assert, heartbeat pair
+   (claim 645b9e0b, intent identity-switchboard-first-pixels, branch
+   jimcresswell/design-identity-switchboard-pr1, cycle label
+   pr1b-cure-round-6), foreground gap sweep since
+   2026-08-09T17:05:00Z, peer-liveness read.
+2. #834 cure round 6: read FIRST-HAND the adjudicated packet (PR
+   comment 5232387226) AND Copilot R27's four suppressed bodies AND
+   checks on db980a967. The packet clusters the cures into one
+   coherent design story (evidence-integrity + comparability lead);
+   adjudicate per verify-dont-trust, pre-execution code-expert review
+   per the standing rule, ONE batched push, dispositions + thread
+   resolutions, re-READY on the ARC channel → Director recount +
+   grant + sha-pinned merge. Test-design lens from the napkin: choose
+   seams for falsification power, not only purity — the packet's
+   evidence-provenance classes need fs-level truth.
+3. PR-2 (task #2) from a fresh worktree off post-834 main:
+   per-cycle pre-execution review BEFORE code; plan §Mechanism
+   verbatim; carried obligations — @oaknational/result devDep →
+   dependencies in the same commit that makes lib/identities.ts
+   app-reachable; the live capture arm gains the expectsFrame check
+   with the routes (Copilot thread disposition, resolved with this
+   home). Then PR-3 evidence, then the census return (task #4).
+
+Governing plan: .agent/plans/delivery/
+identity-switchboard-first-pixels.plan.md (ratified; amended through
+the 2026-08-09 PR-1b cure amendment). Standing memories govern; owner
+cards issue from the Director's seat only.
+
+## Cure round 6 IN PROGRESS (2026-08-09 ~17:25Z) — Civet spins Cavern (054f5e); progress marker, recompute from the PR branch
+
+Director RELEASED the seat to cure round 6 at the owner's word (ARC
+16:44Z entry; absorption acknowledged and affirmed). Executing input:
+the slice design WITH its pre-execution adjudication addendum at
+`.agent/reports/design/2026-08-09-pr1b-cure-round-6-slice-design.md`
+ON THE PR BRANCH (SHA:2dc5d427c) — the opus pre-execution review
+returned 8 must-fixes (M1 manifest re-keying by relativePath with
+derived provenance; M2 ratified-origin allowlist; M3 ban-the-shutter
+ESLint gate; M4 group-gone release proof; M5 sentinel on the attach
+path; M6 lease self+liveness; M7 real-IO proof homes; M8 in-page fonts
+bound, no AbortSignal), ALL adjudicated into the addendum before code.
+
+LANDED AND PUSHED on jimcresswell/design-identity-switchboard-pr1:
+
+- SHA:aacc4ea58 slice 1 — BV-1 strictObject ×3 red-first; BV-2
+  Result-typed resolveBase + allowLoopbackOrigin; R6 call sites.
+- SHA:(slice 2a) — capture-settle package half: settleForCapture /
+  captureShot / captureElementShot / createOriginGuard /
+  isAllowedRequestUrl / RATIFIED_EXTERNAL_ORIGINS; /capture-settle
+  subpath.
+- SHA:f8d2b6d7c slice 2b — all six arms shoot through the one settle;
+  ESLint screenshot gate both demos (mutation-proven); origin-guard
+  wiring per arm; apply-state census consolidated.
+- SHA:e58e0edd0 slice 3i — capture-manifest pure core: schema,
+  contentHashOf, sideProvenance/isPromotableTarget, reconcileCohort
+  (incomplete/vendor-claim/drift/mixed-geometry refusals);
+  /capture-manifest subpath.
+
+ALSO LANDED: SHA:d8ebc46fe slice 3ii — evidence-io module (role-split
+Result-typed seam: EvidenceReadIo/DiffWriteIo/RegisterReadIo/
+ReportWriteIo + nodeEvidenceIo, re-exported via /orchestrator);
+buildAndWriteReport takes injected io; loadRegister deleted whole
+(parseRegister stays the pure half); writeReport through the injected
+writer; new proofs for buildAndWriteReport (absent/unreadable/invalid
+register, write failure, happy path), diffPair unreadable/write-fail
+cases, and the non-zero changed-ratio magnitude case (R13 done).
+Package 139 tests green; both apps green at the commit.
+
+3iii COMPLETE (all three pieces): SHA:8a88989d9 capture session
+(stage/promote/manifest-last + verifyCohortEvidence + nodeCaptureStageIo);
+SHA:0b6fedb17 report-side enforcement (loadReconciledCohort — manifest
+required, reconciled, hash-verified; report meta derives from the
+MANIFEST, buildAndWriteReport signature dropped flags; first run after
+merge must be a full capture, PR body must state it); SHA:f612ffa94
+arms pivot (one session per run at each root, promotion only on full
+success; direct arm mains are stage-only diagnostic runs; --out
+deleted; EI-2 width threaded into hub section arms; R7 folded —
+RENDER_WIDTH env replaced by WIDTH). EI-1 + EI-2 cured. 3iv ALSO COMPLETE: SHA:1ad8c78be — liveness-driven
+run lease (judgeRunLease pure: acquire/refresh/reclaim; live holder
+NEVER reclaimed; TTL only for foreign-host unknowable liveness;
+run-lease-io real side with signal-0 pid probe); both capturePhases
+take-then-release in a finally. THE ENTIRE EI THEME IS CURED.
+
+REMAINING (superseded detail above retained for provenance): 3iii-as-
+originally-sketched staging under
+demo-evidence/.staging/<runId>/ + promoteRun (rename-per-file,
+manifest last by rename) + verifyCohortEvidence + arms' Buffer pivot
+to a package CaptureSession (created at each composition root:
+stage(relativePath, bytes) hashes+stages+records; promote() renames
+per file then writes the manifest LAST by rename; discard() leaves
+staging as diagnostics) + buildAndWriteReport's reconcile/derive
+wiring (meta ALWAYS derives from the manifest — flags become capture
+inputs only; ManifestReadIo leg joins EvidenceIo) + EI-2 width
+threading into hub section arms + R7 fold of the hub-local
+resolveWidth; 3iv lease (M6 shape:
+runId/pid/hostname + holderLiveness probe + release leg); slice 4 LC
+(withResource, hub try/finally, signal reaper, M4 group-gone probe,
+M5 sentinel via judgeServerIdentity on assertServerUp AND both
+ensureDevServer branches, spawn-topology contract in package tests/);
+slice 5 SEC-1 handle-yielding resolveContainedTarget (R1 sequence)
+in both export-servers + SEC-2 pixel-budget/safe-path/URL-encode +
+R13; slice 6 records (plan Mechanism truing, PR body PDR-132 truing +
+cure-round section + one-re-baseline note, porting recipe with NINE
+modules, MCP-533 reconcile at merge) + smoke homes (M7). Then: R27's
+four suppressed findings dispositioned + threads resolved, re-READY
+on ARC → Director recount + grant + sha-pinned REST merge (merge
+method merge, never squash). Gates at every commit, serial per
+check-singleton. All slice-1/2 gates were green at their commits
+(package 132, hub 324, showcase 101 at last full pass).
+
+## COMPACTION FREEZE 7 (2026-08-10T06:35:00Z) — Civet spins Cavern (054f5e); cure round 6 mid-flight at 12 commits; resume RE-ARMS
+
+Owner word: "prepare for compaction ... then stop all processes."
+Claim 645b9e0b-afea-4743-8cc6-5dad3ad39575 RETAINED. Worktree
+identity-switchboard-pr1 CLEAN at pushed SHA:573c860d3 (12 cure
+commits on #834); primary clean at this freeze commit.
+
+LANDED SINCE THE LAST MARKER: SHA:3b1509d9a slice 4a (identity-gated
+reachability: judgeServerIdentity pure + oak-app sentinel metas in both
+app layouts + APP_SENTINEL constants threaded through assertServerUp
+AND both ensureDevServer branches; group-gone release proof via
+signal-0 group probe with idempotent teardown; server-identity +
+dev-command modules split on size). SHA:573c860d3 slice 4b
+(registerRunTeardown SIGINT/SIGTERM reaper, teardown-once, pure over a
+process fake; withResource DROPPED at its consumer test — deviation
+from the adjudicated design recorded dated in the module header:
+captureAndReport is the proven server bracket, arms bracket browsers
+with try/finally; no dead exports).
+
+RESUME MAP (execute in order after the start-right re-arm — watcher
+from PRIMARY, F-95, heartbeat pair claim 645b9e0b cycle
+pr1b-cure-round-6, gap sweep since 2026-08-10T06:35Z, peer-liveness):
+
+1. Slice 4 remainder: wire registerRunTeardown into BOTH composition
+   roots (spawned mode only; unregister in a finally around
+   captureAndReport); hub arms' try/finally — render-canonical-targets
+   renderAll (browser) + server.close in finally, drive-export-sections
+   driveExport (browser) + server.close in finally,
+   capture-live-sections driveSectionCaptures (browser); the
+   spawn-topology contract in packages/libs/fidelity-review/tests/
+   (bounded synthetic child; group-term/exit fidelity — the ONE
+   sanctioned real-process test).
+2. Slice 5 SEC-1: resolveContainedTarget in static-path-guard per the
+   adjudicated R1 sequence (lstat refuses non-regular incl. FIFO →
+   open O_RDONLY|O_NOFOLLOW → fstat ino/dev compare → realpath
+   containment re-check; ContainedFile carries {fd,size,realPath});
+   both export-servers stream from the validated handle with the fd
+   closed on EVERY non-serving path (overlay walk continues, destroyed
+   socket); state the intermediate-component race as a LIMIT. SEC-2:
+   total-pixel budget PRIMARY (~80M px) + per-axis sanity, read from
+   the PNG header (signature + IHDR) BEFORE PNG.sync.read in
+   image-diff; safe-relative-path refinement in the pairing schemas
+   (relative, no .., no backslash, no ?/#); URL-encoded segments in
+   fidelity-html. Smoke homes per testing-strategy §smoke: smoke-tests/
+   dirs + CI-wired scripts (SEC-1 symlink smoke; staging→promotion
+   smoke).
+3. Slice 6 records: plan §Mechanism "Copy the hub's tools" → compose
+   (dated, primary); PR body — PDR-132 truing + cure-round-6 design
+   story + FIRST RUN AFTER MERGE MUST BE A FULL CAPTURE (report-only
+   refuses until a manifest exists) + the ONE evidence re-baseline note
+   (CC-1+SEC-3 changed pixels by design; dispositions re-warrant once);
+   porting recipe naming NINE public modules + the two export-server
+   shapes + both worked examples; deferrables to MCP-534 with names
+   (NodeNext declaration portability; static-server limits; register
+   fingerprint design). MCP-533 reconcile at the merge moment.
+4. R27 dispositions: all four suppressed findings are cured by this
+   round (capture-live-pages:61 + render-export-targets:145 →
+   staging/promotion; orchestrator:52 → BV-2; export-server:102 →
+   SEC-1) — but the export-server:102 thread resolves HONESTLY only
+   after SEC-1 lands. Replies + resolutions in one batch.
+5. Post-build panel BEFORE re-READY (opus): security-expert (SEC,
+   deep) + test-expert (tier homing + falsification power, deep) +
+   code-expert gateway. Absorb, cure, then gates green SERIALLY
+   (package + both apps + knip + full pnpm check; check-singleton).
+6. Re-READY on the ARC channel → Director recount at the cured head +
+   grant + sha-pinned REST merge (method merge, never squash). At
+   merge: MCP-533 comment; worktree prune only after PR-2 planning
+   considered. Then PR-2 per task #2 (fresh worktree off post-834
+   main; carried obligations in task + plan).
+
+Standing correction captured this freeze (napkin, same stamp): stale
+DERIVED artifacts are cleared by the workspace's own clean verb
+(`pnpm --filter <ws> run clean`), never raw rm, never an owner ask.
+
+## COMPACTION FREEZE 7 (2026-08-10T06:55:00Z) — Civet spins Cavern (054f5e); the owner's waaay-back recalibration governs the resume
+
+Owner word this freeze, in order: (1) "prepare for compaction ... and
+then stop all processes"; (2) a correction — stale DERIVED artifacts
+are cleared by the workspace's own clean verb (`pnpm --filter <ws> run
+clean`), never raw rm, never an owner ask; (3) the RECALIBRATION that
+now governs this lane: step waaay back — the design work exists to
+DECREASE THE COST OF EXPLORATORY APP EXPERIMENTS TO NEAR ZERO, hence
+whitelabelling, hence the need to SHOW how powerful and efficient the
+system is. The wow page is the demonstration that identity is a
+parameter (?brand= is the constructor argument) and that a whole class
+of products is now cheap. Everything else on this lane — the fidelity
+instrument included — is means.
+
+Claim 645b9e0b-afea-4743-8cc6-5dad3ad39575 RETAINED by this seat.
+A STANDBY SUCCESSOR registered at owner word this morning: Swordfish
+wakes Trench (claude / Opus 5 / d0274e), warm-paused, activates only
+at Director/owner word and ADOPTS the claim then. Whichever seat
+resumes, THIS section is the map; recompute #834 first-hand.
+
+STATE: worktree identity-switchboard-pr1 CLEAN at pushed
+SHA:573c860d3 — twelve cure commits on #834 (BV, CC-1 + shutter gate +
+SEC-3 egress, EI-1/2/3 complete, identity sentinel + group-gone
+release, signal reaper; withResource dropped at its consumer test,
+recorded). mergeStateStatus BLOCKED as expected. Primary clean at this
+freeze commit. Full slice-by-slice detail: the cure-round-6 markers
+above and the slice-design addendum on the PR branch
+(SHA:2dc5d427c).
+
+RESUME MAP — ends-first, binding:
+
+0. THE POINT IS PR-2 (the switchboard pixels). Cure round 6 completes
+   at LEDGER-MINIMUM depth only: the ledger is the bound, nothing
+   beyond it, prefer named-home deferral (MCP-534) wherever a row
+   allows. Every re-READY/status report states DISTANCE-TO-PIXELS,
+   not only gates-green.
+1. Re-arm per start-right (watcher from PRIMARY, F-95, heartbeat pair
+   claim 645b9e0b cycle pr1b-cure-round-6, gap sweep since this
+   stamp, peer-liveness).
+2. Cure-round remainder, minimum sufficient: (a) wire
+   registerRunTeardown into both roots (spawned mode, unregister in a
+   finally); hub arms' try/finally (render-canonical-targets browser +
+   server, drive-export-sections browser + server,
+   capture-live-sections browser); spawn-topology contract in
+   packages/libs/fidelity-review/tests/. (b) SEC-1
+   resolveContainedTarget per the adjudicated R1 sequence in both
+   export-servers (fd streamed, closed on every non-serving path;
+   intermediate-component race STATED as a limit); SEC-2 total-pixel
+   budget from the PNG header before decode + safe-relative-path
+   schema refinement + URL-encoded report segments; smoke homes per
+   testing-strategy §smoke. (c) Records: plan §Mechanism copy→compose
+   truing; PR body (PDR-132 truing, cure-round story,
+   FIRST-RUN-MUST-CAPTURE note, ONE-re-baseline note); porting recipe
+   (nine modules, two server shapes, worked examples); deferrables to
+   MCP-534 by name. (d) R27 dispositions — all four cured by the
+   round; export-server:102 resolves only after SEC-1 lands. (e)
+   Post-build opus panel (security + test + gateway, as committed to
+   the Director), absorb, gates green serially, full pnpm check.
+3. Re-READY on ARC with an ends-denominated status → Director recount
+   with grant + sha-pinned REST merge (method merge, never squash). At
+   merge: MCP-533 comment. Worktree prune only after PR-2 planning.
+4. PR-2 immediately: fresh worktree off post-834 main; per-cycle
+   pre-execution review BEFORE code; plan §Mechanism verbatim; carried
+   obligations — @oaknational/result devDep→dependencies in the commit
+   that makes lib/identities.ts app-reachable; the live capture arm
+   gains expectsFrame with the routes; test seams chosen for
+   falsification power. The page IS the story: three identities ×
+   one specimen, re-skinning at query level — the near-zero-cost
+   demonstration the whole programme exists for.
+
+## COMPACTION FREEZE 1 (2026-08-10 ~09:5xZ) — Swordfish wakes Trench (054f5e successor, d0274e); seat CONTINUES; resume RE-ARMS
+
+Owner word: prepare for compaction; owner chose COMPACT-AND-REJOIN over
+hand-off-and-retire. Claim `645b9e0b-afea-4743-8cc6-5dad3ad39575` RETAINED.
+Silence past the freeze broadcast is the boundary, never retirement. Written
+as an INDEX for a stranger, not a summary — the substance lives in the homes
+named below and is not restated here.
+
+**READ THIS FIRST — the plan node contradicts the owner's ruling and will
+build the wrong thing.** `identity-switchboard-first-pixels.plan.md`
+§"Shape: two routes" still says the picker frames the specimen "in an IFRAME
+whose src the controls drive". Driving the src IS a reload, and the owner
+ruled 2026-08-10 that the TRANSITION is the hero, with the Director
+concurring on in-place re-skin. Until that clause is amended the ARC entries
+are authoritative. Amending it is the first records act.
+
+STATE, all first-hand:
+
+- **#834 MERGED** `6804726e2` — `packages/libs/fidelity-review` is on main.
+- **PR-2 lane LIVE**: worktree `identity-switchboard-pr2`, branch
+  `jimcresswell/design-identity-switchboard-pr2`, cut from a verified-clean
+  `origin/main`. FOUR files uncommitted and GREEN (build, type-check,
+  identity ratchet all pass; lint/authored-css/tests NOT yet run).
+- **2 of 10 specimen regions render** (utility, masthead) with the brand
+  applied server-side. Proven by curl against the dev server: a known brand
+  yields `data-identity` plus `<link rel="stylesheet" href="/brands/…">` IN
+  THE INITIAL HTML; an unknown value narrows to the base identity with no
+  sheet.
+- **Slice-1 pre-execution review DISPATCHED by the Director** (two focused
+  opus legs; the Director dispatches because this session may not use the
+  Agent tool). Their freeze broadcast says both verdicts are handed over —
+  LOCATION UNVERIFIED BY ME. Find them before authoring: ARC channel first,
+  then `director-handoff.md`.
+
+RESUME ORDER:
+
+1. Re-arm per start-right: canonical watcher from PRIMARY + F-95 assert; ARC
+   tail on the design-lane channel (BOTH — a green F-95 attests the canonical
+   watcher and nothing else; this seat lost two hours to exactly that);
+   heartbeat pair on the retained claim; foreground gap sweep; peer-liveness.
+2. Find and absorb the two slice-1 verdicts.
+3. Amend the plan's shape clause (above), and fold in the two carried
+   promises: the two-page scope + in-place re-skin with the Director's
+   structural-proof reasoning, and the correction that the fidelity rig is
+   the design-iteration CAMERA so its value is concurrent with the page, not
+   gated behind it.
+4. Author the remaining eight regions, then gates, then PR.
+
+WHERE THE DURABLE THINGS ARE (index, not restatement):
+
+- Design mechanism + why: ARC channel `2026-08-10-design-lane-plover-…`
+  entries at 09:15 and 09:25, and the Director's 09:10 strengthening.
+- The roster/hook split and why the split went that direction: the docblock
+  of `demos/oak-design-showcase/components/brand-identity-binding.ts`.
+- R27 dispositions incl. the deferred one: PR #834 comment 5237793004.
+- This seat's error signature and the null-state finding with falsifiers:
+  napkin, commit `99ec656c2`.
+- Cure-round depth bound: plan §DEPTH, commit `b4ed8ea1d`.
+
+KNOWN BOUNDS: two export defects found so far (a checked state carried by
+colour alone; `aria-current="page"` on an in-page anchor) are UNCURED and
+awaiting a reviewer verdict — a fidelity disposition class for
+export-defect-deliberately-not-reproduced is proposed, not agreed. The
+Director is frozen, so its dispatch verdicts may land before it returns.
+
+## PLAN OUTLINE — 2026-08-10, post-verdict slicing (Swordfish wakes Trench, d0274e)
+
+**Status: pre-Cricket draft.** Supersedes the FREEZE 1 resume order item 4
+("author the remaining eight regions"), which was written before either
+slice-1 verdict had been read and would have propagated an unreviewed
+pattern across eight regions.
+
+**Not a new plan node.** `identity-switchboard-first-pixels.plan.md` is
+owner-ratified and its SCOPE is unchanged. Both verdicts confirmed the
+architecture. What changed is sequencing and authoring facts, so this is a
+slice plan against the ratified node — authoring a second node would be
+invented obligation (plan skill §Pre-Author Scope-Vocabulary Check).
+
+### Goal and mechanism (inherited, restated for the slicer)
+
+Goal: the two pages that demonstrate presentation-is-data, so the cost of an
+exploratory app experiment approaches zero. Mechanism: one composition,
+re-skinned by data alone; the MOMENT OF TRANSITION is the communicator of
+capability (owner ruling 2026-08-10), which a working in-place re-skin can
+only achieve if the markup is genuinely identity-invariant — so the
+mechanism is its own proof and cannot cheat.
+
+### Step 0 — two zero-cost verifications, before any slice is shaped
+
+Neither is a PR. Both determine downstream slice shape, so they run first.
+
+1. **Cascade order (verdict F3).** The root layout imports the kit base as a
+   module; the brand sheet arrives via React 19 hoisting. Nothing currently
+   guarantees the brand sheet lands AFTER the kit base, and equal-specificity
+   later-wins IS the mechanism. Read the computed value directly. If the
+   cascade is wrong, a design fix-slice precedes everything else; if right,
+   the work is one assertion folded into the region slice.
+2. **Identity ratchet: does the census accept a MOVE?** `lib/identities.ts`
+   already exists and is tracked. The open question is whether a removal from
+   one registered path plus an addition to another, with both census entries
+   updated in the same change, is ratchet-neutral. This decides whether
+   verdict F2 lands as a move or stays satisfied-in-place.
+
+### Slices (each a single-story PR, sized at authoring time per PDR-132)
+
+- **S1 — DS trunk: small-button mask-icon sizing.** Verdict F1: the kit sizes
+  img-based small-button icons but not mask icons; the specimen's inline
+  style was papering a real trunk gap. CSS rule, not a React component, so no
+  ADR-147 gate. Fixes the export too. Separate workspace, so separate PR, and
+  it precedes the specimen consuming it.
+- **S2 — Regions 1-2, verdict-compliant, with the mechanism proven.** The
+  a11y verdict's markup rulings (list-marked nav, focusable main, the
+  audience-current state kept but re-tokened, a visible non-colour current
+  marker), the attribute contract unified per F5, the page-scope marker moved
+  onto the wrapper per F7 (already the house pattern; the specimen is simply
+  missing it), and the no-flash assertion asserting a brand-OVERRIDDEN
+  COMPUTED VALUE rather than the presence of a link. Test and product code
+  land together (atomic-landing invariant). This slice SETS THE PATTERN the
+  remaining eight follow, which is why it precedes them.
+- **S3 — The picker, in-place re-skin.** The transition, in front of the
+  owner, over the two-region specimen. Carries F4: the external "open full
+  page" link cannot track a frame src that never re-navigates, so it derives
+  from control state — the single amendment that fixes the link and the plan's
+  shape clause together, because they share one root assumption.
+- **S4-S6 — The remaining eight regions**, in batches, on S2's established
+  pattern. Mechanical once the pattern is set; this is where the region
+  counter moves.
+- **S7 — Side-by-side page.** The second ratified page.
+- **S8 — Conformance matrix.** A11y verdict HIGH-1: brand-swap redefines
+  tokens, so contrast is per-identity, not base-only — the axe gate runs per
+  identity x per theme, plus a forced-colours cell. This is a real widening of
+  the gate, and it is the instrument that makes the whitelabel claim safe to
+  repeat for the NEXT tenant, not just this one.
+
+### Routed to named homes — deliberately NOT absorbed
+
+Per the loop-dynamics discipline: correct and adjacent is not sufficient for
+in-loop cure.
+
+- The segmented-control colour-alone cure (DS trunk, its own story).
+- The fidelity disposition-class extension. The a11y verdict ENDORSED the
+  source-defect-versus-taste-divergence distinction but ruled that a
+  not-reproduced disposition MUST carry an upstream home, or the instrument
+  reports the divergence forever AND the defect stays live for the next
+  consumer. That makes it schema work plus an upstream fix or ticket —
+  instrument work, which the owner's frame prices as MEANS. It does not gate
+  the pages.
+- Naming drift between identity slugs, display labels, and plan pair-ids
+  (flagged by the design-system verdict as out of slice 1).
+
+### Records acts (not slices; they carry no PR)
+
+- Amend the ratified node's shape clause. It still describes driving a frame's
+  src, which is a reload and contradicts the owner's transition ruling. Two
+  independent detections now: this seat's, and verdict F4's shared-root
+  finding.
+- Correct the `brand-identity-binding.ts` docblock. Its rationale for the
+  roster/hook split rests on an unverified premise — that relocating the
+  roster was gate-forbidden. The refusal was about a NEW path, not the
+  pattern; the destination already existed. Durable and wrong is worse than
+  absent.
+- Home both slice-1 verdicts out of the Director's session temp directory.
+  They gate the next PR and the Director is retired.
+
+### Acceptance, each with its proof type
+
+1. A brand-overridden computed value differs per identity at first paint —
+   repo-safe.
+2. The picker re-skins with no frame navigation — repo-safe (assert document
+   identity survives the swap).
+3. Ten regions render — repo-safe count, plus owner-held "reads as a real
+   product".
+4. Axe clean across the identity x theme x forced-colours matrix — repo-safe.
+5. The transition lands as wow — owner-held, seen in Chrome. Artefact paths
+   are not the done-test.
+
+### Two counters, because the lane carries two claims
+
+`n/10 regions` tracks the wow claim. It does not track the MECHANISM claim,
+which currently has no strong proof and which the entire near-zero-cost
+thesis rests on. Ten regions of an unproven mechanism is ten regions of a
+possibly-false claim. Both get reported at every status.
+
+### Considered and rejected
+
+Drop the in-place swap; serve each identity as a plain server-rendered page
+and show three frames side by side. Materially simpler, and it still
+demonstrates that presentation is data — but it discards the transition,
+which the owner named as the key communicator of capability. The complexity
+is warranted by the stated goal, not by taste.
+
+### Cricket adjudication of the outline — 2026-08-10
+
+Panel: the Claude effort-inversion quartet, both stances, eight legs. All
+eight returned.
+
+Final tokens: 6 DRIFTING / 2 ON-TRACK. All four normal legs DRIFTING; the
+adversarial wave split 2-2.
+
+A reading error worth preserving, because it is the same class this seat has
+now made three times in one window: at 6-of-8 the tokens fell PERFECTLY along
+the stance line, and that pattern was reported as the finding. The two
+outstanding legs broke it — and they were the two that landed the sharpest
+hits. A pattern computed over a partial set was transmitted as a property of
+the whole. Same shape as reading a tool's classification as a verdict and a
+gate's refusal as a prohibition: A LOCAL OBSERVATION PROMOTED TO A GENERAL
+TRUTH BEFORE THE SET WAS CLOSED.
+
+CONVERGENT across all eight:
+
+- Restore the outgoing heartbeat (done before any verdict landed).
+- Surface the DUE coordination branch rather than self-fix (done).
+- Cascade-order verification is genuine de-risking, NOT stall-continuation.
+  Three adversarial legs attacked it on exactly that charge; the two that
+  engaged its substance both conceded it survives, because equal-specificity
+  later-wins IS the override mechanism and a false premise there invalidates
+  both owner-named pages.
+- Sequencing implementation slices under an already-ratified node is the
+  implementer's job. Routing every ordering call upward is deference-as-safety
+  — the thing this check exists to counterweight. The Director's own PDR-117
+  ruling, arriving independently, agrees.
+
+DIVERGENT, and the divergence is where the value was:
+
+The four normal legs judged the plan's GOVERNANCE (liveness, branch, scope
+authority) and passed its CONTENT. The two late adversarial legs judged its
+CONTENT and found three ordering defects the other six waved through. Both
+readings are correct about different objects; neither is noise.
+
+ADOPTED — from the two late adversarial legs, changing the plan materially:
+
+1. DROP verification 0(b) as a standalone gate. "Does the census accept a
+   MOVE between two registered paths" has no pixel consumer and is answered
+   FOR FREE by attempting the move inside the slice and running the
+   validator. The killing observation: reasoning about what the ratchet will
+   permit, instead of testing it in place, is THE SAME SHAPE AS THE ERROR
+   ALREADY ON THIS SEAT'S RECORD this window. The plan reproduced its own
+   diagnosed failure mode one level up, and six legs missed it.
+2. DROP the trunk mask-icon slice from the HEAD of the order. It appears
+   nowhere in the owner's ruling and displaces the only two slices that move
+   the region counter or put the transition in front of the owner. Verified
+   first-hand what the leg flagged as its own ungrounded assumption: regions
+   1-2 DO consume a small button with a mask icon (the masthead search
+   control), so the dependency is real — but the specimen already sizes it
+   with a local class, so the trunk fix is NOT a prerequisite. Consumption
+   real, prerequisite false: displacement wearing a dependency argument.
+   Promote it when a region provably needs it beyond the local class.
+3. ORDER the records act. The governing node's superseded iframe-src shape
+   clause was sitting UNORDERED in the records-acts list. It must be amended
+   BEFORE the picker slice is authored, because the picker is built against
+   the opposite shape. An unordered records act next to a slice that
+   contradicts it is a live trap for whoever authors first.
+
+RESULTING ORDER: amend the shape clause; cascade-order check folded into the
+slice, not standing alone; picker/transition and regions at the head; trunk
+icon fix and the census move demoted into slices that actually consume them.
+
+ADOPTED — the panel's sharpest hit, changing the order:
+
+Pull the picker/transition slice FORWARD, ahead of the trunk CSS fix and
+ahead of re-authoring the two already-rendering regions. The reasoning, from
+the one leg that found this independently of the liveness correction and held
+it across both its passes: the owner's verbatim ruling names TWO artefacts,
+and the outline buried them at positions 3 and 7 of 8. The outline ordered by
+ENGINEERING DEPENDENCY; the owner orders by WHAT DEMONSTRATES CAPABILITY. The
+picker runs over the current two regions, so pulling it forward costs no
+rework.
+
+A stronger argument the panel did not make, which settles it: the picker is
+where the MECHANISM claim gets proven in its strongest form — an in-place
+re-skin with no navigation. Pulling it forward flips the mechanism counter
+from 0/1 sooner, and that counter is load-bearing for the whole
+near-zero-cost thesis. Picker-early therefore serves the owner's stated hero
+AND the strongest self-finding at once.
+
+ADOPTED — anti-stall guard: fold the cascade-order verification's result
+directly into the slice's computed-value assertion, so the mechanism claim
+flips inside a PR and never becomes standalone analysis. Time-box both
+checks. This is the guard that keeps Step 0 from becoming the thing the
+owner already corrected once.
+
+ADOPTED — routing: a committed thread record is not routing. One leg's phrase
+is the keeper — "beyond the passively-committed thread record". Writing to a
+record the reader may never open had been quietly counted as having routed
+it. DISCHARGED: the Director replied and ruled slice order and the
+routed-away set to this seat under PDR-117, holding only convergence and two
+non-blocking owner-substance edges.
+
+REJECTED, with reason: the most aggressive adversarial redirection — drop
+Step 0 entirely and start the picker immediately, resolving cascade order
+during PR review. Rejected because a sibling adversarial leg attacked the
+same target with the same charge and conceded that cascade order survives:
+it is the override mechanism itself, cheap, with a named consumer. Its
+underlying instinct is nonetheless ABSORBED rather than dismissed — the check
+must not stand alone as a gate, which is exactly what folding it into the
+slice's own assertion achieves. Same destination, arrived at without
+abandoning the proof.
+
+One leg withdrew its own original redirection after the frame correction.
+
+GROUNDED BY THIS SEAT, closing two "ungrounded" flags the panel raised:
+
+- The PR-2 worktree sits on its own branch and its merge-base equals its own
+  HEAD, so NO slice work stakes onto the DUE coordination branch. One leg
+  inferred this; it is now verified.
+- Discovered while verifying it: origin/main has advanced by one release
+  commit since the worktree was cut, touching nothing under the showcase or
+  the design kit. No conflict risk; the branch should still take main before
+  its PR.
+
+STILL UNGROUNDED, honestly: the panel could not verify Director liveness, the
+branch stamp, or the ratification independently — all were taken on this
+seat's account. Given this seat had just been wrong about exactly one of
+those, that is the right place for a reader's scepticism to sit.
+
+### Routed addition — 2026-08-10, from the specimen's red keyboard cell
+
+The DS trunk slice gains a third item beside the segmented-control cure and
+the mask-icon sizing gap: `.oak-skip-link` loses to the kit's own
+`reading-flow: grid-rows` enhancement — an absolutely-positioned, area-less
+canvas child sorts to the END of sequential focus, the inverse of a skip
+link's job. The two rules ship side by side in `components.css` and are
+mutually broken for any skip link placed inside the canvas. Cure shape: a
+`reading-order` pin on `.oak-skip-link` in the trunk. Found by a red
+Playwright cell on the specimen (PR-2, `2d70f12d0`); page-level placement
+cure landed there; minimal repro isolated ancestry, not the element.
+
+### PR #846 open — 2026-08-10 evening (Swordfish wakes Trench, d0274e)
+
+The rebuilt identity-switchboard estate is a DRAFT PR: #846, head
+efe69380, bot-authored. Everything above (outline → verdicts → rebuild →
+matrix → register → doctrine) is landed and pushed on
+jimcresswell/design-identity-switchboard-pr2. Draft solely against the
+org review-credit wall; Copilot request silently dropped (repo-wide
+condition, recorded). Next session: un-draft when credits return, absorb
+review, then the queued domain items (design-system-usage re-truing/
+split; the five-item DS trunk slice named in the ARC entry).
+
+## COMPACTION FREEZE 2 (2026-08-10 ~17:2xZ) — Swordfish wakes Trench (d0274e); seat CONTINUES; resume RE-ARMS
+
+Owner word: prepare for compaction. Claim
+`645b9e0b-afea-4743-8cc6-5dad3ad39575` RETAINED. Silence past the freeze
+broadcast is the boundary, never retirement. An INDEX, not a summary.
+
+STATE, all first-hand at freeze:
+
+- **PR #846 OPEN, DRAFT**, head `efe69380`, bot-authored — the whole
+  rebuilt estate: specimen (10 regions), picker, side-by-side, 18-cell
+  conformance matrix, fidelity register (every divergence dispositioned),
+  DDR-009 + reference-first rule + playbook's two governing rules +
+  width-guard validator. Suite 62/62 on the built artefact.
+- Both branches local == remote, verified by ls-remote. PR-2 worktree
+  CLEAN. Draft solely against the org review-credit wall. CORRECTION at
+  freeze: the "repo-wide Copilot outage" was the Director's stale-read
+  error (requests never appear in reviewRequests; reviews land async) —
+  my "silently dropped" inherited it. #846's reviews list reads empty at
+  freeze but a review may land async; resume RE-CHECKS the reviews list
+  first-hand before repeating either claim.
+- Two dev servers still run on this host: showcase dev :3020 (this
+  worktree's), export static :3030 — disposable, restartable, not state.
+
+RESUME ORDER:
+
+1. Re-arm per start-right: canonical watcher from PRIMARY (**watch
+   posture: `--exclude-tag heartbeat` + the F-75 delta poll pair** — the
+   sanctioned standby economy; a directed/group event still surfaces
+   instantly) + F-95 assert; ARC tail on the design-lane channel;
+   heartbeat pair on the retained claim (model string `Opus-5`, NOT the
+   long form — the registry's identity-route check refuses mismatches);
+   foreground gap sweep.
+2. Check the two external waits: review credits (un-draft #846 when they
+   return) and the coordination fold #842 (Director's).
+3. Then the queued domain items, in order: design-system-usage
+   re-truing/split (UNPARKED 2026-08-10 ~20:30Z: the move landed on main
+   via PR #845; the skill now lives at
+   .agent/skills/domain-craft/ui-design/claude-design-pipeline/), then the five-item DS trunk
+   slice (list in the 17:0x ARC entry and the PR-846-open entry above).
+
+WHERE THE DURABLE THINGS ARE (index):
+
+- The day's method + rulings: conversion playbook §two governing rules +
+  §Reference first; rule render-the-reference-before-reproducing;
+  DDR-009 + tools/measurement-widths.ts.
+- Every fidelity divergence + rationale: fidelity-register.json (6
+  entries, global scope).
+- The matrix's defect classes + cures: commit fd27de13a's message is the
+  narrative; the brand-sheet cures live in studio-source/whitelabel +
+  public/brands (byte-parity held).
+- The day's error classes (absence-detector-as-verdict; partial-tally-as-
+  distribution; the cure): failure-mode event 75c6b6da + the Cricket
+  adjudication section above + tally report
+  .agent/reports/agentic-engineering/cricket-quartet-tally-2026-08-10.md.
+- Owner rulings of record: spec-not-source + chrome-freedom (playbook +
+  register entry picker-chrome/chrome-diverges-by-design); canonical
+  widths (DDR-009); the three yeses (playbook/rule/validators — all
+  landed).
+- Formation letter: .agent/experience/2026-08-10-swordfish-wakes-trench.md.
+
+KNOWN BOUNDS: the fidelity stdout summary reads UNREGISTERED over
+global-scope register entries (instrument note, routed); the axe
+forced-colors contrast disable is a vendor defect open at axe-core
+4.12.1 (dequelabs/axe-core#3978), probe-corroborated, cited in
+apply-state.ts's helper docblock, re-examined at any axe upgrade
+(landed 32f79416c after the owner flagged the advocacy register of the
+previous wording); light-dark() arm pairing is POSITIONAL with the background's
+arms (cost one wrong-way commit to learn — recorded in the creature
+sheet comment).
+
+## COMPACTION FREEZE 3 (2026-08-11 morning) — Swordfish wakes Trench (d0274e); seat CONTINUES; resume RE-ARMS
+
+Owner word: morning rulings recorded, then compaction prep. ALL
+PROCESSES STOP with the freeze broadcast; claim
+`645b9e0b-afea-4743-8cc6-5dad3ad39575` RETAINED. An INDEX, not a summary.
+
+STATE, first-hand at freeze: PR #846 head `fa1391172` (draft; the
+review-credit wait stands; Copilot claims re-check first-hand at
+resume). Coordination `f9bc2996f` + this entry. Both branches
+local == remote, verified. All suites green at the last code commit
+(`8f54a590c`); everything after is docs/doctrine only.
+
+THE MORNING'S RULINGS AND THEIR HOMES:
+
+- **Identity default** (theme DDR): people's choices win AND the page
+  has a real theme preference — "Identity default" joins the theme
+  choices and is the no-choice default. DDR-003 dated amendment
+  2026-08-11 is the governing record (it also owns the 2026-08-10
+  applied-model doctrine drift).
+- **σ calibration**: scores must at least approximate calibrated
+  probabilities — DDR-010 §Known limits names the candidate methods.
+- **Fleet-design review is standing practice**:
+  `.agent/rules/fleet-design-review-before-expensive-fleets.md` (+ the
+  three projections + RULES_INDEX row), rationale carried in the rule.
+
+RESUME ORDER:
+
+1. Re-arm per start-right: canonical watcher (`--exclude-tag heartbeat`)
+   paired with the F-75 delta poll, heartbeat pair on the retained claim
+   (model string `Opus-5`, the registry's — F-92), ARC tail, gap sweep.
+2. **Slice 1 — identity-default theme model** (decision-complete):
+   kit `:root` back to `color-scheme: light` with the DDR-003-citing
+   comment; restore creature's polarity lever (brand-full.css + public
+   copy — the 2026-08-10 removal is repriced by ruling); oak-theme.ts
+   gains a clear mechanism (control value `identity-default` ↔ remove
+   attribute + clear stored choice; get()/choice() semantics per
+   DDR-003); store `getTheme → choice() ?? 'identity-default'`,
+   `setTheme('identity-default') → clear`; THEME option lists lead with
+   Identity default (label "Identity default"); picker frame semantics:
+   identity-default deletes the frame's `data-theme`; re-true the cells
+   changed 2026-08-10 (kit integration, store unit, Switchboard unit,
+   hub ThemeSwitcher, showcase.spec no-choice + auto-contrast cells,
+   picker defaults cell); rebuild kit, sync ALL THREE runtime copies
+   (package root, showcase public, hub public — validate-kit-assets
+   closes the loop); suites across the three workspaces.
+3. **Slice 2 — σ calibration** per DDR-010's candidates (per-region
+   alignment, empirical null from repeat-capture pairs,
+   correlation-aware effective n).
+4. **Fleet W1 at owner sanction** (plan `pr-846-review-fleet` rev 1;
+   gate expires 2026-08-13; T3 pre-flight incl. the SHA-pinned range).
+
+OPEN OWNER ITEMS: fleet ratification + W1 sanction; Sonar S6845
+disposition (per-site accept with the PR #565 precedent, at his word).
+The creature dark-first question is RESOLVED by the identity-default
+ruling. Formation letter: `.agent/experience/2026-08-10-swordfish-wakes-trench.md`.
