@@ -55,9 +55,9 @@
     "@oaknational/sdk-codegen": "workspace:*",
     "@oaknational/sentry-node": "workspace:*",
     "@oaknational/type-helpers": "workspace:*",
-    "chalk": "^5.6.2",
+    "chalk": "^6.0.0",
     "commander": "^15.0.0",
-    "ioredis": "^5.11.1",
+    "ioredis": "^6.0.0",
     "zod": "^4.4.3"
   },
   "description": "Semantic search CLI for Oak curriculum — ingestion, hybrid search, ground truth evaluation",
