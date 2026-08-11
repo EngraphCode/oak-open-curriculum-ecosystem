@@ -44,7 +44,10 @@ packages:
 # Mechanism, verified first-hand 2026-08-11 on pnpm 11.20: the resolver
 # SILENTLY picks the newest version older than the floor (exit 0, no warning)
 # — it does not refuse or prompt — so a just-published release simply stays
-# out of resolution and shows in `pnpm outdated` until it ages past the floor.
+# out of resolution until it ages past the floor. The exclusion is INVISIBLE
+# to `pnpm outdated` too: its "latest" is computed under the same floor, so
+# age-floored rows read current — surface them from publish-date reads
+# (`pnpm view <pkg> time`), never from outdated's silence.
 # Applies to all (incl. transitive) deps at resolution time; frozen-lockfile
 # installs (CI) are unaffected. Allow-list a genuinely-needed young package
 # via minimumReleaseAgeExclude.
