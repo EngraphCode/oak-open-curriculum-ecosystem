@@ -799,10 +799,10 @@ rollback re-points production domains at an older deployment without
 running a build, but does not document the post-rollback value of
 `VERCEL_GIT_PREVIOUS_SHA`. The equality arm therefore cannot be relied on
 to identify the serving release while the project is rolled back. Per
-Vercel's Instant Rollback reference (verified 2026-08-05), a rollback also
-suspends auto-assignment of production domains until an explicit Undo
-Rollback or promotion, so recovery from that state is platform-governed
-promotion, not a guard-governed rebuild.
+[Vercel's Instant Rollback reference](https://vercel.com/docs/instant-rollback)
+(verified again 2026-08-11), a rollback also suspends auto-assignment of
+production domains until an explicit Undo Rollback or promotion, so recovery
+from that state is platform-governed promotion, not a guard-governed rebuild.
 
 **[Managing environment variables](https://vercel.com/docs/environment-variables/managing-environment-variables)**
 — the rollback/environment behaviour:
