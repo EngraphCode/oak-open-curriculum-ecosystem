@@ -467,7 +467,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
     log. The `comms-archive-move` harness needs only its per-event ledger
     replaced by the watermark (MCP-185); until that lands, a curator pass
     runs the gates above by hand and moves with the notice posted.
-4. **Audit `.agent/experience/` for three things, not one.** The experience directory is for *subjective experience* — what work was like, not what was done. The audit therefore has three distinct purposes (see [`../../experience/README.md § Why the audit step exists`](../../../experience/README.md)):
+4. **Audit `.agent/experience/` for three things, not one.** The experience directory is for *subjective experience* — what work was like, not what was done. The audit therefore has three distinct purposes (see [`../../../experience/README.md § Why the audit step exists`](../../../experience/README.md)):
 
    a. **Preserve the purpose** — scan for files that have drifted into technical content; this displaces the subjective register the files are meant to hold.
 
