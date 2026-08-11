@@ -1,12 +1,12 @@
 ---
 id: workspace-config-enforcement-hardening
 node_type: delivery
-name: "Workspace-config enforcement hardening: the four decided depth slices"
-overview: "Harden the landed workspace-config boundary enforcement along four decided axes: one path idiom by construction, config file-class widening with coverage assertion, the tsconfig-extends package export, and bootstrap-closure ordering — every slice with a committed red-proof."
+name: "Workspace-config enforcement hardening: the surviving depth slices (H1 slimmed, H2, H4)"
+overview: "Harden the landed workspace-config boundary enforcement along the surviving decided axes: one path idiom by construction (H1, slimmed), config file-class widening with coverage assertion (H2), and bootstrap-closure ordering (H4) — every slice with a committed red-proof. H3 and the H1 config-VALUE leg were withdrawn at the owner's word 2026-08-11."
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-08-11
-ratified_where: "Owner approval of the decision-complete completion-arc plan, in-session at the implementer seat (Wren calls Downdraft 6b29b5), 2026-08-11 — the plan named this node's birth explicitly (successor carrying slices H1–H4, cut so the parent node stays one step of the lane)."
+ratified_where: "Owner approval of the decision-complete completion-arc plan, in-session at the implementer seat (Wren calls Downdraft 6b29b5), 2026-08-11 — the plan named this node's birth explicitly (successor carrying slices H1–H4, cut so the parent node stays one step of the lane). Amended 2026-08-11, owner word at the lane seat (decision-matrix run): H3 WITHDRAWN — an extends reference is not an import (principles §Tooling) and no live consumer forces it; H1 SLIMMED — the config-VALUE scanner dropped as an instrument built to find nothing. The stamp covers the surviving scope; a ratification stamp owner-locks nothing."
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate
@@ -27,9 +27,10 @@ lane (depcruise rules at error severity plus the resolver-invisible
 validator) holds against the drift classes the #836 review packet and
 its stress-tests named: unrecognised path-arithmetic spellings, config
 families outside the scanned class, workspace roots outside the rule
-regex, relative tsconfig `extends` chains, and install-time build
-ordering. Each slice closes one class structurally, with a committed
-red-proof — never a silent gap.
+regex, and install-time build ordering. Each surviving slice closes
+one class structurally, with a committed red-proof — never a silent
+gap. (Relative tsconfig `extends` chains left this list with H3's
+withdrawal, 2026-08-11.)
 
 The `depends_on` edge is `beneficial`: every slice is executable
 against today's main. The minimum shippable shape without the parent's
@@ -53,12 +54,11 @@ census register is partitioned per-surface.
   again. The quote-parity false-refusal heuristic in the
   comment-stripping module is rewritten in the same slice, and the
   bin-level fs-unreadable exit-2 test lands here (the one refusal
-  path that was implementation-verified-only). The config-VALUE leg
-  (closed key list: `setupFiles`, `globalSetup`; literal strings
-  containment-checked, non-literals refused) lands fixture-proven
-  with expected zero live findings — the two live config-VALUE
-  relative strings estate-wide both target lint-ignored
-  `.agent/reference/**`. The sanctioned idiom is itself registered in
+  path that was implementation-verified-only). The config-VALUE leg was DROPPED at the owner's matrix word
+  (2026-08-11): an instrument built to find nothing — both live
+  config-VALUE relative strings estate-wide target lint-ignored
+  `.agent/reference/**`; the class keeps a recorded pointer in the
+  parent plan's register triage, not a scanner. The sanctioned idiom is itself registered in
   the disabled-checks census with this plan as its policy pointer (an
   allowance in an enforcement surface carries its warrant).
 - **H2 — config file-class widening + depth + coverage assert.**
@@ -75,26 +75,8 @@ census register is partitioned per-surface.
   coverage instead of generating config; a synthetic unmatched member
   is the red-proof), so a new workspace root can never silently sit
   outside the rule.
-- **H3 — tsconfig-extends via the package.** `tsconfig.base.json`
-  MOVES into `@oaknational/workspace-config` (move, never bridge) as
-  a package-root JSON listed in `files` — never a `dist/`-mapped
-  export, which would break every tsconfig in the estate before the
-  first build (the #836 cold-install class). The 35 relative
-  `extends` sites migrate to the package specifier; root
-  `tsconfig.json` and `tsconfig.depcruise.json` extend the package
-  specifier too (the root manifest carries the devDependency); the
-  22 `$TURBO_ROOT$/tsconfig.base.json` turbo inputs are DELETED under
-  the `^build`-edge argument (the parent plan's identical
-  turbo-input cure); the package's own tsconfig extends by relative
-  path (the self-reference precedent). The slice OPENS with the
-  decisive probe — `tsc --showConfig` on a scratch config extending
-  the package specifier, on the pinned TypeScript — and its execution
-  gate is a cold install (`rm -rf node_modules && pnpm install &&
-  pnpm type-check`): warm-tree green is recorded non-evidence for
-  this class. This slice deliberately crosses the PDR-132 §2 size
-  warnings as one mechanical story (re-examined at authoring: the
-  same one-token swap N times plus one small export; fragmenting
-  moves cost into integration).
+- **H3 — WITHDRAWN 2026-08-11** (owner word, decision-matrix run;
+  see Out of scope for the ground and re-entry condition).
 - **H4 — bootstrap closure hardening.** Two cures in one slice, both
   extending `agent-tools/src/bootstrap/bootstrap-helpers.ts` with
   red-proof unit tests: an install-time-closure ordering check (every
@@ -113,9 +95,8 @@ census register is partitioned per-surface.
    test.
 2. H2 — family widening + depth handling + workspace-root coverage
    assert (after H1).
-3. H3 — tsconfig-extends package export + migration sweep + turbo
-   input deletions (opens with the probe; gated by the cold install).
-4. H4 — bootstrap ordering check + transitive staleness inputs.
+3. H4 — bootstrap ordering check + transitive staleness inputs.
+   (H3's former todo withdrawn 2026-08-11.)
 
 ## Acceptance criteria (each with a proof)
 
@@ -128,9 +109,6 @@ census register is partitioned per-surface.
   class at any depth, and every pnpm-workspace member is matched by
   the depcruise rule — `repo-safe`: per-family red-proofs + the
   synthetic-unmatched-member red-proof + depcruise green.
-- No tsconfig extends by relative path across a workspace boundary;
-  a cold install type-checks green — `repo-safe`: grep zero relative
-  base-extends + the recorded cold-install gate run.
 - The install-time bootstrap refuses an unregistered config import in
   its closure, and a workspace-config rebuild invalidates dependent
   leaf staleness — `repo-safe`: red-proof unit tests on
@@ -138,6 +116,17 @@ census register is partitioned per-surface.
 
 ## Out of scope
 
+- **H3, tsconfig-extends via the package — withdrawn 2026-08-11**
+  (owner word at the lane seat, decision-matrix run). Ground: the
+  boundary rule binds imports and an `extends` reference is not one —
+  live doctrine (principles §Tooling) names the extends chain as the
+  one permitted root-anchored convention; the sole empirical forcing
+  consumer (the Stryker sandbox) ran the canary at 100% with
+  root-anchored extends untouched. Re-enters only with a named live
+  consumer that copies workspace subtrees.
+- **The H1 config-VALUE scanner — dropped 2026-08-11** (same word):
+  an instrument built to find nothing; the class keeps its recorded
+  pointer in the parent plan's register triage (row 7c).
 - Everything the parent plan owns: the census mechanism and sweeps,
   the lint de-hatch arc, S1/S2. This node hardens instruments; it
   does not adjudicate register rows.

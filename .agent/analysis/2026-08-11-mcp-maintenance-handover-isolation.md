@@ -132,8 +132,10 @@ design system as a published artefact plus brand guidance.
 ### The app itself — Practice-entangled compliance machinery
 
 At least two app-critical gates currently live inside `agent-tools`, the
-Practice tooling workspace: the content-register drift validator (728
-governed items) and the under-the-hood content generator. These are product
+Practice tooling workspace: the current-source evidence/registration-drift validator (the
+728-item generated projection: 717 baseline items plus 11 reviewed
+additions; per its own report, explicitly not a wording-approval
+gate) and the under-the-hood content generator. These are product
 machinery wearing Practice clothes. They must be extracted into the app or a
 small product-owned package before handover. The seam-extraction list —
 enumerate every agent-tools piece the app's CI genuinely needs — is the

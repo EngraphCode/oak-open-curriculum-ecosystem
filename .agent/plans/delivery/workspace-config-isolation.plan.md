@@ -6,7 +6,7 @@ overview: "Move the root vitest/tsup/e2e config bases into a config workspace co
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-08-11
-ratified_where: "Owner approval of the decision-complete completion-arc plan, in-session at the implementer seat (Wren calls Downdraft 6b29b5), 2026-08-11 — the plan-mode artefact enumerated the three scope deltas explicitly (search-contracts layer move with ADR record; tsconfig-extends entering scope; acceptance-criterion 5 + Mechanism ESLint rewrite) and the approval is the re-ratification word. Prior stamp history in §Notes."
+ratified_where: "Owner approval of the decision-complete completion-arc plan, in-session at the implementer seat (Wren calls Downdraft 6b29b5), 2026-08-11 — the plan-mode artefact enumerated the three scope deltas explicitly (search-contracts layer move with ADR record; tsconfig-extends entering scope; acceptance-criterion 5 + Mechanism ESLint rewrite) and the approval is the re-ratification word. Prior stamp history in §Notes. Amended 2026-08-11 (owner word at the lane seat, decision-matrix run): the search-contracts layer move and the tsconfig-extends scope entry were WITHDRAWN the same day — S2 re-scoped to keep-lib plus a named lawful edge; H3 dropped. The stamp covers the plan as re-scoped; a ratification stamp owner-locks nothing."
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate
@@ -387,9 +387,9 @@ the lane and archives when its criteria prove.
 
 | Row | Disposition |
 |---|---|
-| 7a | Sequenced → successor H3 (tsconfig-extends; reverses this plan's former Out-of-scope clause — ratified scope delta) |
+| 7a | Withdrawn 2026-08-11 with successor H3 (an extends reference is not an import — principles §Tooling; returned to Out of scope; re-enters only with a named live consumer) |
 | 7b | Reshaped → successor H1: one idiom by construction (4 spellings / ~40 legitimate sites measured; allowlist-one-refuse-rest would refuse ~40 correct files) |
-| 7c | Sequenced → successor H1; honestly sized: 2 live config-VALUE relative strings estate-wide, both targeting lint-ignored `.agent/reference/**` — fixture-proven leg, expected zero live findings |
+| 7c | Reclassified 2026-08-11 as a recorded condition: the config-VALUE scanner was dropped at the owner's matrix word (an instrument built to find nothing — both live strings target lint-ignored reference surfaces); this row is the class's pointer |
 | 7d | Cured in successor H1's validator rewrite (the quote-parity false-refusal heuristic is rewritten, not fixture-patched) |
 | 7e | Sequenced → successor H2 |
 | 7f | Closed — already done (trued in State record above) |
@@ -583,7 +583,8 @@ safe).
    the Amendment's register triage ledger (every former row a–l
    dispositioned there: closed, in flight as S1, folded into todo 2,
    reclassified as a recorded condition, or sequenced into the
-   successor node's H1–H4, whose slice definitions carry the
+   successor node's surviving slices — H1 slimmed, H2, H4; H3
+   withdrawn 2026-08-11 — whose slice definitions carry the
    surviving evidence). One row's substance stays here as a recorded
    condition rather than work: the phantom-deps rule enforces
    declaredness, and the `workspace:*` protocol cannot drift silently
@@ -674,16 +675,18 @@ safe).
   check-fires suite, not lint. (Rewritten 2026-08-11 — the former
   "replaced with live bindings" wording prescribed the superseded
   lint-containment design.)
-- `no-libs-to-sdks` carries zero `pathNot` entries AND `boundary.ts`
-  carries no search-contracts sdk-exception machinery — `repo-safe`:
-  greps + depcruise green + `validate-boundaries` green + the
-  ADR-041/ADR-138 amendment diffs present in the S2 PR. (Added
-  2026-08-11.)
-- `search-contracts` resides under `packages/sdks/` and the
-  field-integrity suite still executes its eleven live include files
-  (corrected 2026-08-11: the prior twelve-count carried one dead entry) —
-  `repo-safe`: paths + the explicit file-count proof + full `pnpm check`
-  green. (Added 2026-08-11.)
+- `no-libs-to-sdks` carries no ANONYMOUS `pathNot` exemption: the
+  search-contracts → sdk-codegen generated-contract edge is a NAMED
+  lawful-edge rule citing ADR-138/041 in the rule comment —
+  `repo-safe`: the named rule present + depcruise green +
+  `validate-boundaries` green. (Re-scoped 2026-08-11 at the owner's
+  word; the exception-machinery deletion and ADR relocation
+  amendments died with the move.)
+- `search-contracts` REMAINS under `packages/libs/` (the move
+  withdrawn at the owner's word 2026-08-11) and the field-integrity
+  suite executes its eleven live include files (corrected 2026-08-11:
+  the prior twelve-count carried one dead entry) — `repo-safe`: paths
+  - the explicit file-count proof + full `pnpm check` green.
 - Every positive `$TURBO_ROOT$` glob input matches ≥1 tracked file
   under the pinned matcher — `repo-safe`: the widened validator leg
   green + its committed red-proof. (Added 2026-08-11.)
@@ -707,13 +710,12 @@ safe).
   excluded by fact, not by rule; the validator scans them harmlessly.
 - Root-anchored conventions that are their tools' own design (turbo
   pipeline config, commitlint/husky) — named here so their exclusion
-  is deliberate. (Rewritten 2026-08-11: the `tsconfig.base.json`
-  extends-chain was formerly excluded on the ground that "`extends`
-  is not a module import and crosses no resolver boundary"; the owner
-  ratified its entry into scope as the successor node's H3 — a copied
-  workspace subtree DOES lose its relative extends target, the same
-  portability class this plan cures for imports. The former ground is
-  hereby re-trued rather than silently contradicted.)
+  is deliberate. (Re-trued twice, both dated: the extends-chain entered scope
+  2026-08-11 as successor H3 at ratification, then was WITHDRAWN the
+  same day at the owner's matrix word — an `extends` reference is not
+  a module import (principles §Tooling), and no live consumer copies
+  workspace subtrees. Re-enters only with a named consumer. The
+  original exclusion ground stands.)
 - **Estate-wide mutation-testing roll-out** — owner-committed future
   work, not this plan's scope (owner word 2026-08-11: "We ARE going
   to roll out mutation testing everywhere, but later, and in

@@ -1751,3 +1751,46 @@ instances, recorded here for peers):
   A stamp records what was decided, never who may re-decide when
   evidence moves; the standing question-everything direction was
   already the authority.
+
+## 2026-08-11 ~16:0xZ (Forge lifts Kindling, 336fe7, dependency lane) — compaction-freeze harvest: the MCP-549 lane end to end
+
+- LANE DELIVERED in one sitting: #853 MERGED (advisory wave cured; Dependabot 8→0,
+  prod audit 11→clean; owner-accepted @ai-sdk/provider-utils residual with MCP-381
+  prior art); #855 (37-pkg mechanical wave), #856 (four majors, stacked, ioredis
+  protocol: 2), #857 (update-dependencies skill) all draft/jimbot/bot-authored with
+  rounds adjudicated. Mechanism discoveries are HOMED IN THE SKILL (pnpm 11.20 has
+  no name-targeted transitive refresh; the age floor silently downgrades AND makes
+  floored targets invisible to `pnpm outdated`; overrides rewrite dependents'
+  recorded ranges incl. peers; a global bounded floor drags earLIER-major consumers
+  up — parent-scoped overrides per line); this entry is the pointer, not the home.
+- AUTHORED DOCTRINE LAGGED ENACTED PRACTICE WITHIN HOURS: the skill text prescribed
+  `git checkout pnpm-lock.yaml` restore while this seat's executed probes used the
+  cp-backup shape (the checkout form is the never-use-git-to-remove-work class —
+  the same hook had blocked this seat that morning). Caught by Copilot citing the
+  rule against the text, NOT by self-review; cure ddc182282. Class lesson: a skill
+  authored from a worked instance still needs its text DIFFED against the practice
+  it claims to encode; the delta-reviewer is the instrument.
+- EMPTY-READ-AS-SIGNAL, own hands (documented F-75 class, reproduced hours after
+  reading it): the PR settle-watch piped an empty `gh pr checks --json` read into
+  its failure branch — empty $fails compared as "not 0" → false FAILING exit. Cure
+  standing: guard empty reads as transport-failure-skip-cycle; case-validate
+  numerals before comparing. Same session also produced two piped-exit self-catches
+  (background install echoes; a push tail) — state reads were the honest verifier
+  every time.
+- REVIEWER-VS-REVIEWER CONFLICT SETTLED BY VENDOR SOURCE: wave pre-exec claimed
+  ioredis 6 fails silently on old Redis; Copilot claimed auto-fallback; reading
+  ioredis 6.0.0's event_handler (isProtocolNegotiationError) settled it for
+  Copilot. The protocol: 2 pin survived with its rationale trued to determinism.
+  Read-the-cited-authority resolves reviewer conflicts cleanly.
+- GITHUB PR STACKS ABSORBED AT OWNER WORD (sanction "where appropriate",
+  2026-08-11): 855←856 formalised by the owner; boundary doctrine in the skill
+  (main's ruleset binds mid-stack members; bottom-up merges on standard
+  instruments; cascading rebase moves the next tip → full re-settle before grant;
+  local `gh stack rebase` under bot identity beats the server cascade, which
+  rewrites committer). `gh-stack` extension installed at this seat.
+- Small instrument notes: a worktree branch-switch removes files tracked only on
+  the other branch — skill edits must target the owning branch (bit once, caught
+  by Edit's file-not-found); an inline `-m` commit skipped the validate-first
+  discipline and the commitlint hook rejected the >100-char header (the discipline
+  exists because drafting in-line invites it); the hourly watcher timeout backstop
+  fired three times and re-arm+F-95+sweep held each time.

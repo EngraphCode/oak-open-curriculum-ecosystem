@@ -103,7 +103,7 @@ turbo-edges PR) finish as make-safe; nothing new starts.**
 | #761 | 08-04 | emgeebot (MCP-143 PR-3) | Same series as #772/pr5; coordinate with that lane's owner at slot. |
 | #768 | 08-05 | mantagen | As #750. |
 | #772 | 08-05 | mantagen | As #750. |
-| #816 | 08-07 | emgeebot (tenure record) | Docs record; adjudicate merge at slot with provenance check. **ADJUDICATED 2026-08-09 (Director, first-hand): RECONCILE-THEN-MERGE** — the content is the missing Wisteria→Panther lineage block (valuable continuity), but the Aug-7 snapshot conflicts for real against the moved napkin + director-handoff (187 insertions); reconcile on the PR branch slots the tenure block at its lineage position and date-orders the napkin appends; queued after WS7 group 1 under the impact order. |
+| #816 | 08-07 | emgeebot (tenure record) | Docs record; adjudicate merge at slot with provenance check. **ADJUDICATED 2026-08-09 (Director, first-hand): RECONCILE-THEN-MERGE** — the content is the missing Wisteria→Panther lineage block (valuable continuity), but the Aug-7 snapshot conflicts for real against the moved napkin + director-handoff (187 insertions); reconcile on the PR branch slots the tenure block at its lineage position and date-orders the napkin appends; queued after WS7 group 1 under the impact order. **EXECUTED 2026-08-11: CLOSED UNMERGED** — the tenure record was hand-reconciled into director-handoff.md and the napkin at the Director seat (e066d0131) and the PR closed with a disposition comment; no reconcile remains. |
 
 (#833, the live coordination fold, is ceremony — not a disposition item.)
 

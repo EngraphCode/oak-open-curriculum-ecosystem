@@ -2,7 +2,7 @@
 
 23 July to 11 August 2026
 
-**Published as the Linear project update on 2026-08-11** (the previous update was 23 July). One claim is being made true in flight: the dependency-advisory wave of 4–7 August is under cure at high priority (MCP-549).
+**Published as the Linear project update on 2026-08-11** (the previous update was 23 July). One claim was falsified in flight and made true the same day: the dependency-advisory wave of 4–7 August was cleared (MCP-549 Done — production audit clean, Dependabot zero, one owner-accepted dev-only residual).
 
 ---
 
@@ -28,9 +28,9 @@ Why it matters: the hypothesis — *teachers are already using AI assistants; pu
 
 ### 3. Safeguarding and content governance moved from intention to machinery
 
-Every static string an assistant might read from us — tool descriptions, server instructions, guidance text, 728 governed items — now lives in one register with drift detection: change a served word and a validator fails until the register and its sign-off state catch up. Restricted lessons (RSHE and similar) are excluded at the data boundary itself, not filtered at the edge. Tool descriptions were swept for anything that could steer an assistant beyond presenting Oak's content.
+Every static string an assistant might read from us — tool descriptions, server instructions, guidance text, 728 governed items — now lives in one register with drift detection: change a served word and a validator fails until a named, hash-pinned review entry in the register accounts for it. Restricted lessons (RSHE and similar) are excluded at the data boundary itself, not filtered at the edge. Tool descriptions were swept for anything that could steer an assistant beyond presenting Oak's content.
 
-Why it matters: **for teachers**, the safety property is structural, not editorial; **for the compliance reviewers**, the reviewable-content workspace the last update promised exists and stays current by machine, so their review runs beside the build rather than after it.
+Why it matters: **for teachers**, the safety property is structural, not editorial; **for the compliance reviewers**, the machine-current content registry the last update promised exists — every served item rendered, anchored, and accounted — ready for their review to run beside the build rather than after it.
 
 ### 4. Reliability work nobody sees until it saves you
 
@@ -54,7 +54,7 @@ Why it matters: the rapid delivery was possible _because_ of every quality gate 
 - **1,765 deployments over the twenty-day Vercel window** (258 to production — one production deploy every ~110 minutes), production builds in **94 seconds**, and **zero failed production builds**: all ten build failures happened on previews and never reached main.
 - **98 Linear tickets completed** in the release project — including the entire analytics build, the canonical-domain decision-and-execution, and the submission itself.
 - Sentry issues opened in its 30-day window: **six**, five of them single bursts, exactly one still live.
-- **34 workspaces** in the monorepo, every one behind the same blocking gates. **Zero** high-severity dependency advisories standing. Every workspace reusable for other projects.
+- **34 workspaces** in the monorepo behind the same blocking gates (one research-area lint-coverage gap is named and scheduled in a ratified plan, not glossed). **Zero** high-severity dependency advisories standing. Every workspace reusable for other projects.
 - Surfaces live as of 11 August: the MCP server on production (fronted at www.thenational.academy/mcp), its public landing page, the design-system showcase, and a curriculum hub demo.
 - Every release gate, ratification, and submission decision stays a human decision; the four standing decisions taken in the window are recorded and traceable.
 

@@ -1,7 +1,7 @@
 # design-system-integration — next-session record
 
 Thread: the AIP-137 design-system integration (ADR-213; plan
-`.agent/plans/architecture-and-infrastructure/current/design-system-integration.plan.md`).
+`.agent/plans-backlog-2026-07/architecture-and-infrastructure/current/design-system-integration.plan.md`).
 First written 2026-07-20 ~06:15Z by Salmon binds Undertow (`de5c10`, claude-code/fable-5)
 at a compaction boundary; additive-identity discipline applies — later writers append,
 never rewrite. This record owns the HUB-MIGRATION lane's continuation; Caracal wakes
