@@ -2545,3 +2545,43 @@ OPEN OWNER ITEMS: fleet ratification + W1 sanction; Sonar S6845
 disposition (per-site accept with the PR #565 precedent, at his word).
 The creature dark-first question is RESOLVED by the identity-default
 ruling. Formation letter: `.agent/experience/2026-08-10-swordfish-wakes-trench.md`.
+
+## SLICE 2 DESIGN — σ calibration (decision-complete, 2026-08-11 morning; Swordfish wakes Trench, d0274e)
+
+Owner word (2026-08-11): "sigma should at least approximate the meaning
+of calibrated probabilities." Grounded first-hand against
+`packages/libs/fidelity-review/src/visual-stats.ts` at PR #846 head
+`7b693ce43`. The three DDR-010 candidates COMPOSE, never compete:
+
+1. **S2a — empirical null calibration (the backbone).** capture-pair
+   gains a null mode (`--null-runs k`): capture the LEFT url k+1 times
+   at the same canonical width, score every same-page pair on the SAME
+   window grid, and emit the null distribution of window meanAbsDiff as
+   a quantile table into stats.json. `analysePair` accepts an optional
+   `calibration` (the table); each window then carries
+   `empiricalP = (r+1)/(N+1)` (continuity-corrected rank against the
+   null) and `calibratedSigma = Φ⁻¹(1−p)` so the σ vocabulary keeps its
+   meaning while now MEANING its magnitude. Rejection under calibration:
+   beyond the observed null maximum, with the resolution floor
+   (1/(N+1)) stated in the output — the instrument names what it can
+   and cannot claim. DDR-010 gains the dated amendment when S2a lands.
+2. **S2b — correlation diagnostics inside the null (never a second
+   correction).** Estimate row/column lag-1 autocorrelation of the null
+   diff field and report n_eff/n as a diagnostic in the null summary.
+   The empirical quantiles already absorb correlation — correcting the
+   z-scale AND calibrating against the empirical null would
+   double-count; the diagnostic keeps the naive-z reader honest.
+3. **S2c — per-region alignment (its own follow-on cycle).** Cures the
+   cascade: per horizontal band, find the vertical offset minimising
+   mean abs diff (bounded search), score within aligned segments — and
+   report every non-zero offset as a FIRST-CLASS structural-shift
+   finding, never silently absorb it (false alignment hiding a real
+   offset is the failure mode; the offset IS a finding). Red-first
+   cells with synthetic shifted fields.
+
+Test shape (S2a): unit cells on synthetic fields with known
+distributions (quantile mapping, continuity correction, calibratedSigma
+monotonicity); CLI null-mode cell; integration: a same-image pair
+yields ZERO rejecting windows at the calibrated threshold, a
+synthetically shifted pair rejects. Per-cycle review discipline as
+slice 1 (pre-execution + gateway).
