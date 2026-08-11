@@ -185,8 +185,20 @@ finding has exactly one recorded decision. Applying it is mechanical.
 - [x] T3: amend `boot-failure-observability` and
       `production-liveness-detection` (rows 20–30, including the row-28
       check).
-- [ ] T4: post the adjudication reply (rows 10–13, 36), re-request
-      review, and record the ledger completion on the tickets.
+- [x] T4: post the adjudication reply (rows 10–13, 36), re-request
+      review, and record the ledger completion on the tickets. Evidence:
+      [PR adjudication](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/746#issuecomment-5251424241);
+      Linear comments `626aaa2d-26e2-460c-a087-4d659d5f66ec`
+      (MCP-475), `e102e0ae-ec81-48d5-a610-09e42c029b1d`
+      (MCP-479), `2fdd6924-f0c0-4170-903b-c70b88ea4354`
+      (MCP-480), and `60917574-1f92-4102-abaa-25a89b5f5b36`
+      (MCP-481), all 2026-08-11.
+
+T4 records the completed publication actions; it does not satisfy acceptance
+criterion 3 by itself. At `8728ec9e55b3a1d624315d6cf4b1f444937bf5df`,
+all 19 reported checks were green and no inline review thread remained, but
+the code-owner decision was still `CHANGES_REQUESTED` from an older head.
+Fresh code-owner clearance remains mandatory before merge.
 
 All four todos are commits on the existing PR #746 branch — one review
 round, no new PR.
