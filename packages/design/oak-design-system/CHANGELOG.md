@@ -1,5 +1,15 @@
 # Changelog — Oak Open Curriculum Design System
 
+## Unreleased (repo-side) — 2026-08-11
+
+**Added / Changed — the identity-default theme model (DDR-003 dated amendment 2026-08-11).**
+
+- **`oakTheme.clear()`** joins the runtime API: removes the persisted choice AND the in-memory session choice, then re-runs the automatic contrast route — an OS `prefers-contrast: more` request keeps high-contrast after the clear (the access commitment survives a return to the default). "Identity default" is the consuming store layer's control value for the cleared state; it is a clear, never a theme — the sentinel string never reaches `localStorage` or `data-theme`.
+- **`get()`'s no-choice collapse is now `'light'`** (was `'system'`): with no choice the page carries no `data-theme` attribute, so the IDENTITY's own polarity governs — `get()` cannot see a brand's lever, so its collapse names the kit-base default and stops claiming device-following the page no longer does. Controls that must distinguish "chosen" from "applied" read `choice()` (unchanged).
+- **`:root` returns to `color-scheme: light`** (reverting the 2026-08-10 interim `light dark`): the root's scheme is the identity's own default; "system" is a PERSON's choice, applied via `data-theme='system'`. The `:root[data-theme]` specificity guards are unchanged — every explicit choice still beats a brand's polarity lever.
+- **The creature (EMC²) polarity lever returns** (`:root{color-scheme:dark}` in its brand sheet) as first-class design intent, now with a `:root:not([data-theme])`-scoped icon-filter re-point so kit icons read correctly on the lever-dark default face.
+- MINOR per the versioning policy below. Authored repo-side; reaches the studio via the design-sync batch, which assigns the version at that sync.
+
 ## Unreleased (repo-side) — 2026-07-26
 
 **Added — inverted-surface focus family + code-ramp completion (MCP-128; mechanism recorded in DECISIONS "A composed token is substituted where it is declared").**

@@ -3,7 +3,11 @@
    GENERATED from src/oak-theme.ts (tsc type-erasure only; comments survive).
    Edit the source, then run the workspace build and sync:runtime scripts —
    the committed root copy is byte-parity-gated by the workspace test suite.
-   Themes: "system" (default — follows OS) | "light" | "dark" | "high-contrast" | "colour-safe".
+   Themes: "system" | "light" | "dark" | "high-contrast" | "colour-safe".
+   With no stored choice the page shows its IDENTITY's own default — no
+   data-theme attribute, so a brand's polarity lever governs (DDR-003
+   amendment 2026-08-11: the person's choice wins; the identity speaks
+   first when the person is silent).
    Persists to localStorage("oak-theme"); applies before first paint when
    loaded synchronously in <head> as a script element with src "oak-theme.js".
    (This comment must never contain a literal closing-script sequence: the file
@@ -11,12 +15,17 @@
    script element at the first such sequence regardless of JS context.)
    Access commitment: with no stored choice, an OS-level request for more
    contrast (prefers-contrast: more) gets the high-contrast theme
-   automatically. An explicit user choice always wins.
-   API: oakTheme.set("dark"), oakTheme.get(), oakTheme.choice(), oakTheme.themes.
+   automatically. An explicit user choice always wins, and clear() re-runs
+   the automatic route so the commitment survives a return to the default.
+   API: oakTheme.set("dark"), oakTheme.clear(), oakTheme.get(),
+   oakTheme.choice(), oakTheme.themes.
    choice() returns the EXPLICIT choice (this session's set() or the persisted
-   value) and null when none exists — get() collapses no-choice into the
-   applied theme by design (pre-paint application needs a concrete value), so
-   controls that must distinguish "chosen" from "applied" read choice().
+   value) and null when none exists — the no-choice state controls render as
+   "Identity default" (a control value of the consuming store layer, never a
+   theme: it must not reach localStorage or data-theme). get() collapses
+   no-choice to the kit-base default "light" (a concrete value for consumers
+   that need one; it cannot see a brand's polarity lever), so controls that
+   must distinguish "chosen" from "applied" read choice().
    Motion axis (orthogonal to themes): oakTheme.motion.set("system"|"reduced"|"full"),
    .get(), .modes — persists to localStorage("oak-motion"); default follows the
    OS prefers-reduced-motion; explicit choice wins (school-managed devices).
@@ -71,7 +80,11 @@
     return null;
   }
   function get() {
-    return current || stored() || auto() || 'system';
+    // The no-choice collapse names the KIT-BASE default: light. A brand's
+    // polarity lever renders elsewhere (brand.css, invisible from here), so
+    // this is a concrete value for consumers that need one, never a claim
+    // about the rendered page — the honest control accessor is choice().
+    return current || stored() || auto() || 'light';
   }
   // The explicit choice, or null when none exists. The kit-contract accessor
   // (MCP-388): downstream stores render "no choice" honestly from this,
@@ -91,6 +104,22 @@
     }
     current = t;
     apply(t);
+  }
+  // Return to the identity's own default (DDR-003 amendment 2026-08-11):
+  // clearing removes BOTH halves of the choice — the persisted value and the
+  // in-memory current — then re-runs the automatic contrast route, so an OS
+  // request for more contrast keeps high-contrast after the clear (the
+  // access commitment survives). "Identity default" is the consuming
+  // store layer's control value for this state; it is a clear, never a
+  // theme, so no sentinel string exists at this boundary.
+  function clear() {
+    try {
+      localStorage.removeItem(KEY);
+    } catch {
+      // Best-effort like set(): the in-memory reset below still wins.
+    }
+    current = null;
+    apply(auto() || null);
   }
   apply(stored() || auto() || null);
   // Follow a live OS contrast change until the user makes an explicit choice.
@@ -162,6 +191,7 @@
   // above and the assembled value cannot drift apart.
   const runtime = {
     set: set,
+    clear: clear,
     get: get,
     choice: choice,
     themes: THEMES.slice(),
