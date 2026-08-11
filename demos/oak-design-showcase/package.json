@@ -25,7 +25,7 @@
     "@oaknational/oak-design-react": "workspace:*",
     "@oaknational/oak-design-system": "workspace:*",
     "@oaknational/type-helpers": "workspace:*",
-    "next": "16.2.11",
+    "next": "16.3.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },

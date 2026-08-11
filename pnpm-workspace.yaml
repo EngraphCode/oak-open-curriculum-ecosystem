@@ -167,12 +167,4 @@ overrides:
   postcss: '>=8.5.26'
   qs: '>=6.15.2'
   rollup: '>=4.59.0'
-  # Security floor: sharp inherits libvips CVEs below 0.35.0 (high;
-  # CVE-2026-33327 and siblings). Reached only through Next's image
-  # optimiser, and next caps optionalDependencies.sharp at ^0.34.5 through
-  # 16.2.11, so this floor deliberately exceeds the range Next itself tests
-  # against — the image path is exercised on the bump to prove it. sharp is
-  # 0.x, so a future 0.36 is a breaking line: re-verify the image path when
-  # it arrives. Drop this floor once next's own range admits >=0.35.
-  sharp: '>=0.35.0'
   sucrase: '>=3.35.1'
