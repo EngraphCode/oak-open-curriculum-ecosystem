@@ -18,9 +18,9 @@ The canonical role key is `curator`; `Knowledge Curator` is the
 descriptive session label for the same substrate-care responsibility.
 
 The doctrine for the role lives in
-[`PDR-081`](../../practice-core/decision-records/PDR-081-curator-role-and-substrate-care-lane.md).
+[`PDR-081`](../../../practice-core/decision-records/PDR-081-curator-role-and-substrate-care-lane.md).
 The principle the role operationalises lives in
-[`PDR-072`](../../practice-core/decision-records/PDR-072-knowledge-curation-as-autonomic-learning.md).
+[`PDR-072`](../../../practice-core/decision-records/PDR-072-knowledge-curation-as-autonomic-learning.md).
 This SKILL is the actionable workflow for a single pass.
 
 ## When To Run
@@ -152,7 +152,7 @@ file (see §Per-Pass Log).
 
 The former per-pass log file (a "surfaces surveyed → disposition" /
 "concept → home" pointer index) is **superseded** by
-[`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md)
+[`permanent-doc-is-the-consolidation-record`](../../../rules/permanent-doc-is-the-consolidation-record.md)
 (comms-research closeout consolidation, 2026-06-14; PDR-081 §Amendment Log):
 the commit plus the homed substance are the curator's record, and git history
 is the pass-navigation index. The pass's observable claim is a normal active

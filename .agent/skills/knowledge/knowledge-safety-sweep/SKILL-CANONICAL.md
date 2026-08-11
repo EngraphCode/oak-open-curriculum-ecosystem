@@ -12,7 +12,7 @@ description: >-
 # Knowledge Safety Sweep
 
 **Governance**: extracts the deep loss-scan from
-[`session-handoff`](../session-handoff/SKILL-CANONICAL.md) (its context-loss scan and metaloss
+[`session-handoff`](../../session-handoff/SKILL-CANONICAL.md) (its context-loss scan and metaloss
 exploration) and [`consolidate-docs`](../consolidate-docs/SKILL-CANONICAL.md) (its conservation
 discipline) into a standalone, mid-session invocable. Imported and adapted 2026-07-20 from the
 Resonance estate (a private sibling Practice repo — no public upstream URL exists; source
@@ -39,7 +39,7 @@ temporary surfaces.
 ## Workflow
 
 The sweep is retrospective metacognition under time pressure: enter
-[`metacognition`](../cognition/metacognition/SKILL-CANONICAL.md) genuinely at its open — what does THIS
+[`metacognition`](../../cognition/metacognition/SKILL-CANONICAL.md) genuinely at its open — what does THIS
 context uniquely hold, and what is the fluent "already captured somewhere" claim that has not
 actually been checked? — before walking the classes. Time pressure is the reason to enter
 properly, not the excuse to tick it.
