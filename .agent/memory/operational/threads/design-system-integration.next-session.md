@@ -1,7 +1,7 @@
 # design-system-integration — next-session record
 
 Thread: the AIP-137 design-system integration (ADR-213; plan
-`.agent/plans/architecture-and-infrastructure/current/design-system-integration.plan.md`).
+`.agent/plans-backlog-2026-07/architecture-and-infrastructure/current/design-system-integration.plan.md`).
 First written 2026-07-20 ~06:15Z by Salmon binds Undertow (`de5c10`, claude-code/fable-5)
 at a compaction boundary; additive-identity discipline applies — later writers append,
 never rewrite. This record owns the HUB-MIGRATION lane's continuation; Caracal wakes
@@ -2545,3 +2545,184 @@ OPEN OWNER ITEMS: fleet ratification + W1 sanction; Sonar S6845
 disposition (per-site accept with the PR #565 precedent, at his word).
 The creature dark-first question is RESOLVED by the identity-default
 ruling. Formation letter: `.agent/experience/2026-08-10-swordfish-wakes-trench.md`.
+
+## SLICE 2 DESIGN — σ calibration (decision-complete, 2026-08-11 morning; Swordfish wakes Trench, d0274e)
+
+Owner word (2026-08-11): "sigma should at least approximate the meaning
+of calibrated probabilities." Grounded first-hand against
+`packages/libs/fidelity-review/src/visual-stats.ts` at PR #846 head
+`7b693ce43`. The three DDR-010 candidates COMPOSE, never compete:
+
+1. **S2a — empirical null calibration (the backbone).** capture-pair
+   gains a null mode (`--null-runs k`): capture the LEFT url k+1 times
+   at the same canonical width, score every same-page pair on the SAME
+   window grid, and emit the null distribution of window meanAbsDiff as
+   a quantile table into stats.json. `analysePair` accepts an optional
+   `calibration` (the table); each window then carries
+   `empiricalP = (r+1)/(N+1)` (continuity-corrected rank against the
+   null) and `calibratedSigma = Φ⁻¹(1−p)` so the σ vocabulary keeps its
+   meaning while now MEANING its magnitude. Rejection under calibration:
+   beyond the observed null maximum, with the resolution floor
+   (1/(N+1)) stated in the output — the instrument names what it can
+   and cannot claim. DDR-010 gains the dated amendment when S2a lands.
+2. **S2b — correlation diagnostics inside the null (never a second
+   correction).** Estimate row/column lag-1 autocorrelation of the null
+   diff field and report n_eff/n as a diagnostic in the null summary.
+   The empirical quantiles already absorb correlation — correcting the
+   z-scale AND calibrating against the empirical null would
+   double-count; the diagnostic keeps the naive-z reader honest.
+3. **S2c — per-region alignment (its own follow-on cycle).** Cures the
+   cascade: per horizontal band, find the vertical offset minimising
+   mean abs diff (bounded search), score within aligned segments — and
+   report every non-zero offset as a FIRST-CLASS structural-shift
+   finding, never silently absorb it (false alignment hiding a real
+   offset is the failure mode; the offset IS a finding). Red-first
+   cells with synthetic shifted fields.
+
+Test shape (S2a): unit cells on synthetic fields with known
+distributions (quantile mapping, continuity correction, calibratedSigma
+monotonicity); CLI null-mode cell; integration: a same-image pair
+yields ZERO rejecting windows at the calibrated threshold, a
+synthetically shifted pair rejects. Per-cycle review discipline as
+slice 1 (pre-execution + gateway).
+
+### S2a pre-execution review FOLDED (2026-08-11, REVISE → amendments below; verdict full text in the session transcript)
+
+The reviewer computed the real numbers: pooled N = C(k+1,2)·windows;
+calibratedSigma SATURATES at Φ⁻¹(N/(N+1)) ≈ 4.2 at k=6 — **6σ is
+unreachable for any feasible null**, so under calibration `--threshold`
+goes INERT and the rejection predicate is `meanAbsDiff > nullMax`
+(empiricalP at the floor), with the floor and the σ saturation printed.
+The naive z stays reported alongside — the z=100-vs-σmax=4 disagreement
+IS the honesty the owner asked for. Binding amendments:
+
+- **k=6 default** (~21 pairs, ~5% per-run family false-alarm; floor
+  k≥2 at parse). Serial captures, fresh launch per capture (matches the
+  live path — the exchangeability warrant), order + timestamps + per-
+  capture heights recorded; all k+1 cropped to common min height.
+- **Settle identity**: capture-pair ADOPTS the estate settle recipe
+  (settleForCapture/captureShot — second consumer); null and live
+  captures traverse the IDENTICAL capture path, else the null inflates
+  and the instrument desensitises.
+- **Rank raw meanAbsDiff against the null, never z** — removes σ₀ and
+  its MAD floor from the calibrated path entirely.
+- **Calibration block** (single-invocation self-calibration: left k+1 +
+  right once, null in memory, ONE stats.json; no persisted-table mode
+  in S2a): k, pair count, N, exact nullMax, top-100 order statistics
+  (the 1/(N+1) floor is real only if tail ranks are exact), coarse
+  quantiles for display, floor, settle-recipe identity. Result-typed at
+  every boundary.
+- **Pool FULL windows only**; partial bottom-row windows are marked
+  uncalibrated with the reason — never silently pooled. The pooled null
+  licenses the MARGINAL claim (exceeds all-but-p of same-page null
+  windows anywhere), stated in the output.
+- **Heatmap/ordering under calibration**: exceedance meanAbsDiff/nullMax
+  drives both strength and rejecting order.
+- **Φ⁻¹** as a pure Acklam rational approximation in visual-stats,
+  unit-tested against known quantiles; seeded in-test LCG (never
+  Math.random); tie rule p = (1 + #{null ≥ observed})/(N+1).
+- **The red-first integration cell**: a within-null-jitter pair (small
+  uniform Δ) REJECTS under the naive rule today (σ₀ floors at 0.5) and
+  yields ZERO rejections under calibration — genuinely red at head.
+  (The same-image cell is vacuous: zero diff already passes.)
+
+## COMPACTION FREEZE 4 (2026-08-11 midday) — Swordfish wakes Trench (d0274e); seat CONTINUES; ALL PROCESSES STOP at owner word
+
+Owner word: "prepare for compaction … and once you are ready please stop
+all processes." Claim `645b9e0b-afea-4743-8cc6-5dad3ad39575` RETAINED.
+An INDEX, not a summary.
+
+STATE, first-hand at freeze: PR #846 branch
+`jimcresswell/design-identity-switchboard-pr2` at `995e7e08c` — clean,
+local == remote. Coordination `coordination/2026-08-11-7b3df0` at
+`87978266b` + this entry. Sonar on PR #846: ONE open MAJOR — S6845
+(owner-gated, per-site accept with the PR #565 precedent at his word).
+Suites at the last code commit: fidelity-review 188/188, showcase
+114/114 unit + 27/27 UI + 43/43 a11y e2e, hub 325/325, kit 17/17.
+
+THE DAY'S FIVE LANDINGS (all two-moment reviewed; SHAs):
+
+1. `dff0f48ec`+`6bcb8541d` — slice 1, identity-default theme model
+   (DDR-003 amendment implemented; creature lever restored WITH
+   :root:not([data-theme]) icon-filter arms; ~20 cells re-trued as
+   relations).
+2. `145cf6592`+`a8e54738d` — Copilot round: 12/12 empirically
+   adjudicated (10 cured incl. the RSC undefined-headings defect worse
+   than reviewed; 2 declined with evidence), all threads replied (bot
+   identity) and resolved 12/12.
+3. `7b693ce43` — picker-contrast round: idempotent applyFrameTheme +
+   filtered MutationObserver; the flip cell earned a real red via
+   marker-then-assert (a naive poll passed vacuously).
+4. `75de6db37`+`995e7e08c` — S2a σ calibration: exact empirical p, both-
+   end saturation (gateway caught +saturation stamped on the QUIETEST
+   windows in live data), inert threshold, exact top-100 tail,
+   settle-identity auditable, degenerate-null shape (settle makes the
+   static specimen byte-stable — nullMax 0). First live run: N=21480,
+   floor 4.66e-5, σ-saturation 3.91. DDR-010 dated amendment records it.
+5. `9ea40e53f` (coordination) — S2b/S2c design + review amendments
+   folded (§SLICE 2 DESIGN above).
+
+RESUME ORDER:
+
+1. Re-arm per start-right: canonical watcher (`--exclude-tag heartbeat`,
+   3600s backstop — re-arm on exit notification) PAIRED with the F-75
+   delta poll; heartbeat pair (comms `--tag heartbeat` typed args +
+   `claims heartbeat`) on the retained claim, model string `Opus-5`
+   (F-92); ARC design-lane tail
+   (`.agent/collaboration/rapid-comms/2026-08-10-design-lane-…`); gap
+   sweep from BEFORE freeze (watch for the Director's adjudication of
+   comms-landscape event 4d92b772).
+2. **S2b — correlation diagnostics** (small, report-only): lag-1
+   row/column autocorrelation of the null diff fields + n_eff/n ratio
+   into the calibration summary — needs diff-field retention at pooling
+   (capture-null's fullWindowScores currently discards fields); never a
+   second correction (the empirical quantiles already absorb
+   correlation).
+3. **S2c — per-region alignment** (own cycle, red-first): per-band
+   vertical offset search, score within aligned segments, EVERY non-zero
+   offset a first-class structural-shift finding.
+4. **Fleet W1 at owner sanction** (plan `pr-846-review-fleet` rev 1;
+   gate expires 2026-08-13; T3 pre-flight incl. SHA-pinned range).
+
+OPEN OWNER ITEMS: S6845 disposition; fleet ratification + W1 sanction;
+PR #846 un-draft at review-credit return (Copilot re-request per head
+move). Separate lane: agent-registry-resurrection plan T1 awaits pickup.
+
+REFLECTION (held): the two-moment review discipline the owner made
+standing this morning paid five times in one day — and its best
+catches all shared one shape: reviews that COMPUTE (the unreachable 6σ,
+the mutation-record loop, the +σ sign in live data) rather than opine.
+The instrument now prints its own limits — saturation, floor, inert
+threshold, degenerate null — which is the design lane's thesis carried
+into statistics: honesty as structure, not vigilance.
+
+## COLD PAUSE marker (2026-08-11 evening) — Swordfish wakes Trench (d0274e); wake-and-hold at owner word; FREEZE 4 map stands with one correction
+
+Owner word: "come up to speed, and then cold pause." Grounding was
+first-hand; no processes armed at any point; claim
+`645b9e0b-afea-4743-8cc6-5dad3ad39575` retained.
+
+STATE DELTA since FREEZE 4 (the only corrections to its map):
+
+- PR #846 tip is now `351102655` — the OWNER merged main into the lane
+  branch at 2026-08-11 16:42 +0100 (main traffic only: releases
+  1.159.0–1.159.3; PRs #745/#746/#852/#853; no design-lane source
+  changes). Worktree fast-forwarded to match, clean. PR still draft,
+  mergeStateStatus BLOCKED, no new review threads.
+- Comms sweep 12:00Z→20:41Z: dependency drive complete (MCP-549;
+  #855/#856/#857 merged), Wren's #851 cure arc complete, Director
+  froze/resumed with card answers on MCP lanes only. NOTHING routed to
+  the design lane; comms-landscape event 4d92b772 remains
+  un-adjudicated (stays on the resume map).
+- Fleet-relevant napkin harvests worth reading at resume: Copilot does
+  NOT auto-re-review on push (explicit re-request each round, verify
+  via reviewRequests); Copilot 20k-line diff ceiling returns
+  size-skips; merge-bot stale-attempt blindness (worst-of-all-instances
+  vs latest-per-name).
+
+RESUME ORDER: unchanged from FREEZE 4 (re-arm; S2b correlation
+diagnostics; S2c per-region alignment; fleet W1 at owner sanction —
+gate expires 2026-08-13). OPEN OWNER ITEMS unchanged: S6845
+disposition; fleet ratification + W1 sanction; PR #846 un-draft at
+review-credit return (Copilot re-request per head move — now confirmed
+mandatory by Forge's finding above).
