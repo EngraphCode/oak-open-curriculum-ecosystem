@@ -59,6 +59,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Initialize CodeQL
+        # DEVIATES FROM LATEST: codeql-bundle-v2.26.2 is not an action release; use v4.37.6; revisit 2026-09-11
         uses: github/codeql-action/init@5595ccaf912efad79be6eef63a5619ff05969be3 # v4.37.6
         with:
           languages: ${{ matrix.language }}
@@ -66,6 +67,7 @@ jobs:
           config-file: ./.github/codeql/codeql-config.yml
 
       - name: Perform CodeQL Analysis
+        # DEVIATES FROM LATEST: codeql-bundle-v2.26.2 is not an action release; use v4.37.6; revisit 2026-09-11
         uses: github/codeql-action/analyze@5595ccaf912efad79be6eef63a5619ff05969be3 # v4.37.6
         with:
           category: '/language:${{ matrix.language }}'
