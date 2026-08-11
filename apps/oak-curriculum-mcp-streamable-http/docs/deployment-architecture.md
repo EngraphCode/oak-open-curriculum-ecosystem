@@ -73,6 +73,19 @@ This means the deployment contract in-repo is explicit: build `dist/server.js`,
 point `package.json` `main` at it, and let Vercel's Express integration import
 the default handler. Local `dist/index.js` is not the deployed artefact.
 
+### Function Duration Ceiling
+
+The serverless function's maximum duration is the Vercel platform default
+(300 seconds at the current plan) — `vercel.json` declares no `maxDuration`,
+deliberately: the Express preset builds the function from the `package.json`
+`main` artefact rather than an `api/` directory, so no verifiable `functions`
+glob exists for it, and a `functions` pattern that matches nothing fails the
+build outright. The long-lived requests that used to ride to this ceiling
+(standalone GET SSE streams, ~980 production timeout kills/day) are refused
+with 405 at the route instead (MCP-545). Choosing an explicit lower ceiling
+remains open and is adjudicated on measured legitimate POST durations, not
+configured speculatively here.
+
 ### Key Files
 
 **vercel.json**

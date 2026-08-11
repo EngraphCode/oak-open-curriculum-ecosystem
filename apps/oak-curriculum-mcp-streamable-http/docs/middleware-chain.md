@@ -43,8 +43,8 @@ For any incoming HTTP request, middleware executes in this order:
    10b. MCP Request Handler (streamableHttpHandlerClerk or raw handler)
    ↓
    [For GET /mcp:]
-   10a. mcpAuthClerk (OAuth token validation) OR bypass (if DANGEROUSLY_DISABLE_AUTH)
-   10b. MCP SSE Handler
+   10a. 405 stream refusal (identity-independent, no auth leg; MCP-545 —
+        the standalone SSE stream is not offered)
    ↓
    [For GET /healthz:]
    9a. CORS preflight (corsMw)
@@ -343,7 +343,8 @@ flowchart TD
 
 7. **Phase 7**: Auth Routes (`setupAuthRoutes`)
    - OAuth metadata endpoints (`/.well-known/*`)
-   - Protected MCP routes (`POST /mcp`, `GET /mcp` with `mcpAuthClerk`)
+   - Protected MCP route (`POST /mcp` with `mcpAuthClerk`) and the
+     identity-independent `GET /mcp` 405 stream refusal (MCP-545)
 
 ### Execution Order (at runtime)
 

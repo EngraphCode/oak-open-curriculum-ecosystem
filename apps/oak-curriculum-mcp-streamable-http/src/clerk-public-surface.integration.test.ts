@@ -354,20 +354,50 @@ describe('the MCP protocol leg still reaches Clerk (MCP-518)', () => {
     expect(res.headers[CLERK_STATUS_HEADER]).toBe('signed-out');
   });
 
-  it('routes a protocol GET through Clerk even when it also names HTML', async () => {
+  it('classifies a protocol GET as protocol (Clerk observes) and refuses it 405', async () => {
     // The one shape that is browser-ish and protocol-ish at once. The
-    // protocol leg wins, so auth must too — otherwise the browser skip
-    // would be a way to reach the MCP handler with no auth context, which
-    // `getAuth` cannot survive.
+    // protocol leg wins — the global surface fork still routes it through
+    // Clerk, so the browser skip is not a classification escape — and the
+    // protocol leg's terminal answer is now the identity-independent 405
+    // stream refusal (MCP-545): no GET reaches the MCP handler at all.
     const { app, reachedClerk } = await createHarness();
 
-    await request(app)
+    const res = await request(app)
       .get('/mcp')
       .set('Host', SERVED_HOST)
       .set('Accept', 'text/html, text/event-stream')
       .set('Sec-Fetch-Dest', 'document')
       .set('Cookie', SIGNED_IN_COOKIES);
 
+    expect(res.status).toBe(405);
+    expect(res.headers['allow']).toBe('POST');
     expect(reachedClerk).toHaveBeenCalledWith('GET /mcp');
+  });
+
+  it('answers an unauthenticated protocol GET with the 405 refusal, not the 401 challenge', async () => {
+    // Deliberate posture (MCP-545): the route-level auth leg is gone from
+    // the GET mount, so an anonymous GET draws the same terminal 405 as a
+    // signed-in one — a 401 on a method that can never succeed would only
+    // invite a token retry into the same refusal. The global surface fork
+    // still observes the request; what must be absent is the challenge.
+    const { app } = await createHarness();
+
+    const res = await request(app)
+      .get('/mcp')
+      .set('Host', SERVED_HOST)
+      .set('Accept', PROTOCOL_ACCEPT);
+
+    expect(res.status).toBe(405);
+    expect(res.headers['allow']).toBe('POST');
+    expect(res.headers['www-authenticate']).toBeUndefined();
+    // Body pinned in the auth-ENABLED variant too: the two registration
+    // modes mount the refusal at separate call sites, and only a shared
+    // envelope pin catches one of them drifting to a different handler.
+    expect(res.headers['content-type']).toMatch(/application\/json/);
+    expect(res.body).toStrictEqual({
+      jsonrpc: '2.0',
+      error: { code: -32000, message: 'Method not allowed.' },
+      id: null,
+    });
   });
 });

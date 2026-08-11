@@ -14,6 +14,37 @@ import { deriveSelfOrigin, hostValidationErrorMessage } from './host-validation-
 import { MCP_RESOURCE_PATH } from './served-origin.js';
 
 /**
+ * Refuses the standalone GET SSE stream with the spec-mandated 405 (MCP-545).
+ *
+ * This server does not offer the standalone SSE stream: under the stateless
+ * per-request pattern a GET-opened stream can never receive an event, so it
+ * idles until the platform kills the function at its duration ceiling
+ * (~980 production timeout events/day before this refusal). The body mirrors
+ * the SDK's own refusal idiom verbatim; `Allow` names this server's surface.
+ *
+ * Mounted WITHOUT auth middleware: the refusal is identity-independent
+ * (matching the accept-header gate precedent), and a 401 on a method that
+ * can never succeed would invite a token retry into the same 405. Residual
+ * asymmetry, kept deliberately: a GET whose Accept lacks text/event-stream
+ * still draws 406 from the upstream accept gate; only stream-accepting GETs
+ * reach this 405. Express routes HEAD through this handler too, curing the
+ * same hang for HEAD requests.
+ */
+function createRefuseGetMcp(log: Logger): RequestHandler {
+  return (_req, res) => {
+    log.debug('Refused standalone GET /mcp SSE stream (405, MCP-545)');
+    res
+      .status(405)
+      .set('Allow', 'POST')
+      .json({
+        jsonrpc: '2.0',
+        error: { code: -32000, message: 'Method not allowed.' },
+        id: null,
+      });
+  };
+}
+
+/**
  * Registers unauthenticated MCP routes (when DANGEROUSLY_DISABLE_AUTH=true).
  * Volumetric abuse control is owned at the Cloudflare/Vercel edge
  * (ADR-219); `js/missing-rate-limiting` findings on these registrations
@@ -28,8 +59,8 @@ function registerUnauthenticatedRoutes(
   log.warn('⚠️  AUTH DISABLED - DANGEROUSLY_DISABLE_AUTH=true (DO NOT USE IN PRODUCTION)');
   log.debug('Registering POST /mcp route (auth disabled)');
   app.post('/mcp', createMcpHandler(mcpFactory, observability, log));
-  log.debug('Registering GET /mcp route (auth disabled)');
-  app.get('/mcp', createMcpHandler(mcpFactory, observability, log));
+  log.debug('Registering GET /mcp stream refusal (auth disabled)');
+  app.get('/mcp', createRefuseGetMcp(log));
 }
 
 /**
@@ -124,8 +155,8 @@ function registerAuthenticatedRoutes(deps: {
   });
   log.debug('Registering POST /mcp route (HTTP-level auth via mcpRouter)');
   app.post('/mcp', mcpRouter, createMcpHandler(mcpFactory, observability, log));
-  log.debug('Registering GET /mcp route (HTTP-level auth via mcpRouter)');
-  app.get('/mcp', mcpRouter, createMcpHandler(mcpFactory, observability, log));
+  log.debug('Registering GET /mcp stream refusal (identity-independent, no auth leg)');
+  app.get('/mcp', createRefuseGetMcp(log));
 }
 
 /**

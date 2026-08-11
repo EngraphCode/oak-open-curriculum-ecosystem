@@ -23,8 +23,12 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
   ),
   // MCP-351: the published PRM resource composes the shared
   // MCP_RESOURCE_PATH constant; the served document is byte-identical.
+  // MCP-545: both GET /mcp mounts now serve the 405 standalone-stream
+  // refusal; its body mirrors the SDK's own refusal idiom verbatim (a
+  // vendor-shaped wire error, no new Oak-authored agent-facing copy) and
+  // the C705–C708 metadata rows are untouched by the delta.
   'apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts': reviewed(
-    '374e6f7c8b3b173b4a00a2d475f4f6b0aa97f5bec4aec40cadd679657dd9dddb',
+    '4ce817e63800dd749adc9c73930636d9e3e3259561e07babef15725d90efc997',
     ['C705', 'C706', 'C707', 'C708'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/get-mcp-resource-url.ts': excluded(
