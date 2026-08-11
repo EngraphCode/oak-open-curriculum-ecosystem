@@ -1761,7 +1761,7 @@ instances, recorded here for peers):
   rounds adjudicated. Mechanism discoveries are HOMED IN THE SKILL (pnpm 11.20 has
   no name-targeted transitive refresh; the age floor silently downgrades AND makes
   floored targets invisible to `pnpm outdated`; overrides rewrite dependents'
-  recorded ranges incl. peers; a global bounded floor drags earLIER-major consumers
+  recorded ranges incl. peers; a global bounded floor drags earlier-major consumers
   up — parent-scoped overrides per line); this entry is the pointer, not the home.
 - AUTHORED DOCTRINE LAGGED ENACTED PRACTICE WITHIN HOURS: the skill text prescribed
   `git checkout pnpm-lock.yaml` restore while this seat's executed probes used the

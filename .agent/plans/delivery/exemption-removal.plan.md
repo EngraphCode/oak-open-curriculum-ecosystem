@@ -108,12 +108,17 @@ sequenced, rejected, reshaped, folded, or closed.
   and an unregistered disable fails CI — `repo-safe` for the mechanism
   (validator + fixture); `owner-held` for `pending` rows, recorded in
   the register files themselves (each carries the comms event id of
-  its owner card and the answer).
+  its owner card and the answer). `pending` is a sweep-time state
+  only: plan CLOSURE requires zero pending rows — every one resolved
+  to `fix-routed` or `policy-ratified` before the node archives.
 - Every named special case in the ledger carries a recorded warrant, a
   pointer to its owning decision record, and a falsifier or removal
   condition — `repo-safe`: the ledger rows present and cross-linked.
-- The sweep's cure-first discipline is evidenced: each sweep PR's body
-  counts rows cured vs rows registered — `repo-safe`: PR record.
+- The sweep's cure-first discipline is evidenced in the landed record:
+  each sweep lands its register updates and their cures in the same
+  reviewed change, so the register rows and commit history are the
+  proof — `repo-safe`: the landed register + commits (PR bodies are
+  not durable records, per `permanent-doc-is-the-consolidation-record`).
 
 ## Out of scope
 

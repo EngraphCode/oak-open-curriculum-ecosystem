@@ -191,9 +191,11 @@ stamp; the executing seat is the one the owner starts.
    recurring-despite-home items (recurrence evidence routes to the
    doctrine-traction lane before the duplicate is marked); the
    drained-stratum sampled verification leg runs alongside.
-   Acceptance: adjudicated disposition set covering the full
-   S1-censused live set (≥ the 147-file 2026-08-11 baseline);
-   verify legs recorded; sample leg reported.
+   Acceptance: adjudicated disposition set completely covering the
+   recomputed S1 live set, with baseline entries that disappeared
+   before the census reconciled separately (counts are sizing
+   context, never load-bearing); verify legs recorded; sample leg
+   reported.
 3. **S3 — Execute.** Graduation batches value-ordered through
    reviewed PRs per the batching decision; mark bodies; retire index
    lines; rewrite `MEMORY.md` as the live-entries-only index (under

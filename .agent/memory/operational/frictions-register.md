@@ -3692,9 +3692,12 @@ commit SHA and the closing plan reference.
   files while several gate suites ran concurrently on the host. This is
   the same fast-death the 2026-08-10 seat hit twice with the quiet
   config and recorded cause-unknown before falling back to the noisy
-  full-stream config — the signature is now captured: the default
-  per-step deadline, not the exclusion mechanism, is the binding
-  constraint at directory scale under load.
+  full-stream config. The initial read at capture — that the default
+  per-step deadline, not the exclusion mechanism, was the binding
+  constraint — was FALSIFIED the same day by the probes below: 180s
+  died identically while the full stream survived at 60s, isolating
+  the EXCLUSION PATH as the implicated mechanism. Preserved here as
+  falsified history; the probe entries below carry the live cause.
 - **Expected**: a drain pass over the live event directory completes
   comfortably inside the step deadline at any realistic directory size.
 - **Mitigation attempt FALSIFIED same day**: `--step-timeout-ms 180000`

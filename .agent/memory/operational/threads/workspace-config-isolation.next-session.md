@@ -77,9 +77,12 @@ Current Continuation below.
   PR, ticket at cut (backslash joins `GLOB_CANDIDATE` + refusal
   red-proof; bin success line scopes to `$TURBO_ROOT$` inputs;
   interior-`//` probe-then-encode) — the post-merge harvest rows,
-  spec in the isolation plan's §Slice S1b; (2) **MCP-543** re-scoped
-  (the S2 ledger below stands); (3) todo 2's three-PR de-hatch arc;
-  (4) todo 6 close+archive. Hardening node H1→H2→H4 independent
+  spec in the isolation plan's §Slice S1b; (2) the **vendoring-symlinks
+  PR** (nine lock-pinned vendored `.claude/skills` symlinks become real
+  files — the owner-card queue places it directly after S1b, per the
+  heading); (3) **MCP-543** re-scoped
+  (the S2 ledger below stands); (4) todo 2's three-PR de-hatch arc;
+  (5) todo 6 close+archive. Hardening node H1→H2→H4 independent
   after S1b. Exemption-removal programme schedules its own sessions.
 - **Linear-ticket monitors (owner-commissioned act 2)**: arm at the
   next active PR window over the live lane tickets (S1b ticket +
@@ -127,7 +130,8 @@ Current Continuation below.
     recorded pointer, not a scanner).
   - S2b path re-points: DEMOTED to a rider on the next PR touching
     those files; never a standalone PR.
-- **S2 (MCP-543) IS CONTESTED BY THE OWNER — EXECUTION BLOCKED**
+- **S2 (MCP-543) CONTEST RESOLVED — only the withdrawn package-move
+  shape is dead; the re-scoped keep-lib shape below is executable**
   (2026-08-11, at the compaction boundary, verbatim: "that package is
   not an sdk, it's a lib supporting an sdk, why would we move it?").
   The challenge caught a real warrant flaw: the move's doctrinal hook

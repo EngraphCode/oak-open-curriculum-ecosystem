@@ -37,7 +37,8 @@ against today's main. The minimum shippable shape without the parent's
 remaining todos is exactly the three surviving slices (H1 slimmed,
 H2, H4) as specified — none reads
 the census register or the de-hatched lint surface; H-slices and the
-parent's census sweeps are cross-seat parallelisable because the
+exemption-removal programme's census sweeps (extracted from the
+parent 2026-08-11) are cross-seat parallelisable because the
 census register is partitioned per-surface.
 
 ## Mechanism — decisions, made (2026-08-11, all measured)

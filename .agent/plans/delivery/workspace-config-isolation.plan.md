@@ -503,6 +503,56 @@ and land together, red-proof-first:
    prefix construction would misread it dead — a loud false positive,
    no live entry).
 
+**S1b executed 2026-08-11 (all three cures landed together with the
+pre-execution code-expert round's amendments).** The measured truths,
+from one probe session (turbo 2.10.9 dry-run; full ledger in
+`turbo-glob.ts`): interior `//` and single-dot segments are NORMALISED
+by turbo in every position (including bare `.` = the repository root,
+94,158 resolved inputs, and trailing `/.` = the directory's full
+tree), so the matcher normalises them — the `./` spelling was probed
+in the same session at the reviewer's direction and FOLDED into the
+same cure; an absolute remainder (`$TURBO_ROOT$//x`) makes turbo
+refuse the whole config ("`inputs` cannot contain an absolute path"),
+so the matcher refuses it as a macro-form verdict; the backslash
+refusal needed no probe — the two arms read `\` under mutually
+inconsistent interpretations (raw in the tracked-set lookup, escaped
+in the compiled regex), which alone forces refusal under the matcher's
+own pinned contract, and the worst case was a FALSE NEGATIVE (a
+tracked backslash-named file exact-matches while turbo hashes zero
+files). The bin's success clause now derives from the scan's
+recomputed `positives` count instead of bare prose.
+
+**S1b follow-up rows (recorded at execution from the pre-execution
+code-expert round; distinct mechanisms, deliberately NOT folded):**
+
+1. `..` segments: today's dead verdict stands, unprobed. The real
+   question is containment, not normalisation — an escaping input
+   (`$TURBO_ROOT$/../x`) leaves the repository root, this validator's
+   own concern class; decide refusal vs a finding class of its own,
+   then probe.
+2. Directory-matching globs (`$TURBO_ROOT$/packages/design/*`): the
+   glob arm has no analogue of the literal arm's directory-prefix
+   expansion. Probe question: does turbo expand a glob match that is
+   a directory to that directory's contents? Zero live instances
+   today (every directory-shaped entry terminates in `**`).
+3. Zero-`$TURBO_ROOT$`-inputs green pass: the bin's header promises
+   it never reports success over nothing checked, but
+   `isDegenerateScan` guards workspaces and config files only — a
+   turbo.json with zero macro inputs passes green having evaluated
+   none. Arguably a legitimate configuration state; needs its own
+   first-principles pass, never a rider. (Partially mitigated: the
+   success line now prints the recomputed count, so "0 positive
+   $TURBO_ROOT$ inputs" is loud.)
+4. GATE for rows 1–2 (friction-ratchet escalation, pre-execution
+   code-expert 2026-08-11: five-plus independent friction signals
+   against the hand-rolled-matcher shape, every one resolved by
+   adding code): before any further hand-encoded vendor semantics,
+   run assumptions-expert at deep depth on the solution class — the
+   matcher reimplements an engine whose ground truth
+   (`turbo --dry=json` resolved inputs) the validator could query
+   directly, and the dry-run cost is now measurable in-repo rather
+   than assumed. Rows 1–2 are blocked behind that verdict.
+
 ### Census enrichment (todos 4–5) — EXTRACTED 2026-08-11
 
 Extracted at the owner's word ("let's move the exemption hunting to a
@@ -703,8 +753,8 @@ only if its opening check shows `no-require-imports` absent.
 - `search-contracts` REMAINS under `packages/libs/` (the move
   withdrawn at the owner's word 2026-08-11) and the field-integrity
   suite executes its eleven live include files (corrected 2026-08-11:
-  the prior twelve-count carried one dead entry) — `repo-safe`: paths
-  - the explicit file-count proof + full `pnpm check` green.
+  the prior twelve-count carried one dead entry) — `repo-safe`: the
+  explicit eleven-path file-count proof plus full `pnpm check` green.
 - Every positive `$TURBO_ROOT$` glob input matches ≥1 tracked file
   under the pinned matcher — `repo-safe`: the widened validator leg
   green + its committed red-proof. (Added 2026-08-11.)
