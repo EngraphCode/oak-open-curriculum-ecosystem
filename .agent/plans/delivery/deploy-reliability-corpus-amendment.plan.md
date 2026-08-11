@@ -146,7 +146,7 @@ finding has exactly one recorded decision. Applying it is mechanical.
 | --- | --- | --- |
 | 41 | The prescribed `@clerk/shared` predicate disagrees with the runtime validator the gate must reuse | **Apply**: rows 8/39 and the MCP-475 mechanism now consume only `refineClerkKeyLocality` through the shared runtime composition seam |
 | 42 | Trusted `preview-serves` publication is an unowned second project with no dependency or owner gate | **Apply by rescoping**: remove merge-blocking and ruleset-adoption criteria; keep the current signal advisory and require a separate authorised node/ticket before it becomes required |
-| 43 | Build-vs-buy evidence is absent for the proposed deploy gates | **Apply**: record Vercel Native Deployment Checks and the Checks API/Marketplace path; reject Native Checks as the sole non-bypassable carrier because an absent branch-controlled script is skipped, and route post-deploy trusted publication to the separate future decision |
+| 43 | Build-vs-buy evidence is absent for the proposed deploy gates | **Apply, then correct the trust comparison**: record Vercel Native Deployment Checks and the Checks API/Marketplace path; both Native Checks and the ordinary Vercel build use branch-controlled invocation, so neither is called non-bypassable. Keep the build rehearsal as the simpler accidental-failure prevention carrier and route adversarially trusted publication to the separate future decision |
 | 44 | Delivery-node `last_updated` values predate substantive 2026-08-11 amendments | **Apply**: set all four sibling nodes to 2026-08-11 |
 | 45 | Acceptance criterion 3 calls code-owner clearance `repo-safe` and refers to an inline thread that does not exist | **Apply**: classify clearance as owner-held, name the code owner as verifier, and use the durable PR review/reply record rather than an inline-thread claim |
 
@@ -165,11 +165,35 @@ finding has exactly one recorded decision. Applying it is mechanical.
 | 54 | Criterion 5 and §Out of scope invent a fresh owner blessing before merge | **Apply**: encode the standing instruction — merge once current CI is green and all comments are properly addressed; no additional owner ceremony |
 | 55 | MCP-475/479/480/481 descriptions still carry pre-review mechanisms and false platform claims | **Apply on the owning surface**: true the four Linear descriptions to the final plan boundaries and record the update in T5 |
 
+### Disposition ledger — Copilot exact-tip review (2026-08-11)
+
+| # | Finding | Disposition |
+| --- | --- | --- |
+| 56 | Native Deployment Checks and the existing Vercel build both use branch-controlled invocation, so the latter is not a non-bypassable alternative | **Apply**: correct the comparison, bound this node to accidental invalid-configuration prevention, and leave adversarially trusted publication to its separately authorised outcome |
+| 57 | A gate-module unit test cannot prove Turbo or Vercel executed the orchestration step | **Apply**: add a repo-side production-build-entrypoint contract proof and keep the same-commit remote execution proof owner-held |
+| 58 | The archived recovery goal overclaims arbitrary bad-deployment recovery and carries an unmeasured five-minute target | **Apply**: narrow the goal to repaired environment settings on Vercel's last successful commit in the ordinary non-rollback state; remove the timing claim |
+| 59 | Rollback prose turned frozen deployment configuration into a claim that the incident's broken binding necessarily returns | **Already cured at the published tip**: state only that Instant Rollback serves the selected deployment with its original environment binding |
+| 60 | "The deployed one" is ambiguous after Instant Rollback | **Apply**: name Vercel's last successfully deployed commit in the criterion and predicate boundary |
+| 61 | The archive repeats the unsupported same-broken-binding rollback claim in §Out of scope | **Already cured at the published tip** by row 59's documented frozen-configuration wording |
+| 62 | "Not a minimal Sentry client" preserves a discarded design as a tombstone | **Apply**: state the bounded bootstrap-reporter contract positively |
+| 63 | Absence-only redaction proof would not prove use of the shared barrier | **Already cured at the published tip**: require a positive canary-to-redaction-marker assertion in the consuming workspace and destination |
+| 64 | Successful flush alone does not prove reporter failures preserve and bound the original error | **Already cured at the published tip**: cover initialisation, capture, flush rejection, and non-settling flush with fake-clock proofs |
+| 65 | Amendment-plan evidence surfaces disagreed between PR-level and nonexistent inline-thread wording | **Already cured at the published tip**: the overview, goal, mechanism, row 45, and criterion 3 use the durable PR review/reply record |
+| 66 | "Every review finding" overclaims one-to-one ledger coverage of the earlier 3–4 August review bodies | **Apply**: scope criterion 1 to the four amendment rounds governed by this ledger; retain earlier review bodies and their replies on the PR as their evidence surface |
+| 67 | The derived todo count did not include T3a | **Already cured at the published tip**: the record says five todos |
+| 68 | The PR body described T4 as open after its publication actions completed | **Already cured on the owning GitHub surface**: the current body distinguishes published T4 evidence from current exact-tip review and CI |
+| 69 | A bare full SHA in the plan violated the collaboration-content prefix rule | **Already cured at the published tip**: the stale exact-SHA paragraph was removed rather than retained as execution state |
+| 70 | The environment procedure's incident-cost sentence was ungrammatical | **Already cured at the published tip**: incident chronology and diagnosis cost moved to Linear |
+
 ## Acceptance criteria
 
-1. **Every review finding has exactly one ledger row and the
-   applied rows are visible in the diff.** Proof: repo-safe — this
-   node's ledger plus the PR #746 diff at re-review.
+1. **Every finding in the amendment rounds governed here has exactly one
+   ledger row and each applied row is visible in the diff.** The governed
+   rounds are the 2026-08-05 eleven-expert set, the 2026-08-11 code-owner
+   re-review, the critical post-submission review, and the Copilot exact-tip
+   review. Earlier 3–4 August review bodies retain their durable PR replies
+   rather than being retroactively restated. Proof: repo-safe — this node's
+   ledger plus the PR #746 diff at re-review.
 2. **No corpus statement contradicts `main`** (shipped arm described as
    shipped; runbook instructions executable today). Proof: repo-safe —
    the rebase commit plus reviewer re-check against the named files.

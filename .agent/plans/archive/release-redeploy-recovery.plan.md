@@ -25,9 +25,9 @@ last_updated: 2026-08-11
 
 ## Goal
 
-Restoring production after a bad deployment or a bad environment takes
-a redeploy, not a release cut. Owner target: under five minutes from
-spotting the problem.
+In the ordinary non-rollback state, rebuilding Vercel's last successfully
+deployed commit can apply repaired project environment settings without a
+new release cut.
 
 ## Problem
 
@@ -35,7 +35,7 @@ Until 2026-08-04, `vercel-ignore-production-non-release-build.mjs`
 cancelled any production build whose root `package.json` version had
 not advanced beyond the deployed version. A redeploy of the current
 release re-ran the guard at the same version and was therefore always
-cancelled — so the release already in production could not be rebuilt.
+cancelled — so the last successfully deployed release could not be rebuilt.
 
 The consequence was structural: when a deployment was healthy as a
 build but broken by its environment, the repository contained no change
@@ -97,9 +97,9 @@ equality it warrants.
    (`apps/oak-curriculum-mcp-streamable-http/build-scripts/vercel-ignore-production-non-release-build.unit.test.mjs`,
    the MCP-479 redeploy block) covering the
    `VERCEL_GIT_COMMIT_SHA == VERCEL_GIT_PREVIOUS_SHA` continue case.
-2. A commit that is **not** the deployed one and whose version has not
-   advanced still cancels — proof: **repo-safe**, the same suite's
-   different-commit cancel test, plus the live 2026-08-05 pipeline
+2. A commit that is **not** Vercel's last successfully deployed commit and
+   whose version has not advanced still cancels — proof: **repo-safe**, the
+   same suite's different-commit cancel test, plus the live 2026-08-05 pipeline
    evidence recorded on MCP-479 (a merge commit cancelled by the
    ignored build step; a release commit built and deployed). This is
    the criterion that keeps the narrowing honest: it fails if the
@@ -152,9 +152,9 @@ equality it warrants.
   [`release-redeploy-guard-truing`](../delivery/release-redeploy-guard-truing.plan.md)'s
   deliverable; ADR-163 §10 records the divergence beside the quoted
   vendor definition.
-- **Changing the version-ordering predicate itself.** The existing rule
-  is correct for every commit that is not the deployed one, and this
-  node adds an arm beside it rather than replacing it.
+- **Changing the version-ordering predicate itself.** The existing rule is
+  correct for every commit that is not Vercel's last successfully deployed
+  commit, and this node adds an arm beside it rather than replacing it.
 - **Any change to how environment variables reach a deployment.** The
   environment-binding class that motivated this node is a separate
   concern; this node only restores the ability to rebuild.

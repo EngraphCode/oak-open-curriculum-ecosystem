@@ -117,26 +117,33 @@ signal catches what is only observable once it runs.
 **Build-vs-buy record (2026-08-11).** Vercel Native Deployment Checks can
 run a selected `package.json` script and can be required per environment,
 but Vercel documents that the check is skipped when the matching script is
-absent. A pull request controls that script, so the feature cannot be the
-sole carrier of this non-bypassable build invariant; the Vercel build must
-still invoke the shared-schema gate unconditionally. Vercel's Checks API
-and Marketplace integrations can run reliability checks against a built
-deployment and block domain assignment, but they require an externally
-configured OAuth integration. They are candidates for the separately
-authorised trusted-publisher delivery, not hidden work in this node. See
+absent. The current Vercel build command is also selected through
+branch-controlled repository configuration, so moving this rehearsal into a
+Native Check would not create a stronger trust boundary: a pull request can
+remove either invocation. This node prevents accidental invalid
+configuration from shipping; it does not claim adversarial removal is
+impossible. The ordinary Vercel build remains the simpler carrier, with a
+repository contract test proving its production build entrypoint invokes the
+gate outside the cached Turbo graph. Vercel's Checks API and Marketplace
+integrations can run reliability checks against a built deployment and block
+domain assignment, but they require an externally configured OAuth
+integration. They are candidates for the separately authorised
+trusted-publisher delivery, not hidden work in this node. See
 [Native Deployment Checks](https://vercel.com/changelog/native-deployment-checks)
 and the [Checks API contract](https://vercel.com/docs/checks/creating-checks).
 
 ## Acceptance criteria
 
 1. A build whose deploy environment is invalid fails — proof, split:
-   **repo-safe** — the gate module's unit tests (env fixtures to exit
-   intent per failure class), including the same-commit-redeploy case:
-   the gate executes and refuses on a rebuild of an already-deployed
-   commit, proving no cache layer can skip it on that path;
+   **repo-safe** — the gate module's unit tests map environment fixtures to
+   exit intent per failure class, while an orchestration contract test drives
+   the actual production build entrypoint and proves it invokes the gate as
+   an always-executed step outside the cached Turbo task;
    **owner-held** — a live red build on a branch carrying a
-   deliberately invalid branch-scoped value; verifier the lane agent,
-   evidence (build URL and outcome) recorded on MCP-475.
+   deliberately invalid branch-scoped value, repeated as a same-commit
+   redeploy; verifier the lane agent, evidence (build URLs and outcomes)
+   recorded on MCP-475. The live repeat is the proof that remote orchestration
+   did not reuse a cached pass.
 2. The built deployed handler imports under plain `node` and answers
    `/healthz` through its default export — proof: **repo-safe**, the
    deployed-handler smoke, reachable from a CI-run task (an unreachable

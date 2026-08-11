@@ -48,9 +48,8 @@ degraded mode.
 
 ## Mechanism
 
-**1. Bootstrap reporter, under a bounded contract.** Not "a minimal
-Sentry client" — the following clauses are the deliverable, because
-this sits inside the ADR-218 privacy posture:
+**1. Bootstrap reporter, under a bounded contract.** The following clauses
+are the deliverable because this sits inside the ADR-218 privacy posture:
 
 - activates only from Sentry inputs that parse strictly under the
   shared `SentryEnvSchema` (`@oaknational/env`) with live mode
