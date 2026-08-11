@@ -2695,3 +2695,34 @@ the mutation-record loop, the +σ sign in live data) rather than opine.
 The instrument now prints its own limits — saturation, floor, inert
 threshold, degenerate null — which is the design lane's thesis carried
 into statistics: honesty as structure, not vigilance.
+
+## COLD PAUSE marker (2026-08-11 evening) — Swordfish wakes Trench (d0274e); wake-and-hold at owner word; FREEZE 4 map stands with one correction
+
+Owner word: "come up to speed, and then cold pause." Grounding was
+first-hand; no processes armed at any point; claim
+`645b9e0b-afea-4743-8cc6-5dad3ad39575` retained.
+
+STATE DELTA since FREEZE 4 (the only corrections to its map):
+
+- PR #846 tip is now `351102655` — the OWNER merged main into the lane
+  branch at 2026-08-11 16:42 +0100 (main traffic only: releases
+  1.159.0–1.159.3; PRs #745/#746/#852/#853; no design-lane source
+  changes). Worktree fast-forwarded to match, clean. PR still draft,
+  mergeStateStatus BLOCKED, no new review threads.
+- Comms sweep 12:00Z→20:41Z: dependency drive complete (MCP-549;
+  #855/#856/#857 merged), Wren's #851 cure arc complete, Director
+  froze/resumed with card answers on MCP lanes only. NOTHING routed to
+  the design lane; comms-landscape event 4d92b772 remains
+  un-adjudicated (stays on the resume map).
+- Fleet-relevant napkin harvests worth reading at resume: Copilot does
+  NOT auto-re-review on push (explicit re-request each round, verify
+  via reviewRequests); Copilot 20k-line diff ceiling returns
+  size-skips; merge-bot stale-attempt blindness (worst-of-all-instances
+  vs latest-per-name).
+
+RESUME ORDER: unchanged from FREEZE 4 (re-arm; S2b correlation
+diagnostics; S2c per-region alignment; fleet W1 at owner sanction —
+gate expires 2026-08-13). OPEN OWNER ITEMS unchanged: S6845
+disposition; fleet ratification + W1 sanction; PR #846 un-draft at
+review-credit return (Copilot re-request per head move — now confirmed
+mandatory by Forge's finding above).
