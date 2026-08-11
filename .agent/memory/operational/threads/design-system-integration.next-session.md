@@ -2585,3 +2585,43 @@ monotonicity); CLI null-mode cell; integration: a same-image pair
 yields ZERO rejecting windows at the calibrated threshold, a
 synthetically shifted pair rejects. Per-cycle review discipline as
 slice 1 (pre-execution + gateway).
+
+### S2a pre-execution review FOLDED (2026-08-11, REVISE → amendments below; verdict full text in the session transcript)
+
+The reviewer computed the real numbers: pooled N = C(k+1,2)·windows;
+calibratedSigma SATURATES at Φ⁻¹(N/(N+1)) ≈ 4.2 at k=6 — **6σ is
+unreachable for any feasible null**, so under calibration `--threshold`
+goes INERT and the rejection predicate is `meanAbsDiff > nullMax`
+(empiricalP at the floor), with the floor and the σ saturation printed.
+The naive z stays reported alongside — the z=100-vs-σmax=4 disagreement
+IS the honesty the owner asked for. Binding amendments:
+
+- **k=6 default** (~21 pairs, ~5% per-run family false-alarm; floor
+  k≥2 at parse). Serial captures, fresh launch per capture (matches the
+  live path — the exchangeability warrant), order + timestamps + per-
+  capture heights recorded; all k+1 cropped to common min height.
+- **Settle identity**: capture-pair ADOPTS the estate settle recipe
+  (settleForCapture/captureShot — second consumer); null and live
+  captures traverse the IDENTICAL capture path, else the null inflates
+  and the instrument desensitises.
+- **Rank raw meanAbsDiff against the null, never z** — removes σ₀ and
+  its MAD floor from the calibrated path entirely.
+- **Calibration block** (single-invocation self-calibration: left k+1 +
+  right once, null in memory, ONE stats.json; no persisted-table mode
+  in S2a): k, pair count, N, exact nullMax, top-100 order statistics
+  (the 1/(N+1) floor is real only if tail ranks are exact), coarse
+  quantiles for display, floor, settle-recipe identity. Result-typed at
+  every boundary.
+- **Pool FULL windows only**; partial bottom-row windows are marked
+  uncalibrated with the reason — never silently pooled. The pooled null
+  licenses the MARGINAL claim (exceeds all-but-p of same-page null
+  windows anywhere), stated in the output.
+- **Heatmap/ordering under calibration**: exceedance meanAbsDiff/nullMax
+  drives both strength and rejecting order.
+- **Φ⁻¹** as a pure Acklam rational approximation in visual-stats,
+  unit-tested against known quantiles; seeded in-test LCG (never
+  Math.random); tie rule p = (1 + #{null ≥ observed})/(N+1).
+- **The red-first integration cell**: a within-null-jitter pair (small
+  uniform Δ) REJECTS under the naive rule today (σ₀ floors at 0.5) and
+  yields ZERO rejections under calibration — genuinely red at head.
+  (The same-image cell is vacuous: zero diff already passes.)
