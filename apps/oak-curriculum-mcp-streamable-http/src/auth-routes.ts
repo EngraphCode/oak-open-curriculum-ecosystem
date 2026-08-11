@@ -19,7 +19,7 @@ import { MCP_RESOURCE_PATH } from './served-origin.js';
  * This server does not offer the standalone SSE stream: under the stateless
  * per-request pattern a GET-opened stream can never receive an event, so it
  * idles until the platform kills the function at its duration ceiling
- * (~980 production timeout events/day before this refusal). The body mirrors
+ * (measured rates live on MCP-545). The body mirrors
  * the SDK's own refusal idiom verbatim; `Allow` names this server's surface.
  *
  * Mounted WITHOUT auth middleware: the refusal is identity-independent
@@ -31,8 +31,10 @@ import { MCP_RESOURCE_PATH } from './served-origin.js';
  * same hang for HEAD requests.
  */
 function createRefuseGetMcp(log: Logger): RequestHandler {
-  return (_req, res) => {
-    log.debug('Refused standalone GET /mcp SSE stream (405, MCP-545)');
+  return (req, res) => {
+    log.debug('Refused standalone /mcp SSE stream request (405, MCP-545)', {
+      method: req.method,
+    });
     res
       .status(405)
       .set('Allow', 'POST')

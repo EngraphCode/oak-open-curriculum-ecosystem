@@ -28,7 +28,7 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
   // vendor-shaped wire error, no new Oak-authored agent-facing copy) and
   // the C705–C708 metadata rows are untouched by the delta.
   'apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts': reviewed(
-    '4ce817e63800dd749adc9c73930636d9e3e3259561e07babef15725d90efc997',
+    'd19554a15174e8472540b189b4f17e089c9d489f0ebeb455984253e6644b36f1',
     ['C705', 'C706', 'C707', 'C708'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/get-mcp-resource-url.ts': excluded(
