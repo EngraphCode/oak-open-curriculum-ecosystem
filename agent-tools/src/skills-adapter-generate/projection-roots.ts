@@ -90,7 +90,7 @@ export async function findStaleProjectionEntries(input: {
       failures,
     });
   }
-  return { stale: stale.sort(byPath), failures: failures.sort(byPath) };
+  return { stale: stale.toSorted(byPath), failures: failures.toSorted(byPath) };
 }
 
 interface SweepOutcome {

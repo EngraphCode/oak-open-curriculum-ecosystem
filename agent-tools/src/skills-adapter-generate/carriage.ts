@@ -107,7 +107,7 @@ export async function checkCarriage(
     missing,
     drifted,
     orphaned,
-    refused: refused.sort(byPath),
+    refused: refused.toSorted(byPath),
     carriedCount: carried.files.length,
   };
 }
