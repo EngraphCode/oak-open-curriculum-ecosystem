@@ -44,7 +44,7 @@ export async function expectNoAxeViolations(page: Page): Promise<void> {
 
 /** The forced-colors variant: every rule except color-contrast, which is
  *  a vendor defect in this mode, open at axe-core 4.12.1
- *  (dequelabs/axe-core#3978, since v4.6): axe derives the foreground from
+ *  (https://github.com/dequelabs/axe-core/issues/3978, since v4.6): axe derives the foreground from
  *  -webkit-text-fill-color, which stays at the UNFORCED author value,
  *  while the background uses the forced background-color — the ratio
  *  mixes author ink with forced paper and measures neither palette. A
@@ -70,8 +70,10 @@ export async function expectNoAxeViolationsForcedColors(page: Page): Promise<voi
 const EXPECTED_THIRD_PARTY_ORIGINS: readonly string[] = RATIFIED_EXTERNAL_ORIGINS;
 
 /** Cascade-level application proof per explicit theme: the computed
- *  color-scheme each choice must resolve to (a per-cell table, not a branch). */
-const EXPECTED_COLOR_SCHEME: Record<ThemeName, string> = {
+ *  color-scheme each choice must resolve to (a per-cell table, not a
+ *  branch). Exported for the specimen a11y matrix, whose theme helper
+ *  proves the same cascade claim. */
+export const EXPECTED_COLOR_SCHEME: Record<ThemeName, string> = {
   light: 'light',
   dark: 'dark',
   system: 'light dark',

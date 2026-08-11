@@ -33,7 +33,7 @@ import { IDENTITY_DEFAULT, oakThemeStore } from '@oaknational/oak-design-react';
 import type { OakMotionMode, OakThemeSnapshot, OakThemeStore } from '@oaknational/oak-design-react';
 import { LabelledSelect } from './LabelledSelect';
 import { useIdentity } from './brand-identity-binding';
-import type { IdentitySlug } from './useIdentity';
+import { IDENTITY_LABELS } from './useIdentity';
 
 // Exported so the picker's frame-bound theme control names themes
 // identically to the home switchboard (same discipline as IDENTITY_LABELS).
@@ -53,16 +53,6 @@ const MOTION_LABELS: Readonly<Record<OakMotionMode, string>> = {
   reduced: 'Reduced',
   full: 'Full',
 };
-// Exported so the picker's frame-bound control names identities identically.
-// The record stays HERE rather than moving to the roster module: its keys are
-// slug literals, and relocating them mid-rename would move census occurrences
-// for no gain. Exporting moves no text.
-export const IDENTITY_LABELS: Readonly<Record<IdentitySlug, string>> = {
-  oak: 'Oak',
-  freedonia: 'Freedonia DSE',
-  creature: 'EMC²',
-};
-
 function ThemeMotionControls({
   store,
   theme,

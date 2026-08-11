@@ -11,7 +11,7 @@
  * the frame's document drops any persisted theme attribute so the three
  * columns stay comparable at page default.
  */
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import type { ReactElement } from 'react';
 
 import { DEFAULT_VIEWPORT_WIDTH } from '../../components/canonical-widths';
@@ -36,6 +36,17 @@ export function ScaledFrame({
   const stageRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   useScaledViewport(stageRef, iframeRef, DEFAULT_VIEWPORT_WIDTH);
+
+  // The load event can beat hydration (see the picker's useSpecimenFrame);
+  // this mount-time probe covers the already-loaded case, keyed on the
+  // specimen's identity mark so about:blank does not count as loaded —
+  // without it a persisted theme survives in every column on a dev server.
+  useEffect(() => {
+    const doc = iframeRef.current?.contentDocument;
+    if (doc?.querySelector('[data-identity]')) {
+      dropPersistedTheme(doc.documentElement);
+    }
+  }, []);
 
   return (
     <div ref={stageRef} className="frame">

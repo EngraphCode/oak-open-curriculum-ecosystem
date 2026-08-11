@@ -13,11 +13,16 @@
  * No identity slug is typed in this file: every name derives from the
  * imported roster, which keeps the identity-naming census untouched.
  */
+import { typeSafeKeys } from '@oaknational/type-helpers';
 import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
 
-import { DEFAULT_VIEWPORT_WIDTH, VIEWPORT_WIDTHS } from '../components/canonical-widths';
-import { BASE_IDENTITY, IDENTITIES } from '../components/useIdentity';
+import {
+  DEFAULT_VIEWPORT_WIDTH,
+  VIEWPORT_WIDTH_LABELS,
+  VIEWPORT_WIDTHS,
+} from '../components/canonical-widths';
+import { BASE_IDENTITY, IDENTITIES, IDENTITY_LABELS } from '../components/useIdentity';
 import { MEASUREMENT_WIDTH_VALUES } from '../tools/measurement-widths';
 import {
   assertOnlyKnownExternalOrigins,
@@ -137,14 +142,26 @@ test.describe('side-by-side: three identities, one specimen route', () => {
   test('frames simulate the canonical canvas width and all three brands render', async ({
     page,
   }) => {
-    // The client-safe width data is pinned to the canonical set (DDR-009):
-    // the components module mirrors it as data, this cell enforces equality
-    // so drift is loud, and the default frame width is a member.
-    expect([...VIEWPORT_WIDTHS]).toEqual([...MEASUREMENT_WIDTH_VALUES]);
+    // The client widths DERIVE from the canonical set (DDR-009), so the
+    // relation under guard is the authored remainder: every canonical
+    // width carries an owner-facing label, and the default frame width is
+    // a member.
+    expect(
+      typeSafeKeys(VIEWPORT_WIDTH_LABELS)
+        .map(Number)
+        .sort((a: number, b: number) => a - b),
+    ).toEqual([...MEASUREMENT_WIDTH_VALUES]);
     expect(VIEWPORT_WIDTHS).toContain(DEFAULT_VIEWPORT_WIDTH);
 
     await interceptExternalOrigins(page);
     await page.goto('/identity-white-labelling');
+    // The column headings carry the server-rendered brand names — the
+    // regression class under guard: a label map exported from a 'use
+    // client' module evaluates to undefined in the server render and
+    // ships literal "undefined" headings without failing the build.
+    for (const [index, identity] of IDENTITIES.entries()) {
+      await expect(page.locator('.col-title').nth(index)).toContainText(IDENTITY_LABELS[identity]);
+    }
     const frames = page.locator('.frame iframe');
     await expect(frames).toHaveCount(IDENTITIES.length);
     // Every frame's document reaches the identity its column names, and

@@ -550,24 +550,17 @@
       "file": "demos/oak-design-showcase/components/Switchboard.tsx",
       "kind": "content",
       "countByVariant": {
-        "name": 2,
+        "name": 0,
         "initialismUpper": 0,
         "initialismLower": 0
       },
-      "breakdown": [
-        {
-          "mappingRole": "d1-table",
-          "contextKind": "mixed",
-          "dispositionClass": "rename-in-place",
-          "count": 2
-        }
-      ]
+      "breakdown": []
     },
     {
       "file": "demos/oak-design-showcase/components/useIdentity.ts",
       "kind": "content",
       "countByVariant": {
-        "name": 2,
+        "name": 4,
         "initialismUpper": 0,
         "initialismLower": 0
       },
@@ -576,7 +569,7 @@
           "mappingRole": "d1-table",
           "contextKind": "mixed",
           "dispositionClass": "rename-in-place",
-          "count": 2
+          "count": 4
         }
       ]
     },

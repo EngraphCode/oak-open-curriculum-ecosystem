@@ -15,6 +15,11 @@
  * box (stage height ÷ scale), so the scaled frame fills the stage exactly
  * whatever the stage's aspect. A ResizeObserver drives re-fit (no window
  * listeners to leak).
+ *
+ * Scaling the live frame also scales its hit targets: below scale 44/48
+ * the kit's 48px controls render under the 44px minimum — an accepted
+ * cost for these preview stages, and full-size interaction is always one
+ * link away via each exhibit's open-as-full-page link.
  */
 import { useEffect } from 'react';
 import type { RefObject } from 'react';

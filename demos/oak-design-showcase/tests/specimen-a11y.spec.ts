@@ -15,6 +15,7 @@ import type { Page } from '@playwright/test';
 
 import {
   assertOnlyKnownExternalOrigins,
+  EXPECTED_COLOR_SCHEME,
   expectNoAxeViolations,
   expectNoAxeViolationsForcedColors,
   IDENTITIES,
@@ -41,10 +42,13 @@ async function applySpecimenTheme(page: Page, theme: ThemeName): Promise<void> {
   await page.evaluate((value) => {
     document.documentElement.dataset['theme'] = value;
   }, theme);
+  // The cascade must actually take effect, per the shared per-theme table —
+  // a non-empty read would pass against the identity's default face and
+  // make every cell of the matrix a vacuous pass.
   const colorScheme = await page.evaluate(
     () => getComputedStyle(document.documentElement).colorScheme,
   );
-  expect(colorScheme.length).toBeGreaterThan(0);
+  expect(colorScheme).toBe(EXPECTED_COLOR_SCHEME[theme]);
 }
 
 test.describe('specimen: identity × theme matrix', () => {

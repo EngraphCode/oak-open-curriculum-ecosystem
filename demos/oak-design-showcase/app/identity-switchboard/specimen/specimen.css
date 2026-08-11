@@ -71,6 +71,9 @@ html {
   scroll-padding-block-start: calc(var(--space-16) * 2 + var(--size-target));
 }
 
+/* Kit documented constant: short-viewport 500px max-height (components.css
+   breakpoint doctrine) — de-stick the masthead where vertical room is
+   scarce. */
 @media (max-height: 500px) {
   [data-page='unit'] .mast {
     position: static;

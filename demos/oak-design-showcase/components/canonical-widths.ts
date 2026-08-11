@@ -1,11 +1,12 @@
 /**
  * The canonical measurement widths as client-safe data (DDR-009). The
- * authoritative module is tools/measurement-widths.ts; a client module
- * cannot import its Node-flavoured dependencies, so the values are
- * mirrored here as data and the spec pins deep equality with the
- * canonical set so drift is loud (the ScaledFrame precedent).
+ * values DERIVE from the authoritative module (tools/measurement-widths.ts
+ * is framework-free, so client code imports it directly) — one source, no
+ * drift to detect. Only the owner-facing labels are authored here.
  */
-export const VIEWPORT_WIDTHS: readonly number[] = [320, 390, 768, 1024, 1280, 1440, 1920];
+import { MEASUREMENT_WIDTH_VALUES } from '../tools/measurement-widths';
+
+export const VIEWPORT_WIDTHS: readonly number[] = MEASUREMENT_WIDTH_VALUES;
 
 /** Owner-facing option labels: the width plus its warrant's short name,
  *  humanised from the canonical entries' labels. */

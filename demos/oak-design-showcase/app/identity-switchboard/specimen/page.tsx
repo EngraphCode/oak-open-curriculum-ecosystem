@@ -15,10 +15,10 @@
  * constant, which is what keeps the identity-naming ratchet at zero delta in a
  * new file while a rename is in flight.
  *
- * Region coverage is deliberately partial while the composition lands — see
- * the plan node's ten-region inventory. Each region is a pure presentational
- * function over design-system classes; the app-local class names carry layout
- * only, in `specimen.css`, tokens-only.
+ * The full ten-region inventory is composed here (utility, masthead, hero,
+ * facets, results, detail, resources, support, cta, footer). Each region is
+ * a pure presentational function over design-system classes; the app-local
+ * class names carry layout only, in `specimen.css`, tokens-only.
  */
 import { BASE_IDENTITY, resolveIdentity } from '../../../components/useIdentity';
 

@@ -31,7 +31,7 @@ import type { ReactElement } from 'react';
 
 import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
 import { LabelledSelect } from '../../components/LabelledSelect';
-import { IDENTITY_LABELS, THEME_LABELS } from '../../components/Switchboard';
+import { THEME_LABELS } from '../../components/Switchboard';
 import { useIdentity } from '../../components/brand-identity-binding';
 import {
   SWITCHBOARD_CANVAS_WIDTH,
@@ -39,7 +39,7 @@ import {
   VIEWPORT_WIDTH_LABELS,
 } from '../../components/canonical-widths';
 import { useScaledViewport } from '../../components/useScaledViewport';
-import { BASE_IDENTITY, type IdentitySlug } from '../../components/useIdentity';
+import { BASE_IDENTITY, IDENTITY_LABELS, type IdentitySlug } from '../../components/useIdentity';
 import { THEME_OPTIONS, useFrameTheme } from './useFrameTheme';
 
 import './picker.css';

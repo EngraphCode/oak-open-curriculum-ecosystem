@@ -50,8 +50,8 @@ localise but never substitute (the probe-said-match-while-pixels-differed
 incident is recorded in the reference-first rule).
 
 Before anything is built against the export, RENDER the export and look
-at it (`render-the-reference-before-reproducing` is the always-applied
-rule; this section is its application here):
+at it (the `render-the-reference-before-reproducing` rule fires on all of
+this pipeline's work; this section is its application here):
 
 1. Serve the export demo statically and open its pages — the finished
    thing is the specification, and no amount of reading its source

@@ -44,6 +44,18 @@ export type IdentitySlug = (typeof IDENTITIES)[number];
 /** The identity that carries no override sheet — the kit's own tokens. */
 export const BASE_IDENTITY: IdentitySlug = 'oak';
 
+/** Owner-facing identity labels. They live in THIS framework-free module —
+ *  not the client switchboard — because server components consume them too:
+ *  an export from a 'use client' module crosses the RSC boundary as a
+ *  client reference and evaluates to undefined in a server render (the
+ *  side-by-side page shipped headings and iframe titles reading
+ *  "undefined" until this moved). */
+export const IDENTITY_LABELS: Readonly<Record<IdentitySlug, string>> = {
+  oak: 'Oak',
+  freedonia: 'Freedonia DSE',
+  creature: 'EMC²',
+};
+
 /**
  * Narrow an untrusted value to a roster member, falling back to the base
  * identity. Pure and framework-free, so the server route reading a query

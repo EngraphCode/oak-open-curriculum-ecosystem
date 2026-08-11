@@ -8,8 +8,12 @@
  * per-brand descriptions carry the export's words, which describe the
  * brands truly. Column data derives from the roster — no slug literals.
  */
-import { BASE_IDENTITY, IDENTITIES, type IdentitySlug } from '../../components/useIdentity';
-import { IDENTITY_LABELS } from '../../components/Switchboard';
+import {
+  BASE_IDENTITY,
+  IDENTITIES,
+  IDENTITY_LABELS,
+  type IdentitySlug,
+} from '../../components/useIdentity';
 import { targetFragmentsFor, type TargetIdentity } from '../../lib/identities';
 
 import { ScaledFrame } from './scaled-frame';
