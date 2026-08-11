@@ -10,7 +10,39 @@ Controlling plan:
 (RATIFIED 2026-08-09, known-issues ledger inside). The canary plan remains
 ratified-live; its restore step is superseded by this plan's todo 3.
 
-## Current Continuation (updated 2026-08-11, decision-complete arc ratified)
+## Current Continuation (COLD PAUSE, owner-ordered 2026-08-11 ~09:1xZ — "Cold pause now, monitor later"; design fleet runs meanwhile)
+
+- **RESUME ACT 1 — merge PR #850**: SETTLED (19/19 green on
+  `c5403c8e1`, three Copilot rounds converged 2→1-suppressed→0, all
+  dispositioned, Director grant `ED661CC7` sha-pinned). The merge did
+  NOT execute before the pause: the merge-bot's quiet window anchors
+  later and runs longer than assumed (still SETTLING-QUIET-WINDOW ~30
+  min after the round-3 review; three poller runs were cut short —
+  two early SIGTERMs of ~1–3 polls remain unexplained but moot). At
+  resume the window will have elapsed: verify head unmoved, run
+  `pnpm agent-tools merge-bot merge --pr 850 --expect
+  copilot-pull-request-reviewer` (foreground), then Phase-8 harvest,
+  MCP-542 → Done, prune worktree `.claude/worktrees/mcp-542-turbo-globs`,
+  delete merged branches.
+- **RESUME ACT 2 — Linear-ticket change monitors (owner-commissioned
+  2026-08-11)**: Matt's bots comment on Linear tickets instead of
+  PRs, so PR-round tallies are blind to ticket-borne findings. Arm
+  monitors over the lane's live tickets (comments + status since a
+  baseline) and fold ticket commentary into every settle tally.
+  Explicitly sequenced AFTER the pause, never during.
+- **THEN S2** (MCP-543) cuts its branch under the corrected contract
+  (pre-execution review absorbed; the eleven-files field-integrity
+  truth; assertNever backstop; five added surfaces; red-proof =
+  pathNot-line reversible probe; rider cut). The plan Amendment's S2
+  section still needs its dated correction commit BEFORE the branch
+  cuts — the full delta list lives in the session task record and the
+  review transcript; primary carriers: eleven-not-twelve baseline +
+  dead include line 30, boundary.ts assertNever + 'contracts' role
+  fencing sdk consumers, pnpm-lock importer key, the elasticsearch
+  .mdc glob, ADR-041/108/138 exact-line corrections, README policy
+  rewrite + table move, LIB_SDK_BOUNDARY_MESSAGE flatten.
+
+## Prior continuation (superseded by the pause block above; kept for the arc record)
 
 - **#848 MERGED** (`bb40ecdf5`, 2026-08-11, merge-bot under Director
   grant `113D7A7F`) — todo 3 complete; canary fully complete for
