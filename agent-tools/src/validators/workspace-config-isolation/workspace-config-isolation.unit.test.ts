@@ -303,6 +303,24 @@ describe('classifyTurboRootInput — the pinned turbo-glob matcher', () => {
     });
   });
 
+  it('treats a literal naming a tracked DIRECTORY as alive (turbo walks it — probe-measured)', () => {
+    expect(
+      classifyTurboRootInput('$TURBO_ROOT$/research/web-app-deconstruction/packages', tracked),
+    ).toEqual({ kind: 'alive' });
+    expect(classifyTurboRootInput('$TURBO_ROOT$/missing-directory', tracked)).toEqual({
+      kind: 'dead',
+    });
+  });
+
+  it('refuses embedded double-stars, which turbo normalises rather than treating as two stars', () => {
+    const trailing = classifyTurboRootInput('$TURBO_ROOT$/research/a**', tracked);
+    expect(trailing.kind).toBe('unsupported');
+    expect(trailing.kind === 'unsupported' && trailing.reason).toContain('double-star');
+
+    const leading = classifyTurboRootInput('$TURBO_ROOT$/**f/x.ts', tracked);
+    expect(leading.kind).toBe('unsupported');
+  });
+
   it('exempts negated inputs entirely, including negations carrying unsupported syntax', () => {
     expect(classifyTurboRootInput('!$TURBO_ROOT$/packages/design/dist/**', tracked)).toEqual({
       kind: 'exempt',

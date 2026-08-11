@@ -40,6 +40,7 @@
 import { visit } from 'jsonc-parser';
 
 import { lineOf } from './text-position.js';
+import { GLOB_CANDIDATE, compileTurboGlob, isTrackedDirectoryPrefix } from './turbo-glob.js';
 
 /** One `$TURBO_ROOT$` input entry that matches zero tracked files. */
 interface TurboInputFinding {
@@ -75,61 +76,6 @@ export type TurboEntryVerdict =
   | { readonly kind: 'unsupported'; readonly reason: string };
 
 const TURBO_ROOT_PREFIX = '$TURBO_ROOT$/';
-/** Any character that COULD be glob syntax routes the entry through the compiler. */
-const GLOB_CANDIDATE = /[*?[\]{}()+@|!]/;
-const REGEX_SPECIAL = /[.^$\\]/;
-
-type SegmentCompilation =
-  | { readonly kind: 'source'; readonly source: string }
-  | { readonly kind: 'unsupported'; readonly reason: string };
-
-/** One path segment as regex source — `*`/`?` expanded, specials escaped, the rest refused. */
-function compileGlobSegment(segment: string): SegmentCompilation {
-  let source = '';
-  for (const character of segment) {
-    if (character === '*') {
-      source += '[^/]*';
-    } else if (character === '?') {
-      source += '[^/]';
-    } else if (GLOB_CANDIDATE.test(character)) {
-      return {
-        kind: 'unsupported',
-        reason:
-          `unsupported glob token '${character}' — the pinned turbo subset is ` +
-          `'**', '*', '?'; extend the matcher (turbo-inputs.ts) with a red-proof ` +
-          `rather than changing turbo.json`,
-      };
-    } else if (REGEX_SPECIAL.test(character)) {
-      source += `\\${character}`;
-    } else {
-      source += character;
-    }
-  }
-  return { kind: 'source', source };
-}
-
-function compileTurboGlob(
-  pattern: string,
-):
-  | { readonly kind: 'regex'; readonly regex: RegExp }
-  | { readonly kind: 'unsupported'; readonly reason: string } {
-  let source = '^';
-  const segments = pattern.split('/');
-  for (const [index, segment] of segments.entries()) {
-    const last = index === segments.length - 1;
-    if (segment === '**') {
-      // Zero or more whole segments mid-pattern; everything below when trailing.
-      source += last ? '.+' : '(?:[^/]+/)*';
-      continue;
-    }
-    const compiled = compileGlobSegment(segment);
-    if (compiled.kind === 'unsupported') {
-      return compiled;
-    }
-    source += compiled.source + (last ? '' : '/');
-  }
-  return { kind: 'regex', regex: new RegExp(`${source}$`, 'u') };
-}
 
 /**
  * Classify one `$TURBO_ROOT$` input entry against the tracked file set.
@@ -155,7 +101,9 @@ export function classifyTurboRootInput(
   }
   const relative = entry.slice(TURBO_ROOT_PREFIX.length);
   if (!GLOB_CANDIDATE.test(relative)) {
-    return trackedFiles.includes(relative) ? { kind: 'alive' } : { kind: 'dead' };
+    return trackedFiles.includes(relative) || isTrackedDirectoryPrefix(relative, trackedFiles)
+      ? { kind: 'alive' }
+      : { kind: 'dead' };
   }
   const compiled = compileTurboGlob(relative);
   if (compiled.kind === 'unsupported') {
