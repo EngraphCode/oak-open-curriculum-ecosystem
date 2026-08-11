@@ -389,11 +389,12 @@ scope-bounded artefacts (PDR-015 amendment 2026-04-29).
 ## Skills: Canonical and Platform Adapters
 
 Canonical skill bodies live under `.agent/skills/` as
-`SKILL-CANONICAL.md`, rooted at any of the three supported depths —
-`.agent/skills/<name>/`, `.agent/skills/<concern>/<name>/`, or
-`.agent/skills/<concern>/<domain>/<name>/` (the tree closes at three
-tiers; the host's canonical walker is the topology authority) — and
-carry the substantive workflow. Platform adapters are generated thin
+`SKILL-CANONICAL.md`, at the directory depths the receiving repo
+documents for itself — flat `.agent/skills/<name>/` is the portable
+default, and a host MAY adopt grouped tiers (the host's own bridge,
+ADR, and canonical walker record its adopted shapes; they are host
+adoption detail, never part of this portable contract) — and carry
+the substantive workflow. Platform adapters are generated thin
 wrappers using the receiving repo's configured owned-skill prefix and
 locations. The host bridge or surface matrix records emitted invocation
 names. Manual adapter edits are forbidden. Skills are the sole
