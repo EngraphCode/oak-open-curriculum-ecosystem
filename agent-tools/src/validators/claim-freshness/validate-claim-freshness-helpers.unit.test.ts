@@ -76,6 +76,14 @@ describe('assessFreshnessRows', () => {
       description: 'a tool-prefixed version',
     },
     {
+      pin: { kind: 'pinned', version: '01.2.3' },
+      description: 'a version with a leading-zero component',
+    },
+    {
+      pin: { kind: 'pinned', version: '1.2.3\n' },
+      description: 'a version with a trailing line terminator',
+    },
+    {
       pin: { kind: 'not-tracked', reason: '   ' },
       description: 'a whitespace-only reason',
     },

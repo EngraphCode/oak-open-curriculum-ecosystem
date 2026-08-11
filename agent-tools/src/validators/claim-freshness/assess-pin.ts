@@ -13,7 +13,7 @@ interface PinAssessment {
   readonly notTrackedRow?: FreshnessNotTrackedRow;
 }
 
-const VERSION_PATTERN = /^\d+\.\d+\.\d+$/u;
+const VERSION_PATTERN = /^(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)(?![\s\S])/u;
 
 function hasExactKeys(value: JsonObject, expected: readonly string[]): boolean {
   const actual = typeSafeKeys(value).sort((left, right) => left.localeCompare(right));
