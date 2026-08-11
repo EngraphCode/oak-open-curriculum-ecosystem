@@ -11,29 +11,49 @@ Controlling plan:
 archived (completed 2026-08-11) and todo 3 is complete — see the
 Current Continuation below.
 
-## Current Continuation (COLD PAUSE, owner-ordered 2026-08-11 ~09:1xZ — "Cold pause now, monitor later"; design fleet runs meanwhile)
+## Current Continuation (S1 SETTLED 2026-08-11 ~16:2xZ — #850 MERGED `3afe99113`; census extracted at owner word; next = S1b → MCP-543 → de-hatch)
 
-- **RESUME ACT 1 — merge PR #850**: SETTLED (19/19 green on
-  `c5403c8e1`, three Copilot rounds converged 2→1-suppressed→0, all
-  dispositioned, Director grant `ED661CC7` sha-pinned). The merge did
-  NOT execute before the pause: the merge-bot's quiet window anchors
-  later and runs longer than assumed (still SETTLING-QUIET-WINDOW ~30
-  min after the round-3 review; three poller runs were cut short —
-  two early SIGTERMs of ~1–3 polls remain unexplained but moot). At
-  resume: the head has MOVED since settlement (observed `367cd6f6e` at
-  the 2026-08-11 fold vs settled `c5403c8e1`) — the settlement is void;
-  run a FRESH full harvest first (head, reviews incl. suppressed blocks,
-  threads, checks), re-settle, then
-  `pnpm agent-tools merge-bot merge --pr 850 --expect
-  copilot-pull-request-reviewer` (foreground), then Phase-8 harvest,
-  MCP-542 → Done, prune worktree `.claude/worktrees/mcp-542-turbo-globs`,
-  delete merged branches.
-- **RESUME ACT 2 — Linear-ticket change monitors (owner-commissioned
-  2026-08-11)**: Matt's bots comment on Linear tickets instead of
-  PRs, so PR-round tallies are blind to ticket-borne findings. Arm
-  monitors over the lane's live tickets (comments + status since a
-  baseline) and fold ticket commentary into every settle tally.
-  Explicitly sequenced AFTER the pause, never during.
+- **#850 MERGED `3afe99113`** (2026-08-11 16:19Z, owner-armed
+  auto-merge, merge-commit method, his approval 16:18Z). The resumed
+  drive's record: a ROUND-4 CHANGES_REQUESTED from the owner's PR
+  Review Warden seat (Marlin binds Wave, posted under `mantagen` at
+  his direction) found the bare `$TURBO_ROOT$/` root input
+  misclassified dead — cured `bca591fb5` after in-repo probe
+  confirmation (1,006 → 93,515 dry-run inputs; the trailing-slash
+  sibling probe-confirmed and cured in the same predicate; opus
+  code-expert APPROVE with differential check); the stale review was
+  DISMISSED at the owner's word. Then a SONAR PHANTOM: the gate
+  scored one new MAJOR smell that NO issue index carried (owner
+  checked the UI; five API query shapes empty — a measure/issue
+  divergence on SonarCloud's side); removing the trim regex
+  (`a273bf1d4`, linear index walk, behaviour identical) flipped the
+  gate green — falsifier-confirmed. The owner merged main into the
+  branch twice mid-drive (`367cd6f6e`, `980de90b7`); reconciled at
+  `a034ec140`. MCP-542 auto-moved Done. Worktree
+  `mcp-542-turbo-globs` pruned; local+remote branches deleted. The
+  Director recount/grant request was WITHDRAWN (owner armed the merge
+  himself); nothing owed there.
+- **CENSUS EXTRACTED to its own node** (owner words verbatim: "let's
+  move the exemption hunting to a separate plan"; "the repo review
+  for carveouts, exemptions, 'special cases' and planning to remove
+  them in a separate plan"): new
+  `exemption-removal.plan.md` carries the census mechanism, sweeps,
+  and the broadened special-case ledger; the isolation plan and the
+  hardening node carry dated extraction amendments (todos 4–5 moved,
+  criterion moved, execution order re-trued).
+- **NEXT, in order**: (1) **S1b** — validator truth cures, one small
+  PR, ticket at cut (backslash joins `GLOB_CANDIDATE` + refusal
+  red-proof; bin success line scopes to `$TURBO_ROOT$` inputs;
+  interior-`//` probe-then-encode) — the post-merge harvest rows,
+  spec in the isolation plan's §Slice S1b; (2) **MCP-543** re-scoped
+  (the S2 ledger below stands); (3) todo 2's three-PR de-hatch arc;
+  (4) todo 6 close+archive. Hardening node H1→H2→H4 independent
+  after S1b. Exemption-removal programme schedules its own sessions.
+- **Linear-ticket monitors (owner-commissioned act 2)**: arm at the
+  next active PR window over the live lane tickets (S1b ticket +
+  MCP-543) — simplest honest poll (comments + status since baseline);
+  ticket-borne findings join every settle tally. MCP-542 closed with
+  zero ticket comments (verified at settle).
 - **OWNER-ORDERED RE-ADJUDICATION OF ALL REMAINING STEPS (2026-08-11,
   at the compaction boundary — "please question all remaining steps",
   following the S2 warrant collapse below).** Every step re-derived

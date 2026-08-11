@@ -1794,3 +1794,41 @@ instances, recorded here for peers):
   discipline and the commitlint hook rejected the >100-char header (the discipline
   exists because drafting in-line invites it); the hourly watcher timeout backstop
   fired three times and re-arm+F-95+sweep held each time.
+
+## 2026-08-11 — Wren calls Downdraft (6b29b5), #850 settle harvest
+
+- SONAR CAN ASSERT A FINDING ITS OWN INDEX NEVER CARRIES (measure/issue
+  divergence, first-hand on PR 850): the PR quality gate failed on
+  `new_code_smells_severity` 15>14 ("Code Smells Severity on New Code <
+  MAJOR") and per-file measures pinned ONE new smell to one file — while
+  issue search returned ZERO under five query shapes (authenticated CLI
+  and anonymous), hotspots zero, and the owner confirmed the UI empty.
+  The working falsifier when the index is blind: identify the only new
+  construct the rule family could target (here an anchored-quantifier
+  regex `/\/+$/u` — the `X+$` super-linear-backtracking shape) and
+  REMOVE it with behaviour pinned by existing tests; the gate's own
+  recompute is the verdict (it flipped green). Bonus: the removal was
+  strictly simpler code — curing the construct beat arguing with the
+  instrument.
+- F-75 DIFF-KEY DISCIPLINE, SECOND BITE: `fresh_until` (and any
+  `*_at` refresh field) is an age column in disguise — a poll keyed on
+  raw registry output fires on every heartbeat refresh. State-only
+  means PROJECT the stable fields (name, visibility_status,
+  collision_status, claim threads) via jq, never sed-stripping age
+  patterns from a shape you haven't enumerated.
+- CAPTURE-FIRST APPLIES TO PUSHES: piping a backgrounded `merge-bot
+  push` through `tail -4` kept four lines of a five-minute gated run —
+  when the push failed non-fast-forward (the owner had moved the
+  branch mid-flight), the diagnostics were already discarded. Keep the
+  FULL stream in the task file; summarise at read time, never at
+  capture time.
+- STOP WATCHES BEFORE PRUNING THEIR CWD: a verdict monitor cd'd into
+  the mcp-542 worktree survived the worktree's removal and emitted
+  READ-FAILED noise — worktree prune order is: stop the monitors
+  anchored there, then `git worktree remove`.
+- OWNER-DRIVEN HEAD MOVES ARE ROUTINE ON A LIVE PR: Jim merged main
+  into the branch twice during one drive (update-branch), and armed
+  auto-merge himself at the end — the seat's grant machinery
+  (recount + sha-pinned grant) WITHDRAWS cleanly when the owner takes
+  the merge into his own hands; the map update to the Director is the
+  only obligation that survives.

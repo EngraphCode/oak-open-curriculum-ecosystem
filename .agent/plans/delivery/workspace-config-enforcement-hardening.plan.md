@@ -59,8 +59,10 @@ census register is partitioned per-surface.
   config-VALUE relative strings estate-wide target lint-ignored
   `.agent/reference/**`; the class keeps a recorded pointer in the
   parent plan's register triage, not a scanner. The sanctioned idiom is itself registered in
-  the disabled-checks census with this plan as its policy pointer (an
-  allowance in an enforcement surface carries its warrant).
+  the [`exemption-removal`](exemption-removal.plan.md) node's register
+  with this plan as its policy pointer (an allowance in an enforcement
+  surface carries its warrant; the census extracted there 2026-08-11
+  at the owner's word).
 - **H2 — config file-class widening + depth + coverage assert.**
   The scanned config class widens to the families measured present (9
   tracked files: 3 playwright, 1 vite, 2 next, 1 postcss, 2 esbuild)
@@ -127,9 +129,10 @@ census register is partitioned per-surface.
 - **The H1 config-VALUE scanner — dropped 2026-08-11** (same word):
   an instrument built to find nothing; the class keeps its recorded
   pointer in the parent plan's register triage (row 7c).
-- Everything the parent plan owns: the census mechanism and sweeps,
-  the lint de-hatch arc, S1/S2. This node hardens instruments; it
-  does not adjudicate register rows.
+- Everything the parent plan owns (the lint de-hatch arc, S1b, S2)
+  and everything the `exemption-removal` node owns (the census
+  mechanism and sweeps, extracted 2026-08-11). This node hardens
+  instruments; it does not adjudicate register rows.
 - Estate-wide mutation-testing roll-out (owner-committed, later,
   staged — carried at the parent plan's Out of scope).
 - Deriving the depcruise config from `pnpm-workspace.yaml`

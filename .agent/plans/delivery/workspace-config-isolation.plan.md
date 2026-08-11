@@ -2,7 +2,7 @@
 id: workspace-config-isolation
 node_type: delivery
 name: "Workspace-config isolation: shared config bases become a declared dependency, enforced"
-overview: "Move the root vitest/tsup/e2e config bases into a config workspace consumed via declared package dependencies, cure all 53 parent-relative config imports, and land enforcement that cannot silently vanish — a dedicated repo validator plus de-hatched lint coverage plus a standing disabled-checks census."
+overview: "Move the root vitest/tsup/e2e config bases into a config workspace consumed via declared package dependencies, cure all 53 parent-relative config imports, and land enforcement that cannot silently vanish — a dedicated repo validator plus de-hatched lint coverage. (The standing disabled-checks census was extracted 2026-08-11 at the owner's word to the exemption-removal node.)"
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-08-11
@@ -394,13 +394,13 @@ the lane and archives when its criteria prove.
 | 7e | Sequenced → successor H2 |
 | 7f | Closed — already done (trued in State record above) |
 | 7g | Sequenced → successor H4 |
-| 7h | In flight → slice S1 (ticket MCP-542) |
+| 7h | DONE — slice S1, PR #850 merged `3afe99113` (MCP-542 Done); the post-merge harvest cures land as slice S1b |
 | 7i | Folded → todo 2 with a decision gate: `@oaknational/no-dynamic-import` already fires on every ImportExpression once config files are linted; todo 2 opens with one `--print-config` check for `@typescript-eslint/no-require-imports` — present → doc note; absent → its own rule-authoring PR |
 | 7j | Merged into successor H2 (two widened-family configs sit below their workspace root; the row has no live material until H2 lands) |
 | 7k | Folded → successor H4 |
 | 7l | Reclassified — a recorded falsifier condition already living in the rule comment, not work; row deleted |
 
-### Slice S1 — dead references in root build configs (MCP-542, in flight)
+### Slice S1 — dead references in root build configs (MCP-542, DONE — completion recorded below)
 
 First act: pin the matcher and the domain — "tracked" means
 `git ls-files`; glob semantics are the turbo-compatible subset (`**`
@@ -466,45 +466,67 @@ return silently absorbs unknown roles). Items tied to the relocation
 (role addition, boundary-machinery deletion, ADR amendments,
 lockfile/mdc/README moves) are MOOT with the move.
 
-### Census enrichment (todos 4–5)
+### Slice S1 completion + Slice S1b (recorded 2026-08-11 at the settle)
 
-The census is grounded in PDR-136 (quality gates are a registered
-corpus; its pending 2026-08-10 amendment is noted, not blocked on).
-Register rows classify as **scoping** (the check correctly excludes
-generated/ephemeral output — grounds recorded, legitimate, no clock)
-or **suppression** (the check would fire on real source and is being
-silenced — every row carries exactly one of `fix-routed(ticket)` /
-`policy-ratified(pointer)` / `pending(owner card raised at the
-sweep)`). No open-ended warranted state exists — the exemption-alarm
-ruling, encoded structurally. The inline owner-initials approval
-marker in `@oaknational/no-eslint-disable` (one live site:
-`packages/core/result/src/unwrapping.ts`, the sanctioned
-Result-pattern throw) folds in as a suppression class; that site is
-`policy-ratified`. Seeding is mechanical and PROGRAMMATIC — it
-evaluates ESLint flat configs rather than grepping, so the reflective
-JS-override pattern (four workspaces, grep-invisible) is captured.
-The seed count re-derives at seeding time (326 measured 2026-08-11 is
-a sizing input only; todo 2 deletes rows first, and the mechanical
-seeder re-runs as todo 2's final commit). The register is partitioned
-per-surface (one file per surface: eslint, prettierignore, knip,
-depcruise, sonar, tests) so parallel slices co-edit without
-contention. Sweep dispositions already decided: depcruise
-`no-deprecated-node` moves warn→error (or gains a registered
-disposition if findings resist same-PR cure); the `.prettierignore`
-entries naming non-existent workspace paths are deleted as dead.
+**S1 COMPLETE**: PR #850 merged `3afe99113` (2026-08-11, merge-commit
+method, owner-armed auto-merge; MCP-542 Done). The drive's record: a
+round-4 CHANGES_REQUESTED from the owner's PR Review Warden seat
+(under `mantagen`, at his direction) found the pinned matcher
+misclassifying the bare `$TURBO_ROOT$/` root input as dead — cured at
+`bca591fb5` after in-repo probe confirmation (root: 1,006 → 93,515
+dry-run resolved inputs; the mechanism's trailing-slash sibling
+probe-confirmed and cured in the same predicate); the stale review was
+dismissed at the owner's word. A SonarCloud PHANTOM followed: the gate
+scored one new MAJOR smell that no issue index carried (UI and five
+API query shapes all empty — a measure/issue divergence on Sonar's
+side); removing the trim regex (`a273bf1d4`, a linear index walk,
+behaviour identical) flipped the gate green, falsifier-confirmed.
 
-### Execution order
+**S1b — validator truth cures (one small PR; ticket at cut).** The
+post-merge harvest (Copilot suppressed comments, 16:02Z round)
+produced two confirmed latent findings, and round 4 left one probe
+pointer; all three are truth-of-instrument defects in the S1 validator
+and land together, red-proof-first:
 
-Amendment landing (this dated S2 re-scope reaching main) → S1 → S2
-(re-scoped) → todo 2 ∥ todo 4 → todo 5 → successor node
-H1(slimmed)→H2→H4 (H3 DROPPED 2026-08-11 — an extends reference is
-not an import; H1 before H2 so per-family red-proofs are written once,
-under final refusal semantics) → todo 6. Todo 2's arc is three named
-PRs: (a) de-hatch + ignores audit + shared-preset binding + fixture;
-(b) the `research/` cure; (c) the 7i rule PR only if its opening check
-shows `no-require-imports` absent. H-slices and todo 5 are cross-seat
-parallelisable (the per-surface register partition makes co-edits
-safe).
+1. Backslash joins `GLOB_CANDIDATE`: an entry containing `\` currently
+   compiles as a literal/regex escape instead of refusing, while turbo
+   treats `\` semantically — verdicts can diverge silently on exotic
+   spellings. One-character cure plus a refusal red-proof.
+2. The bin success line scopes down to what the scan proves: "every
+   positive turbo input" over-claims a scan that evaluates only
+   `$TURBO_ROOT$` inputs.
+3. Interior doubled separators (`$TURBO_ROOT$/a//b`): probe turbo's
+   own dry-run handling FIRST (the entry condition — unprobed today),
+   then encode the measured truth (normalise or refuse; the current
+   prefix construction would misread it dead — a loud false positive,
+   no live entry).
+
+### Census enrichment (todos 4–5) — EXTRACTED 2026-08-11
+
+Extracted at the owner's word ("let's move the exemption hunting to a
+separate plan"; broadened the same day to "the repo review for
+carveouts, exemptions, 'special cases' and planning to remove them")
+to the standalone
+[`exemption-removal`](exemption-removal.plan.md) node, which carries
+the full mechanism (per-surface registers, scoping/suppression
+classification, disposition enum, programmatic seeding, cure-first
+sweeps, CI enforcement) plus the broadened special-case ledger. This
+lane's remaining slices land their shapes there as register rows; the
+former coupling ("the seeder re-runs as todo 2's final commit")
+dissolves — seeding re-derives whenever it runs.
+
+### Execution order (re-trued 2026-08-11 at the settle)
+
+S1 DONE (#850 `3afe99113`) → S1b (small, first — it trues the landed
+instrument) → S2 re-scoped (MCP-543) → todo 2's arc → todo 6 close.
+The successor node's slices (H1 slimmed → H2 → H4; H3 dropped
+2026-08-11) proceed independently after S1b, H1 before H2 so
+per-family red-proofs are written once under final refusal semantics.
+The census todos left this plan (extraction above); the
+`exemption-removal` node schedules its own sweeps. Todo 2's arc is
+three named PRs: (a) de-hatch plus ignores audit plus shared-preset
+binding plus fixture; (b) the `research/` cure; (c) the 7i rule PR
+only if its opening check shows `no-require-imports` absent.
 
 ## Todos (sliced per PDR-132 §5; classes named per todo)
 
@@ -570,13 +592,11 @@ safe).
    canary plan's restore-the-conserved-copy step — reconcile that
    plan's todo in the same landing. Executable immediately after
    todo 1 merges.
-4. **Disabled-checks census mechanism** (source): the register
-   schema, the census validator with fixture red-proof, mechanical
-   day-1 seeding of all ~320 rows (source location as grounds),
-   wiring into `repo-validators:check`.
-5. **Census registration sweeps** (record class): per-surface
-   hand-authored grounds, contested rows surfaced as owner cards,
-   cures routed to their owning lanes.
+4. **Disabled-checks census mechanism** — EXTRACTED 2026-08-11 at the
+   owner's word to [`exemption-removal`](exemption-removal.plan.md)
+   todo 1.
+5. **Census registration sweeps** — EXTRACTED 2026-08-11 with todo 4
+   to [`exemption-removal`](exemption-removal.plan.md) todos 2–3.
 6. **Closing re-derivation** (record class): acceptance criteria
    re-proven against the live tree; plan archived with dispositions.
 7. **Enforcement-completeness follow-ups** — SUPERSEDED 2026-08-11 by
@@ -655,15 +675,11 @@ safe).
   log under `mutation-evidence/` showing config load and a completed
   pass. **PROVEN 2026-08-11** (#848 `bb40ecdf5`: 18/18 at 100% plus
   the config-load sentinel probe).
-- Every check-disabling surface in the estate is enumerated in the
-  register with grounds, every row classified scoping/suppression,
-  every suppression row carrying exactly one disposition
-  (`fix-routed` / `policy-ratified` / `pending` with its owner card),
-  and an unregistered disable fails CI — `repo-safe` for the
-  mechanism (validator + fixture); `owner-held` for `pending` rows,
-  recorded in the register files themselves (each carries the comms
-  event id of its owner card and the answer). (Rewritten 2026-08-11
-  with the classification scheme.)
+- (MOVED 2026-08-11, owner word: the census criterion — register
+  enumeration, classification, dispositions, unregistered-disable
+  CI failure — now lives verbatim in
+  [`exemption-removal`](exemption-removal.plan.md) §Acceptance
+  criteria.)
 - Zero `'off'` entries for `import-x/no-relative-packages` and
   `import-x/no-relative-parent-imports` anywhere in the estate;
   config files lint under the shared preset; and no source-file class
