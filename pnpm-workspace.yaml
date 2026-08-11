@@ -117,8 +117,10 @@ overrides:
   # Security floor, added 2026-08-11 (MCP-549): leading-zero octet decode →
   # SSRF/trust-boundary bypass (high; patched in 10.3.1), plus two moderate
   # special-use misclassification advisories (patched by 10.2.2).
-  # PRODUCTION-REACHABLE: express-rate-limit — client-IP parsing on the
-  # shipped MCP app's rate limiter, via @modelcontextprotocol/sdk — declares
+  # Production dependency; runtime reachability unestablished — the SDK
+  # imports express-rate-limit only in its OAuth auth handlers, which this
+  # app bypasses (Clerk OAuth proxy), and volumetric control sits at the
+  # edge (ADR-219). express-rate-limit declares ip-address
   # ^10.2.0. The range admits the patch, but the lockfile is derived
   # (lockfile-rebuild-survivability): a good version recorded there is not a
   # constraint, so the CVE floor earns the override. Left unbounded: 10.x is
