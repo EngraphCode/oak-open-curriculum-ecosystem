@@ -28,9 +28,11 @@ description: >-
 lift conditions, the `minimumReleaseAge` mechanism. This skill is the
 summonable routing: the decision tree, the verification tail, and the
 failure shapes, applied at the moment a trigger fires. The override
-comment discipline is modelled by `pnpm-workspace.yaml` itself — every
-security floor there carries reachability, bound rationale, and a lift
-condition. Sibling maintenance skills:
+comment discipline is modelled by `pnpm-workspace.yaml`'s MCP-549-era
+floors — reachability, bound rationale, and a lift condition on each;
+the pre-lane floors converge to that shape through the routed
+bounds-and-comments sweep, so read the commented floors as the
+pattern, not every entry as already compliant. Sibling maintenance skills:
 [`update-upstream-api-spec`](../update-upstream-api-spec/SKILL-CANONICAL.md),
 [`update-bulk-download-schema`](../update-bulk-download-schema/SKILL-CANONICAL.md).
 
@@ -87,10 +89,15 @@ exists to catch, and the verification tail's `pnpm why` proves only
 the selected version, never the floor:
 
 1. **Direct dependency, declared range admits the target** →
-   `pnpm update -r <pkg>` (the in-range refresh; note it SAVES manifest
-   ranges by default — assert scope after). Edit the `package.json`
-   range only when the range does NOT admit the target — no range churn
-   for targets the manifest already allows.
+   `pnpm update -r --no-save <pkg>` (the in-range, lockfile-only
+   refresh; `--no-save` — "Don't update the ranges in package.json" —
+   verified present in pnpm 11.20's own help. WITHOUT the flag,
+   `pnpm update` SAVES manifest ranges by default: the caret-minima
+   rewrites on the 2026-08-11 wave, e.g. ^1.62.0→^1.62.1, are that
+   default in action. Assert scope with `git status` after either
+   form). Edit the `package.json` range only when the range does NOT
+   admit the target — then the manifest edit IS the intended record,
+   not churn.
 2. **Transitive with a DIRECT parent whose bump re-resolves it** →
    update the parent (`pnpm update -r <parent>`). Verify the cure is
    tree-wide: a direct-parent bump creates a fresh node whose subtree
