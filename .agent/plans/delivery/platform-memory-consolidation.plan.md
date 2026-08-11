@@ -3,7 +3,15 @@ id: platform-memory-consolidation
 node_type: delivery
 name: "Platform memory consolidation: drain the Claude per-user buffer with a fleet, mint the skill"
 overview: "Run a dedicated-knowledge-curation session over the live Claude Code per-user memory corpus (147 undispositioned files of 381; 0.92MB total) with a fleet: disposition every live memory through the per-user-memory-is-a-buffer lifecycle — a graduation-led pass whose real cost centre is authoring ~72 missing repo homes through reviewed PRs — then rewrite MEMORY.md as a live-entries-only index of correct, unique points and pointers, and mint the platform-memory-consolidation skill from the session's own transcripts so the drain is repeatable across all four platform surfaces."
-status: sketch
+status: ratified
+ratified_by: 'Jim Cresswell'
+ratified_date: 2026-08-11
+ratified_where: >-
+  Owner card at the Director seat 2026-08-11 ~07:1xZ (card answer:
+  "Ratify, incl. MEMORY.md rewrite" — the card carried the
+  2026-08-10 "Don't change it at all!" tension explicitly, so the
+  index rewrite is owner-confirmed as part of this commission;
+  session Plover lifts Troposphere b10c37).
 serves: planning-and-intent-estate
 impact_areas:
   - practice-and-estate
@@ -11,18 +19,7 @@ tickets: []
 depends_on:
   - plan: skill-standard-pilot
     kind: beneficial
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      Ratification stamp on this plan, carrying one explicit
-      confirmation: the MEMORY.md rewrite (the 2026-08-10 in-session
-      word "Don't change it at all!" was witnessed at the Director
-      seat but recorded nowhere durable; the 2026-08-11 commission
-      reads as superseding it for this purpose, and the stamp
-      confirms that reading). The owner starts the executing seat at
-      his word: "When the plan is fully ready I will start a seat to
-      pick it up" (2026-08-11).
-    expires: 2026-09-11
+owner_gates: []
 last_updated: 2026-08-11
 ---
 
