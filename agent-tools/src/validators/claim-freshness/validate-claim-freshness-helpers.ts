@@ -154,10 +154,11 @@ export function decideFreshnessOutcome(assessment: FreshnessAssessment): Freshne
   if (assessment.integrityFindings.length > 0) {
     return {
       exitCode: 1,
-      reportLines: assessment.integrityFindings.map(
-        (finding) =>
-          `  ${finding.row}${finding.field === undefined ? '' : `.${finding.field}`}: ${finding.reason}`,
-      ),
+      reportLines: assessment.integrityFindings.map((finding) => {
+        const findingPath =
+          finding.field === undefined ? finding.row : `${finding.row}.${finding.field}`;
+        return `  ${findingPath}: ${finding.reason}`;
+      }),
     };
   }
 
