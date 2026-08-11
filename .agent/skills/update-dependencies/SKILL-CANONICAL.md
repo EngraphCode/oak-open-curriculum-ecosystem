@@ -15,9 +15,9 @@ description: >-
   resolver trips minimumReleaseAge — unmergeable here).
   Failure shapes it exists to prevent: an open floor silently adopting
   an unreviewed major; loosening or removing a floor to make install
-  pass; crossing a held major (TS 6.x, @types/node 24.x); hand-editing
-  pnpm-lock.yaml; trusting one advisory instrument's count as the whole
-  picture.
+  pass; crossing a held major (live hold list in build-system.md);
+  hand-editing pnpm-lock.yaml; trusting one advisory instrument's
+  count as the whole picture.
 ---
 
 # Update Dependencies
@@ -54,8 +54,11 @@ skill STOPS at them and surfaces).
 2. **Instruments disagree by design**: Dependabot alerts, `pnpm audit`
    full scope, and `--prod` scope each see different sets (worked
    instance 2026-08-11: Dependabot 8 vs audit 12/11 — audit saw two
-   highs Dependabot lagged on). Reconcile counts; done-when needs EVERY
-   instrument at zero, not one.
+   highs Dependabot lagged on). Reconcile counts; done-when is EVERY
+   FINDING RECONCILED on every instrument — cured, or documented as an
+   explicitly owner-accepted residual with its lift condition (step 8).
+   One instrument's zero is never done, and forcing an incompatible
+   version to make a census read zero is the failure, not the cure.
 3. **Diff the live advisory set against the existing override floors.**
    Floors drift silently between sweeps (worked instance 2026-08-11:
    three floors sat one micro-version below freshly-patched releases).
@@ -71,7 +74,11 @@ skill STOPS at them and surfaces).
 Work per PACKAGE (advisories group by package lineage, not alert), in
 preference order — the first mechanism that cures TREE-WIDE wins:
 
-1. **Direct dependency** → bump the declaring `package.json` range(s).
+1. **Direct dependency, declared range admits the target** →
+   `pnpm update -r <pkg>` (the in-range refresh; note it SAVES manifest
+   ranges by default — assert scope after). Edit the `package.json`
+   range only when the range does NOT admit the target — no range churn
+   for targets the manifest already allows.
 2. **Transitive with a DIRECT parent whose bump re-resolves it** →
    update the parent (`pnpm update -r <parent>`). Verify the cure is
    tree-wide: a direct-parent bump creates a fresh node whose subtree
@@ -96,7 +103,11 @@ preference order — the first mechanism that cures TREE-WIDE wins:
    consumers declare `^` ranges an open floor would drag across an
    incompatible major (worked near-miss 2026-08-11: an unbounded
    nanoid floor would have coerced postcss's `^3.x` onto ESM-only
-   majors). Left unbounded ONLY with a dated no-next-major note.
+   majors). Left unbounded ONLY with a dated no-next-major note. And
+   inspect EVERY consumed line first (`pnpm why -r`): when consumers
+   sit on multiple major lines, one global floor drags earlier-major
+   consumers up onto the floor's major — use parent-scoped overrides
+   (`parent>child`) per line instead of a single tree-wide range.
 6. **The fix crosses a held major** (TS 6.x, `@types/node` 24.x — see
    build-system.md for the live list and lift conditions) → STOP and
    surface; the hold's lift condition governs, never the sweep.
@@ -104,9 +115,12 @@ preference order — the first mechanism that cures TREE-WIDE wins:
    min)** → the resolver SILENTLY excludes it and picks the newest
    version older than the floor — exit 0, no warning (verified
    first-hand 2026-08-11, pnpm 11.20; the floor downgrades, never
-   refuses). Consequence: age-floored packages stay in `pnpm outdated`
-   until the release ages past the floor — a named residue cause, not
-   a defect. Wait it out, or make a deliberate
+   refuses). Consequence: age-floored targets are INVISIBLE to
+   `pnpm outdated` — its "latest" is computed under the floor too, so
+   the row reads current (observed 2026-08-11). An outdated-zero
+   therefore does not mean fully-current: name age-floored rows from
+   publish-date reads (`pnpm view <pkg> time`), never from outdated's
+   silence. Wait the floor out, or make a deliberate
    `minimumReleaseAgeExclude` entry as its own reviewed decision —
    never a workaround.
 8. **The advisory's patched version does not exist for the resolved
@@ -133,11 +147,18 @@ a zero-match sweep reads as a confirmed negative.
   resolution changes (a first dep-touching PR after a pnpm minor can
   carry a large no-new-versions rewrite — check for new
   `resolution: {integrity` lines; one body sentence explains the noise).
-- **Rebuild survivability** (`lockfile-rebuild-survivability` rule):
-  delete `pnpm-lock.yaml`, `pnpm install --lockfile-only`, re-run the
-  audit against the regenerated resolution, then restore the committed
-  lockfile (`git checkout pnpm-lock.yaml` + reinstall). The regenerated
-  lockfile is EVIDENCE, never committed.
+- **Rebuild survivability** (`lockfile-rebuild-survivability` rule —
+  run ALL FOUR of its assertions, by result): copy the lockfile aside
+  (`cp pnpm-lock.yaml <backup>` — never `git checkout` it back; with
+  uncommitted work in flight that checkout DISCARDS it, the
+  `never-use-git-to-remove-work` class), delete it, full
+  `pnpm install`, then assert (1) every floor re-resolves at or above
+  its value, (2) every documented hold still binds, (3) the audit
+  outcome is unchanged, (4) after restoring the backup,
+  `CI=true pnpm install --frozen-lockfile` succeeds — the check that
+  exposes override/manifest desync before CI does. The regenerated
+  lockfile is EVIDENCE, never committed (byte-identical regeneration is
+  the strongest result).
 - **PR opens as draft with the `jimbot` label** (owner ruling
   2026-08-11: every PR under the owner's or the bot's identity carries
   it at creation) and **gates green**; reachability reasoning for
