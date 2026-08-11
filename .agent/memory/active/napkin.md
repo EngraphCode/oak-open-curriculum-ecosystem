@@ -1474,3 +1474,25 @@ follow-up.
 ## 2026-08-10 ~21:0xZ — Plover lifts Troposphere (b10c37): evening freeze index
 
 Seat continues across compaction; freeze entry in director-handoff §COMPACTION FREEZE (evening) is the resume map. Day's arc: three merges (#845 ui-design space + walker consolidation, #836 isolation, #847 opened), the fold one review-leg from landing under the owner's newly-worded standing merge policy, skill-standard pilot plan authored → adversarially reviewed → six blockers adopted (two of them the day's own proxy-read class caught in my authoring: a DDR filename read as a verdict; first-authorship claimed over the live parallax eval convention — the review instrument catching the author is the system working). WS9 skill-craft candidate recorded at owner word with the harvest sequencing (pilot S3 transcripts feed the skill-skills).
+
+## 2026-08-11 — pilot-s1a carriage lane (worktree agent-a1ddadee)
+
+S1a executed: carriage machinery + 134-file estate sweep + design-sync
+declaration landed as PR #851 (draft, MCP-547). Lane-scope learnings:
+(1) vitest deep-equality distinguishes Buffer from Uint8Array even when
+bytes match — a byte-asserting test helper returns plain Uint8Array or
+the assertion fails on the wrapper (hit in carriage.integration, fixed
+in the sandbox helper). (2) sonarjs/no-alphabetical-sort forces a
+comparator; the estate precedent is `localeCompare(b, 'en')`, and en
+collation orders case-insensitively — 'SKILL.md' sorts AFTER lowercase
+paths, so switching a default sort to the pinned comparator reorders
+expected lists (one test expectation updated). (3) The pre-commit hook
+chain (format + knip + more) exceeded the 2-minute default Bash timeout
+on first run in a fresh worktree — commit with a long timeout; the
+2-min kill left no commit and no stale lock (checked before retry).
+(4) `merge-bot mint-token` writes the token to stdout and the expiry
+line to stderr — capture-to-file gets a clean single-line token.
+(5) The plan's "~109 files under the parallax tree" counts evals/
+evaluations too; the carried class (references/scripts/assets) is 63
+in cognition + 4 codex-dialogues scripts = 67 per surface — recorded
+in the PR so the acceptance number reads honestly against the plan.
