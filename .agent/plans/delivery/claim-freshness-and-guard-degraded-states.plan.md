@@ -103,10 +103,13 @@ Landing 2 is a concrete successor PR under MCP-476, carried on
   consolidate-at-second-consumer cure. Registrations use the
   execution-mode-independent form the PreToolUse guard already uses —
   `node "${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/session-drift-alert.mjs"
-  <checker> <label>` — which also CURES a live defect round 3 found
-  first-hand: the landed `plan-gate-drift-alert.mjs` registration is
-  bare-path with no exec bit and exits 126, so the ratified gate-drift
-  alert has been silently inert; the migration revives it. The checker
+  <checker> <label>`. Round 3 found the then-current
+  `plan-gate-drift-alert.mjs` registration bare-path and non-executable.
+  **Dated correction (2026-08-11):** commit `e9ac696362120153757f3046b776e91829570e52`
+  restored mode `100755` on 2026-08-06, so the hook no longer exits 126
+  and Landing 2 does not revive an inert registration. The generic
+  `node ...` migration remains required for execution-mode independence
+  and second-consumer consolidation. The checker
   treats an unreadable or malformed policy file as its own alert
   condition ("the freshness surface itself cannot be read"), never a
   silent failure — the tamper case must not silence the instrument
@@ -127,8 +130,14 @@ Landing 2 is a concrete successor PR under MCP-476, carried on
   assert nothing beyond the matched version is injected.
 
 Landing 2 also extends the health probe and records its first live
-SessionStart observation. Until it lands, expiry and pin drift are not
-enforced and the landing-1 inventory is informational only.
+SessionStart observation. It also adds a mirror-census proof over the
+known residual version-stamped surfaces (`.codex/README.md`,
+`agent-tools/docs/agent-identity.md`, the cross-platform surface matrix,
+and `policy.json` row notes): dated historical observations may remain,
+but any prose claiming a current pin must either match the canonical
+`platform_support.*.pin` value or point to it. Until Landing 2 lands,
+expiry and pin drift are not enforced and the landing-1 inventory is
+informational only.
 
 **Slice 2 — guard degraded states (MCP-477).** Child-process + dist
 architecture retained (D11). Changes:
@@ -359,7 +368,9 @@ a dated supersession note in
    session-open observation.
 5. Health-probe freshness surface — **landing-2 repo-safe proof**: unit
    tests on the pure `...FromInputs` extension with a fixed fixture
-   clock.
+   clock; plus a mirror-census fixture proving that dated historical
+   version evidence is accepted while a mismatched unqualified current
+   pin fails with the residual surface named.
 6. Dispatcher taxonomy — **repo-safe**: re-cut integration tests via
    injected seams: snapshot load failure ⇒ one ask line + exit 0;
    unreadable stdin ⇒ ask; provably-actionless zero-route ⇒ ask; unrecognised tool-shaped
@@ -404,7 +415,7 @@ a dated supersession note in
   `jimcresswell/mcp-476-claim-freshness-session-instrument`)** — generic
   SessionStart shim + both registrations + `check-claim-freshness`
   instrument + pinned-version collector + health-probe extension +
-  tests + smoke. This is the sole expiry/pin-drift enforcement
+  residual-mirror census + tests + smoke. This is the sole expiry/pin-drift enforcement
   consumer and must land before the goal may claim invisible decay is
   prevented.
 - **Guard slice (MCP-477, one PR, round budget ≤2; opens after both

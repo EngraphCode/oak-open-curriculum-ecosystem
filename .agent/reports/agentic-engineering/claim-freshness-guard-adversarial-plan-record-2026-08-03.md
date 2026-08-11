@@ -129,6 +129,12 @@ shrinking test satisfied.
   in Slice 1 revives it with the execution-mode-independent
   `node "${CLAUDE_PROJECT_DIR:-.}/..."` form. (A silent-failure
   instance of exactly the disease this lane treats.)
+- **Dated correction (2026-08-11):** that observation was true at the
+  round-3 snapshot but is no longer live. Commit
+  `e9ac696362120153757f3046b776e91829570e52` restored mode `100755` on
+  2026-08-06. The generic-shim migration retains its
+  execution-mode-independent `node ...` form and second-consumer
+  consolidation value; it no longer claims to revive an exit-126 hook.
 - Instrument checker must alert on an unreadable policy file (its own
   compensating-control duty); collector gains byte cap, scrubbed env,
   fixed candidate dirs; stdin JSON-parse diagnostics are a second

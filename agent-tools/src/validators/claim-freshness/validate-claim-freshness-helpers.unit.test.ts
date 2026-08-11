@@ -200,6 +200,15 @@ describe('decideFreshnessOutcome', () => {
     expect(outcome.reportLines.join('\n')).toContain('review_by');
   });
 
+  it('renders a field-less integrity finding without an undefined path segment', () => {
+    const outcome = decideFreshnessOutcome({
+      ...EMPTY_ASSESSMENT,
+      integrityFindings: [{ row: 'platform_support', reason: 'must be an object' }],
+    });
+    expect(outcome.exitCode).toBe(1);
+    expect(outcome.reportLines).toEqual(['  platform_support: must be an object']);
+  });
+
   it('reports pinned obligations and named not-tracked rows without enforcing them', () => {
     const outcome = decideFreshnessOutcome({
       integrityFindings: [],

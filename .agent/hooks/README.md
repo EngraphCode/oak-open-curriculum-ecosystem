@@ -223,8 +223,13 @@ it does not enforce expiry or pin drift. The concrete MCP-476 landing 2 on
 SessionStart and health-probe consumers for those clock- and
 environment-bearing decisions. Until that successor lands, the estate must not
 claim that invisible freshness decay is prevented. Current pin values and
-not-tracked reasons live only in `policy.json`; prose and matrices point there
-rather than duplicating them.
+not-tracked reasons are canonical only in `policy.json`. Known residual
+version-stamped evidence remains in `.codex/README.md`,
+`agent-tools/docs/agent-identity.md`, the cross-platform surface matrix, and
+`policy.json` row notes. Those passages are dated or consumer-local evidence,
+not alternative current-pin authorities. Landing 2 adds a mirror census that
+allows historical observations but rejects an unqualified current-pin mirror
+when it disagrees with `platform_support.*.pin` or fails to point there.
 
 ## Porting to Native Activation
 
