@@ -3697,12 +3697,18 @@ commit SHA and the closing plan reference.
   constraint at directory scale under load.
 - **Expected**: a drain pass over the live event directory completes
   comfortably inside the step deadline at any realistic directory size.
-- **Mitigation**: arm with `--step-timeout-ms 180000` (proven
-  2026-08-11); the deadline exists to catch a hung step, and three
-  minutes still catches hangs while tolerating scale.
-- **Candidate structural cure**: either a default deadline derived from
-  directory size, or drain-cost independence from total directory size
-  (the seen-cursor should bound the scan); the curator-pass archive
-  cadence (PDR-094) is the companion pressure valve — ~3,600 live
-  events means the archive pass is overdue. Route: agent-tooling
-  backlog.
+- **Mitigation attempt FALSIFIED same day**: `--step-timeout-ms 180000`
+  died identically within ~30 minutes (drain exceeded 180s). Deadline
+  size is not the constraint. The discriminating evidence: the
+  FULL-STREAM config drained the same directory all morning on the
+  default 60s deadline with zero deaths; both quiet-config arms died
+  within the hour. The defect lives on the exclusion path — leading
+  hypothesis: excluded events do not durably advance the seen cursor,
+  so each drain rescans a growing heartbeat backlog until the scan
+  outlives any deadline.
+- **Working mitigation**: run the full-stream config (no
+  `--exclude-tag`) and absorb the heartbeat wake noise; ticketed as
+  MCP-548 for a code-level cure (exclusion must advance the cursor
+  exactly as emission does). The curator-pass archive cadence (PDR-094)
+  remains the companion pressure valve — ~3,600 live events means the
+  archive pass is overdue. Route: agent-tooling backlog.
