@@ -57,7 +57,7 @@ function assertReplyShape(replyTool) {
 }
 
 /**
- * The per-call authority surface recorded in probe-record.md: if a CLI
+ * The per-call authority surface recorded in references/probe-record.md: if a CLI
  * removes or reshapes ANY recorded property or enum, the recorded
  * broadening-surface observation is stale and the probe must fail.
  */

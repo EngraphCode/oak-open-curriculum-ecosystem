@@ -2,10 +2,13 @@
 /**
  * CLI for the skills adapter generator.
  *
- * Usage:
- *   skills-adapter-generate            # generate adapters into the current repo
- *   skills-adapter-generate --check    # exit non-zero if any adapter is stale
- *   skills-adapter-generate --clear    # clear all adapter dirs before generating
+ * Usage (`--prefix` is REQUIRED — this estate's canonical value is `oak-`;
+ * the root `pnpm skills:generate` / `pnpm skills:check` scripts pin it, and
+ * an unpinned run would mint a second, unprefixed skill estate the pinned
+ * checker never inspects):
+ *   skills-adapter-generate --prefix=oak-            # generate adapters
+ *   skills-adapter-generate --check --prefix=oak-    # exit non-zero on drift
+ *   skills-adapter-generate --clear --prefix=oak-    # clear then generate
  */
 import { join } from 'node:path';
 import { argv, exit, stderr, stdout } from 'node:process';
@@ -61,11 +64,27 @@ function reportCheckFailures(result: Awaited<ReturnType<typeof checkAdapters>>):
       `Orphaned carried files (canonical source gone; a generator run prunes them):\n${orphanedList}\n`,
     );
   }
-  stderr.write('Run `pnpm skills:check` after regenerating to confirm.\n');
+  if (result.stale.length > 0) {
+    const staleList = result.stale.map((p) => `  ${p}`).join('\n');
+    stderr.write(
+      `Stale projection-root entries (no discovered canonical, not lock-pinned; a generator run removes them):\n${staleList}\n`,
+    );
+  }
+  if (result.refused.length > 0) {
+    const refusedList = result.refused.map((p) => `  ${p}`).join('\n');
+    stderr.write(
+      `Refusals (canonical symlinks or read failures — the verdict above is incomplete until these are cured):\n${refusedList}\n`,
+    );
+  }
+  stderr.write('Regenerate with `pnpm skills:generate`, then `pnpm skills:check` to confirm.\n');
 }
 
-async function runCheck(repoRoot: string, prefix: string): Promise<number> {
-  const result = await checkAdapters({ repoRoot, prefix });
+async function runCheck(
+  repoRoot: string,
+  prefix: string,
+  lockedIds: ReadonlySet<string>,
+): Promise<number> {
+  const result = await checkAdapters({ repoRoot, prefix, lockedIds });
   if (result.canonicalCount === 0) {
     stderr.write(
       'Zero canonical skills discovered — a missing or unreadable `.agent/skills` root, not an empty estate. Refusing to certify.\n',
@@ -77,7 +96,9 @@ async function runCheck(repoRoot: string, prefix: string): Promise<number> {
     result.missing.length +
     result.orphaned.length +
     result.duplicates.length +
-    result.skipped.length;
+    result.skipped.length +
+    result.stale.length +
+    result.refused.length;
   if (failureCount === 0) {
     stdout.write(
       `All adapters are up to date (${String(result.canonicalCount)} canonical skills, ` +
@@ -89,23 +110,22 @@ async function runCheck(repoRoot: string, prefix: string): Promise<number> {
   return 1;
 }
 
-async function runGenerate(repoRoot: string, flags: CliFlags): Promise<number> {
+async function runGenerate(
+  repoRoot: string,
+  flags: CliFlags,
+  lockedIds: ReadonlySet<string>,
+): Promise<number> {
   if (flags.clear) {
-    const lockResult = await readLockedSkillIds(join(repoRoot, 'skills-lock.json'));
-    if (lockResult.kind === 'error') {
-      stderr.write(`--clear refused: ${lockResult.message}\n`);
-      return 1;
-    }
-    const clearResult = await clearGeneratedAdapters(repoRoot, lockResult.value);
+    const clearResult = await clearGeneratedAdapters(repoRoot, lockedIds);
     if (clearResult.kind === 'error') {
       stderr.write(`--clear failed: ${clearResult.message}\n`);
       return 1;
     }
     stdout.write(
-      `Cleared adapter directories (${String(lockResult.value.size)} lock-pinned preserved).\n`,
+      `Cleared adapter directories (${String(lockedIds.size)} lock-pinned preserved).\n`,
     );
   }
-  const outcome = await generateAdapters({ repoRoot, prefix: flags.prefix });
+  const outcome = await generateAdapters({ repoRoot, prefix: flags.prefix, lockedIds });
   reportGenerateOutcome(outcome);
   if (outcome.written.length === 0 && outcome.skipped.length === 0) {
     stderr.write(
@@ -138,12 +158,36 @@ function reportGenerateOutcome(outcome: Awaited<ReturnType<typeof generateAdapte
         'tiers without a parseable canonical, or a dead end below them). Fix the canonical before regenerating.\n',
     );
   }
+  if (outcome.refused.length > 0) {
+    const refusedList = outcome.refused.map((p) => `  ${p}`).join('\n');
+    stderr.write(
+      `ERROR — refused emissions (canonical symlinks or read failures; nothing was written or pruned for these):\n${refusedList}\n`,
+    );
+  }
 }
 
 async function main(): Promise<number> {
   const flags = parseFlags(argv.slice(2));
+  if (flags.prefix === '') {
+    stderr.write(
+      'ERROR — --prefix is required (this estate pins `--prefix=oak-` via the root ' +
+        '`pnpm skills:generate` / `pnpm skills:check` scripts). An unprefixed run would ' +
+        'mint a second skill estate the pinned checker never inspects.\n',
+    );
+    return 2;
+  }
   const repoRoot = process.cwd();
-  return flags.check ? await runCheck(repoRoot, flags.prefix) : await runGenerate(repoRoot, flags);
+  // Both modes are lock-aware: the projection-root sweep must know which
+  // directories are vendored externals generation cannot re-create, and an
+  // unreadable lock refuses the run rather than reading as "nothing pinned".
+  const lockResult = await readLockedSkillIds(join(repoRoot, 'skills-lock.json'));
+  if (lockResult.kind === 'error') {
+    stderr.write(`refused: ${lockResult.message}\n`);
+    return 1;
+  }
+  return flags.check
+    ? await runCheck(repoRoot, flags.prefix, lockResult.value)
+    : await runGenerate(repoRoot, flags, lockResult.value);
 }
 
 try {

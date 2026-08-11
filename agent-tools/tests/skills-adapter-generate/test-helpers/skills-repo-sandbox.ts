@@ -6,12 +6,17 @@
  * removes everything a test file created.
  */
 import {
+  chmodSync,
   existsSync,
+  lstatSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
   readdirSync,
+  renameSync,
   rmSync,
+  statSync,
+  symlinkSync,
   writeFileSync,
 } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -50,6 +55,16 @@ export function removeRepoFile(root: string, relPath: string): void {
   rmSync(join(root, relPath));
 }
 
+/** Remove a repo-relative path of any shape (for transition fixtures). */
+export function removeRepoPath(root: string, relPath: string): void {
+  rmSync(join(root, relPath), { recursive: true, force: true });
+}
+
+/** Rename a repo-relative path (for whole-skill rename fixtures). */
+export function renameRepoPath(root: string, fromRelPath: string, toRelPath: string): void {
+  renameSync(join(root, fromRelPath), join(root, toRelPath));
+}
+
 /** Read a repo-relative file's raw bytes (as a plain `Uint8Array`, so
  * deep-equality against literal byte fixtures compares content, not the
  * Buffer wrapper), or undefined when absent. */
@@ -61,6 +76,34 @@ export function readRepoBytes(root: string, relPath: string): Uint8Array | undef
 /** Whether a repo-relative path (file or directory) exists. */
 export function repoPathExists(root: string, relPath: string): boolean {
   return existsSync(join(root, relPath));
+}
+
+/** Create a repo-relative symlink pointing at `target` (absolute, or
+ * relative to the link's own directory), creating link parents. */
+export function symlinkRepoPath(root: string, relLinkPath: string, target: string): void {
+  const absolute = join(root, relLinkPath);
+  mkdirSync(join(absolute, '..'), { recursive: true });
+  symlinkSync(target, absolute);
+}
+
+/** Whether a repo-relative path is itself a symlink (never follows). */
+export function repoPathIsSymlink(root: string, relPath: string): boolean {
+  const absolute = join(root, relPath);
+  try {
+    return lstatSync(absolute).isSymbolicLink();
+  } catch {
+    return false;
+  }
+}
+
+/** Set a repo-relative file's mode (for executable-bit fixtures). */
+export function chmodRepoFile(root: string, relPath: string, mode: number): void {
+  chmodSync(join(root, relPath), mode);
+}
+
+/** Whether a repo-relative file carries any executable bit. */
+export function repoFileIsExecutable(root: string, relPath: string): boolean {
+  return (statSync(join(root, relPath)).mode & 0o111) !== 0;
 }
 
 /** Recursively list files under a repo-relative directory, sorted. */

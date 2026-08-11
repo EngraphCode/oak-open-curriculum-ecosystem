@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { checkAdapters, type CheckerFs } from '../../src/skills-adapter-generate/checker';
+import type { FsRead } from '../../src/skills-adapter-generate/carriage';
 import {
   adapterTargetPath,
   buildAdapterFrontmatter,
@@ -9,6 +10,7 @@ import {
   parseFrontmatter,
   renderAdapter,
   type AdapterSurface,
+  type DiscoveryFs,
   type ParsedCanonicalSkill,
 } from '../../src/skills-adapter-generate/generator';
 
@@ -95,6 +97,20 @@ describe('buildAdapterFrontmatter', () => {
 
 const encoder = new TextEncoder();
 
+const ok = <T>(value: T): FsRead<T> => ({ kind: 'ok', value });
+
+/** Discovery keeps its own plain-list seam (collapse-to-empty is its
+ * documented error semantic); bridge the union-typed checker fs onto it. */
+function asDiscovery(fs: CheckerFs): DiscoveryFs {
+  return {
+    readFileOrUndefined: (path) => fs.readFileOrUndefined(path),
+    async listSubdirectoryNames(path) {
+      const listed = await fs.listSubdirectoryNames(path);
+      return listed.kind === 'ok' ? [...listed.value] : [];
+    },
+  };
+}
+
 /**
  * In-memory checker fs. Directory listings are the union of the explicit
  * `directories` map (which can express canonically-empty directories) and
@@ -111,7 +127,7 @@ function makeTreeFs(
     },
     async readFileBytesOrUndefined(path) {
       const text = files.get(path);
-      return text === undefined ? undefined : encoder.encode(text);
+      return ok(text === undefined ? undefined : encoder.encode(text));
     },
     async listSubdirectoryNames(path) {
       const names = new Set<string>(directories.get(path) ?? []);
@@ -126,7 +142,7 @@ function makeTreeFs(
           names.add(remainder.slice(0, separatorIndex));
         }
       }
-      return [...names];
+      return ok([...names]);
     },
     async listFileNames(path) {
       const names: string[] = [];
@@ -136,7 +152,15 @@ function makeTreeFs(
           names.push(filePath.slice(prefix.length));
         }
       }
-      return names;
+      return ok(names);
+    },
+    async listOtherEntryNames() {
+      // A text-map fixture holds regular files only; non-regular-entry
+      // behaviour is proven in the carriage unit and integration suites.
+      return ok([]);
+    },
+    async isExecutableOrUndefined(path) {
+      return ok(files.has(path) ? false : undefined);
     },
   };
 }
@@ -163,7 +187,7 @@ describe('discoverCanonicals', () => {
       ]),
     );
 
-    const outcome = await discoverCanonicals(repoRoot, fs);
+    const outcome = await discoverCanonicals(repoRoot, asDiscovery(fs));
 
     expect(outcome.skipped).toEqual([]);
     expect(outcome.duplicates).toEqual([]);
@@ -177,7 +201,7 @@ describe('discoverCanonicals', () => {
   it('skips a root directory that is neither a skill nor a concern tier', async () => {
     const fs = makeTreeFs(new Map([['/repo/.agent/skills', ['neither']]]), new Map());
 
-    const outcome = await discoverCanonicals(repoRoot, fs);
+    const outcome = await discoverCanonicals(repoRoot, asDiscovery(fs));
 
     expect(outcome.canonicals).toEqual([]);
     expect(outcome.skipped).toEqual(['neither']);
@@ -192,7 +216,7 @@ describe('discoverCanonicals', () => {
       new Map([['/repo/.agent/skills/fam/good/SKILL-CANONICAL.md', canonicalBody]]),
     );
 
-    const outcome = await discoverCanonicals(repoRoot, fs);
+    const outcome = await discoverCanonicals(repoRoot, asDiscovery(fs));
 
     expect(outcome.canonicals.map((c) => c.id)).toEqual(['good']);
     expect(outcome.skipped).toEqual(['fam/hollow']);
@@ -210,7 +234,7 @@ describe('discoverCanonicals', () => {
       ]),
     );
 
-    const outcome = await discoverCanonicals(repoRoot, fs);
+    const outcome = await discoverCanonicals(repoRoot, asDiscovery(fs));
 
     expect(outcome.skipped).toEqual([]);
     expect(outcome.canonicals.map((c) => [c.id, c.relativeDir])).toEqual([
@@ -231,7 +255,7 @@ describe('discoverCanonicals', () => {
       ]),
     );
 
-    const outcome = await discoverCanonicals(repoRoot, fs);
+    const outcome = await discoverCanonicals(repoRoot, asDiscovery(fs));
 
     expect(outcome.skipped).toEqual([]);
     expect(outcome.canonicals.map((c) => [c.id, c.relativeDir])).toEqual([
@@ -252,7 +276,7 @@ describe('discoverCanonicals', () => {
       ]),
     );
 
-    const outcome = await discoverCanonicals(repoRoot, fs);
+    const outcome = await discoverCanonicals(repoRoot, asDiscovery(fs));
 
     expect(outcome.canonicals.map((c) => c.id)).toEqual(['good']);
     expect(outcome.skipped).toEqual(['domain-craft/ui-design/hollow']);
@@ -269,7 +293,7 @@ describe('discoverCanonicals', () => {
       new Map([['/repo/.agent/skills/fam/dom/too-deep/deeper/SKILL-CANONICAL.md', canonicalBody]]),
     );
 
-    const outcome = await discoverCanonicals(repoRoot, fs);
+    const outcome = await discoverCanonicals(repoRoot, asDiscovery(fs));
 
     expect(outcome.canonicals).toEqual([]);
     expect(outcome.skipped).toEqual(['fam/dom/too-deep']);
@@ -287,7 +311,7 @@ describe('discoverCanonicals', () => {
       ]),
     );
 
-    const outcome = await discoverCanonicals(repoRoot, fs);
+    const outcome = await discoverCanonicals(repoRoot, asDiscovery(fs));
 
     expect(outcome.duplicates).toEqual(['member-a']);
   });
@@ -298,7 +322,7 @@ describe('discoverCanonicals', () => {
       new Map([['/repo/.agent/skills/broken/SKILL-CANONICAL.md', '# No frontmatter\n']]),
     );
 
-    const outcome = await discoverCanonicals(repoRoot, fs);
+    const outcome = await discoverCanonicals(repoRoot, asDiscovery(fs));
 
     expect(outcome.canonicals).toEqual([]);
     expect(outcome.skipped).toEqual(['broken']);
@@ -334,7 +358,10 @@ describe('checkAdapters over a concern tier', () => {
       new Map([['/repo/.agent/skills/fam/member-a/SKILL-CANONICAL.md', canonicalBody]]),
     );
 
-    const result = await checkAdapters({ repoRoot: '/repo', prefix: 'oak-' }, fs);
+    const result = await checkAdapters(
+      { repoRoot: '/repo', prefix: 'oak-', lockedIds: new Set<string>() },
+      fs,
+    );
 
     expect(result.missing).toEqual([
       adapterTargetPath('/repo', 'oak-', 'member-a', 'claude'),
@@ -375,7 +402,7 @@ describe('checkAdapters', () => {
       ]),
     );
 
-    const result = await checkAdapters({ repoRoot, prefix }, fs);
+    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
 
     expect(result.drifted).toEqual([]);
     expect(result.missing).toEqual([]);
@@ -386,7 +413,7 @@ describe('checkAdapters', () => {
     const files = new Map<string, string>();
 
     const result = await checkAdapters(
-      { repoRoot: '/repo', prefix: 'oak-' },
+      { repoRoot: '/repo', prefix: 'oak-', lockedIds: new Set<string>() },
       makeTreeFs(directories, files),
     );
 
@@ -398,7 +425,7 @@ describe('checkAdapters', () => {
     const files = new Map<string, string>();
 
     const result = await checkAdapters(
-      { repoRoot: '/repo', prefix: 'oak-' },
+      { repoRoot: '/repo', prefix: 'oak-', lockedIds: new Set<string>() },
       makeTreeFs(directories, files),
     );
 
@@ -419,7 +446,7 @@ describe('checkAdapters', () => {
       ]),
     );
 
-    const result = await checkAdapters({ repoRoot, prefix }, fs);
+    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
 
     expect(result.drifted).toEqual([claude.path]);
     expect(result.missing).toEqual([]);
@@ -438,7 +465,7 @@ describe('checkAdapters', () => {
       ]),
     );
 
-    const result = await checkAdapters({ repoRoot, prefix }, fs);
+    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
 
     expect(result.missing).toEqual([agents.path]);
     expect(result.drifted).toEqual([]);
@@ -484,7 +511,7 @@ describe('checkAdapters carriage', () => {
       ]),
     );
 
-    const result = await checkAdapters({ repoRoot, prefix }, fs);
+    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
 
     expect(result.drifted).toEqual([]);
     expect(result.missing).toEqual([]);
@@ -501,7 +528,7 @@ describe('checkAdapters carriage', () => {
       ]),
     );
 
-    const result = await checkAdapters({ repoRoot, prefix }, fs);
+    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
 
     expect(result.drifted).toEqual([`${claudeDir}/references/a.md`]);
   });
@@ -514,7 +541,7 @@ describe('checkAdapters carriage', () => {
       ]),
     );
 
-    const result = await checkAdapters({ repoRoot, prefix }, fs);
+    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
 
     expect(result.missing).toEqual([`${agentsDir}/scripts/tool.py`]);
   });
@@ -522,7 +549,7 @@ describe('checkAdapters carriage', () => {
   it('reports orphans: projection files whose canonical source is gone', async () => {
     const fs = withCarried(new Map([[`${claudeDir}/references/deleted-upstream.md`, 'stale']]));
 
-    const result = await checkAdapters({ repoRoot, prefix }, fs);
+    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
 
     expect(result.orphaned).toEqual([`${claudeDir}/references/deleted-upstream.md`]);
   });
@@ -530,26 +557,44 @@ describe('checkAdapters carriage', () => {
 
 describe('generateExitCode', () => {
   it('returns success when nothing was skipped and no leaf ids collide', () => {
-    expect(generateExitCode({ written: ['a', 'b'], skipped: [], duplicates: [], pruned: [] })).toBe(
-      0,
-    );
+    expect(
+      generateExitCode({
+        written: ['a', 'b'],
+        skipped: [],
+        duplicates: [],
+        pruned: [],
+        refused: [],
+      }),
+    ).toBe(0);
   });
 
   it('fails hard when any directory was skipped', () => {
     expect(
-      generateExitCode({ written: ['a'], skipped: ['uncategorised'], duplicates: [], pruned: [] }),
+      generateExitCode({
+        written: ['a'],
+        skipped: ['uncategorised'],
+        duplicates: [],
+        pruned: [],
+        refused: [],
+      }),
     ).toBe(1);
   });
 
   it('fails hard when leaf ids collide in the flat adapter namespace', () => {
     expect(
-      generateExitCode({ written: [], skipped: [], duplicates: ['member-a'], pruned: [] }),
+      generateExitCode({
+        written: [],
+        skipped: [],
+        duplicates: ['member-a'],
+        pruned: [],
+        refused: [],
+      }),
     ).toBe(1);
   });
 
   it('treats pruned orphans as a successful cure, not a failure', () => {
-    expect(generateExitCode({ written: ['a'], skipped: [], duplicates: [], pruned: ['b'] })).toBe(
-      0,
-    );
+    expect(
+      generateExitCode({ written: ['a'], skipped: [], duplicates: [], pruned: ['b'], refused: [] }),
+    ).toBe(0);
   });
 });

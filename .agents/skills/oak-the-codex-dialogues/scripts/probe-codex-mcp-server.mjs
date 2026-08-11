@@ -6,7 +6,7 @@
  * directory outside every checkout, then proves, in order:
  *
  *   1. the installed CLI version matches the pin recorded in
- *      ../probe-record.md (version gate — mismatch is a loud stop);
+ *      ../references/probe-record.md (version gate — mismatch is a loud stop);
  *   2. the tool contract: `codex` and `codex-reply` exist and `codex`
  *      declares `structuredContent.threadId` in its output schema;
  *   3. a bounded two-turn exchange round-trips one thread id exactly;
@@ -259,7 +259,7 @@ async function readInstalledVersion() {
 }
 
 async function readRecordedVersion() {
-  const recordPath = join(dirname(fileURLToPath(import.meta.url)), '..', 'probe-record.md');
+  const recordPath = join(dirname(fileURLToPath(import.meta.url)), '..', 'references', 'probe-record.md');
   const text = await readFile(recordPath, 'utf8');
   const match = /^codex_cli_version: (\d+\.\d+\.\d+)$/m.exec(text);
   if (match === null) {

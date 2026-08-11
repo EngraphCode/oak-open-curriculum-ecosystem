@@ -9,117 +9,65 @@
  * development/QA artifacts, not runtime skill content (skill-standard-pilot
  * plan, carriage decision). Empty directories are omitted, never
  * scaffolded — carriage moves files, and a directory exists in a projection
- * only because a carried file lives in it (git cannot represent an empty
- * directory, so a scaffolded one could not survive a fresh checkout anyway).
+ * only because a carried file lives in it.
  *
- * The generated skill directory is generator-owned in whole (the `--clear`
- * path already removes it wholesale), so any file in it beyond the generated
- * `SKILL.md` and the expected carried set is an orphan: a copy whose
- * canonical source is gone. The checker reports orphans; a generator run
- * prunes them.
+ * The generated skill directory is generator-owned in whole, so any file in
+ * it beyond the generated `SKILL.md` and the expected carried set is an
+ * orphan: a copy whose canonical source is gone. The checker reports
+ * orphans; a generator run prunes them. Three hardening postures from
+ * review round 3 (2026-08-11): a canonical-side symlink is a REFUSAL
+ * (carrying through one would smuggle external content into every
+ * projection); a projection-side symlink is an orphan pruned as the LINK,
+ * never the target; and any seam read failure refuses the whole skill's
+ * sync BEFORE destructive reconciliation — verdicts and pruning never run
+ * over a tree that was only partially observed. Pruning runs before
+ * copying, so a canonical file↔directory shape change never collides with
+ * its stale projected counterpart.
  *
  * I/O is injected through the {@link CarriageReadFs}/{@link CarriageWriteFs}
  * seams (defined with their real-filesystem adapters in `carriage-fs.ts`),
- * mirroring the checker's pattern, so unit tests run on deterministic
- * in-memory maps.
+ * so unit tests run on deterministic in-memory maps.
  */
 import { join } from 'node:path';
 
 import type { CarriageReadFs, CarriageWriteFs } from './carriage-fs.js';
+import { compareCarriedFile } from './carriage-compare.js';
+import {
+  byPath,
+  collectCarriedFiles,
+  walkProjectionDir,
+  type WalkOutcome,
+} from './carriage-walk.js';
 
 export {
   realCarriageReadFs,
   realCarriageWriteFs,
   type CarriageReadFs,
   type CarriageWriteFs,
+  type FsRead,
 } from './carriage-fs.js';
-
-/**
- * The carried supporting-directory names (spec §optional-directories).
- * `evals/` is excluded by decision, not omission — see the module doc.
- */
-export const CARRIED_DIRECTORY_NAMES = ['assets', 'references', 'scripts'] as const;
-
-const ADAPTER_ENTRY_FILENAME = 'SKILL.md';
-
-/** Deterministic, locale-pinned path ordering for emission and reporting. */
-const byPath = (a: string, b: string): number => a.localeCompare(b, 'en');
-
-/**
- * Enumerate the canonical skill's carried files as sorted
- * projection-relative paths (e.g. `references/family/architecture.md`).
- * Only files under {@link CARRIED_DIRECTORY_NAMES} qualify; nesting is
- * unbounded below a carried root. Sorted for deterministic emission,
- * comparison, and reporting.
- */
-export async function collectCarriedFiles(
-  canonicalDir: string,
-  fs: CarriageReadFs,
-): Promise<readonly string[]> {
-  const collected: string[] = [];
-  for (const directoryName of CARRIED_DIRECTORY_NAMES) {
-    await collectFilesUnder(join(canonicalDir, directoryName), directoryName, fs, collected);
-  }
-  return collected.sort(byPath);
-}
-
-/**
- * Enumerate every file in the generated skill directory except its
- * top-level `SKILL.md`, as sorted directory-relative paths. This is the
- * orphan-detection ground truth: the projection holds exactly the entry
- * file plus the carried set, and anything else is a copy without a source.
- */
-async function collectProjectionFiles(
-  adapterDir: string,
-  fs: CarriageReadFs,
-): Promise<readonly string[]> {
-  const collected: string[] = [];
-  for (const fileName of await fs.listFileNames(adapterDir)) {
-    if (fileName !== ADAPTER_ENTRY_FILENAME) {
-      collected.push(fileName);
-    }
-  }
-  for (const directoryName of await fs.listSubdirectoryNames(adapterDir)) {
-    await collectFilesUnder(join(adapterDir, directoryName), directoryName, fs, collected);
-  }
-  return collected.sort(byPath);
-}
-
-async function collectFilesUnder(
-  absoluteDir: string,
-  relativeDir: string,
-  fs: CarriageReadFs,
-  collected: string[],
-): Promise<void> {
-  for (const fileName of await fs.listFileNames(absoluteDir)) {
-    collected.push(`${relativeDir}/${fileName}`);
-  }
-  for (const childName of await fs.listSubdirectoryNames(absoluteDir)) {
-    await collectFilesUnder(
-      join(absoluteDir, childName),
-      `${relativeDir}/${childName}`,
-      fs,
-      collected,
-    );
-  }
-}
+export { collectCarriedFiles, countCarriedFiles } from './carriage-walk.js';
 
 /** Read-only carriage verdict for one skill on one projection surface. */
 export interface CarriageCheck {
   /** Expected carried files absent from the projection (absolute paths). */
   readonly missing: readonly string[];
-  /** Carried files whose projection bytes differ from the canonical. */
+  /** Carried files whose projection bytes or executable mode differ. */
   readonly drifted: readonly string[];
-  /** Projection files whose canonical source is gone (absolute paths). */
+  /** Projection entries whose canonical source is gone — including every
+   * non-regular entry (a symlink is never a valid carried copy). */
   readonly orphaned: readonly string[];
+  /** Refusals: canonical symlinks and seam read failures. Any entry here
+   * means the other streams are not a complete verdict. */
+  readonly refused: readonly string[];
   /** How many carried files the canonical declares for this skill. */
   readonly carriedCount: number;
 }
 
 /**
- * Compare one skill's carried set against one projection surface, bytewise,
- * and detect orphans. Read-only — the generator's {@link syncCarriage} is
- * the curing counterpart.
+ * Compare one skill's carried set against one projection surface, bytewise
+ * plus executable bit, and detect orphans. Read-only — the generator's
+ * {@link syncCarriage} is the curing counterpart.
  */
 export async function checkCarriage(
   canonicalDir: string,
@@ -127,88 +75,131 @@ export async function checkCarriage(
   fs: CarriageReadFs,
 ): Promise<CarriageCheck> {
   const carried = await collectCarriedFiles(canonicalDir, fs);
+  const projection = await walkProjectionDir(adapterDir, fs);
+  const refused = [...carried.refused, ...projection.failures];
   const missing: string[] = [];
   const drifted: string[] = [];
+  const otherSet = new Set(projection.others);
 
-  for (const relativePath of carried) {
-    const targetPath = join(adapterDir, relativePath);
-    const expected = await fs.readFileBytesOrUndefined(join(canonicalDir, relativePath));
-    const actual = await fs.readFileBytesOrUndefined(targetPath);
-    if (actual === undefined) {
-      missing.push(targetPath);
-    } else if (expected === undefined || !bytesEqual(expected, actual)) {
-      drifted.push(targetPath);
+  for (const relativePath of carried.files) {
+    if (otherSet.has(relativePath)) {
+      continue; // already failing below as an orphaned non-regular entry
+    }
+    const verdict = await compareCarriedFile(canonicalDir, adapterDir, relativePath, fs);
+    if (verdict.kind === 'refused') {
+      refused.push(verdict.message);
+    } else if (verdict.kind === 'missing') {
+      missing.push(verdict.path);
+    } else if (verdict.kind === 'drifted') {
+      drifted.push(verdict.path);
     }
   }
 
-  const carriedSet = new Set(carried);
-  const orphaned = (await collectProjectionFiles(adapterDir, fs))
-    .filter((relativePath) => !carriedSet.has(relativePath))
+  const carriedSet = new Set(carried.files);
+  const orphaned = [
+    ...projection.files.filter((relativePath) => !carriedSet.has(relativePath)),
+    ...projection.others,
+  ]
+    .sort(byPath)
     .map((relativePath) => join(adapterDir, relativePath));
 
-  return { missing, drifted, orphaned, carriedCount: carried.length };
+  return {
+    missing,
+    drifted,
+    orphaned,
+    refused: refused.sort(byPath),
+    carriedCount: carried.files.length,
+  };
 }
 
 /** Outcome of one skill/surface carriage sync (absolute paths). */
 export interface SyncCarriageOutcome {
   readonly carried: readonly string[];
   readonly pruned: readonly string[];
+  /** Refusals that stopped the sync BEFORE any destructive work. */
+  readonly refused: readonly string[];
 }
 
 /**
- * Make one projection surface's carried set true for one skill: copy every
- * canonical carried file byte-stably (unconditionally — the copy is the
- * cure for drift), prune every orphan, and sweep directories the pruning
- * emptied so the projection never accumulates scaffolding.
+ * Make one projection surface's carried set true for one skill. Any
+ * refusal (canonical symlink, seam read failure) stops the whole sync
+ * before a single write or prune — destructive reconciliation over a
+ * partially observed tree is exactly how valid copies get deleted.
+ * Otherwise, order is load-bearing: prune orphans and non-regular entries
+ * FIRST, sweep the directories the pruning emptied, and only then copy —
+ * so a canonical file↔directory shape change never collides with its
+ * stale counterpart, and no copy can ever write through a projected
+ * symlink.
  */
 export async function syncCarriage(
   canonicalDir: string,
   adapterDir: string,
   fs: CarriageWriteFs,
 ): Promise<SyncCarriageOutcome> {
-  const carriedRelative = await collectCarriedFiles(canonicalDir, fs);
-  const carriedSet = new Set(carriedRelative);
-  const carried: string[] = [];
-  const pruned: string[] = [];
-
-  for (const relativePath of carriedRelative) {
-    const targetPath = join(adapterDir, relativePath);
-    await fs.copyFileWithParents(join(canonicalDir, relativePath), targetPath);
-    carried.push(targetPath);
+  const carried = await collectCarriedFiles(canonicalDir, fs);
+  const projection = await walkProjectionDir(adapterDir, fs);
+  const refused = [...carried.refused, ...projection.failures].sort(byPath);
+  if (refused.length > 0) {
+    return { carried: [], pruned: [], refused };
   }
 
-  for (const relativePath of await collectProjectionFiles(adapterDir, fs)) {
+  const pruned = await pruneProjectionEntries(adapterDir, projection, new Set(carried.files), fs);
+  await removeEmptiedDirectories(adapterDir, fs);
+
+  const copied: string[] = [];
+  for (const relativePath of carried.files) {
+    const targetPath = join(adapterDir, relativePath);
+    await fs.copyFileWithParents(join(canonicalDir, relativePath), targetPath);
+    copied.push(targetPath);
+  }
+
+  return { carried: copied, pruned, refused: [] };
+}
+
+/** Prune non-regular entries and orphaned files; returns the pruned paths. */
+async function pruneProjectionEntries(
+  adapterDir: string,
+  projection: WalkOutcome,
+  carriedSet: ReadonlySet<string>,
+  fs: CarriageWriteFs,
+): Promise<string[]> {
+  const pruned: string[] = [];
+  for (const relativePath of projection.others) {
+    await fs.removeFile(join(adapterDir, relativePath));
+    pruned.push(join(adapterDir, relativePath));
+  }
+  for (const relativePath of projection.files) {
     if (!carriedSet.has(relativePath)) {
       await fs.removeFile(join(adapterDir, relativePath));
       pruned.push(join(adapterDir, relativePath));
     }
   }
-
-  await removeEmptiedDirectories(adapterDir, fs);
-
-  return { carried, pruned };
+  return pruned;
 }
 
 /**
  * Bottom-up sweep removing directories the orphan pruning emptied. The
  * skill directory itself is never removed — it always holds `SKILL.md`.
+ * A listing failure here is unreachable in practice (the projection walk
+ * above just succeeded); an empty result simply ends the descent.
  */
 async function removeEmptiedDirectories(adapterDir: string, fs: CarriageWriteFs): Promise<void> {
-  for (const childName of await fs.listSubdirectoryNames(adapterDir)) {
+  for (const childName of await listSubdirectoriesOrNone(adapterDir, fs)) {
     await removeIfEmptyDeep(join(adapterDir, childName), fs);
   }
 }
 
 async function removeIfEmptyDeep(absoluteDir: string, fs: CarriageWriteFs): Promise<void> {
-  for (const childName of await fs.listSubdirectoryNames(absoluteDir)) {
+  for (const childName of await listSubdirectoriesOrNone(absoluteDir, fs)) {
     await removeIfEmptyDeep(join(absoluteDir, childName), fs);
   }
   await fs.removeDirectoryIfEmpty(absoluteDir);
 }
 
-function bytesEqual(left: Uint8Array, right: Uint8Array): boolean {
-  if (left.length !== right.length) {
-    return false;
-  }
-  return left.every((byte, index) => byte === right[index]);
+async function listSubdirectoriesOrNone(
+  path: string,
+  fs: CarriageReadFs,
+): Promise<readonly string[]> {
+  const listed = await fs.listSubdirectoryNames(path);
+  return listed.kind === 'ok' ? listed.value : [];
 }
