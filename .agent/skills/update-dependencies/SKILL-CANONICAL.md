@@ -142,7 +142,15 @@ a zero-match sweep reads as a confirmed negative.
   2026-08-11: every PR under the owner's or the bot's identity carries
   it at creation) and **gates green**; reachability reasoning for
   production-chain advisories recorded in the PR body (cure regardless
-  — reachability prices urgency, never skips the cure). State reachability at the
+  — reachability prices urgency, never skips the cure).
+- **Multi-PR waves may use GitHub PR stacks** (owner sanction
+  2026-08-11, "where appropriate"): main's ruleset binds every stack
+  member including mid-stack; merge bottom-up one-at-a-time on the
+  standard path; at each merge the next PR auto-retargets via
+  cascading rebase, so its tip MOVES — full re-settle and recount
+  before its grant, and prefer the local `gh stack rebase` under bot
+  identity over the server-side cascade (a server rebase rewrites
+  committer identity). State reachability at the
   right rung: a package in a production dependency chain is a
   "production dependency"; PRODUCTION-REACHABLE additionally requires
   the RUNTIME call path (which import runs, on which route) — a
