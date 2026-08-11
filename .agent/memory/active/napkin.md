@@ -1920,3 +1920,47 @@ Review-ratchet worked instance: nine rounds on the skill PR (9/2/1/3/3/2/2/3/0),
   worktree cwd (no-op adds, pathspec failures, up-to-date pushes reading as
   green). Cure: one cwd per background chain — split multi-checkout work into
   separate commands, each opening with its own explicit `cd || exit 1`.
+
+## 2026-08-11 ~22:0xZ — S1b (MCP-553 → PR #861) + the 851 phantom discrimination (Wren calls Downdraft, 6b29b5)
+
+- VENDOR PROBES SPLIT THE CLASS BEFORE ENCODING: two reviewers' isolated-fixture
+  probes both measured backslash-in-turbo-inputs as "rejects the config" — the
+  in-repo probe of a DIFFERENT sub-case (`\.`, a VALID escape) was accepted yet
+  resolved zero files. Neither probe was wrong; each measured one sub-case of a
+  class. Cure: before encoding a vendor refusal/normalisation, enumerate the
+  class's sub-cases (valid/invalid escape, escaping/non-escaping `..`) and
+  probe the exact spelling being encoded; scratch fixtures also diverge from
+  the real repo (git-context, children-are-directories) — confirm in-repo.
+- SONAR "PHANTOM" CLASS DISSOLVED (owner check-again word, 21:56Z): both
+  #850 and #851 gate failures were GENUINE issues hidden by OUR query facet —
+  the default issues/search (and resolved=false) returned zero rows while the
+  explicit issueStatuses=OPEN,CONFIRMED facet named all three #851 findings
+  exactly (typescript:S4043, carriage.ts:110 + projection-roots.ts:93 twice,
+  matching the per-file measures). The intermediate "platform-persistent"
+  verdict this block briefly carried was wrong: re-analysis didn't clear the
+  gate because the issues were real. Standing cure: at any measures-vs-index
+  divergence, query with the EXPLICIT issueStatuses facet before concluding
+  divergence; the per-file measure names the file, the facet names the rule
+  and line. (#850's construct removal cured a real finding too — the query
+  surface was blind both times, the platform never was.)
+- TSDOC LEDGER `*/` TRAP: a probe-ledger row quoting a glob with trailing
+  slash (`bin/*/`) terminates the block comment mid-file — the parser error
+  surfaces two lines later. Reword glob-with-trailing-slash examples in prose
+  inside block comments.
+- CEREMONY PIPES MASK EXITS: `cmd 2>&1 | tail -1` returns tail's 0 — an
+  enqueue/guard chain "succeeded" past a failed leg. Recompute intent state
+  from the registry after staging (phase + fingerprint), never trust the
+  chain's exit.
+- COPILOT PROOF SURFACE (fleet-absorbed tonight): the issue TIMELINE's
+  review_requested events are the binding proof; requested_reviewers reads
+  empty by construction after acceptance (self-removal). Six legs fired from
+  this seat tonight, all timeline-verified.
+- WATCHER GTIMEOUT BACKSTOP fires mid-work at 3600s by design — re-arm on the
+  exit notification; the seen-file cursor makes the restart lossless (gap
+  window swept empty first-hand).
+- INSTRUMENT VERIFICATION BEFORE TRUST: a Linear poll built on a guessed
+  keychain entry ran green-silent on 401s — one foreground row of the real
+  surface (key-present=no) killed it before it could masquerade as a quiet
+  ticket. Same class as Forge's [bot]-suffix filter miss: build watches from
+  observed rows, verify auth foreground, or keep the watch on an
+  authenticated instrument (Linear MCP at settle sweeps).

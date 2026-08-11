@@ -529,16 +529,18 @@ recomputed `positives` count instead of bare prose.
 **S1b follow-up rows (recorded at execution from the pre-execution
 code-expert round; distinct mechanisms, deliberately NOT folded):**
 
-1. `..` segments: today's dead verdict stands, unprobed. The real
-   question is containment, not normalisation — an escaping input
-   (`$TURBO_ROOT$/../x`) leaves the repository root, this validator's
-   own concern class; decide refusal vs a finding class of its own,
-   then probe.
-2. Directory-matching globs (`$TURBO_ROOT$/packages/design/*`): the
-   glob arm has no analogue of the literal arm's directory-prefix
-   expansion. Probe question: does turbo expand a glob match that is
-   a directory to that directory's contents? Zero live instances
-   today (every directory-shaped entry terminates in `**`).
+1. `..` segments — DISCHARGED IN-PR (2026-08-11, the same S1b PR):
+   the gateway reviewer's own probe, confirmed in-repo, showed turbo
+   NORMALISES a non-escaping `..` (lexical pop) and REJECTS the whole
+   config on an escaping one (Path error, exit 1) — the case splits
+   exactly like the cured spellings, not into a containment question.
+   Both behaviours are encoded and red-proofed; the ledger is in
+   `turbo-glob.ts`.
+2. Directory-matching globs — DISCHARGED BY MEASUREMENT (2026-08-11):
+   probed in-repo, turbo resolves ZERO files for a glob whose matches
+   are directories (no expansion), so the matcher's dead verdict on
+   that form is turbo's own answer. No code change owed; the ledger
+   records the measurement.
 3. Zero-`$TURBO_ROOT$`-inputs green pass: the bin's header promises
    it never reports success over nothing checked, but
    `isDegenerateScan` guards workspaces and config files only — a
@@ -547,15 +549,19 @@ code-expert round; distinct mechanisms, deliberately NOT folded):**
    first-principles pass, never a rider. (Partially mitigated: the
    success line now prints the recomputed count, so "0 positive
    $TURBO_ROOT$ inputs" is loud.)
-4. GATE for rows 1–2 (friction-ratchet escalation, pre-execution
-   code-expert 2026-08-11: five-plus independent friction signals
-   against the hand-rolled-matcher shape, every one resolved by
-   adding code): before any further hand-encoded vendor semantics,
-   run assumptions-expert at deep depth on the solution class — the
+4. GATE (friction-ratchet escalation, pre-execution code-expert
+   2026-08-11: five-plus independent friction signals against the
+   hand-rolled-matcher shape, every one resolved by adding code):
+   before any further hand-encoded vendor semantics, run
+   assumptions-expert at deep depth on the solution class — the
    matcher reimplements an engine whose ground truth
    (`turbo --dry=json` resolved inputs) the validator could query
    directly, and the dry-run cost is now measurable in-repo rather
-   than assumed. Rows 1–2 are blocked behind that verdict.
+   than assumed. Rows 1–2 discharged before the gate fired (re-trued
+   2026-08-11 post-execution: the `..` cure rode the S1b PR at the
+   gateway reviewer's probe-refutation; the directory-glob question
+   closed by measurement); the gate now guards row 3 and ANY future
+   vendor-semantics addition to the matcher.
 
 ### Census enrichment (todos 4–5) — EXTRACTED 2026-08-11
 
