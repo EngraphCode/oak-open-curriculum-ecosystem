@@ -49,11 +49,17 @@ function reportCheckFailures(result: Awaited<ReturnType<typeof checkAdapters>>):
   }
   if (result.missing.length > 0) {
     const missingList = result.missing.map((p) => `  ${p}`).join('\n');
-    stderr.write(`Missing adapters:\n${missingList}\n`);
+    stderr.write(`Missing projection files:\n${missingList}\n`);
   }
   if (result.drifted.length > 0) {
     const driftedList = result.drifted.map((p) => `  ${p}`).join('\n');
-    stderr.write(`Drifted adapters:\n${driftedList}\n`);
+    stderr.write(`Drifted projection files:\n${driftedList}\n`);
+  }
+  if (result.orphaned.length > 0) {
+    const orphanedList = result.orphaned.map((p) => `  ${p}`).join('\n');
+    stderr.write(
+      `Orphaned carried files (canonical source gone; a generator run prunes them):\n${orphanedList}\n`,
+    );
   }
   stderr.write('Run `pnpm skills:check` after regenerating to confirm.\n');
 }
@@ -69,10 +75,14 @@ async function runCheck(repoRoot: string, prefix: string): Promise<number> {
   const failureCount =
     result.drifted.length +
     result.missing.length +
+    result.orphaned.length +
     result.duplicates.length +
     result.skipped.length;
   if (failureCount === 0) {
-    stdout.write('All adapters are up to date.\n');
+    stdout.write(
+      `All adapters are up to date (${String(result.canonicalCount)} canonical skills, ` +
+        `${String(result.carriedFileCount)} carried supporting files per surface).\n`,
+    );
     return 0;
   }
   reportCheckFailures(result);
@@ -96,7 +106,24 @@ async function runGenerate(repoRoot: string, flags: CliFlags): Promise<number> {
     );
   }
   const outcome = await generateAdapters({ repoRoot, prefix: flags.prefix });
-  stdout.write(`Wrote ${String(outcome.written.length)} adapter files.\n`);
+  reportGenerateOutcome(outcome);
+  if (outcome.written.length === 0 && outcome.skipped.length === 0) {
+    stderr.write(
+      'ERROR — no canonicals discovered under .agent/skills; wrong working directory?\n',
+    );
+    return 1;
+  }
+  return generateExitCode(outcome);
+}
+
+function reportGenerateOutcome(outcome: Awaited<ReturnType<typeof generateAdapters>>): void {
+  stdout.write(`Wrote ${String(outcome.written.length)} projection files.\n`);
+  if (outcome.pruned.length > 0) {
+    const prunedList = outcome.pruned.map((p) => `  ${p}`).join('\n');
+    stdout.write(
+      `Pruned ${String(outcome.pruned.length)} orphaned carried files:\n${prunedList}\n`,
+    );
+  }
   if (outcome.duplicates.length > 0) {
     stderr.write(
       `ERROR — duplicate canonical leaf ids: ${outcome.duplicates.join(', ')}\n` +
@@ -107,17 +134,10 @@ async function runGenerate(repoRoot: string, flags: CliFlags): Promise<number> {
   if (outcome.skipped.length > 0) {
     stderr.write(
       `ERROR — directories with no readable SKILL-CANONICAL.md: ${outcome.skipped.join(', ')}\n` +
-        'These entries hold content no harness can summon (a root entry that is neither a flat skill ' +
-        'nor a family bundle, or a family member without a canonical). Fix the canonical before regenerating.\n',
+        'These entries hold content no harness can summon (a directory at any of the three ratified ' +
+        'tiers without a parseable canonical, or a dead end below them). Fix the canonical before regenerating.\n',
     );
   }
-  if (outcome.written.length === 0 && outcome.skipped.length === 0) {
-    stderr.write(
-      'ERROR — no canonicals discovered under .agent/skills; wrong working directory?\n',
-    );
-    return 1;
-  }
-  return generateExitCode(outcome);
 }
 
 async function main(): Promise<number> {

@@ -93,19 +93,14 @@ describe('buildAdapterFrontmatter', () => {
   });
 });
 
-function makeFs(files: ReadonlyMap<string, string>): CheckerFs {
-  return {
-    async readFileOrUndefined(path) {
-      return files.get(path);
-    },
-    async listSubdirectoryNames(path) {
-      return path === '/repo/.agent/skills' ? ['sample'] : [];
-    },
-  };
-}
+const encoder = new TextEncoder();
 
-const canonicalBody = '---\nname: x\ndescription: A canonical skill.\n---\n\nbody\n';
-
+/**
+ * In-memory checker fs. Directory listings are the union of the explicit
+ * `directories` map (which can express canonically-empty directories) and
+ * listings derived from the `files` keys (so carried-file fixtures stay
+ * consistent with the directories that hold them by construction).
+ */
 function makeTreeFs(
   directories: ReadonlyMap<string, readonly string[]>,
   files: ReadonlyMap<string, string>,
@@ -114,11 +109,43 @@ function makeTreeFs(
     async readFileOrUndefined(path) {
       return files.get(path);
     },
+    async readFileBytesOrUndefined(path) {
+      const text = files.get(path);
+      return text === undefined ? undefined : encoder.encode(text);
+    },
     async listSubdirectoryNames(path) {
-      return directories.get(path) ?? [];
+      const names = new Set<string>(directories.get(path) ?? []);
+      const prefix = `${path}/`;
+      for (const filePath of files.keys()) {
+        if (!filePath.startsWith(prefix)) {
+          continue;
+        }
+        const remainder = filePath.slice(prefix.length);
+        const separatorIndex = remainder.indexOf('/');
+        if (separatorIndex > 0) {
+          names.add(remainder.slice(0, separatorIndex));
+        }
+      }
+      return [...names];
+    },
+    async listFileNames(path) {
+      const names: string[] = [];
+      const prefix = `${path}/`;
+      for (const filePath of files.keys()) {
+        if (filePath.startsWith(prefix) && !filePath.slice(prefix.length).includes('/')) {
+          names.push(filePath.slice(prefix.length));
+        }
+      }
+      return names;
     },
   };
 }
+
+function makeFs(files: ReadonlyMap<string, string>): CheckerFs {
+  return makeTreeFs(new Map(), files);
+}
+
+const canonicalBody = '---\nname: x\ndescription: A canonical skill.\n---\n\nbody\n';
 
 describe('discoverCanonicals', () => {
   const repoRoot = '/repo';
@@ -418,18 +445,111 @@ describe('checkAdapters', () => {
   });
 });
 
-describe('generateExitCode', () => {
-  it('returns success when nothing was skipped and no leaf ids collide', () => {
-    expect(generateExitCode({ written: ['a', 'b'], skipped: [], duplicates: [] })).toBe(0);
+describe('checkAdapters carriage', () => {
+  const repoRoot = '/repo';
+  const prefix = 'oak-';
+  const canonicalDir = '/repo/.agent/skills/cognition/parallax';
+  const parsedParallax: ParsedCanonicalSkill = {
+    id: 'parallax',
+    relativeDir: 'cognition/parallax',
+    frontmatter: { name: 'x', description: 'A canonical skill.' },
+    canonicalPath: `${canonicalDir}/SKILL-CANONICAL.md`,
+    canonicalFilename: 'SKILL-CANONICAL.md',
+  };
+
+  function adapterFixture(): ReadonlyMap<string, string> {
+    const entries = new Map<string, string>([[parsedParallax.canonicalPath, canonicalBody]]);
+    for (const surface of ['claude', 'agents'] as const) {
+      entries.set(
+        adapterTargetPath(repoRoot, prefix, parsedParallax.id, surface),
+        renderAdapter(parsedParallax, prefix, surface),
+      );
+    }
+    return entries;
+  }
+
+  function withCarried(extra: ReadonlyMap<string, string>): CheckerFs {
+    return makeTreeFs(new Map(), new Map([...adapterFixture(), ...extra]));
+  }
+
+  const claudeDir = '/repo/.claude/skills/oak-parallax';
+  const agentsDir = '/repo/.agents/skills/oak-parallax';
+
+  it('is green when every carried file is byte-identical on both surfaces, counting the canonical carried set', async () => {
+    const fs = withCarried(
+      new Map([
+        [`${canonicalDir}/references/a.md`, 'alpha'],
+        [`${claudeDir}/references/a.md`, 'alpha'],
+        [`${agentsDir}/references/a.md`, 'alpha'],
+      ]),
+    );
+
+    const result = await checkAdapters({ repoRoot, prefix }, fs);
+
+    expect(result.drifted).toEqual([]);
+    expect(result.missing).toEqual([]);
+    expect(result.orphaned).toEqual([]);
+    expect(result.carriedFileCount).toBe(1);
   });
 
-  it('fails hard when any directory was skipped', () => {
-    expect(generateExitCode({ written: ['a'], skipped: ['uncategorised'], duplicates: [] })).toBe(
-      1,
+  it('reports drift on a mutated carried file on one surface only', async () => {
+    const fs = withCarried(
+      new Map([
+        [`${canonicalDir}/references/a.md`, 'alpha'],
+        [`${claudeDir}/references/a.md`, 'alpha — mutated'],
+        [`${agentsDir}/references/a.md`, 'alpha'],
+      ]),
+    );
+
+    const result = await checkAdapters({ repoRoot, prefix }, fs);
+
+    expect(result.drifted).toEqual([`${claudeDir}/references/a.md`]);
+  });
+
+  it('reports a carried file missing from a surface', async () => {
+    const fs = withCarried(
+      new Map([
+        [`${canonicalDir}/scripts/tool.py`, 'code'],
+        [`${claudeDir}/scripts/tool.py`, 'code'],
+      ]),
+    );
+
+    const result = await checkAdapters({ repoRoot, prefix }, fs);
+
+    expect(result.missing).toEqual([`${agentsDir}/scripts/tool.py`]);
+  });
+
+  it('reports orphans: projection files whose canonical source is gone', async () => {
+    const fs = withCarried(new Map([[`${claudeDir}/references/deleted-upstream.md`, 'stale']]));
+
+    const result = await checkAdapters({ repoRoot, prefix }, fs);
+
+    expect(result.orphaned).toEqual([`${claudeDir}/references/deleted-upstream.md`]);
+  });
+});
+
+describe('generateExitCode', () => {
+  it('returns success when nothing was skipped and no leaf ids collide', () => {
+    expect(generateExitCode({ written: ['a', 'b'], skipped: [], duplicates: [], pruned: [] })).toBe(
+      0,
     );
   });
 
+  it('fails hard when any directory was skipped', () => {
+    expect(
+      generateExitCode({ written: ['a'], skipped: ['uncategorised'], duplicates: [], pruned: [] }),
+    ).toBe(1);
+  });
+
   it('fails hard when leaf ids collide in the flat adapter namespace', () => {
-    expect(generateExitCode({ written: [], skipped: [], duplicates: ['member-a'] })).toBe(1);
+    expect(
+      generateExitCode({ written: [], skipped: [], duplicates: ['member-a'], pruned: [] }),
+    ).toBe(1);
+  });
+
+  it('treats pruned orphans as a successful cure, not a failure', () => {
+    expect(generateExitCode({ written: ['a'], skipped: [], duplicates: [], pruned: ['b'] })).toBe(
+      0,
+    );
   });
 });

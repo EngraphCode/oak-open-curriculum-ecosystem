@@ -1,21 +1,25 @@
 /**
  * Skills adapter generator.
  *
- * Discovers canonical skills under `.agent/skills/` (flat individuals and
- * concern-tier members — see `discovery.ts`) and emits two adapter surfaces per
- * skill:
+ * Discovers canonical skills under `.agent/skills/` (flat individuals,
+ * concern-tier members, and domain-tier members — see `discovery.ts`) and
+ * emits two adapter surfaces per skill:
  *
  *   - `.claude/skills/<prefix><id>/SKILL.md`  — Claude Code adapter
  *   - `.agents/skills/<prefix><id>/SKILL.md`  — cross-tool stub (Codex, Cursor, Gemini)
  *
  * Adapters are stub pointers: their body links back to the canonical, which
- * remains the single source of truth for workflow content.
+ * remains the single source of truth for workflow content. Supporting
+ * directories (`scripts/`, `references/`, `assets/` — never `evals/`) are
+ * carried beside each adapter as byte-stable copies, and carried copies
+ * whose canonical source is gone are pruned — see `carriage.ts`.
  */
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 
 import { stringify as stringifyYaml } from 'yaml';
 
+import { realCarriageWriteFs, syncCarriage } from './carriage.js';
 import {
   discoverCanonicals,
   type CanonicalFrontmatter,
@@ -35,6 +39,9 @@ export interface GenerateOutcome {
   readonly written: readonly string[];
   readonly skipped: readonly string[];
   readonly duplicates: readonly string[];
+  /** Carried copies removed because their canonical source is gone. A cure
+   * the run applied, reported for observability — never a failure state. */
+  readonly pruned: readonly string[];
 }
 
 interface AdapterFrontmatter {
@@ -47,37 +54,51 @@ export type ParsedCanonicalSkill = ParsedCanonical;
 
 /**
  * Discover, parse, and emit adapters for every canonical skill under
- * `.agent/skills/`. Idempotent — re-running yields byte-identical adapter
- * files when the canonicals are unchanged. Duplicate leaf ids refuse the
- * whole emission: the adapter namespace is flat, and writing either claimant
- * would silently shadow the other.
+ * `.agent/skills/`, carrying each skill's supporting directories beside the
+ * adapter and pruning orphaned carried copies. Idempotent — re-running
+ * yields byte-identical projection files when the canonicals are unchanged.
+ * Duplicate leaf ids refuse the whole emission: the adapter namespace is
+ * flat, and writing either claimant would silently shadow the other.
  */
 export async function generateAdapters(options: GeneratorOptions): Promise<GenerateOutcome> {
   const written: string[] = [];
+  const pruned: string[] = [];
   const discovery = await discoverCanonicals(options.repoRoot);
 
   if (discovery.duplicates.length > 0) {
-    return { written, skipped: discovery.skipped, duplicates: discovery.duplicates };
+    return { written, skipped: discovery.skipped, duplicates: discovery.duplicates, pruned };
   }
   for (const parsed of discovery.canonicals) {
-    const claudeWritten = await emitAdapter(options, parsed, 'claude');
-    const agentsWritten = await emitAdapter(options, parsed, 'agents');
-    written.push(claudeWritten, agentsWritten);
+    for (const surface of ['claude', 'agents'] as const) {
+      const emitted = await emitAdapter(options, parsed, surface);
+      written.push(...emitted.written);
+      pruned.push(...emitted.pruned);
+    }
   }
 
-  return { written, skipped: discovery.skipped, duplicates: discovery.duplicates };
+  return { written, skipped: discovery.skipped, duplicates: discovery.duplicates, pruned };
+}
+
+interface EmitAdapterOutcome {
+  readonly written: readonly string[];
+  readonly pruned: readonly string[];
 }
 
 async function emitAdapter(
   options: GeneratorOptions,
   parsed: ParsedCanonical,
   surface: AdapterSurface,
-): Promise<string> {
+): Promise<EmitAdapterOutcome> {
   const target = adapterTargetPath(options.repoRoot, options.prefix, parsed.id, surface);
   const fileContent = renderAdapter(parsed, options.prefix, surface);
   await mkdir(dirname(target), { recursive: true });
   await writeFile(target, fileContent, 'utf8');
-  return target;
+  const carriage = await syncCarriage(
+    dirname(parsed.canonicalPath),
+    dirname(target),
+    realCarriageWriteFs,
+  );
+  return { written: [target, ...carriage.carried], pruned: carriage.pruned };
 }
 
 export function renderAdapter(
