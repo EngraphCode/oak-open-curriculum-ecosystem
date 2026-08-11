@@ -97,11 +97,27 @@ audience split that no single channel covers:
    consider the `comms ping` wrapper above so the mirrored form is
    cheaper than the unmirrored one.
 
-## Non-Claude agents
+## Non-Claude agents, and the census illusion
 
 The estate's citizenship is unconditional across platforms
 (Cursor, Codex, Gemini seats are first-class), and s2s structurally
-excludes them. The risk is drift: Claude seats developing an s2s
+excludes them — in BOTH directions, and without advertising it. The
+owner demonstrated the hazard first-hand (2026-08-11): a repo with a
+live Codex teammate working in it lists, via the platform's agents
+listing, as containing no one — the listing is a CLAUDE-SESSION census
+presenting with the affordance of an agent census. This is the
+recorded error class ("an instrument's silence is a fact about the
+instrument's frame, never about the world") built into a tool: the
+constraint is real, and unadvertised. The owner's framing, verbatim:
+"in some ways these mechanisms are far more constrained than the
+Practice, but they don't advertise that, we must remain aware of it."
+
+**The behavioural consequence (proposed behaviour 6): the agents
+listing answers "which Claude sessions can I ping", NEVER "who is
+working here."** The Practice's claims registry — platform-neutral by
+construction — remains the only authoritative census of the working
+set, and any liveness or who-is-here reasoning starts there, with the
+listing as Claude-side corroboration only (per the F-44 note above). The risk is drift: Claude seats developing an s2s
 fast-lane that makes mixed-platform coordination second-class. The
 mitigations are behaviours 2 and 3 — the mirroring obligation keeps
 the record complete for every reader regardless of platform, and
@@ -124,7 +140,7 @@ simply the Claude-native instance of the interrupt line.
 
 ## Routed follow-ups
 
-- Director: adjudicate behaviours 1–5 into the collaboration practice
+- Director: adjudicate behaviours 1–6 into the collaboration practice
   (new rule vs PDR clause), fold this analysis's verdicts into the
   comms doctrine at the next quiet window.
 - Agent-tooling (on adoption): the `comms ping` wrapper; a
