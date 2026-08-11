@@ -131,10 +131,11 @@ export function registerPublicOAuthMetadataEndpoints(
 }
 
 /**
- * Registers /mcp routes with HTTP-level auth (HTTP 401 for unauthenticated).
- * Volumetric control is owned at the edge (ADR-219);
- * `js/missing-rate-limiting` findings on these registrations are
- * dispositioned against that ADR.
+ * Registers the /mcp method mounts: POST with HTTP-level auth (HTTP 401
+ * for unauthenticated) and the identity-independent GET 405 stream
+ * refusal (MCP-545 — see {@link createRefuseGetMcp}). Volumetric control
+ * is owned at the edge (ADR-219); `js/missing-rate-limiting` findings on
+ * these registrations are dispositioned against that ADR.
  *
  * @see https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization
  */
@@ -179,8 +180,10 @@ export interface SetupAuthRoutesOptions {
 }
 
 /**
- * Registers /mcp routes -- protected (auth enabled) or unprotected (bypass mode).
- * Called AFTER OAuth metadata endpoints and clerkMiddleware are installed.
+ * Registers /mcp routes: POST protected (auth enabled) or unprotected
+ * (bypass mode); GET is the identity-independent 405 stream refusal in
+ * both modes (MCP-545). Called AFTER OAuth metadata endpoints and
+ * clerkMiddleware are installed.
  */
 export function setupAuthRoutes(options: SetupAuthRoutesOptions): void {
   const {
@@ -203,8 +206,9 @@ export function setupAuthRoutes(options: SetupAuthRoutesOptions): void {
   }
 
   // OAuth metadata endpoints are registered BEFORE clerkMiddleware (in Phase 2.5)
-  // This function registers /mcp routes with HTTP-level auth enforcement
-  // Auth middleware returns HTTP 401 per MCP spec and OpenAI Apps docs
+  // This function registers POST /mcp with HTTP-level auth enforcement (the
+  // auth middleware returns HTTP 401 per MCP spec and OpenAI Apps docs) and
+  // the identity-independent GET /mcp 405 stream refusal (MCP-545)
   authLog.debug('Registering MCP routes (HTTP-level auth enforcement)');
   measureAuthSetupStep(authLog, 'mcp.routes.register', () => {
     registerAuthenticatedRoutes({

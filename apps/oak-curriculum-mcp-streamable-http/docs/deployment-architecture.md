@@ -76,15 +76,16 @@ the default handler. Local `dist/index.js` is not the deployed artefact.
 ### Function Duration Ceiling
 
 The serverless function's maximum duration is the Vercel platform default
-(300 seconds at the current plan) — `vercel.json` declares no `maxDuration`,
+for the account's plan — `vercel.json` declares no `maxDuration`,
 deliberately: the Express preset builds the function from the `package.json`
 `main` artefact rather than an `api/` directory, so no verifiable `functions`
 glob exists for it, and a `functions` pattern that matches nothing fails the
-build outright. The long-lived requests that used to ride to this ceiling
-(standalone GET SSE streams, ~980 production timeout kills/day) are refused
-with 405 at the route instead (MCP-545). Choosing an explicit lower ceiling
-remains open and is adjudicated on measured legitimate POST durations, not
-configured speculatively here.
+build outright. The request class that used to ride to this ceiling and be
+killed there (standalone GET SSE streams, which the stateless per-request
+pattern can never deliver events to) is refused with 405 at the route
+instead (MCP-545; measured rates live on that ticket). Choosing an explicit
+lower ceiling remains open and is adjudicated on measured legitimate POST
+durations, not configured speculatively here.
 
 ### Key Files
 
@@ -382,8 +383,9 @@ The application uses a carefully ordered middleware chain that is **critical for
                            ↓
 ┌─────────────────────────────────────────────────────────────┐
 │ Phase 7: Auth Routes                                        │
-│  • Protected MCP Routes (POST/GET /mcp with mcpAuthClerk)  │
-│  OR Unprotected (if DANGEROUSLY_DISABLE_AUTH=true)         │
+│  • Protected MCP route (POST /mcp with mcpAuthClerk)       │
+│  • GET /mcp: identity-independent 405 refusal (MCP-545)    │
+│  OR Unprotected POST (if DANGEROUSLY_DISABLE_AUTH=true)    │
 └─────────────────────────────────────────────────────────────┘
 ```
 
