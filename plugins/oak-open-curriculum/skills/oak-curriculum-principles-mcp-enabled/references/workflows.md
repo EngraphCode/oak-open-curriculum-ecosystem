@@ -57,18 +57,18 @@ When you want a model to learn from or point to.
 When auditing third-party or draft material.
 
 1. Identify the Oak equivalent (workflow A, steps 1–2).
-2. Run the **review rubric** from `oak-curriculum-principles`, but substitute real Oak data for each "strong looks like": Oak's keywords, Oak's thread order, Oak's misconceptions, Oak's NC coverage, Oak's content guidance.
+2. Run the **review rubric** from `oak-curriculum-principles`, but substitute real Oak data for each "strong looks like": Oak's keywords, Oak's thread order, Oak's misconceptions, Oak's national curriculum statements, Oak's content guidance.
 3. Produce: summary judgement → principle-by-principle ratings with _located_ evidence → two or three priority actions → strengths to keep. Cite the specific Oak lesson/unit/thread used as the benchmark.
 
 ---
 
-## F. Check national-curriculum coverage and adaptability
+## F. Map to national-curriculum statements and check adaptability
 
-When the concern is flexibility and statutory coverage.
+When the concern is flexibility and the national curriculum statements a unit records.
 
 1. `browse-curriculum({ subject, keyStage })` to see structure, sequences and options.
-2. `get-units-summary` / `fetch({ id: "unit:<slug>" })` to read national-curriculum coverage and any `unitOptions`.
-3. Map your material to the same NC statements; use Oak's `unitOptions` as a model for offering teacher choice without forking the entitlement; confirm threads are signposted so localisation won't break coherence.
+2. `get-units-summary` / `fetch({ id: "unit:<slug>" })` to read the national-curriculum statements the unit records and any `unitOptions`.
+3. Map your material to the same national curriculum statements; use Oak's `unitOptions` as a model for offering teacher choice without forking the entitlement; confirm threads are signposted so localisation won't break coherence.
 
 > **KS4 note:** tiers (foundation/higher), exam boards and exam subjects add complexity. Science KS4 must be traversed via the sequences route (the flat `key-stages/ks4/subject/science/lessons` route returns empty). See `get-curriculum-model` → structural patterns.
 

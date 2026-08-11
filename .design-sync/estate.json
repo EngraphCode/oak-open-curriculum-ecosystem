@@ -44,7 +44,7 @@
         "guidelines/docs/headless-a11y-frameworks.html": "packages/design/oak-design-system/docs/headless-a11y-frameworks.html",
         "guidelines/docs/nextjs-theme-mapping.css": "packages/design/oak-design-system/docs/nextjs-theme-mapping.css",
         "guidelines/docs/nextjs-theme-switcher.tsx.txt": "packages/design/oak-design-system/docs/nextjs-theme-switcher.tsx.txt",
-        "SKILL.md": "derived from .agent/skills/design-system-usage/SKILL-CANONICAL.md — the canonical body with the studio frontmatter block (name: oak-design; the canonical's description; user-invocable: true) in place of the repo frontmatter (adopted under the owner's usefulness formula, 2026-07-25)"
+        "SKILL.md": "derived from .agent/skills/domain-craft/ui-design/design-system-usage/SKILL-CANONICAL.md — the canonical body with the studio frontmatter block (name: oak-design; the canonical's description; user-invocable: true) in place of the repo frontmatter (adopted under the owner's usefulness formula, 2026-07-25)"
       }
     },
     "machinery": {

@@ -86,16 +86,16 @@ misconceptionsAndCommonMistakes: [
 
 **Tools.** `get-units-summary`, `browse-curriculum` (structure/facets), `get-sequences`, `fetch` (`unit:`).
 
-**What to look for.** National-curriculum coverage you can map your own material to; `unitOptions` as a model for offering teacher choice without fragmenting entitlement; how Oak signposts threads so adaptation stays coherent.
+**What to look for.** The national-curriculum statements Oak's units record, which you can map your own material to; `unitOptions` as a model for offering teacher choice without fragmenting entitlement; how Oak signposts threads so adaptation stays coherent.
 
 **Example.**
 
 ```text
 browse-curriculum({ subject: "history", keyStage: "ks4" })   // see options/structure
-get-units-summary({ ... })                                    // read NC coverage + options
+get-units-summary({ ... })                                    // read national curriculum statements + options
 ```
 
-**Use it:** make your material modular and NC-mapped the way Oak's is, so a teacher can localise an example without breaking the sequence.
+**Use it:** make your material modular and mapped to the national curriculum the way Oak's is, so a teacher can localise an example without breaking the sequence.
 
 ---
 

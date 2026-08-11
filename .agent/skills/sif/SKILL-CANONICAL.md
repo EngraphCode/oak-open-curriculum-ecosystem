@@ -38,7 +38,7 @@ The cell map, with the estate's instruments placed on it:
 
 | | One-shot | Multi-turn |
 | --- | --- | --- |
-| **Same-vendor** | expert-reviewer fleet, [`cricket`](../cricket/SKILL-CANONICAL.md), Workflow-fleet legs | named background agents via Agent + SendMessage; session forks |
+| **Same-vendor** | expert-reviewer fleet, [`cricket`](../cognition/cricket/SKILL-CANONICAL.md), Workflow-fleet legs | named background agents via Agent + SendMessage; session forks |
 | **Cross-vendor** | Cricket Codex legs, [`codex-helper`](../codex-helper/SKILL-CANONICAL.md) | [`the-codex-dialogues`](../the-codex-dialogues/SKILL-CANONICAL.md) |
 
 ## Instrument, not citizen
@@ -60,7 +60,7 @@ framework defines what each plank must contain. The contract binds at
 adoption:
 [`the-codex-dialogues`](../the-codex-dialogues/SKILL-CANONICAL.md) is
 the first conforming instrument.
-[`cricket`](../cricket/SKILL-CANONICAL.md) and
+[`cricket`](../cognition/cricket/SKILL-CANONICAL.md) and
 [`codex-helper`](../codex-helper/SKILL-CANONICAL.md) PRE-DATE the
 framework and do not yet state all six planks — the cell map above
 routes to them as invocation instruments, but they are not claimed as
@@ -122,7 +122,7 @@ authority to be obeyed.
 ## Routing — which instrument
 
 - A fast conscience check on priority or framing, one bounded exchange,
-  same session: [`cricket`](../cricket/SKILL-CANONICAL.md).
+  same session: [`cricket`](../cognition/cricket/SKILL-CANONICAL.md).
 - Delegating a self-contained task for a result:
   [`codex-helper`](../codex-helper/SKILL-CANONICAL.md) (`codex exec`).
 - A bounded multi-turn reflective dialogue that perturbs the seat's own

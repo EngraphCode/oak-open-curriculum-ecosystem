@@ -38,6 +38,7 @@ import { resolveCanonicalOrigin } from '../canonical-origin.js';
 import {
   resolveServedMcpUrl,
   resolveServedOrigin,
+  resolveServedPrmUrl,
   type ServedOriginInputs,
 } from '../served-origin.js';
 import type { LandingPageViewProps, ResourceEntry, ToolEntry } from './view-props.js';
@@ -134,6 +135,7 @@ export function deriveLandingPageViewProps(
     // crosses into the components.
     siteOrigin: resolveServedOrigin(servedOriginInputs(options)),
     mcpEndpointUrl: resolveServedMcpUrl(servedOriginInputs(options)),
+    protectedResourceMetadataUrl: resolveServedPrmUrl(servedOriginInputs(options)),
     ...(options.appVersion !== undefined ? { appVersion: options.appVersion } : {}),
   };
 }

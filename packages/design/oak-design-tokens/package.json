@@ -33,6 +33,7 @@
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",
     "@oaknational/oak-design-system": "workspace:*",
+    "@oaknational/workspace-config": "workspace:*",
     "@types/node": "^24.13.3",
     "eslint": "^10.8.0",
     "globals": "^17.7.0",

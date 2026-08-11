@@ -2434,6 +2434,19 @@ below is a cross-reference index, not a second source of truth.
   conserved end-to-end); two real gate failures during landing surfaced with full
   output — the truncation used to swallow exactly these. Queue-workflow commits from
   Claude Code are unblocked, including the memory-drain plan's loop commits.
+- **Second instance (push path), observed and cured 2026-08-07 (Saffron guards
+  Hedgerow)**: `merge-bot push`'s `streamingGitCall` still spawned git with pipe
+  stdio, so the class recurred one wrapper over — reproduced four times first-hand:
+  the pre-push chain's knip child died with empty output at the depcruise→knip
+  handover, an instrumented diagnosis line written to stderr was ITSELF eaten by the
+  poisoned stream, and git's exit code arrived null (reported as `-1`), while the
+  identical hook chain run directly (`sh .husky/pre-push` to a file) passed green.
+  Cure: the runner moved to its shared home `agent-tools/src/core/file-backed-child.ts`
+  (third consumer) and the push executor consumes it; `GitCommandResult` and
+  `RepoCheckCommandResult` now carry the killing signal distinctly; the knip gate
+  prints a crash-class diagnosis line on the SURVIVING stream (stdout) when the child
+  dies without a verdict. Corollary pinned by the eaten-diagnosis observation:
+  diagnosis must never ride only the channel whose failure it reports.
 
 ### F-113 — `commit-queue enqueue`/`guard` usage text omits required `--id`; `guard` error names the claim kind but not the re-enqueue cure
 
@@ -3509,3 +3522,164 @@ commit SHA and the closing plan reference.
   for unparseable files; (3) test doctrine: schema-touching changes must
   exercise the old-reader × new-event compat cell (no rebuild-everything
   suite can reach it).
+
+### F-154 — negation-contrast tombstone detection has no enforcement layer (structural form exceeds the innate hook)
+
+- **Source**: Gull lifts Nimbus (`3da0ae`), 2026-08-07 curator pass;
+  Director verdict event 2026-08-07T10:51Z (policy.json probed at the
+  Director seat: zero hits for the tombstone class). Substance carried
+  from `no-tombstones-for-removed-ideas` §Why This Rule Is Strict, whose
+  tracking pointer previously named the pending-graduations register — a
+  drainable buffer — and dangled when the 2026-07-20 drain discharged
+  rows without verifying inbound pointers.
+- **Observed**: the negation-contrast memorial form ("DELETED, not
+  reshaped", "X rather than Y", "built fresh, never a bridge") is a
+  STRUCTURAL pattern — a negation bound to a dead concept — not a fixed
+  literal. A naive literal block on "never" / "rather than" / "instead
+  of" would have an unacceptable false-positive rate, so the write-time
+  innate-immunity hook (`.agent/hooks/policy.json`) carries no entry for
+  the class, and the reflex recurs at write time, including inside
+  tombstone-removal work itself (corpus-proven recursive instances,
+  2026-05→06).
+- **Expected**: an enforcement increment for the structural form — a
+  smarter detector (negation verb within clause distance of a
+  removed-concept referent) or an output-time review pass — plus, at
+  most, a narrow set of genuinely high-signal banner literals in the
+  innate hook.
+- **Candidate cure / promotion trigger**: design the structural detector
+  as agent-tooling work (route: agent-tooling backlog). Promotes to a
+  plan when a seat takes the lane or when a fresh corpus instance shows
+  the reflex landing on a permanent doc despite the rule tier.
+- **Status**: OPEN. The rule's §Why This Rule Is Strict now points here;
+  a future drain of any register this row migrates to re-trues that
+  pointer first (the generator this row's own history proves).
+
+### F-155 — the prose-width hard limit fires on markdown headings, which are structurally unwrappable
+
+- **Source**: Wisteria lifts Verdure (`c4294f`), 2026-08-06 branch reconciliation,
+  first-hand; homed from the napkin at the 2026-08-07 consolidation slice.
+- **Observed**: the fitness prose-width check (100 chars) is applied to markdown
+  HEADINGS. A heading cannot be wrapped — the only compliant fix is rewriting the
+  heading text, so a carried section title over 100 chars has NO compliant
+  lossless fix. Two carried napkin headings from another seat read as hard
+  findings while being faithful verbatim carriage.
+- **Expected**: width discipline on prose lines; headings judged by a rule that
+  acknowledges their unwrappability (a heading carve-out, or a re-title-at-
+  processing convention).
+- **Candidate cure / promotion trigger**: a heading exemption (or separate
+  threshold) in the width check. Promotes when a seat takes the fitness-tooling
+  lane, or when a third faithful-carriage instance reads as a hard finding.
+- **Status**: OPEN. Interim practice: carry foreign headings unaltered; the pass
+  that processes them re-titles or drains them (the 2026-08-06 reconciliation's
+  own convention).
+
+### F-156 — merge-bot merge injects the minted app token into the OAuth-only review-run probe
+
+- **Source**: Civet spins Cavern (`054f5e`), 2026-08-07 ~20:58Z, first live
+  firing of the MCP-508 merge arm (#821/#822 merge attempts), first-hand.
+- **Observed**: `merge-bot merge` wraps EVERY gh invocation in the
+  tokenised executor (`merge.ts` — GH_TOKEN = minted installation token,
+  injected last by design). The review-run liveness probe
+  (`gh agent-task list`, `review-runs.ts`) runs under that same env and
+  gh refuses: "this command requires an OAuth token" — installation tokens
+  cannot use the agent-task surface. The leg degrades typed and
+  `decideMergeAction` refuses with "review-run liveness unavailable"
+  (exit 3). Reproduced: the identical command succeeds under the ambient
+  keyring OAuth auth.
+- **Expected**: reads ride the keyring path, writes ride the minted token
+  (the estate's standing split — handoff §6, bot-identity rules). The
+  liveness probe is a READ; it should execute under the base env, not the
+  tokenised executor.
+- **Candidate cure / promotion trigger**: route the agent-task probe (and
+  any other read-only leg) through the untokenised base executor inside
+  `merge-bot merge`, with a test pinning the env split. Promotes when a
+  seat takes the merge-bot lane (natural window: alongside the #820 F-112
+  cure family, same module). Related-but-distinct design question routed
+  to the owner's morning: whether QUOTA-SKIPPED (owner-ruled settled,
+  2026-07-21) should ever be COMMAND-merge-eligible — tonight it is
+  handled by per-PR Director grants on the manual REST shape, the
+  instrument untouched.
+- **Status**: CURED — PR #823 (merge commit 2fc5eae83, head 89ec41860,
+  2026-08-08): the read path runs on a pinned token-free environment
+  (keyring-deterministic, host pinned, enterprise fallbacks stripped) while
+  the merge PUT keeps the minted token via fetch; the env split is pinned by
+  `readEnv` unit tests AND a real-child contract test that kills the
+  env-drop mutant at the mechanism. The QUOTA-SKIPPED command-mergeability
+  design question remains SEPARATE, on the Director's morning board.
+
+### F-157 — commit-queue inner pathspec commit dropped four staged-new files from a 118-path intent
+
+- **Source**: Wren calls Downdraft (6b29b5) 2026-08-09 ~12:5xZ, PR #836
+  landing; intent `ae26a40a` (registry-verified to contain the four
+  paths); session transcript holds the full sequence.
+- **Observed**: the `commit-queue -- commit` workflow's inner
+  pathspec-scoped `git commit` produced commit `2fa212021` containing 111
+  of the intent's 118 paths — exactly the four staged-new
+  `packages/core/workspace-config/src/*` modules were dropped while their
+  seven staged-new sibling package files (README, configs, manifest)
+  landed. Not gitignored (`git check-ignore` exit 1); present in the
+  enqueue list; `record-staged`/verify raised nothing; workflow exited 0.
+  The tree stayed green (hooks run on the working tree), so the defect
+  was invisible until a content check of the commit itself.
+- **Expected**: the inner commit carries every intent path, or the
+  workflow fails loudly naming the paths it could not commit; exit 0
+  with a partial commit is the worst outcome (a green lie).
+- **Mitigation (applied)**: follow-up commit `39a891df4` landed the four
+  files; standing discipline adopted at this seat — after EVERY
+  commit-queue landing, verify the commit content (`git show --stat`)
+  against the intent, never the exit code alone.
+- **Candidate structural cure**: reproduce with a staged-new-files intent
+  in a scratch repo; suspect the pathspec-argv handling for A-status
+  entries in the spawned `git commit -- <paths>`; then fix the intake or
+  add a post-commit intent-vs-commit diff that fails the workflow on any
+  dropped path. Route: agent-tooling backlog.
+
+### F-158 — full `pnpm check` green minutes before the same tree's pre-commit turbo run found 24 type-check tasks red
+
+- **Source**: Wren calls Downdraft (6b29b5) 2026-08-09 ~12:4xZ, PR #836
+  landing (check task `b77b2u17n` exit 0 at ~12:36Z; commit-hook task
+  `bt8nbsjww` exit 1 at ~12:40Z, 49 cached / 24 type-check misses that
+  then failed with real TS2883 errors, reproduced directly).
+- **Observed**: `pnpm check` (secrets → clean → full turbo suite →
+  validators → knip → depcruise → format) exited 0; nothing edited the
+  worktree afterwards except `git add`; the commit hook's turbo run then
+  cache-missed 24 type-check tasks and failed them. The red was REAL
+  (`pnpm --filter @oaknational/result type-check` reproduced TS2883
+  standalone), meaning the check's green verdict for those tasks was
+  computed against different effective inputs.
+- **Expected**: two turbo runs over an unchanged tree agree; a green
+  full-suite check is trustworthy for the commit that follows it.
+- **Mitigation**: treat the hook as the verdict of record; on any
+  check-vs-hook divergence, reproduce the failing task directly before
+  trusting either.
+- **Candidate structural cure**: diff the two runs' task hash inputs
+  (turbo `--dry=json` env + input capture at both invocation sites —
+  check script vs husky hook environment); suspects are env-var
+  divergence in hashed `env` keys or `$TURBO_DEFAULT$` input-set
+  divergence between invocations. Route: agent-tooling backlog.
+
+### F-159 — Claude Code TUI silently switches session model at quota exhaustion; no resume-time lineage check exists
+
+- **Source**: Director seat (b10c37) 2026-08-10, owner-confirmed: the TUI
+  began switching models when the Fable quota ran out instead of stopping.
+  The Director seat (registry lineage `claude-fable-5`) ran the whole
+  post-compaction day on Opus 4.8; Swordfish's F-92 heartbeat collision
+  the same morning was the same class caught by accident.
+- **Observed**: a seat's session model can differ from its registered
+  lineage with NO surfaced signal. The day's error profile split exactly
+  along the enforcement boundary: every mechanical guard (hooks,
+  ratchets, skills:check, merge-bot refusal ladder, F-95) held
+  model-independently; prose-recorded judgement disciplines
+  (deciding-surface reads, re-read-before-declaring, value-lens-first)
+  regressed to error types not seen for months.
+- **Expected**: a seat knows and surfaces its own model discontinuity at
+  resume, the way the git triad surfaces branch/head state.
+- **Mitigation**: at every resume/start-right, compare the session's
+  declared model against the claims registry row; mismatch = surface
+  loudly to the owner before substantive work.
+- **Candidate structural cure**: a resume-time lineage check in
+  start-right (session model vs `agent_id.model` on held claims), and a
+  graduation sweep over the prose-only judgement disciplines to identify
+  which have earned mechanical enforcement (the day's evidence: prose is
+  vigilance; only enforcement is structure). Route: agent-tooling backlog
+  - PDR-014 graduation pipeline.

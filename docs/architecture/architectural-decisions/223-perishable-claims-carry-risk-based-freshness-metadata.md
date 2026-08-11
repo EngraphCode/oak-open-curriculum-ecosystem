@@ -137,8 +137,8 @@ The decision, stated as the estate's should-be:
 
 The owner ratified the plan via the PR #745 merge-drive card: "Yes —
 ratify via merge-drive word", recorded by Director session Plover
-lifts Troposphere (b10c37). Pre-merge review then established that PR
-#745 contained the schema and clock-free validator, but not the sole
+lifts Troposphere (b10c37). Pre-merge review then established that
+PR #745 contained the schema and clock-free validator, but not the sole
 clock-bearing consumer described above. The ratified delivery boundary
 is therefore explicit:
 

@@ -14,6 +14,13 @@ import {
 } from './current-source-delta-review-helpers.js';
 
 export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> = {
+  // MCP-517: two bootstrap step names added to the measured-step union so the
+  // canonical-forwarded-headers install is billed to itself rather than to
+  // Clerk's. Boot-time diagnostics only; serves no agent-facing content.
+  'apps/oak-curriculum-mcp-streamable-http/src/auth-instrumentation.ts': excluded(
+    'edb46bf7322dd0396c25ac7b4e254fb8bb94dc92f579b9a0c6666a5cc3569ea1',
+    IMPLEMENTATION_ONLY,
+  ),
   // MCP-351: the published PRM resource composes the shared
   // MCP_RESOURCE_PATH constant; the served document is byte-identical.
   'apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts': reviewed(
@@ -57,6 +64,36 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
   // that retirement); the file now composes SDK-owned URI sets only.
   'apps/oak-curriculum-mcp-streamable-http/src/auth/public-resources.ts': excluded(
     '75bbea61c4b91c53a1ec93133852f9841844f94eb448973f9bbecfd855239227',
+    IMPLEMENTATION_ONLY,
+  ),
+  // MCP-518: the public-path sets, and the case-normalisation rule they are
+  // compared under, extracted from the Clerk conditional. Path literals for a
+  // routing decision; serves no agent-facing content.
+  'apps/oak-curriculum-mcp-streamable-http/src/clerk-skip-surfaces.ts': excluded(
+    'fac659994388ebd20d267596eb2fac3344dcc2bb836771cefa7b3334dafa441b',
+    IMPLEMENTATION_ONLY,
+  ),
+  // MCP-518: the Clerk conditional now forks on the request's surface before
+  // its MCP method, so a browser view of the fully public page — at `/mcp` and
+  // at `/` alike — and the page's own static asset trees skip Clerk entirely.
+  // Routing and header reading only: the file serves no agent-facing content,
+  // and every MCP protocol request still reaches Clerk unchanged.
+  'apps/oak-curriculum-mcp-streamable-http/src/conditional-clerk-middleware.ts': excluded(
+    '075f96234f69d44fa7429d3d818bf5520f1bd9f54737342cd40805063cd36de4',
+    IMPLEMENTATION_ONLY,
+  ),
+  // MCP-517: mounts the canonical-forwarded-headers shim immediately ahead of
+  // the global Clerk middleware so Clerk perceives the served address. Mount
+  // order and header plumbing only; no served content changes.
+  'apps/oak-curriculum-mcp-streamable-http/src/global-auth-context.ts': excluded(
+    '8b2b566c8acc474aae9191216f8154a1d31ccae70f2d0bc585a157fdcc8c481c',
+    IMPLEMENTATION_ONLY,
+  ),
+  // MCP-518: the surface-fork predicate, composing the negotiation's own
+  // selectsHtmlLeg with the auth vendor's document-navigation eligibility.
+  // A routing decision over method and negotiation headers; serves nothing.
+  'apps/oak-curriculum-mcp-streamable-http/src/mcp-public-browser-leg.ts': excluded(
+    '959581bc8a8ca60e63e6badef9a0d74914a3b8bf6108f9640ef6d55deb2d3ffb',
     IMPLEMENTATION_ONLY,
   ),
 };

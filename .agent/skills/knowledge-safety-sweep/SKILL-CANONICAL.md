@@ -39,7 +39,7 @@ temporary surfaces.
 ## Workflow
 
 The sweep is retrospective metacognition under time pressure: enter
-[`metacognition`](../metacognition/SKILL-CANONICAL.md) genuinely at its open — what does THIS
+[`metacognition`](../cognition/metacognition/SKILL-CANONICAL.md) genuinely at its open — what does THIS
 context uniquely hold, and what is the fluent "already captured somewhere" claim that has not
 actually been checked? — before walking the classes. Time pressure is the reason to enter
 properly, not the excuse to tick it.

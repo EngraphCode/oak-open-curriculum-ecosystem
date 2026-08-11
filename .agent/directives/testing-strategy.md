@@ -188,6 +188,20 @@ Formal home: [`validation-strategy.md`](validation-strategy.md) (seeded
   violates the principle of using the right tool for the job. Use
   the right tool: ESLint for boundary enforcement, Playwright for
   browser testing, vitest for runtime logic.
+  ONE named sanctioned shape (recorded 2026-08-07 with the F-112
+  push-path landing; the shape the F-112 commit-path cure
+  established — see the `file-backed-stdio-for-spawned-gate-children`
+  pattern): a SPAWN-TOPOLOGY CONTRACT test — where the behaviour
+  under test IS a real child's stdio topology or exit/signal
+  fidelity and no DI seam below it can carry the proof (a fake would
+  model libuv engine semantics, the "double models the engine"
+  trap) — may spawn a bounded, deterministic, synthetic child
+  (`node -e`, literal env, no shell), homed in the workspace's
+  integration-test directory, kept apart from the seam-shaped suite
+  (worked instance: `agent-tools/tests/`). The seam-shaped remainder
+  of any such suite stays spawn-free via ADR-078 injection;
+  composition with real binaries belongs at smoke tier.
+  `test-immediate-fails.md` item 8 points here.
 
 - **No reading the `.agent/` knowledge substrate in tests** - Tests MUST
   NOT read from `.agent/**/*` for any reason (owner doctrine 2026-06-22,
@@ -603,16 +617,18 @@ running under `pnpm test`, CI timeouts that don't reproduce
 locally).
 
 - **Pattern 1 (preferred)**: Import and re-export
-  `baseTestConfig` from `vitest.config.base.ts` at the repo root.
-  Adjust the relative path per workspace depth.
+  `baseTestConfig` from `@oaknational/workspace-config/vitest` (a
+  declared `workspace:*` devDependency — never a relative path out
+  of the workspace).
 - **Pattern 2 (custom)**: Define a workspace-specific config.
   Non-negotiable: `exclude` MUST contain `'**/*.e2e.test.ts'`.
   `include` SHOULD use explicit conventions (`*.unit.test.ts`,
   `*.integration.test.ts`) not broad `*.test.ts` globs.
 
 Workspaces with `*.e2e.test.ts` files MUST also have
-`vitest.e2e.config.ts` (extending `vitest.e2e.config.base.ts` or
-workspace-specific) and a `test:e2e` script in `package.json`.
+`vitest.e2e.config.ts` (extending `baseE2EConfig` from
+`@oaknational/workspace-config/vitest-e2e`, or workspace-specific)
+and a `test:e2e` script in `package.json`.
 
 ## Test Assertion Placement
 

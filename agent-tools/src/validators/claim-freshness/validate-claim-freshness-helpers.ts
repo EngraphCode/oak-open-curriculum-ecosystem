@@ -1,6 +1,12 @@
 import { typeSafeEntries } from '@oaknational/type-helpers';
 
 import { isJsonObject, type JsonObject } from '../../core/json.js';
+import { assessPin } from './assess-pin.js';
+import type {
+  FreshnessIntegrityFinding,
+  FreshnessMonitoringObligation,
+  FreshnessNotTrackedRow,
+} from './claim-freshness-types.js';
 
 /**
  * Pure rules for the perishable-claim freshness contract (ADR-223) over the
@@ -13,25 +19,6 @@ import { isJsonObject, type JsonObject } from '../../core/json.js';
  *
  * @packageDocumentation
  */
-
-/** One integrity defect in a registered freshness row. */
-export interface FreshnessIntegrityFinding {
-  readonly row: string;
-  readonly field?: string;
-  readonly reason: string;
-}
-
-/** One pinned row that the landing-2 consumer must monitor. */
-export interface FreshnessMonitoringObligation {
-  readonly row: string;
-  readonly pinnedVersion: string;
-}
-
-/** One row that deliberately does not track a platform version. */
-export interface FreshnessNotTrackedRow {
-  readonly row: string;
-  readonly reason: string;
-}
 
 /** Precise partition of the registered freshness surface. */
 export interface FreshnessAssessment {
@@ -51,14 +38,7 @@ interface ResolvedDateField {
   readonly findings: readonly FreshnessIntegrityFinding[];
 }
 
-interface PinAssessment {
-  readonly integrityFindings: readonly FreshnessIntegrityFinding[];
-  readonly monitoringObligation?: FreshnessMonitoringObligation;
-  readonly notTrackedRow?: FreshnessNotTrackedRow;
-}
-
 const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/u;
-const VERSION_PATTERN = /^\d+\.\d+\.\d+$/u;
 const MS_PER_DAY = 86_400_000;
 
 /** Strict ISO calendar-date parse: shape `YYYY-MM-DD` and a real calendar day. */
@@ -109,98 +89,6 @@ function checkInterval(
     ];
   }
   return [];
-}
-
-function hasExactKeys(value: JsonObject, expected: readonly string[]): boolean {
-  const actual = Object.keys(value).sort((left, right) => left.localeCompare(right));
-  const sortedExpected = [...expected].sort((left, right) => left.localeCompare(right));
-  return (
-    actual.length === sortedExpected.length &&
-    actual.every((key, index) => key === sortedExpected[index])
-  );
-}
-
-/** Validate and classify the required closed `pin` declaration. */
-function assessPin(rowKey: string, row: JsonObject): PinAssessment {
-  const integrityFindings: FreshnessIntegrityFinding[] = [];
-  if (Object.hasOwn(row, 'pinned_to')) {
-    integrityFindings.push({
-      row: rowKey,
-      field: 'pinned_to',
-      reason: 'retired — use the required closed pin declaration',
-    });
-  }
-
-  const pin = row.pin;
-  if (!isJsonObject(pin)) {
-    return {
-      integrityFindings: [
-        ...integrityFindings,
-        {
-          row: rowKey,
-          field: 'pin',
-          reason: 'missing or not an object — declare pinned or not-tracked',
-        },
-      ],
-    };
-  }
-
-  if (pin.kind === 'pinned') {
-    if (
-      !hasExactKeys(pin, ['kind', 'version']) ||
-      typeof pin.version !== 'string' ||
-      !VERSION_PATTERN.test(pin.version)
-    ) {
-      return {
-        integrityFindings: [
-          ...integrityFindings,
-          {
-            row: rowKey,
-            field: 'pin',
-            reason: 'pinned must contain exactly kind and a bare x.y.z version',
-          },
-        ],
-      };
-    }
-    return {
-      integrityFindings,
-      monitoringObligation: { row: rowKey, pinnedVersion: pin.version.trim() },
-    };
-  }
-
-  if (pin.kind === 'not-tracked') {
-    if (
-      !hasExactKeys(pin, ['kind', 'reason']) ||
-      typeof pin.reason !== 'string' ||
-      pin.reason.trim() === ''
-    ) {
-      return {
-        integrityFindings: [
-          ...integrityFindings,
-          {
-            row: rowKey,
-            field: 'pin',
-            reason: 'not-tracked must contain exactly kind and a non-empty reason',
-          },
-        ],
-      };
-    }
-    return {
-      integrityFindings,
-      notTrackedRow: { row: rowKey, reason: pin.reason.trim() },
-    };
-  }
-
-  return {
-    integrityFindings: [
-      ...integrityFindings,
-      {
-        row: rowKey,
-        field: 'pin',
-        reason: 'kind must be pinned or not-tracked',
-      },
-    ],
-  };
 }
 
 function assessRow(rowKey: string, row: JsonObject, maxIntervalDays: number): FreshnessAssessment {
