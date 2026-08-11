@@ -4,8 +4,8 @@
 org/project/repository identity environment-derived only and to narrow the
 current source-map deletion/upload contract to the deployed server entrypoint.
 Fourth amendment (2026-08-04, MCP-479): the production build gate admits a
-same-commit redeploy while retaining the version-advance rule for every other
-default-branch commit.
+validated-SHA rebuild of Vercel's last successful deployment commit while
+retaining the version-advance rule for every other default-branch commit.
 Build-time scope clarification (2026-05-10): the release identifier and
 Vercel production attribution this ADR governs are _build-time concerns_
 and are explicitly orthogonal to the runtime sink/fixture axes codified
@@ -701,31 +701,32 @@ each subject to the ignoreCommand check.
 
 A production build on `main` MUST be cancelled unless **either** the commit
 advances the root `package.json` semver beyond the previously-deployed
-version, **or** the build is a redeploy of the commit already in production
+version, **or** the validated current and previous commit SHAs match
 (`VERCEL_GIT_COMMIT_SHA == VERCEL_GIT_PREVIOUS_SHA`). Merge commits (which
 carry the previous semver) do not trigger a production deploy; only
-semantic-release commits (which bump the semver) and redeploys of the
-already-released commit do.
+semantic-release commits (which bump the semver) and validated-SHA rebuilds
+of Vercel's last successful deployment commit do.
 
 The redeploy arm is not a loosening (fourth amendment, 2026-08-04). The rule
 this section exists to keep is _"production deploys correspond exactly to
-semantic-release commits"_, and a redeploy of the commit already in production
-**is** that commit — it passed this very gate to get there, and rebuilding it
-cannot introduce a version that did not. Without the arm the rule forbids the
-one operation that recovers a broken production environment: rebuilding a known-good
-release. That is the reverse of what §10 protects, and it is why the previous
-wording was a defect rather than a deliberately strict choice.
+semantic-release commits"_, and Vercel's last successful deployment commit
+**is** an already-released commit — it passed this very gate, and rebuilding
+it cannot introduce a version that did not. Without the arm the rule forbids
+the operation that recovers a broken production environment in the ordinary,
+non-rollback state: rebuilding the last successfully deployed release. That
+is the reverse of what §10 protects, and it is why the previous wording was a
+defect rather than a deliberately strict choice.
 
 **Cancellation truth table**:
 
-| Branch (`VERCEL_GIT_COMMIT_REF`) | Current version (root `package.json`) | Previous version (`VERCEL_GIT_PREVIOUS_SHA:package.json`)         | Outcome                | Reason                                                                                                                                      |
-| -------------------------------- | ------------------------------------- | ----------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| not `main`                       | (not read)                            | (not read)                                                        | Continue build         | Branch gate; per §1 only `main` triggers a production identifier.                                                                           |
-| `main`                           | resolvable                            | unresolvable / unset                                              | Continue build         | First build OR previous SHA absent / git-unreachable; treated as "no previous to beat".                                                     |
-| `main`                           | resolvable                            | (not read) — `VERCEL_GIT_COMMIT_SHA` == `VERCEL_GIT_PREVIOUS_SHA` | Continue build         | Redeploy of the commit already deployed; a rebuild of an already-released commit is not a non-release build (fourth amendment, 2026-08-04). |
-| `main`                           | resolvable                            | resolvable, current ≤ previous                                    | **CANCEL build**       | Version did not increment; this is a merge / hot-fix-on-main / accidental downgrade.                                                        |
-| `main`                           | resolvable                            | resolvable, current > previous                                    | Continue build         | Semantic-release commit advanced the version; the production identifier is fresh.                                                           |
-| `main`                           | unresolvable                          | (not read)                                                        | **CANCEL with stderr** | Build error: the current app version cannot be determined from root `package.json`. Diagnostic message printed; non-recoverable.            |
+| Branch (`VERCEL_GIT_COMMIT_REF`) | Current version (root `package.json`) | Previous version (`VERCEL_GIT_PREVIOUS_SHA:package.json`)         | Outcome                | Reason                                                                                                                                                     |
+| -------------------------------- | ------------------------------------- | ----------------------------------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| not `main`                       | (not read)                            | (not read)                                                        | Continue build         | Branch gate; per §1 only `main` triggers a production identifier.                                                                                          |
+| `main`                           | resolvable                            | unresolvable / unset                                              | Continue build         | First build OR previous SHA absent / git-unreachable; treated as "no previous to beat".                                                                    |
+| `main`                           | resolvable                            | (not read) — `VERCEL_GIT_COMMIT_SHA` == `VERCEL_GIT_PREVIOUS_SHA` | Continue build         | Validated-SHA rebuild of Vercel's last successful deployment commit; an already-released commit is not a non-release build (fourth amendment, 2026-08-04). |
+| `main`                           | resolvable                            | resolvable, current ≤ previous                                    | **CANCEL build**       | Version did not increment; this is a merge / hot-fix-on-main / accidental downgrade.                                                                       |
+| `main`                           | resolvable                            | resolvable, current > previous                                    | Continue build         | Semantic-release commit advanced the version; the production identifier is fresh.                                                                          |
+| `main`                           | unresolvable                          | (not read)                                                        | **CANCEL with stderr** | Build error: the current app version cannot be determined from root `package.json`. Diagnostic message printed; non-recoverable.                           |
 
 Mapping to Vercel `ignoreCommand` exit codes: exit 0 = "ignore this
 build" (Vercel cancels), exit 1 = "do not ignore" (Vercel proceeds).
@@ -735,7 +736,7 @@ current-unresolvable row; exit 1 on every other row.
 **Fourth amendment (2026-08-04, MCP-479) — the redeploy row.** The rule
 above is about which _commits_ may produce a production deployment, and
 it read as if it were about which _builds_ may run. Those differ for one
-case: rebuilding the commit that is already deployed. A production
+case: rebuilding Vercel's last successful deployment commit. A production
 outage on 2026-08-03 was caused by a deployment holding a dangling
 environment-variable record reference — the code was correct and the
 environment was not — and the only cure was a fresh build of that same
@@ -752,8 +753,9 @@ The signal is derived, because Vercel exposes no variable distinguishing
 a redeploy from a push. `VERCEL_GIT_PREVIOUS_SHA` is documented as "the
 git SHA of the last successful deployment for the project and branch",
 so `VERCEL_GIT_COMMIT_SHA == VERCEL_GIT_PREVIOUS_SHA` means the build is
-a rebuild of the already-released commit — which cannot be a non-release
-build, because that commit's version already passed this very gate.
+a rebuild of Vercel's last successful deployment commit — which cannot be
+a non-release build, because that commit's version already passed this
+very gate.
 
 #### Vendor sources for the two load-bearing assertions
 

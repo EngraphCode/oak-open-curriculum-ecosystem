@@ -1,8 +1,8 @@
 ---
 id: release-redeploy-recovery
 node_type: delivery
-name: 'Recovery: the deployed release can be rebuilt (same-commit redeploy)'
-overview: 'The production build guard admits a rebuild of the commit already in production — the same-commit redeploy arm shipped for MCP-479 — while non-release commits still never reach production.'
+name: 'Recovery: the last successfully deployed release can be rebuilt'
+overview: "The production build guard admits a validated-SHA rebuild of Vercel's last successful deployment commit — the MCP-479 arm — while non-release commits still never reach production."
 status: sketch
 serves: first-major-release
 impact_areas:
@@ -44,9 +44,10 @@ version-ordering predicate (shipped 2026-08-04, PR #751), leaving that
 predicate otherwise intact.
 
 - **Builds:** a commit whose version advanced (unchanged), **and** a
-  rebuild of the commit already in production, identified by
+  rebuild whose validated current SHA matches Vercel's last successful
+  deployment SHA, identified by
   `VERCEL_GIT_COMMIT_SHA == VERCEL_GIT_PREVIOUS_SHA`. That commit
-  passed this gate to reach production, so rebuilding it cannot
+  passed this gate as a successful deployment, so rebuilding it cannot
   introduce a version it did not already have.
 - **Cancels:** any other commit on the default branch whose version has
   not advanced — the guard's original and correct intent, unchanged.
@@ -54,8 +55,9 @@ predicate otherwise intact.
 The parity contract with `packages/core/build-metadata/src/semver.ts`
 stays intact; the anti-drift parity test still governs.
 
-**The arm is deliberately narrow: it identifies the last successfully
-deployed commit, nothing wider.** Vercel documents
+**The arm is deliberately narrow: it identifies Vercel's last successfully
+deployed commit, not necessarily the deployment currently serving traffic.**
+Vercel documents
 `VERCEL_GIT_PREVIOUS_SHA` as "The git SHA of the last successful
 deployment for the project and branch" (system-environment-variables
 reference, retrieved 2026-08-05) and exposes no variable naming a
@@ -81,7 +83,8 @@ equality it warrants.
 
 ## Acceptance criteria
 
-1. A rebuild of the deployed commit continues rather than cancels —
+1. A validated-SHA rebuild of Vercel's last successful deployment commit
+   continues rather than cancels —
    proof: **repo-safe**, the shipped guard unit tests
    (`apps/oak-curriculum-mcp-streamable-http/build-scripts/vercel-ignore-production-non-release-build.unit.test.mjs`,
    the MCP-479 redeploy block) covering the
@@ -110,13 +113,14 @@ equality it warrants.
    **repo-safe**, the guard's own TSDoc names which commits build and
    which cancel, including the arm's evaluation order relative to the
    version comparison.
-6. The current production release can be rebuilt in the real
-   environment — proof: **owner-held**, a redeploy triggered by the
-   owner from the Vercel dashboard observed to build rather than
-   cancel; evidence recorded on MCP-479 with the deployment id. This is
-   the only criterion the repo cannot prove for itself, because the
-   guard's inputs are supplied by Vercel at build time. It is the one
-   criterion still open; the observation todo is carried by
+6. In a non-rollback state, the last successfully deployed production
+   release can be rebuilt in the real environment — proof:
+   **owner-held**, a redeploy triggered by the owner from the Vercel
+   dashboard observed to build rather than cancel; evidence recorded on
+   MCP-479 with the deployment id. This is the only criterion the repo
+   cannot prove for itself, because the guard's inputs are supplied by
+   Vercel at build time. It is the one criterion still open; the
+   observation todo is carried by
    [`release-redeploy-guard-truing`](release-redeploy-guard-truing.plan.md).
 
 ## Out of scope
