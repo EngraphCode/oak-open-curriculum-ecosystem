@@ -123,10 +123,15 @@ the selected version, never the floor:
    build-system.md for the live list and lift conditions) → STOP and
    surface; the hold's lift condition governs, never the sweep.
 7. **The target version is younger than `minimumReleaseAge` (1440
-   min)** → the resolver SILENTLY excludes it and picks the newest
-   version older than the floor — exit 0, no warning (verified
-   first-hand 2026-08-11, pnpm 11.20; the floor downgrades, never
-   refuses). Consequence: age-floored targets are INVISIBLE to
+   min)** → two outcomes, both verified first-hand 2026-08-11 on
+   pnpm 11.20. When the requested range admits an older mature
+   version, the resolver SILENTLY excludes the young one and picks
+   the newest version older than the floor — exit 0, no warning.
+   When NOTHING mature satisfies the request (an exact pin to a
+   too-young version), pnpm refuses loudly with
+   ERR_PNPM_NO_MATURE_MATCHING_VERSION, naming each too-young
+   package. Consequence of the silent branch: age-floored targets
+   are INVISIBLE to
    `pnpm outdated` — its "latest" is computed under the floor too, so
    the row reads current (observed 2026-08-11). An outdated-zero
    therefore does not mean fully-current: name age-floored rows from
