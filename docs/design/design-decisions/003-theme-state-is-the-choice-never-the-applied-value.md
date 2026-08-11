@@ -45,6 +45,41 @@ encodings live in `packages/design/oak-design-react/README.md`.
 - Store implementations that read applied attributes into state are
   non-conformant regardless of test coverage.
 
+## Dated amendment — the no-choice default is the IDENTITY default (2026-08-11, owner-ruled)
+
+Two owner rulings, one day apart, settle the theme model's ownership
+question:
+
+1. **People have theme preferences, and those preferences should win**
+   (2026-08-10): an explicit user choice — system, light, dark,
+   high-contrast, colour-safe — always overrides everything else.
+2. **The page also has a theme preference** (2026-08-11): an identity's
+   default is real design intent — typically light, dark for a
+   dark-first identity (EMC²'s bedtime arcade), and an institution may
+   legitimately default its white-label to high-contrast or another
+   access theme. **"Identity default" joins the theme choices, and it
+   is the default that shows when the user expresses no choice.**
+
+Consequences for the model this DDR governs:
+
+- The choice model this DDR names is CONFIRMED: the control's state is
+  the user's choice, with "Identity default" as the honest name of the
+  no-choice state (superseding both the earlier "Page default" wording
+  and the 2026-08-10 interim applied-model store, which briefly
+  contradicted this DDR unamended — the drift is owned and corrected
+  here).
+- "Identity default" is itself selectable: choosing it clears the
+  stored choice and returns the page to the identity's own default
+  (implementation: no `data-theme` attribute; a brand may re-polarise
+  its default via the brand.css polarity lever, which this amendment
+  restores as first-class design intent).
+- The automatic access commitment stands: with no stored choice, an
+  OS-level `prefers-contrast: more` still applies high-contrast.
+- Implementation of this amendment is the design lane's next slice
+  (post-2026-08-11-compaction); until it lands, the interim
+  applied-model behaviour from 2026-08-10 is the live state and this
+  amendment is the governing intent.
+
 ## Provenance
 
 - Kit 1.8.0 choice accessor: PR #710 (2026-08-02). Shared store with the

@@ -61,9 +61,27 @@ estate's one home for pixel machinery; the fidelity pipeline's
 pixelmatch diff remains the regression-mass instrument, this method the
 attention instrument.
 
-## Known limits (roadmap, not caveats to hide behind)
+## Known limits and the calibration requirement (owner-directed, 2026-08-11)
 
-Full-page pairs cascade after the first structural offset; per-region
-alignment (compare region-by-region after anchoring on landmarks) and
-viewport-height capture sets are the named next steps if the frontier
-discipline proves insufficient in practice.
+Full-page pairs cascade after the first structural offset, and the v1
+σ-scores are ordinal only. The owner's standing direction: **σ should at
+least approximate the meaning of calibrated probabilities** — a stated
+significance should mean roughly what it says. The named candidate
+methods, to be selected and landed as design-lane work:
+
+- **Per-region alignment**: anchor on structural landmarks (band
+  boundaries, headings), align region-by-region, then score within
+  aligned regions — removes the cascade that currently inflates every
+  window below the first offset.
+- **Empirical null calibration**: estimate the real noise distribution
+  from same-page repeat-capture pairs (anti-aliasing, font raster
+  jitter, animation settle) and convert window scores to empirical
+  p-values against that null, rather than assuming independent
+  Gaussian pixels.
+- **Correlation-aware effective n**: pixel noise is spatially
+  correlated, so the √n in the current standard error overstates
+  information; an effective-sample-size correction brings the z-scale
+  towards honest magnitudes.
+
+Until that lands, read v1 scores as attention ordering only — the
+frontier discipline above is the safeguard.
