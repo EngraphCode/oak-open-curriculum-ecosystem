@@ -2625,3 +2625,73 @@ IS the honesty the owner asked for. Binding amendments:
   uniform Δ) REJECTS under the naive rule today (σ₀ floors at 0.5) and
   yields ZERO rejections under calibration — genuinely red at head.
   (The same-image cell is vacuous: zero diff already passes.)
+
+## COMPACTION FREEZE 4 (2026-08-11 midday) — Swordfish wakes Trench (d0274e); seat CONTINUES; ALL PROCESSES STOP at owner word
+
+Owner word: "prepare for compaction … and once you are ready please stop
+all processes." Claim `645b9e0b-afea-4743-8cc6-5dad3ad39575` RETAINED.
+An INDEX, not a summary.
+
+STATE, first-hand at freeze: PR #846 branch
+`jimcresswell/design-identity-switchboard-pr2` at `995e7e08c` — clean,
+local == remote. Coordination `coordination/2026-08-11-7b3df0` at
+`87978266b` + this entry. Sonar on PR #846: ONE open MAJOR — S6845
+(owner-gated, per-site accept with the PR #565 precedent at his word).
+Suites at the last code commit: fidelity-review 188/188, showcase
+114/114 unit + 27/27 UI + 43/43 a11y e2e, hub 325/325, kit 17/17.
+
+THE DAY'S FIVE LANDINGS (all two-moment reviewed; SHAs):
+
+1. `dff0f48ec`+`6bcb8541d` — slice 1, identity-default theme model
+   (DDR-003 amendment implemented; creature lever restored WITH
+   :root:not([data-theme]) icon-filter arms; ~20 cells re-trued as
+   relations).
+2. `145cf6592`+`a8e54738d` — Copilot round: 12/12 empirically
+   adjudicated (10 cured incl. the RSC undefined-headings defect worse
+   than reviewed; 2 declined with evidence), all threads replied (bot
+   identity) and resolved 12/12.
+3. `7b693ce43` — picker-contrast round: idempotent applyFrameTheme +
+   filtered MutationObserver; the flip cell earned a real red via
+   marker-then-assert (a naive poll passed vacuously).
+4. `75de6db37`+`995e7e08c` — S2a σ calibration: exact empirical p, both-
+   end saturation (gateway caught +saturation stamped on the QUIETEST
+   windows in live data), inert threshold, exact top-100 tail,
+   settle-identity auditable, degenerate-null shape (settle makes the
+   static specimen byte-stable — nullMax 0). First live run: N=21480,
+   floor 4.66e-5, σ-saturation 3.91. DDR-010 dated amendment records it.
+5. `9ea40e53f` (coordination) — S2b/S2c design + review amendments
+   folded (§SLICE 2 DESIGN above).
+
+RESUME ORDER:
+
+1. Re-arm per start-right: canonical watcher (`--exclude-tag heartbeat`,
+   3600s backstop — re-arm on exit notification) PAIRED with the F-75
+   delta poll; heartbeat pair (comms `--tag heartbeat` typed args +
+   `claims heartbeat`) on the retained claim, model string `Opus-5`
+   (F-92); ARC design-lane tail
+   (`.agent/collaboration/rapid-comms/2026-08-10-design-lane-…`); gap
+   sweep from BEFORE freeze (watch for the Director's adjudication of
+   comms-landscape event 4d92b772).
+2. **S2b — correlation diagnostics** (small, report-only): lag-1
+   row/column autocorrelation of the null diff fields + n_eff/n ratio
+   into the calibration summary — needs diff-field retention at pooling
+   (capture-null's fullWindowScores currently discards fields); never a
+   second correction (the empirical quantiles already absorb
+   correlation).
+3. **S2c — per-region alignment** (own cycle, red-first): per-band
+   vertical offset search, score within aligned segments, EVERY non-zero
+   offset a first-class structural-shift finding.
+4. **Fleet W1 at owner sanction** (plan `pr-846-review-fleet` rev 1;
+   gate expires 2026-08-13; T3 pre-flight incl. SHA-pinned range).
+
+OPEN OWNER ITEMS: S6845 disposition; fleet ratification + W1 sanction;
+PR #846 un-draft at review-credit return (Copilot re-request per head
+move). Separate lane: agent-registry-resurrection plan T1 awaits pickup.
+
+REFLECTION (held): the two-moment review discipline the owner made
+standing this morning paid five times in one day — and its best
+catches all shared one shape: reviews that COMPUTE (the unreachable 6σ,
+the mutation-record loop, the +σ sign in live data) rather than opine.
+The instrument now prints its own limits — saturation, floor, inert
+threshold, degenerate null — which is the design lane's thesis carried
+into statistics: honesty as structure, not vigilance.
