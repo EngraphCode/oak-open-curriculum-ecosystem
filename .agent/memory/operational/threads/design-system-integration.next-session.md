@@ -2489,3 +2489,59 @@ apply-state.ts's helper docblock, re-examined at any axe upgrade
 previous wording); light-dark() arm pairing is POSITIONAL with the background's
 arms (cost one wrong-way commit to learn — recorded in the creature
 sheet comment).
+
+## COMPACTION FREEZE 3 (2026-08-11 morning) — Swordfish wakes Trench (d0274e); seat CONTINUES; resume RE-ARMS
+
+Owner word: morning rulings recorded, then compaction prep. ALL
+PROCESSES STOP with the freeze broadcast; claim
+`645b9e0b-afea-4743-8cc6-5dad3ad39575` RETAINED. An INDEX, not a summary.
+
+STATE, first-hand at freeze: PR #846 head `fa1391172` (draft; the
+review-credit wait stands; Copilot claims re-check first-hand at
+resume). Coordination `f9bc2996f` + this entry. Both branches
+local == remote, verified. All suites green at the last code commit
+(`8f54a590c`); everything after is docs/doctrine only.
+
+THE MORNING'S RULINGS AND THEIR HOMES:
+
+- **Identity default** (theme DDR): people's choices win AND the page
+  has a real theme preference — "Identity default" joins the theme
+  choices and is the no-choice default. DDR-003 dated amendment
+  2026-08-11 is the governing record (it also owns the 2026-08-10
+  applied-model doctrine drift).
+- **σ calibration**: scores must at least approximate calibrated
+  probabilities — DDR-010 §Known limits names the candidate methods.
+- **Fleet-design review is standing practice**:
+  `.agent/rules/fleet-design-review-before-expensive-fleets.md` (+ the
+  three projections + RULES_INDEX row), rationale carried in the rule.
+
+RESUME ORDER:
+
+1. Re-arm per start-right: canonical watcher (`--exclude-tag heartbeat`)
+   paired with the F-75 delta poll, heartbeat pair on the retained claim
+   (model string `Opus-5`, the registry's — F-92), ARC tail, gap sweep.
+2. **Slice 1 — identity-default theme model** (decision-complete):
+   kit `:root` back to `color-scheme: light` with the DDR-003-citing
+   comment; restore creature's polarity lever (brand-full.css + public
+   copy — the 2026-08-10 removal is repriced by ruling); oak-theme.ts
+   gains a clear mechanism (control value `identity-default` ↔ remove
+   attribute + clear stored choice; get()/choice() semantics per
+   DDR-003); store `getTheme → choice() ?? 'identity-default'`,
+   `setTheme('identity-default') → clear`; THEME option lists lead with
+   Identity default (label "Identity default"); picker frame semantics:
+   identity-default deletes the frame's `data-theme`; re-true the cells
+   changed 2026-08-10 (kit integration, store unit, Switchboard unit,
+   hub ThemeSwitcher, showcase.spec no-choice + auto-contrast cells,
+   picker defaults cell); rebuild kit, sync ALL THREE runtime copies
+   (package root, showcase public, hub public — validate-kit-assets
+   closes the loop); suites across the three workspaces.
+3. **Slice 2 — σ calibration** per DDR-010's candidates (per-region
+   alignment, empirical null from repeat-capture pairs,
+   correlation-aware effective n).
+4. **Fleet W1 at owner sanction** (plan `pr-846-review-fleet` rev 1;
+   gate expires 2026-08-13; T3 pre-flight incl. the SHA-pinned range).
+
+OPEN OWNER ITEMS: fleet ratification + W1 sanction; Sonar S6845
+disposition (per-site accept with the PR #565 precedent, at his word).
+The creature dark-first question is RESOLVED by the identity-default
+ruling. Formation letter: `.agent/experience/2026-08-10-swordfish-wakes-trench.md`.
