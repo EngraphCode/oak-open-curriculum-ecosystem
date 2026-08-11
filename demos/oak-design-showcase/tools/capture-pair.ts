@@ -235,15 +235,12 @@ async function main(): Promise<number> {
 
 const isDirectRun = process.argv[1]?.endsWith('capture-pair.ts') === true;
 if (isDirectRun) {
-  main().then(
-    (code) => {
-      process.exitCode = code;
-    },
-    (error: unknown) => {
-      process.stderr.write(
-        `capture-pair: ${error instanceof Error ? error.message : String(error)}\n`,
-      );
-      process.exitCode = 1;
-    },
-  );
+  try {
+    process.exitCode = await main();
+  } catch (error: unknown) {
+    process.stderr.write(
+      `capture-pair: ${error instanceof Error ? error.message : String(error)}\n`,
+    );
+    process.exitCode = 1;
+  }
 }
