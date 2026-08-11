@@ -1,3 +1,13 @@
+## [1.159.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.3...v1.159.4) (2026-08-11)
+
+
+### Bug Fixes
+
+* **turbo:** cure round-1 findings — directory literals walk, embedded double-star refuses ([240cb74](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/240cb747bf31e5958eea3acfa4412c477c976a49))
+* **turbo:** delete the three dead research glob inputs and pin the validator matcher ([653d170](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/653d170eceae1e9c6e647896dcd7fa88afd3a856))
+* **turbo:** refuse a repeated TURBO_ROOT macro instead of misreading it as dead ([c5403c8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c5403c8e1fe747efb67fddf8c5aaa79d85a82056))
+* **turbo:** the repository root and trailing-slash directories classify alive ([bca591f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bca591fb5b404d3437746d6ca7cf80dde0a8df15))
+
 ## [1.159.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.2...v1.159.3) (2026-08-11)
 
 ## [1.159.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.1...v1.159.2) (2026-08-11)
