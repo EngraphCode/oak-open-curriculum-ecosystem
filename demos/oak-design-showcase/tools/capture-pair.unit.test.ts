@@ -40,4 +40,17 @@ describe('parseCapturePairArgs', () => {
   it('refuses an unpaired flag sequence', () => {
     expect(parseCapturePairArgs([...BASE, '--width']).ok).toBe(false);
   });
+
+  it('accepts --null-runs at or above the two-capture floor and carries it', () => {
+    const result = parseCapturePairArgs([...BASE, '--width', '1280', '--null-runs', '6']);
+    expect(result.ok && result.value.nullRuns === 6).toBe(true);
+    const absent = parseCapturePairArgs([...BASE, '--width', '1280']);
+    expect(absent.ok && absent.value.nullRuns === undefined).toBe(true);
+  });
+
+  it('rejects --null-runs below two or non-integer', () => {
+    for (const bad of ['1', '0', '-3', '2.5', 'six']) {
+      expect(parseCapturePairArgs([...BASE, '--width', '1280', '--null-runs', bad]).ok).toBe(false);
+    }
+  });
 });

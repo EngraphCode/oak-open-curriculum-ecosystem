@@ -85,3 +85,37 @@ methods, to be selected and landed as design-lane work:
 
 Until that lands, read v1 scores as attention ordering only — the
 frontier discipline above is the safeguard.
+
+## Dated amendment — empirical null calibration landed (2026-08-11)
+
+The calibration backbone is live: `capture-pair --null-runs k` (floor
+k ≥ 2) repeat-captures the LEFT url k extra times through the identical
+settle recipe — that identity is the exchangeability warrant — and
+calibrates the live pair against the pooled same-page null
+(`@oaknational/fidelity-review/visual-calibration`). What the numbers
+now mean:
+
+- Each full window carries `empiricalP = (1 + count(null ≥ observed)) /
+(N + 1)` — an exact continuity-corrected rank of the RAW mean
+  difference (never z, so the σ₀ floor cannot contaminate p) — and
+  `calibratedSigma = Φ⁻¹(1 − p)`.
+- **Calibrated σ saturates at Φ⁻¹(N/(N+1)) ≈ 4 for any feasible null**,
+  so under calibration the naive `--threshold` is INERT: the rejection
+  predicate is `meanAbsDiff` beyond the observed null maximum, with the
+  floor 1/(N+1) and the saturation printed. The naive z rides
+  alongside; a z of 100 against a calibrated σ of 4 disagreeing loudly
+  IS the honesty this amendment exists for.
+- The pooled null licenses the MARGINAL claim ("exceeds all-but-p of
+  same-page null windows anywhere"), full windows only; partial edge
+  windows are marked uncalibrated with the reason. Exceedance
+  (meanAbsDiff / nullMax) orders rejections and drives the heatmap.
+- A deterministic page yields a DEGENERATE null (the settle recipe
+  makes repeat captures byte-stable; first live run: nullMax = 0) — any
+  nonzero window then rejects with no exceedance ratio, the honest
+  verdict on a byte-stable page.
+
+Correlation diagnostics remain a reporting concern inside the null
+summary (the empirical quantiles already absorb correlation; correcting
+twice would double-count), and per-region alignment stays the named
+follow-on with every non-zero offset a first-class structural-shift
+finding.
