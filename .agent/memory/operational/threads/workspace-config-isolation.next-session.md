@@ -34,17 +34,58 @@ Current Continuation below.
   monitors over the lane's live tickets (comments + status since a
   baseline) and fold ticket commentary into every settle tally.
   Explicitly sequenced AFTER the pause, never during.
-- **THEN S2** (MCP-543) cuts its branch under the corrected contract
-  (pre-execution review absorbed; the eleven-files field-integrity
-  truth; assertNever backstop; five added surfaces; red-proof =
-  pathNot-line reversible probe; rider cut). The plan Amendment's S2
-  section still needs its dated correction commit BEFORE the branch
-  cuts — the full delta list lives in the session task record and the
-  review transcript; primary carriers: eleven-not-twelve baseline +
-  dead include line 30, boundary.ts assertNever + 'contracts' role
-  fencing sdk consumers, pnpm-lock importer key, the elasticsearch
-  .mdc glob, ADR-041/108/138 exact-line corrections, README policy
-  rewrite + table move, LIB_SDK_BOUNDARY_MESSAGE flatten.
+- **THEN S2** (MCP-543) cuts its branch under the corrected contract.
+  The plan Amendment's S2 section needs its dated correction commit
+  BEFORE the branch cuts. The COMPLETE correction ledger (pre-execution
+  review, opus, CHANGES-REQUESTED — all absorbed; durable here because
+  session task state does not survive seat death):
+  1. Baseline is ELEVEN field-integrity files, not twelve — the
+     include list already carries a phantom (`task-0.0-gap-ledger`
+     deleted in `fc02f28a2`); delete dead include line 30 in the same
+     commit; proof = `vitest list -c vitest.field-integrity.config.ts
+     --filesOnly` diffed before/after (recompute, never the array).
+  2. The `'contracts'` role lands WITH an `assertNever` exhaustiveness
+     backstop in `createSdkBoundaryRules` (the trailing implicit-
+     runtime return silently absorbs unknown roles); the role fences
+     the sdk consumers (`oak-search-sdk`, `curriculum-sdk`,
+     `graph-corpus-sdk` + relative zones), NOT a copy of `'search'`;
+     never reuse `searchSdkImportPatterns` (wrong message); carry
+     `no-restricted-globals` (process/__dirname/__filename) into the
+     role or record the drop in ADR-041.
+  3. Five added surfaces: `pnpm-lock.yaml` importer key;
+     `.cursor/rules/invoke-elasticsearch-expert.mdc` glob (silent
+     agent-routing rot — portability validator checks existence only);
+     ADR-138 lines 51–52 References; ADR-041 line 22 enumeration +
+     line 78 BOTH cells + line 35; `output-schema-plan-audit.workflow.js:229`.
+  4. `docs/architecture/README.md:64` is a policy sentence to REWRITE
+     (exception clause deleted); root README row MOVES Libraries→SDKs
+     table (different row convention).
+  5. ADR-108 amendment reconciles the "why not five" rejected option
+     honestly (it governs a workspace's OWN interfaces; this is the
+     ADR-138 contract surface) + trues §Boundary Invariants' two-role
+     drift + `createSdkBoundaryRules` TSDoc; flatten
+     `LIB_SDK_BOUNDARY_MESSAGE`'s dead exception clause; drop the
+     always-empty `paths:` key.
+  6. Red-proof: pre-mv, delete ONLY the `pathNot` line, run depcruise,
+     observe exactly one `no-libs-to-sdks` error on
+     field-inventory.ts, put back — the real edge (a bare-specifier
+     libs fixture FALSE-GREENS: unresolvable → npm-no-pkg, the rule
+     matches `to.path`).
+  7. RIDER CUT: canary path re-points are their own two-file PR after
+     the archival reaches main (live surfaces only: stryker.config.mjs
+     + survivor-dispositions.md; frozen snapshots stay).
+  8. `lib-boundary.unit.test.ts`: also delete `getRestrictedImportPaths`
+     + the `getMatchingPatternGroups` import; `sdk-boundary.unit.test.ts`
+     gains the `'contracts'` describe block; line 284 re-points to a
+     surviving lib.
+  9. Keep `createLibConfig` tsup shape (name the deliberate exception
+     in the PR body + widen its remarks); `oak-search-sdk` declares
+     search-contracts under `dependencies` though only tests import it
+     — name known-and-out-of-scope in the PR body.
+  10. Fleet at implementation: architecture-expert + config-expert
+      deep; docs-adr-expert + test-expert focused. One PR (~27 files);
+      PDR-132 crossing recorded (indivisible under the
+      validate-boundaries recompute + every-landed-state-correct).
 
 ## Prior continuation (superseded by the pause block above; kept for the arc record)
 

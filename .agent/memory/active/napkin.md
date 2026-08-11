@@ -1689,3 +1689,41 @@ Full tenure record in `.agent/memory/operational/director-handoff.md` §Spark li
   debt, including 171 in the MCP HTTP app, so the session must not claim a warning-free gate.
 - A third pass would only re-find the named volatile-state, attribution, promise and self-verification
   limits. The recursion closes here; completeness remains externally bounded.
+
+## Session: 2026-08-11 — Wren calls Downdraft (6b29b5), cold-pause harvest (S1 arc + pause)
+
+Window: decision-complete arc ratified+landed (76fcb7606), S1 delivered
+(PR #850, three rounds converged 2→1→0), cold pause at owner word
+(a4923d924). Four lessons, one worked-well, one visible discard:
+
+- **MERGE-BOT QUIET WINDOW ANCHORS LATER AND RUNS LONGER THAN THE
+  TIP-REVIEW TIMESTAMP** — still SETTLING-QUIET-WINDOW ~30 min after a
+  zero-finding tip-bound round; three cut-short pollers (two SIGTERMs at
+  1–3 polls, one own-timeout) read as mystery kills until the window
+  state was read. Cure habit: before any merge drive, read
+  `merge-decision.ts`'s window rule first-hand; a window refusal is
+  STATE, never sabotage. Corroborates Smith's same-day merge-wrapper
+  surprise (routed MCP-508) from an independent angle.
+- **PERSISTENT SHELL CWD REVERTS SILENTLY ACROSS BACKGROUNDED TASKS**
+  (failure-mode): mid-arc the cwd flipped worktree→primary and a full
+  gate pass (prettier --write, eslint, vitest) ran against the WRONG
+  TREE — caught only by a test-count anomaly (35→27) and prettier
+  no-opping on already-clean files. Cure: anchor every gate run with an
+  explicit `cd` in the same command; treat a surprising count as a
+  location check, not a test mystery.
+- **DIFF-POLL KEYS MUST BE STATE-ONLY** (failure-mode; second instance
+  of the hand-rolled-filter class): the F-75 peer-liveness diff poll
+  keyed on age-bearing lines ("642.3m ago") so every line was always
+  new and pass 2 emitted the entire retired backlog. Cure: strip
+  volatile columns before diffing AND corpus-test that the second pass
+  is EMPTY at arm time (the emptiness test is the filter's red-proof).
+- **VERIFY-BEFORE-CURE PAID TWICE IN ONE PR** (worked-well): Copilot's
+  directory-literal claim was CONFIRMED by a reversible in-repo dry-run
+  probe (7 tracked descendants hashed) before curing; the embedded-`**`
+  claim was cured via the refusal arm precisely so the unverified
+  normalisation semantics never entered the matcher. Same round, both
+  postures, both honest — dispositions-need-verified-failure-scenarios
+  as a working muscle, not a checklist.
+- DISCARD (visible): "generalise the refusal channel into an
+  estate-wide matcher design pattern" — forced; each matcher's refusal
+  economics differ, and one instrument's honesty is not a doctrine.
