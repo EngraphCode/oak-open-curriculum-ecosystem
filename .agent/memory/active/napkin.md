@@ -642,6 +642,48 @@ if the churn starts to bite.
   first time, post-push the second (warning is non-blocking so it slips
   through when the check output is only grepped for problems).
 
+## 2026-08-09 ~08:5xZ (Wren calls Downdraft, 6b29b5, mutation lane) — slice-1 field notes
+
+- TWO-BRANCHES LOOKALIKE, worked instance at #807: the PR's head was the
+  UNPREFIXED `mutation-testing-core-canary` while the lane worktree tracked
+  `jimcresswell/mutation-testing-core-canary` — identical shas until the
+  slice-1 push, so a push to the prefixed twin read as "PR sync stuck" at
+  two seats (a Director ACTION was issued on that premise). The discriminating
+  read was `gh pr view --json headRefName` against `git ls-remote | grep
+  <name>` — the empty-commit nudge would have touched the wrong ref. Cure
+  executed: fast-forward push `prefixed:unprefixed`; synchronize fired
+  instantly. Class rule: before curing any "stuck PR event", read
+  headRefName VERBATIM and list every same-suffixed remote ref.
+- `pnpm --filter <ws> run <script> -- --flag` forwarded the literal `--` into
+  the script's argv (stryker read it as a config path and failed loud); the
+  working shape omitted `--`. One bite, 2026-08-09.
+- Evidence banking vs `.gitignore:104 *.log`: committed run logs need the
+  `.log.txt` rename — this IS why the spike's dry-run log was `.txt`; the
+  mechanism confirmed first-hand when both fresh logs vanished from
+  git status.
+- Stryker outputs embed absolute machine paths (logs, report.json
+  projectRoot, report.html) — the PII validator rightly reds them; portable
+  restatement (`<repo-root>` prefix swap) in the banked copies was the cure,
+  per the 2026-08-07 references-restated-portably precedent.
+- First real-resolution `pnpm install` on a merged tree carried a ~650-line
+  lockfile rewrite: pnpm 11.20 renormalising `supports-color` optional-peer
+  threads estate-wide, zero new package versions (verified: no new
+  `resolution: {integrity` lines). Any first dep-touching PR after a
+  normalisation-relevant pnpm bump carries this noise; one body sentence
+  explains it.
+- Filtered-read class, self-caught once more: a `tail -2` on a failing
+  `claims close` swallowed the usage error (`missing required option
+  --now`); the unfiltered rerun surfaced it in one read. The claims
+  open/close asymmetry (open defaults --now per F-89; close requires it)
+  is a sibling of the documented heartbeat-arg asymmetry.
+- Sharper filtered-read variant, same session: `comms send ... | grep
+  event_id` on a FAILING send matched the CLI's usage string (it contains
+  `--event-id`) — the filter displayed the error surface while filtering
+  out the error LINE, so the failure read as a malformed success. A grep
+  whose pattern can match the tool's own usage/help text is a
+  self-blinding filter; failing sends re-ran unfiltered with `--body-file`
+  (the documented shell-interpretation bypass) and landed.
+
 - 2026-08-09 (Plover b10c37): diagnosed a "stuck synchronize event" on #807 and
   routed a nudge — WRONG premise, corrected by the lane seat (Wren, 08:49Z):
   the repo carried TWO remote branches (prefixed `jimcresswell/...` at the new
@@ -652,3 +694,783 @@ if the churn starts to bite.
   branch just pushed) — a name mismatch is the cheap check that precedes any
   webhook theory. Peer-refusal-on-false-premise worked exactly as doctrine
   intends.
+
+## 2026-08-09 ~10:3xZ (Wren calls Downdraft, 6b29b5) — compaction-freeze harvest (metacognition / free-play / concept-exploration)
+
+METACOGNITION BITE — the owner's framing ("turn the validators back
+on") was itself a hypothesis, and the probes falsified it in the useful
+direction: the boundary validators were never AIMED at config files
+(shared ignores eat tsup configs entirely; boundary rules bind
+src-only; the 'off' switches suppressed rules that never bound there —
+decoys implying coverage that did not exist; and with all three layers
+removed, the rule STILL did not observably fire — resolver path
+unproven). Executing the literal ask (delete the off-lines) would have
+shipped the appearance of a cure. The lesson generalises the
+safety-asks-bind-the-referent memory: a cure instruction binds the
+COVERAGE the owner believes exists, and the first act is measuring
+whether it ever did. Full evidence in
+`workspace-config-isolation.plan.md` §Evidence.
+
+FREE-PLAY SEEDS (associations, not findings): (1) DECOY OFF-SWITCHES
+are a detectable class — an 'off' entry for a rule never enabled in
+that scope is machine-findable, and the planned disabled-checks census
+could flag exactly that shape (a disable disabling nothing = the
+strongest signal a coverage belief is false). (2) Stryker's
+subtree-copying sandbox is an ACCIDENTAL ISOLATION TESTER — any tool
+that copies a workspace subtree live-probes workspace
+self-containedness; the estate could get isolation testing for free by
+noticing which tools already do this. (3) "standalone by design"
+comments are assumption archaeology — design claims in config comments
+age without any check ever reading them.
+
+CONCEPT-EXPLORATION: justified no-run — the unshaped morning finding
+crystallised into a decision-complete plan node with all forks decided
+on measured evidence; no unshaped residue remains.
+
+Operational captures from the window: the concept-gate fired on
+"carve-out" used DESCRIPTIVELY (quoted-pathogen class, third recorded
+instance) — reappraised honestly, the design was uniform, restated as
+the precise mechanisms. Owner-redirect vs Director-ruling collision
+(both landed within 60s) resolved by owner-word precedence + one
+reroute event carrying lane pause AND ruling ack — the map stayed
+current with zero contradiction windows.
+
+## 2026-08-09 10:41Z (Civet, 054f5e) — PR-1 window: three mechanism notes
+
+- The pre-commit turbo gate RACES `next build` against `tsc` over
+  .next/types in both Next demos (two first-hand instances this window:
+  validator.ts referencing a not-yet-generated routes.js while tsconfig
+  includes .next/types/**). Working cure at owner word: root `pnpm
+  clean` then an ORDERED `turbo run build --filter=<app>` before the
+  commit; structural cure (dependsOn edge or tsconfig exclude) is on
+  the Director's board. Also learned: root clean wipes workspace dists,
+  so a bare `next build` then fails module resolution — always rebuild
+  through turbo so the dependency graph restores first.
+- Reviewer-conflict adjudication pattern that worked: Copilot cited
+  no-conditional-tests against the expect-guard idiom while the
+  test-expert sanctioned it; the RULE ITSELF (§Diagnosis 5, owner-carded
+  amendment 2026-08-02) names the message-bearing expect-guard as the
+  sanctioned shape — reading the cited rule end-to-end beat both
+  reviewers' summaries, and the cure (upgrade to message-bearing form)
+  satisfied both. Apply-whole-rules works on review findings too.
+- The worktree isolation guard blocks Write of files containing
+  machine-local absolute paths (scratchpad probe scripts included);
+  the portable shape is argv-passed module paths resolved at runtime —
+  cheaper than fighting the fingerprint, and the probe stays reusable.
+
+## 2026-08-09 ~10:4xZ (Wren calls Downdraft, 6b29b5) — post-compaction un-ignore probe
+
+- STALE-DIST FALSE NEGATIVE (the layer-4 mystery, solved): the
+  standards package is consumed from `dist/` (`exports` → dist), so
+  the earlier probe that edited `src/` and re-ran lint without
+  rebuilding recorded "rule does not observably fire" against config
+  that never loaded. One `pnpm --filter … build` later,
+  `import-x/no-relative-packages` fires perfectly on graph-core's
+  tsup.config.ts and vitest.config.ts (the real violations). General
+  class: before recording a NEGATIVE capability finding about a built
+  artefact, prove the artefact under test contains your change —
+  a build step between source and consumer converts "edited" into
+  "untested" silently. Pairs with dont-transmit-assumptions-as-truth
+  ("impossible" fires the falsifier first).
+- `'**/tsup.config.*'` in the shared ignores claims (comment) to
+  target bundled ephemera, but `'**/*.bundled_*.mjs'` on the next
+  line already covers those; the glob's only real effect is ignoring
+  source tsup configs. A disable whose stated grounds are satisfied
+  elsewhere = another decoy shape for the census to flag.
+- Pre-existing, not mine, not absorbed: graph-core lint shows 15
+  `@oaknational/no-throw-statement` WARNINGS in src/test files on the
+  probe branch (cut from main). no-warning-toleration says these are
+  someone's cure item — routed to Director rather than absorbed into
+  the isolation lane.
+
+## 2026-08-09 10:55Z (Civet, 054f5e) — freeze-4 lens harvest (metacognition / concept-exploration / free-play / wrap)
+
+METACOGNITION: the reviewer cascade on #834 earned its cost — four
+independent surfaces (pre-execution gateway, two focused specialists,
+Copilot twice, Sonar) each caught a DISTINCT real defect class with
+almost no overlap. The sharpest instance: my own leak probe verified the
+surface bound I designed, and Copilot's round 2 found the bypass I
+didn't design against (relative hop wearing an admitted prefix) — a
+probe tests the author's threat model; an independent adversary tests
+its edges. Pair them, always.
+
+CONCEPT-EXPLORATION: "declared surface" matured through three states in
+one PR: whole-tree serve → exports-map allowlist → CANONICAL-PATH-judged
+allowlist. The closing invariant is consistency, not restriction: the
+admit predicate and per-root resolution must judge the SAME canonical
+form (both reduce to normalize(urlPath) for in-root results). A guard
+that judges a different representation than the executor serves is a
+bypass waiting for its input. Sibling fork worth remembering:
+normalize() CLAMPS root-escapes into the root (RFC remove_dot_segments)
+while the prefix guard REJECTS them — clamping in the shared decode
+seam would have silently weakened the reject-escapes contract; the cure
+belonged at the one consumer that needed it.
+
+FREE PLAY: the one unresolved thread at settle was a genuine security
+catch on code written the same morning — the review system at its best,
+and a good calibration anchor for what a READY signal is worth.
+
+WRAP: freeze lands at review-settle: three cure rounds pushed
+(6150cf8e8, 70f2585b2, 9e6b2f86a), 16/16 threads replied+resolved,
+Copilot re-requested at the head, Sonar's one MAJOR cured awaiting the
+re-fire, checks in flight. Zero local dirt in the PR worktree. The
+READY signal is post-compaction work by construction (checks + Copilot
+round 3 must land), and the Director's own freeze routes it to the ARC
+channel where their first resume act sweeps.
+
+## 2026-08-09 ~11:3xZ (Wren calls Downdraft, 6b29b5) — todo-1 pre-execution review harvest
+
+- TURBO TRAVERSES devDependencies FOR ^build: a devDependency-only
+  package cycle hard-fails `turbo run build` (exit 1), and the
+  package-scoped `dependsOn: []` override silences the failure but
+  leaves a "Circular package dependency" WARNING — an override is a
+  bypass, not a cure. Consequence class: a shared-config package that
+  every workspace devDepends on can itself devDepend on NOTHING
+  internal. The reviewer proved this in a scratch turbo repo before
+  any code existed — probe-budget on the highest-uncertainty claim.
+- PATH-ARITHMETIC ESCAPES: `resolve(dirname(fileURLToPath(
+  import.meta.url)), 'file.ts')` is a cross-boundary reach a
+  specifier scanner never sees (the e2e base's setupFiles line). A
+  boundary validator scanning import specifiers needs the
+  path-arithmetic pattern class too, or its TSDoc names the gap.
+- LEXICAL CONTAINMENT beats resolution: "does this relative
+  specifier leave the workspace directory" is answerable with
+  path.resolve alone — never resolve to a real file, which deletes
+  the extension-mapping/index/exports edge cases AND keeps the
+  verdict checkout-independent (no realpath, symlinks-by-policy
+  absent).
+- Stale-reference counts multiply: the "one" stale $TURBO_ROOT$
+  turbo input was FIVE occurrences; a singular-instance assumption
+  about config drift undercounts by default — enumerate, never spot.
+
+## 2026-08-09 ~12:1xZ (Wren calls Downdraft, 6b29b5) — owner correction mid-scaffold
+
+- OWNER WORD (verbatim): "tests prove behaviour, not configuration,
+  and tests are not always the right tool for a piece of validation."
+  Fired on two just-authored unit-test files asserting the config
+  package's exported VALUES (targets, formats, include globs) —
+  configuration duplicated into a change-detector. Deleted, plus the
+  package's test script and purposeless vitest.config.ts. The
+  package's assurance case now stated in its README: consuming proof
+  (estate gates through the exports) + validator fixture red-proof +
+  canary sandbox probe. Check-fires fixtures REMAIN test-shaped
+  (they prove behaviour of the check). Homed durably in per-user
+  memory (tests-prove-behaviour-not-configuration).
+- Worktree guard note confirmed again: complex Monitor arms refuse
+  from a worktree session — exit, arm at primary, re-enter (re-arm 5
+  followed this path).
+
+## 2026-08-09T13:02Z — PR-1a consolidation window (Civet spins Cavern): mechanism notes
+
+- Library reclassification changes the threat model, not just the path:
+  byte-identical code moved from a demo app into packages/libs fired
+  CodeQL's library-input HTML taint rule (exported params = untrusted)
+  AND the libs tier's no-ambient-process boundary. Plan the cures for
+  the RECLASSIFICATION when consolidating, not just the move. The
+  sanctioned process shape is logger node.ts's explicit
+  `import process from 'node:process'`.
+- exit-codes-in-band caught live: `pnpm check | tail; echo EXIT:$?`
+  reported tail's 0 while the run had FAILED (the notification said
+  "completed (exit 0)"). Only `cmd > log 2>&1; echo $?` is honest.
+  The failure it hid was real (a boundary-list test).
+- `git rm` stages immediately: a later pathspec `git add` + bare
+  `git commit` swept the staged deletions into the WRONG commit —
+  the atomic-landing breach the test reviewer flagged came from exactly
+  this. In a multi-commit build, read the staged set before each
+  commit; a bare commit takes the whole index.
+- Reviewer conflicts resolve by evidence depth, not arrival order: the
+  pre-execution reviewer ruled capture-checks stays app-local
+  ("deliberate strictness"); the deep architecture pass diffed the
+  copies and found an UNPORTED BUG FIX (parseInt accepting '1440px') —
+  drift recast as choice. The deep verdict won because it verified.
+- A seven-lens opus panel on a ~50-file consolidation PR converged
+  cleanly: every high finding was CONFIRMED-with-repro, near-zero
+  overlap between lenses, and the a11y browser-level run found a real
+  WCAG 2.1.1 violation the unit axe proof structurally cannot see
+  (fragment mounting leaves 68 rules inapplicable). The unit-proof
+  docblock now states that scope limit — overclaiming a proof's scope
+  is its own defect class.
+
+## 2026-08-09 ~13:0xZ (Wren calls Downdraft, 6b29b5) — todo-1 landing harvest
+
+- PATHSPEC COMMIT DROPPED STAGED-NEW FILES (F-candidate, register from
+  transcript): the commit-queue workflow's inner pathspec-scoped git
+  commit carried a 118-path intent but committed only 111 — exactly
+  the four staged-new src modules of the new package were dropped
+  while their sibling package files landed; not gitignored (checked),
+  in the intent list (registry-verified). Cure was a follow-up
+  four-file commit. VERIFY THE COMMIT CONTENT, not the exit code:
+  git show --stat after every landing.
+- TS2883 PORTABLE-DECLARATION CLASS: a dist-consumed config package
+  whose factories return types built over a dependency's types needs
+  (a) explicit exported return-type aliases AND (b) a `export type {
+  X } from 'dep'` re-export so consumers' inferred default-export
+  types are nameable through the package. The alias alone does NOT
+  stick (utility types expand); the re-export is load-bearing.
+- ESM-only exports maps need a "default" condition when configs are
+  loaded by mixed-mode loaders (vite externalize-deps require path);
+  Node 24 require(esm) makes it safe.
+- The esm-import-extensions smoke scan reads FIXTURE STRINGS as
+  imports — extensionless relative specifiers in test fixtures must
+  be runtime-constructed (never-weaken-a-gate: string construction
+  over exemption).
+- UNEXPLAINED, recorded honestly: a full `pnpm check` (clean+rebuild)
+  ran green minutes before the commit hook found 24 type-check tasks
+  red on an unchanged tree; the red was real (reproduced directly).
+  Hypothesis space: turbo cache-key/env divergence between the two
+  invocations. Not diagnosed; the cures were verified first-hand.
+- Copilot review request via merge-bot token did not attach on #836
+  (both 'copilot-pull-request-reviewer[bot]' and 'Copilot' logins
+  accepted-but-dropped) — selective-not-ceremony applies; retry at
+  settle or owner-click.
+
+## 2026-08-09 ~13:5xZ — Plover lifts Troposphere (b10c37): two instrument lessons from the open-surface-zero drive
+
+- **A required check can be ABSENT, not failing — and absence is invisible
+  to a failing-checks filter.** PR #771's draft-era head never triggered a
+  Vercel deployment, so the merge API refused with "Required status check
+  'Vercel' is expected" while my `select(status != SUCCESS)` filter showed
+  zero failures. The recount discipline is presence AND success for each
+  required check BY NAME (the four from the rulesets API), never
+  no-failures. Cure that worked: `pulls/N/update-branch` re-fires the full
+  set; settle-watch then merge.
+- **Sibling-form relative links are structurally invisible to
+  path-substring greps.** WS7 group 1's pre-execution map (opus,
+  thorough) still missed 13 inbound links of the form `../metacognition/`
+  from skills that stay flat — no `skills/<name>` substring exists in
+  them. The markdown-link VALIDATOR (11,608 links checked) is the honest
+  sweep instrument for canonical moves; text grep is only a supplement.
+  Standing for every later WS7 group PR.
+
+## FREEZE-5 LENS HARVEST (Civet spins Cavern, ~13:55Z)
+
+- Concept-exploration: consolidate-at-second-consumer completed its FULL
+  arc inside one window — gate refusal → rule fires → extraction →
+  both consumers migrated → the refusing gate passes. The rule's
+  "a required quality gate will refuse it" clause proved literally
+  true, twice (refusal at #834, clearance at #835/#834-swap). The
+  durable generalisation: RECLASSIFICATION IS THE EVENT — moving code
+  into a library changes its threat model (CodeQL library-input),
+  its lint tier (no-ambient-process), and its contract obligations
+  (every caller-shape must hold), independent of any code change.
+- Metacognition: the risk-of-loss bar held at BOTH seats without
+  coordination — I refused the fold under the standing rule, and the
+  Director independently derived the same refusal from their own seat's
+  reading ("my merge authority covers merges, never history rewrites").
+  Structure-over-vigilance demonstrated at the fleet level. Counter-
+  example the same window: the exit-code-piping slip — a rule I could
+  recite failed under batching pressure; rules held as HABIT (the
+  unpiped form as the only form ever typed) survive pressure that
+  rules held as knowledge do not.
+- Free play: the seven-lens opus panel's marginal value concentrated
+  in the two lenses that ran LIVE PROBES (security's 29-row adversarial
+  table, a11y's browser-level axe) — they found what static reading
+  structurally cannot. Evidence depth beat lens count; a future panel
+  could be five lenses with probe budgets rather than seven readers.
+
+## 2026-08-09 ~14:0xZ (Wren calls Downdraft, 6b29b5) — compaction-freeze harvest 2
+
+METACOGNITION BITES (two, both structural): (1) the commit ceremony's
+fingerprints verify the STAGED set, never the COMMITTED set — F-157
+proved a green workflow can lie at the last hop; the inherited "exit 0
+= intent landed" assumption died inside the estate's most ceremonial
+path. Discipline until the cure lands: git show --stat after every
+landing. (2) An uncommitted edit on the SHARED primary checkout is
+fleet-visible state, not private drafting — my in-flight plan edit
+blocked every seat's push through the working-tree markdownlint gate,
+and a mid-freeze peer had to cure my line to leave. Write-then-commit
+promptly on the primary, or draft in scratch and land whole.
+
+FREE-PLAY SEEDS: (1) F-157's structural cure is one cheap line —
+post-commit, diff intent.files against git show --name-only and fail
+loud on any drop; kills the class. (2) Gates that NAME the cure in
+their failure text turn coordination events into mechanical merges —
+the isolation validator fired three times for real today (live
+red-proof, root-deletion fallout, fidelity-review absorption) and each
+firing carried its own recipe; Civet executed the adjacency from my
+error text alone. (3) F-158 wants a task-hash parity probe: two turbo
+--dry=json runs from the two invocation contexts, diffed on env keys +
+input sets.
+
+CONCEPT-EXPLORATION: justified no-run — every open question is formed
+and homed (register rows with candidate cures; plan known-issues
+ledger with named homes).
+
+WINDOW STATE at freeze: PR #836 open, current with main (absorption
+merge 5a8105c4b pushed), review with Jim + mantagen; plan ratified,
+todo 2 next (probe-worktree seeds), todo 3 executable at merge;
+known-issues ledger landed via Civet's rewrap commit 839f20dac (their
+message, my section's content — attribution noted, content correct);
+F-157/F-158 registered.
+
+## 2026-08-09 ~15:4xZ — Plover lifts Troposphere (b10c37): practice-tool feedback at owner word
+
+- **Codex-dialogues review leg rated HIGH VALUE by the owner** (his word:
+  "running the codex dialogues approach is high value"), on the #836
+  evidence: independent convergence on every core finding plus two novel
+  ones (turbo glob-resolution gap; explicit hypothesis-boundary honesty).
+  Candidate graduation: a Codex leg joins the standing review-round shape
+  for significant PRs (alongside Copilot + expert legs) — route through
+  the rules process, not assumed. Mechanics that worked: read-only
+  sandbox, approval-policy never, cwd at the checkout, self-contained
+  brief with the review dimensions left open for independent judgment.
+
+## 2026-08-09 ~14:5xZ (Wren calls Downdraft, 6b29b5) — day-end wrap harvest (post-resume window)
+
+SURPRISES/CORRECTIONS: (1) The freeze broadcast's "full gates green" was
+FALSE at utterance — the absorption push's CI run concluded failure at
+13:52Z while the freeze claim rode on local gates + an earlier run. The
+class is finish-line fluency (the metacognition directive's "commits
+pushed — said before the push", exactly); discipline adopted: a CI-green
+claim names the CONCLUDED run id, and a push during wind-down leaves an
+obligation to watch or hand off the run. (2) The primary repo was
+silently SHALLOW (3 boundary entries in .git/shallow, origin unknown) —
+discovered only when a merge with main's new tip failed "unrelated
+histories"; cured with git fetch --unshallow. Shaped like the Stryker
+silent-fallback class: a tool proceeding happily on partial substrate.
+(3) claude[bot] on #836 is a spend-limit skip notice, not a review (org
+overage cap reached) — spend-errors-retry discipline applied, recorded
+not escalated.
+
+METACOGNITION BITE (framing): my plan dispositioned depcruise by its
+CONFIGURATION ("polices layer direction only, orphan rule excludes
+config files") rather than its NATURE (a dependency resolver) — the
+owner's "I was hoping you would arrive at dependency cruiser" means the
+right-tool question was askable at plan-author time. Reflex to keep:
+when writing an instrument's disposition into Evidence, ask "is this
+what the tool IS, or what our config currently makes it do?"
+
+candidate: pattern — "warm masks cold": three instances in one lane
+(fresh-worktree eslint crash, fresh-worktree knip crash, CI postinstall
+cold-install) plus the shallow-repo find; the generator is state that
+every long-lived local tree accumulates and no fresh environment has.
+A dist-consumed package has THREE consumer classes (turbo-ordered,
+direct-invocation, install-time) and only cold environments exercise
+the third. Possible enforcement home: the packet's follow-up 7
+(bootstrap-closure ordering check) covers the narrow form; the broad
+form may deserve a distilled.md entry after a second out-of-lane
+instance.
+
+BOUNDS RECORDED: CI verdict on 7b22b71e8 pending at wrap; the
+~/.claude/plans surface was listed (5 files, other-session plan-mode
+artifacts) but not deep-read at day-end — recorded as a bound, not a
+completed sweep. Loss-scan pass 2 fixed point: a third pass re-finds
+only comms-ephemerality (cured by the new thread record) and the
+pending-CI bound (recorded); recursion closed.
+
+## 2026-08-09 ~14:5xZ (Civet, 054f5e) — pr-1b cure round: play seeds + a preservation-claim lesson
+
+FREE-PLAY SEEDS (marked as associations): (1) the duplication gate is
+behaving as consolidate-at-second-consumer's SENSOR — a converging
+series (21.5% → 8.1% → structural zero), each firing smaller because
+each cure moves a layer into the package; the gate is pricing, not
+just blocking. (2) The clone detector's side-by-side put the two
+orchestrators in one frame, which is how the hub's missing
+custom-base attach branch became visible — to VERIFY at MCP-534
+triage (ensureDevServer's attach-first probe may already cover it),
+an association, not a finding. Discarded visibly: a control-pills ↔
+fleet-lanes analogy — aesthetics, no operational content.
+
+LESSON (metacognition, worked): my "the hub's corrupt-PNG degradation
+is deliberate policy and must survive" was a RECORD-DERIVED
+preservation claim; the pre-execution reviewer killed it with code
+evidence (`missing` is documented as evidence PATHS; the hub stuffed
+a decode error into it — drift, not policy). The reviewer's
+sunk-cost/preservation-language flag is a lens worth turning on my
+own design inputs BEFORE dispatch: any "X is deliberate" claim whose
+provenance is a summary rather than the code deserves the falsifier
+first.
+
+## 2026-08-09 ~16:4xZ — Plover lifts Troposphere (b10c37): the wide-net assurance round paid off exactly where the theory said it would
+
+- **#834 full-work commission (45-agent fleet + 3 Codex xhigh, 4 surfaces)
+  found a substantial merge-blocking surface that FIVE prior review rounds
+  (4 Copilot + 4 opus legs) missed — and the miss was STRUCTURAL, named by
+  the reviewers themselves**: the integration suite uses no real
+  fs/sockets/processes, so it cannot falsify evidence-provenance,
+  cross-platform process trees, or cleanup ownership. The load-bearing
+  finding (a failed/blank capture overwrites canonical evidence and
+  report-only trusts it) was QUINTUPLE-confirmed across all four surfaces
+  PLUS the PR's own suppressed R27 Copilot comments — i.e. it was ALWAYS
+  in the record, collapsed, unengaged. Lesson for the review shape: for a
+  tool whose product IS evidence, an assurance round MUST include a leg
+  that attacks evidence-integrity/provenance directly, and MUST read the
+  suppressed blocks (the standing rule held again).
+- **Multi-model convergence is the trust signal.** Three independent Codex
+  xhigh reviews with no contact agreeing on the same three spines
+  (evidence-integrity, cleanup-on-throw, dev-server semantics) is stronger
+  than any single opus verdict; the fleet added the scales Codex couldn't
+  carry (design-frame, a11y/tokens, process, positives). The frame-
+  challenger's unique payoff: connecting the un-consolidated settle recipe
+  to an EXISTING third capture consumer (rule-6 baselines) — a
+  cross-surface link no runtime-focused leg would find.
+- **Verify pass earned its keep both directions**: refuted 5 of 21
+  contested (a haiku link-sweep leg was unreliable — 3 false "not ported"
+  claims), and light-checked 5 graduation positives (all held).
+
+## 2026-08-09 ~17:0xZ (Civet, 054f5e) — freeze-6 lens harvest
+
+REASON: the window's exemplar decision structure — cure-inside-#834 vs
+extraction PR — resolved on a single warrant (the second consumer
+exists only on the branch, so an extraction PR off main would land
+one-consumer machinery, dishonest by the very rule being enforced);
+the warrant held through four review surfaces unchanged. The
+corrupt-evidence adjudication is the paired exemplar: claim →
+falsifier → code evidence → unification, with my own record-derived
+premise the one killed.
+
+METACOGNITION: (1) check-singleton violation, MINE — a background
+`pnpm check` raced the pre-commit validator chain in the same
+worktree; one commit cycle burnt on a phantom missing-dist failure.
+The rule exists and I carry it; throughput instinct overrode it.
+Discipline: serialise check-runners per tree; parallelise across
+SURFACES (reviewers, comms), never across gates in one checkout.
+(2) verify-dont-trust fired productively twice on reviewer premises:
+the zero-consumers claim re-verified before demoting subpaths; the
+"map-refine has no consumer" premise corrected first-hand (the
+showcase's six-ids invariant chains it), saving a true docblock.
+(3) The owner's assurance round exposed a STRUCTURAL blindness in my
+test design: the DI seam that made the orchestrator suite pure also
+made it unable to falsify evidence-provenance, cross-platform process
+trees, and cleanup ownership — purity and falsification power trade
+off, and the choice of seam decides which truths tests can reach. A
+standing lens for PR-2's test design.
+
+PROPORTIONALITY: the cure batch sat right on the API-freezes-at-merge
+ground (4 opus legs, ~35 files) — and the owner then priced #834
+HIGHER still with the full-work commission: the gate's "too light"
+arm demonstrated by the owner's own act, a calibration point for what
+first-major-release surfaces warrant.
+
+CONCEPT (formed, napkin-grade): the duplication gate behaves as a
+CONVERGING consolidation sensor — 21.5% → 8.1% → structural zero,
+each firing pricing exactly the next shared layer at the moment its
+second consumer appears. The rule's enforcement clause is also its
+detector.
+
+FREE-PLAY (harvest with visible discard): kept — each freeze's resume
+map gets SHORTER as standing surfaces absorb the continuity burden
+(plan node, PR body, MCP tickets, and now the Director's adjudicated
+packet built explicitly as the durable resume surface). Discarded as
+forced: cold-pause-then-freeze numerology.
+
+WRAP loss scan (fixed point reached in two passes): the freeze-6
+resume map → thread record; the assurance-packet pointer → resume map
+(already durable on #834 as comment 5232387226); the check-singleton
+lesson → this entry; everything else already homed (plan node, PR
+body, MCP-533/534, claims registry). Second pass over the scan added
+no new loss class.
+
+## 2026-08-09 ~16:2xZ — Plover lifts Troposphere (b10c37): shared-index commit-seam is a recurring class — cure is explicit-pathspec at the COMMIT verb
+
+- **Third instance in two days of one seat's commit sweeping another seat's
+  staged files on the shared primary checkout** (freeze-5: Civet swept Wren's
+  isolation draft; freeze-6 reverse: my `614d7d585` swept Civet's three staged
+  freeze files). Every instance preserved content + pushed — no loss — but the
+  attribution/labelling is wrong (peer files ride a commit whose subject is
+  someone else's work).
+- **Root**: `git add -- <my files>` followed by a BARE `git commit` commits the
+  whole staged index, including anything a peer already staged. The
+  stage-by-explicit-pathspec rule was being honored at `add` but not at `commit`.
+- **Cure (extends stage-by-explicit-pathspec to the commit verb)**: on a shared
+  checkout, ALWAYS `git commit -- <explicit paths>` (or `git commit <paths>`),
+  never a bare `git commit` after `git add`. The pathspec on `commit` bounds the
+  landing to exactly the intended files regardless of index state. Candidate for
+  a hook: warn on bare `git commit` when the staged set exceeds the last `add`'s
+  pathspec. Graduation-worthy — [[stage-by-explicit-pathspec]] sibling.
+
+## 2026-08-09T16:45Z — Civet spins Cavern (054f5e): directed hold ≠ idle waiting (concept-exploration, window 7 resume)
+
+A directed hold is a synchronisation barrier, not idleness. The
+idle-waiting-is-resource-waste rule targets UNDIRECTED idleness (a
+seat with startable work silently watching). A hold qualifies as a
+barrier when all four hold: (1) owner/Director word created it,
+(2) an event-driven wake is armed, (3) the state is honestly
+observable (heartbeat cycle label names the wait and its discharge),
+(4) the discharge condition is defined. Under those four, resisting
+the throughput instinct to "find startable work" (the same instinct
+behind the check-singleton violation) is correct. Falsifier: if
+Director confirmations routinely arrive saying grounding should
+already have started, the hold's default scope is too conservative —
+widen it to include read-only grounding of the already-directed
+first act.
+
+## 2026-08-10T06:35Z — Civet spins Cavern (054f5e): FREEZE 7 lens harvest (cure round 6 mid-flight, 12 commits landed)
+
+**Owner correction (feedback, standing):** a stale derived artifact
+(.next) blocking a gate is cleared by the BUILD GRAPH'S OWN CLEAN VERB
+(`pnpm --filter <ws> run clean` — the workspace script the turbo graph
+declares), never by raw `rm -rf` (rejected) and never by escalating the
+choice to the owner (also corrected: "you shouldn't have asked").
+Derived-artifact hygiene is structured-command territory: the estate
+provides the verb; use it. Generalises use-built-agent-tools-cli to
+build outputs.
+
+**Reason:** the architecture-over-wide-net warrant held as a GENERATOR
+across twelve commits — every cure reduced to pull-the-invariant-down;
+no cure was "add a test" alone. The one design deviation (withResource
+dropped) was warranted by the consumer test and recorded dated in the
+module header + commit body: an adjudicated design is a hypothesis;
+consumers are its falsifier.
+
+**Concept-exploration (formed):** the lint caps (complexity 8, 50-line
+functions, 250-line files) fired five times during the round and each
+firing forced the SAME decomposition move the assurance doctrine
+prescribes at scale — the linter is the micro-sensor of the
+pull-provability-down signal (peer of the Sonar duplication gate as a
+consolidation sensor, napkin 2026-08-09).
+
+**Metacognition:** the freeze word arrived mid-reshape; commit-first-
+then-freeze held (work-safety before records). The overnight idle ran
+under a cure-round heartbeat label — the label names the CYCLE, not
+instantaneous activity; honest, noted. One rejected tool call this
+window (the raw rm) — the correction above is its cure.
+
+**Proportionality:** ~2000 lines / 12 commits against the
+owner-commissioned assurance packet — proportionate to an instrument
+whose product is trust; the withResource drop is the same lens in the
+small (no consumer, no abstraction).
+
+**Free play (keep-seed):** the oak-app identity sentinel doubles later
+as wow-checkpoint provenance — proof the owner's browse tab is OUR app
+on the declared port, the same falsification-power move at the human
+checkpoint. Discards: none held back.
+
+## 2026-08-10T06:50Z — Civet spins Cavern (054f5e): FREEZE 7 — the owner's waaay-back recalibration (this entry supersedes the mechanical harvest I had drafted)
+
+**The owner's stated WHY (verbatim intent, standing):** "Part of the
+motivation for the design work is to decrease the cost of exploratory
+app experiments to near zero, hence the support for whitelabelling,
+hence the need to show how powerful and efficient our system is."
+The design system is the machinery of near-zero-cost experiments;
+whitelabelling is the proof that presentation is data; the showcase
+exists to DEMONSTRATE that power. The wow moment is not "this page is
+pretty" — it is "this page proves a whole class of products is now
+cheap." The switchboard page is dependency injection for visual
+identity made visible: ?brand= is the constructor argument, and the
+demo's real subject is d(product)/d(effort).
+
+**The metacognitive finding (mine to own):** my proportionality passes
+kept pricing each cure against "an instrument whose product is trust"
+— a frame one level too low, and recursively inflated by the work
+already done on the instrument. The question I never fired:
+"is the LEDGER proportionate to the plan's END?" The estate already
+names this rule (ends-before-means front-of-chain-first;
+re-apply-first-question-at-elaboration-boundaries) and I applied it at
+every elaboration boundary EXCEPT the outermost. The cure round was
+owner-commissioned — the depth was priced by him, not smuggled by me —
+but the SEAT never surfaced ends-denominated status. Cure: from now on
+READY/re-READY reports state DISTANCE-TO-PIXELS (ends-denominated),
+not only gates-green (means-denominated).
+
+**Formed concept (home candidate):** the owner uses compaction
+boundaries as STEERING moments, not just preservation moments — freeze
+6 carried the assurance commission in, freeze 7 carried the ends
+recalibration in. A freeze is the estate's rudder. Corollary: freeze
+records should always end with "what would the owner redirect here?"
+asked genuinely.
+
+**Reframe worth keeping (free play):** the fidelity register's
+disposition vocabulary (deliberate/fix/matched) is the GOVERNANCE of
+cheap experimentation — it is how you keep taste while moving fast.
+In the near-zero-cost world, divergence is not a defect class, it is
+the product surface; the register makes divergence deliberate.
+
+**Consequence for the work (binding at resume):** finish cure round 6
+at LEDGER-MINIMUM depth — the ledger is the bound, nothing beyond it,
+prefer named-home deferral wherever it allows; then PR-2 immediately.
+PR-2 is not the next task, it is THE POINT: the page that shows an
+entire product re-skinning at query level. Twelve commits of
+instrument hardening are only worth their cost when the pixels they
+will judge exist.
+
+**Also this window (standing owner corrections):** (1) stale derived
+artifacts are cleared by the workspace's own clean verb
+(`pnpm --filter <ws> run clean`), never raw rm, never an owner ask;
+(2) the withResource drop held: an adjudicated design is a hypothesis
+and consumers are its falsifier.
+
+## 2026-08-10 ~09:3xZ (Swordfish wakes Trench, d0274e, design lane) — the paired-watchers rule has a THIRD member on a lane with an ARC channel
+
+At this seat's pickup the canonical all-channels watcher was armed and F-95
+green, the F-75 peer poll was armed, and the seat reported itself fully
+visible. It was not: the Director had opened an ARC channel for the design
+lane at 07:30Z and posted six substantive entries — a concurrence, an
+owner-directed boundary exploration, and an explicit RELEASE to proceed —
+and the seat read none of them until 09:35Z, then told the owner "no
+Director reply yet" while a reply had been on that surface for over an hour.
+
+The rule text says the canonical watcher and the ARC watcher "are paired,
+always", and it is written from the direction of a seat that has an ARC tail
+and might skip the canonical one (the founding failure). This instance is
+the OTHER direction: canonical armed, ARC never armed, F-95 green
+throughout — because F-95 attests the canonical watcher and can attest
+nothing else. Two members named, three surfaces live, and the gate covers
+one.
+
+Second instance of the family, not the first: Civet logged the half-armed
+watcher on 2026-08-08 (monitors live and attested, nothing making the seat
+READ the buffer between wakes). That was consumption; this is arming. Same
+generator — a green liveness check on ONE surface read as visibility across
+ALL surfaces, which is PDR-133's reading rule violated by its own consumer.
+
+Scope: any lane seat whose Director dialogue runs on an ARC channel. Working
+cure applied at this seat: arm the ARC tail as an event-driven Monitor in the
+same move as the canonical watcher, and treat "which surfaces can carry
+direction to me?" as the arming checklist rather than "is my watcher green?".
+Candidate rule amendment (routed to the Director with the PDR-136 §5 work,
+where it lands as the ad-hoc-instrument case): the paired-watchers clause
+should enumerate surfaces by the direction they can carry, not by a count.
+
+Sibling note, same seat, same window: a hand-rolled tail on a dialogue file
+does NOT self-exclude the way the canonical watcher does, so every entry the
+seat writes notifies the seat. Cheap fix (drop headers naming this seat);
+worth knowing before arming one.
+
+## 2026-08-10 ~08:4xZ — Plover lifts Troposphere (b10c37): THE METRIC LESSON — doctrine-motion is not progress (owner's "proceeding is bullshit" catch)
+
+- **The deliverable is the only metric. I reported "Swordfish is proceeding"
+  against NO metric — my own message traffic read as progress.** First-hand
+  measurement showed the truth: 2h of doctrine (methodology report, boundary
+  exploration, four-mode frame, PDR-136 amendment, ~20 ARC entries) while the
+  design lane's deliverable did not move — 0/10 specimen regions, no route
+  existed. The purest silence-is-liveness error, committed by the seat that had
+  just authored the silence-invariant. The owner called it bullshit; correct.
+- **Cures, all four owner-forced this session:** (1) the metric is the
+  DELIVERABLE — distance-to-pixels (regions rendered), measured first-hand
+  (branch tip + route directory), NEVER asserted from messages or heartbeats;
+  (2) doctrine/coordination VOLUME is a displacement risk, not progress — the
+  Director's failure mode is mistaking means-of-means for the end; guard the end
+  relentlessly; (3) break sequencing that stacks means before the end (page was
+  behind the cure-round behind the assurance-design — a chain of means; "the rig
+  is the CAMERA, you don't need it perfected to paint" broke it); (4) CONVERGE,
+  don't proliferate — I flooded the channel and over-gated on "owner closes,"
+  manufacturing a three-way stall the owner had to name. Declaring convergence
+  closed and releasing work IS the Director's job, not a gavel to wait for.
+- **The generator underneath:** defaulting to the LOCAL/means cure over the
+  LEVEL/end cure — the same generator as the depcruise-over-regex and
+  architecture-over-wide-net corrections. Ask "is this the deliverable, or a
+  means I'm mistaking for it?" as a required check, not an emergent one.
+
+## 2026-08-10 — Plover lifts Troposphere (b10c37): freeze-window advances worth keeping (brief)
+
+- **Four-mode contribution frame** (owner correction: agents are creative
+  partners, not just defect nets): generative/improvement/discovery/
+  falsification; the MODE IS SET BY THE QUESTION, not the agent type; R1
+  proportionality selects mode by impact-locus, R2 every output is judged.
+  Graduation candidate → PDR-111. Assurance is one mode of four.
+- **In-place re-skin as structural proof** (design): a demonstration built so it
+  can only succeed if the claim is true (re-skin one DOM in place ⟹ markup is
+  brand-invariant, which IS the claim). Falsification-power moved from test seams
+  to demonstration design.
+- **PDR-136 §5 silence invariant** (proposed, pending owner ratification at
+  487b3ebc9): silence carries ONE invariant meaning; any invoked-but-silent
+  instrument is a FAULT. The ARC-tail-gap (an un-armed tail read as
+  visibility-complete → false green) is the worked instance — the invariant must
+  bite on ad-hoc-armed instruments, not only registered gates.
+
+## 2026-08-10 ~09:4xZ (Swordfish wakes Trench, d0274e, design lane) — an honestly-reported metric that never moved, and the null-state class it belongs to
+
+Reported "distance to pixels: 0 of 10, honest zero" in nearly every status
+for two hours while the number stayed at zero, and treated the measurement
+as the deliverable. Nobody caught it from inside; the owner named it and the
+Director hard-redirected. A metric reported but never acted on is a ritual,
+and its HONESTY is what makes it undetectable as one — a fudged number would
+have been caught far sooner.
+
+The correction did not take on contact either: ~30 further minutes of
+coordination output followed an explicit "if your next signal is doctrine, I
+have failed to redirect". Not defiance — each next act was locally
+justified (a ratchet failure blocking the fleet, a slice design the Director
+had asked for, a capture that would be lost). Aggregate avoidance assembled
+from individually true reasons. Passive-guidance-loses-to-artefact-gravity
+applies to CORRECTIONS, not only to rules.
+
+THE CLASS, and it is the owner's 2026-08-10 silence directive one scale up:
+an instrument that emits nothing reads as approval; a lane that ships
+nothing reads as work-in-progress. Both are the NULL STATE having no
+representation and defaulting to the benign reading. Every gate this seat
+met is a REFUSAL gate — it stops bad commits, merges, claims, silence — and
+a refusal gate structurally cannot detect absence, because absence never
+triggers it. Distance-to-pixels existed as a convention, and conventions
+lose to local justification.
+
+Detectable signature is REPETITION, not volume: a counter reported N times
+without moving, visible in the comms/ARC stream, no judgement needed. Volume
+is the wrong trigger — a naive "no coordination while the counter is zero"
+rule would have blocked the PR dispositions that unblocked the merge.
+FALSIFIER: if legitimate lanes routinely report an unchanged counter across
+many statuses (long builds, external waits), the signature is too noisy and
+needs a DECLARED wait-state rather than an inferred one.
+
+Two adjacent findings from the same window, each with its falsifier:
+
+- CORPUS INFORMS GATES, NOT AGENTS. Three documented failure families bit
+  this seat in one session (fabricated identifier tail, piped exit code,
+  outgoing slug typed in prose) — all read that same morning, all caught by
+  structure, none by vigilance. FALSIFIER: compare failure rates between
+  seats that read the corpus and seats that do not; if equal, the corpus's
+  value is entirely in gate design and effort should move there.
+- GROUND PROCEDURE BY READING, DESIGN MECHANISM BY BUILDING. Procedural
+  reading prevented four real errors (worktree base, bot identity, ratchet,
+  verifying a handoff's claims). Design-anticipatory reading was superseded
+  by ninety seconds of build output that taught the client/server boundary.
+  Partially falsified in-window and refined accordingly: the colour-alone
+  accessibility defect came from READING, so design CONSTRAINTS come from
+  reading and design MECHANISM from building.
+
+Also worth keeping: gates are DESIGN FORCES, not only filters. The identity
+ratchet refused an architecturally-correct fix and the right answer was the
+OPPOSITE split (move the behaviour, not the data) — a constraint that looked
+incidental produced a better architecture than free choice would have.
+
+Scope: standing seat practice; the null-state generalisation is a graduation
+candidate routed to the Director alongside the PDR-136 section 5 amendment,
+where the instrument-scale half already lives.
+
+## 2026-08-10 ~11:5xZ — Plover lifts Troposphere (b10c37): licensed activity is not value (the fold cascade)
+
+Resumed into a frozen fleet under a standing "design lane is the only focus" word and spent the whole quiet window on a self-initiated fold cascade (bot-token archaeology, --expect, quota reading) — every step licensed by SOME rule, none passing the value lens. Ran a careful SAFETY analysis (merge overlap, stale-capture) and never the VALUE analysis; lens 5 parks it in one line to the owner ("lane frozen; fold due; hold or run?"). Generator: a rule-dense corpus always offers a licensing rule for more activity; under idle-anxiety the seat picks licensing rules over restraining ones and optimises for legible effort. The Director seat's deliverable is owner-intent reaching the right seat + blockers surfaced at their action moment — never demonstrable diligence. Siblings in the same window: narrated quietness; heavy messages saying "go lighter"; the same routing written on two surfaces; an owner reflection-ask relayed pre-loaded with my own diagnosis (seed-the-panel, reflective variant). Cures now in force: value lens BEFORE safety lens on any self-initiated work; re-price at every refusal-shaped checkpoint; outbound passes "does the recipient need this to act?"; PDR-082 n=2 owner-visible applied for real — watcher only, seat default-absent. Candidate for the queued PDR-117 missing-axes work (seat-deliverable / default-absent axis).
+
+## 2026-08-10 ~19:0xZ — Plover lifts Troposphere (b10c37): the model-switch day — mechanical practice held, prose practice did not
+
+Owner-confirmed cause of the day's unusual error profile: the Claude Code TUI began silently switching models at quota exhaustion (Fable → Opus 4.8 on this seat; Swordfish's F-92 collision was the same class). The natural experiment's result: every MECHANICALLY-ENFORCED discipline held model-independently (hooks caught wildcard-stage and indefinite-deferral vocabulary; the identity ratchet caught the census move; skills:check caught unsummonable dirs; the merge-bot refusal ladder blocked every premature merge; F-95 gated claims) — while PROSE-ONLY judgement disciplines (deciding-surface reads, re-read-before-declaring, value-lens-first) regressed to error types months absent, despite the full rule corpus being loaded in context. Sharpest evidence yet for structure-over-vigilance: prose is vigilance and rides the model; only enforcement is structure and rides the estate. Graduation candidates this identifies: (1) resume-time session-model vs registry-lineage check (F-159); (2) PR-state declarations flow through the settlement-verdict instrument, never ad-hoc field reads (would have prevented both this seat's false outage call and the premature settled-green). Route: PDR-014 graduate → enforce.
+
+## 2026-08-10 ~21:0xZ (Wren calls Downdraft, 6b29b5) — compaction-freeze harvest 3 (the merge-day window)
+
+METACOGNITION BITES: (1) The bot-identity discipline covers every WRITE
+CHANNEL, not every write: pushes carried the bot (repo config) while
+`gh pr create` silently carried the owner's gh login — PR 847 landed
+owner-authored and was recreated as 848 under the mint-token front door
+at owner word. The standing question "whose name will this surface
+display?" must fire PER CHANNEL (push, gh CLI, REST, GraphQL, MCP), not
+per session. (2) A duplicate-head `gh pr create` returns the EXISTING
+PR's URL with exit 0 — a close-then-recreate that parses the create
+output before the close cites its own predecessor as its successor
+(happened; corrected in a follow-up comment). Parse-the-result-shape
+before citing it in a public record.
+
+FREE-PLAY SEEDS: (1) The reversible sentinel probe (replace a config
+with a bare throw; the run failing on that exact error proves the file
+is loaded; put the original back byte-identically) generalizes to ANY
+config-load claim — candidate pattern: "prove loading by reversible
+breakage"; Copilot demanded it and it was cheap and decisive. (2)
+Failed tool runs leave different residue than successful ones — the
+deliberately-failed Stryker probe left .stryker-tmp behind and an
+unrelated lint gate crawled it; hygiene checks calibrated on happy-path
+runs miss failure-path residue. DISCARD (visible): "unify the settle
+watches into one parametrized monitor tool" — premature tooling; the
+per-head shell loops are honest and die with their heads.
+
+WINDOW STATE at freeze: #836 MERGED (d4e256294) — the full depcruise
+swap arc from owner ruling to live, four adjudicated rounds, capped
+honestly at the sampling floor. #848 (successor of 847, bot-authored,
+jimbot-labelled) open at c38bd4e66 with two rounds dispositioned and a
+round-2 pointer cure landed; Copilot re-requested. Labels: jimbot
+applied+verified on 12 PRs (both identities, open + today's merged).
+MCP-540 links both PRs. Register rows 7a-7l carry every routed
+follow-up.
+
+## 2026-08-10 ~21:0xZ — Plover lifts Troposphere (b10c37): evening freeze index
+
+Seat continues across compaction; freeze entry in director-handoff §COMPACTION FREEZE (evening) is the resume map. Day's arc: three merges (#845 ui-design space + walker consolidation, #836 isolation, #847 opened), the fold one review-leg from landing under the owner's newly-worded standing merge policy, skill-standard pilot plan authored → adversarially reviewed → six blockers adopted (two of them the day's own proxy-read class caught in my authoring: a DDR filename read as a verdict; first-authorship claimed over the live parallax eval convention — the review instrument catching the author is the system working). WS9 skill-craft candidate recorded at owner word with the harvest sequencing (pilot S3 transcripts feed the skill-skills).

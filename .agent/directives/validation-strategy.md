@@ -1,7 +1,7 @@
 ---
 title: "Validation Strategy"
 status: seeded-stub
-last_updated: 2026-06-23
+last_updated: 2026-08-10
 ---
 
 # Validation Strategy
@@ -55,6 +55,31 @@ runtime or build path (a smoke test on the built artefact, not a unit test
 on the source graph). Composes with the
 `green-parts-red-composition` pattern: per-path checks compose no better
 than per-part ones.
+
+### Right tool: a check uses the property's real machinery (owner ruling 2026-08-09)
+
+A validator's subject dictates its instrument. A check about
+**dependencies** runs on a dependency **resolver** — dependency-cruiser,
+AST-based and already in the blocking chain (group-matched containment
+via `$1` back-references, phantom-dependency `dependencyTypes`,
+first-class dynamic-`import()` and `require` analysis) — never on
+textual pattern-matching of source. Regex import-scanning is the wrong
+tool: its silent-pass classes (literal dynamic imports, unrecognised
+path idioms, comment-stripping bypasses) are the instrument's shape,
+not bugs to patch one spelling at a time. This generalises the section
+above — prefer the instrument that exercises the property's real path
+over a textual shadow of it.
+
+The module-system policy those rules enforce (owner ruling
+2026-08-09): this estate is **strictly ESM — zero `require`
+statements**; the presence of a `require` IS the finding, never a
+style note. **Dynamic `import()` is strongly discouraged**: it errors
+by default, with any sanctioned use carried as a recorded,
+per-instance exemption in the rule configuration — never a silent
+allowance. Worked instance: the
+workspace-config-isolation containment leg (2026-08-09) — its
+replacement with dependency-cruiser rules was ruled at the owner's
+word; the isolation lane executes it.
 
 ## Eval home
 
