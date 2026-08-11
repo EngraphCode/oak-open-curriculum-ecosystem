@@ -503,8 +503,11 @@ and land together, red-proof-first:
    prefix construction would misread it dead — a loud false positive,
    no live entry).
 
-**S1b executed 2026-08-11 (all three cures landed together with the
-pre-execution code-expert round's amendments).** The measured truths,
+**S1b IN EXECUTION at the lane seat 2026-08-11 (probes complete and
+cures authored; the post-execution cure round is mid-flight — three
+reviewer verdicts absorbed, red-proofs landing next — and the
+implementation reaches the repository via the lane's PR, not this
+record; "executed" binds only at that landing).** The measured truths,
 from one probe session (turbo 2.10.9 dry-run; full ledger in
 `turbo-glob.ts`): interior `//` and single-dot segments are NORMALISED
 by turbo in every position (including bare `.` = the repository root,

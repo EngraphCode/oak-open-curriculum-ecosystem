@@ -77,8 +77,14 @@ leg's redirection, delivered through a different door than the panel assumed.
 
 ## Method notes
 
-- One identical frame, all load-bearing facts first-hand-verified minutes
-  before dispatch (the 2026-08-10 contamination lesson applied).
+- One identical frame, its facts first-hand-verified minutes before
+  dispatch (the 2026-08-10 contamination lesson applied) — and TWO of
+  the load-bearing executor-availability facts nonetheless went stale
+  around the run: "Forge idle" had already expired by dispatch (the
+  owner had routed MCP-558 minutes earlier; learned at 19:48), and
+  "Wren imminent" expired mid-run (their 19:46 freeze). Verification
+  bounds staleness; it cannot prevent it — the adjudication section
+  carries how each expiry landed.
 - No partial-panel reading was transmitted anywhere before leg 8 returned
   (the 2026-08-10 partial-set lesson applied; the intermediate turns said
   only "N of 8, holding").

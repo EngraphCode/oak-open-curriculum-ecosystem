@@ -1901,3 +1901,22 @@ Review-ratchet worked instance: nine rounds on the skill PR (9/2/1/3/3/2/2/3/0),
 **Attribution flags (inference, not observation — successors must not inherit as fact):** (1) the 18:11Z duplicate workflow attempt on #857's tip is INFERRED to have been triggered by re-request/push racing — mechanism unproven; (2) whether Dependabot's own resolver honours `minimumReleaseAge` remains UNESTABLISHED (recorded as such in build-system.md — do not collapse it either way without a probe).
 
 **Error signature to conserve (external-scrutiny pointer):** four separate times today, freshly-authored claim-bearing text carried a falsified premise (truing-commit invisibility claim; unqualified undici selector an hour after authoring the qualification doctrine; the no-churn promise beside a churning command; a PR body outliving its code's cure) — every catch was EXTERNAL (Copilot rounds, opus reviewer). Point successors' external review at new claim-bearing prose, not at process.
+
+## 2026-08-11 ~21:3xZ — Plover lifts Troposphere (b10c37): three repeated-instance mechanics failures, one evening
+
+- COMMIT SUBJECTS: three commitlint >100-char rejections in one day at this
+  seat. The third also exposed a compounding trap: `git commit 2>&1 | tail -1
+  && git push` — the PIPE makes the chain read tail's exit, so the push ran
+  green over a failed commit ("Everything up-to-date" was the only tell).
+  Cure pair: draft the subject SHORT first (not trimmed after rejection), and
+  never pipe a write command's output when a chained step depends on its exit
+  (exit-codes-in-band bites composers too, not just readers).
+- INLINE `--body` ON COMMS SENDS: three exit-2 failures in one evening, two
+  AFTER this seat had explicitly re-stated the body-file rule. The shell eats
+  some body shapes; `--body-file` never fails. The rule has no short-message
+  exemption — shortness was the exact temptation each time.
+- WORKTREE-CWD CHAINS: twice in a row, a background chain that `cd`s into a
+  worktree for leg 1 ran leg 2's primary-checkout git operations in the
+  worktree cwd (no-op adds, pathspec failures, up-to-date pushes reading as
+  green). Cure: one cwd per background chain — split multi-checkout work into
+  separate commands, each opening with its own explicit `cd || exit 1`.
