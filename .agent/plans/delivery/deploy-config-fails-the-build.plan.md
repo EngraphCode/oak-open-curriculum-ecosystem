@@ -1,8 +1,8 @@
 ---
 id: deploy-config-fails-the-build
 node_type: delivery
-name: 'Deploy gate: an invalid environment fails the build, and a dead preview blocks the merge'
-overview: 'Make the required Vercel check mean "the deployed server serves" rather than "the build completed", so a boot-dead deployment cannot ship or pass the merge gate.'
+name: 'Deploy gate: an invalid environment fails the build'
+overview: 'Run the server runtime-config contract during Vercel builds and prove the built artefact boots, so a deployment with invalid configuration cannot ship.'
 status: sketch
 serves: first-major-release
 impact_areas:
@@ -11,15 +11,14 @@ tickets:
   - MCP-475
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-09
+last_updated: 2026-08-11
 ---
 
 # Deploy gate: invalid environment fails the build
 
 ## Goal
 
-A deployment whose environment the server would reject never ships, and
-a deployment that ships but does not serve blocks its pull request.
+A deployment whose environment the server would reject never ships.
 
 ## Problem
 
@@ -60,7 +59,7 @@ record on MCP-475.
      deployment condition without allowing local file precedence to
      change the rehearsal.
    - **Output discipline.** The gate consumes live key material, so
-     what it may print is constrained by acceptance criterion 5: guard
+     what it may print is constrained by acceptance criterion 3: guard
      names and failure classes only, never values.
 
    **The invariant this rehearsal rests on, and why validation is
@@ -75,22 +74,22 @@ record on MCP-475.
    plausible-looking value failing strict validation, and a presence
    check passes exactly that state.
 
-   **Clerk key realm, allowlist-shaped.** Presence-only checks also
-   miss wrong-instance keys (a test-realm key deployed to production).
-   The gate validates key realm with `@clerk/shared`'s key-parsing
-   predicates, network-free, under allowlist semantics: the production
-   gate passes only keys those predicates positively recognise as
-   live-realm keys, and refuses everything else. It carries no prefix
-   denylist of its own — a `pk_test_`/`sk_test_` denylist fails open on
-   legacy `test_…` development keys and on malformed or truncated
-   values (second-opinion review on PR #757, 2026-08-05). The gate
-   never calls Clerk's API at build time.
+   **Clerk key realm uses the runtime authority.** Presence-only checks
+   miss wrong-instance keys (a test-realm key deployed to production),
+   but the gate adds no second Clerk validator. `HttpEnvSchema` already
+   calls the shipped `refineClerkKeyLocality` guard, whose production
+   allowlist admits only `pk_live_` and `sk_live_` keys. Because the gate
+   runs `loadRuntimeConfig`, it consumes that exact rule. It does not call
+   Clerk's API or use `@clerk/shared` predicates: the installed predicate
+   accepts a legacy `live_…` publishable-key form that the runtime rejects,
+   so using it here would recreate two definitions of valid configuration.
 
 2. **Dist-boot smoke for this server.** The built artefact is started
    as production starts it, reports ready, answers `/healthz`, and
    exits cleanly on SIGTERM — the long-running-server truth-set from
    `testing-strategy.md` §Smoke.
-3. **Post-deploy `preview-serves` status.** The `deployment_status`
+3. **Existing advisory post-deploy signal — context, not a deliverable.**
+   The `deployment_status`
    workflow shipped in PR #743: it probes the running deployment
    (`/healthz` and the OAuth metadata endpoint, bounded retries for
    cold start) and publishes a commit status when the deployment creator
@@ -99,14 +98,28 @@ record on MCP-475.
    commit, so a pull request can rewrite its own publisher and forge a
    green status. The status therefore stays advisory until publication
    moves behind a default-branch workflow or dedicated GitHub App trust
-   boundary that a pull request cannot modify. Only then may this node
-   make the status **required**. The check catches the runtime-only
+   boundary that a pull request cannot modify. A separately authorised
+   delivery node must own that trust-boundary choice before the status can
+   become required. The check catches the runtime-only
    classes build-time validation cannot see: routing, platform
    composition, cold start.
 
 Build-time and post-deploy are complementary, not redundant: the first
-prevents the bad deployment existing, the second catches what is only
-observable once it runs.
+prevents the bad deployment existing, while the already-shipped advisory
+signal catches what is only observable once it runs.
+
+**Build-vs-buy record (2026-08-11).** Vercel Native Deployment Checks can
+run a selected `package.json` script and can be required per environment,
+but Vercel documents that the check is skipped when the matching script is
+absent. A pull request controls that script, so the feature cannot be the
+sole carrier of this non-bypassable build invariant; the Vercel build must
+still invoke the shared-schema gate unconditionally. Vercel's Checks API
+and Marketplace integrations can run reliability checks against a built
+deployment and block domain assignment, but they require an externally
+configured OAuth integration. They are candidates for the separately
+authorised trusted-publisher delivery, not hidden work in this node. See
+[Native Deployment Checks](https://vercel.com/changelog/native-deployment-checks)
+and the [Checks API contract](https://vercel.com/docs/checks/creating-checks).
 
 ## Acceptance criteria
 
@@ -121,30 +134,7 @@ observable once it runs.
 2. The built server artefact boots, answers, and terminates cleanly —
    proof: **repo-safe**, the dist-boot smoke, reachable from a CI-run
    task (an unreachable smoke is the defect, not a variant).
-3. A deployed-but-dead preview **blocks merging** — proof, split:
-   **repo-safe** — the shipped `preview-serves` workflow publishes a
-   failure status when its probe fails (instrument: the workflow file;
-   its first live catch is dated in its header — run 30827202090,
-   2026-08-03); **owner-held** — fault injection: a branch whose
-   preview deploys and then fails to serve, observed showing
-   `preview-serves` red and the pull request unmergeable; verifier the
-   lane agent, evidence recorded on MCP-475. Reading the ruleset back
-   proves only that the check is required, not that it bites.
-4. `preview-serves` is required on the default branch, under its named
-   preconditions — proof, split: **repo-safe** — the ADR-204
-   required-set reconciliation (its recorded required-check set gains
-   `preview-serves`) and the ADR-121 coverage row for the new surface,
-   both amended in the delivery PR; **owner-held** — a per-name read of
-   the rulesets API listing `preview-serves` among the required checks;
-   verifier the lane agent, evidence recorded on MCP-475.
-   **Precondition (trust boundary):** the current branch-controlled
-   workflow is not a trusted publisher, and the `vercel[bot]` creator
-   check does not cure that defect. Publication must first move behind
-   a default-branch workflow or dedicated GitHub App boundary whose code
-   the pull request cannot rewrite. The ruleset change lands only after
-   a fault-injection pull request proves that changing its own probe or
-   publisher code cannot mint the green status it needs to merge.
-5. Gate output contains no secret bytes — proof: **repo-safe**, a unit
+3. Gate output contains no secret bytes — proof: **repo-safe**, a unit
    test feeding the gate live-shaped key material and asserting the
    captured output (stdout and stderr) never contains the input's byte
    content, on the pass path and on every failure class.
@@ -162,8 +152,15 @@ its own authorisation and ticket.
   definition of "valid environment" would drift from the real one, and a
   guard that disagrees with the thing it guards is worse than none.
 - **Replacing the `Vercel` required check.** It correctly asserts what
-  it asserts — build and deploy completed. This node adds the two
-  predicates it was never making, rather than redefining it.
+  it asserts — build and deploy completed. This node adds the build-time
+  configuration rehearsal rather than redefining that status.
+- **Trusted `preview-serves` publication and ruleset adoption.** The
+  current branch-controlled publisher remains advisory. Before making it
+  required, a separately authorised delivery node and ticket must name the
+  owner, choose among a default-branch workflow, a dedicated App, or a
+  Vercel Checks integration, and prove by fault injection that a pull
+  request cannot mint its own required green status. No such system is
+  smuggled into this node as an unnamed second project.
 - **Runtime configuration reloading.** Resolution stays lazy at first
   request; this node adds a build-time *rehearsal* of that resolution,
   not a change to when the server actually resolves.
@@ -185,7 +182,7 @@ its own authorisation and ticket.
   vulnerability scanning (ADR-174) and lockfile-pinned installs bound
   what third-party code runs at build; secret scanning (ADR-111) keeps
   credentials out of the repo; and the gate itself runs a narrow import
-  with build-only credentials filtered out and is barred by criterion 5
+  with build-only credentials filtered out and is barred by criterion 3
   from printing values.
 
 ## Relationship to the sibling nodes
@@ -199,5 +196,5 @@ and unverified. Siblings:
 (detection). They ratify and complete independently.
 
 *Authored by Birch holds Seedling (e48fe2, agent), 2026-08-03. Amended
-2026-08-09 per the adjudicated 2026-08-05 eleven-expert review
-(`deploy-reliability-corpus-amendment`, rows 1–9 and 39).*
+2026-08-11 per the adjudicated review record in
+`deploy-reliability-corpus-amendment`.*

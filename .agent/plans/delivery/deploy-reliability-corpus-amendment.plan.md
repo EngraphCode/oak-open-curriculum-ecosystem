@@ -50,7 +50,7 @@ Work happens as commits on the existing PR #746 branch (no new PR):
 1. **Rebase/merge `main` in** so the text is amended against reality,
    not against a stale snapshot.
 2. **Apply the amendment set** below, file by file.
-3. **Adjudicate on-thread**: one review reply carrying the evidence for
+3. **Adjudicate on the PR**: one review reply carrying the evidence for
    each rejected finding, then re-request review so the
    CHANGES_REQUESTED state can clear honestly.
 4. **Record-truing deliverables (owner-directed 2026-08-05).** The same
@@ -74,14 +74,14 @@ finding has exactly one recorded decision. Applying it is mechanical.
 
 | # | Finding (source) | Disposition |
 | --- | --- | --- |
-| 1 | `preview-serves` as a required check without the trusted-publisher precondition creates a PR-forgeable required gate (three seats, convergent) | **Apply**: add the trust-boundary move, the ADR-121 coverage row, and the ADR-204 required-set reconciliation as named acceptance criteria/preconditions |
+| 1 | `preview-serves` as a required check without the trusted-publisher precondition creates a PR-forgeable required gate (three seats, convergent) | **Apply by rescoping**: keep `preview-serves` explicitly advisory and remove merge-blocking/ruleset adoption from this node's acceptance contract; a separately authorised node and ticket must own the trust-boundary mechanism and fault-injection proof |
 | 2 | Turbo cache can skip the build-time gate on same-commit redeploys — none of the validated env vars are hash inputs (verified: root `turbo.json` app build task) | **Apply**: mechanism states the gate runs as an always-executed, non-cached step (or names its env-hash set); criterion 1's proof gains the same-commit-redeploy case |
 | 3 | Run the gate with build-only credentials filtered out and a narrow `runtime-config` import, never the app barrel (security) | **Apply** to §Mechanism — the one mitigation that genuinely shrinks the reachable-secret set |
 | 4 | The deploy rehearsal must not absorb a local `.env` file layer that is absent from Vercel's deployment condition (wilma; corrected against the live runtime, which deliberately supports `.env` and `.env.local` locally) | **Apply with corrected premise** — use an explicitly passed `processEnv` through a process-environment-only seam shared with `loadRuntimeConfig`; do not claim the runtime has no file layer |
-| 5 | Criteria 1/3/4 label console-verified acts `repo-safe` against the schema and both siblings (three seats) | **Apply**: split each into its repo-safe half (instrument named) and owner-held half (verifier + recording location) |
+| 5 | Criteria 1/3/4 label console-verified acts `repo-safe` against the schema and both siblings (three seats) | **Apply**: split criterion 1 into its repo-safe and owner-held proofs; criteria 3/4 are removed with the unowned trusted-publisher project under row 1 |
 | 6 | The build-env ≡ runtime-env variable-set invariant is unstated; value-level validation's warrant is unstated (three seats) | **Apply**: one mechanism paragraph naming the invariant and why the motivating failure class is value-shaped |
 | 7 | No criterion constrains what the gate may print — it consumes live key material (security) | **Apply**: criterion + unit test that gate output contains no secret bytes |
-| 8 | Presence-only Clerk validation misses wrong-instance keys; `@clerk/shared` prefix utilities catch it network-free (clerk) | **Apply** to the gate mechanism with **allowlist semantics** (see row 39), and the recorded caveat never to call Clerk's API at build |
+| 8 | Presence-only Clerk validation misses wrong-instance keys; `@clerk/shared` prefix utilities catch it network-free (clerk) | **Overtaken by main**: `HttpEnvSchema` now calls the shared runtime `refineClerkKeyLocality` allowlist, and the deploy rehearsal consumes it through `loadRuntimeConfig`; do not add the conflicting `@clerk/shared` predicate, which accepts a legacy `live_…` form the runtime rejects |
 | 9 | The estate has no recorded position on ambient build-env secret exposure (security) | **Apply**: §Out of scope clause naming the exposure as platform-default and pre-existing, listing the live compensating controls |
 | 10 | Betty mitigation 1 — keys-not-values validation | **Reject with evidence**: blind to the keyring failure class that motivated the corpus; recreates the second definition of "valid" the node forecloses; the named secret's check is already presence-only |
 | 11 | Betty mitigation 2 — post-deploy-only validation | **Reject with evidence**: deletes the node's goal; `preview-serves` is preview-scoped by the node's own boundary |
@@ -129,7 +129,7 @@ finding has exactly one recorded decision. Applying it is mechanical.
 | 33 | Step 1 invites passing a live secret as a shell argument (security) | **Apply**: stdin-or-gitignored-file sentence |
 | 34 | The operations index bullet repeats the premise the PR corrects (security) | **Apply**: reword |
 | 35 | Two draft-archaeology passages violate `no-tombstones-for-removed-ideas` (two seats) | **Apply**: delete the negation-contrast memorials; keep the vendor quotes and positive statements; the `environment-variables.md` correction note stays |
-| 36 | The CHANGES_REQUESTED review is unadjudicated on-thread (two seats) | **Apply**: one evidence-carrying reply (rows 10–13), then re-request review |
+| 36 | The CHANGES_REQUESTED review is unadjudicated on the PR (two seats) | **Apply**: one evidence-carrying reply (rows 10–13), then re-request review |
 | 37 | The PR is a draft awaiting the owner (release-expert) | **Owner-gated by design**: the draft state clears only by the owner's explicit un-draft word (on return from the agreed absence, or earlier at the owner's initiative); review-readiness work proceeds regardless, so the gate holds no work |
 | 38 | "The build-time gate already shipped in #743" (barney) | **Reject**: verified false — #743 shipped the preview-serves workflow only; no gate files exist on `main` |
 
@@ -137,20 +137,31 @@ finding has exactly one recorded decision. Applying it is mechanical.
 
 | # | Finding (source) | Disposition |
 | --- | --- | --- |
-| 39 | Key-realm validation must be allowlist-shaped: a denylist of `pk_test_`/`sk_test_` prefixes fails open — legacy `test_…` development keys and malformed/truncated values pass in production (second-opinion review on PR #757, 2026-08-05) | **Apply**: row 8's amendment specifies allowlist semantics — the production gate passes only keys the `@clerk/shared` live-realm predicates positively recognise, and refuses everything else. The corpus prescribes the contract shape ("positively recognised live-realm key"), never a prefix list of its own |
+| 39 | Key-realm validation must be allowlist-shaped: a denylist of `pk_test_`/`sk_test_` prefixes fails open — legacy `test_…` development keys and malformed/truncated values pass in production (second-opinion review on PR #757, 2026-08-05) | **Overtaken by main**: the authoritative runtime allowlist is the shipped `refineClerkKeyLocality` path (`pk_live_`/`sk_live_` only), already consumed by `loadRuntimeConfig`; row 8 records why no parallel `@clerk/shared` predicate belongs in the gate |
 | 40 | The app README's Vercel section still documents `DANGEROUSLY_DISABLE_AUTH=true` as a valid optional configuration (with Clerk keys "unnecessary"), while the guard series makes exactly that a hard startup failure in preview and production (second-opinion review on PR #759, 2026-08-05) | **Overtaken by main**: the app README now names the flag as a local-development valve and states that every deployed environment rejects it; no duplicate edit belongs in this PR |
+
+### Disposition ledger — code-owner re-review (2026-08-11)
+
+| # | Finding | Disposition |
+| --- | --- | --- |
+| 41 | The prescribed `@clerk/shared` predicate disagrees with the runtime validator the gate must reuse | **Apply**: rows 8/39 and the MCP-475 mechanism now consume only `refineClerkKeyLocality` through `loadRuntimeConfig` |
+| 42 | Trusted `preview-serves` publication is an unowned second project with no dependency or owner gate | **Apply by rescoping**: remove merge-blocking and ruleset-adoption criteria; keep the current signal advisory and require a separate authorised node/ticket before it becomes required |
+| 43 | Build-vs-buy evidence is absent for the proposed deploy gates | **Apply**: record Vercel Native Deployment Checks and the Checks API/Marketplace path; reject Native Checks as the sole non-bypassable carrier because an absent branch-controlled script is skipped, and route post-deploy trusted publication to the separate future decision |
+| 44 | Delivery-node `last_updated` values predate substantive 2026-08-11 amendments | **Apply**: set all four sibling nodes to 2026-08-11 |
+| 45 | Acceptance criterion 3 calls code-owner clearance `repo-safe` and refers to an inline thread that does not exist | **Apply**: classify clearance as owner-held, name the code owner as verifier, and use the durable PR review/reply record rather than an inline-thread claim |
 
 ## Acceptance criteria
 
-1. **Every 2026-08-05 review finding has exactly one ledger row and the
+1. **Every review finding has exactly one ledger row and the
    applied rows are visible in the diff.** Proof: repo-safe — this
    node's ledger plus the PR #746 diff at re-review.
 2. **No corpus statement contradicts `main`** (shipped arm described as
    shipped; runbook instructions executable today). Proof: repo-safe —
    the rebase commit plus reviewer re-check against the named files.
-3. **The review thread carries the adjudication and the review state
+3. **The PR carries the adjudication and the review state
    clears honestly** (reply posted, re-review requested; no dismissal
-   without evidence). Proof: repo-safe — the PR thread.
+   without evidence). Proof: **owner-held** — verifier the requested code
+   owner; durable evidence is the PR review plus the evidence-carrying reply.
 4. **CI green on the amended branch** including the plan-estate
    validator. Proof: repo-safe — the checks rollup.
 5. **Merge happens at the owner's word.** Proof: owner-held — the owner
@@ -185,6 +196,8 @@ finding has exactly one recorded decision. Applying it is mechanical.
 - [x] T3: amend `boot-failure-observability` and
       `production-liveness-detection` (rows 20–30, including the row-28
       check).
+- [x] T3a: cure the 2026-08-11 code-owner findings (rows 41–45), including
+      the MCP-475 rescope and the four sibling metadata updates.
 - [x] T4: post the adjudication reply (rows 10–13, 36), re-request
       review, and record the ledger completion on the tickets. Evidence:
       [PR adjudication](https://github.com/oaknational/oak-open-curriculum-ecosystem/pull/746#issuecomment-5251424241);

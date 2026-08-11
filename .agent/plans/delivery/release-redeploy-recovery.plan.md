@@ -11,7 +11,7 @@ tickets:
   - MCP-479
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-09
+last_updated: 2026-08-11
 ---
 
 # Recovery: rebuild a known-good release

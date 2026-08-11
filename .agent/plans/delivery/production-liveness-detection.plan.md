@@ -19,7 +19,7 @@ owner_gates:
   - awaiting: owner-decision
     clears_when: 'The owner ratifies the ADR-162 amendment that brings this one heartbeat job into the repository.'
     expires: 2026-08-31
-last_updated: 2026-08-09
+last_updated: 2026-08-11
 ---
 
 # Detection: production loss is noticed within five minutes
