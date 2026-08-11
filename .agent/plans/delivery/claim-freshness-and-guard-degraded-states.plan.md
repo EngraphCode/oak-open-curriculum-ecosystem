@@ -105,7 +105,8 @@ Landing 2 is a concrete successor PR under MCP-476, carried on
   `node "${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/session-drift-alert.mjs"
   <checker> <label>`. Round 3 found the then-current
   `plan-gate-drift-alert.mjs` registration bare-path and non-executable.
-  **Dated correction (2026-08-11):** commit `e9ac696362120153757f3046b776e91829570e52`
+  **Dated correction (2026-08-11):** commit
+  `SHA:e9ac696362120153757f3046b776e91829570e52`
   restored mode `100755` on 2026-08-06, so the hook no longer exits 126
   and Landing 2 does not revive an inert registration. The generic
   `node ...` migration remains required for execution-mode independence
