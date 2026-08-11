@@ -72,7 +72,14 @@ skill STOPS at them and surfaces).
 ## The mechanism-decision tree
 
 Work per PACKAGE (advisories group by package lineage, not alert), in
-preference order — the first mechanism that cures TREE-WIDE wins:
+preference order — the first mechanism that cures TREE-WIDE wins. One
+invariant rides ABOVE the order: when the package already carries an
+override floor, the curing change also raises that floor to the
+patched version (or retires it when its removal conditions are met),
+WHICHEVER step cures resolution — terminating at steps 1–3 with a
+stale floor standing recreates the drift the opener's drift-check
+exists to catch, and the verification tail's `pnpm why` proves only
+the selected version, never the floor:
 
 1. **Direct dependency, declared range admits the target** →
    `pnpm update -r <pkg>` (the in-range refresh; note it SAVES manifest
@@ -94,7 +101,8 @@ preference order — the first mechanism that cures TREE-WIDE wins:
    single-instance pin. The floor is the sanctioned tree-wide mover;
    record the demonstrated necessity in its comment.
 4. **A floor already exists for the package** → RAISE it in place,
-   never add a twin entry.
+   never add a twin entry — and per the invariant above, the raise
+   rides along even when an earlier step already cured resolution.
 5. **Bound every floor that could coerce** — an override REWRITES
    dependents' recorded ranges in the lockfile (peer ranges included),
    so an unbounded floor both adopts the next major unreviewed AND
@@ -107,7 +115,10 @@ preference order — the first mechanism that cures TREE-WIDE wins:
    inspect EVERY consumed line first (`pnpm why -r`): when consumers
    sit on multiple major lines, one global floor drags earlier-major
    consumers up onto the floor's major — use parent-scoped overrides
-   (`parent>child`) per line instead of a single tree-wide range.
+   per line instead of a single tree-wide range, and QUALIFY the
+   parent (`parent@1>child` — pnpm's documented dependent-scoped
+   selector): an unqualified `parent>child` binds every consumed
+   version of that parent, so it cannot isolate one line.
 6. **The fix crosses a held major** (TS 6.x, `@types/node` 24.x — see
    build-system.md for the live list and lift conditions) → STOP and
    surface; the hold's lift condition governs, never the sweep.
