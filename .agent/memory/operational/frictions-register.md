@@ -3683,3 +3683,26 @@ commit SHA and the closing plan reference.
   which have earned mechanical enforcement (the day's evidence: prose is
   vigilance; only enforcement is structure). Route: agent-tooling backlog
   - PDR-014 graduation pipeline.
+
+### F-160 — comms watcher quiet config dies at the drain-step deadline on a large event directory
+
+- **Observed**: 2026-08-11 ~09:1xZ (this seat, Fable 5): the
+  heartbeat-excluded watcher exited fail-loud with `step "drain"
+  exceeded 60000ms deadline` over a comms directory of ~3,600 event
+  files while several gate suites ran concurrently on the host. This is
+  the same fast-death the 2026-08-10 seat hit twice with the quiet
+  config and recorded cause-unknown before falling back to the noisy
+  full-stream config — the signature is now captured: the default
+  per-step deadline, not the exclusion mechanism, is the binding
+  constraint at directory scale under load.
+- **Expected**: a drain pass over the live event directory completes
+  comfortably inside the step deadline at any realistic directory size.
+- **Mitigation**: arm with `--step-timeout-ms 180000` (proven
+  2026-08-11); the deadline exists to catch a hung step, and three
+  minutes still catches hangs while tolerating scale.
+- **Candidate structural cure**: either a default deadline derived from
+  directory size, or drain-cost independence from total directory size
+  (the seen-cursor should bound the scan); the curator-pass archive
+  cadence (PDR-094) is the companion pressure valve — ~3,600 live
+  events means the archive pass is overdue. Route: agent-tooling
+  backlog.
