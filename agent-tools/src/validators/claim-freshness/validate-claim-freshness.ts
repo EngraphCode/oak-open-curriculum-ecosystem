@@ -5,18 +5,16 @@ import { isJsonObject } from '../../core/json.js';
 import { resolveRepoRoot } from '../../core/repo-root.js';
 import { writeLine, writeErrorLine } from '../../core/terminal-output.js';
 
-import {
-  decideFreshnessOutcome,
-  findFreshnessFindings,
-} from './validate-claim-freshness-helpers.js';
+import { assessFreshnessRows, decideFreshnessOutcome } from './validate-claim-freshness-helpers.js';
 
 /**
  * Standalone validator for the perishable-claim freshness contract (ADR-223)
  * over registered surfaces. Deterministic and clock-free: it enforces only
- * completeness and integrity of the freshness metadata (`grounded_at`,
- * `pinned_to`, `review_by`) — defects in the record being edited. Expiry,
- * null-pin obligations, and pin drift are session-open concerns owned by the
- * `check-claim-freshness` drift instrument, never by this gate.
+ * completeness and integrity of the freshness metadata (`grounded_at`, the
+ * closed `pin` declaration, and `review_by`) — defects in the record being
+ * edited. Landing 1 also emits a report-only inventory of pinned monitoring
+ * obligations and declared not-tracked rows. Expiry, pin drift, and
+ * enforcement are session-open concerns owned by landing 2.
  *
  * Wired into root `repo-validators:check`, so it runs on every pre-commit,
  * pre-push, and CI run alongside the sibling validators.
@@ -50,26 +48,25 @@ async function main(): Promise<void> {
   for (const surface of REGISTERED_SURFACES) {
     const filePath = path.join(repoRoot, surface.policyPath);
     const parsed: unknown = JSON.parse(await fs.readFile(filePath, 'utf8'));
-    const findings = findFreshnessFindings(platformSupportFrom(parsed), surface.maxIntervalDays);
-    const outcome = decideFreshnessOutcome(findings);
+    const assessment = assessFreshnessRows(platformSupportFrom(parsed), surface.maxIntervalDays);
+    const outcome = decideFreshnessOutcome(assessment);
     if (outcome.exitCode !== 0) {
       failed = true;
       writeErrorLine(
         `validate-claim-freshness: freshness-metadata integrity check failed for ${surface.id}:\n\n` +
           `${outcome.reportLines.join('\n')}\n\n` +
           `Every claim on a registered perishable surface carries grounded_at (the date it was last ` +
-          `verified first-hand), pinned_to (the version verified against, or null for explicitly ` +
-          `unverified — PDR-133 §8), and review_by (at most ${String(surface.maxIntervalDays)} days ` +
-          `after grounded_at for this surface). See ADR-223 and .agent/hooks/README.md. Expired ` +
-          `claims never fail this gate — re-verification obligations surface at session open.`,
+          `verified first-hand), a strict pin declaration (pinned with a version, or not-tracked ` +
+          `with a reason), and review_by (at most ${String(surface.maxIntervalDays)} days after ` +
+          `grounded_at for this surface). See ADR-223 and .agent/hooks/README.md.`,
       );
+    } else {
+      for (const line of outcome.reportLines) {
+        writeLine(line);
+      }
     }
   }
   if (!failed) {
-    writeLine(
-      'validate-claim-freshness: OK (every registered perishable claim carries complete, ' +
-        'well-formed freshness metadata within its surface ceiling)',
-    );
     return;
   }
   process.exit(1);

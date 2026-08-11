@@ -8,47 +8,60 @@ import { isJsonObject, type JsonObject } from '../../core/json.js';
  *
  * Deliberately clock-free: every rule is a deterministic function of the row
  * content plus the injected per-surface ceiling, so the gate run can never be
- * reddened by time passing (the plan-node gate-drift precedent). The
- * clock-bearing arm — expiry, null-pin obligations, pin drift — lives in the
- * session-open drift instrument, never here.
+ * reddened by time passing. Landing 1 reports the monitoring inventory;
+ * landing 2 owns clock-bearing expiry, pin-drift, and enforcement.
  *
  * @packageDocumentation
  */
 
-/** One freshness defect or obligation found on a `platform_support` row. */
-export interface FreshnessFinding {
-  /**
-   * `integrity` findings fail the gate (a defect in the record being
-   * edited); `obligation` findings never fail the gate — they are standing
-   * re-verification obligations (PDR-133 §8 explicitly-unverified rows)
-   * surfaced by the session-open instrument.
-   */
-  readonly kind: 'integrity' | 'obligation';
-  /** The platform row key, e.g. `codex`. */
+/** One integrity defect in a registered freshness row. */
+export interface FreshnessIntegrityFinding {
   readonly row: string;
-  /** The offending field, when the finding is field-scoped. */
   readonly field?: string;
-  /** Human-readable reason, free of caller payload by construction. */
   readonly reason: string;
 }
 
-/** The gate's verdict over a finding set. */
+/** One pinned row that the landing-2 consumer must monitor. */
+export interface FreshnessMonitoringObligation {
+  readonly row: string;
+  readonly pinnedVersion: string;
+}
+
+/** One row that deliberately does not track a platform version. */
+export interface FreshnessNotTrackedRow {
+  readonly row: string;
+  readonly reason: string;
+}
+
+/** Precise partition of the registered freshness surface. */
+export interface FreshnessAssessment {
+  readonly integrityFindings: readonly FreshnessIntegrityFinding[];
+  readonly monitoringObligations: readonly FreshnessMonitoringObligation[];
+  readonly notTrackedRows: readonly FreshnessNotTrackedRow[];
+}
+
+/** The validator's verdict and report. */
 export interface FreshnessOutcome {
   readonly exitCode: 0 | 1;
-  /** Empty exactly when the gate passes — the gate never emits a non-fatal notice. */
   readonly reportLines: readonly string[];
 }
 
+interface ResolvedDateField {
+  readonly timestamp: number | null;
+  readonly findings: readonly FreshnessIntegrityFinding[];
+}
+
+interface PinAssessment {
+  readonly integrityFindings: readonly FreshnessIntegrityFinding[];
+  readonly monitoringObligation?: FreshnessMonitoringObligation;
+  readonly notTrackedRow?: FreshnessNotTrackedRow;
+}
+
 const ISO_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/u;
+const VERSION_PATTERN = /^\d+\.\d+\.\d+$/u;
 const MS_PER_DAY = 86_400_000;
 
-/**
- * Strict ISO calendar-date parse: shape `YYYY-MM-DD` AND a real calendar day.
- * The UTC round-trip rejects impossible dates (`2026-02-30`) that
- * `Date.parse` silently rolls forward, and the shape check rejects
- * non-padded forms (`2026-8-3`) that parse but break lexicographic and
- * arithmetic assumptions.
- */
+/** Strict ISO calendar-date parse: shape `YYYY-MM-DD` and a real calendar day. */
 function parseIsoDateUtc(value: unknown): number | null {
   if (typeof value !== 'string' || !ISO_DATE_PATTERN.test(value)) {
     return null;
@@ -57,13 +70,7 @@ function parseIsoDateUtc(value: unknown): number | null {
   if (Number.isNaN(timestamp)) {
     return null;
   }
-  const roundTrip = new Date(timestamp).toISOString().slice(0, 10);
-  return roundTrip === value ? timestamp : null;
-}
-
-interface ResolvedDateField {
-  readonly timestamp: number | null;
-  readonly findings: readonly FreshnessFinding[];
+  return new Date(timestamp).toISOString().slice(0, 10) === value ? timestamp : null;
 }
 
 /** Resolve one required date field to a timestamp, or an integrity finding. */
@@ -76,7 +83,7 @@ function resolveDateField(rowKey: string, row: JsonObject, field: string): Resol
     row[field] === undefined
       ? 'missing — every registered perishable claim carries this field'
       : 'not a real YYYY-MM-DD calendar date';
-  return { timestamp: null, findings: [{ kind: 'integrity', row: rowKey, field, reason }] };
+  return { timestamp: null, findings: [{ row: rowKey, field, reason }] };
 }
 
 /** Ordering and ceiling rules over the two resolved timestamps. */
@@ -85,19 +92,16 @@ function checkInterval(
   groundedAt: number | null,
   reviewBy: number | null,
   maxIntervalDays: number,
-): readonly FreshnessFinding[] {
+): readonly FreshnessIntegrityFinding[] {
   if (groundedAt === null || reviewBy === null) {
     return [];
   }
   if (reviewBy <= groundedAt) {
-    return [
-      { kind: 'integrity', row: rowKey, field: 'review_by', reason: 'must be after grounded_at' },
-    ];
+    return [{ row: rowKey, field: 'review_by', reason: 'must be after grounded_at' }];
   }
   if ((reviewBy - groundedAt) / MS_PER_DAY > maxIntervalDays) {
     return [
       {
-        kind: 'integrity',
         row: rowKey,
         field: 'review_by',
         reason: `interval exceeds this surface's registered ceiling of ${String(maxIntervalDays)} days`,
@@ -107,85 +111,180 @@ function checkInterval(
   return [];
 }
 
-/** Pin rules: string = verified pin; null = explicit PDR-133 §8 obligation. */
-function checkPin(rowKey: string, row: JsonObject): readonly FreshnessFinding[] {
-  if (row.pinned_to === null) {
-    return [
-      {
-        kind: 'obligation',
-        row: rowKey,
-        field: 'pinned_to',
-        reason: 'explicitly unverified (null pin) — a standing re-verification obligation',
-      },
-    ];
-  }
-  if (typeof row.pinned_to === 'string' && row.pinned_to.trim() !== '') {
-    return [];
-  }
-  const reason =
-    row.pinned_to === undefined
-      ? 'missing — record the verified version, or null for explicitly-unverified'
-      : 'must be a non-empty string or null (explicitly unverified)';
-  return [{ kind: 'integrity', row: rowKey, field: 'pinned_to', reason }];
-}
-
-function checkRow(
-  rowKey: string,
-  row: JsonObject,
-  maxIntervalDays: number,
-): readonly FreshnessFinding[] {
-  const groundedAt = resolveDateField(rowKey, row, 'grounded_at');
-  const reviewBy = resolveDateField(rowKey, row, 'review_by');
-  return [
-    ...groundedAt.findings,
-    ...reviewBy.findings,
-    ...checkInterval(rowKey, groundedAt.timestamp, reviewBy.timestamp, maxIntervalDays),
-    ...checkPin(rowKey, row),
-  ];
-}
-
-/**
- * Evaluate every `platform_support` row against the freshness contract.
- *
- * @param platformSupport - The parsed `platform_support` object.
- * @param maxIntervalDays - The registered per-surface review-interval ceiling.
- */
-export function findFreshnessFindings(
-  platformSupport: unknown,
-  maxIntervalDays: number,
-): readonly FreshnessFinding[] {
-  if (!isJsonObject(platformSupport)) {
-    return [
-      {
-        kind: 'integrity',
-        row: 'platform_support',
-        reason: 'platform_support is missing or not an object',
-      },
-    ];
-  }
-  return typeSafeEntries(platformSupport).flatMap(([rowKey, row]) =>
-    isJsonObject(row)
-      ? checkRow(rowKey, row, maxIntervalDays)
-      : [{ kind: 'integrity' as const, row: rowKey, reason: 'row is not an object' }],
+function hasExactKeys(value: JsonObject, expected: readonly string[]): boolean {
+  const actual = Object.keys(value).sort((left, right) => left.localeCompare(right));
+  const sortedExpected = [...expected].sort((left, right) => left.localeCompare(right));
+  return (
+    actual.length === sortedExpected.length &&
+    actual.every((key, index) => key === sortedExpected[index])
   );
 }
 
-/**
- * Map findings to the gate verdict. Integrity findings fail the run with
- * lines naming each offender; obligation-only findings produce a clean pass
- * with NO output — the gate never carries a non-fatal notice
- * (no-warning-toleration; the session-open instrument owns obligations).
- */
-export function decideFreshnessOutcome(findings: readonly FreshnessFinding[]): FreshnessOutcome {
-  const integrity = findings.filter((finding) => finding.kind === 'integrity');
-  if (integrity.length === 0) {
-    return { exitCode: 0, reportLines: [] };
+/** Validate and classify the required closed `pin` declaration. */
+function assessPin(rowKey: string, row: JsonObject): PinAssessment {
+  const integrityFindings: FreshnessIntegrityFinding[] = [];
+  if (Object.hasOwn(row, 'pinned_to')) {
+    integrityFindings.push({
+      row: rowKey,
+      field: 'pinned_to',
+      reason: 'retired — use the required closed pin declaration',
+    });
+  }
+
+  const pin = row.pin;
+  if (!isJsonObject(pin)) {
+    return {
+      integrityFindings: [
+        ...integrityFindings,
+        {
+          row: rowKey,
+          field: 'pin',
+          reason: 'missing or not an object — declare pinned or not-tracked',
+        },
+      ],
+    };
+  }
+
+  if (pin.kind === 'pinned') {
+    if (
+      !hasExactKeys(pin, ['kind', 'version']) ||
+      typeof pin.version !== 'string' ||
+      !VERSION_PATTERN.test(pin.version)
+    ) {
+      return {
+        integrityFindings: [
+          ...integrityFindings,
+          {
+            row: rowKey,
+            field: 'pin',
+            reason: 'pinned must contain exactly kind and a bare x.y.z version',
+          },
+        ],
+      };
+    }
+    return {
+      integrityFindings,
+      monitoringObligation: { row: rowKey, pinnedVersion: pin.version.trim() },
+    };
+  }
+
+  if (pin.kind === 'not-tracked') {
+    if (
+      !hasExactKeys(pin, ['kind', 'reason']) ||
+      typeof pin.reason !== 'string' ||
+      pin.reason.trim() === ''
+    ) {
+      return {
+        integrityFindings: [
+          ...integrityFindings,
+          {
+            row: rowKey,
+            field: 'pin',
+            reason: 'not-tracked must contain exactly kind and a non-empty reason',
+          },
+        ],
+      };
+    }
+    return {
+      integrityFindings,
+      notTrackedRow: { row: rowKey, reason: pin.reason.trim() },
+    };
+  }
+
+  return {
+    integrityFindings: [
+      ...integrityFindings,
+      {
+        row: rowKey,
+        field: 'pin',
+        reason: 'kind must be pinned or not-tracked',
+      },
+    ],
+  };
+}
+
+function assessRow(rowKey: string, row: JsonObject, maxIntervalDays: number): FreshnessAssessment {
+  const groundedAt = resolveDateField(rowKey, row, 'grounded_at');
+  const reviewBy = resolveDateField(rowKey, row, 'review_by');
+  const pin = assessPin(rowKey, row);
+  const integrityFindings = [
+    ...groundedAt.findings,
+    ...reviewBy.findings,
+    ...checkInterval(rowKey, groundedAt.timestamp, reviewBy.timestamp, maxIntervalDays),
+    ...pin.integrityFindings,
+  ];
+
+  if (integrityFindings.length > 0) {
+    return { integrityFindings, monitoringObligations: [], notTrackedRows: [] };
   }
   return {
-    exitCode: 1,
-    reportLines: integrity.map(
-      (finding) =>
-        `  ${finding.row}${finding.field === undefined ? '' : `.${finding.field}`}: ${finding.reason}`,
-    ),
+    integrityFindings: [],
+    monitoringObligations: pin.monitoringObligation === undefined ? [] : [pin.monitoringObligation],
+    notTrackedRows: pin.notTrackedRow === undefined ? [] : [pin.notTrackedRow],
+  };
+}
+
+/** Evaluate every `platform_support` row against the freshness contract. */
+export function assessFreshnessRows(
+  platformSupport: unknown,
+  maxIntervalDays: number,
+): FreshnessAssessment {
+  if (!isJsonObject(platformSupport)) {
+    return {
+      integrityFindings: [
+        { row: 'platform_support', reason: 'platform_support is missing or not an object' },
+      ],
+      monitoringObligations: [],
+      notTrackedRows: [],
+    };
+  }
+
+  return typeSafeEntries(platformSupport).reduce<FreshnessAssessment>(
+    (assessment, [rowKey, row]) => {
+      const rowAssessment = isJsonObject(row)
+        ? assessRow(rowKey, row, maxIntervalDays)
+        : {
+            integrityFindings: [{ row: rowKey, reason: 'row is not an object' }],
+            monitoringObligations: [],
+            notTrackedRows: [],
+          };
+      return {
+        integrityFindings: [...assessment.integrityFindings, ...rowAssessment.integrityFindings],
+        monitoringObligations: [
+          ...assessment.monitoringObligations,
+          ...rowAssessment.monitoringObligations,
+        ],
+        notTrackedRows: [...assessment.notTrackedRows, ...rowAssessment.notTrackedRows],
+      };
+    },
+    { integrityFindings: [], monitoringObligations: [], notTrackedRows: [] },
+  );
+}
+
+/** Map a freshness assessment to an integrity verdict plus staged inventory report. */
+export function decideFreshnessOutcome(assessment: FreshnessAssessment): FreshnessOutcome {
+  if (assessment.integrityFindings.length > 0) {
+    return {
+      exitCode: 1,
+      reportLines: assessment.integrityFindings.map(
+        (finding) =>
+          `  ${finding.row}${finding.field === undefined ? '' : `.${finding.field}`}: ${finding.reason}`,
+      ),
+    };
+  }
+
+  const obligationHeader = `${String(assessment.monitoringObligations.length)} monitoring obligations`;
+  const notTrackedHeader = `${String(assessment.notTrackedRows.length)} declared not-tracked rows`;
+  return {
+    exitCode: 0,
+    reportLines: [
+      `claim-freshness inventory: ${obligationHeader}`,
+      ...assessment.monitoringObligations.map(
+        (obligation) => `  ${obligation.row}: pinned to ${obligation.pinnedVersion}`,
+      ),
+      `claim-freshness inventory: ${notTrackedHeader}`,
+      ...assessment.notTrackedRows.map((row) => `  ${row.row}: ${row.reason}`),
+      'claim-freshness inventory: report-only in landing 1; SessionStart enforcement arrives in landing 2',
+    ],
   };
 }

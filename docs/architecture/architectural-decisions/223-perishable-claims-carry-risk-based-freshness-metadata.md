@@ -1,6 +1,7 @@
 # ADR-223: Perishable external-surface claims carry risk-based freshness metadata
 
-- **Status**: Accepted (owner rulings 2026-08-03, recorded verbatim below)
+- **Status**: Accepted (owner rulings 2026-08-03; staged-delivery amendment
+  ratified 2026-08-11)
 - **Date**: 2026-08-03
 - **Deciders**: Jim Cresswell (owner); recorded at the implementer seat
   (Lava lifts Brimstone, b3467b) during the hook-policy truth-decay lane
@@ -55,18 +56,20 @@ The decision, stated as the estate's should-be:
 1. **Every claim on a registered perishable surface carries three
    freshness fields**: `grounded_at` (the ISO date the claim was last
    verified first-hand against its source — the claim's own evidence
-   date, never the date the field was added), `pinned_to` (the version
-   of the external surface it was verified against — or explicitly
-   `null` where no version was ever observed, PDR-133 §8's
-   explicitly-unverified shape: an honest hole that stands as a
-   re-verification obligation, never a completeness pass), and
+   date, never the date the field was added), `pin` (the required
+   closed declaration `{ kind: "pinned", version: <bare x.y.z version> }`
+   or `{ kind: "not-tracked", reason: <non-empty string> }`), and
    `review_by` (the ISO date by which it must be re-verified).
+   `not-tracked` is PDR-133 §8's honest evidence boundary: it is named
+   and reasoned, remains subject to `review_by`, and is neither a
+   version-monitoring obligation nor a permanent exemption. Legacy
+   `pinned_to`, nulls, mixed arms, and extra keys are invalid.
 2. **A version-pinned observation never decays; the inference to the
    present does.** "Verified against codex-cli 0.145.0 on 2026-07-25"
    is a permanent historical fact. What rots is "…and this still
    describes the current surface", under two decay drivers: unobserved
    change (time — the exponential) and observed change (the installed
-   surface no longer matches `pinned_to`, which short-circuits the
+   surface no longer matches `pin.version`, which short-circuits the
    clock and obliges re-verification immediately).
 3. **The review horizon is set by risk, not by hazard alone**: referent
    hazard (how fast the outside surface churns — a property of the
@@ -90,9 +93,9 @@ The decision, stated as the estate's should-be:
    in the record being edited, fixable at the keyboard that introduced
    them, and can never redden an unrelated lane by clock rollover. The
    **session-open drift instrument** owns everything clock- or
-   environment-bearing: an expired `review_by`, a null pin, and —
+   environment-bearing: an expired `review_by` and —
    where an allow-listed local binary exists — an installed version
-   that no longer matches `pinned_to` are injected as session-open
+   that no longer matches `pin.version` are injected as session-open
    context, repeating until the rows change, and surfaced by the health
    probe. The version collector is deliberately narrow: no shell,
    allow-listed binaries resolved to absolute paths, a strictly-matched
@@ -104,7 +107,7 @@ The decision, stated as the estate's should-be:
    docs" failure class and the no-warning-toleration rule it must
    coexist with.
 6. **Re-attestation is the maintenance loop**: re-verify against the
-   live surface, bump `grounded_at` and `pinned_to`, push `review_by`
+   live surface, bump `grounded_at` and the `pin` declaration, push `review_by`
    forward. It is deliberately cheap — minutes of agent work — so the
    certainty-horizon obligation stays light.
 
@@ -130,6 +133,32 @@ The decision, stated as the estate's should-be:
 - **Undated prose** ("at time of writing"): the status quo this
   decision retires; it is how the motivating incident happened.
 
+## Staged-delivery amendment (ratified 2026-08-11)
+
+The owner ratified the plan via the PR #745 merge-drive card: "Yes —
+ratify via merge-drive word", recorded by Director session Plover
+lifts Troposphere (b10c37). Pre-merge review then established that PR
+#745 contained the schema and clock-free validator, but not the sole
+clock-bearing consumer described above. The ratified delivery boundary
+is therefore explicit:
+
+1. **Landing 1 — PR #745** carries the strict `pin` union, dated rows,
+   clock-free integrity enforcement, and a bounded exit-0 inventory of
+   pinned monitoring obligations and declared-not-tracked rows with
+   reasons. The inventory states that enforcement arrives in landing 2. It is a dated, owner-directed staging exception to the rejected
+   free-standing warning design; it is report-only and must not be
+   cited as prevention of invisible expiry.
+2. **Landing 2 — the MCP-476 successor on
+   `jimcresswell/mcp-476-claim-freshness-session-instrument`** carries
+   the generic SessionStart shim, expiry and pinned-version drift
+   checker, allow-listed collector, health-probe extension, and their
+   proofs. Only that landing makes the rely-or-reverify decision at
+   session open and completes the prevention mechanism.
+
+No null pin or allow-list exemption is part of the live schema. A
+declared-not-tracked row stays visible, reasoned, and date-bounded; the
+version collector operates only on pinned rows.
+
 ## Relationship to PDR-133 §8
 
 PDR-133 §8 already governs platform-capability declarations: claims are
@@ -137,9 +166,10 @@ version-pinned from first-hand observation at a stated version, and a
 class without a verified observation is recorded explicitly unverified
 — "a matrix of confident unverified rows is worse than a matrix with
 honest holes". This decision is that discipline extended with the time
-axis: `pinned_to` carries §8's version pin (null = §8's honest hole),
-observed pin-drift short-circuits the calendar, and `review_by` is the
-backstop for drift nobody was watching.
+axis: `pin.kind: pinned` carries §8's version observation;
+`pin.kind: not-tracked` carries the honest evidence boundary and its
+reason; observed pin-drift short-circuits the calendar; and `review_by`
+is the backstop for drift nobody was watching.
 
 ## Consequences
 
@@ -153,6 +183,6 @@ backstop for drift nobody was watching.
   follow-on work under the same contract; each addition classifies the
   surface's hazard and reliance in the registry diff.
 - Scheduled sweeps that convert expiry notices into routed obligations
-  are a named follow-up; the notice channel is designed so the estate's
-  no-warning-toleration discipline makes an expired claim actionable by
-  whichever agent's gate run surfaces it in the meantime.
+  are a named follow-up. Before landing 2, the validator inventory is
+  report-only and no expiry notice channel exists; after landing 2,
+  SessionStart and the health probe make expired claims actionable.

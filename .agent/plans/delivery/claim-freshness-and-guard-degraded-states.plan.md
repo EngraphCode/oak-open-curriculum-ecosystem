@@ -2,11 +2,11 @@
 id: claim-freshness-and-guard-degraded-states
 node_type: delivery
 name: "Claim freshness pilot and guard degraded-state evolution"
-overview: "Perishable platform claims carry dated, pinned, review-by freshness metadata under a clock-free gate validator plus a session-open drift instrument; the PreToolUse guard's availability failures degrade to a permission ask with a durable log, never a silent allow or a bricked session."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+overview: "Perishable platform claims carry dated freshness metadata and a closed pin declaration under a clock-free integrity validator; a separately carried SessionStart landing will enforce expiry and pin drift. The PreToolUse guard's availability failures degrade to a permission ask with a durable log, never a silent allow or a bricked session."
+status: ratified
+ratified_by: Jim Cresswell
+ratified_date: 2026-08-11
+ratified_where: "Owner answered 'Yes — ratify via merge-drive word' on the #745 ratification card, recorded by Director session Plover lifts Troposphere (b10c37)"
 serves: agent-platform-citizenship
 impact_areas:
   - practice-and-estate
@@ -14,11 +14,8 @@ tickets:
   - MCP-476
   - MCP-477
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: "An owner comment or review act by Jim Cresswell on the MCP-476 PR (or a dated register entry) ratifying this plan's shape — a bot merge does not clear this gate"
-    expires: 2026-08-24
-last_updated: 2026-08-03
+owner_gates: []
+last_updated: 2026-08-11
 ---
 
 # Claim freshness pilot and guard degraded-state evolution
@@ -37,11 +34,13 @@ deliberate arbitration refusal still denies hard.
 
 ## Goal
 
-(1) Recorded platform-capability claims can no longer rot invisibly:
-every claim in the piloted surface carries when it was grounded, what
-version it was verified against (or an honest explicitly-unverified
-marker per PDR-133 §8), and when it must be re-verified — under a
-clock-free gate validator and a session-open drift instrument. (2) The
+(1) Every recorded platform-capability claim in the piloted surface
+carries when it was grounded, a closed declaration of whether a
+version is pinned or deliberately not tracked (with a reason), and
+when it must be re-verified. Landing 1 makes that record structurally
+complete and exposes its monitoring inventory, but does **not** yet
+prevent invisible expiry: the separately carried landing 2 adds the
+SessionStart consumer and enforcement. (2) The
 PreToolUse guard's availability failures — missing or broken artefact,
 unreadable or malformed policy file, unreadable hook input, an
 unrecognisable payload with no tool-call shape — surface as a
@@ -52,30 +51,48 @@ payloads stay hard.
 
 ## Mechanism
 
-**Slice 1 — freshness pilot (MCP-476).** Each `platform_support` row in
-`.agent/hooks/policy.json` gains `grounded_at` (that row's own evidence
-date, never back-stamped), `pinned_to` (version verified against, or
-`null` only where no version was ever observed — PDR-133 §8's
-explicitly-unverified shape, a standing obligation, not a completeness
-pass), and `review_by` (`grounded_at` + 30 days; fast-referent ×
-high-reliance ceiling). Two instruments, per the owner-ratified
-gate-drift split:
+**Freshness pilot (MCP-476), split into two independently reviewable
+landings.** Each `platform_support` row in `.agent/hooks/policy.json`
+gains `grounded_at` (that row's own evidence date, never back-stamped),
+a required closed `pin` declaration, and `review_by` (`grounded_at` +
+30 days; fast-referent × high-reliance ceiling). `pin` is exactly one
+of `{ kind: "pinned", version: <bare x.y.z version> }` or
+`{ kind: "not-tracked", reason: <non-empty string> }`; legacy
+`pinned_to`, nulls, mixed arms, and extra keys are integrity defects.
+`not-tracked` is an evidence-bounded declaration, not a pin obligation
+and not a permanent exemption from review.
+
+Landing 1 is carried by PR #745:
 
 - `validate-claim-freshness` (agent-tools, wired into
   `repo-validators:check`): deterministic, clock-free. Missing fields,
   malformed dates, `review_by` not after `grounded_at`, or interval
   over the surface's registered ceiling fail hard. Pure rule functions;
-  a pure `decideFreshnessOutcome(findings)` returns
-  `{ exitCode, reportLines }` (integrity ⇒ 1 with lines naming the
-  field; obligation-only ⇒ 0 with **empty** lines — no gate notice by
-  construction); the script is print-then-exit. The ceiling is a
+  a pure `decideFreshnessOutcome(assessment)` returns
+  `{ exitCode, reportLines }`. Integrity defects exit 1 with lines
+  naming the field. A valid surface exits 0 and emits a bounded
+  inventory: pinned monitoring obligations, declared-not-tracked rows
+  with their reasons, and an explicit statement that SessionStart
+  enforcement arrives in landing 2. This report-only inventory is the
+  owner-directed staging exception to the earlier no-warning design;
+  neither this plan nor ADR-223 treats it as prevention or enforcement.
+  The ceiling is a
   registry parameter injected into the rules (tests probe with a
   non-default value; no config pinning). Separate from
   `validate-policy-reappraisal` (different remit: decay contract vs
   content doctrine; the registry carries per-surface risk class);
-  shared read helpers and `calculateAgeDays` reused.
+  existing JSON/object helpers are reused while the strict calendar-date
+  and interval rules remain local to this validator.
+- README guidance, ADR-223, and this plan are trued in the same landing,
+  so the schema and its current enforcement boundary have live
+  consumers and no misleading completeness claim.
+
+Landing 2 is a concrete successor PR under MCP-476, carried on
+`jimcresswell/mcp-476-claim-freshness-session-instrument`:
+
 - **Session-open drift instrument** `check-claim-freshness` (clock and
-  environment arm): expired `review_by`, null pins, and pin-drift
+  environment arm): expired `review_by` and pin-drift among `pinned`
+  rows
   inject repeating session-open context and surface via a pure
   health-probe extension. Delivered through a **generic parameterised
   SessionStart shim** — `.claude/hooks/session-drift-alert.mjs
@@ -94,9 +111,9 @@ gate-drift split:
   condition ("the freshness surface itself cannot be read"), never a
   silent failure — the tamper case must not silence the instrument
   named as its compensating control. At landing no row is expired, so
-  the first observable session-open condition is the null-pin
-  obligation — named here so the first observation is judged against
-  the right expectation.
+  the first observable conditions are expiry and drift among pinned
+  rows; declared-not-tracked rows remain named inventory with their
+  reasons and are not passed to the version collector.
 - **Pin-drift collector spec** (security-reviewed shape): no shell; an
   explicit allow-list of binary names resolved against a fixed list of
   absolute candidate directories (no PATH search; skipped when
@@ -109,9 +126,9 @@ gate-drift split:
   adversarial-stdout, unbounded-stream, and never-exits fixtures and
   assert nothing beyond the matched version is injected.
 
-README documents the metadata contract, the risk model (ADR-223), and
-decay-class guidance; README table and surface matrix stop duplicating
-pins (pointer dedup to policy.json).
+Landing 2 also extends the health probe and records its first live
+SessionStart observation. Until it lands, expiry and pin drift are not
+enforced and the landing-1 inventory is informational only.
 
 **Slice 2 — guard degraded states (MCP-477).** Child-process + dist
 architecture retained (D11). Changes:
@@ -173,10 +190,10 @@ architecture retained (D11). Changes:
   the child
   `error.message`).
 - **`.claude/settings.json` changes are scoped and named**: the
-  SessionStart registrations (Slice 1) and, if the D8 timeout probe
-  confirms discard-and-proceed, a raised PreToolUse `timeout` with the
-  measured cold-start margin. The PreToolUse matcher **commands** do
-  not change.
+  SessionStart registrations (freshness landing 2) and, if the D8
+  timeout probe confirms discard-and-proceed, a raised PreToolUse
+  `timeout` with the measured cold-start margin. The PreToolUse matcher
+  **commands** do not change.
 
 Consumers re-cut in-slice: dispatcher integration tests (tagged-type
 discrimination via the injected `loadSnapshot`/route seams, which must
@@ -202,9 +219,11 @@ a dated supersession note in
 - **D2 — explicit dates; registry-held classification; no decay
   engine.**
 - **D3 — expiry is a session-open concern, never a gate concern.**
-  Gate validator clock-free; expiry/null-pin/pin-drift at session open
-  - health probe. (Round-1 in-gate notice rejected as tolerated
-  warning.)
+  Gate validator clock-free; expiry/pin-drift at session open + health
+  probe. Landing 1's bounded inventory is a dated, owner-directed
+  staging exception: it names the missing landing-2 enforcement and
+  must not be described as a prevention mechanism. The originally
+  proposed free-standing expiry warning remains rejected.
 - **D4 — verdicts never degrade.** Deny, multi-route ambiguity,
   matched-route extraction failures, and tool-shaped zero-route
   refusals all stay hard.
@@ -270,8 +289,8 @@ a dated supersession note in
 - **D14 — no bypass surfaces; no-caller-payload invariant on every
   degraded reason.**
 - **D15 — one generic SessionStart drift shim, parameterised**, two
-  registrations (consolidate-at-second-consumer applied at the second
-  consumer, migrating the first).
+  registrations in landing 2 (consolidate-at-second-consumer applied
+  at the second consumer, migrating the first).
 - **D16 — single-decision-line invariant by mechanism** (piped child
   stdout + zero-byte condition at the shim; written-flag at the
   dispatcher catch).
@@ -299,11 +318,15 @@ a dated supersession note in
    tests read first-hand; artefact/command constants unchanged.
 4. **Optionality** — probe outcomes pre-mapped (D8); follow-ups are
    named pointers; no bare deferrals.
-5. **Record consumer** — freshness metadata read by the gate validator,
-   the session instrument, the health probe, and row editors; the
-   decision it changes is rely-or-reverify.
-6. **Rules tier** — screened: `no-warning-toleration` (gate emits
-   nothing non-fatal, proven via `reportLines`);
+5. **Record consumer** — in landing 1, freshness metadata is read by
+   the gate validator and row editors; the gate changes the decision
+   from accept to repair on malformed or incomplete records and emits
+   a report-only monitoring inventory on valid records. Landing 2 adds
+   the SessionStart and health-probe consumers that change the
+   rely-or-reverify decision for expiry and pin drift.
+6. **Rules tier** — screened: `no-warning-toleration` (the bounded
+   report-only landing-1 inventory is a dated owner-directed staging
+   exception and explicitly names its absent enforcement consumer);
    `never-disable-checks`; `replace-dont-bridge`;
    `no-escape-hatches-in-enforcement`; `validators-must-recompute`;
    `test-immediate-fails`; `hook-policy-substring-discipline` (fire/no-
@@ -314,23 +337,29 @@ a dated supersession note in
 1. Freshness rules — **repo-safe**: unit tests over literal fixtures
    incl. the named malformed-date set and an injected non-default
    ceiling: missing field / malformed date / `review_by` ≤
-   `grounded_at` / interval > ceiling ⇒ integrity findings; null pin ⇒
-   obligation finding.
+   `grounded_at` / interval > ceiling ⇒ integrity findings. `pin` is a
+   strict closed union: missing/scalar/null/unknown kind/empty or
+  whitespace or prefixed version/wrong-arm extra/legacy `pinned_to` ⇒ integrity;
+   pinned ⇒ monitoring obligation; not-tracked ⇒ named non-obligation
+   with its required reason.
 2. Exit posture — **repo-safe**: `decideFreshnessOutcome` unit tests:
    integrity ⇒ `{ exitCode: 1, reportLines: [names the field] }`;
-   obligation-only ⇒ `{ exitCode: 0, reportLines: [] }`.
+   valid inventory ⇒ exit 0 with pinned obligations,
+   declared-not-tracked count/names/reasons, and the landing-2
+   enforcement boundary.
 3. Estate state — **repo-safe**: wired `validate-claim-freshness` run
    green inside `repo-validators:check`.
-4. Session instrument — **repo-safe**: unit tests (injected clock,
-   injected binary inventory) for expiry selection, null-pin surfacing,
+4. Session instrument — **landing-2 repo-safe proof**: unit tests
+   (injected clock, injected binary inventory) for expiry selection,
    pin-drift, and the adversarial-stdout collector proof; **plus** a
    smoke spawning the registered generic shim with `CLAUDE_PROJECT_DIR`
    at a `mkdtemp` fixture root asserting SessionStart
    `additionalContext` (fixture expired row) and `{}` (none); **plus**
    an owner-visible line on the MCP-476 PR recording the first live
-   session-open observation (expected: the null-pin obligation).
-5. Health-probe freshness surface — **repo-safe**: unit tests on the
-   pure `...FromInputs` extension with a fixed fixture clock.
+   session-open observation.
+5. Health-probe freshness surface — **landing-2 repo-safe proof**: unit
+   tests on the pure `...FromInputs` extension with a fixed fixture
+   clock.
 6. Dispatcher taxonomy — **repo-safe**: re-cut integration tests via
    injected seams: snapshot load failure ⇒ one ask line + exit 0;
    unreadable stdin ⇒ ask; provably-actionless zero-route ⇒ ask; unrecognised tool-shaped
@@ -366,23 +395,27 @@ a dated supersession note in
 
 ## Todos
 
-- **Slice 1 (MCP-476, one PR, round budget ≤2)** — commits, each
-  green: (1) rule functions + `decideFreshnessOutcome` red-first, the
-  validator script + root wiring, **and** the five rows' honest
-  metadata — one landing (the wiring and the rows it validates travel
-  together); (2) generic SessionStart shim + both registrations +
-  `check-claim-freshness` instrument + collector + health-probe
-  extension + their tests + smoke; (3) README contract/guidance +
-  pointer dedup + ADR-223 + this plan node.
-- **Slice 2 (MCP-477, one PR, round budget ≤2; opens after Slice 1
-  merges)** — commits, each green: (1) tagged error types + dispatcher
-  discriminated outcome + written-flag + renderer ask + fixed reasons +
-  re-cut integration tests; (2) shim revision (piped stdout, enumerated
-  exits, inline last-resort, log retention) + unit tests + smoke
-  re-cut; (3) docs (README failure semantics + porting contract,
-  ADR-167 note, matrix, research note, Copilot-plan supersession) +
-  `claude_code` row re-ground; then D8 probes + A9, recorded before
-  merge.
+- **Freshness landing 1 (MCP-476, PR #745)** — schema rules +
+  `decideFreshnessOutcome` red-first, validator script + root wiring,
+  the five rows' honest metadata, report-only inventory, README
+  contract/guidance, ADR-223, and this trued plan node. Mergeable
+  independently with zero claim that expiry is enforced.
+- **Freshness landing 2 (MCP-476 successor PR,
+  `jimcresswell/mcp-476-claim-freshness-session-instrument`)** — generic
+  SessionStart shim + both registrations + `check-claim-freshness`
+  instrument + pinned-version collector + health-probe extension +
+  tests + smoke. This is the sole expiry/pin-drift enforcement
+  consumer and must land before the goal may claim invisible decay is
+  prevented.
+- **Guard slice (MCP-477, one PR, round budget ≤2; opens after both
+  MCP-476 freshness landings merge)** — commits, each green: (1) tagged
+  error types + dispatcher discriminated outcome + written-flag +
+  renderer ask + fixed reasons + re-cut integration tests; (2) shim
+  revision (piped stdout, enumerated exits, inline last-resort, log
+  retention) + unit tests + smoke re-cut; (3) docs (README failure
+  semantics + porting contract, ADR-167 note, matrix, research note,
+  Copilot-plan supersession) + `claude_code` row re-ground; then D8
+  probes + A9, recorded before merge.
 
 ## Out of scope
 
@@ -419,5 +452,15 @@ a dated supersession note in
   convergence: round 1 broke the frame, round 2 the mechanisms, round
   3 only predicates and fixtures — plan-level loop closed; residual
   review continues per-slice in PR rounds.
+- 2026-08-11 — Owner ratified the plan via the #745 merge-drive card
+  ("Yes — ratify via merge-drive word", recorded by Director session
+  Plover lifts Troposphere, b10c37). Pre-merge review found that the
+  branch contained only the first implementation landing while the
+  plan claimed its SessionStart consumer. The owner-directed
+  reconciliation split MCP-476 explicitly: PR #745 carries the strict
+  pin union, clock-free integrity gate, and report-only inventory;
+  `jimcresswell/mcp-476-claim-freshness-session-instrument` carries the
+  sole expiry/pin-drift consumer and enforcement. No freshness-
+  prevention claim is valid before that successor lands.
 - Pending (Slice 2, pre-merge): D8 probe set with pre-agreed mapping;
   A9; one-off cold-start timing against the configured timeout.

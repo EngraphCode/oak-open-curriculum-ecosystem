@@ -187,3 +187,33 @@ SessionStart shim + `check-claim-freshness` + collector + health-probe
 extension + smoke), then README/dedup landing, then ready-for-review;
 Slice 2 opens after merge, D8 probes pre-merge. The owner's
 ratification gate clears only on his own act on PR #745.
+
+## Disposition update — 2026-08-11
+
+This section supersedes only the in-flight continuation statement and
+the proposed `pinned_to: null` delivery shape above; the 2026-08-03
+findings remain historical evidence.
+
+The owner answered the #745 ratification card, "Yes — ratify via
+merge-drive word", recorded by Director session Plover lifts
+Troposphere (b10c37). Pre-merge review then found that the branch
+carried the clock-free validator but not its claimed SessionStart
+consumer. The ratified reconciliation is:
+
+- PR #745 is MCP-476 landing 1: every row has the strict closed `pin`
+  union (`pinned` with version or `not-tracked` with reason), plus
+  `grounded_at` and `review_by`; legacy `pinned_to`, nulls, mixed arms,
+  and extra keys fail integrity validation.
+- A valid landing-1 run exits 0 but reports pinned monitoring
+  obligations and not-tracked rows with their reasons, explicitly
+  naming the absent landing-2 enforcement. This bounded inventory is
+  an owner-directed staging exception, not evidence that expiry is
+  prevented.
+- The concrete MCP-476 successor branch
+  `jimcresswell/mcp-476-claim-freshness-session-instrument` owns the
+  generic SessionStart shim, expiry/pin-drift checker, allow-listed
+  collector, health-probe extension, and their proofs. It is the sole
+  enforcement consumer.
+- README guidance and ADR-223 are trued in PR #745. MCP-477 remains the
+  later guard-degraded-state slice and opens after both freshness
+  landings merge.
