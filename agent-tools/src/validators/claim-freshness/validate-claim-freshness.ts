@@ -69,7 +69,7 @@ async function main(): Promise<void> {
   if (!failed) {
     return;
   }
-  process.exit(1);
+  process.exitCode = 1;
 }
 
 await main();
