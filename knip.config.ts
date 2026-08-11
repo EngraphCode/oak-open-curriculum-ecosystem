@@ -103,6 +103,7 @@ const config: KnipConfig = {
         'src/validators/markdown-links/validate-markdown-links.ts',
         'src/validators/pretooluse-guard-routing/validate-pretooluse-guard-routing.ts',
         'src/validators/policy-reappraisal/validate-policy-reappraisal.ts',
+        'src/validators/claim-freshness/validate-claim-freshness.ts',
         'src/validators/identity-naming/validate-identity-naming.ts',
         'src/validators/check-ci-parity/validate-check-ci-parity.ts',
         'src/validators/plan-schema/validate-plan-corpus.ts',
