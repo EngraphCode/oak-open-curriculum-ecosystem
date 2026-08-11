@@ -59,6 +59,11 @@
       "types": "./dist/png-codec.d.ts",
       "import": "./dist/png-codec.js",
       "default": "./dist/png-codec.js"
+    },
+    "./visual-calibration": {
+      "types": "./dist/visual-calibration.d.ts",
+      "import": "./dist/visual-calibration.js",
+      "default": "./dist/visual-calibration.js"
     }
   },
   "files": [

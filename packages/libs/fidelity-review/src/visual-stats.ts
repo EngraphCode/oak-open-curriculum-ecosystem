@@ -174,18 +174,16 @@ export function analysePair(
   return ok({ width, height, sigma0, windowSize, threshold, scores, rejecting });
 }
 
-/** Paint the rejection map over a copy of the base image: rejecting
- *  windows blend towards red with strength ∝ min(z / (3·threshold), 1),
- *  so a just-rejecting window reads as a tint and a gross divergence
- *  reads as a flag. Returns a NEW buffer; the base is untouched. */
-export function renderHeatmapOverlay(
+/** Blend the given windows towards red over a COPY of the base image,
+ *  each at its own strength in [0, 1] — the one tint loop every heatmap
+ *  variant (naive z, calibrated exceedance) drives. */
+export function tintWindows(
   base: Uint8Array,
   width: number,
-  analysis: PairAnalysis,
+  entries: readonly { readonly window: WindowScore; readonly strength: number }[],
 ): Uint8Array {
   const out = Uint8Array.from(base);
-  for (const window of analysis.rejecting) {
-    const strength = Math.min(window.z / (3 * analysis.threshold), 1);
+  for (const { window, strength } of entries) {
     for (let dy = 0; dy < window.h; dy += 1) {
       for (let dx = 0; dx < window.w; dx += 1) {
         const o = ((window.y + dy) * width + (window.x + dx)) * 4;
@@ -196,4 +194,23 @@ export function renderHeatmapOverlay(
     }
   }
   return out;
+}
+
+/** Paint the rejection map over a copy of the base image: rejecting
+ *  windows blend towards red with strength ∝ min(z / (3·threshold), 1),
+ *  so a just-rejecting window reads as a tint and a gross divergence
+ *  reads as a flag. Returns a NEW buffer; the base is untouched. */
+export function renderHeatmapOverlay(
+  base: Uint8Array,
+  width: number,
+  analysis: PairAnalysis,
+): Uint8Array {
+  return tintWindows(
+    base,
+    width,
+    analysis.rejecting.map((window) => ({
+      window,
+      strength: Math.min(window.z / (3 * analysis.threshold), 1),
+    })),
+  );
 }
