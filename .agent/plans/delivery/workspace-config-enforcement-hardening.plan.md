@@ -34,7 +34,8 @@ withdrawal, 2026-08-11.)
 
 The `depends_on` edge is `beneficial`: every slice is executable
 against today's main. The minimum shippable shape without the parent's
-remaining todos is exactly the four slices as specified — none reads
+remaining todos is exactly the three surviving slices (H1 slimmed,
+H2, H4) as specified — none reads
 the census register or the de-hatched lint surface; H-slices and the
 parent's census sweeps are cross-seat parallelisable because the
 census register is partitioned per-surface.
@@ -92,9 +93,9 @@ census register is partitioned per-surface.
 
 ## Todos (each a single-story PR; ticket minted at pickup)
 
-1. H1 — idiom standardisation + validator refusal rewrite +
-   config-VALUE leg + comment-stripping rewrite + fs-unreadable bin
-   test.
+1. H1 (slimmed 2026-08-11) — idiom standardisation + validator
+   refusal rewrite + comment-stripping rewrite + fs-unreadable bin
+   test. (The config-VALUE leg left with the same-day amendment.)
 2. H2 — family widening + depth handling + workspace-root coverage
    assert (after H1).
 3. H4 — bootstrap ordering check + transitive staleness inputs.

@@ -141,7 +141,9 @@ stamp; the executing seat is the one the owner starts.
   (~27 rows), subsequent batches by value tier. Each batch is a small
   reviewed PR (or a few, by home surface); `new-rule-vs-pdr-clause`
   adjudication applies per item. The pass's disposition duty covers
-  ALL 147 files; graduation EXECUTION may span batches with the
+  the ENTIRE S1-censused live set (147 files at the dated 2026-08-11
+  baseline; S1 recomputes membership at census time, so later-added
+  files join the duty); graduation EXECUTION may span batches with the
   remaining batches carried in this plan's slice state as named work
   (constraint: authoring ~72 homes through reviewed PRs exceeds one
   sitting; falsifiable via the batch list here), never silently
@@ -189,7 +191,8 @@ stamp; the executing seat is the one the owner starts.
    recurring-despite-home items (recurrence evidence routes to the
    doctrine-traction lane before the duplicate is marked); the
    drained-stratum sampled verification leg runs alongside.
-   Acceptance: adjudicated disposition set covering all 147 files;
+   Acceptance: adjudicated disposition set covering the full
+   S1-censused live set (≥ the 147-file 2026-08-11 baseline);
    verify legs recorded; sample leg reported.
 3. **S3 — Execute.** Graduation batches value-ordered through
    reviewed PRs per the batching decision; mark bodies; retire index

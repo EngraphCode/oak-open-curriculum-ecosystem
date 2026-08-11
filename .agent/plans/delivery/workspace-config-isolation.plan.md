@@ -13,6 +13,7 @@ impact_areas:
 tickets:
   - MCP-540
   - MCP-542
+  - MCP-543
 depends_on:
   - plan: mutation-testing-core-canary
     kind: blocking
@@ -355,8 +356,9 @@ or rejection; and the lane's scope stays isolation-only (estate-wide
 mutation roll-out is owner-committed future work — "We ARE going to
 roll out mutation testing everywhere, but later, and in stages" — see
 Out of scope). Reviewed pre-ratification by an assumptions-expert pass
-and a design stress-test; all 23 findings folded in. The four
-enforcement-hardening slices cut to the successor node
+and a design stress-test; all 23 findings folded in. The
+enforcement-hardening slices (three surviving after the same-day
+H3 withdrawal and H1 slim) cut to the successor node
 [`workspace-config-enforcement-hardening`](workspace-config-enforcement-hardening.plan.md)
 (born with the same ratification word) so this node stays one step of
 the lane and archives when its criteria prove.
