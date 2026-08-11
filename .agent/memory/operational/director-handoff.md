@@ -262,6 +262,24 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
+> **CODEX OPEN-SURFACE TERMINAL HANDOFF — Smith holds Temper (019fef),
+> 2026-08-11 13:20Z.** #745 MERGED `236a8e3437`; #746 critically
+> re-reviewed against post-submission reality and MERGED `9dbf78328c` after
+> every check passed and 15/15 threads resolved; #839/#840 closed into atomic
+> replacement #852 at pushed head `68fd50402b`. Resume #852 with a complete
+> live harvest, then #805 and #818/#819; #841 stays on the Director board and
+> #816 was not added to the owner-author slice. Binding owner directions:
+> green CI + all comments properly addressed means merge immediately;
+> enhanced permissions for every Git/gate command; no queue in isolated
+> worktrees; no expected-failure category; tools are capability, not
+> ceremony. Durable pickup is the machine-local open-surface-zero thread record
+> at `threads/open-surface-zero.next-session.md`;
+> detailed machine-local record:
+> `.agent/state/collaboration/handoffs/2026-08-11-smith-holds-temper-open-surface-zero-full-handoff.md`.
+> Two claims close at the terminal broadcast; no custody retained.
+
+---
+
 > ### ▶ SITTING DIRECTOR: Plover lifts Troposphere (`b10c37`), seated 2026-08-07 16:01Z (Moment-2 `03e811f8`, succeeding Panther rides Midnight per its Moment-1 `8cb67079`, owner-named successor with full shadow period); claims `a2286c53` (director) + `dd3f640f` (gate-ledger, dormant) adopted in place, heartbeats bumped at adoption.
 >
 > **SEATING BLOCK 2026-08-07 ~16:05Z — durable half only; recompute every derivable. Two registers per the Firefly convention.**

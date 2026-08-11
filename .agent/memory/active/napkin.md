@@ -1613,3 +1613,78 @@ Full tenure record in `.agent/memory/operational/director-handoff.md` §Spark li
   explicitly confirming protocol traffic still cannot bypass Clerk. Every one was caught by
   opening the target instead of trusting the summary. The pattern the brief described
   reproduced inside the brief.
+
+## Session: 2026-08-11 — Smith holds Temper, open-surface-zero delivery and correction
+
+### Landed
+
+- PR #745 merged as `236a8e3437`; PR #746 merged as `9dbf78328c`; split CodeQL PRs #839/#840
+  were replaced by atomic PR #852 at `68fd50402b`.
+- Exact pickup and worktree state: `threads/open-surface-zero.next-session.md`.
+
+### Surprise — private perfection delayed the feedback that would improve the work
+
+- **Expected**: completing the whole local reconciliation and review story before pushing would
+  minimise noise and produce the best result.
+- **Actual**: hours of correct work remained invisible, the PR still looked untouched, and the
+  owner had to interrupt before review feedback could enter the loop.
+- **Why expectation failed**: I collapsed "never publish a broken state" into "publish only the
+  terminal state". A coherent, independently green checkpoint is a valid landing and a better
+  feedback instrument.
+- **Behaviour change**: publish each coherent gated checkpoint promptly, then harvest and cure.
+  Falsifier: if the checkpoint cannot pass its own relevant gates or tells an incoherent story,
+  hold it until it can.
+
+### Surprise — the CodeQL defect disappeared when the owner's requested combined state existed
+
+- **Expected**: apparently different action versions signalled a deeper versioning defect that
+  needed investigation and perhaps a carve-out.
+- **Actual**: #839 and #840 had divided one cross-reference invariant. Combining their two one-line
+  changes made both references agree at v4.37.6; the owner's original instruction was exactly right.
+- **Why expectation failed**: I reasoned about each PR and its labels separately instead of first
+  building the target state the two diffs jointly described. Fluent explanation displaced the
+  cheapest decisive probe.
+- **Behaviour change**: for split dependency/config PRs, reproduce the combined target state first;
+  diagnose only what remains. Never invent a carve-out around an invariant that has not been tested
+  in its intended whole state.
+
+### Surprise — a sanctioned tool's refusal expressed its policy, not the owner's terminal condition
+
+- **Expected**: the merge wrapper's `SETTLE-READY` predicate would exactly represent the standing
+  rule "green CI plus every comment addressed means merge".
+- **Actual**: it refused #746 solely because `mantagen` had not reviewed the newest SHA, after all
+  checks passed and all 15 threads were resolved.
+- **Why expectation failed**: the wrapper encodes a stronger exact-tip-review requirement than the
+  owner policy. Treating that as product authority would silently recreate a forbidden approval gate.
+- **Behaviour change**: preserve bot identity, exact-SHA and merge-commit safety; route the policy
+  mismatch to MCP-508; do not let tool ceremony override the owner's explicit merge condition.
+
+### Loss scan and metaloss recursion
+
+- The facts easiest to lose were not the merge SHAs but the negative knowledge: #816 was NOT added
+  to this author-filtered slice; #841 stayed with the Director; #774 and #846 stayed in their named
+  homes; #746's T5 checkbox is stale record metadata, not missing delivery work; #852's CI/review
+  state is volatile and must be re-harvested.
+- Promise sweep: #745/#746 delivery discharged; #839/#840 composite published as #852 but not merged,
+  forwarded to the open-surface thread; #805/#818/#819 forwarded; 20-minute Cricket cadence ran;
+  Linear truing completed; no claim or monitor is intentionally retained.
+- Compressed-reasoning pass: the handoff preserves warrants and falsifiers for checkpoint cadence,
+  combined-state diagnosis and the merge-wrapper mismatch, not only conclusions.
+- Attribution pass: PR/CI/comment facts were observed first-hand; intent attributed to the owner is
+  limited to his explicit words. Plover/other-seat status is not inferred from silence.
+- Blind-spot pass: the final GitHub snapshot ends at the terminal instruction; this scan cannot see
+  later #852 events, file-only channels outside those sampled, or defects created by its own
+  compression. The fresh reader must re-ground volatile state.
+- Index-of-homes pass: thread pickup at `threads/open-surface-zero.next-session.md`; detailed local
+  record at `.agent/state/collaboration/handoffs/2026-08-11-smith-holds-temper-open-surface-zero-full-handoff.md`;
+  plan authority at `open-surface-zero.plan.md`; formation at
+  `.agent/experience/2026-08-11-to-the-next-seat-after-smith.md`.
+- Second metaloss pass found one additional class: the handoff could say "no active claims" before
+  the close commands actually ran. The record therefore names the two pre-close ids and requires
+  command evidence before final reporting.
+- Closure proof: both named claims closed at 2026-08-11T13:36:45Z and `claims mine` returned `[]`.
+  The whole-repo gate itself exited 1 on three tracked-to-untracked handoff links; after curing those
+  links, the focused enhanced documentation gate passed. The wider run's lint warnings remain real
+  debt, including 171 in the MCP HTTP app, so the session must not claim a warning-free gate.
+- A third pass would only re-find the named volatile-state, attribution, promise and self-verification
+  limits. The recursion closes here; completeness remains externally bounded.
