@@ -1,3 +1,10 @@
+# [1.162.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.161.1...v1.162.0) (2026-08-11)
+
+
+### Features
+
+* **posthog-node:** derive oak_client_surface from transport headers (MCP-558) ([bc52762](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bc5276249a33750b49b2d15089406d99e8241dad))
+
 ## [1.161.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.161.0...v1.161.1) (2026-08-11)
 
 # [1.161.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.160.0...v1.161.0) (2026-08-11)
