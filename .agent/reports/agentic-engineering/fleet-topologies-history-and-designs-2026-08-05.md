@@ -61,7 +61,7 @@ the arrangement is in the estate's own written record, not of how often it ran.
 
 | Arrangement | Shape | Scale | Sightings | Verdict |
 | --- | --- | --- | --- | --- |
-| Corpus-analysis map→reduce→validate→meta | pipeline | ~1,000–1,250 agents; $448 / 178M tokens | 2 | Mechanism sound, judgement regime failed calibration. |
+| Corpus-analysis map→reduce→validate→meta | pipeline | Locked 1,001-agent pipeline: ~73M raw / ~$210; full experimental session: 178M / ~$448 | 2 | Mechanism sound, judgement regime failed calibration. |
 | Restatement-audit pipeline | pipeline | ~46 windows planned; halted at pilot | 2 | Halted correctly, twice over, before full spend. |
 | Reader fleet, point-not-copy | fan-out | 31 Haiku workers over 30 windows | 3 | Produced the estate's sharpest worker-contract lesson. |
 | Comms-corpus MAP/REDUCE/MERGE/META (P2) | tiered pipeline | 23 map + 2 reduce + 1 merge + 18 meta | 2 | Worked; one reduce stage died on scale. |
@@ -70,6 +70,7 @@ the arrangement is in the estate's own written record, not of how often it ran.
 | Multi-lens research fan-out | fan-out | 8 lenses then 5 lenses | 2 | Direction-bending findings; drops in open questions. |
 | Uncapped per-finding classifier fan-out | fan-out | 168 classifiers queued | 1 | Owner-killed as waste. The founding cost failure. |
 | Known-answer calibration probes | instrument | withheld findings; 4–6 canaries | 2 | Cheap recall measurement; synthetic canaries rejected. |
+| Structured-output workflow fan-out | mechanism family | 45 retries; 3/15 verifier deaths; 143k-token scorer failure | 1 | Ran repeatedly and failed at predictable mechanical points; see §3. |
 
 ### 1.3 Design and exploration fleets
 
@@ -107,7 +108,6 @@ the arrangement is in the estate's own written record, not of how often it ran.
 | D1–D9 corpus kernel with model-tier economy | cellular + tiered | 2 | Ratified as sound by design review; interaction gaps named. |
 | Fleet-wide shared-resource broker | infrastructure | 1 | Proposed while the team was being throttled by its absence. |
 | Tiered model fallback under vendor overload | policy | 1 | Blocked: the dispatch surface cannot express the tier. |
-| Structured-output workflow fan-out | mechanism family | 1 | Fails at predictable mechanical points; see §3. |
 
 ### 1.7 Tonight's two dispatch attempts and one failure outcome
 
@@ -197,11 +197,11 @@ independently on buffer-item withdrawals, twice
 (`.agent/memory/active/patterns/fan-out-verify-gatekeeper-execute.md`). Rigour belongs where the
 harm is irreversible, not spread evenly.
 
-**Overlap as a free instrument.** In the P2 comms-corpus run, overlapping cheap readers produced
-a disagreement field usable as a salience map, and offset strides healed the boundary problem
-that had cut one narrative across two windows. At roughly a quarter of Sonnet's price, a
-double-sampled Haiku landscape costs about half a single-coverage Sonnet pass, with the
-disagreement field thrown in.
+**Overlap as an instrument — observed and projected separately.** Tonight's fifteen-Sonnet sweep
+used overlapping reading windows: agreement checked coverage, while disagreement exposed
+transcription errors and claim drift (§1.8). The P2 report proposed, but did not run, overlapping
+Haiku readers, offset strides, a disagreement-field salience map, or the projected double-Haiku
+economics. Those remain design warrants for an experiment, not results of the P2 run.
 
 **Calibrating before scaling.** The restatement-audit pilot cost ~100,727 tokens over 62
 instances and failed its own acceptance gate at 1 of 8 rows clean — halting a full dispatch
@@ -440,9 +440,9 @@ observation would kill it). None is a recommendation to build now; they are cand
 **1. The three-pass landscape sampler.** A massive overlapping cheap-probe sample, then a
 higher-definition pass over only the features the disagreement field flags, then individual
 attention on what survives.
-*Warrant*: the measured overlap economics (double Haiku ≈ half a single Sonnet pass, with a free
-salience map) plus tonight's fifteen-probe sweep, which worked and whose disagreements were
-genuinely informative (§1.8).
+*Warrant*: the projected tier economics (double Haiku ≈ half a single Sonnet pass, if the proposed
+disagreement field is useful) plus tonight's measured fifteen-Sonnet sweep, which worked and whose
+disagreements were genuinely informative (§1.8).
 *Falsifier*: disagreement rate stays flat across genuinely different corpora, meaning the field
 carries no salience signal and the second pass has nothing to route on.
 
@@ -653,7 +653,7 @@ banked at `.agent/reports/agentic-engineering/fleet-topology-probe-results-2026-
 
 Windows covered: the July napkin archives (07-06 ×2, 07-08, 07-14, 07-20 ×2, 07-23, 07-26, 07-30
 ×2) and the then-live napkin now archived as `napkin-2026-08-06.md`; the pre-July archives (May–June, by targeted grep rather than full
-read); the `large-corpus-analysis-tooling/` report sub-lane (six files in full); three concept
+read); the `large-corpus-analysis-tooling/` report sub-lane (six files in full); two concept
 explorations and the comms-corpus discovery report; four decision records and nine pattern files.
 
 ### 7.3 Bounds applied
@@ -681,9 +681,10 @@ Three of the fifteen probes died on the structured-output retry cap and returned
 
 - **`cricket-pr336`** — intended to sweep the PR-336 fleet assessment and the cricket tallies.
   **Covered** by first-hand reads of both for this report (§7.1).
-- **`agent-defs-pdr122`** — intended to sweep the agent definitions and PDR-122. **Covered** by a
-  first-hand read of PDR-122 and a listing of `.claude/agents/`, which holds the four
-  `corpus-*` typed stage agents and the four `cricket-*` panel agents.
+- **`agent-defs-pdr122`** — intended to sweep the agent definitions and PDR-122. **Partially
+  covered** by a first-hand read of PDR-122 and a listing that confirmed the four `corpus-*` typed
+  stage agents and four `cricket-*` panel agents. The definitions themselves were not read, so
+  their stage contracts, prompts, tiering and failure controls remain an evidence gap.
 - **`thread-records`** — intended to sweep the thread records at
   `.agent/memory/operational/threads/` (23 entries). **Not covered.** This is a real gap. Thread
   records carry lane-level agendas and follow-ups, so the most likely losses are topology
