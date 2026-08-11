@@ -3,6 +3,9 @@
 **Status**: Accepted (2026-04-19). Amended 2026-05-10 to make Sentry
 org/project/repository identity environment-derived only and to narrow the
 current source-map deletion/upload contract to the deployed server entrypoint.
+Fourth amendment (2026-08-04, MCP-479): the production build gate admits a
+same-commit redeploy while retaining the version-advance rule for every other
+default-branch commit.
 Build-time scope clarification (2026-05-10): the release identifier and
 Vercel production attribution this ADR governs are _build-time concerns_
 and are explicitly orthogonal to the runtime sink/fixture axes codified
@@ -786,17 +789,18 @@ written down:
 same page as "the git SHA of the commit the deployment was triggered by",
 available at both build and runtime.
 
-One divergence case is named here because the definition invites
-misreading (recorded 2026-08-05, MCP-479): "last successful deployment"
-is not "the deployment currently serving production". The two diverge
-exactly after a Vercel Instant Rollback, which re-points production
-domains at an older deployment without running a build —
-`VERCEL_GIT_PREVIOUS_SHA` keeps naming the newer, rolled-back-from
-deployment, so in a rolled-back state the equality arm does not identify
-the serving release. Per Vercel's Instant Rollback reference (verified
-2026-08-05), a rollback also suspends auto-assignment of production
-domains until an explicit Undo Rollback or promotion, so recovery from
-that state is platform-governed promotion, not a guard-governed rebuild.
+One uncertainty is named here because the definition invites an
+unsupported inference (recorded 2026-08-05, MCP-479): "last successful
+deployment" is not documented as "the deployment currently serving
+production" after a Vercel Instant Rollback. The vendor documents that
+rollback re-points production domains at an older deployment without
+running a build, but does not document the post-rollback value of
+`VERCEL_GIT_PREVIOUS_SHA`. The equality arm therefore cannot be relied on
+to identify the serving release while the project is rolled back. Per
+Vercel's Instant Rollback reference (verified 2026-08-05), a rollback also
+suspends auto-assignment of production domains until an explicit Undo
+Rollback or promotion, so recovery from that state is platform-governed
+promotion, not a guard-governed rebuild.
 
 **[Managing environment variables](https://vercel.com/docs/environment-variables/managing-environment-variables)**
 — the rollback/environment behaviour:
@@ -1302,6 +1306,13 @@ variables are set on your Vercel project, but missing from "turbo.json"`
   deployment identity may be declared as a literal in source for this
   repository. Reviewers must treat such literals as a regression of this
   amendment.
+- **2026-08-04 — fourth amendment, same-commit production redeploy**:
+  PR #751 adds the equality arm documented in §10. A rebuild continues
+  when validated `VERCEL_GIT_COMMIT_SHA` and `VERCEL_GIT_PREVIOUS_SHA`
+  match; every other default-branch commit remains governed by the
+  version-advance rule. The 2026-08-11 record-truing round adds the
+  vendor definition and explicitly leaves post-rollback variable
+  behaviour unverified.
 
 ## Reviewer Dispositions (2026-04-24 first amendment)
 

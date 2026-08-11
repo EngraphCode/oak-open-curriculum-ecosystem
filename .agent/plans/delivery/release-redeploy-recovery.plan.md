@@ -130,11 +130,11 @@ equality it warrants.
   this one.
 - **The rolled-back state and promotion.** Vendor-verified 2026-08-05:
   after an Instant Rollback, Vercel suspends auto-assignment of
-  production domains until an explicit Undo Rollback or promotion, and
-  `VERCEL_GIT_PREVIOUS_SHA` ("the last successful deployment") diverges
-  from the deployment serving traffic, so the equality arm does not
-  identify the serving release in that state. Promotion out of a
-  rollback is platform-governed, not guard-governed — the composed
+  production domains until an explicit Undo Rollback or promotion.
+  Vercel does not document the value of `VERCEL_GIT_PREVIOUS_SHA` after
+  rollback, so the guard cannot rely on that variable identifying the
+  deployment serving traffic in the rolled-back state. Promotion out of
+  a rollback is platform-governed, not guard-governed — the composed
   guards deliberately leave it ungated. The post-rollback operating
   facts and their runbook coverage are
   [`release-redeploy-guard-truing`](release-redeploy-guard-truing.plan.md)'s

@@ -17,7 +17,7 @@ tickets:
   - MCP-481
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-09
+last_updated: 2026-08-11
 ---
 
 # Amend the deployment-reliability corpus
@@ -77,7 +77,7 @@ finding has exactly one recorded decision. Applying it is mechanical.
 | 1 | `preview-serves` as a required check without the trusted-publisher precondition creates a PR-forgeable required gate (three seats, convergent) | **Apply**: add the trust-boundary move, the ADR-121 coverage row, and the ADR-204 required-set reconciliation as named acceptance criteria/preconditions |
 | 2 | Turbo cache can skip the build-time gate on same-commit redeploys — none of the validated env vars are hash inputs (verified: root `turbo.json` app build task) | **Apply**: mechanism states the gate runs as an always-executed, non-cached step (or names its env-hash set); criterion 1's proof gains the same-commit-redeploy case |
 | 3 | Run the gate with build-only credentials filtered out and a narrow `runtime-config` import, never the app barrel (security) | **Apply** to §Mechanism — the one mitigation that genuinely shrinks the reachable-secret set |
-| 4 | The gate must read an explicitly passed `processEnv` with no `.env` file layer, or the rehearsal differs from production resolution (wilma) | **Apply** — same mechanism paragraph as row 3 |
+| 4 | The deploy rehearsal must not absorb a local `.env` file layer that is absent from Vercel's deployment condition (wilma; corrected against the live runtime, which deliberately supports `.env` and `.env.local` locally) | **Apply with corrected premise** — use an explicitly passed `processEnv` through a process-environment-only seam shared with `loadRuntimeConfig`; do not claim the runtime has no file layer |
 | 5 | Criteria 1/3/4 label console-verified acts `repo-safe` against the schema and both siblings (three seats) | **Apply**: split each into its repo-safe half (instrument named) and owner-held half (verifier + recording location) |
 | 6 | The build-env ≡ runtime-env variable-set invariant is unstated; value-level validation's warrant is unstated (three seats) | **Apply**: one mechanism paragraph naming the invariant and why the motivating failure class is value-shaped |
 | 7 | No criterion constrains what the gate may print — it consumes live key material (security) | **Apply**: criterion + unit test that gate output contains no secret bytes |
@@ -116,7 +116,7 @@ finding has exactly one recorded decision. Applying it is mechanical.
 | 25 | The five-minute SLA arithmetic omits Sentry's default three-failure tolerance (sentry) | **Apply**: criterion names Failure Tolerance as a required parameter and shows the arithmetic clearing five minutes |
 | 26 | A bare 401 cannot distinguish the app's auth layer from an edge answering in front of it (wilma) | **Apply**: assert an app-only artefact (the `WWW-Authenticate` challenge naming the PRM resource) and name the edge as a probe-path dependency |
 | 27 | Finding C's framing conflated headers with authentication; a credential must never enter monitor config (three seats) | **Apply**: dated confirmation note — headers cover `Accept` only; no credential in uptime configuration; a 200 on `POST /mcp` is a failure |
-| 28 | The in-repo heartbeat workflow may reverse ADR-162's recorded externalisation direction (fred) | **Check-then-apply**: read what PR #743 changed in ADR-162; if the direction stands, add the decision-record dependency naming its amendment as part of delivery; if #743 already amended it, cite that instead |
+| 28 | The in-repo heartbeat workflow may reverse ADR-162's recorded externalisation direction (fred) | **Apply after check**: ADR-162 still externalises production synthetic monitoring and ends the repo obligation at `/healthz`; add a second owner-decision gate, require owner ratification of the ADR amendment, and prohibit an in-repo heartbeat workflow before that gate clears |
 | 29 | Frontmatter `last_updated` contradicts the body's later dated correction (betty-rerun) | **Apply** |
 | 30 | The node's owner gate expires 2026-08-06, mid-review (assumptions) | **Apply**: renew the expiry to survive the review cycle; the decision itself stays owner-held |
 
@@ -124,7 +124,7 @@ finding has exactly one recorded decision. Applying it is mechanical.
 
 | # | Finding (source) | Disposition |
 | --- | --- | --- |
-| 31 | `environment-variables.md` prescribes a redeploy the guard cancels (docs-adr) | **Overtaken by events**: the redeploy arm shipped in #751; after rebase the instruction is true. Add the cross-reference to the rolled-back-state section #769 introduces |
+| 31 | `environment-variables.md` prescribes a redeploy the guard cancels (docs-adr) | **Overtaken by events**: the redeploy arm shipped in #751, so the instruction is true after the main merge; link the governing ADR-163 §10 contract directly. Do not depend on #769's out-of-scope runbook section |
 | 32 | New procedure lacks a cross-reference to the existing local pre-deploy validation path (barney) | **Apply**: one line |
 | 33 | Step 1 invites passing a live secret as a shell argument (security) | **Apply**: stdin-or-gitignored-file sentence |
 | 34 | The operations index bullet repeats the premise the PR corrects (security) | **Apply**: reword |
@@ -138,7 +138,7 @@ finding has exactly one recorded decision. Applying it is mechanical.
 | # | Finding (source) | Disposition |
 | --- | --- | --- |
 | 39 | Key-realm validation must be allowlist-shaped: a denylist of `pk_test_`/`sk_test_` prefixes fails open — legacy `test_…` development keys and malformed/truncated values pass in production (second-opinion review on PR #757, 2026-08-05) | **Apply**: row 8's amendment specifies allowlist semantics — the production gate passes only keys the `@clerk/shared` live-realm predicates positively recognise, and refuses everything else. The corpus prescribes the contract shape ("positively recognised live-realm key"), never a prefix list of its own |
-| 40 | The app README's Vercel section still documents `DANGEROUSLY_DISABLE_AUTH=true` as a valid optional configuration (with Clerk keys "unnecessary"), while the guard series makes exactly that a hard startup failure in preview and production (second-opinion review on PR #759, 2026-08-05) | **Check-then-apply**: if the guard-series lane has not already trued the README passage when this plan executes, amend it in the corpus's ops-docs pass so the operator contract matches the guards; if it has, record the cross-reference instead — never a duplicate edit against an in-flight sibling lane |
+| 40 | The app README's Vercel section still documents `DANGEROUSLY_DISABLE_AUTH=true` as a valid optional configuration (with Clerk keys "unnecessary"), while the guard series makes exactly that a hard startup failure in preview and production (second-opinion review on PR #759, 2026-08-05) | **Overtaken by main**: the app README now names the flag as a local-development valve and states that every deployed environment rejects it; no duplicate edit belongs in this PR |
 
 ## Acceptance criteria
 
@@ -178,11 +178,11 @@ finding has exactly one recorded decision. Applying it is mechanical.
 
 ## Todos
 
-- [ ] T1: merge `main` into the branch; re-true `release-redeploy-recovery`
+- [x] T1: merge `main` into the branch; re-true `release-redeploy-recovery`
       and the two operations docs (rows 14–19, 31–35); land the ADR-163
       §10 truing (Mechanism 4); run the row-40 README check.
-- [ ] T2: amend `deploy-config-fails-the-build` (rows 1–9, 39).
-- [ ] T3: amend `boot-failure-observability` and
+- [x] T2: amend `deploy-config-fails-the-build` (rows 1–9, 39).
+- [x] T3: amend `boot-failure-observability` and
       `production-liveness-detection` (rows 20–30, including the row-28
       check).
 - [ ] T4: post the adjudication reply (rows 10–13, 36), re-request

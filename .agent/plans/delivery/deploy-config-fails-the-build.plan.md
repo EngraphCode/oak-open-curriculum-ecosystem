@@ -53,10 +53,12 @@ record on MCP-475.
      barrel — and runs with build-only credentials filtered out of its
      process environment, so the gate process's reachable-secret set is
      the validated set and nothing more.
-   - **Explicit environment, no file layer.** The gate reads an
-     explicitly passed `processEnv` with no `.env`-file layer, because
-     production resolution has no file layer either; a rehearsal that
-     read files would validate an environment production never sees.
+   - **Explicit deployment environment.** The live runtime composition
+     supports `.env` and `.env.local` for local operation. The deploy gate
+     uses a process-environment-only seam shared with `loadRuntimeConfig`,
+     with an explicitly passed `processEnv`, so it models Vercel's
+     deployment condition without allowing local file precedence to
+     change the rehearsal.
    - **Output discipline.** The gate consumes live key material, so
      what it may print is constrained by acceptance criterion 5: guard
      names and failure classes only, never values.
@@ -91,12 +93,16 @@ record on MCP-475.
 3. **Post-deploy `preview-serves` status.** The `deployment_status`
    workflow shipped in PR #743: it probes the running deployment
    (`/healthz` and the OAuth metadata endpoint, bounded retries for
-   cold start) and publishes a commit status, gated on the deployment
-   creator being `vercel[bot]`. What remains for this node is making
-   that status **required**, which is a trust-boundary move with named
-   preconditions — see acceptance criterion 4. The check catches the
-   runtime-only classes build-time validation cannot see: routing,
-   platform composition, cold start.
+   cold start) and publishes a commit status when the deployment creator
+   is `vercel[bot]`. That creator check authenticates the deployment
+   event, not the publisher logic: the workflow runs from the deployment
+   commit, so a pull request can rewrite its own publisher and forge a
+   green status. The status therefore stays advisory until publication
+   moves behind a default-branch workflow or dedicated GitHub App trust
+   boundary that a pull request cannot modify. Only then may this node
+   make the status **required**. The check catches the runtime-only
+   classes build-time validation cannot see: routing, platform
+   composition, cold start.
 
 Build-time and post-deploy are complementary, not redundant: the first
 prevents the bad deployment existing, the second catches what is only
@@ -131,12 +137,13 @@ observable once it runs.
    both amended in the delivery PR; **owner-held** — a per-name read of
    the rulesets API listing `preview-serves` among the required checks;
    verifier the lane agent, evidence recorded on MCP-475.
-   **Precondition (trust boundary):** the required status must be
-   publishable only by the trusted publisher — the base-repo
-   `deployment_status` workflow gated on the `vercel[bot]` deployment
-   creator — so a pull request cannot forge the green it needs to
-   merge. The ruleset change lands only after that precondition is
-   verified against the live workflow.
+   **Precondition (trust boundary):** the current branch-controlled
+   workflow is not a trusted publisher, and the `vercel[bot]` creator
+   check does not cure that defect. Publication must first move behind
+   a default-branch workflow or dedicated GitHub App boundary whose code
+   the pull request cannot rewrite. The ruleset change lands only after
+   a fault-injection pull request proves that changing its own probe or
+   publisher code cannot mint the green status it needs to merge.
 5. Gate output contains no secret bytes — proof: **repo-safe**, a unit
    test feeding the gate live-shaped key material and asserting the
    captured output (stdout and stderr) never contains the input's byte

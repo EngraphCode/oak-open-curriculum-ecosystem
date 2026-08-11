@@ -55,12 +55,13 @@ the old claim should be re-derived.)_
 
 3. **Redeploy, then check liveness.** Per the contract above a change
    reaches nothing until you redeploy, and a deployment that boots on a
-   bad value never self-heals. After any change, redeploy and confirm the
-   affected origins answer — `/healthz`, plus an authenticated-surface
-   probe sending `Accept: application/json, text/event-stream` (without
-   that header the transport returns 406 before auth is reached, so the
-   probe passes whether or not auth is healthy). This step is what makes
-   an environment change complete.
+   bad value never self-heals. After any change, confirm `/healthz`
+   returns 200, then send an unauthenticated `POST /mcp` with
+   `Accept: application/json, text/event-stream`. It must return 401 with
+   the app's correct protected-resource-metadata `WWW-Authenticate`
+   challenge. A 200, 406, missing challenge, or challenge naming the
+   wrong protected-resource metadata URL is a failed verification. This
+   step is what makes an environment change complete.
 4. **If a deployed surface fails, read the runtime logs before forming
    any theory.** The application's fail-fast messages name the failing
    key and where to correct it. Both 2026-08-03 incidents cost hours to
@@ -69,11 +70,12 @@ the old claim should be re-derived.)_
 Recovery note: a production redeploy is the cure for a poisoned
 deployment — the build guard admits a rebuild of the commit already in
 production (ADR-163 §10, fourth amendment). See the production build
-guard's own documentation for which commits may build. The rolled-back
-state (after a Vercel Instant Rollback) behaves differently: a rollback
-runs no build and suspends production domain auto-assignment until an
-explicit Undo Rollback or promotion — see the vendor-sourced notes in
-[ADR-163 §10](../architecture/architectural-decisions/163-sentry-release-identifier-and-vercel-production-attribution.md).
+guard's [ADR-163 §10 contract](../architecture/architectural-decisions/163-sentry-release-identifier-and-vercel-production-attribution.md#10-production-builds-require-a-semantic-release-commit)
+for which commits may build. The rolled-back state (after a Vercel
+Instant Rollback) behaves differently: a rollback runs no build and
+suspends production domain auto-assignment until an explicit Undo
+Rollback or promotion; the same ADR section records the vendor-sourced
+boundary.
 
 ## Credential Policy
 

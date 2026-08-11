@@ -16,6 +16,9 @@ owner_gates:
   - awaiting: owner-decision
     clears_when: 'The owner names the alert destination that reliably interrupts.'
     expires: 2026-08-31
+  - awaiting: owner-decision
+    clears_when: 'The owner ratifies the ADR-162 amendment that brings this one heartbeat job into the repository.'
+    expires: 2026-08-31
 last_updated: 2026-08-09
 ---
 
@@ -109,13 +112,16 @@ by PR #743): monitoring is operated outside this repository, and the
 repo's obligation ends at exposing a healthy `/healthz`. Criterion 5's
 version-controlled heartbeat workflow reverses that direction for this
 one job, so delivering it includes amending ADR-162's record — the
-amendment is part of this node's delivery, not a follow-up, the same
-pattern the recovery node used for ADR-163 §10.
+amendment is part of this node's delivery, not a follow-up, and the
+second owner gate above must clear before any in-repository heartbeat
+workflow lands. This follows the same pattern the recovery node used for
+ADR-163 §10.
 
-Both mechanisms detect and neither diagnoses; the alert must carry the
-failure text that
+Both mechanisms detect and neither diagnoses. Once
 [`boot-failure-observability`](boot-failure-observability.plan.md)
-produces.
+lands, the full alert shape carries its failure text. The detection-only
+minimum remains independently shippable and identifies the failing probe
+without claiming a diagnosis.
 
 ## Acceptance criteria
 
@@ -124,12 +130,14 @@ produces.
    deliberately failing deployment with the alert observed at its
    destination; verifier the owner, evidence on MCP-481.
 2. Loss of the authenticated surface raises an alert even when the
-   process answers — proof: **owner-held**, the `POST /mcp` → 401
-   probe failing while `/healthz` still returns 200; **verifier the
-   owner**, evidence on MCP-481. The probe must send
-   `Accept: application/json, text/event-stream`; without it the
-   transport returns 406 before reaching the auth layer, so the check
-   would pass identically whether auth is healthy or broken.
+   process answers — proof: **owner-held**, an unauthenticated
+   `POST /mcp` probe must return 401 **and** the app's correct
+   protected-resource-metadata `WWW-Authenticate` challenge while
+   `/healthz` still returns 200; **verifier the owner**, evidence on
+   MCP-481. The probe sends
+   `Accept: application/json, text/event-stream`; 200, 406, a missing
+   challenge, or a challenge naming the wrong protected-resource
+   metadata URL are all failures.
 3. A missed heartbeat raises an alert independently — proof:
    **owner-held**, the scheduled check-in deliberately withheld and the
    missed-check-in alert observed; **verifier the owner**, evidence on
@@ -173,6 +181,9 @@ produces.
   is a different mechanism on a different trigger.
 - **Choosing the alert destination.** That is the owner's gate, not a
   todo of this node.
+- **Landing the heartbeat before the decision record is ratified.** The
+  ADR-162 amendment is owner-held; until its owner gate clears, the
+  repository carries no heartbeat workflow.
 
 ## Relationship to the sibling nodes
 
