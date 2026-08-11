@@ -421,9 +421,6 @@
         "$TURBO_ROOT$/research/web-app-deconstruction/**/*.json",
         "$TURBO_ROOT$/research/web-app-deconstruction/**/*.yaml",
         "$TURBO_ROOT$/research/web-app-deconstruction/**/*.yml",
-        "$TURBO_ROOT$/research/web-app-deconstruction/**/*.js",
-        "$TURBO_ROOT$/research/web-app-deconstruction/**/*.cjs",
-        "$TURBO_ROOT$/research/web-app-deconstruction/**/*.mjs",
         "$TURBO_ROOT$/research/web-app-deconstruction/**/*.ts",
         "$TURBO_ROOT$/research/web-app-deconstruction/**/*.tsx",
         "!$TURBO_ROOT$/research/web-app-deconstruction/**/node_modules/**"

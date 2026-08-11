@@ -26,7 +26,7 @@ import { selectsHtmlLeg } from './mcp-middleware.js';
  *
  * @remarks
  * Taken from the pinned vendor source, not inferred:
- * `HandshakeService.isRequestEligibleForHandshake` in `@clerk/backend@3.13.1`
+ * `HandshakeService.isRequestEligibleForHandshake` in `@clerk/backend@3.16.1`
  * forces the redirect handshake for a GET when `Sec-Fetch-Dest` is `document`
  * or `iframe`, or — with that header absent — when `Accept` starts with
  * `text/html`. Re-read this list against the vendor on a version bump: it is

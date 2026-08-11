@@ -1,3 +1,39 @@
+# [1.161.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.160.0...v1.161.0) (2026-08-11)
+
+
+### Bug Fixes
+
+* **skills:** adopt the copilot round — six cures to update-dependencies ([ddc1822](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ddc1822829b6fc72e04d0c21d70525a3265b3554))
+
+
+### Features
+
+* **skills:** stacked-PR waves join the update-dependencies verification tail ([43a428c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/43a428cada5f6a77c2222b315c95ebcaa5502909))
+* **skills:** update-dependencies — the summonable routing for dep updates ([63482f9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/63482f961205821c5aa0966d2e0b0a610ea888a2))
+
+# [1.160.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.4...v1.160.0) (2026-08-11)
+
+
+### Bug Fixes
+
+* **deps:** adopt the 855 review rounds — qualified undici floors, bounded esbuild, exact plugin pin ([2671dc2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2671dc2e9b04c02e5e571638a69185ac74e8abdc))
+* **deps:** undici >=6.27 <7 under provider-utils — three highs on the wave's mcpjam chain ([73f9c43](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/73f9c4335a863299c0942e60fde483127ffa026a))
+
+
+### Features
+
+* **posthog-node:** take @posthog/mcp 0.11.4 with the closed-adapter invariant pinned ([729ecea](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/729ecea89e439cf11c2a1803954d333ba7292058)), closes [hi#level](https://github.com/hi/issues/level)
+
+## [1.159.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.3...v1.159.4) (2026-08-11)
+
+
+### Bug Fixes
+
+* **turbo:** cure round-1 findings — directory literals walk, embedded double-star refuses ([240cb74](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/240cb747bf31e5958eea3acfa4412c477c976a49))
+* **turbo:** delete the three dead research glob inputs and pin the validator matcher ([653d170](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/653d170eceae1e9c6e647896dcd7fa88afd3a856))
+* **turbo:** refuse a repeated TURBO_ROOT macro instead of misreading it as dead ([c5403c8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c5403c8e1fe747efb67fddf8c5aaa79d85a82056))
+* **turbo:** the repository root and trailing-slash directories classify alive ([bca591f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bca591fb5b404d3437746d6ca7cf80dde0a8df15))
+
 ## [1.159.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.2...v1.159.3) (2026-08-11)
 
 ## [1.159.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.1...v1.159.2) (2026-08-11)

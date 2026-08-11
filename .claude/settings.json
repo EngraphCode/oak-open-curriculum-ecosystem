@@ -134,6 +134,8 @@
       "Skill(oak-proportionality:*)",
       "Skill(oak-ticket-management)",
       "Skill(oak-ticket-management:*)",
+      "Skill(oak-update-dependencies)",
+      "Skill(oak-update-dependencies:*)",
       "Skill(oak-update-upstream-api-spec)",
       "Skill(oak-update-upstream-api-spec:*)",
       "Skill(oak-update-bulk-download-schema)",
