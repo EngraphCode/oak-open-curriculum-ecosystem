@@ -73,9 +73,9 @@ Current Continuation below.
      matches `to.path`).
   7. RIDER CUT: canary path re-points are their own two-file PR after
      the archival reaches main (live surfaces only: stryker.config.mjs
-     + survivor-dispositions.md; frozen snapshots stay).
+     and survivor-dispositions.md; frozen snapshots stay).
   8. `lib-boundary.unit.test.ts`: also delete `getRestrictedImportPaths`
-     + the `getMatchingPatternGroups` import; `sdk-boundary.unit.test.ts`
+     and the `getMatchingPatternGroups` import; `sdk-boundary.unit.test.ts`
      gains the `'contracts'` describe block; line 284 re-points to a
      surviving lib.
   9. Keep `createLibConfig` tsup shape (name the deliberate exception
