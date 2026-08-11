@@ -89,7 +89,13 @@ overrides:
   # by booting the mcpjam instrument on the new resolution (MCP-381
   # prior art: a forced version in this chain broke that boot). Remove
   # when the @ai-sdk provider fleet reaches provider-utils >=5.
-  '@ai-sdk/provider-utils>undici': '>=6.27.0 <7'
+  # Parent-qualified per consumed line (provider-utils 3.x and 4.x both
+  # declare undici ^5.29.0): an unqualified parent selector would bind
+  # EVERY provider-utils generation — including a future v5, whose
+  # patched undici ^7.28.0 the <7 bound would force DOWN to 6.x
+  # mid-transition. Qualified floors leave a v5 arrival untouched.
+  '@ai-sdk/provider-utils@3>undici': '>=6.27.0 <7'
+  '@ai-sdk/provider-utils@4>undici': '>=6.27.0 <7'
   # Pin @types/node to the Node 24 LTS line across the whole tree, including
   # transitive peers (vite/vitest pull @types/node@26 as an optional peer).
   # Matches engines.node 24.x and keeps every workspace — including those that
@@ -112,7 +118,12 @@ overrides:
   csstype: '>=3.2.3'
   # Floor kept aligned with the manifests' esbuild ranges (^0.28.2 as of
   # 2026-08-11, per lockfile-rebuild-survivability §override-alignment).
-  esbuild: '>=0.28.2'
+  # Bounded to the 0.28 line: esbuild is 0.x (minors are breaking lines)
+  # and the override REWRITES the direct dependents' recorded ranges, so
+  # an open floor would discard the manifests' caret bound and admit
+  # 0.29/1.x on rebuild unreviewed. Move floor and bound together with
+  # the manifests at the next esbuild raise.
+  esbuild: '>=0.28.2 <0.29'
   # Security floor: host confusion via a literal backslash in fast-uri's URI
   # parser (high; patched in 3.1.4); a second host-confusion advisory via a
   # backslash authority introducer patched in 3.1.5 (raised 2026-08-11,
