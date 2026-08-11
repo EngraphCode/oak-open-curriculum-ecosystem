@@ -1,9 +1,11 @@
 /**
  * The theme/motion controls contract (kit consuming-nextjs.md §4): with the
- * oak-theme runtime present the switcher offers every theme it exposes — all
- * five, because the access themes are not optional extras — through labelled
- * selects that write through to the runtime; without a runtime (the server
- * snapshot) it renders nothing, keeping server HTML theme-neutral.
+ * oak-theme runtime present the switcher offers Identity default (the
+ * no-choice state, DDR-003 dated amendment 2026-08-11) plus every theme
+ * the runtime exposes — the access themes are not optional extras —
+ * through labelled selects that write through to the runtime; without a
+ * runtime (the server snapshot) it renders nothing, keeping server HTML
+ * theme-neutral.
  *
  * The runtime is a simple fake injected through the store factory
  * (no-global-state-in-tests / ADR-078) — nothing here touches `window`.
@@ -12,7 +14,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
 
-import { createOakThemeStore } from '@oaknational/oak-design-react';
+import { createOakThemeStore, IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
 import type { OakMotionMode, OakThemeName, OakThemeRuntime } from '@oaknational/oak-design-react';
 
 import ThemeSwitcher from './ThemeSwitcher';
@@ -31,28 +33,33 @@ const MODES: OakMotionMode[] = ['system', 'reduced', 'full'];
 function fakeRuntime(): {
   runtime: OakThemeRuntime;
   set: ReturnType<typeof vi.fn>;
+  clear: ReturnType<typeof vi.fn>;
   motionSet: ReturnType<typeof vi.fn>;
 } {
   // Mirrors the real runtime's contract: set() records the in-memory
-  // current choice, which choice() reports; with no set() there is no
-  // explicit choice and choice() is null while get() collapses to the
-  // system default (the applied model).
+  // current choice, which choice() reports; clear() removes it (the
+  // no-choice state the store names Identity default); with no choice
+  // get() collapses to the kit-base default.
   let current: OakThemeName | null = null;
   let motion: OakMotionMode = 'system';
   const set = vi.fn((t: OakThemeName) => {
     current = t;
   });
+  const clear = vi.fn(() => {
+    current = null;
+  });
   const motionSet = vi.fn((m: OakMotionMode) => {
     motion = m;
   });
   const runtime: OakThemeRuntime = {
-    get: () => current ?? 'system',
+    get: () => current ?? 'light',
     set,
+    clear,
     choice: () => current,
     themes: [...THEMES],
     motion: { get: () => motion, set: motionSet, modes: [...MODES] },
   };
-  return { runtime, set, motionSet };
+  return { runtime, set, clear, motionSet };
 }
 
 /** A store over the injected fake runtime — the ADR-078 seam. */
@@ -61,7 +68,7 @@ function storeWith(runtime: OakThemeRuntime | undefined) {
 }
 
 describe('ThemeSwitcher rendering contract', () => {
-  it('offers all five themes and all three motion modes through labelled selects', async () => {
+  it('offers Identity default first, then every runtime theme, and all three motion modes', async () => {
     const { runtime } = fakeRuntime();
     const store = storeWith(runtime);
     const { container } = render(<ThemeSwitcher store={store} />);
@@ -69,10 +76,11 @@ describe('ThemeSwitcher rendering contract', () => {
     const motionSelect = screen.getByLabelText('Motion');
     const themeValues = Array.from(themeSelect.querySelectorAll('option')).map((o) => o.value);
     const motionValues = Array.from(motionSelect.querySelectorAll('option')).map((o) => o.value);
-    // Five themes plus the non-choosable "Page default" placeholder ('') —
-    // the truthful rendering of the no-choice snapshot. Motion has no
-    // placeholder: 'system' is its concrete no-choice semantic.
-    expect(themeValues).toEqual([...THEMES]);
+    // A relation, not a count: the leading option is the no-choice default
+    // (DDR-003 dated amendment 2026-08-11) and the tail IS the runtime's
+    // own list. Motion needs no sentinel: 'system' is its no-choice
+    // semantic.
+    expect(themeValues).toEqual([IDENTITY_DEFAULT, ...runtime.themes]);
     expect(motionValues).toEqual(MODES);
     expect(await axe(container, axeOptions)).toHaveNoViolations();
   });
@@ -83,19 +91,23 @@ describe('ThemeSwitcher rendering contract', () => {
     expect(container.innerHTML).toBe('');
   });
 
-  it('reads the applied system default with no explicit choice', () => {
-    // The applied model (owner ruling 2026-08-10): with no explicit user
-    // choice the control truthfully reads what is applied — the system
-    // default — never a page-default sentinel and never a blank control
-    // (a controlled select with no matching option).
+  it('names the no-choice state Identity default, and a choice arc moves off and back to it', () => {
+    // DDR-003 dated amendment 2026-08-11: the identity's own default is
+    // the honest name of no-choice — a real selected option, never a
+    // blank control (a controlled select with no matching option). The
+    // arc proves the value tracks state rather than a hard-coded default.
     const { runtime } = fakeRuntime();
     const store = storeWith(runtime);
     render(<ThemeSwitcher store={store} />);
     const themeSelect = screen.getByLabelText<HTMLSelectElement>('Theme');
-    expect(themeSelect.value).toBe('system');
+    expect(themeSelect.value).toBe(IDENTITY_DEFAULT);
     expect(Array.from(themeSelect.querySelectorAll('option')).every((o) => o.value !== '')).toBe(
       true,
     );
+    fireEvent.change(themeSelect, { target: { value: 'dark' } });
+    expect(themeSelect.value).toBe('dark');
+    fireEvent.change(themeSelect, { target: { value: IDENTITY_DEFAULT } });
+    expect(themeSelect.value).toBe(IDENTITY_DEFAULT);
   });
 });
 
@@ -108,6 +120,17 @@ describe('ThemeSwitcher write-through contract', () => {
     fireEvent.change(themeSelect, { target: { value: 'high-contrast' } });
     expect(set).toHaveBeenCalledWith('high-contrast');
     expect(themeSelect.value).toBe('high-contrast');
+  });
+
+  it('routes an Identity default selection to the runtime clear, never to set', () => {
+    const { runtime, set, clear } = fakeRuntime();
+    const store = storeWith(runtime);
+    render(<ThemeSwitcher store={store} />);
+    const themeSelect = screen.getByLabelText<HTMLSelectElement>('Theme');
+    fireEvent.change(themeSelect, { target: { value: 'dark' } });
+    fireEvent.change(themeSelect, { target: { value: IDENTITY_DEFAULT } });
+    expect(clear).toHaveBeenCalledTimes(1);
+    expect(set).not.toHaveBeenCalledWith(IDENTITY_DEFAULT);
   });
 
   it('writes a motion choice through to the motion axis and reflects it', () => {

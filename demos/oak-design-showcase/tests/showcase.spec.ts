@@ -13,6 +13,7 @@
 import { expect, test } from '@playwright/test';
 import type { Page } from '@playwright/test';
 
+import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
 import {
   applyIdentity,
   applyTheme,
@@ -81,20 +82,23 @@ test.describe('theme switching', () => {
 });
 
 test.describe('theme no-choice state and motion axis', () => {
-  test('no-choice reads as the system default and an explicit Dark bites', async ({ page }) => {
+  test('no-choice reads Identity default under every identity, and an explicit choice bites', async ({
+    page,
+  }) => {
     const aborted = await openShowcase(page);
     const themeSelect = page.getByRole('combobox', { name: 'Theme' });
-    // The control displays the APPLIED model (owner ruling 2026-08-10):
-    // with nothing chosen it truthfully reads the system default — under
-    // every identity, since polarity belongs to the person, never the
-    // brand — and an explicit override changes the value, so the change
-    // event fires by construction.
-    await expect(themeSelect).toHaveValue('system');
+    // The control names the person's CHOICE (DDR-003 dated amendment
+    // 2026-08-11): with none made it reads Identity default — honestly,
+    // under every identity — and an explicit override is a real state
+    // change, so the change event fires by construction. Explicit Light
+    // on the dark-first arcade is the sharpest instance: the person
+    // beats the brand's polarity lever at the cascade.
+    await expect(themeSelect).toHaveValue(IDENTITY_DEFAULT);
     await applyIdentity(page, 'creature');
-    await expect(themeSelect).toHaveValue('system');
-    const systemBackground = await bodyBackground(page);
-    await applyTheme(page, 'dark');
-    expect(await bodyBackground(page)).not.toBe(systemBackground);
+    await expect(themeSelect).toHaveValue(IDENTITY_DEFAULT);
+    const arcadeDefaultBackground = await bodyBackground(page);
+    await applyTheme(page, 'light');
+    expect(await bodyBackground(page)).not.toBe(arcadeDefaultBackground);
     assertOnlyKnownExternalOrigins(aborted);
   });
 
@@ -103,11 +107,11 @@ test.describe('theme no-choice state and motion axis', () => {
     const aborted = await openShowcase(page);
     // The runtime's auto path applies high-contrast pre-paint…
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'high-contrast');
-    // …and the control reads exactly what is applied: the applied model
-    // shows 'High contrast', truthfully — re-selecting it is a no-op on a
-    // state that already holds, and every other choice changes the value
-    // and fires (owner ruling 2026-08-10: display the applied theme).
-    await expect(page.getByRole('combobox', { name: 'Theme' })).toHaveValue('high-contrast');
+    // …while the control keeps naming the person's choice — none — as
+    // Identity default (DDR-003 dated amendment 2026-08-11): the access
+    // route themes the page without claiming a choice, and selecting
+    // High contrast explicitly is then a real state change that fires.
+    await expect(page.getByRole('combobox', { name: 'Theme' })).toHaveValue(IDENTITY_DEFAULT);
     assertOnlyKnownExternalOrigins(aborted);
   });
 
@@ -137,22 +141,24 @@ test.describe('identity switching', () => {
     assertOnlyKnownExternalOrigins(aborted);
   });
 
-  test('the counter-brand follows the device scheme with no theme chosen', async ({ page }) => {
-    // Polarity belongs to the person, never the brand (owner ruling
-    // 2026-08-10): with no explicit choice the arcade renders its dark
-    // arms under a dark device and its light arms under a light one —
-    // proven against the same page's EXPLICIT dark and light renders.
-    await page.emulateMedia({ colorScheme: 'dark' });
+  test('the counter-brand defaults to its own dark face, and an explicit choice still wins', async ({
+    page,
+  }) => {
+    // The identity speaks first when the person is silent (DDR-003 dated
+    // amendment 2026-08-11): with no choice the arcade shows its DARK
+    // native face — the restored polarity lever — even on a light-scheme
+    // device (Playwright's default). Proven in rendered pixels against
+    // the same page's explicit renders: the default face matches the
+    // explicit Dark render, and explicit Light beats the lever.
     const aborted = await openShowcase(page);
     await applyIdentity(page, 'creature');
-    await expect(page.locator('html')).not.toHaveAttribute('data-theme');
-    const darkDeviceBackground = await bodyBackground(page);
+    const defaultFaceBackground = await bodyBackground(page);
     await applyTheme(page, 'dark');
     const explicitDarkBackground = await bodyBackground(page);
     await applyTheme(page, 'light');
     const explicitLightBackground = await bodyBackground(page);
-    expect(darkDeviceBackground).toBe(explicitDarkBackground);
-    expect(darkDeviceBackground).not.toBe(explicitLightBackground);
+    expect(defaultFaceBackground).toBe(explicitDarkBackground);
+    expect(defaultFaceBackground).not.toBe(explicitLightBackground);
     assertOnlyKnownExternalOrigins(aborted);
   });
 });

@@ -62,6 +62,23 @@ test.describe('specimen: identity × theme matrix', () => {
   }
 });
 
+test.describe('specimen: identity-default face', () => {
+  for (const identity of IDENTITIES) {
+    test(`specimen ${identity} × identity-default has no WCAG 2.2 AA violations @a11y`, async ({
+      page,
+    }) => {
+      // The first-visit state: NO data-theme attribute, each identity's
+      // own default face (DDR-003 dated amendment 2026-08-11) — light for
+      // the base, dark for a lever-flipped brand. This is the state every
+      // visitor sees before any choice, so it gets its own axe cell per
+      // identity rather than riding the explicit-theme matrix above.
+      const aborted = await openSpecimen(page, identity);
+      await expectNoAxeViolations(page);
+      assertOnlyKnownExternalOrigins(aborted);
+    });
+  }
+});
+
 test.describe('specimen: forced-colors', () => {
   for (const identity of IDENTITIES) {
     test(`specimen ${identity} stays renderable under forced-colors @a11y`, async ({ page }) => {

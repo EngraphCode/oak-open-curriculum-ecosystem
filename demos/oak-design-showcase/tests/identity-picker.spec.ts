@@ -15,6 +15,7 @@
 import { expect, test } from '@playwright/test';
 import type { Frame, Locator, Page } from '@playwright/test';
 
+import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
 import { SWITCHBOARD_CANVAS_WIDTH } from '../components/canonical-widths';
 import { BASE_IDENTITY, IDENTITIES, type IdentitySlug } from '../components/useIdentity';
 import { MEASUREMENT_WIDTH_VALUES } from '../tools/measurement-widths';
@@ -120,11 +121,12 @@ async function chooseWidthAndExpectInEffect(
     .toBe(width);
 }
 
-/** The controls open on the ruled defaults: the system theme (people, not
- *  pages, own the colour scheme) and the export switchboard's own framed
- *  canvas, so the two demos read identically side by side. */
+/** The controls open on the ruled defaults: Identity default (DDR-003
+ *  dated amendment 2026-08-11 — the frame shows each identity's own
+ *  first-visit face) and the export switchboard's own framed canvas, so
+ *  the two demos read identically side by side. */
 async function expectRuledDefaults(page: Page): Promise<void> {
-  await expect(page.getByRole('combobox', { name: 'Theme' })).toHaveValue('system');
+  await expect(page.getByRole('combobox', { name: 'Theme' })).toHaveValue(IDENTITY_DEFAULT);
   await expect(page.getByRole('combobox', { name: 'Width' })).toHaveValue(
     `${SWITCHBOARD_CANVAS_WIDTH}`,
   );
@@ -173,6 +175,41 @@ test.describe('picker: every control is an in-place change', () => {
       return;
     }
     await chooseWidthAndExpectInEffect(page, frame, narrowest);
+
+    await expectSameDocument(frame, stage, mountSrc);
+    assertOnlyKnownExternalOrigins(aborted);
+  });
+});
+
+test.describe('picker: identity default is the frame’s own face', () => {
+  test('the frame opens on its own face, and choosing Identity default returns there', async ({
+    page,
+  }) => {
+    const opened = await openPickerStage(page);
+    if (opened === null) {
+      return;
+    }
+    const { aborted, stage, frame, mountSrc } = opened;
+
+    // The base identity's first-visit face: no data-theme on the framed
+    // root, computed color-scheme 'light' (the kit root's own polarity —
+    // DDR-003 dated amendment 2026-08-11).
+    await expect
+      .poll(async () =>
+        frame.evaluate(() => getComputedStyle(document.documentElement).colorScheme),
+      )
+      .toBe('light');
+
+    await chooseThemeAndExpectInEffect(page, frame, 'dark');
+
+    // Choosing Identity default clears the frame's theme state in place:
+    // the same document returns to its own face.
+    await page.getByRole('combobox', { name: 'Theme' }).selectOption(IDENTITY_DEFAULT);
+    await expect
+      .poll(async () =>
+        frame.evaluate(() => getComputedStyle(document.documentElement).colorScheme),
+      )
+      .toBe('light');
 
     await expectSameDocument(frame, stage, mountSrc);
     assertOnlyKnownExternalOrigins(aborted);

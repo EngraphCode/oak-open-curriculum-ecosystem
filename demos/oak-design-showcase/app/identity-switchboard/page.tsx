@@ -26,11 +26,10 @@
  * frozen at the mount-time identity and would send a viewer somewhere other
  * than what they are looking at.
  */
-import { typeSafeKeys } from '@oaknational/type-helpers';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 
-import type { OakThemeName } from '@oaknational/oak-design-react';
+import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
 import { LabelledSelect } from '../../components/LabelledSelect';
 import { IDENTITY_LABELS, THEME_LABELS } from '../../components/Switchboard';
 import { useIdentity } from '../../components/brand-identity-binding';
@@ -41,48 +40,13 @@ import {
 } from '../../components/canonical-widths';
 import { useScaledViewport } from '../../components/useScaledViewport';
 import { BASE_IDENTITY, type IdentitySlug } from '../../components/useIdentity';
+import { THEME_OPTIONS, useFrameTheme } from './useFrameTheme';
 
 import './picker.css';
 
 /** The frame always mounts at the base identity, so the first thing a viewer
  *  sees is the unbranded kit and every brand is arrived at by transition. */
 const FRAME_SRC = `/identity-switchboard/specimen?brand=${BASE_IDENTITY}`;
-
-const THEME_OPTIONS: readonly OakThemeName[] = typeSafeKeys(THEME_LABELS);
-
-function isThemeName(value: string): value is OakThemeName {
-  const names: readonly string[] = THEME_OPTIONS;
-  return names.includes(value);
-}
-
-/** Theme INSIDE the frame: the kit's cascade keys on the root `data-theme`
- *  attribute, so applying a theme is an attribute write on the framed
- *  document — presentation as data, same no-reload story as identity.
- *  System is the default (owner ruling 2026-08-10): the control opens on
- *  it, and applying it explicitly matches the specimen's own no-attribute
- *  state now that polarity belongs to the person, never the page. */
-function useFrameTheme(resolveTarget: () => Document | null): {
-  readonly theme: OakThemeName;
-  readonly setTheme: (value: string) => void;
-} {
-  const [theme, setThemeState] = useState<OakThemeName>('system');
-
-  useEffect(() => {
-    const root = resolveTarget()?.documentElement;
-    if (root === null || root === undefined) {
-      return;
-    }
-    root.dataset['theme'] = theme;
-  }, [theme, resolveTarget]);
-
-  const setTheme = useCallback((value: string): void => {
-    if (isThemeName(value)) {
-      setThemeState(value);
-    }
-  }, []);
-
-  return { theme, setTheme };
-}
 
 function PickerControls({
   identity,
@@ -96,7 +60,7 @@ function PickerControls({
   readonly identity: IdentitySlug;
   readonly identities: readonly IdentitySlug[];
   readonly setIdentity: (value: string) => void;
-  readonly theme: OakThemeName;
+  readonly theme: OakThemeSnapshot;
   readonly setTheme: (value: string) => void;
   readonly width: number;
   readonly setWidth: (value: string) => void;

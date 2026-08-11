@@ -4,8 +4,23 @@
    DIAGONAL gradients, ANGLED shadows, bevels and gloss — three-dimensional,
    decorated, nocturnal. All garnish: audited text pairings stay flat. */
 @import url('brand-a.css');
+/* Identity-default face: with NO explicit theme the arcade is DARK (the
+   polarity lever below), so the kit's icon filters — keyed to explicit
+   [data-theme] arms only — get their no-attribute re-point here. Scoped
+   :root:not([data-theme]) so every explicit choice (light included) falls
+   back to the kit's own arms. */
+:root:not([data-theme]) {
+  --filter-icon: invert(1); /* @kind other */
+  --filter-icon-inverted: none; /* @kind other */
+  --filter-icon-on-btn-primary: none; /* @kind other */
+}
 :root {
-  /* Polarity is the PERSON'S, never the brand's (owner ruling 2026-08-10: pages do not have a preferred colour scheme, people do) — the arcade's dark face serves dark-scheme devices and the explicit Dark choice; the light arms serve the rest. */
+  /* dark-first: the bedtime arcade is the native face — the identity
+     default, first-class design intent (DDR-003 dated amendment
+     2026-08-11: the person's choice wins, and the identity speaks first
+     when the person is silent). An explicit choice, light included, still
+     wins via the kit's :root[data-theme] specificity guards. */
+  color-scheme: dark;
   /* Display type — the fairground voice */
   --font-display: 'Baloo 2', var(--font-sans);
   --weight-display: 800;

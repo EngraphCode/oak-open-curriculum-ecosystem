@@ -10,7 +10,8 @@
    3. COMPONENT   --btn-* --input-* … (see components.css) —
       per-part decisions, composed from roles + scales. Shared by
       the CSS class library AND the compiled React components.
-   Themes: (default system — follows OS) · data-theme="light" · "dark"
+   Themes: (default: the identity's own polarity — no attribute)
+           · data-theme="system" (follow OS) · "light" · "dark"
            · "high-contrast" · "colour-safe" (colour-vision-deficiency)
    Apply data-theme to <html> or any subtree; oak-theme.js persists it.
    WCAG 2.2 AA throughout.
@@ -272,11 +273,15 @@
    white-label override surface (see brand.css). Themes and re-brands
    override ONLY canonical roles, never the aliases in 2b. */
 :root {
-  /* Default: SYSTEM. Pages do not have a preferred colour scheme, people
-     do (owner ruling 2026-08-10) — with no data-theme the page follows the
-     OS via light-dark(). Explicit data-theme choices switch below; a brand
-     may re-polarise its own default via brand.css (the polarity lever). */
-  color-scheme: light dark;
+  /* Default: the IDENTITY's own polarity (DDR-003 dated amendment
+     2026-08-11 — the person's choice wins, and the identity speaks first
+     when the person is silent). With no data-theme the page shows its
+     identity default: light here for the base kit, and a brand may
+     re-polarise via brand.css (the polarity lever). Every explicit choice
+     below carries a :root[data-theme] guard so the person always beats
+     the lever — data-theme="system" is a PERSON's choice to follow the
+     OS, never the page's own state. */
+  color-scheme: light;
 
   --text-primary: light-dark(var(--oak-black), var(--oak-white));
   --text-subdued: light-dark(var(--oak-grey60), var(--oak-grey30));

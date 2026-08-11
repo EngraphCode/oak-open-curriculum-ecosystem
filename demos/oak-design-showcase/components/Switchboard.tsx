@@ -29,17 +29,19 @@ import { typeSafeKeys } from '@oaknational/type-helpers';
 import { useSyncExternalStore } from 'react';
 import type { ReactElement } from 'react';
 
-import { oakThemeStore } from '@oaknational/oak-design-react';
-import type { OakMotionMode, OakThemeName, OakThemeStore } from '@oaknational/oak-design-react';
+import { IDENTITY_DEFAULT, oakThemeStore } from '@oaknational/oak-design-react';
+import type { OakMotionMode, OakThemeSnapshot, OakThemeStore } from '@oaknational/oak-design-react';
 import { LabelledSelect } from './LabelledSelect';
 import { useIdentity } from './brand-identity-binding';
 import type { IdentitySlug } from './useIdentity';
 
 // Exported so the picker's frame-bound theme control names themes
 // identically to the home switchboard (same discipline as IDENTITY_LABELS).
-// System leads: it is the default (owner ruling 2026-08-10 — people, not
-// pages, own the colour scheme), and the four overrides follow.
-export const THEME_LABELS: Readonly<Record<OakThemeName, string>> = {
+// Identity default leads: it is the no-choice default (DDR-003 dated
+// amendment 2026-08-11 — the person's choice wins, and the identity
+// speaks first when the person is silent), and the five choices follow.
+export const THEME_LABELS: Readonly<Record<OakThemeSnapshot, string>> = {
+  [IDENTITY_DEFAULT]: 'Identity default',
   system: 'Match device',
   light: 'Light',
   dark: 'Dark',
@@ -98,7 +100,7 @@ function ThemeMotionControls({
 // 74px masthead drop in the 737-742px band with a single-option shell).
 // The closed label records are compile-time-complete, so geometry equality
 // is by construction, not coincidence.
-const THEME_OPTION_SHELL: readonly OakThemeName[] = typeSafeKeys(THEME_LABELS);
+const THEME_OPTION_SHELL: readonly OakThemeSnapshot[] = typeSafeKeys(THEME_LABELS);
 const MOTION_OPTION_SHELL: readonly OakMotionMode[] = typeSafeKeys(MOTION_LABELS);
 
 /** The pre-hydration shell: identical geometry (full option lists, see

@@ -86,5 +86,10 @@ Consequences for the model this DDR governs:
   two-level snapshot: PR #715 (same day; the
   [ADR-213](../../architecture/architectural-decisions/213-design-system-integration-and-component-architecture.md)
   §3 tier landing).
+- The 2026-08-11 identity-default amendment implemented on PR #846
+  (2026-08-11): kit `clear()` + `IDENTITY_DEFAULT` control value in the
+  react store, the restored creature polarity lever with its
+  `:root:not([data-theme])` icon-filter arms, and the re-trued cell
+  estate across the kit, store, showcase, and hub.
 - The conflation defect and its cure trace through PR #644; #715's
   landing superseded it, and the pointer trail is recorded on that PR.

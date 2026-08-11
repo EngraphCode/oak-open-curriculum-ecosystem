@@ -36,11 +36,12 @@ switchboard drives three axes:
   high-contrast / colour-safe) through the kit's `oak-theme.js` runtime,
   inlined pre-paint in `app/layout.tsx` so a stored choice applies before
   first paint. A theme choice persists (localStorage, the runtime's
-  contract). Until a choice is made the control reads "Page default" — the
-  state where a brand's own polarity governs (EMC² is dark-first). High
-  contrast also has an OS-level route with no control interaction — a
-  `prefers-contrast: more` request applies it without claiming a choice;
-  colour safe is control-only. With
+  contract). Until a choice is made the control reads "Identity default" —
+  the selectable no-choice state where the identity's own polarity governs
+  (EMC² is dark-first), and choosing it clears a stored choice (DDR-003
+  dated amendment 2026-08-11). High contrast also has an OS-level route
+  with no control interaction — a `prefers-contrast: more` request applies
+  it without claiming a choice; colour safe is control-only. With
   JavaScript disabled, reduced motion and forced colors still work at the
   CSS level, but the high-contrast and colour-safe themes have no route —
   they need the runtime.
