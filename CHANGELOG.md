@@ -1,3 +1,11 @@
+## [1.158.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.158.0...v1.158.1) (2026-08-11)
+
+
+### Bug Fixes
+
+* **type-helpers:** stryker runs the real vitest config; the silent fallback dies ([386bfa2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/386bfa28991575f6766fd4de54abca3e2926328c))
+* **type-helpers:** warning-free test selection; config-load probe banked ([aa69109](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aa69109b8b7b8783fda1bebd07607c22228f6ae5))
+
 # [1.158.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.157.3...v1.158.0) (2026-08-10)
 
 
