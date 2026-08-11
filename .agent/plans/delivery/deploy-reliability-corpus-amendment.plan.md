@@ -17,7 +17,7 @@ tickets:
   - MCP-481
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-05
+last_updated: 2026-08-09
 ---
 
 # Amend the deployment-reliability corpus

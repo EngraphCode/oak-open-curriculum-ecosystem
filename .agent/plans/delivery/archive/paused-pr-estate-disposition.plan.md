@@ -17,7 +17,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-08
+last_updated: 2026-08-09
 ---
 
 # Paused-PR estate disposition

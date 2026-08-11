@@ -25,7 +25,7 @@ owner_gates:
       after that ratification). The structure ruling itself cleared
       2026-08-08 — see §The ratified structure.
     expires: 2026-08-23
-last_updated: 2026-08-09
+last_updated: 2026-08-10
 ---
 
 # Skills-estate organisation

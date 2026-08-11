@@ -210,8 +210,9 @@ nothing to check says so), so silence is reserved for true absence and every
 invoked-but-silent instrument is a fault. The owner's alternative horn ("assign
 silence no meaning at all; every state must be positively emitted and silence is
 never read even as absence") converges on the same fault-detection and is his to
-prefer. This clause is Accepted, and the register's self-curing/needs-explaining
-field extended to record each instrument's outcome vocabulary, only on that word.
+prefer. This clause becomes Accepted — and the register's
+self-curing/needs-explaining field is extended to record each instrument's
+outcome vocabulary — only on that word.
 
 ### 6. Registration records reachability, at every binding grain
 

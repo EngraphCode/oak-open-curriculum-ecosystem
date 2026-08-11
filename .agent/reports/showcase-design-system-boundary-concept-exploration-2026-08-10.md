@@ -79,8 +79,10 @@ silently hand-rolling in the app.
 
 - **REFINED — SegmentedControl's home.** Entering, I held "it's CSS over native radios
   → an `.oak-segmented` class." The map confirms the class is genuinely missing AND
-  that native radios in a `role=radiogroup` fieldset get arrow-key roving from the
-  browser for free (no JS) while `:has(input:checked)` gives visual state in pure CSS.
+  that native radios sharing one `name` in a `role=radiogroup` fieldset get arrow-key
+  roving and mutual exclusion from the browser for free (no JS — the shared `name`,
+  not the role, is what creates the native group) while `:has(input:checked)` gives
+  visual state in pure CSS.
   So the sharper answer: the control needs **no React component at all** — the pattern
   is a trunk class; the app writes semantic markup + wires `onChange`. This is
   *stronger* than "add a component," and it avoids the armed ADR-147 gate.
@@ -123,7 +125,7 @@ presupposes the DS owns it.
 
 | Item | Verdict | Home |
 |---|---|---|
-| **`SegmentedControl`** (specified route-local React in PR-2, not yet built) | The control PATTERN is a **missing trunk class family** (`.oak-segment*`). Building it as route-local React is the rejected re-wrap AND the owner's flagged ad-hoc solution. | Add `.oak-segment*` to **`oak-design-system`** (contrast-audited, a small class-library addition the identity-switchboard demo *motivates* — the textbook "showcase surfaces a DS capability"). The route then writes `fieldset`/`legend`/`role=radiogroup` + real radios + the class, wiring `onChange` to `oakThemeStore`/`useIdentity` — sanctioned app composition. **No binding-tier component; the armed ADR-147 gate is not tripped.** |
+| **`SegmentedControl`** (specified route-local React in PR-2, not yet built) | The control PATTERN is a **missing trunk class family** (`.oak-segment*`). Building it as route-local React is the rejected re-wrap AND the owner's flagged ad-hoc solution. | Add `.oak-segment*` to **`oak-design-system`** (contrast-audited, a small class-library addition the identity-switchboard demo *motivates* — the textbook "showcase surfaces a DS capability"). The route then writes `fieldset`/`legend`/`role=radiogroup` + real radios with one shared `name` (the shared `name` — not the role — is what creates the native group behind mutual exclusion and arrow-key selection) + the class, wiring `onChange` to `oakThemeStore`/`useIdentity` — sanctioned app composition. **No binding-tier component; the armed ADR-147 gate is not tripped.** |
 | **The specimen composition** (ten regions, route-local) | **Sanctioned app composition** — kit classes + tokens over semantic markup, `validate-authored-css`-gated, fidelity-checked against the DS's own `studio-source/whitelabel/specimen.html`. Not a boundary violation; no change beyond the existing zero-ad-hoc-CSS enforcement. | App (`demos/oak-design-showcase`). |
 | **`useIdentity`** (client brand-swap) | **App-local** (demo-only per its docblock). As white-label demos multiply, consolidate to showcase-shared `lib/`, not route-local, not DS. | App — with fork 2 (§5) flagged. |
 | **`LabelledSelect` / `Switchboard`** | Transitional; the native-`<select>` control is superseded by the SegmentedControl route once the trunk class lands (the estate's ruled "never a native select"). The binder role consuming `oakThemeStore` is correct — that adapter already lives in the DS. | App (transitional). |

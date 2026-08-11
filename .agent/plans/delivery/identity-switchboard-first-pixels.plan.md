@@ -16,7 +16,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-09  # PR-1b hardening ledger + acceptance added
+last_updated: 2026-08-10  # governing steer + in-place re-skin supersession marker
 ---
 
 # Identity switchboard in the showcase — first-pixels pull-forward

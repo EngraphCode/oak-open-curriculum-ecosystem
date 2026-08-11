@@ -15,7 +15,7 @@ depends_on:
   - plan: mutation-testing-core-canary
     kind: blocking
 owner_gates: []
-last_updated: 2026-08-09
+last_updated: 2026-08-10
 ---
 
 # Workspace-config isolation
