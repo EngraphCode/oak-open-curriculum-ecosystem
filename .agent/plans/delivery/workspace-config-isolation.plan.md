@@ -448,8 +448,9 @@ generated-code package, against ADR-138's separation).
 One single-story PR: `git mv packages/libs/search-contracts
 packages/sdks/search-contracts` (package name unchanged);
 `pnpm-workspace.yaml` member line; `vitest.field-integrity.config.ts`
-re-point WITH proof the suite still executes twelve files (the
-include-list would otherwise drop a leg silently); the standards
+re-point WITH proof the suite still executes its eleven live include
+files (corrected 2026-08-11: the prior twelve-count carried one dead
+entry; the include-list would otherwise drop a leg silently); the standards
 package's boundary vocabulary — `boundary.ts` lib-package inventories,
 the search-contracts constants and the whole
 `searchContractsSdkException` branch deleted, `lib-boundary.unit.test.ts`
@@ -678,9 +679,10 @@ safe).
   ADR-041/ADR-138 amendment diffs present in the S2 PR. (Added
   2026-08-11.)
 - `search-contracts` resides under `packages/sdks/` and the
-  field-integrity suite still executes twelve files — `repo-safe`:
-  paths + the explicit file-count proof + full `pnpm check` green.
-  (Added 2026-08-11.)
+  field-integrity suite still executes its eleven live include files
+  (corrected 2026-08-11: the prior twelve-count carried one dead entry) —
+  `repo-safe`: paths + the explicit file-count proof + full `pnpm check`
+  green. (Added 2026-08-11.)
 - Every positive `$TURBO_ROOT$` glob input matches ≥1 tracked file
   under the pinned matcher — `repo-safe`: the widened validator leg
   green + its committed red-proof. (Added 2026-08-11.)

@@ -278,6 +278,8 @@ first-hand as of 2026-06-25.
 > `.agent/state/collaboration/handoffs/2026-08-11-smith-holds-temper-open-surface-zero-full-handoff.md`.
 > Two claims close at the terminal broadcast; no custody retained.
 
+Fold correction (2026-08-11 ~14:3xZ): #852 had already merged at 13:10:40Z (`52bfdfb4d`, owner-merged) before the 13:20Z record above was written — the drive remainder starts at #805. The pickup thread record entered the repository at this fold and is tracked continuity, not machine-local.
+
 ---
 
 > ### ▶ SITTING DIRECTOR: Plover lifts Troposphere (`b10c37`), seated 2026-08-07 16:01Z (Moment-2 `03e811f8`, succeeding Panther rides Midnight per its Moment-1 `8cb67079`, owner-named successor with full shadow period); claims `a2286c53` (director) + `dd3f640f` (gate-ledger, dormant) adopted in place, heartbeats bumped at adoption.

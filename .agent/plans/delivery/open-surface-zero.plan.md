@@ -93,7 +93,7 @@ turbo-edges PR) finish as make-safe; nothing new starts.**
 | #807 | 08-06 | mutation canary slice 1 | **EXECUTED 2026-08-09: MERGED `d502341e7`** (grant `4a1db233`; ratified canary plan complete, evidence on main). |
 | #818 | 08-07 | statusline logging (draft) | Custodial pair — standing route; Director-executable adjudication at slot, seat ask if code work surfaces. |
 | #819 | 08-07 | developer-experience home (draft) | Custodial pair, as #818. |
-| #852 | 08-11 | atomic CodeQL v4.37.6 bump, replacing #839 + #840 | **OWNER-DIRECTED COMPOSITE, 2026-08-11**: the originals split one config invariant and could not become green independently. Both were closed in favour of #852; combined head `68fd50402b` updates both CodeQL references together and removes incorrect deviation annotations. OPEN at terminal handoff; re-harvest all comments/checks at pickup, cure, then merge at full condition. |
+| #852 | 08-11 | atomic CodeQL v4.37.6 bump, replacing #839 + #840 | **OWNER-DIRECTED COMPOSITE, 2026-08-11**: the originals split one config invariant and could not become green independently. Both were closed in favour of #852; combined head `68fd50402b` updates both CodeQL references together and removes incorrect deviation annotations. OPEN at terminal handoff; **EXECUTED: MERGED 2026-08-11 13:10:40Z at SHA:52bfdfb4d** (owner-merged before the 13:20Z terminal record was written — fold correction 2026-08-11). |
 
 ### Open PRs — tracked, not ours to execute
 
@@ -176,8 +176,9 @@ get the ask, never a unilateral disposition.
 2. **Director-executable backlog, oldest first**: #745 and #746 are
    **EXECUTED 2026-08-11** (merge commits `236a8e3437` and
    `9dbf78328c`). Next is #805, then the custodial pair (#818/#819).
-   The owner-added CodeQL composite #852 proceeds from its exact live
-   state and merges as soon as every comment is addressed and CI is green.
+   The owner-added CodeQL composite #852 is **EXECUTED** (owner-merged
+   2026-08-11 13:10:40Z, `52bfdfb4d`) — fold correction: it merged
+   before the terminal record was written.
 3. **Orphan-branch sweep, oldest first** per the ledger's per-branch
    procedure (draft PRs opened as found-live; deletion asks batched
    into ONE owner card per sweep round, never one-per-branch).

@@ -163,7 +163,8 @@ stamp; the executing seat is the one the owner starts.
 - **Skill name and tree home** adjudicated at S4 open against the
   ratified skills structure (pointer, not spec).
 - **Owner surface**: the stamp card carries the MEMORY.md-rewrite
-  confirmation (see owner gate). Mid-session, one card ONLY if S2
+  confirmation (recorded in the frontmatter stamp: `ratified_where`
+  cites the owner card answer "Ratify, incl. MEMORY.md rewrite"). Mid-session, one card ONLY if S2
   proposes true deletion of owner-guidance substance not verified in
   any repo home; everything else proceeds under the stamp.
 

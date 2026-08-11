@@ -7,8 +7,9 @@ de-hatching arc. Born from the `mutation-testing-core-canary` lane (the
 Stryker sandbox's duplicate-config workaround exposed the violation class).
 Controlling plan:
 [`workspace-config-isolation.plan.md`](../../../plans/delivery/workspace-config-isolation.plan.md)
-(RATIFIED 2026-08-09, known-issues ledger inside). The canary plan remains
-ratified-live; its restore step is superseded by this plan's todo 3.
+(RATIFIED 2026-08-09, known-issues ledger inside). The canary plan is
+archived (completed 2026-08-11) and todo 3 is complete — see the
+Current Continuation below.
 
 ## Current Continuation (COLD PAUSE, owner-ordered 2026-08-11 ~09:1xZ — "Cold pause now, monitor later"; design fleet runs meanwhile)
 
@@ -19,7 +20,10 @@ ratified-live; its restore step is superseded by this plan's todo 3.
   later and runs longer than assumed (still SETTLING-QUIET-WINDOW ~30
   min after the round-3 review; three poller runs were cut short —
   two early SIGTERMs of ~1–3 polls remain unexplained but moot). At
-  resume the window will have elapsed: verify head unmoved, run
+  resume: the head has MOVED since settlement (observed `367cd6f6e` at
+  the 2026-08-11 fold vs settled `c5403c8e1`) — the settlement is void;
+  run a FRESH full harvest first (head, reviews incl. suppressed blocks,
+  threads, checks), re-settle, then
   `pnpm agent-tools merge-bot merge --pr 850 --expect
   copilot-pull-request-reviewer` (foreground), then Phase-8 harvest,
   MCP-542 → Done, prune worktree `.claude/worktrees/mcp-542-turbo-globs`,
@@ -77,7 +81,8 @@ ratified-live; its restore step is superseded by this plan's todo 3.
   search-contracts whole-package move (Director PROCEED + owner
   ratification; full surface enumerated in the plan Amendment incl.
   boundary.ts machinery deletion, `'contracts'` role, ADR-041/138
-  amendments same PR, twelve-file field-integrity proof).
+  amendments same PR, eleven-live-file field-integrity proof — corrected
+  2026-08-11 from the prior twelve-count, one dead include).
 - **Standing**: all fleet PRs bot-authored (mint-token every write
   channel incl. `gh pr create`); every PR carries the `jimbot` label;
   Copilot review binds async ~5min, re-request per head move; my own

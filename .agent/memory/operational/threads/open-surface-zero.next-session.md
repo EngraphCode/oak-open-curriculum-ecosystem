@@ -26,9 +26,9 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
     change. They were closed in favour of combined PR #852. Its clean local/remote head is
     `68fd50402b556d05708c2b466566ae05fa0be839`; both CodeQL action references resolve to v4.37.6
     together, and the misleading deviation annotations are removed.
-- **Current state**: PR #852 is the only open item this session changed. Its last session-visible
-  state was a pushed coherent checkpoint with fresh Copilot review and CI requested; that state is
-  volatile and MUST be re-harvested before acting. PR #746's amendment plan has a stale unchecked
+- **Current state** (corrected at the 2026-08-11 fold): PR #852 **merged at 13:10:40Z as
+  `52bfdfb4d`** — owner-merged before this record was written, so nothing this session changed
+  remains open. PR #746's amendment plan has a stale unchecked
   T5 box because its final remote harvest and merge necessarily occurred after the last branch
   commit; close/archive that record on the next appropriate plan-truing pass, not by reopening the
   merged delivery PR.
@@ -46,11 +46,9 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   MCP-508 is the natural home for reconciling wrapper policy with the owner policy; do not let the
   mismatch recreate an approval wait meanwhile.
 - **Next safe step**:
-  1. Re-fetch PR #852 completely: exact head, every review body and suppressed block, all issue and
-     inline comments, fully paginated threads, checks, `mergeStateStatus`, and base freshness.
-  2. Cure any new substantive finding, publish the coherent checkpoint promptly, and merge as soon
-     as CI is green and all feedback is addressed.
-  3. Resume the routed owner-author slice oldest-first: #805, then the custodial pair #818/#819.
+  1. #852 is already merged (`52bfdfb4d` at 13:10:40Z, owner-merged — fold correction
+     2026-08-11); no re-harvest is owed on it.
+  2. Resume the routed owner-author slice oldest-first: #805, then the custodial pair #818/#819.
      Re-fetch owner-authored tips immediately before edits. #841 remains on the Director board;
      #816 was not added to this owner-author slice. #774 remains on its dated hold and #846 remains
      with the design lane.

@@ -43,13 +43,13 @@ forward-asks remain.
 
 - **OPEN-SURFACE ZERO — active owner-PR merge drive (2026-08-11→).** PRs
   #745 and #746 are merged (`236a8e3437`, `9dbf78328c`); #839/#840 were
-  correctly recomposed as atomic replacement #852 at pushed head
-  `68fd50402b`. Resume with a full live harvest of #852, merge on green plus
-  comments-clear, then #805 and the owner-authored custodial pair #818/#819.
+  correctly recomposed as atomic replacement #852, **merged 2026-08-11
+  13:10:40Z (`52bfdfb4d`)** — fold correction. Resume at #805, then the
+  owner-authored custodial pair #818/#819.
   #841 remains on the Director board; #816 was not added to this author-filtered
   slice. Exact custody, owner directions and failure learnings live in the
-  machine-local thread record
-  `threads/open-surface-zero.next-session.md`. Deep consolidation
+  tracked thread record
+  [`threads/open-surface-zero.next-session.md`](threads/open-surface-zero.next-session.md). Deep consolidation
   status: due — a milestone closed and repeated correction patterns were
   captured; the terminal wrap deliberately did not open an unbounded curation pass.
 
@@ -238,7 +238,7 @@ each thread record; this table is the repo-level index.
 
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
-| `open-surface-zero` | Oldest-first disposition and merging of Jim-owned open PRs; every feedback surface harvested, all checks green, then immediate merge | machine-local `threads/open-surface-zero.next-session.md` | codex / GPT-5 / Smith holds Temper (019fef) / executor — #745/#746 merged, #852 replacement published / 2026-08-11 |
+| `open-surface-zero` | Oldest-first disposition and merging of Jim-owned open PRs; every feedback surface harvested, all checks green, then immediate merge | [record](threads/open-surface-zero.next-session.md) | codex / GPT-5 / Smith holds Temper (019fef) / executor — #745/#746/#852 merged / 2026-08-11 |
 | `typescript-estate-consolidation-review` | Whole-estate TypeScript/TSX evidence and foundations-first consolidation review, including generated code and the curriculum SDK; measurement foundation incomplete and no census yet | [record](threads/typescript-estate-consolidation-review.next-session.md) | codex / GPT-5 / Lichen guards Phloem (019fc3) / review implementer and documentation-handoff author / 2026-08-03 |
 | `mcp-product-analytics` | Submission-blocking PostHog sink and MCP analytics integration; October public-beta governance is a separate gate | [record][mcp-analytics] | Cutter hunts Lagoon / codex / GPT-5 / active implementation custody ← Kite seeks Crosswind / handoff complete and retired / 2026-07-26 |
 | `first-class-copilot-cli-practice` | Make GitHub Copilot CLI running locally an equal first-class citizen of the canonical Practice: honest identity, deliberate team join, inherited-hook policy enforcement, supported instruction/skill/agent/MCP projections, local comms/lifecycle, and live proof. The CLI-only strategic and four delivery nodes are owner-ratified; runtime remains gated behind their replacement record landing. | [record](threads/first-class-copilot-cli-practice.next-session.md) | codex / GPT-5 / Thistle holds Blossom (019f94) / replacement-plan implementer / 2026-07-24 ← copilot / gpt-5.6-sol / Thistle rides Canopy (494337) / design authority and live evidence author / 2026-07-24 |

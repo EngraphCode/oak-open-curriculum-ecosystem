@@ -1663,10 +1663,11 @@ Full tenure record in `.agent/memory/operational/director-handoff.md` §Spark li
 
 - The facts easiest to lose were not the merge SHAs but the negative knowledge: #816 was NOT added
   to this author-filtered slice; #841 stayed with the Director; #774 and #846 stayed in their named
-  homes; #746's T5 checkbox is stale record metadata, not missing delivery work; #852's CI/review
-  state is volatile and must be re-harvested.
-- Promise sweep: #745/#746 delivery discharged; #839/#840 composite published as #852 but not merged,
-  forwarded to the open-surface thread; #805/#818/#819 forwarded; 20-minute Cricket cadence ran;
+  homes; #746's T5 checkbox is stale record metadata, not missing delivery work; #852 (fold
+  correction 2026-08-11) had already owner-merged at 13:10:40Z, `52bfdfb4d`.
+- Promise sweep: #745/#746 delivery discharged; #839/#840 composite published as #852 (fold
+  correction 2026-08-11: already owner-merged at 13:10:40Z, `52bfdfb4d` — no obligation rides it);
+  #805/#818/#819 forwarded; 20-minute Cricket cadence ran;
   Linear truing completed; no claim or monitor is intentionally retained.
 - Compressed-reasoning pass: the handoff preserves warrants and falsifiers for checkpoint cadence,
   combined-state diagnosis and the merge-wrapper mismatch, not only conclusions.
