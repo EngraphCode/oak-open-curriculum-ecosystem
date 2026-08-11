@@ -358,8 +358,11 @@ describe('the MCP protocol leg still reaches Clerk (MCP-518)', () => {
     // The one shape that is browser-ish and protocol-ish at once. The
     // protocol leg wins — the global surface fork still routes it through
     // Clerk, so the browser skip is not a classification escape — and the
-    // protocol leg's terminal answer is now the identity-independent 405
-    // stream refusal (MCP-545): no GET reaches the MCP handler at all.
+    // protocol leg's terminal answer is the 405 stream refusal (MCP-545):
+    // no GET reaches the MCP handler at all. The refusal contract is
+    // identity-invariant at the ROUTE level (status, Allow, body); Clerk's
+    // global observation still stamps its own response headers per the
+    // MCP-518 fork, so whole-response identity-independence is NOT claimed.
     const { app, reachedClerk } = await createHarness();
 
     const res = await request(app)
@@ -376,10 +379,12 @@ describe('the MCP protocol leg still reaches Clerk (MCP-518)', () => {
 
   it('answers an unauthenticated protocol GET with the 405 refusal, not the 401 challenge', async () => {
     // Deliberate posture (MCP-545): the route-level auth leg is gone from
-    // the GET mount, so an anonymous GET draws the same terminal 405 as a
-    // signed-in one — a 401 on a method that can never succeed would only
-    // invite a token retry into the same refusal. The global surface fork
-    // still observes the request; what must be absent is the challenge.
+    // the GET mount, so an anonymous GET draws the same terminal 405
+    // (status, Allow, body) as a signed-in one — a 401 on a method that
+    // can never succeed would only invite a token retry into the same
+    // refusal. The global surface fork still observes the request and may
+    // stamp its own headers (MCP-518); what must be absent is the
+    // challenge.
     const { app } = await createHarness();
 
     const res = await request(app)

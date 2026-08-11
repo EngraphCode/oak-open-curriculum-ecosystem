@@ -357,7 +357,8 @@ Every request:
 
 Then, depending on path:
 
-  /mcp → Accept header check → MCP readiness → mcpAuthClerk → MCP handler
+  POST /mcp → Accept header check → MCP readiness → mcpAuthClerk → MCP handler
+  GET /mcp → Accept header check → MCP readiness → 405 stream refusal (MCP-545)
   /healthz → Health handler
   /.well-known/* → OAuth metadata handler
   / → Landing page handler
@@ -368,7 +369,9 @@ Then, depending on path:
 
 ### Issue: 401 Unauthorized on /mcp
 
-**Symptoms**: POST/GET to `/mcp` returns 401 with `WWW-Authenticate` header
+**Symptoms**: POST to `/mcp` returns 401 with `WWW-Authenticate` header.
+(A protocol GET never draws 401 — it receives the identity-independent
+405 stream refusal, MCP-545.)
 
 **Possible Causes**:
 
