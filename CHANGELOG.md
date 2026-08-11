@@ -1,3 +1,16 @@
+# [1.160.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.4...v1.160.0) (2026-08-11)
+
+
+### Bug Fixes
+
+* **deps:** adopt the 855 review rounds — qualified undici floors, bounded esbuild, exact plugin pin ([2671dc2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2671dc2e9b04c02e5e571638a69185ac74e8abdc))
+* **deps:** undici >=6.27 <7 under provider-utils — three highs on the wave's mcpjam chain ([73f9c43](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/73f9c4335a863299c0942e60fde483127ffa026a))
+
+
+### Features
+
+* **posthog-node:** take @posthog/mcp 0.11.4 with the closed-adapter invariant pinned ([729ecea](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/729ecea89e439cf11c2a1803954d333ba7292058)), closes [hi#level](https://github.com/hi/issues/level)
+
 ## [1.159.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.3...v1.159.4) (2026-08-11)
 
 
