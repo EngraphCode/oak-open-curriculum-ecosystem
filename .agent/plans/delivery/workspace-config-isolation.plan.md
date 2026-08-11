@@ -126,7 +126,8 @@ config files.
   resolve; relative escapes do not) could not resolve the real
   `vitest.config.ts`, forcing the `vitest.config.stryker.ts`
   duplicate in the mutation canary (see
-  `mutation-testing-core-canary`, ratified and in flight). A
+  `mutation-testing-core-canary`, completed and archived
+  2026-08-11 — its criteria proved via #848). A
   package-based convention would have needed no duplicate. The
   sandbox-resolution assumption is source-verified:
   `@stryker-mutator/core` `sandbox.js` symlinks `node_modules` when
