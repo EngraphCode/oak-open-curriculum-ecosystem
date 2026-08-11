@@ -407,15 +407,29 @@ First act: pin the matcher and the domain — "tracked" means
 matches zero or more segments, `*`, `?`, leading `!` negation stays
 existence-exempt), and the validator REFUSES pattern syntax outside
 that subset rather than guessing. Then DERIVE the dead-entry set under
-the pinned matcher and delete every derived-dead entry — measured
-2026-08-11: the `js/cjs/mjs` research entries are certainly dead; the
-`*.yaml` entry is disputed between two measuring instruments, which is
-exactly why the derivation, not a hand count, is the enumeration of
-record. Extend the validator's turbo-inputs leg to require ≥1
-tracked-file match for every positive `$TURBO_ROOT$` glob, with the
-committed red-proof. Fold in the same-class root fix: the root
-`tsconfig.json` include naming a `stryker.config.mjs` that does not
-exist at root (verify at execution; delete if stale).
+the pinned matcher and delete every derived-dead entry.
+
+Execution record (2026-08-11, commit `653d170ec` on the S1 branch;
+pre-execution code-expert review findings absorbed): the derivation
+ran against turbo's own `--dry=json` resolved inputs — the
+authoritative instrument — and settled both disputes. The `*.yaml`
+entry is ALIVE (`**` matches zero segments; `pnpm-workspace.yaml`
+hashes under it) and stays; the dead set is exactly the three
+`js/cjs/mjs` entries, deleted. Two further review facts recorded:
+turbo's `inputs` globs walk the FILESYSTEM, not the git index
+(probe-measured — untracked and gitignored files hash), so the
+validator's tracked-set domain is a deliberate deterministic
+over-approximation whose finding message names the class honestly;
+and the root `tsconfig.json` stryker include was verified ALREADY
+DISCHARGED (removed at the todo-1 landing), so that fold-in is a
+no-op. The canary-archival plan-path re-points moved OUT of this
+slice (the archival commit sits on the coordination branch until the
+next fold, so a main-based PR would create dangling references) —
+they ride S2 under a live-surfaces rule: only
+`packages/core/type-helpers/stryker.config.mjs` and
+`mutation-evidence/survivor-dispositions.md` re-point; the frozen
+`.txt` evidence snapshots and their verbatim reproductions in
+`mechanics-report.md` stay as historical record.
 
 ### Slice S2 — search-contracts layer move (the exemption dies)
 

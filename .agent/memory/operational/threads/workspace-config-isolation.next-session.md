@@ -30,16 +30,18 @@ ratified-live; its restore step is superseded by this plan's todo 3.
   `workspace-config-enforcement-hardening` (H1–H4) is born-ratified;
   the canary plan is ARCHIVED completed. Full sequence: S1 → S2 →
   todo 2 ∥ todo 4 → todo 5 → H1→H2→H3→H4 → todo 6.
-- **In flight**: S1 = MCP-542 (worktree
+- **In flight**: S1 = MCP-542 executed at `653d170ec` (worktree
   `.claude/worktrees/mcp-542-turbo-globs`, branch
-  `jimcresswell/mcp-542-turbo-zero-match-globs` from main) — pin
-  matcher (tracked = `git ls-files`; turbo-subset globs, refuse
-  outside it), derive the dead set (js/cjs/mjs certain; the yaml
-  entry disputed between instruments — derivation decides), ≥1-match
-  validator leg + red-proof, root-tsconfig stale stryker include, and
-  the three stale plan-path references from the canary archival
-  (stryker.config.mjs docstring, mechanics-report.md ×2,
-  survivor-dispositions.md → archive/ path). Next: S2 =
+  `jimcresswell/mcp-542-turbo-zero-match-globs`): derivation under
+  the pinned matcher settled the yaml dispute (ALIVE — `**` matches
+  zero segments per turbo's own dry run) and deleted exactly the
+  three js/cjs/mjs entries; ≥1-tracked-match validator leg with
+  red-proofs + hand-mutation check + live red-green landed; the
+  root-tsconfig item was already discharged at todo 1; the
+  canary-archival path re-points moved to S2 (live surfaces only:
+  stryker.config.mjs + survivor-dispositions.md; frozen snapshots
+  stay) because the archival sits coordination-side until the next
+  fold. PR pending review/merge. Next: S2 =
   search-contracts whole-package move (Director PROCEED + owner
   ratification; full surface enumerated in the plan Amendment incl.
   boundary.ts machinery deletion, `'contracts'` role, ADR-041/138
