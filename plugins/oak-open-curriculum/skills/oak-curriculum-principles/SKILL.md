@@ -96,7 +96,7 @@ Each principle below has the same shape: what it means, why it matters, what it 
 
 **When creating.** Make content modular and clearly mapped to the national curriculum. Signpost the threads each unit serves. Offer suggestions, not mandates, and mark what is core versus adaptable. Prefer a single ambitious pathway with a low floor and high ceiling over forked "easier/harder" versions.
 
-**Red flags when reviewing.** Rigid lock-step with no guidance on how to adapt; no curriculum mapping; adaptation likely to break the sequence because dependencies are invisible; an implied "one correct way" to teach it.
+**Red flags when reviewing.** Rigid lock-step with no guidance on how to adapt; no mapping to the national curriculum; adaptation likely to break the sequence because dependencies are invisible; an implied "one correct way" to teach it.
 
 ### 5. Diverse
 
@@ -124,7 +124,7 @@ Each principle below has the same shape: what it means, why it matters, what it 
 
 The six are not a checklist of independent boxes; they sometimes pull against each other, and resolving that tension well is where craft lives.
 
-- **Flexible vs. sequenced & coherent.** Adaptation can shatter a careful sequence. _Resolve it_ by making dependencies visible — signpost threads and national-curriculum mapping so adapters can change the surface while preserving the structure.
+- **Flexible vs. sequenced & coherent.** Adaptation can shatter a careful sequence. _Resolve it_ by making dependencies visible — signpost threads, and how content maps to the national curriculum, so adapters can change the surface while preserving the structure.
 - **Accessible vs. knowledge-rich & ambitious.** The temptation is to cut content to ease access. _Resolve it_ by scaffolding the route to the same destination, then fading the scaffold — low floor, high ceiling — rather than shrinking the destination.
 - **Diverse vs. coherent.** Breadth can fragment a curriculum into a tour of disconnected examples. _Resolve it_ by making deliberate selections _within_ a coherent structure, so diversity deepens the thread rather than diluting it.
 

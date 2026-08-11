@@ -4,22 +4,22 @@ import { defineConfig } from 'vitest/config';
  * Stryker-only Vitest config for the mutation-testing canary
  * (`.agent/plans/delivery/mutation-testing-core-canary.plan.md`).
  *
- * Mechanical necessity, not a preference: Stryker's sandbox is built by
+ * Historical necessity, now superseded: Stryker's sandbox is built by
  * crawling files at-or-below its working directory only (first-hand
  * verified against `@stryker-mutator/core`'s `ProjectReader.resolveInputFileNames`,
  * which calls `crawlDir(process.cwd())` with no option to widen the root).
- * The workspace's real `vitest.config.ts` imports the shared
- * `../../../vitest.config.base` three levels up the repo tree — a file
- * outside any single workspace's sandbox, so it cannot resolve inside one
- * (see `mutation-evidence/dry-run.log.txt` for the reproduced failure).
- * This file is a self-contained duplicate of the fields that matter for
- * test discovery, scoped to this workspace only, so the sandbox never
- * needs anything outside `packages/core/type-helpers/`.
+ * At the time this duplicate was created, the workspace's real
+ * `vitest.config.ts` imported a shared base at the repo root — a file
+ * outside any single workspace's sandbox, so it could not resolve inside
+ * one (see `mutation-evidence/dry-run.log.txt` for the reproduced
+ * failure). The real config now imports
+ * `@oaknational/workspace-config/vitest`, which resolves through the
+ * sandbox's symlinked `node_modules`, so this duplicate is scheduled for
+ * deletion: item 3 of the isolation plan points `vitest.configFile` at the
+ * real `vitest.config.ts` and banks a canary re-run as proof.
  *
- * `vitest.config.ts` is untouched and keeps importing the shared root
- * base for every other purpose (`pnpm test`, CI, `pnpm check`). This file
- * is read by Stryker's vitest runner alone, via `vitest.configFile` in
- * `stryker.config.mjs`.
+ * Until that lands, this file is read by Stryker's vitest runner alone,
+ * via `vitest.configFile` in `stryker.config.mjs`.
  */
 export default defineConfig({
   test: {

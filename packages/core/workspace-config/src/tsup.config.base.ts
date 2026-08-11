@@ -16,6 +16,28 @@
 
 import { defineConfig, type Options } from 'tsup';
 
+/**
+ * Re-exported so TypeScript's declaration emitter can name the type in
+ * consumers via this package: a consumer's `export default
+ * createLibConfig(...)` expands to a type over `Options`, and without an
+ * accessible export path the emitter reaches for a relative path into
+ * this package's own `node_modules/tsup` — the non-portable-declaration
+ * error TS2883.
+ */
+export type { Options } from 'tsup';
+
+/**
+ * The configuration shape every factory returns.
+ *
+ * @remarks Exported so a consumer's `export default createLibConfig(...)`
+ * infers a type nameable through THIS package (the module the consumer
+ * already imports). Without it, TypeScript names the inferred type via a
+ * relative path into this package's own `node_modules/tsup` — the
+ * non-portable-declaration error TS2883 in every consumer whose
+ * type-check validates declaration emit.
+ */
+export type WorkspaceTsupConfig = ReturnType<typeof defineConfig>;
+
 /** Shared defaults applied to every workspace build. */
 const SHARED_DEFAULTS = {
   format: ['esm'],
@@ -63,7 +85,7 @@ interface LibConfigOverrides {
  * });
  * ```
  */
-export function createLibConfig(overrides?: LibConfigOverrides) {
+export function createLibConfig(overrides?: LibConfigOverrides): WorkspaceTsupConfig {
   return defineConfig({
     ...SHARED_DEFAULTS,
     entry: overrides?.entry ?? ['src/index.ts'],
@@ -102,7 +124,7 @@ interface SdkConfigOverrides {
 export function createSdkConfig(
   entries: string[] | Record<string, string>,
   overrides?: SdkConfigOverrides,
-) {
+): WorkspaceTsupConfig {
   return defineConfig({
     ...SHARED_DEFAULTS,
     entry: entries,
@@ -158,7 +180,10 @@ interface AppConfigOverrides {
  * );
  * ```
  */
-export function createAppConfig(entries: Record<string, string>, overrides?: AppConfigOverrides) {
+export function createAppConfig(
+  entries: Record<string, string>,
+  overrides?: AppConfigOverrides,
+): WorkspaceTsupConfig {
   return defineConfig({
     ...SHARED_DEFAULTS,
     entry: entries,

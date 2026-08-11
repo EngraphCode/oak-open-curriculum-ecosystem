@@ -1,4 +1,4 @@
-import { createLibConfig } from '../../../tsup.config.base.js';
+import { createLibConfig } from '@oaknational/workspace-config/tsup';
 
 /*
  * No src/index.ts barrel by design: a barrel would couple every consumer

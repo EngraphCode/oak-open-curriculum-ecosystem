@@ -41,6 +41,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@oaknational/workspace-config": "workspace:*",
     "@types/node": "^24.13.3",
     "@typescript-eslint/rule-tester": "^8.65.0",
     "eslint": "^10.8.0",

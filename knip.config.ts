@@ -23,9 +23,6 @@ const config: KnipConfig = {
     'eslint-plugin-prettier',
     // supertest used in scripts/
     'supertest',
-    // tsup at root provides type resolution for tsup.config.base.ts
-    // (workspace configs import factory functions from the base config)
-    'tsup',
   ],
   ignoreBinaries: [
     // External tools not installed via npm
@@ -110,6 +107,7 @@ const config: KnipConfig = {
         'src/validators/check-ci-parity/validate-check-ci-parity.ts',
         'src/validators/plan-schema/validate-plan-corpus.ts',
         'src/validators/plan-schema/check-plan-gate-drift.ts',
+        'src/validators/workspace-config-isolation/validate-workspace-config-isolation.ts',
         'src/validators/notion-fence/validate-notion-fence.ts',
         'src/validators/reference-direction/validate-reference-direction.ts',
         'src/validators/machine-local-paths/validate-no-machine-local-paths.ts',
@@ -151,7 +149,11 @@ const config: KnipConfig = {
         // pattern as corpus-analysis above.
         'src/restatement-audit/workflows/*.workflow.ts',
       ],
-      project: ['src/**/*.{ts,tsx}'],
+      // tests/ is inside the project so tests-only dependencies are traced
+      // (the depcruise red-proof helper imports dependency-cruiser from
+      // tests/test-helpers/ — widened 2026-08-10; test files are entries via
+      // the vitest plugin).
+      project: ['src/**/*.{ts,tsx}', 'tests/**/*.ts'],
       // TypeScript-estate review instrument (owner-ratified plan
       // typescript-estate-consolidation-review, staged contract): the module's
       // exported surface is contract-anchored for slices that are
@@ -240,6 +242,14 @@ const config: KnipConfig = {
       ],
     },
     'packages/core/openapi-zod-client-adapter': {
+      project: ['src/**/*.ts'],
+    },
+    'packages/core/workspace-config': {
+      // Compiled config package: knip's exports-map auto-detection resolves
+      // each subpath export (there is no barrel by design — a barrel would
+      // drag tsup into every vitest config's module graph), so no explicit
+      // entry list is needed; scoping project to src keeps the package's
+      // own config files out of the unused-file surface.
       project: ['src/**/*.ts'],
     },
     'packages/core/observability': {

@@ -1,3 +1,3 @@
-import { createSdkConfig } from '../../../tsup.config.base.js';
+import { createSdkConfig } from '@oaknational/workspace-config/tsup';
 
 export default createSdkConfig(['src/**/*.ts', '!src/**/*.test.ts', '!src/**/*.spec.ts']);
