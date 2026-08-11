@@ -423,49 +423,48 @@ over-approximation whose finding message names the class honestly;
 and the root `tsconfig.json` stryker include was verified ALREADY
 DISCHARGED (removed at the todo-1 landing), so that fold-in is a
 no-op. The canary-archival plan-path re-points moved OUT of this
-slice (the archival commit sits on the coordination branch until the
-next fold, so a main-based PR would create dangling references) —
-they ride S2 under a live-surfaces rule: only
+slice and (re-adjudicated 2026-08-11, recorded in the thread record's
+correction ledger) are DEMOTED to a rider on the next PR touching
+those files once the archival reaches main — never a standalone PR
+and no longer S2 cargo. Live surfaces only:
 `packages/core/type-helpers/stryker.config.mjs` and
-`mutation-evidence/survivor-dispositions.md` re-point; the frozen
-`.txt` evidence snapshots and their verbatim reproductions in
+`mutation-evidence/survivor-dispositions.md`; the frozen `.txt`
+evidence snapshots and their verbatim reproductions in
 `mechanics-report.md` stay as historical record.
 
-### Slice S2 — search-contracts layer move (the exemption dies)
+### Slice S2 — the search-contracts exemption dies at its owning level (re-scoped 2026-08-11)
 
-Routing chain, recorded: the depcruise rule comment marked this cure
-Director-routed; the Director ruled PROCEED (2026-08-11) on the
-consumer-graph evidence; the owner ratified it here. Its admission to
-this lane is warranted by the exemption-alarm ruling — the exemption
-is this lane's own artifact. Evidence: the package's `src/` is exactly four files —
-field-inventory.ts, stage-contract-matrix.ts (same-package importer),
-one test, and index.ts; every external consumer is a test file (two in
-`apps/oak-search-cli`, two in `packages/sdks/oak-search-sdk`); no
-other libs package imports it. Considered and rejected: folding the
-modules into `sdk-codegen` (hand-authored contracts inside the
-generated-code package, against ADR-138's separation).
+Dated re-scope, 2026-08-11 (owner-settled via the decision matrix at
+the lane seat — verdict "keep-lib plus a named lawful edge"; the
+owner's challenge, verbatim: "that package is not an sdk, it's a lib
+supporting an sdk, why would we move it?"): the package MOVE is dead.
+Its doctrinal hook (§Layer Role Topology) adjudicates apps-vs-sdks,
+not libs-vs-sdks, and ADR-138's ratified decision places the package
+in libs with the sdk-codegen edge as the documented generated-contract
+exception, already first-class in ESLint
+(`searchContractsSdkException`, tested). The exemption alarm's
+legitimate target was depcruise's crude per-file `pathNot` FORM, not
+the edge.
 
-One single-story PR: `git mv packages/libs/search-contracts
-packages/sdks/search-contracts` (package name unchanged);
-`pnpm-workspace.yaml` member line; `vitest.field-integrity.config.ts`
-re-point WITH proof the suite still executes its eleven live include
-files (corrected 2026-08-11: the prior twelve-count carried one dead
-entry; the include-list would otherwise drop a leg silently); the standards
-package's boundary vocabulary — `boundary.ts` lib-package inventories,
-the search-contracts constants and the whole
-`searchContractsSdkException` branch deleted, `lib-boundary.unit.test.ts`
-sites updated, and `validate-boundaries.ts` (asserting the inventory
-equals the live `packages/libs/` listing) kept green by SAME-COMMIT
-boundary edits; the moved package's own eslint config moves to
-`createSdkBoundaryRules` with a new `'contracts'` role added to the
-closed role enum (closed-and-additive; allowed imports: sdk-codegen
-subpaths + core; check at execution whether ADR-108 carries the role
-list and amend if so); `knip.config.ts` re-key; the two README path
-references; **ADR-041 and ADR-138 amendments in the same PR** — the
-post-move sdk→sdk edge is unpoliced by design, and that policy change
-is recorded where policy lives. Red-proof: the moved tree green AND a
-libs-fixture probe fires `no-libs-to-sdks` before the `pathNot`
-exemption deletion lands.
+S2 as re-scoped, one small PR: replace the anonymous `pathNot`
+exemption with a NAMED lawful-edge rule (search-contracts →
+sdk-codegen generated contract exports), citing ADR-138/041 in the
+rule comment — the policy changes at its owning level; no per-file
+warrant shape survives. Red-proof: temporarily delete only the
+exemption line, run depcruise, observe exactly one `no-libs-to-sdks`
+error on field-inventory.ts, restore — the real edge (a bare-specifier
+libs fixture false-greens as npm-no-pkg and never exercises the rule).
+
+Independent survivors of the dead move, each its own small row (from
+the review's correction ledger): (1) the field-integrity include list
+carries a phantom — the baseline is ELEVEN live files; the dead
+include line deletes in the same commit as any config re-point, proof
+by `vitest list -c vitest.field-integrity.config.ts --filesOnly`
+diffed before and after; (2) `createSdkBoundaryRules` gains an
+`assertNever` exhaustiveness backstop (the trailing implicit-runtime
+return silently absorbs unknown roles). Items tied to the relocation
+(role addition, boundary-machinery deletion, ADR amendments,
+lockfile/mdc/README moves) are MOOT with the move.
 
 ### Census enrichment (todos 4–5)
 
@@ -496,8 +495,10 @@ entries naming non-existent workspace paths are deleted as dead.
 
 ### Execution order
 
-A1/A2 landing → S1 → S2 → todo 2 ∥ todo 4 → todo 5 → successor node
-H1→H2→H3→H4 (H1 before H2 so per-family red-proofs are written once,
+Amendment landing (this dated S2 re-scope reaching main) → S1 → S2
+(re-scoped) → todo 2 ∥ todo 4 → todo 5 → successor node
+H1(slimmed)→H2→H4 (H3 DROPPED 2026-08-11 — an extends reference is
+not an import; H1 before H2 so per-family red-proofs are written once,
 under final refusal semantics) → todo 6. Todo 2's arc is three named
 PRs: (a) de-hatch + ignores audit + shared-preset binding + fixture;
 (b) the `research/` cure; (c) the 7i rule PR only if its opening check

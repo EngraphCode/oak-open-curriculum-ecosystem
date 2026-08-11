@@ -46,8 +46,8 @@ forward-asks remain.
   correctly recomposed as atomic replacement #852, **merged 2026-08-11
   13:10:40Z (`52bfdfb4d`)** — fold correction. Resume at #805, then the
   owner-authored custodial pair #818/#819.
-  #841 remains on the Director board; #816 was not added to this author-filtered
-  slice. Exact custody, owner directions and failure learnings live in the
+  #841 merged 2026-08-11 06:53Z, owner-merged (corrected at the fold); #816 was
+  not added to this author-filtered slice. Exact custody, owner directions and failure learnings live in the
   tracked thread record
   [`threads/open-surface-zero.next-session.md`](threads/open-surface-zero.next-session.md). Deep consolidation
   status: due — a milestone closed and repeated correction patterns were

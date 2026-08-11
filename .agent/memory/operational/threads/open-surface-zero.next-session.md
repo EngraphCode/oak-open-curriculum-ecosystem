@@ -49,8 +49,8 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   1. #852 is already merged (`52bfdfb4d` at 13:10:40Z, owner-merged — fold correction
      2026-08-11); no re-harvest is owed on it.
   2. Resume the routed owner-author slice oldest-first: #805, then the custodial pair #818/#819.
-     Re-fetch owner-authored tips immediately before edits. #841 remains on the Director board;
-     #816 was not added to this owner-author slice. #774 remains on its dated hold and #846 remains
+     Re-fetch owner-authored tips immediately before edits. #841 merged 2026-08-11 06:53Z, owner-merged
+     (corrected at the fold); #816 was not added to this owner-author slice. #774 remains on its dated hold and #846 remains
      with the design lane.
 - **Promotion watchlist**:
   - merge-bot settlement semantics versus the owner's green-plus-comments-clear terminal rule;
