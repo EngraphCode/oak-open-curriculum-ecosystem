@@ -21,8 +21,13 @@ the receiver gets sender name + reply address, never context, files,
 or permissions; an incoming message cannot approve a permission
 request or change settings (the platform's own guard against
 permission laundering, which its tool contract names explicitly).
-Delivery is to LIVE sessions only — nothing lands anywhere for an
-absent, future, or non-Claude agent.
+Delivery is to LIVE sessions only, with a real queue: messages to a
+busy session enqueue and drain at its next tool round — but nothing
+lands anywhere for an absent, future, or non-Claude agent. The
+owner's own listing (2026-08-11) confirmed the reach: sessions across
+DIFFERENT repositories and workspaces appear side by side with
+busy/idle states — liveness the Practice currently buys with PDR-078
+heartbeat ceremony, here for free.
 
 ## The three channels, compared where they actually differ
 
@@ -30,7 +35,7 @@ absent, future, or non-Claude agent.
 | --- | --- | --- | --- |
 | Latency | seconds (wakes the receiver) | minutes (Monitor tail) | minutes (watcher cadence) |
 | Durability | none — receiver's transcript only | thread-durable until folded | event files, folded to durable homes |
-| Audience | one live Claude session, same machine | named seats on a shared thread | whole estate, including absent and FUTURE agents (gap sweep) |
+| Audience | one live Claude session — CROSS-REPO and cross-workspace; cross-machine via cloud sessions or Remote Control | named seats on a shared thread | whole estate, including absent and FUTURE agents (gap sweep) |
 | Platform | Claude Code only | any agent that writes files | any agent (CLI) |
 | Identity | harness session name | self-declared in entries (SHA-prefix discipline) | registry-integrated (PDR-027 seed, claims, PDR-078 liveness) |
 | Observability | invisible to watchers and to everyone but the receiver | tailable, human-readable in place | the watched surface; tags/threading (ADR-183/186) |
@@ -65,6 +70,11 @@ audience split that no single channel covers:
   does both in one step would make the good pattern the easy one.
 - **ARC learns liveness from s2s**: an ARC append can carry an s2s
   nudge to the counterpart when both are live Claude seats.
+- **The Practice's liveness question learns from the listing**: the
+  busy/idle states in the agents listing are instant corroborating
+  evidence for Claude seats in any retirement-detection protocol
+  (the F-44 "working vs wedged" residual) — a cheap first check
+  before ping-before-escalate.
 
 ## Proposed behaviours (for the Director to adjudicate; rule-vs-PDR-clause per practice)
 
@@ -99,10 +109,18 @@ never-require keeps every flow walkable by every seat. Additionally:
 when a flow's participants include (or may include) a non-Claude
 seat, the stream or ARC is the channel from the start — s2s stays a
 Claude-to-Claude accelerator, invisible in outcome to everyone else.
-The comparison also cuts the other way: if non-Claude platforms grow
-equivalent live channels, this analysis's split (interrupt line /
-narrative / record) is the shape to hold them to, not per-platform
-ad-hoc behaviours.
+The comparison also cuts the other way: the owner was planning a
+similar CROSS-VENDOR channel and may still build it (owner word,
+2026-08-11 — s2s is "a powerful addition to the comms options" that
+"in some ways exceeds the Practice": cross-repo reach, latency, the
+built-in queue, free liveness). The build-vs-buy shape worth
+considering when that returns: the record layer already exists and is
+vendor-neutral — the comms stream — so a cross-vendor equivalent is
+cheapest as a per-platform NUDGE ADAPTER over the stream (file-watch
+wake, or each platform's native interrupt where one exists), not as a
+parallel channel. That keeps this analysis's split (interrupt line /
+narrative / record) as the shape to hold every platform to, with s2s
+simply the Claude-native instance of the interrupt line.
 
 ## Routed follow-ups
 
