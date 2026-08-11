@@ -312,6 +312,20 @@ describe('classifyTurboRootInput — the pinned turbo-glob matcher', () => {
     });
   });
 
+  it('treats the bare repository root as the directory it names (probe-measured)', () => {
+    expect(classifyTurboRootInput('$TURBO_ROOT$/', tracked)).toEqual({ kind: 'alive' });
+    expect(classifyTurboRootInput('$TURBO_ROOT$/', [])).toEqual({ kind: 'dead' });
+  });
+
+  it('treats a trailing-slash directory literal like the bare form (turbo walks both — probe-measured)', () => {
+    expect(
+      classifyTurboRootInput('$TURBO_ROOT$/research/web-app-deconstruction/packages/', tracked),
+    ).toEqual({ kind: 'alive' });
+    expect(classifyTurboRootInput('$TURBO_ROOT$/missing-directory/', tracked)).toEqual({
+      kind: 'dead',
+    });
+  });
+
   it('refuses embedded double-stars, which turbo normalises rather than treating as two stars', () => {
     const trailing = classifyTurboRootInput('$TURBO_ROOT$/research/a**', tracked);
     expect(trailing.kind).toBe('unsupported');

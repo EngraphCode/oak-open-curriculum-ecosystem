@@ -91,13 +91,20 @@ export function compileTurboGlob(pattern: string): GlobCompilation {
  * turbo expands a literal input naming a DIRECTORY to that directory's
  * recursive contents before hashing (probe-measured on the pinned turbo,
  * 2026-08-11: a literal directory entry contributed its 7 tracked
- * descendants to the resolved input set). A literal is therefore alive
- * when it prefixes at least one tracked file, not only when it IS one.
+ * descendants to the resolved input set, with and without a trailing
+ * slash; `$TURBO_ROOT$/` alone resolved the whole repository). A literal
+ * is therefore alive when it prefixes at least one tracked file, not
+ * only when it IS one — and the empty relative path names the repository
+ * root itself, which every tracked file sits under.
  */
 export function isTrackedDirectoryPrefix(
   relative: string,
   trackedFiles: readonly string[],
 ): boolean {
-  const prefix = `${relative}/`;
+  const directory = relative.replace(/\/+$/u, '');
+  if (directory === '') {
+    return trackedFiles.length > 0;
+  }
+  const prefix = `${directory}/`;
   return trackedFiles.some((candidate) => candidate.startsWith(prefix));
 }
