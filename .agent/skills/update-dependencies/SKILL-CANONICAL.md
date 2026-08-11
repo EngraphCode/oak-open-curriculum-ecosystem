@@ -159,9 +159,12 @@ the selected version, never the floor:
    publish-date reads (`pnpm view <pkg> time`), never from outdated's
    silence. The age-floored SET is discoverable only exhaustively:
    outdated suppresses the very names you would probe, so at
-   sweep-exit census every DIRECT dependency — `pnpm view <pkg>
-   version` (registry latest, floor-blind) against the
-   resolved/wanted version — and classify each gap by publish date:
+   sweep-exit census every EXTERNAL direct dependency (skip
+   `workspace:*` internals — `pnpm view` on a private name queries
+   the public registry and fails or matches an unrelated package) —
+   `pnpm view <pkg> version` (registry latest, floor-blind) against
+   the resolved/wanted version — and classify each gap by publish
+   date:
    younger than the floor's window = age-floored (arrives next
    sweep); older = a held or missed row that needs a named cause.
    Wait the floor out, or make a deliberate
@@ -189,7 +192,11 @@ a zero-match sweep reads as a confirmed negative.
   passes with the floor inert. The BINDING proof is the before/after
   resolution delta observed when the floor is added or raised (the
   pre-cure read showed the vulnerable pick; the post-cure read shows
-  the floored one — record both). On later sweeps the opener's
+  the floored one — record both) — valid only when the floor is the
+  SOLE change in that resolve. When a floor rides along another
+  curing step (the stale-floor invariant), the delta cannot isolate
+  it: classify that floor as PREVENTATIVE (it guards rebuild-time
+  resolution) rather than attesting it bound. On later sweeps the opener's
   drift-check owns floor staleness; this assertion owns outcomes.
 - **Audit recomputed**: `pnpm audit` both scopes; name any deliberate
   residue in the PR body.
