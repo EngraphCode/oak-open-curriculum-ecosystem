@@ -32,19 +32,28 @@ function isPickerTheme(value: string): value is OakThemeSnapshot {
  *  control. The picker writes the attribute directly rather than calling
  *  the frame runtime's set()/clear(): its controls are stage-local
  *  presentation data, and a runtime write would persist to the shared
- *  localStorage and leak the demo state into the whole showcase. */
+ *  localStorage and leak the demo state into the whole showcase. The
+ *  stage-local state governs the framed root for the LIFE of the mount,
+ *  not only at mount: external writers exist (the runtime's pre-paint
+ *  apply of a stored site-level choice, and its live contrast listener,
+ *  which believes no choice exists because the picker never tells it
+ *  one does), and the observer below corrects any divergence. Idempotent
+ *  by the early return — the DOM queues a mutation record even for a
+ *  same-value attribute write, so the divergence guard is what
+ *  terminates the observer's correction cycle. */
 function applyFrameTheme(root: HTMLElement, theme: OakThemeSnapshot): void {
-  if (theme !== IDENTITY_DEFAULT) {
-    root.dataset['theme'] = theme;
-    return;
-  }
   const prefersMoreContrast =
     root.ownerDocument.defaultView?.matchMedia('(prefers-contrast: more)').matches === true;
-  if (prefersMoreContrast) {
-    root.dataset['theme'] = 'high-contrast';
+  const target =
+    theme === IDENTITY_DEFAULT ? (prefersMoreContrast ? 'high-contrast' : undefined) : theme;
+  if (root.dataset['theme'] === target) {
     return;
   }
-  delete root.dataset['theme'];
+  if (target === undefined) {
+    delete root.dataset['theme'];
+  } else {
+    root.dataset['theme'] = target;
+  }
 }
 
 export function useFrameTheme(resolveTarget: () => Document | null): {
@@ -56,9 +65,20 @@ export function useFrameTheme(resolveTarget: () => Document | null): {
   useEffect(() => {
     const root = resolveTarget()?.documentElement;
     if (root === null || root === undefined) {
-      return;
+      return undefined;
     }
     applyFrameTheme(root, theme);
+    // Hold the control's state against the frame's other writers for the
+    // life of the mount. attributeFilter avoids churn (the test sentinel
+    // rides the same root's dataset); correctness rests on the divergence
+    // guard either way.
+    const observer = new MutationObserver(() => {
+      applyFrameTheme(root, theme);
+    });
+    observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => {
+      observer.disconnect();
+    };
   }, [theme, resolveTarget]);
 
   const setTheme = useCallback((value: string): void => {

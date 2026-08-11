@@ -7,119 +7,30 @@
  * identity (why the external link derives from control state, not the
  * frame), and each control's choice must be IN EFFECT inside the frame's
  * own document — computed style for identity, computed color-scheme for
- * theme, the frame's own innerWidth for width.
+ * theme, the frame's own innerWidth for width. (The OS-contrast cells live
+ * in identity-picker-contrast.spec.ts; the stage machinery is shared via
+ * picker-stage.ts.)
  *
  * No identity slug is typed in this file: every name derives from the
  * imported roster, which keeps the identity-naming census untouched.
  */
 import { expect, test } from '@playwright/test';
-import type { Frame, Locator, Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
 
 import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
 import { SWITCHBOARD_CANVAS_WIDTH } from '../components/canonical-widths';
-import { BASE_IDENTITY, IDENTITIES, type IdentitySlug } from '../components/useIdentity';
+import { BASE_IDENTITY, IDENTITIES } from '../components/useIdentity';
 import { MEASUREMENT_WIDTH_VALUES } from '../tools/measurement-widths';
+import { assertOnlyKnownExternalOrigins } from './apply-state';
 import {
-  assertOnlyKnownExternalOrigins,
-  brandNameFont,
-  interceptExternalOrigins,
-} from './apply-state';
+  chooseThemeAndExpectInEffect,
+  chooseWidthAndExpectInEffect,
+  expectBrandInEffect,
+  expectSameDocument,
+  openPickerStage,
+} from './picker-stage';
 
 const COUNTER_BRANDS = IDENTITIES.filter((slug) => slug !== BASE_IDENTITY);
-
-/** The swapped brand is IN EFFECT inside the frame: the binder's link is
- *  present with the right href, and the computed face has moved off the
- *  base face. */
-async function expectBrandInEffect(
-  frame: Frame,
-  identity: IdentitySlug,
-  baseFont: string,
-): Promise<void> {
-  await expect(frame.locator(`link[data-oak-brand="${identity}"]`)).toHaveAttribute(
-    'href',
-    `/brands/${identity}/brand.css`,
-  );
-  await expect
-    .poll(async () => brandNameFont(frame), {
-      message: 'the swapped brand must reach computed style inside the frame',
-    })
-    .not.toBe(baseFont);
-}
-
-/** Open the picker hermetically and resolve its stage down to the framed
- *  specimen's live Frame, with the mount-time facts later assertions
- *  compare against. The no-reload sentinel is planted here: a reload
- *  manufactures a fresh document, so a dataset mark on the document root
- *  cannot survive one. */
-async function openPickerStage(page: Page): Promise<{
-  readonly aborted: ReadonlySet<string>;
-  readonly stage: Locator;
-  readonly frame: Frame;
-  readonly mountSrc: string;
-  readonly baseFont: string;
-} | null> {
-  const aborted = await interceptExternalOrigins(page);
-  await page.goto('/identity-switchboard');
-  const stage = page.locator('.picker-stage iframe');
-  const frame = await (await stage.elementHandle())?.contentFrame();
-  expect(frame, 'the stage frame must resolve').not.toBeNull();
-  if (frame === null || frame === undefined) {
-    return null;
-  }
-  await expect(frame.locator('[data-region="masthead"]')).toBeVisible();
-  await frame.evaluate(() => {
-    document.documentElement.dataset['pickerSentinel'] = 'planted';
-  });
-  return {
-    aborted,
-    stage,
-    frame,
-    mountSrc: (await stage.getAttribute('src')) ?? '',
-    baseFont: await brandNameFont(frame),
-  };
-}
-
-/** No navigation happened since the sentinel was planted: same document,
- *  same frozen mount src. */
-async function expectSameDocument(frame: Frame, stage: Locator, mountSrc: string): Promise<void> {
-  await expect
-    .poll(async () => frame.evaluate(() => document.documentElement.dataset['pickerSentinel']))
-    .toBe('planted');
-  await expect(stage).toHaveAttribute('src', mountSrc);
-}
-
-/** The chosen theme is IN EFFECT inside the frame: the framed document's
- *  computed color-scheme resolves to it, not merely the attribute string. */
-async function chooseThemeAndExpectInEffect(
-  page: Page,
-  frame: Frame,
-  theme: string,
-): Promise<void> {
-  await page.getByRole('combobox', { name: 'Theme' }).selectOption(theme);
-  await expect
-    .poll(
-      async () => frame.evaluate(() => getComputedStyle(document.documentElement).colorScheme),
-      {
-        message: 'the chosen theme must reach the framed cascade',
-      },
-    )
-    .toBe(theme);
-}
-
-/** The chosen canonical width IS the frame's own viewport — innerWidth, so
- *  the media queries inside respond to the simulated width truthfully. */
-async function chooseWidthAndExpectInEffect(
-  page: Page,
-  frame: Frame,
-  width: number,
-): Promise<void> {
-  await page.getByRole('combobox', { name: 'Width' }).selectOption(`${width}`);
-  await expect
-    .poll(async () => frame.evaluate(() => window.innerWidth), {
-      message: 'the simulated viewport must adopt the chosen canonical width',
-    })
-    .toBe(width);
-}
 
 /** The controls open on the ruled defaults: Identity default (DDR-003
  *  dated amendment 2026-08-11 — the frame shows each identity's own
