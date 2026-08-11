@@ -318,14 +318,14 @@ portable thin-wrapper rule surface for platforms that scan `.agents/` directly.
 
 **Triggers that activate skills or directives:**
 
-| Trigger                          | What it activates                                                                                        |
-| -------------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `apply-architectural-principles` | All architectural principles via `.agent/rules/apply-architectural-principles.md`                        |
-| `napkin-always-active`           | `.agent/skills/knowledge/napkin/SKILL-CANONICAL.md` directly (canonical-direct per the trigger contract) |
-| `use-start-right-skills`         | `.agents/skills/oak-start-right-quick/SKILL.md`, `.agents/skills/oak-start-right-thorough/SKILL.md`      |
-| `follow-the-practice`            | Practice reading, which leads to skills                                                                  |
-| `invoke-code-experts`            | All registered reviewers via `.agent/memory/executive/invoke-code-experts.md`                            |
-| `lint-after-edit`                | Lint checking (file-scoped to `*.ts`)                                                                    |
+| Trigger                          | What it activates                                                                                                                                                       |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `apply-architectural-principles` | All architectural principles via `.agent/rules/apply-architectural-principles.md`                                                                                       |
+| `napkin-always-active`           | `.agent/skills/knowledge/napkin/SKILL-CANONICAL.md` directly (canonical-direct per the trigger contract)                                                                |
+| `use-start-right-skills`         | The three start-right canonicals directly (`.agent/skills/start-right-quick/`, `-thorough/`, `-team/` `SKILL-CANONICAL.md`) — canonical-direct per the trigger contract |
+| `follow-the-practice`            | Practice reading, which leads to skills                                                                                                                                 |
+| `invoke-code-experts`            | All registered reviewers via `.agent/memory/executive/invoke-code-experts.md`                                                                                           |
+| `lint-after-edit`                | Lint checking (file-scoped to `*.ts`)                                                                                                                                   |
 
 #### Trigger Content Contract
 

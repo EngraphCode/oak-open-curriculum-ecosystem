@@ -388,13 +388,8 @@ scope-bounded artefacts (PDR-015 amendment 2026-04-29).
 
 ## Skills: Canonical and Platform Adapters
 
-Canonical skill bodies live under `.agent/skills/` as
-`SKILL-CANONICAL.md`, at the directory depths the receiving repo
-documents for itself — flat `.agent/skills/<name>/` is the portable
-default, and a host MAY adopt grouped tiers (the host's own bridge,
-ADR, and canonical walker record its adopted shapes; they are host
-adoption detail, never part of this portable contract) — and carry
-the substantive workflow. Platform adapters are generated thin
+Canonical skill bodies live in `.agent/skills/<name>/SKILL-CANONICAL.md`
+and carry the substantive workflow. Platform adapters are generated thin
 wrappers using the receiving repo's configured owned-skill prefix and
 locations. The host bridge or surface matrix records emitted invocation
 names. Manual adapter edits are forbidden. Skills are the sole
@@ -404,11 +399,10 @@ retired. Unsupported states belong in the local surface matrix.
 ### Required Skills
 
 Each receiving repo MUST provide canonical bodies for these named
-workflows under `.agent/skills/` (at `<name>/SKILL-CANONICAL.md`, or
-one concern tier deep where the host groups skills — the table's
-canonical-body column shows each host-current path). Generated
+workflows under `.agent/skills/<name>/SKILL-CANONICAL.md`. Generated
 adapters land at host-configured surfaces using the host's owned-skill
-prefix.
+prefix. (A host that relocates canonicals within its own tree records
+that mapping in its host bridge; this portable contract stays flat.)
 
 | Skill            | Canonical body                                                | Core logic                                                                                                                                                                                                                             |
 | ---------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -416,7 +410,7 @@ prefix.
 | session-handoff  | `.agent/skills/session-handoff/SKILL-CANONICAL.md`            | Refresh the continuity contract, close own collaboration claims, update decision threads, capture surprises, and escalate into the consolidate-docs skill only when due.                     |
 | gates            | `.agent/skills/gates/SKILL-CANONICAL.md`                      | Run `type-check -> lint -> build -> test`. All blocking; restart after any fix.                                                                                                                                                        |
 | commit           | `.agent/skills/commit/SKILL-CANONICAL.md`                     | Check status, review diff, verify gates, stage selectively, and use a conventional commit. Never force push, amend pushed commits, or use `--no-verify`.                                                                                |
-| consolidate-docs | `.agent/skills/knowledge/consolidate-docs/SKILL-CANONICAL.md` | Verify docs current. Graduate settled content. Extract patterns. Rotate napkin. Manage fitness. Integrate incoming Practice Box. Broadcast outgoing context. See §Consolidation Workflow.                                              |
+| consolidate-docs | `.agent/skills/consolidate-docs/SKILL-CANONICAL.md`           | Verify docs current. Graduate settled content. Extract patterns. Rotate napkin. Manage fitness. Integrate incoming Practice Box. Broadcast outgoing context. See §Consolidation Workflow.                                              |
 | plan             | `.agent/skills/plan/SKILL-CANONICAL.md`                       | Read directives. Create plan with outcome, impact, value mechanism, acceptance criteria, risks, and non-goals.                                                                                                                         |
 
 ## Skills (.agent/skills/)
@@ -495,7 +489,7 @@ Surprise follows an explicit pipeline: capture → distil → graduate → enfor
 Surprise becomes durable only when it changes future behaviour and clears the
 usual graduation bar.
 
-### Napkin (.agent/skills/knowledge/napkin/SKILL-CANONICAL.md)
+### Napkin (.agent/skills/napkin/SKILL-CANONICAL.md)
 
 The napkin is the capture stage of the learning loop. It is always active.
 
