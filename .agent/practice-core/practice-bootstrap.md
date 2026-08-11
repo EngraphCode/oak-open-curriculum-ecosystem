@@ -388,8 +388,10 @@ scope-bounded artefacts (PDR-015 amendment 2026-04-29).
 
 ## Skills: Canonical and Platform Adapters
 
-Canonical skill bodies live in `.agent/skills/<name>/SKILL-CANONICAL.md`
-and carry the substantive workflow. Platform adapters are generated thin
+Canonical skill bodies live under `.agent/skills/` as
+`SKILL-CANONICAL.md` — rooted at `.agent/skills/<name>/` or, where the
+host groups skills by concern, `.agent/skills/<concern>/<name>/` (one
+optional grouping tier) — and carry the substantive workflow. Platform adapters are generated thin
 wrappers using the receiving repo's configured owned-skill prefix and
 locations. The host bridge or surface matrix records emitted invocation
 names. Manual adapter edits are forbidden. Skills are the sole
@@ -399,7 +401,9 @@ retired. Unsupported states belong in the local surface matrix.
 ### Required Skills
 
 Each receiving repo MUST provide canonical bodies for these named
-workflows under `.agent/skills/<name>/SKILL-CANONICAL.md`. Generated
+workflows under `.agent/skills/` (at `<name>/SKILL-CANONICAL.md`, or
+one concern tier deep where the host groups skills — the table's
+canonical-body column shows each host-current path). Generated
 adapters land at host-configured surfaces using the host's owned-skill
 prefix.
 
