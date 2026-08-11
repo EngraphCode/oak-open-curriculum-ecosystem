@@ -70,41 +70,78 @@ overrides:
   # (docs/engineering/build-system.md §Dependency updates).
   '@types/node': '^24.13.3'
   axios: '>=1.15.1'
-  # Security floor, raised 2026-07-25: DoS via unbounded expansion length
-  # causing an out-of-memory abort (high; patched in 5.0.8). Advisory was
-  # published while this sweep was in flight — the 5.0.5 floor already here was
-  # for an earlier finding. Reaches the tree through glob/minimatch tooling
-  # chains; no production reachability established, patched because the fix is
-  # a one-line floor. Left unbounded: 5.x is the current line.
-  brace-expansion: '>=5.0.8'
+  # Security floor, raised 2026-07-25 and again 2026-08-11 (MCP-549).
+  # Originally 5.0.5 for an earlier finding; then 5.0.8 for a DoS via
+  # unbounded expansion length (out-of-memory abort, high); now 5.0.9 for
+  # the quadratic-expansion advisory — the whole tree already resolves 5.x
+  # under this floor, so no major cross occurs. Reaches the tree through
+  # glob/minimatch tooling chains; no production reachability established.
+  # Left unbounded: 5.x is the current line — add a bound if 6.x ships.
+  brace-expansion: '>=5.0.9'
   csstype: '>=3.2.3'
   esbuild: '>=0.28.1'
   # Security floor: host confusion via a literal backslash in fast-uri's URI
-  # parser (high; patched in 3.1.4). Reaches the tree only through SDK and dev
-  # tooling chains. Bounded below 4 deliberately — 4.x is published, and an
-  # open floor would silently adopt a major nobody asked for. Raise the bound
-  # when a consumer actually needs fast-uri 4.
-  fast-uri: '>=3.1.4 <4'
+  # parser (high; patched in 3.1.4); a second host-confusion advisory via a
+  # backslash authority introducer patched in 3.1.5 (raised 2026-08-11,
+  # MCP-549). Reaches the tree only through SDK and dev tooling chains.
+  # Bounded below 4 deliberately — 4.x is published, and an open floor would
+  # silently adopt a major nobody asked for. Raise the bound when a consumer
+  # actually needs fast-uri 4.
+  fast-uri: '>=3.1.5 <4'
   file-type: '>=21.3.2'
   follow-redirects: '>=1.15.12'
-  hono: '>=4.12.25'
+  # Security floor, raised 2026-08-11 (MCP-549): three advisories patched in
+  # 4.12.34 — memo() cross-user SSR retention, language-middleware DoS, CORS
+  # ReDoS. PRODUCTION-REACHABLE: @modelcontextprotocol/sdk declares hono
+  # ^4.11.4 as a real dependency and the shipped MCP app declares that SDK;
+  # @clerk/mcp-tools consumes it too. Bounded below 5 deliberately: this
+  # override REWRITES dependents' recorded ranges in the lockfile (including
+  # @hono/node-server's hono peer range), so an open floor would adopt a
+  # future hono 5 unreviewed AND silence the peer conflict that should block
+  # it. Raise the bound when @modelcontextprotocol/sdk admits hono 5.
+  hono: '>=4.12.34 <5'
   # Security floor: unauthenticated memory-leak DoS in the Hono Node adapter
   # (patched in 2.0.10). PRODUCTION-REACHABLE, unlike most entries here:
   # @modelcontextprotocol/sdk's StreamableHTTPServerTransport imports
   # getRequestListener from this package and constructs one per request, so it
   # sits on the hot path of every /mcp call even though no repo source imports
   # Hono. Bounded below 3 deliberately — the previous open '>=1.19.10' floor is
-  # why 2.x was adopted at all (the SDK asks only for ^1.19.9), and the bound
-  # stops the next major arriving unreviewed. Raise it when the SDK does.
+  # why 2.x was adopted at all (the SDK asked only for ^1.19.9 then; as of SDK
+  # 1.30.0 it declares ^1.19.9 || ^2.0.5), and the bound stops the next major
+  # arriving unreviewed. Raise the bound when the SDK admits a newer major.
   '@hono/node-server': '>=2.0.10 <3'
+  # Security floor, added 2026-08-11 (MCP-549): leading-zero octet decode →
+  # SSRF/trust-boundary bypass (high; patched in 10.3.1), plus two moderate
+  # special-use misclassification advisories (patched by 10.2.2).
+  # PRODUCTION-REACHABLE: express-rate-limit — client-IP parsing on the
+  # shipped MCP app's rate limiter, via @modelcontextprotocol/sdk — declares
+  # ^10.2.0. The range admits the patch, but the lockfile is derived
+  # (lockfile-rebuild-survivability): a good version recorded there is not a
+  # constraint, so the CVE floor earns the override. Left unbounded: 10.x is
+  # the current line — add a bound if 11.x ships. Drop the floor when
+  # express-rate-limit's own declared floor exceeds 10.3.1.
+  ip-address: '>=10.3.1'
   'js-cookie': '>=3.0.7'
-  js-yaml: '>=4.1.1 <5.0.0'
+  # Security floor, raised 2026-08-11 (MCP-549): quadratic CPU consumption in
+  # !!omap resolution (high; CVE-2026-59870; patched in 4.3.1). Dev/tooling
+  # chains only (openapi-zod-client-adapter and siblings). Bounded below 5 —
+  # 5.x is published, and an open floor would adopt it unreviewed. Raise the
+  # bound when a consumer actually needs js-yaml 5.
+  js-yaml: '>=4.3.1 <5'
   # Security floor: quadratic-complexity ReDoS via the mailto: matcher in
   # linkify-it (high; patched in 5.0.2). Arrives transitively through markdown
   # tooling. Bounded below 6 for the same reason as fast-uri: 6.x exists and an
   # open floor would take it. Raise the bound when markdown-it moves.
   linkify-it: '>=5.0.2 <6'
   markdown-it: '>=14.1.2'
+  # Security floor, added 2026-08-11 (MCP-549): infinite loop on a zero-size
+  # generator (high; patched in 3.3.17 on the 3.x line). Reached via postcss
+  # chains, direct and transitive — a direct postcss bump left transitive
+  # postcss nodes carrying the vulnerable pin, so the floor is the tree-wide
+  # mover. Bounded below 4 deliberately: consumers declare ^3.x, and an
+  # unbounded floor would coerce them onto nanoid's ESM-only later majors.
+  # Revisit when postcss itself moves its nanoid line.
+  nanoid: '>=3.3.17 <4'
   picomatch: '>=4.0.4'
   # Security floor, raised 2026-07-25. Originally for next's nested postcss
   # 8.4.31 (GHSA-qx2v-qp2m-jg93, XSS via unescaped </style> in stringify
