@@ -45,7 +45,21 @@ interface WalkAccumulator {
  */
 async function walkCarriedTrees(canonicalDir: string, fs: CarriageReadFs): Promise<WalkOutcome> {
   const accumulator: WalkAccumulator = { files: [], others: [], failures: [] };
+  // The carried ROOTS themselves must be real directories before anything
+  // descends: `readdir` follows a symlinked `scripts`/`references`/`assets`,
+  // so an unchecked join-and-walk would smuggle an external tree into every
+  // projection with the checker green over it (security round, 2026-08-11).
+  const canonicalEntries = await fs.listOtherEntryNames(canonicalDir);
+  if (canonicalEntries.kind === 'failure') {
+    accumulator.failures.push(canonicalEntries.message);
+    return finishWalk(accumulator);
+  }
+  const nonRegularRoots = new Set(canonicalEntries.value);
   for (const directoryName of CARRIED_DIRECTORY_NAMES) {
+    if (nonRegularRoots.has(directoryName)) {
+      accumulator.others.push(directoryName);
+      continue;
+    }
     await walkUnder(join(canonicalDir, directoryName), directoryName, fs, accumulator);
   }
   return finishWalk(accumulator);

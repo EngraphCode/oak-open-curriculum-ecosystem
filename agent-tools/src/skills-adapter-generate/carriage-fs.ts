@@ -22,11 +22,12 @@ import {
   mkdir,
   readFile,
   readdir,
+  realpath,
   rm,
   rmdir,
   stat,
 } from 'node:fs/promises';
-import { dirname } from 'node:path';
+import { basename, dirname, join } from 'node:path';
 
 /** One seam read: the value, or a typed failure naming what went wrong. */
 export type FsRead<T> =
@@ -50,6 +51,13 @@ export interface CarriageReadFs {
   readFileBytesOrUndefined(path: string): Promise<FsRead<Uint8Array | undefined>>;
   /** Whether the file carries any executable bit; `undefined` iff absent. */
   isExecutableOrUndefined(path: string): Promise<FsRead<boolean | undefined>>;
+  /**
+   * The path with every symlink in it resolved (an absent path resolves to
+   * itself — absence is a normal state the callers already handle). The
+   * projection-root sweep compares this against the lexical join to refuse
+   * a symlinked surface root OR ancestor before any destructive act.
+   */
+  resolveRealPath(path: string): Promise<FsRead<string>>;
 }
 
 /** Write-side seam: the read seam plus the copy/prune operations. */
@@ -102,6 +110,32 @@ export const realCarriageReadFs: CarriageReadFs = {
       return isAbsence(error)
         ? ok(undefined)
         : { kind: 'failure', message: `cannot stat ${path}: ${String(error)}` };
+    }
+  },
+  async resolveRealPath(path) {
+    // An absent tail is a normal state (a surface root before its first
+    // generation), but the RESOLVED ancestry still matters — otherwise a
+    // benign ancestor link (macOS's /var -> /private/var under tmpdir) or
+    // a hostile one reads differently depending on whether the leaf
+    // exists yet. Resolve the nearest existing ancestor, re-append the
+    // absent tail.
+    const tail: string[] = [];
+    let current = path;
+    for (;;) {
+      try {
+        const resolved = await realpath(current);
+        return ok(tail.length === 0 ? resolved : join(resolved, ...tail));
+      } catch (error: unknown) {
+        if (!isAbsence(error)) {
+          return { kind: 'failure', message: `cannot resolve ${path}: ${String(error)}` };
+        }
+        const parent = dirname(current);
+        if (parent === current) {
+          return ok(join(current, ...tail));
+        }
+        tail.unshift(basename(current));
+        current = parent;
+      }
     }
   },
 };

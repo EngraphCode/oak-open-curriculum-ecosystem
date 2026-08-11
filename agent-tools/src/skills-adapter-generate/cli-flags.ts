@@ -48,14 +48,27 @@ export function parseCliFlags(args: readonly string[]): ParseCliFlagsResult {
       };
     }
   }
-  if (prefix === '') {
-    return {
-      kind: 'error',
-      message:
-        '--prefix is required (this estate pins `--prefix=oak-` via the root ' +
-        '`pnpm skills:generate` / `pnpm skills:check` scripts). An unprefixed run would ' +
-        'mint a second skill estate the pinned checker never inspects.',
-    };
+  const prefixError = validatePrefix(prefix);
+  if (prefixError !== undefined) {
+    return { kind: 'error', message: prefixError };
   }
   return { kind: 'ok', flags: { clear, check, prefix } };
+}
+
+/** The prefix steers BOTH the write target and the sweep's expected-set: a
+ * traversal value like `--prefix=../../` recursively deletes the real
+ * projection estate and writes outside the repo (security round,
+ * 2026-08-11). A prefix is a name fragment, never a path. */
+function validatePrefix(prefix: string): string | undefined {
+  if (prefix === '') {
+    return (
+      '--prefix is required (this estate pins `--prefix=oak-` via the root ' +
+      '`pnpm skills:generate` / `pnpm skills:check` scripts). An unprefixed run would ' +
+      'mint a second skill estate the pinned checker never inspects.'
+    );
+  }
+  if (/[/\\]/.test(prefix) || prefix.includes('..') || prefix.startsWith('.')) {
+    return `--prefix must be a plain name fragment (no path separators, no '..', no leading '.'): ${prefix}`;
+  }
+  return undefined;
 }

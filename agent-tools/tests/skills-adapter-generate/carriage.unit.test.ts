@@ -78,6 +78,9 @@ function makeReadFs(
     async isExecutableOrUndefined(path) {
       return ok(files.has(path) ? executables.has(path) : undefined);
     },
+    async resolveRealPath(path) {
+      return ok(path); // the flat-map fixture holds no symlinked ancestors
+    },
   };
 }
 
@@ -106,6 +109,9 @@ function makeWriteFs(
     },
     async isExecutableOrUndefined(path) {
       return readFs().isExecutableOrUndefined(path);
+    },
+    async resolveRealPath(path) {
+      return ok(path);
     },
     async copyFileWithParents(sourcePath, targetPath) {
       log?.push(`copy:${targetPath}`);

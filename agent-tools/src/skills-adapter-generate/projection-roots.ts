@@ -73,21 +73,12 @@ export async function findStaleProjectionEntries(input: {
         `rename the canonical or the vendored entry before reconciling`,
     );
   }
+  const repoReal = await input.fs.resolveRealPath(input.repoRoot);
   for (const surface of PROJECTION_SURFACE_ROOTS) {
     const root = join(input.repoRoot, surface);
-    // The surface root ITSELF must be a real directory: readdir follows a
-    // symlinked root, so every verdict and removal would act on (and
-    // delete inside) whatever tree the link points at.
-    const parentOthers = await input.fs.listOtherEntryNames(join(root, '..'));
-    if (parentOthers.kind === 'failure') {
-      failures.push(parentOthers.message);
-      continue;
-    }
-    if (parentOthers.value.includes(surface.split('/')[1] ?? 'skills')) {
-      failures.push(
-        `projection surface root is a symlink or other non-regular entry: ${root} — ` +
-          `refusing to reconcile through it; replace it with a real directory`,
-      );
+    const guardFailure = await assertRealSurfaceRoot(root, surface, repoReal, input.fs);
+    if (guardFailure !== undefined) {
+      failures.push(guardFailure);
       continue;
     }
     await sweepSurfaceRoot({
@@ -143,6 +134,36 @@ export async function sweepStaleProjections(input: {
     pruned.push(entryPath);
   }
   return { pruned, refusedRun: [] };
+}
+
+/**
+ * The surface root AND every ancestor under the repo root must be real
+ * directories: readdir follows a symlink at any depth, so every verdict
+ * and removal would act on (and delete inside) whatever tree the link
+ * points at. One realpath comparison catches root and ancestors alike
+ * (security round, 2026-08-11 — a symlinked `.claude` defeated a
+ * root-only check). Returns the failure message, or undefined when safe.
+ */
+async function assertRealSurfaceRoot(
+  root: string,
+  surface: string,
+  repoReal: Awaited<ReturnType<CarriageReadFs['resolveRealPath']>>,
+  fs: CarriageReadFs,
+): Promise<string | undefined> {
+  if (repoReal.kind === 'failure') {
+    return repoReal.message;
+  }
+  const rootReal = await fs.resolveRealPath(root);
+  if (rootReal.kind === 'failure') {
+    return rootReal.message;
+  }
+  if (rootReal.value !== join(repoReal.value, surface)) {
+    return (
+      `projection surface root resolves outside its lexical home (symlinked root or ` +
+      `ancestor): ${root} -> ${rootReal.value} — refusing to reconcile through it`
+    );
+  }
+  return undefined;
 }
 
 async function sweepSurfaceRoot(input: {

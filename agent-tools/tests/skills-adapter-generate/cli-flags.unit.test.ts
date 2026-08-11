@@ -29,6 +29,14 @@ describe('parseCliFlags', () => {
     expect(parseCliFlags(['-h'])).toEqual({ kind: 'help' });
   });
 
+  it('refuses a path-shaped prefix — the value steers both write targets and the sweep', () => {
+    for (const dangerous of ['../../', 'a/b-', '..', '.hidden-', String.raw`a\b-`]) {
+      const result = parseCliFlags([`--prefix=${dangerous}`]);
+      expect(result.kind, dangerous).toBe('error');
+      expect(result.kind === 'error' && result.message).toContain('name fragment');
+    }
+  });
+
   it('refuses a missing or empty prefix with the pinned-script guidance', () => {
     const missing = parseCliFlags([]);
     expect(missing.kind).toBe('error');

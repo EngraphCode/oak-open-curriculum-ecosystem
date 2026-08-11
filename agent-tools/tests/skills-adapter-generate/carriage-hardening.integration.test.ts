@@ -117,6 +117,48 @@ describe('symlink safety over a real filesystem', () => {
     );
   });
 
+  it('refuses a canonical carried ROOT that is itself a symlink: nothing external is smuggled and both surfaces report the refusal', async () => {
+    const root = sandboxRepo();
+    const outside = sandboxRepo();
+    writeRepoFile(root, `${CANONICAL_DIR}/SKILL-CANONICAL.md`, canonicalBody);
+    writeRepoFile(outside, 'secret.txt', 'SECRET-EXTERNAL-BYTES\n');
+    symlinkRepoPath(root, `${CANONICAL_DIR}/references`, outside);
+
+    const generated = await generateAdapters({
+      repoRoot: root,
+      prefix: 'oak-',
+      lockedIds: EMPTY_LOCK,
+    });
+    expect(generated.refused.some((message) => /symlink/.test(message))).toBe(true);
+    expect(repoPathExists(root, '.claude/skills/oak-parallax/references/secret.txt')).toBe(false);
+    expect(repoPathExists(root, '.claude/skills/oak-parallax/SKILL.md')).toBe(false);
+
+    const checked = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    expect(checked.refused.some((message) => /symlink/.test(message))).toBe(true);
+  });
+
+  it('refuses a symlinked surface-root ANCESTOR: nothing in the linked tree is removed or written', async () => {
+    const root = sandboxRepo();
+    const outside = sandboxRepo();
+    seedSkill(root);
+    writeRepoFile(outside, 'skills/precious-external/KEEP.md', 'external tree stays\n');
+    symlinkRepoPath(root, '.claude', outside);
+
+    const generated = await generateAdapters({
+      repoRoot: root,
+      prefix: 'oak-',
+      lockedIds: EMPTY_LOCK,
+    });
+    expect(generated.refused.some((message) => /resolves outside/.test(message))).toBe(true);
+    expect(readRepoBytes(outside, 'skills/precious-external/KEEP.md')).toEqual(
+      new TextEncoder().encode('external tree stays\n'),
+    );
+
+    const checked = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    expect(checked.refused.some((message) => /resolves outside/.test(message))).toBe(true);
+    expect(checked.stale).toEqual([]);
+  });
+
   it('refuses a canonical-side symlink loudly: nothing is emitted for the skill and both surfaces report the refusal', async () => {
     const root = sandboxRepo();
     const outside = sandboxRepo();

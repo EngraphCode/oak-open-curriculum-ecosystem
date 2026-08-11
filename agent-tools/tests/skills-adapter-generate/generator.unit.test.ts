@@ -162,6 +162,9 @@ function makeTreeFs(
     async isExecutableOrUndefined(path) {
       return ok(files.has(path) ? false : undefined);
     },
+    async resolveRealPath(path) {
+      return ok(path); // the text-map fixture holds no symlinked ancestors
+    },
   };
 }
 
