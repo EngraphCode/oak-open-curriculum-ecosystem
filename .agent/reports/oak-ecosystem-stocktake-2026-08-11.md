@@ -2,7 +2,7 @@
 
 23 July to 11 August 2026
 
-**Published as the Linear project update on 2026-08-11** (the previous update was 23 July).
+**DRAFT — pulled back from Linear on 2026-08-11 pending dependency-advisory cures (MCP-549).** Publishes as the next project update only when its claims are true (the previous update was 23 July).
 
 ---
 
