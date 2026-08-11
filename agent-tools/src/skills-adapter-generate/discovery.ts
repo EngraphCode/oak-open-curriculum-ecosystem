@@ -2,18 +2,22 @@
  * Canonical skill discovery, shared by the adapter generator and the drift
  * checker so both walk the corpus identically.
  *
- * Two standard shapes live under `.agent/skills/`: a flat individual
- * (`<id>/SKILL-CANONICAL.md`) and a concern-tier member
- * (`<concern>/<id>/SKILL-CANONICAL.md` — one concern tier, no deeper, per
- * the ratified skills-estate structure). A root entry that is neither
- * shape, a concern member without a canonical, and a canonical with
- * unparseable frontmatter are all skipped loudly: they hold content no
- * harness can summon.
+ * Three standard shapes live under `.agent/skills/`: a flat individual
+ * (`<id>/SKILL-CANONICAL.md`), a concern-tier member
+ * (`<concern>/<id>/SKILL-CANONICAL.md`), and a domain-tier member
+ * (`<concern>/<domain>/<id>/SKILL-CANONICAL.md` — the owner-ruled
+ * 2026-08-10 domain subdirectories, e.g. `domain-craft/ui-design/`; one
+ * domain tier under a concern, never deeper). A root entry that is none of
+ * these shapes, a member directory without a canonical, a fourth tree
+ * level, and a canonical with unparseable frontmatter are all skipped
+ * loudly: they hold content no harness can summon.
  */
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { parse as parseYaml } from 'yaml';
+
+import { walkSkillTree } from './skill-tree-walk.js';
 
 const CANONICAL_FILENAME = 'SKILL-CANONICAL.md';
 
@@ -68,8 +72,8 @@ const realDiscoveryFs: DiscoveryFs = {
 };
 
 /**
- * Discover every canonical skill under `.agent/skills/`, honouring the two
- * standard shapes.
+ * Discover every canonical skill under `.agent/skills/` via the shared
+ * three-tier topology walker.
  */
 export async function discoverCanonicals(
   repoRoot: string,
@@ -79,43 +83,34 @@ export async function discoverCanonicals(
   const skipped: string[] = [];
   const canonicalsRoot = join(repoRoot, '.agent', 'skills');
 
-  for (const rootId of await fs.listSubdirectoryNames(canonicalsRoot)) {
-    await discoverRootEntry(canonicalsRoot, rootId, fs, canonicals, skipped);
-  }
+  // Topology lives in the shared walker (the canonical owner of the
+  // three-tier shape); this consumer parses frontmatter and reports skips.
+  // A directory whose canonical file exists but fails parsing reaches
+  // onCanonical and is skipped there — the walker only probes presence.
+  await walkSkillTree(
+    {
+      listChildDirectories: (relativeDir) =>
+        fs.listSubdirectoryNames(join(canonicalsRoot, relativeDir)),
+      hasCanonical: async (relativeDir) =>
+        (await fs.readFileOrUndefined(join(canonicalsRoot, relativeDir, CANONICAL_FILENAME))) !==
+        undefined,
+    },
+    {
+      async onCanonical(relativeDir) {
+        const parsed = await parseCanonicalAt(canonicalsRoot, relativeDir, fs);
+        if (parsed === 'absent' || parsed === 'unparseable') {
+          skipped.push(relativeDir);
+        } else {
+          canonicals.push(parsed);
+        }
+      },
+      onDeadEnd(relativeDir) {
+        skipped.push(relativeDir);
+      },
+    },
+  );
 
   return { canonicals, skipped, duplicates: duplicateLeafIds(canonicals) };
-}
-
-async function discoverRootEntry(
-  canonicalsRoot: string,
-  rootId: string,
-  fs: DiscoveryFs,
-  canonicals: ParsedCanonical[],
-  skipped: string[],
-): Promise<void> {
-  const flat = await parseCanonicalAt(canonicalsRoot, rootId, fs);
-  if (flat === 'unparseable') {
-    skipped.push(rootId);
-    return;
-  }
-  if (flat !== 'absent') {
-    canonicals.push(flat);
-    return;
-  }
-  const memberIds = await fs.listSubdirectoryNames(join(canonicalsRoot, rootId));
-  if (memberIds.length === 0) {
-    skipped.push(rootId);
-    return;
-  }
-  for (const memberId of memberIds) {
-    const relativeDir = `${rootId}/${memberId}`;
-    const member = await parseCanonicalAt(canonicalsRoot, relativeDir, fs);
-    if (member === 'absent' || member === 'unparseable') {
-      skipped.push(relativeDir);
-    } else {
-      canonicals.push(member);
-    }
-  }
 }
 
 async function parseCanonicalAt(

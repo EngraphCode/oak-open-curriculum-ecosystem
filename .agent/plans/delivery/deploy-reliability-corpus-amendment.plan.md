@@ -3,7 +3,10 @@ id: deploy-reliability-corpus-amendment
 node_type: delivery
 name: 'Amend the deployment-reliability plan corpus (PR #746) per the adjudicated 2026-08-05 review'
 overview: 'Apply the surviving findings of the eleven-expert review to the four plan nodes and two operations docs on PR #746, with every finding carrying a recorded disposition, and adjudicate the open CHANGES_REQUESTED on-thread with evidence.'
-status: sketch
+status: ratified
+ratified_by: 'Jim Cresswell'
+ratified_date: 2026-08-09
+ratified_where: "Owner card at the Director seat 2026-08-09 ~14:5xZ (card answer: 'Ratify — subagent executes'; first-principles check and three benign freshness deltas presented on the card; session Plover lifts Troposphere b10c37)"
 serves: first-major-release
 impact_areas:
   - served-surface
@@ -14,7 +17,7 @@ tickets:
   - MCP-481
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-05
+last_updated: 2026-08-09
 ---
 
 # Amend the deployment-reliability corpus

@@ -26,7 +26,7 @@ metadata:
 
 # Oak Curriculum Principles — grounded in live data
 
-This skill does one thing the self-contained `oak-curriculum-principles` skill can't: it anchors the six principles in Oak's **real curriculum** — ~164 threads, a prior-knowledge graph, ~12,800 documented misconceptions with teacher responses, vocabulary with definitions, national-curriculum mapping, and tens of thousands of lessons — through the **Oak Curriculum MCP**.
+This skill does one thing the self-contained `oak-curriculum-principles` skill can't: it anchors the six principles in Oak's **real curriculum** — ~164 threads, a prior-knowledge graph, ~12,800 documented misconceptions with teacher responses, vocabulary with definitions, the national curriculum statements units record, and tens of thousands of lessons — through the **Oak Curriculum MCP**.
 
 Use it to move from "this looks well-sequenced" to "this matches Oak's _Number_ thread progression and the prior-knowledge graph," and from "anticipate misconceptions" to "here are the misconceptions Oak has documented for this exact topic."
 
@@ -42,14 +42,14 @@ For the _meaning_ of each principle, the evidence base, and the 15 subject guidi
 
 The full tool-by-tool mapping with example calls and data shapes is in `references/grounding-each-principle.md`. The short version:
 
-| Principle                       | Grounding data                                                        | Key tools                                                             |
-| ------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| **Knowledge & vocabulary rich** | Keywords _with definitions_, key learning points, pupil outcomes      | `get-lessons-summary`, `get-keywords`, `get-units-summary`            |
-| **Sequenced & coherent**        | ~164 threads with ordered units; unit prerequisites                   | `get-threads`, `get-thread-progressions`, `get-prior-knowledge-graph` |
-| **Evidence-informed**           | ~12,800 misconceptions + teacher responses; teacher tips              | `get-misconception-graph`, `get-lessons-summary`                      |
-| **Flexible**                    | National-curriculum mapping; unit options; tiers; programme structure | `get-units-summary`, `browse-curriculum`, `fetch`                     |
-| **Diverse**                     | The breadth of Oak content; diversity-related threads and exemplars   | `search`, `explore-topic`, `get-threads-units`                        |
-| **Accessible**                  | Content guidance, supervision levels; prior knowledge for chunking    | `get-lessons-summary`, `get-prior-knowledge-graph`                    |
+| Principle                       | Grounding data                                                           | Key tools                                                             |
+| ------------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------- |
+| **Knowledge & vocabulary rich** | Keywords _with definitions_, key learning points, pupil outcomes         | `get-lessons-summary`, `get-keywords`, `get-units-summary`            |
+| **Sequenced & coherent**        | ~164 threads with ordered units; unit prerequisites                      | `get-threads`, `get-thread-progressions`, `get-prior-knowledge-graph` |
+| **Evidence-informed**           | ~12,800 misconceptions + teacher responses; teacher tips                 | `get-misconception-graph`, `get-lessons-summary`                      |
+| **Flexible**                    | National curriculum statements; unit options; tiers; programme structure | `get-units-summary`, `browse-curriculum`, `fetch`                     |
+| **Diverse**                     | The breadth of Oak content; diversity-related threads and exemplars      | `search`, `explore-topic`, `get-threads-units`                        |
+| **Accessible**                  | Content guidance, supervision levels; prior knowledge for chunking       | `get-lessons-summary`, `get-prior-knowledge-graph`                    |
 
 Discovery tools that cut across all of these: `search` (scopes: `lessons`, `units`, `threads`, `sequences`, `suggest`), `explore-topic` (searches scopes in parallel), `browse-curriculum` (structure/facets), and `fetch` (prefixed IDs: `lesson:`, `unit:`, `thread:`, `subject:`).
 
@@ -79,7 +79,7 @@ Step-by-step recipes with real slugs are in `references/workflows.md`. The headl
 - **KS4 is more complex** — tiers (foundation/higher), exam boards, and exam subjects. Science KS4 must be traversed via sequences, not the flat lessons route. See the structural patterns in `get-curriculum-model`.
 - **Respect content guidance.** Where `contentGuidance` / `supervisionLevel` are present, carry them through to any derived material.
 - **Attribute to Oak.** The curriculum data is Oak National Academy's, published under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) (OGL v3.0), which requires attribution. When output reproduces or is derived from Oak content or data, credit **Oak National Academy**, link to the relevant lesson/unit/thread on thenational.academy, and link to the OGL. The Oak name and logo are trademarks, **not** covered by the OGL — use only per the [brand guidelines](https://support.thenational.academy/using-the-oak-brand). Full terms: `references/sources.md`.
-- **Verify before publishing.** Live data changes; re-fetch rather than relying on cached slugs for formal work. Confirm national-curriculum mapping against the current statutory framework.
+- **Verify before publishing.** Live data changes; re-fetch rather than relying on cached slugs for formal work. Confirm the national curriculum statements a unit records against the current statutory framework.
 
 ## References
 

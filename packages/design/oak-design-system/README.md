@@ -232,7 +232,7 @@ components/             ← compiled React components (.jsx + .d.ts + card)
 preview/                ← specimen cards for the Design System tab
 ui_kits/oak/            ← full homepage reference build
 SKILL.md                ← studio agent-skill descriptor — derived from the repo canonical
-                          (.agent/skills/design-system-usage/SKILL-CANONICAL.md) at each sync
+                          (.agent/skills/domain-craft/ui-design/design-system-usage/SKILL-CANONICAL.md) at each sync
 
 ```
 

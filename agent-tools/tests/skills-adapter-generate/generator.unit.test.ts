@@ -171,6 +171,83 @@ describe('discoverCanonicals', () => {
     expect(outcome.skipped).toEqual(['fam/hollow']);
   });
 
+  it('discovers a domain-tier member under a concern (concern/domain/skill)', async () => {
+    const fs = makeTreeFs(
+      new Map([
+        ['/repo/.agent/skills', ['domain-craft']],
+        ['/repo/.agent/skills/domain-craft', ['ui-design']],
+        ['/repo/.agent/skills/domain-craft/ui-design', ['skill-x']],
+      ]),
+      new Map([
+        ['/repo/.agent/skills/domain-craft/ui-design/skill-x/SKILL-CANONICAL.md', canonicalBody],
+      ]),
+    );
+
+    const outcome = await discoverCanonicals(repoRoot, fs);
+
+    expect(outcome.skipped).toEqual([]);
+    expect(outcome.canonicals.map((c) => [c.id, c.relativeDir])).toEqual([
+      ['skill-x', 'domain-craft/ui-design/skill-x'],
+    ]);
+  });
+
+  it('discovers direct concern members and domain-tier members side by side', async () => {
+    const fs = makeTreeFs(
+      new Map([
+        ['/repo/.agent/skills', ['domain-craft']],
+        ['/repo/.agent/skills/domain-craft', ['direct-member', 'ui-design']],
+        ['/repo/.agent/skills/domain-craft/ui-design', ['skill-x']],
+      ]),
+      new Map([
+        ['/repo/.agent/skills/domain-craft/direct-member/SKILL-CANONICAL.md', canonicalBody],
+        ['/repo/.agent/skills/domain-craft/ui-design/skill-x/SKILL-CANONICAL.md', canonicalBody],
+      ]),
+    );
+
+    const outcome = await discoverCanonicals(repoRoot, fs);
+
+    expect(outcome.skipped).toEqual([]);
+    expect(outcome.canonicals.map((c) => [c.id, c.relativeDir])).toEqual([
+      ['direct-member', 'domain-craft/direct-member'],
+      ['skill-x', 'domain-craft/ui-design/skill-x'],
+    ]);
+  });
+
+  it('skips a domain member directory without a readable canonical', async () => {
+    const fs = makeTreeFs(
+      new Map([
+        ['/repo/.agent/skills', ['domain-craft']],
+        ['/repo/.agent/skills/domain-craft', ['ui-design']],
+        ['/repo/.agent/skills/domain-craft/ui-design', ['good', 'hollow']],
+      ]),
+      new Map([
+        ['/repo/.agent/skills/domain-craft/ui-design/good/SKILL-CANONICAL.md', canonicalBody],
+      ]),
+    );
+
+    const outcome = await discoverCanonicals(repoRoot, fs);
+
+    expect(outcome.canonicals.map((c) => c.id)).toEqual(['good']);
+    expect(outcome.skipped).toEqual(['domain-craft/ui-design/hollow']);
+  });
+
+  it('never walks deeper than the domain tier — a fourth level is content no harness can summon', async () => {
+    const fs = makeTreeFs(
+      new Map([
+        ['/repo/.agent/skills', ['fam']],
+        ['/repo/.agent/skills/fam', ['dom']],
+        ['/repo/.agent/skills/fam/dom', ['too-deep']],
+        ['/repo/.agent/skills/fam/dom/too-deep', ['deeper']],
+      ]),
+      new Map([['/repo/.agent/skills/fam/dom/too-deep/deeper/SKILL-CANONICAL.md', canonicalBody]]),
+    );
+
+    const outcome = await discoverCanonicals(repoRoot, fs);
+
+    expect(outcome.canonicals).toEqual([]);
+    expect(outcome.skipped).toEqual(['fam/dom/too-deep']);
+  });
+
   it('reports duplicate leaf ids across shapes — the flat adapter namespace must stay injective', async () => {
     const fs = makeTreeFs(
       new Map([

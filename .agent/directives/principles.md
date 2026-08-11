@@ -54,7 +54,7 @@ and the highest levels of software engineering excellence.
 ### Concept Exploration — the pre-decision workflow
 
 The lenses resolve formed questions. Invoke the
-[`concept-exploration`](../skills/concept-exploration/SKILL-CANONICAL.md) skill before committing
+[`concept-exploration`](../skills/cognition/concept-exploration/SKILL-CANONICAL.md) skill before committing
 to an option list, including when an early list exists but may foreclose the real question. It
 alternates `metacognition` and `reason`, then feeds its warranted, falsifiable synthesis into the
 lenses above.
@@ -62,7 +62,7 @@ lenses above.
 ### Proportionality — the pre-decision sizing gate
 
 The lenses resolve **shape**, never size. The
-[`proportionality`](../skills/proportionality/SKILL-CANONICAL.md) skill is the paired
+[`proportionality`](../skills/cognition/proportionality/SKILL-CANONICAL.md) skill is the paired
 pre-decision gate — right SIZE of question, right instrument weight, right LEVEL to answer it —
 bounding scope, instrument weight and attention cost ONLY, never correctness, strictness or
 architectural quality. A gate, not a sixth lens; the skill carries why, and the domain
@@ -403,10 +403,17 @@ Use the right tool for the job:
   `docs/agent-guidance/archive/sentry-guidance.md`)
 
 All workspace tooling configuration MUST follow the canonical
-patterns defined in the base configs at the repo root. Workspace
-configs extend base configs — they do not replace them. This applies
-to `vitest.config.ts`, `tsconfig.json`, `eslint.config.ts`, and all
-other tooling. Deviations cause silent quality-gate leaks (e.g. E2E
+patterns exported by `@oaknational/workspace-config`, consumed as a
+declared `workspace:*` dependency — never by a relative path that
+leaves the workspace (static imports and undeclared dependencies are
+enforced by the dependency-cruiser boundary rules;
+`validate-workspace-config-isolation` owns the resolver-invisible
+legs). Workspace configs extend the
+shared bases — they do not replace them. This applies to
+`vitest.config.ts`, `tsup.config.ts`, and all other tooling;
+`tsconfig.json` `extends` chains are the one root-anchored
+convention that remains (an `extends` reference is not a module
+import). Deviations cause silent quality-gate leaks (e.g. E2E
 tests running under `pnpm test`, disabled lint rules, weakened
 type-checking). See [Testing Strategy: Canonical Vitest
 Configuration][vitest-config] for vitest-specific patterns. E2E

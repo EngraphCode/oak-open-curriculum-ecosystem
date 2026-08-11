@@ -25,13 +25,17 @@
  * records the observed dry run without it (dry-run-scoped evidence; the
  * full-run evidence is `mutation-evidence/run.log.txt`).
  *
- * `vitest.configFile` points at `vitest.stryker.config.ts`, a
- * self-contained duplicate of this workspace's real `vitest.config.ts`
- * (see that file's own docstring). Stryker's sandbox only ever contains
- * this workspace's directory tree; the real `vitest.config.ts` imports a
- * repo-root shared base three levels up, which cannot resolve inside the
- * sandbox. `mutation-evidence/dry-run.log.txt` records the reproduced
- * failure with the real config and the working dry run with this one.
+ * `vitest.configFile` points at the workspace's REAL `vitest.config.ts`.
+ * It once pointed at a self-contained duplicate
+ * (`vitest.stryker.config.ts`, now deleted): the real config used to
+ * import a repo-root shared base that could not resolve inside Stryker's
+ * per-workspace sandbox (`mutation-evidence/mechanics-report.md`
+ * §"Obstacle 1" records the reproduced failure; `dry-run.log.txt` holds
+ * the later successful duplicate-config dry run). The workspace-config isolation landing made the
+ * real config import `@oaknational/workspace-config/vitest`, which
+ * resolves through the sandbox's symlinked `node_modules` —
+ * `mutation-evidence/run-real-config.log.txt` banks the re-run proving
+ * config load and a completed pass against the real config.
  *
  * @type {import('@stryker-mutator/api/core').PartialStrykerOptions}
  */
@@ -40,7 +44,7 @@ const config = {
   testRunner: 'vitest',
   plugins: ['@stryker-mutator/vitest-runner'],
   coverageAnalysis: 'perTest',
-  vitest: { configFile: 'vitest.stryker.config.ts' },
+  vitest: { configFile: 'vitest.config.ts' },
 
   // Production mutation surface: authored source only. Test files are
   // excluded by extension; `dist/` is build output and is never under
@@ -49,8 +53,11 @@ const config = {
 
   // Explicit unit + integration test selection per the Oak test-scope
   // contract (unit/integration/E2E). E2E tests must never enter a
-  // mutation run; this list has no `*.e2e.test.ts` member.
-  testFiles: ['src/**/*.unit.test.ts', 'src/**/*.integration.test.ts'],
+  // mutation run — the brace set has no `e2e` member. One braced glob
+  // rather than two patterns: a separate per-category pattern warns when
+  // its category has no files yet (this workspace is unit-only today),
+  // and mutation runs are warning-free by rule.
+  testFiles: ['src/**/*.{unit,integration}.test.ts'],
 
   // A bad glob must fail loudly, never report a false "success".
   allowEmpty: false,

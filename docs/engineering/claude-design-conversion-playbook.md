@@ -149,7 +149,7 @@ config with a provenance citation, not carried as extra vendor files).
 
 ## Fidelity review and the divergence register
 
-Comparison is a workflow, not a gate. One orchestrator
+Comparison is a workflow, not a gate. One command
 (`tool:fidelity` in conversion #1) serves the canonical export, ensures the
 dev server (attach when up, spawn with bounded ready-wait and process-group
 teardown when free), captures both sides at matched geometry, perceptually
@@ -174,15 +174,17 @@ Three rules make it honest:
   pipeline's diff stage reads so ratified divergences are not re-flagged on
   a refresh (productionisation plan WS2 stage 2).
 - **The workflow is skill-carried**: the
-  [`fidelity-review` skill](../../.agent/skills/fidelity-review/SKILL-CANONICAL.md)
+  [`claude-design-pipeline` skill](../../.agent/skills/domain-craft/ui-design/claude-design-pipeline/SKILL-CANONICAL.md)
   owns the review loop (run → read report highest-ratio-first → judge →
   record → re-run `--report-only`); this playbook owns the porting method:
-  compose `@oaknational/fidelity-review` (`packages/libs/fidelity-review` —
-  the diff core, dev-server lifecycle, static-path guards, report
-  renderer, register schema, and runner helpers, consolidated 2026-08-09),
-  and author only the app-local parts in the new conversion's `tools/` —
-  its declared pairing map (own zod schema), capture arms, export server,
-  and a thin runner CLI over the package's `review-helpers`.
+  compose `@oaknational/fidelity-review` (`packages/libs/fidelity-review`,
+  consolidated at its second consumer 2026-08-09 — its README's §Modules
+  is the authoritative enumeration), and author only the app-local parts
+  in the new conversion's `tools/` — the app's own PAIR schema wrapped
+  with the package's `buildPairingMapSchema`, capture arms, export
+  server, default base and `SERVER_HINT`, and a `tools/fidelity-review.ts`
+  composing the package's `/orchestrator` with only paths, capture arms,
+  and `main` of its own.
 
 ## Accessibility bar
 

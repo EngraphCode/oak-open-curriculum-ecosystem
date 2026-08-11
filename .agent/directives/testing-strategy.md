@@ -617,16 +617,18 @@ running under `pnpm test`, CI timeouts that don't reproduce
 locally).
 
 - **Pattern 1 (preferred)**: Import and re-export
-  `baseTestConfig` from `vitest.config.base.ts` at the repo root.
-  Adjust the relative path per workspace depth.
+  `baseTestConfig` from `@oaknational/workspace-config/vitest` (a
+  declared `workspace:*` devDependency — never a relative path out
+  of the workspace).
 - **Pattern 2 (custom)**: Define a workspace-specific config.
   Non-negotiable: `exclude` MUST contain `'**/*.e2e.test.ts'`.
   `include` SHOULD use explicit conventions (`*.unit.test.ts`,
   `*.integration.test.ts`) not broad `*.test.ts` globs.
 
 Workspaces with `*.e2e.test.ts` files MUST also have
-`vitest.e2e.config.ts` (extending `vitest.e2e.config.base.ts` or
-workspace-specific) and a `test:e2e` script in `package.json`.
+`vitest.e2e.config.ts` (extending `baseE2EConfig` from
+`@oaknational/workspace-config/vitest-e2e`, or workspace-specific)
+and a `test:e2e` script in `package.json`.
 
 ## Test Assertion Placement
 

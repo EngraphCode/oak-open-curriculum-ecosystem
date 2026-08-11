@@ -1,4 +1,4 @@
-import { createLibConfig } from '../../../tsup.config.base.js';
+import { createLibConfig } from '@oaknational/workspace-config/tsup';
 
 /*
  * No src/index.ts barrel by design: a barrel would couple every consumer
@@ -10,12 +10,13 @@ import { createLibConfig } from '../../../tsup.config.base.js';
 export default createLibConfig({
   entry: [
     'src/support.ts',
-    'src/image-diff.ts',
     'src/dev-server.ts',
     'src/static-path-guard.ts',
     'src/capture-flags.ts',
     'src/register.ts',
-    'src/report.ts',
-    'src/review-helpers.ts',
+    'src/pairing-schema.ts',
+    'src/capture-settle.ts',
+    'src/capture-manifest.ts',
+    'src/orchestrator.ts',
   ],
 });

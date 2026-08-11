@@ -10,11 +10,6 @@
       "import": "./dist/support.js",
       "default": "./dist/support.js"
     },
-    "./image-diff": {
-      "types": "./dist/image-diff.d.ts",
-      "import": "./dist/image-diff.js",
-      "default": "./dist/image-diff.js"
-    },
     "./dev-server": {
       "types": "./dist/dev-server.d.ts",
       "import": "./dist/dev-server.js",
@@ -35,15 +30,25 @@
       "import": "./dist/register.js",
       "default": "./dist/register.js"
     },
-    "./report": {
-      "types": "./dist/report.d.ts",
-      "import": "./dist/report.js",
-      "default": "./dist/report.js"
+    "./pairing-schema": {
+      "types": "./dist/pairing-schema.d.ts",
+      "import": "./dist/pairing-schema.js",
+      "default": "./dist/pairing-schema.js"
     },
-    "./review-helpers": {
-      "types": "./dist/review-helpers.d.ts",
-      "import": "./dist/review-helpers.js",
-      "default": "./dist/review-helpers.js"
+    "./capture-manifest": {
+      "types": "./dist/capture-manifest.d.ts",
+      "import": "./dist/capture-manifest.js",
+      "default": "./dist/capture-manifest.js"
+    },
+    "./capture-settle": {
+      "types": "./dist/capture-settle.d.ts",
+      "import": "./dist/capture-settle.js",
+      "default": "./dist/capture-settle.js"
+    },
+    "./orchestrator": {
+      "types": "./dist/orchestrator.d.ts",
+      "import": "./dist/orchestrator.js",
+      "default": "./dist/orchestrator.js"
     }
   },
   "files": [
@@ -67,6 +72,7 @@
   },
   "devDependencies": {
     "@oaknational/eslint-plugin-standards": "workspace:*",
+    "@oaknational/workspace-config": "workspace:*",
     "@types/jest-axe": "^3.5.9",
     "@types/node": "^24.13.3",
     "@types/pngjs": "^6.0.5",
