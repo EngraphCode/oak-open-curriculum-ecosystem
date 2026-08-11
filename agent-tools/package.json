@@ -86,6 +86,7 @@
     "validate-lifecycle-scripts": "cd .. && pnpm exec tsx agent-tools/src/validators/lifecycle-scripts/validate-lifecycle-scripts.ts",
     "validate-pretooluse-guard-routing": "cd .. && pnpm exec tsx agent-tools/src/validators/pretooluse-guard-routing/validate-pretooluse-guard-routing.ts",
     "validate-policy-reappraisal": "cd .. && pnpm exec tsx agent-tools/src/validators/policy-reappraisal/validate-policy-reappraisal.ts",
+    "validate-claim-freshness": "cd .. && pnpm exec tsx agent-tools/src/validators/claim-freshness/validate-claim-freshness.ts",
     "validate-check-ci-parity": "cd .. && pnpm exec tsx agent-tools/src/validators/check-ci-parity/validate-check-ci-parity.ts",
     "validate-plan-corpus": "cd .. && pnpm exec tsx agent-tools/src/validators/plan-schema/validate-plan-corpus.ts",
     "check-plan-gate-drift": "cd .. && pnpm exec tsx agent-tools/src/validators/plan-schema/check-plan-gate-drift.ts",
