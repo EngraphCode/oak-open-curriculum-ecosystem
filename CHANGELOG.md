@@ -1,3 +1,24 @@
+## [1.159.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.0...v1.159.1) (2026-08-11)
+
+# [1.159.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.158.3...v1.159.0) (2026-08-11)
+
+
+### Bug Fixes
+
+* **agent-tools:** drain freshness diagnostics on failure ([99a98d6](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/99a98d6aab38882934682bb7c7954ed7431a7c80))
+* **agent-tools:** enforce explicit freshness pin declarations ([c2a7dd3](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c2a7dd37ac8526f6f7515b9172603fe4eb708717))
+* **agent-tools:** reject malformed freshness pins ([3f110cb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3f110cb8bbff4cd824f48bb1cfd14f58477552b6))
+* **agent-tools:** simplify freshness finding formatting ([c29025f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c29025fea018bb4593ba23bbc843a315926d62e2))
+
+
+### Features
+
+* **agent-tools:** claim-freshness validator, dated platform_support rows, ADR-223 (mcp-476) ([5310fbe](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5310fbe50a9805f445d77023eb28c458d66b8abb))
+
+## [1.158.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.158.2...v1.158.3) (2026-08-11)
+
+## [1.158.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.158.1...v1.158.2) (2026-08-11)
+
 ## [1.158.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.158.0...v1.158.1) (2026-08-11)
 
 

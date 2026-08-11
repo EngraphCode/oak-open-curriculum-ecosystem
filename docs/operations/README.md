@@ -3,7 +3,7 @@ boundary: B4-Engineering-Operations
 doc_role: index
 authority: operations-navigation
 status: active
-last_reviewed: 2026-03-12
+last_reviewed: 2026-08-11
 ---
 
 # Operations Documentation
@@ -55,6 +55,8 @@ runbooks wherever they live (it carries pointers, not content).
   serverless index update/validation/promote procedure (ADR-130).
 - [Production Debugging Runbook](./production-debugging-runbook.md) — incident-response
   diagnostics for the MCP servers.
+- [Environment Variables Reference](./environment-variables.md) — the variable
+  reference and the procedure for changing a deployment environment safely.
 - [Sentry Deployment Runbook](./sentry-deployment-runbook.md) — enable live error
   capture and tracing, with rollback.
 - [Milestone Release Runbook](../engineering/milestone-release-runbook.md) — R0–R5
