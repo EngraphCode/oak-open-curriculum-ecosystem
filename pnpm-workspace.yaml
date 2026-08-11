@@ -37,15 +37,17 @@ packages:
   # registered (its package.json wraps a nested turbo).
   - research/web-app-deconstruction/packages/research-evidence
 
-# Supply-chain hardening: refuse to install any package version younger than 24h
-# (1440 min), so a freshly-published compromised release ages — giving the
-# ecosystem time to detect and yank it — before it can enter the tree. pnpm's
-# default is 0 (no floor); this line introduces the floor. Setting the key
-# explicitly also auto-enables minimumReleaseAgeStrict, so a too-young version is
-# refused (or prompts on an interactive TTY), not silently downgraded. Applies to
-# all (incl. transitive) deps at resolution time; frozen-lockfile installs (CI)
-# are unaffected. Allow-list a genuinely-needed young package via
-# minimumReleaseAgeExclude.
+# Supply-chain hardening: exclude any package version younger than 24h
+# (1440 min) from resolution, so a freshly-published compromised release ages —
+# giving the ecosystem time to detect and yank it — before it can enter the
+# tree. pnpm's default is 0 (no floor); this line introduces the floor.
+# Mechanism, verified first-hand 2026-08-11 on pnpm 11.20: the resolver
+# SILENTLY picks the newest version older than the floor (exit 0, no warning)
+# — it does not refuse or prompt — so a just-published release simply stays
+# out of resolution and shows in `pnpm outdated` until it ages past the floor.
+# Applies to all (incl. transitive) deps at resolution time; frozen-lockfile
+# installs (CI) are unaffected. Allow-list a genuinely-needed young package
+# via minimumReleaseAgeExclude.
 minimumReleaseAge: 1440
 
 allowBuilds:
@@ -80,7 +82,9 @@ overrides:
   # Remove when every dependent's declared floor reaches >=5.0.9.
   brace-expansion: '>=5.0.9'
   csstype: '>=3.2.3'
-  esbuild: '>=0.28.1'
+  # Floor kept aligned with the manifests' esbuild ranges (^0.28.2 as of
+  # 2026-08-11, per lockfile-rebuild-survivability §override-alignment).
+  esbuild: '>=0.28.2'
   # Security floor: host confusion via a literal backslash in fast-uri's URI
   # parser (high; patched in 3.1.4); a second host-confusion advisory via a
   # backslash authority introducer patched in 3.1.5 (raised 2026-08-11,
