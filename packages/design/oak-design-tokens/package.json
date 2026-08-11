@@ -37,7 +37,7 @@
     "@types/node": "^24.13.3",
     "eslint": "^10.8.0",
     "globals": "^17.7.0",
-    "postcss": "^8.5.23",
+    "postcss": "^8.5.26",
     "tsup": "^8.5.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10"
