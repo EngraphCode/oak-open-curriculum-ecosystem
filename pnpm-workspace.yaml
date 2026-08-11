@@ -41,10 +41,17 @@ packages:
 # (1440 min) from resolution, so a freshly-published compromised release ages —
 # giving the ecosystem time to detect and yank it — before it can enter the
 # tree. pnpm's default is 0 (no floor); this line introduces the floor.
-# Mechanism, verified first-hand 2026-08-11 on pnpm 11.20: the resolver
-# SILENTLY picks the newest version older than the floor (exit 0, no warning)
-# — it does not refuse or prompt — so a just-published release simply stays
-# out of resolution and shows in `pnpm outdated` until it ages past the floor.
+# Mechanism, verified first-hand 2026-08-11 on pnpm 11.20 — two outcomes:
+# when the requested range admits an older mature version, the resolver
+# SILENTLY picks the newest version older than the floor (exit 0, no
+# warning, no prompt) — a just-published release simply stays out of
+# resolution until it ages past the floor. The exclusion is INVISIBLE to
+# `pnpm outdated` too: its "latest" is computed under the same floor, so
+# age-floored rows read current — surface them from publish-date reads
+# (`pnpm view <pkg> time`), never from outdated's silence. When NOTHING
+# mature satisfies the request (an exact pin to a too-young version),
+# pnpm instead refuses loudly with ERR_PNPM_NO_MATURE_MATCHING_VERSION,
+# naming each too-young package.
 # Applies to all (incl. transitive) deps at resolution time; frozen-lockfile
 # installs (CI) are unaffected. Allow-list a genuinely-needed young package
 # via minimumReleaseAgeExclude.
@@ -64,6 +71,31 @@ peerDependencyRules:
     eslint-plugin-react>eslint: '10'
     eslint-plugin-react-hooks>eslint: '10'
 overrides:
+  # Security floor, added 2026-08-11 (MCP-549 wave): three HIGH undici
+  # WebSocket-client advisories — invalid server_max_window_bits unhandled
+  # exception and permessage-deflate unbounded memory (both patched in
+  # 6.24.0), fragment-count DoS (patched in 6.27.0) — with NO patched 5.x
+  # release. The @ai-sdk provider fleet reaches undici ^5.29.0 through
+  # @ai-sdk/provider-utils 3.x/4.x under @mcpjam/sdk (dev-only MCP
+  # debugging instrument; the resolution entered with @mcpjam/cli 3.19.0
+  # in this wave). Demonstrated necessity: no version move escapes —
+  # cli 3.15.2→3.20.0 and sdk 2.3.0→3.0.0 all pin the provider fleet on
+  # provider-utils 3.x, and provider-utils 3.0.31 AND 4.0.42 both declare
+  # undici ^5.29.0 (provider-utils 5.x rides undici ^7.28.0, but the
+  # fleet declares ^3 and does not admit it). Parent-scoped so ONLY the
+  # provider-utils consumers cross to 6.x — the @actions and @elastic
+  # chains keep their own already-patched lines — and bounded <7 at the
+  # nearest patched major. The cross beyond the declared ^5 is verified
+  # by booting the mcpjam instrument on the new resolution (MCP-381
+  # prior art: a forced version in this chain broke that boot). Remove
+  # when the @ai-sdk provider fleet reaches provider-utils >=5.
+  # Parent-qualified per consumed line (provider-utils 3.x and 4.x both
+  # declare undici ^5.29.0): an unqualified parent selector would bind
+  # EVERY provider-utils generation — including a future v5, whose
+  # patched undici ^7.28.0 the <7 bound would force DOWN to 6.x
+  # mid-transition. Qualified floors leave a v5 arrival untouched.
+  '@ai-sdk/provider-utils@3>undici': '>=6.27.0 <7'
+  '@ai-sdk/provider-utils@4>undici': '>=6.27.0 <7'
   # Pin @types/node to the Node 24 LTS line across the whole tree, including
   # transitive peers (vite/vitest pull @types/node@26 as an optional peer).
   # Matches engines.node 24.x and keeps every workspace — including those that
@@ -78,13 +110,20 @@ overrides:
   # the quadratic-expansion advisory — the whole tree already resolves 5.x
   # under this floor, so no major cross occurs. Reaches the tree through
   # glob/minimatch tooling chains; no production reachability established.
-  # Left unbounded: 5.x is the current line — add a bound if 6.x ships.
+  # Bounded below 6 pre-emptively (no 6.x published at 2026-08-11): an
+  # open floor admits the next major the day it ships, so the bound is
+  # structural rather than conditional on watching the registry.
   # Remove when every dependent's declared floor reaches >=5.0.9.
-  brace-expansion: '>=5.0.9'
+  brace-expansion: '>=5.0.9 <6'
   csstype: '>=3.2.3'
   # Floor kept aligned with the manifests' esbuild ranges (^0.28.2 as of
   # 2026-08-11, per lockfile-rebuild-survivability §override-alignment).
-  esbuild: '>=0.28.2'
+  # Bounded to the 0.28 line: esbuild is 0.x (minors are breaking lines)
+  # and the override REWRITES the direct dependents' recorded ranges, so
+  # an open floor would discard the manifests' caret bound and admit
+  # 0.29/1.x on rebuild unreviewed. Move floor and bound together with
+  # the manifests at the next esbuild raise.
+  esbuild: '>=0.28.2 <0.29'
   # Security floor: host confusion via a literal backslash in fast-uri's URI
   # parser (high; patched in 3.1.4); a second host-confusion advisory via a
   # backslash authority introducer patched in 3.1.5 (raised 2026-08-11,
@@ -127,10 +166,11 @@ overrides:
   # edge (ADR-219). express-rate-limit declares ip-address
   # ^10.2.0. The range admits the patch, but the lockfile is derived
   # (lockfile-rebuild-survivability): a good version recorded there is not a
-  # constraint, so the CVE floor earns the override. Left unbounded: 10.x is
-  # the current line — add a bound if 11.x ships. Drop the floor when
+  # constraint, so the CVE floor earns the override. Bounded below 11
+  # pre-emptively (no 11.x published at 2026-08-11) — an open floor
+  # admits the next major the day it ships. Drop the floor when
   # express-rate-limit's own declared floor exceeds 10.3.1.
-  ip-address: '>=10.3.1'
+  ip-address: '>=10.3.1 <11'
   'js-cookie': '>=3.0.7'
   # Security floor, raised 2026-08-11 (MCP-549): quadratic CPU consumption in
   # !!omap resolution (high; CVE-2026-59870; patched in 4.3.1). Dev/tooling
@@ -158,13 +198,13 @@ overrides:
   # 8.4.31 (GHSA-qx2v-qp2m-jg93, XSS via unescaped </style> in stringify
   # output; patched in 8.5.10); now also covers path traversal in previous
   # source-map auto-loading (high; patched in 8.5.18). Build-time surface only.
-  # Left unbounded: 8.x is the current line, so there is no major to guard
-  # against yet — add a bound if 9.x ships. Raised 2026-08-11 to 8.5.26 to
+  # Bounded below 9 pre-emptively (no 9.x published at 2026-08-11) — an
+  # open floor admits the next major the day it ships. Raised 2026-08-11 to 8.5.26 to
   # keep the override aligned with the three direct manifests' ^8.5.26
   # (lockfile-rebuild-survivability §override-alignment) — no new postcss
   # advisory at this raise. Remove when next's nested postcss floor and the
   # direct manifests all clear the newest patched line.
-  postcss: '>=8.5.26'
+  postcss: '>=8.5.26 <9'
   qs: '>=6.15.2'
   rollup: '>=4.59.0'
   sucrase: '>=3.35.1'

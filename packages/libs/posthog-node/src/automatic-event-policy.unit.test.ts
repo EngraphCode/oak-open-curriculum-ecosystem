@@ -3,7 +3,11 @@ import { err } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
 import { normaliseAutomaticProperties } from './automatic-event-policy.js';
-import type { PolicySnapshot, UnknownProperties } from './event-policy-contract.js';
+import {
+  AUTOMATIC_EVENT_NAMES,
+  type PolicySnapshot,
+  type UnknownProperties,
+} from './event-policy-contract.js';
 
 const SNAPSHOT = {
   environment: 'production',
@@ -31,25 +35,51 @@ describe('normaliseAutomaticProperties', () => {
     expect(normaliseAutomaticProperties('$mcp_initialize', properties, SNAPSHOT)).toBeNull();
   });
 
-  it('strips the @posthog/mcp 0.11.x auto-captured client-identity properties', () => {
-    const properties: UnknownProperties = {
-      oak_client_family: 'chatgpt',
-      $mcp_protocol_version: SUPPORTED_PROTOCOL_VERSIONS[0],
-      $mcp_is_error: false,
-      $mcp_client_user_agent: 'claude-ai/1.0',
-      $mcp_vendor_client: 'anthropic',
-    };
+  it.each([
+    [
+      'initialize',
+      AUTOMATIC_EVENT_NAMES.initialize,
+      {
+        oak_client_family: 'chatgpt',
+        $mcp_protocol_version: SUPPORTED_PROTOCOL_VERSIONS[0],
+        $mcp_is_error: false,
+      },
+    ],
+    [
+      'tools-list error',
+      AUTOMATIC_EVENT_NAMES.toolsList,
+      { $mcp_duration_ms: 5, $mcp_is_error: true },
+    ],
+    [
+      'tools-list success',
+      AUTOMATIC_EVENT_NAMES.toolsList,
+      { $mcp_duration_ms: 5, $mcp_is_error: false, $mcp_listed_tool_names: [] },
+    ],
+    [
+      'tool-call',
+      AUTOMATIC_EVENT_NAMES.toolCall,
+      { $mcp_duration_ms: 5, $mcp_is_error: false, $mcp_tool_name: 'unserved' },
+    ],
+  ])(
+    'strips the @posthog/mcp 0.11.x auto-captured client-identity properties from %s',
+    (_label, event, base) => {
+      const properties: UnknownProperties = {
+        ...base,
+        $mcp_client_user_agent: 'claude-ai/1.0',
+        $mcp_vendor_client: 'anthropic',
+      };
 
-    const normalised = normaliseAutomaticProperties('$mcp_initialize', properties, SNAPSHOT);
+      const normalised = normaliseAutomaticProperties(event, properties, SNAPSHOT);
 
-    expect(normalised, 'a valid initialize event must survive normalisation').not.toBeNull();
-    expect(
-      normalised,
-      'an undeclared upstream property must never reach the sink; declaring it is a reviewed policy edit',
-    ).not.toHaveProperty('$mcp_client_user_agent');
-    expect(
-      normalised,
-      'an undeclared upstream property must never reach the sink; declaring it is a reviewed policy edit',
-    ).not.toHaveProperty('$mcp_vendor_client');
-  });
+      expect(normalised, 'a valid automatic event must survive normalisation').not.toBeNull();
+      expect(
+        normalised,
+        'an undeclared upstream property must never reach the sink; declaring it is a reviewed policy edit',
+      ).not.toHaveProperty('$mcp_client_user_agent');
+      expect(
+        normalised,
+        'an undeclared upstream property must never reach the sink; declaring it is a reviewed policy edit',
+      ).not.toHaveProperty('$mcp_vendor_client');
+    },
+  );
 });

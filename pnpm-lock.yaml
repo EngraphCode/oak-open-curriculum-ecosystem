@@ -5,24 +5,26 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
+  '@ai-sdk/provider-utils@3>undici': '>=6.27.0 <7'
+  '@ai-sdk/provider-utils@4>undici': '>=6.27.0 <7'
   '@types/node': ^24.13.3
   axios: '>=1.15.1'
-  brace-expansion: '>=5.0.9'
+  brace-expansion: '>=5.0.9 <6'
   csstype: '>=3.2.3'
-  esbuild: '>=0.28.2'
+  esbuild: '>=0.28.2 <0.29'
   fast-uri: '>=3.1.5 <4'
   file-type: '>=21.3.2'
   follow-redirects: '>=1.15.12'
   hono: '>=4.12.34 <5'
   '@hono/node-server': '>=2.0.10 <3'
-  ip-address: '>=10.3.1'
+  ip-address: '>=10.3.1 <11'
   js-cookie: '>=3.0.7'
   js-yaml: '>=4.3.1 <5'
   linkify-it: '>=5.0.2 <6'
   markdown-it: '>=14.1.2'
   nanoid: '>=3.3.17 <4'
   picomatch: '>=4.0.4'
-  postcss: '>=8.5.26'
+  postcss: '>=8.5.26 <9'
   qs: '>=6.15.2'
   rollup: '>=4.59.0'
   sucrase: '>=3.35.1'
@@ -186,7 +188,7 @@ importers:
         specifier: ^18.1.1
         version: 18.1.1
       esbuild:
-        specifier: '>=0.28.2'
+        specifier: '>=0.28.2 <0.29'
         version: 0.28.2
       eslint:
         specifier: ^10.8.1
@@ -343,7 +345,7 @@ importers:
         specifier: ^6.0.5
         version: 6.0.5(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
       esbuild:
-        specifier: '>=0.28.2'
+        specifier: '>=0.28.2 <0.29'
         version: 0.28.2
       eslint:
         specifier: ^10.8.1
@@ -564,7 +566,7 @@ importers:
         specifier: ^11.0.0
         version: 11.0.0
       postcss:
-        specifier: '>=8.5.26'
+        specifier: '>=8.5.26 <9'
         version: 8.5.26
       prettier:
         specifier: ~3.9.6
@@ -637,7 +639,7 @@ importers:
         specifier: ^20.11.2
         version: 20.11.2
       postcss:
-        specifier: '>=8.5.26'
+        specifier: '>=8.5.26 <9'
         version: 8.5.26
       tsx:
         specifier: ^4.23.12
@@ -772,7 +774,7 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.8.1(jiti@2.7.0)(supports-color@10.2.2))
       '@next/eslint-plugin-next':
-        specifier: ^16.3.0
+        specifier: 16.3.0
         version: 16.3.0(eslint@10.8.1(jiti@2.7.0)(supports-color@10.2.2))
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.66.0
@@ -1191,7 +1193,7 @@ importers:
         specifier: ^17.9.0
         version: 17.9.0
       postcss:
-        specifier: '>=8.5.26'
+        specifier: '>=8.5.26 <9'
         version: 8.5.26
       tsup:
         specifier: ^8.5.1
@@ -2438,10 +2440,6 @@ packages:
   '@eslint/plugin-kit@0.7.2':
     resolution: {integrity: sha512-+CNAzxglkrpNf/kKywqQfk74QjtceuOE7Qm+AF8miRvPF/wmmK5+OJOgVh3AVTT3RP2mH3+FOaxlE5v72owk0A==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
-
-  '@fastify/busboy@2.1.1':
-    resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
-    engines: {node: '>=14'}
 
   '@gerrit0/mini-shiki@3.23.0':
     resolution: {integrity: sha512-bEMORlG0cqdjVyCEuU0cDQbORWX+kYCeo0kV1lbxF5bt4r7SID2l9bqsxJEM0zndaxpOUT7riCyIVEuqq/Ynxg==}
@@ -4781,7 +4779,7 @@ packages:
     resolution: {integrity: sha512-3WrrOuZiyaaZPWiEt4G3+IffISVC9HYlWueJEBWED4ZH4aIAC2PnkdnuRrR94M+w6yGWn4AglWtJtBI8YqvgoA==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     peerDependencies:
-      esbuild: '>=0.28.2'
+      esbuild: '>=0.28.2 <0.29'
 
   bytes@3.1.2:
     resolution: {integrity: sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg==}
@@ -7321,7 +7319,7 @@ packages:
     engines: {node: '>= 18'}
     peerDependencies:
       jiti: '>=1.21.0'
-      postcss: '>=8.5.26'
+      postcss: '>=8.5.26 <9'
       tsx: ^4.8.1
       yaml: ^2.4.2
     peerDependenciesMeta:
@@ -8084,7 +8082,7 @@ packages:
     peerDependencies:
       '@microsoft/api-extractor': ^7.36.0
       '@swc/core': ^1
-      postcss: '>=8.5.26'
+      postcss: '>=8.5.26 <9'
       typescript: '>=4.5.0'
     peerDependenciesMeta:
       '@microsoft/api-extractor':
@@ -8217,10 +8215,6 @@ packages:
   undici-types@7.18.2:
     resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
 
-  undici@5.29.0:
-    resolution: {integrity: sha512-raqeBD6NQK4SkWhQzeYKd1KmIG6dllBOTt55Rmkt4HtI9mwdWtJljnrXjAFUBLTSN67HWrOIZ3EPF4kjUw80Bg==}
-    engines: {node: '>=14.0'}
-
   undici@6.28.0:
     resolution: {integrity: sha512-LIY910g9TI13YS95lrMFrs8Rm/u/irgHeTWoKCoteeJ04CUJ92eEfj0rVn+7VKMPBpUPiUoBKfhNyLI23EE/KA==}
     engines: {node: '>=18.17'}
@@ -8318,7 +8312,7 @@ packages:
     peerDependencies:
       '@types/node': ^24.13.3
       '@vitejs/devtools': ^0.4.0
-      esbuild: '>=0.28.2'
+      esbuild: '>=0.28.2 <0.29'
       jiti: '>=1.21.0'
       less: ^4.0.0
       sass: ^1.70.0
@@ -8670,7 +8664,7 @@ snapshots:
       '@ai-sdk/provider': 2.0.3
       '@standard-schema/spec': 1.1.0
       eventsource-parser: 3.1.0
-      undici: 5.29.0
+      undici: 6.28.0
       zod: 4.4.3
 
   '@ai-sdk/provider-utils@4.0.42(zod@4.4.3)':
@@ -8678,7 +8672,7 @@ snapshots:
       '@ai-sdk/provider': 3.0.14
       '@standard-schema/spec': 1.1.0
       eventsource-parser: 3.1.0
-      undici: 5.29.0
+      undici: 6.28.0
       zod: 4.4.3
 
   '@ai-sdk/provider@2.0.3':
@@ -9317,8 +9311,6 @@ snapshots:
     dependencies:
       '@eslint/core': 1.2.1
       levn: 0.4.1
-
-  '@fastify/busboy@2.1.1': {}
 
   '@gerrit0/mini-shiki@3.23.0':
     dependencies:
@@ -15305,10 +15297,6 @@ snapshots:
   underscore@1.13.8: {}
 
   undici-types@7.18.2: {}
-
-  undici@5.29.0:
-    dependencies:
-      '@fastify/busboy': 2.1.1
 
   undici@6.28.0: {}
 
