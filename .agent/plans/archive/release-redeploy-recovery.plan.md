@@ -2,8 +2,8 @@
 id: release-redeploy-recovery
 node_type: delivery
 name: 'Recovery: the last successfully deployed release can be rebuilt'
-overview: "The production build guard admits a validated-SHA rebuild of Vercel's last successful deployment commit — the MCP-479 arm — while non-release commits still never reach production."
-status: sketch
+overview: "Archived record of the shipped MCP-479 same-commit redeploy arm; ADR-163 owns the decision and release-redeploy-guard-truing owns the residual operating proof."
+status: archived
 serves: first-major-release
 impact_areas:
   - served-surface
@@ -15,6 +15,13 @@ last_updated: 2026-08-11
 ---
 
 # Recovery: rebuild a known-good release
+
+> **Disposition (2026-08-11): archived as overtaken before ratification.**
+> MCP-479 is Done and the same-commit arm shipped in PR #751. ADR-163
+> owns the durable decision; `release-redeploy-guard-truing` already owns
+> the remaining live operating knowledge and production proof. Keeping
+> this unratified sketch live would create a second carrier for completed
+> work.
 
 ## Goal
 
@@ -68,8 +75,9 @@ this guard, and an earlier release still cancels.
 Rolling back to an earlier release therefore remains **unsolved by this
 node**, and the two candidate routes both have named costs recorded in
 ADR-163 §10: Vercel's Instant Rollback re-points domains at an existing
-build *without running this script at all*, so it restores the same
-stale environment binding that caused the 2026-08-03 outage; and a
+build *without running this script at all*, so it restores the selected
+deployment's original environment binding rather than applying a repaired
+project setting; and a
 revert-and-release cut is the status quo this node exists to avoid.
 Naming the gap is the honest state — see §Out of scope.
 
@@ -121,7 +129,7 @@ equality it warrants.
    cannot prove for itself, because the guard's inputs are supplied by
    Vercel at build time. It is the one criterion still open; the
    observation todo is carried by
-   [`release-redeploy-guard-truing`](release-redeploy-guard-truing.plan.md).
+   [`release-redeploy-guard-truing`](../delivery/release-redeploy-guard-truing.plan.md).
 
 ## Out of scope
 
@@ -141,7 +149,7 @@ equality it warrants.
   a rollback is platform-governed, not guard-governed — the composed
   guards deliberately leave it ungated. The post-rollback operating
   facts and their runbook coverage are
-  [`release-redeploy-guard-truing`](release-redeploy-guard-truing.plan.md)'s
+  [`release-redeploy-guard-truing`](../delivery/release-redeploy-guard-truing.plan.md)'s
   deliverable; ADR-163 §10 records the divergence beside the quoted
   vendor definition.
 - **Changing the version-ordering predicate itself.** The existing rule
@@ -152,7 +160,7 @@ equality it warrants.
   concern; this node only restores the ability to rebuild.
 - **Reducing time-to-detection.** Recovery speed is this node; noticing
   that recovery is needed belongs to
-  [`production-liveness-detection`](production-liveness-detection.plan.md).
+  [`production-liveness-detection`](../delivery/production-liveness-detection.plan.md).
 - **A general "redeploy any deployment" capability.** Deliberately not
   built: it would require an operator-supplied signal, and every
   operator-supplied bypass of a safety guard is a surface this estate
@@ -161,9 +169,9 @@ equality it warrants.
 ## Relationship to the sibling nodes
 
 Recovery arm of the deployment-reliability response. Siblings:
-[`deploy-config-fails-the-build`](deploy-config-fails-the-build.plan.md),
-[`boot-failure-observability`](boot-failure-observability.plan.md),
-[`production-liveness-detection`](production-liveness-detection.plan.md).
+[`deploy-config-fails-the-build`](../delivery/deploy-config-fails-the-build.plan.md),
+[`boot-failure-observability`](../delivery/boot-failure-observability.plan.md),
+[`production-liveness-detection`](../delivery/production-liveness-detection.plan.md).
 Detection without recovery leaves an outage standing; this node is the
 floor under every other incident response.
 

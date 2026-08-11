@@ -29,10 +29,8 @@ Two failures, one boundary.
 **Unreportable by construction.** `loadConfiguredApp` resolves the
 runtime config before constructing observability, and Sentry is built
 *from* that config. A configuration failure therefore throws before any
-Sentry client exists. Proven empirically on 2026-08-03: zero Sentry
-events from either of the day's two outages (scale and duration figures
-recorded on MCP-480), while a deliberate probe error reached Sentry in
-seconds — the error pipe works; boot is simply upstream of it.
+Sentry client exists. Incident evidence on MCP-480 shows the ordinary
+error pipe works while boot failures remain upstream of it.
 
 **Under-informative.** The environment validator's message is
 exemplary: it names the failing key, the rule, and where to fix it. The
@@ -61,10 +59,20 @@ this sits inside the ADR-218 privacy posture:
   silent — no activation, no network call, no new failure;
 - sanitises through the shared redaction barrier, with no bypass path;
 - never includes the invalid value, only the guard that rejected it;
-- awaits a **bounded flush** before `boundaryError` rethrows, since an
-  unflushed capture on an immediately-throwing path is no capture;
-- failure of the reporter itself never masks or delays the original
-  boundary error.
+- makes one capture attempt and allows at most **500 ms** for flush
+  before `boundaryError` rethrows; there is no retry on the boot-failure
+  path;
+- failure, rejection, or timeout in reporter initialisation, capture,
+  or flush never masks the original boundary error. The reporter may
+  delay rethrow only within the 500 ms deadline.
+
+**Build-vs-buy.** The implementation extends the shared
+`@oaknational/sentry-node` boundary and its existing Sentry SDK adapter,
+redaction hooks, capture, and `flush(timeoutMs)` primitives. The app does
+not initialise `@sentry/node` directly or create a parallel redaction
+policy. The missing product capability is the pre-runtime bootstrap
+composition under the bounded contract above; it is a thin shared-library
+seam, not a second observability stack.
 
 The activation axis is stated against the surface as it exists. This
 app still resolves the shared `SentryEnvSchema` and gates delivery on
@@ -93,18 +101,24 @@ estate: **name the guard, never the value.**
    transport interactions in those modes (the mode axis as the app
    implements it today; the declared migration edge restates this
    criterion on the ADR-171 axes when the app migrates).
-3. No captured event contains the offending value — proof:
-   **repo-safe**, assertion over the captured payload for the invalid
-   input's byte content.
-4. The capture survives the immediate rethrow — proof: **repo-safe**, a
-   test asserting flush completes before the throw propagates.
+3. No captured event contains the offending value and the shared
+   ADR-160 barrier remains the only sanitiser — proof: **repo-safe**, a
+   consuming-workspace integration test sending a known canary through
+   the bootstrap reporter and asserting the post-redaction recording
+   fake contains the redaction marker and not the canary bytes.
+4. Capture is attempted without making boot refusal unbounded — proof:
+   **repo-safe**, fake-clock tests covering successful flush, reporter
+   initialisation failure, capture failure, flush rejection, and a flush
+   that never settles. Every arm propagates the original boundary error
+   unchanged and the hanging arm crosses no more than the 500 ms deadline.
 5. The keyring guard names which check failed — proof: **repo-safe**,
    unit tests over each guard arm (parse, shape, canonicality,
    uniqueness) asserting the distinguishing message and shape facts.
-6. The end-to-end path works on a deployed surface — proof:
-   **owner-held**, a deliberately invalid preview environment producing
-   a Sentry error naming the key; verifier the lane agent, evidence
-   recorded on MCP-480.
+6. The end-to-end path and destination redaction work on a deployed
+   surface — proof: **owner-held**, a deliberately invalid preview
+   environment producing a Sentry error naming the key, plus a synthetic
+   bootstrap canary observed redacted at the destination with its raw
+   bytes absent; verifier the lane agent, evidence recorded on MCP-480.
 7. Invalid Sentry inputs leave the reporter silent — proof:
    **repo-safe**, tests driving the boot boundary with Sentry inputs
    that fail `SentryEnvSchema` and asserting no activation, zero
@@ -136,11 +150,10 @@ estate: **name the guard, never the value.**
 
 Diagnosis arm. Siblings:
 [`deploy-config-fails-the-build`](deploy-config-fails-the-build.plan.md),
-[`release-redeploy-recovery`](release-redeploy-recovery.plan.md),
 [`production-liveness-detection`](production-liveness-detection.plan.md).
 Detection tells you production is down; this node is what tells you
-why, and without it an alert reproduces the 2026-08-03 diagnosis cost
-recorded on MCP-480.
+why. The shipped recovery arm is preserved in the archived
+`release-redeploy-recovery` record.
 
 *Authored by Birch holds Seedling (e48fe2, agent), 2026-08-03. Amended
 2026-08-09 per the adjudicated 2026-08-05 eleven-expert review

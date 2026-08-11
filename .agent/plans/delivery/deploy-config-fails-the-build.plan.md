@@ -2,7 +2,7 @@
 id: deploy-config-fails-the-build
 node_type: delivery
 name: 'Deploy gate: an invalid environment fails the build'
-overview: 'Run the server runtime-config contract during Vercel builds and prove the built artefact boots, so a deployment with invalid configuration cannot ship.'
+overview: 'Run the server runtime-config contract during Vercel builds and prove the deployed handler artefact imports and serves health, so a deployment with invalid configuration cannot ship.'
 status: sketch
 serves: first-major-release
 impact_areas:
@@ -24,16 +24,17 @@ A deployment whose environment the server would reject never ships.
 
 The required `Vercel` status asserts "build and deploy completed". This
 app resolves its runtime configuration lazily at first request, so a
-deployment with an invalid environment builds green, deploys green, and
-then 500s on every route. Preview was in exactly that state from
-2026-07-31 to 2026-08-03 while every check stayed green. Full incident
-record on MCP-475.
+deployment with an invalid environment can build green, deploy green,
+and then 500 on every route. The incident evidence is recorded on
+MCP-475.
 
 ## Mechanism
 
-1. **Build-time configuration resolution.** A build step runs the
-   server's own `loadRuntimeConfig` composition against the build
-   environment and exits non-zero on refusal, so the Vercel build goes
+1. **Build-time configuration resolution.** A build step passes the
+   deployment's explicit process environment through
+   `composeLoadedRuntimeFromValidatedEnv`, the schema-and-composition
+   seam that `loadRuntimeConfig` itself consumes after local file
+   resolution. It exits non-zero on refusal, so the Vercel build goes
    red. Enforced when the `VERCEL` system variable is present; local
    builds print an explicit skip line rather than passing silently.
 
@@ -65,29 +66,34 @@ record on MCP-475.
    **The invariant this rehearsal rests on, and why validation is
    value-level.** The gate is honest only while the variable set the
    build resolves is identical to the variable set the runtime
-   resolves. Both are `loadRuntimeConfig` over the same declared
-   schema, and any variable added to either path arrives through that
-   shared schema, so the sets cannot drift silently — the mechanism
-   states this invariant rather than assuming it. Validation is
+   resolves. Both paths converge on
+   `composeLoadedRuntimeFromValidatedEnv` and `HttpEnvSchema`; the
+   runtime adds local file resolution before that seam, while the
+   deployment rehearsal supplies only Vercel's process environment.
+   Any variable added to the composition therefore arrives through the
+   shared schema rather than a gate-local list. Validation is
    value-level (not presence-only) because the motivating failure class
-   was value-shaped: the 2026-08-03 keyring outage was a present,
-   plausible-looking value failing strict validation, and a presence
-   check passes exactly that state.
+   was a present, plausible-looking keyring value failing strict
+   validation; a presence check passes exactly that state.
 
    **Clerk key realm uses the runtime authority.** Presence-only checks
    miss wrong-instance keys (a test-realm key deployed to production),
    but the gate adds no second Clerk validator. `HttpEnvSchema` already
    calls the shipped `refineClerkKeyLocality` guard, whose production
    allowlist admits only `pk_live_` and `sk_live_` keys. Because the gate
-   runs `loadRuntimeConfig`, it consumes that exact rule. It does not call
-   Clerk's API or use `@clerk/shared` predicates: the installed predicate
+   runs the shared composition seam, it consumes that exact rule. It does
+   not call Clerk's API or use `@clerk/shared` predicates: the installed predicate
    accepts a legacy `live_…` publishable-key form that the runtime rejects,
    so using it here would recreate two definitions of valid configuration.
 
-2. **Dist-boot smoke for this server.** The built artefact is started
-   as production starts it, reports ready, answers `/healthz`, and
-   exits cleanly on SIGTERM — the long-running-server truth-set from
-   `testing-strategy.md` §Smoke.
+2. **Deployed-handler smoke.** Production imports `dist/server.js` as a
+   Vercel request handler; it does not start the local long-running
+   `dist/index.js` listener. A smoke running under plain `node` imports
+   the built default export, invokes it through a local request/response
+   harness with valid fixture configuration, and observes `/healthz`
+   returning 200. The smoke is reachable from a CI-run task. This proves
+   the actual deployed artefact and module graph rather than applying
+   the long-running-server SIGTERM truth-set to the wrong entry point.
 3. **Existing advisory post-deploy signal — context, not a deliverable.**
    The `deployment_status`
    workflow shipped in PR #743: it probes the running deployment
@@ -131,9 +137,10 @@ and the [Checks API contract](https://vercel.com/docs/checks/creating-checks).
    **owner-held** — a live red build on a branch carrying a
    deliberately invalid branch-scoped value; verifier the lane agent,
    evidence (build URL and outcome) recorded on MCP-475.
-2. The built server artefact boots, answers, and terminates cleanly —
-   proof: **repo-safe**, the dist-boot smoke, reachable from a CI-run
-   task (an unreachable smoke is the defect, not a variant).
+2. The built deployed handler imports under plain `node` and answers
+   `/healthz` through its default export — proof: **repo-safe**, the
+   deployed-handler smoke, reachable from a CI-run task (an unreachable
+   smoke is the defect, not a variant).
 3. Gate output contains no secret bytes — proof: **repo-safe**, a unit
    test feeding the gate live-shaped key material and asserting the
    captured output (stdout and stderr) never contains the input's byte
@@ -147,8 +154,9 @@ its own authorisation and ticket.
 ## Out of scope
 
 - **Validating anything the server does not itself consume.** The build
-  step runs the server's own `loadRuntimeConfig` composition rather than
-  a parallel list of expected variables. A second, hand-maintained
+  step runs the same schema-and-composition seam used by
+  `loadRuntimeConfig` rather than a parallel list of expected variables.
+  A second, hand-maintained
   definition of "valid environment" would drift from the real one, and a
   guard that disagrees with the thing it guards is worse than none.
 - **Replacing the `Vercel` required check.** It correctly asserts what
@@ -187,13 +195,14 @@ its own authorisation and ticket.
 
 ## Relationship to the sibling nodes
 
-One of four responses to a single defect class — deployment
+One of three remaining responses to a single defect class — deployment
 configuration is live production state that is unversioned, unreviewed
 and unverified. Siblings:
-[`release-redeploy-recovery`](release-redeploy-recovery.plan.md)
-(recovery), [`boot-failure-observability`](boot-failure-observability.plan.md)
+[`boot-failure-observability`](boot-failure-observability.plan.md)
 (diagnosis), [`production-liveness-detection`](production-liveness-detection.plan.md)
-(detection). They ratify and complete independently.
+(detection). The shipped recovery arm is preserved in the archived
+`release-redeploy-recovery` record; its remaining operating work has a
+separate carrier.
 
 *Authored by Birch holds Seedling (e48fe2, agent), 2026-08-03. Amended
 2026-08-11 per the adjudicated review record in

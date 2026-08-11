@@ -6,7 +6,8 @@ Complete reference for all environment variables used across the Oak Open Curric
 
 Deployment environment values get none of the review, versioning, or
 rollback that code gets, and a change to one is not visible in any diff.
-Both 2026-08-03 outages came from this surface. Follow all four steps.
+Incident evidence on MCP-475 shows why this surface needs an explicit
+procedure. Follow all four steps.
 
 **The supported contract is change → redeploy → verify.** Per Vercel:
 
@@ -36,22 +37,14 @@ the old claim should be re-derived.)_
    value in the app's `.env.local` runs the same fail-fast resolution a
    deployment runs — see
    [vercel-environment-config](../../apps/oak-curriculum-mcp-streamable-http/docs/vercel-environment-config.md).
-2. **Prefer editing in place over delete-and-recreate.** Observed on
-   2026-08-03: a variable was deleted and recreated under the same name,
-   and the deployment then behaved as though the variable were absent
-   while the dashboard showed a correct entry and gave no indication
-   anything was wrong. **Edit in place** where possible. When splitting
-   one variable into per-environment records, **add the new records
-   first, deploy, and only then remove the old one**.
-
-   _Mechanism unconfirmed._ The working hypothesis is that deployments
-   bind variables by an internal record identifier rather than by name,
-   so a recreated record is a different record wearing the same label.
-   We have found no vendor documentation stating this, so it is recorded
-   as an inference from one incident, not as a platform fact. The
-   procedure above is safe whether or not the hypothesis holds, which is
-   why it is stated as the rule while the explanation is not. If you find
-   vendor documentation either way, record it here and on MCP-475.
+2. **Stage replacement settings before removing old ones.** Vercel's
+   documented boundary is deployment-based: changing a project setting
+   does not mutate an existing deployment, and the next deployment reads
+   the settings then in force. Edit in place when the scope is unchanged.
+   When splitting one variable into per-environment records, add the new
+   records first, deploy and verify the intended environment, and only
+   then remove the obsolete setting. This order follows directly from
+   the documented change → redeploy boundary.
 
 3. **Redeploy, then check liveness.** Per the contract above a change
    reaches nothing until you redeploy, and a deployment that boots on a
@@ -64,12 +57,13 @@ the old claim should be re-derived.)_
    step is what makes an environment change complete.
 4. **If a deployed surface fails, read the runtime logs before forming
    any theory.** The application's fail-fast messages name the failing
-   key and where to correct it. Both 2026-08-03 incidents cost hours to
-   theories that the logs would have settled in seconds.
+   key and where to correct it. The incident evidence and diagnosis cost
+   belong on the linked ticket, not in this repeatable procedure.
 
 Recovery note: a production redeploy is the cure for a poisoned
-deployment — the build guard admits a rebuild of the commit already in
-production (ADR-163 §10, fourth amendment). See the production build
+deployment — outside Vercel's rolled-back state, the build guard admits a
+rebuild of the last successfully deployed commit (ADR-163 §10, fourth
+amendment). See the production build
 guard's [ADR-163 §10 contract](../architecture/architectural-decisions/163-sentry-release-identifier-and-vercel-production-attribution.md#10-production-builds-require-a-semantic-release-commit)
 for which commits may build. The rolled-back state (after a Vercel
 Instant Rollback) behaves differently: a rollback runs no build and

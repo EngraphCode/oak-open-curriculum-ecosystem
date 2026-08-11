@@ -1,8 +1,8 @@
 ---
 id: deploy-reliability-corpus-amendment
 node_type: delivery
-name: 'Amend the deployment-reliability plan corpus (PR #746) per the adjudicated 2026-08-05 review'
-overview: 'Apply the surviving findings of the eleven-expert review to the four plan nodes and two operations docs on PR #746, with every finding carrying a recorded disposition, and adjudicate the open CHANGES_REQUESTED on-thread with evidence.'
+name: 'Amend the deployment-reliability plan corpus on PR #746 against current reality'
+overview: 'Apply every surviving review finding and the post-submission context review to PR #746, leaving one truthful carrier per remaining outcome and an evidence-backed disposition for every comment.'
 status: ratified
 ratified_by: 'Jim Cresswell'
 ratified_date: 2026-08-09
@@ -24,24 +24,24 @@ last_updated: 2026-08-11
 
 ## Goal
 
-PR #746 becomes genuinely mergeable: every finding from the 2026-08-05
-eleven-expert review carries a recorded disposition, the four plan
-nodes' text is true against current `main` (which now includes the
-shipped MCP-479 redeploy arm) and against vendor facts verified at
-review time, and the open CHANGES_REQUESTED review is adjudicated
-on-thread with evidence rather than overridden or absorbed.
+PR #746 becomes genuinely mergeable: every substantive review finding
+carries a recorded disposition, each live plan is true against current
+code, decisions, ticket state, and vendor facts, completed work is not
+reintroduced as a live sketch, and the open CHANGES_REQUESTED review is
+adjudicated with evidence rather than overridden or absorbed.
 
 ## Problem
 
 The corpus is valuable — it is the map for the remaining
-deployment-reliability work — but review found the record defective in
-three ways: the branch predates two sibling merges so several passages
-describe shipped work as future; the MCP-475 node's mechanism carries
-review-confirmed gaps (a forgeable-gate precondition, a build-cache
-blind spot, unstated invariants, misclassified proofs); and the
-blocking review finding rests on a refuted premise whose demanded
-amendment would weaken the gate it criticises. Nothing adjudicates any
-of this on the PR itself yet.
+deployment-reliability work — but it was written before submission and
+then repeatedly amended while the surrounding estate changed. The
+original findings now have replies, yet the post-submission review found
+new drift: an already-completed recovery arm remained a live sketch; the
+deploy plan described the wrong production artefact and two incompatible
+configuration seams; the reporter proofs remained under-specified; the
+liveness node preserved a repository heartbeat that contradicted
+ADR-162 while sharing its claimed independent notification plane; and
+the PR, plan, operations, and Linear summaries no longer agreed.
 
 ## Mechanism
 
@@ -81,7 +81,7 @@ finding has exactly one recorded decision. Applying it is mechanical.
 | 5 | Criteria 1/3/4 label console-verified acts `repo-safe` against the schema and both siblings (three seats) | **Apply**: split criterion 1 into its repo-safe and owner-held proofs; criteria 3/4 are removed with the unowned trusted-publisher project under row 1 |
 | 6 | The build-env ≡ runtime-env variable-set invariant is unstated; value-level validation's warrant is unstated (three seats) | **Apply**: one mechanism paragraph naming the invariant and why the motivating failure class is value-shaped |
 | 7 | No criterion constrains what the gate may print — it consumes live key material (security) | **Apply**: criterion + unit test that gate output contains no secret bytes |
-| 8 | Presence-only Clerk validation misses wrong-instance keys; `@clerk/shared` prefix utilities catch it network-free (clerk) | **Overtaken by main**: `HttpEnvSchema` now calls the shared runtime `refineClerkKeyLocality` allowlist, and the deploy rehearsal consumes it through `loadRuntimeConfig`; do not add the conflicting `@clerk/shared` predicate, which accepts a legacy `live_…` form the runtime rejects |
+| 8 | Presence-only Clerk validation misses wrong-instance keys; `@clerk/shared` prefix utilities catch it network-free (clerk) | **Overtaken by main**: `HttpEnvSchema` now calls the shared runtime `refineClerkKeyLocality` allowlist, and the deploy rehearsal consumes it through the same schema-and-composition seam as `loadRuntimeConfig`; do not add the conflicting `@clerk/shared` predicate, which accepts a legacy `live_…` form the runtime rejects |
 | 9 | The estate has no recorded position on ambient build-env secret exposure (security) | **Apply**: §Out of scope clause naming the exposure as platform-default and pre-existing, listing the live compensating controls |
 | 10 | Betty mitigation 1 — keys-not-values validation | **Reject with evidence**: blind to the keyring failure class that motivated the corpus; recreates the second definition of "valid" the node forecloses; the named secret's check is already presence-only |
 | 11 | Betty mitigation 2 — post-deploy-only validation | **Reject with evidence**: deletes the node's goal; `preview-serves` is preview-scoped by the node's own boundary |
@@ -112,13 +112,13 @@ finding has exactly one recorded decision. Applying it is mechanical.
 
 | # | Finding (source) | Disposition |
 | --- | --- | --- |
-| 24 | The 401-as-healthy assertion requires a Sentry capability that is Early Access, not GA; the owner's screenshot discharged only custom headers (three seats) | **Apply**: record all three needed instrument capabilities with per-capability evidence status; name the fallback (the independent heartbeat probe carries the auth assertion) if the assertion feature is unavailable |
+| 24 | The 401-as-healthy assertion requires capabilities the owner's screenshot did not fully discharge (three seats) | **Apply**: record method, request-header, expected-status, and response-header assertions separately; current Sentry API evidence discharges method and request headers, while the two assertion capabilities remain owner-held; if unavailable, use another externally operated monitor or leave the auth check open rather than adding a repository scheduler |
 | 25 | The five-minute SLA arithmetic omits Sentry's default three-failure tolerance (sentry) | **Apply**: criterion names Failure Tolerance as a required parameter and shows the arithmetic clearing five minutes |
 | 26 | A bare 401 cannot distinguish the app's auth layer from an edge answering in front of it (wilma) | **Apply**: assert an app-only artefact (the `WWW-Authenticate` challenge naming the PRM resource) and name the edge as a probe-path dependency |
 | 27 | Finding C's framing conflated headers with authentication; a credential must never enter monitor config (three seats) | **Apply**: dated confirmation note — headers cover `Accept` only; no credential in uptime configuration; a 200 on `POST /mcp` is a failure |
-| 28 | The in-repo heartbeat workflow may reverse ADR-162's recorded externalisation direction (fred) | **Apply after check**: ADR-162 still externalises production synthetic monitoring and ends the repo obligation at `/healthz`; add a second owner-decision gate, require owner ratification of the ADR amendment, and prohibit an in-repo heartbeat workflow before that gate clears |
+| 28 | The in-repo heartbeat workflow may reverse ADR-162's recorded externalisation direction (fred) | **Superseded after the current-context check**: ADR-162 still externalises production synthetic monitoring and ends the repo obligation at `/healthz`; remove the repository heartbeat instead of adding a gate whose purpose is to seek reversal of the governing decision. Row 51 records the composed failure-domain finding |
 | 29 | Frontmatter `last_updated` contradicts the body's later dated correction (betty-rerun) | **Apply** |
-| 30 | The node's owner gate expires 2026-08-06, mid-review (assumptions) | **Apply**: renew the expiry to survive the review cycle; the decision itself stays owner-held |
+| 30 | The node's owner gate expires 2026-08-06, mid-review (assumptions) | **Partly overtaken**: remove the obsolete ADR-reversal gate with the heartbeat; renew only the still-real alert-destination gate to 2026-08-31 |
 
 ### Disposition ledger — operations docs and process
 
@@ -130,25 +130,40 @@ finding has exactly one recorded decision. Applying it is mechanical.
 | 34 | The operations index bullet repeats the premise the PR corrects (security) | **Apply**: reword |
 | 35 | Two draft-archaeology passages violate `no-tombstones-for-removed-ideas` (two seats) | **Apply**: delete the negation-contrast memorials; keep the vendor quotes and positive statements; the `environment-variables.md` correction note stays |
 | 36 | The CHANGES_REQUESTED review is unadjudicated on the PR (two seats) | **Apply**: one evidence-carrying reply (rows 10–13), then re-request review |
-| 37 | The PR is a draft awaiting the owner (release-expert) | **Owner-gated by design**: the draft state clears only by the owner's explicit un-draft word (on return from the agreed absence, or earlier at the owner's initiative); review-readiness work proceeds regardless, so the gate holds no work |
+| 37 | The PR is a draft awaiting the owner (release-expert) | **Overtaken**: PR #746 is no longer a draft. Merge readiness is governed by current CI and complete comment disposition, with no additional owner ceremony |
 | 38 | "The build-time gate already shipped in #743" (barney) | **Reject**: verified false — #743 shipped the preview-serves workflow only; no gate files exist on `main` |
 
 ### Disposition ledger — owner-directed additions (2026-08-05, from the second-opinion reviews of the Clerk guard series)
 
 | # | Finding (source) | Disposition |
 | --- | --- | --- |
-| 39 | Key-realm validation must be allowlist-shaped: a denylist of `pk_test_`/`sk_test_` prefixes fails open — legacy `test_…` development keys and malformed/truncated values pass in production (second-opinion review on PR #757, 2026-08-05) | **Overtaken by main**: the authoritative runtime allowlist is the shipped `refineClerkKeyLocality` path (`pk_live_`/`sk_live_` only), already consumed by `loadRuntimeConfig`; row 8 records why no parallel `@clerk/shared` predicate belongs in the gate |
+| 39 | Key-realm validation must be allowlist-shaped: a denylist of `pk_test_`/`sk_test_` prefixes fails open — legacy `test_…` development keys and malformed/truncated values pass in production (second-opinion review on PR #757, 2026-08-05) | **Overtaken by main**: the authoritative runtime allowlist is the shipped `refineClerkKeyLocality` path (`pk_live_`/`sk_live_` only), already consumed through the shared runtime composition seam; row 8 records why no parallel `@clerk/shared` predicate belongs in the gate |
 | 40 | The app README's Vercel section still documents `DANGEROUSLY_DISABLE_AUTH=true` as a valid optional configuration (with Clerk keys "unnecessary"), while the guard series makes exactly that a hard startup failure in preview and production (second-opinion review on PR #759, 2026-08-05) | **Overtaken by main**: the app README now names the flag as a local-development valve and states that every deployed environment rejects it; no duplicate edit belongs in this PR |
 
 ### Disposition ledger — code-owner re-review (2026-08-11)
 
 | # | Finding | Disposition |
 | --- | --- | --- |
-| 41 | The prescribed `@clerk/shared` predicate disagrees with the runtime validator the gate must reuse | **Apply**: rows 8/39 and the MCP-475 mechanism now consume only `refineClerkKeyLocality` through `loadRuntimeConfig` |
+| 41 | The prescribed `@clerk/shared` predicate disagrees with the runtime validator the gate must reuse | **Apply**: rows 8/39 and the MCP-475 mechanism now consume only `refineClerkKeyLocality` through the shared runtime composition seam |
 | 42 | Trusted `preview-serves` publication is an unowned second project with no dependency or owner gate | **Apply by rescoping**: remove merge-blocking and ruleset-adoption criteria; keep the current signal advisory and require a separate authorised node/ticket before it becomes required |
 | 43 | Build-vs-buy evidence is absent for the proposed deploy gates | **Apply**: record Vercel Native Deployment Checks and the Checks API/Marketplace path; reject Native Checks as the sole non-bypassable carrier because an absent branch-controlled script is skipped, and route post-deploy trusted publication to the separate future decision |
 | 44 | Delivery-node `last_updated` values predate substantive 2026-08-11 amendments | **Apply**: set all four sibling nodes to 2026-08-11 |
 | 45 | Acceptance criterion 3 calls code-owner clearance `repo-safe` and refers to an inline thread that does not exist | **Apply**: classify clearance as owner-held, name the code owner as verifier, and use the durable PR review/reply record rather than an inline-thread claim |
+
+### Disposition ledger — critical post-submission review (2026-08-11)
+
+| # | Finding | Disposition |
+| --- | --- | --- |
+| 46 | PR body and MCP-475 overview still promise deployed-serving proof after trusted publication was removed from the node | **Apply**: true both summaries to build-time shared-schema rehearsal plus a deployed-handler smoke; keep `preview-serves` advisory |
+| 47 | MCP-479 is Done, PR #751 shipped the mechanism, and `release-redeploy-guard-truing` already owns the residual proof | **Apply by archiving**: preserve `release-redeploy-recovery` as an overtaken unratified record rather than a second live carrier |
+| 48 | MCP-475 names both `loadRuntimeConfig` and a process-only seam, and applies the long-running SIGTERM smoke to Vercel's handler artefact | **Apply**: converge on `composeLoadedRuntimeFromValidatedEnv` after explicit process-env selection; smoke `dist/server.js` as production imports and invokes it |
+| 49 | MCP-480 still has no explicit flush deadline, reporter-failure matrix, or consuming-workspace destination-redaction proof | **Apply**: one attempt, 500 ms hard deadline, no retry, original-error preservation across every failure arm, and known-canary redaction proofs repo-side and at the preview destination |
+| 50 | The global build-vs-buy finding was recorded only for Vercel deploy gates | **Apply**: MCP-480 reuses and extends `@oaknational/sentry-node`; MCP-481 first uses the existing external monitor and does not invent an in-repo scheduler |
+| 51 | MCP-481's GitHub heartbeat reverses ADR-162 and shares Sentry's notification plane, so the claimed independent failure domain is false | **Apply by rescoping**: keep health/auth checks externally operated; remove the heartbeat and ADR-reversal gate; treat true independent-provider redundancy as separate work |
+| 52 | MCP-481 overclaims automatic alert/error correlation and does not disposition synthetic-401 log pollution | **Apply**: state that boot evidence is contemporaneous but not embedded; add a stable non-secret probe marker and an acceptance proof that the traffic remains separately queryable |
+| 53 | Public mechanism records retain incident chronology and the operations procedure carries an unsupported internal-record-id theory | **Apply**: keep incident evidence on Linear; ground replacement ordering only in Vercel's documented change → redeploy boundary |
+| 54 | Criterion 5 and §Out of scope invent a fresh owner blessing before merge | **Apply**: encode the standing instruction — merge once current CI is green and all comments are properly addressed; no additional owner ceremony |
+| 55 | MCP-475/479/480/481 descriptions still carry pre-review mechanisms and false platform claims | **Apply on the owning surface**: true the four Linear descriptions to the final plan boundaries and record the update in T5 |
 
 ## Acceptance criteria
 
@@ -164,9 +179,10 @@ finding has exactly one recorded decision. Applying it is mechanical.
    owner; durable evidence is the PR review plus the evidence-carrying reply.
 4. **CI green on the amended branch** including the plan-estate
    validator. Proof: repo-safe — the checks rollup.
-5. **Merge happens at the owner's word.** Proof: owner-held — the owner
-   (or their explicitly authorised act) un-drafts and blesses the
-   merge; recorded on the PR.
+5. **Merge happens as soon as the standing conditions hold.** Proof:
+   owner-held — current CI is green, every comment and review body has
+   a proper evidence-backed disposition, and the PR is merged without
+   seeking an additional owner blessing.
 6. **ADR-163 §10 names its amendments without collision and quotes the
    `VERCEL_GIT_PREVIOUS_SHA` definition verbatim with its retrieval
    date** — exactly one "fourth amendment" designation for the redeploy
@@ -185,7 +201,8 @@ finding has exactly one recorded decision. Applying it is mechanical.
 - The estate-level build-environment secret-exposure ruling (row 9
   records the position pointer; a durable ruling belongs to the
   governance surface).
-- Merging #746 itself — owner-gated per criterion 5.
+- Any implementation of the three live delivery plans; this PR makes
+  their records decision-complete and truthful.
 
 ## Todos
 
@@ -206,12 +223,15 @@ finding has exactly one recorded decision. Applying it is mechanical.
       (MCP-479), `2fdd6924-f0c0-4170-903b-c70b88ea4354`
       (MCP-480), and `60917574-1f92-4102-abaa-25a89b5f5b36`
       (MCP-481), all 2026-08-11.
+- [ ] T5: apply the post-submission dispositions (rows 46–55), true the
+      four Linear issue descriptions, publish the exact-tip evidence,
+      and re-harvest every review/comment/check surface.
 
 T4 records the completed publication actions; it does not satisfy acceptance
-criterion 3 by itself. At `8728ec9e55b3a1d624315d6cf4b1f444937bf5df`,
-all 19 reported checks were green and no inline review thread remained, but
-the code-owner decision was still `CHANGES_REQUESTED` from an older head.
-Fresh code-owner clearance remains mandatory before merge.
+criterion 3 by itself. T5 exists because the later critical review changed the
+substance, not merely the prose. Exact-tip checks, review state, comments, and
+threads are harvested again after T5 publishes; no historical SHA or check
+count stands in for that current evidence.
 
-All four todos are commits on the existing PR #746 branch — one review
-round, no new PR.
+All five todos are commits on the existing PR #746 branch — one bounded
+repair story, no replacement PR.
