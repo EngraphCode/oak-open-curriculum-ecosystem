@@ -1,3 +1,16 @@
+# [1.161.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.160.0...v1.161.0) (2026-08-11)
+
+
+### Bug Fixes
+
+* **skills:** adopt the copilot round — six cures to update-dependencies ([ddc1822](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ddc1822829b6fc72e04d0c21d70525a3265b3554))
+
+
+### Features
+
+* **skills:** stacked-PR waves join the update-dependencies verification tail ([43a428c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/43a428cada5f6a77c2222b315c95ebcaa5502909))
+* **skills:** update-dependencies — the summonable routing for dep updates ([63482f9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/63482f961205821c5aa0966d2e0b0a610ea888a2))
+
 # [1.160.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.159.4...v1.160.0) (2026-08-11)
 
 
