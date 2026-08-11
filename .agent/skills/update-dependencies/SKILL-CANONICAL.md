@@ -57,6 +57,11 @@ skill STOPS at them and surfaces).
    highs Dependabot lagged on). Reconcile counts; done-when is EVERY
    FINDING RECONCILED on every instrument — cured, or documented as an
    explicitly owner-accepted residual with its lift condition (step 8).
+   For HIGH/CRITICAL findings in production-reachable dependencies,
+   ADR-174 sets the acceptance bar above that: a TIME-BOUNDED owner
+   disposition with named compensating controls — an event-based lift
+   condition alone is below policy, and the finding stays a release
+   blocker until that disposition exists.
    One instrument's zero is never done, and forcing an incompatible
    version to make a census read zero is the failure, not the cure.
 3. **Diff the live advisory set against the existing override floors.**
@@ -111,7 +116,11 @@ the selected version, never the floor:
    consumers declare `^` ranges an open floor would drag across an
    incompatible major (worked near-miss 2026-08-11: an unbounded
    nanoid floor would have coerced postcss's `^3.x` onto ESM-only
-   majors). Left unbounded ONLY with a dated no-next-major note. And
+   majors). Bound even when the next major does not yet exist
+   (`<N+1`): a dated no-next-major note does not constrain the
+   resolver — an open floor admits the next major the day it
+   publishes, so the bound is what makes review-at-the-major
+   structural rather than aspirational. And
    inspect EVERY consumed line first (`pnpm why -r`): when consumers
    sit on multiple major lines, one global floor drags earlier-major
    consumers up onto the floor's major — use parent-scoped overrides
@@ -155,8 +164,14 @@ a zero-match sweep reads as a confirmed negative.
 
 ## The verification tail (per PR, before it opens)
 
-- **Floors bind**: `pnpm why -r <pkg>` shows ≥ patched for every cured
-  package — a floor the resolver never applies is a decoy.
+- **Cure outcomes hold**: `pnpm why -r <pkg>` shows ≥ patched for
+  every cured package. This proves the SELECTED version, never that
+  the floor bound it — a dependency already resolving above the patch
+  passes with the floor inert. The BINDING proof is the before/after
+  resolution delta observed when the floor is added or raised (the
+  pre-cure read showed the vulnerable pick; the post-cure read shows
+  the floored one — record both). On later sweeps the opener's
+  drift-check owns floor staleness; this assertion owns outcomes.
 - **Audit recomputed**: `pnpm audit` both scopes; name any deliberate
   residue in the PR body.
 - **Lockfile diff read**: distinguish renormalisation noise from real
