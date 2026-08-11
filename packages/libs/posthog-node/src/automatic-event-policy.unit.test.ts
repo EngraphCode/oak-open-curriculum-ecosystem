@@ -45,7 +45,16 @@ describe('normaliseAutomaticProperties', () => {
         $mcp_is_error: false,
       },
     ],
-    ['tools-list', AUTOMATIC_EVENT_NAMES.toolsList, { $mcp_duration_ms: 5, $mcp_is_error: true }],
+    [
+      'tools-list error',
+      AUTOMATIC_EVENT_NAMES.toolsList,
+      { $mcp_duration_ms: 5, $mcp_is_error: true },
+    ],
+    [
+      'tools-list success',
+      AUTOMATIC_EVENT_NAMES.toolsList,
+      { $mcp_duration_ms: 5, $mcp_is_error: false, $mcp_listed_tool_names: [] },
+    ],
     [
       'tool-call',
       AUTOMATIC_EVENT_NAMES.toolCall,
