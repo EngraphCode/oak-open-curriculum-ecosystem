@@ -118,7 +118,7 @@ into the permanent record):
    changeset crossing the PDR's warning thresholds is re-examined for
    hidden second stories NOW — at open, splitting is cheap; over budget,
    it is expensive. The general form of this check is the
-   [`proportionality`](../proportionality/SKILL-CANONICAL.md) gate's SCOPE
+   [`proportionality`](../cognition/proportionality/SKILL-CANONICAL.md) gate's SCOPE
    axis; run it here when the changeset's size is genuinely in question,
    and note that its LEVEL axis also applies at open — a question standing
    owner word already answers is not an escalation.
@@ -144,7 +144,12 @@ ruleset does NOT bind `.design-sync/`, `.agent/plans/`, or
 fired), so absence there is configuration, not a skipped reviewer; and a
 claude[bot] review SKIP is a spend-limit signature, not a blocker — an
 organisation review-overage exhaustion is a capability ceiling to note,
-never a gate to wait on.
+never a gate to wait on. Request mechanics (first-hand 2026-08-08,
+PRs #829/#830): GitHub's REST `requested_reviewers` endpoint SILENTLY
+DROPS the Copilot handle — 200 response, no error, handle absent from
+the resulting request — so request Copilot through the GitHub MCP
+`request_copilot_review` tool (or the web UI), never the bare REST
+endpoint, and verify the reviewer actually appears on the PR.
 
 ### Title and description are CLAIMS about the diff — derive them from it
 
@@ -760,7 +765,7 @@ owner parameters. **The step-back trigger is
   trigger fires: **STOP
   fix-pushing.** Step back and run concept exploration over the FULL finding
   corpus for the shared generator, paired with the
-  [`proportionality`](../proportionality/SKILL-CANONICAL.md) gate over the PR
+  [`proportionality`](../cognition/proportionality/SKILL-CANONICAL.md) gate over the PR
   itself — the exploration finds the generator, the gate asks whether the
   changeset, the review instrument, or the seat answering is the wrong size,
   which is the question a corpus read alone does not pose. Fix the CLASS in

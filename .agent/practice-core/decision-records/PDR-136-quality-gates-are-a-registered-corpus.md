@@ -145,6 +145,75 @@ where it matters most, and the register records for each entry whether its
 emitter is self-curing or needs the register to explain it. That field is the
 estate's feedback debt, made countable.
 
+#### Proposed amendment (2026-08-10, PENDING OWNER RATIFICATION) — the outcome set, gradation, and the silence invariant
+
+> **Status: proposed, not yet ratified.** Authored by the Director (gate-ledger
+> lane) from the owner's directive 2026-08-10 (routed via the design lane). The
+> three ratified outcomes above stand unchanged; this amendment *extends* them
+> for judgement instruments and closes the silence tolerance. It becomes
+> Accepted only on the owner's word, and it carries one decision that is
+> constitutively the owner's (marked with a flag below).
+
+The three outcomes above are correct for **deterministic gates** (a check that
+computes pass or fail, or honestly cannot). **Judgement instruments** — the
+generative / improvement / discovery / falsification contribution modes, an
+accessibility audit's severity, a fidelity diff's ratio, a graded wow verdict —
+need a larger outcome vocabulary. The full set an instrument may emit:
+
+- **verified-pass** / **verified-fail** — the deterministic verdicts, unchanged.
+- **could-not-check** — the honest inability, unchanged.
+- **pass-with-gradation** / **fail-with-gradation** — a verdict that carries
+  **degree**. Bound, so gradation never becomes tolerated ambiguity: gradation
+  qualifies a verdict *already decided* — how far above the bar a pass sits, or
+  how severe a fail is — and it **never blurs the pass/fail boundary itself**. A
+  "pass-with-gradation" that is really "nearly a fail, here are nitpicks" is a
+  fail; reporting it as a graded pass is the warning-toleration the estate
+  forbids.
+- **informational** — an outcome that is **not a verdict**, for the generative
+  and discovery modes whose output is a proposal or a connection, not a
+  pass/fail. Bound, so it never becomes the deferral bucket `no-warning-toleration`
+  bans: informational is admissible only for output that is *constitutively* not
+  verdict-shaped; it may never carry a latent pass/fail the instrument declined
+  to make (that is `could-not-check` or a real verdict, not informational); and
+  informational output **enters adjudication, it is not a resting state** (a
+  proposal is judged, per the contribution frame's judge-every-output rule).
+- **not-configured** — the instrument exists but has nothing to run against
+  here. Bound, so it never becomes the silent gap §6 forbids: not-configured is
+  a **declared, intentional inapplicability** (this instrument does not apply to
+  this surface, recorded with its reason), never a default for an un-wired gate.
+  A not-configured instrument **emits** "not-configured" — it does not fall
+  silent.
+
+**The silence invariant.** §5 above says a false statement is worse than
+silence because "silence leaves a reader in doubt" — which *tolerates* silence
+as honest ambiguity. This amendment ends that tolerance, because silence is the
+estate's most-recurring dangerous failure (the green-through-silence class: a
+gate passing because it silently checked nothing; a monitor that timed out
+mid-watch; a heartbeat fresh while its registry went stale). The invariant:
+
+> **Silence carries exactly one meaning across the whole estate, and it is
+> invariant. Every instrument that is INVOKED must emit exactly one outcome
+> from the set above. An invoked-but-silent instrument is therefore a FAULT to
+> correct, never a state to be read.**
+
+This makes "ran but said nothing" — the exact class the calibration pair and
+§6's 663-assertion suite instantiate — mechanically detectable, because silence
+is reserved and any breach of the reservation is a defect. It is PDR-133's
+reading rule pushed one step: an absence of observation is evidence about
+nothing, so an instrument must never *rely on its own silence* to carry a
+signal.
+
+**The one owner decision (flagged):** which single meaning silence carries.
+The Director's recommendation is **"the instrument was not invoked / does not
+exist"** — with *not-configured* an emitted class (a running instrument with
+nothing to check says so), so silence is reserved for true absence and every
+invoked-but-silent instrument is a fault. The owner's alternative horn ("assign
+silence no meaning at all; every state must be positively emitted and silence is
+never read even as absence") converges on the same fault-detection and is his to
+prefer. This clause becomes Accepted — and the register's
+self-curing/needs-explaining field is extended to record each instrument's
+outcome vocabulary — only on that word.
+
 ### 6. Registration records reachability, at every binding grain
 
 A gate that exists but is wired to nothing does not gate anything, and the

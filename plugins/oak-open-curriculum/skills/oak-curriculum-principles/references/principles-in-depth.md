@@ -60,7 +60,7 @@ A curriculum model can never know a school's pupils or locality — and shouldn'
 
 The designer's responsibility is to make adaptation **safe** as well as possible. That means mapping content explicitly to the national curriculum and signposting the threads, so that when a teacher swaps, adds or cuts, they can see what must stay connected to preserve coherence. And it means holding the line that the model is _optional_: _"School leaders and teachers know their pupils best."_
 
-**Design implications.** Build modular content with clear national-curriculum mapping and visible thread membership. Offer suggestions, not mandates; distinguish the _core_ from the _adaptable_. Favour a single ambitious pathway with a low floor and high ceiling over separate "easier/harder" versions that fragment the entitlement.
+**Design implications.** Build modular content mapped clearly to the national curriculum, with visible thread membership. Offer suggestions, not mandates; distinguish the _core_ from the _adaptable_. Favour a single ambitious pathway with a low floor and high ceiling over separate "easier/harder" versions that fragment the entitlement.
 
 ## Diverse
 

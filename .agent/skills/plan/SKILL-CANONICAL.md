@@ -52,7 +52,7 @@ runs in CI and at pre-commit.
    already names a solution ("we need X") has skipped the framing. For
    complex plans, rewrites, or high-stakes work, read the
    [grammar of thinking](../../reference/grammar-of-thinking.md) as the
-   yardstick, and use [`reason`](../reason/SKILL-CANONICAL.md) to structure
+   yardstick, and use [`reason`](../cognition/reason/SKILL-CANONICAL.md) to structure
    the framing before committing to plan shape.
 
 2. Read the directives:

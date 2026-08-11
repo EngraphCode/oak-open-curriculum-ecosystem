@@ -55,8 +55,8 @@ five-step protocol; wrap supplies the depth of the record it freezes.
 ## The Programme
 
 1. **Enter the modes.** Genuinely enter
-   [`metacognition`](../metacognition/SKILL-CANONICAL.md) (retrospective
-   mode) and [`reason`](../reason/SKILL-CANONICAL.md) — the whole wrap is
+   [`metacognition`](../cognition/metacognition/SKILL-CANONICAL.md) (retrospective
+   mode) and [`reason`](../cognition/reason/SKILL-CANONICAL.md) — the whole wrap is
    these modes wearing a sequence, and every claim below carries its
    warrant.
 2. **Verify work safety with evidence.** WORK IS SAFE only when committed
@@ -75,7 +75,7 @@ five-step protocol; wrap supplies the depth of the record it freezes.
    trigger checklist is that skill's own — wrap adds no second judgement.
 5. **Check the arc.** If this session closed a significant arc (cost,
    length, or shape that surprised anyone), offer the owner a
-   [`retrospective`](../retrospective/SKILL-CANONICAL.md) — routed, not
+   [`retrospective`](../cognition/retrospective/SKILL-CANONICAL.md) — routed, not
    auto-run. If the session graduated anything, confirm each graduation
    carries its PDR-130 prediction line.
 6. **Run the metaloss recursion (owned here).** The loss scan is itself an
