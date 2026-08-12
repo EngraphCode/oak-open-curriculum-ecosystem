@@ -2,34 +2,57 @@
   "suite": "ui-visual-design",
   "iteration": 1,
   "date": "2026-08-12",
-  "method": "Clean-context subagent legs, blind to each other, both answering the identical prompt. The with-skill leg reads SKILL-CANONICAL.md and references/craft-fundamentals.md and may read the design system; the without-skill leg is instructed not to read anything under the repo root. Outputs go to the scripted arms, and — per the plan's requirement for non-render outputs — to a blind transcript judge that receives both responses anonymised, order varied per case, with the key withheld. Case 1's rendered pages additionally go to two W0.7 instrument legs.",
+  "method": "Clean-context subagent legs, blind to each other, both answering the identical prompt. The with-skill leg reads SKILL-CANONICAL.md and references/craft-fundamentals.md and may read the design system; the without-skill leg is instructed not to read anything under the repo root. Outputs go to the scripted arms, and \u2014 per the plan's requirement for non-render outputs \u2014 to a blind transcript judge that receives both responses anonymised, order varied per case, with the key withheld. Case 1's rendered pages additionally go to two W0.7 instrument legs.",
   "cases": {
     "case-1-unit-landing-page-hierarchy": {
-      "status": "PARTIAL — both pages produced and dispatched to the W0.7 legs; the with-skill leg did not produce its rationale",
+      "status": "PARTIAL \u2014 both pages produced and dispatched to the W0.7 legs; the with-skill leg did not produce its rationale",
       "what_is_missing": "The with-skill leg wrote page.html but never wrote rationale.md, so assertion 4 (the rationale names what the screen is for and ranks against that) has no artefact on that side and is NOT graded. The without-skill rationale is banked. This is recorded rather than worked around: the case is partially run.",
-      "leg_deviation": "The same leg also copied design-system CSS and font files beside its output despite being told not to, and generated preview PNGs it was not asked for. Instructions to legs are honoured approximately — see the S3 frictions record.",
-      "w07_holistic": "dispatched; verdicts land in w07-verdicts/ in a follow-up commit if they arrive, and this field states plainly if they do not"
+      "leg_deviation": "The same leg also copied design-system CSS and font files beside its output despite being told not to, and generated preview PNGs it was not asked for. Instructions to legs are honoured approximately \u2014 see the S3 frictions record.",
+      "w07_holistic": {
+        "legs": "independent design-system-expert (opus) + paired accessibility-expert (opus), each judging both pages anonymised, neither seeing the other",
+        "page-A (without-skill)": "FAIL from both legs, six of seven criteria failed by each",
+        "page-B (with-skill)": "PASS from the design-system leg; FAIL from the accessibility leg",
+        "page-A evidence": "Both legs independently find the same three defects: class names the system does not ship (so they render unstyled), spacing that names custom properties absent from the system, and raw hex literals doing the actual painting. The accessibility leg adds that redefining the shared .oak-card class would break sibling pages using the shipped card.",
+        "page-B evidence": "Type scale, spacing, colour discipline, cross-page cohesion and ordered-calm all PASS on both legs. The accessibility leg's note on hierarchy is the one worth reading: 'the visual and semantic layers are both well made and are chosen INDEPENDENTLY in the way this system intends: 14 headings, one h1, h1 -> h2 -> h3 with no skips; rank is held at h2 across four sections while the visual step walks down with importance'. That is the corrected doctrine being exercised correctly in a rendered page.",
+        "UNRESOLVED \u2014 the legs disagree on page-B": "The design-system leg returns PASS. The accessibility leg returns an overall FAIL while marking no criterion FAIL \u2014 five PASS and two ITERATE. The rubric does not define how per-criterion verdicts roll up to a page verdict, so an overall FAIL with no failing criterion is representable. This is NOT resolved here: the rubric's own fail semantics say any leg's FAIL blocks and routes to the Director in the Quality-bar rule-3 shape for a named disposition, and this seat is not the disposing authority. Recorded, routed, and left open.",
+        "register_exclusion": "verdicts stay in this evidence home; they never enter wow-verdict-register.json",
+        "files": "s4-iteration-1/w07-verdicts/"
+      }
     },
     "case-2-control-critique": {
       "status": "both legs measured, scripted and judged",
       "scripted": {
-        "with_skill": { "no-invented-values-in-authored-css": "PASS", "no-invented-values-in-prose": "PASS", "no-bespoke-size-proposals": "PASS" },
-        "without_skill": { "no-invented-values-in-authored-css": "PASS", "no-invented-values-in-prose": "PASS", "no-bespoke-size-proposals": "PASS" },
-        "reading": "The scripted arms cannot separate these two responses. Both avoid inventing values. This is exactly why the plan requires a judge as well as a script for non-render outputs — on the script alone, iteration 1 would have reported no difference."
+        "with_skill": {
+          "no-invented-values-in-authored-css": "PASS",
+          "no-invented-values-in-prose": "PASS",
+          "no-bespoke-size-proposals": "PASS"
+        },
+        "without_skill": {
+          "no-invented-values-in-authored-css": "PASS",
+          "no-invented-values-in-prose": "PASS",
+          "no-bespoke-size-proposals": "PASS"
+        },
+        "reading": "The scripted arms cannot separate these two responses. Both avoid inventing values. This is exactly why the plan requires a judge as well as a script for non-render outputs \u2014 on the script alone, iteration 1 would have reported no difference."
       },
       "judged": {
         "preference": "with-skill",
         "scores_with_skill": "reasons-from-purpose STRONG, ranks STRONG, routes-values STRONG, respects-boundary ADEQUATE, would-a-designer-act STRONG",
         "scores_without_skill": "reasons-from-purpose ADEQUATE, ranks STRONG, routes-values ABSENT, respects-boundary WEAK, would-a-designer-act ADEQUATE",
-        "the_separating_criterion": "routes-values-to-the-system: STRONG against ABSENT. The judge's evidence is that the grounded critique opens from what the control is FOR and surfaces the unresolved question that changes the requirement rather than the styling — quoted: 'If tapping the pill is what marks the lesson complete, it's an interactive control ... Which is it? That decision changes the sizing requirement' — and routes every number back to the system's scale, motion vocabulary, and 44px floor.",
+        "the_separating_criterion": "routes-values-to-the-system: STRONG against ABSENT. The judge's evidence is that the grounded critique opens from what the control is FOR and surfaces the unresolved question that changes the requirement rather than the styling \u2014 quoted: 'If tapping the pill is what marks the lesson complete, it's an interactive control ... Which is it? That decision changes the sizing requirement' \u2014 and routes every number back to the system's scale, motion vocabulary, and 44px floor.",
         "why_it_matters": "Both responses avoid inventing values, so both pass the script. Only one of them tells the reader where the right values live. That gap is invisible to assertion and visible to judgment."
       }
     },
     "case-3-value-lookup-refusal": {
-      "status": "both legs measured, scripted and judged — and the two disagree",
+      "status": "both legs measured, scripted and judged \u2014 and the two disagree",
       "scripted": {
-        "with_skill": { "no-invented-values-in-prose": "FAIL", "evidence": "3 hexes: #222222, #ffffff, #000000" },
-        "without_skill": { "no-invented-values-in-prose": "PASS", "evidence": "declines to supply any value" }
+        "with_skill": {
+          "no-invented-values-in-prose": "FAIL",
+          "evidence": "3 hexes: #222222, #ffffff, #000000"
+        },
+        "without_skill": {
+          "no-invented-values-in-prose": "PASS",
+          "evidence": "declines to supply any value"
+        }
       },
       "judged": {
         "preference": "with-skill",
@@ -42,7 +65,7 @@
     }
   },
   "controls": {
-    "note": "Four controls, one per arm plus a positive. Each negative must fail ONLY its own arm, which is what proves the arms are independent — the previous single-assertion fixture could not do this.",
+    "note": "Four controls, one per arm plus a positive. Each negative must fail ONLY its own arm, which is what proves the arms are independent \u2014 the previous single-assertion fixture could not do this.",
     "results": "css-only-negative fails only the CSS arm; prose-only-negative fails only the prose arm; size-only-negative fails only the size arm; legitimate-references-positive passes all three. Full output in grades/controls.txt.",
     "two_controls_caught_real_defects_on_first_run": "legitimate-references-positive failed the duration detector for quoting the 600ms it was criticising, and size-only-negative passed when it should have failed because the gap pattern excluded newlines and real prose wraps. Both are fixed and both stay as controls."
   },
@@ -56,7 +79,7 @@
     {
       "id": "S4-F2",
       "class": "eval design",
-      "finding": "On case 2 the scripted arms could not separate the two responses at all — both passed every arm — while the judge separated them decisively on routes-values-to-the-system (STRONG vs ABSENT). A suite of scripted assertions alone would have reported this case as showing no skill effect. The plan's assertion-PLUS-judge requirement for non-render outputs is load-bearing, and this run is the evidence.",
+      "finding": "On case 2 the scripted arms could not separate the two responses at all \u2014 both passed every arm \u2014 while the judge separated them decisively on routes-values-to-the-system (STRONG vs ABSENT). A suite of scripted assertions alone would have reported this case as showing no skill effect. The plan's assertion-PLUS-judge requirement for non-render outputs is load-bearing, and this run is the evidence.",
       "route": "recorded as validation of the standard's eval clause; no cure needed."
     },
     {
@@ -64,7 +87,13 @@
       "class": "eval running",
       "finding": "One leg silently failed to produce a required output (case 1's rationale) and another produced unrequested files while copying source it was told not to copy. There is no completeness check between dispatching a leg and grading it, so a missing artefact is discovered at grading time.",
       "route": "WS8-general, with the eval-runner tooling."
+    },
+    {
+      "id": "S4-F4",
+      "class": "instrument gap",
+      "finding": "A W0.7 leg returned an overall page verdict of FAIL with no criterion marked FAIL (five PASS, two ITERATE). The rubric specifies per-criterion verdicts and page verdicts but not the roll-up between them, so the two can disagree without either being wrong on the rubric's own terms. The instrument's blocking authority rests on that roll-up.",
+      "route": "the design-review rubric's owner, via the Director. Surfaced from the pilot's eval run rather than from a checkpoint render, which is itself a useful signal about where the instrument gets exercised."
     }
   ],
-  "honest_summary": "Iteration 1 of the ui-visual-design suite ran all three cases, with case 1 partial: both pages exist and are with the W0.7 legs, but the with-skill leg never wrote its rationale, so one assertion on that case is ungraded and said so. The measured result on the two complete cases is that the blind judge preferred the with-skill response in BOTH, while the scripted arms preferred it in NEITHER — tying on case 2 and marking it FAILED on case 3. That is the most useful thing this run produced: the skill's effect on craft judgment is real and is invisible to the assertions, and on case 3 the assertion is simply wrong in a way the judge could articulate and the script could not."
+  "honest_summary": "Iteration 1 of the ui-visual-design suite ran all three cases, with case 1 partial: both pages exist and are with the W0.7 legs, but the with-skill leg never wrote its rationale, so one assertion on that case is ungraded and said so. The measured result on the two complete cases is that the blind judge preferred the with-skill response in BOTH, while the scripted arms preferred it in NEITHER \u2014 tying on case 2 and marking it FAILED on case 3. That is the most useful thing this run produced: the skill's effect on craft judgment is real and is invisible to the assertions, and on case 3 the assertion is simply wrong in a way the judge could articulate and the script could not. The W0.7 legs then split on the grounded page: PASS from one, an unexplained overall FAIL from the other, which is routed to the Director under the rubric's own fail semantics rather than being adjudicated here."
 }
