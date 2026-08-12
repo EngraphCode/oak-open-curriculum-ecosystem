@@ -2422,8 +2422,8 @@ in the PR so the acceptance number reads honestly against the plan.
 
 ## 2026-08-12T12:25:06Z (Foundry tracks Shimmer, ead103, RFC lane) — four-round ARC review convergence; the rhetorical-strengthening drift class
 
-- Delivered the upstream-API-workspace leadership RFC (reference-local,
-  gitignored by owner instruction) through an n=2 ARC pairing with Skua
+- Delivered an owner-private leadership direction paper (reference-local,
+  gitignored at owner instruction) through an n=2 ARC pairing with Skua
   binds Vortex: my draft, their fact pass, two independent prose-expert
   passes (one per seat, both opus), per-finding fact-safety adjudication,
   FINAL at 12:24Z — ~20 min wall-clock for four review rounds. The
@@ -2435,11 +2435,10 @@ in the PR so the acceptance number reads honestly against the plan.
   lane.
 - RHETORICAL-STRENGTHENING DRIFT, caught twice in one paper (class worth
   naming): a prose improvement "strengthened" a causal claim past its
-  evidence — "nobody could catch it before it shipped" (rebuttable: the
-  API team's tests COULD have, had they covered the collateral) vs the
-  fact-safe "none of the safeguards either side actually had could catch
-  it". Same axis a second time in my own §2 wording ("no amount of
-  discipline"). Prose reviewers optimise for punch; punch drifts claims up
+  evidence — a maximally-punchy absolute a named sharp reader could rebut,
+  where the fact-safe form named only the safeguards that actually
+  existed. Same axis a second time in my own wording of an adjacent
+  section. Prose reviewers optimise for punch; punch drifts claims up
   the reliability ladder. Cure: fact seat re-reads load-bearing sections
   AFTER every prose pass, and "stronger and unanswerable" is the test — a
   strengthened claim a named reader could rebut is a weakened paper.
@@ -2505,16 +2504,126 @@ API-team decision. No unshaped residue.
   recommendation, fact-endorsed and applied — and it failed the ACTUAL
   reader at the first paragraph. Lesson: reviewer endorsement is evidence
   about craft, not about audience mood; a leadership paper opens on the
-  benefits, and the incident serves as a worked example AFTER the gains,
-  not as the hook. Restructured accordingly (rev 6): benefits-led Summary,
-  incident demoted to "A worked example: three weeks in July" after the
-  gains.
-- Second correction (clarified mid-turn: public API, not public repo): the
-  paper had let "everything that consumes it" read as the ecosystem's own
-  toolkit — but the API is PUBLIC; the consumer set is anyone building
-  against it, with the MCP/AI surface one class among many. Consumer
-  framing corrected throughout (Summary, gain 2 "everyone who builds
-  against the API directly", gain 6 "a fast-growing class of consumer").
-  Class link: verdict-momentum/over-centring — the seat's own vantage
-  point (the MCP estate) leaked into the paper's model of who the users
-  are.
+  benefits, and any failure story serves as a worked example AFTER the
+  gains, never as the hook. Restructured accordingly: benefits-led
+  summary, the story demoted to a worked example after the gains.
+- Second correction: the paper's audience model had over-centred the
+  seat's own vantage point; the owner's correction widened the consumer
+  set to its true breadth, and the framing was corrected throughout.
+  Class link: verdict-momentum/over-centring — the seat's vantage leaked
+  into the deliverable's model of who its users are; audience and
+  consumer models are owner facts.
+
+## 2026-08-12T12:53:38Z (Foundry tracks Shimmer, ead103) — the incident claim survives Jim's critical challenge only when split three ways
+
+- Jim challenged the paper's worked example directly: would the proposal
+  actually have prevented the failure, or was it just a generic lack of
+  monitoring? The honest verdict SPLITS: detection (a production canary
+  catches it in either architecture — pure monitoring, no structural
+  change needed, being built regardless), prevention (only a
+  behaviour-level pre-merge gate stops it SHIPPING, and that gate can only
+  run where the code lives), diagnosis (the unambiguous structural win —
+  the cross-boundary expert-archaeology cost and the unanswerable
+  intent question). Reusable shape: any "X would have prevented Y" claim in an
+  advocacy doc should be decomposed into detection/prevention/diagnosis
+  before it ships — the rhetorical fused form invites the exact rebuttal
+  the audience's sharpest reader will raise, and the decomposed form is
+  MORE persuasive because it concedes the cheap alternative openly (a
+  "better monitoring alone" bullet joined the alternatives).
+- Owner articulation beat the seat's framing twice in one round: he
+  supplied the paper's load-bearing conceptual frame himself and
+  re-anchored the benefits list in his own terms (the substance is
+  owner-private, in the paper). Harvest the sponsor's own articulation
+  verbatim into the artefact; the seat's job is structure and evidence,
+  not vocabulary.
+- Live-edit collision handled: Jim edited the paper's Summary in the IDE
+  mid-turn; my full-file Write failed on the modified-since-read guard
+  (the guard working). Cure applied: his opening preserved verbatim,
+  everything else applied as exact-match Edits (which fail loud on
+  collision instead of clobbering). Owner-parallel-edits practice for
+  reference-local docs: never full-file Write while the owner has the
+  file open; targeted Edits only.
+
+## 2026-08-12T12:55:28Z (Foundry tracks Shimmer, ead103) — the worked example REMOVED at owner word; the ask is a yes/no
+
+- Jim, after two reads of the reworked incident section (verbatim): "it
+  doesn't convince, I have read it twice and I am not entirely sure what
+  it is about, a non-technical director is going to stop reading" — and on
+  the workstream asks: "this is a yes no situation, we don't need to
+  burden the document with the how." Both applied: the worked example
+  deleted with every cross-reference swept; the commissioned-workstreams
+  ask replaced by a yes/no decision section carrying the owner's own
+  bottom-line sentence.
+- Lesson pair: (1) evidence that needs expert context to parse does not
+  survive contact with a non-technical reader — if the author's own
+  sponsor reads it twice and can't say what it's about, it convinces
+  nobody; anecdote-as-proof earns its place only when it reads in one
+  pass. (2) A direction paper asks yes/no and leaves the how out — the
+  three-workstream ask smuggled implementation into a decision document
+  (the warrant-ladder/proportionality shape: right size of ask for the
+  decision moment).
+
+## 2026-08-12 — #865 MCP-570 cure round (Wren calls Downdraft, 6b29b5): destructive-path + gate-integrity harvest
+
+Five defects a fifth adversarial review (PR Review Warden) + two opus reviewers
+found that four earlier passes and four green gates missed. The durable shapes:
+
+- **Destructive-op preconditions are derived from the OP, never inherited from
+  an adjacent guard.** The surface-root guard proved "these roots are real
+  in-repo lexical dirs"; `--clear` needed a DIFFERENT precondition ("cwd is the
+  repo AND discovery is complete"). I answered the neighbouring question and
+  reused its answer. Cure: fold the destructive act behind the gate that proves
+  ITS own precondition. Same class, second instance in one PR — I'd cured the
+  surface-root partial-pass but left the classification-error partial-pass,
+  pattern-matching "partial-destruction: fixed" on one instance.
+- **A red security check is CURED, never documented-away.** I had a comment
+  calling the CodeQL TOCTOU "disproportionate under the threat model." The
+  threat-model judgment on a red gate is the GATE's, not the author's mid-PR.
+  Cured with an fd-anchored `O_NOFOLLOW` read; the rationalising comment deleted.
+- **Two readers of one data class must share ONE error posture.** The carriage
+  seam documented ENOENT-only-as-absence as "load-bearing"; the sibling census
+  read the same class through swallow-all helpers → a false-green (unreadable
+  root read as "no Practice skills"). Fail-closed in one module and not its twin
+  is a latent false-green.
+- **"Restored on disk" != "in the commit tree" — the sharpest gate-integrity
+  edge, and a NEW one.** The code-expert caught that my `skills-lock.json`
+  reinstatement was UNTRACKED: HEAD still carried the deletion, so the MERGE
+  would delete it — `pnpm check` green either way (nothing reads it). A green
+  gate proves the path it exercised, never the merge outcome. Verify a
+  retained/restored file with `git cat-file -t HEAD:<path>`, never `ls`.
+- **The independent reviewer with a DIFFERENT threat model is load-bearing.**
+  mantagen ran the actual repro from a non-repo directory and read upstream
+  `vercel-labs/skills`; the opus code-expert traced the commit tree, not just
+  the working tree. Same-frame passes found none of it. Warrant-ladder /
+  gate-integrity operational edge: for a destructive or security-critical
+  change, an outside seat with a different frame beats N same-frame passes.
+- **External systems are OPAQUE, not merely unvalidated.** Owner (2026-08-12):
+  "we don't care how the external management of skills works, only that it
+  works — leave the external mechanisms alone, we should never have taken an
+  interest in them." The jurisdiction principle sharpens: we neither validate an
+  external system NOR model, document, or reason about its internals. Both the
+  MCP-567 arc and the whole lock-file churn (is it our machinery? what do its
+  hashes reconcile against?) traced to taking an interest in how the external
+  skills tooling works. The records now state only the boundary — external, out
+  of scope, untouched — never the mechanism.
+
+## 2026-08-12T13:39:00Z (Foundry tracks Shimmer, ead103) — owner-fact corrections from the paper's compression rounds
+
+- An ownership-model assumption the seat had INVENTED from repo topology
+  was corrected by the owner (the fact itself is owner-private, in the
+  paper): org/ownership models are owner facts, never inferred from repo
+  boundaries. A reassurance passage built on the invented model was
+  deleted whole and the cascade swept at correction.
+- Scope rulings, same session: sections the sponsor rules irrelevant come
+  out whole, however honest; the halving landed at ~52% of the original
+  with every punch line intact. The yes/no direction paper's terminal
+  shape: benefits → what changes/what doesn't → costs → alternatives →
+  decision. Nothing else earns space.
+
+- Round-read completeness (own error, #865 relay, 2026-08-12 ~13:5xZ): a Copilot
+  round carries BOTH generated comments (threads) AND a suppressed section in
+  the body — I read the suppressed details and took "3 comments" to mean the
+  same three, so the relay to the lane owner omitted the generated trio, which
+  reappeared next round plus a Warden CHANGES_REQUESTED. Never-filter includes
+  never-half-read: every round read = review body (incl. suppressed) PLUS the
+  round's inline comments, tallied separately before any relay or disposition.

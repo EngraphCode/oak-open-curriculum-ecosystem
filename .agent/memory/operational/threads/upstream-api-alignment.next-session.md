@@ -197,38 +197,27 @@ constraint rides any routing brief VERBATIM. (Homed from the napkin at the
 2026-08-07 consolidation; the constraint was captured 2026-08-03 and had no
 thread-record presence until now.)
 
-## 2026-08-12T12:24:52Z — leadership RFC delivered: upstream-API-as-workspace paper (Foundry tracks Shimmer, ead103)
+## 2026-08-12T12:24:52Z — owner-private direction paper delivered (Foundry tracks Shimmer, ead103)
 
-Owner-directed paper delivered at
-`.agent/reference-local/2026-08-12-upstream-api-workspace-rfc.md`
-(deliberately gitignored — owner instruction; internal Oak doc). Case for
-bringing oaknational/oak-openapi into this repo as a workspace: six gains
-(one contract definition, pre-merge breakage detection, whole-journey
-observability, open-source policy alignment — owner word 2026-08-12
-verbatim on channel: "open source and public is the Oak and UK Gov
-standard, forcing that change is actually a huge positive" — one-change
-cross-cutting work, AI front door), honestly-priced costs, alternatives,
-three commissioned workstreams as the decision ask. FINAL from Skua binds
-Vortex's fact-safety seat (12:24Z, four review rounds on the ARC channel
-`.agent/collaboration/rapid-comms/2026-08-12-upstream-workspace-rfc-foundry-tracks-shimmer-skua-binds-vortex.md`).
-Second prose-expert review conserved at
-`.agent/reference-local/2026-08-12-upstream-rfc-prose-expert-second-pass.md`.
-OPEN owner question (non-blocking, routed to Jim by Skua): does the
-internal leadership decision-paper class sit inside editorial-tone.md's
-contractions-always scope? Whichever way, the answer belongs in
-editorial-tone.md's scope list. Evidence base for the paper's July-incident
-facts: `.agent/reports/mcp-lesson-retrieval-gap-analysis-2026-08-12.md`
-(Skua's lane; uncommitted at this writing — its landing rides that lane's
-commit word).
+An owner-directed leadership direction paper was drafted, peer-reviewed
+(four ARC review rounds with Skua binds Vortex, fact-safety FINAL
+12:24Z, plus two independent prose-expert passes), revised through six
+owner-directed rounds, and delivered to `.agent/reference-local/`
+(gitignored; the owner holds it). The owner classified the paper's
+content PRIVATE (2026-08-12): tracked surfaces carry generic lessons
+only (napkin, this record); the collaboration dialogue and reviews are
+conserved beside the paper in reference-local. OPEN owner question
+(non-blocking, routed to Jim by Skua): does the internal decision-paper
+class sit inside editorial-tone.md's contractions-always scope? Whichever
+way, the answer belongs in editorial-tone.md's scope list.
 
 ## 2026-08-12T12:30:26Z — contractions question DISCHARGED (owner ruling; Foundry tracks Shimmer, ead103)
 
 Owner, 2026-08-12, verbatim: "contractions are fine, but editorial flow is
-more important". Applied to the RFC as a flow-first pass (eight
-contractions where they ease reading; emphatic uncontracted forms — "do
-not bind", "Co-location is not co-ownership" — kept for weight). The
-paper at `.agent/reference-local/2026-08-12-upstream-api-workspace-rfc.md`
-is final. Curation candidate for the next editorial-tone.md touch: add a
+more important". Applied to the paper as a flow-first pass (contractions
+where they ease reading; emphatic uncontracted forms kept for weight).
+The paper (reference-local, owner-private) is final. Curation candidate
+for the next editorial-tone.md touch: add a
 scope-list clause for the internal decision-paper class recording this
 ruling (flow governs; contractions permitted, not mandated), so the next
 author doesn't have to ask — the reviewer's original suggestion, now with
