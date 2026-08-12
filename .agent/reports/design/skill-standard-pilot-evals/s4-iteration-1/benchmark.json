@@ -93,7 +93,34 @@
       "class": "instrument gap",
       "finding": "A W0.7 leg returned an overall page verdict of FAIL with no criterion marked FAIL (five PASS, two ITERATE). The rubric specifies per-criterion verdicts and page verdicts but not the roll-up between them, so the two can disagree without either being wrong on the rubric's own terms. The instrument's blocking authority rests on that roll-up.",
       "route": "the design-review rubric's owner, via the Director. Surfaced from the pilot's eval run rather than from a checkpoint render, which is itself a useful signal about where the instrument gets exercised."
+    },
+    {
+      "id": "DS-F1",
+      "class": "design-system defect",
+      "severity": "WCAG 2.2 Level A",
+      "owner": "design-system lane \u2014 NOT an eval finding, surfaced by the eval",
+      "finding": "The documented .oak-card-link composition produces links with an EMPTY accessible name whenever the wrapped card element has a role that does not support name-from-content. components.css:461 instructs '.oak-card static - wrap in <a class=\"oak-card-link\"> to make it press', and <article class=\"oak-card\"> is a natural reading of that instruction. On the eval page, nine card links exposed no accessible name at all: a screen-reader user tabbing the page's primary interaction set hears 'link' nine times with no text.",
+      "evidence": "Verified in Chromium's accessibility tree (20 links, 9 unnamed) and the CAUSE verified by mutation: swapping the nested <article> for a <div> takes empty names from 9 to 0. Breaches SC 4.1.2 Name, Role, Value and SC 2.4.4 Link Purpose (In Context), both Level A.",
+      "why_it_has_survived": "axe-core 4.12.1 does NOT flag it \u2014 its accname implementation diverges from Blink's \u2014 so every automated sweep over this pattern has been silent. Manual-only catch.",
+      "candidate_cures": "Name the constraint where the pattern is documented; or have .oak-card-link require aria-labelledby pointing at the card heading; or document <div class=\"oak-card\"> as the wrappable form.",
+      "route": "design-system lane, for ticketing and disposition. This seat is not the design-system owner and has NOT applied a cure."
+    },
+    {
+      "id": "DS-F2",
+      "class": "design-system defect",
+      "severity": "below the system's own stated floor",
+      "owner": "design-system lane \u2014 NOT an eval finding, surfaced by the eval",
+      "finding": "--size-target-dense ships at 36px, below the system's own --size-target-min: 44px, and is wired to --btn-min-h-sm. So every small button built from the system misses the house target floor by construction. The eval page's 'Download all' measured 136.8x36 while being built entirely from system tokens.",
+      "evidence": "colors_and_type.css:246 --size-target-dense: 36px; :247 --size-target-min: 44px; components.css:25 --btn-min-h-sm: var(--size-target-dense). brand.css:146 carries the comment '(>=44px md - a11y floor)' beside the 36px value, so the comment and the value disagree.",
+      "conformance_note": "36px CLEARS WCAG 2.2 AA (SC 2.5.8 is 24x24). It misses Oak's own 44px house floor, which is the AAA SC 2.5.5 threshold adopted as standard. Stating that distinction correctly is the same doctrine this slice corrected in the skill.",
+      "route": "design-system lane. Either the token rises to 44px, or the floor is documented as not applying to dense controls with a recorded reason. Not this seat's call."
     }
   ],
-  "honest_summary": "Iteration 1 of the ui-visual-design suite ran all three cases, with case 1 partial: both pages exist and are with the W0.7 legs, but the with-skill leg never wrote its rationale, so one assertion on that case is ungraded and said so. The measured result on the two complete cases is that the blind judge preferred the with-skill response in BOTH, while the scripted arms preferred it in NEITHER \u2014 tying on case 2 and marking it FAILED on case 3. That is the most useful thing this run produced: the skill's effect on craft judgment is real and is invisible to the assertions, and on case 3 the assertion is simply wrong in a way the judge could articulate and the script could not. The W0.7 legs then split on the grounded page: PASS from one, an unexplained overall FAIL from the other, which is routed to the Director under the rubric's own fail semantics rather than being adjudicated here."
+  "honest_summary": "Iteration 1 of the ui-visual-design suite ran all three cases, with case 1 partial: both pages exist and are with the W0.7 legs, but the with-skill leg never wrote its rationale, so one assertion on that case is ungraded and said so. The measured result on the two complete cases is that the blind judge preferred the with-skill response in BOTH, while the scripted arms preferred it in NEITHER \u2014 tying on case 2 and marking it FAILED on case 3. That is the most useful thing this run produced: the skill's effect on craft judgment is real and is invisible to the assertions, and on case 3 the assertion is simply wrong in a way the judge could articulate and the script could not. The W0.7 legs then split on the grounded page: PASS from one, an unexplained overall FAIL from the other, which is routed to the Director under the rubric's own fail semantics rather than being adjudicated here.",
+  "artefact_scoped_observations": {
+    "note": "Recorded so they are NOT mistaken for design-system findings. These are defects in the eval's generated page, useful as skill-cure signal for iteration 2, not estate defects.",
+    "reflow": "page-B overruns at 320px: the 56px h1 exceeds its 288px container by 27px, scrolling the page horizontally (scrollWidth 331 vs clientWidth 320). SC 1.4.10 Reflow, AA, failed marginally from one long word; clean at 375px.",
+    "breadcrumb-aria-current": "page-B sets aria-current='page' on 'Year 8' while the page is the unit, and the unit is absent from the trail.",
+    "breadcrumb-focus-ring": "page-B's breadcrumb anchors carry no oak-link class, so they fall back to Chromium's 1px default ring while every other control shows the system's designed double ring. Page A avoids this."
+  }
 }
