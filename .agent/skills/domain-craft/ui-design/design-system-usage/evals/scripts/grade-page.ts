@@ -49,7 +49,12 @@ const TRUNK_FILES = ['components.css', 'colors_and_type.css', 'print.css', 'oak-
 function trunkClasses(): ReadonlySet<string> {
   const found = new Set<string>();
   for (const file of TRUNK_FILES) {
-    const css = readFileSync(join(trunkDir, file), 'utf8');
+    // Comments are stripped before selectors are collected: oak-icons.css
+    // mentions the REMOVED `.oak-mask` in a prose comment, and a scan that
+    // reads comments as selectors admits the ghost class — a page whose only
+    // class was `oak-mask` passed existence. Pinned by
+    // fixtures/page/comment-only-class-negative.html.
+    const css = readFileSync(join(trunkDir, file), 'utf8').replace(/\/\*[\s\S]*?\*\//g, ' ');
     for (const match of css.matchAll(/\.(oak-[a-z0-9_-]+)/gi)) {
       found.add(match[1]);
     }

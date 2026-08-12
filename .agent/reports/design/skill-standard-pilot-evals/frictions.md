@@ -133,7 +133,8 @@ asserted a 4.7% residual and routed a finding for classes that exist.
 The eval discipline that follows from this is not "write more assertions".
 It is: **an assertion's evidence string must be checkable against the
 artefact by eye, and somebody must actually check it.** The graders now emit
-the offered set, the write sites, and the read-to-sink path rather than a
-bare verdict, precisely so the next reader can falsify them in seconds.
+the offered set, the offending CSS rule, and the read-to-sink path rather
+than a bare verdict, precisely so the next reader can falsify them in
+seconds.
 
 *Route:* eval-design skill, as its opening principle.

@@ -9,11 +9,13 @@
 
      An earlier version of grade-theming.ts matched any `data-theme='x'`
      text, so it read these copied design-system rules as an implementation
-     "minting a system tree" and flagged a conforming artefact. All three
-     assertions must PASS here.
+     "minting a system tree" and flagged a conforming artefact. The script
+     below writes the `system` choice through to data-theme — exactly what
+     the shipped runtime (oak-theme.js) does — so the copied shim is
+     reachable. All three assertions must PASS here.
 
-     Compare with dataset-system-write-negative.html (applies `system`) and
-     system-palette-tree-negative.html (gives `system` its own palette). -->
+     Compare with system-palette-tree-negative.html, which gives `system`
+     its own palette — the tree DDR-004 forbids. -->
 <select id="theme-choice">
   <option value="light">Light</option>
   <option value="dark">Dark</option>
@@ -43,6 +45,6 @@
   document.getElementById('theme-choice').addEventListener('change', (event) => {
     const choice = event.target.value;
     localStorage.setItem('oak-theme-choice', choice);
-    root.setAttribute('data-theme', choice === 'system' ? 'light' : choice);
+    root.setAttribute('data-theme', choice);
   });
 </script>
