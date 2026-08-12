@@ -3,7 +3,13 @@ id: skill-standard-pilot
 node_type: delivery
 name: "Skill standard pilot: one skill fully to standard, the standard minted by proving it"
 overview: "Define the full skill standard — graph frontmatter (concern + domain), schema validation, the agentskills.io supporting-directory set carried across every projection surface, and spec-method evals — and prove it end to end on design-system-usage (content re-trued against both of its homes and the DDRs), then mint ui-visual-design born to the proven standard. The standard definition, not the pilot skill, is the durable artifact."
-status: sketch
+status: ratified
+ratified_by: 'Jim Cresswell'
+ratified_date: 2026-08-11
+ratified_where: >-
+  Owner word at the Director seat, morning resume 2026-08-11: "Good
+  morning! And, ratified" — answering the stamp card carried in the
+  2026-08-10 freeze map (session Plover lifts Troposphere b10c37).
 serves: planning-and-intent-estate
 impact_areas:
   - practice-and-estate
@@ -11,14 +17,7 @@ tickets: []
 depends_on:
   - plan: skills-estate-organisation
     kind: beneficial
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      Slice 4 content gate: ui-visual-design's UX-craft doctrine is
-      authored by the design pen and ratified by the owner before the
-      skill activates.
-    expires: 2026-09-10
-last_updated: 2026-08-10
+last_updated: 2026-08-12
 ---
 
 # Skill standard pilot
@@ -33,8 +32,9 @@ Owner-adopted working cut (same sitting): pilot on
 `design-system-usage`; mint `ui-visual-design` second, born to the
 proven standard. Parent context: `skills-estate-organisation`
 §Amendment 2026-08-10b (WS8) names the general enablement; this node
-executes its pilot. This plan governs no work until it carries the
-owner's ratification stamp; no slice opens before the stamp.
+executes its pilot. Ratified 2026-08-11 (owner word at the Director
+seat, recorded in the frontmatter stamp); slices route from that
+stamp, S4's own content gate excepted.
 
 ## The standard (the durable artifact this pilot mints)
 
@@ -173,6 +173,18 @@ adapters point at the in-repo canonical, so repo agents resolve
    pen's pass. Acceptance: two-home row correctness, DDR
    consistency, schema green, projections conformant on the S1b
    check, studio copy verified to carry the re-homed substance.
+
+   **Amendment 2026-08-12 — S2's studio clauses are DISCHARGED-VOID.**
+   Owner ruling, same day: "there is no studio sync, the design system
+   lives in this repo and this repo only" (the studio project is gone —
+   404s). Every studio-facing obligation above falls with it: the sync
+   leg, the studio copy verification, and two-home row correctness,
+   which no longer has a second home to be correct for. S2 landed the
+   repo-only truing instead, and the skill's two-home framing was
+   removed as false rather than left to rot. The `studio-source/`
+   directory name survives the ruling — it is a quality-gate boundary
+   inside this repo (owner ruling 2026-07-19), not a pointer at an
+   external home.
 4. **S3 — evals: first execution of the estate's convention.** Three
    cases: (a) compose a branded lesson-content page (script
    assertions: authored-CSS validator clean, referenced `.oak-*`
@@ -201,6 +213,12 @@ adapters point at the in-repo canonical, so repo agents resolve
    (same register exclusion), non-render outputs by assertion +
    blind transcript judge. Acceptance: all five standard clauses
    hold on day one; eval iteration 1 run.
+
+   **Amendment 2026-08-12 — S4's content gate is DISCHARGED.** Owner
+   word at the Director seat (decision card raised at S4 minting,
+   answered 2026-08-12: "Ratify v1"); the ui-visual-design v1 doctrine
+   is ratified and the skill activates; adverse iteration-1 verdicts
+   route per their recorded dispositions.
 
 ## Loop exit criteria
 

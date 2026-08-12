@@ -28,7 +28,7 @@
  * @packageDocumentation
  */
 
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
 import { parse as parseYaml } from 'yaml';
@@ -100,10 +100,14 @@ for (const file of configFiles) {
 
 const turboScan = scanTurboRootInputs({
   turboJsonText: readRepoFile('turbo.json'),
-  fileExists: (relativePath) => existsSync(path.join(repoRoot, relativePath)),
+  trackedFiles,
 });
 const turboFindings = turboScan.findings;
 
+// Every refusal class prints before the single exit 2, so one refusal
+// never masks another (the scan refuses rather than guessing, and it
+// refuses COMPLETELY rather than serially).
+const refusalCount = turboScan.parseErrors.length + turboScan.refusals.length + unanalysable.length;
 if (turboScan.parseErrors.length > 0) {
   writeErrorLine(
     `✖ turbo.json did not parse cleanly as JSONC — the scan refuses rather than reporting ` +
@@ -114,9 +118,16 @@ if (turboScan.parseErrors.length > 0) {
       `  turbo.json:${String(parseError.line)}  parse error ${String(parseError.code)}`,
     );
   }
-  process.exit(2);
 }
-
+if (turboScan.refusals.length > 0) {
+  writeErrorLine(
+    `✖ ${String(turboScan.refusals.length)} turbo input(s) with pattern syntax or macro ` +
+      `form outside the pinned subset — the scan refuses rather than guessing:`,
+  );
+  for (const refusal of turboScan.refusals) {
+    writeErrorLine(`  turbo.json:${String(refusal.line)}  '${refusal.entry}': ${refusal.reason}`);
+  }
+}
 if (unanalysable.length > 0) {
   writeErrorLine(
     `✖ ${String(unanalysable.length)} unanalysable construct(s) — the scan refuses rather than guessing:`,
@@ -124,15 +135,21 @@ if (unanalysable.length > 0) {
   for (const finding of unanalysable) {
     writeErrorLine(`  ${finding.file}:${String(finding.line)}  ${finding.reason}`);
   }
+}
+if (refusalCount > 0) {
   process.exit(2);
 }
 
 if (escapes.length === 0 && turboFindings.length === 0) {
+  // The turbo clause derives its claim from the scan's own count — the
+  // one bare-prose predecessor over-claimed "every positive turbo input"
+  // while only $TURBO_ROOT$ entries were ever evaluated (MCP-553).
   writeLine(
     `✓ workspace-config resolver-invisible legs hold (${String(configFiles.length)} config ` +
       `files, ${String(workspaceDirs.length)} workspaces: path arithmetic contained, no ` +
-      'unanalysable constructs, turbo inputs resolve; static-import containment is enforced ' +
-      'by the dependency-cruiser boundary rules)',
+      `unanalysable constructs, ${String(turboScan.positives)} positive $TURBO_ROOT$ ` +
+      'inputs each matching ≥1 tracked file; static-import containment is enforced by ' +
+      'the dependency-cruiser boundary rules)',
   );
   process.exit(0);
 }
@@ -154,13 +171,18 @@ if (escapes.length > 0) {
 }
 
 if (turboFindings.length > 0) {
-  writeErrorLine(`✖ ${String(turboFindings.length)} stale $TURBO_ROOT$ input(s) in turbo.json:`);
+  writeErrorLine(
+    `✖ ${String(turboFindings.length)} dead $TURBO_ROOT$ input(s) in turbo.json ` +
+      `(zero tracked files match):`,
+  );
   for (const finding of turboFindings) {
     writeErrorLine(`  turbo.json:${String(finding.line)}  ${finding.entry}`);
   }
   writeErrorLine(
-    'turbo silently hashes zero files for an input that matches nothing — delete the entry ' +
-      'or point it at a file that exists.',
+    'turbo silently hashes zero files for a dead input — delete the entry or point it at ' +
+      'tracked content. If the entry deliberately targets generated/untracked files, that is ' +
+      'itself a cache-key determinism defect (turbo walks the filesystem, so the hash would ' +
+      'flip with build state) — restructure the input rather than exempting it.',
   );
 }
 

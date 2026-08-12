@@ -43,8 +43,8 @@ For any incoming HTTP request, middleware executes in this order:
    10b. MCP Request Handler (streamableHttpHandlerClerk or raw handler)
    ↓
    [For GET /mcp:]
-   10a. mcpAuthClerk (OAuth token validation) OR bypass (if DANGEROUSLY_DISABLE_AUTH)
-   10b. MCP SSE Handler
+   10a. 405 stream refusal (identity-independent, no auth leg; MCP-545 —
+        the standalone SSE stream is not offered)
    ↓
    [For GET /healthz:]
    9a. CORS preflight (corsMw)
@@ -94,11 +94,12 @@ sequenceDiagram
         PathMiddleware->>PathMiddleware: Validate Accept header
         PathMiddleware->>PathMiddleware: Check MCP readiness
 
-        PathMiddleware->>Handler: Pass to route handler
-        alt Auth enabled
+        alt Method is GET
+            PathMiddleware->>Handler: 405 stream refusal (MCP-545, no auth leg)
+        else POST, auth enabled
             Handler->>Handler: Validate OAuth token (mcpAuthClerk)
             Handler->>Handler: Process MCP request
-        else Auth disabled
+        else POST, auth disabled
             Handler->>Handler: Process MCP request (no auth)
         end
     else Path is /healthz
@@ -286,7 +287,10 @@ flowchart TD
 
     ReadyCheck --> ServerReady{Server ready?}
     ServerReady -->|Timeout| Return503[Return 503]
-    ServerReady -->|Yes| AuthMode{Auth enabled?}
+    ServerReady -->|Yes| MethodCheck{Method?}
+
+    MethodCheck -->|GET| Return405[Return 405 + Allow: POST]
+    MethodCheck -->|POST| AuthMode{Auth enabled?}
 
     AuthMode -->|Yes| McpAuth[mcpAuthClerk]
     AuthMode -->|No| RawHandler[Raw MCP Handler]
@@ -343,7 +347,8 @@ flowchart TD
 
 7. **Phase 7**: Auth Routes (`setupAuthRoutes`)
    - OAuth metadata endpoints (`/.well-known/*`)
-   - Protected MCP routes (`POST /mcp`, `GET /mcp` with `mcpAuthClerk`)
+   - Protected MCP route (`POST /mcp` with `mcpAuthClerk`) and the
+     identity-independent `GET /mcp` 405 stream refusal (MCP-545)
 
 ### Execution Order (at runtime)
 
@@ -356,7 +361,8 @@ Every request:
 
 Then, depending on path:
 
-  /mcp → Accept header check → MCP readiness → mcpAuthClerk → MCP handler
+  POST /mcp → Accept header check → MCP readiness → mcpAuthClerk → MCP handler
+  GET /mcp → Accept header check → MCP readiness → 405 stream refusal (MCP-545)
   /healthz → Health handler
   /.well-known/* → OAuth metadata handler
   / → Landing page handler
@@ -367,7 +373,9 @@ Then, depending on path:
 
 ### Issue: 401 Unauthorized on /mcp
 
-**Symptoms**: POST/GET to `/mcp` returns 401 with `WWW-Authenticate` header
+**Symptoms**: POST to `/mcp` returns 401 with `WWW-Authenticate` header.
+(A protocol GET never draws 401 — it receives the identity-independent
+405 stream refusal, MCP-545.)
 
 **Possible Causes**:
 

@@ -203,6 +203,39 @@
           "reappraisal": "Re-assess whether the design is actually uniform \u2014 in which case state it positively \u2014 or whether you are about to encode expediency."
         },
         {
+          "concept": "acceptance-euphemism",
+          "kind": "literal",
+          "patterns": [
+            "standing cure",
+            "standing workaround",
+            "honest bypass",
+            "live with it for now"
+          ],
+          "include_paths": [
+            ".agent/practice-core/",
+            ".agent/plans/",
+            ".agent/reports/",
+            ".agent/memory/operational/",
+            "docs/architecture/",
+            "docs/governance/",
+            "**/*.plan.md"
+          ],
+          "exclude_paths": [
+            "principles.md",
+            "distilled.md",
+            "PDR-043",
+            "PDR-044",
+            "PDR-047",
+            "no-hedging-vocabulary.md",
+            "archive/",
+            "fixtures/",
+            "/tests/",
+            ".test.ts"
+          ],
+          "citation": "no-hedging-vocabulary.md \u00a7Trip-List (acceptance-shaped euphemisms, owner-graduated); principles.md \u00a7Architectural Excellence Over Expediency",
+          "reappraisal": "A known defect labelled as handled is not handled \u2014 the label travels between records and seats faster than the instance. Name the owning ticket and the retirement condition in the same breath, or fix it now."
+        },
+        {
           "concept": "sha-in-permanent-doc",
           "kind": "regex",
           "patterns": [
