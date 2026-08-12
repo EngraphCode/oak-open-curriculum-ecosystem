@@ -179,7 +179,11 @@
             "land it then iterate",
             "cheap cure",
             "good enough",
-            "quick fix"
+            "quick fix",
+            "standing cure",
+            "standing workaround",
+            "honest bypass",
+            "live with it for now"
           ],
           "include_paths": [
             ".agent/practice-core/",

@@ -50,9 +50,28 @@ land it then iterate
 cheap cure
 good enough
 quick fix
+standing cure
+standing workaround
+honest bypass
+live with it for now
 ```
 
 The list is not exhaustive. New shapes graduate when observed.
+
+Graduated 2026-08-12 (owner-flagged, first-hand instance the same night):
+the **acceptance-shaped euphemism** sub-family — *standing cure*,
+*standing workaround*, *honest bypass*, *live with it for now* — labels
+that dress a known, recognised defect as handled without a routed fix or
+a ratified policy. The owner's words at the flagging, verbatim: "it's a
+red flag on par with 'parked' or 'honest bypass', it means something
+that is a known and recognised problem has been labelled as not relevant
+or something we can live with... and once those cognitive shapes are in
+the team they will propagate to other decisions... entropy is always
+coming, we have to be strict, everywhere, all the time." The harm is
+memetic: the label travels between records and seats faster than any
+single instance, so the vocabulary itself is the detection surface. A
+mitigation is lawful only while it carries its owning ticket and its
+retirement condition in the same breath.
 
 ## Indefinite-Deferral Vocabulary (regex family, added 2026-06-10)
 
