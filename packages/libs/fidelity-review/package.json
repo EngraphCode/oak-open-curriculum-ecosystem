@@ -64,6 +64,11 @@
       "types": "./dist/visual-calibration.d.ts",
       "import": "./dist/visual-calibration.js",
       "default": "./dist/visual-calibration.js"
+    },
+    "./visual-correlation": {
+      "types": "./dist/visual-correlation.d.ts",
+      "import": "./dist/visual-correlation.js",
+      "default": "./dist/visual-correlation.js"
     }
   },
   "files": [

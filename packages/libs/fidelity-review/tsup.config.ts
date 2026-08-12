@@ -20,6 +20,7 @@ export default createLibConfig({
     'src/orchestrator.ts',
     'src/visual-stats.ts',
     'src/visual-calibration.ts',
+    'src/visual-correlation.ts',
     'src/png-codec.ts',
   ],
 });

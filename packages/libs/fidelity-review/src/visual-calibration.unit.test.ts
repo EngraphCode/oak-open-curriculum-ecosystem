@@ -10,10 +10,10 @@
  */
 import { describe, expect, it } from 'vitest';
 
+import { inverseNormalCdf } from './inverse-normal-cdf.js';
 import { analysePair } from './visual-stats.js';
 import {
   calibrateAnalysis,
-  inverseNormalCdf,
   renderCalibratedHeatmap,
   TAIL_ORDER_STATS,
 } from './visual-calibration.js';
@@ -57,36 +57,6 @@ function twoBandImage(
   }
   return rgba;
 }
-
-describe('inverseNormalCdf', () => {
-  it('matches known quantiles of the standard normal', () => {
-    const median = inverseNormalCdf(0.5);
-    expect(median.ok && Math.abs(median.value) < 1e-9).toBe(true);
-    const upper = inverseNormalCdf(0.975);
-    expect(upper.ok && Math.abs(upper.value - 1.959_964) < 1e-4).toBe(true);
-    const tail = inverseNormalCdf(0.999);
-    expect(tail.ok && Math.abs(tail.value - 3.090_232) < 1e-4).toBe(true);
-  });
-
-  it('rejects the closed endpoints and values outside (0, 1)', () => {
-    for (const p of [0, 1, -0.1, 1.1, Number.NaN]) {
-      expect(inverseNormalCdf(p).ok).toBe(false);
-    }
-  });
-
-  it('is monotone over a seeded sample of the domain', () => {
-    const random = lcg(42);
-    const ps = Array.from({ length: 200 }, () => 0.0001 + random() * 0.9998).sort((a, b) => a - b);
-    const values = ps.map((p) => {
-      const result = inverseNormalCdf(p);
-      expect(result.ok).toBe(true);
-      return result.ok ? result.value : Number.NaN;
-    });
-    for (let i = 1; i < values.length; i += 1) {
-      expect(values[i]).toBeGreaterThanOrEqual(values[i - 1] ?? Number.NaN);
-    }
-  });
-});
 
 describe('calibrateAnalysis — the exact rank contract', () => {
   // A 32×32 single-window pair with a uniform 2-level difference gives
@@ -264,6 +234,42 @@ describe('the degenerate null — byte-stable repeat captures', () => {
     const heatmap = renderCalibratedHeatmap(a, width, calibrated.value);
     expect(heatmap[0]).toBe(255);
     expect(a[0]).toBe(100);
+  });
+});
+
+describe('the diagnostic never corrects the rank', () => {
+  it('yields identical calibration with and without correlation diagnostics supplied', () => {
+    // The load-bearing invariant behind "never a second correction":
+    // an implementation that fed n_eff into the rank would diverge
+    // here; carrying the block verbatim is the only permitted effect.
+    const a = greyImage(32, 32, 100);
+    const b = greyImage(32, 32, 110);
+    const analysis = analysePair(a, b, 32, 32);
+    expect(analysis.ok).toBe(true);
+    if (!analysis.ok) {
+      return;
+    }
+    const nullScores = [0.1, 0.2, 0.3, 0.4, 0.5];
+    const correlation = {
+      kind: 'estimated',
+      lag1Row: 0.5,
+      lag1Col: 0.5,
+      nEff: { kind: 'estimated', value: 1 / 9 },
+      pairCount: 3,
+      captureCount: 3,
+    } as const;
+    const withBlock = calibrateAnalysis(analysis.value, nullScores, { correlation });
+    const withoutBlock = calibrateAnalysis(analysis.value, nullScores);
+    expect(withBlock.ok && withoutBlock.ok).toBe(true);
+    if (!withBlock.ok || !withoutBlock.ok) {
+      return;
+    }
+    expect(withBlock.value.scores).toEqual(withoutBlock.value.scores);
+    expect(withBlock.value.calibratedRejecting).toEqual(withoutBlock.value.calibratedRejecting);
+    expect(withBlock.value.rejecting).toEqual(withoutBlock.value.rejecting);
+    const { correlation: carried, ...restWith } = withBlock.value.calibration;
+    expect(carried).toEqual(correlation);
+    expect(restWith).toEqual(withoutBlock.value.calibration);
   });
 });
 

@@ -97,8 +97,10 @@ export function robustSigma(diff: Float64Array): number {
   return Math.max(median(deviations) * 1.4826, 0.5);
 }
 
-/** The absolute per-pixel luma difference field of a validated pair. */
-function diffField(lumaA: Float64Array, lumaB: Float64Array): Float64Array {
+/** The absolute per-pixel luma difference field of a validated pair —
+ *  exported at its second consumer (visual-correlation's null pooling);
+ *  callers guarantee equal lengths, as analysePair does via toLuma. */
+export function diffField(lumaA: Float64Array, lumaB: Float64Array): Float64Array {
   const diff = new Float64Array(lumaA.length);
   for (let i = 0; i < diff.length; i += 1) {
     diff[i] = Math.abs((lumaA[i] ?? 0) - (lumaB[i] ?? 0));

@@ -25,6 +25,10 @@ import {
   renderCalibratedHeatmap,
   type CalibratedPairAnalysis,
 } from '@oaknational/fidelity-review/visual-calibration';
+import {
+  describeCorrelation,
+  poolNullCorrelation,
+} from '@oaknational/fidelity-review/visual-correlation';
 
 import { captureRgba, writePairPngs, type CapturePairConfig } from './capture-shared';
 
@@ -161,6 +165,10 @@ function calibrateLivePair(
   if (!nullScores.ok) {
     return nullScores;
   }
+  const correlation = poolNullCorrelation(cropped.slice(0, -1), config.width, height);
+  if (!correlation.ok) {
+    return correlation;
+  }
   const analysis = analysePair(liveLeft, right, config.width, height, {
     windowSize: config.window,
     threshold: config.threshold,
@@ -168,7 +176,9 @@ function calibrateLivePair(
   if (!analysis.ok) {
     return analysis;
   }
-  const calibrated = calibrateAnalysis(analysis.value, nullScores.value);
+  const calibrated = calibrateAnalysis(analysis.value, nullScores.value, {
+    correlation: correlation.value,
+  });
   return calibrated.ok ? ok({ analysis: calibrated.value, liveLeft, right }) : calibrated;
 }
 
@@ -213,6 +223,7 @@ export function summariseCalibrated(run: CalibratedRun): string {
       `(naive --threshold is INERT under calibration)`,
     `rejecting=${analysis.calibratedRejecting.length} of ${analysis.scores.length} windows ` +
       `(beyond null max; naive z would reject ${analysis.rejecting.length})`,
+    ...(calibration.correlation ? [describeCorrelation(calibration.correlation)] : []),
     ...top.map((windowScore) => {
       // A degenerate null (byte-stable page) has no finite exceedance
       // ratio — name the situation rather than printing a ×0.00 that

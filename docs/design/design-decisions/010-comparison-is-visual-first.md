@@ -119,3 +119,22 @@ summary (the empirical quantiles already absorb correlation; correcting
 twice would double-count), and per-region alignment stays the named
 follow-on with every non-zero offset a first-class structural-shift
 finding.
+
+## Dated amendment — correlation diagnostics landed (2026-08-12)
+
+The null summary now carries the diagnostics
+(`@oaknational/fidelity-review/visual-correlation`): lag-1 row/column
+autocorrelation of the pooled same-page diff fields, and an
+effective-sample ratio n_eff/n under a separable AR(1) model — valid
+only for non-negative lag-1 in both directions, and OMITTED with the
+named reason outside that domain (inside the product formula a
+negative factor is its mirror's reciprocal, so ρ_row = −ρ_col reads as
+exactly 1 on a maximally correlated field). A null whose every pair is
+byte-stable reports `not estimable — zero-variance diff fields` rather
+than falling silent. Reporting only, structurally: the calibrated rank
+never reads the block — the diagnostic exists so the naive-z reader
+can see how much √n overstates information. A ruled follow-on
+(Director adjudication, 2026-08-12) replaces the modelled ratio with
+the direct measured quantity — pixel variance over n × the variance of
+the pooled null window means — which answers the same question with
+the model assumption removed.
