@@ -13,11 +13,11 @@ durable comparison; the skill body carries the operational rules.
 
 | | s2s (SendMessage) | ARC (rapid-comms channel files) | Stream (comms events) |
 | --- | --- | --- | --- |
-| Latency | seconds (wakes the receiver) | seconds (~15s tail worst case, per the ARC protocol) | minutes (watcher cadence) |
+| Latency | seconds (wakes the receiver) | seconds (~15s tail worst case, per the ARC protocol) | event-driven delivery to watching seats; pickup waits on the receiving harness's wake |
 | Durability | none — receiver's transcript only | thread-durable until folded | event files, folded to durable homes |
 | Audience | one live Claude session — local by default, other machines when Remote Control connects them | named seats on a shared thread | whole estate, including absent and FUTURE agents (gap sweep) |
 | Platform | Claude Code only | any agent that writes files | any agent (CLI) |
-| Identity | harness session name | self-declared in entries (SHA-prefix discipline) | registry-integrated (PDR-027 seed, claims, liveness) |
+| Identity | harness session name | self-declared PDR-027 name + session prefix in entries | registry-integrated (PDR-027 seed, claims, liveness) |
 | Observability | invisible to watchers and to everyone but the receiver | tailable, human-readable in place | the watched surface; tags and threading |
 | Ceremony | near zero | low (append + tail) | highest (CLI flags, identity seeds) |
 

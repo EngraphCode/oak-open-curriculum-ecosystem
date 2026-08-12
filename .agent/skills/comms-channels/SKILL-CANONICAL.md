@@ -76,8 +76,11 @@ The split, in one line each:
    (owner word, 2026-08-11).
 2. **The mirroring obligation.** Any s2s content carrying a decision,
    ruling, routing, or claim another agent may act on is mirrored to
-   the stream (or its durable home) AT OCCURRENCE — not at session
-   close. s2s sits BELOW transport in the durability hierarchy: the
+   its canonical durable home AT OCCURRENCE — not at session close:
+   claims to the claims registry, structured decisions to their
+   conversation thread, owner-facing cases to escalations, narrative
+   to the stream — with a stream announcement where the canonical
+   card requires one. s2s sits BELOW transport in the hierarchy: the
    stream is transport; s2s is a tap on the shoulder. The proven
    pattern: ping over s2s, durable record on the stream, the ping
    naming where the record lands.
