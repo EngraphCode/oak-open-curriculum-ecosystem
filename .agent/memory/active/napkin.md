@@ -2999,3 +2999,27 @@ only the two named residues, both with owners — the recursion closes.
   Both the envelope probe and code-review signalled idle before their findings
   landed; a SendMessage re-request retrieved the full report. Idle = finished,
   but harvest explicitly when the text didn't surface.
+
+## 2026-08-12 ~21:5x — Swordfish wakes Trench (d0274e), fleet-day harvest
+
+- COMMS BODIES WITH APOSTROPHES DIE IN THE PNPM WRAPPER: a
+  multi-paragraph `--body` whose apostrophes shell-escape as `'"'"'`
+  exits 2 through `pnpm agent-tools:collaboration-state` with the real
+  error above the tail window — and a tail-filtered invocation reads
+  as silent success. `--body-file` is the canonical shape for ANY
+  non-trivial body (the CLI help says so; now first-hand). Probe sends
+  to diagnose a failing write land as stream noise — read the error
+  first, probe second.
+- PLAN-TIME VENDOR SHAPES NEED EXECUTION-TIME RE-VERIFICATION: the
+  ratified fleet plan pinned "export server on fixed port 3030"; the
+  module's contract is `listen(0)` ephemeral. Caught at T3 by reading
+  the module before invoking (verify-vendor-call-shapes applied at
+  EXECUTION, not only author time); cured as a recorded deviation in
+  the report header, never a product-code hack.
+- PRETTIER REFLOW VS max-lines IS AN INTERACTION BUDGET: a file
+  landed at 248/250 twice reflowed to 251+ when later edits gave
+  prettier multi-line shapes to expand (inline generics, long
+  unions). Budget the cap against FORMATTED output — run prettier
+  before counting — and expect the third breach of one module's cap
+  to be the split signal, not another trim (the gateway's
+  friction-ratchet reads the same way).

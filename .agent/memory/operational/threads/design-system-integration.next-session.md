@@ -2814,3 +2814,51 @@ critic + release-readiness, two named verdicts) → report at
 `.agent/reports/design/pr-846-review-fleet/report.md` → owner card
 with both verdicts. The n_eff true-up and S2c queue BEHIND the fleet
 verdict absorption.
+
+## COMPACTION FREEZE 5 (2026-08-12 ~21:5xZ) — Swordfish wakes Trench (d0274e); owner word "pause when you can"; fleet W1 FROZEN RESUMABLE at 10/11
+
+Claim `645b9e0b-afea-4743-8cc6-5dad3ad39575` RETAINED; seat CONTINUES.
+All processes stopped by intent at this freeze (canonical order).
+
+STATE, first-hand: PR #846 branch at `5243224f9`, clean, == remote
+(the day's landings: main-absorb `f2eceea9a`; S2b `3d1b9c029` +
+gateway cures `5243224f9`, two-moment reviewed, Cricket-suite tallied
+7/8-1/8-cured). Coordination at this commit. Ticket MCP-591 In
+Progress. T3 pre-flight header committed at
+`.agent/reports/design/pr-846-review-fleet/report.md` (pins, asserts,
+sentinel evidence, suite counts).
+
+FLEET W1 FROZEN, RESUMABLE — this is the executing input at resume:
+
+- Run `wf_8e740b28-943`, Phase 1 at 10/11 legs complete when frozen
+  (the fidelity instrument leg L11 was in flight; it re-runs at
+  resume, the 10 completed legs return from journal cache). Phase 2
+  (category-routed verification) had not opened.
+- Resume recipe, verbatim: restart the production server FIRST
+  (`cd demos/oak-design-showcase && pnpm start` in the PR-2 worktree,
+  assert :3020 → 200 — L11 and empirical refuters need it), then
+  invoke the Workflow tool with `resumeFromRunId: "wf_8e740b28-943"`
+  and `scriptPath: <session workflows dir>/pr-846-review-fleet-w1-wf_8e740b28-943.js`
+  (the harness prints the absolute session path at launch; on a fresh
+  session, re-launching from the plan with a fresh run id is the
+  fallback — the plan is decision-complete and this freeze block plus
+  the report header carry every T3 pin).
+- Then per plan: integrity gate (worktree clean at `5243224f9`) →
+  seat adjudication (two axes; refutation audit with overturn count;
+  K1–K12 knowns scoring per the pre-declared map) → W2 (completeness
+  critic + release-readiness, TWO named verdicts) → cross-check
+  script output embedded in the report → owner card with both
+  verdicts.
+
+RESUME ORDER: (1) start-right re-arm — watcher (heartbeat-excluded,
+3600s backstop, re-arm on exit + gap sweep) PAIRED with the F-75
+delta poll; heartbeat pair on the retained claim, label
+`fleet-w1-execution`, model string `Opus-5`; (2) the fleet resume
+recipe above; (3) after the fleet card: the Director-ruled n_eff
+true-up (event `4b5afe31`, replace-don't-bridge) → S2c per-region
+alignment. OPEN OWNER GATES unchanged: S6845 (PR #565 precedent, his
+word); #846 un-draft (REQUIRES first: the F7 no-throw cure at
+identity-white-labelling/page.tsx:35, then explicit Copilot
+re-request); the fleet W1 verdict card once W2 lands. Director
+(Plover, b10c37) was in owner-directed warm pause supporting this
+lane; Nautilus/Wren paused at owner word.
