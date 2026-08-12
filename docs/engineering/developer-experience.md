@@ -56,8 +56,9 @@ The most complex statusline in the estate: a multi-row glance surface
 rendered by the built adapter
 `agent-tools/dist/src/claude/statusline-identity.js`, invoked through
 the project shim `.claude/scripts/statusline-identity.mjs` (wired in
-`.claude/settings.json` `statusLine`, refreshing every few seconds).
-Claude Code pipes a JSON payload to the command on every refresh; the
+`.claude/settings.json` `statusLine`, invoked whenever the session's
+UI state updates rather than on a fixed cadence).
+Claude Code pipes a JSON payload to the command on every invocation; the
 adapter renders what the payload and the repository's coordination
 state support, and deliberately drops what is absent.
 
@@ -77,11 +78,12 @@ state support, and deliberately drops what is absent.
   `ctx:` (context-window %), `s:` (session / five-hour usage %), `w:`
   (weekly / seven-day usage %), each with a reset countdown where the
   payload provides one.
-- **Git location rows** — the checkout name and working branch, a
-  `coord:` row naming the shared coordination branch, and — when the
-  session sits in a linked worktree — the worktree's own name and
-  branch. Location facts fail LOUD: an unexpected git error renders a
-  visible token, never a silent fallback.
+- **Git location rows** — the checkout name and working branch (with a
+  dim `e:<level>` reasoning-effort token appended when the payload
+  carries one), a `coord:` row naming the shared coordination branch,
+  and — when the session sits in a linked worktree — the worktree's own
+  name and branch. Location facts fail LOUD: an unexpected git error
+  renders a visible token, never a silent fallback.
 - **Owner-jobs segment** — a count of open owner-attention items with a
   link, read from the owner-jobs register when present.
 - **The Oak logo column** — the acorn mark on the left (animated for
@@ -107,8 +109,8 @@ values:
 Set per-machine in `.claude/settings.local.json` under `env`:
 
 - `OAK_STATUSLINE_LOGO` — logo style: `braille-sharp` (default),
-  `braille`, `quad`, `sextant`, or `none` for the compact two-line
-  layout.
+  `braille-sharp-compact`, `braille`, `quad`, `sextant`, or `none` for
+  the compact two-line layout.
 - `OAK_STATUSLINE_MOTION` — set to `off`, `static`, `none`, or
   `reduce` (case-insensitive) to disable the logo animation cycle;
   other values leave motion on.
@@ -128,10 +130,14 @@ Quick reference (same controls, terser):
 
 ### Other platforms
 
-Cursor and Codex sessions derive the same identity through their
-platform hooks but render minimal surfaces (session titles rather than
-live glance rows); the current per-platform state, including the Codex
-statusline item allowlist note, is tracked in
+Cursor sessions derive the same identity through their platform hook
+and can render the full Claude adapter — the same live glance rows —
+after a one-time global activation
+(`pnpm agent-tools:install-cursor-statusline`). Codex sessions derive
+the identity through their SessionStart hook but render a minimal
+surface (session title and injected context rather than live glance
+rows); the current per-platform state, including the Codex statusline
+item allowlist note, is tracked in
 [agent-tools docs/agent-identity.md](../../agent-tools/docs/agent-identity.md).
 
 ## Further reading
