@@ -58,7 +58,7 @@ Live skill counts surface in the directory listing — counts in this ADR drift;
 
 ### Layer 2: Platform Adapters (thin wrappers)
 
-Each platform has thin wrappers that reference canonical content. Skill adapters are emitted by the `agent-tools:skills-adapter-generate` CLI; manual edits are forbidden by header comment in every emitted file. Owned skills carry a REQUIRED prefix (`oak-` in this estate, pinned by the root `pnpm skills:generate` / `pnpm skills:check` scripts; the CLI refuses an unprefixed run) in adapter directories. Vendored external skills (recorded in `skills-lock.json`) are not adapters and are not generated: they live directly in `.agents/skills/` under their upstream names and are never canonicalised (see §Externally installed skills).
+Each platform has thin wrappers that reference canonical content. Skill adapters are emitted by the `agent-tools:skills-adapter-generate` CLI; manual edits are forbidden by header comment in every emitted file. Owned skills carry a REQUIRED prefix (`oak-` in this estate, pinned by the root `pnpm skills:generate` / `pnpm skills:check` scripts; the CLI refuses an unprefixed run) in adapter directories. Vendor-class skills are not adapters and are not generated: they are installed and managed by the external skills machinery, are never canonicalised, and are outside our validation's jurisdiction (see §Skill classes and validation jurisdiction).
 
 #### Cross-tool skill alias (`.agents/`)
 
@@ -233,9 +233,10 @@ configurable prefix in adapter directories. The source default is
 empty; the effective prefix `oak-` is passed explicitly via
 `--prefix=oak-` in `package.json` scripts (`pnpm skills:check`).
 Contributors who want a different prefix override at the call site.
-Vendored external skills (recorded in `skills-lock.json`) sit outside
-the prefix scheme entirely — they keep their upstream names in
-`.agents/skills/` and have no canonical. The prefix is applied only at
+Vendor-class skills sit outside the prefix scheme entirely — they keep
+their upstream names, have no canonical, and the prefix is never a
+class boundary (membership is recognised by the class marker, see
+§Skill classes and validation jurisdiction). The prefix is applied only at
 adapter emission; canonical identity is unprefixed.
 
 | Platform                 | Invocation                   | Source                             |
@@ -349,7 +350,7 @@ A trigger file MUST NOT:
 2. **Canonical filename**: the canonical body is named `SKILL-CANONICAL.md` — non-discoverable by every documented vendor scanner. Discovery filenames (`SKILL.md`) appear only in adapter directories.
 3. **Stable naming**: paired modes use explicit IDs (`start-right-quick`, `start-right-thorough`).
 4. **Supporting files**: optional `references/`, `scripts/`, `assets/` directories under canonical, copied bytewise into both adapter trees by the generator.
-5. **Owned vs vendored**: every canonical skill under `.agent/skills/` is Oak-authored and Practice-governed. Third-party skills never become canonicals — they are vendored into `.agents/skills/` and recorded in `skills-lock.json` (see §Externally installed skills); the portability validator cross-references lock entries against the adapter tree.
+5. **Practice vs Vendor**: every canonical skill under `.agent/skills/` is Oak-authored and Practice-governed. Third-party skills never become canonicals — they are Vendor-class, managed by the external skills machinery, and invisible to our projection tooling and permission census (see §Skill classes and validation jurisdiction).
 6. **Adapter surfaces**: exactly two — `.agents/skills/` (cross-tool alias, read by Cursor/Copilot CLI/Codex/Gemini/Amp) and `.claude/skills/` (Claude Code only). No other skill adapter surfaces are emitted.
 7. **Generator-mandatory**: adapters are emitted by `pnpm skills:generate`. Manual edits forbidden by header comment in every emitted file; drift gate fails CI on divergence.
 8. **No compatibility aliases**: canonical IDs are stable; only the configurable owned-skill prefix is applied at adapter emission.
@@ -539,6 +540,22 @@ generation prefix) are configurable parameters, not class boundaries:
   tiers (teacher-facing content sits at the Critical/Standard tier);
   they are not repo-projection machinery and the adapter pipeline never
   touches them.
+
+Three operational bounds keep the jurisdiction honest: (1)
+name-addressed operations (emission, drift checking) REFUSE a foreign
+occupant of an expected projection name rather than adjudicating or
+overwriting it — recovery from a mangled stub or a name collision is a
+human rename or removal, never an automatic write over unproven
+territory; (2) classification reads candidate `SKILL.md` files
+(kind-gated, never through symlinks), so an unreadable entry — even a
+Vendor one — fails our run loudly as cannot-classify rather than being
+guessed either way: a red caused by an unreadable Vendor entry is a
+filesystem-permission problem, not a Practice defect; (3) a
+byte-faithful copy of one of our stubs is indistinguishable from ours —
+the marker records a derivation, not an identity — a recorded bound
+(`agent-tools/src/skills-adapter-generate/adapter-stub.ts`) whose
+closure would need an identity discriminator, a separate design
+decision.
 
 ## Amendments
 

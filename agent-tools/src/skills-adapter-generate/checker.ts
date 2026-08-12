@@ -23,6 +23,7 @@ import {
   realCarriageReadFs,
   type CarriageReadFs,
 } from './carriage.js';
+import { classifyEmissionTarget, foreignTargetRefusal } from './emission-target.js';
 import {
   adapterTargetPath,
   discoverCanonicals,
@@ -165,6 +166,19 @@ async function checkOneCanonical(
   const canonicalDir = dirname(parsed.canonicalPath);
   for (const surface of SURFACES) {
     const target = adapterTargetPath(options.repoRoot, options.prefix, parsed.id, surface);
+    // Target guard mirrors the generator's: a name-addressed check must
+    // not adjudicate a foreign occupant of the expected name (its content
+    // would read as "drifted"/"orphaned", inviting an overwrite) nor read
+    // byte comparisons through a symlink. Foreign occupant → refusal.
+    const targetState = await classifyEmissionTarget(dirname(target), fs);
+    if (targetState.kind === 'failure') {
+      streams.refused.push(targetState.message);
+      continue;
+    }
+    if (targetState.value === 'foreign') {
+      streams.refused.push(foreignTargetRefusal(dirname(target)));
+      continue;
+    }
     const expected = renderAdapter(parsed, options.prefix, surface);
     const actual = await fs.readFileOrUndefined(target);
     if (actual === undefined) {

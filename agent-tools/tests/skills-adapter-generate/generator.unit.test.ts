@@ -159,6 +159,20 @@ function makeTreeFs(
       // behaviour is proven in the carriage unit and integration suites.
       return ok([]);
     },
+    async entryKind(path) {
+      // Text-map semantics: a key is a regular file; a directory exists
+      // when listed explicitly or implied by any file beneath it; the
+      // fixture cannot express symlinks (integration suites own those).
+      if (files.has(path)) {
+        return ok('file' as const);
+      }
+      const prefix = `${path}/`;
+      const isDirectory =
+        directories.has(path) ||
+        [...directories.keys()].some((dir) => dir.startsWith(prefix) || dir === path) ||
+        [...files.keys()].some((filePath) => filePath.startsWith(prefix));
+      return ok(isDirectory ? ('directory' as const) : ('absent' as const));
+    },
     async isExecutableOrUndefined(path) {
       return ok(files.has(path) ? false : undefined);
     },
@@ -361,10 +375,7 @@ describe('checkAdapters over a concern tier', () => {
       new Map([['/repo/.agent/skills/fam/member-a/SKILL-CANONICAL.md', canonicalBody]]),
     );
 
-    const result = await checkAdapters(
-      { repoRoot: '/repo', prefix: 'oak-' },
-      fs,
-    );
+    const result = await checkAdapters({ repoRoot: '/repo', prefix: 'oak-' }, fs);
 
     expect(result.missing).toEqual([
       adapterTargetPath('/repo', 'oak-', 'member-a', 'claude'),
@@ -435,7 +446,7 @@ describe('checkAdapters', () => {
     expect(result.skipped).toEqual(['ghost']);
   });
 
-  it('detects drift in a modified adapter', async () => {
+  it('detects drift in a modified adapter that is still recognisably ours', async () => {
     const claude = expectedAdapter('claude');
     const agents = expectedAdapter('agents');
     const fs = makeFs(
@@ -444,7 +455,9 @@ describe('checkAdapters', () => {
           sampleCanonical.canonicalPath,
           '---\nname: sample\ndescription: A sample canonical skill.\n---\n\nbody\n',
         ],
-        [claude.path, `${claude.content}\n<!-- drift -->\n`],
+        // A frontmatter edit drifts the bytes but keeps the structural
+        // stub shape, so the entry is still ours to adjudicate.
+        [claude.path, claude.content.replace('A sample canonical skill.', 'Edited by hand.')],
         [agents.path, agents.content],
       ]),
     );
@@ -453,6 +466,29 @@ describe('checkAdapters', () => {
 
     expect(result.drifted).toEqual([claude.path]);
     expect(result.missing).toEqual([]);
+  });
+
+  it('refuses an adapter mangled beyond recognition: an unprovable occupant is never adjudicated as drift', async () => {
+    const claude = expectedAdapter('claude');
+    const agents = expectedAdapter('agents');
+    const fs = makeFs(
+      new Map([
+        [
+          sampleCanonical.canonicalPath,
+          '---\nname: sample\ndescription: A sample canonical skill.\n---\n\nbody\n',
+        ],
+        // Appended content breaks the structural stub shape — the entry
+        // can no longer be proven ours; the checker refuses instead of
+        // inviting a regeneration over unproven territory.
+        [claude.path, `${claude.content}\n<!-- drift -->\n`],
+        [agents.path, agents.content],
+      ]),
+    );
+
+    const result = await checkAdapters({ repoRoot, prefix }, fs);
+
+    expect(result.drifted).toEqual([]);
+    expect(result.refused.some((message) => /not recognisably ours/.test(message))).toBe(true);
   });
 
   it('detects missing adapters', async () => {

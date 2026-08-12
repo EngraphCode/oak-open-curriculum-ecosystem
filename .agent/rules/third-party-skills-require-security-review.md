@@ -1,7 +1,7 @@
 # Third-Party Skills Require Security Review
 
 No third-party skill, skill pack, or plugin enters this estate — by
-vendoring, `skill add` install, plugin install, or lock-entry addition —
+vendoring, a `pnpx skills` install, or a plugin install —
 without a recorded security review of its executable content. A pack
 whose payload is pure markdown records that determination; a pack that
 ships anything a harness can run records a review of what runs, when,
@@ -72,11 +72,11 @@ backfill at their next pin bump.
 ## Enforcement
 
 Behavioural at the adoption moment now; the mechanical check lands with
-the WS5(d) external-boundary validator (same seam: the validator that
-refuses third-party landings in the canonical corpus also checks that a
-lock entry carries its review record). Raw material for the check:
-trusted-origin allowlist, digest verification, provenance records, no
-default script execution.
+the WS5(d) external-boundary validator (the validator that refuses
+third-party landings in the canonical corpus also checks that an
+adopted external carries its review record). Raw material for the
+check: trusted-origin allowlist, digest verification, provenance
+records, no default script execution.
 
 ## Related Surfaces
 
@@ -84,7 +84,8 @@ default script execution.
   — the owned-vs-ingested contract this gate attaches to.
 - [PDR-115 (naming openly-licensed external sources)](../practice-core/decision-records/PDR-115-naming-openly-licensed-external-sources.md)
   — provenance and attribution discipline.
-- ADR-125 §Externally installed skills — the boundary contract (under
-  amendment to match the 2026-08-02 owner ruling: externals never enter
-  the canonical corpus). The external-boundary validator that will carry
-  this gate's mechanical check lands with that same boundary work.
+- ADR-125 §Skill classes and validation jurisdiction — the boundary
+  contract (three classes: Practice / Vendor / User-facing; externals
+  never enter the canonical corpus and are never adjudicated by our
+  validation). The external-boundary validator that will carry this
+  gate's mechanical check lands with that same boundary work.

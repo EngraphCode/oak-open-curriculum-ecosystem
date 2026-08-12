@@ -58,8 +58,10 @@ export interface SkillPermissionIssuesOptions {
    */
   claudeCommandFiles: string[];
   /**
-   * Names of all subdirectories under `.claude/skills/`.  Each directory
-   * requires a `Skill(<name>)` entry in the permissions allow-list.
+   * Names of the Practice-recognised subdirectories under
+   * `.claude/skills/` (the {@link selectPracticeSkillDirs} output — never
+   * the raw directory listing). Each requires a `Skill(<name>)` entry in
+   * the permissions allow-list; Vendor-class entries are never censused.
    */
   claudeSkillDirs?: string[];
   /**

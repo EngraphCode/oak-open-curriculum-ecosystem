@@ -10,7 +10,7 @@
  * and never removed: our tooling clears only what our generation
  * re-creates, and membership is proven by content, never by name.
  */
-import { readFile, readdir, rm } from 'node:fs/promises';
+import { lstat, readFile, readdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { parseAdapterStubPointer } from './adapter-stub.js';
@@ -86,6 +86,14 @@ const realClearFs: ClearFs = {
   },
   async readStubOrUndefined(path) {
     try {
+      // lstat gate: a symlinked SKILL.md is never ours (emission writes
+      // regular files only) and must not be read through — its target
+      // could be a genuine stub, which would classify a foreign
+      // directory as ours and delete it.
+      const stubStat = await lstat(path);
+      if (!stubStat.isFile()) {
+        return { kind: 'ok', value: undefined };
+      }
       return { kind: 'ok', value: await readFile(path, 'utf8') };
     } catch (error: unknown) {
       if (isMissingSurface(error)) {

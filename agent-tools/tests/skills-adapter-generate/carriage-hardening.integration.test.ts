@@ -99,8 +99,11 @@ describe('symlink safety over a real filesystem', () => {
     const root = sandboxRepo();
     const outside = sandboxRepo();
     seedSkill(root);
+    // A genuine prior generation makes the target OURS; only then is the
+    // later symlinked carried-root inside it ours to prune as the link.
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
     writeRepoFile(outside, 'deep/existing.md', 'external tree stays\n');
-    writeRepoFile(root, '.claude/skills/oak-parallax/SKILL.md', 'stub\n');
+    removeRepoPath(root, '.claude/skills/oak-parallax/references');
     symlinkRepoPath(root, '.claude/skills/oak-parallax/references', outside);
 
     await generateAdapters({ repoRoot: root, prefix: 'oak-' });
@@ -313,7 +316,6 @@ describe('projection-root reconciliation over a real filesystem', () => {
     expect(repoPathExists(root, '.claude/skills/oak-parallax/SKILL.md')).toBe(true);
     expect(repoPathExists(root, '.agents/skills/oak-parallax/SKILL.md')).toBe(true);
   });
-
 });
 
 describe('same-length drift over a real filesystem', () => {
@@ -340,7 +342,11 @@ describe('validation jurisdiction: only recognised Practice projections are adju
       '.agents/skills/clerk/SKILL.md',
       'vendor skill — external machinery owns it\n',
     );
-    writeRepoFile(root, '.claude/skills/clerk-copy/SKILL.md', 'vendor skill installed with --copy\n');
+    writeRepoFile(
+      root,
+      '.claude/skills/clerk-copy/SKILL.md',
+      'vendor skill installed with --copy\n',
+    );
 
     const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
     expect(flagged.stale).toEqual([]);
@@ -375,7 +381,11 @@ describe('validation jurisdiction: only recognised Practice projections are adju
   it('membership is proven by content, never by name: a foreign directory sharing the generation prefix is untouched', async () => {
     const root = sandboxRepo();
     seedSkill(root);
-    writeRepoFile(root, '.claude/skills/oak-mystery/SKILL.md', 'foreign skill, coincidental name\n');
+    writeRepoFile(
+      root,
+      '.claude/skills/oak-mystery/SKILL.md',
+      'foreign skill, coincidental name\n',
+    );
 
     const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
     expect(flagged.stale).toEqual([]);
@@ -421,5 +431,77 @@ describe('validation jurisdiction: only recognised Practice projections are adju
     expect(repoPathExists(root, '.claude/skills/oak-parallax')).toBe(false);
     expect(repoPathExists(root, '.claude/skills/oak2-parallax/SKILL.md')).toBe(true);
     expect(repoPathExists(root, '.agents/skills/oak2-parallax/SKILL.md')).toBe(true);
+  });
+
+  it('leaves a foreign directory with no SKILL.md alone: what cannot be proven ours is never reported or removed', async () => {
+    const root = sandboxRepo();
+    seedSkill(root);
+    writeRepoFile(root, '.claude/skills/oak-parallax-residue/notes.md', 'just files\n');
+
+    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
+    expect(flagged.stale).toEqual([]);
+
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
+
+    expect(repoPathExists(root, '.claude/skills/oak-parallax-residue/notes.md')).toBe(true);
+  });
+});
+
+describe('emission-target jurisdiction: a name-addressed write never crosses into foreign territory (MCP-570 review round)', () => {
+  it('refuses a symlink at the expected projection name: nothing is written through it and its external target stays byte-identical', async () => {
+    const root = sandboxRepo();
+    const outside = sandboxRepo();
+    seedSkill(root);
+    writeRepoFile(outside, 'vendor-real/SKILL.md', 'vendor content stays\n');
+    writeRepoFile(outside, 'vendor-real/scripts/vendor.sh', 'echo vendor\n');
+    symlinkRepoPath(root, '.claude/skills/oak-parallax', `${outside}/vendor-real`);
+
+    const generated = await generateAdapters({ repoRoot: root, prefix: 'oak-' });
+
+    expect(generated.refused.some((message) => /not recognisably ours/.test(message))).toBe(true);
+    expect(repoPathIsSymlink(root, '.claude/skills/oak-parallax')).toBe(true);
+    expect(readRepoBytes(outside, 'vendor-real/SKILL.md')).toEqual(
+      new TextEncoder().encode('vendor content stays\n'),
+    );
+    expect(readRepoBytes(outside, 'vendor-real/scripts/vendor.sh')).toEqual(
+      new TextEncoder().encode('echo vendor\n'),
+    );
+
+    const checked = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
+    expect(checked.refused.some((message) => /not recognisably ours/.test(message))).toBe(true);
+  });
+
+  it('refuses a foreign real directory at the expected projection name: its content is never adjudicated or overwritten', async () => {
+    const root = sandboxRepo();
+    seedSkill(root);
+    writeRepoFile(root, '.agents/skills/oak-parallax/SKILL.md', 'vendor skill, colliding name\n');
+    writeRepoFile(root, '.agents/skills/oak-parallax/scripts/vendor.sh', 'echo vendor\n');
+
+    const checked = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
+    expect(checked.refused.some((message) => /not recognisably ours/.test(message))).toBe(true);
+
+    const generated = await generateAdapters({ repoRoot: root, prefix: 'oak-' });
+
+    expect(generated.refused.some((message) => /not recognisably ours/.test(message))).toBe(true);
+    expect(readRepoBytes(root, '.agents/skills/oak-parallax/SKILL.md')).toEqual(
+      new TextEncoder().encode('vendor skill, colliding name\n'),
+    );
+    expect(repoPathExists(root, '.agents/skills/oak-parallax/scripts/vendor.sh')).toBe(true);
+  });
+
+  it('refuses a foreign directory whose SKILL.md is a symlink to a genuine stub: content is never borrowed through a link', async () => {
+    const root = sandboxRepo();
+    seedSkill(root);
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
+    writeRepoFile(root, '.claude/skills/vendor-x/scripts/vendor.sh', 'echo vendor\n');
+    symlinkRepoPath(root, '.claude/skills/vendor-x/SKILL.md', '../oak-parallax/SKILL.md');
+
+    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
+    expect(flagged.stale).toEqual([]);
+
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
+
+    expect(repoPathExists(root, '.claude/skills/vendor-x/scripts/vendor.sh')).toBe(true);
+    expect(repoPathIsSymlink(root, '.claude/skills/vendor-x/SKILL.md')).toBe(true);
   });
 });

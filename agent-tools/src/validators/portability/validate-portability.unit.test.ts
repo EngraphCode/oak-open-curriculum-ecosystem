@@ -456,20 +456,32 @@ describe('collectCanonicalSkillPaths', () => {
 });
 
 describe('selectPracticeSkillDirs', () => {
+  // The fake models skill-permission-checks' documented reader semantics:
+  // resolves `<dirName>/SKILL.md`, returns its text, or undefined when the
+  // file is absent (or, in the real reader, not a regular file).
+  const stub = (title: string, pointer: string): string =>
+    `---\nname: x\ndescription: y\n---\n\n# ${title} (Claude Code)\n\nRead and follow \`.agent/skills/${pointer}\`.\n`;
   const stubs = new Map<string, string>([
-    ['oak-commit', '# Commit (Claude Code)\n\nRead and follow `.agent/skills/commit/SKILL-CANONICAL.md`.\n'],
-    ['legacy-reason', '# Reason (Claude Code)\n\nRead and follow `.agent/skills/cognition/reason/SKILL-CANONICAL.md`.\n'],
+    ['oak-commit', stub('Commit', 'commit/SKILL-CANONICAL.md')],
+    ['legacy-reason', stub('Reason', 'cognition/reason/SKILL-CANONICAL.md')],
     ['clerk', '# Clerk\n\nVendor skill body — no derivation marker.\n'],
     ['oak-mystery', '# Mystery\n\nForeign skill with a coincidental prefix.\n'],
   ]);
   const readStub = async (name: string): Promise<string | undefined> => stubs.get(name);
 
-  it('selects exactly the entries whose stub carries the class marker — content, never name, decides membership', async () => {
-    const selected = await selectPracticeSkillDirs(
-      ['oak-commit', 'legacy-reason', 'clerk', 'oak-mystery', 'no-stub-at-all'],
-      readStub,
-    );
+  it.each([
+    { name: 'oak-commit', selected: true, why: 'a genuine stub is censused' },
+    { name: 'legacy-reason', selected: true, why: 'a previous-prefix stub is still ours' },
+    { name: 'clerk', selected: false, why: 'a Vendor stub carries no marker' },
+    {
+      name: 'oak-mystery',
+      selected: false,
+      why: 'a prefix-lookalike without the marker stays out',
+    },
+    { name: 'no-stub-at-all', selected: false, why: 'no SKILL.md means not ours' },
+  ])('$why ($name → $selected)', async ({ name, selected }) => {
+    const result = await selectPracticeSkillDirs([name], readStub);
 
-    expect(selected).toStrictEqual(['oak-commit', 'legacy-reason']);
+    expect(result).toStrictEqual(selected ? [name] : []);
   });
 });

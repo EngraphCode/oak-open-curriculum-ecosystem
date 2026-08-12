@@ -21,7 +21,10 @@
  * the generation prefix is a configurable naming parameter, not a class
  * boundary, and a foreign skill whose name happens to share it stays
  * untouched. Symlinked entries are never ours by construction (emission
- * writes only real directories) and are never read through. Our
+ * writes only real directories) and are never read through — at the
+ * directory level (dirent-kind listing) AND at the stub level (the
+ * classification read is lstat-gated, so a symlinked `SKILL.md` inside a
+ * foreign directory cannot borrow a genuine stub's content). Our
  * validation governs our own system only (testing-strategy.md: never test
  * external functionality that is not under our control; the skill-class
  * taxonomy lives in ADR-125).
@@ -38,7 +41,7 @@
 import { join } from 'node:path';
 
 import { parseAdapterStubPointer } from './adapter-stub.js';
-import { realCarriageWriteFs, type CarriageReadFs } from './carriage-fs.js';
+import { realCarriageWriteFs, type CarriageReadFs, type FsRead } from './carriage-fs.js';
 import { byPath } from './carriage-walk.js';
 
 const PROJECTION_SURFACE_ROOTS = ['.claude/skills', '.agents/skills'] as const;
@@ -187,22 +190,40 @@ async function sweepSurfaceRoot(input: {
     return;
   }
   for (const name of subdirectoryNames.value) {
-    const stubRead = await input.fs.readFileBytesOrUndefined(join(input.root, name, 'SKILL.md'));
-    if (stubRead.kind === 'failure') {
-      // An unreadable stub means the entry cannot be classified either way;
-      // certifying or deleting over it would act on an unobserved surface.
-      input.failures.push(stubRead.message);
-      continue;
-    }
-    if (stubRead.value === undefined) {
-      continue;
-    }
-    const canonicalRef = parseAdapterStubPointer(new TextDecoder().decode(stubRead.value));
-    if (canonicalRef === undefined) {
-      continue;
-    }
-    if (input.expectedByRef.get(canonicalRef) !== name) {
+    const verdict = await classifyEntry(join(input.root, name), input.fs);
+    if (verdict.kind === 'failure') {
+      // An unclassifiable entry means no verdict either way; certifying
+      // or deleting over it would act on an unobserved surface.
+      input.failures.push(verdict.message);
+    } else if (verdict.value !== undefined && input.expectedByRef.get(verdict.value) !== name) {
       input.stale.push(join(input.root, name));
     }
   }
+}
+
+/** The entry's recorded canonicalRef when it is recognisably ours, or
+ * `undefined` when out of jurisdiction. Kind first, then content: a
+ * symlinked SKILL.md inside a foreign real directory is never read
+ * through to classify the directory as ours (its target could be one of
+ * our genuine stubs). */
+async function classifyEntry(
+  entryDir: string,
+  fs: CarriageReadFs,
+): Promise<FsRead<string | undefined>> {
+  const stubPath = join(entryDir, 'SKILL.md');
+  const stubKind = await fs.entryKind(stubPath);
+  if (stubKind.kind === 'failure') {
+    return stubKind;
+  }
+  if (stubKind.value !== 'file') {
+    return { kind: 'ok', value: undefined };
+  }
+  const stubRead = await fs.readFileBytesOrUndefined(stubPath);
+  if (stubRead.kind === 'failure') {
+    return stubRead;
+  }
+  if (stubRead.value === undefined) {
+    return { kind: 'ok', value: undefined };
+  }
+  return { kind: 'ok', value: parseAdapterStubPointer(new TextDecoder().decode(stubRead.value)) };
 }

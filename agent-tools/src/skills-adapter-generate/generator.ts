@@ -15,22 +15,21 @@
  * whose canonical source is gone are pruned — see `carriage.ts`.
  */
 import { mkdir, writeFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
 
-import { stringify as stringifyYaml } from 'yaml';
-
-import { adapterStubPointerLine } from './adapter-stub.js';
 import { realCarriageWriteFs, syncCarriage } from './carriage.js';
-import {
-  discoverCanonicals,
-  type CanonicalFrontmatter,
-  type ParsedCanonical,
-} from './discovery.js';
+import { classifyEmissionTarget, foreignTargetRefusal } from './emission-target.js';
+import { adapterTargetPath, renderAdapter, type AdapterSurface } from './adapter-render.js';
+import { discoverCanonicals, type ParsedCanonical } from './discovery.js';
 import { isDiscoveryComplete, sweepStaleProjections } from './projection-roots.js';
 
 export { discoverCanonicals, parseFrontmatter, type DiscoveryFs } from './discovery.js';
-
-const ADAPTER_FILENAME = 'SKILL.md';
+export {
+  adapterTargetPath,
+  buildAdapterFrontmatter,
+  renderAdapter,
+  type AdapterSurface,
+} from './adapter-render.js';
 
 export interface GeneratorOptions {
   readonly repoRoot: string;
@@ -55,12 +54,6 @@ export interface GenerateOutcome {
   readonly sweptStale: readonly string[];
 }
 
-interface AdapterFrontmatter {
-  readonly name: string;
-  readonly description: string;
-}
-
-export type AdapterSurface = 'claude' | 'agents';
 export type ParsedCanonicalSkill = ParsedCanonical;
 
 /**
@@ -147,7 +140,17 @@ async function emitAdapter(
   surface: AdapterSurface,
 ): Promise<EmitAdapterOutcome> {
   const target = adapterTargetPath(options.repoRoot, options.prefix, parsed.id, surface);
-  // Carriage first: a refused sync (canonical symlink, seam read failure)
+  // Target guard FIRST: emission is name-addressed, so before any write the
+  // occupant of the name must be absent or provably ours — a symlink or
+  // foreign content at the name refuses the skill (emission-target.ts).
+  const targetState = await classifyEmissionTarget(dirname(target), realCarriageWriteFs);
+  if (targetState.kind === 'failure') {
+    return { written: [], pruned: [], refused: [targetState.message] };
+  }
+  if (targetState.value === 'foreign') {
+    return { written: [], pruned: [], refused: [foreignTargetRefusal(dirname(target))] };
+  }
+  // Carriage next: a refused sync (canonical symlink, seam read failure)
   // refuses the whole skill on this surface — not even the adapter stub is
   // written over a state the run could not fully observe.
   const carriage = await syncCarriage(
@@ -162,76 +165,6 @@ async function emitAdapter(
   await mkdir(dirname(target), { recursive: true });
   await writeFile(target, fileContent, 'utf8');
   return { written: [target, ...carriage.carried], pruned: carriage.pruned, refused: [] };
-}
-
-export function renderAdapter(
-  parsed: ParsedCanonicalSkill,
-  prefix: string,
-  surface: AdapterSurface,
-): string {
-  const frontmatter = buildAdapterFrontmatter(parsed.frontmatter, prefix, parsed.id);
-  const surfaceLabel = surface === 'claude' ? 'Claude Code' : 'Cross-tool';
-  const body = renderAdapterBody(
-    parsed.id,
-    parsed.relativeDir,
-    surfaceLabel,
-    parsed.canonicalFilename,
-  );
-  const yamlBlock = stringifyYaml(frontmatter, { lineWidth: 0 }).trimEnd();
-  return `---\n${yamlBlock}\n---\n\n${body.trimStart()}`;
-}
-
-export function adapterTargetPath(
-  repoRoot: string,
-  prefix: string,
-  canonicalId: string,
-  surface: AdapterSurface,
-): string {
-  const surfaceRoot = surface === 'claude' ? '.claude' : '.agents';
-  return join(repoRoot, surfaceRoot, 'skills', `${prefix}${canonicalId}`, ADAPTER_FILENAME);
-}
-
-/**
- * Construct the adapter frontmatter from the canonical's frontmatter.
- * Always renames the skill: `<prefix><id>`. Description is preserved.
- */
-export function buildAdapterFrontmatter(
-  canonical: CanonicalFrontmatter,
-  prefix: string,
-  id: string,
-): AdapterFrontmatter {
-  return {
-    name: `${prefix}${id}`,
-    description: canonical.description,
-  };
-}
-
-/**
- * The stub body's pointer line is the Practice-projection CLASS MARKER:
- * the sweep, the clear pass, and the permission census recognise our
- * projections by parsing it back — built via the one shared definition
- * in `adapter-stub.ts`.
- */
-function renderAdapterBody(
-  canonicalId: string,
-  relativeDir: string,
-  surfaceLabel: string,
-  canonicalFilename: string,
-): string {
-  const title = toTitleCase(canonicalId);
-  return [
-    `# ${title} (${surfaceLabel})`,
-    '',
-    adapterStubPointerLine(`${relativeDir}/${canonicalFilename}`),
-    '',
-  ].join('\n');
-}
-
-function toTitleCase(id: string): string {
-  return id
-    .split('-')
-    .map((part) => (part.length === 0 ? part : `${part[0]?.toUpperCase() ?? ''}${part.slice(1)}`))
-    .join(' ');
 }
 
 /**
