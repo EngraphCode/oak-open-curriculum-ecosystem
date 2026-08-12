@@ -25,9 +25,13 @@ out of it in the same change.
   `oak-body-1…4`), `.oak-scope`.
 - `oak-icons.css` — the mask-icon set (`--ic-*` / `--i-*`).
 - `print.css` — the print/PDF layer.
-- `styles.css` — **the one file to link**. It imports exactly four, in this
-  order: `colors_and_type.css`, `oak-icons.css`, `components.css`,
-  `print.css`.
+- `styles.css` — **the one file to link, for external consumers**. It imports
+  exactly four, in this order: `colors_and_type.css`, `oak-icons.css`,
+  `components.css`, `print.css`. **Pages served from inside this workspace
+  must NOT rely on it**: some serve contexts drop `@import`-only sheets, so
+  the sheet parses to zero rules and the page renders unstyled with no error.
+  Those pages link the four tier files directly. `KNOWN-ISSUES.md` #1 is the
+  record, and the same applies to a brand's `brand-full.css`.
 - `brand.css` — the white-label contract: re-branding overrides canonical
   intent roles only, never the aliases, and never a raw value at a use site.
   **`styles.css` does NOT import it** — it is a deliberate opt-in you load
@@ -65,8 +69,11 @@ Every path in this section is prefixed `studio-source/`.
   `Example Front Pages.html` sit beside them and demonstrate the contract.
 
 Some files here reference `_ds_bundle.js` / `_ds_manifest.json`, a compiled
-bundle that is not in the repo. Those pages are sources and fidelity targets,
-never served pages.
+bundle that is not built in this repo. Those files are absent from the runtime
+locations these pages reference; copies exist under
+`studio-source/original-capture-2026-07-23/` as provenance, never as a runtime
+dependency. In the repo these pages are sources and fidelity targets, not
+served pages.
 
 ## Guidance documents — at the root
 
