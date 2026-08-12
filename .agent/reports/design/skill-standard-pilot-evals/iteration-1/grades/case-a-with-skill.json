@@ -1,17 +1,21 @@
 {
-  "page": "<workspace>/case-a/with-skill/page.html",
+  "artefact": ".agent/reports/design/skill-standard-pilot-evals/iteration-1/artefacts/case-a-with-skill.html",
+  "mode": "page",
   "assertions": {
     "referenced-oak-classes-exist": {
-      "pass": false,
-      "evidence": "43 referenced, 2 not in the trunk: oak-quiz-answer__key, oak-btn__icon"
+      "pass": true,
+      "binding": true,
+      "evidence": "43 referenced, 0 not in the trunk"
     },
     "no-literal-design-values": {
       "pass": false,
+      "binding": true,
       "evidence": "2 literal(s): 15rem, 12rem"
     },
     "zero-ad-hoc-css": {
       "pass": false,
-      "evidence": "39 authored declaration(s) in page <style>/style= — the design system's classes should carry all of it"
+      "binding": true,
+      "evidence": "39 authored declaration(s) across <style>, style=, and fenced css"
     }
   }
 }
