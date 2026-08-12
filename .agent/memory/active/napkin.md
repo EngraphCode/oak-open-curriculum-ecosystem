@@ -1979,8 +1979,12 @@ Review-ratchet worked instance: nine rounds on the skill PR (9/2/1/3/3/2/2/3/0),
   pnpm-install+commit chain) received external SIGTERM mid-healthy-work;
   every FOREGROUND run of the same commands completed. Not estate tooling
   (one victim used none). Working hypothesis: harness background-task layer
-  under heavy session task load. Standing cure: merge drives and freeze
-  commits run FOREGROUND; background only what can die cheaply.
+  under heavy session task load — UNDIAGNOSED, and the owner flagged the
+  first framing of this entry ("standing cure: foreground") as the alarm
+  bell it was: an undiagnosed kill mechanism converted to permanent lore.
+  MCP-568 (High) now owns the diagnosis with a falsifiable path and an
+  exit condition; until it closes, foreground-for-critical-writes is a
+  DATED MITIGATION, never doctrine.
 - MY OWN FILTERS EAT VERDICTS: `merge-bot merge ... | grep merged` returned
   empty while the merge was mid-quiet-window (no matching line ≠ no verdict),
   and `| tail -4` discarded a refusal's grounds entirely. Capture-first
@@ -1993,3 +1997,29 @@ Review-ratchet worked instance: nine rounds on the skill PR (9/2/1/3/3/2/2/3/0),
   returned the gate's exact 3. The instrument was right; the query surface
   was the defect. The #850 "measure/issue divergence" doctrine is therefore
   suspect at its root — Wren owns that entry's truing (routed a1ab660c).
+- FORGE SEAT CLOSE 2026-08-12 ~04:55Z (post-resume arc, MCP-558 + MCP-545):
+  two tickets premise-to-landed under Director routing. #860 merged (ticket
+  19:42Z → main 21:55Z incl. a killed first design); #862 settled 19/19 at
+  f1fa01202, five-round ratchet converged, handed to Director at 2b996a91.
+- ERROR SIGNATURE CONTINUED (same class as pre-compaction): two fresh
+  confident diagnoses wrong, both externally corrected within minutes —
+  (1) settle-watch filter written from MEMORY missed the `[bot]` login
+  suffix (ten silent minutes past a landed review; cure = observed-login
+  substring, propagated fleet-wide via failure-mode 75b1f735); (2) dead
+  request-path diagnosis from a sub-minute TIMELINE-read lag (first fire
+  HAD bound between my two reads; re-request of a pending reviewer no-ops,
+  corroborating the false diagnosis; withdrawn at c6f58bf6). Cure family:
+  after any fire, one short retry on the proof surface before a drop
+  verdict; freshly-authored instrument-failure diagnoses get the coldest
+  reader.
+- LOOP-DYNAMICS WORKED INSTANCE (#862): suppressed-finding counts GREW
+  across rounds (2→2→3→5→6) because the reviewer widened into pre-existing
+  structure. Cure that closed it deterministically: adopt in-delta,
+  RE-HOME out-of-delta classes to a pointer ticket (MCP-566), class-
+  disposition archival re-flags, terminal mechanical binding.
+- INSTRUMENT FACTS: vercel get_runtime_logs HAS an environment filter
+  (production|preview) — discharges the "error tool can't split prod from
+  preview" caveat recorded on MCP-545; 7d aggregate queries time out, 24h
+  is the reliable window. `comms direct --body` (long inline) exits 2;
+  --body-file is the reliable shape. mcp-content provenance semantic hash
+  is comment-insensitive (TSDoc-only edits pass; code-literal edits repin).
