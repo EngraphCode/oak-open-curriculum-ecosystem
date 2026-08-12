@@ -129,12 +129,12 @@ effective-sample ratio n_eff/n under a separable AR(1) model — valid
 only for non-negative lag-1 in both directions, and OMITTED with the
 named reason outside that domain (inside the product formula a
 negative factor is its mirror's reciprocal, so ρ_row = −ρ_col reads as
-exactly 1 on a maximally correlated field). A null whose every pair is
-byte-stable reports `not estimable — zero-variance diff fields` rather
-than falling silent. Reporting only, structurally: the calibrated rank
+exactly 1 on a maximally correlated field). A null whose every pair
+has a CONSTANT diff field — byte-stable repeats, or a uniform shift
+whose constant difference is equally information-free — names itself
+not estimable (discriminant `zero-variance-diff-fields`) rather than
+falling silent. Reporting only, structurally: the calibrated rank
 never reads the block — the diagnostic exists so the naive-z reader
-can see how much √n overstates information. A ruled follow-on
-(Director adjudication, 2026-08-12) replaces the modelled ratio with
-the direct measured quantity — pixel variance over n × the variance of
-the pooled null window means — which answers the same question with
-the model assumption removed.
+can see how much √n overstates information. Replacing the modelled
+ratio with a directly measured one stays the named follow-on (Director
+adjudication, 2026-08-12); its mechanics live with that cycle.

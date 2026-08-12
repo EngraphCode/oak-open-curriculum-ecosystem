@@ -168,6 +168,7 @@ describe('poolNullCorrelation — pooling over same-page pairs', () => {
     }
     expect(pooled.value.captureCount).toBe(3);
     expect(pooled.value.pairCount).toBe(3);
+    expect(pooled.value.estimablePairCount).toBe(3);
     expect(Number.isFinite(pooled.value.lag1Row)).toBe(true);
     expect(Number.isFinite(pooled.value.lag1Col)).toBe(true);
   });
@@ -203,7 +204,8 @@ describe('poolNullCorrelation — pooling over same-page pairs', () => {
     if (!pooled.ok || pooled.value.kind !== 'estimated') {
       return;
     }
-    expect(pooled.value.pairCount).toBe(2);
+    expect(pooled.value.pairCount).toBe(3);
+    expect(pooled.value.estimablePairCount).toBe(2);
     expect(pooled.value.captureCount).toBe(3);
   });
 
@@ -220,6 +222,7 @@ describe('describeCorrelation — the summary line always names its situation', 
       lag1Col: 0.58,
       nEff: { kind: 'estimated', value: 0.062 },
       pairCount: 21,
+      estimablePairCount: 21,
       captureCount: 7,
     });
     expect(line).toContain('lag1 row=0.620 col=0.580');
@@ -234,6 +237,7 @@ describe('describeCorrelation — the summary line always names its situation', 
       lag1Col: -0.3,
       nEff: { kind: 'outside-ar1-domain' },
       pairCount: 3,
+      estimablePairCount: 3,
       captureCount: 3,
     });
     expect(line).toContain('n_eff/n omitted');

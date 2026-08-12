@@ -33,10 +33,10 @@ export type LagOneEstimate =
 export type EffectiveSampleRatio =
   { readonly kind: 'estimated'; readonly value: number } | { readonly kind: 'outside-ar1-domain' };
 
-/** Pooled correlation diagnostics for a same-page null. Counts stay
- *  honest about dependence: every capture appears in many pairs, so
- *  `pairCount` (estimable pairs) is NOT an independent-sample count —
- *  `captureCount` is the independent-capture budget behind it. */
+/** Pooled correlation diagnostics for a same-page null. `pairCount` is
+ *  ALWAYS the examined total C(captureCount, 2); the estimated arm adds
+ *  `estimablePairCount` (non-constant diff fields). Pairs share
+ *  captures — `captureCount` is the independent-capture budget. */
 export type CorrelationDiagnostics =
   | {
       readonly kind: 'estimated';
@@ -48,6 +48,7 @@ export type CorrelationDiagnostics =
        *  calibrated rank. */
       readonly nEff: EffectiveSampleRatio;
       readonly pairCount: number;
+      readonly estimablePairCount: number;
       readonly captureCount: number;
     }
   | {
@@ -223,7 +224,8 @@ export function poolNullCorrelation(
     lag1Row,
     lag1Col,
     nEff: effectiveSampleRatio(lag1Row, lag1Col),
-    pairCount: estimable,
+    pairCount: (captures.length * (captures.length - 1)) / 2,
+    estimablePairCount: estimable,
     captureCount: captures.length,
   });
 }
@@ -240,8 +242,8 @@ export function describeCorrelation(diagnostics: CorrelationDiagnostics): string
   }
   const base =
     `null correlation (diagnostic only): lag1 row=${diagnostics.lag1Row.toFixed(3)} ` +
-    `col=${diagnostics.lag1Col.toFixed(3)} over ${diagnostics.pairCount} pairs ` +
-    `of ${diagnostics.captureCount} captures`;
+    `col=${diagnostics.lag1Col.toFixed(3)} over ${diagnostics.estimablePairCount} of ` +
+    `${diagnostics.pairCount} pairs (${diagnostics.captureCount} captures)`;
   return diagnostics.nEff.kind === 'estimated'
     ? `${base} n_eff/n=${diagnostics.nEff.value.toPrecision(3)} — the empirical quantiles already absorb this`
     : `${base} — n_eff/n omitted (negative lag-1 is outside the AR(1) domain)`;

@@ -42,6 +42,7 @@ describe('summariseCalibrated — correlation line wiring', () => {
         lag1Col: 0.58,
         nEff: { kind: 'estimated', value: 0.062 },
         pairCount: 3,
+        estimablePairCount: 3,
         captureCount: 3,
       }),
       captureHeights: [32, 32, 32, 32],

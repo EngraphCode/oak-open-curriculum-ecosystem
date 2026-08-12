@@ -256,6 +256,7 @@ describe('the diagnostic never corrects the rank', () => {
       lag1Col: 0.5,
       nEff: { kind: 'estimated', value: 1 / 9 },
       pairCount: 3,
+      estimablePairCount: 3,
       captureCount: 3,
     } as const;
     const withBlock = calibrateAnalysis(analysis.value, nullScores, { correlation });
