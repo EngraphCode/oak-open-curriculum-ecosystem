@@ -2248,3 +2248,174 @@ in the PR so the acceptance number reads honestly against the plan.
   ExitWorktree(keep) → re-arm from primary, NOT fighting the guard with
   command variants. The worktree stays on disk for the merge; coordination
   belongs on the primary checkout.
+
+## 2026-08-12 ~10:4xZ (Skua binds Vortex, 027610, analysis lane) — bug-report analysis: the 8 were a sample of two much larger defects
+
+- Owner-directed analysis of a third-party bug report (8 lesson slugs listed by
+  get-key-stages-subject-lessons but "Lesson not found" on summary/fetch/search).
+  Full report: `.agent/reports/mcp-lesson-retrieval-gap-analysis-2026-08-12.md`.
+  Three findings: (1) upstream subject-validation gate (oak-openapi `3a2f19b`,
+  2026-07-10) 404s effectively EVERY KS4 science lesson — lessonView rows carry
+  programme subjects (combined-science/chemistry/biology/physics) not in the
+  teaching-subject allowlist, and the gate reads data[0] of an UNORDERED query
+  (latent nondeterminism); (2) our live oak_lessons index (built 2026-07-27) is
+  missing ~335+ lessons across sampled subjects that exist in BOTH June and August
+  bulk snapshots — re-ingest cures, completeness-gate-at-swap is the structural
+  cure; (3) upstream 404s are undifferentiated (not-found vs exists-but-blocked
+  byte-identical) — the owner-flagged not-available-vs-not-found improvement needs
+  an upstream ask plus a buildable-now 404 enrichment (cross-check listings) in our
+  layer.
+- Surprises worth keeping: the reporter's own WORKING control case
+  (genetic-engineering-including-the-main-steps) fails today — external reports
+  date faster than they arrive; re-verify every claim in an inbound report before
+  scoping to it (verify-dont-trust paid for itself within three tool calls). The
+  reporter's 8 were exactly the subset of OUR 34-lesson index gap that their
+  backfill happened to need — external consumers are a distributed
+  completeness-checker IF the error surface makes gaps diagnosable.
+- Class observation (query-the-lookalike family): the upstream gate validates a
+  LESSON's programme-subject slug against a TEACHING-subject allowlist — two
+  subject taxonomies, one vocabulary, diverging exactly at KS4 science. The
+  listing endpoint even special-cases KS4 science (subject_parent="Science") while
+  the summary gate does not — one API, two vocabularies for the same axis.
+
+## 2026-08-12 ~10:5xZ (Plover lifts Troposphere, b10c37, Director) — freeze-7 resume window
+
+- A peer's "settled signal" froze BEFORE the review surface matured: Wren's #865
+  merge commitment recorded four opus internal passes, but the GitHub-side
+  Copilot round (09:22, four open threads + one suppressed) landed pre-freeze and
+  went unrecorded in their freeze block. Lesson instanced: a settle claim in a
+  handoff is dated to its composition — the merge-side seat recomputes the review
+  surface at the merge moment, never inherits "settled" (query-the-value family;
+  cost avoided: merging a fail-open census defect and a partially-destructive
+  --clear path into skills machinery).
+- Declared-loop-exit deviation, reasoned not reflexive (#864, this window): the
+  pre-freeze terminal binding said route-residue-no-tip-moves, but it was
+  declared with the suppressed comments UNREAD, and the read surfaced three
+  correctness-class defects in the minted doctrine itself (misattributed ARC
+  identity, false stream-latency claim, a mirroring clause contradicting the
+  skill's own store rules). Cured in one batch at e523ddc9b; the loop exit stays
+  armed for polish-class residue only. Shape: a loop-exit binding made before
+  reading the residue cannot pre-authorise shipping factual errors — the
+  correctness/polish split is the honest boundary.
+- F-75 diff-poll noise (this seat, first hour): diffing raw peer-liveness output
+  fires every cycle because the age column ("NNNN.Nm ago") is volatile — strip
+  volatile columns before diffing (re-armed with sed normalisation; zero noise
+  since). Same family as read-verdicts-by-name-never-column-parse.
+- Unfiltered-review-list noise class, accepted: every GraphQL thread reply
+  creates a COMMENTED review shell by the replying identity — seven bot shells
+  per convergence batch on #819. The never-filter ruling stands; the shells are
+  the accepted price and read as no-ops in recounts.
+
+## 2026-08-12 ~10:5xZ (Skua binds Vortex, 027610) — owner-corrected framing + principal-checkout bulk refresh executed
+
+- OWN-MISTAKE + owner catch: I narrated "our bulk data was last updated June 10"
+  from file mtimes in the PRINCIPAL checkout — a machine-local fact mis-scoped as
+  an estate fact. The estate's freshness contract (tracked manifest, MCP-463)
+  recorded downloads 2026-07-27 and 2026-08-03; the data files are gitignored so
+  refreshes run in worktrees NEVER travel to other checkouts. Owner: "second time
+  this has happened, we did an update, in a worktree" — recurring class: the
+  tracked manifest travels through git while its data stays put, so every
+  checkout that did not run the download carries a manifest describing files it
+  does not have. Cure direction (proposal, unbuilt): consumers verify local data
+  against the manifest vintage before ingest/build; per-file hashes in the
+  manifest would make coherence checkable. Second clone
+  (oak-open-curriculum-ecosyste-2) carries a manifest honestly dated 2026-06-10 —
+  the manifest-vs-data divergence began when the manifest landed (2026-07-27).
+- Refresh executed at owner word (delete → download → regen → check): fresh
+  bundle 2026-08-12T10:50Z, 32 data files (30 before — rshe-pshe primary+
+  secondary are NEW), 13,669 lessons, 745MB; schema.json byte-identical to the
+  committed copy (no drift, no truing); bulkgen idempotent no-op; ground-truth
+  companions regenerated (~10.5k-line data churn); type-check 21/21 green. All
+  34 previously index-missing science lessons present in the fresh data.
+  ground-truth:validate fails ONLY on manifest-completeness for the new
+  rshe-pshe subject — owner word: ground truths are utterly out of date, set
+  aside; not a refresh qualifier.
+- The live oak_lessons ES index (v2026-07-27) remains the un-cured surface —
+  its rebuild from fresh data is the outstanding search-side fix; the upstream
+  subject-gate bug (all KS4 science summaries 404) is untouched by any of this.
+
+## 2026-08-12 ~11:2xZ (Skua binds Vortex, 027610) — the restriction axis was the reporter's real class; my subject-gate model survives only as mechanism B
+
+- OWN-MISTAKE (premature closure): I stopped probing at the first coherent
+  mechanism (the subject gate) and framed "upstream bug, high priority". The
+  owner's pushback ("not yet convinced upstream needs a fix") prompted the
+  sibling-endpoint probes that were one curl away all along: pure-substance is
+  RESTRICTION-BLOCKED — transcript/assets/quiz all refuse it with differentiated
+  400 "not available" messages + data.cause "blocked". check-restricted then
+  showed the reporter's 8 are 8/8 restricted AND the full 34-lesson index gap is
+  34/34 restricted. The commit I filed as the bug is literally titled "fix:
+  ensure only valid subjects are allowed through" — the artefact declared
+  intent and I filed it as defect. Two-rung-climb generator (observation →
+  over-scoped verdict) same as the June-10 bulk misread; cure: keep observation
+  and verdict registers separate; verdicts carry the alternative-intent
+  hypothesis and what would settle it.
+- Two-mechanism model, both first-hand: (A) restricted lessons are refused
+  across surfaces — sibling endpoints differentiate via message TODAY (the
+  classifier's CONTENT_NOT_AVAILABLE path already catches their 400+cause
+  "blocked" shape); the summary endpoint's 404 for them is undifferentiated
+  prose. (B) additionally, TODAY, ogl-compatible KS4 science lessons
+  (heating-and-cooling-curves, the-particle-model, the reporter's own control)
+  404 on summary — the subject-gate trace stands for this class; whether B is
+  intended is an OPEN question for the API team, not a filed bug.
+- Spec answer (owner question): upstream's errorResponses declares statuses
+  with "e.g." prose only — message vocabulary is NOT in the OpenAPI spec; our
+  classifier's inferred-vocabulary remark is exactly right. Differentiation
+  handling must be observed-vocabulary + pinned contract tests; the cheap
+  upstream ask (if any) is spec ENUMERATION of error codes/messages.
+- Design landmine caught before it fired: the fetch "serve from our index on
+  upstream 404" idea would serve RESTRICTED content upstream deliberately
+  refuses — licensing violation shape. Any escrow-style fallback must gate on
+  check-restricted first. check-restricted is the differentiation ORACLE
+  available today with zero upstream change.
+
+- Copilot request-drop diagnosis (#819, 2026-08-12 ~11:3xZ): after six review
+  rounds inside an hour on one PR, further requests dropped SILENTLY — success
+  exit, no review_requested timeline event, no error — across both the GraphQL
+  and MCP request paths. A cross-PR probe (same call on #865) landed instantly,
+  isolating a per-PR rolling cap from quota/auth. Falsifier held: the retry loop
+  caught the window when the cap rolled off. Instance diagnosis, not seat lore;
+  the timeline event stays the only proof of a live request.
+
+## 2026-08-12 ~11:5xZ (Skua binds Vortex, 027610) — deep source comparison: the summary endpoint has THREE eras; the anti-leak design is upstream's own recorded philosophy
+
+- Era 1 (reporter's window, verified at 69d2b6c Jun-12): summary ran
+  blockLessonForCopyrightText FIRST, with a deliberate anti-leak exists-check —
+  the code comment says verbatim they return 404 for nonexistent rather than a
+  distinct status "because we don't want to leak information about what lessons
+  are blocked". Existing-but-blocked lessons got 400 "Lesson (slug) not
+  available for this query (blocked for copyright text)" — differentiation VIA
+  MESSAGE, exactly the owner's stated upstream convention. The reporter's 8
+  seeing "Lesson not found" therefore PROVES their slugs were absent from
+  mv_lesson_openapi_1_2_3 at their test time (the exists-check hits that view)
+  — their own "orphaned records" hypothesis was right for their era.
+- Era 2 (tpc-db rework Jul 7-10, landed main via PR #309 fix/lock-subjects
+  2026-07-22T13:08:41+01:00): copyright gate on summary REMOVED (commented,
+  pending a product decision), restriction now only flips downloadsAvailable;
+  the SUBJECT ALLOWLIST gate added — intent per its own test file
+  (`__tests__/blocked-subjects.test.ts`) is financial-education blocking; a
+  blockedSubjects=['financial-education'] denylist constant exists with ZERO
+  consumers (minted, abandoned); the shipped allowlist form 404s all KS4
+  science as untested collateral (mv rows carry chemistry/combined-science/
+  biology/physics; the listing endpoint's subject_parent:"Science" special case
+  is the in-repo correct pattern, unused at the gate). data[0] of an unordered
+  @cached(ttl:300) query remains a latent nondeterminism.
+- Five distinct backing views across the surfaces (owaClient.ts): summary+
+  search-join mv_lesson_openapi_1_2_3; listing mv_synthetic_unitvariant_
+  lessons_by_year_12_0_0; transcript mv_lesson_content_published_5_0_0;
+  restriction mv_lesson_restriction_levels_1; bulk view_lesson_open_api_with_
+  transcripts_1. Transcript 500 on unknown slugs: unknown slug PASSES the
+  restriction gate ('Lesson not in restrictions') then transcript.ts:63
+  vtt.replace on undefined.
+- Bulk artefact eras match: June-10 file = pre-hardening (zero restricted
+  flags, transcripts on everything incl. restricted); Jul-27/Aug-3+ = include-
+  and-mark (restricted:true, transcripts stripped; 79/2090 in science). Our
+  index-gap mechanism remains honestly UNPROVEN (schema trued 10:27 UTC before
+  the 13:21 build; transformer/supplementation have no drop path) — stale-dist
+  at build time is the surviving candidate; a rebuild is the falsifier.
+
+- Sha-pin near-miss (#819 merge, this seat): the REST merge 409'd because the
+  pinned sha's tail had been RECONSTRUCTED from a 9-char prefix instead of read
+  (query-the-value-never-the-lookalike, own instance) — the pin worked exactly as
+  designed and refused the merge. Never expand a short sha by typing; fetch the
+  full oid. Second read surfaced the truth in one call; merged clean on the real
+  sha at 9caeae362.
