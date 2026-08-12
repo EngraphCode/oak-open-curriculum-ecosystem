@@ -15,7 +15,6 @@
  * found (or `--fix` was not used to resolve missing wrappers).
  */
 
-import { lstat } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -26,8 +25,6 @@ import {
   getClaudeHookPortabilityIssues,
   getReviewerAdapterParityIssues,
   getRulesIndexPortabilityIssues,
-  getSkillPermissionIssues,
-  selectPracticeSkillDirs,
   CLAUDE_SETTINGS_PATH,
   HOOK_POLICY_PATH,
   RULES_INDEX_PATH,
@@ -45,6 +42,7 @@ import {
   stripFrontmatter,
   writeText,
 } from './portability-fs.js';
+import { practiceSkillPermissionIssues } from './skill-census.js';
 import { reportPortabilityValidation } from './portability-report.js';
 
 const repoRoot = resolveRepoRoot(import.meta.url);
@@ -189,32 +187,7 @@ if (await exists(repoRoot, CLAUDE_SETTINGS_PATH)) {
         ? claudeSettings['permissions']['allow']
         : [];
     const permissions = allowList.filter((e): e is string => typeof e === 'string');
-    // The census governs the Practice class only (selectPracticeSkillDirs
-    // recognises members by their class marker); Vendor-class skills are
-    // the external machinery's business and never censused. The reader is
-    // lstat-gated so a symlinked SKILL.md is never read through to borrow
-    // a genuine stub's content.
-    const claudeSkillDirs = await selectPracticeSkillDirs(
-      await listSubdirs(repoRoot, '.claude/skills'),
-      async (dirName) => {
-        const stubPath = `.claude/skills/${dirName}/SKILL.md`;
-        try {
-          if (!(await lstat(path.join(repoRoot, stubPath))).isFile()) {
-            return undefined;
-          }
-        } catch {
-          return undefined;
-        }
-        return (await readOptionalText(repoRoot, stubPath)).value ?? undefined;
-      },
-    );
-    for (const issue of getSkillPermissionIssues({
-      claudeCommandFiles: [],
-      claudeSkillDirs,
-      claudeSettingsPermissions: permissions,
-    })) {
-      issues.push(issue);
-    }
+    issues.push(...(await practiceSkillPermissionIssues(repoRoot, permissions)));
   } catch (error) {
     issues.push(
       `Skill permission validation failed: ${error instanceof Error ? error.message : 'Unknown skill permission check failure.'}`,

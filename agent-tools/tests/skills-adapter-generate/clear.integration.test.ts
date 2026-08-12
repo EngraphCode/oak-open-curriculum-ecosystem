@@ -1,12 +1,26 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import { adapterStubPointerLine } from '../../src/skills-adapter-generate/adapter-stub';
 import { clearGeneratedAdapters, type ClearFs } from '../../src/skills-adapter-generate/clear';
+
+import {
+  cleanupSandboxes,
+  readRepoBytes,
+  removeRepoPath,
+  repoPathExists,
+  sandboxRepo,
+  symlinkRepoPath,
+  writeRepoFile,
+} from './test-helpers/skills-repo-sandbox';
 
 /** A structurally genuine Practice stub: recognition requires the whole
  * shape (frontmatter, title line, pointer line), not just the marker. */
 const OURS = `---\nname: oak-commit\ndescription: Commit workflow.\n---\n\n# Commit (Claude Code)\n\n${adapterStubPointerLine('commit/SKILL-CANONICAL.md')}\n`;
 const FOREIGN = '# Clerk\n\nVendor skill body — no derivation marker.\n';
+
+afterEach(() => {
+  cleanupSandboxes();
+});
 
 function makeClearFs(input: {
   readonly subdirectories: ReadonlyMap<string, readonly string[]>;
@@ -27,12 +41,17 @@ function makeClearFs(input: {
       async removeDirectory(path) {
         removed.push(path);
       },
+      // The in-memory fixture holds no symlinked ancestors: every path
+      // resolves to itself, so the surface-root guard always passes.
+      async resolveRealPath(path) {
+        return { kind: 'ok', value: path };
+      },
     },
     removed,
   };
 }
 
-describe('clearGeneratedAdapters', () => {
+describe('clearGeneratedAdapters (in-memory seam)', () => {
   const repoRoot = '/repo';
   const surfaces = new Map<string, readonly string[]>([
     ['/repo/.claude/skills', ['oak-commit', 'skill-creator']],
@@ -46,15 +65,17 @@ describe('clearGeneratedAdapters', () => {
     // skill-creator on the agents surface has no SKILL.md at all.
   ]);
 
-  it('removes exactly the directories whose stub carries the class marker — membership by content, never by name', async () => {
+  it('removes exactly the directories whose stub carries the class marker, and reports them — membership by content, never by name', async () => {
     const { fs, removed } = makeClearFs({ subdirectories: surfaces, stubs });
 
     const result = await clearGeneratedAdapters(repoRoot, fs);
 
-    expect(result).toEqual({ kind: 'ok' });
-    expect(new Set(removed)).toEqual(
+    expect(result.kind).toBe('ok');
+    const reported = result.kind === 'ok' ? new Set(result.removed) : new Set();
+    expect(reported).toEqual(
       new Set(['/repo/.claude/skills/oak-commit', '/repo/.agents/skills/oak-commit']),
     );
+    expect(new Set(removed)).toEqual(reported);
   });
 
   it('collects a projection generated under a previous prefix: the marker recognises it whatever the directory is called', async () => {
@@ -65,7 +86,7 @@ describe('clearGeneratedAdapters', () => {
 
     const result = await clearGeneratedAdapters(repoRoot, fs);
 
-    expect(result).toEqual({ kind: 'ok' });
+    expect(result).toEqual({ kind: 'ok', removed: ['/repo/.claude/skills/legacy-commit'] });
     expect(removed).toEqual(['/repo/.claude/skills/legacy-commit']);
   });
 
@@ -80,6 +101,9 @@ describe('clearGeneratedAdapters', () => {
       },
       async removeDirectory(path) {
         removed.push(path);
+      },
+      async resolveRealPath(path) {
+        return { kind: 'ok', value: path };
       },
     };
 
@@ -103,11 +127,58 @@ describe('clearGeneratedAdapters', () => {
       async removeDirectory(path) {
         removed.push(path);
       },
+      async resolveRealPath(path) {
+        return { kind: 'ok', value: path };
+      },
     };
 
     const result = await clearGeneratedAdapters(repoRoot, fs);
 
     expect(result.kind).toBe('error');
     expect(removed).toEqual([]);
+  });
+});
+
+describe('clearGeneratedAdapters over a real filesystem (the destructive path)', () => {
+  it('removes a marker-carrying directory and leaves a foreign one, reporting the removal', async () => {
+    const root = sandboxRepo();
+    writeRepoFile(root, '.claude/skills/oak-commit/SKILL.md', OURS);
+    writeRepoFile(root, '.claude/skills/clerk/SKILL.md', FOREIGN);
+
+    const result = await clearGeneratedAdapters(root);
+
+    expect(result).toEqual({ kind: 'ok', removed: [`${root}/.claude/skills/oak-commit`] });
+    expect(repoPathExists(root, '.claude/skills/oak-commit')).toBe(false);
+    expect(repoPathExists(root, '.claude/skills/clerk/SKILL.md')).toBe(true);
+  });
+
+  it('refuses a symlinked surface ROOT: nothing outside the repo is read or removed', async () => {
+    const root = sandboxRepo();
+    const outside = sandboxRepo();
+    writeRepoFile(outside, 'skills/oak-victim/SKILL.md', OURS);
+    writeRepoFile(outside, 'skills/oak-victim/scripts/important.sh', 'echo keep\n');
+    removeRepoPath(root, '.claude/skills');
+    symlinkRepoPath(root, '.claude/skills', `${outside}/skills`);
+
+    const result = await clearGeneratedAdapters(root);
+
+    expect(result.kind).toBe('error');
+    expect(repoPathExists(outside, 'skills/oak-victim/SKILL.md')).toBe(true);
+    expect(readRepoBytes(outside, 'skills/oak-victim/scripts/important.sh')).toEqual(
+      new TextEncoder().encode('echo keep\n'),
+    );
+  });
+
+  it('refuses a symlinked surface ANCESTOR with a real skills dir inside it: the external tree is untouched', async () => {
+    const root = sandboxRepo();
+    const outside = sandboxRepo();
+    writeRepoFile(outside, 'dotclaude/skills/oak-victim/SKILL.md', OURS);
+    removeRepoPath(root, '.claude');
+    symlinkRepoPath(root, '.claude', `${outside}/dotclaude`);
+
+    const result = await clearGeneratedAdapters(root);
+
+    expect(result.kind).toBe('error');
+    expect(repoPathExists(outside, 'dotclaude/skills/oak-victim/SKILL.md')).toBe(true);
   });
 });

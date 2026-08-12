@@ -14,6 +14,8 @@ import { lstat, readFile, readdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { parseAdapterStubPointer } from './adapter-stub.js';
+import { realCarriageReadFs, type FsRead } from './carriage-fs.js';
+import { PROJECTION_SURFACE_ROOTS, surfaceRootGuardFailure } from './surface-roots.js';
 
 /**
  * Result of listing an adapter surface. A missing surface is `ok` with
@@ -36,10 +38,13 @@ type ReadStubResult =
   | { readonly kind: 'error'; readonly message: string };
 
 /**
- * Result of {@link clearGeneratedAdapters}.
+ * Result of {@link clearGeneratedAdapters}. The `ok` arm reports the
+ * directories removed so the one destructive pass in the pipeline is
+ * observable rather than silent.
  */
 export type ClearResult =
-  { readonly kind: 'ok' } | { readonly kind: 'error'; readonly message: string };
+  | { readonly kind: 'ok'; readonly removed: readonly string[] }
+  | { readonly kind: 'error'; readonly message: string };
 
 /**
  * Filesystem seam for {@link clearGeneratedAdapters}, mirroring the
@@ -50,6 +55,10 @@ export interface ClearFs {
   listSubdirectoryNames(path: string): Promise<ListSubdirectoryNamesResult>;
   readStubOrUndefined(path: string): Promise<ReadStubResult>;
   removeDirectory(path: string): Promise<void>;
+  /** The path with every symlink resolved (nearest-existing-ancestor
+   * semantics for an absent tail) — the surface-root guard's instrument
+   * for refusing a symlinked root or ancestor before any removal. */
+  resolveRealPath(path: string): Promise<FsRead<string>>;
 }
 
 /**
@@ -105,6 +114,7 @@ const realClearFs: ClearFs = {
   async removeDirectory(path) {
     await rm(path, { recursive: true, force: true });
   },
+  resolveRealPath: (path) => realCarriageReadFs.resolveRealPath(path),
 };
 
 /**
@@ -115,28 +125,70 @@ const realClearFs: ClearFs = {
  * previous prefix). Entries without the marker are out of
  * jurisdiction and never touched; symlinked entries never reach the
  * marker read because `readdir` classifies them as symlinks, not
- * directories. An unreadable surface or stub aborts the clear with an
- * error rather than guessing. Idempotent.
+ * directories.
+ *
+ * The surface-root guard runs FIRST, per surface, before any `readdir`
+ * or `rm`: a symlinked root or ancestor (the committed shape of the
+ * estate's Vendor entries) would otherwise send the whole recursive
+ * removal into a foreign tree — the channel security round 2
+ * (2026-08-12) found open here. An unreadable surface or stub, or a
+ * failed root resolution, aborts the clear with an error rather than
+ * guessing.
+ *
+ * Path-based guards are TOCTOU-exposed under a concurrent local racer
+ * (the `lstat`/`resolveRealPath` and the `rm` are separate syscalls);
+ * under this pipeline's threat model — repo content authored via PR,
+ * static during a run — that gap is not reachable, and a fd-anchored
+ * cure would be disproportionate. Idempotent.
  */
 export async function clearGeneratedAdapters(
   repoRoot: string,
   fs: ClearFs = realClearFs,
 ): Promise<ClearResult> {
-  for (const surface of ['.claude/skills', '.agents/skills']) {
-    const root = join(repoRoot, surface);
-    const listed = await fs.listSubdirectoryNames(root);
-    if (listed.kind === 'error') {
-      return listed;
+  const repoReal = await fs.resolveRealPath(repoRoot);
+  const removed: string[] = [];
+  for (const surface of PROJECTION_SURFACE_ROOTS) {
+    const outcome = await clearSurface(join(repoRoot, surface), surface, repoReal, fs);
+    if (outcome.kind === 'error') {
+      return outcome;
     }
-    for (const name of listed.names) {
-      const stub = await fs.readStubOrUndefined(join(root, name, 'SKILL.md'));
-      if (stub.kind === 'error') {
-        return stub;
-      }
-      if (stub.value !== undefined && parseAdapterStubPointer(stub.value) !== undefined) {
-        await fs.removeDirectory(join(root, name));
-      }
+    removed.push(...outcome.removed);
+  }
+  return { kind: 'ok', removed };
+}
+
+/** Guard the surface root, then remove exactly its marker-carrying
+ * directories. A guard failure, an unlistable surface, or an
+ * unclassifiable stub aborts before (or between) removals. */
+async function clearSurface(
+  root: string,
+  surface: string,
+  repoReal: FsRead<string>,
+  fs: ClearFs,
+): Promise<ClearResult> {
+  const guardFailure = await surfaceRootGuardFailure({
+    root,
+    surface,
+    repoReal,
+    resolveRealPath: (path) => fs.resolveRealPath(path),
+  });
+  if (guardFailure !== undefined) {
+    return { kind: 'error', message: guardFailure };
+  }
+  const listed = await fs.listSubdirectoryNames(root);
+  if (listed.kind === 'error') {
+    return listed;
+  }
+  const removed: string[] = [];
+  for (const name of listed.names) {
+    const stub = await fs.readStubOrUndefined(join(root, name, 'SKILL.md'));
+    if (stub.kind === 'error') {
+      return stub;
+    }
+    if (stub.value !== undefined && parseAdapterStubPointer(stub.value) !== undefined) {
+      await fs.removeDirectory(join(root, name));
+      removed.push(join(root, name));
     }
   }
-  return { kind: 'ok' };
+  return { kind: 'ok', removed };
 }

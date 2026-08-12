@@ -91,8 +91,11 @@ async function runGenerate(repoRoot: string, flags: CliFlags): Promise<number> {
       stderr.write(`--clear failed: ${clearResult.message}\n`);
       return 1;
     }
+    const removedList = clearResult.removed.map((p) => `  ${p}`).join('\n');
     stdout.write(
-      'Cleared Practice-projection directories (entries without the class marker are not ours; untouched).\n',
+      `Cleared ${String(clearResult.removed.length)} Practice-projection directories ` +
+        `(entries without the class marker are not ours; untouched)` +
+        `${clearResult.removed.length > 0 ? `:\n${removedList}` : '.'}\n`,
     );
   }
   const outcome = await generateAdapters({ repoRoot, prefix: flags.prefix });

@@ -24,6 +24,7 @@ import {
   type CarriageReadFs,
 } from './carriage.js';
 import { classifyEmissionTarget, foreignTargetRefusal } from './emission-target.js';
+import { allSurfaceRootFailures } from './surface-roots.js';
 import {
   adapterTargetPath,
   discoverCanonicals,
@@ -121,6 +122,17 @@ export async function checkAdapters(
   let carriedFileCount = 0;
   const discovery = await discoverCanonicals(options.repoRoot, asDiscoveryFs(fs));
 
+  // Surface-root guard FIRST — before any per-canonical read: a symlinked
+  // root or ancestor would otherwise let the name-addressed target reads
+  // below resolve (and byte-compare) files outside the repository, leaking
+  // external structure into the verdict streams. Generate short-circuits
+  // emission on the same failure via the sweep; check makes the guard
+  // structural rather than incidental-to-ordering.
+  const rootFailures = await allSurfaceRootFailures(options.repoRoot, (p) => fs.resolveRealPath(p));
+  if (rootFailures.length > 0) {
+    return refusedOutcome(discovery, rootFailures);
+  }
+
   for (const parsed of discovery.canonicals) {
     await checkOneCanonical(parsed, options, fs, streams);
     // Counted once per skill: the carried set is per-canonical; the surface
@@ -128,24 +140,7 @@ export async function checkAdapters(
     carriedFileCount += await countCarriedFiles(dirname(parsed.canonicalPath), fs);
   }
 
-  // Staleness is judged ONLY against a COMPLETE discovery: a skipped
-  // directory means the expected-projection set is not fully known (an
-  // unreadable canonical reads as absent there), so a skipped skill's
-  // projection must never be reported stale. The skipped stream itself
-  // already fails the check.
-  let stale: readonly string[] = [];
-  if (isDiscoveryComplete(discovery)) {
-    const sweep = await findStaleProjectionEntries({
-      repoRoot: options.repoRoot,
-      projections: discovery.canonicals.map((parsed) => ({
-        canonicalRef: `${parsed.relativeDir}/${parsed.canonicalFilename}`,
-        expectedName: `${options.prefix}${parsed.id}`,
-      })),
-      fs,
-    });
-    streams.refused.push(...sweep.failures);
-    stale = sweep.stale;
-  }
+  const stale = await computeStale(discovery, options, fs, streams);
 
   return {
     ...streams,
@@ -154,6 +149,54 @@ export async function checkAdapters(
     stale,
     canonicalCount: discovery.canonicals.length,
     carriedFileCount,
+  };
+}
+
+/**
+ * Staleness is judged ONLY against a COMPLETE discovery: a skipped
+ * directory means the expected-projection set is not fully known (an
+ * unreadable canonical reads as absent there), so a skipped skill's
+ * projection must never be reported stale. The skipped stream itself
+ * already fails the check. Sweep failures ride `streams.refused`.
+ */
+async function computeStale(
+  discovery: Awaited<ReturnType<typeof discoverCanonicals>>,
+  options: GeneratorOptions,
+  fs: CheckerFs,
+  streams: CheckStreams,
+): Promise<readonly string[]> {
+  if (!isDiscoveryComplete(discovery)) {
+    return [];
+  }
+  const sweep = await findStaleProjectionEntries({
+    repoRoot: options.repoRoot,
+    projections: discovery.canonicals.map((parsed) => ({
+      canonicalRef: `${parsed.relativeDir}/${parsed.canonicalFilename}`,
+      expectedName: `${options.prefix}${parsed.id}`,
+    })),
+    fs,
+  });
+  streams.refused.push(...sweep.failures);
+  return sweep.stale;
+}
+
+/** The check outcome when the surface-root guard refuses: nothing was
+ * read, so every content stream is empty and the failures ride
+ * `refused`. */
+function refusedOutcome(
+  discovery: Awaited<ReturnType<typeof discoverCanonicals>>,
+  rootFailures: readonly string[],
+): CheckOutcome {
+  return {
+    drifted: [],
+    missing: [],
+    orphaned: [],
+    refused: rootFailures,
+    duplicates: discovery.duplicates,
+    skipped: discovery.skipped,
+    stale: [],
+    canonicalCount: discovery.canonicals.length,
+    carriedFileCount: 0,
   };
 }
 
