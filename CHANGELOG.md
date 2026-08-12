@@ -1,3 +1,37 @@
+## [1.165.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.165.0...v1.165.1) (2026-08-12)
+
+# [1.165.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.164.0...v1.165.0) (2026-08-12)
+
+
+### Bug Fixes
+
+* **skills:** card overlay, measured arc latency, session-open trigger (MCP-571) ([6a7a449](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6a7a449a444f2c24cf6350c1c6733eeb842ba4a9))
+* **skills:** comms-channels scopes to delivery lanes under the canonical card (MCP-571) ([a44f054](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a44f054395a93ffd236aa782572d42cde4649cf7))
+* **skills:** reachability bounds consistent; ListAgents ceremony is Claude-scoped (MCP-571) ([289231b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/289231bbb4774a126bbbedf13bf2f4c9accc8d67))
+* **skills:** the stream announces state, it never stores it (MCP-571) ([3222ea2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3222ea26a56ad584c63d6e3bc27766c487278e7e))
+
+
+### Features
+
+* **skills:** mint comms-channels — channel selection and the s2s behaviours (MCP-571) ([6fab315](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6fab315d99c38c2c3b4197e3e40001532fe9a814))
+
+# [1.164.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.163.3...v1.164.0) (2026-08-12)
+
+
+### Bug Fixes
+
+* **agent-tools:** cure the review round — loud misconfiguration, faithful payload, guarded trims ([99f2efb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/99f2efb0d660b9dd5cfcd82b6e67d1da1e14c10c)), closes [#818](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/818)
+* **agent-tools:** linear-scan trailing-linebreak strip retires the backtracking regex (MCP-529) ([ca5cc69](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ca5cc697d7916d048b0c0d713cd3820010cec89e))
+* **agent-tools:** short writes never truncate the log line; blank-value docs trued (MCP-529) ([0c15c5a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0c15c5a1191151bd199be19dae2f28b03abf95a2))
+* **agent-tools:** statusline log destination is a boundary; composition seam extracted (MCP-529) ([01809b4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/01809b42fdee9314e5c2f71c7f89981ae3716564))
+* **agent-tools:** statusline logging fails loud on noop; payload bytes preserved (MCP-529) ([5ae71e0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5ae71e02dd4ec1059e45f0a2b7377e5a02ad4a81))
+* **agent-tools:** warning precedes render output; branch-free fakes; docs true-ups (MCP-529) ([3a7d0c8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3a7d0c8b3445ef5d27d4ff76596189098f2acd11))
+
+
+### Features
+
+* **agent-tools:** optional statusline payload logging via OAK_STATUSLINE_LOG_FILE ([5905073](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5905073ff87c3e7adf172d4f19ef464cb75c3459))
+
 ## [1.163.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.163.2...v1.163.3) (2026-08-12)
 
 
