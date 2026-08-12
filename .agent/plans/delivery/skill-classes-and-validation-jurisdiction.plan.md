@@ -3,7 +3,10 @@ id: skill-classes-and-validation-jurisdiction
 node_type: delivery
 name: "Skill classes and validation jurisdiction: name the three classes, scope our validation to our own"
 overview: "Name the estate's three skill classes (Practice, Vendor, User-facing) as first-class doctrine, scope the skills reconciliation sweep and the portability census to the Practice namespace only, and delete the vendor-lock compensation machinery — so our validation never adjudicates an external system again."
-status: sketch
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-12
+ratified_where: "In-session four-card owner answer at the lane seat (Wren calls Downdraft 6b29b5), 2026-08-12 ~07:1xZ: 'Ratify — execute now' on the plan card, following the owner's taxonomy statement verbatim ('I have failed to name groups of things') and the inquiry that unwound MCP-567. Card text and answers in the session transcript; the commissioning words are the owner's 'once you have quantified the issue and written a plan to fix it, which includes clarifying ADRs and documentation so this NEVER happens again'."
 serves: agent-platform-citizenship
 impact_areas:
   - practice-and-estate
