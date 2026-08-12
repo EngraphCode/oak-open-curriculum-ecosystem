@@ -370,6 +370,11 @@ Reading the outcomes honestly:
   `agent-tools/dist` silently predates the feature —
   `grep -c OAK_STATUSLINE_LOG_FILE agent-tools/dist/src/claude/statusline-identity.js`
   returning `0` means rebuild (`pnpm --filter @oaknational/agent-tools build`).
+  A current adapter can also produce no-file-and-no-warning when the
+  filesystem write itself fails (unwritable parent, directory-valued
+  target, denied append) — write failures are deliberately swallowed, so
+  check the destination is creatable and writable by hand before
+  concluding the payload never arrived.
 - **Hygiene**: the log grows unbounded (one line per refresh), carries
   session ids and project paths, and pre-existing file or parent-directory
   permissions are not retightened (mkdir's mode applies at creation only)
