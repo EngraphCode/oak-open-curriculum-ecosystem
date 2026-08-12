@@ -13,35 +13,20 @@ description: >-
 
 # Design-system usage
 
-**Two homes, one canonical.** This skill serves repo agents directly and ships
-to the Claude Design studio (project pinned in `.design-sync/config.json`) as a
-derived copy at every sync — the studio's `SKILL.md`, with studio frontmatter,
-per `.design-sync/estate.json` §directWrites. Edit only this canonical; the
-shipped copy is regenerated from it.
+**Path context.** This repo is the design system's only home. Every path
+below is relative to `packages/design/oak-design-system/`.
 
-**Path context.** Paths below are STUDIO paths, relative to the project root.
-The repo's design-system root is `packages/design/oak-design-system/`, and it
-is not a flat copy — three rules take a studio path to its repo twin:
-
-- **Consumable files map root to root**: `styles.css`, `brand.css`,
-  `colors_and_type.css`, `components.css`, `print.css`, `oak-icons.css`,
-  `oak-theme.js`, `brand_voice.txt`, `assets/`, `fonts/`, `dtcg/`.
-- **Instrument directories live under `studio-source/` in the repo**:
-  `studio:<dir>` is `repo:studio-source/<dir>` for `components/`,
-  `templates/`, `preview/`, `ui_kits/`, `whitelabel/`, `integrations/`, and
-  the three root proof pages. This is a quality-gate boundary, not a filing
-  preference — owner ruling 2026-07-19 scopes the gate exclusions to
-  `studio-source/**` alone, and anything under it that becomes consumed by
-  product code moves out in the same change.
-- **Guidance documents re-home under `guidelines/` in the studio**: the repo
-  keeps `DECISIONS.md`, `CHANGELOG.md`, `KNOWN-ISSUES.md` at the root with
-  `docs/**` beside them; the studio keeps all four under `guidelines/`
-  (`guidelines/docs/**` for the last).
-
-So `preview/specimen.html` is exactly that in the studio and
-`studio-source/preview/specimen.html` in the repo, while `styles.css` is
-`styles.css` in both. The system's own `README.md` file index is the studio
-layout, and says so.
+One structural rule inside that root: the non-production material —
+`components/`, `templates/`, `preview/`, `ui_kits/`, `whitelabel/`,
+`integrations/`, and the proof pages — lives under `studio-source/`, while
+the consumable files (`styles.css`, `brand.css`, `colors_and_type.css`,
+`components.css`, `print.css`, `oak-icons.css`, `oak-theme.js`,
+`brand_voice.txt`, `assets/`, `fonts/`, `dtcg/`) and the guidance documents
+(`DECISIONS.md`, `CHANGELOG.md`, `KNOWN-ISSUES.md`, `docs/**`) sit at the
+root. That split is a quality-gate boundary, not a filing preference — owner
+ruling 2026-07-19 scopes the gate exclusions to `studio-source/**` alone, so
+anything under it that becomes consumed by product code moves out in the
+same change.
 
 Read the system's `README.md`, then build. The one-line setup for anything new:
 
@@ -55,8 +40,7 @@ class library (`components.css`), and the print/PDF layer (`print.css`). It
 deliberately does NOT import `brand.css` — re-branding loads that *after*
 `styles.css`, so the override cascade lands on top.
 Compose UI from the `oak-*` classes and semantic tokens; check every line of
-copy against `brand_voice.txt`. (Pages inside the studio project link the
-tier CSS files directly — see `KNOWN-ISSUES.md` #1.)
+copy against `brand_voice.txt`.
 
 ## Rules of the road
 
@@ -88,8 +72,7 @@ tier CSS files directly — see `KNOWN-ISSUES.md` #1.)
 
 ## What's where
 
-The four you reach for constantly (studio paths; the last two are under
-`studio-source/` in the repo):
+The four you reach for constantly (the last two live under `studio-source/`):
 
 - `components.css` — every component class **and the authoring blocks** (the
   lesson anatomy). Copy the class, not the CSS.
