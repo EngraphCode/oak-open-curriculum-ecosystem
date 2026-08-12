@@ -1,3 +1,47 @@
+## [1.163.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.163.1...v1.163.2) (2026-08-12)
+
+
+### Bug Fixes
+
+* **streamable-http:** log actual refusal method; strip TSDoc moving target (MCP-545) ([f1fa012](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f1fa0120269505f2a6757306f52054fd48f88399))
+* **streamable-http:** refuse standalone GET /mcp SSE stream with 405 (MCP-545) ([fa08558](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fa0855809ebd982b301a4e00413d012eeee751d9))
+
+## [1.163.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.163.0...v1.163.1) (2026-08-12)
+
+
+### Bug Fixes
+
+* **portability:** napkin trigger targets the canonical skill — validator-lawful path ([63cefb1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/63cefb11a5644c01485512ba0f84afac36912b02))
+
+# [1.163.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.162.1...v1.163.0) (2026-08-11)
+
+
+### Bug Fixes
+
+* **agent-tools:** sort carriage outcome arrays without mutation (S4043) ([6691424](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6691424072ef6b69794805da04ddb579fdf89841)), closes [#850](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/850)
+* **skills:** carriage refuses symlinks and partial reads; projection roots reconcile ([a3bc025](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a3bc0252a90e6bb9901b179ba3c14dcdb4650d61))
+* **skills:** emission stands down with the sweep on incomplete discovery ([4af777e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4af777e71d4c3809d004752e9a6f186f3c0ac4f3))
+* **skills:** the security round closes three symlink and traversal channels ([e28ab73](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e28ab736739ea7fac94484f2eaed0b45c1897af6))
+
+
+### Features
+
+* **agent-tools:** carry skill supporting directories into projections ([1289ab4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1289ab403f852f8684b828c568ffed58b37dcf4b))
+
+## [1.162.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.162.0...v1.162.1) (2026-08-11)
+
+
+### Bug Fixes
+
+* **agent-tools:** true the turbo-glob validator to turbo's measured semantics (MCP-553) ([c7a67a0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c7a67a08a9326d636afa4f73a2d77ca38a7b8e67)), closes [#850](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/850)
+
+# [1.162.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.161.1...v1.162.0) (2026-08-11)
+
+
+### Features
+
+* **posthog-node:** derive oak_client_surface from transport headers (MCP-558) ([bc52762](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/bc5276249a33750b49b2d15089406d99e8241dad))
+
 ## [1.161.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.161.0...v1.161.1) (2026-08-11)
 
 # [1.161.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.160.0...v1.161.0) (2026-08-11)
