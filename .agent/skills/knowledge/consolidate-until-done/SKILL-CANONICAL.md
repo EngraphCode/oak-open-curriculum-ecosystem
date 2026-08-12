@@ -66,7 +66,7 @@ Never chase fitness functions, they are a signal, not a goal. Caring for underst
 Before substantive work:
 
 1. Read and apply
-   [`start-right-quick`](../start-right-quick/SKILL-CANONICAL.md).
+   [`start-right-quick`](../../start-right-quick/SKILL-CANONICAL.md).
 2. Read and apply
    [`consolidate-docs`](../consolidate-docs/SKILL-CANONICAL.md).
 3. Declare mode `dedicated-knowledge-curation`.
@@ -116,7 +116,7 @@ current session:
    `overflow_disposition` / `continuity-practice` §Disposition (leave-if-live; else
    conserve-insight-and-delete). Never trim understanding or raise a limit to change
    a report: both optimise the proxy and leave the impact untouched (and
-   [`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md)
+   [`permanent-doc-is-the-consolidation-record`](../../../rules/permanent-doc-is-the-consolidation-record.md)
    forbids the report-gaming).
 2. Every live drainable buffer in scope is empty or ready-empty. The
    **open-questions register is driven to zero exactly as pending-graduations is**
@@ -145,7 +145,7 @@ current session:
 6. The closeout reports the **value and impact** — what knowledge reached which
    permanent home, what behaviour it changes — not an accounting of dispositions.
    The commits and the permanent homes ARE the record that the pass happened. Per
-   [`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md)
+   [`permanent-doc-is-the-consolidation-record`](../../../rules/permanent-doc-is-the-consolidation-record.md)
    do NOT produce a durable disposition ledger, before/after counts, or
    provenance pointers; completion is verified by the observable end-state
    (buffers drained by deciding, substance live in its permanent home) plus the
@@ -179,7 +179,7 @@ Before any command or edit that moves, renames, archives, parks, supersedes, or
 replaces a live buffer source, stop and **verify the substance is live in its
 permanent home** — read the home, confirm it is there. That verification is the
 knowledge-preservation screen. Per
-[`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md)
+[`permanent-doc-is-the-consolidation-record`](../../../rules/permanent-doc-is-the-consolidation-record.md)
 the verification is done in-context and then the item leaves cleanly; do NOT
 create a disposition ledger to record what was moved — the commit and the
 permanent home are the record. Do not describe the action as making the fitness
@@ -249,7 +249,7 @@ Report **value and impact**, not accounting:
 - Verdict: `complete` only if the completion contract is satisfied; otherwise
   `pending` or `partial slice landed`.
 
-Per [`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md):
+Per [`permanent-doc-is-the-consolidation-record`](../../../rules/permanent-doc-is-the-consolidation-record.md):
 no disposition-ledger paths, no item counts, no before/after buffer inventories,
 no before/after fitness table, no provenance pointers. The commits and the
 permanent homes are the record. If a fitness file is still worse than soft at

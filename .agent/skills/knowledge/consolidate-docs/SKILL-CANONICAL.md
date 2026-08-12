@@ -16,7 +16,7 @@ entries reaching stability, napkin reaching its rotation threshold,
 Practice Core drifting from current practice, fitness pressure
 accumulating. Session-scoped capture (surprises, ADR/PDR
 candidates, subjective experience) belongs to
-[`session-handoff`](../session-handoff/SKILL-CANONICAL.md) and fires
+[`session-handoff`](../../session-handoff/SKILL-CANONICAL.md) and fires
 every session. This workflow is the **distil-and-graduate edge** of
 the capture → distil → graduate → enforce pipeline.
 
@@ -29,8 +29,8 @@ cross-session convergence is due.
 Deep convergence workflow. This is **not** the default end-of-session flow.
 
 Use this workflow only when one or more triggers hold. If none apply, the
-session still closes through [`wrap`](../wrap/SKILL-CANONICAL.md), whose
-[`session-handoff`](../session-handoff/SKILL-CANONICAL.md) component runs
+session still closes through [`wrap`](../../wrap/SKILL-CANONICAL.md), whose
+[`session-handoff`](../../session-handoff/SKILL-CANONICAL.md) component runs
 without this deep pass.
 
 ## Approach
@@ -113,12 +113,12 @@ not chased.
 
 The canonical methodology and destinations table for moving content out
 of ephemeral surfaces lives at
-[`ephemeral-to-permanent-homing`](../../memory/operational/ephemeral-to-permanent-homing.md).
+[`ephemeral-to-permanent-homing`](../../../memory/operational/ephemeral-to-permanent-homing.md).
 Read that methodology before steps 1, 3, 7, and 10 — it carries the
 destinations table, the entry-point sweep rule, and the
 deferral-honesty discipline that this workflow's homing actions all
 defer to. The session-scoped counterpart is
-[`session-handoff` step 6d](../session-handoff/SKILL-CANONICAL.md),
+[`session-handoff` step 6d](../../session-handoff/SKILL-CANONICAL.md),
 which sweeps platform-specific entry points (`CLAUDE.md`, `AGENTS.md`,
 `GEMINI.md`, `skills.md`, etc.) at every session close.
 
@@ -136,7 +136,7 @@ in Pending rather than promoted, fitness items deferred to a later
 pass, Practice Core refinement queued for owner approval, register
 items left unactioned. Every deferral surfaced or recorded by this
 workflow MUST satisfy
-[PDR-026 §Deferral-honesty discipline](../../practice-core/decision-records/PDR-026-per-session-landing-commitment.md#deferral-honesty-discipline)
+[PDR-026 §Deferral-honesty discipline](../../../practice-core/decision-records/PDR-026-per-session-landing-commitment.md#deferral-honesty-discipline)
 (2026-04-22 Session 6 amendment): a named constraint (clock, cost,
 dependency, owner veto) or a named priority trade-off, plus
 evidence, plus falsifiability (how a future agent could check
@@ -155,7 +155,7 @@ This section is the **per-write rule**: it governs the moment of
 individual capture or graduation. The companion **layer-orchestration
 rule** is
 [PDR-046 (Layered Knowledge Processing — Preserve First, Restructure
-Second)](../../practice-core/decision-records/PDR-046-layered-knowledge-processing.md),
+Second)](../../../practice-core/decision-records/PDR-046-layered-knowledge-processing.md),
 which governs how the per-write rule composes when work intentionally
 traverses multiple layers (capture → distillation → permanent doctrine
 → permanent-doctrine internal restructuring) in a single pass. Read
@@ -204,7 +204,7 @@ to have written less.
 
 When residual fitness pressure persists at rest after a layer's
 processing completes, the default response is **graduation upward, not
-compression** ([PDR-046 §Move 3](../../practice-core/decision-records/PDR-046-layered-knowledge-processing.md#move-3--a-layers-fitness-pressure-is-addressed-by-processing-the-next-layer-up-not-by-compression)).
+compression** ([PDR-046 §Move 3](../../../practice-core/decision-records/PDR-046-layered-knowledge-processing.md#move-3--a-layers-fitness-pressure-is-addressed-by-processing-the-next-layer-up-not-by-compression)).
 Substance ready for its durable home leaves the layer to that home;
 the source layer's shape relaxes naturally. Refinement / split /
 target-revision becomes the appropriate response **only** when no
@@ -244,14 +244,14 @@ persist:
 
 - `graduated` - durable home created or updated (verify it is there).
 - `duplicate` - already represented in a durable home (verify it is there).
-  **Recurrence check ([PDR-098](../../practice-core/decision-records/PDR-098-doctrine-traction-firing-detection-response.md)):**
+  **Recurrence check ([PDR-098](../../../practice-core/decision-records/PDR-098-doctrine-traction-firing-detection-response.md)):**
   before treating an already-homed concept as a routine duplicate-removal, ask whether it has
   **recurred despite its home** — multiple instances across napkin rotations or comms events, or the
   owner re-raising the same correction. A recurring-despite-home concept is NOT a silent duplicate: the
   recurrence is first-class evidence that the home's *mechanism is not firing* (the home is passive
   guidance and loses at the action moment — `passive-guidance-loses-to-artefact-gravity`). Route it to
   the doctrine-traction mechanism lane (PDR-098's empty quadrant / the semantic-pathogen inventory in
-  [`action-time-structural-interrupt-design-space.plan.md`](../../plans-backlog-2026-07/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md))
+  [`action-time-structural-interrupt-design-space.plan.md`](../../../plans-backlog-2026-07/agentic-engineering-enhancements/future/action-time-structural-interrupt-design-space.plan.md))
   as recurrence evidence, THEN remove the duplicate instance. Deleting the duplicate without capturing
   the recurrence throws away the exact signal that forces the mechanism decision — which is why the
   same corrections keep recurring. (This step gives recurrence-capture a *defined firing moment* at the
@@ -263,7 +263,7 @@ persist:
   `session-completion`; it is not a final completion state for an owner goal
   that asks to continue until buffers are empty.
 
-Per [`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md),
+Per [`permanent-doc-is-the-consolidation-record`](../../../rules/permanent-doc-is-the-consolidation-record.md),
 do **not** write these dispositions into a durable ledger, adjacent disposition
 note, curation report, or count line. The commit and the permanent home are the
 record; a ledger restating "item X went to home Y" is accounting, not value.
@@ -287,7 +287,7 @@ accounting record of what was moved.
 
 ## Discovery-Run Rescue Sets Are Intake Work-Lists
 
-The corpus-analysis pipeline ([PDR-122](../../practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md))
+The corpus-analysis pipeline ([PDR-122](../../../practice-core/decision-records/PDR-122-agentic-judgment-pipelines.md))
 produces, per run, a committed discovery/salvage report plus a machine-readable
 keep-set (a tier table). Those rescue sets are **first-class consolidation
 intake**, equal to the capture buffers above, with one structural difference:
@@ -357,7 +357,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
 3. **Sweep ephemeral surfaces and home settled content.** Identify
    any content in ephemeral locations that now functions as settled
    documentation, and home it per the
-   [ephemeral-to-permanent-homing methodology](../../memory/operational/ephemeral-to-permanent-homing.md)
+   [ephemeral-to-permanent-homing methodology](../../../memory/operational/ephemeral-to-permanent-homing.md)
    (canonical destinations table, entry-point rule, deferral-honesty
    discipline). At thread-scoped depth, the surfaces to sweep are
    the full superset of what `session-handoff` step 6a auxiliary
@@ -467,7 +467,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
     log. The `comms-archive-move` harness needs only its per-event ledger
     replaced by the watermark (MCP-185); until that lands, a curator pass
     runs the gates above by hand and moves with the notice posted.
-4. **Audit `.agent/experience/` for three things, not one.** The experience directory is for *subjective experience* — what work was like, not what was done. The audit therefore has three distinct purposes (see [`../../experience/README.md § Why the audit step exists`](../../experience/README.md)):
+4. **Audit `.agent/experience/` for three things, not one.** The experience directory is for *subjective experience* — what work was like, not what was done. The audit therefore has three distinct purposes (see [`../../../experience/README.md § Why the audit step exists`](../../../experience/README.md)):
 
    a. **Preserve the purpose** — scan for files that have drifted into technical content; this displaces the subjective register the files are meant to hold.
 
@@ -477,7 +477,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
 
    Purpose (c) is the most valuable and the most easily skipped. Even when purposes (a) and (b) produce no work (no drift, no stranded content), purpose (c) still fires — read across the recent experiences with the cross-plane / cross-session lens, and record any emergent observation for the graduation scan.
 
-   Experience writing is **strictly voluntary** (see [`experience/README.md`](../../experience/README.md)): there is no quota, obligation, or session-close requirement, and the corpus is **not** monitored for volume or thinning. Pressure to record distorts the motivation and the result — a reflection written because it felt *due* is performance, not experience. Do **not** treat a quiet or thinning corpus as a problem, a degraded capture edge, or a loop-health signal; not writing is a valid, ordinary outcome. Purpose (c) reads across the experiences that *do* exist to surface emergent insight — it never measures whether enough were written.
+   Experience writing is **strictly voluntary** (see [`experience/README.md`](../../../experience/README.md)): there is no quota, obligation, or session-close requirement, and the corpus is **not** monitored for volume or thinning. Pressure to record distorts the motivation and the result — a reflection written because it felt *due* is performance, not experience. Do **not** treat a quiet or thinning corpus as a problem, a degraded capture edge, or a loop-health signal; not writing is a valid, ordinary outcome. Purpose (c) reads across the experiences that *do* exist to surface emergent insight — it never measures whether enough were written.
 5. **Extract reusable patterns.** Review completed work for patterns that meet the barrier: broadly applicable, proven by implementation, prevents a recurring mistake, and stable. This covers all types of learning — code patterns, process patterns, architecture patterns, structural observations, agent operational concerns, behavioural rules, domain-specific gotchas — anything reusable that would change behaviour if read before similar work. Extract qualifying patterns to `.agent/memory/active/patterns/` as specific ecosystem-grounded instances (one pattern per file, markdown with frontmatter). See `.agent/memory/active/patterns/README.md` for the frontmatter schema, category options, and barrier criteria.
 
    **Three destinations, not one** (per PDR-007). The substance shape determines the home:
@@ -493,9 +493,9 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
 
    **Cross-session scan**: Read napkin entries from the current rotation window as a chronological sequence, not just the latest session. The most important patterns often emerge from the *interaction* of observations across sessions — a correction in session 4 may reframe an observation from session 1, or a recurring mistake across sessions may reveal a structural cause invisible in any single session. Ask: "What do these sessions know together that none knows alone?" See `patterns/cross-session-pattern-emergence.md`.
 
-   **Taxonomy-seam meta-check** (Family B Layer 1 per [PDR-029](../../practice-core/decision-records/PDR-029-perturbation-mechanism-bundle.md); consumes register item `memory-taxonomy-meta-check`): ask — *"Did any napkin entry or pattern candidate in this pass resist classification into the three memory planes (`active/`, `operational/`, `executive/`)? Did any entry naturally belong in multiple planes at once?"* If yes, capture as a seam-review candidate in the pending-graduations register with `graduation-target: taxonomy-review`. Multiple seam-review candidates accumulating (≥3 in a single consolidation, or ≥5 across consecutive consolidations) signal that the three-plane taxonomy itself needs re-evaluation — raise with owner for a `taxonomy-review` session rather than forcing candidates into an ill-fitting plane.
+   **Taxonomy-seam meta-check** (Family B Layer 1 per [PDR-029](../../../practice-core/decision-records/PDR-029-perturbation-mechanism-bundle.md); consumes register item `memory-taxonomy-meta-check`): ask — *"Did any napkin entry or pattern candidate in this pass resist classification into the three memory planes (`active/`, `operational/`, `executive/`)? Did any entry naturally belong in multiple planes at once?"* If yes, capture as a seam-review candidate in the pending-graduations register with `graduation-target: taxonomy-review`. Multiple seam-review candidates accumulating (≥3 in a single consolidation, or ≥5 across consecutive consolidations) signal that the three-plane taxonomy itself needs re-evaluation — raise with owner for a `taxonomy-review` session rather than forcing candidates into an ill-fitting plane.
 
-   **Cross-plane path scan** (Family B complement; per PDR-028 Executive-Memory Feedback Loop): for each napkin entry or pattern candidate in this pass, ask — *"Does this carry `Source plane: executive` or `cross_plane: true` as an origin / span tag (per [PDR-030](../../practice-core/decision-records/PDR-030-plane-tag-vocabulary.md))?"* Entries tagged across planes route through the graduation channels defined in PDR-028 rather than the default same-plane channel.
+   **Cross-plane path scan** (Family B complement; per PDR-028 Executive-Memory Feedback Loop): for each napkin entry or pattern candidate in this pass, ask — *"Does this carry `Source plane: executive` or `cross_plane: true` as an origin / span tag (per [PDR-030](../../../practice-core/decision-records/PDR-030-plane-tag-vocabulary.md))?"* Entries tagged across planes route through the graduation channels defined in PDR-028 rather than the default same-plane channel.
 6. **Rotate the napkin if needed.** If `.agent/memory/active/napkin.md` exceeds ~500 lines, perform the distillation rotation:
 
    **Process before archive**: archiving is the final preservation move for an
@@ -573,8 +573,8 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
 
    - `.agent/memory/active/distilled.md` — refined cross-session entries from prior napkin rotations.
    - `.agent/memory/active/napkin.md` — recent surprises and candidate tags.
-   - **[`.agent/memory/operational/pending-graduations.md`](../../memory/operational/pending-graduations.md) (the pending-graduations register)** — the structured list of captured candidates with per-item `captured-date`, `source-surface`, `graduation-target`, `trigger-condition`, and `status`. Items with `status: due` or `status: overdue` are the primary graduation candidates for this pass. Items with `status: pending` are reviewed to see whether their trigger condition has fired since last consolidation. The empty buffer is the target, so any item that has lingered is `overdue`, and every item is **decided in the pass** — graduate it, reject it, or confirm it duplicate. The disposition is recorded by the landed artefact and the commit, not a ledger; the decision-debt count metric (ADR-144) reports the live count and gates on it. The register was split out from `repo-continuity.md § Deep consolidation status` on 2026-04-30; older references to that location route here.
-   - **[`.agent/memory/operational/open-questions.md`](../../memory/operational/open-questions.md) (the open-questions register)** — the structured list of non-urgent unresolved decision-shapes with `Q-NNN` identity, context, deferral reason, suggested resolution path, status, and links. Open entries are not graduation candidates by default; they are consolidation-time questions to answer, surface to owner, withdraw, or leave open with deferral-honesty.
+   - **[`.agent/memory/operational/pending-graduations.md`](../../../memory/operational/pending-graduations.md) (the pending-graduations register)** — the structured list of captured candidates with per-item `captured-date`, `source-surface`, `graduation-target`, `trigger-condition`, and `status`. Items with `status: due` or `status: overdue` are the primary graduation candidates for this pass. Items with `status: pending` are reviewed to see whether their trigger condition has fired since last consolidation. The empty buffer is the target, so any item that has lingered is `overdue`, and every item is **decided in the pass** — graduate it, reject it, or confirm it duplicate. The disposition is recorded by the landed artefact and the commit, not a ledger; the decision-debt count metric (ADR-144) reports the live count and gates on it. The register was split out from `repo-continuity.md § Deep consolidation status` on 2026-04-30; older references to that location route here.
+   - **[`.agent/memory/operational/open-questions.md`](../../../memory/operational/open-questions.md) (the open-questions register)** — the structured list of non-urgent unresolved decision-shapes with `Q-NNN` identity, context, deferral reason, suggested resolution path, status, and links. Open entries are not graduation candidates by default; they are consolidation-time questions to answer, surface to owner, withdraw, or leave open with deferral-honesty.
 
    **7a. Scan for ADR-shaped and PDR-shaped doctrine** (do this *before* applying the three outcomes below). Walk every entry in `distilled.md` and every recent napkin surprise and ask two questions:
 
@@ -627,7 +627,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    Practice Core structural changes (new sections, reorganisation, new artefact types, new Core directories) are rare but valid — they require user approval and are typically captured as PDRs against the Core contract. This **closes the loop** on the knowledge gained from sessions.
 
    **7b.1. Drain the open-questions register.** Walk every entry in
-   [`.agent/memory/operational/open-questions.md`](../../memory/operational/open-questions.md)
+   [`.agent/memory/operational/open-questions.md`](../../../memory/operational/open-questions.md)
    whose `Status` begins with `open`. For each entry, choose one outcome and
    update the entry in place:
 
@@ -660,16 +660,16 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
 
    **Every new or amended rule in `.agent/rules/`** MUST cite the ADR(s) AND/OR PDR(s) it operationalises at the top of the file. Every new or amended skill in `.agent/skills/`** SHOULD cite its establishing ADR(s) and/or PDR(s). This is the enforce-edge reinforcement: enforcement surfaces that cannot name their source decision cannot evolve with it. Rules operationalising Practice-governance substance (review discipline, planning discipline, etc.) cite the relevant PDR — they do not need to cite a host ADR if the substance lives only as Practice governance.
 
-   **7c. Audit thread-register freshness** <a id="thread-register-freshness"></a> (Family-A Class-A.2 operational layer per [PDR-029](../../practice-core/decision-records/PDR-029-perturbation-mechanism-bundle.md), as amended 2026-04-21 to make documentation-first the canonical shape). Walk these six checks over the thread identity register. Each check is performed by reading markdown from authoritative sources — no code, no platform-specific tooling. Findings surface as a numbered list for owner action; the audit itself does not mutate surfaces.
+   **7c. Audit thread-register freshness** <a id="thread-register-freshness"></a> (Family-A Class-A.2 operational layer per [PDR-029](../../../practice-core/decision-records/PDR-029-perturbation-mechanism-bundle.md), as amended 2026-04-21 to make documentation-first the canonical shape). Walk these six checks over the thread identity register. Each check is performed by reading markdown from authoritative sources — no code, no platform-specific tooling. Findings surface as a numbered list for owner action; the audit itself does not mutate surfaces.
 
    The six checks:
 
-   1. **Stale `last_session`** — for every active thread listed in [`.agent/memory/operational/repo-continuity.md § Active threads`](../../memory/operational/repo-continuity.md#active-threads), open the thread's next-session record and compute today's date minus each identity row's `last_session`. Flag any identity row on a still-active thread where `last_session` is older than 14 days (the `IDENTITY_STALENESS_DAYS` threshold named in PDR-029).
+   1. **Stale `last_session`** — for every active thread listed in [`.agent/memory/operational/repo-continuity.md § Active threads`](../../../memory/operational/repo-continuity.md#active-threads), open the thread's next-session record and compute today's date minus each identity row's `last_session`. Flag any identity row on a still-active thread where `last_session` is older than 14 days (the `IDENTITY_STALENESS_DAYS` threshold named in PDR-029).
    2. **Orphan threads** — flag any active thread whose `Participating agent identities` table is empty.
    3. **Missing required identity fields** — flag any row missing one of `agent_name`, `platform`, `model`, `session_id_prefix`, `role`, `first_session`, `last_session` (per the PDR-027 identity schema).
    4. **Duplicate identity rows** — flag any thread where two rows share the same platform + model + `agent_name` tuple (additive-identity violation per PDR-027 — two visits should have coalesced into one row with an updated `last_session`, not accumulated).
    5. **Active threads ↔ next-session record correspondence** — for every thread listed in `§ Active threads`, confirm a file exists at the declared `Next-session record` path (canonical `threads/<slug>.next-session.md`). Flag any mismatch.
-   6. **Retired-record banner hygiene** — checks 1–5 verify that *live* threads (active or paused) have well-formed records; this check covers the *retired* case. For every `*.next-session.md` file under [`threads/`](../../memory/operational/threads/), confirm the thread appears in either [`repo-continuity.md § Active Threads`](../../memory/operational/repo-continuity.md#active-threads) or `§ Paused Threads`. A record present on disk but absent from **both** indexes is a retired or completed thread (its work has concluded — e.g. a merged single-PR closure thread). Flag any such record whose top lacks a **retirement banner** per the convention in [`threads/README.md`](../../memory/operational/threads/README.md#retirement-banner-convention) (a leading blockquote naming the retired/completed state, the conclusion date, and where the work concluded). Unlike checks 1–5, this check's remedy is a small edit: apply the missing banner as a follow-on consolidation diff (the same way 7d's archival edits land), not merely a flag — a retired record left unbannered silently reads as live to the next agent who opens it.
+   6. **Retired-record banner hygiene** — checks 1–5 verify that *live* threads (active or paused) have well-formed records; this check covers the *retired* case. For every `*.next-session.md` file under [`threads/`](../../../memory/operational/threads/), confirm the thread appears in either [`repo-continuity.md § Active Threads`](../../../memory/operational/repo-continuity.md#active-threads) or `§ Paused Threads`. A record present on disk but absent from **both** indexes is a retired or completed thread (its work has concluded — e.g. a merged single-PR closure thread). Flag any such record whose top lacks a **retirement banner** per the convention in [`threads/README.md`](../../../memory/operational/threads/README.md#retirement-banner-convention) (a leading blockquote naming the retired/completed state, the conclusion date, and where the work concluded). Unlike checks 1–5, this check's remedy is a small edit: apply the missing banner as a follow-on consolidation diff (the same way 7d's archival edits land), not merely a flag — a retired record left unbannered silently reads as live to the next agent who opens it.
 
    Record each finding as `[thread-slug-or-path]: <observed state> (<what the rule says it should be>)`. Present the aggregated list to the owner at consolidation close. The audit's enforcement force is that this step is part of `/oak-consolidate-docs` — any agent running the consolidation ritual is obligated to walk the six checks, not remember them. The "do not silently skip" posture is the same authority as earlier steps (7a ADR/PDR scan, 7b graduation application).
 
@@ -677,8 +677,8 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    `active-claims.json`,
    `closed-claims.archive.json`,
    and
-   [`conversations/`](../../state/collaboration/conversations/) plus
-   [`escalations/`](../../state/collaboration/escalations/) surfaces are
+   [`conversations/`](../../../state/collaboration/conversations/) plus
+   [`escalations/`](../../../state/collaboration/escalations/) surfaces are
    signal-like state plus durable lifecycle history. The audit reports the
    live protocol state before archiving stale entries. Findings are
    informational unless they identify malformed state.
@@ -761,13 +761,13 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
       `[evidence-bundle] <path-or-id>: <missing field>`.
    11. **Schema validation**: confirm `active-claims.json` parses as JSON
       and conforms to
-      [`active-claims.schema.json`](../../../agent-tools/src/collaboration-state/schemas/active-claims.schema.json).
+      [`active-claims.schema.json`](../../../../agent-tools/src/collaboration-state/schemas/active-claims.schema.json).
       Confirm `closed-claims.archive.json` parses as JSON and conforms to
-      [`closed-claims.schema.json`](../../../agent-tools/src/collaboration-state/schemas/closed-claims.schema.json).
+      [`closed-claims.schema.json`](../../../../agent-tools/src/collaboration-state/schemas/closed-claims.schema.json).
       Confirm each conversation file parses as JSON and conforms to
-      [`conversation.schema.json`](../../../agent-tools/src/collaboration-state/schemas/conversation.schema.json).
+      [`conversation.schema.json`](../../../../agent-tools/src/collaboration-state/schemas/conversation.schema.json).
       Confirm each escalation file parses as JSON and conforms to
-      [`escalation.schema.json`](../../../agent-tools/src/collaboration-state/schemas/escalation.schema.json).
+      [`escalation.schema.json`](../../../../agent-tools/src/collaboration-state/schemas/escalation.schema.json).
       Malformed JSON or schema violations surface as
       `[<file>]: <validator output>` for owner review. There is no
       automated validation tooling at this surface (per the source plan's
@@ -801,7 +801,7 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
 
    1. Enumerate Core surfaces. For each, the question is: does recent session content (this session's work, the rotated napkin entries, the graduated PDRs) contradict, extend, refine, or supersede anything here?
    2. Surface candidates to the user as a numbered list. For each candidate: Core surface affected + type of change (contradict / extend / refine / supersede) + one-sentence summary of the evidence and proposed amendment.
-   3. **Author Core amendments on best effort; the owner does NOT pre-approve each one** ([PDR-104](../../practice-core/decision-records/PDR-104-best-effort-doctrine-authoring-in-consolidation.md)). The main agent — never a sub-agent, per [PDR-003](../../practice-core/decision-records/PDR-003-sub-agent-protection-of-foundational-practice-docs.md) — drafts and applies, with the care-and-consult posture on dense Core content. Review rigor is the PDR-101 graduation quorum and ordinary reviewer dispatch (does the doctrine hold up?), not an owner pre-ratification (may I write it?). The kept action-authority / safety gates (merge, plan-promotion, Sonar authorisation, `--no-verify`, fitness-limit raise) are unaffected. Surface the candidate list (step 2) so the owner reviews through the normal flow, not as a pre-approval gate. PDRs in `decision-records/` follow the same discipline as the trinity.
+   3. **Author Core amendments on best effort; the owner does NOT pre-approve each one** ([PDR-104](../../../practice-core/decision-records/PDR-104-best-effort-doctrine-authoring-in-consolidation.md)). The main agent — never a sub-agent, per [PDR-003](../../../practice-core/decision-records/PDR-003-sub-agent-protection-of-foundational-practice-docs.md) — drafts and applies, with the care-and-consult posture on dense Core content. Review rigor is the PDR-101 graduation quorum and ordinary reviewer dispatch (does the doctrine hold up?), not an owner pre-ratification (may I write it?). The kept action-authority / safety gates (merge, plan-promotion, Sonar authorisation, `--no-verify`, fitness-limit raise) are unaffected. Surface the candidate list (step 2) so the owner reviews through the normal flow, not as a pre-approval gate. PDRs in `decision-records/` follow the same discipline as the trinity.
    4. Apply amendments as diffs. If substantive, amendments are captured in the Core `CHANGELOG.md` with a short summary.
 
    **When nothing qualifies**: say so and move on. Not every consolidation produces Core refinement. But "nothing qualifies" is a conclusion reached by review, not by skipping review.
@@ -897,7 +897,7 @@ that matches the declared mode:
   as a before/after accounting table;
 - explicit verdict: `complete`, `partial slice landed`, or `pending`.
 
-Per [`permanent-doc-is-the-consolidation-record`](../../rules/permanent-doc-is-the-consolidation-record.md):
+Per [`permanent-doc-is-the-consolidation-record`](../../../rules/permanent-doc-is-the-consolidation-record.md):
 the commits and the permanent homes ARE the record the pass happened. Do not
 report before/after counts, a disposition-ledger pointer, a before/after fitness
 table, or provenance pointers. Fitness is a signal to explain when it points at
