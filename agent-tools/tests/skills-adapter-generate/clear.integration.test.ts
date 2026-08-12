@@ -181,4 +181,21 @@ describe('clearGeneratedAdapters over a real filesystem (the destructive path)',
     expect(result.kind).toBe('error');
     expect(repoPathExists(outside, 'dotclaude/skills/oak-victim/SKILL.md')).toBe(true);
   });
+
+  it('guards BOTH roots before removing anything: a hostile second root leaves the first root intact (no partial pass)', async () => {
+    const root = sandboxRepo();
+    const outside = sandboxRepo();
+    // A legitimate first surface with real Practice projections...
+    writeRepoFile(root, '.claude/skills/oak-commit/SKILL.md', OURS);
+    // ...and a symlinked SECOND surface root pointing at a real external tree.
+    writeRepoFile(outside, 'skills/vendor/NOTES.txt', 'external\n');
+    symlinkRepoPath(root, '.agents/skills', `${outside}/skills`);
+
+    const result = await clearGeneratedAdapters(root);
+
+    expect(result.kind).toBe('error');
+    // The whole-run precondition ran before any removal, so the legitimate
+    // first-root projection is untouched — not half-cleared.
+    expect(repoPathExists(root, '.claude/skills/oak-commit/SKILL.md')).toBe(true);
+  });
 });

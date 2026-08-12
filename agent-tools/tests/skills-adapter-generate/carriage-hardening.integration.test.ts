@@ -155,7 +155,15 @@ describe('symlink safety over a real filesystem', () => {
 
     const checked = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
     expect(checked.refused.some((message) => /resolves outside/.test(message))).toBe(true);
+    // The guard runs BEFORE the per-canonical reads: no external content is
+    // classified or byte-compared, so every content stream is empty (these
+    // assertions regress on the pre-guard ordering, where the checker read
+    // the linked tree and populated missing/drifted/orphaned).
     expect(checked.stale).toEqual([]);
+    expect(checked.missing).toEqual([]);
+    expect(checked.drifted).toEqual([]);
+    expect(checked.orphaned).toEqual([]);
+    expect(checked.carriedFileCount).toBe(0);
   });
 
   it('refuses a canonical-side symlink loudly: nothing is emitted for the skill and both surfaces report the refusal', async () => {

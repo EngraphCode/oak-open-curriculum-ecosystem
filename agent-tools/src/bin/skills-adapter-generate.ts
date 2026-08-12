@@ -60,6 +60,10 @@ function reportCheckFailures(result: Awaited<ReturnType<typeof checkAdapters>>):
 async function runCheck(repoRoot: string, prefix: string): Promise<number> {
   const result = await checkAdapters({ repoRoot, prefix });
   if (result.canonicalCount === 0) {
+    if (result.refused.length > 0) {
+      const refusedList = result.refused.map((p) => `  ${p}`).join('\n');
+      stderr.write(`Refusals:\n${refusedList}\n`);
+    }
     stderr.write(
       'Zero canonical skills discovered — a missing or unreadable `.agent/skills` root, not an empty estate. Refusing to certify.\n',
     );

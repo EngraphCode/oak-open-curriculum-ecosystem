@@ -15,7 +15,7 @@ import { join } from 'node:path';
 
 import { parseAdapterStubPointer } from './adapter-stub.js';
 import { realCarriageReadFs, type FsRead } from './carriage-fs.js';
-import { PROJECTION_SURFACE_ROOTS, surfaceRootGuardFailure } from './surface-roots.js';
+import { allSurfaceRootFailures, PROJECTION_SURFACE_ROOTS } from './surface-roots.js';
 
 /**
  * Result of listing an adapter surface. A missing surface is `ok` with
@@ -145,10 +145,17 @@ export async function clearGeneratedAdapters(
   repoRoot: string,
   fs: ClearFs = realClearFs,
 ): Promise<ClearResult> {
-  const repoReal = await fs.resolveRealPath(repoRoot);
+  // Whole-run precondition: BOTH surface roots are guarded before ANY
+  // removal, so a symlinked second root can never permit a partial
+  // destructive pass over the first (the checker uses the same
+  // before-acting shape). A failure here means nothing was removed.
+  const rootFailures = await allSurfaceRootFailures(repoRoot, (path) => fs.resolveRealPath(path));
+  if (rootFailures.length > 0) {
+    return { kind: 'error', message: rootFailures.join('; ') };
+  }
   const removed: string[] = [];
   for (const surface of PROJECTION_SURFACE_ROOTS) {
-    const outcome = await clearSurface(join(repoRoot, surface), surface, repoReal, fs);
+    const outcome = await clearSurface(join(repoRoot, surface), fs);
     if (outcome.kind === 'error') {
       return outcome;
     }
@@ -157,24 +164,9 @@ export async function clearGeneratedAdapters(
   return { kind: 'ok', removed };
 }
 
-/** Guard the surface root, then remove exactly its marker-carrying
- * directories. A guard failure, an unlistable surface, or an
- * unclassifiable stub aborts before (or between) removals. */
-async function clearSurface(
-  root: string,
-  surface: string,
-  repoReal: FsRead<string>,
-  fs: ClearFs,
-): Promise<ClearResult> {
-  const guardFailure = await surfaceRootGuardFailure({
-    root,
-    surface,
-    repoReal,
-    resolveRealPath: (path) => fs.resolveRealPath(path),
-  });
-  if (guardFailure !== undefined) {
-    return { kind: 'error', message: guardFailure };
-  }
+/** Remove exactly a guarded surface's marker-carrying directories. An
+ * unlistable surface or an unclassifiable stub aborts. */
+async function clearSurface(root: string, fs: ClearFs): Promise<ClearResult> {
   const listed = await fs.listSubdirectoryNames(root);
   if (listed.kind === 'error') {
     return listed;
