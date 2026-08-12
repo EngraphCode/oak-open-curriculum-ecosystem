@@ -62,9 +62,31 @@ normal case for a teacher looking for one thing during a lesson.
 - **Line height rises with measure** — a wide column needs more leading than
   a narrow one to keep line returns reliable.
 
-*Failure shape:* a heading level chosen because the rendered size looked
-right, which silently breaks document outline, keyboard navigation, and
-every assistive technology that reads structure.
+### The two ladders
+
+Type carries two independent ladders, and conflating them does damage in
+both directions.
+
+- **`h1`–`h6` is the document's outline.** It is what screen-reader users
+  navigate by, what "jump to next heading" walks, and what a document
+  summary is built from. It descends without skips because an outline is a
+  tree, not a size ramp.
+- **`oak-heading-1…7` is the visual step.** It says how loud this text is on
+  this screen, and nothing about structure.
+
+Oak pairs them deliberately: `<h1 class="oak-heading-2">` is the documented
+masthead pairing, and specimens carry `<h3 class="oak-heading-5">`. The
+correct instinct is not "one level, one class" but "choose each from its own
+ladder".
+
+*Failure shape, direction one:* an author wants a smaller rendered step and
+demotes an `<h2>` to an `<h3>` to get it — silently breaking the outline,
+keyboard navigation, and every assistive technology that reads structure.
+
+*Failure shape, direction two:* an author believes levels and classes must
+correspond, so every `<h2>` takes `oak-heading-2` regardless of how loud
+that section should be — flattening visual hierarchy onto the document tree
+and losing the ability to make one thing primary.
 
 ## Interaction: declare, confirm, forgive
 
@@ -77,6 +99,16 @@ design defect regardless of how it looks.
 Target size is about the *hit area*, not the glyph. The common defect is a
 control that looks large and responds only at its centre, which is
 indistinguishable from a broken page to the person tapping it.
+
+Two thresholds, kept apart. WCAG 2.2 **AA** requires 24×24 CSS pixels
+(SC 2.5.8, with its exceptions for inline, essential, and
+user-agent-controlled targets). **44×44 is AAA** (SC 2.5.5), and Oak adopts
+it as the house floor because the audience is teachers on classroom
+hardware, often standing, often on a tablet. Both numbers are real and they
+mean different things: a 32px control misses Oak's floor and still meets AA
+on size. Reporting it as an AA failure is a false conformance claim, and
+this skill routes conformance judgment to the accessibility reviewer
+precisely so that claim is never made casually.
 
 ## Motion
 

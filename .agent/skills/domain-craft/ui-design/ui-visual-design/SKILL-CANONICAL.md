@@ -41,10 +41,16 @@ exist precisely because that is ordinary here). Two elements competing for
 primacy is the most common defect: resolve it by demoting one, never by
 amplifying both.
 
-Weight comes free from the system's type classes (`oak-heading-1…7`,
-`oak-body-1…4`). Reach for a heading level because of its rank in the
-document, then let the class carry the size — never pick a level because the
-size looks right.
+**Semantic level and visual step are chosen independently.** `h1`–`h6` is
+document structure: it follows the outline, descends without skips, and is
+what assistive technology navigates by. `oak-heading-1…7` is visual
+hierarchy: it follows how loud this text should be on this screen. They are
+two separate decisions, and Oak pairs them deliberately across the ramp —
+`<h1 class="oak-heading-2">` is the documented masthead pairing, and
+specimens carry `<h3 class="oak-heading-5">`. Pick the level from the
+document's structure, pick the class from the screen's hierarchy, and
+distort neither to reach the other: wanting a smaller step is not a reason
+to demote a heading, and wanting a heading is not a reason to jump the ramp.
 
 ## Layout and grouping
 
@@ -80,9 +86,13 @@ case is not an emphasis tool here.
   offset shadow, hover widen, press collapse with a +2/+2 translate via
   `.oak-interactive`) is the estate's answer to both — use it rather than
   minting a new affordance vocabulary.
-- **Target size and reach**: ≥44px, and hit areas that match what looks
-  clickable. A 12px icon inside a 44px target is fine; a 44px-looking control
-  with a 12px target is a defect.
+- **Target size and reach**: Oak's design-system floor is **≥44px**, and hit
+  areas must match what looks clickable. A 12px icon inside a 44px target is
+  fine; a 44px-looking control with a 12px target is a defect. Keep the
+  conformance claim straight: WCAG 2.2 **AA** is SC 2.5.8 at 24×24 CSS
+  pixels (with its exceptions); 44×44 is SC 2.5.5 at **AAA**. So a 32px
+  target misses Oak's floor while still meeting AA on size — say that, and
+  never call it an AA failure on size alone.
 - **State is never colour alone** — pair it with shape, position, icon, or
   text. This is a design obligation, not only an accessibility one: it is what
   makes a state legible on a washed-out projector.
@@ -104,9 +114,13 @@ them, which is the signal to carry that meaning some other way.
 
 ## Floors, not goals
 
-WCAG 2.2 AA is the floor every composition starts above — contrast, focus
-visibility, target size, no colour-only state. Meeting the floor is not a
-design achievement; falling below it is a defect that stops the work.
+Two floors, and they are not the same floor. **WCAG 2.2 AA** is the
+conformance floor — contrast, focus visibility, no colour-only state, and
+target size at SC 2.5.8's 24×24. **Oak's design-system floor sits above it**
+in places, most visibly at ≥44px targets, which is AAA's SC 2.5.5 threshold
+adopted as house standard because the audience is teachers on classroom
+hardware. Say which floor a thing misses. Meeting either is not a design
+achievement; falling below the AA one is a defect that stops the work.
 Conformance *judgment* belongs to the accessibility reviewer; this skill's
 obligation is to design so the question rarely arises.
 
