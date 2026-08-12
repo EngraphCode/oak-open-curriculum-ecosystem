@@ -63,8 +63,12 @@ stamp; the executing seat is the one the owner starts.
   files/day and mutates during any session).
 - **The pass is graduation-led, not duplicate-led** (measured, not
   assumed): joining the 2026-08-05 audit's per-file verdicts against
-  today's index, the live set reads 48 present / 44 partial / 28
-  absent / 3 ephemeral / 1 vendor-scoped — **58% absent-or-partial**.
+  today's index MATCHED 124 of the 147-file baseline — those matches
+  read 48 present / 44 partial / 28 absent / 3 ephemeral /
+  1 vendor-scoped, **58% absent-or-partial OF THE AUDITED SUBSET**;
+  the 23 unmatched files (post-audit additions) get their verdicts at
+  the S1 census, and the overview's ~72-homes estimate is scoped to
+  the audited matches until then.
   The cheap duplicate-verify class dominates only the already-drained
   stratum. The audit's own disposition note applies: graduating these
   is curation-lane work — each row needs its named home authored,
@@ -202,8 +206,9 @@ stamp; the executing seat is the one the owner starts.
    the stamp's explicit confirmation); re-run the S1 census as the
    completion gate (every graduate/duplicate home read back before
    its index line retired — the pre-archive verification gate).
-   Acceptance: every disposition executed or carried in a named
-   batch; index = live entries only; gate recomputation clean.
+   Acceptance: every disposition EXECUTED — the named-batch list is
+   empty at slice close (a queued batch is in-progress state, never
+   acceptance); index = live entries only; gate recomputation clean.
 4. **S4 — Mint the skill.** `platform-memory-consolidation` authored
    from the preserved S2/S3 transcripts and frictions; four-platform
    scope; standard per the dependency note. Acceptance: skill lands

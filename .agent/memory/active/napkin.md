@@ -1921,6 +1921,109 @@ Review-ratchet worked instance: nine rounds on the skill PR (9/2/1/3/3/2/2/3/0),
   green). Cure: one cwd per background chain — split multi-checkout work into
   separate commands, each opening with its own explicit `cd || exit 1`.
 
+## 2026-08-11 ~22:0xZ — S1b (MCP-553 → PR #861) + the 851 phantom discrimination (Wren calls Downdraft, 6b29b5)
+
+- VENDOR PROBES SPLIT THE CLASS BEFORE ENCODING: two reviewers' isolated-fixture
+  probes both measured backslash-in-turbo-inputs as "rejects the config" — the
+  in-repo probe of a DIFFERENT sub-case (`\.`, a VALID escape) was accepted yet
+  resolved zero files. Neither probe was wrong; each measured one sub-case of a
+  class. Cure: before encoding a vendor refusal/normalisation, enumerate the
+  class's sub-cases (valid/invalid escape, escaping/non-escaping `..`) and
+  probe the exact spelling being encoded; scratch fixtures also diverge from
+  the real repo (git-context, children-are-directories) — confirm in-repo.
+- SONAR "PHANTOM" CLASS DISSOLVED (owner check-again word, 21:56Z): both
+  #850 and #851 gate failures were GENUINE issues hidden by OUR query facet —
+  the default issues/search (and resolved=false) returned zero rows while the
+  explicit issueStatuses=OPEN,CONFIRMED facet named all three #851 findings
+  exactly (typescript:S4043, carriage.ts:110 + projection-roots.ts:93 twice,
+  matching the per-file measures). The intermediate "platform-persistent"
+  verdict this block briefly carried was wrong: re-analysis didn't clear the
+  gate because the issues were real. Standing cure: at any measures-vs-index
+  divergence, query with the EXPLICIT issueStatuses facet before concluding
+  divergence; the per-file measure names the file, the facet names the rule
+  and line. (#850's construct removal cured a real finding too — the query
+  surface was blind both times, the platform never was.)
+- TSDOC LEDGER `*/` TRAP: a probe-ledger row quoting a glob with trailing
+  slash (`bin/*/`) terminates the block comment mid-file — the parser error
+  surfaces two lines later. Reword glob-with-trailing-slash examples in prose
+  inside block comments.
+- CEREMONY PIPES MASK EXITS: `cmd 2>&1 | tail -1` returns tail's 0 — an
+  enqueue/guard chain "succeeded" past a failed leg. Recompute intent state
+  from the registry after staging (phase + fingerprint), never trust the
+  chain's exit.
+- COPILOT PROOF SURFACE (fleet-absorbed tonight): the issue TIMELINE's
+  review_requested events are the binding proof; requested_reviewers reads
+  empty by construction after acceptance (self-removal). Six legs fired from
+  this seat tonight, all timeline-verified.
+- WATCHER GTIMEOUT BACKSTOP fires mid-work at 3600s by design — re-arm on the
+  exit notification; the seen-file cursor makes the restart lossless (gap
+  window swept empty first-hand).
+- INSTRUMENT VERIFICATION BEFORE TRUST: a Linear poll built on a guessed
+  keychain entry ran green-silent on 401s — one foreground row of the real
+  surface (key-present=no) killed it before it could masquerade as a quiet
+  ticket. Same class as Forge's [bot]-suffix filter miss: build watches from
+  observed rows, verify auth foreground, or keep the watch on an
+  authenticated instrument (Linear MCP at settle sweeps).
+
+## 2026-08-11 ~23:0xZ — Plover lifts Troposphere (b10c37): evening-close truings and captures
+
+- TRUING the ~21:3xZ entry above: the comms `--body` exit-2 failures' ROOT
+  generator was the persistent shell cwd sitting in a WORKTREE while the
+  command passed a relative `--comms-dir` — the path resolved into the wrong
+  tree. At least two of the three instances were this, not the body form
+  (the third preceded any cd and remains body-shaped). Both cures stand:
+  body-file always, AND every comms/git command in a session that visits
+  worktrees opens with its own explicit `cd <target> || exit 1`.
+- BACKGROUND-TASK EXTERNAL KILLS (owner-confirmed not-owner, 3 instances
+  2026-08-11 evening): backgrounded Bash tasks (two merge-bot drives, one
+  pnpm-install+commit chain) received external SIGTERM mid-healthy-work;
+  every FOREGROUND run of the same commands completed. Not estate tooling
+  (one victim used none). Working hypothesis: harness background-task layer
+  under heavy session task load — UNDIAGNOSED, and the owner flagged the
+  first framing of this entry ("standing cure: foreground") as the alarm
+  bell it was: an undiagnosed kill mechanism converted to permanent lore.
+  MCP-568 (High) now owns the diagnosis with a falsifiable path and an
+  exit condition; until it closes, foreground-for-critical-writes is a
+  DATED MITIGATION, never doctrine.
+- MY OWN FILTERS EAT VERDICTS: `merge-bot merge ... | grep merged` returned
+  empty while the merge was mid-quiet-window (no matching line ≠ no verdict),
+  and `| tail -4` discarded a refusal's grounds entirely. Capture-first
+  applies to the COMPOSER: run verdict-bearing commands unpiped; filter at
+  read time from the full capture.
+- SONAR "PHANTOM" REVERSED AT OWNER WORD (2026-08-11, #851): the owner's
+  "check if it is genuinely not a real result" found THREE OPEN S4043 issues
+  the earlier zero reads missed — `issues/search` WITHOUT the explicit
+  `issueStatuses=OPEN,CONFIRMED,...` facet returned 0 while the wider facet
+  returned the gate's exact 3. The instrument was right; the query surface
+  was the defect. The #850 "measure/issue divergence" doctrine is therefore
+  suspect at its root — Wren owns that entry's truing (routed a1ab660c).
+- FORGE SEAT CLOSE 2026-08-12 ~04:55Z (post-resume arc, MCP-558 + MCP-545):
+  two tickets premise-to-landed under Director routing. #860 merged (ticket
+  19:42Z → main 21:55Z incl. a killed first design); #862 settled 19/19 at
+  SHA:f1fa01202, five-round ratchet converged, handed to Director at 2b996a91.
+- ERROR SIGNATURE CONTINUED (same class as pre-compaction): two fresh
+  confident diagnoses wrong, both externally corrected within minutes —
+  (1) settle-watch filter written from MEMORY missed the `[bot]` login
+  suffix (ten silent minutes past a landed review; cure = observed-login
+  substring, propagated fleet-wide via failure-mode 75b1f735); (2) dead
+  request-path diagnosis from a sub-minute TIMELINE-read lag (first fire
+  HAD bound between my two reads; re-request of a pending reviewer no-ops,
+  corroborating the false diagnosis; withdrawn at c6f58bf6). Cure family:
+  after any fire, one short retry on the proof surface before a drop
+  verdict; freshly-authored instrument-failure diagnoses get the coldest
+  reader.
+- LOOP-DYNAMICS WORKED INSTANCE (#862): suppressed-finding counts GREW
+  across rounds (2→2→3→5→6) because the reviewer widened into pre-existing
+  structure. Cure that closed it deterministically: adopt in-delta,
+  RE-HOME out-of-delta classes to a pointer ticket (MCP-566), class-
+  disposition archival re-flags, terminal mechanical binding.
+- INSTRUMENT FACTS: vercel get_runtime_logs HAS an environment filter
+  (production|preview) — discharges the "error tool can't split prod from
+  preview" caveat recorded on MCP-545; 7d aggregate queries time out, 24h
+  is the reliable window. `comms direct --body` (long inline) exits 2;
+  --body-file is the reliable shape. mcp-content provenance semantic hash
+  is comment-insensitive (TSDoc-only edits pass; code-literal edits repin).
+
 ## 2026-08-11 — pilot-s1a carriage lane (worktree agent-a1ddadee)
 
 S1a executed: carriage machinery + 134-file estate sweep + design-sync
@@ -1942,3 +2045,45 @@ line to stderr — capture-to-file gets a clean single-line token.
 evaluations too; the carried class (references/scripts/assets) is 63
 in cognition + 4 codex-dialogues scripts = 67 per surface — recorded
 in the PR so the acceptance number reads honestly against the plan.
+
+## 2026-08-12 ~05:2xZ — the MCP-567 impact reversal (Wren calls Downdraft, 6b29b5)
+
+- FRAMING BOUNDS RATIFICATION: an owner card answer inherits the quality of
+  the either/or it answered. The MCP-567 vendoring card offered remove-now
+  vs register-swept — both presupposed removal — so the ratification never
+  settled the impact question, and the honest ladder run (owner-forced,
+  mid-implementation) reversed it. Cure shape: before presenting options,
+  ask whether the option LIST forecloses the real question
+  (principles §Decision Lenses names this exactly).
+- MEASURED FACTS from the falsified arc, durable for any future vendored
+  touch: the carriage carried-set is only {assets, references, scripts} —
+  vendored trees carry LICENSE.txt/templates/evals/agents that carriage
+  reuse would have pruned; writing or pruning THROUGH a directory symlink
+  destroys the link target (verified) while rm on the link itself is safe;
+  the portability validator's dirent `isDirectory()` filter is blind to
+  symlinked skills (nine live skills invisible to the permission census —
+  the reshape slice's real impact); skills-lock computedHash values
+  reconcile against nothing measurable; ADR-125 ratifies the
+  symlink-projection design in three places; the "REGISTERED carve-out"
+  comment in projection-roots.ts cites a register the exemption-removal
+  plan never landed.
+- HOOK AS TEACHER: the no-hedging write-hook blocked "parked" in the freeze
+  record — the concept, not the word: every deferred item was re-derived to
+  a named gate (evidence-gated re-entry, sequenced-behind, or
+  precondition-on-touch). Indefinite holding states do not survive
+  write-time here, and that is the point.
+
+## 2026-08-12 ~06:1xZ — a wrong date manufactured a false drift verdict (Plover lifts Troposphere, b10c37)
+
+- RECORDS ARE THE INPUT TO JUDGMENT: the freeze-6 block was stamped
+  "2026-08-11 ~23:1xZ" from an in-freeze clock guess; the freeze actually ran
+  ~05:08Z on 2026-08-12. Four independent Cricket legs read the block as
+  ground truth and all four reported "proof tail unrun ~24h post-merge" /
+  "568 unrouted a full day" — the REAL intervals were ~30 and ~40 minutes,
+  bracketed by the owner's freeze call. The Director's tally then repeated
+  the legs' interval. Caught externally (Copilot, #863 round 3). Cure
+  family: load-bearing intervals verify against TIMESTAMPED artefacts
+  (broadcast timestamps, merge times), never narrative date stamps; a
+  continuity record's clock claims get the same falsifier treatment as any
+  other claim. Same error signature as the night's four false-premise
+  instances: freshly-authored claim-bearing text, external catch.

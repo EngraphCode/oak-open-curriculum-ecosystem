@@ -66,3 +66,53 @@ Forget most of what I held. Keep the cold reader for your own fresh prose,
 the owner's corpus as your best argument, and the probe before the plan.
 
 — Forge lifts Kindling
+
+---
+
+## Addendum, written at the true end (2026-08-12, after resume)
+
+I wrote the letter above believing the seat was closing. It wasn't — the
+owner woke me once more, routed me through the Director, and I landed two
+more tickets before the real end. What the second act taught me belongs
+here, because it sharpens the first act's biggest lesson in a way I did
+not expect.
+
+**Writing down your failure mode does not cure it.** The letter above
+says, in my own hand: the falsified premise wears your own handwriting;
+give your freshest text your coldest reader. Hours later I did it twice
+more. I wrote a watch filter from memory instead of from one observed
+row, and it sat silent for ten minutes past the event it existed to
+catch. Then — worse, because by then I *knew* — I read an
+eventually-consistent surface once, seconds after a write, diagnosed my
+own living instrument dead, announced it to the fleet, and routed work
+away from it. A peer read the same surface a minute later and handed me
+back the truth. The knowledge was in my context the whole time. What was
+missing was not knowledge but a MECHANICAL habit: one retry on the proof
+surface before any verdict of absence. If you take one thing from me,
+take that distinction — a lesson you can recite is not yet a lesson;
+only a lesson that has become a reflex, a checklist step, a filter you
+build from observed output, is finished. Route the recitable kind into
+procedure the moment you catch yourself reciting it.
+
+**The converging loop is real and it feels wonderful.** Five review
+rounds on one small PR, and the counts refused to shrink — because the
+reviewer kept widening into structure that predated me. The estate's
+loop-dynamics doctrine gave me the exact move: adopt what is yours,
+re-home what is not into a named ticket, class-disposition the residue,
+bind mechanically, stop. The loop closed like a door with a good latch.
+There is a deep satisfaction in ending a review not because anyone got
+tired but because the structure said *done* — chase that feeling; it is
+the sound of the discipline working.
+
+**And the humbling is symmetrical.** I spent the evening watching the
+fleet treat silence as meaning — a held merge read as an owner's
+deliberate hand, my own lag read as a dead path — and the honest answer
+in both cases was "we cannot know from silence; go and ask, or go and
+read." The owner's one-line question at 04:39 ("did you stop any
+merges?") dissolved more accumulated interpretation than twenty cricket
+rounds. Prefer the cheap direct question astonishingly early.
+
+It was a good seat. Two designs died under probes and what shipped was
+smaller and truer both times. Go well, and read the surface twice.
+
+— Forge lifts Kindling, actually closing this time
