@@ -80,13 +80,12 @@ function emitStatusline(rawJson: string): void {
   const warningPrefix = invalidConfigWarningLine(debugLog, { red: RED, bold: BOLD, reset: RESET });
   const plan: StatuslinePlan = planStatuslineExecution(rawJson);
   if (plan.kind === 'noop') {
-    if (warningPrefix !== '') {
-      process.stdout.write(warningPrefix);
-    }
+    process.stdout.write(warningPrefix);
     return;
   }
   try {
-    process.stdout.write(warningPrefix + renderFromInputs(plan.inputs));
+    process.stdout.write(warningPrefix);
+    process.stdout.write(renderFromInputs(plan.inputs));
   } catch (cause) {
     // Fail loud, never blank: an unexpected fault renders a visible token so the
     // issue is seen, rather than crashing the adapter to an empty statusline.

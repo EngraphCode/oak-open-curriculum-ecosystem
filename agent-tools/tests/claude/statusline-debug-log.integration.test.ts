@@ -4,9 +4,11 @@ import { appendDebugLogEntry, type DebugLogFs } from '../../src/claude/statuslin
  * In-memory fake of the narrow fs surface, recording calls and options.
  * No IO anywhere in this suite: the OS filesystem bridge is not ours to
  * prove — these tests prove our code's behaviour at the injected seam
- * (testing-strategy §Test Types; ADR-078).
+ * (testing-strategy §Test Types; ADR-078). The fake is branch-free:
+ * failure tests override the single method they break, following
+ * `statusline-frame-store.unit.test.ts`.
  */
-function fakeFs(behaviour: { mkdirThrows?: boolean; appendThrows?: boolean } = {}): {
+function fakeFs(): {
   fs: DebugLogFs;
   appended: { path: string; data: string; mode: number }[];
   mkdirs: { path: string; mode: number }[];
@@ -18,15 +20,9 @@ function fakeFs(behaviour: { mkdirThrows?: boolean; appendThrows?: boolean } = {
     mkdirs,
     fs: {
       mkdirSync(path, options) {
-        if (behaviour.mkdirThrows === true) {
-          throw new Error('EACCES: mkdir denied');
-        }
         mkdirs.push({ path, mode: options.mode });
       },
       appendFileSync(path, data, options) {
-        if (behaviour.appendThrows === true) {
-          throw new Error('EACCES: append denied');
-        }
         appended.push({ path, data, mode: options.mode });
       },
     },
@@ -89,16 +85,28 @@ describe('appendDebugLogEntry', () => {
   });
 
   it('swallows write failures — the statusline never breaks for its own logging', () => {
-    const { fs } = fakeFs({ appendThrows: true });
+    const { fs } = fakeFs();
+    const appendDenied: DebugLogFs = {
+      ...fs,
+      appendFileSync() {
+        throw new Error('EACCES: append denied');
+      },
+    };
     expect(() =>
-      appendDebugLogEntry('/d/s.log', '{"a":1}', '2026-08-07T15:00:00.000Z', fs),
+      appendDebugLogEntry('/d/s.log', '{"a":1}', '2026-08-07T15:00:00.000Z', appendDenied),
     ).not.toThrow();
   });
 
   it('swallows mkdir failures the same way', () => {
-    const { fs } = fakeFs({ mkdirThrows: true });
+    const { fs } = fakeFs();
+    const mkdirDenied: DebugLogFs = {
+      ...fs,
+      mkdirSync() {
+        throw new Error('EACCES: mkdir denied');
+      },
+    };
     expect(() =>
-      appendDebugLogEntry('/d/s.log', '{"a":1}', '2026-08-07T15:00:00.000Z', fs),
+      appendDebugLogEntry('/d/s.log', '{"a":1}', '2026-08-07T15:00:00.000Z', mkdirDenied),
     ).not.toThrow();
   });
 });

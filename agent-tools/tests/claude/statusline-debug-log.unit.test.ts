@@ -33,12 +33,10 @@ describe('resolveDebugLogConfig', () => {
     // Set-but-wrong is a misconfiguration and must fail loud: silence here
     // would read as "the harness sent nothing" — a false diagnosis from the
     // diagnostic instrument itself.
-    const config = resolveDebugLogConfig({ OAK_STATUSLINE_LOG_FILE: '/tmp/notes.txt' });
-    expect(config.kind).toBe('invalid');
-    if (config.kind === 'invalid') {
-      expect(config.warning).toContain('OAK_STATUSLINE_LOG_FILE');
-      expect(config.warning).toContain('.log');
-    }
+    expect(resolveDebugLogConfig({ OAK_STATUSLINE_LOG_FILE: '/tmp/notes.txt' })).toEqual({
+      kind: 'invalid',
+      warning: 'OAK_STATUSLINE_LOG_FILE must name a *.log path — logging disabled',
+    });
     expect(resolveDebugLogConfig({ OAK_STATUSLINE_LOG_FILE: '/tmp/log' }).kind).toBe('invalid');
   });
 });

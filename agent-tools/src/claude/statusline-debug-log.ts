@@ -25,9 +25,10 @@
  *
  * Destinations are `*.log` only — an environment variable that drives a file
  * append deserves a small blast radius. The log directory and file are
- * created private to the user (0o700 / 0o600); as with the frame store, a
- * PRE-EXISTING file's permissions are not retightened, and the payload
- * carries session ids and project paths — delete the log after diagnosis.
+ * created private to the user (0o700 / 0o600); as with the frame store,
+ * PRE-EXISTING file or directory permissions are not retightened (mkdir's
+ * mode applies at creation only), and the payload carries session ids and
+ * project paths — delete the log after diagnosis.
  *
  * @packageDocumentation
  */

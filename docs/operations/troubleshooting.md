@@ -371,9 +371,9 @@ Reading the outcomes honestly:
   `grep -c OAK_STATUSLINE_LOG_FILE agent-tools/dist/src/claude/statusline-identity.js`
   returning `0` means rebuild (`pnpm --filter @oaknational/agent-tools build`).
 - **Hygiene**: the log grows unbounded (one line per refresh), carries
-  session ids and project paths, and a pre-existing file's permissions
-  are not retightened — delete the file after the diagnosis, don't just
-  unset the variable.
+  session ids and project paths, and pre-existing file or parent-directory
+  permissions are not retightened (mkdir's mode applies at creation only)
+  — delete the file after the diagnosis, don't just unset the variable.
 
 Mechanism reference:
 [agent-tools README §Claude statusline quick reference](../../agent-tools/README.md#claude-statusline-quick-reference).
