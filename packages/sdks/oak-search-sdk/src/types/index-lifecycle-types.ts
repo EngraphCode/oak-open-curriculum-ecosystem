@@ -18,6 +18,12 @@ export interface VersionedIngestOptions {
   readonly subjectFilter?: readonly string[];
   readonly verbose?: boolean;
   readonly minDocCount?: number;
+  /**
+   * If true, retain restricted lessons in the index instead of excluding them.
+   * Default (undefined/false) excludes — the documented, configurable
+   * restricted-exclusion switch (owner ruling 2026-08-12).
+   */
+  readonly includeRestricted?: boolean;
 }
 export interface VersionedIngestResult {
   readonly version: string;

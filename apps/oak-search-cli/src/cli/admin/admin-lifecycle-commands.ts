@@ -195,6 +195,10 @@ export function registerVersionedIngestCmd(
     .option('--subject-filter <subjects...>', 'Ingest only specific subjects')
     .option('--min-doc-count <count>', 'Minimum docs per index', validateMinDocCount)
     .option('-v, --verbose', 'Enable verbose output')
+    .option(
+      '--include-restricted',
+      'Retain restricted lessons in the index instead of excluding them (default: exclude)',
+    )
     .action(
       withLoadedCliEnv(cliEnvLoader, async (cliEnv: LifecycleIngestEnv, rawOpts: unknown) =>
         runVersionedIngestAction(cliEnv, parseLifecycleIngestOpts(rawOpts)),
@@ -213,6 +217,10 @@ export function registerStageCmd(parent: Command, cliEnvLoader: SearchCliEnvLoad
     .option('--subject-filter <subjects...>', 'Ingest only specific subjects')
     .option('--min-doc-count <count>', 'Minimum docs per index', validateMinDocCount)
     .option('-v, --verbose', 'Enable verbose output')
+    .option(
+      '--include-restricted',
+      'Retain restricted lessons in the index instead of excluding them (default: exclude)',
+    )
     .action(
       withLoadedCliEnv(cliEnvLoader, async (cliEnv: LifecycleIngestEnv, rawOpts: unknown) =>
         runStageAction(cliEnv, parseLifecycleIngestOpts(rawOpts)),

@@ -18,6 +18,13 @@ export interface PipelineConfig {
   readonly dryRun: boolean;
   /** If true, log verbose output */
   readonly verbose: boolean;
+  /**
+   * If true, retain restricted lessons instead of excluding them. Default
+   * false (exclude) — the documented, configurable restricted-exclusion switch
+   * (owner ruling 2026-08-12). See the SDK filter's
+   * `RestrictedLessonExclusionOptions`.
+   */
+  readonly includeRestricted: boolean;
 }
 
 /**
@@ -32,6 +39,8 @@ export interface PipelineConfigInput {
   readonly dryRun?: boolean;
   /** If true, log verbose output */
   readonly verbose?: boolean;
+  /** If true, retain restricted lessons instead of excluding them (default false — exclude). */
+  readonly includeRestricted?: boolean;
 }
 
 /**
@@ -84,5 +93,6 @@ export function createPipelineConfig(input: PipelineConfigInput): PipelineConfig
     outputPath: input.outputPath,
     dryRun: input.dryRun ?? false,
     verbose: input.verbose ?? false,
+    includeRestricted: input.includeRestricted ?? false,
   };
 }

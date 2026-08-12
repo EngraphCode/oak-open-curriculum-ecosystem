@@ -71,6 +71,27 @@ describe('toBulkDataInputs', () => {
     expect(result.inputs[0]?.sequenceSlug).toBe('maths-primary');
     expect(result.restrictedLessonsExcluded).toBe(0);
   });
+
+  it('retains restricted lessons and their unit references when includeRestricted is true', () => {
+    const files = [
+      createFileResult([
+        createLessonInput({ lessonSlug: 'kept-lesson' }),
+        createLessonInput({ lessonSlug: 'hidden-lesson', restricted: true }),
+      ]),
+    ];
+
+    const result = toBulkDataInputs(files, { includeRestricted: true });
+
+    expect(result.inputs[0]?.lessons.map((l) => l.lessonSlug)).toEqual([
+      'kept-lesson',
+      'hidden-lesson',
+    ]);
+    expect(result.inputs[0]?.units[0]?.unitLessons.map((l) => l.lessonSlug)).toEqual([
+      'kept-lesson',
+      'hidden-lesson',
+    ]);
+    expect(result.restrictedLessonsExcluded).toBe(0);
+  });
 });
 
 describe('createPipelineConfig', () => {
@@ -84,6 +105,7 @@ describe('createPipelineConfig', () => {
     expect(config.outputPath).toBe('/path/to/output');
     expect(config.dryRun).toBe(false);
     expect(config.verbose).toBe(false);
+    expect(config.includeRestricted).toBe(false);
   });
 
   it('overrides defaults with provided options', () => {
@@ -92,10 +114,12 @@ describe('createPipelineConfig', () => {
       outputPath: '/path/to/output',
       dryRun: true,
       verbose: true,
+      includeRestricted: true,
     });
 
     expect(config.dryRun).toBe(true);
     expect(config.verbose).toBe(true);
+    expect(config.includeRestricted).toBe(true);
   });
 });
 

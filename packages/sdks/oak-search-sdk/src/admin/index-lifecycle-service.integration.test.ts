@@ -41,6 +41,18 @@ describe('IndexLifecycleService', () => {
       }
     });
 
+    it('forwards includeRestricted through to runVersionedIngest (guards the option-narrowing point)', async () => {
+      const deps = createFakeDeps();
+      const service = createIndexLifecycleService(deps);
+
+      await service.versionedIngest({ bulkDir: '/tmp/bulk', includeRestricted: true });
+
+      expect(deps.runVersionedIngest).toHaveBeenCalledWith(
+        expect.any(String),
+        expect.objectContaining({ includeRestricted: true }),
+      );
+    });
+
     it('records previous version from existing metadata', async () => {
       const deps = createFakeDeps({
         readIndexMeta: vi.fn().mockResolvedValue(

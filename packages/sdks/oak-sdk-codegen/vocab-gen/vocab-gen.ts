@@ -34,7 +34,12 @@ import {
   generateGraphCorpusData,
   writeGraphCorpusAsJson,
 } from '../src/bulk.js';
-import { excludeRestrictedLessons, readAllBulkFiles, type BulkFileResult } from './lib/index.js';
+import {
+  excludeRestrictedLessons,
+  readAllBulkFiles,
+  type BulkFileResult,
+  type RestrictedLessonExclusionOptions,
+} from './lib/index.js';
 import { type BulkDataInput, processBulkData, type ProcessingResult } from './vocab-gen-core.js';
 import { type PipelineConfig, type PipelineResult } from './vocab-gen-config.js';
 
@@ -172,8 +177,11 @@ export interface BulkDataInputsResult {
  * lessons first (MCP-204 decision — provenance and revisit condition live
  * on `src/bulk/restricted-lesson-filter.ts`).
  */
-export function toBulkDataInputs(files: readonly BulkFileResult[]): BulkDataInputsResult {
-  const filtered = excludeRestrictedLessons(files);
+export function toBulkDataInputs(
+  files: readonly BulkFileResult[],
+  options: RestrictedLessonExclusionOptions = {},
+): BulkDataInputsResult {
+  const filtered = excludeRestrictedLessons(files, options);
   const inputs = filtered.files.map((file) => ({
     sequenceSlug: file.data.sequenceSlug,
     lessons: file.data.lessons,
@@ -197,7 +205,9 @@ export async function runPipeline(
   // Read all bulk download files
   const allFiles = await readAllBulkFiles(config.bulkDataPath, logger);
 
-  const { inputs: bulkData, restrictedLessonsExcluded } = toBulkDataInputs(allFiles);
+  const { inputs: bulkData, restrictedLessonsExcluded } = toBulkDataInputs(allFiles, {
+    includeRestricted: config.includeRestricted,
+  });
 
   // Process the data (extraction)
   const result = processBulkData(bulkData);

@@ -21,6 +21,12 @@
  * post-submission if a higher-value approach exists (e.g. index-all +
  * filter-at-query); the revisit, and its honest pricing, live on MCP-204.
  *
+ * The exclusion is now a documented, configurable switch (owner ruling
+ * 2026-08-12: keep restricted out by default, but make the choice a switch,
+ * not a hardcoded filter — see {@link RestrictedLessonExclusionOptions}). It
+ * defaults to exclude, so the standing behaviour is unchanged; the choice is a
+ * parameter each consumer passes, not a code edit.
+ *
  * Units that lose every lesson are KEPT with truthfully empty lesson
  * lists (owner ruling, 2026-07-27): their descriptions, threads,
  * prior-knowledge and national-curriculum content are legitimate
@@ -55,6 +61,24 @@ export interface RestrictedLessonFilesResult {
    * {@link RestrictedLessonFileResult.restrictedLessonsExcluded}).
    */
   readonly restrictedLessonsExcluded: number;
+}
+
+/** Options controlling {@link excludeRestrictedLessons}. */
+export interface RestrictedLessonExclusionOptions {
+  /**
+   * When `true`, restricted lessons are RETAINED instead of excluded — the
+   * documented, configurable form of the exclusion policy (owner ruling
+   * 2026-08-12: keep restricted out by default, but make the choice a switch,
+   * not a hardcoded filter). Default `false`: restricted lessons are excluded,
+   * reproducing the standing MCP-204 behaviour exactly.
+   *
+   * Including restricted lessons only removes the exclusion at this boundary;
+   * it does NOT mark the retained lessons as restricted in downstream
+   * documents. Threading the `restricted` flag into the lesson-document builder
+   * so included lessons are labelled in results is a named follow-on, out of
+   * scope here.
+   */
+  readonly includeRestricted?: boolean;
 }
 
 /**
@@ -92,10 +116,18 @@ export function excludeRestrictedLessonsFromFile(
  * Applies {@link excludeRestrictedLessonsFromFile} to every read bulk file,
  * preserving reader metadata and summing the excluded-record count for
  * run-level reporting.
+ *
+ * With `options.includeRestricted === true` the files are returned unchanged
+ * and the excluded count is zero (see {@link RestrictedLessonExclusionOptions}).
+ * The default excludes, reproducing the standing behaviour.
  */
 export function excludeRestrictedLessons(
   files: readonly BulkFileResult[],
+  options: RestrictedLessonExclusionOptions = {},
 ): RestrictedLessonFilesResult {
+  if (options.includeRestricted === true) {
+    return { files, restrictedLessonsExcluded: 0 };
+  }
   const perFile = files.map((file) => ({
     file,
     result: excludeRestrictedLessonsFromFile(file.data),

@@ -72,6 +72,7 @@ async function runIngestAndVerify(
     bulkDir: options.bulkDir,
     subjectFilter: options.subjectFilter,
     verbose: options.verbose,
+    includeRestricted: options.includeRestricted,
   });
   if (!ingestResult.ok) {
     return ingestResult;
