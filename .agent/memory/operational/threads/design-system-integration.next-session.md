@@ -2751,3 +2751,50 @@ eval suite + benchmark; defect tickets MCP-586 (card-link accname
 void, High) and MCP-587 (dense token below the 44px floor) — eval-born
 design-system defects adjacent to this lane. Queue after them remains
 S2b → S2c → fleet W1 at sanction (gate expiry 2026-08-13).
+
+## S2b LANDED (2026-08-12 evening) — Swordfish wakes Trench (d0274e); two-moment reviewed; PR #846 head 5243224f9
+
+Owner word: "go ahead with S2b." Landed as `3d1b9c029` (slice) +
+`5243224f9` (gateway cures), pushed. Pre-execution review REVISE (four
+computed criticals — AR(1)-domain-gated n_eff with named omission;
+exact all-equal constant-field guard curing the float-dust case;
+inverse-normal-cdf.ts extracted at the line cap; correlation machinery
+homed in the NEW library module
+`@oaknational/fidelity-review/visual-correlation`, never the demo
+tool). Gateway verdict LAND with independent recomputation (five
+mutation checks bite, invariance path structurally closed, built-dist
+resolution proven); its F1–F4 docs/naming findings cured in
+`5243224f9` (pairCount always C(n,2) + estimablePairCount beside it;
+DDR-010 trued: constant-field trigger, verbatim discriminant,
+follow-on as pointer). Suites: 205 library + 116 demo green; live run
+printed the named degenerate verdict on the byte-stable switchboard
+page.
+
+DISPOSITIONS CARRIED FORWARD (gateway F5–F7):
+
+- F5 (noted, no change): `lumasOf` holds k+1 luma arrays at once
+  (~73 MB/capture at full-page 1512×6000) — fine at the k=2 floor and
+  k=6 default; a bound belongs with any future large-k work.
+- F6 (ratchet at 2 for the visual-* module shape): the next addition
+  to visual-correlation.ts forces a third split → solution-class
+  review at that moment.
+- F7 (PRE-UNDRAFT ITEM, named): `no-throw-statement` warning at
+  `demos/oak-design-showcase/app/identity-white-labelling/page.tsx:35`
+  (from earlier branch commits, absent on main) — cure BEFORE #846
+  un-drafts; no-warning-toleration bites at the PR boundary.
+
+CRICKET FULL SUITE run at this boundary (owner-invoked): 7×ON-TRACK,
+1×DRIFTING (frame-citation defect, cured in-flight); tally with
+tokens/runtime at
+`.agent/reports/agentic-engineering/cricket-quartet-tally-2026-08-12-s2b-gateway-boundary.md`;
+split routed to the Director. Adopted redirection: the fleet W1 owner
+card raised at the synthesis (gate expires 2026-08-13).
+
+NEXT CYCLE CANDIDATES (sequencing at this seat): the Director-ruled
+n_eff true-up (event `4b5afe31` — replace the modelled ratio with the
+direct measured variance ratio, replace-don't-bridge) OR S2c
+per-region alignment. Standing gate citations now carried here: S6845
+= one open Sonar MAJOR on PR #846, owner-gated per the PR #565
+per-site-accept precedent; #846 un-draft requires an explicit Copilot
+re-request (Forge's first-hand finding, napkin 2026-08-11 MCP-549
+drive, finding 3).
