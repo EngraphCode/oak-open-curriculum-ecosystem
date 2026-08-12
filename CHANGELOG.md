@@ -1,3 +1,20 @@
+# [1.164.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.163.3...v1.164.0) (2026-08-12)
+
+
+### Bug Fixes
+
+* **agent-tools:** cure the review round — loud misconfiguration, faithful payload, guarded trims ([99f2efb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/99f2efb0d660b9dd5cfcd82b6e67d1da1e14c10c)), closes [#818](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/818)
+* **agent-tools:** linear-scan trailing-linebreak strip retires the backtracking regex (MCP-529) ([ca5cc69](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ca5cc697d7916d048b0c0d713cd3820010cec89e))
+* **agent-tools:** short writes never truncate the log line; blank-value docs trued (MCP-529) ([0c15c5a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0c15c5a1191151bd199be19dae2f28b03abf95a2))
+* **agent-tools:** statusline log destination is a boundary; composition seam extracted (MCP-529) ([01809b4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/01809b42fdee9314e5c2f71c7f89981ae3716564))
+* **agent-tools:** statusline logging fails loud on noop; payload bytes preserved (MCP-529) ([5ae71e0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5ae71e02dd4ec1059e45f0a2b7377e5a02ad4a81))
+* **agent-tools:** warning precedes render output; branch-free fakes; docs true-ups (MCP-529) ([3a7d0c8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3a7d0c8b3445ef5d27d4ff76596189098f2acd11))
+
+
+### Features
+
+* **agent-tools:** optional statusline payload logging via OAK_STATUSLINE_LOG_FILE ([5905073](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5905073ff87c3e7adf172d4f19ef464cb75c3459))
+
 ## [1.163.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.163.2...v1.163.3) (2026-08-12)
 
 
