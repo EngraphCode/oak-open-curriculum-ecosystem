@@ -130,7 +130,11 @@ export function appendDebugLogEntry(
   nowIso: string,
   fs: DebugLogFs = realFs,
 ): void {
-  const line = `${nowIso} ${rawPayload.replace(/[\r\n]+$/u, '').replaceAll(/[\r\n]+/gu, ' ')}\n`;
+  let payloadEnd = rawPayload.length;
+  while (payloadEnd > 0 && '\r\n'.includes(rawPayload.charAt(payloadEnd - 1))) {
+    payloadEnd -= 1;
+  }
+  const line = `${nowIso} ${rawPayload.slice(0, payloadEnd).replaceAll(/[\r\n]+/gu, ' ')}\n`;
   try {
     fs.mkdirSync(dirname(logPath), { recursive: true, mode: 0o700 });
     fs.appendFileSync(logPath, line, { encoding: 'utf8', mode: 0o600 });
