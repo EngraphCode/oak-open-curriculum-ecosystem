@@ -35,14 +35,17 @@ Non-unanimous on the token, convergent on the substance — all four named the
 SAME three findings, differing only in whether the portfolio's magnitude
 (#862's measured production cure) outweighs its composition:
 
-1. **Proof-closure drift (all four).** MCP-545's production proof tail sat
-   unrun ~24h post-merge while the team's own same-day diagnosis named
-   "assurance ends at deploy" (G1) as the generator class. The night's biggest
-   claimed win was asserted, not measured. [Discharged in the same sitting,
-   BEFORE the verdicts returned: the proof ran at ~05:29Z — timeout class
-   collapsed at the deploy boundary, last event 05:04:18Z, zero since; ticket
-   Done with evidence. The finding stands as a pattern verdict; the instance
-   closed.]
+1. **Proof-closure drift (all four) — INTERVAL CORRECTED post-verdict.** The
+   legs read "unrun ~24h post-merge"; the measured chronology is #862 merged
+   04:58:45Z, compaction freeze ~05:08Z (owner-called), proof run ~05:29Z —
+   a ~30-MINUTE gap bracketed by the freeze, not a day of neglect. The legs
+   inherited the error from the freeze-6 block's wrong date stamp
+   ("2026-08-11 ~23:1xZ", corrected in this same fold) — the record
+   manufactured the interval. What survives of the finding: the proof was
+   correctly sequenced as a resume act and ran first at resume (timeout
+   class collapsed at the deploy boundary, last event 05:04:18Z, zero
+   since; ticket Done with evidence); the G1 pattern warning stands as
+   doctrine, but this instance does not evidence it.
 2. **Card-framing quality (all four; xhigh reads it systematic).** The
    MCP-567 card's remove-now/register-swept either-or presupposed removal —
    the exact false-frame principles.md forbids — and burned real build effort
@@ -50,11 +53,14 @@ SAME three findings, differing only in whether the portfolio's magnitude
    the napkin's error signature: freshly-authored claim-bearing text with a
    false premise, four instances, every catch EXTERNAL. The correction
    machinery is strong; the pre-ratification framing lens is the weak joint.
-3. **Priority inversion at the margin (medium, high, xhigh).** MCP-568
-   (HIGH, undiagnosed SIGTERM kills) unrouted for a full day while three
-   practice tickets minted the same night; the owner's two named counters
-   (specimen regions 0/10; production timeout rate) both unmoved/unmeasured at
-   freeze.
+3. **Priority inversion at the margin (medium, high, xhigh) — INTERVAL
+   ALSO CORRECTED.** MCP-568's real chronology: kill events ~21:44–22:36Z
+   on 2026-08-11 (mid-merge-drives), ticket minted 04:54Z, routed 05:38Z —
+   ~40 minutes ticket-to-routed, not "unrouted a full day"; the same
+   mis-dated record inflated it. What survives: the owner's two named
+   counters (specimen regions 0/10; production timeout rate) were genuinely
+   unmoved/unmeasured at freeze, and the ~7h between the kill events and
+   the ticket is real (though it spans the owner's own freeze call).
 
 Convergent redirections: (1) run the MCP-545 production measure first
 [done]; (2) route MCP-568 before any new lane; (3) the design lane needs
@@ -63,17 +69,26 @@ render count before any progress claim (xhigh) — the two shapes compose:
 measure first, card second. MCP-560/561/562 sequence strictly behind all
 three (the displacement class the METRIC LAW names).
 
-## Adjudication (Director, at occurrence)
+## Adjudication (Director, at occurrence; amended same sitting after the chronology correction)
 
-DRIFTING accepted — the 3:1 split is about weighting, not facts; every leg's
-evidence is first-hand or verified. The low leg's ON-TRACK correctly credits
-the portfolio's lawfulness and #862's magnitude, but lawful-and-valuable-acts
-with drifting closure discipline is exactly what DRIFTING names. Actions in
-the same sitting: MCP-545 proof run and ticket closed (before verdicts
-landed); MCP-568 routes next at this seat; the design-lane state surfaces to
-the owner in the same report as this tally (measure-first shape honoured — the
-counter is reported as the measured 0/10, not asserted progress). The
-card-framing finding graduates to seat practice: every owner card's option
-list gets a pre-surface false-frame check (does the LIST presuppose the
-answer?) — the concept-exploration gate principles.md already names, now
-applied at the card boundary.
+DRIFTING accepted at first reading (3:1). AMENDED after the #863 review
+round exposed that findings 1 and 3's intervals were manufactured by the
+mis-dated freeze-6 block the legs read as ground truth (the fold cured the
+date in the same PR): the proof-closure and routing-delay INSTANCES
+collapse to ~30- and ~40-minute gaps bracketed by an owner-called freeze —
+handled, not drifting. What survives the correction, and keeps the verdict
+meaningfully DRIFTING rather than clean: (a) the card-framing finding —
+intact, systematic (four false-premise instances, every catch external),
+and itself INSTANCED AGAIN by this very episode: freshly-authored
+claim-bearing text (the freeze block's date; my tally repeating the legs'
+interval) carried a false premise caught externally (Copilot); (b) the
+portfolio-composition observation against the METRIC LAW — one live-service
+landing among ten, the owner's two named counters unmoved/unmeasured at
+freeze. Actions in the same sitting: MCP-545 proof run and ticket closed;
+MCP-568 routed (step-1 sweep ESTATE-CLEARED, step 2 defined); the
+design-lane state surfaces to the owner as the measured 0/10 with the
+resume word his; the card false-frame check adopted at this seat; the
+records-are-input-to-judgment lesson napkin'd (a wrong date in a
+continuity record propagated into four independent verdicts as "24h of
+neglect" — verify load-bearing intervals against timestamped artefacts,
+not narrative stamps).

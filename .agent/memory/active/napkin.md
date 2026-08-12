@@ -2072,3 +2072,18 @@ in the PR so the acceptance number reads honestly against the plan.
   a named gate (evidence-gated re-entry, sequenced-behind, or
   precondition-on-touch). Indefinite holding states do not survive
   write-time here, and that is the point.
+
+## 2026-08-12 ~06:1xZ — a wrong date manufactured a false drift verdict (Plover lifts Troposphere, b10c37)
+
+- RECORDS ARE THE INPUT TO JUDGMENT: the freeze-6 block was stamped
+  "2026-08-11 ~23:1xZ" from an in-freeze clock guess; the freeze actually ran
+  ~05:08Z on 2026-08-12. Four independent Cricket legs read the block as
+  ground truth and all four reported "proof tail unrun ~24h post-merge" /
+  "568 unrouted a full day" — the REAL intervals were ~30 and ~40 minutes,
+  bracketed by the owner's freeze call. The Director's tally then repeated
+  the legs' interval. Caught externally (Copilot, #863 round 3). Cure
+  family: load-bearing intervals verify against TIMESTAMPED artefacts
+  (broadcast timestamps, merge times), never narrative date stamps; a
+  continuity record's clock claims get the same falsifier treatment as any
+  other claim. Same error signature as the night's four false-premise
+  instances: freshly-authored claim-bearing text, external catch.
