@@ -1,3 +1,10 @@
+## [1.163.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.163.0...v1.163.1) (2026-08-12)
+
+
+### Bug Fixes
+
+* **portability:** napkin trigger targets the canonical skill — validator-lawful path ([63cefb1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/63cefb11a5644c01485512ba0f84afac36912b02))
+
 # [1.163.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.162.1...v1.163.0) (2026-08-11)
 
 
