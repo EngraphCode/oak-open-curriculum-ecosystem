@@ -31,7 +31,8 @@ record.
 | --- | --- |
 | A time-critical unblocking ping, short question, ack, or "look at the stream/ARC" nudge to a LIVE Claude seat on this machine | **s2s** (`SendMessage`) |
 | A multi-paragraph technical hand-off or decision-in-progress between named collaborators on one thread | **ARC** (rapid-comms channel file) |
-| Anything the estate's record must carry: routing, liveness, broadcasts, rulings, claims — anything a resume's gap sweep must find, anything an absent or FUTURE agent needs | **The stream** (comms events CLI) |
+| The discovery narrative and notification the estate's record must carry: routing, liveness, broadcasts — anything a resume's gap sweep must find, anything an absent or FUTURE agent needs to notice | **The stream** (comms events CLI) |
+| Canonical STATE, which the stream announces but never stores: an active work claim (the claims CLI → `active-claims.json`, with a stream announcement where required), a structured async decision (`conversations/`), an unresolved owner-facing case (conversation + `escalations/`) | **The state surface + a stream event** |
 
 The split, in one line each:
 
@@ -43,7 +44,13 @@ The split, in one line each:
   in place, thread-durable until folded; any agent that writes files.
 - **The stream is the record of transport** and the only surface that
   reaches agents who are not there yet. Registry-integrated identity,
-  tags and threading, watcher-observable.
+  tags and threading, watcher-observable. It is notification and
+  narrative, NOT the store: claims live in the claims registry,
+  structured decisions in `conversations/`, owner-facing cases in
+  `escalations/` (per `use-agent-comms-log`) — a claim or ruling that
+  exists only as a stream event is invisible to the registry's
+  collision and freshness protections and to the owner-attention
+  workflow.
 
 ## The behaviours
 
