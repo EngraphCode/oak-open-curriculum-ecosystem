@@ -468,9 +468,10 @@ context/usage percentages, and git location. Environment controls:
   `.log` and the adapter appends one timestamped line per invocation
   carrying the stdin payload as received — terminal line breaks
   stripped, interior line breaks collapsed to spaces, every other
-  byte preserved (malformed and noop payloads included); unset means
-  no logging; a set non-`.log` value renders a loud statusline
-  warning, including on payloads that otherwise render nothing. The
+  byte preserved (malformed and noop payloads included); unset or
+  blank means no logging; any other non-`.log` value renders a loud
+  statusline warning, including on payloads that otherwise render
+  nothing. The
   destination is a boundary: symlinks refuse to open, non-regular files
   never receive a write, and a pre-existing file is retightened to
   owner-only before each append. Write refusals are swallowed — the

@@ -363,8 +363,10 @@ log directory. Read the latest line and check which fields are present.
 
 Reading the outcomes honestly:
 
-- **A set value that does not end `.log` renders a loud statusline
-  warning** and logs nothing — misconfiguration is never silent.
+- **A set non-blank value that does not end `.log` renders a loud
+  statusline warning** and logs nothing — misconfiguration is never
+  silent. A blank or whitespace-only value is treated as unset:
+  neither a warning nor a log.
 - **No file and no warning?** Check the adapter is current before
   concluding anything: the shim runs the BUILT adapter, so a stale
   `agent-tools/dist` silently predates the feature —

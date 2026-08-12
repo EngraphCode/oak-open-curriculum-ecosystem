@@ -47,9 +47,9 @@ function fakeFs(): {
       fchmodSync(fd, mode) {
         fchmods.push({ fd, mode });
       },
-      writeSync(fd, data) {
-        writes.push({ fd, data });
-        return data.length;
+      writeSync(fd, data, offset, length) {
+        writes.push({ fd, data: data.subarray(offset, offset + length).toString('utf8') });
+        return length;
       },
       closeSync(fd) {
         closes.push(fd);
@@ -107,6 +107,22 @@ describe('appendDebugLogEntry', () => {
     const { fs, writes } = fakeFs();
     appendDebugLogEntry('/d/s.log', '  {"a":1}\t \n', '2026-08-07T15:00:00.000Z', fs);
     expect(writes[0]?.data).toBe('2026-08-07T15:00:00.000Z   {"a":1}\t \n');
+  });
+
+  it('writes the whole line through short writes — a partial write never truncates the entry', () => {
+    // POSIX write may consume fewer bytes than requested; the loop must
+    // continue from the reported offset until the line is complete.
+    const { fs, writes } = fakeFs();
+    const threeBytesAtATime: DebugLogFs = {
+      ...fs,
+      writeSync(fd, data, offset, length) {
+        const consumed = Math.min(3, length);
+        writes.push({ fd, data: data.subarray(offset, offset + consumed).toString('utf8') });
+        return consumed;
+      },
+    };
+    appendDebugLogEntry('/d/s.log', '{"a":1}', '2026-08-07T15:00:00.000Z', threeBytesAtATime);
+    expect(writes.map((entry) => entry.data).join('')).toBe('2026-08-07T15:00:00.000Z {"a":1}\n');
   });
 
   it('accumulates successive invocations as successive lines through the same seam', () => {

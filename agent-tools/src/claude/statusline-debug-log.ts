@@ -58,7 +58,7 @@ export interface DebugLogFs {
   openSync(path: string, flags: number, mode: number): number;
   fstatSync(fd: number): { isFile(): boolean };
   fchmodSync(fd: number, mode: number): void;
-  writeSync(fd: number, data: string): number;
+  writeSync(fd: number, data: Buffer, offset: number, length: number): number;
   closeSync(fd: number): void;
 }
 
@@ -140,6 +140,22 @@ export function invalidConfigWarningLine(
 }
 
 /**
+ * Write the whole buffer through possibly-short writes, resuming from the
+ * reported offset (the writeAll shape, `atomic-publication-node.ts`); a
+ * zero-byte result abandons the entry rather than spinning.
+ */
+function writeAllBytes(fs: DebugLogFs, fd: number, bytes: Buffer): void {
+  let written = 0;
+  while (written < bytes.length) {
+    const consumed = fs.writeSync(fd, bytes, written, bytes.length - written);
+    if (consumed <= 0) {
+      return;
+    }
+    written += consumed;
+  }
+}
+
+/**
  * Append one timestamped payload line to the debug log, soft-failing.
  *
  * @remarks
@@ -181,7 +197,7 @@ export function appendDebugLogEntry(
         return;
       }
       fs.fchmodSync(fd, 0o600);
-      fs.writeSync(fd, line);
+      writeAllBytes(fs, fd, Buffer.from(line, 'utf8'));
     } finally {
       fs.closeSync(fd);
     }
