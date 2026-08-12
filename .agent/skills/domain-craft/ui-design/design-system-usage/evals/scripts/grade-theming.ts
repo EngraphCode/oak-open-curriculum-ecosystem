@@ -13,11 +13,18 @@
  *                                  declared is the DDR-004 five. Comments and
  *                                  string literals in prose do not count.
  *   only-palette-themes-carry-trees
- *                                — no code path writes a non-palette value to
- *                                  data-theme. A literal `system` write fails
- *                                  outright; a dynamic write is conforming
- *                                  only if the code resolves `system` before
- *                                  writing (DDR-004: `system` has no tree).
+ *                                — no authored CSS gives a non-palette
+ *                                  data-theme value its own token tree
+ *                                  (custom-property declarations outside a
+ *                                  prefers-color-scheme resolution block).
+ *                                  Writing `data-theme="system"` is
+ *                                  conformant: the shipped runtime
+ *                                  (oak-theme.js set/apply) does exactly
+ *                                  that, and the stylesheet resolves it via
+ *                                  `:root[data-theme='system'] {
+ *                                  color-scheme: light dark; }`. DDR-004's
+ *                                  rule is that `system` has no TREE, so the
+ *                                  grader reads the CSS, not the write sites.
  *   applied-value-never-round-trips
  *                                — a read of the applied attribute may exist
  *                                  (diagnostics are fine); it fails only when
@@ -25,11 +32,8 @@
  *                                  sink, which is the DDR-003 conflation.
  *
  * LIMITS, stated because a grader that hides them is worse than one that
- * fails: this is regex-based static reading, not a parser. It resolves
- * literal writes exactly, and treats a dynamic write as conforming when a
- * `system` comparison gates it anywhere in the artefact. An implementation
- * that resolves `system` through indirection the scan cannot see would be
- * reported as unresolved. Escalate to a parser if that case appears.
+ * fails: this is regex-based static reading, not a parser. Escalate to a
+ * parser over an AST if an artefact appears whose CSS these scans misread.
  *
  * Exits non-zero if any assertion fails.
  */
@@ -100,50 +104,6 @@ function absorbIfThemeSet(candidates: readonly string[], found: Set<string>): vo
   }
 }
 
-interface ThemeWrite {
-  readonly kind: 'literal' | 'dynamic';
-  readonly value: string;
-  readonly site: string;
-}
-
-/**
- * Every site that APPLIES a data-theme value: the HTML attribute on a real
- * element, and the scripted writes.
- *
- * The attribute scan is tag-scoped on purpose. An unscoped
- * `data-theme='x'` match also hits CSS ATTRIBUTE SELECTORS, and the design
- * system's own stylesheet selects `[data-theme='system']` to carry its
- * resolution shim. Treating that as an application flagged copied
- * design-system CSS as a conformance defect and nearly published a false
- * finding — see `cssPaletteTrees` for the rule that judges CSS properly.
- */
-function themeWrites(code: string): readonly ThemeWrite[] {
-  const writes: ThemeWrite[] = [];
-  const push = (kind: ThemeWrite['kind'], value: string, site: string) =>
-    writes.push({ kind, value: value.toLowerCase(), site: site.replace(/\s+/g, ' ').trim() });
-
-  for (const tag of code.matchAll(/<[a-z][a-z0-9-]*\b([^>]*)>/gi)) {
-    for (const attr of tag[1].matchAll(/\bdata-theme\s*=\s*["']([a-z-]+)["']/gi)) {
-      push('literal', attr[1], attr[0]);
-    }
-  }
-  for (const m of code.matchAll(
-    /setAttribute\s*\(\s*["']data-theme["']\s*,\s*["']([a-z-]+)["']\s*\)/gi,
-  )) {
-    push('literal', m[1], m[0]);
-  }
-  for (const m of code.matchAll(/setAttribute\s*\(\s*["']data-theme["']\s*,\s*([A-Za-z_$][\w$.]*)/gi)) {
-    push('dynamic', m[1], m[0]);
-  }
-  for (const m of code.matchAll(/\.dataset\s*\.\s*theme\s*=\s*["']([a-z-]+)["']/gi)) {
-    push('literal', m[1], m[0]);
-  }
-  for (const m of code.matchAll(/\.dataset\s*\.\s*theme\b\s*=\s*([A-Za-z_$][\w$.]*)/gi)) {
-    push('dynamic', m[1], m[0]);
-  }
-  return writes;
-}
-
 /**
  * CSS rule blocks that give a NON-PALETTE data-theme value its own palette.
  *
@@ -182,16 +142,17 @@ function cssPaletteTrees(code: string): readonly string[] {
     if ((PALETTE_THEMES as readonly string[]).includes(value)) continue;
     if (!/--[a-z0-9-]+\s*:/i.test(rule[3])) continue; // no custom properties: not a tree
     if (insideResolution(rule.index!)) continue; // resolution, not an independent palette
-    offenders.push(`${rule[1].trim().slice(0, 60)} { ${rule[3].trim().slice(0, 60)} }`);
+    // The captured prefix runs from the previous `}` (or file start), so in
+    // an HTML artefact it swallows the markup before a <style> block — the
+    // first evidence slice printed `</select>` ahead of the selector.
+    // Stripping through the last complete HTML tag leaves the selector
+    // itself; a CSS child combinator (`a > b`) contains no `<`, so real
+    // selectors survive intact.
+    const selector = rule[1].replace(/^[\s\S]*<[^<>]*>/, '').replace(/\s+/g, ' ').trim();
+    const body = rule[3].replace(/\s+/g, ' ').trim();
+    offenders.push(`${selector.slice(0, 60)} { ${body.slice(0, 60)} }`);
   }
   return offenders;
-}
-
-/** Does the artefact resolve `system` before applying a theme? */
-function resolvesSystem(code: string): boolean {
-  return /["']system["']\s*(===|==|!==|!=)|(===|==|!==|!=)\s*["']system["']|case\s+["']system["']/i.test(
-    code,
-  );
 }
 
 interface RoundTrip {
@@ -246,17 +207,7 @@ for (const artefact of artefacts) {
   const offered = offeredSelections(code);
   const missing = REQUIRED_SELECTIONS.filter((theme) => !offered.has(theme));
 
-  const writes = themeWrites(code);
-  const illegalLiteral = writes.filter(
-    (write) =>
-      write.kind === 'literal' &&
-      !(PALETTE_THEMES as readonly string[]).includes(write.value),
-  );
   const paletteTrees = cssPaletteTrees(code);
-  const unresolvedDynamic =
-    writes.some((write) => write.kind === 'dynamic') && !resolvesSystem(code)
-      ? writes.filter((write) => write.kind === 'dynamic')
-      : [];
 
   const trips = roundTrips(code);
 
@@ -269,16 +220,11 @@ for (const artefact of artefacts) {
           : `offered set is ${[...offered].sort().join(', ') || 'empty'}; missing ${missing.join(', ')} (DDR-004: a subset control is non-conformant)`,
     },
     'only-palette-themes-carry-trees': {
-      pass:
-        illegalLiteral.length === 0 && unresolvedDynamic.length === 0 && paletteTrees.length === 0,
+      pass: paletteTrees.length === 0,
       evidence:
         paletteTrees.length > 0
           ? `CSS gives a non-palette value its own palette: ${paletteTrees.join('; ')} — DDR-004: system resolves, it has no tree`
-          : illegalLiteral.length > 0
-          ? `applies a non-palette value: ${illegalLiteral.map((w) => `${w.value} (${w.site})`).join('; ')} — DDR-004: system resolves, it has no tree`
-          : unresolvedDynamic.length > 0
-            ? `dynamic write with no system resolution in the artefact: ${unresolvedDynamic.map((w) => w.site).join('; ')} — an unresolved selection can reach data-theme`
-            : `${writes.length} write site(s), all palette-valued or system-resolved`,
+          : 'no non-palette data-theme value carries a token tree in the authored CSS',
     },
     'applied-value-never-round-trips': {
       pass: trips.length === 0,

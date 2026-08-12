@@ -1,5 +1,5 @@
 {
-  "artefact": "<workspace>/iteration-1/case-c/with-skill/response.md",
+  "artefact": ".agent/reports/design/skill-standard-pilot-evals/iteration-1/artefacts/case-c-with-skill.md",
   "mode": "response",
   "assertions": {
     "referenced-oak-classes-exist": {
