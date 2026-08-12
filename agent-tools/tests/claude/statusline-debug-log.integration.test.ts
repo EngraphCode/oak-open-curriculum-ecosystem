@@ -1,104 +1,184 @@
-import { appendDebugLogEntry, type DebugLogFs } from '../../src/claude/statusline-debug-log';
+import { constants } from 'node:fs';
+
+import {
+  appendDebugLogEntry,
+  DEBUG_LOG_OPEN_FLAGS,
+  type DebugLogFs,
+} from '../../src/claude/statusline-debug-log';
 
 /**
- * In-memory fake of the narrow fs surface, recording calls and options.
- * No IO anywhere in this suite: the OS filesystem bridge is not ours to
- * prove — these tests prove our code's behaviour at the injected seam
- * (testing-strategy §Test Types; ADR-078). The fake is branch-free:
- * failure tests override the single method they break, following
- * `statusline-frame-store.unit.test.ts`.
+ * In-memory fake of the narrow descriptor-level fs surface, recording
+ * calls and options. No IO anywhere in this suite: the OS filesystem
+ * bridge is not ours to prove — these tests prove our code's behaviour at
+ * the injected seam (testing-strategy §Test Types; ADR-078). The fake is
+ * branch-free: failure tests override the single method they break,
+ * following `statusline-frame-store.unit.test.ts`.
  */
 function fakeFs(): {
   fs: DebugLogFs;
-  appended: { path: string; data: string; mode: number }[];
   mkdirs: { path: string; mode: number }[];
+  opens: { path: string; flags: number; mode: number }[];
+  fchmods: { fd: number; mode: number }[];
+  writes: { fd: number; data: string }[];
+  closes: number[];
 } {
-  const appended: { path: string; data: string; mode: number }[] = [];
   const mkdirs: { path: string; mode: number }[] = [];
+  const opens: { path: string; flags: number; mode: number }[] = [];
+  const fchmods: { fd: number; mode: number }[] = [];
+  const writes: { fd: number; data: string }[] = [];
+  const closes: number[] = [];
   return {
-    appended,
     mkdirs,
+    opens,
+    fchmods,
+    writes,
+    closes,
     fs: {
       mkdirSync(path, options) {
         mkdirs.push({ path, mode: options.mode });
       },
-      appendFileSync(path, data, options) {
-        appended.push({ path, data, mode: options.mode });
+      openSync(path, flags, mode) {
+        opens.push({ path, flags, mode });
+        return 7;
+      },
+      fstatSync() {
+        return { isFile: () => true };
+      },
+      fchmodSync(fd, mode) {
+        fchmods.push({ fd, mode });
+      },
+      writeSync(fd, data) {
+        writes.push({ fd, data });
+        return data.length;
+      },
+      closeSync(fd) {
+        closes.push(fd);
       },
     },
   };
 }
 
 describe('appendDebugLogEntry', () => {
-  it('appends one timestamped line per invocation, creating the parent privately', () => {
-    const { fs, appended, mkdirs } = fakeFs();
+  it('appends one timestamped line through a no-follow descriptor, creating parent and file privately', () => {
+    const { fs, mkdirs, opens, fchmods, writes, closes } = fakeFs();
     appendDebugLogEntry('/base/dir/statusline.log', '{"a":1}', '2026-08-07T15:00:00.000Z', fs);
     expect(mkdirs).toEqual([{ path: '/base/dir', mode: 0o700 }]);
-    expect(appended).toEqual([
-      {
-        path: '/base/dir/statusline.log',
-        data: '2026-08-07T15:00:00.000Z {"a":1}\n',
-        mode: 0o600,
-      },
+    expect(opens).toEqual([
+      { path: '/base/dir/statusline.log', flags: DEBUG_LOG_OPEN_FLAGS, mode: 0o600 },
     ]);
+    expect(fchmods).toEqual([{ fd: 7, mode: 0o600 }]);
+    expect(writes).toEqual([{ fd: 7, data: '2026-08-07T15:00:00.000Z {"a":1}\n' }]);
+    expect(closes).toEqual([7]);
+  });
+
+  it('opens without following symlinks and refuses blocking destinations by flag', () => {
+    // The flag set IS the boundary contract: no-follow kills a pre-placed
+    // symlink at the destination (ELOOP), nonblock turns a reader-less FIFO
+    // into ENXIO instead of a hang, append+create+wronly is the only write
+    // shape the log needs.
+    expect(DEBUG_LOG_OPEN_FLAGS).toBe(
+      constants.O_WRONLY |
+        constants.O_APPEND |
+        constants.O_CREAT |
+        constants.O_NOFOLLOW |
+        constants.O_NONBLOCK,
+    );
   });
 
   it('collapses line breaks so one invocation is one greppable line', () => {
-    const { fs, appended } = fakeFs();
+    const { fs, writes } = fakeFs();
     appendDebugLogEntry('/d/s.log', '{\n"a": 1\n}', '2026-08-07T15:00:00.000Z', fs);
-    expect(appended[0]?.data).toBe('2026-08-07T15:00:00.000Z { "a": 1 }\n');
+    expect(writes[0]?.data).toBe('2026-08-07T15:00:00.000Z { "a": 1 }\n');
   });
 
   it('trims the trailing newline the harness sends, keeping the entry one line', () => {
-    // Claude Code's real payload arrives newline-terminated; without the trim
-    // every logged line would end with a stray space-newline pair.
-    const { fs, appended } = fakeFs();
+    const { fs, writes } = fakeFs();
     appendDebugLogEntry('/d/s.log', '{"a":1}\n', '2026-08-07T15:00:00.000Z', fs);
-    expect(appended[0]?.data).toBe('2026-08-07T15:00:00.000Z {"a":1}\n');
+    expect(writes[0]?.data).toBe('2026-08-07T15:00:00.000Z {"a":1}\n');
   });
 
   it('preserves internal whitespace — the logged payload stays faithful to what arrived', () => {
-    // Only line breaks are collapsed: a doubled space inside a JSON string
-    // value must survive, or the "payload as received" claim is false.
-    const { fs, appended } = fakeFs();
+    const { fs, writes } = fakeFs();
     appendDebugLogEntry('/d/s.log', '{"cwd":"/a  b/c"}', '2026-08-07T15:00:00.000Z', fs);
-    expect(appended[0]?.data).toBe('2026-08-07T15:00:00.000Z {"cwd":"/a  b/c"}\n');
+    expect(writes[0]?.data).toBe('2026-08-07T15:00:00.000Z {"cwd":"/a  b/c"}\n');
   });
 
   it('preserves leading and trailing non-linebreak whitespace — only line breaks are transformed', () => {
-    // The contract is "payload as received, line breaks collapsed": padding
-    // spaces and tabs at either end are payload bytes and must survive, or a
-    // diagnosis reads a cleaner payload than the harness actually sent.
-    const { fs, appended } = fakeFs();
+    const { fs, writes } = fakeFs();
     appendDebugLogEntry('/d/s.log', '  {"a":1}\t \n', '2026-08-07T15:00:00.000Z', fs);
-    expect(appended[0]?.data).toBe('2026-08-07T15:00:00.000Z   {"a":1}\t \n');
+    expect(writes[0]?.data).toBe('2026-08-07T15:00:00.000Z   {"a":1}\t \n');
   });
 
   it('accumulates successive invocations as successive lines through the same seam', () => {
-    const { fs, appended } = fakeFs();
+    const { fs, writes } = fakeFs();
     appendDebugLogEntry('/d/s.log', '{"n":1}', '2026-08-07T15:00:00.000Z', fs);
     appendDebugLogEntry('/d/s.log', '{"n":2}', '2026-08-07T15:00:10.000Z', fs);
-    expect(appended.map((entry) => entry.data)).toEqual([
+    expect(writes.map((entry) => entry.data)).toEqual([
       '2026-08-07T15:00:00.000Z {"n":1}\n',
       '2026-08-07T15:00:10.000Z {"n":2}\n',
     ]);
   });
 
+  it('soft-fails a symlinked destination — the no-follow open throws and nothing is written', () => {
+    const { fs, writes } = fakeFs();
+    const linkRefused: DebugLogFs = {
+      ...fs,
+      openSync() {
+        throw new Error('ELOOP: symbolic link encountered');
+      },
+    };
+    expect(() =>
+      appendDebugLogEntry('/d/s.log', '{"a":1}', '2026-08-07T15:00:00.000Z', linkRefused),
+    ).not.toThrow();
+    expect(writes).toEqual([]);
+  });
+
+  it('never writes to a non-regular destination, and still closes the descriptor', () => {
+    // A FIFO with a live reader passes the nonblocking open; the descriptor
+    // check is what refuses it.
+    const { fs, writes, closes } = fakeFs();
+    const nonRegular: DebugLogFs = {
+      ...fs,
+      fstatSync() {
+        return { isFile: () => false };
+      },
+    };
+    appendDebugLogEntry('/d/s.log', '{"a":1}', '2026-08-07T15:00:00.000Z', nonRegular);
+    expect(writes).toEqual([]);
+    expect(closes).toEqual([7]);
+  });
+
+  it('refuses to write when the destination cannot be retightened to owner-only', () => {
+    const { fs, writes, closes } = fakeFs();
+    const notOurs: DebugLogFs = {
+      ...fs,
+      fchmodSync() {
+        throw new Error('EPERM: operation not permitted');
+      },
+    };
+    expect(() =>
+      appendDebugLogEntry('/d/s.log', '{"a":1}', '2026-08-07T15:00:00.000Z', notOurs),
+    ).not.toThrow();
+    expect(writes).toEqual([]);
+    expect(closes).toEqual([7]);
+  });
+
   it('swallows write failures — the statusline never breaks for its own logging', () => {
-    const { fs } = fakeFs();
+    const { fs, closes } = fakeFs();
     const appendDenied: DebugLogFs = {
       ...fs,
-      appendFileSync() {
+      writeSync() {
         throw new Error('EACCES: append denied');
       },
     };
     expect(() =>
       appendDebugLogEntry('/d/s.log', '{"a":1}', '2026-08-07T15:00:00.000Z', appendDenied),
     ).not.toThrow();
+    expect(closes).toEqual([7]);
   });
 
   it('swallows mkdir failures the same way', () => {
-    const { fs } = fakeFs();
+    const { fs, writes } = fakeFs();
     const mkdirDenied: DebugLogFs = {
       ...fs,
       mkdirSync() {
@@ -108,5 +188,6 @@ describe('appendDebugLogEntry', () => {
     expect(() =>
       appendDebugLogEntry('/d/s.log', '{"a":1}', '2026-08-07T15:00:00.000Z', mkdirDenied),
     ).not.toThrow();
+    expect(writes).toEqual([]);
   });
 });

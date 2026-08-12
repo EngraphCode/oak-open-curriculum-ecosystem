@@ -25,27 +25,59 @@
  *
  * Destinations are `*.log` only — an environment variable that drives a file
  * append deserves a small blast radius. The log directory and file are
- * created private to the user (0o700 / 0o600); as with the frame store,
- * PRE-EXISTING file or directory permissions are not retightened (mkdir's
- * mode applies at creation only), and the payload carries session ids and
- * project paths — delete the log after diagnosis.
+ * created private to the user (0o700 / 0o600), and the destination is
+ * treated as a boundary: symlinks refuse to open, non-regular files
+ * (FIFOs, devices) never receive a write, and a pre-existing file is
+ * retightened to owner-only before each append — a file the invoking user
+ * cannot own refuses rather than leaks. A pre-existing PARENT DIRECTORY's
+ * permissions are still not retightened (mkdir's mode applies at creation
+ * only), and the payload carries session ids and project paths — prefer a
+ * private directory and delete the log after diagnosis.
  *
  * @packageDocumentation
  */
 
-import { appendFileSync, mkdirSync } from 'node:fs';
+import {
+  closeSync,
+  constants,
+  fchmodSync,
+  fstatSync,
+  mkdirSync,
+  openSync,
+  writeSync,
+} from 'node:fs';
 import { dirname } from 'node:path';
 
 /**
- * The narrow filesystem surface {@link appendDebugLogEntry} needs, injectable
- * for tests (ADR-078).
+ * The narrow descriptor-level filesystem surface {@link appendDebugLogEntry}
+ * needs, injectable for tests (ADR-078). `fstatSync` is typed to the one
+ * question asked of it so fakes need no `Stats` construction.
  */
 export interface DebugLogFs {
   mkdirSync(path: string, options: { recursive: true; mode: number }): void;
-  appendFileSync(path: string, data: string, options: { encoding: 'utf8'; mode: number }): void;
+  openSync(path: string, flags: number, mode: number): number;
+  fstatSync(fd: number): { isFile(): boolean };
+  fchmodSync(fd: number, mode: number): void;
+  writeSync(fd: number, data: string): number;
+  closeSync(fd: number): void;
 }
 
-const realFs: DebugLogFs = { mkdirSync, appendFileSync };
+const realFs: DebugLogFs = { mkdirSync, openSync, fstatSync, fchmodSync, writeSync, closeSync };
+
+/**
+ * The destination-boundary contract, as flags: write-only append,
+ * create-if-absent at 0o600, `O_NOFOLLOW` so a pre-placed symlink at the
+ * destination refuses to open (ELOOP), and `O_NONBLOCK` so a reader-less
+ * FIFO named `*.log` fails fast (ENXIO) instead of hanging the adapter
+ * before the soft-failure catch can run. Regular-file writes are
+ * unaffected by the nonblocking flag.
+ */
+export const DEBUG_LOG_OPEN_FLAGS: number =
+  constants.O_WRONLY |
+  constants.O_APPEND |
+  constants.O_CREAT |
+  constants.O_NOFOLLOW |
+  constants.O_NONBLOCK;
 
 /**
  * The resolved logging configuration: `disabled` (unset or blank — silent),
@@ -115,8 +147,14 @@ export function invalidConfigWarningLine(
  * payloads) and interior line breaks are collapsed to single spaces so each
  * invocation lands as exactly one line; all other bytes, including leading
  * and trailing spaces or tabs, are preserved so the logged payload stays
- * faithful to what arrived. Any filesystem failure is swallowed — see the
- * module remarks for the split failure posture.
+ * faithful to what arrived.
+ *
+ * The destination is opened through {@link DEBUG_LOG_OPEN_FLAGS} (no
+ * symlink following, no FIFO hang) and the write happens only when the
+ * opened descriptor is a regular file that could be retightened to
+ * owner-only — a destination the invoking user does not own refuses
+ * rather than leaks. Any filesystem refusal is swallowed — see the module
+ * remarks for the split failure posture.
  *
  * @param logPath - The `*.log` destination from {@link resolveDebugLogConfig}.
  * @param rawPayload - The stdin payload as received, pre-parse.
@@ -137,7 +175,16 @@ export function appendDebugLogEntry(
   const line = `${nowIso} ${rawPayload.slice(0, payloadEnd).replaceAll(/[\r\n]+/gu, ' ')}\n`;
   try {
     fs.mkdirSync(dirname(logPath), { recursive: true, mode: 0o700 });
-    fs.appendFileSync(logPath, line, { encoding: 'utf8', mode: 0o600 });
+    const fd = fs.openSync(logPath, DEBUG_LOG_OPEN_FLAGS, 0o600);
+    try {
+      if (!fs.fstatSync(fd).isFile()) {
+        return;
+      }
+      fs.fchmodSync(fd, 0o600);
+      fs.writeSync(fd, line);
+    } finally {
+      fs.closeSync(fd);
+    }
   } catch {
     // Soft surface: the statusline never breaks for its own logging.
   }

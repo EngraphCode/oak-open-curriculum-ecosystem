@@ -371,14 +371,18 @@ Reading the outcomes honestly:
   `grep -c OAK_STATUSLINE_LOG_FILE agent-tools/dist/src/claude/statusline-identity.js`
   returning `0` means rebuild (`pnpm --filter @oaknational/agent-tools build`).
   A current adapter can also produce no-file-and-no-warning when the
-  filesystem write itself fails (unwritable parent, directory-valued
-  target, denied append) — write failures are deliberately swallowed, so
-  check the destination is creatable and writable by hand before
-  concluding the payload never arrived.
-- **Hygiene**: the log grows unbounded (one line per refresh), carries
-  session ids and project paths, and pre-existing file or parent-directory
-  permissions are not retightened (mkdir's mode applies at creation only)
-  — delete the file after the diagnosis, don't just unset the variable.
+  destination refuses (unwritable parent, a symlink or non-regular file
+  at the path, a file the invoking user cannot own, denied append) —
+  refusals are deliberately swallowed, so check the destination is a
+  creatable, writable, regular file owned by you before concluding the
+  payload never arrived.
+- **Hygiene**: the log grows unbounded (one line per refresh) and
+  carries session ids and project paths. The destination is a boundary
+  (symlinks refuse to open, non-regular files never receive a write, a
+  pre-existing file is retightened to owner-only before each append), but
+  a pre-existing parent directory's permissions are not retightened —
+  prefer a private directory, and delete the file after the diagnosis,
+  don't just unset the variable.
 
 Mechanism reference:
 [agent-tools README §Claude statusline quick reference](../../agent-tools/README.md#claude-statusline-quick-reference).
