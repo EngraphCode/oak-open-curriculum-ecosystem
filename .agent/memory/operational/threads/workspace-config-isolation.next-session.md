@@ -11,7 +11,79 @@ Controlling plan:
 archived (completed 2026-08-11) and todo 3 is complete — see the
 Current Continuation below.
 
-## Current Continuation (COMPACTION FREEZE 2026-08-11 ~19:1xZ — owner card answers set the queue: S1b in-session → vendoring-symlinks PR → MCP-543 → de-hatch; census after the smalls)
+## Current Continuation (COMPACTION FREEZE 2026-08-12 ~05:2xZ — pickup is the OWNER RULING on the MCP-567 reshape)
+
+- **THE PENDING OWNER RULING (the single pickup item).** Mid-implementation
+  of MCP-567 (the vendoring PR his 2026-08-11 card answer ratified), the
+  owner's impact challenge ("what impact are we buying with this effort?")
+  was run honestly over the work in flight and it FAILED the ladder. The
+  in-chat verdict (2026-08-12 ~05:2xZ) recommends, firmly: RESHAPE MCP-567
+  to the visibility slice — (a) one-line portability-validator cure so
+  symlinked skills are VISIBLE to the permission census (dirent
+  `isDirectory()` is false for links, so the nine live skills are invisible
+  to `getSkillPermissionIssues` today) plus the nine `Skill(<name>)`
+  settings entries; (b) delete the false "REGISTERED carve-out" sentence in
+  `projection-roots.ts` (it cites a register that never existed —
+  reviewer-verified); (c) the computedHash question routes to its own thin
+  ticket only if the lock is meant to detect upstream drift (measured: the
+  recorded hashes reconcile against NOTHING — not SKILL.md sha256 under any
+  encoding tried). The vendoring itself LEAVES the queue with a named
+  re-entry gate — a named consumer that cannot follow links (a Windows
+  checkout; a link-blind tool; none exists today): the symlink IS the sync
+  mechanism (byte-identity by construction, zero code), ADR-125 ratifies
+  the design in THREE places (lines ~61, ~352, ~508), and the corrected
+  implementation shape (A′) would cost ~150 lines of permanent sync
+  machinery + 592K duplicated bytes + five tests guarding two data-loss
+  hazards that only exist because the machinery replaces the link. The
+  card answer's authority is owned as a framing error at this seat: the
+  either/or presented (remove-now vs register-swept) both presupposed
+  removal — an owner answer inherits the quality of the framing it
+  answered.
+- **MCP-567 state**: Linear In Progress; claim 98d17c6f RETAINED
+  stopped-seat-held (this seat resumes it); worktree
+  `.claude/worktrees/mcp-567-vendor-symlinks` (branch
+  `jimcresswell/mcp-567-vendor-skill-symlinks` at main 0974eb3e2, built)
+  holds UNCOMMITTED: six red tests appended to
+  `agent-tools/tests/skills-adapter-generate/carriage-hardening.integration.test.ts`
+  (the falsification record, observed 6 failed / 17 passed). If the
+  reshape is adopted those tests discard (they pin the machinery the gate
+  now holds); the slice's own red test is instead: the portability
+  validator SEES a symlinked skill directory. Pre-execution review
+  durables (full text in session transcript): option-A falsified (the
+  carriage carried-set is only {assets, references, scripts}; wiring it
+  would have deleted LICENSE.txt and templates/ from the surface);
+  write-through/prune-through on directory symlinks verified destructive,
+  rm-on-the-link verified safe; S7: the exemption-removal plan has NO
+  register (its todo 1 never landed) — a Director observation owed at
+  their resume (carried in the freeze broadcast).
+- **QUEUE AFTER THE RULING** (re-derived twice on 2026-08-12 at owner
+  challenge, warrant ladder per item; the analysis received the owner's
+  "great"): reshaped MCP-567 slice → todo 2 de-hatch arc (owner verbatim
+  commission; 53-violation base rate) → MCP-543 (real enforcement delta:
+  the anonymous `pathNot` permits MORE than the lawful edge) → re-check
+  the board before anything further. H1-slim + H2-coverage-assert + H4
+  stay plan rows SEQUENCED strictly behind those two and behind any
+  product work the board holds. H2-WIDENING and follow-up row 3 LEAVE the
+  queue with named evidence gates (widening: a named live escape in the
+  widened config families; row 3: a real zero-macro-inputs estate state)
+  — only H2's coverage-assert was ever re-affirmed at the 2026-08-11
+  re-adjudication. The assumptions-expert matcher review is a PRECONDITION
+  that fires when the matcher next needs touching, never a queue item.
+- **LANDED EARLIER THIS SESSION** (chores complete): #861/MCP-553 merged
+  22:19:52Z and #851/MCP-547 merged 22:30:01Z (2026-08-11); worktrees
+  pruned, branches swept both ends, tickets Done; S1b plan rows re-trued
+  at 908f44f66; six Copilot request legs fired+timeline-verified for the
+  fleet's settle drives. Requester-seat mythology RETIRED at owner word
+  ("it's a cli call") — any seat fires; the timeline is the proof
+  surface; give the read 60–90s.
+- **Durable memory banked this session**:
+  warrant-ladder-at-queue-boundaries (+ instance-four sharpening: the
+  ladder runs on IN-FLIGHT work too; card answers inherit their framing's
+  quality).
+
+## Prior continuation (superseded 2026-08-12; kept for the arc record)
+
+## Superseded (COMPACTION FREEZE 2026-08-11 ~19:1xZ — owner card answers set the queue: S1b in-session → vendoring-symlinks PR → MCP-543 → de-hatch; census after the smalls)
 
 - **OWNER CARD ANSWERS (2026-08-11 ~19:1xZ, all four recommendations
   taken)**: (1) S1b continues IN THIS SESSION post-compaction; (2) the

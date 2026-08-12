@@ -2023,3 +2023,30 @@ Review-ratchet worked instance: nine rounds on the skill PR (9/2/1/3/3/2/2/3/0),
   is the reliable window. `comms direct --body` (long inline) exits 2;
   --body-file is the reliable shape. mcp-content provenance semantic hash
   is comment-insensitive (TSDoc-only edits pass; code-literal edits repin).
+
+## 2026-08-12 ~05:2xZ — the MCP-567 impact reversal (Wren calls Downdraft, 6b29b5)
+
+- FRAMING BOUNDS RATIFICATION: an owner card answer inherits the quality of
+  the either/or it answered. The MCP-567 vendoring card offered remove-now
+  vs register-swept — both presupposed removal — so the ratification never
+  settled the impact question, and the honest ladder run (owner-forced,
+  mid-implementation) reversed it. Cure shape: before presenting options,
+  ask whether the option LIST forecloses the real question
+  (principles §Decision Lenses names this exactly).
+- MEASURED FACTS from the falsified arc, durable for any future vendored
+  touch: the carriage carried-set is only {assets, references, scripts} —
+  vendored trees carry LICENSE.txt/templates/evals/agents that carriage
+  reuse would have pruned; writing or pruning THROUGH a directory symlink
+  destroys the link target (verified) while rm on the link itself is safe;
+  the portability validator's dirent `isDirectory()` filter is blind to
+  symlinked skills (nine live skills invisible to the permission census —
+  the reshape slice's real impact); skills-lock computedHash values
+  reconcile against nothing measurable; ADR-125 ratifies the
+  symlink-projection design in three places; the "REGISTERED carve-out"
+  comment in projection-roots.ts cites a register the exemption-removal
+  plan never landed.
+- HOOK AS TEACHER: the no-hedging write-hook blocked "parked" in the freeze
+  record — the concept, not the word: every deferred item was re-derived to
+  a named gate (evidence-gated re-entry, sequenced-behind, or
+  precondition-on-touch). Indefinite holding states do not survive
+  write-time here, and that is the point.
