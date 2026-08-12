@@ -83,12 +83,13 @@ state support, and deliberately drops what is absent.
   one).
 - **Git location rows** — the checkout name and working branch (with a
   dim `e:<level>` reasoning-effort token appended when the payload
-  carries one); in a team checkout with linked worktrees, a `coord:`
-  row naming the shared coordination branch and — when the session sits
-  in a linked worktree — the worktree's own name and branch (both
-  coordination rows are normally absent in a solo checkout). Location
-  facts fail LOUD: an unexpected git error renders a visible token,
-  never a silent fallback.
+  carries one); when the session sits in a linked worktree, also a
+  `coord:` row naming the primary checkout's coordination branch plus
+  the worktree's own name and branch (both rows are suppressed in the
+  primary checkout itself, where the coordination branch IS the
+  working branch — and absent in a solo checkout). Location facts fail
+  LOUD: an unexpected git error renders a visible token, never a
+  silent fallback.
 - **Owner-jobs segment** — a count of open owner-attention items, read
   from the owner-jobs register when present (linked only when the
   register carries a `link:` header).
@@ -97,8 +98,8 @@ state support, and deliberately drops what is absent.
 
 #### Why a segment may be absent
 
-The adapter drops absent fields rather than rendering stale or zero
-values:
+The adapter drops absent fields rather than rendering stale
+placeholders (a genuine `0` is a value and renders as `0%`):
 
 - The **session and weekly usage gauges** render only when the payload
   carries `rate_limits` — Claude Code includes it only for Claude.ai
