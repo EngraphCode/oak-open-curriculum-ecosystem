@@ -56,8 +56,10 @@ The most complex statusline in the estate: a multi-row glance surface
 rendered by the built adapter
 `agent-tools/dist/src/claude/statusline-identity.js`, invoked through
 the project shim `.claude/scripts/statusline-identity.mjs` (wired in
-`.claude/settings.json` `statusLine`, invoked whenever the session's
-UI state updates rather than on a fixed cadence).
+`.claude/settings.json` `statusLine`, invoked both when the session's
+UI state updates and on the fixed `refreshInterval` timer configured
+beside it — the timer is what keeps countdowns moving in an idle
+session).
 Claude Code pipes a JSON payload to the command on every invocation; the
 adapter renders what the payload and the repository's coordination
 state support, and deliberately drops what is absent.
@@ -80,10 +82,12 @@ state support, and deliberately drops what is absent.
   payload provides one.
 - **Git location rows** — the checkout name and working branch (with a
   dim `e:<level>` reasoning-effort token appended when the payload
-  carries one), a `coord:` row naming the shared coordination branch,
-  and — when the session sits in a linked worktree — the worktree's own
-  name and branch. Location facts fail LOUD: an unexpected git error
-  renders a visible token, never a silent fallback.
+  carries one); in a team checkout with linked worktrees, a `coord:`
+  row naming the shared coordination branch and — when the session sits
+  in a linked worktree — the worktree's own name and branch (both
+  coordination rows are normally absent in a solo checkout). Location
+  facts fail LOUD: an unexpected git error renders a visible token,
+  never a silent fallback.
 - **Owner-jobs segment** — a count of open owner-attention items with a
   link, read from the owner-jobs register when present.
 - **The Oak logo column** — the acorn mark on the left (animated for
@@ -109,8 +113,9 @@ values:
 Set per-machine in `.claude/settings.local.json` under `env`:
 
 - `OAK_STATUSLINE_LOGO` — logo style: `braille-sharp` (default),
-  `braille-sharp-compact`, `braille`, `quad`, `sextant`, or `none` for
-  the compact two-line layout.
+  `braille-sharp-compact`, `braille`, `quad`, `sextant`, or `none` to
+  hide the logo column (the identity, model/usage, and location rows
+  all still render).
 - `OAK_STATUSLINE_MOTION` — set to `off`, `static`, `none`, or
   `reduce` (case-insensitive) to disable the logo animation cycle;
   other values leave motion on.
@@ -118,8 +123,8 @@ Set per-machine in `.claude/settings.local.json` under `env`:
   makes the adapter append one timestamped line per invocation carrying
   the stdin payload as received (terminal line breaks stripped, interior
   line breaks collapsed to spaces, every other byte preserved); unset
-  means no logging, a set non-`.log` value renders a loud statusline
-  warning even on payloads that otherwise render nothing, and
+  or blank means no logging, any other non-`.log` value renders a loud
+  statusline warning even on payloads that otherwise render nothing, and
   write failures are swallowed (the statusline never breaks for its own
   diagnostics). The log grows unbounded and carries session ids and
   paths — delete it after the diagnosis. Walkthrough:
