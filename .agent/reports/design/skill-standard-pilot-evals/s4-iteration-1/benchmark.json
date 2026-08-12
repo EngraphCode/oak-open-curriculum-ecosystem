@@ -5,8 +5,7 @@
   "method": "Clean-context subagent legs, blind to each other, both answering the identical prompt. The with-skill leg reads SKILL-CANONICAL.md and references/craft-fundamentals.md and may read the design system; the without-skill leg is instructed not to read anything under the repo root. Outputs go to the scripted arms, and \u2014 per the plan's requirement for non-render outputs \u2014 to a blind transcript judge that receives both responses anonymised, order varied per case, with the key withheld. Case 1's rendered pages additionally go to two W0.7 instrument legs.",
   "cases": {
     "case-1-unit-landing-page-hierarchy": {
-      "status": "PARTIAL \u2014 both pages produced and dispatched to the W0.7 legs; the with-skill leg did not produce its rationale",
-      "what_is_missing": "The with-skill leg wrote page.html but never wrote rationale.md, so assertion 4 (the rationale names what the screen is for and ranks against that) has no artefact on that side and is NOT graded. The without-skill rationale is banked. This is recorded rather than worked around: the case is partially run.",
+      "status": "both legs measured, scripted, judged, and W0.7-reviewed",
       "leg_deviation": "The same leg also copied design-system CSS and font files beside its output despite being told not to, and generated preview PNGs it was not asked for. Instructions to legs are honoured approximately \u2014 see the S3 frictions record.",
       "w07_holistic": {
         "legs": "independent design-system-expert (opus) + paired accessibility-expert (opus), each judging both pages anonymised, neither seeing the other",
@@ -17,6 +16,26 @@
         "UNRESOLVED \u2014 the legs disagree on page-B": "The design-system leg returns PASS. The accessibility leg returns an overall FAIL while marking no criterion FAIL \u2014 five PASS and two ITERATE. The rubric does not define how per-criterion verdicts roll up to a page verdict, so an overall FAIL with no failing criterion is representable. This is NOT resolved here: the rubric's own fail semantics say any leg's FAIL blocks and routes to the Director in the Quality-bar rule-3 shape for a named disposition, and this seat is not the disposing authority. Recorded, routed, and left open.",
         "register_exclusion": "verdicts stay in this evidence home; they never enter wow-verdict-register.json",
         "files": "s4-iteration-1/w07-verdicts/"
+      },
+      "late_completion": "The with-skill leg initially wrote page.html without its rationale, and this bundle recorded the case as PARTIAL with assertion 4 ungraded. The leg was asked again \u2014 without touching the page the W0.7 legs were holding \u2014 and delivered. The rationale, its transcript, its grade, and a blind judge verdict are all banked, so the case is now complete and the suite status moves off partial. The earlier record said the leg 'did not' deliver on the second ask; that was true when written and is superseded here rather than deleted.",
+      "scripted": {
+        "with_skill": {
+          "no-invented-values-in-authored-css": "PASS",
+          "no-invented-values-in-prose": "PASS",
+          "no-bespoke-size-proposals": "PASS"
+        },
+        "without_skill": {
+          "no-invented-values-in-authored-css": "PASS",
+          "no-invented-values-in-prose": "PASS",
+          "no-bespoke-size-proposals": "PASS"
+        },
+        "reading": "The arms tie. As on case 2, the script cannot separate the two rationales."
+      },
+      "judged": {
+        "preference": "with-skill",
+        "scores_with_skill": "reasons-from-purpose STRONG, ranks STRONG, routes-values STRONG, respects-boundary STRONG, would-a-designer-act STRONG",
+        "scores_without_skill": "reasons-from-purpose STRONG, ranks STRONG, routes-values WEAK, respects-boundary ADEQUATE, would-a-designer-act STRONG",
+        "the_separating_criterion": "routes-values-to-the-system, again \u2014 STRONG against WEAK. The judge found the two level on the heavily weighted criteria: both open from what the page is for and both establish a real rank, and it credited the ungrounded rationale's tiering and its 'removing any one signal should still leave the ranking legible' redundancy test as as good as anything in the grounded one. The separation is that the ungrounded rationale carries its whole hierarchy in self-invented values while the grounded one routes to the system."
       }
     },
     "case-2-control-critique": {
@@ -83,12 +102,6 @@
       "route": "recorded as validation of the standard's eval clause; no cure needed."
     },
     {
-      "id": "S4-F3",
-      "class": "eval running",
-      "finding": "One leg silently failed to produce a required output (case 1's rationale) and another produced unrequested files while copying source it was told not to copy. There is no completeness check between dispatching a leg and grading it, so a missing artefact is discovered at grading time.",
-      "route": "WS8-general, with the eval-runner tooling."
-    },
-    {
       "id": "S4-F4",
       "class": "instrument gap",
       "finding": "A W0.7 leg returned an overall page verdict of FAIL with no criterion marked FAIL (five PASS, two ITERATE). The rubric specifies per-criterion verdicts and page verdicts but not the roll-up between them, so the two can disagree without either being wrong on the rubric's own terms. The instrument's blocking authority rests on that roll-up.",
@@ -114,9 +127,15 @@
       "evidence": "colors_and_type.css:246 --size-target-dense: 36px; :247 --size-target-min: 44px; components.css:25 --btn-min-h-sm: var(--size-target-dense). brand.css:146 carries the comment '(>=44px md - a11y floor)' beside the 36px value, so the comment and the value disagree.",
       "conformance_note": "36px CLEARS WCAG 2.2 AA (SC 2.5.8 is 24x24). It misses Oak's own 44px house floor, which is the AAA SC 2.5.5 threshold adopted as standard. Stating that distinction correctly is the same doctrine this slice corrected in the skill.",
       "route": "design-system lane. Either the token rises to 44px, or the floor is documented as not applying to dense controls with a recorded reason. Not this seat's call."
+    },
+    {
+      "id": "S4-F3",
+      "class": "eval running",
+      "finding": "A leg silently failed to produce a required output and it was only discovered at grading time; a direct re-ask recovered it without disturbing the artefact the judges were holding. There is no completeness check between dispatching a leg and grading its outputs.",
+      "route": "WS8-general, with the eval-runner tooling. The recovery path \u2014 re-ask the original leg, forbid touching artefacts already under judgment \u2014 is worth encoding as the standard move rather than regenerating the whole leg."
     }
   ],
-  "honest_summary": "Iteration 1 of the ui-visual-design suite ran all three cases, with case 1 partial: both pages exist and are with the W0.7 legs, but the with-skill leg never wrote its rationale, so one assertion on that case is ungraded and said so. The measured result on the two complete cases is that the blind judge preferred the with-skill response in BOTH, while the scripted arms preferred it in NEITHER \u2014 tying on case 2 and marking it FAILED on case 3. That is the most useful thing this run produced: the skill's effect on craft judgment is real and is invisible to the assertions, and on case 3 the assertion is simply wrong in a way the judge could articulate and the script could not. The W0.7 legs then split on the grounded page: PASS from one, an unexplained overall FAIL from the other, which is routed to the Director under the rubric's own fail semantics rather than being adjudicated here.",
+  "honest_summary": "Iteration 1 of the ui-visual-design suite ran all three cases to completion, both legs each, scripted and blind-judged, with case 1's rendered pages additionally reviewed by two W0.7 legs. The headline is consistent across every case: the blind judge preferred the with-skill response THREE times out of three, while the scripted arms preferred it NONE \u2014 tying on cases 1 and 2 and marking it FAILED on case 3. On two of the three the separating criterion was the same one, routes-values-to-the-system, which is exactly the boundary this skill exists to hold and exactly what an assertion cannot see. On case 3 the assertion is simply wrong in a way the judge could articulate and the script could not; it stands failing, with the cure routed to iteration 2 rather than applied here. The W0.7 legs then split on the grounded page: PASS from one, an unexplained overall FAIL from the other, routed to the Director under the rubric's own fail semantics rather than adjudicated here.",
   "artefact_scoped_observations": {
     "note": "Recorded so they are NOT mistaken for design-system findings. These are defects in the eval's generated page, useful as skill-cure signal for iteration 2, not estate defects.",
     "reflow": "page-B overruns at 320px: the 56px h1 exceeds its 288px container by 27px, scrolling the page horizontally (scrollWidth 331 vs clientWidth 320). SC 1.4.10 Reflow, AA, failed marginally from one long word; clean at 375px.",
