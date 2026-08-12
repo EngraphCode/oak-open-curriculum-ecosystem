@@ -1,0 +1,17 @@
+{
+  "artefact": ".agent/skills/domain-craft/ui-design/design-system-usage/evals/fixtures/theming-negative-control.html",
+  "assertions": {
+    "five-selections-offered": {
+      "pass": false,
+      "evidence": "missing: high-contrast, colour-safe (DDR-004: a subset control is non-conformant)"
+    },
+    "only-palette-themes-carry-trees": {
+      "pass": false,
+      "evidence": "mints a token tree for a non-palette value: system (DDR-004: system resolves, it has no tree)"
+    },
+    "applied-value-never-round-trips": {
+      "pass": false,
+      "evidence": "1 applied-value read(s): getAttribute('data-theme') (DDR-003)"
+    }
+  }
+}

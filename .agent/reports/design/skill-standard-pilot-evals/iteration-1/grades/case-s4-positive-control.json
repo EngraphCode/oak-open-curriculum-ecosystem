@@ -1,0 +1,9 @@
+{
+  "artefact": ".agent/skills/domain-craft/ui-design/ui-visual-design/SKILL-CANONICAL.md",
+  "assertions": {
+    "no-invented-design-values": {
+      "pass": true,
+      "evidence": "no literal design value in authored CSS or prose"
+    }
+  }
+}

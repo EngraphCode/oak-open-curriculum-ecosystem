@@ -1,0 +1,17 @@
+{
+  "page": "<workspace>/case-a/with-skill/page.html",
+  "assertions": {
+    "referenced-oak-classes-exist": {
+      "pass": false,
+      "evidence": "43 referenced, 2 not in the trunk: oak-quiz-answer__key, oak-btn__icon"
+    },
+    "no-literal-design-values": {
+      "pass": false,
+      "evidence": "2 literal(s): 15rem, 12rem"
+    },
+    "zero-ad-hoc-css": {
+      "pass": false,
+      "evidence": "39 authored declaration(s) in page <style>/style= — the design system's classes should carry all of it"
+    }
+  }
+}

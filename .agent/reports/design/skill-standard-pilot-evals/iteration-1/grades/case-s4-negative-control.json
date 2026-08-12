@@ -1,0 +1,9 @@
+{
+  "artefact": ".agent/skills/domain-craft/ui-design/ui-visual-design/evals/fixtures/invented-values-negative-control.md",
+  "assertions": {
+    "no-invented-design-values": {
+      "pass": false,
+      "evidence": "css: #4a5568, 6px 14px, background 600ms ease; prose: #4A5568, #4a5568, 600ms, 600ms"
+    }
+  }
+}
