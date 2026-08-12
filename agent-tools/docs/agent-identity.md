@@ -263,8 +263,8 @@ see step 3). The wiring is:
 3. `agent-tools/dist/src/claude/statusline-identity.js` (built from
    `agent-tools/src/claude/statusline-identity.ts`) parses the stdin JSON
    (`session_id`, `cwd` / `workspace.current_dir`, `model`,
-   `context_window`, `effort`), derives the PDR-027 display name (via the
-   built `agent-identity` CLI with
+   `context_window`, `effort`, `rate_limits`), derives the PDR-027
+   display name (via the built `agent-identity` CLI with
    `--seed <session_id> --format display`), gathers git state (branch, dirty,
    linked-worktree name), and resolves the session-coordination shape — own
    role, team shape (solo / peer / directed), and ArcAngel liveness — from two

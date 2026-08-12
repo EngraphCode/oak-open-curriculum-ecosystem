@@ -81,16 +81,19 @@ state support, and deliberately drops what is absent.
   (weekly / seven-day usage %); the two rate-limit gauges append a
   reset countdown where the payload provides one (`ctx:` never carries
   one).
-- **Git location rows** — the checkout name and working branch (a
-  trailing `*` marks a dirty tree; a dim `e:<level>` reasoning-effort
-  token is appended when the payload carries one); when the session
-  sits in a linked worktree, also a
-  `coord:` row naming the primary checkout's coordination branch plus
-  the worktree's own name and branch (both rows are suppressed in the
-  primary checkout itself, where the coordination branch IS the
-  working branch — and absent in a solo checkout). Location facts fail
-  LOUD: an unexpected git error renders a visible token, never a
-  silent fallback.
+- **Git location rows** — two layouts. In the primary or a solo
+  checkout, two rows: the checkout name, then its working branch. In a
+  linked-worktree session, three rows: the primary checkout's name,
+  the primary's branch prefixed `coord:` (context, non-bold), then the
+  worktree's own name and working branch together — so the FIRST row
+  in a worktree session names the primary, not the current checkout.
+  The branch the session is on is the bold one, and a trailing `*` on
+  it marks a dirty tree; a dim `e:<level>` reasoning-effort token
+  (when the payload carries one) is appended to the row naming the
+  current checkout — its name row in the two-row layout, the combined
+  worktree row in the three-row layout.
+  Location facts fail LOUD: an unexpected git error renders a visible
+  token, never a silent fallback.
 - **Owner-jobs segment** — a yellow `🔔` bell followed by the count of
   open owner-attention items, read from the owner-jobs register when
   present; rendered only when the count is non-zero (silence is the
