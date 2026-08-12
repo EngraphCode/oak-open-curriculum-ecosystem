@@ -13,7 +13,8 @@
  *
  * Diagnosis: set `OAK_STATUSLINE_LOG_FILE=/path/to/statusline.log` (must end
  * `.log`) before launching the session and the adapter appends each
- * invocation's raw stdin payload there, one timestamped line per render.
+ * invocation's raw stdin payload there, one timestamped line per
+ * invocation (malformed and noop payloads included).
  */
 
 import { spawn } from 'node:child_process';
