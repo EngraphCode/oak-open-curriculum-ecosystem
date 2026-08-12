@@ -1,6 +1,8 @@
 ---
 name: design-system-usage
 classification: active
+concern: domain-craft
+domain: ui-design
 description: >-
   Build well-branded, accessible (WCAG 2.2 AA), themable interfaces and assets
   with the Oak Open Curriculum Design System — production surfaces or throwaway
@@ -19,7 +21,10 @@ shipped copy is regenerated from it.
 
 **Path context.** Paths below are relative to the design-system root:
 `packages/design/oak-design-system/` in this repo; the project root in the
-studio. The one structural difference is called out inline (`docs/`).
+studio. The structural difference between the homes is one re-homing: the
+guidance documents the repo keeps at the root and in `docs/` —
+`DECISIONS.md`, `CHANGELOG.md`, `KNOWN-ISSUES.md`, `docs/**` — live under
+`guidelines/` in the studio (`guidelines/docs/**` for the last).
 
 Read the system's `README.md`, then build. The one-line setup for anything new:
 
@@ -42,9 +47,14 @@ tier CSS files directly — see `KNOWN-ISSUES.md` #1.)
   raw hexes. Aliases like `--surface-mint`/`--shadow-lemon` resolve to
   canonical intent roles (`--surface-decorative-1`, `--shadow-accent`);
   re-branding overrides canonicals only, via `brand.css` (the white-label
-  contract) — validate with the "Contrast audit (live)" card — and all four
-  themes (light / dark / high-contrast / colour-safe) work via `data-theme` on
-  `<html>` or any subtree. `oak-theme.js` persists the user's choice.
+  contract) — validate with the "Contrast audit (live)" card. **Five
+  selectable themes, four token-bearing:** offer light / dark / system /
+  high-contrast / colour-safe everywhere a theme choice is offered (DDR-004 —
+  a control listing a subset is non-conformant); the four palette themes
+  carry token trees via `data-theme` on `<html>` or any subtree, and `system`
+  resolves to light or dark and mints no tree of its own. `oak-theme.js`
+  persists the user's *choice* — the applied value never round-trips back
+  into state (DDR-003).
 - **A11y is non-negotiable (WCAG 2.2 AA):** keep the built-in focus rings,
   ≥44px targets, real labels, `alt` text, state never conveyed by colour
   alone, quiet motion (120/200ms, reduced-motion respected).
@@ -58,46 +68,24 @@ tier CSS files directly — see `KNOWN-ISSUES.md` #1.)
 
 ## What's where
 
-- `components.css` — buttons, tags, cards, chips, inputs, checkbox/radio,
-  banners, quiz answers, links, skip-link, utilities, **and the authoring
-  blocks** (the lesson anatomy: `.oak-outcome`, `.oak-key-learning-points`,
-  `.oak-keywords`, `.oak-quiz`, `.oak-worked-example`, `.oak-misconception`,
-  `.oak-practice`, `.oak-teacher-tip`, `.oak-guidance`, each with
-  `.oak-block-label`). Copy the class, not the CSS.
+The four you reach for constantly:
+
+- `components.css` — every component class **and the authoring blocks** (the
+  lesson anatomy). Copy the class, not the CSS.
 - `colors_and_type.css` — tokens, themes, type classes (`oak-heading-1…7`,
   `oak-body-1…4`), `.oak-scope`.
-- `templates/lesson-deck/`, `templates/worksheet/` — starting points for
-  teaching slides and printable A4 worksheets (PDF-ready). Start from these
-  for lesson artifacts.
-- `components/` — compiled React components (OakButton, OakTag,
-  OakSubjectChip, OakIcon) with typed props.
-- `preview/*.html` — specimen cards: exhaustive states for every component,
-  plus motion, theming, and accessible-combination guides.
-- `ui_kits/oak/index.html` — full homepage reference build; the model for
-  composing screens.
-- `DECISIONS.md` — why the system is the way it is: decisions, rationale,
-  rejected alternatives, hard-won lessons. Read it before changing
-  architecture; keep it current when you do. `CHANGELOG.md` — semver history +
-  public-surface definition; `KNOWN-ISSUES.md` — understood gotchas, read
-  before debugging. (In the studio these three live under `guidelines/`.)
-- `whitelabel/` — the white-label contract proofs: two counter-brands
-  (`creature/`, `freedonia/`) + `specimen.html` (byte-identical full app page,
-  `?brand=<slug>`) + `failing-example.css` (negative control). Root pages
-  `Identity White-Labelling.html` / `Identity Switchboard.html` /
-  `Example Front Pages.html` demonstrate the contract.
-- `dtcg/` — generated DTCG JSON token export (the CSS is canonical); `docs/`
-  (studio: `guidelines/docs/`) — consumption guides: `consuming-nextjs.md`
-  (install, theme wiring, identity, §5b behaviour-library chooser, §7
-  new-component recipe) + pairing guides (`pairing-base-ui.md` default /
-  `pairing-react-aria.md` dates+conformance / `pairing-ark-ui.md` non-React),
-  `wrapped-widget-a11y-checklist.md`, `console-tui-tones.md`,
-  `integration-oak-curriculum-hub.md` (the live consumer's migration plan),
-  `nextjs-theme-switcher.tsx.txt`, and the white-label composition doctrine
-  `one-html-many-css-compositions.md`; `integrations/revealjs/` — the Oak
-  reveal.js theme. Upstream Figma/library provenance dumps live only in this
-  repo's committed capture tier
-  (`studio-source/original-capture-2026-07-23/reference/`) — never load them
-  at runtime.
+- `templates/lesson-deck/`, `templates/worksheet/` — start here for teaching
+  slides and printable A4 worksheets.
+- `preview/*.html` and `ui_kits/oak/index.html` — exhaustive component states,
+  and the full reference build that models how screens compose.
+- `whitelabel/` — the white-label contract proofs, built on the two
+  counter-brands `creature/` and `freedonia/`.
+
+The full map — compiled React components, the white-label proofs, the DTCG
+export, the reveal.js theme, the consumption and pairing guides, and where
+each guidance document lives in each home — is
+[`references/whats-where.md`](references/whats-where.md). Read it before
+hunting the tree; read `DECISIONS.md` before changing architecture.
 
 ## Authoring educational content
 
