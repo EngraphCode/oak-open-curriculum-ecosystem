@@ -165,6 +165,40 @@ describe('clearGeneratedAdapters (in-memory seam)', () => {
     expect(result.kind).toBe('error');
     expect(removed).toEqual([]);
   });
+
+  it('preserves and returns the partial teardown when a mid-phase removal fails — the destructive path stays observable', async () => {
+    const removedReal: string[] = [];
+    const fs: ClearFs = {
+      async listSubdirectoryNames(path) {
+        return path === '/repo/.claude/skills'
+          ? { kind: 'ok', names: ['oak-a', 'oak-b'] }
+          : { kind: 'ok', names: [] };
+      },
+      async readStubOrUndefined() {
+        return { kind: 'ok', value: OURS };
+      },
+      async removeDirectory(path) {
+        // The second directory's removal fails (a surface turned unwritable).
+        if (path.endsWith('oak-b')) {
+          throw new Error('EACCES: surface unwritable mid-removal');
+        }
+        removedReal.push(path);
+      },
+      async resolveRealPath(path) {
+        return { kind: 'ok', value: path };
+      },
+    };
+
+    const result = await clearGeneratedAdapters('/repo', fs);
+
+    // The first dir WAS removed; the error result carries that partial teardown
+    // rather than the pre-cure behaviour (an unhandled throw with no state).
+    expect(result.kind).toBe('error');
+    expect(result.kind === 'error' ? result.removed : undefined).toEqual([
+      '/repo/.claude/skills/oak-a',
+    ]);
+    expect(removedReal).toEqual(['/repo/.claude/skills/oak-a']);
+  });
 });
 
 describe('clearGeneratedAdapters over a real filesystem (the destructive path)', () => {

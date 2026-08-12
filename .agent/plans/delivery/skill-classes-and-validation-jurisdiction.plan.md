@@ -29,14 +29,14 @@ the clauses themselves are re-trued inline so no misleading text survives):
   recognition), never by a name pattern. The classification, Mechanism, and
   census are amended to the marker-based design; the prefix survives only as
   the generator's naming parameter.
-- **`skills-lock.json` is external territory — retained, not deleted.** It is
-  the external skills CLI's own project lock (verified against
-  `vercel-labs/skills`: per-skill `source`/`sourceType`/`skillPath`/hash for the
-  clerk and anthropics installs, computed on install and consumed by
-  `skills install`/`skills update`). Only OUR compensation machinery is deleted;
-  the file is kept untouched (owner ruling 2026-08-12: "if skills-lock.json is
-  part of the external tooling for the external skills, why would we touch
-  it?"). Acceptance criterion 3 is corrected accordingly.
+- **`skills-lock.json` is external territory — retained, not deleted.** It
+  belongs to the external skills tooling; we have no jurisdiction over it and do
+  not read, validate, or reason about how it works. Only OUR compensation
+  machinery is deleted; the file is kept untouched (owner ruling 2026-08-12: "if
+  skills-lock.json is part of the external tooling for the external skills, why
+  would we touch it?"; and 2026-08-12: "we don't care how the external
+  management of skills works, only that it works — leave the external mechanisms
+  alone"). Acceptance criterion 3 is corrected accordingly.
 
 ## Problem (measured 2026-08-12, all first-hand)
 
@@ -75,10 +75,9 @@ The measured facts:
   validator's `skills-lock.json` cross-reference leg; ADR-125 §Externally
   installed skills asserting our jurisdiction over the class; one code comment
   citing a register that does not exist (`projection-roots.ts:21`).
-  `skills-lock.json` ITSELF is not ours — it is the external skills CLI's own
-  project lock (per-skill `source`/`sourceType`/`skillPath`/hash for the clerk
-  and anthropics installs, which that CLI computes on install and consumes on
-  `skills install`/`skills update`; verified against `vercel-labs/skills`).
+  `skills-lock.json` ITSELF is not ours — it belongs to the external skills
+  tooling and is out of our jurisdiction: left untouched, never read,
+  validated, or reasoned about.
 - Cost of the manufactured problem so far: the MCP-567 arc — a ticket
   minted and auto-closed without its work existing, an owner decision
   card built on a false frame, a worktree with 110 lines of red tests

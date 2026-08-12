@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import {
   adapterStubPointerLine,
+  isRoundTrippableCanonicalRef,
   parseAdapterStubPointer,
 } from '../../src/skills-adapter-generate/adapter-stub';
 
@@ -27,6 +28,34 @@ describe('adapterStubPointerLine ↔ parseAdapterStubPointer', () => {
     const content = `${FRONTMATTER}${TITLE}${adapterStubPointerLine(hostile)}\n`;
 
     expect(parseAdapterStubPointer(content)).toBeUndefined();
+  });
+
+  it.each([
+    { ref: 'cognition/parallax/SKILL-CANONICAL.md', ok: true, why: 'a clean multi-segment ref' },
+    { ref: 'commit/SKILL-CANONICAL.md', ok: true, why: 'a clean two-segment ref' },
+    {
+      ref: 'cognition/back`tick/SKILL-CANONICAL.md',
+      ok: false,
+      why: 'a backtick breaks the marker',
+    },
+    {
+      ref: 'cognition/new\nline/SKILL-CANONICAL.md',
+      ok: false,
+      why: 'a newline breaks the marker',
+    },
+    { ref: 'SKILL-CANONICAL.md', ok: false, why: 'a single segment is not a projection ref' },
+    {
+      ref: 'cognition/../escape/SKILL-CANONICAL.md',
+      ok: false,
+      why: 'a dot-dot segment is unclean',
+    },
+    {
+      ref: String.raw`cognition/back\slash/SKILL-CANONICAL.md`,
+      ok: false,
+      why: 'a backslash segment is unclean',
+    },
+  ])('isRoundTrippableCanonicalRef: $why ($ok)', ({ ref, ok }) => {
+    expect(isRoundTrippableCanonicalRef(ref)).toBe(ok);
   });
 });
 

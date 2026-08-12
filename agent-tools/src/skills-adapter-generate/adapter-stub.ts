@@ -31,9 +31,11 @@
  * environmental dependencies worth knowing: the projection roots are
  * Prettier-ignored (`.prettierignore`), so no formatter reflows stub
  * bodies out of recognition; and a `canonicalRef` containing a backtick
- * or newline cannot round-trip (the built line stops parsing) — canonical
- * directory names never carry either, and the unit test records the
- * bound.
+ * or newline cannot round-trip (the built line stops parsing), so emission
+ * REFUSES such a canonical ({@link isRoundTrippableCanonicalRef}) rather
+ * than writing a stub every later check would reject as foreign — canonical
+ * directory names never carry either, and the unit test pins both the
+ * round-trip and the refusal.
  */
 
 /**
@@ -107,5 +109,21 @@ function isCleanCanonicalRef(canonicalRef: string): boolean {
     segments.every(
       (segment) => segment !== '' && segment !== '.' && segment !== '..' && !segment.includes('\\'),
     )
+  );
+}
+
+/**
+ * Whether a canonical ref can round-trip through the class marker — the
+ * builder must be able to write it AND {@link parseAdapterStubPointer} read
+ * it back to the same value. A backtick or newline breaks the pointer-line
+ * pattern (the built line stops parsing); the clean-ref rules (≥2 segments;
+ * no empty, dot, dot-dot, or backslash segment) are the parser's own
+ * acceptance test. Emission checks this before writing so a non-round-trippable
+ * canonical (a pathological directory name) is REFUSED, never written as a
+ * stub every later check would then reject as foreign.
+ */
+export function isRoundTrippableCanonicalRef(canonicalRef: string): boolean {
+  return (
+    !canonicalRef.includes('`') && !canonicalRef.includes('\n') && isCleanCanonicalRef(canonicalRef)
   );
 }

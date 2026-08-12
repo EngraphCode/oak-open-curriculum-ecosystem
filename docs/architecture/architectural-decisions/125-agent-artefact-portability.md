@@ -592,10 +592,15 @@ over external skills and defined the external installer's standard
 layout as a defect — violating the testing doctrine's existing
 never-test-external rule. The owner's three-class taxonomy (Practice /
 Vendor / User-facing, now §Skill classes and validation jurisdiction)
-replaces it: `skills-lock.json` and its plumbing are deleted, the sweep
-and the permission census recognise Practice projections by their
-recorded derivation (the class marker), and everything else at the
-projection roots is out of jurisdiction. Plan:
+replaces it: OUR lock-reading and validation plumbing is deleted —
+`lock.ts`, the `lockedIds` machinery, the `--clear` lock-awareness the
+2026-08-02 amendment below added, the portability cross-reference, and the
+sweep's lock exemption. `skills-lock.json` itself belongs to the external
+skills tooling and is left untouched: our validation has no jurisdiction
+over it and does not read, validate, or reason about it. The sweep and the
+permission census recognise Practice projections by their recorded
+derivation (the class marker), and everything else at the projection roots
+is out of jurisdiction. Plan:
 `skill-classes-and-validation-jurisdiction` (ratified 2026-08-12).
 
 ### 2026-05-26 — Post-canonicalisation plugin retention

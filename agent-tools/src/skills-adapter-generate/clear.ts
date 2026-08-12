@@ -40,12 +40,13 @@ type ReadStubResult =
 
 /**
  * Result of {@link clearGeneratedAdapters}. The `ok` arm reports the
- * directories removed so the one destructive pass in the pipeline is
- * observable rather than silent.
+ * directories removed; the `error` arm carries the PARTIAL `removed` when a
+ * mid-phase removal fails, so the one destructive pass in the pipeline stays
+ * observable rather than silent — even when it fails part-way.
  */
 export type ClearResult =
   | { readonly kind: 'ok'; readonly removed: readonly string[] }
-  | { readonly kind: 'error'; readonly message: string };
+  | { readonly kind: 'error'; readonly message: string; readonly removed?: readonly string[] };
 
 /**
  * Filesystem seam for {@link clearGeneratedAdapters}, mirroring the
@@ -160,10 +161,24 @@ export async function clearGeneratedAdapters(
     candidates.push(...collected.candidates);
   }
   // Removal phase: only now, with the whole corpus classified, do we delete.
+  // Each removal is recorded as it lands, so a mid-phase failure (a second
+  // surface turning unwritable) returns the PARTIAL teardown rather than
+  // aborting with no state — the one destructive path stays observable even
+  // when it fails part-way (review 2026-08-12).
+  const removed: string[] = [];
   for (const dir of candidates) {
-    await fs.removeDirectory(dir);
+    try {
+      await fs.removeDirectory(dir);
+    } catch (error: unknown) {
+      return {
+        kind: 'error',
+        message: `removal failed at ${dir} after removing ${String(removed.length)} of ${String(candidates.length)}: ${String(error)}`,
+        removed,
+      };
+    }
+    removed.push(dir);
   }
-  return { kind: 'ok', removed: candidates };
+  return { kind: 'ok', removed };
 }
 
 /** Classify a guarded surface's marker-carrying directories WITHOUT removing

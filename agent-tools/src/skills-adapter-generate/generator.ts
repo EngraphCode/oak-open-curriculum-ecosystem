@@ -17,6 +17,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 
+import { isRoundTrippableCanonicalRef } from './adapter-stub.js';
 import { realCarriageWriteFs, syncCarriage } from './carriage.js';
 import { clearGeneratedAdapters, type ClearResult } from './clear.js';
 import { classifyEmissionTarget, foreignTargetRefusal } from './emission-target.js';
@@ -103,7 +104,8 @@ export async function generateAdapters(options: GeneratorOptions): Promise<Gener
   // whose teardown could not be fully observed).
   const clearOutcome = await clearIfRequested(options);
   if (clearOutcome.kind === 'error') {
-    return { ...empty, refused: [clearOutcome.message] };
+    // Refuse, but surface any partial teardown on `cleared` (observable on failure).
+    return { ...empty, cleared: clearOutcome.removed ?? [], refused: [clearOutcome.message] };
   }
   const cleared = clearOutcome.removed;
   // Sweep BEFORE emission: stale Practice projections (canonical deleted or
@@ -146,6 +148,18 @@ async function emitAllAdapters(
   const pruned: string[] = [];
   const refused: string[] = [];
   for (const parsed of canonicals) {
+    const canonicalRef = `${parsed.relativeDir}/${parsed.canonicalFilename}`;
+    // Refuse a canonical whose ref cannot round-trip as a class marker (a
+    // pathological directory name carrying a backtick or newline): writing its
+    // stub would land content every later check then rejects as foreign —
+    // first-write-then-refuse (review 2026-08-12). Refuse per skill so the run
+    // fails loud and reports it, rather than emitting an unrecognisable stub.
+    if (!isRoundTrippableCanonicalRef(canonicalRef)) {
+      refused.push(
+        `${canonicalRef}: canonical path is not round-trippable as a class marker; refusing emission`,
+      );
+      continue;
+    }
     for (const surface of ['claude', 'agents'] as const) {
       const emitted = await emitAdapter(options, parsed, surface);
       written.push(...emitted.written);
