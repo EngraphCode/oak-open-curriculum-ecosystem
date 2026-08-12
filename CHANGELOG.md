@@ -1,3 +1,11 @@
+## [1.163.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.163.1...v1.163.2) (2026-08-12)
+
+
+### Bug Fixes
+
+* **streamable-http:** log actual refusal method; strip TSDoc moving target (MCP-545) ([f1fa012](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f1fa0120269505f2a6757306f52054fd48f88399))
+* **streamable-http:** refuse standalone GET /mcp SSE stream with 405 (MCP-545) ([fa08558](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fa0855809ebd982b301a4e00413d012eeee751d9))
+
 ## [1.163.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.163.0...v1.163.1) (2026-08-12)
 
 
