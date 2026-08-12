@@ -2798,3 +2798,19 @@ per-region alignment. Standing gate citations now carried here: S6845
 per-site-accept precedent; #846 un-draft requires an explicit Copilot
 re-request (Forge's first-hand finding, napkin 2026-08-11 MCP-549
 drive, finding 3).
+
+## W1 SANCTIONED (2026-08-12 evening) — owner card answer "Sanction W1 now"; fleet executing at this seat
+
+The pr-846-review-fleet plan's owner gate cleared by card at the S2b
+gateway boundary (the Cricket-adopted redirection raised it; the gate
+would have expired 2026-08-13). Plan stamped ratified at revision 2:
+the reviewed object gains P7 (fidelity instrumentation — the S2a/S2b
+landings), T3 re-pins to head `5243224f9`, fleet design unchanged.
+Execution order: T3 pre-flight (SHA pin + changedFiles assert + F-159
+model check + production server :3020 + export overlay :3030 with the
+styled-sentinel assertion + fresh suite counts) → W1 (11 legs +
+category-routed verification) → seat adjudication → W2 (completeness
+critic + release-readiness, two named verdicts) → report at
+`.agent/reports/design/pr-846-review-fleet/report.md` → owner card
+with both verdicts. The n_eff true-up and S2c queue BEHIND the fleet
+verdict absorption.
