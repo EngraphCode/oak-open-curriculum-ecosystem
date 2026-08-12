@@ -196,3 +196,67 @@ refreshed cache + regen uncommitted) is the lane's opening state; this
 constraint rides any routing brief VERBATIM. (Homed from the napkin at the
 2026-08-07 consolidation; the constraint was captured 2026-08-03 and had no
 thread-record presence until now.)
+
+## 2026-08-12T12:24:52Z — leadership RFC delivered: upstream-API-as-workspace paper (Foundry tracks Shimmer, ead103)
+
+Owner-directed paper delivered at
+`.agent/reference-local/2026-08-12-upstream-api-workspace-rfc.md`
+(deliberately gitignored — owner instruction; internal Oak doc). Case for
+bringing oaknational/oak-openapi into this repo as a workspace: six gains
+(one contract definition, pre-merge breakage detection, whole-journey
+observability, open-source policy alignment — owner word 2026-08-12
+verbatim on channel: "open source and public is the Oak and UK Gov
+standard, forcing that change is actually a huge positive" — one-change
+cross-cutting work, AI front door), honestly-priced costs, alternatives,
+three commissioned workstreams as the decision ask. FINAL from Skua binds
+Vortex's fact-safety seat (12:24Z, four review rounds on the ARC channel
+`.agent/collaboration/rapid-comms/2026-08-12-upstream-workspace-rfc-foundry-tracks-shimmer-skua-binds-vortex.md`).
+Second prose-expert review conserved at
+`.agent/reference-local/2026-08-12-upstream-rfc-prose-expert-second-pass.md`.
+OPEN owner question (non-blocking, routed to Jim by Skua): does the
+internal leadership decision-paper class sit inside editorial-tone.md's
+contractions-always scope? Whichever way, the answer belongs in
+editorial-tone.md's scope list. Evidence base for the paper's July-incident
+facts: `.agent/reports/mcp-lesson-retrieval-gap-analysis-2026-08-12.md`
+(Skua's lane; uncommitted at this writing — its landing rides that lane's
+commit word).
+
+## 2026-08-12T12:30:26Z — contractions question DISCHARGED (owner ruling; Foundry tracks Shimmer, ead103)
+
+Owner, 2026-08-12, verbatim: "contractions are fine, but editorial flow is
+more important". Applied to the RFC as a flow-first pass (eight
+contractions where they ease reading; emphatic uncontracted forms — "do
+not bind", "Co-location is not co-ownership" — kept for weight). The
+paper at `.agent/reference-local/2026-08-12-upstream-api-workspace-rfc.md`
+is final. Curation candidate for the next editorial-tone.md touch: add a
+scope-list clause for the internal decision-paper class recording this
+ruling (flow governs; contractions permitted, not mandated), so the next
+author doesn't have to ask — the reviewer's original suggestion, now with
+the owner's answer to encode.
+
+## 2026-08-12T12:33Z — lesson-retrieval analysis lane CLOSED (Skua binds Vortex, 027610, claude-code/claude-fable-5)
+
+Owner-directed analysis of a third-party bug report, complete. The
+authoritative record is
+`.agent/reports/mcp-lesson-retrieval-gap-analysis-2026-08-12.md` (landed in
+this closeout's docs commit): three findings — the upstream subject-gate
+collateral (all KS4-science-only lesson summaries 404 since PR #309,
+2026-07-22; intent evidence says financial-education blocking, collateral
+unadjudicated), the restricted-content availability semantics (the
+reporter's 8 = 8/8 restricted; the search-index gap = the restricted class,
+34/34 in science), and undifferentiated summary-404 semantics (the
+response-code convention — 404 missing / 400+"not available" restricted —
+is realised fully only on /assets; /quiz silent-200-empty and /transcript
+500 mishandle the missing half). Our-side work is bucketed in the report
+(Now / Next / Invest); the bucket-1 index rebuild is gated on ONE owner
+decision — whether restricted lessons' metadata is indexed (recommended
+yes, flagged). Upstream items are held as questions-with-evidence, not
+filed bugs, per owner scepticism: the KS4 collateral question, the
+transcript-500 + quiz-silent-empty defects, optional message-differentiation
+restoration and spec vocabulary enumeration. The reporter reply is
+sketched in the report. Principal-checkout bulk data refreshed 2026-08-12
+at owner word (34 files, rshe-pshe new, schema unchanged, type-check
+green); the probe script `apps/oak-search-cli/scripts/probe-lesson-availability.ts`
+demonstrates the three availability classes in one run. Both lane claims
+released at close; no work in flight; next actions are all owner-decision-
+gated and enumerated in the report's routing section.

@@ -2419,3 +2419,102 @@ in the PR so the acceptance number reads honestly against the plan.
   designed and refused the merge. Never expand a short sha by typing; fetch the
   full oid. Second read surfaced the truth in one call; merged clean on the real
   sha at 9caeae362.
+
+## 2026-08-12T12:25:06Z (Foundry tracks Shimmer, ead103, RFC lane) — four-round ARC review convergence; the rhetorical-strengthening drift class
+
+- Delivered the upstream-API-workspace leadership RFC (reference-local,
+  gitignored by owner instruction) through an n=2 ARC pairing with Skua
+  binds Vortex: my draft, their fact pass, two independent prose-expert
+  passes (one per seat, both opus), per-finding fact-safety adjudication,
+  FINAL at 12:24Z — ~20 min wall-clock for four review rounds. The
+  protocol that made concurrent review/rewrite converge: DISCLOSE the
+  compose-race explicitly, list the load-bearing diffs verbatim for the
+  fact seat, and let the fact seat adjudicate the other reviewer's
+  findings per-finding (ENDORSED / graft-current-text / skip / route)
+  before the author applies. Worth reusing for any two-reviewer document
+  lane.
+- RHETORICAL-STRENGTHENING DRIFT, caught twice in one paper (class worth
+  naming): a prose improvement "strengthened" a causal claim past its
+  evidence — "nobody could catch it before it shipped" (rebuttable: the
+  API team's tests COULD have, had they covered the collateral) vs the
+  fact-safe "none of the safeguards either side actually had could catch
+  it". Same axis a second time in my own §2 wording ("no amount of
+  discipline"). Prose reviewers optimise for punch; punch drifts claims up
+  the reliability ladder. Cure: fact seat re-reads load-bearing sections
+  AFTER every prose pass, and "stronger and unanswerable" is the test — a
+  strengthened claim a named reader could rebut is a weakened paper.
+- Reviewer-read-mid-revision protocol (Skua's shape, worked): when a
+  review's quotes predate the current text, reconcile each finding against
+  the CURRENT text before applying — three of eleven findings were already
+  moot; one needed a graft of the current fact-fixed sentence into the
+  reviewer's structure. Never apply a suggested rewrite containing a
+  superseded quote verbatim.
+- Owner word travelling via peer relay worked cleanly: Jim's open-source
+  ruling reached this lane as a verbatim quote on the ARC channel with the
+  relay named (Skua) — reframed a headline cost into a headline benefit
+  mid-draft with zero re-litigation at absorption.
+
+- WS9 seed (owner concept, 2026-08-12 ~12:3xZ): adapt the Cricket casting
+  pattern into a skill-eval pattern — stratified quartet A/B, four agents at
+  different powers/efforts (bindings mapping is the authority) run with-skill
+  and without-skill per case. Measures the value-gradient across capability
+  (knowledge vs scaffold vs dead-weight vs mis-pitched signatures), yields
+  cost-per-quality-point per tier (fleet routing intelligence), and transplants
+  Cricket's non-unanimity rule as a mechanical broken-eval tripwire (dominance +
+  monotonicity violations). Milestone pattern (~8 legs/case, ~95k tokens/leg
+  measured), not the inner loop; siblings: single-pair smoke, temptation class,
+  blind judge, trigger-fires (the gap force-loaded contexts cannot test).
+  Home: WS9 eval-design/eval-running skills; first instance offer = S3
+  iteration 2 on one case post-arc, inside the three-iteration cap.
+
+## 2026-08-12 ~12:3xZ (Skua binds Vortex, 027610) — session-close harvest (metacognition / free-play / concept-exploration)
+
+METACOGNITION: the session's one generator, caught three times by owner
+questions (June-10 "estate" claim, "upstream bug, high priority", "silent
+ingest drop"): scope inflation at the moment of synthesis — sound
+observations wrapped in frames that outran them. The cure that held for the
+rest of the session: keep the observation register and the verdict register
+visibly separate; every verdict carries its alternative-intent hypothesis
+and the instrument that settles it. Second bite worth keeping: the
+premature-closure catch — I stopped probing at the first coherent mechanism
+(subject gate) when the discriminating probe (sibling endpoints) was one
+curl away; the owner's scepticism, not my process, forced it. Third: an
+artefact that declares intent ("fix: ensure only valid subjects...") read
+as pure defect is a filing error — check the intent oracle (tests, dead
+constants, branch names) before the verdict.
+FREE-PLAY SEEDS: (1) the fact-safety/prose split ran as a two-seat
+adversarial pair over one paper and caught two rhetorical-strengthening
+fact-drifts (Foundry napkinned the class) — review-diversity as a DESIGN
+instrument again. (2) External integrators are a distributed
+completeness-checker the estate gets free IF error surfaces are
+self-describing — the reporter found in weeks what no internal signal
+found. (3) The estate's own review machinery (pre-push gates, my own
+one-law) kept catching MY closeout-speed errors — structure-over-vigilance
+held at every fumbled step this session.
+CONCEPT-EXPLORATION: the availability-semantics concept closed fully
+formed — four states x surface under a written anti-leak policy, with
+check-restricted as the oracle; every remaining fork is a named owner or
+API-team decision. No unshaped residue.
+
+## 2026-08-12T12:35:44Z (Foundry tracks Shimmer, ead103) — owner rejected the consequence-first opening: leadership papers open on the win
+
+- Jim (2026-08-12, verbatim): "the opening on a negative is going to put
+  everyone in a bad mood, start with a summary of the benefits" and "I
+  didn't even bother reading further than that". The consequence-first
+  Summary (open on the July incident) was a prose-expert structural
+  recommendation, fact-endorsed and applied — and it failed the ACTUAL
+  reader at the first paragraph. Lesson: reviewer endorsement is evidence
+  about craft, not about audience mood; a leadership paper opens on the
+  benefits, and the incident serves as a worked example AFTER the gains,
+  not as the hook. Restructured accordingly (rev 6): benefits-led Summary,
+  incident demoted to "A worked example: three weeks in July" after the
+  gains.
+- Second correction (clarified mid-turn: public API, not public repo): the
+  paper had let "everything that consumes it" read as the ecosystem's own
+  toolkit — but the API is PUBLIC; the consumer set is anyone building
+  against it, with the MCP/AI surface one class among many. Consumer
+  framing corrected throughout (Summary, gain 2 "everyone who builds
+  against the API directly", gain 6 "a fast-growing class of consumer").
+  Class link: verdict-momentum/over-centring — the seat's own vantage
+  point (the MCP estate) leaked into the paper's model of who the users
+  are.
