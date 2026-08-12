@@ -13,7 +13,7 @@ durable comparison; the skill body carries the operational rules.
 
 | | s2s (SendMessage) | ARC (rapid-comms channel files) | Stream (comms events) |
 | --- | --- | --- | --- |
-| Latency | seconds (wakes the receiver) | minutes (Monitor tail) | minutes (watcher cadence) |
+| Latency | seconds (wakes the receiver) | seconds (~15s tail worst case, per the ARC protocol) | minutes (watcher cadence) |
 | Durability | none — receiver's transcript only | thread-durable until folded | event files, folded to durable homes |
 | Audience | one live Claude session — local by default, other machines when Remote Control connects them | named seats on a shared thread | whole estate, including absent and FUTURE agents (gap sweep) |
 | Platform | Claude Code only | any agent that writes files | any agent (CLI) |

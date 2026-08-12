@@ -10,14 +10,13 @@ description: >-
   behaviours that keep the fast lanes honest: decision-bearing content
   mirrors to its durable home at occurrence, no flow ever requires s2s,
   a peer message is never the owner's approval. Fires when messaging
-  another seat, when a new live-messaging capability arrives, or when a
-  flow's participants may include a non-Claude seat. Do NOT use this
-  skill to choose durable state or record surfaces — cross-session
-  continuity belongs in thread records, work claims in the claims
-  registry, structured decisions in conversation threads, owner
-  questions in cards; the full routing authority is the
-  agent-collaboration-channels card, which this skill overlays, never
-  supersedes.
+  another seat, at Claude Code session open (reachability discovery),
+  when a new live-messaging capability arrives, or when participants
+  may include a non-Claude seat. Do NOT use for durable state or
+  record routing: continuity goes to thread records, claims to the
+  claims registry, decisions to conversation threads, owner questions
+  to cards; the agent-collaboration-channels card is the routing
+  authority this skill overlays, never supersedes.
 ---
 
 # Comms Channels
@@ -53,12 +52,13 @@ The split, in one line each:
   no durability (the receiver's transcript only); one live Claude
   session — local by default, other machines only when Remote Control
   connects them. Nothing else in the estate wakes a peer in seconds.
-- **ARC is the rapid sidebar.** Minutes latency, readable in place,
-  thread-durable until its substance is conserved at close; any agent
-  that writes files. It sits beside the decision-thread sidebar in the
-  canonical card: choose a decision thread when the exchange must be
-  durable and structured from the start; choose ARC when latency and
-  bandwidth dominate.
+- **ARC is the rapid sidebar.** Seconds-scale delivery (~15s tail
+  worst case, per the ARC protocol's own measurement), readable in
+  place, thread-durable until its substance is conserved at close; any
+  agent that writes files. Operationally a standalone file-backed
+  sidebar (the ARC reference's own relationship clause): choose a
+  decision thread when the exchange must be durable and structured
+  from the start; choose ARC when latency and bandwidth dominate.
 - **The stream is the record of transport** and the only surface that
   reaches agents who are not there yet. Registry-integrated identity,
   tags and threading, watcher-observable. It is notification and
