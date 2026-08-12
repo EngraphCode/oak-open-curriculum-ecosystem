@@ -17,6 +17,27 @@ last_updated: 2026-08-12
 
 # Skill classes and validation jurisdiction
 
+## Amendment — 2026-08-12 (PR #865 review round + owner ruling)
+
+Two record defects, surfaced by the PR #865 review round (PR Review Warden) and
+an owner ruling, are corrected in the body below (this note records the change;
+the clauses themselves are re-trued inline so no misleading text survives):
+
+- **Membership is by CONTENT marker, not prefix.** The owner ruled the `oak-`
+  prefix configurable during implementation, so class membership is proven by
+  the class marker each stub carries (`adapter-stub.ts`, structural
+  recognition), never by a name pattern. The classification, Mechanism, and
+  census are amended to the marker-based design; the prefix survives only as
+  the generator's naming parameter.
+- **`skills-lock.json` is external territory — retained, not deleted.** It is
+  the external skills CLI's own project lock (verified against
+  `vercel-labs/skills`: per-skill `source`/`sourceType`/`skillPath`/hash for the
+  clerk and anthropics installs, computed on install and consumed by
+  `skills install`/`skills update`). Only OUR compensation machinery is deleted;
+  the file is kept untouched (owner ruling 2026-08-12: "if skills-lock.json is
+  part of the external tooling for the external skills, why would we touch
+  it?"). Acceptance criterion 3 is corrected accordingly.
+
 ## Problem (measured 2026-08-12, all first-hand)
 
 The estate holds three classes of skills but its machinery was built as if
@@ -49,12 +70,15 @@ The measured facts:
   cross-references (adjudicating a Vendor-class artifact), and its
   permission census excludes the nine only by accident (symlink-blind
   directory listing), not by declared scope.
-- Compensation machinery total: 41 `lockedIds`/`skills-lock` references
-  across 10 source files including a dedicated `lock.ts`; a 59-line
-  `skills-lock.json` whose recorded hashes reconcile against nothing
-  measurable; ADR-125 §Externally installed skills asserting our
-  jurisdiction over the class; one code comment citing a register that
-  does not exist (`projection-roots.ts:21`).
+- Our compensation machinery total: 41 `lockedIds`/`skills-lock` references
+  across 10 source files including a dedicated `lock.ts`; the portability
+  validator's `skills-lock.json` cross-reference leg; ADR-125 §Externally
+  installed skills asserting our jurisdiction over the class; one code comment
+  citing a register that does not exist (`projection-roots.ts:21`).
+  `skills-lock.json` ITSELF is not ours — it is the external skills CLI's own
+  project lock (per-skill `source`/`sourceType`/`skillPath`/hash for the clerk
+  and anthropics installs, which that CLI computes on install and consumes on
+  `skills install`/`skills update`; verified against `vercel-labs/skills`).
 - Cost of the manufactured problem so far: the MCP-567 arc — a ticket
   minted and auto-closed without its work existing, an owner decision
   card built on a false frame, a worktree with 110 lines of red tests
@@ -65,29 +89,35 @@ The measured facts:
 
 | Class | What | Home | Lifecycle owner | Our validation jurisdiction |
 | --- | --- | --- | --- | --- |
-| **Practice skills** | Our skills about working with this repo and the Practice | `.agent/skills/` canonicals; `oak-`-prefixed projections at both projection roots | Our generator + validators | Full: projection reconciliation, frontmatter, permission census, portability |
-| **Vendor skills** | External skills, installed with `pnpx skills` | Non-`oak-` entries at the projection roots, in the external CLI's layout | The external skills machinery | None. Our validators ignore these entries entirely: never adjudicated, never deleted, never permission-censused |
+| **Practice skills** | Our skills about working with this repo and the Practice | `.agent/skills/` canonicals; projections at both projection roots recognised by the class marker in their stub | Our generator + validators | Full: projection reconciliation, frontmatter, permission census, portability |
+| **Vendor skills** | External skills, installed with `pnpx skills` | Entries at the projection roots carrying no class marker, in the external CLI's layout | The external skills machinery | None. Our validators ignore these entries entirely: never adjudicated, never deleted, never permission-censused |
 | **User-facing skills** | Skills we create, in this repo or another Oak repo, surfaced to external users via MCP, plugins, or `pnpx skills`. Two sub-classes today: curriculum skills (teachers), engineering skills (ed-tech engineers using our curriculum SDK) | `plugins/oak-open-curriculum/{skills,workflows}/` today (five SKILL.md files, curriculum sub-class); engineering sub-class not yet authored | Us, as product | Product-grade per validation-strategy assurance tiers (curriculum content is teacher-facing: Critical/Standard tier), not repo-projection machinery |
 
-Class membership is mechanically determinable: location plus prefix. That
-is what makes the jurisdiction rule enforceable rather than aspirational.
+Class membership is mechanically determinable by CONTENT: the class marker in
+each stub records its derivation from `.agent/skills/` (`adapter-stub.ts`,
+recognised structurally). The `oak-` prefix is the generator's naming
+parameter, not the class boundary — it is configurable, so it can never be the
+membership test. Recognising by marker is what makes the jurisdiction rule
+enforceable rather than aspirational.
 
 ## Mechanism (one PR)
 
-1. **Scope the sweep to the Practice namespace.** The reconciliation in
-   `projection-roots.ts` adjudicates only `<prefix>`-named entries at both
-   roots (the prefix is already the generator's own parameter). Entries
-   outside the namespace are invisible to it — not exempted, not
-   tolerated: out of jurisdiction.
-2. **Delete the compensation machinery.** `lock.ts`, the `lockedIds`
-   plumbing through `generator.ts`/`checker.ts`/`clear.ts`/the bin, the
-   `skills-lock.json` cross-reference leg in the portability validator,
-   and `skills-lock.json` itself. The false register comment dies with
-   the code that carries it.
+1. **Scope the sweep to the Practice class.** The reconciliation in
+   `projection-roots.ts` adjudicates only entries whose stub carries the class
+   marker (structural recognition — `adapter-stub.ts`), at both roots. Entries
+   without the marker are invisible to it — not exempted, not tolerated: out of
+   jurisdiction.
+2. **Delete OUR compensation machinery.** `lock.ts`, the `lockedIds`
+   plumbing through `generator.ts`/`checker.ts`/`clear.ts`/the bin, and the
+   `skills-lock.json` cross-reference leg in the portability validator. The
+   false register comment dies with the code that carries it. `skills-lock.json`
+   ITSELF is retained untouched — external territory (owner ruling 2026-08-12);
+   our code simply stops reading, validating, or reconciling it.
 3. **Scope the permission census intentionally.** The census demands
-   `Skill(<name>)` entries for Practice projections by declared scope
-   (prefix), replacing the accidental symlink-blindness that excluded
-   Vendor entries by dirent kind.
+   `Skill(<name>)` entries for Practice projections selected by the class
+   marker, replacing the accidental symlink-blindness that excluded Vendor
+   entries by dirent kind. Unreadable state (any non-ENOENT failure) surfaces
+   as a census issue, never a silent "no Practice skills".
 4. **Red-proofs, committed with the change:**
    - A fixture Vendor-shaped install (non-`oak-` real directory AND
      non-`oak-` symlink) at each root is ignored by `skills:check` and
@@ -122,7 +152,11 @@ is what makes the jurisdiction rule enforceable rather than aspirational.
    above, plus a live probe against the real tree.
 2. Zero `skills-lock`/`lockedIds` references in `agent-tools/src` —
    proof: grep count 0 (41 today).
-3. `skills-lock.json` is gone — proof: file absent, `pnpm check` green.
+3. OUR lock machinery is gone — `lock.ts` deleted, zero `lockedIds`/`skills-lock`
+   references in `agent-tools/src` — while the external `skills-lock.json` is
+   RETAINED byte-identical to `origin/main` (owner ruling 2026-08-12) — proof:
+   `lock.ts` absent, grep count 0, `skills-lock.json` present and unchanged,
+   `pnpm check` green.
 4. ADR-125 names the three classes with their homes and jurisdiction;
    validation-strategy carries the jurisdiction clause — proof: diffs in
    the PR.

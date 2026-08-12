@@ -13,7 +13,6 @@
 import { argv, exit, stderr, stdout } from 'node:process';
 
 import { checkAdapters } from '../skills-adapter-generate/checker.js';
-import { clearGeneratedAdapters } from '../skills-adapter-generate/clear.js';
 import { CLI_USAGE, parseCliFlags, type CliFlags } from '../skills-adapter-generate/cli-flags.js';
 import { generateAdapters, generateExitCode } from '../skills-adapter-generate/generator.js';
 
@@ -89,20 +88,16 @@ async function runCheck(repoRoot: string, prefix: string): Promise<number> {
 }
 
 async function runGenerate(repoRoot: string, flags: CliFlags): Promise<number> {
-  if (flags.clear) {
-    const clearResult = await clearGeneratedAdapters(repoRoot);
-    if (clearResult.kind === 'error') {
-      stderr.write(`--clear failed: ${clearResult.message}\n`);
-      return 1;
-    }
-    const removedList = clearResult.removed.map((p) => `  ${p}`).join('\n');
-    stdout.write(
-      `Cleared ${String(clearResult.removed.length)} Practice-projection directories ` +
-        `(entries without the class marker are not ours; untouched)` +
-        `${clearResult.removed.length > 0 ? `:\n${removedList}` : '.'}\n`,
-    );
-  }
-  const outcome = await generateAdapters({ repoRoot, prefix: flags.prefix });
+  // The clear is folded into generation behind the discovery-completeness
+  // gate: `generateAdapters` clears only after it has fully discovered the
+  // canonicals it must regenerate, so `--clear` from the wrong directory (zero
+  // canonicals) removes nothing (review 2026-08-12, defect 1). The removed
+  // directories come back on `outcome.cleared`.
+  const outcome = await generateAdapters({
+    repoRoot,
+    prefix: flags.prefix,
+    clearFirst: flags.clear,
+  });
   reportGenerateOutcome(outcome);
   if (outcome.written.length === 0 && outcome.skipped.length === 0) {
     stderr.write(
@@ -114,6 +109,13 @@ async function runGenerate(repoRoot: string, flags: CliFlags): Promise<number> {
 }
 
 function reportGenerateOutcome(outcome: Awaited<ReturnType<typeof generateAdapters>>): void {
+  if (outcome.cleared.length > 0) {
+    const clearedList = outcome.cleared.map((p) => `  ${p}`).join('\n');
+    stdout.write(
+      `Cleared ${String(outcome.cleared.length)} Practice-projection directories before ` +
+        `regeneration (entries without the class marker are not ours; untouched):\n${clearedList}\n`,
+    );
+  }
   stdout.write(`Wrote ${String(outcome.written.length)} projection files.\n`);
   if (outcome.pruned.length > 0) {
     const prunedList = outcome.pruned.map((p) => `  ${p}`).join('\n');

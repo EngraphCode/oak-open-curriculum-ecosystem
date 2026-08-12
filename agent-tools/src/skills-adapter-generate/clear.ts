@@ -10,11 +10,12 @@
  * and never removed: our tooling clears only what our generation
  * re-creates, and membership is proven by content, never by name.
  */
-import { lstat, readFile, readdir, rm } from 'node:fs/promises';
+import { readdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { parseAdapterStubPointer } from './adapter-stub.js';
 import { realCarriageReadFs, type FsRead } from './carriage-fs.js';
+import { readRegularFileTextNoFollow } from './read-regular-file.js';
 import { allSurfaceRootFailures, PROJECTION_SURFACE_ROOTS } from './surface-roots.js';
 
 /**
@@ -94,22 +95,16 @@ const realClearFs: ClearFs = {
     };
   },
   async readStubOrUndefined(path) {
-    try {
-      // lstat gate: a symlinked SKILL.md is never ours (emission writes
-      // regular files only) and must not be read through — its target
-      // could be a genuine stub, which would classify a foreign
-      // directory as ours and delete it.
-      const stubStat = await lstat(path);
-      if (!stubStat.isFile()) {
-        return { kind: 'ok', value: undefined };
-      }
-      return { kind: 'ok', value: await readFile(path, 'utf8') };
-    } catch (error: unknown) {
-      if (isMissingSurface(error)) {
-        return { kind: 'ok', value: undefined };
-      }
-      return { kind: 'error', message: `cannot read ${path}: ${String(error)}` };
-    }
+    // One fd-anchored read: the symlink-leaf check (a symlinked SKILL.md is
+    // never ours — emission writes regular files only) and the read share a
+    // single descriptor, so there is no lstat→readFile window a concurrent
+    // racer can swap the target through (CodeQL js/file-system-race). A
+    // symlinked or absent stub reads as undefined; a non-ENOENT failure
+    // aborts the clear rather than silently keeping the entry.
+    const read = await readRegularFileTextNoFollow(path);
+    return read.kind === 'ok'
+      ? { kind: 'ok', value: read.value }
+      : { kind: 'error', message: read.message };
   },
   async removeDirectory(path) {
     await rm(path, { recursive: true, force: true });
@@ -117,70 +112,77 @@ const realClearFs: ClearFs = {
   resolveRealPath: (path) => realCarriageReadFs.resolveRealPath(path),
 };
 
+/** The collection half of the two-phase clear: a surface's marker-carrying
+ * candidate directories, or the failure that aborts the whole run. */
+type CollectResult =
+  | { readonly kind: 'ok'; readonly candidates: readonly string[] }
+  | { readonly kind: 'error'; readonly message: string };
+
 /**
  * Remove Practice-projection directories under `.claude/skills/` and
- * `.agents/skills/` before a fresh generation pass — exactly the
- * entries whose `SKILL.md` carries the class marker, whatever their
- * name (so a clear also collects projections generated under a
- * previous prefix). Entries without the marker are out of
- * jurisdiction and never touched; symlinked entries never reach the
- * marker read because `readdir` classifies them as symlinks, not
- * directories.
+ * `.agents/skills/` before a fresh generation pass — exactly the entries
+ * whose `SKILL.md` carries the class marker, whatever their name (so a clear
+ * also collects projections generated under a previous prefix). Entries
+ * without the marker are out of jurisdiction and never touched.
  *
- * The surface-root guard runs FIRST, per surface, before any `readdir`
- * or `rm`: a symlinked root or ancestor (the committed shape of the
- * estate's Vendor entries) would otherwise send the whole recursive
- * removal into a foreign tree — the channel security round 2
- * (2026-08-12) found open here. An unreadable surface or stub, or a
- * failed root resolution, aborts the clear with an error rather than
- * guessing.
+ * Two orderings make the one destructive path safe:
+ *  - the surface-root guard runs FIRST, whole-run, before any read or `rm`: a
+ *    symlinked root or ancestor (the committed shape of the estate's Vendor
+ *    entries) would otherwise send the recursive removal into a foreign tree
+ *    (channel security round 2, 2026-08-12);
+ *  - classification is COMPLETE before any removal: every candidate across
+ *    BOTH roots is collected first, and any list or classification failure
+ *    aborts the whole run before a single `rm`, so a second-root read failure
+ *    can never leave the first root half-cleared (review 2026-08-12, defect 3).
  *
- * Path-based guards are TOCTOU-exposed under a concurrent local racer
- * (the `lstat`/`resolveRealPath` and the `rm` are separate syscalls);
- * under this pipeline's threat model — repo content authored via PR,
- * static during a run — that gap is not reachable, and a fd-anchored
- * cure would be disproportionate. Idempotent.
+ * The stub read is fd-anchored (`readRegularFileTextNoFollow`), so per-entry
+ * classification carries no check→use race. An unreadable surface or stub, or
+ * a failed root resolution, aborts with an error rather than guessing.
+ * Idempotent.
  */
 export async function clearGeneratedAdapters(
   repoRoot: string,
   fs: ClearFs = realClearFs,
 ): Promise<ClearResult> {
-  // Whole-run precondition: BOTH surface roots are guarded before ANY
-  // removal, so a symlinked second root can never permit a partial
-  // destructive pass over the first (the checker uses the same
-  // before-acting shape). A failure here means nothing was removed.
   const rootFailures = await allSurfaceRootFailures(repoRoot, (path) => fs.resolveRealPath(path));
   if (rootFailures.length > 0) {
     return { kind: 'error', message: rootFailures.join('; ') };
   }
-  const removed: string[] = [];
+  // Collection phase: classify every candidate across BOTH roots before any
+  // removal, so a failure on the second root cannot strand a half-cleared
+  // first root.
+  const candidates: string[] = [];
   for (const surface of PROJECTION_SURFACE_ROOTS) {
-    const outcome = await clearSurface(join(repoRoot, surface), fs);
-    if (outcome.kind === 'error') {
-      return outcome;
+    const collected = await collectSurfaceCandidates(join(repoRoot, surface), fs);
+    if (collected.kind === 'error') {
+      return collected;
     }
-    removed.push(...outcome.removed);
+    candidates.push(...collected.candidates);
   }
-  return { kind: 'ok', removed };
+  // Removal phase: only now, with the whole corpus classified, do we delete.
+  for (const dir of candidates) {
+    await fs.removeDirectory(dir);
+  }
+  return { kind: 'ok', removed: candidates };
 }
 
-/** Remove exactly a guarded surface's marker-carrying directories. An
- * unlistable surface or an unclassifiable stub aborts. */
-async function clearSurface(root: string, fs: ClearFs): Promise<ClearResult> {
+/** Classify a guarded surface's marker-carrying directories WITHOUT removing
+ * them. An unlistable surface or an unclassifiable stub aborts the run (an
+ * unreadable entry is never silently kept or removed). */
+async function collectSurfaceCandidates(root: string, fs: ClearFs): Promise<CollectResult> {
   const listed = await fs.listSubdirectoryNames(root);
   if (listed.kind === 'error') {
     return listed;
   }
-  const removed: string[] = [];
+  const candidates: string[] = [];
   for (const name of listed.names) {
     const stub = await fs.readStubOrUndefined(join(root, name, 'SKILL.md'));
     if (stub.kind === 'error') {
       return stub;
     }
     if (stub.value !== undefined && parseAdapterStubPointer(stub.value) !== undefined) {
-      await fs.removeDirectory(join(root, name));
-      removed.push(join(root, name));
+      candidates.push(join(root, name));
     }
   }
-  return { kind: 'ok', removed };
+  return { kind: 'ok', candidates };
 }

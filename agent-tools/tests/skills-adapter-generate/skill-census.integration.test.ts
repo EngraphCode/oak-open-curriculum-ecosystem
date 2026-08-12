@@ -1,7 +1,10 @@
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { adapterStubPointerLine } from '../../src/skills-adapter-generate/adapter-stub';
-import { practiceSkillPermissionIssues } from '../../src/validators/portability/skill-census';
+import {
+  practiceSkillPermissionIssues,
+  type CensusFs,
+} from '../../src/validators/portability/skill-census';
 
 import {
   cleanupSandboxes,
@@ -64,5 +67,60 @@ describe('practiceSkillPermissionIssues over a real filesystem', () => {
     expect(issues).toHaveLength(1);
     expect(issues[0]).toMatch(/resolves outside/);
     expect(issues.some((issue) => issue.includes('oak-external'))).toBe(false);
+  });
+
+  it('surfaces an unreadable .claude/skills root as an issue rather than passing as "no Practice skills"', async () => {
+    const root = sandboxRepo();
+    // A regular file where the skills root should be — readdir gives ENOTDIR,
+    // a non-ENOENT failure that must NOT read as an empty (absent) surface.
+    writeRepoFile(root, '.claude/skills', 'not a directory\n');
+
+    const issues = await practiceSkillPermissionIssues(root, []);
+
+    expect(issues).toHaveLength(1);
+    expect(issues[0]).toContain('cannot list');
+  });
+});
+
+describe('practiceSkillPermissionIssues fail-closed on unreadable state (injected seam)', () => {
+  const passesRootGuard = async (p: string) => ({ kind: 'ok', value: p }) as const;
+
+  it('reports a root-listing failure as an issue, never a silent "no Practice skills"', async () => {
+    const fs: CensusFs = {
+      async listSubdirectoryNames() {
+        return { kind: 'failure', message: 'cannot list /repo/.claude/skills: EACCES' };
+      },
+      async readRegularFileTextNoFollow() {
+        return { kind: 'ok', value: undefined };
+      },
+      resolveRealPath: passesRootGuard,
+    };
+
+    const issues = await practiceSkillPermissionIssues('/repo', [], fs);
+
+    expect(issues).toStrictEqual([
+      '.claude/settings.json: cannot list /repo/.claude/skills: EACCES',
+    ]);
+  });
+
+  it('reports an unreadable Practice entry as an issue rather than dropping it', async () => {
+    const fs: CensusFs = {
+      async listSubdirectoryNames() {
+        return { kind: 'ok', value: ['oak-x'] };
+      },
+      async readRegularFileTextNoFollow() {
+        return {
+          kind: 'failure',
+          message: 'cannot read /repo/.claude/skills/oak-x/SKILL.md: EACCES',
+        };
+      },
+      resolveRealPath: passesRootGuard,
+    };
+
+    const issues = await practiceSkillPermissionIssues('/repo', [], fs);
+
+    expect(issues).toContain(
+      '.claude/settings.json: cannot read /repo/.claude/skills/oak-x/SKILL.md: EACCES',
+    );
   });
 });

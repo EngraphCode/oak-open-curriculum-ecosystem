@@ -18,7 +18,16 @@
  */
 
 import { parseAdapterStubPointer } from '../../skills-adapter-generate/adapter-stub.js';
+import type { FsRead } from '../../skills-adapter-generate/carriage-fs.js';
 import { CLAUDE_SETTINGS_PATH, stripDirAndExtension } from './portability-constants.js';
+
+/** Outcome of {@link selectPracticeSkillDirs}: the marker-carrying Practice
+ * projections, plus any per-entry read failures the caller must surface as
+ * census issues rather than swallow as "not a Practice skill". */
+export interface PracticeSkillSelection {
+  readonly selected: string[];
+  readonly failures: string[];
+}
 
 /**
  * Select the Practice-class members from a projection root's directory
@@ -29,22 +38,31 @@ import { CLAUDE_SETTINGS_PATH, stripDirAndExtension } from './portability-consta
  * stays in.
  *
  * @param dirNames - Immediate subdirectory names at the projection root.
- * @param readStubOrUndefined - Reads `<dirName>/SKILL.md`, `undefined` when
- *   absent.
- * @returns The directory names that are Practice projections.
+ * @param readStub - Reads `<dirName>/SKILL.md` through the typed filesystem
+ *   seam: `ok`/`undefined` when absent or not a regular file, `ok`/text when
+ *   present, `failure` for a non-ENOENT error. A failure is NEVER read as
+ *   absence — it is collected so the caller can surface it as a census issue
+ *   (the false-green this closes: an unreadable entry silently becoming "not a
+ *   Practice skill").
+ * @returns The Practice projections, plus any per-entry read failures.
  */
 export async function selectPracticeSkillDirs(
   dirNames: readonly string[],
-  readStubOrUndefined: (dirName: string) => Promise<string | undefined>,
-): Promise<string[]> {
+  readStub: (dirName: string) => Promise<FsRead<string | undefined>>,
+): Promise<PracticeSkillSelection> {
   const selected: string[] = [];
+  const failures: string[] = [];
   for (const name of dirNames) {
-    const stub = await readStubOrUndefined(name);
-    if (stub !== undefined && parseAdapterStubPointer(stub) !== undefined) {
+    const stub = await readStub(name);
+    if (stub.kind === 'failure') {
+      failures.push(stub.message);
+      continue;
+    }
+    if (stub.value !== undefined && parseAdapterStubPointer(stub.value) !== undefined) {
       selected.push(name);
     }
   }
-  return selected;
+  return { selected, failures };
 }
 
 /**

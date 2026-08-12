@@ -18,6 +18,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 
 import { realCarriageWriteFs, syncCarriage } from './carriage.js';
+import { clearGeneratedAdapters, type ClearResult } from './clear.js';
 import { classifyEmissionTarget, foreignTargetRefusal } from './emission-target.js';
 import { adapterTargetPath, renderAdapter, type AdapterSurface } from './adapter-render.js';
 import { discoverCanonicals, type ParsedCanonical } from './discovery.js';
@@ -34,6 +35,11 @@ export {
 export interface GeneratorOptions {
   readonly repoRoot: string;
   readonly prefix: string;
+  /** Remove every existing Practice projection before regenerating. The clear
+   * runs ONLY after discovery is proven complete (see `generateAdapters`), so
+   * a run that could not fully discover its canonicals never strands the
+   * surfaces empty. */
+  readonly clearFirst?: boolean;
 }
 
 export interface GenerateOutcome {
@@ -52,6 +58,11 @@ export interface GenerateOutcome {
    * root-level links) — reported separately from `pruned` so the operator
    * never reads a swept directory as an orphaned carried file. */
   readonly sweptStale: readonly string[];
+  /** Practice-projection directories removed by a `clearFirst` pass BEFORE
+   * regeneration — empty unless clearing was requested. The clear runs only
+   * after discovery is proven complete, so this is never a partial teardown
+   * of a tree the run then failed to rebuild. */
+  readonly cleared: readonly string[];
 }
 
 export type ParsedCanonicalSkill = ParsedCanonical;
@@ -71,6 +82,7 @@ export async function generateAdapters(options: GeneratorOptions): Promise<Gener
     pruned: [],
     refused: [],
     sweptStale: [],
+    cleared: [],
     skipped: discovery.skipped,
     duplicates: discovery.duplicates,
   };
@@ -78,19 +90,22 @@ export async function generateAdapters(options: GeneratorOptions): Promise<Gener
   if (discovery.duplicates.length > 0) {
     return empty;
   }
-  // NOTHING runs over an incomplete discovery — not the sweep and not
-  // emission. A skipped directory or an empty canonical set means an
-  // unreadable canonical or skills root read as absent, so both the
-  // expected-projection set AND the per-skill write targets are
-  // unverified: the round-4 probe showed a symlinked projection root
-  // being written through (and its contents deleted) exactly because
-  // emission continued while the sweep had stood down. The run already
-  // exits non-zero on the skipped / no-canonicals streams; a
-  // half-applied cure over an unobserved tree is the shape this round
-  // deletes.
+  // NOTHING runs over an incomplete discovery — not clear, sweep, or emission.
+  // A skipped directory or empty canonical set means an unreadable canonical or
+  // skills root read as absent, so the projection set and per-skill write
+  // targets are unverified; a half-applied cure over an unobserved tree is how
+  // valid copies get deleted (the round-4 write-through-a-symlinked-root probe).
   if (!isDiscoveryComplete(discovery)) {
     return empty;
   }
+  // Clear (if requested) runs ONLY here — behind the discovery-completeness
+  // gate — and a clear failure refuses the run (nothing emitted over a tree
+  // whose teardown could not be fully observed).
+  const clearOutcome = await clearIfRequested(options);
+  if (clearOutcome.kind === 'error') {
+    return { ...empty, refused: [clearOutcome.message] };
+  }
+  const cleared = clearOutcome.removed;
   // Sweep BEFORE emission: stale Practice projections (canonical deleted or
   // renamed) leave the surfaces first, so no adapter is ever written into an
   // entry the sweep is about to adjudicate. A sweep read failure refuses the
@@ -104,10 +119,23 @@ export async function generateAdapters(options: GeneratorOptions): Promise<Gener
     discoveryComplete: true,
   });
   if (sweepOutcome.refusedRun.length > 0) {
-    return { ...empty, refused: [...sweepOutcome.refusedRun] };
+    return { ...empty, cleared, refused: [...sweepOutcome.refusedRun] };
   }
   const emitted = await emitAllAdapters(options, discovery.canonicals);
-  return { ...empty, ...emitted, sweptStale: [...sweepOutcome.pruned] };
+  return { ...empty, ...emitted, cleared, sweptStale: [...sweepOutcome.pruned] };
+}
+
+/**
+ * Clear every existing Practice projection when `clearFirst` is set. The
+ * destructive act is reached ONLY from `generateAdapters`, AFTER its
+ * discovery-completeness gate, so a run from the wrong directory (zero
+ * canonicals) or over a half-authored corpus never tears the surfaces down
+ * (review 2026-08-12, defect 1). No clear requested is an empty `ok`.
+ */
+async function clearIfRequested(options: GeneratorOptions): Promise<ClearResult> {
+  return options.clearFirst === true
+    ? clearGeneratedAdapters(options.repoRoot)
+    : { kind: 'ok', removed: [] };
 }
 
 async function emitAllAdapters(

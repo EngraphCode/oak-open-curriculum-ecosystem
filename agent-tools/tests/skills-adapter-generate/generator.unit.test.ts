@@ -604,6 +604,7 @@ describe('generateExitCode', () => {
         pruned: [],
         refused: [],
         sweptStale: [],
+        cleared: [],
       }),
     ).toBe(0);
   });
@@ -617,6 +618,7 @@ describe('generateExitCode', () => {
         pruned: [],
         refused: [],
         sweptStale: [],
+        cleared: [],
       }),
     ).toBe(1);
   });
@@ -630,6 +632,7 @@ describe('generateExitCode', () => {
         pruned: [],
         refused: ['canonical carried tree contains a symlink'],
         sweptStale: [],
+        cleared: [],
       }),
     ).toBe(1);
   });
@@ -643,6 +646,7 @@ describe('generateExitCode', () => {
         pruned: [],
         refused: [],
         sweptStale: [],
+        cleared: [],
       }),
     ).toBe(1);
   });
@@ -656,6 +660,7 @@ describe('generateExitCode', () => {
         pruned: ['b'],
         refused: [],
         sweptStale: [],
+        cleared: [],
       }),
     ).toBe(0);
   });

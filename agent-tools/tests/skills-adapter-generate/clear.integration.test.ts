@@ -137,6 +137,34 @@ describe('clearGeneratedAdapters (in-memory seam)', () => {
     expect(result.kind).toBe('error');
     expect(removed).toEqual([]);
   });
+
+  it('classifies BOTH roots before removing: a second-root list failure leaves the first root untouched (no partial destruction)', async () => {
+    const removed: string[] = [];
+    const fs: ClearFs = {
+      async listSubdirectoryNames(path) {
+        // First root has a genuine removal candidate; the SECOND root fails.
+        return path === '/repo/.claude/skills'
+          ? { kind: 'ok', names: ['oak-commit'] }
+          : { kind: 'error', message: 'cannot list /repo/.agents/skills: EACCES' };
+      },
+      async readStubOrUndefined() {
+        return { kind: 'ok', value: OURS };
+      },
+      async removeDirectory(path) {
+        removed.push(path);
+      },
+      async resolveRealPath(path) {
+        return { kind: 'ok', value: path };
+      },
+    };
+
+    const result = await clearGeneratedAdapters(repoRoot, fs);
+
+    // Collection spans both roots before any removal, so the first root's
+    // real candidate is never deleted when the second root aborts the run.
+    expect(result.kind).toBe('error');
+    expect(removed).toEqual([]);
+  });
 });
 
 describe('clearGeneratedAdapters over a real filesystem (the destructive path)', () => {

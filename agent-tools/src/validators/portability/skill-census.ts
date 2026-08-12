@@ -5,61 +5,77 @@
  * composition is importable and testable (the script itself binds its
  * repo root at module load and cannot be aimed at a fixture).
  */
-import { lstat } from 'node:fs/promises';
 import path from 'node:path';
 
-import { realCarriageReadFs } from '../../skills-adapter-generate/carriage-fs.js';
+import { realCarriageReadFs, type FsRead } from '../../skills-adapter-generate/carriage-fs.js';
+import { readRegularFileTextNoFollow } from '../../skills-adapter-generate/read-regular-file.js';
 import { surfaceRootGuardFailure } from '../../skills-adapter-generate/surface-roots.js';
 
-import { listSubdirs, readOptionalText } from './portability-fs.js';
 import { getSkillPermissionIssues, selectPracticeSkillDirs } from './skill-permission-checks.js';
 import { CLAUDE_SETTINGS_PATH } from './portability-constants.js';
 
 /**
+ * The filesystem seam the census reads through. Every method carries the
+ * ENOENT-only-absence posture (`carriage-fs.ts`): a non-ENOENT failure is a
+ * typed `failure` the census surfaces as an issue, NEVER swallowed as "no
+ * Practice skills" (the false-green review round 2026-08-12 defect 4 closed).
+ * Injectable so the fail-closed behaviour is testable without a root-only
+ * chmod fixture.
+ */
+export interface CensusFs {
+  listSubdirectoryNames(path: string): Promise<FsRead<readonly string[]>>;
+  readRegularFileTextNoFollow(path: string): Promise<FsRead<string | undefined>>;
+  resolveRealPath(path: string): Promise<FsRead<string>>;
+}
+
+const realCensusFs: CensusFs = {
+  listSubdirectoryNames: (p) => realCarriageReadFs.listSubdirectoryNames(p),
+  readRegularFileTextNoFollow,
+  resolveRealPath: (p) => realCarriageReadFs.resolveRealPath(p),
+};
+
+/**
  * The Claude permission census, scoped to the Practice class. Guards the
- * `.claude/skills` surface root first (a symlinked root or ancestor
- * would census directories outside the repo — read-through channel,
- * security round 2 2026-08-12), then selects the marker-carrying
- * projections (`selectPracticeSkillDirs`, whose reader is lstat-gated so
- * a symlinked `SKILL.md` is never read through) and reports any missing
- * `Skill(<name>)` entries. Vendor-class skills are the external
- * machinery's business and never censused.
+ * `.claude/skills` surface root first (a symlinked root or ancestor would
+ * census directories outside the repo — read-through channel, security round 2
+ * 2026-08-12), then selects the marker-carrying projections
+ * (`selectPracticeSkillDirs`, whose reader is fd-anchored so a symlinked
+ * `SKILL.md` is never read through) and reports any missing `Skill(<name>)`
+ * entries. Vendor-class skills are the external machinery's business and never
+ * censused.
+ *
+ * Every filesystem step reads through the typed seam: an unreadable root or
+ * Practice entry (any non-ENOENT failure) becomes a census ISSUE, never a
+ * silent "no Practice skills" pass.
  */
 export async function practiceSkillPermissionIssues(
   repoRoot: string,
   permissions: string[],
+  fs: CensusFs = realCensusFs,
 ): Promise<string[]> {
+  const skillsRoot = path.join(repoRoot, '.claude/skills');
   const rootGuard = await surfaceRootGuardFailure({
-    root: path.join(repoRoot, '.claude/skills'),
+    root: skillsRoot,
     surface: '.claude/skills',
-    repoReal: await realCarriageReadFs.resolveRealPath(repoRoot),
-    resolveRealPath: (p) => realCarriageReadFs.resolveRealPath(p),
+    repoReal: await fs.resolveRealPath(repoRoot),
+    resolveRealPath: (p) => fs.resolveRealPath(p),
   });
   if (rootGuard !== undefined) {
     return [`${CLAUDE_SETTINGS_PATH}: ${rootGuard}`];
   }
-  const claudeSkillDirs = await selectPracticeSkillDirs(
-    await listSubdirs(repoRoot, '.claude/skills'),
-    (dirName) => readClaudeStubText(repoRoot, dirName),
-  );
-  return getSkillPermissionIssues({
-    claudeCommandFiles: [],
-    claudeSkillDirs,
-    claudeSettingsPermissions: permissions,
-  });
-}
-
-/** Read a `.claude/skills/<dir>/SKILL.md` for census classification —
- * `undefined` when absent OR not a regular file (a symlinked stub is
- * never read through to borrow a genuine stub's content). */
-async function readClaudeStubText(repoRoot: string, dirName: string): Promise<string | undefined> {
-  const stubPath = `.claude/skills/${dirName}/SKILL.md`;
-  try {
-    if (!(await lstat(path.join(repoRoot, stubPath))).isFile()) {
-      return undefined;
-    }
-  } catch {
-    return undefined;
+  const listing = await fs.listSubdirectoryNames(skillsRoot);
+  if (listing.kind === 'failure') {
+    return [`${CLAUDE_SETTINGS_PATH}: ${listing.message}`];
   }
-  return (await readOptionalText(repoRoot, stubPath)).value ?? undefined;
+  const selection = await selectPracticeSkillDirs(listing.value, (dirName) =>
+    fs.readRegularFileTextNoFollow(path.join(skillsRoot, dirName, 'SKILL.md')),
+  );
+  return [
+    ...selection.failures.map((message) => `${CLAUDE_SETTINGS_PATH}: ${message}`),
+    ...getSkillPermissionIssues({
+      claudeCommandFiles: [],
+      claudeSkillDirs: selection.selected,
+      claudeSettingsPermissions: permissions,
+    }),
+  ];
 }

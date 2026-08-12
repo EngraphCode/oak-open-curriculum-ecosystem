@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
+import type { FsRead } from '../../skills-adapter-generate/carriage-fs.js';
+
 import {
   CLAUDE_HOOK_COMMAND,
   CLAUDE_SETTINGS_PATH,
@@ -467,7 +469,10 @@ describe('selectPracticeSkillDirs', () => {
     ['clerk', '# Clerk\n\nVendor skill body — no derivation marker.\n'],
     ['oak-mystery', '# Mystery\n\nForeign skill with a coincidental prefix.\n'],
   ]);
-  const readStub = async (name: string): Promise<string | undefined> => stubs.get(name);
+  const readStub = async (name: string): Promise<FsRead<string | undefined>> => ({
+    kind: 'ok',
+    value: stubs.get(name),
+  });
 
   it.each([
     { name: 'oak-commit', selected: true, why: 'a genuine stub is censused' },
@@ -482,6 +487,18 @@ describe('selectPracticeSkillDirs', () => {
   ])('$why ($name → $selected)', async ({ name, selected }) => {
     const result = await selectPracticeSkillDirs([name], readStub);
 
-    expect(result).toStrictEqual(selected ? [name] : []);
+    expect(result).toStrictEqual({ selected: selected ? [name] : [], failures: [] });
+  });
+
+  it('surfaces a reader failure instead of dropping the entry as absent', async () => {
+    const result = await selectPracticeSkillDirs(['oak-x'], async () => ({
+      kind: 'failure',
+      message: 'cannot read .claude/skills/oak-x/SKILL.md: EACCES',
+    }));
+
+    expect(result).toStrictEqual({
+      selected: [],
+      failures: ['cannot read .claude/skills/oak-x/SKILL.md: EACCES'],
+    });
   });
 });
