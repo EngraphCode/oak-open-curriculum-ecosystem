@@ -257,7 +257,7 @@ describe('canonical policy: acceptance-euphemism group (graduated 2026-08-12)', 
     'live with it for now',
   ];
 
-  it('registers the acceptance-euphemism sub-family as its own group scoped to record surfaces', async () => {
+  it('registers the acceptance-euphemism sub-family as its own group scoped to operational records in addition to doctrine surfaces', async () => {
     const groups = await loadScopedContentBlocks();
     const acceptance = groups.find((group) => group.concept === 'acceptance-euphemism');
 
