@@ -138,11 +138,12 @@ Quick reference (same controls, terser):
 Cursor sessions derive the same identity through their platform hook
 and can render the full Claude adapter — the same live glance rows —
 after a one-time global activation
-(`pnpm agent-tools:install-cursor-statusline`). Codex sessions derive
-the identity through their SessionStart hook but render a minimal
-surface (session title and injected context rather than live glance
-rows); the current per-platform state, including the Codex statusline
-item allowlist note, is tracked in
+(`pnpm agent-tools:install-cursor-statusline`). Codex sessions receive
+the derived identity as injected context through their SessionStart
+hook; the Codex session title and statusline are user-owned host
+surfaces the repository tooling does not populate (a user can apply
+the name with Codex's own `/rename`). The current per-platform state,
+including the Codex statusline item allowlist note, is tracked in
 [agent-tools docs/agent-identity.md](../../agent-tools/docs/agent-identity.md).
 
 ## Further reading
