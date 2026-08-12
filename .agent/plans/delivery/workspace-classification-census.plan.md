@@ -49,12 +49,13 @@ Every census subject has a current, evidence-backed classification:
 **generic foundation / mixed / Oak leaf**, with the named leakage types
 where Oak identity has leaked into foundational surfaces (names, defaults,
 emitted surfaces, telemetry namespaces, ownership metadata, domain
-assumptions — the surface-isolation brief's own taxonomy, optionally
-refined by leakage DEPTH: docs-level vs source-embedded-docs-level vs
-runtime-emitted, a distinction the 2026-08-12 live-tree walk surfaced —
-Oak example strings shipping inside source TSDoc are one layer deeper
-than README prose; adoption of the refinement is an execution-time call
-recorded in the matrix's column key), a target state, tranche ownership,
+assumptions — the surface-isolation brief's own taxonomy, each instance
+qualified by leakage DEPTH from a closed three-value vocabulary:
+`docs-level` / `source-embedded-docs` / `runtime-emitted`. The depth
+distinction was surfaced by the 2026-08-12 live-tree walk — Oak example
+strings shipping inside source TSDoc are one layer deeper than README
+prose — and is committed at authoring time like every other column
+vocabulary here), a target state, tranche ownership,
 and a licence-mapping column. Column vocabularies are closed at authoring
 time so no taxonomy is invented mid-census:
 
@@ -189,9 +190,9 @@ open holding state.
 1. Land the TypeScript enumeration-and-validation instrument; derive the
    subject list (members + non-member surfaces, mechanical predicate);
    skeleton the structured row artefact with the column contract
-   (dual identity, classification, leakage types incl. the depth-
-   refinement decision, evidence + kind, target state, tranche ownership
-   with closed vocabulary, licence mapping with closed vocabulary,
+   (dual identity, classification, leakage types with the closed depth
+   vocabulary, evidence + kind, target state, tranche ownership with
+   closed vocabulary, licence mapping with closed vocabulary,
    thinnest-slice for `mixed` rows).
 2. Detector-fact sweep: dependency graph, metadata, emitted surfaces,
    leakage greps — banked per subject.

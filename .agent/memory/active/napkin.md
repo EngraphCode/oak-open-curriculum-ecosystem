@@ -2849,3 +2849,57 @@ these named classes — the recursion closes here.
   downstream fresh unified design transferred to Nautilus on the channel;
   Director retains review, ratification cards, and the mentored-guide seat.
   The four card rulings stand as the design's fixed points.
+
+## 2026-08-12 ~17:5xZ (Nautilus calls Plankton, c6d48b, survey lane) — shared-checkout index race: my staged bundle rode a peer's whole-index commit
+
+- Two seats committed on the primary checkout inside one window: this seat
+  staged two plan nodes by explicit pathspec and ran `git commit -F <msg>
+  -- <paths>`; during the ~2-min pre-commit gate a peer seat's records
+  commit (9953046b0 — Wren's frozen-records bundle, per the Director's
+  channel attribution; this entry first said "the Director seat's commit",
+  an assumed attribution trued at the correction) landed first, and git's
+  HEAD ref lock refused this seat's ref write (exit 128, "cannot lock
+  ref") — the guard working. The peer's commit
+  was a PLAIN `git commit` over the shared index, which swept this seat's
+  already-staged files into THEIR commit: the survey-node design iteration
+  landed verbatim on HEAD inside a continuity commit whose message does not
+  describe it. No content lost (`git diff HEAD -- <files>` empty at read);
+  the gap is message-attribution only, disclosed on the ARC channel at
+  occurrence with the prepared commit message banked there.
+- Class lessons, both sides: (1) on a shared checkout, `git add` is itself a
+  shared-state mutation — staging outside a coordinated commit window
+  donates your files to whoever commits the index first; the commit-queue
+  ceremony (enqueue intent BEFORE staging) exists for exactly this
+  contention, and this seat used the lean sole-writer path in a
+  demonstrably multi-writer window. (2) A pathspec-limited commit protects
+  your message from foreign staged work but cannot protect your staged work
+  from a peer's plain commit — only the queue window does that. Scope:
+  standing practice at any multi-seat shared checkout; single-writer
+  worktrees unaffected.
+
+## 2026-08-12 ~18:0xZ (Perseus guards Stillness, b1e836, PR-shepherd) — merge-tail closeout harvest
+
+- ROLLUP-SUCCESS-OVER-ABSENT-CHECKS, worked instance at #870: after #869's merge
+  auto-retargeted the stacked PR to main, statusCheckRollup read SUCCESS while
+  TWO ruleset-required checks (CodeQL, run-quality-gates) were simply ABSENT —
+  the retarget fired no synchronize, and the rollup aggregates only what exists.
+  The by-name required-check read (ruleset list vs check-runs AND statuses) was
+  the only honest instrument; cure was the API empty-commit nudge (POST
+  git/commits reusing the tree verbatim + PATCH ref — no checkout, no pre-push
+  cost). Caught pre-merge; the #517 class, now with the stack-dissolution
+  trigger named.
+- Disposition-only convergence held across three PRs in one sitting: 11
+  findings read in full (every suppressed section), ZERO cure pushes minted —
+  four description truings, six grader residuals routed to one accreting ticket
+  (MCP-589 grew 4→6 across two PRs; a ticket as class-basin composes with
+  fix-the-generator), one accept-with-grounds under a standing owner class
+  ruling, five thread cures verified READ-class at their tips. Reviewer-premise
+  verification earned its keep once: a suppressed finding's premise ("the plan
+  makes transcript preservation acceptance") was FALSE against the plan text —
+  verify the PREMISE against its referent, not just the mechanism.
+- Honest residual, stated as a bound: #869 was merged at mergeStateStatus
+  BLOCKED on the author-dependent required-review reading (bot-authored,
+  unresolved=0, required checks green by name) — the merge API accepted it,
+  confirming the reading, but the stricter shape reads WHICH requirement
+  produces BLOCKED before the call rather than letting the API adjudicate.
+  One line, standing seat practice.
