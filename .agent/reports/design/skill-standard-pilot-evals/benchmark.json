@@ -80,6 +80,20 @@
         "class-invention": "81.0% (34/42) without skill to 0% (0/43) with skill. Not a reduction \u2014 an elimination. Every class the grounded page names exists.",
         "authored-css": "0 declarations without skill to 39 with skill, and 0 to 2 literal design values.",
         "reading": "The two axes are not independent. The ungrounded leg passed the CSS assertions by writing no CSS at all \u2014 it names classes it hopes exist and lays nothing out. The grounded leg uses only real classes and then reaches for its own CSS to compose them."
+      },
+      "w07_holistic": {
+        "instrument": "W0.7 design-review rubric v0",
+        "legs": "independent design-system-expert (opus) + paired accessibility-expert (opus), each judging both pages anonymised as page-A/page-B with the key withheld; neither saw the other's verdict",
+        "register_exclusion": "verdicts are confined to this evidence home and are NOT entered in wow-verdict-register.json, per the plan",
+        "result": {
+          "page-A (without-skill)": "FAIL from both legs",
+          "page-B (with-skill)": "ITERATE from both legs"
+        },
+        "convergence": "The two legs agree on the overall verdict for both pages and on five of seven criteria directions, having judged blind and independently.",
+        "why_A_fails": "Not one oak-heading-*/oak-body-* class, no spacing token, and none of the region contract \u2014 the page names classes that do not exist and composes nothing. Both legs reach this independently.",
+        "why_B_iterates": "Type scale, spacing, colour discipline and composition grammar all PASS; the open criterion on both legs is hierarchy.",
+        "the_nuance_worth_keeping": "The accessibility leg scored page-A's hierarchy a PASS and called it 'better than its peer', while both legs gave page-B's hierarchy an ITERATE. The ungrounded page has the cleaner document outline; the grounded page has the cleaner system usage and a hierarchy gap. The skill's contribution is system fluency, not structural judgment \u2014 which is precisely the boundary ui-visual-design was minted to cover.",
+        "files": "iteration-1/w07-verdicts/"
       }
     },
     "case-b-theme-correctness": {
@@ -201,5 +215,5 @@
     "note": "Every assertion in both graders has a control that must fail it, and the theming assertions have per-boundary controls in both directions, so a green run distinguishes a conforming artefact from a blind grader.",
     "results": "7 theming controls plus the reference implementation, all behaving as specified \u2014 see iteration-1/grades/controls-theming.txt"
   },
-  "honest_summary": "Iteration 1 produced measured with/without deltas on all three cases and a twice-repaired instrument. The skill's effect is real and uneven: it eliminates class invention entirely (81% to 0%), eliminates raw design values under direct temptation (13 to 0, including an invented brand hex), and carries the DDR-004 theme set cleanly where the ungrounded leg omitted both access themes \u2014 while inducing page-authored CSS the baseline never wrote and never producing the refusal case (c) asks for. Three findings are routed, one of them a skill cure deliberately not applied inside iteration 1. Four claims from the first publication are withdrawn with cause, including one this seat caught in itself before it reached the PR."
+  "honest_summary": "Iteration 1 produced measured with/without deltas on all three cases and a twice-repaired instrument. The skill's effect is real and uneven: it eliminates class invention entirely (81% to 0%), eliminates raw design values under direct temptation (13 to 0, including an invented brand hex), and carries the DDR-004 theme set cleanly where the ungrounded leg omitted both access themes \u2014 while inducing page-authored CSS the baseline never wrote and never producing the refusal case (c) asks for. The W0.7 holistic legs corroborate the script assertions \u2014 FAIL for the ungrounded page, ITERATE for the grounded one, agreed blind by both experts \u2014 while surfacing that the ungrounded page has the better document outline. Three findings are routed, one of them a skill cure deliberately not applied inside iteration 1. Four claims from the first publication are withdrawn with cause, including one this seat caught in itself before it reached the PR."
 }
