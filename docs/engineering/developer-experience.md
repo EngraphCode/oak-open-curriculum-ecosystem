@@ -39,12 +39,15 @@ the-work guide is
 
 ## Statuslines
 
-Each agent platform renders its own statusline; capability varies
-widely. The estate's identity derivation (PDR-027 display names) is
-platform-shared — the same session seed derives the same name
-everywhere — but what each platform can _display_ differs, from a bare
-session title to the full Claude Code glance surface below. The
-platform-support notes live in
+Statusline support varies widely by platform, and not every platform
+renders one of its own: Claude Code runs the full adapter below, Cursor
+reuses that same Claude adapter, Codex receives its identity as
+SessionStart context rather than a live statusline, and
+Gemini/Antigravity hook injection is not wired. The estate's identity
+derivation (PDR-027 display names) is platform-shared — the same
+session seed derives the same name everywhere — but what each platform
+can _display_ ranges from a bare session title to the full Claude Code
+glance surface below. The authoritative support matrix lives in
 [agent-tools docs/agent-identity.md](../../agent-tools/docs/agent-identity.md).
 
 ### The Claude Code statusline
@@ -106,11 +109,15 @@ Set per-machine in `.claude/settings.local.json` under `env`:
 - `OAK_STATUSLINE_LOGO` — logo style: `braille-sharp` (default),
   `braille`, `quad`, `sextant`, or `none` for the compact two-line
   layout.
-- `OAK_STATUSLINE_MOTION` — set to disable the logo animation cycle.
+- `OAK_STATUSLINE_MOTION` — set to `off`, `static`, `none`, or
+  `reduce` (case-insensitive) to disable the logo animation cycle;
+  other values leave motion on.
 - `OAK_STATUSLINE_LOG_FILE` — the diagnosis log: a path ending `.log`
   makes the adapter append one timestamped line per invocation carrying
-  the stdin payload as received (line breaks collapsed); unset means no
-  logging, a set non-`.log` value renders a loud statusline warning, and
+  the stdin payload as received (terminal line breaks stripped, interior
+  line breaks collapsed to spaces, every other byte preserved); unset
+  means no logging, a set non-`.log` value renders a loud statusline
+  warning even on payloads that otherwise render nothing, and
   write failures are swallowed (the statusline never breaks for its own
   diagnostics). The log grows unbounded and carries session ids and
   paths — delete it after the diagnosis. Walkthrough:
