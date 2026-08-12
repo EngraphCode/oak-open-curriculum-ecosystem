@@ -49,8 +49,11 @@ Read the system's `README.md`, then build. The one-line setup for anything new:
 <link rel="stylesheet" href="styles.css" />
 ```
 
-That loads the themable token layer (`colors_and_type.css`), the component
-class library (`components.css`), and the print/PDF layer (`print.css`).
+That imports exactly four files, in order: the themable token layer
+(`colors_and_type.css`), the mask-icon set (`oak-icons.css`), the component
+class library (`components.css`), and the print/PDF layer (`print.css`). It
+deliberately does NOT import `brand.css` — re-branding loads that *after*
+`styles.css`, so the override cascade lands on top.
 Compose UI from the `oak-*` classes and semantic tokens; check every line of
 copy against `brand_voice.txt`. (Pages inside the studio project link the
 tier CSS files directly — see `KNOWN-ISSUES.md` #1.)
