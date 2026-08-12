@@ -11,6 +11,207 @@ Controlling plan:
 archived (completed 2026-08-11) and todo 3 is complete — see the
 Current Continuation below.
 
+## #865 MERGED 2026-08-12T17:42Z — CLOSED OUT (Wren calls Downdraft 6b29b5, at resume ~17:49Z)
+
+**#865 (MCP-570) is MERGED** — merge commit `7685ac1ee`, Perseus's ceremony
+(all three threads dispositioned on cure evidence at `5aadd6400`; fresh Copilot
+round `4919324399` cleared — zero inline, one suppressed read-ordering finding
+ACCEPT-WITH-GROUNDS). At resume this seat closed claim `34eaba6f` (archived),
+removed worktree `mcp-570-skill-jurisdiction`, deleted the merged local branch
+(remote auto-deleted at merge). The queue now advances to **Bucket 1**
+(`lesson-search-freshness-and-error-envelope`, ratified — this seat). The block
+below is the frozen cure record.
+
+## ROUND-4 CURES LANDED 2026-08-12 ~17:2xZ — #865 head `5aadd6400`, ceremony is Perseus's (Wren calls Downdraft 6b29b5)
+
+- **Copilot round-4 (review `4918932138`, on `d3d38ce6a`) landed 2 generated
+  findings on the cure-A code — both CONFIRMED real via red-proofs and CURED,
+  pushed at `5aadd6400`** (`d3d38ce6a..5aadd6400`): (1) recogniser too permissive
+  — `parseAdapterStubPointer`/`isRoundTrippableCanonicalRef` now require the
+  generated `SKILL-CANONICAL.md` filename (`targetsGeneratedCanonical`,
+  single-sourced from discovery's `CANONICAL_FILENAME`), so a foreign
+  `vendor/README.md` stub is no longer `--clear`-deletable; (2) preflight
+  incomplete — the pre-clear preflight now also classifies each canonical's
+  emission target and refuses on foreign/failure (the exact `emitAdapter`
+  classifier, one step early), closing a cross-prefix/squatter projection-loss.
+  Two FRESH opus reviewers cleared (security: no third vector, no false-refusal,
+  sweep subsumed by clear's preconditions; code: APPROVE, recogniser safe across
+  all four consumers). Full suite 4646; real `--clear` idempotent; all 117 stubs
+  still recognised. Disposition `issuecomment-5270137746`; Copilot re-requested at
+  `5aadd6400`.
+- **CEREMONY IS PERSEUS'S** (Perseus guards Stillness, b1e836, PR-shepherd seat —
+  Director-transferred 17:22Z): dismiss/disposition round `4918932138`
+  (dismiss-cure-Copilot; the round is on the stale `d3d38ce6a`), read the fresh
+  Copilot round in full, recount unfiltered, bot-merge at CI-settled. Handover
+  broadcast sent. Wren continues on the Bucket plans. Claim 34eaba6f retained;
+  worktree kept until merged.
+
+## CURE A LANDED 2026-08-12 ~16:35Z — #865 pushed, superseded by the round-4 block above (Wren calls Downdraft 6b29b5)
+
+- **Cure A is IMPLEMENTED, gated, and PUSHED.** Head
+  `jimcresswell/mcp-570-skill-validation-jurisdiction` is now `d3d38ce6a`
+  (`1a98b0807..d3d38ce6a`, fast-forward). The stage-before-clear defect (round-3
+  defect 1) is cured: a pre-clear preflight (new
+  `agent-tools/src/skills-adapter-generate/emission-refusals.ts`) computes the
+  emit refusals BEFORE the destructive `--clear`, reusing emission's own
+  primitives (`isRoundTrippableCanonicalRef` + `collectCarriedFiles.refused`) so
+  it cannot diverge; only the canonical side is read (the sole deterministic
+  post-clear refusal vector). Any refusal aborts before a single removal.
+- **Gates all green:** red-proof 3/3
+  (`clear-refuses-before-projection-loss.integration.test.ts`, real committed
+  symlink); full agent-tools suite 4643; type-check + lint 0 errors;
+  `skills:generate` AND the `--clear` path idempotent on the real corpus (exit 0,
+  zero churn, 54 canonicals, Vendor + lock preserved). TWO opus reviewers cleared
+  (security-expert APPROVE-WITH-NOTES — doc note applied; code-expert APPROVE with
+  a first-hand probe of the real clear).
+- **DIRECTOR MERGE PICKUP (Plover, at resume):** dismiss Warden round
+  `4917213920` (defect 1 was the only live item, now cured), recount unfiltered,
+  bot-merge at CI-settled. Copilot review was RE-REQUESTED at `d3d38ce6a` by this
+  seat (binds async ~5min). Disposition comment posted `issuecomment-5269620349`;
+  cured-signal broadcast `7d4b53e7`. B-accept + the five TOCTOU threads already
+  resolved (`issuecomment-5268166013`). Claim 34eaba6f RETAINED; worktree
+  `mcp-570-skill-jurisdiction` KEPT on disk until merged.
+
+## COMPACTION FREEZE 2026-08-12 ~14:2xZ — #865 HELD on a PENDING OWNER DECISION (round-3 bar)
+
+- **OWNER RULED (2026-08-12 at wrap): ACCEPT THE RESIDUAL. The B-accept half is
+  ALREADY DONE by the Director** (owner also ruled to Plover directly ~14:35Z;
+  ruling comment `issuecomment-5268166013`, the FIVE TOCTOU threads resolved
+  per-defect on both grounds). **The #865 pickup is now EXACTLY ONE item:
+  implement cure A (stage-before-clear + the clear-first canonical-symlink
+  red-proof), push.** At that push the Director dismisses the Warden ROUND
+  (its defect 1 / stage-before-clear being the only live item), re-requests,
+  recounts unfiltered, bot-merges. Merge stays HELD until cure A lands.
+- **PICKUP: implement cure A, push, hand the Director the close.** #865 (head
+  `1a98b0807`, all gates green through pre-push) is MERGE-HELD by the Director
+  (Plover, b10c37) until cure A lands. Rounds 1-2 plus the update-branch leg all
+  LANDED. Cure A shape below; ruling relayed to the Director.
+- **Round 3 (Warden CHANGES_REQUESTED review 4917213920, six defects / six open
+  threads, plus the Copilot generated trio the Director had not relayed round 2)
+  collapses to TWO cures:**
+  - **Cure A — stage-before-clear (REAL, feasible, PENDING execution):** a
+    committed symlinked `references/` dir passes discovery but carriage refuses
+    at emit, so `--clear` can lose a projection (no attacker needed). Cure:
+    preflight every canonical's full emission before clearing, or stage-then-
+    install; add the clear-first canonical-symlink red-proof.
+  - **Cure B — descriptor-anchoring at five sites (defects 2-6): INFEASIBLE and
+    CONTESTED, routed to the owner.** Verified first-hand: Node v24 has NO
+    openat/fstatat/unlinkat family and FileHandle has NO descriptor-relative
+    methods, so the prescribed openat-relative mechanism cannot be built in pure
+    Node without a native dep (rejected for the install-time closure). The opus
+    security-expert already assessed this exact TOCTOU class on this code as
+    out-of-realistic-threat-model (dev-tool CLI on repo-authored static content;
+    no concurrent racer), openat-not-in-Node, "don't block." The Warden conflicts
+    with the opus security assessment.
+- **THE OWNER DECISION — three bars (my recommendation is ACCEPT):**
+  1. ACCEPT the residual (rec): cure A; record the five TOCTOU residuals as
+     out-of-threat-model plus Node-API-bounded (opus-concurred); dismiss the
+     Warden round per-defect citing BOTH grounds per finding.
+  2. MIDDLE (Director's, feasible): cure A plus O_NOFOLLOW/realpath re-verify
+     immediately before each destructive use — narrows-not-closes the windows,
+     no native deps, adds five sites of complexity for an out-of-model threat.
+  3. FULL: a vendored/native openat binding in the generator's closure — the
+     only true close; heavy; the dependency we rejected.
+- **AT THE OWNER'S WORD:** push cure A plus the chosen B disposition; the Director
+  (holding the merge and the six threads) re-requests Copilot, reads
+  generated+suppressed, resolves all six threads and dismisses the Warden round
+  with the per-defect evidence, recounts unfiltered, bot-merges at settled.
+  Director standing note: per-defect dismissal cites BOTH grounds (Node
+  infeasibility AND threat-model/opus concurrence). Claim 34eaba6f held; worktree
+  `.claude/worktrees/mcp-570-skill-jurisdiction` kept.
+- **LANDED this session (all pushed):** round-1 cures `a73ff86b8` (discover-
+  before-clear folded behind the discovery gate; collect-then-remove; census
+  fail-closed; fd-anchored O_NOFOLLOW read for the CodeQL race; Sonar
+  nested-template; plan amendment) plus `323805abf` (reinstate skills-lock.json,
+  verified blob in HEAD — the code-expert's gate-invisible catch); update-branch
+  merge `4979d1b6b` (post-864 main; idempotence re-verified: 54 canonicals, zero
+  churn, the nine Vendor skills plus lock preserved); round-2 cures `1a98b0807`
+  (ADR-125 lock-ownership record corrected; clear.ts removal-phase partial-state;
+  adapter-stub round-trip guard). Two opus reviewers cleared round 1. Owner
+  directive applied: "we don't care how the external management works, leave it
+  alone" — every durable record states only the jurisdiction boundary, no
+  external internals.
+- **FOLLOW-UP PLAN — investigation work classified MISSING (close) vs NOT ALLOWED
+  (decline), owner-requested at the freeze (2026-08-12 ~14:2xZ):**
+  - MISSING (real gaps, warranted, do):
+    - Cure A stage-before-clear (blocks the #865 close) — a real data-loss gap
+      (`--clear` loses a projection when a canonical has a committed symlinked
+      `references/`). Cure at the round-3 close.
+    - MCP-573 (backlog, own small PR): portability `--fix` writes rule-wrappers
+      through a symlinked `.claude`/`.agents` root — a write outside the repo,
+      the same destructive class as the cured security-Critical; cure with the
+      shared `surfaceRootGuardFailure`.
+    - De-hatch arc (task #21): 50 `'off'` lines disabling two boundary rules —
+      enforcement is currently OFF; closing it is a real gap.
+  - NOT ALLOWED (over-reach or low-value, decline / accept-and-record):
+    - Cure B descriptor-anchoring (5 TOCTOU sites): infeasible in pure Node
+      (no openat) AND out-of-threat-model (opus-concurred). Accept the residual
+      with dual-grounds record; NOT a code change.
+    - The middle bar (O_NOFOLLOW/realpath re-verify): narrows-not-closes, adds
+      complexity for a non-threat — hardening theatre; decline unless owner
+      wants it.
+    - MCP-543 (task #19): low-value exemption-tightening; the exemption is real
+      - documented + ADR-sanctioned; accept-and-record (or the deeper re-home),
+      not a per-file `pathNot` narrowing.
+  - THE LESSON (missing vs not allowed, two faces): (1) in code = fail-closed —
+    ENOENT is *missing* (genuine absence, proceed), any other error is *not
+    allowed* (couldn't observe — surface, never swallow); the census cure
+    encodes it. (2) In warrant = a review finding is a real gap to close
+    (*missing*) or over-reach to decline (*not allowed*); that classification is
+    the brake on the review-convergence ratchet, and where contested/infeasible
+    the call routes to the owner with first-hand evidence.
+
+## CURED 2026-08-12 ~12:4xZ — #865 review round closed; cured head pushed, awaiting Director dismissal + merge
+
+- **PICKUP: watch #865 to merged (head `1a98b0807`), then board re-check.**
+  A second review round (Copilot, bound to the merge head `4979d1b6b`) landed
+  three findings — all CURED on `1a98b0807` (no disposition): ADR-125:595
+  lock-ownership record corrected to the implemented boundary (external
+  internals no longer described, per owner direction 2026-08-12: "we don't care
+  how the external management of skills works, leave the external mechanisms
+  alone"); clear.ts removal-phase returns partial teardown on failure; adapter
+  emission refuses a non-round-trippable canonical (backtick/newline). Gates
+  green, disposition posted (issuecomment-5267636545), Director confirmed.
+  The mantagen CHANGES_REQUESTED (6 defects + 3 test-gaps, on the OLD head
+  `2ff1eb025`) is fully cured and STALE against the current head. Update-branch
+  leg done (Director-routed): merged post-864 origin/main (merge commit
+  `4979d1b6b`, no conflicts), idempotence recheck GREEN on the merged tree
+  (skills:generate 54 canonicals, zero churn; #864 oak-comms-channels plus the
+  9 Vendor skills and skills-lock.json all survived), pushed. Director
+  re-requests Copilot at
+  `4979d1b6b`, recounts unfiltered, bot-merges at CI-settled. Disposition posted
+  (issuecomment-5267145133); cured signal broadcast to the Director (event
+  dfb0dc9d). Merge is Director-side: dismiss the stale mantagen round with the
+  disposition as evidence (review-path-dismiss-cure doctrine), then bot
+  REST-merge at CI-settled (fresh CodeQL + Sonar re-run on the new head).
+- **The cures** (two commits: `323805abf` reinstate skills-lock.json;
+  `a73ff86b8` the code+tests+plan): (1) discover-before-clear — the `--clear`
+  folds into `generateAdapters` behind the `isDiscoveryComplete` gate
+  (`clearFirst`/`clearIfRequested`); (2) collect-then-remove — `clear.ts`
+  classifies both roots before any `rm`; (3) census fail-closed — a `CensusFs`
+  seam, non-ENOENT→issue, `selectPracticeSkillDirs` returns `{selected,
+  failures}`; (4) fd-anchored no-follow read — new `read-regular-file.ts`
+  (`O_NOFOLLOW`+fstat+read-from-fd), shared by clear+census, cures CodeQL
+  `js/file-system-race`; (5) Sonar S4624 nested-template gone; (6) ratified
+  plan amended to marker-based membership + external-lock ownership.
+- **skills-lock.json REINSTATED byte-identical** (owner ruling 2026-08-12: the
+  external skills CLI's own lock is external territory — restore, keep OUR
+  machinery deletion). The code-expert caught it had to be COMMITTED not just
+  on-disk (gate-invisible — nothing reads it, so `pnpm check` is green either
+  way; the merge would have deleted it). Fixed; verified `git cat-file -t
+  HEAD:skills-lock.json` → blob.
+- **Two opus reviewers cleared** (security-expert + code-expert). Accepted
+  residuals, recorded not blocking: leaf-only `O_NOFOLLOW` leaves a
+  `<name>`-dir swap race bounded to a read (no destructive escape — `rm` on the
+  lexical path unlinks the symlink; no Node `openat` to close it); the
+  guard→`rm` ancestor race is the standard Node path-op limit.
+- **Worktree `mcp-570-skill-jurisdiction` KEPT** on disk until merged (branch
+  `jimcresswell/mcp-570-skill-validation-jurisdiction`). Session exited it
+  (keep) to push from primary (worktree-isolation guard blocks push/comms/watch
+  from a linked worktree). Claim 34eaba6f still held.
+- **QUEUE AFTER #865 MERGES** (unchanged): board re-check with the Director →
+  de-hatch arc (task #21) → MCP-543 (task #19). MCP-567 stays reversed.
+
 ## Current Continuation (COMPACTION FREEZE 2026-08-12 ~09:4xZ — pickup is the #865 MERGE + the board re-check)
 
 - **THE SINGLE PICKUP ITEM: watch #865 to merged, then board re-check.**

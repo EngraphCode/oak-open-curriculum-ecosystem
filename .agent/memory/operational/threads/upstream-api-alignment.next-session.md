@@ -5,6 +5,102 @@ upstream Oak API + bulk export, and establish a repeatable, observable alignment
 Trigger instance (2026-06-30/07-01): upstream added a `programmes` resource family (5 GET
 endpoints + 5 schemas).
 
+## BUCKET-1 RATIFIED, BUCKETS 2/3 SKETCHES — 2026-08-12 ~17:3xZ (owner decision card; Wren calls Downdraft 6b29b5)
+
+The three Bucket plans were authored, validated (`validate-plan-corpus` OK),
+assumptions-expert-reviewed (READY-WITH-NOTES, all 11 notes folded), and
+presented to the owner as a ratification card. **Owner answer: "Ratify Bucket 1
+only."**
+
+- **`lesson-search-freshness-and-error-envelope` (Bucket 1): RATIFIED** (status
+  ratified; `ratified_by: Jim Cresswell`, `ratified_date: 2026-08-12`,
+  `ratified_where` points here). Decision-complete, no open owner gates; a seat
+  (TBD) picks it up nowish. Encodes the owner rulings below: restricted-exclusion
+  as a documented configurable switch (default exclude); structured
+  `{code, message, upstreamMessage}` MCP error envelope; error-vocabulary contract
+  tests; no fallback.
+- **`lesson-retrieval-boundary-differentiation` (Bucket 2) and
+  `lesson-search-index-automation` (Bucket 3): remain SKETCHES** (unratified) — to
+  be ratified later, closer to their pickup (owner's explicit choice to keep the
+  future roadmap provisional). Both serve `first-major-release` and depend on
+  Bucket 1 (Bucket 2 blocking, Bucket 3 beneficial).
+- **PICKUP = THIS SEAT (Wren calls Downdraft 6b29b5)** — owner card 2026-08-12
+  ~17:3xZ: "This seat picks it up." **POST-COMPACTION RESUME TASK: implement
+  Bucket 1** in a fresh worktree; first slice = the documented, configurable
+  restricted-exclusion switch (default exclude). **Machinery verified first-hand
+  2026-08-12 (do NOT re-derive):**
+  - Restricted filter is HARDCODED —
+    `packages/sdks/oak-sdk-codegen/src/bulk/restricted-lesson-filter.ts`
+    (`excludeRestrictedLessons` / `excludeRestrictedLessonsFromFile`, no param),
+    unconditional at the TWO exclusion sites
+    `apps/oak-search-cli/src/lib/indexing/bulk-ingestion.ts:136` and
+    `packages/sdks/oak-sdk-codegen/vocab-gen/vocab-gen.ts:176`; the `admin verify`
+    expected-count is DERIVED (`run-versioned-ingest.ts:78-79`), tracks the switch.
+    Pinning test: `restricted-lesson-exclusion.integration.test.ts`.
+  - MCP error `code` dropped at `formatError`
+    (`packages/sdks/oak-curriculum-sdk/src/mcp/universal-tool-shared.ts:107`); two
+    callers `universal-tools/executor.ts:55` + `aggregated-fetch/execution.ts:112`;
+    the `structuredContent` channel exists (SDK 1.30.0, already used on the SUCCESS
+    path). Classifier `classify-error-response.ts` (brittle
+    `data.cause.includes('blocked')` at :83 is the unpinned contract surface).
+  - Rebuild uses `admin versioned-ingest` (or `admin stage` → `admin promote`),
+    NOT the stale `INGESTION-GUIDE.md`; bundle at `apps/oak-search-cli/bulk-downloads/`
+    (manifest `downloadedAt` 2026-08-12T10:50Z, restricted flags present).
+  - The plan body carries the four ACs + the one pickup-verification (does the
+    transport carry `structuredContent` on `isError:true`, and do clients read it
+    on error results — probe before committing the shape). Doc the choice in a
+    short ADR (ADR-093/140 neighbours), not the runbook.
+
+## OWNER RULINGS + POST-COMPACTION TASK 2026-08-12 ~14:4xZ — MCP lesson-retrieval (relayed via Wren calls Downdraft 6b29b5 at the #865 wrap)
+
+Skua binds Vortex's MCP lesson-retrieval investigation
+(`.agent/reports/mcp-lesson-retrieval-gap-analysis-2026-08-12.md`) reached the
+owner, who ruled via decision cards. The "missing vs not allowed" frame is the
+upstream response convention (404 = missing / unknown slug; 400 plus a "not
+available" message = not-allowed / copyright-restricted; a deliberate anti-leak
+policy — status conflated, message-differentiated; realised fully only on
+`/assets`).
+
+**RULINGS (2026-08-12):**
+
+- **Index inclusion policy: KEEP RESTRICTED LESSONS OUT — for now.** Document the
+  choice; make it CONFIGURABLE so it is cheap to revisit. The Bucket-1 index
+  rebuild proceeds with restricted EXCLUDED behind a documented config switch,
+  not a hard exclusion.
+- **Degraded-summary fallback (Bucket 3 candidate): DROP IT.** No fallback ever;
+  the MCP layer only explains unavailability and points at the website.
+- **Reporter reply + API-team items: NOTE, MAKE DISCOVERABLE, BACKLOG.** Do NOT
+  send the reporter reply or raise API-team items yet. Keep the findings
+  discoverable (Skua's report is the record); start compiling a BACKLOG for WHEN
+  THE API CODE MOVES into the repo (ties to the upstream-API-as-workspace RFC).
+  Backlog items: transcript-500 and quiz-silent-empty unknown-slug defects; the
+  KS4-science summary collateral (era-2 subject gate 404s every KS4-science-only
+  lesson); optional message-differentiation and spec-enumeration; the OWA/Hasura
+  view-history data question.
+- **#865 bar (separate lane): ACCEPT the residual** — recorded in
+  `workspace-config-isolation.next-session.md`, not this lane.
+
+**POST-COMPACTION TASK (owner, ordered AFTER the compaction):** produce a
+**DECISION-COMPLETE PLAN for Bucket 1**, to be picked up NOWISH by a seat (TBD),
+PLUS follow-on future plans for Buckets 2 and 3. Source: Skua's report §"What the
+MCP layer CAN handle".
+
+- **Bucket 1 (decision-complete, nowish):** (1) rebuild the search index from the
+  fresh 2026-08-12 bundle with restricted EXCLUDED behind a documented config
+  switch (owner ruling) — restores ogl-compatible freshness and is the falsifier
+  for the unproven 2026-07-27 drop; (2) preserve error structure through the MCP
+  envelope (`{code, message, upstreamMessage}`; the SDK's
+  `classify-error-response.ts` already classifies, the MCP result flattens it to
+  prose); (3) contract-pin the upstream error vocabulary (rides with 2).
+- **Bucket 2 (follow-on plan):** `fetch` 404 enrichment via the check-restricted
+  oracle; a coherence canary (`probe-lesson-availability.ts` is its seed).
+- **Bucket 3 (follow-on plan):** automatic index updates (scheduled
+  download/ingest/alias-swap plus a reconciliation gate and a vintage stamp). NO
+  degraded fallback (dropped by ruling).
+
+Skua binds Vortex (the investigator) closed out; the picking-up seat is TBD,
+owner-assigned. This block is the discoverable pickup for that seat.
+
 ## Participating agent identities (PDR-027)
 
 | agent_name | platform | model | session_id_prefix | role | first_session | last_session |

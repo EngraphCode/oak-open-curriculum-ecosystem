@@ -2798,3 +2798,54 @@ these named classes — the recursion closes here.
   per the brief's todo; thinnest-slice restricted to mixed rows; WS9 scoping
   disposed visibly (quartet binds at survey judged scales, not ~35 rows);
   falsifier acquires a schema-visible owner gate if it fires.
+
+## 2026-08-12 — #865 round-4 + lesson-retrieval Bucket plans (Wren calls Downdraft 6b29b5)
+
+- **"The sole deterministic vector" is a trap on a destructive path.** Round-3
+  cure-A's preflight guarded "the canonical side only" and two opus reviewers
+  APPROVED the claim "the canonical source is the sole post-clear refusal vector."
+  Copilot then caught the miss: a FOREIGN occupant at a projection target name
+  survives `--clear` (which removes only OURS), so a prefix change or squatter
+  strips a skill's old-prefix projection that emit then refuses to rebuild — real
+  data-loss. Cure: ENUMERATE every emit refusal site and map each to a preflight
+  check; never reason from "the sole vector." A preflight guarding a destructive
+  path must MIRROR every refusal the guarded op raises, computed on the state that
+  survives the op. Even opus reviewers inherit the author's framing ("canonical
+  side") — the fresh round must be told to enumerate, not confirm.
+- **Content-based class membership must require the FULL emitted shape.** The
+  recogniser accepted any clean multi-segment pointer (`vendor/README.md`), but the
+  generator only ever emits `<dir>/SKILL-CANONICAL.md`. A foreign two-line stub
+  pointing elsewhere fell into `--clear`'s destructive jurisdiction. A recogniser
+  deciding DESTRUCTIVE membership must match what we EMIT, not a looser superset —
+  require the generated filename, single-sourced from the emitter.
+- **Review-convergence ratchet vs rabbit-hole: the discriminator is a first-hand-
+  verified real defect per round.** #865 ran to round 4; each round caught a REAL
+  destructive-path bug, so continuing was right — but the discipline is to NAME the
+  exit criterion (fresh reviewers confirm + no NEW vector → push and close; no
+  round 5 without a new signal). A full cricket quartet (8/8 ON-TRACK, both stances)
+  independently converged on exactly this. Bound the ratchet, don't just ride/cut it.
+- **Decision-complete plan ⇒ verify the machinery first-hand BEFORE authoring.** A
+  dispatched mapper's corrections to the source report were load-bearing: the
+  restricted filter is HARDCODED not configurable (the "one policy call" is real
+  code at 2 call sites); the error-path `structuredContent` is a pickup-verification
+  not a resolved fact; the ingest runbook is stale. verify-data-supports-shape: a
+  report a day old is a pointer, not an invariant.
+- **Cricket binding fidelity needs the Agent tool, not a Workflow.** The roles pin
+  models per role (fable/opus/sonnet/haiku by effort); a workflow's default
+  model-inheritance would collapse the effort-inversion quartet to one model. The
+  orchestration tool is set by the constraint (pinned bindings), not the ultracode
+  default.
+- **Ratification presented in prose is the buried-decision failure AGAIN** (8th
+  escalation banked in surface-user-decisions-as-questions). Tell: a heartbeat
+  relabelled `awaiting-owner-ratification` + closing "holding for your word" with no
+  live card. Presenting a plan for ratification IS a decision state → the card fires
+  that turn.
+
+## 2026-08-12 ~17:5xZ (Plover lifts Troposphere, b10c37) — owner accelerates the survey handover
+
+- Owner word: direct Nautilus to pick up the DESIGN work for the census/
+  survey, via the ARC channel. Executed: design ownership of the opener-node
+  iteration, the census design details, the deconstruction ledger, and the
+  downstream fresh unified design transferred to Nautilus on the channel;
+  Director retains review, ratification cards, and the mentored-guide seat.
+  The four card rulings stand as the design's fixed points.

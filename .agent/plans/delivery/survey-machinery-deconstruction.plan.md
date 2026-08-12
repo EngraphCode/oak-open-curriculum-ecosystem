@@ -77,8 +77,15 @@ existing home) carrying:
    schemas (37 + 15 + 17), with each schema's `$defs` riding the row of the
    property that references them; plus one row per promotion-test gate
    (10), per architectural-value-stack layer (5), and per named calibration
-   finding and knowledge-safety constraint. Expected ledger size: ~110–130
-   rows. Each row: `proved` / `generalises-to <scale>` /
+   finding and knowledge-safety constraint. The row sets split by
+   derivation class: contract members, schema properties, gates, and
+   layers are MECHANICALLY derivable (jq keys; the frame's own tables);
+   calibration findings and knowledge-safety constraints are
+   PROSE-DERIVED — they enter via a committed enumerated list whose
+   derivation is documented row-by-row (source heading + anchor), which
+   the instrument then checks coverage against; a reviewer spot-checks
+   the list against the prose. Expected ledger size: ~110–130 rows.
+   Each row: `proved` / `generalises-to <scale>` /
    `dies-because <reason>`, with pointers. (The disposition-ledger
    discipline: every input gets a recorded decision; work is sized to
    unique substance.)
@@ -96,19 +103,26 @@ existing home) carrying:
 ## Acceptance criteria
 
 1. Every member of the defined ledger set (mechanism item 1) has a
-   disposition row. Proof: repo-safe — a committed enumeration script
-   beside the report (`derive-ledger-members.sh`, jq over the four
-   contract files' `keys`/`.properties | keys` plus greps for the frame's
-   gate and layer tables) recomputes the member list and diffs it against
-   the ledger's coverage table; a reviewer runs one command for pass/fail.
+   disposition row. Proof: repo-safe — a committed TypeScript
+   enumeration-and-validation instrument (agent-tools home, one-command
+   run, shared with the census node's instrument family; TypeScript
+   rather than shell per `source-is-typescript-esm-only` and ADR-168 §5 —
+   key extraction, table parsing, and coverage diffing are exactly the
+   logic the shell exception excludes) recomputes the MECHANICAL row sets
+   (contract keys, schema properties, gate and layer tables) and checks
+   ledger coverage of the committed PROSE-DERIVED list; a reviewer runs
+   one command for pass/fail and spot-checks the prose-derived list's
+   documented anchors.
 2. The extractor contract-coverage map is banked from fresh first-hand
    runs: gate status at main, the smoke list from the `test:e2e` wiring,
    held slices from the `refreezeReason`. Proof: repo-safe — the report
    banks the command lines and their output verbatim beside the map.
 3. Every surviving (`proved`/`generalises-to`) element is marked
    detector-fact or judged-reading, and every `generalises-to` names its
-   target scale. Proof: repo-safe — the same committed script checks the
-   two columns are non-empty on every surviving row.
+   target scale. Proof: repo-safe — the same committed instrument checks
+   the two columns are non-empty on every surviving row (ledger row data
+   is a structured artefact, the human table rendered from or
+   cross-checked against it, as in the census node).
 4. The owner confirms, at this ledger's own review card, that it is
    sufficient design input for the fresh-design node. Proof: owner-held —
    the card answer recorded in this plan's amendment trail.
@@ -127,11 +141,13 @@ existing home) carrying:
 
 ## Todos
 
-1. Commit the enumeration script; derive the ledger's row skeleton from it.
+1. Land the TypeScript enumeration instrument + the documented
+   prose-derived row list; derive the ledger's row skeleton from them.
 2. Fill the ledger: proved / generalises-to / dies-because per row, with
    evidence pointers into the corpus.
 3. Contract-coverage map: fresh gate/smoke runs banked verbatim; held
    slices from the refreezeReason; coverage distance stated.
 4. Separation pass: detector-fact vs judged-reading per surviving element;
    target scale per `generalises-to`.
-5. Report assembly; enumeration script green; validator and gate green; PR.
+5. Report assembly; enumeration instrument green; validator and gate
+   green; PR.
