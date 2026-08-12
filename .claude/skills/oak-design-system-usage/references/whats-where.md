@@ -28,16 +28,23 @@ system's own `README.md` file index describes the studio layout, and says so.
   `.oak-block-label`). Copy the class, not the CSS.
 - `colors_and_type.css` — tokens, themes, type classes (`oak-heading-1…7`,
   `oak-body-1…4`), `.oak-scope`.
+- `oak-icons.css` — the mask-icon set (`--ic-*` / `--i-*`).
+- `print.css` — the print/PDF layer.
+- `styles.css` — **the one file to link**. It imports exactly four, in this
+  order: `colors_and_type.css`, `oak-icons.css`, `components.css`,
+  `print.css`.
 - `brand.css` — the white-label contract: re-branding overrides canonical
   intent roles only, never the aliases, and never a raw value at a use site.
-- `print.css` — the print/PDF layer.
-- `styles.css` — the one-line entry that loads the tier files above.
+  **`styles.css` does NOT import it** — it is a deliberate opt-in you load
+  *after* `styles.css`, so the override cascade lands on top (README
+  §white-label step 1). Linking `styles.css` alone gets you the Oak brand;
+  a re-brand is `styles.css` then `brand.css`.
 
 ## Building blocks — mixed, per row
 
 - `templates/lesson-deck/`, `templates/worksheet/` — starting points for
   teaching slides and printable A4 worksheets (PDF-ready). Start from these
-  for lesson artifacts. **Instrument**: `repo:studio-source/templates/`.
+  for lesson artefacts. **Instrument**: `repo:studio-source/templates/`.
 - `components/` — compiled React components (OakButton, OakTag,
   OakSubjectChip, OakIcon) with typed props. **Instrument**:
   `repo:studio-source/components/`. In the repo these are deliberately NOT on
