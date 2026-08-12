@@ -15,7 +15,9 @@
  * the pointer line (a fenced example in a foreign SKILL.md) is not a
  * member — {@link parseAdapterStubPointer} requires the full stub shape
  * (frontmatter, one title line, the pointer line as the only other body
- * content) and a clean relative pointer path. One NAMED BOUND is
+ * content) and a clean relative pointer path that targets the generated
+ * canonical filename (`SKILL-CANONICAL.md`) — a stub pointing anywhere else is
+ * a foreign document we never wrote. One NAMED BOUND is
  * inherent to content-based membership: a byte-faithful copy of one of
  * our stubs (e.g. an Oak-published projection re-installed here by the
  * external machinery) is indistinguishable from ours — the marker records
@@ -37,6 +39,7 @@
  * directory names never carry either, and the unit test pins both the
  * round-trip and the refusal.
  */
+import { CANONICAL_FILENAME } from './discovery.js';
 
 /**
  * Render the pointer line for an adapter stub body.
@@ -76,7 +79,11 @@ export function parseAdapterStubPointer(content: string): string | undefined {
     return undefined;
   }
   const canonicalRef = POINTER_LINE_PATTERN.exec(lines.pointer)?.[1];
-  if (canonicalRef === undefined || !isCleanCanonicalRef(canonicalRef)) {
+  if (
+    canonicalRef === undefined ||
+    !isCleanCanonicalRef(canonicalRef) ||
+    !targetsGeneratedCanonical(canonicalRef)
+  ) {
     return undefined;
   }
   return canonicalRef;
@@ -112,6 +119,16 @@ function isCleanCanonicalRef(canonicalRef: string): boolean {
   );
 }
 
+/** Membership and round-trip require the pointer to target the generator's own
+ * canonical filename (`CANONICAL_FILENAME`, single-sourced from `discovery.ts`):
+ * every stub we write points at `<dir>/SKILL-CANONICAL.md`, so a clean ref
+ * targeting any other filename (e.g. `vendor/README.md`) is a foreign stub we
+ * never emitted and must stay out of the Practice class — and out of `--clear`'s
+ * destructive jurisdiction (review round 4, 2026-08-12). */
+function targetsGeneratedCanonical(canonicalRef: string): boolean {
+  return canonicalRef.split('/').at(-1) === CANONICAL_FILENAME;
+}
+
 /**
  * Whether a canonical ref can round-trip through the class marker — the
  * builder must be able to write it AND {@link parseAdapterStubPointer} read
@@ -124,6 +141,9 @@ function isCleanCanonicalRef(canonicalRef: string): boolean {
  */
 export function isRoundTrippableCanonicalRef(canonicalRef: string): boolean {
   return (
-    !canonicalRef.includes('`') && !canonicalRef.includes('\n') && isCleanCanonicalRef(canonicalRef)
+    !canonicalRef.includes('`') &&
+    !canonicalRef.includes('\n') &&
+    isCleanCanonicalRef(canonicalRef) &&
+    targetsGeneratedCanonical(canonicalRef)
   );
 }

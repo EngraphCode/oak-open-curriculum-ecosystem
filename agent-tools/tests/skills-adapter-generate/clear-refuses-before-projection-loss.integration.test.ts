@@ -111,4 +111,31 @@ describe('clearFirst preflights emission refusals before the destructive clear',
     expect(repoPathExists(root, '.claude/skills/oak-commit/SKILL.md')).toBe(true);
     expect(repoPathExists(root, '.claude/skills/oak-deploy/SKILL.md')).toBe(true);
   });
+
+  it('refuses to clear when a canonical’s current-prefix target is occupied by a foreign entry: the skill’s old-prefix projection is NOT lost', async () => {
+    const root = sandboxRepo();
+    writeRepoFile(root, '.agent/skills/deploy/SKILL-CANONICAL.md', DEPLOY_CANONICAL);
+    // The skill’s live projection under a PREVIOUS prefix — marker-carrying, so
+    // clear removes it whatever its name.
+    writeRepoFile(
+      root,
+      '.claude/skills/legacy-deploy/SKILL.md',
+      projectionStub('deploy/SKILL-CANONICAL.md'),
+    );
+    // A FOREIGN entry squats the skill’s CURRENT-prefix target name — not
+    // marker-carrying, so the clear leaves it (out of jurisdiction) and emit then
+    // REFUSES it. Under clear-then-emit, the clear strips legacy-deploy and the
+    // emit cannot rebuild deploy at oak-deploy — a lost projection with no
+    // canonical-side refusal to catch it (review round 4, 2026-08-12).
+    writeRepoFile(root, '.claude/skills/oak-deploy/SKILL.md', 'a foreign, non-marker stub\n');
+
+    const outcome = await generateAdapters({ repoRoot: root, prefix: 'oak-', clearFirst: true });
+
+    expect(outcome.refused.some((entry) => entry.includes('oak-deploy'))).toBe(true);
+    expect(outcome.cleared).toEqual([]);
+    // Nothing torn down: the old-prefix projection survives, and the foreign
+    // squatter is left untouched.
+    expect(repoPathExists(root, '.claude/skills/legacy-deploy/SKILL.md')).toBe(true);
+    expect(repoPathExists(root, '.claude/skills/oak-deploy/SKILL.md')).toBe(true);
+  });
 });

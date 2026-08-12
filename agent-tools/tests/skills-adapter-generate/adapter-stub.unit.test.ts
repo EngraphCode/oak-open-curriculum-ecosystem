@@ -54,6 +54,11 @@ describe('adapterStubPointerLine ↔ parseAdapterStubPointer', () => {
       ok: false,
       why: 'a backslash segment is unclean',
     },
+    {
+      ref: 'vendor/README.md',
+      ok: false,
+      why: 'a clean ref that does not target the generated canonical filename is not one we emit',
+    },
   ])('isRoundTrippableCanonicalRef: $why ($ok)', ({ ref, ok }) => {
     expect(isRoundTrippableCanonicalRef(ref)).toBe(ok);
   });
@@ -90,6 +95,10 @@ describe('parseAdapterStubPointer — structural recognition', () => {
     {
       why: 'plain foreign content is NOT membership',
       content: '# Clerk\n\nVendor skill body.\n',
+    },
+    {
+      why: 'a well-formed stub pointing at a non-SKILL-CANONICAL.md target is NOT ours — a foreign two-line stub must stay out of --clear jurisdiction',
+      content: `${FRONTMATTER}${TITLE}${adapterStubPointerLine('vendor/README.md')}\n`,
     },
   ])('$why', ({ content }) => {
     expect(parseAdapterStubPointer(content)).toBeUndefined();

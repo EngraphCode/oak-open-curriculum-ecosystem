@@ -102,7 +102,9 @@ export async function generateAdapters(options: GeneratorOptions): Promise<Gener
   // emit must abort the run before a single removal, or --clear loses the
   // projection the emit then refuses to rebuild (defect 1; emission-refusals.ts).
   const preflightRefusals =
-    options.clearFirst === true ? await emissionRefusalsBeforeClear(discovery.canonicals) : [];
+    options.clearFirst === true
+      ? await emissionRefusalsBeforeClear(options.repoRoot, options.prefix, discovery.canonicals)
+      : [];
   if (preflightRefusals.length > 0) {
     return { ...empty, refused: [...preflightRefusals] };
   }
