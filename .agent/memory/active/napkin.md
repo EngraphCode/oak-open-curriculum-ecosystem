@@ -2715,3 +2715,22 @@ these named classes — the recursion closes here.
   .design-sync/ stays on disk, docs state dormancy). The repo-only ruling
   stands for the system's HOME; the machinery is dormant capability, and the
   pipeline is a future-work pointer, owner-held — do not co-design it.
+
+## 2026-08-12 ~17:1xZ (Plover lifts Troposphere, b10c37) — post-compaction card batch: three owner rulings
+
+- FOLD GATE 852491223 DISCHARGED: "Accept & fold" — public-branch exposure already
+  realised; no history rewrite; substance boundary stands (genericised napkin
+  lessons remain the whole tracked record).
+- Bucket lane: Wren's self-assignment CONFIRMED (Bucket 1 decision-complete +
+  2/3 sketches at their seat; ratification via owner).
+- Pilot eval iteration 2: FOLD INTO WS9 — iteration 2 becomes the first test
+  case of the stratified-quartet eval pattern, not a run on the current
+  harness. Iteration-2 material (case-3 adverse verdict; two-variable confound
+  rerun; grader-scores-own-doctrine finding) rides as pointers to WS9.
+- Merge-tail state at the cards: #869 all 8 suppressed findings CONFIRMED by
+  opus verification (assertion mis-transcription "tree"→"value" the root of
+  three; tightening the grader would fail the design system itself — cure is
+  re-specify + delete arms); #870 7/8 confirmed, G2 REFUTED as a merge gate
+  (rubric blocks the render's owner path, not activation) but needs the
+  Director-named S4-F4 disposition; #865 round 4 = two generated findings on
+  the cure-A code, routed to Wren for verified cure/refutation.
