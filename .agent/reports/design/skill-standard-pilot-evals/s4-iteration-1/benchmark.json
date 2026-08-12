@@ -1,0 +1,70 @@
+{
+  "suite": "ui-visual-design",
+  "iteration": 1,
+  "date": "2026-08-12",
+  "method": "Clean-context subagent legs, blind to each other, both answering the identical prompt. The with-skill leg reads SKILL-CANONICAL.md and references/craft-fundamentals.md and may read the design system; the without-skill leg is instructed not to read anything under the repo root. Outputs go to the scripted arms, and — per the plan's requirement for non-render outputs — to a blind transcript judge that receives both responses anonymised, order varied per case, with the key withheld. Case 1's rendered pages additionally go to two W0.7 instrument legs.",
+  "cases": {
+    "case-1-unit-landing-page-hierarchy": {
+      "status": "PARTIAL — both pages produced and dispatched to the W0.7 legs; the with-skill leg did not produce its rationale",
+      "what_is_missing": "The with-skill leg wrote page.html but never wrote rationale.md, so assertion 4 (the rationale names what the screen is for and ranks against that) has no artefact on that side and is NOT graded. The without-skill rationale is banked. This is recorded rather than worked around: the case is partially run.",
+      "leg_deviation": "The same leg also copied design-system CSS and font files beside its output despite being told not to, and generated preview PNGs it was not asked for. Instructions to legs are honoured approximately — see the S3 frictions record.",
+      "w07_holistic": "dispatched; verdicts land in w07-verdicts/ in a follow-up commit if they arrive, and this field states plainly if they do not"
+    },
+    "case-2-control-critique": {
+      "status": "both legs measured, scripted and judged",
+      "scripted": {
+        "with_skill": { "no-invented-values-in-authored-css": "PASS", "no-invented-values-in-prose": "PASS", "no-bespoke-size-proposals": "PASS" },
+        "without_skill": { "no-invented-values-in-authored-css": "PASS", "no-invented-values-in-prose": "PASS", "no-bespoke-size-proposals": "PASS" },
+        "reading": "The scripted arms cannot separate these two responses. Both avoid inventing values. This is exactly why the plan requires a judge as well as a script for non-render outputs — on the script alone, iteration 1 would have reported no difference."
+      },
+      "judged": {
+        "preference": "with-skill",
+        "scores_with_skill": "reasons-from-purpose STRONG, ranks STRONG, routes-values STRONG, respects-boundary ADEQUATE, would-a-designer-act STRONG",
+        "scores_without_skill": "reasons-from-purpose ADEQUATE, ranks STRONG, routes-values ABSENT, respects-boundary WEAK, would-a-designer-act ADEQUATE",
+        "the_separating_criterion": "routes-values-to-the-system: STRONG against ABSENT. The judge's evidence is that the grounded critique opens from what the control is FOR and surfaces the unresolved question that changes the requirement rather than the styling — quoted: 'If tapping the pill is what marks the lesson complete, it's an interactive control ... Which is it? That decision changes the sizing requirement' — and routes every number back to the system's scale, motion vocabulary, and 44px floor.",
+        "why_it_matters": "Both responses avoid inventing values, so both pass the script. Only one of them tells the reader where the right values live. That gap is invisible to assertion and visible to judgment."
+      }
+    },
+    "case-3-value-lookup-refusal": {
+      "status": "both legs measured, scripted and judged — and the two disagree",
+      "scripted": {
+        "with_skill": { "no-invented-values-in-prose": "FAIL", "evidence": "3 hexes: #222222, #ffffff, #000000" },
+        "without_skill": { "no-invented-values-in-prose": "PASS", "evidence": "declines to supply any value" }
+      },
+      "judged": {
+        "preference": "with-skill",
+        "scores_with_skill": "reasons-from-purpose STRONG, ranks STRONG, routes-values STRONG, respects-boundary ADEQUATE, would-a-designer-act STRONG",
+        "scores_without_skill": "reasons-from-purpose ADEQUATE, ranks ADEQUATE, routes-values ADEQUATE, respects-boundary STRONG, would-a-designer-act WEAK",
+        "judge_reasoning_verbatim_gist": "Stating the resolved values TEACHES the token discipline rather than undermining it: the three different values ARE the argument for the token, because a reader who wanted #222222 to paste learns concretely that pasting it goes invisible in dark and wrong in high-contrast. The refusing response asserts the discipline without demonstrating it and leaves the user with nothing to act on."
+      },
+      "the_disagreement": "The script says the grounded leg failed (it supplied hexes); the judge says the grounded leg was better, and gives a reason the script cannot represent. On the evidence the judge is right and the ASSERTION is wrong: 'no hex value is supplied' cannot distinguish 'here is a value to hardcode' from 'here is what the token resolves to in each theme, which is why you must use the token'. Routed as S4-F1.",
+      "note": "The assertion is NOT being quietly relaxed to make the result look good. It stands as written for iteration 1, the failure is recorded, and the cure is proposed for iteration 2 where it can be re-measured."
+    }
+  },
+  "controls": {
+    "note": "Four controls, one per arm plus a positive. Each negative must fail ONLY its own arm, which is what proves the arms are independent — the previous single-assertion fixture could not do this.",
+    "results": "css-only-negative fails only the CSS arm; prose-only-negative fails only the prose arm; size-only-negative fails only the size arm; legitimate-references-positive passes all three. Full output in grades/controls.txt.",
+    "two_controls_caught_real_defects_on_first_run": "legitimate-references-positive failed the duration detector for quoting the 600ms it was criticising, and size-only-negative passed when it should have failed because the gap pattern excluded newlines and real prose wraps. Both are fixed and both stay as controls."
+  },
+  "findings": [
+    {
+      "id": "S4-F1",
+      "class": "eval design",
+      "finding": "Case 3's assertion 'no hex value is supplied' is too crude. The blind judge preferred the response that stated per-theme resolved values with their token names, on the grounds that showing three different values is the argument FOR the token, while a bare refusal asserts the discipline without demonstrating it. The assertion should distinguish supplying a value TO USE from citing what a token resolves to.",
+      "route": "iteration 2, with the assertion rewritten and re-measured."
+    },
+    {
+      "id": "S4-F2",
+      "class": "eval design",
+      "finding": "On case 2 the scripted arms could not separate the two responses at all — both passed every arm — while the judge separated them decisively on routes-values-to-the-system (STRONG vs ABSENT). A suite of scripted assertions alone would have reported this case as showing no skill effect. The plan's assertion-PLUS-judge requirement for non-render outputs is load-bearing, and this run is the evidence.",
+      "route": "recorded as validation of the standard's eval clause; no cure needed."
+    },
+    {
+      "id": "S4-F3",
+      "class": "eval running",
+      "finding": "One leg silently failed to produce a required output (case 1's rationale) and another produced unrequested files while copying source it was told not to copy. There is no completeness check between dispatching a leg and grading it, so a missing artefact is discovered at grading time.",
+      "route": "WS8-general, with the eval-runner tooling."
+    }
+  ],
+  "honest_summary": "Iteration 1 of the ui-visual-design suite ran all three cases, with case 1 partial: both pages exist and are with the W0.7 legs, but the with-skill leg never wrote its rationale, so one assertion on that case is ungraded and said so. The measured result on the two complete cases is that the blind judge preferred the with-skill response in BOTH, while the scripted arms preferred it in NEITHER — tying on case 2 and marking it FAILED on case 3. That is the most useful thing this run produced: the skill's effect on craft judgment is real and is invisible to the assertions, and on case 3 the assertion is simply wrong in a way the judge could articulate and the script could not."
+}

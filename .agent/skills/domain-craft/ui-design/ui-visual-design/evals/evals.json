@@ -39,7 +39,7 @@
   ],
   "metadata": {
     "scope": "skill",
-    "status": "iteration-1-executed",
+    "status": "iteration-1-executed-partial",
     "iteration_1_date": "2026-08-12",
     "workspace": "eval workspace lives outside this bundle; iteration-1 evidence is banked under .agent/reports/design/skill-standard-pilot-evals/",
     "graders": {
@@ -53,6 +53,8 @@
       "fixtures/prose-only-negative.md": "only the prose arm may FAIL",
       "fixtures/size-only-negative.md": "only the size arm may FAIL",
       "fixtures/legitimate-references-positive.md": "all three arms must PASS \u2014 a critique must be able to quote the values it is criticising and cite the estate's documented values without being scored as inventing them"
-    }
+    },
+    "status_basis": "Set from the evidence, not the intention. Cases 2 and 3 ran both legs and were graded by script AND blind judge. Case 1 produced both rendered pages and dispatched them to the W0.7 legs, but the with-skill leg never wrote its rationale, so assertion 4 on that case is UNGRADED. The suite becomes iteration-1-executed when case 1 is complete.",
+    "iteration_1_evidence": ".agent/reports/design/skill-standard-pilot-evals/s4-iteration-1/"
   }
 }
