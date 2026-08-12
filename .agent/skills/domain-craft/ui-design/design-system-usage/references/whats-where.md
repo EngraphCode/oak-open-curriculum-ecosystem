@@ -1,24 +1,19 @@
 # What's where
 
-The design-system file map. **Rows are STUDIO paths**, relative to the studio
-project root; the repo's design-system root is
-`packages/design/oak-design-system/`. The homes are not flat copies of each
-other, so each section states which of three mapping rules applies:
+The design-system file map. Every path is relative to
+`packages/design/oak-design-system/`, which is the system's only home.
 
-| Rule | Studio | Repo |
-| --- | --- | --- |
-| Consumable files | `<file>` | `<file>` |
-| Instrument directories | `<dir>/` | `studio-source/<dir>/` |
-| Guidance documents | `guidelines/<doc>` | `<doc>` |
+One structural rule inside that root: the non-production material lives under
+`studio-source/` — `components/`, `templates/`, `preview/`, `ui_kits/`,
+`whitelabel/`, `integrations/`, and the proof pages — while the consumable
+files and the guidance documents sit at the root. That split is a
+quality-gate boundary rather than a filing preference (owner ruling
+2026-07-19): the gate exclusions bind `studio-source/**` alone, everything at
+the workspace root is product surface under the full strict gate, and
+anything under `studio-source/` that becomes consumed by product code moves
+out of it in the same change.
 
-The instrument-directory rule is a quality-gate boundary rather than a filing
-preference (owner ruling 2026-07-19): the gate exclusions bind
-`studio-source/**` alone, everything at the repo's workspace root is product
-surface under the full strict gate, and anything under `studio-source/` that
-becomes consumed by product code moves out of it in the same change. The
-system's own `README.md` file index describes the studio layout, and says so.
-
-## Styles — consumable, root to root in both homes
+## Styles — at the root
 
 - `components.css` — buttons, tags, cards, chips, inputs, checkbox/radio,
   banners, quiz answers, links, skip-link, utilities, **and the authoring
@@ -40,23 +35,23 @@ system's own `README.md` file index describes the studio layout, and says so.
   §white-label step 1). Linking `styles.css` alone gets you the Oak brand;
   a re-brand is `styles.css` then `brand.css`.
 
-## Building blocks — mixed, per row
+## Building blocks
 
-- `templates/lesson-deck/`, `templates/worksheet/` — starting points for
-  teaching slides and printable A4 worksheets (PDF-ready). Start from these
-  for lesson artefacts. **Instrument**: `repo:studio-source/templates/`.
-- `components/` — compiled React components (OakButton, OakTag,
-  OakSubjectChip, OakIcon) with typed props. **Instrument**:
-  `repo:studio-source/components/`. In the repo these are deliberately NOT on
-  the package's export surface (ADR-213 §3) — apps compose Base UI plus the
-  class library instead.
+- `studio-source/templates/lesson-deck/`,
+  `studio-source/templates/worksheet/` — starting points for teaching slides
+  and printable A4 worksheets (PDF-ready). Start from these for lesson
+  artefacts.
+- `studio-source/components/` — compiled React components (OakButton, OakTag,
+  OakSubjectChip, OakIcon) with typed props. These are deliberately NOT on the
+  package's export surface (ADR-213 §3) — apps compose Base UI plus the class
+  library instead.
 - `assets/icons/*.svg` — local flat-black-stroke icons; recolour with
-  `filter: var(--filter-icon)`. **Consumable**: root in both.
-- `fonts/` — the shipped typeface files. **Consumable**: root in both.
+  `filter: var(--filter-icon)`.
+- `fonts/` — the shipped typeface files.
 
-## Reference builds and specimens — instrument, all under `studio-source/`
+## Reference builds and specimens — all under `studio-source/`
 
-Every path in this section is `repo:studio-source/<path>`.
+Every path in this section is prefixed `studio-source/`.
 
 - `preview/*.html` — specimen cards: exhaustive states for every component,
   plus motion, theming, and accessible-combination guides.
@@ -67,19 +62,13 @@ Every path in this section is `repo:studio-source/<path>`.
   sit `specimen.html` (byte-identical full app page, `?brand=<slug>`) and
   `failing-example.css` (the negative control). The proof pages
   `Identity White-Labelling.html` / `Identity Switchboard.html` /
-  `Example Front Pages.html` sit at the studio root and at
-  `repo:studio-source/` — they demonstrate the contract.
+  `Example Front Pages.html` sit beside them and demonstrate the contract.
 
-Some files here reference `_ds_bundle.js` / `_ds_manifest.json`, which is the
-studio's compiled bundle and is held out of the repo. Those pages render live
-on the studio surface only; in the repo they are sources and fidelity targets,
+Some files here reference `_ds_bundle.js` / `_ds_manifest.json`, a compiled
+bundle that is not in the repo. Those pages are sources and fidelity targets,
 never served pages.
 
-## Guidance documents — the `guidelines/` re-homing
-
-Studio home: `guidelines/` and `guidelines/docs/`. Repo home: the
-design-system root and `docs/`. Rows below are named repo-side because that is
-where a repo agent reads them; prefix `guidelines/` for the studio.
+## Guidance documents — at the root
 
 - `DECISIONS.md` — why the system is the way it is: decisions, rationale,
   rejected alternatives, hard-won lessons. Read it before changing
@@ -100,12 +89,10 @@ where a repo agent reads them; prefix `guidelines/` for the studio.
 ## Generated and integration surfaces
 
 - `dtcg/` — generated DTCG JSON token export (the CSS is canonical).
-  **Consumable**: root in both.
-- `integrations/revealjs/` — the Oak reveal.js theme. **Instrument**:
-  `repo:studio-source/integrations/revealjs/`.
+- `studio-source/integrations/revealjs/` — the Oak reveal.js theme.
 
-## Provenance capture (repo only)
+## Provenance capture
 
-Upstream Figma/library provenance dumps live only in this repo's committed
-capture tier (`studio-source/original-capture-2026-07-23/reference/`) —
-never load them at runtime, and they do not ship to the studio.
+Upstream Figma/library provenance dumps live in the committed capture tier
+(`studio-source/original-capture-2026-07-23/reference/`) — never load them at
+runtime.
