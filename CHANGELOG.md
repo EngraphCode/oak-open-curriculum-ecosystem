@@ -1,3 +1,16 @@
+# [1.167.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.166.1...v1.167.0) (2026-08-12)
+
+
+### Bug Fixes
+
+* **skills:** decouple the two type ladders, separate Oak's floor from AA, rebuild the grader ([163243c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/163243ce80e6dc3708ae06bc114d6d6f04643c5b)), closes [#870](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/870)
+* **skills:** record discharged s4 gate, grade case-1 pages, fix proposal detector (870 cures) ([7643504](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/76435047a84d697b68e65c65f21ba42113362251))
+
+
+### Features
+
+* **skills:** mint ui-visual-design born to the proven standard ([612bb7f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/612bb7f3a910bd2de2509cfe490f25b63999af36))
+
 ## [1.166.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.166.0...v1.166.1) (2026-08-12)
 
 
