@@ -2734,3 +2734,67 @@ these named classes — the recursion closes here.
   (rubric blocks the render's owner path, not activation) but needs the
   Director-named S4-F4 disposition; #865 round 4 = two generated findings on
   the cure-A code, routed to Wren for verified cure/refutation.
+
+## 2026-08-12 ~17:2xZ (Plover lifts Troposphere, b10c37) — survey-redesign card rulings (four, owner verbatim intent)
+
+- OBJECT: "Corpus + estate" — TWO composed deliverables: a critically-analysed,
+  multi-source-corroborated reference survey of foundational patterns
+  (algorithms/data-structures through application-design) AND the estate
+  measured against it. The corpus supplies the lenses; the estate is the
+  object.
+- SHAPE: fresh unified design, "but deeply analyse and deconstruct the proven
+  machinery first" (owner rider, verbatim) — a deconstruction pass over the
+  frozen detector contract + extractor + foundational-building-blocks frame
+  precedes and feeds the fresh multi-scale design; retention is knowledge,
+  never bytes.
+- FIRST MOVE: workspace-classification census (re-grounds the 2026-04-28
+  surface-isolation matrix). Falsifier stands: if honest leakage claims need
+  construct-level evidence underneath, the order flips.
+- WS9 COUPLING: co-design — the stratified-quartet pattern is the
+  corroboration mechanism for the survey's judged scales; the survey is its
+  second consumer. (Composes with the earlier card: pilot eval iteration 2
+  folds into WS9.)
+- Seat next acts: author the deconstruction-analysis node + the census
+  delivery node (ratification-carded when drafted); census seat routing at
+  ratification.
+
+## 2026-08-12 ~17:3xZ (Plover lifts Troposphere, b10c37) — owner seats a PR shepherd
+
+- Owner word: "Perseus guards Stillness (b1e836) is joining specifically to
+  shepherd PRs. The design system PR 846 stays with Swordfish." Handoff
+  broadcast posted pre-positioning-style (authority transfers at Perseus's
+  registered ack; in-flight rounds keep moving at current seats until then).
+  Fold PRs stay Director-side (rotation ceremony, not shepherd work). #846
+  FENCED to Swordfish's paused lane by the same word — stale claim is a
+  paused seat, not abandonment.
+
+## 2026-08-12 ~17:5xZ (Plover lifts Troposphere, b10c37) — owner seats the survey lane
+
+- Owner word: "Nautilus calls Plankton (c6d48b) is joining to focus on the
+  census and survey work, finish what you are doing in that lane first, and
+  hand over to them gradually, and stay part of the process, guide them,
+  support them." Shape adopted: this seat completes the two opener plan
+  nodes through the ratification card; Nautilus takes execution ownership
+  progressively from ratification; the Director stays on the lane as guide
+  and reviewer, never fully exiting — a mentored transfer, not a cutover.
+
+## 2026-08-12 ~17:4xZ (Plover lifts Troposphere, b10c37) — assumptions pass earned its dispatch: stale-premise catch
+
+- OWN-MISTAKE, caught pre-ratification by the assumptions-expert pass: I
+  authored the deconstruction node on "extractor gates red by design" —
+  inherited from the thread record + preservation-commit story, NEVER
+  re-verified. Reality: the foundations lane greened it at main 2026-08-05
+  (d16ba0e7d + three cure rounds; smokes in test:e2e). The thread record and
+  the ratified plan's execution-state section were BOTH stale — the plan
+  section now carries a dated historical amendment (execution state is never
+  a durable plan field). Lesson instance of query-the-value-never-the-
+  lookalike: a preservation-moment fact mis-read as a present-tense fact.
+- Cures landed both nodes: deconstruction re-scoped from green-up costing to
+  CONTRACT-COVERAGE mapping (held slices per the R10 refreezeReason); ledger
+  granularity defined (~110–130 rows, committed enumeration script as the
+  repo-safe instrument); AC4s re-bound to each node's own review card;
+  census subjects = members UNION tracked non-member surfaces (the
+  boundary question lives exactly there); tranche-ownership column restored
+  per the brief's todo; thinnest-slice restricted to mixed rows; WS9 scoping
+  disposed visibly (quartet binds at survey judged scales, not ~35 rows);
+  falsifier acquires a schema-visible owner gate if it fires.
