@@ -1,3 +1,18 @@
+## [1.166.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.166.0...v1.166.1) (2026-08-12)
+
+
+### Bug Fixes
+
+* **agent-tools:** clear guards both roots before acting; pin the check-guard cure ([2ff1eb0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2ff1eb02539a0cc1da8020e5ced88ebfe9956f5e))
+* **agent-tools:** close [#865](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/865) Copilot round — record + destructive-path hardening (MCP-570) ([1a98b08](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1a98b08070f4862f7445f79f8d62c4ae0beb91f8))
+* **agent-tools:** close [#865](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/865) review round — safe clear ordering, fail-closed reads (MCP-570) ([a73ff86](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a73ff86b8759516c899218f0869f32cd1c83d46d))
+* **agent-tools:** close [#865](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/865) round-4 — recogniser filename + foreign-target preflight (MCP-570) ([5aadd64](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5aadd6400adebbad72c42ca72b30ded0d90e62e9))
+* **agent-tools:** close the review round — structural recognition, guarded emission targets ([cb593b1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cb593b1aaf6536cc5257c250549cb12ced684ed2))
+* **agent-tools:** guard the clear/check/census paths at the surface root (security round 2) ([848b972](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/848b972f3a6f2f247e3d25ffaeebdf804ec236da))
+* **agent-tools:** preflight emission refusals before --clear (MCP-570 [#865](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/865)) ([d3d38ce](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/d3d38ce6a91fbbf601685dd36920c13cf644d758))
+* **agent-tools:** reinstate skills-lock.json — external tooling's state (MCP-570 [#865](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/865) review) ([323805a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/323805abfbec02216670eb6a31b9cd5e88069148))
+* **agent-tools:** scope skills validation to the Practice class it owns ([e18332b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e18332bac4ccc055c02db7be2c2f651d18b6e162))
+
 # [1.166.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.165.2...v1.166.0) (2026-08-12)
 
 
