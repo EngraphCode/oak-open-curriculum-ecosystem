@@ -2000,7 +2000,7 @@ Review-ratchet worked instance: nine rounds on the skill PR (9/2/1/3/3/2/2/3/0),
 - FORGE SEAT CLOSE 2026-08-12 ~04:55Z (post-resume arc, MCP-558 + MCP-545):
   two tickets premise-to-landed under Director routing. #860 merged (ticket
   19:42Z → main 21:55Z incl. a killed first design); #862 settled 19/19 at
-  f1fa01202, five-round ratchet converged, handed to Director at 2b996a91.
+  SHA:f1fa01202, five-round ratchet converged, handed to Director at 2b996a91.
 - ERROR SIGNATURE CONTINUED (same class as pre-compaction): two fresh
   confident diagnoses wrong, both externally corrected within minutes —
   (1) settle-watch filter written from MEMORY missed the `[bot]` login

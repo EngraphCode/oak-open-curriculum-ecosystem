@@ -42,7 +42,7 @@ Current Continuation below.
 - **MCP-567 state**: Linear In Progress; claim 98d17c6f RETAINED
   stopped-seat-held (this seat resumes it); worktree
   `.claude/worktrees/mcp-567-vendor-symlinks` (branch
-  `jimcresswell/mcp-567-vendor-skill-symlinks` at main 0974eb3e2, built)
+  `jimcresswell/mcp-567-vendor-skill-symlinks` at main SHA:0974eb3e2, built)
   holds UNCOMMITTED: six red tests appended to
   `agent-tools/tests/skills-adapter-generate/carriage-hardening.integration.test.ts`
   (the falsification record, observed 6 failed / 17 passed). If the
@@ -72,7 +72,7 @@ Current Continuation below.
 - **LANDED EARLIER THIS SESSION** (chores complete): #861/MCP-553 merged
   22:19:52Z and #851/MCP-547 merged 22:30:01Z (2026-08-11); worktrees
   pruned, branches swept both ends, tickets Done; S1b plan rows re-trued
-  at 908f44f66; six Copilot request legs fired+timeline-verified for the
+  at SHA:908f44f66; six Copilot request legs fired+timeline-verified for the
   fleet's settle drives. Requester-seat mythology RETIRED at owner word
   ("it's a cli call") — any seat fires; the timeline is the proof
   surface; give the read 60–90s.

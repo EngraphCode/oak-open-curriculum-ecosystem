@@ -73,6 +73,19 @@ single instance, so the vocabulary itself is the detection surface. A
 mitigation is lawful only while it carries its owning ticket and its
 retirement condition in the same breath.
 
+Because the graduating instances lived in OPERATIONAL RECORDS (the
+Director handoff and thread records), not doctrine documents, this
+sub-family carries its own hook group (`concept: acceptance-euphemism`)
+whose scope extends beyond the literal trip-list's doctrine surfaces to
+`.agent/memory/operational/` and `.agent/reports/` — mirroring the
+indefinite-deferral group's habitat reasoning: continuity and thread
+records are where acceptance language hides. The napkin
+(`.agent/memory/active/`) is deliberately NOT in scope: it is the
+first-capture observation buffer, where pathogen instances are recorded
+as observations and owner corrections are quoted verbatim — the same
+recursive-exclusion logic that exempts this file as the cataloguing
+home.
+
 ## Indefinite-Deferral Vocabulary (regex family, added 2026-06-10)
 
 Owner-directed graduation: language that puts work into an
