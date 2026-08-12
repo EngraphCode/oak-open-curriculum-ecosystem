@@ -5,6 +5,52 @@ upstream Oak API + bulk export, and establish a repeatable, observable alignment
 Trigger instance (2026-06-30/07-01): upstream added a `programmes` resource family (5 GET
 endpoints + 5 schemas).
 
+## MCP-590 IN FLIGHT — slice 1 shipped as PR #871; slices 2/3 mapped (Wren calls Downdraft 6b29b5, 2026-08-12 ~18:5xZ)
+
+Ticket **MCP-590** (MCP team, First Major Release project, related MCP-204/MCP-100)
+realises the ratified Bucket-1 plan. Worked in worktree
+`.claude/worktrees/mcp-590-restricted-switch` (branch
+`jimcresswell/mcp-590-restricted-exclusion-switch`, off origin/main `d105b4ab2`),
+KEPT on disk for slices 2/3.
+
+- **Slice 1 — configurable restricted-exclusion switch (default exclude): SHIPPED
+  to review as PR #871** (head `4314a0c05`, jimbot label, Copilot requested;
+  MCP-590 → In Review). `includeRestricted?: boolean` (default false = exclude,
+  byte-for-byte preserving) on `excludeRestrictedLessons`, threaded through both
+  exclusion call sites + the SDK lifecycle service (the `runIngestAndVerify`
+  option-narrowing was a silent-drop point — found by full-path tracing, fixed,
+  now pinned by a forwarding regression test) + CLI `--include-restricted` on
+  `versioned-ingest` and `stage`. ADR-224. Two opus reviewers cleared:
+  test-expert PASS (2 coverage gaps closed — `toBulkDataInputs` toggle +
+  `createPipelineConfig` default/override); code-expert APPROVE (threading
+  complete every hop, default preserved, no other drop site; sandbox `es:ingest`
+  `ingest-harness-batch` is the superseded non-filter path). `pnpm check` green.
+  **NEXT: reviewer/Copilot convergence → Director-side bot REST merge (never squash).**
+- **Slice 2 — MCP error envelope: pickup-verification SETTLED (mcp-expert probe,
+  first-hand against the SDK).** `structuredContent` DOES survive on an
+  `isError:true` CallToolResult — spec 2025-06-18 places no mutual exclusion; SDK
+  `@modelcontextprotocol/sdk@1.30.0` sends the result as-is (base looseObject,
+  passthrough), and `validateToolOutput` (server/mcp.js:186-195) never validates
+  structuredContent on error (`if(result.isError) return`) with NO outputSchema
+  declared in-repo. `formatError` (universal-tool-shared.ts:107-110) RETURNS an
+  error (not throw), so the SDK throw-path `createToolError` never fires — the
+  drop of `code` is ours to fix. BUILD: `formatError` emits
+  `{ content: [humanText, jsonEnvelopeText], isError: true, structuredContent: { error: { code, message, upstreamMessage } } }`
+  — nest under `error` (future success-outputSchema safe); MIRROR the JSON into
+  `content[1]` because `content` is the only channel guaranteed surfaced on error.
+  NOT `_meta` (repo documents it widget-only, "Model never sees _meta"). Callers:
+  `formatError` + `universal-tools/executor.ts:55` + `aggregated-fetch/execution.ts:112`.
+  Then contract-pin the upstream vocab (brittle `data.cause.includes('blocked')`
+  at `classify-error-response.ts:83`).
+- **Slice 3 — rebuild + promote** from the fresh 2026-08-12 bundle
+  (`apps/oak-search-cli/bulk-downloads/`) via `admin versioned-ingest` (or
+  `stage`→`promote`). Owner-carded alias swap (MCP-153 precedent); confirm
+  rshe-pshe presence.
+
+Claim (upstream-api-alignment thread; areas sdk-codegen/bulk + vocab-gen +
+search-cli indexing/admin) OPEN. Comms watcher was stopped at the compaction
+freeze — re-arm at resume. The block below is the pre-implementation pickup record.
+
 ## BUCKET-1 RATIFIED, BUCKETS 2/3 SKETCHES — 2026-08-12 ~17:3xZ (owner decision card; Wren calls Downdraft 6b29b5)
 
 The three Bucket plans were authored, validated (`validate-plan-corpus` OK),

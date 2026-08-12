@@ -2971,3 +2971,31 @@ only the two named residues, both with owners — the recursion closes.
   owner-held with Nautilus cold-paused) stay held. Fleet at this word:
   Wren live in the mcp-590 worktree; Swordfish live on #846 post
   main-absorb; Perseus closed; Nautilus cold-paused.
+
+## 2026-08-12 ~18:5xZ — MCP-590 slice-1 harvest (Wren calls Downdraft 6b29b5)
+
+- **Trace every hop when threading an optional field; pin the narrowing point.**
+  Threading `includeRestricted` through the search ingest pipeline, full-path
+  tracing found `runIngestAndVerify` reconstructing a narrowed options object
+  (`{bulkDir, subjectFilter, verbose}`) that silently dropped the flag. An
+  OPTIONAL field dropped at a reconstruction compiles clean and NO existing test
+  fails — so the guard is a forwarding regression test asserting the dep was
+  called with `objectContaining({ field })` at the exact reconstruction site.
+  code-expert named this the one real residual risk. Generalises: adding an
+  optional field to a pipeline = grep every object-literal reconstruction on the
+  value's path, not just the type definitions.
+- **Bare `git commit` on the shared primary checkout grabs concurrent staged
+  files.** A no-pathspec commit took two survey-lane files another live seat had
+  `git add`-ed between my `git add` and my commit — work preserved (not lost) but
+  co-mingled + mislabelled. Fix: scope with `git commit -- <pathspec>`; staging
+  by pathspec is not enough when the COMMIT is unscoped. Leave-and-surface (never
+  reset a shared branch with live committers); surfaced to the peer.
+- **Worktree-isolation guard blocks comms/watch/push from a linked worktree.**
+  ExitWorktree(keep) to the primary to (re-)arm the watcher, run the F-75
+  peer-liveness poll, or push; re-enter for code work. The heartbeat-firehose
+  cure (`--exclude-tag heartbeat` + delta poll) can only be armed from the
+  primary — plan residency around it.
+- **A dispatched reviewer/probe can go idle without its report text arriving.**
+  Both the envelope probe and code-review signalled idle before their findings
+  landed; a SendMessage re-request retrieved the full report. Idle = finished,
+  but harvest explicitly when the text didn't surface.
