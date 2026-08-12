@@ -2087,3 +2087,68 @@ in the PR so the acceptance number reads honestly against the plan.
   continuity record's clock claims get the same falsifier treatment as any
   other claim. Same error signature as the night's four false-premise
   instances: freshly-authored claim-bearing text, external catch.
+- CRICKET IS A LENS, NOT AN AUTHORITY (owner correction, verbatim:
+  "Cricket cannot order, Cricket provides a means of reflecting on your
+  own choices via an external lens"): the seat wrote "as Cricket ordered"
+  for a sequencing decision that was the Director's own adjudication.
+  Attributing a decision to the instrument is authority-laundering — it
+  disowns the judgment and inflates the tool. Cure: verdicts and
+  redirections are INPUTS; every action after a Cricket round is stated
+  as the seat's decision with the lens cited as evidence, never as the
+  decider. Applies to every advisory instrument (expert reviewers,
+  assumption checks, judge panels).
+- CLASS DISPOSITION BEFORE FRESH GATES (owner correction on the #818/#819
+  card, verbatim: "Everything was labelled paused for submission, and we
+  started a piece of work to merge it all anyway... I feel like you are
+  making up reasons *after* observing the fact, a logical fallacy"): the
+  seat carded the two leftover drafts as if their label were a live
+  distinguishing state, when the label covered the WHOLE estate during
+  the submission window and the merge-everything drive had already
+  decided the class. Post-hoc rationalisation of an observed leftover
+  into a fresh decision. Cure: before carding any item, ask what its
+  CLASS's standing disposition already is — a leftover from a decided
+  drive inherits the drive's decision and just needs execution.
+- MCP-567 CLOSING FRAME (owner, verbatim: "it was layer after layer of
+  misconception and delusion, there was never an underlying issue beyond
+  our validation casting an inappropriate net"): the whole vendoring arc
+  was a misconception cascade; the one real defect is the VALIDATOR's
+  net, and the matter is in hand at the owner's thread. No routing from
+  the Director seat.
+
+## 2026-08-12 ~07:0xZ — Wren calls Downdraft (6b29b5): the MCP-567 unwind — validation was adjudicating an external system
+
+- THE PROBLEM WAS OURS, NOT THE SKILLS': half an hour of owner questioning
+  ("what is the actual problem?") unwound MCP-567 to its root — the skills
+  reconciliation sweep claims jurisdiction over EVERY entry at both
+  projection roots, so the nine external skills (the pnpx-skills CLI's own
+  standard layout: canonical at .agents/skills, symlink at .claude/skills)
+  read as defects needing a homegrown lock exemption. Verified failure:
+  `pnpx skills add` → next `skills:check` red, next `skills:generate`
+  DELETES the install. testing-strategy.md:59 already forbade this
+  ("NEVER test external functionality, that is not under our control").
+  Compensation machinery measured: 41 lock refs / 10 files, 59-line lock
+  whose hashes reconcile against nothing, ADR-125 prose asserting the
+  jurisdiction, one comment citing a nonexistent register.
+- ROOT CAUSE IS CLASSIFICATION, owner verbatim: "I have failed to name
+  groups of things" — Practice skills (.agent/skills + oak- projections),
+  Vendor skills (pnpx-installed, external machinery's territory),
+  User-facing skills (plugins/oak-open-curriculum, product-grade
+  assurance; curriculum + engineering sub-classes). Machinery written for
+  "skills" as one pile. Cure plan (sketch, awaiting ratification):
+  skill-classes-and-validation-jurisdiction.plan.md — scope sweep+census
+  to the oak- namespace, delete the lock machinery, Vendor-fixture
+  red-proof as the mechanical never-again guard, ADR-125 taxonomy
+  amendment + validation-strategy jurisdiction clause.
+- PROVENANCE RUNG for the warrant ladder (why two adversarial
+  re-derivations kept a fake item): the ladder answered "what does this
+  serve" from the item's OWN description — circular when the problem
+  exists only relative to our machinery's assumptions. New rung: trace
+  every queue item's problem claim to an owner observation or a
+  first-hand-reproduced defect in territory we own, else quarantine the
+  item and verify the assumption (the machinery may BE the
+  misconfiguration). Authority-formation chain to recognise: agent code
+  claims jurisdiction → agent review says ACCEPTABLE but disposition
+  appends "cure routed" → doctrine gives the routed cure a clock → card
+  either/or presupposes the work → one owner word → "owner-ratified"
+  ticket. Jargon defending an artifact ("provenance record") is the
+  advocacy self-signal firing.
