@@ -2627,3 +2627,48 @@ found that four earlier passes and four green gates missed. The durable shapes:
   reappeared next round plus a Warden CHANGES_REQUESTED. Never-filter includes
   never-half-read: every round read = review body (incl. suppressed) PLUS the
   round's inline comments, tallied separately before any relay or disposition.
+
+## 2026-08-12T14:06:31Z (Foundry tracks Shimmer, ead103) — wrap harvest: lens passes + privacy-cure record (all content-generic by owner classification)
+
+METACOGNITION: the session's defining dynamic — SIX owner-correction
+rounds arrived AFTER a fact-safe, twice-prose-reviewed "FINAL". Reviewer
+consensus measures craft and fact-safety; only the sponsor's read measures
+audience fit, and stacking same-class reviewers adds confidence within the
+class and zero across classes (the second prose pass's structural advice
+was expertly argued and audience-wrong). Candidate practice, routed here
+with its falsifier: owner-facing papers get a sponsor cold-read at the
+OUTLINE stage before any prose polish — falsified if an outline-approved
+paper still gets structurally rejected at draft. Retrospective arm: the
+privacy classification arrived late and bound retroactively; the cure ran
+tip-first (genericise every tracked surface) then routed history to the
+owner — classifications bind the referent wherever it sits, and a sweep
+at classification time is the discipline.
+
+FREE-PLAY SEEDS (one visible discard): (a) the owner SUBTRACTED at every
+touch while agent rounds had ADDED — a document's fitness under sponsor
+pressure is measured in deletions survived; association: sculpture vs
+accretion. (b) Correction-round RADIUS shrank monotonically (structure →
+framing → facts → words → diagram nodes) — round-radius as a convergence
+signal for document lanes, annealing-shaped. (c) The modified-since-read
+write guard turned an owner live-edit race into a clean interleave —
+optimistic concurrency as collaboration etiquette; exact-match edits are
+the polite tool when the owner has the file open. DISCARDED (guard ran):
+a forced association about rendering-layer defects always arriving last.
+
+CONCEPT-EXPLORATION: justified no-run — the deliverable converged fully;
+the one shaped proposal (outline-gate) is named above with its falsifier;
+no unshaped residue.
+
+WRAP loss-scan (metaloss to fixed point): (1) pushed-history exposure of
+pre-classification records (commit 852491223) — owner decision card
+raised in-session; supersession broadcast caa5a5cd carries the standing
+directive. (2) Conversation-only revision history — classified-accepted;
+the owner holds the final artefact. (3) Topic-level one-liners on the
+immutable comms stream — accepted residue, flagged to the owner. (4)
+Per-user memory: three generic entries written (paper shape;
+owner-fact models; reference-local privacy pattern). (5) State flags for
+the next consolidation seat: napkin far over rotation threshold; per-user
+MEMORY.md index over its line-limit hook (163/140) — per
+knowledge-preservation-over-fitness-warnings, NOT blind-trimmed at this
+wrap; needs a verified curation pass. A further scan pass re-finds only
+these named classes — the recursion closes here.
