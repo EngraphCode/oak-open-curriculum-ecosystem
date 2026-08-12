@@ -16,6 +16,7 @@ import { expect } from '@playwright/test';
 import type { Browser, Page } from '@playwright/test';
 
 import type { OakThemeName } from '@oaknational/oak-design-react';
+import { RATIFIED_EXTERNAL_ORIGINS } from '@oaknational/fidelity-review/capture-flags';
 import { SHOWCASE_ORIGIN } from '../tools/showcase-origin';
 
 export const IDENTITIES = ['oak', 'freedonia', 'creature'] as const;
@@ -34,12 +35,11 @@ export async function expectNoAxeViolations(page: Page): Promise<void> {
 /** Origins the kit-authored counter-brand sheets are known to reference;
  *  any other aborted origin during a test fails the suite loudly. Full
  *  origins, not hostnames: a wrong-port loopback request must surface as
- *  itself, never hide behind a familiar hostname. */
-const EXPECTED_THIRD_PARTY_ORIGINS: readonly string[] = [
-  'https://fonts.googleapis.com',
-  'https://fonts.gstatic.com',
-  'https://cdn.jsdelivr.net',
-];
+ *  itself, never hide behind a familiar hostname. The list itself is
+ *  the fidelity package's RATIFIED_EXTERNAL_ORIGINS — one census,
+ *  consumed here and by the capture-egress allowlist, so the two
+ *  surfaces cannot drift apart. */
+const EXPECTED_THIRD_PARTY_ORIGINS: readonly string[] = RATIFIED_EXTERNAL_ORIGINS;
 
 /** Cascade-level application proof per explicit theme: the computed
  *  color-scheme each choice must resolve to (a per-cell table, not a branch). */

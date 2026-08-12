@@ -76,6 +76,17 @@ design operable by non-designers and agents (values are data, constraints enforc
 the demos as the falsifier suite — every demo exists to prove a named property of
 this kernel, and a demo with no property to prove is scope without warrant.
 
+## Decision records
+
+The decisions this node narrates are recorded canonically in the
+[Design Decision Record corpus](../../../docs/design/README.md)
+(founded 2026-08-07, MCP-527): the kernel's configured-framework thesis is
+[DDR-001](../../../docs/design/design-decisions/001-the-design-system-is-a-configured-framework.md);
+the licensing split is
+[DDR-005](../../../docs/design/design-decisions/005-licence-follows-provenance.md).
+Plans cite DDRs — never the reverse; this node remains the ratified
+narrative home the DDRs cite as provenance (PR #782).
+
 ## Why strategic
 
 The identity-as-configuration thesis is the same split the licensing model makes legible

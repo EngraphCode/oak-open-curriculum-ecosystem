@@ -255,6 +255,34 @@ The personal form, at the moment of wanting to assert: not *"am I confident?"*
 but **"what is the cheapest thing that would prove me wrong, and have I run
 it?"**
 
+**The fire-signal is vocabulary.** *Impossible, never, cannot, always, static,
+already handled, nothing else, only* — writing one of those words about a
+system IS the trigger to stop and run the single cheapest check that would
+prove it wrong: a grep, a config read, one API call. The diagnosis behind the
+class is not carelessness about checked facts — it is converting "I have not
+checked" into a confident claim, because a confident claim reads as finished
+work. Three instances in one lane in one day (2026-07-29), two caught by
+others: a "structurally impossible" header with an unchecked third
+interpolation path; a log line ruled "legitimately static" without opening the
+config that ran it in production; a "the bot cannot (403)" owner card whose
+cause was three lines of our own token-minting code, falsifiable by one grep.
+Verdicts-not-hedges licenses committing to a judgement; it never licenses
+skipping the check that would falsify it.
+
+**"Verified real" is not "verified terminal".** The sharper variant (owner,
+twice in one session, 2026-07-29): the constraint is genuine and the error is
+treating it as final. After confirming a blocker, ask the distinct question
+*what would make this not block?* and cost the answer before reporting the
+block — a report that names only who else must act is the tell. Its
+second-order failure is the expensive one: an accepted false constraint sends
+you shopping for ways *around* the wall instead of through it, up to and
+including offering to weaken a control (`principles.md` §Architectural
+Excellence names presenting the cheap cure as an option as itself the failure
+mode). When an instrument refuses you, find out why before designing around
+it. And a suppression that must be re-applied after every refactor (a
+dismissal, an ignore entry) is a defect report about the code, not the tool —
+the repetition is the evidence.
+
 ## Claims Crossing Boundaries Carry Their Derivation
 
 The transmitting-side dual of `patterns/referent-narrowing.md` (which governs
@@ -353,6 +381,24 @@ check briefing fact gets verified first-hand BEFORE building on it, not at
 verification time (a 10-second `curl` beats a parser built on a relayed
 vocabulary).
 
+## Probe the Deployment Before Planning About It
+
+Artefact grounding (docs, ADRs, code, plan shape) and artefact-shaped review
+compose into a **collective blind spot**: everything cross-checks
+consistently against everything except the running system. Before authoring
+OR adjudicating any plan about a deployed surface, probe the deployment
+first-hand — metadata endpoints, challenge shape, health endpoints, env
+reality — and put the probe output in the plan's evidence base. A
+"sound" adjudication verdict on a deployed-surface plan requires the probe
+too, not just shape-reading. Worked instance (2026-07-21, MCP-67): a
+promotion plan and its owner card asked domain/staging questions the live
+alpha deployment already answered — thirty seconds of curl would have
+reframed the plan from greenfield ceremony to an upstream realm swap, and
+two expert reviewer rounds plus a Director post-landing read all shared the
+blind spot, because every one of them verified artefacts. Owner cards
+authored from artefact-only grounding waste the owner's attention on
+questions the running system answers.
+
 ## Calibrate Verification to Stakes
 
 This rule prescribes *calibrated* verification, not maximal distrust. The
@@ -416,6 +462,21 @@ in sync and one fetch would have shown it).
   first — a `clean` / `rm -rf` prelude on a command that may crash deletes
   tracked artefacts (a diagnostic `sdk-codegen` once deleted ~100 tracked files
   this way).
+- A proof loop whose probe consumes its own input as options — `grep -Fq "$line"`
+  ate every `-`-prefixed needle as a flag, so 13 of 132 lines were never tested
+  while the loop reported a clean zero-duplicates result (2026-08-06). Use
+  `grep -Fq -- "$needle"` whenever the needle is untrusted text; a proof can
+  read green having tested nothing.
+- `git rev-parse` without `--verify` echoes the ref NAME on a missing ref — two
+  false verdicts in one day (a "fabricated" verdict against a correct reviewer
+  claim; branch-existence checks reading as DIVERGES). `git rev-parse --verify
+  --quiet` or nothing (2026-08-05).
+- A "matched nothing" identity verdict scoped to the surfaces searched — a
+  post-compaction seat declared its own pre-compaction subagent an unregistered
+  peer because the search covered claims/comms only, where subagents correctly
+  never register (2026-08-06). An identity search's negative is only as wide as
+  its surface set; post-compaction, add the session's own spawn history before
+  declaring a peer unknown.
 
 ## Timestamp-Zone Discipline
 

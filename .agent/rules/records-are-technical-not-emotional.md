@@ -70,6 +70,23 @@ the test itself becomes wrong — the discriminator stops discriminating, or the
 branch table misses a state. A test is simply a far slower-moving thing than a
 value.
 
+## A record is a receipt or a promissory note — never an asset-word between
+
+The sibling decay class for STATUS vocabulary (owner tripwires on "deferral"
+and "banked" in one morning, 2026-08-06): status words that convert an open
+obligation into a closed-sounding state. The write-time concept gate
+enumerates words; the class is the MOVE. The discriminator: a record is a
+**RECEIPT** when the value act completed (a posted review report, probe
+results, tally rows) and a **PROMISSORY NOTE** when only intent or partial
+state was conserved — and a note ages silently while reading as an asset
+(worked instances: a mutation canary's "banked evidence" stood in for the
+full run it never got; a report "drafted, awaiting read" aged the same way,
+both described as assets across a whole day while their value acts remained
+undone). The discipline: status vocabulary is either **"conserved — done"**
+or **"recorded, unredeemed — next act + holder named"**, nothing between;
+and a review disposition discharges when its test-pin LANDS, never when
+adopted in prose.
+
 ## When an expunge request fires
 
 If the owner asks for something to be removed from the record, the request

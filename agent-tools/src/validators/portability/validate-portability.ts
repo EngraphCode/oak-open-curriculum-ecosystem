@@ -21,6 +21,7 @@ import { fileURLToPath } from 'node:url';
 import { isJsonObject } from '../../core/json.js';
 import { resolveRepoRoot } from '../../core/repo-root.js';
 import {
+  collectCanonicalSkillPaths,
   getClaudeHookPortabilityIssues,
   getReviewerAdapterParityIssues,
   getRulesIndexPortabilityIssues,
@@ -52,18 +53,21 @@ const fixMode = process.argv.includes('--fix');
 const writtenWrappers: string[] = [];
 const issues: string[] = [];
 
-const canonicalSkillDirs = await listSubdirs(repoRoot, '.agent/skills');
-for (const skillDir of canonicalSkillDirs) {
-  const skillPath = `.agent/skills/${skillDir}/SKILL-CANONICAL.md`;
-  if (!(await exists(repoRoot, skillPath))) {
-    continue;
-  }
+const { canonicalPaths: discoveredCanonicalPaths, leafNames: canonicalLeafNames } =
+  await collectCanonicalSkillPaths({
+    listSubdirs: (relPath) => listSubdirs(repoRoot, relPath),
+    exists: (relPath) => exists(repoRoot, relPath),
+  });
+const validatedCanonicalPaths: string[] = [];
+
+async function validateCanonicalFrontmatter(skillPath: string): Promise<void> {
   const content = await readText(repoRoot, skillPath);
   const frontmatter = extractFrontmatter(content);
   if (!frontmatter) {
     issues.push(`${skillPath}: missing YAML frontmatter block`);
-    continue;
+    return;
   }
+  validatedCanonicalPaths.push(skillPath);
   const classification = getFrontmatterValue(frontmatter, 'classification');
   if (!classification) {
     issues.push(`${skillPath}: missing required 'classification' frontmatter`);
@@ -72,6 +76,16 @@ for (const skillDir of canonicalSkillDirs) {
       `${skillPath}: 'classification' must be 'active' or 'passive', got '${classification}'`,
     );
   }
+}
+
+// The ratified skills-estate shape is three tiers, closed: flat
+// (`<id>/`), concern member (`<concern>/<id>/`), and domain member
+// (`<concern>/<domain>/<id>/`, owner-ruled 2026-08-10). The shared walker
+// owns the traversal so this validator and the lock cross-reference see
+// the same corpus; entries with no canonical at any tier are the adapter
+// checker's loud-skip territory, not this validator's.
+for (const skillPath of discoveredCanonicalPaths) {
+  await validateCanonicalFrontmatter(skillPath);
 }
 
 const CANONICAL_RULE_OR_SKILL_PATTERN = /\.agent\/rules\/|\.agent\/skills\//;
@@ -144,7 +158,7 @@ if (await exists(repoRoot, SKILLS_LOCK_PATH)) {
   try {
     const lockedSkills = getSkillsLockEntries(await readJson(repoRoot, SKILLS_LOCK_PATH));
     issues.push(
-      ...getSkillsLockCrossReferenceIssues(lockedSkills, canonicalSkillDirs, SKILLS_LOCK_PATH),
+      ...getSkillsLockCrossReferenceIssues(lockedSkills, canonicalLeafNames, SKILLS_LOCK_PATH),
     );
   } catch (error) {
     issues.push(
@@ -205,7 +219,7 @@ if (await exists(repoRoot, CLAUDE_SETTINGS_PATH)) {
   }
 }
 
-const stats = `${canonicalSkillDirs.length} canonical skills, ${canonicalRules.length} canonical rules, ${canonicalAgentNames.length} reviewer adapters, ${cursorRules.length} Cursor triggers, ${claudeRules.length} Claude rules, ${agentsRules.length} .agents rules`;
+const stats = `${validatedCanonicalPaths.length} canonical skills, ${canonicalRules.length} canonical rules, ${canonicalAgentNames.length} reviewer adapters, ${cursorRules.length} Cursor triggers, ${claudeRules.length} Claude rules, ${agentsRules.length} .agents rules`;
 
 export { reportPortabilityValidation } from './portability-report.js';
 

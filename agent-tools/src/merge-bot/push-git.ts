@@ -124,7 +124,7 @@ export async function currentBranch(
   if (result.status !== 0) {
     return err(
       new Error(
-        `cannot read the current branch (git rev-parse exited ${result.status}): ${result.stderr.trim()}`,
+        `cannot read the current branch (git rev-parse ${describeGitChildEnd(result)}): ${result.stderr.trim()}`,
       ),
     );
   }
@@ -143,9 +143,10 @@ export async function currentBranch(
  * once the call has SETTLED: the awaited git call keeps the file on disk for
  * exactly as long as git is reading it, and not one turn longer.
  *
- * The gate chain's output goes to `onOutput` as git produces it — never into
- * a buffer this function holds (R1) — which is also why an operator watching
- * a long gate run sees it progress instead of waiting in silence.
+ * The gate chain's output reaches `onOutput` in full when git completes —
+ * conserved in files, never in a buffer this function holds nor on a Node
+ * pipe (R1; F-112). A long gate run is silent until it settles; the
+ * transcript arrives whole, kernel-interleaved as a terminal would show it.
  */
 export async function pushHead(
   git: GitContext,
@@ -176,4 +177,14 @@ export async function pushHead(
     warning = removeQuietly(store, staged.value.dir);
   }
   return ok(warning === undefined ? result : { ...result, stderr: `${result.stderr}${warning}\n` });
+}
+
+/**
+ * A git child's end, named truthfully: a kill is not an exit (F-112) —
+ * the signal is reported distinctly, never collapsed to a bare number.
+ */
+export function describeGitChildEnd(result: GitCommandResult): string {
+  // No "(status 128)" alongside the signal: 128 is this seam's sentinel,
+  // and printing it reads as git's own fatal-error exit code.
+  return result.signal === null ? `exited ${result.status}` : `was killed by ${result.signal}`;
 }

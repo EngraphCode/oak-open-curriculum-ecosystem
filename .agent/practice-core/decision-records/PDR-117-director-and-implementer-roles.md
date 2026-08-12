@@ -577,3 +577,63 @@ folded roster measurably *slower* to clear its blocker than a standing multi-sea
 roster on comparable work, or if the fold leaves a non-code gate ownerless again —
 which would mean the SM function needed its own seat after all and the cost was
 correctly paid.
+
+## Amendment (2026-08-07) — Detecting productive-looking rabbit holes (Director craft)
+
+Owner word (2026-07-25, after one night produced a security engagement
+instead of dep bumps, a cloud-scope platform program instead of a CLI hook
+fix, and a nine-hour zero-commit "review convergence"): "multiple team
+members have gone down productive looking rabbit holes with no actual
+value... you are the Director... you need to be able to spot and review
+and correct such things." Landed from the host's 2026-08-05 vendor-memory
+graduation audit.
+
+**The signature (why they look productive).** Every step is locally
+justified by the previous step's output, so no single step is wrong — the
+error is the integral, not the derivative. The work emits high-quality
+artifacts (evidence chains, plans, reports), and craft masquerades as
+value. Scope regresses to the GENERIC ideal of the work-class (security
+work → what a security team would do; platform work → full platform
+support) instead of the owner's specific want, and the owner's framing
+words inflate ("pressing" → engagement; "first-class" → cloud
+everything). Standard instruments all pass, because conscience checks,
+reviews, and verdicts score against SUPPLIED context — and the supplied
+context inherits the drift: the object can be beautifully scored and
+still be the wrong object.
+
+**The two anchors that do not drift:** the owner's VERBATIM ask, and the
+owner's implied size and cost. Never alignment-check against abstractions
+("citizenship", "quality", "safety") — abstractions admit maximal
+readings; verbatim words do not.
+
+**The five Director mechanisms:**
+
+1. **Size-at-routing** — every assignment states expected size and
+   deliverable type ("30-minute job, one PR, no reports"). Small work
+   especially: that is where creep hides.
+2. **Size echo at pickup** — seats read back size alongside contract; a
+   mis-sized read-back ("multi-week platform program") kills the drift
+   before work starts.
+3. **Deliverable-type check on every seat report** — asked for bumps,
+   received an analysis report plus an owner card: flag it, never admire
+   it. Praise attaches to value-against-ask, never to craft — a Director
+   calling a rabbit hole "exemplary" reinforces it (worked failure: a
+   security-analysis acknowledgement).
+4. **Owner-surprise test on every card** — if the owner must answer a
+   question the original ask never implied, scope has drifted; the card
+   is the tell, not the cure (worked failure: a deployed-env card on a
+   dep-update lane).
+5. **The integral check at cycle boundaries** — not "is every seat busy
+   on its lane" but "what has the owner RECEIVED since last check, and is
+   time-to-value tracking the size stated at routing?" Zero deliverable
+   movement across a boundary means intervene, however healthy the
+   heartbeat label looks (worked failure: nine hours of
+   "review convergence" heartbeats over seven unresolved threads and zero
+   commits, read as "needs nothing from me").
+
+Expected observable effect + falsifier (PDR-130 fast-lane obligation): routing
+events carry size and deliverable type, and integral checks catch
+zero-deliverable windows within one cycle boundary; falsified if a
+rabbit-hole arc recurs that passed all five mechanisms — which would mean
+the detection surface needs an instrument outside the Director's own
+judgment loop.

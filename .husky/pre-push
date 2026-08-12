@@ -118,6 +118,7 @@ echo "🔬 Running knip (unused code detection)..."
 if ! pnpm knip:gate; then
   echo "❌ Knip found unused code, or the knip analysis itself crashed!"
   echo "💡 Run 'pnpm knip:gate' to see details, then fix or remove unused items"
+  echo "   (a 'died without a verdict' line above is the crash class, not unused code — F-112 in the frictions register)"
   exit 1
 fi
 

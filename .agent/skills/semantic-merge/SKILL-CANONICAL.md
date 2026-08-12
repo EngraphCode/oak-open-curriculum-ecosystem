@@ -90,7 +90,11 @@ per class:
   set-diff proof plus exact line arithmetic (base + mine-appends + theirs-appends =
   merged line count); no hand-splicing needed for this class. The arithmetic proof applies
   to the RAW `--union` output, before any same-lesson dedup pass — deduplication breaks the
-  arithmetic by design.
+  arithmetic by design. **A rotation on one side and appends on the other is this class's
+  most dangerous shape** (worked, 2026-08-06 branch reconciliation): neither side's change
+  is wrong, so a line-merge resolves confidently either way. The safe order is to prove the
+  DRAIN lossless first — `cmp` the archive's head against the pre-rotation file — after
+  which the rotation stands and only the un-homed appends need carrying across.
 - **`index-narrative-tables`** (e.g. `repo-continuity.md`): a compact index of
   per-session / per-thread entries plus tables. Merge = UNION of entries, grouped by
   session, most-recent-session first; keep tables intact (never split a row); and

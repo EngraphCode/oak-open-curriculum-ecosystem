@@ -406,6 +406,20 @@ Apply session priority ordering:
 2. **Unfinished planned work second** — complete in-progress items
 3. **New work last** — only start new items when the above are clear
 
+Research holds a **protected floor** under this ordering (owner standing
+guidance, 2026-07-25, "with some flex"): the full order is bugs >
+features > speculative research, but practice/meta research — the
+improve-how-we-improve loop — keeps a protected minimum share of
+attention, because a pure strict ordering starves the meta-level
+permanently (there is always another feature) and the estate's
+compounding value comes precisely from that loop. The floor is
+protection against starvation, never an escape from the ordering:
+research never jumps the queue past a live bug or a committed feature —
+it just never goes to zero. When every seat has been on bugs/features
+for a sustained stretch, deliberately seat or timebox a research slice
+rather than letting "one more feature" defer it forever. "Some flex"
+means judgment on the boundaries, not suspension of the shape.
+
 ## Guiding Questions
 
 Before diving in, pause and ask:
@@ -422,7 +436,7 @@ Before diving in, pause and ask:
 These questions are **not** session-open-only: re-ask them at every task/pointer
 arrival and before declaring done, not just here.
 
-For analysis-, planning-, or decision-heavy work, [`reason`](../../reason/SKILL-CANONICAL.md)
+For analysis-, planning-, or decision-heavy work, [`reason`](../../cognition/reason/SKILL-CANONICAL.md)
 structures the thinking outward (the pair to `metacognition`'s inward reflection), and the
 [grammar of thinking](../../../reference/grammar-of-thinking.md) is the yardstick for complex
 rewrites and high-stakes planning.

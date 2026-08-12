@@ -62,9 +62,9 @@ function gitFake(overrides: { revParse?: GitCommandResult; push?: GitCommandResu
   const gitExecutor: GitExecutor = (file, args, options) => {
     calls.push({ file, args, cwd: options.cwd, env: options.env });
     if (args[0] === 'rev-parse') {
-      return overrides.revParse ?? { status: 0, stdout: `${BRANCH}\n`, stderr: '' };
+      return overrides.revParse ?? { status: 0, signal: null, stdout: `${BRANCH}\n`, stderr: '' };
     }
-    return overrides.push ?? { status: 0, stdout: '', stderr: TRANSFER };
+    return overrides.push ?? { status: 0, signal: null, stdout: '', stderr: TRANSFER };
   };
   return { gitExecutor, calls };
 }
@@ -309,7 +309,7 @@ describe('merge-bot push credential discipline', () => {
   it('the helper literal is byte-identical even when git reports a hostile branch name — nothing is interpolated', async () => {
     const hostile = 'lane-$(id)`x`';
     const run = runPush({
-      git: gitFake({ revParse: { status: 0, stdout: `${hostile}\n`, stderr: '' } }),
+      git: gitFake({ revParse: { status: 0, signal: null, stdout: `${hostile}\n`, stderr: '' } }),
     });
 
     expect(await run.exit).toBe(0);
@@ -394,7 +394,12 @@ describe('merge-bot push credential discipline', () => {
     const store = tokenStoreFake();
     const run = runPush({
       git: gitFake({
-        push: { status: 1, stdout: '', stderr: '! [rejected] HEAD -> lane (non-fast-forward)\n' },
+        push: {
+          status: 1,
+          signal: null,
+          stdout: '',
+          stderr: '! [rejected] HEAD -> lane (non-fast-forward)\n',
+        },
       }),
       store,
     });
@@ -436,10 +441,22 @@ describe('merge-bot push outcomes and refusals', () => {
     expect(run.out()).not.toContain(TOKEN);
   });
 
+  it('names the killing signal when git dies mid-run, never a bare number (F-112)', async () => {
+    // The push-path F-112 instance surfaced as "git push exited -1" — a
+    // signal death collapsed to a mystery number. The executor now reports
+    // the signal distinctly and this command must pass it to the operator.
+    const run = runPush({
+      git: gitFake({ push: { status: 128, signal: 'SIGTERM', stdout: '', stderr: '' } }),
+    });
+
+    expect(await run.exit).toBe(1);
+    expect(run.errText()).toContain('killed by SIGTERM');
+  });
+
   it('refuses to push the default branch by name, before minting anything', async () => {
     for (const branch of ['main', 'master']) {
       const run = runPush({
-        git: gitFake({ revParse: { status: 0, stdout: `${branch}\n`, stderr: '' } }),
+        git: gitFake({ revParse: { status: 0, signal: null, stdout: `${branch}\n`, stderr: '' } }),
       });
 
       expect(await run.exit).toBe(3);
@@ -458,7 +475,7 @@ describe('merge-bot push outcomes and refusals', () => {
   it('reports the default-branch refusal machine-readably under --json', async () => {
     const run = runPush({
       args: ['--json'],
-      git: gitFake({ revParse: { status: 0, stdout: 'main\n', stderr: '' } }),
+      git: gitFake({ revParse: { status: 0, signal: null, stdout: 'main\n', stderr: '' } }),
     });
 
     expect(await run.exit).toBe(3);
@@ -469,7 +486,7 @@ describe('merge-bot push outcomes and refusals', () => {
 
   it('refuses a detached HEAD by naming the state, never guessing a branch', async () => {
     const run = runPush({
-      git: gitFake({ revParse: { status: 0, stdout: 'HEAD\n', stderr: '' } }),
+      git: gitFake({ revParse: { status: 0, signal: null, stdout: 'HEAD\n', stderr: '' } }),
     });
 
     expect(await run.exit).toBe(3);
@@ -492,6 +509,7 @@ describe('merge-bot push outcomes and refusals', () => {
       git: gitFake({
         push: {
           status: 1,
+          signal: null,
           stdout: '',
           stderr: '! [rejected] HEAD -> lane (non-fast-forward)\n',
         },
@@ -521,7 +539,12 @@ describe('merge-bot push outcomes and refusals', () => {
   it('surfaces an unreadable current branch as an operational failure', async () => {
     const run = runPush({
       git: gitFake({
-        revParse: { status: 128, stdout: '', stderr: 'fatal: not a git repository\n' },
+        revParse: {
+          status: 128,
+          signal: null,
+          stdout: '',
+          stderr: 'fatal: not a git repository\n',
+        },
       }),
     });
 
