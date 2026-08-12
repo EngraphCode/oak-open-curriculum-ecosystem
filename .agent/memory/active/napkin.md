@@ -1964,3 +1964,32 @@ Review-ratchet worked instance: nine rounds on the skill PR (9/2/1/3/3/2/2/3/0),
   ticket. Same class as Forge's [bot]-suffix filter miss: build watches from
   observed rows, verify auth foreground, or keep the watch on an
   authenticated instrument (Linear MCP at settle sweeps).
+
+## 2026-08-11 ~23:0xZ — Plover lifts Troposphere (b10c37): evening-close truings and captures
+
+- TRUING the ~21:3xZ entry above: the comms `--body` exit-2 failures' ROOT
+  generator was the persistent shell cwd sitting in a WORKTREE while the
+  command passed a relative `--comms-dir` — the path resolved into the wrong
+  tree. At least two of the three instances were this, not the body form
+  (the third preceded any cd and remains body-shaped). Both cures stand:
+  body-file always, AND every comms/git command in a session that visits
+  worktrees opens with its own explicit `cd <target> || exit 1`.
+- BACKGROUND-TASK EXTERNAL KILLS (owner-confirmed not-owner, 3 instances
+  2026-08-11 evening): backgrounded Bash tasks (two merge-bot drives, one
+  pnpm-install+commit chain) received external SIGTERM mid-healthy-work;
+  every FOREGROUND run of the same commands completed. Not estate tooling
+  (one victim used none). Working hypothesis: harness background-task layer
+  under heavy session task load. Standing cure: merge drives and freeze
+  commits run FOREGROUND; background only what can die cheaply.
+- MY OWN FILTERS EAT VERDICTS: `merge-bot merge ... | grep merged` returned
+  empty while the merge was mid-quiet-window (no matching line ≠ no verdict),
+  and `| tail -4` discarded a refusal's grounds entirely. Capture-first
+  applies to the COMPOSER: run verdict-bearing commands unpiped; filter at
+  read time from the full capture.
+- SONAR "PHANTOM" REVERSED AT OWNER WORD (2026-08-11, #851): the owner's
+  "check if it is genuinely not a real result" found THREE OPEN S4043 issues
+  the earlier zero reads missed — `issues/search` WITHOUT the explicit
+  `issueStatuses=OPEN,CONFIRMED,...` facet returned 0 while the wider facet
+  returned the gate's exact 3. The instrument was right; the query surface
+  was the defect. The #850 "measure/issue divergence" doctrine is therefore
+  suspect at its root — Wren owns that entry's truing (routed a1ab660c).
