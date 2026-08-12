@@ -89,10 +89,12 @@ case is not an emphasis tool here.
 - **Target size and reach**: Oak's design-system floor is **≥44px**, and hit
   areas must match what looks clickable. A 12px icon inside a 44px target is
   fine; a 44px-looking control with a 12px target is a defect. Keep the
-  conformance claim straight: WCAG 2.2 **AA** is SC 2.5.8 at 24×24 CSS
-  pixels (with its exceptions); 44×44 is SC 2.5.5 at **AAA**. So a 32px
-  target misses Oak's floor while still meeting AA on size — say that, and
-  never call it an AA failure on size alone.
+  conformance claim straight: WCAG 2.2 **AA** is
+  [SC 2.5.8](https://www.w3.org/TR/WCAG22/#target-size-minimum) at 24×24
+  CSS pixels (with its exceptions); 44×44 is
+  [SC 2.5.5](https://www.w3.org/TR/WCAG22/#target-size-enhanced) at
+  **AAA**. So a 32px target misses Oak's floor while still meeting AA on
+  size — say that, and never call it an AA failure on size alone.
 - **State is never colour alone** — pair it with shape, position, icon, or
   text. This is a design obligation, not only an accessibility one: it is what
   makes a state legible on a washed-out projector.
@@ -116,8 +118,10 @@ them, which is the signal to carry that meaning some other way.
 
 Two floors, and they are not the same floor. **WCAG 2.2 AA** is the
 conformance floor — contrast, focus visibility, no colour-only state, and
-target size at SC 2.5.8's 24×24. **Oak's design-system floor sits above it**
-in places, most visibly at ≥44px targets, which is AAA's SC 2.5.5 threshold
+target size at [SC 2.5.8](https://www.w3.org/TR/WCAG22/#target-size-minimum)'s
+24×24. **Oak's design-system floor sits above it** in places, most visibly
+at ≥44px targets, which is AAA's
+[SC 2.5.5](https://www.w3.org/TR/WCAG22/#target-size-enhanced) threshold
 adopted as house standard because the audience is teachers on classroom
 hardware. Say which floor a thing misses. Meeting either is not a design
 achievement; falling below the AA one is a defect that stops the work.

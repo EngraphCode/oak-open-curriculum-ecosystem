@@ -42,6 +42,23 @@ import { findLiteralDesignValues } from '../../../../../../../demos/oak-design-s
  * Values the estate documents, which a response may name freely: Oak's
  * target floor, the WCAG AA target minimum, the motif border, the press
  * translate, the motion durations, and the measure bounds.
+ *
+ * Provenance, per value:
+ * - `44px` — `packages/design/oak-design-system/colors_and_type.css:247`
+ *   (`--size-target-min`), Oak's house target floor.
+ * - `24px` — WCAG SC 2.5.8's own threshold (24×24 CSS pixels), NOT a
+ *   design-system value.
+ * - `2px` / `3px` — the motif border weights
+ *   (`colors_and_type.css:153-154`, `--border-solid-m`/`--border-solid-l`)
+ *   and the +2/+2 press translate the motif pairs with them.
+ * - `120ms` — `colors_and_type.css:261` (`--motion-quick-full`).
+ * - `200ms` — `colors_and_type.css:262` (`--motion-base-full`).
+ * - `45` / `75` — this skill's own measure doctrine (45–75 characters a
+ *   line for continuous prose), NOT design-system values.
+ *
+ * This set is a hand-carried projection of those sources. Extraction to a
+ * design-system-owned machine-readable source routes to WS8-general with
+ * the eval runner; it is deliberately not built here.
  */
 const DOCUMENTED_VALUES = new Set([
   '44px',
@@ -54,8 +71,23 @@ const DOCUMENTED_VALUES = new Set([
   '75',
 ]);
 
-/** Prescriptive lead-ins: the response proposing a value of its own. */
-const PROPOSAL_LEAD = String.raw`(?:use|set|make it|change (?:it )?to|increase (?:it )?to|bump (?:it )?to|raise (?:it )?to|at least|should be|needs to be|try|replace (?:it )?with|→|->)`;
+/**
+ * Prescriptive lead-ins: the response proposing a value of its own. Word
+ * alternatives are anchored with `\b` on both sides — unanchored, "because"
+ * and "paused" matched as `use`, "offset" as `set`, and "entry" as `try`,
+ * flagging quotes and citations as proposals. The arrow forms sit outside
+ * the anchors because `\b` needs a word character beside it.
+ */
+const PROPOSAL_LEAD = String.raw`(?:\b(?:use|set|make it|change (?:it )?to|increase (?:it )?to|bump (?:it )?to|raise (?:it )?to|at least|should be|needs to be|try|replace (?:it )?with|recommend)\b|→|->)`;
+
+/**
+ * Trailing prescriptive forms: the value stated first, the prescription
+ * after it. The lead-in test alone missed "48px would work better", "I
+ * would go with 48px instead", and "A larger 48px target is the right
+ * call" ("I recommend 48px" is the lead-in direction, covered by
+ * `recommend` in {@link PROPOSAL_LEAD}).
+ */
+const PROPOSAL_TRAIL = String.raw`(?:would work|would be better|is the right|instead|recommend)`;
 
 function authoredCssParts(text: string): readonly string[] {
   const parts: string[] = [];
@@ -102,16 +134,22 @@ function bespokeSizeProposals(prose: string): readonly string[] {
  * The context test is what keeps this from being a blanket number scan,
  * which would reject a critique for quoting the very values it is
  * criticising — the `legitimate-references-positive` control pins that.
+ * Prescription runs in both directions: a lead-in before the value ("use
+ * 48px") and a trailing form after it ("48px would work better") — the
+ * `size-proposal-forms-negative` control pins the second direction.
  */
 function proposedValues(prose: string, valuePattern: string): readonly string[] {
   // The gap admits newlines: real prose wraps, and a gap pattern that
   // excluded them silently missed "set the control height to\n48px" — the
   // size-only control caught it.
-  const pattern = new RegExp(`${PROPOSAL_LEAD}[^.;]{0,40}?\\b${valuePattern}\\b`, 'gi');
+  const leadPattern = new RegExp(`${PROPOSAL_LEAD}[^.;]{0,40}?\\b${valuePattern}\\b`, 'gi');
+  const trailPattern = new RegExp(`\\b${valuePattern}\\b[^.;]{0,40}?\\b${PROPOSAL_TRAIL}\\b`, 'gi');
   const hits: string[] = [];
-  for (const m of prose.matchAll(pattern)) {
-    if (DOCUMENTED_VALUES.has(`${m[1]}${m[2]}`)) continue;
-    hits.push(m[0].replace(/\s+/g, ' ').trim());
+  for (const pattern of [leadPattern, trailPattern]) {
+    for (const m of prose.matchAll(pattern)) {
+      if (DOCUMENTED_VALUES.has(`${m[1]}${m[2]}`)) continue;
+      hits.push(m[0].replace(/\s+/g, ' ').trim());
+    }
   }
   return hits;
 }

@@ -101,9 +101,11 @@ control that looks large and responds only at its centre, which is
 indistinguishable from a broken page to the person tapping it.
 
 Two thresholds, kept apart. WCAG 2.2 **AA** requires 24×24 CSS pixels
-(SC 2.5.8, with its exceptions for inline, essential, and
-user-agent-controlled targets). **44×44 is AAA** (SC 2.5.5), and Oak adopts
-it as the house floor because the audience is teachers on classroom
+([SC 2.5.8](https://www.w3.org/TR/WCAG22/#target-size-minimum), with its
+exceptions for inline, essential, and user-agent-controlled targets).
+**44×44 is AAA**
+([SC 2.5.5](https://www.w3.org/TR/WCAG22/#target-size-enhanced)), and Oak
+adopts it as the house floor because the audience is teachers on classroom
 hardware, often standing, often on a tablet. Both numbers are real and they
 mean different things: a 32px control misses Oak's floor and still meets AA
 on size. Reporting it as an AA failure is a false conformance claim, and

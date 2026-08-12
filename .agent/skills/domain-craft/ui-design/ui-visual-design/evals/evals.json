@@ -52,7 +52,9 @@
       "fixtures/css-only-negative.md": "only the authored-CSS arm may FAIL",
       "fixtures/prose-only-negative.md": "only the prose arm may FAIL",
       "fixtures/size-only-negative.md": "only the size arm may FAIL",
-      "fixtures/legitimate-references-positive.md": "all three arms must PASS \u2014 a critique must be able to quote the values it is criticising and cite the estate's documented values without being scored as inventing them"
+      "fixtures/size-proposal-forms-negative.md": "only the size arm may FAIL \u2014 trailing prescriptions ('48px would work better', '48px instead', 'is the right call') and the 'recommend' lead-in, the forms the lead-in-only detector missed",
+      "fixtures/legitimate-references-positive.md": "all three arms must PASS \u2014 a critique must be able to quote the values it is criticising and cite the estate's documented values without being scored as inventing them",
+      "fixtures/word-boundary-positive.md": "all three arms must PASS \u2014 quotes whose adjacent words contain a lead-in as a substring ('because'/'paused' carry 'use', 'offset' carries 'set', 'entry' carries 'try'), pinning the detector's word-boundary anchors"
     },
     "status_basis": "Set from the evidence. All three cases ran both legs and were graded by script AND blind judge; case 1's rendered pages were additionally reviewed by two W0.7 instrument legs. Evidence bundle: .agent/reports/design/skill-standard-pilot-evals/s4-iteration-1/",
     "iteration_1_evidence": ".agent/reports/design/skill-standard-pilot-evals/s4-iteration-1/"

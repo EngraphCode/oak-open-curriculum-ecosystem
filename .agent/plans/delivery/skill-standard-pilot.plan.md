@@ -17,14 +17,7 @@ tickets: []
 depends_on:
   - plan: skills-estate-organisation
     kind: beneficial
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      Slice 4 content gate: ui-visual-design's UX-craft doctrine is
-      authored by the design pen and ratified by the owner before the
-      skill activates.
-    expires: 2026-09-10
-last_updated: 2026-08-11
+last_updated: 2026-08-12
 ---
 
 # Skill standard pilot
@@ -220,6 +213,12 @@ adapters point at the in-repo canonical, so repo agents resolve
    (same register exclusion), non-render outputs by assertion +
    blind transcript judge. Acceptance: all five standard clauses
    hold on day one; eval iteration 1 run.
+
+   **Amendment 2026-08-12 — S4's content gate is DISCHARGED.** Owner
+   word at the Director seat (decision card raised at S4 minting,
+   answered 2026-08-12: "Ratify v1"); the ui-visual-design v1 doctrine
+   is ratified and the skill activates; adverse iteration-1 verdicts
+   route per their recorded dispositions.
 
 ## Loop exit criteria
 
