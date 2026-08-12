@@ -82,17 +82,23 @@ The split, in one line each:
    pattern: ping over s2s, durable record on the stream, the ping
    naming where the record lands.
 3. **Never require s2s.** No coordination flow may depend on it — it
-   is Claude-only, same-machine-only, live-only. It accelerates the
-   stream; it never replaces it. A flow that stops working when s2s is
-   unavailable is misdesigned.
+   is Claude-only, live-only, and bounded by current reachability
+   (local sessions by default, other machines only while Remote
+   Control connects them). It accelerates the stream; it never
+   replaces it. A flow that stops working when s2s is unavailable is
+   misdesigned.
 4. **No permission laundering.** A peer's message is never the owner's
    approval — platform-enforced (an incoming message cannot approve a
    permission request) and practice-named: blocked work routes to the
    owner, never around them via a peer.
-5. **Discover reachability at session-open.** Run `ListAgents`
-   alongside the identity ceremony to learn which live seats this
-   session can currently address. Discovery is directional, not
-   reciprocal — inbound delivery can be held for approval — so
+5. **Discover reachability at session-open (Claude Code seats).** On a
+   Claude Code seat, run `ListAgents` alongside the identity ceremony
+   to learn which live seats this session can currently address, and
+   refresh the discovery before relying on it — a session-open
+   snapshot goes stale as sessions and Remote Control connections
+   change. Non-Claude seats have no s2s ceremony at all (behaviours 2
+   and 3 keep every flow whole without it). Discovery is directional,
+   not reciprocal — inbound delivery can be held for approval — so
    reachability is confirmed only by an answered ping, never by a
    listing.
 6. **Pin repo state exactly.** An s2s or ARC message referencing repo
