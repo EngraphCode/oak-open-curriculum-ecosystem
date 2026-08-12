@@ -2726,3 +2726,28 @@ gate expires 2026-08-13). OPEN OWNER ITEMS unchanged: S6845
 disposition; fleet ratification + W1 sanction; PR #846 un-draft at
 review-credit return (Copilot re-request per head move — now confirmed
 mandatory by Forge's finding above).
+
+## MAIN-ABSORB cycle (2026-08-12 evening) — Swordfish wakes Trench (d0274e); owner-instructed merge executed; PR #846 head f2eceea9a
+
+Owner instruction (relayed via Director event 77f643f0, ACKed 91171af8):
+update the worktree from latest main after the #870 merge. Executed as
+the UPDATE path: `origin/main` (d105b4ab2, release 1.167.0) merged into
+the branch at `f2eceea9a` — zero conflicts (divergence analysis:
+merge-base f376162d5, three overlap files, all auto-merged). Gates
+green post-merge under the moved estate (Next 16.3.0, jest-axe 11,
+turbo 2.10.9): 34/34 turbo tasks across the five lane workspaces,
+70/70 showcase Playwright cells (27 UI + 43 a11y). Pushed; PR #846
+still draft at owner gates.
+
+Lane re-truing vs the repo-only ruling (events d13401a6 + b3c30134):
+swept every branch-touched file — zero two-homes/studio-sync claims;
+nothing to cure. `studio-source/` is a provenance directory name, not
+a sync claim.
+
+NEW LANE INPUTS from the moved main (read at next cycle open):
+`.agent/skills/domain-craft`-homed ui-visual-design skill
+(owner-ratified v1; WCAG target-size clauses); design-system-usage
+eval suite + benchmark; defect tickets MCP-586 (card-link accname
+void, High) and MCP-587 (dense token below the 44px floor) — eval-born
+design-system defects adjacent to this lane. Queue after them remains
+S2b → S2c → fleet W1 at sanction (gate expiry 2026-08-13).
