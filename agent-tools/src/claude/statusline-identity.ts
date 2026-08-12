@@ -40,7 +40,11 @@ import { parseCollaborationRegistry } from '../collaboration-state/state-parsers
 import { type CollaborationRegistry } from '../collaboration-state/types.js';
 import { resolveLogoStyle } from './oak-logo.js';
 import { BOLD, RED, RESET } from './statusline-ansi.js';
-import { appendDebugLogEntry, resolveDebugLogConfig } from './statusline-debug-log.js';
+import {
+  appendDebugLogEntry,
+  invalidConfigWarningLine,
+  resolveDebugLogConfig,
+} from './statusline-debug-log.js';
 import { createFsFrameStore, LOGO_FRAME_STATE_DIR } from './statusline-frame-store.js';
 import { gatherGitFacts } from './statusline-git-io.js';
 import { planStatuslineExecution, type StatuslinePlan } from './statusline-identity-input.js';
@@ -73,12 +77,14 @@ function emitStatusline(rawJson: string): void {
   if (debugLog.kind === 'enabled') {
     appendDebugLogEntry(debugLog.path, rawJson, new Date().toISOString());
   }
+  const warningPrefix = invalidConfigWarningLine(debugLog, { red: RED, bold: BOLD, reset: RESET });
   const plan: StatuslinePlan = planStatuslineExecution(rawJson);
   if (plan.kind === 'noop') {
+    if (warningPrefix !== '') {
+      process.stdout.write(warningPrefix);
+    }
     return;
   }
-  const warningPrefix =
-    debugLog.kind === 'invalid' ? `${RED}${BOLD}⚠ statusline: ${debugLog.warning}${RESET}\n` : '';
   try {
     process.stdout.write(warningPrefix + renderFromInputs(plan.inputs));
   } catch (cause) {

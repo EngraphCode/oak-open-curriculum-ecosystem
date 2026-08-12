@@ -1,4 +1,7 @@
-import { resolveDebugLogConfig } from '../../src/claude/statusline-debug-log';
+import {
+  invalidConfigWarningLine,
+  resolveDebugLogConfig,
+} from '../../src/claude/statusline-debug-log';
 
 describe('resolveDebugLogConfig', () => {
   it('resolves disabled when OAK_STATUSLINE_LOG_FILE is unset', () => {
@@ -37,5 +40,30 @@ describe('resolveDebugLogConfig', () => {
       expect(config.warning).toContain('.log');
     }
     expect(resolveDebugLogConfig({ OAK_STATUSLINE_LOG_FILE: '/tmp/log' }).kind).toBe('invalid');
+  });
+});
+
+describe('invalidConfigWarningLine', () => {
+  const ansi = { red: '<R>', bold: '<B>', reset: '<X>' };
+
+  it('renders the loud one-line warning for an invalid config — it must precede ANY adapter outcome, including noop', () => {
+    // The operator who set OAK_STATUSLINE_LOG_FILE must never read silence as
+    // "the harness sent nothing": the warning renders even when the payload
+    // itself plans to noop.
+    const config = resolveDebugLogConfig({ OAK_STATUSLINE_LOG_FILE: '/tmp/notes.txt' });
+    const line = invalidConfigWarningLine(config, ansi);
+    expect(line).toContain('OAK_STATUSLINE_LOG_FILE');
+    expect(line.startsWith('<R><B>')).toBe(true);
+    expect(line.endsWith('<X>\n')).toBe(true);
+  });
+
+  it('renders empty for enabled and disabled configs', () => {
+    expect(
+      invalidConfigWarningLine(
+        resolveDebugLogConfig({ OAK_STATUSLINE_LOG_FILE: '/tmp/a.log' }),
+        ansi,
+      ),
+    ).toBe('');
+    expect(invalidConfigWarningLine(resolveDebugLogConfig({}), ansi)).toBe('');
   });
 });

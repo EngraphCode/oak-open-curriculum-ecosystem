@@ -69,6 +69,15 @@ describe('appendDebugLogEntry', () => {
     expect(appended[0]?.data).toBe('2026-08-07T15:00:00.000Z {"cwd":"/a  b/c"}\n');
   });
 
+  it('preserves leading and trailing non-linebreak whitespace — only line breaks are transformed', () => {
+    // The contract is "payload as received, line breaks collapsed": padding
+    // spaces and tabs at either end are payload bytes and must survive, or a
+    // diagnosis reads a cleaner payload than the harness actually sent.
+    const { fs, appended } = fakeFs();
+    appendDebugLogEntry('/d/s.log', '  {"a":1}\t \n', '2026-08-07T15:00:00.000Z', fs);
+    expect(appended[0]?.data).toBe('2026-08-07T15:00:00.000Z   {"a":1}\t \n');
+  });
+
   it('accumulates successive invocations as successive lines through the same seam', () => {
     const { fs, appended } = fakeFs();
     appendDebugLogEntry('/d/s.log', '{"n":1}', '2026-08-07T15:00:00.000Z', fs);

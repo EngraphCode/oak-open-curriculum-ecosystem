@@ -82,13 +82,40 @@ export function resolveDebugLogConfig(
 }
 
 /**
+ * The loud one-line warning for an `invalid` config, empty otherwise.
+ *
+ * @remarks
+ * Kept beside the resolver so the two halves of the fail-loud contract are
+ * one tested unit: the adapter writes this line before ANY other outcome —
+ * including a noop payload — because an operator who set the variable must
+ * never read silence as "the harness sent nothing".
+ *
+ * @param config - The resolved configuration.
+ * @param ansi - The escape sequences the adapter renders with (injected so
+ * the formatter stays pure and the test asserts placement, not codes).
+ * @returns The newline-terminated warning line, or `''` when there is
+ * nothing to warn about.
+ */
+export function invalidConfigWarningLine(
+  config: DebugLogConfig,
+  ansi: { readonly red: string; readonly bold: string; readonly reset: string },
+): string {
+  if (config.kind !== 'invalid') {
+    return '';
+  }
+  return `${ansi.red}${ansi.bold}⚠ statusline: ${config.warning}${ansi.reset}\n`;
+}
+
+/**
  * Append one timestamped payload line to the debug log, soft-failing.
  *
  * @remarks
- * Line breaks in the payload are collapsed to single spaces so each
- * invocation lands as exactly one line; all other whitespace is preserved so
- * the logged payload stays faithful to what arrived. Any filesystem failure
- * is swallowed — see the module remarks for the split failure posture.
+ * Terminal line breaks are stripped (the harness newline-terminates its
+ * payloads) and interior line breaks are collapsed to single spaces so each
+ * invocation lands as exactly one line; all other bytes, including leading
+ * and trailing spaces or tabs, are preserved so the logged payload stays
+ * faithful to what arrived. Any filesystem failure is swallowed — see the
+ * module remarks for the split failure posture.
  *
  * @param logPath - The `*.log` destination from {@link resolveDebugLogConfig}.
  * @param rawPayload - The stdin payload as received, pre-parse.
@@ -102,7 +129,7 @@ export function appendDebugLogEntry(
   nowIso: string,
   fs: DebugLogFs = realFs,
 ): void {
-  const line = `${nowIso} ${rawPayload.replaceAll(/[\r\n]+/g, ' ').trim()}\n`;
+  const line = `${nowIso} ${rawPayload.replace(/[\r\n]+$/u, '').replaceAll(/[\r\n]+/gu, ' ')}\n`;
   try {
     fs.mkdirSync(dirname(logPath), { recursive: true, mode: 0o700 });
     fs.appendFileSync(logPath, line, { encoding: 'utf8', mode: 0o600 });
