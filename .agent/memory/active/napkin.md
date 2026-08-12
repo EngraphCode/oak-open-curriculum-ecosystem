@@ -2203,3 +2203,48 @@ in the PR so the acceptance number reads honestly against the plan.
   either/or presupposes the work → one owner word → "owner-ratified"
   ticket. Jargon defending an artifact ("provenance record") is the
   advocacy self-signal firing.
+
+## 2026-08-12 ~09:4xZ — Wren calls Downdraft (6b29b5): MCP-570 shipped — reviews earn their cost on mechanically-green code
+
+- FOUR GREEN GATES, FOUR REAL DEFECTS THE GATES COULD NOT SEE. The
+  MCP-570 jurisdiction PR was mechanically green (pnpm check, 4593 tests,
+  zero lint) at first commit. Four opus review passes then each found a
+  genuine defect: code-expert — emission wrote THROUGH a symlink at a
+  colliding projection name (probe-verified, external target pruned);
+  test-expert — the class recogniser admitted a marker quoted in a foreign
+  doc's fenced block (would route foreign content into the delete path);
+  security-expert — a CRITICAL where `--clear` deleted OUTSIDE the repo
+  through a symlinked surface root (the exact committed shape of the nine
+  vendored skills — camouflaged as routine vendor plumbing). This is
+  validation-strategy §Gate integrity made flesh: "a green gate is
+  evidence about the path the gate exercised — never about the path
+  production runs." The gates proved the happy path; the reviewers proved
+  the adversarial paths. Cure family: on any surface with destructive or
+  security-relevant paths (fs writes/deletes, symlink handling, external
+  input), the adversarial review is not ceremony over a green build — it
+  is the only instrument that exercises the paths the gates don't. Each
+  finding got a first-hand reproduction + a real-filesystem regression
+  test (the guard must be shown to bite). Pairs with the provenance rung:
+  the same session that manufactured a fake problem then built a real cure
+  that needed real scrutiny.
+- THE SESSION'S SHAPE, NAMED (metacognition): resumed to execute a
+  ratified vendoring reshape; the owner's "what is the actual problem?"
+  unwound it through three layers of my own manufacture (the vendoring
+  itch → a census "defect" → the root: our validation adjudicating an
+  external system). ~30 min of owner time. The cost was the strongest
+  signal the work was manufactured — when the user spends their time
+  UNWINDING your work rather than extending it, that is the tell. Root
+  cause was an unnamed classification (owner: "I have failed to name
+  groups of things") — machinery written for "skills" as one pile
+  over-claimed jurisdiction. The cure NAMED the classes (Practice /
+  Vendor / User-facing) and scoped our validation to what we own — a
+  subtraction of machinery, not an addition. Two durable lessons
+  interlock: trace problem-provenance BEFORE building (warrant-ladder
+  instance five), and adversarially verify AFTER building (gate integrity).
+- WORKTREE-ISOLATION ⟂ CROSS-WORKTREE COMMS: a worktree-isolated session
+  cannot re-arm a PRIMARY-home comms watcher (the guard blocks any cd or
+  --repo-root pointing outside the worktree, correctly). When the watcher
+  died on a drain-timeout inside the worktree, the clean recovery was
+  ExitWorktree(keep) → re-arm from primary, NOT fighting the guard with
+  command variants. The worktree stays on disk for the merge; coordination
+  belongs on the primary checkout.

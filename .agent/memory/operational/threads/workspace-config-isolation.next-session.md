@@ -11,75 +11,70 @@ Controlling plan:
 archived (completed 2026-08-11) and todo 3 is complete — see the
 Current Continuation below.
 
-## Current Continuation (COMPACTION FREEZE 2026-08-12 ~05:2xZ — pickup is the OWNER RULING on the MCP-567 reshape)
+## Current Continuation (COMPACTION FREEZE 2026-08-12 ~09:4xZ — pickup is the #865 MERGE + the board re-check)
 
-- **THE PENDING OWNER RULING (the single pickup item).** Mid-implementation
-  of MCP-567 (the vendoring PR his 2026-08-11 card answer ratified), the
-  owner's impact challenge ("what impact are we buying with this effort?")
-  was run honestly over the work in flight and it FAILED the ladder. The
-  in-chat verdict (2026-08-12 ~05:2xZ) recommends, firmly: RESHAPE MCP-567
-  to the visibility slice — (a) one-line portability-validator cure so
-  symlinked skills are VISIBLE to the permission census (dirent
-  `isDirectory()` is false for links, so the nine live skills are invisible
-  to `getSkillPermissionIssues` today) plus the nine `Skill(<name>)`
-  settings entries; (b) delete the false "REGISTERED carve-out" sentence in
-  `projection-roots.ts` (it cites a register that never existed —
-  reviewer-verified); (c) the computedHash question routes to its own thin
-  ticket only if the lock is meant to detect upstream drift (measured: the
-  recorded hashes reconcile against NOTHING — not SKILL.md sha256 under any
-  encoding tried). The vendoring itself LEAVES the queue with a named
-  re-entry gate — a named consumer that cannot follow links (a Windows
-  checkout; a link-blind tool; none exists today): the symlink IS the sync
-  mechanism (byte-identity by construction, zero code), ADR-125 ratifies
-  the design in THREE places (lines ~61, ~352, ~508), and the corrected
-  implementation shape (A′) would cost ~150 lines of permanent sync
-  machinery + 592K duplicated bytes + five tests guarding two data-loss
-  hazards that only exist because the machinery replaces the link. The
-  card answer's authority is owned as a framing error at this seat: the
-  either/or presented (remove-now vs register-swept) both presupposed
-  removal — an owner answer inherits the quality of the framing it
-  answered.
-- **MCP-567 state**: Linear In Progress; claim 98d17c6f RETAINED
-  stopped-seat-held (this seat resumes it); worktree
-  `.claude/worktrees/mcp-567-vendor-symlinks` (branch
-  `jimcresswell/mcp-567-vendor-skill-symlinks` at main SHA:0974eb3e2, built)
-  holds UNCOMMITTED: six red tests appended to
-  `agent-tools/tests/skills-adapter-generate/carriage-hardening.integration.test.ts`
-  (the falsification record, observed 6 failed / 17 passed). If the
-  reshape is adopted those tests discard (they pin the machinery the gate
-  now holds); the slice's own red test is instead: the portability
-  validator SEES a symlinked skill directory. Pre-execution review
-  durables (full text in session transcript): option-A falsified (the
-  carriage carried-set is only {assets, references, scripts}; wiring it
-  would have deleted LICENSE.txt and templates/ from the surface);
-  write-through/prune-through on directory symlinks verified destructive,
-  rm-on-the-link verified safe; S7: the exemption-removal plan has NO
-  register (its todo 1 never landed) — a Director observation owed at
-  their resume (carried in the freeze broadcast).
-- **QUEUE AFTER THE RULING** (re-derived twice on 2026-08-12 at owner
-  challenge, warrant ladder per item; the analysis received the owner's
-  "great"): reshaped MCP-567 slice → todo 2 de-hatch arc (owner verbatim
-  commission; 53-violation base rate) → MCP-543 (real enforcement delta:
-  the anonymous `pathNot` permits MORE than the lawful edge) → re-check
-  the board before anything further. H1-slim + H2-coverage-assert + H4
-  stay plan rows SEQUENCED strictly behind those two and behind any
-  product work the board holds. H2-WIDENING and follow-up row 3 LEAVE the
-  queue with named evidence gates (widening: a named live escape in the
-  widened config families; row 3: a real zero-macro-inputs estate state)
-  — only H2's coverage-assert was ever re-affirmed at the 2026-08-11
-  re-adjudication. The assumptions-expert matcher review is a PRECONDITION
-  that fires when the matcher next needs touching, never a queue item.
-- **LANDED EARLIER THIS SESSION** (chores complete): #861/MCP-553 merged
-  22:19:52Z and #851/MCP-547 merged 22:30:01Z (2026-08-11); worktrees
-  pruned, branches swept both ends, tickets Done; S1b plan rows re-trued
-  at SHA:908f44f66; six Copilot request legs fired+timeline-verified for the
-  fleet's settle drives. Requester-seat mythology RETIRED at owner word
-  ("it's a cli call") — any seat fires; the timeline is the proof
-  surface; give the read 60–90s.
-- **Durable memory banked this session**:
-  warrant-ladder-at-queue-boundaries (+ instance-four sharpening: the
-  ladder runs on IN-FLIGHT work too; card answers inherit their framing's
-  quality).
+- **THE SINGLE PICKUP ITEM: watch #865 to merged, then board re-check.**
+  MCP-567 was REVERSED at owner word (there was no problem with the nine
+  skills — the symlink layout is the external `pnpx skills` machinery's own
+  standard install shape). The real defect it exposed: **our skills
+  validation was adjudicating an external system** — the reconciliation
+  sweep (`skills:check`/`skills:generate`) and the permission census
+  claimed jurisdiction over every entry at both projection roots, so a real
+  `pnpx skills add` is reported stale by check and DELETED by the next
+  generate. That violated testing-strategy.md:59 ("NEVER test external
+  functionality, that is not under our control"), which already forbade it.
+- **MCP-570 SHIPPED — PR #865** (`jimcresswell/mcp-570-skill-validation-jurisdiction`
+  → main, head SHA:2ff1eb025), bot-authored, jimbot label, Copilot
+  requested. Executes the ratified plan
+  `.agent/plans/delivery/skill-classes-and-validation-jurisdiction.plan.md`
+  (owner four-card ruling 2026-08-12): the owner's three-class taxonomy
+  (Practice / Vendor / User-facing); class membership recognised by a
+  CONTENT marker (`adapter-stub.ts`, structural — a quoted marker in a
+  foreign doc is not membership); all lock machinery deleted
+  (`skills-lock.json`, `lock.ts`, lockedIds plumbing); the surface-root
+  guard single-sourced (`surface-roots.ts`) and applied by every consumer;
+  ADR-125 rewritten; validation-strategy §Validation jurisdiction added;
+  PDR-051 superseding note. FOUR opus review passes discharged
+  (code-expert write-through regression; test-expert recogniser forgery;
+  config-expert gate integrity; security-expert ×2 — a Critical where
+  `--clear` deleted OUTSIDE the repo through a symlinked root, CLEARED on
+  re-verification with first-hand reproduction). `pnpm check` green;
+  agent-tools suite 4593 green; every guard has a real-filesystem
+  regression test. **MERGE IS DIRECTOR-SIDE** at CI-green + settled (bot
+  REST-merge, never squash); Plover's freeze-7 map carries the commitment
+  ("#865 merges at Wren's settled signal; second lander of 864/865
+  regenerates skills projections before recount"). Worktree
+  `.claude/worktrees/mcp-570-skill-jurisdiction` (branch
+  `jimcresswell/mcp-570-skill-validation-jurisdiction`) KEPT on disk until
+  merged; MCP-570 → Done at merge. Claim 34eaba6f RETAINED
+  stopped-seat-held (this seat resumes it).
+- **MCP-567 disposition**: REVERSED — reversal comment on the Linear
+  ticket; superseded by MCP-570. Its worktree `mcp-567-vendor-symlinks`
+  and its six discardable red tests should be pruned (my forced-removal was
+  denied by the loss-of-work permission gate — the owner runs
+  `git worktree remove --force .claude/worktrees/mcp-567-vendor-symlinks`,
+  or the seat re-attempts post-compaction now that the tests are moot).
+- **MCP-573 filed** (Backlog): pre-existing, out-of-scope — `--fix` writes
+  portability rule-wrappers through a symlinked `.claude`/`.agents` root
+  (a WRITE outside repo); the shared `surfaceRootGuardFailure` is the cure
+  when scheduled.
+- **QUEUE AFTER #865 MERGES** (re-derived at owner challenge with a NEW
+  provenance rung — trace every problem claim to an owner observation or a
+  first-hand defect in territory WE own): (1) board re-check with the
+  Director — meta-estate never outranks live product, and the board was not
+  checked this window; (2) de-hatch arc (task #21: 50 measured `'off'`
+  lines disabling two boundary rules — plan-ratified, its authority is the
+  plan doc not an owner-verbatim commission as prior records claimed);
+  (3) MCP-543 (task #19: the anonymous depcruise `pathNot` exempts one file
+  from the WHOLE no-libs-to-sdks rule; H2-coverage-assert folds in as its
+  rider). H1-slim and H4 LEFT the queue (no live defect; hardening node
+  archived with zero executed slices, re-entry conditions in its ledger).
+- **Durable memory banked/sharpened this session**:
+  `warrant-ladder-at-queue-boundaries` gained **instance five, the
+  provenance rung** — the ladder is circular unless the PROBLEM CLAIM is
+  traced; a "problem" that exists only relative to our own machinery's
+  assumptions may be the machinery that is misconfigured (it was). Jargon
+  defending a queue item ("provenance record") is the advocacy self-signal.
 
 ## Prior continuation (superseded 2026-08-12; kept for the arc record)
 
@@ -423,4 +418,4 @@ Current Continuation below.
 
 | platform | model | agent_name | role | last_session |
 |---|---|---|---|---|
-| claude-code | claude-fable-5 | Wren calls Downdraft | implementer | 2026-08-10 |
+| claude-code | claude-fable-5 | Wren calls Downdraft | implementer | 2026-08-12 |
