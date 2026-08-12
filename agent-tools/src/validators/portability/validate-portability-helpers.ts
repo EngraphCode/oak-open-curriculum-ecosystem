@@ -44,3 +44,4 @@ export {
   getSkillsLockCrossReferenceIssues,
   getSkillsLockEntries,
 } from './rules-index-checks.js';
+export { collectCanonicalSkillPaths } from './skills-walk.js';

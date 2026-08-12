@@ -96,7 +96,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts",
-      "semanticSha256": "374e6f7c8b3b173b4a00a2d475f4f6b0aa97f5bec4aec40cadd679657dd9dddb",
+      "semanticSha256": "d19554a15174e8472540b189b4f17e089c9d489f0ebeb455984253e6644b36f1",
       "itemIds": [
         "C705",
         "C706",
@@ -314,7 +314,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/landing-page/create-snippet.ts",
-      "semanticSha256": "24c94ac7e14c6f998b84db525cf1f0a656ebb8a0269d25fc002722741b0a3359",
+      "semanticSha256": "f564b6889d1841cb5187f3772443db5806a36c8c261a63816d862c6561a09073",
       "itemIds": [
         "C354"
       ]

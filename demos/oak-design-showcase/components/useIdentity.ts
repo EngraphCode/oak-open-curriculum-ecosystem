@@ -31,8 +31,16 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { preload } from 'react-dom';
 
-const IDENTITIES = ['oak', 'freedonia', 'creature'] as const;
-type IdentitySlug = (typeof IDENTITIES)[number];
+/**
+ * The closed identity vocabulary. Exported for every consumer that needs the
+ * slug list (the fidelity pairing map, PR-2's specimen route) — the
+ * identity-naming ratchet's census-exact contract bars re-declaring these
+ * literals in any new tracked file, so this existing carrier stays the single
+ * definition and everything else imports (the framework-free re-home happens
+ * at the rename ceremony, when the outgoing slug leaves the array).
+ */
+export const IDENTITIES = ['oak', 'freedonia', 'creature'] as const;
+export type IdentitySlug = (typeof IDENTITIES)[number];
 
 export interface IdentityState {
   identity: IdentitySlug;

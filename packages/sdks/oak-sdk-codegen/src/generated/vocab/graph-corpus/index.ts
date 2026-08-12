@@ -7,7 +7,7 @@
  * the kind discriminants, kind-qualified node ids, and edge type literals
  * at load (ADR-086 union-literal narrowing).
  */
-import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
 
 import type {
   GraphCorpus,
@@ -21,8 +21,8 @@ import type {
   GraphCorpusDroppedDuplicate,
 } from './types.js';
 
-const require = createRequire(import.meta.url);
-const data: JsonGraphCorpus = require('./data.json');
+const dataUrl = new URL('./data.json', import.meta.url);
+const data: JsonGraphCorpus = JSON.parse(readFileSync(dataUrl, 'utf8'));
 
 interface JsonUnitNode {
   readonly kind: 'unit';

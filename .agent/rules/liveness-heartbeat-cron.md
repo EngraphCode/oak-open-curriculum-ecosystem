@@ -197,8 +197,9 @@ failure instance from the 2026-06-11 team window:
   that outlives the end event can emit a stale "active" heartbeat after
   peers have already read the stand-down.
 - **One timestamp per tick.** Derive a single timestamp per tick and pass
-  it to both `--now` and `--created-at`; two `$(date)` calls can race a
-  second boundary and the CLI rejects the resulting created_at-in-future
+  it to every consumer in the tick (the `--now` option on both `comms send`
+  and `claims heartbeat`); two `$(date)` calls can race a second boundary
+  and the CLI rejects the resulting created_at-in-future
   (worked instance 2026-06-11).
 - **Failures report with captured stderr.** A loop that swallows stderr
   makes its own failures undiagnosable (worked instance: a transient emit
@@ -255,6 +256,19 @@ active-on-lane. Direct ping with a one-cadence reply window; if silent,
 broadcast takeover or route-adjustment intent before acting. See
 PDR-078 §6.
 
+**Coordinator dark-window check** (fourth autonomous-emitter instance,
+experienced from inside, 2026-08-0x): a session-limit suspension
+darkened a Director seat's reasoning loop overnight while its heartbeat
+monitor kept emitting on schedule — the fleet read the Director as live
+for hours. When the DIRECTOR/coordinator seat holds any open routing
+obligation, peers apply the stall diagnostic above TO THAT SEAT on a
+bounded cadence: require SUBSTANTIVE Director output (a routing event,
+an adjudication, an absorption ack — not emitter presence) within a
+small number of hours of any open obligation, and fire the
+ping-before-escalate path on silence. This is the §Mutual cover
+discipline (the detector cannot detect itself) extended from
+watcher-file staleness to substantive-output staleness.
+
 **The autonomous-emitter generator** (three instances, 2026-07-20/21):
 heartbeat loops run in the platform's background-task layer,
 independent of the reasoning loop — a SUSPENDED harness (or a seat
@@ -285,6 +299,16 @@ check activity via `gh` — not only comms and local git. An agent can be
 comms-silent yet substantively active on a PR; a takeover fired on
 comms-evidence alone reads an active seat as stalled (two worked
 instances, 2026-06-10/11; owner-approved 2026-06-11).
+
+For a SAME-MACHINE seat the decisive cheap instrument is the seat's own
+worktree: dirty-tree state plus file mtimes. Any dark-seat verdict about
+a same-machine seat requires that worktree mtime check FIRST — remote
+surfaces and comms can both read silent while the worktree is minutes
+warm with cures in flight (worked instance 2026-08-06 ~13:04Z: a
+takeover round dispatched on remote-only evidence was halted by the
+delegated agent finding the "dark" seat's worktree three minutes warm;
+the halt discipline — no-risk-of-loss, consult before racing a dirty
+tree — is the pattern to repeat).
 
 ### Surfacing peer heartbeat-silence (F-75)
 

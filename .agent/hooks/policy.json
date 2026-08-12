@@ -203,6 +203,39 @@
           "reappraisal": "Re-assess whether the design is actually uniform \u2014 in which case state it positively \u2014 or whether you are about to encode expediency."
         },
         {
+          "concept": "acceptance-euphemism",
+          "kind": "literal",
+          "patterns": [
+            "standing cure",
+            "standing workaround",
+            "honest bypass",
+            "live with it for now"
+          ],
+          "include_paths": [
+            ".agent/practice-core/",
+            ".agent/plans/",
+            ".agent/reports/",
+            ".agent/memory/operational/",
+            "docs/architecture/",
+            "docs/governance/",
+            "**/*.plan.md"
+          ],
+          "exclude_paths": [
+            "principles.md",
+            "distilled.md",
+            "PDR-043",
+            "PDR-044",
+            "PDR-047",
+            "no-hedging-vocabulary.md",
+            "archive/",
+            "fixtures/",
+            "/tests/",
+            ".test.ts"
+          ],
+          "citation": "no-hedging-vocabulary.md \u00a7Trip-List (acceptance-shaped euphemisms, owner-graduated); principles.md \u00a7Architectural Excellence Over Expediency",
+          "reappraisal": "A known defect labelled as handled is not handled \u2014 the label travels between records and seats faster than the instance. Name the owning ticket and the retirement condition in the same breath, or fix it now."
+        },
+        {
           "concept": "sha-in-permanent-doc",
           "kind": "regex",
           "patterns": [
@@ -338,27 +371,57 @@
     "claude_code": {
       "status": "supported",
       "native_surface": ".claude/settings.json hooks.PreToolUse (Bash, Edit, and Write matchers via the verdict shim .claude/hooks/run-pretooluse-guard.mjs)",
-      "notes": "The Bash command guard and the Edit/Write content guard (owner-approval marker plus concept-grouped doctrine blocks) are natively activated through the shared prebuilt dispatcher artefact. Read and UserPromptSubmit run separate best-effort secrets scans. sessionStart and preCommit remain documented-only because grounding and quality-gate reminders already live in rules, skills, and onboarding flows."
+      "notes": "The Bash command guard and the Edit/Write content guard (owner-approval marker plus concept-grouped doctrine blocks) are natively activated through the shared prebuilt dispatcher artefact. Read and UserPromptSubmit run separate best-effort secrets scans. sessionStart and preCommit remain documented-only because grounding and quality-gate reminders already live in rules, skills, and onboarding flows.",
+      "grounded_at": "2026-08-03",
+      "pin": {
+        "kind": "pinned",
+        "version": "2.1.220"
+      },
+      "review_by": "2026-09-02"
     },
     "cursor": {
       "status": "identity-only",
       "native_surface": ".cursor/hooks.json sessionStart",
-      "notes": "Tracked soft sessionStart identity adapter only; the canonical command/content policy is not activated for Cursor. Cursor's broader upstream hook surface was not reassessed in the 2026-07-25 Codex research pass."
+      "notes": "Tracked soft sessionStart identity adapter only; the canonical command/content policy is not activated for Cursor. Cursor's broader upstream hook surface was not reassessed in the 2026-07-25 Codex research pass.",
+      "grounded_at": "2026-07-25",
+      "pin": {
+        "kind": "not-tracked",
+        "reason": "No Cursor CLI version was observed during the 2026-07-25 grounding pass."
+      },
+      "review_by": "2026-08-24"
     },
     "gemini_cli": {
       "status": "not-activated",
       "native_surface": null,
-      "notes": "Gemini / Antigravity CLI documents native hooks (workspace .agents/hooks.json), but this repository wires no project-local activation (recorded 2026-07-25)."
+      "notes": "Gemini / Antigravity CLI documents native hooks (workspace .agents/hooks.json), but this repository wires no project-local activation (recorded 2026-07-25).",
+      "grounded_at": "2026-07-25",
+      "pin": {
+        "kind": "not-tracked",
+        "reason": "No Gemini or Antigravity CLI version was observed during the 2026-07-25 grounding pass."
+      },
+      "review_by": "2026-08-24"
     },
     "github_copilot": {
       "status": "inherited",
       "native_surface": null,
-      "notes": "No Copilot-native activation is wired. Copilot CLI inherits the Claude PreToolUse activation and is enforced through the dispatcher's copilot-compat-string route (observed live 2026-07-25, CLI 1.0.75)."
+      "notes": "No Copilot-native activation is wired. Copilot CLI inherits the Claude PreToolUse activation and is enforced through the dispatcher's copilot-compat-string route (observed live 2026-07-25, CLI 1.0.75).",
+      "grounded_at": "2026-07-25",
+      "pin": {
+        "kind": "pinned",
+        "version": "1.0.75"
+      },
+      "review_by": "2026-08-24"
     },
     "codex": {
       "status": "identity-only",
       "native_surface": ".codex/config.toml [[hooks.SessionStart]]",
-      "notes": "Lifecycle hooks are stable in Codex CLI 0.145.0 and the tracked config activates a soft SessionStart identity adapter. The canonical command/content guard is not yet activated on Codex PreToolUse; that enforcement vertical remains to be implemented and verified."
+      "notes": "Lifecycle hooks are stable in Codex CLI 0.145.0 and the tracked config activates a soft SessionStart identity adapter. The canonical command/content guard is not yet activated on Codex PreToolUse; that enforcement vertical remains to be implemented and verified.",
+      "grounded_at": "2026-07-25",
+      "pin": {
+        "kind": "pinned",
+        "version": "0.145.0"
+      },
+      "review_by": "2026-08-24"
     }
   }
 }

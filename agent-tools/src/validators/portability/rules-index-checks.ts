@@ -197,7 +197,7 @@ export function getSkillsLockCrossReferenceIssues(
   for (const [skillName, entry] of lockedSkills) {
     if (canonicalSkillSet.has(skillName)) {
       issues.push(
-        `${lockPath}: external skill "${skillName}" collides with canonical .agent/skills/${skillName}/ — external skills must never shadow canonical practice skills (rename or remove one)`,
+        `${lockPath}: external skill "${skillName}" collides with the canonical practice skill "${skillName}" — external skills must never shadow canonical practice skills (rename or remove one)`,
       );
     }
     for (const field of requiredStringFields) {

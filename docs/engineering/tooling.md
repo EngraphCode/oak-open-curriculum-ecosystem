@@ -1,6 +1,11 @@
 # Tooling
 
-All tooling MUST use the latest versions, use `pnpm outdated` to check for updates.
+All tooling MUST use the latest versions. `pnpm outdated` is the first-pass
+check — but it computes its "latest" under the workspace's
+`minimumReleaseAge` floor, so an age-floored release's row reads current
+there (verified 2026-08-11, pnpm 11.20). The exhaustive currency check is
+registry reads — `pnpm view <pkg> version` / `pnpm view <pkg> time` — per
+the update-dependencies skill's age-floor census.
 
 > `pnpm outdated` / `pnpm -r outdated` (the repo's `outdated` script) exits with a
 > non-zero code when it finds outdated packages. That is the command's normal

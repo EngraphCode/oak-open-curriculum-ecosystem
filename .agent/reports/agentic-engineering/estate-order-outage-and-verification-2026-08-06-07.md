@@ -117,6 +117,13 @@ recorded honestly:
 
 - MCP-307 decided and closed: canonical URL forever (owner verbatim
   on the ticket, with the alpha-serving refinement).
+- MCP-517 corrected and MCP-518 minted (same day window, parallel
+  arc): the Clerk wrong-domain-handshake diagnosis, its
+  vendor-contract reclassification, and the non-cures (the proxy
+  chain cannot forward the headers; in-app middleware is the only
+  placement honouring never-touch-Host) — full run record at
+  [the fleet-topology adversarial review](fleet-topology-adversarial-review-2026-08-06.md);
+  diagnosis substance on the tickets.
 - MCP-519: the Tuesday tripwire over the five unlocked deferrals.
 - MCP-520: the outage record, the fold plan, the release deviation,
   and the open preview question.
