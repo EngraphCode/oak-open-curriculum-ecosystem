@@ -100,6 +100,8 @@
       "WebFetch(domain:eef.dev)",
       "WebFetch(domain:d2tic4wvo1iusb.cloudfront.net)",
       "WebFetch(domain:www.nationalarchives.gov.uk)",
+      "Skill(oak-comms-channels)",
+      "Skill(oak-comms-channels:*)",
       "Skill(oak-commit)",
       "Skill(oak-commit:*)",
       "Skill(oak-complex-merge)",
