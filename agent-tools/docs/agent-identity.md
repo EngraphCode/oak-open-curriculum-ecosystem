@@ -251,8 +251,9 @@ The Claude Code statusline command runs when the session's UI state updates
 and on the fixed `refreshInterval` timer configured beside it (the timer keeps
 countdowns moving in an idle session). The harness pipes a JSON object on
 stdin containing `session_id`, `cwd` / `workspace.current_dir`, `model`,
-`context_window`, and — for subscriber auth — `rate_limits` (the adapter
-reads each of these — see step 3). The wiring is:
+`context_window`, `effort` (when the model has an effort parameter), and —
+for subscriber auth — `rate_limits` (the adapter reads each of these —
+see step 3). The wiring is:
 
 1. `.claude/settings.json` declares
    `"statusLine": { "type": "command", "command": "node .claude/scripts/statusline-identity.mjs" }`.
@@ -261,8 +262,9 @@ reads each of these — see step 3). The wiring is:
    artefact is missing it exits 0 silently rather than disrupting the session.
 3. `agent-tools/dist/src/claude/statusline-identity.js` (built from
    `agent-tools/src/claude/statusline-identity.ts`) parses the stdin JSON
-   (`session_id`, `cwd` / `workspace.current_dir`, `model`, `context_window`),
-   derives the PDR-027 display name (via the built `agent-identity` CLI with
+   (`session_id`, `cwd` / `workspace.current_dir`, `model`,
+   `context_window`, `effort`), derives the PDR-027 display name (via the
+   built `agent-identity` CLI with
    `--seed <session_id> --format display`), gathers git state (branch, dirty,
    linked-worktree name), and resolves the session-coordination shape — own
    role, team shape (solo / peer / directed), and ArcAngel liveness — from two

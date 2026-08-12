@@ -81,18 +81,21 @@ state support, and deliberately drops what is absent.
   (weekly / seven-day usage %); the two rate-limit gauges append a
   reset countdown where the payload provides one (`ctx:` never carries
   one).
-- **Git location rows** — the checkout name and working branch (with a
-  dim `e:<level>` reasoning-effort token appended when the payload
-  carries one); when the session sits in a linked worktree, also a
+- **Git location rows** — the checkout name and working branch (a
+  trailing `*` marks a dirty tree; a dim `e:<level>` reasoning-effort
+  token is appended when the payload carries one); when the session
+  sits in a linked worktree, also a
   `coord:` row naming the primary checkout's coordination branch plus
   the worktree's own name and branch (both rows are suppressed in the
   primary checkout itself, where the coordination branch IS the
   working branch — and absent in a solo checkout). Location facts fail
   LOUD: an unexpected git error renders a visible token, never a
   silent fallback.
-- **Owner-jobs segment** — a count of open owner-attention items, read
-  from the owner-jobs register when present (linked only when the
-  register carries a `link:` header).
+- **Owner-jobs segment** — a yellow `🔔` bell followed by the count of
+  open owner-attention items, read from the owner-jobs register when
+  present; rendered only when the count is non-zero (silence is the
+  honest default), and linked only when the register carries a
+  `link:` header.
 - **The Oak logo column** — the acorn mark on the left (animated for
   the default style; see the controls below).
 
