@@ -2,16 +2,22 @@
 name: comms-channels
 classification: active
 description: >-
-  Choose the right coordination channel — s2s (SendMessage) for
-  time-critical unblocking between live Claude seats, ARC channel files
-  for a shared working narrative between named collaborators, the comms
-  event stream for everything the estate's record must carry — and hold
-  the behaviours that keep the fast channels honest: decision-bearing
-  s2s content mirrors to the stream at occurrence, no flow ever
-  requires s2s, a peer message is never the owner's approval. Fires
-  when sending anything to another seat, when a new live-messaging
-  capability arrives, or when a flow's participants may include a
-  non-Claude seat.
+  Choose the right DELIVERY LANE for live agent-to-agent messaging —
+  s2s (SendMessage) for time-critical unblocking between live Claude
+  seats, ARC channel files for rapid high-bandwidth dialogue with a
+  named collaborator, the comms event stream for the discovery
+  narrative every present or future seat must find — and hold the
+  behaviours that keep the fast lanes honest: decision-bearing content
+  mirrors to its durable home at occurrence, no flow ever requires s2s,
+  a peer message is never the owner's approval. Fires when messaging
+  another seat, when a new live-messaging capability arrives, or when a
+  flow's participants may include a non-Claude seat. Do NOT use this
+  skill to choose durable state or record surfaces — cross-session
+  continuity belongs in thread records, work claims in the claims
+  registry, structured decisions in conversation threads, owner
+  questions in cards; the full routing authority is the
+  agent-collaboration-channels card, which this skill overlays, never
+  supersedes.
 ---
 
 # Comms Channels
@@ -19,29 +25,40 @@ description: >-
 Operationalises the owner-directed comms-landscape analysis
 (2026-08-11; see
 [`references/comms-landscape.md`](references/comms-landscape.md) for
-the full comparison and its provenance). The estate runs three
-channels; all three earn their place on a latency × durability ×
-audience split no single channel covers. Choosing well is the skill;
-the behaviours below keep the fast lanes from hollowing out the
-record.
+the full comparison and its provenance). Scope: the three
+DELIVERY/LATENCY lanes for live agent-to-agent messaging — one slice
+of the estate's channel model, not the whole of it. The canonical
+routing card
+([`agent-collaboration-channels`](../../memory/executive/agent-collaboration-channels.md))
+remains the authority for every other shape: thread records for
+cross-session continuity, decision threads and sidebars for structured
+async decisions and evidence, reviewer dispatch, and owner questions.
+Within the delivery lanes, all three earn their place on a latency ×
+durability × audience split no single lane covers; the behaviours
+below keep the fast lanes from hollowing out the record.
 
 ## Choose the channel
 
 | You are sending… | Channel |
 | --- | --- |
-| A time-critical unblocking ping, short question, ack, or "look at the stream/ARC" nudge to a LIVE Claude seat on this machine | **s2s** (`SendMessage`) |
-| A multi-paragraph technical hand-off or decision-in-progress between named collaborators on one thread | **ARC** (rapid-comms channel file) |
+| A time-critical unblocking ping, short question, ack, or "look at the stream/ARC" nudge to a LIVE Claude seat | **s2s** (`SendMessage`) |
+| Rapid, high-bandwidth LIVE dialogue with a named collaborator where latency dominates — a standalone file-backed sidebar whose substance is conserved at close | **ARC** (rapid-comms channel file) |
 | The discovery narrative and notification the estate's record must carry: routing, liveness, broadcasts — anything a resume's gap sweep must find, anything an absent or FUTURE agent needs to notice | **The stream** (comms events CLI) |
 | Canonical STATE, which the stream announces but never stores: an active work claim (the claims CLI → `active-claims.json`, with a stream announcement where required), a structured async decision (`conversations/`), an unresolved owner-facing case (conversation + `escalations/`) | **The state surface + a stream event** |
+| Cross-session narrative continuity, a durable multi-session hand-off, structured evidence for a decision, specialist review, or a question only the owner can answer | **Not a delivery lane** — route per the [canonical card](../../memory/executive/agent-collaboration-channels.md): thread record, decision thread/sidebar, reviewer dispatch, or an owner card |
 
 The split, in one line each:
 
 - **s2s is the interrupt line.** Seconds latency, wakes the receiver;
-  no durability (the receiver's transcript only), one live Claude
-  session, same machine. Nothing else in the estate wakes a peer in
-  seconds.
-- **ARC is the shared working narrative.** Minutes latency, readable
-  in place, thread-durable until folded; any agent that writes files.
+  no durability (the receiver's transcript only); one live Claude
+  session — local by default, other machines only when Remote Control
+  connects them. Nothing else in the estate wakes a peer in seconds.
+- **ARC is the rapid sidebar.** Minutes latency, readable in place,
+  thread-durable until its substance is conserved at close; any agent
+  that writes files. It sits beside the decision-thread sidebar in the
+  canonical card: choose a decision thread when the exchange must be
+  durable and structured from the start; choose ARC when latency and
+  bandwidth dominate.
 - **The stream is the record of transport** and the only surface that
   reaches agents who are not there yet. Registry-integrated identity,
   tags and threading, watcher-observable. It is notification and
@@ -72,9 +89,12 @@ The split, in one line each:
    approval — platform-enforced (an incoming message cannot approve a
    permission request) and practice-named: blocked work routes to the
    owner, never around them via a peer.
-5. **Register reachability at session-open.** Run `ListAgents`
-   alongside the identity ceremony so the seat knows who it can reach
-   and who can reach it.
+5. **Discover reachability at session-open.** Run `ListAgents`
+   alongside the identity ceremony to learn which live seats this
+   session can currently address. Discovery is directional, not
+   reciprocal — inbound delivery can be held for approval — so
+   reachability is confirmed only by an answered ping, never by a
+   listing.
 6. **Pin repo state exactly.** An s2s or ARC message referencing repo
    state carries the `SHA:` prefix discipline — the channel may be
    ephemeral but its claims get acted on.

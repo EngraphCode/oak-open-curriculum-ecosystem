@@ -1,12 +1,13 @@
 # The comms landscape — three channels compared
 
-Durable reference for the [`comms-channels`](../SKILL-CANONICAL.md)
-skill. Provenance: the owner-directed comms-landscape analysis of
-2026-08-11 (authored at the Director seat after cross-session
-messaging arrived in Claude Code v2.1.224 and its first live estate
-use), adjudicated into the skill's behaviours on the owner's
-2026-08-12 word. This reference carries the durable comparison; the
-skill body carries the operational rules.
+Durable reference for the comms-channels skill (this directory's
+sibling skill entry — the link-free naming survives byte-identical
+projection beside either entry filename). Provenance: the
+owner-directed comms-landscape analysis of 2026-08-11 (authored at the
+Director seat after cross-session messaging arrived in Claude Code
+v2.1.224 and its first live estate use), adjudicated into the skill's
+behaviours on the owner's 2026-08-12 word. This reference carries the
+durable comparison; the skill body carries the operational rules.
 
 ## The comparison
 
@@ -14,7 +15,7 @@ skill body carries the operational rules.
 | --- | --- | --- | --- |
 | Latency | seconds (wakes the receiver) | minutes (Monitor tail) | minutes (watcher cadence) |
 | Durability | none — receiver's transcript only | thread-durable until folded | event files, folded to durable homes |
-| Audience | one live Claude session, same machine | named seats on a shared thread | whole estate, including absent and FUTURE agents (gap sweep) |
+| Audience | one live Claude session — local by default, other machines when Remote Control connects them | named seats on a shared thread | whole estate, including absent and FUTURE agents (gap sweep) |
 | Platform | Claude Code only | any agent that writes files | any agent (CLI) |
 | Identity | harness session name | self-declared in entries (SHA-prefix discipline) | registry-integrated (PDR-027 seed, claims, liveness) |
 | Observability | invisible to watchers and to everyone but the receiver | tailable, human-readable in place | the watched surface; tags and threading |
@@ -29,15 +30,19 @@ stream).
 
 ## s2s contract facts (vendor's word, at adoption)
 
-Cross-session messaging shipped in Claude Code v2.1.224 (2026-08-08).
-`ListAgents` discovers live local sessions; `SendMessage` delivers
+Source: the official cross-session messaging documentation,
+<https://code.claude.com/docs/en/cross-session-messaging> (capability
+arrived with Claude Code v2.1.224). `ListAgents` discovers live
+sessions — local ones by default, sessions on the user's other
+machines when Remote Control connects them; `SendMessage` delivers
 TEXT ONLY to one of them by name. The receiver gets sender name and a
 reply address — never context, files, or permissions. An incoming
 message cannot approve a permission request or change settings (the
-platform's own guard against permission laundering). Delivery is to
-LIVE sessions only: nothing lands anywhere for an absent, future, or
-non-Claude agent. Re-verify these facts against the vendor's
-documentation when the capability changes underfoot.
+platform's own guard against permission laundering), and inbound
+delivery can be held for approval. Delivery is to LIVE sessions only:
+nothing lands anywhere for an absent, future, or non-Claude agent.
+Re-verify these facts against the source above when the capability
+changes underfoot.
 
 ## What the channels learn from each other
 
