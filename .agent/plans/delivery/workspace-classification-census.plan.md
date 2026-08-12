@@ -3,7 +3,10 @@ id: workspace-classification-census
 node_type: delivery
 name: "Workspace classification census — re-ground the surface-isolation matrix from the live estate"
 overview: "Classify every workspace and tracked non-member code surface on the Oak-specificity axis from live dependency-graph and metadata evidence, superseding the 2026-04-28 matrix, with leakage types, target states, tranche ownership, and licence mapping — evidence and classification only, no moves."
-status: sketch
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-12
+ratified_where: "Owner decision card at the Director seat (b10c37), 2026-08-12 ~18:05Z, answer 'Ratify' — verbatim card text and answer recorded on the census/survey ARC channel (.agent/collaboration/rapid-comms/2026-08-12-census-survey-nautilus-calls-plankton-and-plover-lifts-troposphere.md, stamp entry 2026-08-12T18:1xZ)"
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate

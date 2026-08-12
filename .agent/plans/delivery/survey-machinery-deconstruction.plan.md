@@ -3,7 +3,10 @@ id: survey-machinery-deconstruction
 node_type: delivery
 name: "Survey machinery deconstruction — harvest the proven instrument before the fresh design"
 overview: "Deconstruct the typescript-estate-consolidation-review machinery — frozen detector contract, extractor implementation, calibration and knowledge-safety records, foundational-building-blocks frame — into a disposition ledger of what it proved, what generalises to the multi-scale survey programme, and what dies with the old shape."
-status: sketch
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-12
+ratified_where: "Owner decision card at the Director seat (b10c37), 2026-08-12 ~18:05Z, answer 'Ratify' — verbatim card text and answer recorded on the census/survey ARC channel (.agent/collaboration/rapid-comms/2026-08-12-census-survey-nautilus-calls-plankton-and-plover-lifts-troposphere.md, stamp entry 2026-08-12T18:1xZ)"
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate
