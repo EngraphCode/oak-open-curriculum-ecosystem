@@ -1,3 +1,10 @@
+## [1.163.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.163.2...v1.163.3) (2026-08-12)
+
+
+### Bug Fixes
+
+* **hooks:** acceptance-euphemism family gets its own record-surface group (863 round 1) ([e7946bb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e7946bb548fdbf41e74f9a4cea09bff1d3c60511))
+
 ## [1.163.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.163.1...v1.163.2) (2026-08-12)
 
 
