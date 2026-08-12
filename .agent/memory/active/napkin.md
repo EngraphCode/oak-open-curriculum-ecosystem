@@ -2115,6 +2115,57 @@ in the PR so the acceptance number reads honestly against the plan.
   net, and the matter is in hand at the owner's thread. No routing from
   the Director seat.
 
+## 2026-08-12 ~09:3xZ — filtered recounts recur; routed-debt mis-class on NEW code (Plover lifts Troposphere, b10c37)
+
+- REVIEWER-FILTERED READS, SECOND INSTANCE OF THE OWNER-CAUGHT CLASS:
+  every review read in the 818/819/864 drive selected on the copilot
+  login, so four Warden CHANGES_REQUESTED reviews were invisible until
+  the merge ruleset bounced 818 with "1 review requesting changes". The
+  #854 lesson (recounts harvest ALL reviews, never reviewer-filtered)
+  was in memory and still violated at speed. OWNER RULING at the
+  instance (verbatim): "never ever filter reviews, ever. That means
+  accepting some noise about exhausted quotas, so be it, better that
+  than missing feedback." EVERY review read is the unfiltered
+  `pulls/N/reviews` list; narrow reads only after an unfiltered read
+  in the same breath has enumerated the full set.
+
+## 2026-08-12 ~09:3xZ — the 818/819/864 drive's mechanics harvest (Plover lifts Troposphere, b10c37)
+
+- MERGE-BOT POLLS OUTLIVE THE BASH DEFAULT: the settlement poll
+  (30s × 90) legitimately runs tens of minutes through
+  SETTLING-QUIET-WINDOW; a 600s Bash ceiling kills it mid-poll and the
+  merge silently doesn't happen (twice this drive). Cure: run merge-bot
+  merges with the 600s timeout only when the quiet window is ALREADY
+  computed elapsed, else give the command the full timeout budget or
+  background it deliberately and read its output file at the
+  notification.
+- RATCHET NON-CONVERGENCE, THE CURE THAT WORKED (second worked
+  instance after #862): each cure round adds new code/wording = new
+  surface for the reviewer; counts do not converge on their own.
+  Declaring the loop exit — one final tight batch, then a TERMINAL
+  binding where residue is dispositioned route-with-gate and no tip
+  moves — closed both PRs' loops deterministically. The gate shape for
+  platform/threat-model residue: the MCP-567 named-consumer re-entry
+  gate ("a Windows operator machine appearing in the estate").
+- PROJECTIONS ARE THIN POINTERS: skill body edits never change
+  `.claude/.agents` SKILL.md projections (description frontmatter
+  does); a "stale projection" panic is a wrong model — READ the
+  projection file before diagnosing the generator.
+- WARDEN REVIEWS LAND UNDER THE mantagen LOGIN with write access —
+  their CHANGES_REQUESTED blocks the merge ruleset; the standing
+  dismiss-at-cure path applies with evidence per defect, and their
+  findings this drive were substantively RIGHT twice (destination
+  boundary on new code; enforced-ordering vs promised-ordering).
+- PRECEDENT-IS-NOT-CORRECTNESS, LIVE INSTANCE: routed the debug-log
+  destination-boundary defect (symlink-follow, creation-only mode,
+  FIFO-hang) to a ticket as "documented posture, frame-store
+  precedent" — but the append code is NEW IN THE PR; only the frame
+  store is pre-existing. New code never lands with a known-unsafe
+  boundary; routed-debt dispositions require the code to actually BE
+  pre-existing. The Warden's counter ("documenting it does not make
+  the append safe") was the correct frame and the disposition
+  reversed.
+
 ## 2026-08-12 ~07:0xZ — Wren calls Downdraft (6b29b5): the MCP-567 unwind — validation was adjudicating an external system
 
 - THE PROBLEM WAS OURS, NOT THE SKILLS': half an hour of owner questioning
