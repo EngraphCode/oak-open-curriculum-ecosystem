@@ -2,9 +2,9 @@
 
 What a developer sees and feels while working in this estate: the
 session surfaces that carry information to you, the feedback loops that
-answer your changes, and where each one is documented in depth. This is
-the index and the statusline deep-dive; the practical how-do-I-direct-
-the-work guide is
+answer your changes, and where each one is documented in depth. This
+is the index and the statusline deep-dive; the practical
+how-do-I-direct-the-work guide is
 [Working with this Repo for Devs](working-with-this-repo-for-devs.md).
 
 ## The surfaces you work through
@@ -78,8 +78,9 @@ state support, and deliberately drops what is absent.
   - 🪶 — a live ArcAngel rapid-comms channel involves this session.
 - **Model and usage row** — the model name, then the usage gauges:
   `ctx:` (context-window %), `s:` (session / five-hour usage %), `w:`
-  (weekly / seven-day usage %), each with a reset countdown where the
-  payload provides one.
+  (weekly / seven-day usage %); the two rate-limit gauges append a
+  reset countdown where the payload provides one (`ctx:` never carries
+  one).
 - **Git location rows** — the checkout name and working branch (with a
   dim `e:<level>` reasoning-effort token appended when the payload
   carries one); in a team checkout with linked worktrees, a `coord:`
@@ -88,8 +89,9 @@ state support, and deliberately drops what is absent.
   coordination rows are normally absent in a solo checkout). Location
   facts fail LOUD: an unexpected git error renders a visible token,
   never a silent fallback.
-- **Owner-jobs segment** — a count of open owner-attention items with a
-  link, read from the owner-jobs register when present.
+- **Owner-jobs segment** — a count of open owner-attention items, read
+  from the owner-jobs register when present (linked only when the
+  register carries a `link:` header).
 - **The Oak logo column** — the acorn mark on the left (animated for
   the default style; see the controls below).
 
