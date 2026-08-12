@@ -1,3 +1,18 @@
+# [1.165.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.164.0...v1.165.0) (2026-08-12)
+
+
+### Bug Fixes
+
+* **skills:** card overlay, measured arc latency, session-open trigger (MCP-571) ([6a7a449](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6a7a449a444f2c24cf6350c1c6733eeb842ba4a9))
+* **skills:** comms-channels scopes to delivery lanes under the canonical card (MCP-571) ([a44f054](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a44f054395a93ffd236aa782572d42cde4649cf7))
+* **skills:** reachability bounds consistent; ListAgents ceremony is Claude-scoped (MCP-571) ([289231b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/289231bbb4774a126bbbedf13bf2f4c9accc8d67))
+* **skills:** the stream announces state, it never stores it (MCP-571) ([3222ea2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3222ea26a56ad584c63d6e3bc27766c487278e7e))
+
+
+### Features
+
+* **skills:** mint comms-channels — channel selection and the s2s behaviours (MCP-571) ([6fab315](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6fab315d99c38c2c3b4197e3e40001532fe9a814))
+
 # [1.164.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.163.3...v1.164.0) (2026-08-12)
 
 
