@@ -1,0 +1,17 @@
+{
+  "artefact": "<workspace>/iteration-1/case-b/without-skill/artefact.html",
+  "assertions": {
+    "five-selections-offered": {
+      "pass": false,
+      "evidence": "offered set is dark, light, system; missing high-contrast, colour-safe (DDR-004: a subset control is non-conformant)"
+    },
+    "only-palette-themes-carry-trees": {
+      "pass": true,
+      "evidence": "2 write site(s), all palette-valued or system-resolved"
+    },
+    "applied-value-never-round-trips": {
+      "pass": true,
+      "evidence": "no read of the applied attribute reaches a choice or storage sink"
+    }
+  }
+}

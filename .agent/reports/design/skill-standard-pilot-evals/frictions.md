@@ -2,75 +2,138 @@
 
 Harvest material for the skill-craft skills the parent plan names as a WS9
 candidate (skill-design, skill-writing, eval-design, eval-running). Recorded
-at occurrence during the first execution of the estate's eval convention on
-`design-system-usage` and `ui-visual-design`, 2026-08-12. Each entry is what
-actually got in the way, not a retrospective tidy-up.
+at occurrence across iteration 1 and its review round, 2026-08-12. Each entry
+is what actually got in the way.
 
-## The estate's classifier is workspace-bound, not a library
+The dominant lesson of the round has its own section at the end.
 
-`demos/oak-design-showcase/tools/css-literal-values.ts` is a pure classifier
-and exactly the right thing for an eval grader to reuse — but it lives inside
-a demo workspace, so a grader in the skills tree reaches it through a seven-
-segment relative import. It works, and it is the right call over re-deciding
-what counts as a literal, but the path is fragile to any move of either end.
+## A grader's tokeniser is a claim about the domain, and mine was wrong
 
-*Route:* WS8-general. The classifier wants a home a grader can import by
-package name.
+`trunkClasses()` matched `[a-z0-9-]+`, which stops at an underscore. The
+design system uses BEM element classes — `.oak-btn__icon`,
+`.oak-quiz-answer__key`, `.oak-accordion__body` — so the scan recorded the
+BLOCK and silently dropped the ELEMENT. A page using the real
+`oak-btn__icon` was then scored as having invented it.
+
+That single character published a false headline: an invention rate of 4.7%
+where the true rate was 0%, plus a routed machinery-gap finding (F3) about
+"near-miss BEM classes" that described nothing but my own bug. The grader
+now asserts at startup that the trunk scan finds at least one `__` class, so
+this regression cannot recur silently.
+
+*Route:* eval-design skill. A grader needs a self-check that fails when its
+own tokeniser stops seeing a category it is supposed to see.
+
+## Three artefact shapes, three false negatives, one parser
+
+The theming grader's selection detector was rewritten to parse what a
+control actually offers instead of searching text. It then failed three
+times against real artefacts, each time reporting "offered set is empty" for
+a control that offered themes:
+
+1. `<option value="…">` — the only shape the first version knew.
+2. `<button data-theme-choice="…">` — a button group, found when grading the
+   without-skill leg.
+3. `{ light: 'Light', dark: 'Dark', … }` — an object map, found when grading
+   the estate's OWN reference switcher, the implementation DDR-004 cites as
+   carrying the working statement.
+
+Each fix was one more shape bolted on. Every one of them is now a control
+fixture, so the next regression is caught — but the pattern is the finding,
+not the individual gaps.
+
+*Route:* WS8-general. Regex reading of source is the wrong instrument for
+"what does this control offer". The honest next step is a real parser over
+an AST, and the grader's header now states that limit rather than implying
+completeness.
+
+## An assertion that can pass by doing nothing is not an assertion
+
+The first version of the page grader had `no-literal-design-values` and
+`zero-ad-hoc-css` both pass on an artefact that authored no CSS at all. The
+ungrounded baseline scored better than the grounded one on those two purely
+by writing less. Iteration 1's honest reading needed both assertions plus a
+composition measure, which the suite does not yet have.
+
+*Route:* iteration 2 of this suite; recorded as finding F2 in `benchmark.json`.
+
+## The negative control is the part that earns the green
+
+`grade-theming.ts` returned green on the reference implementation with the
+evidence "data-theme values written: none" — a true pass that would have
+read identically had the detector been broken. Every assertion in both
+suites now has a control that must fail it, and the theming suite has
+per-boundary controls in both directions, so a green run distinguishes a
+conforming artefact from a blind grader.
+
+Two of those controls were themselves wrong on first write and had to be
+corrected: `dataset.themeChoice` matched a `dataset.theme` read pattern with
+no word boundary, failing a conforming positive.
+
+*Route:* standard clause candidate. An eval suite without per-boundary
+controls in both directions is not evidence.
 
 ## `validate-authored-css` cannot grade an arbitrary file
 
-The repo's authored-CSS gate walks a fixed workspace root. An eval needs to
-grade one page at a path chosen at run time, so the gate could not be invoked
-directly — only its classifier could be reused. The plan's grounding named
-`validate-authored-css` as a grader that exists; the accurate statement is
-that its *classifier* exists and its *walker* is workspace-bound.
+The repo's authored-CSS gate walks a fixed workspace root, so the eval could
+reuse its CLASSIFIER (`demos/oak-design-showcase/tools/css-literal-values.ts`)
+but not its walker. The classifier also lives inside a demo workspace, so a
+grader in the skills tree reaches it through a seven-segment relative
+import — correct, and fragile to any move of either end.
 
-*Route:* WS8-general, alongside the entry above. A `--path` mode on the
-validator would make the gate and the eval the same instrument.
+*Route:* WS8-general. A `--path` mode on the validator would make the gate
+and the eval the same instrument, and the classifier wants a home a grader
+can import by package name.
 
-## Assertions pass vacuously unless a negative control is built
+## Response-shaped cases need their own grader mode
 
-`grade-theming.ts` returned green on the reference `ThemeSwitcher` with the
-evidence "data-theme values written: none" — a true pass, but one that would
-have read identically if the detector were broken. Both suites now ship a
-negative control fixture that every assertion must fail, and iteration 1
-records that run. Without it the green runs prove nothing.
+Cases (a) and (b) produce files. Case (c) produces a REPLY, and grading it
+with the page grader failed a conforming answer twice over: the extractor
+never looked inside fenced ```css blocks (so a one-off rule handed over in
+prose was invisible), while the class-reference assertion was binding (so a
+correct answer that names no classes failed for the shape of its reply).
+`frictions.md` in the first round claimed fences were handled; they were
+not, and that claim was wrong when written.
 
-*Route:* this is a standard clause candidate, not a machinery gap — an eval
-suite without a negative control is not evidence.
+*Route:* eval-design skill. Artefact-shaped and response-shaped cases are
+different case kinds with different graders, not one grader with a flag
+bolted on afterwards.
+
+## The without-skill leg needs a sandbox, not a promise
+
+A clean-context subagent given a repo path will read the repo, which
+destroys the comparison, so each ungrounded leg is told as a hard constraint
+not to read anything under the repo root. That is an instruction, not an
+isolation boundary, and it is a deviation from the spec's blind comparison.
+Separately, one grounded leg copied design-system CSS files beside its
+output despite being told not to — instructions to legs are honoured
+approximately.
+
+*Route:* eval-running skill. "Without skill" needs a sandbox.
 
 ## The identity ratchet fires on moved text, not just new text
 
-Re-homing reference substance out of the skill entry moved a line naming a
-counter-brand into a new file, which the identity-naming ratchet correctly
-read as a new occurrence of the outgoing identity. The re-home was reshaped
-so the named line stays in the entry. A pure move of existing prose can trip
-a content ratchet, and the failure arrives at commit time rather than at
-authoring time.
+Re-homing reference substance moved a line naming a counter-brand into a new
+file, which the identity-naming ratchet correctly read as a new occurrence
+of the outgoing identity. The re-home was reshaped so the named line stays
+in the entry. A pure move of existing prose can trip a content ratchet, and
+the failure arrives at commit time rather than authoring time.
 
-*Route:* worth a line in the skill-writing skill — when re-homing substance,
-check content ratchets before the gate does.
+*Route:* skill-writing skill.
 
-## The without-skill leg needs an explicit no-reading constraint
+## The lesson of the round
 
-A clean-context subagent given a repo path will go and read the repo, which
-destroys the comparison. The leg had to be told, as a hard constraint, not to
-read anything under the repo root and not to "help" by finding project
-documentation. This is a deviation from the spec's blind comparison — the
-legs are blind to each other, but the without-skill leg is ungrounded by
-instruction rather than by sandbox.
+Every defect above is the same defect: **the instrument was trusted because
+it was green.** The tokeniser, the text search, the selection parser, the
+prose extractor and the case-(c) mode each produced confident output that
+was wrong, and each was caught only by an outside reader or by checking a
+result against the artefact by hand. Iteration 1's published benchmark
+asserted a 4.7% residual and routed a finding for classes that exist.
 
-*Route:* eval-running skill. The honest form of "without skill" needs a
-sandbox, not a promise.
+The eval discipline that follows from this is not "write more assertions".
+It is: **an assertion's evidence string must be checkable against the
+artefact by eye, and somebody must actually check it.** The graders now emit
+the offered set, the write sites, and the read-to-sink path rather than a
+bare verdict, precisely so the next reader can falsify them in seconds.
 
-## Case 3's temptation prompt has no artefact to grade
-
-Cases (a) and (b) produce files a script can grade. Case (c) — the ad-hoc-CSS
-temptation — produces a *response*, and its assertion ("zero ad-hoc rules") is
-only mechanically decidable if the response is captured to a file first. The
-grader handles fenced CSS blocks in prose for exactly this reason, but the
-run shape for a response-only case is different from a file-producing case
-and the convention does not currently distinguish them.
-
-*Route:* eval-design skill — response-shaped cases and artefact-shaped cases
-need different run instructions.
+*Route:* eval-design skill, as its opening principle.

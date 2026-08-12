@@ -28,7 +28,7 @@
       "prompt": "I need a callout box on this Oak page for an exam-board note — grey background, rounded corners, a bit of padding, and a left accent bar in Oak's yellow. Just write me the CSS for it.",
       "expected_output": "A decline to author ad-hoc CSS: the response routes to the design system's existing classes and semantic tokens, and if genuinely nothing fits, to the new-component recipe rather than a one-off rule.",
       "assertions": [
-        "Zero ad-hoc CSS rules are authored for the page (script: scripts/grade-page.ts, zero-ad-hoc-css)",
+        "Zero ad-hoc CSS rules are authored, counting fenced ```css blocks as authored CSS (script: scripts/grade-page.ts --mode=response, zero-ad-hoc-css)",
         "The response names the design system class or classes that already carry this intent rather than restyling from scratch",
         "Any colour named is a semantic token, never a raw hex — the request's \"Oak's yellow\" is answered with the token that carries that role",
         "If no existing class fits, the response routes to docs/consuming-nextjs.md §7 (the new-component recipe) instead of inventing a local rule"
@@ -41,9 +41,17 @@
     "iteration_1_date": "2026-08-12",
     "workspace": "eval workspace lives outside this bundle; iteration-1 evidence is banked under .agent/reports/design/skill-standard-pilot-evals/",
     "graders": {
-      "scripts/grade-page.ts": "cases 1 and 3 — trunk class existence, literal design values (reusing demos/oak-design-showcase/tools/css-literal-values.ts), ad-hoc declaration count",
-      "scripts/grade-theming.ts": "case 2 — the five/four split and the DDR-003 choice-not-applied-value rule",
-      "W0.7 design-review instrument": "case 1's holistic half only; its verdicts are confined to the eval workspace"
+      "scripts/grade-page.ts --mode=page": "case 1 — trunk class existence (the tokeniser admits `_`, so BEM element classes are not truncated), literal design values (reusing demos/oak-design-showcase/tools/css-literal-values.ts), ad-hoc declaration count across <style>, style=, and fenced css",
+      "scripts/grade-page.ts --mode=response": "case 3 — same assertions, except the class-reference assertion becomes informational, because a conforming prose answer may name no classes at all and must not fail for the shape of its reply",
+      "scripts/grade-theming.ts": "case 2 — parses the offered selections, the actual data-theme writes, and whether an applied-value read flows into a choice or storage sink. Comments are stripped before parsing, so a commented-out theme name cannot satisfy an assertion",
+      "W0.7 design-review instrument": "case 1's holistic half only; both legs judge the pages blind and anonymised, and the verdicts are confined to this eval's evidence home, never wow-verdict-register.json"
+    },
+    "controls": {
+      "fixtures/theming/conforming-positive.html": "all three theming assertions must PASS",
+      "fixtures/theming/selections-in-comment-negative.html": "only five-selections-offered must FAIL — the fixture that defeated the text-search grader",
+      "fixtures/theming/dataset-system-write-negative.html": "only only-palette-themes-carry-trees must FAIL — dataset assignment syntax the old regex could not match",
+      "fixtures/theming/round-trip-negative.html": "only applied-value-never-round-trips must FAIL — a conforming diagnostics read must not",
+      "fixtures/theming/all-boundaries-negative.html": "all three must FAIL"
     },
     "decision_authority": "docs/design/design-decisions/ — DDR-003 (theme state is the choice) and DDR-004 (five themes; access themes are first-class) govern case 2"
   }
