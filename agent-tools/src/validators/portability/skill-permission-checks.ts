@@ -6,12 +6,46 @@
  * Without that entry, Claude Code will refuse to execute the skill even when
  * it is present on disk.
  *
- * This module provides the pure function that detects missing permission
- * entries given the lists of existing adapter files and the current
+ * The census's jurisdiction is the PRACTICE CLASS only: the projections our
+ * own generation writes, recognised by the class marker in their stub
+ * ({@link selectPracticeSkillDirs}). Vendor-class skills installed by the
+ * external skills machinery are that machinery's business — never censused,
+ * whatever their name or on-disk kind (skill-class taxonomy: ADR-125).
+ *
+ * This module provides the pure functions that select the censused set and
+ * detect missing permission entries given the adapter lists and the current
  * permissions allow-list.
  */
 
+import { parseAdapterStubPointer } from '../../skills-adapter-generate/adapter-stub.js';
 import { CLAUDE_SETTINGS_PATH, stripDirAndExtension } from './portability-constants.js';
+
+/**
+ * Select the Practice-class members from a projection root's directory
+ * listing: exactly the entries whose `SKILL.md` carries the class marker
+ * recording a derivation from `.agent/skills/`. Membership is proven by
+ * content, never by name — a foreign directory sharing the generation
+ * prefix stays out, and a projection generated under a previous prefix
+ * stays in.
+ *
+ * @param dirNames - Immediate subdirectory names at the projection root.
+ * @param readStubOrUndefined - Reads `<dirName>/SKILL.md`, `undefined` when
+ *   absent.
+ * @returns The directory names that are Practice projections.
+ */
+export async function selectPracticeSkillDirs(
+  dirNames: readonly string[],
+  readStubOrUndefined: (dirName: string) => Promise<string | undefined>,
+): Promise<string[]> {
+  const selected: string[] = [];
+  for (const name of dirNames) {
+    const stub = await readStubOrUndefined(name);
+    if (stub !== undefined && parseAdapterStubPointer(stub) !== undefined) {
+      selected.push(name);
+    }
+  }
+  return selected;
+}
 
 /**
  * Options for {@link getSkillPermissionIssues}.

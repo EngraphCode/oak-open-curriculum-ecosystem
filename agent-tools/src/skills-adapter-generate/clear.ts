@@ -1,14 +1,19 @@
 /**
- * Lock-aware clearing of generated adapter directories.
+ * Class-scoped clearing of generated adapter directories.
  *
  * Split from `generator.ts`: clearing is the one destructive path in
- * the pipeline, and it depends on the `skills-lock.json` trust
- * boundary in a way generation never does.
+ * the pipeline. Its jurisdiction is the Practice class only — real
+ * directories whose `SKILL.md` carries the class marker recording a
+ * derivation from `.agent/skills/` (see `adapter-stub.ts`). Everything
+ * else (Vendor-class entries installed by the external skills
+ * machinery, or any foreign entry, whatever its name) is out of scope
+ * and never removed: our tooling clears only what our generation
+ * re-creates, and membership is proven by content, never by name.
  */
 import { readFile, readdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 
-import { loadLockedSkillIds } from './lock.js';
+import { parseAdapterStubPointer } from './adapter-stub.js';
 
 /**
  * Result of listing an adapter surface. A missing surface is `ok` with
@@ -18,6 +23,16 @@ import { loadLockedSkillIds } from './lock.js';
  */
 type ListSubdirectoryNamesResult =
   | { readonly kind: 'ok'; readonly names: readonly string[] }
+  | { readonly kind: 'error'; readonly message: string };
+
+/**
+ * Result of reading a candidate entry's `SKILL.md`. `undefined` means
+ * the file is absent — the entry is not ours and is skipped; any
+ * failure other than absence is an `error` that aborts the clear (an
+ * unclassifiable entry must never be silently kept OR removed).
+ */
+type ReadStubResult =
+  | { readonly kind: 'ok'; readonly value: string | undefined }
   | { readonly kind: 'error'; readonly message: string };
 
 /**
@@ -33,23 +48,24 @@ export type ClearResult =
  */
 export interface ClearFs {
   listSubdirectoryNames(path: string): Promise<ListSubdirectoryNamesResult>;
+  readStubOrUndefined(path: string): Promise<ReadStubResult>;
   removeDirectory(path: string): Promise<void>;
 }
 
 /**
- * Classify a `readdir` failure for the clear pass: only a genuinely
- * absent surface (ENOENT) reads as empty — any other failure (EACCES,
- * I/O error) must abort the clear rather than report success over
- * stale directories. Exported pure so the contract is testable without
- * real filesystem IO.
+ * Classify a filesystem failure for the clear pass: only genuine
+ * absence (ENOENT) reads as "nothing there" — any other failure
+ * (EACCES, I/O error) must abort the clear rather than report success
+ * over an unobserved surface. Exported pure so the contract is testable
+ * without real filesystem IO.
  */
 export function isMissingSurface(error: unknown): boolean {
   return typeof error === 'object' && error !== null && 'code' in error && error.code === 'ENOENT';
 }
 
 /**
- * The real-filesystem {@link ClearFs}. Its error contract (absent
- * surface → empty; anything else → error) lives in the exported pure
+ * The real-filesystem {@link ClearFs}. Its error contract (absence →
+ * empty/skip; anything else → error) lives in the exported pure
  * {@link isMissingSurface}, which carries the tests.
  */
 const realClearFs: ClearFs = {
@@ -68,26 +84,34 @@ const realClearFs: ClearFs = {
       names: dirents.filter((dirent) => dirent.isDirectory()).map((dirent) => dirent.name),
     };
   },
+  async readStubOrUndefined(path) {
+    try {
+      return { kind: 'ok', value: await readFile(path, 'utf8') };
+    } catch (error: unknown) {
+      if (isMissingSurface(error)) {
+        return { kind: 'ok', value: undefined };
+      }
+      return { kind: 'error', message: `cannot read ${path}: ${String(error)}` };
+    }
+  },
   async removeDirectory(path) {
     await rm(path, { recursive: true, force: true });
   },
 };
 
 /**
- * Remove REAL adapter directories under `.claude/skills/` and
- * `.agents/skills/` before a fresh generation pass. Directories named
- * in `lockedIds` (lock-pinned vendored externals from
- * `skills-lock.json`) are never removed: generation cannot re-create
- * vendored content, so removing it would be unrecoverable outside git.
- * Symlinked entries are never touched — `readdir` classifies them as
- * symlinks, not directories — so a stale symlink outlives a clear; the
- * lock check still guards both surfaces in case a symlink is ever
- * replaced by a real directory. An unreadable surface aborts the clear
- * with an error rather than reading as empty. Idempotent.
+ * Remove Practice-projection directories under `.claude/skills/` and
+ * `.agents/skills/` before a fresh generation pass — exactly the
+ * entries whose `SKILL.md` carries the class marker, whatever their
+ * name (so a clear also collects projections generated under a
+ * previous prefix). Entries without the marker are out of
+ * jurisdiction and never touched; symlinked entries never reach the
+ * marker read because `readdir` classifies them as symlinks, not
+ * directories. An unreadable surface or stub aborts the clear with an
+ * error rather than guessing. Idempotent.
  */
 export async function clearGeneratedAdapters(
   repoRoot: string,
-  lockedIds: ReadonlySet<string>,
   fs: ClearFs = realClearFs,
 ): Promise<ClearResult> {
   for (const surface of ['.claude/skills', '.agents/skills']) {
@@ -97,43 +121,14 @@ export async function clearGeneratedAdapters(
       return listed;
     }
     for (const name of listed.names) {
-      if (!lockedIds.has(name)) {
+      const stub = await fs.readStubOrUndefined(join(root, name, 'SKILL.md'));
+      if (stub.kind === 'error') {
+        return stub;
+      }
+      if (stub.value !== undefined && parseAdapterStubPointer(stub.value) !== undefined) {
         await fs.removeDirectory(join(root, name));
       }
     }
   }
   return { kind: 'ok' };
-}
-
-/**
- * Result of {@link readLockedSkillIds} — the lock read that gates a
- * clear pass.
- */
-export type ReadLockedSkillIdsResult =
-  | { readonly kind: 'ok'; readonly value: ReadonlySet<string> }
-  | { readonly kind: 'error'; readonly message: string };
-
-/**
- * Read and validate `skills-lock.json` for a clear pass. An unreadable
- * or invalid lock is an ERROR, never an empty set: only the lock says
- * which adapter directories are vendored externals that generation
- * cannot re-create, so an empty fallback would turn a bad cwd or a
- * corrupted lock into unrecoverable deletion. Callers refuse the clear
- * on the error arm.
- */
-export async function readLockedSkillIds(
-  lockPath: string,
-  readTextFile: (path: string) => Promise<string> = async (path) => readFile(path, 'utf8'),
-): Promise<ReadLockedSkillIdsResult> {
-  let rawText: string;
-  try {
-    rawText = await readTextFile(lockPath);
-  } catch (error: unknown) {
-    return { kind: 'error', message: `cannot read ${lockPath}: ${String(error)}` };
-  }
-  const result = loadLockedSkillIds(rawText);
-  if (result.kind === 'error') {
-    return { kind: 'error', message: `invalid skills-lock.json (${result.error.message})` };
-  }
-  return { kind: 'ok', value: result.value };
 }

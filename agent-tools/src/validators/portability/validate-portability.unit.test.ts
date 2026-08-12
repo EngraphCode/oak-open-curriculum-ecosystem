@@ -7,8 +7,8 @@ import {
   getReviewerAdapterParityIssues,
   getRulesIndexPortabilityIssues,
   getSkillPermissionIssues,
+  selectPracticeSkillDirs,
   collectCanonicalSkillPaths,
-  getSkillsLockCrossReferenceIssues,
   HOOK_POLICY_PATH,
   isClaudeHookWired,
   isClaudeHookWiredInText,
@@ -414,7 +414,7 @@ describe('collectCanonicalSkillPaths', () => {
     },
   });
 
-  it('collects flat, concern-tier, and domain-tier canonicals with their leaf names', async () => {
+  it('collects flat, concern-tier, and domain-tier canonicals', async () => {
     const fs = makeWalkFs(
       new Map([
         ['.agent/skills', ['flat-one', 'cognition', 'domain-craft']],
@@ -436,7 +436,6 @@ describe('collectCanonicalSkillPaths', () => {
       '.agent/skills/cognition/reason/SKILL-CANONICAL.md',
       '.agent/skills/domain-craft/ui-design/claude-design-pipeline/SKILL-CANONICAL.md',
     ]);
-    expect(result.leafNames).toStrictEqual(['flat-one', 'reason', 'claude-design-pipeline']);
   });
 
   it('never walks a fourth level — the tree closes at the domain tier', async () => {
@@ -453,59 +452,24 @@ describe('collectCanonicalSkillPaths', () => {
     const result = await collectCanonicalSkillPaths(fs);
 
     expect(result.canonicalPaths).toStrictEqual([]);
-    expect(result.leafNames).toStrictEqual([]);
   });
 });
 
-describe('getSkillsLockCrossReferenceIssues', () => {
-  const completeEntry = {
-    source: 'clerk/skills',
-    sourceType: 'github',
-    computedHash: 'abc123',
-  };
+describe('selectPracticeSkillDirs', () => {
+  const stubs = new Map<string, string>([
+    ['oak-commit', '# Commit (Claude Code)\n\nRead and follow `.agent/skills/commit/SKILL-CANONICAL.md`.\n'],
+    ['legacy-reason', '# Reason (Claude Code)\n\nRead and follow `.agent/skills/cognition/reason/SKILL-CANONICAL.md`.\n'],
+    ['clerk', '# Clerk\n\nVendor skill body — no derivation marker.\n'],
+    ['oak-mystery', '# Mystery\n\nForeign skill with a coincidental prefix.\n'],
+  ]);
+  const readStub = async (name: string): Promise<string | undefined> => stubs.get(name);
 
-  it('returns no issues for a fully-provenanced external skill with a distinct name', () => {
-    expect(
-      getSkillsLockCrossReferenceIssues(
-        [['clerk-setup', completeEntry]],
-        ['oak-plan'],
-        'skills-lock.json',
-      ),
-    ).toStrictEqual([]);
-  });
-
-  it('reports an external skill whose name collides with a canonical skill', () => {
-    expect(
-      getSkillsLockCrossReferenceIssues(
-        [['oak-plan', completeEntry]],
-        ['oak-plan'],
-        'skills-lock.json',
-      ),
-    ).toContain(
-      'skills-lock.json: external skill "oak-plan" collides with the canonical practice skill "oak-plan" — external skills must never shadow canonical practice skills (rename or remove one)',
+  it('selects exactly the entries whose stub carries the class marker — content, never name, decides membership', async () => {
+    const selected = await selectPracticeSkillDirs(
+      ['oak-commit', 'legacy-reason', 'clerk', 'oak-mystery', 'no-stub-at-all'],
+      readStub,
     );
-  });
 
-  it('reports a collision against a domain-tier leaf name — nested canonicals must not be shadowable', () => {
-    expect(
-      getSkillsLockCrossReferenceIssues(
-        [['claude-design-pipeline', completeEntry]],
-        ['claude-design-pipeline'],
-        'skills-lock.json',
-      ),
-    ).toContainEqual(expect.stringContaining('collides with the canonical practice skill'));
-  });
-
-  it('reports each absent or empty provenance field while accepting present ones', () => {
-    expect(
-      getSkillsLockCrossReferenceIssues(
-        [['clerk-setup', { source: '', sourceType: 'github' }]],
-        ['oak-plan'],
-        'skills-lock.json',
-      ),
-    ).toStrictEqual([
-      'skills-lock.json: locked skill "clerk-setup" missing source',
-      'skills-lock.json: locked skill "clerk-setup" missing computedHash',
-    ]);
+    expect(selected).toStrictEqual(['oak-commit', 'legacy-reason']);
   });
 });

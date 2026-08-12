@@ -1,13 +1,19 @@
 import { describe, expect, it } from 'vitest';
 
+import { adapterStubPointerLine } from '../../src/skills-adapter-generate/adapter-stub';
 import {
   clearGeneratedAdapters,
   isMissingSurface,
-  readLockedSkillIds,
   type ClearFs,
 } from '../../src/skills-adapter-generate/clear';
 
-function makeClearFs(subdirectories: ReadonlyMap<string, readonly string[]>): {
+const OURS = `# Commit (Claude Code)\n\n${adapterStubPointerLine('commit/SKILL-CANONICAL.md')}\n`;
+const FOREIGN = '# Clerk\n\nVendor skill body — no derivation marker.\n';
+
+function makeClearFs(input: {
+  readonly subdirectories: ReadonlyMap<string, readonly string[]>;
+  readonly stubs: ReadonlyMap<string, string>;
+}): {
   readonly fs: ClearFs;
   readonly removed: string[];
 } {
@@ -15,7 +21,10 @@ function makeClearFs(subdirectories: ReadonlyMap<string, readonly string[]>): {
   return {
     fs: {
       async listSubdirectoryNames(path) {
-        return { kind: 'ok', names: subdirectories.get(path) ?? [] };
+        return { kind: 'ok', names: input.subdirectories.get(path) ?? [] };
+      },
+      async readStubOrUndefined(path) {
+        return { kind: 'ok', value: input.stubs.get(path) };
       },
       async removeDirectory(path) {
         removed.push(path);
@@ -31,12 +40,18 @@ describe('clearGeneratedAdapters', () => {
     ['/repo/.claude/skills', ['oak-commit', 'skill-creator']],
     ['/repo/.agents/skills', ['oak-commit', 'clerk', 'skill-creator']],
   ]);
+  const stubs = new Map<string, string>([
+    ['/repo/.claude/skills/oak-commit/SKILL.md', OURS],
+    ['/repo/.claude/skills/skill-creator/SKILL.md', FOREIGN],
+    ['/repo/.agents/skills/oak-commit/SKILL.md', OURS],
+    ['/repo/.agents/skills/clerk/SKILL.md', FOREIGN],
+    // skill-creator on the agents surface has no SKILL.md at all.
+  ]);
 
-  it('removes generated adapter directories while preserving every lock-pinned id', async () => {
-    const { fs, removed } = makeClearFs(surfaces);
-    const lockedIds = new Set(['clerk', 'skill-creator']);
+  it('removes exactly the directories whose stub carries the class marker — membership by content, never by name', async () => {
+    const { fs, removed } = makeClearFs({ subdirectories: surfaces, stubs });
 
-    const result = await clearGeneratedAdapters(repoRoot, lockedIds, fs);
+    const result = await clearGeneratedAdapters(repoRoot, fs);
 
     expect(result).toEqual({ kind: 'ok' });
     expect(new Set(removed)).toEqual(
@@ -44,21 +59,16 @@ describe('clearGeneratedAdapters', () => {
     );
   });
 
-  it('removes every subdirectory when the lock pins nothing', async () => {
-    const { fs, removed } = makeClearFs(surfaces);
+  it('collects a projection generated under a previous prefix: the marker recognises it whatever the directory is called', async () => {
+    const { fs, removed } = makeClearFs({
+      subdirectories: new Map([['/repo/.claude/skills', ['legacy-commit']]]),
+      stubs: new Map([['/repo/.claude/skills/legacy-commit/SKILL.md', OURS]]),
+    });
 
-    const result = await clearGeneratedAdapters(repoRoot, new Set<string>(), fs);
+    const result = await clearGeneratedAdapters(repoRoot, fs);
 
     expect(result).toEqual({ kind: 'ok' });
-    expect(new Set(removed)).toEqual(
-      new Set([
-        '/repo/.claude/skills/oak-commit',
-        '/repo/.claude/skills/skill-creator',
-        '/repo/.agents/skills/oak-commit',
-        '/repo/.agents/skills/clerk',
-        '/repo/.agents/skills/skill-creator',
-      ]),
-    );
+    expect(removed).toEqual(['/repo/.claude/skills/legacy-commit']);
   });
 
   it('aborts with an error and removes nothing when a surface cannot be listed', async () => {
@@ -67,12 +77,37 @@ describe('clearGeneratedAdapters', () => {
       async listSubdirectoryNames() {
         return { kind: 'error', message: 'cannot list /repo/.claude/skills: EACCES' };
       },
+      async readStubOrUndefined() {
+        return { kind: 'ok', value: undefined };
+      },
       async removeDirectory(path) {
         removed.push(path);
       },
     };
 
-    const result = await clearGeneratedAdapters(repoRoot, new Set<string>(), fs);
+    const result = await clearGeneratedAdapters(repoRoot, fs);
+
+    expect(result.kind).toBe('error');
+    expect(removed).toEqual([]);
+  });
+
+  it('aborts with an error when an entry cannot be classified: an unreadable stub is never silently kept or removed', async () => {
+    const removed: string[] = [];
+    const fs: ClearFs = {
+      async listSubdirectoryNames(path) {
+        return path === '/repo/.claude/skills'
+          ? { kind: 'ok', names: ['oak-commit'] }
+          : { kind: 'ok', names: [] };
+      },
+      async readStubOrUndefined(path) {
+        return { kind: 'error', message: `cannot read ${path}: EACCES` };
+      },
+      async removeDirectory(path) {
+        removed.push(path);
+      },
+    };
+
+    const result = await clearGeneratedAdapters(repoRoot, fs);
 
     expect(result.kind).toBe('error');
     expect(removed).toEqual([]);
@@ -89,47 +124,5 @@ describe('isMissingSurface', () => {
     expect(isMissingSurface({ code: 'ENOTDIR', message: 'not a directory' })).toBe(false);
     expect(isMissingSurface(new Error('plain error, no code'))).toBe(false);
     expect(isMissingSurface(undefined)).toBe(false);
-  });
-});
-
-describe('readLockedSkillIds', () => {
-  const lockPath = '/repo/skills-lock.json';
-  const validLock = JSON.stringify({
-    version: 1,
-    skills: {
-      clerk: { source: 'clerk/skills', sourceType: 'github', computedHash: 'abc' },
-      'skill-creator': { source: 'anthropics/skills', sourceType: 'github', computedHash: 'def' },
-    },
-  });
-
-  it('returns the locked id set for a valid lock file', async () => {
-    const result = await readLockedSkillIds(lockPath, async () => validLock);
-
-    expect(result).toEqual({ kind: 'ok', value: new Set(['clerk', 'skill-creator']) });
-  });
-
-  it('returns an error when the lock file cannot be read — never an empty set', async () => {
-    const result = await readLockedSkillIds(lockPath, () =>
-      Promise.reject(new Error('ENOENT: no such file')),
-    );
-
-    expect(result.kind).toBe('error');
-    expect(result.kind === 'error' && result.message).toContain(lockPath);
-  });
-
-  it('returns an error when the lock file is not valid JSON', async () => {
-    const result = await readLockedSkillIds(lockPath, async () => '{ not json');
-
-    expect(result.kind).toBe('error');
-    expect(result.kind === 'error' && result.message).toContain('invalid skills-lock.json');
-  });
-
-  it('returns an error when the lock file fails schema validation', async () => {
-    const invalidLock = JSON.stringify({ version: 1, skills: { clerk: { source: 'x' } } });
-
-    const result = await readLockedSkillIds(lockPath, async () => invalidLock);
-
-    expect(result.kind).toBe('error');
-    expect(result.kind === 'error' && result.message).toContain('invalid skills-lock.json');
   });
 });

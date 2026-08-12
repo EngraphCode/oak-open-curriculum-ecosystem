@@ -19,6 +19,7 @@ import { dirname, join } from 'node:path';
 
 import { stringify as stringifyYaml } from 'yaml';
 
+import { adapterStubPointerLine } from './adapter-stub.js';
 import { realCarriageWriteFs, syncCarriage } from './carriage.js';
 import {
   discoverCanonicals,
@@ -34,13 +35,6 @@ const ADAPTER_FILENAME = 'SKILL.md';
 export interface GeneratorOptions {
   readonly repoRoot: string;
   readonly prefix: string;
-  /**
-   * Lock-pinned vendored skill ids from `skills-lock.json` — the projection
-   * directories generation cannot re-create and the root sweep must never
-   * touch. Pass the loaded set explicitly; an empty set is a statement that
-   * nothing is vendored, never a default.
-   */
-  readonly lockedIds: ReadonlySet<string>;
 }
 
 export interface GenerateOutcome {
@@ -104,15 +98,16 @@ export async function generateAdapters(options: GeneratorOptions): Promise<Gener
   if (!isDiscoveryComplete(discovery)) {
     return empty;
   }
-  // Sweep BEFORE emission: stale directories (canonical deleted or renamed)
-  // and root-level symlinks leave the surfaces first, so no adapter is ever
-  // written into or through an entry the sweep is about to adjudicate. A
-  // sweep read failure refuses the whole run.
+  // Sweep BEFORE emission: stale Practice projections (canonical deleted or
+  // renamed) leave the surfaces first, so no adapter is ever written into an
+  // entry the sweep is about to adjudicate. A sweep read failure refuses the
+  // whole run.
   const sweepOutcome = await sweepStaleProjections({
     repoRoot: options.repoRoot,
-    prefix: options.prefix,
-    lockedIds: options.lockedIds,
-    canonicalIds: discovery.canonicals.map((parsed) => parsed.id),
+    projections: discovery.canonicals.map((parsed) => ({
+      canonicalRef: `${parsed.relativeDir}/${parsed.canonicalFilename}`,
+      expectedName: `${options.prefix}${parsed.id}`,
+    })),
     discoveryComplete: true,
   });
   if (sweepOutcome.refusedRun.length > 0) {
@@ -211,6 +206,12 @@ export function buildAdapterFrontmatter(
   };
 }
 
+/**
+ * The stub body's pointer line is the Practice-projection CLASS MARKER:
+ * the sweep, the clear pass, and the permission census recognise our
+ * projections by parsing it back — built via the one shared definition
+ * in `adapter-stub.ts`.
+ */
 function renderAdapterBody(
   canonicalId: string,
   relativeDir: string,
@@ -221,7 +222,7 @@ function renderAdapterBody(
   return [
     `# ${title} (${surfaceLabel})`,
     '',
-    `Read and follow \`.agent/skills/${relativeDir}/${canonicalFilename}\`.`,
+    adapterStubPointerLine(`${relativeDir}/${canonicalFilename}`),
     '',
   ].join('\n');
 }

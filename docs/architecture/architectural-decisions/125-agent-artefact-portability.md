@@ -500,34 +500,45 @@ Copilot load the same canonical rules as every other agent. Modular
 so generated modular projections contain their bounded supplemental context
 and remain governed by disposition and stale-output validation.
 
-### Externally installed skills
+### Skill classes and validation jurisdiction
 
-Third-party skills are never canonicalised into `.agent/skills/` — the
-canonical corpus holds Oak-authored, Practice-governed content only.
-External skill content enters the estate exclusively through the
-external-skill vendoring class: installed under `.agents/skills/<id>/`
-(the cross-tool adapter surface), pinned in `skills-lock.json` (source,
-source type, content hash), with a `.claude/skills/<id>` symlink where
-the Claude surface needs it. Upstream keeps the maintenance burden; the
-lock records provenance and a content hash, and the portability
-validator cross-references lock membership. Two checks are recorded
-here as named gaps, not claimed: nothing recomputes the content hash
-against the vendored tree, and nothing yet reports unlocked full
-content appearing in adapter directories — both are candidate cures on
-the external-skill boundary workstream. This is ADR-189's distribution
-axis read inbound: vendored externals are packaging-tier residents,
-never category members of the Practice-governed core. The adapter
-generator's `--clear` preserves lock-pinned entries (refusing to run
-at all when the lock is unreadable, since generation cannot re-create
-vendored content).
+The estate holds three classes of skills (owner taxonomy, 2026-08-12).
+Class membership derives from each class's own definition — location and
+recorded derivation — never from name matching, because names (the
+generation prefix) are configurable parameters, not class boundaries:
 
-Retaining the vendor-installed source plugin alongside the vendored
-copy is a separate operational decision. The default is to remove or
-disable any plugin whose only remaining purpose is to duplicate the
-vendored skill content. Keep the plugin only when it still supplies a
-distinct runtime capability, update mechanism, or source-of-truth
-refresh path; record that reason beside the artefact inventory or lock
-entry.
+- **Practice skills** — Oak-authored, Practice-governed skills about
+  working with this repository and the Practice. Canonical source:
+  `.agent/skills/`. The adapter generator projects each canonical to
+  `.claude/skills/<prefix><id>` and `.agents/skills/<prefix><id>`; every
+  generated stub records its derivation in its body (the class marker,
+  `agent-tools/src/skills-adapter-generate/adapter-stub.ts`), and that
+  recorded derivation is how our tooling recognises its own projections.
+  Our validation governs this class fully: projection reconciliation,
+  drift checking, frontmatter validation, and the Claude permission
+  census.
+- **Vendor skills** — external skills installed and managed by the
+  external skills machinery (`pnpx skills`), in whatever layout it
+  chooses; its default writes a canonical copy under
+  `.agents/skills/<id>` with a `.claude/skills/<id>` symlink, and
+  project-scope installs are committed with the repository. Our
+  validation has no jurisdiction here: entries not recognisable as
+  Practice projections are never adjudicated, deleted, or censused
+  (testing-strategy.md — never test external functionality that is not
+  under our control). Provenance, updates, and drift are the external
+  machinery's business; building our own oversight of them would
+  recreate the jurisdiction error this section retires. Third-party
+  skills are never canonicalised into `.agent/skills/` — the canonical
+  corpus holds Oak-authored, Practice-governed content only.
+- **User-facing skills** — skills Oak creates, in this or another Oak
+  repository, surfaced to external users via MCP, plugins, or the
+  external skills ecosystem. Current sub-classes: curriculum skills
+  (for teachers) and engineering skills (for ed-tech engineers building
+  on the curriculum SDK). Home today: `plugins/oak-open-curriculum/`.
+  These are product deliverables assured under validation-strategy's
+  tiers (teacher-facing content sits at the Critical/Standard tier);
+  they are not repo-projection machinery and the adapter pipeline never
+  touches them.
 
 ## Amendments
 
@@ -553,6 +564,22 @@ wrappers, and made `.agents/rules/` a first-class thin-wrapper rule
 surface. `pnpm portability:check` now validates forward coverage,
 reverse adapter links, wrapper form, `skills-lock.json`, symlink-free
 skill adapters, and Claude tracked permission parity.
+
+### 2026-08-12 — Three skill classes; validation scoped to the Practice class
+
+The former §Externally installed skills described a vendoring class:
+committed external copies pinned in `skills-lock.json`, symlinks
+tolerated through a lock exemption in the reconciliation sweep, and two
+recorded hash-reconciliation gaps. That machinery claimed jurisdiction
+over external skills and defined the external installer's standard
+layout as a defect — violating the testing doctrine's existing
+never-test-external rule. The owner's three-class taxonomy (Practice /
+Vendor / User-facing, now §Skill classes and validation jurisdiction)
+replaces it: `skills-lock.json` and its plumbing are deleted, the sweep
+and the permission census recognise Practice projections by their
+recorded derivation (the class marker), and everything else at the
+projection roots is out of jurisdiction. Plan:
+`skill-classes-and-validation-jurisdiction` (ratified 2026-08-12).
 
 ### 2026-05-26 — Post-canonicalisation plugin retention
 

@@ -362,7 +362,7 @@ describe('checkAdapters over a concern tier', () => {
     );
 
     const result = await checkAdapters(
-      { repoRoot: '/repo', prefix: 'oak-', lockedIds: new Set<string>() },
+      { repoRoot: '/repo', prefix: 'oak-' },
       fs,
     );
 
@@ -405,7 +405,7 @@ describe('checkAdapters', () => {
       ]),
     );
 
-    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
+    const result = await checkAdapters({ repoRoot, prefix }, fs);
 
     expect(result.drifted).toEqual([]);
     expect(result.missing).toEqual([]);
@@ -416,7 +416,7 @@ describe('checkAdapters', () => {
     const files = new Map<string, string>();
 
     const result = await checkAdapters(
-      { repoRoot: '/repo', prefix: 'oak-', lockedIds: new Set<string>() },
+      { repoRoot: '/repo', prefix: 'oak-' },
       makeTreeFs(directories, files),
     );
 
@@ -428,7 +428,7 @@ describe('checkAdapters', () => {
     const files = new Map<string, string>();
 
     const result = await checkAdapters(
-      { repoRoot: '/repo', prefix: 'oak-', lockedIds: new Set<string>() },
+      { repoRoot: '/repo', prefix: 'oak-' },
       makeTreeFs(directories, files),
     );
 
@@ -449,7 +449,7 @@ describe('checkAdapters', () => {
       ]),
     );
 
-    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
+    const result = await checkAdapters({ repoRoot, prefix }, fs);
 
     expect(result.drifted).toEqual([claude.path]);
     expect(result.missing).toEqual([]);
@@ -468,7 +468,7 @@ describe('checkAdapters', () => {
       ]),
     );
 
-    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
+    const result = await checkAdapters({ repoRoot, prefix }, fs);
 
     expect(result.missing).toEqual([agents.path]);
     expect(result.drifted).toEqual([]);
@@ -514,7 +514,7 @@ describe('checkAdapters carriage', () => {
       ]),
     );
 
-    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
+    const result = await checkAdapters({ repoRoot, prefix }, fs);
 
     expect(result.drifted).toEqual([]);
     expect(result.missing).toEqual([]);
@@ -531,7 +531,7 @@ describe('checkAdapters carriage', () => {
       ]),
     );
 
-    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
+    const result = await checkAdapters({ repoRoot, prefix }, fs);
 
     expect(result.drifted).toEqual([`${claudeDir}/references/a.md`]);
   });
@@ -544,7 +544,7 @@ describe('checkAdapters carriage', () => {
       ]),
     );
 
-    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
+    const result = await checkAdapters({ repoRoot, prefix }, fs);
 
     expect(result.missing).toEqual([`${agentsDir}/scripts/tool.py`]);
   });
@@ -552,7 +552,7 @@ describe('checkAdapters carriage', () => {
   it('reports orphans: projection files whose canonical source is gone', async () => {
     const fs = withCarried(new Map([[`${claudeDir}/references/deleted-upstream.md`, 'stale']]));
 
-    const result = await checkAdapters({ repoRoot, prefix, lockedIds: new Set<string>() }, fs);
+    const result = await checkAdapters({ repoRoot, prefix }, fs);
 
     expect(result.orphaned).toEqual([`${claudeDir}/references/deleted-upstream.md`]);
   });

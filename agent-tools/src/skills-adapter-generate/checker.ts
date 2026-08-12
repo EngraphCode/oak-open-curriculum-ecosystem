@@ -57,11 +57,12 @@ export interface CheckOutcome {
    * state that also means the other streams are not a complete verdict:
    * the checker refuses to certify what it could not fully observe. */
   readonly refused: readonly string[];
-  /** Projection-root entries that project no discovered canonical and are
-   * not lock-pinned — a failing state: a deleted or renamed canonical's
-   * whole old adapter directory (or a root-level symlink) would otherwise
-   * outlive its source with both surfaces reporting success. A generator
-   * run removes these. */
+  /** Practice projections (recognised by their class marker) whose
+   * recorded canonical is gone or renamed, or whose directory name is no
+   * longer the canonical's projection name — a failing state: the stale
+   * copy would otherwise outlive its source with both surfaces reporting
+   * success. A generator run removes these. Entries without the marker
+   * are not ours and are never enumerated (see `projection-roots.ts`). */
   readonly stale: readonly string[];
   /** How many canonicals discovery produced. Zero is never a healthy estate
    * state — it means a missing or unreadable `.agent/skills` root (the
@@ -135,9 +136,10 @@ export async function checkAdapters(
   if (isDiscoveryComplete(discovery)) {
     const sweep = await findStaleProjectionEntries({
       repoRoot: options.repoRoot,
-      prefix: options.prefix,
-      canonicalIds: discovery.canonicals.map((parsed) => parsed.id),
-      lockedIds: options.lockedIds,
+      projections: discovery.canonicals.map((parsed) => ({
+        canonicalRef: `${parsed.relativeDir}/${parsed.canonicalFilename}`,
+        expectedName: `${options.prefix}${parsed.id}`,
+      })),
       fs,
     });
     streams.refused.push(...sweep.failures);

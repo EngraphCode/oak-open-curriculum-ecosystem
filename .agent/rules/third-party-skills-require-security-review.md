@@ -11,7 +11,8 @@ and with what reach, before anything lands.
 
 Fires at every third-party adoption moment, in any session:
 
-- adding or updating an entry in `skills-lock.json`;
+- installing or updating a Vendor skill with the external skills
+  machinery (`pnpx skills add`, or any equivalent installer);
 - vendoring content into an adapter tier (`.agents/skills/`,
   `.claude/skills/`, or any successor surface);
 - installing a pack as a harness plugin (Claude Code, Codex, Cursor, or
@@ -36,10 +37,10 @@ Fires at every third-party adoption moment, in any session:
    code (plugin installs with hooks) are acceptable only when the
    review covers the auto-run surface explicitly and the reviewer's
    verdict is safe at the pinned SHA. Prefer adoption shapes that carry
-   content without execution (file-level vendoring under the lock).
+   content without execution (file-level content, no install hooks).
 4. **Provenance rides the landing**: source, SHA or content hash, and
-   licence recorded in `skills-lock.json` or beside the review, per
-   PDR-115's naming discipline.
+   licence recorded beside the review, per PDR-115's naming
+   discipline.
 5. **Pin bumps re-fire the gate** for whatever executable content
    changed since the reviewed SHA.
 

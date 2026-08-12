@@ -29,8 +29,6 @@ Body.
 
 const CANONICAL_DIR = '.agent/skills/cognition/parallax';
 
-const EMPTY_LOCK: ReadonlySet<string> = new Set();
-
 function seedSkill(root: string): void {
   writeRepoFile(root, `${CANONICAL_DIR}/SKILL-CANONICAL.md`, canonicalBody);
   writeRepoFile(root, `${CANONICAL_DIR}/references/orchestration.md`, '# Orchestration\n');
@@ -46,7 +44,7 @@ describe('symlink safety over a real filesystem', () => {
     const root = sandboxRepo();
     const outside = sandboxRepo();
     seedSkill(root);
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     writeRepoFile(outside, 'victim.txt', 'external bytes stay\n');
     const linkPath = '.claude/skills/oak-parallax/references/orchestration.md';
@@ -54,7 +52,7 @@ describe('symlink safety over a real filesystem', () => {
     removeRepoPath(root, `${linkPath}`);
     symlinkRepoPath(root, linkPath, `${outside}/victim.txt`);
 
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     expect(readRepoBytes(outside, 'victim.txt')).toEqual(
       new TextEncoder().encode('external bytes stay\n'),
@@ -67,13 +65,13 @@ describe('symlink safety over a real filesystem', () => {
     const root = sandboxRepo();
     const outside = sandboxRepo();
     seedSkill(root);
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     const linkPath = '.claude/skills/oak-parallax/scripts/render_graph.py';
     removeRepoPath(root, `${linkPath}`);
     symlinkRepoPath(root, linkPath, `${outside}/hooks/pre-commit`);
 
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     expect(repoPathExists(outside, 'hooks/pre-commit')).toBe(false);
     expect(repoPathIsSymlink(root, linkPath)).toBe(false);
@@ -84,14 +82,14 @@ describe('symlink safety over a real filesystem', () => {
     const root = sandboxRepo();
     const outside = sandboxRepo();
     seedSkill(root);
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     writeRepoFile(outside, 'victim.txt', '# Orchestration\n'); // byte-identical: only link-awareness can catch it
     const linkPath = '.claude/skills/oak-parallax/references/orchestration.md';
     removeRepoPath(root, `${linkPath}`);
     symlinkRepoPath(root, linkPath, `${outside}/victim.txt`);
 
-    const result = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    const result = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
 
     const failing = [...result.orphaned, ...result.drifted, ...result.missing];
     expect(failing).toContain(`${root}/${linkPath}`);
@@ -105,7 +103,7 @@ describe('symlink safety over a real filesystem', () => {
     writeRepoFile(root, '.claude/skills/oak-parallax/SKILL.md', 'stub\n');
     symlinkRepoPath(root, '.claude/skills/oak-parallax/references', outside);
 
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     expect(readRepoBytes(outside, 'deep/existing.md')).toEqual(
       new TextEncoder().encode('external tree stays\n'),
@@ -127,13 +125,12 @@ describe('symlink safety over a real filesystem', () => {
     const generated = await generateAdapters({
       repoRoot: root,
       prefix: 'oak-',
-      lockedIds: EMPTY_LOCK,
     });
     expect(generated.refused.some((message) => /symlink/.test(message))).toBe(true);
     expect(repoPathExists(root, '.claude/skills/oak-parallax/references/secret.txt')).toBe(false);
     expect(repoPathExists(root, '.claude/skills/oak-parallax/SKILL.md')).toBe(false);
 
-    const checked = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    const checked = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
     expect(checked.refused.some((message) => /symlink/.test(message))).toBe(true);
   });
 
@@ -147,14 +144,13 @@ describe('symlink safety over a real filesystem', () => {
     const generated = await generateAdapters({
       repoRoot: root,
       prefix: 'oak-',
-      lockedIds: EMPTY_LOCK,
     });
     expect(generated.refused.some((message) => /resolves outside/.test(message))).toBe(true);
     expect(readRepoBytes(outside, 'skills/precious-external/KEEP.md')).toEqual(
       new TextEncoder().encode('external tree stays\n'),
     );
 
-    const checked = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    const checked = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
     expect(checked.refused.some((message) => /resolves outside/.test(message))).toBe(true);
     expect(checked.stale).toEqual([]);
   });
@@ -169,13 +165,12 @@ describe('symlink safety over a real filesystem', () => {
     const generated = await generateAdapters({
       repoRoot: root,
       prefix: 'oak-',
-      lockedIds: EMPTY_LOCK,
     });
     expect(generated.refused.some((message) => /symlink/.test(message))).toBe(true);
     expect(repoPathExists(root, '.claude/skills/oak-parallax/references/smuggled.md')).toBe(false);
     expect(repoPathExists(root, '.claude/skills/oak-parallax/SKILL.md')).toBe(false);
 
-    const checked = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    const checked = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
     expect(checked.refused.some((message) => /symlink/.test(message))).toBe(true);
   });
 });
@@ -185,12 +180,12 @@ describe('shape transitions over a real filesystem', () => {
     const root = sandboxRepo();
     seedSkill(root);
     writeRepoFile(root, `${CANONICAL_DIR}/references/topic`, 'was a file\n');
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     removeRepoPath(root, `${CANONICAL_DIR}/references/topic`);
     writeRepoFile(root, `${CANONICAL_DIR}/references/topic/deep.md`, 'now a directory\n');
 
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     expect(readRepoBytes(root, '.claude/skills/oak-parallax/references/topic/deep.md')).toEqual(
       new TextEncoder().encode('now a directory\n'),
@@ -201,12 +196,12 @@ describe('shape transitions over a real filesystem', () => {
     const root = sandboxRepo();
     seedSkill(root);
     writeRepoFile(root, `${CANONICAL_DIR}/references/topic/deep.md`, 'was a directory\n');
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     removeRepoPath(root, `${CANONICAL_DIR}/references/topic`);
     writeRepoFile(root, `${CANONICAL_DIR}/references/topic`, 'now a file\n');
 
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     expect(readRepoBytes(root, '.claude/skills/oak-parallax/references/topic')).toEqual(
       new TextEncoder().encode('now a file\n'),
@@ -219,16 +214,16 @@ describe('executable-mode carriage over a real filesystem', () => {
     const root = sandboxRepo();
     seedSkill(root);
     chmodRepoFile(root, `${CANONICAL_DIR}/scripts/render_graph.py`, 0o755);
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     const projected = '.claude/skills/oak-parallax/scripts/render_graph.py';
     expect(repoFileIsExecutable(root, projected)).toBe(true);
     chmodRepoFile(root, projected, 0o644);
 
-    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
     expect(flagged.drifted).toContain(`${root}/${projected}`);
 
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
     expect(repoFileIsExecutable(root, projected)).toBe(true);
   });
 });
@@ -237,17 +232,17 @@ describe('projection-root reconciliation over a real filesystem', () => {
   it('reports a renamed canonical’s whole old projection as stale, and a generator run removes it from both surfaces', async () => {
     const root = sandboxRepo();
     seedSkill(root);
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     renameRepoPath(root, CANONICAL_DIR, '.agent/skills/cognition/parallax-two');
 
-    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
     expect(flagged.stale).toEqual([
       `${root}/.agents/skills/oak-parallax`,
       `${root}/.claude/skills/oak-parallax`,
     ]);
 
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     expect(repoPathExists(root, '.claude/skills/oak-parallax')).toBe(false);
     expect(repoPathExists(root, '.agents/skills/oak-parallax')).toBe(false);
@@ -256,30 +251,14 @@ describe('projection-root reconciliation over a real filesystem', () => {
       true,
     );
 
-    const after = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    const after = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
     expect(after.stale).toEqual([]);
-  });
-
-  it('never touches a lock-pinned vendored directory, whatever the sweep finds around it', async () => {
-    const root = sandboxRepo();
-    seedSkill(root);
-    writeRepoFile(root, '.claude/skills/clerk/SKILL.md', 'vendored — generation cannot recreate\n');
-    const lockedIds: ReadonlySet<string> = new Set(['clerk']);
-
-    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds });
-    expect(flagged.stale).toEqual([]);
-
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds });
-
-    expect(readRepoBytes(root, '.claude/skills/clerk/SKILL.md')).toEqual(
-      new TextEncoder().encode('vendored — generation cannot recreate\n'),
-    );
   });
 
   it('never sweeps while discovery is incomplete: a skipped directory protects every projection', async () => {
     const root = sandboxRepo();
     seedSkill(root);
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     // A hollow directory (no canonical inside) makes discovery incomplete;
     // an unreadable canonical presents identically. The existing projection
@@ -294,7 +273,6 @@ describe('projection-root reconciliation over a real filesystem', () => {
     const outcome = await generateAdapters({
       repoRoot: root,
       prefix: 'oak-',
-      lockedIds: EMPTY_LOCK,
     });
 
     expect(outcome.skipped.length).toBeGreaterThan(0);
@@ -305,7 +283,7 @@ describe('projection-root reconciliation over a real filesystem', () => {
   it('reports no stale entries while discovery is incomplete — the checker never demands a sweep the generator refuses', async () => {
     const root = sandboxRepo();
     seedSkill(root);
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     renameRepoPath(
       root,
@@ -313,7 +291,7 @@ describe('projection-root reconciliation over a real filesystem', () => {
       '.agent/skills/parked-canonical-two.md',
     );
 
-    const result = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    const result = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
 
     expect(result.skipped.length).toBeGreaterThan(0);
     expect(result.stale).toEqual([]);
@@ -322,14 +300,13 @@ describe('projection-root reconciliation over a real filesystem', () => {
   it('never sweeps against an empty canonical set: an empty skills root protects every projection', async () => {
     const root = sandboxRepo();
     seedSkill(root);
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     removeRepoPath(root, '.agent/skills/cognition');
 
     const outcome = await generateAdapters({
       repoRoot: root,
       prefix: 'oak-',
-      lockedIds: EMPTY_LOCK,
     });
 
     expect(outcome.written).toEqual([]);
@@ -337,36 +314,112 @@ describe('projection-root reconciliation over a real filesystem', () => {
     expect(repoPathExists(root, '.agents/skills/oak-parallax/SKILL.md')).toBe(true);
   });
 
-  it('prunes a symlinked projection-root entry as the link, leaving its target untouched', async () => {
-    const root = sandboxRepo();
-    const outside = sandboxRepo();
-    seedSkill(root);
-    writeRepoFile(outside, 'elsewhere/SKILL.md', 'external skill tree\n');
-    symlinkRepoPath(root, '.claude/skills/linked-estate', `${outside}/elsewhere`);
-
-    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
-    expect(flagged.stale).toEqual([`${root}/.claude/skills/linked-estate`]);
-
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
-
-    expect(repoPathExists(root, '.claude/skills/linked-estate')).toBe(false);
-    expect(readRepoBytes(outside, 'elsewhere/SKILL.md')).toEqual(
-      new TextEncoder().encode('external skill tree\n'),
-    );
-  });
 });
 
 describe('same-length drift over a real filesystem', () => {
   it('detects a same-length byte difference in a carried copy (length comparison alone cannot)', async () => {
     const root = sandboxRepo();
     seedSkill(root);
-    await generateAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
 
     const projected = '.claude/skills/oak-parallax/references/orchestration.md';
     writeRepoFile(root, projected, '# Orchestratioz\n'); // same byte length as '# Orchestration\n'
 
-    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-', lockedIds: EMPTY_LOCK });
+    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
 
     expect(flagged.drifted).toEqual([`${root}/${projected}`]);
+  });
+});
+
+describe('validation jurisdiction: only recognised Practice projections are adjudicated (MCP-570)', () => {
+  it('ignores a foreign real directory at both roots: nothing stale, and a generator run preserves it', async () => {
+    const root = sandboxRepo();
+    seedSkill(root);
+    writeRepoFile(
+      root,
+      '.agents/skills/clerk/SKILL.md',
+      'vendor skill — external machinery owns it\n',
+    );
+    writeRepoFile(root, '.claude/skills/clerk-copy/SKILL.md', 'vendor skill installed with --copy\n');
+
+    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
+    expect(flagged.stale).toEqual([]);
+
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
+
+    expect(readRepoBytes(root, '.agents/skills/clerk/SKILL.md')).toEqual(
+      new TextEncoder().encode('vendor skill — external machinery owns it\n'),
+    );
+    expect(readRepoBytes(root, '.claude/skills/clerk-copy/SKILL.md')).toEqual(
+      new TextEncoder().encode('vendor skill installed with --copy\n'),
+    );
+  });
+
+  it('ignores a foreign symlink (the pnpx skills install shape): nothing stale, link and target survive generation', async () => {
+    const root = sandboxRepo();
+    seedSkill(root);
+    writeRepoFile(root, '.agents/skills/clerk/SKILL.md', 'vendor canonical copy\n');
+    symlinkRepoPath(root, '.claude/skills/clerk', '../../.agents/skills/clerk');
+
+    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
+    expect(flagged.stale).toEqual([]);
+
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
+
+    expect(repoPathIsSymlink(root, '.claude/skills/clerk')).toBe(true);
+    expect(readRepoBytes(root, '.agents/skills/clerk/SKILL.md')).toEqual(
+      new TextEncoder().encode('vendor canonical copy\n'),
+    );
+  });
+
+  it('membership is proven by content, never by name: a foreign directory sharing the generation prefix is untouched', async () => {
+    const root = sandboxRepo();
+    seedSkill(root);
+    writeRepoFile(root, '.claude/skills/oak-mystery/SKILL.md', 'foreign skill, coincidental name\n');
+
+    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
+    expect(flagged.stale).toEqual([]);
+
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
+
+    expect(readRepoBytes(root, '.claude/skills/oak-mystery/SKILL.md')).toEqual(
+      new TextEncoder().encode('foreign skill, coincidental name\n'),
+    );
+  });
+
+  it('never adjudicates any symlink entry: emission writes only real directories, so a link is never ours whatever its name', async () => {
+    const root = sandboxRepo();
+    const outside = sandboxRepo();
+    seedSkill(root);
+    writeRepoFile(outside, 'elsewhere/SKILL.md', 'external skill tree\n');
+    symlinkRepoPath(root, '.claude/skills/oak-linked-estate', `${outside}/elsewhere`);
+
+    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak-' });
+    expect(flagged.stale).toEqual([]);
+
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
+
+    expect(repoPathIsSymlink(root, '.claude/skills/oak-linked-estate')).toBe(true);
+    expect(readRepoBytes(outside, 'elsewhere/SKILL.md')).toEqual(
+      new TextEncoder().encode('external skill tree\n'),
+    );
+  });
+
+  it('recognises a projection generated under a previous prefix and sweeps it: the marker, not the name, is the class test', async () => {
+    const root = sandboxRepo();
+    seedSkill(root);
+    await generateAdapters({ repoRoot: root, prefix: 'oak-' });
+
+    const flagged = await checkAdapters({ repoRoot: root, prefix: 'oak2-' });
+    expect(flagged.stale).toEqual([
+      `${root}/.agents/skills/oak-parallax`,
+      `${root}/.claude/skills/oak-parallax`,
+    ]);
+
+    await generateAdapters({ repoRoot: root, prefix: 'oak2-' });
+
+    expect(repoPathExists(root, '.claude/skills/oak-parallax')).toBe(false);
+    expect(repoPathExists(root, '.claude/skills/oak2-parallax/SKILL.md')).toBe(true);
+    expect(repoPathExists(root, '.agents/skills/oak2-parallax/SKILL.md')).toBe(true);
   });
 });
