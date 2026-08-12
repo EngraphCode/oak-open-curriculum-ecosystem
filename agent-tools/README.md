@@ -460,7 +460,7 @@ context/usage percentages, and git location. Environment controls:
 
 - `OAK_STATUSLINE_LOGO` — logo style: `braille-sharp` (default),
   `braille-sharp-compact`, `braille`, `quad`, `sextant`, or `none`
-  (two-line layout).
+  (hides the logo column; every present row still renders).
 - `OAK_STATUSLINE_MOTION` — set to `off`, `static`, `none`, or
   `reduce` (case-insensitive) to disable the logo animation cycle;
   other values leave motion on.
