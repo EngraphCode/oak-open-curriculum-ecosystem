@@ -2606,6 +2606,31 @@ found that four earlier passes and four green gates missed. The durable shapes:
   hashes reconcile against?) traced to taking an interest in how the external
   skills tooling works. The records now state only the boundary — external, out
   of scope, untouched — never the mechanism.
+- **The warrant discipline applies to REVIEW findings, not just self-generated
+  work — and the review-convergence ratchet has a brake.** At #865 round 3 a
+  Warden CHANGES_REQUESTED prescribed descriptor-anchored (openat) traversal at
+  five sites. Rather than cure it blindly, I verified first-hand that Node has no
+  openat/dirfd-relative API (the cure is infeasible in pure Node) and that an
+  opus security-expert had already ruled the exact TOCTOU class
+  out-of-threat-model — then routed the warrant-boundary bar to the owner rather
+  than implementing an infeasible cure OR unilaterally dismissing an
+  owner-directed reviewer. Same provenance/warrant discipline the owner drilled
+  at MCP-567 (session start), now applied to a reviewer's prescription. At some
+  round the question stops being "how do I cure this?" and becomes "is this
+  warranted, and is it even feasible on this platform?" — surfaced with
+  first-hand evidence, that call is the owner's. A reviewer naming an endpoint
+  ("everything descriptor-anchored") that the platform cannot express is the
+  signal to raise convergence, not to keep curing.
+- **Anchor an ambiguous referent on the OWNER's context, not self-recency.** At
+  the #865 wrap the owner asked for "a plan for the work identified during the
+  investigation ... missing vs not allowed." I read "the investigation" as my own
+  lane (the #865 review rounds) and "missing vs not allowed" as my warrant
+  classification, and produced a full plan for the wrong thing. The owner meant
+  Skua's MCP lesson-retrieval investigation, where "missing vs not allowed" is the
+  404-vs-400 response convention (unknown-slug vs copyright-restricted). Lesson:
+  when a referent is ambiguous, the prior is the owner's ACTIVE context (other
+  live lanes, recent team traffic), not whatever I was just deep in — verify the
+  referent (a one-line check) before spending a big deliverable on it.
 
 ## 2026-08-12T13:39:00Z (Foundry tracks Shimmer, ead103) — owner-fact corrections from the paper's compression rounds
 
@@ -2672,3 +2697,21 @@ MEMORY.md index over its line-limit hook (163/140) — per
 knowledge-preservation-over-fitness-warnings, NOT blind-trimmed at this
 wrap; needs a verified curation pass. A further scan pass re-finds only
 these named classes — the recursion closes here.
+
+- OWNER RULING (2026-08-12 ~15:2xZ, verbatim): "there is no studio sync, the
+  design system lives in this repo and this repo only." Supersedes the
+  two-homes/one-canonical model (skill body), the .design-sync directWrites
+  rulings (2026-07-25), the S2 studio-sync acceptance clause, and the estate
+  config's studio project pin (which 404s — consistent with the ruling, the
+  project is gone). Scope executed now: S2 content trued to repo-only.
+  Scope routed: design-sync machinery retirement (.design-sync/, plan S1a
+  sync legs, any validator hooks) — follow-up with this ruling as authority.
+
+- OWNER CORRECTION (2026-08-12 ~16:1xZ, verbatim): "we are not retiring the
+  design sync machinery, we are just not using it currently. I plan to revisit
+  it as part of a pipeline for ingesting Claude Design demos and re-expressing
+  them as demos using this repo and the design system." Supersedes this seat's
+  retirement framing of MCP-588 (ticket reframed to truing-plus-retention;
+  .design-sync/ stays on disk, docs state dormancy). The repo-only ruling
+  stands for the system's HOME; the machinery is dormant capability, and the
+  pipeline is a future-work pointer, owner-held — do not co-design it.
