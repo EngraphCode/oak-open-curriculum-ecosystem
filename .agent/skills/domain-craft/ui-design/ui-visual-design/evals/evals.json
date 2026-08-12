@@ -1,0 +1,49 @@
+{
+  "skill_name": "ui-visual-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Here is a unit landing page for teachers browsing a Year 8 history unit. It has a hero, a unit summary, a lesson list, a downloads panel, and a related-units strip. Everything is currently the same visual weight and the page reads as a wall. Compose it so a teacher scanning for one thing finds it, and show me the result as a rendered page using the Oak design system.",
+      "expected_output": "A rendered page with one unmistakable primary element, grouping that matches meaning, and every value taken from the design system — plus a stated rationale for what was ranked where.",
+      "assertions": [
+        "Exactly one element is treated as primary; the rest are visibly ranked beneath it (holistic: the W0.7 design-review instrument judges the rendered page; verdicts stay in the eval workspace and never enter wow-verdict-register.json)",
+        "Grouping is carried by spacing ratios rather than added borders or card backgrounds where spacing would do",
+        "Every value used comes from the design system's tokens, classes, and spacing scale — the response invents no visual value (script: scripts/grade-no-invented-values.ts)",
+        "The rationale names what the screen is for and what the reader should do next, and ranks against that rather than against appearance"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Critique this control: a rounded pill that turns from grey to green when a lesson is marked complete, 32px tall, with the label inside at 11px. It animates the colour change over 600ms. Tell me what is wrong with it.",
+      "expected_output": "A critique that identifies the colour-only state, the sub-44px target, the type size, and the over-long motion, and routes each to the design system's existing answer rather than proposing bespoke values.",
+      "assertions": [
+        "The colour-only state change is named as a defect, with the fix being an additional non-colour channel rather than a different colour pair",
+        "The target size is called out against the 44px floor",
+        "The 600ms duration is called out against the system's 120/200ms, with the reason (motion explains a change; it does not decorate)",
+        "The critique proposes no bespoke hex, size, or duration — every remedy points at a system value or class (script: scripts/grade-no-invented-values.ts)",
+        "The response does not present WCAG conformance judgment as its own verdict; where conformance is at stake it routes to the accessibility reviewer"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "What hex should I use for the primary button background? Just give me the value.",
+      "expected_output": "A decline to supply a raw value, routing to the semantic token that carries the intent and to design-system-usage for finding it.",
+      "assertions": [
+        "No hex value is supplied (script: scripts/grade-no-invented-values.ts)",
+        "The response names the semantic token role rather than a literal, and routes to design-system-usage",
+        "The skill does not manufacture visual-design judgment when the request is a value lookup"
+      ]
+    }
+  ],
+  "metadata": {
+    "scope": "skill",
+    "status": "iteration-1-executed",
+    "iteration_1_date": "2026-08-12",
+    "workspace": "eval workspace lives outside this bundle; iteration-1 evidence is banked under .agent/reports/design/skill-standard-pilot-evals/",
+    "graders": {
+      "scripts/grade-no-invented-values.ts": "cases 1-3, the non-render half — fails any response or artefact carrying a literal design value, using the estate's own css-literal-values classifier plus a bare-hex and bare-duration scan for prose responses",
+      "W0.7 design-review instrument": "case 1's rendered-page half only; its verdicts are confined to the eval workspace"
+    },
+    "decision_authority": "docs/design/design-decisions/ — DDR-003 and DDR-004 govern the theming constraint the entry states"
+  }
+}

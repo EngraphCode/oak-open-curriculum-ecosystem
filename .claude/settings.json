@@ -17,6 +17,8 @@
       "Bash(npx tsc:*)",
       "Skill(oak-design-system-usage)",
       "Skill(oak-design-system-usage:*)",
+      "Skill(oak-ui-visual-design)",
+      "Skill(oak-ui-visual-design:*)",
       "Skill(oak-inter-practice-collaboration)",
       "Skill(oak-inter-practice-collaboration:*)",
       "Skill(oak-under-the-hood)",
