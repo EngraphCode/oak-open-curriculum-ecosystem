@@ -1,3 +1,16 @@
+# [1.166.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.165.2...v1.166.0) (2026-08-12)
+
+
+### Bug Fixes
+
+* **skills:** re-specify system-tree assertion, close grader blindness, true banked evidence ([724ee26](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/724ee26a676bd03214ec1d6872e89ccd7791f93d))
+* **skills:** repair the eval instruments and withdraw three false iteration-1 claims ([a9e2450](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a9e24504b4b5d48b1e32ba2f5fa9467c07ac9e07))
+
+
+### Features
+
+* **skills:** design-system-usage evals — first execution of the estate convention ([9ce15d8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9ce15d8670495ff17d54643d41ba8495dfee901f))
+
 ## [1.165.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.165.1...v1.165.2) (2026-08-12)
 
 ## [1.165.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.165.0...v1.165.1) (2026-08-12)
