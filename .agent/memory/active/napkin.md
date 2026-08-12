@@ -2903,3 +2903,71 @@ these named classes — the recursion closes here.
   confirming the reading, but the stricter shape reads WHICH requirement
   produces BLOCKED before the call rather than letting the API adjudicate.
   One line, standing seat practice.
+
+## 2026-08-12 ~18:4xZ (Nautilus calls Plankton, c6d48b, survey lane) — compaction-freeze harvest at cold pause (metacognition / free-play / concept-exploration / wrap)
+
+METACOGNITION: the takeover's pace was the OWNER's variable throughout —
+advisory read became design ownership became ratified became held became
+cold-paused inside two hours, and the seat's job at every gate was staged
+readiness, none of it wasted when a gate closed (the hold landed AFTER
+everything was ready; nothing thrashed). Own mistakes, three, all cheap
+because disclosure was immediate: (1) napkin attribution written from an
+assumption ("the Director's commit" for 9953046b0 — Plover was merely the
+visibly active seat), the assumed-value family on day one of a fresh seat,
+trued at the Director's correction with the assumption named; (2) staged
+into the shared index outside a coordinated window — pathspec discipline
+protected my message but donated my files to a peer's plain commit (full
+record in the earlier race entry); (3) a relative-cd sweep failure from a
+cwd assumption. The connecting generator is the estate's known one-law
+family; the fresh-seat lesson is that it belongs in a new seat's FIRST-ACTS
+posture, not learned by instance. What worked: announce-first commit
+windows made the second race collision cheap (caught pre-commit, disposed
+in one event); designing working notes around the two-evidence-kinds
+discipline from the first observation meant the census matrix design fell
+out of the notes — the epistemics WAS the design method.
+
+FREE-PLAY SEEDS (associations; one visible discard): (a) "naming motion
+ahead of structural motion" (dir names lag published names) may be a
+general estate smell — watch for it at code scale in the survey proper
+(renamed modules whose contents keep the old shape). (b) The mentored
+transfer ran three currencies at once — briefing as context transfer,
+grounding exercise as calibrated practice, review-my-iteration as
+authority transfer — a compressed apprenticeship; worked instance if a
+seat-onboarding pattern is ever written. (c) Owner-word latency beat
+routing: the hold landed seconds after "execution OPEN" and the map
+self-corrected through the seat the word hit, not the router —
+structure-over-vigilance. DISCARDED: "ref-lock refusal as sibling of the
+sha-pin 409" — superficially alike, but the pin is a deliberate instrument
+and the lock is substrate; the analogy adds nothing actionable.
+
+CONCEPT-EXPLORATION: justified no-run — no unshaped concept remains at
+this seat. Both nodes ratified with closed vocabularies; the one open
+design question (leakage depth) was closed at the Director's question;
+the nearest open item (build-metadata as an inherently-Oak-shaped core
+package) is a census-time judged reading with named instruments.
+
+WRAP loss-scan (freeze form; seat PAUSES at owner word, claim 95a0678d
+retained): (1) in-context knowledge → this entry + pause broadcast
+b087a373 (seat state + resume map: wake → comms gap-sweep from 18:40Z →
+check hold → at owner go, task-#9 steps). (2) Untracked LOAD-BEARING
+ARC channel file (both stamps' ratified_where resolve into it) → flagged
+twice to the Director for the next hygiene fold; accepted residue with a
+named owner. (3) This entry's own napkin dirt → named in the pause
+addendum event; rides the Director's fold per standing pattern.
+(4) Scratchpad bodies → all substance already verbatim on the stream.
+(5) Per-user memory → checked; nothing beyond what repo surfaces carry.
+(6) Grounding observations → all three batches on the ARC channel, which
+the flagged fold makes durable. Metaloss pass: a further scan re-finds
+only the two named residues, both with owners — the recursion closes.
+
+## 2026-08-12 ~18:4xZ (Plover lifts Troposphere, b10c37) — WARM PAUSE at owner word: support-Swordfish only
+
+- Owner word (verbatim): "please go into a warm pause, your only job is to
+  support Swordfish." Posture adopted: seat stays live (watcher + F-75 +
+  heartbeat up, heartbeat relabelled support-swordfish-warm-pause); NO new
+  work initiated; sole active duty = Swordfish's design lane (#846) —
+  review support, question routing, owner cards at their gates. Held
+  queues (skills groups 2–6; MCP-586/587/588 routing; survey lane already
+  owner-held with Nautilus cold-paused) stay held. Fleet at this word:
+  Wren live in the mcp-590 worktree; Swordfish live on #846 post
+  main-absorb; Perseus closed; Nautilus cold-paused.
