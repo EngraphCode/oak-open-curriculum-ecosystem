@@ -39,6 +39,16 @@ That imports exactly four files, in order: the themable token layer
 class library (`components.css`), and the print/PDF layer (`print.css`). It
 deliberately does NOT import `brand.css` — re-branding loads that *after*
 `styles.css`, so the override cascade lands on top.
+
+**The one exception, and it bites silently.** `styles.css` is the entry point
+for EXTERNAL consumers. Some serve contexts drop `@import`-only sheets
+entirely — the stylesheet parses to zero rules and the page renders unstyled
+with no error. Pages served from inside the design-system workspace itself
+(the specimen cards, proof pages, and reference builds under
+`studio-source/`) must therefore link the tier files directly rather than
+`styles.css`. `KNOWN-ISSUES.md` #1 is the record; the same applies to a
+brand's `brand-full.css`.
+
 Compose UI from the `oak-*` classes and semantic tokens; check every line of
 copy against `brand_voice.txt`.
 
@@ -86,7 +96,7 @@ The four you reach for constantly (the last two live under `studio-source/`):
 The full map — compiled React components, the DTCG export, the reveal.js
 theme, the consumption and pairing guides, the `whitelabel/` contract proofs
 on their two counter-brands `creature/` and `freedonia/`, and where each of
-these lives in each home — is
+these sits in the tree — is
 [`references/whats-where.md`](references/whats-where.md). Read it before
 hunting the tree; read `DECISIONS.md` before changing architecture.
 
