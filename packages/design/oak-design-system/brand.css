@@ -52,9 +52,23 @@
   /* --weight-display: 600;  (heading weight — 800 reads playful, 700 serif-formal) */
 
   /* --- 1b. THE RAMPS — the deepest re-brand level. Faces recolour a brand;
-     RAMPS restructure it. Each type slot is a whole font shorthand —
+     RAMPS restructure it — and the ramp is FLUID BY CONSTRUCTION (the
+     fluidity pillar, 2026-08-13): the display slots --type-heading-1…3 are
+     assembled by the kit from three brand-writable PARTS each —
+     --type-heading-N-min / -max (unitless numbers of rem) and
+     --type-heading-N-leading (a unitless ratio). Set the bounds and the kit
+     derives the whole curve: min renders at a 320px viewport, max from
+     960px up, rem-true under text resize at every width. Weight and family
+     stay on --weight-display / --font-display. Declaring the whole
+     --type-heading-1…3 shorthand instead is the documented OPT-OUT of
+     fluidity (a declared fixed choice — it wins by cascade); NEVER declare
+     both a slot's shorthand and its parts in one sheet — the shorthand wins
+     and the parts become silent dead code (the brand-admission guard
+     rejects that pairing). Choose each -min so the longest hero word fits a
+     320px line in the brand's display face.
+     The remaining slots are whole font shorthands —
      re-point slots to reshape scale, hierarchy and rhythm:
-     --type-heading-1…7, --type-body-1…4, --type-label,
+     --type-heading-4…7, --type-body-1…4, --type-label,
      --type-code-2…4 (the monospace ramp — code surfaces re-point the slots;
      only .oak-code-2-bold still composes from --font-mono, matching every
      other -bold class),

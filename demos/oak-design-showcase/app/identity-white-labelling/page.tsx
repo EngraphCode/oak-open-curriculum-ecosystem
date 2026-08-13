@@ -30,11 +30,14 @@ const DESCRIPTIONS: Readonly<Record<TargetIdentity, string>> = {
   emc2: 'Dark-first toy shelf, centred key items, diagonal gradients, angled bevelled shadows — same markup.',
 };
 
+/* Total fallback (never a throw): a drifted roster renders identity columns
+ * with empty descriptions — visibly degraded, never a crashed page. The
+ * roster-drift boundary itself fails loud where it lives:
+ * lib/identities.ts and its unit tests. */
 const fragmentsResult = targetFragmentsFor(IDENTITIES);
-if (!fragmentsResult.ok) {
-  throw new Error(fragmentsResult.error);
-}
-const FRAGMENTS = fragmentsResult.value;
+const FRAGMENTS: Readonly<Partial<Record<string, TargetIdentity>>> = fragmentsResult.ok
+  ? fragmentsResult.value
+  : {};
 
 function descriptionFor(identity: IdentitySlug): string {
   const fragment = FRAGMENTS[identity];

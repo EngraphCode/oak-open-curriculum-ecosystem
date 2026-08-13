@@ -14,14 +14,11 @@ tickets: []
 depends_on:
   - plan: design-system-completion
     kind: beneficial
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      Owner word on the R14/R15-amended re-cut of W1 (his glance is the
-      moment, per this plan's own ratification pattern). The re-cut's former
-      confirmable is already answered: R15 resolved the rhythm-affordance
-      question from first principles (§W1 fixed-point register, final row)
-    expires: 2026-09-03
+owner_gates: []
+# The R14/R15 re-cut gate CLEARED 2026-08-13 evening: owner word "ratified,
+# please proceed" at the successor seat (Skua binds Leeward, e2b222), given
+# against the compare view 76a0d9e13...8c23be9a0. The re-cut's former
+# confirmable had already been answered by R15 from first principles.
 # Three gates were drafted and then dissolved on 2026-08-13, each because the
 # question turned out to be answered rather than open. Reading order: answered
 # by the owner's own correction (R13). The brand type-slot: decomposition
@@ -84,9 +81,11 @@ before implementation opened (R14): fluidity is the pillar the system is built
 on, never a feature incrementally added. §W1 was re-derived under that word,
 absorbing the day's two pre-execution reviews (both REVISE: the fluid curve
 was under-determined by four parts, the floor rule failed its own purpose when
-probed, and the `@deprecated` arm misstated the contract). The re-cut carries
-one owner gate — the ratification glance, with its single confirmable on the
-counter-brand rhythm-literal affordance (§W1 fixed-point register, final row).
+probed, and the `@deprecated` arm misstated the contract). The re-cut's owner gate
+CLEARED 2026-08-13 evening — owner word "ratified, please proceed" at this
+seat, against the compare view `76a0d9e13...8c23be9a0`; its single
+confirmable had already been dissolved by R15. Tranche-1 execution opens
+from that word.
 
 ## Goal
 
@@ -369,13 +368,17 @@ first-hand in headless Chromium. Dispositions in the decision log).
    The front page's hyphenation workaround (`app/globals.css`, "Creature's
    84px ramp especially") is removed in the same change only if the rendered
    fit cell proves it dead; its comment is re-trued either way.
-5. **Leading follows size with zero rendered delta.** Four missing ratio
-   primitives are minted beside `--leading-tight`/`--leading-snug` (1.1429,
-   1.1667, 1.2, 1.3333 — today's exact shipped ratios), and each slot's
-   leading part references its exact current ratio, keeping every rendered
-   value byte-identical at every width. Tier-clean: literals stay in the
-   primitives tier. A designed ratio ladder is a separate, owner-visible
-   decision this tranche does not take.
+5. **Leading follows size with zero rendered delta.** Each fluid slot's
+   leading rides as its third part token (`--type-heading-N-leading`),
+   carrying today's exact shipped ratio directly (1.1429, 1.1667, 1.2 for
+   the Oak base) — every rendered value byte-identical at maximum width.
+   Parts are definitionally literal unitless numbers (that IS the parts
+   contract, bounds included), which is what point 3's nine-variable
+   arithmetic already assumed; an earlier draft's separate
+   ratio-primitives-tier line was vestigial from the pre-bounds shape and
+   is corrected here (trued at implementation, 2026-08-13). A designed
+   ratio ladder is a separate, owner-visible decision this tranche does not
+   take.
 6. **Brand sheets migrate to bounds; sheets and served copies together.** PDS
    and EMC² replace their whole-slot heading-1..3 shorthands with unitless
    bounds (maxima = today's exact rendered sizes; px-authored values convert
@@ -398,10 +401,15 @@ first-hand in headless Chromium. Dispositions in the decision log).
    validators and joins the `repo-validators:check` chain; no existing
    brand-admission validator exists to copy — red-first is how it earns its
    place.
-8. **A print arm on `html:root`, at the maxima.** Inside `@media print` the
-   fluid slots re-declare at their maxima using `html:root` (0,1,1) per
-   `print.css`'s own ink-safe precedent, so a dark-first brand's bare `:root`
-   cannot out-cascade it. The print comparand sits outside the DTCG
+8. **A print arm at the maxima — on plain `:root`, deliberately.** Inside
+   `@media print` the fluid slots re-declare at their maxima. Plain `:root`
+   rather than the ink-safe flip's `html:root` (trued at implementation,
+   2026-08-13): `print.css` loads after `colors_and_type.css`, so its
+   `:root` wins the kit-internal tie for parts-driven brands — while a
+   brand that opted OUT via a whole-slot shorthand (loaded after all kit
+   css) rightly keeps its own fixed print size by cascade order. An
+   `html:root` pin would override that opt-out with derived values the
+   brand never chose. The print comparand sits outside the DTCG
    consistency walk (top-level `:root` rules only), so the arm carries no
    token obligation.
 9. **DTCG: nine flat `number` leaves; no composite; the functional set

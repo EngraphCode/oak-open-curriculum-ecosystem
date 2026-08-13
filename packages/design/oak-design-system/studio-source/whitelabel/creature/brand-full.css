@@ -26,9 +26,21 @@
   --weight-display: 800;
   --tracking-heading: 0em;
   /* THE RAMP — toy-big */
-  --type-heading-1: 800 84px/1.02 var(--font-display);
-  --type-heading-2: 800 64px/1.05 var(--font-display);
-  --type-heading-3: 800 52px/1.08 var(--font-display);
+  /* Fluid display slots (h1-3): unitless PARTS — the kit derives the curve
+     (brand.css §1b). Weight rides --weight-display above. Floors are
+     fit-derived and LOUD: 56px is the largest display type that fits
+     "Curriculum" on a 320px line in Baloo 2 at 800 — up to 11, even on a
+     phone. (84px = 5.25rem etc.: the old px maxima restated in rem so a
+     reader's font-size setting still scales them.) */
+  --type-heading-1-min: 3.5;
+  --type-heading-1-max: 5.25;
+  --type-heading-1-leading: 1.02;
+  --type-heading-2-min: 2.75;
+  --type-heading-2-max: 4;
+  --type-heading-2-leading: 1.05;
+  --type-heading-3-min: 2.25;
+  --type-heading-3-max: 3.25;
+  --type-heading-3-leading: 1.08;
   --type-heading-4: 800 40px/1.1 var(--font-display);
   --type-heading-5: 800 32px/1.12 var(--font-display);
   --type-heading-6: 800 25px/1.15 var(--font-display);

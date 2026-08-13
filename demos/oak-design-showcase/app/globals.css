@@ -26,12 +26,6 @@ body {
   margin: 0;
   color: var(--text-primary);
 }
-.hero-inner h1 {
-  /* SC 1.4.10: 'Curriculum' is wider than a 320px line at display sizes
-     (Creature's 84px ramp especially) — hyphenate rather than overflow. */
-  overflow-wrap: anywhere;
-  hyphens: auto;
-}
 .mast {
   border-bottom: var(--border-solid-m) solid var(--border-primary);
   background: var(--bg-primary);
