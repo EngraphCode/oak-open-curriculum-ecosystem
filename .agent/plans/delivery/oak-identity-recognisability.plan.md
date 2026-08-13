@@ -7,23 +7,21 @@ overview: >-
   the desired basis of the origin system, extending the framework to
   span the measured residual, and holding likeness with an orthogonal
   conjunctive metric set that needs no owner vigilance.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell (owner)"
+ratified_date: "2026-08-13"
+ratified_where: >-
+  Owner card answer "Ratify both now", design-lane session d0274e,
+  2026-08-13 — covering the recognition set, the four-metric basis
+  with its two guards and the admission rule, and the calibration
+  procedure; indexed in the thread record §OWNER RULINGS 2026-08-13.
 serves: design-system-as-configured-framework
 impact_areas:
   - design-system
 tickets:
   - MCP-592
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      Jim ratifies the recognition set (the desired-parts inventory in
-      §Mechanism), the four-metric measurement basis with its two guard
-      conjuncts, and the calibration procedure for its thresholds.
-    expires: 2026-09-03
+owner_gates: []
 last_updated: 2026-08-13
 ---
 
