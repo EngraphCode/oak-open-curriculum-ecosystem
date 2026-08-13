@@ -2914,3 +2914,55 @@ owner-directed support posture (their broadcast f8f73bab5-prefixed,
 basis-method-pdr worktree carries this block as a misplaced
 staged-uncommitted copy (cwd slip, surfaced to owner 2026-08-13) —
 content identical to this landing; disposition at owner word.
+
+## COMPACTION FREEZE 6 (2026-08-13 ~12:0xZ) — Swordfish wakes Trench (d0274e); seat CONTINUES; cure arc at bundle 1/11
+
+Claim `645b9e0b-afea-4743-8cc6-5dad3ad39575` RETAINED. All processes
+stopped by intent in canonical order (heartbeat first with declared
+end; watcher last; showcase server down). This block lands via WARDEN
+INTENT — the single-writer arrangement (Director sole committer on the
+primary; adopted at owner word after the 2026-08-13 commit-failure
+sort-out) is ACTIVE and this freeze is its first boundary.
+
+STATE, first-hand: PR #846 head `30bd9e36c` (bundle 1 landed+pushed:
+`291a24cd1` capture height honesty + `30bd9e36c` gateway cures; clean,
+== remote). Fleet W1+W2 COMPLETE: verdicts GO WITH CONDITIONS
+(open-for-review) + SOUND-WITH-CURES (doctrine); full record incl. the
+two-axis disposition ledger, promotions, and conditions at
+`.agent/reports/design/pr-846-review-fleet/report.md` §T4 (warden
+commit `8b83962a0`). Owner rulings of the day indexed in §OWNER
+RULINGS above (`218d5e591`). Plans RATIFIED on main (stamps via #875);
+PDR-137 ACCEPTED (#876); #873/#874 owner-merged; default face stays
+Oak. MCP-591 In Progress (cure arc); MCP-592 Done. Merged-branch
+worktrees design-arc-plans + basis-method-pdr pruned (provably safe).
+
+RESUME ORDER: (1) re-arm per start-right — watcher (heartbeat-excluded,
+3600s backstop, re-arm on exit + gap sweep) PAIRED with the F-75 delta
+poll; heartbeat pair on the retained claim, label `cure-arc-846`,
+model string `Opus-5`; the showcase server restarts only when a bundle
+needs the browser (the a11y mechanism bundle and the fresh Playwright
+run will). (2) **Bundle 2 — a11y instrument cure** in
+`demos/oak-design-showcase/tests/apply-state.ts`: F15 (assert the axe
+incomplete bucket, never drop it), F16 (matchMedia forced-colors gate +
+self-retiring assertion per accessibility-practice.md), F40
+(theme-distinctive application proof for the 4 vacuous-capable cells)
+— ONE instrument cure per the W2 promotion; pre-execution code-expert
+review per cycle, mutation checks, gateway, push. (3) Then per the
+report §T4 ledger: a11y mechanism (F01/F02/F36 + F10/F12) → masthead
+(F03/F05/F14) → register honesty (F25/F37/F38 — F04 ordering
+satisfied) → docs truth (F07 incl. stale 62/62, F20, F22 token cure) →
+frame readiness (F08/F30/F31/F32) → remaining fix-in-open bundles +
+overflow disposition sweep (named home per row at first pickup) → F7
+no-throw + S6845 (decision matrix; seat work per owner ruling) → K9
+bounded two-look pass → fresh Playwright + body rewrite from fresh
+counts → release-readiness leg re-run alone → at GO: un-draft #846 +
+explicit Copilot re-request + MCP-591 comment. (4) The recognisability
+arc (ratified) opens after: S1/S2/A2 slices are unblocked; S3+ waits
+on #846 merge.
+
+STANDING: warden intents for ANY primary-checkout content (pathspec +
+pre-checked subject ≤100 lower-case); five mechanical disciplines
+(single-purpose git commands; subject pre-check; full hook output;
+census-slug pre-scan; explicit pathspec). Director (Plover, b10c37)
+live in owner-directed support posture; arc channel
+`2026-08-13-design-lane-…` is the dialogue surface.
