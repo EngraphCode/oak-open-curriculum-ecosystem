@@ -41,7 +41,11 @@ import type { BulkFileResult } from './reader.js';
 
 /** Result of filtering a single parsed bulk file */
 export interface RestrictedLessonFileResult {
-  /** The file data with restricted lessons and their unit references removed */
+  /**
+   * The file data after the exclusion policy is applied: restricted lessons
+   * and their unit references removed by default, unchanged when
+   * `includeRestricted` retains them (ADR-224).
+   */
   readonly data: BulkDownloadFile;
   /**
    * Number of restricted lesson RECORDS removed from this file. A lesson
@@ -53,7 +57,11 @@ export interface RestrictedLessonFileResult {
 
 /** Result of filtering a collection of read bulk files */
 export interface RestrictedLessonFilesResult {
-  /** The files with restricted lessons and their unit references removed */
+  /**
+   * The files after the exclusion policy is applied: restricted lessons and
+   * their unit references removed by default, unchanged when
+   * `includeRestricted` retains them (ADR-224).
+   */
   readonly files: readonly BulkFileResult[];
   /**
    * Total number of restricted lesson RECORDS removed across all files

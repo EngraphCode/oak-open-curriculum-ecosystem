@@ -166,16 +166,24 @@ async function generateOutputFiles(
 
 /** Result of preparing pipeline inputs from read bulk files */
 export interface BulkDataInputsResult {
-  /** Pipeline inputs with restricted lessons and their unit references removed */
+  /**
+   * Pipeline inputs after the restricted-lesson exclusion policy is applied:
+   * restricted lessons and their unit references removed by default, retained
+   * when `includeRestricted` is set (ADR-224).
+   */
   readonly inputs: readonly BulkDataInput[];
-  /** Number of restricted lesson records excluded (reported on every run) */
+  /**
+   * Number of restricted lesson records excluded (reported on every run;
+   * zero when `includeRestricted` retains them).
+   */
   readonly restrictedLessonsExcluded: number;
 }
 
 /**
- * Prepares pipeline inputs from read bulk files, excluding restricted
- * lessons first (MCP-204 decision — provenance and revisit condition live
- * on `src/bulk/restricted-lesson-filter.ts`).
+ * Prepares pipeline inputs from read bulk files, applying the
+ * restricted-lesson exclusion policy first — exclude by default, retain when
+ * `options.includeRestricted` is set (ADR-224; provenance and revisit
+ * condition live on `src/bulk/restricted-lesson-filter.ts`).
  */
 export function toBulkDataInputs(
   files: readonly BulkFileResult[],

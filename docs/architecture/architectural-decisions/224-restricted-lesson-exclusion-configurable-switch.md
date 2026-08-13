@@ -34,8 +34,10 @@ not a hardcoded filter and not a new config system.
   `admin versioned-ingest` and `admin stage` commands (mirroring `--bulk-dir` /
   `--subject-filter`). The vocab-gen pipeline reads it from
   `PipelineConfig.includeRestricted`.
-- The `admin verify` expected-document count is derived from the indexed stats,
-  so it tracks the switch automatically — there is no third policy edit.
+- Lifecycle doc-count verification (`verifyDocCounts`) checks each index
+  against a minimum threshold (`--min-doc-count`, default 1), not an expected
+  total derived from the bulk data — it is switch-agnostic by construction,
+  so there is no third policy edit to keep in step.
 
 The policy is recorded here, in this ADR, not in the stale `INGESTION-GUIDE.md`
 runbook (which documents a superseded `es:ingest` interface).
