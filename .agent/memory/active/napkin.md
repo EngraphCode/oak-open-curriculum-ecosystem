@@ -3138,3 +3138,27 @@ adversarial refutation attempts failed against the same plan.
   decided" in TSDoc/ADR, tests named "...on the sandbox target TOO",
   "currently rejected" time-hedges) — re-cut to living-invariant form
   (it.each over both targets; removal condition named, not dated).
+- 2026-08-13 ~14:1xZ, freeze-10 lens harvest (the #871 cure arc, seven rounds
+  under two owner policy reshapes):
+  (a) BEHAVIOUR VS CONFIGURATION, owner catch #2 of the day: my vocab-seam
+  test asserted the exclusion COUNTER — the configuration echoed back — not
+  whether restricted CONTENT flowed. Cured to sentinel-keyword content-flow
+  assertions through the public result. Generator named: I test at the seam
+  where the wiring is visible instead of the surface where the behaviour is
+  observable; counters/stat fields are config echoes unless cross-checked
+  against proven content flow.
+  (b) REVIEWER-DOCTRINE DRIFT: the test-expert reviewer blessed my
+  expect-then-if narrowing as "the sanctioned §Diagnosis-5 shape"; the
+  rule's 2026-08-02 amended text says message-bearing expect-guard, "never
+  an if-guard" — Copilot's literal reading beat the reviewer's cached one.
+  Verify dispositions against rule TEXT, not a reviewer's paraphrase.
+  Follow-ups: estate-wide expect-then-if sweep; true the reviewer reading.
+  (c) CODEQL TAINT THROUGH DI SEAMS: adding an injectable-reader seam gave
+  static analysis a path from my test's /tmp literals into the dataset
+  writer sinks — four HIGH insecure-temporary-file alerts on files the PR
+  never touched (taint can't evaluate dryRun). Test placeholder paths must
+  avoid os-temp shapes; a new DI seam changes the whole taint graph.
+  (d) Ratchet empirics: generated findings 3→1→0→0→0 across five settled
+  rounds while the suppressed tail kept SAMPLING fresh classes (5,3,2,4) —
+  every one cured or letter-conformed same-hour; the sampling-finder-has-
+  no-fixed-point doctrine held exactly as written.
