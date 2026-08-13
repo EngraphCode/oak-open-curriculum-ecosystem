@@ -68,12 +68,10 @@ describe('IndexLifecycleService', () => {
           includeRestricted: true,
         });
 
-        expect(result.ok).toBe(false);
-        if (!result.ok) {
-          expect(result.error.type).toBe('validation_error');
-          expect(result.error.message).toContain('ADR-224');
-          expect(result.error.message).toContain('consistency');
-        }
+        expect(result).toMatchObject({ ok: false, error: { type: 'validation_error' } });
+        const message = result.ok ? '' : result.error.message;
+        expect(message).toContain('ADR-224');
+        expect(message).toContain('consistency');
         expect(deps.createVersionedIndexes).not.toHaveBeenCalled();
         expect(deps.runVersionedIngest).not.toHaveBeenCalled();
         expect(deps.atomicAliasSwap).not.toHaveBeenCalled();

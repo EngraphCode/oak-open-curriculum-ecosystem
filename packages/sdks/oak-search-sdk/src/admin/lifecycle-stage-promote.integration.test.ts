@@ -53,10 +53,7 @@ describe('IndexLifecycleService — stage and promote', () => {
 
         const result = await service.stage({ bulkDir: '/tmp/bulk', includeRestricted: true });
 
-        expect(result.ok).toBe(false);
-        if (!result.ok) {
-          expect(result.error.type).toBe('validation_error');
-        }
+        expect(result).toMatchObject({ ok: false, error: { type: 'validation_error' } });
         expect(deps.createVersionedIndexes).not.toHaveBeenCalled();
         expect(deps.runVersionedIngest).not.toHaveBeenCalled();
       },
