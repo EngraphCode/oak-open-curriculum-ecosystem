@@ -75,6 +75,16 @@ state**, under the same conventions as every other thread.
     A8: census first.
 11. Route the lowest-effective-level principle as a doctrine candidate —
     A10 applies.
+12. Route the pds-rename prose-tail doc drift (Skua's routing event
+    2026-08-13 19:16Z, belongs to the `public-digital-service-identity`
+    plan's estate-prose tail, not the design lane): (a)
+    `packages/design/oak-design-system/studio-source/whitelabel/pds/BRAND.md`
+    still titled with the outgoing identity name, stating
+    distance-maximisation as the design goal — mis-weighted under owner ruling R15 (fidelity to GDS
+    is the brief, distance a consequence); `DECISIONS.md` ~line 35 carries
+    the same stale name. (b) The design-system-usage skill canonical still
+    names the outgoing counter-brand directory (whats-where reference
+    likewise, unverified).
 
 HELD STATES (not tasks): survey lane owner-HELD (machine-readable gates
 expire 2026-09-02; Nautilus cold-paused, claim `95a0678d`); #774 =
@@ -121,6 +131,35 @@ recorded as they are questioned:
   it matters. OPEN.
 - A15 expect-then-if sweep presumes both texts still read as remembered —
   re-read before sweeping. OPEN.
+
+## Inheritance audit outcomes (2026-08-13, fleet run `wf_c5bddb5d-466` — 81 rows, all homes opened first-hand)
+
+Rulings verdicts live in the
+[Director rulings ledger](../director-rulings-ledger.md). Lane-state
+verdicts (board, held states, assumptions, plan-handed decisions):
+
+- **Claim `dd3f640f` CLOSED at this audit** — its premise (author the
+  MCP-491 step-2 PDR) completed 2026-08-04 as PDR-136 (owner-ratified),
+  verified first-hand; the claim had been stale-held through three freeze
+  blocks. Board consequence: the gate-ledger lane needs no routing.
+- **BOARD-4 (demo-default flip)**: the underlying 2026-08-13 owner ruling
+  has NO repo/ticket record — single-seat attestation only. Conservation
+  act at S3: land the ruling on its ticket/thread before execution, or
+  re-confirm at the execution card.
+- **BOARD-8 + A15 (expect-then-if sweep)**: the presumed stale test-expert
+  reading finds no file text — the board item reshapes to "verify the two
+  texts first; drop the true-up half if nothing is stale". A15 moves to
+  QUESTIONED with that finding.
+- **HELD-3 (846-fleet "W2+ owner-sequenced")**: no gate exists in the node;
+  the qualifier is inference — the plan's own owner card sits after W2
+  synthesis. A11 vindicated.
+- All other board items, held states, and A-rows: authority CONFIRMED and
+  classified (owner-verbatim/paraphrase vs seat-inference recorded per row
+  in the fleet output; decision-relevant classifications carried in the
+  ledger and this section).
+- Critic census-holes queued in the ledger §Census addenda (lines 342–371;
+  line 971 "self-limits are gated on ASKING, never silent"; line 357 ESM
+  ruling; the 690–1100 graph-tools scope fence; brief-embedded rulings).
 
 ## Journal
 
