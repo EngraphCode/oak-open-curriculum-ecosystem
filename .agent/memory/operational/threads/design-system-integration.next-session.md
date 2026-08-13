@@ -3119,3 +3119,14 @@ anchoring refinement (plan + memory), identity-static/theme-dynamic
 (memory + napkin; plan R16 at pickup), the wind-down word (napkin).
 Method lessons: frame-inheritance from defect-derived design;
 first-principles-WHY before clause adjudication (both napkin'd).
+
+### Freeze true-up (~21:2xZ): merge head moved to `ea029a9fa`
+
+The freeze entry's cure plan EXECUTED: `ea029a9fa` (isMember generic guard
+— duplication killed across the three runtime copies; defaultFace
+extraction; both hook pairs renamed; 19 kit tests + tsc + lint + 10
+picker/switchboard cells green; S6845 stays as the documented WCAG 2.1.1
+scrollable-region tension at its site). On `7aaa9e6e4` every required leg
+EXCEPT Sonar had passed (run-quality-gates, browser-tests, CodeQL, Vercel
+all green). CI runs on `ea029a9fa`; at all-green: by-name required read →
+sha-pinned bot REST merge → the closeout sequence in the freeze entry.
