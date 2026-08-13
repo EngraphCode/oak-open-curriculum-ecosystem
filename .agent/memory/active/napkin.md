@@ -3408,3 +3408,60 @@ the echo-back is the only reliable detector.
   (three-identities-are-a-demonstration-instrument). Scope: standing seat
   practice; the ontology is estate doctrine pending its contract-surface
   landing with tranche 1.
+
+## 2026-08-13 ~20:2xZ (Skua binds Leeward, e2b222, design lane) — wind-down harvest: pillar tranche 1 built, merged-in-flight; the day's lessons
+
+- Owner wind-down word (~19:5xZ): make-safe, NOT closeout; within the hour
+  846 merged + all work pushed + coordination branch folded. Executed at
+  this seat: tranche 1 (8b89ad988 — fluid heading slots from brand-writable
+  bounds, fit-probe-derived floors, DTCG leaves, contract docs incl. the
+  pillar axiom + demonstration ontology + R13 narrowing in kit DECISIONS)
+  and the tri-state clear() cure (3b02fa8a1 — the last open Copilot thread,
+  premise verified first-hand red-first). Fold routed to and ACKed by the
+  Director (Smith e98f17), sequenced behind the 846 merge.
+- LENS HARVEST. Metacognition: the owner deadline was honoured with zero
+  gate-cuts — every pre-commit red today (prettier ×2, tsdoc, no-real-io,
+  max-lines, knip ×2, emitted-runtime-parity) was cured at cause; the gates
+  repeatedly caught real drift within minutes of authoring, the
+  structure-over-vigilance loop working at composition speed. Free-play
+  seed (association): the day's third "absence needs its own value" —
+  fixed-by-declaration register; EMC² unanchored (not differently-anchored);
+  clear()'s tri-state (session-silent vs session-cleared). One theme, three
+  coats. Discard (visible): a poetry reading of the 56px fit cap.
+- INSTRUMENT NOTES, first-hand: (1) `tsx tools/kit-asset-parity.ts` runs a
+  MODULE with no main — exits 0 doing nothing (the silent-lookalike class);
+  the real gate is tools/validate-kit-assets.ts, which prints its verdict.
+  (2) perl -pe with an @-bearing replacement in double quotes ate
+  "@playwright" (array interpolation) — single-quote or Edit-tool for such
+  paths. (3) The fit probe needs the REAL display faces loaded
+  (document.fonts.check as a red-cell guard, never a silent fallback
+  measurement); Baloo 2 at 800 caps EMC² h1 at 57px on a 288px line —
+  probe-measured, the basis of its 3.5rem floor.
+- Claim 645b9e0b disposition at this close: RETAINED with handoff pointer
+  (successor adopts; the ratified plan design-showcase-experience — now
+  carrying R14/R15 and the cleared gate — IS the resume map by owner
+  design; tranche-1 execution facts in its §W1 and the thread record pause
+  entry). Next lane work at pickup: W2 composition rebuild; then W3-W5 any
+  order; slice B (brand-admission guard + EMC² body rem) sequenced within
+  W1's remainder; rhythm tranche carries the R15-resolved direction.
+
+## 2026-08-13 ~20:5xZ (Skua binds Leeward, e2b222) — owner ruling mid-wind-down: identity static, theme dynamic
+
+- Owner verbatim: "we need the css to be completely swapped out for each
+  identity. However, *switching* identity will only ever happen in a demo,
+  a real app would have a **single** identity. Real cases will of course
+  still have all four themes, at least." Settles close-block assumption 5
+  (client-side-switch-not-production) from his own mouth: identity is a
+  deployment-time axis (complete CSS swap, one per real app); theme is the
+  user-runtime axis (full roster always). Switching machinery = demo
+  equipment. Captured in per-user memory (demonstration-instrument append);
+  plan rulings table takes R16 at first pickup (named in the thread pause
+  entry — the merge window did not warrant a CI cycle for a docs row).
+- Also this window: the six declared PDS specimen reds were cured at the
+  cascade GENERATOR (specimen.css declared masthead surface at (0,2,0)
+  against the hook-clean equal-specificity contract; brand-expressible
+  properties moved to bare .mast) — 24/24 specimen cells, 70/70 whole
+  suite, first fully-green suite on the PR. Two Sonar classes cured at
+  source (nested template literal; irregular numeric separators —
+  constants proven unchanged by 205 tests). Tri-state clear() cure closed
+  the last review thread (premise verified red-first).
