@@ -3093,3 +3093,48 @@ only the two named residues, both with owners — the recursion closes.
   already on the branch while I wrote a channel opener); solo git habits are
   the generator — the n-live-seats check belongs BEFORE the first git write,
   not after the first collision.
+
+## 2026-08-13 ~13:05Z — Swordfish wakes Trench (d0274e): cricket tally, bundle-3 reslice moment
+
+**Cricket tally (recorded at occurrence):** platform claude-code; effort-inversion
+quartet × normal+adversarial = 8 legs, identical six-field frame (bundle-3 plan
+reflection at owner word). Verdicts 7/8 ON-TRACK, 1/8 DRIFTING (adversarial
+procedure-xhigh) — NON-UNANIMOUS, split routed to Director per rule. Wall:
+normal wave 13:00:39Z→~13:01:52Z (~73s, all four); adversarial wave
+13:02:58Z→13:05:06Z (~128s). Tokens: UNAVAILABLE at this seat (harness exposes
+no per-subagent usage — recorded as bound, not zero). Delivery: 3 of 8 legs
+delivered inline, 5 harvested from transcripts after idle-notification (the
+practiced harvest-on-idle cure; zero resends needed this run).
+
+**Redirections adopted (seat decision, lens as evidence):** (1) kit-side
+reduced-motion collapse cure LEAVES bundle 3 → own kit-scoped work item/PR
+(5 legs convergent; adversarial-medium's sharpest form: the frame routed
+cross-package work away as "outside claim" while pulling kit-side work in —
+self-contradictory scoping over an undecided cure shape); design-system-expert
+rules mechanism, location already ruled own-PR. (2) F09 pull-in KEPT (3 legs
+explicitly endorse under the owner's fix-it ruling; none against). (3) Frame
+discipline for future panels, from the DRIFTING leg's substance: name the
+consumer INSIDE NEXT, cite the standing rule behind each gate by name
+(pre-execution-code-expert-review-per-loop-cycle existed but was uncited),
+carry event-ids for owner rulings (same class as Forge's 2026-08-11 lesson).
+**Rejected with reason:** the DRIFTING verdict as a plan-level stop — its three
+FAILs are frame-citation gaps, not priority defects; three independent
+adversarial refutation attempts failed against the same plan.
+
+- 2026-08-13 ~13:2xZ, the wrong-axis cure and the owner's consistency ruling
+  (#871 arc): I built a target-conditional restricted-inclusion guard around
+  ADR-224's own "appropriate for testing and measurement on sandbox" prose
+  plus Copilot's stage/sandbox-only suggestion — and carded the resulting
+  demo-audience residual as accept-recommended. Jim: same source data in both
+  index families; neither the sandbox divergence nor the demo-reads-sandbox
+  default was ever decided. Cure re-cut to the DATA axis (reject everywhere,
+  families consistent) at 93750f404 — simpler predicate, zero residue.
+  LESSONS: content/data-placement policy is an OWNER fact (never infer from
+  ADR prose, reviewer suggestions, or repo defaults — the org-models memory
+  generalised); a cure that spawns a residual-risk card probably encoded the
+  wrong axis — card the undecided PREMISE, not the downstream residual.
+  TOMBSTONE catch (owner word same hour): the amendment's first draft
+  narrated the dead design ("no divergent sandbox content was ever
+  decided" in TSDoc/ADR, tests named "...on the sandbox target TOO",
+  "currently rejected" time-hedges) — re-cut to living-invariant form
+  (it.each over both targets; removal condition named, not dated).
