@@ -18,6 +18,7 @@
       "Skill(oak-design-system-usage)",
       "Skill(oak-visual-comparison)",
       "Skill(oak-visual-verification)",
+      "Skill(oak-visual-verification:*)",
       "Skill(oak-design-system-usage:*)",
       "Skill(oak-ui-visual-design)",
       "Skill(oak-ui-visual-design:*)",

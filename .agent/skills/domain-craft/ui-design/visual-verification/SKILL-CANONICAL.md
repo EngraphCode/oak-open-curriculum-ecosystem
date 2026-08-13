@@ -34,8 +34,14 @@ workspace):
 
 ```bash
 cd demos/oak-design-showcase
-pnpm build && pnpm exec next start -p <port> &   # serve the BUILT artefact
-pnpm tool:visual-probe --route /identity-switchboard --tabs 1
+pnpm build                    # build the artefact under proof
+pnpm exec next start -p 4600  # serve it — separate terminal, stays up
+```
+
+```bash
+# then, against that same origin:
+pnpm tool:visual-probe --origin http://localhost:4600 \
+  --route /identity-switchboard --tabs 1
 ```
 
 - The default origin is the workspace's deterministic per-worktree port

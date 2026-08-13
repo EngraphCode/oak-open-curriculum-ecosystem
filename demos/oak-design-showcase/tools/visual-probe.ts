@@ -26,6 +26,7 @@ import { chromium } from '@playwright/test';
 import type { Page } from '@playwright/test';
 import { err, isErr, ok, type Result } from '@oaknational/result';
 
+import { assertCanonicalWidth } from './measurement-widths';
 import { SHOWCASE_ORIGIN, SHOWCASE_PORT } from './showcase-origin';
 
 interface ProbeOptions {
@@ -41,7 +42,8 @@ interface ProbeOptions {
 const USAGE = `visual-probe --route <path> [--route <path> ...]
   [--origin <url>]      target origin (default: this worktree's ${SHOWCASE_ORIGIN})
   [--out <dir>]         artefact directory (default: a session temp dir)
-  [--viewport <WxH>]    viewport in CSS px (default: 1280x900)
+  [--viewport <WxH>]    viewport in CSS px (default: 1280x900); the width
+                        must be a canonical measurement width (DDR-009)
   [--full-page]         capture the full scroll height, not the viewport
   [--tabs <n>]          press Tab n times, then capture the focus state
                         and echo document.activeElement (default: 0)
@@ -56,7 +58,14 @@ function setViewport(value: string, options: ProbeOptions): Result<void, string>
   if (match === null) {
     return err(`--viewport expects <width>x<height>, got "${value}"`);
   }
-  options.viewport = { width: Number(match[1]), height: Number(match[2]) };
+  // Proof renders are comparable only at the canonical measurement
+  // widths (DDR-009 / DDR-011) — a free-hand width would label
+  // non-comparable evidence as proof.
+  const width = assertCanonicalWidth(Number(match[1]));
+  if (isErr(width)) {
+    return width;
+  }
+  options.viewport = { width: width.value, height: Number(match[2]) };
   return ok(undefined);
 }
 
