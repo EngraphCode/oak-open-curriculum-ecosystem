@@ -1,3 +1,17 @@
+# [1.169.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.168.4...v1.169.0) (2026-08-13)
+
+
+### Bug Fixes
+
+* **search:** enforce restricted-inclusion target boundary and export options type [MCP-590] ([7710980](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7710980a6c51797286c3f2f52393699925326429))
+* **search:** reject includeRestricted on every target — index families stay consistent [MCP-590] ([93750f4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/93750f404b3db2a55415d8c7db599fa18b55f9bb))
+
+
+### Features
+
+* **sdk-codegen:** reject includeRestricted at the vocab corpus boundary (adr-224) ([377c53b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/377c53b46bfee1fb4416db730db0fbb3d2b77dea))
+* **search:** configurable restricted-lesson exclusion switch (default exclude) [MCP-590] ([4314a0c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4314a0c059cff6cf16196c48ae05148747083eeb))
+
 ## [1.168.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.168.3...v1.168.4) (2026-08-13)
 
 
