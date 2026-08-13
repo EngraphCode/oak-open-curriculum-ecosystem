@@ -48,12 +48,24 @@ the new system until it maximises alignment with the basis set."*
 
 ## Decision
 
-Transformations of the form "our system should exhibit chosen
-properties of an origin system" run the **basis-set method**:
+Transformations — and creations of new systems — of the form "our
+system should exhibit chosen properties of an origin system" run the
+**basis-set method**. The method is DOMAIN-GENERAL (owner
+clarification, 2026-08-13, verbatim): *"the generalised system
+transform/creation method needn't be about visual qualities, it could
+be literally anything, the case of the design system and the Oak
+identity is a particular case that happens to be about a visual
+identity expressed through css and components."* The characteristics
+may be behavioural, structural, procedural, tonal, performance-shaped,
+or anything else observable about an origin; and they may be drawn
+from ONE origin or SEVERAL — the basis unifies a selection, not a
+single source.
 
-1. **Name and render the origin.** The origin system is identified and
-   RENDERED first-hand before any decomposition — a description of the
-   origin is not the origin (the render-the-reference discipline).
+1. **Name and render the origin(s).** Each origin system is identified
+   and OBSERVED first-hand in its native medium before any
+   decomposition — run the reference implementation, read the corpus,
+   render the pages; a description of the origin is not the origin
+   (the render-the-reference discipline).
    Reference captures carry provenance and become the fixed comparison
    set; a live origin drifts, so the committed captures ARE the
    reference, with a named re-baseline procedure.
