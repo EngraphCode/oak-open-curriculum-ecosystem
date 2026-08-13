@@ -44,8 +44,11 @@ runbook (which documents a superseded `es:ingest` interface).
 
 ## Consequences
 
-- Revisiting the policy is a config change (`--include-restricted`), not a code
-  edit; the current choice (exclude) is stated, not implicit.
+- The current choice (exclude) is stated, not implicit, and the revisit path
+  is named: retiring `enforceRestrictedInclusionBoundary` (one predicate, at
+  the labelled-serving follow-on plus the owner's word) opens the already
+  plumbed `--include-restricted` switch — no re-plumbing of the filter or its
+  call sites.
 - **Including restricted lessons is not free.** `includeRestricted` only
   removes the exclusion at the generation boundary; it does NOT mark the
   retained lessons as restricted in the produced documents. Serving restricted

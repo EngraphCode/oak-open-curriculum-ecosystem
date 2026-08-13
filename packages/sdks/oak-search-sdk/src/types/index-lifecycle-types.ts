@@ -21,7 +21,12 @@ export interface VersionedIngestOptions {
   /**
    * If true, retain restricted lessons in the index instead of excluding them.
    * Default (undefined/false) excludes — the documented, configurable
-   * restricted-exclusion switch (owner ruling 2026-08-12).
+   * restricted-exclusion switch (owner ruling 2026-08-12). `true` is REJECTED
+   * by `stage` and `versionedIngest` with a `validation_error`
+   * (`enforceRestrictedInclusionBoundary`): index families carry the same
+   * source data, and unmarked restricted lessons are not licence-compliant to
+   * serve — the boundary retires with the labelled-serving follow-on
+   * (ADR-224).
    */
   readonly includeRestricted?: boolean;
 }

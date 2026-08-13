@@ -42,9 +42,9 @@ import type { BulkFileResult } from './reader.js';
 /** Result of filtering a single parsed bulk file */
 export interface RestrictedLessonFileResult {
   /**
-   * The file data after the exclusion policy is applied: restricted lessons
-   * and their unit references removed by default, unchanged when
-   * `includeRestricted` retains them (ADR-224).
+   * The file data with restricted lessons and their unit references removed —
+   * the per-file filter always excludes; the `includeRestricted` policy
+   * switch exists only on the collection-level entry point (ADR-224).
    */
   readonly data: BulkDownloadFile;
   /**
