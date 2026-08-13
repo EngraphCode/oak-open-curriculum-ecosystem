@@ -2966,3 +2966,22 @@ pre-checked subject ≤100 lower-case); five mechanical disciplines
 census-slug pre-scan; explicit pathspec). Director (Plover, b10c37)
 live in owner-directed support posture; arc channel
 `2026-08-13-design-lane-…` is the dialogue surface.
+
+## BUNDLE 2 LANDED (2026-08-13 ~13:30Z) — a11y instrument cure + mutation-method practice record
+
+Seat resumed post-compaction, ceremony re-armed, bundle 2 landed on
+PR #846: head `3c7124be7` (cure `ec1695bd6` — F15 measured-failure seam +
+adjudicated-reason fence, F16 one mode-observing axe helper + gate-intent
+asserts + self-retiring artefact probe, F40 distinctive-token equality
+proof, settle polls; practice record `3c7124be7` — two-mode
+mutation-testing method at owner word, docs-review-cured to preserve the
+binding 2026-08-05 score-is-evidence doctrine). Four-reviewer chain
+(pre-exec pair, gateway, docs, test-expert); unit x6 + live x3 mutants
+killed. A11y suite 40/6: the six red are the pds masthead cells, declared
+(comms log + demo README), removal = bundle 4. T4 addendum with eight
+new/enriched ledger rows appended to the fleet report (same warden
+intent). Gitleaks false positive cured at source (THEME_PROBE_PROPERTY).
+Owner asks absorbed this window: mutation method recorded in
+development-practice.md with Stryker notes. NEXT: bundle 3 (a11y
+mechanism F01/F02/F36 + F10/F12 + F7 no-throw; plus the three bundle-3
+inputs in the addendum).

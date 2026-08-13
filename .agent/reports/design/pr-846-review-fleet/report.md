@@ -233,3 +233,69 @@ seat work: fix if fixable, else an evidenced non-issue disposition via
 the decision matrix. The F7 no-throw cure
 (identity-white-labelling/page.tsx:35) rides the same a11y/correctness
 bundle. Un-draft + explicit Copilot re-request follow the re-issued GO.
+## T4 addendum — cure bundle 2 landed (2026-08-13, PR head 3c7124be7)
+
+Bundle 2 (F15/F16/F40 as one instrument cure per the W2 promotion) landed at
+`ec1695bd6`; the owner-directed mutation-method practice record rode the same
+push at `3c7124be7` (docs/governance/development-practice.md). Full review
+provenance and mutant evidence live in the commit bodies. Landed state:
+a11y suite 40 green / 6 intentional red — every pds-brand specimen cell, one
+root cause (F05/F03 masthead), removal condition bundle 4; declared on the
+shared comms log and in the demo README. The bundle-2 novel-reason fence
+fired once on first full run (`elmPartiallyObscured`, 320px table columns in
+their own scroller) and was adjudicated with evidence — the instrument
+behaving as designed.
+
+New/enriched ledger rows from the bundle-2 review chain (four reviewers):
+
+- **F05/F03 enrichment (bundle 4 input)**: pds masthead invisibility is live
+  in EVERY theme state (six nodes at exactly 1:1). Root cause is the broken
+  cascade contract: the brand sheet's `.mast` background rule ties
+  globals.css at (0,1,0) and loses on source order while its ink rule wins
+  at (0,2,0) — inverted ink on a non-inverted surface; the globals.css
+  hook-level contract comment promises the brand sheet lands later and the
+  built head does not honour it. Cure routes through design-system-expert:
+  fix the ordering contract, never blind specificity; the same latent break
+  applies to any brand using the expression layer.
+- **NEW (coverage hole; named home: overflow sweep / recognisability S1)**:
+  ~83 creature-specimen text nodes are UNMEASURED for contrast — the
+  page-level `--surface-page-image` gradient defeats axe's background
+  resolution. "creature has no violations" is far weaker than it reads.
+  Curable (opaque surfaces behind text or flattened gradient behind text
+  regions); the unmeasured class is bounded by the instrument's adjudicated
+  reason set, and the cure is its own row.
+- **NEW (bundle 3 input)**: the forced-colors outline fallback (kit
+  CLAUDE.md commitment) is tested nowhere — under forced colors the double
+  box-shadow ring computes to `none` and only the 3px transparent outline
+  survives; expectRingContrast reads box-shadow only, scoring 0 there. Add
+  per-identity forced-colors focus cells asserting outline-style/width
+  (SC 2.4.7 + 1.4.11).
+- **NEW (bundle 3 input)**: the specimen matrix has NO system-theme cell in
+  either OS polarity (PALETTE_THEMES excludes 'system'; the showcase has
+  dark-OS system cells).
+- **NEW (bundle 3 input, kit-side)**: reduced-motion is inert under a brand
+  that redeclares motion tokens at `:root` (live on creature — the brand
+  wins both the OS preference collapse and the `data-motion` knob at equal
+  specificity plus later load; the `.oak-btn` belt-and-braces is overridden
+  at (0,2,0)). White-label contract hole; cure belongs on the kit side (a
+  later cascade layer or specificity), never a one-brand edit. Bundle 2's
+  animation-settle polls contain the test-flake consequence meanwhile.
+- **F36 enrichment (2.5.8 pricing)**: axe 4.12.1 ships `target-size`
+  DISABLED by default — the wcag22aa tag buys nothing for SC 2.5.8; enable
+  the rule explicitly or state the SC is manual-only.
+- **NEW (cross-package; route to bundle 6/7 or its own ticket — outside the
+  design-lane claim)**: the violations-only axe blindness cured here is
+  still live in apps/oak-curriculum-mcp-streamable-http — all four
+  AxeBuilder call sites assert only `violations`, oak-banner's self-retire
+  probe uses the violations-only predicate, and its retirement message
+  carries the same over-instruction bundle 2's test-expert corrected
+  (retire the measurement-bug leg only). accessibility-practice.md:88-91
+  still names the widget suite "the worked form"; the showcase
+  tools/axe-verdicts.ts + tests/axe-checks.ts shape now supersedes it.
+  Generator-level cure candidate: lift the classifier to a shared package
+  at the second consumer.
+- **Instrument follow-ups (trigger: first probe fire / bundle 3)**:
+  mechanise the probe's precondition as a pure ink-census module (the
+  focus-ring-contrast idiom) so artefact-RED self-diagnoses; make the
+  forced-colors intent a required parameter of expectNoAxeViolations so the
+  guard is structural rather than call-site convention.
