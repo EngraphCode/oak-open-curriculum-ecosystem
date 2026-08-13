@@ -17,8 +17,11 @@
  *   pnpm exec tsx scripts/probe-lesson-availability.ts
  *   pnpm exec tsx scripts/probe-lesson-availability.ts <available> <missing> <restricted>
  *
- * Reads OAK_API_KEY from .env.local (via the runtime config, same as
- * download-bulk.ts). OAK_API_URL overrides the default base URL.
+ * Loads the full search-cli runtime config (same schema as download-bulk.ts):
+ * OAK_API_KEY plus the Elasticsearch/search credentials that schema requires
+ * must be present in .env.local, even though only OAK_API_KEY is used here —
+ * a probe-specific minimal schema is routed to the Bucket-2 coherence-canary
+ * lane (this script is its seed). OAK_API_URL overrides the default base URL.
  */
 
 import { dirname } from 'node:path';

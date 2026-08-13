@@ -98,9 +98,11 @@ Three coordinated moves, each reusing machinery that already exists:
   `admin verify` reconciliation (expected-vs-indexed count) passes on the staged
   index (this proves ingest dropped nothing it was fed under policy — NOT subject
   presence); `owner-held` — the promoted alias serves the fresh corpus AND the
-  `rshe-pshe` subject is present in results, confirmed via `es:status` / the
-  `probe-lesson-availability` script and recorded on the pickup ticket (the
-  MCP-153 owner-carded promotion precedent). Confirm at pickup whether `rshe-pshe`
+  `rshe-pshe` subject is present in results, confirmed via an actual search
+  request filtered to `rshe-pshe` against the promoted alias (the CLI's own
+  search command) and recorded on the pickup ticket (the MCP-153 owner-carded
+  promotion precedent; `es:status` counts and the availability probe do not
+  prove result presence — amendment 2026-08-13, fold #872 review). Confirm at pickup whether `rshe-pshe`
   is genuinely new in the 2026-08-12 bundle or was already promoted (the
   2026-07-27 lane recorded `rshe-pshe` live) — either way this is a presence
   check, not a count claim.
@@ -110,7 +112,11 @@ Three coordinated moves, each reusing machinery that already exists:
   existing `restricted-lesson-exclusion.integration.test.ts` still green at
   default; the choice and its revisit cost are documented in the ingest docs.
 - **Every MCP tool error result carries `{code, message, upstreamMessage}` as
-  structured content.** **Proof:** `repo-safe` — a test over each error class
+  structured content.** Bucket 1 preserves the emitted error classes without
+  prose parsing; it does NOT distinguish a restricted lesson from an unknown
+  slug where upstream emits the identical 404 (the `/summary` ambiguity) —
+  that oracle-based distinction is Bucket 2's (amendment 2026-08-13, fold
+  #872 review: boundary stated explicitly; wording only, scope unchanged). **Proof:** `repo-safe` — a test over each error class
   (`RESOURCE_NOT_FOUND` / `CONTENT_NOT_AVAILABLE` / `AUTHENTICATION_REQUIRED` /
   `UPSTREAM_*`) asserting the structured fields on both the generated
   pass-through path and the `fetch` path.

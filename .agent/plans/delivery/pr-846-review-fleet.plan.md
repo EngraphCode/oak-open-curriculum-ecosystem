@@ -22,17 +22,17 @@ impact_areas:
   - practice-and-estate
 tickets: []
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      Jim sanctions fleet execution (W1) after reading this plan and the
-      plan-review fleet's verdicts, with the agent-count and token estimate
-      visible.
-    expires: 2026-08-13
-last_updated: 2026-08-12
+owner_gates: []
+last_updated: 2026-08-13
 ---
 
 # PR #846 review fleet — multi-lens, multi-scale review
+
+**Gate discharged 2026-08-12.** The owner sanctioned W1 at the decision card
+("Sanction W1 now", ~19:47Z, recorded in the ratification stamp); the
+`owner_gates` entry is removed per the plan-schema's discharge-by-removal
+shape — the frontmatter carries no cleared state, and consumers must not
+read execution as owner-blocked (fold #872 review, 2026-08-13).
 
 > **Revision 2 (2026-08-12, at sanction).** Owner sanctioned W1 by card
 > ("Sanction W1 now", session d0274e). Since revision 1 the PR absorbed

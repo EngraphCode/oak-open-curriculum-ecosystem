@@ -193,6 +193,15 @@ self-maintaining.**
    for the unproven 2026-07-27 drop mechanism. One policy call gates it:
    whether restricted lessons' metadata is indexed (recommended yes, with
    the `restricted` flag carried into documents and surfaced in results).
+
+   > **Superseded in part — owner ruling 2026-08-12, post-dating this
+   > report:** the rebuild proceeds with restricted EXCLUDED behind a
+   > documented default-exclude switch. It restores the fresh included
+   > corpus, not the restricted class (the reporter's 8 stay out of search
+   > by policy), and the restricted-ingestion falsifier does not run at the
+   > default. The ratified `lesson-search-freshness-and-error-envelope`
+   > plan is the authority; this paragraph stands as the report's original
+   > pre-ruling analysis.
 2. **Preserve error structure through the envelope** (agreed direction).
    The SDK already classifies upstream errors
    (`classify-error-response.ts`: `RESOURCE_NOT_FOUND`,
