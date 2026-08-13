@@ -3070,3 +3070,26 @@ only the two named residues, both with owners — the recursion closes.
   archived nodes unmoved) — the same class the census's delta section and
   the deconstruction ledger exist to catch at estate scale. Review rounds
   are a per-PR instance of the survey programme's whole question.
+- 2026-08-13 ~10:1xZ, the shared-index collision and the warden cure (owner
+  stop-word): two live seats committing through the primary's ONE index —
+  Swordfish's commit failed at commit-msg leaving 139 staged lines; my next
+  commit (36a57987c) swept them under my message; my own follow-up hit their
+  index.lock and I armed a blind retry. Nothing lost; misattribution recorded
+  on the design-lane arc channel. ROOT CAUSE: the commit-window protocol
+  (2026-08-12) was vigilance, not structure — pre-commit hooks hold
+  index.lock for minutes, so two record-writing seats collide by
+  construction. CURE ADOPTED (joint, on the channel): Director is sole
+  commit-warden of the primary's git:index/head; implementers hand intents
+  (pathspec + pre-checked subject ≤100 lower-case + one-line body) via
+  channel/directed; worktrees stay implementer-owned. Commit-window protocol
+  SUPERSEDED. Swordfish's mechanical disciplines, adopted both seats, for
+  practice routing later (new-rule-vs-pdr-clause): single-purpose git
+  commands (never chain commit with pull/push); mechanical subject pre-check
+  before invoking; read FULL hook output on failure (never tail through a
+  failing hook); census-fenced vocabulary pre-scan on new prose; staging by
+  explicit pathspec always. My own harvest: read-state-before-retry applies
+  to LOCKS (who holds it, what is staged) as much as exit codes; re-read the
+  branch tip before authoring shared artefacts (218d5e591 "arc opened" was
+  already on the branch while I wrote a channel opener); solo git habits are
+  the generator — the n-live-seats check belongs BEFORE the first git write,
+  not after the first collision.
