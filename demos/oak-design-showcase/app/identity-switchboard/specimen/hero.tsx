@@ -123,7 +123,17 @@ export function HeroRegion(): React.JSX.Element {
             <p className="oak-flow-key oak-heading-7 kicker">
               Unit 4 · Science · Year 4 · Key Stage 2
             </p>
-            <h1 className="oak-flow-key oak-heading-2 headline">The water cycle</h1>
+            {/* The skip link's focus target (WCAG G1): the page's own
+                headline announces better than an unnamed landmark, and a
+                negative tabindex is harmless HERE — the h1 is nested in a
+                region, not a reading-flow item of .oak-canvas/.oak-main. */}
+            <h1
+              className="oak-flow-key oak-heading-2 headline"
+              id="specimen-headline"
+              tabIndex={-1}
+            >
+              The water cycle
+            </h1>
             <p className="oak-flow-key oak-body-1 standfirst">
               Every drop of rain has been rained before. Six lessons following one puddle from the
               playground into the sky and back again — evaporation, condensation, and the words to

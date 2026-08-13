@@ -141,18 +141,25 @@ export default async function SpecimenPage({
           navigation — the exact inverse of a skip link's job (found by this
           route's red keyboard cell; trunk cure routed to the DS slice as a
           reading-order pin on .oak-skip-link). */}
-      <a className="oak-skip-link" href="#main">
+      <a className="oak-skip-link" href="#specimen-headline">
         Skip to content
       </a>
       {/* oak-scope arms the kit's element-level typography; data-page="unit"
           selects the page-type map whose named areas ARE this specimen's
           region inventory (hero/facets/results/detail/resources/support/cta)
-          — without it, main has no grid. tabIndex on main is what lets the
-          skip link actually deliver focus, not just scroll. */}
+          — without it, main has no grid. main carries NO tabindex: a
+          negative tabindex on a reading-flow item (main is a direct child
+          of .oak-canvas) excludes its whole subtree from sequential focus
+          under the agreed CSSWG/WHATNOT scoping model — the F01/F02
+          keyboard blackout. The skip link therefore targets the hero
+          headline (inside a region, reading-flow-safe), per WCAG G1:
+          focus must LAND, and never at the cost of the Tab order. Never
+          put a negative tabindex on a direct child of .oak-canvas or
+          .oak-main. */}
       <div className="oak-canvas oak-scope" data-page="unit" data-identity={identity}>
         <UtilityRegion />
         <MastheadRegion />
-        <main id="main" className="oak-main oak-region" data-region="main" tabIndex={-1}>
+        <main id="main" className="oak-main oak-region" data-region="main">
           <HeroRegion />
           <FacetsRegion />
           <ResultsRegion />

@@ -96,14 +96,16 @@ test.describe('specimen: identity is server-applied and in effect at first paint
 });
 
 test.describe('specimen: keyboard and state semantics', () => {
-  test('the skip link delivers focus to main', async ({ page }) => {
+  test('the skip link delivers focus to the content headline', async ({ page }) => {
     await interceptExternalOrigins(page);
     await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}`);
     await page.keyboard.press('Tab');
     await expect(page.locator('.oak-skip-link')).toBeFocused();
     await page.keyboard.press('Enter');
-    // Focus LANDS (tabIndex -1 on main), never merely scrolls.
-    await expect(page.locator('#main')).toBeFocused();
+    // Focus LANDS (WCAG G1), never merely scrolls — on the headline, not
+    // on main: a negative tabindex on main (a reading-flow item) would
+    // remove the whole subtree from the Tab order (F01/F02).
+    await expect(page.locator('#specimen-headline')).toBeFocused();
   });
 
   test('sticky masthead carries its focus-not-obscured cure', async ({ page }) => {
