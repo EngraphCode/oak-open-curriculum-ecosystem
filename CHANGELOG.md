@@ -1,3 +1,42 @@
+# [1.169.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.168.4...v1.169.0) (2026-08-13)
+
+
+### Bug Fixes
+
+* **search:** enforce restricted-inclusion target boundary and export options type [MCP-590] ([7710980](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7710980a6c51797286c3f2f52393699925326429))
+* **search:** reject includeRestricted on every target — index families stay consistent [MCP-590] ([93750f4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/93750f404b3db2a55415d8c7db599fa18b55f9bb))
+
+
+### Features
+
+* **sdk-codegen:** reject includeRestricted at the vocab corpus boundary (adr-224) ([377c53b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/377c53b46bfee1fb4416db730db0fbb3d2b77dea))
+* **search:** configurable restricted-lesson exclusion switch (default exclude) [MCP-590] ([4314a0c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/4314a0c059cff6cf16196c48ae05148747083eeb))
+
+## [1.168.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.168.3...v1.168.4) (2026-08-13)
+
+
+### Bug Fixes
+
+* **mcp-http:** serve the health check inside the routed /mcp surface ([90a40c4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/90a40c4a39b710d95b88d9052c474b5d41494a72))
+
+## [1.168.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.168.2...v1.168.3) (2026-08-13)
+
+## [1.168.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.168.1...v1.168.2) (2026-08-13)
+
+## [1.168.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.168.0...v1.168.1) (2026-08-13)
+
+# [1.168.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.167.0...v1.168.0) (2026-08-13)
+
+
+### Bug Fixes
+
+* **search-cli:** neutralise external text in probe logs (S5145 cure on the fold) ([153e247](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/153e247139449241d32116b8ac70ff3018289aa0))
+
+
+### Features
+
+* **search-cli:** add lesson-availability probe script; refresh bulk data ([3cceeab](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3cceeabcea2a4a60c6cfbecb19ac71c9dea1b910))
+
 # [1.167.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.166.1...v1.167.0) (2026-08-12)
 
 
