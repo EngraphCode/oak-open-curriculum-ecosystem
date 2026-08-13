@@ -56,16 +56,20 @@ interface Window {
 (function (): void {
   const KEY = 'oak-theme';
   const THEMES: OakThemeName[] = ['system', 'light', 'dark', 'high-contrast', 'colour-safe'];
-  // Equality-form membership loop: narrows the raw storage string without
-  // a widening cast (ADR-153 §Membership Without Widening) in a shape the
-  // quality profile also accepts.
-  function isThemeName(s: string | null): s is OakThemeName {
-    for (const known of THEMES) {
+  // Equality-form membership loop: narrows a raw storage string without a
+  // widening cast (ADR-153 §Membership Without Widening) in a shape the
+  // quality profile also accepts. One generic guard serves both the theme
+  // and motion rosters.
+  function isMember<T extends string>(values: readonly T[], s: string | null): s is T {
+    for (const known of values) {
       if (known === s) {
         return true;
       }
     }
     return false;
+  }
+  function isThemeName(s: string | null): s is OakThemeName {
+    return isMember(THEMES, s);
   }
   // The session's own word, tri-state: undefined = the session has said
   // nothing (defer to storage); null = CLEARED this session (authoritative
@@ -189,12 +193,7 @@ interface Window {
     const MKEY = 'oak-motion';
     const MODES: OakMotionMode[] = ['system', 'reduced', 'full'];
     function isMotionMode(s: string | null): s is OakMotionMode {
-      for (const known of MODES) {
-        if (known === s) {
-          return true;
-        }
-      }
-      return false;
+      return isMember(MODES, s);
     }
     let mcurrent: OakMotionMode | null = null;
     function mget(): OakMotionMode {

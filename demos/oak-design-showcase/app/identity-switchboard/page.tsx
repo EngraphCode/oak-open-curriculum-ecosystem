@@ -164,14 +164,14 @@ function useSpecimenFrame(): {
  *  at the export switchboard's own framed canvas so the two demos read
  *  identically side by side (owner comparison, 2026-08-10). */
 function useFrameWidth(): { readonly width: number; readonly setWidth: (value: string) => void } {
-  const [width, setWidthState] = useState<number>(SWITCHBOARD_CANVAS_WIDTH);
+  const [widthState, setWidthState] = useState<number>(SWITCHBOARD_CANVAS_WIDTH);
   const setWidth = useCallback((value: string): void => {
     const parsed = Number(value);
     if (VIEWPORT_WIDTHS.includes(parsed)) {
       setWidthState(parsed);
     }
   }, []);
-  return { width, setWidth };
+  return { width: widthState, setWidth };
 }
 
 export default function IdentityPickerPage(): ReactElement {

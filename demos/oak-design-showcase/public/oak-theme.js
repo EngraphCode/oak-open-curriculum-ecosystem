@@ -33,16 +33,20 @@
 (function () {
   const KEY = 'oak-theme';
   const THEMES = ['system', 'light', 'dark', 'high-contrast', 'colour-safe'];
-  // Equality-form membership loop: narrows the raw storage string without
-  // a widening cast (ADR-153 §Membership Without Widening) in a shape the
-  // quality profile also accepts.
-  function isThemeName(s) {
-    for (const known of THEMES) {
+  // Equality-form membership loop: narrows a raw storage string without a
+  // widening cast (ADR-153 §Membership Without Widening) in a shape the
+  // quality profile also accepts. One generic guard serves both the theme
+  // and motion rosters.
+  function isMember(values, s) {
+    for (const known of values) {
       if (known === s) {
         return true;
       }
     }
     return false;
+  }
+  function isThemeName(s) {
+    return isMember(THEMES, s);
   }
   // The session's own word, tri-state: undefined = the session has said
   // nothing (defer to storage); null = CLEARED this session (authoritative
@@ -166,12 +170,7 @@
     const MKEY = 'oak-motion';
     const MODES = ['system', 'reduced', 'full'];
     function isMotionMode(s) {
-      for (const known of MODES) {
-        if (known === s) {
-          return true;
-        }
-      }
-      return false;
+      return isMember(MODES, s);
     }
     let mcurrent = null;
     function mget() {

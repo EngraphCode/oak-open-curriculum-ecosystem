@@ -58,8 +58,10 @@ function isPickerTheme(value: string): value is OakThemeSnapshot {
 function applyFrameTheme(root: HTMLElement, theme: OakThemeSnapshot): void {
   const prefersMoreContrast =
     root.ownerDocument.defaultView?.matchMedia('(prefers-contrast: more)').matches === true;
-  const target =
-    theme === IDENTITY_DEFAULT ? (prefersMoreContrast ? 'high-contrast' : undefined) : theme;
+  // The identity-default face still honours an OS contrast request — the
+  // automatic route, distinct from an explicit theme.
+  const defaultFace = prefersMoreContrast ? 'high-contrast' : undefined;
+  const target = theme === IDENTITY_DEFAULT ? defaultFace : theme;
   if (root.dataset['theme'] === target) {
     return;
   }
@@ -74,26 +76,26 @@ export function useFrameTheme(resolveTarget: () => Document | null): {
   readonly theme: OakThemeSnapshot;
   readonly setTheme: (value: string) => void;
 } {
-  const [theme, setThemeState] = useState<OakThemeSnapshot>(IDENTITY_DEFAULT);
+  const [themeState, setThemeState] = useState<OakThemeSnapshot>(IDENTITY_DEFAULT);
 
   useEffect(() => {
     const root = resolveTarget()?.documentElement;
     if (root === null || root === undefined) {
       return undefined;
     }
-    applyFrameTheme(root, theme);
+    applyFrameTheme(root, themeState);
     // Hold the control's state against the frame's other writers for the
     // life of the mount. attributeFilter avoids churn (the test sentinel
     // rides the same root's dataset); correctness rests on the divergence
     // guard either way.
     const observer = new MutationObserver(() => {
-      applyFrameTheme(root, theme);
+      applyFrameTheme(root, themeState);
     });
     observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
     return () => {
       observer.disconnect();
     };
-  }, [theme, resolveTarget]);
+  }, [themeState, resolveTarget]);
 
   const setTheme = useCallback((value: string): void => {
     if (isPickerTheme(value)) {
@@ -101,5 +103,5 @@ export function useFrameTheme(resolveTarget: () => Document | null): {
     }
   }, []);
 
-  return { theme, setTheme };
+  return { theme: themeState, setTheme };
 }
