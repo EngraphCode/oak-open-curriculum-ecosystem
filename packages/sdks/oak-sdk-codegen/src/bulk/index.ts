@@ -119,7 +119,10 @@ export type { BulkFileResult, SubjectPhase } from './reader.js';
 
 export { excludeRestrictedLessons } from './restricted-lesson-filter.js';
 
-export type { RestrictedLessonFilesResult } from './restricted-lesson-filter.js';
+export type {
+  RestrictedLessonExclusionOptions,
+  RestrictedLessonFilesResult,
+} from './restricted-lesson-filter.js';
 
 // ============================================================================
 // Extractors

@@ -295,12 +295,13 @@ Structural alias health (see [docs/INDEXING.md](./docs/INDEXING.md) — `validat
 
 ### Flags
 
-| Flag                             | Description                                                     |
-| -------------------------------- | --------------------------------------------------------------- |
-| `--bulk-dir <path>`              | Path to bulk download directory (overrides `BULK_DOWNLOAD_DIR`) |
-| `--subject-filter <subjects...>` | Restrict ingestion to specific subjects                         |
-| `--min-doc-count <count>`        | Minimum expected docs per index during validation               |
-| `--verbose`                      | Detailed lifecycle logging                                      |
+| Flag                             | Description                                                                                                                                                         |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--bulk-dir <path>`              | Path to bulk download directory (overrides `BULK_DOWNLOAD_DIR`)                                                                                                     |
+| `--subject-filter <subjects...>` | Restrict ingestion to specific subjects                                                                                                                             |
+| `--min-doc-count <count>`        | Minimum expected docs per index during validation                                                                                                                   |
+| `--verbose`                      | Detailed lifecycle logging                                                                                                                                          |
+| `--include-restricted`           | Retain restricted lessons (default: exclude). Sandbox target only — rejected on primary (ADR-224); retained lessons are unmarked and not licence-compliant to serve |
 
 ### Refresh Bulk Data
 

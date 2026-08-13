@@ -4,6 +4,7 @@ import { InvalidArgumentError, type Command } from 'commander';
 import type { Client } from '@elastic/elasticsearch';
 import { sanitiseForJson } from '@oaknational/observability';
 import {
+  enforceRestrictedInclusionBoundary,
   withLifecycleLease,
   type AdminError,
   type IndexLifecycleService,
@@ -121,6 +122,11 @@ async function runVersionedIngestAction(
   cliEnv: LifecycleIngestEnv,
   opts: ParsedLifecycleIngestOpts,
 ): Promise<void> {
+  const restrictedGuard = enforceRestrictedInclusionBoundary(cliEnv.SEARCH_INDEX_TARGET, opts);
+  if (!restrictedGuard.ok) {
+    handleLifecycleResult(restrictedGuard, () => undefined);
+    return;
+  }
   await withVerifiedBulkData(
     gateInputFor(cliEnv, opts),
     async (bulkDir) => {
@@ -152,6 +158,11 @@ async function runStageAction(
   cliEnv: LifecycleIngestEnv,
   opts: ParsedLifecycleIngestOpts,
 ): Promise<void> {
+  const restrictedGuard = enforceRestrictedInclusionBoundary(cliEnv.SEARCH_INDEX_TARGET, opts);
+  if (!restrictedGuard.ok) {
+    handleLifecycleResult(restrictedGuard, () => undefined);
+    return;
+  }
   await withVerifiedBulkData(
     gateInputFor(cliEnv, opts),
     async (bulkDir) => {
@@ -197,7 +208,7 @@ export function registerVersionedIngestCmd(
     .option('-v, --verbose', 'Enable verbose output')
     .option(
       '--include-restricted',
-      'Retain restricted lessons in the index instead of excluding them (default: exclude)',
+      'Retain restricted lessons in the index instead of excluding them (default: exclude; sandbox target only — rejected on primary, ADR-224)',
     )
     .action(
       withLoadedCliEnv(cliEnvLoader, async (cliEnv: LifecycleIngestEnv, rawOpts: unknown) =>
@@ -219,7 +230,7 @@ export function registerStageCmd(parent: Command, cliEnvLoader: SearchCliEnvLoad
     .option('-v, --verbose', 'Enable verbose output')
     .option(
       '--include-restricted',
-      'Retain restricted lessons in the index instead of excluding them (default: exclude)',
+      'Retain restricted lessons in the index instead of excluding them (default: exclude; sandbox target only — rejected on primary, ADR-224)',
     )
     .action(
       withLoadedCliEnv(cliEnvLoader, async (cliEnv: LifecycleIngestEnv, rawOpts: unknown) =>

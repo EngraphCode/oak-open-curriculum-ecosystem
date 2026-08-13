@@ -64,6 +64,9 @@ Establish a repeatable ingestion workflow that exercises the full indexing pipel
   - `--subject-filter <subjects...>` – restrict ingest scope.
   - `--min-doc-count <count>` – minimum docs per index validation.
   - `--verbose` – enable detailed logging.
+  - `--include-restricted` – retain restricted lessons (default: exclude);
+    sandbox target only — rejected on primary before bulk verification and
+    lease acquisition (ADR-224).
 - The CLI logs inputs and outcomes through `ingestLogger` and exits non-zero on failure.
 
 #### Fixture ingestion CLI

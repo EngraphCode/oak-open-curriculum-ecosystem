@@ -1,6 +1,7 @@
 import type { Result } from '@oaknational/result';
-import { ok } from '@oaknational/result';
+import { err, ok } from '@oaknational/result';
 import type { AdminError, IngestResult } from '../types/admin-types.js';
+import type { SearchIndexTarget } from '../internal/index.js';
 import type {
   AliasLifecycleDeps,
   AliasLifecycleService,
@@ -17,6 +18,41 @@ import { rollback, validateAliases } from './lifecycle-rollback.js';
 import { promote } from './lifecycle-promote.js';
 
 const DEFAULT_MIN_DOC_COUNT = 1;
+
+/**
+ * Enforce the restricted-inclusion target boundary (ADR-224).
+ *
+ * `includeRestricted` retains restricted lessons UNMARKED in the produced
+ * documents — not licence-compliant to serve. Primary-target indexes feed the
+ * public served aliases (directly via versionedIngest's swap, or via a later
+ * promote or rollback of staged indexes), so inclusion is rejected on the
+ * primary target and confined to the sandbox target. Confinement is not
+ * clearance: sandbox aliases are read by demo/dev surfaces (the
+ * curriculum-hub demo's documented default target is sandbox), so a
+ * restricted-carrying sandbox version must not be left promoted after a
+ * measurement run. Exported for the CLI's pre-flight check (rejecting before
+ * bulk-data verification and lease acquisition); the service calls it as the
+ * backstop, so the boundary holds for every SDK consumer. Removal condition:
+ * the labelled-serving follow-on (restricted flag threaded into the
+ * lesson-document builder and honoured downstream — the named MCP-590
+ * Bucket-1 follow-on) makes restricted-carrying serving legitimate and
+ * retires this guard.
+ */
+export function enforceRestrictedInclusionBoundary(
+  target: SearchIndexTarget,
+  options: Pick<VersionedIngestOptions, 'includeRestricted'>,
+): Result<void, AdminError> {
+  if (options.includeRestricted === true && target === 'primary') {
+    return err({
+      type: 'validation_error',
+      message:
+        'includeRestricted is not permitted on the primary target: retained restricted lessons ' +
+        'are unmarked and not licence-compliant to serve (ADR-224). Run against the sandbox ' +
+        'target (SEARCH_INDEX_TARGET=sandbox) for testing and measurement.',
+    });
+  }
+  return ok(undefined);
+}
 
 export function createIndexLifecycleService(deps: IndexLifecycleDeps): IndexLifecycleService {
   return {
@@ -88,6 +124,10 @@ async function stage(
   deps: IndexLifecycleDeps,
   options: VersionedIngestOptions,
 ): Promise<Result<StageResult, AdminError>> {
+  const restrictedGuard = enforceRestrictedInclusionBoundary(deps.target, options);
+  if (!restrictedGuard.ok) {
+    return restrictedGuard;
+  }
   const metaResult = await deps.readIndexMeta();
   if (!metaResult.ok) {
     return metaResult;
@@ -135,6 +175,10 @@ async function versionedIngest(
   deps: IndexLifecycleDeps,
   options: VersionedIngestOptions,
 ): Promise<Result<VersionedIngestResult, AdminError>> {
+  const restrictedGuard = enforceRestrictedInclusionBoundary(deps.target, options);
+  if (!restrictedGuard.ok) {
+    return restrictedGuard;
+  }
   const startTime = Date.now();
   const prepared = await prepareVersionedIndexes(deps, options);
   if (!prepared.ok) {

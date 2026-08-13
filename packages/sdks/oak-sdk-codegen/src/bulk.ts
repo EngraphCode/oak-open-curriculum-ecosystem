@@ -91,6 +91,7 @@ export type {
   BulkDownloadFile,
   BulkFileResult,
   SubjectPhase,
+  RestrictedLessonExclusionOptions,
   RestrictedLessonFilesResult,
   ExtractedKeyword,
   ExtractedMisconception,
