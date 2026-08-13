@@ -3252,3 +3252,26 @@ the echo-back is the only reliable detector.
   writes to primary surfaces route via warden intents or cross-session
   sends). No owner card — no decision was his; carding it would have been
   the manufactured-decision class he named the same hour.
+
+## 2026-08-13 ~16:4xZ — two owner corrections on board-state readings (Plover, b10c37)
+
+- **The 846 fleet RAN (same-day provenance recurrence).** Told the owner
+  the pr-846-review-fleet node was an unsanctioned sketch with a lapsing
+  gate — repeating the ratified showcase plan's §Relationships row
+  without tracing it. The node is status: ratified (owner card "Sanction
+  W1 now", 2026-08-12), gate discharged by removal, W1 executed
+  2026-08-13 morning as MCP-591 (findings ledger:
+  .agent/reports/design/pr-846-review-fleet/report.md). The stale row
+  lives in the just-ratified showcase plan — one-row true-up routed to
+  the design seat. The sting: this is the trace-constraint-provenance
+  class, recommitted hours after banking it. The tell to watch: quoting
+  ANY document's description of ANOTHER document's status without
+  opening the described document.
+- **#774 is illustrative, not merge-queued.** Owner verbatim: "the spike
+  isn't for merging, it's illustrative, to speed up work once the mcp
+  sdk v2 is released." The old freeze-map line "gated on #761/#772" is
+  the wrong frame: the spike's guard-contract content TRACKS the MCP-143
+  series' landing shape; the deliverable is a decision-complete
+  migration plan, never the port (PR body agrees); the migration itself
+  waits on the Clerk production promotion settling. Carry this reading
+  in future board records.
