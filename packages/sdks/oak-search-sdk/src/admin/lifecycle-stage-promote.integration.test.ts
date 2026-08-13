@@ -45,32 +45,22 @@ describe('IndexLifecycleService — stage and promote', () => {
       expect(deps.writeIndexMeta).not.toHaveBeenCalled();
     });
 
-    it('rejects includeRestricted on the primary target without creating or ingesting into any index (ADR-224 unmarked-restricted serving guard)', async () => {
-      const deps = createFakeDeps();
-      const service = createIndexLifecycleService(deps);
+    it.each([['primary'], ['sandbox']] as const)(
+      'rejects includeRestricted on the %s target without creating or ingesting into any index (ADR-224: index families stay consistent)',
+      async (target) => {
+        const deps = createFakeDeps({ target });
+        const service = createIndexLifecycleService(deps);
 
-      const result = await service.stage({ bulkDir: '/tmp/bulk', includeRestricted: true });
+        const result = await service.stage({ bulkDir: '/tmp/bulk', includeRestricted: true });
 
-      expect(result.ok).toBe(false);
-      if (!result.ok) {
-        expect(result.error.type).toBe('validation_error');
-      }
-      expect(deps.createVersionedIndexes).not.toHaveBeenCalled();
-      expect(deps.runVersionedIngest).not.toHaveBeenCalled();
-    });
-
-    it('stages with includeRestricted on the sandbox target (inclusion confined to non-serving indexes)', async () => {
-      const deps = createFakeDeps({ target: 'sandbox' });
-      const service = createIndexLifecycleService(deps);
-
-      const result = await service.stage({ bulkDir: '/tmp/bulk', includeRestricted: true });
-
-      expect(result.ok).toBe(true);
-      expect(deps.runVersionedIngest).toHaveBeenCalledWith(
-        expect.any(String),
-        expect.objectContaining({ includeRestricted: true }),
-      );
-    });
+        expect(result.ok).toBe(false);
+        if (!result.ok) {
+          expect(result.error.type).toBe('validation_error');
+        }
+        expect(deps.createVersionedIndexes).not.toHaveBeenCalled();
+        expect(deps.runVersionedIngest).not.toHaveBeenCalled();
+      },
+    );
 
     it('records previous version from existing metadata', async () => {
       const deps = createFakeDeps({

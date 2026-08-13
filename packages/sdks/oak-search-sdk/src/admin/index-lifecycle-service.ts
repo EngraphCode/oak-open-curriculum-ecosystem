@@ -1,7 +1,6 @@
 import type { Result } from '@oaknational/result';
 import { err, ok } from '@oaknational/result';
 import type { AdminError, IngestResult } from '../types/admin-types.js';
-import type { SearchIndexTarget } from '../internal/index.js';
 import type {
   AliasLifecycleDeps,
   AliasLifecycleService,
@@ -20,35 +19,33 @@ import { promote } from './lifecycle-promote.js';
 const DEFAULT_MIN_DOC_COUNT = 1;
 
 /**
- * Enforce the restricted-inclusion target boundary (ADR-224).
+ * Enforce the restricted-inclusion boundary for index-producing runs
+ * (ADR-224).
  *
  * `includeRestricted` retains restricted lessons UNMARKED in the produced
- * documents — not licence-compliant to serve. Primary-target indexes feed the
- * public served aliases (directly via versionedIngest's swap, or via a later
- * promote or rollback of staged indexes), so inclusion is rejected on the
- * primary target and confined to the sandbox target. Confinement is not
- * clearance: sandbox aliases are read by demo/dev surfaces (the
- * curriculum-hub demo's documented default target is sandbox), so a
- * restricted-carrying sandbox version must not be left promoted after a
- * measurement run. Exported for the CLI's pre-flight check (rejecting before
- * bulk-data verification and lease acquisition); the service calls it as the
- * backstop, so the boundary holds for every SDK consumer. Removal condition:
- * the labelled-serving follow-on (restricted flag threaded into the
- * lesson-document builder and honoured downstream — the named MCP-590
- * Bucket-1 follow-on) makes restricted-carrying serving legitimate and
- * retires this guard.
+ * documents — not licence-compliant to serve. Primary and sandbox indexes
+ * carry the same source data, and index-family consistency is required
+ * (owner ruling 2026-08-13), so inclusion is rejected on every target. The
+ * switch is the documented, plumbed policy point (ADR-224), proven below
+ * this boundary by the SDK filter and ingest-plumbing tests. Exported for
+ * the CLI's pre-flight check (rejecting before bulk-data verification and
+ * lease acquisition); the service calls it as the backstop, so the boundary
+ * holds for every SDK consumer. Removal condition: the labelled-serving
+ * follow-on (restricted flag threaded into the lesson-document builder and
+ * honoured downstream — the named MCP-590 Bucket-1 follow-on) plus the
+ * owner's word retires this guard.
  */
 export function enforceRestrictedInclusionBoundary(
-  target: SearchIndexTarget,
   options: Pick<VersionedIngestOptions, 'includeRestricted'>,
 ): Result<void, AdminError> {
-  if (options.includeRestricted === true && target === 'primary') {
+  if (options.includeRestricted === true) {
     return err({
       type: 'validation_error',
       message:
-        'includeRestricted is not permitted on the primary target: retained restricted lessons ' +
-        'are unmarked and not licence-compliant to serve (ADR-224). Run against the sandbox ' +
-        'target (SEARCH_INDEX_TARGET=sandbox) for testing and measurement.',
+        'includeRestricted is not permitted for index-producing runs: primary and sandbox ' +
+        'indexes carry the same source data, and the exclusion policy applies to both for ' +
+        'consistency (ADR-224). Restricted-lesson indexing awaits the labelled-serving ' +
+        'follow-on.',
     });
   }
   return ok(undefined);
@@ -124,7 +121,7 @@ async function stage(
   deps: IndexLifecycleDeps,
   options: VersionedIngestOptions,
 ): Promise<Result<StageResult, AdminError>> {
-  const restrictedGuard = enforceRestrictedInclusionBoundary(deps.target, options);
+  const restrictedGuard = enforceRestrictedInclusionBoundary(options);
   if (!restrictedGuard.ok) {
     return restrictedGuard;
   }
@@ -175,7 +172,7 @@ async function versionedIngest(
   deps: IndexLifecycleDeps,
   options: VersionedIngestOptions,
 ): Promise<Result<VersionedIngestResult, AdminError>> {
-  const restrictedGuard = enforceRestrictedInclusionBoundary(deps.target, options);
+  const restrictedGuard = enforceRestrictedInclusionBoundary(options);
   if (!restrictedGuard.ok) {
     return restrictedGuard;
   }

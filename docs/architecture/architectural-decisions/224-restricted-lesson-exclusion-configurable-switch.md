@@ -46,34 +46,25 @@ runbook (which documents a superseded `es:ingest` interface).
 
 - Revisiting the policy is a config change (`--include-restricted`), not a code
   edit; the current choice (exclude) is stated, not implicit.
-- **Including restricted lessons is not free.** `--include-restricted` only
+- **Including restricted lessons is not free.** `includeRestricted` only
   removes the exclusion at the generation boundary; it does NOT mark the
   retained lessons as restricted in the produced documents. Serving restricted
   lessons correctly additionally requires threading the `restricted` flag
   through the lesson-document builder so included lessons are labelled in
   results (and downstream consumers honour it). That work is named, not built
-  here (MCP-590 Bucket 1, Out of scope). So `--include-restricted` today
-  produces an index that serves restricted lessons UNMARKED — appropriate for
-  testing and measurement, not for a licence-compliant served surface until the
-  follow-on lands.
-- **The lifecycle service enforces that boundary.** `stage` and
-  `versioned-ingest` REJECT `includeRestricted` on the `primary` target with a
-  `validation_error` naming this ADR and the sandbox path — inclusion is
-  confined to the `sandbox` target (`SEARCH_INDEX_TARGET=sandbox`). The CLI
-  runs the same exported predicate (`enforceRestrictedInclusionBoundary`) as a
-  pre-flight check before bulk-data verification and lease acquisition, with
-  the service call as the backstop for every SDK consumer. Because
-  primary-target indexes can therefore never carry unmarked restricted
-  lessons, `promote` and `rollback` are transitively safe without their own
-  checks. The guard's removal condition is the labelled-serving follow-on
-  above.
-- **Sandbox confinement is not clearance.** Sandbox aliases are read by
-  demo and development surfaces (the curriculum-hub demo's documented default
-  is `SEARCH_INDEX_TARGET=sandbox`), so a restricted-carrying sandbox version
-  exposes unmarked restricted lessons to those audiences while it stays
-  promoted. A measurement run that includes restricted lessons must not leave
-  its version promoted on the sandbox aliases; whether that operator
-  obligation is an acceptable residual is an owner decision recorded outside
-  this ADR.
+  here (MCP-590 Bucket 1, Out of scope). Until then the switch is policy
+  plumbing: the parameter exists, is threaded, and is proven by the SDK
+  filter and ingest-plumbing tests, while index-producing runs hold it closed.
+- **Index families stay consistent — the lifecycle enforces it.** Primary and
+  sandbox indexes carry the same source data — index-family consistency is
+  required (owner ruling 2026-08-13). `stage` and `versioned-ingest`
+  REJECT `includeRestricted` on every target with a
+  `validation_error` naming this ADR. The CLI runs the same exported predicate
+  (`enforceRestrictedInclusionBoundary`) as a pre-flight check before
+  bulk-data verification and lease acquisition, with the service call as the
+  backstop for every SDK consumer. Because no lifecycle path can produce a
+  restricted-carrying index, `promote` and `rollback` are transitively safe
+  without their own checks. The guard's removal condition is the
+  labelled-serving follow-on above plus the owner's word.
 - No behaviour change at the default: existing ingests and codegen runs exclude
   exactly as before.

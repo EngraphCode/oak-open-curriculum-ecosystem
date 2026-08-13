@@ -122,7 +122,7 @@ async function runVersionedIngestAction(
   cliEnv: LifecycleIngestEnv,
   opts: ParsedLifecycleIngestOpts,
 ): Promise<void> {
-  const restrictedGuard = enforceRestrictedInclusionBoundary(cliEnv.SEARCH_INDEX_TARGET, opts);
+  const restrictedGuard = enforceRestrictedInclusionBoundary(opts);
   if (!restrictedGuard.ok) {
     handleLifecycleResult(restrictedGuard, () => undefined);
     return;
@@ -158,7 +158,7 @@ async function runStageAction(
   cliEnv: LifecycleIngestEnv,
   opts: ParsedLifecycleIngestOpts,
 ): Promise<void> {
-  const restrictedGuard = enforceRestrictedInclusionBoundary(cliEnv.SEARCH_INDEX_TARGET, opts);
+  const restrictedGuard = enforceRestrictedInclusionBoundary(opts);
   if (!restrictedGuard.ok) {
     handleLifecycleResult(restrictedGuard, () => undefined);
     return;
@@ -208,7 +208,7 @@ export function registerVersionedIngestCmd(
     .option('-v, --verbose', 'Enable verbose output')
     .option(
       '--include-restricted',
-      'Retain restricted lessons in the index instead of excluding them (default: exclude; sandbox target only — rejected on primary, ADR-224)',
+      'Retain restricted lessons instead of excluding them (default: exclude; rejected for index-producing runs until restricted lessons are labelled in results — ADR-224)',
     )
     .action(
       withLoadedCliEnv(cliEnvLoader, async (cliEnv: LifecycleIngestEnv, rawOpts: unknown) =>
@@ -230,7 +230,7 @@ export function registerStageCmd(parent: Command, cliEnvLoader: SearchCliEnvLoad
     .option('-v, --verbose', 'Enable verbose output')
     .option(
       '--include-restricted',
-      'Retain restricted lessons in the index instead of excluding them (default: exclude; sandbox target only — rejected on primary, ADR-224)',
+      'Retain restricted lessons instead of excluding them (default: exclude; rejected for index-producing runs until restricted lessons are labelled in results — ADR-224)',
     )
     .action(
       withLoadedCliEnv(cliEnvLoader, async (cliEnv: LifecycleIngestEnv, rawOpts: unknown) =>
