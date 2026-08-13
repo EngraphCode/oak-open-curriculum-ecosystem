@@ -60,6 +60,15 @@
   position: sticky;
   inset-block-start: 0;
   z-index: var(--layer-sticky);
+}
+/* Hook-clean contract: brand expression layers restyle the masthead at
+   EQUAL specificity from a later-loaded sheet (see the PDS §11 comment),
+   so the brand-expressible visual properties — surface and rule — live at
+   (0,1,0) exactly like a brand's own .mast. The scoped block above keeps
+   the layout-only properties; declaring the surface there at (0,2,0) is
+   the recorded cascade defect that rendered PDS's inverted ink on a
+   non-inverted surface (the six declared specimen reds). */
+.mast {
   background: var(--bg-primary);
   border-block-end: var(--border-solid-m) solid var(--border-primary);
 }

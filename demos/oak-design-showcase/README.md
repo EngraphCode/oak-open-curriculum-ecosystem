@@ -139,14 +139,12 @@ design system. Enforced by instrument, not review vigilance:
   and keyboard focus visibility in both polarities. The `system`-follows-
   device ride itself is a behaviour test in the UI suite.
 
-  **Known-red (2026-08-13, six specimen cells)**: every pds-brand specimen
-  cell (four explicit themes, identity-default, 320px reflow) fails on the
-  measured-contrast seam — the brand's masthead renders inverted ink on a
-  non-inverted surface (exactly 1:1; the review-fleet F05/F03 cascade
-  defect). The instrument previously filed this as an ignored `incomplete`
-  result and the cells passed falsely; the cure that made the suite honest
-  landed first by design. These reds clear when the masthead cascade cure
-  (review-fleet bundle 4) lands; any OTHER red is new information.
+  The suite is fully green: the six pds specimen cells that were declared
+  known-red on 2026-08-13 (inverted masthead ink on a non-inverted surface,
+  exactly 1:1) were cured the same day at the cascade generator — the page
+  sheet had declared the masthead surface at higher specificity than the
+  hook-clean contract brand expression layers assume (`specimen.css`, the
+  `.mast` split carries the record). Any red is new information.
 
 ## Fidelity review
 
