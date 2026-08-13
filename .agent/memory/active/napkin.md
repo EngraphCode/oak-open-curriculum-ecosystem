@@ -3182,3 +3182,47 @@ internal codenames. Parked (safe, not discarded): token-reference page,
 PR-record hygiene rounds, release-readiness machinery, side-by-side page
 beyond made-safe. Kept as delivery: keyboard cure (pushed, 1f730517a),
 masthead cure, switching-page a11y.
+
+## 2026-08-13 ~15:2xZ — round-7 cure cycle (Plover, b10c37): harvest notes
+
+- **Tail-hides-the-check (owner, x2 class):** a `tail`/`head` on gate output
+  hid the validator's finding lines and forced a re-run of what the first
+  invocation had already printed. Settled mechanism re-fired verbatim into
+  per-user memory: EVERY check redirects full output to an untracked file,
+  OVERWRITE (no historic accumulation), then read/grep the file.
+- **Cap-driven splits are not responsibility-driven splits (code-expert):**
+  the vocab boundary first landed as a throw (new ADR-088 warning —
+  zero-new-issues forced the Result re-cut), then its builder was moved to
+  vocab-gen-inputs purely to satisfy max-lines — landing policy TSDoc on a
+  value constructor in a module whose header disclaims orchestration. The
+  cure that stuck: a dedicated named module
+  (`enforceRestrictedInclusionCorpusBoundary`) — one concept, one name, one
+  home. When a cap forces a move, re-derive the seam from responsibility.
+- **ADR-names-nonexistent-thing class recurs on flags, not just symbols
+  (docs-adr-expert):** after the predicate-name cure, the revisit-path bullet
+  still attributed `--include-restricted` to a boundary whose CLI parses no
+  such flag (and drops unknown argv silently) — the wrong-action was a
+  believed-successful restricted regeneration that silently still excluded.
+  Verify every noun an ADR names: symbols, flags, paths.
+- **Director ruling on the code-expert friction ratchet (4 signals):** the
+  vocab switch stays — ADR-224 explicitly prices it as documented plumbing
+  and the ratified Bucket-1 plan threads it through both call sites; the
+  no-producer observation (vocab-gen CLI exposes no flag; the only consumer
+  now rejects it) is banked as input to the labelled-serving follow-on, not
+  re-litigated on this PR.
+
+## 2026-08-13 ~15:3xZ — bot-identity breach instance + cure (Plover, b10c37)
+
+The round-7 thread reply posted as jimCresswell (owner credentials), not the
+bot. Mechanism: shell cwd had silently drifted into the WORKTREE (a prior
+compound command's `cd` persisted); `pnpm --silent agent-tools merge-bot
+mint-token` there hits an unbuilt agent-tools/dist, fails, `$()` captures
+EMPTY, `GH_TOKEN=` (empty) makes gh fall back to ambient owner auth — the
+banned fallback, silently. Cure executed: re-posted under the bot (author
+echoed back in-band: jimbot-oakington-iii[bot]), deleted the mis-attributed
+duplicate, unresolve+re-resolve so the thread's resolution also displays as
+the bot. TRIPWIRES: (1) identity-bearing writes run from the PRIMARY root —
+pin cwd first (`pwd` is one token); (2) every bot write echoes
+`.user.login`/`.user.type` back in the same call — the display-name check
+is in-band, not a follow-up read; (3) an empty `GH_TOKEN=` is invisible —
+the echo-back is the only reliable detector.
