@@ -1,6 +1,6 @@
 # ADR-224: Restricted-lesson exclusion is a documented, configurable switch
 
-**Status**: Accepted  
+**Status**: Accepted (index-family consistency amendment ratified 2026-08-13; corpus-boundary consequence recorded 2026-08-13)  
 **Date**: 2026-08-12  
 **Related**: ADR-093 (Bulk-First Ingestion Strategy), ADR-089 (Index-Everything Principle), ADR-140 (Search Ingestion / SDK Boundary), MCP-204 (restriction concept in search), MCP-590 (lesson-search Bucket 1)
 
@@ -45,10 +45,14 @@ runbook (which documents a superseded `es:ingest` interface).
 ## Consequences
 
 - The current choice (exclude) is stated, not implicit, and the revisit path
-  is named: retiring `enforceRestrictedInclusionBoundary` (one predicate, at
-  the labelled-serving follow-on plus the owner's word) opens the already
-  plumbed `--include-restricted` switch — no re-plumbing of the filter or its
-  call sites.
+  is named: retiring the two boundary predicates —
+  `enforceRestrictedInclusionBoundary` (oak-search-sdk, index-producing runs)
+  and `enforceRestrictedInclusionCorpusBoundary` (vocab-gen, the
+  corpus-producing run) — at the labelled-serving follow-on plus the owner's
+  word opens the already plumbed switch at each boundary:
+  `--include-restricted` on the admin lifecycle commands, and
+  `PipelineConfig.includeRestricted` for vocab-gen (whose CLI exposes no
+  flag) — no re-plumbing of the filter or its call sites.
 - **Including restricted lessons is not free.** `includeRestricted` only
   removes the exclusion at the generation boundary; it does NOT mark the
   retained lessons as restricted in the produced documents. Serving restricted
@@ -57,7 +61,8 @@ runbook (which documents a superseded `es:ingest` interface).
   results (and downstream consumers honour it). That work is named, not built
   here (MCP-590 Bucket 1, Out of scope). Until then the switch is policy
   plumbing: the parameter exists, is threaded, and is proven by the SDK
-  filter and ingest-plumbing tests, while index-producing runs hold it closed.
+  filter and ingest-plumbing tests, while index-producing and corpus-producing
+  runs hold it closed.
 - **Index families stay consistent — the lifecycle enforces it.** Primary and
   sandbox indexes carry the same source data — index-family consistency is
   required (owner ruling 2026-08-13). `stage` and `versioned-ingest`
@@ -69,5 +74,14 @@ runbook (which documents a superseded `es:ingest` interface).
   restricted-carrying index, `promote` and `rollback` are transitively safe
   without their own checks. The guard's removal condition is the
   labelled-serving follow-on above plus the owner's word.
+- **The committed vocab corpus is guarded at its own boundary.** `runPipeline`
+  (vocab-gen) rejects `includeRestricted` before reading any bulk data via
+  `enforceRestrictedInclusionCorpusBoundary`, with an error naming this ADR:
+  the generated corpus is committed to the repository and exported to MCP
+  tools via the graph-corpus subpath, so the exclusion policy binds the
+  corpus-producing boundary as it binds index-producing runs. The predicate is
+  mirrored rather than shared because sdk-codegen sits upstream of
+  oak-search-sdk in the dependency direction; it carries the same removal
+  condition.
 - No behaviour change at the default: existing ingests and codegen runs exclude
   exactly as before.

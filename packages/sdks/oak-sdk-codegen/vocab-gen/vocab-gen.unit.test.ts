@@ -143,6 +143,20 @@ describe('formatPipelineResult', () => {
     ...overrides,
   });
 
+  it('renders a failed result as the failure, never as a zeroed clean run', () => {
+    const formatted = formatPipelineResult(
+      createResult({
+        success: false,
+        error: 'includeRestricted is not permitted for corpus-producing runs (ADR-224).',
+      }),
+    );
+
+    expect(formatted).toContain('Pipeline failed:');
+    expect(formatted).toContain('ADR-224');
+    expect(formatted).not.toContain('Files processed');
+    expect(formatted).not.toContain('restricted lessons excluded');
+  });
+
   it('reports the restricted-lesson exclusion with its decision provenance', () => {
     const formatted = formatPipelineResult(createResult());
 
@@ -210,22 +224,44 @@ describe('runPipeline restricted-lesson exclusion policy (ADR-224)', () => {
   ];
   const readAllBulkFiles = async () => files;
 
-  it.each([
-    ['excluded by default: only the open lesson feeds extraction', undefined, 1, 1],
-    ['retained when includeRestricted: both lessons feed extraction', true, 2, 0],
-  ])('%s', async (_name, includeRestricted, expectedUniqueKeywords, expectedExcluded) => {
+  it('excludes restricted lessons by default: only the open lesson feeds extraction', async () => {
     const config = createPipelineConfig({
       bulkDataPath: '/fixtures/bulk-data',
       outputPath: '/fixtures/vocab-out',
       dryRun: true,
-      includeRestricted,
     });
 
     const result = await runPipeline(config, undefined, { readAllBulkFiles });
 
     expect(result.success).toBe(true);
-    expect(result.uniqueKeywords).toBe(expectedUniqueKeywords);
-    expect(result.totalLessons).toBe(expectedUniqueKeywords);
-    expect(result.restrictedLessonsExcluded).toBe(expectedExcluded);
+    expect(result.uniqueKeywords).toBe(1);
+    expect(result.totalLessons).toBe(1);
+    expect(result.restrictedLessonsExcluded).toBe(1);
   });
+
+  it.each([[false], [true]])(
+    'rejects includeRestricted before any bulk data is read (dryRun: %s) — the generated corpus is committed and MCP-consumed',
+    async (dryRun) => {
+      const readPaths: string[] = [];
+      const recordingRead = async (bulkDataPath: string) => {
+        readPaths.push(bulkDataPath);
+        return files;
+      };
+      const config = createPipelineConfig({
+        bulkDataPath: '/fixtures/bulk-data',
+        outputPath: '/fixtures/vocab-out',
+        dryRun,
+        includeRestricted: true,
+      });
+
+      const result = await runPipeline(config, undefined, { readAllBulkFiles: recordingRead });
+
+      expect(result.success).toBe(false);
+      const message = result.error ?? '';
+      expect(message).toContain('ADR-224');
+      expect(message).toContain('labelled-serving');
+      expect(result.outputFiles).toHaveLength(0);
+      expect(readPaths).toHaveLength(0);
+    },
+  );
 });

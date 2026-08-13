@@ -38,6 +38,7 @@ import { readAllBulkFiles } from './lib/index.js';
 import { processBulkData, type ProcessingResult } from './vocab-gen-core.js';
 import { type PipelineConfig, type PipelineResult } from './vocab-gen-config.js';
 import { toBulkDataInputs } from './vocab-gen-inputs.js';
+import { enforceRestrictedInclusionCorpusBoundary } from './vocab-gen-restricted-boundary.js';
 
 // Re-export core types and functions
 export {
@@ -179,6 +180,11 @@ export async function runPipeline(
   logger?: Logger,
   deps: RunPipelineDeps = {},
 ): Promise<PipelineResult> {
+  const corpusBoundaryRejection = enforceRestrictedInclusionCorpusBoundary(config);
+  if (corpusBoundaryRejection) {
+    return corpusBoundaryRejection;
+  }
+
   const startTime = Date.now();
 
   // Read all bulk download files
