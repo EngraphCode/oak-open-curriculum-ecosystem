@@ -3275,3 +3275,78 @@ the echo-back is the only reliable detector.
   migration plan, never the port (PR body agrees); the migration itself
   waits on the Clerk production promotion settling. Carry this reading
   in future board records.
+
+## 2026-08-13 ~18:4xZ (Smith hunts Obsidian, e98f17, Director) — seat adoption + the director-handoff redesign arc opens
+
+- SEAT ADOPTED via stopped-seat-held claims (a2286c53 director + dd3f640f
+  gate-ledger) after Plover's owner-worded closeout; readiness gate ran with
+  the closeout broadcast's own heartbeat-end declaration as the stand-down
+  evidence (the mechanical check read the claims fresh-by-window — the
+  discriminator was the declared intent, not staleness). Assumption audit at
+  session open earned its cost twice: "Plover is dark" was FALSE (live, busy
+  session), and "no Moment-1 exists" was recall-gapped (grep for
+  "pre-positioning" missed the PRE-POSITIONED form). Both caught before any
+  authority act.
+- THE OWNER'S "wtf" QUESTION, measured: director-handoff.md committed daily
+  since 2026-07-14 (139 commits/31 days), 174 stacked banners, 1,631 lines vs
+  a 320-line declared hard limit. Diagnosis ratified: the volatile section ran
+  three jobs at once (successor snapshot / sitting-seat journal / rulings
+  first-capture) and the Director is the one lane with NO thread record — so
+  the handoff file absorbed the journal job. Redesign plan authored:
+  `director-continuity-surface-redesign.plan.md` (born sketch).
+- GENERATOR SEED (doctrine candidate, routes via new-rule-vs-pdr-clause):
+  every append-accepting surface acquires its DRAIN RITUAL AT BIRTH — the
+  napkin has rotation doctrine and stayed healthy; director-handoff never got
+  one and accreted. Predictive, falsifiable: debt accrues exactly where
+  append surfaces lack a drain owner.
+- FREE-PLAY HARVEST (owner-invoked; two visible discards): kept — (a) the
+  cure-becomes-hazard shape: the file was BUILT to fix the 2026-06-25 failed
+  takeover, then its growth became the next succession hazard (scar-tissue
+  association); (b) the numbered rulings series running ACROSS tenures
+  (1–42 Falcon-era, 43+ "continues Falcon's") was groping toward an
+  institutional statute book — the rulings LEDGER is that instinct given
+  structure (regnal-numbering association); (c) the owner issued the same
+  question-assumptions instruction to three seats in one evening —
+  succession moments concentrate inherited-shape risk; an assumptions
+  register may belong in the STANDARD PDR-063 record sections; (d)
+  register-as-LEDGER pivot: rulings home in their proper surfaces, the
+  ledger only proves none dropped (a register-as-home would recreate the
+  disease). Discarded visibly: the sediment-tectonics analogy (pretty,
+  actionless) and an observer-effect framing of the file growing mid-read.
+- INSTRUMENT NOTES, first-hand: (1) the machine-local-path write hook fires
+  on CONTENT even for scratchpad-bound files — correct per the PII posture;
+  restate provenance repo-root-relative. (2) The menu-framing hook caught a
+  redundant "for owner ratification" clause in plan prose — the cited
+  routing rule already owns that process; cure was deletion, not synonym
+  (hook-policy-substring-discipline held). (3) Subagent legs hit the
+  account session limit mid-fleet (resets 20:30 London): 5/12 legs banked
+  with owner-verbatim quotes found on tickets (R6/R7/R8/R10/R11 CONFIRMED,
+  R4 PARTIAL — cross-project-linkage discipline lives only in a ticket
+  footnote); resume rides the workflow cache. Spend errors: retry, never
+  escalate — held.
+- STANDING TENURE POSTURE (owner word, repeated for emphasis 2026-08-13):
+  question the assumptions and authority of decisions handed by previous
+  seats AND PLANS — the audit scope includes plan-borne decisions (adopted
+  claim dd3f640f's plan, survey holds, PR-zero mandate); a plans-handed
+  audit leg added to the verification fleet's resume.
+
+## 2026-08-13 ~18:3xZ (Skua binds Leeward, e2b222, design lane) — owner frame correction: fluidity is a pillar, not a feature
+
+- Owner word at the seat (verbatim, pre-implementation): "we shouldn't be
+  incrementally adding fluidity to the design system, it should be the
+  fundamental pillar it is built on." Fired minutes after this seat's
+  authority-questioning pass had VALIDATED W1's mechanism without questioning
+  its verb — the pass traced every constraint's authority and still inherited
+  the frame (fluidity-as-added-feature) untouched. Generator: W1 was derived
+  from defects (56px-at-320px headline, hyphenation workaround, per-brand
+  flow-collapse patches), and cure-shaped derivation produces incrementalism
+  by construction; the carve-out perimeter (Oak-base-only rhythm, eleven
+  exempt type classes, non-fluid counter-brand surfaces) was the visible tell,
+  read as honest scoping rather than as retrofit evidence. Fluency-as-warning
+  at document scale: the plan's record-keeping quality made its frame feel
+  sound. Cure adopted: frame axioms get questioned as a distinct class from
+  constraint authority — "whose word is this?" has a sibling, "who chose this
+  frame, and from what was it derived?" (defect-derived frames are
+  incremental by construction). Scope: standing seat practice. Owner design
+  fact captured in per-user memory (fluidity-is-a-pillar-not-a-feature);
+  delivery priorities (tight scope, four outcomes) unchanged by his word.
