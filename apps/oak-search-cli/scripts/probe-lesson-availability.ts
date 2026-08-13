@@ -170,7 +170,7 @@ async function main(): Promise<void> {
     restricted: restrictedArg ?? DEFAULT_LESSONS.restricted,
   };
 
-  console.log(`Base URL: ${baseUrl}\n`);
+  console.log(`Base URL: ${sanitizeForLog(baseUrl)}\n`);
   for (const [label, slug] of typeSafeEntries(lessons)) {
     await probeLesson(baseUrl, apiKey, label, slug);
   }

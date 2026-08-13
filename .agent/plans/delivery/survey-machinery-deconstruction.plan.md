@@ -14,7 +14,14 @@ tickets: []
 depends_on:
   - plan: typescript-estate-consolidation-review
     kind: beneficial
-owner_gates: []
+owner_gates:
+  - awaiting: owner-decision
+    clears_when: >-
+      Jim gives the explicit go on the survey lane — the 2026-08-12 hold
+      ("don't start the survey until I give the word", worded direct to the
+      lane seat, Director-concurred broad on both nodes) discharges at his
+      word through any seat.
+    expires: 2026-09-02
 last_updated: 2026-08-12
 ---
 
