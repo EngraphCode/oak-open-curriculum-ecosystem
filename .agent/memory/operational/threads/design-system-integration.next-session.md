@@ -3232,3 +3232,13 @@ reviewer; never tag anyone in a Linear ticket without express request.
 The ratified plan remains THE RESUME MAP (now on main via #846). Claim
 645b9e0b retained stopped-seat-held; handoff record updated with merged
 shas.
+
+### #887 MERGED at `d6b0c7eb0` (2026-08-14 ~03:5xZ) — the governance set is on main
+
+All three of the night's PRs are landed: #846 `c0d49fc04`, #885
+`a73f99f77`, #887 `d6b0c7eb0`. One further pickup row: the #887 final
+Copilot round body carries 6 suppressed probe-hardening pointers (lead:
+interaction-state shots should go through a settled-capture path so a
+late font/layout change cannot ride into proof) — read that review body
+at the next probe touch. Owner-facing proof page published (private
+artifact, URL in the session wrap-up).
