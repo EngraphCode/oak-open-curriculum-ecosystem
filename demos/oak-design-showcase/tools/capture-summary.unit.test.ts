@@ -75,6 +75,17 @@ describe('summariseNaive — height honesty', () => {
     expect(first).toContain('absent from every written PNG');
     expect(summary).toContain('sigma0=');
   });
+
+  it('names the compared height, not the right height, when the rebuild is taller', () => {
+    const summary = summariseNaive({
+      analysis: naiveFixture(1216),
+      leftHeights: [1216],
+      rightHeight: 1400,
+    });
+    const first = summary.split('\n')[0] ?? '';
+    expect(first).toContain('height mismatch: left=1216px right=1400px');
+    expect(first).toContain('content below 1216px is not compared');
+  });
 });
 
 describe('summariseCalibrated — height honesty', () => {

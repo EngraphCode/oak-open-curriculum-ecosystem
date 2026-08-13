@@ -18,13 +18,7 @@ import type { PairAnalysis } from '@oaknational/fidelity-review/visual-stats';
 import type { CalibratedPairAnalysis } from '@oaknational/fidelity-review/visual-calibration';
 import { describeCorrelation } from '@oaknational/fidelity-review/visual-correlation';
 
-/** One arm's run record: the analysis plus every pre-crop height. The
- *  naive arm carries one left height; the calibrated arm carries k+1. */
-export interface PairRunRecord<Analysis> {
-  readonly analysis: Analysis;
-  readonly leftHeights: readonly number[];
-  readonly rightHeight: number;
-}
+import type { PairRunRecord } from './capture-shared';
 
 /** The truncated-tail caveat — comparison covers only the common
  *  region, and the written PNGs are cropped to it too. */
@@ -40,7 +34,7 @@ function tailCaveat(
   return [
     `height mismatch: left=${leftMin}px right=${rightHeight}px — ` +
       `content below ${comparedHeight}px is not compared and is absent ` +
-      `from every written PNG; recapture to see it`,
+      `from every written PNG; adjudicate the tail at the live surfaces`,
   ];
 }
 

@@ -27,6 +27,16 @@ export interface CapturePairConfig {
   readonly nullRuns?: number;
 }
 
+/** One arm's run record: the analysis plus every PRE-CROP height (the
+ *  naive arm carries one left height; the calibrated arm k+1 — never
+ *  empty, by type). A capture-layer data shape, homed here beside the
+ *  capture config; the summary printer consumes it, never defines it. */
+export interface PairRunRecord<Analysis> {
+  readonly analysis: Analysis;
+  readonly leftHeights: readonly [number, ...number[]];
+  readonly rightHeight: number;
+}
+
 /** One settled capture in a fresh browser — the single capture path. */
 export async function captureRgba(
   url: string,

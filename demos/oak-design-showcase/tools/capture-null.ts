@@ -27,8 +27,12 @@ import {
 } from '@oaknational/fidelity-review/visual-calibration';
 import { poolNullCorrelation } from '@oaknational/fidelity-review/visual-correlation';
 
-import { captureRgba, writePairPngs, type CapturePairConfig } from './capture-shared';
-import type { PairRunRecord } from './capture-summary';
+import {
+  captureRgba,
+  writePairPngs,
+  type CapturePairConfig,
+  type PairRunRecord,
+} from './capture-shared';
 
 /** Serial settled captures: left ×(k+1), then right — order recorded by
  *  position (index k+1 is the right capture). */
@@ -192,11 +196,12 @@ export async function runCalibrated(
   if (!crops.ok) {
     return crops;
   }
-  const leftHeights = crops.value.heights.slice(0, -1);
+  const [firstLeftHeight, ...restLeftHeights] = crops.value.heights.slice(0, -1);
   const rightHeight = crops.value.heights.at(-1);
-  if (rightHeight === undefined) {
+  if (firstLeftHeight === undefined || rightHeight === undefined) {
     return err('capture set was empty after cropping — report this');
   }
+  const leftHeights: [number, ...number[]] = [firstLeftHeight, ...restLeftHeights];
   const live = calibrateLivePair(config, crops.value.cropped, crops.value.height);
   if (!live.ok) {
     return live;

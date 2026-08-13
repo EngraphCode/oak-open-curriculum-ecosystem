@@ -33,10 +33,15 @@ import {
   renderHeatmapOverlay,
   type PairAnalysis,
 } from '@oaknational/fidelity-review/visual-stats';
-import { captureRgba, writePairPngs, type CapturePairConfig } from './capture-shared';
+import {
+  captureRgba,
+  writePairPngs,
+  type CapturePairConfig,
+  type PairRunRecord,
+} from './capture-shared';
 import { parseCapturePairArgs } from './capture-pair-args';
 import { runCalibrated } from './capture-null';
-import { summariseCalibrated, summariseNaive, type PairRunRecord } from './capture-summary';
+import { summariseCalibrated, summariseNaive } from './capture-summary';
 
 export { parseCapturePairArgs } from './capture-pair-args';
 
@@ -106,7 +111,7 @@ function analyseAndWrite(
   if (!pngs.ok) {
     return pngs;
   }
-  const record = {
+  const record: PairRunRecord<PairAnalysis> = {
     analysis: analysis.value,
     leftHeights: [pair.leftHeight],
     rightHeight: pair.rightHeight,
