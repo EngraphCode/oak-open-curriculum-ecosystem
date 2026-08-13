@@ -215,8 +215,8 @@ describe('runPipeline restricted-lesson exclusion policy (ADR-224)', () => {
     ['retained when includeRestricted: both lessons feed extraction', true, 2, 0],
   ])('%s', async (_name, includeRestricted, expectedUniqueKeywords, expectedExcluded) => {
     const config = createPipelineConfig({
-      bulkDataPath: '/tmp/bulk-fixtures',
-      outputPath: '/tmp/vocab-out',
+      bulkDataPath: '/fixtures/bulk-data',
+      outputPath: '/fixtures/vocab-out',
       dryRun: true,
       includeRestricted,
     });
