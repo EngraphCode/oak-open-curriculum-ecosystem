@@ -19,7 +19,8 @@
     "test:a11y": "env -u NO_COLOR playwright test --grep @a11y",
     "tool:fidelity": "tsx tools/fidelity-review.ts",
     "validate-authored-css": "tsx tools/validate-authored-css.ts",
-    "validate-kit-assets": "tsx tools/validate-kit-assets.ts"
+    "validate-kit-assets": "tsx tools/validate-kit-assets.ts",
+    "tool:capture-pair": "tsx tools/capture-pair.ts"
   },
   "dependencies": {
     "@oaknational/oak-design-react": "workspace:*",

@@ -207,7 +207,7 @@ docs/                   ← consumption guides: consuming-nextjs.md (full
                           headless-a11y-frameworks.html (research), nextjs-theme-mapping.css,
                           nextjs-theme-switcher.tsx.txt
 dtcg/                   ← DTCG JSON token export (generated FROM the CSS; see dtcg/README.md)
-whitelabel/             ← white-label PROOFS: creature/ + freedonia/ (brand-a.css, brand-full.css,
+whitelabel/             ← white-label PROOFS: creature/ + pds/ (brand-a.css, brand-full.css,
                           logo, live proof page, card) + failing-example.css (guardrail stress test)
 Identity White-Labelling.html ← byte-identical proof — one specimen, three brands side by side
 Identity Switchboard.html     ← one specimen copy + live identity/stage/theme controls
