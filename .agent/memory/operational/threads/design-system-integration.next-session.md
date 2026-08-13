@@ -3157,3 +3157,78 @@ required checks BY NAME (ruleset 13402577), then the sha-pinned bot REST
 merge (mint --scope pull-request-merge from PRIMARY root, token ≥20,
 author echoed, merge method MERGE, sha read first-hand at the call).
 Then the closeout sequence already written above.
+
+### MERGED (2026-08-14 ~02:4xZ): #846 landed at `c0d49fc04` — the owner's night directive discharged
+
+Owner reopened the pause (2026-08-13 ~20:4xZ): "take the time you need, I
+don't want the quality of the work compromised, but I do want to see the
+PR merged tonight." Everything below happened under that word; every act
+is on main or on an open PR.
+
+**#846 MERGED, merge commit `c0d49fc04`** (final tip `db3a4e45b`). The
+specified sonar-exclusion act worked (SonarCloud went green on
+`c6d0203ad`), and then the night found and cured a REAL defect before
+merge: the F01/F02 keyboard blackout LIVE on the picker and
+side-by-side pages (`tabIndex={-1}` on main under reading-flow;
+every control keyboard-unreachable behind a fully green estate).
+Cure: attribute swap to `data-region="main"` (specimen's ratified
+pattern), two red-first keyboard cells, suite 72/72,
+accessibility-expert verdict "sound and complete", rendered red/green
+proof pairs read first-hand.
+
+**#885 MERGED, merge commit `a73f99f77`** — fix(pr-watch): the
+settlement reader now evaluates checks by their latest run per
+(workflow, name), as GitHub does. Found when a duplicated pull_request
+delivery left a concurrency-cancelled twin on #846's sha and the
+undeduped read held CHECKS-RED against a green head. Four productive
+Copilot rounds (start-time recency for overlapping runs;
+order-independent reduction — a queued undated re-run blocks settlement
+in every array order; provider checks without workflowName pass through
+unreduced; full-tie survivors resolve to the later completion anchor so
+checksGreenAt never waives a quiet window early). 184 pr-watch cells.
+
+**#887 OPEN (CI running at this writing)** — the visual-verification
+governance set, owner-directed ("that feels like it deserves a DDR and
+PDR and tooling... and a skill and rules"): PDR-138, DDR-011, the
+visual-verdicts-require-rendered-proof rule (four forms), the
+visual-verification skill (generated adapters), and the showcase
+`pnpm tool:visual-probe` instrument (built for "many thousands" of
+runs; refuses non-OK documents as proof material). Owner verbatims in
+the records. If not merged by pause: the PR is self-contained; merge
+via the standard bot path.
+
+**Owner rulings of the night (all in per-user memory + the records):**
+visual work requires visual assessment — "verdicts on visual design
+work without visual validation or proof are at best insufficient, at
+worst, utterly and avoidably incorrect, without value and actively
+misleading"; "that means screenshots, via playwright or whatever means
+you prefer"; standing rules — never request Matt (mantagen) as a
+reviewer; never tag anyone in a Linear ticket without express request.
+
+**PICKUP ROWS (dispositioned, in priority order):**
+
+1. Plan R16 (identity-static/theme-dynamic ruling) — unchanged, still
+   first plan act; then W1 remainder (A2 rhythm; slice B guard + EMC²
+   body rem), then W2.
+2. `packages/libs/fidelity-review/src/png-codec.ts:52` — negative
+   `newHeight` reaches `Uint8Array.slice` and returns wrong-dimension
+   crops as success (846 suppressed Copilot finding, verified failure
+   scenario in the comment). Small bounded cure + cell.
+3. `agent-tools/src/pr-watch/check-rollup.ts` — an undated PASSED run
+   tying a dated PASSED run currently loses, so checksGreenAt anchors on
+   a dated completion although recency was unprovable (885 final-round
+   suppressed finding; suggested cure: on equal rank retain the undated
+   survivor). Same-bucket-only severity.
+4. `apps/oak-curriculum-mcp-streamable-http` e2e static-root fixture:
+   `copyCommittedRootStatics` races transient `.oak-ds-staging-*` dirs
+   in public/ (ENOENT mid-copy; healed on re-run 2026-08-13 ~22:0xZ).
+   Fixture should skip `.oak-ds-staging-*` entries.
+5. Design-system charter "visible skip link" clause vs the two cured
+   demo pages (zero-or-one focusable before main): conscious
+   disposition owed at the charter, per the a11y review; any future
+   skip link must follow the specimen pattern (in-region target),
+   never `#main`.
+
+The ratified plan remains THE RESUME MAP (now on main via #846). Claim
+645b9e0b retained stopped-seat-held; handoff record updated with merged
+shas.
