@@ -3023,3 +3023,50 @@ only the two named residues, both with owners — the recursion closes.
   before counting — and expect the third breach of one module's cap
   to be the split signal, not another trim (the gateway's
   friction-ratchet reads the same way).
+
+## 2026-08-13 ~09:1xZ (Plover lifts Troposphere, b10c37) — morning fold #872: the ratchet's lessons
+
+- OVERNIGHT WATCHER CHURN diagnosed: the drain-step deadline (60s, then even
+  120s) fired repeatedly overnight — the wall-clock deadline crossing machine
+  SLEEP windows, not genuine 120s drains; on wake the same re-arm worked
+  immediately. Deadline-based step timeouts read sleep as hang. The stream is
+  also past 5,300 event files — archive sweep due (warden-hygiene class,
+  routed to the next active window).
+- Copilot request silent-drops recurred at PR-open (two drops, no timeline
+  event, CODEOWNERS auto-requests landing fine); the request finally took
+  after the first cure push. Same instance class as #819's; no new lore.
+- claude[bot] leg = org-overage quota-skip on #872 (recorded exclusion class,
+  established precedent — a skip never satisfies a leg; the required leg is
+  Copilot).
+- Fold ratchet round 1 (7 findings, 0 suppressed): ALL verified first-hand
+  before disposition; 6 cured in one batch (43dfe9242) + 1 sketch-stage item
+  dispositioned to its ratification pass. Two lessons banked: (a) Sonar
+  S5145's ESLint-compatible cure is the whitespace-control-escape regex
+  (no-control-regex allows \n\r\t\v\f, blocks \x00-\x1f forms); (b) archived
+  plan nodes are referenced BARE-NAME, never linked — the link validator
+  deliberately does not index archive/** targets.
+- S5145 gate cure on Skua's probe script done at this seat (their seat
+  closed): one sanitizer, five sites, authorship named in the commit.
+
+## 2026-08-13 ~09:3xZ (Plover lifts Troposphere, b10c37) — freeze-9 lens harvest + a correction
+
+- CORRECTION to this morning's own entry ("Copilot request silent-drops
+  recurred at PR-open"): REFUTED by the later full timeline read — all three
+  requests registered (08:49:22, 08:59:46, 09:08:16, review_requested events
+  present). The "drops" were timeline-read LAG at my seat: I read the events
+  list seconds after requesting and treated absence as failure. The lesson
+  inverts: absence-of-event within the first minute is NOT a drop verdict;
+  re-read before re-requesting (re-requests are harmless but the lore was
+  wrong). Query-the-value's temporal cousin: a too-early read of an eventually-
+  consistent surface is a lookalike for a failed write.
+- Metacognition note: two instrument false-alarms in one morning (sleep-
+  crossed drain deadlines read as hangs; timeline lag read as drops) — both
+  from treating a TIMING artefact as a STATE fact. The seat's monitors
+  measure wall-clock; the machine sleeps; the API is eventually consistent.
+  Before minting instrument lore, ask "could this be clock, not state?"
+- Free-play association (routes nowhere yet, banked): the fold ratchet's
+  finding classes on a docs-heavy fold were ALL record-coherence classes
+  (stale claims vs post-dating rulings; satisfied gates still machine-open;
+  archived nodes unmoved) — the same class the census's delta section and
+  the deconstruction ledger exist to catch at estate scale. Review rounds
+  are a per-PR instance of the survey programme's whole question.
