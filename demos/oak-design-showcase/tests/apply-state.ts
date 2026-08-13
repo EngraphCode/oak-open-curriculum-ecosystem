@@ -11,13 +11,18 @@
  * "sheet parsed" is not "styles applied" — membership in
  * document.styleSheets plus a computed-style change is the applied signal.
  */
-import { AxeBuilder } from '@axe-core/playwright';
 import { expect } from '@playwright/test';
 import type { Browser, Frame, Page } from '@playwright/test';
 
 import type { OakThemeName } from '@oaknational/oak-design-react';
 import { RATIFIED_EXTERNAL_ORIGINS } from '@oaknational/fidelity-review/capture-flags';
 import { SHOWCASE_ORIGIN } from '../tools/showcase-origin';
+import { assertForcedColorsMode } from './axe-checks';
+import {
+  assertThemeDistinctiveToken,
+  EXPECTED_COLOR_SCHEME,
+  settleAnimations,
+} from './theme-proof';
 
 export const IDENTITIES = ['oak', 'freedonia', 'creature'] as const;
 export const PALETTE_THEMES = ['light', 'dark', 'high-contrast', 'colour-safe'] as const;
@@ -35,31 +40,6 @@ export async function brandNameFont(target: Page | Frame): Promise<string> {
   });
 }
 
-export async function expectNoAxeViolations(page: Page): Promise<void> {
-  const results = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-    .analyze();
-  expect(results.violations).toEqual([]);
-}
-
-/** The forced-colors variant: every rule except color-contrast, which is
- *  a vendor defect in this mode, open at axe-core 4.12.1
- *  (https://github.com/dequelabs/axe-core/issues/3978, since v4.6): axe derives the foreground from
- *  -webkit-text-fill-color, which stays at the UNFORCED author value,
- *  while the background uses the forced background-color — the ratio
- *  mixes author ink with forced paper and measures neither palette. A
- *  live probe (2026-08-10) reproduced the signature here: the same
- *  elements computed forced CanvasText/LinkText while axe reported
- *  author values. Re-examine this disable at any axe-core upgrade;
- *  every other rule stays live. */
-export async function expectNoAxeViolationsForcedColors(page: Page): Promise<void> {
-  const results = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
-    .disableRules(['color-contrast'])
-    .analyze();
-  expect(results.violations).toEqual([]);
-}
-
 /** Origins the kit-authored counter-brand sheets are known to reference;
  *  any other aborted origin during a test fails the suite loudly. Full
  *  origins, not hostnames: a wrong-port loopback request must surface as
@@ -68,18 +48,6 @@ export async function expectNoAxeViolationsForcedColors(page: Page): Promise<voi
  *  consumed here and by the capture-egress allowlist, so the two
  *  surfaces cannot drift apart. */
 const EXPECTED_THIRD_PARTY_ORIGINS: readonly string[] = RATIFIED_EXTERNAL_ORIGINS;
-
-/** Cascade-level application proof per explicit theme: the computed
- *  color-scheme each choice must resolve to (a per-cell table, not a
- *  branch). Exported for the specimen a11y matrix, whose theme helper
- *  proves the same cascade claim. */
-export const EXPECTED_COLOR_SCHEME: Record<ThemeName, string> = {
-  light: 'light',
-  dark: 'dark',
-  system: 'light dark',
-  'high-contrast': 'light',
-  'colour-safe': 'light',
-};
 
 /** Abort every request that is not same-origin with the suite's own
  *  server, recording the aborted ORIGINS. Same-origin means the full
@@ -116,11 +84,13 @@ export function assertOnlyKnownExternalOrigins(abortedOrigins: ReadonlySet<strin
  *  behaviour test opts out to observe the tokens move. */
 export async function openShowcase(
   page: Page,
-  options: { readonly reducedMotion?: boolean } = {},
+  options: { readonly reducedMotion?: boolean; readonly forcedColors?: boolean } = {},
 ): Promise<Set<string>> {
+  const forcedColors = options.forcedColors ?? false;
   const abortedOrigins = await interceptExternalOrigins(page);
   await page.emulateMedia({
     reducedMotion: (options.reducedMotion ?? true) ? 'reduce' : 'no-preference',
+    ...(forcedColors ? { forcedColors: 'active' as const } : {}),
   });
   await page.goto('/');
   // Hydration gate: the Theme select exists pre-hydration as a DISABLED
@@ -130,6 +100,7 @@ export async function openShowcase(
   // POST-hydration DOM only; the pre-hydration shell is proven by the
   // dedicated JS-disabled geometry test, never by these helpers.
   await expect(page.getByRole('combobox', { name: 'Theme' })).toBeEnabled();
+  await assertForcedColorsMode(page, forcedColors);
   return abortedOrigins;
 }
 
@@ -197,6 +168,7 @@ export async function applyIdentity(page: Page, identity: Identity): Promise<voi
   await page.getByRole('combobox', { name: 'Identity' }).selectOption(identity);
   if (identity === 'oak') {
     await page.waitForFunction(() => document.querySelector('link[data-oak-brand]') === null);
+    await settleAnimations(page);
     return;
   }
   // Target the identity-specific link: during a load-then-swap transition
@@ -235,10 +207,19 @@ export async function applyIdentity(page: Page, identity: Identity): Promise<voi
       message: 'the counter-brand face must reach the heading',
     })
     .not.toBe(baselineFont);
+  // The swap starts transitions the reader must never race: the
+  // recorded CI catch (creature × high-contrast at 1.37:1) was a
+  // mid-transition axe read, and reduced-motion emulation alone does
+  // not cure it for a brand that redeclares motion tokens at :root.
+  await settleAnimations(page);
 }
 
-/** Select a theme and assert it is IN EFFECT: the attribute landed and the
- *  document's computed color-scheme matches the per-theme expectation. */
+/** Select a theme and assert it is IN EFFECT: the attribute landed, the
+ *  document's computed color-scheme matches the per-theme expectation,
+ *  and — for the themes colorScheme cannot discriminate — the kit's
+ *  distinctive token computed EQUAL to its theme-owned target
+ *  (THEME_DISTINCTIVE_TARGET). Settles animations before returning so
+ *  callers never read a mid-transition frame. */
 export async function applyTheme(page: Page, theme: ThemeName): Promise<void> {
   await page.getByRole('combobox', { name: 'Theme' }).selectOption(theme);
   await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
@@ -246,4 +227,6 @@ export async function applyTheme(page: Page, theme: ThemeName): Promise<void> {
     () => getComputedStyle(document.documentElement).colorScheme,
   );
   expect(colorScheme).toBe(EXPECTED_COLOR_SCHEME[theme]);
+  await assertThemeDistinctiveToken(page, theme);
+  await settleAnimations(page);
 }

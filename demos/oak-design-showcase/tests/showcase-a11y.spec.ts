@@ -14,11 +14,11 @@ import {
   applyIdentity,
   applyTheme,
   assertOnlyKnownExternalOrigins,
-  expectNoAxeViolations,
   IDENTITIES,
   openShowcase,
   PALETTE_THEMES,
 } from './apply-state';
+import { expectNoAxeViolations } from './axe-checks';
 
 test.describe('OS accessibility signals', () => {
   test('prefers-contrast: more auto-selects the high-contrast theme @a11y', async ({ page }) => {
@@ -32,8 +32,10 @@ test.describe('OS accessibility signals', () => {
   });
 
   test('forced-colors keeps the page renderable @a11y', async ({ page }) => {
-    await page.emulateMedia({ forcedColors: 'active' });
-    const aborted = await openShowcase(page);
+    // Declared intent: expectNoAxeViolations observes the mode and
+    // scopes color-contrast out (criterion scoping — before bundle 2
+    // this cell ran the rule un-scoped and passed on author-ink luck).
+    const aborted = await openShowcase(page, { forcedColors: true });
     await expect(
       page.getByRole('heading', { level: 1, name: 'Oak Open Curriculum Design System' }),
     ).toBeVisible();
