@@ -488,3 +488,38 @@ describe('parseStateView: latest run per check name', () => {
     expect(parsed.checks).toEqual({ total: 2, passed: 1, failed: 1, pending: 0 });
   });
 });
+
+describe('full-tie survivor: the later completion anchors checksGreenAt', () => {
+  // GitHub timestamps are second-granular: two green twins can tie on
+  // startedAt AND rank. The survivor's completion feeds checksGreenAt,
+  // which waives owed-review quiet windows — an array-order-dependent
+  // survivor could report the green moment early and waive prematurely.
+  it('two green runs tying on start resolve to the later completion in either order', () => {
+    const earlyDone = {
+      __typename: 'CheckRun',
+      name: 'build',
+      workflowName: 'CI',
+      status: 'COMPLETED',
+      conclusion: 'SUCCESS',
+      startedAt: '2026-08-13T21:17:17Z',
+      completedAt: '2026-08-13T21:18:00Z',
+    };
+    const lateDone = {
+      __typename: 'CheckRun',
+      name: 'build',
+      workflowName: 'CI',
+      status: 'COMPLETED',
+      conclusion: 'SUCCESS',
+      startedAt: '2026-08-13T21:17:17Z',
+      completedAt: '2026-08-13T21:26:30Z',
+    };
+    for (const rollup of [
+      [earlyDone, lateDone],
+      [lateDone, earlyDone],
+    ]) {
+      const parsed = parseStateView({ ...stateViewFixture(), statusCheckRollup: rollup });
+      expect(parsed.namedChecks).toEqual([{ name: 'build', bucket: 'passed' }]);
+      expect(parsed.checksGreenAt).toBe('2026-08-13T21:26:30Z');
+    }
+  });
+});

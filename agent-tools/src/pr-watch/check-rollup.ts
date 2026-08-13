@@ -80,9 +80,23 @@ function moreBlocking<T>(incumbent: T | undefined, candidate: T, rank: (item: T)
   return incumbent === undefined || rank(candidate) > rank(incumbent) ? candidate : incumbent;
 }
 
+// Completion anchor for full-tie survivors. The survivor's completion
+// feeds checksGreenAt, which waives owed-review quiet windows — so on a
+// start-and-rank tie the LATER completion is the conservative survivor
+// (a green moment is never reported earlier than the last twin's).
+function completionAnchorOf(item: RollupCheckShape): number {
+  const raw = item.completedAt ?? item.startedAt ?? null;
+  if (raw === null || raw === undefined) {
+    return Number.NEGATIVE_INFINITY;
+  }
+  const parsed = Date.parse(raw);
+  return Number.isNaN(parsed) ? Number.NEGATIVE_INFINITY : parsed;
+}
+
 // A dated candidate displaces the dated incumbent on a strictly newer
-// anchor, or on an exact tie when it is more blocking.
-function displacesDated<T>(
+// start anchor; on an exact tie, when it is more blocking; and on a full
+// start-and-rank tie, when its completion anchor is later.
+function displacesDated<T extends RollupCheckShape>(
   candidate: { anchor: number; item: T },
   incumbent: { anchor: number; item: T } | undefined,
   rank: (item: T) => number,
@@ -90,7 +104,14 @@ function displacesDated<T>(
   if (incumbent === undefined || candidate.anchor > incumbent.anchor) {
     return true;
   }
-  return candidate.anchor === incumbent.anchor && rank(candidate.item) > rank(incumbent.item);
+  if (candidate.anchor < incumbent.anchor) {
+    return false;
+  }
+  const rankDelta = rank(candidate.item) - rank(incumbent.item);
+  if (rankDelta !== 0) {
+    return rankDelta > 0;
+  }
+  return completionAnchorOf(candidate.item) > completionAnchorOf(incumbent.item);
 }
 
 // The order-independent survivor of one key's runs: latest dated run
