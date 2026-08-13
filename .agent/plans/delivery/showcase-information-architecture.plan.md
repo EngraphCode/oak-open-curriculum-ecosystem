@@ -6,25 +6,29 @@ overview: >-
   Give the showcase a front door that explains itself, a token-source-
   generated reference route, and demo routes that each state what they
   prove.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell (owner)"
+ratified_date: "2026-08-13"
+ratified_where: >-
+  Owner card answers, design-lane session d0274e, 2026-08-13: "Ratify
+  both now" and default-face "Keep Oak default"; indexed in the thread
+  record §OWNER RULINGS 2026-08-13.
 serves: design-system-as-configured-framework
 impact_areas:
   - design-system
 tickets:
   - MCP-592
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      Jim decides the showcase's default identity.
-    expires: 2026-09-03
+owner_gates: []
 last_updated: 2026-08-13
 ---
 
 # Showcase information architecture — landing, generated reference, routed demos
+
+**Default-face gate discharged 2026-08-13.** The owner decided at the
+ratification card: the showcase default stays Oak. The owner_gates
+entry is removed per the discharge-by-removal shape; the pds-default
+proposal that rode §Mechanism is superseded by this decision.
 
 Readiness-review record (findings discharged by ID at slice pickup):
 `.agent/reports/design/design-arc-plan-readiness-reviews-2026-08-13.md`.
@@ -58,11 +62,8 @@ kernel's demos-as-falsifier-suite made legible.
   so no surface claims two identities. Routes and their
   self-descriptions derive from a single route registry, so a route
   added without a door or description fails closed.
-- Default face: the proposed verdict is the system's own identity
-  (pds), with Oak one white-label face among three — derived from the
-  strategic node's owner-ruled demo-estate roles and the
-  reserved-marks licensing split; the owner gate above carries the
-  decision itself.
+- Default face: Oak, by owner decision (2026-08-13, ratification
+  card — the pds-default derivation was presented and declined).
 
 Sequencing: A1/A3 touch routes that exist only on the PR #846 branch
 (`identity-switchboard`, `identity-white-labelling`) and follow its
@@ -104,8 +105,8 @@ the completion plan at his word.
   landing composition, doors, unified self-descriptions, route
   registry.
 - **A3 demo self-descriptions** (with A1): switchboard and
-  white-labelling routes state their falsifier; default-face decision
-  applied when its gate clears.
+  white-labelling routes state their falsifier; default face stays
+  Oak (owner decision 2026-08-13).
 
 ## First-principles check (six clauses, applied at authoring)
 
