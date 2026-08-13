@@ -43,8 +43,9 @@ export function targetFragmentsFor(
     }
   }
   if (unknown.length > 0) {
+    const quoted = unknown.map((slug) => `'${slug}'`).join(', ');
     return err(
-      `identities: no target fragment for ${unknown.map((slug) => `'${slug}'`).join(', ')} — add a row to FRAGMENT_BY_SLUG in lib/identities.ts alongside the identity change`,
+      `identities: no target fragment for ${quoted} — add a row to FRAGMENT_BY_SLUG in lib/identities.ts alongside the identity change`,
     );
   }
   return ok(fragments);
