@@ -14,15 +14,24 @@ tickets: []
 depends_on:
   - plan: design-system-completion
     kind: beneficial
-owner_gates: []
+owner_gates:
+  - awaiting: owner-decision
+    clears_when: >-
+      Owner word on the R14 pillar re-cut of W1 (his glance is the moment, per
+      this plan's own ratification pattern), including its single confirmable:
+      re-rule or keep the ratified counter-brand rhythm-literal affordance
+      (§W1 fixed-point register, final row)
+    expires: 2026-09-03
 # Three gates were drafted and then dissolved on 2026-08-13, each because the
 # question turned out to be answered rather than open. Reading order: answered
-# by the owner's own correction (R13). The brand type-slot: the contract
-# prescribes its own deprecation path, and decomposition preserves the ramp
-# affordance rather than revoking it, so it is plain engineering. ADR-213 §3's
-# binding fork: already exercised by the owner's tight scope, which commissions
-# this composition page by name. Manufacturing a gate the owner must clear is
-# its own failure mode; the ratification glance is the only owner moment here.
+# by the owner's own correction (R13). The brand type-slot: decomposition
+# preserves the ramp affordance rather than revoking it and prices as a MINOR
+# addition under the contract's own semver rule, so it is plain engineering.
+# ADR-213 §3's binding fork: already exercised by the owner's tight scope,
+# which commissions this composition page by name. Manufacturing a gate the
+# owner must clear is its own failure mode. The one gate above is different in
+# kind: it re-opens a RATIFIED kit clause the owner's R14 word now contradicts
+# — precisely the class only he can settle.
 last_updated: 2026-08-13
 ---
 
@@ -69,6 +78,15 @@ demonstrated virtue R13 says it is. Three drafted owner gates dissolved once
 traced (§Questions that turned out not to be his), leaving `owner_gates: []`.
 And every binding constraint now carries an **authority class**, so the next
 reader can see at a glance what governs and what is merely written down.
+
+**Pillar re-cut note (2026-08-13 evening).** The owner re-framed W1 minutes
+before implementation opened (R14): fluidity is the pillar the system is built
+on, never a feature incrementally added. §W1 was re-derived under that word,
+absorbing the day's two pre-execution reviews (both REVISE: the fluid curve
+was under-determined by four parts, the floor rule failed its own purpose when
+probed, and the `@deprecated` arm misstated the contract). The re-cut carries
+one owner gate — the ratification glance, with its single confirmable on the
+counter-brand rhythm-literal affordance (§W1 fixed-point register, final row).
 
 ## Goal
 
@@ -182,6 +200,7 @@ carry their grounds.
 | R13 | **Visual order is part of what CSS must be able to change — and DOM order is not the point.** "I don't care about DOM order, why would I … I care that someone can author markup and then control the *appearance* that markup leads to with CSS and I care that our system is designed to maximally enable visual change, including visual order, via css … the made up thing contradicts the ask because it is made up. just question everything, go back, identify assumptions, trace their origins, and do better." **Deletes the composition envelope as a binding axis** and makes visual reordering a demonstrated virtue rather than a divergence to disposition. | Owner, 2026-08-13, relayed via the Director |
 | R10 | **Responsive behaviour is a design-system-level obligation, not a per-page one.** *Seat reading*, derived from R3's "always, everywhere" and R4's "excellent base": a page-level responsive fix cures one page, while the same gap re-appears in every other consumer of the kit. Where the gap is in the kit, the cure is in the kit. Grounds: the kit's own accessibility charter already binds it to "usable at 400% zoom / 320px width without loss" (`packages/design/oak-design-system/CLAUDE.md`), which the current fixed type ramp does not deliver. **Owner-confirmed at ratification, with the general form stated: "fix things at the lowest level where the fix works and produces the correct outcome"** — the kit is that level for responsive foundations; the principle governs level-selection for every fix in this plan. | Seat verdict, 2026-08-13; confirmed and generalised by the owner at ratification, 2026-08-13 |
 | R11 | **Demo copy is product voice, never internal doctrine.** The pages speak to their visitors about what the system does; they never quote the estate's own governing vocabulary at them. | Seat reading from the editorial-voice doctrine; consistent with the owner's rejection of specimen-sheet framing |
+| R14 | **Fluidity is a pillar, not a feature.** "we shouldn't be incrementally adding fluidity to the design system, it should be the fundamental pillar it is built on." Re-frames W1 from retrofit to foundation: every visual-scale dimension is fluid by construction, and fixedness is a declared, reasoned exception in a named register — the exception set is drawn by principle, each entry carrying its reason and revisit condition. Incremental DELIVERY of the pillar (bounded tranches) stands; what the word rejects is fluidity designed as an added feature whose exception set is drawn by retrofit reach. | Owner, 2026-08-13 evening, direct at the successor seat (Skua binds Leeward, e2b222); captured verbatim at occurrence in seat memory and the napkin drift entry |
 
 ## Mechanism
 
@@ -226,9 +245,15 @@ follow-up to it.
 
 ---
 
-### W1 — Kit responsive foundations (the layout-level cure)
+### W1 — The fluidity pillar, tranche 1: fluid display type
 
-**Serves:** S1, S3 (and every page thereafter). **Ruling:** R3, R4, R10.
+**Serves:** S1, S3 (and every page thereafter). **Ruling:** R14, R3, R4, R10.
+
+**The pillar (R14) governs this workstream's shape**: fluid by construction on
+the visual-scale axis, fixed only by declaration in the register below. The
+axiom lands in the kit's own contract surfaces with this tranche — a dated
+`DECISIONS.md` entry and the `brand.css` §1b restatement — because a pillar
+recorded only in plan prose is plan-authority, which binds nothing.
 
 **The verified problem.** The kit ships a fixed type ramp and fixed leading:
 `--font-size-10: 3.5rem` through `--font-size-14: 6rem`, paired with fixed
@@ -246,8 +271,10 @@ The workaround already in the tree is the proof of R10. The showcase's
 auto; }` with the comment "SC 1.4.10: 'Curriculum' is wider than a 320px line at
 display sizes (Creature's 84px ramp especially) — hyphenate rather than
 overflow." That is a page-level cure for a kit-level gap: it stops one word
-overflowing on one page, and every other consumer of the ramp still breaks. Cure
-the ramp and the workaround becomes unnecessary.
+overflowing on one page, and every other consumer of the ramp still breaks.
+Cure the ramp with fit-derived floors and the workaround becomes unnecessary —
+a claim the rendered fit cell must prove, never assume: the first derivation's
+EMC² floor still overflowed at 320px when probed.
 
 **The trap this workstream must not fall into.** The obvious cure — wrap the
 `--font-size-*` primitives in `clamp()` — would cure the Oak base identity and
@@ -281,98 +308,125 @@ the SHAPE of the scales on the surface".
 it.** The ratified intent is that the ramp level lives on the brand surface —
 "true re-branding needs the SHAPE of the scales on the surface". Decomposition
 does not take the ramp away; it makes the same control finer-grained. A brand
-still sets weight, size, leading and family per slot, and gains a fluid range it
-could not express in a single shorthand. Nothing is revoked.
+still shapes each slot's scale — bounds and leading — while weight and family
+stay on the existing `--weight-display` / `--font-display` knobs, and it gains
+a fluid range it could not express in a single shorthand. Nothing is revoked.
 
-That leaves a **naming** change on a semver-protected surface, and `brand.css`
-prescribes its own path for exactly that: "a deprecated name keeps working for ≥1
-minor release, marked `@deprecated` at its definition." So W1 follows the
-contract rather than deciding anything about it — the part names become the
-documented ramp surface, the whole-slot names keep working through one minor
-release marked `@deprecated`, `brand.css` §1b and CHANGELOG are edited in the same
-change, and the guard **warns** on a whole-slot shorthand rather than rejecting.
-Plain engineering under a published rule.
+On inspection there is not even a naming change: nothing is renamed, removed,
+or stops working — the slot names remain the public composite the classes
+consume, and the parts arrive as new finer-grained surface. The CHANGELOG's own
+semver rule prices that as a MINOR addition (new tokens/levers), with one
+honest CHANGELOG sentence for the value change below saturation (headings
+render smaller below 960px — a consumer pinning layout to fixed heading sizes
+should read it before upgrading). The stability clause's `@deprecated` path is
+for renames and is not engaged; marking the live, still-consumed slots
+deprecated would misstate the contract and advertise a MAJOR removal nobody
+intends. `brand.css` §1b and CHANGELOG are edited in the same change. Plain
+engineering under a published rule.
 
-An earlier draft escalated this to the owner as a MINOR-or-MAJOR decision. That
-was manufactured ceremony: the contract answers it, and the affordance it protects
-survives.
+An earlier draft escalated this to the owner as a MINOR-or-MAJOR decision; a
+second draft prescribed an `@deprecated` cycle. Both were wrong readings of a
+contract that answers the question itself — the second caught by the
+2026-08-13 pre-execution design-system review.
 
-**The decided mechanism.**
+**The decided mechanism** (re-derived 2026-08-13 at the R14 re-cut, absorbing
+both pre-execution reviews — code-expert and design-system-expert, each
+REVISE; the design-system review verified the load-bearing mechanics
+first-hand in headless Chromium. Dispositions in the decision log).
 
-1. **Decompose the display slot; the kit assembles it.** The kit assembles
-   `--type-heading-*` from brand-writable parts:
-   `--type-heading-N: var(--heading-N-weight) clamp(var(--heading-N-min), <rem
-   term> + <vw term>, var(--heading-N-max))/var(--heading-N-leading)
-   var(--font-display)`. A brand expresses its identity by setting the parts —
-   EMC² keeps its 84px maximum, PDS keeps its 48px — and gets the fluid ramp for
-   free. **The composed-token rule applies:** any selector overriding a
-   `--heading-N-*` part must re-declare `--type-heading-N` in the same block. That
-   is the kit's own recorded rule ("a composed token is substituted where it is
-   declared"), and the shipped motion tokens follow it — they re-declare the
-   composed `--motion-*` inside every scope that moves their parts.
-2. **Floors and the viewport term are derived, never invented.** The kit's
-   recorded floors cover body, slides and targets, not display type, so W1 states
-   its own derivation rule: **`--heading-N-min` is the existing `--font-size-*`
-   ramp step two below that slot's maximum**, so every floor is an existing kit
-   token. The `vw` coefficient is derived, not chosen: it is the value that makes
-   the middle term reach the maximum at 1920px, which is what keeps "no
-   wide-viewport change" true rather than merely intended.
-3. **Both clamp bounds are `rem`-expressed, not just the middle term.** WCAG 2.2
-   SC 1.4.4 requires text to reach 200%. A `px` floor defeats text resize at
-   exactly the narrow widths narrow-first exists to serve —
-   `clamp(48px, 1rem + 3vw, 84px)` contains a `rem` term and still pins. Today's
-   brand value becomes the **maximum**, so no wide-viewport rendering changes for
-   any identity.
-4. **The guard checks `rem`-ness, and its home is named.** The guard walks
-   `packages/design/oak-design-system/studio-source/whitelabel/*/brand-full.css`
-   and their served copies, and enforces the contract's own existing clause —
-   `brand.css`: "Slots stay in rem so a reader's own font-size setting still
-   scales them." It lives in `agent-tools/src/validators/` beside the estate's
-   other repo validators and joins the `repo-validators:check` chain. **There is
-   no existing brand-admission validator to copy** — an earlier draft of this plan
-   cited a "motion guard" precedent that does not exist as an instrument; the
-   guard is new, and its red-first fixture is how it earns its place.
-5. **Leading follows size.** The Oak base's display slots swap their fixed
-   `--leading-N` pair for the kit's existing unitless ratio tokens
-   (`--leading-tight: 1.1`, `--leading-snug: 1.25`) — otherwise a headline that
-   shrinks to half its size keeps a 4rem leading and lands at a 2.0 ratio. Both
-   counter-identities already express leading as a unitless ratio, so this brings
-   the base into line with them rather than inventing a convention.
-6. **EMC²'s px body slots are corrected here.** EMC² ships
-   `--type-body-1: 400 19px/1.65` through `--type-body-4: 400 16px/1.45`, which
-   defeats a reader's own font-size setting. That is not a new finding needing its
-   own workstream — it is the brand contract's existing clause ("Slots stay in rem
-   so a reader's own font-size setting still scales them") being unmet, and the
-   guard in point 4 is the instrument that enforces exactly it. A one-line
-   per-slot conversion to `rem` lands with the guard.
-7. **A print arm, because `vw` does not belong in ink.** `print.css` carries no
-   type rules at all, so a clamp tuned for a 320–1920px viewport would resolve
-   against the print page box (~794px at A4/96dpi) and shrink display type on
-   paper. Inside `@media print` the display slots re-declare at their maxima. Deck
-   and projection surfaces need nothing: at 1920 the clamp is already at its
-   maximum.
-8. **Brand sheets and their served copies move together.** Both brand sheets are
-   edited at kit source (`studio-source/whitelabel/*/brand-full.css`) and their
-   served copies follow in the same change under the existing kit-asset-parity
-   gate — a half-migrated pair fails that gate, which is the behaviour wanted.
-9. **The DTCG export path, stated rather than assumed.** ADR-213 §1 fixes the
-   canonicality rule ("the CSS is the token source and the `dtcg/` export is
-   regenerated from it"), and `dtcg/README.md` forbids hand-editing — but **no
-   in-repo regenerator exists**: the estate's build reads the DTCG trees to
-   produce CSS, never the reverse, and the generator that wrote them is
-   studio-side. Meanwhile the consistency validator does reverse coverage against
-   a `NON_TOKEN_ALLOWLIST` holding exactly one entry, so every new kit `:root`
-   variable W1 introduces reddens CI until it has a DTCG counterpart or an
-   allowlisted reason. W1 therefore lands three things together: the new part
-   tokens as DTCG-representable leaves (`dimension` in rem, `fontWeight`,
-   `number`); the composite slot's `clamp()` joining the export's existing
-   functional-value pass-through set, with that set's stated count updated in the
-   same change (DTCG 2025.10 has no function syntax and constrains `dimension` to
-   px or rem, so `vw` and `clamp()` cannot be native); and a named route for the
-   regeneration — studio round-trip, or a stated exception recorded in
-   `dtcg/README.md`. Worth saying because it argues *for* the decomposition: the
-   four parts map one-to-one onto DTCG's `typography` composite, so this is the
-   moment the heading slots stop being opaque strings.
+1. **Two brand-authored numbers per fluid slot; the kit derives the curve.**
+   Each fluid heading slot N gains two unitless bound parts —
+   `--type-heading-N-min` and `--type-heading-N-max`, plain numbers of rem —
+   and one unitless `--type-heading-N-leading` ratio. The kit assembles:
+   `--type-heading-N: var(--weight-display) clamp(calc(var(--type-heading-N-min) * 1rem), calc(var(--type-heading-N-min) * 1rem + (var(--type-heading-N-max) - var(--type-heading-N-min)) * (100vw - 20rem) / 40), calc(var(--type-heading-N-max) * 1rem)) / var(--type-heading-N-leading) var(--font-display)`.
+   The curve is wholly derived from the bounds: a brand expresses a fluid
+   intent in two numbers and cannot author a stale interpolation. A kit-fixed
+   middle term is correct for at most one brand per slot (the four-part shape's
+   fatal flaw — CSS cannot derive a slope from bounds without length division,
+   which ships only in current engines, is not `@supports`-detectable, and
+   fails to inherited 16px silently). The ramp runs 320px→960px: bounds stay
+   rem-true under text resize; slots sit at today's exact values from 960px up,
+   so the estate's 1280/1440 comparison widths render unchanged, and the
+   two-width resize cells pass at both 320px and 1920px — the earlier
+   1920px-saturation derivation made the reach-maximum and resize cells
+   jointly unsatisfiable (`rem` doubles under a root-font change; `vw` does
+   not).
+2. **No weight or family parts.** All three identities set `--weight-display`
+   and `--font-display` once and never vary either by slot; the assembly
+   consumes the existing knobs. Per-slot duplicates would strand the
+   documented brand surface as dead code for headings.
+3. **Fluid slots this tranche: heading-1..3** — the slots with measured 320px
+   defects (56/48/84px display type). heading-4..7 are fixed by declaration in
+   the register below, each with its reason and revisit condition. Nine new
+   kit variables, nine DTCG leaves.
+4. **Floors derive from the constraint they exist to satisfy** — the longest
+   hero word fits a 320px line in each identity's own display face — and the
+   proof is rendered, never arithmetic. The prior ramp-step rule was undefined
+   for nine of fourteen counter-brand maxima (not ramp members), and where
+   defined its EMC² floor still overflowed at 320px when probed: an
+   arithmetic-against-itself acceptance that would green an overflowing page.
+   The front page's hyphenation workaround (`app/globals.css`, "Creature's
+   84px ramp especially") is removed in the same change only if the rendered
+   fit cell proves it dead; its comment is re-trued either way.
+5. **Leading follows size with zero rendered delta.** Four missing ratio
+   primitives are minted beside `--leading-tight`/`--leading-snug` (1.1429,
+   1.1667, 1.2, 1.3333 — today's exact shipped ratios), and each slot's
+   leading part references its exact current ratio, keeping every rendered
+   value byte-identical at every width. Tier-clean: literals stay in the
+   primitives tier. A designed ratio ladder is a separate, owner-visible
+   decision this tranche does not take.
+6. **Brand sheets migrate to bounds; sheets and served copies together.** PDS
+   and EMC² replace their whole-slot heading-1..3 shorthands with unitless
+   bounds (maxima = today's exact rendered sizes; px-authored values convert
+   on migration). EMC²'s px body slots convert to rem with the guard in
+   slice B, per the contract's own "Slots stay in rem" clause. Studio-source
+   and served copies move in the same change under the kit-asset-parity gate;
+   the guard walks studio-source only — parity already proves the copies
+   byte-identical.
+7. **A whole-slot shorthand is a documented opt-out; nothing is deprecated.**
+   The slot names stay, the classes keep consuming them, and a brand's
+   whole-slot literal keeps winning by cascade — the declared-fixed choice the
+   register recognises, recorded in `brand.css` §1b. The guard (slice B) is
+   all-fatal with no warn arm: it rejects unit-bearing values in bound parts,
+   and rejects a brand sheet declaring BOTH a slot's shorthand and its parts
+   (the shorthand wins and the parts become silent dead code — the real
+   authoring hazard). Its red-first fixture extends the kit's existing tracked
+   negative control (`studio-source/whitelabel/failing-example.css`). No warn
+   arm also means no collision with the no-warning-toleration rule. The guard
+   lives in `agent-tools/src/validators/` beside the estate's other repo
+   validators and joins the `repo-validators:check` chain; no existing
+   brand-admission validator exists to copy — red-first is how it earns its
+   place.
+8. **A print arm on `html:root`, at the maxima.** Inside `@media print` the
+   fluid slots re-declare at their maxima using `html:root` (0,1,1) per
+   `print.css`'s own ink-safe precedent, so a dark-first brand's bare `:root`
+   cannot out-cascade it. The print comparand sits outside the DTCG
+   consistency walk (top-level `:root` rules only), so the arm carries no
+   token obligation.
+9. **DTCG: nine flat `number` leaves; no composite; the functional set
+   restated.** The bound and leading parts land as flat sibling leaves
+   (`type.heading-N-min` and kin — a child under the existing
+   `type.heading-N` token would be an illegal token/group hybrid) with
+   `$type: number`, the honest type for unitless values, in the tree set the
+   consistency validator walks. The `typography` composite is ruled out now —
+   the token walker accepts only scalar `$value`s, so a composite reddens CI —
+   and belongs to separate `design-tokens-core` work. The changed
+   `--type-heading-1..3` composite values carry `clamp()`:
+   `dtcg/README.md`'s functional-value sentence widens from its
+   `color-mix()`/`calc()` phrasing (15 tokens) to functional CSS expressions
+   generally — 21 today, 24 after this change — and the regeneration route is
+   recorded there (studio round-trip, or a stated exception; no in-repo
+   regenerator exists).
+10. **The composed-token rule, scoped correctly.** Custom-property
+   substitution resolves against the cascaded winner on the SAME element, so
+   brand `:root` parts reach the kit's `:root` assembly across separate
+   stylesheets by load order (probe-verified). Brand sheets must NOT
+   re-declare the composite — doing so opts out of the very fluidity the parts
+   express. The kit's recorded re-declare rule bites on descendant-scope
+   overrides only (its provenance is a band-scope shadow token), and the
+   shipped motion tokens work by the same-element mechanism — not, as this
+   plan earlier claimed, by re-declaring the composed verbs per scope; that
+   citation is corrected by this re-cut.
 
 **Rhythm is Oak-base-only in this scope, and that is stated rather than
 discovered.** An earlier draft added a kit-owned `--density-viewport` multiplier
@@ -384,50 +438,60 @@ brand CSS wins at equal specificity. The same fact makes `--band-pad`, one of th
 kit's three `clamp()` sites, already inert on two thirds of the showcase. Direct
 override is a ratified affordance, not an oversight ("direct overrides still win …
 so existing brands didn't change behaviour"), so constraining it would need a
-dated DECISIONS amendment. **This plan does not take that on.** The multiplier
-lands for the Oak base, the counter-identities keep fixed rhythm in this scope,
+dated DECISIONS amendment. **Under R14 this is a register row, not a scope
+note**: the affordance is the one ratified clause that actively fights the
+pillar, and re-ruling or keeping it is the single owner confirmable riding
+this re-cut's ratification glance (register, final row). Until his word, the
+multiplier lands for the Oak base, the counter-identities keep fixed rhythm,
 and the acceptance below measures which is which rather than letting the
 difference pass unnoticed.
 
-**Not in this workstream, stated rather than silent:**
+**The fixed-point register (R14).** Fixedness on the visual-scale axis is a
+declared, reasoned exception — never an unnamed residue of retrofit reach.
+Initial rows; each carries its reason and its revisit condition:
 
-- The `--space-*` primitives stay fixed px. They are the primitive tier; scaling
-  them would move every derived value twice.
-- **Body slot sizes stay non-fluid.** A reader's browser font-size preference
-  should be the sole controller of body text, and a viewport term would take that
-  away. (Their *units* are corrected — point 6 — which is the opposite concern.)
-- **Eleven type classes keep fixed sizes**, because they compose from the
-  primitives directly rather than through the slots:
-  `.oak-heading-light-1` … `-7`, `.oak-body-1-bold` … `-3-bold`, and
-  `.oak-code-2-bold`. After W1 the kit still renders 56px display type at 320px
-  through `.oak-heading-light-1`. Folding them in means minting a `-light` weight
-  variant of every heading slot, which doubles the decomposition's surface; they
-  are named here so the gap is visible and the owner can price it.
+| Fixed dimension | Reason | Revisit condition |
+| --- | --- | --- |
+| Body slot sizes (`--type-body-1..4`) | Reader font-size sovereignty: the reader's browser preference is the sole controller of body text — an accessibility commitment, not a gap. Their UNITS convert to rem in slice B — the opposite concern | An owner ruling changes the sovereignty commitment |
+| `--type-heading-4..7` | At or near body scale (32/24/20/16px maxima); no measured 320px defect; a derived floor would land at or below the kit's readability floors and compress four heading levels into an 8px band | A measured narrow-width defect on any of these slots, or tranche-2 pricing |
+| The eleven primitive-composed classes (`.oak-heading-light-1..7`, `.oak-body-1..3-bold`, `.oak-code-2-bold`) | Compose from primitives directly, bypassing the slots; no showcase page uses any (grep-verified); folding them in doubles the tranche surface | Tranche 2, owner-priced. Latent kit inconsistency to price with it: below saturation `.oak-heading-light-N` and `.oak-heading-N` render at different sizes for N=1..3, where today they differ in weight only |
+| `--space-*` primitives | Primitive tier; scaling them would move every derived value twice | The rhythm tranche (A2) operates at the derived tier, never here |
+| Counter-brand rhythm literals (direct `--gap-*` / `--inset-*` overrides) | A RATIFIED brand affordance ("direct overrides still win") — currently pillar-hostile: a brand literal freezes rhythm against any kit fluidity | **The owner confirmable riding this re-cut's glance**: re-rule the affordance (brands express rhythm intent through the density knob and fluid derived tokens), or keep it (rhythm fluidity stays Oak-base-only, recorded as a standing owner choice) |
 
-**Acceptance.** The first cell is where the harness matters: the kit workspace
-runs `happy-dom` over `src/**/*.integration.test.ts` and carries no Playwright
-dependency, so it can resolve neither `clamp()` against a viewport nor a media
-query. **These cells live in the showcase's Playwright suite, run against the
-built kit CSS** — R10's "cure in the kit" governs where the CSS lives, not where
-its proof runs.
+**Acceptance.** The harness fact governs placement: the kit workspace runs
+`happy-dom` and carries no Playwright dependency, so it can resolve neither
+`clamp()` against a viewport nor a media query. **These cells live in the
+showcase's Playwright suite, run against the built kit CSS** — R10's "cure in
+the kit" governs where the CSS lives, not where its proof runs. The resize
+cells carry the `@a11y` title tag so `test:a11y` runs them; per-slot coverage
+uses injected probe elements — no page renders every slot.
 
-- `repo-safe` — for **all three identities**, each display slot's computed size at
-  1920px equals today's value (no wide-viewport change) and at 320px equals its
-  derived floor. Running it across identities is what would have caught the trap
-  above.
-- `repo-safe` — the SC 1.4.4 **behavioural** cell: at 320px and at 1920px, with
-  the root font size doubled, every display slot's computed px at least doubles,
-  for all three identities. That is the criterion's own test procedure. A cheap
-  static tripwire — every clamp bound `rem`-expressed — sits beneath it, but the
-  behavioural cell is the proof.
+- `repo-safe` — computed-size cells, all three identities: heading-1..3
+  computed `font-size` at 960, 1280, 1440 and 1920px equals today's value
+  exactly (saturation from 960px; the estate's own comparison widths
+  unchanged), and at 320px equals the identity's declared floor.
+- `repo-safe` — the RENDERED floor-fit cell: at 320px, in each identity, the
+  front-page hero headline produces no horizontal overflow, with the
+  hyphenation workaround disabled for the measurement. This is the cell the
+  floors answer to — never ramp arithmetic tested against itself.
+- `repo-safe` — the SC 1.4.4 two-width resize proxy: at 320px and 1920px with
+  the root font size doubled, each fluid slot's computed px at least doubles,
+  all three identities. Recorded honestly as a two-width proxy (between the
+  anchors the ratio dips below 2× by construction); the criterion's own bar —
+  no loss at 200% — is carried by the rem-true bounds.
+- `repo-safe` — computed `line-height` at 1920px equals today's value for
+  every fluid slot (the minted ratio primitives keep leading byte-identical).
 - `repo-safe` — a rhythm cell naming what moved and what did not: for the Oak
   base a named rhythm token's computed value differs between 320px and 1920px;
-  for both counter-identities it is unchanged, matching the scope stated above.
-- `repo-safe` — a print cell: under emulated print media a display slot computes
-  at its maximum, not at a `vw`-derived size.
-- `repo-safe` — the brand-admission guard is red-first on both arms: a fixture
-  brand sheet with a `px` type-slot size fails, and one with a whole-slot
-  `--type-heading-1` shorthand warns with its `@deprecated` pointer.
+  for both counter-identities it is unchanged, matching the register above.
+- `repo-safe` — a print cell: under emulated print media, in a dark-first
+  identity, a fluid slot computes at its maximum (the `html:root` arm wins).
+- `repo-safe` — the brand-admission guard is red-first on both fatal arms
+  against the extended `failing-example.css` fixture: a unit-bearing bound
+  part fails; a sheet declaring both a slot's shorthand and its parts fails.
+- `repo-safe` — the DTCG consistency validator green with the nine new
+  `number` leaves and the `dtcg/README.md` functional-set restatement
+  (21 → 24) in the same commit.
 - `owner-held` — the owner sees the front page and the specimen at 320px in
   Chrome, in all three identities, before W2 opens.
 
@@ -1335,6 +1399,14 @@ outright. So each clause is re-derived from a real authority or dropped:
 | The Demos Charter's clauses are re-derived from real authorities, not inherited | Seat verdict after R13 — the charter sits in an unratified plan, and one of its clauses proved to be a reviewer artefact contradicting the owner's ask |
 | Each demo names the kernel property it proves; the front page names none | The strategic node's ratified falsifier-suite rule — "a demo with no property to prove is scope without warrant". The rule governs demos; the front page is the entrance |
 | The wow bar is an acceptance criterion of this plan | Inherited from the strategic node this plan serves (ratified 2026-08-05): professional-designer visual quality is the bar for every surface presenting the system |
+| W1 re-derived under the fluidity pillar | **Owner word (R14)**, 2026-08-13 evening; mechanism re-derived absorbing both pre-execution reviews of the same day (code-expert REVISE, nine defects; design-system-expert REVISE, twelve findings, probe-grounded) |
+| Two unitless bounds per slot; the kit derives the whole curve; saturation at 960px | Design-system review (a kit-fixed middle term is correct for at most one brand per slot; CSS length division not safely shippable) composed with code review D1 (1920px saturation made the reach-maximum and resize cells jointly unsatisfiable) — both cells now pass as written, and the 1280/1440 comparison widths render unchanged |
+| No weight or family parts | Design-system review: all three identities set `--weight-display`/`--font-display` once and never vary them by slot; per-slot duplicates strand the documented brand surface |
+| Fluid scope = heading-1..3; heading-4..7 to the fixed-point register | Code review (ramp-step floors compress four heading levels into an 8px band and breach the kit's readability-floor condition) + design-system review (no measured narrow defect below heading-3; nine leaves, not twenty-one) |
+| Floors answer to a rendered fit cell, never ramp arithmetic | Design-system review, probe-grounded: the ramp-step rule was undefined for nine of fourteen counter-brand maxima, and its derived EMC² floor still overflowed at 320px — an arithmetic-against-itself acceptance |
+| Nothing deprecated; whole-slot literal = documented opt-out; guard all-fatal | Design-system review (nothing renamed or removed; `@deprecated` would advertise a MAJOR removal for a MINOR addition) + code review D7 (the warn-arm collision with no-warning-toleration, dissolved by having no warn arm) |
+| Leading: four exact ratio primitives minted; rendered values byte-identical | Code review D6 + design-system review: five of seven slots would have changed leading at every width under the two-named-ratios wording; the designed-ladder alternative is deferred as an owner-visible decision |
+| The single-token-per-slot alternative priced and rejected | Design-system review finding 12: materially smaller, but returns curve-authoring to brands as hand-written `clamp()` — against R14's intent-shaped vocabulary and the kit's derivation-over-specification direction |
 
 ## Execution seat and review
 
