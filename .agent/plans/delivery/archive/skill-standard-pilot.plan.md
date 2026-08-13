@@ -3,7 +3,7 @@ id: skill-standard-pilot
 node_type: delivery
 name: "Skill standard pilot: one skill fully to standard, the standard minted by proving it"
 overview: "Define the full skill standard — graph frontmatter (concern + domain), schema validation, the agentskills.io supporting-directory set carried across every projection surface, and spec-method evals — and prove it end to end on design-system-usage (content re-trued against both of its homes and the DDRs), then mint ui-visual-design born to the proven standard. The standard definition, not the pilot skill, is the durable artifact."
-status: ratified
+status: archived
 ratified_by: 'Jim Cresswell'
 ratified_date: 2026-08-11
 ratified_where: >-

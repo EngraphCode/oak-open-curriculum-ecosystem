@@ -3070,3 +3070,341 @@ only the two named residues, both with owners — the recursion closes.
   archived nodes unmoved) — the same class the census's delta section and
   the deconstruction ledger exist to catch at estate scale. Review rounds
   are a per-PR instance of the survey programme's whole question.
+- 2026-08-13 ~10:1xZ, the shared-index collision and the warden cure (owner
+  stop-word): two live seats committing through the primary's ONE index —
+  Swordfish's commit failed at commit-msg leaving 139 staged lines; my next
+  commit (36a57987c) swept them under my message; my own follow-up hit their
+  index.lock and I armed a blind retry. Nothing lost; misattribution recorded
+  on the design-lane arc channel. ROOT CAUSE: the commit-window protocol
+  (2026-08-12) was vigilance, not structure — pre-commit hooks hold
+  index.lock for minutes, so two record-writing seats collide by
+  construction. CURE ADOPTED (joint, on the channel): Director is sole
+  commit-warden of the primary's git:index/head; implementers hand intents
+  (pathspec + pre-checked subject ≤100 lower-case + one-line body) via
+  channel/directed; worktrees stay implementer-owned. Commit-window protocol
+  SUPERSEDED. Swordfish's mechanical disciplines, adopted both seats, for
+  practice routing later (new-rule-vs-pdr-clause): single-purpose git
+  commands (never chain commit with pull/push); mechanical subject pre-check
+  before invoking; read FULL hook output on failure (never tail through a
+  failing hook); census-fenced vocabulary pre-scan on new prose; staging by
+  explicit pathspec always. My own harvest: read-state-before-retry applies
+  to LOCKS (who holds it, what is staged) as much as exit codes; re-read the
+  branch tip before authoring shared artefacts (218d5e591 "arc opened" was
+  already on the branch while I wrote a channel opener); solo git habits are
+  the generator — the n-live-seats check belongs BEFORE the first git write,
+  not after the first collision.
+
+## 2026-08-13 ~13:05Z — Swordfish wakes Trench (d0274e): cricket tally, bundle-3 reslice moment
+
+**Cricket tally (recorded at occurrence):** platform claude-code; effort-inversion
+quartet × normal+adversarial = 8 legs, identical six-field frame (bundle-3 plan
+reflection at owner word). Verdicts 7/8 ON-TRACK, 1/8 DRIFTING (adversarial
+procedure-xhigh) — NON-UNANIMOUS, split routed to Director per rule. Wall:
+normal wave 13:00:39Z→~13:01:52Z (~73s, all four); adversarial wave
+13:02:58Z→13:05:06Z (~128s). Tokens: UNAVAILABLE at this seat (harness exposes
+no per-subagent usage — recorded as bound, not zero). Delivery: 3 of 8 legs
+delivered inline, 5 harvested from transcripts after idle-notification (the
+practiced harvest-on-idle cure; zero resends needed this run).
+
+**Redirections adopted (seat decision, lens as evidence):** (1) kit-side
+reduced-motion collapse cure LEAVES bundle 3 → own kit-scoped work item/PR
+(5 legs convergent; adversarial-medium's sharpest form: the frame routed
+cross-package work away as "outside claim" while pulling kit-side work in —
+self-contradictory scoping over an undecided cure shape); design-system-expert
+rules mechanism, location already ruled own-PR. (2) F09 pull-in KEPT (3 legs
+explicitly endorse under the owner's fix-it ruling; none against). (3) Frame
+discipline for future panels, from the DRIFTING leg's substance: name the
+consumer INSIDE NEXT, cite the standing rule behind each gate by name
+(pre-execution-code-expert-review-per-loop-cycle existed but was uncited),
+carry event-ids for owner rulings (same class as Forge's 2026-08-11 lesson).
+**Rejected with reason:** the DRIFTING verdict as a plan-level stop — its three
+FAILs are frame-citation gaps, not priority defects; three independent
+adversarial refutation attempts failed against the same plan.
+
+- 2026-08-13 ~13:2xZ, the wrong-axis cure and the owner's consistency ruling
+  (#871 arc): I built a target-conditional restricted-inclusion guard around
+  ADR-224's own "appropriate for testing and measurement on sandbox" prose
+  plus Copilot's stage/sandbox-only suggestion — and carded the resulting
+  demo-audience residual as accept-recommended. Jim: same source data in both
+  index families; neither the sandbox divergence nor the demo-reads-sandbox
+  default was ever decided. Cure re-cut to the DATA axis (reject everywhere,
+  families consistent) at 93750f404 — simpler predicate, zero residue.
+  LESSONS: content/data-placement policy is an OWNER fact (never infer from
+  ADR prose, reviewer suggestions, or repo defaults — the org-models memory
+  generalised); a cure that spawns a residual-risk card probably encoded the
+  wrong axis — card the undecided PREMISE, not the downstream residual.
+  TOMBSTONE catch (owner word same hour): the amendment's first draft
+  narrated the dead design ("no divergent sandbox content was ever
+  decided" in TSDoc/ADR, tests named "...on the sandbox target TOO",
+  "currently rejected" time-hedges) — re-cut to living-invariant form
+  (it.each over both targets; removal condition named, not dated).
+- 2026-08-13 ~14:1xZ, freeze-10 lens harvest (the #871 cure arc, seven rounds
+  under two owner policy reshapes):
+  (a) BEHAVIOUR VS CONFIGURATION, owner catch #2 of the day: my vocab-seam
+  test asserted the exclusion COUNTER — the configuration echoed back — not
+  whether restricted CONTENT flowed. Cured to sentinel-keyword content-flow
+  assertions through the public result. Generator named: I test at the seam
+  where the wiring is visible instead of the surface where the behaviour is
+  observable; counters/stat fields are config echoes unless cross-checked
+  against proven content flow.
+  (b) REVIEWER-DOCTRINE DRIFT: the test-expert reviewer blessed my
+  expect-then-if narrowing as "the sanctioned §Diagnosis-5 shape"; the
+  rule's 2026-08-02 amended text says message-bearing expect-guard, "never
+  an if-guard" — Copilot's literal reading beat the reviewer's cached one.
+  Verify dispositions against rule TEXT, not a reviewer's paraphrase.
+  Follow-ups: estate-wide expect-then-if sweep; true the reviewer reading.
+  (c) CODEQL TAINT THROUGH DI SEAMS: adding an injectable-reader seam gave
+  static analysis a path from my test's /tmp literals into the dataset
+  writer sinks — four HIGH insecure-temporary-file alerts on files the PR
+  never touched (taint can't evaluate dryRun). Test placeholder paths must
+  avoid os-temp shapes; a new DI seam changes the whole taint graph.
+  (d) Ratchet empirics: generated findings 3→1→0→0→0 across five settled
+  rounds while the suppressed tail kept SAMPLING fresh classes (5,3,2,4) —
+  every one cured or letter-conformed same-hour; the sampling-finder-has-
+  no-fixed-point doctrine held exactly as written.
+
+## 2026-08-13 ~13:4xZ — Swordfish wakes Trench (d0274e): owner course-correction, tight scope
+
+Owner correction (drift-capture, verbatim anchors in per-user memory): the
+lane's plan had re-derived itself from the review-findings ledger ("running
+the cure arc to GO") instead of from the owner's outcomes — from his seat
+"nothing is actually happening". Ruling scope now governing the design
+lane: (1) old showcase PURGED, (2) new good front page, (3) identity+theme
+switching demo page, (4) CSS-only page-structure configurability demo page;
+other work made safe; impact before improvements. Mid-turn ratification:
+a11y fixes on kept identity pages ARE delivery. Also ruled: fitness
+functions are signals for attention, not instructions to act (the
+development-practice.md size breach routes to a directed three-expert
+review — doc+editorial+practice, no assumed conclusion — now running).
+Feedback-loop correction absorbed: owner sees pixels at short intervals
+from the skeleton onward; owner-facing reports in outcome language, never
+internal codenames. Parked (safe, not discarded): token-reference page,
+PR-record hygiene rounds, release-readiness machinery, side-by-side page
+beyond made-safe. Kept as delivery: keyboard cure (pushed, 1f730517a),
+masthead cure, switching-page a11y.
+
+## 2026-08-13 ~15:2xZ — round-7 cure cycle (Plover, b10c37): harvest notes
+
+- **Tail-hides-the-check (owner, x2 class):** a `tail`/`head` on gate output
+  hid the validator's finding lines and forced a re-run of what the first
+  invocation had already printed. Settled mechanism re-fired verbatim into
+  per-user memory: EVERY check redirects full output to an untracked file,
+  OVERWRITE (no historic accumulation), then read/grep the file.
+- **Cap-driven splits are not responsibility-driven splits (code-expert):**
+  the vocab boundary first landed as a throw (new ADR-088 warning —
+  zero-new-issues forced the Result re-cut), then its builder was moved to
+  vocab-gen-inputs purely to satisfy max-lines — landing policy TSDoc on a
+  value constructor in a module whose header disclaims orchestration. The
+  cure that stuck: a dedicated named module
+  (`enforceRestrictedInclusionCorpusBoundary`) — one concept, one name, one
+  home. When a cap forces a move, re-derive the seam from responsibility.
+- **ADR-names-nonexistent-thing class recurs on flags, not just symbols
+  (docs-adr-expert):** after the predicate-name cure, the revisit-path bullet
+  still attributed `--include-restricted` to a boundary whose CLI parses no
+  such flag (and drops unknown argv silently) — the wrong-action was a
+  believed-successful restricted regeneration that silently still excluded.
+  Verify every noun an ADR names: symbols, flags, paths.
+- **Director ruling on the code-expert friction ratchet (4 signals):** the
+  vocab switch stays — ADR-224 explicitly prices it as documented plumbing
+  and the ratified Bucket-1 plan threads it through both call sites; the
+  no-producer observation (vocab-gen CLI exposes no flag; the only consumer
+  now rejects it) is banked as input to the labelled-serving follow-on, not
+  re-litigated on this PR.
+
+## 2026-08-13 ~15:3xZ — bot-identity breach instance + cure (Plover, b10c37)
+
+The round-7 thread reply posted as jimCresswell (owner credentials), not the
+bot. Mechanism: shell cwd had silently drifted into the WORKTREE (a prior
+compound command's `cd` persisted); `pnpm --silent agent-tools merge-bot
+mint-token` there hits an unbuilt agent-tools/dist, fails, `$()` captures
+EMPTY, `GH_TOKEN=` (empty) makes gh fall back to ambient owner auth — the
+banned fallback, silently. Cure executed: re-posted under the bot (author
+echoed back in-band: jimbot-oakington-iii[bot]), deleted the mis-attributed
+duplicate, unresolve+re-resolve so the thread's resolution also displays as
+the bot. TRIPWIRES: (1) identity-bearing writes run from the PRIMARY root —
+pin cwd first (`pwd` is one token); (2) every bot write echoes
+`.user.login`/`.user.type` back in the same call — the display-name check
+is in-band, not a follow-up read; (3) an empty `GH_TOKEN=` is invisible —
+the echo-back is the only reliable detector.
+
+## 2026-08-13 ~16:1xZ — two closures (Plover, b10c37): circular verification; the "guard regression" that wasn't
+
+- **Circular verification, this seat a participant.** The design plan's
+  composition envelope (DOM-order admissibility, declared reading
+  sequences) traced to reviewer-round findings absorbed into UNRATIFIED
+  plan prose, then supplied back to six reviewers as a binding premise —
+  and this seat's Director read endorsed and SHARPENED it without tracing
+  provenance. One owner sentence dissolved the whole structure, which had
+  inverted his intent (CSS visual reordering is the demo's virtue). Owner
+  verbatim banked in per-user memory (trace-constraint-provenance): plan
+  reviews now challenge every constraint whose provenance is
+  plan-prose/reviewer-round; fleet findings downstream of a supplied
+  premise inherit its warrant, not the fleet's headcount.
+- **The worktree-comms "regression" was platform semantics + sequencing.**
+  Three seats (Wren, Swordfish, this seat's earlier worktree phase) hit
+  refusals that read as a mid-day fleet regression; both live hypotheses
+  (policy change; dist-build activating a fail-open guard) died on
+  evidence — the refusal text is Claude Code's own EnterWorktree
+  isolation, recorded in-repo 2026-08-06 (mutation-evidence mechanics
+  report). No repo guard changed; the variable is RESIDENCY at arm time.
+  Cure landed as a watcher-rule subsection (arm from the primary before
+  EnterWorktree; monitors persist across residency switches; worktree
+  writes to primary surfaces route via warden intents or cross-session
+  sends). No owner card — no decision was his; carding it would have been
+  the manufactured-decision class he named the same hour.
+
+## 2026-08-13 ~16:4xZ — two owner corrections on board-state readings (Plover, b10c37)
+
+- **The 846 fleet RAN (same-day provenance recurrence).** Told the owner
+  the pr-846-review-fleet node was an unsanctioned sketch with a lapsing
+  gate — repeating the ratified showcase plan's §Relationships row
+  without tracing it. The node is status: ratified (owner card "Sanction
+  W1 now", 2026-08-12), gate discharged by removal, W1 executed
+  2026-08-13 morning as MCP-591 (findings ledger:
+  .agent/reports/design/pr-846-review-fleet/report.md). The stale row
+  lives in the just-ratified showcase plan — one-row true-up routed to
+  the design seat. The sting: this is the trace-constraint-provenance
+  class, recommitted hours after banking it. The tell to watch: quoting
+  ANY document's description of ANOTHER document's status without
+  opening the described document.
+- **#774 is illustrative, not merge-queued.** Owner verbatim: "the spike
+  isn't for merging, it's illustrative, to speed up work once the mcp
+  sdk v2 is released." The old freeze-map line "gated on #761/#772" is
+  the wrong frame: the spike's guard-contract content TRACKS the MCP-143
+  series' landing shape; the deliverable is a decision-complete
+  migration plan, never the port (PR body agrees); the migration itself
+  waits on the Clerk production promotion settling. Carry this reading
+  in future board records.
+
+## 2026-08-13 ~18:4xZ (Smith hunts Obsidian, e98f17, Director) — seat adoption + the director-handoff redesign arc opens
+
+- SEAT ADOPTED via stopped-seat-held claims (a2286c53 director + dd3f640f
+  gate-ledger) after Plover's owner-worded closeout; readiness gate ran with
+  the closeout broadcast's own heartbeat-end declaration as the stand-down
+  evidence (the mechanical check read the claims fresh-by-window — the
+  discriminator was the declared intent, not staleness). Assumption audit at
+  session open earned its cost twice: "Plover is dark" was FALSE (live, busy
+  session), and "no Moment-1 exists" was recall-gapped (grep for
+  "pre-positioning" missed the PRE-POSITIONED form). Both caught before any
+  authority act.
+- THE OWNER'S "wtf" QUESTION, measured: director-handoff.md committed daily
+  since 2026-07-14 (139 commits/31 days), 174 stacked banners, 1,631 lines vs
+  a 320-line declared hard limit. Diagnosis ratified: the volatile section ran
+  three jobs at once (successor snapshot / sitting-seat journal / rulings
+  first-capture) and the Director is the one lane with NO thread record — so
+  the handoff file absorbed the journal job. Redesign plan authored:
+  `director-continuity-surface-redesign.plan.md` (born sketch).
+- GENERATOR SEED (doctrine candidate, routes via new-rule-vs-pdr-clause):
+  every append-accepting surface acquires its DRAIN RITUAL AT BIRTH — the
+  napkin has rotation doctrine and stayed healthy; director-handoff never got
+  one and accreted. Predictive, falsifiable: debt accrues exactly where
+  append surfaces lack a drain owner.
+- FREE-PLAY HARVEST (owner-invoked; two visible discards): kept — (a) the
+  cure-becomes-hazard shape: the file was BUILT to fix the 2026-06-25 failed
+  takeover, then its growth became the next succession hazard (scar-tissue
+  association); (b) the numbered rulings series running ACROSS tenures
+  (1–42 Falcon-era, 43+ "continues Falcon's") was groping toward an
+  institutional statute book — the rulings LEDGER is that instinct given
+  structure (regnal-numbering association); (c) the owner issued the same
+  question-assumptions instruction to three seats in one evening —
+  succession moments concentrate inherited-shape risk; an assumptions
+  register may belong in the STANDARD PDR-063 record sections; (d)
+  register-as-LEDGER pivot: rulings home in their proper surfaces, the
+  ledger only proves none dropped (a register-as-home would recreate the
+  disease). Discarded visibly: the sediment-tectonics analogy (pretty,
+  actionless) and an observer-effect framing of the file growing mid-read.
+- INSTRUMENT NOTES, first-hand: (1) the machine-local-path write hook fires
+  on CONTENT even for scratchpad-bound files — correct per the PII posture;
+  restate provenance repo-root-relative. (2) The menu-framing hook caught a
+  redundant "for owner ratification" clause in plan prose — the cited
+  routing rule already owns that process; cure was deletion, not synonym
+  (hook-policy-substring-discipline held). (3) Subagent legs hit the
+  account session limit mid-fleet (resets 20:30 London): 5/12 legs banked
+  with owner-verbatim quotes found on tickets (R6/R7/R8/R10/R11 CONFIRMED,
+  R4 PARTIAL — cross-project-linkage discipline lives only in a ticket
+  footnote); resume rides the workflow cache. Spend errors: retry, never
+  escalate — held.
+- STANDING TENURE POSTURE (owner word, repeated for emphasis 2026-08-13):
+  question the assumptions and authority of decisions handed by previous
+  seats AND PLANS — the audit scope includes plan-borne decisions (adopted
+  claim dd3f640f's plan, survey holds, PR-zero mandate); a plans-handed
+  audit leg added to the verification fleet's resume.
+
+## 2026-08-13 ~19:5xZ (Smith hunts Obsidian, e98f17, Director) — wind-down harvest (metacognition / free-play / concept-exploration; owner-invoked)
+
+- AUDIT RESULTS BANKED (fleet wf_c5bddb5d-466, 81 rows): 58 homed-confirmed,
+  5 homes the inventory missed, 15 thin, 3+3 unhomed (fleet + critic finds),
+  ~18 dated-expired. Claim dd3f640f CLOSED at the audit — its premise
+  (author the MCP-491 step-2 PDR) completed 2026-08-04 as PDR-136; the claim
+  survived three freeze blocks unrecomputed. CLASS LESSON: a claim adopted
+  at succession gets its PREMISE recomputed at adoption, not just its
+  ownership — stale-held claims are the claim-registry's cousin of the
+  stale board readings that bit twice yesterday.
+- METACOGNITION: the "all other work merged" scope question resolved from
+  DATA, not assumption (the four non-draft PRs read emgeebot-authored,
+  one CHANGES_REQUESTED — Matt's lanes, never chased); the deadline framing
+  ("don't rush, but within an hour") is calibration, not speed pressure.
+  Reliability-ladder note: "the redesign made pickup trivial" is a MODEL
+  until a successor tests it — falsifier: pickup needing more than the
+  thread record + ledger + pointer-block reads.
+- FREE-PLAY (one discard): (a) the cure's first act was founding two NEW
+  append surfaces — the difference from the disease is each was born with
+  its drain ritual; institutions do not stop accreting, they learn to
+  metabolise (association). (b) The identity-naming ratchet blocked the
+  LEDGER for mentioning the outgoing identity in a row ABOUT renaming it —
+  the census guard reads use and mention alike, correctly per its design;
+  association only, no cure proposed. (c) Same owner instruction to three
+  seats in one evening, each running it at its own scale — fractal
+  application; folds into the banked succession-assumptions-register seed.
+  DISCARDED visibly: a date-numerology association (noise).
+- CONCEPT-EXPLORATION: justified no-run — no unshaped concept remains; the
+  one open item (plan ratification) is a formed decision awaiting a word.
+- INSTRUMENT NOTES: (1) pre-push full markdownlint bit on a PEER's dirty
+  napkin entry (MD049 underscore emphasis inside an owner quote) — warden
+  fold with marker-only change + receipt event was the cure; emphasis
+  MARKERS are lint syntax, not quoted substance. (2) The 2-at-a-time
+  workflow throttle + resumeFromRunId cache recovered a 7-leg quota kill
+  AND a script-bug crash with zero repeated spend — the pattern held twice
+  in one evening. (3) My own batching edit left a dangling variable in the
+  script's return (allLegs) — edit the WHOLE call graph of a variable you
+  remove; the workflow cache made the mistake nearly free.
+
+## 2026-08-13 ~18:3xZ (Skua binds Leeward, e2b222, design lane) — owner frame correction: fluidity is a pillar, not a feature
+
+- Owner word at the seat (verbatim, pre-implementation): "we shouldn't be
+  incrementally adding fluidity to the design system, it should be the
+  fundamental pillar it is built on." Fired minutes after this seat's
+  authority-questioning pass had VALIDATED W1's mechanism without questioning
+  its verb — the pass traced every constraint's authority and still inherited
+  the frame (fluidity-as-added-feature) untouched. Generator: W1 was derived
+  from defects (56px-at-320px headline, hyphenation workaround, per-brand
+  flow-collapse patches), and cure-shaped derivation produces incrementalism
+  by construction; the carve-out perimeter (Oak-base-only rhythm, eleven
+  exempt type classes, non-fluid counter-brand surfaces) was the visible tell,
+  read as honest scoping rather than as retrofit evidence. Fluency-as-warning
+  at document scale: the plan's record-keeping quality made its frame feel
+  sound. Cure adopted: frame axioms get questioned as a distinct class from
+  constraint authority — "whose word is this?" has a sibling, "who chose this
+  frame, and from what was it derived?" (defect-derived frames are
+  incremental by construction). Scope: standing seat practice. Owner design
+  fact captured in per-user memory (fluidity-is-a-pillar-not-a-feature);
+  delivery priorities (tight scope, four outcomes) unchanged by his word.
+
+## 2026-08-13 ~19:0xZ (Skua binds Leeward, e2b222, design lane) — owner method correction: first-principles WHY before clause adjudication
+
+- Presented the rhythm-affordance question as a binary clause adjudication
+  (keep/re-rule a ratified affordance vs the new R14 pillar ruling). Owner
+  correction (verbatim): "to answer questions like that always go back to
+  first principles, *why* are there differences at all?" — and his answer
+  dissolved the binary: both clauses serve the DEMONSTRATION purpose (three
+  identities as instrument, maximum expressive difference through config
+  alone), so the synthesis is a fluid-capable difference surface, neither
+  keep-frozen nor remove. Generator named: adjudicating between two written
+  clauses instead of tracing both to the purpose that warrants them — the
+  sibling of frame-inheritance (same day's R14 lesson) one level up: clauses
+  are also frames. Cure, standing: any keep-or-remove question on a governing
+  clause first states WHY the clause exists; the purpose usually dissolves
+  the binary. Ontology + ambient invariants captured in per-user memory
+  (three-identities-are-a-demonstration-instrument). Scope: standing seat
+  practice; the ontology is estate doctrine pending its contract-surface
+  landing with tranche 1.
