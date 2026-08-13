@@ -63,6 +63,15 @@ attention instrument.
 
 ## Known limits and the calibration requirement (owner-directed, 2026-08-11)
 
+Every claim the instrument makes — naive or calibrated — covers only
+the captures' COMMON region: both arms crop to the minimum height, so
+content below the shorter capture is compared nowhere and appears in no
+written PNG. The stdout summary announces a partial comparison first
+(a `height mismatch` caveat; on the calibrated arm additionally a
+`settle variance` caveat when left repeats disagree, which inflates the
+pooled null and makes calibrated verdicts conservative) — dated
+amendment 2026-08-13, the review-fleet F04 cure.
+
 Full-page pairs cascade after the first structural offset, and the v1
 σ-scores are ordinal only. The owner's standing direction: **σ should at
 least approximate the meaning of calibrated probabilities** — a stated

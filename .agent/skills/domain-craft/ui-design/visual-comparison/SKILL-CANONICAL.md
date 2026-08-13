@@ -59,3 +59,11 @@ Never conclude "matches" from markup, styling, or computed styles alone.
   register.
 - Do not report "no visual difference" without having looked at the
   images themselves.
+- Do not report a match when the summary carries a `height mismatch`
+  caveat — the comparison covered only the common region, and the
+  uncompared tail is absent from every written PNG; recapture (or
+  adjudicate the tail by eye at the live surfaces) before any verdict.
+- Do not adjudicate calibrated numbers under a `settle variance`
+  caveat — varying left-repeat heights inflate the pooled null, so the
+  calibrated verdicts are conservative and real divergence can hide;
+  recapture first.

@@ -25,17 +25,10 @@ import {
   renderCalibratedHeatmap,
   type CalibratedPairAnalysis,
 } from '@oaknational/fidelity-review/visual-calibration';
-import {
-  describeCorrelation,
-  poolNullCorrelation,
-} from '@oaknational/fidelity-review/visual-correlation';
+import { poolNullCorrelation } from '@oaknational/fidelity-review/visual-correlation';
 
 import { captureRgba, writePairPngs, type CapturePairConfig } from './capture-shared';
-
-interface CalibratedRun {
-  readonly analysis: CalibratedPairAnalysis;
-  readonly captureHeights: readonly number[];
-}
+import type { PairRunRecord } from './capture-summary';
 
 /** Serial settled captures: left ×(k+1), then right — order recorded by
  *  position (index k+1 is the right capture). */
@@ -107,9 +100,9 @@ function poolNullScores(
 function cropAll(
   captures: readonly { rgba: Uint8Array; height: number }[],
   width: number,
-): Result<{ cropped: Uint8Array[]; height: number; captureHeights: number[] }, string> {
-  const captureHeights = captures.map((c) => c.height);
-  const height = Math.min(...captureHeights);
+): Result<{ cropped: Uint8Array[]; height: number; heights: number[] }, string> {
+  const heights = captures.map((c) => c.height);
+  const height = Math.min(...heights);
   const cropped: Uint8Array[] = [];
   for (const capture of captures) {
     const crop = cropToHeight(capture.rgba, width, capture.height, height);
@@ -118,13 +111,13 @@ function cropAll(
     }
     cropped.push(crop.value);
   }
-  return ok({ cropped, height, captureHeights });
+  return ok({ cropped, height, heights });
 }
 
 function writeCalibratedStats(
   config: CapturePairConfig,
   nullRuns: number,
-  captureHeights: readonly number[],
+  heights: { leftHeights: readonly number[]; rightHeight: number },
   calibrated: CalibratedPairAnalysis,
 ): void {
   writeFileSync(
@@ -135,7 +128,8 @@ function writeCalibratedStats(
         right: config.right,
         nullRuns,
         pairCount: (nullRuns * (nullRuns + 1)) / 2,
-        captureHeights,
+        leftHeights: heights.leftHeights,
+        rightHeight: heights.rightHeight,
         settle: {
           fontsReadyBudgetMs: FONTS_READY_BUDGET_MS,
           settleMs: SETTLE_MS,
@@ -182,11 +176,14 @@ function calibrateLivePair(
   return calibrated.ok ? ok({ analysis: calibrated.value, liveLeft, right }) : calibrated;
 }
 
-/** Run the calibrated arm end to end and write the four outputs. */
+/** Run the calibrated arm end to end and write the four outputs. The
+ *  positional capture order ([left ×(k+1), right]) splits here into the
+ *  self-describing record shape — downstream readers never decode
+ *  positions. */
 export async function runCalibrated(
   config: CapturePairConfig,
   nullRuns: number,
-): Promise<Result<CalibratedRun, string>> {
+): Promise<Result<PairRunRecord<CalibratedPairAnalysis>, string>> {
   const captures = await captureAll(config, nullRuns);
   if (!captures.ok) {
     return captures;
@@ -194,6 +191,11 @@ export async function runCalibrated(
   const crops = cropAll(captures.value, config.width);
   if (!crops.ok) {
     return crops;
+  }
+  const leftHeights = crops.value.heights.slice(0, -1);
+  const rightHeight = crops.value.heights.at(-1);
+  if (rightHeight === undefined) {
+    return err('capture set was empty after cropping — report this');
   }
   const live = calibrateLivePair(config, crops.value.cropped, crops.value.height);
   if (!live.ok) {
@@ -207,42 +209,6 @@ export async function runCalibrated(
   if (!pngs.ok) {
     return pngs;
   }
-  writeCalibratedStats(config, nullRuns, crops.value.captureHeights, live.value.analysis);
-  return ok({ analysis: live.value.analysis, captureHeights: crops.value.captureHeights });
-}
-
-/** The calibrated stdout summary: the calibrated verdict leads, the
- *  naive z rides alongside — their disagreement is the honesty. */
-export function summariseCalibrated(run: CalibratedRun): string {
-  const { analysis } = run;
-  const { calibration } = analysis;
-  const top = analysis.calibratedRejecting.slice(0, 10);
-  const lines = [
-    `calibrated: N=${calibration.n} nullMax=${calibration.nullMax.toFixed(3)} ` +
-      `floor=p<${calibration.floor.toExponential(2)} sigma-saturation=${calibration.sigmaSaturation.toFixed(2)} ` +
-      `(naive --threshold is INERT under calibration)`,
-    `rejecting=${analysis.calibratedRejecting.length} of ${analysis.scores.length} windows ` +
-      `(beyond null max; naive z would reject ${analysis.rejecting.length})`,
-    ...(calibration.correlation ? [describeCorrelation(calibration.correlation)] : []),
-    ...top.map((windowScore) => {
-      // A degenerate null (byte-stable page) has no finite exceedance
-      // ratio — name the situation rather than printing a ×0.00 that
-      // reads as below the null max.
-      const magnitude =
-        windowScore.exceedance === undefined
-          ? '  reject (nonzero on a byte-stable page — null max is 0) at '
-          : `  reject ×${windowScore.exceedance.toFixed(2)} of null max at `;
-      return (
-        `${magnitude}(${windowScore.x},${windowScore.y}) ${windowScore.w}×${windowScore.h} ` +
-        `meanΔ=${windowScore.meanAbsDiff.toFixed(2)} σ=${(windowScore.calibratedSigma ?? 0).toFixed(2)} ` +
-        `(naive z=${windowScore.z.toFixed(1)})`
-      );
-    }),
-  ];
-  if (analysis.calibratedRejecting.length > top.length) {
-    lines.push(
-      `  … ${analysis.calibratedRejecting.length - top.length} further calibrated rejections in stats.json`,
-    );
-  }
-  return lines.join('\n');
+  writeCalibratedStats(config, nullRuns, { leftHeights, rightHeight }, live.value.analysis);
+  return ok({ analysis: live.value.analysis, leftHeights, rightHeight });
 }

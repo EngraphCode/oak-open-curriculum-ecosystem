@@ -35,14 +35,25 @@ import {
 } from '@oaknational/fidelity-review/visual-stats';
 import { captureRgba, writePairPngs, type CapturePairConfig } from './capture-shared';
 import { parseCapturePairArgs } from './capture-pair-args';
-import { runCalibrated, summariseCalibrated } from './capture-null';
+import { runCalibrated } from './capture-null';
+import { summariseCalibrated, summariseNaive, type PairRunRecord } from './capture-summary';
 
 export { parseCapturePairArgs } from './capture-pair-args';
 
-/** Both captures cropped to their common height. */
-async function captureBoth(
-  config: CapturePairConfig,
-): Promise<Result<{ left: Uint8Array; right: Uint8Array; height: number }, string>> {
+/** Both captures cropped to their common height; the PRE-CROP heights
+ *  ride the result so no output is silent about a truncated tail. */
+async function captureBoth(config: CapturePairConfig): Promise<
+  Result<
+    {
+      left: Uint8Array;
+      right: Uint8Array;
+      height: number;
+      leftHeight: number;
+      rightHeight: number;
+    },
+    string
+  >
+> {
   const left = await captureRgba(config.left, config.width);
   if (!left.ok) {
     return err(`left: ${left.error}`);
@@ -57,14 +68,29 @@ async function captureBoth(
   if (!leftCrop.ok || !rightCrop.ok) {
     return err('crop refused a capture the codec accepted — report this');
   }
-  return ok({ left: leftCrop.value, right: rightCrop.value, height });
+  return ok({
+    left: leftCrop.value,
+    right: rightCrop.value,
+    height,
+    leftHeight: left.value.height,
+    rightHeight: right.value.height,
+  });
 }
 
-/** Analyse the cropped pair and write the four outputs (naive arm). */
+/** Analyse the cropped pair and write the four outputs (naive arm). The
+ *  stats record carries the pre-crop heights alongside the analysis —
+ *  heights are capture-layer facts, so they live here, never in the
+ *  library's PairAnalysis. */
 function analyseAndWrite(
   config: CapturePairConfig,
-  pair: { readonly left: Uint8Array; readonly right: Uint8Array; readonly height: number },
-): Result<PairAnalysis, string> {
+  pair: {
+    readonly left: Uint8Array;
+    readonly right: Uint8Array;
+    readonly height: number;
+    readonly leftHeight: number;
+    readonly rightHeight: number;
+  },
+): Result<PairRunRecord<PairAnalysis>, string> {
   const analysis = analysePair(pair.left, pair.right, config.width, pair.height, {
     windowSize: config.window,
     threshold: config.threshold,
@@ -80,36 +106,26 @@ function analyseAndWrite(
   if (!pngs.ok) {
     return pngs;
   }
+  const record = {
+    analysis: analysis.value,
+    leftHeights: [pair.leftHeight],
+    rightHeight: pair.rightHeight,
+  };
   writeFileSync(
     join(config.out, `${config.tag}-stats.json`),
-    `${JSON.stringify({ left: config.left, right: config.right, ...analysis.value }, null, 2)}\n`,
+    `${JSON.stringify(
+      {
+        left: config.left,
+        right: config.right,
+        leftHeights: record.leftHeights,
+        rightHeight: record.rightHeight,
+        ...analysis.value,
+      },
+      null,
+      2,
+    )}\n`,
   );
-  return analysis;
-}
-
-function summarise(analysis: PairAnalysis): string {
-  const top = analysis.rejecting.slice(0, 10);
-  // The causal frontier: an offset shifts everything below it, so read
-  // from the FIRST rejecting row, not the largest z (DDR-010).
-  const firstY = analysis.rejecting.reduce(
-    (min, windowScore) => Math.min(min, windowScore.y),
-    Number.POSITIVE_INFINITY,
-  );
-  const frontier =
-    analysis.rejecting.length > 0 ? ` first-rejecting-row=${firstY} (read top-down from here)` : '';
-  const lines = [
-    `sigma0=${analysis.sigma0.toFixed(3)} windows=${analysis.scores.length} rejecting=${analysis.rejecting.length} (z ≥ ${analysis.threshold})${frontier}`,
-    ...top.map(
-      (windowScore) =>
-        `  reject ${windowScore.z.toFixed(1)}σ at (${windowScore.x},${windowScore.y}) ${windowScore.w}×${windowScore.h} meanΔ=${windowScore.meanAbsDiff.toFixed(2)}`,
-    ),
-  ];
-  if (analysis.rejecting.length > top.length) {
-    lines.push(
-      `  … ${analysis.rejecting.length - top.length} further rejecting windows in stats.json`,
-    );
-  }
-  return lines.join('\n');
+  return ok(record);
 }
 
 async function runNaive(config: CapturePairConfig): Promise<Result<string, string>> {
@@ -117,8 +133,8 @@ async function runNaive(config: CapturePairConfig): Promise<Result<string, strin
   if (!pair.ok) {
     return pair;
   }
-  const analysis = analyseAndWrite(config, pair.value);
-  return analysis.ok ? ok(summarise(analysis.value)) : analysis;
+  const record = analyseAndWrite(config, pair.value);
+  return record.ok ? ok(summariseNaive(record.value)) : record;
 }
 
 async function main(): Promise<number> {
