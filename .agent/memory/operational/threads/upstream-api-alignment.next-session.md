@@ -7,6 +7,21 @@ endpoints + 5 schemas).
 
 ## MCP-590 IN FLIGHT — slice 1 shipped as PR #871; slices 2/3 mapped (Wren calls Downdraft 6b29b5, 2026-08-12 ~18:5xZ)
 
+> **SUPERSEDED / SEAT CLOSED (2026-08-13):** the owner carded this lane to the
+> Director (**Plover lifts Troposphere**), who ADOPTED Wren's claim (now
+> `2d76cc84`) and has driven #871 on to tip `4083977bd` — folding in the
+> 2026-08-13 owner ruling that index families stay consistent (`includeRestricted`
+> is now REJECTED for index-producing runs via `enforceRestrictedInclusionBoundary`,
+> ADR-224). The **authoritative** MCP-590 resume map is now
+> `director-handoff §COMPACTION FREEZE 10` (tip `b32ac02f8`): #871 frozen
+> mid-round-7; first resume act = the vocab-gen restricted-inclusion guard cure
+> (committed generated-corpus exposure), then recount + bot REST merge under the
+> owner's standing word; then slice-2 error-envelope PR, slice-3 operational
+> rebuild, demo-default flip. **Wren calls Downdraft (6b29b5) is CLOSED** — no
+> active claim, all processes stopped, worktree `mcp-590-restricted-switch` left
+> for the Director's drive. The block below is Wren's historical snapshot at the
+> slice-1 push; the slice-2 error-envelope probe finding it records still stands.
+
 Ticket **MCP-590** (MCP team, First Major Release project, related MCP-204/MCP-100)
 realises the ratified Bucket-1 plan. Worked in worktree
 `.claude/worktrees/mcp-590-restricted-switch` (branch
