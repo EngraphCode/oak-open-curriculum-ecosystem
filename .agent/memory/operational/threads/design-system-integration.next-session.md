@@ -2985,3 +2985,67 @@ Owner asks absorbed this window: mutation method recorded in
 development-practice.md with Stryker notes. NEXT: bundle 3 (a11y
 mechanism F01/F02/F36 + F10/F12 + F7 no-throw; plus the three bundle-3
 inputs in the addendum).
+
+## COMPACTION FREEZE 7 (2026-08-13 ~14:4xZ) — Swordfish wakes Trench (d0274e); seat CONTINUES; tight scope governs
+
+Claim `645b9e0b-afea-4743-8cc6-5dad3ad39575` RETAINED. All processes
+stopped by owner word in canonical order (heartbeat first with declared
+end; watcher last; dev server down). Warden arrangement ACTIVE.
+
+GOVERNING SCOPE (owner, 2026-08-13, verbatim in per-user memory
+showcase-tight-scope-2026-08-13): purge the old showcase; a new good
+front page; an identity+theme switching demo page; a CSS-only
+page-structure configurability demo page. Impact before improvements;
+a11y fixes on kept identity pages ARE delivery (owner ratification).
+Owner sees rendered pages at short intervals — never work-to-done.
+Report in outcome language; internal codenames mean nothing to him.
+
+RESUME POINT: the owner's Chrome look at the skeleton (dev server
+`pnpm dev` in demos/oak-design-showcase, :3020). UNCOMMITTED working-tree
+files in the PR-2 worktree carrying the skeleton (safe on disk, NOT yet
+committed because the front-page swap re-targets the test suite and
+awaits his steer): app/page.tsx (rewritten landing — masthead, hero
+thesis from kit README, two door cards), app/composition/page.tsx (NEW —
+identical region markup under the three shipped maps unit / home / proof),
+app/globals.css (appended .doors/.door/.comp-* styles). After his steer:
+one commit = front-page swap + a11y matrix re-target (matrix currently
+drives the switchboard ON the front page — move to /identity-switchboard) +
+purge of orphaned components (Switchboard-on-front, Hero, TypeSpecimen,
+ButtonsSpecimen, TagsSpecimen, CardSpecimen — knip forces same-commit
+deletion; provenance listed in the commit).
+
+PUSHED STATE: branch jimcresswell/design-identity-switchboard-pr2 at
+`1f730517a` (specimen keyboard cure, slice 1: hero headline takes the
+skip target; census cells; mutant-proven). A11y suite 42 green / 6
+declared pds masthead reds (removal = masthead cure, task #18).
+
+READY-TO-EXECUTE (task #17, all pre-execution-reviewed with first-hand
+probes): slice 2 — picker + white-labelling tabindex removal MUST land
+WITH frame inert + role="img" wrappers (name + aria-describedby) +
+visible non-interactive affordance + parent-space target-measurement
+pure module (axe false-passes target-size inside scaled frames);
+behaviour-level assertions ONLY (assumptions-review binding constraint).
+Then hooks family (F10/F12 shared identity-default extraction, F09
+listener justified by shared-storage precondition, F7 total fallback +
+lib/identities.ts comment truing) and coverage cells (forced-colors
+outline: boxShadow none + style/width + colour alpha>0, NO ratio;
+specimen system cell dark-OS only). Kit motion PR: ruled spec in task #23
+(-full token split completion + important floor on duration
+properties). Cricket 7/8 ON-TRACK panel + Director CONCUR on the
+reslice are on record.
+
+ROUTED TO DIRECTOR (directed event at freeze): all non-design-lane work
+— dev-practice cure sequence (synthesis + three reports at
+.agent/reports/governance/development-practice-review-2026-08-13/),
+config-expert gate-list reconciliation, validation-strategy home owner
+call, cross-package axe/motion/stale-path items. Editorial doctrine
+recorded (memory editorial-voices-audience-keyed): voices are
+audience-keyed — Oak voice for products, accurate+clear for internal
+humans, agent-optimised for agents.
+
+RE-ARM AT RESUME: watcher (canonical invocation, heartbeat-excluded,
+3600s backstop, re-arm on exit + sweep) + F-75 diff poll + heartbeat
+pair on the retained claim (comms leg: intent design-lane-pr-846,
+branch jimcresswell/design-identity-switchboard-pr2, cycle label
+tight-scope-showcase; claims leg: --active absolute path, --now
+required). Dev server only when pixels are being shown.

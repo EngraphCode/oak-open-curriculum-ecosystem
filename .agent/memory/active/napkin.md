@@ -3162,3 +3162,23 @@ adversarial refutation attempts failed against the same plan.
   rounds while the suppressed tail kept SAMPLING fresh classes (5,3,2,4) —
   every one cured or letter-conformed same-hour; the sampling-finder-has-
   no-fixed-point doctrine held exactly as written.
+
+## 2026-08-13 ~13:4xZ — Swordfish wakes Trench (d0274e): owner course-correction, tight scope
+
+Owner correction (drift-capture, verbatim anchors in per-user memory): the
+lane's plan had re-derived itself from the review-findings ledger ("running
+the cure arc to GO") instead of from the owner's outcomes — from his seat
+"nothing is actually happening". Ruling scope now governing the design
+lane: (1) old showcase PURGED, (2) new good front page, (3) identity+theme
+switching demo page, (4) CSS-only page-structure configurability demo page;
+other work made safe; impact before improvements. Mid-turn ratification:
+a11y fixes on kept identity pages ARE delivery. Also ruled: fitness
+functions are signals for attention, not instructions to act (the
+development-practice.md size breach routes to a directed three-expert
+review — doc+editorial+practice, no assumed conclusion — now running).
+Feedback-loop correction absorbed: owner sees pixels at short intervals
+from the skeleton onward; owner-facing reports in outcome language, never
+internal codenames. Parked (safe, not discarded): token-reference page,
+PR-record hygiene rounds, release-readiness machinery, side-by-side page
+beyond made-safe. Kept as delivery: keyboard cure (pushed, 1f730517a),
+masthead cure, switching-page a11y.

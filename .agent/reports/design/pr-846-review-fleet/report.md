@@ -299,3 +299,28 @@ New/enriched ledger rows from the bundle-2 review chain (four reviewers):
   focus-ring-contrast idiom) so artefact-RED self-diagnoses; make the
   forced-colors intent a required parameter of expectNoAxeViolations so the
   guard is structural rather than call-site convention.
+
+## T4 addendum corrections (2026-08-13, dated — the addendum above stands as history)
+
+- **Correction to the F36 enrichment**: "axe 4.12.1 ships `target-size`
+  DISABLED by default — the wcag22aa tag buys nothing for SC 2.5.8" is
+  WRONG. First-hand reproduction (bundle-3 pre-execution review): the
+  rule RUNS under the suite's tag set and reports a PASS on scaled
+  frames — axe measures inside the child frame's own coordinate space
+  and certifies 48px targets that render at ~5 parent pixels. Worse
+  than disabled: a false pass. Cure shape: bespoke parent-space
+  measurement as a pure tools/ module with unit cells, or an explicit
+  manual-only statement.
+- **New finding (larger than F01 itself)**: two of the PR's four routes
+  (/identity-switchboard and /identity-white-labelling) had never been
+  scanned by axe at all — the coverage hole that let a total keyboard
+  failure ship green through 70 cells. Cells land with the bundle-3
+  work.
+- **Design-system rulings recorded**: the cascade expression of the
+  contrast commitment is REJECTED (runtime auto route stays; the
+  84-line theme block would become a hand-maintained unauditable copy;
+  creature already uses `:root:not([data-theme])`); the reduced-motion
+  cure is the completion of the kit's own `-full` token split (ruled
+  spec lives in the kit work item). Owner scope change same day: the
+  lane's governing outcomes are the showcase tight scope; several
+  ledger rows are gated on its delivery.
