@@ -3330,6 +3330,45 @@ the echo-back is the only reliable detector.
   claim dd3f640f's plan, survey holds, PR-zero mandate); a plans-handed
   audit leg added to the verification fleet's resume.
 
+## 2026-08-13 ~19:5xZ (Smith hunts Obsidian, e98f17, Director) — wind-down harvest (metacognition / free-play / concept-exploration; owner-invoked)
+
+- AUDIT RESULTS BANKED (fleet wf_c5bddb5d-466, 81 rows): 58 homed-confirmed,
+  5 homes the inventory missed, 15 thin, 3+3 unhomed (fleet + critic finds),
+  ~18 dated-expired. Claim dd3f640f CLOSED at the audit — its premise
+  (author the MCP-491 step-2 PDR) completed 2026-08-04 as PDR-136; the claim
+  survived three freeze blocks unrecomputed. CLASS LESSON: a claim adopted
+  at succession gets its PREMISE recomputed at adoption, not just its
+  ownership — stale-held claims are the claim-registry's cousin of the
+  stale board readings that bit twice yesterday.
+- METACOGNITION: the "all other work merged" scope question resolved from
+  DATA, not assumption (the four non-draft PRs read emgeebot-authored,
+  one CHANGES_REQUESTED — Matt's lanes, never chased); the deadline framing
+  ("don't rush, but within an hour") is calibration, not speed pressure.
+  Reliability-ladder note: "the redesign made pickup trivial" is a MODEL
+  until a successor tests it — falsifier: pickup needing more than the
+  thread record + ledger + pointer-block reads.
+- FREE-PLAY (one discard): (a) the cure's first act was founding two NEW
+  append surfaces — the difference from the disease is each was born with
+  its drain ritual; institutions do not stop accreting, they learn to
+  metabolise (association). (b) The identity-naming ratchet blocked the
+  LEDGER for mentioning the outgoing identity in a row ABOUT renaming it —
+  the census guard reads use and mention alike, correctly per its design;
+  association only, no cure proposed. (c) Same owner instruction to three
+  seats in one evening, each running it at its own scale — fractal
+  application; folds into the banked succession-assumptions-register seed.
+  DISCARDED visibly: a date-numerology association (noise).
+- CONCEPT-EXPLORATION: justified no-run — no unshaped concept remains; the
+  one open item (plan ratification) is a formed decision awaiting a word.
+- INSTRUMENT NOTES: (1) pre-push full markdownlint bit on a PEER's dirty
+  napkin entry (MD049 underscore emphasis inside an owner quote) — warden
+  fold with marker-only change + receipt event was the cure; emphasis
+  MARKERS are lint syntax, not quoted substance. (2) The 2-at-a-time
+  workflow throttle + resumeFromRunId cache recovered a 7-leg quota kill
+  AND a script-bug crash with zero repeated spend — the pattern held twice
+  in one evening. (3) My own batching edit left a dangling variable in the
+  script's return (allLegs) — edit the WHOLE call graph of a variable you
+  remove; the workflow cache made the mistake nearly free.
+
 ## 2026-08-13 ~18:3xZ (Skua binds Leeward, e2b222, design lane) — owner frame correction: fluidity is a pillar, not a feature
 
 - Owner word at the seat (verbatim, pre-implementation): "we shouldn't be

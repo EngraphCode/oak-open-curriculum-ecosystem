@@ -10,26 +10,43 @@ the accretion that plan cures. The handoff file keeps the role brief and the
 single live snapshot block; **this record carries the journal and lane
 state**, under the same conventions as every other thread.
 
-## Current Continuation
+## Current Continuation — MAKE-SAFE PAUSE (owner word 2026-08-13 ~19:40Z; multi-day quiet; NOT a closeout)
 
-- Branch: `coordination/2026-08-13-ca6b0f` (primary checkout; 24h clock
-  restarted at the 2026-08-13 morning fold).
-- Invocation pointer: `oak-start-right-team continue estate-coordination`
-  from this record.
+- State at pause: fleet wind-down executed at owner word ("no work will
+  happen over the next few days … everything safe and trivial to pick back
+  up"). The coordination branch folded to main (fold PR referenced in the
+  Journal's wind-down entry); successor branch cut from post-fold main;
+  the primary resides there.
+- Invocation pointer at pickup: `oak-start-right-team continue
+  estate-coordination` from this record. Read the
+  [rulings ledger](../director-rulings-ledger.md) §Homing queue +
+  §Census addenda before S3.
 - Controlling plan:
   [`director-continuity-surface-redesign`](../../../plans/delivery/director-continuity-surface-redesign.plan.md)
-  (born sketch 2026-08-13, presented for the owner's stamp) serving
+  serving
   [`coordination-substrate`](../../../plans/strategic/coordination-substrate.plan.md)
-  (ratified 2026-08-07).
-- Next safe step: fold the verification fleet's verdicts into the rulings
-  ledger (plan S2/S3); then the one-live-block rebuild (S4).
-- Completed prerequisites: seat adoption (claims `a2286c53` + `dd3f640f`,
-  2026-08-13 ~18:2xZ); rulings inventory (~90 rulings catalogued); fleet
-  first pass (5 legs banked; resume live under the two-at-a-time quota
-  throttle).
-- Team expectation: Director (this seat) + Skua binds Leeward (e2b222) on
-  the design lane (claim `645b9e0b`); Nautilus calls Plankton (c6d48b)
-  cold-paused (survey lane owner-HELD). No other live seats.
+  (ratified 2026-08-07). Plan status at pause: check its frontmatter —
+  sketch unless the ratification stamp landed at the wind-down card; a
+  sketch governs no work, so S3–S6 open only after the stamp.
+- Next safe steps at pickup, in order: (1) re-ground per start-right (live
+  claims, comms, git — this record is a hypothesis, not truth); (2) if the
+  plan is unstamped, present it (the assumptions-expert verdict is recorded
+  in the Journal wind-down entry if it landed, else re-run); (3) S3 homing
+  queue (six unhomed + census addenda first-hand reads); (4) S4
+  one-live-block rebuild with byte-conserved relocation; (5) S5 validator
+  lane PR; (6) S6 consolidation routing.
+- Claims at pause: `a2286c53` (Director) retained stopped-seat-held — the
+  successor adopts via `claims adopt` per the brief's readiness gate.
+  `dd3f640f` closed 2026-08-13 (premise complete as PDR-136).
+- Fleet at pause: Skua (e2b222) closed after #846's disposition (their
+  close broadcast is the record); Nautilus (c6d48b) cold-paused, claim
+  `95a0678d` retained, survey owner-HELD (gates expire 2026-09-02).
+- Open-PR disposition at pause: #846 owner-worded to merge (Skua drove);
+  #774 illustrative never-merge (owner verbatim); #772/#761 Clerk-stack
+  gated on the production promotion settling; #867 and #750 are draft
+  lanes owned by their threads (sentry-docs truing; docs-pnpm setup) —
+  pickup at those threads' next touch; #880–#883 emgeebot (Matt's agent)
+  lanes — never ours to chase.
 - Acceptance bar: the controlling plan's six acceptance criteria.
 
 ## Standing tenure posture (owner words, 2026-08-13)

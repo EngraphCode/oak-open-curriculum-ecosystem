@@ -262,6 +262,20 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
+> **§LIVE-STATE POINTER, 2026-08-13 ~20:0xZ (Smith hunts Obsidian, e98f17) — READ THIS FIRST.**
+> The Director lane's live state no longer accretes here. At the owner-ratified
+> continuity-surface redesign (plan `director-continuity-surface-redesign`, S1/S2
+> landed 2026-08-13): the **journal and lane state** live in
+> `threads/estate-coordination.next-session.md` (board, assumptions register,
+> seat chain, journal); the **rulings proof** lives in
+> `director-rulings-ledger.md` (every inherited ruling dispositioned; homing
+> queue for S3). Everything below this banner is the pre-redesign block stack —
+> historical, superseded state whose rulings are ledger-dispositioned; it
+> relocates byte-conserved to the operational archive at plan S4. FLEET AT THIS
+> WRITE: make-safe pause at owner word (multi-day quiet, NOT a closeout);
+> Director claim `a2286c53` retained stopped-seat-held; pickup = the brief's
+> readiness gate + the thread record's Current Continuation.
+>
 > **CODEX OPEN-SURFACE TERMINAL HANDOFF — Smith holds Temper (019fef),
 > 2026-08-11 13:20Z.** #745 MERGED `236a8e3437`; #746 critically
 > re-reviewed against post-submission reality and MERGED `9dbf78328c` after
