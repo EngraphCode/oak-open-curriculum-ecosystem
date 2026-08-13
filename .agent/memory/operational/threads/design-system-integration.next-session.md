@@ -3058,3 +3058,64 @@ required). Dev server only when pixels are being shown.
 - Estate: the outgoing identity = zero in design surfaces (census 19 residual .agent carriers routed to Director); comms watcher DOWN at this seat since ~17:17 (guard); heartbeat pair honest until stopped at this close; MEMORY.md per-user index owes a careful compaction (19.7KB > 17.1 target).
 
 — Swordfish wakes Trench (d0274e), via warden append at session close; the MEMORY.md compaction in the final line landed before this append (16.5KB, Director seat, same evening)
+
+## COMPACTION FREEZE + WIND-DOWN STATE (2026-08-13 ~21:0xZ) — Skua binds Leeward (e2b222); merge drive LIVE mid-freeze
+
+Owner word governs: thoughtful wind-down, NOT a closeout, everything safe
+and trivial to pick up; #846 merged + all work pushed + coordination
+folded (fold DONE: Smith's #884 merged c8586f477; estate rotated to
+coordination/2026-08-13-c8586f). Owner called compact-prep at ~21:00Z.
+
+MERGE DRIVE STATE, first-hand at freeze: PR #846 head `7aaa9e6e4` (clean,
+== remote, un-drafted, base main, MERGEABLE, zero conflict vs folded main
+by merge-tree). Landed this session, all pushed: `8b89ad988` (fluidity
+pillar tranche 1 — see the ratified plan §W1), `3b02fa8a1` (tri-state
+clear(), last review thread cured+resolved), `bbe6803ef` (sonar: nested
+template literal + numeric separators), `d2c4e4e24` (PDS masthead cascade
+cure at the generator — the six declared reds GREEN, suite 70/70,
+run-quality-gates PASSED in CI on this head), `7aaa9e6e4` (equality-form
+membership as for-of loops; window-not-globalThis kept deliberately — the
+injectable-window test seam is the runtime contract, S7764 rejected on
+recorded grounds).
+
+THE ONE REMAINING GATE: SonarCloud on `7aaa9e6e4` fails TWO conditions:
+(a) new_duplicated_lines_density 3.2 > 3 — MY for-of membership loops
+duplicated (isThemeName/isMotionMode near-identical, ×3 runtime copies);
+cure = ONE generic member guard `function isMember<T extends string>(
+values: readonly T[], s: string | null): s is T` in src/oak-theme.ts,
+both guards call it, rebuild, sync 3 copies (dist → kit-root →
+2× public), 19 kit tests + validate-kit-assets must stay green;
+(b) new_code_smells_severity 15 > 14 (severity-weighted, lags count) —
+8 issues remain: 2 MAJOR (S3358 nested ternary useFrameTheme.ts:62;
+S6845 resources.tsx:64) + 6 MINOR (S6754 ×2, S5906, S7764 ×3-rejected).
+Cure the two MAJORs mechanically; the S7764 trio stays rejected-on-
+grounds. Then: commit (pathspec), push (pre-push ~5min), CI (~12min),
+verify required checks BY NAME (CodeQL, SonarCloud Code Analysis,
+run-quality-gates, Vercel — ruleset 13402577), then sha-pinned bot REST
+merge (mint --scope pull-request-merge from PRIMARY root, cwd pinned,
+token ≥20 chars, author echoed; merge method MERGE, never squash;
+sha = the settled tip read first-hand at the call).
+
+AFTER MERGE, the closeout sequence (all prepared): (1) append merged sha
+to this record + napkin; (2) commit napkin + this record to
+coordination/2026-08-13-c8586f by pathspec, push (sole-live-seat lean
+path — Smith stood down after their fold; fleet-state only); (3) closeout
+broadcast from the pre-drafted body (scratchpad closeout-body.md,
+<MERGE_SHA> placeholder) — it IS the heartbeat-end declaration; (4) stop
+monitors canonical order: heartbeat loop first, F-75 poll, watcher LAST.
+
+CLAIM 645b9e0b: RETAINED stopped-seat-held, handoff pointer SET
+(handoffs/645b9e0b-design-lane-winddown-2026-08-13.md — machine-local;
+its substance: the ratified plan IS the resume map; first pickup acts =
+plan R16 [owner identity-static/theme-dynamic ruling, verbatim in
+per-user memory three-identities-are-a-demonstration-instrument append +
+napkin ~20:5xZ] → W1 remainder [A2 rhythm, slice B guard + EMC² body rem]
+→ W2). Session task list dies with the session; this record + the
+handoff record + the plan carry everything.
+
+DAY'S OWNER RULINGS at this seat, all captured verbatim at occurrence:
+R14 fluidity-pillar (plan + memory), R15 demonstration-ontology +
+anchoring refinement (plan + memory), identity-static/theme-dynamic
+(memory + napkin; plan R16 at pickup), the wind-down word (napkin).
+Method lessons: frame-inheritance from defect-derived design;
+first-principles-WHY before clause adjudication (both napkin'd).
