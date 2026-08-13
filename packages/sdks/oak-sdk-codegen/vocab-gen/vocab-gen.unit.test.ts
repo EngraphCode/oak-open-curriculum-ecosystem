@@ -9,7 +9,8 @@ import { describe, expect, it } from 'vitest';
 
 import { bulkDownloadFileSchema, type BulkFileResult } from '../src/bulk.js';
 import { createLessonInput, createUnitInput, type LessonInput } from '../src/bulk/test-fixtures.js';
-import { toBulkDataInputs } from './vocab-gen.js';
+import { runPipeline } from './vocab-gen.js';
+import { toBulkDataInputs } from './vocab-gen-inputs.js';
 import { createPipelineConfig, type PipelineResult } from './vocab-gen-config.js';
 import { formatPipelineResult } from './vocab-gen-format.js';
 
@@ -190,5 +191,41 @@ describe('formatPipelineResult', () => {
     expect(formatted).toContain('Output files:');
     expect(formatted).toContain('file1.ts');
     expect(formatted).toContain('file2.ts');
+  });
+});
+
+describe('runPipeline restricted-lesson exclusion policy (ADR-224)', () => {
+  const files = [
+    createFileResult([
+      createLessonInput({
+        lessonSlug: 'open-lesson',
+        lessonKeywords: [{ keyword: 'photosynthesis', description: 'How plants make food' }],
+      }),
+      createLessonInput({
+        lessonSlug: 'hidden-lesson',
+        restricted: true,
+        lessonKeywords: [{ keyword: 'restricted-osmosis', description: 'Movement of water' }],
+      }),
+    ]),
+  ];
+  const readAllBulkFiles = async () => files;
+
+  it.each([
+    ['excluded by default: only the open lesson feeds extraction', undefined, 1, 1],
+    ['retained when includeRestricted: both lessons feed extraction', true, 2, 0],
+  ])('%s', async (_name, includeRestricted, expectedUniqueKeywords, expectedExcluded) => {
+    const config = createPipelineConfig({
+      bulkDataPath: '/tmp/bulk-fixtures',
+      outputPath: '/tmp/vocab-out',
+      dryRun: true,
+      includeRestricted,
+    });
+
+    const result = await runPipeline(config, undefined, { readAllBulkFiles });
+
+    expect(result.success).toBe(true);
+    expect(result.uniqueKeywords).toBe(expectedUniqueKeywords);
+    expect(result.totalLessons).toBe(expectedUniqueKeywords);
+    expect(result.restrictedLessonsExcluded).toBe(expectedExcluded);
   });
 });
