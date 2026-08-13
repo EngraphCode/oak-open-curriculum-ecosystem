@@ -4,7 +4,8 @@ pdr_kind: pattern
 
 # PDR-137: The Basis-Set Transformation Method
 
-**Status**: Proposed
+**Status**: Accepted (owner merge of PR #874, 2026-08-13T09:49Z, plus
+the same sitting's card go-word; provenance below)
 **Date**: 2026-08-13
 **Related**:
 [PDR-029](PDR-029-perturbation-mechanism-bundle.md)
