@@ -113,6 +113,11 @@ export function isOakClientSurface(value: unknown): value is OakClientSurface {
 // `directory-admin-dashboard-inspection` (11) are Oak's own probes, smoke tests
 // and the browser widget, not named MCP client products. They belong in
 // 'other', which therefore means genuinely unidentifiable, not merely unread.
+//
+// Longest token, used to bound the compared prefix. Matching is anchored at
+// index 0, so no more of the value can affect the outcome; slicing keeps the
+// cost independent of an attacker-controlled header length.
+const LONGEST_PRODUCT_TOKEN = 32;
 const CLIENT_PRODUCT_TOKEN_RULES: readonly (readonly [string, OakClientProduct])[] = [
   ['claude-user', 'claude_ai'],
   ['claude-code', 'claude_code'],
@@ -144,12 +149,11 @@ function hasLeadingProductToken(value: string, token: string): boolean {
   return boundary === undefined || boundary === ' ' || boundary === '/';
 }
 
-function readClientProductToken(value: unknown): OakClientProduct | undefined {
-  if (typeof value !== 'string') {
-    return undefined;
-  }
-
-  const normalised = asciiLower(value.trim());
+function readClientProductToken(value: string): OakClientProduct | undefined {
+  // `asciiLower` folds only [A-Z], so it is length-preserving and the index
+  // arithmetic below cannot be shifted by a case-expanding character. Slicing to
+  // the longest token is behaviour-preserving under leading-token anchoring.
+  const normalised = asciiLower(value.trim().slice(0, LONGEST_PRODUCT_TOKEN + 1));
   for (const [token, product] of CLIENT_PRODUCT_TOKEN_RULES) {
     if (hasLeadingProductToken(normalised, token)) {
       return product;
@@ -158,20 +162,46 @@ function readClientProductToken(value: unknown): OakClientProduct | undefined {
   return undefined;
 }
 
+function isNonEmptyString(value: unknown): value is string {
+  return typeof value === 'string' && value.trim() !== '';
+}
+
 /**
  * Projects the ordered client-identity header values onto the closed product
  * category. The first header value that names a known product wins; a value that
- * names none does not participate, so an unrecognised vendor header falls
- * through to the User-Agent rather than forcing 'other'.
+ * names none does not participate, so an unrecognised vendor header falls through
+ * to the User-Agent rather than forcing a verdict.
+ *
+ * @remarks The two negative outcomes are deliberately DISTINCT values, because
+ * they mean opposite things operationally and MCP-594 is the story of what
+ * happens when they are conflated:
+ *
+ * - `other` — a client string was present and named no product we recognise.
+ *   Expected, and its share is a measurement (Oak's own probes and the browser
+ *   widget live here).
+ * - `unavailable` — no client string reached this derivation at all, so it never
+ *   ran. That is a defect signal, not a measurement: it means the transport
+ *   stopped supplying request headers (an SDK release that no longer populates
+ *   `requestInfo`, or a move to a Fetch-native adapter whose `Headers` instance
+ *   this reader cannot see). Collapsing it into `other` would make a total
+ *   attribution regression look exactly like healthy traffic — the same
+ *   false-green that made `harness = other` unreadable in the first place.
+ *
+ * A sudden `unavailable` share is therefore the alarm on this cure's own health.
  */
 export function normaliseOakClientProduct(headerValues: readonly unknown[]): OakClientProduct {
+  let sawClientString = false;
   for (const value of headerValues) {
+    if (!isNonEmptyString(value)) {
+      continue;
+    }
+    sawClientString = true;
     const product = readClientProductToken(value);
     if (product !== undefined) {
       return product;
     }
   }
-  return 'other';
+  return sawClientString ? 'other' : 'unavailable';
 }
 
 export function isOakClientFamily(value: unknown): value is OakClientFamily {
@@ -179,5 +209,11 @@ export function isOakClientFamily(value: unknown): value is OakClientFamily {
 }
 
 export function isOakClientProduct(value: unknown): value is OakClientProduct {
-  return value === 'claude_ai' || value === 'claude_code' || value === 'codex' || value === 'other';
+  return (
+    value === 'claude_ai' ||
+    value === 'claude_code' ||
+    value === 'codex' ||
+    value === 'other' ||
+    value === 'unavailable'
+  );
 }

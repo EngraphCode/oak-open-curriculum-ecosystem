@@ -260,6 +260,11 @@ function expectNoForbiddenContent(value: unknown): void {
   expect(serialised).not.toContain(RAW_UA_SENTINEL);
   expect(serialised).not.toContain('$mcp_client_name');
   expect(serialised).not.toContain('$mcp_client_version');
+  // The remaining two properties PostHog's own `harness` column resolves from.
+  // ADR-218 §3 excludes all three as raw client strings, so the wire assertion
+  // covers the ADR's whole rejection list rather than two thirds of it.
+  expect(serialised).not.toContain('$mcp_client_user_agent');
+  expect(serialised).not.toContain('$mcp_vendor_client');
   expect(serialised).not.toContain('$mcp_parameters');
   expect(serialised).not.toContain('$mcp_response');
   expect(serialised).not.toContain('$process_person_profile');
@@ -295,7 +300,7 @@ async function expectSuccessfulFinalWireBatch(subject: Subject): Promise<void> {
         ...COMMON_PROPERTIES,
         $mcp_is_error: false,
         oak_client_family: 'chatgpt',
-        oak_client_product: 'other',
+        oak_client_product: 'unavailable',
         oak_client_surface: 'other',
         $mcp_protocol_version: protocolVersion,
         ...expectedMcpSdkProperties(initializeDynamic.libVersion),
@@ -311,7 +316,7 @@ async function expectSuccessfulFinalWireBatch(subject: Subject): Promise<void> {
         $mcp_duration_ms: listDuration,
         $mcp_is_error: false,
         $mcp_listed_tool_names: [TOOL_NAME],
-        oak_client_product: 'other',
+        oak_client_product: 'unavailable',
         oak_client_surface: 'other',
         ...expectedMcpSdkProperties(listDynamic.libVersion),
       },
@@ -326,7 +331,7 @@ async function expectSuccessfulFinalWireBatch(subject: Subject): Promise<void> {
         $mcp_tool_name: TOOL_NAME,
         $mcp_duration_ms: toolDuration,
         $mcp_is_error: false,
-        oak_client_product: 'other',
+        oak_client_product: 'unavailable',
         oak_client_surface: 'other',
         ...expectedMcpSdkProperties(toolDynamic.libVersion),
       },
@@ -490,7 +495,7 @@ describe('PostHog final wire', () => {
           ...COMMON_PROPERTIES,
           $mcp_is_error: false,
           oak_client_family: 'chatgpt',
-          oak_client_product: 'other',
+          oak_client_product: 'unavailable',
           oak_client_surface: 'other',
           $mcp_protocol_version: protocolVersion,
           ...expectedMcpSdkProperties(dynamic.libVersion),

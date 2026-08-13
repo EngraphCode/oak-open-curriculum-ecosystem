@@ -41,8 +41,18 @@ export type OakClientSurface = 'cli' | 'sdk' | 'vscode' | 'web' | 'other';
  * as `clientInfo.name`, so forwarding the raw value would place a stable
  * per-installation identifier in the analytics envelope. Only the closed
  * category below is ever emitted; the raw string never leaves this process.
+ *
+ * `other` and `unavailable` are separate members on purpose: the first means a
+ * client string was read and named no product we recognise (a measurement), the
+ * second that no client string reached the derivation at all (a defect signal).
+ * See `normaliseOakClientProduct` — conflating them is the false-green this whole
+ * axis exists to remove.
+ *
+ * The value is an **unauthenticated self-declaration**: any client can send
+ * `user-agent: claude-code/…`. It is sound for analytics aggregates and must
+ * never gate access, quota, rate limiting, or entitlement.
  */
-export type OakClientProduct = 'claude_ai' | 'claude_code' | 'codex' | 'other';
+export type OakClientProduct = 'claude_ai' | 'claude_code' | 'codex' | 'other' | 'unavailable';
 export type UnknownProperties = NonNullable<McpCaptureCommon['properties']>;
 
 export interface McpRequest {

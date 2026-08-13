@@ -153,12 +153,35 @@ describe('normaliseOakClientProduct', () => {
     expect(normaliseOakClientProduct(headerValues)).toBe('other');
   });
 
+  // `unavailable` is NOT `other`. No client string reached the derivation, so it
+  // never ran — a defect signal (the transport stopped supplying headers), not a
+  // measurement. Conflating the two would make a total attribution regression
+  // look identical to healthy traffic, which is the MCP-594 defect itself.
   it.each([
-    ['a non-string value', [42]],
     ['an empty value list', []],
     ['an undefined value', [undefined]],
-  ])('derives %s to other', (_label, headerValues) => {
-    expect(normaliseOakClientProduct(headerValues)).toBe('other');
+    ['a non-string value', [42]],
+    ['an object that would coerce to a product string', [{ toString: () => 'claude-code/2.0' }]],
+    ['an empty string', ['']],
+    ['a whitespace-only string', ['   ']],
+    ['every value absent', [undefined, undefined]],
+  ])('reports %s as unavailable, not other', (_label, headerValues) => {
+    expect(normaliseOakClientProduct(headerValues)).toBe('unavailable');
+  });
+
+  it('separates an unrecognised client from an absent one', () => {
+    expect(normaliseOakClientProduct(['python-httpx/0.28.1'])).toBe('other');
+    expect(normaliseOakClientProduct([])).toBe('unavailable');
+  });
+
+  it('still reads a present header when an earlier one is absent', () => {
+    expect(normaliseOakClientProduct([undefined, 'claude-code/2.0'])).toBe('claude_code');
+    expect(normaliseOakClientProduct([undefined, 'python-httpx/0.28.1'])).toBe('other');
+  });
+
+  it('cannot be smuggled past the anchor by an over-long value', () => {
+    expect(normaliseOakClientProduct([`${'x'.repeat(20_000)} claude-code/2.0`])).toBe('other');
+    expect(normaliseOakClientProduct([`claude-code/${'9'.repeat(20_000)}`])).toBe('claude_code');
   });
 
   it('reaches every value in the closed vocabulary, so none is unreachable', () => {
@@ -167,6 +190,7 @@ describe('normaliseOakClientProduct', () => {
       normaliseOakClientProduct(['claude-code/2.1.226 (cli)']),
       normaliseOakClientProduct(['codex-mcp-client/0.147.0']),
       normaliseOakClientProduct(['python-httpx/0.28.1']),
+      normaliseOakClientProduct([]),
     ]);
 
     expect([...derived].sort(compareProducts)).toStrictEqual([
@@ -174,12 +198,13 @@ describe('normaliseOakClientProduct', () => {
       'claude_code',
       'codex',
       'other',
+      'unavailable',
     ]);
   });
 });
 
 describe('isOakClientProduct', () => {
-  it.each(['claude_ai', 'claude_code', 'codex', 'other'])('accepts %s', (value) => {
+  it.each(['claude_ai', 'claude_code', 'codex', 'other', 'unavailable'])('accepts %s', (value) => {
     expect(isOakClientProduct(value)).toBe(true);
   });
 

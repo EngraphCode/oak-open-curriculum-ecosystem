@@ -24,10 +24,15 @@ interface ClientCategories {
  * Reads the two per-request client categories every automatic event carries.
  *
  * @remarks Both are required, and a missing or non-canonical value drops the
- * event rather than defaulting it. That is what makes `other` in the warehouse
- * mean "the derivation ran and recognised no product" rather than "the property
- * was never read" — the precise ambiguity MCP-594 was filed for. A default here
- * would reintroduce it silently.
+ * event rather than defaulting it. A default here would silently reintroduce the
+ * ambiguity MCP-594 was filed for: an unread property looking identical to a
+ * derivation that ran and recognised nothing.
+ *
+ * This barrier alone is not what makes `other` unambiguous — a dropped event is
+ * itself silent, so a systemic break would show only as lost volume. The axis
+ * carries a distinct `unavailable` member for the case where no client string
+ * reached the derivation, so that failure is visible in the data rather than
+ * inferred from an absence. See `normaliseOakClientProduct`.
  */
 function readClientCategories(properties: UnknownProperties): ClientCategories | null {
   const product = readOwn(properties, 'oak_client_product');
