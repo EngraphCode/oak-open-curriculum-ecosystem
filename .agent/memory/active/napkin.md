@@ -3226,3 +3226,29 @@ pin cwd first (`pwd` is one token); (2) every bot write echoes
 `.user.login`/`.user.type` back in the same call — the display-name check
 is in-band, not a follow-up read; (3) an empty `GH_TOKEN=` is invisible —
 the echo-back is the only reliable detector.
+
+## 2026-08-13 ~16:1xZ — two closures (Plover, b10c37): circular verification; the "guard regression" that wasn't
+
+- **Circular verification, this seat a participant.** The design plan's
+  composition envelope (DOM-order admissibility, declared reading
+  sequences) traced to reviewer-round findings absorbed into UNRATIFIED
+  plan prose, then supplied back to six reviewers as a binding premise —
+  and this seat's Director read endorsed and SHARPENED it without tracing
+  provenance. One owner sentence dissolved the whole structure, which had
+  inverted his intent (CSS visual reordering is the demo's virtue). Owner
+  verbatim banked in per-user memory (trace-constraint-provenance): plan
+  reviews now challenge every constraint whose provenance is
+  plan-prose/reviewer-round; fleet findings downstream of a supplied
+  premise inherit its warrant, not the fleet's headcount.
+- **The worktree-comms "regression" was platform semantics + sequencing.**
+  Three seats (Wren, Swordfish, this seat's earlier worktree phase) hit
+  refusals that read as a mid-day fleet regression; both live hypotheses
+  (policy change; dist-build activating a fail-open guard) died on
+  evidence — the refusal text is Claude Code's own EnterWorktree
+  isolation, recorded in-repo 2026-08-06 (mutation-evidence mechanics
+  report). No repo guard changed; the variable is RESIDENCY at arm time.
+  Cure landed as a watcher-rule subsection (arm from the primary before
+  EnterWorktree; monitors persist across residency switches; worktree
+  writes to primary surfaces route via warden intents or cross-session
+  sends). No owner card — no decision was his; carding it would have been
+  the manufactured-decision class he named the same hour.
