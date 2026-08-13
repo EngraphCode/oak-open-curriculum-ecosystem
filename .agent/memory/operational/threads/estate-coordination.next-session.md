@@ -38,9 +38,10 @@ state**, under the same conventions as every other thread.
 - Claims at pause: `a2286c53` (Director) retained stopped-seat-held — the
   successor adopts via `claims adopt` per the brief's readiness gate.
   `dd3f640f` closed 2026-08-13 (premise complete as PDR-136).
-- Fleet at pause: Skua (e2b222) closed after #846's disposition (their
-  close broadcast is the record); Nautilus (c6d48b) cold-paused, claim
-  `95a0678d` retained, survey owner-HELD (gates expire 2026-09-02).
+- Fleet at pause: Skua (e2b222) was live driving #846 at the wind-down
+  write — their close broadcast is the authoritative record of their exit;
+  Nautilus (c6d48b) cold-paused, claim `95a0678d` retained, survey
+  owner-HELD (gates expire 2026-09-02).
 - Open-PR disposition at pause: #846 owner-worded to merge (Skua drove);
   #774 illustrative never-merge (owner verbatim); #772/#761 Clerk-stack
   gated on the production promotion settling; #867 and #750 are draft
@@ -68,8 +69,12 @@ state**, under the same conventions as every other thread.
 
 ## The live board (authoritative restatement, adopted 2026-08-13 from Plover's closeout)
 
-1. IN PROGRESS — support the design lane: ratified plan governs, W1→W2;
-   Skua active; owner-held moments are pixels in his Chrome.
+1. Design lane: ratified plan governs, W1→W2. At the wind-down write Skua
+   (e2b222) was live driving #846 to merge at owner word; their close
+   broadcast (or its absence) is the authoritative close record —
+   re-ground from the claims registry and comms at pickup, never this row
+   (Copilot thread on fold PR #884 caught the earlier
+   anticipatory/adopted-verbatim incoherence here).
 2. MCP-590 tail: error-envelope PR (`formatError` + two callers,
    `{code,message,upstreamMessage}` via `structuredContent.error` +
    `content[1]` mirror, NOT `_meta`; contract test). Question A1 first.
@@ -195,6 +200,28 @@ Director thread record; no drain ritual), and the redesign plan authored
 and presented. Rulings inventory complete; verification fleet running under
 the two-at-a-time throttle after a session-limit event killed 7 of 12 legs
 (5 banked, resume from cache). This record founded as plan S1.
+
+### 2026-08-13 ~20:3xZ — Smith hunts Obsidian (e98f17): wind-down fold executed
+
+Owner wind-down word executed within the hour: fold PR **#884** (bot-authored,
+jimbot label) merged to main at `c8586f477` — full condition held (four
+required checks green by name; Copilot's seven-thread round read in full,
+replied and resolved at the boundary; claude leg org-overage quota-skip,
+recorded exclusion). Successor branch `coordination/2026-08-13-c8586f` cut
+from post-fold main; primary resides there. moved for teachers: no
+live-service change in the fold (the day's teacher-facing motion, the #871
+lesson-search freshness slice, landed earlier). moved for the Practice: the
+Director continuity-surface redesign S1/S2 durable on main — thread record,
+81-row rulings ledger with authority classes, inheritance-audit outcomes
+(stale claim closed against PDR-136), live-state banner, make-safe pause
+state, formation letter. The plan-readiness verdict (READY-WITH-EDITS, 8
+before-stamp findings) is conserved as bot comment 5285713690 on #884 —
+applying findings 1–8 is the FIRST pickup act, before the ratification card.
+Finding 1's claim-side cure executed at this entry: the Director claim
+re-threaded to `estate-coordination` (close+reopen, new claim id in the
+registry) so the claim→record path resolves. Copilot's three tonight-cures
+landed in this commit (fleet-state truing, two plan `last_updated` fields,
+one report label). #846 was in CI at Skua's seat at this write.
 
 ## Participating agent identities
 

@@ -22,7 +22,7 @@ owner_gates:
       lane seat, Director-concurred broad on both nodes) discharges at his
       word through any seat.
     expires: 2026-09-02
-last_updated: 2026-08-12
+last_updated: 2026-08-13
 ---
 
 # Survey machinery deconstruction
