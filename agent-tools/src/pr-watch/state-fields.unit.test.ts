@@ -169,6 +169,371 @@ describe('parseStateView', () => {
   });
 });
 
+describe('parseStateView: latest run per check name', () => {
+  // GitHub evaluates a check BY NAME through its latest run on the head
+  // commit; superseded runs stay in the rollup as residue. Worked instance
+  // (PR #846, 2026-08-13): a duplicated pull_request delivery left one CI
+  // run concurrency-cancelled beside its green twin on the SAME sha, and
+  // the undeduped read held CHECKS-RED against a head GitHub itself
+  // evaluated as green.
+  it('a concurrency-cancelled twin is superseded by the same-named later success', () => {
+    const parsed = parseStateView({
+      ...stateViewFixture(),
+      statusCheckRollup: [
+        {
+          __typename: 'CheckRun',
+          name: 'run-quality-gates',
+          workflowName: 'CI',
+          status: 'COMPLETED',
+          conclusion: 'FAILURE',
+          startedAt: '2026-08-13T21:17:17Z',
+          completedAt: '2026-08-13T21:17:17Z',
+        },
+        {
+          __typename: 'CheckRun',
+          name: 'run-quality-gates',
+          workflowName: 'CI',
+          status: 'COMPLETED',
+          conclusion: 'SUCCESS',
+          startedAt: '2026-08-13T21:22:01Z',
+          completedAt: '2026-08-13T21:22:04Z',
+        },
+        {
+          __typename: 'CheckRun',
+          name: 'browser-tests',
+          workflowName: 'CI',
+          status: 'COMPLETED',
+          conclusion: 'CANCELLED',
+          startedAt: '2026-08-13T21:17:17Z',
+          completedAt: '2026-08-13T21:17:18Z',
+        },
+        {
+          __typename: 'CheckRun',
+          name: 'browser-tests',
+          workflowName: 'CI',
+          status: 'COMPLETED',
+          conclusion: 'SUCCESS',
+          startedAt: '2026-08-13T21:18:00Z',
+          completedAt: '2026-08-13T21:20:12Z',
+        },
+      ],
+    });
+    expect(parsed.namedChecks).toEqual([
+      { name: 'run-quality-gates', bucket: 'passed' },
+      { name: 'browser-tests', bucket: 'passed' },
+    ]);
+    expect(parsed.checks).toEqual({ total: 2, passed: 2, failed: 0, pending: 0 });
+  });
+
+  it('an anchor tie resolves to the more-blocking item in either array order', () => {
+    // gh timestamps are second-granularity; twins can complete in the same
+    // second. Array order is not contractual, so a tie must never green.
+    const tied = (first: string, second: string): readonly Record<string, unknown>[] => [
+      {
+        __typename: 'CheckRun',
+        name: 'build',
+        status: 'COMPLETED',
+        conclusion: first,
+        completedAt: '2026-08-13T21:17:17Z',
+      },
+      {
+        __typename: 'CheckRun',
+        name: 'build',
+        status: 'COMPLETED',
+        conclusion: second,
+        completedAt: '2026-08-13T21:17:17Z',
+      },
+    ];
+    for (const rollup of [tied('SUCCESS', 'FAILURE'), tied('FAILURE', 'SUCCESS')]) {
+      const parsed = parseStateView({ ...stateViewFixture(), statusCheckRollup: rollup });
+      expect(parsed.namedChecks).toEqual([{ name: 'build', bucket: 'failed' }]);
+    }
+  });
+
+  it('an undated failure survives a dated success in either array order', () => {
+    // Undated does not mean older: when either side has no parseable
+    // anchor, recency is unknowable and the more-blocking item stands.
+    const dated = {
+      __typename: 'CheckRun',
+      name: 'unit-tests',
+      status: 'COMPLETED',
+      conclusion: 'SUCCESS',
+      completedAt: '2026-08-13T21:25:00Z',
+    };
+    const undated = {
+      __typename: 'CheckRun',
+      name: 'unit-tests',
+      status: 'COMPLETED',
+      conclusion: 'FAILURE',
+    };
+    for (const rollup of [
+      [dated, undated],
+      [undated, dated],
+    ]) {
+      const parsed = parseStateView({ ...stateViewFixture(), statusCheckRollup: rollup });
+      expect(parsed.namedChecks).toEqual([{ name: 'unit-tests', bucket: 'failed' }]);
+    }
+  });
+
+  it('two undated same-named items resolve to the more-blocking one in either order', () => {
+    const green = {
+      __typename: 'CheckRun',
+      name: 'lint',
+      status: 'COMPLETED',
+      conclusion: 'SUCCESS',
+    };
+    const red = {
+      __typename: 'CheckRun',
+      name: 'lint',
+      status: 'COMPLETED',
+      conclusion: 'FAILURE',
+    };
+    for (const rollup of [
+      [green, red],
+      [red, green],
+    ]) {
+      const parsed = parseStateView({ ...stateViewFixture(), statusCheckRollup: rollup });
+      expect(parsed.namedChecks).toEqual([{ name: 'lint', bucket: 'failed' }]);
+    }
+  });
+
+  it('a StatusContext never joins the reduction — a same-named CheckRun cannot displace it', () => {
+    // GitHub already collapses commit statuses per context; a CheckRun
+    // sharing a status's name is a DIFFERENT check, and both count.
+    const parsed = parseStateView({
+      ...stateViewFixture(),
+      statusCheckRollup: [
+        { __typename: 'StatusContext', context: 'deploy', state: 'FAILURE' },
+        {
+          __typename: 'CheckRun',
+          name: 'deploy',
+          status: 'COMPLETED',
+          conclusion: 'SUCCESS',
+          completedAt: '2026-08-13T21:25:00Z',
+        },
+      ],
+    });
+    expect(parsed.namedChecks).toEqual([
+      { name: 'deploy', bucket: 'failed' },
+      { name: 'deploy', bucket: 'passed' },
+    ]);
+    expect(parsed.checks).toEqual({ total: 2, passed: 1, failed: 1, pending: 0 });
+  });
+
+  it('a newer failure listed before its older green twin still reads failed (array order is not recency)', () => {
+    const parsed = parseStateView({
+      ...stateViewFixture(),
+      statusCheckRollup: [
+        {
+          __typename: 'CheckRun',
+          name: 'unit-tests',
+          status: 'COMPLETED',
+          conclusion: 'FAILURE',
+          completedAt: '2026-08-13T21:25:00Z',
+        },
+        {
+          __typename: 'CheckRun',
+          name: 'unit-tests',
+          status: 'COMPLETED',
+          conclusion: 'SUCCESS',
+          completedAt: '2026-08-13T21:17:17Z',
+        },
+      ],
+    });
+    expect(parsed.namedChecks).toEqual([{ name: 'unit-tests', bucket: 'failed' }]);
+  });
+
+  it('an unparseable timestamp is undated — a garbage-dated failure survives a valid-dated success in either order', () => {
+    const garbage = {
+      __typename: 'CheckRun',
+      name: 'install',
+      status: 'COMPLETED',
+      conclusion: 'FAILURE',
+      completedAt: 'not-a-timestamp',
+    };
+    const dated = {
+      __typename: 'CheckRun',
+      name: 'install',
+      status: 'COMPLETED',
+      conclusion: 'SUCCESS',
+      completedAt: '2026-08-13T21:25:00Z',
+    };
+    for (const rollup of [
+      [garbage, dated],
+      [dated, garbage],
+    ]) {
+      const parsed = parseStateView({ ...stateViewFixture(), statusCheckRollup: rollup });
+      expect(parsed.namedChecks).toEqual([{ name: 'install', bucket: 'failed' }]);
+    }
+  });
+
+  it('an undated queued re-run outranks its dated green predecessor in either order — no premature settlement', () => {
+    const done = {
+      __typename: 'CheckRun',
+      name: 'build',
+      status: 'COMPLETED',
+      conclusion: 'SUCCESS',
+      completedAt: '2026-08-13T21:17:17Z',
+    };
+    const queued = { __typename: 'CheckRun', name: 'build', status: 'QUEUED', conclusion: null };
+    for (const rollup of [
+      [done, queued],
+      [queued, done],
+    ]) {
+      const parsed = parseStateView({ ...stateViewFixture(), statusCheckRollup: rollup });
+      expect(parsed.namedChecks).toEqual([{ name: 'build', bucket: 'pending' }]);
+    }
+  });
+
+  it('the workflow/name key never conflates on concatenation ambiguity', () => {
+    // ('CI', 'extra build') and ('CI extra', 'build') concatenate equal
+    // under a naive space join; they are different checks and both count.
+    const parsed = parseStateView({
+      ...stateViewFixture(),
+      statusCheckRollup: [
+        {
+          __typename: 'CheckRun',
+          name: 'extra build',
+          workflowName: 'CI',
+          status: 'COMPLETED',
+          conclusion: 'FAILURE',
+          completedAt: '2026-08-13T21:17:17Z',
+        },
+        {
+          __typename: 'CheckRun',
+          name: 'build',
+          workflowName: 'CI extra',
+          status: 'COMPLETED',
+          conclusion: 'SUCCESS',
+          completedAt: '2026-08-13T21:25:00Z',
+        },
+      ],
+    });
+    expect(parsed.checks).toEqual({ total: 2, passed: 1, failed: 1, pending: 0 });
+  });
+
+  it('same-named checks from different workflows never conflate', () => {
+    const parsed = parseStateView({
+      ...stateViewFixture(),
+      statusCheckRollup: [
+        {
+          __typename: 'CheckRun',
+          name: 'Analyze (python)',
+          workflowName: 'CodeQL',
+          status: 'COMPLETED',
+          conclusion: 'FAILURE',
+          completedAt: '2026-08-13T21:17:17Z',
+        },
+        {
+          __typename: 'CheckRun',
+          name: 'Analyze (python)',
+          workflowName: 'Code Quality',
+          status: 'COMPLETED',
+          conclusion: 'SUCCESS',
+          completedAt: '2026-08-13T21:25:00Z',
+        },
+      ],
+    });
+    expect(parsed.checks).toEqual({ total: 2, passed: 1, failed: 1, pending: 0 });
+  });
+
+  it('a newer in-progress re-run supersedes an older completed conclusion', () => {
+    const parsed = parseStateView({
+      ...stateViewFixture(),
+      statusCheckRollup: [
+        {
+          __typename: 'CheckRun',
+          name: 'unit-tests',
+          status: 'COMPLETED',
+          conclusion: 'FAILURE',
+          completedAt: '2026-08-13T21:17:17Z',
+        },
+        {
+          __typename: 'CheckRun',
+          name: 'unit-tests',
+          status: 'IN_PROGRESS',
+          conclusion: null,
+          startedAt: '2026-08-13T21:30:00Z',
+        },
+      ],
+    });
+    expect(parsed.namedChecks).toEqual([{ name: 'unit-tests', bucket: 'pending' }]);
+  });
+
+  it('a newer failure supersedes an older success — the dangerous direction stays red', () => {
+    const parsed = parseStateView({
+      ...stateViewFixture(),
+      statusCheckRollup: [
+        {
+          __typename: 'CheckRun',
+          name: 'secret-scan',
+          status: 'COMPLETED',
+          conclusion: 'SUCCESS',
+          completedAt: '2026-08-13T21:17:17Z',
+        },
+        {
+          __typename: 'CheckRun',
+          name: 'secret-scan',
+          status: 'COMPLETED',
+          conclusion: 'FAILURE',
+          completedAt: '2026-08-13T21:25:00Z',
+        },
+      ],
+    });
+    expect(parsed.namedChecks).toEqual([{ name: 'secret-scan', bucket: 'failed' }]);
+    expect(parsed.checksGreenAt).toBeNull();
+  });
+
+  it('an unanchored item never displaces an anchored incumbent', () => {
+    // Conservative: residue is out-ranked only by a DATED successor — an
+    // undatable green must not silence a dated failure.
+    const parsed = parseStateView({
+      ...stateViewFixture(),
+      statusCheckRollup: [
+        {
+          __typename: 'CheckRun',
+          name: 'static-checks',
+          status: 'COMPLETED',
+          conclusion: 'FAILURE',
+          completedAt: '2026-08-13T21:17:17Z',
+        },
+        {
+          __typename: 'CheckRun',
+          name: 'static-checks',
+          status: 'COMPLETED',
+          conclusion: 'SUCCESS',
+        },
+      ],
+    });
+    expect(parsed.namedChecks).toEqual([{ name: 'static-checks', bucket: 'failed' }]);
+  });
+
+  it('superseded residue no longer nulls checksGreenAt', () => {
+    const parsed = parseStateView({
+      ...stateViewFixture(),
+      statusCheckRollup: [
+        {
+          __typename: 'CheckRun',
+          name: 'build',
+          status: 'COMPLETED',
+          conclusion: 'CANCELLED',
+          startedAt: '2026-08-13T21:17:17Z',
+          completedAt: '2026-08-13T21:17:18Z',
+        },
+        {
+          __typename: 'CheckRun',
+          name: 'build',
+          status: 'COMPLETED',
+          conclusion: 'SUCCESS',
+          startedAt: '2026-08-13T21:18:00Z',
+          completedAt: '2026-08-13T21:19:30Z',
+        },
+      ],
+    });
+    expect(parsed.checksGreenAt).toBe('2026-08-13T21:19:30Z');
+  });
+});
+
 describe('parseReviewsHarvest', () => {
   function page(nodes: readonly unknown[]): unknown {
     return { data: { repository: { pullRequest: { reviews: { nodes } } } } };
