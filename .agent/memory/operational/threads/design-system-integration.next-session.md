@@ -3130,3 +3130,30 @@ scrollable-region tension at its site). On `7aaa9e6e4` every required leg
 EXCEPT Sonar had passed (run-quality-gates, browser-tests, CodeQL, Vercel
 all green). CI runs on `ea029a9fa`; at all-green: by-name required read →
 sha-pinned bot REST merge → the closeout sequence in the freeze entry.
+
+### PAUSE POINT (~21:4xZ, owner ten-minute word): ONE commit from merge
+
+Owner ruled: finish in ten minutes or prioritise the compaction pause; the
+honest path needs ~20 (exclusion commit + fresh CI analysis), so PAUSED.
+
+STATE: PR #846 head `ea029a9fa` — every required leg GREEN except
+SonarCloud, whose two failing conditions are both architecture-reads, now
+dispositioned: (a) the five remaining issues ACCEPTED with grounds
+comments via the authenticated sonar CLI (S6845 WCAG-2.1.1 scrollable
+region; S7764 ×3 injectable-window contract; S5906 test-file minor —
+2026-08-13 ~21:3xZ); (b) new_duplicated_lines_density 3.2>3 measures the
+PARITY-GATED runtime copy-set itself (three byte-identical oak-theme.js
+copies BY DESIGN — killing the loop duplication moved the number not at
+all, proof the copies are the measure).
+
+THE ONE REMAINING ACT (successor, ~20 min): append to the existing
+`sonar.cpd.exclusions` line in `.sonarcloud.properties` (line ~31, which
+already excludes `studio-source/**` on the same grounds):
+`,packages/design/oak-design-system/oak-theme.js,demos/oak-design-showcase/public/oak-theme.js,demos/oak-curriculum-hub/public/oak-theme.js`
+— configure-not-disable: deliberate byte-identical copies proven by their
+own parity gate. Commit (docs/config class) to the PR-2 branch in the
+identity-switchboard-pr2 worktree, push, wait CI, verify the four
+required checks BY NAME (ruleset 13402577), then the sha-pinned bot REST
+merge (mint --scope pull-request-merge from PRIMARY root, token ≥20,
+author echoed, merge method MERGE, sha read first-hand at the call).
+Then the closeout sequence already written above.
