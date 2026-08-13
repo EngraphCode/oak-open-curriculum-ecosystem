@@ -1,5 +1,6 @@
 import type { Result } from '@oaknational/result';
 import { err, ok } from '@oaknational/result';
+import { isRestrictedInclusionBarred } from '@oaknational/sdk-codegen/bulk';
 import type { AdminError, IngestResult } from '../types/admin-types.js';
 import type {
   AliasLifecycleDeps,
@@ -30,15 +31,17 @@ const DEFAULT_MIN_DOC_COUNT = 1;
  * this boundary by the SDK filter and ingest-plumbing tests. Exported for
  * the CLI's pre-flight check (rejecting before bulk-data verification and
  * lease acquisition); the service calls it as the backstop, so the boundary
- * holds for every SDK consumer. Removal condition: the labelled-serving
- * follow-on (restricted flag threaded into the lesson-document builder and
- * honoured downstream — the named MCP-590 Bucket-1 follow-on) plus the
- * owner's word retires this guard.
+ * holds for every SDK consumer. The bar itself is delegated to its canonical
+ * owner, `isRestrictedInclusionBarred` (sdk-codegen restricted-lesson filter),
+ * shared with the vocab corpus boundary. Removal condition: retiring that
+ * predicate at the labelled-serving follow-on (restricted flag threaded into
+ * the lesson-document builder and honoured downstream — the named MCP-590
+ * Bucket-1 follow-on) plus the owner's word opens every boundary together.
  */
 export function enforceRestrictedInclusionBoundary(
   options: Pick<VersionedIngestOptions, 'includeRestricted'>,
 ): Result<void, AdminError> {
-  if (options.includeRestricted === true) {
+  if (isRestrictedInclusionBarred(options)) {
     return err({
       type: 'validation_error',
       message:

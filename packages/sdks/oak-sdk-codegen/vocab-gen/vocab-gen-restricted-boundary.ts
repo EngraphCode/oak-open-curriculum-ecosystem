@@ -4,12 +4,14 @@
  * The generated vocab corpus is committed to the repository and exported to
  * MCP tools via the graph-corpus subpath, so the ADR-224 restricted-lesson
  * exclusion policy applies to every pipeline run regardless of dryRun — the
- * rejection fires before any bulk data is read. The index-producing boundary
- * in oak-search-sdk (`enforceRestrictedInclusionBoundary`) enforces the same
- * policy; the predicate is mirrored here because sdk-codegen sits upstream of
- * oak-search-sdk in the dependency direction. Removal condition: the
- * labelled-serving follow-on plus owner word (ADR-224).
+ * rejection fires before any bulk data is read. The bar itself is delegated
+ * to its canonical owner, `isRestrictedInclusionBarred` (restricted-lesson
+ * filter), which the index-producing boundary in oak-search-sdk
+ * (`enforceRestrictedInclusionBoundary`) also consumes — retiring that one
+ * predicate at the labelled-serving follow-on plus owner word opens every
+ * boundary together (ADR-224).
  */
+import { isRestrictedInclusionBarred } from './lib/index.js';
 import { type PipelineConfig, type PipelineResult } from './vocab-gen-config.js';
 
 /**
@@ -23,7 +25,7 @@ import { type PipelineConfig, type PipelineResult } from './vocab-gen-config.js'
 export function enforceRestrictedInclusionCorpusBoundary(
   config: Pick<PipelineConfig, 'includeRestricted'>,
 ): PipelineResult | undefined {
-  if (config.includeRestricted === true) {
+  if (isRestrictedInclusionBarred(config)) {
     return {
       success: false,
       error:

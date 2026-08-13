@@ -148,3 +148,19 @@ export function excludeRestrictedLessons(
     ),
   };
 }
+
+/**
+ * ADR-224 boundary predicate — the canonical owner of the restricted-inclusion
+ * bar (consolidate-at-second-consumer). `true` means the caller sits at an
+ * artefact-producing boundary (search index or committed vocab corpus) and
+ * must reject the run: restricted-lesson output awaits the labelled-serving
+ * follow-on. Each boundary maps the bar into its local error shape
+ * (`enforceRestrictedInclusionBoundary` in oak-search-sdk;
+ * `enforceRestrictedInclusionCorpusBoundary` in vocab-gen). Removal condition:
+ * retiring THIS predicate at the labelled-serving follow-on plus the owner's
+ * word opens every boundary together — index families and the committed
+ * corpus stay consistent by construction (ADR-224).
+ */
+export function isRestrictedInclusionBarred(options: RestrictedLessonExclusionOptions): boolean {
+  return options.includeRestricted === true;
+}

@@ -43,6 +43,7 @@ export {
   parseBulkFile,
   readAllBulkFiles,
   excludeRestrictedLessons,
+  isRestrictedInclusionBarred,
   extractKeywords,
   normaliseKeyword,
   extractMisconceptions,

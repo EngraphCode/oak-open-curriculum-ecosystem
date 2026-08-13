@@ -45,14 +45,16 @@ runbook (which documents a superseded `es:ingest` interface).
 ## Consequences
 
 - The current choice (exclude) is stated, not implicit, and the revisit path
-  is named: retiring the two boundary predicates —
-  `enforceRestrictedInclusionBoundary` (oak-search-sdk, index-producing runs)
-  and `enforceRestrictedInclusionCorpusBoundary` (vocab-gen, the
-  corpus-producing run) — at the labelled-serving follow-on plus the owner's
-  word opens the already plumbed switch at each boundary:
-  `--include-restricted` on the admin lifecycle commands, and
+  is named: retiring the canonical predicate `isRestrictedInclusionBarred`
+  (sdk-codegen restricted-lesson filter) — which both boundary enforcers
+  delegate to: `enforceRestrictedInclusionBoundary` (oak-search-sdk,
+  index-producing runs) and `enforceRestrictedInclusionCorpusBoundary`
+  (vocab-gen, the corpus-producing run) — at the labelled-serving follow-on
+  plus the owner's word opens the already plumbed switch at each boundary
+  together: `--include-restricted` on the admin lifecycle commands, and
   `PipelineConfig.includeRestricted` for vocab-gen (whose CLI exposes no
-  flag) — no re-plumbing of the filter or its call sites.
+  flag) — no re-plumbing of the filter or its call sites, and no way for one
+  boundary to open without the other.
 - **Including restricted lessons is not free.** `includeRestricted` only
   removes the exclusion at the generation boundary; it does NOT mark the
   retained lessons as restricted in the produced documents. Serving restricted
@@ -79,9 +81,9 @@ runbook (which documents a superseded `es:ingest` interface).
   `enforceRestrictedInclusionCorpusBoundary`, with an error naming this ADR:
   the generated corpus is committed to the repository and exported to MCP
   tools via the graph-corpus subpath, so the exclusion policy binds the
-  corpus-producing boundary as it binds index-producing runs. The predicate is
-  mirrored rather than shared because sdk-codegen sits upstream of
-  oak-search-sdk in the dependency direction; it carries the same removal
-  condition.
+  corpus-producing boundary as it binds index-producing runs. Both boundary
+  enforcers delegate the bar to its canonical owner,
+  `isRestrictedInclusionBarred` in the restricted-lesson filter
+  (consolidate-at-second-consumer), and map it into their local error shapes.
 - No behaviour change at the default: existing ingests and codegen runs exclude
   exactly as before.
