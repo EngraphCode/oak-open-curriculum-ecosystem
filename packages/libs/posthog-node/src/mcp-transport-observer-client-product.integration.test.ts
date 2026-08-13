@@ -227,13 +227,12 @@ describe('createPostHogMcpTransportObserver client product', () => {
     expect(subject.toolCallCaptures[0]?.properties.oak_client_product).toBe('claude_code');
   });
 
-  // Structural absence must be visible in the data, not collapsed into 'other'.
-  // If a future SDK release stops populating `requestInfo`, or the app moves to a
-  // Fetch-native adapter whose Headers instance this reader cannot see, EVERY
-  // event would read 'other' and a total attribution regression would be
-  // indistinguishable from healthy traffic — the MCP-594 false-green, recreated
-  // inside its own cure. A distinct value makes that regression self-announcing.
-  it('records unavailable, not other, when the transport supplies no request headers', () => {
+  // An unreadable header container must be visible in the data, because a future
+  // SDK release that stops populating `requestInfo`, or a move to a Fetch-native
+  // adapter whose Headers instance this reader cannot see, would otherwise send
+  // EVERY event to 'other' — a total attribution regression indistinguishable from
+  // healthy traffic. That is the MCP-594 false-green recreated inside its own cure.
+  it('records unavailable when the transport supplies no readable header container', () => {
     const subject = createSubject();
 
     emitToolCall(subject, AUTH_EXTRA);
@@ -241,15 +240,31 @@ describe('createPostHogMcpTransportObserver client product', () => {
     expect(subject.toolCallCaptures[0]?.properties.oak_client_product).toBe('unavailable');
   });
 
-  it('distinguishes an unrecognised client from an absent one on the emitted event', () => {
+  // The behavioural guarantee: a client choosing to send no User-Agent is a
+  // measurement ('other'), never the transport-health signal. Otherwise any client
+  // could raise the alarm at will and it would not be an alarm.
+  it.each([
+    ['an empty header container', {}],
+    ['no user-agent among other headers', { accept: 'application/json' }],
+    ['an empty user-agent', { 'user-agent': '' }],
+    ['an unrecognised user-agent', { 'user-agent': 'definitely-not-a-known-client/9.9' }],
+  ])('records other, not unavailable, for a readable container with %s', (_label, headers) => {
+    const subject = createSubject();
+
+    emitToolCall(subject, { ...AUTH_EXTRA, requestInfo: { headers } });
+
+    expect(subject.toolCallCaptures[0]?.properties.oak_client_product).toBe('other');
+  });
+
+  it('distinguishes an unrecognised client from an unreadable container', () => {
     const unrecognised = createSubject();
-    const absent = createSubject();
+    const unreadable = createSubject();
 
     emitToolCall(unrecognised, extraWithUserAgent(OBSERVED_USER_AGENTS.unidentifiable));
-    emitToolCall(absent, AUTH_EXTRA);
+    emitToolCall(unreadable, AUTH_EXTRA);
 
     expect(unrecognised.toolCallCaptures[0]?.properties.oak_client_product).toBe('other');
-    expect(absent.toolCallCaptures[0]?.properties.oak_client_product).toBe('unavailable');
+    expect(unreadable.toolCallCaptures[0]?.properties.oak_client_product).toBe('unavailable');
   });
 
   it('never ships the raw client header value alongside the category', () => {

@@ -623,17 +623,29 @@ non-canonical category drops the event rather than defaulting it. Adding a clien
 is a token row plus its derivation-table test row — never a looser match rule,
 and never a forwarded raw string.
 
-**`other` and `unavailable` are separate members, and must stay separate.**
-`other` means a client string was read and named no product Oak recognises — a
-measurement, whose share is expected to be non-zero (Oak's own probes and the
-browser widget live there). `unavailable` means no client string reached the
-derivation at all, so it never ran: a defect signal, raised if the transport
-stops supplying request headers — an SDK release that no longer populates
-`requestInfo`, or a move to a Fetch-native adapter whose `Headers` instance the
-reader cannot see. Collapsing the two would make a total attribution regression
-look exactly like healthy traffic, which is the same false-green that made
-`harness = other` unreadable and which this axis exists to remove. A rising
-`unavailable` share is the alarm on this mechanism's own health.
+**`other` and `unavailable` are separate members, and the line between them is
+container readability — never value presence.**
+
+- `other` — the header container was readable and named no product Oak
+  recognises, **including when it carried no client header at all**. Every client
+  may choose that, so this is a measurement and its share is expected to be
+  non-zero (Oak's own probes and the browser widget live there).
+- `unavailable` — the header container was missing, or opaque to an own-property
+  read, so the derivation could not run. Only a change in transport shape
+  produces it: an SDK release that stops populating `requestInfo`, or a move to a
+  Fetch-native adapter whose `Headers` instance the reader cannot see. It is
+  therefore readable as a defect signal, and a rising share is the alarm on this
+  mechanism's own health.
+
+Drawing the line at value presence instead — the shape first implemented under
+this amendment — let any client raise `unavailable` simply by omitting its
+User-Agent. That made a documented transport alarm client-influenceable, which is
+not an alarm: the same false-green that made `harness = other` unreadable,
+recreated one layer up inside its own cure. The readability decision therefore
+belongs at the reader boundary, which is the only place that can see which
+container it was handed, and the reader reports it explicitly rather than letting
+an empty value list stand for both facts. Corrected on review, 2026-08-13
+(reviewer `mantagen`, agent-authored by Vesta hunts Expanse).
 
 **The value is an unverified self-declaration.** Any client can send
 `user-agent: claude-code/…`; leading-token anchoring makes accidental

@@ -42,11 +42,21 @@ export type OakClientSurface = 'cli' | 'sdk' | 'vscode' | 'web' | 'other';
  * per-installation identifier in the analytics envelope. Only the closed
  * category below is ever emitted; the raw string never leaves this process.
  *
- * `other` and `unavailable` are separate members on purpose: the first means a
- * client string was read and named no product we recognise (a measurement), the
- * second that no client string reached the derivation at all (a defect signal).
- * See `normaliseOakClientProduct` — conflating them is the false-green this whole
- * axis exists to remove.
+ * `other` and `unavailable` are separate members on purpose, and the line between
+ * them is **container readability, not value presence**:
+ *
+ * - `other` — the header container was readable and named no product we
+ *   recognise, including when it carried no client header at all. Any client may
+ *   choose that, so this is a measurement and its share is expected to be
+ *   non-zero.
+ * - `unavailable` — the header container was missing or opaque to an
+ *   own-property read, so the derivation could not run. Only a transport-shape
+ *   change produces it, which is why it can be read as a defect signal.
+ *
+ * Drawing the line at value presence instead would let any client raise
+ * `unavailable` by omitting its User-Agent, making a supposed transport alarm
+ * client-influenceable — the same false-green, one layer up, that this axis
+ * exists to remove.
  *
  * The value is an **unauthenticated self-declaration**: any client can send
  * `user-agent: claude-code/…`. It is sound for analytics aggregates and must
@@ -54,6 +64,18 @@ export type OakClientSurface = 'cli' | 'sdk' | 'vscode' | 'web' | 'other';
  */
 export type OakClientProduct = 'claude_ai' | 'claude_code' | 'codex' | 'other' | 'unavailable';
 export type UnknownProperties = NonNullable<McpCaptureCommon['properties']>;
+
+/**
+ * The client-identity header values, carrying whether the container they came
+ * from could be read at all.
+ *
+ * @remarks The discrimination is the point. Returning a bare value list conflates
+ * "we could not look" with "we looked and there was nothing", and those are a
+ * transport condition and a client condition respectively. See
+ * {@link OakClientProduct}.
+ */
+export type ClientIdentityHeaders =
+  { readonly readable: false } | { readonly readable: true; readonly values: readonly unknown[] };
 
 export interface McpRequest {
   readonly method?: string;

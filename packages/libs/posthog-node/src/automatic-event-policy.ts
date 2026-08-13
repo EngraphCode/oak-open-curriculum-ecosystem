@@ -30,9 +30,10 @@ interface ClientCategories {
  *
  * This barrier alone is not what makes `other` unambiguous — a dropped event is
  * itself silent, so a systemic break would show only as lost volume. The axis
- * carries a distinct `unavailable` member for the case where no client string
- * reached the derivation, so that failure is visible in the data rather than
- * inferred from an absence. See `normaliseOakClientProduct`.
+ * carries a distinct `unavailable` member for the case where the header container
+ * could not be read at all, so that failure is visible in the data rather than
+ * inferred from an absence. `unavailable` reports an unreadable container, never
+ * a client that merely sent no header; see `normaliseOakClientProduct`.
  */
 function readClientCategories(properties: UnknownProperties): ClientCategories | null {
   const product = readOwn(properties, 'oak_client_product');

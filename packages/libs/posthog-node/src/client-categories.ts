@@ -11,6 +11,7 @@
  */
 
 import type {
+  ClientIdentityHeaders,
   OakClientFamily,
   OakClientProduct,
   OakClientSurface,
@@ -167,41 +168,47 @@ function isNonEmptyString(value: unknown): value is string {
 }
 
 /**
- * Projects the ordered client-identity header values onto the closed product
- * category. The first header value that names a known product wins; a value that
- * names none does not participate, so an unrecognised vendor header falls through
- * to the User-Agent rather than forcing a verdict.
+ * Projects the client-identity headers onto the closed product category. The
+ * first value that names a known product wins; a value that names none does not
+ * participate, so an unrecognised vendor header falls through to the User-Agent
+ * rather than forcing a verdict.
  *
- * @remarks The two negative outcomes are deliberately DISTINCT values, because
- * they mean opposite things operationally and MCP-594 is the story of what
- * happens when they are conflated:
+ * @remarks The two negative outcomes are DISTINCT values, and the line between
+ * them is **container readability, never value presence**:
  *
- * - `other` — a client string was present and named no product we recognise.
- *   Expected, and its share is a measurement (Oak's own probes and the browser
- *   widget live here).
- * - `unavailable` — no client string reached this derivation at all, so it never
- *   ran. That is a defect signal, not a measurement: it means the transport
- *   stopped supplying request headers (an SDK release that no longer populates
- *   `requestInfo`, or a move to a Fetch-native adapter whose `Headers` instance
- *   this reader cannot see). Collapsing it into `other` would make a total
- *   attribution regression look exactly like healthy traffic — the same
- *   false-green that made `harness = other` unreadable in the first place.
+ * - `other` — the container was readable and named no product we recognise,
+ *   *including when it carried no client header at all*. Any client may choose
+ *   that, so this is a measurement; its share is expected to be non-zero (Oak's
+ *   own probes and the browser widget live here).
+ * - `unavailable` — the container was missing or opaque to an own-property read,
+ *   so this derivation could not run. Only a transport-shape change produces it:
+ *   an SDK release that stops populating `requestInfo`, or a move to a
+ *   Fetch-native adapter whose `Headers` instance the reader cannot see.
  *
- * A sudden `unavailable` share is therefore the alarm on this cure's own health.
+ * Drawing the line at value presence instead — the shape this function had when
+ * `unavailable` was introduced — let any client raise the value by omitting its
+ * User-Agent. That made a documented transport alarm client-influenceable, which
+ * is not an alarm: the same false-green that made `harness = other` unreadable,
+ * one layer up. The readability decision therefore belongs at the reader
+ * boundary, not here, because only the reader sees which container it was handed.
+ *
+ * With the line drawn there, a rising `unavailable` share is a genuine alarm on
+ * this mechanism's own health, and no client can raise it.
  */
-export function normaliseOakClientProduct(headerValues: readonly unknown[]): OakClientProduct {
-  let sawClientString = false;
-  for (const value of headerValues) {
+export function normaliseOakClientProduct(headers: ClientIdentityHeaders): OakClientProduct {
+  if (!headers.readable) {
+    return 'unavailable';
+  }
+  for (const value of headers.values) {
     if (!isNonEmptyString(value)) {
       continue;
     }
-    sawClientString = true;
     const product = readClientProductToken(value);
     if (product !== undefined) {
       return product;
     }
   }
-  return sawClientString ? 'other' : 'unavailable';
+  return 'other';
 }
 
 export function isOakClientFamily(value: unknown): value is OakClientFamily {

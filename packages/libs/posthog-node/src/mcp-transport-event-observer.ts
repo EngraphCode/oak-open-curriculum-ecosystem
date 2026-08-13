@@ -16,9 +16,10 @@ import { isActorPseudonym, isUnknownProperties, readOwn } from './event-policy-h
 import { createPostHogEventPolicies } from './event-policy.js';
 import {
   canonicalToolName,
+  clientIdentityValues,
   normaliseDuration,
   readClientFamily,
-  readClientIdentityHeaderValues,
+  readClientIdentityHeaders,
   readListedToolNames,
   readObservedRequest,
   readParams,
@@ -105,19 +106,23 @@ class PostHogMcpTransportEventObserver implements McpTransportEventObserver {
       return null;
     }
     const clientFamily = readClientFamily(readOwn(projected, 'oak_client_family'));
-    // Both client categories derive from the SAME per-request header values, so
-    // both are present on every capture kind — unlike `oak_client_family`, which
-    // only the `initialize` handshake can supply and which ADR-112's per-request
-    // transport therefore cannot carry onto a later `tools/call` (MCP-594).
-    const clientIdentityHeaderValues = readClientIdentityHeaderValues(extra);
+    // Both client categories derive from the SAME per-request headers, so both are
+    // present on every capture kind — unlike `oak_client_family`, which only the
+    // `initialize` handshake can supply and which ADR-112's per-request transport
+    // therefore cannot carry onto a later `tools/call` (MCP-594).
+    //
+    // The product axis consumes the reader's readability discrimination; the
+    // form-factor axis has no vocabulary member for an unreadable container, so it
+    // flattens and treats that exactly as a request carrying no client header.
+    const clientIdentityHeaders = readClientIdentityHeaders(extra);
     return {
       distinctId,
       properties: {
         $mcp_source: POSTHOG_MCP_SOURCE,
         $mcp_server_name: OAK_MCP_SERVER_NAME,
         $mcp_server_version: this.snapshot.serverVersion,
-        oak_client_product: normaliseOakClientProduct(clientIdentityHeaderValues),
-        oak_client_surface: normaliseOakClientSurface(clientIdentityHeaderValues),
+        oak_client_product: normaliseOakClientProduct(clientIdentityHeaders),
+        oak_client_surface: normaliseOakClientSurface(clientIdentityValues(clientIdentityHeaders)),
         oak_environment: this.snapshot.environment,
         oak_release: this.snapshot.release,
       },
