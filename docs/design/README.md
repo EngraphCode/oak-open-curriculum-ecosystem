@@ -107,6 +107,8 @@ edges:
 | [DDR-006](design-decisions/006-oak-components-is-reference-never-dependency.md)      | Oak Components is reference, never dependency      | ratified |
 | [DDR-007](design-decisions/007-palette-values-derive-never-copy.md)                  | Palette values derive, never copy                  | ratified |
 | [DDR-008](design-decisions/008-floor-conformance-is-a-closed-predicate.md)           | Floor conformance is a closed predicate            | accepted |
+| [DDR-009](design-decisions/009-measurement-happens-at-canonical-widths.md)           | Measurement happens at canonical widths            | accepted |
+| [DDR-010](design-decisions/010-comparison-is-visual-first.md)                        | Comparison is visual first, statistics direct it   | accepted |
 
 ```mermaid
 graph TD
@@ -118,6 +120,8 @@ graph TD
   DDR006["DDR-006 OC reference, never dependency"]
   DDR007["DDR-007 palette derives, never copies"]
   DDR008["DDR-008 floor closed predicate"]
+  DDR009["DDR-009 canonical measurement widths"]
+  DDR010["DDR-010 comparison is visual first"]
   DDR002 -->|depends_on| DDR001
   DDR003 -->|depends_on| DDR002
   DDR004 -->|depends_on| DDR002
@@ -126,4 +130,6 @@ graph TD
   DDR007 -->|depends_on| DDR006
   DDR008 -->|depends_on| DDR001
   DDR008 -->|depends_on| DDR006
+  DDR009 -->|depends_on| DDR001
+  DDR010 -->|depends_on| DDR009
 ```
