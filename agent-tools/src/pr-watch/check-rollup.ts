@@ -27,10 +27,10 @@
 
 export interface RollupCheckShape {
   readonly __typename: string;
-  readonly name?: string | null | undefined;
-  readonly workflowName?: string | null | undefined;
-  readonly completedAt?: string | null | undefined;
-  readonly startedAt?: string | null | undefined;
+  readonly name?: string | null;
+  readonly workflowName?: string | null;
+  readonly completedAt?: string | null;
+  readonly startedAt?: string | null;
 }
 
 /** Blocking order for survivor ties: failed outranks pending outranks passed. */
