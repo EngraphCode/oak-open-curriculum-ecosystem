@@ -205,6 +205,16 @@ adapters point at the in-repo canonical, so repo agents resolve
    assertions reviewed against the spec's too-easy/too-hard/
    unverifiable tests; findings routed (skill cures in-slice;
    machinery gaps to WS8-general).
+
+   **Amendment 2026-08-12 — S3's finding routing is fold-aware.** The
+   clause "skill cures in-slice" was authored before the owner's
+   2026-08-12 ruling that eval iteration 2 folds into the WS9
+   stratified-quartet design: skill-content findings recorded at
+   iteration 1 (benchmark F1, the case-3 adverse verdict) route to
+   that fold rather than curing in this node's slices; machinery gaps
+   route to WS8-general as written, with the #869 review round's
+   grader-robustness residuals accreted at MCP-589 as WS9 harness
+   input. The banked benchmark's route fields are the honest record.
 5. **S4 — ui-visual-design minted born-to-standard.** New skill in
    `domain-craft/ui-design/`: UX-craft judgment (visual hierarchy,
    layout, interaction design) — content authored by the design pen,
@@ -219,6 +229,19 @@ adapters point at the in-repo canonical, so repo agents resolve
    answered 2026-08-12: "Ratify v1"); the ui-visual-design v1 doctrine
    is ratified and the skill activates; adverse iteration-1 verdicts
    route per their recorded dispositions.
+
+   **Execution stamp 2026-08-12 — S2/S3/S4 delivered to main.** S2
+   merged at `3981a53a5` (#868); S3 at `55815e8d1` (#869, v1.166.0);
+   S4 at `7b2977dc2` (#870, owner-merged with his own APPROVED at the
+   merge). Review convergence held the standard: every round read in
+   full (body, suppressed section, inline comments, tallied
+   separately); the #869 and #870 suppressed batches opus-verified
+   finding-by-finding and cured in one batch per PR; the corrected
+   two-sided benchmark (class invention 81%→0%, an elimination) stands
+   as the honest record. WS9 harvest banked (run transcripts where
+   preserved, frictions, blind verdicts, MCP-589 grader residuals);
+   iteration-2 material rides the owner's WS9 fold ruling; the
+   pilot-s234 worktree swept at the merges.
 
 ## Loop exit criteria
 

@@ -3,7 +3,7 @@ id: workspace-config-enforcement-hardening
 node_type: delivery
 name: "Workspace-config enforcement hardening: the surviving depth slices (H1 slimmed, H2, H4)"
 overview: "Harden the landed workspace-config boundary enforcement along the surviving decided axes: one path idiom by construction (H1, slimmed), config file-class widening with coverage assertion (H2), and bootstrap-closure ordering (H4) — every slice with a committed red-proof. H3 and the H1 config-VALUE leg were withdrawn at the owner's word 2026-08-11."
-status: ratified
+status: archived
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-08-11
 ratified_where: "Owner approval of the decision-complete completion-arc plan, in-session at the implementer seat (Wren calls Downdraft 6b29b5), 2026-08-11 — the plan named this node's birth explicitly (successor carrying slices H1–H4, cut so the parent node stays one step of the lane). Amended 2026-08-11, owner word at the lane seat (decision-matrix run): H3 WITHDRAWN — an extends reference is not an import (principles §Tooling) and no live consumer forces it; H1 SLIMMED — the config-VALUE scanner dropped as an instrument built to find nothing. The stamp covers the surviving scope; a ratification stamp owner-locks nothing."
@@ -15,8 +15,39 @@ depends_on:
   - plan: workspace-config-isolation
     kind: beneficial
 owner_gates: []
-last_updated: 2026-08-11
+last_updated: 2026-08-12
 ---
+
+## Re-scope and archival (2026-08-12, owner four-card ruling at the lane seat)
+
+The owner-directed provenance pass (2026-08-12: every queue item's
+problem claim traced to an owner observation or a first-hand-reproduced
+defect in territory we own) dispositioned every remaining slice, and the
+owner ratified the outcome by card:
+
+- **H1 (idiom standardisation) — REMOVED.** No live defect: the one
+  historical escape the recognition problem guarded against was
+  structurally cured before this node was born. The earlier keep-verdict
+  ("simpler estate", lens 3) is re-read as momentum — the seat had built
+  the instrument. Re-enters only on a real defect caused by a config-file
+  path idiom.
+- **H2 widening + depth — evidence-gated** (morning re-derivation, same
+  day): re-enters on a named live escape in the widened config families.
+- **H2 coverage-assert — FOLDED into MCP-543's PR as a rider** (same
+  file, same instrument): the workspace-membership assert plus its
+  synthetic unmatched-member red fixture land with the named lawful-edge
+  rule. Kept because its failure class is silent-forever (an unpoliced
+  new workspace never announces itself) and the class occurred here
+  first-hand (the field-integrity phantom include).
+- **H4 (bootstrap ordering + staleness) — REMOVED.** The experienced
+  defect of its class was already cured at `cd822f20f` (#836); no
+  recurrence observed. Re-enters on recurrence evidence.
+
+With every slice removed, gated, or folded, this node holds no active
+work and ARCHIVES with zero executed slices. That outcome is the record:
+each slice was born from instrument-side reasoning; none survived the
+provenance rung. The dormant re-entry conditions above are the node's
+legacy — a re-entry mints a fresh node citing this ledger.
 
 # Workspace-config enforcement hardening
 
