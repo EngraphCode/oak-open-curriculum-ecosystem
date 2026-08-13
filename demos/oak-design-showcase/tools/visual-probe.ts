@@ -141,8 +141,19 @@ async function activeElementFact(page: Page): Promise<string> {
   });
 }
 
-async function probeRoute(page: Page, route: string, options: ProbeOptions): Promise<void> {
-  await page.goto(`${options.origin}${route}`);
+async function probeRoute(
+  page: Page,
+  route: string,
+  options: ProbeOptions,
+): Promise<Result<void, string>> {
+  const response = await page.goto(`${options.origin}${route}`);
+  // A non-OK document must never pass as proof: a 404 page carries an h1
+  // and a body activeElement, so without this check it reads exactly like
+  // a rendered page with dead keyboard access (worked failure 2026-08-13:
+  // a 404 was mistaken for a reproduced defect).
+  if (response !== null && !response.ok()) {
+    return err(`${route} answered HTTP ${response.status()} — not proof material`);
+  }
   await page.waitForSelector(options.readySelector);
 
   const stem = routeStem(route);
@@ -161,6 +172,7 @@ async function probeRoute(page: Page, route: string, options: ProbeOptions): Pro
       `${route} after ${options.tabs} Tab(s) activeElement=${fact} render=${focusPath}\n`,
     );
   }
+  return ok(undefined);
 }
 
 // Playwright cannot return Result; translate its failures to err() at this
@@ -171,7 +183,10 @@ async function probeAll(options: ProbeOptions): Promise<Result<void, string>> {
   try {
     const page = await browser.newPage({ viewport: options.viewport });
     for (const route of options.routes) {
-      await probeRoute(page, route, options);
+      const probed = await probeRoute(page, route, options);
+      if (isErr(probed)) {
+        return probed;
+      }
     }
     return ok(undefined);
   } catch (error: unknown) {
