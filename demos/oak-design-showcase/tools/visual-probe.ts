@@ -107,7 +107,8 @@ function parseArgs(argv: readonly string[]): Result<ProbeOptions, string> {
       continue;
     }
     const setter = VALUE_FLAGS[flag];
-    const value = argv[(i += 1)];
+    i += 1;
+    const value = argv[i];
     if (setter === undefined || value === undefined) {
       return err(`bad or valueless flag "${flag}"\n${USAGE}`);
     }
