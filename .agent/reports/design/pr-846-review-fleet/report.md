@@ -176,3 +176,60 @@ K12: charged=['L11'] attention_evidence_in=['L11']
 
 W2 (completeness critic + release-readiness, two named verdicts)
 dispatched from this adjudication record; verdicts land below.
+
+## T4 — W2 verdicts (2026-08-13, run wf_63c4f188-032: completeness critic → release-readiness-expert, both xhigh)
+
+**Verdict 1 — open-for-review readiness of #846: GO WITH CONDITIONS.**
+No NO-GO class defect survives; unconditional GO is defeated because
+the PR body and its cited a11y green misrepresent evidence at the PR's
+own head. Conditions (all seat work): the fix-now set below; the F07
+body cure absorbs the stale "62/62" claim (re-verified stale
+first-hand by the leg); fresh Playwright run AFTER the instrument cure
+with body counts written from it; F04 lands before F38 (committed
+evidence must not inherit the crop defect); K9 closed by a bounded
+two-look pass during the cure slices. Re-evaluation: the
+release-readiness leg re-runs alone against the updated record;
+expected GO on clean evidence.
+
+**Verdict 2 — doctrine soundness: SOUND-WITH-CURES.** All four
+doctrine objects have correct decision cores and honest limits
+(DDR-010's amendment record called exemplary). Cures are edge defects,
+each homed: DDR-009 scope wording + hand-copied widths (docs bundle);
+the shared resolveWidth seam (hub pipeline lane, independent of the
+PR); DDR-010 missing frontmatter + argv-in-permanent-record (docs
+bundle); the visual-comparison skill sync (F27, in-open); the
+render-the-reference rule's enforcement overclaim (scope or let the
+hub-lane gate make it true).
+
+**Critic amendments, seat-accepted (dispositions revised):**
+- F16 + F40 PROMOTE into the F15 fix-now instrument cure (one file,
+  one cure — a "cured" F15 green would otherwise still rest on an
+  un-gated disable and a vacuous application proof).
+- F36 PROMOTES to the fix-now a11y slice (live 2.5.8 AA breach; the
+  "one link away" escape fails the SC's same-page exception; cure is
+  inert on scaled frames).
+- F10/F12 PROMOTE by lens, not by card: DDR-003's automatic-access
+  commitment is RATIFIED owner doctrine; breaking it on a live surface
+  misrepresents conformance to our own record — the same test that
+  put F22 in fix-now. (The owner's same-day ruling — fixable issues
+  are fixed, not owner-gated — governs.)
+- Overflow rows each get a named home at first cure-slice pickup (a
+  dated disposition sweep is the pickup's first act); the two capture
+  rows and the visual-stats centring row take Phase-2-style
+  verification there.
+- Count presentation corrected: 13 fix-now + 25 fix-in-open (22
+  bundles) + 1 refuse + 1 refuted = 40. With the promotions the
+  gating set is 18 findings in 11 cure bundles.
+
+**Non-gating residuals, disclosed:** Chromium-only engine coverage
+(F01/F02's mechanism is engine-specific); single-viewport axe matrix;
+no assistive-tech pass over the aria-live surface; no
+instrument-independent export ground truth; F19 environment-dependence
+of new-arm captures. Named, bounded, homed as follow-ups.
+
+**Also cured by the same sitting's owner ruling:** S6845 (the open
+Sonar MAJOR) leaves the owner-gate shape — it joins the cure slices as
+seat work: fix if fixable, else an evidenced non-issue disposition via
+the decision matrix. The F7 no-throw cure
+(identity-white-labelling/page.tsx:35) rides the same a11y/correctness
+bundle. Un-draft + explicit Copilot re-request follow the re-issued GO.
