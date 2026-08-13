@@ -3350,3 +3350,22 @@ the echo-back is the only reliable detector.
   incremental by construction). Scope: standing seat practice. Owner design
   fact captured in per-user memory (fluidity-is-a-pillar-not-a-feature);
   delivery priorities (tight scope, four outcomes) unchanged by his word.
+
+## 2026-08-13 ~19:0xZ (Skua binds Leeward, e2b222, design lane) — owner method correction: first-principles WHY before clause adjudication
+
+- Presented the rhythm-affordance question as a binary clause adjudication
+  (keep/re-rule a ratified affordance vs the new R14 pillar ruling). Owner
+  correction (verbatim): "to answer questions like that always go back to
+  first principles, *why* are there differences at all?" — and his answer
+  dissolved the binary: both clauses serve the DEMONSTRATION purpose (three
+  identities as instrument, maximum expressive difference through config
+  alone), so the synthesis is a fluid-capable difference surface, neither
+  keep-frozen nor remove. Generator named: adjudicating between two written
+  clauses instead of tracing both to the purpose that warrants them — the
+  sibling of frame-inheritance (same day's R14 lesson) one level up: clauses
+  are also frames. Cure, standing: any keep-or-remove question on a governing
+  clause first states WHY the clause exists; the purpose usually dissolves
+  the binary. Ontology + ambient invariants captured in per-user memory
+  (three-identities-are-a-demonstration-instrument). Scope: standing seat
+  practice; the ontology is estate doctrine pending its contract-surface
+  landing with tranche 1.
