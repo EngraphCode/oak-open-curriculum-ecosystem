@@ -33,15 +33,16 @@
 (function () {
   const KEY = 'oak-theme';
   const THEMES = ['system', 'light', 'dark', 'high-contrast', 'colour-safe'];
-  // Equality-form membership so the raw storage string narrows without a
-  // type assertion (ADR-153 §Membership Without Widening).
+  // Equality-form membership loop: narrows the raw storage string without
+  // a widening cast (ADR-153 §Membership Without Widening) in a shape the
+  // quality profile also accepts.
   function isThemeName(s) {
-    return (
-      s !== null &&
-      THEMES.some(function (known) {
-        return known === s;
-      })
-    );
+    for (const known of THEMES) {
+      if (known === s) {
+        return true;
+      }
+    }
+    return false;
   }
   // The session's own word, tri-state: undefined = the session has said
   // nothing (defer to storage); null = CLEARED this session (authoritative
@@ -165,12 +166,12 @@
     const MKEY = 'oak-motion';
     const MODES = ['system', 'reduced', 'full'];
     function isMotionMode(s) {
-      return (
-        s !== null &&
-        MODES.some(function (known) {
-          return known === s;
-        })
-      );
+      for (const known of MODES) {
+        if (known === s) {
+          return true;
+        }
+      }
+      return false;
     }
     let mcurrent = null;
     function mget() {
@@ -212,5 +213,9 @@
     themes: THEMES.slice(),
     motion: createMotion(),
   };
+  // window, deliberately (not globalThis): the pre-paint contract attaches
+  // to the page global the test harness can inject and prove — the fake-
+  // window seam is the runtime's behaviour contract (S7764 rejected on
+  // these grounds; see the suite).
   window.oakTheme = runtime;
 })();
