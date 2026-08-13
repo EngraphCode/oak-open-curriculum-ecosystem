@@ -66,9 +66,18 @@ interface Window {
       })
     );
   }
-  // The applied-this-session value: keeps get() truthful when persistence
-  // fails (private mode, quota) — applied state must never desync from get().
-  let current: OakThemeName | null = null;
+  // The session's own word, tri-state: undefined = the session has said
+  // nothing (defer to storage); null = CLEARED this session (authoritative
+  // even when removal failed and the store stays readable — quota-style
+  // denial must not resurrect a cleared choice); a theme = set this session.
+  // Keeps get() truthful when persistence fails (private mode, quota) —
+  // applied state must never desync from get().
+  let current: OakThemeName | null | undefined;
+  // The explicit choice as the session sees it: the session's word when it
+  // has spoken (set or clear), the persisted value otherwise.
+  function sessionChoice(): OakThemeName | null {
+    return current === undefined ? stored() : current;
+  }
   function apply(t: OakThemeName | null): void {
     const el = document.documentElement;
     // Explicit choices (including "light") SET the attribute so they beat a
@@ -107,14 +116,14 @@ interface Window {
     // polarity lever renders elsewhere (brand.css, invisible from here), so
     // this is a concrete value for consumers that need one, never a claim
     // about the rendered page — the honest control accessor is choice().
-    return current || stored() || auto() || 'light';
+    return sessionChoice() || auto() || 'light';
   }
   // The explicit choice, or null when none exists. The kit-contract accessor
   // (MCP-388): downstream stores render "no choice" honestly from this,
   // instead of re-deriving the storage read (the applied value from get()
   // cannot serve — the automatic contrast route also applies a theme).
   function choice(): OakThemeName | null {
-    return current || stored();
+    return sessionChoice();
   }
   function set(t: OakThemeName): void {
     if (!isThemeName(t)) {
@@ -139,7 +148,10 @@ interface Window {
     try {
       localStorage.removeItem(KEY);
     } catch {
-      // Best-effort like set(): the in-memory reset below still wins.
+      // Best-effort like set(): the tri-state null below stays
+      // authoritative for this session even though the store still holds
+      // the old value (it may resurrect on the NEXT visit — honest, since
+      // persistence genuinely failed).
     }
     current = null;
     apply(auto() || null);
@@ -150,7 +162,7 @@ interface Window {
   // must still win over an automatic theme change.
   try {
     matchMedia('(prefers-contrast: more)').addEventListener('change', function () {
-      if (!current && !stored()) {
+      if (!sessionChoice()) {
         apply(auto() || null);
       }
     });

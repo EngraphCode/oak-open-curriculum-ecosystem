@@ -48,6 +48,10 @@ function createWorld(options?: {
   storedMotion?: string;
   prefersMoreContrast?: boolean;
   storageThrows?: boolean;
+  /** Write-only denial (quota-style): getItem works, setItem/removeItem
+   *  throw — the shape that exposes a cleared choice resurrecting from a
+   *  still-readable store. */
+  storageWriteThrows?: boolean;
 }): FakeWorld {
   const attributes = new Map<string, string>();
   // dataset mirrors the real DOMStringMap contract: property writes and
@@ -94,13 +98,13 @@ function createWorld(options?: {
       return store.get(key) ?? null;
     },
     setItem: (key: string, value: string): void => {
-      if (options?.storageThrows) {
+      if (options?.storageThrows || options?.storageWriteThrows) {
         throw new Error('storage denied');
       }
       store.set(key, value);
     },
     removeItem: (key: string): void => {
-      if (options?.storageThrows) {
+      if (options?.storageThrows || options?.storageWriteThrows) {
         throw new Error('storage denied');
       }
       store.delete(key);
@@ -193,6 +197,27 @@ describe('oakTheme clear() — the return to the identity default', () => {
     world.window.oakTheme?.clear();
     expect(world.window.oakTheme?.choice()).toBeNull();
     expect(world.attributes.has('data-theme')).toBe(false);
+  });
+
+  it('keeps the cleared state for the whole session when storage removal fails', () => {
+    // Quota-style denial: the store stays READABLE while removal throws, so
+    // a persisted choice survives on disk — the session must still treat
+    // the clear as authoritative rather than resurrecting the stored value.
+    const world = createWorld({ storedTheme: 'dark', storageWriteThrows: true });
+    world.window.oakTheme?.clear();
+    expect(world.window.oakTheme?.choice()).toBeNull();
+    expect(world.window.oakTheme?.get()).toBe('light');
+    expect(world.attributes.has('data-theme')).toBe(false);
+  });
+
+  it('follows a live OS contrast change after a clear whose removal failed', () => {
+    // The access commitment survives the same denial: with the session
+    // cleared, an OS prefers-contrast change must still auto-apply —
+    // a readable-but-unremovable stored choice is not an explicit choice.
+    const world = createWorld({ storedTheme: 'dark', storageWriteThrows: true });
+    world.window.oakTheme?.clear();
+    world.fireContrastChange();
+    expect(world.attributes.get('data-theme')).toBe('high-contrast');
   });
 
   it('keeps the access commitment: clearing under an OS contrast request re-applies high-contrast', () => {
