@@ -54,6 +54,15 @@ interface ProbeOutcome {
   readonly raw: unknown;
 }
 
+/**
+ * Neutralise line breaks and other whitespace control characters in response-
+ * or argv-derived text before it reaches the log, so external data cannot
+ * forge or split log lines (Sonar S5145 log-injection class).
+ */
+function sanitizeForLog(value: string): string {
+  return value.replaceAll(/[\n\r\t\v\f]+/gu, ' ');
+}
+
 function formatPart(label: string, value: string | undefined): string | undefined {
   return value === undefined ? undefined : `${label}=${JSON.stringify(value)}`;
 }
@@ -104,15 +113,17 @@ async function probeLesson(
   label: string,
   slug: string,
 ): Promise<void> {
-  console.log(`── ${label.toUpperCase()}: ${slug}`);
+  console.log(`── ${label.toUpperCase()}: ${sanitizeForLog(slug)}`);
   const summary = await probe(`${baseUrl}/lessons/${encodeURIComponent(slug)}/summary`, apiKey);
-  console.log(`   GET /lessons/{slug}/summary     → ${String(summary.status)}  ${summary.detail}`);
+  console.log(
+    `   GET /lessons/{slug}/summary     → ${String(summary.status)}  ${sanitizeForLog(summary.detail)}`,
+  );
   const transcript = await probe(
     `${baseUrl}/lessons/${encodeURIComponent(slug)}/transcript`,
     apiKey,
   );
   console.log(
-    `   GET /lessons/{slug}/transcript  → ${String(transcript.status)}  ${transcript.detail}`,
+    `   GET /lessons/{slug}/transcript  → ${String(transcript.status)}  ${sanitizeForLog(transcript.detail)}`,
   );
   console.log('');
 }
@@ -130,11 +141,13 @@ async function printRestrictionStatuses(
   const parsed = restrictionMapSchema.safeParse(outcome.raw);
   if (parsed.success) {
     for (const [slug, status] of typeSafeEntries(parsed.data)) {
-      console.log(`   ${String(status).padEnd(16)} ${String(slug)}`);
+      console.log(
+        `   ${sanitizeForLog(String(status)).padEnd(16)} ${sanitizeForLog(String(slug))}`,
+      );
     }
     return;
   }
-  console.log(`   ${outcome.detail}`);
+  console.log(`   ${sanitizeForLog(outcome.detail)}`);
 }
 
 async function main(): Promise<void> {
