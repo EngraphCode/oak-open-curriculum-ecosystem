@@ -178,7 +178,12 @@ The closed event envelope may contain:
 - server-observed timestamps and duration;
 - MCP primitive or method and an allowlisted capability name;
 - bounded outcome or error category;
-- protocol, client, environment, and release categories;
+- protocol, client, environment, and release categories. The client
+  categories are three orthogonal closed axes, each derived inside this
+  process and never a forwarded client string: `oak_client_family`
+  (vendor, from the `initialize` handshake only), `oak_client_surface`
+  (form factor) and `oak_client_product` (vendor product, derived per
+  request — see the 2026-08-13 Amendment);
 - the PostHog-scoped actor pseudonym; and
 - a trusted protocol-session projection, only after the future proof
   described above exists.
@@ -574,3 +579,47 @@ This amendment revises the decision record only. The enforced PostHog
 configuration (project retention setting and the Oak-owned scheduled deletion
 job) is re-based from 12 months to 5 years separately, tracked in Linear. The
 tested person-scoped deletion route committed in §5 is unchanged.
+
+## Amendment: `oak_client_product`, a per-request client-product category (2026-08-13)
+
+§3 permits "client categories" without naming them. This amendment records a
+third such axis, `oak_client_product`, with the closed vocabulary
+`claude_ai | claude_code | codex | other`. It is within the existing §3 ceiling
+and **widens nothing**: like its two siblings it is derived inside this process
+from a self-declaring client header, and only the derived category is emitted.
+
+**Why a third axis rather than reusing one.** Measured 2026-08-13 (MCP-594):
+every `$mcp_tool_call` reached PostHog with no client attribution at all, so
+tool error rates could not be read by client — the blocker on MCP-574. The
+cause is structural, not a coding slip. `oak_client_family` derives from the
+`initialize` handshake's `clientInfo`, and ADR-112's per-request transport
+destroys the observing instance before the next request arrives, so it can never
+reach a `tools/call`; independent confirmation is that Sentry carries
+`mcp.client.name` on 1,754 spans over 14 days, every one of them an
+`initialize` and none a tool call. `oak_client_surface` _is_ per-request, but is
+a form-factor vocabulary, so it merges Claude Code and Codex into `cli` —
+collapsing precisely the distinction the error-rate question needs. Form factor
+and vendor product are orthogonal, so the axes coexist rather than one widening.
+
+**Why not PostHog's own `harness` dimension.** PostHog resolves that column
+server-side from `$mcp_client_name`, `$mcp_client_user_agent` and
+`$mcp_vendor_client` — raw client strings, two of them raw headers, which the §3
+exclusion list forbids. Emitting them was rejected: live traffic contains opaque
+32-character per-installation identifiers arriving as `clientInfo.name`, so
+forwarding the raw value would place a stable per-installation identifier in the
+envelope. PostHog's built-in column therefore stays empty by decision, and the
+equivalent breakdown is read from `oak_client_product`. Recorded here so a future
+reader does not mistake that empty column for a data defect.
+
+**Standing constraints on the vocabulary.** Every token row must be
+evidence-backed by a client string verified first-hand in live traffic; matching
+is anchored to the header's leading token, so a value that merely contains a
+product name is not treated as that product self-declaring; and a missing or
+non-canonical category drops the event rather than defaulting it, so `other`
+always means the derivation ran and recognised nothing. Adding a client is a
+token row plus its derivation-table test row — never a looser match rule, and
+never a forwarded raw string.
+
+Decided by the Director seat under the five Decision Lenses (two independent
+converging runs), 2026-08-13, on the MCP-594 investigation. The event-contract
+surface obligation is MCP-364's.

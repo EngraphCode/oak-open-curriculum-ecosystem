@@ -21,6 +21,28 @@ export type AutomaticEventName = (typeof AUTOMATIC_EVENT_NAMES)[keyof typeof AUT
 type AcceptedEventName = AutomaticEventName | typeof RESOURCE_READ_EVENT_NAME;
 export type OakClientFamily = 'chatgpt' | 'claude' | 'other';
 export type OakClientSurface = 'cli' | 'sdk' | 'vscode' | 'web' | 'other';
+
+/**
+ * Which MCP client *product* is calling, at vendor-product granularity.
+ *
+ * @remarks A third, orthogonal axis to the other two client categories, and the
+ * only one that answers "is this tool's error rate one misbehaving client, or a
+ * defect every teacher hits?" (MCP-594). `OakClientFamily` is vendor-grained and
+ * reachable only from the `initialize` handshake, which ADR-112's per-request
+ * transport cannot carry onto a later `tools/call`. `OakClientSurface` is *form
+ * factor*, so it merges Claude Code and Codex into `cli` — collapsing exactly
+ * the distinction the error-rate question needs. This axis derives per request
+ * from the self-declaring client header, so it is present on every event.
+ *
+ * Deliberately NOT PostHog's `$mcp_client_name` / `$mcp_client_user_agent` /
+ * `$mcp_vendor_client`, which its own `harness` column resolves from. Those
+ * carry raw client-controlled strings, which ADR-218 §3 excludes from the
+ * envelope. Live traffic contains opaque per-installation identifiers arriving
+ * as `clientInfo.name`, so forwarding the raw value would place a stable
+ * per-installation identifier in the analytics envelope. Only the closed
+ * category below is ever emitted; the raw string never leaves this process.
+ */
+export type OakClientProduct = 'claude_ai' | 'claude_code' | 'codex' | 'other';
 export type UnknownProperties = NonNullable<McpCaptureCommon['properties']>;
 
 export interface McpRequest {

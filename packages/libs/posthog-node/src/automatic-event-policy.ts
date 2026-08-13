@@ -1,31 +1,55 @@
 import {
   AUTOMATIC_EVENT_NAMES,
   type AutomaticEventName,
+  type OakClientProduct,
+  type OakClientSurface,
   type PolicySnapshot,
   type UnknownProperties,
 } from './event-policy-contract.js';
+import { isOakClientFamily, isOakClientProduct, isOakClientSurface } from './client-categories.js';
 import {
   commonProperties,
-  isOakClientFamily,
-  isOakClientSurface,
   isSupportedProtocolVersion,
   isValidDuration,
   readOwn,
   sortedCanonicalToolIntersection,
 } from './event-policy-helpers.js';
 
+interface ClientCategories {
+  readonly product: OakClientProduct;
+  readonly surface: OakClientSurface;
+}
+
+/**
+ * Reads the two per-request client categories every automatic event carries.
+ *
+ * @remarks Both are required, and a missing or non-canonical value drops the
+ * event rather than defaulting it. That is what makes `other` in the warehouse
+ * mean "the derivation ran and recognised no product" rather than "the property
+ * was never read" — the precise ambiguity MCP-594 was filed for. A default here
+ * would reintroduce it silently.
+ */
+function readClientCategories(properties: UnknownProperties): ClientCategories | null {
+  const product = readOwn(properties, 'oak_client_product');
+  const surface = readOwn(properties, 'oak_client_surface');
+  if (!isOakClientProduct(product) || !isOakClientSurface(surface)) {
+    return null;
+  }
+  return { product, surface };
+}
+
 function normaliseInitializeProperties(
   properties: UnknownProperties,
   snapshot: PolicySnapshot,
 ): UnknownProperties | null {
   const clientFamily = readOwn(properties, 'oak_client_family');
-  const clientSurface = readOwn(properties, 'oak_client_surface');
+  const categories = readClientCategories(properties);
   const protocolVersion = readOwn(properties, '$mcp_protocol_version');
   const isError = readOwn(properties, '$mcp_is_error');
   if (
     isError !== false ||
     !isOakClientFamily(clientFamily) ||
-    !isOakClientSurface(clientSurface) ||
+    categories === null ||
     !isSupportedProtocolVersion(protocolVersion)
   ) {
     return null;
@@ -35,7 +59,8 @@ function normaliseInitializeProperties(
     ...commonProperties(snapshot),
     $mcp_is_error: false,
     oak_client_family: clientFamily,
-    oak_client_surface: clientSurface,
+    oak_client_product: categories.product,
+    oak_client_surface: categories.surface,
     $mcp_protocol_version: protocolVersion,
   };
 }
@@ -46,8 +71,8 @@ function normaliseToolsListProperties(
   duration: number,
   isError: boolean,
 ): UnknownProperties | null {
-  const clientSurface = readOwn(properties, 'oak_client_surface');
-  if (!isOakClientSurface(clientSurface)) {
+  const categories = readClientCategories(properties);
+  if (categories === null) {
     return null;
   }
 
@@ -56,7 +81,8 @@ function normaliseToolsListProperties(
       ...commonProperties(snapshot),
       $mcp_duration_ms: duration,
       $mcp_is_error: true,
-      oak_client_surface: clientSurface,
+      oak_client_product: categories.product,
+      oak_client_surface: categories.surface,
     };
   }
 
@@ -73,7 +99,8 @@ function normaliseToolsListProperties(
     $mcp_duration_ms: duration,
     $mcp_is_error: false,
     $mcp_listed_tool_names: listedToolNames,
-    oak_client_surface: clientSurface,
+    oak_client_product: categories.product,
+    oak_client_surface: categories.surface,
   };
 }
 
@@ -83,8 +110,8 @@ function normaliseToolCallProperties(
   duration: number,
   isError: boolean,
 ): UnknownProperties | null {
-  const clientSurface = readOwn(properties, 'oak_client_surface');
-  if (!isOakClientSurface(clientSurface)) {
+  const categories = readClientCategories(properties);
+  if (categories === null) {
     return null;
   }
 
@@ -99,7 +126,8 @@ function normaliseToolCallProperties(
     $mcp_tool_name: toolName,
     $mcp_duration_ms: duration,
     $mcp_is_error: isError,
-    oak_client_surface: clientSurface,
+    oak_client_product: categories.product,
+    oak_client_surface: categories.surface,
   };
 }
 

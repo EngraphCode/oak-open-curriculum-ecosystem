@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { normaliseOakClientSurface } from './event-policy-helpers.js';
-import { readClientSurfaceHeaderValues } from './mcp-transport-event-reader.js';
+import { normaliseOakClientSurface } from './client-categories.js';
+import { readClientIdentityHeaderValues } from './mcp-transport-event-reader.js';
 
-describe('readClientSurfaceHeaderValues', () => {
+describe('readClientIdentityHeaderValues', () => {
   it('reads the x-anthropic-client and user-agent header values in that order', () => {
     const extra = {
       requestInfo: {
@@ -14,7 +14,7 @@ describe('readClientSurfaceHeaderValues', () => {
       },
     };
 
-    expect(readClientSurfaceHeaderValues(extra)).toEqual(['claude-code/2.0', 'Mozilla/5.0']);
+    expect(readClientIdentityHeaderValues(extra)).toEqual(['claude-code/2.0', 'Mozilla/5.0']);
   });
 
   it('takes the first element of a multi-valued header', () => {
@@ -22,7 +22,7 @@ describe('readClientSurfaceHeaderValues', () => {
       requestInfo: { headers: { 'user-agent': ['Mozilla/5.0', 'ignored/2.0'] } },
     };
 
-    expect(readClientSurfaceHeaderValues(extra)).toEqual([undefined, 'Mozilla/5.0']);
+    expect(readClientIdentityHeaderValues(extra)).toEqual([undefined, 'Mozilla/5.0']);
   });
 
   it.each([
@@ -33,10 +33,10 @@ describe('readClientSurfaceHeaderValues', () => {
     ['no headers', { requestInfo: {} }],
     ['non-object headers', { requestInfo: { headers: 'user-agent' } }],
   ])('returns no values for %s', (_label, extra) => {
-    expect(readClientSurfaceHeaderValues(extra)).toEqual([]);
+    expect(readClientIdentityHeaderValues(extra)).toEqual([]);
   });
 
   it('composes with normalisation to the safe default when headers are absent', () => {
-    expect(normaliseOakClientSurface(readClientSurfaceHeaderValues(undefined))).toBe('other');
+    expect(normaliseOakClientSurface(readClientIdentityHeaderValues(undefined))).toBe('other');
   });
 });

@@ -66,7 +66,7 @@ function readHeaderValue(headers: UnknownProperties, key: string): unknown {
   return Array.isArray(value) ? value.at(0) : value;
 }
 
-export function readClientSurfaceHeaderValues(extra: unknown): readonly unknown[] {
+export function readClientIdentityHeaderValues(extra: unknown): readonly unknown[] {
   if (!isUnknownProperties(extra)) {
     return [];
   }

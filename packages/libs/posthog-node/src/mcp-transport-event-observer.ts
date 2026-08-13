@@ -11,18 +11,14 @@ import {
   POSTHOG_MCP_SOURCE,
   type PostHogEventPolicyConfig,
 } from './event-policy-contract.js';
-import {
-  isActorPseudonym,
-  isUnknownProperties,
-  normaliseOakClientSurface,
-  readOwn,
-} from './event-policy-helpers.js';
+import { normaliseOakClientProduct, normaliseOakClientSurface } from './client-categories.js';
+import { isActorPseudonym, isUnknownProperties, readOwn } from './event-policy-helpers.js';
 import { createPostHogEventPolicies } from './event-policy.js';
 import {
   canonicalToolName,
   normaliseDuration,
   readClientFamily,
-  readClientSurfaceHeaderValues,
+  readClientIdentityHeaderValues,
   readListedToolNames,
   readObservedRequest,
   readParams,
@@ -109,13 +105,19 @@ class PostHogMcpTransportEventObserver implements McpTransportEventObserver {
       return null;
     }
     const clientFamily = readClientFamily(readOwn(projected, 'oak_client_family'));
+    // Both client categories derive from the SAME per-request header values, so
+    // both are present on every capture kind — unlike `oak_client_family`, which
+    // only the `initialize` handshake can supply and which ADR-112's per-request
+    // transport therefore cannot carry onto a later `tools/call` (MCP-594).
+    const clientIdentityHeaderValues = readClientIdentityHeaderValues(extra);
     return {
       distinctId,
       properties: {
         $mcp_source: POSTHOG_MCP_SOURCE,
         $mcp_server_name: OAK_MCP_SERVER_NAME,
         $mcp_server_version: this.snapshot.serverVersion,
-        oak_client_surface: normaliseOakClientSurface(readClientSurfaceHeaderValues(extra)),
+        oak_client_product: normaliseOakClientProduct(clientIdentityHeaderValues),
+        oak_client_surface: normaliseOakClientSurface(clientIdentityHeaderValues),
         oak_environment: this.snapshot.environment,
         oak_release: this.snapshot.release,
       },
