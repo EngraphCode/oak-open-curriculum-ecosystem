@@ -116,6 +116,7 @@ missing) · `UNHOMED` (no home; queued S3) · `EXPIRED`/`SUPERSEDED`/`EXECUTED`
 | SURVEY | corpus+estate; deconstruct-first; census-first; WS9 co-design | owner-verbatim | survey plan nodes (machine-readable gates, expire 2026-09-02) |
 | 774 | #774 illustrative, never merge-queued | owner-verbatim | napkin 3270–3277 + thread record HELD row |
 | FIX-LOW | fix at the lowest effective level | owner-verbatim | per-user memory `fix-at-the-lowest-effective-level` |
+| XPLAT | cross-platform node ratified; research precedes work ("stamp it now, it will need further research before work on it begins") | owner-verbatim | strategic plan `cross-platform-compatibility` (stamp + §Delivery rider) |
 
 ## Expired / superseded / executed (dated; no home owed)
 

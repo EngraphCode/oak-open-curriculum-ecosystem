@@ -6,10 +6,14 @@ overview: >-
   Any user or agent on any operating system — Windows first among the
   currently-unserved — can clone, install, build, test, contribute to, and
   operate this repository without a POSIX environment.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-13
+ratified_where: >-
+  In-session owner word at the wind-down boundary, Director session Smith
+  hunts Obsidian (e98f17), 2026-08-13 evening — verbatim: "stamp it now, it
+  will need further research before work on it begins"; the rider is
+  binding and carried in §Delivery.
 serves: FRAME-1
 impact_areas:
   - practice-and-estate
@@ -85,10 +89,15 @@ cross-platform CI runners before the local developer path works.
 
 ## Delivery
 
+**Ratification rider (owner, 2026-08-13, verbatim): "it will need further
+research before work on it begins."** The first delivery plan serving this
+node is therefore a RESEARCH plan — the full census of the four classes,
+the platform-verification questions (is Git for Windows' sh a supported
+hook path; how do the agent platforms shell out on Windows), and the guard
+design. No remediation work opens before that research lands and is read.
+
 Delivery plans serving this node declare `serves:
 cross-platform-compatibility` — enumerate them by search, never by a
 hand-kept list. The commissioning survey (2026-08-13, this node's §The
-bet) is the first delivery plan's evidence seed: a full census of the four
-classes, the guard design, and the remediation slicing belong there, not
-here. Milestones live in Linear as named observable states; this node
-points at them, never mirrors them.
+bet) is the research plan's evidence seed. Milestones live in Linear as
+named observable states; this node points at them, never mirrors them.
