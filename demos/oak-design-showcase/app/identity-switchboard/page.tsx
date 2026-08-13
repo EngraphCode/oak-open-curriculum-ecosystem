@@ -31,7 +31,6 @@ import type { ReactElement } from 'react';
 
 import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
 import { LabelledSelect } from '../../components/LabelledSelect';
-import { THEME_LABELS } from '../../components/Switchboard';
 import { useIdentity } from '../../components/brand-identity-binding';
 import {
   SWITCHBOARD_CANVAS_WIDTH,
@@ -40,7 +39,7 @@ import {
 } from '../../components/canonical-widths';
 import { useScaledViewport } from '../../components/useScaledViewport';
 import { BASE_IDENTITY, IDENTITY_LABELS, type IdentitySlug } from '../../components/useIdentity';
-import { THEME_OPTIONS, useFrameTheme } from './useFrameTheme';
+import { THEME_LABELS, THEME_OPTIONS, useFrameTheme } from './useFrameTheme';
 
 import './picker.css';
 
@@ -66,7 +65,7 @@ function PickerControls({
   readonly setWidth: (value: string) => void;
 }): ReactElement {
   return (
-    <div className="oak-cluster oak-cluster--l picker-controls">
+    <div className="oak-grid picker-controls">
       <LabelledSelect
         id="picker-identity-select"
         label="Identity"
@@ -91,6 +90,28 @@ function PickerControls({
         labels={VIEWPORT_WIDTH_LABELS}
         onChange={setWidth}
       />
+    </div>
+  );
+}
+
+/** The stage's caption: the live status plus the full-page link, wrapping
+ *  by kit cluster default at narrow widths. The link derives from CONTROL
+ *  STATE, never the frame's `src` (see the module comment). */
+function PickerCaption({
+  identity,
+  theme,
+  width,
+}: {
+  readonly identity: IdentitySlug;
+  readonly theme: OakThemeSnapshot;
+  readonly width: number;
+}): ReactElement {
+  return (
+    <div className="oak-cluster picker-caption">
+      <p aria-live="polite" className="oak-body-3 picker-status">
+        Showing {IDENTITY_LABELS[identity]} · {THEME_LABELS[theme]} ·{' '}
+        {VIEWPORT_WIDTH_LABELS[`${width}`] ?? `${width} px`}
+      </p>
       <a className="oak-link oak-body-2" href={`/identity-switchboard/specimen?brand=${identity}`}>
         Open this identity as a full page
       </a>
@@ -166,8 +187,8 @@ export default function IdentityPickerPage(): ReactElement {
       <header className="oak-region oak-container picker-head">
         <h1 className="oak-heading-4">One page, any identity</h1>
         <p className="oak-body-2 picker-lede">
-          The panel below is a single rendered page. Changing the identity, theme or width swaps
-          only design data — the markup underneath never changes, and the page never reloads.
+          One rendered page — identity, theme and width swap only design data; the markup never
+          changes and nothing reloads.
         </p>
       </header>
 
@@ -182,11 +203,6 @@ export default function IdentityPickerPage(): ReactElement {
           setWidth={setWidth}
         />
 
-        <p aria-live="polite" className="oak-body-3 picker-status">
-          Showing {IDENTITY_LABELS[identity]} · {THEME_LABELS[theme]} ·{' '}
-          {VIEWPORT_WIDTH_LABELS[`${width}`] ?? `${width} px`}
-        </p>
-
         <div ref={stageRef} className="picker-stage">
           <iframe
             ref={frameRef}
@@ -195,6 +211,8 @@ export default function IdentityPickerPage(): ReactElement {
             onLoad={markReady}
           />
         </div>
+
+        <PickerCaption identity={identity} theme={theme} width={width} />
       </main>
     </div>
   );

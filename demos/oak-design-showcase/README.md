@@ -47,7 +47,7 @@ switchboard drives three axes:
   they need the runtime.
 - **Motion** — the orthogonal motion axis (match-device / reduced / full),
   same runtime.
-- **Identity** — Oak, plus the kit's two counter-brands (Freedonia DSE and
+- **Identity** — Oak, plus the kit's two counter-brands (Public Digital Service and
   EMC²), by swapping a `brand.css` link loaded after every bundled sheet so
   the brand wins the cascade at equal specificity.
 
@@ -78,7 +78,7 @@ single entry point and the source of truth for sheet composition and order.
 Fonts are the kit's own self-hosted faces — no `next/font`, no network at
 build. Page markup uses `.oak-*` classes and token roles only; the
 page-level hook rules in `globals.css` (for example `.mast`, which
-Freedonia's expression layer restyles into the GDS masthead grammar)
+PDS's expression layer restyles into the GDS masthead grammar)
 compose token roles and keywords exclusively. The utility bar deliberately
 is not an inverted band: controls on inverted surfaces need the kit's
 inverted focus ring, and a brand that re-polarises the band has no token

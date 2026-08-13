@@ -53,7 +53,7 @@
   --tag-radius: var(--radius-control);
   --tag-border: 0 solid transparent; /* @kind other */
   --tag-shadow: none;
-  /* label case grammar — brands may go small-caps/no-transform (FDSE) or lowercase (EMC) */
+  /* label case grammar — brands may go small-caps/no-transform (PDS) or lowercase (EMC) */
   --label-transform: uppercase; /* @kind other */
   --label-variant: normal; /* @kind other */
   /* card — bg + image are brand surface (gradients allowed; AA is on the text pairing) */

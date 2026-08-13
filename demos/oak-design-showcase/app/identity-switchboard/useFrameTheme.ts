@@ -15,7 +15,21 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
 import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
-import { THEME_LABELS } from '../../components/Switchboard';
+
+// Owner-facing theme labels (same discipline as IDENTITY_LABELS). Identity
+// default leads: it is the no-choice default (DDR-003 dated amendment
+// 2026-08-11 — the person's choice wins, and the identity speaks first when
+// the person is silent), and the five choices follow. Re-homed from the
+// front-page switchboard at its purge (tight scope, 2026-08-13); the picker
+// is now the labels' only consumer.
+export const THEME_LABELS: Readonly<Record<OakThemeSnapshot, string>> = {
+  [IDENTITY_DEFAULT]: 'Identity default',
+  system: 'Match device',
+  light: 'Light',
+  dark: 'Dark',
+  'high-contrast': 'High contrast',
+  'colour-safe': 'Colour safe',
+};
 
 export const THEME_OPTIONS: readonly OakThemeSnapshot[] = typeSafeKeys(THEME_LABELS);
 

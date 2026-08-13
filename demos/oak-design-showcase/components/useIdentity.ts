@@ -14,7 +14,7 @@
  * rejected on its documented semantics (react.dev/reference/react-dom/
  * components/link): "React may leave the link in the DOM even after the
  * component that rendered it has been unmounted", and precedence values
- * "discovered later are 'higher'" — so switching creature → freedonia
+ * "discovered later are 'higher'" — so switching creature → pds
  * would leave creature's higher-ranked sheet winning; and the rendering
  * component suspends while the sheet loads. None of that fits a live
  * switcher.
@@ -30,15 +30,14 @@
  */
 
 /**
- * The closed identity vocabulary. Exported for every consumer that needs the
- * slug list (the fidelity pairing map, PR-2's specimen route) — the
- * identity-naming ratchet's census-exact contract bars re-declaring these
- * literals in any new tracked file, so this existing carrier stays the single
- * definition and everything else imports (the framework-free re-home happens
- * at the rename ceremony, when the outgoing slug leaves the array).
+ * The closed identity vocabulary — the single definition every consumer
+ * imports (the fidelity pairing map, the specimen route, the side-by-side
+ * page). A slug is load-bearing in `?brand=` URLs and in the served brand
+ * directory name, so adding one means adding its sheet and a row in
+ * lib/identities.ts too.
  */
 
-export const IDENTITIES = ['oak', 'freedonia', 'creature'] as const;
+export const IDENTITIES = ['oak', 'pds', 'creature'] as const;
 export type IdentitySlug = (typeof IDENTITIES)[number];
 
 /** The identity that carries no override sheet — the kit's own tokens. */
@@ -52,7 +51,7 @@ export const BASE_IDENTITY: IdentitySlug = 'oak';
  *  "undefined" until this moved). */
 export const IDENTITY_LABELS: Readonly<Record<IdentitySlug, string>> = {
   oak: 'Oak',
-  freedonia: 'Freedonia DSE',
+  pds: 'Public Digital Service',
   creature: 'EMC²',
 };
 

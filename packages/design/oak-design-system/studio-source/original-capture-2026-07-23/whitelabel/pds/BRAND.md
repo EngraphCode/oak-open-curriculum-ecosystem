@@ -1,12 +1,12 @@
-# Freedonia Department of State for Education — brand definition
+# Office of Education — brand definition
 
 Fictional. The second counter-brand — drawn on a blank canvas first, designed to be maximally far from Oak *and* from Educate My Creature, so that the three identities triangulate the contract's range.
 
 ## Identity, from a blank canvas
 
-The DSE is not a website that publishes documents; it is a **document tradition that acquired a website**. Its ancestors are the government gazette, the bound framework, the ledger of circulars — a typographic world of rules, folios and reference numbers, where authority is carried by restraint and permanence, not by interface. Its readers are teachers, school leaders and officials doing their jobs, often printing what they read, often reading in a second or third language. Nothing about it should look like an "app"; everything should look like it will still be correct in a decade.
+The Office is not a website that publishes documents; it is a **document tradition that acquired a website**. Its ancestors are the government gazette, the bound framework, the ledger of circulars — a typographic world of rules, folios and reference numbers, where authority is carried by restraint and permanence, not by interface. Its readers are teachers, school leaders and officials doing their jobs, often printing what they read, often reading in a second or third language. Nothing about it should look like an "app"; everything should look like it will still be correct in a decade.
 
-Oak is a warm colleague; EMC is a pocket world; the DSE is **the public record**.
+Oak is a warm colleague; EMC is a pocket world; the Office is **the public record**.
 
 ## Desired impact
 
@@ -43,7 +43,7 @@ WCAG 2.2 AA in all four themes (audit-checked), double focus ring, quiet motion 
 
 ## v5 — GDS alignment (July 2026)
 
-Freedonia now takes its **colours, spacing, type scale and layout** directly from the GOV.UK Design System (design-system.service.gov.uk, OGL v3.0), used per "GOV.UK Frontend without GOV.UK branding": no crown, no GDS Transport, no GOV.UK header.
+PDS now takes its **colours, spacing, type scale and layout** directly from the GOV.UK Design System (design-system.service.gov.uk, OGL v3.0), used per "GOV.UK Frontend without GOV.UK branding": no crown, no GDS Transport, no GOV.UK header.
 
 - **Colour**: text #0b0c0c, secondary #484949, borders #505a5f, brand blue #1d70b8 accent trio, link #1a65a6 (hover #0f385c, visited #54319f), action-green buttons #0f7a52 with the 2px shade-50 bottom edge. Decorative ramp = GDS web-palette groups (blue/green/purple/teal/yellow/magenta) at tint-50/80/95; dark polarity re-derived on the same hue axes (GDS ships light-only).
 - **Spacing**: GDS static scale only (5·10·15·20·25·30·40·50·60) — gap-s/m/l 10/20/30, insets 15/20, card-pad 20.
@@ -68,7 +68,7 @@ Freedonia now takes its **colours, spacing, type scale and layout** directly fro
 - **Dense and motionless**: `--density: 0.8`, 44px targets (the legal dense floor), `--motion-quick/base: 0ms` — documents do not animate (the OS motion axis still governs).
 - **Folio composition**: 880px container, 620px reading measure, filter panel as right-hand MARGINALIA on unit pages; proof page puts the gazette search in the margin.
 
-Residual coincidences with Oak are irreducible by identity, not oversights: light polarity (two poles; EMC² holds dark) and flat atmosphere (no-garnish IS the print identity). Score at adoption: Oak↔FDSE 23/26 · Oak↔EMC² 26/26 · FDSE↔EMC² 26/26 levers differ.
+Residual coincidences with Oak are irreducible by identity, not oversights: light polarity (two poles; EMC² holds dark) and flat atmosphere (no-garnish IS the print identity). Score at adoption: Oak↔PDS 23/26 · Oak↔EMC² 26/26 · PDS↔EMC² 26/26 levers differ.
 
 Audit: 34/34 AA in all four themes, Part A and full (July 2026; re-run after the white-holes fix — a paper page must carry its WHOLE elevation family: --bg-btn-secondary/--bg-raised/--bg-overlay are paper sheets, never screen-white). Invariants unchanged. Sharp-outline icons retained (engraver-adequate); the "no icons, typographic markers" pole is noted as a further step if wanted.
 
