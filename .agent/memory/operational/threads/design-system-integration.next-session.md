@@ -2726,3 +2726,139 @@ gate expires 2026-08-13). OPEN OWNER ITEMS unchanged: S6845
 disposition; fleet ratification + W1 sanction; PR #846 un-draft at
 review-credit return (Copilot re-request per head move — now confirmed
 mandatory by Forge's finding above).
+
+## MAIN-ABSORB cycle (2026-08-12 evening) — Swordfish wakes Trench (d0274e); owner-instructed merge executed; PR #846 head f2eceea9a
+
+Owner instruction (relayed via Director event 77f643f0, ACKed 91171af8):
+update the worktree from latest main after the #870 merge. Executed as
+the UPDATE path: `origin/main` (d105b4ab2, release 1.167.0) merged into
+the branch at `f2eceea9a` — zero conflicts (divergence analysis:
+merge-base f376162d5, three overlap files, all auto-merged). Gates
+green post-merge under the moved estate (Next 16.3.0, jest-axe 11,
+turbo 2.10.9): 34/34 turbo tasks across the five lane workspaces,
+70/70 showcase Playwright cells (27 UI + 43 a11y). Pushed; PR #846
+still draft at owner gates.
+
+Lane re-truing vs the repo-only ruling (events d13401a6 + b3c30134):
+swept every branch-touched file — zero two-homes/studio-sync claims;
+nothing to cure. `studio-source/` is a provenance directory name, not
+a sync claim.
+
+NEW LANE INPUTS from the moved main (read at next cycle open):
+`.agent/skills/domain-craft`-homed ui-visual-design skill
+(owner-ratified v1; WCAG target-size clauses); design-system-usage
+eval suite + benchmark; defect tickets MCP-586 (card-link accname
+void, High) and MCP-587 (dense token below the 44px floor) — eval-born
+design-system defects adjacent to this lane. Queue after them remains
+S2b → S2c → fleet W1 at sanction (gate expiry 2026-08-13).
+
+## S2b LANDED (2026-08-12 evening) — Swordfish wakes Trench (d0274e); two-moment reviewed; PR #846 head 5243224f9
+
+Owner word: "go ahead with S2b." Landed as `3d1b9c029` (slice) +
+`5243224f9` (gateway cures), pushed. Pre-execution review REVISE (four
+computed criticals — AR(1)-domain-gated n_eff with named omission;
+exact all-equal constant-field guard curing the float-dust case;
+inverse-normal-cdf.ts extracted at the line cap; correlation machinery
+homed in the NEW library module
+`@oaknational/fidelity-review/visual-correlation`, never the demo
+tool). Gateway verdict LAND with independent recomputation (five
+mutation checks bite, invariance path structurally closed, built-dist
+resolution proven); its F1–F4 docs/naming findings cured in
+`5243224f9` (pairCount always C(n,2) + estimablePairCount beside it;
+DDR-010 trued: constant-field trigger, verbatim discriminant,
+follow-on as pointer). Suites: 205 library + 116 demo green; live run
+printed the named degenerate verdict on the byte-stable switchboard
+page.
+
+DISPOSITIONS CARRIED FORWARD (gateway F5–F7):
+
+- F5 (noted, no change): `lumasOf` holds k+1 luma arrays at once
+  (~73 MB/capture at full-page 1512×6000) — fine at the k=2 floor and
+  k=6 default; a bound belongs with any future large-k work.
+- F6 (ratchet at 2 for the visual-* module shape): the next addition
+  to visual-correlation.ts forces a third split → solution-class
+  review at that moment.
+- F7 (PRE-UNDRAFT ITEM, named): `no-throw-statement` warning at
+  `demos/oak-design-showcase/app/identity-white-labelling/page.tsx:35`
+  (from earlier branch commits, absent on main) — cure BEFORE #846
+  un-drafts; no-warning-toleration bites at the PR boundary.
+
+CRICKET FULL SUITE run at this boundary (owner-invoked): 7×ON-TRACK,
+1×DRIFTING (frame-citation defect, cured in-flight); tally with
+tokens/runtime at
+`.agent/reports/agentic-engineering/cricket-quartet-tally-2026-08-12-s2b-gateway-boundary.md`;
+split routed to the Director. Adopted redirection: the fleet W1 owner
+card raised at the synthesis (gate expires 2026-08-13).
+
+NEXT CYCLE CANDIDATES (sequencing at this seat): the Director-ruled
+n_eff true-up (event `4b5afe31` — replace the modelled ratio with the
+direct measured variance ratio, replace-don't-bridge) OR S2c
+per-region alignment. Standing gate citations now carried here: S6845
+= one open Sonar MAJOR on PR #846, owner-gated per the PR #565
+per-site-accept precedent; #846 un-draft requires an explicit Copilot
+re-request (Forge's first-hand finding, napkin 2026-08-11 MCP-549
+drive, finding 3).
+
+## W1 SANCTIONED (2026-08-12 evening) — owner card answer "Sanction W1 now"; fleet executing at this seat
+
+The pr-846-review-fleet plan's owner gate cleared by card at the S2b
+gateway boundary (the Cricket-adopted redirection raised it; the gate
+would have expired 2026-08-13). Plan stamped ratified at revision 2:
+the reviewed object gains P7 (fidelity instrumentation — the S2a/S2b
+landings), T3 re-pins to head `5243224f9`, fleet design unchanged.
+Execution order: T3 pre-flight (SHA pin + changedFiles assert + F-159
+model check + production server :3020 + export overlay :3030 with the
+styled-sentinel assertion + fresh suite counts) → W1 (11 legs +
+category-routed verification) → seat adjudication → W2 (completeness
+critic + release-readiness, two named verdicts) → report at
+`.agent/reports/design/pr-846-review-fleet/report.md` → owner card
+with both verdicts. The n_eff true-up and S2c queue BEHIND the fleet
+verdict absorption.
+
+## COMPACTION FREEZE 5 (2026-08-12 ~21:5xZ) — Swordfish wakes Trench (d0274e); owner word "pause when you can"; fleet W1 FROZEN RESUMABLE at 10/11
+
+Claim `645b9e0b-afea-4743-8cc6-5dad3ad39575` RETAINED; seat CONTINUES.
+All processes stopped by intent at this freeze (canonical order).
+
+STATE, first-hand: PR #846 branch at `5243224f9`, clean, == remote
+(the day's landings: main-absorb `f2eceea9a`; S2b `3d1b9c029` +
+gateway cures `5243224f9`, two-moment reviewed, Cricket-suite tallied
+7/8-1/8-cured). Coordination at this commit. Ticket MCP-591 In
+Progress. T3 pre-flight header committed at
+`.agent/reports/design/pr-846-review-fleet/report.md` (pins, asserts,
+sentinel evidence, suite counts).
+
+FLEET W1 FROZEN, RESUMABLE — this is the executing input at resume:
+
+- Run `wf_8e740b28-943`, Phase 1 at 10/11 legs complete when frozen
+  (the fidelity instrument leg L11 was in flight; it re-runs at
+  resume, the 10 completed legs return from journal cache). Phase 2
+  (category-routed verification) had not opened.
+- Resume recipe, verbatim: restart the production server FIRST
+  (`cd demos/oak-design-showcase && pnpm start` in the PR-2 worktree,
+  assert :3020 → 200 — L11 and empirical refuters need it), then
+  invoke the Workflow tool with `resumeFromRunId: "wf_8e740b28-943"`
+  and `scriptPath: <session workflows dir>/pr-846-review-fleet-w1-wf_8e740b28-943.js`
+  (the harness prints the absolute session path at launch; on a fresh
+  session, re-launching from the plan with a fresh run id is the
+  fallback — the plan is decision-complete and this freeze block plus
+  the report header carry every T3 pin).
+- Then per plan: integrity gate (worktree clean at `5243224f9`) →
+  seat adjudication (two axes; refutation audit with overturn count;
+  K1–K12 knowns scoring per the pre-declared map) → W2 (completeness
+  critic + release-readiness, TWO named verdicts) → cross-check
+  script output embedded in the report → owner card with both
+  verdicts.
+
+RESUME ORDER: (1) start-right re-arm — watcher (heartbeat-excluded,
+3600s backstop, re-arm on exit + gap sweep) PAIRED with the F-75
+delta poll; heartbeat pair on the retained claim, label
+`fleet-w1-execution`, model string `Opus-5`; (2) the fleet resume
+recipe above; (3) after the fleet card: the Director-ruled n_eff
+true-up (event `4b5afe31`, replace-don't-bridge) → S2c per-region
+alignment. OPEN OWNER GATES unchanged: S6845 (PR #565 precedent, his
+word); #846 un-draft (REQUIRES first: the F7 no-throw cure at
+identity-white-labelling/page.tsx:35, then explicit Copilot
+re-request); the fleet W1 verdict card once W2 lands. Director
+(Plover, b10c37) was in owner-directed warm pause supporting this
+lane; Nautilus/Wren paused at owner word.
