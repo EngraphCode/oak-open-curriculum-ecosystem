@@ -1085,15 +1085,18 @@ condition that returns it to scope.
 - **`design-lane-review-debt-closure`** (ratified 2026-08-07) — owns the DDR
   corpus's cure and its edge-schema validator. W6's DDR true-ups write into the
   corpus that node established; they do not re-open its schema work.
-- **`pr-846-review-fleet`** (status `sketch`; owner gate expiring 2026-08-13) —
-  proposes a multi-lens review fleet whose purpose is deciding PR #846's
-  open-for-review readiness. **That is the frame R1 corrected**: measuring the
-  design lane's delivery at PR readiness rather than at the owner's four
-  outcomes. This plan does not supersede that node — it is the owner's to
-  sanction, reshape, or close, and its gate expiring today makes that a live
-  decision. Recorded here so the two are not read as parallel definitions of the
-  lane's finish line: **this plan defines the work; that node, if sanctioned,
-  reviews one PR within it.**
+- **`pr-846-review-fleet`** (status `ratified` — owner card "Sanction W1 now",
+  2026-08-12, coordination commit `3b1e5fcce`; its owner gate discharged by
+  removal; W1 EXECUTED 2026-08-13 as MCP-591, its findings ledger at
+  `.agent/reports/design/pr-846-review-fleet/report.md` and today's cure
+  bundles drawn from it) — a multi-lens review fleet over PR #846. The
+  readiness-vs-outcomes framing note stands as history: **R1 corrected the
+  FINISH LINE** from PR readiness to the owner's four outcomes, and this plan
+  defines the work while that node's executed W1 reviews one PR within it; any
+  W2+ of that node remains the owner's to sequence. (This row was corrected
+  2026-08-13 after first shipping stale: this branch's COPY of that node
+  predates its ratification commit — a worked instance of the authority test
+  needing source FRESHNESS alongside identity and appropriateness.)
 - **`docs/governance/one-html-many-css-compositions.md`** — the owner's own
   paper, and the method W2 implements. Cited, never restated: the region contract
   W2 exercises is that paper's conclusion already absorbed into the kit's shipped
@@ -1218,7 +1221,7 @@ outright. So each clause is re-derived from a real authority or dropped:
 | The completion plan's W2–W7 mechanism | Outside the tight scope and sequenced behind it; restating it here would create a second definition of work this plan does not own |
 | Landing the Demos Charter ADR itself | It is W0.3's deliverable, not this plan's. Honouring its live clauses costs nothing; adopting its authorship would take work this plan's ruling did not ask for |
 | The strategic node's goal architecture | This node delivers its demo properties; a delivery node restating a strategic node's kernel is drift, not coherence |
-| Any amendment to `pr-846-review-fleet` | It carries an owner gate; reshaping or closing it is the owner's decision, surfaced in §Relationships rather than taken here |
+| Any amendment to `pr-846-review-fleet` | That node is ratified with its W1 executed (MCP-591); sequencing any W2+ of it is the owner's, surfaced in §Relationships rather than taken here |
 | A ruling on KNOWN-ISSUES #14's open alias-breadth question | No workstream here renders a themed subtree, so the question never arises for this plan's surfaces |
 | ADR-213's studio-source-vs-product-gate tension | The `studio-source/whitelabel/*` brand sheets are consumed through their served copies, which ADR-213 §1 would ordinarily move out from under the gate exemption. Pre-existing, unchanged by W1, and a structural question for the design-system expert rather than a showcase-experience decision |
 | The eleven type classes that compose from primitives directly | `.oak-heading-light-1…7`, `.oak-body-1-bold…3-bold`, `.oak-code-2-bold` keep fixed sizes after W1. Folding them in means minting a `-light` weight variant of every heading slot, doubling the decomposition's surface. Named in W1 so the owner can price it rather than discover it |
