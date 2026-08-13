@@ -34,8 +34,14 @@ export interface RollupCheckShape {
 }
 
 /** Blocking order for survivor ties: failed outranks pending outranks passed. */
+const BLOCKING_RANK: Record<'failed' | 'pending' | 'passed', number> = {
+  failed: 2,
+  pending: 1,
+  passed: 0,
+};
+
 export function blockingRank(bucket: 'failed' | 'pending' | 'passed'): number {
-  return bucket === 'failed' ? 2 : bucket === 'pending' ? 1 : 0;
+  return BLOCKING_RANK[bucket];
 }
 
 // Epoch anchor, or null when absent/unparseable — an undatable timestamp
