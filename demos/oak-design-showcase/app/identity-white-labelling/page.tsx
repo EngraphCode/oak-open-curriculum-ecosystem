@@ -80,7 +80,12 @@ export default function IdentityWhiteLabellingPage(): React.JSX.Element {
           </a>
         </nav>
       </header>
-      <main id="main" className="oak-region oak-container cols" tabIndex={-1}>
+      {/* No tabindex here, ever: a negative tabindex on a direct child of
+          .oak-canvas excludes its whole subtree from sequential focus under
+          reading-flow: grid-rows (the specimen's documented F01/F02
+          keyboard blackout). data-region pins main to the canvas map's
+          1fr main row instead of auto-placing into the masthead row. */}
+      <main id="main" className="oak-region oak-container cols" data-region="main">
         {IDENTITIES.map((identity) => (
           <IdentityColumn key={identity} identity={identity} />
         ))}
