@@ -37,3 +37,142 @@ the knowns table, and the cross-check output land at T4.
 ## Findings, verdicts, knowns, cross-check
 
 (Lands at T4 adjudication.)
+
+## T4 — W1 execution record and seat adjudication (2026-08-13)
+
+Execution: run `wf_8e740b28-943`, three segments (launched 2026-08-12
+evening, frozen at owner pause; resumed 2026-08-13 ~08:15Z at owner
+word, frozen again at owner pause 09:10Z; resumed ~09:35Z and COMPLETED
+~09:55Z). 81 agents, 0 errors, 0 empty results. Owner-asked quota
+health-check between segments: journal clean — 79/79 then-cached
+results real, zero null/error shapes (the org's quota incident touched
+the Director's fold-review leg, recorded in #872, not this fleet).
+Final-segment accounting: 1,028,954 subagent tokens, 102 tool calls.
+Per-leg token tallies are not recoverable from the journals (meta files
+carry agentType only) — recorded as a limitation; leg finding counts
+and coverage notes stand in.
+
+Integrity gate: PASS at both boundaries — worktree clean, HEAD
+`5243224f9` == recorded HEAD (asserted post-Phase-1 resume and again at
+this report).
+
+### Verdict tally and refutation audit
+
+40 records (cap 40, merge-never-drop honoured; 26 overflow rows
+preserved unverified; 0 polish). 70 refuter verdicts: 69 confirmed,
+1 refuted. Survival: 39 survive, 1 refuted (F23), 0 not-reproduced.
+
+Refutation audit (severity≥3): one refutation, F23 (export reference
+hand-edit). Seat re-read both verdicts: the confirming verdict proves
+evidence accuracy only; the refuting verdict defeats the failure
+scenario itself (the edit was a reviewed gateway cure with recorded
+provenance, and the export switchboard chrome is owner-ruled out of
+comparison, so no fidelity claim is judged against the edited line).
+Refutation UPHELD. **Overturn count: 0.** Phase-2 calibration signal:
+high Phase-1 precision (39/40), and refuters demonstrably reproduced
+first-hand (Playwright probes, a mutation experiment, live axe repro)
+rather than echoing.
+
+### Knowns attention-coverage (K1–K12)
+
+| Known | Charged | Engaged? | Evidence |
+| --- | --- | --- | --- |
+| K1–K6 register dispositions | L3/L11 | YES | L11 own-eyes-first pass over all six; agreements recorded, disagreements filed as F14/F25/F26/F37 |
+| K7 axe#3978 disable | L4 | YES | upstream-open verified, live artefact repro on creature; structural gaps filed as F16 |
+| K8 fidelity stdout global-scope | L11 | YES | console-vs-HTML asymmetry position, folded into F26 |
+| K9 five-item DS trunk slice (routed) | L3/L4 | **MISS** | no stated position + evidence pointer in either leg |
+| K10 light-dark substitution oddity | L3 | YES | all in-range pairs computed both arms; F05's mechanism is this class |
+| K11 canonical-widths client mirror | L7 | YES | filed as F35 |
+| K12 two ruled divergences | L11 | YES | one agreement (utility strip), one contested (F25) |
+
+Score 11/12; the K9 miss is named per the instrument's contract.
+
+### Two-axis dispositions (39 survivors + 1 refuted)
+
+**fix-now (13) — blocks opening; these become the lane's next slices.**
+The common property: each would mislead a reviewer or misrepresent the
+work's own evidence claims (the plan's NO-GO test), on the owner's
+primary axes (conformance/fidelity/accessibility).
+
+- F01 s4 a11y — picker has zero keyboard-tabbable elements (WCAG 2.1.1
+  total failure); cure the tabIndex/reading-flow mechanism.
+- F02 s4 a11y — specimen main region excluded from Tab order (2.4.3/2.1.1).
+- F15 s3 tests — axe helper drops the `incomplete` bucket: the green
+  a11y matrix the PR cites is partially vacuous; cure the instrument
+  with F01/F02 so the green is true.
+- F03 s4 fidelity — specimen.css defeats pds's masthead at
+  (0,2,0) vs (0,1,0), breaking the app's own hook-clean contract.
+- F05 s4 fidelity — pds masthead white-on-white (opposite
+  light-dark() arms on one surface); the demo reads as "this brand
+  loses its nav".
+- F14 s3 fidelity — the register's completeness claim is false: no
+  entry for the dominant pds divergence.
+- F04 s4 correctness — capture-pair silently crops to common height
+  and records pre-crop heights nowhere: clean pass over erased
+  divergence; cure = record heights + loud mismatch.
+- F07 s3 docs — PR body's fidelity summary contradicts the register at
+  the PR's own head; body edit.
+- F20 s3 docs — DDR-003 amendment says implementation is future while
+  the same diff records it implemented; one-bullet cure.
+- F22 s3 tokens — colour-safe flattening covers decorative-1..4 of 6;
+  lemon/amber keep full chroma against the block's own rationale.
+- F25 s3 fidelity — band-rhythm "superseded" disposition contradicted
+  by the pixels at 1440 (~64px offset dominates residuals); re-open or
+  re-disposition honestly.
+- F37 s2 fidelity — a live divergence recorded only inside a
+  superseded entry's rationale; active entry required.
+- F38 s2 fidelity — register evidence cites gitignored paths; commit
+  the cited crops or re-point (the recognisability arc's S1 provenance
+  discipline is the durable home).
+
+**fix-in-the-open (22)** — cure as review commits once open: F06
+(width-authority doctrine scoping; the hub-seam arm routes to the hub
+pipeline lane), F08+F30+F31+F32 (one frame-readiness mechanism, one
+cure: reset-on-load + re-apply), F09 (contrast media-query listener),
+F11+F12-observer-arm (comparability hold), F10/F12 contrast-arm (the
+ScaledFrame drop loses the runtime's auto high-contrast — DDR-003
+commitment; small cure mirroring the picker's arm) [seat note: if the
+owner reads F10/F12 as floor-breaking, they promote to fix-now with
+F01/F02], F13 (unit-suite network IO), F16 (forced-colors gate +
+self-retiring probe), F17 (geometry-guard vacuity), F18 (calibrated-arm
+pooling tests), F19 (origin guard on new capture arm), F21 (DDR-009
+scope wording), F24 (invariance-cell fixture out of saturation), F26
+(pair-level register expectations), F27 (skill sync to DDR-010
+amendments), F28 (scroll-padding border token), F29 (hub label
+totality), F33 (labels out of 'use client'), F35 (widths module to a
+neutral home), F36 (inert on scaled frames + correct 2.5.8 pricing),
+F39 (creature util rule + comment), F40 (theme-distinctive probe
+values).
+
+**refuse (1)** — F34 (cascade-position observer): no competing head
+writer exists; the theme/identity asymmetry is warranted by the theme
+axis's real second writer (the frame runtime). Basis recorded;
+re-opens if an identity-axis writer ever appears.
+
+**refuted (1)** — F23, refutation upheld (audit above).
+
+**Overflow (26)** — recorded with marks preserved, unverified;
+dispositioned at cure-slice pickup (the two s2 capture-tooling rows
+join the F04 cure slice's verification set; the DDR-010
+frontmatter-contract row joins the docs cure bundle).
+
+### Cross-check (AC2/AC3) — recomputed, embedded verbatim
+
+```text
+journal: started=92 results=90 distinct_result_keys=90
+records=40 verdicts=40 ids_match=True dup_ids=False
+refuter_verdicts_total=70 outcomes={'confirmed': 69, 'refuted': 1}
+records_by_severity={4: 5, 3: 21, 2: 14}
+records_by_category={'a11y': 6, 'fidelity': 8, 'correctness': 7, 'frame': 1, 'docs': 4, 'tests': 7, 'architecture': 5, 'tokens': 1, 'types': 1}
+overflow=26 polish=0 legs=11 legs_ok=11
+K1-K6: charged=['L3', 'L11'] attention_evidence_in=['L3', 'L11']
+K7: charged=['L4'] attention_evidence_in=['L4']
+K8: charged=['L11'] attention_evidence_in=['L11']
+K9: charged=['L3', 'L4'] attention_evidence_in=NONE
+K10: charged=['L3'] attention_evidence_in=['L3']
+K11: charged=['L7'] attention_evidence_in=['L7']
+K12: charged=['L11'] attention_evidence_in=['L11']
+```
+
+W2 (completeness critic + release-readiness, two named verdicts)
+dispatched from this adjudication record; verdicts land below.
