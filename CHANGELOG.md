@@ -1,3 +1,15 @@
+# [1.168.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.167.0...v1.168.0) (2026-08-13)
+
+
+### Bug Fixes
+
+* **search-cli:** neutralise external text in probe logs (S5145 cure on the fold) ([153e247](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/153e247139449241d32116b8ac70ff3018289aa0))
+
+
+### Features
+
+* **search-cli:** add lesson-availability probe script; refresh bulk data ([3cceeab](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3cceeabcea2a4a60c6cfbecb19ac71c9dea1b910))
+
 # [1.167.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.166.1...v1.167.0) (2026-08-12)
 
 
