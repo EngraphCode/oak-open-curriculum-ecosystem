@@ -59,7 +59,10 @@ This decision establishes the repository constraint (owner-declared at
 review, 2026-08-14): **no capability or running system may become
 structurally dependent on one vendor or one external service.** The
 constraint is established here and is not a restatement of any earlier
-record; per the repository ADR lifecycle, its obligations — including every
+record. It reads per named provider, as PDR-139 part 9 defines: each named
+external provider must be individually replaceable or omittable; a
+service-free composition is not required. Per the repository ADR lifecycle,
+its obligations — including every
 MUST below — take force at this record's acceptance, which requires
 PDR-139, also Proposed, to be accepted first or in the same change; the
 scope paragraph below governs what they bind from that point forward.
