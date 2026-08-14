@@ -14,14 +14,6 @@ tickets: []
 depends_on:
   - plan: typescript-estate-consolidation-review
     kind: beneficial
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      Jim gives the explicit go on the survey lane — the 2026-08-12 hold
-      ("don't start the survey until I give the word", worded direct to the
-      lane seat, Director-concurred broad on both nodes) discharges at his
-      word through any seat.
-    expires: 2026-09-02
 last_updated: 2026-08-14
 ---
 
@@ -95,10 +87,21 @@ existing home) carrying:
    derivation is documented row-by-row (source heading + anchor), which
    the instrument then checks coverage against; a reviewer spot-checks
    the list against the prose. Expected ledger size: ~110–130 rows.
-   Each row: `proved` / `generalises-to <scale>` /
+   Each row: `proved` / `generalises-to <target>` /
    `dies-because <reason>`, with pointers. (The disposition-ledger
    discipline: every input gets a recorded decision; work is sized to
-   unique substance.)
+   unique substance.) **Closed `generalises-to` target vocabulary**
+   (declared at authoring; owner-approved amendment, 2026-08-14):
+   `estate` (cross-workspace programme scale), `workspace`
+   (census-subject scale), `module` (within-workspace file/directory
+   scale), `construct` (TypeScript-construct / code scale),
+   `survey-method` (scale-independent survey machinery and discipline),
+   `corpus-design` (elements that generalise into the pattern corpus's
+   own schema or batteries). A surviving row whose element resists
+   every value takes `needs-scale-adjudication`; the accumulated set
+   routes ONCE to the Director/owner at fill completion, mirroring the
+   census falsifier's shape. The enumeration instrument validates the
+   column against this vocabulary.
 2. **Detector-facts vs judged-readings separation** carried forward
    explicitly — the frame's own discipline, named per surviving element.
 3. **A contract-coverage map for the extractor**: which frozen-contract
@@ -129,9 +132,10 @@ existing home) carrying:
    banks the command lines and their output verbatim beside the map.
 3. Every surviving (`proved`/`generalises-to`) element is marked
    detector-fact or judged-reading, and every `generalises-to` names its
-   target scale. Proof: repo-safe — the same committed instrument checks
-   the two columns are non-empty on every surviving row (ledger row data
-   is a structured artefact, the human table rendered from or
+   target from the closed vocabulary declared in the mechanism. Proof:
+   repo-safe — the same committed instrument checks the two columns are
+   non-empty and vocabulary-valid on every surviving row (ledger row
+   data is a structured artefact, the human table rendered from or
    cross-checked against it, as in the census node).
 4. The owner confirms, at this ledger's own review card, that it is
    sufficient design input for the fresh-design node. Proof: owner-held —
@@ -186,6 +190,26 @@ of, this node.
 3. Contract-coverage map: fresh gate/smoke runs banked verbatim; held
    slices from the refreezeReason; coverage distance stated.
 4. Separation pass: detector-fact vs judged-reading per surviving element;
-   target scale per `generalises-to`.
+   closed-vocabulary target per `generalises-to`.
 5. Report assembly; enumeration instrument green; validator and gate
    green; PR.
+
+## Amendment trail
+
+- **2026-08-14 — execution gate discharged at the owner's word.** The
+  2026-08-12 hold (narrowed 2026-08-14 to design-only) discharged at
+  Jim's decision-card answer, verbatim "Go — run the survey lane",
+  given direct to the lane seat (Nautilus calls Plankton, c6d48b)
+  2026-08-14 ~10:44Z. The `owner_gates` entry is removed by this
+  amendment. Census executes first per the standing sequencing; this
+  node's execution ticket opens at its own start.
+- **2026-08-14 — closed `generalises-to` target vocabulary added.** The
+  column previously required a target on every surviving row without
+  closing the value set — a gap against this node's own
+  closed-at-authoring discipline, found by the same-day concept
+  exploration (`.agent/research/survey-fresh-design-concept-exploration.md`)
+  and proposed on the survey-lane ARC channel. Owner approval, verbatim:
+  "I approve the ledger edit" (2026-08-14 ~10:45Z, direct to the lane
+  seat). The vocabulary, its escape value, and its route-once semantics
+  now live in mechanism item 1; acceptance criterion 3 validates
+  against it.

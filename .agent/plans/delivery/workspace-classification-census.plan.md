@@ -10,19 +10,12 @@ ratified_where: "Owner decision card at the Director seat (b10c37), 2026-08-12 ~
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate
-tickets: []
+tickets:
+  - MCP-601
 depends_on:
   - plan: survey-machinery-deconstruction
     kind: beneficial
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      Jim gives the explicit go on the survey lane — the 2026-08-12 hold
-      ("don't start the survey until I give the word", worded direct to the
-      lane seat, Director-concurred broad on both nodes) discharges at his
-      word through any seat.
-    expires: 2026-09-02
-last_updated: 2026-08-13
+last_updated: 2026-08-14
 ---
 
 # Workspace classification census
@@ -211,3 +204,13 @@ open holding state.
    edited into the surface-isolation brief.
 5. Report assembly; enumeration instrument green; validator and gate
    green; PR.
+
+## Amendment trail
+
+- **2026-08-14 — execution gate discharged at the owner's word.** The
+  2026-08-12 hold ("don't start the survey until I give the word",
+  narrowed 2026-08-14 to design-only) discharged at Jim's decision-card
+  answer, verbatim "Go — run the survey lane", given direct to the lane
+  seat (Nautilus calls Plankton, c6d48b) 2026-08-14 ~10:44Z. The
+  `owner_gates` entry is removed by this amendment; execution ticket
+  MCP-601 opened the same hour.
