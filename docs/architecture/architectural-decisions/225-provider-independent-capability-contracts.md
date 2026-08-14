@@ -2,6 +2,8 @@
 
 **Status**: Proposed  
 **Date**: 2026-08-13  
+**Updated**: 2026-08-14 — owner rulings at review (establishment, forward
+scope) and panel cures  
 **Related**:
 [ADR-024](024-dependency-injection-pattern.md) — injected I/O;
 [ADR-041](041-workspace-structure-option-a.md) — workspace tiers; adapter
@@ -37,12 +39,10 @@ can offer valuable operation without becoming the semantic owner of persistence
 or a requirement for every supported composition.
 
 The repository already holds an owner-decided consumer for exactly this seam:
-the school-data-search POC's gates G-2 (Next.js host with Neon-preview
-opt-in) and G-4 (PostgreSQL-only redacted snapshots behind a storage-port
-seam) were decided on 2026-06-04, and the work is queued (plan at
-`.agent/plans-backlog-2026-07/school-data-search/current/school-data-search-poc.plan.md`;
-thread paused as of 2026-08-14). That consumer is motivating context, not
-prior authority for this decision's constraint.
+the school-data-search POC's gates G-2 (Next.js host, Neon-contingent
+preview posture) and G-4 (PostgreSQL-only redacted snapshots behind a
+storage-port seam), decided 2026-06-04. That consumer is motivating context,
+not prior authority for this decision's constraint.
 
 Dependency injection and the ADR-041 adapter workspaces provide the
 implementation seams. They do not yet record how this repository adopts the portable
@@ -56,8 +56,8 @@ migration.
 ## Decision
 
 This decision establishes the repository constraint (owner-declared at
-review, 2026-08-14): **no capability or running system is structurally
-dependent on one vendor or one external service.** The constraint is
+review, 2026-08-14): **no capability or running system may become
+structurally dependent on one vendor or one external service.** The constraint is
 established here and binds forward; it is not a restatement of any earlier
 record.
 
@@ -73,7 +73,9 @@ records the repository phenotype; it does not restate the portable contract.
   the ADR-041 `packages/libs` tier, carrying the boundary obligation ADR-042
   named (its dedicated folder was never realised). Provider-specific SDK types, identifiers,
   configuration, lifecycle, and error translation do not cross into consumers
-  or canonical domain records.
+  or canonical domain records. A capability contract shared by more than one
+  adapter lives in `packages/core` or a foundation lib; adapter libs do not
+  import one another (ADR-041).
 - Each runnable host selects its capabilities and bindings at its composition
   root. Composition and the selected provider binding are the only layers that
   know provider identity or configuration.
@@ -115,12 +117,20 @@ never declared at evaluation time.
 
 **Scope (owner ruling, 2026-08-14).** This obligation binds new provider
 selections and substantially refactored seams from this decision forward.
-Standing prior decisions are not retroactively bound: ADR-074 and ADR-076
+Standing prior decisions are not retroactively bound; those named here are
+the ones this decision examined, not an exhaustive set: ADR-074 and ADR-076
 (Accepted; the Elastic-native and ELSER-only search posture), ADR-219
-(Accepted; edge rate limiting), and ADR-162 (Proposed; observability-first)
-stand on their own terms. Bringing any of those seams under this pattern is
-a decision taken at that seam's next substantial refactor, not an obligation
-created here.
+(Accepted; edge rate limiting), ADR-162 (Proposed; observability-first),
+and peers of their class — ADR-212's federated evidence assignments among
+them — stand on their own terms. Bringing any of those seams under this
+pattern is a decision taken at that seam's next substantial refactor, not an
+obligation created here. Where a standing decision procedure such as
+ADR-074's Elastic-native-first hierarchy ranks options for a new capability,
+that hierarchy continues to rank; this obligation applies to the selection
+it produces. A seam decided before this date but not yet built is bound at
+build time — the obligation attaches when a provider is selected in running
+code, not at the date of the deciding record (the Context consumer's gates
+are of this class).
 
 For a Neon PostgreSQL integration, the minimum independent composition is the
 same transactional capability served through PostgreSQL without Neon. It is
@@ -128,9 +138,6 @@ supported only when unchanged consumers pass the same capability-conformance
 checks. When canonical state is involved, a repository-owned schema and
 migration path plus an exercised export and restore against the independent
 target are also required.
-
-An interface or configuration flag without this evidence is a proposed seam,
-not established provider independence.
 
 ## Rationale
 
@@ -186,8 +193,6 @@ remain outside runtime composition.
   consumers remain provider-independent.
 - Supported host profiles expose their actual capability set and identify an
   exercised independent composition for each selected provider.
-- Provider-specific extensions require separate contracts and remain
-  independently removable.
 - A no-effect telemetry binding satisfies only the external sink. ADR-162's
   observability-first emission obligations travel with the composed
   observability adapters and are not discharged by omitting a telemetry
@@ -198,7 +203,8 @@ remain outside runtime composition.
   yet exercised. It cannot be described as supported provider independence.
 - Storage technologies remain capability-specific. Files, PostgreSQL, SQLite,
   object storage, RDF stores, search indexes, analytical snapshots, caches, and
-  event infrastructure do not become interchangeable.
+  event infrastructure do not become interchangeable — the repository
+  application of PDR-139's rejection of a universal provider interface.
 
 ## Compliance questions
 

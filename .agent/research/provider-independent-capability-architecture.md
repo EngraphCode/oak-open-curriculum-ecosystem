@@ -1,6 +1,7 @@
 # Provider-independent capability architecture and storage options
 
 **Created**: 2026-08-13  
+**Updated**: 2026-08-14 — reprovenance and panel cures  
 **Status**: Complete, non-normative research  
 **Decision records**:
 [ADR-225](../../docs/architecture/architectural-decisions/225-provider-independent-capability-contracts.md)
@@ -49,9 +50,11 @@ and it does not make every capability optional.
 ## Research question
 
 How can the repository add PostgreSQL support, with Neon as a candidate managed
-provider, under the owner-declared constraint — established as repository
-doctrine in ADR-225 (2026-08-14) — that no capability or running system is
-structurally dependent on one vendor or one external service?
+provider, without making any capability or running system structurally
+dependent on one vendor or one external service? (The constraint in that
+question was subsequently owner-declared and established as repository
+doctrine at ADR-225, 2026-08-14; this report's analysis preceded and fed
+that decision.)
 
 The question expands into six tests:
 
@@ -389,8 +392,10 @@ becomes a product rewrite rather than a binding change.
 ### One provider class per brand
 
 When several providers implement the same open protocol, brand-labelled data
-adapters duplicate technology semantics. Share the protocol adapter and reserve
-provider bindings for genuine provider-specific behaviour.
+adapters duplicate technology semantics. Share the protocol adapter; every
+provider keeps its own binding for configuration and lifecycle, and a
+provider-specific adapter is justified only by genuine behavioural
+divergence.
 
 ### A universal null provider
 

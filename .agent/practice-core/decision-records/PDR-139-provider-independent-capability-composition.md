@@ -77,8 +77,10 @@ domain identity and portable records do not encode them.
 ### 4. Reuse technology adapters
 
 When several providers implement the same open protocol with conforming
-behaviour, one technology adapter can serve them. A provider-specific binding
-is introduced for genuine provider behaviour, not for branding.
+behaviour, one technology adapter can serve them. Every selected provider
+still receives its provider binding (part 3); a provider-specific technology
+adapter is introduced only for genuine behavioural divergence from the
+shared protocol, not for branding.
 
 ### 5. Split extensions into capabilities
 
