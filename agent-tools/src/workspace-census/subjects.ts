@@ -5,13 +5,16 @@
  * (ii)  the parent directory of every tracked `package.json` that is
  *       neither a member directory nor nested under one (surfaces the
  *       member list cannot see);
+ * (ii-b) the parent directory of every tracked `.claude-plugin/plugin.json`
+ *       manifest (owner-approved amendment, 2026-08-14 — plugin surfaces
+ *       carry no package.json and no code-extension files);
  * (iii) every top-level path segment of the tracked file list, filtered
  *       to the declared code-extension set, not already covered by (i)
  *       or (ii).
  */
 import { CODE_EXTENSIONS } from './vocabulary.js';
 
-type SubjectSource = 'pnpm-member' | 'package-json-parent' | 'code-root';
+type SubjectSource = 'pnpm-member' | 'package-json-parent' | 'plugin-manifest-parent' | 'code-root';
 
 export interface CensusSubject {
   readonly dirPath: string;
@@ -77,6 +80,22 @@ function collectPackageJsonParents(drafts: DraftMap, input: DeriveSubjectsInput)
   }
 }
 
+const PLUGIN_MANIFEST_SUFFIX = '/.claude-plugin/plugin.json';
+
+function collectPluginManifestParents(drafts: DraftMap, input: DeriveSubjectsInput): void {
+  const memberPaths = input.members.map((member) => member.path);
+  for (const filePath of input.trackedFiles) {
+    if (!filePath.endsWith(PLUGIN_MANIFEST_SUFFIX)) {
+      continue;
+    }
+    const dir = filePath.slice(0, filePath.length - PLUGIN_MANIFEST_SUFFIX.length);
+    if (dir === '' || memberPaths.some((memberPath) => isUnder(dir, memberPath))) {
+      continue;
+    }
+    record(drafts, dir, 'plugin-manifest-parent', null);
+  }
+}
+
 function collectCodeRoots(drafts: DraftMap, input: DeriveSubjectsInput): void {
   const extensions = input.codeExtensions ?? CODE_EXTENSIONS;
   const coveredRoots = [...drafts.keys()];
@@ -104,6 +123,7 @@ export function deriveSubjects(input: DeriveSubjectsInput): CensusSubject[] {
     record(drafts, member.path, 'pnpm-member', member.name);
   }
   collectPackageJsonParents(drafts, input);
+  collectPluginManifestParents(drafts, input);
   collectCodeRoots(drafts, input);
 
   return [...drafts.entries()]

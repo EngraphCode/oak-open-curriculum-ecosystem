@@ -1281,6 +1281,30 @@
       ]
     },
     {
+      "dirPath": "plugins/oak-open-curriculum",
+      "publishedName": null,
+      "disposition": "classified",
+      "classification": "oak-leaf",
+      "leakage": [],
+      "evidence": [
+        {
+          "kind": "static-structure",
+          "pointer": "plugins/oak-open-curriculum \u2014 29 tracked files, all Oak-purposed agent content (skills/, workflows/, agents/ referencing Oak curriculum, misconceptions, accessibility guidance); .claude-plugin/plugin.json names Oak National Academy as author with Oak branding"
+        },
+        {
+          "kind": "doctrine-record",
+          "pointer": "plugins/oak-open-curriculum/.claude-plugin/plugin.json license field declares the ratified tri-licence verbatim: MIT code, OGL v3.0 curriculum content, Oak branding reserved (BRANDING.md)"
+        }
+      ],
+      "targetState": "Hold as the Oak agent-platform plugin leaf (subject derived by the owner-approved manifest arm ii-b, 2026-08-14); keep skill content grounded in the live Oak API per the plugin description, never embedded curriculum snapshots.",
+      "tranche": "none-assigned",
+      "licence": [
+        "code-mit",
+        "content-ogl",
+        "brand-reserved"
+      ]
+    },
+    {
       "dirPath": "research/web-app-deconstruction",
       "publishedName": null,
       "disposition": "classified",

@@ -35,6 +35,16 @@ describe('deriveSubjects — the mechanical subject predicate', () => {
     expect(agentTools?.sources).toContain('pnpm-member');
   });
 
+  it('includes the parent of a tracked .claude-plugin/plugin.json manifest (source ii-b, owner-approved 2026-08-14)', () => {
+    const subjects = deriveSubjects({
+      members: [...MEMBERS],
+      trackedFiles: ['plugins/oak-open-curriculum/.claude-plugin/plugin.json'],
+    });
+    const plugin = subjectByDir(subjects, 'plugins/oak-open-curriculum');
+    expect(plugin).toBeDefined();
+    expect(plugin?.sources).toContain('plugin-manifest-parent');
+  });
+
   it('includes the parent of a tracked package.json outside the member set (source ii)', () => {
     const subjects = deriveSubjects({
       members: [...MEMBERS],
