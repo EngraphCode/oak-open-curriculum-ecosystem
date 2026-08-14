@@ -1,0 +1,1320 @@
+{
+  "schema_version": "1.0.0",
+  "plan": ".agent/plans/delivery/workspace-classification-census.plan.md",
+  "note": "Detector facts only — mechanical observations; judged readings live in rows.json.",
+  "facts": [
+    {
+      "dirPath": ".",
+      "publishedName": null,
+      "manifest": {
+        "name": "@oaknational/open-curriculum-ecosystem",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": false,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards"
+        ]
+      },
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 765,
+        "codeFiles": 17
+      },
+      "oakMarkers": {
+        "oakInDocs": 6844,
+        "oakInSource": 60,
+        "cssOakVariables": 10,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 63
+      }
+    },
+    {
+      "dirPath": ".agent",
+      "publishedName": null,
+      "manifest": null,
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 4480,
+        "codeFiles": 36
+      },
+      "oakMarkers": {
+        "oakInDocs": 32150,
+        "oakInSource": 209,
+        "cssOakVariables": 496,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 778
+      }
+    },
+    {
+      "dirPath": ".agents/skills/clerk-nextjs-patterns/templates/nextjs-basic-auth",
+      "publishedName": null,
+      "manifest": {
+        "name": "clerk-nextjs",
+        "isPrivate": true,
+        "licence": null,
+        "hasExports": false,
+        "internalDependencies": []
+      },
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 5,
+        "codeFiles": 3
+      },
+      "oakMarkers": {
+        "oakInDocs": 0,
+        "oakInSource": 0,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": ".claude",
+      "publishedName": null,
+      "manifest": null,
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 299,
+        "codeFiles": 11
+      },
+      "oakMarkers": {
+        "oakInDocs": 126,
+        "oakInSource": 1,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 1
+      }
+    },
+    {
+      "dirPath": ".codex",
+      "publishedName": null,
+      "manifest": null,
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 33,
+        "codeFiles": 1
+      },
+      "oakMarkers": {
+        "oakInDocs": 4,
+        "oakInSource": 0,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": ".cursor",
+      "publishedName": null,
+      "manifest": null,
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 190,
+        "codeFiles": 3
+      },
+      "oakMarkers": {
+        "oakInDocs": 204,
+        "oakInSource": 2,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": ".husky",
+      "publishedName": null,
+      "manifest": null,
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 8,
+        "codeFiles": 1
+      },
+      "oakMarkers": {
+        "oakInDocs": 0,
+        "oakInSource": 0,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "agent-tools",
+      "publishedName": "@oaknational/agent-tools",
+      "manifest": {
+        "name": "@oaknational/agent-tools",
+        "isPrivate": true,
+        "licence": null,
+        "hasExports": false,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/result",
+          "@oaknational/safe-path",
+          "@oaknational/type-helpers",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 1319,
+        "codeFiles": 1283
+      },
+      "oakMarkers": {
+        "oakInDocs": 57,
+        "oakInSource": 1610,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 6,
+        "oakEnvKeys": 163
+      }
+    },
+    {
+      "dirPath": "apps/oak-curriculum-mcp-streamable-http",
+      "publishedName": "@oaknational/oak-curriculum-mcp-streamable-http",
+      "manifest": {
+        "name": "@oaknational/oak-curriculum-mcp-streamable-http",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": false,
+        "internalDependencies": [
+          "@oaknational/build-metadata",
+          "@oaknational/curriculum-sdk",
+          "@oaknational/env",
+          "@oaknational/env-resolution",
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/logger",
+          "@oaknational/oak-design-assets",
+          "@oaknational/oak-design-system",
+          "@oaknational/oak-design-tokens",
+          "@oaknational/oak-search-sdk",
+          "@oaknational/observability",
+          "@oaknational/posthog-node",
+          "@oaknational/result",
+          "@oaknational/sdk-codegen",
+          "@oaknational/sentry-node",
+          "@oaknational/type-helpers",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 390,
+        "codeFiles": 340
+      },
+      "oakMarkers": {
+        "oakInDocs": 222,
+        "oakInSource": 1514,
+        "cssOakVariables": 535,
+        "dottedOakNamespaces": 63,
+        "oakEnvKeys": 218
+      }
+    },
+    {
+      "dirPath": "apps/oak-search-cli",
+      "publishedName": "@oaknational/search-cli",
+      "manifest": {
+        "name": "@oaknational/search-cli",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": false,
+        "internalDependencies": [
+          "@oaknational/build-metadata",
+          "@oaknational/curriculum-sdk",
+          "@oaknational/env",
+          "@oaknational/env-resolution",
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/logger",
+          "@oaknational/oak-search-sdk",
+          "@oaknational/observability",
+          "@oaknational/result",
+          "@oaknational/safe-path",
+          "@oaknational/sdk-codegen",
+          "@oaknational/search-contracts",
+          "@oaknational/sentry-node",
+          "@oaknational/type-helpers",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 905,
+        "codeFiles": 796
+      },
+      "oakMarkers": {
+        "oakInDocs": 375,
+        "oakInSource": 1397,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 13,
+        "oakEnvKeys": 57
+      }
+    },
+    {
+      "dirPath": "demos/oak-curriculum-hub",
+      "publishedName": "@oaknational/oak-curriculum-hub",
+      "manifest": {
+        "name": "@oaknational/oak-curriculum-hub",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": false,
+        "internalDependencies": [
+          "@oaknational/curriculum-sdk",
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/fidelity-review",
+          "@oaknational/oak-design-react",
+          "@oaknational/oak-design-system",
+          "@oaknational/oak-search-sdk",
+          "@oaknational/result"
+        ]
+      },
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 183,
+        "codeFiles": 169
+      },
+      "oakMarkers": {
+        "oakInDocs": 57,
+        "oakInSource": 441,
+        "cssOakVariables": 2,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 14
+      }
+    },
+    {
+      "dirPath": "demos/oak-design-showcase",
+      "publishedName": "@oaknational/oak-design-showcase",
+      "manifest": {
+        "name": "@oaknational/oak-design-showcase",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": false,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/fidelity-review",
+          "@oaknational/oak-design-react",
+          "@oaknational/oak-design-system",
+          "@oaknational/result",
+          "@oaknational/type-helpers"
+        ]
+      },
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 96,
+        "codeFiles": 81
+      },
+      "oakMarkers": {
+        "oakInDocs": 17,
+        "oakInSource": 584,
+        "cssOakVariables": 10,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/core/build-metadata",
+      "publishedName": "@oaknational/build-metadata",
+      "manifest": {
+        "name": "@oaknational/build-metadata",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/env",
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/result",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/posthog-node",
+        "@oaknational/search-cli",
+        "@oaknational/sentry-node"
+      ],
+      "fileProfile": {
+        "trackedFiles": 25,
+        "codeFiles": 20
+      },
+      "oakMarkers": {
+        "oakInDocs": 1,
+        "oakInSource": 38,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 4,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/core/env",
+      "publishedName": "@oaknational/env",
+      "manifest": {
+        "name": "@oaknational/env",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/observability",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/build-metadata",
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/search-cli"
+      ],
+      "fileProfile": {
+        "trackedFiles": 29,
+        "codeFiles": 23
+      },
+      "oakMarkers": {
+        "oakInDocs": 15,
+        "oakInSource": 43,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 7
+      }
+    },
+    {
+      "dirPath": "packages/core/graph-core",
+      "publishedName": "@oaknational/graph-core",
+      "manifest": {
+        "name": "@oaknational/graph-core",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/result",
+          "@oaknational/type-helpers",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/graph-corpus-sdk",
+        "@oaknational/graph-ingest",
+        "@oaknational/graph-project"
+      ],
+      "fileProfile": {
+        "trackedFiles": 44,
+        "codeFiles": 39
+      },
+      "oakMarkers": {
+        "oakInDocs": 11,
+        "oakInSource": 19,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/core/oak-eslint",
+      "publishedName": "@oaknational/eslint-plugin-standards",
+      "manifest": {
+        "name": "@oaknational/eslint-plugin-standards",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/agent-tools",
+        "@oaknational/build-metadata",
+        "@oaknational/curriculum-sdk",
+        "@oaknational/design-tokens-core",
+        "@oaknational/env",
+        "@oaknational/env-resolution",
+        "@oaknational/fidelity-review",
+        "@oaknational/graph-core",
+        "@oaknational/graph-corpus-sdk",
+        "@oaknational/graph-ingest",
+        "@oaknational/graph-project",
+        "@oaknational/logger",
+        "@oaknational/oak-curriculum-hub",
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/oak-design-ink",
+        "@oaknational/oak-design-react",
+        "@oaknational/oak-design-showcase",
+        "@oaknational/oak-design-system",
+        "@oaknational/oak-design-tokens",
+        "@oaknational/oak-search-sdk",
+        "@oaknational/observability",
+        "@oaknational/open-curriculum-ecosystem",
+        "@oaknational/openapi-zod-client-adapter",
+        "@oaknational/posthog-node",
+        "@oaknational/research-evidence",
+        "@oaknational/result",
+        "@oaknational/safe-path",
+        "@oaknational/sdk-codegen",
+        "@oaknational/search-cli",
+        "@oaknational/search-contracts",
+        "@oaknational/sentry-node",
+        "@oaknational/type-helpers"
+      ],
+      "fileProfile": {
+        "trackedFiles": 51,
+        "codeFiles": 45
+      },
+      "oakMarkers": {
+        "oakInDocs": 14,
+        "oakInSource": 535,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 2
+      }
+    },
+    {
+      "dirPath": "packages/core/observability",
+      "publishedName": "@oaknational/observability",
+      "manifest": {
+        "name": "@oaknational/observability",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/result",
+          "@oaknational/type-helpers",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/env",
+        "@oaknational/logger",
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/oak-search-sdk",
+        "@oaknational/posthog-node",
+        "@oaknational/sdk-codegen",
+        "@oaknational/search-cli",
+        "@oaknational/sentry-node"
+      ],
+      "fileProfile": {
+        "trackedFiles": 25,
+        "codeFiles": 20
+      },
+      "oakMarkers": {
+        "oakInDocs": 9,
+        "oakInSource": 16,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 3,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/core/openapi-zod-client-adapter",
+      "publishedName": "@oaknational/openapi-zod-client-adapter",
+      "manifest": {
+        "name": "@oaknational/openapi-zod-client-adapter",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/sdk-codegen"
+      ],
+      "fileProfile": {
+        "trackedFiles": 16,
+        "codeFiles": 11
+      },
+      "oakMarkers": {
+        "oakInDocs": 2,
+        "oakInSource": 7,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/core/result",
+      "publishedName": "@oaknational/result",
+      "manifest": {
+        "name": "@oaknational/result",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/agent-tools",
+        "@oaknational/build-metadata",
+        "@oaknational/curriculum-sdk",
+        "@oaknational/design-tokens-core",
+        "@oaknational/fidelity-review",
+        "@oaknational/graph-core",
+        "@oaknational/graph-corpus-sdk",
+        "@oaknational/graph-ingest",
+        "@oaknational/oak-curriculum-hub",
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/oak-design-showcase",
+        "@oaknational/oak-design-tokens",
+        "@oaknational/oak-search-sdk",
+        "@oaknational/observability",
+        "@oaknational/posthog-node",
+        "@oaknational/sdk-codegen",
+        "@oaknational/search-cli",
+        "@oaknational/sentry-node"
+      ],
+      "fileProfile": {
+        "trackedFiles": 12,
+        "codeFiles": 7
+      },
+      "oakMarkers": {
+        "oakInDocs": 6,
+        "oakInSource": 5,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/core/safe-path",
+      "publishedName": "@oaknational/safe-path",
+      "manifest": {
+        "name": "@oaknational/safe-path",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/agent-tools",
+        "@oaknational/search-cli"
+      ],
+      "fileProfile": {
+        "trackedFiles": 10,
+        "codeFiles": 5
+      },
+      "oakMarkers": {
+        "oakInDocs": 4,
+        "oakInSource": 3,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/core/type-helpers",
+      "publishedName": "@oaknational/type-helpers",
+      "manifest": {
+        "name": "@oaknational/type-helpers",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/agent-tools",
+        "@oaknational/curriculum-sdk",
+        "@oaknational/graph-core",
+        "@oaknational/logger",
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/oak-design-showcase",
+        "@oaknational/oak-search-sdk",
+        "@oaknational/observability",
+        "@oaknational/sdk-codegen",
+        "@oaknational/search-cli",
+        "@oaknational/search-contracts",
+        "@oaknational/sentry-node"
+      ],
+      "fileProfile": {
+        "trackedFiles": 21,
+        "codeFiles": 6
+      },
+      "oakMarkers": {
+        "oakInDocs": 10,
+        "oakInSource": 6,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/core/workspace-config",
+      "publishedName": "@oaknational/workspace-config",
+      "manifest": {
+        "name": "@oaknational/workspace-config",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": []
+      },
+      "internalDependents": [
+        "@oaknational/agent-tools",
+        "@oaknational/build-metadata",
+        "@oaknational/curriculum-sdk",
+        "@oaknational/design-tokens-core",
+        "@oaknational/env",
+        "@oaknational/env-resolution",
+        "@oaknational/eslint-plugin-standards",
+        "@oaknational/fidelity-review",
+        "@oaknational/graph-core",
+        "@oaknational/graph-corpus-sdk",
+        "@oaknational/graph-ingest",
+        "@oaknational/graph-project",
+        "@oaknational/logger",
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/oak-design-ink",
+        "@oaknational/oak-design-react",
+        "@oaknational/oak-design-system",
+        "@oaknational/oak-design-tokens",
+        "@oaknational/oak-search-sdk",
+        "@oaknational/observability",
+        "@oaknational/openapi-zod-client-adapter",
+        "@oaknational/posthog-node",
+        "@oaknational/research-evidence",
+        "@oaknational/result",
+        "@oaknational/safe-path",
+        "@oaknational/sdk-codegen",
+        "@oaknational/search-cli",
+        "@oaknational/search-contracts",
+        "@oaknational/sentry-node",
+        "@oaknational/type-helpers"
+      ],
+      "fileProfile": {
+        "trackedFiles": 11,
+        "codeFiles": 6
+      },
+      "oakMarkers": {
+        "oakInDocs": 8,
+        "oakInSource": 6,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/design/design-tokens-core",
+      "publishedName": "@oaknational/design-tokens-core",
+      "manifest": {
+        "name": "@oaknational/design-tokens-core",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/result",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/oak-design-tokens"
+      ],
+      "fileProfile": {
+        "trackedFiles": 31,
+        "codeFiles": 26
+      },
+      "oakMarkers": {
+        "oakInDocs": 4,
+        "oakInSource": 34,
+        "cssOakVariables": 13,
+        "dottedOakNamespaces": 2,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/design/oak-design-assets",
+      "publishedName": "@oaknational/oak-design-assets",
+      "manifest": {
+        "name": "@oaknational/oak-design-assets",
+        "isPrivate": true,
+        "licence": "SEE LICENSE IN LICENCES.md",
+        "hasExports": true,
+        "internalDependencies": []
+      },
+      "internalDependents": [
+        "@oaknational/oak-curriculum-mcp-streamable-http"
+      ],
+      "fileProfile": {
+        "trackedFiles": 4,
+        "codeFiles": 0
+      },
+      "oakMarkers": {
+        "oakInDocs": 12,
+        "oakInSource": 0,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/design/oak-design-ink",
+      "publishedName": "@oaknational/oak-design-ink",
+      "manifest": {
+        "name": "@oaknational/oak-design-ink",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/oak-design-tokens",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 12,
+        "codeFiles": 7
+      },
+      "oakMarkers": {
+        "oakInDocs": 6,
+        "oakInSource": 41,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/design/oak-design-react",
+      "publishedName": "@oaknational/oak-design-react",
+      "manifest": {
+        "name": "@oaknational/oak-design-react",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/oak-curriculum-hub",
+        "@oaknational/oak-design-showcase"
+      ],
+      "fileProfile": {
+        "trackedFiles": 11,
+        "codeFiles": 6
+      },
+      "oakMarkers": {
+        "oakInDocs": 10,
+        "oakInSource": 72,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/design/oak-design-system",
+      "publishedName": "@oaknational/oak-design-system",
+      "manifest": {
+        "name": "@oaknational/oak-design-system",
+        "isPrivate": true,
+        "licence": "SEE LICENSE IN LICENCES.md",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/oak-curriculum-hub",
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/oak-design-showcase",
+        "@oaknational/oak-design-tokens"
+      ],
+      "fileProfile": {
+        "trackedFiles": 654,
+        "codeFiles": 47
+      },
+      "oakMarkers": {
+        "oakInDocs": 1041,
+        "oakInSource": 351,
+        "cssOakVariables": 1564,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 9
+      }
+    },
+    {
+      "dirPath": "packages/design/oak-design-tokens",
+      "publishedName": "@oaknational/oak-design-tokens",
+      "manifest": {
+        "name": "@oaknational/oak-design-tokens",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/design-tokens-core",
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/oak-design-system",
+          "@oaknational/result",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/oak-design-ink"
+      ],
+      "fileProfile": {
+        "trackedFiles": 29,
+        "codeFiles": 20
+      },
+      "oakMarkers": {
+        "oakInDocs": 7,
+        "oakInSource": 96,
+        "cssOakVariables": 17,
+        "dottedOakNamespaces": 6,
+        "oakEnvKeys": 3
+      }
+    },
+    {
+      "dirPath": "packages/libs/env-resolution",
+      "publishedName": "@oaknational/env-resolution",
+      "manifest": {
+        "name": "@oaknational/env-resolution",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/search-cli"
+      ],
+      "fileProfile": {
+        "trackedFiles": 16,
+        "codeFiles": 11
+      },
+      "oakMarkers": {
+        "oakInDocs": 10,
+        "oakInSource": 11,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/libs/fidelity-review",
+      "publishedName": "@oaknational/fidelity-review",
+      "manifest": {
+        "name": "@oaknational/fidelity-review",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/result",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/oak-curriculum-hub",
+        "@oaknational/oak-design-showcase"
+      ],
+      "fileProfile": {
+        "trackedFiles": 59,
+        "codeFiles": 54
+      },
+      "oakMarkers": {
+        "oakInDocs": 2,
+        "oakInSource": 110,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/libs/graph-ingest",
+      "publishedName": "@oaknational/graph-ingest",
+      "manifest": {
+        "name": "@oaknational/graph-ingest",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/graph-core",
+          "@oaknational/result",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 23,
+        "codeFiles": 18
+      },
+      "oakMarkers": {
+        "oakInDocs": 12,
+        "oakInSource": 22,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/libs/graph-project",
+      "publishedName": "@oaknational/graph-project",
+      "manifest": {
+        "name": "@oaknational/graph-project",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/graph-core",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 17,
+        "codeFiles": 12
+      },
+      "oakMarkers": {
+        "oakInDocs": 8,
+        "oakInSource": 38,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/libs/logger",
+      "publishedName": "@oaknational/logger",
+      "manifest": {
+        "name": "@oaknational/logger",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/observability",
+          "@oaknational/type-helpers",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/curriculum-sdk",
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/oak-search-sdk",
+        "@oaknational/sdk-codegen",
+        "@oaknational/search-cli",
+        "@oaknational/sentry-node"
+      ],
+      "fileProfile": {
+        "trackedFiles": 41,
+        "codeFiles": 34
+      },
+      "oakMarkers": {
+        "oakInDocs": 25,
+        "oakInSource": 36,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 1,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/libs/posthog-node",
+      "publishedName": "@oaknational/posthog-node",
+      "manifest": {
+        "name": "@oaknational/posthog-node",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/build-metadata",
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/observability",
+          "@oaknational/result",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/oak-curriculum-mcp-streamable-http"
+      ],
+      "fileProfile": {
+        "trackedFiles": 37,
+        "codeFiles": 32
+      },
+      "oakMarkers": {
+        "oakInDocs": 5,
+        "oakInSource": 217,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 8
+      }
+    },
+    {
+      "dirPath": "packages/libs/search-contracts",
+      "publishedName": "@oaknational/search-contracts",
+      "manifest": {
+        "name": "@oaknational/search-contracts",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/sdk-codegen",
+          "@oaknational/type-helpers",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/oak-search-sdk",
+        "@oaknational/search-cli"
+      ],
+      "fileProfile": {
+        "trackedFiles": 12,
+        "codeFiles": 7
+      },
+      "oakMarkers": {
+        "oakInDocs": 4,
+        "oakInSource": 30,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 14
+      }
+    },
+    {
+      "dirPath": "packages/libs/sentry-node",
+      "publishedName": "@oaknational/sentry-node",
+      "manifest": {
+        "name": "@oaknational/sentry-node",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/build-metadata",
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/logger",
+          "@oaknational/observability",
+          "@oaknational/result",
+          "@oaknational/type-helpers",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/search-cli"
+      ],
+      "fileProfile": {
+        "trackedFiles": 32,
+        "codeFiles": 26
+      },
+      "oakMarkers": {
+        "oakInDocs": 17,
+        "oakInSource": 71,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 3,
+        "oakEnvKeys": 2
+      }
+    },
+    {
+      "dirPath": "packages/sdks/graph-corpus-sdk",
+      "publishedName": "@oaknational/graph-corpus-sdk",
+      "manifest": {
+        "name": "@oaknational/graph-corpus-sdk",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/graph-core",
+          "@oaknational/result",
+          "@oaknational/sdk-codegen",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/curriculum-sdk"
+      ],
+      "fileProfile": {
+        "trackedFiles": 40,
+        "codeFiles": 35
+      },
+      "oakMarkers": {
+        "oakInDocs": 11,
+        "oakInSource": 41,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
+      "dirPath": "packages/sdks/oak-curriculum-sdk",
+      "publishedName": "@oaknational/curriculum-sdk",
+      "manifest": {
+        "name": "@oaknational/curriculum-sdk",
+        "isPrivate": false,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/graph-corpus-sdk",
+          "@oaknational/logger",
+          "@oaknational/result",
+          "@oaknational/sdk-codegen",
+          "@oaknational/type-helpers",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/oak-curriculum-hub",
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/search-cli"
+      ],
+      "fileProfile": {
+        "trackedFiles": 197,
+        "codeFiles": 184
+      },
+      "oakMarkers": {
+        "oakInDocs": 63,
+        "oakInSource": 831,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 39
+      }
+    },
+    {
+      "dirPath": "packages/sdks/oak-sdk-codegen",
+      "publishedName": "@oaknational/sdk-codegen",
+      "manifest": {
+        "name": "@oaknational/sdk-codegen",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/logger",
+          "@oaknational/observability",
+          "@oaknational/openapi-zod-client-adapter",
+          "@oaknational/result",
+          "@oaknational/type-helpers",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/curriculum-sdk",
+        "@oaknational/graph-corpus-sdk",
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/oak-search-sdk",
+        "@oaknational/search-cli",
+        "@oaknational/search-contracts"
+      ],
+      "fileProfile": {
+        "trackedFiles": 490,
+        "codeFiles": 475
+      },
+      "oakMarkers": {
+        "oakInDocs": 59,
+        "oakInSource": 1426,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 10,
+        "oakEnvKeys": 139
+      }
+    },
+    {
+      "dirPath": "packages/sdks/oak-search-sdk",
+      "publishedName": "@oaknational/oak-search-sdk",
+      "manifest": {
+        "name": "@oaknational/oak-search-sdk",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": true,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/logger",
+          "@oaknational/observability",
+          "@oaknational/result",
+          "@oaknational/sdk-codegen",
+          "@oaknational/search-contracts",
+          "@oaknational/type-helpers",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [
+        "@oaknational/oak-curriculum-hub",
+        "@oaknational/oak-curriculum-mcp-streamable-http",
+        "@oaknational/search-cli"
+      ],
+      "fileProfile": {
+        "trackedFiles": 103,
+        "codeFiles": 98
+      },
+      "oakMarkers": {
+        "oakInDocs": 22,
+        "oakInSource": 462,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 19
+      }
+    },
+    {
+      "dirPath": "research/web-app-deconstruction",
+      "publishedName": null,
+      "manifest": {
+        "name": "@oaknational/web-app-deconstruction",
+        "isPrivate": true,
+        "licence": "MIT",
+        "hasExports": false,
+        "internalDependencies": []
+      },
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 101,
+        "codeFiles": 0
+      },
+      "oakMarkers": {
+        "oakInDocs": 5231,
+        "oakInSource": 0,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 11
+      }
+    },
+    {
+      "dirPath": "research/web-app-deconstruction/packages/research-evidence",
+      "publishedName": "@oaknational/research-evidence",
+      "manifest": {
+        "name": "@oaknational/research-evidence",
+        "isPrivate": true,
+        "licence": null,
+        "hasExports": false,
+        "internalDependencies": [
+          "@oaknational/eslint-plugin-standards",
+          "@oaknational/workspace-config"
+        ]
+      },
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 40,
+        "codeFiles": 35
+      },
+      "oakMarkers": {
+        "oakInDocs": 29,
+        "oakInSource": 232,
+        "cssOakVariables": 5,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 2
+      }
+    },
+    {
+      "dirPath": "runtime-only-scripts",
+      "publishedName": null,
+      "manifest": null,
+      "internalDependents": [],
+      "fileProfile": {
+        "trackedFiles": 3,
+        "codeFiles": 2
+      },
+      "oakMarkers": {
+        "oakInDocs": 1,
+        "oakInSource": 0,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    }
+  ]
+}

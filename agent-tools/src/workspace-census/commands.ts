@@ -23,7 +23,9 @@ export interface CommandContext {
   readonly stderr: Pick<NodeJS.WriteStream, 'write'>;
 }
 
-async function deriveLiveSubjects(repoRoot: string): Promise<Result<CensusSubject[], string>> {
+export async function deriveLiveSubjects(
+  repoRoot: string,
+): Promise<Result<CensusSubject[], string>> {
   const [members, trackedFiles] = await Promise.all([
     listMembers(repoRoot),
     listTrackedFiles(repoRoot),

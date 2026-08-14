@@ -11,15 +11,17 @@ import { err, ok, type Result } from '@oaknational/result';
 
 import { DEFAULT_LEGACY_PATH, DEFAULT_ROWS_PATH } from './artefact.js';
 import { runCheck, runDelta, runSkeleton, runSubjects, type CommandContext } from './commands.js';
+import { runFacts } from './facts-command.js';
 
 function usage(): string {
   return [
-    'Usage: workspace-census <subjects|skeleton|check|delta> [options]',
+    'Usage: workspace-census <subjects|skeleton|check|delta|facts> [options]',
     '',
     '  subjects  [--repo-root <path>] [--json]',
     '  skeleton  [--repo-root <path>] [--rows <path>]',
     '  check     [--repo-root <path>] [--rows <path>]',
     '  delta     [--repo-root <path>] [--rows <path>] [--legacy <path>] [--json]',
+    '  facts     [--repo-root <path>]',
     '',
     `Defaults: --rows ${DEFAULT_ROWS_PATH}`,
     `          --legacy ${DEFAULT_LEGACY_PATH}`,
@@ -116,6 +118,7 @@ const COMMANDS: Readonly<Record<string, (context: CommandContext) => Promise<num
   skeleton: runSkeleton,
   check: runCheck,
   delta: runDelta,
+  facts: runFacts,
 };
 
 async function main(): Promise<number> {
