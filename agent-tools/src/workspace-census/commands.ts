@@ -102,7 +102,9 @@ export async function runSkeleton(context: CommandContext): Promise<number> {
   return 0;
 }
 
-async function loadRowsArtefact(context: CommandContext): Promise<Result<RowsArtefact, string>> {
+export async function loadRowsArtefact(
+  context: CommandContext,
+): Promise<Result<RowsArtefact, string>> {
   const readResult = await readRowsArtefact(path.resolve(context.repoRoot, context.rowsPath));
   if (!readResult.ok) {
     return err(readResult.error);
@@ -153,7 +155,7 @@ function renderDeltaText(legacyCount: number, delta: DeltaResult): string {
   ].join('\n');
 }
 
-async function readLegacyMarkdown(context: CommandContext): Promise<Result<string, string>> {
+export async function readLegacyMarkdown(context: CommandContext): Promise<Result<string, string>> {
   try {
     return ok(await fs.readFile(path.resolve(context.repoRoot, context.legacyPath), 'utf8'));
   } catch (error) {
