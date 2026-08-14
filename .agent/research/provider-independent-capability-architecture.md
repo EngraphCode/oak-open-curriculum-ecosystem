@@ -463,7 +463,9 @@ offline collaborative documents rather than transactional operational state.
 
 ## Primary sources
 
-External claims were checked against these first-party sources on 2026-08-13:
+External claims were checked against these first-party sources on
+2026-08-13; the list was extended 2026-08-14 to cover the S3-compatible,
+search, and collector technologies named above:
 
 - [Neon: connection methods for Vercel](https://neon.com/docs/guides/vercel-connection-methods)
 - [Neon: branching introduction](https://neon.com/docs/guides/branching-intro)
@@ -478,3 +480,7 @@ External claims were checked against these first-party sources on 2026-08-13:
 - [CloudEvents](https://cloudevents.io/)
 - [Valkey](https://valkey.io/)
 - [Automerge concepts](https://automerge.org/docs/reference/concepts/)
+- [Amazon S3 REST API](https://docs.aws.amazon.com/AmazonS3/latest/API/Welcome.html)
+- [Elasticsearch documentation](https://www.elastic.co/docs)
+- [OpenSearch documentation](https://opensearch.org/docs/latest/)
+- [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/)

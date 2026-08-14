@@ -60,8 +60,9 @@ review, 2026-08-14): **no capability or running system may become
 structurally dependent on one vendor or one external service.** The
 constraint is established here and is not a restatement of any earlier
 record; per the repository ADR lifecycle, its obligations — including every
-MUST below — take force at this record's acceptance, and the scope
-paragraph below governs what they bind from that point forward.
+MUST below — take force at this record's acceptance, which requires
+PDR-139, also Proposed, to be accepted first or in the same change; the
+scope paragraph below governs what they bind from that point forward.
 
 This repository adopts PDR-139 as the semantic authority for every capability
 that crosses a replaceable runtime or external-service boundary. This ADR
@@ -79,7 +80,8 @@ records the repository phenotype; it does not restate the portable contract.
   adapter lives in `packages/core` or a foundation lib; adapter libs do not
   import one another (ADR-041).
 - Each runnable host selects its capabilities and bindings at its composition
-  root. Composition and the selected provider binding are the only layers that
+  root. Composition, the selected provider binding, and any provider-specific
+  technology adapter justified under PDR-139 part 4 are the only layers that
   know provider identity or configuration.
 - Each supported host profile records its required capabilities, optional
   capabilities, declared reduced modes, and independent composition for every
