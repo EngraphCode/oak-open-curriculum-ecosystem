@@ -57,9 +57,11 @@ migration.
 
 This decision establishes the repository constraint (owner-declared at
 review, 2026-08-14): **no capability or running system may become
-structurally dependent on one vendor or one external service.** The constraint is
-established here and binds forward; it is not a restatement of any earlier
-record.
+structurally dependent on one vendor or one external service.** The
+constraint is established here and is not a restatement of any earlier
+record; per the repository ADR lifecycle, its obligations — including every
+MUST below — take force at this record's acceptance, and the scope
+paragraph below governs what they bind from that point forward.
 
 This repository adopts PDR-139 as the semantic authority for every capability
 that crosses a replaceable runtime or external-service boundary. This ADR

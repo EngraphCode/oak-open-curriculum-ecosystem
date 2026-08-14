@@ -185,8 +185,9 @@ an observable continuity property.
   authority and replacement crosses every consumer.
 - **Universal provider interface.** Distinct capabilities and guarantees are
   flattened into a lowest-common-denominator abstraction.
-- **One binding per brand.** Shared protocol behaviour is duplicated and brand
-  identity is mistaken for a semantic boundary.
+- **One technology adapter per brand.** Shared protocol behaviour is
+  duplicated and brand identity is mistaken for a semantic boundary; every
+  selected provider still receives its provider binding (part 3).
 - **Universal null binding.** Invalid absence is hidden as successful
   behaviour.
 - **Provider extensions on the base contract.** One phenotype defines the
