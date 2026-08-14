@@ -74,19 +74,26 @@ edits. The deliverable is one report under
 existing home) carrying:
 
 1. **A disposition ledger** at a defined member granularity: one row per
-   top-level member of `detector-config.json` (30 members — the contract's
-   real knobs), one row per `properties` member of each of the three
-   schemas (37 + 15 + 17), with each schema's `$defs` riding the row of the
-   property that references them; plus one row per promotion-test gate
-   (10), per architectural-value-stack layer (5), and per named calibration
-   finding and knowledge-safety constraint. The row sets split by
+   top-level member of `detector-config.json` (37 members by fresh
+   recount at execution open, 2026-08-14 — 31 contract knobs plus 6
+   contract-metadata members, `schemaVersion` `contractRevision`
+   `reviewId` `calibrationBaseCommit` `frozenAt` `refreezeReason`, each
+   metadata member still taking a row: the metadata fields carry the
+   freeze discipline itself, which is exactly the kind of element the
+   `survey-method` target exists for), one row per `properties` member
+   of each of the three schemas (37 + 15 + 17, recount-confirmed), with
+   each schema's `$defs` riding the row of the property that references
+   them; plus one row per promotion-test gate (10, recount-confirmed),
+   per architectural-value-stack layer (5, recount-confirmed), and per
+   named calibration finding and knowledge-safety constraint. The row sets split by
    derivation class: contract members, schema properties, gates, and
    layers are MECHANICALLY derivable (jq keys; the frame's own tables);
    calibration findings and knowledge-safety constraints are
    PROSE-DERIVED — they enter via a committed enumerated list whose
    derivation is documented row-by-row (source heading + anchor), which
    the instrument then checks coverage against; a reviewer spot-checks
-   the list against the prose. Expected ledger size: ~110–130 rows.
+   the list against the prose. Expected ledger size: ~125–150 rows
+   (121 mechanical + the prose-derived sets).
    Each row: `proved` / `generalises-to <target>` /
    `dies-because <reason>`, with pointers. (The disposition-ledger
    discipline: every input gets a recorded decision; work is sized to
@@ -213,3 +220,15 @@ of, this node.
   seat). The vocabulary, its escape value, and its route-once semantics
   now live in mechanism item 1; acceptance criterion 3 validates
   against it.
+- **2026-08-14 — member counts corrected at the execution-open recount.**
+  The authoring-time claim "30 members — the contract's real knobs" for
+  `detector-config.json` was wrong: `jq 'keys | length'` over the frozen
+  file returns **37** (31 knobs + 6 contract-metadata members, named in
+  mechanism item 1). The three schema counts (37 + 15 + 17), the gate
+  count (10), and the layer count (5) recount-confirmed against the
+  frozen files and the frame's own tables. Expected ledger size revised
+  ~110–130 → ~125–150. Technical correction, no scope change: the
+  mechanism already declares jq keys as the mechanical derivation — the
+  parenthetical was an estimate the derivation now supersedes. This is
+  the freeze-entry falsifier ("check the plan's claimed counts before
+  filling") firing as designed.
