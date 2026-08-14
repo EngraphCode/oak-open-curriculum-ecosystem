@@ -7,6 +7,14 @@
 and
 [PDR-139](../practice-core/decision-records/PDR-139-provider-independent-capability-composition.md)
 
+**Related repository research**: the
+[web-app-deconstruction meta-analysis](../../research/web-app-deconstruction/docs/synthesis/meta-analysis.md)
+independently mapped this report's problem a month earlier — its
+negative-space row "tested semantic portability, exit, restoration and
+retained options" and lens 30 ("adapters do not establish artefact identity
+or semantic substitutability") name the gap this report's
+provider-independence floor answers.
+
 ## Executive finding
 
 The durable architectural unit is a **capability**, not a vendor and not a
@@ -41,9 +49,9 @@ and it does not make every capability optional.
 ## Research question
 
 How can the repository add PostgreSQL support, with Neon as a candidate managed
-provider, while preserving the founding constraint that no capability or
-running system is structurally dependent on one vendor or one external
-service?
+provider, under the owner-declared constraint — established as repository
+doctrine in ADR-225 (2026-08-14) — that no capability or running system is
+structurally dependent on one vendor or one external service?
 
 The question expands into six tests:
 
@@ -345,6 +353,9 @@ publisher never drops a required obligation. An omitted capability reduces the
 composed system; it does not invite a false success response.
 
 ## The provider-independence floor
+
+The normative statement of this floor is PDR-139 parts 8–9; this section is
+the research derivation.
 
 An interface seam is necessary but does not establish service independence.
 For each named provider used by a host, one documented and exercised supported

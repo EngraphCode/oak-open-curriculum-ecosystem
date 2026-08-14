@@ -4,13 +4,25 @@
 **Date**: 2026-08-13  
 **Related**:
 [ADR-024](024-dependency-injection-pattern.md) — injected I/O;
-[ADR-042](042-runtime-adapters-folder.md) — runtime adapter boundary;
+[ADR-041](041-workspace-structure-option-a.md) — workspace tiers; adapter
+workspaces live in the `packages/libs` tier;
+[ADR-042](042-runtime-adapters-folder.md) — runtime adapter boundary (its
+dedicated folder was never realised; the boundary obligation carries in the
+ADR-041 tiers);
+[ADR-074](074-elastic-native-first-philosophy.md) — Elastic-native-first
+search (Accepted standing prior; see the scope paragraph below);
+[ADR-076](076-elser-only-embedding-strategy.md) — ELSER-only embedding
+(Accepted standing prior);
 [ADR-154](154-separate-framework-from-consumer.md) — framework and consumer
 separation;
 [ADR-155](155-decompose-at-the-tension.md) — responsibilities that change for
 different reasons remain separate;
+[ADR-162](162-observability-first.md) — observability-first five-axis
+emission (Proposed; the telemetry floor named below);
 [ADR-212](212-federated-visibility-authority-and-evidence-boundaries.md) —
 authority and external projection boundaries;
+[ADR-219](219-rate-limiting-is-an-edge-concern.md) — rate limiting at the
+edge (Accepted standing prior);
 [PDR-139](../../../.agent/practice-core/decision-records/PDR-139-provider-independent-capability-composition.md)
 — portable semantic authority;
 [research](../../../.agent/research/provider-independent-capability-architecture.md)
@@ -24,8 +36,16 @@ provider, makes the unresolved repository boundary visible: a managed provider
 can offer valuable operation without becoming the semantic owner of persistence
 or a requirement for every supported composition.
 
-Dependency injection and the runtime-adapter package provide the implementation
-seams. They do not yet record how this repository adopts the portable
+The repository already holds an owner-decided consumer for exactly this seam:
+the school-data-search POC's gates G-2 (Next.js host with Neon-preview
+opt-in) and G-4 (PostgreSQL-only redacted snapshots behind a storage-port
+seam) were decided on 2026-06-04, and the work is queued (plan at
+`.agent/plans-backlog-2026-07/school-data-search/current/school-data-search-poc.plan.md`;
+thread paused as of 2026-08-14). That consumer is motivating context, not
+prior authority for this decision's constraint.
+
+Dependency injection and the ADR-041 adapter workspaces provide the
+implementation seams. They do not yet record how this repository adopts the portable
 provider-independent capability pattern, how PostgreSQL and Neon divide across
 those seams, or what evidence makes a provider-independent host profile real.
 
@@ -35,6 +55,12 @@ migration.
 
 ## Decision
 
+This decision establishes the repository constraint (owner-declared at
+review, 2026-08-14): **no capability or running system is structurally
+dependent on one vendor or one external service.** The constraint is
+established here and binds forward; it is not a restatement of any earlier
+record.
+
 This repository adopts PDR-139 as the semantic authority for every capability
 that crosses a replaceable runtime or external-service boundary. This ADR
 records the repository phenotype; it does not restate the portable contract.
@@ -43,8 +69,9 @@ records the repository phenotype; it does not restate the portable contract.
 
 - Domain and application consumers receive semantically named capability
   contracts through the dependency-injection boundary established by ADR-024.
-- Technology adapters and provider bindings belong at the runtime-adapter
-  boundary established by ADR-042. Provider-specific SDK types, identifiers,
+- Technology adapters and provider bindings belong in adapter workspaces in
+  the ADR-041 `packages/libs` tier, carrying the boundary obligation ADR-042
+  named (its dedicated folder was never realised). Provider-specific SDK types, identifiers,
   configuration, lifecycle, and error translation do not cross into consumers
   or canonical domain records.
 - Each runnable host selects its capabilities and bindings at its composition
@@ -79,16 +106,21 @@ connection method, schema, or provider configuration.
 ### Supported independent compositions
 
 For every external provider selected by a supported host profile, the
-repository MUST document and exercise a supported composition without that
-provider. The independent composition may select a compatible provider, select
-a local or self-hosted binding, or omit a capability that is non-constitutive
-for that profile.
+repository MUST hold the documented and exercised independent composition
+that PDR-139 parts 8–9 define. Those parts are the normative statement of
+the floor and are not restated here. The repository sharpening: the host
+profile's declared purpose and guarantees — the referent of PDR-139's
+non-constitutive test — must be anchored in that profile's committed record,
+never declared at evaluation time.
 
-A capability is non-constitutive for a host profile only when omitting it
-preserves that profile's declared purpose and guarantees. Declaring a capability
-optional does not weaken this test. The requirement applies per provider; it
-does not make every capability optional and does not require one composition
-that omits every external service simultaneously.
+**Scope (owner ruling, 2026-08-14).** This obligation binds new provider
+selections and substantially refactored seams from this decision forward.
+Standing prior decisions are not retroactively bound: ADR-074 and ADR-076
+(Accepted; the Elastic-native and ELSER-only search posture), ADR-219
+(Accepted; edge rate limiting), and ADR-162 (Proposed; observability-first)
+stand on their own terms. Bringing any of those seams under this pattern is
+a decision taken at that seam's next substantial refactor, not an obligation
+created here.
 
 For a Neon PostgreSQL integration, the minimum independent composition is the
 same transactional capability served through PostgreSQL without Neon. It is
@@ -106,11 +138,15 @@ PDR-139 owns the general pattern; this ADR keeps only the repository-specific
 placement and PostgreSQL/Neon interpretation. That direction prevents the two
 decision records from becoming competing normative copies.
 
+The research document's four-layer table is illustrative orientation;
+PDR-139's nine parts are the normative statement of the pattern.
+
 Using PostgreSQL as the data-plane seam avoids adapters that differ only by
 provider name. Splitting the Neon control plane preserves access to useful
 managed features without allowing them to define transactional storage.
 
-A supported independent composition makes the founding constraint observable.
+A supported independent composition makes this decision's constraint
+observable.
 It proves more than interface shape: the host can serve its declared purpose
 without the named provider, and state can move when state is authoritative.
 
@@ -152,6 +188,10 @@ remain outside runtime composition.
   exercised independent composition for each selected provider.
 - Provider-specific extensions require separate contracts and remain
   independently removable.
+- A no-effect telemetry binding satisfies only the external sink. ADR-162's
+  observability-first emission obligations travel with the composed
+  observability adapters and are not discharged by omitting a telemetry
+  provider; only the provider sink is optional.
 - Stateful integrations carry repository-owned schema, migration, export, and
   restore obligations in addition to method conformance.
 - A provider seam can remain Proposed while its independent composition is not

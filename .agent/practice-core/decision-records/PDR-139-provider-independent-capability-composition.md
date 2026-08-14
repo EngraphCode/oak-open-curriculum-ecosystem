@@ -66,10 +66,13 @@ provider configuration.
 
 Authentication, connection strategy, SDK calls, provider identifiers,
 provider-specific error translation, quotas, and service lifecycle stay
-inside the provider binding. Translation of shared protocol-level errors
-into capability failure meaning belongs to the technology adapter (part 4),
-so conforming providers share it rather than reimplementing it per binding.
-Canonical domain identity and portable records do not encode them.
+inside the provider binding. Parsing of shared protocol-level errors and their translation into
+capability failure meaning belong to the technology adapter (part 4), so
+conforming providers share them rather than reimplementing them per binding;
+the provider binding retains a narrow classification right for
+provider-specific failures the shared protocol cannot distinguish, and that
+classification lands in the same capability failure vocabulary. Canonical
+domain identity and portable records do not encode them.
 
 ### 4. Reuse technology adapters
 
@@ -89,7 +92,9 @@ Each capability declares what absence means:
 
 - a required capability makes the composition invalid when absent;
 - an optional surface is not composed or advertised when absent;
-- a declared reduced mode exposes reduced guarantees explicitly; or
+- a declared reduced mode exposes reduced guarantees explicitly — a reduced
+  mode may reduce richness or availability, never safety: no data loss and
+  no false success; or
 - a no-effect binding is valid only when producing no external effect fulfils
   the capability contract.
 
