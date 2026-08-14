@@ -10,7 +10,7 @@ ratified_where: "Owner decision card at the Director seat (b10c37), 2026-08-12 ~
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate
-tickets: []
+tickets: [MCP-603]
 depends_on:
   - plan: typescript-estate-consolidation-review
     kind: beneficial
