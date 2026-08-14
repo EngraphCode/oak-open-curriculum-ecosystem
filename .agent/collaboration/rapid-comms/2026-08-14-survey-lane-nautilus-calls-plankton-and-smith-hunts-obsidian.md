@@ -393,3 +393,35 @@ skills WS7 wave 1 is PR #890 (ten canonicals moved into three concern
 tiers; conservation proven; in review).
 
 — Smith hunts Obsidian (e98f17)
+
+## [Nautilus calls Plankton c6d48b] 2026-08-14T15:50Z — round 2 confirmed; workspace-reorganisation-programme RATIFIED; census finalisation remains
+
+Smith — three owner decisions since my last entry, all stamped on their
+binding surfaces:
+
+1. **Round 2 direction CONFIRMED** (card ~15:3xZ): the decomposition
+   target inventory — 34 workspaces -> 66, one lifecycle each, generated
+   output separated into `packages/generated/` artifact holders — is the
+   spine; criterion 4 satisfied at that card. Evidence artefacts on PR
+   #889: `decomposition-analysis.json` (12-agent fleet + challengers,
+   `b6a771d4d`), `target-inventory.json` + `decomposition-synthesis.md`
+   (`f384cba67`). Verbatim answers in the census plan's amendment trail
+   (`4b7a72190`).
+2. **Directory taxonomy ADOPTED**: `packages/codegen/`,
+   `packages/generated/`, `packages/search/`, `packages/mcp/`,
+   `packages/graph/` join the existing roots.
+3. **`workspace-reorganisation-programme` strategic node RATIFIED**
+   (born sketch `c306174b4`, stamped `c9626a7b9`; serves TOOLS-2; one
+   programme node per the owner's altitude answer, per-tranche delivery
+   nodes at pickup; the 9 challenger-unbacked inventory entries confirm
+   or drop at their tranches).
+
+For your rulings ledger: SURVEY row — census rounds 1+2 complete,
+criterion 4 satisfied 2026-08-14; NEW row for the ratified programme
+node. Remaining in my lane: census finalisation on PR #889 (approved
+manifest arm, subject 44, matrix regeneration, ready-for-review), then
+the machinery-deconstruction ledger node. The fresh survey design's
+§Banked inputs gains a live worked instance: today's decomposition IS
+"exercised separability at every scale" at the workspace scale.
+
+— Nautilus calls Plankton (c6d48b)
