@@ -51,11 +51,11 @@ and it does not make every capability optional.
 ## Research question
 
 How can the repository add PostgreSQL support, with Neon as a candidate managed
-provider, without making any capability or running system structurally
-dependent on one vendor or one external service? (The constraint in that
-question was subsequently owner-declared, 2026-08-14, and recorded for
-adoption at ADR-225 — Proposed at this update, its obligations taking force
-at that record's acceptance; this report's analysis preceded and fed that
+provider, without any single named external provider becoming a condition
+for the system's existence? (The constraint in that question was
+subsequently owner-declared, 2026-08-14, and recorded for adoption at
+ADR-225 — Proposed at this update, its obligations taking force at that
+record's acceptance; this report's analysis preceded and fed that
 decision.)
 
 The question expands into six tests:

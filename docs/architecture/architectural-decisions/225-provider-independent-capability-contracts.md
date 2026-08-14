@@ -56,13 +56,13 @@ migration.
 ## Decision
 
 This decision establishes the repository constraint (owner-declared at
-review, 2026-08-14): **no capability or running system may become
-structurally dependent on one vendor or one external service.** The
+review, 2026-08-14): **no single named external provider may become a
+condition for this system's existence: every supported composition survives
+the loss of any one such provider — by a compatible provider, a local or
+self-hosted binding, or omission of a non-constitutive capability — and
+each surviving composition is exercised, not merely declared.** The
 constraint is established here and is not a restatement of any earlier
-record. It reads per named provider, as PDR-139 part 9 defines: each named
-external provider must be individually replaceable or omittable; a
-service-free composition is not required. Per the repository ADR lifecycle,
-its obligations — including every
+record. Per the repository ADR lifecycle, its obligations — including every
 MUST below — take force at this record's acceptance, which requires
 PDR-139, also Proposed, to be accepted first or in the same change; the
 scope paragraph below governs what they bind from that point forward.
