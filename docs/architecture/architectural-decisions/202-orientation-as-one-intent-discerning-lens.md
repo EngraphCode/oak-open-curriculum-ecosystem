@@ -88,7 +88,7 @@ setup distinct; seam unchanged); the skill is the source of truth for how that s
   surface, and it routes rather than restates.
 - The host now carries one repo-bound orientation lens behind the PDR-112 edge instead of two. The portable
   pattern's three-context generality is unaffected; this is a host-count change, recorded as phenotype.
-- The decision is operationalised in the skill canonical (`.agent/skills/under-the-hood/`), its generated
+- The decision is operationalised in the skill canonical (`.agent/skills/orientation/under-the-hood/`), its generated
   adapters (ADR-125), and the AGENT.md §Orientation Requests routing block. Validation is behavioural:
   simulated orientation conversations plus a live owner walkthrough, recorded on the onboarding-simulations
   register.
@@ -98,7 +98,7 @@ setup distinct; seam unchanged); the skill is the source of truth for how that s
 Two changes land together (PR #243), both consistent with the original Decision:
 
 1. **Name.** The lens's interim name (`explain` / `/oak-explain`) is superseded by **Oak: Under the
-   Hood** (command `/oak-under-the-hood`; canonical dir `.agent/skills/under-the-hood/` — the bare
+   Hood** (command `/oak-under-the-hood`; canonical dir `.agent/skills/orientation/under-the-hood/` — the bare
    concept name, since the `oak-` prefix is adapter-only). The earlier name was a placeholder; "Oak:
    Under the Hood" names the behaviour the lens performs — exploring THIS repository through the facet
    that fits the visitor (its impact, intent, mechanisms, or value), framed by Oak's public mission. The

@@ -2,7 +2,7 @@
  * Under-the-hood MCP content generator.
  *
  * Reads the canonical orientation skill
- * (`.agent/skills/under-the-hood/SKILL-CANONICAL.md`), classifies every
+ * (`.agent/skills/orientation/under-the-hood/SKILL-CANONICAL.md`), classifies every
  * section against the total allow/exclude lists in `sections.ts`, and emits
  * the served digest as a committed generated module in the MCP app
  * (`apps/oak-curriculum-mcp-streamable-http/src/generated/oak-under-the-hood-content.ts`).

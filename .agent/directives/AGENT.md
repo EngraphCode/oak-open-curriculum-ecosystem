@@ -129,8 +129,8 @@ directly, with no primer detour.
 
 On a loader platform invoke the skill (`/oak-working-with-agentic-ai`,
 `/oak-under-the-hood`); on a non-loader platform read and follow the canonical
-`.agent/skills/working-with-agentic-ai/SKILL-CANONICAL.md` or
-`.agent/skills/under-the-hood/SKILL-CANONICAL.md`.
+`.agent/skills/orientation/working-with-agentic-ai/SKILL-CANONICAL.md` or
+`.agent/skills/orientation/under-the-hood/SKILL-CANONICAL.md`.
 
 ## Project Context
 
