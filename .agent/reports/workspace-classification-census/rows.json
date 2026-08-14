@@ -1,0 +1,221 @@
+{
+  "schema_version": "1.0.0",
+  "plan": ".agent/plans/delivery/workspace-classification-census.plan.md",
+  "rows": [
+    {
+      "dirPath": ".",
+      "publishedName": null,
+      "disposition": "pending"
+    },
+    {
+      "dirPath": ".agent",
+      "publishedName": null,
+      "disposition": "pending"
+    },
+    {
+      "dirPath": ".agents/skills/clerk-nextjs-patterns/templates/nextjs-basic-auth",
+      "publishedName": null,
+      "disposition": "pending"
+    },
+    {
+      "dirPath": ".claude",
+      "publishedName": null,
+      "disposition": "pending"
+    },
+    {
+      "dirPath": ".codex",
+      "publishedName": null,
+      "disposition": "pending"
+    },
+    {
+      "dirPath": ".cursor",
+      "publishedName": null,
+      "disposition": "pending"
+    },
+    {
+      "dirPath": ".husky",
+      "publishedName": null,
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "agent-tools",
+      "publishedName": "@oaknational/agent-tools",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "apps/oak-curriculum-mcp-streamable-http",
+      "publishedName": "@oaknational/oak-curriculum-mcp-streamable-http",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "apps/oak-search-cli",
+      "publishedName": "@oaknational/search-cli",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "demos/oak-curriculum-hub",
+      "publishedName": "@oaknational/oak-curriculum-hub",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "demos/oak-design-showcase",
+      "publishedName": "@oaknational/oak-design-showcase",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/core/build-metadata",
+      "publishedName": "@oaknational/build-metadata",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/core/env",
+      "publishedName": "@oaknational/env",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/core/graph-core",
+      "publishedName": "@oaknational/graph-core",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/core/oak-eslint",
+      "publishedName": "@oaknational/eslint-plugin-standards",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/core/observability",
+      "publishedName": "@oaknational/observability",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/core/openapi-zod-client-adapter",
+      "publishedName": "@oaknational/openapi-zod-client-adapter",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/core/result",
+      "publishedName": "@oaknational/result",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/core/safe-path",
+      "publishedName": "@oaknational/safe-path",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/core/type-helpers",
+      "publishedName": "@oaknational/type-helpers",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/core/workspace-config",
+      "publishedName": "@oaknational/workspace-config",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/design/design-tokens-core",
+      "publishedName": "@oaknational/design-tokens-core",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/design/oak-design-assets",
+      "publishedName": "@oaknational/oak-design-assets",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/design/oak-design-ink",
+      "publishedName": "@oaknational/oak-design-ink",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/design/oak-design-react",
+      "publishedName": "@oaknational/oak-design-react",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/design/oak-design-system",
+      "publishedName": "@oaknational/oak-design-system",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/design/oak-design-tokens",
+      "publishedName": "@oaknational/oak-design-tokens",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/libs/env-resolution",
+      "publishedName": "@oaknational/env-resolution",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/libs/fidelity-review",
+      "publishedName": "@oaknational/fidelity-review",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/libs/graph-ingest",
+      "publishedName": "@oaknational/graph-ingest",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/libs/graph-project",
+      "publishedName": "@oaknational/graph-project",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/libs/logger",
+      "publishedName": "@oaknational/logger",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/libs/posthog-node",
+      "publishedName": "@oaknational/posthog-node",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/libs/search-contracts",
+      "publishedName": "@oaknational/search-contracts",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/libs/sentry-node",
+      "publishedName": "@oaknational/sentry-node",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/sdks/graph-corpus-sdk",
+      "publishedName": "@oaknational/graph-corpus-sdk",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/sdks/oak-curriculum-sdk",
+      "publishedName": "@oaknational/curriculum-sdk",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/sdks/oak-sdk-codegen",
+      "publishedName": "@oaknational/sdk-codegen",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "packages/sdks/oak-search-sdk",
+      "publishedName": "@oaknational/oak-search-sdk",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "research/web-app-deconstruction",
+      "publishedName": null,
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "research/web-app-deconstruction/packages/research-evidence",
+      "publishedName": "@oaknational/research-evidence",
+      "disposition": "pending"
+    },
+    {
+      "dirPath": "runtime-only-scripts",
+      "publishedName": null,
+      "disposition": "pending"
+    }
+  ]
+}
