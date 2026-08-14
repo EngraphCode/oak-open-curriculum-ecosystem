@@ -122,26 +122,30 @@ profile's declared purpose and guarantees — the referent of PDR-139's
 non-constitutive test — must be anchored in that profile's committed record,
 never declared at evaluation time.
 
-**Scope (owner ruling, 2026-08-14).** This obligation binds new provider
-selections and substantially refactored seams from this decision forward.
-Standing prior decisions are not retroactively bound; those named here are
-the ones this decision examined, not an exhaustive set: ADR-074 and ADR-076
-(Accepted; the Elastic-native and ELSER-only search posture), ADR-219
-(Accepted; edge rate limiting), ADR-162 (Proposed; observability-first),
-and peers of their class — ADR-212's federated evidence assignments among
-them — stand on their own terms. Bringing any of those seams under this
-pattern is a decision taken at that seam's next substantial refactor, not an
-obligation created here. Where a standing decision procedure such as
-ADR-074's Elastic-native-first hierarchy ranks options for a new capability,
-that hierarchy continues to rank; this obligation applies to the selection
-it produces. A seam decided before this date but not yet built is bound at
-build time — the obligation attaches when a provider is selected in running
-code, not at the date of the deciding record (the Context consumer's gates
-are of this class). A provider-specific extension capability under PDR-139
-part 5 does not breach the constraint: the base contract remains
-provider-independent, and omission of the extension is its supported
-independent composition — every supported host composition remains valid
-without it.
+**Scope.** The owner's ruling (2026-08-14): this obligation binds new
+provider selections and substantially refactored seams from this decision
+forward; standing prior decisions — ADR-074 and ADR-076 (Accepted; the
+Elastic-native and ELSER-only search posture), ADR-219 (Accepted; edge rate
+limiting), and ADR-162 (Proposed; observability-first) — are not
+retroactively bound and stand on their own terms. Bringing any of those
+seams under this pattern is a decision taken at that seam's next
+substantial refactor, not an obligation created here.
+
+The following scope interpretations were derived at panel cure (2026-08-14)
+by the reviewing seat, not ruled by the owner; they are reviewed with the
+record at acceptance. The named priors are the ones this decision examined,
+not an exhaustive set — peers of their class, ADR-212's federated evidence
+assignments among them, stand equally on their own terms. Where a standing
+decision procedure such as ADR-074's Elastic-native-first hierarchy ranks
+options for a new capability, that hierarchy continues to rank; this
+obligation applies to the selection it produces. A seam decided before this
+date but not yet built is bound at build time — the obligation attaches
+when a provider is selected in running code, not at the date of the
+deciding record (the Context consumer's gates are of this class). A
+provider-specific extension capability under PDR-139 part 5 does not breach
+the constraint: the base contract remains provider-independent, and
+omission of the extension is its supported independent composition — every
+supported host composition remains valid without it.
 
 For a Neon PostgreSQL integration, the minimum independent composition is the
 same transactional capability served through PostgreSQL without Neon. It is
