@@ -9,8 +9,10 @@ Practice Core package.
 - New PDR-139, status Proposed: separates provider-independent semantic
   capability contracts from explicit host composition; makes omission
   capability-specific; separates provider extensions; and requires behaviour
-  and state portability plus a documented and exercised composition without
-  each named provider. The pattern is tested across storage, telemetry, and
+  portability for every capability — with state portability for
+  authoritative state and an exercised rebuild from authority for derived
+  state — plus a documented and exercised composition without each named
+  external provider. The pattern is tested across storage, telemetry, and
   agent tooling.
 
 ## [oak-open-curriculum-ecosystem] 2026-08-02 — cost-of-change gradient (Lichen guards Phloem)

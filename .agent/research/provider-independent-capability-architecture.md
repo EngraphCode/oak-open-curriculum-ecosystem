@@ -363,8 +363,8 @@ The normative statement of this floor is PDR-139 parts 8–9; this section is
 the research derivation.
 
 An interface seam is necessary but does not establish service independence.
-For each named provider used by a host, one documented and exercised supported
-composition must exist without that provider. The independent composition can
+For each named external provider used by a host, one documented and exercised
+supported composition must exist without that provider. The independent composition can
 take one of three forms:
 
 - the same capability through another compatible provider;
