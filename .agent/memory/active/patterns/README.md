@@ -179,7 +179,7 @@ drift. After adding or changing a pattern file, regenerate with
 
 ## Pattern Index
 
-### Code (31)
+### Code (32)
 
 - **\"Widen\" Is a Type Smell — Discriminate Model-Wrong From Correct-and-Violated** *(anti-pattern)* -- Use this when: About to widen a list, type, union, or allowlist to make a case pass (or an owner/reviewer flags a 'widen') — the reach for a wider shape is usually hiding a type problem. → [widen-is-a-type-smell.md](widen-is-a-type-smell.md)
 - **A Lint-Rule Pincer Is a Design Signal, Not an Obstacle** -- Use this when: Two (or more) lint rules jointly ban every shape you can think of for an in-component or in-function implementation, and the reflex is to disable one rule or contort past them. → [lint-rule-pincer-is-a-design-signal.md](lint-rule-pincer-is-a-design-signal.md)
@@ -190,6 +190,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **CLI Flag Over Env Precedence** -- Use this when: A CLI command accepts both explicit flags and environment defaults for the same setting, and hidden defaults previously caused ambiguous behaviour. → [cli-flag-env-precedence.md](cli-flag-env-precedence.md)
 - **Closed Union + No-Throw Forces an Exhaustive Total-Function Renderer** -- Use this when: Rendering (or otherwise dispatching over) a closed discriminated union — content blocks, event kinds, state variants — under the repo's no-throw and no-silent-skip disciplines. → [exhaustive-total-function-renderer.md](exhaustive-total-function-renderer.md)
 - **Const Map as Type Guard** -- Use this when: a runtime conversion mirrors a compile-time type transformation and all possible values are known at generation or build time. → [const-map-as-type-guard.md](const-map-as-type-guard.md)
+- **destructive-path-preconditions** -- Use this when: >-. → [destructive-path-preconditions.md](destructive-path-preconditions.md)
 - **Drift Detection Test** -- Use this when: A manually maintained list should match a canonical source but cannot be derived due to structural constraints, or repo-state drift needs detecting between maintained copies and canonical sources. → [drift-detection-test.md](drift-detection-test.md)
 - **Explicit DI Over Ambient State** -- Use this when: You are tempted to use AsyncLocalStorage, module-level singletons, or thread-local context to propagate request-scoped data through a call chain. → [explicit-di-over-ambient-state.md](explicit-di-over-ambient-state.md)
 - **File-Backed Stdio for Spawned Gate-Running Children** -- Use this when: Spawning git commit or any hook/gate-running child from Node and its output truncates or the chain dies silently mid-hook. → [file-backed-stdio-for-spawned-gate-children.md](file-backed-stdio-for-spawned-gate-children.md)
@@ -367,7 +368,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **test-claim-assertion-parity** → [test-claim-assertion-parity.md](test-claim-assertion-parity.md)
 - **Views Take State as Props; a Two-Line Binder Owns the Hook** -- Use this when: A React component both fetches/derives async state (via a hook) and renders it — and its tests are reaching for vi.mock, module mocking, or fetch stubbing to control what renders. → [view-binder-di-seam.md](view-binder-di-seam.md)
 
-### Agent (42)
+### Agent (44)
 
 - **A Real Observation That Does Not Bear on the Claim** *(anti-pattern)* -- Use this when: About to cite a first-hand observation as evidence for a config, mechanism, or state claim — especially when the surface you read reports a DERIVED value, or when the observation was made some time before the action it licenses. → [observation-that-does-not-bear-on-the-claim.md](observation-that-does-not-bear-on-the-claim.md)
 - **Adversarial-Verify Plus a Self-Pass Over the Verifier's Own Downgrades** -- Use this when: Running a multi-agent verification or triage round (fleet review, adversarial-verify, open-question triage) and about to accept the verifier's/triage-agent's confirmed set as the complete result. → [adversarial-verify-plus-self-pass-on-refutations.md](adversarial-verify-plus-self-pass-on-refutations.md)
@@ -410,7 +411,9 @@ drift. After adding or changing a pattern file, regenerate with
 - **Scope Parsimony Is Not Discipline** *(anti-pattern)* -- Use this when: You are about to justify deferring, narrowing, or working around something by citing a scoping rule (YAGNI, consolidate-at-second-consumer, don't-extract-single-consumer, plan-scope hygiene, an external constraint) — check the rule's actual warrant before applying it, and ask the corrective question: does this thing have an independent identity worth defining, describing, and testing in isolation?. → [scope-parsimony-is-not-discipline.md](scope-parsimony-is-not-discipline.md)
 - **Structural Enforcer Recursive Exclusion** *(anti-pattern)* -- Use this when: Designing a structural enforcer (hook, scanner, lint rule, regex matcher) that scans for a pathogen — vocabulary, file shape, prohibited construct, code smell — across a path scope; the cataloguing documents and tests inside that scope will trip the enforcer on themselves unless explicitly excluded. → [structural-enforcer-recursive-exclusion.md](structural-enforcer-recursive-exclusion.md)
 - **Substrate-Pointer Read as Current State** *(anti-pattern)* -- Use this when: Multi-agent team with rotating roles, multiple substrate surfaces (durable files + comms-event lifecycle fields + identity-tuple fields + roster snapshots) recording state. An agent acts on a value read from one of those surfaces. Check whether the value was current at the moment of the read, or was a pointer whose freshness was last guaranteed at some earlier moment. → [substrate-pointer-read-as-current-state.md](substrate-pointer-read-as-current-state.md)
+- **timing-artefact-read-as-state** *(anti-pattern)* -- Use this when: >-. → [timing-artefact-read-as-state.md](timing-artefact-read-as-state.md)
 - **Untracked WIP Whole-Tree Lint Blocker** *(anti-pattern)* -- Use this when: A multi-agent workspace has untracked work-in-progress and another agent's commit or push is blocked by whole-tree quality gates. → [untracked-wip-whole-tree-lint-blocker.md](untracked-wip-whole-tree-lint-blocker.md)
+- **values-enter-by-first-hand-right-frame-read** -- Use this when: >-. → [values-enter-by-first-hand-right-frame-read.md](values-enter-by-first-hand-right-frame-read.md)
 
 ### Planning (4)
 
