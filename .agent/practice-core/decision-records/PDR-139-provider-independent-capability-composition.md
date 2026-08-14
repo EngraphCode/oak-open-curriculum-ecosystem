@@ -135,8 +135,9 @@ The seam satisfies this pattern when all applicable conditions hold:
 
 1. the provider boundary is replaceable or omittable by design;
 2. the capability can be named without the provider;
-3. its guarantees are coherent across a real independent, local, or omitted
-   composition;
+3. replacement preserves the capability's guarantees across a real
+   independent or local composition, and omission preserves the host's
+   declared purpose and guarantees;
 4. provider policy can remain above or inside the binding;
 5. the contract changes consumer action compared with direct provider use;
 6. a supported composition without each named external provider is documented

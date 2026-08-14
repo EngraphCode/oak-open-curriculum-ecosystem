@@ -9,9 +9,10 @@ Practice Core package.
 - New PDR-139, status Proposed: separates provider-independent semantic
   capability contracts from explicit host composition; makes omission
   capability-specific; separates provider extensions; and requires behaviour
-  portability for every composed capability — with state portability for
-  authoritative state and an exercised rebuild from authority for derived
-  state — plus, for each named external provider, a documented and exercised
+  portability wherever another binding serves a capability — with state
+  portability for authoritative state and an exercised rebuild from
+  authority for derived state — plus, for each named external provider, a
+  documented and exercised
   independent composition: another conforming binding, a local or
   self-hosted binding, or omission of a non-constitutive capability. The
   pattern is tested across storage, telemetry, and agent tooling.
