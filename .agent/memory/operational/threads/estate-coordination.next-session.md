@@ -107,6 +107,23 @@ state**, under the same conventions as every other thread.
     the same stale name. (b) The design-system-usage skill canonical still
     names the outgoing counter-brand directory (whats-where reference
     likewise, unverified).
+13. Cure the `practice-index.md` §"Rules cited by Practice Core" framing —
+    owner verdict 2026-08-14 (verbatim: "wow, that is deeply incorrect"):
+    the section asserts portable Practice-Core PDRs cite host-local rule
+    files as their enforcement, which inverts the reference-direction law
+    (host surfaces cite the portable doctrine they operationalise, never
+    the reverse; kin: the PDR-117 host-indirection truing). Cure shape:
+    restate the section as host-rules-operationalising-core AND
+    first-hand-audit the named PDR bodies (014, 028, 038, 003, 091, 138)
+    for host-path citations — each found citation is its own truing.
+    Bounded fix on the coordination branch; not absorbed into PR #886.
+14. ADR-225 acceptance gate (critical-pass finding, PR #886, 2026-08-14):
+    the §Supported-independent-compositions MUST binds EVERY provider a
+    host profile selects — at acceptance this retroactively covers the
+    existing estate (hosting, auth, search, telemetry) with no exercised
+    compositions and no transition story. Safe while Proposed; the
+    transition/scope decision is the owner's at the acceptance moment.
+    Recorded on the PR at merge.
 
 HELD STATES (not tasks): survey lane owner-HELD (machine-readable gates
 expire 2026-09-02; Nautilus cold-paused, claim `95a0678d`); #774 =
