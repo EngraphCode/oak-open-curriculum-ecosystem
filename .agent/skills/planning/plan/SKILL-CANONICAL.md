@@ -8,11 +8,11 @@ description: Author a plan node in the ratified plan-node estate.
 
 Create a plan node aligned with the foundation documents, the planning
 discipline in
-[PDR-018](../../practice-core/decision-records/PDR-018-planning-discipline.md),
+[PDR-018](../../../practice-core/decision-records/PDR-018-planning-discipline.md),
 and the plan-node estate defined in
-[ADR-216](../../../docs/architecture/architectural-decisions/216-plan-node-estate.md).
+[ADR-216](../../../../docs/architecture/architectural-decisions/216-plan-node-estate.md).
 The machine-enforced contract is the
-[plan-node schema](../../plans/plan-node-schema.md); the estate validator
+[plan-node schema](../../../plans/plan-node-schema.md); the estate validator
 runs in CI and at pre-commit.
 
 ## Before Writing
@@ -32,7 +32,7 @@ runs in CI and at pre-commit.
    cannot catch a wrong altitude — the frame is the owner's to set.
 
    **Verdict-vs-menu discipline** (per
-   [`.agent/rules/present-verdicts-not-menus.md`](../../rules/present-verdicts-not-menus.md)):
+   [`.agent/rules/present-verdicts-not-menus.md`](../../../rules/present-verdicts-not-menus.md)):
 
    - *Unknown-to-agent design intent* — the agent has no strong basis
      for a verdict: surface 2–3 approaches with trade-offs via
@@ -51,8 +51,8 @@ runs in CI and at pre-commit.
    hypothesis) + constraints + what success looks like. A statement that
    already names a solution ("we need X") has skipped the framing. For
    complex plans, rewrites, or high-stakes work, read the
-   [grammar of thinking](../../reference/grammar-of-thinking.md) as the
-   yardstick, and use [`reason`](../cognition/reason/SKILL-CANONICAL.md) to structure
+   [grammar of thinking](../../../reference/grammar-of-thinking.md) as the
+   yardstick, and use [`reason`](../../cognition/reason/SKILL-CANONICAL.md) to structure
    the framing before committing to plan shape.
 
 2. Read the directives:
@@ -89,7 +89,7 @@ when the schedule moves, it lives in Linear; if it only moves when the
 product moves, it lives in the repo.
 
 Copy the skeleton from the matching template in
-[`../../plans/templates/README.md`](../../plans/templates/README.md),
+[`../../plans/templates/README.md`](../../../plans/templates/README.md),
 fill it, delete the guidance text.
 
 ## Born-Sketch Ratification
@@ -109,7 +109,7 @@ is not ratified.
   strategic node's delivery plans by searching `serves:`, never by a
   hand-kept list.
 - `impact_areas` — the product areas the plan changes, drawn from the
-  closed, additive [registry](../../plans/impact-areas.md).
+  closed, additive [registry](../../../plans/impact-areas.md).
 - `tickets` — optional visibility metadata, always (plan-node schema
   §2026-08-07 amendment: validity is repo-internal, never dependent on
   an external service). When the operator's tracker holds the work,
@@ -134,7 +134,7 @@ Every non-trivial plan MUST define:
 4. **Out of scope** — what the plan explicitly will not do (YAGNI).
 5. **Todos** — sliced at pickup by the implementer, each slice a
    single-story PR within its round budget
-   ([PDR-132](../../practice-core/decision-records/PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md):
+   ([PDR-132](../../../practice-core/decision-records/PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md):
    round budgets bind at authoring time; slicing at plan time is free,
    slicing at the first over-budget review round is the measured
    expensive path).
@@ -230,7 +230,7 @@ substance: `assumptions-expert` for plan-readiness/proportionality,
 docs/onboarding reviewers for significant Practice or documentation
 changes, and technical specialists where the work shape requires them.
 State in the plan where the
-[`plan-body-first-principles-check`](../../rules/plan-body-first-principles-check.md)
+[`plan-body-first-principles-check`](../../../rules/plan-body-first-principles-check.md)
 shape, landing-path, and vendor-literal clauses fire.
 
 Ratification itself is the owner's act: present the sketch, receive the
