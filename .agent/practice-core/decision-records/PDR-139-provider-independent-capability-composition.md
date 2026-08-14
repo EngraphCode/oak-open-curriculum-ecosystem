@@ -64,9 +64,11 @@ provider configuration.
 
 ### 3. Keep provider concerns in the phenotype
 
-Authentication, connection strategy, SDK calls, provider identifiers,
-provider-specific error translation, quotas, and service lifecycle stay
-inside the provider binding. Parsing of shared protocol-level errors and their translation into
+Provider-specific authentication, connection configuration, provider SDK
+calls, provider identifiers, provider-specific error translation, quotas,
+and service lifecycle stay inside the provider binding; shared
+protocol-level connection handling and driver usage belong to the
+technology adapter (part 4). Parsing of shared protocol-level errors and their translation into
 capability failure meaning belong to the technology adapter (part 4), so
 conforming providers share them rather than reimplementing them per binding;
 the provider binding retains a narrow classification right for
