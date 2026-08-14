@@ -292,3 +292,10 @@ freshness check) or compute an absolute ISO timestamp for -newermt.
   reviewers snag on the gap between sentence and test indefinitely.
 - Owner merged #886 directly (c0a6c08d3, 11:39:49Z) while the seat still held merge-at-settle —
   owner action outruns seat ceremony; the drive's job was the record, not the button.
+- ROUTED OBSERVATION (follow-up, not cured here): the web-app-deconstruction corpus's own
+  gate (`pnpm research:check`) is unrunnable in this checkout — its nested pnpm workspace
+  declares `@oaknational/eslint-plugin-standards@workspace:*`, which resolves only in the
+  OUTER workspace (content-only-move residue, pre-existing). Found 2026-08-14 while landing
+  the H004 evidence event; the estate pre-commit gates validated that edit instead. The
+  workspace-config defect belongs to whoever next works the corpus or the census's
+  workspace rows.
