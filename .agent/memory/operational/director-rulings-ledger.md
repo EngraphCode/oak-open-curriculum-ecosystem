@@ -113,7 +113,8 @@ missing) · `UNHOMED` (no home; queued S3) · `EXPIRED`/`SUPERSEDED`/`EXECUTED`
 | L1610F | retention: nothing safe until remote version control | owner-verbatim | rule `worktree-hygiene` clause 1 (`ef8608d8e`) + per-user memory |
 | M2-LESSON | 2026-06-25 premature-Moment-2 UTC lesson | seat-inference | handoff brief lines 36–41, 81–112 (permanent header — stays) |
 | ROT-BANNER | curation-pass shape: disposition per block, archive-not-delete | seat-inference | rule `knowledge-preservation-over-fitness-warnings` |
-| SURVEY | corpus+estate; deconstruct-first; census-first; WS9 co-design | owner-verbatim | survey plan nodes (machine-readable gates, expire 2026-09-02) |
+| SURVEY | corpus+estate; deconstruct-first; census-first; WS9 co-design; gates DISCHARGED at owner word 2026-08-14 ("Go — run the survey lane") | owner-verbatim | survey plan nodes (discharge recorded at `fe9974a87`, verified first-hand) |
+| THROTTLE-RET | the 2026-08-13 ≤2-subagent quota throttle is retired — verbatim "drop the quota limit, that applied to a specific situation on a different day" (2026-08-14, via the survey seat's decision card, verified first-hand at `fe9974a87`); no standing concurrency cap | owner-verbatim (relayed, verified) | ARC entry at `fe9974a87`; per-user throttle memory deleted this seating |
 | 774 | #774 illustrative, never merge-queued | owner-verbatim | napkin 3270–3277 + thread record HELD row |
 | FIX-LOW | fix at the lowest effective level | owner-verbatim | per-user memory `fix-at-the-lowest-effective-level` |
 | XPLAT | cross-platform node ratified; research precedes work ("stamp it now, it will need further research before work on it begins") | owner-verbatim | strategic plan `cross-platform-compatibility` (stamp + §Delivery rider) |
