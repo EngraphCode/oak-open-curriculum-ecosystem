@@ -36,8 +36,9 @@ inventing a universal storage API. It requires four separate decisions:
 
 Provider substitution is an architectural property. It does not by itself
 provide automatic failover, zero-downtime migration, or state portability.
-Stateful capabilities also need portable identifiers, schemas, migrations,
-exports, restore exercises, and an explicit authority model.
+Stateful capabilities also need an explicit authority model: authoritative
+state needs portable identifiers, schemas, migrations, exports, and restore
+exercises; derived state needs an exercised rebuild from its authority.
 
 The corresponding runtime test is provider-by-provider: for any named external
 provider, there is a supported system composition that does not require that
@@ -52,9 +53,10 @@ and it does not make every capability optional.
 How can the repository add PostgreSQL support, with Neon as a candidate managed
 provider, without making any capability or running system structurally
 dependent on one vendor or one external service? (The constraint in that
-question was subsequently owner-declared and established as repository
-doctrine at ADR-225, 2026-08-14; this report's analysis preceded and fed
-that decision.)
+question was subsequently owner-declared, 2026-08-14, and recorded for
+adoption at ADR-225 — Proposed at this update, its obligations taking force
+at that record's acceptance; this report's analysis preceded and fed that
+decision.)
 
 The question expands into six tests:
 

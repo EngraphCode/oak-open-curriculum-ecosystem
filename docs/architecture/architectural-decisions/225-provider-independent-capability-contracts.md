@@ -132,7 +132,11 @@ that hierarchy continues to rank; this obligation applies to the selection
 it produces. A seam decided before this date but not yet built is bound at
 build time — the obligation attaches when a provider is selected in running
 code, not at the date of the deciding record (the Context consumer's gates
-are of this class).
+are of this class). A provider-specific extension capability under PDR-139
+part 5 does not breach the constraint: the base contract remains
+provider-independent, and omission of the extension is its supported
+independent composition — every supported host composition remains valid
+without it.
 
 For a Neon PostgreSQL integration, the minimum independent composition is the
 same transactional capability served through PostgreSQL without Neon. It is
@@ -199,8 +203,10 @@ remain outside runtime composition.
   observability-first emission obligations travel with the composed
   observability adapters and are not discharged by omitting a telemetry
   provider; only the provider sink is optional.
-- Stateful integrations carry repository-owned schema, migration, export, and
-  restore obligations in addition to method conformance.
+- Integrations holding canonical state carry repository-owned schema,
+  migration, export, and restore obligations in addition to method
+  conformance; derived state carries an exercised rebuild path from its
+  authority.
 - A provider seam can remain Proposed while its independent composition is not
   yet exercised. It cannot be described as supported provider independence.
 - Storage technologies remain capability-specific. Files, PostgreSQL, SQLite,

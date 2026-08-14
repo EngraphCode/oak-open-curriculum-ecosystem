@@ -107,8 +107,11 @@ delivery, or another obligation cannot report success.
 
 Behaviour portability means another binding can serve unchanged consumers.
 State portability means canonical identifiers, schemas, data, provenance, and
-recovery can move independently of the provider. A stateful capability is
-substitutable only when both hold.
+recovery can move independently of the provider. An authoritative stateful
+capability is substitutable only when both hold. A derived stateful
+capability — a cache, an index, a projection — is substitutable when
+behaviour portability holds and an exercised rebuild from its authority
+exists; movement of provider state is not required.
 
 ### 8. Prove the seam without multiplying operations
 
@@ -205,8 +208,9 @@ an observable continuity property.
   composition.
 - Provider-specific types and identity stop at the binding boundary.
 - Each optional capability defines its own absence behaviour.
-- Stateful capabilities define and exercise both behaviour and state
-  portability.
+- Authoritative stateful capabilities define and exercise both behaviour
+  and state portability; derived stateful capabilities exercise rebuild
+  from their authority.
 - Independent bindings are checked against the same conformance obligations.
 
 ### Forbidden
@@ -216,8 +220,8 @@ an observable continuity property.
   implementation.
 - Adding provider-only operations to a base contract without splitting the
   responsibility.
-- Claiming provider independence from an interface while state remains
-  immovable.
+- Claiming provider independence from an interface while authoritative
+  state remains immovable.
 
 ### Accepted costs
 
