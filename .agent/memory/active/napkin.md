@@ -272,3 +272,23 @@ relative `-newermt "-40 seconds"` (ISO-8601 timestamps only) — a
 wait-loop built on that predicate spins to timeout without ever
 becoming true. Run the CLI assert directly (it is the authoritative
 freshness check) or compute an absolute ISO timestamp for -newermt.
+
+## 2026-08-14 ~12:0xZ (Smith hunts Obsidian, e98f17, Director) — PR-886 merge-drive harvest
+
+- AUTO-REVIEW-PER-PUSH DYNAMICS, measured across 13 rounds (17→13→2→6→2→4→2→1→1→4→1→1→0
+  findings): a standing Copilot request re-reviews EVERY push, so a cure loop cannot terminate
+  by curing — termination required a declared graded bar (genuine-blocker-only after close of
+  review) posted ON the PR record. The bar held: two post-declaration rounds produced one real
+  blocker-class cure and one reasoned no-change, then a clean round.
+- ATTRIBUTION-DRIFT CLASS, found by owner-directed audit at this seat: a paragraph headed
+  "owner ruling" accreted four review-derived sentences under that heading across cure rounds —
+  design-by-review's exact mechanism (review-channel content wearing owner authority skips the
+  design check). Cure = authority-split within the paragraph, review-derived content labelled
+  as reviewed-at-acceptance. Generator: records-carry-authority-honestly binds WITHIN a
+  paragraph, not only per record.
+- INVARIANT-QUANTIFIER LESSON (owner-adopted restatement): quantify a constraint over the
+  threat subject (named external providers) not the convenient subject (capabilities);
+  carry the evidential floor ("exercised, not merely declared") inside the sentence, or
+  reviewers snag on the gap between sentence and test indefinitely.
+- Owner merged #886 directly (c0a6c08d3, 11:39:49Z) while the seat still held merge-at-settle —
+  owner action outruns seat ceremony; the drive's job was the record, not the button.
