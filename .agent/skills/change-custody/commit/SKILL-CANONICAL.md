@@ -22,7 +22,7 @@ committing.
 **Always-on** — every commit, every session, no trigger required.
 
 **Motivating pattern**:
-[`passive-guidance-loses-to-artefact-gravity`](../../memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md)
+[`passive-guidance-loses-to-artefact-gravity`](../../../memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md)
 applied to commit authoring. Prior prose guidance said "lines under 99 chars"
 without surfacing the preset's actual rules; every session hit rework
 (subject-case violations, header-length overruns, missing footers). This skill
@@ -213,7 +213,7 @@ primitives that compose into moves 2 and 3 (`enqueue`, `phase`, `guard`,
 direct CLI commands for inspection and recovery.
 
 1. **Open the git:index/head active claim** via
-   [`collaboration-state claims open`](../../../agent-tools/src/collaboration-state):
+   [`collaboration-state claims open`](../../../../agent-tools/src/collaboration-state):
 
    ```bash
    pnpm agent-tools:collaboration-state -- claims open \
@@ -435,7 +435,7 @@ topology for memory-file reconciliation):
    `git:index/head` claim or queue entry), and a `git:index/head` claim
    opened for the merge window as in move 1. The whole-index commit absorbs
    everything staged, so this is the one sanctioned exception to
-   [`stage-by-explicit-pathspec`](../../rules/stage-by-explicit-pathspec.md)
+   [`stage-by-explicit-pathspec`](../../../rules/stage-by-explicit-pathspec.md)
    — its safety rests entirely on the sole-agent window plus the first-hand
    staged-set verification below. **Claim scope is per working tree**: the
    bare `git:index/head` label names the primary/shared checkout's index;
@@ -619,7 +619,7 @@ surface to the owner — do NOT land the commit by an equivalent-effect route
 (direct `git commit`, manual index surgery). Transition the intent to
 `abandoned` with stage-named notes, close the commit-window claim with the
 failure reason, and surface the defect. The defect is tracked as
-[F-112](../../memory/operational/frictions-register.md) — the cure is fixing
+[F-112](../../../memory/operational/frictions-register.md) — the cure is fixing
 the workflow's spawned-process stdio handling, not routing around it. (A prior
 revision of this section documented a direct-commit fallback; that guidance is
 withdrawn — it was the equivalent-effect workaround the no-fallback principle
@@ -659,7 +659,7 @@ not a hook-timing one), and it wastes ~30s per commit.
 Commit-attempt logging is currently paused. The helper script is still
 present in `scripts/` for quick reactivation, but the standard commit
 workflow should not append to
-[`commit-attempts.log`](../../memory/operational/diagnostics/commit-attempts.log)
+[`commit-attempts.log`](../../../memory/operational/diagnostics/commit-attempts.log)
 unless the owner explicitly asks for that diagnostic trace again.
 
 ## Safety Rules
@@ -681,7 +681,7 @@ If any of these would be helpful, **MUST discuss with the user first**.
 Additional prohibitions:
 
 - **Never** commit on `main` locally — `main` advances only via pull requests
-  ([`never-commit-to-main`](../../rules/never-commit-to-main.md); the shared
+  ([`never-commit-to-main`](../../../rules/never-commit-to-main.md); the shared
   `.husky` branch guard refuses it mechanically — the rule enumerates the
   hooks).
   Branch first; if commits are already stranded on local `main`, fetch,
@@ -786,24 +786,24 @@ what authority*. The questions to ask:
 The orchestrator's signals are *important*. They surface the consolidation
 work that needs doing. They are not gates. The deeper disposition driving
 the conflation is captured at
-[`.agent/memory/active/patterns/eager-rounding-off-on-partial-structures.md`](../../memory/active/patterns/eager-rounding-off-on-partial-structures.md).
+[`.agent/memory/active/patterns/eager-rounding-off-on-partial-structures.md`](../../../memory/active/patterns/eager-rounding-off-on-partial-structures.md).
 
 ## Related Surfaces
 
-- Pattern: [`.agent/memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md`](../../memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md)
+- Pattern: [`.agent/memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md`](../../../memory/active/patterns/passive-guidance-loses-to-artefact-gravity.md)
   — the failure mode this skill counters.
-- PDR: [`.agent/practice-core/decision-records/PDR-029-perturbation-mechanism-bundle.md`](../../practice-core/decision-records/PDR-029-perturbation-mechanism-bundle.md)
+- PDR: [`.agent/practice-core/decision-records/PDR-029-perturbation-mechanism-bundle.md`](../../../practice-core/decision-records/PDR-029-perturbation-mechanism-bundle.md)
   — design principles (firing cadence first; two complementary layers target:
   enumerate inline at draft time + format-check at invocation time).
-- PDR: [`.agent/practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md`](../../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md)
+- PDR: [`.agent/practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md`](../../../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md)
   — `capture → distil → graduate → enforce`. The diagnostic log is a
   **diagnostic substrate** the pipeline reasons over; pending PDR-011
   amendment to name diagnostic substrates as a distinct surface class
   (see `repo-continuity.md § Pending-graduations register additions
   (2026-04-23 handoff)`).
-- Diagnostics: [`.agent/memory/operational/diagnostics/README.md`](../../memory/operational/diagnostics/README.md)
+- Diagnostics: [`.agent/memory/operational/diagnostics/README.md`](../../../memory/operational/diagnostics/README.md)
   — convention for diagnostic logs when the owner explicitly enables them.
-- Principles: [`.agent/directives/principles.md`](../../directives/principles.md)
+- Principles: [`.agent/directives/principles.md`](../../../directives/principles.md)
   — the `--no-verify` fresh-authorisation invariant.
 
 ## Platform Adapters

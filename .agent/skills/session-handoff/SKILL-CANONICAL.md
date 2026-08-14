@@ -745,7 +745,7 @@ no retrospective memos; those are close-out work, this skill's §Steps.
       evidence and stop. Do not bundle handoff over a red gate.
 
     Owner-stated standing 2026-05-14 (carried by
-    [`gates/SKILL-CANONICAL.md`](../gates/SKILL-CANONICAL.md) and
+    [`gates/SKILL-CANONICAL.md`](../change-custody/gates/SKILL-CANONICAL.md) and
     [`build-system.md`](../../../docs/engineering/build-system.md)
     § `pnpm check` - Canonical full gate): session-handoff is not complete
     in the individual-contributor or handoff-owner sense unless `pnpm check`

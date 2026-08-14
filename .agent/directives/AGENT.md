@@ -173,7 +173,7 @@ Agent artefacts follow ADR-125's three-layer model: canonical content in
 [docs/engineering/extending.md](../../docs/engineering/extending.md) before
 adding rules, skills, commands, sub-agents, adapters, or ADRs.
 
-Use the [commit skill canonical](../skills/commit/SKILL-CANONICAL.md) for
+Use the [commit skill canonical](../skills/change-custody/commit/SKILL-CANONICAL.md) for
 commits. It enumerates live commitlint constraints and validates the drafted
 message via `pnpm agent-tools:check-commit-message` before `git commit`.
 

@@ -148,22 +148,22 @@ The skill does not authorise unilateral execution. It always halts.
 
 ## Pairs With
 
-- [`.claude/settings.json`](../../../.claude/settings.json)
+- [`.claude/settings.json`](../../../../.claude/settings.json)
   `permissions.deny` and `permissions.ask` — settings prevents the
   destructive paths from running silently.
 - The hook-layer safety net idea (in
-  [`pending-graduations.md`](../../memory/operational/pending-graduations.md))
+  [`pending-graduations.md`](../../../memory/operational/pending-graduations.md))
   — the per-call surfacing layer that complements settings and
   skill.
-- [`read-before-asking` rule](../../rules/read-before-asking.md)
+- [`read-before-asking` rule](../../../rules/read-before-asking.md)
   — the empirical-question reformulation; the same *render the
   diagnosis, then halt-ask* shape, applied to questions instead of
   to undo operations.
-- [PDR-057 (empirical-answerability)](../../practice-core/decision-records/PDR-057-empirical-answerability.md)
+- [PDR-057 (empirical-answerability)](../../../practice-core/decision-records/PDR-057-empirical-answerability.md)
   — the doctrinal frame that supersedes the quarantined
   `apply-don't-ask` candidate; this skill remains the destructive-
   action compensator for the same family of agent failure modes.
-- [Quarantined apply-don't-ask doctrine](../../memory/operational/quarantine/apply-dont-ask-doctrine.md)
+- [Quarantined apply-don't-ask doctrine](../../../memory/operational/quarantine/apply-dont-ask-doctrine.md)
   — the predecessor doctrine; quarantine cleared 2026-05-10 by
   PDR-057 + PDR-058. Preserved as historical evidence.
 
