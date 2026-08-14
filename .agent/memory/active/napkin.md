@@ -120,3 +120,30 @@ all in-window or newly swept.
   during my prep — the freeze entry's n=1 watcher exemption is FALSIFIED;
   their plan edit is theirs, deliberately unstaged by this commit; the
   successor re-runs ListAgents at resume rather than trusting this map.
+
+## 2026-08-14 ~07:2xZ (Smith hunts Obsidian, e98f17, Director) — three-body comparison: PR-886 capability architecture / web-app-deconstruction / survey programme (owner-invoked reflection)
+
+- CONVERGENT-EVOLUTION EVIDENCE, measured this session: the deconstruction meta-analysis's
+  negative-space row ("current providers and adapters → tested semantic portability, exit,
+  restoration and retained options") and lens 30 ("adapters do not establish semantic
+  substitutability") stated PR-886's provider-independence floor a month before PR-886 was
+  authored; the working-model property-2 invalidator ("pass-through indirection") matches
+  PDR-139's losing condition. Neither corpus cites the other. Same generator, missed stitch;
+  the fresh survey design is the natural reconciliation point.
+- CAPABILITY POLYSEMY is live in three senses across the estate: product capability (H001,
+  outcome-owned modules), runtime service capability (PDR-139/ADR-225), and the meta-analysis's
+  derived semantic Capability/Contract. The meta-analysis's own warning — "sharing a word does
+  not make them one primitive" — now applies to the estate's own vocabulary.
+- METHOD MATURITY GRADIENT across the three bodies, dated: July deconstruction = prose-discipline
+  falsifiability (evidence labels, hand-maintained registers); 2026-08-12 survey openers =
+  instrumented falsifiability (committed TypeScript validators, closed vocabularies, operational
+  falsifier triggers); 2026-08-13 PR-886 = adversarially-panelled doctrine records. Each later
+  work mechanises what the earlier one held by discipline.
+- SHARED GENERATOR named: exercised separability at every scale — a vendor can leave the system
+  (PR-886 floor), Oak identity can leave the foundations (census leakage axis), a mechanism can
+  die while its knowledge survives (deconstruction preservation rule; survey ledger dies-because;
+  the retention-is-knowledge principle).
+- TENSION carried, not resolved here: estate placement doctrine (consolidate-at-second-consumer,
+  PDR-108, the promotion test) vs the deconstruction charter's explicit refusal of placement
+  doctrines ("boundaries follow meaning; placement doctrines do not"). Both are owner-sanctioned
+  in their frames; adjudication belongs to the fresh survey design node, visibly.
