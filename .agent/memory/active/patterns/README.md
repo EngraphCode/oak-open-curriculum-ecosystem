@@ -214,7 +214,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Validation Error Severity Separation** -- Use this when: A schema validation error message lists all absent fields alongside actually failing fields, making operators debug the wrong variables. → [validation-error-severity-separation.md](validation-error-severity-separation.md)
 - **Zod Boundaries in Sandbox-Harness Modules** -- Use this when: Authoring or reviewing a module whose files are esbuild-bundled into a sandboxed harness artefact (Workflow scripts, agent prompts), or whose zod refinements guard stage-boundary invariants. → [zod-boundaries-in-sandbox-harness-modules.md](zod-boundaries-in-sandbox-harness-modules.md)
 
-### Architecture (14)
+### Architecture (15)
 
 - **A Sandbox Constraint Is a Build Instruction, Not a Hand-Authoring Licence** -- Use this when: A runtime surface cannot import or reuse repo code (a sandbox, an embedded script, a config DSL, a remote executor) and the impulse is to hand-write a parallel copy of logic, schemas, or prompts for it. → [sandbox-constraint-is-a-build-instruction.md](sandbox-constraint-is-a-build-instruction.md)
 - **check-code-invariants-before-designing-a-field** -- Use this when: Adding a new field, enum, taxonomy, or discriminator to existing code — enumerate the invariants the surrounding code already maintains first, then choose the new shape's axis to preserve them (the invariant-safe axis is often non-obvious). → [check-code-invariants-before-designing-a-field.md](check-code-invariants-before-designing-a-field.md)
@@ -228,6 +228,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **SDK-Owned Retriever Delegation** -- Use this when: An app-layer module builds an Elasticsearch retriever shape that the SDK already owns as a shared capability. → [sdk-owned-retriever-delegation.md](sdk-owned-retriever-delegation.md)
 - **To Author a Host-Free Portable Artefact, Choose a Host-Naive Author** -- Use this when: Authoring an artefact whose value depends on containing NO host/repo-specific concepts — a portable primer, a Practice-Core doc, a vendor-neutral spec. → [host-naive-author-for-portable-artefact.md](host-naive-author-for-portable-artefact.md)
 - **TSDoc Extension Point for Future Consumers** → [tsdoc-extension-point-for-future-consumers.md](tsdoc-extension-point-for-future-consumers.md)
+- **warm-masks-cold** *(anti-pattern)* -- Use this when: >-. → [warm-masks-cold.md](warm-masks-cold.md)
 - **Wire-Format-Aware Redaction** -- Use this when: Telemetry redaction protects structured objects or URLs, but secrets can also travel through raw encoded strings such as application/x-www-form-urlencoded request bodies. → [wire-format-aware-redaction.md](wire-format-aware-redaction.md)
 - **Workaround Debt Compounds Through Rationalisation** *(anti-pattern)* -- Use this when: A workaround exists in the codebase and someone is explaining why it's justified, necessary, or acceptable — especially when the explanation invokes 'different purposes' or 'separate concerns'. → [workaround-debt-compounds-through-rationalisation.md](workaround-debt-compounds-through-rationalisation.md)
 
