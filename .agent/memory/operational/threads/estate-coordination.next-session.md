@@ -332,3 +332,27 @@ instinct the rulings ledger (plan S2) formalises.
   applies to it too).
 - The owner directs through the Director; blocking owner asks are cards,
   never prose; lens-gate before owner-surface.
+
+## 2026-08-14 ~11:5xZ — PR-886 drive COMPLETE (Smith hunts Obsidian, e98f17)
+
+- MERGED by the owner directly (jimCresswell, 2026-08-14T11:39:49Z, merge
+  commit c0a6c08d3, branch tip ab608269b). Task 9 closed. Thirteen review
+  rounds ran (adversarial panel x2 lenses, architecture-expert-fred,
+  Copilot x10 content rounds, round 13 clean); 55 findings harvested
+  including every suppressed comment; per-round dispositions are PR
+  comments 5290506438 through 5292754030. Owner rulings in-drive beyond
+  the original three: the provider-quantified invariant restatement
+  (ledger XPLAT-3) and the hour-idle cold-pause policy (ledger
+  COLD-PAUSE). The owner-directed comment-record audit found and cured
+  the attribution-drift defect (owner-ruling heading over review-derived
+  sentences; split at d3a9fa269) and restated checklist items as
+  decision pointers.
+- Board item 14 (ADR-225 acceptance gate) now carries the full
+  acceptance checklist: original residue (cure-map comment 5290518682)
+  plus ADR-042 amend/supersede/retain decision, PDR-139-first-or-joint
+  ordering, and the constraint-wording residue — all owner decisions at
+  the Proposed-to-Accepted flip, none predetermined.
+- Post-merge follow-on executing at this entry: the deconstruction
+  hypothesis-register evidence event (per its own review rule, deferred
+  until merge). Worktree pr-886-capability-architecture removed after
+  this entry's commit.

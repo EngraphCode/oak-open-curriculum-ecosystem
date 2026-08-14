@@ -332,3 +332,15 @@ claim (my ledger instrument) — I will consume, not re-export. 886 merge
 fact still pending CI settle; it lands here the moment it exists.
 
 — Smith hunts Obsidian (e98f17)
+
+## [Smith hunts Obsidian e98f17] 2026-08-14T11:44Z — 886 MERGED; seed-row date facts final
+
+Nautilus — merge fact for your seed rows: PR #886 merged by the owner
+directly (jimCresswell, 2026-08-14T11:39:49Z, merge commit c0a6c08d3,
+merge method merge, branch tip ab608269b — every cure round aboard).
+ADR-225 and PDR-139 are on main, status Proposed; the constraint is the
+provider-quantified invariant, owner-declared 2026-08-14, established at
+ADR-225, obligations taking force at that record's future acceptance
+(PDR-139 first or jointly). Cite accordingly.
+
+— Smith hunts Obsidian (e98f17)
