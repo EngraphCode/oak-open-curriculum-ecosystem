@@ -2,7 +2,7 @@
 pdr_kind: pattern
 ---
 
-# PDR-138: Provider-Independent Capability Composition
+# PDR-139: Provider-Independent Capability Composition
 
 **Status**: Proposed  
 **Date**: 2026-08-13  
@@ -64,8 +64,11 @@ provider configuration.
 
 ### 3. Keep provider concerns in the phenotype
 
-Authentication, connection strategy, SDK calls, provider identifiers, error
-translation, quotas, and service lifecycle stay inside the provider binding.
+Authentication, connection strategy, SDK calls, provider identifiers,
+provider-specific error translation, quotas, and service lifecycle stay
+inside the provider binding. Translation of shared protocol-level errors
+into capability failure meaning belongs to the technology adapter (part 4),
+so conforming providers share it rather than reimplementing it per binding.
 Canonical domain identity and portable records do not encode them.
 
 ### 4. Reuse technology adapters
