@@ -1,3 +1,11 @@
+## [1.170.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.170.0...v1.170.1) (2026-08-14)
+
+
+### Bug Fixes
+
+* **showcase:** probe refuses non-canonical widths; skill recipe and permissions completed ([a5f67a5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a5f67a5b7fa05931ea592644ee161ee42f3e7ad7))
+* **showcase:** visual probe refuses non-OK documents as proof material ([c0dd4a9](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c0dd4a9f2882803c485543fbe19fa9ee7ceb18eb))
+
 # [1.170.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.169.1...v1.170.0) (2026-08-13)
 
 
