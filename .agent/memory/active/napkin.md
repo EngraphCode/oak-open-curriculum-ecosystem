@@ -299,3 +299,79 @@ freshness check) or compute an absolute ISO timestamp for -newermt.
   the H004 evidence event; the estate pre-commit gates validated that edit instead. The
   workspace-config defect belongs to whoever next works the corpus or the census's
   workspace rows.
+
+## 2026-08-14 ~16:0xZ (Nautilus calls Plankton, c6d48b, survey lane) — freeze harvest: gate-to-ratified-programme in one day; ledger node next (metacognition / free-play / concept-exploration / wrap)
+
+Session arc since the morning resume: owner discharged the survey gate
+("Go — run the survey lane"), the census ran twice (43 subjects round 1;
+decomposition round 2 after the owner's not-yet-sufficient verdict), the
+66-workspace target inventory was confirmed, workspace-reorganisation-
+programme was authored AND ratified (c9626a7b9, serves TOOLS-2), and the
+census finalised at 44 subjects — PR #889 ready for review. Every owner
+word verbatim on a binding surface (census plan amendment trail; the
+ratified node's stamp).
+
+METACOGNITION: (1) ANCHOR PROPAGATION — round-1 judges received the
+2026-04-28 matrix as baseline and its "keep as thin leaf" editorial
+stance survived unratified into their target states; the owner's card
+broke the anchor. General form: a baseline document transmits its
+STANCE, not just its facts — centre the question, not the predecessor,
+in judge prompts (round 2 did; the difference was dramatic). (2) REPEAT
+OFFENDER, now three instances across two sessions: executing from
+remembered file state instead of re-reading (prior session's error
+signature; today twice — a scripted replace missed a prettier-reflowed
+import, and a second replace missed a knip-unexported type; both
+surfaced only at gates). Cure adopted mid-day and PROVEN: every scripted
+replace carries an assert-on-anchor; silent no-op is the enemy.
+(3) Fluency check held by structure: the 66-workspace inventory arrived
+smoothly from one reducer, but the challenger stage + 9 visibly-UNBACKED
+entries + the owner's own review were the friction — structure over
+vigilance did the work.
+
+FREE-PLAY SEEDS (one discard): (a) the census ran as instrument+panel —
+the estate measuring itself with its newest method; the survey programme
+is recursion-as-maturity (the method-maturity gradient applied to its
+own body). (b) The owner's three atomic authorisations in one hour
+looked shaped like commit messages — small, composable grants;
+association only. (c) Morning seeds re-confirmed live: provenance-
+separated homes (packages/generated/ tier ≈ detector-facts vs
+judged-readings ≈ corpus data/claims split) is the estate's recurring
+generator at a third scale. DISCARDED visibly: 44-subjects/4-cards
+numerology — forced, same class as the morning's discard.
+
+CONCEPT-EXPLORATION (real movement — the ledger node's changed
+landscape): the machinery-deconstruction ledger now runs with (1) a LIVE
+second consumer for workspace-scale dispositions — reorganisation
+tranche delivery nodes will read `generalises-to: workspace` rows when
+deciding what proven machinery moves where; the ledger feeds BOTH the
+fresh survey design and the tranches. (2) The census instrument family
+is proven — the ledger instrument shares it, and Smith's registered
+second-consumer claim on the vocabulary barrel is EARNED at that moment
+(export then, per consolidate-at-second-consumer). (3) Today's
+decomposition is a worked instance of "exercised separability at the
+workspace scale" — a corpus-seed candidate the ledger's survival rows
+can cite. Proposal with falsifier: derive the MECHANICAL row skeleton
+first (jq keys over the four frozen contract files + the frame's gate/
+layer tables) and check the plan's claimed counts (30+37+15+17, ~110-130
+total) on day one — if the counts disagree, true the plan before
+filling.
+
+WRAP loss-scan (freeze form; compaction, seat resumes): work safety
+VERIFIED with evidence — coordination and lane branches both level with
+origin; PR #889 OPEN, ready, head c4aed89ba. Census execution claim
+f0d152b1 CLOSED with delivery summary; lane claim 95a0678d RETAINED for
+the ledger pickup. The principal's untracked scratch duplicate of
+decomposition-analysis.json deleted (knowledge committed at b6a771d4d
+on the lane branch). Monitors stand down in canonical order after this
+entry commits (no heartbeat cron ran today — consumer-absent exemption
+held throughout, declared at registration 3b4067d8). RESUME MAP (owner
+word: "after that we'll pick up the ledger node"): read-first =
+survey-machinery-deconstruction.plan.md (closed generalises-to
+vocabulary + amendment trail already in place) + this entry; Linear
+ticket at start (ticket-first); fresh worktree lane per practice; the
+census worktree (mcp-601-census) stays for PR #889 review cures.
+Metaloss pass: a further scan re-finds only the mid-window watcher
+cursor (by design; next resume gap-sweeps from this freeze's timestamp)
+and PR #889's pending reviews (Copilot requested; owner review at his
+leisure — both live on GitHub, nothing context-held). Fixed point —
+closed.
