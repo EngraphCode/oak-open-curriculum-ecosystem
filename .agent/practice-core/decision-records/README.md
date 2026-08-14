@@ -262,3 +262,4 @@ Practice-Core concept ↔ ADR map):
 | [PDR-136](PDR-136-quality-gates-are-a-registered-corpus.md) | Quality Gates Are a Registered Corpus | Accepted |
 | [PDR-137](PDR-137-basis-set-transformation-method.md) | The Basis-Set Transformation Method | Accepted |
 | [PDR-138](PDR-138-visual-verification-for-design-verdicts.md) | Visual Verification for Design Verdicts | Accepted |
+| [PDR-139](PDR-139-provider-independent-capability-composition.md) | Provider-Independent Capability Composition | Proposed |
