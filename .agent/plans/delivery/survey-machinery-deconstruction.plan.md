@@ -22,7 +22,7 @@ owner_gates:
       lane seat, Director-concurred broad on both nodes) discharges at his
       word through any seat.
     expires: 2026-09-02
-last_updated: 2026-08-13
+last_updated: 2026-08-14
 ---
 
 # Survey machinery deconstruction
@@ -148,6 +148,34 @@ existing home) carrying:
 - Running the estate census with the extractor (the code-scale run decision
   belongs to the fresh design, informed by this ledger's coverage map).
 - The reference pattern corpus (a deliverable of the fresh design).
+
+## Banked inputs for the fresh survey design (pointer-carry, 2026-08-14)
+
+Owner-agreed findings from the three-body comparison (PR #886 capability
+architecture / web-app deconstruction / this survey programme), recorded
+in full at
+`.agent/research/capability-deconstruction-survey-comparison.md`. These
+are inputs for the successor fresh-design node, banked here because this
+node's ledger feeds that design; they add no work to, and change no scope
+of, this node.
+
+1. **Pattern-corpus seeds**: the deconstruction meta-analysis basis
+   (seven primitives, seven coordinates, the seam rule) and
+   PDR-135/PDR-139 are candidate corpus members; the three existing test
+   batteries (meta-analysis survival test, PDR-139 established-pattern
+   test, the foundational frame's promotion test) should be reconciled
+   into the corpus, not accreted as a fourth.
+2. **Capability vocabulary fix**: "capability" carries three live senses
+   (product capability, runtime service capability, semantic capability
+   contract); fix terms at design time, before the corpus inherits the
+   ambiguity.
+3. **Placement-doctrine adjudication**: estate placement rules
+   (`consolidate-at-second-consumer`, PDR-108, the promotion test) vs the
+   deconstruction charter's "boundaries follow meaning" refusal of
+   placement doctrines — both stand in their frames; the fresh design
+   chooses its placement epistemology visibly, with the owner present.
+4. **Candidate instrument**: the deconstruction's premise-record template
+   is a candidate instrument for the survey's judged scales.
 
 ## Todos
 

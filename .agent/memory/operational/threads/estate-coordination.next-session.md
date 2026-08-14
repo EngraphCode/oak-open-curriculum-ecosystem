@@ -276,6 +276,30 @@ resumable from the PR alone:
   (owner word "fix and merge" stands, post-panel); (7) Phase 8 harvest;
   (8) worktree removal; (9) board items 13/14 remain routed, untouched.
 
+## 2026-08-14 ~07:4xZ — three-body comparison recorded and homed (Smith hunts Obsidian, e98f17)
+
+- Owner-invoked comparison of the PR-886 capability architecture, the
+  web-app-deconstruction corpus, and the survey programme delivered and
+  owner-agreed ("Thank you, I agree"), with the direction to record the
+  findings everywhere they matter. Permanent home:
+  `.agent/research/capability-deconstruction-survey-comparison.md`
+  (six findings; stitches routed). Survey-design inputs banked at
+  `survey-machinery-deconstruction.plan.md` §Banked inputs (pointer-carry,
+  no scope change). Ledger row DECON-5 records the placement-doctrine
+  scope verdict. Napkin harvest at `2ef203c1b` preceded this.
+- RESUME-ORDER ADDENDUM for the PR-886 drive (extends step 2 above,
+  owner-agreed 2026-08-14): during the cure application, also add one
+  Related line to the PR's research doc
+  (`.agent/research/provider-independent-capability-architecture.md`)
+  citing the deconstruction meta-analysis's provider rows (negative-space
+  "tested semantic portability, exit, restoration and retained options" +
+  lens 30) — the convergence stitch. Conserved on the PR as a bot comment
+  at this entry's commit.
+- Deconstruction-side stitch deliberately deferred: log ADR-225/PDR-139
+  as an evidence event in the deconstruction hypothesis register per its
+  own review rule only AFTER #886 merges — Proposed doctrine is not yet
+  evidence.
+
 ## Participating agent identities
 
 | platform | model | session_id_prefix | agent_name | role | first_session | last_session |
