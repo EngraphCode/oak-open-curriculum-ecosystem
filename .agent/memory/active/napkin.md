@@ -151,7 +151,11 @@ all in-window or newly swept.
 ## 2026-08-14 ~07:3xZ (Quasar wakes Nadir, 0fabcd, curator) — plans-triage verdicts, conserved so the next pass need not re-read
 
 All 26 pre-existing `~/.claude/plans` session-plan files were read in full by
-the plans-triage subagent and every classification verified against the repo:
+the plans-triage subagent, which reports verifying every classification
+against the repo at file:line; this seat spot-checked two of its no-action
+rows first-hand and fully verified the two actionable findings (attribution
+per `dont-transmit-assumptions-as-truth` — the 24 no-action verdicts carry
+the subagent's warrant, not this seat's):
 18 landed/superseded (homes verified at file:line), 7 foreign-estate
 (castr/engraph/resonance — their plans, left in place; deletion is an owner
 call), 1 valuable-unlanded (`imperative-mixing-pebble.md`, MCP-151 slice 1)
@@ -163,3 +167,31 @@ were themselves stale — rejected on first-hand lockfile evidence (sharp
 0.35.3, next 16.3.0 in-lock) rather than landed as tombstones. Next
 consolidation: nothing in that directory needs re-reading; new files there
 date from after 2026-08-14.
+
+## 2026-08-14 ~07:5xZ (Quasar wakes Nadir, 0fabcd, curator) — wrap-pass captures
+
+**Play seed (association, not finding).** A monitor whose premise is a claim
+kept running after the claim closed: the dual-surface heartbeat loop
+hard-coded claim 68e53f09; the moment the claim closed, both legs failed loud
+(good — the CLI rejected the closed id) until the loop was stopped by hand.
+This looks shaped like the DISARMING dual of the arming checklist graduated
+this morning into `use-monitor-for-event-driven-wake` §half-armed: closing a
+premise (claim, branch, PR, phase) should disposition its dependent monitors.
+Held at napkin grade deliberately: one instance, failure was loud and cost
+two noise notifications; structure on n=1 is not warranted. Falsifier that
+graduates it immediately: a premise-bound monitor producing false LIVENESS
+(not loud failure) after its premise ends. Play discards, visible per the
+confabulation guard: a custody-vs-authorship analogy (too vague to route);
+an "idle-means-finished was wrong" suspicion (dissolved — the subagent's
+report had crossed the request in flight; the doctrine held).
+
+**Wrap loss-scan routing note.** The consolidation closeout's four
+owner-candidates lived only in chat: drain-ritual-at-birth verified already
+carried by the director-continuity-surface-redesign plan (:45, :80); real-fs
+test suites verified held in the resonance incoming bundle (owner-priced);
+the PDR-117 missing-axes amendment and the Codex-review-leg standing
+membership had NO repo home and are now rows in pending-graduations.
+Error signature this session, for successors' external scrutiny: this seat's
+misses clustered at "executing from remembered shape instead of re-reading
+the governing surface at the boundary" (the operating-model merge-back; the
+invented intent UUID cured by the commit skill's own documented preflight).

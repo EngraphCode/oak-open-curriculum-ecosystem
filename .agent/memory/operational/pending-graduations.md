@@ -164,3 +164,19 @@ not-yet-minted concepts.**
 | Two-speed learning itself (PDR-130) | ≥3 fast-lane graduations carry prediction lines; ≥1 slow entry promoted or killed BY its review | Register untouched at review — the lane is theatre; retire the PDR by its own rule | 2026-10-01 (first consolidation on/after) |
 | Close-time single-lesson graduation (retrospective 2026-07-20 proposal 1): a captured lesson that is single-instance sufficient (PDR-100), has a nameable doctrine home, and needs no cross-seat synthesis graduates AT session close; the frozen-corpus constraint gates rotation and cross-seat synthesis only. Promotion target: `session-handoff` step 6b, landed under the PDR-101 quorum. Provenance: authored FAST-enacted in the retrospective, reclassified slow-lane at PR #450 review (PDR-130 §§2/4; Director-ratified 2026-07-20) | Pre-promotion observable, accrued in this row during the quarter: each clause-eligible lesson that recurs between capture and its homing is logged here as it occurs — the measured cost of batching while the clause stays unenacted (worked warrant: a June-documented class re-surfaced 2026-07-17 and re-bit three seats before homing, ~3 days from that re-surfacing). At review: promote if at least one recurrence class accrued; the post-promotion prediction (recurrence drops to ~zero) binds only after enactment | No recurrence accrues by review (the batching frame carries no measured cost — the entry is killed), or the accrual log itself goes untouched (the row is theatre; kill it by the register's own rule) | 2026-10-20 |
 | Blame-referent calibration (retrospective 2026-07-26, PDR-094 arc): agents calibrate to the most salient blame signal (accreted caution, or the last correction), not the standing policy, whenever the policy exists only in the owner's head; a WRITTEN owner-ratified policy line converts reversal-grade corrections on that axis into calibration-grade refinements. Provenance: `.agent/reports/agentic-engineering/2026-07-26-pdr-094-retention-arc-retrospective.md` §Meta root (v1–v2 hoard, v3 over-delete, v4 co-authored referent, all one arc) | By review: NO reversal-grade owner correction on the retention axis (the axis now carries its written line, PDR-094 v4); any retention correction observed is a refinement, not a reversal | A reversal-grade retention correction lands despite the written line — the written-referent cure is insufficient and the mechanism needs an action-time instrument (kill this row into that finding) | 2026-10-26 |
+
+- **PDR-117 missing axes: role-scoped value lens and seat-deliverable framing**
+  `[captured: 2026-08-14 | source: owner corrections 2026-08-10 (Director fold cascade) and
+  2026-08-14 (curator self-executed merge-back; archive/napkin-2026-08-14.md 06:08Z entry) |
+  target: PDR-117 amendment — the value lens runs role-scoped BEFORE the licensing/safety
+  lens on self-initiated work; a seat's deliverable is its role's output, never legible
+  effort; shared-git-state operations route to the warden/Director from non-warden seats |
+  trigger: owner ratification (amendment authored at next consolidation or Director PDR
+  pass; two owner-correction instances already recorded) | size: S | status: pending]`
+
+- **Codex review leg as a standing member of significant-PR review rounds**
+  `[captured: 2026-08-14 | source: owner rating 2026-08-09 (high-value; "route through the
+  rules process, not assumed") | target: rule — review-round composition (pr-lifecycle
+  Phase 4 round membership or a dedicated rule per new-rule-vs-pdr-clause) | trigger: run
+  the rules process with the owner; until then the leg is selective, never assumed |
+  size: S | status: pending]`
