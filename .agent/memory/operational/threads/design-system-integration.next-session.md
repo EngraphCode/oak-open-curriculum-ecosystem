@@ -3242,3 +3242,29 @@ interaction-state shots should go through a settled-capture path so a
 late font/layout change cannot ride into proof) — read that review body
 at the next probe touch. Owner-facing proof page published (private
 artifact, URL in the session wrap-up).
+
+### Wrap addenda (2026-08-14 ~05:5xZ, session close)
+
+- **Pickup row 6 — PDR-138 prediction line (PDR-130 conformance):** the
+  graduation landed without the required prediction. Drafted, ready to
+  add at next touch: "Prediction: within the review window, design-lane
+  sessions produce rendered proof artefacts at cure boundaries by
+  default, and at least one defect invisible to code-level gates is
+  caught on pixels before merge (the class the 2026-08-13 keyboard
+  blackout instantiated)."
+- **Attribution flag:** the overnight plan commits on this branch
+  (`0f0524233`, `ce7116c39`, cross-platform strategic node) were authored
+  by another actor — INFERRED from commit style and subject, not
+  observed. Treat "another session was active overnight" as inference.
+- **Worktree disposition at close:** identity-switchboard-pr2,
+  pr-watch-latest-per-name, and visual-verification-practice all held
+  clean trees on branches whose content is an ancestor of origin/main;
+  pruned under the standing provably-safe policy. Remote branch deletion
+  left to the pr-lifecycle merge-base sweep (not discharged by merges,
+  per the merge tool's own note).
+- **External-scrutiny signature (for successors):** tonight outside eyes
+  caught what self-scan missed — the owner's visual challenge surfaced a
+  live keyboard blackout behind a green estate, and Copilot rounds
+  caught a non-associative fold and a 404-as-proof misread. Point
+  external scrutiny at rendered-proof claims and merge-gating semantics
+  first.
