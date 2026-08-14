@@ -164,7 +164,7 @@ Research on API structure and data analysis.
 
 | Document | Summary |
 | --- | --- |
-| [provider-independent-capability-architecture.md](provider-independent-capability-architecture.md) | Research supporting PostgreSQL and Neon as replaceable bindings: storage-model fit, capability-specific absence, an exercised independent composition for every named provider, and separate behaviour/state portability. |
+| [provider-independent-capability-architecture.md](provider-independent-capability-architecture.md) | Research supporting PostgreSQL as the technology seam with Neon as one replaceable provider binding: storage-model fit, capability-specific absence, an exercised independent composition for every named provider, and separate behaviour/state portability. |
 
 ## Recent Additions (2026-07-13)
 

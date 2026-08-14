@@ -6,7 +6,7 @@ Practice Core package.
 
 ## [oak-open-curriculum-ecosystem] 2026-08-13 — provider-independent capability composition
 
-- New PDR-138, status Proposed: separates provider-independent semantic
+- New PDR-139, status Proposed: separates provider-independent semantic
   capability contracts from explicit host composition; makes omission
   capability-specific; separates provider extensions; and requires behaviour
   and state portability plus a documented and exercised composition without

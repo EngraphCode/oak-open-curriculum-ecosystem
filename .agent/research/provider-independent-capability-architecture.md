@@ -5,7 +5,7 @@
 **Decision records**:
 [ADR-225](../../docs/architecture/architectural-decisions/225-provider-independent-capability-contracts.md)
 and
-[PDR-138](../practice-core/decision-records/PDR-138-provider-independent-capability-composition.md)
+[PDR-139](../practice-core/decision-records/PDR-139-provider-independent-capability-composition.md)
 
 ## Executive finding
 

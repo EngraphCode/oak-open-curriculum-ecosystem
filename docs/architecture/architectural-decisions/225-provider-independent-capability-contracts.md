@@ -11,7 +11,7 @@ separation;
 different reasons remain separate;
 [ADR-212](212-federated-visibility-authority-and-evidence-boundaries.md) —
 authority and external projection boundaries;
-[PDR-138](../../../.agent/practice-core/decision-records/PDR-138-provider-independent-capability-composition.md)
+[PDR-139](../../../.agent/practice-core/decision-records/PDR-139-provider-independent-capability-composition.md)
 — portable semantic authority;
 [research](../../../.agent/research/provider-independent-capability-architecture.md)
 — storage and provider analysis.
@@ -35,7 +35,7 @@ migration.
 
 ## Decision
 
-This repository adopts PDR-138 as the semantic authority for every capability
+This repository adopts PDR-139 as the semantic authority for every capability
 that crosses a replaceable runtime or external-service boundary. This ADR
 records the repository phenotype; it does not restate the portable contract.
 
@@ -102,7 +102,7 @@ not established provider independence.
 
 ## Rationale
 
-PDR-138 owns the general pattern; this ADR keeps only the repository-specific
+PDR-139 owns the general pattern; this ADR keeps only the repository-specific
 placement and PostgreSQL/Neon interpretation. That direction prevents the two
 decision records from becoming competing normative copies.
 
@@ -118,7 +118,7 @@ without the named provider, and state can move when state is authoritative.
 
 ### Repeat the portable capability rules in this ADR
 
-This would create two normative copies. PDR-138 remains the portable authority;
+This would create two normative copies. PDR-139 remains the portable authority;
 this ADR records only this repository's adoption and phenotype.
 
 ### Make Neon the persistence contract
@@ -165,7 +165,7 @@ remain outside runtime composition.
 A provider-backed repository change complies when reviewers can answer yes to
 each applicable question:
 
-- Does it identify PDR-138 as the semantic authority rather than copy its
+- Does it identify PDR-139 as the semantic authority rather than copy its
   portable rules?
 - Do consumers depend on a capability contract while runtime adapters and
   composition contain provider knowledge?
