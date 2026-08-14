@@ -218,7 +218,10 @@ Best fit:
 
 The RDF dataset contract and named-graph semantics are more portable than a
 specific graph database API. A remote graph service can be omitted when the
-dataset remains rebuildable from its authority.
+graph-dependent surface is non-constitutive for the host — its declared
+purpose and guarantees survive — or replaced by an exercised independent
+binding; the dataset remaining rebuildable from its authority is what keeps
+either move cheap.
 
 ### Search indexes
 
@@ -252,7 +255,8 @@ Best fit:
   authority;
 - replayable integration history and independently replaceable consumers;
 - a PostgreSQL transactional outbox for atomic state-and-event recording,
-  followed by an optional publisher binding.
+  followed by a separately composed publisher binding — omittable only in
+  profiles with no required downstream obligation.
 
 CloudEvents can standardise the event envelope. Delivery, ordering,
 deduplication, and replay guarantees still belong to the capability contract.
