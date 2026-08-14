@@ -195,3 +195,80 @@ Error signature this session, for successors' external scrutiny: this seat's
 misses clustered at "executing from remembered shape instead of re-reading
 the governing surface at the boundary" (the operating-model merge-back; the
 invented intent UUID cured by the commit skill's own documented preflight).
+
+## 2026-08-14 ~08:4xZ (Nautilus calls Plankton, c6d48b, survey lane) — resume-and-freeze harvest: gate narrowed to design; first design movement banked (metacognition / free-play / concept-exploration / wrap)
+
+Session shape: resumed from the 2026-08-12 cold pause at owner word with a
+Director catch-up (Smith hunts Obsidian), got up to speed with every git
+fact verified live, ran one permitted design movement, froze for
+compaction. Gate state at freeze: EXECUTION held (schema gates, expiry
+2026-09-02); DESIGN iteration opened by owner word 2026-08-14 (verbatim:
+"this is not permission to start any large surveys, it is permission to
+revisit and iterate on survey design").
+
+METACOGNITION: (1) the pre-pause freeze paid off exactly as designed —
+resume map in the pause broadcast, claim survived the wind-down, zero
+directed events missed, warm start in ~15 minutes; freeze discipline is
+cheap insurance that priced correctly. (2) The catch-up's §5 arrived
+TRUNCATED and its tail carried the ceremony instruction — a handoff's
+self-containedness is also a transport property; verify the tail arrived
+before trusting a handoff complete (the owner's relay closed the gap).
+(3) The gate word was two clauses and both mattered — reading only
+"not permission" would over-hold, only "permission to iterate" would
+over-run; parse-the-full-answer held.
+
+FREE-PLAY SEEDS (one discard): (a) independent re-derivation as a
+corroboration signal — the comparison's convergent-evolution finding
+generalised: a pattern derived twice without citation is evidence the
+generator is real; the corpus schema could record "independently
+re-derived n times" as strength. (b) The three organs (should-be /
+is-proven / is-measured) rhyme with the ADR-vs-plan split; a possible
+fourth organ "is-recorded" — association only. DISCARDED: a forced
+mapping of the three-body gazes (forward/backward/inward) onto the
+census's three depth values — structurally cute, semantically empty.
+
+CONCEPT-EXPLORATION (a REAL movement this freeze — the permitted design
+iteration, sketch-level, banked in ack 6b088469 to the Director):
+battery reconciliation by claim class (one corpus, one battery per claim
+class, overlapping gates unified, zero new batteries); capability
+polysemy fixed by a normative three-term corpus lexicon at design time;
+the DECON-5 tension framed as layered-not-conflicting (meaning answers
+WHERE a seam is, second-consumer economics answers WHEN to materialise
+it — meaning proposes, evidence disposes) to be PROPOSED at the owner
+moment, never silently adopted; "exercised separability at every scale,
+knowledge preserved over mechanism" as the corpus spine candidate with
+PDR-135's gradient as the value model beneath. These are inputs for the
+post-go fresh-design node, not plan edits.
+
+WRAP loss-scan (freeze form; claim 95a0678d retained again): in-context
+knowledge → this entry + ack 6b088469 + re-registration 8e469b55; the
+watcher was stopped mid-backlog-drain (cursor sits mid-window by design;
+the next resume's gap sweep covers from this freeze's timestamp, and the
+catch-up already curated the window's substance); napkin dirt from this
+entry rides the Director's next fold per standing pattern; scratchpad
+bodies verbatim on the stream; per-user memory checked — nothing beyond
+repo surfaces; resume map = at Jim's go, §Banked inputs is the
+read-first surface for design work following the ledger, execution steps
+per the held task. Metaloss pass: a further scan re-finds only the
+mid-window cursor and the napkin dirt, both named with owners — closed.
+
+## 2026-08-14 ~08:5xZ (Nautilus calls Plankton, c6d48b, survey lane) — resume: concept exploration ran; scale-vocabulary gap found in own ratified node
+
+Owner-invoked concept exploration under the narrowed gate (design
+iteration). Record: `.agent/research/survey-fresh-design-concept-exploration.md`.
+Three real movements: corpus purpose sharpened (make the shared
+generator citable — missed-stitch cure); membership/claims separation
+(admission cheap, claims battery-scored by class); and the strongest
+yield — the machinery node's `generalises-to <scale>` column has no
+closed scale vocabulary, found by applying the node's own
+closed-at-authoring discipline to its own columns. Amendment proposed
+to the Director on the lane ARC channel, edit held for concurrence.
+Lesson: iterate a ratified design by testing it against ITS OWN stated
+disciplines first — the gap was invisible while reading the node as a
+finished object and obvious the moment its rule was applied reflexively.
+
+Tooling capture: `find` on this host is `bfs`, which rejects GNU-style
+relative `-newermt "-40 seconds"` (ISO-8601 timestamps only) — a
+wait-loop built on that predicate spins to timeout without ever
+becoming true. Run the CLI assert directly (it is the authoritative
+freshness check) or compute an absolute ISO timestamp for -newermt.
