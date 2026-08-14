@@ -77,3 +77,46 @@ all in-window or newly swept.
   role-scope correction, archive entry 06:08Z) DESPITE the reader having the
   class loaded — recurrence-despite-home for the action-time-interrupt
   design lane (PDR-098's empty quadrant), not a new capture.
+
+## 2026-08-14 ~06:3xZ (Smith hunts Obsidian, e98f17, Director) — compaction-freeze harvest, the PR-886 drive (metacognition / free-play / concept-exploration; owner-invoked)
+
+- METACOGNITION, three bites: (1) STAGED-VS-WORKTREE LOOKALIKE, own hands —
+  a git mv staged the pre-cure file, my later edits sat unstaged, my
+  pathspec list omitted the file, and my verification greps read the
+  WORKING TREE while the commit shipped the INDEX; my thread replies then
+  cited cures the commit did not contain (false claims, corrected on both
+  threads at d6f664036). Copilot's re-round on the tip caught it. One-law
+  extension: verify the surface that SHIPS (git show <sha> / the staged
+  diff), never the surface that is convenient. (2) I partially INHERITED
+  the PR's invented premise ("the founding constraint") by pattern-matching
+  it onto my own memory priors — trace-constraint-provenance applies to the
+  seat's OWN memory index, not just plan prose; the adversarial grep (2
+  hits, both in-PR) was the falsifier I did not run. (3) An all-or-nothing
+  edit script (asserts before one write) converted a stale-anchor failure
+  into ZERO damage — keep composing cure batches that way. Also: a
+  hook-BLOCKED compound command loses ALL its steps, not just the offending
+  one — re-run the innocent steps explicitly (the lost footer cure).
+- PANEL EVIDENCE for the different-lenses doctrine, measured: two opus
+  adversarial legs (proportionality; failure-modes), 17 findings, near-zero
+  overlap, BOTH independently FINDINGS-BLOCK-MERGE on an artefact that had
+  survived my own critical pass with one graded-down finding. The lenses
+  found: a placement claim naming a nonexistent workspace tier, an invented
+  constitutional premise, three Accepted-ADR collisions. Lesson: a
+  Director's critical pass is ONE lens; doctrine PRs get the panel BEFORE
+  the merge glide.
+- FREE-PLAY (one discard): (a) invented-premise, surfaced, then
+  owner-RATIFIED is a legitimate pipeline — the defect was citing the
+  constraint as pre-existing, not holding it; provenance honesty converts
+  fabrication into proposal. (b) ADR-225 now establishes a constraint AND
+  its first application in one record — the office writing its own statute
+  book; the regnal-numbering association's second appearance this week.
+  DISCARDED: a riff on the fleet's own model-tier provider-dependence —
+  routes nowhere today.
+- CONCEPT-EXPLORATION: justified no-run — every open question is formed and
+  carried (cure map + acceptance checklist = PR #886 comment 5290518682;
+  three owner rulings recorded; resume order in the thread record).
+- PEER DISCOVERY at this freeze: a curator seat appended to the napkin and
+  holds an uncommitted edit on design-lane-review-debt-closure.plan.md
+  during my prep — the freeze entry's n=1 watcher exemption is FALSIFIED;
+  their plan edit is theirs, deliberately unstaged by this commit; the
+  successor re-runs ListAgents at resume rather than trusting this map.

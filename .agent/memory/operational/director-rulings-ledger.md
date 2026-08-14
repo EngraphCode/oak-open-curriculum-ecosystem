@@ -117,6 +117,7 @@ missing) · `UNHOMED` (no home; queued S3) · `EXPIRED`/`SUPERSEDED`/`EXECUTED`
 | 774 | #774 illustrative, never merge-queued | owner-verbatim | napkin 3270–3277 + thread record HELD row |
 | FIX-LOW | fix at the lowest effective level | owner-verbatim | per-user memory `fix-at-the-lowest-effective-level` |
 | XPLAT | cross-platform node ratified; research precedes work ("stamp it now, it will need further research before work on it begins") | owner-verbatim | strategic plan `cross-platform-compatibility` (stamp + §Delivery rider) |
+| XPLAT-2 | no-vendor-structural-dependence constraint is the owner's, ESTABLISHED in ADR-225 at review (2026-08-14) — never citable as pre-dating it; MUST forward-scoped, priors (ADR-074/076/219/162) not retroactively bound | owner-verbatim (card) | PR #886 comment 5290518682 → ADR-225 at the cure landing |
 
 ## Expired / superseded / executed (dated; no home owed)
 

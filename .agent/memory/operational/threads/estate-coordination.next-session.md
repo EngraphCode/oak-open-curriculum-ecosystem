@@ -240,6 +240,42 @@ registry) so the claim→record path resolves. Copilot's three tonight-cures
 landed in this commit (fleet-state truing, two plan `last_updated` fields,
 one report label). #846 was in CI at Skua's seat at this write.
 
+### 2026-08-14 ~06:3xZ — Smith hunts Obsidian (e98f17): COMPACTION FREEZE mid-PR-886 drive; seat continues
+
+Owner word "prepare for compaction" (no stop-processes word — the #886
+settle watch stays armed; the canonical comms watcher was deliberately not
+re-armed this morning under the n=1 exemption). Drive state, durable and
+resumable from the PR alone:
+
+- PR #886 (owner-agent docs: capability architecture) at tip `d6f664036` —
+  conflicts resolved, PDR renumbered 138→139 (main took 138 overnight),
+  Copilot round-1 findings cured, my false be4ec15ba reply citations
+  CORRECTED on both threads (staged-vs-worktree divergence: a git mv had
+  staged pre-cure content, my pathspec omitted the file, verification read
+  the tree — Copilot's re-round caught it; verify the INDEX, not the tree).
+- Owner-ordered adversarial panel (2 legs, opus, max-different lenses):
+  BOTH returned FINDINGS-BLOCK-MERGE, near-disjoint findings. Reports
+  conserved verbatim as PR comments 5290506438 (assumptions lens) and
+  5290514095 (failure-modes lens). Waves 2–3 deliberately held: verdict
+  settled; fresh lenses go to the CURED text.
+- THREE OWNER RULINGS (in-session, 2026-08-14): MUST forward-scoped +
+  priors named (ADR-074/076, 219, 162 not retroactively bound); the
+  no-vendor-structural-dependence constraint IS the owner's, ESTABLISHED
+  in ADR-225 (owner-declared at review) — ledger row XPLAT-2; full cure
+  in this PR now, acceptance residue on the checklist, fresh adversarial
+  leg on cured text before merge.
+- Cure state: NOT YET APPLIED — the first cure script died on a stale
+  anchor BEFORE its write (all-or-nothing protected the tree; worktree
+  verified clean). The full cure map + acceptance checklist is PR comment
+  5290518682. Resume lesson: re-derive every anchor from LIVE file text.
+- Resume order: (1) re-ground; (2) apply the cure map in the worktree
+  `.claude/worktrees/pr-886-capability-architecture` (built, deps in);
+  (3) commit+push; (4) fresh adversarial leg (architecture-expert-fred —
+  both reviewers recommended it) on the cured text + Copilot re-request;
+  (5) settle per the state machine; (6) bot merge at the fetched oid
+  (owner word "fix and merge" stands, post-panel); (7) Phase 8 harvest;
+  (8) worktree removal; (9) board items 13/14 remain routed, untouched.
+
 ## Participating agent identities
 
 | platform | model | session_id_prefix | agent_name | role | first_session | last_session |
