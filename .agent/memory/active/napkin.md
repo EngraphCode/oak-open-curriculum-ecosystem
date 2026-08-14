@@ -147,3 +147,19 @@ all in-window or newly swept.
   PDR-108, the promotion test) vs the deconstruction charter's explicit refusal of placement
   doctrines ("boundaries follow meaning; placement doctrines do not"). Both are owner-sanctioned
   in their frames; adjudication belongs to the fresh survey design node, visibly.
+
+## 2026-08-14 ~07:3xZ (Quasar wakes Nadir, 0fabcd, curator) — plans-triage verdicts, conserved so the next pass need not re-read
+
+All 26 pre-existing `~/.claude/plans` session-plan files were read in full by
+the plans-triage subagent and every classification verified against the repo:
+18 landed/superseded (homes verified at file:line), 7 foreign-estate
+(castr/engraph/resonance — their plans, left in place; deletion is an owner
+call), 1 valuable-unlanded (`imperative-mixing-pebble.md`, MCP-151 slice 1)
+whose two surviving residues landed at 35d9bca74 (DDR over-reach rejections +
+APFS rationale into the design-lane-review-debt-closure node Slice 2;
+dated-reachability discipline into the update-dependencies skill). The
+triage's other two "live constraint" reads (sharp floor, next-unreachable)
+were themselves stale — rejected on first-hand lockfile evidence (sharp
+0.35.3, next 16.3.0 in-lock) rather than landed as tombstones. Next
+consolidation: nothing in that directory needs re-reading; new files there
+date from after 2026-08-14.
