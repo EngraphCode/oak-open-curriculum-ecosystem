@@ -21,7 +21,7 @@ compatibility: >-
   self-contained skill.
 metadata:
   author: Oak National Academy
-  version: '1.0.0'
+  version: '1.1.0'
 ---
 
 # Oak Curriculum Principles — grounded in live data
@@ -30,7 +30,7 @@ This skill does one thing the self-contained `oak-curriculum-principles` skill c
 
 Use it to move from "this looks well-sequenced" to "this matches Oak's _Number_ thread progression and the prior-knowledge graph," and from "anticipate misconceptions" to "here are the misconceptions Oak has documented for this exact topic."
 
-For the _meaning_ of each principle, the evidence base, and the 15 subject guiding principles, use `oak-curriculum-principles`. This skill assumes those principles and focuses on grounding them in data.
+For the _meaning_ of each principle, the evidence base, and the subject guiding principles for 15 subjects, use `oak-curriculum-principles`. This skill assumes those principles and focuses on grounding them in data.
 
 ## Before you start
 
@@ -44,7 +44,7 @@ The full tool-by-tool mapping with example calls and data shapes is in `referenc
 
 | Principle                       | Grounding data                                                           | Key tools                                                             |
 | ------------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------- |
-| **Knowledge & vocabulary rich** | Keywords _with definitions_, key learning points, pupil outcomes         | `get-lessons-summary`, `get-keywords`, `get-units-summary`            |
+| **Knowledge & vocabulary rich** | Keywords _with definitions_, key learning points, learning outcomes      | `get-lessons-summary`, `get-keywords`, `get-units-summary`            |
 | **Sequenced & coherent**        | ~164 threads with ordered units; unit prerequisites                      | `get-threads`, `get-thread-progressions`, `get-prior-knowledge-graph` |
 | **Evidence-informed**           | ~12,800 misconceptions + teacher responses; teacher tips                 | `get-misconception-graph`, `get-lessons-summary`                      |
 | **Flexible**                    | National curriculum statements; unit options; tiers; programme structure | `get-units-summary`, `browse-curriculum`, `fetch`                     |

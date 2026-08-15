@@ -1,6 +1,6 @@
 # Reviewing material against the principles
 
-Use this when the task is to **audit or quality-assure** existing material — a unit, lesson, scheme of work, resource, or curriculum map — against the six principles. The goal is a fair, specific, actionable review that improves the work, not a gotcha checklist.
+Use this when the task is to **audit or quality-assure** existing material — a unit, lesson, scheme of work, resource, or curriculum sequence — against the six principles. The goal is a fair, specific, actionable review that improves the work, not a gotcha checklist.
 
 ## How to review well
 
