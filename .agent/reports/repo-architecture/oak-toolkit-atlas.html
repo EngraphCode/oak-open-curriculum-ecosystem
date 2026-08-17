@@ -1,0 +1,421 @@
+<title>Oak Toolkit Atlas</title>
+<style>
+  :root {
+    --bg: #FAFAF8;
+    --bg-panel: #F1F0EC;
+    --bg-inset: #E9E8E2;
+    --ink: #22272A;
+    --ink-soft: #5A6360;
+    --rule: #D8D6CE;
+    --bark: #8A6A4F;
+    --bark-soft: #C4B3A4;
+    --leaf: #3E7A4E;
+    --leaf-soft: #BFD8C6;
+    --alarm: #B3452E;
+    --chip-bg: #FFFFFF;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16181A;
+      --bg-panel: #1E2124;
+      --bg-inset: #24282B;
+      --ink: #E8E6E1;
+      --ink-soft: #9BA39F;
+      --rule: #33383B;
+      --bark: #C09A76;
+      --bark-soft: #6B5744;
+      --leaf: #7FBF8E;
+      --leaf-soft: #3A5A44;
+      --alarm: #E07B5F;
+      --chip-bg: #24282B;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #16181A;
+    --bg-panel: #1E2124;
+    --bg-inset: #24282B;
+    --ink: #E8E6E1;
+    --ink-soft: #9BA39F;
+    --rule: #33383B;
+    --bark: #C09A76;
+    --bark-soft: #6B5744;
+    --leaf: #7FBF8E;
+    --leaf-soft: #3A5A44;
+    --alarm: #E07B5F;
+    --chip-bg: #24282B;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.55;
+    margin: 0;
+    padding: 2.5rem 1.25rem 5rem;
+  }
+  main { max-width: 62rem; margin: 0 auto; }
+  h1, h2, h3 { font-family: var(--sans); text-wrap: balance; line-height: 1.15; }
+  h1 { font-size: 2.1rem; letter-spacing: -0.02em; margin: 0 0 0.4rem; }
+  h2 { font-size: 1.45rem; letter-spacing: -0.01em; margin: 3rem 0 0.75rem; }
+  h3 { font-size: 1.05rem; margin: 1.8rem 0 0.5rem; }
+  p, li { max-width: 68ch; }
+  .kicker {
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-soft); margin: 0 0 0.3rem;
+  }
+  .lede { color: var(--ink-soft); font-size: 1.05rem; max-width: 62ch; margin-top: 0; }
+  .statstrip {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.6rem 0 0;
+  }
+  .stat {
+    background: var(--bg-panel); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 0.55rem 0.85rem; min-width: 7.5rem;
+  }
+  .stat b { display: block; font-size: 1.25rem; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+  .stat span { font-size: 0.72rem; color: var(--ink-soft); letter-spacing: 0.04em; text-transform: uppercase; }
+  code, .mono { font-family: var(--mono); font-size: 0.88em; }
+  .legend { display: flex; gap: 1.2rem; flex-wrap: wrap; font-size: 0.8rem; color: var(--ink-soft); margin: 0.8rem 0 0; }
+  .legend i { display: inline-block; width: 0.7em; height: 0.7em; border-radius: 2px; margin-right: 0.4em; }
+  .k-bark { background: var(--bark); }
+  .k-leaf { background: var(--leaf); }
+  .k-alarm { background: var(--alarm); }
+  .fam-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 0.8rem; margin: 1.2rem 0; }
+  .fam {
+    background: var(--bg-panel); border: 1px solid var(--rule); border-left: 3px solid var(--bark);
+    border-radius: 6px; padding: 0.8rem 0.9rem;
+  }
+  .fam h4 { margin: 0 0 0.1rem; font-size: 0.92rem; font-family: var(--mono); font-weight: 650; }
+  .fam .role { font-size: 0.75rem; color: var(--ink-soft); margin: 0 0 0.55rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+  .chip {
+    background: var(--chip-bg); border: 1px solid var(--rule); border-radius: 4px;
+    font-family: var(--mono); font-size: 0.72rem; padding: 0.1rem 0.4rem; white-space: nowrap;
+  }
+  .chip.hot { border-color: var(--bark); }
+  .chip.dead { border-style: dashed; color: var(--ink-soft); }
+  .chip.pub { border-color: var(--leaf); }
+  .badge {
+    display: inline-block; font-size: 0.68rem; font-family: var(--mono);
+    border-radius: 3px; padding: 0 0.35em; margin-left: 0.35em;
+    background: var(--bg-inset); color: var(--ink-soft);
+  }
+  .diagram {
+    background: var(--bg-panel); border: 1px solid var(--rule); border-radius: 8px;
+    padding: 1rem; margin: 1.2rem 0; overflow-x: auto;
+  }
+  .diagram figcaption, .caption {
+    font-size: 0.78rem; color: var(--ink-soft); margin-top: 0.6rem; max-width: 75ch;
+  }
+  pre.mermaid { margin: 0; display: flex; justify-content: center; background: transparent; }
+  table {
+    border-collapse: collapse; width: 100%; font-size: 0.85rem; margin: 1rem 0;
+  }
+  .tablewrap { overflow-x: auto; }
+  th, td { text-align: left; padding: 0.45rem 0.7rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-soft); }
+  td.num { font-variant-numeric: tabular-nums; font-family: var(--mono); font-size: 0.8rem; white-space: nowrap; }
+  .callout {
+    border-left: 3px solid var(--alarm); background: var(--bg-panel);
+    border-radius: 0 6px 6px 0; padding: 0.7rem 1rem; margin: 1.2rem 0; max-width: 70ch;
+  }
+  .callout.leaf { border-left-color: var(--leaf); }
+  .callout.bark { border-left-color: var(--bark); }
+  .callout p { margin: 0.25rem 0; }
+  .queue {
+    border: 1px dashed var(--rule); border-radius: 8px; padding: 0.9rem 1.1rem; margin: 0.9rem 0;
+  }
+  .queue h4 { margin: 0 0 0.25rem; font-size: 0.98rem; }
+  .queue .tag {
+    font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase;
+    color: var(--leaf); font-weight: 650;
+  }
+  .queue p { margin: 0.3rem 0 0; font-size: 0.88rem; color: var(--ink-soft); }
+  footer {
+    margin-top: 4rem; padding-top: 1.2rem; border-top: 1px solid var(--rule);
+    font-size: 0.78rem; color: var(--ink-soft); max-width: 75ch;
+  }
+  footer p { margin: 0.4rem 0; }
+</style>
+
+<main>
+  <p class="kicker">Oak Open Curriculum Ecosystem · repo architecture · MCP-619</p>
+  <h1>Oak Toolkit Atlas</h1>
+  <p class="lede">The current architecture and workspace arrangement, drawn from live evidence —
+  the ground the toolkit redesign starts from. Change proposals land here beneath the baseline,
+  one diagram each.</p>
+
+  <div class="statstrip">
+    <div class="stat"><b>34</b><span>workspaces</span></div>
+    <div class="stat"><b>10,904</b><span>tracked files</span></div>
+    <div class="stat"><b>161.1 MB</b><span>tracked bytes</span></div>
+    <div class="stat"><b>42.5%</b><span>generated + data</span></div>
+    <div class="stat"><b>1</b><span>deployed service</span></div>
+    <div class="stat"><b>0</b><span>npm-published pkgs</span></div>
+    <div class="stat"><b>5,949</b><span>commits / 12 mo</span></div>
+  </div>
+  <div class="legend">
+    <span><i class="k-bark"></i>current state</span>
+    <span><i class="k-leaf"></i>proposed / target</span>
+    <span><i class="k-alarm"></i>measured anomaly</span>
+  </div>
+
+  <h2>1 · The workspace arrangement as it stands</h2>
+  <p>Thirty-four pnpm members in seven families, plus non-member code surfaces
+  (the Claude Code plugin, <code>runtime-only-scripts</code>, the agent substrate under
+  <code>.agent/</code>). Everything is <code>private: true</code> except
+  <code>@oaknational/curriculum-sdk</code> — and even that is not actually published
+  (<code>npmPublish: false</code> in <code>.releaserc.mjs</code>).</p>
+
+  <div class="fam-grid">
+    <div class="fam"><h4>packages/core</h4><p class="role">10 members — a genuinely closed sink: core depends only on core</p>
+      <div class="chips"><span class="chip hot">result <span class="badge">17←</span></span><span class="chip hot">type-helpers <span class="badge">12←</span></span><span class="chip hot">observability <span class="badge">8←</span></span><span class="chip">build-metadata</span><span class="chip">env</span><span class="chip">graph-core</span><span class="chip">safe-path</span><span class="chip">workspace-config <span class="badge">30← dev</span></span><span class="chip">oak-eslint <span class="badge">31← dev</span></span><span class="chip">openapi-zod-adapter</span></div></div>
+    <div class="fam"><h4>packages/libs</h4><p class="role">8 members — mid-tier machinery</p>
+      <div class="chips"><span class="chip hot">logger <span class="badge">6←</span></span><span class="chip">sentry-node</span><span class="chip">posthog-node</span><span class="chip">search-contracts</span><span class="chip">env-resolution</span><span class="chip">fidelity-review</span><span class="chip dead">graph-ingest <span class="badge">0←</span></span><span class="chip dead">graph-project <span class="badge">0←</span></span></div></div>
+    <div class="fam"><h4>packages/sdks</h4><p class="role">4 members — the domain layer; 87.7% of sdk-codegen's bytes are its own generated output</p>
+      <div class="chips"><span class="chip pub">curriculum-sdk <span class="badge">publishable</span></span><span class="chip hot">sdk-codegen <span class="badge">5←</span></span><span class="chip">oak-search-sdk</span><span class="chip">graph-corpus-sdk</span></div></div>
+    <div class="fam"><h4>packages/design</h4><p class="role">6 members — the design system and its tiers</p>
+      <div class="chips"><span class="chip">oak-design-system</span><span class="chip">oak-design-tokens</span><span class="chip">design-tokens-core</span><span class="chip">oak-design-react</span><span class="chip dead">oak-design-ink <span class="badge">0←</span></span><span class="chip">oak-design-assets</span></div></div>
+    <div class="fam"><h4>apps</h4><p class="role">2 members — the delivery leaves</p>
+      <div class="chips"><span class="chip">oak-curriculum-mcp-streamable-http <span class="badge">Vercel</span></span><span class="chip">oak-search-cli <span class="badge">in-repo CLI</span></span></div></div>
+    <div class="fam"><h4>demos</h4><p class="role">2 members — design-system consumers</p>
+      <div class="chips"><span class="chip">oak-curriculum-hub</span><span class="chip">oak-design-showcase</span></div></div>
+    <div class="fam"><h4>tooling &amp; research</h4><p class="role">agent-tools + one research member; plus non-member surfaces</p>
+      <div class="chips"><span class="chip">agent-tools</span><span class="chip">research-evidence</span><span class="chip dead">plugins/oak-open-curriculum <span class="badge">non-member</span></span><span class="chip dead">runtime-only-scripts <span class="badge">non-member</span></span></div></div>
+  </div>
+  <p class="caption"><code>N←</code> = internal dependents (production edges unless marked dev).
+  Dashed chips: zero consumers anywhere in the repo, or non-member surfaces.
+  Source: per-manifest sweep, 2026-08-17.</p>
+
+  <h2>2 · The runtime dependency spine</h2>
+  <p>Stripping devDependencies changes the picture completely. The two most-depended-upon
+  packages in the estate (<code>oak-eslint</code> at 31, <code>workspace-config</code> at 30)
+  are build/lint infrastructure with <em>zero</em> runtime coupling. What actually carries the
+  running system is a small spine — and it is the embryo of the finished-foundations layer.</p>
+
+  <figure class="diagram">
+    <pre class="mermaid">
+flowchart TD
+  classDef anomaly stroke:#B3452E,stroke-width:2.5px
+  classDef quiet stroke-dasharray:4 3,opacity:0.75
+
+  subgraph TOPS["apps · demos  (always in flux — emergent expressions)"]
+    MCP["MCP server app"]
+    CLI["oak-search-cli"]
+    HUB["curriculum-hub"]
+  end
+  subgraph SDKS["packages/sdks  (domain layer)"]
+    CSDK["curriculum-sdk"]
+    SSDK["oak-search-sdk"]
+    CODEGEN["sdk-codegen"]
+    GCORP["graph-corpus-sdk"]
+  end
+  subgraph LIBS["packages/libs"]
+    LOG["logger"]
+    SC["search-contracts"]
+    SN["sentry-node"]
+    GI["graph-ingest · 0 consumers"]:::quiet
+  end
+  subgraph CORE["packages/core  (closed sink — the confirmed layer)"]
+    OBS["observability · 8←"]
+    TH["type-helpers · 12←"]
+    RES["result · 17←"]
+  end
+
+  MCP --> CSDK
+  MCP --> SSDK
+  CLI --> CSDK
+  CLI --> SSDK
+  HUB --> CSDK
+  CSDK --> CODEGEN
+  CSDK --> GCORP
+  SSDK --> CODEGEN
+  SSDK --> SC
+  GCORP --> CODEGEN
+  SC -->|lib → sdk, prod| CODEGEN
+  CSDK --> LOG
+  SSDK --> LOG
+  CODEGEN --> LOG
+  SN --> LOG
+  LOG --> OBS
+  OBS --> TH
+  OBS --> RES
+  TH ~~~ RES
+  class SC anomaly
+    </pre>
+    <figcaption>Production <code>workspace:*</code> edges, simplified (apps' nine-package
+    foundation fan-out abbreviated; full edge list in the sweep record). Red:
+    <code>search-contracts</code> (a lib) depends on <code>sdk-codegen</code> (an sdk) in
+    production while <code>oak-search-sdk</code> (an sdk) depends on
+    <code>search-contracts</code> (a lib) — the declared libs/sdks seam is bidirectional in
+    reality. The measured import graph reads as one substrate tier + two small domain
+    clusters + a residual blob, not the four-level hierarchy the directory tree declares.</figcaption>
+  </figure>
+
+  <h2>3 · The delivery plane — what actually ships</h2>
+  <p>For a repo whose destination is <em>a toolkit that can build any digital service</em>,
+  the current delivery plane is one Oak service and zero published building blocks.</p>
+
+  <figure class="diagram">
+    <pre class="mermaid">
+flowchart LR
+  classDef ghost stroke-dasharray:5 4,opacity:0.65
+  classDef live stroke:#3E7A4E,stroke-width:2px
+
+  UP["open-api.thenational.academy<br/>one upstream, three taps:<br/>spec · bulk · live queries"]
+  REPO["the monorepo<br/>34 workspaces"]
+  VERCEL["curriculum-mcp-alpha<br/>.oaknational.dev/mcp<br/>Express on Vercel + embedded widget"]:::live
+  PLUGIN["Claude Code plugin<br/>→ www.thenational.academy/mcp"]:::live
+  CLIS["oaksearch · agent-tools CLIs<br/>in-repo invocation only, no bin"]
+  NPM["npm registry<br/>NOTHING PUBLISHED<br/>(npmPublish: false)"]:::ghost
+
+  UP --> REPO
+  REPO --> VERCEL
+  REPO --> PLUGIN
+  REPO --> CLIS
+  REPO -.-> NPM
+    </pre>
+    <figcaption>Every externally-reachable surface, verified from deploy configs and release
+    machinery 2026-08-17. Only <code>curriculum-sdk</code> is even publishable by manifest
+    shape; the release pipeline versions, tags, and changelogs — it never publishes.</figcaption>
+  </figure>
+
+  <h2>4 · Generated bytes and the lifecycle-mixing exemplar</h2>
+  <p>42.5% of tracked bytes are generated output or data payload, and <strong>every generated
+  location is co-resident with hand-written code — there is no generated-only package
+  anywhere in the estate</strong>. The heaviest case is the exemplar for the whole defect
+  class the brief's point 4 names:</p>
+
+  <figure class="diagram">
+    <pre class="mermaid">
+flowchart TD
+  classDef gen fill-opacity:0.35,stroke-dasharray:5 4
+  classDef clock stroke:#8A6A4F,stroke-width:2px
+
+  subgraph PKG["packages/sdks/oak-sdk-codegen — one workspace, four clocks, 34.3 MB"]
+    AUTH["authored generators<br/>code-generation/ · vocab-gen/ · src/bulk/<br/>~1.5 MB"]:::clock
+    SYN["authored curated synonyms<br/>src/synonyms/ — editorial clock"]:::clock
+    T["src/types/generated/<br/>2.4 MB · upstream-spec clock (29/yr)"]:::gen
+    V["src/generated/vocab/<br/>30.0 MB · mining clock (~19/yr)<br/>incl. the 23.9 MB graph corpus"]:::gen
+    CACHE["schema-cache/<br/>0.4 MB · refresh clock"]:::gen
+  end
+  BULK["apps/oak-search-cli/bulk-downloads<br/>746 MB · untracked input corpus"]
+  BULK -->|pnpm vocab-gen| V
+  AUTH --> T
+  AUTH --> V
+    </pre>
+    <figcaption>87.7% of this workspace's bytes are its own generated outputs. Its authored
+    generators, curated editorial content, upstream-derived types, mined corpus, and spec
+    cache tick on different clocks inside one boundary — the pattern point 4 ends.</figcaption>
+  </figure>
+
+  <div class="tablewrap"><table>
+    <tr><th>Generated location</th><th>Size</th><th>Regenerated by</th><th>Co-resident with authored code</th></tr>
+    <tr><td><code>oak-sdk-codegen/src/generated/vocab/</code></td><td class="num">30.04 MB</td><td class="num">pnpm vocab-gen</td><td>yes — generators, curated synonyms</td></tr>
+    <tr><td><code>oak-sdk-codegen/src/types/generated/</code></td><td class="num">2.39 MB</td><td class="num">pnpm sdk-codegen</td><td>yes — codegen pipelines</td></tr>
+    <tr><td><code>oak-search-cli/ground-truths/generated/</code></td><td class="num">1.33 MB</td><td class="num">pnpm bulk:codegen</td><td>yes — generation/ sibling</td></tr>
+    <tr><td><code>mcp app src/generated/</code> (widget bundle + orientation digest)</td><td class="num">0.63 MB</td><td class="num">pnpm build:widget · under-the-hood-content:generate</td><td>yes — inside app src/</td></tr>
+    <tr><td>agent-surface adapter stubs (<code>.claude .cursor .agents .codex .gemini</code>)</td><td class="num">~0.53 MB · ~380 files</td><td class="num">pnpm skills:generate</td><td>projected beside canonical <code>.agent/</code></td></tr>
+    <tr><td><code>oak-sdk-codegen/schema-cache/</code></td><td class="num">0.37 MB</td><td class="num">pnpm sdk-codegen:refresh</td><td>yes</td></tr>
+  </table></div>
+  <p class="caption">Adjacent data payloads, distinct from generated code: the design-studio
+  import (<code>studio-source/</code>, 15.1 MB), agent evidence captures
+  (<code>.agent/reports</code> non-markdown, 17.3 MB). One record-honesty defect found:
+  <code>curriculum-sdk/src/types/schema-bridge.ts</code> wears an <code>@generated</code>
+  banner but is hand-written.</p>
+
+  <h2>5 · The real law vs the declared model</h2>
+  <p>The architecture that actually binds is what the gates enforce. Everything else is
+  convention that any commit can silently cross.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Mechanism</th><th>What it enforces</th><th>Coverage</th></tr>
+    <tr><td>dependency-cruiser</td><td>Six directional import strata rules (core/libs/sdks direction)</td><td>Binding; one named exemption; <code>design/*</code> uncovered at this layer</td></tr>
+    <tr><td>ESLint boundary rules (ADR-041)</td><td>Design-package fences</td><td>Live in five of six design packages</td></tr>
+    <tr><td>pnpm membership</td><td>Curated whitelist; one glob admission (<code>packages/design/*</code>)</td><td>Binding at install time</td></tr>
+    <tr><td>Licence quarantine</td><td>Code-MIT / content-OGL / brand-reserved separations</td><td>Workspace-forcing where it applies</td></tr>
+    <tr><td>Editorial / brand change-clock</td><td><em>nothing</em></td><td>No mechanical signature at all</td></tr>
+  </table></div>
+
+  <h2>6 · The measured record — change-clocks and coupling</h2>
+  <p>Twelve months, 5,949 commits, 308 multi-workspace, confound-corrected. Two facts matter
+  for every proposal that follows: the heaviest observed couplings run <em>across</em>
+  today's boundaries, and the change-clocks are real and measurable — which makes the
+  stability gradient an observable, not an aspiration.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Measured coupling (co-change)</th><th>Rate</th><th>Reading</th></tr>
+    <tr><td>vocab-mining ↔ corpus-data</td><td class="num">95%</td><td>changes as one thing across the seam</td></tr>
+    <tr><td>es-ingest-core ↔ search-ingest</td><td class="num">89%</td><td>same</td></tr>
+    <tr><td>fidelity-capture ↔ fidelity-review</td><td class="num">86%</td><td>same</td></tr>
+    <tr><td>SDK MCP layer</td><td class="num">32%</td><td>a genuinely independent cluster</td></tr>
+    <tr><td>curriculum graph views · design conformance</td><td class="num">11% · 11%</td><td>independent clusters</td></tr>
+  </table></div>
+  <div class="tablewrap"><table>
+    <tr><th>Change-clock (ticks / 12 mo)</th><th>Rate</th></tr>
+    <tr><td>upstream-spec (codegen)</td><td class="num">29</td></tr>
+    <tr><td>vocab / mining</td><td class="num">19</td></tr>
+    <tr><td>widget regeneration</td><td class="num">18</td></tr>
+    <tr><td>index-design</td><td class="num">16</td></tr>
+    <tr><td>design source</td><td class="num">10</td></tr>
+    <tr><td>editorial ground truths</td><td class="num">8</td></tr>
+    <tr><td>bulk refreshes</td><td class="num">7</td></tr>
+  </table></div>
+  <p class="caption">Caveats carried with the numbers: batch-commit inflation, rename
+  detection skipped, generator fan-out not yet exempted from co-change. Direction robust,
+  magnitudes approximate. Multi-workspace commit rate baseline: 5.2%.</p>
+
+  <h2>7 · What the baseline says, in four sentences</h2>
+  <div class="callout bark">
+    <p><strong>1.</strong> The declared four-level hierarchy and the real structure diverge — the
+    runtime spine is one small confirmed core sink plus domain clusters, with the declared
+    libs/sdks seam bidirectional in production.</p>
+    <p><strong>2.</strong> The real law is islands of hard enforcement in a sea of convention —
+    six depcruise rules, a design fence, a membership whitelist — while whole change-clock
+    families have no mechanical signature.</p>
+    <p><strong>3.</strong> Lifecycle mixing is universal where generation exists: no
+    generated-only package, four clocks inside one workspace at the worst site, 42.5% of
+    tracked bytes generated-or-data.</p>
+    <p><strong>4.</strong> The toolkit ambition is currently inverted: reusable machinery sits
+    inside Oak leaves (OAuth-for-MCP, the OpenAPI pipeline, index lifecycle machinery), three
+    built libraries have zero consumers, and nothing ships as a building block.</p>
+  </div>
+
+  <h2>8 · Change proposals</h2>
+  <p>Each proposal lands below as a designed change with its own diagram, per the brief's
+  five points: the existing architecture holds no privilege; the thinnest possible Oak on
+  reusable code; foundations <em>designed</em> to library grade and effectively finishable —
+  constitutive of the conceptual shape, not a cleanup phase; one lifecycle per package; a
+  toolkit that can build any digital service. Queued for design on the evidence above:</p>
+
+  <div class="queue"><span class="tag">queued</span><h4>The foundation layer, designed</h4>
+    <p>Finishable core packages designed from each standard concept's canonical form —
+    demand evidenced by the estate's embedded instances, done-ness criteria declared at
+    birth (contract, exhaustive tests, docs, performance characterisation). The stability
+    gradient becomes measurable: finished ≈ flat clock + live consumers + green gates.</p></div>
+  <div class="queue"><span class="tag">queued</span><h4>One clock per package</h4>
+    <p>Unmix the codegen chain (four clocks in one workspace today); generated artefacts
+    never co-resident with authored code; the 23.9 MB corpus and its siblings get
+    deliberate homes with regeneration contracts.</p></div>
+  <div class="queue"><span class="tag">queued</span><h4>Thin Oak on reusable ground</h4>
+    <p>The census's per-row move/stay dispositions executed as designed splits — Oak-ness
+    trending to configuration and packs, the way the design system already treats
+    identities.</p></div>
+  <div class="queue"><span class="tag">queued</span><h4>The delivery plane, opened</h4>
+    <p>Building blocks that actually ship: publishing as the exercised proof of
+    separability, not an aspiration — the licence model made structural.</p></div>
+  <div class="queue"><span class="tag">queued</span><h4>Dispositions for the unconsumed</h4>
+    <p>graph-ingest, graph-project, oak-design-ink — three built libraries with zero
+    consumers: finish, adopt, or retire, each with its evidence.</p></div>
+
+  <footer>
+    <p><strong>Provenance.</strong> Workspace/runtime/delivery topology and generated-byte
+    census: first-hand sweeps, 2026-08-17. Classifications and move/stay dispositions:
+    workspace-classification census (45 subjects, owner-carded 2026-08-14). Co-change and
+    clock measurements: 12-month confound-corrected record
+    (workspace-basis-regrounding, 2026-08-17). Fleet-era survey conclusions are
+    deliberately absent: salvage enters as measurement only, with no privileged status.</p>
+    <p><strong>Reading discipline.</strong> Every number above is traceable to a named
+    instrument run; where a measurement carries caveats they are stated beside it. Diagrams
+    simplify edge sets for legibility and say so in their captions.</p>
+  </footer>
+</main>

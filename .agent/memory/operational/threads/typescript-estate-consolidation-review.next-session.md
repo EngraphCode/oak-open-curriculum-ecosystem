@@ -28,6 +28,7 @@ applications, packages, core workspaces, and the curriculum SDK.
 | platform | model | session_id_prefix | agent_name | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
 | codex | GPT-5 | 019fc3 | Lichen guards Phloem | review implementer and documentation-handoff author | 2026-08-02 | 2026-08-03 |
+| claude-code | claude-fable-5 | d427b6 | Poppy lifts Bark | repo-architecture lane — adopted claims 95a0678d + 875f1508 at Moment 2 (b2d33b34, succession from Nautilus calls Plankton c6d48b); governing work is the owner's five-point toolkit brief | 2026-08-17 | 2026-08-17 |
 
 ## Current Continuation
 
