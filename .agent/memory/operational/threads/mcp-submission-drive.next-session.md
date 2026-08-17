@@ -63,7 +63,259 @@ publicity is far worse than before.
 - **Owner-liaison seat**: reconstitutes from `SEAT-BRIEF.md` on
   `chore/owner-liaison` (`e24629a93`).
 
-## State at wrap, 2026-08-17 (Tuna holds Ballast, `a2ce03`) — READ THIS FIRST
+## State at wrap, 2026-08-17 evening (Skunk stirs Cavern, `db8b9b`) — READ THIS FIRST
+
+Second Director wrap of 2026-08-17. Everything below — **including Tuna holds
+Ballast's own wrap from earlier the same day** — is historical. Where they disagree
+with this block, this block wins.
+
+**The fleet is now EMPTY.** Both the Director seat and the owner-liaison seat
+(`Wildfire spins Temper`, `8e5eba`) stood down this evening at MG's word, with no
+retained claims and no successor pre-positioned. So the incoming Director **is the
+owner interface directly** — PDR-117's Director-absent case, where the upward flow
+shortens to Director → owner. Do not wait for a liaison to exist.
+
+### The single biggest correction: Oak already has external uptime monitoring
+
+**Pingdom is live and already probing `www.thenational.academy`.** MG, verbatim:
+*"pingdom is probing `www.thenational.academy` but we can add /mcp"* (backticks
+added for the markdown gate; his words are unchanged).
+
+For two weeks this thread carried, as established fact, that **Oak had no production
+uptime monitoring**. It is stated in MCP-597, in the 2026-08-13 false-green napkin
+entry, in two Director wraps, and it was load-bearing for a spend request, an
+acceptance-criteria promotion, a provider comparison, **and a document given to MG to
+share with his product team**. MCP-481 is now corrected in place with a visible
+scope-correction block rather than a quiet edit.
+
+The measurement behind the claim was sound and I re-verified it: the *Sentry* org holds
+exactly one monitor, disabled, **zero checks in 30 days**. What was measured was *"the
+Sentry org holds no active monitors"*. The qualifier fell off between probe and claim,
+and five seats inherited it.
+
+**Absence of a monitor in the surface you looked at is not absence of monitoring.**
+Captured as a failure mode on the comms stream (`29b951e6`). It is the exact dual of
+this thread's `disabled`-but-`ok` false green — there one surface over-reported health,
+here one under-reported coverage; both were readings treated as facts about the world
+rather than facts about the instrument. **Vendor inventory lives only in the owner's
+head**, so no amount of in-repo rigour reaches it: when writing a universal negative
+about the estate, put the scope in the sentence and ask him.
+
+### MCP-614 is ANSWERED — verdict `baa53264`, `In Progress`
+
+| AC | Provider | Cost |
+|---|---|---|
+| **AC1** health probe | **Pingdom** — add `/mcp/healthz` to the existing check | £0, already paid |
+| **AC2** auth probe + `WWW-Authenticate` assertion | **Sentry** (fallback: Checkly free tier) | plausibly £0 |
+| **AC3** interrupting destination | **OPEN — does NOT carry over** | £0 |
+| **AC4** designed error alert set | Sentry, unchanged | £0, no uptime seat |
+| **AC5** external | both satisfied | — |
+| **AC6** synthetic distinguishable | Pingdom (its bot UA is modifiable) | — |
+| **AC7** independent planes | **now genuinely satisfiable** | £0 |
+
+Measured against production 2026-08-17T16:03:54Z, first-hand: `GET /mcp/healthz` →
+`200`; `POST /mcp` without the protocol `Accept` → `406`; with it → `401` plus
+`www-authenticate: Bearer resource_metadata="…/.well-known/oauth-protected-resource/mcp"`.
+
+**Cloudflare is structurally excluded**, read from its own API schema: `GET`/`HEAD`
+only (no `POST`), no request body, and **no response-header assertion field exists at
+all**. Its schema also states *"The User-Agent header cannot be overridden"* (fails
+AC6). And against a **proxied** host a health check *"will probe Cloudflare's edge
+rather than your actual origin server"* — Cloudflare's edge probing Cloudflare's edge,
+which is AC5's own sentence (*"a monitor that dies with the thing it monitors is not a
+monitor"*) arriving through a vendor door. **Verified by ONE seat only** — the liaison
+stopped mid-verification once the owner's facts closed the question. Do not cite it as
+jointly confirmed.
+
+**Pingdom cannot do AC2:** its *"check for string"* matches text *"anywhere in the
+HTML"* — the response **body**, not headers. A body match on the 401 error body was
+explicitly **refused** as the weakening AC2 forbids.
+
+**AC7 is the quiet win:** Pingdom for liveness plus Sentry for errors gives two
+genuinely independent notification planes — the independence AC7 currently makes us
+*confess we lack*. Mark it satisfiable rather than amending it to accept one plane.
+
+**Sentry cost, corrected mid-session.** Docs verify *"All Sentry plans include one cron
+monitor and one uptime monitor"* and *"the PAYG budget is only available on paid
+plans"*. Because Pingdom takes AC1, Sentry needs **exactly one** monitor — the included
+one — so the incremental cost is plausibly **zero**. I stated a "$1/monitor/month"
+figure as fact and **withdrew it** (threaded correction `efe09e4e`): it came from a
+search summary, not a page I read. The recommendation never depended on the price.
+
+**The PAYG 400 is anomalous, not expected.** Docs say deactivated monitors count *"if
+they were previously active in the current billing period. Otherwise, they don't"* —
+and `1593267` has run zero checks in 30 days. Three hypotheses MG's billing view
+separates in one glance: unfunded budget → top-up; consumed slot → nothing to buy;
+**free/Developer plan → PAYG unavailable rather than merely unfunded**. **I did NOT
+re-measure the 400** — re-testing it is a *write* to a production monitor, which is
+MCP-597's act, not this spike's.
+
+### The three asks MG is holding — do not re-ask, do not add
+
+None answered as of this wrap. All one line each:
+
+1. **Pingdom:** add a `/mcp/healthz` check to the existing `www.thenational.academy`
+   check. He does it himself (agreed — a two-minute UI action beats provisioning a
+   token).
+2. **Pingdom:** report that existing check's **interval**. AC1 requires 1–5 minutes and
+   **a longer interval fails it silently.**
+3. **Sentry org settings, two glances:** does the plan show an uptime monitor
+   available, and can **Early Adopter** be switched on? That flag is what unlocks
+   response-header assertions, i.e. AC2 — and there is **no read-only Sentry surface**
+   for org settings or feature flags (MCP catalogue checked), so it needs his own view.
+
+Recommendation already with him on the one fork: if the included monitor is
+unavailable, pay for the single monitor rather than adding Checkly — two tools already
+in the estate beats three with a new vendor account.
+
+### PR state at this wrap
+
+| PR | State |
+|---|---|
+| **#902** operator-local tier + identity action-class split | **OPEN, all 15 checks PASS**, `BLOCKED` on the code-owner gate only, review requested from `mantagen` |
+| #900 owner-liaison seat brief | open, draft, retention only |
+| #867, #761 | open, ours, unchanged — #761 still 1000+ behind with conflicts, unanswered |
+
+Also merged today: **MCP-606** (carousel filenames + literal URL sentinels).
+
+### The PR Review Warden seat is armed, with merge authority
+
+Owner instruction: *"i want to set up a colpilot agent to be doing code reviews …
+watching for any open PRs with 'mantagen' requested review … reviewing as identity
+'mantagen' and should turn on automerge too"*.
+
+- Worktree `oak-pr-review-warden` on `chore/pr-review-warden`, **fast-forwarded from
+  668-behind to `05cca303f`**, installed, built, `.env.local` copied, bare `eslint`
+  proven to resolve, `gh` confirmed as `mantagen`.
+- **Seat brief revision 2** at
+  `.agent/state/collaboration/handoffs/pr-review-warden-seat-brief.md` (machine-local).
+  Revision 1's *"Never merge"* is **withdrawn by the owner**.
+- **Auto-merge authorised** under six conditions (approved, all threads resolved,
+  checks green, not a draft, not `mantagen`-authored, no open findings), `--merge` only
+  (repo is merge-commit-only), never `--admin`. **Hands off and route to the Director**
+  for release/CI/ruleset config, credentials or auth guards, `.agent/` doctrine, and
+  anything deleting or disabling a gate.
+- **The self-review wall bites immediately:** GitHub forbids a PR's author from
+  reviewing it, so posting as `mantagen` the warden can only *comment* on MG's own PRs
+  (#772, #768, #750) — it cannot approve or usefully arm auto-merge there.
+- Queue was **0** at setup — control-probed against 15 open PRs, a true zero, with every
+  requested review pointing at `jimCresswell`. It is now **1**: PR #902.
+
+### Owner facts settled today — do not re-ask
+
+- **Availability:** *"i'm off at the end of this week until the end of the month."*
+  ~4 working days from 2026-08-17; away ~22–31 Aug; back ~1 Sept; publicity 6 Sept.
+  **The consequence that matters more than the dates: route anything MG-needing the
+  SAME DAY it is discovered, never batched.** Thursday is fine; Friday afternoon costs
+  nine days. This supersedes the record's earlier "20 August".
+- **Credential split, verbatim:** *"emgee-bot for commits/PR raises … mantagen for
+  reviews/approvals."* Landed as **tracked doctrine** in
+  `bot-identity-on-third-party-systems` §"The action-class split" (PR #902), general
+  rather than per-seat. This **resolves** the review-warden-grant tension earlier
+  briefs called open. Cite the rule, not per-user memory.
+- **Delegation:** *"i want the new director to pick up all those Observability issues …
+  anything that the director's team of agents can't do (limited by permissions;
+  requires me judgement; etc) then i can pick up."*
+- **Assignee is owner-of-record, not ownership of the doing.** MCP-481/597/493/544 were
+  MG-assigned before any agent arrived; the delegation instruction is the work signal.
+- **Spend posture:** *"doesn't feel like a priority i'm not sure we need it"* and *"i
+  didn't realise Sentry probs were an additional spend"* — both said **before** the
+  number was known. Neither is a refusal of a £0 path.
+- **Register discipline, MG-corrected:** anything he *forwards to a human* is **facts
+  and asks only** — state → gap → action → owner → date. He called an earlier draft
+  "fluffy". The dense internal register suits tickets and comms events and is wrong for
+  a colleague-facing paste.
+
+### New: the operator-local config tier (PR #902)
+
+`.agent/operator-local/` is a **durable machine-local** home for facts that were
+homeless and lost at least once each: credential bindings, tone of voice, personal
+operating preferences. `profile.md` is gitignored; two stubs are tracked.
+
+- **Resolve it in the PRIMARY checkout** — `git worktree list --porcelain | head -1`.
+  It cannot reach a linked worktree, and copying it per worktree diverges invisibly.
+- **Absence is the expected condition** (Any User, Any Machine): proceed on tracked
+  defaults and say nothing.
+- The shared start-right workflow **§3a** points every session at it.
+- It exists because per-user memory is a **buffer** the estate drains by design — the
+  2026-08-10 review-warden grant lived only there and was about to be lost.
+- **MG's tone-of-voice section is deliberately near-empty and marked `[CONFIRM]`.**
+  Seeded only from evidenced behaviour; his outward voice is **unratified**. A seat
+  drafting anything in his voice should say so.
+
+### MCP-617 — new, and it carries a live unknown
+
+Cloudflare change to serve `GET text/html` on `/mcp` from the Oak web app. Raised by
+the liaison seat; `Backlog`, High, M9, `CloudOps`.
+
+- **No DNS change and no code change in this repo for the cutover.** OWA is already the
+  default origin for `www`; this app is a path-scoped carve-out, and the change
+  *narrows* it so fall-through does the rest. Reversible; mistakes surface as visible
+  404s. Four files become dead afterwards — listed as cleanup, deliberately not part of
+  the change, because the alpha alias still serves them (MCP-307 open).
+- The predicate is `selectsHtmlLeg` in `src/mcp-middleware.ts`, already unit-tested —
+  use it as the spec.
+- **THE UNKNOWN:** code comments say the rule is scoped to `/mcp` and `/mcp/*`, but
+  `/.well-known/oauth-protected-resource/mcp` demonstrably resolves on `www` and does
+  **not** match that scope. Either a second undocumented rule exists or the live scope
+  is wider. **The edge config is in no repo** — no `wrangler.*`, no cloudflare
+  directory. Whoever holds Cloudflare access must **enumerate every rule on that host
+  before changing anything.**
+- Nine-probe acceptance test on the ticket, every expected value measured live. Two
+  probes non-optional: the carousel images (permanent URLs in Anthropic's listing) and
+  `/mcp/healthz` (ADR-162's obligation and Pingdom's new target).
+- Needs **Cloudflare and OWA access** — both permission walls, both MG's.
+
+### Traps found today, both still live in the tooling
+
+1. **`agent-tools spawn` leaves the new branch tracking `origin/main`** — so a bare
+   `git push` from a spawned lane targets **main**. Cured by hand on
+   `chore/pr-review-warden`, `docs/operator-local-profile-tier` and
+   `docs/director-handoff-skunk-stirs-cavern`. The tool still does it. **Unset the
+   upstream on every spawned lane.**
+2. **A fresh-worktree `pnpm build` corrupts a tracked generated file** —
+   `packages/sdks/oak-sdk-codegen/src/generated/vocab/graph-corpus/data.json` emerged
+   with 461 lines deleted and an invalid control character at offset 24371460, failing
+   `validate-current-source` and therefore blocking **any** commit in that worktree.
+   That is also why spawn's own lane-marker commit failed. HEAD's copy parses clean, so
+   it is build-side. Repair without a working-tree-overwrite command:
+   `git show "HEAD:$F" > "$F"` — git reads history, the shell writes.
+
+### FOR THE INCOMING DIRECTOR — start here
+
+**You are the owner interface.** Both the prior Director and the liaison stood down
+this evening; no seat is pre-positioned. PDR-117's Director-absent case applies until
+MG seats a new liaison.
+
+**Landing target: MCP-597.** Pingdom takes AC1 at zero cost, so the Sentry quota no
+longer gates the health probe. Sequence:
+
+1. **Check whether MG answered the three asks above.** Two of them unblock MCP-597
+   outright. If unanswered and it is late in his week, that is the single most
+   time-critical thing on the drive — after Friday it waits nine days.
+2. **MCP-544 (AC4) needs no owner input at all** — Sentry-side, no uptime seat, no
+   quota change. That is the piece to move while waiting.
+3. **MCP-493 (AC3)** — and note the destination does **not** carry over.
+   `#mcp-alerts-sentry-prod` was decided for the *Sentry* path; a Pingdom failure needs
+   its own destination decision.
+4. **Get PR #902 merged.** All 15 checks pass; blocked only on the code-owner gate.
+   Until it merges, `.agent/operator-local/` and the start-right §3a pointer do not
+   exist on `main`, and the credential ruling lives only in a machine-local brief. The
+   warden can clear it — #902 is its queue item.
+
+**Do not** re-run the provider comparison; it is answered. **Do not** weaken AC2 to fit
+a tool, and **do not** propose an in-repo scheduler (ADR-162, AC5).
+
+**Still the highest-value unknown on the drive:** nobody has looked at what Anthropic
+did with the connector, submitted 2026-08-07. Verified-tier escalation is automatic and
+unattended, and **MCP-178** — the witness ticket whose whole job is to check — has
+never been started and is on no project. Only MG can see the portal. It touches his
+stated acceptance bar (a verified tag from Anthropic) and has been open all day.
+
+## State at wrap, 2026-08-17 midday (Tuna holds Ballast, `a2ce03`) — historical
+
+Superseded where it disagrees with the evening block above — notably its "there is no
+production uptime monitoring" premise and its two Sentry spend asks.
 
 The 2026-08-13 sections below are **historical**. Where they disagree with this
 block, this block wins. Every claim here was verified first-hand today.
@@ -305,3 +557,4 @@ here. Do not chase it and do not re-ask who owns it.
 | Tuna holds Ballast | claude-code | Opus-5 | a2ce03 | director | 2026-08-17 | 2026-08-17 |
 | Wildfire spins Temper | claude | Opus-5 | 8e5eba | liaison | 2026-08-17 | 2026-08-17 |
 | Orchid holds Bark | claude | Opus-5 | 2abbd1 | liaison | 2026-08-13 | 2026-08-13 |
+| Skunk stirs Cavern | claude-code | claude-opus-5 | db8b9b | director | 2026-08-17 | 2026-08-17 |
