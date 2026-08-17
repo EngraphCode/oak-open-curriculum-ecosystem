@@ -190,13 +190,29 @@ loop's exit criteria bind to it.
   Not instead of but in addition to?"): +12 terra-medium seats
   mirroring the haiku constraint-grade arm and +3 sol-ultra seats
   (baseline, rich persona, falsifier), probed live via headless
-  `codex exec` before being designed in — the fleet is now 52 walkers +
-  5 falsifiers + 4 synthesis seats, combined cap ~2.9M tokens.
-  Launch gates remaining, in order: fleet-design review with a
-  frame-challenger seat; codex-dialogues MCP availability probe at
-  launch (the CLI path is already probed); the owner's launch word
-  after the PR-889 closeout ("Let's get 889 sorted before we run
-  round 1b").
+  `codex exec` before being designed in. The fleet-design review then
+  ran per the rule — assumptions-expert and frame-challenger (both
+  opus) plus a cricket — and its absorbed cures reshaped the round:
+  the ADR-041/README blindness leak closed (class-level FORBIDDEN
+  list, grounding-a allowlist with per-path read logging and a
+  listings cap, READ-NOTHING seal on all non-repo groundings); a
+  de-ontologised free-form arm and decoy-estate stimulus controls
+  added; falsifiers given the power to return "sound" and one
+  falsifier re-aimed at the instrument itself; requirement variants
+  re-cut to differ in concern cardinality (3/7/12, balanced 6/6/6);
+  B2 replication baselines making grounding-b the attractor test's
+  n=2 headline column; grade-3 carrier-ban seats at opus and fable;
+  bounded/owned/reaped discipline on every CLI spawn; and the
+  falsifier packet inlined so no falsifier holds repository access.
+  The fleet is now 64 walkers + 4 decoy controls + 5 falsifier-arm
+  seats + 4 synthesis seats; combined cap ~3.25M tokens, PRESENTED to
+  the owner at the launch-word gate. Launch gates remaining, in
+  order: end-to-end relay smoke on both vendor paths with the real
+  schemas; the zero-cost 1a ADR-041-echo probe over the committed
+  archive; the mechanical baseline (co-change + import-graph
+  partitions injected as `origin=mechanical` corpus entries); the
+  owner's launch word after the PR-889 closeout ("Let's get 889
+  sorted before we run round 1b").
   Committing the entire walker-visible instrument BEFORE launch also
   cures 1a's knowledge-preservation miss (its walker texts lived only
   in the session-persisted script; 1b's probe texts were reconstructed
