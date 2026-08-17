@@ -2651,9 +2651,15 @@ below is a cross-reference index, not a second source of truth.
 - **Candidate cure**: build the action (MCP-609-shape micro-lane:
   TDD, reviews, small PR); wire the warden-hygiene duty to run it at
   fold boundaries so the drain is a ceremony step, not vigilance.
+- **Status**: SUPERSEDED same day by the owner's QUEUE-LOCAL ruling
+  (rulings ledger): no archive action — the queue leaves the flat file
+  entirely (per-intent event files like comms, 1-hour TTL, list as a
+  view, machine-local never-in-VC). Interim split executed 2026-08-17
+  (live file 4.4MB→4KB; the legacy blob retained loss-free in the
+  gitignored local archive until the MCP-612 landing's verification
+  read, then owner-disposed); the re-shape is plan
+  `commit-queue-local-ephemera` / MCP-612.
 - **Target surface**: `agent-tools/src/commit-queue/`.
-- **Status**: open (registered same day; build queued for owner
-  prioritisation against the standing queue).
 
 ## Mitigated / Addressed Frictions
 
