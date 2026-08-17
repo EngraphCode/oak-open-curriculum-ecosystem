@@ -23,23 +23,36 @@ depends_on: []
 # obligation removed by the plan-node schema §2026-08-07 amendment,
 # PR #817), so the gate DISCHARGED 2026-08-07 with tickets left [] — a
 # visibility ticket remains optional working practice.
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      The KNOWN-ISSUES item-14 subtree-alias ruling lands before any
-      surface renders a high-contrast or colour-safe subtree (grounds in
-      W0.2); nothing else blocks on it.
-    expires: 2026-08-21
-  - awaiting: owner-decision
-    clears_when: >-
-      At W3.0 open the owner confirms the coverage reading of "full
-      optional React component set" — full mapping-decision coverage with
-      curated component minting (§Decision log, flagged seat reading).
-    expires: 2026-09-07
-last_updated: 2026-08-08
+owner_gates: []
+# Both former gates RETIRED 2026-08-17 (owner ruling at the records-truth
+# pass, MCP-613: an unratified sketch holds no decisions on the owner's
+# clock). Their records, conserved: (1) the KNOWN-ISSUES item-14
+# subtree-alias ruling (was to expire 2026-08-21) — moot today, no surface
+# renders a high-contrast or colour-safe subtree; it re-cards if one ever
+# will. (2) The W3.0 "full optional React component set" coverage reading
+# (was to expire 2026-09-07) — re-cards at whatever node opens a React-tier
+# story (expected: the identity-pack programme node).
+last_updated: 2026-08-17
 ---
 
 # Design-system completion — five demos, identity contract, React tier, the wow bar (v2.2)
+
+**AUTHORITY STRIPPED — CONSERVED STORY-OPEN INPUTS (owner ruling
+2026-08-17, records-truth pass MCP-613).** This node is `status: sketch`,
+was never ratified, and its prose binds nothing — a lesson already paid
+for once (the invented "composition envelope" was enforced for two review
+rounds on the strength of reviewer prose in this document; owner
+correction R13). The 2026-08-17 ruling makes the boundary structural:
+both owner gates are retired (see the frontmatter note); the landed W0.7
+instruments (the design-review rubric, the wow-verdict register, and its
+validator) are re-homed under the ratified `design-showcase-experience`
+node (whose §"Where the owner-held verdicts are recorded" is their
+governing consumer); and the far-horizon W-arc plus the §Story-open
+pointer tables are CONSERVED INPUTS for the successor programme — the
+owner commissioned a fourth identity (Tango) the same day, with all four
+identities to be brought up to standard as identity PACKS, and the pack
+programme node re-homes what it needs from here at its authoring. Read
+this document as a knowledge store, never as an owner of work.
 
 **v2.2 (dated note, 2026-08-03) — the partition restructure.** Round 3 (31 agents,
 `wf_121bcbac-abe`; `findings.v3.json` + `adjudication.v3.md`) returned a DIVERGING

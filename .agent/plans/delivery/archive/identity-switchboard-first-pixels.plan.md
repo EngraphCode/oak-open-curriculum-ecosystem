@@ -6,7 +6,7 @@ overview: >-
   The showcase serves a design-system-built identity-switchboard page — picker
   chrome plus a query-addressable full specimen composition — faithful to the
   Claude Design export except recorded workspace-clash divergences.
-status: ratified
+status: archived
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-08-09
 ratified_where: "Owner card at the Director seat 2026-08-09 ~08:3xZ (card answer: 'Ratify' — formalising the same morning's pull-forward word; session Plover lifts Troposphere b10c37)"
@@ -16,10 +16,18 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-10  # governing steer + in-place re-skin supersession marker
+last_updated: 2026-08-17
 ---
 
 # Identity switchboard in the showcase — first-pixels pull-forward
+
+**RETIRED (archived 2026-08-17, records-truth pass MCP-613).** Its routes
+ship on main (`/identity-switchboard` + `/identity-switchboard/specimen`,
+merged in PR #846 `c0d49fc04`); the showcase surface is governed by the
+later-ratified `design-showcase-experience` node (owner ruling 2026-08-17),
+whose W3 carries the controls' next form and whose §Relationships row
+records the two decided states R9/R8 moved. Conserved as the pull-forward's
+design record.
 
 Authored at the owner's word (2026-08-09 morning, plan-mode build selection):
 a decision-complete pull-forward that takes the estate to the showcase app

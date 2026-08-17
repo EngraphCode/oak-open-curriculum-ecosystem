@@ -8,7 +8,7 @@ overview: >-
   sufficient to decide open-for-review readiness — produced by a goal-blind
   reviewer fleet with category-routed adversarial verification and a
   two-verdict synthesis.
-status: ratified
+status: archived
 ratified_by: "Jim Cresswell (owner)"
 ratified_date: "2026-08-12"
 ratified_where: >-
@@ -23,10 +23,18 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-13
+last_updated: 2026-08-17
 ---
 
 # PR #846 review fleet — multi-lens, multi-scale review
+
+**RETIRED (archived 2026-08-17, records-truth pass MCP-613).** The node's
+object — PR #846 — merged 2026-08-14 (`c0d49fc04`). W1 executed 2026-08-13
+as MCP-591 (findings ledger:
+`.agent/reports/design/pr-846-review-fleet/report.md`; its cure bundles
+merged inside #846); the W2 synthesis never ran and no W2+ was sequenced —
+with the object merged there is nothing left for it to review. Conserved as
+the record of the fleet design and its measured findings.
 
 **Gate discharged 2026-08-12.** The owner sanctioned W1 at the decision card
 ("Sanction W1 now", ~19:47Z, recorded in the ratification stamp); the

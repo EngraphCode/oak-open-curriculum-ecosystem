@@ -1,11 +1,13 @@
 # Oak Design Showcase
 
-A one-page live showcase of the
+The live showcase of the
 [Oak Open Curriculum Design System](../../packages/design/oak-design-system/README.md):
-plain-CSS kit consumption — no Tailwind, no PostCSS, no mapping layer — with
-live identity and theme switching over the kit's own classes and token roles.
-One set of markup, many faces: every visible difference between identities
-and themes is the token contract at work.
+a front page plus demo routes, all plain-CSS kit consumption — no Tailwind,
+no PostCSS, no mapping layer — with live identity and theme switching over
+the kit's own classes and token roles. One set of markup, many faces: every
+visible difference between identities and themes is the token contract at
+work. (An earlier one-page form was purged at the owner's 2026-08-13 tight
+scope; this README was re-trued to the shipped routes on 2026-08-17.)
 
 The [Curriculum Hub](../oak-curriculum-hub/README.md) demonstrates the
 Tailwind-mapped consumption path; this app demonstrates the plain path. The
@@ -24,13 +26,27 @@ That starts the dev server on port 3020 and opens the page in your browser.
 Inside this workspace, `pnpm dev` starts the server without opening a
 browser.
 
-## The page
+## The routes
 
-The kit's region contract (`.oak-canvas` over sibling `data-region`
-elements, under the shipped `home` composition map): a utility bar carrying
-the switchboard, a masthead, a main with hero and specimen regions (type
-ramp, buttons, tags, a card — all `.oak-*` classes), and a footer. The
-switchboard drives three axes:
+- **`/`** — the landing: masthead, a hero thesis drawn from the kit's own
+  README, door cards to the demo routes, and a footer. All regions under
+  the kit's region contract (`.oak-canvas` over sibling `data-region`
+  elements).
+- **`/identity-switchboard`** — the switching demo: a narrow-first stage
+  framing the specimen page, with identity, theme, and width controls (the
+  width control opens at 1280 — DDR-009's picker-parity cell).
+- **`/identity-switchboard/specimen`** — the full specimen page (ten
+  regions under the shipped `[data-page]` composition map), addressable
+  per identity via `?brand=` — the frame's source and the fidelity
+  reference.
+- **`/identity-white-labelling`** — the three identities side by side in
+  scaled frames.
+- **`/composition`** — a stub pending its owner-specced rebuild (one page
+  type recomposed BY IDENTITY — the ratified showcase-experience plan's
+  W2; the current stub compares page types, which is not the
+  demonstration).
+
+The switching demo drives its axes through the kit contract:
 
 - **Theme** — all five kit themes (light / dark / match-device /
   high-contrast / colour-safe) through the kit's `oak-theme.js` runtime,
@@ -45,11 +61,11 @@ switchboard drives three axes:
   JavaScript disabled, reduced motion and forced colors still work at the
   CSS level, but the high-contrast and colour-safe themes have no route —
   they need the runtime.
-- **Motion** — the orthogonal motion axis (match-device / reduced / full),
-  same runtime.
 - **Identity** — Oak, plus the kit's two counter-brands (Public Digital Service and
   EMC²), by swapping a `brand.css` link loaded after every bundled sheet so
-  the brand wins the cascade at equal specificity.
+  the brand wins the cascade at equal specificity. Identity switching is
+  DEMO equipment, never system architecture: a real app statically
+  includes exactly one identity's CSS (owner ruling R16, 2026-08-13).
 
 Two deliberate demo-only properties, recorded so they read as decisions:
 
@@ -132,9 +148,11 @@ design system. Enforced by instrument, not review vigilance:
   assertions), pre-paint persistence, and the dark-first counter-brand's
   polarity.
 - `pnpm test:a11y` — axe WCAG 2.2 AA across the full identity × theme
-  matrix (15 cells; the match-device cells run under an emulated dark OS —
-  under the default light emulation they would replay the light cells by
-  construction), 320px reflow per identity, the OS accessibility signals
+  matrix (15 cells: 12 identity × palette-theme cells plus 3
+  identity-default cells; the match-device behaviour is covered by a
+  separate landing cell under an emulated dark OS and by the UI suite —
+  an earlier form of this sentence miscounted match-device into the
+  matrix, corrected 2026-08-17), 320px reflow per identity, the OS accessibility signals
   (`prefers-contrast: more` auto-selecting high-contrast; forced colors),
   and keyboard focus visibility in both polarities. The `system`-follows-
   device ride itself is a behaviour test in the UI suite.
@@ -156,8 +174,6 @@ design system. Enforced by instrument, not review vigilance:
   `demo-evidence/fidelity-report/index.html` beside the disposition register
   (`fidelity-register.json`). Diff magnitude never gates: non-zero exit
   means a mechanical failure only. Flags: `--base <url>`, `--width <px>`,
-  `--report-only`, `--keep-server`. Until the `/identity-switchboard` routes
-  land, a FULL run fails at the live-capture arm (the routes 404 and the
-  blank self-check refuses them — by design); use `--report-only` to build
-  the report from whatever evidence exists, which shows the live side as
-  missing.
+  `--report-only`, `--keep-server`. (A stale note here once said a FULL run
+  fails until the `/identity-switchboard` routes land — those routes
+  shipped 2026-08-13; struck 2026-08-17.)

@@ -20,10 +20,25 @@ tickets:
   - MCP-592
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-13
+last_updated: 2026-08-17
 ---
 
 # Showcase information architecture — landing, generated reference, routed demos
+
+**Dated amendment — governance and sequencing (2026-08-17, records-truth
+pass MCP-613, owner ruling).** The later-ratified
+`design-showcase-experience` node (evening, 2026-08-13) **governs the
+showcase surface**; the 2026-08-17 review found this node and that one
+contradicting each other on the reference route with no cross-references
+(this node's "A2 unblocked, starts at ratification" against that node's
+out-of-scope-until-the-four-R1-outcomes-land row) — resolved in the
+governing node's favour by owner card. Sequencing now: **A1, A2, and A3 are
+owner-sequenced** behind the governing node's outcomes and the 2026-08-17
+Tango/identity-pack programme (a fourth identity was commissioned that day;
+A2's fifteen identity × theme cells become twenty when it ships). This
+node's goal and mechanism stand unchanged; only its self-declared
+sequencing is superseded. The governing node's §Relationships carries the
+mirror row.
 
 **Default-face gate discharged 2026-08-13.** The owner decided at the
 ratification card: the showcase default stays Oak. The owner_gates

@@ -7,7 +7,8 @@
 > white-label directory now reads `whitelabel/pds/`. Authority: the owner's
 > 2026-08-03 instruction that the outgoing word "will not exist in the repo",
 > executed under the ratified plan
-> [`public-digital-service-identity`](../../../../.agent/plans/delivery/public-digital-service-identity.plan.md)
+> `public-digital-service-identity` (archived 2026-08-17 under
+> `.agent/plans/delivery/archive/` — landed and validator-enforced)
 > (§D4 prescribes in-place repair of records rather than deletion). Nothing
 > else in the capture changed — no markup, tokens, values, or layout. The
 > manifest's `bytes` and `sha256` columns are left as CAPTURED FACT and

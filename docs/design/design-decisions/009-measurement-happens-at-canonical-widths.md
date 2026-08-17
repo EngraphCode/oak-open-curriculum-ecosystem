@@ -63,6 +63,35 @@ Amendment is by warrant: adding a width means naming the failure class the
 current set misses; removing one means naming which remaining cell now
 covers its class.
 
+## Dated amendment — the warrant re-grounded narrow-first (2026-08-17, records-truth pass MCP-613; specified by the ratified showcase-experience plan's coherence check, 2026-08-13)
+
+Three parts; the SET is unchanged and the derived-never-invented discipline
+stands untouched.
+
+1. **The seam clause above is corrected and re-framed.** Source 1 over-claimed:
+   the kit's `max-width: 840px` seam switches **`.oak-main`'s** map to its
+   `-narrow` form only — no `--canvas-*-narrow` token exists anywhere, so the
+   canvas grid never switches. And the seam is a `max-width` **by current
+   design**: the base map is the wide one and narrow is the override — the
+   wide-first shape that owner rulings R3/R4 ("narrow first, wide follows,
+   always, everywhere") have since made the design intent's inversion. The
+   record stays true to the shipped kit; the **polarity inversion is a named
+   open question** (a breaking change across every brand sheet and consumer),
+   owned by the composition-axis work the 2026-08-17 narrow-range ruling
+   sequences by the fourth identity's measured needs — never silently assumed
+   done.
+2. **768 and 1024 re-warranted in narrow-first terms**: 768 proves the narrow
+   maps at their upper edge; 1024 proves the wide maps at their lower edge.
+   Both stay true under either polarity — what changes is which map is called
+   the base.
+3. **R8 is a second, reference-free warrant for the whole set** ("what I want
+   is that at a given width, natively or via the selector, the page is
+   arranged well" — owner, 2026-08-13): the page must be arranged well at
+   each width whether or not anything is being compared. 1280 and 1440 keep
+   their export-comparison warrants while `/identity-white-labelling` stays
+   reachable; if that route ever goes, this record's own
+   name-which-cell-covers-the-class rule disposes of them then.
+
 ## Dated amendment — 1280 joins the set (2026-08-10, owner-directed)
 
 `1280 / switchboard-canvas` joins the canonical set. Failure class it

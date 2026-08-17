@@ -22,7 +22,7 @@ tickets:
   - MCP-592
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-13
+last_updated: 2026-08-17
 ---
 
 # Oak identity recognisability — a basis-driven transformation
@@ -193,24 +193,34 @@ proxies are very hard to game simultaneously; three are near
 impossible. Canonical home: a design decision record authored in S1;
 this plan cites it once landed.
 
-**Relationship to design-system-completion.plan.md.** That ratified
-plan owns the showcase page set (W1.4), identity asset delivery
-(W2.8), identity authorship under the DDR-007 protocol (W2.9), and the
-token-reference page (W4.4). This plan adds what it does not own: the
-origin-referenced measurement basis and the Oak-face re-truing against
-it. S4 mechanism work coordinates with W2.8/W2.9 — where a story
-belongs there, it executes there; any re-homing is one owner card at
-ratification, with dated amendments to the completion plan at his
-word, never a silent fork.
+**Relationship to design-system-completion.plan.md (corrected 2026-08-17,
+records-truth pass MCP-613).** The original sentence here called that plan
+"ratified" — **false when written**: it is and was `status: sketch`,
+`ratified_by: null`, and on 2026-08-17 it was formally stripped of
+authority (owner ruling: gates retired, instruments re-homed, conserved as
+story-open inputs). Its prose binds nothing. The workstream stories this
+paragraph routed into it (the showcase page set, identity asset delivery,
+identity authorship under the DDR-007 protocol, the token-reference page)
+re-home when the **identity-pack programme node** is authored — the owner
+commissioned a fourth identity (Tango) on 2026-08-17 with all four
+identities to be brought up to standard as identity packs, and that
+programme is these stories' natural owner. Until it exists, this plan's S4
+stories carry their own mechanism at story-open under pre-execution review,
+routing into no other node. Governance: `design-showcase-experience`
+governs the showcase surface (owner ruling 2026-08-17) and carries the
+mirror row for this node.
 
-**Sequencing (slice-level, not plan-wide).** S1 and S2 touch no
-surface PR #846 changes and start immediately at ratification. S3–S5
-re-true the switchboard estate and wait for #846 to merge (an event no
-plan node represents; the review fleet — sanctioned and executing,
-MCP-591 — precedes it). Citations to DDR-009/DDR-010 resolve on the
-PR #846 branch and land with it; the measured variance-ratio true-up is
-Director-ruled 2026-08-12 (comms event 4b5afe31; thread record
-design-system-integration.next-session.md, S2b dispositions).
+**Sequencing (slice-level, not plan-wide; state trued 2026-08-17).** S1 and
+S2 touch no surface PR #846 changed and were unblocked at ratification.
+S3–S5 waited on #846, which **merged 2026-08-14** (`c0d49fc04`) — the
+DDR-009/DDR-010 citations now resolve on main and the whole slice ladder is
+unblocked; execution is owner-sequenced against the Tango/identity-pack
+programme (this plan's identity-parametric instruments generalise to the
+fourth identity, whose anchor is owner-private). The review fleet named
+here executed (MCP-591) and its node was archived spent 2026-08-17. The
+measured variance-ratio true-up is Director-ruled 2026-08-12 (comms event
+4b5afe31; thread record design-system-integration.next-session.md, S2b
+dispositions).
 
 ## Acceptance criteria (each with a proof — required)
 

@@ -84,6 +84,17 @@
       "rationale": "Owner ruling 2026-08-10: match the appearance and functionality of the PAGE, not necessarily the chrome for selecting theme and identity — the demo chrome is ours to design from the estate's own patterns. Reference-only pair; judged side by side, never pixel-diffed.",
       "author": "design-lane-implementer",
       "date": "2026-08-10"
+    },
+    {
+      "id": "specimen-pds/masthead-cascade-divergence-cured",
+      "pairId": "specimen-pds",
+      "kind": "visual",
+      "summary": "The PDS masthead rendered inverted ink on a non-inverted surface (measured contrast exactly 1:1 across six declared cells) because specimen.css declared the masthead surface at higher specificity than the hook-clean contract brand expression layers assume.",
+      "evidence": ["app/identity-switchboard/specimen/specimen.css", "README.md"],
+      "disposition": "superseded",
+      "rationale": "Cured 2026-08-13 at the cascade generator inside PR #846 (commit d2c4e4e24): the .mast split restored the hook-clean contract so the brand expression layer wins; the six declared known-red a11y cells went green (suite 70/70) and the README's cured-record paragraph keeps the discriminator (any red is new information). Entry added 2026-08-17 at the records-truth pass (MCP-613), discharging the showcase-experience plan's W5 register obligation — the review fleet's F14 finding (the register's completeness claim was false: no entry for the dominant pds divergence) closes with this row.",
+      "author": "design-lane-implementer",
+      "date": "2026-08-17"
     }
   ]
 }
