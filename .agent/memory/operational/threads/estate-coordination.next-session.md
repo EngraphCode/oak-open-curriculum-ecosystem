@@ -356,3 +356,55 @@ instinct the rulings ledger (plan S2) formalises.
   hypothesis-register evidence event (per its own review rule, deferred
   until merge). Worktree pr-886-capability-architecture removed after
   this entry's commit.
+
+## 2026-08-17 ~11:0xZ — COMPACTION FREEZE (Smith hunts Obsidian, e98f17): fold mid-ceremony, 890 round conserved, two new owner directives routed
+
+Owner word at the freeze: "prepare for compaction then stop all processes."
+All monitors stopped; every in-flight surface conserved below. RESUME MAP,
+in priority order (the owner's SKILLS-FIRST ruling governs):
+
+- (a) FOLD PR #896 is OPEN mid-ceremony (branch coordination/2026-08-13-c8586f
+  merged main in at 98a607bcc with the napkin union-resolved — 113/116
+  branch-side entries verified in archive/napkin-2026-08-14.md, three carried
+  under the fold-merge union note; Nautilus's staged research doc rode at
+  their own 16c3a4e0c). Resume: settle per the four named checks, bot REST
+  merge at the FETCHED sha (merge method merge), cut successor
+  coordination/estate-<date> from post-fold main per the skill, refresh
+  branch-labelled surfaces, broadcast rotation. The freeze commits below
+  ride this PR.
+- (b) SKILLS LANE FIRST (owner priority, ledger SKILLS-FIRST): PR #890 cure
+  round conserved as PR comment 5314990205 (dead-SKILL.md-filename class x9
+  plus three live-surface paths; sweep lesson: filename class, not only
+  directory class); then wave 2 per PR #890 comments 5293457222 (link
+  ledger) + 5293529733 (config additions) + task #10; then the eval
+  programme to EVERY Practice skill (plan WS8 + pilot convention
+  estate-wide). mantagen re-review stands requested; Copilot re-request at
+  the cured tip.
+- (c) PROFANITY-FILTER in-repo plan node to AUTHOR (ledger PROF-FILTER,
+  owner verbatim there): validator with fixed-hash target-word list (hashes
+  so the repo never carries the wordlist; not secrecy), no Linear ticket.
+  Author as born sketch AFTER the skills lane per SKILLS-FIRST; sequence
+  its execution behind the evals completion.
+- (d) PR-CLASH COMPARISON (owner ask 2026-08-17, NOT yet executed):
+  compare our open PRs vs other contributors' new PRs for clashes.
+  Inventory banked at the freeze: ours #890 (skills wave 1), #889
+  (census, Nautilus), #774 (illustrative, never merges); theirs #891
+  luke-arnold-oak NATIVE-WINDOWS ESTATE FIX — intersects the ratified
+  cross-platform node's research-first rider (XPLAT row); FLAG at the
+  comparison, verdict needed on rider-vs-contribution; #892 plugin skill
+  feedback DRAFT — touches BUNDLED SKILL COPIES, direct WS7 clash
+  candidate; #895 conformance DRAFT; #888 WSL docs; #883/#881/#880/#867
+  emgeebot lanes; #772/#768/#761/#750 older gated lanes. Comparison =
+  changed-file overlap + semantic clash verdicts, report to owner.
+- (e) Redesign S3-S6 (task #7) queued behind the above.
+- (f) Instrument notes: the claims CLI answered "unknown topic: claims" at
+  2026-08-17 — its command surface changed over the gap; re-derive the
+  liveness-check invocation from the CLI help at resume, never from
+  memory. The worktree-isolation guard pins sessions by cwd: keep the
+  shell at the primary root, use git -C for worktree git, plain commands
+  (no pipes) for guarded operations, tokens via short-lived files with
+  the wc -c length tripwire (an empty mint WAS caught by it this
+  session).
+- (g) Watch scripts .watch-890.sh (wave worktree) and .watch-896.sh
+  (primary root) deleted at the freeze; re-create from the resume map's
+  needs, actionable-transitions-only per COLD-PAUSE.

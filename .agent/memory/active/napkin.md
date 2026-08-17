@@ -523,3 +523,26 @@ numbers are numeric so plain indexed arrays happened to work).
 supposed to detect is the only check that distinguishes "armed" from "working". Arming it and
 observing silence proves nothing — silence is what a broken watcher produces too. Same shape as the
 estate's existing rule that cursor movement proves consumption and not delivery.
+
+## 2026-08-17 ~11:0xZ (Smith hunts Obsidian, e98f17, Director) — freeze harvest: fold-merge union, filename-class sweep lesson
+
+- STALE-CAPTURE CLASS REALISED AT MERGE, cured by archive-diff union: a branch cut
+  before the 2026-08-14 napkin rotation merged to main days later, carrying the
+  pre-rotation 3.4k-line napkin lineage back in via #882. The union instrument that
+  worked: diff the incoming side's entry HEADINGS against the rotation archive
+  (113/116 covered; one under its trued heading — content-grep before declaring a
+  gap), carry only the genuinely absent entries under a dated union note. The
+  archive-coverage check generalises to every rotated append-only surface.
+- SWEEP-BY-DIRECTORY IS NOT SWEEP-BY-FILENAME: the WS7 backlog sweep replaced
+  directory segments but preserved nine pre-existing SKILL.md-era filenames, which
+  became dead paths the moment the move landed (only SKILL-CANONICAL.md exists).
+  Copilot's suppressed round caught all nine. Cure class recorded on PR #890
+  comment 5314990205; the reusable lesson: a path sweep enumerates its PATTERN
+  CLASSES (directory, filename, carriage subpath) before running, or the residue
+  ships.
+- SHARED-CHECKOUT COMMIT RACES are now a measured pattern (three this session:
+  ledger true-up x2, the fold's staged peer doc): the winning practice was
+  bounded lock-waits, ownership-aware completeness reads before folding peer
+  work, and never chaining merge after commit with `;` — the G2-era `&&`
+  discipline held everywhere it was used and the one `;` chain mid-fold ran a
+  merge on a failed premise (harmless here; the class is real).
