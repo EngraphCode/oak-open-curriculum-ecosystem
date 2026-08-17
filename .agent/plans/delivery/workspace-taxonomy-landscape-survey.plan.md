@@ -2,7 +2,7 @@
 id: workspace-taxonomy-landscape-survey
 node_type: delivery
 name: "Workspace taxonomy landscape survey — stochastic search far from the worn path"
-overview: "Industrialise variation over the workspace-taxonomy solution space: many cheap randomised walker agents from de-correlated starting points, an annealing schedule, a quality-diversity archive of distinct viable basins, and a sliding model-tier ladder that zooms into promising regions — so the settled basis can be confirmed as the best-known basin, or beaten, before reorganisation tranche 1 lands."
+overview: "Industrialise variation over the workspace-taxonomy solution space: many cheap randomised walker agents from de-correlated starting points, an annealing schedule, a quality-diversity archive of distinct viable basins, and a sliding model-tier ladder that zooms into promising regions — the primary search instrument for a target architecture, with no incumbent carrying privileged status."
 status: sketch
 serves: workspace-reorganisation-programme
 impact_areas:
@@ -11,10 +11,7 @@ tickets: []
 depends_on:
   - plan: workspace-classification-census
     kind: beneficial
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: "The owner rules on the settled v1 basis statement from the 2026-08-17 adjudication (confirm, amend, or reject) — the survey needs a named incumbent to measure distance from"
-    expires: 2026-09-07
+owner_gates: []
 last_updated: 2026-08-17
 ---
 
@@ -38,6 +35,18 @@ priors vary — and that the panel's strongest convergence evidence was
 partly an echo of the owner's own earlier vocabulary. Panels select;
 they do not explore. This node is the deliberate variation engine the
 estate's selection instruments lack.
+
+The owner then sharpened the mandate (2026-08-17, verbatim): "the
+entire point of the current efforts is to stand back and ask the hard
+questions about whether we arrived at the right target architecture...
+we do know that the original target architecture was WRONG". This
+survey is therefore the PRIMARY search for a target architecture, not a
+check on a settled one: no incumbent — not the 66-entry inventory, not
+the round-2 taxonomy, not any prior synthesis — carries privileged
+status or deference weight in any walker brief, scorecard, or zoom
+stage. Prior proposals enter the archive as ordinary points. The
+independent evidence record that grounds the scorecard is
+`.agent/research/workspace-basis-regrounding-2026-08-17.md`.
 
 ## Goal
 
@@ -77,10 +86,13 @@ Orchestrated as Workflow fan-outs; model tiers per stage.
 4. **Scorecard**: fitness scores against the owner's governing DECISION
    NEEDS (boundaries, placement, dependency direction, edit rights,
    licensing/travel, navigation, agent economics, carrier change-cost)
-   — requirements, never the incumbent's solutions, so the rubric does
-   not smuggle the worn path back in. Walkers may also propose decision
-   needs the rubric missed; rubric-escapes route to the owner, never
-   silently absorbed.
+   and the measured independent record (git co-change and clock-tick
+   data, live-mechanism facts, per
+   `workspace-basis-regrounding-2026-08-17.md`) — requirements and
+   measurements, never any prior proposal's solutions, so the rubric
+   does not smuggle the worn path back in. Walkers may also propose
+   decision needs the rubric missed; rubric-escapes route to the owner,
+   never silently absorbed.
 5. **Archive and descriptors**: candidates land in an elites archive
    keyed by structural descriptors (basis cardinality, primary tree
    carrier, tree depth, generated-in-git?, unit-of-description,
