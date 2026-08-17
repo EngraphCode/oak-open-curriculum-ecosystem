@@ -73,12 +73,10 @@ code-owner approval *is* satisfied. Two nulls, two false-red inferences.
    exactly what a broken one produces.
 
 The control probe earns its place twice over. Run against the already-merged
-
-# 878, the rebuilt watcher both confirmed the terminal detection **and** exposed
-
-an unrelated defect in the same pass — `declare -A` requires bash 4 and macOS
-ships 3.2, which the original had survived only because PR numbers are numeric
-and plain indexed arrays happened to work.
+PR #878, the rebuilt watcher both confirmed the terminal detection **and**
+exposed an unrelated defect in the same pass — `declare -A` requires bash 4 and
+macOS ships 3.2, which the original had survived only because PR numbers are
+numeric and plain indexed arrays happened to work.
 
 ## Relationship to the false-green family
 
