@@ -363,6 +363,61 @@ window), a task identifier echoed through the output schema and
 verified on return, and provenance checks that recompute rather than
 assume.
 
+## Re-integration addendum (same day, after the collision-free re-runs)
+
+Owner-ratified sequence completed: all 16 struck CLI tasks were re-run
+collision-free (`round-1b-rerun-clean.json` — per-run directories,
+verbatim prompts recovered from each seat's own agent prompt, sha256
+verified, 16/16 schema-valid on first attempt, zero relay agents), and
+a blind opus classifier placed every clean design in both reducers'
+published descriptor spaces, evidence-quoted per axis
+(`round-1b-rerun-classification.json`; 131,370 tokens).
+
+Findings that replace the struck column:
+
+- **Terra template-lock never existed**: all 14 clean terra outputs
+  are distinct designs. The fleet's near-copy cluster was one draw
+  duplicated by output cross-reads.
+- **Clean occupancy** (16 rows): X — path-null 9, path-heavy 5,
+  path-light 2; assurance reproduced 13, self-correcting 2,
+  recomputed 1 (the decoy); `stated` still empty. Y — flat-namespace
+  9, taxonomic-zones 4, axis-rooted 2, no-layout 1 (free-form),
+  incumbent-tuned 0. Exactly **3 of 16** match the dominant tiered
+  shape on both readings (two terra grounding-a rows and the terra
+  grounding-b baseline, the last contested).
+- **Attractor headline restated** (grounding-b, now with clean
+  cross-vendor columns): haiku 2/2, sonnet 2/2, codex 2/2, clean
+  terra baseline 1/1 (contested) match; opus 0/2, clean sol baseline
+  0/1, sol-seeded 0/1 depart; fable 2/2 partial. 7/12 strict, 9/12
+  counting fable's partial. The pattern is now **capability-graded
+  across BOTH vendors**: every low/mid tier sampled matches
+  (haiku, sonnet, codex, terra); every high tier resists or reshapes
+  (opus fully, fable partially, sol on custody+feedback with a
+  tiered path, sol-seeded to axis-rooted/path-light). The clean sol
+  baseline is the instructive case: it keeps a zoned tree but
+  attaches durability-split custody and change-coupling telemetry —
+  high tiers do not reject the tree so much as refuse
+  declaration-only assurance.
+- **Basin mass restated** (struck rows removed, clean rows added):
+  X's tiered family 52% → **45.5%** (30/66); Y's modal cell 31.3% →
+  **23.9%** (16/67); the flat/path-null family rises to ~32%. The
+  tiered family remains the largest single X family, but the
+  contamination had overstated it, and in Y's finer space the modal
+  cell no longer dominates the flat family.
+- The decoy re-run stays territory-responsive (no licence zones or
+  tiers invented; the sole `recomputed` row — the fake estate gives
+  it nothing to reproduce), and the free-form re-run lands
+  `no-layout`, replacing the raced D-free-55 with a genuine
+  frame-escape observation.
+
+Round-2 consequence: the convergent region gains its final piece of
+support — clean high-tier evidence from both vendors converges on
+manifest-carried classification with recompute-or-better assurance,
+whether over flat, axis-rooted, or zoned trees; the load-bearing
+disagreement left in the corpus is path-carried versus
+manifest-carried classification, which is exactly what the grounded
+adjudication round verifies against the real estate's measured costs.
+
 ## Limitations
 
 - Six B2-* baseline shapes rest on the two reducers' independent
