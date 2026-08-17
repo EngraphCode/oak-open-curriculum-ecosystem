@@ -26,6 +26,7 @@ recompute live state from claims/comms/git at pickup.
 | 2026-08-02 | Moss calls Loam | claude-code / claude-fable-5 | `79b433` | Design-lane seat at direct owner word (Director: Falcon hunts Flight `52841f`); movement 1: PR #710 MERGED `58e5be461` — kit 1.8.0 TS-runtime + choice() on main |
 | 2026-08-02 | Corsair hunts Surf | claude-code / claude-fable-5 | `4d3282` | Design-lane successor seat at direct owner word (evening, post-Moss retirement); standby, warm pause — activation gated on the ratified design-system completion plan node + Director/owner word |
 | 2026-08-07 | Civet spins Cavern | claude-code / claude-fable-5 | `054f5e` | Design-lane successor (Saffron→Civet, PDR-063 deliberate succession at owner word, Director ACTIVATE 20:46Z); claim `645b9e0b` adopted 20:46Z after the handoff record read end to end |
+| 2026-08-17 | Yarrow stirs Undergrowth | claude-code / claude-fable-5 | `ab1066` | Critical-analysis sitting + records-truth pass (MCP-613) at direct owner word; claim `645b9e0b` adopted after the winddown record + this record read end to end |
 
 ## Board state at writing (recompute, do not trust)
 
@@ -3268,3 +3269,64 @@ artifact, URL in the session wrap-up).
   caught a non-associative fold and a 404-as-proof misread. Point
   external scrutiny at rendered-proof claims and merge-gating semantics
   first.
+
+## Session update 2026-08-17 (Yarrow stirs Undergrowth, ab1066 — additive; critical-analysis sitting → seven owner rulings → records-truth pass EXECUTED)
+
+- **The sitting**: owner-invoked critical analysis of the lane's records,
+  plans, and intents (metacognition + free-play + concept-exploration
+  lenses; five-leg opus review fleet — assumptions, design-system,
+  accessibility, docs-records, frame-challenge). Panel headline classes,
+  all first-hand-verified: the record layer lagging its landings (the
+  resume map read future-tense over W1 tranche 1 and the masthead cure); a
+  false enforcement claim on the kit's published contract; the three
+  same-day 2026-08-13 ratifications contradicting with zero
+  cross-references; the composition axis unreachable from configuration
+  with both counter-identities converging on Oak's composition below
+  840px; the identity-№N kernel falsifier untested and unowned; the
+  wow-verdict register structurally unfed (one FAIL row on a purged page).
+- **Seven owner rulings at the cards** (captured at occurrence: comms
+  event ec2c307b + per-user memory): (1) a FOURTH IDENTITY is
+  commissioned, owner-named **Tango** — ALL FOUR identities come up to
+  standard as identity PACKS (own package: zod manifest + brand CSS +
+  assets + own licensing surface; the kit gains an identity-consumption
+  surface; the identity-№N regression lands with the pack work), Tango
+  first; (2) Tango's anchor reference is OWNER-PRIVATE — tracked surfaces
+  describe Tango purely in its own terms; (3) records-truth pass: full,
+  one sitting, FIRST; (4) brand admission moves to the pack manifest, the
+  false contract claim struck now; (5) narrow range = capability +
+  per-identity choice, kit work sequenced by Tango's measured needs;
+  (6) `design-showcase-experience` GOVERNS the showcase surface, siblings
+  amended; (7) `design-system-completion` stripped of authority, knowledge
+  conserved.
+- **Records-truth pass EXECUTED (MCP-613)**: commit `6e88cb407` on lane
+  branch `jimcresswell/mcp-613-design-lane-records-truth-pass-cure-the-owed-true-ups-ledger`
+  (worktree `mcp-613-records-truth-pass`, cut from origin/main at
+  1.171.0). Contents: guard claim struck (brand.css §1b + CHANGELOG); R16
+  landed verbatim as a rulings row; a dated landed-state surface in the
+  resume map; the A2 rhythm mechanism re-cut under R15; the plan-internal
+  corrections (print-cell `:root`, stale decision-log rows, the W5
+  F-number withdrawal, §W6 reclassified already-owed); DDR-003/004/009/010
+  trued; rubric revised to v0.1 (criterion 3 narrowed per R13 —
+  recalibration OWED before any blocking verdict); both READMEs re-trued
+  to the shipped routes; the fidelity register's masthead disposition row
+  (closes fleet finding F14); sibling-plan amendments; the
+  completion-sketch authority strip (both gates retired); and three spent
+  nodes ARCHIVED (pr-846-review-fleet, identity-switchboard-first-pixels,
+  public-digital-service-identity — identity-naming census re-pathed).
+  Gates: repo-validators 14 legs green, showcase 137/137, full pre-commit
+  chain green.
+- **PUSH + PR QUEUED behind the GitHub-incident hold** (owner order
+  13:54Z; no all-clear observed at this writing). The branch is
+  local-only; the PR opens at the all-clear broadcast.
+- **Pickup row 6 above (PDR-138 prediction line) was found ALREADY
+  DISCHARGED** — it landed at `659331a69` on 2026-08-14; the row stands as
+  history, no act remains.
+- **Still open on the lane after this pass**: W2 composition rebuild
+  (largest build); W3 controls v2; the W1 remainder (A2 in its re-cut
+  form; slice B EMC² px→rem); the small code cures (png-codec crop bound,
+  check-rollup undated-tie, the e2e static-root fixture race); the
+  skip-link charter disposition; the review-debt slice-2 `ddr-graph`
+  validator question (owner-un-carded); the **Tango identity-pack
+  programme node** — the next planning act, absorbing the a11y and
+  frame-challenge design inputs held in this session's panel reports; and
+  the rubric v0.1 recalibration.

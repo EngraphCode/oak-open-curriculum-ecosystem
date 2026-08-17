@@ -580,6 +580,16 @@ estate's existing rule that cursor movement proves consumption and not delivery.
   one state where the watch is most wanted. Feedback for the frictions
   register at next parcel: ALL-GREEN should require mergeable + no standing
   change-request, or grow a --hold-until-merged flag.
+- STAGING A SHARED FILE CAPTURES ITS WHOLE UNCOMMITTED STATE (worked
+  instance 2026-08-17, commit 1104d5128): a one-token md004 rewrap staged
+  the survey lane's in-flight 43/7 edits with it — the explicit pathspec
+  named the FILE, but the file carried a peer's half-state, and the
+  Edit-tool's changed-on-disk note had said so one call earlier. Cure
+  executed: surface-not-revert (custody event e08643cf; content preserved,
+  gate-green). The missing move: on a shared live file, `git diff -- <file>`
+  and a completeness read BEFORE `git add`, staging by hunk is not
+  available to pathspec adds — if the peer state is mid-edit, wait or
+  coordinate; the lint cure was not urgent enough to skip the read.
 
 ## 2026-08-17 — Nautilus calls Plankton: deference contamination is anchor propagation one level up
 
@@ -668,3 +678,59 @@ r1a archive + fleet-design lessons + plan amendment (13881aee6); round
 1b launch spec banked in task #16 (persona-uptake gradient, per-tier
 baselines, challenge-not-extend arms); the 1a elite packet regenerates
 from committed round-1-raw.json (eliteWalker 35).
+
+## 2026-08-17 ~16:4xZ (Yarrow stirs Undergrowth, ab1066, design lane) — records-pass harvest
+
+- STAGED-VS-WORKTREE, THE `git mv` VARIANT (own hands, same day as the
+  staging entry above): Edit-tool edits landed on three plan files, then
+  `git mv` moved them — and mv staged the INDEX (HEAD) blobs, leaving the
+  edits UNSTAGED at the destination paths. The porcelain `RM` rows said
+  exactly that and the M column was read past; the first commit shipped
+  `status: ratified` archive copies. Caught by verify-what-ships
+  (`git show HEAD:` + grep, the d6f664036 lesson applied); cured by
+  add + amend (unpushed, verified no in-flight push at the amend moment).
+  Class rule: edit-then-mv needs a follow-up `git add` on the destination
+  paths (or mv first, edit after) — `git mv` is not `git add` for
+  unstaged content.
+- GH READS UNDER AN UNSEEN HOLD: two `gh pr` reads ran ~14:1xZ, before
+  this seat's first gap sweep surfaced the owner's 13:54Z hold on ALL
+  GitHub operations (the hold rode directed events to other seats). The
+  watcher-before-anything ordering exists for exactly this; even a
+  bounded read-only seat sweeps comms BEFORE its first external call.
+- WORKED WELL: the five-leg opus panel (near-zero finding overlap; the
+  kit-contract falsity independently confirmed three times);
+  anti-deference briefs (owner verbatims govern, seat prose
+  challengeable) — the deference-contamination lesson applied and it
+  held; checking the register's disposition ENUM before committing
+  (fixed→superseded); the lean explicit-pathspec commit path under a
+  sole-writer worktree window.
+
+## 2026-08-17 ~16:0xZ (Smith hunts Obsidian, e98f17, Director) — compaction-freeze-2 harvest (metacognition / free-play / concept-exploration; owner-invoked)
+
+- METACOGNITION: (1) Four owner questions in one afternoon (branch-name
+  suffix, 4MB claims file, monitors-vs-tools, LF/UTF-8 enforcement) each
+  exposed the SAME generator class — vigilance where structure belongs —
+  and each closed with structure (mint tool + skill, TTL store split,
+  built pr-watch, gitattributes + existing encoding gate). Director
+  lesson: an owner question about a surface anomaly is usually pointing
+  at a missing structure, not requesting a fact; answer the fact, then
+  cure the generator in the same motion. (2) Hook concept-guards fired
+  four times today (destructive-verb in prose, "parked", wildcard-add
+  inside a heredoc, machine-local path) and every forced reword IMPROVED
+  the artefact — the guards are functioning as concept checks, not
+  word police; the reappraise-don't-rephrase instruction held. (3) A
+  builder subagent died at the QUOTA WALL mid-cure: the recoverable
+  practice is transcript-resumable agents plus a freeze map that makes
+  partial-state characterisation the FIRST resume step (never assume
+  the last report describes the tree).
+- FREE-PLAY: the queue re-shape converges the estate's state surfaces on
+  one shape — per-event files + derived views + TTL-or-archive (comms
+  already there, queue now, claims halfway). A generic event-store
+  module parameterised per surface is a REAL second-consumer candidate
+  as of today; recorded here, deliberately not built
+  (consolidate-at-second-consumer names the trigger, the MCP-612
+  landing is the wrong vehicle).
+- CONCEPT-EXPLORATION: justified no-run — every open question is formed
+  and carried in freeze map 2 (thread record, same hour): MCP-612
+  landing steps with conserved reviewer cures, #899 merge conditions,
+  fold-skill divergence resolution, incident-hold verification.
