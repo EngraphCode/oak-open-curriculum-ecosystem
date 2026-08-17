@@ -2629,6 +2629,32 @@ below is a cross-reference index, not a second source of truth.
 - **Target surface**: `agent-tools/src/pr-watch/`.
 - **Status**: open.
 
+### F-163 — abandoned commit-queue intents have no drain; active-claims.json is 4.4MB
+
+- **Source**: owner question 2026-08-17 ("why are there 4MB of active
+  claims?").
+- **Surface**: `.agent/state/collaboration/active-claims.json`; the
+  `commit-queue` CLI topic.
+- **Observed** (measured): 4,388,290 bytes, of which 4,338,153 is the
+  `commit_queue` array — 227 entries, 226 `abandoned` (2026-07-03 →
+  2026-08-14, ~19KB each: full staged-file listings and fingerprints
+  ride every entry). Live claims: 4 rows, 3,655 bytes. Claims have an
+  archive surface (`closed-claims.archive.json`, `claims
+  archive-stale`); the queue has NONE — the topic ships
+  enqueue/commit/status/list/show only, so abandoned intents accumulate
+  forever, and every claims/comms CLI invocation re-reads the full file
+  per call.
+- **Expected**: an archive action symmetric with claims —
+  `commit-queue archive [--phase abandoned] [--before <iso>]` moving
+  entries loss-free to a dated archive beside the claims archive, with
+  the same recompute-don't-just-record validation the estate expects.
+- **Candidate cure**: build the action (MCP-609-shape micro-lane:
+  TDD, reviews, small PR); wire the warden-hygiene duty to run it at
+  fold boundaries so the drain is a ceremony step, not vigilance.
+- **Target surface**: `agent-tools/src/commit-queue/`.
+- **Status**: open (registered same day; build queued for owner
+  prioritisation against the standing queue).
+
 ## Mitigated / Addressed Frictions
 
 - F-03 — addressed by current CLI validation ordering.
