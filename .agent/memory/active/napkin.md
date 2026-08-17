@@ -3183,6 +3183,140 @@ PR-record hygiene rounds, release-readiness machinery, side-by-side page
 beyond made-safe. Kept as delivery: keyboard cure (pushed, 1f730517a),
 masthead cure, switching-page a11y.
 
+## 2026-08-13 (time NOT read from a clock — see the fabricated-timestamps entry below) — Wildfire holds Quench (ee2764), Director — THE FALSE-GREEN SURFACE CLASS: three instances in one morning
+
+Named by the owner-liaison seat (Orchid holds Bark, `2abbd1`) after routing all three. Worth
+carrying as ONE class rather than three incidents, because the cure is the same and the detection
+cost is paid three times otherwise.
+
+**The class: a surface that misinforms a reader without failing.** Not a bug — nothing errors,
+nothing goes red, no gate trips. The surface answers, and the answer is wrong or empty in a way
+that reads as authoritative. Each instance cost a real investigation, and each would have been
+re-investigated later at full cost by a seat with no memory of this morning.
+
+Three instances, 2026-08-13:
+
+1. **A production monitor reading `ok` while disabled.** Sentry uptime monitor 1593267:
+   `Status: DISABLED`, zero checks in 7 days, `Uptime Status: ok`. A dashboard glance says green.
+   Production had no uptime monitoring at all during a launch drive. → MCP-597.
+2. **A PostHog column reading `Other` by design.** The vendor's built-in `harness` dimension
+   resolves server-side from properties Oak deliberately does not emit (two of them are raw
+   headers ADR-218 §3 excludes by architecture). `Other, 24,011 calls` is not a data gap to fix;
+   it is unreachable-by-design. Ruled: build an Oak-owned sibling dimension instead. → MCP-594.
+3. **A stale doc row.** `what-the-system-emits-today.md:74` describes the PostHog sink as
+   "planned … timing open, post-public-beta", gated on an identity-policy ruling ADR-218 has since
+   settled — while PostHog is live and has emitted 23,649 `$mcp_tool_call` events in 21 days.
+
+**Why the class recurs:** a reader's cheapest check is to look at the surface, and all three
+surfaces answer. Absence of an error reads as presence of truth. The `disabled`-but-`ok` case is
+the purest form: two fields on one object disagreeing, with the reassuring one more prominent.
+
+**Cure, and it is cheap at authoring time:** whenever a surface can be empty, stale, or
+unreachable *by design*, make that legibility part of the same change — a saved-query
+description, a doc row that names its own supersession condition, a status field that cannot
+read healthy while switched off. An unreachable-by-design blank that looks like a defect will be
+re-investigated; a stale row that names no expiry will be trusted. Corollary for verification:
+**never read a configuration field as the measurement.** `Status: enabled` is not evidence checks
+ran — the check history is. This is the same discipline as
+`verify-the-instrument-not-the-target-state`, applied to the artefacts we ourselves author rather
+than to systems we probe.
+
+4. **A derivation returning a canonical value when its input was never readable** — caught
+   PRE-MERGE by security-expert (opus) on PR #880, and the sharpest instance because the cure
+   was *reproducing the defect it cured*. `readClientIdentityHeaderValues` returned `[]` whenever
+   the header container was absent or not a plain own-property object — demonstrated with a Fetch
+   `Headers` instance — and the derivation then emitted canonical `other`, which the policy
+   accepts. A future SDK release or Fetch-native adapter would have sent 100% of events to
+   `other` with **zero drops and no error**: the same false green as the `harness` column the PR
+   existed to replace. Cured by splitting `unavailable` out as a fifth closed value, so an
+   unreadable input is visible in the data rather than indistinguishable from a known-other client.
+
+**The class survives its own cure.** Instance 4 matters more than the other three because the
+seat that had just diagnosed the class rebuilt it two files away, inside the fix. Knowing the
+class does not immunise you against it — a reviewer looking for it did. That is the argument for
+making this a review lens rather than only a distilled lesson.
+
+**Graduation candidate.** Four independent instances in one morning, one shared cure, and the
+cure lands at authoring time, and one instance caught inside its own cure — that is the shape that belongs in `distilled.md` and possibly as a
+rule clause, not as three ticket comments. Routing to the next consolidation pass.
+
+## 2026-08-13T14:37:39Z — Wildfire holds Quench (ee2764) + Orchid holds Bark (2abbd1) — FABRICATED TIMESTAMPS: two seats, one session, same error, one mechanical cure
+
+Sibling of the false-green class above, but a distinct generator: not a surface that misinforms
+us, **a record we author that claims more precision than our measurement supports.**
+
+**Instance A (liaison seat, self-caught).** A correction event stated its measurement was taken
+"~14:40Z" and headed a section "at ~2026-08-40Z". Real time was ~14:35Z, so the reading was
+~14:33–14:34Z; the second string is not a time at all. The seat inferred a plausible-looking
+stamp from surrounding event timestamps and wrote it as measured.
+
+**Instance B (Director seat, caught only because instance A prompted a self-check).** A Linear
+comment on MCP-517 — a production auth defect — recorded its probes as run "~13:3xZ". Linear's own
+`createdAt` on that comment is **12:59:51Z**: the stamp sits ~35 minutes in the FUTURE of the
+moment it was written. Corrected in a threaded reply rather than by rewriting the record.
+
+**Why it is worse than a transient wrong reading.** Both seats were reconciling observations of a
+MOVING surface (PR checks mid-flight after a draft→ready flip). Reconciliation is exactly what
+timestamps are for. Instance A's stamp would have made the Director conclude a green surface went
+red four minutes AFTER an all-pass read — a regression hunt for something that never happened.
+Instance B's would place probes after work that actually preceded them. **A wrong stamp
+manufactures a false ordering between observations**, which is strictly worse than no stamp: no
+stamp invites a question, a wrong stamp answers it falsely.
+
+**The cure, and it is mechanical rather than a matter of care:** never write a timestamp not read
+from a clock. Where a stamp is load-bearing, **emit it in-band from the same command that takes the
+measurement** (`date -u +%Y-%m-%dT%H:%M:%SZ` alongside the probe; or let the tool stamp it — the
+claims CLI's `--now` and Linear's own `createdAt` are trustworthy for this reason and inferred
+prose is not). A `~` prefix does not license a guess; it reads as measured-and-rounded.
+
+**Note the detection path, because it generalises.** Neither seat caught its own stamp. The
+liaison caught its own only while writing about a related failure; the Director caught its own only
+because the liaison's correction prompted a check against Linear's record. **The cross-check
+between two seats was the instrument** — which is the same conclusion as the false-green entry's
+"a reviewer looking for it did". Two seats reading each other's records is load-bearing, not
+ceremony.
+
+**Graduation candidate**, same route as the false-green class: two independent instances, one
+session, one mechanical cure that lands at authoring time.
+
+## 2026-08-13T15:03:03Z — Wildfire holds Quench (ee2764) — A WATCHER THAT CANNOT SEE THE END OF WHAT IT WATCHES
+
+Sixth instance of today's misinforming-surface class, and the first one I built myself.
+
+**What happened.** I armed a PR watcher tracking `reviewDecision`, `mergeStateStatus`, reviews,
+threads, checks, comments and head SHA — deliberately covering "any review outcome, not approvals
+only". It did not track `state` or `mergedAt`. PR #878 was merged by the owner at 14:51:03Z, five
+seconds after its approval. The watcher kept emitting change events for the next half hour and I
+kept reporting the PR as "waiting on review". I then spent ~26 minutes deliberating whether to
+merge a PR that had already merged.
+
+**The tell I misread twice.** `mergeable` and `mergeStateStatus` both read `UNKNOWN`, and I
+interpreted that as GitHub failing to compute. It was GitHub declining to compute mergeability
+**for a merged PR** — the value was correct and I read a null as "pending". Earlier in the same
+hour I read an empty `reviewDecision` as "gate unsatisfied" when the branch rules require
+code-owner review with `required_approving_review_count: 0`, so an empty decision with a code-owner
+APPROVED is satisfied. **Two nulls, two false-red inferences.** Same family as the false greens:
+an absence read as information it does not carry.
+
+**The general defect, worth stating as doctrine.** *A watcher must observe the transition that ENDS
+the thing it watches, or it cannot distinguish in-flight from finished.* Mine watched every
+intermediate signal of a PR's life and none of its terminal ones, so "still moving" and "over" were
+indistinguishable — and it was maximally confident precisely when it was maximally wrong, because
+change events kept arriving.
+
+**The cure, and it is structural rather than a matter of attention.** v2 tracks `state` and
+`mergedAt`, announces a MERGED/CLOSED PR **once** with its merge commit and merger, drops it from
+tracking, and **exits when every watched item is terminal** so a stale watcher cannot look alive.
+Then: **prove it with a control probe that must fire** — I ran v2 against the known-merged #878 and
+required it to report TERMINAL and exit. That control caught a second, unrelated defect in the same
+pass (`declare -A` needs bash 4; macOS `/bin/bash` is 3.2, and v1 had survived only because PR
+numbers are numeric so plain indexed arrays happened to work).
+
+**Why the control probe is the transferable part.** Testing a watcher against the state it is
+supposed to detect is the only check that distinguishes "armed" from "working". Arming it and
+observing silence proves nothing — silence is what a broken watcher produces too. Same shape as the
+estate's existing rule that cursor movement proves consumption and not delivery.
+
 ## 2026-08-13 ~15:2xZ — round-7 cure cycle (Plover, b10c37): harvest notes
 
 - **Tail-hides-the-check (owner, x2 class):** a `tail`/`head` on gate output

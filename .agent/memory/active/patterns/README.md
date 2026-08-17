@@ -437,3 +437,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **pnpm Strict Hoisting Blocks Transitive Type Resolution** *(anti-pattern)* → [pnpm-strict-hoisting-type-resolution.md](pnpm-strict-hoisting-type-resolution.md)
 - **Turbo / Pre-Commit Cache False-Green** *(anti-pattern)* -- Use this when: A gate result disagrees with observed behaviour, a hook finds drift a task reported clean, or you are about to cite a cached gate run as evidence. → [turbo-cache-false-green.md](turbo-cache-false-green.md)
 - **Zero-Match False-Green** *(anti-pattern)* -- Use this when: Reading success from any filtered or glob-scoped tool run — a targeted test filter, a path-scoped linter, a sweep over a file set — without confirming the filter actually matched the intended targets. → [zero-match-false-green.md](zero-match-false-green.md)
+
+### Agent Operations (1)
+
+- **An Observer Must See the Terminal State of What It Observes** -- Use this when: Designing or arming any watcher, monitor, poll loop, or wait — a PR watch, a CI waiter, a job poller, a peer-liveness probe — especially one that reports progress by emitting on change. → [observer-must-see-the-terminal-state.md](observer-must-see-the-terminal-state.md)
