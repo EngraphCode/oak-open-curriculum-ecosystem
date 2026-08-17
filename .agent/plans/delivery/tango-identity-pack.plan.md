@@ -70,7 +70,7 @@ not an authority class.
 | K1 | **Four themes non-negotiable; wow bar.** Every identity carries light, dark, high-contrast (colour-safe a sensible default inclusion), and "I want to look at each and every demo and think 'wow, that looks *amazing*'". | Owner-ratified doc: the strategic node's kernel |
 | K2 | **The identity-№N falsifier.** "The thesis fails if adding or modifying an identity requires framework-code changes." | Owner-ratified doc: the strategic node §Falsifiability |
 | M1 | **Ratified pack mechanics.** A zod-validated sibling manifest that emits asset custom properties; the DTCG 2025.10 type set is closed (no asset type) so asset data never masquerades as token types; per-theme asset strategy decided before content lands (five themes, access themes first-class); slot cardinality/fallback proved by a deliberately partial pack; each identity pack its own package with its own licensing surface, keeping reserved-marks content out of the MIT kit root. | Owner-ratified doc: `oak-identity-recognisability.plan.md` §Mechanism + S4(b), ratified 2026-08-13 |
-| P6 | **The eventual state (canonical packs + narrow distinctness).** Verbatim: "the eventual state is that all identities are represented purely as canonical identity packs, that identities are visually designed narrow viewport first, that the system fully supports distinct identities at narrow viewports, and that the EMC2 identity and Tango identity at narrow viewports are clearly different from Oak and PDS in layout, order, spacing, feel, with the most difference in EMC2 because that is the identity we have total freedom with" (sic). Adjudicated same sitting: compatible with the ruled corpus, with one named supersession — R4's recorded consequence line "No per-brand narrow maps" (2026-08-13) is superseded (ruling 5 had already made narrow divergence expressible; this word directs the difference to be visible). Sharpens P4: the measured-needs record now serves a declared outcome bar. **Ontology correction, same sitting (owner verbatim): "Oak/PDS is not a default for narrow viewports, it is a coincidence that the first two identities we built we public services, and therefore have a shared design heritage routed in GDS" (sic).** There is NO shared-narrow-base concept and no sharing arrangement: every identity's narrow composition follows from its own character and anchor; Oak/PDS narrow similarity is heritage coincidence (both GDS-rooted public services), never a base one inherits. Convergence-by-silent-fallthrough (the recorded below-840px mechanism) is a defect class, never mistakable for heritage coincidence. | Owner, 2026-08-17, at this seat minutes after ratification; ontology correction minutes later (dated amendments same day) |
+| P6 | **The eventual state (canonical packs + narrow distinctness).** Verbatim: "the eventual state is that all identities are represented purely as canonical identity packs, that identities are visually designed narrow viewport first, that the system fully supports distinct identities at narrow viewports, and that the EMC2 identity and Tango identity at narrow viewports are clearly different from Oak and PDS in layout, order, spacing, feel, with the most difference in EMC2 because that is the identity we have total freedom with" (sic). Adjudicated same sitting: compatible with the ruled corpus. Sharpens P4: the measured-needs record now serves a declared outcome bar. The sibling plan's R4 row carries a "No per-brand narrow maps" consequence line: first adjudicated here as superseded, then **owner-re-classed the same evening (direct word at the d427b6 seat, comms event `901c311f`) as VOID FROM BIRTH — never owner word; agent-inscribed inference wearing owner attribution** (the row's genuine excellent-base quote stands); the queued cure on that plan is an attribution-correction, not a supersession note. The same word rules the vocabulary: the four are IDENTITIES, never "brands" — "brand" survives only for Oak National Academy's real-world brand in the licensing sense; this node's remaining "brand" occurrences name the kit's current published contract surfaces (`brand.css`, the brand-admission guard), which are estate-wide renaming candidates on the Director's board, never identity descriptions. **Ontology correction, same sitting (owner verbatim): "Oak/PDS is not a default for narrow viewports, it is a coincidence that the first two identities we built we public services, and therefore have a shared design heritage routed in GDS" (sic).** There is NO shared-narrow-base concept and no sharing arrangement: every identity's narrow composition follows from its own character and anchor; Oak/PDS narrow similarity is heritage coincidence (both GDS-rooted public services), never a base one inherits. Convergence-by-silent-fallthrough (the recorded below-840px mechanism) is a defect class, never mistakable for heritage coincidence. | Owner, 2026-08-17, at this seat minutes after ratification; ontology correction minutes later (dated amendments same day) |
 | G1 | **The admission guard's specified home.** The brand-admission guard is already specified by the ratified showcase plan (W1 slice B): all-fatal, no warn arm; rejects unit-bearing values in bound parts AND a sheet declaring both a slot's shorthand and its parts; red-first against the kit's tracked negative control (`studio-source/whitelabel/failing-example.css`); lives in `agent-tools/src/validators/` on the `repo-validators:check` chain. This node **extends that one instrument** with manifest-driven arms — it does not build a second admission regime (see §Relationships). | Owner-ratified doc: `design-showcase-experience.plan.md` W1 slice B (ratified 2026-08-13) |
 
 ## Goal
@@ -153,7 +153,7 @@ self-attestation that records rather than validates — dated true-up
    `:root`, which would silently beat `print.css`'s `html:root` revert.
 3. **Per-theme probe target** — the theme-application proof's
    distinctiveness target as pack data, curing the recorded vacuity hazard
-   (`theme-proof.ts` documents that a brand default equal to a probe
+   (`theme-proof.ts` documents that a pack default equal to a probe
    target makes theme cells pass with the theme block dead, and delegates
    the guard to brand admission).
 4. **Motion stance via the `-full` token surface only** — admission
@@ -460,12 +460,15 @@ files.
   never duplicated. A dated cross-reference amendment to that plan rides
   at the owner's ratification word, sequenced after the MCP-613 PR merges
   (same file surface; avoids a self-conflict between two in-flight PRs).
-  The same post-MCP-613 window carries P6's supersession note on that
-  plan's R4 row ("No per-brand narrow maps" is superseded by the
-  owner's 2026-08-17 eventual-state word; Oak/PDS narrow similarity is
-  heritage coincidence — shared GDS-rooted public-service design
-  heritage — never a default or a sharing arrangement) — named here so
-  the contradiction never sits silent.
+  The same post-MCP-613 window carries the ATTRIBUTION-CORRECTION on
+  that plan's R4 row (owner provenance verdict 2026-08-17, comms
+  `901c311f`: the "Consequence, owner-stated in the same breath …
+  No per-brand narrow maps" sentence was never owner word — void from
+  birth, agent-inscribed under owner attribution at its inscribing
+  commit; the row's genuine excellent-base quote stands; Oak/PDS narrow
+  similarity is heritage coincidence — shared GDS-rooted public-service
+  design heritage — never a default or a sharing arrangement) — named
+  here so the false attribution never sits silent.
 - **`oak-identity-recognisability`** (ratified 2026-08-13): its S4(b)
   names the identity-pack package boundary and asset manifest as an Oak
   expression-extension. The owner ruled the re-home plainly at this
