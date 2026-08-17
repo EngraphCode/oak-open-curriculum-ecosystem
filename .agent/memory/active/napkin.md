@@ -734,3 +734,50 @@ from committed round-1-raw.json (eliteWalker 35).
   and carried in freeze map 2 (thread record, same hour): MCP-612
   landing steps with conserved reviewer cures, #899 merge conditions,
   fold-skill divergence resolution, incident-hold verification.
+
+## 2026-08-17 ~20:0xZ (Poppy lifts Bark, d427b6, repo-architecture lane) — overnight freeze harvest (metacognition / free-play / wrap; owner-invoked)
+
+Session arc: standby grounding at owner word → lane succession (Moment 2
+b2d33b34, premises recomputed at adoption) → R4 void-from-birth
+provenance trace + identities-not-brands owner ruling captured
+(901c311f) → the owner's five-point toolkit brief + two refinements
+(memory node repo-architecture-brief-toolkit-five-points; MCP-619) →
+baseline evidence sweeps → Oak Toolkit Atlas (repo-canonical at
+.agent/reports/repo-architecture/, published URL bound to the file) →
+survey post-mortem discharged (both at 6ba9e93c3).
+
+- METACOGNITION: (1) ENDS→MEANS CONVERSION, twice owner-caught in one
+  evening — brief point 3 reflected back as "harvesting discipline" /
+  "shopping list"; owner corrected to designed-FINISHABLE foundations,
+  constitutive of the conceptual shape, not extraction mechanics. The
+  generator: an implementer reflex that denominates owner ENDS in
+  action procedures. Cure adopted: reflect the end back
+  verbatim-anchored; let procedures derive downstream of the reflection,
+  never inside it. Both catches were the owner's, not this seat's own
+  passes — point external scrutiny at frame fidelity, not completeness.
+- (2) CORRECTION-CASCADE SIGNATURE (graduation candidate; R4 is the
+  worked instance): a rule that needs repeated shrinking corrections
+  (full prohibition → may-share residue → coincidence-not-concept →
+  void-from-birth) was never grounded — trace provenance at the FIRST
+  correction. Second attribution-drift instance in five days (PR-886
+  2026-08-14; R4 row 2026-08-13→17); the mechanical check candidate
+  (owner-attributed clause = verbatim quote or marked seat reading,
+  nothing between) rides the Director's authority-class board item.
+- (3) Commit discipline compounded as priced: message validated
+  pre-suite, three files staged by explicit pathspec amid peer dirt,
+  first-pass green — against the predecessor seat's two burned suites
+  on header slips. The handoff's §5.6 lesson paid for itself same-day.
+- FREE-PLAY (kept, as associations): the stability gradient reads as
+  pace layering given a time arrow — measured change-clocks make
+  "stability creeps upward" observable (finished ≈ flat clock AND live
+  consumers AND green gates; flat alone is abandonment); finished
+  foundations double as agent context-economics (trust the contract,
+  never the implementation); the design system keeps arriving as the
+  estate's scale model (identity packs ≈ toolkit; near-finished kit
+  primitives ≈ stability gradient) — third instance in one evening.
+  DISCARDED visibly: a crystallisation metaphor; semver-as-cooling.
+- POST-MORTEM meta, pointer only: internal instruments audit
+  MECHANICS; only external reads audit WARRANTS —
+  reports/workspace-taxonomy-landscape-survey/post-mortem-2026-08-17.md
+  §3/§7 carry the full form plus the candidate fleet-design-review
+  amendment (warrant gate first; owner ratifies or not).

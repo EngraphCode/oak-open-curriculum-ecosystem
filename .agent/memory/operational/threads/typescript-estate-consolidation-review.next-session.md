@@ -30,7 +30,48 @@ applications, packages, core workspaces, and the curriculum SDK.
 | codex | GPT-5 | 019fc3 | Lichen guards Phloem | review implementer and documentation-handoff author | 2026-08-02 | 2026-08-03 |
 | claude-code | claude-fable-5 | d427b6 | Poppy lifts Bark | repo-architecture lane — adopted claims 95a0678d + 875f1508 at Moment 2 (b2d33b34, succession from Nautilus calls Plankton c6d48b); governing work is the owner's five-point toolkit brief | 2026-08-17 | 2026-08-17 |
 
-## Current Continuation
+## Current Continuation — repo-architecture lane (2026-08-17 overnight freeze)
+
+Seat: Poppy lifts Bark (d427b6), holding claims `95a0678d` (lane) and
+`875f1508` (MCP-603 ledger), both RETAINED-WITH-REASON at the
+2026-08-17 overnight stand-down (Director-confirmed): morning pickup at
+this seat — the #889 ceremony at the Director's GitHub all-clear, and
+MCP-619 phase 2 at the owner-seen warrant card.
+
+- **Governing work**: the owner's five-point toolkit brief, verbatim
+  with both refinements in per-user memory node
+  `repo-architecture-brief-toolkit-five-points` and on MCP-619
+  (In Progress). The survey programme is CANCELLED at owner ruling;
+  post-mortem with salvage dispositions at
+  `.agent/reports/workspace-taxonomy-landscape-survey/post-mortem-2026-08-17.md`.
+- **Delivered**: Oak Toolkit Atlas baseline v1 — repo-canonical at
+  `.agent/reports/repo-architecture/oak-toolkit-atlas.html`, published
+  artifact URL bound to that file (update = edit file, republish with
+  the URL). Diagrams NOT yet pixel-verified (Chrome extension was
+  disconnected) — first morning check.
+- **Resume order**: (1) re-ground per start-right (this record is
+  hypothesis, not truth); (2) MCP-619 phase-2 warrant card via the
+  Director (foundation-layer design first — designed finishable cores,
+  constitutive of the conceptual shape per the owner's refinement);
+  (3) at the Director's all-clear broadcast: #889 ceremony per the
+  task-12 recipe (machine-local task store
+  `~/.claude/tasks/session-c6d48b1b/12.json`); coordination-branch push
+  is the DIRECTOR's act, not this lane's; (4) MCP-603 ledger: claim and
+  worktree live, but its consumer set changed (the "fresh survey
+  design" died with the programme; the change-design/tranche consumer
+  remains) — re-derive its warrant at the morning card, never
+  self-adjudicate; (5) the "Sol test discussion" blocker died with
+  round 2 — nothing rides it.
+- **Branch**: `coordination/estate-2026-08-17`, ahead of origin behind
+  the GitHub hold (incident `zkxwbgr0cnmx`); freeze commits
+  `6ba9e93c3` + the freeze parcel after it. Rapid-comms channel files
+  left untracked for the Director's wrap sweep (they wrap last).
+- **Instruments at freeze**: ALL STOPPED (watcher, F-75 poll, GitHub
+  status watch, heartbeat pair) per COLD-PAUSE; re-arm per the
+  start-right first moves at resume, gap-sweep from this freeze's
+  timestamps.
+
+## Prior continuation — typescript-estate review execution (2026-08-03; conserved — still-live context for the MCP-603 frozen corpus)
 
 The 2026-08-03 Lichen guards Phloem session is closed by owner direction. The
 thread remains active and transfers through this record; no implementation
