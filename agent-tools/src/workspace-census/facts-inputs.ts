@@ -23,8 +23,9 @@ const MAX_SCANNED_FILE_BYTES = 1024 * 1024;
 
 const INTERNAL_SCOPE = '@oaknational/';
 
+/** Pattern must be global and unshared: matchAll throws on non-global, and honours a shared pattern's lastIndex. */
 function countMatches(text: string, pattern: RegExp): number {
-  return text.match(pattern)?.length ?? 0;
+  return [...text.matchAll(pattern)].length;
 }
 
 function isCodeFile(filePath: string): boolean {

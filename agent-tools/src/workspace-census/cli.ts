@@ -151,13 +151,11 @@ async function main(): Promise<number> {
   });
 }
 
-main()
-  .then((code) => {
-    process.exitCode = code;
-  })
-  .catch((error: unknown) => {
-    process.stderr.write(
-      `workspace-census: ${error instanceof Error ? error.message : String(error)}\n`,
-    );
-    process.exitCode = 1;
-  });
+try {
+  process.exitCode = await main();
+} catch (error: unknown) {
+  process.stderr.write(
+    `workspace-census: ${error instanceof Error ? error.message : String(error)}\n`,
+  );
+  process.exitCode = 1;
+}

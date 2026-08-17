@@ -169,13 +169,16 @@ export async function runCheck(context: CommandContext): Promise<number> {
 function renderDeltaText(legacyCount: number, delta: DeltaResult): string {
   const orNone = (parts: readonly string[]): string =>
     parts.length === 0 ? '(none)' : parts.join(', ');
+  const changed = delta.changed.map((row) => `${row.dirPath} (${row.from} -> ${row.to})`);
+  const renamed = delta.renamed.map((row) => `${row.fromDirPath} -> ${row.toDirPath}`);
+  const dangling = delta.danglingRenames.map((row) => `${row.dirPath} (from ${row.renamedFrom})`);
   return [
     `legacy rows: ${String(legacyCount)}`,
     `appeared:    ${orNone(delta.appeared.map((row) => row.dirPath))}`,
     `disappeared: ${orNone(delta.disappeared.map((row) => row.dirPath))}`,
-    `changed:     ${orNone(delta.changed.map((row) => `${row.dirPath} (${row.from} -> ${row.to})`))}`,
-    `renamed:     ${orNone(delta.renamed.map((row) => `${row.fromDirPath} -> ${row.toDirPath}`))}`,
-    `dangling:    ${orNone(delta.danglingRenames.map((row) => `${row.dirPath} (from ${row.renamedFrom})`))}`,
+    `changed:     ${orNone(changed)}`,
+    `renamed:     ${orNone(renamed)}`,
+    `dangling:    ${orNone(dangling)}`,
     '',
   ].join('\n');
 }

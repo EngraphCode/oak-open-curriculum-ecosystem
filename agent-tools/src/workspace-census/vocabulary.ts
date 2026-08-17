@@ -58,5 +58,6 @@ export function isInVocabulary<T extends string>(
   vocabulary: readonly T[],
   value: string,
 ): value is T {
-  return vocabulary.some((entry) => entry === value);
+  const entries: readonly string[] = vocabulary;
+  return entries.includes(value);
 }

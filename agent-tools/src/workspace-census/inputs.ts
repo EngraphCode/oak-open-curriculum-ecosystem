@@ -82,7 +82,7 @@ export function parseMemberList(
     }
     members.push(member);
   }
-  return ok(members.sort((a, b) => a.path.localeCompare(b.path)));
+  return ok(members.toSorted((a, b) => a.path.localeCompare(b.path)));
 }
 
 /** Tracked files from git, NUL-delimited so no filename shape can split wrongly. */

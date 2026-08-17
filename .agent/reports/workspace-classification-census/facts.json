@@ -202,12 +202,12 @@
         "type-check"
       ],
       "fileProfile": {
-        "trackedFiles": 1324,
-        "codeFiles": 1288
+        "trackedFiles": 1328,
+        "codeFiles": 1292
       },
       "oakMarkers": {
         "oakInDocs": 57,
-        "oakInSource": 1681,
+        "oakInSource": 1693,
         "cssOakVariables": 1,
         "dottedOakNamespaces": 6,
         "oakEnvKeys": 163
