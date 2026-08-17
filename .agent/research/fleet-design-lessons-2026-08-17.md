@@ -134,22 +134,28 @@ that surprised us." Mechanisms adopted:
 
 ## Day-2 lessons, post-completion (1b harvest, same date — measured)
 
-- **Concurrent relay seats must not share scratch filenames.** The 1b
-  CLI relay brief said "call it p.txt" to every codex seat in one
-  shared session scratchpad. Two measured failure branches: a loud one
-  (a seat's prompt files were overwritten mid-window with another
-  arm's task; the relay agent detected the mutation and refused —
-  arm lost) and a silent one (two seats returned byte-identical
-  designs across different groundings — one observation masquerading
-  as two). Per-seat filenames or per-seat subdirectories, always; and
-  test corpora for byte-identical returns as a standing
-  contamination check.
-- **Terra is template-locked; constraint grades do not move it.** Six
-  near-copies of one design across groundings, constraint grades, and
-  even the de-ontologised free-form arm. The 1a persona-uptake
-  gradient extends below "constraints work": at the lowest tier
-  sampled, nothing moves the output. Price terra seats as redundancy,
-  not evidence.
+- **No timing dependence — correct by construction (OWNER RULING,
+  2026-08-17, verbatim: "nothing we do should ever, ever rely on
+  timing or races, we build things so they WORK"; named an important
+  principle of fleet mechanics and in general).** The 1b CLI relay
+  brief said "call it p.txt" to every codex seat in one shared
+  session scratchpad. The full provenance audit measured the harm: 7
+  of 28 codex spawns executed a DIFFERENT seat's prompt; one seat
+  returned a stale foreign output as its own design (a 73-second
+  "terra completion"); one arm died refusing mutated instructions;
+  and file writes made via shell heredocs were invisible to the
+  Write-event audit, so the measured count is a lower bound. Cures
+  are structural, never probabilistic: per-seat directories
+  (eliminate the shared resource, don't shrink the window), a task-id
+  echoed through the output schema and verified on return (make
+  contamination detectable in-band), and unverifiable-provenance
+  rows STRUCK from analysis, not down-weighted.
+- **The terra "template-lock" reading is WITHDRAWN as unsafe.** The
+  identical-designs-across-groundings evidence cannot be
+  distinguished from prompt-crossing under the same race that
+  produced the byte-identical pair — with crossed spawns measured,
+  "different groundings" were not reliably different prompts at spawn
+  time. Tier-uptake claims about terra await a collision-free re-run.
 - **Probe sets teach the answer unless designed as blind tests.** The
   instrument-falsifier showed every 1b probe named its own
   discriminating dimension, so cross-fleet facet convergence measured

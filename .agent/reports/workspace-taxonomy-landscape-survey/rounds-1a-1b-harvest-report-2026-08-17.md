@@ -299,6 +299,70 @@ free-form arm freed of location/checkability presuppositions;
 partition-dependent statistics restated at path granularity; the
 monorepo premise unfrozen.
 
+## Provenance-audit addendum (same day, post-publication)
+
+An owner-directed forensic audit of the CLI relay arm, run after this
+report first published, supersedes this report's contamination
+section and several findings above. The governing owner ruling,
+verbatim: "nothing we do should ever, ever rely on timing or races,
+we build things so they WORK."
+
+The audit reconstructed every relay seat's file writes and codex
+spawns from the agent transcripts and attributed each spawn to the
+prompt actually on disk at that moment. Measured: **7 of 28 codex
+spawns executed a different seat's prompt** (writers landing seconds
+before a neighbour's spawn), and the count is a lower bound — seats
+that wrote via shell heredocs are invisible to the write-event sweep.
+One seat (T-grade3-49's agent) hit the mid-flight mutation error,
+re-spawned, "completed" in 73 seconds — impossible for a real run —
+and returned what can only be another seat's stale output as its own
+design. The SOL-seeded refusal, the byte-identical pair, and this
+stale-return case are three surfaces of one defect: every CLI relay
+seat shared three fixed filenames in one scratchpad.
+
+Consequences, applied strictly (unverifiable provenance = struck, not
+down-weighted):
+
+- **Struck from all statistics**: every CLI-relayed row — B-terra-38/
+  39/40, B2-terra-61, T-grade1-41/42/43, T-grade2-44/45/46,
+  T-grade3-47/48/49, B-sol-50, SOL-seeded-51 (already n=0),
+  D-free-55, DECOY-terra. They remain in the archive as unattributed
+  designs. B-sol-50's content is high quality and plausibly genuine
+  (its spawn was clean; no byte-duplicate exists), but its output was
+  read from the shared `out.txt` after many other completions and
+  cannot be attributed — struck. K-sol-1 is RETAINED: its 15:48:11Z
+  spawn was clean and the write timeline shows no other writer after
+  it, so its output file had exactly one producer; its content also
+  self-validates (packet-quoting defects).
+- **The terra "template-lock" finding is WITHDRAWN** — under crossed
+  prompts, identical designs across "different groundings" cannot be
+  distinguished from seats running the same accidentally-shared
+  prompt. Tier-uptake claims about terra await a collision-free
+  re-run.
+- **Attractor headline restated** on native + MCP tiers only (10
+  rows): haiku 2/2, sonnet 2/2, codex 2/2 match; opus 0/2 stable
+  resistance; fable 2/2 partial — 6/10 strict, 8/10 counting fable's
+  partial. Qualitatively unchanged: the attractor is real and
+  tier-conditioned; the sol/terra columns are simply absent rather
+  than supportive.
+- **Decoy verdict restated on the three native decoys** (haiku,
+  sonnet, opus — DECOY-opus remains the sharpest): the falsification
+  of blind convention-stamping stands; DECOY-terra is struck.
+- **Reducer Y's modal-cell elite selection loses its object**
+  (B-sol-50); its cell structure is unaffected. The scorer's seven
+  elites are all native or retained rows; its findings stand.
+- Sol tier valid observations: zero from the fleet. An isolated,
+  collision-free re-run of the SOL-seeded task (verbatim prompt and
+  schema, per-run directory) was launched as part of this audit;
+  a schema-conformance ping already passed cleanly, confirming the
+  model and CLI path were never the problem.
+
+Mandatory mechanics for any future cross-vendor arm, from the ruling:
+per-seat directories (eliminate the shared resource, never shrink the
+window), a task identifier echoed through the output schema and
+verified on return, and provenance checks that recompute rather than
+assume.
+
 ## Limitations
 
 - Six B2-* baseline shapes rest on the two reducers' independent
