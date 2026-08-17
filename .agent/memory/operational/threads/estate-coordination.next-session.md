@@ -605,3 +605,94 @@ which releases every seat's queued pushes). MCP-615 RATIFIED at the
 owner card (Yarrow, lane commit `afae5c663`). Survey round 1b complete,
 harvest `5a04ce910`, round-2 shape with the owner as a card. The dead
 MCP-612 builder subagent is NOT needed — do not resume it.
+
+## 2026-08-17 ~16:4xZ — DIRECTOR SUCCESSION COMPLETE: Ocelot binds Tunnel holds the seat (Moment 2)
+
+Written by the incoming seat. Sequence, all events on the canonical
+stream: Ocelot registered standby 16:07Z (`4b736731`, grounded
+first-hand incl. the readiness gate's mechanical liveness check);
+Moment 1 + directed pickup per the entry above; Ocelot read the handoff
+record end to end, recomputed premises at pickup (a8600f2a3 verified at
+the mcp-612-queue-ephemera tip, tree clean; Nautilus ACTIVE with the
+1a+1b harvest committed — the record's peer-STAGED-file caution is
+superseded; hold verified still major/critical at 16:46Z), adopted
+claim `b1d00d68` in place, armed the heartbeat pair (240s, one `--now`
+per tick), and broadcast Moment 2 (`a91c1177`) 16:44Z in-response-to
+`91a18b86`. Authority transferred at that broadcast; directed
+absorption ack `46e553f5`; Smith's heartbeat-end + team-member closeout
+landed 16:47Z — tenure complete, nothing retained. Successor ARC
+channels opened at owner word and announced (`4eef465b` design-lane
+with Yarrow; `e331bff4` survey-lane with Nautilus); the prior pairings'
+channels stand as record. Instruments at this seat: canonical watcher
+(heartbeat-excluded F-146 shape) + F-75 delta poll (600s) + heartbeat
+pair + two ARC tails + a GitHub resolution watch (300s; incident
+`zkxwbgr0cnmx`; at indicator none/minor verify `resolved_at`, broadcast
+the all-clear, then run the handoff record's hold-release order). The
+freeze-2 map remains the work queue; item (a) is at the push/PR stage.
+
+## Participating agent identities (succession addendum)
+
+| platform | model | session_id_prefix | agent_name | role | first_session | last_session |
+| --- | --- | --- | --- | --- | --- | --- |
+| claude-code | claude-fable-5 | c28ad9 | Ocelot binds Tunnel | Director — adopted b1d00d68 at Moment 2 `a91c1177` | 2026-08-17 | 2026-08-17 |
+
+## 2026-08-17 ~20:0xZ — OVERNIGHT STAND-DOWN (Ocelot binds Tunnel, c28ad9): both lanes down clean; Director down last at owner word
+
+Owner overnight order (ledger OVN-1): lanes run owner-independent work,
+stand down when they need him, Director last; operationalised in
+broadcast `651c4dfa`. The evening after the two successions
+(Smith→Ocelot Director; Nautilus→Poppy lane, Moment 2 19:33:59Z):
+Poppy delivered the five-point brief's Phase 1 (Toolkit Atlas baseline
+repo-canonical at `.agent/reports/repo-architecture/oak-toolkit-atlas.html`
+and published; survey post-mortem; salvage register — `6ba9e93c3`,
+`2379d4000`); Yarrow landed T1a-i (`cd84e490c`, MCP-616), the MCP-615
+trail (`843bb4ac8`: ratified node, P6 corrected ontology, R4 re-class),
+and design continuity (`7a28c7fa3`). Round-2 CANCELLED at owner ruling
+(ledger NAUT-1); the five-point brief governs the repo-architecture
+lane (per-user memory `repo-architecture-brief-toolkit-five-points`).
+
+STAND-DOWNS, both clean with heartbeat-ends (the 10-minute retirement
+rule must not fire on either): Poppy 20:00:15Z — claims `95a0678d` +
+`875f1508` retained-with-reason; morning pickup = #889 FIRST at the
+all-clear (owner merge word, ledger OVN-2, canonical mirror `5e012461`:
+"safely" includes a content-truing check against the fleet outcomes),
+then the MCP-619 phase-2 warrant card. Yarrow 20:03:28Z (closeout
+`7c8b57b6`) — claim `645b9e0b` retained; morning = T1a-ii
+(pack-contract authoring, held on a stated quality trade-off, no card
+needed); three-push queue (MCP-613, MCP-615 at `843bb4ac8`, MCP-616 at
+`cd84e490c`) at the all-clear.
+
+GITHUB HOLD STANDS at this write (incident `zkxwbgr0cnmx`
+investigating/critical through the 19:32Z recompute). The ALL-CLEAR
+duty is the Director's and sleeps with this seat: the resuming morning
+seat verifies `resolved_at` first-hand, broadcasts the all-clear ONCE,
+then runs the release order — (1) coordination push (this parcel + the
+nine-plus lane commits ahead of origin); (2) MCP-612
+fetch/main-merge/gates/push/PR/merge at trustworthy checks (worktree
+`mcp-612-queue-ephemera` at `a8600f2a3`); (3) #899 merge + fold-skill
+step-9 delegation-form resolution + coordination main-merge; (4) lane
+queues per the closeouts above. Post-incident CI flakiness =
+park-and-card, never force.
+
+MORNING CARDS (assembly): (1) MCP-619 phase-2 opening warrant (solo
+seat, evidence collected, per-change diagrams, no fleet — Poppy's
+framing endorsed); (2) three `scrap/*-mis-based` branch deletions
+(owner one-click; EnterWorktree base-ref mis-cut ×3, napkin carries
+the pattern); (3) MCP-612 acceptance-3 legacy-blob disposition (fires
+only post-merge); (4) read-if-chosen: Poppy's survey post-mortem
+(carries a fleet-design-review warrant-gate amendment candidate);
+(5) micro: disposition of the untracked peer residue
+`workspace-basis-settled-statement-2026-08-17.md` (author retired).
+
+FRICTIONS for the register at morning: the watcher hourly-backstop +
+turn-notification-lag blind-window pattern (Yarrow's routed
+observation; this seat ran the same recycles benignly — cursor made
+them lossless); F-162 pr-watch ALL-GREEN exit defect still open.
+
+INSTRUMENTS at this stand-down (stop-loop-first): heartbeat pair
+stopped then heartbeat-end broadcast; ARC tails, F-75 poll, GitHub
+resolution watch, canonical watcher stopped last (COLD-PAUSE — with
+every seat down, nothing could act on an overnight resolution anyway).
+Claim `b1d00d68` RETAINED-WITH-REASON: same seat resumes at the
+owner's morning word; silence past the heartbeat-end is intentional
+stand-down, never retirement.
