@@ -10,19 +10,12 @@ ratified_where: "Owner decision card at the Director seat (b10c37), 2026-08-12 ~
 serves: outcome-informed-practice-learning
 impact_areas:
   - practice-and-estate
-tickets: []
+tickets:
+  - MCP-601
 depends_on:
   - plan: survey-machinery-deconstruction
     kind: beneficial
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      Jim gives the explicit go on the survey lane — the 2026-08-12 hold
-      ("don't start the survey until I give the word", worded direct to the
-      lane seat, Director-concurred broad on both nodes) discharges at his
-      word through any seat.
-    expires: 2026-09-02
-last_updated: 2026-08-12
+last_updated: 2026-08-14
 ---
 
 # Workspace classification census
@@ -211,3 +204,16 @@ open holding state.
    edited into the surface-isolation brief.
 5. Report assembly; enumeration instrument green; validator and gate
    green; PR.
+
+## Amendment trail
+
+- **2026-08-14 — review card round 2 (~15:3xZ): DIRECTION CONFIRMED; criterion 4 satisfied on the decomposition spine.** The round-2 target inventory (34 workspaces -> 66, one lifecycle each; codegen split into spec-acquisition / reusable pipeline / generated artifact holders; editorial synonyms separated; generated output never co-resident with handwritten code; banked at the census report home: decomposition-analysis.json, target-inventory.json, decomposition-synthesis.md) was presented at the owner's round-2 card with three questions. Answers, verbatim: "Direction confirmed" (the census finalises on this spine — revised matrix dispositions, manifest arm, instrument green); "One programme node (Recommended)" (a single strategic reorganisation node owns the target inventory and sequencing, per-tranche delivery nodes authored at pickup); "Adopt as proposed" (directory taxonomy: packages/codegen/, packages/generated/, packages/search/, packages/mcp/, packages/graph/ join the existing roots; generated/ is the separation tier). Decision card direct to the lane seat.
+- **2026-08-14 — review card round 1 (~12:2xZ): matrix NOT YET SUFFICIENT; decomposition depth directed.** The census ran end to end (PR #889: 43 subjects, check PASS, matrix rendered, 2026-04-28 superseded). The owner's criterion-4 answer, verbatim: "not yet sufficient, it's the right start, but I think we can go CONSIDERABLY thinner in the oak leaves, I was expecting much more splitting of reusable code. Additionally I want the SDK codegen and SDK both split along at least two dimensions, oak Vs reusable, and generic openapi parsing, and type/constant generation, and bulk data processing... just really tidy the lifecycle of the codegen, there are at least three or four mixed concerns blurring different life cycles. Go back to basics and ask what transformations are present, who consumes the result and when, when matters, and could it be simpler if we split it more. and I don't want the generated output mixed with non generated code, I want a much cleaner and better defined separation. In summary, I expect the number of workspaces to increase significantly, the scope of individual workspaces to narrow, and the organisation of workspaces to improve" (decision card, direct to the lane seat). Binding consequences: (a) decomposition dispositions extend beyond mixed rows — oak-leaf rows carry reusable-code extraction dispositions; the SDK/codegen chain is analysed on the named lifecycle dimensions (oak vs reusable; openapi parsing / type-and-constant generation / bulk data processing); (b) generated-vs-non-generated separation becomes a judged concern on every row where generated output exists; (c) the census re-presents at a round-2 card. The mixed-only thinnest-slice restriction in §Goal and §Out of scope is superseded by this owner word for round 2.
+- **2026-08-14 — manifest arm approved at the same card.** The mechanical predicate gains arm (ii-b): the parent directory of every tracked `.claude-plugin/plugin.json` manifest — curing the predicate finding (the plan's motivating example `plugins/oak-open-curriculum` previously failed the plan's own mechanical predicate; discovered by the instrument 2026-08-14). Owner answer verbatim: "Add the manifest arm".
+- **2026-08-14 — execution gate discharged at the owner's word.** The
+  2026-08-12 hold ("don't start the survey until I give the word",
+  narrowed 2026-08-14 to design-only) discharged at Jim's decision-card
+  answer, verbatim "Go — run the survey lane", given direct to the lane
+  seat (Nautilus calls Plankton, c6d48b) 2026-08-14 ~10:44Z. The
+  `owner_gates` entry is removed by this amendment; execution ticket
+  MCP-601 opened the same hour.
