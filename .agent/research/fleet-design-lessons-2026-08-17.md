@@ -132,6 +132,35 @@ that surprised us." Mechanisms adopted:
   every tick (permanent noise). Probe the real output, then diff on
   stable fields only.
 
+## Day-2 lessons, post-completion (1b harvest, same date — measured)
+
+- **Concurrent relay seats must not share scratch filenames.** The 1b
+  CLI relay brief said "call it p.txt" to every codex seat in one
+  shared session scratchpad. Two measured failure branches: a loud one
+  (a seat's prompt files were overwritten mid-window with another
+  arm's task; the relay agent detected the mutation and refused —
+  arm lost) and a silent one (two seats returned byte-identical
+  designs across different groundings — one observation masquerading
+  as two). Per-seat filenames or per-seat subdirectories, always; and
+  test corpora for byte-identical returns as a standing
+  contamination check.
+- **Terra is template-locked; constraint grades do not move it.** Six
+  near-copies of one design across groundings, constraint grades, and
+  even the de-ontologised free-form arm. The 1a persona-uptake
+  gradient extends below "constraints work": at the lowest tier
+  sampled, nothing moves the output. Price terra seats as redundancy,
+  not evidence.
+- **Probe sets teach the answer unless designed as blind tests.** The
+  instrument-falsifier showed every 1b probe named its own
+  discriminating dimension, so cross-fleet facet convergence measured
+  the prompt; reducer Y independently confirmed the facet dimensions
+  did not discriminate. Findings survive only on dimensions the
+  instrument did not name (path-load, byte custody,
+  boundary-feedback). Future survey probes must be minimal pairs that
+  do NOT state their contrast, with an instrument-critique channel in
+  the schema (`forcedFit`-style fields that can only blame the
+  respondent are one-way error terms).
+
 ## What survived 1a as probable signal
 
 Checked against the probes: the dominant shape is grounding-invariant
