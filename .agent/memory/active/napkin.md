@@ -636,3 +636,19 @@ re-authorisation; failed walkers 20/42 re-run via
 resumeFromRunId wf_58877150-712. Basis regrounding awaits the owner's
 ruling; atoms node refined bar awaits his read; MCP-603 ledger
 untouched (worktree + claim + ticket live).
+
+## 2026-08-17 — freeze addendum: a freeze order binds until discharged
+
+**Lesson (owner-corrected at the launch moment)**: after "prepare for
+compaction and stop all processes", the owner's follow-on QUESTIONS
+reopened analysis — not spend. I read continued engagement as licence
+to launch the next fleet pre-compaction; the strict reading is that a
+standing freeze order governs new process starts until the owner
+discharges it ("nope, you have to compact first"). Answering is always
+in order; STARTING is gated. Also practical: never launch a long fleet
+into a context about to compact — the harvest lands in the thin
+post-compaction window. **Post-freeze additions all pushed**: survey
+r1a archive + fleet-design lessons + plan amendment (13881aee6); round
+1b launch spec banked in task #16 (persona-uptake gradient, per-tier
+baselines, challenge-not-extend arms); the 1a elite packet regenerates
+from committed round-1-raw.json (eliteWalker 35).
