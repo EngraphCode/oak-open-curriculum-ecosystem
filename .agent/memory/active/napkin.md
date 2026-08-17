@@ -564,6 +564,22 @@ estate's existing rule that cursor movement proves consumption and not delivery.
   (`--max-events-per-drain`) made the replay safe and it doubled as the
   gap-window completeness read; the class to respect is that a replay is a
   FEATURE when bounded and a wedge when not.
+- "RE-CREATE X" INSTRUCTIONS INHERIT X'S OLD FORM (2026-08-17, owner-caught):
+  the freeze map's "re-create watch scripts from the resume map's needs" was
+  executed as recreating SCRIPTS, hand-rolling a PR poller while the built
+  `pr-watch` topic sat in the same `--help` output this seat had read that
+  morning for the claims re-derive. `use-built-agent-tools-cli` violated;
+  cured same hour (script deleted, four pr-watch monitors armed). The
+  re-derive-from-current-surface lesson applies to the INSTRUMENT, not only
+  the invocation. Wrapper scripts remain legitimate ONLY as hook-boundary
+  packaging around a built tool (the comms watcher's `$PPID` + inline-command
+  guard), never as the instrument itself.
+- PR-WATCH EXIT CONDITION IS BLIND TO MERGE/REVIEW STATE (tool feedback,
+  2026-08-17): `pr-watch 890 --watch` exited on ALL-GREEN (checks passed,
+  threads resolved) while the PR sat CONFLICTING + CHANGES_REQUESTED — the
+  one state where the watch is most wanted. Feedback for the frictions
+  register at next parcel: ALL-GREEN should require mergeable + no standing
+  change-request, or grow a --hold-until-merged flag.
 
 ## 2026-08-17 — Nautilus calls Plankton: deference contamination is anchor propagation one level up
 

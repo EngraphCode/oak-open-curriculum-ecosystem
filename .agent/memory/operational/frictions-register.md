@@ -2581,6 +2581,54 @@ below is a cross-reference index, not a second source of truth.
 
 ---
 
+### F-161 — no tool mints the coordination successor-branch name
+
+- **Source**: owner question 2026-08-17 ("why is the branch name missing
+  its uuid, are we missing a rule, and tool?") after the Director cut
+  `coordination/estate-2026-08-17` by following the fold skill's literal
+  (wrong-since-birth) name form.
+- **Surface**: coordination-fold ceremony step 9; no agent-tools action
+  exists for it.
+- **Observed**: the convention — `coordination/<utc-date>-<sha6 of the
+  post-fold tip>` — is deliberate owner policy (multi-checkout
+  collision safety on a real repo) and WAS automated as a mechanical
+  recipe (`date -u +%F` + `git rev-parse --short=6 origin/main`), but
+  the recipe was carried in continuity records only; the skill's step 9
+  named a different, wrong form since the skill's birth. Automation
+  that lives outside the doctrine home is invisible to a
+  literal-reading seat — the same failure class as F-162's session
+  (hand-rolling what is already built).
+- **Expected**: the doctrine home carries the automation. Cured
+  same day: the recipe one-liner now lives verbatim in the skill's
+  step 9.
+- **Candidate cure (optional hardening)**: lift the recipe into a named
+  action beside the merge-bot's REST-merge helper (which holds the
+  merge sha at the right moment), so the mint is one command with a
+  typed refusal on a dirty premise.
+- **Target surface**: `.agent/skills/coordination-fold/SKILL-CANONICAL.md`
+  (done); `agent-tools/src/merge-bot/` (optional).
+- **Status**: mitigated 2026-08-17 (recipe in the skill); named action
+  optional.
+
+### F-162 — pr-watch all-green exit ignores merge and review state
+
+- **Source**: Director seat, 2026-08-17, first pr-watch arm after the
+  hand-rolled-watcher correction.
+- **Surface**: `pnpm agent-tools pr-watch <n> --watch`.
+- **Observed**: `pr-watch 890 --watch` exited on ALL GREEN (every check
+  passed, every thread resolved) while the PR stood
+  `merge=CONFLICTING/DIRTY` and `review=CHANGES_REQUESTED` — the state
+  where a watch is most wanted. The watch declared green and ended on a
+  PR that cannot merge.
+- **Expected**: ALL GREEN requires mergeable and no standing
+  change-request; or a `--hold-until-merged` mode that exits only on
+  merged/closed.
+- **Candidate cure**: extend the exit predicate with mergeStateStatus
+  and reviewDecision; keep the current predicate available behind a flag
+  for callers that genuinely only care about checks+threads.
+- **Target surface**: `agent-tools/src/pr-watch/`.
+- **Status**: open.
+
 ## Mitigated / Addressed Frictions
 
 - F-03 — addressed by current CLI validation ordering.
