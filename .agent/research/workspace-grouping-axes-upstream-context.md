@@ -87,11 +87,48 @@ owner card before the first acquisition-family mint, or at that
 tranche's delivery node with the owner present. This note is the
 design input; the ruling is his.
 
+## 2026-08-17 addendum — the basis panel refines this note
+
+The owner widened the question the same day ("what are the axes we
+have, and what is our best guess at the optimum basis set?"). A
+four-proposer adversarial panel (Parnas/change-cause, DDD/bounded-
+context, dependency-graph, Conway/navigation priors; one
+cross-examiner) ran over the ratified inventory. Full output:
+[`workspace-basis-panel-2026-08-17.json`](workspace-basis-panel-2026-08-17.json).
+Two findings supersede parts of this note's recommendation:
+
+1. **Upstream bounded context is not an axis** (all four proposals
+   independently). A proper-noun upstream is a *source of clock
+   values*: the Oak platform's three taps are three freshness events,
+   and the inventory already splits on the clocks. The
+   commodity-vs-proper-noun half dissolves into the Oak-specificity
+   axis (depending on a swappable commodity does not brand code — the
+   es-ingest-core ruling generalised).
+2. **The acquisition-pair grouping lands as capability-family
+   placement, not a new root.** `openapi-schema-source` and
+   `oak-bulk-data` home together under the curriculum-data family at
+   directory level 2; no `packages/oak-data/` root is needed. The
+   cross-tap unity (one service, one credential, one migration blast
+   radius) is carried by the shared env schema and a platform-
+   migration runbook, not by the tree.
+
+The panel's convergent basis — three intensive axes (change-clock,
+Oak-specificity/travel, byte-authorship: exactly the census's own
+`dimension` vocabulary) plus audience/deployment class carried by tree
+level 1 — and the open forks (the generated tier's carrier, the
+`packages/codegen/` category error, the es-ingest-core shelf, the
+clock-enum refinement) are recorded in the panel JSON's `challenge`
+section; the owner-facing rendering lives on the reorganisation map
+artifact. Owner ruling pending on the forks.
+
 ## Pointers
 
+- [`workspace-basis-panel-2026-08-17.json`](workspace-basis-panel-2026-08-17.json)
+  — the four proposals + cross-examination, verbatim.
 - `target-inventory.json` → `openQuestionsForOwner[0]` (tier homes),
   `sequencingHints` (bulk-clock family as one tranche).
 - `.agent/plans/strategic/workspace-reorganisation-programme.plan.md`
   (delivery discipline: per-tranche nodes cite inventory rows).
 - Reorganisation map artifact (owner-facing visual; carries the
-  layered-reliance view this note's analysis feeds).
+  layered-reliance view and the basis proposal this note's analysis
+  feeds).
