@@ -511,3 +511,69 @@ Owner resume order (ledger XPLAT-4) executed ahead of the freeze map's (a)/(b):
   the fold of Luke's cure rounds as they land (macOS re-validation
   offer stands, worktree kept); skills lane (task #10, scope
   `.agent/skills` only) queues behind per SKILLS-FIRST.
+
+## 2026-08-17 ~16:0xZ — COMPACTION FREEZE 2 (Smith hunts Obsidian, e98f17): MCP-612 mid-landing, quota wall
+
+Owner word: prepare for compaction, then stop all processes. The
+builder subagent died on the session limit (resets 19:30 London) mid
+ENOENT-cure — resume respects quota. RESUME MAP, priority order:
+
+- (a) MCP-612 LANDING (task #15, plan `commit-queue-local-ephemera`,
+  ticket In Progress). The INTERIM SPLIT IS LIVE and stable
+  (active-claims.json 4KB, both readers validated; legacy blob at the
+  gitignored `archive/commit-queue-legacy-2026-08-17.json` until the
+  landing's verification read). Worktree
+  `.claude/worktrees/mcp-612-queue-ephemera` holds the ENTIRE delivery
+  UNCOMMITTED (81 files: builder's re-shape 4690/4690 green at its
+  report, my 11 practice-doc true-ups + seed 1.4.0, adapters
+  regenerated) PLUS a PARTIAL builder cure (ENOENT skip-as-absent —
+  its last state: new `smoke-tests/commit-queue-store.smoke.ts`
+  created, `tests/test-helpers/temp-collaboration-state.ts` mid-edit).
+  Resume: (1) read the worktree diff first-hand before anything;
+  (2) finish the ENOENT cure (plural reader skips-as-absent, corrupt
+  stays loud, pin with a test); (3) apply the test-expert cures —
+  IMMEDIATE-FAIL: the git-spawning check-ignore test moves out of
+  vitest to a validator/smoke (the new smoke file is likely the
+  builder's start on exactly this); UNPINNED: TTL-from-updated_at
+  fixture (queued_at ≠ updated_at), unparseable-legacy-row loud
+  failure, 1.2.0-with-queue NOT migrated, "byte-preserved" wording →
+  value+key-order parity; minors optional (3600s boundary, absent-dir
+  view parity, --now honouring). Code-expert's two suggestions
+  non-blocking (legacy-TTL resurrection window; unreachable expired
+  branches). (4) full suite + gates green, atomic commit (code+tests+
+  docs+adapters, stage by pathspec), push, PR (References MCP-612,
+  incident caveat if the hold stands), merge at trustworthy checks,
+  then acceptance 2+3 (live verification at rebuilt primary;
+  legacy-blob verification read → owner disposition).
+- (b) PR #899 (MCP-609 branch-mint tool + cut-coordination-branch
+  skill, pushed at owner word during the GitHub incident): merge at
+  trustworthy checks + review round; then merge main into
+  coordination/estate-2026-08-17 and resolve the KNOWN fold-skill
+  step-9 divergence to the PR's delegation form (one conflict,
+  deliberate, this seat authored both sides).
+- (c) GitHub incident hold (owner order 13:54Z relayed by Nautilus):
+  no all-clear broadcast observed by this freeze — verify status at
+  resume before any GitHub op beyond what the owner's push exception
+  covered (#899, #774 close, #898 merge all completed under his word).
+- (d) Standing queue behind (a)/(b): skills lane task #10 (#890 is
+  CONFLICTING with post-fold main + cure round at PR comment
+  5314990205 — main-merge + filename-class cures are the opener; scope
+  `.agent/skills` ONLY); then wave 2, Practice evals, PROF-FILTER plan
+  authoring, S3-S6 (task #7). XPLAT tranche B research (census delta,
+  platform verification, guard design) continues alongside; Windows CI
+  leg authoring gates on #891 merge; Luke cure-round macOS
+  re-validation offer stands (worktree pr-891-macos-validation kept).
+- (e) Estate map at freeze: Nautilus round-1b fleet running (launched
+  14:57Z, 1-3h, bounded, no GitHub ops); Yarrow holds design-lane
+  claim 645b9e0b on a records-truth pass (their design-system journal
+  edit rides this shared checkout UNCOMMITTED — theirs, do not stage);
+  the untracked `workspace-basis-settled-statement-2026-08-17.md`
+  remains peer-owned residue (superseded record, author's
+  disposition). Quota note: TUI may switch models silently at
+  exhaustion — verify lineage at resume per the standing memory.
+- (f) Instruments at freeze: comms watcher STOPPED at this freeze
+  (re-arm from `cut-coordination-branch`-era recipe: the watch script
+  is deleted; recreate with `--exclude-tag heartbeat`, supervisor pid,
+  bounded drain). No pr-watch monitors (stopped at the incident hold;
+  F-162 records the exit-condition defect). No crons. Bot tokens
+  deleted.
