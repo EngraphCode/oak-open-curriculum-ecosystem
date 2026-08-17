@@ -144,3 +144,26 @@ First-run obligations carried into execution: knip/depcruise on the new
 workspace, the CI static-checks job shape for the validator's
 source-run import path (B2), and a degenerate-scan check on the new
 glob.
+
+**T1a-i execution addendum (2026-08-17 evening):** LANDED at
+`cd84e490c` on the MCP-616 lane. The ratified T1a-i clause's "separate
+pack-imports inventory" was discharged by STRONGER means, adjudicated
+at the config review: no hand-declared tuple exists anywhere (a tuple
+would be a permanent identity-№N violation — an eighth,
+unconvertible-by-T1d roster surface); the clause's stated purpose
+("pack specifiers never enter the depth-3 zone builders") is
+machine-satisfied by the type-level `createDesignSiblingZones`
+parameter refusal plus the depth-1 inventory scan's structural
+blindness to nested packs, both recorded in the tier README as the
+discharge evidence. Review arc: config-expert (deep) + test-expert
+(focused, 25-mutant probe) + post-execution gateway; all findings
+dispositioned. The owner's tests-prove-behaviour doctrine word
+(2026-08-17 evening) re-shaped the assertions to contract form —
+token presence on the joined report, never counts, order, or prose —
+with both headline mutants re-proven killed under the relaxed form.
+**T1b parcel (named deferrals, one rework):** tier-root injection for
+the fs adapter (making the parse-wrap and artefact filter testable),
+`readPackageName` failure-as-data on the five inventory legs (a
+malformed manifest currently aborts the collect-all report — loud,
+non-zero, wrong shape), a discriminated union for the entry states,
+and array-manifest diagnosis.
