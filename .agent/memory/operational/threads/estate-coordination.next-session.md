@@ -577,3 +577,31 @@ ENOENT-cure — resume respects quota. RESUME MAP, priority order:
   bounded drain). No pr-watch monitors (stopped at the incident hold;
   F-162 records the exit-condition defect). No crons. Bot tokens
   deleted.
+
+## 2026-08-17 ~16:5xZ — DIRECTOR SUCCESSION BEGUN (Smith hunts Obsidian → Ocelot binds Tunnel)
+
+Owner word ~16:39Z: "please begin the handover to Ocelot." Deliberate
+succession (PDR-063 §Deliberate succession / PDR-064 two moments):
+Moment 1 pre-positioning broadcast `91a18b86` sent 16:42Z; directed
+pickup event `89eadc78` to Ocelot binds Tunnel (c28ad9); claim
+`b1d00d68` carries `handoff_record_path` →
+`.agent/state/collaboration/handoffs/b1d00d68-director-succession-2026-08-17.md`
+— AUTHORITATIVE for current edit state, in-flight reasoning, decisions
+made/deferred, and the pickup contract. Authority remains with e98f17
+until Ocelot's Moment 2 acknowledgement referencing `91a18b86` lands;
+the outgoing instruments stand down at that broadcast (or die with the
+session — the PDR-064 grace window covers the gap; the record and git
+carry the substance either way).
+
+Consumed from the freeze-2 map above, this session: MCP-612 landed
+LOCALLY at `a8600f2a3` on `feat/mcp-612-commit-queue-local-ephemera`
+(all reviewer cures applied and verified first-hand, TTL pin falsified
+both directions, collect failure path-labelled; whole-tree pre-commit
+green; push, PR, merge, acceptances 2–3 remain — queued behind the
+GitHub hold). #899 still open. The hold STANDS (incident `zkxwbgr0cnmx`
+investigating/critical; the owner's order terminates on incident
+RESOLUTION — verify at githubstatus, then broadcast the all-clear,
+which releases every seat's queued pushes). MCP-615 RATIFIED at the
+owner card (Yarrow, lane commit `afae5c663`). Survey round 1b complete,
+harvest `5a04ce910`, round-2 shape with the owner as a card. The dead
+MCP-612 builder subagent is NOT needed — do not resume it.
