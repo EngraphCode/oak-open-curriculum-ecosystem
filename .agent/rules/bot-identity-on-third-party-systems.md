@@ -160,7 +160,58 @@ Director, or to the owner at an action moment — never a licence to fall back
 to owner credentials. The fallback happens only when the owner explicitly
 permits it, and the owner generally instigates it.
 
+## The action-class split (owner ruling 2026-08-17) — general, not per-seat
+
+Owner ruling, MG, 2026-08-17, verbatim:
+
+> emgee-bot for commits/PR raises ... mantagen for reviews/approvals
+
+Stated portably, this is the **general action-class map**: **reviews and
+approvals are performed under the operator's own credential; commits, PR raises,
+and every other write are performed under the bot identity.** It is not a
+per-seat grant, and no seat needs its own version of it.
+
+**Why reviews are a capability boundary rather than an inconsistency.** Under a
+code-owner review ruleset, a review posted by a bot neither discharges a review
+request assigned to a human nor supplies the approval the ruleset is waiting on —
+so a bot-posted review leaves the pull request exactly as blocked as before. The
+operator's credential is the only one that can clear that gate. The split is
+forced by mechanism, not chosen for convenience.
+
+**Which bot and which human is machine-local** and is deliberately not stated
+here; it belongs in the operator profile
+([`.agent/operator-local/README.md`](../operator-local/README.md)). This rule
+owns the portable mapping, the profile owns the bindings. A rule that hard-coded
+one person's accounts would be false on every other machine (`principles.md`
+§Any User, Any Machine).
+
+Two riders bind:
+
+- **The credential is licensed, never the judgement.** An agent reviews
+  first-hand before approving. The grant permits posting an approval, never
+  posting one it has not earned.
+- **Content written under a human credential must state that an agent wrote
+  it**, and name the seat, per
+  [`identify-as-agent-under-shared-credentials`](identify-as-agent-under-shared-credentials.md).
+  The credential displays the human; the words must not let a reader conclude the
+  human wrote them. The grant makes this requirement stronger, not weaker.
+
+**The author-cannot-review intersection applies.** GitHub forbids the author of a
+pull request from reviewing it in any state, so on a PR authored by the same
+human account the review would be posted under, the agent's review of record
+rides a **comment**, and any approve or changes-requested state needs a different
+non-author account. Route that case rather than working around it.
+
+**Everything not named as a review or approval stays on the bot** — commits,
+pushes, PR creation, PR and issue comments, thread resolutions, label and state
+edits, and every `gh api -X POST/PATCH/DELETE`. The trigger is the **write**, at
+credential-selection time, never the tool category.
+
 ## Standing owner-granted exceptions (dated, narrow)
+
+The two grants below **pre-date** the general ruling above and are now instances
+of it rather than departures from it. They are retained because each records a
+dated mechanism finding the general rule does not carry.
 
 - **GitHub PR approvals (granted 2026-08-04).** Owner word, verbatim: "I do
   not have to approve PRs, you can use my identity to do that, that is
