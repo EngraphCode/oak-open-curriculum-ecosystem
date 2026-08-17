@@ -154,17 +154,53 @@ loop's exit criteria bind to it.
 
 ## Todos
 
-1. Fleet-design review: walker seed pool, move kernel, scorecard rubric,
-   descriptor set, annealing schedule, budget cap.
-2. Probe set frozen (twelve hard cases + stratified sample) and the
-   facts-sheet for ungrounded walkers authored.
-3. Round 1 (survey) → archive; round 2+ per annealing schedule.
-4. Zoom stages; existing selection machinery over the top basins.
-5. Comparison statement; owner card; archive committed; escapes
+1. ~~Probe set frozen (twelve hard cases + stratified sample) and the
+   facts-sheet for ungrounded walkers authored.~~ Done — carried into
+   the committed 1b briefs with identities stable.
+2. ~~Round 1a (survey) → archive.~~ Done — 46/48 walkers, archive at
+   `round-1-raw.json`, lessons banked.
+3. Round 1b (challenger): instrument committed and decision-complete;
+   fleet-design review with frame-challenger, codex-availability
+   probe, then owner launch word after the PR-889 closeout.
+4. Combined 1a+1b harvest report: archive map, per-tier attractor
+   verdict, elites and outliers verbatim, escapes, descriptor-mismatch
+   findings, round-2 proposal (annealing + move kernel decisions live
+   there, not in 1b).
+5. Zoom stages; existing selection machinery over the top basins.
+6. Comparison statement; owner card; archive committed; escapes
    dispositioned.
 
 ## Amendment trail
 
+- **2026-08-17 — round 1b decision-complete; full instrument authored
+  and committed during the GitHub-incident hold.** Owner direction
+  (verbatim): "please start working towards all required artefacts to
+  run the 1b fleet, we need decision complete plan, a reasoning
+  document detailed our decisions, including the things we decided not
+  to do and why, we need the scripts, we need fleet design documents".
+  Delivered, all committed before launch: walker-visible briefs
+  (`.agent/research/landscape-survey-round1b-briefs-2026-08-17.md`),
+  operational fleet spec
+  (`.agent/research/landscape-survey-round1b-fleet-design-2026-08-17.md`),
+  design rationale with the roads not taken
+  (`.agent/research/landscape-survey-round1b-design-rationale-2026-08-17.md`),
+  the runnable workflow script and the mechanically regenerated
+  falsifier packet (both under the survey report home). Same day the
+  owner added the codex CLI arms ("A few Sol ultra, many Terra medium?
+  Not instead of but in addition to?"): +12 terra-medium seats
+  mirroring the haiku constraint-grade arm and +3 sol-ultra seats
+  (baseline, rich persona, falsifier), probed live via headless
+  `codex exec` before being designed in — the fleet is now 52 walkers +
+  5 falsifiers + 4 synthesis seats, combined cap ~2.9M tokens.
+  Launch gates remaining, in order: fleet-design review with a
+  frame-challenger seat; codex-dialogues MCP availability probe at
+  launch (the CLI path is already probed); the owner's launch word
+  after the PR-889 closeout ("Let's get 889 sorted before we run
+  round 1b").
+  Committing the entire walker-visible instrument BEFORE launch also
+  cures 1a's knowledge-preservation miss (its walker texts lived only
+  in the session-persisted script; 1b's probe texts were reconstructed
+  from archive echoes with identities held stable).
 - **2026-08-17 — round-1a lessons folded; round 1b is a challenger, not
   an extension.** Round 1a ran (46/48 walkers; archive committed at the
   report home) and its probes exposed three instrument limits: the
