@@ -176,7 +176,11 @@ in the estate beats three with a new vendor account.
 | #900 owner-liaison seat brief | open, draft, retention only |
 | #867, #761 | open, ours, unchanged — #761 still 1000+ behind with conflicts, unanswered |
 
-Also merged today: **MCP-606** (carousel filenames + literal URL sentinels).
+**MCP-606** (carousel filenames + literal URL sentinels) is **`In Review`, NOT merged** —
+verified first-hand at this wrap. The outgoing liaison's handoff listed it as merged; it
+is not. Flagged rather than quietly corrected because it is the day's dominant failure
+class arriving one more time: I had already written "merged" into this record on their
+word, and only the wrap's metaloss pass caught it. **Inherited claims are claims.**
 
 ### The PR Review Warden seat is armed, with merge authority
 
