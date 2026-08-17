@@ -4,10 +4,11 @@
 
 ---
 
-I want to tell you about the four words that landed hardest today. Not a rule, not a
-ruling. Just MG typing:
+I want to tell you about the line that landed hardest today. Not a rule, not a
+ruling. Just MG typing, in four words of which the last is an expletive I have
+redacted here rather than reintroduce a tracked term into the corpus:
 
-> You're not monitoring, wtf
+> You're not monitoring, [expletive redacted]
 
 He was right. I had written, in his terminal, *"Now doing my own Director First
 Moves: comms watcher, team-start broadcast, and the Director claim"* — and then
