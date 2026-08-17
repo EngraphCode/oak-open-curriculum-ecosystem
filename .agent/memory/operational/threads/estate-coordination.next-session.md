@@ -428,3 +428,53 @@ in priority order (the owner's SKILLS-FIRST ruling governs):
   likely into collaboration-state; re-derive the liveness invocation
   from `--help` at resume. No other agent-tools surface misbehaved this
   session.
+
+## 2026-08-17 ~11:5xZ — resume: XPLAT-4 head discharged (Smith hunts Obsidian, e98f17)
+
+Owner resume order (ledger XPLAT-4) executed ahead of the freeze map's (a)/(b):
+
+- REGROUND facts that moved over the freeze: the owner worked this branch
+  directly — `ac23efc66` (workspace basis panel, his authorship) and
+  `234450771` (the survey-lane landscape-survey born sketch; his authorship,
+  bot committer, pushed 11:23Z from this checkout while this seat was
+  resuming — the file this seat found staged and left untouched). Comms
+  quiet since 2026-08-16; Nautilus's claims fresh (heartbeat 10:21Z);
+  claims topic confirmed absorbed into `collaboration-state` (invocations
+  re-derived from `--help`). Fold PR #896 checks re-running at the new tip;
+  fold completes at a stable moment (owner mid-activity on the branch is
+  not one).
+- LUKE'S PRs reviewed warmly per the order (both reviews bot-posted,
+  author echo verified): #891 review 4951157320 — centrepiece is
+  first-hand macOS proof at his tip `299a33f1b` (Apple Silicon, macOS
+  26.6, APFS case-insensitive default: `pnpm install --frozen-lockfile`
+  clean; `pnpm check` green end to end, main turbo run 142/142), closing
+  his named macOS-untested risk; plus goal-alignment (the ratified
+  strategic node declines WSL-as-answer, so his "merge both" option is
+  the doctrine-aligned path — final disposition the owner's). #888 review
+  4951133339 — verified his tip cures the two unresolved threads; one
+  real defect remains (the gitleaks `go install` route: module declares
+  `zricethezav`, verified at source) and it is INHERITED FROM OUR OWN
+  `.husky/pre-push:13` — generator fix is estate-side (micro-PR queued);
+  Copilot's suppressed-comments were harvested and verified (the
+  env-vars no-op claim REFUTED at pinned versions: turbo 2.10.9 reads
+  `TURBO_CONCURRENCY`, vitest 4.1.10 reads `VITEST_MAX_WORKERS`; the
+  nvm-before-clone ordering defect real; build-before-lint claim is a
+  main-README matter taken estate-side).
+- XPLAT RESEARCH NODE authored:
+  `.agent/plans/delivery/cross-platform-research.plan.md` (status
+  `sketch` per the plan-corpus enum — Nautilus corrected this seat's
+  out-of-enum `active` in place, broadcast 11:42Z, absorbed; execution
+  state rides ticket MCP-607, created this seating, related
+  MCP-602/MCP-600, moved In Progress). Four research questions (census
+  delta over #891; platform verification; guard design;
+  support-sequencing decision briefs — `.gitattributes`, Windows CI
+  leg, gate settings). Assumptions-expert pass absorbed pre-commit
+  (blocking finding cured: briefs tranche never queues behind census).
+- SCOPE CORRECTION to freeze-map (b), superseding its wording: every
+  skills-lane quantifier — including the eval programme phrase "pilot
+  convention estate-wide" — ranges over the Practice corpus
+  `.agent/skills` ONLY, per the owner's 2026-08-17 word (ledger
+  SKILLS-FIRST routing cell trued this entry). `plugins/oak-open-curriculum`
+  is another lane's.
+- Validation-worktree residue to clean at fold: `pr-891-macos-validation`
+  (detached, untracked logs only) — prune after the #891 lane settles.

@@ -546,3 +546,21 @@ estate's existing rule that cursor movement proves consumption and not delivery.
   work, and never chaining merge after commit with `;` — the G2-era `&&`
   discipline held everywhere it was used and the one `;` chain mid-fold ran a
   merge on a failed premise (harmless here; the class is real).
+- COMMIT/PUSH CADENCE OWNER-CORRECTED (2026-08-17, ledger BATCH-CADENCE): the
+  seat was committing and pushing every little thing and the gate suite made
+  that MASSIVELY disproportionate. Practice now: one commit per coherent
+  parcel, adjacent small parcels batched within a sitting, push at safety
+  boundaries; small commits stay small — the cure is cadence, not squashed
+  scope. Freezes/handoffs still never left unpushed.
+- SCRATCH FILES POISON VALIDATION VERDICTS: a thread-map JSON written into the
+  PR-891 validation worktree failed that tree's `prettier --check .` and cost a
+  full gate re-run for an honest verdict. A validation tree contains ONLY the
+  work under test; scratch belongs in the session scratchpad. Same class as
+  the staged-vs-worktree divergence lesson: the gate judges the tree it sees,
+  not the tree you meant.
+- WATCHER SEEN-CURSOR OUTLIVES ITS FREEZE: re-arming the all-channels watcher
+  after a multi-day gap replayed three days of history because the seen-file
+  cursor predated the freeze's last drain. Bounded per-drain caps
+  (`--max-events-per-drain`) made the replay safe and it doubled as the
+  gap-window completeness read; the class to respect is that a replay is a
+  FEATURE when bounded and a wedge when not.
