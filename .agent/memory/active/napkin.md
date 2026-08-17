@@ -564,3 +564,30 @@ estate's existing rule that cursor movement proves consumption and not delivery.
   (`--max-events-per-drain`) made the replay safe and it doubled as the
   gap-window completeness read; the class to respect is that a replay is a
   FEATURE when bounded and a wedge when not.
+
+## 2026-08-17 — Nautilus calls Plankton: deference contamination is anchor propagation one level up
+
+**Key insight**: Seeding fleet briefs with "ratified structure must be
+respected" converts the surface-with-verdict rule into
+defend-the-ruling — every panel then grades the incumbent instead of
+searching the space, and the assumptions that produced the incumbent
+survive all fleets (owner's diagnosis, verbatim: "self-congratulatory
+theater"). The 2026-08-14 lesson (a baseline document transmits its
+stance) generalises: a RATIFICATION transmits its stance too, and the
+owner's reopening word ("last big chance to shake everything up";
+"the original target architecture was WRONG") strips deference from
+every prior ruling in the reopened space — prior rulings become
+historical data, not constraints. **How to apply**: when the owner
+reopens a space, write briefs that forbid deference to anything inside
+it; keep only first-hand-verified mechanism facts and measurements as
+evidence; let prior decisions enter as ordinary candidates. The
+anchor-free legs (cold pass forbidden the corpus; raw git
+measurement) were the only parts of the day's work that survived —
+and they independently agreed with the owner. Cure record:
+`.agent/research/workspace-basis-regrounding-2026-08-17.md`.
+
+**Also banked**: cricket quartet tally (low 29k/17s, medium 30k/19s
+opus, high 34k/63s sonnet, xhigh 40k/211s haiku; 3 ON-TRACK, 1
+DRIFTING-on-missing-NEXT); architecture panel first-hand verification
+habit paid off — 3 of 4 experts refused to sign a statement whose
+frame was contaminated while verifying its mechanism facts clean.
