@@ -157,3 +157,11 @@ Tranche A first — the manual lane's needs; tranche B never blocks it.
   queue behind census work; open-set phrasing on live counts; the
   #888 claim trued to docs-only; out-of-scope fences class-level
   remediation only; acceptance criterion 4 restated as an observable.
+- Tranche A progress 2026-08-17, same seating: todo 1 SHIPPED and MERGED
+  as PR #897 (the hook line and CONTRIBUTING's repeat of it — both
+  broken-suggestion sites; code-expert approved, mantagen approved,
+  merge sha `fa0604aa3`). Todo 2 REFUTED with evidence: turbo's
+  `lint` and `test` tasks declare `dependsOn: ["^build"]` (turbo.json),
+  so a fresh clone's documented verify sequence builds dependencies at
+  its first step — no README change needed; this record answers the
+  corresponding Copilot suppressed finding on #888.
