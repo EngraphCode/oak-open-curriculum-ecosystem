@@ -408,3 +408,23 @@ in priority order (the owner's SKILLS-FIRST ruling governs):
 - (g) Watch scripts .watch-890.sh (wave worktree) and .watch-896.sh
   (primary root) deleted at the freeze; re-create from the resume map's
   needs, actionable-transitions-only per COLD-PAUSE.
+
+## 2026-08-17 ~11:2xZ — freeze addendum: three owner answers true the map (Smith hunts Obsidian, e98f17)
+
+- XPLAT sequencing corrected by owner word: "I intended our Windows work
+  to go in first in order to support the manual windows work" — the
+  research-first rider is SUPPORT-SEQUENCING, not a contribution fence.
+  Resume treatment of #891: supportive review, no rider adjudication; the
+  cross-platform research node gains urgency behind SKILLS-FIRST.
+- Resume-map (d) corrected: #892 is NOT a WS7 clash — verified against
+  its file list, it touches only plugins/oak-open-curriculum/skills/oak-*
+  (bundled PRODUCT skills), zero overlap with the Practice corpus; it
+  even adds an evals/evals.json, consistent with the all-skills-evals
+  ruling. Consistency glance at review only.
+- Freeze-note (f) sharpened: the CLI's `claims` topic is absent from
+  today's topic list (agent-identity, collaboration-state, commit-queue,
+  branch-touched-files, context-cost, session-metadata, codex-exec,
+  merge-bot, pr, pr-watch, spawn) — renamed/absorbed over the gap,
+  likely into collaboration-state; re-derive the liveness invocation
+  from `--help` at resume. No other agent-tools surface misbehaved this
+  session.
