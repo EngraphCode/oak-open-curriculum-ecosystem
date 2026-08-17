@@ -1,3 +1,10 @@
+## [1.170.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.170.3...v1.170.4) (2026-08-17)
+
+
+### Bug Fixes
+
+* **hooks:** correct the gitleaks go install suggestion to the declared module path ([f0b2e29](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/f0b2e2987179105c810f7c162c31e45b7ed8a106)), closes [#888](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/888)
+
 ## [1.170.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.170.2...v1.170.3) (2026-08-17)
 
 ## [1.170.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.170.1...v1.170.2) (2026-08-14)
