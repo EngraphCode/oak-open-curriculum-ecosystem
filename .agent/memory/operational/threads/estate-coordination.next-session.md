@@ -478,3 +478,36 @@ Owner resume order (ledger XPLAT-4) executed ahead of the freeze map's (a)/(b):
   is another lane's.
 - Validation-worktree residue to clean at fold: `pr-891-macos-validation`
   (detached, untracked logs only) — prune after the #891 lane settles.
+
+## 2026-08-17 ~12:3xZ — FOLD COMPLETE; rotation to coordination/estate-2026-08-17 (Smith hunts Obsidian, e98f17)
+
+- PR #896 MERGED at `d64bf082f` (bot REST merge at the frozen tip
+  `3f006ca87`; merge method merge). The tip was FROZEN by ARC broadcast
+  after the fold reviewer refused a moving diff (it grew 61→64 files
+  under live lane commits) — freeze honoured by all lanes. Two review
+  rounds from mantagen (owner-confirmed this hour: Matt's BOT on his
+  account) were both correct, both cured (round 1: description rewritten
+  to the actual diff-vs-main claim; round 2: XPLAT-4 authority split +
+  frozen-tip description truing), then DISMISSED under the owner's
+  conditional grant ("if you can honestly say that the requested changes
+  are made then dismiss") — honesty condition verified per round before
+  dismissal.
+- moved for teachers: nothing directly — coordination records only.
+  moved for the Practice: four days of decision/ruling/research records
+  durable on main; the cross-platform research lane opened; the
+  workspace-basis reground citable; PR #897 (gitleaks install-suggestion
+  fix, hook + CONTRIBUTING) merged at `fa0604aa3` same hour.
+- SUCCESSOR: `coordination/estate-2026-08-17` cut from post-fold
+  `origin/main`, pushed, primary resides there. Rotation broadcast on
+  the canonical stream follows this entry's commit. Old branch
+  auto-delete by GitHub is expected, not loss.
+- Loss scan at rotation: working tree carries only this entry (committed
+  with it), the untracked `.watch-comms.sh` (session instrument), and
+  the untracked superseded `workspace-basis-settled-statement-2026-08-17.md`
+  (NOT this seat's — superseded by the regrounding record; left for its
+  author's disposition). No unpushed refs.
+- Windows lane next steps (XPLAT-4 order continues): decision briefs
+  (`.gitattributes`, Windows CI leg, gate settings) → owner card; then
+  the fold of Luke's cure rounds as they land (macOS re-validation
+  offer stands, worktree kept); skills lane (task #10, scope
+  `.agent/skills` only) queues behind per SKILLS-FIRST.
