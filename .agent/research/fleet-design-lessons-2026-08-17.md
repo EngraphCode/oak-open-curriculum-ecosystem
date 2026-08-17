@@ -84,6 +84,54 @@ that surprised us." Mechanisms adopted:
   emits a fenced JSON block against a stated shape; the relay
   extracts it verbatim and validates, adding nothing.
 
+## Day-2 lessons (added at the 1b launch, same date — measured, not speculative)
+
+- **Fleet budget estimates run ~2× under, twice measured.** 1a: ~3.5M
+  actual vs ≤1.1M estimated (3.2×). 1b: 6.14M measured subagent tokens
+  at the first run's end vs the 3.25M cap presented — with read
+  traffic and CLI fixed overhead explicitly priced this time. The
+  surviving mechanism: estimates price walker OUTPUT plus named
+  overheads, while measured totals count per-agent system prompts,
+  tool schemas, and essay-length design outputs. From here: derive
+  fleet budgets from MEASURED per-agent totals of the nearest prior
+  round (the journal carries per-agent usage), and state caps as
+  all-tokens-counted numbers.
+- **The fleet-design review pays for itself before launch.** Worked
+  instance: the 1b panel (~300k tokens) found a verdict-invalidating
+  confound — the ADR-041/README blindness leak, on exactly the
+  attractor-test axis — plus the missing stimulus-side control, and
+  the zero-cost 1a probe then CONFIRMED the leak class (20/46 walkers
+  echo ratified-layout vocabulary; 7 sealed walkers echo tier-paths =
+  convention-prior evidence). An enumerated deny-list over ~10,900
+  files cannot be closed; ban CLASSES and seal non-repo groundings.
+- **Workflow `args` can arrive JSON-encoded.** The 1b first run
+  silently missed its `extraCorpusEntries` injection because the
+  script tested `args?.extraCorpusEntries` on a stringified args.
+  Scripts that read `args` normalise first
+  (`typeof args === 'string' ? JSON.parse(args) : args`).
+- **Quota deaths concentrate at the synthesis tail, and the
+  archive-per-round + resume design absorbs them.** The 1b first run
+  lost 4 of 75 agents to an Anthropic session-quota wall — both
+  reducers among them — and the resume replayed 71 agents from cache
+  for a ~0.5M completion cost. Single-point synthesis stages are the
+  natural quota casualties; keep them last, cheap to re-run, and
+  behind a committed corpus.
+- **Mechanical partitions need confound surgery before they mean
+  anything.** First co-change pass fused the estate into one blob:
+  estate-wide sweep commits manufacture pairwise co-change, and
+  coordination surfaces ride along with every lane's commits. Cures:
+  exclude sweeps (>5 subjects per commit), restrict the universe to
+  code subjects, and separate high-in-degree substrate before
+  clustering imports. After surgery the two independent measurements
+  cross-confirmed one real community (the graph stack) that today's
+  layout splits.
+- **Corpus-test a monitor's filter AND its cursor before trusting it**
+  (the watcher rule's own discipline, re-learned live): the first F-75
+  peer-liveness poll used flags the CLI does not have (silent
+  blindness), and the second diffed on an age column that increments
+  every tick (permanent noise). Probe the real output, then diff on
+  stable fields only.
+
 ## What survived 1a as probable signal
 
 Checked against the probes: the dominant shape is grounding-invariant

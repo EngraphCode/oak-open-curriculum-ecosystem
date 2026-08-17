@@ -444,6 +444,14 @@ const falsifiersP = parallel(falsifierSeats.map((f) => () => {
     .then((r) => ({ ...f, result: r }));
 }));
 
+// args can arrive JSON-encoded depending on the invoking harness; normalise
+// once (observed on the 2026-08-17 first run: extraCorpusEntries silently
+// missed injection because args was a string).
+const ARGS = (() => {
+  if (typeof args === 'string') { try { return JSON.parse(args); } catch { return {}; } }
+  return args ?? {};
+})();
+
 const walkerResults = (await walkersP).filter(Boolean);
 const decoyResults = (await decoysP).filter(Boolean);
 const falsifierResults = (await falsifiersP).filter(Boolean);
@@ -471,7 +479,7 @@ const corpusEntries = walkerResults
 for (const f of falsifierResults) {
   if (f.kind === 'design' && f.result?.fixDesign) corpusEntries.push({ id: `${f.id}-fix`, arm: 'K-falsify', tier: f.cli ?? f.model, grounding: 'packet+facts+reqA', variant: 'A', origin: 'falsifier', design: f.result.fixDesign });
 }
-for (const extra of (Array.isArray(args?.extraCorpusEntries) ? args.extraCorpusEntries : [])) corpusEntries.push(extra);
+for (const extra of (Array.isArray(ARGS.extraCorpusEntries) ? ARGS.extraCorpusEntries : [])) corpusEntries.push(extra);
 const corpusJson = JSON.stringify(corpusEntries);
 log(`corpus assembled: ${String(corpusEntries.length)} designs (${String(walkerResults.filter((w) => !w.result).length)} walker shortfalls)`);
 
@@ -495,7 +503,7 @@ const comparator = reducerX && reducerY
 const scorer = scorerP ? await scorerP : null;
 
 return {
-  meta: { round: '1b', startedAt: args?.startedAt ?? null, spec: 'landscape-survey-round1b-fleet-design-2026-08-17.md' },
+  meta: { round: '1b', startedAt: ARGS.startedAt ?? null, spec: 'landscape-survey-round1b-fleet-design-2026-08-17.md' },
   armHealth,
   compromisedArms,
   walkers: walkerResults,
