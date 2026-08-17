@@ -591,3 +591,48 @@ opus, high 34k/63s sonnet, xhigh 40k/211s haiku; 3 ON-TRACK, 1
 DRIFTING-on-missing-NEXT); architecture panel first-hand verification
 habit paid off — 3 of 4 experts refused to sign a statement whose
 frame was contaminated while verifying its mechanism facts clean.
+
+## 2026-08-17 — Nautilus calls Plankton: freeze harvest (lens passes) + resume map
+
+**Metacognition**: (1) A validator that scans its own outputs needs a
+DECLARED regeneration order — the census parity gate failed its first
+run because `render` rewrites matrix.md, which the facts sweep then
+scans: canonical order is render → facts → check; found by running the
+instrument on itself, which is the cheapest adversary there is. (2) The
+`.agents` exclusion-reason correction (owner: Practice skills /
+plugin skills / vendor-managed skills are THREE unrelated entities):
+when a census row NARRATES estate ontology, the ontology is an owner
+fact — check, never infer from directory names (fluency trap; same
+family as org-and-audience-models-are-owner-facts). (3) The survey
+round-1 budget missed 3× (3.5M vs ≤1.1M estimated): repo-direct
+walkers' tool-READ tokens dominate and were unpriced — fleet budget
+estimates must price read traffic, not just output.
+
+**Free play** (seed kept): schema design for small models is an
+agent-economics contract — two haiku walkers died on the strict
+walker schema (StructuredOutput retry cap), and the atoms
+misuse-register idea applies to workflow schemas too: design the
+schema so the wrong shape is hard to produce. (Discard, visibly: a
+"census predicate is self-healing" framing — it was a reviewer
+coverage catch, nothing self-healed.)
+
+**Concept seed**: facts.json now banks depcruise source-graph + turbo
+task-graph per subject — three future consumers converge on this one
+dataset (atoms register, diagram automation task, tranche-time
+co-change gates); consolidation moment approaching. Survey round-1
+headline for the owner: persona-INVARIANT convergence — 41% of cold
+walkers landed in one dominant cell (5-6 classifications, role/tier
+directory family, generated-in-VCS) whatever the persona; divergence
+was constraint-driven.
+
+**Resume map**: #889 cures pushed (a16b95e09, check PASS 45 subjects,
+description updated) — REMAINING: reply+resolve the 17 threads, then
+re-request Copilot and mantagen, verify CodeQL/Sonar on the new head.
+Survey round 1 banked at
+`.agent/reports/workspace-taxonomy-landscape-survey/round-1-raw.json`
+— owner report owed (archive map, elites, outliers verbatim, escapes,
+round-2 proposal); budget overshoot means round 2 needs owner
+re-authorisation; failed walkers 20/42 re-run via
+resumeFromRunId wf_58877150-712. Basis regrounding awaits the owner's
+ruling; atoms node refined bar awaits his read; MCP-603 ledger
+untouched (worktree + claim + ticket live).
