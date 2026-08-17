@@ -8,9 +8,11 @@
  * (ii-b) the parent directory of every tracked `.claude-plugin/plugin.json`
  *       manifest (owner-approved amendment, 2026-08-14 — plugin surfaces
  *       carry no package.json and no code-extension files);
- * (iii) every top-level path segment of the tracked file list, filtered
- *       to the declared code-extension set, not already covered by (i)
- *       or (ii).
+ * (iii) every top-level path segment holding tracked code files (the
+ *       declared code-extension set) that are not themselves inside a
+ *       directory covered by (i), (ii), or (ii-b) — a segment with a
+ *       nested subject AND code outside it still gets its code root
+ *       (partially covered subtrees are preserved, never skipped).
  */
 import { CODE_EXTENSIONS } from './vocabulary.js';
 
@@ -103,16 +105,14 @@ function collectCodeRoots(drafts: DraftMap, input: DeriveSubjectsInput): void {
     if (!extensions.some((extension) => filePath.endsWith(extension))) {
       continue;
     }
-    const segment = topSegment(filePath);
-    const coveredByExisting =
-      segment !== '.' &&
-      coveredRoots.some(
-        (root) => root !== '.' && (isUnder(root, segment) || isUnder(segment, root)),
-      );
-    if (coveredByExisting) {
+    // Coverage is judged per FILE, never per segment: a top segment with
+    // a nested subject and code outside it keeps its code root.
+    const dir = parentDir(filePath);
+    const fileCovered = coveredRoots.some((root) => root !== '.' && isUnder(dir, root));
+    if (fileCovered) {
       continue;
     }
-    record(drafts, segment, 'code-root', null);
+    record(drafts, topSegment(filePath), 'code-root', null);
   }
 }
 

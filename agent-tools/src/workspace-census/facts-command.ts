@@ -8,13 +8,63 @@ import path from 'node:path';
 
 import { err, ok, type Result } from '@oaknational/result';
 
-import { deriveLiveSubjects, type CommandContext } from './commands.js';
-import { assembleFacts, type ManifestSummaryInput, type SubjectFacts } from './facts.js';
+import { deriveLiveSubjects, type CommandContext } from './context.js';
+import {
+  assembleFacts,
+  type ManifestSummaryInput,
+  type SubjectFacts,
+  type SubjectGrepCounts,
+} from './facts.js';
 import { bucketTrackedFiles, grepSubjectCounts, readManifestSummary } from './facts-inputs.js';
+import {
+  aggregateSourceDependencies,
+  parseDepcruiseModules,
+  parseTurboTasks,
+  runDepcruiseJson,
+  runTurboDryJson,
+} from './graph-inputs.js';
 import { listTrackedFiles } from './inputs.js';
 import type { CensusSubject } from './subjects.js';
 
-const FACTS_PATH = '.agent/reports/workspace-classification-census/facts.json';
+export const FACTS_PATH = '.agent/reports/workspace-classification-census/facts.json';
+
+async function gatherGrepCounts(
+  repoRoot: string,
+  buckets: ReadonlyMap<string, readonly string[]>,
+): Promise<Result<Map<string, SubjectGrepCounts>, string>> {
+  const grepCounts = new Map<string, SubjectGrepCounts>();
+  for (const [dirPath, files] of buckets) {
+    const counts = await grepSubjectCounts(repoRoot, files);
+    if (!counts.ok) {
+      return err(counts.error);
+    }
+    grepCounts.set(dirPath, counts.value);
+  }
+  return ok(grepCounts);
+}
+
+async function gatherSourceDependencies(
+  repoRoot: string,
+  subjects: readonly CensusSubject[],
+): Promise<Result<Map<string, string[]>, string>> {
+  const raw = await runDepcruiseJson(repoRoot);
+  if (!raw.ok) {
+    return err(raw.error);
+  }
+  const modules = parseDepcruiseModules(raw.value);
+  if (!modules.ok) {
+    return err(modules.error);
+  }
+  return ok(aggregateSourceDependencies(subjects, modules.value));
+}
+
+async function gatherTurboTasks(repoRoot: string): Promise<Result<Map<string, string[]>, string>> {
+  const raw = await runTurboDryJson(repoRoot);
+  if (!raw.ok) {
+    return err(raw.error);
+  }
+  return parseTurboTasks(raw.value);
+}
 
 async function gatherManifests(
   repoRoot: string,
@@ -33,7 +83,10 @@ async function gatherManifests(
   return ok(manifests);
 }
 
-async function gatherFacts(context: CommandContext): Promise<Result<SubjectFacts[], string>> {
+/** Assemble the live detector facts — exported so `check` can recompute them. */
+export async function gatherLiveFacts(
+  context: CommandContext,
+): Promise<Result<SubjectFacts[], string>> {
   const subjects = await deriveLiveSubjects(context.repoRoot);
   if (!subjects.ok) {
     return err(subjects.error);
@@ -47,22 +100,32 @@ async function gatherFacts(context: CommandContext): Promise<Result<SubjectFacts
     return err(manifests.error);
   }
   const buckets = bucketTrackedFiles(subjects.value, trackedFiles.value);
-  const grepCounts = new Map<string, Awaited<ReturnType<typeof grepSubjectCounts>>>();
-  for (const [dirPath, files] of buckets) {
-    grepCounts.set(dirPath, await grepSubjectCounts(context.repoRoot, files));
+  const grepCounts = await gatherGrepCounts(context.repoRoot, buckets);
+  if (!grepCounts.ok) {
+    return err(grepCounts.error);
+  }
+  const sourceDependencies = await gatherSourceDependencies(context.repoRoot, subjects.value);
+  if (!sourceDependencies.ok) {
+    return err(sourceDependencies.error);
+  }
+  const turboTasks = await gatherTurboTasks(context.repoRoot);
+  if (!turboTasks.ok) {
+    return err(turboTasks.error);
   }
   return ok(
     assembleFacts({
       subjects: subjects.value,
       manifests: manifests.value,
       trackedFilesBySubject: buckets,
-      grepCountsBySubject: grepCounts,
+      grepCountsBySubject: grepCounts.value,
+      sourceDependenciesBySubject: sourceDependencies.value,
+      turboTasksByPackage: turboTasks.value,
     }),
   );
 }
 
 export async function runFacts(context: CommandContext): Promise<number> {
-  const facts = await gatherFacts(context);
+  const facts = await gatherLiveFacts(context);
   if (!facts.ok) {
     context.stderr.write(`workspace-census: ${facts.error}\n`);
     return 1;

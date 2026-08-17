@@ -3,11 +3,11 @@
 **GENERATED FILE — do not hand-edit.** Rendered from `rows.json` by
 `pnpm agent-tools:workspace-census -- render`; the same instrument's `check`
 validates the row data (coverage, closed vocabularies, two distinct evidence
-kinds per judged row). Evidence pointers live in `rows.json`; detector facts
-in `facts.json`. Governing record:
+kinds per judged row) and recomputes this rendering for parity. Evidence
+pointers live in `rows.json`; detector facts in `facts.json`. Governing record:
 `.agent/plans/delivery/workspace-classification-census.plan.md`.
 
-Subjects: 44 (38 classified — 12 generic-foundation, 9 mixed, 17 oak-leaf; 6 recorded exclusions; 0 needs-construct-evidence).
+Subjects: 45 (38 classified — 12 generic-foundation, 9 mixed, 17 oak-leaf; 7 recorded exclusions; 0 needs-construct-evidence).
 
 ## Classification matrix
 
@@ -69,6 +69,7 @@ Subjects: 44 (38 classified — 12 generic-foundation, 9 mixed, 17 oak-leaf; 6 r
 | Subject (dir) | Recorded exclusion |
 |---|---|
 | `.agent` | Agent-practice estate records — the named exclusion class. .agent/ is the canonical Practice layer (rules, skills, memory, plans, reports, directives): 4480 tracked files with only 36 code files of hook/instrument glue, no manifest, no internal dependents. Its own charter declares 'Practice, not product' — nothing here is a workspace or published package, and with one deliberate charter-recorded carve-out none of it is product surface: the under-the-hood skill's content is served as public orientation via the MCP app, but the serving code surface lives in apps/, so the exception adds no foundational code surface under .agent/. The Oak-specificity axis, which prices foundational code surfaces for separation, tranche ownership, and licence mapping, does not apply. The high mechanical Oak-marker counts (32150 doc hits) are the Practice writing about Oak, not Oak identity leaking into a foundational surface. |
+| `.agents` | Third-party vendor-managed skills tier (`pnpm skills`-managed, lock-pinned, vendored — the code files are upstream-owned scripts and templates) plus platform mirror surfaces; not an estate code workspace. Owner clarification 2026-08-17: this tier, the Practice skills (.agent/skills), and the user-facing plugin skills (plugins/oak-open-curriculum) are three unrelated conceptual entities. |
 | `.agents/skills/clerk-nextjs-patterns/templates/nextjs-basic-auth` | Template fixture inside the vendored third-party Clerk skill: .agents/skills/clerk-nextjs-patterns/SKILL.md frontmatter records metadata.author: clerk (version 2.2.0), and this directory is the scaffolding the skill copies into consumer projects (package.json name 'clerk-nextjs', deps only next/react/@clerk/nextjs). It is not registered in the OCE pnpm workspace, has no internal dependents or dependencies, and carries zero Oak markers (facts.json oakMarkers all 0). The Oak-specificity axis judges Oak workspace code/product surfaces for extraction; it does not apply to vendored third-party template fixtures in the agent-skill estate. |
 | `.claude` | Platform-config dot-dir — the named exclusion class. .claude/ is the Claude Code adapter layer of the ADR-125 three-layer model: rules/ files are one-line pointers back to .agent/rules/, agents/ are thin reviewer-role adapters, hooks/ delegate to the shared agent-tools implementation, settings.json is harness configuration. No manifest, no internal dependents, nothing consumable or publishable — the Oak-specificity axis classifies product/foundation code surfaces for separation and has no purchase on per-platform activation config. |
 | `.codex` | Platform-config dot-dir — the named exclusion class. .codex/ is the Codex CLI activation layer: config.toml (trusted-project policy, hooks, agents, MCP), thin per-role adapter TOMLs in agents/, and one SessionStart hook adapter that delegates to agent-tools. Its README states canonical Practice content 'remain[s] under .agent/; .codex/ translates only the parts Codex needs to activate them'. Not a workspace, no manifest, no internal dependents, no consumable code surface — the Oak-specificity axis does not apply to platform activation config. |
@@ -81,15 +82,22 @@ None — every judged row reached two distinct evidence kinds from the named ins
 
 ## Delta against the 2026-04-28 matrix (superseded)
 
-The 2026-04-28 matrix carried 20 rows. This census supersedes it; the delta is keyed on directory path (renames are declared on rows and read as renames, never as disappear-plus-appear).
+The 2026-04-28 matrix carried 20 rows. This census supersedes it; the delta is keyed on directory path over EVERY subject row (renames are declared on rows and read as renames, never as disappear-plus-appear).
 
 **Classification changed (3):**
 - `agent-tools`: generic-foundation → mixed
 - `packages/libs/logger`: generic-foundation → mixed
 - `packages/libs/search-contracts`: mixed → oak-leaf
 
-**Appeared since 2026-04-28 (20):**
+**Appeared since 2026-04-28 (27):**
 - `.`
+- `.agent`
+- `.agents`
+- `.agents/skills/clerk-nextjs-patterns/templates/nextjs-basic-auth`
+- `.claude`
+- `.codex`
+- `.cursor`
+- `.husky`
 - `demos/oak-curriculum-hub`
 - `demos/oak-design-showcase`
 - `packages/core/build-metadata`
@@ -115,4 +123,7 @@ The 2026-04-28 matrix carried 20 rows. This census supersedes it; the delta is k
 - `apps/oak-curriculum-mcp-stdio`
 
 **Renamed (0):**
+- (none)
+
+**Declared renames with no matching baseline row (0) — validation problems:**
 - (none)

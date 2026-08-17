@@ -3,6 +3,8 @@
  * directory path so renames read as renames, never as a disappearance
  * plus an appearance.
  */
+import { err, ok, type Result } from '@oaknational/result';
+
 import type { CensusRow } from './rows.js';
 import type { Classification } from './vocabulary.js';
 
@@ -21,9 +23,11 @@ const LEGACY_CLASSIFICATION_MAP: Readonly<Record<string, Classification>> = {
  * Parse the 2026-04-28 matrix table (the surface-isolation brief) into
  * rows keyed on directory path, mapping the legacy `generic` label onto
  * `generic-foundation`. Mechanical extraction from the pipe table —
- * backticked first column, classification in the second.
+ * backticked first column, classification in the second. A matched row
+ * whose label is outside the legacy vocabulary is a PARSE ERROR: a
+ * silently dropped baseline row would fake a delta.
  */
-export function parseLegacyMatrix(markdown: string): LegacyRow[] {
+export function parseLegacyMatrix(markdown: string): Result<LegacyRow[], string> {
   const rows: LegacyRow[] = [];
   for (const line of markdown.split('\n')) {
     const match = /^\|\s*`([^`]+)`\s*\|\s*`([^`]+)`\s*\|/.exec(line);
@@ -31,13 +35,18 @@ export function parseLegacyMatrix(markdown: string): LegacyRow[] {
       continue;
     }
     const [, dirPath, legacyLabel] = match;
-    const classification = LEGACY_CLASSIFICATION_MAP[legacyLabel ?? ''];
-    if (dirPath === undefined || classification === undefined) {
+    if (dirPath === undefined || legacyLabel === undefined) {
       continue;
+    }
+    const classification = LEGACY_CLASSIFICATION_MAP[legacyLabel];
+    if (classification === undefined) {
+      return err(
+        `legacy matrix: unrecognised classification label "${legacyLabel}" on \`${dirPath}\` — the baseline document cannot be interpreted`,
+      );
     }
     rows.push({ dirPath, classification });
   }
-  return rows;
+  return ok(rows);
 }
 
 export interface DeltaInput {
@@ -54,37 +63,56 @@ export interface DeltaResult {
     readonly to: Classification;
   }[];
   readonly renamed: readonly { readonly fromDirPath: string; readonly toDirPath: string }[];
+  /** Declared renames matching no baseline row — validation problems, never hidden. */
+  readonly danglingRenames: readonly { readonly dirPath: string; readonly renamedFrom: string }[];
 }
 
 function pairDeclaredRenames(
-  classified: readonly CensusRow[],
+  rows: readonly CensusRow[],
   legacyByDir: ReadonlyMap<string, LegacyRow>,
-): { renamed: { fromDirPath: string; toDirPath: string }[]; renamedFromDirs: Set<string> } {
+): {
+  renamed: { fromDirPath: string; toDirPath: string }[];
+  renamedFromDirs: Set<string>;
+  danglingRenames: { dirPath: string; renamedFrom: string }[];
+} {
   const renamed: { fromDirPath: string; toDirPath: string }[] = [];
   const renamedFromDirs = new Set<string>();
-  for (const row of classified) {
-    if (row.renamedFrom !== undefined && legacyByDir.has(row.renamedFrom)) {
+  const danglingRenames: { dirPath: string; renamedFrom: string }[] = [];
+  for (const row of rows) {
+    if (row.renamedFrom === undefined) {
+      continue;
+    }
+    if (legacyByDir.has(row.renamedFrom)) {
       renamed.push({ fromDirPath: row.renamedFrom, toDirPath: row.dirPath });
       renamedFromDirs.add(row.renamedFrom);
+    } else {
+      danglingRenames.push({ dirPath: row.dirPath, renamedFrom: row.renamedFrom });
     }
   }
-  return { renamed, renamedFromDirs };
+  return { renamed, renamedFromDirs, danglingRenames };
 }
 
 /**
- * Delta over the two keyed row sets, restricted to classified rows
- * (exclusions and falsifier rows have no classification to compare). A
- * rename is a DECLARED fact on the new row (`renamedFrom`), paired here.
+ * Delta over the two keyed row sets. Presence (appeared/disappeared)
+ * and renames span EVERY subject row — exclusions and falsifier rows
+ * are census subjects too; only the classification comparison is
+ * restricted to classified rows. A rename is a DECLARED fact on the new
+ * row (`renamedFrom`); one that matches no baseline row is surfaced as
+ * a dangling rename, and its row still counts as appeared.
  */
 export function computeDelta(input: DeltaInput): DeltaResult {
   const legacyByDir = new Map(input.legacyRows.map((row) => [row.dirPath, row]));
+  const currentByDir = new Map(input.rows.map((row) => [row.dirPath, row]));
   const classified = input.rows.filter((row) => row.disposition === 'classified');
-  const currentByDir = new Map(classified.map((row) => [row.dirPath, row]));
 
-  const { renamed, renamedFromDirs } = pairDeclaredRenames(classified, legacyByDir);
+  const { renamed, renamedFromDirs, danglingRenames } = pairDeclaredRenames(
+    input.rows,
+    legacyByDir,
+  );
+  const pairedNewDirs = new Set(renamed.map((pair) => pair.toDirPath));
 
-  const appeared = classified
-    .filter((row) => !legacyByDir.has(row.dirPath) && row.renamedFrom === undefined)
+  const appeared = input.rows
+    .filter((row) => !legacyByDir.has(row.dirPath) && !pairedNewDirs.has(row.dirPath))
     .map((row) => ({ dirPath: row.dirPath }));
 
   const disappeared = input.legacyRows
@@ -103,5 +131,5 @@ export function computeDelta(input: DeltaInput): DeltaResult {
     return [{ dirPath: row.dirPath, from: legacy.classification, to: row.classification }];
   });
 
-  return { appeared, disappeared, changed, renamed };
+  return { appeared, disappeared, changed, renamed, danglingRenames };
 }

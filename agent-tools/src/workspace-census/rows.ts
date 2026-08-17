@@ -82,7 +82,14 @@ function checkLeakage(row: CensusRow, problems: string[]): void {
 }
 
 function checkEvidence(row: CensusRow, problems: string[]): void {
-  const kinds = new Set((row.evidence ?? []).map((pointer) => pointer.kind));
+  const entries = row.evidence ?? [];
+  for (const entry of entries) {
+    if (isBlank(entry.pointer)) {
+      problems.push(`row ${row.dirPath}: blank evidence pointer on kind "${entry.kind}"`);
+    }
+  }
+  // Only entries with a real pointer count toward the evidence gate.
+  const kinds = new Set(entries.filter((entry) => !isBlank(entry.pointer)).map((e) => e.kind));
   for (const kind of kinds) {
     if (!isInVocabulary(EVIDENCE_KINDS, kind)) {
       problems.push(`row ${row.dirPath}: evidence kind "${kind}" is outside the closed vocabulary`);
@@ -180,7 +187,7 @@ function countRowDirs(rows: readonly CensusRow[], problems: string[]): Map<strin
 }
 
 function checkCoverage(input: ValidateRowsInput, problems: string[]): void {
-  const subjectDirs = new Set(input.subjects.map((subject) => subject.dirPath));
+  const subjectsByDir = new Map(input.subjects.map((subject) => [subject.dirPath, subject]));
   const rowCounts = countRowDirs(input.rows, problems);
   for (const subject of input.subjects) {
     if (!rowCounts.has(subject.dirPath)) {
@@ -189,9 +196,18 @@ function checkCoverage(input: ValidateRowsInput, problems: string[]): void {
       );
     }
   }
+  // Both halves of the dual identity are validated: a rename in the
+  // manifest without a directory move must not pass silently.
   for (const row of input.rows) {
-    if (!subjectDirs.has(row.dirPath)) {
+    const subject = subjectsByDir.get(row.dirPath);
+    if (subject === undefined) {
       problems.push(`row ${row.dirPath}: the mechanical predicate derives no such subject`);
+      continue;
+    }
+    if (subject.publishedName !== row.publishedName) {
+      problems.push(
+        `row ${row.dirPath}: published name ${JSON.stringify(row.publishedName)} disagrees with the derived subject (${JSON.stringify(subject.publishedName)})`,
+      );
     }
   }
 }

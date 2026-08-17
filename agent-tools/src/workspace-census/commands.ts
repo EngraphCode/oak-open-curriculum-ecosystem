@@ -1,43 +1,27 @@
 /**
  * The workspace-census subcommands. Each returns a process exit code;
  * failures arrive as Result errors from the gatherers and are written
- * to stderr here, at the process boundary.
+ * to stderr here, at the process boundary. `check` validates the row
+ * data AND recomputes every committed derived artefact (facts.json,
+ * matrix.md) for parity, so nothing derived can drift while the gate
+ * stays green.
  */
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-import { err, ok, type Result } from '@oaknational/result';
-
 import { emptyRowsArtefact, readRowsArtefact, type RowsArtefact } from './artefact.js';
+import { diffFactsParity, diffMatrixParity } from './check-parity.js';
+import {
+  deriveLiveSubjects,
+  loadRowsArtefact,
+  readLegacyMarkdown,
+  type CommandContext,
+} from './context.js';
 import { computeDelta, parseLegacyMatrix, type DeltaResult } from './delta.js';
-import { listMembers, listTrackedFiles } from './inputs.js';
+import { FACTS_PATH, gatherLiveFacts } from './facts-command.js';
+import { MATRIX_PATH, renderMatrixString } from './render-command.js';
 import { validateRows } from './rows.js';
-import { deriveSubjects, type CensusSubject } from './subjects.js';
-
-export interface CommandContext {
-  readonly repoRoot: string;
-  readonly rowsPath: string;
-  readonly legacyPath: string;
-  readonly json: boolean;
-  readonly stdout: Pick<NodeJS.WriteStream, 'write'>;
-  readonly stderr: Pick<NodeJS.WriteStream, 'write'>;
-}
-
-export async function deriveLiveSubjects(
-  repoRoot: string,
-): Promise<Result<CensusSubject[], string>> {
-  const [members, trackedFiles] = await Promise.all([
-    listMembers(repoRoot),
-    listTrackedFiles(repoRoot),
-  ]);
-  if (!members.ok) {
-    return err(members.error);
-  }
-  if (!trackedFiles.ok) {
-    return err(trackedFiles.error);
-  }
-  return ok(deriveSubjects({ members: members.value, trackedFiles: trackedFiles.value }));
-}
+import type { CensusSubject } from './subjects.js';
 
 export async function runSubjects(context: CommandContext): Promise<number> {
   const subjects = await deriveLiveSubjects(context.repoRoot);
@@ -102,17 +86,57 @@ export async function runSkeleton(context: CommandContext): Promise<number> {
   return 0;
 }
 
-export async function loadRowsArtefact(
+async function readCommitted(context: CommandContext, relPath: string): Promise<string | null> {
+  try {
+    return await fs.readFile(path.resolve(context.repoRoot, relPath), 'utf8');
+  } catch {
+    return null;
+  }
+}
+
+async function factsParityProblems(context: CommandContext): Promise<string[]> {
+  const liveFacts = await gatherLiveFacts(context);
+  if (!liveFacts.ok) {
+    return [liveFacts.error];
+  }
+  const committedFacts = await readCommitted(context, FACTS_PATH);
+  if (committedFacts === null) {
+    return [`${FACTS_PATH}: missing — run \`facts\``];
+  }
+  return diffFactsParity(liveFacts.value, committedFacts);
+}
+
+async function matrixParityProblems(
   context: CommandContext,
-): Promise<Result<RowsArtefact, string>> {
-  const readResult = await readRowsArtefact(path.resolve(context.repoRoot, context.rowsPath));
-  if (!readResult.ok) {
-    return err(readResult.error);
+  rows: RowsArtefact['rows'],
+): Promise<string[]> {
+  const legacyMarkdown = await readLegacyMarkdown(context);
+  if (!legacyMarkdown.ok) {
+    return [legacyMarkdown.error];
   }
-  if (readResult.value === null) {
-    return err(`${context.rowsPath}: missing — run skeleton first`);
+  const legacyRows = parseLegacyMatrix(legacyMarkdown.value);
+  if (!legacyRows.ok) {
+    return [legacyRows.error];
   }
-  return ok(readResult.value);
+  const delta = computeDelta({ legacyRows: legacyRows.value, rows });
+  const problems = delta.danglingRenames.map(
+    (dangling) =>
+      `row ${dangling.dirPath}: renamedFrom "${dangling.renamedFrom}" matches no baseline row`,
+  );
+  const rendered = renderMatrixString({ rows, legacyCount: legacyRows.value.length, delta });
+  const committedMatrix = await readCommitted(context, MATRIX_PATH);
+  if (committedMatrix === null) {
+    return [...problems, `${MATRIX_PATH}: missing — run \`render\``];
+  }
+  return [...problems, ...diffMatrixParity(rendered, committedMatrix)];
+}
+
+/** Parity problems for the committed derived artefacts (facts.json, matrix.md). */
+async function gatherParityProblems(
+  context: CommandContext,
+  rows: RowsArtefact['rows'],
+): Promise<string[]> {
+  return [...(await factsParityProblems(context)), ...(await matrixParityProblems(context, rows))];
 }
 
 export async function runCheck(context: CommandContext): Promise<number> {
@@ -126,17 +150,17 @@ export async function runCheck(context: CommandContext): Promise<number> {
     context.stderr.write(`workspace-census: ${artefact.error}\n`);
     return 1;
   }
-  const result = validateRows({ subjects: subjects.value, rows: artefact.value.rows });
-  if (result.ok) {
+  const rowResult = validateRows({ subjects: subjects.value, rows: artefact.value.rows });
+  const parityProblems = await gatherParityProblems(context, artefact.value.rows);
+  const problems = [...rowResult.problems, ...parityProblems];
+  if (problems.length === 0) {
     context.stdout.write(
-      `workspace-census check: PASS (${String(subjects.value.length)} subjects, all rows valid)\n`,
+      `workspace-census check: PASS (${String(subjects.value.length)} subjects; rows, facts, and matrix all recomputed clean)\n`,
     );
     return 0;
   }
-  context.stderr.write(
-    `workspace-census check: FAIL — ${String(result.problems.length)} problem(s)\n`,
-  );
-  for (const problem of result.problems) {
+  context.stderr.write(`workspace-census check: FAIL — ${String(problems.length)} problem(s)\n`);
+  for (const problem of problems) {
     context.stderr.write(`  - ${problem}\n`);
   }
   return 1;
@@ -151,16 +175,9 @@ function renderDeltaText(legacyCount: number, delta: DeltaResult): string {
     `disappeared: ${orNone(delta.disappeared.map((row) => row.dirPath))}`,
     `changed:     ${orNone(delta.changed.map((row) => `${row.dirPath} (${row.from} -> ${row.to})`))}`,
     `renamed:     ${orNone(delta.renamed.map((row) => `${row.fromDirPath} -> ${row.toDirPath}`))}`,
+    `dangling:    ${orNone(delta.danglingRenames.map((row) => `${row.dirPath} (from ${row.renamedFrom})`))}`,
     '',
   ].join('\n');
-}
-
-export async function readLegacyMarkdown(context: CommandContext): Promise<Result<string, string>> {
-  try {
-    return ok(await fs.readFile(path.resolve(context.repoRoot, context.legacyPath), 'utf8'));
-  } catch (error) {
-    return err(`${context.legacyPath}: ${error instanceof Error ? error.message : String(error)}`);
-  }
 }
 
 export async function runDelta(context: CommandContext): Promise<number> {
@@ -175,11 +192,15 @@ export async function runDelta(context: CommandContext): Promise<number> {
     return 1;
   }
   const legacyRows = parseLegacyMatrix(legacyMarkdown.value);
-  const delta = computeDelta({ legacyRows, rows: artefact.value.rows });
+  if (!legacyRows.ok) {
+    context.stderr.write(`workspace-census: ${legacyRows.error}\n`);
+    return 1;
+  }
+  const delta = computeDelta({ legacyRows: legacyRows.value, rows: artefact.value.rows });
   if (context.json) {
     context.stdout.write(`${JSON.stringify(delta, null, 2)}\n`);
     return 0;
   }
-  context.stdout.write(renderDeltaText(legacyRows.length, delta));
+  context.stdout.write(renderDeltaText(legacyRows.value.length, delta));
   return 0;
 }

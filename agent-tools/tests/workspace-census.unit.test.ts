@@ -101,12 +101,15 @@ describe('deriveSubjects — the mechanical subject predicate', () => {
   });
 
   it('merges sources when one directory qualifies via several arms', () => {
+    // The root manifest (source ii) plus a root code file (source iii)
+    // exercise the actual merge path; a manifest inside a member is
+    // deliberately excluded from source (ii) and proves nothing.
     const subjects = deriveSubjects({
       members: [...MEMBERS],
-      trackedFiles: ['agent-tools/package.json'],
+      trackedFiles: ['package.json', 'eslint.config.mjs'],
     });
-    const agentTools = subjectByDir(subjects, 'agent-tools');
-    expect(agentTools?.sources).toEqual(['pnpm-member']);
+    const root = subjectByDir(subjects, '.');
+    expect(root?.sources).toEqual(['code-root', 'package-json-parent']);
   });
 
   it('declares the code-extension set used by source iii', () => {
@@ -298,11 +301,14 @@ describe('parseLegacyMatrix — the 2026-04-28 baseline', () => {
   ].join('\n');
 
   it('extracts dir path and maps the legacy classification vocabulary', () => {
-    const rows = parseLegacyMatrix(SNIPPET);
-    expect(rows).toHaveLength(3);
-    expect(rows[0]).toMatchObject({ dirPath: 'agent-tools', classification: 'generic-foundation' });
-    expect(rows[1]).toMatchObject({ dirPath: 'packages/core/env', classification: 'mixed' });
-    expect(rows[2]).toMatchObject({ dirPath: 'apps/oak-search-cli', classification: 'oak-leaf' });
+    expect(parseLegacyMatrix(SNIPPET)).toMatchObject({
+      ok: true,
+      value: [
+        { dirPath: 'agent-tools', classification: 'generic-foundation' },
+        { dirPath: 'packages/core/env', classification: 'mixed' },
+        { dirPath: 'apps/oak-search-cli', classification: 'oak-leaf' },
+      ],
+    });
   });
 });
 

@@ -10,7 +10,8 @@ import process from 'node:process';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { DEFAULT_LEGACY_PATH, DEFAULT_ROWS_PATH } from './artefact.js';
-import { runCheck, runDelta, runSkeleton, runSubjects, type CommandContext } from './commands.js';
+import { runCheck, runDelta, runSkeleton, runSubjects } from './commands.js';
+import type { CommandContext } from './context.js';
 import { runFacts } from './facts-command.js';
 import { runRender } from './render-command.js';
 

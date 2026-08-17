@@ -110,45 +110,81 @@ export async function readManifestSummary(
   return ok(summariseManifest(parsed.value, dirPath));
 }
 
-async function readScannable(repoRoot: string, filePath: string): Promise<string | null> {
+/**
+ * Read one scannable file. `ok(null)` is a DECLARED skip: an oversized
+ * file, or a tracked symlink resolving to a directory (EISDIR — the
+ * vendored-skill links). Every other IO failure (a tracked file missing
+ * from the worktree, a permission error) propagates as an error so the
+ * evidence bank can never silently under-count. Size is taken from the
+ * open handle, so there is no check-then-read race.
+ */
+async function readScannable(
+  repoRoot: string,
+  filePath: string,
+): Promise<Result<string | null, string>> {
   const absolute = path.join(repoRoot, filePath);
   try {
-    const stats = await fs.stat(absolute);
-    if (stats.size > MAX_SCANNED_FILE_BYTES) {
-      return null;
+    const handle = await fs.open(absolute, 'r');
+    try {
+      const stats = await handle.stat();
+      if (stats.size > MAX_SCANNED_FILE_BYTES) {
+        return ok(null);
+      }
+      return ok(await handle.readFile({ encoding: 'utf8' }));
+    } finally {
+      await handle.close();
     }
-    return await fs.readFile(absolute, 'utf8');
-  } catch {
-    return null;
+  } catch (error) {
+    if (isErrnoCode(error, 'EISDIR')) {
+      return ok(null);
+    }
+    return err(`${filePath}: ${error instanceof Error ? error.message : String(error)}`);
   }
+}
+
+interface GrepTally {
+  oakInDocs: number;
+  oakInSource: number;
+  cssOakVariables: number;
+  dottedOakNamespaces: number;
+  oakEnvKeys: number;
+}
+
+function tallyContent(tally: GrepTally, filePath: string, content: string): void {
+  const oakCount = countMatches(content, /oak/gi);
+  if (isDocsFile(filePath)) {
+    tally.oakInDocs += oakCount;
+  } else if (isCodeFile(filePath)) {
+    tally.oakInSource += oakCount;
+  }
+  tally.cssOakVariables += countMatches(content, /--oak-/g);
+  if (isCodeFile(filePath)) {
+    tally.dottedOakNamespaces += countMatches(content, /\boak\.[a-z]/g);
+  }
+  tally.oakEnvKeys += countMatches(content, /\bOAK_[A-Z_]+/g);
 }
 
 /** Count Oak markers across one subject's tracked files. */
 export async function grepSubjectCounts(
   repoRoot: string,
   files: readonly string[],
-): Promise<SubjectGrepCounts> {
-  let oakInDocs = 0;
-  let oakInSource = 0;
-  let cssOakVariables = 0;
-  let dottedOakNamespaces = 0;
-  let oakEnvKeys = 0;
+): Promise<Result<SubjectGrepCounts, string>> {
+  const tally: GrepTally = {
+    oakInDocs: 0,
+    oakInSource: 0,
+    cssOakVariables: 0,
+    dottedOakNamespaces: 0,
+    oakEnvKeys: 0,
+  };
   for (const filePath of files) {
-    const content = await readScannable(repoRoot, filePath);
-    if (content === null) {
+    const readResult = await readScannable(repoRoot, filePath);
+    if (!readResult.ok) {
+      return err(readResult.error);
+    }
+    if (readResult.value === null) {
       continue;
     }
-    const oakCount = countMatches(content, /oak/gi);
-    if (isDocsFile(filePath)) {
-      oakInDocs += oakCount;
-    } else if (isCodeFile(filePath)) {
-      oakInSource += oakCount;
-    }
-    cssOakVariables += countMatches(content, /--oak-/g);
-    if (isCodeFile(filePath)) {
-      dottedOakNamespaces += countMatches(content, /\boak\.[a-z]/g);
-    }
-    oakEnvKeys += countMatches(content, /\bOAK_[A-Z_]+/g);
+    tallyContent(tally, filePath, readResult.value);
   }
-  return { oakInDocs, oakInSource, cssOakVariables, dottedOakNamespaces, oakEnvKeys };
+  return ok(tally);
 }

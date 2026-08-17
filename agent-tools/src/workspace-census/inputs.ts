@@ -12,7 +12,7 @@ import { promisify } from 'node:util';
 
 import { err, ok, type Result } from '@oaknational/result';
 
-import { getJsonValue, isJsonObject } from '../core/json.js';
+import { getJsonValue, isJsonObject, parseJsonTextResult } from '../core/json.js';
 
 const execFileAsync = promisify(execFile);
 
@@ -56,12 +56,23 @@ export async function listMembers(repoRoot: string): Promise<Result<WorkspaceMem
   } catch (error) {
     return err(`pnpm -r ls failed: ${error instanceof Error ? error.message : String(error)}`);
   }
-  const parsed: unknown = JSON.parse(stdout);
-  if (!Array.isArray(parsed)) {
+  return parseMemberList(stdout, repoRoot);
+}
+
+/** Parse resolver output; pure, so malformed output is a testable Result error. */
+export function parseMemberList(
+  stdout: string,
+  repoRoot: string,
+): Result<WorkspaceMember[], string> {
+  const parsed = parseJsonTextResult(stdout, 'pnpm -r ls --json');
+  if (!parsed.ok) {
+    return err(parsed.error.message);
+  }
+  if (!Array.isArray(parsed.value)) {
     return err('pnpm -r ls --json did not return an array — refusing to guess the member set');
   }
   const members: WorkspaceMember[] = [];
-  for (const entry of parsed) {
+  for (const entry of parsed.value) {
     const member = toWorkspaceMember(entry, repoRoot);
     if (member === null) {
       return err('pnpm -r ls --json returned an entry without name/path — refusing to guess');

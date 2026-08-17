@@ -16,12 +16,14 @@
         ]
       },
       "internalDependents": [],
+      "sourceDependencies": [],
+      "turboTasks": [],
       "fileProfile": {
-        "trackedFiles": 765,
-        "codeFiles": 17
+        "trackedFiles": 438,
+        "codeFiles": 8
       },
       "oakMarkers": {
-        "oakInDocs": 6844,
+        "oakInDocs": 6497,
         "oakInSource": 60,
         "cssOakVariables": 10,
         "dottedOakNamespaces": 0,
@@ -33,16 +35,37 @@
       "publishedName": null,
       "manifest": null,
       "internalDependents": [],
+      "sourceDependencies": [],
+      "turboTasks": [],
       "fileProfile": {
-        "trackedFiles": 4480,
+        "trackedFiles": 4512,
         "codeFiles": 36
       },
       "oakMarkers": {
-        "oakInDocs": 32150,
+        "oakInDocs": 32634,
         "oakInSource": 209,
-        "cssOakVariables": 496,
+        "cssOakVariables": 518,
         "dottedOakNamespaces": 0,
-        "oakEnvKeys": 778
+        "oakEnvKeys": 813
+      }
+    },
+    {
+      "dirPath": ".agents",
+      "publishedName": null,
+      "manifest": null,
+      "internalDependents": [],
+      "sourceDependencies": [],
+      "turboTasks": [],
+      "fileProfile": {
+        "trackedFiles": 299,
+        "codeFiles": 9
+      },
+      "oakMarkers": {
+        "oakInDocs": 122,
+        "oakInSource": 0,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
       }
     },
     {
@@ -56,6 +79,8 @@
         "internalDependencies": []
       },
       "internalDependents": [],
+      "sourceDependencies": [],
+      "turboTasks": [],
       "fileProfile": {
         "trackedFiles": 5,
         "codeFiles": 3
@@ -73,6 +98,8 @@
       "publishedName": null,
       "manifest": null,
       "internalDependents": [],
+      "sourceDependencies": [],
+      "turboTasks": [],
       "fileProfile": {
         "trackedFiles": 299,
         "codeFiles": 11
@@ -90,6 +117,8 @@
       "publishedName": null,
       "manifest": null,
       "internalDependents": [],
+      "sourceDependencies": [],
+      "turboTasks": [],
       "fileProfile": {
         "trackedFiles": 33,
         "codeFiles": 1
@@ -107,6 +136,8 @@
       "publishedName": null,
       "manifest": null,
       "internalDependents": [],
+      "sourceDependencies": [],
+      "turboTasks": [],
       "fileProfile": {
         "trackedFiles": 190,
         "codeFiles": 3
@@ -124,6 +155,8 @@
       "publishedName": null,
       "manifest": null,
       "internalDependents": [],
+      "sourceDependencies": [],
+      "turboTasks": [],
       "fileProfile": {
         "trackedFiles": 8,
         "codeFiles": 1
@@ -153,14 +186,29 @@
         ]
       },
       "internalDependents": [],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/result",
+        "packages/core/safe-path",
+        "packages/core/type-helpers",
+        "packages/core/workspace-config",
+        "runtime-only-scripts"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
-        "trackedFiles": 1319,
-        "codeFiles": 1283
+        "trackedFiles": 1324,
+        "codeFiles": 1288
       },
       "oakMarkers": {
         "oakInDocs": 57,
-        "oakInSource": 1610,
-        "cssOakVariables": 0,
+        "oakInSource": 1681,
+        "cssOakVariables": 1,
         "dottedOakNamespaces": 6,
         "oakEnvKeys": 163
       }
@@ -194,6 +242,30 @@
         ]
       },
       "internalDependents": [],
+      "sourceDependencies": [
+        ".",
+        "packages/core/build-metadata",
+        "packages/core/env",
+        "packages/core/oak-eslint",
+        "packages/core/observability",
+        "packages/core/result",
+        "packages/core/type-helpers",
+        "packages/core/workspace-config",
+        "packages/design/oak-design-system",
+        "packages/libs/env-resolution",
+        "packages/libs/logger",
+        "packages/libs/posthog-node",
+        "packages/libs/sentry-node",
+        "packages/sdks/oak-curriculum-sdk",
+        "packages/sdks/oak-sdk-codegen",
+        "packages/sdks/oak-search-sdk"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 390,
         "codeFiles": 340
@@ -233,6 +305,30 @@
         ]
       },
       "internalDependents": [],
+      "sourceDependencies": [
+        ".",
+        "packages/core/build-metadata",
+        "packages/core/env",
+        "packages/core/oak-eslint",
+        "packages/core/observability",
+        "packages/core/result",
+        "packages/core/safe-path",
+        "packages/core/type-helpers",
+        "packages/core/workspace-config",
+        "packages/libs/env-resolution",
+        "packages/libs/logger",
+        "packages/libs/search-contracts",
+        "packages/libs/sentry-node",
+        "packages/sdks/oak-curriculum-sdk",
+        "packages/sdks/oak-sdk-codegen",
+        "packages/sdks/oak-search-sdk"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 905,
         "codeFiles": 796
@@ -264,6 +360,21 @@
         ]
       },
       "internalDependents": [],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/result",
+        "packages/design/oak-design-react",
+        "packages/libs/fidelity-review",
+        "packages/sdks/oak-curriculum-sdk",
+        "packages/sdks/oak-search-sdk"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 183,
         "codeFiles": 169
@@ -294,6 +405,20 @@
         ]
       },
       "internalDependents": [],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/result",
+        "packages/core/type-helpers",
+        "packages/design/oak-design-react",
+        "packages/libs/fidelity-review"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 96,
         "codeFiles": 81
@@ -327,6 +452,19 @@
         "@oaknational/search-cli",
         "@oaknational/sentry-node"
       ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/env",
+        "packages/core/oak-eslint",
+        "packages/core/result",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 25,
         "codeFiles": 20
@@ -357,6 +495,18 @@
         "@oaknational/build-metadata",
         "@oaknational/oak-curriculum-mcp-streamable-http",
         "@oaknational/search-cli"
+      ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/observability",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
       ],
       "fileProfile": {
         "trackedFiles": 29,
@@ -389,6 +539,19 @@
         "@oaknational/graph-corpus-sdk",
         "@oaknational/graph-ingest",
         "@oaknational/graph-project"
+      ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/result",
+        "packages/core/type-helpers",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
       ],
       "fileProfile": {
         "trackedFiles": 44,
@@ -448,6 +611,16 @@
         "@oaknational/sentry-node",
         "@oaknational/type-helpers"
       ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 51,
         "codeFiles": 45
@@ -485,6 +658,19 @@
         "@oaknational/search-cli",
         "@oaknational/sentry-node"
       ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/result",
+        "packages/core/type-helpers",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 25,
         "codeFiles": 20
@@ -512,6 +698,17 @@
       },
       "internalDependents": [
         "@oaknational/sdk-codegen"
+      ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
       ],
       "fileProfile": {
         "trackedFiles": 16,
@@ -558,6 +755,17 @@
         "@oaknational/search-cli",
         "@oaknational/sentry-node"
       ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 12,
         "codeFiles": 7
@@ -586,6 +794,17 @@
       "internalDependents": [
         "@oaknational/agent-tools",
         "@oaknational/search-cli"
+      ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
       ],
       "fileProfile": {
         "trackedFiles": 10,
@@ -625,6 +844,17 @@
         "@oaknational/search-cli",
         "@oaknational/search-contracts",
         "@oaknational/sentry-node"
+      ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
       ],
       "fileProfile": {
         "trackedFiles": 21,
@@ -680,6 +910,13 @@
         "@oaknational/sentry-node",
         "@oaknational/type-helpers"
       ],
+      "sourceDependencies": [],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 11,
         "codeFiles": 6
@@ -709,6 +946,18 @@
       "internalDependents": [
         "@oaknational/oak-design-tokens"
       ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/result",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 31,
         "codeFiles": 26
@@ -733,6 +982,13 @@
       },
       "internalDependents": [
         "@oaknational/oak-curriculum-mcp-streamable-http"
+      ],
+      "sourceDependencies": [],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
       ],
       "fileProfile": {
         "trackedFiles": 4,
@@ -761,6 +1017,18 @@
         ]
       },
       "internalDependents": [],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/workspace-config",
+        "packages/design/oak-design-tokens"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 12,
         "codeFiles": 7
@@ -789,6 +1057,17 @@
       "internalDependents": [
         "@oaknational/oak-curriculum-hub",
         "@oaknational/oak-design-showcase"
+      ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
       ],
       "fileProfile": {
         "trackedFiles": 11,
@@ -820,6 +1099,17 @@
         "@oaknational/oak-curriculum-mcp-streamable-http",
         "@oaknational/oak-design-showcase",
         "@oaknational/oak-design-tokens"
+      ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
       ],
       "fileProfile": {
         "trackedFiles": 654,
@@ -853,6 +1143,20 @@
         "@oaknational/oak-curriculum-mcp-streamable-http",
         "@oaknational/oak-design-ink"
       ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/result",
+        "packages/core/workspace-config",
+        "packages/design/design-tokens-core",
+        "packages/design/oak-design-system"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 29,
         "codeFiles": 20
@@ -881,6 +1185,17 @@
       "internalDependents": [
         "@oaknational/oak-curriculum-mcp-streamable-http",
         "@oaknational/search-cli"
+      ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
       ],
       "fileProfile": {
         "trackedFiles": 16,
@@ -912,6 +1227,18 @@
         "@oaknational/oak-curriculum-hub",
         "@oaknational/oak-design-showcase"
       ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/result",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 59,
         "codeFiles": 54
@@ -940,6 +1267,19 @@
         ]
       },
       "internalDependents": [],
+      "sourceDependencies": [
+        ".",
+        "packages/core/graph-core",
+        "packages/core/oak-eslint",
+        "packages/core/result",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 23,
         "codeFiles": 18
@@ -967,6 +1307,18 @@
         ]
       },
       "internalDependents": [],
+      "sourceDependencies": [
+        ".",
+        "packages/core/graph-core",
+        "packages/core/oak-eslint",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 17,
         "codeFiles": 12
@@ -1002,6 +1354,19 @@
         "@oaknational/search-cli",
         "@oaknational/sentry-node"
       ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/observability",
+        "packages/core/type-helpers",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 41,
         "codeFiles": 34
@@ -1033,6 +1398,20 @@
       "internalDependents": [
         "@oaknational/oak-curriculum-mcp-streamable-http"
       ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/build-metadata",
+        "packages/core/oak-eslint",
+        "packages/core/observability",
+        "packages/core/result",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 37,
         "codeFiles": 32
@@ -1063,6 +1442,19 @@
       "internalDependents": [
         "@oaknational/oak-search-sdk",
         "@oaknational/search-cli"
+      ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/type-helpers",
+        "packages/core/workspace-config",
+        "packages/sdks/oak-sdk-codegen"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
       ],
       "fileProfile": {
         "trackedFiles": 12,
@@ -1098,6 +1490,22 @@
         "@oaknational/oak-curriculum-mcp-streamable-http",
         "@oaknational/search-cli"
       ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/build-metadata",
+        "packages/core/oak-eslint",
+        "packages/core/observability",
+        "packages/core/result",
+        "packages/core/type-helpers",
+        "packages/core/workspace-config",
+        "packages/libs/logger"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 32,
         "codeFiles": 26
@@ -1128,6 +1536,20 @@
       },
       "internalDependents": [
         "@oaknational/curriculum-sdk"
+      ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/graph-core",
+        "packages/core/oak-eslint",
+        "packages/core/result",
+        "packages/core/workspace-config",
+        "packages/sdks/oak-sdk-codegen"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
       ],
       "fileProfile": {
         "trackedFiles": 40,
@@ -1163,6 +1585,22 @@
         "@oaknational/oak-curriculum-hub",
         "@oaknational/oak-curriculum-mcp-streamable-http",
         "@oaknational/search-cli"
+      ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/result",
+        "packages/core/type-helpers",
+        "packages/core/workspace-config",
+        "packages/libs/logger",
+        "packages/sdks/graph-corpus-sdk",
+        "packages/sdks/oak-sdk-codegen"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
       ],
       "fileProfile": {
         "trackedFiles": 197,
@@ -1202,6 +1640,23 @@
         "@oaknational/search-cli",
         "@oaknational/search-contracts"
       ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/observability",
+        "packages/core/openapi-zod-client-adapter",
+        "packages/core/result",
+        "packages/core/type-helpers",
+        "packages/core/workspace-config",
+        "packages/libs/logger"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "sdk-codegen",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 490,
         "codeFiles": 475
@@ -1238,6 +1693,23 @@
         "@oaknational/oak-curriculum-mcp-streamable-http",
         "@oaknational/search-cli"
       ],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/observability",
+        "packages/core/result",
+        "packages/core/type-helpers",
+        "packages/core/workspace-config",
+        "packages/libs/logger",
+        "packages/libs/search-contracts",
+        "packages/sdks/oak-sdk-codegen"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 103,
         "codeFiles": 98
@@ -1251,6 +1723,25 @@
       }
     },
     {
+      "dirPath": "plugins/oak-open-curriculum",
+      "publishedName": null,
+      "manifest": null,
+      "internalDependents": [],
+      "sourceDependencies": [],
+      "turboTasks": [],
+      "fileProfile": {
+        "trackedFiles": 29,
+        "codeFiles": 0
+      },
+      "oakMarkers": {
+        "oakInDocs": 237,
+        "oakInSource": 0,
+        "cssOakVariables": 0,
+        "dottedOakNamespaces": 0,
+        "oakEnvKeys": 0
+      }
+    },
+    {
       "dirPath": "research/web-app-deconstruction",
       "publishedName": null,
       "manifest": {
@@ -1261,6 +1752,8 @@
         "internalDependencies": []
       },
       "internalDependents": [],
+      "sourceDependencies": [],
+      "turboTasks": [],
       "fileProfile": {
         "trackedFiles": 101,
         "codeFiles": 0
@@ -1287,6 +1780,17 @@
         ]
       },
       "internalDependents": [],
+      "sourceDependencies": [
+        ".",
+        "packages/core/oak-eslint",
+        "packages/core/workspace-config"
+      ],
+      "turboTasks": [
+        "build",
+        "lint",
+        "test",
+        "type-check"
+      ],
       "fileProfile": {
         "trackedFiles": 40,
         "codeFiles": 35
@@ -1304,6 +1808,10 @@
       "publishedName": null,
       "manifest": null,
       "internalDependents": [],
+      "sourceDependencies": [
+        "."
+      ],
+      "turboTasks": [],
       "fileProfile": {
         "trackedFiles": 3,
         "codeFiles": 2

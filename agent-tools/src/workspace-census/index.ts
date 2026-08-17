@@ -18,3 +18,6 @@ export { CODE_EXTENSIONS } from './vocabulary.js';
 export { deriveSubjects, type CensusSubject } from './subjects.js';
 export { validateRows, type CensusRow } from './rows.js';
 export { computeDelta, parseLegacyMatrix } from './delta.js';
+export { parseRowsArtefactJson } from './artefact.js';
+export { parseMemberList } from './inputs.js';
+export { renderMatrixString } from './render-command.js';

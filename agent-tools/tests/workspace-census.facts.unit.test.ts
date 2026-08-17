@@ -5,6 +5,11 @@ import {
   type ManifestSummaryInput,
   type SubjectGrepCounts,
 } from '../src/workspace-census/facts.js';
+import {
+  aggregateSourceDependencies,
+  parseDepcruiseModules,
+  parseTurboTasks,
+} from '../src/workspace-census/graph-inputs.js';
 import type { CensusSubject } from '../src/workspace-census/index.js';
 
 const AGENT_TOOLS: CensusSubject = {
@@ -91,6 +96,19 @@ describe('assembleFacts — detector facts, one entry per subject', () => {
     expect(facts[0]?.fileProfile).toEqual({ trackedFiles: 2, codeFiles: 1 });
   });
 
+  it('banks subject-grain source dependencies and turbo tasks when supplied', () => {
+    const facts = assembleFacts({
+      subjects: [AGENT_TOOLS],
+      manifests: MANIFESTS,
+      trackedFilesBySubject: new Map(),
+      grepCountsBySubject: new Map(),
+      sourceDependenciesBySubject: new Map([['agent-tools', ['packages/core/result']]]),
+      turboTasksByPackage: new Map([['@oaknational/agent-tools', ['build', 'test']]]),
+    });
+    expect(facts[0]?.sourceDependencies).toEqual(['packages/core/result']);
+    expect(facts[0]?.turboTasks).toEqual(['build', 'test']);
+  });
+
   it('carries grep counts verbatim and zero-fills subjects with no recorded counts', () => {
     const facts = factsFor([AGENT_TOOLS, SCRIPTS]);
     expect(facts[0]?.oakMarkers.oakInDocs).toBe(3);
@@ -102,5 +120,57 @@ describe('assembleFacts — detector facts, one entry per subject', () => {
       grepCountsBySubject: new Map(),
     });
     expect(noCounts[0]?.oakMarkers).toEqual(EMPTY_GREPS);
+  });
+});
+
+describe('graph-input parsing — depcruise and turbo dry-run to subject grain', () => {
+  it('aggregates module edges to distinct cross-subject dependencies', () => {
+    const parsed = parseDepcruiseModules(
+      JSON.stringify({
+        modules: [
+          {
+            source: 'agent-tools/src/a.ts',
+            dependencies: [
+              { resolved: 'packages/core/result/src/index.ts' },
+              { resolved: 'agent-tools/src/b.ts' },
+              { resolved: 'node_modules/zod/index.js' },
+            ],
+          },
+        ],
+      }),
+    );
+    expect(parsed).toMatchObject({ ok: true });
+    const subjects: CensusSubject[] = [
+      AGENT_TOOLS,
+      {
+        dirPath: 'packages/core/result',
+        publishedName: '@oaknational/result',
+        sources: ['pnpm-member'],
+      },
+    ];
+    const modules = parsed.ok ? parsed.value : [];
+    const aggregated = aggregateSourceDependencies(subjects, modules);
+    expect(aggregated.get('agent-tools')).toEqual(['packages/core/result']);
+    expect(aggregated.get('packages/core/result')).toEqual([]);
+  });
+
+  it('rejects depcruise output without a modules array', () => {
+    expect(parseDepcruiseModules('{"summary": {}}')).toMatchObject({ ok: false });
+  });
+
+  it('parses turbo dry-run tasks per package and skips the root pseudo-package', () => {
+    const parsed = parseTurboTasks(
+      JSON.stringify({
+        tasks: [
+          { package: '@oaknational/agent-tools', task: 'test' },
+          { package: '@oaknational/agent-tools', task: 'build' },
+          { package: '//', task: 'lint' },
+        ],
+      }),
+    );
+    expect(parsed).toMatchObject({ ok: true });
+    const byPackage = parsed.ok ? parsed.value : new Map<string, string[]>();
+    expect(byPackage.get('@oaknational/agent-tools')).toEqual(['build', 'test']);
+    expect(byPackage.has('//')).toBe(false);
   });
 });

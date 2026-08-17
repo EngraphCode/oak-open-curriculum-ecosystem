@@ -6,7 +6,7 @@ overview: "Strategic umbrella for separating Oak-specific surfaces from generic 
 todos:
   - id: workspace-classification-matrix
     content: "SUPERSEDED 2026-08-14: the workspace-classification-census delivered the authoritative matrix (.agent/reports/workspace-classification-census/matrix.md, instrument-validated). Keeping it current is census re-run work, not this brief."
-    status: pending
+    status: completed
   - id: tranche-1-platform-runtime
     content: "Promote the platform/runtime tranche covering env contracts, env resolution, observability, logger, Sentry wrappers, and neutral runtime defaults."
     status: pending

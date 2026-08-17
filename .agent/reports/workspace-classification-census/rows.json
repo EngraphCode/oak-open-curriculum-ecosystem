@@ -46,6 +46,12 @@
       ]
     },
     {
+      "dirPath": ".agents",
+      "publishedName": null,
+      "disposition": "excluded",
+      "exclusionReason": "Third-party vendor-managed skills tier (`pnpm skills`-managed, lock-pinned, vendored \u2014 the code files are upstream-owned scripts and templates) plus platform mirror surfaces; not an estate code workspace. Owner clarification 2026-08-17: this tier, the Practice skills (.agent/skills), and the user-facing plugin skills (plugins/oak-open-curriculum) are three unrelated conceptual entities."
+    },
+    {
       "dirPath": ".agents/skills/clerk-nextjs-patterns/templates/nextjs-basic-auth",
       "publishedName": null,
       "disposition": "excluded",
