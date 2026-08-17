@@ -781,3 +781,62 @@ survey post-mortem discharged (both at 6ba9e93c3).
   reports/workspace-taxonomy-landscape-survey/post-mortem-2026-08-17.md
   §3/§7 carry the full form plus the candidate fleet-design-review
   amendment (warrant gate first; owner ratifies or not).
+
+## 2026-08-17 evening — design seat (Yarrow, ab1066): Tango node ratified + T1a-i landed; three owner corrections, one generator
+
+- OWNER-FORBIDDEN, absolute: `git commit --amend` as a content-evolution
+  mechanism. I amended one unpushed commit FOUR times folding new
+  substance in ("one clean commit" aesthetic = a squash instinct in a
+  never-squash estate); every amend invalidated shas already published
+  to Linear/comms/ARC, forcing correction messages — the mechanism
+  manufactured its own churn, three signals ignored. Cure: commits only
+  append; the PR body maps the trail once at open. The generator was
+  agent-inscribed mechanics acquiring rule-force with nobody's word
+  behind it — the same void-from-birth class the owner ruled on the R4
+  row the same evening.
+- ONE GENERATOR, three instances in one day (amend habit; per-ruling
+  maximal consolidation ceremony; test over-pinning from a reviewer's
+  cure list): absorbing the nearest authoritative-sounding instruction
+  instead of re-deriving from the governing directive. Reviewer findings
+  are fitness signals, not instructions — re-derive every cure against
+  the doctrine before absorbing. The owner's cure each time: send the
+  seat back to the directives.
+- Contract-form test assertions (the doctrine application shape, owner
+  word "tests prove behaviour... never constrain implementation"): a
+  refusal's observable contract = report exists + names the concern +
+  locates the offender → token presence on the JOINED report; never
+  failure counts, ordering, or message prose. Attribution (which side
+  of a comparison holds the member) IS behaviour: assert "the line
+  naming the member also names its side". Mutation kills survive the
+  relaxation — mutants die on WHAT is reported, not how many strings.
+- Fresh worktrees must be BUILT before trusting resolution-class
+  instruments: depcruise/knip resolve through dist; an unbuilt worktree
+  produced 31 phantom-dep "violations" (every eslint.config.ts →
+  standards-plugin edge unresolvable) that vanished after
+  `pnpm turbo run build`. I chased the yaml glob for three probes
+  first — check `ls <pkg>/dist` before diagnosing config.
+- EnterWorktree base-ref mis-cut: THIRD instance today (mcp-613/615/616
+  all cut from coordination-lineage tips, never origin/main). The
+  fix-forward recipe is stable (branch -m scrap/<name>-mis-based;
+  switch -c <ticket-branch> origin/main; verify merge-base
+  --is-ancestor). Scrap branches await owner one-click deletion. Worth
+  a defect ticket when one exists for the worktree tooling.
+- Watcher mortality pattern: the canonical watcher's 3600s GNU-timeout
+  backstop kills it hourly and turn-based notification lag can leave
+  multi-hour blind windows before the exit notification wakes the seat.
+  The seen-file cursor makes re-arms lossless (drain resumes); for long
+  gaps: manual sweep of the window first, then re-arm with
+  --seed-from-now to avoid the backlog re-flood. Routed to the Director
+  as an estate observation at stand-down.
+- Documents-epoch attractor (owner-corrected as rabbit-hole): after a
+  plan ratifies, the lane's centre of gravity moves to the TREE; each
+  incoming ruling captures cheap (thread record + one comms event at
+  occurrence) and consolidates at natural boundaries — never a
+  six-surface ceremony per event while the build sits at zero.
+- Identity-pack tier shape that survived three reviews: no
+  hand-declared pack inventory anywhere (a tuple = a permanent №N
+  violation, an unconvertible eighth roster surface); tier validated
+  structurally (presence + homogeneity, recomputed from the tree);
+  pure-module + thin-fs-script is the estate's canonical validator
+  partition; packs are data-only workspaces on the oak-design-assets
+  precedent (no scripts, private, own licence surface).

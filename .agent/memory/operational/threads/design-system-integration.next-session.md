@@ -3330,3 +3330,169 @@ artifact, URL in the session wrap-up).
   programme node** — the next planning act, absorbing the a11y and
   frame-challenge design inputs held in this session's panel reports; and
   the rubric v0.1 recalibration.
+
+## Session update 2026-08-17 ~16:40Z (Yarrow stirs Undergrowth, ab1066 — additive; MCP-615 Tango pack node AUTHORED, reviewer-cured, committed; ratification card next)
+
+- **Post-compaction resume at owner word** ("continue with the Design
+  work"): seat re-armed per start-right (watcher F-95 green, heartbeat
+  pair on claim 645b9e0b, resume broadcast `a76544da`); Director Smith
+  hunts Obsidian re-entered the same seat and opened the design-lane ARC
+  channel (`rapid-comms/2026-08-17-design-lane-…`); the GitHub hold
+  STANDS (verified first-hand 16:03Z: worse — Major/critical). MCP-613
+  pushes/PR remain queued.
+- **The Tango pack node authored (MCP-615)**:
+  `tango-identity-pack.plan.md` (born-sketch, delivery, serves the
+  strategic node, beneficial edge to design-showcase-experience) plus the
+  paired readiness-review record, committed `714509339` on
+  `jimcresswell/mcp-615-tango-identity-pack-plan-node` (worktree
+  `mcp-615-tango-pack-node`, cut from local origin/main `05cca303f`; a
+  SECOND EnterWorktree mis-base fixed forward — `scrap/mcp-615-mis-based`
+  awaits owner one-click deletion). Gates: pre-commit chain green,
+  plan-corpus 88 conformant.
+- **Shape decisions a successor should know**: one node = pack
+  mechanism plus Tango as proving consumer (follow-on pack migrations
+  are pointers);
+  admission EXTENDS the ratified showcase W1 slice B guard (one
+  instrument, manifest-driven arms, closure-scoped); NO expressive-value
+  generator (authored CSS + validating manifest; asset emission reuses
+  design-tokens-core); the manifest carries eight machine-checkable facts
+  (four themes as full peers with `system` refused; declared polarity;
+  probe targets; motion via `-full` only; target-size floor;
+  forced-color-adjust prohibition; focus-ring untouched; R14 fixed-point
+  rows); the roster re-plumb (T1d) converts SEVEN hand-kept surfaces to a
+  build-time generated module and derives the a11y matrix from it (a pack
+  cannot render ungated); the zero-edit №N property is the end state
+  AFTER that re-plumb, stated honestly.
+- **Review arc**: three opus legs — a11y READY-WITH-FIXES (14),
+  design-system NOT-READY (4 blockers of 20), assumptions/frame
+  READY-WITH-FIXES (20; two seat verdicts refuted: R15's conditional
+  directive had been dropped from the rulings row; Tango's brief had set
+  distance-as-objective, which R15 reserves to EMC²). All 54 findings
+  dispositioned in
+  `.agent/reports/design/tango-pack-plan-readiness-reviews-2026-08-17.md`;
+  blockers cured in the same commit.
+- **Next act**: the four-question ratification card to the owner (ratify
+  incl. the P5 paraphrase confirm and the `packages/design/identities/*`
+  mint — Director's map note 16:37Z: the WSREORG inventory is re-graded
+  historical, a case-argued mint ratified by Jim carries its own warrant;
+  the recognisability S4(b) re-opening by dated amendment; the
+  owner-held verdict home (register vs thread record, unruled); the
+  T2/T3 seam, keep-one-node recommended). At the all-clear: push the
+  MCP-613 and MCP-615 branches, open both PRs, push coordination.
+- Owner-private Tango reference materials secured machine-local at the
+  primary checkout (`.agent/reference-local/tango-identity-anchor/`,
+  untracked) — P2 discipline; re-verify presence at T3 pickup.
+- **RATIFIED same sitting (~16:50Z)**: all four card questions answered
+  with the recommended options — ratify as presented (P5 paraphrase +
+  shared-admission reading + identities workspace mint confirmed); S4(b)
+  dated amendment authorised (lands post-MCP-613); verdict home = THIS
+  THREAD RECORD (the wow-register feeding question stays open on its own
+  merits); keep one node. Stamp landed and the lane commit amended
+  (verified at the shipped blob; unpushed behind the hold).
+  The pack lane is now GOVERNED work: T1a starts at the executing seat's
+  next window (ticket MCP-616 minted); both sibling amendments (showcase
+  cross-ref + S4(b)) queue behind the MCP-613 merge.
+
+## Session update 2026-08-17 ~16:55Z (Yarrow stirs Undergrowth, ab1066 — additive; OWNER RULING P6 captured: eventual state, narrow distinctness; Director succession Smith→Ocelot)
+
+- **Owner word at this seat (~16:45Z), verbatim (also landed as ruling
+  row P6 in the ratified tango-identity-pack node, dated amendment same
+  day)**: "to be clear, the eventual state is that all identities are
+  represented purely as canonical identity packs, that identities are
+  visually designed narrow viewport first, that the system fully
+  supports distinct identities at narrow viewports, and that the EMC2
+  identity and Tango identity at narrow viewports are clearly different
+  from Oak and PDS in layout, order, spacing, feel, with the most
+  difference in EMC2 because that is the identity we have total freedom
+  with" — asked "let me know if it isn't" compatible.
+- **Compatibility adjudication (delivered to the owner same sitting)**:
+  compatible with the ruled corpus, with ONE named supersession — the
+  showcase plan's R4 row consequence "No per-brand narrow maps"
+  (2026-08-13) survives only as "Oak and PDS may legitimately share the
+  narrow base"; as a prohibition it is superseded (ruling 5 of
+  2026-08-17 had already made narrow divergence expressible; P6 directs
+  Tango and EMC² to exercise it). Its dated supersession note on the
+  showcase plan is QUEUED post-MCP-613 with the two sibling amendments
+  (same-file sequencing; named in the Tango node so it never sits
+  silent). Sharpenings landed in the node: the P4 measured-needs record
+  now serves a declared outcome bar; Tango's brief carries
+  clearly-visible-at-narrow character; panel finding 2 (counter-identity
+  narrow convergence below 840px) is upgraded from open-input to a real
+  eventual-state gap — EMC²'s narrow maps ride its own future node.
+- **Lane commit after the P6 amendment: `fca393040`** (supersedes
+  afae5c663 and 714509339 in earlier records; unpushed, amend-not-append
+  since never pushed). Gates re-run green (prettier, markdownlint,
+  plan-corpus 88).
+- **Director succession completed mid-sitting**: Smith hunts Obsidian →
+  **Ocelot binds Tunnel (c28ad9)**, PDR-064 two moments clean (Moment 2
+  event a91c1177); successor design-lane ARC channel
+  `rapid-comms/2026-08-17-design-lane-ocelot-binds-tunnel-and-yarrow-stirs-undergrowth.md`
+  joined (prior channel stands as record). Ocelot runs the GitHub
+  resolution watch; their all-clear broadcast releases this lane's
+  queue: MCP-613 push+PR, MCP-615 push+PR, coordination push.
+
+## Session close 2026-08-17 ~20:05Z (Yarrow stirs Undergrowth, ab1066 — additive; T1a-i LANDED; overnight stand-down, claim RETAINED)
+
+- **T1a-i LANDED at `cd84e490c`** on
+  `jimcresswell/mcp-616-t1a-identities-tier-boundary-leg` (worktree
+  `mcp-616-t1a-identities-tier`, off origin/main `05cca303f`): the
+  `packages/design/identities/*` tier (glob + tier README + design-index
+  row) + the `validate-boundaries` structural leg (pure module
+  `boundary-inventory.ts` with 21 contract-form tests; collect-all
+  script rewrite; tier presence + pack homogeneity — NO hand-declared
+  inventory, the №N-preserving deviation adjudicated SOUND and recorded
+  in the tier README + the review record's execution addendum,
+  `843bb4ac8` on the MCP-615 lane). Full review arc (pre-execution
+  code-expert; config deep; test focused with 25-mutant probe;
+  post-execution gateway) — all dispositioned; both headline mutants
+  proven killed live. Gates green throughout; pre-commit chain green.
+- **Owner doctrine word absorbed mid-slice** ("tests prove behaviour,
+  not configuration, and they never constrain implementation"): the
+  suite re-cut to contract form — token presence on the joined report,
+  never counts/order/prose. The generator lesson (reviewer cures must
+  re-derive against the governing directive; three instances today) is
+  in the napkin 2026-08-17-evening entry.
+- **Owner-forbidden, absolute: `git commit --amend` as content
+  evolution.** Commits only append from here; the MCP-615 lane trail is
+  now three append commits (`21f95b61f` node, `b334f0181` R4 re-class,
+  `843bb4ac8` addendum); MCP-613 unchanged at `6e88cb407`.
+- **Stand-down (owner overnight directive via Director Ocelot,
+  19:46Z)**: remaining queue is either all-clear-gated (three branch
+  pushes + PRs: MCP-613, MCP-615 at `843bb4ac8`, MCP-616 at
+  `cd84e490c`; then the two post-MCP-613-merge sibling amendments +
+  the R4 attribution-correction) or fresh-session-quality work —
+  **T1a-ii is deliberately NOT authored tonight**: it is the
+  pack-contract authoring (manifest field shapes, the per-theme
+  asset-strategy DDR binding all four packs, the DDR-005 amendment),
+  the highest-leverage design surface in the programme, wrong at the
+  tail of a marathon sitting under the day's three absorption lessons.
+  Claim `645b9e0b` RETAINED for the morning pickup (same seat or
+  successor via this record + the ratified plan). Monitors stopped in
+  canonical order at the freeze; scrap branches for owner one-click
+  deletion: `scrap/mcp-613-mis-based`, `scrap/mcp-615-mis-based`,
+  `scrap/mcp-616-mis-based` (EnterWorktree base-ref mis-cut ×3, napkin
+  entry).
+- **Morning resume order**: (1) re-arm per start-right; (2) at the
+  all-clear: the three pushes + PRs (pr-lifecycle, jimbot label), then
+  post-merge amendments; (3) T1a-ii fresh (its pre-execution verdicts
+  are in the review record: flat-tier `identity-pack-schema` workspace,
+  six schema fact-arms, four-theme keying, DDR-012 asset strategy,
+  DDR-005 per-package amendment, B2 settled against the actual CI
+  workflow); (4) T1b parcel after T1a-ii; (5) T2 first Tango pixels —
+  the checkpoint that matters.
+
+- **ONTOLOGY CORRECTION (owner verbatim, ~16:57Z, superseding this
+  entry's "survives only as Oak-and-PDS-may-share" phrasing above)**:
+  "Oak/PDS is not a default for narrow viewports, it is a coincidence
+  that the first two identities we built we public services, and
+  therefore have a shared design heritage routed in GDS" (sic). There
+  is NO shared-narrow-base concept and no sharing arrangement — every
+  identity composes narrow from its own character and anchor; Oak/PDS
+  narrow similarity is heritage coincidence (both GDS-rooted public
+  services). New harvested fact: Oak's design heritage is itself
+  GDS-rooted. Convergence-by-silent-fallthrough (the below-840px
+  mechanism) is a defect class, never mistakable for heritage
+  coincidence. Re-trued in the node (P6 row + P4 reading note + the
+  queued R4 supersession wording) — **lane commit now `f6880f11b`**
+  (supersedes fca393040/afae5c663/714509339; amend-not-append,
+  unpushed). Per-user memory re-trued the same way.
