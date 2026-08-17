@@ -165,4 +165,24 @@ loop's exit criteria bind to it.
 
 ## Amendment trail
 
-- (none yet — born sketch, 2026-08-17)
+- **2026-08-17 — round-1a lessons folded; round 1b is a challenger, not
+  an extension.** Round 1a ran (46/48 walkers; archive committed at the
+  report home) and its probes exposed three instrument limits: the
+  model-prior question undischarged (40/46 walkers one model), a
+  missing unseeded baseline arm, and probable rubric leakage (the
+  six-item decision-needs list correlating with the 5-6 classification
+  mode). Owner rulings absorbed verbatim into
+  `.agent/research/fleet-design-lessons-2026-08-17.md`: the
+  persona-uptake gradient (Haiku constraints-only with graded
+  stringency; persona depth scales with tier) and the
+  challenge-not-extend requirement ("1a is an interesting point in the
+  landscape... but we know it is biased and twisted in ways that
+  surprised us"). Round 1b therefore adds: per-tier unseeded baselines
+  (prior fingerprints), tier-matched seeding, rubric-blinded prose
+  requirements in two variants, a falsification arm attacking 1a's
+  dominant elite verbatim, independent re-reduction by a different
+  tier with a comparator stage, parser-not-transcriber cross-vendor
+  relays, in-prompt read caps, and no walker self-scores. Budget
+  estimates now price read traffic; 1a's overshoot (~3.5M vs ≤1.1M
+  estimated) is recorded.
+- (born sketch, 2026-08-17)
