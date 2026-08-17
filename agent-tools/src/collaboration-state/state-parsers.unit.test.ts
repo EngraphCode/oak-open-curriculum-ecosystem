@@ -1,6 +1,7 @@
 import { unwrapErr, unwrapOrThrow } from '@oaknational/result';
 import { describe, expect, it } from 'vitest';
 
+import { parseCommitQueueIntentText } from './registry-entry-parser.js';
 import {
   parseClosedClaimsArchive,
   parseCollaborationRegistry,
@@ -22,30 +23,36 @@ describe('parseCollaborationRegistry', () => {
 
   it('parses a valid empty registry', () => {
     const registry = unwrapOrThrow(
-      parseCollaborationRegistry(
-        JSON.stringify({ schema_version: '1.3.0', commit_queue: [], claims: [] }),
-      ),
+      parseCollaborationRegistry(JSON.stringify({ schema_version: '1.4.0', claims: [] })),
     );
 
     expect(registry.claims).toEqual([]);
-    expect(registry.commit_queue).toEqual([]);
   });
 
   it('rejects a foreign schema_version with the exact loud message', () => {
     expect(
       unwrapErr(
         parseCollaborationRegistry(
-          JSON.stringify({ schema_version: '1.2.0', commit_queue: [], claims: [] }),
+          JSON.stringify({ schema_version: '1.3.0', commit_queue: [], claims: [] }),
         ),
       ).message,
-    ).toBe('active claims registry must use schema_version 1.3.0');
+    ).toBe('active claims registry must use schema_version 1.4.0');
   });
 
-  it('rejects a registry without both top-level arrays with the exact loud message', () => {
+  it('rejects a registry without a claims array with the exact loud message', () => {
     expect(
-      unwrapErr(parseCollaborationRegistry(JSON.stringify({ schema_version: '1.3.0', claims: [] })))
-        .message,
-    ).toBe('active claims registry must contain claims and commit_queue arrays');
+      unwrapErr(parseCollaborationRegistry(JSON.stringify({ schema_version: '1.4.0' }))).message,
+    ).toBe('active claims registry must contain a claims array');
+  });
+
+  it('rejects a current-version registry that still carries a commit_queue array', () => {
+    expect(
+      unwrapErr(
+        parseCollaborationRegistry(
+          JSON.stringify({ schema_version: '1.4.0', commit_queue: [], claims: [] }),
+        ),
+      ).message,
+    ).toContain('must not carry a commit_queue array');
   });
 });
 
@@ -136,15 +143,13 @@ function legacyClaimRow() {
   };
 }
 
-describe('parseCollaborationRegistry — PDR-076a intent identity boundary', () => {
+describe('parseCommitQueueIntentText — PDR-076a intent identity boundary', () => {
   it('rejects an id-less intent agent_id loudly, naming the intent and the owner-run recovery', () => {
-    const registry = JSON.stringify({
-      schema_version: '1.3.0',
-      commit_queue: [{ ...validIntentRow(), agent_id: LEGACY_IDLESS_AGENT_ID }],
-      claims: [],
-    });
+    const intentText = JSON.stringify({ ...validIntentRow(), agent_id: LEGACY_IDLESS_AGENT_ID });
 
-    expect(unwrapErr(parseCollaborationRegistry(registry)).message).toMatch(
+    expect(
+      unwrapErr(parseCommitQueueIntentText(intentText, 'commit-queue intent')).message,
+    ).toMatch(
       // Anchored at the message head: an identity-losing wrap PREFIXES the
       // message, so only an anchored pin catches the slip.
       /^commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id[\s\S]*owner-run/,
@@ -153,18 +158,26 @@ describe('parseCollaborationRegistry — PDR-076a intent identity boundary', () 
 
   it('round-trips a valid intent row whole, with its routing id intact', () => {
     const parsed = unwrapOrThrow(
-      parseCollaborationRegistry(
-        JSON.stringify({ schema_version: '1.3.0', commit_queue: [validIntentRow()], claims: [] }),
-      ),
+      parseCommitQueueIntentText(JSON.stringify(validIntentRow()), 'commit-queue intent'),
     );
 
-    expect(parsed.commit_queue[0]).toEqual(validIntentRow());
+    expect(parsed).toEqual(validIntentRow());
   });
 
+  it('rejects a non-ISO updated_at: the TTL clock must never parse to NaN', () => {
+    const intentText = JSON.stringify({ ...validIntentRow(), updated_at: 'not-a-timestamp' });
+
+    expect(
+      unwrapErr(parseCommitQueueIntentText(intentText, 'commit-queue intent')).message,
+    ).toContain('updated_at');
+  });
+});
+
+describe('parseCollaborationRegistry — claim preservation', () => {
   it('preserves an id-less legacy claim row whole — claims narrow at the comparator, never at parse', () => {
     const parsed = unwrapOrThrow(
       parseCollaborationRegistry(
-        JSON.stringify({ schema_version: '1.3.0', commit_queue: [], claims: [legacyClaimRow()] }),
+        JSON.stringify({ schema_version: '1.4.0', claims: [legacyClaimRow()] }),
       ),
     );
 
@@ -196,8 +209,7 @@ describe('parseCollaborationRegistry — reconstruction lossiness (documented di
     const parsed = unwrapOrThrow(
       parseCollaborationRegistry(
         JSON.stringify({
-          schema_version: '1.3.0',
-          commit_queue: [],
+          schema_version: '1.4.0',
           claims: [],
           custodian_note: 'top-level preservation probe',
         }),

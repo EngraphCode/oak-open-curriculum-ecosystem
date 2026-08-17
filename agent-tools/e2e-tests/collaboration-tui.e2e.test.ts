@@ -34,8 +34,10 @@ const inactiveAgent = deriveOverrideCollaborationIdentity({
 
 describe('collaboration TUI E2E', () => {
   it('presents live collaboration value signals from the public CLI surface', async () => {
+    const state = activeRegistry();
     const fake = createFakeCollaborationRuntime({
-      activeClaims: activeRegistry(),
+      activeClaims: state.registry,
+      commitQueue: state.commitQueue,
       closedClaims: closedArchive(),
       comms: {
         [defaultCommsDir]: [
@@ -83,7 +85,10 @@ describe('collaboration TUI E2E', () => {
   });
 });
 
-function activeRegistry(): CollaborationRegistry {
+function activeRegistry(): {
+  readonly registry: CollaborationRegistry;
+  readonly commitQueue: readonly CollaborationCommitQueueEntry[];
+} {
   const claim: CollaborationClaim = {
     claim_id: 'claim-p8',
     agent_id: activeAgent,
@@ -106,9 +111,8 @@ function activeRegistry(): CollaborationRegistry {
   };
 
   return {
-    schema_version: '1.3.0',
-    claims: [claim],
-    commit_queue: [queueEntry],
+    registry: { schema_version: '1.4.0', claims: [claim] },
+    commitQueue: [queueEntry],
   };
 }
 

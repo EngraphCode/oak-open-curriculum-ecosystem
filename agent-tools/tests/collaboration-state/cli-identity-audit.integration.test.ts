@@ -21,7 +21,7 @@ describe('identity audit CLI', () => {
     const fake = createFakeCollaborationRuntime();
     fake.seedTextFile(
       'state/active-claims.json',
-      JSON.stringify({ schema_version: '1.3.0', commit_queue: [], claims: [] }),
+      JSON.stringify({ schema_version: '1.4.0', claims: [] }),
     );
     fake.seedTextFile(
       'state/closed-claims.json',

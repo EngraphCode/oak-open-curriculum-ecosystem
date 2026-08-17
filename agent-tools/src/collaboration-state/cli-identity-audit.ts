@@ -1,4 +1,5 @@
 import { auditCodexIdentityRecords } from './identity-audit.js';
+import { commitQueueDirForActivePath } from './commit-queue-store.js';
 import { required, type Options } from './cli-options.js';
 import { cliIo, type CliRuntime } from './cli-runtime.js';
 
@@ -15,12 +16,18 @@ import { cliIo, type CliRuntime } from './cli-runtime.js';
  */
 export async function auditIdentity(options: Options, runtime: CliRuntime): Promise<string> {
   const io = cliIo(runtime);
+  const nowIso = required(options, 'now');
+  const activePath = required(options, 'active');
   const report = auditCodexIdentityRecords({
-    nowIso: required(options, 'now'),
-    activeText: await io.readTextFile(required(options, 'active')),
+    nowIso,
+    activeText: await io.readTextFile(activePath),
     closedText: await io.readTextFile(required(options, 'closed')),
     threadRecordText: await io.readTextFile(required(options, 'thread-record')),
     commsEvents: await io.readCommsEvents(required(options, 'comms-dir')),
+    commitQueue: await io.readCommitQueueEntries({
+      queueDir: commitQueueDirForActivePath(activePath),
+      nowIso,
+    }),
   });
 
   return `${JSON.stringify(report, null, 2)}\n`;

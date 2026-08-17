@@ -1,4 +1,4 @@
-import { rm } from 'node:fs/promises';
+import { mkdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { describe, expect, it } from 'vitest';
@@ -45,40 +45,43 @@ describe('collaboration state integrity validator', () => {
     }
   });
 
-  it('reports a contract-violating active-claims registry with the parser leg’s own loud message, before schema validation', async () => {
-    // Characterisation written before the seam consolidation and kept green
-    // through it: the contract-parser gate fires ahead of Ajv, and the
-    // finding carries the parser's message verbatim (anchored — a wrapping
-    // slip would prefix it).
+  it('reports a contract-violating commit-queue intent file with the parser leg’s own loud message, before schema validation', async () => {
+    // Characterisation kept through the 1.4.0 queue split: the id-less
+    // intent row now lives in the per-intent store, the contract-parser
+    // gate still fires ahead of Ajv, and the finding carries the parser's
+    // message verbatim (anchored — a wrapping slip would prefix it).
     const repoRoot = await makeTempCollaborationRepo();
     try {
-      await writeJson(join(repoRoot, '.agent/state/collaboration/active-claims.json'), {
-        schema_version: '1.3.0',
-        commit_queue: [
-          {
-            intent_id: '33333333-3333-4333-8333-333333333333',
-            claim_id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
-            agent_id: {
-              agent_name: 'Vintage Pre-Sunset Seat',
-              platform: 'codex',
-              model: 'gpt-4.9',
-              session_id_prefix: '00aa11',
-            },
-            files: ['agent-tools/src/commit-queue/index.ts'],
-            commit_subject: 'feat(queue): exercise the parser gate',
-            queued_at: '2026-04-27T07:20:00Z',
-            updated_at: '2026-04-27T07:20:00Z',
-            expires_at: '2026-04-27T07:35:00Z',
-            phase: 'queued',
+      await mkdir(join(repoRoot, '.agent/state/collaboration/commit-queue'), { recursive: true });
+      await writeJson(
+        join(
+          repoRoot,
+          '.agent/state/collaboration/commit-queue/33333333-3333-4333-8333-333333333333.json',
+        ),
+        {
+          intent_id: '33333333-3333-4333-8333-333333333333',
+          claim_id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
+          agent_id: {
+            agent_name: 'Vintage Pre-Sunset Seat',
+            platform: 'codex',
+            model: 'gpt-4.9',
+            session_id_prefix: '00aa11',
           },
-        ],
-        claims: [],
-      });
+          files: ['agent-tools/src/commit-queue/index.ts'],
+          commit_subject: 'feat(queue): exercise the parser gate',
+          queued_at: '2026-04-27T07:20:00Z',
+          updated_at: '2026-04-27T07:20:00Z',
+          expires_at: '2026-04-27T07:35:00Z',
+          phase: 'queued',
+        },
+      );
 
       const report = await validateCollaborationStateIntegrity({ repoRoot });
 
       expect(report.findings).toHaveLength(1);
-      expect(report.findings[0]?.path).toBe('.agent/state/collaboration/active-claims.json');
+      expect(report.findings[0]?.path).toBe(
+        '.agent/state/collaboration/commit-queue/33333333-3333-4333-8333-333333333333.json',
+      );
       expect(report.findings[0]?.message).toMatch(
         /^commit_queue entry 33333333-3333-4333-8333-333333333333 carries an invalid agent_id/,
       );

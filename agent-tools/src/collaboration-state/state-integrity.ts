@@ -125,6 +125,15 @@ async function jsonSurfaces(repoRoot: string): Promise<readonly JsonSurface[]> {
     })),
     ...(await directorySurfaces({
       repoRoot,
+      directory: `${COLLABORATION_ROOT}/commit-queue`,
+      schemaId: 'commit-queue-intent.schema.json',
+      // Machine-local ephemera (QUEUE-LOCAL, 2026-08-17): untracked by
+      // design and absent until the first enqueue; absence is the expected
+      // clean state, not an integrity fault.
+      optionalWhenAbsent: true,
+    })),
+    ...(await directorySurfaces({
+      repoRoot,
       directory: `${COLLABORATION_ROOT}/conversations`,
       schemaId: 'conversation.schema.json',
       excludeExamples: true,

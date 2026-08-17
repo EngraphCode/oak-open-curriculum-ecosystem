@@ -86,13 +86,24 @@ export interface CommitQueueClaim extends JsonObject {
 }
 
 /**
- * Collaboration registry subset required by the queue helper. The version
- * field is pinned to the same constant as the full registry type.
+ * The claims FILE's shape as the queue helper reads it (claims only since
+ * registry schema 1.4.0). The version field is pinned to the same constant
+ * as the full registry type.
  */
-export interface CommitQueueRegistry extends JsonObject {
+export interface CommitQueueClaimsFile extends JsonObject {
   readonly schema_version: typeof ACTIVE_CLAIMS_SCHEMA_VERSION;
-  readonly commit_queue: readonly CommitIntent[];
   readonly claims: readonly CommitQueueClaim[];
+}
+
+/**
+ * The composed in-memory registry the queue commands operate on: the claims
+ * file plus the live entries of the machine-local per-intent store
+ * (`.agent/state/collaboration/commit-queue/<intent-id>.json`). Only
+ * `registry.ts` composes and decomposes this shape; `commit_queue` never
+ * serialises back into the claims file.
+ */
+export interface CommitQueueRegistry extends CommitQueueClaimsFile {
+  readonly commit_queue: readonly CommitIntent[];
 }
 
 /**

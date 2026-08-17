@@ -8,17 +8,16 @@ import { join } from 'node:path';
 import { unwrapOrThrow } from '@oaknational/result';
 
 import { runAgentToolsCli } from '../src/bin/agent-tools-cli';
-import type { CommitIntent, CommitQueueRegistry } from '../src/commit-queue';
+import type { CommitIntent, CommitQueueClaimsFile } from '../src/commit-queue/types';
 import { readRegistry } from '../src/commit-queue/registry';
 import { uuidV5Schema } from '../src/collaboration-state/agent-id';
 import { resolveTrustedGit } from '../src/core/trusted-git';
-
 /**
- * F-138 regression smoke — the commit-queue two-root split and changed-endpoint identity.
- *
- * Real scratch primary + linked worktree: a rename traverses both changed
- * endpoints, registry state stays at the coordination home, an underivable
- * git root refuses loudly. Real IO makes this a smoke; `test:e2e` gates it.
+ * F-138 regression smoke — the commit-queue two-root split and
+ * changed-endpoint identity. Real scratch primary + linked worktree: a
+ * rename traverses both changed endpoints, registry state stays at the
+ * coordination home, an underivable git root refuses loudly. Real IO makes
+ * this a smoke; `test:e2e` gates it.
  */
 
 const CLAIM_ID = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
@@ -36,46 +35,45 @@ const agentId = {
   id: uuidV5Schema.parse('e2e793c7-923e-5baa-97f0-2bedfb9b6b50'),
 };
 
-function seedRegistry(): CommitQueueRegistry {
-  return {
-    schema_version: '1.3.0',
-    claims: [
-      {
-        claim_id: CLAIM_ID,
-        agent_id: agentId,
-        thread: 'agent-tooling',
-        areas: [{ kind: 'files', patterns: ['notes/**'] }],
-        claimed_at: '2026-07-14T00:00:00Z',
-        intent: 'F-138 linked-worktree regression fixture.',
-        intent_to_commit: INTENT_ID,
-      },
-    ],
-    commit_queue: [
-      {
-        intent_id: INTENT_ID,
-        claim_id: CLAIM_ID,
-        agent_id: agentId,
-        files: [RENAME_SOURCE, RENAME_DESTINATION],
-        commit_subject: COMMIT_SUBJECT,
-        queued_at: '2026-07-14T00:00:00Z',
-        updated_at: '2026-07-14T00:00:00Z',
-        expires_at: '2099-01-01T00:00:00Z',
-        phase: 'staging',
-      },
-    ],
-  };
-}
+const seedClaimsFile: CommitQueueClaimsFile = {
+  schema_version: '1.4.0',
+  claims: [
+    {
+      claim_id: CLAIM_ID,
+      agent_id: agentId,
+      thread: 'agent-tooling',
+      areas: [{ kind: 'files', patterns: ['notes/**'] }],
+      claimed_at: '2026-07-14T00:00:00Z',
+      intent: 'F-138 linked-worktree regression fixture.',
+      intent_to_commit: INTENT_ID,
+    },
+  ],
+};
+
+// Store-live timestamps: the per-intent store expires entries one hour
+// after updated_at, so the fixture anchors to the wall clock.
+const SEED_QUEUED_AT = new Date(Date.now() - 60 * 1000).toISOString();
+
+const seedIntent: CommitIntent = {
+  intent_id: INTENT_ID,
+  claim_id: CLAIM_ID,
+  agent_id: agentId,
+  files: [RENAME_SOURCE, RENAME_DESTINATION],
+  commit_subject: COMMIT_SUBJECT,
+  queued_at: SEED_QUEUED_AT,
+  updated_at: SEED_QUEUED_AT,
+  expires_at: new Date(Date.parse(SEED_QUEUED_AT) + 3600 * 1000).toISOString(),
+  phase: 'staging',
+};
 
 function git(cwd: string, ...args: readonly string[]): string {
   return execFileSync(resolveTrustedGit(), [...args], { cwd, encoding: 'utf8' });
 }
 
 interface WorktreeFixture {
-  /** Temp parent directory holding both checkouts; removed after each test. */
+  /** Temp parent dir (removed after each test); primary is the coordination home. */
   readonly root: string;
-  /** The primary checkout — the coordination home holding the registry. */
   readonly primary: string;
-  /** The linked worktree the ceremony is invoked from. */
   readonly linked: string;
 }
 
@@ -97,8 +95,12 @@ async function makeFixture(): Promise<WorktreeFixture> {
   git(primary, 'worktree', 'add', linked, '-b', 'lane/f138');
 
   const collaborationDir = join(primary, '.agent/state/collaboration');
-  await mkdir(collaborationDir, { recursive: true });
-  await writeFile(join(primary, REGISTRY_REL), `${JSON.stringify(seedRegistry(), null, 2)}\n`);
+  await mkdir(join(collaborationDir, 'commit-queue'), { recursive: true });
+  await writeFile(join(primary, REGISTRY_REL), `${JSON.stringify(seedClaimsFile, null, 2)}\n`);
+  await writeFile(
+    join(collaborationDir, 'commit-queue', `${INTENT_ID}.json`),
+    `${JSON.stringify(seedIntent, null, 2)}\n`,
+  );
 
   return { root, primary, linked };
 }

@@ -1,17 +1,11 @@
 import { randomUUID } from 'node:crypto';
-import { dirname } from 'node:path';
 
-import { assertNoLiveIdentityRoutingCollision } from './active-agents.js';
 import { archiveStaleClaims } from './claims.js';
-import {
-  assertNotBlindWithOtherAgents,
-  resolveOpenClaimWatcherVerdict,
-} from './claims-open-watcher-gate.js';
 import { areaFromOptions } from './cli-claim-areas.js';
+import { openClaimTransform, resolveOpenClaimGateInputs } from './cli-claim-open-gate.js';
 import { fail } from './cli-fail.js';
 import { resolveIdentity } from './cli-identity.js';
 import { optional, required, valueOrDefault, type Options } from './cli-options.js';
-import { resolveCanonicalCommsWatchPaths } from './comms-watch-paths.js';
 import { type CliRuntime } from './cli-runtime.js';
 import { updateActiveClaimsFile, updateClaimStateFiles } from './state-io.js';
 import {
@@ -37,32 +31,21 @@ export async function openClaim(
     return fail(`claims open: --now must be a valid ISO-8601 timestamp: ${nowIso}`);
   }
 
-  // F-95: classify the watcher OUTSIDE the lock (one IO), then decide
-  // populated-vs-solo INSIDE the locked transform so the solo-then-peer race
-  // cannot slip a blind claim into a registry that became populated mid-open.
-  const watcherPaths = resolveCanonicalCommsWatchPaths(options, identity.agent_name, runtime);
-  const watcherVerdict = await resolveOpenClaimWatcherVerdict(
+  // F-95: classify the watcher and read the queue store OUTSIDE the lock
+  // (one IO step), then decide populated-vs-solo INSIDE the locked
+  // transform so the solo-then-peer race cannot slip a blind claim into a
+  // registry that became populated mid-open.
+  const { watcherVerdict, commitQueue } = await resolveOpenClaimGateInputs({
+    options,
     identity,
-    dirname(watcherPaths.seenFile),
-    watcherPaths.commsDir,
-  );
+    activePath,
+    nowIso,
+    runtime,
+  });
 
   await updateActiveClaimsFile({
     activePath,
-    transform: (registry) => {
-      assertNoLiveIdentityRoutingCollision({
-        registry,
-        nowIso,
-        agentId: identity,
-        surface: 'claims open',
-      });
-      assertNotBlindWithOtherAgents({ registry, nowIso, selfIdentity: identity, watcherVerdict });
-
-      return {
-        ...registry,
-        claims: [...registry.claims, openedClaim],
-      };
-    },
+    transform: openClaimTransform({ openedClaim, commitQueue, nowIso, identity, watcherVerdict }),
   });
 
   return formatOpenClaimResult(openedClaim);

@@ -66,7 +66,8 @@ answer.
 ## Commit-window claims
 
 Before staging or committing, repeat the consultation step for the shared git
-transaction surface and the root `commit_queue`. If a fresh queue entry is
+transaction surface and the advisory commit queue
+(`pnpm agent-tools:commit-queue -- list`). If a fresh queue entry is
 ahead of yours, coordinate rather than racing the index. If no fresh
 `git:index/head` claim exists, register a short-lived claim entry under
 `claims[]`:

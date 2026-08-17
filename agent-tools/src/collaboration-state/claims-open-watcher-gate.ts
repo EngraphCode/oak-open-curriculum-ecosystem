@@ -24,7 +24,11 @@ import { err, unwrapOrThrow } from '@oaknational/result';
 
 import { sameAgentRoutingKey } from './active-agent-routing.js';
 import { liveAgentIdentities } from './active-agents.js';
-import { type CollaborationAgentId, type CollaborationRegistry } from './types.js';
+import {
+  type CollaborationAgentId,
+  type CollaborationCommitQueueEntry,
+  type CollaborationRegistry,
+} from './types.js';
 import {
   classifyWatcherPresence,
   commsSeenFileForCodename,
@@ -41,10 +45,11 @@ import { productionWatcherStalenessIo } from './watcher-staleness-io.js';
  */
 function hasOtherLiveAgents(
   registry: CollaborationRegistry,
+  commitQueue: readonly CollaborationCommitQueueEntry[],
   nowIso: string,
   selfAgentId: CollaborationAgentId,
 ): boolean {
-  return liveAgentIdentities(registry, nowIso).some(
+  return liveAgentIdentities(registry, commitQueue, nowIso).some(
     (identity) => !sameAgentRoutingKey(identity, selfAgentId),
   );
 }
@@ -102,6 +107,13 @@ export async function resolveOpenClaimWatcherVerdict(
  */
 export function assertNotBlindWithOtherAgents(input: {
   readonly registry: CollaborationRegistry;
+  /**
+   * Live queue entries read from the per-intent store BEFORE the registry
+   * lock (queue liveness is TTL-grained, so a just-before-the-lock read is
+   * not a race; the claims half of the population check still evaluates on
+   * the locked snapshot).
+   */
+  readonly commitQueue: readonly CollaborationCommitQueueEntry[];
   readonly nowIso: string;
   readonly selfIdentity: CollaborationAgentId;
   readonly watcherVerdict: WatcherPresenceVerdict;
@@ -109,7 +121,7 @@ export function assertNotBlindWithOtherAgents(input: {
   if (input.watcherVerdict.kind === 'present') {
     return;
   }
-  if (!hasOtherLiveAgents(input.registry, input.nowIso, input.selfIdentity)) {
+  if (!hasOtherLiveAgents(input.registry, input.commitQueue, input.nowIso, input.selfIdentity)) {
     return;
   }
   return unwrapOrThrow<never>(

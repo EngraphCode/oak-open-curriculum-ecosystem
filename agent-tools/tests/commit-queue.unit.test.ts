@@ -256,7 +256,7 @@ describe('verifyStagedBundle', () => {
 describe('guardStageFiles', () => {
   it('accepts requested files covered by a fresh owned intent and git claim', () => {
     const registry: CommitQueueRegistry = {
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       claims: [gitClaim()],
       commit_queue: [
         intent({
@@ -281,7 +281,7 @@ describe('guardStageFiles', () => {
 
   it('rejects staging before the owner has enqueued a matching intent', () => {
     const registry: CommitQueueRegistry = {
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       claims: [gitClaim()],
       commit_queue: [],
     };
@@ -313,7 +313,7 @@ describe('guardStageFiles', () => {
       id: agentId.id,
     };
     const registry: CommitQueueRegistry = {
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       claims: [gitClaim({ agent_id: driftedTuple })],
       commit_queue: [intent({ agent_id: driftedTuple, phase: 'staging' })],
     };
@@ -334,7 +334,7 @@ describe('guardStageFiles', () => {
       id: uuidV5Schema.parse('0a105546-2c71-5107-ae67-e04a133bd2ba'),
     };
     const registry: CommitQueueRegistry = {
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       claims: [gitClaim()],
       commit_queue: [intent({ agent_id: prefixCollider })],
     };
@@ -365,7 +365,7 @@ describe('guardStageFiles', () => {
       session_id_prefix: agentId.session_id_prefix,
     };
     const registry: CommitQueueRegistry = {
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       claims: [gitClaim({ agent_id: legacyClaimIdentity })],
       commit_queue: [intent()],
     };
@@ -393,7 +393,7 @@ describe('guardStageFiles', () => {
       id: uuidV5Schema.parse('0a105546-2c71-5107-ae67-e04a133bd2ba'),
     };
     const registry: CommitQueueRegistry = {
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       claims: [gitClaim({ agent_id: prefixCollider })],
       commit_queue: [intent()],
     };
@@ -417,7 +417,7 @@ describe('guardStageFiles', () => {
 
   it('rejects an intent whose claim is not a git index/head claim', () => {
     const registry: CommitQueueRegistry = {
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       claims: [gitClaim({ areas: [{ kind: 'files', patterns: ['agent-tools/src/**'] }] })],
       commit_queue: [intent()],
     };
@@ -443,7 +443,7 @@ describe('guardStageFiles', () => {
       files: ['agent-tools/tests/commit-queue.unit.test.ts'],
     });
     const registry: CommitQueueRegistry = {
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       claims: [gitClaim({ claim_id: selected.claim_id })],
       commit_queue: [intent({ phase: 'pre_commit' }), selected],
     };
@@ -465,7 +465,7 @@ describe('guardStageFiles', () => {
 describe('completeCommitIntent', () => {
   it('removes the completed queue entry and clears the owning claim pointer', () => {
     const registry: CommitQueueRegistry = {
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       commit_queue: [intent()],
       claims: [
         {
@@ -486,7 +486,7 @@ describe('completeCommitIntent', () => {
         intentId: '11111111-1111-4111-8111-111111111111',
       }),
     ).toStrictEqual({
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       commit_queue: [],
       claims: [
         {
@@ -505,7 +505,7 @@ describe('completeCommitIntent', () => {
 describe('formatCommitQueueStatus', () => {
   it('classifies active, expired, and abandoned queue entries', () => {
     const registry: CommitQueueRegistry = {
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       claims: [],
       commit_queue: [
         intent({
@@ -541,7 +541,7 @@ describe('formatCommitQueueStatus', () => {
 
   it('formats commit-queue status as JSON text', () => {
     const registry: CommitQueueRegistry = {
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       claims: [],
       commit_queue: [intent()],
     };
@@ -558,7 +558,7 @@ describe('formatCommitQueueStatus', () => {
 
 describe('commit-queue read APIs', () => {
   const registry: CommitQueueRegistry = {
-    schema_version: '1.3.0',
+    schema_version: '1.4.0',
     claims: [],
     commit_queue: [
       intent({
@@ -636,7 +636,7 @@ describe('commit-queue read APIs', () => {
 
   it('rejects invalid expiry timestamps instead of presenting them as active', () => {
     const invalidRegistry: CommitQueueRegistry = {
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       claims: [],
       commit_queue: [intent({ expires_at: 'not-a-date' })],
     };
@@ -648,7 +648,7 @@ describe('commit-queue read APIs', () => {
 
   it('rejects calendar-overflow expiry timestamps instead of normalising them', () => {
     const invalidRegistry: CommitQueueRegistry = {
-      schema_version: '1.3.0',
+      schema_version: '1.4.0',
       claims: [],
       commit_queue: [intent({ expires_at: '2026-02-31T07:35:00Z' })],
     };

@@ -13,7 +13,6 @@ const ALLOWED_OPTIONS: ReadonlyMap<string, ReadonlySet<string>> = new Map([
       'commit-subject',
       'file',
       'intent-id',
-      'ttl-seconds',
       'registry',
     ]),
   ],

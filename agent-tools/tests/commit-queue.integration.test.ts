@@ -37,7 +37,7 @@ function intent(overrides: Partial<CommitIntent> = {}): CommitIntent {
 
 function registry(): CommitQueueRegistry {
   return {
-    schema_version: '1.3.0',
+    schema_version: '1.4.0',
     claims: [],
     commit_queue: [
       intent(),
@@ -223,7 +223,7 @@ describe('commit-queue CLI read commands', () => {
         resolveGitRoot: rejectGitRootResolution,
         readRegistry: async () =>
           ok({
-            schema_version: '1.3.0',
+            schema_version: '1.4.0',
             claims: [
               {
                 claim_id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',

@@ -1,12 +1,11 @@
 import { randomUUID } from 'node:crypto';
 
+import { commitQueueEntryExpiresAt } from '../collaboration-state/commit-queue-store.js';
 import { collaborationAgentIdWriteSchema } from '../collaboration-state/types.js';
 
 import { nowIso, requireOption } from './args.js';
 import { normalizeRepoPath } from './path-list.js';
 import { type CommitIntent, type CommitQueueCliOptions } from './types.js';
-
-const DEFAULT_TTL_SECONDS = 900;
 
 /**
  * Create a queued commit intent from validated CLI options.
@@ -40,7 +39,9 @@ export function createIntent(options: CommitQueueCliOptions): CommitIntent {
     commit_subject: requireOption(options, 'commit-subject'),
     queued_at: now,
     updated_at: now,
-    expires_at: expiresAtIso(now, Number(options['ttl-seconds'] ?? DEFAULT_TTL_SECONDS)),
+    // The fixed 1-hour TTL from the last write (owner ruling QUEUE-LOCAL);
+    // the store re-derives this on every rewrite.
+    expires_at: commitQueueEntryExpiresAt(now),
     phase: 'queued',
   };
 }
@@ -48,8 +49,4 @@ export function createIntent(options: CommitQueueCliOptions): CommitIntent {
 function optionOrRandomId(options: CommitQueueCliOptions): string {
   const intentId = options['intent-id'];
   return typeof intentId === 'string' ? intentId : randomUUID();
-}
-
-function expiresAtIso(startIso: string, ttlSeconds: number): string {
-  return new Date(Date.parse(startIso) + ttlSeconds * 1000).toISOString();
 }

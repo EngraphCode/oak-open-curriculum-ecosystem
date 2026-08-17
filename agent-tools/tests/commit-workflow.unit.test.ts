@@ -93,7 +93,7 @@ function gitClaim(overrides: Partial<CommitQueueClaim> = {}): CommitQueueClaim {
 
 function initialRegistry(intent: CommitIntent = queuedIntent()): CommitQueueRegistry {
   return {
-    schema_version: '1.3.0',
+    schema_version: '1.4.0',
     claims: [gitClaim()],
     commit_queue: [intent],
   };

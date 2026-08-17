@@ -11,6 +11,7 @@ import {
   ACTIVE_CLAIMS_SCHEMA_VERSION,
   CLOSED_CLAIMS_SCHEMA_VERSION,
   type ClosedClaimsArchive,
+  type CollaborationCommitQueueEntry,
   type CollaborationRegistry,
   type CommsEvent,
   type DirectedCommsMessage,
@@ -19,7 +20,6 @@ import { FAKE_COMMS_CONCEPT_GATE_BLOCKS } from './fake-collaboration-runtime-fix
 
 const emptyActiveClaims: CollaborationRegistry = {
   schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
-  commit_queue: [],
   claims: [],
 };
 
@@ -30,6 +30,8 @@ const emptyClosedClaims: ClosedClaimsArchive = {
 
 interface FakeCollaborationRuntimeInput {
   readonly activeClaims?: CollaborationRegistry;
+  /** Live entries the fake per-intent commit-queue store serves. */
+  readonly commitQueue?: readonly CollaborationCommitQueueEntry[];
   readonly closedClaims?: ClosedClaimsArchive;
   readonly comms?: Readonly<Record<string, readonly CommsEvent[]>>;
   readonly worktrees?: readonly GitWorktree[];
@@ -61,6 +63,7 @@ interface FakeRuntimeState {
   readonly textByPath: Map<string, string>;
   readonly legacyByDir: Map<string, readonly unknown[]>;
   readonly activeClaims: CollaborationRegistry;
+  readonly commitQueue: readonly CollaborationCommitQueueEntry[];
   readonly activeClaimsPaths: string[];
   readonly closedClaims: ClosedClaimsArchive;
   readonly worktrees: readonly GitWorktree[];
@@ -70,17 +73,7 @@ interface FakeRuntimeState {
 export function createFakeCollaborationRuntime(
   input: FakeCollaborationRuntimeInput = {},
 ): FakeCollaborationRuntime {
-  const state: FakeRuntimeState = {
-    commsByDir: new Map(),
-    seenByFile: new Map(),
-    textByPath: new Map(),
-    legacyByDir: legacyByDir(input.legacyComms ?? {}),
-    activeClaims: input.activeClaims ?? emptyActiveClaims,
-    activeClaimsPaths: [],
-    closedClaims: input.closedClaims ?? emptyClosedClaims,
-    worktrees: input.worktrees ?? [],
-    ensuredDirectories: new Set(),
-  };
+  const state = initialFakeRuntimeState(input);
   seedComms(state, input.comms ?? {});
 
   return {
@@ -108,6 +101,21 @@ export function createFakeCollaborationRuntime(
   };
 }
 
+function initialFakeRuntimeState(input: FakeCollaborationRuntimeInput): FakeRuntimeState {
+  return {
+    commsByDir: new Map(),
+    seenByFile: new Map(),
+    textByPath: new Map(),
+    legacyByDir: legacyByDir(input.legacyComms ?? {}),
+    activeClaims: input.activeClaims ?? emptyActiveClaims,
+    commitQueue: input.commitQueue ?? [],
+    activeClaimsPaths: [],
+    closedClaims: input.closedClaims ?? emptyClosedClaims,
+    worktrees: input.worktrees ?? [],
+    ensuredDirectories: new Set(),
+  };
+}
+
 function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
   return {
     readActiveClaimsFile: async (activePath) => {
@@ -115,6 +123,7 @@ function createFakeIo(state: FakeRuntimeState): CollaborationStateCliIo {
       return ok(state.activeClaims);
     },
     readClosedClaimsFile: async () => ok(state.closedClaims),
+    readCommitQueueEntries: async () => state.commitQueue,
     writeCommsEvent: async ({ commsDir, event, nowIso }) => {
       writeCommsEvent(
         state,

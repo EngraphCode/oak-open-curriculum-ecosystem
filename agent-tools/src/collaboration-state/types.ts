@@ -92,6 +92,12 @@ export interface CollaborationClaim {
   readonly closure?: CollaborationClosure;
 }
 
+/**
+ * One machine-local commit-queue intent, stored as its own file at
+ * `.agent/state/collaboration/commit-queue/<intent-id>.json` (owner ruling
+ * 2026-08-17, QUEUE-LOCAL — the queue left the claims file at registry
+ * schema 1.4.0; `commit-queue-store.ts` owns the file conventions and TTL).
+ */
 export interface CollaborationCommitQueueEntry {
   readonly intent_id: string;
   readonly claim_id: string;
@@ -124,19 +130,24 @@ export interface CollaborationCommitQueueEntry {
  * constant has not adopted) has no mechanical guard yet. Test fixtures and
  * assertions deliberately keep the raw literal so a version bump reddens
  * the contract pins; validity-constructing helpers ride the constant.
+ *
+ * 1.4.0 (owner ruling 2026-08-17, QUEUE-LOCAL): the flat `commit_queue`
+ * array left this file for the per-intent store; the claims file carries
+ * claims only, and the readers migrate a legacy 1.3.0 file once on first
+ * contact (`active-claims-legacy-migration.ts`).
  */
-export const ACTIVE_CLAIMS_SCHEMA_VERSION = '1.3.0';
+export const ACTIVE_CLAIMS_SCHEMA_VERSION = '1.4.0';
 
 /**
  * The exact schema version for the closed-claims archive — a separate
- * surface pinned separately, currently versioned in lockstep with the
- * active-claims registry.
+ * surface pinned separately. It stays at 1.3.0 through the registry's
+ * 1.4.0 queue split: the archive never carried a commit_queue, so nothing
+ * in its shape changed.
  */
 export const CLOSED_CLAIMS_SCHEMA_VERSION = '1.3.0';
 
 export interface CollaborationRegistry {
   readonly schema_version: typeof ACTIVE_CLAIMS_SCHEMA_VERSION;
-  readonly commit_queue: readonly CollaborationCommitQueueEntry[];
   readonly claims: readonly CollaborationClaim[];
 }
 

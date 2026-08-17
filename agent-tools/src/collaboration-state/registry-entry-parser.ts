@@ -1,8 +1,10 @@
 import { err, flatMap, map, ok, type Result } from '@oaknational/result';
 
+import { requireIsoDateTimeResult } from '../core/iso-date-time.js';
 import {
   getJsonValue,
   isJsonObject,
+  parseJsonTextResult,
   parseStringArray,
   requireString,
   type JsonObject,
@@ -129,6 +131,36 @@ function assembleEntry(
     ...(typeof stagedNameStatus === 'string' ? { staged_name_status: stagedNameStatus } : {}),
     ...(typeof notes === 'string' ? { notes } : {}),
   };
+}
+
+/**
+ * Parse one per-intent store file's text (the commit-queue-intent surface).
+ * Adds the strict ISO timestamp check the store's TTL arithmetic depends on:
+ * a non-ISO `updated_at` would otherwise parse to NaN and silently defeat
+ * both the expiry decision and the lazy sweep.
+ */
+export function parseCommitQueueIntentText(
+  text: string,
+  label: string,
+): Result<CollaborationCommitQueueEntry, Error> {
+  return flatMap(parseJsonTextResult(text, label), (value) =>
+    flatMap(parseCommitQueueEntry(value), parseEntryTimestamps),
+  );
+}
+
+function parseEntryTimestamps(
+  entry: CollaborationCommitQueueEntry,
+): Result<CollaborationCommitQueueEntry, Error> {
+  const queuedAt = requireIsoDateTimeResult(entry.queued_at, 'queued_at');
+  if (!queuedAt.ok) {
+    return queuedAt;
+  }
+  const updatedAt = requireIsoDateTimeResult(entry.updated_at, 'updated_at');
+  if (!updatedAt.ok) {
+    return updatedAt;
+  }
+
+  return map(requireIsoDateTimeResult(entry.expires_at, 'expires_at'), () => entry);
 }
 
 function parseCommitQueuePhase(

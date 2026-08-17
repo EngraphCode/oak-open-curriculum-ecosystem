@@ -71,7 +71,8 @@ Read in order; stop at whichever answers your next-step question:
 2. @.agent/memory/operational/threads/README.md — thread convention + identity discipline (PDR-027)
 3. `.agent/memory/operational/threads/<slug>.next-session.md` — the thread record for any thread the session will touch (carries identity, next-session landing, _and lane state_)
 4. `.agent/state/collaboration/active-claims.json` — active-claims
-   registry and ordered advisory `commit_queue`
+   registry (the advisory commit queue is machine-local per-intent
+   state; read it with `pnpm agent-tools:commit-queue -- list`)
 5. `.agent/state/collaboration/shared-comms-log.md` — generated recent
    free-form collaboration context
 6. `.agent/state/collaboration/conversations/*.json` — open decision
@@ -80,10 +81,10 @@ Read in order; stop at whichever answers your next-step question:
 7. `.agent/state/collaboration/escalations/*.json` — active owner-facing
    escalation cases for the touched thread or area
 
-When reading `active-claims.json`, surface any fresh `commit_queue` entries
-alongside active claims: `intent_id`, `agent_id`, `files`, `commit_subject`,
-`phase`, and `expires_at`. Queue entries are discovery and ordering signals,
-not mechanical refusals.
+Alongside active claims, surface any fresh advisory commit-queue intents
+(`pnpm agent-tools:commit-queue -- list`): `intent_id`, `agent_id`,
+`files`, `commit_subject`, `phase`, and `expires_at`. Queue entries are
+discovery and ordering signals, not mechanical refusals.
 
 If a dirty slice has no matching active claim or recent comms event, do not
 classify it as orphaned until `repo-continuity.md` Next Safe Steps, the touched
@@ -136,7 +137,7 @@ or collaboration state as `Codex` / `unknown`; use the derived `agent_name` and
 developer context, but the preflight command remains the correctness check.
 
 Before staging or committing, use the always-active commit skill. It
-checks for fresh `commit_queue` entries and `git:index/head` commit-window
+checks for fresh commit-queue intents and `git:index/head` commit-window
 claims, enqueues your intended bundle before staging, verifies the staged
 bundle exactly before `git commit`, and clears the queue entry after success.
 
@@ -309,7 +310,7 @@ else
   # lockstep is PINNED: state-file-seeds.integration.test.ts reddens when
   # these literals drift from the constants — fix both in the same change.
   mkdir -p "$COORD_HOME/.agent/state/collaboration" \
-  && { ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [], "commit_queue": [] }' \
+  && { ( set -C; printf '%s\n' '{ "schema_version": "1.4.0", "claims": [] }' \
     > "$COORD_HOME/.agent/state/collaboration/active-claims.json" ) 2>/dev/null \
     || [ -f "$COORD_HOME/.agent/state/collaboration/active-claims.json" ]; } \
   && { ( set -C; printf '%s\n' '{ "schema_version": "1.3.0", "claims": [] }' \

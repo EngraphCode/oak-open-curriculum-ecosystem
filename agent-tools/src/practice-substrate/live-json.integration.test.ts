@@ -11,7 +11,7 @@ import {
  * Characterisation of the live claim-surface contract-parser leg — written
  * before the seam consolidation and kept green through it. The failing
  * fixture is SCHEMA-VALID but PARSER-INVALID (schema_version 1.2.0 is in
- * the schema's enum; the contract parser pins 1.3.0 exactly), so the
+ * the schema's enum; the contract parser pins 1.4.0 exactly), so the
  * expected finding can ONLY come from the contract gate — deleting the
  * gate turns this test green-to-empty, not same-finding-via-Ajv. Real
  * temp-directory IO makes this an integration test; the IO lives behind
@@ -21,8 +21,7 @@ import {
 describe('evaluateCollaborationJsonSurfaces contract-parser leg', () => {
   it('passes a clean estate', async () => {
     const root = await makeTempSubstrateRepo({
-      schema_version: '1.3.0',
-      commit_queue: [],
+      schema_version: '1.4.0',
       claims: [],
     });
     try {
@@ -34,7 +33,7 @@ describe('evaluateCollaborationJsonSurfaces contract-parser leg', () => {
 
   it('classifies a malformed-JSON comms event as an invalid-json finding: the parser Err carries the raw SyntaxError to the classifier', async () => {
     const root = await makeTempSubstrateRepo(
-      { schema_version: '1.3.0', commit_queue: [], claims: [] },
+      { schema_version: '1.4.0', claims: [] },
       { commsEventFiles: { 'broken-event.json': 'not json at all' } },
     );
     try {
@@ -52,7 +51,7 @@ describe('evaluateCollaborationJsonSurfaces contract-parser leg', () => {
     // split (both cases would report the same id) and one of the two pins
     // reddens.
     const root = await makeTempSubstrateRepo(
-      { schema_version: '1.3.0', commit_queue: [], claims: [] },
+      { schema_version: '1.4.0', claims: [] },
       { commsEventFiles: { 'wrong-shape.json': JSON.stringify({ kind: 'narrative' }) } },
     );
     try {
