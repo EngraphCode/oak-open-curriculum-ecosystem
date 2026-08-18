@@ -20,12 +20,17 @@ merge_class: index-narrative-tables
 Oak's MCP app reaches public beta, **publicised 6 September 2026**
 (owner-confirmed 2026-08-13). Not general availability — GA's bar stays ahead.
 
-**The constraint that actually governs scheduling** (owner, 2026-08-13): MG's
-effective availability ends **20 August**. He is away the following week and
-busy the week he returns. So the operative question for anything dated after
-20 Aug is not "is it before 6 Sept" but **"does it need MG personally, and can
-that dependency be removed or pulled inside the window?"** Re-dating without
-answering that produces schedule pressure without reducing risk.
+**The constraint that actually governs scheduling** (owner, 2026-08-17,
+SUPERSEDING the 2026-08-13 "20 August" figure): MG is **away ~22-31 August** and
+back ~1 September. From 2026-08-18 that is roughly **three working days**. The
+operative question for anything dated after that is not "is it before 6 Sept" but
+**"does it need MG personally, and can that dependency be removed or pulled inside
+the window?"** Re-dating without answering that produces schedule pressure without
+reducing risk.
+
+**And the consequence that matters more than the dates** (owner, 2026-08-17): route
+anything MG-needing the **SAME DAY it is discovered, never batched**. An item held
+to Friday afternoon costs nine days.
 
 ## Coverage map — the human OKR project's five critical-path tickets
 
@@ -50,7 +55,8 @@ publicity is far worse than before.
 ## Where everything lives (the index a successor needs)
 
 - **Board of record**: `MCP App: First Major Release`, target 2026-09-06.
-  Milestones re-dated 2026-08-13 and re-cut against the 20 Aug edge.
+  Milestones re-dated 2026-08-13 and re-cut against what was then read as a
+  20 Aug edge; the live constraint is the ~22-31 Aug absence above.
 - **Tickets minted this drive**: MCP-593 (per-user credentials), MCP-594
   (harness attribution), MCP-595 (carousel), MCP-596 (web-app lane gap),
   MCP-597 (monitor disabled), MCP-599 (standing sign-off criteria).
@@ -63,21 +69,48 @@ publicity is far worse than before.
 - **Owner-liaison seat**: reconstitutes from `SEAT-BRIEF.md` on
   `chore/owner-liaison` (`e24629a93`).
 
-## State at wrap, 2026-08-17 evening (Skunk stirs Cavern, `db8b9b`) — READ THIS FIRST
+## State at wrap, 2026-08-17 evening (Skunk stirs Cavern, `db8b9b`) — SUPERSEDED IN PART
 
-Second Director wrap of 2026-08-17. Everything below — **including Tuna holds
-Ballast's own wrap from earlier the same day** — is historical. Where they disagree
-with this block, this block wins.
+**PRECEDENCE, corrected 2026-08-18. Read this before trusting anything in this block.**
+This block was written as the current one and declared everything below it historical.
+It is now **partly superseded**. The precedence order is:
 
-**The fleet is now EMPTY.** Both the Director seat and the owner-liaison seat
-(`Wildfire spins Temper`, `8e5eba`) stood down this evening at MG's word, with no
-retained claims and no successor pre-positioned. So the incoming Director **is the
-owner interface directly** — and that is the Director's NORMAL role under PDR-117
-(single owner-interface: answer what you can, lens-resolve the ambiguous, escalate
-what is constitutively the owner's). It is not an exception. Do not wait for a
-liaison to exist.
+1. **§"Owner boundary, 2026-08-18"** and **§"Next safe steps — current as of
+   2026-08-18"**, both BELOW this block, are the CURRENT instructions and **outrank
+   this block wherever they disagree.**
+2. This block outranks everything else below it, including Tuna holds Ballast's wrap
+   from earlier the same day.
 
-**Recorded separately, because it is a DIFFERENT fact: there is no liaison seat.**
+The original blanket sentence — "everything below is historical, this block wins" —
+was true when written and became false the moment newer sections were appended
+beneath it. It would have declared the 2026-08-18 owner boundary historical, and a
+successor obeying it could have repeated the prohibited foreign-board writes that
+boundary exists to prevent. **A precedence claim that names a POSITION rather than a
+DATE inverts as soon as the document grows.**
+
+**STALE AS OF 2026-08-18 — A LIAISON EXISTS. Do not act on the paragraph below
+without reading this first.** The owner-liaison seat **Raven turns Nocturne**
+(`0aad1a`) is live, holds claim `81fae3c8` with role `liaison`, and is the single
+channel to MG. **Owner-facing traffic routes to the liaison, NOT direct to MG.**
+Following the original instruction below would send owner traffic straight to him,
+against the routing contract.
+
+*Historical, as written 2026-08-17 evening:* the fleet was then EMPTY — both the
+Director seat and the owner-liaison seat (`Wildfire spins Temper`, `8e5eba`) stood
+down that evening at MG's word with no retained claims and no successor
+pre-positioned, so the incoming Director was the owner interface directly. That is
+the Director's NORMAL role under PDR-117 (single owner-interface: answer what you
+can, lens-resolve the ambiguous, escalate what is constitutively the owner's) and
+not an exception — but the "do not wait for a liaison to exist" instruction is
+discharged, because one now does.
+
+**DISCHARGED 2026-08-18: MG seated a liaison — Raven turns Nocturne (`0aad1a`), claim
+`81fae3c8`. Owner-facing traffic goes to it, not direct. The paragraph below is retained
+because its PDR-117 distinction is still correct doctrine and worth reading; only its
+"there is no liaison" premise has expired.**
+
+*As written 2026-08-17 evening — recorded separately, because it is a DIFFERENT fact:
+there was then no liaison seat.*
 PDR-117's Director-absent case is the case where NO DIRECTOR SEAT IS HELD, and what
 it does is move the owner-interface to the **Implementer** — PDR-117 §The routing
 contract, verbatim: *"the Implementer **is** the owner-interface directly; the upward
@@ -343,11 +376,16 @@ the liaison seat; `Backlog`, High, M9, `CloudOps`.
 
 ### FOR THE INCOMING DIRECTOR — start here
 
-**You are the owner interface.** That is the Director's NORMAL role under PDR-117 —
-answer what you can, lens-resolve the ambiguous, escalate what is constitutively the
-owner's — not an exception to it. Both the prior Director and the liaison stood down
-this evening and no seat is pre-positioned, so until MG seats a liaison there is no
-relay: every owner-facing item routes through you directly, same-day, never batched.
+**Being the owner interface is the Director's NORMAL role under PDR-117** — answer what
+you can, lens-resolve the ambiguous, escalate what is constitutively the owner's — not an
+exception to it.
+
+**BUT AS OF 2026-08-18 YOU ARE NOT THE RELAY: route owner-facing items to the LIAISON**,
+Raven turns Nocturne (`0aad1a`), claim `81fae3c8`. The upward flow is Implementer →
+Director → liaison → MG. When this block was written on 2026-08-17 evening both the prior
+Director and the liaison had stood down with no seat pre-positioned, so the Director was
+the relay; that is no longer true. Same-day routing still binds, and now binds on the
+liaison rather than on you.
 
 **Landing target: MCP-597.** Pingdom takes AC1 at zero cost, so the Sentry quota no
 longer gates the health probe. Sequence:
@@ -365,10 +403,11 @@ longer gates the health probe. Sequence:
 3. **MCP-493 (AC3)** — and note the destination does **not** carry over.
    `#mcp-alerts-sentry-prod` was decided for the *Sentry* path; a Pingdom failure needs
    its own destination decision.
-4. **Get PR #902 merged.** All 15 checks pass; blocked only on the code-owner gate.
-   Until it merges, `.agent/operator-local/` and the start-right §3a pointer do not
-   exist on `main`, and the credential ruling lives only in a machine-local brief. The
-   warden can clear it — #902 is its queue item.
+4. **PR #902 is MERGED — DISCHARGED, do not action it.** Merge commit `3002f4476`,
+   2026-08-18T11:57:30Z, an ancestor of this record's own head. `.agent/operator-local/`,
+   the start-right §3a pointer and the credential action-class ruling are all on `main`.
+   What replaced it as the open PR work: **#903** (this record) and **#906** (the
+   foreign-board-write-discipline rule), both carrying reviewer blockers.
 
 **Do not** re-run the provider comparison; it is answered. **Do not** weaken AC2 to fit
 a tool, and **do not** propose an in-repo scheduler (ADR-162, AC5).
