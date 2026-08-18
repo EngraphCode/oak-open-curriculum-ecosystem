@@ -2,6 +2,8 @@
  "schema_version": "1.0.0",
  "plan": ".agent/plans/delivery/workspace-classification-census.plan.md",
  "provenance": "Round-2 decomposition analysis fleet (workflow wf_1c4cc8d2-f3a, 2026-08-14, 6 analyse groups + 6 frame-challengers, 12/12 complete), answering the owner card round-1 directive banked in the plan amendment trail. Raw fleet output; synthesis follows.",
+ "status": "historical",
+ "re_graded": "2026-08-17 workspace-basis re-grounding (owner correction): zero deference weight, round-2 cancelled; see decomposition-synthesis.md status header and .agent/research/workspace-basis-regrounding-2026-08-17.md",
  "groups": [
   {
    "group": "codegen-chain",

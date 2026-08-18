@@ -2,6 +2,8 @@
  "schema_version": "1.0.0",
  "plan": ".agent/plans/delivery/workspace-classification-census.plan.md",
  "provenance": "Round-2 consolidation (workflow wf_862b18c7-c13, 2026-08-14) over decomposition-analysis.json; challenger verdicts absorbed.",
+ "status": "historical",
+ "re_graded": "2026-08-17 workspace-basis re-grounding (owner correction): zero deference weight, round-2 cancelled; see decomposition-synthesis.md status header and .agent/research/workspace-basis-regrounding-2026-08-17.md",
  "counts": {
   "currentWorkspaces": 34,
   "targetWorkspaces": 66
