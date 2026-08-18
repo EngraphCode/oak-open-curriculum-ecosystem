@@ -20,7 +20,7 @@
 import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
 import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
 
-export function applyFrameTheme(root: HTMLElement, theme: OakThemeSnapshot): void {
+function applyFrameTheme(root: HTMLElement, theme: OakThemeSnapshot): void {
   const prefersMoreContrast =
     root.ownerDocument.defaultView?.matchMedia('(prefers-contrast: more)').matches === true;
   // The identity-default face still honours an OS contrast request — the
@@ -35,4 +35,30 @@ export function applyFrameTheme(root: HTMLElement, theme: OakThemeSnapshot): voi
   } else {
     root.dataset['theme'] = target;
   }
+}
+
+/**
+ * Apply AND HOLD: the one-shot write above plus the divergence guard that
+ * keeps it true for the hold's lifetime. External writers exist in every
+ * framed document — the runtime's pre-paint apply of a stored site-level
+ * choice, and its live `prefers-contrast` listener, which believes no
+ * choice exists because a stage never tells it one does — so a stage that
+ * only applies at load drifts the moment the OS changes under it. The
+ * observer's correction cycle terminates on the applier's idempotence
+ * guard. Consolidated at its third consumer (the switchboard's
+ * useFrameTheme, the colour-strip cells, the white-labelling stage): the
+ * guard IS the contract, so no consumer should re-hand-roll it.
+ *
+ * Returns the release: disconnect before applying a different theme, or
+ * the old hold corrects the new writer.
+ */
+export function holdFrameTheme(root: HTMLElement, theme: OakThemeSnapshot): () => void {
+  applyFrameTheme(root, theme);
+  const observer = new MutationObserver(() => {
+    applyFrameTheme(root, theme);
+  });
+  observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  return () => {
+    observer.disconnect();
+  };
 }

@@ -67,10 +67,8 @@ function adoptServerSheet(
 }
 
 /** Retire an outgoing sheet. Hook-created links are removed outright; an
- *  ADOPTED server-rendered link (the specimen's `?brand=` path) belongs
- *  to React's own tree — removing it fights the framework, which restores
- *  hoisted elements — so it is DISABLED instead, which drops it from the
- *  cascade while leaving React's node alone. */
+ *  ADOPTED server-rendered link belongs to React's own tree — removal
+ *  fights the framework — so it is DISABLED, leaving React's node alone. */
 function retireLink(link: HTMLLinkElement, ownership: BrandLinkOwnership): void {
   if (ownership.owned.has(link)) {
     link.remove();
@@ -93,12 +91,15 @@ function applyBrandIdentity(
   ownership: BrandLinkOwnership,
   target: Document,
 ): void {
-  // Already in effect (the mount render after adopting a server-rendered
-  // sheet, or a repeated set): nothing to swap.
+  // EVERY call invalidates in-flight loads, including the nothing-to-swap
+  // path below: with A applied and B still loading, a return to A must
+  // strip B's load of its authority, or the stale load later applies B.
+  const thisGeneration = (ownership.generation.current += 1);
+  // Already in effect (adopted server sheet at mount, a repeated set, or
+  // a return to the applied identity mid-flight): nothing to swap.
   if (ownership.applied.current?.dataset['oakBrand'] === identity) {
     return;
   }
-  const thisGeneration = (ownership.generation.current += 1);
   const previous = ownership.applied.current;
   if (identity === BASE_IDENTITY) {
     if (previous !== null) {
@@ -107,9 +108,19 @@ function applyBrandIdentity(
     }
     return;
   }
-  // The node must be created BY the target document: a link minted from the
-  // host and adopted into a frame is a cross-document node, and the frame is
-  // the second consumer this function was parameterised for.
+  appendBrandLink(identity, thisGeneration, previous, ownership, target);
+}
+
+/** Create, wire, and append the incoming sheet's link — created BY the
+ *  target document (a host-minted link adopted into a frame would be a
+ *  cross-document node; the frame is the second consumer here). */
+function appendBrandLink(
+  identity: IdentitySlug,
+  thisGeneration: number,
+  previous: HTMLLinkElement | null,
+  ownership: BrandLinkOwnership,
+  target: Document,
+): void {
   const link = target.createElement('link');
   link.rel = 'stylesheet';
   link.dataset['oakBrand'] = identity;
@@ -170,11 +181,10 @@ function useBrandSheet(
   const appliedLink = useRef<HTMLLinkElement | null>(null);
   const generation = useRef(0);
 
-  // A server-rendered brand sheet is ADOPTED as the applied link at mount
-  // (adoptServerSheet above), so the apply effect skips the mount render
-  // instead of appending a duplicate. Idempotent and re-runnable (never a
-  // once-flag): strict-mode's rehearsal cleanup clears `applied`, and this
-  // re-establishes it on the second pass.
+  // A server-rendered brand sheet is ADOPTED as the applied link at mount,
+  // so the apply effect skips the mount render instead of duplicating.
+  // Re-runnable, never a once-flag: strict-mode's rehearsal cleanup clears
+  // `applied`, and this re-establishes it on the second pass.
   useEffect(() => {
     const target = resolveTarget === undefined ? document : resolveTarget();
     if (target !== null && appliedLink.current === null) {
@@ -207,6 +217,8 @@ function useBrandSheet(
       }
       owned.clear();
       appliedLink.current = null;
+      // A load resolving after unmount must not take the applied path.
+      generation.current += 1;
     };
   }, []);
 }

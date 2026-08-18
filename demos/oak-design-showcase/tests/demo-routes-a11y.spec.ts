@@ -108,3 +108,73 @@ test.describe('composition exhibit: narrow faces re-arrange', () => {
     assertOnlyKnownExternalOrigins(aborted);
   });
 });
+
+test.describe('token reference: the scroll stop follows measured overflow', () => {
+  test('a family is a focus stop exactly while its table scrolls @a11y', async ({ page }) => {
+    const aborted = await openRoute(page, '/tokens');
+    // The invariant, not a snapshot count: every family carries the stop
+    // exactly when it measurably scrolls. (A bare zero-count would pass
+    // pre-hydration and turn false the day content genuinely overflows;
+    // the invariant survives both.)
+    const invariantBreaches = (): Promise<number> =>
+      page
+        .locator('.tok-scroll')
+        .evaluateAll(
+          (els) =>
+            els.filter(
+              (el) => el.scrollWidth > el.clientWidth !== (el.getAttribute('tabindex') === '0'),
+            ).length,
+        );
+    await expect
+      .poll(invariantBreaches, { message: 'a stop exists exactly where scroll exists' })
+      .toBe(0);
+    // The safety-net direction, constructed rather than width-guessed:
+    // squeeze one family until its table genuinely overflows, and the
+    // WebKit keyboard-reach stop (SC 2.1.1) must appear on that family —
+    // then release it, and the stop must withdraw again.
+    const first = page.locator('.tok-scroll').first();
+    await first.evaluate((el) => {
+      el.style.maxWidth = '160px';
+    });
+    await expect
+      .poll(() => first.getAttribute('tabindex'), {
+        message: 'squeezed to overflow: the family becomes a focus stop',
+      })
+      .toBe('0');
+    await first.evaluate((el) => {
+      el.style.removeProperty('max-width');
+    });
+    await expect
+      .poll(() => first.getAttribute('tabindex'), {
+        message: 'released: the stop withdraws with the overflow',
+      })
+      .toBeNull();
+    assertOnlyKnownExternalOrigins(aborted);
+  });
+});
+
+test.describe('white-labelling stage: the parent theme holds against frame writers', () => {
+  test('an external data-theme write inside a column is corrected @a11y', async ({ page }) => {
+    const aborted = await openRoute(page, '/identity-white-labelling');
+    const stageHandle = await page.locator('.frame iframe').first().elementHandle();
+    const stageFrame = await stageHandle.contentFrame();
+    expect(stageFrame, 'the first column frame must resolve').not.toBeNull();
+    if (stageFrame === null) {
+      return;
+    }
+    await expect(stageFrame.locator('[data-identity]').first()).toBeVisible();
+    // Each framed document runs the kit runtime, whose live contrast
+    // listener rewrites data-theme on an OS change. Simulate any such
+    // external writer; the stage's hold must correct it back to the
+    // parent-owned state (identity default: no attribute).
+    await stageFrame.evaluate(() => {
+      document.documentElement.dataset['theme'] = 'dark';
+    });
+    await expect
+      .poll(() => stageFrame.evaluate(() => document.documentElement.dataset['theme'] ?? null), {
+        message: 'the stage theme governs for the life of the mount',
+      })
+      .toBeNull();
+    assertOnlyKnownExternalOrigins(aborted);
+  });
+});

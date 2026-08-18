@@ -31,6 +31,7 @@
 import type { ReactElement } from 'react';
 
 import type { IdentitySlug } from '../../components/useIdentity';
+import { useHorizontalOverflow } from '../../components/useHorizontalOverflow';
 
 import { IdentityDeltaCell, Specimen, TokenName, TokenValue } from './TokenCells';
 import { sectionId, type CraftArea } from './craft-areas';
@@ -147,6 +148,7 @@ export function TokenTable({
   deltas,
 }: TokenTableProps): ReactElement {
   const headingId = sectionId(area, family);
+  const { ref: scrollRef, overflowing } = useHorizontalOverflow<HTMLElement>();
   return (
     <section className="tok-family" data-wide={needsFullWidth(tokens) ? 'true' : undefined}>
       <h3 className="oak-heading-6" id={headingId}>
@@ -155,14 +157,18 @@ export function TokenTable({
           {tokens.length} {tokens.length === 1 ? 'token' : 'tokens'}
         </span>
       </h3>
-      {/* The safety net for the middle widths, where four columns of code
-          text no longer fit but the rows have not yet stacked: the table
-          scrolls HERE rather than taking the page sideways (SC 1.4.10
-          reflow). It is a focus stop for the reason the kit gives its own
-          scrollable `pre` one — in WebKit a scroll container that cannot be
-          focused is pointer-only (SC 2.1.1) — and it is named so the stop
-          says what it is. */}
-      <div className="tok-scroll" tabIndex={0} role="region" aria-labelledby={headingId}>
+      {/* The middle-widths safety net: the table scrolls HERE rather than
+          taking the page sideways (SC 1.4.10), named by the family heading
+          so the stop says what it is. A focus stop ONLY while overflow
+          exists (in WebKit an unfocusable scroller is pointer-only,
+          SC 2.1.1) — the conditionality is the useHorizontalOverflow
+          docblock's contract. */}
+      <section
+        ref={scrollRef}
+        className="tok-scroll"
+        tabIndex={overflowing ? 0 : undefined}
+        aria-labelledby={headingId}
+      >
         <table className="oak-table tok-table">
           <TokenTableHead />
           <tbody>
@@ -177,7 +183,7 @@ export function TokenTable({
             ))}
           </tbody>
         </table>
-      </div>
+      </section>
     </section>
   );
 }

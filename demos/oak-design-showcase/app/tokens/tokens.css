@@ -182,7 +182,13 @@
      320px viewport, which is the reflow failure this container exists to
      prevent. */
   position: relative;
-  overflow-x: auto;
+  /* A HORIZONTAL-only scroller. The explicit overflow-y matters: a bare
+     overflow-x: auto computes overflow-y to auto as well, and the rounded
+     border can put a few pixels of artifact slack in scrollHeight — which
+     turns every family into a "scrollable region" that axe then demands
+     keyboard access to. Height is content-driven here, so no real content
+     can ever need vertical scroll; hidden closes the artifact axis. */
+  overflow: auto hidden;
   border: var(--border-solid-s) solid var(--border-neutral-lighter);
   border-radius: var(--radius-container);
 }

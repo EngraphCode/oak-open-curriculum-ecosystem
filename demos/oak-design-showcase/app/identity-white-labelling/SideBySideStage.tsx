@@ -7,9 +7,10 @@
  * comparison stays controlled: same markup, same theme, same simulated
  * viewport, only the identity sheet differs per column.
  *
- * Theme is parent-owned and stage-local (applyFrameTheme via each
- * ScaledFrame): a demo choice never touches the frames' own runtime
- * storage. Width is one simulated viewport shared by every frame.
+ * Theme is parent-owned and stage-local (each ScaledFrame HOLDS it via
+ * the shared frame-theme guard): a demo choice never touches the frames'
+ * own runtime storage. Width is one simulated viewport shared by every
+ * frame.
  */
 import { useCallback, useState } from 'react';
 import type { ReactElement } from 'react';

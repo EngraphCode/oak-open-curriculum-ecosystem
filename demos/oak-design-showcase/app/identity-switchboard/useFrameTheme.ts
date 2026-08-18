@@ -15,19 +15,19 @@ import { useCallback, useEffect, useState } from 'react';
 import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
 import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
 
-import { applyFrameTheme } from '../../components/apply-frame-theme';
+import { holdFrameTheme } from '../../components/apply-frame-theme';
 import { isPickerTheme } from '../../components/theme-vocabulary';
 
-/* The apply logic lives in components/apply-frame-theme.ts (moved at its
-   second consumer, the colour-matrix cells): identity default is the
+/* The apply-and-hold logic lives in components/apply-frame-theme.ts
+   (consolidated at its third consumer): identity default is the
    no-attribute state honouring an OS contrast request; explicit choices
-   are held against external writers by the observer below, whose
-   correction cycle terminates on the applier's idempotence guard. The
-   stage-local state governs the framed root for the LIFE of the mount,
-   not only at mount: external writers exist (the runtime's pre-paint
-   apply of a stored site-level choice, and its live contrast listener,
-   which believes no choice exists because the picker never tells it
-   one does). */
+   are held against external writers by the shared guard's observer,
+   whose correction cycle terminates on the applier's idempotence guard.
+   The stage-local state governs the framed root for the LIFE of the
+   mount, not only at mount: external writers exist (the runtime's
+   pre-paint apply of a stored site-level choice, and its live contrast
+   listener, which believes no choice exists because the picker never
+   tells it one does). */
 
 export function useFrameTheme(resolveTarget: () => Document | null): {
   readonly theme: OakThemeSnapshot;
@@ -40,18 +40,9 @@ export function useFrameTheme(resolveTarget: () => Document | null): {
     if (root === null || root === undefined) {
       return undefined;
     }
-    applyFrameTheme(root, themeState);
     // Hold the control's state against the frame's other writers for the
-    // life of the mount. attributeFilter avoids churn (the test sentinel
-    // rides the same root's dataset); correctness rests on the divergence
-    // guard either way.
-    const observer = new MutationObserver(() => {
-      applyFrameTheme(root, themeState);
-    });
-    observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
-    return () => {
-      observer.disconnect();
-    };
+    // life of the mount (the shared apply-and-hold guard).
+    return holdFrameTheme(root, themeState);
   }, [themeState, resolveTarget]);
 
   const setTheme = useCallback((value: string): void => {

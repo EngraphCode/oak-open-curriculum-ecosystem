@@ -36,18 +36,29 @@ import { useFrameTheme } from '../useFrameTheme';
  *  shared storage. Framedness is a client-only fact, read after mount. */
 const subscribeNever = (): (() => void) => () => undefined;
 
-function useStripTheme(): {
-  readonly theme: OakThemeSnapshot | undefined;
-  readonly setTheme: (value: string) => void;
-} {
-  // Framedness is a stable client-only fact: an external-store read (never
-  // an effect setState) keeps the server snapshot honest and the client
-  // render cascade-free.
-  const framed = useSyncExternalStore(
+const SPECIMEN_TRAIL = [
+  { label: 'Showcase', href: '/' },
+  { label: 'Switchboard', href: '/identity-switchboard' },
+  { label: 'Specimen' },
+] as const;
+
+/** Framedness is a stable client-only fact: an external-store read (never
+ *  an effect setState) keeps the server snapshot honest and the client
+ *  render cascade-free. Two consumers: theme-mode routing, and the
+ *  breadcrumb omission below (framed navigation would otherwise navigate
+ *  the STAGE — a switchboard nested inside its own picker). */
+function useFramed(): boolean {
+  return useSyncExternalStore(
     subscribeNever,
     () => globalThis.self !== globalThis.top,
     () => false,
   );
+}
+
+function useStripTheme(framed: boolean): {
+  readonly theme: OakThemeSnapshot | undefined;
+  readonly setTheme: (value: string) => void;
+} {
   // Framed mode delegates to useFrameTheme pointed at the OWN document —
   // that hook carries the stage-local discipline AND the divergence guard
   // holding the choice against the runtime's live contrast listener (the
@@ -79,18 +90,18 @@ export function StripControls({
    *  and the binder adopts the server's sheet so a switch manages it. */
   readonly initialIdentity: IdentitySlug;
 }): ReactElement {
+  const framed = useFramed();
   const { identity, identities, setIdentity } = useIdentity(undefined, initialIdentity);
-  const { theme, setTheme } = useStripTheme();
+  const { theme, setTheme } = useStripTheme(framed);
 
   return (
     <div className="oak-cluster strip-controls">
-      <ShowcaseBreadcrumbs
-        trail={[
-          { label: 'Showcase', href: '/' },
-          { label: 'Switchboard', href: '/identity-switchboard' },
-          { label: 'Specimen' },
-        ]}
-      />
+      {/* Framed, the specimen is an exhibit, not a page: its links use the
+          default `_self` target, so a framed breadcrumb click would load
+          the destination INSIDE the stage (a switchboard nested in its own
+          picker). Embedded mode therefore carries no page navigation —
+          the parent page owns the trail. */}
+      {framed ? null : <ShowcaseBreadcrumbs trail={SPECIMEN_TRAIL} />}
       <IdentityRadioGroup
         idPrefix="specimen-strip"
         identity={identity}

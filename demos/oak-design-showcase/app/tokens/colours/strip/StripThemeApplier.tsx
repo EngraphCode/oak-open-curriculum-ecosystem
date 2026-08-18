@@ -20,21 +20,11 @@
  */
 import { useEffect } from 'react';
 
-import { applyFrameTheme } from '../../../../components/apply-frame-theme';
+import { holdFrameTheme } from '../../../../components/apply-frame-theme';
 
 import type { MatrixTheme } from '../colour-matrix';
 
 export function StripThemeApplier({ theme }: { readonly theme: MatrixTheme }): null {
-  useEffect(() => {
-    const root = document.documentElement;
-    applyFrameTheme(root, theme);
-    const observer = new MutationObserver(() => {
-      applyFrameTheme(root, theme);
-    });
-    observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
-    return () => {
-      observer.disconnect();
-    };
-  }, [theme]);
+  useEffect(() => holdFrameTheme(document.documentElement, theme), [theme]);
   return null;
 }

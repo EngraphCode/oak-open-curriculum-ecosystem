@@ -180,11 +180,7 @@ function liveValuesEqual(a: LiveValues, b: LiveValues): boolean {
   }
   for (const [name, value] of a) {
     const other = b.get(name);
-    if (
-      other === undefined ||
-      other.value !== value.value ||
-      other.expression !== value.expression
-    ) {
+    if (other?.value !== value.value || other?.expression !== value.expression) {
       return false;
     }
   }

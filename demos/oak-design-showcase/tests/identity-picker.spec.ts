@@ -197,3 +197,53 @@ test.describe('scaled preview target-size floor', () => {
     assertOnlyKnownExternalOrigins(opened.aborted);
   });
 });
+
+test.describe('specimen strip: a return to the applied brand cancels an in-flight swap', () => {
+  test('a stale sheet load never retires the current brand', async ({ page }) => {
+    const [first, second] = COUNTER_BRANDS;
+    // Deterministic, not timed: the second brand's sheet is HELD in flight
+    // until this test releases it, so the race's ordering is constructed.
+    let release: (() => void) | undefined;
+    const held = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    await page.route(`**/brands/${second}/brand.css`, async (route) => {
+      await held;
+      await route.continue();
+    });
+    await page.goto(`/identity-switchboard/specimen?brand=${first}`);
+    await page.getByRole('radio', { name: IDENTITY_LABELS[second] }).check();
+    await expect(page.locator(`link[data-oak-brand='${second}']`)).toHaveCount(1);
+    await page.getByRole('radio', { name: IDENTITY_LABELS[first] }).check();
+    release?.();
+    // A POSITIVE post-load signal: the stale branch REMOVES its link, so
+    // its disappearance proves the held load resolved and was adjudicated.
+    // Pre-cure the link survives applied instead, and this times out red.
+    await expect(page.locator(`link[data-oak-brand='${second}']`), {
+      message: 'the stale load must remove itself, never apply',
+    }).toHaveCount(0);
+    const firstSheetDisabled = (): Promise<boolean | null> =>
+      page.evaluate((slug) => {
+        const link = document.querySelector(`link[data-oak-brand='${slug}']`);
+        return link instanceof HTMLLinkElement ? link.disabled : null;
+      }, first);
+    await expect
+      .poll(firstSheetDisabled, { message: 'the current brand sheet stays in the cascade' })
+      .toBe(false);
+  });
+});
+
+test.describe('specimen breadcrumbs are page furniture, not exhibit furniture', () => {
+  test('the framed specimen carries no page navigation; the full page does', async ({ page }) => {
+    const opened = await openPickerStage(page);
+    if (opened === null) {
+      return;
+    }
+    // Framed, a breadcrumb click would navigate the STAGE (a switchboard
+    // nested inside its own picker), so embedded mode omits the trail.
+    await expect(opened.frame.locator('nav.showcase-crumbs-nav')).toHaveCount(0);
+    await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}`);
+    await expect(page.locator('nav.showcase-crumbs-nav')).toBeVisible();
+    assertOnlyKnownExternalOrigins(opened.aborted);
+  });
+});
