@@ -34,7 +34,7 @@ import { THEME_LABELS, THEME_OPTIONS } from '../identity-switchboard/useFrameThe
 
 import { FamilyNav } from './FamilyNav';
 import { TokenTable, type IdentityDeltaSets } from './TokenTable';
-import { liveTokenValues } from './live-token-values';
+import { liveTokenValues, type LiveValues } from './live-token-values';
 import { TIER_HEADINGS } from './tier-headings';
 import type { TokenTierGroup } from './token-groups';
 
@@ -90,6 +90,41 @@ function TokenControls({
   );
 }
 
+/** The tables themselves, tier by tier and family by family. */
+function TokenSections({
+  groups,
+  values,
+  identity,
+  deltas,
+}: {
+  readonly groups: readonly TokenTierGroup[];
+  readonly values: LiveValues;
+  readonly identity: IdentitySlug;
+  readonly deltas: IdentityDeltaSets;
+}): ReactElement {
+  return (
+    <div className="tok-sections">
+      {groups.map((group) => (
+        <section key={group.tier} className="tok-tier">
+          <h2 className="oak-heading-6">{TIER_HEADINGS[group.tier].title}</h2>
+          <p className="oak-body-3 tok-tier-note">{TIER_HEADINGS[group.tier].note}</p>
+          {group.families.map(({ family, tokens }) => (
+            <TokenTable
+              key={family}
+              tier={group.tier}
+              family={family}
+              tokens={tokens}
+              values={values}
+              identity={identity}
+              deltas={deltas}
+            />
+          ))}
+        </section>
+      ))}
+    </div>
+  );
+}
+
 export function TokenReference({ groups, deltas, tokenCount }: TokenReferenceProps): ReactElement {
   const { identity, identities, setIdentity } = useIdentity();
   const theme = useSyncExternalStore(
@@ -109,34 +144,24 @@ export function TokenReference({ groups, deltas, tokenCount }: TokenReferencePro
   );
 
   return (
-    <>
-      <TokenControls
-        identity={identity}
-        identities={identities}
-        setIdentity={setIdentity}
-        theme={theme}
-        tokenCount={tokenCount}
-      />
+    <div className="tok-layout">
+      {/* Controls and the family jump list travel together, because they are
+          the same thing: the two ways of moving around four hundred tokens.
+          At wide they become a rail that stays put while the tables scroll
+          past, which is what turns the empty right-hand margin into reading
+          width. At narrow the rail is simply the top of the page. */}
+      <div className="tok-rail">
+        <TokenControls
+          identity={identity}
+          identities={identities}
+          setIdentity={setIdentity}
+          theme={theme}
+          tokenCount={tokenCount}
+        />
+        <FamilyNav groups={groups} />
+      </div>
 
-      <FamilyNav groups={groups} />
-
-      {groups.map((group) => (
-        <section key={group.tier} className="tok-tier">
-          <h2 className="oak-heading-5">{TIER_HEADINGS[group.tier].title}</h2>
-          <p className="oak-body-2 tok-tier-note">{TIER_HEADINGS[group.tier].note}</p>
-          {group.families.map(({ family, tokens }) => (
-            <TokenTable
-              key={family}
-              tier={group.tier}
-              family={family}
-              tokens={tokens}
-              values={values}
-              identity={identity}
-              deltas={deltaSets}
-            />
-          ))}
-        </section>
-      ))}
-    </>
+      <TokenSections groups={groups} values={values} identity={identity} deltas={deltaSets} />
+    </div>
   );
 }

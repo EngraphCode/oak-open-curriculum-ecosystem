@@ -60,11 +60,9 @@ function TokensIntro(): ReactElement {
       <h1 className="oak-heading-3" id="tokens-headline">
         Token reference
       </h1>
-      <p className="oak-body-1 tok-lede">
-        Every token the system publishes, shown as the value it has right now. Each swatch is a real
-        element painted through the token itself, so changing the identity or the theme changes what
-        you see here the same way it changes a product page &mdash; through the cascade, with no
-        markup and no code in between.
+      <p className="oak-body-2 tok-lede">
+        Every token the system publishes, shown as the value it has right now &mdash; each swatch
+        painted through the token itself, so identity and theme arrive through the cascade.
       </p>
     </>
   );
