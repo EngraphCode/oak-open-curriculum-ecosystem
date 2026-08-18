@@ -886,3 +886,50 @@ survey post-mortem discharged (both at 6ba9e93c3).
   REAL on #899 round 2 and five substantive code findings on #905 —
   harvest them unfiltered and verify first-hand; today they out-found
   every other leg.
+
+## 2026-08-18 — Poppy lifts Bark: #889 landing + #905 cure round (compaction-freeze harvest)
+
+- Premature home-registry migration (failure-mode event 3dd4134d, cured
+  in-session): a worktree-resolved agent-tools binary run against the
+  PRIMARY registry executed #905's migrate-on-first-contact hours before
+  the code landed — a read-shaped command carrying a write-shaped
+  migration; every seat's heartbeat refused for ~3 minutes. The "primary
+  untouched" discipline binds the RESOLVED BINARY of every invocation,
+  not just the files it names; cwd is load-bearing mid-rollout. The
+  reverse migration proved the preservation contract both ways (claims
+  byte-intact; empty queue = nothing scattered). Hazard stands until
+  #905 merges AND the primary rebuilds (Director's board).
+- Disposition rationale must be verified at the GUARD SITE: my FIFO
+  finding's "advisory order" claim was refuted by the queue guard's
+  mechanical refusal — I had quoted the claims-advisory doctrine for a
+  queue-guard behaviour (vocabulary echo across adjacent surfaces). The
+  corrected grounds (deterministic total order, bounded divergence, no
+  safety property on position) held; adjacent-surface vocabulary never
+  transfers to a disposition.
+- Eliminate the shared resource, never order around it — twice in one
+  round: the claims-file intent pointer (dangling state made
+  unconstructible by deletion) and intent-id boundary validation (was
+  refused only by write-validator step order, the banned
+  correctness-by-timing shape).
+- A repro must fail for the RIGHT reason: the first crash-window fixture
+  crashed at the pre-read (green by accident); the cure landed the
+  failure inside the true window (read-only store dir) AND pinned the
+  matcher to the window's own signature (EACCES at the commit-queue
+  path) so a too-early failure cannot green it vacuously.
+- Suppressed reviewer comments carried ALL of #889's final-round
+  substance (six findings, zero threads) — harvest the full round.
+- I introduced the staleness class I was curing: a plan-trail denominator
+  went stale against the regenerated artefacts within one round (files
+  added after the entry was written). Regenerate LAST, true prose, then
+  re-check prose written EARLIER in the same round.
+- Method-ambiguous evidence pairs don't reproduce: the banked
+  "227 of 1287" grep matched no stated method (136/126/550 under three
+  plausible readings); restated with the method visible. A number in
+  evidence owes its procedure.
+- merge-bot --expect binds the CURRENT tip: a docs push after a review
+  round re-opens the reviewer leg; a killed merge attempt is an
+  ambiguous write — read PR state before retrying.
+- Today's correction sources were reviewers and mechanical layers (gate
+  refusals, hook blocks, knip, the incident's own alarms) rather than
+  the owner — every slip was caught by structure before it propagated;
+  structure-over-vigilance observed working end to end.
