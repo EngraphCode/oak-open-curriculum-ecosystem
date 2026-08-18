@@ -55,29 +55,25 @@ resides on the coordination branch).
 8. Bot REST merge at the FETCHED full head sha — fetched at merge time,
    never typed from memory, never expanded from an abbreviation — with
    `merge_method=merge`, never squash.
-9. Cut the successor `coordination/<today UTC>-<sha6>` from post-fold
-   `origin/main`, minting the name MECHANICALLY, never by transcription
-   (after `git fetch origin main`):
+9. Cut the successor coordination branch per
+   [`cut-coordination-branch`](../cut-coordination-branch/SKILL-CANONICAL.md):
+   resolve post-fold `origin/main` ONCE and pass the same full sha to
+   both the mint and the cut — two separate resolutions race a
+   concurrent fetch, so the name records one tip while the branch
+   starts at another and the lineage the name carries is false from
+   birth:
 
    ```bash
-   git switch -c "coordination/$(date -u +%F)-$(git rev-parse --short=6 origin/main)" origin/main
+   git fetch origin main
+   BASE="$(git rev-parse origin/main)"
+   git switch -c "$(pnpm --silent agent-tools coordination successor-name --base "$BASE")" "$BASE"
+   git push -u origin HEAD
    ```
 
-   `<sha6>` resolves to the fold-merge commit step 8 just created (the
-   post-fold tip). The suffix is deliberate owner policy, not
-   decoration: on a real repo with many live checkouts, a date-only
-   name lets two checkouts mint the SAME branch and collide silently —
-   the sha suffix makes a checkout cutting from a different tip mint a
-   different name instead. It also disambiguates same-day rotations
-   (two branches dated 2026-08-13 exist in the lineage) and makes the
-   chain walkable from names alone
-   (`7b3df0 → 169e3e → 219095 → ca6b0f → c8586f`). This step
-   previously read `coordination/estate-<today UTC>` from the skill's
-   birth — a form that never matched practice; the recipe lived only in
-   continuity records, and the first seat to follow this line literally
-   broke the convention (2026-08-17). The cut is tree-preserving (dirty
-   files carry across); `git push -u`, and the primary now resides
-   there. GitHub
+   Never mint by transcription (the sha6 suffix is deliberate
+   collision policy and the tool is its single source; F-161 records
+   the break a hand-carried form caused). The cut is tree-preserving —
+   dirty files carry across — and the primary now resides there. GitHub
    auto-deleting the merged head branch is expected, not loss. If main
    moves again during or just after the ceremony (a lane PR merging
    mid-rotation), merge `origin/main` in and rebuild promptly: until
