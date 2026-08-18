@@ -1,7 +1,13 @@
 # Census round 2 — target workspace inventory (synthesis)
 
-**Status**: proposal for the owner round-2 card; nothing moves until the
-reorganisation plan is ratified. Derived from `decomposition-analysis.json`
+**Status**: HISTORICAL — re-graded 2026-08-17. The round-2 programme this
+inventory was drafted for was cancelled at owner ruling, and the
+workspace-basis re-grounding
+(`.agent/research/workspace-basis-regrounding-2026-08-17.md`) re-grades the
+34→66 inventory and the round-2 taxonomy to historical data carrying zero
+deference weight: candidate archive material only, stripped of every
+ratification-deference argument. The governing work is the owner's five-point
+repo-architecture brief (MCP-619). Derived from `decomposition-analysis.json`
 (12-agent fleet + frame-challengers) consolidated at `target-inventory.json`;
 this file renders that data.
 

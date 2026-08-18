@@ -14,6 +14,7 @@
  *       nested subject AND code outside it still gets its code root
  *       (partially covered subtrees are preserved, never skipped).
  */
+import { compareStrings } from './compare.js';
 import { CODE_EXTENSIONS } from './vocabulary.js';
 
 type SubjectSource = 'pnpm-member' | 'package-json-parent' | 'plugin-manifest-parent' | 'code-root';
@@ -130,7 +131,7 @@ export function deriveSubjects(input: DeriveSubjectsInput): CensusSubject[] {
     .map(([dirPath, draft]) => ({
       dirPath,
       publishedName: draft.publishedName,
-      sources: [...draft.sources].sort((a, b) => a.localeCompare(b)),
+      sources: [...draft.sources].sort(compareStrings),
     }))
-    .sort((a, b) => a.dirPath.localeCompare(b.dirPath));
+    .sort((a, b) => compareStrings(a.dirPath, b.dirPath));
 }

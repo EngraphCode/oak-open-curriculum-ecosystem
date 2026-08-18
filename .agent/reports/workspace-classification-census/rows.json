@@ -33,7 +33,7 @@
       "dirPath": ".agent",
       "publishedName": null,
       "disposition": "excluded",
-      "exclusionReason": "Agent-practice estate records \u2014 the named exclusion class. .agent/ is the canonical Practice layer (rules, skills, memory, plans, reports, directives): 4480 tracked files with only 36 code files of hook/instrument glue, no manifest, no internal dependents. Its own charter declares 'Practice, not product' \u2014 nothing here is a workspace or published package, and with one deliberate charter-recorded carve-out none of it is product surface: the under-the-hood skill's content is served as public orientation via the MCP app, but the serving code surface lives in apps/, so the exception adds no foundational code surface under .agent/. The Oak-specificity axis, which prices foundational code surfaces for separation, tranche ownership, and licence mapping, does not apply. The high mechanical Oak-marker counts (32150 doc hits) are the Practice writing about Oak, not Oak identity leaking into a foundational surface.",
+      "exclusionReason": "Agent-practice estate records \u2014 the named exclusion class. .agent/ is the canonical Practice layer (rules, skills, memory, plans, reports, directives): 4513 tracked files with only 36 code files of hook/instrument glue, no manifest, no internal dependents. Its own charter declares 'Practice, not product' \u2014 nothing here is a workspace or published package, and with one deliberate charter-recorded carve-out none of it is product surface: the under-the-hood skill's content is served as public orientation via the MCP app, but the serving code surface lives in apps/, so the exception adds no foundational code surface under .agent/. The Oak-specificity axis, which prices foundational code surfaces for separation, tranche ownership, and licence mapping, does not apply. The high mechanical Oak-marker counts (32636 doc hits) are the Practice writing about Oak, not Oak identity leaking into a foundational surface.",
       "evidence": [
         {
           "kind": "doctrine-record",
@@ -41,7 +41,7 @@
         },
         {
           "kind": "static-structure",
-          "pointer": "facts.json .agent entry: manifest null, internalDependents [], fileProfile trackedFiles 4480 vs codeFiles 36 \u2014 a record estate, not a code surface"
+          "pointer": "facts.json .agent entry: manifest null, internalDependents [], fileProfile trackedFiles 4513 vs codeFiles 36 \u2014 a record estate, not a code surface"
         }
       ]
     },
@@ -180,7 +180,7 @@
         {
           "type": "domain-assumptions",
           "depth": "runtime-emitted",
-          "note": "Whole modules assume the Oak estate: mcp-content-current-source validates the served @oaknational/oak-curriculum-mcp-streamable-http content surface, and under-the-hood-content-generate emits Oak orientation content into generated output (the OAK_UNDER_THE_HOOD_ORIENTATION export, generator.ts:135). Oak-identity tokens pervade the source: facts oakInSource=1610 occurrences; a word-boundary 'oak' grep matches 227 of 1287 tracked code files."
+          "note": "Whole modules assume the Oak estate: mcp-content-current-source validates the served @oaknational/oak-curriculum-mcp-streamable-http content surface, and under-the-hood-content-generate emits Oak orientation content into generated output (the OAK_UNDER_THE_HOOD_ORIENTATION export, generator.ts:135). Oak-identity tokens pervade the source: facts oakInSource=1699 occurrences; a case-insensitive word-boundary 'oak' grep matches 136 of 1296 tracked code files."
         }
       ]
     },

@@ -7,11 +7,13 @@
  * boundary.
  */
 import { execFile } from 'node:child_process';
+import { isBuiltin } from 'node:module';
 import { promisify } from 'node:util';
 
 import { err, ok, type Result } from '@oaknational/result';
 
 import { getJsonValue, isJsonObject, parseJsonTextResult, type JsonObject } from '../core/json.js';
+import { compareStrings } from './compare.js';
 import type { CensusSubject } from './subjects.js';
 
 const execFileAsync = promisify(execFile);
@@ -38,9 +40,16 @@ function resolvedDependenciesOf(module: JsonObject): string[] {
   const dependencies = getJsonValue(module, 'dependencies');
   const resolved: string[] = [];
   for (const dependency of Array.isArray(dependencies) ? Array.from(dependencies) : []) {
-    if (isJsonObject(dependency) && typeof getJsonValue(dependency, 'resolved') === 'string') {
-      resolved.push(String(getJsonValue(dependency, 'resolved')));
+    if (!isJsonObject(dependency) || typeof getJsonValue(dependency, 'resolved') !== 'string') {
+      continue;
     }
+    // An unresolvable specifier arrives as its raw text (`vite/client`, a
+    // fixture's dangling relative path) — unattributable to any subject,
+    // so recording it would fabricate an edge via the root catch-all.
+    if (getJsonValue(dependency, 'couldNotResolve') === true) {
+      continue;
+    }
+    resolved.push(String(getJsonValue(dependency, 'resolved')));
   }
   return resolved;
 }
@@ -82,6 +91,16 @@ function subjectOf(filePath: string, byLengthDesc: readonly CensusSubject[]): st
 }
 
 /**
+ * A resolved dependency that lives outside the repository's own tree:
+ * an installed package, or a Node builtin (`fs`, `node:fs`) — which
+ * reaches the aggregator unresolved and would otherwise be claimed by
+ * the root subject's `.` catch-all in subjectOf.
+ */
+function isExternalDependency(resolved: string): boolean {
+  return resolved.startsWith('node_modules/') || isBuiltin(resolved);
+}
+
+/**
  * Aggregate module edges to subject grain: for each subject, the sorted
  * set of OTHER subjects its modules import (node_modules edges carry no
  * subject and drop out naturally).
@@ -98,7 +117,7 @@ export function aggregateSourceDependencies(
       continue;
     }
     for (const resolved of module.resolvedDependencies) {
-      if (resolved.startsWith('node_modules/')) {
+      if (isExternalDependency(resolved)) {
         continue;
       }
       const to = subjectOf(resolved, byLengthDesc);
@@ -108,10 +127,7 @@ export function aggregateSourceDependencies(
     }
   }
   return new Map(
-    [...edges.entries()].map(([dirPath, set]) => [
-      dirPath,
-      [...set].sort((a, b) => a.localeCompare(b)),
-    ]),
+    [...edges.entries()].map(([dirPath, set]) => [dirPath, [...set].sort(compareStrings)]),
   );
 }
 
@@ -155,10 +171,7 @@ export function parseTurboTasks(json: string): Result<Map<string, string[]>, str
   }
   return ok(
     new Map(
-      [...byPackage.entries()].map(([name, names]) => [
-        name,
-        [...names].sort((a, b) => a.localeCompare(b)),
-      ]),
+      [...byPackage.entries()].map(([name, names]) => [name, [...names].sort(compareStrings)]),
     ),
   );
 }

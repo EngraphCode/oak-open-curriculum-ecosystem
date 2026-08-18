@@ -13,6 +13,7 @@ import { promisify } from 'node:util';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { getJsonValue, isJsonObject, parseJsonTextResult } from '../core/json.js';
+import { compareStrings } from './compare.js';
 
 const execFileAsync = promisify(execFile);
 
@@ -82,7 +83,7 @@ export function parseMemberList(
     }
     members.push(member);
   }
-  return ok(members.toSorted((a, b) => a.path.localeCompare(b.path)));
+  return ok(members.toSorted((a, b) => compareStrings(a.path, b.path)));
 }
 
 /** Tracked files from git, NUL-delimited so no filename shape can split wrongly. */

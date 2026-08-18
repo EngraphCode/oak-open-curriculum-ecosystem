@@ -8,6 +8,7 @@
  * detector-facts / judged-readings separation the plan names starts
  * here.
  */
+import { compareStrings } from './compare.js';
 import { CODE_EXTENSIONS } from './vocabulary.js';
 import type { CensusSubject } from './subjects.js';
 
@@ -67,7 +68,7 @@ function dependentsOf(name: string | null, manifests: readonly ManifestSummaryIn
   return manifests
     .filter((manifest) => manifest.internalDependencies.includes(name))
     .map((manifest) => manifest.name)
-    .sort((a, b) => a.localeCompare(b));
+    .sort(compareStrings);
 }
 
 function profileFiles(files: readonly string[]): { trackedFiles: number; codeFiles: number } {
@@ -120,6 +121,6 @@ function factsForSubject(
 export function assembleFacts(input: AssembleFactsInput): SubjectFacts[] {
   const manifestByDir = new Map(input.manifests.map((manifest) => [manifest.dirPath, manifest]));
   return [...input.subjects]
-    .sort((a, b) => a.dirPath.localeCompare(b.dirPath))
+    .sort((a, b) => compareStrings(a.dirPath, b.dirPath))
     .map((subject) => factsForSubject(subject, input, manifestByDir));
 }

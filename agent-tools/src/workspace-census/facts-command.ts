@@ -9,6 +9,7 @@ import path from 'node:path';
 import { err, ok, type Result } from '@oaknational/result';
 
 import { deriveLiveSubjects, type CommandContext } from './context.js';
+import { renderFactsArtefact } from './facts-artefact.js';
 import {
   assembleFacts,
   type ManifestSummaryInput,
@@ -132,13 +133,7 @@ export async function runFacts(context: CommandContext): Promise<number> {
   }
   const outPath = path.resolve(context.repoRoot, FACTS_PATH);
   await fs.mkdir(path.dirname(outPath), { recursive: true });
-  const artefact = {
-    schema_version: '1.0.0',
-    plan: '.agent/plans/delivery/workspace-classification-census.plan.md',
-    note: 'Detector facts only — mechanical observations; judged readings live in rows.json.',
-    facts: facts.value,
-  };
-  await fs.writeFile(outPath, `${JSON.stringify(artefact, null, 2)}\n`, 'utf8');
+  await fs.writeFile(outPath, renderFactsArtefact(facts.value), 'utf8');
   context.stdout.write(
     `facts: ${String(facts.value.length)} subject entries written (${FACTS_PATH})\n`,
   );

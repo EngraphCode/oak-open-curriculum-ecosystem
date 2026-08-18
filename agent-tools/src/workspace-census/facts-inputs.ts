@@ -14,6 +14,7 @@ import { typeSafeKeys } from '@oaknational/type-helpers';
 
 import { isErrnoCode } from '../collaboration-state/errno.js';
 import { getJsonValue, isJsonObject, parseJsonTextResult, type JsonObject } from '../core/json.js';
+import { compareStrings } from './compare.js';
 import type { CensusSubject } from './subjects.js';
 import { CODE_EXTENSIONS } from './vocabulary.js';
 import type { ManifestSummaryInput, SubjectGrepCounts } from './facts.js';
@@ -70,7 +71,7 @@ function collectInternalDependencies(manifest: JsonObject): string[] {
       }
     }
   }
-  return [...names].sort((a, b) => a.localeCompare(b));
+  return [...names].sort(compareStrings);
 }
 
 function summariseManifest(parsed: JsonObject, dirPath: string): ManifestSummaryInput {

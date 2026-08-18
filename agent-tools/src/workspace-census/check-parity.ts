@@ -8,6 +8,7 @@
 import { err, ok, type Result } from '@oaknational/result';
 
 import { getJsonValue, isJsonObject, parseJsonTextResult } from '../core/json.js';
+import { renderFactsArtefact } from './facts-artefact.js';
 import type { SubjectFacts } from './facts.js';
 
 const MAX_NAMED_DRIFTS = 10;
@@ -33,16 +34,39 @@ function parseCommittedFacts(raw: string): Result<Map<string, string>, string> {
     if (!isJsonObject(entry) || typeof getJsonValue(entry, 'dirPath') !== 'string') {
       return err('facts.json: entry without a dirPath');
     }
-    byDir.set(String(getJsonValue(entry, 'dirPath')), JSON.stringify(entry));
+    const dirPath = String(getJsonValue(entry, 'dirPath'));
+    if (byDir.has(dirPath)) {
+      return err(`facts.json: duplicate entry for subject ${dirPath}`);
+    }
+    byDir.set(dirPath, JSON.stringify(entry));
   }
   return ok(byDir);
 }
 
-/** Compare live facts against the committed artefact; problems name the drifted subjects. */
+/**
+ * Compare live facts against the committed artefact. The verdict is the
+ * byte comparison of the canonical rendering — envelope fields, entry
+ * order, and formatting all count; the per-entry diff only decorates a
+ * byte mismatch with the drifted subjects' names, so a differing
+ * artefact always yields at least one problem.
+ */
 export function diffFactsParity(live: readonly SubjectFacts[], committedRaw: string): string[] {
+  if (renderFactsArtefact(live) === committedRaw) {
+    return [];
+  }
+  const drifted = namedEntryDrifts(live, committedRaw);
+  if (drifted.length === 0) {
+    return [
+      'facts.json: artefact bytes differ from the recomputation (envelope or entry order) — run `facts` to regenerate',
+    ];
+  }
+  return drifted;
+}
+
+function namedEntryDrifts(live: readonly SubjectFacts[], committedRaw: string): string[] {
   const committed = parseCommittedFacts(committedRaw);
   if (!committed.ok) {
-    return [`facts.json: ${committed.error}`];
+    return [committed.error];
   }
   const liveByDir = factsByDir(live);
   const drifted: string[] = [];

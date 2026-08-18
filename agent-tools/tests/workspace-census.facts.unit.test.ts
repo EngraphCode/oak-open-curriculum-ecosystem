@@ -154,6 +154,63 @@ describe('graph-input parsing — depcruise and turbo dry-run to subject grain',
     expect(aggregated.get('packages/core/result')).toEqual([]);
   });
 
+  it('never attributes Node builtins to the root subject catch-all', () => {
+    const root: CensusSubject = { dirPath: '.', publishedName: null, sources: ['code-root'] };
+    const parsed = parseDepcruiseModules(
+      JSON.stringify({
+        modules: [
+          {
+            source: 'agent-tools/src/a.ts',
+            dependencies: [{ resolved: 'node:fs' }, { resolved: 'fs' }, { resolved: 'node:path' }],
+          },
+        ],
+      }),
+    );
+    expect(parsed).toMatchObject({ ok: true });
+    const modules = parsed.ok ? parsed.value : [];
+    const aggregated = aggregateSourceDependencies([root, AGENT_TOOLS], modules);
+    expect(aggregated.get('agent-tools')).toEqual([]);
+  });
+
+  it('drops unresolvable specifiers instead of attributing their raw text to a subject', () => {
+    const root: CensusSubject = { dirPath: '.', publishedName: null, sources: ['code-root'] };
+    const parsed = parseDepcruiseModules(
+      JSON.stringify({
+        modules: [
+          {
+            source: 'agent-tools/src/a.ts',
+            dependencies: [
+              { resolved: 'vite/client', couldNotResolve: true },
+              { resolved: '../api-schema/path-parameters.js', couldNotResolve: true },
+            ],
+          },
+        ],
+      }),
+    );
+    expect(parsed).toMatchObject({ ok: true });
+    const modules = parsed.ok ? parsed.value : [];
+    const aggregated = aggregateSourceDependencies([root, AGENT_TOOLS], modules);
+    expect(aggregated.get('agent-tools')).toEqual([]);
+  });
+
+  it('still attributes genuine root-owned file imports to the root subject', () => {
+    const root: CensusSubject = { dirPath: '.', publishedName: null, sources: ['code-root'] };
+    const parsed = parseDepcruiseModules(
+      JSON.stringify({
+        modules: [
+          {
+            source: 'agent-tools/src/a.ts',
+            dependencies: [{ resolved: 'eslint.config.ts' }],
+          },
+        ],
+      }),
+    );
+    expect(parsed).toMatchObject({ ok: true });
+    const modules = parsed.ok ? parsed.value : [];
+    const aggregated = aggregateSourceDependencies([root, AGENT_TOOLS], modules);
+    expect(aggregated.get('agent-tools')).toEqual(['.']);
+  });
+
   it('rejects depcruise output without a modules array', () => {
     expect(parseDepcruiseModules('{"summary": {}}')).toMatchObject({ ok: false });
   });

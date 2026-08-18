@@ -11,6 +11,7 @@ import path from 'node:path';
 
 import { emptyRowsArtefact, readRowsArtefact, type RowsArtefact } from './artefact.js';
 import { diffFactsParity, diffMatrixParity } from './check-parity.js';
+import { compareStrings } from './compare.js';
 import {
   deriveLiveSubjects,
   loadRowsArtefact,
@@ -55,7 +56,7 @@ function mergeSkeletonRows(artefact: RowsArtefact, subjects: readonly CensusSubj
     });
     added.push(subject.dirPath);
   }
-  artefact.rows.sort((a, b) => a.dirPath.localeCompare(b.dirPath));
+  artefact.rows.sort((a, b) => compareStrings(a.dirPath, b.dirPath));
   return added;
 }
 

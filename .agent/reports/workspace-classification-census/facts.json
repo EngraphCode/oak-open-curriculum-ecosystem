@@ -19,11 +19,11 @@
       "sourceDependencies": [],
       "turboTasks": [],
       "fileProfile": {
-        "trackedFiles": 438,
+        "trackedFiles": 439,
         "codeFiles": 8
       },
       "oakMarkers": {
-        "oakInDocs": 6497,
+        "oakInDocs": 6527,
         "oakInSource": 60,
         "cssOakVariables": 10,
         "dottedOakNamespaces": 0,
@@ -38,11 +38,11 @@
       "sourceDependencies": [],
       "turboTasks": [],
       "fileProfile": {
-        "trackedFiles": 4512,
+        "trackedFiles": 4513,
         "codeFiles": 36
       },
       "oakMarkers": {
-        "oakInDocs": 32634,
+        "oakInDocs": 32636,
         "oakInSource": 209,
         "cssOakVariables": 518,
         "dottedOakNamespaces": 0,
@@ -187,7 +187,6 @@
       },
       "internalDependents": [],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/result",
         "packages/core/safe-path",
@@ -202,12 +201,12 @@
         "type-check"
       ],
       "fileProfile": {
-        "trackedFiles": 1328,
-        "codeFiles": 1292
+        "trackedFiles": 1332,
+        "codeFiles": 1296
       },
       "oakMarkers": {
         "oakInDocs": 57,
-        "oakInSource": 1693,
+        "oakInSource": 1699,
         "cssOakVariables": 1,
         "dottedOakNamespaces": 6,
         "oakEnvKeys": 163
@@ -243,7 +242,6 @@
       },
       "internalDependents": [],
       "sourceDependencies": [
-        ".",
         "packages/core/build-metadata",
         "packages/core/env",
         "packages/core/oak-eslint",
@@ -267,12 +265,12 @@
         "type-check"
       ],
       "fileProfile": {
-        "trackedFiles": 390,
-        "codeFiles": 340
+        "trackedFiles": 394,
+        "codeFiles": 341
       },
       "oakMarkers": {
         "oakInDocs": 222,
-        "oakInSource": 1514,
+        "oakInSource": 1515,
         "cssOakVariables": 535,
         "dottedOakNamespaces": 63,
         "oakEnvKeys": 218
@@ -306,7 +304,6 @@
       },
       "internalDependents": [],
       "sourceDependencies": [
-        ".",
         "packages/core/build-metadata",
         "packages/core/env",
         "packages/core/oak-eslint",
@@ -361,7 +358,6 @@
       },
       "internalDependents": [],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/result",
         "packages/design/oak-design-react",
@@ -406,7 +402,6 @@
       },
       "internalDependents": [],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/result",
         "packages/core/type-helpers",
@@ -453,7 +448,6 @@
         "@oaknational/sentry-node"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/env",
         "packages/core/oak-eslint",
         "packages/core/result",
@@ -497,7 +491,6 @@
         "@oaknational/search-cli"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/observability",
         "packages/core/workspace-config"
@@ -541,7 +534,6 @@
         "@oaknational/graph-project"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/result",
         "packages/core/type-helpers",
@@ -612,7 +604,6 @@
         "@oaknational/type-helpers"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/workspace-config"
       ],
       "turboTasks": [
@@ -659,7 +650,6 @@
         "@oaknational/sentry-node"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/result",
         "packages/core/type-helpers",
@@ -700,7 +690,6 @@
         "@oaknational/sdk-codegen"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/workspace-config"
       ],
@@ -756,7 +745,6 @@
         "@oaknational/sentry-node"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/workspace-config"
       ],
@@ -796,7 +784,6 @@
         "@oaknational/search-cli"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/workspace-config"
       ],
@@ -846,7 +833,6 @@
         "@oaknational/sentry-node"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/workspace-config"
       ],
@@ -947,7 +933,6 @@
         "@oaknational/oak-design-tokens"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/result",
         "packages/core/workspace-config"
@@ -1018,7 +1003,6 @@
       },
       "internalDependents": [],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/workspace-config",
         "packages/design/oak-design-tokens"
@@ -1059,7 +1043,6 @@
         "@oaknational/oak-design-showcase"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/workspace-config"
       ],
@@ -1101,7 +1084,6 @@
         "@oaknational/oak-design-tokens"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/workspace-config"
       ],
@@ -1144,7 +1126,6 @@
         "@oaknational/oak-design-ink"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/result",
         "packages/core/workspace-config",
@@ -1187,7 +1168,6 @@
         "@oaknational/search-cli"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/workspace-config"
       ],
@@ -1228,7 +1208,6 @@
         "@oaknational/oak-design-showcase"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/result",
         "packages/core/workspace-config"
@@ -1268,7 +1247,6 @@
       },
       "internalDependents": [],
       "sourceDependencies": [
-        ".",
         "packages/core/graph-core",
         "packages/core/oak-eslint",
         "packages/core/result",
@@ -1308,7 +1286,6 @@
       },
       "internalDependents": [],
       "sourceDependencies": [
-        ".",
         "packages/core/graph-core",
         "packages/core/oak-eslint",
         "packages/core/workspace-config"
@@ -1355,7 +1332,6 @@
         "@oaknational/sentry-node"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/observability",
         "packages/core/type-helpers",
@@ -1399,7 +1375,6 @@
         "@oaknational/oak-curriculum-mcp-streamable-http"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/build-metadata",
         "packages/core/oak-eslint",
         "packages/core/observability",
@@ -1413,12 +1388,12 @@
         "type-check"
       ],
       "fileProfile": {
-        "trackedFiles": 37,
-        "codeFiles": 32
+        "trackedFiles": 39,
+        "codeFiles": 34
       },
       "oakMarkers": {
         "oakInDocs": 5,
-        "oakInSource": 217,
+        "oakInSource": 337,
         "cssOakVariables": 0,
         "dottedOakNamespaces": 0,
         "oakEnvKeys": 8
@@ -1444,7 +1419,6 @@
         "@oaknational/search-cli"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/type-helpers",
         "packages/core/workspace-config",
@@ -1491,7 +1465,6 @@
         "@oaknational/search-cli"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/build-metadata",
         "packages/core/oak-eslint",
         "packages/core/observability",
@@ -1538,7 +1511,6 @@
         "@oaknational/curriculum-sdk"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/graph-core",
         "packages/core/oak-eslint",
         "packages/core/result",
@@ -1587,7 +1559,6 @@
         "@oaknational/search-cli"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/result",
         "packages/core/type-helpers",
@@ -1641,7 +1612,6 @@
         "@oaknational/search-contracts"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/observability",
         "packages/core/openapi-zod-client-adapter",
@@ -1694,7 +1664,6 @@
         "@oaknational/search-cli"
       ],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/observability",
         "packages/core/result",
@@ -1781,7 +1750,6 @@
       },
       "internalDependents": [],
       "sourceDependencies": [
-        ".",
         "packages/core/oak-eslint",
         "packages/core/workspace-config"
       ],
@@ -1808,9 +1776,7 @@
       "publishedName": null,
       "manifest": null,
       "internalDependents": [],
-      "sourceDependencies": [
-        "."
-      ],
+      "sourceDependencies": [],
       "turboTasks": [],
       "fileProfile": {
         "trackedFiles": 3,
