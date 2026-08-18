@@ -386,19 +386,13 @@
 
 /* --- Narrow: the base rules ARE the design ------------------ */
 
-@media (max-width: 959px) {
-  /* Forty-seven family links ahead of the first token pushed it 1226px down
-     a 360px screen — the jump list was burying what it points at. Capped,
-     it scrolls in its own box; its links keep it keyboard-reachable without
-     a tab stop of its own. */
-  [data-page='tokens'] .tok-nav {
-    max-block-size: var(--space-100);
-    overflow-y: auto;
-    border: var(--border-solid-s) solid var(--border-neutral-lighter);
-    border-radius: var(--radius-container);
-    padding: var(--space-8);
-  }
-}
+/* The jump list needs no rules of its own at narrow any more: it rides a
+   slide-out disclosure in the markup (FamilyNav), so closed it is one
+   line — forty-seven links no longer bury the tokens they point at — and
+   open it is the FULL list with nothing behind an inner scrollbar, which
+   is what replaced the old capped scrolling box (owner ruling
+   2026-08-18: narrow navigation discloses; content never scrolls in a
+   box). */
 
 /* --- Wide: the rail, and rows flowing in two columns -------- */
 

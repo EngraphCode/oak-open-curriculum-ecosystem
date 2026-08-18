@@ -132,8 +132,13 @@ const tokenAreaScrollers = (page: Page): Promise<number> =>
 
 test.describe('token reference: everything visible, rows flowing in columns', () => {
   // The owner's hard rule (2026-08-18): no in-content scroll or clip
-  // anywhere — a value, chip, or name is never behind a gesture.
-  for (const width of [320, 664, 960, 1280, 1440] as const) {
+  // anywhere — a value, chip, or name is never behind a gesture. 305 is
+  // the classic-scrollbar warrant width: CI's Linux draws classic
+  // scrollbars that narrow the layout viewport below the 320 cell, so a
+  // layout that only holds at exactly 320 is a latent CI red (the
+  // round-1 worked instance; the DDR-009 dated amendment is queued on
+  // the records parcel).
+  for (const width of [305, 320, 664, 960, 1280, 1440] as const) {
     test(`no token content scrolls or clips at ${width}px @a11y`, async ({ page }) => {
       const aborted = await openRoute(page, '/tokens');
       await page.setViewportSize({ width, height: 900 });
@@ -168,6 +173,44 @@ test.describe('token reference: everything visible, rows flowing in columns', ()
       .toBe(2);
     await page.setViewportSize({ width: 320, height: 900 });
     await expect.poll(distinctRowOffsets, { message: 'narrow: one column, one thread' }).toBe(1);
+    assertOnlyKnownExternalOrigins(aborted);
+  });
+});
+
+test.describe('token reference: the narrow family nav discloses', () => {
+  test('closed at narrow, every link unscrolled when open, inline at wide @a11y', async ({
+    page,
+  }) => {
+    const aborted = await openRoute(page, '/tokens');
+    await page.setViewportSize({ width: 320, height: 900 });
+    const nav = page.locator('.tok-nav');
+    const summary = nav.locator('summary');
+    // Closed: one honest line; the links are not in the page's reading
+    // flow until asked for.
+    await expect(summary).toBeVisible();
+    await expect(nav.locator('a').first()).not.toBeVisible();
+    await summary.click();
+    // Open: the FULL list, and none of it behind an inner scrollbar (the
+    // old capped box is gone).
+    await expect(nav.locator('a').first()).toBeVisible();
+    const navScrollBoxes = await nav.evaluate(
+      (el) =>
+        [el, ...el.querySelectorAll('*')].filter((node) => {
+          const style = getComputedStyle(node);
+          return (
+            (style.overflowY !== 'visible' || style.overflowX !== 'visible') &&
+            (node.scrollHeight > node.clientHeight || node.scrollWidth > node.clientWidth)
+          );
+        }).length,
+    );
+    expect(navScrollBoxes, 'the open list scrolls with the page, never in a box').toBe(0);
+    // Wide: the wrapper dissolves and the list renders inline.
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await expect
+      .poll(() => nav.locator('summary').count(), {
+        message: 'wide: no disclosure — the rail list is inline',
+      })
+      .toBe(0);
     assertOnlyKnownExternalOrigins(aborted);
   });
 });

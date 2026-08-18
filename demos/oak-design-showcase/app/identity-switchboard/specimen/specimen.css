@@ -108,6 +108,36 @@
   z-index: var(--layer-sticky);
 }
 
+/* --- Narrow: the strip's controls disclose instead of scroll --- */
+
+@media (max-width: 959px) {
+  /* The one-row in-strip scroll is replaced by the controls disclosure
+     (owner ruling 2026-08-18), so the band may wrap: crumbs line, then
+     the disclosure line, then — open — the stacked controls, everything
+     visible. */
+  [data-page='unit'] .strip-controls {
+    flex-wrap: wrap;
+  }
+
+  /* The open panel takes the band's full width and stacks its control
+     groups in block flow. */
+  [data-page='unit'] .strip-disclosure {
+    flex: 1 0 100%;
+  }
+
+  [data-page='unit'] .strip-disclosure > :not(summary) {
+    margin-block-start: var(--space-8);
+  }
+
+  /* The mast's sticky offset is the arithmetic of a ONE-ROW strip; below
+     the seam the strip's height is disclosure-driven (two lines closed on
+     a full page, more open), so the mast follows the flow instead of
+     computing an offset it cannot know. */
+  [data-page='unit'] .mast {
+    position: static;
+  }
+}
+
 /* The kit's .oak-choice pins --text-primary, and the crumb pattern pins
    --text-subdued — both are PAGE-ground pairings that land low-contrast
    on this inverted strip (measured: choice labels light-on-light under

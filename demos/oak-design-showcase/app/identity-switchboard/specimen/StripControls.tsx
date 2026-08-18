@@ -23,6 +23,7 @@ import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
 
 import { IdentityRadioGroup } from '../../../components/IdentityRadioGroup';
 import { LabelledSelect } from '../../../components/LabelledSelect';
+import { NarrowDisclosure } from '../../../components/NarrowDisclosure';
 import { ShowcaseBreadcrumbs } from '../../../components/ShowcaseBreadcrumbs';
 import { useIdentity } from '../../../components/brand-identity-binding';
 import { IDENTITY_LABELS, type IdentitySlug } from '../../../components/useIdentity';
@@ -102,6 +103,47 @@ export function StripControls({
           picker). Embedded mode therefore carries no page navigation —
           the parent page owns the trail. */}
       {framed ? null : <ShowcaseBreadcrumbs trail={SPECIMEN_TRAIL} />}
+      {/* At narrow the controls ride a slide-out disclosure (owner ruling
+          2026-08-18) instead of the old one-row in-strip scroll — closed,
+          the band is one honest line; open, the controls stack with
+          everything visible. At the kit's md seam the wrapper dissolves
+          and the row renders inline as before. */}
+      <NarrowDisclosure
+        summary="Display controls"
+        wideQuery="(min-width: 960px)"
+        className="strip-disclosure"
+      >
+        <StripControlFields
+          identity={identity}
+          identities={identities}
+          setIdentity={setIdentity}
+          theme={theme}
+          setTheme={setTheme}
+        />
+      </NarrowDisclosure>
+      <p aria-live="polite" className="oak-visually-hidden">
+        Showing {IDENTITY_LABELS[identity] ?? identity}
+        {theme === undefined ? '' : ` · ${THEME_LABELS[theme] ?? theme}`}
+      </p>
+    </div>
+  );
+}
+
+function StripControlFields({
+  identity,
+  identities,
+  setIdentity,
+  theme,
+  setTheme,
+}: {
+  readonly identity: IdentitySlug;
+  readonly identities: readonly IdentitySlug[];
+  readonly setIdentity: (value: string) => void;
+  readonly theme: OakThemeSnapshot | undefined;
+  readonly setTheme: (value: string) => void;
+}): ReactElement {
+  return (
+    <>
       <IdentityRadioGroup
         idPrefix="specimen-strip"
         identity={identity}
@@ -120,10 +162,6 @@ export function StripControls({
         disabled={theme === undefined}
         onChange={setTheme}
       />
-      <p aria-live="polite" className="oak-visually-hidden">
-        Showing {IDENTITY_LABELS[identity] ?? identity}
-        {theme === undefined ? '' : ` · ${THEME_LABELS[theme] ?? theme}`}
-      </p>
-    </div>
+    </>
   );
 }
