@@ -57,13 +57,23 @@ resides on the coordination branch).
    `merge_method=merge`, never squash.
 9. Cut the successor coordination branch per
    [`cut-coordination-branch`](../cut-coordination-branch/SKILL-CANONICAL.md):
-   mint the name mechanically —
-   `pnpm --silent agent-tools coordination successor-name` — never by
-   transcription (the sha6 suffix is deliberate collision policy and
-   the tool is its single source; F-161 records the break a
-   hand-carried form caused). Then `git switch -c` with the minted name
-   from post-fold `origin/main` (tree-preserving — dirty files carry
-   across), `git push -u`, and the primary now resides there. GitHub
+   resolve post-fold `origin/main` ONCE and pass the same full sha to
+   both the mint and the cut — two separate resolutions race a
+   concurrent fetch, so the name records one tip while the branch
+   starts at another and the lineage the name carries is false from
+   birth:
+
+   ```bash
+   git fetch origin main
+   BASE="$(git rev-parse origin/main)"
+   git switch -c "$(pnpm --silent agent-tools coordination successor-name --base "$BASE")" "$BASE"
+   git push -u origin HEAD
+   ```
+
+   Never mint by transcription (the sha6 suffix is deliberate
+   collision policy and the tool is its single source; F-161 records
+   the break a hand-carried form caused). The cut is tree-preserving —
+   dirty files carry across — and the primary now resides there. GitHub
    auto-deleting the merged head branch is expected, not loss. If main
    moves again during or just after the ceremony (a lane PR merging
    mid-rotation), merge `origin/main` in and rebuild promptly: until

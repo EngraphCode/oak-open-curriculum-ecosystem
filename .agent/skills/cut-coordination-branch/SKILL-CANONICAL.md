@@ -1,7 +1,7 @@
 ---
 name: cut-coordination-branch
 classification: active
-description: Cut or name a coordination branch with the date + base-sha6 name minted by the agent-tools coordination topic. The suffix separates cuts from DIFFERENT base tips (successor folds, recovery re-cuts) — it does not discriminate parallel same-tip cuts. Use at the fold ceremony's successor cut or a recovery re-cut, and never hand-transcribe the name.
+description: Cut or name a coordination branch with the date + base-sha6 name minted by the agent-tools coordination topic. The suffix usually separates cuts from DIFFERENT base tips (successor folds, recovery re-cuts) — a probabilistic lineage signal, never a uniqueness proof — and does not discriminate parallel same-tip cuts. Use at the fold ceremony's successor cut or a recovery re-cut, and never hand-transcribe the name.
 ---
 
 # Cut Coordination Branch
@@ -18,14 +18,17 @@ The sha suffix makes a checkout cutting from a different tip almost
 always mint a different name instead — six hex characters trade
 absolute uniqueness for name legibility, so distinct commits CAN share
 a prefix; the suffix is lineage signal, never a uniqueness proof. It
-also disambiguates same-day rotations and makes the lineage walkable
-from names alone — each fold's successor carries the fold-merge commit
-that birthed it (`…-ca6b0f → …-c8586f` in the 2026-08-13 chain).
+also usually disambiguates same-day rotations and usually makes the
+lineage walkable from names alone — each fold's successor carries the
+fold-merge commit that birthed it (`…-ca6b0f → …-c8586f` in the
+2026-08-13 chain), with git the authority whenever a prefix collides.
 
-The guarantee's boundary, stated exactly: the suffix discriminates base
-TIPS, never cutting INSTANCES. Two checkouts cutting from the same
-`origin/main` tip on the same UTC day mint the identical name. That
-case is out of this mechanism's scope by design — the estate runs one
+The guarantee's boundary, stated exactly: the suffix usually
+discriminates base TIPS (distinct tips can share a six-character
+prefix) and never discriminates cutting INSTANCES. Two checkouts
+cutting from the same `origin/main` tip on the same UTC day mint the
+identical name. That case is out of this mechanism's scope by design
+— the estate runs one
 coordination branch at a time (the no-parallel-long-lived-branches
 rule), so a deliberate second same-tip surface is a coordination event
 to arrange explicitly between seats, never something the name alone
