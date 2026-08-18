@@ -69,18 +69,55 @@ describe('commit-queue per-intent store — write validation backstop', () => {
   });
 
   it('refuses to write an entry whose intent_id is not a UUID, creating no file', async () => {
-    // The schema's uuid format on intent_id is the write validator's own
-    // refusing leg (the CLI boundary refuses earlier): prove the backstop
-    // bites so neither leg silently becomes the only one.
+    // The schema's lowercase-UUID pattern on intent_id is the write
+    // validator's own refusing leg (the CLI boundary refuses earlier):
+    // prove the backstop bites so neither leg silently becomes the only
+    // one. The pattern subsumes the `uuid` format here — it is what the
+    // validator reports, because the case-insensitive format alone would
+    // admit the aliasing uppercase variant.
     await expect(
       writeCommitQueueEntry({
         queueDir,
         entry: entry({ intent_id: 'not-a-uuid' }),
         nowIso: NOW,
       }),
-    ).rejects.toThrow(/uuid|format/i);
+    ).rejects.toThrow(/must match pattern/i);
 
     expect(await listEntries(queueDir)).toStrictEqual([]);
+  });
+
+  it('refuses to write an entry whose intent_id is not lowercase, creating no file', async () => {
+    // Uppercase hex satisfies the `uuid` FORMAT, so only the schema's
+    // lowercase pattern refuses it. Two case variants are one file on a
+    // case-insensitive filesystem: the second write would silently replace
+    // the first live intent, and every later read of the directory would
+    // then fail the store's filename/id equality check.
+    await expect(
+      writeCommitQueueEntry({
+        queueDir,
+        entry: entry({ intent_id: '11111111-1111-4111-8111-11111111111A' }),
+        nowIso: NOW,
+      }),
+    ).rejects.toThrow(/must match pattern/i);
+
+    expect(await listEntries(queueDir)).toStrictEqual([]);
+  });
+
+  it('refuses an exclusive create onto an occupied path, naming the collision', async () => {
+    // The create path is defence-in-depth behind the queue's own duplicate
+    // refusal: `link` EEXISTs on a path already taken, which is the only
+    // check that can see a case-ALIAS the in-memory queue cannot. The
+    // occupied path is planted directly so the proof is identical on a
+    // case-sensitive host.
+    await ensureDirectory(queueDir);
+    await writeText(
+      join(queueDir, '11111111-1111-4111-8111-111111111111.json'),
+      `${JSON.stringify(entry({ expires_at: secondsAfter(NOW, COMMIT_QUEUE_TTL_SECONDS) }), null, 2)}\n`,
+    );
+
+    await expect(
+      writeCommitQueueEntry({ queueDir, entry: entry(), nowIso: NOW, publish: 'create' }),
+    ).rejects.toThrow(/11111111-1111-4111-8111-111111111111.*already exists/s);
   });
 });
 

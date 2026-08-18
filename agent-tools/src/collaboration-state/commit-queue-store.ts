@@ -20,10 +20,10 @@ import { dirname, join } from 'node:path';
 import { unwrapOrThrow } from '@oaknational/result';
 
 import { failureAsError } from '../core/failure-as-error.js';
+import { publishIntentFile, type CommitQueuePublishMode } from './commit-queue-publish.js';
 import { isErrnoCode } from './errno.js';
 import { parseCommitQueueIntentText } from './registry-entry-parser.js';
 import { commitQueueIntentWriteValidator } from './state-io-write-validators.js';
-import { writeJsonFileWithinTransaction } from './transaction.js';
 import { type CollaborationCommitQueueEntry } from './types.js';
 
 /** Queue entries expire one hour after their last write (owner ruling). */
@@ -93,11 +93,14 @@ export async function readCommitQueueEntry(input: {
  * one lock (today: updateRegistry and the legacy migration — keep it so). `expires_at` is recomputed
  * from the entry's `updated_at` so the stored derivative can never disagree
  * with the TTL clock.
+ *
+ * See {@link CommitQueuePublishMode} for which path a caller owes.
  */
 export async function writeCommitQueueEntry(input: {
   readonly queueDir: string;
   readonly entry: CollaborationCommitQueueEntry;
   readonly nowIso: string;
+  readonly publish?: CommitQueuePublishMode;
 }): Promise<void> {
   await mkdir(input.queueDir, { recursive: true });
   await sweepExpiredCommitQueueEntries({ queueDir: input.queueDir, nowIso: input.nowIso });
@@ -106,10 +109,14 @@ export async function writeCommitQueueEntry(input: {
     expires_at: commitQueueEntryExpiresAt(input.entry.updated_at),
   };
   const filePath = join(input.queueDir, `${entry.intent_id}.json`);
-  await writeJsonFileWithinTransaction({
-    filePath,
-    value: entry,
-    validateText: commitQueueIntentWriteValidator(filePath),
+  await publishIntentFile({
+    write: {
+      filePath,
+      value: entry,
+      validateText: commitQueueIntentWriteValidator(filePath),
+    },
+    intentId: entry.intent_id,
+    publish: input.publish ?? 'replace',
   });
 }
 

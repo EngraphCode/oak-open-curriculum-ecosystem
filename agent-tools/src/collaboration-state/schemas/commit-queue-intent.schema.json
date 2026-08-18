@@ -22,7 +22,8 @@
     "intent_id": {
       "type": "string",
       "format": "uuid",
-      "description": "Unique identifier for this queued commit intent; also the file's basename."
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "description": "Unique identifier for this queued commit intent; also the file's basename. Lowercase-only (the pattern, not the case-insensitive uuid format, is what enforces it — mirroring agent_id.id): the id IS the filename, so an uppercase variant aliases the lowercase file on a case-insensitive filesystem, silently replacing a live peer's intent and then failing every read of the directory against the store's filename/id equality check."
     },
     "claim_id": {
       "type": "string",

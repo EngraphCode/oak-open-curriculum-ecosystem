@@ -178,6 +178,7 @@ async function reconcileQueueStore(input: {
   readonly after: readonly CommitIntent[];
   readonly nowIso: string;
 }): Promise<void> {
+  const beforeIds = new Set(input.before.map((entry) => entry.intent_id));
   const afterIds = new Set(input.after.map((entry) => entry.intent_id));
   for (const entry of input.before) {
     if (!afterIds.has(entry.intent_id)) {
@@ -189,7 +190,16 @@ async function reconcileQueueStore(input: {
     }
   }
   for (const entry of input.after) {
-    await writeCommitQueueEntry({ queueDir: input.queueDir, entry, nowIso: input.nowIso });
+    // Create vs replace is decided by the PRE-TRANSFORM registry, not by
+    // diffing before against after: an id the transform found already in
+    // the queue is an update of a file that exists, and only a genuinely
+    // new id may claim its path exclusively.
+    await writeCommitQueueEntry({
+      queueDir: input.queueDir,
+      entry,
+      nowIso: input.nowIso,
+      publish: beforeIds.has(entry.intent_id) ? 'replace' : 'create',
+    });
   }
   // A transform that only removed entries still owes the lazy sweep.
   await sweepExpiredCommitQueueEntries({ queueDir: input.queueDir, nowIso: input.nowIso });

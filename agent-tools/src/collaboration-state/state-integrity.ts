@@ -1,34 +1,13 @@
-import { readdir, readFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { basename, join } from 'node:path';
 
 import { isLegacyActiveClaimsText } from './active-claims-legacy-migration.js';
 import {
   createCollaborationJsonSchemaValidator,
   type CollaborationJsonSchemaValidator,
-  type CollaborationSchemaId,
 } from './collaboration-json-validation.js';
-import { isErrnoCode } from './errno.js';
+import { parseCommitQueueIntentText } from './registry-entry-parser.js';
+import { jsonSurfaces, readSurfaceText, type JsonSurface } from './state-integrity-surfaces.js';
 import { checkCollaborationSurfaceContract, isContractSchemaId } from './surface-contract.js';
-
-const COLLABORATION_ROOT = '.agent/state/collaboration';
-
-interface JsonSurface {
-  // The absolute root this surface's path resolves against. Machine-local
-  // surfaces (claims, comms, commit-queue — ADR-199/QUEUE-LOCAL) root at
-  // the ADR-197 coordination home: in a linked worktree the repo-local
-  // copies are decoys (absent, or stale pre-split residue), and validating
-  // them lets `check` pass while the canonical store is corrupt.
-  readonly root: string;
-  // One schemaId, one vocabulary: the shared check owns the parser dispatch
-  // (no injectable parser seam), and isContractSchemaId decides which
-  // surfaces carry a runtime contract — no second field for drift to split.
-  readonly path: string;
-  readonly schemaId: CollaborationSchemaId;
-  // Untracked-by-design surfaces (ADR-199 Phase-3 untrack) are absent in a fresh
-  // checkout (e.g. CI) and present-on-disk on a working instance. An absent such
-  // surface is the expected clean state, not an integrity fault.
-  readonly optionalWhenAbsent?: boolean;
-}
 
 interface CollaborationStateIntegrityFinding {
   readonly path: string;
@@ -101,108 +80,16 @@ async function validateJsonSurface(
     return contract;
   }
 
+  const correspondence = filenameCorrespondenceFindings(surface, findingPath, text);
+  if (correspondence.length > 0) {
+    return correspondence;
+  }
+
   const validated = validator.validateText(surface.schemaId, text);
   if (validated.ok) {
     return [];
   }
   return [finding(findingPath, errorMessage(validated.error))];
-}
-
-async function jsonSurfaces(
-  repoRoot: string,
-  coordinationHome: string,
-): Promise<readonly JsonSurface[]> {
-  return [
-    {
-      root: coordinationHome,
-      path: `${COLLABORATION_ROOT}/active-claims.json`,
-      schemaId: 'active-claims.schema.json',
-      optionalWhenAbsent: true,
-    },
-    {
-      root: coordinationHome,
-      path: `${COLLABORATION_ROOT}/closed-claims.archive.json`,
-      schemaId: 'closed-claims.schema.json',
-      optionalWhenAbsent: true,
-    },
-    ...(await directorySurfaces({
-      root: coordinationHome,
-      directory: `${COLLABORATION_ROOT}/comms`,
-      schemaId: 'comms-event.schema.json',
-      // comms/ is untracked-by-design (ADR-199 Phase-3 untrack): absent in a
-      // fresh checkout (e.g. CI), present-on-disk on a working instance. An
-      // absent comms/ is the expected clean state, not an integrity fault.
-      optionalWhenAbsent: true,
-    })),
-    ...(await directorySurfaces({
-      root: coordinationHome,
-      directory: `${COLLABORATION_ROOT}/commit-queue`,
-      schemaId: 'commit-queue-intent.schema.json',
-      // Machine-local ephemera (QUEUE-LOCAL, 2026-08-17): untracked by
-      // design and absent until the first enqueue; absence is the expected
-      // clean state, not an integrity fault.
-      optionalWhenAbsent: true,
-    })),
-    ...(await directorySurfaces({
-      root: repoRoot,
-      directory: `${COLLABORATION_ROOT}/conversations`,
-      schemaId: 'conversation.schema.json',
-      excludeExamples: true,
-    })),
-    ...(await directorySurfaces({
-      root: repoRoot,
-      directory: `${COLLABORATION_ROOT}/escalations`,
-      schemaId: 'escalation.schema.json',
-      excludeExamples: true,
-    })),
-  ];
-}
-
-async function directorySurfaces(input: {
-  readonly root: string;
-  readonly directory: string;
-  readonly schemaId: CollaborationSchemaId;
-  readonly excludeExamples?: boolean;
-  readonly optionalWhenAbsent?: boolean;
-}): Promise<readonly JsonSurface[]> {
-  const entries = await readDirOrEmpty(
-    join(input.root, input.directory),
-    input.optionalWhenAbsent === true,
-  );
-  return entries
-    .filter((entry) => entry.endsWith('.json'))
-    .filter((entry) => input.excludeExamples !== true || !entry.endsWith('.example.json'))
-    .toSorted((left, right) => left.localeCompare(right))
-    .map((entry) => ({
-      root: input.root,
-      path: `${input.directory}/${entry}`,
-      schemaId: input.schemaId,
-    }));
-}
-
-async function readSurfaceText(surface: JsonSurface): Promise<string | undefined> {
-  try {
-    return await readFile(join(surface.root, surface.path), 'utf8');
-  } catch (error) {
-    if (surface.optionalWhenAbsent === true && isErrnoCode(error, 'ENOENT')) {
-      return undefined;
-    }
-    throw new Error(`failed to read ${join(surface.root, surface.path)}`, { cause: error });
-  }
-}
-
-async function readDirOrEmpty(
-  directory: string,
-  optionalWhenAbsent: boolean,
-): Promise<readonly string[]> {
-  try {
-    return await readdir(directory);
-  } catch (error) {
-    if (optionalWhenAbsent && isErrnoCode(error, 'ENOENT')) {
-      return [];
-    }
-    throw error;
-  }
 }
 
 /**
@@ -235,6 +122,49 @@ function contractFindings(
   // Byte-parity with the deleted seam's catch: the original parser
   // error's message, whichever failure kind carried it.
   return [finding(findingPath, checked.error.causeError.message)];
+}
+
+/**
+ * Filename↔content correspondence for the commit-queue surface: the store
+ * finds an intent BY its filename (`<intent_id>.json`) and deletes by that
+ * path, so a file named for one id and carrying another is unreachable
+ * through the store's own API — and it makes every read of the whole
+ * directory throw. Content-only validation cannot see it: such a file
+ * satisfies both its schema and its contract parser exactly.
+ *
+ * Home decision: this lives here rather than in `surface-contract.ts`
+ * because CONTRACT_PARSERS is a deliberately compile-time-typed seam whose
+ * `(text) => Result<Domain, Error>` signature would have to widen to carry
+ * a filename for one surface's benefit — losing the property that seam
+ * exists for.
+ */
+function filenameCorrespondenceFindings(
+  surface: JsonSurface,
+  findingPath: string,
+  text: string,
+): readonly CollaborationStateIntegrityFinding[] {
+  if (surface.schemaId !== 'commit-queue-intent.schema.json') {
+    return [];
+  }
+  const parsed = parseCommitQueueIntentText(text, findingPath);
+  if (!parsed.ok) {
+    // Unreachable in practice: the contract gate above reports and returns
+    // on exactly this failure. Kept total rather than asserted away.
+    return [];
+  }
+  const expected = `${parsed.value.intent_id}.json`;
+  if (expected === basename(surface.path)) {
+    return [];
+  }
+
+  return [
+    finding(
+      findingPath,
+      `filename disagrees with its intent_id: this file must be named ${expected}. ` +
+        `Commit-queue files are machine-local ephemera (owner ruling QUEUE-LOCAL) — ` +
+        `delete the mismatched file to clear it.`,
+    ),
+  ];
 }
 
 function finding(path: string, message: string): CollaborationStateIntegrityFinding {

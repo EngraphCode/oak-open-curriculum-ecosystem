@@ -99,6 +99,58 @@ describe('collaboration state integrity validator', () => {
     }
   });
 
+  it('reports a commit-queue intent file whose filename disagrees with its intent_id, naming the delete remedy', async () => {
+    // The store finds an intent BY its filename and deletes by that path,
+    // so a file named for one id and carrying another is unreachable
+    // through the store's own API — and it makes every read of the whole
+    // directory throw. Content-only validation cannot see it: this file
+    // satisfies its schema and its contract parser exactly.
+    const repoRoot = await makeTempCollaborationRepo();
+    try {
+      await mkdir(join(repoRoot, '.agent/state/collaboration/commit-queue'), { recursive: true });
+      await writeJson(
+        join(
+          repoRoot,
+          '.agent/state/collaboration/commit-queue/44444444-4444-4444-8444-444444444444.json',
+        ),
+        {
+          intent_id: '33333333-3333-4333-8333-333333333333',
+          claim_id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
+          agent_id: {
+            agent_name: 'Prismatic Waxing Constellation',
+            platform: 'codex',
+            model: 'gpt-5.5',
+            session_id_prefix: '019dcd',
+            id: 'e2e793c7-923e-5baa-97f0-2bedfb9b6b50',
+          },
+          files: ['agent-tools/src/commit-queue/index.ts'],
+          commit_subject: 'feat(queue): exercise the filename correspondence check',
+          queued_at: '2026-04-27T07:20:00Z',
+          updated_at: '2026-04-27T07:20:00Z',
+          expires_at: '2026-04-27T08:20:00Z',
+          phase: 'queued',
+        },
+      );
+
+      const report = await validateCollaborationStateIntegrity({
+        repoRoot,
+        coordinationHome: repoRoot,
+      });
+
+      expect(report.findings).toHaveLength(1);
+      expect(report.findings[0]?.path).toBe(
+        '.agent/state/collaboration/commit-queue/44444444-4444-4444-8444-444444444444.json',
+      );
+      expect(report.findings[0]?.message).toContain('33333333-3333-4333-8333-333333333333.json');
+      // Queue files are ephemera by the QUEUE-LOCAL owner ruling, so
+      // deleting the mismatched file is a legitimate operator cure — and
+      // the finding must say so, or the operator has a fault and no remedy.
+      expect(report.findings[0]?.message).toMatch(/delete/i);
+    } finally {
+      await removeDirectory(repoRoot);
+    }
+  });
+
   it('reports schema-invalid true-JSON files without stopping at the first finding', async () => {
     const repoRoot = await makeTempCollaborationRepo();
     try {

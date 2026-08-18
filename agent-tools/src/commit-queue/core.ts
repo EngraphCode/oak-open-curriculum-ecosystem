@@ -96,11 +96,22 @@ export function completeCommitIntent(input: {
  * carries claim_id, so no claims-file pointer exists to strand if a write
  * dies between the claims file and the per-intent store (crash-atomicity by
  * construction, not by ordering).
+ *
+ * An intent id the live queue already carries is REFUSED, mirroring the
+ * comms store's existing-id refusal: the store publishes one file per id,
+ * so appending a duplicate would overwrite that file and silently discard
+ * the peer's queued bundle. The store's exclusive-create path is
+ * defence-in-depth behind this check, not a substitute for it — it catches
+ * the case-alias no in-memory comparison can see.
  */
 export function enqueueCommitIntent(input: {
   readonly registry: CommitQueueRegistry;
   readonly intent: CommitIntent;
 }): CommitQueueRegistry {
+  if (input.registry.commit_queue.some((entry) => entry.intent_id === input.intent.intent_id)) {
+    throw new Error(`commit queue intent already exists: ${input.intent.intent_id}`);
+  }
+
   return {
     ...input.registry,
     commit_queue: [...input.registry.commit_queue, input.intent],

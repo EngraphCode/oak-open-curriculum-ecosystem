@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 
 import { uuidV5Schema, type CollaborationAgentIdWrite } from '../src/collaboration-state/agent-id';
 
-import { enqueueCommitIntent } from '../src/commit-queue/core';
 import {
   completeCommitIntent,
   createStagedBundleFingerprint,
@@ -493,35 +492,6 @@ describe('completeCommitIntent', () => {
     ).toStrictEqual({
       schema_version: '1.4.0',
       commit_queue: [],
-      claims,
-    });
-  });
-});
-
-describe('enqueueCommitIntent', () => {
-  it('appends the queue entry and leaves claim rows untouched', () => {
-    // The store entry carries claim_id, so the claims file needs no pointer
-    // back — and writing one would re-open the split-write crash window
-    // (claims committed before the intent file exists).
-    const claims = [
-      {
-        claim_id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
-        agent_id: agentId,
-        thread: 'agentic-engineering-enhancements',
-        areas: [{ kind: 'files', patterns: ['agent-tools/src/commit-queue/index.ts'] }],
-        claimed_at: queuedAt,
-        intent: 'Implement the queue helper.',
-      },
-    ];
-    const registry: CommitQueueRegistry = {
-      schema_version: '1.4.0',
-      commit_queue: [],
-      claims,
-    };
-
-    expect(enqueueCommitIntent({ registry, intent: intent() })).toStrictEqual({
-      schema_version: '1.4.0',
-      commit_queue: [intent()],
       claims,
     });
   });

@@ -56,5 +56,32 @@ const intentIdSchema = z.uuid();
 
 function optionOrRandomId(options: CommitQueueCliOptions): string {
   const intentId = options['intent-id'];
-  return typeof intentId === 'string' ? intentIdSchema.parse(intentId) : randomUUID();
+  // randomUUID emits lowercase, so the generated arm is canonical already.
+  return typeof intentId === 'string'
+    ? requireLowercaseIntentId(intentIdSchema.parse(intentId))
+    : randomUUID();
+}
+
+/**
+ * Refuse a non-lowercase intent id. Uppercase hex is a valid UUID, so
+ * nothing upstream catches it, and `<ID>.json` and `<id>.json` are ONE file
+ * on a case-insensitive filesystem: two live intents would alias, and every
+ * subsequent read of the store would fail its filename/id equality check.
+ *
+ * Refusing rather than canonicalising is deliberate. Every downstream
+ * command (`phase`, `complete`, `show`) matches the id the caller holds
+ * EXACTLY, so silently lowercasing here would hand back an id addressing
+ * nothing and surface much later as an unrelated `unknown intent_id`. The
+ * error names the canonical form so the caller can simply retry with it.
+ */
+function requireLowercaseIntentId(intentId: string): string {
+  const canonical = intentId.toLowerCase();
+  if (intentId !== canonical) {
+    throw new Error(
+      `--intent-id must be lowercase (it becomes the store filename, and every ` +
+        `later lookup matches it exactly): use ${canonical}`,
+    );
+  }
+
+  return intentId;
 }
