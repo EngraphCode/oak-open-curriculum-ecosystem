@@ -103,7 +103,8 @@ export async function resolveOpenClaimWatcherVerdict(
 /**
  * Throw when the locked registry holds another live agent AND this session's
  * watcher verdict is blind. Pure and synchronous so it runs inside the
- * `updateActiveClaimsFile` transform on the authoritative snapshot.
+ * locked claim-open transform (`runLockedClaimOpen`) on the authoritative
+ * snapshot.
  */
 export function assertNotBlindWithOtherAgents(input: {
   readonly registry: CollaborationRegistry;

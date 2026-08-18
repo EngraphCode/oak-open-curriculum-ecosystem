@@ -17,7 +17,7 @@ import { type CollaborationCommitQueueEntry } from './types.js';
  * cohesion; `state-parsers.ts` owns the text-level surfaces and the
  * claim-row half).
  *
- * Intents RECONSTRUCT field-by-field (the schema's intent_to_commit sets
+ * Intents RECONSTRUCT field-by-field (the intent schema (`commit-queue-intent.schema.json`; likewise the legacy `$defs/intent_to_commit`) sets
  * additionalProperties: false, and intents are short-lived rows every live
  * writer fully specifies) while claims SPREAD (preservation contract:
  * legacy content owned by other writers survives write-back). The asymmetry
