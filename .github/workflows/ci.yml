@@ -145,11 +145,6 @@ jobs:
     name: build
     permissions:
       contents: read
-      # The advisory drift check publishes an informational commit status —
-      # the visible half of the signal; the annotation alone proved invisible
-      # in practice (2026-08-18: real drift found by a live smoke test while
-      # the warning annotation fired unread on every build).
-      statuses: write
     needs: install
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -161,14 +156,63 @@ jobs:
       - name: Report Turbo summary
         if: always()
         run: pnpm --filter @oaknational/agent-tools ci-turbo-report >> "$GITHUB_STEP_SUMMARY"
+  # Advisory schema-drift signal in its own job: it needs no build output
+  # (tsx runs it from source over a committed file + a public fetch), and the
+  # status-writing token must NEVER ride the build job — build-time code
+  # could otherwise mint an Actions-attributed status for a required context
+  # (the same risk class preview-serves.yml guards explicitly). The job row
+  # itself appears in the PR checks list; the commit status carries the
+  # version verdict.
+  schema-drift:
+    name: schema-drift
+    permissions:
+      contents: read
+      statuses: write
+    needs: install
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: ./.github/actions/setup
       - name: Check schema cache drift (advisory)
-        if: always()
+        id: drift
+        # Stream contract: stdout is the step-summary markdown; the
+        # `::warning`/`::notice` workflow commands ride stderr so this
+        # redirect cannot swallow them; the status description rides
+        # $GITHUB_OUTPUT.
+        run: pnpm --filter @oaknational/agent-tools ci-schema-drift-check >> "$GITHUB_STEP_SUMMARY"
+      - name: Publish informational commit status
+        # Fork PRs carry a read-only token regardless of the permissions
+        # block; skipping the step structurally beats a misleading failure
+        # notice on every fork run. The annotation and step summary still
+        # render there.
+        if: github.event.pull_request.head.repo.fork != true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # PR events target the PR HEAD sha so the informational status lands
-          # on the PR's checks surface; pushes target the pushed sha.
+          # PR events target the PR HEAD sha so the status lands on the PR's
+          # checks surface; pushes target the pushed sha. Note the checkout
+          # above is the PR MERGE ref, so the verdict describes the merge
+          # result attributed to the head SHA — the more useful reading.
           DRIFT_STATUS_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: pnpm --filter @oaknational/agent-tools ci-schema-drift-check
+          DRIFT_DESCRIPTION: ${{ steps.drift.outputs.description }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          publish() {
+            gh api "repos/${GITHUB_REPOSITORY}/statuses/${DRIFT_STATUS_SHA}" \
+              -f state=success \
+              -f context='schema-drift (advisory)' \
+              -f description="${DRIFT_DESCRIPTION:-Schema drift check produced no verdict}" \
+              -f target_url="${RUN_URL}"
+          }
+          for attempt in 1 2 3; do
+            if publish; then
+              exit 0
+            fi
+            echo "::notice::Schema drift status publish attempt ${attempt} failed; retrying." >&2
+            sleep 5
+          done
+          echo "::notice::Schema drift status not published after 3 attempts (advisory only)."
+          exit 0
 
   # Type-check, ESLint, and unit tests. Turbo restores the build outputs from
   # the remote cache warmed by `build`.
