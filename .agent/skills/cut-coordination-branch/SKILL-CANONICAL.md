@@ -1,7 +1,7 @@
 ---
 name: cut-coordination-branch
 classification: active
-description: Cut or name a coordination branch with the collision-safe sha6 suffix, minted by the agent-tools coordination topic. Use whenever a coordination branch is created — at the fold ceremony's successor cut, or any seat opening a coordination surface — and never hand-transcribe the name.
+description: Cut or name a coordination branch with the date + base-sha6 name minted by the agent-tools coordination topic. The suffix separates cuts from DIFFERENT base tips (successor folds, recovery re-cuts) — it does not discriminate parallel same-tip cuts. Use at the fold ceremony's successor cut or a recovery re-cut, and never hand-transcribe the name.
 ---
 
 # Cut Coordination Branch
@@ -12,12 +12,22 @@ Coordination branches are named `coordination/<UTC date>-<sha6>`, where
 `sha6` is the first six hex characters of the base commit the branch is
 cut from. The suffix is deliberate owner policy (2026-08-17, restated at
 the convention break that motivated this skill): this is a real repo
-with many live checkouts, and a date-only name lets two checkouts mint
-the SAME branch and collide silently. The sha suffix makes a checkout
-cutting from a different tip mint a different name instead. It also
-disambiguates same-day rotations and makes the lineage walkable from
-names alone — each fold's successor carries the fold-merge commit that
-birthed it (`…-ca6b0f → …-c8586f` in the 2026-08-13 chain).
+with many live checkouts, and a date-only name lets two checkouts
+cutting from DIFFERENT tips mint the same branch and collide silently.
+The sha suffix makes a checkout cutting from a different tip mint a
+different name instead. It also disambiguates same-day rotations and
+makes the lineage walkable from names alone — each fold's successor
+carries the fold-merge commit that birthed it (`…-ca6b0f → …-c8586f`
+in the 2026-08-13 chain).
+
+The guarantee's boundary, stated exactly: the suffix discriminates base
+TIPS, never cutting INSTANCES. Two checkouts cutting from the same
+`origin/main` tip on the same UTC day mint the identical name. That
+case is out of this mechanism's scope by design — the estate runs one
+coordination branch at a time (the no-parallel-long-lived-branches
+rule), so a deliberate second same-tip surface is a coordination event
+to arrange explicitly between seats, never something the name alone
+makes safe.
 
 ## The mechanism
 
@@ -41,8 +51,9 @@ git push -u origin HEAD
 
 - The [coordination-fold ceremony](../coordination-fold/SKILL-CANONICAL.md)
   step 9 — the successor cut after the fold merge.
-- Any seat creating a coordination branch outside the ceremony
-  (recovery after a broken rotation, a parallel coordination surface).
+- Recovery after a broken rotation — the outside-the-ceremony case
+  where a fresh cut is needed and the base tip is expected to differ
+  from the broken branch's.
 
 ## Failure the mechanism prevents
 
