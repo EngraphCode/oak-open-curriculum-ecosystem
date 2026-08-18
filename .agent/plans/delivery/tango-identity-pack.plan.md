@@ -121,6 +121,10 @@ DDR-005) is a boundary the flat tier cannot express. A pack contains:
   dated kit contract amendment (named T1c work) opens the per-theme
   authoring path for packs, winning on equal specificity + later source
   order, without weakening the kit's own defaults for packless consumers.
+  *(P7/DDR-012 framing, 2026-08-18: source order is the mechanical slot,
+  never a value source — an admitted pack's per-theme surface is
+  COMPLETE against the contract, so no value an identity renders is ever
+  supplied by the kit's own theme blocks.)*
 - **`expression layer` (declared)** — a pack may carry expression rules
   targeting **kit-contract selectors only**; demo-specific class rules stay
   demo-side. The manifest declares the expression layer's selector surface
@@ -187,12 +191,17 @@ seeded fixture before it guards anything.
 
 1. **Static single-identity** (the real-app shape): an app imports the kit
    base plus **exactly one pack** — zero bytes from any *other* pack are
-   served. Honest bound, stated: the kit base carries Oak's own slot
-   values today, so "completely swapped" means the pack's sheet wins the
-   cascade over the base, not that Oak's bytes are absent; the value-free
-   base is the Oak-pack migration node's outcome, not this one's. The
-   proof consumer is a minimal fixture app (T1c) — no static
-   single-identity consumer exists today.
+   served. Honest bound, stated per DDR-012: the kit base still carries
+   Oak's own slot values today and the pack's sheet sits later in the
+   cascade — but an ADMITTED pack is contract-COMPLETE (T1a-ii
+   completeness semantics, verified by the T1b arms), so the base's
+   values are unreachable behind it: cascade position is byte mechanics,
+   never a value source, and no pack surface may DEPEND on a base value
+   (that dependency is the runtime-override shape DDR-012 grades
+   legacy-demo, closed to new surfaces). The value-free base — Oak's
+   values leaving the base bytes entirely — is the Oak-pack migration
+   node's outcome (AC3), not this one's. The proof consumer is a minimal
+   fixture app (T1c) — no static single-identity consumer exists today.
 2. **Demo runtime switching** (the demo-equipment shape): a
    **build-time-generated roster module** (zod-parsed at module init, the
    demo's existing precedent) derives from installed pack manifests and
@@ -334,14 +343,19 @@ pixels before value authoring begins.
 ## Todos (slices, each a single-story PR within the PDR-132 two-round default)
 
 - **T1a-i — The identities tier + boundary visibility** (class:
-  shared-machinery refactor + scaffold). The pnpm glob
+  shared-machinery refactor + scaffold). **Implemented at `cd84e490c`,
+  in review as PR #909** (status note 2026-08-18 — merged-to-main is the
+  landing bar, and this slice has not crossed it yet). The pnpm glob
   `packages/design/identities/*` and the tier README (carrying the
   boundary-zone depth note); the `validate-boundaries` inventory leg
   for the tier — the comparison extracted to a tested pure function,
   red-first against synthetic inventories, refusing a missing tier
-  directory, with a separate pack-imports inventory so pack specifiers
-  never enter the depth-3 zone builders. Zero turbo edits: packs are
-  data-only workspaces on the `oak-design-assets` precedent (no
+  directory. The originally-ratified "separate pack-imports inventory"
+  was NOT built: discharged by stronger means at the config review (the
+  type-level zone-builder parameter refusal plus the depth-1 scan's
+  structural blindness to nested packs; evidence in the tier README and
+  the readiness record's execution addendum). Zero turbo edits: packs
+  are data-only workspaces on the `oak-design-assets` precedent (no
   scripts), and the schema workspace rides the generic tasks.
 - **T1a-ii — The manifest schema workspace** (class: schema + records).
   `packages/design/identity-pack-schema` at the flat tier — the
@@ -430,10 +444,16 @@ pixels before value authoring begins.
   node proposed with the needs as warrant, or "none found" recorded);
   sign-off.
 
-Sequencing note: T1a–T1e and T2 merge independently on green — the
-mechanism ships value before the design loop closes (each slice is its
-own PR; the wow loop closes the NODE, not the mechanism PRs). T1e
-precedes T2 (P7: Tango is born through the constructor). The
+Sequencing note: each slice is its own PR, and PRs merge independently
+on green — the mechanism ships value before the design loop closes (the
+wow loop closes the NODE, not the mechanism PRs). Slice OPENING follows
+the consumption graph, stated in full (2026-08-18 true-up — the graph
+must match the mechanism): T1a-i → T1a-ii → {T1b, T1c, T1d}
+(independent of one another once the schema exists); T1e opens after
+T1a-ii + T1b; T2 opens last — it consumes T1b's admission arms (a pack
+must not be able to render ungated), T1c's serving/URL answer for the
+demo shape, T1d's roster + a11y derivation (pickup with zero source
+edits), and T1e's constructor (P7: Tango is born through it). The
 MCP-613 records-pass PR (in flight behind the GitHub hold) precedes any
 sibling-plan amendment this node owes, because both touch the same plan
 files.
@@ -444,7 +464,10 @@ files.
   each its own delivery node at pickup; the Oak pack's content work
   coordinates with `oak-identity-recognisability` S3–S5, which owns the
   Oak-face re-truing; the value-free kit base is the Oak-pack node's
-  outcome (AC3).
+  outcome (AC3). Until it lands, completeness admission (T1a-ii/T1b)
+  keeps the base-fallback path structurally dead for admitted packs
+  (DDR-012) — the migration empties the base's bytes, never rescues a
+  dependency.
 - **A manifest→CSS expressive-value generator** — authored CSS + a
   validating manifest is a complete correct state; the narrow
   asset-property emission (T1c) reuses the existing `design-tokens-core`
@@ -586,7 +609,7 @@ files.
 | --- | --- | --- |
 | One delivery node = mechanism + first pack; other packs follow-on | Seat verdict, owner-ruled at the card (2026-08-17: keep one node) | Estate grammar ("one step of a lane, never the lane"); P1's "Tango first" makes the mechanism's first consumer the proof; mechanism slices merge independently so ship-independent is satisfied without splitting the node |
 | Expressive-value generator out of scope | Seat verdict | First question — authored CSS + validating manifest is the complete correct state; asset-property emission reuses the existing emitter; conditional generated-tier consequence stated, not foreclosed |
-| Structure before design (T1→T2 before T3→T4) | Seat verdict | Every rendered checkpoint exercises the shipping mechanism; first pixels are one slice away because T1 is four small slices, not one large one |
+| Structure before design (T1→T2 before T3→T4) | Seat verdict | Every rendered checkpoint exercises the shipping mechanism; first pixels stay close because T1 is six bounded slices (T1a-i…T1e), not one large one |
 | Admission = the G1 instrument extended, closure-scoped, manifest-driven | Owner (P3) + ratified sibling (G1) | One instrument, no second regime; the shared-instrument reading confirmed at the ratification card (2026-08-17) |
 | Tango proves №N in vivo on the showcase roster | Seat verdict | K2's falsifier exercised by the commissioning act itself, under sibling governance |
 | The a11y matrix derives from the installed roster | Review-driven (readiness record Y1) | A pack must not be able to render ungated; the same data act that adds visibility adds cells |

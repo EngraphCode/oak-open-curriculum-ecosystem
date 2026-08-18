@@ -11,7 +11,7 @@ edges:
     - 'DDR-007 — palette values derive, never copy (construction-time derivation generalises it)'
   supersedes: []
   informed_by:
-    - 'Owner ruling 2026-08-18 at the design seat (P7 in the tango-identity-pack plan, verbatim there)'
+    - 'Owner ruling 2026-08-18 at the design seat — verbatim in §Provenance below; the tango-identity-pack plan carries it downstream as ruling P7'
     - 'The 2026-08-18 demo-day defect ledger: reduced-motion collapse defeated by a bare later-sheet override; a stranded server-rendered brand sheet; cascade-order and specificity fights; light-dark() resolving at the declaring root'
     - 'P6 (tango-identity-pack plan): the eventual state is all identities as canonical packs'
   related:
@@ -87,6 +87,31 @@ colour-safe — carried in full inside every pack).
   delta-wellformedness: the pack manifest declares the full surface,
   the admission guard verifies it, and a contract-drift validator
   recomputes rather than records.
-- The means live in the `tango-identity-pack` plan (P7; slices T1a-ii,
-  T1e, T2) and the follow-on migration nodes for the three existing
-  identities — this record states the should-be, never the schedule.
+- The means live in the `tango-identity-pack` plan (its P7 row; slices
+  T1a-ii, T1e, T2) and the follow-on migration nodes for the three
+  existing identities — this record states the should-be, never the
+  schedule, and the plan cites this record for the decision, never the
+  reverse.
+
+## Provenance
+
+Owner ruling, 2026-08-18, design-lane session (Yarrow stirs Undergrowth,
+ab1066), the post-demo feedback round — verbatim:
+
+> On the re-pointing point. That feels fundamental. I think it is showing
+> that an early mechanism design to prove theme switching has persisted
+> when it shouldn't. Each identity needs to be self contained, not
+> override a base. We can certainly have defaults, but the time to use
+> them is during identity construction, not as runtime values… we can
+> have a CLI with commands like oak-design identity create
+
+And, ratifying the seat's self-contained-values-shared-contract clause,
+same sitting:
+
+> Absolutely yes, the contract is an invariant, that is what makes it
+> cheap to create new identities.
+
+The ruling and its session context are also recorded in the design-lane
+thread record (`.agent/memory/operational/threads/design-system-integration.next-session.md`,
+session close 2026-08-18). This section is the decision's durable
+authority anchor; every other surface is downstream of it.
