@@ -173,19 +173,52 @@ separates in one glance: unfunded budget → top-up; consumed slot → nothing t
 re-measure the 400** — re-testing it is a *write* to a production monitor, which is
 MCP-597's act, not this spike's.
 
-### The three asks MG is holding — do not re-ask, do not add
+### The asks MG is holding — UPDATED 2026-08-18, one DISCHARGED by measurement
 
-None answered as of this wrap. All one line each:
+**Ask 3's first half is ANSWERED — do not put it to him.** Measured first-hand in Sentry
+2026-08-18: **uptime monitors ARE available on the plan.** The feature exists and the API
+exposes full create/update. **The blocker is QUOTA, not plan tier** — a distinction the
+earlier revision of this record did not have, and it changes the shape of the decision
+from "can we?" to "will we fund it?".
+
+**The PAYG refusal is now REPRODUCED A THIRD TIME, today, on an idempotent NO-OP** —
+`update_uptime_monitor` setting the monitor's name to its own current value returned
+`HTTP 400 {"status":["You don't have enough pay-as-you-go available to create a new
+seat"]}`. So it is not "enabling costs a seat": **every write to detector `1593267` is
+refused, including a rename.** Sentry uptime is unusable without a spend decision, full
+stop. Three independent measurements across five days.
+
+**Also new, and it constrains AC2:** `create_uptime_monitor` DOES accept `method`,
+`headers` and `body`, so the `Accept: application/json, text/event-stream` header MCP-493
+needs for its `POST /mcp` probe is settable and the 406-vs-401 trap is solvable. But the
+schema states plainly *"Advanced response assertions are not supported in this MVP;
+configure them in the Sentry UI if needed."* **AC2's header assertion is UI-ONLY, not
+API-reachable.** Detector `1593267`'s live assertion is `status_code_check >199 AND <300`
+and carries no header assertion.
+
+**And a live gap nobody had named:** alert rule `758827` "MCP production — new issue" is
+enabled, `environment: production`, routed to `mcp-alerts-sentry-prod` — but
+**`lastTriggered: null`. It has never fired.** The owner's Slack test proved the
+*binding*, not the rule. `metricRules: []`. Separately `488389` "Test Alert 1" is **still
+enabled with `environment: null`**, so preview noise still reaches
+`#sentry-alert-testing` — MCP-544's "retire Test Alert 1" step is still outstanding.
+
+The asks below are what remains. Do not re-ask, do not add:
 
 1. **Pingdom:** add a `/mcp/healthz` check to the existing `www.thenational.academy`
    check. He does it himself (agreed — a two-minute UI action beats provisioning a
    token).
 2. **Pingdom:** report that existing check's **interval**. AC1 requires 1–5 minutes and
    **a longer interval fails it silently.**
-3. **Sentry org settings, two glances:** does the plan show an uptime monitor
-   available, and can **Early Adopter** be switched on? That flag is what unlocks
-   response-header assertions, i.e. AC2 — and there is **no read-only Sentry surface**
-   for org settings or feature flags (MCP catalogue checked), so it needs his own view.
+3. **Sentry, ONE glance now, not two:** can **Early Adopter** be switched on? That
+   flag is what unlocks response-header assertions, i.e. AC2, and there is **no
+   read-only Sentry surface** for org settings or feature flags, so it needs his own
+   view. The plan-availability half of this ask is DISCHARGED — see above.
+4. **A spend decision on the Sentry PAYG quota**, newly separable from ask 3 now that
+   plan tier is ruled out as the cause. Not the same question as "is a monitor
+   available": the monitor is available and every write to it is refused for want of
+   quota. If Pingdom takes AC1 at £0 and Sentry keeps AC2, this is the one remaining
+   cost question on the detection chain.
 
 Recommendation already with him on the one fork: if the included monitor is
 unavailable, pay for the single monitor rather than adding Checkly — two tools already
