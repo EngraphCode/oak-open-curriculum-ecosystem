@@ -840,3 +840,49 @@ survey post-mortem discharged (both at 6ba9e93c3).
   pure-module + thin-fs-script is the estate's canonical validator
   partition; packs are data-only workspaces on the oak-design-assets
   precedent (no scripts, private, own licence surface).
+
+## 2026-08-18 ~11:0xZ (Ocelot binds Tunnel, c28ad9, Director) — compaction-freeze harvest: demo day, three self-caught instrument classes (metacognition / free-play; owner-invoked)
+
+- METACOGNITION, four bites, all my own hands: (1) EXIT-CODE MASKING —
+  a background push wrapped as `git push ...; echo "exit=$?"` reported
+  the WRAPPER's exit; the push had failed and the harness said
+  completed-0. The owner's same-hour push-log-to-file instruction was
+  the instrument that told the truth. Rule already existed
+  (exit-codes-in-band-never-piped); the new facet: a background task's
+  LAST command must BE the guarded command. (2) CWD DRIFT — a `cd` in
+  one compound command left the persistent shell in a worktree; the
+  next background push ran in the WRONG worktree and reported
+  "Everything up-to-date" (true, for the wrong branch). Cure re-adopted
+  from the freeze-1 map: shell pinned to primary root, `git -C` for
+  ALL worktree git. (3) IDENTITY ECHO SEQUENCED LATE — PR #904 was
+  created under the ambient owner credential; the gh-identity echo ran
+  AFTER the write and caught it. The tripwire's value is ONLY
+  before-first-write; cure = close/recreate as bot (#905, author
+  read-back proven), failure-mode event 5472dbad. (4) POLL FILTER
+  MATCHED THE WRONG FIELD — review-arrival poll v1 keyed on a compound
+  state string; mergeStateStatus flapping (BLOCKED→UNKNOWN) tripped
+  "review landed" against a pre-existing quota-skip entry, twice.
+  v2 keyed on the reviews ARRAY alone held. General form: an
+  arrival-poll's comparison set must contain ONLY the arrival surface.
+- REVIEW-CEREMONY LESSON, structural: merge-bot refused a premature
+  merge with SILENT-WAIT-NO-REVIEWER — a DISMISSED round binds no tip,
+  so dismiss-at-honest-cure is HALF a ceremony; the re-request is the
+  other half. The settlement state machine is doctrine-as-instrument:
+  it held the line my own eagerness would have crossed.
+- LANDING-GAP CLASS, worked instance: the MCP-612 finisher's "green"
+  omitted the pre-push-only smoke chain; the stale fixture literal
+  (commit_queue key) sat exactly at the original builder's quota-death
+  seam and only the first real push surfaced it. A quota-killed
+  builder's seam gets a dedicated re-verify at the NEXT gate tier, not
+  just the one it died inside.
+- FREE-PLAY SEEDS (one kept, one discarded visibly): KEPT — "the cure
+  as the demo's opening beat": showing the reduced-motion leak DIE on
+  camera turned a defect into narrative capital; candidate pattern for
+  future owner demos (lead with the falsifier). DISCARDED — a
+  three-instrument numerology (three watchers, three cures, three
+  rounds); routes nowhere.
+- Warden-review quality note for successors: mantagen's agent-authored
+  rounds (PR Review Warden seat, disclosed banner) ran three-for-three
+  REAL on #899 round 2 and five substantive code findings on #905 —
+  harvest them unfiltered and verify first-hand; today they out-found
+  every other leg.

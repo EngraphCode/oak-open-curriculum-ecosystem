@@ -696,3 +696,60 @@ every seat down, nothing could act on an overnight resolution anyway).
 Claim `b1d00d68` RETAINED-WITH-REASON: same seat resumes at the
 owner's morning word; silence past the heartbeat-end is intentional
 stand-down, never retirement.
+
+## 2026-08-18 ~11:0xZ — COMPACTION FREEZE (Ocelot binds Tunnel, c28ad9): demo delivered, review rounds mid-ceremony; seat continues
+
+Owner word: prepare for compaction, then stop all monitors. The seat
+CONTINUES at resume; silence past the freeze broadcast is intentional.
+RESUME MAP, priority order:
+
+- (a) DEMO DELIVERED inside the window: MCP-620 both workstreams
+  demo-ready and witnessed (W1 EMC² amplification `0cd8906ad`, W2
+  /tokens page `e0a85e842`, committed on lane branch
+  `jimcresswell/mcp-620-emc-amplification-token-reference-page-demo-motion`,
+  UNPUSHED by design). The OWNER VIEWED the demo and gave feedback
+  DIRECT at Yarrow's seat (his word at this seat ~10:5xZ: "I have
+  given feedback to Yarrow") — the feedback substance lives at their
+  seat; the Director relay was PENDING at this freeze. Yarrow's
+  resume: fold the feedback, then the review/land parcel and the
+  node's resume order (three-push queue MCP-613/615/616 → amendment
+  parcel → demo-work land → T1a-ii with the motion-axis + loop-arm
+  feed → T1b → T2). Plan node ratified at `d19101de6` (pushed).
+- (b) PR #899 (MCP-609): round-2 cures at `7968d28be` (pushed:
+  single-resolution cut, probabilistic sha6 wording in four carriers,
+  24h rule now prescribes the minted form + parse contract — the
+  rule's stale estate-form prescription was an F-161 recreation risk,
+  cured). Round 2 DISMISSED at honest cure; mantagen ROUND 3
+  RE-REQUESTED — at its arrival: harvest full, disposition, then
+  `merge-bot merge --pr 899 --expect mantagen` at SETTLE-READY (the
+  state machine refused a premature merge with
+  SILENT-WAIT-NO-REVIEWER: a review must BIND the current tip; a
+  dismissed round binds nothing).
+- (c) PR #905 (MCP-612; bot-authored replacement of mis-authored #904
+  — ambient-credential breach cured, failure-mode event `5472dbad`):
+  checks 17/17 green, Sonar passed; mantagen FIVE-FINDING
+  CHANGES_REQUESTED round OUTSTANDING (split-write crash-atomicity;
+  NaN-timestamp silent deletion; FIFO order change; claim-open
+  TOCTOU; worktree-decoy validation — file:line in the review). ROUTE
+  a verification+cure round to an implementer seat: each finding
+  reproduced-or-refuted FIRST-HAND at the cited site before cure;
+  goal-alignment note rides finding 3 (QUEUE-LOCAL grades the queue
+  legacy-use). Acknowledged on the PR, NO dismissal. MCP-612
+  acceptances 2+3 (primary rebuild verification; legacy-blob owner
+  card) fire only post-merge.
+- (d) Poppy (repo-architecture): #889 under both OVN-2 riders, in
+  progress, "start slowly" — no outcome report by this freeze; then
+  support posture. MCP-619 phase 2 stays behind the short-term goal
+  and its owner-seen warrant card.
+- (e) Instruments at this freeze: ALL STOPPED (heartbeat pair with
+  heartbeat-end; the #899 round-3 poll; design ARC tail; F-75;
+  canonical watcher last). Re-arm at resume per the canonical
+  recipes; review-arrival polls key on the reviews ARRAY only (the
+  mergeStateStatus field flaps, and pr-watch's ALL-GREEN exit cannot
+  hold through green-but-blocked — F-162). Bot token file DELETED at
+  this freeze; mint per write-window (merge-bot mint-token, wc -c
+  tripwire, author echo BEFORE the first identity-bearing write).
+- (f) Push discipline standing (owner word 2026-08-18): every push's
+  output to an untracked scratch log; background pushes carry the
+  push's OWN exit code — a `; echo` wrapper false-greened one failed
+  push this morning and the log told the truth.
