@@ -4,8 +4,10 @@ import { err, ok, type Result } from '@oaknational/result';
  * Pure naming rule for the next coordination branch (owner-ruled 2026-08-17):
  * `coordination/<UTC date>-<sha6>`, where `<sha6>` is the FIRST SIX hex
  * characters of the FULL sha of the base tip. The suffix is deliberate
- * collision policy — a checkout cutting from a different tip mints a
- * different name — so the input must be the full sha, never an abbreviation
+ * lineage policy — a checkout cutting from a different tip almost always
+ * mints a different name (six characters trade uniqueness for legibility;
+ * distinct tips can share a prefix, so the suffix is lineage signal, not a
+ * uniqueness proof) — and the input must be the full sha, never an abbreviation
  * (`git rev-parse --short` output can grow beyond six characters with
  * ambiguity and would corrupt the suffix).
  */

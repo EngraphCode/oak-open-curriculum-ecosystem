@@ -14,11 +14,13 @@ cut from. The suffix is deliberate owner policy (2026-08-17, restated at
 the convention break that motivated this skill): this is a real repo
 with many live checkouts, and a date-only name lets two checkouts
 cutting from DIFFERENT tips mint the same branch and collide silently.
-The sha suffix makes a checkout cutting from a different tip mint a
-different name instead. It also disambiguates same-day rotations and
-makes the lineage walkable from names alone — each fold's successor
-carries the fold-merge commit that birthed it (`…-ca6b0f → …-c8586f`
-in the 2026-08-13 chain).
+The sha suffix makes a checkout cutting from a different tip almost
+always mint a different name instead — six hex characters trade
+absolute uniqueness for name legibility, so distinct commits CAN share
+a prefix; the suffix is lineage signal, never a uniqueness proof. It
+also disambiguates same-day rotations and makes the lineage walkable
+from names alone — each fold's successor carries the fold-merge commit
+that birthed it (`…-ca6b0f → …-c8586f` in the 2026-08-13 chain).
 
 The guarantee's boundary, stated exactly: the suffix discriminates base
 TIPS, never cutting INSTANCES. Two checkouts cutting from the same
@@ -43,9 +45,15 @@ ref is a typed refusal). Cut tree-preserving and publish:
 
 ```bash
 git fetch origin main
-git switch -c "$(pnpm --silent agent-tools coordination successor-name)" origin/main
+BASE="$(git rev-parse origin/main)"
+git switch -c "$(pnpm --silent agent-tools coordination successor-name --base "$BASE")" "$BASE"
 git push -u origin HEAD
 ```
+
+Resolve the base ONCE and pass the same full sha to both the mint and
+the cut: two separate `origin/main` resolutions race a concurrent fetch
+(name encodes tip A, branch starts at tip B), and the lineage the name
+carries is then false from birth.
 
 ## When this fires
 

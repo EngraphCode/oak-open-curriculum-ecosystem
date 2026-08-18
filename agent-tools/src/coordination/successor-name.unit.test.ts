@@ -6,7 +6,7 @@ import { formatCoordinationSuccessorName } from './successor-name.js';
 /**
  * Behaviour of the pure successor-name formatter: the name combines the
  * current UTC date with the FIRST SIX hex characters of a FULL commit sha.
- * The suffix is deliberate collision policy — a different tip mints a
+ * The suffix is deliberate lineage policy — a different tip almost always mints a
  * different name — so an abbreviated or malformed sha is rejected, never
  * silently reformatted.
  */
