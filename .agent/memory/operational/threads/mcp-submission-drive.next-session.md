@@ -526,45 +526,60 @@ here. Do not chase it and do not re-ask who owns it.
 | **#882** knowledge + consolidation | Open, based on the coordination branch. |
 | **#883** MCP-595 carousel | Open, 19/19 green, awaiting Aakesh's name verification. |
 
-## Owner boundary, 2026-08-18 — DO NOT WRITE TO AAKESH'S BOARD
+## Owner boundary, 2026-08-18 — LINKS AND STATUS YES, DESCRIPTIONS AND COMMENTS NO
 
-**Owner instruction, verbatim:** *"Ah -- please don't post onto Aakeh's board or tickets.
-I see you've edited it. .. please undo"*
+Two owner instructions minutes apart, and **the second governs the scope**. An earlier
+revision of this record carried only the first and stated the boundary as "write
+nothing", which was too broad; corrected here the same day.
 
-**No seat writes to the `MCP OKR: We reach 8000 requests to the Oak MCP app` project or
-any ticket on it** — not descriptions, not comments, not priority, not state, not
-relations. Read them freely; write nothing. Our board, `MCP App: First Major Release`, is
-unaffected and is where we record. Four tickets were reverted and re-read to confirm
-(MCP-577, MCP-574, MCP-611, MCP-618); Linear's activity log still shows the edits
-happened and cannot be erased.
+**First, the prohibition:** *"Ah -- please don't post onto Aakeh's board or tickets. I
+see you've edited it. .. please undo"*
 
-**How it happened, recorded because the reasoning is the reusable part.** The owner asked
-to "make sure our board is up to date" and to get six named tickets resolved. Five of the
-six sit on AAKESH's project — a fact the liaison had established first-hand and stated
-plainly in its opening message. The Director then issued rulings that required writes to
-three of them (MCP-618 to Urgent plus links, MCP-611 cancelled, MCP-577's scope steer),
-and the liaison executed them. Nobody lacked the fact. **"Our board" meant the
-engineering project only, and a shared issue-number space made adjacent tickets feel
-in-scope when their OWNERSHIP had never changed.** The lesson is not "check whose board"
-— it is that *authority to resolve a dependency is not authority to edit its record*.
+**Then the narrowing, which is the operative rule:** *"For each of those tickets on
+Aakesh's board could we link them to their related tickets on our board please? and
+update the status (this we *can* do)"*
 
-## The live hazard this boundary CREATED — do not staff MCP-611
+On the Linear project `MCP OKR: We reach 8000 requests to the Oak MCP app`:
 
-Reverting restored the falsehoods along with the fields, so two corrections now live only
-on our side:
+| | |
+|---|---|
+| **PERMITTED** | `relatedTo` / `blockedBy` links pointing at our engineering tickets; **status** updates so the board reflects reality |
+| **NOT PERMITTED** | editing the **description**; posting **comments** |
+| **STAYS THEIRS** | **priority** — the owner named links and status only, and the priority edits were the part he asked undone |
 
-1. **MCP-611 is `Todo`/`High`/assigned again**, describing a cookie banner the owner has
-   explicitly called **moot**: *"The cookie banner is a moot point -- what we need
-   instead is for GET /mcp text/html to serve from OWA"*. It is superseded by
-   **MCP-617**. **Do not staff it.** A seat reading the board rather than this record
-   will build a banner nobody wants. This paragraph is the only guard, because the guard
-   may not be placed on the ticket.
-2. **MCP-577's scope steer lives nowhere on their board.** The owner asked for the
-   Director's steer and the ruling stands: tool-call failure rates are Sentry's job;
-   **abuse is NOT** (an edge concern under ADR-219 via MCP-411, and Sentry structurally
-   cannot see abuse — abuse is a flood of successful 200s emitting no error event);
-   **security risk is NOT** (exception trackers report crashes, not attacks — home is
-   MCP-271). Re-homed onto MCP-271/MCP-481, which are ours.
+**Why the line falls there, which is worth more than memorising it: a description is the
+product owner's own statement of their need, and a comment is us speaking on their
+record. Links and status are shared bookkeeping about work we own.** Being factually
+right about someone else's ticket is not authority over their words — but it IS a reason
+to keep the graph honest. Reading the prohibition as blanket would leave the two boards
+permanently disconnected, which is the very thing the owner was pointing at.
+
+**How the violation happened, recorded because the reasoning is the reusable part.** Five
+of the six tickets on the owner's same-day priority list sit on Aakesh's project — a fact
+the liaison established first-hand and stated plainly in its opening message. This
+Director then issued rulings requiring writes to three of them (MCP-618 priority plus
+links, MCP-611 cancelled, MCP-577's scope steer), and the liaison executed them. Nobody
+lacked the fact. **"Our board" meant the engineering project only, and a shared
+issue-number space made adjacent tickets feel in-scope when their OWNERSHIP had never
+changed.** Four tickets were reverted and re-read to confirm; Linear's activity log still
+records that the edits happened and cannot be erased.
+
+## MCP-611 — hazard CLOSED, kept here as the reasoning record
+
+MCP-611 describes a cookie banner the owner has called **moot**: *"The cookie banner is a
+moot point -- what we need instead is for GET /mcp text/html to serve from OWA"*. It is
+superseded by **MCP-617**.
+
+It is now **Cancelled and linked to MCP-617** — closed by the permitted mechanism (status
+plus a link) rather than by prose on someone else's ticket, so a board-reading seat will
+not staff a banner nobody wants. Retained here only as the reasoning, not as the guard.
+
+**MCP-577's scope steer stays on OUR side**, because a description edit is not permitted:
+tool-call failure rates are Sentry's job; **abuse is NOT** (an edge concern under ADR-219
+via MCP-411, and Sentry structurally cannot see abuse — abuse is a flood of successful
+200s emitting no error event); **security risk is NOT** (exception trackers report
+crashes, not attacks — home is MCP-271). Homed on MCP-271/MCP-481. Do not re-assert it on
+their tickets.
 
 ## Next safe steps — current as of 2026-08-18
 
