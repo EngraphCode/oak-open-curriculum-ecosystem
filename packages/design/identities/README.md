@@ -33,8 +33,19 @@ structure:
   vendored assets (fonts and images). Source or executable code, tool
   configuration, and any file class the permitted set has never
   admitted are refused by default — a new class enters by amending the
-  set deliberately, never by omission. This is what makes the
-  data-only invariant (and the depth note below) machine-checked
+  set deliberately, never by omission. Three legs keep the refusal
+  honest: JSON is admitted **by place and format suffix, never by
+  extension** (the root `package.json` and `manifest.json`, and
+  `*.tokens.json` DTCG modules under `dtcg/` — tool configuration rides
+  the `.json` extension, and a place alone re-opens the hole inside the
+  place, so the DTCG format's own suffix names the admitted shape); the
+  contents walk skips
+  only enumerated transient artefacts (`node_modules`, `.turbo`,
+  `.DS_Store`), so a committed dot-entry faces the same anatomy
+  instead of hiding behind its leading dot; and **symbolic links are
+  refused as a file kind** — a link can point outside the pack
+  boundary, so no linked file reads as well-shaped. This is what makes
+  the data-only invariant (and the depth note below) machine-checked
   rather than doctrinal.
 
 Pack specifiers stay out of the lint framework by mechanism, not by

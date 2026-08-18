@@ -42,13 +42,24 @@ export interface IdentityPackTierEntry {
   /** Parsed package.json content, or undefined when the directory has none. */
   readonly packageJson: unknown;
   /**
-   * Pack-relative paths of every file in the pack (`node_modules` and
-   * dot-entries excluded — those are local tool artefacts, not pack
-   * content). The anatomy check runs over this listing, so a pack's
-   * data-only invariant is enforced on contents, never inferred from the
-   * absence of a `scripts` field alone.
+   * Pack-relative paths of every file in the pack. Only enumerated
+   * TRANSIENT artefacts (`node_modules`, `.turbo`, `.DS_Store`) are
+   * excluded by the walk — a committed dot-entry (`.npmrc`, an
+   * `.eslintrc.json`, a hidden directory) is pack content and faces the
+   * same anatomy as any other file, so tool configuration cannot hide
+   * behind a leading dot. The anatomy check runs over this listing, so a
+   * pack's data-only invariant is enforced on contents, never inferred
+   * from the absence of a `scripts` field alone.
    */
   readonly files: readonly string[];
+  /**
+   * Pack-relative paths of every symbolic link the walk encountered — a
+   * link is neither a directory nor a regular file, so without this leg
+   * the walker would silently omit it and a pack could carry `src/index.ts`
+   * as a symlink (or an asset link escaping the pack) while reading
+   * well-shaped. The policy refuses the file KIND itself.
+   */
+  readonly symlinks: readonly string[];
   /**
    * Set when the directory HAS a package.json that could not be parsed —
    * the third input state, distinct from absent and from parsed, so a
@@ -57,7 +68,11 @@ export interface IdentityPackTierEntry {
   readonly parseFailure?: string;
 }
 
-const TIER_PATH = 'packages/design/identities';
+/** The tier's home, exported as the single canonical owner: the filesystem
+ *  reader (`scripts/validate-boundaries.ts`) resolves the SAME path this
+ *  policy reports, so the two cannot drift into inspecting one location
+ *  while naming another (`consolidate-at-second-consumer`). */
+export const TIER_PATH = 'packages/design/identities';
 
 export function checkIdentityPackTier(
   tierExists: boolean,
@@ -76,6 +91,23 @@ export function checkIdentityPackTier(
 function checkPackEntry(entry: IdentityPackTierEntry): readonly string[] {
   const location = `${TIER_PATH}/${entry.directoryName}`;
 
+  // Collect-all: the manifest legs and the contents legs are independent
+  // inputs, so a pack with a malformed package.json AND a source file
+  // reports both in one run — a manifest fault never shadows an anatomy
+  // fault (the module's every-problem-in-one-run contract).
+  return [
+    ...checkPackManifest(location, entry),
+    ...checkPackAnatomy(location, entry.files),
+    ...entry.symlinks.map(
+      (link) =>
+        `${location}/${link} is a symbolic link. Packs carry real files only: a link can point ` +
+        'outside the pack boundary (or smuggle source past the anatomy), so the file kind ' +
+        'itself is refused.',
+    ),
+  ];
+}
+
+function checkPackManifest(location: string, entry: IdentityPackTierEntry): readonly string[] {
   if (entry.parseFailure !== undefined) {
     return [`${location}/package.json could not be parsed: ${entry.parseFailure}`];
   }
@@ -121,8 +153,6 @@ function checkPackEntry(entry: IdentityPackTierEntry): readonly string[] {
     );
   }
 
-  failures.push(...checkPackAnatomy(location, entry.files));
-
   return failures;
 }
 
@@ -134,7 +164,6 @@ function checkPackEntry(entry: IdentityPackTierEntry): readonly string[] {
  * refused by default rather than admitted by omission.
  */
 const PERMITTED_FILE_EXTENSIONS: ReadonlySet<string> = new Set([
-  'json',
   'css',
   'md',
   'txt',
@@ -173,6 +202,25 @@ const SOURCE_FILE_EXTENSIONS: ReadonlySet<string> = new Set([
 const REFUSED_CONFIG_BASENAMES =
   /^(?:eslint\.config\..+|tsconfig(?:\..+)?\.json|turbo\.json|vite\.config\..+|vitest\.config\..+|playwright\.config\..+)$/;
 
+/**
+ * Data JSON is admitted by PLACE AND SHAPE, never by bare extension: the
+ * two root manifests, and DTCG token modules under `dtcg/` carrying the
+ * DTCG format's own `.tokens.json` suffix. Tool configuration rides the
+ * `.json` extension — `biome.json`, `deno.json`, `package-lock.json`, a
+ * dotted rc file — so a blanket extension admission would undo
+ * refusal-by-default for exactly the class a deny-list can never finish
+ * enumerating; and a place alone re-opens the same hole INSIDE the place
+ * (nested tool config is live for tools that read nested rc files). The
+ * suffix names the format, so `dtcg/biome.json` is refused while
+ * `dtcg/palette.tokens.json` is admitted.
+ */
+const PERMITTED_JSON_PATHS: ReadonlySet<string> = new Set(['package.json', 'manifest.json']);
+const PERMITTED_DTCG_MODULE = /^dtcg\/(?:[^/]+\/)*[^/.][^/]*\.tokens\.json$/;
+
+function isPermittedJson(file: string): boolean {
+  return PERMITTED_JSON_PATHS.has(file) || PERMITTED_DTCG_MODULE.test(file);
+}
+
 function checkPackAnatomy(location: string, files: readonly string[]): readonly string[] {
   return files.flatMap((file) => {
     const basename = file.split('/').at(-1) ?? file;
@@ -184,6 +232,18 @@ function checkPackAnatomy(location: string, files: readonly string[]): readonly 
         `${location}/${file} is tool configuration. Identity packs carry no build, lint, or ` +
           'test configuration — packs are data-only workspaces outside the task graph.',
       ];
+    }
+
+    if (extension === 'json' || basename.toLowerCase().endsWith('.json')) {
+      return isPermittedJson(file)
+        ? []
+        : [
+            `${location}/${file} is JSON outside the admitted data-JSON shapes (the root ` +
+              '`package.json` and `manifest.json`, and `*.tokens.json` DTCG modules under ' +
+              '`dtcg/`). Tool configuration rides the .json extension, so JSON is admitted ' +
+              'by place and format suffix, never by extension; a new data-JSON home enters ' +
+              'by amending the permitted set.',
+          ];
     }
 
     if (extension !== undefined && SOURCE_FILE_EXTENSIONS.has(extension)) {

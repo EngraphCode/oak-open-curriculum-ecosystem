@@ -58,11 +58,13 @@ const validPackJson: Record<string, unknown> = {
   license: 'SEE LICENSE IN LICENCES.md',
 };
 
-// A complete data-only anatomy: manifest/data JSON, authored CSS, docs,
-// licence surface, vendored assets.
+// A complete data-only anatomy: manifest/data JSON (by place — the root
+// manifests and *.tokens.json DTCG modules under dtcg/), authored CSS, docs,
+// surface, vendored assets.
 const dataOnlyFiles: readonly string[] = [
   'package.json',
   'manifest.json',
+  'dtcg/palette.tokens.json',
   'brand.css',
   'README.md',
   'LICENCE',
@@ -74,6 +76,7 @@ function packIn(
   directoryName: string,
   overrides: Record<string, unknown>,
   files: readonly string[] = dataOnlyFiles,
+  symlinks: readonly string[] = [],
 ): IdentityPackTierEntry {
   return {
     directoryName,
@@ -83,6 +86,7 @@ function packIn(
       ...overrides,
     },
     files,
+    symlinks,
   };
 }
 
@@ -120,7 +124,9 @@ describe('checkIdentityPackTier', () => {
   );
 
   it('refuses a tier child with no package.json — every child is a pack workspace', () => {
-    const report = reportFor([{ directoryName: 'stray-dir', packageJson: undefined, files: [] }]);
+    const report = reportFor([
+      { directoryName: 'stray-dir', packageJson: undefined, files: [], symlinks: [] },
+    ]);
 
     expect(report).toContain('packages/design/identities/stray-dir');
     expect(report).toContain('package.json');
@@ -132,6 +138,7 @@ describe('checkIdentityPackTier', () => {
         directoryName: 'tango',
         packageJson: undefined,
         files: ['package.json'],
+        symlinks: [],
         parseFailure: 'Unexpected token } in JSON at position 40',
       },
     ]);
@@ -144,7 +151,9 @@ describe('checkIdentityPackTier', () => {
   it.each([null, 'a string', 42])(
     'refuses a package.json that parses to a non-object (%j), locating the pack',
     (parsed) => {
-      const report = reportFor([{ directoryName: 'tango', packageJson: parsed, files: [] }]);
+      const report = reportFor([
+        { directoryName: 'tango', packageJson: parsed, files: [], symlinks: [] },
+      ]);
 
       expect(report).toContain('packages/design/identities/tango');
       expect(report).toContain('not an object');
@@ -213,6 +222,7 @@ describe('checkIdentityPackTier', () => {
           private: true,
         },
         files: [...dataOnlyFiles],
+        symlinks: [],
       },
     ]);
 
@@ -231,11 +241,74 @@ describe('checkIdentityPackTier', () => {
 
   it('reports faults across entries — each offending pack is located in the report', () => {
     const report = reportFor([
-      { directoryName: 'stray-dir', packageJson: undefined, files: [] },
+      { directoryName: 'stray-dir', packageJson: undefined, files: [], symlinks: [] },
       packIn('delta', { private: false }),
     ]);
 
     expect(report).toContain('packages/design/identities/stray-dir');
     expect(report).toContain('packages/design/identities/delta');
+  });
+
+  it.each(['biome.json', 'deno.json', 'package-lock.json', '.eslintrc.json', 'dtcg/biome.json'])(
+    'admits JSON by place, never by extension: %s is refused as unadmitted JSON',
+    (file) => {
+      const report = reportFor([packIn('tango', {}, [...dataOnlyFiles, file])]);
+
+      expect(report).toContain(file);
+      expect(report).toContain('packages/design/identities/tango');
+    },
+  );
+
+  it('refuses a nested package.json — the manifest place is the pack root only', () => {
+    const report = reportFor([packIn('tango', {}, [...dataOnlyFiles, 'sub/package.json'])]);
+
+    expect(report).toContain('sub/package.json');
+  });
+
+  it('admits *.tokens.json DTCG modules under dtcg/ at any depth', () => {
+    expect(
+      checkIdentityPackTier(true, [
+        packIn('tango', {}, [...dataOnlyFiles, 'dtcg/semantic/dark.tokens.json']),
+      ]),
+    ).toEqual([]);
+  });
+
+  it('refuses a committed dot-entry like .npmrc — content cannot hide behind a leading dot', () => {
+    const report = reportFor([packIn('tango', {}, [...dataOnlyFiles, '.npmrc'])]);
+
+    expect(report).toContain('.npmrc');
+    expect(report).toContain('packages/design/identities/tango');
+  });
+
+  it('refuses a symbolic link by kind, naming the linked path', () => {
+    const report = reportFor([packIn('tango', {}, dataOnlyFiles, ['assets/escape.svg'])]);
+
+    expect(report).toContain('assets/escape.svg');
+    expect(report).toContain('symbolic link');
+  });
+
+  it('collects manifest and anatomy faults together — a parse failure never shadows a source file', () => {
+    const report = reportFor([
+      {
+        directoryName: 'tango',
+        packageJson: undefined,
+        files: ['package.json', 'src/index.ts'],
+        symlinks: ['assets/escape.svg'],
+        parseFailure: 'Unexpected token } in JSON at position 40',
+      },
+    ]);
+
+    expect(report).toContain('could not be parsed');
+    expect(report).toContain('src/index.ts');
+    expect(report).toContain('assets/escape.svg');
+  });
+
+  it('collects a missing manifest alongside tool configuration in the same run', () => {
+    const report = reportFor([
+      { directoryName: 'tango', packageJson: undefined, files: ['turbo.json'], symlinks: [] },
+    ]);
+
+    expect(report).toContain('has no package.json');
+    expect(report).toContain('turbo.json');
   });
 });

@@ -8,6 +8,7 @@ import {
   TOOLING_PACKAGE_IMPORTS,
 } from '../src/rules/boundary.js';
 import {
+  TIER_PATH,
   checkIdentityPackTier,
   diffInventory,
   type IdentityPackTierEntry,
@@ -47,19 +48,35 @@ function readWorkspacePackageNames(relativeDir: string): string[] {
 }
 
 /**
- * Pack-relative paths of every file under packDir, skipping node_modules
- * and dot-entries (local tool artefacts, not pack content) — the input the
- * pure anatomy check enforces the data-only invariant over.
+ * Every entry name the walk treats as a transient local artefact rather
+ * than pack content. Enumerated, never pattern-matched: a blanket
+ * dot-entry skip would hide committed content (`.npmrc`, an
+ * `.eslintrc.json`, a hidden source directory) from the anatomy's
+ * refusals, so anything not on this list — dot-prefixed or not — is
+ * listed and validated.
  */
-function listPackFiles(packDir: string): string[] {
+const TRANSIENT_ENTRY_NAMES: ReadonlySet<string> = new Set(['node_modules', '.turbo', '.DS_Store']);
+
+/**
+ * Pack-relative paths of every file and every symbolic link under packDir
+ * (transient artefacts above excluded) — the input the pure anatomy check
+ * enforces the data-only invariant over. Symlinks are LISTED, not
+ * followed: a link is neither a directory nor a regular file, and
+ * silently omitting it would let a pack carry linked source or an asset
+ * link escaping the pack while reading well-shaped.
+ */
+function listPackFiles(packDir: string): { files: string[]; symlinks: string[] } {
   const files: string[] = [];
+  const symlinks: string[] = [];
   const walk = (dir: string, prefix: string): void => {
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
-      if (entry.name.startsWith('.') || entry.name === 'node_modules') {
+      if (TRANSIENT_ENTRY_NAMES.has(entry.name)) {
         continue;
       }
       const relativePath = prefix === '' ? entry.name : `${prefix}/${entry.name}`;
-      if (entry.isDirectory()) {
+      if (entry.isSymbolicLink()) {
+        symlinks.push(relativePath);
+      } else if (entry.isDirectory()) {
         walk(resolve(dir, entry.name), relativePath);
       } else if (entry.isFile()) {
         files.push(relativePath);
@@ -68,14 +85,14 @@ function listPackFiles(packDir: string): string[] {
   };
   walk(packDir, '');
 
-  return files;
+  return { files, symlinks };
 }
 
 function readIdentityPackTier(): {
   tierExists: boolean;
   entries: IdentityPackTierEntry[];
 } {
-  const tierDir = resolve(repoRoot, 'packages/design/identities');
+  const tierDir = resolve(repoRoot, TIER_PATH);
 
   if (!existsSync(tierDir)) {
     return { tierExists: false, entries: [] };
@@ -90,21 +107,22 @@ function readIdentityPackTier(): {
     )
     .map((entry) => {
       const packageJsonPath = resolve(tierDir, entry.name, 'package.json');
-      const files = listPackFiles(resolve(tierDir, entry.name));
+      const { files, symlinks } = listPackFiles(resolve(tierDir, entry.name));
 
       if (!existsSync(packageJsonPath)) {
-        return { directoryName: entry.name, packageJson: undefined, files };
+        return { directoryName: entry.name, packageJson: undefined, files, symlinks };
       }
 
       try {
         const packageJson: unknown = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
 
-        return { directoryName: entry.name, packageJson, files };
+        return { directoryName: entry.name, packageJson, files, symlinks };
       } catch (error) {
         return {
           directoryName: entry.name,
           packageJson: undefined,
           files,
+          symlinks,
           parseFailure: error instanceof Error ? error.message : String(error),
         };
       }
