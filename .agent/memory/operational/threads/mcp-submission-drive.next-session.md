@@ -526,6 +526,46 @@ here. Do not chase it and do not re-ask who owns it.
 | **#882** knowledge + consolidation | Open, based on the coordination branch. |
 | **#883** MCP-595 carousel | Open, 19/19 green, awaiting Aakesh's name verification. |
 
+## Owner boundary, 2026-08-18 — DO NOT WRITE TO AAKESH'S BOARD
+
+**Owner instruction, verbatim:** *"Ah -- please don't post onto Aakeh's board or tickets.
+I see you've edited it. .. please undo"*
+
+**No seat writes to the `MCP OKR: We reach 8000 requests to the Oak MCP app` project or
+any ticket on it** — not descriptions, not comments, not priority, not state, not
+relations. Read them freely; write nothing. Our board, `MCP App: First Major Release`, is
+unaffected and is where we record. Four tickets were reverted and re-read to confirm
+(MCP-577, MCP-574, MCP-611, MCP-618); Linear's activity log still shows the edits
+happened and cannot be erased.
+
+**How it happened, recorded because the reasoning is the reusable part.** The owner asked
+to "make sure our board is up to date" and to get six named tickets resolved. Five of the
+six sit on AAKESH's project — a fact the liaison had established first-hand and stated
+plainly in its opening message. The Director then issued rulings that required writes to
+three of them (MCP-618 to Urgent plus links, MCP-611 cancelled, MCP-577's scope steer),
+and the liaison executed them. Nobody lacked the fact. **"Our board" meant the
+engineering project only, and a shared issue-number space made adjacent tickets feel
+in-scope when their OWNERSHIP had never changed.** The lesson is not "check whose board"
+— it is that *authority to resolve a dependency is not authority to edit its record*.
+
+## The live hazard this boundary CREATED — do not staff MCP-611
+
+Reverting restored the falsehoods along with the fields, so two corrections now live only
+on our side:
+
+1. **MCP-611 is `Todo`/`High`/assigned again**, describing a cookie banner the owner has
+   explicitly called **moot**: *"The cookie banner is a moot point -- what we need
+   instead is for GET /mcp text/html to serve from OWA"*. It is superseded by
+   **MCP-617**. **Do not staff it.** A seat reading the board rather than this record
+   will build a banner nobody wants. This paragraph is the only guard, because the guard
+   may not be placed on the ticket.
+2. **MCP-577's scope steer lives nowhere on their board.** The owner asked for the
+   Director's steer and the ruling stands: tool-call failure rates are Sentry's job;
+   **abuse is NOT** (an edge concern under ADR-219 via MCP-411, and Sentry structurally
+   cannot see abuse — abuse is a flood of successful 200s emitting no error event);
+   **security risk is NOT** (exception trackers report crashes, not attacks — home is
+   MCP-271). Re-homed onto MCP-271/MCP-481, which are ours.
+
 ## Next safe steps — current as of 2026-08-18
 
 Rewritten 2026-08-18. The 2026-08-13 list this replaces routed MCP-597 through a
