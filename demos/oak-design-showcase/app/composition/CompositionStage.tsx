@@ -19,9 +19,11 @@ import {
   COMPOSITION_LAYOUTS,
   EXHIBIT_THEMES,
   EXHIBIT_THEME_OPTIONS,
+  LAYOUT_DESCRIPTIONS,
   LAYOUT_OPTIONS,
   isCompositionLayout,
   isExhibitTheme,
+  layoutTitle,
   type CompositionLayout,
   type ExhibitTheme,
 } from './frame/layouts';
@@ -38,12 +40,28 @@ function applyExhibitState(
   // parent-realm instanceof silently rejects every cross-document node.
   // Theme lands on the frame's ROOT (light-dark() resolves against the
   // declaring element's scheme, so a subtree attribute cannot flip
-  // :root-declared tokens); layout on the canvas.
+  // :root-declared tokens); layout on the canvas. The exhibit's accessible
+  // TEXT moves with the attribute: its heading and arrangement description
+  // were server-rendered from the original query, so a mutated data-layout
+  // without the matching text leaves assistive technology hearing the
+  // previous arrangement.
   const doc = frame?.contentDocument;
   const canvas = doc?.querySelector<HTMLElement>('[data-composition-frame]');
   if (doc !== null && doc !== undefined && canvas !== null && canvas !== undefined) {
     canvas.dataset['layout'] = layout;
     doc.documentElement.dataset['theme'] = theme;
+    applyExhibitText(doc, layout);
+  }
+}
+
+function applyExhibitText(doc: Document, layout: CompositionLayout): void {
+  const title = doc.querySelector('[data-composition-title]');
+  if (title !== null) {
+    title.textContent = layoutTitle(layout);
+  }
+  const description = doc.querySelector('[data-composition-description]');
+  if (description !== null) {
+    description.textContent = LAYOUT_DESCRIPTIONS[layout];
   }
 }
 
@@ -84,27 +102,32 @@ function StageControls({
 
 export function CompositionStage(): ReactElement {
   const frameRef = useRef<HTMLIFrameElement>(null);
-  const [layout, setLayoutState] = useState<CompositionLayout>('document');
-  const [theme, setThemeState] = useState<ExhibitTheme>('light');
+  const [layout, setLayout] = useState<CompositionLayout>('document');
+  const [theme, setTheme] = useState<ExhibitTheme>('light');
 
   useEffect(() => {
     applyExhibitState(frameRef.current, layout, theme);
   }, [layout, theme]);
 
-  const setLayout = useCallback((value: string): void => {
+  const chooseLayout = useCallback((value: string): void => {
     if (isCompositionLayout(value)) {
-      setLayoutState(value);
+      setLayout(value);
     }
   }, []);
-  const setTheme = useCallback((value: string): void => {
+  const chooseTheme = useCallback((value: string): void => {
     if (isExhibitTheme(value)) {
-      setThemeState(value);
+      setTheme(value);
     }
   }, []);
 
   return (
     <>
-      <StageControls layout={layout} theme={theme} setLayout={setLayout} setTheme={setTheme} />
+      <StageControls
+        layout={layout}
+        theme={theme}
+        setLayout={chooseLayout}
+        setTheme={chooseTheme}
+      />
       <p aria-live="polite" className="oak-body-3 comp-status">
         Showing {COMPOSITION_LAYOUTS[layout]} · {EXHIBIT_THEMES[theme]}
       </p>

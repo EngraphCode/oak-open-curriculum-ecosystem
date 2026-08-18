@@ -10,9 +10,11 @@
  * owning any of the state. One direction of data flow, the frame is the
  * single source of truth.
  *
- * The identity read takes the LAST data-oak-brand link in head: the
- * binder's load-then-swap appends the incoming sheet after the outgoing
- * one, so the last marker is the incoming identity; absence means the
+ * The identity read takes the LAST link carrying the binder's APPLIED
+ * marker (data-oak-brand-applied): the binder stamps it only at swap
+ * completion, so a sheet that has merely been requested — DOM order is
+ * not cascade state, and a link's .sheet object exists before its rules
+ * apply — never reports early. Absence of any applied link means the
  * base identity (which loads no brand sheet).
  */
 import { useCallback, useRef, useSyncExternalStore } from 'react';
@@ -27,16 +29,17 @@ export interface FrameObservedState {
 function readFrameState(target: Document): FrameObservedState {
   // Document-wide: the server-rendered marker link sits in the body (React
   // hoists stylesheets only under a `precedence` prop) while hook-created
-  // ones land in head. Disabled links are retired sheets, not the identity.
-  const links = [...target.querySelectorAll<HTMLLinkElement>('link[data-oak-brand]')].filter(
-    (link) => !link.disabled,
-  );
+  // ones land in head. Disabled links are retired sheets; links without
+  // the applied marker are in-flight requests — neither is the identity.
+  const links = [
+    ...target.querySelectorAll<HTMLLinkElement>('link[data-oak-brand][data-oak-brand-applied]'),
+  ].filter((link) => !link.disabled);
   const last = links.at(-1);
   const identity =
     last?.dataset['oakBrand'] === undefined
       ? BASE_IDENTITY
       : resolveIdentity(last.dataset['oakBrand']);
-  const theme = target.documentElement.getAttribute('data-theme');
+  const theme = target.documentElement.dataset['theme'] ?? null;
   return { identity, theme };
 }
 
@@ -62,11 +65,16 @@ export function useFrameObservedState(resolveTarget: () => Document | null): Fra
         }
       };
       refresh();
+      // One subtree observation covers all three signals: link add/remove
+      // (childList), the binder's swap-completion marker and adopted-sheet
+      // retirement (data-oak-brand-applied / disabled — attribute writes,
+      // invisible to childList), and the root's theme attribute.
       const observer = new MutationObserver(refresh);
-      observer.observe(target, { childList: true, subtree: true });
-      observer.observe(target.documentElement, {
+      observer.observe(target, {
+        childList: true,
+        subtree: true,
         attributes: true,
-        attributeFilter: ['data-theme'],
+        attributeFilter: ['data-oak-brand-applied', 'disabled', 'data-theme'],
       });
       return () => {
         observer.disconnect();

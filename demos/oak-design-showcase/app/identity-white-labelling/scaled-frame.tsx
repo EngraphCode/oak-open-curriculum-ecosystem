@@ -17,9 +17,9 @@ import type { ReactElement } from 'react';
 import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
 import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
 
+import { applyFrameTheme } from '../../components/apply-frame-theme';
 import { DEFAULT_VIEWPORT_WIDTH } from '../../components/canonical-widths';
 import { useScaledViewport } from '../../components/useScaledViewport';
-import { applyFrameTheme } from '../identity-switchboard/useFrameTheme';
 
 /** Apply the parent-owned theme to a framed document, keyed on the
  *  specimen's identity mark so about:blank does not count as loaded. At

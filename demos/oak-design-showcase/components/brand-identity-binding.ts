@@ -56,7 +56,14 @@ function adoptServerSheet(
   const existing = target.querySelector<HTMLLinkElement>(
     `link[data-oak-brand='${initialIdentity}']`,
   );
-  return existing !== null && !existing.disabled ? existing : null;
+  if (existing === null || existing.disabled) {
+    return null;
+  }
+  // The server renders the applied marker with the link (it IS applied at
+  // first paint); re-assert it here so adoption is marker-idempotent and
+  // observers keyed on the marker never see an adopted-but-unmarked sheet.
+  existing.dataset['oakBrandApplied'] = '';
+  return existing;
 }
 
 /** Retire an outgoing sheet. Hook-created links are removed outright; an
@@ -117,6 +124,8 @@ function applyBrandIdentity(
       retireLink(previous, ownership);
     }
     ownership.applied.current = link;
+    // Applied marker at SWAP COMPLETION only — a request is not cascade state.
+    link.dataset['oakBrandApplied'] = '';
   });
   link.addEventListener('error', () => {
     // Failed load: keep the previous brand applied rather than flashing to

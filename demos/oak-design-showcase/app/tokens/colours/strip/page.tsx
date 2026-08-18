@@ -1,6 +1,9 @@
 import type { ReactElement } from 'react';
 
+import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
+
 import { BASE_IDENTITY, resolveIdentity } from '../../../../components/useIdentity';
+import { escapeInlineScript } from '../../../../lib/inline-script';
 import { loadCatalogue } from '../../token-source';
 import { TOKEN_VARS_HREF } from '../../token-vars';
 import { colourTokens, resolveMatrixTheme } from '../colour-matrix';
@@ -43,6 +46,24 @@ export default async function ColourStripPage({
       )}
       {/* The per-token bindings the swatches paint through. */}
       <link rel="stylesheet" href={TOKEN_VARS_HREF} />
+      {/* Pre-paint: the root bootstrap has already painted any persisted or
+          OS theme; the cell's own theme must win BEFORE first paint (the
+          matrix's first-paint guarantee). The literal mirrors the shared
+          frame-theme guard: identity default honours an OS contrast
+          request, an explicit theme sets the attribute. Values come from
+          the closed resolver above, never raw query text; the applier
+          below owns live composition after hydration. */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: escapeInlineScript(
+            `(function(){var t=${JSON.stringify(theme === IDENTITY_DEFAULT ? null : theme)};` +
+              `var r=document.documentElement;var m=false;` +
+              `try{m=matchMedia('(prefers-contrast: more)').matches;}catch(e){}` +
+              `if(t===null){if(m){r.dataset.theme='high-contrast';}` +
+              `else{delete r.dataset.theme;}}else{r.dataset.theme=t;}})();`,
+          ),
+        }}
+      />
       <StripThemeApplier theme={theme} />
       <div className="oak-canvas" data-page="colour-strip" data-identity={identity}>
         <h1 className="oak-visually-hidden">

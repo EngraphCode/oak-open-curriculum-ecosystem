@@ -7,24 +7,34 @@
  * subtree `data-theme` cannot flip tokens declared at `:root`. The kit
  * themes the root, and so does this.
  *
- * The identity default is the ABSENCE of the attribute, not a value of it —
- * that is the whole point of the first band, where each identity shows the
- * face it chose for itself. Setting `data-theme="identity-default"` would
- * match no theme rule and quietly show the light face instead.
+ * The theme is applied through the shared frame-theme guard rather than a
+ * one-shot write, so the cell COMPOSES with the runtime's automatic
+ * behaviours instead of racing them: the identity-default band honours an
+ * OS-level contrast request (the automatic route — under
+ * `prefers-contrast: more` the first band shows each identity's
+ * high-contrast face, which is what the OS asked of it), and an explicit
+ * Light/Dark cell is held against later external writers (the runtime's
+ * live contrast listener, a stored site-level choice) for the life of the
+ * cell — its label and its rendering cannot drift apart. Nothing here
+ * persists: the guard writes the attribute only, never the shared store.
  */
-import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
 import { useEffect } from 'react';
+
+import { applyFrameTheme } from '../../../../components/apply-frame-theme';
 
 import type { MatrixTheme } from '../colour-matrix';
 
 export function StripThemeApplier({ theme }: { readonly theme: MatrixTheme }): null {
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === IDENTITY_DEFAULT) {
-      delete root.dataset['theme'];
-    } else {
-      root.dataset['theme'] = theme;
-    }
+    applyFrameTheme(root, theme);
+    const observer = new MutationObserver(() => {
+      applyFrameTheme(root, theme);
+    });
+    observer.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    return () => {
+      observer.disconnect();
+    };
   }, [theme]);
   return null;
 }

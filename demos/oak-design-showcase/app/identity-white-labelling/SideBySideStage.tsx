@@ -67,17 +67,17 @@ function IdentityColumn({
 }
 
 export function SideBySideStage(): ReactElement {
-  const [theme, setThemeState] = useState<OakThemeSnapshot>(IDENTITY_DEFAULT);
-  const [width, setWidthState] = useState<number>(DEFAULT_VIEWPORT_WIDTH);
-  const setTheme = useCallback((value: string): void => {
+  const [theme, setTheme] = useState<OakThemeSnapshot>(IDENTITY_DEFAULT);
+  const [width, setWidth] = useState<number>(DEFAULT_VIEWPORT_WIDTH);
+  const chooseTheme = useCallback((value: string): void => {
     if (isPickerTheme(value)) {
-      setThemeState(value);
+      setTheme(value);
     }
   }, []);
-  const setWidth = useCallback((value: string): void => {
+  const chooseWidth = useCallback((value: string): void => {
     const parsed = Number(value);
     if (VIEWPORT_WIDTHS.includes(parsed)) {
-      setWidthState(parsed);
+      setWidth(parsed);
     }
   }, []);
 
@@ -90,7 +90,7 @@ export function SideBySideStage(): ReactElement {
           value={theme}
           options={THEME_OPTIONS}
           labels={THEME_LABELS}
-          onChange={setTheme}
+          onChange={chooseTheme}
         />
         <LabelledSelect
           id="side-by-side-width"
@@ -98,7 +98,7 @@ export function SideBySideStage(): ReactElement {
           value={`${width}`}
           options={VIEWPORT_WIDTHS.map((value) => `${value}`)}
           labels={VIEWPORT_WIDTH_LABELS}
-          onChange={setWidth}
+          onChange={chooseWidth}
         />
         <p aria-live="polite" className="oak-body-3 stage-status">
           All columns: {THEME_LABELS[theme]} · {VIEWPORT_WIDTH_LABELS[`${width}`] ?? `${width} px`}

@@ -14,7 +14,37 @@ export const COMPOSITION_LAYOUTS = {
   inverted: 'Inverted — the order reversed',
 } as const;
 
+/**
+ * A textual account of each demonstrated arrangement, rendered inside the
+ * exhibit (visually hidden) so assistive technology hears WHAT the layout
+ * does — the unchanged DOM order carries no visual-arrangement information
+ * on its own, and the parent keeps this text live when it switches maps.
+ */
+export const LAYOUT_DESCRIPTIONS = {
+  document:
+    'All eleven regions in one column, in source order: hero first, ' + 'call to action last.',
+  magazine:
+    'Two columns of unequal width: the content column carries the long ' +
+    'read with detail and results beneath, while a narrow rail holds ' +
+    'facets, context, resources and featured items; the hero and the ' +
+    'call to action span the full width.',
+  dashboard:
+    'A tall navigation rail spans the full height on the left; beside it ' +
+    'the regions sit as dense tiles across three columns, with the hero ' +
+    'reduced to one band among them.',
+  inverted:
+    'The visual order is fully reversed from the source order: the call ' +
+    'to action appears first and the hero appears last, in two equal ' +
+    'columns — the markup order is unchanged.',
+} as const satisfies Record<keyof typeof COMPOSITION_LAYOUTS, string>;
+
 export type CompositionLayout = keyof typeof COMPOSITION_LAYOUTS;
+
+/** The exhibit's accessible title — ONE derivation, consumed by the server
+ *  render and by the parent's live update, so the two can never drift. */
+export function layoutTitle(layout: CompositionLayout): string {
+  return `Region canvas — ${COMPOSITION_LAYOUTS[layout]}`;
+}
 
 export const LAYOUT_OPTIONS: readonly CompositionLayout[] = typeSafeKeys(COMPOSITION_LAYOUTS);
 

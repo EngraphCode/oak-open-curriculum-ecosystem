@@ -107,6 +107,30 @@ function MastheadRegion(): React.JSX.Element {
   );
 }
 
+/** The server-rendered brand sheet. data-oak-brand marks it for
+ *  client-side ADOPTION: the strip's binder takes ownership at mount so a
+ *  later switch manages this link instead of stranding it beneath every
+ *  hook-created sheet. The applied marker rides from the server because
+ *  this sheet IS the applied identity at first paint — observers key on
+ *  it. */
+function ServerBrandSheet({
+  identity,
+}: {
+  readonly identity: IdentitySlug;
+}): React.JSX.Element | null {
+  if (identity === BASE_IDENTITY) {
+    return null;
+  }
+  return (
+    <link
+      rel="stylesheet"
+      data-oak-brand={identity}
+      data-oak-brand-applied=""
+      href={`/brands/${identity}/brand.css`}
+    />
+  );
+}
+
 export default async function SpecimenPage({
   searchParams,
 }: {
@@ -121,12 +145,7 @@ export default async function SpecimenPage({
 
   return (
     <>
-      {/* data-oak-brand marks the sheet for client-side ADOPTION: the strip's
-          binder takes ownership at mount so a later switch manages this link
-          instead of stranding it beneath every hook-created sheet. */}
-      {identity === BASE_IDENTITY ? null : (
-        <link rel="stylesheet" data-oak-brand={identity} href={`/brands/${identity}/brand.css`} />
-      )}
+      <ServerBrandSheet identity={identity} />
       {/* The skip link sits BEFORE the canvas, not inside it: the kit's
           reading-flow: grid-rows enhancement on .oak-canvas sorts an
           absolutely-positioned, area-less child to the END of sequential

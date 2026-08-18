@@ -28,11 +28,16 @@
   gap: var(--space-2);
 }
 
-/* Swatch, name, value — one line each, and the name column is the
-   one that gives when the frame is narrow. */
+/* Swatch, name, value. The two text columns share the row 2:1 rather
+   than the value being content-sized: a functional value with no hex
+   form (a color-mix token resolves to a long oklab() string) would
+   otherwise take its full unwrapped width and crush the name column to
+   zero — measured: a 0px-wide, 440px-tall name that neither a reader
+   nor axe could see. Both text columns give by wrapping, never by
+   vanishing. */
 [data-page='colour-strip'] .strip-row {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 2fr) minmax(0, 1fr);
   gap: var(--space-8);
   align-items: center;
 }
@@ -54,5 +59,8 @@
 
 [data-page='colour-strip'] .strip-value {
   color: var(--text-subdued);
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+  /* Values keep hugging the row end as they did when the column was
+     content-sized, so the scan rhythm survives the 2:1 split. */
+  text-align: end;
 }

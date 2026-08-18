@@ -91,18 +91,15 @@
    identically. The floor is what the longest option needs, not what fits:
    at 360px two selects share a row only by clipping "Identity default" to
    "Identity defa…", and a control whose current value cannot be read is a
-   defect no amount of saved height pays for. */
+   defect no amount of saved height pays for. Sticky so the controls alone
+   stay with the reader — the jump list would take a third of a phone
+   screen away from the tokens it points at. */
 [data-page='tokens'] .tok-controls {
   grid-template-columns: repeat(auto-fit, minmax(min(var(--space-160), 100%), 1fr));
   gap: var(--space-4) var(--gap-m);
   align-items: end;
   padding-block: var(--space-8);
   background: var(--bg-primary);
-}
-
-/* Narrow: the controls alone stay with the reader, because the jump list
-   would take a third of a phone screen away from the tokens it points at. */
-[data-page='tokens'] .tok-controls {
   position: sticky;
   top: 0;
   z-index: var(--layer-sticky);
@@ -399,8 +396,13 @@
     display: block;
   }
 
-  /* The column headers name columns that no longer exist here. The one
-     cell whose meaning is not self-evident gets a visible label below. */
+  /* The column headers name columns that no longer exist here — and this
+     band deliberately drops TABLE SEMANTICS with the table display (the
+     display re-composition above linearises each row into a card; the
+     component carries no explicit table roles for exactly this reason).
+     The linear reading is named per cell instead: the visually-hidden
+     "Value" and "Re-pointed by" labels travel with their cells and hide
+     again at wide, where the visible header row does the naming. */
   [data-page='tokens'] .tok-table thead {
     display: none;
   }
@@ -443,24 +445,21 @@
      the value then gets a whole line to itself — which is what keeps
      `rgb(249, 249, 249) #f9f9f9` from wrapping. Reading order in the
      markup stays name, swatch, value, identities; only the painting
-     changes (CSS owns visual order). */
+     changes (CSS owns visual order). The identities ride the END of the
+     value's line rather than taking a line of their own — the third line
+     was the card's biggest cost, and the short labels the estate now uses
+     leave room for them beside a value. A long value simply wraps them
+     onto the next line. */
   [data-page='tokens'] .tok-owners-cell {
     order: 2;
+    flex: 0 1 auto;
+    margin-inline-start: auto;
+    color: var(--text-subdued);
   }
 
   [data-page='tokens'] .tok-value {
     order: 3;
     flex: 1 0 100%;
-  }
-
-  /* The identities ride the END of the value's line rather than taking a
-     line of their own — the third line was the card's biggest cost, and
-     the short labels the estate now uses leave room for them beside a
-     value. A long value simply wraps them onto the next line. */
-  [data-page='tokens'] .tok-owners-cell {
-    flex: 0 1 auto;
-    margin-inline-start: auto;
-    color: var(--text-subdued);
   }
 
   [data-page='tokens'] .tok-owners {
@@ -515,11 +514,13 @@
     overflow-y: auto;
   }
 
-  /* The column header names this cell at wide, so the label in the markup
-     takes itself out of the accessibility tree rather than saying it
-     twice. At narrow, where the header row is hidden, it is the only name
-     the cell has. */
-  [data-page='tokens'] .tok-owners-label {
+  /* The column header names these cells at wide, so the labels in the
+     markup take themselves out of the accessibility tree rather than
+     saying it twice. At narrow, where the header row is hidden and table
+     semantics are deliberately dropped, they are the only names the
+     cells have. */
+  [data-page='tokens'] .tok-owners-label,
+  [data-page='tokens'] .tok-value-label {
     display: none;
   }
 }

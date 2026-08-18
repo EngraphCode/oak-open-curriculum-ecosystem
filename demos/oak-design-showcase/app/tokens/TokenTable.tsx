@@ -17,12 +17,16 @@
  * and the annotations are markers within their cells rather than second
  * lines under them.
  *
- * THE ROLES ARE NOT DECORATION. At narrow the stylesheet re-lays these rows
- * as stacked blocks, and changing a table element's `display` strips its
- * implicit ARIA role in every current browser — a silently de-tabled table,
- * which is worse than a table that scrolls. Stating each role explicitly
- * keeps the semantics identical in both layouts. They are redundant at wide
- * by design; that is the point.
+ * NO EXPLICIT ARIA ROLES, BY DESIGN (review round 1 reversed the earlier
+ * stance). At narrow the stylesheet re-lays these rows as stacked cards,
+ * and changing a table element's `display` strips its implicit ARIA role —
+ * which is here EMBRACED rather than fought: a headerless grid of hundreds
+ * of cells announced as a table is worse than linear content, so narrow
+ * deliberately drops table semantics with the table display and names the
+ * two non-self-evident cells with per-cell visually-hidden labels ("Value",
+ * "Re-pointed by") that hide again at wide, where the visible header row
+ * and the implicit table semantics do the naming. Re-adding explicit roles
+ * would resurrect the headerless-table announcement.
  */
 import type { ReactElement } from 'react';
 
@@ -82,22 +86,27 @@ function TokenRow({
   // The count rides on the row so the narrow layout can drop the whole
   // re-pointed line for the three hundred tokens no identity touches,
   // instead of spending a line on an em dash.
+  // No explicit ARIA roles anywhere in this table, by design: at wide the
+  // elements carry their implicit table semantics; at narrow the stylesheet
+  // deliberately linearises each row into a card (display re-composition
+  // drops table semantics WITH the table display), and a headerless table
+  // announced as a table would be worse than linear content. The per-cell
+  // visually-hidden labels below are what name the two non-self-evident
+  // cells in the linear reading; each hides again at wide, where the
+  // visible column header does the naming.
   return (
-    <tr data-token={token.name} data-owners={owners.length} role="row">
-      <th scope="row" className="tok-name" role="rowheader">
+    <tr data-token={token.name} data-owners={owners.length}>
+      <th scope="row" className="tok-name">
         <TokenName token={token} />
       </th>
-      <td className="tok-specimen" role="cell">
+      <td className="tok-specimen">
         <Specimen token={token} />
       </td>
-      <td className="tok-value" role="cell">
+      <td className="tok-value">
+        <span className="oak-visually-hidden tok-value-label">Value </span>
         <TokenValue token={token} value={value} expression={expression} />
       </td>
-      <td className="tok-owners-cell" role="cell">
-        {/* Named for a screen reader only where the column header is not
-            there to do it — the narrow layout hides the header row, and
-            this label hides itself again at wide, so neither width has to
-            hear the name twice. */}
+      <td className="tok-owners-cell">
         <span className="oak-visually-hidden tok-owners-label">Re-pointed by </span>
         <IdentityDeltaCell owners={owners} identity={identity} />
       </td>
@@ -109,20 +118,12 @@ function TokenRow({
  *  no longer exist as columns. */
 function TokenTableHead(): ReactElement {
   return (
-    <thead role="rowgroup">
-      <tr role="row">
-        <th scope="col" role="columnheader">
-          Token
-        </th>
-        <th scope="col" role="columnheader">
-          Applied
-        </th>
-        <th scope="col" role="columnheader">
-          Value here
-        </th>
-        <th scope="col" role="columnheader">
-          Re-pointed by
-        </th>
+    <thead>
+      <tr>
+        <th scope="col">Token</th>
+        <th scope="col">Applied</th>
+        <th scope="col">Value here</th>
+        <th scope="col">Re-pointed by</th>
       </tr>
     </thead>
   );
@@ -161,10 +162,10 @@ export function TokenTable({
           scrollable `pre` one — in WebKit a scroll container that cannot be
           focused is pointer-only (SC 2.1.1) — and it is named so the stop
           says what it is. */}
-      <div className="tok-scroll" tabIndex={0} role="group" aria-labelledby={headingId}>
-        <table className="oak-table tok-table" role="table">
+      <div className="tok-scroll" tabIndex={0} role="region" aria-labelledby={headingId}>
+        <table className="oak-table tok-table">
           <TokenTableHead />
-          <tbody role="rowgroup">
+          <tbody>
             {tokens.map((token) => (
               <TokenRow
                 key={token.name}

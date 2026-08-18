@@ -20,8 +20,10 @@
  * RE-READING IS EVENT-DRIVEN, NEVER TIMED. Three things change what a token
  * resolves to, and each is watched at its cause:
  *
- * - A stylesheet joining the cascade: a `<head>` child change, and then the
- *   link's own `load` if it arrived still in flight.
+ * - A stylesheet joining, leaving, or changing in the cascade: a link
+ *   added anywhere in the document (React places non-`precedence` links
+ *   in the body), its own `load` if it arrived still in flight, and the
+ *   binder retiring an adopted sheet in place (`disabled`).
  * - A theme choice writing `data-theme` on the root, as does the runtime's
  *   automatic response to an OS contrast request.
  * - An OS colour-scheme change, which moves every `light-dark()` with no DOM
@@ -42,6 +44,8 @@
  * (Measured, not assumed: a `load` listener on the window never sees a
  * stylesheet link's load event, capture phase included.)
  */
+import { createFrameScheduler } from './frame-scheduler';
+
 /** One token's current value. */
 export interface LiveValue {
   /** What the browser paints: the used value where a painted property
@@ -124,7 +128,22 @@ function stylesheetLink(node: Node): HTMLLinkElement | null {
 /** Watch everything that can change what a token resolves to, and report
  *  each occurrence to `onCause`. Returns the teardown; nothing here polls. */
 function observe(document: Document, onCause: () => void): () => void {
-  const headObserver = new MutationObserver((records) => {
+  // Existing links first: server-rendered stylesheet links (which React
+  // places in the BODY unless given a `precedence` prop) already exist
+  // when this subscription starts, and hydration can win their load race —
+  // an immediate read would then record unbound or outgoing used values
+  // with no later event to correct them. A `load` listener on a
+  // genuinely-loaded link simply never fires (see stylesheetLink above),
+  // so attaching to every current link costs nothing and cannot be wrong.
+  for (const link of document.querySelectorAll('link[rel="stylesheet"]')) {
+    link.addEventListener('load', onCause, { once: true });
+  }
+
+  // Document-wide, not head-only, for the same body-placement reason; the
+  // attribute legs catch the binder retiring an adopted sheet in place
+  // (disabled) and any href re-point. Every cause coalesces into one read
+  // per painted frame downstream, so breadth here is not churn.
+  const linkObserver = new MutationObserver((records) => {
     onCause();
     for (const record of records) {
       for (const node of record.addedNodes) {
@@ -136,62 +155,40 @@ function observe(document: Document, onCause: () => void): () => void {
       }
     }
   });
-  headObserver.observe(document.head, { childList: true });
-
-  const rootObserver = new MutationObserver(onCause);
-  rootObserver.observe(document.documentElement, {
+  linkObserver.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
     attributes: true,
-    attributeFilter: ['data-theme', 'data-motion'],
+    attributeFilter: ['disabled', 'href', 'data-theme', 'data-motion'],
   });
 
   const scheme = document.defaultView?.matchMedia('(prefers-color-scheme: dark)');
   scheme?.addEventListener('change', onCause);
 
   return () => {
-    headObserver.disconnect();
-    rootObserver.disconnect();
+    linkObserver.disconnect();
     scheme?.removeEventListener('change', onCause);
   };
 }
 
-/**
- * A store over one document. The resolver is injected so a test can build a
- * store over its own document instead of the process's globals.
- */
-interface FrameScheduler {
-  /** Run at the next paint, once, however many causes fired before it. */
-  readonly schedule: () => void;
-  readonly cancel: () => void;
-}
-
-/** Coalesces every cause into one read per painted frame. Falls back to
- *  running immediately where there is no window to schedule against. */
-function createFrameScheduler(
-  resolveDocument: () => Document | null,
-  run: () => void,
-): FrameScheduler {
-  let frame: number | null = null;
-  return {
-    schedule: (): void => {
-      const view = resolveDocument()?.defaultView ?? null;
-      if (view === null) {
-        run();
-        return;
-      }
-      if (frame === null) {
-        frame = view.requestAnimationFrame(() => {
-          frame = null;
-          run();
-        });
-      }
-    },
-    cancel: (): void => {
-      if (frame !== null) {
-        resolveDocument()?.defaultView?.cancelAnimationFrame(frame);
-        frame = null;
-      }
-    },
-  };
+function liveValuesEqual(a: LiveValues, b: LiveValues): boolean {
+  if (a === b) {
+    return true;
+  }
+  if (a.size !== b.size) {
+    return false;
+  }
+  for (const [name, value] of a) {
+    const other = b.get(name);
+    if (
+      other === undefined ||
+      other.value !== value.value ||
+      other.expression !== value.expression
+    ) {
+      return false;
+    }
+  }
+  return true;
 }
 
 export function createLiveTokenValueStore(
@@ -202,7 +199,15 @@ export function createLiveTokenValueStore(
 
   const reread = (): void => {
     const document = resolveDocument();
-    snapshot = document === null ? NO_VALUES : readTokenValues(document);
+    const next = document === null ? NO_VALUES : readTokenValues(document);
+    // Snapshot IDENTITY is the render gate: useSyncExternalStore re-renders
+    // on object change, and the document-wide observer makes unrelated DOM
+    // mutations common causes — an equal recompute keeps the SAME object so
+    // the observe→read cycle is render-free by construction, never by the
+    // read happening to be textually stable.
+    if (!liveValuesEqual(snapshot, next)) {
+      snapshot = next;
+    }
     for (const listener of listeners) {
       listener();
     }

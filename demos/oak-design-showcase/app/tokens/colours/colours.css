@@ -81,6 +81,10 @@
    never scrolls sideways to reach it. */
 [data-page='colours'] .matrix-frame {
   inline-size: 100%;
+  /* The border must live INSIDE the 100% or every cell runs 2px past its
+     column and the page scrolls sideways at 320px (iframes sit outside
+     the border-box reset's reach here — measured by the reflow cell). */
+  box-sizing: border-box;
   block-size: var(--space-480);
   border: var(--border-solid-s) solid var(--border-neutral-lighter);
   border-radius: var(--radius-container);

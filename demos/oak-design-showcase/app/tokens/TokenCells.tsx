@@ -63,7 +63,7 @@ export function TokenName({ token }: { readonly token: CatalogueToken }): ReactE
       <span className="oak-code-3">{token.name}</span>
       {token.tier === 1 && (
         <span className="oak-body-4 tok-flag">
-          primitive
+          {'primitive'}
           <span className="oak-visually-hidden">
             {' '}
             &mdash; reference this inside a token definition, not at the point of use
@@ -101,7 +101,7 @@ export function TokenValue({
       )}
       {token.themes.length > 1 && (
         <span className="oak-body-4 tok-flag">
-          theme
+          {'theme'}
           <span className="oak-visually-hidden"> &mdash; this value changes with the theme</span>
         </span>
       )}

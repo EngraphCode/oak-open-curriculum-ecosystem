@@ -172,3 +172,28 @@ test.describe('picker: W3 controls v2', () => {
     expect(visibleStage).toBeGreaterThan(780 / 2);
   });
 });
+
+/** The target-size floor (SC 2.5.8): below the scale floor the scaled
+ *  preview goes inert — a picture, with interaction owned by the
+ *  full-page link beside it — and stays interactive at scales where the
+ *  kit's 44px targets still meet the 24px minimum. The `inert` IDL
+ *  property reflects the content attribute, so the attribute is the
+ *  observable. */
+test.describe('scaled preview target-size floor', () => {
+  test('the preview is inert below the floor and interactive above it', async ({ page }) => {
+    const opened = await openPickerStage(page);
+    if (opened === null) {
+      return;
+    }
+    const frameElement = page.locator('.picker-stage iframe');
+    const inertAttribute = (): Promise<string | null> => frameElement.getAttribute('inert');
+    await expect
+      .poll(inertAttribute, { message: 'wide: the preview stays interactive' })
+      .toBeNull();
+    await page.setViewportSize({ width: 390, height: 780 });
+    await expect
+      .poll(inertAttribute, { message: 'narrow: a sub-floor scale renders the preview inert' })
+      .not.toBeNull();
+    assertOnlyKnownExternalOrigins(opened.aborted);
+  });
+});

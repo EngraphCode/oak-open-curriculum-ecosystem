@@ -40,11 +40,31 @@ export function declaredCustomProperties(css: string): readonly string[] {
  * the union, and the union is discovered from the sheet rather than named
  * in a list here that could fall out of step.
  */
+// One linear pass, plain string work on the captured body — the parity
+// tool's own importTarget (tools/kit-asset-parity.ts) records why: a
+// regex grammar here kept trading one Sonar backtracking/complexity
+// finding for another, and the string parse ends the class. Deliberately
+// DIVERGENT from that sibling in one behaviour: this one KEEPS remote
+// targets, because isRemoteStylesheet below skips them BY RULE (the
+// Google Fonts import is the documented common case), where the parity
+// tool's local-dependency walk filters them at the parser.
+const URL_CALL = /^url\(([^)]*)\)/i;
+
+function importTarget(params: string): string | undefined {
+  const urlForm = URL_CALL.exec(params);
+  const body = urlForm === null ? params : (urlForm[1] ?? '').trim();
+  const quote = body[0];
+  if ((quote === '"' || quote === "'") && body.length >= 2) {
+    const end = body.indexOf(quote, 1);
+    return end > 0 ? body.slice(1, end) : undefined;
+  }
+  return urlForm === null ? undefined : body;
+}
+
 export function importedStylesheets(css: string): readonly string[] {
   const targets: string[] = [];
   parse(css).walkAtRules('import', (rule) => {
-    const match = /^url\(\s*(['"]?)([^'")]+)\1\s*\)|^(['"])([^'"]+)\3/.exec(rule.params.trim());
-    const target = match?.[2] ?? match?.[4];
+    const target = importTarget(rule.params.trim());
     if (target !== undefined && target !== '') {
       targets.push(target);
     }

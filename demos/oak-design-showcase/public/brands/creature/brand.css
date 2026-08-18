@@ -354,7 +354,15 @@
 .oak-scope [data-region='cta']::after {
   content: '';
   position: absolute;
-  inset: 0;
+  /* The plate's box stays inside the band by MORE than the sway's
+     amplitude (±6px x, ±3px y below): a transformed box extends the
+     document's scrollable overflow, so an inset smaller than the
+     amplitude makes SC 1.4.10 a function of animation phase. The glow is
+     box-shadow — it never creates scrollable overflow, but its origin
+     box moved inward with the plate, so the halo sits 8px/4px tighter
+     to the band than before (a deliberate, rendered-checked trade for
+     phase-independent reflow). */
+  inset: var(--space-4) var(--space-8);
   /* Negative layer: the visible glow spreads OUTSIDE the box while the
      plate itself paints behind the band's own background — so nothing
      overlaps the band's text (axe's bgOverlap class caught the plate

@@ -15,41 +15,19 @@ import { useCallback, useEffect, useState } from 'react';
 import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
 import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
 
+import { applyFrameTheme } from '../../components/apply-frame-theme';
 import { isPickerTheme } from '../../components/theme-vocabulary';
 
-/** Apply a picker theme to the framed document's root. Identity default is
- *  the no-attribute state — the framed identity's own polarity governs
- *  (DDR-003 dated amendment 2026-08-11) — with the kit's access
- *  commitment honoured frame-locally: an OS-level request for more
- *  contrast keeps high-contrast until an explicit choice is made in the
- *  control. The picker writes the attribute directly rather than calling
- *  the frame runtime's set()/clear(): its controls are stage-local
- *  presentation data, and a runtime write would persist to the shared
- *  localStorage and leak the demo state into the whole showcase. The
- *  stage-local state governs the framed root for the LIFE of the mount,
- *  not only at mount: external writers exist (the runtime's pre-paint
- *  apply of a stored site-level choice, and its live contrast listener,
- *  which believes no choice exists because the picker never tells it
- *  one does), and the observer below corrects any divergence. Idempotent
- *  by the early return — the DOM queues a mutation record even for a
- *  same-value attribute write, so the divergence guard is what
- *  terminates the observer's correction cycle. */
-export function applyFrameTheme(root: HTMLElement, theme: OakThemeSnapshot): void {
-  const prefersMoreContrast =
-    root.ownerDocument.defaultView?.matchMedia('(prefers-contrast: more)').matches === true;
-  // The identity-default face still honours an OS contrast request — the
-  // automatic route, distinct from an explicit theme.
-  const defaultFace = prefersMoreContrast ? 'high-contrast' : undefined;
-  const target = theme === IDENTITY_DEFAULT ? defaultFace : theme;
-  if (root.dataset['theme'] === target) {
-    return;
-  }
-  if (target === undefined) {
-    delete root.dataset['theme'];
-  } else {
-    root.dataset['theme'] = target;
-  }
-}
+/* The apply logic lives in components/apply-frame-theme.ts (moved at its
+   second consumer, the colour-matrix cells): identity default is the
+   no-attribute state honouring an OS contrast request; explicit choices
+   are held against external writers by the observer below, whose
+   correction cycle terminates on the applier's idempotence guard. The
+   stage-local state governs the framed root for the LIFE of the mount,
+   not only at mount: external writers exist (the runtime's pre-paint
+   apply of a stored site-level choice, and its live contrast listener,
+   which believes no choice exists because the picker never tells it
+   one does). */
 
 export function useFrameTheme(resolveTarget: () => Document | null): {
   readonly theme: OakThemeSnapshot;
