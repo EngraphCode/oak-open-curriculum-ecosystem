@@ -3547,3 +3547,59 @@ artifact, URL in the session wrap-up).
 - Dev server stopped at freeze; scrap branches (mcp-613/615/616/620
   ×mis-based) still await owner one-click deletion (Director holds the
   list).
+
+## Session close 2026-08-18 ~18:3xZ (Yarrow stirs Undergrowth, ab1066 — additive; ROUND 1 CLOSED on all four PRs; compaction freeze, claim RETAINED)
+
+- **The sitting's arc**: post-compaction resume at the retained claim →
+  re-arm (watcher/heartbeat/ArcAngel tail, F-95 green) → the Director's
+  two resume notes absorbed (Copilot-binding question CLOSED at the
+  Director's word; the ab0d10906 broad-staging note taken — explicit
+  pathspec at every shared-checkout parcel) → full round-1 harvest of
+  #907/#908/#909/#910 (26 review findings + #907's Sonar 21 + its red
+  CI leg) → every finding cured or dispositioned → ONE multi-ref bot
+  push (gate suite paid once): **#907 `62df2091c`, #908 `41db188a0`,
+  #909 `83c95cc03`, #910 `4d74164b5`** → 8 threads replied+resolved,
+  4 mantagen rounds dismissed-at-cure (verified), response comment per
+  PR (author read-back jimbot-oakington-iii[bot] on every write),
+  Copilot RE-REQUESTED on #907/#909 (timeline-bound), #910 body scope
+  note updated, token deleted.
+- **Working record**: `.agent/reports/design/pr-round-ledger-2026-08-18.md`
+  (committed this parcel) — the state machine's tally store, expected
+  reviewer set (claude[bot]+Codex = quota skip markers, re-check per
+  round; mantagen NOT on-demand, dismiss-at-cure; Copilot on-demand on
+  907/909), round-1 dispositions, and the carried gateway residue with
+  named homes.
+- **Load-bearing diagnoses** (napkin carries the generators): the CI
+  reflow red's measured root = visually-hidden helpers escaping the
+  strip's scroll clip → 312px document floor, red only under CI's
+  classic scrollbars (cure: scroller as containing block; floor ≤296px
+  measured); the colour-strip zero-width-name row (color-mix→oklab, no
+  hex form; 2:1 wrapping tracks); the `.mast` duplicate-selector DEAD
+  DECLARATION (Sonar was right); the sway plates inset past amplitude
+  (overflow-closed decoration — the halo sits 8px/4px tighter,
+  disclosed on the PR); forced-colours radio dot = SelectedItem
+  (rendered-proof verified). A probe-verified code-expert gateway pass
+  (opus) rode the #907 bundle pre-push; blocker + items 2/3/4 + six
+  cheap items absorbed; residue named in the ledger.
+- **State at freeze**: #908 and #910 all-green on their new tips (17/17
+  checks, zero threads, no live review) — likely FIRST to settle;
+  **the Director's merge leg needs nothing from this seat** (merge-bot
+  merge recomputes the settle verdict itself). #907/#909 await Copilot
+  re-review rounds + CI on the new tips. All my PR watches stop with
+  the freeze — round-2 HARVESTS wait for this seat's resume unless the
+  owner/Director redirects.
+- **Morning resume order**: (1) re-arm per start-right; (2) harvest
+  round 2 (pr-lifecycle phases 3–7; the ledger is the tally store;
+  batch one adjudicated round per push; dismiss-at-cure for mantagen;
+  merges per merge rulings at the Director's seat); (3) the owner's
+  four visual fixes as the next BUILD round (composition control rows;
+  tokens two-column-as-norm; the hard no-overflow rule — the
+  classic-scrollbar floor is a DDR-009-warrantable width candidate to
+  decide there; narrow slide-out nav incl. the specimen strip's
+  scrolling row); (4) post-#910-merge amendment parcel (showcase
+  cross-ref, S4(b), R4 attribution-correction, POPPY-1 fold);
+  (5) **T1a-ii + T1e decision card** (prefix MAJOR, construction
+  semantics, CLI shape) → T1b → T2. Claim `645b9e0b` RETAINED for
+  same-seat resume. Scrap branches ×4 still await owner deletion
+  (Director holds the list); napkin remains over rotation threshold
+  (dedicated-sitting item).

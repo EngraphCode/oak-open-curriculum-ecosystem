@@ -988,3 +988,63 @@ survey post-mortem discharged (both at 6ba9e93c3).
   output is invisible); when a report mis-routes, harvest by
   verification (gates + rendered pass) rather than blocking on the
   reply. Four rounds ran clean this way.
+
+## 2026-08-18 evening — review round 1 across four PRs (Yarrow, ab1066)
+
+- **The layout viewport is not the visual viewport**: macOS overlay
+  scrollbars leave clientWidth = 320 while Linux classic scrollbars
+  narrow it (~305) — an SC 1.4.10 pass at exactly 320 with zero slack
+  is a latent CI red. Named failure class with a worked instance
+  ("classic-scrollbar-narrowed floor"): probe BELOW the boundary and
+  measure the floor, never just the boundary; a ~305 probe cell is a
+  DDR-009-warrantable width candidate (routed to the visual-fixes
+  round).
+- **A scroll container must be the CONTAINING BLOCK for its own
+  absolutely-positioned descendants** (`position: relative` on the
+  scroller), or their static positions ride the content past the clip
+  and tax the document's scroll width. Second worked instance
+  (tok-scroll's 228px sideways scroll, then the specimen strip's 312px
+  floor from visually-hidden helpers) — consolidation-trigger reached;
+  distil.
+- **Measure before mechanism**: the CI reflow red pattern-matched
+  elegantly to animation-phase overflow (the no-timing-dependence
+  principle PRIMED the reading) — but the a11y suite emulates reduced
+  motion, so the sway was still. The probe found the true root in two
+  minutes. A beloved principle naming a failure class is itself a bias
+  toward seeing that class. (Both cures were real defects; only one was
+  the CI root — the records keep the distinction.)
+- **Decorative motion must be overflow-closed**: a transformed box
+  extends scrollable overflow, so plate inset ≥ translate amplitude or
+  SC 1.4.10 becomes a function of animation phase. Candidate
+  admission-guard arm for the pack programme (pointer, not spec).
+- **Content-sized columns + nowrap crush siblings**: a color-mix token
+  resolves to a long oklab() string with NO hex form — the strip's
+  auto value column took ~250px of a 288px frame and the name column
+  went 0px wide × 440px tall. Bounded tracks that give by wrapping
+  (2:1 fr split), never by vanishing. Found by a brand-new reflow
+  cell on its first run — coverage as SENSOR (two real defects caught
+  by the new route cells immediately).
+- **Sonar duplicate-selector findings can be live bugs**: a second
+  `.mast` block silently overrode the strip-offset declaration to 0
+  (later block wins). Merge-to-one-block is correctness work.
+- **Batch API writes verify by read-back**: a `curl -sf | jq` for-loop
+  swallowed four review-dismissal failures wordlessly (the only signal
+  was ABSENCE of output). The verify step is part of the write —
+  re-read the state, never trust loop silence (exit-codes-in-band, API
+  edition).
+- **Probe-verified review dispatch pays**: the code-expert gateway
+  verified its load-bearing browser assumptions in a live Chromium
+  (disabled/inert attribute reflection, regex equivalence over 22
+  forms) instead of reasoning them — caught a validator-red blocker
+  pre-push. Ask for probes explicitly in reviewer dispatches.
+- **Cure-in-place rounds accrete duplicates** (reviewer's
+  "friction-ratchet count: 4"): three expressions of one theme rule,
+  two importTargets, a third reflow assertion — each individually
+  defensible. A consolidation pass belongs at round close, and a
+  deliberate divergence gets NAMED at the site (importedStylesheets
+  keeps remote targets by rule; the parity tool filters them).
+- **"A request is not application"**: the binder stamps
+  data-oak-brand-applied at swap completion; DOM presence ≠ cascade
+  state (link.sheet mints ~135ms before load). Same ontology as P7's
+  default-as-scaffold — visible provenance-recorded transitions beat
+  inferred state, two scales in two days.
