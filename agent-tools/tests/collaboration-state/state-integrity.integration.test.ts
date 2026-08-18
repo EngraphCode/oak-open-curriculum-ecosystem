@@ -18,7 +18,10 @@ describe('collaboration state integrity validator', () => {
   it('passes a clean true-JSON collaboration estate and ignores comms-seen cursors', async () => {
     const repoRoot = await makeTempCollaborationRepo();
     try {
-      const report = await validateCollaborationStateIntegrity({ repoRoot });
+      const report = await validateCollaborationStateIntegrity({
+        repoRoot,
+        coordinationHome: repoRoot,
+      });
 
       expect(report.findings).toStrictEqual([]);
       expect(formatCollaborationStateIntegrityReport(report)).toContain('OK');
@@ -35,7 +38,10 @@ describe('collaboration state integrity validator', () => {
         '{ "schema_version": "2.0.0", "body": "unterminated',
       );
 
-      const report = await validateCollaborationStateIntegrity({ repoRoot });
+      const report = await validateCollaborationStateIntegrity({
+        repoRoot,
+        coordinationHome: repoRoot,
+      });
 
       expect(report.findings).toHaveLength(1);
       expect(report.findings[0]?.path).toBe('.agent/state/collaboration/comms/bad-event.json');
@@ -76,7 +82,10 @@ describe('collaboration state integrity validator', () => {
         },
       );
 
-      const report = await validateCollaborationStateIntegrity({ repoRoot });
+      const report = await validateCollaborationStateIntegrity({
+        repoRoot,
+        coordinationHome: repoRoot,
+      });
 
       expect(report.findings).toHaveLength(1);
       expect(report.findings[0]?.path).toBe(
@@ -99,7 +108,10 @@ describe('collaboration state integrity validator', () => {
         conversation_id: 'bad-thread',
       });
 
-      const report = await validateCollaborationStateIntegrity({ repoRoot });
+      const report = await validateCollaborationStateIntegrity({
+        repoRoot,
+        coordinationHome: repoRoot,
+      });
 
       expect(report.findings.map((finding) => finding.path)).toStrictEqual([
         '.agent/state/collaboration/comms/empty-event.json',
@@ -128,7 +140,10 @@ describe('collaboration state integrity validator', () => {
         body: 'This event has an invalid timestamp.',
       });
 
-      const report = await validateCollaborationStateIntegrity({ repoRoot });
+      const report = await validateCollaborationStateIntegrity({
+        repoRoot,
+        coordinationHome: repoRoot,
+      });
 
       expect(report.findings[0]?.path).toBe('.agent/state/collaboration/comms/bad-time.json');
       expect(report.findings[0]?.message).toContain('Invalid ISO datetime');
@@ -148,12 +163,62 @@ describe('collaboration state integrity validator', () => {
       await rm(join(repoRoot, '.agent/state/collaboration/active-claims.json'));
       await rm(join(repoRoot, '.agent/state/collaboration/closed-claims.archive.json'));
 
-      const report = await validateCollaborationStateIntegrity({ repoRoot });
+      const report = await validateCollaborationStateIntegrity({
+        repoRoot,
+        coordinationHome: repoRoot,
+      });
 
       expect(report.findings).toStrictEqual([]);
       expect(formatCollaborationStateIntegrityReport(report)).toContain('OK');
     } finally {
       await removeDirectory(repoRoot);
+    }
+  });
+
+  it('validates the machine-local surfaces at the coordination home, not the invoking checkout', async () => {
+    // A linked worktree's repo-local claims/comms/commit-queue are decoys:
+    // clean-or-absent locally while the canonical home store is corrupt.
+    // The validator must find the corruption at the HOME and name the
+    // absolute home path so an operator can locate the file.
+    const repoRoot = await makeTempCollaborationRepo();
+    const coordinationHome = await makeTempCollaborationRepo();
+    try {
+      const queueDir = join(coordinationHome, '.agent/state/collaboration/commit-queue');
+      await mkdir(queueDir, { recursive: true });
+      const corruptPath = join(queueDir, 'deadbeef-dead-4dea-8dea-deadbeefdead.json');
+      await writeText(corruptPath, '{ "intent_id": "unterminated');
+
+      const report = await validateCollaborationStateIntegrity({ repoRoot, coordinationHome });
+
+      expect(report.findings).toHaveLength(1);
+      expect(report.findings[0]?.path).toBe(corruptPath);
+      expect(report.findings[0]?.message).toContain('malformed JSON');
+    } finally {
+      await removeDirectory(repoRoot);
+      await removeDirectory(coordinationHome);
+    }
+  });
+
+  it('accepts a legacy pending-migration registry at the home without a finding', async () => {
+    // The estate mid-rollout: the home's live registry still carries the
+    // flat commit_queue shape the runtime migrates on first contact. That
+    // is a valid state, not corruption — the runtime contract pin must not
+    // fire on it (Ajv still validates the legacy shape via the schema's
+    // wider version enum).
+    const repoRoot = await makeTempCollaborationRepo();
+    const coordinationHome = await makeTempCollaborationRepo();
+    try {
+      await writeText(
+        join(coordinationHome, '.agent/state/collaboration/active-claims.json'),
+        `${JSON.stringify({ schema_version: '1.3.0', commit_queue: [], claims: [] }, null, 2)}\n`,
+      );
+
+      const report = await validateCollaborationStateIntegrity({ repoRoot, coordinationHome });
+
+      expect(report.findings).toStrictEqual([]);
+    } finally {
+      await removeDirectory(repoRoot);
+      await removeDirectory(coordinationHome);
     }
   });
 
@@ -164,9 +229,9 @@ describe('collaboration state integrity validator', () => {
       // absence is a genuine integrity fault, not the untracked-by-design case.
       await removeDirectory(join(repoRoot, '.agent/state/collaboration/conversations'));
 
-      await expect(validateCollaborationStateIntegrity({ repoRoot })).rejects.toThrow(
-        '.agent/state/collaboration/conversations',
-      );
+      await expect(
+        validateCollaborationStateIntegrity({ repoRoot, coordinationHome: repoRoot }),
+      ).rejects.toThrow('.agent/state/collaboration/conversations');
     } finally {
       await removeDirectory(repoRoot);
     }
