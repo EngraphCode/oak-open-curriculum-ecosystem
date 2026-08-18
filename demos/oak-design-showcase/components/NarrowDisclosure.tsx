@@ -17,16 +17,16 @@
  * THE TRADE, priced deliberately: a wide first paint ships the CLOSED
  * disclosure and expands at hydration — a one-time layout shift on
  * desktop loads, and the disclosure form is permanent with JS off.
- * Narrow-first makes the phone's first paint the honest one; the
- * pure-CSS alternative (forcing the panel visible at wide) cannot be
- * done against a closed `<details>` in today's browsers.
+ * Narrow-first makes the phone's first paint the honest one. (CSS
+ * `::details-content` forcing is newly Baseline and not yet safe
+ * cross-engine, so the open state rides the prop instead.)
  *
  * Framedness's sibling: viewport width is a client-only fact, so it is
  * read through an external-store subscription (never an effect setState),
  * which keeps the server snapshot honest and the client render
  * cascade-free.
  */
-import { useCallback, useSyncExternalStore } from 'react';
+import { useCallback, useState, useSyncExternalStore } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 
 function useMediaQueryMatch(query: string): boolean {
@@ -62,11 +62,30 @@ export function NarrowDisclosure({
   readonly children: ReactNode;
 }): ReactElement {
   const wide = useMediaQueryMatch(wideQuery);
-  if (wide) {
-    return <>{children}</>;
-  }
+  // The user's own narrow open/closed choice, kept OUTSIDE the element so
+  // crossing the seam and back restores it.
+  const [chosenOpen, setChosenOpen] = useState(false);
+  // ONE mounted <details> at every width — never a swap to a fragment.
+  // Remounting on the seam destroys focus (measured: a focused control
+  // dropped to BODY) and the open state, and the seam is crossed by
+  // accessibility paths (400% browser zoom, tablet rotation), not only
+  // window dragging. At wide the wrapper DISSOLVES in CSS instead:
+  // display: contents hands the children to the surrounding layout and
+  // the summary leaves the tree, while the forced open keeps the panel
+  // rendered.
+  const classes = ['oak-disclosure', className, wide ? 'narrow-disclosure-dissolved' : undefined]
+    .filter((name) => name !== undefined)
+    .join(' ');
   return (
-    <details className={className === undefined ? 'oak-disclosure' : `oak-disclosure ${className}`}>
+    <details
+      className={classes}
+      open={wide ? true : chosenOpen}
+      onToggle={(event) => {
+        if (!wide) {
+          setChosenOpen(event.currentTarget.open);
+        }
+      }}
+    >
       <summary>{summary}</summary>
       {children}
     </details>

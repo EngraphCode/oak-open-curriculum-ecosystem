@@ -118,11 +118,11 @@ test.describe('token reference: the narrow family nav discloses', () => {
     expect(navScrollBoxes, 'the open list scrolls with the page, never in a box').toBe(0);
     // Wide: the wrapper dissolves and the list renders inline.
     await page.setViewportSize({ width: 1280, height: 900 });
-    await expect
-      .poll(() => nav.locator('summary').count(), {
-        message: 'wide: no disclosure — the rail list is inline',
-      })
-      .toBe(0);
+    // The details element stays MOUNTED across the seam (focus and open
+    // state survive zoom and rotation); dissolution is the summary
+    // leaving the accessibility tree, not the DOM.
+    await expect(summary).toBeHidden();
+    await expect(nav.locator('a').first()).toBeVisible();
     assertOnlyKnownExternalOrigins(aborted);
   });
 });

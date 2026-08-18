@@ -126,6 +126,20 @@
   min-inline-size: 0;
 }
 
+/* Focus-not-obscured (2.4.11) and jump-landing reserve for the STICKY
+   controls band above: shift-tabbing through the open family nav, and
+   every jump link's h3 landing, must clear the band — measured at 390px
+   the band is two stacked control rows ([0,110]) and both a focused nav
+   link and a jumped-to heading sat entirely behind it. scroll-margin on
+   the ELEMENTS (not scroll-padding on a root this page cannot scope)
+   reserves the band's two-row worst case plus breathing room; at one-row
+   widths the extra margin only scrolls a little further. */
+[data-page='tokens'] .tok-nav a,
+[data-page='tokens'] .tok-nav summary,
+[data-page='tokens'] .tok-family h3 {
+  scroll-margin-block-start: calc(var(--size-target) * 2 + var(--space-8) * 2 + var(--space-16));
+}
+
 [data-page='tokens'] .tok-nav-group {
   padding-block-end: var(--space-8);
 }

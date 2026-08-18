@@ -124,3 +124,16 @@ body {
 .showcase-crumbs .here {
   color: var(--text-subdued);
 }
+
+/* The NarrowDisclosure's wide face: the SAME mounted <details> at every
+   width (remounting across the seam destroys focus and open state — the
+   seam is crossed by 400% zoom and rotation, both accessibility paths).
+   At wide the wrapper dissolves: contents join the surrounding layout,
+   the summary leaves the tree, and the component holds the panel open. */
+.narrow-disclosure-dissolved {
+  display: contents;
+}
+
+.narrow-disclosure-dissolved > summary {
+  display: none;
+}

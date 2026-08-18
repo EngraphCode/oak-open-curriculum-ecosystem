@@ -75,11 +75,10 @@ test.describe('specimen strip: narrow controls disclose instead of scroll', () =
     ).toHaveCount(1);
     // Wide: the wrapper dissolves — the controls render inline in the row.
     await page.setViewportSize({ width: 1280, height: 900 });
-    await expect
-      .poll(() => strip.locator('summary').count(), {
-        message: 'wide: no disclosure — the control row is inline',
-      })
-      .toBe(0);
+    // The details element stays MOUNTED across the seam (focus and open
+    // state survive zoom and rotation); dissolution is the summary
+    // leaving the accessibility tree, not the DOM.
+    await expect(summary).toBeHidden();
     await expect(page.getByRole('radio', { name: IDENTITY_LABELS[counterBrand] })).toBeVisible();
     assertOnlyKnownExternalOrigins(aborted);
   });

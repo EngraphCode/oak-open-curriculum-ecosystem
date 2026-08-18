@@ -48,7 +48,8 @@
    radios all sit on this band. */
 [data-page='unit'] .util a,
 [data-page='unit'] .util .oak-select,
-[data-page='unit'] .util .oak-radio {
+[data-page='unit'] .util .oak-radio,
+[data-page='unit'] .util summary {
   --focus-ring: var(--focus-ring-inverted);
 }
 
