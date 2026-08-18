@@ -25,7 +25,7 @@ depends_on:
   - plan: design-showcase-experience
     kind: beneficial
 owner_gates: []
-last_updated: 2026-08-17
+last_updated: 2026-08-18
 ---
 
 # Tango identity pack — the pack mechanism proven by its first identity
@@ -71,6 +71,7 @@ not an authority class.
 | K2 | **The identity-№N falsifier.** "The thesis fails if adding or modifying an identity requires framework-code changes." | Owner-ratified doc: the strategic node §Falsifiability |
 | M1 | **Ratified pack mechanics.** A zod-validated sibling manifest that emits asset custom properties; the DTCG 2025.10 type set is closed (no asset type) so asset data never masquerades as token types; per-theme asset strategy decided before content lands (five themes, access themes first-class); slot cardinality/fallback proved by a deliberately partial pack; each identity pack its own package with its own licensing surface, keeping reserved-marks content out of the MIT kit root. | Owner-ratified doc: `oak-identity-recognisability.plan.md` §Mechanism + S4(b), ratified 2026-08-13 |
 | P6 | **The eventual state (canonical packs + narrow distinctness).** Verbatim: "the eventual state is that all identities are represented purely as canonical identity packs, that identities are visually designed narrow viewport first, that the system fully supports distinct identities at narrow viewports, and that the EMC2 identity and Tango identity at narrow viewports are clearly different from Oak and PDS in layout, order, spacing, feel, with the most difference in EMC2 because that is the identity we have total freedom with" (sic). Adjudicated same sitting: compatible with the ruled corpus. Sharpens P4: the measured-needs record now serves a declared outcome bar. The sibling plan's R4 row carries a "No per-brand narrow maps" consequence line: first adjudicated here as superseded, then **owner-re-classed the same evening (direct word at the d427b6 seat, comms event `901c311f`) as VOID FROM BIRTH — never owner word; agent-inscribed inference wearing owner attribution** (the row's genuine excellent-base quote stands); the queued cure on that plan is an attribution-correction, not a supersession note. The same word rules the vocabulary: the four are IDENTITIES, never "brands" — "brand" survives only for Oak National Academy's real-world brand in the licensing sense; this node's remaining "brand" occurrences name the kit's current published contract surfaces (`brand.css`, the brand-admission guard), which are estate-wide renaming candidates on the Director's board, never identity descriptions. **Ontology correction, same sitting (owner verbatim): "Oak/PDS is not a default for narrow viewports, it is a coincidence that the first two identities we built we public services, and therefore have a shared design heritage routed in GDS" (sic).** There is NO shared-narrow-base concept and no sharing arrangement: every identity's narrow composition follows from its own character and anchor; Oak/PDS narrow similarity is heritage coincidence (both GDS-rooted public services), never a base one inherits. Convergence-by-silent-fallthrough (the recorded below-840px mechanism) is a defect class, never mistakable for heritage coincidence. | Owner, 2026-08-17, at this seat minutes after ratification; ontology correction minutes later (dated amendments same day) |
+| P7 | **Self-contained packs; the contract is the invariant.** Verbatim (owner, 2026-08-18, at the design seat): "Each identity needs to be self contained, not override a base. We can certainly have defaults, but the time to use them is during identity construction, not as runtime values… we can have a CLI with commands like oak-design identity create"; and, ratifying the seat's shared-contract clause: "Absolutely yes, the contract is an invariant, that is what makes it cheap to create new identities." The runtime-override mechanism (identity as a delta sheet re-pointing a base at load time) is thereby graded a **demo mechanism that persisted past its warrant** — the 2026-08-18 demo-day defect ledger (the reduced-motion collapse defeated by a bare later-sheet override; the stranded server sheet; cascade-order and specificity fights; `light-dark()` resolving at the declaring root) is its evidence record. The ruled shape: shared INTERFACE (the manifest/token contract — names, semantics, obligations — invariant across identities, which is what keeps one-markup-many-identities true AND makes new identities cheap), self-contained IMPLEMENTATION (each pack carries its complete token surface including all theme faces); defaults bind at CONSTRUCTION as provenance-recorded scaffold values, never as runtime fallback (default-as-scaffold, never default-as-lien); identity is a build-time axis, theme remains the runtime axis inside each pack; base evolution reaches packs as explicit, reviewable upgrade diffs, never silent re-skins. Doctrine home: DDR-012. Threaded through this node: T1a-ii designs the manifest as the contract-invariant; T1e mints the constructor; T2's Tango pack is the first identity born through it; the existing-identity migration nodes (out of scope here) retire the runtime override and deliver the value-free kit base AC3 already names. | Owner, 2026-08-18 |
 | G1 | **The admission guard's specified home.** The brand-admission guard is already specified by the ratified showcase plan (W1 slice B): all-fatal, no warn arm; rejects unit-bearing values in bound parts AND a sheet declaring both a slot's shorthand and its parts; red-first against the kit's tracked negative control (`studio-source/whitelabel/failing-example.css`); lives in `agent-tools/src/validators/` on the `repo-validators:check` chain. This node **extends that one instrument** with manifest-driven arms — it does not build a second admission regime (see §Relationships). | Owner-ratified doc: `design-showcase-experience.plan.md` W1 slice B (ratified 2026-08-13) |
 
 ## Goal
@@ -364,6 +365,17 @@ pixels before value authoring begins.
   and custom-property surface, the per-theme authoring amendment) —
   manifest parsing lives in the schema workspace's consumers, never
   the kit (ADR-213 §4 neutral trunk).*
+  *Dated note (2026-08-18, P7): the manifest is designed as the
+  CONTRACT-INVARIANT of self-contained packs — completeness semantics
+  (a pack declares its full token surface; admission verifies
+  completeness against the contract, never delta-wellformedness) and
+  construction provenance (each value marked defaulted-at-creation or
+  authored) join the fact-arms; the pack-declared PREFIX field rides
+  this slice's decision card (a MAJOR — the prefix is a cross-estate
+  wire field). Number correction: this row's earlier forward-reference
+  to "DDR-012" for the asset-strategy DDR is stale — DDR-012 is the
+  self-containment doctrine (authored 2026-08-18); the asset-strategy
+  DDR mints at the next free number at its own authoring.*
 - **T1b — Admission-guard extension** (class: validator). The G1
   instrument gains the pack arms, closure-scoped (postcss dependency
   added to `agent-tools`), slot↔parts relation derived from kit
@@ -382,11 +394,28 @@ pixels before value authoring begins.
   white-labelling records, served-path/parity rows); the a11y matrix
   derived from the same module; the №N regression with the deliberately
   partial fixture pack, red-first.
+- **T1e — The constructor (`oak-design identity create`)** (class:
+  instrument; added at P7, 2026-08-18). Identity construction as a
+  first-class tooling operation: scaffold a complete pack from the
+  contract plus defaults — manifest fields prompted or derived, the
+  full token surface materialised with per-value provenance
+  (defaulted or authored), asset and licence surfaces stubbed per
+  DDR-005's amendment — plus the upgrade path (re-derivation against
+  an evolved contract as an explicit, reviewable per-pack diff) and a
+  contract-drift validator arm (validators recompute, never record).
+  The command name is the owner's verbatim working name; the binary's
+  home settles at authoring (a design-package instrument). Distinct
+  from the out-of-scope expressive-value generator: the constructor
+  materialises a STARTING sheet at creation time for a designer to
+  author, never build-time generation from the manifest. Sequenced
+  after T1a-ii and T1b; T2 consumes it.
 - **T2 — Tango first light** (class: content, minimal). The minimal Tango
   pack (four themes at structurally-valid starter values); the roster
   picks it up with zero source edits (the №N proof in vivo) **and its
   derived a11y cells arrive with it, red-first, at arrival — not later**;
-  rendered checkpoint to the owner.
+  rendered checkpoint to the owner. *(Dated note 2026-08-18, P7: the
+  minimal pack is created VIA T1e's constructor — the first identity
+  born self-contained, proving the tool with its first pixels.)*
 - **T3 — Tango design definition** (class: content + design record). The
   public related-design survey (trackable genre survey, light and dark
   exemplars); Tango's palette, type, motion, and tilt stances authored in
@@ -401,9 +430,10 @@ pixels before value authoring begins.
   node proposed with the needs as warrant, or "none found" recorded);
   sign-off.
 
-Sequencing note: T1a–T1d and T2 merge independently on green — the
+Sequencing note: T1a–T1e and T2 merge independently on green — the
 mechanism ships value before the design loop closes (each slice is its
-own PR; the wow loop closes the NODE, not the mechanism PRs). The
+own PR; the wow loop closes the NODE, not the mechanism PRs). T1e
+precedes T2 (P7: Tango is born through the constructor). The
 MCP-613 records-pass PR (in flight behind the GitHub hold) precedes any
 sibling-plan amendment this node owes, because both touch the same plan
 files.
@@ -421,6 +451,10 @@ files.
   emitter and is not this. If a generator is ever warranted, the
   generated sheet moves to the workspace programme's generated tier per
   its rules — a future node's decision, conditional, not foreclosed here.
+  *(Dated distinction, 2026-08-18: P7's T1e constructor is NOT this
+  generator — it scaffolds a complete STARTING sheet at creation time,
+  provenance-recorded, for a designer to author; build-time
+  manifest→CSS generation stays out of scope.)*
 - **The composition-capability tranche** — sequenced by Tango's measured
   needs per P4 with R15's conditional directive on the page (§Mechanism);
   this node produces and dispositions the measurements, never the engine
@@ -556,6 +590,7 @@ files.
 | Admission = the G1 instrument extended, closure-scoped, manifest-driven | Owner (P3) + ratified sibling (G1) | One instrument, no second regime; the shared-instrument reading confirmed at the ratification card (2026-08-17) |
 | Tango proves №N in vivo on the showcase roster | Seat verdict | K2's falsifier exercised by the commissioning act itself, under sibling governance |
 | The a11y matrix derives from the installed roster | Review-driven (readiness record Y1) | A pack must not be able to render ungated; the same data act that adds visibility adds cells |
+| Identities are self-contained; the contract is the invariant; defaults bind at construction via the T1e constructor | Owner (P7, 2026-08-18) | The runtime override was the switching demo's mechanism persisting past its warrant (the 2026-08-18 defect ledger is the evidence); contract invariance is what makes new identities cheap; doctrine in DDR-012 |
 
 ## Ratification record (the card, asked and answered 2026-08-17)
 

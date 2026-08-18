@@ -167,3 +167,24 @@ the fs adapter (making the parse-wrap and artefact filter testable),
 malformed manifest currently aborts the collect-all report — loud,
 non-zero, wrong shape), a discriminated union for the entry states,
 and array-manifest diagnosis.
+
+## Addendum 2026-08-18 — the P7 ruling reshapes T1a-ii before it opens
+
+The 2026-08-18 owner ruling (P7 in the node: identities are
+self-contained, the token contract is the invariant, defaults bind at
+construction, `oak-design identity create` as the constructor —
+doctrine authored as DDR-012) landed BETWEEN T1a-i's landing and
+T1a-ii's opening, and reshapes T1a-ii's design intent rather than its
+scope: the manifest is authored as the contract-invariant of
+self-contained packs (completeness semantics and construction
+provenance join the fact-arms; the pack-declared prefix field rides the
+slice's decision card as a MAJOR). The new T1e slice (the constructor)
+and T2's born-through-the-constructor note follow from the same ruling.
+Evidence class recorded with the ruling: the 2026-08-18 demo-day defect
+ledger on the MCP-620 lane (reduced-motion collapse defeated by a bare
+later-sheet override; a stranded server-rendered brand sheet;
+cascade-order and specificity fights; light-dark() resolving at the
+declaring root) — each an artefact of the runtime-override mechanism
+this ruling retires, kept as legacy-demo until the migration nodes.
+Number correction absorbed here too: the asset-strategy DDR the T1a-ii
+row once called "DDR-012" mints at the next free number at authoring.
