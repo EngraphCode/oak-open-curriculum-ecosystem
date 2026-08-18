@@ -26,7 +26,8 @@ import { LabelledSelect } from '../../../components/LabelledSelect';
 import { ShowcaseBreadcrumbs } from '../../../components/ShowcaseBreadcrumbs';
 import { useIdentity } from '../../../components/brand-identity-binding';
 import { IDENTITY_LABELS, type IdentitySlug } from '../../../components/useIdentity';
-import { THEME_LABELS, THEME_OPTIONS, isPickerTheme, useFrameTheme } from '../useFrameTheme';
+import { THEME_LABELS, THEME_OPTIONS, isPickerTheme } from '../../../components/theme-vocabulary';
+import { useFrameTheme } from '../useFrameTheme';
 
 /** Theme has TWO modes by where the specimen renders (the useFrameTheme
  *  doctrine): as a FULL PAGE the choice rides the kit runtime and persists

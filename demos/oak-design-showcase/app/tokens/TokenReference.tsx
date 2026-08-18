@@ -30,7 +30,7 @@ import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
 import { LabelledSelect } from '../../components/LabelledSelect';
 import { useIdentity } from '../../components/brand-identity-binding';
 import { IDENTITY_LABELS, type IdentitySlug } from '../../components/useIdentity';
-import { THEME_LABELS, THEME_OPTIONS } from '../identity-switchboard/useFrameTheme';
+import { THEME_LABELS, THEME_OPTIONS } from '../../components/theme-vocabulary';
 
 import { FamilyNav } from './FamilyNav';
 import { TokenTable, type IdentityDeltaSets } from './TokenTable';

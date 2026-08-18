@@ -44,7 +44,7 @@ import {
   IDENTITY_LABELS,
   type IdentitySlug,
 } from '../../components/useIdentity';
-import { THEME_LABELS, isPickerTheme } from './useFrameTheme';
+import { THEME_LABELS, isPickerTheme } from '../../components/theme-vocabulary';
 import { useFrameObservedState } from './useFrameObservedState';
 
 import './picker.css';

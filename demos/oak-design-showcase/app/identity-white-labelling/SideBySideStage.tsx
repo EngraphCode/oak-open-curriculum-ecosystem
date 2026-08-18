@@ -30,7 +30,7 @@ import {
   IDENTITY_LABELS,
   type IdentitySlug,
 } from '../../components/useIdentity';
-import { THEME_LABELS, THEME_OPTIONS, isPickerTheme } from '../identity-switchboard/useFrameTheme';
+import { THEME_LABELS, THEME_OPTIONS, isPickerTheme } from '../../components/theme-vocabulary';
 
 import { ScaledFrame } from './scaled-frame';
 

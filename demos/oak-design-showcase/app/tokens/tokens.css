@@ -36,7 +36,19 @@
    four-column table.
    ============================================================ */
 
+/* .oak-container carries `margin-inline: auto`, and a grid item with an auto
+   margin does NOT stretch to its track — it shrink-to-fits and centres. This
+   page only ever looked right because its tables are wider than the
+   container's cap, so shrink-to-fit landed on the cap anyway; a page whose
+   content is narrower than 1280px reveals the same rule as a half-width
+   layout (measured on the colour matrix). Filling the track makes the width
+   deliberate rather than a consequence of the content. */
 [data-page='tokens'] .tok-page {
+  /* border-box travels WITH the 100%: .oak-container is content-box and
+     carries inline padding, so a plain 100% resolves to the track plus 48px
+     and takes the page sideways at narrow widths (measured). */
+  box-sizing: border-box;
+  inline-size: 100%;
   padding-block: var(--inset-m);
 }
 

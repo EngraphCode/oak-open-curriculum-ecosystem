@@ -1,5 +1,7 @@
+import Link from 'next/link';
 import type { ReactElement } from 'react';
 
+import { ShowcaseBreadcrumbs } from '../../components/ShowcaseBreadcrumbs';
 import { SiteFooter } from '../../components/SiteFooter';
 
 import { CatalogueNote } from './CatalogueNote';
@@ -72,6 +74,7 @@ function TokensIntro({
 }): ReactElement {
   return (
     <>
+      <ShowcaseBreadcrumbs trail={[{ label: 'Showcase', href: '/' }, { label: 'Tokens' }]} />
       <h1 className="oak-heading-3" id="tokens-headline">
         Token reference
       </h1>
@@ -84,7 +87,11 @@ function TokensIntro({
       <p className="oak-body-2 tok-lede">
         A token is <strong>re-pointed</strong> when an identity&rsquo;s own stylesheet re-declares
         it, giving it a value of that identity&rsquo;s rather than the one it inherits. The badges
-        on each row name the identities that do that.
+        on each row name the identities that do that.{' '}
+        <Link className="oak-link" href="/tokens/colours">
+          See every colour under every identity and theme at once
+        </Link>
+        .
       </p>
       <CatalogueNote catalogue={catalogue} treeCount={treeCount} />
     </>
