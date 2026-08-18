@@ -89,9 +89,10 @@ function TokenControls({
   );
 }
 
-/** The tables themselves: craft area, then prefix family. The families of
- *  one area flow into columns where the window is wide enough for two, and
- *  a family never splits across them. */
+/** The families themselves: craft area, then prefix family. Each family
+ *  stacks full width and its ROWS flow into two columns at monitor
+ *  widths under the spanning header — the row, never the family, is the
+ *  fragmentation unit (owner ruling 2026-08-18). */
 function TokenSections({
   groups,
   values,
@@ -109,7 +110,7 @@ function TokenSections({
         <section key={group.area} className="tok-area">
           <h2 className="oak-heading-6">{group.title}</h2>
           <p className="oak-body-3 tok-area-note">{group.note}</p>
-          <div className="tok-area-families">
+          <div>
             {group.families.map(({ family, tokens }) => (
               <TokenTable
                 key={family}

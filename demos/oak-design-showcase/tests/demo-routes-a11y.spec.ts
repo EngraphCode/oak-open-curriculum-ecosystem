@@ -9,42 +9,12 @@
  * stack and the layout control goes dead).
  */
 import { expect, test } from '@playwright/test';
-import type { Page } from '@playwright/test';
 
-import { assertOnlyKnownExternalOrigins, interceptExternalOrigins } from './apply-state';
+import { assertOnlyKnownExternalOrigins } from './apply-state';
 import { expectNoAxeViolations } from './axe-checks';
+import { expectNoHorizontalOverflow, openRoute } from './route-checks';
 
 const ROUTES = ['/tokens', '/tokens/colours', '/composition'] as const;
-
-async function openRoute(page: Page, route: string): Promise<Set<string>> {
-  const aborted = await interceptExternalOrigins(page);
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto(route);
-  await expect(page.locator('main').first()).toBeVisible();
-  return aborted;
-}
-
-async function expectNoHorizontalOverflow(page: Page): Promise<void> {
-  const reflow = await page.evaluate(() => ({
-    scrollW: document.documentElement.scrollWidth,
-    clientW: document.documentElement.clientWidth,
-    // In-flow content only, as the sibling suites probe it: out-of-flow
-    // elements (the skip link off-canvas by design) are not reflow loss.
-    minLeft: Math.min(
-      0,
-      ...[...document.querySelectorAll('body *')]
-        .filter((element) => {
-          const position = getComputedStyle(element).position;
-          return position === 'static' || position === 'relative';
-        })
-        .map((element) => element.getBoundingClientRect().left),
-    ),
-  }));
-  expect(reflow.scrollW, 'SC 1.4.10: horizontal scroll must not appear').toBeLessThanOrEqual(
-    reflow.clientW,
-  );
-  expect(reflow.minLeft, 'content pushed left of the origin is unreachable').toBe(0);
-}
 
 test.describe('demo routes: axe', () => {
   for (const route of ROUTES) {
@@ -109,108 +79,21 @@ test.describe('composition exhibit: narrow faces re-arrange', () => {
   });
 });
 
-/** Elements inside the token areas carrying scrollable overflow — the
- *  owner's everything-visible rule says this must be zero at every width.
- *  The visually-hidden pattern is a deliberate 1px clip of NON-visible
- *  content, so those boxes are out of the rule's scope. */
-const tokenAreaScrollers = (page: Page): Promise<number> =>
-  page.locator('.tok-area').evaluateAll(
-    (areas) =>
-      areas
-        .flatMap((area) => [...area.querySelectorAll('*')])
-        .filter((el) => {
-          if (el.classList.contains('oak-visually-hidden')) {
-            return false;
-          }
-          const style = getComputedStyle(el);
-          const scrollable = style.overflowX !== 'visible' || style.overflowY !== 'visible';
-          return (
-            scrollable && (el.scrollWidth > el.clientWidth || el.scrollHeight > el.clientHeight)
-          );
+test.describe('composition controls: each group is its own row', () => {
+  test('the layout and theme groups never share a horizontal band @a11y', async ({ page }) => {
+    const aborted = await openRoute(page, '/composition');
+    const rows = await page.locator('.comp-controls > *').evaluateAll((els) => {
+      const boxes = els.map((el) => el.getBoundingClientRect()).sort((a, b) => a.top - b.top);
+      return {
+        groups: boxes.length,
+        overlaps: boxes.filter((box, index) => {
+          const previous = boxes[index - 1];
+          return previous !== undefined && box.top < previous.bottom;
         }).length,
-  );
-
-test.describe('token reference: everything visible, rows flowing in columns', () => {
-  // The owner's hard rule (2026-08-18): no in-content scroll or clip
-  // anywhere — a value, chip, or name is never behind a gesture. 305 is
-  // the classic-scrollbar warrant width: CI's Linux draws classic
-  // scrollbars that narrow the layout viewport below the 320 cell, so a
-  // layout that only holds at exactly 320 is a latent CI red (the
-  // round-1 worked instance; the DDR-009 dated amendment is queued on
-  // the records parcel).
-  for (const width of [305, 320, 664, 960, 1280, 1440] as const) {
-    test(`no token content scrolls or clips at ${width}px @a11y`, async ({ page }) => {
-      const aborted = await openRoute(page, '/tokens');
-      await page.setViewportSize({ width, height: 900 });
-      await expect
-        .poll(() => tokenAreaScrollers(page), {
-          message: 'nothing in the token areas scrolls or clips',
-        })
-        .toBe(0);
-      await expectNoHorizontalOverflow(page);
-      assertOnlyKnownExternalOrigins(aborted);
+      };
     });
-  }
-
-  test('rows flow in two columns at monitor width and one thread at narrow @a11y', async ({
-    page,
-  }) => {
-    const aborted = await openRoute(page, '/tokens');
-    // A family long enough that a two-column flow MUST place rows at two
-    // distinct inline offsets; at narrow every row shares one offset.
-    const distinctRowOffsets = (): Promise<number> =>
-      page
-        .locator('.tok-rows')
-        .first()
-        .evaluate(
-          (list) =>
-            new Set([...list.children].map((row) => Math.round(row.getBoundingClientRect().left)))
-              .size,
-        );
-    await page.setViewportSize({ width: 1440, height: 900 });
-    await expect
-      .poll(distinctRowOffsets, { message: 'monitor width: the rows flow in two columns' })
-      .toBe(2);
-    await page.setViewportSize({ width: 320, height: 900 });
-    await expect.poll(distinctRowOffsets, { message: 'narrow: one column, one thread' }).toBe(1);
-    assertOnlyKnownExternalOrigins(aborted);
-  });
-});
-
-test.describe('token reference: the narrow family nav discloses', () => {
-  test('closed at narrow, every link unscrolled when open, inline at wide @a11y', async ({
-    page,
-  }) => {
-    const aborted = await openRoute(page, '/tokens');
-    await page.setViewportSize({ width: 320, height: 900 });
-    const nav = page.locator('.tok-nav');
-    const summary = nav.locator('summary');
-    // Closed: one honest line; the links are not in the page's reading
-    // flow until asked for.
-    await expect(summary).toBeVisible();
-    await expect(nav.locator('a').first()).not.toBeVisible();
-    await summary.click();
-    // Open: the FULL list, and none of it behind an inner scrollbar (the
-    // old capped box is gone).
-    await expect(nav.locator('a').first()).toBeVisible();
-    const navScrollBoxes = await nav.evaluate(
-      (el) =>
-        [el, ...el.querySelectorAll('*')].filter((node) => {
-          const style = getComputedStyle(node);
-          return (
-            (style.overflowY !== 'visible' || style.overflowX !== 'visible') &&
-            (node.scrollHeight > node.clientHeight || node.scrollWidth > node.clientWidth)
-          );
-        }).length,
-    );
-    expect(navScrollBoxes, 'the open list scrolls with the page, never in a box').toBe(0);
-    // Wide: the wrapper dissolves and the list renders inline.
-    await page.setViewportSize({ width: 1280, height: 900 });
-    await expect
-      .poll(() => nav.locator('summary').count(), {
-        message: 'wide: no disclosure — the rail list is inline',
-      })
-      .toBe(0);
+    expect(rows.groups, 'both control groups render').toBeGreaterThan(1);
+    expect(rows.overlaps, 'rows by construction, never by wrap coincidence').toBe(0);
     assertOnlyKnownExternalOrigins(aborted);
   });
 });

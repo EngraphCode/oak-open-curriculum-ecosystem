@@ -14,6 +14,13 @@
  * native disclosure rather than a broken control — the enhancement is the
  * dissolution, not the behaviour.
  *
+ * THE TRADE, priced deliberately: a wide first paint ships the CLOSED
+ * disclosure and expands at hydration — a one-time layout shift on
+ * desktop loads, and the disclosure form is permanent with JS off.
+ * Narrow-first makes the phone's first paint the honest one; the
+ * pure-CSS alternative (forcing the panel visible at wide) cannot be
+ * done against a closed `<details>` in today's browsers.
+ *
  * Framedness's sibling: viewport width is a client-only fact, so it is
  * read through an external-store subscription (never an effect setState),
  * which keeps the server snapshot honest and the client render
@@ -22,7 +29,7 @@
 import { useCallback, useSyncExternalStore } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 
-function useMinWidth(query: string): boolean {
+function useMediaQueryMatch(query: string): boolean {
   const subscribe = useCallback(
     (onChange: () => void): (() => void) => {
       const list = globalThis.matchMedia?.(query);
@@ -54,7 +61,7 @@ export function NarrowDisclosure({
   readonly className?: string;
   readonly children: ReactNode;
 }): ReactElement {
-  const wide = useMinWidth(wideQuery);
+  const wide = useMediaQueryMatch(wideQuery);
   if (wide) {
     return <>{children}</>;
   }

@@ -17,15 +17,16 @@
    cure is the .foot pattern: every control on the inverted surface rides
    the kit's inverted family, including the focus ring.
 
-   The strip is also STICKY with its real controls (owner word
-   2026-08-18): radios lead, the theme select gathers right — the cure
-   for the arrow-key scroll reset (focusing an offscreen radio scrolls it
-   into view; a control that is always in view never needs the scroll).
-   Sticky forces ONE known row: the controls never wrap (in-container
-   horizontal scroll is the very-narrow escape), so the mast below can
-   stack its own stickiness under a stable strip height. The separator is
-   guaranteed here structurally (owner point: it vanished on PDS and at
-   narrow when it rode identity re-pointing alone). */
+   The strip is also STICKY with its real controls at the WIDE band
+   (owner word 2026-08-18): radios lead, the theme select gathers right.
+   Sticky there rides ONE known row, so the mast below can stack its own
+   stickiness under a stable strip height. Below the seam the controls
+   ride a disclosure instead (the same day's item 4) and the strip's
+   height is disclosure-driven, so strip and mast both follow the flow —
+   the narrow block at the end of this file carries that band's rules
+   and the reasoning. The separator is guaranteed here structurally
+   (owner point: it vanished on PDS and at narrow when it rode identity
+   re-pointing alone). */
 [data-page='unit'] .util {
   background: var(--bg-inverted);
   color: var(--text-inverted);
@@ -74,10 +75,11 @@
 }
 
 /* Theme label sits LEFT of its select (owner point 2): the labelled
-   cluster must not wrap inside the one-row strip — and neither may the
-   crumbs, whose internal wrapping at 320px once grew the strip past the
-   mast's sticky offset and slid the mast over the radios (the reflow
-   cell's bgOverlap catch). One row, in-container scroll at the floor. */
+   cluster must not wrap internally, and neither may the crumbs. At WIDE
+   this keeps the one-row strip one row; at narrow the theme cluster
+   lives inside the disclosure panel, so the child combinator no longer
+   reaches it there — deliberate, since the panel stacks its groups in
+   block flow anyway and only the crumbs line still needs the nowrap. */
 [data-page='unit'] .strip-controls > .oak-cluster,
 [data-page='unit'] .strip-controls .showcase-crumbs {
   flex-wrap: nowrap;
@@ -108,7 +110,9 @@
   z-index: var(--layer-sticky);
 }
 
-/* --- Narrow: the strip's controls disclose instead of scroll --- */
+/* --- Narrow: the strip's controls disclose instead of scroll ---
+   (this seam is DISCLOSURE_WIDE_QUERY in components/canonical-widths.ts;
+   the two must not drift) */
 
 @media (max-width: 959px) {
   /* The one-row in-strip scroll is replaced by the controls disclosure
@@ -117,6 +121,16 @@
      visible. */
   [data-page='unit'] .strip-controls {
     flex-wrap: wrap;
+  }
+
+  /* The strip's stickiness follows the flow below the seam. The sticky
+     word (owner, 2026-08-18) cured the one-row shape's arrow-key scroll
+     reset — an OFFSCREEN radio scrolling into view — and the disclosure
+     (the same day's item 4) removes the offscreen radio entirely, so the
+     cure's reason dissolves here; kept sticky, an OPEN panel would pin
+     most of a phone screen over the content it controls. */
+  [data-page='unit'] .util {
+    position: static;
   }
 
   /* The open panel takes the band's full width and stacks its control
@@ -184,9 +198,14 @@
 
 /* Focus-not-obscured (2.4.11): the masthead's own height, derived from
    the tokens that build it — block padding both sides plus the control
-   row's target height. */
-html {
-  scroll-padding-block-start: calc(var(--space-16) * 2 + var(--size-target));
+   row's target height. Scoped to the band where anything actually
+   sticks: below the seam both the strip and the mast follow the flow,
+   so a reserve there would push focused controls AWAY from a bar that
+   is not one. */
+@media (min-width: 960px) {
+  html {
+    scroll-padding-block-start: calc(var(--space-16) * 2 + var(--size-target));
+  }
 }
 
 /* Kit documented constant: short-viewport 500px max-height (components.css

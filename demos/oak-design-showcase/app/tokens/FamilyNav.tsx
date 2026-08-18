@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react';
 
+import { DISCLOSURE_WIDE_QUERY } from '../../components/canonical-widths';
 import { NarrowDisclosure } from '../../components/NarrowDisclosure';
 import { sectionId } from './craft-areas';
 import type { CraftAreaGroup } from './token-groups';
@@ -28,7 +29,7 @@ export function FamilyNav({
           capped scrolling box burying the tokens it points at; open, the
           FULL list is visible with nothing behind an inner scrollbar. At
           the rail seam the wrapper dissolves and the list renders inline. */}
-      <NarrowDisclosure summary="Jump to a family" wideQuery="(min-width: 960px)">
+      <NarrowDisclosure summary="Jump to a family" wideQuery={DISCLOSURE_WIDE_QUERY}>
         {groups.map((group) => {
           const labelId = `tokens-nav-${group.area}`;
           return (

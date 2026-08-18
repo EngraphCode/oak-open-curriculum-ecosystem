@@ -67,11 +67,11 @@ function TokenRow({
         <Specimen token={token} />
       </span>
       <span className="tok-value">
-        <span className="oak-visually-hidden tok-value-label">Value </span>
+        <span className="oak-visually-hidden">Value </span>
         <TokenValue token={token} value={value} expression={expression} />
       </span>
       <span className="tok-owners-cell">
-        <span className="oak-visually-hidden tok-owners-label">Re-pointed by </span>
+        <span className="oak-visually-hidden">Re-pointed by </span>
         <IdentityDeltaCell owners={owners} identity={identity} />
       </span>
     </li>

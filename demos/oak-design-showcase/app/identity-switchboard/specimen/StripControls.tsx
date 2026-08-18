@@ -23,6 +23,7 @@ import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
 
 import { IdentityRadioGroup } from '../../../components/IdentityRadioGroup';
 import { LabelledSelect } from '../../../components/LabelledSelect';
+import { DISCLOSURE_WIDE_QUERY } from '../../../components/canonical-widths';
 import { NarrowDisclosure } from '../../../components/NarrowDisclosure';
 import { ShowcaseBreadcrumbs } from '../../../components/ShowcaseBreadcrumbs';
 import { useIdentity } from '../../../components/brand-identity-binding';
@@ -110,7 +111,7 @@ export function StripControls({
           and the row renders inline as before. */}
       <NarrowDisclosure
         summary="Display controls"
-        wideQuery="(min-width: 960px)"
+        wideQuery={DISCLOSURE_WIDE_QUERY}
         className="strip-disclosure"
       >
         <StripControlFields

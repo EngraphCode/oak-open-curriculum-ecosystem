@@ -12,7 +12,7 @@
 import { expect, test } from '@playwright/test';
 
 import { BASE_IDENTITY, IDENTITIES, IDENTITY_LABELS } from '../components/useIdentity';
-import { assertOnlyKnownExternalOrigins } from './apply-state';
+import { assertOnlyKnownExternalOrigins, interceptExternalOrigins } from './apply-state';
 import { openPickerStage } from './picker-stage';
 
 const COUNTER_BRANDS = IDENTITIES.filter((slug) => slug !== BASE_IDENTITY);
@@ -54,6 +54,7 @@ test.describe('specimen strip: a return to the applied brand cancels an in-fligh
 
 test.describe('specimen strip: narrow controls disclose instead of scroll', () => {
   test('closed at narrow, operable when open, inline at wide', async ({ page }) => {
+    const aborted = await interceptExternalOrigins(page);
     await page.setViewportSize({ width: 320, height: 700 });
     await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}`);
     const strip = page.locator('.strip-controls');
@@ -80,6 +81,7 @@ test.describe('specimen strip: narrow controls disclose instead of scroll', () =
       })
       .toBe(0);
     await expect(page.getByRole('radio', { name: IDENTITY_LABELS[counterBrand] })).toBeVisible();
+    assertOnlyKnownExternalOrigins(aborted);
   });
 });
 
