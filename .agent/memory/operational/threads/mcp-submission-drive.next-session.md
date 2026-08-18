@@ -72,8 +72,31 @@ with this block, this block wins.
 **The fleet is now EMPTY.** Both the Director seat and the owner-liaison seat
 (`Wildfire spins Temper`, `8e5eba`) stood down this evening at MG's word, with no
 retained claims and no successor pre-positioned. So the incoming Director **is the
-owner interface directly** — PDR-117's Director-absent case, where the upward flow
-shortens to Director → owner. Do not wait for a liaison to exist.
+owner interface directly** — and that is the Director's NORMAL role under PDR-117
+(single owner-interface: answer what you can, lens-resolve the ambiguous, escalate
+what is constitutively the owner's). It is not an exception. Do not wait for a
+liaison to exist.
+
+**Recorded separately, because it is a DIFFERENT fact: there is no liaison seat.**
+PDR-117's Director-absent case is the case where NO DIRECTOR SEAT IS HELD, and what
+it does is move the owner-interface to the **Implementer** — PDR-117 §The routing
+contract, verbatim: *"the Implementer **is** the owner-interface directly; the upward
+flow shortens to Implementer → owner."* It does NOT return coordination authority to
+the owner. Liaison absence does not trigger that case at all and does not alter the
+Director's role. What liaison absence changes is VOLUME, not authority: every
+owner-facing item routes through the Director itself, with no relay seat to compress
+or batch it.
+
+Escalate on EITHER trigger, not just the second: **the lenses genuinely fail, OR the
+decision is constitutively the owner's** (product / feature scope). And PDR-117 is
+explicit that *"asking the owner is always legitimate and never discouraged — the
+lenses refocus attention, they are not a gate on questions."* A Director who narrows
+escalation to owner-constitutive items only will sit on a lens-failure, which inside a
+four-working-day window is the expensive direction to err.
+
+Corrected 2026-08-18 after the PR Review Warden caught the conflation on PR #903. Both
+earlier statements of it were REMOVED in the same change rather than left standing; the
+pre-cure text is readable in PR #903's diff.
 
 ### The single biggest correction: Oak already has external uptime monitoring
 
@@ -287,9 +310,11 @@ the liaison seat; `Backlog`, High, M9, `CloudOps`.
 
 ### FOR THE INCOMING DIRECTOR — start here
 
-**You are the owner interface.** Both the prior Director and the liaison stood down
-this evening; no seat is pre-positioned. PDR-117's Director-absent case applies until
-MG seats a new liaison.
+**You are the owner interface.** That is the Director's NORMAL role under PDR-117 —
+answer what you can, lens-resolve the ambiguous, escalate what is constitutively the
+owner's — not an exception to it. Both the prior Director and the liaison stood down
+this evening and no seat is pre-positioned, so until MG seats a liaison there is no
+relay: every owner-facing item routes through you directly, same-day, never batched.
 
 **Landing target: MCP-597.** Pingdom takes AC1 at zero cost, so the Sentry quota no
 longer gates the health probe. Sequence:
@@ -297,8 +322,13 @@ longer gates the health probe. Sequence:
 1. **Check whether MG answered the three asks above.** Two of them unblock MCP-597
    outright. If unanswered and it is late in his week, that is the single most
    time-critical thing on the drive — after Friday it waits nine days.
-2. **MCP-544 (AC4) needs no owner input at all** — Sentry-side, no uptime seat, no
-   quota change. That is the piece to move while waiting.
+2. **MCP-544 (AC4) needs no owner input — but it is NOT unblocked, and those are
+   different claims.** CORRECTED 2026-08-18, in place, because this block's own
+   precedence rule ("where they disagree, this block wins") would otherwise make a
+   successor prefer this instruction over the correction: MCP-544 is `blockedBy`
+   **MCP-495**, which is Urgent/`Todo` and whose PR #768 carries the owner's own
+   *"DO NOT MERGE — post-submission"* label. So it is not the piece to move while
+   waiting. Verified first-hand on the board 2026-08-18.
 3. **MCP-493 (AC3)** — and note the destination does **not** carry over.
    `#mcp-alerts-sentry-prod` was decided for the *Sentry* path; a Pingdom failure needs
    its own destination decision.
@@ -496,23 +526,65 @@ here. Do not chase it and do not re-ask who owns it.
 | **#882** knowledge + consolidation | Open, based on the coordination branch. |
 | **#883** MCP-595 carousel | Open, 19/19 green, awaiting Aakesh's name verification. |
 
-## Next safe steps
+## Next safe steps — current as of 2026-08-18
 
-1. **Two billing limits** — the highest-leverage items, both minutes of admin,
-   both gating the only automated watchers that function across MG's absence:
-   Claude Code overage (automated PR review is dead org-wide) and Sentry PAYG
-   (monitor 1593267 cannot be enabled).
-2. **Rotate the GitHub PAT** visible in plaintext in the process list.
-3. **MCP-597**: after the billing unblock, re-point monitor 1593267 to
-   `https://www.thenational.academy/mcp/healthz` — **bare form, no trailing
-   slash** (the slash form routes through Clerk; identical bodies, so a
-   status-code assertion cannot tell them apart) — enable it, and **prove checks
-   ran from the history**, never from the config field.
-4. **MCP-458** is down to one human act: confirm the prompt is not visible in
-   the three carousel images. Format, width, naming, placement and byte
-   integrity are discharged.
+Rewritten 2026-08-18. The 2026-08-13 list this replaces routed MCP-597 through a
+Sentry PAYG unblock, which MCP-614's verdict superseded — Pingdom takes AC1 at £0.
+Everything below survived that supersession and is either re-verified first-hand or
+explicitly marked unverified. Anything absent is discharged or superseded, not
+forgotten.
+
+1. **Two billing limits, both open, both minutes of admin, owner-only.**
+   Re-verified 2026-08-18 first-hand on #902/#903: the `claude` reviewer posts
+   *"your organization's overage spend limit has been reached"* and
+   `chatgpt-codex-connector` posts *"Codex usage limits have been reached for code
+   reviews"*. **BOTH** automated reviewers are dark, so every PR now merges with no
+   automated review. The `claude` overage was first recorded **2026-08-13** and has
+   been unactioned five days — that age is the finding; the Codex limit was only
+   discovered 2026-08-18, so the five days attach to the first member, not the pair.
+   Owner word 2026-08-18: *"i've got reviewers on hand don't worry"* — so treat this
+   as RISK CARRIED, not as an open ask, and do not re-route it to him.
+2. **Rotate the GitHub PAT** visible in plaintext in the process list. Recorded
+   2026-08-13; **NOT re-verified 2026-08-18**. Re-measure before acting and treat
+   it as live until measured otherwise. Security item, owner-only.
+3. **MCP-597 — the landing target. ONE blocker edge is stale; the other is TRUE.**
+   - **MCP-580 is Done** (2026-08-13, PR #878) and its `blockedBy` edges on MCP-597,
+     MCP-544, MCP-493 and MCP-481 are stale. Cutting them is a Linear write.
+   - **MCP-614's edge is TRUE — do not cut it.** Its provider COMPARISON is answered
+     (Pingdom takes AC1 at £0; do not re-run the comparison — owner instruction), but
+     the TICKET is `In Progress` and its step 0 still needs the Pingdom interval and
+     the two Sentry-plan facts sitting unanswered in the owner's queue. "The
+     comparison is answered" and "the ticket is unblocked" are different claims, and
+     an earlier revision of this record conflated them. Cutting this edge would make
+     MCP-597 look startable when the first Sentry API call still hits the PAYG 400.
+   - **The two AC legs have DIFFERENT vehicles, which is why 1593267 still matters.**
+     AC1 (health probe) is Pingdom, £0, and is ask #1 above — the owner adds
+     `/mcp/healthz` to the existing check himself. AC2 (auth probe with the
+     `WWW-Authenticate` assertion) stays on **Sentry's included monitor**, so
+     detector `1593267` remains the vehicle for AC2 and its work is **re-point,
+     ENABLE, and prove checks ran**.
+   - **The PAYG quota blocks EVERY WRITE to 1593267, not merely enabling it** —
+     measured twice, including on a URL-only edit. This is the fact that makes the
+     Sentry-plan ask load-bearing rather than administrative, and it is why the two
+     billing limits above are the items gating the only automated detection that
+     functions across the owner's 22–31 August absence.
+   - Use `https://www.thenational.academy/mcp/healthz` in **bare form, no trailing
+     slash**. Note the REASON, because this record measured the old one as false: the
+     "slash form routes through Clerk" caution does **not** reproduce — both forms
+     return identical `200` + `no-store`. Use the bare form because the monitor's
+     assertion is `status_code > 199 AND < 300`, which cannot distinguish them.
+   - Prove checks ran **from the check history**, never from the config field: this
+     detector read `disabled` while its Uptime Status still read `ok`.
+4. **MCP-458** is one human act: confirm the prompt is not visible in the three
+   carousel images. Format, width, naming, placement and byte integrity are
+   discharged.
 5. **M6's milestone description still says "EU data residency" and is false**
    (MCP-470: 5 EU + 4 US, owner-chosen). Offered to the owner; not yet fixed.
+6. **MCP-544 is NOT the free lane** the 2026-08-17 evening block called it. The
+   correction is applied IN PLACE at that block's own item 2 — see
+   §"FOR THE INCOMING DIRECTOR" above — because this section sits below a block
+   whose precedence rule would otherwise override it. Recorded here only as a
+   pointer, deliberately not as the authority.
 
 ## Standing traps this thread has paid for
 
@@ -562,3 +634,6 @@ here. Do not chase it and do not re-ask who owns it.
 | Wildfire spins Temper | claude | Opus-5 | 8e5eba | liaison | 2026-08-17 | 2026-08-17 |
 | Orchid holds Bark | claude | Opus-5 | 2abbd1 | liaison | 2026-08-13 | 2026-08-13 |
 | Skunk stirs Cavern | claude-code | claude-opus-5 | db8b9b | director | 2026-08-17 | 2026-08-17 |
+| Dormouse turns Footfall | claude | claude-opus-5[1m] | a54547 | director | 2026-08-17 | 2026-08-18 |
+| Sloop spins Spray | copilot | GPT-5.6 Sol | c42e7e | pr-review-warden | 2026-08-18 | 2026-08-18 |
+| Raven turns Nocturne | claude | Opus-5 | 0aad1a | liaison | 2026-08-18 | 2026-08-18 |
