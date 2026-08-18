@@ -933,3 +933,58 @@ survey post-mortem discharged (both at 6ba9e93c3).
   refusals, hook blocks, knip, the incident's own alarms) rather than
   the owner — every slip was caught by structure before it propagated;
   structure-over-vigilance observed working end to end.
+
+## 2026-08-18 ~14:5xZ — play seeds from the #891 pattern read (Ocelot, Director)
+
+- Play seed (association, not finding): "the tier that had never run
+  here was still carrying assumptions nobody could see" (#891 body) is
+  shaped like the estate's seat-rotation discipline — a foreign machine
+  is to code what a successor seat is to records: a fuzzer for
+  assumptions the incumbent can no longer see. Route: none yet.
+- Play seed (corroboration): #891's fourth bug — a smoke test
+  reporting exactly the silence it guards against, because its own
+  hook could not start — is an independent rediscovery of the
+  exit-codes-in-band / guard-shares-the-guarded-channel class. Two
+  unrelated lineages hitting one shape strengthens the doctrine, adds
+  nothing new to it.
+- Discarded at the harvest (visibly): S4036 fixed-allowlist ↔ the
+  identities roster — superficial (both closed lists), forced.
+
+## 2026-08-18 demo day (Yarrow, design lane)
+
+- **The demo-mechanism-persisting generator (P7's origin)**: a mechanism
+  built to prove a capability (identity-as-override-sheet proving live
+  switching) quietly became the architecture; the owner caught it from
+  the tokens page's own badges. Check the warrant when a demo
+  instrument outlives its demo. The day's defect ledger was the
+  evidence: every override-mechanism bug (below) argued for
+  self-containment.
+- **Cross-realm instanceof**: a frame's elements are instances of the
+  FRAME's classes — parent-realm `instanceof HTMLElement` silently
+  rejects every cross-document node. Null-check typed querySelector
+  results instead.
+- **light-dark() resolves at the DECLARING element**: a subtree
+  data-theme cannot flip :root-declared tokens; theme the document
+  root (the composition exhibit's applier pattern).
+- **Focus-scroll is the "scroll reset"**: focusing an offscreen control
+  scrolls it into view — arrow-key radio groups at page top reset the
+  scroll unless the control bar is sticky (always in view = no jump);
+  residual drift is scroll anchoring doing its job.
+- **React-owned nodes are never removed**: a server-rendered <link> is
+  React's; retire by `disabled = true`, never `.remove()` (React
+  restores hoistables). React 19 hoists stylesheets only under a
+  `precedence` prop — otherwise they render in place in the BODY.
+- **Playwright proves the BUILT artefact**: the showcase suites run
+  `next start` on `.next` — rebuild before re-running or you test the
+  previous code (bit twice in one day).
+- **Auto-margin grid items shrink-to-fit** (builder's find): a grid item
+  with `margin-inline: auto` does not stretch to its track — /tokens
+  had only ever looked right by accident.
+- **Multi-ref single push works as documented**: four branches, one
+  push invocation, one pre-push gate run; bot-token window with
+  author read-back BEFORE trusting the ceremony (app/jimbot-oakington-iii
+  confirmed on PR #907 before the remaining three opened).
+- **Builder-agent loop**: reports MUST come via SendMessage (text
+  output is invisible); when a report mis-routes, harvest by
+  verification (gates + rendered pass) rather than blocking on the
+  reply. Four rounds ran clean this way.

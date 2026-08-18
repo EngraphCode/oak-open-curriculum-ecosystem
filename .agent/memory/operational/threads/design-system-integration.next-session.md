@@ -3496,3 +3496,54 @@ artifact, URL in the session wrap-up).
   queued R4 supersession wording) — **lane commit now `f6880f11b`**
   (supersedes fca393040/afae5c663/714509339; amend-not-append,
   unpushed). Per-user memory re-trued the same way.
+
+## Session close 2026-08-18 ~15:0xZ (Yarrow stirs Undergrowth, ab1066 — additive; DEMO DAY DELIVERED; P7 ruled; FOUR PRs OPEN; compaction freeze, claim RETAINED)
+
+- **The day's arc**: morning resume at the retained claim → the Director's
+  all-clear (GitHub incident resolved) → the owner set a ~10:00Z demo →
+  the joint MCP-620 node ratified at the Director's gate → executed end
+  to end (slice-1a reduced-motion cure measured 160ms→.01ms; EMC²
+  five-axis amplification; /tokens; /tokens/colours matrix) → TWO direct
+  owner feedback rounds the same day (radio switchboard W3/R9+R12 with
+  measured stage dominance 81%/60%; embedded pages own their controls;
+  fixed breadcrumbs; composition demo rebuilt to owner spec — four
+  layout extremes; craft-area token navigation; PDS label + sourced
+  identity blurbs) → the eleven-point round → **the P7 ruling**.
+- **P7 (owner, 2026-08-18, THE day's headline)**: identities are
+  SELF-CONTAINED; the token CONTRACT is the INVARIANT ("that is what
+  makes it cheap to create new identities"); defaults bind at
+  CONSTRUCTION, never as runtime values; constructor CLI (owner working
+  name `oak-design identity create`). Runtime override graded
+  legacy-demo (the demo-day defect ledger is the evidence). Homes:
+  tango node P7 + T1a-ii reshape + new T1e slice + T2 born-through-
+  constructor note (all `a5ccc6ebe` on the MCP-615 lane); **DDR-012**
+  (docs/design/design-decisions/012, ratified) + README index; the
+  emc2 node's resume step 4; this record.
+- **FOUR PRs OPEN, bot-authored (author read-back verified
+  app/jimbot-oakington-iii), jimbot label, one multi-ref push (gate
+  suite paid once)**: #907 (MCP-620, demo day, tip `3b276f0d6`), #908
+  (MCP-615, node + records + DDR-012, tip `a5ccc6ebe`), #909 (MCP-616,
+  T1a-i, `cd84e490c`), #910 (MCP-613, records pass, `6e88cb407`).
+  claude[bot] review already fired on #907; Copilot requested via the
+  MCP tool on #907/#909 but NOT visible in requested_reviewers at
+  freeze — re-verify at harvest, absence never blocks.
+- **Owner visual feedback OPEN (analysed, not yet built — his round
+  after the matrix)**: (1) composition layout/theme radio groups run
+  together — separate rows; (2) tokens two-column as the NORM (row-level
+  splitting, families span headers; the current pairing letter-wraps
+  values, clips chips, scrollbars) at monitor widths; (3) hard rule:
+  everything visible at all times — no in-table scroll/clip anywhere;
+  (4) narrow nav → slide-out disclosure (also the specimen strip's
+  scrolling row). These are the first execution round after the PR
+  harvests.
+- **Morning resume order**: (1) re-arm per start-right; (2) harvest the
+  four PR review rounds (pr-lifecycle phases 3–7; merge-rulings:
+  bot REST-merge at settled, never squash); (3) the four visual fixes;
+  (4) post-#910-merge amendment parcel (showcase cross-ref, S4(b),
+  R4 attribution-correction, POPPY-1 fold); (5) **T1a-ii + T1e as the
+  owner's "second PR"** — bring ONE decision card: prefix (MAJOR),
+  construction semantics, CLI shape; then T1b → T2 (Tango born through
+  the constructor). Claim `645b9e0b` RETAINED for same-seat resume.
+- Dev server stopped at freeze; scrap branches (mcp-613/615/616/620
+  ×mis-based) still await owner one-click deletion (Director holds the
+  list).

@@ -156,7 +156,10 @@ review, PR — before T1a-ii opens. Then the design lane resumes:
 4. T1a-ii pack-contract authoring, fresh sitting — carrying this node's
    conceptual yield: motion is a first-class identity axis; the manifest's
    motion stance (fact 4, the `-full` surface) is exercised for real by
-   slice 1a.
+   slice 1a. *(Dated 2026-08-18: T1a-ii now also carries the P7 ruling
+   this node's demo day produced — identities self-contained, the
+   contract the invariant, defaults at construction, the T1e
+   constructor; doctrine in DDR-012 on the tango node's lane.)*
 5. T1b admission-guard arms → T2 first Tango pixels (the checkpoint that
    matters) → T3/T4 per the tango node.
 
