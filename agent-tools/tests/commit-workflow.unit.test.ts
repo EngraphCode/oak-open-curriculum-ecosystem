@@ -75,6 +75,7 @@ function queuedIntent(overrides: Partial<CommitIntent> = {}): CommitIntent {
     updated_at: queuedAt,
     expires_at: expiresAt,
     phase: 'queued',
+    queued_seq: 0,
     staged_bundle_fingerprint: stagedFingerprint,
     staged_name_status: stagedNameStatus,
     ...overrides,

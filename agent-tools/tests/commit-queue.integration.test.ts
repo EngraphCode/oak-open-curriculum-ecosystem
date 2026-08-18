@@ -31,6 +31,7 @@ function intent(overrides: Partial<CommitIntent> = {}): CommitIntent {
     updated_at: '2026-04-27T07:20:00Z',
     expires_at: '2026-04-27T07:35:00Z',
     phase: 'queued',
+    queued_seq: 0,
     ...overrides,
   };
 }
@@ -48,6 +49,7 @@ function registry(): CommitQueueRegistry {
           agent_name: 'Prismatic Waxing Anchor',
         },
         phase: 'pre_commit',
+        queued_seq: 0,
         expires_at: '2026-04-27T07:00:00Z',
       }),
     ],

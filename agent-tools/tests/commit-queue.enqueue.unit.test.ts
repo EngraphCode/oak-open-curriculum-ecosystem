@@ -6,7 +6,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { uuidV5Schema, type CollaborationAgentIdWrite } from '../src/collaboration-state/agent-id';
-import { enqueueCommitIntent } from '../src/commit-queue/core';
+import { enqueueCommitIntent } from '../src/commit-queue/enqueue';
 import { type CommitIntent, type CommitQueueRegistry } from '../src/commit-queue';
 
 const agentId: CollaborationAgentIdWrite = {
@@ -33,6 +33,7 @@ function intent(overrides: Partial<CommitIntent> = {}): CommitIntent {
     updated_at: queuedAt,
     expires_at: expiresAt,
     phase: 'queued',
+    queued_seq: 0,
     ...overrides,
   };
 }
@@ -58,7 +59,7 @@ describe('enqueueCommitIntent', () => {
       claims,
     };
 
-    expect(enqueueCommitIntent({ registry, intent: intent() })).toStrictEqual({
+    expect(enqueueCommitIntent({ registry, draft: intent() })).toStrictEqual({
       schema_version: '1.4.0',
       commit_queue: [intent()],
       claims,
@@ -77,7 +78,7 @@ describe('enqueueCommitIntent', () => {
       commit_queue: [intent()],
     };
 
-    expect(() => enqueueCommitIntent({ registry, intent: intent() })).toThrow(
+    expect(() => enqueueCommitIntent({ registry, draft: intent() })).toThrow(
       'commit queue intent already exists: 11111111-1111-4111-8111-111111111111',
     );
   });

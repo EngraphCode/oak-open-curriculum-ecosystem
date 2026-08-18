@@ -185,6 +185,7 @@ describe('claims-open watcher gate (resolve + assert)', () => {
       updated_at: nowIso,
       expires_at: '2026-06-25T12:00:00.000Z',
       phase: 'queued',
+      queued_seq: 0,
     };
     await expect(
       run({ registry: registry({ queue: [queueEntry] }), io: io('missing') }),

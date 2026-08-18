@@ -52,6 +52,7 @@ const PEER_QUEUE_ENTRY = {
   updated_at: NOW,
   expires_at: '2026-08-18T14:00:00.000Z',
   phase: 'queued' as const,
+  queued_seq: 0,
 };
 
 describe('runLockedClaimOpen — the gates decide on what the locked window reads', () => {

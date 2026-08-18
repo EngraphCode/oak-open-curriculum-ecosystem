@@ -9,7 +9,7 @@ import {
   readCommitQueueEntries,
 } from '../src/collaboration-state/commit-queue-store';
 import { ACTIVE_CLAIMS_SCHEMA_VERSION } from '../src/collaboration-state/types';
-import { enqueueCommitIntent } from '../src/commit-queue/core';
+import { enqueueCommitIntent } from '../src/commit-queue/enqueue';
 import { readRegistry, updateRegistry } from '../src/commit-queue/registry';
 import { type CommitIntent } from '../src/commit-queue/types';
 import {
@@ -50,6 +50,7 @@ const INTENT: CommitIntent = {
   updated_at: NOW,
   expires_at: '2026-08-18T13:00:00.000Z',
   phase: 'queued',
+  queued_seq: 0,
 };
 
 describe('readRegistry — the legacy migration runs on the wall clock, never a caller view clock', () => {
@@ -132,7 +133,7 @@ describe('updateRegistry — a failed store write cannot strand claims-file stat
     await expect(
       updateRegistry(
         activePath,
-        (registry) => enqueueCommitIntent({ registry, intent: INTENT }),
+        (registry) => enqueueCommitIntent({ registry, draft: INTENT }),
         NOW,
       ),
     ).rejects.toThrow(/EACCES.*commit-queue/);

@@ -16,7 +16,8 @@
     "queued_at",
     "updated_at",
     "expires_at",
-    "phase"
+    "phase",
+    "queued_seq"
   ],
   "properties": {
     "intent_id": {
@@ -99,6 +100,11 @@
       "type": "string",
       "enum": ["queued", "staging", "pre_commit", "abandoned"],
       "description": "Advisory lifecycle phase. Successful commits remove their intent file rather than preserving phase=complete."
+    },
+    "queued_seq": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Queue order key: the store's SOLE ordering field, carrying the arrival order the pre-1.4.0 flat array expressed as its element position. Assigned under the claims-file transaction lock as max-over-LIVE-entries + 1, so values are REUSED as the queue drains — correct for relative order, and never a global counter or an identity. queued_at cannot serve: two agents enqueueing inside one millisecond tie, and breaking that tie on intent_id hands the queue to whoever drew the lower random UUID."
     },
     "staged_bundle_fingerprint": {
       "type": "string",

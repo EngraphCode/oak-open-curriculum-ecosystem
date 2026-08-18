@@ -15,6 +15,7 @@ import {
   INTENT_ID,
   LEGACY_CLAIM,
   claimsFileText,
+  legacyIntentRow,
   validIntentRow,
 } from './commit-queue-registry-fixture';
 
@@ -78,9 +79,12 @@ async function proveLegacyFlatQueueFileMigratesOnceOnRead(): Promise<void> {
   const dir = await mkdtemp(join(tmpdir(), 'commit-queue-store-'));
   try {
     const registryPath = join(dir, 'active-claims.json');
+    // A 1.3.0 row carries no order key — the field did not exist before the
+    // split — so the migration must DERIVE it from the array position, which
+    // is what that schema declared the queue order to be.
     const legacy = {
       schema_version: '1.3.0',
-      commit_queue: [validIntentRow()],
+      commit_queue: [legacyIntentRow()],
       claims: [LEGACY_CLAIM],
     };
     await writeFile(registryPath, `${JSON.stringify(legacy, null, 2)}\n`, 'utf8');

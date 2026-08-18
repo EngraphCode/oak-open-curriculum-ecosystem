@@ -48,6 +48,7 @@ describe('auditCodexIdentityRecords', () => {
         updated_at: '2026-04-28T11:00:00Z',
         expires_at: '2026-04-28T11:15:00Z',
         phase: 'queued',
+        queued_seq: 0,
       },
     ];
     const activeText = JSON.stringify(

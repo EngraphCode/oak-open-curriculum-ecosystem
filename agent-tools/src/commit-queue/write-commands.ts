@@ -9,11 +9,11 @@ import { unwrapOrThrow, type Result } from '@oaknational/result';
 
 import {
   completeCommitIntent,
-  enqueueCommitIntent,
   getFreshEntriesAhead,
   recordStagedBundle,
   updateCommitIntentPhase,
 } from './core.js';
+import { enqueueCommitIntent } from './enqueue.js';
 import { optionString, requireOption, requirePhase } from './args.js';
 import { getStagedBundle } from './git.js';
 import { narrowIntentPathspec } from './pathspec.js';
@@ -36,19 +36,21 @@ export function readRegistryForCli(
 }
 
 export async function runEnqueueCommand(input: CommandInputWithCli): Promise<number> {
-  const intent = createIntent(input.options);
+  // A DRAFT: the order key is assigned inside the transform below, under
+  // the claims-file lock, where the live queue it derives from is stable.
+  const draft = createIntent(input.options);
   await updateRegistry(
     input.registryPath,
     (registry) => {
-      if (!registry.claims.some((claim) => claim.claim_id === intent.claim_id)) {
-        throw new Error(`unknown claim_id: ${intent.claim_id}`);
+      if (!registry.claims.some((claim) => claim.claim_id === draft.claim_id)) {
+        throw new Error(`unknown claim_id: ${draft.claim_id}`);
       }
 
-      return enqueueCommitIntent({ registry, intent });
+      return enqueueCommitIntent({ registry, draft });
     },
     input.now,
   );
-  (input.input.stdout ?? process.stdout).write(`${intent.intent_id}\n`);
+  (input.input.stdout ?? process.stdout).write(`${draft.intent_id}\n`);
   return 0;
 }
 

@@ -47,6 +47,7 @@ function entry(
     updated_at: NOW,
     expires_at: '2026-08-17T13:00:00.000Z',
     phase: 'queued',
+    queued_seq: 0,
     ...overrides,
   };
 }
@@ -249,11 +250,16 @@ describe('commit-queue per-intent store', () => {
     expect(await readCommitQueueEntries({ queueDir, nowIso: NOW })).toStrictEqual([]);
   });
 
-  it('orders live entries by queued_at then intent_id', async () => {
+  it('orders live entries by queued_seq alone', async () => {
+    // The flat registry expressed queue order as ARRAY POSITION. The store
+    // has no array, so `queued_seq` carries it — and it is the sole key:
+    // `queued_at` ties at machine speed and stays for TTL and display only,
+    // while intent_id orders by whichever random UUID was drawn. Both are
+    // made to disagree with the seq here.
     const earlier = '2026-08-17T11:59:00.000Z';
     await writeCommitQueueEntry({
       queueDir,
-      entry: entry({ intent_id: '99999999-9999-4999-8999-999999999999' }),
+      entry: entry({ intent_id: '99999999-9999-4999-8999-999999999999', queued_seq: 0 }),
       nowIso: NOW,
     });
     await writeCommitQueueEntry({
@@ -262,14 +268,15 @@ describe('commit-queue per-intent store', () => {
         intent_id: '22222222-2222-4222-8222-222222222222',
         queued_at: earlier,
         updated_at: earlier,
+        queued_seq: 1,
       }),
       nowIso: NOW,
     });
 
     const entries = await readCommitQueueEntries({ queueDir, nowIso: NOW });
     expect(entries.map((stored) => stored.intent_id)).toStrictEqual([
-      '22222222-2222-4222-8222-222222222222',
       '99999999-9999-4999-8999-999999999999',
+      '22222222-2222-4222-8222-222222222222',
     ]);
   });
 

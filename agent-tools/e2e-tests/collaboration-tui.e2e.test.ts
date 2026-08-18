@@ -108,6 +108,7 @@ function activeRegistry(): {
     updated_at: '2026-05-13T17:48:00Z',
     expires_at: '2026-05-13T18:48:00Z',
     phase: 'queued',
+    queued_seq: 0,
   };
 
   return {

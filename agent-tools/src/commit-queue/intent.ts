@@ -7,10 +7,15 @@ import { collaborationAgentIdWriteSchema } from '../collaboration-state/types.js
 
 import { nowIso, requireOption } from './args.js';
 import { normalizeRepoPath } from './path-list.js';
-import { type CommitIntent, type CommitQueueCliOptions } from './types.js';
+import { type CommitIntentDraft, type CommitQueueCliOptions } from './types.js';
 
 /**
  * Create a queued commit intent from validated CLI options.
+ *
+ * A DRAFT, not a finished entry: the queue's order key (`queued_seq`) is
+ * derived from the live queue and can only be assigned under the claims-file
+ * transaction lock, which this boundary does not hold. `enqueueCommitIntent`
+ * completes the draft inside the transform.
  *
  * The agent_id block is parsed through `collaborationAgentIdWriteSchema`
  * (Cycle 5 — Commandment 12 fix). This guarantees every commit-queue entry
@@ -19,7 +24,7 @@ import { type CommitIntent, type CommitQueueCliOptions } from './types.js';
  * `--id`; createIntent does not re-derive (PDR-076a single-derivation-site
  * invariant — v5 derivation lives in `collaboration-state/identity.ts`).
  */
-export function createIntent(options: CommitQueueCliOptions): CommitIntent {
+export function createIntent(options: CommitQueueCliOptions): CommitIntentDraft {
   const now = nowIso(options);
   if (options.file.length === 0) {
     throw new Error('at least one --file entry is required');

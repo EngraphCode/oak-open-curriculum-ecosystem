@@ -192,6 +192,7 @@ function queueEntry(
     updated_at: '2026-04-28T09:30:00Z',
     expires_at: '2026-04-28T09:52:00Z',
     phase: 'queued',
+    queued_seq: 0,
     ...overrides,
   };
 }

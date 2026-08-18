@@ -114,6 +114,7 @@ function recipientQueueEntry(
     updated_at: '2026-08-01T17:40:00Z',
     expires_at: '2026-08-01T19:00:00Z',
     phase: 'queued',
+    queued_seq: 0,
     ...overrides,
   };
 }

@@ -43,6 +43,7 @@ function intent(overrides: Partial<CommitIntent> = {}): CommitIntent {
     updated_at: queuedAt,
     expires_at: expiresAt,
     phase: 'queued',
+    queued_seq: 0,
     ...overrides,
   };
 }

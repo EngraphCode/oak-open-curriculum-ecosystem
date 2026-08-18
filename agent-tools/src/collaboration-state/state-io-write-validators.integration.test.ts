@@ -37,6 +37,7 @@ const IDLESS_INTENT_ROW = {
   updated_at: '2026-04-27T07:20:00Z',
   expires_at: '2026-04-27T07:35:00Z',
   phase: 'queued',
+  queued_seq: 0,
 };
 
 function registryText(): string {

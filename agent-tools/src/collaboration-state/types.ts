@@ -1,4 +1,4 @@
-import type { CollaborationAgentId, CollaborationAgentIdWrite } from './agent-id.js';
+import type { CollaborationAgentId } from './agent-id.js';
 
 export {
   collaborationAgentIdSchema,
@@ -91,31 +91,10 @@ export interface CollaborationClaim {
   readonly closure?: CollaborationClosure;
 }
 
-/**
- * One machine-local commit-queue intent, stored as its own file at
- * `.agent/state/collaboration/commit-queue/<intent-id>.json` (owner ruling
- * 2026-08-17, QUEUE-LOCAL — the queue left the claims file at registry
- * schema 1.4.0; `commit-queue-store.ts` owns the file conventions and TTL).
- */
-export interface CollaborationCommitQueueEntry {
-  readonly intent_id: string;
-  readonly claim_id: string;
-  /**
-   * Intent identity is the PDR-076a WRITE shape: `id` is required at parse
-   * in both registry read paths (see `parseIntentAgentId` in agent-id.ts).
-   * Claims keep the read shape — legacy id-less rows are preserved there.
-   */
-  readonly agent_id: CollaborationAgentIdWrite;
-  readonly files: readonly string[];
-  readonly commit_subject: string;
-  readonly queued_at: string;
-  readonly updated_at: string;
-  readonly expires_at: string;
-  readonly phase: 'queued' | 'staging' | 'pre_commit' | 'abandoned';
-  readonly staged_bundle_fingerprint?: string;
-  readonly staged_name_status?: string;
-  readonly notes?: string;
-}
+export {
+  type CollaborationCommitQueueEntry,
+  type CollaborationCommitQueueEntryDraft,
+} from './commit-queue-entry-types.js';
 
 /**
  * The exact schema version this code reads and writes for the active-claims

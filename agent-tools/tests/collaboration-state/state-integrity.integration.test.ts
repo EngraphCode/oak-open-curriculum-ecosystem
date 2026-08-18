@@ -129,6 +129,7 @@ describe('collaboration state integrity validator', () => {
           updated_at: '2026-04-27T07:20:00Z',
           expires_at: '2026-04-27T08:20:00Z',
           phase: 'queued',
+          queued_seq: 0,
         },
       );
 

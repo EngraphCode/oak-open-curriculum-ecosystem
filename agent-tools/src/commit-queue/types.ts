@@ -41,9 +41,15 @@ interface CommitQueueClaimArea extends JsonObject {
 }
 
 /**
- * Advisory queue entry describing one intended commit bundle.
+ * An advisory queue entry before the queue's order key is assigned.
+ *
+ * `queued_seq` cannot be known outside the claims-file transaction lock —
+ * it is derived from the live queue — so `createIntent` builds this draft
+ * at the CLI boundary and `enqueueCommitIntent` completes it inside the
+ * transform. Mutually assignable with
+ * `CollaborationCommitQueueEntryDraft`, the store's half of the same split.
  */
-export interface CommitIntent extends JsonObject {
+export interface CommitIntentDraft extends JsonObject {
   readonly intent_id: string;
   readonly claim_id: string;
   /**
@@ -73,6 +79,16 @@ export interface CommitIntent extends JsonObject {
   readonly staged_bundle_fingerprint?: string;
   readonly staged_name_status?: string;
   readonly notes?: string;
+}
+
+/**
+ * Advisory queue entry describing one intended commit bundle, order key
+ * included. See `CollaborationCommitQueueEntry.queued_seq` for what that
+ * key means and why the queue cannot order on `queued_at`; the two types
+ * must stay mutually assignable (`registry.ts` spreads store entries here).
+ */
+export interface CommitIntent extends CommitIntentDraft {
+  readonly queued_seq: number;
 }
 
 /**

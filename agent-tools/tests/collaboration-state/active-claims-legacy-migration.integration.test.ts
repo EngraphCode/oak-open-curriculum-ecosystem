@@ -185,6 +185,46 @@ describe('legacy active-claims migration', () => {
     expect(await readCommitQueueEntries({ queueDir, nowIso: NOW })).toStrictEqual([]);
   });
 
+  it('carries the legacy array order across as the order key', async () => {
+    // The legacy schema declared the ARRAY order to be the queue order, so
+    // the migration must carry that position across. Both other candidate
+    // orderings are made to disagree with it here: the first array element
+    // has the LATER queued_at and the HIGHER intent_id, so a migration that
+    // let either decide reverses the queue the agents were relying on.
+    const later = '2026-08-17T11:50:00.000Z';
+    const earlier = '2026-08-17T11:20:00.000Z';
+    await writeText(
+      activePath,
+      `${JSON.stringify(
+        {
+          ...legacyRegistry(),
+          commit_queue: [
+            legacyEntry({
+              intent_id: '99999999-9999-4999-8999-999999999999',
+              queued_at: later,
+              updated_at: LIVE_UPDATED_AT,
+            }),
+            legacyEntry({
+              intent_id: '22222222-2222-4222-8222-222222222222',
+              queued_at: earlier,
+              updated_at: LIVE_UPDATED_AT,
+            }),
+          ],
+        },
+        null,
+        2,
+      )}\n`,
+    );
+
+    await migrateLegacyActiveClaimsFile({ activePath, nowIso: NOW });
+
+    const entries = await readCommitQueueEntries({ queueDir, nowIso: NOW });
+    expect(entries.map((entry) => [entry.intent_id, entry.queued_seq])).toStrictEqual([
+      ['99999999-9999-4999-8999-999999999999', 0],
+      ['22222222-2222-4222-8222-222222222222', 1],
+    ]);
+  });
+
   it('rewrites the claims file in the new shape with the claims text unchanged', async () => {
     await migrateLegacyActiveClaimsFile({ activePath, nowIso: NOW });
 

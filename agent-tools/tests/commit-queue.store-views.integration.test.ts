@@ -51,6 +51,7 @@ const INTENT = {
   updated_at: QUEUED_AT,
   expires_at: EXPIRES_AT,
   phase: 'queued',
+  queued_seq: 0,
 };
 
 // The exact per-entry view shape the flat-registry implementation printed —

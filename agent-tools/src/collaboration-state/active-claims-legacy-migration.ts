@@ -18,7 +18,7 @@ import {
   isCommitQueueEntryLive,
   writeCommitQueueEntry,
 } from './commit-queue-store.js';
-import { parseStrictCommitQueueEntry } from './registry-entry-parser.js';
+import { parseStrictCommitQueueEntryDraft } from './registry-entry-parser.js';
 import { activeClaimsWriteValidator } from './state-io-write-validators.js';
 import { runJsonStateTransaction, writeJsonFileWithinTransaction } from './transaction.js';
 import { ACTIVE_CLAIMS_SCHEMA_VERSION, type CollaborationCommitQueueEntry } from './types.js';
@@ -79,7 +79,7 @@ function planLegacyActiveClaimsMigration(input: {
     // Queue-row parse failures carry the file path, matching the store's
     // path-labelled convention: this failure names a machine-local file the
     // operator must find, and the parser's message alone does not say which.
-    const entries = collect(Array.from(commitQueue, parseStrictCommitQueueEntry));
+    const entries = collect(Array.from(commitQueue, parseStrictCommitQueueEntryDraft));
     if (!entries.ok) {
       return err(new Error(`${input.path} commit_queue: ${entries.error.message}`));
     }
@@ -88,7 +88,14 @@ function planLegacyActiveClaimsMigration(input: {
         schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
         claims,
       },
-      liveEntries: rows.filter((entry) => isCommitQueueEntryLive(entry, input.nowIso)),
+      // The legacy schema declared the ARRAY order to BE the queue order, so
+      // the index is the order key. It is taken before the liveness filter,
+      // so dropping an expired row leaves a gap rather than promoting the
+      // rows behind it past each other; `queued_seq` is relative, and gaps
+      // are as ordered as a dense run.
+      liveEntries: rows
+        .map((entry, index) => ({ ...entry, queued_seq: index }))
+        .filter((entry) => isCommitQueueEntryLive(entry, input.nowIso)),
     }));
   });
 }

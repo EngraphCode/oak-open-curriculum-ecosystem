@@ -46,7 +46,8 @@ interface RawAgentIdRow {
   readonly id?: string;
 }
 
-export interface RawIntentRow {
+/** The pre-1.4.0 (schema 1.3.0) queue row: no order key — the field postdates it. */
+export interface LegacyIntentRow {
   readonly intent_id: string;
   readonly claim_id: string;
   readonly agent_id: RawAgentIdRow;
@@ -72,7 +73,16 @@ export const EXPIRES_AT = new Date(
   Date.parse(UPDATED_AT) + COMMIT_QUEUE_TTL_SECONDS * 1000,
 ).toISOString();
 
+export interface RawIntentRow extends LegacyIntentRow {
+  readonly queued_seq: number;
+}
+
+/** The current (1.4.0) store row: the legacy shape plus its order key. */
 export function validIntentRow(): RawIntentRow {
+  return { ...legacyIntentRow(), queued_seq: 0 };
+}
+
+export function legacyIntentRow(): LegacyIntentRow {
   return {
     intent_id: INTENT_ID,
     claim_id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',

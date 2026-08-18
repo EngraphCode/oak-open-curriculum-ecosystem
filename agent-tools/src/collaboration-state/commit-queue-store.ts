@@ -219,13 +219,16 @@ function compareCodeUnits(left: string, right: string): number {
   return 0;
 }
 
+/**
+ * Queue order is `queued_seq` ALONE — the arrival order assigned under the
+ * claims-file lock, carrying what the pre-1.4.0 flat array expressed as its
+ * element position. `queued_at` is not a tie-break here: entries queued in
+ * the same millisecond would then order by intent_id, handing the queue to
+ * whoever drew the lower random UUID. `queued_at` stays for TTL and display.
+ */
 function compareQueueOrder(
   left: CollaborationCommitQueueEntry,
   right: CollaborationCommitQueueEntry,
 ): number {
-  const byQueuedAt = Date.parse(left.queued_at) - Date.parse(right.queued_at);
-  if (byQueuedAt !== 0) {
-    return byQueuedAt;
-  }
-  return compareCodeUnits(left.intent_id, right.intent_id);
+  return left.queued_seq - right.queued_seq;
 }
