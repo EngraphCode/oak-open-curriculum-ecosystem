@@ -145,6 +145,11 @@ jobs:
     name: build
     permissions:
       contents: read
+      # The advisory drift check publishes an informational commit status —
+      # the visible half of the signal; the annotation alone proved invisible
+      # in practice (2026-08-18: real drift found by a live smoke test while
+      # the warning annotation fired unread on every build).
+      statuses: write
     needs: install
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -158,6 +163,11 @@ jobs:
         run: pnpm --filter @oaknational/agent-tools ci-turbo-report >> "$GITHUB_STEP_SUMMARY"
       - name: Check schema cache drift (advisory)
         if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # PR events target the PR HEAD sha so the informational status lands
+          # on the PR's checks surface; pushes target the pushed sha.
+          DRIFT_STATUS_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: pnpm --filter @oaknational/agent-tools ci-schema-drift-check
 
   # Type-check, ESLint, and unit tests. Turbo restores the build outputs from
