@@ -108,10 +108,10 @@ export async function resolveOpenClaimWatcherVerdict(
 export function assertNotBlindWithOtherAgents(input: {
   readonly registry: CollaborationRegistry;
   /**
-   * Live queue entries read from the per-intent store BEFORE the registry
-   * lock (queue liveness is TTL-grained, so a just-before-the-lock read is
-   * not a race; the claims half of the population check still evaluates on
-   * the locked snapshot).
+   * Live queue entries read from the per-intent store INSIDE the claim-open
+   * transaction, alongside the claims snapshot: a queue-only peer whose
+   * entry appears before the claim write is part of the population this
+   * check decides on, so the read must share the locked window.
    */
   readonly commitQueue: readonly CollaborationCommitQueueEntry[];
   readonly nowIso: string;
