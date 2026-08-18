@@ -35,7 +35,12 @@ const readTextFileFromDisk: ReadTextFile = (path) => readFile(path, 'utf8');
 
 interface ReadRegistryOptions {
   readonly readTextFile?: ReadTextFile;
-  /** View clock for store-read TTL liveness; defaults to the wall clock. */
+  /**
+   * View clock for store-read TTL liveness; defaults to the wall clock.
+   * It reaches {@link readCommitQueueEntries} — a pure view — and NOTHING
+   * else: the legacy migration on the same read path takes the wall clock
+   * inline (see {@link readClaimsFileText}).
+   */
   readonly nowIso?: string;
 }
 
@@ -59,7 +64,6 @@ export async function readRegistry(
   const content = await readClaimsFileText(
     registryPath,
     options.readTextFile ?? readTextFileFromDisk,
-    nowIso,
   );
   if (!content.ok) {
     return content;
@@ -84,11 +88,18 @@ export async function readRegistry(
  * Read the claims-file text, enriching ENOENT into the verify-then-seed
  * instructions and routing a legacy flat-queue file through the one-time
  * migration before re-reading.
+ *
+ * TTL liveness at this hook is judged against the wall clock, mirroring the
+ * sibling hook in `state-file-readers.ts`: migration is an IO-boundary act
+ * on the real store, not a view over a caller's `--now`. The clock is taken
+ * inline rather than accepted as a parameter, so a read-only view clock
+ * cannot reach the one destructive step on this path — a far-future `--now`
+ * would otherwise judge every live legacy row expired and DELETE it. The
+ * leak is unrepresentable, not merely unused.
  */
 async function readClaimsFileText(
   registryPath: string,
   readTextFile: ReadTextFile,
-  nowIso: string,
 ): Promise<Result<string, Error>> {
   let content: string;
   try {
@@ -111,7 +122,10 @@ async function readClaimsFileText(
   if (!isLegacyActiveClaimsText(content)) {
     return ok(content);
   }
-  await migrateLegacyActiveClaimsFile({ activePath: registryPath, nowIso });
+  await migrateLegacyActiveClaimsFile({
+    activePath: registryPath,
+    nowIso: new Date().toISOString(),
+  });
   return ok(await readTextFile(registryPath));
 }
 

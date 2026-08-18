@@ -4,10 +4,13 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { uuidV5Schema } from '../src/collaboration-state/agent-id';
-import { commitQueueDirForActivePath } from '../src/collaboration-state/commit-queue-store';
+import {
+  commitQueueDirForActivePath,
+  readCommitQueueEntries,
+} from '../src/collaboration-state/commit-queue-store';
 import { ACTIVE_CLAIMS_SCHEMA_VERSION } from '../src/collaboration-state/types';
 import { enqueueCommitIntent } from '../src/commit-queue/core';
-import { updateRegistry } from '../src/commit-queue/registry';
+import { readRegistry, updateRegistry } from '../src/commit-queue/registry';
 import { type CommitIntent } from '../src/commit-queue/types';
 import {
   makeTempDirectory,
@@ -48,6 +51,53 @@ const INTENT: CommitIntent = {
   expires_at: '2026-08-18T13:00:00.000Z',
   phase: 'queued',
 };
+
+describe('readRegistry — the legacy migration runs on the wall clock, never a caller view clock', () => {
+  let root: string;
+  let activePath: string;
+  let queueDir: string;
+
+  // Live against the REAL clock: the migration's liveness filter decides
+  // which legacy rows survive to the store, and after the cure that filter
+  // sees the wall clock whatever the caller passes as a view clock.
+  const liveUpdatedAt = new Date(Date.now() - 60 * 1000).toISOString();
+
+  function legacyRegistryText(): string {
+    return `${JSON.stringify(
+      {
+        schema_version: '1.3.0',
+        claims: [CLAIM],
+        commit_queue: [{ ...INTENT, queued_at: liveUpdatedAt, updated_at: liveUpdatedAt }],
+      },
+      null,
+      2,
+    )}\n`;
+  }
+
+  beforeEach(async () => {
+    root = await makeTempDirectory('oak-commit-queue-migration-clock-');
+    activePath = join(root, 'active-claims.json');
+    queueDir = commitQueueDirForActivePath(activePath);
+    await writeText(activePath, legacyRegistryText());
+  });
+
+  afterEach(async () => {
+    await removeDirectory(root);
+  });
+
+  it('preserves live legacy intents when a far-future --now reaches the read', async () => {
+    // `--now` is a READ-command view clock. Routing it into the one-time
+    // migration would let a read-only invocation judge every live legacy
+    // row expired and DELETE it — the destructive twin of a view.
+    await readRegistry(activePath, { nowIso: '2099-01-01T00:00:00.000Z' });
+
+    const stored = await readCommitQueueEntries({
+      queueDir,
+      nowIso: new Date().toISOString(),
+    });
+    expect(stored.map((entry) => entry.intent_id)).toStrictEqual([INTENT.intent_id]);
+  });
+});
 
 describe('updateRegistry — a failed store write cannot strand claims-file state', () => {
   let root: string;
