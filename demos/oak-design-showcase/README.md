@@ -143,10 +143,12 @@ design system. Enforced by instrument, not review vigilance:
   store's choice-snapshot and notification contract, the instrument
   classifiers, and the opener-command platform mapping.
 - `pnpm test:ui` — Playwright against the BUILT page (`pnpm start`): region
-  contract in effect (live grid areas), theme/identity/motion switches
-  proven through the real controls (attribute + cascade + computed-style
-  assertions), pre-paint persistence, and the dark-first counter-brand's
-  polarity.
+  contract in effect (live grid areas), theme and identity switches proven
+  through the real controls (attribute + cascade + computed-style
+  assertions), motion proven through the runtime's stored-state and
+  OS-signal paths (no motion control ships — the cells drive the runtime
+  the way a returning visitor's stored choice and the OS do), pre-paint
+  persistence, and the dark-first counter-brand's polarity.
 - `pnpm test:a11y` — axe WCAG 2.2 AA across the full identity × theme
   matrix (15 cells: 12 identity × palette-theme cells plus 3
   identity-default cells; the match-device behaviour is covered by a

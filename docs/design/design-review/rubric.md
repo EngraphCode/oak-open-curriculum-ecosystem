@@ -56,11 +56,17 @@ instrument-leg results (required at checkpoint-class rows; a render a
 leg blocks is recorded as an `instrument-blocked` row carrying the
 Director disposition, never an invented owner verdict).
 
-**Fail semantics**: any leg's FAIL blocks the render from reaching the
-owner. A blocking FAIL routes to the Director in the Quality-bar rule-3
-shape (findings, screenshot, blocker assessment) for a named disposition —
-the instrument's false-positive rate is unmeasured at v0, and wow-first
-sequencing must not wait silently on an unearned block.
+**Fail semantics**: while a revision's recalibration is OWED (as v0.1's
+is, above), NO verdict issued under it blocks — a FAIL is ADVISORY and
+routes to the Director in the Quality-bar rule-3 shape (findings,
+screenshot, blocker assessment) for a named disposition; the render may
+still reach the owner with the advisory attached. Once the owed
+recalibration lands and is recorded under [`records/`](./records/), any
+leg's FAIL blocks the render from reaching the owner, routed to the
+Director in the same shape. The split is the living-instrument contract
+applied to authority: blocking is earned by measured calibration, never
+assumed — an uncalibrated instrument must not silently stall wow-first
+sequencing on an unearned block.
 
 ## Criteria
 

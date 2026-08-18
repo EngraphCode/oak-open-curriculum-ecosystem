@@ -7,9 +7,10 @@
  *
  * The set is DERIVED, not invented. Sources, in order of authority:
  *
- * - the kit's single width seam — `@media (max-width: 840px)` switches the
- *   canvas and main grids to their -narrow maps, so the seam needs proving
- *   from BOTH sides;
+ * - the kit's single width seam — `@media (max-width: 840px)` switches
+ *   `.oak-main`'s map to its -narrow form (the canvas grid never
+ *   switches; no --canvas-*-narrow token exists), so the seam needs
+ *   proving from BOTH sides;
  * - the WCAG 2.2 SC 1.4.10 reflow floor (320 CSS px) — contractual, not
  *   stylistic: the narrowest width the page must serve without horizontal
  *   scroll;

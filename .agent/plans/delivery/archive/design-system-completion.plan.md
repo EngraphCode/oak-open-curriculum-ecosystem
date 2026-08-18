@@ -3,7 +3,10 @@ id: design-system-completion
 node_type: delivery
 name: "Design-system completion — five demos, identity contract, React tier, the wow bar (v2.2)"
 overview: "Complete the Oak Open Curriculum Design System as a layered identity-agnostic framework, proven by five demos at the owner's wow bar: a path-named generated census with per-page dispositions, first light on the plain demo AND an early showcase probe before machinery spend, a schema'd identity/theme contract (orthogonal contrast/colour-vision axes, base-plus-overlay token trees, an emitter with a defined Oak input), the curated React tier on the ADR-213 §3 shape with a packaging story (the hub gaining identity switching through it), the showcase rebuilt inside a design grammar with density as a designed quantity, the layout-range zen demo proving expressive range over layout, and cross-demo theme behaviour stated as resolved-rendering observables."
-status: sketch
+status: archived
+# Disposition (2026-08-18, MCP-613 review round 1): abandoned sketch —
+# authority stripped 2026-08-17; archived as a conserved knowledge store
+# for the identity-pack programme.
 ratified_by: null
 ratified_date: null
 ratified_where: null
@@ -32,13 +35,18 @@ owner_gates: []
 # will. (2) The W3.0 "full optional React component set" coverage reading
 # (was to expire 2026-09-07) — re-cards at whatever node opens a React-tier
 # story (expected: the identity-pack programme node).
-last_updated: 2026-08-17
+last_updated: 2026-08-18
 ---
 
 # Design-system completion — five demos, identity contract, React tier, the wow bar (v2.2)
 
+**ARCHIVED 2026-08-18 (MCP-613 review round 1)** — an abandoned sketch is
+archived per the plan-node schema's lifecycle; the authority strip below
+already made the boundary structural, and the archive makes the corpus
+state it. Everything conserved here remains exactly as conserved.
+
 **AUTHORITY STRIPPED — CONSERVED STORY-OPEN INPUTS (owner ruling
-2026-08-17, records-truth pass MCP-613).** This node is `status: sketch`,
+2026-08-17, records-truth pass MCP-613).** This node was `status: sketch`,
 was never ratified, and its prose binds nothing — a lesson already paid
 for once (the invented "composition envelope" was enforced for two review
 rounds on the strength of reviewer prose in this document; owner

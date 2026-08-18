@@ -11,9 +11,10 @@ serves: design-system-as-configured-framework
 impact_areas:
   - design-system
 tickets: []
-depends_on:
-  - plan: design-system-completion
-    kind: beneficial
+depends_on: []
+# The former beneficial edge to design-system-completion was removed
+# 2026-08-18 (MCP-613 review round 1): that sketch is archived as a
+# knowledge store; nothing here ever waited on it (see §Relationships).
 owner_gates: []
 # The R14/R15 re-cut gate CLEARED 2026-08-13 evening: owner word "ratified,
 # please proceed" at the successor seat (Skua binds Leeward, e2b222), given
@@ -1168,18 +1169,19 @@ condition that returns it to scope.
 
 ## Relationships
 
-- **`design-system-completion`** — **`status: sketch`, `ratified_by: null`.
-  Its prose binds nothing here.** That is the plainest and most load-bearing fact
+- **`design-system-completion`** — **archived 2026-08-18 (abandoned
+  sketch, authority stripped 2026-08-17; conserved as a knowledge store in
+  `archive/`). Its prose binds nothing here.** That is the plainest and most load-bearing fact
   in this section, and getting it wrong cost this plan two review rounds: its
   W0.3 charter clauses were treated as governing, and one of them — the
   composition envelope — was a reviewer artefact that contradicted the owner's
   ask. Clauses this plan needs are re-derived from real authorities
   (§Coherence check); the rest are not inherited.
 
-  This plan owns the showcase surface and its sequencing. That node's W-arc is
-  sequenced behind the tight scope. The `depends_on` edge is `beneficial`, not
-  `blocking`: nothing here waits on it. It carries a dated relationship note at
-  its next legal edit window.
+  This plan owns the showcase surface and its sequencing. That node's W-arc
+  is conserved input for the identity-pack programme. The former
+  `beneficial` `depends_on` edge was removed at the archive (2026-08-18):
+  nothing here ever waited on it.
 - **`design-system-as-configured-framework`** (strategic, ratified 2026-08-05,
   this node's `serves` edge) — unchanged by this plan, and more load-bearing on
   it than a `serves` edge usually is. Three of its ratified clauses bind
