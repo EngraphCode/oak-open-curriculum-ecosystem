@@ -1048,3 +1048,32 @@ survey post-mortem discharged (both at 6ba9e93c3).
   state (link.sheet mints ~135ms before load). Same ontology as P7's
   default-as-scaffold — visible provenance-recorded transitions beat
   inferred state, two scales in two days.
+
+## 2026-08-18 ~20:1xZ — the drift sensor that fired into the void (Ocelot, Director)
+
+MCP-626's schema drift (cache 0.7.0 vs live 0.11.0) was caught by a
+LIVE SMOKE TEST, not by the CI sensor built for exactly this — yet the
+sensor was firing correctly on every build (warning annotation present
+on today's main run). The failure class: an advisory emitted to a
+surface nobody reads (a `::warning` annotation inside a green job) is
+vigilance wearing structure's clothes. The owner's expectation names
+the bar: an INFORMATIONAL STATUS — drift must be visible at the
+PR/commit surface, not in an annotation list behind a green check.
+Generator: when adding any advisory sensor, the design question is not
+"does it fire?" but "what surface does it land on, and who is
+guaranteed to see it there?" (falsifiable-structure-at-the-surface;
+cousin of exit-codes-in-band — the signal must ride a channel the
+consumer actually reads). Cure homed: MCP-626 second arm.
+
+## 2026-08-18 ~21:1xZ — FETCH_HEAD is a shared single slot (Ocelot, Director)
+
+Mid-read, `git show FETCH_HEAD:README.md` silently switched documents:
+a background pre-push gate's own fetch had overwritten FETCH_HEAD
+between two reads in one turn. FETCH_HEAD is per-repo mutable state
+shared across every worktree and every background process — reading it
+twice is a race whenever any gate, hook, or peer can fetch. Cure shape
+used: fetch into a named ref (`git fetch origin <branch>` then read
+`origin/<branch>`), never read FETCH_HEAD when background git can run.
+Same family as the premature-migration and cwd-drift lessons: shared
+mutable process-level state (cwd, FETCH_HEAD, the home registry) needs
+pinning-by-name, not sequencing-by-hope.

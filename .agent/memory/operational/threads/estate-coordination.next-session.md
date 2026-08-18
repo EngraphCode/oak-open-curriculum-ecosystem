@@ -785,3 +785,61 @@ re-armed on the exit notification). Freeze-map disposition:
 Instruments live at this write: canonical watcher (bqzj6q3kt),
 heartbeat pair, F-75 delta poll, design ARC tail. Next wakes: round
 report from Poppy (#905), Yarrow relay, owner word.
+
+## 2026-08-18 ~21:2xZ — COMPACTION FREEZE 2 (Ocelot binds Tunnel, c28ad9): drift signal fixed as PR #911; seven PRs at cured heads; seat continues
+
+Owner word: fix the broken CI drift signal, then prepare for compaction
+and stop all processes. The seat CONTINUES at resume; silence past the
+freeze broadcast is intentional. RESUME MAP, priority order:
+
+- (a) PR #911 (MCP-626 signal arm, fix/mcp-626-schema-drift-status at
+  8c43a9c2d, bot-authored, jimbot): the schema-drift verdict now
+  renders on VISIBLE surfaces — pure report builder (25 tests; every
+  outcome incl. skipped; injection-escaped versions; verdict-first
+  truncation), stderr/stdout stream contract, and a DEDICATED
+  schema-drift CI job publishing an informational commit status via gh
+  api (fork-guarded, retried, target_url). The pre-execution review
+  VERIFIED that statuses:write on the build job would let build-time
+  code mint a green run-quality-gates (both attribute to app 15368) —
+  the dedicated job is the cure; never move the token back. Awaits
+  Copilot + mantagen rounds; merge leg at settled. MCP-626's OTHER arm
+  (schema-cache refresh 0.7.0→0.11.0, pnpm sdk-codegen:refresh) is a
+  separate slice, untouched. MCP-627 (new): live ruleset has
+  strict_required_status_checks OFF vs ADR-204's ratified ON.
+- (b) #888 (57ca43b5b) / #891 (6f073346f) / #905 (ef0742759): all at
+  cured heads, every review round dismissed-at-verified-cure, fresh
+  Copilot rounds harvested and dispositioned (incl. one REFUTED with
+  vitest-source evidence: VITEST_MAX_WORKERS IS read by v4), awaiting
+  BINDING rounds — dismissed rounds bind nothing and Copilot never
+  approves, so mantagen's cadence (NOT on-demand, owner calibration)
+  or human approval settles them; merge-bot recomputes at any try.
+  MCP-625 carries the deferred owner-only-write symlink bug (verified
+  pre-existing on main) + two small residues.
+- (c) Yarrow (claim 645b9e0b): froze 18:34Z after closing round 1 on
+  all four design PRs, resumed 20:49Z, and was LIVE at this freeze;
+  their round-2 harvest owns
+  #907's red CI (Sonar+browser+aggregate on 62df2091c) and the landed
+  Copilot rounds on #907/#909; #908/#910 wait as in (b). Merge legs
+  for #907-#910 at this seat at settled. Their board facts are on the
+  ARC channel (20:5xZ entry).
+- (d) Host-portability programme (MCP-624, node ratified 2026-08-18):
+  item 3 DONE (macOS gate green on #891); items 2/4 = the merges in
+  (b); items 1, 5-9 queued as delivery slices (principles clause,
+  LF-generator + spawnSync residue, static ratchet, the REQUIRED basic
+  Windows + macOS CI legs, docs, research-child re-true).
+- (e) Instruments at this freeze: ALL STOPPED (heartbeat pair first
+  with heartbeat-end; ARC tail; F-75; canonical watcher last). The
+  owner's evening stop of the PR watches is SUPERSEDED by this freeze;
+  fresh watches are the resume seat's call. Bot tokens deleted; mint
+  per write-window (echo author BEFORE the first identity-bearing
+  write). Push discipline standing: output to an untracked log, the
+  push is the guarded command.
+- (f) This freeze's parcel pushes the evening's HELD ahead-2
+  (7bee8b676 Yarrow round-1 + bb62015c3 ARC rider) with the freeze
+  entry — the compaction order's conserve supersedes the evening
+  stop-work hold. Napkin carries the day-2 lessons: the
+  sensor-into-the-void generator, the FETCH_HEAD single-slot race,
+  the worktree-binary home-registry hazard (until #905 merges +
+  primary rebuild). Routed at the freeze edge: MCP-628 (e2e
+  static-root fixture races copyOakDs staging dir; named one-guard
+  cure) — Yarrow's finding, homed as a ticket, liftable by any seat.
