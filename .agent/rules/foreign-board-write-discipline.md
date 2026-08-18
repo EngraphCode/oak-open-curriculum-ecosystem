@@ -6,7 +6,10 @@ about to touch and check it against the three-way split below. Links to
 our own tickets and status updates are permitted; the description and
 the comment thread are not; priority stays theirs. If the field is not
 on the permitted list the write does not happen — the route is a message
-asking the record's owner to make it.
+asking the record's owner to make it. Where the surface carries its own
+owner-set write rule, resolve THAT rule first: it can refuse the write
+outright, and it can require prose this split would otherwise deny — see
+**Precedence** below.
 
 Owner instructions (2026-08-18, minutes apart, the second narrowing the
 first — names redacted): "please don't post onto [a colleague]'s board
@@ -24,7 +27,11 @@ comments are the record owner's own voice, and stay theirs.**
 About to write to any ticket, board, project, or tracker owned by
 someone else: a colleague's Linear project, another team's issue, a
 foreign repository's GitHub issue, a Notion database that is not ours.
-Reading is unceremonied; the rule fires at the write.
+Reading is unceremonied; the rule fires at the write. Notion stays in
+scope deliberately — the `[AI Managed]` gate in
+[`notion-page-edits-update-ledger`](./notion-page-edits-update-ledger.md)
+asks whether we may write at all, not which fields are ours to author,
+so the two rules compose rather than duplicate. See **Precedence**.
 
 Ownership is a property of the RECORD, not of the work. Holding the
 dependency, owning the fix, or being demonstrably right about the
@@ -53,6 +60,46 @@ disconnection the owner was objecting to in the first place. Being
 factually right about someone else's ticket is not authority over their
 words, but it IS a reason to keep the dependency graph honest.
 
+## Precedence — a Per-Surface Owner-Set Rule Wins
+
+This is a GENERAL cross-surface discipline. Where the surface being
+written to has its own owner-set write rule, **that rule governs and
+this one defers** — both when it is stricter than the split above and
+when it MANDATES something the split would otherwise deny. A general
+discipline must never loosen, override, or appear to contradict a
+specific owner-authorised boundary. Resolve the per-surface rule first;
+apply the three-way split inside whatever it leaves open. Nothing on
+this rule's permitted list is authorisation: it is at most permission
+that a per-surface rule may still withhold.
+
+The worked example is Notion, governed by
+[`notion-page-edits-update-ledger`](./notion-page-edits-update-ledger.md).
+
+- **Whether we may write at all is that rule's question.** It permits
+  edits only where the page's own title carries `[AI Managed]` or it
+  sits beneath a page whose title does, and it refuses every unmarked or
+  Human Managed page, surfacing the request to the Director. So a
+  foreign Notion status update on an unmarked page is REFUSED, however
+  plainly "status" sits on the permitted list here.
+- **Which fields are ours to author once permitted is this rule's
+  question.** The `[AI Managed]` designation makes a page eligible for
+  editing; it does not make a foreign record's description or comment
+  thread ours to write. Both rules must be satisfied and the stricter
+  answer stands.
+- **The change-ledger entry that rule requires is mandated bookkeeping,
+  not us speaking on their record.** It is prose we place on someone
+  else's page, and this rule's comment prohibition does NOT reach it:
+  the entry is the surface owner's own provenance requirement, in a
+  fixed prescribed form, recording a change we made — the same category
+  as the permitted links and status. A permitted Notion change is
+  INCOMPLETE until its ledger line and traceability toggle are visible.
+  Never withhold a ledger entry by appeal to this rule, and never log
+  writing one as a violation of it.
+
+The same reading applies to any future surface whose owner sets its own
+write rule: read that rule as the outer gate, this one as the field
+split within it.
+
 ## Failure Mode Prevented
 
 Silent authorship on someone else's record. Tracker writes are
@@ -60,6 +107,12 @@ attributed and permanent: a reverted description still shows as an edit
 in the activity log, so our voice stays on their record after the
 content is restored. The prohibition cannot be satisfied
 retrospectively, which is why the check belongs before the call.
+
+Also prevented: a seat meeting a general rule and a per-surface
+owner-set rule that disagree, and resolving it by whichever reading
+permits the write it wanted — or the mirror failure, refusing an
+owner-mandated ledger entry as a forbidden comment and leaving a
+half-finished edit on someone else's page.
 
 ## Worked Instance
 
@@ -93,8 +146,13 @@ owns the foreign-record boundary.
   — placement of our own tickets, including "do not steal tickets that
   actually belong to other teams"; this rule governs writes to records
   that stay theirs.
+- [`notion-page-edits-update-ledger`](./notion-page-edits-update-ledger.md)
+  — the owner-set Notion write rule that TAKES PRECEDENCE over this one:
+  the `[AI Managed]` edit boundary, and the page-local change ledger a
+  permitted edit is incomplete without.
 - [`notion-strategy-page-fence`](./notion-strategy-page-fence.md) — the
   same shape on a Notion surface: a page agents read but never author.
+  Stricter again, and nothing here loosens it.
 - [`bot-identity-on-third-party-systems`](./bot-identity-on-third-party-systems.md)
   — whose name a permitted write displays.
 - [`ticket-management` SKILL](../skills/ticket-management/SKILL-CANONICAL.md)
