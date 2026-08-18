@@ -161,6 +161,30 @@ describe('legacy active-claims migration', () => {
     expect(await readCommitQueueEntries({ queueDir, nowIso: NOW })).toStrictEqual([]);
   });
 
+  it('refuses a legacy queue row with a malformed timestamp instead of silently deleting it', async () => {
+    // A malformed updated_at parses to NaN, and NaN fails every liveness
+    // comparison — without strict timestamp validation the row reads as
+    // expired and the migration rewrites the file WITHOUT it: silent
+    // deletion of a row that is not provably expired. The migration must
+    // refuse loudly, path-labelled, leaving the file untouched.
+    const legacyText = `${JSON.stringify(
+      {
+        ...legacyRegistry(),
+        commit_queue: [legacyEntry({ updated_at: 'not-a-timestamp' })],
+      },
+      null,
+      2,
+    )}\n`;
+    await writeText(activePath, legacyText);
+
+    await expect(readActiveClaimsFile(activePath)).rejects.toThrow(
+      `${activePath} commit_queue: invalid ISO date-time for updated_at: not-a-timestamp`,
+    );
+
+    expect(await readText(activePath)).toBe(legacyText);
+    expect(await readCommitQueueEntries({ queueDir, nowIso: NOW })).toStrictEqual([]);
+  });
+
   it('rewrites the claims file in the new shape with the claims text unchanged', async () => {
     await migrateLegacyActiveClaimsFile({ activePath, nowIso: NOW });
 

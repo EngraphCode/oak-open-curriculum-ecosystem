@@ -28,9 +28,7 @@ import { type CollaborationCommitQueueEntry } from './types.js';
  * never silently stripped. Relaxing that version pin without revisiting
  * this reconstruction turns this path silently destructive.
  */
-export function parseCommitQueueEntry(
-  value: unknown,
-): Result<CollaborationCommitQueueEntry, Error> {
+function parseCommitQueueEntry(value: unknown): Result<CollaborationCommitQueueEntry, Error> {
   if (!isJsonObject(value)) {
     return err(new Error('commit_queue entries must be objects'));
   }
@@ -134,18 +132,27 @@ function assembleEntry(
 }
 
 /**
- * Parse one per-intent store file's text (the commit-queue-intent surface).
- * Adds the strict ISO timestamp check the store's TTL arithmetic depends on:
- * a non-ISO `updated_at` would otherwise parse to NaN and silently defeat
- * both the expiry decision and the lazy sweep.
+ * The strict entry parse every WRITE boundary into the store owes: the
+ * field-shape parse plus the strict ISO timestamp check the store's TTL
+ * arithmetic depends on. A non-ISO timestamp would otherwise parse to NaN
+ * and silently defeat the expiry decision, the lazy sweep, and the legacy
+ * migration's liveness filter (which would then delete the row).
+ */
+export function parseStrictCommitQueueEntry(
+  value: unknown,
+): Result<CollaborationCommitQueueEntry, Error> {
+  return flatMap(parseCommitQueueEntry(value), parseEntryTimestamps);
+}
+
+/**
+ * Parse one per-intent store file's text (the commit-queue-intent surface),
+ * with the strict timestamp check of {@link parseStrictCommitQueueEntry}.
  */
 export function parseCommitQueueIntentText(
   text: string,
   label: string,
 ): Result<CollaborationCommitQueueEntry, Error> {
-  return flatMap(parseJsonTextResult(text, label), (value) =>
-    flatMap(parseCommitQueueEntry(value), parseEntryTimestamps),
-  );
+  return flatMap(parseJsonTextResult(text, label), parseStrictCommitQueueEntry);
 }
 
 function parseEntryTimestamps(

@@ -18,7 +18,7 @@ import {
   isCommitQueueEntryLive,
   writeCommitQueueEntry,
 } from './commit-queue-store.js';
-import { parseCommitQueueEntry } from './registry-entry-parser.js';
+import { parseStrictCommitQueueEntry } from './registry-entry-parser.js';
 import { activeClaimsWriteValidator } from './state-io-write-validators.js';
 import { runJsonStateTransaction, writeJsonFileWithinTransaction } from './transaction.js';
 import { ACTIVE_CLAIMS_SCHEMA_VERSION, type CollaborationCommitQueueEntry } from './types.js';
@@ -79,7 +79,7 @@ function planLegacyActiveClaimsMigration(input: {
     // Queue-row parse failures carry the file path, matching the store's
     // path-labelled convention: this failure names a machine-local file the
     // operator must find, and the parser's message alone does not say which.
-    const entries = collect(Array.from(commitQueue, parseCommitQueueEntry));
+    const entries = collect(Array.from(commitQueue, parseStrictCommitQueueEntry));
     if (!entries.ok) {
       return err(new Error(`${input.path} commit_queue: ${entries.error.message}`));
     }
