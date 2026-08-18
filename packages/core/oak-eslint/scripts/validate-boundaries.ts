@@ -46,6 +46,31 @@ function readWorkspacePackageNames(relativeDir: string): string[] {
     .map((packageJsonPath) => readPackageName(packageJsonPath));
 }
 
+/**
+ * Pack-relative paths of every file under packDir, skipping node_modules
+ * and dot-entries (local tool artefacts, not pack content) — the input the
+ * pure anatomy check enforces the data-only invariant over.
+ */
+function listPackFiles(packDir: string): string[] {
+  const files: string[] = [];
+  const walk = (dir: string, prefix: string): void => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      if (entry.name.startsWith('.') || entry.name === 'node_modules') {
+        continue;
+      }
+      const relativePath = prefix === '' ? entry.name : `${prefix}/${entry.name}`;
+      if (entry.isDirectory()) {
+        walk(resolve(dir, entry.name), relativePath);
+      } else if (entry.isFile()) {
+        files.push(relativePath);
+      }
+    }
+  };
+  walk(packDir, '');
+
+  return files;
+}
+
 function readIdentityPackTier(): {
   tierExists: boolean;
   entries: IdentityPackTierEntry[];
@@ -65,19 +90,21 @@ function readIdentityPackTier(): {
     )
     .map((entry) => {
       const packageJsonPath = resolve(tierDir, entry.name, 'package.json');
+      const files = listPackFiles(resolve(tierDir, entry.name));
 
       if (!existsSync(packageJsonPath)) {
-        return { directoryName: entry.name, packageJson: undefined };
+        return { directoryName: entry.name, packageJson: undefined, files };
       }
 
       try {
         const packageJson: unknown = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
 
-        return { directoryName: entry.name, packageJson };
+        return { directoryName: entry.name, packageJson, files };
       } catch (error) {
         return {
           directoryName: entry.name,
           packageJson: undefined,
+          files,
           parseFailure: error instanceof Error ? error.message : String(error),
         };
       }

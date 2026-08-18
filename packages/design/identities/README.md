@@ -21,13 +21,21 @@ structure:
 - the tier directory exists (a rename must fail loud, never silently
   shrink the checked surface — this tier has no `package.json`, so the
   package-keyed workspace scans cannot see it);
-- every child **directory** (local tool artefacts — dot-directories and
+- every child **directory** (local tool artefacts — dot-entries and
   `node_modules` — excluded) is a pack workspace named
   `@oaknational/identity-pack-<directory>`, `"private": true`, with a
-  non-empty `license` declaration and **no `scripts`** (packs are
+  non-blank `license` declaration and **no `scripts`** (packs are
   data-only, on the `oak-design-assets` precedent, and contribute
   nothing to the task graph); a malformed pack `package.json` is a
-  located finding, never a bare crash.
+  located finding, never a bare crash;
+- every file a pack carries fits the **permitted anatomy** — a closed
+  shape: manifest/data JSON, authored CSS, docs, licence surfaces, and
+  vendored assets (fonts and images). Source or executable code, tool
+  configuration, and any file class the permitted set has never
+  admitted are refused by default — a new class enters by amending the
+  set deliberately, never by omission. This is what makes the
+  data-only invariant (and the depth note below) machine-checked
+  rather than doctrinal.
 
 Pack specifiers stay out of the lint framework by mechanism, not by
 discipline: `createDesignSiblingZones` accepts only

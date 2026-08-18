@@ -42,6 +42,14 @@ export interface IdentityPackTierEntry {
   /** Parsed package.json content, or undefined when the directory has none. */
   readonly packageJson: unknown;
   /**
+   * Pack-relative paths of every file in the pack (`node_modules` and
+   * dot-entries excluded — those are local tool artefacts, not pack
+   * content). The anatomy check runs over this listing, so a pack's
+   * data-only invariant is enforced on contents, never inferred from the
+   * absence of a `scripts` field alone.
+   */
+  readonly files: readonly string[];
+  /**
    * Set when the directory HAS a package.json that could not be parsed —
    * the third input state, distinct from absent and from parsed, so a
    * malformed manifest becomes a located finding rather than a bare crash.
@@ -107,11 +115,96 @@ function checkPackEntry(entry: IdentityPackTierEntry): readonly string[] {
     );
   }
 
-  if (typeof packageJson['license'] !== 'string' || packageJson['license'].length === 0) {
+  if (typeof packageJson['license'] !== 'string' || packageJson['license'].trim().length === 0) {
     failures.push(
-      `${location} must declare a "license" field — each identity pack carries its own licence surface.`,
+      `${location} must declare a non-blank "license" field — each identity pack carries its own licence surface.`,
     );
   }
 
+  failures.push(...checkPackAnatomy(location, entry.files));
+
   return failures;
+}
+
+/**
+ * The permitted pack anatomy — a closed shape (tier README §Tier
+ * invariants). Data-only means manifest/data JSON, authored CSS, docs,
+ * licence surfaces, and vendored assets; source, executables, tool
+ * configuration, and any file class this list has never admitted are
+ * refused by default rather than admitted by omission.
+ */
+const PERMITTED_FILE_EXTENSIONS: ReadonlySet<string> = new Set([
+  'json',
+  'css',
+  'md',
+  'txt',
+  'svg',
+  'png',
+  'webp',
+  'avif',
+  'jpg',
+  'jpeg',
+  'gif',
+  'ico',
+  'woff',
+  'woff2',
+  'ttf',
+  'otf',
+]);
+
+const PERMITTED_EXTENSIONLESS_BASENAMES: ReadonlySet<string> = new Set([
+  'LICENSE',
+  'LICENCE',
+  'NOTICE',
+]);
+
+const SOURCE_FILE_EXTENSIONS: ReadonlySet<string> = new Set([
+  'ts',
+  'tsx',
+  'js',
+  'jsx',
+  'mjs',
+  'cjs',
+  'mts',
+  'cts',
+  'sh',
+]);
+
+const REFUSED_CONFIG_BASENAMES =
+  /^(?:eslint\.config\..+|tsconfig(?:\..+)?\.json|turbo\.json|vite\.config\..+|vitest\.config\..+|playwright\.config\..+)$/;
+
+function checkPackAnatomy(location: string, files: readonly string[]): readonly string[] {
+  return files.flatMap((file) => {
+    const basename = file.split('/').at(-1) ?? file;
+    const dotIndex = basename.lastIndexOf('.');
+    const extension = dotIndex > 0 ? basename.slice(dotIndex + 1).toLowerCase() : undefined;
+
+    if (REFUSED_CONFIG_BASENAMES.test(basename)) {
+      return [
+        `${location}/${file} is tool configuration. Identity packs carry no build, lint, or ` +
+          'test configuration — packs are data-only workspaces outside the task graph.',
+      ];
+    }
+
+    if (extension !== undefined && SOURCE_FILE_EXTENSIONS.has(extension)) {
+      return [
+        `${location}/${file} is source or executable code. Data-only packs refuse source as a ` +
+          "shape error (see the tier README's boundary-zone depth note): packs carry no ESLint " +
+          'config, so source here would bypass the boundary rules entirely.',
+      ];
+    }
+
+    if (
+      (extension !== undefined && PERMITTED_FILE_EXTENSIONS.has(extension)) ||
+      PERMITTED_EXTENSIONLESS_BASENAMES.has(basename)
+    ) {
+      return [];
+    }
+
+    return [
+      `${location}/${file} is outside the permitted pack anatomy (manifest/data JSON, authored ` +
+        'CSS, docs, licence surfaces, vendored assets). The anatomy is a closed shape: a new ' +
+        'file class enters by amending the permitted set deliberately, never by omission.',
+    ];
+  });
 }

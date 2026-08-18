@@ -58,7 +58,23 @@ const validPackJson: Record<string, unknown> = {
   license: 'SEE LICENSE IN LICENCES.md',
 };
 
-function packIn(directoryName: string, overrides: Record<string, unknown>): IdentityPackTierEntry {
+// A complete data-only anatomy: manifest/data JSON, authored CSS, docs,
+// licence surface, vendored assets.
+const dataOnlyFiles: readonly string[] = [
+  'package.json',
+  'manifest.json',
+  'brand.css',
+  'README.md',
+  'LICENCE',
+  'assets/logo.svg',
+  'fonts/display.woff2',
+];
+
+function packIn(
+  directoryName: string,
+  overrides: Record<string, unknown>,
+  files: readonly string[] = dataOnlyFiles,
+): IdentityPackTierEntry {
   return {
     directoryName,
     packageJson: {
@@ -66,6 +82,7 @@ function packIn(directoryName: string, overrides: Record<string, unknown>): Iden
       name: `@oaknational/identity-pack-${directoryName}`,
       ...overrides,
     },
+    files,
   };
 }
 
@@ -103,7 +120,7 @@ describe('checkIdentityPackTier', () => {
   );
 
   it('refuses a tier child with no package.json — every child is a pack workspace', () => {
-    const report = reportFor([{ directoryName: 'stray-dir', packageJson: undefined }]);
+    const report = reportFor([{ directoryName: 'stray-dir', packageJson: undefined, files: [] }]);
 
     expect(report).toContain('packages/design/identities/stray-dir');
     expect(report).toContain('package.json');
@@ -114,6 +131,7 @@ describe('checkIdentityPackTier', () => {
       {
         directoryName: 'tango',
         packageJson: undefined,
+        files: ['package.json'],
         parseFailure: 'Unexpected token } in JSON at position 40',
       },
     ]);
@@ -126,7 +144,7 @@ describe('checkIdentityPackTier', () => {
   it.each([null, 'a string', 42])(
     'refuses a package.json that parses to a non-object (%j), locating the pack',
     (parsed) => {
-      const report = reportFor([{ directoryName: 'tango', packageJson: parsed }]);
+      const report = reportFor([{ directoryName: 'tango', packageJson: parsed, files: [] }]);
 
       expect(report).toContain('packages/design/identities/tango');
       expect(report).toContain('not an object');
@@ -150,11 +168,39 @@ describe('checkIdentityPackTier', () => {
     expect(report).toContain('packages/design/identities/tango');
   });
 
-  it('refuses a pack whose license declaration is an empty string', () => {
-    const report = reportFor([packIn('tango', { license: '' })]);
+  it.each(['', '   '])(
+    'refuses a pack whose license declaration is empty or whitespace-only (%j)',
+    (license) => {
+      const report = reportFor([packIn('tango', { license })]);
 
-    expect(report).toContain('license');
+      expect(report).toContain('license');
+      expect(report).toContain('packages/design/identities/tango');
+    },
+  );
+
+  it('refuses a source-bearing pack — data-only is enforced on contents, not the scripts field', () => {
+    const report = reportFor([packIn('tango', {}, [...dataOnlyFiles, 'src/index.ts'])]);
+
+    expect(report).toContain('src/index.ts');
     expect(report).toContain('packages/design/identities/tango');
+  });
+
+  it('refuses a pack carrying tool configuration, naming the file', () => {
+    const report = reportFor([packIn('tango', {}, [...dataOnlyFiles, 'eslint.config.js'])]);
+
+    expect(report).toContain('eslint.config.js');
+    expect(report).toContain('packages/design/identities/tango');
+  });
+
+  it('refuses a file class the closed anatomy has never admitted, naming the file', () => {
+    const report = reportFor([packIn('tango', {}, [...dataOnlyFiles, 'pipeline.yaml'])]);
+
+    expect(report).toContain('pipeline.yaml');
+    expect(report).toContain('packages/design/identities/tango');
+  });
+
+  it('passes a pack whose contents are exactly the permitted data-only anatomy', () => {
+    expect(checkIdentityPackTier(true, [packIn('tango', {}, dataOnlyFiles)])).toEqual([]);
   });
 
   it('refuses a pack with no license declaration — each pack carries its own licence surface', () => {
@@ -166,6 +212,7 @@ describe('checkIdentityPackTier', () => {
           version: '0.0.0-development',
           private: true,
         },
+        files: [...dataOnlyFiles],
       },
     ]);
 
@@ -184,7 +231,7 @@ describe('checkIdentityPackTier', () => {
 
   it('reports faults across entries — each offending pack is located in the report', () => {
     const report = reportFor([
-      { directoryName: 'stray-dir', packageJson: undefined },
+      { directoryName: 'stray-dir', packageJson: undefined, files: [] },
       packIn('delta', { private: false }),
     ]);
 
