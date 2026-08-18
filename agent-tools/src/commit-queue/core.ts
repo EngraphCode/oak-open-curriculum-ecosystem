@@ -3,7 +3,6 @@ import { createHash } from 'node:crypto';
 import {
   isActiveCommitQueuePhase,
   type CommitIntent,
-  type CommitQueueClaim,
   type CommitQueuePhase,
   type CommitQueueRegistry,
 } from './types.js';
@@ -89,12 +88,14 @@ export function completeCommitIntent(input: {
   return {
     ...input.registry,
     commit_queue: input.registry.commit_queue.filter((entry) => entry.intent_id !== input.intentId),
-    claims: input.registry.claims.map((claim) => clearClaimIntent(claim, input.intentId)),
   };
 }
 
 /**
- * Append a new commit intent and point the owning claim at it.
+ * Append a new commit intent. Claim rows are never touched: the store entry
+ * carries claim_id, so no claims-file pointer exists to strand if a write
+ * dies between the claims file and the per-intent store (crash-atomicity by
+ * construction, not by ordering).
  */
 export function enqueueCommitIntent(input: {
   readonly registry: CommitQueueRegistry;
@@ -103,11 +104,6 @@ export function enqueueCommitIntent(input: {
   return {
     ...input.registry,
     commit_queue: [...input.registry.commit_queue, input.intent],
-    claims: input.registry.claims.map((claim) =>
-      claim.claim_id === input.intent.claim_id
-        ? { ...claim, intent_to_commit: input.intent.intent_id }
-        : claim,
-    ),
   };
 }
 
@@ -214,15 +210,6 @@ function verifyFingerprint(input: {
   }
 
   return { ok: true, fingerprint };
-}
-
-function clearClaimIntent(claim: CommitQueueClaim, intentId: string): CommitQueueClaim {
-  if (claim.intent_to_commit !== intentId) {
-    return claim;
-  }
-  const { intent_to_commit: removedIntent, ...rest } = claim;
-
-  return removedIntent === undefined ? claim : rest;
 }
 
 function updateIntentPhase(

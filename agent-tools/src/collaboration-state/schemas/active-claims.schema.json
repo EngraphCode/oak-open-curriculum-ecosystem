@@ -147,8 +147,8 @@
         "intent_to_commit": {
           "type": "string",
           "format": "uuid",
-          "$comment_provenance": "First-principles. Convenience pointer; the root commit_queue remains authoritative for queue ordering and lifecycle.",
-          "description": "Optional pointer to this claim's current entry in the root commit_queue. The queue owns ordering and lifecycle."
+          "$comment_provenance": "First-principles. Formerly a convenience pointer duplicating the store entry's claim_id linkage; no longer written since the MCP-612 crash-atomicity cure (a claims-file pointer to a store file could strand if a write died between the two).",
+          "description": "Legacy-preserved pointer no longer written by any live writer: queue linkage is the store entry's claim_id. Present only on rows written before the MCP-612 cure; preserved via the claim-row spread contract until the claim closes."
         },
         "archived_at": {
           "type": "string",

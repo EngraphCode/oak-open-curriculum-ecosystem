@@ -78,7 +78,6 @@ export interface CollaborationClaim {
   readonly role?: string;
   readonly intent: string;
   readonly notes?: string;
-  readonly intent_to_commit?: string;
   /**
    * Optional repo-root-relative pointer to a mid-cycle handoff record under
    * `.agent/state/collaboration/handoffs/` (PDR-063 step 3 + ADR-182). Presence

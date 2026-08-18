@@ -223,7 +223,10 @@ describe('runCommitWorkflow — successful commit landing', () => {
     expect(calls.gitCommitCalls.current).toBe(1);
   });
 
-  it('clears the queued intent_to_commit field on the owning claim when the commit lands so the claim is ready for closure', async () => {
+  it('leaves the owning claim row untouched when the commit lands, preserving legacy content', async () => {
+    // The fixture claim carries a legacy intent_to_commit pointer; queue
+    // operations no longer edit claim rows, so a landed commit must leave
+    // the row exactly as it found it (claim-row preservation contract).
     const holder = holderFor(initialRegistry());
     const { deps } = fakeDeps({
       holder,
@@ -233,8 +236,7 @@ describe('runCommitWorkflow — successful commit landing', () => {
     await runCommitWorkflow({ intentId, deps });
 
     const claim = holder.current.claims.find((entry) => entry.claim_id === claimId);
-    expect(claim).toBeDefined();
-    expect(claim?.intent_to_commit).toBeUndefined();
+    expect(claim).toStrictEqual(gitClaim());
   });
 });
 

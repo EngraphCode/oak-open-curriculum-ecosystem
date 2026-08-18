@@ -82,7 +82,6 @@ export interface CommitQueueClaim extends JsonObject {
   readonly claim_id: string;
   readonly agent_id?: CommitQueueClaimAgentId;
   readonly areas?: readonly CommitQueueClaimArea[];
-  readonly intent_to_commit?: string;
 }
 
 /**

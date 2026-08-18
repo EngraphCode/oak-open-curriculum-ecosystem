@@ -203,7 +203,9 @@ describe('commit-queue directory-backed views', () => {
     expect(stored).toMatchObject({ intent_id: INTENT.intent_id, phase: 'staging' });
   });
 
-  it('complete deletes the intent file and clears the claim pointer only', async () => {
+  it('complete deletes the intent file and leaves the claim row untouched', async () => {
+    // The legacy pointer is preserved content: queue operations no longer
+    // edit claim rows, so complete must leave the row exactly as found.
     const claimWithPointer = { ...CLAIM, intent_to_commit: INTENT.intent_id };
     await writeText(
       activePath,
@@ -228,7 +230,7 @@ describe('commit-queue directory-backed views', () => {
     const written: unknown = JSON.parse(await readText(activePath));
     expect(written).toStrictEqual({
       schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
-      claims: [CLAIM],
+      claims: [claimWithPointer],
     });
   });
 
@@ -260,8 +262,9 @@ describe('commit-queue directory-backed views', () => {
     expect(files).toContain('44444444-4444-4444-8444-444444444444.json');
     const claimsFile: unknown = JSON.parse(await readText(activePath));
     expect(JSON.stringify(claimsFile)).not.toContain('commit_queue');
-    expect(claimsFile).toMatchObject({
-      claims: [{ ...CLAIM, intent_to_commit: '44444444-4444-4444-8444-444444444444' }],
+    expect(claimsFile).toStrictEqual({
+      schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
+      claims: [CLAIM],
     });
   });
 });
