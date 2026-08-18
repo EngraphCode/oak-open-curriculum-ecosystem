@@ -66,8 +66,14 @@ publicity is far worse than before.
   (new); recurrence recorded on `patterns/turbo-cache-false-green.md`; three
   classes in the napkin.
 - **Formation letter**: `.agent/experience/2026-08-13-wildfire-holds-quench-*`.
-- **Owner-liaison seat**: reconstitutes from `SEAT-BRIEF.md` on
-  `chore/owner-liaison` (`e24629a93`).
+- **Owner-liaison seat — LIVE as of 2026-08-18, do NOT reconstitute a new one.**
+  **Raven turns Nocturne** (`0aad1a`), claim `81fae3c8`, role `liaison`, worktree
+  `oak-owner-liaison` on branch `chore/owner-liaison`. It is the single channel to MG:
+  owner-facing items route to it, never direct. Its `SEAT-BRIEF.md` is the
+  reconstitution path **only if no liaison is live** — check the claims registry first
+  (`claims list`), and remember a STALE row does not mean a dead seat when heartbeats
+  are suspended. The brief's own Director pointer was stale until corrected 2026-08-18;
+  re-check it before trusting any seat pointer in it.
 
 ## State at wrap, 2026-08-17 evening (Skunk stirs Cavern, `db8b9b`) — SUPERSEDED IN PART
 
