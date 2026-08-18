@@ -1,5 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
+import { z } from 'zod';
+
 import { commitQueueEntryExpiresAt } from '../collaboration-state/commit-queue-store.js';
 import { collaborationAgentIdWriteSchema } from '../collaboration-state/types.js';
 
@@ -46,7 +48,13 @@ export function createIntent(options: CommitQueueCliOptions): CommitIntent {
   };
 }
 
+// The intent_id becomes the per-intent store FILENAME, so a caller-supplied
+// value validates at this boundary (strict-validation-at-boundary): the
+// store-write validator's uuid format check also refuses, but only by step
+// order — an invalid id must never reach path construction at all.
+const intentIdSchema = z.uuid();
+
 function optionOrRandomId(options: CommitQueueCliOptions): string {
   const intentId = options['intent-id'];
-  return typeof intentId === 'string' ? intentId : randomUUID();
+  return typeof intentId === 'string' ? intentIdSchema.parse(intentId) : randomUUID();
 }

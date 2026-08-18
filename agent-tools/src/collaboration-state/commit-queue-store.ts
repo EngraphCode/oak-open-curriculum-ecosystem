@@ -87,7 +87,10 @@ export async function readCommitQueueEntry(input: {
 
 /**
  * Create or rewrite one intent file atomically, sweeping expired peers first
- * (the lazy sweep every write operation owes). `expires_at` is recomputed
+ * (the lazy sweep every write operation owes). Callers MUST hold the claims
+ * file's transaction lock: the locked claim-open gate's composite read is
+ * correct by construction only while every store writer contends on that
+ * one lock (today: updateRegistry and the legacy migration — keep it so). `expires_at` is recomputed
  * from the entry's `updated_at` so the stored derivative can never disagree
  * with the TTL clock.
  */

@@ -85,7 +85,7 @@ describe('updateRegistry — a failed store write cannot strand claims-file stat
         (registry) => enqueueCommitIntent({ registry, intent: INTENT }),
         NOW,
       ),
-    ).rejects.toThrow();
+    ).rejects.toThrow(/EACCES.*commit-queue/);
 
     // No claims-file residue may reference the intent whose store file was
     // never created: the enqueue either lands whole or leaves no trace.

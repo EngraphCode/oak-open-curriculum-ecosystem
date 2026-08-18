@@ -55,6 +55,35 @@ function secondsAfter(iso: string, seconds: number): string {
   return new Date(Date.parse(iso) + seconds * 1000).toISOString();
 }
 
+describe('commit-queue per-intent store — write validation backstop', () => {
+  let root: string;
+  let queueDir: string;
+
+  beforeEach(async () => {
+    root = await makeTempDirectory('oak-commit-queue-store-validate-');
+    queueDir = join(root, 'commit-queue');
+  });
+
+  afterEach(async () => {
+    await removeDirectory(root);
+  });
+
+  it('refuses to write an entry whose intent_id is not a UUID, creating no file', async () => {
+    // The schema's uuid format on intent_id is the write validator's own
+    // refusing leg (the CLI boundary refuses earlier): prove the backstop
+    // bites so neither leg silently becomes the only one.
+    await expect(
+      writeCommitQueueEntry({
+        queueDir,
+        entry: entry({ intent_id: 'not-a-uuid' }),
+        nowIso: NOW,
+      }),
+    ).rejects.toThrow(/uuid|format/i);
+
+    expect(await listEntries(queueDir)).toStrictEqual([]);
+  });
+});
+
 describe('commit-queue per-intent store', () => {
   let root: string;
   let queueDir: string;
