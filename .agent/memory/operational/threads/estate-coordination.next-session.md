@@ -753,3 +753,35 @@ RESUME MAP, priority order:
   output to an untracked scratch log; background pushes carry the
   push's OWN exit code — a `; echo` wrapper false-greened one failed
   push this morning and the log told the truth.
+
+## 2026-08-18 ~13:5xZ — RESUME COMPLETE (Ocelot binds Tunnel, c28ad9): #899 merged and folded back; #905 routed; instruments green
+
+Seat resumed post-compaction at owner word (~12:4xZ). Instruments
+re-armed per the canonical recipes and verified (F-95 both gates;
+registry read-back; the watcher's hourly-backstop recycle at ~13:5xZ
+re-armed on the exit notification). Freeze-map disposition:
+
+- (d→done) #889 MERGED 09:22:47Z `daf56ccad` under both OVN-2 riders —
+  absorbed from Poppy's correction `57167e44`; nothing remains.
+- (c→routed) #905 five-finding verification+cure round routed to Poppy
+  (directive `3eda8a27`, absorption ack in full; verify-first contract,
+  QUEUE-LOCAL legacy-use grading on finding 3, MCP-620 support standby
+  keeps precedence). Post-merge acceptances 2+3 stay on this board.
+- (b→done) #899: mantagen round 3 (two blockers) cured at `eaa75e6e7`
+  (fold step 9 single-BASE resolution; probabilistic sha6 wording in
+  the cut skill + both adapters; carrier sweep clean), dismissed at
+  honest cure, round 4 APPROVED binding the tip, MERGED `791266135`
+  via merge-bot (an external stop killed the first settle run; owner
+  card answered "merge now"). Round-4 tally: zero findings. The
+  fold-skill step-9 delegation-form question is RESOLVED-BY-CURE:
+  step 9 carries the single-resolution block inline plus the pointer.
+- Coordination main-merge `386d3b7e9`: one conflict (fold skill),
+  resolved to main's four-round-reviewed step 9 (the coordination-side
+  interim hand-patch it superseded carried no unique substance);
+  marker-probed both directions; dist rebuilt green after the merge.
+- (a unchanged) Yarrow: feedback-fold relay still pending; three-push
+  queue + node resume order stand. Nothing owed from this seat.
+
+Instruments live at this write: canonical watcher (bqzj6q3kt),
+heartbeat pair, F-75 delta poll, design ARC tail. Next wakes: round
+report from Poppy (#905), Yarrow relay, owner word.
