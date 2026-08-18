@@ -79,8 +79,19 @@ it out.
 
 The shared start-right workflow
 ([`start-right-quick/shared/start-right.md`](../skills/start-right-quick/shared/start-right.md))
-points every session here during grounding. That is the single tracked pointer;
-adding more would duplicate it.
+points every session here during grounding. That is the single tracked *read*
+pointer; adding another would duplicate it.
+
+## Where it sits in the authority order
+
+Below every tracked surface. The tier is placed in the layering contract at
+[`orientation.md` §The Operator-Local Profile Tier](../directives/orientation.md#the-operator-local-profile-tier),
+which is authoritative on the position: a local binding or preference never
+overrides tracked doctrine, an ADR, a PDR, a rule, or an active plan, and the
+only thing that displaces tracked governance is a current owner direction — the
+owner speaking now, not a local note of something the owner once said. What
+this tier *is* authoritative on is the machine-local binding a tracked surface
+deliberately declines to name.
 
 ## Shape
 
