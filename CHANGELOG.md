@@ -1,3 +1,10 @@
+# [1.173.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.172.2...v1.173.0) (2026-08-18)
+
+
+### Features
+
+* **agent-tools:** coordination successor-name mints collision-safe branch names ([fc028cb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/fc028cba2a48885c3b99b5f7adf4b3bd1cd135b9))
+
 ## [1.172.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.172.1...v1.172.2) (2026-08-18)
 
 ## [1.172.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.172.0...v1.172.1) (2026-08-18)
