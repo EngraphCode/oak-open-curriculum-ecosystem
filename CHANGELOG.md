@@ -1,3 +1,24 @@
+## [1.172.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.172.1...v1.172.2) (2026-08-18)
+
+## [1.172.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.172.0...v1.172.1) (2026-08-18)
+
+# [1.172.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.171.0...v1.172.0) (2026-08-18)
+
+
+### Bug Fixes
+
+* **agent-tools:** cure the seven PR-889 Sonar issues; refresh stale census facts ([2b05e16](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2b05e164e61eb6f4a40184a7998ab033b4ea4c6f))
+* **workspace-census:** drop false root edges, make facts parity byte-exact ([a62c8d5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a62c8d5f0affd44f4526119fcb332fb056765027))
+* **workspace-census:** review-round cures — every current-tip thread discharged ([a16b95e](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a16b95e094fb3e08735d3792eea49f276488e97d))
+
+
+### Features
+
+* **agent-tools:** census judged pass complete — matrix rendered, 2026-04-28 superseded ([c33c6c4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c33c6c4ac1d22357e21749ec580b630772fc9139))
+* **agent-tools:** manifest arm ii-b lands — plugin surface is census subject 44 ([c4aed89](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c4aed89baa3b0b1b84cc48e87a4697fbddc520b1))
+* **agent-tools:** workspace-census detector-fact sweep (facts subcommand) ([ebb2624](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/ebb26243f28b42699e78f9e738e61d65127459d3))
+* **agent-tools:** workspace-census enumeration and validation instrument ([1bac643](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1bac64392e91a8730b9d61498028fdd8697aa4df))
+
 # [1.171.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.170.5...v1.171.0) (2026-08-17)
 
 
