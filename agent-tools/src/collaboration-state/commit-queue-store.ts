@@ -190,9 +190,23 @@ async function listIntentFilenames(queueDir: string): Promise<readonly string[]>
     throw failure;
   }
 
-  return filenames
-    .filter((filename) => filename.endsWith('.json'))
-    .toSorted((left, right) => left.localeCompare(right));
+  return filenames.filter((filename) => filename.endsWith('.json')).toSorted(compareCodeUnits);
+}
+
+/**
+ * Deterministic UTF-16 code-unit ordering: `localeCompare` collates via the
+ * host's ICU configuration, and the store's order must not vary by machine.
+ * The domain here (UUID filenames and ids: lowercase hex + hyphens) collates
+ * identically either way — this pins the determinism, it changes nothing.
+ */
+function compareCodeUnits(left: string, right: string): number {
+  if (left < right) {
+    return -1;
+  }
+  if (left > right) {
+    return 1;
+  }
+  return 0;
 }
 
 function compareQueueOrder(
@@ -203,5 +217,5 @@ function compareQueueOrder(
   if (byQueuedAt !== 0) {
     return byQueuedAt;
   }
-  return left.intent_id.localeCompare(right.intent_id);
+  return compareCodeUnits(left.intent_id, right.intent_id);
 }
