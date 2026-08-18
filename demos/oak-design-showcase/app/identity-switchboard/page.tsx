@@ -29,18 +29,23 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 
-import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
-import { IdentityRadioGroup } from '../../components/IdentityRadioGroup';
+import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
 import { LabelledSelect } from '../../components/LabelledSelect';
-import { useIdentity } from '../../components/brand-identity-binding';
+import { ShowcaseBreadcrumbs } from '../../components/ShowcaseBreadcrumbs';
 import {
   SWITCHBOARD_CANVAS_WIDTH,
   VIEWPORT_WIDTHS,
   VIEWPORT_WIDTH_LABELS,
 } from '../../components/canonical-widths';
 import { useScaledViewport } from '../../components/useScaledViewport';
-import { BASE_IDENTITY, IDENTITY_LABELS, type IdentitySlug } from '../../components/useIdentity';
-import { THEME_LABELS, THEME_OPTIONS, useFrameTheme } from './useFrameTheme';
+import {
+  BASE_IDENTITY,
+  IDENTITY_BLURBS,
+  IDENTITY_LABELS,
+  type IdentitySlug,
+} from '../../components/useIdentity';
+import { THEME_LABELS, isPickerTheme } from './useFrameTheme';
+import { useFrameObservedState } from './useFrameObservedState';
 
 import './picker.css';
 
@@ -48,79 +53,48 @@ import './picker.css';
  *  sees is the unbranded kit and every brand is arrived at by transition. */
 const FRAME_SRC = `/identity-switchboard/specimen?brand=${BASE_IDENTITY}`;
 
-/** W3 controls v2 (rulings R9 + R12): identity is the radio group — the
- *  arrow-key traversal is the demonstration — while theme (six values)
- *  and width (seven) stay selects. One flex row that wraps at narrow;
- *  the chrome is secondary to the stage by owner word 2026-08-18. */
+/** Controls v3 (owner word 2026-08-18): the embedded page owns its own
+ *  identity and theme controls in its utility strip, so the parent chrome
+ *  is WIDTH ONLY — the one thing the frame cannot set about itself — plus
+ *  the observed status, the current identity's one-line blurb, and the
+ *  full-page link, all ABOVE the stage. Status, blurb and link derive
+ *  from the OBSERVED frame state, never the frame's frozen `src` (see the
+ *  module comment) and never parent-owned state that could disagree with
+ *  the document the viewer is looking at. */
 function PickerControls({
   identity,
-  identities,
-  setIdentity,
   theme,
-  setTheme,
   width,
   setWidth,
 }: {
   readonly identity: IdentitySlug;
-  readonly identities: readonly IdentitySlug[];
-  readonly setIdentity: (value: string) => void;
-  readonly theme: OakThemeSnapshot;
-  readonly setTheme: (value: string) => void;
+  readonly theme: string | null;
   readonly width: number;
   readonly setWidth: (value: string) => void;
 }): ReactElement {
+  const observed = theme ?? IDENTITY_DEFAULT;
+  const themeLabel = isPickerTheme(observed) ? THEME_LABELS[observed] : observed;
   return (
     <div className="picker-controls">
-      <IdentityRadioGroup
-        idPrefix="picker"
-        identity={identity}
-        identities={identities}
-        labels={IDENTITY_LABELS}
-        onChange={setIdentity}
+      <LabelledSelect
+        id="picker-width-select"
+        label="Width"
+        value={`${width}`}
+        options={VIEWPORT_WIDTHS.map((value) => `${value}`)}
+        labels={VIEWPORT_WIDTH_LABELS}
+        onChange={setWidth}
       />
-      <div className="oak-cluster picker-secondary">
-        <LabelledSelect
-          id="picker-theme-select"
-          label="Theme"
-          value={theme}
-          options={THEME_OPTIONS}
-          labels={THEME_LABELS}
-          onChange={setTheme}
-        />
-        <LabelledSelect
-          id="picker-width-select"
-          label="Width"
-          value={`${width}`}
-          options={VIEWPORT_WIDTHS.map((value) => `${value}`)}
-          labels={VIEWPORT_WIDTH_LABELS}
-          onChange={setWidth}
-        />
+      <div className="picker-context">
+        <p aria-live="polite" className="oak-body-3 picker-status">
+          Showing {IDENTITY_LABELS[identity]} · {themeLabel} ·{' '}
+          {VIEWPORT_WIDTH_LABELS[`${width}`] ?? `${width} px`}
+          {' — '}
+          <a className="oak-link" href={`/identity-switchboard/specimen?brand=${identity}`}>
+            open as a full page
+          </a>
+        </p>
+        <p className="oak-body-3 picker-blurb">{IDENTITY_BLURBS[identity]}</p>
       </div>
-    </div>
-  );
-}
-
-/** The stage's caption: the live status plus the full-page link, wrapping
- *  by kit cluster default at narrow widths. The link derives from CONTROL
- *  STATE, never the frame's `src` (see the module comment). */
-function PickerCaption({
-  identity,
-  theme,
-  width,
-}: {
-  readonly identity: IdentitySlug;
-  readonly theme: OakThemeSnapshot;
-  readonly width: number;
-}): ReactElement {
-  return (
-    <div className="oak-cluster picker-caption">
-      <p aria-live="polite" className="oak-body-3 picker-status">
-        Showing {IDENTITY_LABELS[identity]} · {THEME_LABELS[theme]} ·{' '}
-        {VIEWPORT_WIDTH_LABELS[`${width}`] ?? `${width} px`}
-      </p>
-      <a className="oak-link oak-body-2" href={`/identity-switchboard/specimen?brand=${identity}`}>
-        Open this identity as a full page
-      </a>
     </div>
   );
 }
@@ -186,6 +160,7 @@ function useFrameWidth(): { readonly width: number; readonly setWidth: (value: s
 function PickerHead(): ReactElement {
   return (
     <header className="oak-region oak-container picker-head">
+      <ShowcaseBreadcrumbs trail={[{ label: 'Showcase', href: '/' }, { label: 'Switchboard' }]} />
       <div className="oak-cluster picker-head-line">
         <h1 className="oak-heading-6">One page, any identity</h1>
         <p className="oak-body-3 picker-lede">
@@ -199,8 +174,7 @@ function PickerHead(): ReactElement {
 
 export default function IdentityPickerPage(): ReactElement {
   const { frameRef, resolveTarget, markReady } = useSpecimenFrame();
-  const { identity, identities, setIdentity } = useIdentity(resolveTarget);
-  const { theme, setTheme } = useFrameTheme(resolveTarget);
+  const { identity, theme } = useFrameObservedState(resolveTarget);
   const { width, setWidth } = useFrameWidth();
   const stageRef = useRef<HTMLDivElement>(null);
   useScaledViewport(stageRef, frameRef, width);
@@ -215,15 +189,7 @@ export default function IdentityPickerPage(): ReactElement {
           keyboard blackout). data-region pins main to the canvas map's
           1fr main row instead of auto-placing into the masthead row. */}
       <main id="main" className="oak-main oak-region oak-container" data-region="main">
-        <PickerControls
-          identity={identity}
-          identities={identities}
-          setIdentity={setIdentity}
-          theme={theme}
-          setTheme={setTheme}
-          width={width}
-          setWidth={setWidth}
-        />
+        <PickerControls identity={identity} theme={theme} width={width} setWidth={setWidth} />
 
         <div ref={stageRef} className="picker-stage">
           <iframe
@@ -233,8 +199,6 @@ export default function IdentityPickerPage(): ReactElement {
             onLoad={markReady}
           />
         </div>
-
-        <PickerCaption identity={identity} theme={theme} width={width} />
       </main>
     </div>
   );

@@ -31,51 +31,27 @@
   margin: 0;
 }
 
-/* W3 controls v2: identity radio group leads; theme + width selects
-   trail and wrap below it at narrow. Gaps stay on the semantic tier so
-   the brand density knob moves this chrome with everything else.
-   Narrow-first: the base rules make theme + width SHARE one row (the
-   two selects flex equally and clip their long option text) so the
-   chrome stays under half the screenful and the stage keeps the
-   majority; the wide band relaxes them to natural width. */
+/* Controls v3 (owner word 2026-08-18): the frame's strip owns identity
+   and theme, so this row is width + the observed context (status with
+   the full-page link, and the current identity's blurb). Width leads,
+   context fills the remainder and wraps under it at narrow. Gaps stay on
+   the semantic tier so the brand density knob moves this chrome with
+   everything else. */
 [data-page='identity-picker'] .picker-controls {
   display: flex;
   flex-wrap: wrap;
   gap: var(--gap-s) var(--gap-l);
   align-items: flex-end;
-  justify-content: space-between;
   padding-block-end: var(--inset-s);
 }
 
-[data-page='identity-picker'] .picker-secondary {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: var(--gap-s);
-  inline-size: 100%;
-}
-
-[data-page='identity-picker'] .picker-secondary > * {
-  flex: 1 1 0;
+[data-page='identity-picker'] .picker-context {
+  flex: 1 1 var(--space-360);
   min-inline-size: 0;
 }
 
-[data-page='identity-picker'] .picker-secondary .oak-select {
-  inline-size: 100%;
-  min-inline-size: 0;
-}
-
-@media (min-width: 960px) {
-  [data-page='identity-picker'] .picker-secondary {
-    inline-size: auto;
-  }
-
-  [data-page='identity-picker'] .picker-secondary > * {
-    flex: 0 0 auto;
-  }
-
-  [data-page='identity-picker'] .picker-secondary .oak-select {
-    inline-size: auto;
-  }
+[data-page='identity-picker'] .picker-context p {
+  margin: 0;
 }
 
 /* The caption under the stage: live status + the full-page link,

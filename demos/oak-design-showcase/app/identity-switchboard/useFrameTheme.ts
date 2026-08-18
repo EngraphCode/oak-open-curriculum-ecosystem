@@ -33,7 +33,7 @@ export const THEME_LABELS: Readonly<Record<OakThemeSnapshot, string>> = {
 
 export const THEME_OPTIONS: readonly OakThemeSnapshot[] = typeSafeKeys(THEME_LABELS);
 
-function isPickerTheme(value: string): value is OakThemeSnapshot {
+export function isPickerTheme(value: string): value is OakThemeSnapshot {
   const names: readonly string[] = THEME_OPTIONS;
   return names.includes(value);
 }
@@ -55,7 +55,7 @@ function isPickerTheme(value: string): value is OakThemeSnapshot {
  *  by the early return — the DOM queues a mutation record even for a
  *  same-value attribute write, so the divergence guard is what
  *  terminates the observer's correction cycle. */
-function applyFrameTheme(root: HTMLElement, theme: OakThemeSnapshot): void {
+export function applyFrameTheme(root: HTMLElement, theme: OakThemeSnapshot): void {
   const prefersMoreContrast =
     root.ownerDocument.defaultView?.matchMedia('(prefers-contrast: more)').matches === true;
   // The identity-default face still honours an OS contrast request — the

@@ -37,7 +37,7 @@ test.describe('picker: OS contrast and the access commitment', () => {
     const { aborted, frame } = opened;
     await expect.poll(async () => frameThemeAttribute(frame)).toBe('high-contrast');
     await chooseThemeAndExpectInEffect(page, frame, 'dark');
-    await page.getByRole('combobox', { name: 'Theme' }).selectOption(IDENTITY_DEFAULT);
+    await frame.getByRole('combobox', { name: 'Theme' }).selectOption(IDENTITY_DEFAULT);
     await expect.poll(async () => frameThemeAttribute(frame)).toBe('high-contrast');
     assertOnlyKnownExternalOrigins(aborted);
   });

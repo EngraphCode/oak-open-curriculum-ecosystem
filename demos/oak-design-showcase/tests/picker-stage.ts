@@ -78,11 +78,14 @@ export async function expectSameDocument(
 /** The chosen theme is IN EFFECT inside the frame: the framed document's
  *  computed color-scheme resolves to it, not merely the attribute string. */
 export async function chooseThemeAndExpectInEffect(
-  page: Page,
+  _page: Page,
   frame: Frame,
   theme: string,
 ): Promise<void> {
-  await page.getByRole('combobox', { name: 'Theme' }).selectOption(theme);
+  // Controls v3 (owner word 2026-08-18): theme lives in the FRAME's own
+  // strip; the parent chrome is width only. The page param stays for the
+  // call-shape shared with the width helper.
+  await frame.getByRole('combobox', { name: 'Theme' }).selectOption(theme);
   await expect
     .poll(
       async () => frame.evaluate(() => getComputedStyle(document.documentElement).colorScheme),

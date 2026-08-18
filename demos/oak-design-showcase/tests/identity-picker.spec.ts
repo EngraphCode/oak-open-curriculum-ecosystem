@@ -15,7 +15,7 @@
  * imported roster, which keeps the identity-naming census untouched.
  */
 import { expect, test } from '@playwright/test';
-import type { Page } from '@playwright/test';
+import type { Frame, Page } from '@playwright/test';
 
 import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
 import { SWITCHBOARD_CANVAS_WIDTH } from '../components/canonical-widths';
@@ -36,8 +36,9 @@ const COUNTER_BRANDS = IDENTITIES.filter((slug) => slug !== BASE_IDENTITY);
  *  dated amendment 2026-08-11 — the frame shows each identity's own
  *  first-visit face) and the export switchboard's own framed canvas, so
  *  the two demos read identically side by side. */
-async function expectRuledDefaults(page: Page): Promise<void> {
-  await expect(page.getByRole('combobox', { name: 'Theme' })).toHaveValue(IDENTITY_DEFAULT);
+async function expectRuledDefaults(page: Page, frame: Frame): Promise<void> {
+  // Controls v3: theme rides the frame's own strip; width is the parent's.
+  await expect(frame.getByRole('combobox', { name: 'Theme' })).toHaveValue(IDENTITY_DEFAULT);
   await expect(page.getByRole('combobox', { name: 'Width' })).toHaveValue(
     `${SWITCHBOARD_CANVAS_WIDTH}`,
   );
@@ -56,17 +57,18 @@ test.describe('picker: every control is an in-place change', () => {
     if (firstCounterBrand === undefined) {
       return;
     }
-    // W3 controls v2: identity is a native radio group, not a combobox.
-    await page.getByRole('radio', { name: IDENTITY_LABELS[firstCounterBrand] ?? '' }).check();
+    // Controls v3: the identity radio group lives in the FRAME's strip.
+    await frame.getByRole('radio', { name: IDENTITY_LABELS[firstCounterBrand] ?? '' }).check();
 
     await expectBrandInEffect(frame, firstCounterBrand, baseFont);
     await expectSameDocument(frame, stage, mountSrc);
 
     // The external link derives from CONTROL state — the frame's frozen src
     // would name the mount identity and send the viewer somewhere else.
-    await expect(
-      page.getByRole('link', { name: 'Open this identity as a full page' }),
-    ).toHaveAttribute('href', `/identity-switchboard/specimen?brand=${firstCounterBrand}`);
+    await expect(page.getByRole('link', { name: 'open as a full page' })).toHaveAttribute(
+      'href',
+      `/identity-switchboard/specimen?brand=${firstCounterBrand}`,
+    );
     assertOnlyKnownExternalOrigins(aborted);
   });
 
@@ -77,7 +79,7 @@ test.describe('picker: every control is an in-place change', () => {
     }
     const { aborted, stage, frame, mountSrc } = opened;
 
-    await expectRuledDefaults(page);
+    await expectRuledDefaults(page, frame);
 
     await chooseThemeAndExpectInEffect(page, frame, 'dark');
 
@@ -116,7 +118,7 @@ test.describe('picker: identity default is the frame’s own face', () => {
 
     // Choosing Identity default clears the frame's theme state in place:
     // the same document returns to its own face.
-    await page.getByRole('combobox', { name: 'Theme' }).selectOption(IDENTITY_DEFAULT);
+    await frame.getByRole('combobox', { name: 'Theme' }).selectOption(IDENTITY_DEFAULT);
     await expect
       .poll(async () =>
         frame.evaluate(() => getComputedStyle(document.documentElement).colorScheme),
@@ -143,11 +145,11 @@ test.describe('picker: W3 controls v2', () => {
       return;
     }
 
-    await page.getByRole('radio', { name: IDENTITY_LABELS[BASE_IDENTITY] ?? '' }).focus();
+    await frame.getByRole('radio', { name: IDENTITY_LABELS[BASE_IDENTITY] ?? '' }).focus();
     await page.keyboard.press('ArrowRight');
 
     await expect(
-      page.getByRole('radio', { name: IDENTITY_LABELS[nextIdentity] ?? '' }),
+      frame.getByRole('radio', { name: IDENTITY_LABELS[nextIdentity] ?? '' }),
     ).toBeChecked();
     await expectBrandInEffect(frame, nextIdentity, baseFont);
     assertOnlyKnownExternalOrigins(aborted);

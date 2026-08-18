@@ -22,6 +22,11 @@ export interface IdentityRadioGroupProps {
   /** Strip variant: legend and help text stay in the accessibility tree but
    *  leave the visual row — the radios' own labels carry the sighted story. */
   readonly compact?: boolean;
+  /** The group's name; defaults to the identity axis this component was
+   *  built for. The composition demo reuses the same one-control shape for
+   *  its layout and theme axes. */
+  readonly legend?: string;
+  readonly helpText?: string;
 }
 
 export function IdentityRadioGroup({
@@ -31,12 +36,14 @@ export function IdentityRadioGroup({
   labels,
   onChange,
   compact = false,
+  legend = 'Identity',
+  helpText = 'Arrow keys switch identity instantly.',
 }: IdentityRadioGroupProps): ReactElement {
   const helpId = `${idPrefix}-identity-help`;
   const quietClass = compact ? ' oak-visually-hidden' : '';
   return (
     <fieldset className="identity-radios" aria-describedby={helpId}>
-      <legend className={`oak-body-3${quietClass}`}>Identity</legend>
+      <legend className={`oak-body-3${quietClass}`}>{legend}</legend>
       <div className="oak-cluster oak-cluster--s identity-radio-row">
         {identities.map((slug) => (
           <label key={slug} className="oak-choice oak-body-2">
@@ -55,7 +62,7 @@ export function IdentityRadioGroup({
         ))}
       </div>
       <p id={helpId} className={`oak-body-3 identity-help${quietClass}`}>
-        Arrow keys switch identity instantly.
+        {helpText}
       </p>
     </fieldset>
   );

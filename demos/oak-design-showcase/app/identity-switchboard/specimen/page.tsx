@@ -20,7 +20,7 @@
  * a pure presentational function over design-system classes; the app-local
  * class names carry layout only, in `specimen.css`, tokens-only.
  */
-import { BASE_IDENTITY, resolveIdentity } from '../../../components/useIdentity';
+import { BASE_IDENTITY, resolveIdentity, type IdentitySlug } from '../../../components/useIdentity';
 
 import { DetailRegion } from './detail';
 import { FacetsRegion } from './facets';
@@ -37,11 +37,11 @@ import './specimen.css';
  *  anything, so their space now holds small identity radios and the theme
  *  select — a deliberate divergence from the export reference, carried in
  *  the fidelity register. */
-function UtilityRegion(): React.JSX.Element {
+function UtilityRegion({ identity }: { readonly identity: IdentitySlug }): React.JSX.Element {
   return (
     <div className="oak-region util" data-region="utility">
       <div className="oak-container oak-cluster oak-cluster--s util-inner">
-        <StripControls />
+        <StripControls initialIdentity={identity} />
       </div>
     </div>
   );
@@ -112,12 +112,20 @@ export default async function SpecimenPage({
 }: {
   readonly searchParams: Promise<Record<string, string | string[] | undefined>>;
 }): Promise<React.JSX.Element> {
-  const identity = resolveIdentity((await searchParams)['brand']);
+  const params = await searchParams;
+  const identity = resolveIdentity(params['brand']);
+  // Exhibit mode (`?controls=none`): the side-by-side page frames this route
+  // three-up with the PARENT owning theme and width, so the strip's own
+  // controls would be noise repeated per frame (owner word 2026-08-18).
+  const showControls = params['controls'] !== 'none';
 
   return (
     <>
+      {/* data-oak-brand marks the sheet for client-side ADOPTION: the strip's
+          binder takes ownership at mount so a later switch manages this link
+          instead of stranding it beneath every hook-created sheet. */}
       {identity === BASE_IDENTITY ? null : (
-        <link rel="stylesheet" href={`/brands/${identity}/brand.css`} />
+        <link rel="stylesheet" data-oak-brand={identity} href={`/brands/${identity}/brand.css`} />
       )}
       {/* The skip link sits BEFORE the canvas, not inside it: the kit's
           reading-flow: grid-rows enhancement on .oak-canvas sorts an
@@ -141,19 +149,27 @@ export default async function SpecimenPage({
           put a negative tabindex on a direct child of .oak-canvas or
           .oak-main. */}
       <div className="oak-canvas oak-scope" data-page="unit" data-identity={identity}>
-        <UtilityRegion />
-        <MastheadRegion />
-        <main id="main" className="oak-main oak-region" data-region="main">
-          <HeroRegion />
-          <FacetsRegion />
-          <ResultsRegion />
-          <DetailRegion />
-          <ResourcesRegion />
-          <SupportRegion />
-          <CtaRegion />
-        </main>
-        <FooterRegion />
+        {showControls ? <UtilityRegion identity={identity} /> : null}
+        <SpecimenBody />
       </div>
+    </>
+  );
+}
+
+function SpecimenBody(): React.JSX.Element {
+  return (
+    <>
+      <MastheadRegion />
+      <main id="main" className="oak-main oak-region" data-region="main">
+        <HeroRegion />
+        <FacetsRegion />
+        <ResultsRegion />
+        <DetailRegion />
+        <ResourcesRegion />
+        <SupportRegion />
+        <CtaRegion />
+      </main>
+      <FooterRegion />
     </>
   );
 }

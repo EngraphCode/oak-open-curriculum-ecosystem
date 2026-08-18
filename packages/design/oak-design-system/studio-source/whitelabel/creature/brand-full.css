@@ -355,6 +355,11 @@
   content: '';
   position: absolute;
   inset: 0;
+  /* Negative layer: the visible glow spreads OUTSIDE the box while the
+     plate itself paints behind the band's own background — so nothing
+     overlaps the band's text (axe's bgOverlap class caught the plate
+     sitting over content at 320px). */
+  z-index: -1;
   border-radius: inherit;
   box-shadow: var(--glow-decorative-5);
   opacity: 0.35;

@@ -34,22 +34,71 @@
 }
 
 /* The strip's real controls (owner word 2026-08-18): radios lead, the
-   theme select gathers right; the row wraps at narrow. Inverted-surface
-   legibility rides the strip's own re-pointed link/focus tokens above. */
+   theme select gathers right, and the whole strip is STICKY — the cure
+   for the arrow-key scroll reset (focusing an offscreen radio scrolls it
+   into view; a control that is always in view never needs the scroll).
+   Sticky forces ONE known row: the controls never wrap (in-container
+   horizontal scroll is the very-narrow escape), so the mast below can
+   stack its own stickiness under a stable strip height. The separator is
+   guaranteed here structurally (owner point: it vanished on PDS and at
+   narrow when it rode identity re-pointing alone). */
+[data-page='unit'] .util {
+  position: sticky;
+  inset-block-start: 0;
+  /* The kit's sticky layer, same as the mast: the two never overlap by
+     geometry (the mast's offset equals the strip's one-row height), so
+     no arithmetic above the token is needed. */
+  z-index: var(--layer-sticky);
+  border-block-end: var(--border-solid-s) solid var(--border-primary);
+}
+[data-page='unit'] .util-inner {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
 [data-page='unit'] .strip-controls {
   inline-size: 100%;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: var(--space-8) var(--gap-m);
 }
 
-/* The kit's .oak-choice pins --text-primary, which is the PAGE ground's
-   pairing — on this inverted strip it lands light-on-light (measured
-   under the EMC² dark face). The strip's controls inherit the strip's
-   own audited inverted colour instead. */
+/* Theme label sits LEFT of its select (owner point 2): the labelled
+   cluster must not wrap inside the one-row strip — and neither may the
+   crumbs, whose internal wrapping at 320px once grew the strip past the
+   mast's sticky offset and slid the mast over the radios (the reflow
+   cell's bgOverlap catch). One row, in-container scroll at the floor. */
+[data-page='unit'] .strip-controls > .oak-cluster,
+[data-page='unit'] .strip-controls .showcase-crumbs {
+  flex-wrap: nowrap;
+}
+
+[data-page='unit'] .strip-controls .showcase-crumbs-nav,
+[data-page='unit'] .strip-controls .identity-radios {
+  /* Rigid, never shrink-to-overlap: the shared .identity-radios reset
+     allows min-inline-size 0 (right for the picker's wrapping chrome),
+     but inside this one-row scrolling strip a shrunken fieldset lets its
+     radios overflow under the theme cluster (the reflow cells' bgOverlap
+     catch, all three identities). */
+  flex: 0 0 auto;
+}
+
+/* The mast's stickiness stacks BELOW the strip: one strip row at the
+   kit's target height plus its block padding and rule. */
+[data-page='unit'] .mast {
+  inset-block-start: calc(var(--size-target) + var(--space-16) + var(--border-solid-s));
+}
+
+/* The kit's .oak-choice pins --text-primary, and the crumb pattern pins
+   --text-subdued — both are PAGE-ground pairings that land low-contrast
+   on this inverted strip (measured: choice labels light-on-light under
+   the EMC² dark face; crumb separators 2.2:1 grey-on-black under Oak).
+   Everything in the strip inherits the strip's own audited inverted
+   colour instead. */
 [data-page='unit'] .util .oak-choice,
-[data-page='unit'] .util .strip-controls label {
+[data-page='unit'] .util .strip-controls label,
+[data-page='unit'] .util .showcase-crumbs li:not(:last-child)::after,
+[data-page='unit'] .util .showcase-crumbs .here {
   color: inherit;
 }
 

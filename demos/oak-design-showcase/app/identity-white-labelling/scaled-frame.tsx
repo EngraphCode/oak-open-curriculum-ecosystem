@@ -14,39 +14,47 @@
 import { useEffect, useRef } from 'react';
 import type { ReactElement } from 'react';
 
+import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
+import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
+
 import { DEFAULT_VIEWPORT_WIDTH } from '../../components/canonical-widths';
 import { useScaledViewport } from '../../components/useScaledViewport';
+import { applyFrameTheme } from '../identity-switchboard/useFrameTheme';
 
-/** Drop any persisted theme attribute from a framed document so the
- *  columns stay comparable at page default. A module-level function: the
- *  mutation targets the frame's own document, outside React's state. */
-function dropPersistedTheme(root: HTMLElement | undefined): void {
-  if (root !== undefined) {
-    delete root.dataset['theme'];
+/** Apply the parent-owned theme to a framed document, keyed on the
+ *  specimen's identity mark so about:blank does not count as loaded. At
+ *  identity default this also DROPS any persisted attribute, keeping the
+ *  columns comparable — the original comparability rule, now one case of
+ *  the parent's theme governing every frame (owner word 2026-08-18). */
+function applyStageTheme(doc: Document | null | undefined, theme: OakThemeSnapshot): void {
+  if (doc?.querySelector('[data-identity]')) {
+    applyFrameTheme(doc.documentElement, theme);
   }
 }
 
 export function ScaledFrame({
   src,
   title,
+  theme = IDENTITY_DEFAULT,
+  width = DEFAULT_VIEWPORT_WIDTH,
 }: {
   readonly src: string;
   readonly title: string;
+  /** Parent-owned, stage-local — never the frame's own runtime store. */
+  readonly theme?: OakThemeSnapshot;
+  /** The simulated viewport width every column shares. */
+  readonly width?: number;
 }): ReactElement {
   const stageRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  useScaledViewport(stageRef, iframeRef, DEFAULT_VIEWPORT_WIDTH);
+  useScaledViewport(stageRef, iframeRef, width);
 
   // The load event can beat hydration (see the picker's useSpecimenFrame);
-  // this mount-time probe covers the already-loaded case, keyed on the
-  // specimen's identity mark so about:blank does not count as loaded —
-  // without it a persisted theme survives in every column on a dev server.
+  // this effect covers the already-loaded case and re-applies on every
+  // parent theme change.
   useEffect(() => {
-    const doc = iframeRef.current?.contentDocument;
-    if (doc?.querySelector('[data-identity]')) {
-      dropPersistedTheme(doc.documentElement);
-    }
-  }, []);
+    applyStageTheme(iframeRef.current?.contentDocument, theme);
+  }, [theme]);
 
   return (
     <div ref={stageRef} className="frame">
@@ -55,7 +63,7 @@ export function ScaledFrame({
         src={src}
         title={title}
         onLoad={() => {
-          dropPersistedTheme(iframeRef.current?.contentDocument?.documentElement);
+          applyStageTheme(iframeRef.current?.contentDocument, theme);
         }}
       />
     </div>
