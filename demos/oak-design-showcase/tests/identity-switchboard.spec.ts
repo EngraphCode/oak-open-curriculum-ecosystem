@@ -126,17 +126,20 @@ test.describe('specimen: keyboard and state semantics', () => {
     expect(Number.parseFloat(cure.scrollPadding)).toBeGreaterThan(0);
   });
 
-  test('the current audience is marked, and not by colour alone', async ({ page }) => {
+  test('the strip carries the real identity control: one radio group, exactly one checked', async ({
+    page,
+  }) => {
+    // Owner word 2026-08-18: the decorative audience switcher gave its
+    // strip space to the page's real controls. Native radio semantics ARE
+    // the not-by-colour-alone state exposure — the checked dot survives
+    // forced-colors — and single-select means exactly one checked.
     await interceptExternalOrigins(page);
     await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}`);
-    const audience = page.locator('nav[aria-label="Audience"]');
-    await expect(audience.locator('a[aria-current="true"]')).toHaveCount(1);
-    // The non-colour marker: computed weight separates current from not —
-    // a distinction forced-colors cannot erase.
-    const weights = await audience.evaluate((nav) =>
-      [...nav.querySelectorAll('a')].map((anchor) => getComputedStyle(anchor).fontWeight),
-    );
-    expect(new Set(weights).size).toBeGreaterThan(1);
+    const strip = page.locator('[data-region="utility"]');
+    const radios = strip.getByRole('radio');
+    await expect(radios).toHaveCount(IDENTITIES.length);
+    await expect(strip.locator('input[type="radio"]:checked')).toHaveCount(1);
+    await expect(radios.nth(0)).toBeChecked();
   });
 });
 

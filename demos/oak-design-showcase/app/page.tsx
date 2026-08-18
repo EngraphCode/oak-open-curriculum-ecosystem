@@ -13,6 +13,16 @@ function DemoDoors(): ReactElement {
   return (
     <div className="oak-container doors">
       <article className="oak-card oak-stack door">
+        <h2 className="oak-heading-4">One page, side by side</h2>
+        <p className="oak-body-2">
+          Every frame renders the same specimen page &mdash; only the identity sheet changes. Any
+          difference you see is the token contract doing its job.
+        </p>
+        <Link className="oak-btn door-btn" href="/identity-white-labelling">
+          Open the side-by-side demo
+        </Link>
+      </article>
+      <article className="oak-card oak-stack door">
         <h2 className="oak-heading-4">Identity and theme switching</h2>
         <p className="oak-body-2">
           One page of markup, many faces. Switch the identity and the theme live &mdash; the tokens
@@ -30,16 +40,6 @@ function DemoDoors(): ReactElement {
         </p>
         <Link className="oak-btn door-btn" href="/composition">
           Open the composition demo
-        </Link>
-      </article>
-      <article className="oak-card oak-stack door">
-        <h2 className="oak-heading-4">One page, side by side</h2>
-        <p className="oak-body-2">
-          Every frame renders the same specimen page &mdash; only the identity sheet changes. Any
-          difference you see is the token contract doing its job.
-        </p>
-        <Link className="oak-btn door-btn" href="/identity-white-labelling">
-          Open the side-by-side demo
         </Link>
       </article>
       <article className="oak-card oak-stack door">

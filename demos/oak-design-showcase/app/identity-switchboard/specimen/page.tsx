@@ -24,6 +24,7 @@ import { BASE_IDENTITY, resolveIdentity } from '../../../components/useIdentity'
 
 import { DetailRegion } from './detail';
 import { FacetsRegion } from './facets';
+import { StripControls } from './StripControls';
 import { FooterRegion } from './footer';
 import { HeroRegion } from './hero';
 import { ResourcesRegion } from './resources';
@@ -31,33 +32,16 @@ import { ResultsRegion } from './results';
 import { CtaRegion, SupportRegion } from './support';
 import './specimen.css';
 
+/** The strip carries the page's REAL controls (owner word 2026-08-18): the
+ *  earlier decorative audience switcher and help-centre link never did
+ *  anything, so their space now holds small identity radios and the theme
+ *  select — a deliberate divergence from the export reference, carried in
+ *  the fidelity register. */
 function UtilityRegion(): React.JSX.Element {
   return (
     <div className="oak-region util" data-region="utility">
       <div className="oak-container oak-cluster oak-cluster--s util-inner">
-        <span className="oak-body-3">You are viewing the</span>
-        {/* The audience switcher is a set with one current member, so it
-            keeps aria-current — with the value `true`, not `page`: teacher
-            and pupil are audiences, not pages (a11y review ruling). The
-            current one also carries a visible non-colour marker in CSS. */}
-        <nav aria-label="Audience">
-          <ul className="oak-cluster oak-cluster--s nav-list audience-list">
-            <li>
-              <a className="oak-link oak-body-3" href="#main" aria-current="true">
-                teacher
-              </a>
-            </li>
-            <li>
-              <a className="oak-link oak-body-3" href="#main">
-                pupil
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <span className="oak-body-3">experience</span>
-        <a className="oak-link oak-body-3 push" href="#main">
-          Help centre
-        </a>
+        <StripControls />
       </div>
     </div>
   );

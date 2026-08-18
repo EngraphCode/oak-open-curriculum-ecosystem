@@ -160,19 +160,24 @@
      are garnish on containers only — text pairings stay on their flat
      audited grounds. High-contrast nulls every glow below; forced-colors
      drops shadows natively, so no forced-color-adjust is needed. */
-  --glow-accent: 0 0 28px 4px color-mix(in oklab, var(--color-accent) 55%, transparent);
-  --glow-decorative-1: 0 0 26px 3px
-    color-mix(in oklab, var(--surface-decorative-1) 60%, transparent);
-  --glow-decorative-2: 0 0 26px 3px
-    color-mix(in oklab, var(--surface-decorative-2) 60%, transparent);
-  --glow-decorative-3: 0 0 26px 3px
-    color-mix(in oklab, var(--surface-decorative-3) 60%, transparent);
-  --glow-decorative-4: 0 0 26px 3px
-    color-mix(in oklab, var(--surface-decorative-4) 60%, transparent);
-  --glow-decorative-5: 0 0 30px 4px
-    color-mix(in oklab, var(--surface-decorative-5) 65%, transparent);
-  --glow-decorative-6: 0 0 26px 3px
-    color-mix(in oklab, var(--surface-decorative-6) 60%, transparent);
+  --glow-accent: 0 0 36px 6px color-mix(in oklab, var(--color-accent) 65%, transparent);
+  --glow-decorative-1: 0 0 34px 4px
+    color-mix(in oklab, var(--surface-decorative-1) 70%, transparent);
+  --glow-decorative-2: 0 0 34px 4px
+    color-mix(in oklab, var(--surface-decorative-2) 70%, transparent);
+  --glow-decorative-3: 0 0 34px 4px
+    color-mix(in oklab, var(--surface-decorative-3) 70%, transparent);
+  --glow-decorative-4: 0 0 34px 4px
+    color-mix(in oklab, var(--surface-decorative-4) 70%, transparent);
+  --glow-decorative-5: 0 0 40px 6px
+    color-mix(in oklab, var(--surface-decorative-5) 75%, transparent);
+  --glow-decorative-6: 0 0 34px 4px
+    color-mix(in oklab, var(--surface-decorative-6) 70%, transparent);
+  /* 8c. BEVELS - the 3D feel beyond buttons: cards and tags are solid
+     toys with a lit top edge and a weighted base (the same rgba
+     light/ink recipe as --btn-shadow). High-contrast re-points the
+     consuming stacks to its own ink set. */
+  --card-bevel: inset 0 2px 0 rgba(255, 255, 255, 0.14), inset 0 -3px 0 rgba(0, 0, 0, 0.32);
   /* Atmosphere — DIAGONAL nebulas + corner glows (all deep under white text) */
   --surface-page-image:
     linear-gradient(
@@ -190,7 +195,9 @@
   );
   /* 9. Component form — gummy sweets, never lozenges */
   --tag-border: var(--border-solid-m) solid var(--border-primary);
-  --tag-shadow: 3px 4px 0 0 var(--color-accent);
+  --tag-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35), inset 0 -2px 0 rgba(0, 0, 0, 0.18),
+    3px 4px 0 0 var(--color-accent);
   --tag-pad: var(--space-4) var(--space-16);
   /* Icon roles → Material Symbols Rounded filled SVG URLs (Apache 2.0,
      jsDelivr @material-symbols/svg-600) — shared markup resolves to the
@@ -352,7 +359,11 @@
   box-shadow: var(--glow-decorative-5);
   opacity: 0.35;
   pointer-events: none;
-  animation: emc2-breathe var(--motion-loop) ease-in-out infinite alternate;
+  /* Round 2 (owner word): the aurora breathes AND sways — opacity plus a
+     slow drift of the glow plate itself, both compositor-friendly. */
+  animation:
+    emc2-breathe var(--motion-loop) ease-in-out infinite alternate,
+    emc2-sway calc(var(--motion-loop) * 3) ease-in-out infinite alternate;
 }
 .oak-scope [data-region='cta']::after {
   box-shadow: var(--glow-accent);
@@ -360,10 +371,18 @@
 }
 @keyframes emc2-breathe {
   from {
-    opacity: 0.25;
+    opacity: 0.2;
   }
   to {
-    opacity: 0.8;
+    opacity: 0.95;
+  }
+}
+@keyframes emc2-sway {
+  from {
+    transform: translate(-6px, -2px);
+  }
+  to {
+    transform: translate(6px, 3px);
   }
 }
 
@@ -409,13 +428,16 @@
    vestibular ruling): nothing here animates on attribute change, only on
    hover/active/focus. */
 .oak-scope .oak-card {
+  /* Round 2: cards are bevelled toys — lit top edge, weighted base —
+     composed under the candy shadow at rest and the reward at hover. */
+  box-shadow: var(--card-bevel), var(--shadow-accent);
   transition:
     transform var(--motion-quick) var(--ease-standard),
     box-shadow var(--motion-quick) var(--ease-standard);
 }
 .oak-scope .oak-card:hover {
   transform: translate(-2px, -3px) rotate(-0.4deg);
-  box-shadow: var(--shadow-accent-raised);
+  box-shadow: var(--card-bevel), var(--shadow-accent-raised);
 }
 .oak-scope .oak-choice {
   transition:
@@ -425,6 +447,31 @@
 .oak-scope .oak-choice:hover {
   transform: translateX(4px);
   box-shadow: var(--glow-decorative-1);
+}
+.oak-scope .oak-choice:active {
+  transform: translateX(4px) scale(0.98);
+}
+/* Checking a radio pops like pressing a toy button — a FINITE animation on
+   motion tokens, so the collapse makes it imperceptible under reduce with
+   no loop arm needed. */
+.oak-scope .oak-radio:checked {
+  animation: emc2-pop var(--motion-base) var(--ease-standard);
+}
+@keyframes emc2-pop {
+  0% {
+    transform: scale(0.85);
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/* The sticky masthead wears the accent as a neon halo — the arcade sign
+   over the shelf. The glow token nulls itself in high contrast. */
+.oak-scope [data-region='masthead'] {
+  box-shadow: var(--glow-accent);
 }
 
 /* The loop arms — the kit's .oak-skeleton idiom, both axes. Transitions

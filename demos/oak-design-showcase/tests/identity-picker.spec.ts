@@ -19,7 +19,7 @@ import type { Page } from '@playwright/test';
 
 import { IDENTITY_DEFAULT } from '@oaknational/oak-design-react';
 import { SWITCHBOARD_CANVAS_WIDTH } from '../components/canonical-widths';
-import { BASE_IDENTITY, IDENTITIES } from '../components/useIdentity';
+import { BASE_IDENTITY, IDENTITIES, IDENTITY_LABELS } from '../components/useIdentity';
 import { MEASUREMENT_WIDTH_VALUES } from '../tools/measurement-widths';
 import { assertOnlyKnownExternalOrigins } from './apply-state';
 import {
@@ -56,7 +56,8 @@ test.describe('picker: every control is an in-place change', () => {
     if (firstCounterBrand === undefined) {
       return;
     }
-    await page.getByRole('combobox', { name: 'Identity' }).selectOption(firstCounterBrand);
+    // W3 controls v2: identity is a native radio group, not a combobox.
+    await page.getByRole('radio', { name: IDENTITY_LABELS[firstCounterBrand] ?? '' }).check();
 
     await expectBrandInEffect(frame, firstCounterBrand, baseFont);
     await expectSameDocument(frame, stage, mountSrc);
@@ -124,5 +125,48 @@ test.describe('picker: identity default is the frame’s own face', () => {
 
     await expectSameDocument(frame, stage, mountSrc);
     assertOnlyKnownExternalOrigins(aborted);
+  });
+});
+
+test.describe('picker: W3 controls v2', () => {
+  /** The arrow press IS the demonstration (R12): one tab stop, arrows move
+   *  AND select, each press re-skins the frame — gated, not assumed. */
+  test('an arrow key press on the identity radio re-skins the frame', async ({ page }) => {
+    const opened = await openPickerStage(page);
+    if (opened === null) {
+      return;
+    }
+    const { aborted, frame, baseFont } = opened;
+    const nextIdentity = IDENTITIES[(IDENTITIES.indexOf(BASE_IDENTITY) + 1) % IDENTITIES.length];
+    expect(nextIdentity, 'the roster holds more than one identity').toBeDefined();
+    if (nextIdentity === undefined) {
+      return;
+    }
+
+    await page.getByRole('radio', { name: IDENTITY_LABELS[BASE_IDENTITY] ?? '' }).focus();
+    await page.keyboard.press('ArrowRight');
+
+    await expect(
+      page.getByRole('radio', { name: IDENTITY_LABELS[nextIdentity] ?? '' }),
+    ).toBeChecked();
+    await expectBrandInEffect(frame, nextIdentity, baseFont);
+    assertOnlyKnownExternalOrigins(aborted);
+  });
+
+  /** Stage dominance (owner word 2026-08-18): at 390px the specimen stage
+   *  occupies the majority of the first screenful. */
+  test('the stage owns the majority of the first screenful at 390px', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 780 });
+    const opened = await openPickerStage(page);
+    if (opened === null) {
+      return;
+    }
+    const stageBox = await opened.stage.boundingBox();
+    expect(stageBox, 'the stage renders').not.toBeNull();
+    if (stageBox === null) {
+      return;
+    }
+    const visibleStage = Math.min(stageBox.y + stageBox.height, 780) - Math.max(stageBox.y, 0);
+    expect(visibleStage).toBeGreaterThan(780 / 2);
   });
 });

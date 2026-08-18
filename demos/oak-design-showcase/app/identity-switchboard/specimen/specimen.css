@@ -33,6 +33,26 @@
   padding-block: var(--space-8);
 }
 
+/* The strip's real controls (owner word 2026-08-18): radios lead, the
+   theme select gathers right; the row wraps at narrow. Inverted-surface
+   legibility rides the strip's own re-pointed link/focus tokens above. */
+[data-page='unit'] .strip-controls {
+  inline-size: 100%;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--gap-m);
+}
+
+/* The kit's .oak-choice pins --text-primary, which is the PAGE ground's
+   pairing — on this inverted strip it lands light-on-light (measured
+   under the EMC² dark face). The strip's controls inherit the strip's
+   own audited inverted colour instead. */
+[data-page='unit'] .util .oak-choice,
+[data-page='unit'] .util .strip-controls label {
+  color: inherit;
+}
+
 /* The audience pair reads "teacher · pupil": the dot is presentation, so
    it lives here rather than as markup in the (list-marked) nav; each item
    spaces its own separator, mirroring the crumbs pattern. */

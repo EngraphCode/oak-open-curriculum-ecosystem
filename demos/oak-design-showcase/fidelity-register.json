@@ -126,6 +126,20 @@
       "rationale": "Owner wishlist axis 4 (MCP-620): more movement on interactions. Hover/active/focus only - the identity/theme switch itself stays instantaneous (W3 vestibular ruling); durations ride the motion tokens so the reduced-motion collapse stills them; 44px targets untouched.",
       "author": "design-lane-implementer",
       "date": "2026-08-18"
+    },
+    {
+      "id": "global/mcp-620-strip-real-controls",
+      "pairId": "global",
+      "kind": "feature",
+      "summary": "The specimen utility strip carries real identity radios and the theme select instead of the export reference decorative audience switcher and help-centre link.",
+      "evidence": [
+        "app/identity-switchboard/specimen/StripControls.tsx",
+        "app/identity-switchboard/specimen/page.tsx"
+      ],
+      "disposition": "deliberate",
+      "rationale": "Owner word 2026-08-18: the specimen page needs its own SMALL controls in the top black header and the audience/help chrome never did anything. Identity re-skins the host document via the no-arg binder; theme rides the kit runtime; the W3 radio pattern is shared so the estate has one control shape; 44px targets hold (small means visually quiet, never short).",
+      "author": "design-lane-implementer",
+      "date": "2026-08-18"
     }
   ]
 }

@@ -30,6 +30,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 
 import type { OakThemeSnapshot } from '@oaknational/oak-design-react';
+import { IdentityRadioGroup } from '../../components/IdentityRadioGroup';
 import { LabelledSelect } from '../../components/LabelledSelect';
 import { useIdentity } from '../../components/brand-identity-binding';
 import {
@@ -47,6 +48,10 @@ import './picker.css';
  *  sees is the unbranded kit and every brand is arrived at by transition. */
 const FRAME_SRC = `/identity-switchboard/specimen?brand=${BASE_IDENTITY}`;
 
+/** W3 controls v2 (rulings R9 + R12): identity is the radio group — the
+ *  arrow-key traversal is the demonstration — while theme (six values)
+ *  and width (seven) stay selects. One flex row that wraps at narrow;
+ *  the chrome is secondary to the stage by owner word 2026-08-18. */
 function PickerControls({
   identity,
   identities,
@@ -65,31 +70,32 @@ function PickerControls({
   readonly setWidth: (value: string) => void;
 }): ReactElement {
   return (
-    <div className="oak-grid picker-controls">
-      <LabelledSelect
-        id="picker-identity-select"
-        label="Identity"
-        value={identity}
-        options={identities}
+    <div className="picker-controls">
+      <IdentityRadioGroup
+        idPrefix="picker"
+        identity={identity}
+        identities={identities}
         labels={IDENTITY_LABELS}
         onChange={setIdentity}
       />
-      <LabelledSelect
-        id="picker-theme-select"
-        label="Theme"
-        value={theme}
-        options={THEME_OPTIONS}
-        labels={THEME_LABELS}
-        onChange={setTheme}
-      />
-      <LabelledSelect
-        id="picker-width-select"
-        label="Width"
-        value={`${width}`}
-        options={VIEWPORT_WIDTHS.map((value) => `${value}`)}
-        labels={VIEWPORT_WIDTH_LABELS}
-        onChange={setWidth}
-      />
+      <div className="oak-cluster picker-secondary">
+        <LabelledSelect
+          id="picker-theme-select"
+          label="Theme"
+          value={theme}
+          options={THEME_OPTIONS}
+          labels={THEME_LABELS}
+          onChange={setTheme}
+        />
+        <LabelledSelect
+          id="picker-width-select"
+          label="Width"
+          value={`${width}`}
+          options={VIEWPORT_WIDTHS.map((value) => `${value}`)}
+          labels={VIEWPORT_WIDTH_LABELS}
+          onChange={setWidth}
+        />
+      </div>
     </div>
   );
 }
@@ -174,6 +180,23 @@ function useFrameWidth(): { readonly width: number; readonly setWidth: (value: s
   return { width: widthState, setWidth };
 }
 
+/** Compact by owner word 2026-08-18: the rendered page is the primary
+ *  user interest; title and lede share one wrapping line so the stage
+ *  owns the viewport. */
+function PickerHead(): ReactElement {
+  return (
+    <header className="oak-region oak-container picker-head">
+      <div className="oak-cluster picker-head-line">
+        <h1 className="oak-heading-6">One page, any identity</h1>
+        <p className="oak-body-3 picker-lede">
+          Identity, theme and width swap only design data — the markup never changes and nothing
+          reloads.
+        </p>
+      </div>
+    </header>
+  );
+}
+
 export default function IdentityPickerPage(): ReactElement {
   const { frameRef, resolveTarget, markReady } = useSpecimenFrame();
   const { identity, identities, setIdentity } = useIdentity(resolveTarget);
@@ -184,13 +207,7 @@ export default function IdentityPickerPage(): ReactElement {
 
   return (
     <div className="oak-canvas" data-page="identity-picker">
-      <header className="oak-region oak-container picker-head">
-        <h1 className="oak-heading-4">One page, any identity</h1>
-        <p className="oak-body-2 picker-lede">
-          One rendered page — identity, theme and width swap only design data; the markup never
-          changes and nothing reloads.
-        </p>
-      </header>
+      <PickerHead />
 
       {/* No tabindex here, ever: a negative tabindex on a direct child of
           .oak-canvas excludes its whole subtree from sequential focus under
