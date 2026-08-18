@@ -4,7 +4,8 @@ import { SiteFooter } from '../../components/SiteFooter';
 
 import { CatalogueNote } from './CatalogueNote';
 import { TokenReference } from './TokenReference';
-import { groupByTier } from './token-groups';
+import type { Catalogue } from './token-catalogue';
+import { groupByCraftArea } from './token-groups';
 import { TREE_COUNT, loadCatalogue, loadIdentityDeltas } from './token-source';
 import { TOKEN_VARS_HREF } from './token-vars';
 
@@ -52,18 +53,40 @@ export const metadata = {
     'Every design token the system publishes, shown as the value it currently resolves to, live across identities and themes.',
 };
 
-/** The page's own introduction: what a reader is looking at, and why the
- *  values move. */
-function TokensIntro(): ReactElement {
+/**
+ * The page's own introduction — and the only explanatory prose on it.
+ *
+ * Everything a reader needs to read the tables is here, at the top: what
+ * they are looking at, and what the word the badges use actually means.
+ * "Re-pointed" is the page's one piece of jargon, so it is defined where it
+ * is first met rather than assumed; a reader who does not know it cannot
+ * read the last column, and a definition four hundred rows below the first
+ * badge is a definition nobody finds.
+ */
+function TokensIntro({
+  catalogue,
+  treeCount,
+}: {
+  readonly catalogue: Catalogue;
+  readonly treeCount: number;
+}): ReactElement {
   return (
     <>
       <h1 className="oak-heading-3" id="tokens-headline">
         Token reference
       </h1>
       <p className="oak-body-2 tok-lede">
-        Every token the system publishes, shown as the value it has right now &mdash; each swatch
-        painted through the token itself, so identity and theme arrive through the cascade.
+        Every design decision the system publishes, as the value it resolves to right now. Each
+        swatch is a real element painted through the token itself, so switching identity or theme
+        changes what you see here exactly the way it changes a product page &mdash; through the
+        cascade, with no markup and no code in between.
       </p>
+      <p className="oak-body-2 tok-lede">
+        A token is <strong>re-pointed</strong> when an identity&rsquo;s own stylesheet re-declares
+        it, giving it a value of that identity&rsquo;s rather than the one it inherits. The badges
+        on each row name the identities that do that.
+      </p>
+      <CatalogueNote catalogue={catalogue} treeCount={treeCount} />
     </>
   );
 }
@@ -95,13 +118,12 @@ export default function TokensPage(): ReactElement {
             child of .oak-canvas drops its whole subtree out of sequential
             focus under reading-flow. */}
         <main id="main" className="oak-main oak-region oak-container tok-page" data-region="main">
-          <TokensIntro />
+          <TokensIntro catalogue={catalogue} treeCount={TREE_COUNT} />
           <TokenReference
-            groups={groupByTier(catalogue.tokens)}
+            groups={groupByCraftArea(catalogue.tokens)}
             deltas={loadIdentityDeltas()}
             tokenCount={catalogue.tokens.length}
           />
-          <CatalogueNote catalogue={catalogue} treeCount={TREE_COUNT} />
         </main>
 
         <SiteFooter />

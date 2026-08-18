@@ -32,7 +32,7 @@ import {
 /** The system's three tiers (`colors_and_type.css` header, README §Tokens):
  *  primitives hold the literals, roles hold themable meaning, component
  *  tokens hold per-part decisions. */
-export type TokenTier = 1 | 2 | 3;
+type TokenTier = 1 | 2 | 3;
 
 export interface DtcgTree {
   /** The export's file name, quoted on the page as the token's source. */

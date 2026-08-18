@@ -1,15 +1,19 @@
-import type { CatalogueToken, TokenTier } from './token-catalogue';
+import { CRAFT_AREAS, craftAreaOf, type CraftArea } from './craft-areas';
+import type { CatalogueToken } from './token-catalogue';
 
 /**
- * The catalogue as the page's outline: tiers in order, and within each tier
- * the families in the order the kit declares them.
+ * The catalogue as the page's outline: craft area, then prefix family.
  *
- * The grouping is DERIVED, never curated. A family added upstream appears on
- * the page with nothing here edited, and a family removed upstream vanishes
- * from it — which is the only way a reference page stays true to a system
- * that is still moving. Family is the first segment of the property name,
- * which is the system's own vocabulary rather than a taxonomy invented for
- * this page.
+ * A family is gathered across TIERS here, and that is the point rather than
+ * a side effect. `--border-solid-m` is a tier-1 scale and `--border-primary`
+ * a tier-2 role, but a designer reaching for a border wants both in front of
+ * them; splitting the family by how the system is layered served the system,
+ * not the reader. The tier still travels with each token and is annotated on
+ * the rows that carry a usage restriction.
+ *
+ * Within an area, families keep the order the kit declares them in, and an
+ * area with no families does not appear at all — so this is derived from the
+ * catalogue rather than curated alongside it.
  */
 
 interface TokenFamily {
@@ -17,17 +21,17 @@ interface TokenFamily {
   readonly tokens: readonly CatalogueToken[];
 }
 
-export interface TokenTierGroup {
-  readonly tier: TokenTier;
+export interface CraftAreaGroup {
+  readonly area: CraftArea;
+  readonly title: string;
+  readonly note: string;
   readonly families: readonly TokenFamily[];
 }
 
-const TIERS: readonly TokenTier[] = [1, 2, 3];
-
-function familiesOf(tokens: readonly CatalogueToken[], tier: TokenTier): readonly TokenFamily[] {
+function familiesIn(tokens: readonly CatalogueToken[], area: CraftArea): readonly TokenFamily[] {
   const families = new Map<string, CatalogueToken[]>();
   for (const token of tokens) {
-    if (token.tier === tier) {
+    if (craftAreaOf(token.family) === area) {
       const bucket = families.get(token.family);
       if (bucket === undefined) {
         families.set(token.family, [token]);
@@ -39,7 +43,12 @@ function familiesOf(tokens: readonly CatalogueToken[], tier: TokenTier): readonl
   return [...families].map(([family, familyTokens]) => ({ family, tokens: familyTokens }));
 }
 
-/** Every tier, each with its families in declaration order. */
-export function groupByTier(tokens: readonly CatalogueToken[]): readonly TokenTierGroup[] {
-  return TIERS.map((tier) => ({ tier, families: familiesOf(tokens, tier) }));
+/** Every craft area that has tokens, each with its families. */
+export function groupByCraftArea(tokens: readonly CatalogueToken[]): readonly CraftAreaGroup[] {
+  return CRAFT_AREAS.map(({ id, title, note }) => ({
+    area: id,
+    title,
+    note,
+    families: familiesIn(tokens, id),
+  })).filter((group) => group.families.length > 0);
 }

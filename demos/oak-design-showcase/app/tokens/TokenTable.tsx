@@ -11,11 +11,11 @@
  * be stale. That is the right dependency direction for a page whose claim is
  * that presentation is data.
  *
- * ONE ROW IS ONE LINE. A reference is only useful if you can see enough of it
- * at once to compare, so everything a row says is folded onto a single line
- * at wide: the value and the expression it came from sit side by side, and
- * "changes with the theme" is a marker beside the name rather than a second
- * line under it.
+ * ONE ROW IS ONE LINE. A reference is only useful if you can see enough of
+ * it at once to compare, so everything a row says is folded onto a single
+ * line at wide: the value and the expression it came from sit side by side,
+ * and the annotations are markers within their cells rather than second
+ * lines under them.
  *
  * THE ROLES ARE NOT DECORATION. At narrow the stylesheet re-lays these rows
  * as stacked blocks, and changing a table element's `display` strips its
@@ -26,89 +26,41 @@
  */
 import type { ReactElement } from 'react';
 
-import { IDENTITY_LABELS, type IdentitySlug } from '../../components/useIdentity';
+import type { IdentitySlug } from '../../components/useIdentity';
 
+import { IdentityDeltaCell, Specimen, TokenName, TokenValue } from './TokenCells';
+import { sectionId, type CraftArea } from './craft-areas';
 import type { LiveValue, LiveValues } from './live-token-values';
-import { RESOLVED_PROPERTY, type SpecimenKind } from './specimen-kind';
-import { sectionId } from './tier-headings';
-import type { CatalogueToken, TokenTier } from './token-catalogue';
-
-/** Specimen kinds whose paint only reads on real glyphs. */
-const SAMPLE_TEXT: Readonly<Partial<Record<SpecimenKind, string>>> = {
-  font: 'Ag',
-  family: 'Ag',
-  weight: 'Ag',
-  'font-size': 'Ag',
-  leading: 'Ag Ag Ag',
-  tracking: 'AVAILABLE',
-};
+import type { CatalogueToken } from './token-catalogue';
 
 export type IdentityDeltaSets = ReadonlyMap<IdentitySlug, ReadonlySet<string>>;
 
-/** The applied specimen. Decorative by construction: the value printed
- *  beside it carries the information, and four hundred announced sample
- *  glyphs would carry none. */
-function Specimen({ token }: { readonly token: CatalogueToken }): ReactElement {
-  if (token.kind === 'plain') {
-    return (
-      <>
-        <span aria-hidden="true">&mdash;</span>
-        <span className="oak-visually-hidden">No specimen for this token</span>
-      </>
-    );
-  }
-  return (
-    <span
-      className={`tok-paint tok-paint--${token.kind}`}
-      data-resolve={RESOLVED_PROPERTY[token.kind]}
-      aria-hidden="true"
-    >
-      {SAMPLE_TEXT[token.kind]}
-    </span>
-  );
-}
+/**
+ * Which families may share a row when the window splits into two columns.
+ *
+ * Two things disqualify a family, and they are different questions. A LONG
+ * family wastes a whole column's height on the short one beside it. A family
+ * with LONG NAMES cannot fit four columns of code into half the width, and
+ * would push its value and identity columns behind a scrollbar — which is
+ * the failure the narrow layout was reworked to remove, and it would be no
+ * better for arriving on a big monitor.
+ *
+ * Name length is measured in characters because the names are set in a
+ * monospace face, so characters ARE pixels here. The cap is generous
+ * because the columns it guards are generous — the layout gives the rail's
+ * width back at this breakpoint, so a paired column is 626px. Twenty-eight
+ * is where that measured out: `--filter-icon-on-btn-disabled` at
+ * twenty-nine characters wants 651px and is the one family in the system
+ * that has to take a whole row for its name alone.
+ */
+const PAIRABLE_MAX_ROWS = 10;
+const PAIRABLE_MAX_NAME = 28;
 
-/** Which identities re-point this token. The one currently shown is marked,
- *  so the rows that just changed are findable by eye after a switch — and
- *  named in text inside the marker, never by its outline alone. */
-function IdentityDeltaCell({
-  owners,
-  identity,
-}: {
-  readonly owners: readonly IdentitySlug[];
-  readonly identity: IdentitySlug;
-}): ReactElement {
-  if (owners.length === 0) {
-    return (
-      <>
-        <span aria-hidden="true">&mdash;</span>
-        <span className="oak-visually-hidden">No identity re-points this token</span>
-      </>
-    );
+function needsFullWidth(tokens: readonly CatalogueToken[]): boolean {
+  if (tokens.length > PAIRABLE_MAX_ROWS) {
+    return true;
   }
-  return (
-    <span className="tok-owners">
-      {owners.map((slug) => (
-        // The identity being shown is the outlined one. Its neighbours take
-        // the quiet grey: a hundred and ten lemon tags down a reference
-        // table shout louder than the swatches the table is about.
-        <span
-          key={slug}
-          className={
-            slug === identity ? 'oak-tag oak-tag--white tok-owner-shown' : 'oak-tag oak-tag--grey'
-          }
-        >
-          {IDENTITY_LABELS[slug]}
-          {slug === identity && (
-            <span className="oak-visually-hidden">
-              {' '}
-              &mdash; the identity shown, so this value is theirs
-            </span>
-          )}
-        </span>
-      ))}
-    </span>
-  );
+  return tokens.some((token) => token.name.length > PAIRABLE_MAX_NAME);
 }
 
 function TokenRow({
@@ -133,24 +85,20 @@ function TokenRow({
   return (
     <tr data-token={token.name} data-owners={owners.length} role="row">
       <th scope="row" className="tok-name" role="rowheader">
-        <span className="oak-code-3">{token.name}</span>
-        {token.themes.length > 1 && (
-          <span className="oak-body-4 tok-flag">
-            theme
-            <span className="oak-visually-hidden"> &mdash; this value changes with the theme</span>
-          </span>
-        )}
+        <TokenName token={token} />
       </th>
       <td className="tok-specimen" role="cell">
         <Specimen token={token} />
       </td>
       <td className="tok-value" role="cell">
-        <span className="oak-code-3">{value}</span>
-        {expression !== '' && expression !== value && (
-          <span className="oak-code-3 tok-expr"> {expression}</span>
-        )}
+        <TokenValue token={token} value={value} expression={expression} />
       </td>
       <td className="tok-owners-cell" role="cell">
+        {/* Named for a screen reader only where the column header is not
+            there to do it — the narrow layout hides the header row, and
+            this label hides itself again at wide, so neither width has to
+            hear the name twice. */}
+        <span className="oak-visually-hidden tok-owners-label">Re-pointed by </span>
         <IdentityDeltaCell owners={owners} identity={identity} />
       </td>
     </tr>
@@ -181,7 +129,7 @@ function TokenTableHead(): ReactElement {
 }
 
 interface TokenTableProps {
-  readonly tier: TokenTier;
+  readonly area: CraftArea;
   readonly family: string;
   readonly tokens: readonly CatalogueToken[];
   readonly values: LiveValues;
@@ -190,16 +138,16 @@ interface TokenTableProps {
 }
 
 export function TokenTable({
-  tier,
+  area,
   family,
   tokens,
   values,
   identity,
   deltas,
 }: TokenTableProps): ReactElement {
-  const headingId = sectionId(tier, family);
+  const headingId = sectionId(area, family);
   return (
-    <section className="tok-family">
+    <section className="tok-family" data-wide={needsFullWidth(tokens) ? 'true' : undefined}>
       <h3 className="oak-heading-6" id={headingId}>
         <span className="oak-code-2-bold">--{family}-*</span>{' '}
         <span className="oak-body-3 tok-count">

@@ -35,8 +35,7 @@ import { THEME_LABELS, THEME_OPTIONS } from '../identity-switchboard/useFrameThe
 import { FamilyNav } from './FamilyNav';
 import { TokenTable, type IdentityDeltaSets } from './TokenTable';
 import { liveTokenValues, type LiveValues } from './live-token-values';
-import { TIER_HEADINGS } from './tier-headings';
-import type { TokenTierGroup } from './token-groups';
+import type { CraftAreaGroup } from './token-groups';
 
 interface IdentityDeltaView {
   readonly identity: IdentitySlug;
@@ -44,7 +43,7 @@ interface IdentityDeltaView {
 }
 
 export interface TokenReferenceProps {
-  readonly groups: readonly TokenTierGroup[];
+  readonly groups: readonly CraftAreaGroup[];
   readonly deltas: readonly IdentityDeltaView[];
   readonly tokenCount: number;
 }
@@ -90,14 +89,16 @@ function TokenControls({
   );
 }
 
-/** The tables themselves, tier by tier and family by family. */
+/** The tables themselves: craft area, then prefix family. The families of
+ *  one area flow into columns where the window is wide enough for two, and
+ *  a family never splits across them. */
 function TokenSections({
   groups,
   values,
   identity,
   deltas,
 }: {
-  readonly groups: readonly TokenTierGroup[];
+  readonly groups: readonly CraftAreaGroup[];
   readonly values: LiveValues;
   readonly identity: IdentitySlug;
   readonly deltas: IdentityDeltaSets;
@@ -105,20 +106,22 @@ function TokenSections({
   return (
     <div className="tok-sections">
       {groups.map((group) => (
-        <section key={group.tier} className="tok-tier">
-          <h2 className="oak-heading-6">{TIER_HEADINGS[group.tier].title}</h2>
-          <p className="oak-body-3 tok-tier-note">{TIER_HEADINGS[group.tier].note}</p>
-          {group.families.map(({ family, tokens }) => (
-            <TokenTable
-              key={family}
-              tier={group.tier}
-              family={family}
-              tokens={tokens}
-              values={values}
-              identity={identity}
-              deltas={deltas}
-            />
-          ))}
+        <section key={group.area} className="tok-area">
+          <h2 className="oak-heading-6">{group.title}</h2>
+          <p className="oak-body-3 tok-area-note">{group.note}</p>
+          <div className="tok-area-families">
+            {group.families.map(({ family, tokens }) => (
+              <TokenTable
+                key={family}
+                area={group.area}
+                family={family}
+                tokens={tokens}
+                values={values}
+                identity={identity}
+                deltas={deltas}
+              />
+            ))}
+          </div>
         </section>
       ))}
     </div>

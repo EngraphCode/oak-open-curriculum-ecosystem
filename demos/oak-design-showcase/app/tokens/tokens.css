@@ -64,6 +64,17 @@
   gap: var(--gap-m);
 }
 
+/* At narrow the rail is not a box at all. It has to disappear as a
+   containing block, because a sticky element only sticks WITHIN its
+   container: with the rail as a real box, the controls stopped following
+   the reader the moment the nav beneath them scrolled past. `display:
+   contents` hands its children straight to the layout, so the controls
+   stick for the whole page. At wide it becomes a box again, and the rail
+   itself does the sticking. */
+[data-page='tokens'] .tok-rail {
+  display: contents;
+}
+
 /* The same auto-fit primitive the picker uses, so the two demos read
    identically. The floor is what the longest option needs, not what fits:
    at 360px two selects share a row only by clipping "Identity default" to
@@ -91,6 +102,20 @@
   color: var(--text-subdued);
 }
 
+/* A sticky band is height a reader has permanently lent you, so each
+   control gives its label the same line as its select rather than a line of
+   its own. Measured at 360px: the stacked shape held the top 190px of a
+   900px screen hostage. */
+[data-page='tokens'] .tok-controls .oak-cluster {
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+[data-page='tokens'] .tok-controls .oak-select {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
 [data-page='tokens'] .tok-nav-group {
   padding-block-end: var(--space-8);
 }
@@ -108,11 +133,11 @@
 
 /* --- Sections ---------------------------------------------- */
 
-[data-page='tokens'] .tok-tier {
+[data-page='tokens'] .tok-area {
   padding-block-start: var(--space-32);
 }
 
-[data-page='tokens'] .tok-tier-note {
+[data-page='tokens'] .tok-area-note {
   max-inline-size: var(--measure-prose);
   color: var(--text-subdued);
   margin-block: var(--space-4) 0;
@@ -131,7 +156,7 @@
 }
 
 [data-page='tokens'] .tok-contract {
-  padding-block: var(--space-32);
+  margin-block: var(--space-12) 0;
   max-inline-size: var(--measure-prose);
 }
 
@@ -401,23 +426,33 @@
     flex: 0 0 auto;
   }
 
+  /* Two lines, and the order is chosen rather than inherited: the swatch
+     and the identities that re-point the token belong beside its NAME, and
+     the value then gets a whole line to itself — which is what keeps
+     `rgb(249, 249, 249) #f9f9f9` from wrapping. Reading order in the
+     markup stays name, swatch, value, identities; only the painting
+     changes (CSS owns visual order). */
+  [data-page='tokens'] .tok-owners-cell {
+    order: 2;
+  }
+
   [data-page='tokens'] .tok-value {
+    order: 3;
     flex: 1 0 100%;
   }
 
+  /* The identities ride the END of the value's line rather than taking a
+     line of their own — the third line was the card's biggest cost, and
+     the short labels the estate now uses leave room for them beside a
+     value. A long value simply wraps them onto the next line. */
   [data-page='tokens'] .tok-owners-cell {
-    flex: 1 0 100%;
+    flex: 0 1 auto;
+    margin-inline-start: auto;
     color: var(--text-subdued);
   }
 
-  /* On a phone the label and both identities share one line only just; let
-     them wrap rather than push the row sideways. */
   [data-page='tokens'] .tok-owners {
     flex-wrap: wrap;
-  }
-
-  [data-page='tokens'] .tok-owners-cell::before {
-    content: 'Re-pointed by ';
   }
 
   /* Most tokens no identity touches: spending a line on an em dash three
@@ -440,9 +475,12 @@
     align-items: start;
   }
 
-  /* The rail stays with the reader; the controls inside it no longer need
-     to stick on their own. */
+  /* The rail becomes a real box again — without this it stays
+     `display: contents` from the narrow rules, its children scatter into
+     the two-column grid as separate items, and the tables end up in the
+     240px rail track (measured: a 238px table at a 1440px window). */
   [data-page='tokens'] .tok-rail {
+    display: block;
     position: sticky;
     top: 0;
     z-index: var(--layer-sticky);
@@ -463,6 +501,74 @@
   [data-page='tokens'] .tok-nav {
     max-block-size: var(--space-480);
     overflow-y: auto;
+  }
+
+  /* The column header names this cell at wide, so the label in the markup
+     takes itself out of the accessibility tree rather than saying it
+     twice. At narrow, where the header row is hidden, it is the only name
+     the cell has. */
+  [data-page='tokens'] .tok-owners-label {
+    display: none;
+  }
+}
+
+/* --- Monitor widths: two columns of families ---------------- */
+
+/* THE RAIL GIVES ITS WIDTH BACK. Beside a 240px rail a paired column is
+   494px, and a four-column token table needs about 650 — measured, family
+   by family: pairing there left fourteen tables scrolling sideways, which
+   is the failure the narrow layout was reworked to remove and no better for
+   arriving on a big monitor. Tightening the pairing rule until nothing
+   overflowed left one pair on the whole page. So above this width the rail
+   stops being a column and the layout goes full width: the controls stay
+   with the reader as a band, the jump list sits above the tables, and the
+   space the rail was using becomes the second column of tokens.
+
+   A grid, not CSS columns: a column box splits content that overflows it
+   whatever `break-inside` asks, and the tallest families here are taller
+   than any balanced column — so multi-column would have split exactly the
+   tables that must not split. Grid items cannot break, so a family either
+   fits a column or takes the whole row (`data-wide`, set in the markup). */
+@media (min-width: 1440px) {
+  [data-page='tokens'] .tok-rail {
+    display: contents;
+  }
+
+  [data-page='tokens'] .tok-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  [data-page='tokens'] .tok-controls {
+    position: sticky;
+    top: 0;
+    grid-template-columns: repeat(auto-fit, minmax(min(var(--space-240), 100%), 1fr));
+  }
+
+  /* Seven craft areas stacked as seven labelled rows put the first token
+     below the fold on a 1440px screen. Flowed into columns the same list
+     is a third of the height, and the width it uses is width the rail just
+     gave back. A group never splits: half a craft area's families in one
+     column and half in the next would be worse than no grouping at all. */
+  [data-page='tokens'] .tok-nav {
+    max-block-size: none;
+    overflow-y: visible;
+    columns: 3;
+    column-gap: var(--gap-l);
+  }
+
+  [data-page='tokens'] .tok-nav-group {
+    break-inside: avoid;
+  }
+
+  [data-page='tokens'] .tok-area-families {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 var(--gap-l);
+    align-items: start;
+  }
+
+  [data-page='tokens'] .tok-family[data-wide='true'] {
+    grid-column: 1 / -1;
   }
 }
 
