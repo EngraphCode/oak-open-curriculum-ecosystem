@@ -109,46 +109,65 @@ test.describe('composition exhibit: narrow faces re-arrange', () => {
   });
 });
 
-test.describe('token reference: the scroll stop follows measured overflow', () => {
-  test('a family is a focus stop exactly while its table scrolls @a11y', async ({ page }) => {
+/** Elements inside the token areas carrying scrollable overflow — the
+ *  owner's everything-visible rule says this must be zero at every width.
+ *  The visually-hidden pattern is a deliberate 1px clip of NON-visible
+ *  content, so those boxes are out of the rule's scope. */
+const tokenAreaScrollers = (page: Page): Promise<number> =>
+  page.locator('.tok-area').evaluateAll(
+    (areas) =>
+      areas
+        .flatMap((area) => [...area.querySelectorAll('*')])
+        .filter((el) => {
+          if (el.classList.contains('oak-visually-hidden')) {
+            return false;
+          }
+          const style = getComputedStyle(el);
+          const scrollable = style.overflowX !== 'visible' || style.overflowY !== 'visible';
+          return (
+            scrollable && (el.scrollWidth > el.clientWidth || el.scrollHeight > el.clientHeight)
+          );
+        }).length,
+  );
+
+test.describe('token reference: everything visible, rows flowing in columns', () => {
+  // The owner's hard rule (2026-08-18): no in-content scroll or clip
+  // anywhere — a value, chip, or name is never behind a gesture.
+  for (const width of [320, 664, 960, 1280, 1440] as const) {
+    test(`no token content scrolls or clips at ${width}px @a11y`, async ({ page }) => {
+      const aborted = await openRoute(page, '/tokens');
+      await page.setViewportSize({ width, height: 900 });
+      await expect
+        .poll(() => tokenAreaScrollers(page), {
+          message: 'nothing in the token areas scrolls or clips',
+        })
+        .toBe(0);
+      await expectNoHorizontalOverflow(page);
+      assertOnlyKnownExternalOrigins(aborted);
+    });
+  }
+
+  test('rows flow in two columns at monitor width and one thread at narrow @a11y', async ({
+    page,
+  }) => {
     const aborted = await openRoute(page, '/tokens');
-    // The invariant, not a snapshot count: every family carries the stop
-    // exactly when it measurably scrolls. (A bare zero-count would pass
-    // pre-hydration and turn false the day content genuinely overflows;
-    // the invariant survives both.)
-    const invariantBreaches = (): Promise<number> =>
+    // A family long enough that a two-column flow MUST place rows at two
+    // distinct inline offsets; at narrow every row shares one offset.
+    const distinctRowOffsets = (): Promise<number> =>
       page
-        .locator('.tok-scroll')
-        .evaluateAll(
-          (els) =>
-            els.filter(
-              (el) => el.scrollWidth > el.clientWidth !== (el.getAttribute('tabindex') === '0'),
-            ).length,
+        .locator('.tok-rows')
+        .first()
+        .evaluate(
+          (list) =>
+            new Set([...list.children].map((row) => Math.round(row.getBoundingClientRect().left)))
+              .size,
         );
+    await page.setViewportSize({ width: 1440, height: 900 });
     await expect
-      .poll(invariantBreaches, { message: 'a stop exists exactly where scroll exists' })
-      .toBe(0);
-    // The safety-net direction, constructed rather than width-guessed:
-    // squeeze one family until its table genuinely overflows, and the
-    // WebKit keyboard-reach stop (SC 2.1.1) must appear on that family —
-    // then release it, and the stop must withdraw again.
-    const first = page.locator('.tok-scroll').first();
-    await first.evaluate((el) => {
-      el.style.maxWidth = '160px';
-    });
-    await expect
-      .poll(() => first.getAttribute('tabindex'), {
-        message: 'squeezed to overflow: the family becomes a focus stop',
-      })
-      .toBe('0');
-    await first.evaluate((el) => {
-      el.style.removeProperty('max-width');
-    });
-    await expect
-      .poll(() => first.getAttribute('tabindex'), {
-        message: 'released: the stop withdraws with the overflow',
-      })
-      .toBeNull();
+      .poll(distinctRowOffsets, { message: 'monitor width: the rows flow in two columns' })
+      .toBe(2);
+    await page.setViewportSize({ width: 320, height: 900 });
+    await expect.poll(distinctRowOffsets, { message: 'narrow: one column, one thread' }).toBe(1);
     assertOnlyKnownExternalOrigins(aborted);
   });
 });

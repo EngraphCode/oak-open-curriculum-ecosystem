@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * One family's tokens, as a table of applied specimens.
+ * One family's tokens, as a flowing list of one-line rows.
  *
  * Every specimen is a real element painted through `var(--the-token)`, so a
  * switch of identity or theme repaints the whole page through the cascade
@@ -11,62 +11,33 @@
  * be stale. That is the right dependency direction for a page whose claim is
  * that presentation is data.
  *
- * ONE ROW IS ONE LINE. A reference is only useful if you can see enough of
- * it at once to compare, so everything a row says is folded onto a single
- * line at wide: the value and the expression it came from sit side by side,
- * and the annotations are markers within their cells rather than second
- * lines under them.
+ * TWO COLUMNS ARE THE NORM (owner ruling 2026-08-18): at monitor widths a
+ * family's ROWS flow across two columns under a header that spans both.
+ * The ROW is the fragmentation unit — a compact card that reads at a phone
+ * width, proven by the narrow band — so the old constraint that a family's
+ * TABLE must never split simply dissolves: rows split, families never
+ * clip, and nothing on this page scrolls inside itself (the owner's
+ * everything-visible rule). The four-column table this replaces bought its
+ * columns with letter-wrapped values, clipped identity chips, and a
+ * per-family scroll container.
  *
- * NO EXPLICIT ARIA ROLES, BY DESIGN (review round 1 reversed the earlier
- * stance). At narrow the stylesheet re-lays these rows as stacked cards,
- * and changing a table element's `display` strips its implicit ARIA role —
- * which is here EMBRACED rather than fought: a headerless grid of hundreds
- * of cells announced as a table is worse than linear content, so narrow
- * deliberately drops table semantics with the table display and names the
- * two non-self-evident cells with per-cell visually-hidden labels ("Value",
- * "Re-pointed by") that hide again at wide, where the visible header row
- * and the implicit table semantics do the naming. Re-adding explicit roles
- * would resurrect the headerless-table announcement.
+ * LIST SEMANTICS AT EVERY WIDTH, BY DESIGN. No width renders these rows as
+ * a table any more, so the markup does not claim one: each family is a
+ * list, each token an item, and the two non-self-evident parts of a row
+ * are named by per-row visually-hidden labels ("Value", "Re-pointed by")
+ * at every width — there is no header row anywhere to defer to. A
+ * headerless grid of hundreds of cells announced as a table would be worse
+ * than this linear reading.
  */
 import type { ReactElement } from 'react';
 
 import type { IdentitySlug } from '../../components/useIdentity';
-import { useHorizontalOverflow } from '../../components/useHorizontalOverflow';
-
 import { IdentityDeltaCell, Specimen, TokenName, TokenValue } from './TokenCells';
 import { sectionId, type CraftArea } from './craft-areas';
 import type { LiveValue, LiveValues } from './live-token-values';
 import type { CatalogueToken } from './token-catalogue';
 
 export type IdentityDeltaSets = ReadonlyMap<IdentitySlug, ReadonlySet<string>>;
-
-/**
- * Which families may share a row when the window splits into two columns.
- *
- * Two things disqualify a family, and they are different questions. A LONG
- * family wastes a whole column's height on the short one beside it. A family
- * with LONG NAMES cannot fit four columns of code into half the width, and
- * would push its value and identity columns behind a scrollbar — which is
- * the failure the narrow layout was reworked to remove, and it would be no
- * better for arriving on a big monitor.
- *
- * Name length is measured in characters because the names are set in a
- * monospace face, so characters ARE pixels here. The cap is generous
- * because the columns it guards are generous — the layout gives the rail's
- * width back at this breakpoint, so a paired column is 626px. Twenty-eight
- * is where that measured out: `--filter-icon-on-btn-disabled` at
- * twenty-nine characters wants 651px and is the one family in the system
- * that has to take a whole row for its name alone.
- */
-const PAIRABLE_MAX_ROWS = 10;
-const PAIRABLE_MAX_NAME = 28;
-
-function needsFullWidth(tokens: readonly CatalogueToken[]): boolean {
-  if (tokens.length > PAIRABLE_MAX_ROWS) {
-    return true;
-  }
-  return tokens.some((token) => token.name.length > PAIRABLE_MAX_NAME);
-}
 
 function TokenRow({
   token,
@@ -84,49 +55,26 @@ function TokenRow({
   const owners = [...deltas]
     .filter(([, properties]) => properties.has(token.name))
     .map(([slug]) => slug);
-  // The count rides on the row so the narrow layout can drop the whole
-  // re-pointed line for the three hundred tokens no identity touches,
-  // instead of spending a line on an em dash.
-  // No explicit ARIA roles anywhere in this table, by design: at wide the
-  // elements carry their implicit table semantics; at narrow the stylesheet
-  // deliberately linearises each row into a card (display re-composition
-  // drops table semantics WITH the table display), and a headerless table
-  // announced as a table would be worse than linear content. The per-cell
-  // visually-hidden labels below are what name the two non-self-evident
-  // cells in the linear reading; each hides again at wide, where the
-  // visible column header does the naming.
+  // The count rides on the row so the layout can drop the whole re-pointed
+  // part for the three hundred tokens no identity touches, instead of
+  // spending width on an em dash.
   return (
-    <tr data-token={token.name} data-owners={owners.length}>
-      <th scope="row" className="tok-name">
+    <li className="tok-row" data-token={token.name} data-owners={owners.length}>
+      <span className="tok-name">
         <TokenName token={token} />
-      </th>
-      <td className="tok-specimen">
+      </span>
+      <span className="tok-specimen">
         <Specimen token={token} />
-      </td>
-      <td className="tok-value">
+      </span>
+      <span className="tok-value">
         <span className="oak-visually-hidden tok-value-label">Value </span>
         <TokenValue token={token} value={value} expression={expression} />
-      </td>
-      <td className="tok-owners-cell">
+      </span>
+      <span className="tok-owners-cell">
         <span className="oak-visually-hidden tok-owners-label">Re-pointed by </span>
         <IdentityDeltaCell owners={owners} identity={identity} />
-      </td>
-    </tr>
-  );
-}
-
-/** The column names. Hidden by the narrow band, where the columns they name
- *  no longer exist as columns. */
-function TokenTableHead(): ReactElement {
-  return (
-    <thead>
-      <tr>
-        <th scope="col">Token</th>
-        <th scope="col">Applied</th>
-        <th scope="col">Value here</th>
-        <th scope="col">Re-pointed by</th>
-      </tr>
-    </thead>
+      </span>
+    </li>
   );
 }
 
@@ -148,42 +96,25 @@ export function TokenTable({
   deltas,
 }: TokenTableProps): ReactElement {
   const headingId = sectionId(area, family);
-  const { ref: scrollRef, overflowing } = useHorizontalOverflow<HTMLElement>();
   return (
-    <section className="tok-family" data-wide={needsFullWidth(tokens) ? 'true' : undefined}>
+    <section className="tok-family">
       <h3 className="oak-heading-6" id={headingId}>
         <span className="oak-code-2-bold">--{family}-*</span>{' '}
         <span className="oak-body-3 tok-count">
           {tokens.length} {tokens.length === 1 ? 'token' : 'tokens'}
         </span>
       </h3>
-      {/* The middle-widths safety net: the table scrolls HERE rather than
-          taking the page sideways (SC 1.4.10), named by the family heading
-          so the stop says what it is. A focus stop ONLY while overflow
-          exists (in WebKit an unfocusable scroller is pointer-only,
-          SC 2.1.1) — the conditionality is the useHorizontalOverflow
-          docblock's contract. */}
-      <section
-        ref={scrollRef}
-        className="tok-scroll"
-        tabIndex={overflowing ? 0 : undefined}
-        aria-labelledby={headingId}
-      >
-        <table className="oak-table tok-table">
-          <TokenTableHead />
-          <tbody>
-            {tokens.map((token) => (
-              <TokenRow
-                key={token.name}
-                token={token}
-                live={values.get(token.name)}
-                identity={identity}
-                deltas={deltas}
-              />
-            ))}
-          </tbody>
-        </table>
-      </section>
+      <ul className="tok-rows" aria-labelledby={headingId}>
+        {tokens.map((token) => (
+          <TokenRow
+            key={token.name}
+            token={token}
+            live={values.get(token.name)}
+            identity={identity}
+            deltas={deltas}
+          />
+        ))}
+      </ul>
     </section>
   );
 }
