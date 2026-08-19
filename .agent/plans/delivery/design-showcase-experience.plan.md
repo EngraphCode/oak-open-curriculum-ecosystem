@@ -175,10 +175,10 @@ prose inside an unratified plan, and it contradicted the owner's actual ask.
 | **[engineering practice]** | A landed instrument, a shipped mechanism, a verified repo fact | Governs as fact. Cite the file, not a plan that describes it |
 
 **Unratified plan prose is not an authority class.** `design-system-completion`
-is `status: sketch`, `ratified_by: null` — its charter clauses, its workstream
-shapes, and the reviewer findings absorbed into it bind nothing here. Where this
-plan needed something that document contains, the constraint is re-derived from a
-real authority or dropped (§Coherence check).
+is `status: archived` and was never ratified (`ratified_by: null`) — its charter
+clauses, its workstream shapes, and the reviewer findings absorbed into it bind
+nothing here. Where this plan needed something that document contains, the
+constraint is re-derived from a real authority or dropped (§Coherence check).
 
 ## Governing rulings
 
@@ -624,8 +624,9 @@ this page — per-variant declared reading sequences, a DOM-order admissibility
 rule, a `reading-flow`-inert binding cell — and escalated the resulting tension
 to the owner as a decision he had to make. **It was made up.** Traced: the
 envelope originates in review-fleet findings absorbed into
-`design-system-completion`, which is `status: sketch` with `ratified_by: null`.
-No owner word ever established it. His correction (R13) deletes it:
+`design-system-completion`, which is `status: archived` and was never ratified
+(`ratified_by: null`). No owner word ever established it. His correction (R13)
+deletes it:
 
 > "I don't care about DOM order, why would I … I care that someone can author
 > markup and then control the *appearance* that markup leads to with CSS and I
@@ -1208,7 +1209,8 @@ condition that returns it to scope.
   surface that presents the system" — his words, "a way that a professional
   designer would look at and think 'wow, that looks good'", strengthened to "I
   want to look at each and every demo and think 'wow, that looks *amazing*'".
-- **`identity-switchboard-first-pixels`** (ratified 2026-08-09) — the node that
+- **`identity-switchboard-first-pixels`** (ratified 2026-08-09, now
+  `status: archived` — its build landed and the node is spent) — the node that
   built `/identity-switchboard` and its specimen route. Its **ends-before-means
   steer** (owner recalibration 2026-08-10: the end this lane serves is
   "near-zero-cost exploratory app experiments"; every signal states
@@ -1239,29 +1241,30 @@ condition that returns it to scope.
   identity (Tango, commissioned 2026-08-17).
 - **`public-digital-service-identity`** — the PDS naming replacement whose
   landing arc supplies the identity vocabulary W2 and W5 use. Its demo and kit
-  execution LANDED (the rename enforced by the identity-naming validator);
-  retired as a spent node 2026-08-17 — records-tail residue only.
+  execution LANDED (the rename enforced by the identity-naming validator); now
+  `status: archived`, retired as a spent node 2026-08-17 — records-tail residue
+  only.
 - **`design-lane-review-debt-closure`** (ratified 2026-08-07) — owns the DDR
   corpus's cure and its edge-schema validator. W6's DDR true-ups write into the
   corpus that node established; they do not re-open its schema work. State
   trued 2026-08-17: slices 1/3/4 discharged (#814/#787/#806/#737); slice 2
   (the `ddr-graph` validator, a day-1 owner ruling) remains specified and
   unbuilt — that node carries the open question.
-- **`pr-846-review-fleet`** (status `ratified` — owner card "Sanction W1 now",
-  2026-08-12, coordination commit `3b1e5fcce`; its owner gate discharged by
+- **`pr-846-review-fleet`** (ratified 2026-08-12 — owner card "Sanction W1 now",
+  coordination commit `3b1e5fcce`; its owner gate discharged by
   removal; W1 EXECUTED 2026-08-13 as MCP-591, its findings ledger at
   `.agent/reports/design/pr-846-review-fleet/report.md` and today's cure
-  bundles drawn from it) — a multi-lens review fleet over PR #846. The
+  bundles drawn from it) — a multi-lens review fleet over PR #846, now
+  `status: archived`, RETIRED as a spent node 2026-08-17: its object (#846)
+  merged 2026-08-14, its W1 executed and its findings ledger absorbed into the
+  merged cure bundles, and no W2+ was sequenced. The
   readiness-vs-outcomes framing note stands as history: **R1 corrected the
   FINISH LINE** from PR readiness to the owner's four outcomes, and this plan
-  defines the work while that node's executed W1 reviews one PR within it; any
-  W2+ of that node remains the owner's to sequence. (This row was corrected
-  2026-08-13 after first shipping stale: this branch's COPY of that node
-  predates its ratification commit — a worked instance of the authority test
-  needing source FRESHNESS alongside identity and appropriateness.) RETIRED
-  as a spent node 2026-08-17: its object (#846) merged 2026-08-14, its W1
-  executed and its findings ledger absorbed into the merged cure bundles; no
-  W2+ was sequenced.
+  defines the work while that node's executed W1 reviewed one PR within it.
+  (This row was corrected 2026-08-13 after first shipping stale: this branch's
+  COPY of that node predated its ratification commit — a worked instance of the
+  authority test needing source FRESHNESS alongside identity and
+  appropriateness.)
 - **`docs/governance/one-html-many-css-compositions.md`** — the owner's own
   paper, and the method W2 implements. Cited, never restated: the region contract
   W2 exercises is that paper's conclusion already absorbed into the kit's shipped
@@ -1366,8 +1369,9 @@ attempt it.
 
 ### The Demos Charter (completion plan §W0.3) — re-derived, not inherited
 
-The charter lives in a plan that is `status: sketch` with `ratified_by: null`.
-**Its prose binds nothing here.** An earlier draft treated three of its clauses as
+The charter lives in a plan that is `status: archived` and was never ratified
+(`ratified_by: null`). **Its prose binds nothing here.** An earlier draft treated
+three of its clauses as
 governing and built acceptance around them; one of those — the composition
 envelope — turned out to be a reviewer artefact that contradicted the owner's ask
 outright. So each clause is re-derived from a real authority or dropped:
@@ -1386,7 +1390,7 @@ outright. So each clause is re-derived from a real authority or dropped:
 | The completion plan's W2–W7 mechanism | Outside the tight scope and sequenced behind it; restating it here would create a second definition of work this plan does not own |
 | Landing the Demos Charter ADR itself | It is W0.3's deliverable, not this plan's. Honouring its live clauses costs nothing; adopting its authorship would take work this plan's ruling did not ask for |
 | The strategic node's goal architecture | This node delivers its demo properties; a delivery node restating a strategic node's kernel is drift, not coherence |
-| Any amendment to `pr-846-review-fleet` | That node is ratified with its W1 executed (MCP-591); sequencing any W2+ of it is the owner's, surfaced in §Relationships rather than taken here |
+| Any amendment to `pr-846-review-fleet` | That node is archived, retired as spent with its W1 executed (MCP-591); its terminal state is recorded in §Relationships rather than amended here |
 | A ruling on KNOWN-ISSUES #14's open alias-breadth question | No workstream here renders a themed subtree, so the question never arises for this plan's surfaces |
 | ADR-213's studio-source-vs-product-gate tension | The `studio-source/whitelabel/*` brand sheets are consumed through their served copies, which ADR-213 §1 would ordinarily move out from under the gate exemption. Pre-existing, unchanged by W1, and a structural question for the design-system expert rather than a showcase-experience decision |
 | The eleven type classes that compose from primitives directly | `.oak-heading-light-1…7`, `.oak-body-1-bold…3-bold`, `.oak-code-2-bold` keep fixed sizes after W1. Folding them in means minting a `-light` weight variant of every heading slot, doubling the decomposition's surface. Named in W1 so the owner can price it rather than discover it |

@@ -1231,7 +1231,7 @@ W4.7/W5.5/W6.2 whole-demo checkpoints.
 ## Decision log (owner word unless marked seat-verdict)
 
 Design decisions carried canonically by the
-[Design Decision Record corpus](../../../docs/design/README.md) are listed
+[Design Decision Record corpus](../../../../docs/design/README.md) are listed
 here with their record — whether or not a log row below restates them: the
 configured-framework frame → DDR-001; CSS-first/one-behaviour →
 DDR-002; the theme choice model → DDR-003; the five-theme roster with

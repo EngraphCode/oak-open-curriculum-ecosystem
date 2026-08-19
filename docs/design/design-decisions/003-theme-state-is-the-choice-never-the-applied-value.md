@@ -75,11 +75,6 @@ Consequences for the model this DDR governs:
   restores as first-class design intent).
 - The automatic access commitment stands: with no stored choice, an
   OS-level `prefers-contrast: more` still applies high-contrast.
-- (A spent sequencing hedge stood here until 2026-08-17 — "until it
-  lands, the interim applied-model behaviour from 2026-08-10 is the
-  live state". The amendment was implemented on PR #846, as this
-  record's own Provenance already stated; struck at the records-truth
-  pass, MCP-613.)
 
 ## Provenance
 

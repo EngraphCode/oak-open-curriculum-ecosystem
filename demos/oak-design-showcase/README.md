@@ -6,8 +6,7 @@ a front page plus demo routes, all plain-CSS kit consumption — no Tailwind,
 no PostCSS, no mapping layer — with live identity and theme switching over
 the kit's own classes and token roles. One set of markup, many faces: every
 visible difference between identities and themes is the token contract at
-work. (An earlier one-page form was purged at the owner's 2026-08-13 tight
-scope; this README was re-trued to the shipped routes on 2026-08-17.)
+work.
 
 The [Curriculum Hub](../oak-curriculum-hub/README.md) demonstrates the
 Tailwind-mapped consumption path; this app demonstrates the plain path. The
@@ -152,9 +151,8 @@ design system. Enforced by instrument, not review vigilance:
 - `pnpm test:a11y` — axe WCAG 2.2 AA across the full identity × theme
   matrix (15 cells: 12 identity × palette-theme cells plus 3
   identity-default cells; the match-device behaviour is covered by a
-  separate landing cell under an emulated dark OS and by the UI suite —
-  an earlier form of this sentence miscounted match-device into the
-  matrix, corrected 2026-08-17), 320px reflow per identity, the OS accessibility signals
+  separate landing cell under an emulated dark OS and by the UI
+  suite), 320px reflow per identity, the OS accessibility signals
   (`prefers-contrast: more` auto-selecting high-contrast; forced colors),
   and keyboard focus visibility in both polarities. The `system`-follows-
   device ride itself is a behaviour test in the UI suite.
@@ -176,6 +174,4 @@ design system. Enforced by instrument, not review vigilance:
   `demo-evidence/fidelity-report/index.html` beside the disposition register
   (`fidelity-register.json`). Diff magnitude never gates: non-zero exit
   means a mechanical failure only. Flags: `--base <url>`, `--width <px>`,
-  `--report-only`, `--keep-server`. (A stale note here once said a FULL run
-  fails until the `/identity-switchboard` routes land — those routes
-  shipped 2026-08-13; struck 2026-08-17.)
+  `--report-only`, `--keep-server`.

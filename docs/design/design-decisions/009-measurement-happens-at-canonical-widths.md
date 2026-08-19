@@ -39,10 +39,14 @@ Every fidelity capture, geometry probe, and visual comparison measures at a
 single canonical set of viewport widths, and the set is **derived, never
 invented**. Its sources, in order of authority:
 
-1. **The kit's own seams.** The design system has exactly one width seam —
-   `max-width: 840px` switches **`.oak-main`'s** map to its `-narrow` form
-   (no `--canvas-*-narrow` token exists; the canvas grid never switches) —
-   and the set proves every seam from both sides.
+1. **The kit's own seams.** The design system has exactly one width seam,
+   `max-width: 840px`, and two things happen there: the kit switches
+   **`.oak-main`'s** map to its `-narrow` form, and each counter-identity
+   sheet collapses **`--flow-columns`** to a single track, so `.oak-flow`
+   goes one-column at the same width (PDS from
+   `minmax(0, 2fr) minmax(0, 1fr)`, EMC² from `1fr 1fr`). The canvas grid
+   never switches — no `--canvas-*-narrow` token exists. The set proves the
+   seam from both sides.
 2. **The contractual floor.** WCAG 2.2 SC 1.4.10 fixes 320 CSS px as the
    narrowest width the page must serve without horizontal scroll; the set
    always starts there.
@@ -70,12 +74,13 @@ covers its class.
 Three parts; the SET is unchanged and the derived-never-invented discipline
 stands untouched.
 
-1. **The seam clause is corrected and re-framed.** Source 1's original
-   wording over-claimed ("switches the canvas and main grids"): the kit's
-   `max-width: 840px` seam switches **`.oak-main`'s** map to its
-   `-narrow` form only — no `--canvas-*-narrow` token exists anywhere, so the
-   canvas grid never switches. The Decision text above now states the true
-   mechanism (re-trued in place 2026-08-18, this pass's review round).
+1. **The seam clause states the full seam behaviour.** Two things happen at
+   the kit's single `max-width: 840px` seam: `.oak-main`'s map switches to
+   its `-narrow` form, and each counter-identity sheet collapses
+   `--flow-columns` to a single track. No `--canvas-*-narrow` token exists
+   anywhere, so the canvas grid never switches. The Decision text above
+   carries both arms (the map switch re-trued in place 2026-08-18; the
+   flow collapse named 2026-08-19, this pass's second review round).
    And the seam is a `max-width` **by current
    design**: the base map is the wide one and narrow is the override — the
    wide-first shape that owner rulings R3/R4 ("narrow first, wide follows,
@@ -116,7 +121,8 @@ fidelity convention stays at 1440.
 - Two captures of the same pair are comparable by construction — same
   widths, every time.
 - The kit's 840px seam is proven from both sides in every measured run, so
-  a narrow-map regression cannot hide behind a desktop-only capture.
+  a narrow-map or flow-collapse regression cannot hide behind a
+  desktop-only capture.
 - Capture tooling consumes the module rather than accepting free-hand
   widths; the wiring lands with the reproduction work it serves.
 
