@@ -100,6 +100,28 @@ cure round closed with tally `822a8999`, registry incident cured
   carries Change 4's residue; foundation cards per-concept with
   question zero; carrier moves; gate validator). MCP-619 trued and the
   Director briefed at the full-set boundary 2026-08-19.
+- **RATIFIED 2026-08-19 ~12:2xZ (owner card at this seat, verbatim
+  "Ratify both")**: strategic node `toolkit-re-architecture` — born
+  sketch this sitting, carrying the five-change bet, both owner
+  reasons (extraction + any-service), and the three-rung
+  demonstration ladder — is RATIFIED and governs execution;
+  `workspace-reorganisation-programme` marked `superseded_by` it in
+  the same stamp (plan-corpus validator green on both). Delivery
+  plans author at pickup, seam migration first. The commit parcel
+  (principles amendment + Atlas refinements + both plan stamps + this
+  record) was HELD at the Director's fold window and lands on the
+  successor coordination branch at the rotation broadcast.
+- **Owner extraction refinement + principles amendment, 2026-08-19
+  ~1x:xxZ (post-set)**: verbatim in per-user memory node
+  `repo-architecture-brief-toolkit-five-points` — oak product
+  workspaces are DESIGNED TO LEAVE (handed to a product squad); what
+  leaves is knobs (config, styling, UX tuning), what stays is levers.
+  Folded into the Atlas (Change 3: fourth pack class + the extraction
+  test as the seam's acceptance probe; Change 4: publishing promoted
+  to handoff prerequisite). principles.md §Context Specificity
+  Gradient amended at owner word: gradient runs below the repo
+  boundary (adopt-first) + thin-is-detachable; scale gains
+  ecosystem-canonical form as its lowest rung.
 
 ## Prior continuation — typescript-estate review execution (2026-08-03; conserved — still-live context for the MCP-603 frozen corpus)
 
