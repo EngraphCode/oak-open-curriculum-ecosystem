@@ -134,6 +134,11 @@ body {
   display: contents;
 }
 
-.narrow-disclosure-dissolved > summary {
+/* The summary leaves the tree at wide — EXCEPT while it holds focus:
+   hiding the focused node would drop focus to the document body on a
+   narrow → wide cross (zoom-out is an accessibility path). Declarative
+   focus continuity: it stays rendered exactly until focus moves on,
+   then hides — no script, no timing. */
+.narrow-disclosure-dissolved > summary:not(:focus) {
   display: none;
 }

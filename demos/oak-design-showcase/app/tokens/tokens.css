@@ -184,7 +184,7 @@
   max-inline-size: var(--measure-prose);
 }
 
-/* --- The rows: one compact line per token, at every width ---- */
+/* --- The rows: one compact card per token, at every width ---- */
 
 /* The ROW is the unit, not the table (owner ruling 2026-08-18: two-column
    flow is the norm at monitor widths, and nothing on this page scrolls or

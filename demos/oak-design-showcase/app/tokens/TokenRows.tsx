@@ -1,7 +1,8 @@
 'use client';
 
 /**
- * One family's tokens, as a flowing list of one-line rows.
+ * One family's tokens, as a flowing list of compact rows (name and
+ * chips on the first line; the value on its own full-width line).
  *
  * Every specimen is a real element painted through `var(--the-token)`, so a
  * switch of identity or theme repaints the whole page through the cascade
@@ -15,8 +16,9 @@
  * family's ROWS flow across two columns under a header that spans both.
  * The ROW is the fragmentation unit — a compact card that reads at a phone
  * width, proven by the narrow band — so rows split freely across columns,
- * families never clip, and nothing on this page scrolls inside itself
- * (the owner's everything-visible rule).
+ * families never clip, and no TOKEN CONTENT on this page scrolls inside
+ * itself (the owner's everything-visible rule; the wide rail's capped
+ * nav scroll is the one deliberate, owner-visible exception).
  *
  * LIST SEMANTICS AT EVERY WIDTH, BY DESIGN. No width renders these rows as
  * a table, so the markup does not claim one: each family is a

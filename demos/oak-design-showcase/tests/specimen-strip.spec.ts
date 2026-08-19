@@ -82,7 +82,9 @@ test.describe('specimen strip: narrow controls disclose instead of scroll', () =
     await expect(page.getByRole('radio', { name: IDENTITY_LABELS[counterBrand] })).toBeVisible();
     assertOnlyKnownExternalOrigins(aborted);
   });
+});
 
+test.describe('specimen strip: focus continuity across the disclosure seam', () => {
   test('crossing wide to narrow keeps a focused control visible and focused', async ({ page }) => {
     // The seam is crossed by accessibility paths (400% zoom, rotation): a
     // control focused at wide must not vanish into a closed disclosure at
@@ -96,6 +98,25 @@ test.describe('specimen strip: narrow controls disclose instead of scroll', () =
     await page.setViewportSize({ width: 320, height: 700 });
     await expect(theme).toBeVisible();
     await expect(theme).toBeFocused();
+  });
+
+  test('crossing narrow to wide keeps a focused summary rendered until focus moves on', async ({
+    page,
+  }) => {
+    // The REVERSE seam: hiding a focused summary at dissolution would drop
+    // focus to the document body (zoom-out is an accessibility path). The
+    // cure is declarative — the dissolved summary hides only :not(:focus).
+    await interceptExternalOrigins(page);
+    await page.setViewportSize({ width: 320, height: 700 });
+    await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}`);
+    const summary = page.locator('.strip-controls summary');
+    await summary.focus();
+    await expect(summary).toBeFocused();
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await expect(summary).toBeFocused();
+    await expect(summary).toBeVisible();
+    await page.keyboard.press('Tab');
+    await expect(summary).toBeHidden();
   });
 });
 

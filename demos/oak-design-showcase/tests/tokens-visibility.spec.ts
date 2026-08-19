@@ -18,7 +18,10 @@ const tokenAreaScrollers = (page: Page): Promise<number> =>
   page.locator('.tok-area').evaluateAll(
     (areas) =>
       areas
-        .flatMap((area) => [...area.querySelectorAll('*')])
+        // The area ROOTS are in the evaluated set too: a clipping or
+        // scrolling container at the root would hide token content while
+        // a descendants-only sweep still reported zero.
+        .flatMap((area) => [area, ...area.querySelectorAll('*')])
         .filter((el) => {
           if (el.classList.contains('oak-visually-hidden')) {
             return false;
@@ -120,7 +123,11 @@ test.describe('token reference: the narrow family nav discloses', () => {
     await page.setViewportSize({ width: 1280, height: 900 });
     // The details element stays MOUNTED across the seam (focus and open
     // state survive zoom and rotation); dissolution is the summary
-    // leaving the accessibility tree, not the DOM.
+    // leaving the accessibility tree, not the DOM — and the click above
+    // left the summary FOCUSED, so it stays rendered until focus moves
+    // on (the declarative reverse-seam continuity).
+    await expect(summary).toBeVisible();
+    await page.keyboard.press('Tab');
     await expect(summary).toBeHidden();
     await expect(nav.locator('a').first()).toBeVisible();
     assertOnlyKnownExternalOrigins(aborted);
