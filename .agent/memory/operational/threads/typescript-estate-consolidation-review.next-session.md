@@ -81,10 +81,25 @@ cure round closed with tally `822a8999`, registry incident cured
   sandboxed content frame (wheel, keyboard, a11y refs — the frame is
   one opaque node); FULL-SCREEN mode scrolls normally. Enter
   full-screen first, always.
-- **Next work at this seat**: draft the foundation-layer change set —
-  first the conceptual shape of the finishable cores, then one change
-  proposal at a time, each with its own diagram and its evidence
-  warrant stated before any spend beyond seat-time.
+- **Owner lens-4 sweep, 2026-08-19 afternoon (two cards, both ruled)**:
+  (1) Change 3 REDRAWN as the seam — toolkit/ + oak/ topology, three
+  mechanical gates (imports, lexemes, manifests); census retires to
+  one-time migration map. (2) Sweep applied to ALL decisions: Change 1
+  gains adopt-first admission question zero (own only what the
+  ecosystem hasn't finished; overrides block is the curation-cost
+  instrument), Change 2's carrier default inverted (untracked
+  derivation default, tracking earned), Change 4 ABSORBED into the
+  seam (residue: release-mechanism decision rides the migration card),
+  Change 5 reshaped to the workspace-liveness gate (first run = the
+  three unconsumed dispositions). Repo-split named and deferred with
+  flip condition (external adoption + third-party contributors).
+- **The change set is COMPLETE as design** (five changes: three live
+  proposals, one absorbed, one gate; six diagrams + the Change 5 gate
+  diagram). Next at this seat: owner review of the full set; then the
+  migration/execution cards in dependency order (seam card first — it
+  carries Change 4's residue; foundation cards per-concept with
+  question zero; carrier moves; gate validator). MCP-619 trued and the
+  Director briefed at the full-set boundary 2026-08-19.
 
 ## Prior continuation — typescript-estate review execution (2026-08-03; conserved — still-live context for the MCP-603 frozen corpus)
 

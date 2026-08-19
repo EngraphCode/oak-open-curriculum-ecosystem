@@ -1192,6 +1192,24 @@ pinning-by-name, not sequencing-by-hope.
   `git diff --cached --stat` read in the commit window. Adopted at
   this seat from now on; candidate for the stage-by-explicit-pathspec
   rule's next revision (the rule currently binds staging only).
+- **A classification instrument is a symptom of the system it grades.**
+  The census existed because the tree does not sort; my Change 3 draft
+  executed the instrument's findings row by row — inherited shape from
+  the instrument's own gravity. The owner's lens-4 question ("would
+  this be simpler if we changed the system?") applied to every
+  decision flipped four of five changes from standing activities into
+  constructed properties (the seam, adopt-first, inverted carrier
+  default, the liveness gate). The generator: when a proposal executes
+  an instrument's findings per-row, ask whether the instrument's NEED
+  is the defect. Companion: the context-specificity gradient runs
+  BELOW the repo boundary — ecosystem-canonical → toolkit-owned →
+  oak-pack.
+- **The write-time vocabulary gate covers file writes, not just
+  comms.** Third bite of the fingerprint class, this time on an Atlas
+  edit ("parking space", used in NEGATION — the gate cannot see
+  negation context). The honest cure both times: state the concept
+  positively (name the expiry, name the gate) rather than by contrast
+  with the banned shape — which also reads better.
 
 ## 2026-08-19 output-schema truth fleet (Ocelot, Director seat)
 

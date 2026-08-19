@@ -381,11 +381,16 @@ flowchart TD
   </div>
 
   <h2>8 · Change proposals</h2>
-  <p>Each proposal lands below as a designed change with its own diagram, per the brief's
-  five points: the existing architecture holds no privilege; the thinnest possible Oak on
-  reusable code; foundations <em>designed</em> to library grade and effectively finishable —
-  constitutive of the conceptual shape, not a cleanup phase; one lifecycle per package; a
-  toolkit that can build any digital service. Queued for design on the evidence above:</p>
+  <p>The complete change set, each change a designed system property with its own diagram,
+  per the brief's five points: the existing architecture holds no privilege; the thinnest
+  possible Oak on reusable code; foundations <em>designed</em> to library grade and
+  effectively finishable — constitutive of the conceptual shape, not a cleanup phase; one
+  lifecycle per package; a toolkit that can build any digital service. The set was
+  re-derived in full at the owner's lens-4 sweep (2026-08-19: <em>"would this be simpler,
+  or thinner, if we changed the system?"</em> applied to every decision) — the shared
+  generator that survived the sweep: convert standing activities (classifying, finishing,
+  publishing, auditing) into constructed properties, and run the context-specificity
+  gradient below the repo boundary (ecosystem-canonical → toolkit-owned → oak-pack).</p>
 
   <h3 id="change-1">Change 1 · The foundation layer, designed</h3>
   <p>Establish a chartered <strong>foundation tier</strong>: a small set of packages, each the
@@ -395,10 +400,21 @@ flowchart TD
   instances serve as demand evidence and test cases; each package is designed from the
   concept's canonical form, never extracted from incumbent code (point 1 applied at code
   scale).</p>
-  <p><strong>The charter.</strong> Admission requires a standard concept whose contract can
-  be stated without Oak, any vendor, or any consumer class; at least one embedded estate
-  instance as demand evidence (standard concepts do not wait for a second consumer); and a
-  closed public API statable without present callers. The finish bar, declared at each
+  <p><strong>The charter.</strong> Admission asks <strong>question zero first</strong>
+  (added at the owner's lens-4 sweep, 2026-08-19): <em>does a finished canonical form
+  already exist in the ecosystem?</em> Where it does — an industry contract like
+  OpenTelemetry's provider-neutral observability API, a mature result library — the
+  default is ADOPT (with a thin conformance suite as the assurance bar), because the
+  finish bar is precisely what those packages already paid, and re-deriving them in-estate
+  privileges the incumbent shape one level deeper than point 1 tolerates. Owning is the
+  evidenced exception: concepts with no external canonical form, or concepts small enough
+  that owning a finished forty-line module genuinely beats curating a dependency — the
+  crossover is depth-versus-curation-cost, and the estate's overrides block is the
+  measured instrument for the curation side. Beyond question zero, admission requires a
+  standard concept whose contract can be stated without Oak, any vendor, or any consumer
+  class; at least one embedded estate instance as demand evidence (standard concepts do
+  not wait for a second consumer); and a closed public API statable without present
+  callers. The finish bar, declared at each
   package's birth: exhaustive tests (property-based where the concept warrants them), full
   documentation, a performance characterisation, and tier-closed dependencies — foundation
   depends only on foundation, preserving the one structural property the current core
@@ -471,7 +487,11 @@ flowchart TD
     vendor, or consumer specifics is relocated, not admitted. A concept with no embedded
     estate instance is deferred — demand unevidenced. If a finished package's clock will not
     go flat because consumers keep forcing contract change, the concept was mis-drawn:
-    split or re-draw it rather than reopening the contract piecemeal.</p>
+    split or re-draw it rather than reopening the contract piecemeal. And on question
+    zero, both directions: an adopted external that forces floor-management at a rate
+    exceeding what owning would cost (the overrides-block class, measured) flips that
+    concept to owned; an owned package whose ecosystem equivalent has become the industry
+    contract flips to adopted — per concept, at its own card, never wholesale.</p>
     <p><strong>Spend.</strong> This change is design; the per-package finish work (contract,
     tests, docs, perf) is priced per package at its own card before any of it starts.</p>
   </div>
@@ -485,12 +505,16 @@ flowchart TD
   in one workspace.</p>
   <p><strong>The designed concept: the carrier contract, with a disposition rule.</strong>
   Every generated or derived artefact gets one of three homes, chosen by a rule rather
-  than case-by-case taste. <em>Tracked carrier package</em> — when consumers import it at
-  source time and the input pin is the value: the package holds the regeneration command,
-  its input pins (spec version, corpus snapshot, generator version), no authored logic,
-  and a clean-regeneration check (regenerate → empty diff) as its gate.
-  <em>Untracked build product</em> — when it is cheaply derivable at build time (the
-  widget bundle, the orientation digest): built, never committed.
+  than case-by-case taste — and the rule's default was inverted at the owner's lens-4
+  sweep (2026-08-19): <em>untracked derivation is the default home; tracking must be
+  earned.</em> <em>Untracked build product</em> — the default: derivable at build time,
+  built, never committed (the widget bundle, the orientation digest).
+  <em>Tracked carrier package</em> — only where tracking earns itself through network
+  dependence, expensive compute, or upstream instability, and consumers import the pinned
+  result at source time: the package holds the regeneration command, its input pins (spec
+  version, corpus snapshot, generator version), no authored logic, and a
+  clean-regeneration check (regenerate → empty diff) as its gate — this is what keeps a
+  cold clone building without touching the upstream, the Cardinal Rule's own property.
   <em>Out-of-tree store</em> — when it is a cache or input corpus (schema-cache, the
   746&nbsp;MB bulk downloads): named location, refresh contract, never in the tree. The
   carrier contract is itself a toolkit piece — it works for any generated surface in any
@@ -561,95 +585,156 @@ flowchart LR
     carrier gates (clean-regen checks) are new CI surface — priced at their own card with
     the first carrier as the proving instance.</p>
   </div>
-  <h3 id="change-3">Change 3 · Thin Oak on reusable ground</h3>
-  <p>Brief point 2, made structural: <strong>Oak-ness is a pack, not a home.</strong>
-  Machinery is generic and consumable by any digital service; Oak enters as identity packs,
-  content adapters, and injected configuration; each Oak workspace is a <em>thin
-  assembly</em> of toolkit parts plus packs. The design system already proves the pattern —
-  same markup, any identity — and this change applies it to the whole estate. The
-  discriminating probe for every split: <em>could a non-Oak service consume this machinery
-  unchanged?</em></p>
-  <p><strong>Where Oak-ness lives, by class.</strong> Three separable classes, each with a
-  pack form the estate already models — and the licence model (code MIT, content OGL, brand
-  reserved) lands on exactly these seams, which makes the licence boundaries structural
-  instead of policed:</p>
-  <div class="tablewrap"><table>
-    <tr><th>Oak-ness class</th><th>Pack form</th><th>Evidence in the estate today</th></tr>
-    <tr><td>Identity and brand (reserved)</td><td>identity pack</td><td>the design system's existing identity mechanism</td></tr>
-    <tr><td>Curriculum content and data (OGL)</td><td>content adapter / data pack</td><td>the SDK's upstream taps; Change 2's carrier packages</td></tr>
-    <tr><td>Service policy, names, vendor bindings</td><td>injected configuration</td><td>the census's own per-row grammar: "consumer-injected message copy", "Oak-named examples out of source TSDoc"</td></tr>
-  </table></div>
-  <p><strong>The measured ground.</strong> The workspace-classification census (45 subjects,
-  owner-carded 2026-08-14) already grades the estate for exactly this split: of 38
-  classified subjects, <strong>12 are generic-foundation</strong> (most one doc-move from
-  publishable — e.g. <code>env-resolution</code>'s only Oak residue is Oak-named example
-  schemas in TSDoc), <strong>9 are mixed</strong> (a generic core plus separable Oak
-  residue, each row carrying its named split), and <strong>17 are oak-leaf</strong> (the
-  thin assemblies this change makes official). §7's inverted-ambition instances are the
-  headline splits: OAuth-for-MCP, the OpenAPI pipeline (Change 2's authored package), and
-  the index lifecycle machinery all exit Oak leaves into consumable toolkit parts. The
-  cancelled round-2 target inventory is deliberately not used here — the owner-carded
-  classification matrix is the instrument; salvage enters as measurement only.</p>
+  <h3 id="change-3">Change 3 · Thin Oak on reusable ground — the seam</h3>
+  <p>Brief point 2, answered at the system level. An earlier draft of this change executed
+  the census's per-package dispositions inside the current tree; the owner's lens-4
+  question (2026-08-19, <em>"would this be simpler, or thinner, if we changed the
+  system?"</em>) superseded it: per-package splits treat leakage one package at a time and
+  leave the leak vector open, with classification as a standing activity. The system
+  change makes thinness a <strong>construction property</strong> instead of a policed
+  one.</p>
+  <p><strong>The change: two sides, one seam, three gates.</strong> The code estate
+  re-homes under two top-level families — <code>toolkit/</code> (generic by construction,
+  publishable by default) and <code>oak/</code> (packs and assemblies) — with the seam
+  enforced by three mechanical gates: <em>imports</em> (<code>toolkit/**</code> never
+  imports <code>oak/**</code> — dependency-cruiser), <em>lexemes</em> (no Oak vocabulary —
+  brand names, curriculum terms, <code>thenational.academy</code> — inside
+  <code>toolkit/</code> sources; the <code>@oaknational</code> npm scope stays, as
+  provenance rather than coupling), and <em>manifests</em> (toolkit packages carry
+  publishable manifests by default). The probe "could a non-Oak service consume this
+  unchanged?" stops being a review question and becomes a construction fact; a machinery
+  package cannot acquire Oak-ness without failing a gate at write time. And
+  <strong>Oak-ness becomes enumerable</strong>: <code>oak/</code> can be pointed at and
+  measured, so "thinner" becomes a number with a trend, not an aspiration.</p>
+  <p><strong>Oak-ness inside <code>oak/</code>, by class.</strong> The three pack classes
+  survive as the oak side's internal structure — identity packs (brand, reserved),
+  content adapters and data packs (OGL), injected configuration (names, policy, env) —
+  plus the assemblies (apps and demos). The licence model lands directory-literal:
+  <code>toolkit/</code> is MIT, the oak side carries the OGL content pointers and the
+  reserved brand, and no component's licence needs more than one word again. The design
+  system remains the proven instance of the pattern — same markup, any identity —
+  now generalised by topology rather than by per-package discipline.</p>
+  <p><strong>The census retires into a migration map.</strong> The classification matrix
+  (45 subjects, owner-carded 2026-08-14) stops being a standing instrument and becomes the
+  one-time re-home plan: the 12 generic-foundation rows move to <code>toolkit/</code>
+  nearly as-is; the 9 mixed rows split once at the seam, each along its already-named
+  line; the 17 oak-leaf rows re-home under <code>oak/</code>. §7's inverted-ambition
+  instances — OAuth-for-MCP, the OpenAPI pipeline, the index lifecycle machinery — exit
+  Oak leaves as toolkit machinery in the same move. After the migration, membership is the
+  classification, and no census of this kind needs running again.</p>
 
   <figure class="diagram">
     <pre class="mermaid">
 flowchart LR
-  classDef pack stroke:#8A6A4F,stroke-width:2px
-  classDef thin stroke:#3E7A4E,stroke-width:2.5px
+  classDef gate stroke:#3E7A4E,stroke-width:2.5px
 
-  subgraph TK["toolkit machinery — generic, any service"]
+  subgraph TK["toolkit/ — generic by construction, publishable by default"]
     direction TB
-    M1["mcp-server machinery incl. OAuth-for-MCP"]
-    M2["openapi pipeline — Change 2"]
-    M3["search and index lifecycle machinery"]
-    M4["design system — same markup, any identity"]
+    F2["foundation ring — Change 1's finishable cores"]
+    M["machinery — mcp server incl. OAuth, openapi pipeline, search and index lifecycle, design system"]
   end
 
-  subgraph PACKS["Oak packs — where Oak-ness lives"]
+  subgraph SEAM["the seam — three mechanical gates"]
     direction TB
-    P1["identity pack — brand, reserved"]:::pack
-    P2["curriculum content adapter — OGL"]:::pack
-    P3["service config — names, policy, env"]:::pack
+    G1["imports: toolkit/ never imports oak/"]:::gate
+    G2["lexemes: no Oak vocabulary inside toolkit/ sources"]:::gate
+    G3["manifests: toolkit/ publishable by default"]:::gate
   end
 
-  THIN["thin Oak workspace — assembly only"]:::thin
-  SVC["deployed Oak service"]
-  OTHER["any other digital service — same machinery, different packs"]
+  subgraph OAK["oak/ — enumerable, measurably thin"]
+    direction TB
+    P["packs — identity · content · config"]
+    A["assemblies — apps and demos"]
+  end
 
-  TK --> THIN
-  PACKS --> THIN
-  THIN --> SVC
-  TK -.-> OTHER
+  TK --- SEAM
+  SEAM --- OAK
+  A -->|consumes across the seam| M
     </pre>
-    <figcaption>The target shape of one Oak service: generic machinery consumed unchanged,
-    Oak-ness confined to three pack classes, the Oak workspace reduced to assembly. The
-    dotted edge is the toolkit ambition itself — the same machinery serving a non-Oak
-    consumer is the exercised proof, which Change 4 (the delivery plane) turns into
-    practice.</figcaption>
+    <figcaption>The system change: one seam replaces thirty-four per-package judgments.
+    Consumption flows one way across it; the three gates make the toolkit side's
+    generality constructional. Change 1's foundation ring nests inside the toolkit side
+    (its "no consumer class" charter clause becomes redundant with the seam — a
+    simplification); Change 4's publishing becomes the toolkit side's default state
+    rather than an aspiration.</figcaption>
   </figure>
 
   <div class="callout leaf">
-    <p><strong>Warrant.</strong> Point 2 verbatim, measured as already latent: 12 of 38
-    classified subjects are generic today and 9 more carry named splits — the census did
-    the grading, this change executes it as designed splits rather than opportunistic
-    cleanup. The licence model lands on the same seams, so the split also converts a
-    policed boundary into a structural one.</p>
-    <p><strong>Falsifiers.</strong> An Oak element that cannot be expressed as pack or
-    configuration without forking the machinery marks one of two things: machinery that is
-    not yet generic (fix the machinery, not the pack) or genuinely Oak-constitutive
-    behaviour (it stays in the thin workspace, named as such). If in execution most mixed
-    rows resist their named split, the pack model is wrong for this estate — stop and
-    remeasure rather than forcing residue into packs.</p>
-    <p><strong>Spend.</strong> Design here; each split is a bounded per-row card priced on
-    the census disposition, and the generic-foundation rows' doc-moves are near-free
-    first parcels.</p>
+    <p><strong>Warrant.</strong> The owner's lens-4 ruling plus three owner principles
+    landing on the same answer: structure over vigilance (a needs-vigilance boundary is
+    unfinished), correctness by construction, and licence legibility. The census evidence
+    supports feasibility — every mixed row already carries a named single split. The
+    one-time re-home is mechanical (import paths, workspace globs, CI wiring) and buys
+    the ongoing classification cost down to zero. The maximal form — a separate published
+    toolkit repo — was considered and deferred: it maximises the seam but pays in
+    change-cost, the owner's core currency; its flip condition is external toolkit
+    adoption with third-party contributors becoming a product goal.</p>
+    <p><strong>Falsifiers.</strong> A substantial class of true hybrids — mixed rows that
+    resist even one split without forking machinery — means the seam is drawn wrong for
+    this estate: stop and remeasure. If the lexeme gate cannot run mechanically without
+    false-positive noise drowning its signal, that leg weakens to review-time and the
+    seam loses one of its three teeth — name it rather than pretending. An Oak element
+    that resists pack or configuration form marks either machinery not yet generic (fix
+    the machinery) or genuinely Oak-constitutive behaviour (it lives in
+    <code>oak/</code>, named as such).</p>
+    <p><strong>Spend.</strong> Design here; the re-home is one migration card (mechanical,
+    Cardinal-Rule machinery already proves the estate can re-align wholesale), and the
+    three gates are new CI surface priced with it. The per-row splits of the earlier
+    draft become steps inside that one card instead of twenty-six separate ones.</p>
   </div>
-  <div class="queue"><span class="tag">queued</span><h4>The delivery plane, opened</h4>
-    <p>Building blocks that actually ship: publishing as the exercised proof of
-    separability, not an aspiration — the licence model made structural.</p></div>
-  <div class="queue"><span class="tag">queued</span><h4>Dispositions for the unconsumed</h4>
-    <p>graph-ingest, graph-project, oak-design-ink — three built libraries with zero
-    consumers: finish, adopt, or retire, each with its evidence.</p></div>
+  <h3 id="change-4">Change 4 · The delivery plane — absorbed into the seam</h3>
+  <p>Resolved at the owner's lens-4 sweep (2026-08-19): once Change 3's manifest gate
+  makes the toolkit side publishable by default, "start publishing" stops being a
+  programme and becomes a property — this change's substance lives in the seam, and its
+  diagram is Change 3's. One genuine decision remains as residue and rides the seam's
+  migration card: the release mechanism itself — per-package versioning and publishing
+  against today's single-version pipeline that tags and changelogs but never publishes
+  (<code>npmPublish: false</code>). Publishing stays the exercised proof of separability;
+  the seam is what makes the proof cheap.</p>
+
+  <h3 id="change-5">Change 5 · The workspace-liveness gate</h3>
+  <p>Reshaped at the same sweep from three ad-hoc dispositions into a system change: an
+  estate-level check under which <strong>a workspace with zero consumers and no deployment
+  target fails unless it carries a dated warrant</strong>. Package-level dead-code tooling
+  (knip) cannot see this class — a whole package with no importers is invisible to
+  per-package analysis, which is exactly how three built libraries accumulated silently.
+  The gate composes with Change 1's stability observable (live consumers is one of its
+  legs) and closes the class permanently; the estate's follow-up discipline supplies the
+  warrant shape — every warrant carries its own expiry and its named gate. The first run
+  IS the disposition moment for today's three instances — <code>graph-ingest</code>,
+  <code>graph-project</code>, <code>oak-design-ink</code>: finish, adopt, or retire, each
+  with its evidence, at one card.</p>
+
+  <figure class="diagram">
+    <pre class="mermaid">
+flowchart LR
+  classDef gate stroke:#3E7A4E,stroke-width:2.5px
+  classDef card stroke:#B3452E,stroke-width:2px
+
+  W["every workspace, every gate run"] --> G{"liveness gate"}:::gate
+  G -->|"has consumers or a deployment target"| PASS["passes — alive by evidence"]
+  G -->|"carries a dated, unexpired warrant"| WARR["passes — alive by warrant, clock ticking"]
+  G -->|neither| CARD["disposition card — finish, adopt, or retire"]:::card
+  CARD -.->|first run| THREE["graph-ingest · graph-project · oak-design-ink"]
+    </pre>
+    <figcaption>The gate replaces the audit: unconsumed packages cannot accumulate
+    silently, and every warrant carries its own expiry. The three current instances
+    are the first run's disposition card, not three separate programmes.</figcaption>
+  </figure>
+
+  <div class="callout leaf">
+    <p><strong>Warrant.</strong> The class exists by measurement (three instances in §1's
+    family grid) and per-package tooling structurally cannot catch it. The gate converts a
+    recurring audit into a constructed property — the same generator as every change
+    above.</p>
+    <p><strong>Falsifiers.</strong> If legitimate incubation (a package built ahead of its
+    consumer by design) keeps tripping the gate, the warrant mechanism is too coarse —
+    tune the warrant shape, never the gate's teeth. If the first run cannot reach a
+    disposition for any of the three with evidence in hand, the finish/adopt/retire
+    triad is missing an option — name it.</p>
+    <p><strong>Spend.</strong> The gate is one validator plus a schema for warrants; the
+    first-run dispositions are one card.</p>
+  </div>
 
   <footer>
     <p><strong>Provenance.</strong> Workspace/runtime/delivery topology and generated-byte
@@ -657,7 +742,10 @@ flowchart LR
     workspace-classification census (45 subjects, owner-carded 2026-08-14). Co-change and
     clock measurements: 12-month confound-corrected record
     (workspace-basis-regrounding, 2026-08-17). Fleet-era survey conclusions are
-    deliberately absent: salvage enters as measurement only, with no privileged status.</p>
+    deliberately absent: salvage enters as measurement only, with no privileged status.
+    Change-set re-derivation: the owner's lens-4 sweep, 2026-08-19, ruled at two cards —
+    Change 3 redrawn as the seam; the adopt-first admission question, the inverted
+    carrier default, Change 4's absorption, and the liveness gate applied together.</p>
     <p><strong>Reading discipline.</strong> Every number above is traceable to a named
     instrument run; where a measurement carries caveats they are stated beside it. Diagrams
     simplify edge sets for legibility and say so in their captions.</p>
