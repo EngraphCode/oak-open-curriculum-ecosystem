@@ -194,9 +194,12 @@ forward-asks remain.
   holds the self-contained causal and historical understanding. MCP-173
   separately gates October public-beta enablement; `pnpm-lock.yaml` remains
   pnpm-generated only.
-- **Other decision-complete plans awaiting execution routing.** Output-schemas
-  for MCP tools (every `outputSchema` =
-  `composeEnvelopeSchema(payloadSchema)`; next = execution routing); the MCP
+- **Other decision-complete plans awaiting execution routing.** MCP output
+  contracts: owned since 2026-08-19 by the `mcp-output-contracts` strategic
+  node + `mcp-served-surface-truth` / `mcp-output-contracts-implementation`
+  delivery plans (`.agent/plans/`; the single-envelope
+  `composeEnvelopeSchema(payloadSchema)` doctrine was falsified against the
+  served wire — three envelope shapes; prior plans archived); the MCP
   test estate + observability-sinks plans (§Next Safe Steps). OAK-PROD MCP
   snagging — next: S0 non-Cursor probe, then S1 to owner.
 - **no-throw remediation — RESHAPED, READY (survey-first), PAUSED for the strategy thread.** Controlling
