@@ -413,15 +413,23 @@ pixels before value authoring begins.
   surface to packs; the asset-property emission layer (reusing
   `design-tokens-core`'s emitter) with the URL-resolution answer for both
   shapes; the minimal static fixture consumer proving AC3's first arm.
-- **T1d — Roster derivation re-plumb + №N** (class: re-plumb +
-  regression). The build-time generated roster module from installed
-  manifests; the seven roster surfaces converted (product union, labels,
-  slug→fragment map, test-estate roster, expectation table,
-  white-labelling records, served-path/parity rows); the a11y matrix
-  derived from the same module; the №N regression with the constructed
-  minimal fixture pack (contract-complete per P7, values
-  defaulted-at-creation), red-first, plus the admission-refusal proof
-  for an incomplete variant.
+- **T1d — Roster derivation + №N** (class: mechanism + regression).
+  The build-time generated roster module from installed manifests, with
+  the №N regression proving a new pack joins the DERIVED roster with
+  zero source edits — the constructed minimal fixture pack
+  (contract-complete per P7, values defaulted-at-creation), red-first,
+  plus the admission-refusal proof for an incomplete variant.
+  *Dated amendment (2026-08-19, review round): the SEVEN showcase
+  roster surfaces (product union, labels, slug→fragment map,
+  test-estate roster, expectation table, white-labelling records,
+  served-path/parity rows) and the a11y matrix do NOT convert in this
+  node — deriving them from installed manifests while Oak, PDS, and
+  EMC² remain unmigrated (§Out of scope) would either drop the three
+  identities or require the union bridge `replace-dont-bridge`
+  forbids. The conversion is the programme's COMPLETING act: it lands
+  once, in a follow-on node after the three migration nodes, when
+  every identity is a tier pack. This node proves the derivation on
+  the tier's real contents (the fixture, then Tango).*
 - **T1e — The constructor (`oak-design identity create`)** (class:
   instrument; added at P7, 2026-08-18). Identity construction as a
   first-class tooling operation: scaffold a complete pack from the
@@ -612,9 +620,10 @@ because both touch the same plan files.
    write-only record. The pack DECISIONS file's reader is the next design
    iteration and the wow-checkpoint adjudication.
 6. **Rules-tier**: screened against the always-applied tier.
-   `replace-dont-bridge`: nothing interim ships — existing identities'
-   wiring converts once at T1d (a completed re-plumb, not a compatibility
-   layer), and Tango never exists in the legacy shape.
+   `replace-dont-bridge`: nothing interim ships — the showcase roster
+   surfaces convert ONCE, in the programme's completing node after all
+   three migrations (T1d's dated amendment), never through a
+   legacy-plus-packs union; Tango never exists in the legacy shape.
    `strict-validation-at-boundary`: the manifest is exactly that boundary.
    `no-warning-toleration`: the guard stays all-fatal per G1.
    `design-values-come-from-the-system` and `never-invent-identities`:
