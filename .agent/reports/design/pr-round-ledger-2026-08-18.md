@@ -481,3 +481,15 @@ stated self-contained per no-moving-targets); #912 `cbdbda76b` (every
 tokens.css no-scroll claim scoped to token content with the wide-rail
 exception named). Fresh rounds requested on all three at the cut; the
 successor merges each at SETTLE-READY after tallying its bound round.
+
+**Post-cut addendum (verify-908's report, delivered after the cut)**:
+the verifier's full report landed late; its edits were already
+harvested first-hand and its three HELD classes were all resolved this
+sitting (P7 inversion; the 2026-08-19 re-ratification stamp; the report
+landed with the node). ONE surfaced survivor remains uncured: plan
+lines ~544-545 — "sequenced after the MCP-613 PR merges (same file
+surface; avoids a self-conflict between two in-flight PRs)" — the
+sequencing is a real invariant, the "two in-flight PRs" phrasing is
+live status (the execution-state class this round cured elsewhere).
+Named next-round candidate on #908: re-word to "sequenced after the
+MCP-613 records pass lands (same file surface — one writer at a time)".
