@@ -62,12 +62,8 @@ question:
 
 Consequences for the model this DDR governs:
 
-- The choice model this DDR names is CONFIRMED: the control's state is
-  the user's choice, with "Identity default" as the honest name of the
-  no-choice state (superseding both the earlier "Page default" wording
-  and the 2026-08-10 interim applied-model store, which briefly
-  contradicted this DDR unamended — the drift is owned and corrected
-  here).
+- The control's state is the user's choice, with "Identity default" as
+  the honest name of the no-choice state.
 - "Identity default" is itself selectable: choosing it clears the
   stored choice and returns the page to the identity's own default
   (implementation: no `data-theme` attribute; a brand may re-polarise
