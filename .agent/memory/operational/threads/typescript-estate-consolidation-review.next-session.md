@@ -71,9 +71,16 @@ cure round closed with tally `822a8999`, registry incident cured
   PREVIOUS Claude Code account (owner-explained: account change), so it
   is unreachable from this account, not deleted; republish by editing
   the canonical file then publishing WITH this URL as `url` from any
-  session on the current account). All four diagrams PIXEL-UNVERIFIED: Chrome
-  extension not connected 2026-08-19. Re-run at next Chrome
-  availability; a ten-second owner scroll also discharges it.
+  session on the current account). PIXEL-CHECK DISCHARGED 2026-08-19:
+  all five diagrams verified rendered in the live viewer; two defects
+  caught and cured at the check (the renderer strips br tags inside
+  mermaid labels and concatenates the words — labels now use spaces +
+  natural wrapping; Change 1's tier needed direction LR +
+  invisible-edge chains for a compact grid). MECHANISM for future
+  checks: the INLINE artifact viewer swallows all scroll input to the
+  sandboxed content frame (wheel, keyboard, a11y refs — the frame is
+  one opaque node); FULL-SCREEN mode scrolls normally. Enter
+  full-screen first, always.
 - **Next work at this seat**: draft the foundation-layer change set —
   first the conceptual shape of the finishable cores, then one change
   proposal at a time, each with its own diagram and its evidence

@@ -1167,3 +1167,42 @@ pinning-by-name, not sequencing-by-hope.
   read-the-failure-surface-never-the-pipe class
   (exit-codes-in-band-never-piped); tooling innocent, no new lesson
   beyond the class's reach extending to send-verification.
+- **The artifact viewer scroll refusal, solved: full-screen is the
+  scrollable mode.** The INLINE viewer swallows every programmatic
+  input to the sandboxed content frame — wheel, keyboard, a11y refs
+  (the frame is one opaque "User-generated artifact content" node).
+  The full-screen button re-parents the scroll container and wheel
+  events work normally. Yesterday's "five refused mechanisms" were all
+  aimed at the inline mode; the cure is one click. Enter full-screen
+  FIRST on every artifact pixel-check.
+- **The consumer's-resolver seed got its proof instance same-day.**
+  The real viewer's mermaid renderer strips br tags inside node labels
+  and concatenates the words — a defect invisible to any local mermaid
+  check and present in ALL five Atlas diagrams since authoring. Only
+  the check that traversed the consumer's own resolution path (the
+  live artifact viewer) could catch it. visual-verdicts-require-
+  rendered-proof, evidenced at the exact mechanism level the morning's
+  play seed predicted.
+
+## 2026-08-19 output-schema truth fleet (Ocelot, Director seat)
+
+- **A design-review stage ahead of a fan-out pays like the rule says.**
+  The frame-challenger leg found, pre-fan-out, that no verification leg
+  was chartered to observe a REAL payload — the one gap that would have
+  made every source-reading verdict confident-but-wrong about schema
+  fit. Two legs then called the live server and the whole synthesis
+  pivoted on what came back (three envelope shapes, not one).
+- **Source-reading cannot settle wire questions.** The June plan's
+  `envelope(payloadSchema)` doctrine survived every document check and
+  died on one live `tools/call`. When the claim is about what a system
+  EMITS, the check must observe the emission (validation-strategy's
+  gate-integrity clause, applied to design doctrine).
+- **`rg` skips dotdirs by default**: a bare `rg` sweep silently excludes
+  `.agent/**`, so documentary absence claims need `rg --hidden` (or
+  `git grep`) plus a published site enumeration. Sibling: plain
+  `grep -r` from root traverses 40+ duplicate worktree checkouts —
+  rg/git-grep exclude them via gitignore.
+- **Universal negatives need published enumerations.** "No registration
+  site carries X" is evidence only when the leg publishes the site list
+  it searched (four `new McpServer(` sites here). An unpublished
+  enumeration is an assertion wearing a verdict.

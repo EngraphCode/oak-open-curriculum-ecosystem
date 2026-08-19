@@ -437,25 +437,19 @@ flowchart TD
   BAR["the finish bar — declared at birth: closed contract · exhaustive tests · docs · perf characterisation · tier-closed deps"]:::moved
 
   subgraph F["foundation tier — Oak-free by contract, finishable"]
-    R["result"]
-    T["typed object ops"]
-    O["observability contract vendor glue exits"]:::moved
-    E["environment resolution core/env + libs/env-resolution → one"]:::moved
-    L["logging contract from libs/logger — sinks exit"]:::moved
-    S["safe-path"]
-    D["deterministic ordering new — today inline duplicates"]:::newpkg
-    G["graph-core"]
+    direction LR
+    R["result"] ~~~ T["typed object ops"] ~~~ O["observability contract vendor glue exits"]:::moved ~~~ E["environment resolution core/env + libs/env-resolution → one"]:::moved
+    L["logging contract from libs/logger — sinks exit"]:::moved ~~~ S["safe-path"] ~~~ D["deterministic ordering new — today inline duplicates"]:::newpkg ~~~ G["graph-core"]
   end
 
   subgraph B["build tier — dev-only clock"]
-    ESL["oak-eslint"]:::moved
-    W["workspace-config"]:::moved
-    BM["build-metadata"]:::moved
+    direction LR
+    ESL["oak-eslint"]:::moved ~~~ W["workspace-config"]:::moved ~~~ BM["build-metadata"]:::moved
   end
 
   subgraph X["exits the foundation"]
-    V["sentry-node · posthog-node vendor clock"]:::exits
-    OZ["openapi-zod-client-adapter generation clock → Change 2"]:::exits
+    direction LR
+    V["sentry-node · posthog-node vendor clock"]:::exits ~~~ OZ["openapi-zod-client-adapter generation clock → Change 2"]:::exits
   end
 
   BAR --> F
