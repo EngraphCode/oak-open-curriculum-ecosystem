@@ -493,3 +493,19 @@ sequencing is a real invariant, the "two in-flight PRs" phrasing is
 live status (the execution-state class this round cured elsewhere).
 Named next-round candidate on #908: re-word to "sequenced after the
 MCP-613 records pass lands (same file surface — one writer at a time)".
+
+**Design-work audit (2026-08-19 ~15:3xZ, owner word "all design work
+pushed and in a draft or open PR")**: every worktree swept. Current
+lanes exact-match their remotes (#908 `9d811d463`, #910 `0c30a6932`,
+#912 `cbdbda76b`; local "ahead" readings were phantom — merge-bot
+pushes by URL never update local tracking refs). Five old design
+branches are merged-PR residue (#785 #787 #814 #822 #824). Two real
+finds, both dispositioned: the W0.1 census scaffold (cycle plan v2 +
+census types) lived only on the w01-census worktree's disk — preserved
+into the design reports space (the orphan `.ts` fenced verbatim,
+byte-identity verified, disk residue removed after extraction) and
+parked as DRAFT PR #918; and design-plan-truings' staged
+capability-floor report is an EARLIER draft of the version already on
+main (main's copy is strictly richer — the owner-shaping verbatim and
+pinned revision were added in later truing) — superseded residue, left
+in place, no un-landed knowledge.
