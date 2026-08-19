@@ -8,14 +8,18 @@ overview: >-
   owner-commissioned fourth identity, as its first and proving consumer.
 status: ratified
 ratified_by: "Jim Cresswell (owner)"
-ratified_date: 2026-08-17
+ratified_date: 2026-08-19
 ratified_where: >-
-  Owner card answers, design-lane session ab1066 (Yarrow stirs
-  Undergrowth), 2026-08-17 — all four ratification-card questions
-  answered with the recommended options (ratify as presented; S4(b)
-  dated amendment; thread-record verdict home; keep one node); indexed
-  in the design-system-integration thread record's 2026-08-17 session
-  updates.
+  Two owner words compose the stamp. Original ratification 2026-08-17:
+  owner card answers, design-lane session ab1066 (Yarrow stirs
+  Undergrowth) — all four ratification-card questions answered with the
+  recommended options (ratify as presented; S4(b) dated amendment;
+  thread-record verdict home; keep one node). Re-ratification
+  2026-08-19 covering the P7 scope addition (T1e constructor; T1a-ii
+  completeness/provenance arms): owner card answer at the Director's
+  seat, routed via Director session Ocelot binds Tunnel (c28ad9) —
+  yes on all three card decisions with the re-ratification rider
+  carried.
 serves: design-system-as-configured-framework
 impact_areas:
   - design-system
@@ -35,8 +39,7 @@ ruled on 2026-08-17 (seven design rulings at the critical-analysis sitting;
 captured at occurrence in comms event `ec2c307b` and the
 design-system-integration thread record's 2026-08-17 entry; the panel's
 durable record is `.agent/reports/design/design-lane-critical-analysis-2026-08-17.md`,
-authored on the estate coordination branch and citable here by path once the
-fold lands). The programme's full extent — all four identities up to standard
+landed with this node). The programme's full extent — all four identities up to standard
 as identity packs — is ruled scope; this node lands the shared mechanism plus
 the first pack. Each subsequent pack migration is its own delivery node,
 authored at pickup (pointers in §Out of scope).
@@ -60,16 +63,16 @@ not an authority class.
 | --- | --- | --- |
 | P1 | **The identity-pack programme.** All four identities come up to standard as identity PACKS — own package: zod manifest + brand CSS + assets + own licensing surface; the kit gains an identity-consumption surface; the identity-№N regression lands with the pack work — and the new fourth identity, owner-named **Tango**, comes first. | Owner, 2026-08-17 (card ruling 1; verbatim substance in the thread record's 2026-08-17 entry) |
 | P2 | **Tango's reference is owner-private.** Anchor materials and derivation notes are reference-local/untracked; tracked surfaces describe Tango purely in its own terms. | Owner, 2026-08-17 (card ruling 2) |
-| P3 | **Brand admission via the pack manifest.** The kit's formerly claimed-but-nonexistent brand-admission guard is ruled struck, and admission checking arrives with the identity-pack manifest. Branch residency: the strike itself rides the MCP-613 records-pass commit `6e88cb407`, in flight behind the 2026-08-17 GitHub hold — on this branch `brand.css:66` still carries the false text until that PR merges. | Owner, 2026-08-17 (card ruling 4) |
+| P3 | **Brand admission via the pack manifest.** The kit's formerly claimed-but-nonexistent brand-admission guard is ruled struck, and admission checking arrives with the identity-pack manifest. Striking the false claim text at `brand.css:66` is the MCP-613 records pass's work, not this node's. | Owner, 2026-08-17 (card ruling 4) |
 | P4 | **Narrow range: capability + per-identity choice.** The kit makes composition divergence expressible from the identity surface, **sequenced by Tango's measured needs**; a shared narrow base stays a legitimate per-identity choice. *(Reading refined same day by P6's ontology correction: per-identity choice means each identity composes narrow from its own character; similarity between identities is heritage coincidence, never a base one adopts.)* | Owner, 2026-08-17 (card ruling 5; P6 correction same day) |
 | P5 | **Tango's theme surface.** Light and dark are first-class; the high-contrast and colour-safe themes are authored by us. A survey of related public design work (light and dark exemplars) precedes value authoring. | Owner word, 2026-08-17 — the Tango commissioning message at this seat, paraphrased under P2 (the verbatim is held with the owner-private materials); paraphrase CONFIRMED by the owner at this node's ratification card (2026-08-17, `ratified_where`) |
-| R16 | **Identity-static, theme-dynamic.** "we need the css to be completely swapped out for each identity. However, *switching* identity will only ever happen in a demo, a real app would have a **single** identity. Real cases will of course still have all four themes, at least." | Owner, 2026-08-13 (verbatim; the ruling's tracked row lands in `design-showcase-experience.plan.md` with MCP-613, in flight; also held verbatim in the critical-analysis report and per-user records) |
+| R16 | **Identity-static, theme-dynamic.** "we need the css to be completely swapped out for each identity. However, *switching* identity will only ever happen in a demo, a real app would have a **single** identity. Real cases will of course still have all four themes, at least." | Owner, 2026-08-13 (verbatim; the ruling's tracked row lands in `design-showcase-experience.plan.md` with MCP-613; also held verbatim in the critical-analysis report and per-user records) |
 | R15 | **Identities are a demonstration instrument, not system parts.** Oak anchored by Oak, PDS anchored by GDS, EMC² the unanchored extremal probe; "Responsive layouts and strict a11y are assumed and required at all times"; **conditional directive: "if the design system does not support that, then it needs to be changed to support that"**; for the anchored pair, distance from Oak is a consequence of fidelity to their anchors, never the objective — only EMC² maximises distance as its brief. Tango joins as the **third anchored identity**, its anchor owner-private per P2. | Owner, 2026-08-13 (verbatim in the sibling's rulings table); Tango's addition owner-ruled 2026-08-17 |
 | R14 | **Fluidity is a pillar, not a feature.** Tango's values are authored fluid by construction; fixedness is a declared, reasoned exception in a named register. The pack manifest gives that register a machine-checked home: a pack's whole-slot shorthand (the documented cascade opt-out) requires a matching declared fixed-point row with its reason. | Owner, 2026-08-13 |
 | R3/R4 | **Narrow first, wide follows — no coping with constraint.** Tango's design starts from an excellent narrow base and takes advantage of width. | Owner, 2026-08-13 |
 | K1 | **Four themes non-negotiable; wow bar.** Every identity carries light, dark, high-contrast (colour-safe a sensible default inclusion), and "I want to look at each and every demo and think 'wow, that looks *amazing*'". | Owner-ratified doc: the strategic node's kernel |
 | K2 | **The identity-№N falsifier.** "The thesis fails if adding or modifying an identity requires framework-code changes." | Owner-ratified doc: the strategic node §Falsifiability |
-| M1 | **Ratified pack mechanics.** A zod-validated sibling manifest that emits asset custom properties; the DTCG 2025.10 type set is closed (no asset type) so asset data never masquerades as token types; per-theme asset strategy decided before content lands (five themes, access themes first-class); slot cardinality/fallback proved by a deliberately partial pack; each identity pack its own package with its own licensing surface, keeping reserved-marks content out of the MIT kit root. | Owner-ratified doc: `oak-identity-recognisability.plan.md` §Mechanism + S4(b), ratified 2026-08-13 |
+| M1 | **Ratified pack mechanics.** A zod-validated sibling manifest that emits asset custom properties; the DTCG 2025.10 type set is closed (no asset type) so asset data never masquerades as token types; per-theme asset strategy decided before content lands (five themes, access themes first-class); slot cardinality/fallback proved by a deliberately partial pack *(dated rider 2026-08-19: P7 inverts this proof's polarity — admission refuses incompleteness, so the partial pack proves REFUSAL, and the rendering fixture is constructed contract-complete)*; each identity pack its own package with its own licensing surface, keeping reserved-marks content out of the MIT kit root. | Owner-ratified doc: `oak-identity-recognisability.plan.md` §Mechanism + S4(b), ratified 2026-08-13 |
 | P6 | **The eventual state (canonical packs + narrow distinctness).** Verbatim: "the eventual state is that all identities are represented purely as canonical identity packs, that identities are visually designed narrow viewport first, that the system fully supports distinct identities at narrow viewports, and that the EMC2 identity and Tango identity at narrow viewports are clearly different from Oak and PDS in layout, order, spacing, feel, with the most difference in EMC2 because that is the identity we have total freedom with" (sic). Adjudicated same sitting: compatible with the ruled corpus. Sharpens P4: the measured-needs record now serves a declared outcome bar. The sibling plan's R4 row carries a "No per-brand narrow maps" consequence line: first adjudicated here as superseded, then **owner-re-classed the same evening (direct word at the d427b6 seat, comms event `901c311f`) as VOID FROM BIRTH — never owner word; agent-inscribed inference wearing owner attribution** (the row's genuine excellent-base quote stands); the queued cure on that plan is an attribution-correction, not a supersession note. The same word rules the vocabulary: the four are IDENTITIES, never "brands" — "brand" survives only for Oak National Academy's real-world brand in the licensing sense; this node's remaining "brand" occurrences name the kit's current published contract surfaces (`brand.css`, the brand-admission guard), which are estate-wide renaming candidates on the Director's board, never identity descriptions. **Ontology correction, same sitting (owner verbatim): "Oak/PDS is not a default for narrow viewports, it is a coincidence that the first two identities we built we public services, and therefore have a shared design heritage routed in GDS" (sic).** There is NO shared-narrow-base concept and no sharing arrangement: every identity's narrow composition follows from its own character and anchor; Oak/PDS narrow similarity is heritage coincidence (both GDS-rooted public services), never a base one inherits. Convergence-by-silent-fallthrough (the recorded below-840px mechanism) is a defect class, never mistakable for heritage coincidence. | Owner, 2026-08-17, at this seat minutes after ratification; ontology correction minutes later (dated amendments same day) |
 | P7 | **Self-contained packs; the contract is the invariant.** Verbatim (owner, 2026-08-18, at the design seat): "Each identity needs to be self contained, not override a base. We can certainly have defaults, but the time to use them is during identity construction, not as runtime values… we can have a CLI with commands like oak-design identity create"; and, ratifying the seat's shared-contract clause: "Absolutely yes, the contract is an invariant, that is what makes it cheap to create new identities." The runtime-override mechanism (identity as a delta sheet re-pointing a base at load time) is thereby graded a **demo mechanism that persisted past its warrant** — the 2026-08-18 demo-day defect ledger (the reduced-motion collapse defeated by a bare later-sheet override; the stranded server sheet; cascade-order and specificity fights; `light-dark()` resolving at the declaring root) is its evidence record. The ruled shape: shared INTERFACE (the manifest/token contract — names, semantics, obligations — invariant across identities, which is what keeps one-markup-many-identities true AND makes new identities cheap), self-contained IMPLEMENTATION (each pack carries its complete token surface including all theme faces); defaults bind at CONSTRUCTION as provenance-recorded scaffold values, never as runtime fallback (default-as-scaffold, never default-as-lien); identity is a build-time axis, theme remains the runtime axis inside each pack; base evolution reaches packs as explicit, reviewable upgrade diffs, never silent re-skins. Doctrine home: DDR-012. Threaded through this node: T1a-ii designs the manifest as the contract-invariant; T1e mints the constructor; T2's Tango pack is the first identity born through it; the existing-identity migration nodes (out of scope here) retire the runtime override and deliver the value-free kit base AC3 already names. | Owner, 2026-08-18 |
 | G1 | **The admission guard's specified home.** The brand-admission guard is already specified by the ratified showcase plan (W1 slice B): all-fatal, no warn arm; rejects unit-bearing values in bound parts AND a sheet declaring both a slot's shorthand and its parts; red-first against the kit's tracked negative control (`studio-source/whitelabel/failing-example.css`); lives in `agent-tools/src/validators/` on the `repo-validators:check` chain. This node **extends that one instrument** with manifest-driven arms — it does not build a second admission regime (see §Relationships). | Owner-ratified doc: `design-showcase-experience.plan.md` W1 slice B (ratified 2026-08-13) |
@@ -223,8 +226,11 @@ seeded fixture before it guards anything.
 STATE the one-time re-plumb creates, and the plan says so: T1d converts
 the seven hand-maintained roster surfaces to the generated module, and
 FROM THEN ON adding a pack requires zero framework or demo source edits —
-proven red-first by a deliberately partial fixture pack rendering via
-declared role-level fallbacks (M1), and proven in vivo by Tango's own
+proven red-first by the minimal CONSTRUCTED fixture pack —
+contract-complete with values provenance-marked defaulted-at-creation
+(P7; M1's fallback-proof reading inverts under it: an INCOMPLETE pack
+is proven REFUSED at admission, demonstrating no fallback path can
+render) — and proven in vivo by Tango's own
 arrival on the showcase roster (§Relationships for that surface's
 governance).
 
@@ -297,8 +303,10 @@ pixels before value authoring begins.
    `repo-safe` — the extended `agent-tools` validator on the
    `repo-validators:check` chain.
 2. **Identity-№N is mechanical, and gating rides it.** After T1d's
-   re-plumb, the deliberately partial fixture pack renders via declared
-   fallbacks; adding a pack requires zero framework or demo source edits;
+   re-plumb, the constructed fixture pack (contract-complete, values
+   defaulted-at-creation) renders, and an incomplete variant is REFUSED
+   at admission; adding a pack requires zero framework or demo source
+   edits;
    and the a11y matrix derives from the installed roster so an added pack
    arrives WITH its cells — proven by the fixture pack appearing in the
    test matrix without a source edit. Proof: `repo-safe` — the №N
@@ -343,9 +351,7 @@ pixels before value authoring begins.
 ## Todos (slices, each a single-story PR within the PDR-132 two-round default)
 
 - **T1a-i — The identities tier + boundary visibility** (class:
-  shared-machinery refactor + scaffold). **Implemented at `cd84e490c`,
-  in review as PR #909** (status note 2026-08-18 — merged-to-main is the
-  landing bar, and this slice has not crossed it yet). The pnpm glob
+  shared-machinery refactor + scaffold). The pnpm glob
   `packages/design/identities/*` and the tier README (carrying the
   boundary-zone depth note); the `validate-boundaries` inventory leg
   for the tier — the comparison extracted to a tested pure function,
@@ -361,16 +367,18 @@ pixels before value authoring begins.
   `packages/design/identity-pack-schema` at the flat tier — the
   `identities/` glob stays packs-only so the №N enumerator carries no
   exclusions; the zod manifest schema on the estate's manifest-parse
-  template with the SIX schema-checkable fact-arms (facts 6 and 7 are
-  CSS predicates — T1b guard arms, named in the schema TSDoc, never
-  manifest self-attestation fields); the rejection matrix table-driven
-  over in-memory literals; the manifest keyed by the FOUR token-bearing
-  themes (the five-selection obligation binds consumer controls, never
-  pack data — DDR-004); the per-theme asset strategy decided here as
-  its own DDR, before any content (M1: access themes first-class); the
-  DDR-005 dated amendment legitimising per-package licence surfaces
-  (covering the existing `oak-design-assets` instance) rather than a
-  row in the kit's studio-import manifest.
+  template carrying every schema-checkable fact-arm, named individually:
+  manifest facts 1, 2, 3, 4, 5 and 8, plus P7's contract completeness
+  and per-value construction provenance (facts 6 and 7 are CSS
+  predicates — T1b guard arms, named in the schema TSDoc, never manifest
+  self-attestation fields); the rejection matrix table-driven over
+  in-memory literals, one row per arm; the manifest keyed by the FOUR
+  token-bearing themes (the five-selection obligation binds consumer
+  controls, never pack data — DDR-004); the per-theme asset strategy
+  decided here as its own DDR, before any content (M1: access themes
+  first-class); the DDR-005 dated amendment legitimising per-package
+  licence surfaces (covering the existing `oak-design-assets` instance)
+  rather than a row in the kit's studio-import manifest.
   *Dated note (2026-08-17): T1a split at the machinery/schema seam at
   the pre-execution code-expert review (addendum in the readiness
   record) under the implementer-slices-at-pickup doctrine — scope
@@ -386,7 +394,10 @@ pixels before value authoring begins.
   construction provenance (each value marked defaulted-at-creation or
   authored) join the fact-arms; the pack-declared PREFIX field rides
   this slice's decision card (a MAJOR — the prefix is a cross-estate
-  wire field). Number correction: this row's earlier forward-reference
+  wire field). *Card ANSWERED 2026-08-19 (owner, routed via the
+  Director): the manifest declares the prefix, admission recomputes the
+  derivation and refuses a mismatch, and any change to the derivation
+  itself is versioned MAJOR.* Number correction: this row's earlier forward-reference
   to "DDR-012" for the asset-strategy DDR is stale — DDR-012 is the
   self-containment doctrine (authored 2026-08-18); the asset-strategy
   DDR mints at the next free number at its own authoring.*
@@ -406,8 +417,10 @@ pixels before value authoring begins.
   manifests; the seven roster surfaces converted (product union, labels,
   slug→fragment map, test-estate roster, expectation table,
   white-labelling records, served-path/parity rows); the a11y matrix
-  derived from the same module; the №N regression with the deliberately
-  partial fixture pack, red-first.
+  derived from the same module; the №N regression with the constructed
+  minimal fixture pack (contract-complete per P7, values
+  defaulted-at-creation), red-first, plus the admission-refusal proof
+  for an incomplete variant.
 - **T1e — The constructor (`oak-design identity create`)** (class:
   instrument; added at P7, 2026-08-18). Identity construction as a
   first-class tooling operation: scaffold a complete pack from the
@@ -417,8 +430,13 @@ pixels before value authoring begins.
   DDR-005's amendment — plus the upgrade path (re-derivation against
   an evolved contract as an explicit, reviewable per-pack diff) and a
   contract-drift validator arm (validators recompute, never record).
-  The command name is the owner's verbatim working name; the binary's
-  home settles at authoring (a design-package instrument). Distinct
+  The command name is the owner's verbatim working name. *Card
+  ANSWERED 2026-08-19 (owner, routed via the Director): the grammar is
+  `oak-design identity create <slug>` / `oak-design identity upgrade
+  <slug>`, homed as a design-tier toolkit package (the `oak-design`
+  binary), never agent-tools; construction provenance marks every value
+  defaulted-at-creation or authored, and upgrades re-derive DEFAULTED
+  values only — authored values never change silently.* Distinct
   from the out-of-scope expressive-value generator: the constructor
   materialises a STARTING sheet at creation time for a designer to
   author, never build-time generation from the manifest. Sequenced
@@ -454,9 +472,8 @@ T1a-ii + T1b; T2 opens last — it consumes T1b's admission arms (a pack
 must not be able to render ungated), T1c's serving/URL answer for the
 demo shape, T1d's roster + a11y derivation (pickup with zero source
 edits), and T1e's constructor (P7: Tango is born through it). The
-MCP-613 records-pass PR (in flight behind the GitHub hold) precedes any
-sibling-plan amendment this node owes, because both touch the same plan
-files.
+MCP-613 records pass precedes any sibling-plan amendment this node owes,
+because both touch the same plan files.
 
 ## Out of scope
 
@@ -550,9 +567,9 @@ files.
   W2.0–W2.9 story tables were consulted as conserved knowledge for the
   mechanism above; nothing here inherits authority from them.
 - **The critical-analysis report**
-  (`.agent/reports/design/design-lane-critical-analysis-2026-08-17.md`, on
-  the estate coordination branch pending fold): the open-input corpus this
-  node absorbs — notably design-system finding 2 and the seven
+  (`.agent/reports/design/design-lane-critical-analysis-2026-08-17.md`,
+  landed with this node so the pointer resolves wherever the plan does):
+  the open-input corpus this node absorbs — notably design-system finding 2 and the seven
   inexpressibles (P4 measurement targets) — and the rulings' durable home
   alongside the thread record.
 
@@ -575,11 +592,11 @@ files.
    (`demos/oak-design-showcase/tools/kit-asset-parity.ts`), the theme
    hardcoding and specificity guards
    (`packages/design/oak-design-system/colors_and_type.css`), and the
-   still-standing guard-claim text (`brand.css:66`, pending MCP-613). The
-   DTCG closed-type-set claim cites the external standard directly
-   (§Out of scope), not a plan describing it. The critical-analysis
-   report path is coordination-branch-resident until the fold; cited as a
-   plain path, not a link, for exactly that reason.
+   guard-claim text at `brand.css:66` whose strike is the MCP-613
+   records pass's work. The DTCG closed-type-set claim cites the
+   external standard directly (§Out of scope), not a plan describing
+   it. The critical-analysis report lands with this node, so its path
+   resolves wherever the plan does.
 4. **Optionality**: each acceptance criterion names a single observable
    signal; the follow-on pack migrations are pointers with a named trigger
    (P1 standing scope, each at its own node pickup); the emitter and the

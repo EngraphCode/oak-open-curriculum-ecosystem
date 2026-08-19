@@ -3,12 +3,12 @@ boundary: B2-Architecture
 doc_role: index
 authority: design-decision-navigation
 status: active
-last_reviewed: 2026-08-07
+last_reviewed: 2026-08-19
 ---
 
 # Design Decision Records (DDRs)
 
-**Last Updated**: 2026-08-07
+**Last Updated**: 2026-08-19
 **Status**: Active design-decision index
 
 > **Navigation**: [Docs Home](../README.md) |
