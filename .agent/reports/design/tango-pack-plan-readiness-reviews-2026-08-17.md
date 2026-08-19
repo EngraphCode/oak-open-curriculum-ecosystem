@@ -108,6 +108,17 @@ owners. The node stands READY for the owner's ratification presentation,
 which carries the four card questions the plan's ratification section
 names.
 
+**Discharge-route addendum (2026-08-19, review round):** the T1d dated
+amendment of 2026-08-19 defers the seven-surface roster conversion and
+the a11y-matrix derivation to the programme's completing node (after
+the three existing-identity migrations). Findings recorded here as
+discharged BY T1d feeding those surfaces — Y1, Y7, D3, D5, and D20 —
+therefore re-route: their mechanism is unchanged and still owned, but
+its landing moves to the completing node, and their discharge is
+complete only when that node lands. The in-node T1d remainder (the
+derived roster module, the №N regression, the admission-refusal proof)
+keeps its share of the discharge here.
+
 **Outcome addendum (2026-08-17, same sitting):** the card was presented
 and all four questions answered with the recommended options — ratified
 as presented; S4(b) dated amendment; thread-record verdict home; keep
