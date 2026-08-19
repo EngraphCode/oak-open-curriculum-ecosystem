@@ -1416,3 +1416,8 @@ pinning-by-name, not sequencing-by-hope.
   PR'd one of "my" dirty worktrees (#918). Re-read the surface right before
   acting on it, and broadcast scope ownership BEFORE starting the sweep,
   not after the first finding.
+- **A CLI "usage probe" with real arguments is a write.** Diagnosing a
+  `comms direct` exit-2 (missing `--platform/--model`) by re-running it with
+  `--body test` and the missing flags WROTE a one-word directed event to a
+  peer (8fbeb6a3) before the real ack. Probe usage with `--help`, never with
+  a well-formed invocation; the first well-formed call is the real one.

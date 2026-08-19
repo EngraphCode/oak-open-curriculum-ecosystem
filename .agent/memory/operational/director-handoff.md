@@ -262,6 +262,19 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
+> **§WEEK-SLEEP FREEZE, 2026-08-19 ~15:5xZ (Avocet guards Updraft, `44e2ca`, Director —
+> seated at PDR-064 Moment 2 `84e31e6e` from Ocelot binds Tunnel `c28ad9`).** The estate
+> sleeps for a week at owner word (TEAM-SLEEP broadcast `bbc33e91`). Director claim
+> `f04cd57b` RETAINED-WITH-REASON; every seat's instruments down; every piece of work
+> pushed and PR-carried (sweep record `.agent/reports/week-sleep-sweep-2026-08-19.md`).
+> THE PICKUP MAP is `threads/estate-coordination.next-session.md` §2026-08-19 ~15:5xZ
+> WEEK-SLEEP FREEZE — wake-first: main-merge + rebuild the coordination branch, then land
+> draft fold PR #915 through converge-and-rotate. A successor adopts `f04cd57b` only after
+> this brief's readiness gate (step 3, mechanical check pasted). The fold entry below is
+> the prior state.
+
+---
+
 > **§FOLD ENTRY, 2026-08-19 ~12:2xZ (Ocelot binds Tunnel, `c28ad9`, estate-coordination
 > lane).** `coordination/estate-2026-08-17` FOLDED to main at owner word: convergence
 > merge `bb4e4110c` (clean; peers' in-flight files untouched), fold PR **#914**

@@ -1008,3 +1008,62 @@ all checks green, unreviewed — a Practice-rule amendment awaiting a
 review round (route to an Implementer when one frees). #911: CodeQL
 FAILURE to disposition + binding rounds; #905: green, binding round.
 MCP-630 HELD at owner word. Board otherwise as the succession entry.
+
+## 2026-08-19 ~15:5xZ — WEEK-SLEEP FREEZE (Avocet guards Updraft, 44e2ca, Director): estate dormant at owner word; seat frozen, claim retained
+
+Owner word (card answer ~15:4xZ): broadcast TEAM-SLEEP, then freeze this
+seat; the owner's second clone is left as-is (his call later). TEAM-SLEEP
+broadcast `bbc33e91` (stand-down order: heartbeat-end first, F-75 poll,
+watcher LAST); Poppy stood down on it (15:52Z). Yarrow closed out earlier
+(14:13Z, claim 645b9e0b retained for a design successor). Ocelot's seat is
+idle with NO closeout broadcast on the stream at this write (their claim
+closed at Moment 1; nothing of theirs is unpushed). The week-sleep SWEEP is
+the record `.agent/reports/week-sleep-sweep-2026-08-19.md` (on this branch,
+in draft fold PR #915): every worktree branch pushed-and-PR'd or contained
+in main; drafts #916 (MCP-103 workspace) / #917 (MCP-475 build gate) opened
+at this seat; #918 (w01-census scaffold) by the design lane; two red WIP
+fragments preserved verbatim in the record; peer-fleet and closed-PR
+branches reported, untouched.
+
+RESUME MAP (wake-first seat — this seat at the owner's word, or a
+successor adopting claim f04cd57b by PDR-063 adoption after the
+director-handoff.md readiness gate):
+
+- (a) FIRST: `git fetch`; if main moved, merge origin/main into
+  `coordination/2026-08-19-1651ad` on a QUIET tree (no peer commits in
+  flight — a clean tree is not a free index), push via
+  `pnpm agent-tools merge-bot push`, REBUILD the primary. Then the 24h
+  fold rule is overdue by construction: mark draft #915 ready and land it
+  through the converge-and-rotate ceremony; cut the successor branch.
+- (b) Seat-owned merge legs: #911 (CodeQL FAILURE needs a dispositioned
+  round; binding rounds pending), #905 (green, binding round pending; then
+  MCP-612 acceptances 2/3 — acceptance 3 = ONE owner card on the two
+  archive blobs). Merge at SETTLE-READY via
+  `merge-bot merge --pr <n> --expect <reviewer>`.
+- (c) Design merge legs #908 (`9d811d463`) / #910 (`0c30a6932`) / #912
+  (`cbdbda76b`) at SETTLE-READY under the owner's standing "green and clean
+  → merged" word — the design successor's if one is seated, else this seat
+  after harvesting each bound round; #910 reads DIRTY (main-merge first).
+  Claim 645b9e0b + handoff record
+  `645b9e0b-design-lane-merge-drive-2026-08-19.md` carry the design lane.
+- (d) #913 (emgeebot, +39 lines on `pr-comments-resolve-and-recheck`): a
+  Practice-rule amendment from Matt's fleet, all checks green, unreviewed —
+  route a review round to an Implementer. #916/#917/#918 are visibility
+  drafts — the lanes decide.
+- (e) MCP-630 pickup HELD at owner word ("not yet") — route ONLY at his
+  word. MCP-627 (ruleset drift) / MCP-628 (copyOakDs e2e race — reds a
+  parallel full gate intermittently; read before trusting a red
+  `pnpm check`) open.
+- (f) Instruments at this freeze: heartbeat loop stopped explicitly with a
+  heartbeat-end event, then the F-75 poll, the canonical watcher LAST
+  after the freeze broadcast. Director claim f04cd57b RETAINED-WITH-REASON:
+  the estate sleeps; silence past the heartbeat-end is intentional. No bot
+  token held (mint per write-window). Worktree residue left as found: a
+  stale staged report copy in design-plan-truings, the vcw oak-eslint edit
+  staged by this seat's refused commit attempt, the mcp-567 test edit, the
+  pr-891 runner script.
+- (g) Carried follow-ups (unchanged): testing-strategy.md split;
+  plan-node-schema short-lived-strategic clause; MEMORY.md curation;
+  MCP-627; the napkin rotation recorded DUE; the shared-index race generator
+  (per-seat worktrees for coordination writes, or a warden singleton) as a
+  concept-exploration seed.
