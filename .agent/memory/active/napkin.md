@@ -1077,3 +1077,68 @@ used: fetch into a named ref (`git fetch origin <branch>` then read
 Same family as the premature-migration and cwd-drift lessons: shared
 mutable process-level state (cwd, FETCH_HEAD, the home registry) needs
 pinning-by-name, not sequencing-by-hope.
+
+## 2026-08-18 round-2 sitting (Yarrow, design lane)
+
+- **A poll on an absence passes before the event lands.** `expect.poll`
+  invokes immediately and returns on first pass, so asserting "the stale
+  marker is absent" was true BEFORE the held response resolved — the test
+  could not fail on its bug. Regression guards wait on a POSITIVE
+  post-event signal (here: the stale link's REMOVAL), and the calibration
+  is red-proof: revert the cure in place, rebuild, watch the exact
+  assertion time out, restore byte-identical.
+- **`overflow-x: auto` computes the unspecified axis to auto.** A
+  "horizontal-only" scroller picked up ~3px of rounded-border scroll
+  slack on the VERTICAL axis and axe rightly demanded keyboard access to
+  it. Close the artifact axis explicitly (`overflow: auto hidden`) when
+  height is content-driven; a scroll container's contract should name
+  both axes.
+- **Place-only admission re-opens the extension hole inside the place.**
+  Admitting `dtcg/**.json` re-admitted `dtcg/biome.json` — the exact
+  class the tightening existed to refuse. Anchor admission to the
+  format's own suffix (`*.tokens.json`): shape AND home, not home alone.
+  (Found by the gateway's probe, not by my tests — the probe tried the
+  adversarial inputs my cases didn't.)
+- **A 201 is not a write.** The REST `requested_reviewers` call returned
+  201 twice and minted NO `review_requested` timeline events; the MCP
+  route bound instantly. Verify writes on the system's own proof surface
+  (the paginated timeline TAIL — page one is oldest-first), never the
+  status code. Sibling of read-back-on-batch-writes.
+- **Three stacked cures on one element is a solution-class signal.**
+  tok-scroll now carries containing-block positioning, an artifact-axis
+  close, and measured conditional focusability — each individually
+  correct; the accumulation is the trigger for an assumptions-expert
+  look at "every family is its own scroll container" BEFORE a fourth
+  cure lands (gateway's framing, adopted).
+
+## 2026-08-19 round-3 sitting close (Yarrow, design lane)
+
+- **Probe the monitor's QUERY, not just its filter.** The round-3 PR
+  watch ran blind for two hours: `reviewThreads` is not a `gh pr view`
+  field, every poll errored, and `2>/dev/null || continue` swallowed the
+  proof. The corpus-test-the-filter discipline extends to the WHOLE poll
+  path: run the monitor's command once in foreground and read its output
+  BEFORE arming; a monitor that cannot show you a real emission is not
+  armed. (Caught only by an unrelated wake's cross-check.)
+- **Reject a reviewer only against the primary source.** My first
+  re-derivation of the inverted map used a wrong region order and nearly
+  rejected a CORRECT finding; the falsifier for any reject-verdict is
+  the artefact's own tuple (REGIONS), never a reconstruction from
+  memory. Sibling of dont-transmit-assumptions-as-truth, at
+  review-adjudication scale.
+- **`X && echo OK` buries X's failure inside a block.** The commit-msg
+  pre-check failed silently in an && chain and the gate caught it a
+  minute later — exit-codes-in-band applies to SUCCESS MARKERS too: run
+  the check as its own command and print its exit explicitly.
+- **One document, one holder.** Two well-meaning theme holds on the same
+  root would correct each other forever; the cure was ownership by
+  context (standalone: the page holds itself; framed: the parent holds).
+  This is the estate's singleton-authority doctrine (PDR-064's
+  exactly-one-holder invariant) recurring at the DOM level — and the
+  showcase now uses context-decides-the-owner three ways (theme mode,
+  breadcrumbs, holds). Candidate pattern if a fourth appears.
+- **Suppressed-because-cured is a real reviewer state.** Copilot's
+  round-3 "suppressed" list on #909 was the round-2 set verbatim against
+  code that no longer exists — the never-filter rule still applies, and
+  the disposition is a per-item stale-against-cured verdict, not a
+  re-cure.

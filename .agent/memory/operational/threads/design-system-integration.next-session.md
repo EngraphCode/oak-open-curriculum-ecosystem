@@ -3603,3 +3603,63 @@ artifact, URL in the session wrap-up).
   same-seat resume. Scrap branches ×4 still await owner deletion
   (Director holds the list); napkin remains over rotation threshold
   (dedicated-sitting item).
+
+## Session close 2026-08-19 ~08:1xZ (Yarrow stirs Undergrowth, ab1066 — additive; the THREE-ACT sitting: round 2 + the owner's visual round as PR #912 + round 3; compaction freeze at owner word, claim RETAINED)
+
+- **Act 1 — round 2 CLOSED** on #907 (`5f1188f0a`) and #909
+  (`1d7852517`): Copilot round-2 findings (every suppressed one
+  included), Sonar 3, and #907's CI red cured or dispositioned; the CI
+  red = the MCP app's e2e fixture racing copyOakDs's staging dir —
+  routed to the Director (comms `88487ce9`), ticketed by them as
+  MCP-628 before their freeze. Gateway absorbed pre-push (the race
+  regression test rebuilt on a POSITIVE post-load signal and
+  red-green-PROVEN by in-place revert; the dtcg JSON admission
+  tightened to the `*.tokens.json` suffix after the probe re-opened
+  the hole inside the place). Threads resolved, response comments,
+  Copilot re-requested via the MCP tool (the REST route 201'd while
+  minting NO timeline events — verify writes on the system's proof
+  surface).
+- **Act 2 — the owner's four visual items BUILT** and shipped as
+  **draft PR #912** (branch `jimcresswell/mcp-620-visual-feedback-round`,
+  four parcels `290eb8070`/`f77af9e9e`/`e46c36477`/`b114d5206`,
+  STACKED on #907): control rows; token rows flowing two columns under
+  spanning headers (table + scroll container + round-2 overflow hook
+  DELETED, net −187 first parcel); the six-width everything-visible
+  invariant incl. the 305px classic-scrollbar warrant; kit-native
+  narrow disclosures (tokens nav + specimen strip). TWO review passes
+  both HOLD → absorbed in full — the a11y deep pass caught two
+  axe-invisible AA failures (uninverted summary focus ring 1.27:1;
+  2.4.11 paint occlusion at 390, elementFromPoint-proven) plus the
+  mounted-details seam cure (zoom/rotation are a11y paths) and the
+  flat-list boilerplate removal (185+69 repeated announcements gone).
+  Suites 34/34 UI + 76/76 a11y at ship.
+- **Act 3 — round 3 CLOSED** on #907 at **`e54be4b4d`**: six suppressed
+  findings adjudicated (five cured — the TRUE inverted maps; one theme
+  HOLDER per document with ownership by context, useFramed hoisted;
+  data-controls mast offset; the TRANSITIVE themed badge with the
+  single-face seed fix — one REJECTED with reasoning at the site);
+  Sonar's S6845 re-fire surfaced with its pre-declared WAI disposition
+  at the action moment. #909 round 3 = suppressed-because-cured, zero
+  live, note posted. Copilot re-requested (timeline-bound 08:04:36Z).
+  Suites 33/33 + 68/68 + 225 unit at push.
+- **The blind-watch lesson**: the round-3 PR poll ran two hours on an
+  invalid `gh pr view` field with errors swallowed — probe a monitor's
+  COMMAND in foreground before arming (napkin, full form).
+- **State at freeze**: lanes mcp-620 (`e54be4b4d`), mcp-616
+  (`1d7852517`), visual-feedback-round (`b114d5206` = PR #912 draft)
+  all CLEAN and IN-SYNC with their origin PRs. #908/#910 untouched
+  all-green at the FROZEN Director's merge legs (their freeze-2 map:
+  estate record §21:2xZ, db878351d). The working record:
+  `.agent/reports/design/pr-round-ledger-2026-08-18.md` (rounds 1–3 +
+  the visual round, committed this parcel).
+- **Resume order (this seat, claim `645b9e0b` retained)**: (1) re-arm
+  per start-right; (2) **#912 merge-forward FIRST** — its base moved to
+  `e54be4b4d`; git MERGE the base branch in (never rebase); named
+  conflict surfaces: specimen.css mast block (both cures keep),
+  demo-routes-a11y white-labelling cell comment; (3) round-4 harvests
+  (#907 awaits Copilot + checks on `e54be4b4d`; Sonar S6845 residual
+  pre-dispositioned); (4) the T1a-ii+T1e owner decision card (prefix
+  MAJOR, construction semantics, CLI shape) at Director resume;
+  (5) post-#910 records parcel (showcase cross-ref, S4(b), R4
+  attribution, POPPY-1 fold, DDR-009 305px amendment). The wide rail's
+  capped nav scroll is the named owner-re-rule residue (PR #912 body).
