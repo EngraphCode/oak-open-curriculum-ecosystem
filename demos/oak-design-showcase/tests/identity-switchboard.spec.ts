@@ -24,6 +24,7 @@ import {
 } from '../components/canonical-widths';
 import { BASE_IDENTITY, IDENTITIES, IDENTITY_LABELS } from '../components/useIdentity';
 import { MEASUREMENT_WIDTH_VALUES } from '../tools/measurement-widths';
+import { assertResolved } from './picker-stage';
 import {
   assertOnlyKnownExternalOrigins,
   brandNameFont,
@@ -172,15 +173,26 @@ test.describe('side-by-side: three identities, one specimen route', () => {
     // Every frame's document reaches the identity its column names, and
     // its simulated width is the canonical cell.
     for (const [index, identity] of IDENTITIES.entries()) {
-      const handle = await frames.nth(index).elementHandle();
-      const frame = await handle?.contentFrame();
-      expect(frame, `frame ${identity} must resolve`).not.toBeNull();
-      if (frame === null || frame === undefined) {
-        continue;
-      }
+      const frame = await (await frames.nth(index).elementHandle()).contentFrame();
+      assertResolved(frame, `frame ${identity} must resolve`);
       await expect(frame.locator('[data-identity]')).toHaveAttribute('data-identity', identity);
     }
     const width = await frames.first().evaluate((el) => el.style.width);
     expect(width).toBe(`${DEFAULT_VIEWPORT_WIDTH}px`);
+  });
+});
+
+test.describe('specimen mast with the strip absent (?controls=none)', () => {
+  test('the mast sticky offset zeroes — no blank strip row reserved', async ({ page }) => {
+    await interceptExternalOrigins(page);
+    await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}&controls=none`);
+    // The sticky offset normally reserves one strip row so mast and strip
+    // stack; with no strip rendered that reservation is a strip-height of
+    // blank space at the top of every framing column (review round 3).
+    const offset = await page.evaluate(() => {
+      const mast = document.querySelector('[data-region="masthead"]');
+      return mast === null ? null : getComputedStyle(mast).insetBlockStart;
+    });
+    expect(offset).toBe('0px');
   });
 });

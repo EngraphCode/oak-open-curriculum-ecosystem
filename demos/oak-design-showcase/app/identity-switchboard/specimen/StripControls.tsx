@@ -25,6 +25,7 @@ import { IdentityRadioGroup } from '../../../components/IdentityRadioGroup';
 import { LabelledSelect } from '../../../components/LabelledSelect';
 import { ShowcaseBreadcrumbs } from '../../../components/ShowcaseBreadcrumbs';
 import { useIdentity } from '../../../components/brand-identity-binding';
+import { useFramed } from '../../../components/useFramed';
 import { IDENTITY_LABELS, type IdentitySlug } from '../../../components/useIdentity';
 import { THEME_LABELS, THEME_OPTIONS, isPickerTheme } from '../../../components/theme-vocabulary';
 import { useFrameTheme } from '../useFrameTheme';
@@ -33,27 +34,15 @@ import { useFrameTheme } from '../useFrameTheme';
  *  doctrine): as a FULL PAGE the choice rides the kit runtime and persists
  *  like a product; FRAMED inside a stage it stays stage-local (a direct
  *  attribute write) so a demo choice never leaks into the whole showcase's
- *  shared storage. Framedness is a client-only fact, read after mount. */
-const subscribeNever = (): (() => void) => () => undefined;
-
+ *  shared storage. Framedness comes from the shared useFramed fact; this
+ *  strip keys two behaviours on it — theme-mode routing here, and the
+ *  breadcrumb omission below (framed navigation would otherwise navigate
+ *  the STAGE — a switchboard nested inside its own picker). */
 const SPECIMEN_TRAIL = [
   { label: 'Showcase', href: '/' },
   { label: 'Switchboard', href: '/identity-switchboard' },
   { label: 'Specimen' },
 ] as const;
-
-/** Framedness is a stable client-only fact: an external-store read (never
- *  an effect setState) keeps the server snapshot honest and the client
- *  render cascade-free. Two consumers: theme-mode routing, and the
- *  breadcrumb omission below (framed navigation would otherwise navigate
- *  the STAGE — a switchboard nested inside its own picker). */
-function useFramed(): boolean {
-  return useSyncExternalStore(
-    subscribeNever,
-    () => globalThis.self !== globalThis.top,
-    () => false,
-  );
-}
 
 function useStripTheme(framed: boolean): {
   readonly theme: OakThemeSnapshot | undefined;

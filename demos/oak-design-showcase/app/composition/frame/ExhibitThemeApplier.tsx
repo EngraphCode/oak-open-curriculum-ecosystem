@@ -19,16 +19,21 @@
 import { useEffect } from 'react';
 
 import { holdFrameTheme } from '../../../components/apply-frame-theme';
-import { useFramed } from '../../../components/useFramed';
 import type { ExhibitTheme } from './layouts';
 
 export function ExhibitThemeApplier({ theme }: { readonly theme: ExhibitTheme }): null {
-  const framed = useFramed();
   useEffect(() => {
-    if (framed) {
+    // Framedness is read directly here, not through useFramed: the hook's
+    // server snapshot is `false`, so a hydrated FRAMED document would
+    // spend its first client commit with framed=false and this effect
+    // would install a transient second holder — the two-observer
+    // correction loop the ownership contract above forbids. This
+    // component renders nothing, so framedness never drives render; the
+    // effect is client-only and the direct read is always the truth.
+    if (globalThis.self !== globalThis.top) {
       return undefined;
     }
     return holdFrameTheme(document.documentElement, theme);
-  }, [framed, theme]);
+  }, [theme]);
   return null;
 }

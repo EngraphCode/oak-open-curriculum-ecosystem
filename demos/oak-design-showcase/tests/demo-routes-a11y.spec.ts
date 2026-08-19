@@ -13,6 +13,7 @@ import type { Page } from '@playwright/test';
 
 import { assertOnlyKnownExternalOrigins, interceptExternalOrigins } from './apply-state';
 import { expectNoAxeViolations } from './axe-checks';
+import { assertResolved } from './picker-stage';
 
 const ROUTES = ['/tokens', '/tokens/colours', '/composition'] as const;
 
@@ -158,14 +159,7 @@ test.describe('white-labelling stage: the parent theme holds against frame write
     const aborted = await openRoute(page, '/identity-white-labelling');
     const stageHandle = await page.locator('.frame iframe').first().elementHandle();
     const stageFrame = await stageHandle.contentFrame();
-    // Fail-loud, then narrow: the expect THROWS on null, so the branch
-    // below is unreachable except after the test has already failed —
-    // it exists for the type system, and no assertion can be skipped on
-    // a passing run (the class no-conditional-tests forbids).
-    expect(stageFrame, 'the first column frame must resolve').not.toBeNull();
-    if (stageFrame === null) {
-      return;
-    }
+    assertResolved(stageFrame, 'the first column frame must resolve');
     await expect(stageFrame.locator('[data-identity]').first()).toBeVisible();
     // Each framed document runs the kit runtime, whose live contrast
     // listener rewrites data-theme on an OS change. Simulate any such

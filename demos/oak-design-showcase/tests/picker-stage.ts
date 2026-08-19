@@ -29,9 +29,22 @@ export async function expectBrandInEffect(
     .not.toBe(baseFont);
 }
 
+/** Narrow a resolution result, failing the test loudly on a missing
+ *  value. Both absent shapes die here — `.not.toBeNull()` alone lets
+ *  `undefined` through — and the asserts signature carries the fact to
+ *  the type level, so callers keep zero runtime branches (the
+ *  no-conditional-tests contract: no branch may decide which assertions
+ *  run on a passing test). */
+export function assertResolved<T>(value: T, message: string): asserts value is NonNullable<T> {
+  expect(value, message).not.toBeNull();
+  expect(value, message).toBeDefined();
+}
+
 /** Open the picker hermetically and resolve its stage down to the framed
  *  specimen's live Frame, with the mount-time facts later assertions
- *  compare against. The no-reload sentinel is planted here: a reload
+ *  compare against. Resolution failure FAILS the test here — the return
+ *  is never nullable, so no caller can pass without its assertions
+ *  running. The no-reload sentinel is planted here: a reload
  *  manufactures a fresh document, so a dataset mark on the document root
  *  cannot survive one. */
 export async function openPickerStage(page: Page): Promise<{
@@ -40,15 +53,14 @@ export async function openPickerStage(page: Page): Promise<{
   readonly frame: Frame;
   readonly mountSrc: string;
   readonly baseFont: string;
-} | null> {
+}> {
   const aborted = await interceptExternalOrigins(page);
   await page.goto('/identity-switchboard');
   const stage = page.locator('.picker-stage iframe');
-  const frame = await (await stage.elementHandle())?.contentFrame();
-  expect(frame, 'the stage frame must resolve').not.toBeNull();
-  if (frame === null || frame === undefined) {
-    return null;
-  }
+  // Locator.elementHandle() throws on a missing element (non-nullable by
+  // type), so only the contentFrame() resolution needs the narrowing.
+  const frame = await (await stage.elementHandle()).contentFrame();
+  assertResolved(frame, 'the stage frame must resolve');
   await expect(frame.locator('[data-region="masthead"]')).toBeVisible();
   await frame.evaluate(() => {
     document.documentElement.dataset['pickerSentinel'] = 'planted';
