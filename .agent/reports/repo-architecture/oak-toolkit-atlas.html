@@ -263,12 +263,12 @@ flowchart LR
   classDef ghost stroke-dasharray:5 4,opacity:0.65
   classDef live stroke:#3E7A4E,stroke-width:2px
 
-  UP["open-api.thenational.academy<br/>one upstream, three taps:<br/>spec · bulk · live queries"]
-  REPO["the monorepo<br/>34 workspaces"]
-  VERCEL["curriculum-mcp-alpha<br/>.oaknational.dev/mcp<br/>Express on Vercel + embedded widget"]:::live
-  PLUGIN["Claude Code plugin<br/>→ www.thenational.academy/mcp"]:::live
-  CLIS["oaksearch · agent-tools CLIs<br/>in-repo invocation only, no bin"]
-  NPM["npm registry<br/>NOTHING PUBLISHED<br/>(npmPublish: false)"]:::ghost
+  UP["open-api.thenational.academy one upstream, three taps: spec · bulk · live queries"]
+  REPO["the monorepo 34 workspaces"]
+  VERCEL["curriculum-mcp-alpha .oaknational.dev/mcp Express on Vercel + embedded widget"]:::live
+  PLUGIN["Claude Code plugin → www.thenational.academy/mcp"]:::live
+  CLIS["oaksearch · agent-tools CLIs in-repo invocation only, no bin"]
+  NPM["npm registry NOTHING PUBLISHED (npmPublish: false)"]:::ghost
 
   UP --> REPO
   REPO --> VERCEL
@@ -294,13 +294,13 @@ flowchart TD
   classDef clock stroke:#8A6A4F,stroke-width:2px
 
   subgraph PKG["packages/sdks/oak-sdk-codegen — one workspace, four clocks, 34.3 MB"]
-    AUTH["authored generators<br/>code-generation/ · vocab-gen/ · src/bulk/<br/>~1.5 MB"]:::clock
-    SYN["authored curated synonyms<br/>src/synonyms/ — editorial clock"]:::clock
-    T["src/types/generated/<br/>2.4 MB · upstream-spec clock (29/yr)"]:::gen
-    V["src/generated/vocab/<br/>30.0 MB · mining clock (~19/yr)<br/>incl. the 23.9 MB graph corpus"]:::gen
-    CACHE["schema-cache/<br/>0.4 MB · refresh clock"]:::gen
+    AUTH["authored generators code-generation/ · vocab-gen/ · src/bulk/ ~1.5 MB"]:::clock
+    SYN["authored curated synonyms src/synonyms/ — editorial clock"]:::clock
+    T["src/types/generated/ 2.4 MB · upstream-spec clock (29/yr)"]:::gen
+    V["src/generated/vocab/ 30.0 MB · mining clock (~19/yr) incl. the 23.9 MB graph corpus"]:::gen
+    CACHE["schema-cache/ 0.4 MB · refresh clock"]:::gen
   end
-  BULK["apps/oak-search-cli/bulk-downloads<br/>746 MB · untracked input corpus"]
+  BULK["apps/oak-search-cli/bulk-downloads 746 MB · untracked input corpus"]
   BULK -->|pnpm vocab-gen| V
   AUTH --> T
   AUTH --> V
@@ -434,16 +434,16 @@ flowchart TD
   classDef newpkg stroke:#3E7A4E,stroke-width:2.5px,stroke-dasharray:6 3
   classDef exits stroke-dasharray:4 3,opacity:0.8
 
-  BAR["the finish bar — declared at birth:<br/>closed contract · exhaustive tests · docs ·<br/>perf characterisation · tier-closed deps"]:::moved
+  BAR["the finish bar — declared at birth: closed contract · exhaustive tests · docs · perf characterisation · tier-closed deps"]:::moved
 
   subgraph F["foundation tier — Oak-free by contract, finishable"]
     R["result"]
     T["typed object ops"]
-    O["observability contract<br/>vendor glue exits"]:::moved
-    E["environment resolution<br/>core/env + libs/env-resolution → one"]:::moved
-    L["logging contract<br/>from libs/logger — sinks exit"]:::moved
+    O["observability contract vendor glue exits"]:::moved
+    E["environment resolution core/env + libs/env-resolution → one"]:::moved
+    L["logging contract from libs/logger — sinks exit"]:::moved
     S["safe-path"]
-    D["deterministic ordering<br/>new — today inline duplicates"]:::newpkg
+    D["deterministic ordering new — today inline duplicates"]:::newpkg
     G["graph-core"]
   end
 
@@ -454,8 +454,8 @@ flowchart TD
   end
 
   subgraph X["exits the foundation"]
-    V["sentry-node · posthog-node<br/>vendor clock"]:::exits
-    OZ["openapi-zod-client-adapter<br/>generation clock → Change 2"]:::exits
+    V["sentry-node · posthog-node vendor clock"]:::exits
+    OZ["openapi-zod-client-adapter generation clock → Change 2"]:::exits
   end
 
   BAR --> F
@@ -525,18 +525,18 @@ flowchart LR
   classDef target stroke:#3E7A4E,stroke-width:2px
 
   subgraph NOW["today — one workspace, four clocks, 34.3 MB"]
-    MIX["oak-sdk-codegen<br/>generators + synonyms + spec types<br/>+ mined vocab + schema cache"]
+    MIX["oak-sdk-codegen generators + synonyms + spec types + mined vocab + schema cache"]
   end
 
   subgraph AFTER["target — one clock each"]
-    GEN["openapi-pipeline<br/>authored clock · toolkit candidate"]:::target
-    SYN["curated synonyms<br/>editorial clock"]:::target
-    TYPES["spec-types carrier<br/>upstream clock · spec-pinned"]:::gen
-    VOC["vocab + corpus carrier<br/>regeneration clock · snapshot-pinned"]:::gen
+    GEN["openapi-pipeline authored clock · toolkit candidate"]:::target
+    SYN["curated synonyms editorial clock"]:::target
+    TYPES["spec-types carrier upstream clock · spec-pinned"]:::gen
+    VOC["vocab + corpus carrier regeneration clock · snapshot-pinned"]:::gen
   end
 
-  CACHE["schema cache · bulk corpus<br/>out-of-tree store"]:::gen
-  CONTRACT["carrier contract:<br/>regeneration command · input pins ·<br/>no authored logic · clean-regen gate"]:::target
+  CACHE["schema cache · bulk corpus out-of-tree store"]:::gen
+  CONTRACT["carrier contract: regeneration command · input pins · no authored logic · clean-regen gate"]:::target
 
   MIX --> GEN
   MIX --> SYN
