@@ -123,6 +123,32 @@ describe('checkIdentityPackTier', () => {
     },
   );
 
+  it('refuses a tier child that is itself a symbolic link, alone — nothing behind it is inspected', () => {
+    const report = reportFor([
+      {
+        directoryName: 'tango',
+        packageJson: undefined,
+        files: [],
+        symlinks: [],
+        selfIsSymlink: true,
+      },
+    ]);
+    expect(report).toContain('packages/design/identities/tango is a symbolic link');
+    // Refused by KIND, alone: no phantom missing-manifest finding about a
+    // target that was deliberately never read.
+    expect(
+      checkIdentityPackTier(true, [
+        {
+          directoryName: 'tango',
+          packageJson: undefined,
+          files: [],
+          symlinks: [],
+          selfIsSymlink: true,
+        },
+      ]),
+    ).toHaveLength(1);
+  });
+
   it('refuses a tier child with no package.json — every child is a pack workspace', () => {
     const report = reportFor([
       { directoryName: 'stray-dir', packageJson: undefined, files: [], symlinks: [] },

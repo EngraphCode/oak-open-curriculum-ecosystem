@@ -66,6 +66,15 @@ export interface IdentityPackTierEntry {
    * malformed manifest becomes a located finding rather than a bare crash.
    */
   readonly parseFailure?: string;
+  /**
+   * Set when the tier child is ITSELF a symbolic link. Such an entry is
+   * refused by KIND with nothing behind it inspected — inspecting would
+   * dereference the link, which is exactly the escape being refused —
+   * so `files`/`symlinks` are empty and `packageJson` undefined by
+   * construction, and the refusal must not be compounded with
+   * missing-manifest or anatomy findings about a target never read.
+   */
+  readonly selfIsSymlink?: boolean;
 }
 
 /** The tier's home, exported as the single canonical owner: the filesystem
@@ -90,6 +99,18 @@ export function checkIdentityPackTier(
 
 function checkPackEntry(entry: IdentityPackTierEntry): readonly string[] {
   const location = `${TIER_PATH}/${entry.directoryName}`;
+
+  // A tier child that is itself a symbolic link is refused by KIND, alone:
+  // its contents were never inspected (inspection would dereference the
+  // link), so the collect-all below would report phantom findings about a
+  // target that was deliberately not read.
+  if (entry.selfIsSymlink === true) {
+    return [
+      `${location} is a symbolic link. Tier children are real pack directories only: a link ` +
+        'can point outside the tier boundary, so the entry kind itself is refused and nothing ' +
+        'behind it is inspected.',
+    ];
+  }
 
   // Collect-all: the manifest legs and the contents legs are independent
   // inputs, so a pack with a malformed package.json AND a source file

@@ -11,8 +11,8 @@ import {
   TIER_PATH,
   checkIdentityPackTier,
   diffInventory,
-  type IdentityPackTierEntry,
 } from '../src/rules/boundary-inventory.js';
+import { readIdentityPackTier, type TierFileSystem } from '../src/rules/boundary-tier-reader.js';
 
 const repoRoot = resolve(import.meta.dirname, '../../../..');
 
@@ -47,89 +47,20 @@ function readWorkspacePackageNames(relativeDir: string): string[] {
     .map((packageJsonPath) => readPackageName(packageJsonPath));
 }
 
-/**
- * Every entry name the walk treats as a transient local artefact rather
- * than pack content. Enumerated, never pattern-matched: a blanket
- * dot-entry skip would hide committed content (`.npmrc`, an
- * `.eslintrc.json`, a hidden source directory) from the anatomy's
- * refusals, so anything not on this list — dot-prefixed or not — is
- * listed and validated.
- */
-const TRANSIENT_ENTRY_NAMES: ReadonlySet<string> = new Set(['node_modules', '.turbo', '.DS_Store']);
-
-/**
- * Pack-relative paths of every file and every symbolic link under packDir
- * (transient artefacts above excluded) — the input the pure anatomy check
- * enforces the data-only invariant over. Symlinks are LISTED, not
- * followed: a link is neither a directory nor a regular file, and
- * silently omitting it would let a pack carry linked source or an asset
- * link escaping the pack while reading well-shaped.
- */
-function listPackFiles(packDir: string): { files: string[]; symlinks: string[] } {
-  const files: string[] = [];
-  const symlinks: string[] = [];
-  const walk = (dir: string, prefix: string): void => {
-    for (const entry of readdirSync(dir, { withFileTypes: true })) {
-      if (TRANSIENT_ENTRY_NAMES.has(entry.name)) {
-        continue;
-      }
-      const relativePath = prefix === '' ? entry.name : `${prefix}/${entry.name}`;
-      if (entry.isSymbolicLink()) {
-        symlinks.push(relativePath);
-      } else if (entry.isDirectory()) {
-        walk(resolve(dir, entry.name), relativePath);
-      } else if (entry.isFile()) {
-        files.push(relativePath);
-      }
-    }
-  };
-  walk(packDir, '');
-
-  return { files, symlinks };
-}
-
-function readIdentityPackTier(): {
-  tierExists: boolean;
-  entries: IdentityPackTierEntry[];
-} {
-  const tierDir = resolve(repoRoot, TIER_PATH);
-
-  if (!existsSync(tierDir)) {
-    return { tierExists: false, entries: [] };
-  }
-
-  const entries = readdirSync(tierDir, { withFileTypes: true })
-    // Local tooling artefacts (node_modules, .turbo and friends) are never
-    // tier members and must not be misdiagnosed as malformed packs.
-    .filter(
-      (entry) =>
-        entry.isDirectory() && entry.name !== 'node_modules' && !entry.name.startsWith('.'),
-    )
-    .map((entry) => {
-      const packageJsonPath = resolve(tierDir, entry.name, 'package.json');
-      const { files, symlinks } = listPackFiles(resolve(tierDir, entry.name));
-
-      if (!existsSync(packageJsonPath)) {
-        return { directoryName: entry.name, packageJson: undefined, files, symlinks };
-      }
-
-      try {
-        const packageJson: unknown = JSON.parse(readFileSync(packageJsonPath, 'utf8'));
-
-        return { directoryName: entry.name, packageJson, files, symlinks };
-      } catch (error) {
-        return {
-          directoryName: entry.name,
-          packageJson: undefined,
-          files,
-          symlinks,
-          parseFailure: error instanceof Error ? error.message : String(error),
-        };
-      }
-    });
-
-  return { tierExists: true, entries };
-}
+/** The real filesystem behind the injected reader surface: `readDir`
+ *  carries unfollowed-link Dirent semantics, so symbolic links are
+ *  classified as themselves and never dereferenced by the walk. */
+const nodeTierFileSystem: TierFileSystem = {
+  exists: (path) => existsSync(path),
+  readDir: (path) =>
+    readdirSync(path, { withFileTypes: true }).map((entry) => ({
+      name: entry.name,
+      isDirectory: entry.isDirectory(),
+      isFile: entry.isFile(),
+      isSymbolicLink: entry.isSymbolicLink(),
+    })),
+  readTextFile: (path) => readFileSync(path, 'utf8'),
+};
 
 function main(): void {
   const inventoryLegs: readonly (readonly string[])[] = [
@@ -154,7 +85,10 @@ function main(): void {
     ]),
   ];
 
-  const { tierExists, entries } = readIdentityPackTier();
+  const { tierExists, entries } = readIdentityPackTier(
+    nodeTierFileSystem,
+    resolve(repoRoot, TIER_PATH),
+  );
   const failures: readonly string[] = [
     ...inventoryLegs.flat(),
     ...checkIdentityPackTier(tierExists, entries),
