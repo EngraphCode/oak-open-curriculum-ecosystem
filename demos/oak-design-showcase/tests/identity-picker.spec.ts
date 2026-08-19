@@ -23,6 +23,7 @@ import { BASE_IDENTITY, IDENTITIES, IDENTITY_LABELS } from '../components/useIde
 import { MEASUREMENT_WIDTH_VALUES } from '../tools/measurement-widths';
 import { assertOnlyKnownExternalOrigins } from './apply-state';
 import {
+  assertResolved,
   chooseThemeAndExpectInEffect,
   chooseWidthAndExpectInEffect,
   expectBrandInEffect,
@@ -46,17 +47,10 @@ async function expectRuledDefaults(page: Page, frame: Frame): Promise<void> {
 
 test.describe('picker: every control is an in-place change', () => {
   test('brand changes inside the frame with no navigation', async ({ page }) => {
-    const opened = await openPickerStage(page);
-    if (opened === null) {
-      return;
-    }
-    const { aborted, stage, frame, mountSrc, baseFont } = opened;
+    const { aborted, stage, frame, mountSrc, baseFont } = await openPickerStage(page);
 
     const firstCounterBrand = COUNTER_BRANDS[0];
-    expect(firstCounterBrand, 'the roster must hold a counter-brand').toBeDefined();
-    if (firstCounterBrand === undefined) {
-      return;
-    }
+    assertResolved(firstCounterBrand, 'the roster must hold a counter-brand');
     // Controls v3: the identity radio group lives in the FRAME's strip.
     await frame.getByRole('radio', { name: IDENTITY_LABELS[firstCounterBrand] ?? '' }).check();
 
@@ -73,21 +67,14 @@ test.describe('picker: every control is an in-place change', () => {
   });
 
   test('theme and width land in effect inside the same document', async ({ page }) => {
-    const opened = await openPickerStage(page);
-    if (opened === null) {
-      return;
-    }
-    const { aborted, stage, frame, mountSrc } = opened;
+    const { aborted, stage, frame, mountSrc } = await openPickerStage(page);
 
     await expectRuledDefaults(page, frame);
 
     await chooseThemeAndExpectInEffect(page, frame, 'dark');
 
     const narrowest = MEASUREMENT_WIDTH_VALUES[0];
-    expect(narrowest, 'the canonical set must be non-empty').toBeDefined();
-    if (narrowest === undefined) {
-      return;
-    }
+    assertResolved(narrowest, 'the canonical set must be non-empty');
     await chooseWidthAndExpectInEffect(page, frame, narrowest);
 
     await expectSameDocument(frame, stage, mountSrc);
@@ -99,11 +86,7 @@ test.describe('picker: identity default is the frame’s own face', () => {
   test('the frame opens on its own face, and choosing Identity default returns there', async ({
     page,
   }) => {
-    const opened = await openPickerStage(page);
-    if (opened === null) {
-      return;
-    }
-    const { aborted, stage, frame, mountSrc } = opened;
+    const { aborted, stage, frame, mountSrc } = await openPickerStage(page);
 
     // The base identity's first-visit face: no data-theme on the framed
     // root, computed color-scheme 'light' (the kit root's own polarity —
@@ -134,16 +117,9 @@ test.describe('picker: W3 controls v2', () => {
   /** The arrow press IS the demonstration (R12): one tab stop, arrows move
    *  AND select, each press re-skins the frame — gated, not assumed. */
   test('an arrow key press on the identity radio re-skins the frame', async ({ page }) => {
-    const opened = await openPickerStage(page);
-    if (opened === null) {
-      return;
-    }
-    const { aborted, frame, baseFont } = opened;
+    const { aborted, frame, baseFont } = await openPickerStage(page);
     const nextIdentity = IDENTITIES[(IDENTITIES.indexOf(BASE_IDENTITY) + 1) % IDENTITIES.length];
-    expect(nextIdentity, 'the roster holds more than one identity').toBeDefined();
-    if (nextIdentity === undefined) {
-      return;
-    }
+    assertResolved(nextIdentity, 'the roster holds more than one identity');
 
     await frame.getByRole('radio', { name: IDENTITY_LABELS[BASE_IDENTITY] ?? '' }).focus();
     await page.keyboard.press('ArrowRight');
@@ -159,15 +135,9 @@ test.describe('picker: W3 controls v2', () => {
    *  occupies the majority of the first screenful. */
   test('the stage owns the majority of the first screenful at 390px', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 780 });
-    const opened = await openPickerStage(page);
-    if (opened === null) {
-      return;
-    }
-    const stageBox = await opened.stage.boundingBox();
-    expect(stageBox, 'the stage renders').not.toBeNull();
-    if (stageBox === null) {
-      return;
-    }
+    const { stage } = await openPickerStage(page);
+    const stageBox = await stage.boundingBox();
+    assertResolved(stageBox, 'the stage renders');
     const visibleStage = Math.min(stageBox.y + stageBox.height, 780) - Math.max(stageBox.y, 0);
     expect(visibleStage).toBeGreaterThan(780 / 2);
   });
@@ -181,10 +151,7 @@ test.describe('picker: W3 controls v2', () => {
  *  observable. */
 test.describe('scaled preview target-size floor', () => {
   test('the preview is inert below the floor and interactive above it', async ({ page }) => {
-    const opened = await openPickerStage(page);
-    if (opened === null) {
-      return;
-    }
+    const { aborted } = await openPickerStage(page);
     const frameElement = page.locator('.picker-stage iframe');
     const inertAttribute = (): Promise<string | null> => frameElement.getAttribute('inert');
     await expect
@@ -194,6 +161,6 @@ test.describe('scaled preview target-size floor', () => {
     await expect
       .poll(inertAttribute, { message: 'narrow: a sub-floor scale renders the preview inert' })
       .not.toBeNull();
-    assertOnlyKnownExternalOrigins(opened.aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 });

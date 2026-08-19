@@ -86,15 +86,12 @@ test.describe('specimen strip: narrow controls disclose instead of scroll', () =
 
 test.describe('specimen breadcrumbs are page furniture, not exhibit furniture', () => {
   test('the framed specimen carries no page navigation; the full page does', async ({ page }) => {
-    const opened = await openPickerStage(page);
-    if (opened === null) {
-      return;
-    }
+    const { aborted, frame } = await openPickerStage(page);
     // Framed, a breadcrumb click would navigate the STAGE (a switchboard
     // nested inside its own picker), so embedded mode omits the trail.
-    await expect(opened.frame.locator('nav.showcase-crumbs-nav')).toHaveCount(0);
+    await expect(frame.locator('nav.showcase-crumbs-nav')).toHaveCount(0);
     await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}`);
     await expect(page.locator('nav.showcase-crumbs-nav')).toBeVisible();
-    assertOnlyKnownExternalOrigins(opened.aborted);
+    assertOnlyKnownExternalOrigins(aborted);
   });
 });

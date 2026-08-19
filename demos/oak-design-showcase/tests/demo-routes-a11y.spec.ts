@@ -12,6 +12,7 @@ import { expect, test } from '@playwright/test';
 
 import { assertOnlyKnownExternalOrigins } from './apply-state';
 import { expectNoAxeViolations } from './axe-checks';
+import { assertResolved } from './picker-stage';
 import { expectNoHorizontalOverflow, openRoute } from './route-checks';
 
 const ROUTES = ['/tokens', '/tokens/colours', '/composition'] as const;
@@ -103,10 +104,7 @@ test.describe('white-labelling stage: the parent theme holds against frame write
     const aborted = await openRoute(page, '/identity-white-labelling');
     const stageHandle = await page.locator('.frame iframe').first().elementHandle();
     const stageFrame = await stageHandle.contentFrame();
-    expect(stageFrame, 'the first column frame must resolve').not.toBeNull();
-    if (stageFrame === null) {
-      return;
-    }
+    assertResolved(stageFrame, 'the first column frame must resolve');
     await expect(stageFrame.locator('[data-identity]').first()).toBeVisible();
     // Each framed document runs the kit runtime, whose live contrast
     // listener rewrites data-theme on an OS change. Simulate any such

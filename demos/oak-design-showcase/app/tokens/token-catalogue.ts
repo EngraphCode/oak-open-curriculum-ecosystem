@@ -58,6 +58,9 @@ export interface CatalogueToken {
   readonly declared: string;
   /** Theme faces that declare this token, in tree order. */
   readonly themes: readonly string[];
+  /** True when the value moves with the theme — declared by any theme
+   *  face, or referencing (to any depth) a token that is. */
+  readonly themed: boolean;
   /** True when the value carries a CSS function the export passes through
    *  verbatim (`color-mix`, `calc`, `clamp`, `min`, `minmax`). */
   readonly functional: boolean;
@@ -158,6 +161,45 @@ function collect(trees: readonly DtcgTree[]): CollectedLeaves {
   return { first, themes, leafCount, excludedIconCount };
 }
 
+const VAR_REFERENCE = /var\(\s*(--[a-z0-9-]+)/gi;
+
+/**
+ * Theme dependence, computed TRANSITIVELY (review round 3): a token is
+ * themed when any theme face declares it — one face is enough, since a
+ * single-face override already makes the value move with the theme — OR
+ * when its declared value references a themed token, to any depth. An
+ * alias like `--card-bg: var(--bg-primary)` is declared once yet changes
+ * with every theme, and the row's "changes with the theme" marker must
+ * not lie by omission about exactly the tokens a reader would alias.
+ */
+function computeThemedNames(
+  first: ReadonlyMap<string, FirstDeclaration>,
+  themes: ReadonlyMap<string, readonly string[]>,
+): ReadonlySet<string> {
+  // Edges come from the page's own canonical rewrite, so DTCG brace
+  // references and literal var() calls resolve through one parser.
+  const references = new Map<string, readonly string[]>(
+    [...first].map(([name, { leaf }]) => [
+      name,
+      [...withVarReferences(leaf.value).matchAll(VAR_REFERENCE)].map((match) => match[1] ?? ''),
+    ]),
+  );
+  const themed = new Set<string>(
+    [...themes].filter(([, faces]) => faces.length >= 1).map(([name]) => name),
+  );
+  let grew = true;
+  while (grew) {
+    grew = false;
+    for (const [name, refs] of references) {
+      if (!themed.has(name) && refs.some((ref) => themed.has(ref))) {
+        themed.add(name);
+        grew = true;
+      }
+    }
+  }
+  return themed;
+}
+
 /**
  * Flatten every tree into one de-duplicated catalogue, in the kit's own
  * authoring order. A token declared by several theme faces appears ONCE:
@@ -167,6 +209,7 @@ function collect(trees: readonly DtcgTree[]): CollectedLeaves {
 export function buildCatalogue(trees: readonly DtcgTree[]): Catalogue {
   const { first, themes, leafCount, excludedIconCount } = collect(trees);
   const types = resolveTypes(new Map([...first].map(([name, entry]) => [name, entry.leaf])));
+  const themedNames = computeThemedNames(first, themes);
 
   const tokens = [...first].map(([name, { leaf, tree }]): CatalogueToken => {
     const type = types.get(name) ?? null;
@@ -179,6 +222,7 @@ export function buildCatalogue(trees: readonly DtcgTree[]): Catalogue {
       type,
       declared: withVarReferences(leaf.value),
       themes: themes.get(name) ?? [],
+      themed: themedNames.has(name),
       functional: FUNCTIONAL_VALUE.test(leaf.value),
     };
   });

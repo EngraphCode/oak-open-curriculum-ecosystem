@@ -93,7 +93,9 @@ export function TokenValue({
       {expression !== '' && expression !== value && (
         <span className="oak-code-3 tok-expr"> {expression}</span>
       )}
-      {token.themes.length > 1 && (
+      {/* Transitive, not declaration-counted (review round 3): an alias of
+          a themed role changes with the theme while declaring one face. */}
+      {token.themed && (
         <span className="oak-body-4 tok-flag">
           {'theme'}
           <span className="oak-visually-hidden"> &mdash; this value changes with the theme</span>

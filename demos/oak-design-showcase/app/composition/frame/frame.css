@@ -89,10 +89,14 @@
        the whole point (CSS owns appearance, including visual order).
        Narrow: the same full reversal, single column. --- */
 .comp-frame[data-layout='inverted'] {
+  /* The FULL reverse of the source order (hero…cta becomes cta…hero),
+     read row-major — consecutive pairs from the reversed sequence, so
+     the rendered order matches the accessible description exactly
+     (review round 3: the earlier pairing scrambled the middle six). */
   --main-columns: minmax(0, 1fr) minmax(0, 1fr);
-  --main-areas: 'cta cta' 'support context' 'resources detail' 'results facets' 'content featured'
+  --main-areas: 'cta cta' 'support resources' 'context content' 'detail results' 'facets featured'
     'navigation navigation' 'hero hero';
   --main-columns-narrow: minmax(0, 1fr);
-  --main-areas-narrow: 'cta' 'support' 'context' 'resources' 'detail' 'results' 'facets' 'content'
+  --main-areas-narrow: 'cta' 'support' 'resources' 'context' 'content' 'detail' 'results' 'facets'
     'featured' 'navigation' 'hero';
 }

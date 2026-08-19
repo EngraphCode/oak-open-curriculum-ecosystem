@@ -87,6 +87,52 @@ describe('buildCatalogue across theme faces', () => {
   });
 });
 
+describe('buildCatalogue theme dependence (transitive)', () => {
+  const trees = [
+    tree('primitives.json', 1, null, {
+      oak: { white: { $value: '#ffffff', $type: 'color' } },
+    }),
+    tree('semantic.light.json', 2, 'light', {
+      bg: { primary: { $value: '{oak.white}', $type: 'color' } },
+    }),
+    tree('semantic.dark.json', 2, 'dark', {
+      bg: { primary: { $value: '#222222', $type: 'color' } },
+    }),
+    tree('semantic.high-contrast.json', 2, 'high-contrast', {
+      state: { focus: { $value: '#ffe555', $type: 'color' } },
+    }),
+    tree('component.json', 3, null, {
+      card: { bg: { $value: '{bg.primary}', $type: 'color' } },
+      chip: { bg: { $value: '{card.bg}', $type: 'color' } },
+      input: { 'min-h': { $value: '48px', $type: 'dimension' } },
+    }),
+  ];
+  const themedByName = new Map(
+    buildCatalogue(trees).tokens.map((token) => [token.name, token.themed]),
+  );
+
+  it('marks a token declared by theme faces', () => {
+    expect(themedByName.get('--bg-primary')).toBe(true);
+  });
+
+  it('marks a token a SINGLE theme face declares — one override already moves the value', () => {
+    expect(themedByName.get('--state-focus')).toBe(true);
+  });
+
+  it('marks an alias of a themed token, though it declares one face itself', () => {
+    expect(themedByName.get('--card-bg')).toBe(true);
+  });
+
+  it('follows references to any depth — the alias of the alias is themed too', () => {
+    expect(themedByName.get('--chip-bg')).toBe(true);
+  });
+
+  it('leaves an untouched literal unmarked, so the marker keeps its meaning', () => {
+    expect(themedByName.get('--input-min-h')).toBe(false);
+    expect(themedByName.get('--oak-white')).toBe(false);
+  });
+});
+
 describe('buildCatalogue exclusions', () => {
   it('excludes icon URL properties and counts what it excluded', () => {
     const catalogue = buildCatalogue([
