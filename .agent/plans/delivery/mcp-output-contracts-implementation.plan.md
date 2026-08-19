@@ -6,10 +6,15 @@ overview: >-
   Compose, carry, and enforce source-derived output contracts for every
   live universal tool, modelled on the verified served wire, proven at the
   tools/list wire and on real results.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-19
+ratified_where: >-
+  In-session owner word, Director session Ocelot binds Tunnel (c28ad9),
+  2026-08-19 — verbatim: "ratify all three -- then commit and push",
+  answering the enumerated stamp scope presented at that seat; the
+  advertisement ruling folded the same day from the in-session card
+  answer ("option 1 then leaning to 2, but let's see what 1 gives us").
 serves: mcp-output-contracts
 impact_areas:
   - served-surface

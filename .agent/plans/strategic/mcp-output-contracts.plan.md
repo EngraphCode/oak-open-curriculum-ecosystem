@@ -6,10 +6,15 @@ overview: >-
   Every successful result on the served MCP surface conforms to a
   machine-checkable, source-derived contract that the server enforces —
   with the wire-advertisement cost measured and owner-ruled, not assumed.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-08-19
+ratified_where: >-
+  In-session owner word, Director session Ocelot binds Tunnel (c28ad9),
+  2026-08-19 — verbatim: "ratify all three -- then commit and push",
+  answering the enumerated stamp scope presented at that seat; the
+  advertisement ruling folded the same day from the in-session card
+  answer ("option 1 then leaning to 2, but let's see what 1 gives us").
 serves: APP-1
 impact_areas:
   - served-surface
