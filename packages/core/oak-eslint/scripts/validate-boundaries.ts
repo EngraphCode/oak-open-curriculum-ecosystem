@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { existsSync, lstatSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import {
   APP_PACKAGE_IMPORTS,
@@ -51,7 +51,16 @@ function readWorkspacePackageNames(relativeDir: string): string[] {
  *  carries unfollowed-link Dirent semantics, so symbolic links are
  *  classified as themselves and never dereferenced by the walk. */
 const nodeTierFileSystem: TierFileSystem = {
-  exists: (path) => existsSync(path),
+  classifyPath: (path) => {
+    const stats = lstatSync(path, { throwIfNoEntry: false });
+    if (stats === undefined) {
+      return 'absent';
+    }
+    if (stats.isSymbolicLink()) {
+      return 'symlink';
+    }
+    return stats.isDirectory() ? 'directory' : 'file';
+  },
   readDir: (path) =>
     readdirSync(path, { withFileTypes: true }).map((entry) => ({
       name: entry.name,
@@ -85,13 +94,10 @@ function main(): void {
     ]),
   ];
 
-  const { tierExists, entries } = readIdentityPackTier(
-    nodeTierFileSystem,
-    resolve(repoRoot, TIER_PATH),
-  );
+  const tierReading = readIdentityPackTier(nodeTierFileSystem, resolve(repoRoot, TIER_PATH));
   const failures: readonly string[] = [
     ...inventoryLegs.flat(),
-    ...checkIdentityPackTier(tierExists, entries),
+    ...checkIdentityPackTier(tierReading),
   ];
 
   if (failures.length > 0) {
@@ -105,7 +111,7 @@ function main(): void {
 
   console.log(
     `validate-boundaries: OK (${String(inventoryLegs.length)} inventories in sync; ` +
-      `identity-pack tier: ${String(entries.length)} pack(s) well-shaped).`,
+      `identity-pack tier: ${String(tierReading.entries.length)} pack(s) well-shaped).`,
   );
 }
 

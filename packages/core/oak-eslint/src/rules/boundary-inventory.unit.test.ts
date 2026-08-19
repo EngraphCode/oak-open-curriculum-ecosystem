@@ -5,6 +5,14 @@ import {
   type IdentityPackTierEntry,
 } from './boundary-inventory.js';
 
+function presentTier(entries: readonly IdentityPackTierEntry[]): {
+  tierState: 'present';
+  strayRootEntries: readonly string[];
+  entries: readonly IdentityPackTierEntry[];
+} {
+  return { tierState: 'present', strayRootEntries: [], entries };
+}
+
 // Assertion style, per testing-strategy §"Prove behaviour, never config or
 // content": a refusal's observable contract is that a report EXISTS and that
 // it names the concern and locates the offender. Tests therefore assert
@@ -91,24 +99,49 @@ function packIn(
 }
 
 function reportFor(entries: readonly IdentityPackTierEntry[]): string {
-  return checkIdentityPackTier(true, entries).join('\n');
+  return checkIdentityPackTier(presentTier(entries)).join('\n');
 }
 
 describe('checkIdentityPackTier', () => {
   it('refuses a missing tier directory, naming the tier path', () => {
-    const report = checkIdentityPackTier(false, []).join('\n');
+    const report = checkIdentityPackTier({
+      tierState: 'missing',
+      strayRootEntries: [],
+      entries: [],
+    }).join('\n');
 
     expect(report).toContain('packages/design/identities');
   });
 
+  it('refuses a tier path that is not a real directory — a linked tier would validate its target', () => {
+    const report = checkIdentityPackTier({
+      tierState: 'wrong-kind',
+      strayRootEntries: [],
+      entries: [],
+    }).join('\n');
+
+    expect(report).toContain('packages/design/identities');
+    expect(report).toContain('kind');
+  });
+
+  it('refuses a stray tier-root entry, locating it — nothing sits outside the pack surfaces', () => {
+    const report = checkIdentityPackTier({
+      tierState: 'present',
+      strayRootEntries: ['index.ts'],
+      entries: [],
+    }).join('\n');
+
+    expect(report).toContain('packages/design/identities/index.ts');
+  });
+
   it('passes on an existing tier with zero packs (the tier is minted before its first pack)', () => {
-    expect(checkIdentityPackTier(true, [])).toEqual([]);
+    expect(checkIdentityPackTier(presentTier([]))).toEqual([]);
   });
 
   it.each(['tango', 'delta'])(
     'passes a well-shaped data-only pack in directory %s',
     (directoryName) => {
-      expect(checkIdentityPackTier(true, [packIn(directoryName, {})])).toEqual([]);
+      expect(checkIdentityPackTier(presentTier([packIn(directoryName, {})]))).toEqual([]);
     },
   );
 
@@ -137,15 +170,17 @@ describe('checkIdentityPackTier', () => {
     // Refused by KIND, alone: no phantom missing-manifest finding about a
     // target that was deliberately never read.
     expect(
-      checkIdentityPackTier(true, [
-        {
-          directoryName: 'tango',
-          packageJson: undefined,
-          files: [],
-          symlinks: [],
-          selfIsSymlink: true,
-        },
-      ]),
+      checkIdentityPackTier(
+        presentTier([
+          {
+            directoryName: 'tango',
+            packageJson: undefined,
+            files: [],
+            symlinks: [],
+            selfIsSymlink: true,
+          },
+        ]),
+      ),
     ).toHaveLength(1);
   });
 
@@ -235,7 +270,7 @@ describe('checkIdentityPackTier', () => {
   });
 
   it('passes a pack whose contents are exactly the permitted data-only anatomy', () => {
-    expect(checkIdentityPackTier(true, [packIn('tango', {}, dataOnlyFiles)])).toEqual([]);
+    expect(checkIdentityPackTier(presentTier([packIn('tango', {}, dataOnlyFiles)]))).toEqual([]);
   });
 
   it('refuses a pack with no license declaration — each pack carries its own licence surface', () => {
@@ -293,9 +328,9 @@ describe('checkIdentityPackTier', () => {
 
   it('admits *.tokens.json DTCG modules under dtcg/ at any depth', () => {
     expect(
-      checkIdentityPackTier(true, [
-        packIn('tango', {}, [...dataOnlyFiles, 'dtcg/semantic/dark.tokens.json']),
-      ]),
+      checkIdentityPackTier(
+        presentTier([packIn('tango', {}, [...dataOnlyFiles, 'dtcg/semantic/dark.tokens.json'])]),
+      ),
     ).toEqual([]);
   });
 

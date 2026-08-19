@@ -9,7 +9,7 @@
  */
 import { join } from 'node:path';
 
-import type { IdentityPackTierEntry } from './boundary-inventory.js';
+import type { IdentityPackTierEntry, IdentityPackTierReading } from './boundary-inventory.js';
 
 /** One directory entry as the reader classifies it — the lstat-semantics
  *  facts of the entry ITSELF, never its target: a symlink reports
@@ -22,15 +22,27 @@ export interface TierDirent {
   readonly isSymbolicLink: boolean;
 }
 
-/** The filesystem surface the reader consumes. `readDir` must carry
- *  unfollowed-link semantics (Node: `readdirSync(dir, { withFileTypes:
- *  true })`); `readTextFile` is only ever called for paths the inventory
- *  proved to be REGULAR files, so an adapter needs no lstat guard. */
+/** The kind standing at a path, by lstat semantics — the link itself,
+ *  never its target. */
+export type TierPathKind = 'directory' | 'file' | 'symlink' | 'absent';
+
+/** The filesystem surface the reader consumes. `classifyPath` must carry
+ *  lstat semantics (Node: `lstatSync`) — an exists/stat pair follows
+ *  links, which is how a symlinked tier path validated its target;
+ *  `readDir` must carry unfollowed-link Dirent semantics; `readTextFile`
+ *  is only ever called for paths the inventory proved to be REGULAR
+ *  files, so an adapter needs no lstat guard. */
 export interface TierFileSystem {
-  readonly exists: (path: string) => boolean;
+  readonly classifyPath: (path: string) => TierPathKind;
   readonly readDir: (path: string) => readonly TierDirent[];
   readonly readTextFile: (path: string) => string;
 }
+
+/** Root files the tier admits beside its packs. Enumerated, never
+ *  pattern-matched — anything else at the root is a stray the policy
+ *  refuses, because it would sit outside every pack's anatomy and
+ *  validation surface. */
+const ADMITTED_TIER_ROOT_FILES: ReadonlySet<string> = new Set(['README.md']);
 
 /**
  * Every entry name the walk treats as a transient local artefact rather
@@ -77,77 +89,97 @@ export function listPackFiles(
 }
 
 /**
- * Read the identity-pack tier into the policy's input shape. Two boundary
- * facts are load-bearing here:
+ * Read the identity-pack tier into the policy's input shape. The
+ * boundary facts load-bearing here, top down:
  *
+ * - The tier PATH is classified by lstat semantics before any read — a
+ *   symlinked tier path would have its target validated, so the kind is
+ *   refused outright.
  * - A tier child that is itself a symbolic link becomes a
  *   `selfIsSymlink` entry, refused by KIND without inspection — an
  *   unfollowed directory-symlink reports `isSymbolicLink` and NOT
  *   `isDirectory`, so a directories-only filter would silently drop the
- *   pack from validation entirely, and walking or reading it would
- *   dereference the link (the escape this leg exists to refuse).
+ *   pack from validation entirely.
+ * - Root files beyond the enumerated admissions are STRAYS the policy
+ *   refuses — a silently ignored root file would sit outside every
+ *   pack's anatomy and validation surface.
  * - Manifest presence derives from the NON-dereferencing inventory, not
  *   from an `exists`/read pair that follows links: a symlinked
  *   `package.json` sits in `symlinks` (refused by kind) with the manifest
  *   reported absent, and its target is never read.
- *
- * Non-directory, non-symlink tier children (the tier's own README.md)
- * stay outside the pack model, exactly as before.
  */
 export function readIdentityPackTier(
   fileSystem: TierFileSystem,
   tierDir: string,
-): { tierExists: boolean; entries: IdentityPackTierEntry[] } {
-  if (!fileSystem.exists(tierDir)) {
-    return { tierExists: false, entries: [] };
+): IdentityPackTierReading {
+  const tierKind = fileSystem.classifyPath(tierDir);
+  if (tierKind === 'absent') {
+    return { tierState: 'missing', strayRootEntries: [], entries: [] };
+  }
+  // Refused by KIND before any read: a symlinked (or file) tier path
+  // would have its TARGET validated by the readDir below, which is the
+  // dereference the boundary exists to refuse.
+  if (tierKind !== 'directory') {
+    return { tierState: 'wrong-kind', strayRootEntries: [], entries: [] };
   }
 
-  const entries = fileSystem
+  // Only the enumerated transients are skipped — a blanket dot-name skip
+  // would exempt a committed hidden directory (or symlink) from the
+  // boundary entirely, the same hidden-content bypass listPackFiles
+  // refuses at pack level.
+  const children = fileSystem
     .readDir(tierDir)
-    // Local tooling artefacts (node_modules, .turbo and friends) are never
-    // tier members and must not be misdiagnosed as malformed packs.
-    .filter((entry) => entry.name !== 'node_modules' && !entry.name.startsWith('.'))
-    .flatMap((entry): IdentityPackTierEntry[] => {
-      if (entry.isSymbolicLink) {
-        return [
-          {
-            directoryName: entry.name,
-            packageJson: undefined,
-            files: [],
-            symlinks: [],
-            selfIsSymlink: true,
-          },
-        ];
-      }
-      if (!entry.isDirectory) {
-        return [];
-      }
+    .filter((entry) => !TRANSIENT_ENTRY_NAMES.has(entry.name));
 
-      const packDir = join(tierDir, entry.name);
-      const { files, symlinks } = listPackFiles(fileSystem, packDir);
+  const strayRootEntries = children
+    .filter(
+      (entry) =>
+        (entry.isFile && !ADMITTED_TIER_ROOT_FILES.has(entry.name)) ||
+        (!entry.isFile && !entry.isDirectory && !entry.isSymbolicLink),
+    )
+    .map((entry) => entry.name);
 
-      if (!files.includes('package.json')) {
-        return [{ directoryName: entry.name, packageJson: undefined, files, symlinks }];
-      }
+  const entries = children.flatMap((entry): IdentityPackTierEntry[] => {
+    if (entry.isSymbolicLink) {
+      return [
+        {
+          directoryName: entry.name,
+          packageJson: undefined,
+          files: [],
+          symlinks: [],
+          selfIsSymlink: true,
+        },
+      ];
+    }
+    if (!entry.isDirectory) {
+      return [];
+    }
 
-      try {
-        const packageJson: unknown = JSON.parse(
-          fileSystem.readTextFile(join(packDir, 'package.json')),
-        );
+    const packDir = join(tierDir, entry.name);
+    const { files, symlinks } = listPackFiles(fileSystem, packDir);
 
-        return [{ directoryName: entry.name, packageJson, files, symlinks }];
-      } catch (error) {
-        return [
-          {
-            directoryName: entry.name,
-            packageJson: undefined,
-            files,
-            symlinks,
-            parseFailure: error instanceof Error ? error.message : String(error),
-          },
-        ];
-      }
-    });
+    if (!files.includes('package.json')) {
+      return [{ directoryName: entry.name, packageJson: undefined, files, symlinks }];
+    }
 
-  return { tierExists: true, entries };
+    try {
+      const packageJson: unknown = JSON.parse(
+        fileSystem.readTextFile(join(packDir, 'package.json')),
+      );
+
+      return [{ directoryName: entry.name, packageJson, files, symlinks }];
+    } catch (error) {
+      return [
+        {
+          directoryName: entry.name,
+          packageJson: undefined,
+          files,
+          symlinks,
+          parseFailure: error instanceof Error ? error.message : String(error),
+        },
+      ];
+    }
+  });
+
+  return { tierState: 'present', strayRootEntries, entries };
 }

@@ -83,18 +83,42 @@ export interface IdentityPackTierEntry {
  *  while naming another (`consolidate-at-second-consumer`). */
 export const TIER_PATH = 'packages/design/identities';
 
-export function checkIdentityPackTier(
-  tierExists: boolean,
-  entries: readonly IdentityPackTierEntry[],
-): readonly string[] {
-  if (!tierExists) {
+/**
+ * The reader's whole account of the tier surface, consumed as one value:
+ * the tier path's own KIND (lstat semantics — a linked tier would validate
+ * the link's target, so the kind itself is policed), the root entries the
+ * closed shape does not admit, and the pack entries.
+ */
+export interface IdentityPackTierReading {
+  readonly tierState: 'present' | 'missing' | 'wrong-kind';
+  readonly strayRootEntries: readonly string[];
+  readonly entries: readonly IdentityPackTierEntry[];
+}
+
+export function checkIdentityPackTier(reading: IdentityPackTierReading): readonly string[] {
+  if (reading.tierState === 'missing') {
     return [
       `Identity-pack tier directory ${TIER_PATH} is missing. The tier is a checked surface: ` +
         'if it was renamed or removed, move this leg with it rather than letting it vanish silently.',
     ];
   }
+  if (reading.tierState === 'wrong-kind') {
+    return [
+      `${TIER_PATH} is not a real directory (a symbolic link or file stands at the tier path). ` +
+        "The tier is classified by KIND before any read — validating a linked tier would validate the link's " +
+        'target — so the kind itself is refused and nothing behind it is inspected.',
+    ];
+  }
 
-  return entries.flatMap((entry) => checkPackEntry(entry));
+  return [
+    ...reading.strayRootEntries.map(
+      (name) =>
+        `${TIER_PATH}/${name} is not a pack directory or an admitted tier file. Tier children are ` +
+        'pack directories plus the tier README only — a stray root entry sits outside every ' +
+        "pack's anatomy and validation surface.",
+    ),
+    ...reading.entries.flatMap((entry) => checkPackEntry(entry)),
+  ];
 }
 
 function checkPackEntry(entry: IdentityPackTierEntry): readonly string[] {

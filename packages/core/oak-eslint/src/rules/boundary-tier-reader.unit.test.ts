@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { checkIdentityPackTier } from './boundary-inventory.js';
 import { listPackFiles, readIdentityPackTier } from './boundary-tier-reader.js';
-import type { TierDirent, TierFileSystem } from './boundary-tier-reader.js';
+import type { TierDirent, TierFileSystem, TierPathKind } from './boundary-tier-reader.js';
 
 const TIER = '/repo/packages/design/identities';
 
@@ -16,17 +16,34 @@ function dirent(name: string, kind: 'dir' | 'file' | 'symlink'): TierDirent {
 }
 
 /** In-memory TierFileSystem over a directory→entries map and a
- *  path→content map, recording every readTextFile call so a test can
- *  prove a path was NEVER dereferenced. */
+ *  path→content map, recording readTextFile AND readDir calls so a test
+ *  can prove a path was NEVER dereferenced or listed. `kinds` overrides
+ *  classifyPath for paths that are not plain directories/files (the
+ *  symlinked-tier case). */
 function fakeFileSystem(
   directories: Record<string, readonly TierDirent[]>,
   fileContents: Record<string, string> = {},
-): TierFileSystem & { readTextFileCalls: string[] } {
+  kinds: Record<string, TierPathKind> = {},
+): TierFileSystem & { readTextFileCalls: string[]; readDirCalls: string[] } {
   const readTextFileCalls: string[] = [];
+  const readDirCalls: string[] = [];
   return {
     readTextFileCalls,
-    exists: (path) => path in directories || path in fileContents,
-    readDir: (path) => directories[path] ?? [],
+    readDirCalls,
+    classifyPath: (path) => {
+      const override = kinds[path];
+      if (override !== undefined) {
+        return override;
+      }
+      if (path in directories) {
+        return 'directory';
+      }
+      return path in fileContents ? 'file' : 'absent';
+    },
+    readDir: (path) => {
+      readDirCalls.push(path);
+      return directories[path] ?? [];
+    },
     readTextFile: (path) => {
       readTextFileCalls.push(path);
       const content = fileContents[path];
@@ -62,7 +79,47 @@ describe('listPackFiles', () => {
 describe('readIdentityPackTier', () => {
   it('reports a missing tier directory', () => {
     const fs = fakeFileSystem({});
-    expect(readIdentityPackTier(fs, TIER)).toEqual({ tierExists: false, entries: [] });
+    expect(readIdentityPackTier(fs, TIER)).toEqual({
+      tierState: 'missing',
+      strayRootEntries: [],
+      entries: [],
+    });
+  });
+
+  it('refuses a symlinked tier path by KIND without listing it — the target is never read', () => {
+    // REGRESSION (PR #909 round-5 thread): exists/readdir both follow a
+    // symlink standing AT the tier path, so a linked tier had its target
+    // validated despite the no-dereference guarantee.
+    const fs = fakeFileSystem({}, {}, { [TIER]: 'symlink' });
+    expect(readIdentityPackTier(fs, TIER)).toEqual({
+      tierState: 'wrong-kind',
+      strayRootEntries: [],
+      entries: [],
+    });
+    expect(fs.readDirCalls).toEqual([]);
+    expect(fs.readTextFileCalls).toEqual([]);
+  });
+
+  it('validates a dot-prefixed tier directory instead of exempting it — no hidden-content bypass', () => {
+    // REGRESSION (PR #909 round-5 suppressed): a blanket dot-name skip let
+    // a committed hidden directory carry source outside the boundary.
+    const fs = fakeFileSystem({
+      [TIER]: [dirent('.rogue', 'dir')],
+      [`${TIER}/.rogue`]: [dirent('index.ts', 'file')],
+    });
+    const reading = readIdentityPackTier(fs, TIER);
+    expect(reading.entries).toHaveLength(1);
+    expect(reading.entries[0]?.directoryName).toBe('.rogue');
+    expect(reading.entries[0]?.files).toEqual(['index.ts']);
+  });
+
+  it('reports a stray tier-root file and admits the tier README', () => {
+    // REGRESSION (PR #909 round-5 suppressed): every root file was
+    // silently discarded, so a stray index.ts sat outside all validation.
+    const fs = fakeFileSystem({
+      [TIER]: [dirent('README.md', 'file'), dirent('index.ts', 'file')],
+    });
+    expect(readIdentityPackTier(fs, TIER).strayRootEntries).toEqual(['index.ts']);
   });
 
   it('reads a well-shaped pack, with manifest presence derived from the inventory', () => {
@@ -86,8 +143,8 @@ describe('readIdentityPackTier', () => {
     // reports isSymbolicLink and NOT isDirectory, so a directories-only
     // filter silently dropped the pack from validation entirely.
     const fs = fakeFileSystem({ [TIER]: [dirent('tango', 'symlink')] });
-    const { tierExists, entries } = readIdentityPackTier(fs, TIER);
-    expect(tierExists).toBe(true);
+    const { tierState, entries } = readIdentityPackTier(fs, TIER);
+    expect(tierState).toBe('present');
     expect(entries).toEqual([
       {
         directoryName: 'tango',
@@ -99,7 +156,9 @@ describe('readIdentityPackTier', () => {
     ]);
     // The policy end of the same regression: the entry is refused, so the
     // tier can never validate OK while carrying a symlinked pack.
-    expect(checkIdentityPackTier(tierExists, entries).join('\n')).toContain('is a symbolic link');
+    expect(
+      checkIdentityPackTier({ tierState, strayRootEntries: [], entries }).join('\n'),
+    ).toContain('is a symbolic link');
     expect(fs.readTextFileCalls).toEqual([]);
   });
 
