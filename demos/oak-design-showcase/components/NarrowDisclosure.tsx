@@ -26,26 +26,51 @@
  * which keeps the server snapshot honest and the client render
  * cascade-free.
  */
-import { useCallback, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
-import type { ReactElement, ReactNode } from 'react';
+import { useCallback, useState, useSyncExternalStore } from 'react';
+import type { FocusEvent, ReactElement, ReactNode } from 'react';
 
-/** Adopt OPEN when the seam closes over the focused control: the commit
- *  closes the details before this effect runs, but style has not
- *  recalculated yet, so the control is still the activeElement — the
- *  synchronous re-render before paint keeps it visible (400% zoom and
- *  rotation cross the seam; focus continuity is the contract, review
- *  round 1). */
-function useFocusHoldsOpen(
+/** Focus-within, fed by the focus events. Deliberately NEVER read by the
+ *  `open` prop — a version that fed `open` directly opened the panel on
+ *  the summary's mousedown focus, and the click's own default action
+ *  then toggled it straight back closed. It is read only by the
+ *  seam-flip latch below, where the fact long predates the resize. */
+function useFocusWithin(): {
+  readonly focusWithin: boolean;
+  readonly onFocus: (event: FocusEvent<HTMLDetailsElement>) => void;
+  readonly onBlur: (event: FocusEvent<HTMLDetailsElement>) => void;
+} {
+  const [focusWithin, setFocusWithin] = useState(false);
+  const onFocus = useCallback((event: FocusEvent<HTMLDetailsElement>) => {
+    setFocusWithin(event.currentTarget.contains(event.target));
+  }, []);
+  const onBlur = useCallback((event: FocusEvent<HTMLDetailsElement>) => {
+    setFocusWithin(
+      event.relatedTarget !== null && event.currentTarget.contains(event.relatedTarget),
+    );
+  }, []);
+  return { focusWithin, onFocus, onBlur };
+}
+
+/** LATCH the narrow open state at the wide → narrow flip while focus
+ *  sits inside the panel — during the flip RENDER itself (the
+ *  documented previous-render adjustment pattern: state, no refs, no
+ *  effects), so the commit that would have closed the panel over the
+ *  focused control renders it open instead. Focus continuity across
+ *  the seam is the contract (review round 1 — 400% zoom and tablet
+ *  rotation cross it); an effect-based hold raced the browser's focus
+ *  fixup and lost under CI's renderer. */
+function useSeamFocusLatch(
   wide: boolean,
-  details: { readonly current: HTMLDetailsElement | null },
+  focusWithin: boolean,
   setChosenOpen: (open: boolean) => void,
 ): void {
-  useLayoutEffect(() => {
-    const element = details.current;
-    if (!wide && element !== null && element.contains(document.activeElement)) {
+  const [previousWide, setPreviousWide] = useState(wide);
+  if (previousWide !== wide) {
+    setPreviousWide(wide);
+    if (!wide && focusWithin) {
       setChosenOpen(true);
     }
-  }, [wide, details, setChosenOpen]);
+  }
 }
 
 function useMediaQueryMatch(query: string): boolean {
@@ -84,8 +109,8 @@ export function NarrowDisclosure({
   // The user's own narrow open/closed choice, kept OUTSIDE the element so
   // crossing the seam and back restores it.
   const [chosenOpen, setChosenOpen] = useState(false);
-  const details = useRef<HTMLDetailsElement | null>(null);
-  useFocusHoldsOpen(wide, details, setChosenOpen);
+  const { focusWithin, onFocus, onBlur } = useFocusWithin();
+  useSeamFocusLatch(wide, focusWithin, setChosenOpen);
   // ONE mounted <details> at every width — never a swap to a fragment.
   // Remounting on the seam destroys focus (measured: a focused control
   // dropped to BODY) and the open state, and the seam is crossed by
@@ -99,9 +124,10 @@ export function NarrowDisclosure({
     .join(' ');
   return (
     <details
-      ref={details}
       className={classes}
       open={wide ? true : chosenOpen}
+      onFocus={onFocus}
+      onBlur={onBlur}
       onToggle={(event) => {
         if (!wide) {
           setChosenOpen(event.currentTarget.open);
