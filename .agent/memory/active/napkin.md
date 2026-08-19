@@ -1350,3 +1350,15 @@ pinning-by-name, not sequencing-by-hope.
   sides — append-only surfaces have no "ours vs theirs". Validate the
   merged artefact by its own contract (JSON parse + id uniqueness), not
   by conflict-marker absence.
+- **Metacognition — fresh surface resets the review clock.** Rounds 3–8
+  on one PR each found real holes in code BORN in round 3: a cure that
+  adds surface (a promoted module) is authoring, and PDR-132's round
+  budget re-binds at that moment. Budget the promotion as a new
+  changeset, or expect the ratchet to run again on the new surface.
+- **Play seed (association, not finding): holds across transitions.**
+  The disclosure's `summary:not(:focus)` (stay rendered until focus
+  moves), the seam latch (stay open across the flip), and the merge
+  bot's quiet window (stay unmerged until the reviewer's round has
+  landed) are one shape: a transition guarded by "the mover has moved",
+  expressed declaratively instead of by timing. Candidate name if it
+  recurs: the mover-has-moved guard.

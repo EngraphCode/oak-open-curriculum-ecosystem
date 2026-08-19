@@ -3683,7 +3683,9 @@ artifact, URL in the session wrap-up).
   leg (pr-lifecycle §5).
 - **IN REVIEW at freeze** (all threads resolved, rounds requested,
   worktrees clean unless noted):
-  - **#912** (visual-feedback-round, tip `bbc88f1a2`): base=main (stack
+  - **#912** (visual-feedback-round, tip `61c6fdc33` — r3 added the
+    three-row sticky reserve with measured cells and the strip's
+    no-scroll invariant): base=main (stack
     dissolved; two folds `82c806f6b`/`b76d60a7d`); round-1 cures
     `11691b393`; the seam focus hold went through THREE shapes — layout
     effect (lost to CI's focus fixup), focus-in-open (raced the summary
@@ -3691,7 +3693,9 @@ artifact, URL in the session wrap-up).
     previous-state latch (wide→narrow) + declarative
     `summary:not(:focus)` (narrow→wide), both calibrated red-first
     (`8b5c0c641`, `bbc88f1a2`). Suites 230/41/76. Merge at SETTLE-READY.
-  - **#910** (mcp-613, records truth pass): round-1 cures `242fd4c52`
+  - **#910** (mcp-613, records truth pass; tip `920cd9166` — fold
+    `5f1efcf20` LANDED AND PUSHED, r2 removed the DDR-003 drift
+    memorial): round-1 cures `242fd4c52`
     (the FULL 840 seam — .oak-main map + counter-identity --flow-columns
     collapse; one story per node; tombstones out). Main folded in with
     ONE conflict — fidelity-register resolved as a UNION (11 entries,
@@ -3699,7 +3703,9 @@ artifact, URL in the session wrap-up).
     (background task; if unpushed, the successor re-runs `git commit -F`
     with the scratchpad message then `merge-bot push` from the
     worktree). Then round + merge.
-  - **#908** (mcp-615, tango plan node): round-1 cures `727dfc15c` —
+  - **#908** (mcp-615, tango plan node; tip `5d0957d95` — r2 three
+    doc-truths `6341a0474`, r3 the T1d convert-once-after-migrations
+    amendment): round-1 cures `727dfc15c` —
     execution state out of the durable plan; DDR-012 corpus-true; the
     critical-analysis report LANDED with the node
     (confidentiality-checked); M1×P7 fixture reconciliation BY
@@ -3718,8 +3724,8 @@ artifact, URL in the session wrap-up).
 - **Post-#910 records parcel** still owed after #910 merges: showcase
   cross-ref, S4(b), R4 attribution, POPPY-1 fold, DDR-009 305px
   classic-scrollbar amendment, DTCG upstream link.
-- **Successor resume order**: (1) re-arm per start-right; (2) confirm
-  the #910 fold landed and pushed (above); (3) run the three settle
+- **Successor resume order**: (1) re-arm per start-right; (2) run the
+  three settle
   watches (`pr state <n> --expect copilot-pull-request-reviewer`) and
   fire `merge-bot merge` per PR at SETTLE-READY after the deletion
   sweep — harvest any new round first (zero-live + suppressed:

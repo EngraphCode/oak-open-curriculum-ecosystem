@@ -458,3 +458,17 @@ entries, ids unique) completing in a background task at freeze. The
 the two rejected shapes are recorded so no successor re-walks them.
 Successor mechanics: harvest any new round body first, deletion sweep,
 then `merge-bot merge --pr <n> --expect copilot-pull-request-reviewer`.
+
+**Late rounds before the handoff cut**: #912 r3 = the 305–320 sticky
+reserve widened to the three-row worst case (probe-measured 144px band
+vs the 128px two-row reserve) with a MEASURED reserve≥height cell at
+both widths, and the strip's open panel gained the no-scroll-box
+invariant (first run without the visually-hidden exclusion flagged the
+1px clips — the exclusion is part of the invariant's definition), tip
+`61c6fdc33`. #908 r3 = the T1d sequencing contradiction CONFIRMED and
+amended: the roster module + proofs land in-node against the tier's
+real contents; the seven showcase surfaces convert ONCE in the
+programme's completing node after the three migrations
+(replace-dont-bridge kept true), tip `5d0957d95`. #910 r2 = the DDR-003
+consequence bullet's drift memorial removed (Provenance keeps history),
+tip `920cd9166` on top of the main fold `5f1efcf20` (register union).
