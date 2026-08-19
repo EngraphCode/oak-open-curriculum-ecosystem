@@ -3683,7 +3683,7 @@ artifact, URL in the session wrap-up).
   leg (pr-lifecycle §5).
 - **IN REVIEW at freeze** (all threads resolved, rounds requested,
   worktrees clean unless noted):
-  - **#912** (visual-feedback-round, tip `61c6fdc33` — r3 added the
+  - **#912** (visual-feedback-round, tip `cbdbda76b` — r3 added the
     three-row sticky reserve with measured cells and the strip's
     no-scroll invariant): base=main (stack
     dissolved; two folds `82c806f6b`/`b76d60a7d`); round-1 cures
@@ -3693,7 +3693,7 @@ artifact, URL in the session wrap-up).
     previous-state latch (wide→narrow) + declarative
     `summary:not(:focus)` (narrow→wide), both calibrated red-first
     (`8b5c0c641`, `bbc88f1a2`). Suites 230/41/76. Merge at SETTLE-READY.
-  - **#910** (mcp-613, records truth pass; tip `920cd9166` — fold
+  - **#910** (mcp-613, records truth pass; tip `0c30a6932` — fold
     `5f1efcf20` LANDED AND PUSHED, r2 removed the DDR-003 drift
     memorial): round-1 cures `242fd4c52`
     (the FULL 840 seam — .oak-main map + counter-identity --flow-columns
@@ -3703,7 +3703,7 @@ artifact, URL in the session wrap-up).
     (background task; if unpushed, the successor re-runs `git commit -F`
     with the scratchpad message then `merge-bot push` from the
     worktree). Then round + merge.
-  - **#908** (mcp-615, tango plan node; tip `5d0957d95` — r2 three
+  - **#908** (mcp-615, tango plan node; tip `9d811d463` — r2 three
     doc-truths `6341a0474`, r3 the T1d convert-once-after-migrations
     amendment): round-1 cures `727dfc15c` —
     execution state out of the durable plan; DDR-012 corpus-true; the

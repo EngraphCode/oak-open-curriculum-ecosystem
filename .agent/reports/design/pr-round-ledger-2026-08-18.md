@@ -472,3 +472,12 @@ programme's completing node after the three migrations
 (replace-dont-bridge kept true), tip `5d0957d95`. #910 r2 = the DDR-003
 consequence bullet's drift memorial removed (Provenance keeps history),
 tip `920cd9166` on top of the main fold `5f1efcf20` (register union).
+
+**Final pre-handoff tips** (each = the prior tip + one zero-live round's
+single suppressed truth, cured): #908 `9d811d463` (the readiness
+record's Y1/Y7/D3/D5/D20 discharges re-routed to the completing node,
+following the T1d amendment); #910 `0c30a6932` (the rubric's authority
+stated self-contained per no-moving-targets); #912 `cbdbda76b` (every
+tokens.css no-scroll claim scoped to token content with the wide-rail
+exception named). Fresh rounds requested on all three at the cut; the
+successor merges each at SETTLE-READY after tallying its bound round.
