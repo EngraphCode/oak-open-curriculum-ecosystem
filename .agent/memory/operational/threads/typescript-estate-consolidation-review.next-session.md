@@ -28,59 +28,49 @@ applications, packages, core workspaces, and the curriculum SDK.
 | platform | model | session_id_prefix | agent_name | role | first_session | last_session |
 | --- | --- | --- | --- | --- | --- | --- |
 | codex | GPT-5 | 019fc3 | Lichen guards Phloem | review implementer and documentation-handoff author | 2026-08-02 | 2026-08-03 |
-| claude-code | claude-fable-5 | d427b6 | Poppy lifts Bark | repo-architecture lane — adopted claims 95a0678d + 875f1508 at Moment 2 (b2d33b34, succession from Nautilus calls Plankton c6d48b); governing work is the owner's five-point toolkit brief | 2026-08-17 | 2026-08-17 |
+| claude-code | claude-fable-5 | d427b6 | Poppy lifts Bark | repo-architecture lane — phase-2 claim 67b2ad25 (prior claims 95a0678d + 875f1508 closed 2026-08-19 with reasons in the archive); governing work is the owner's five-point toolkit brief | 2026-08-17 | 2026-08-19 |
 
-## Current Continuation — repo-architecture lane (2026-08-18 afternoon compaction freeze; lane RESUMES next session at owner word)
+## Current Continuation — repo-architecture lane (2026-08-19: phase 2 OPEN at owner cards; design-first)
 
-Seat: Poppy lifts Bark (d427b6), claims `95a0678d` (lane) and
-`875f1508` (MCP-603 ledger) RETAINED-WITH-REASON at the 2026-08-18
-~14:2xZ compaction freeze. Owner word at the freeze: "After that I
-think we can resume the repo architecture lane" — the resuming session
-re-opens the LANE. The MCP-620 support posture was RELEASED and handed
-off to the Director at this freeze with nothing in flight (the design
-lane never called for support).
+Seat: Poppy lifts Bark (d427b6), phase-2 claim `67b2ad25` opened
+2026-08-19 ~10:02Z. Prior claims `95a0678d` + `875f1508` CLOSED with
+reasons in the archive — both framings historical since the survey
+cancellation. Team-start `8aa3581a`; Director absorption ack on stream
+~10:04Z. The 2026-08-18 day's outcomes (#889 merged `daf56ccad`, #905
+cure round closed with tally `822a8999`, registry incident cured
+`3dd4134d`) are recorded in this file's git history at `45866d61a`.
 
-- **DONE 2026-08-18 at this seat**: (a) PR #889 MERGED 09:22:47Z
-  (`daf56ccad`, merge-bot SETTLE-READY; owner word OVN-2 discharged —
-  post-incident safety + content-truing riders honoured; MCP-601 Done
-  with landing comment + seven instrument follow-on pointers; census
-  worktree pruned; task-12 recipe discharged). (b) PR #905 five-finding
-  verification+cure round under Director routing `3eda8a27`: four
-  findings cured with red-first repros, finding 3 non-blocking under
-  the QUEUE-LOCAL legacy-use ruling (tally `822a8999`; commits
-  `41d04c885`..`972c44616` incl. a clean origin/main refresh); the
-  MERGE LEG and post-merge acceptances are the DIRECTOR's, not this
-  lane's. (c) Registry premature-migration incident cured losslessly
-  (failure-mode `3dd4134d`; archive at
-  `.agent/state/collaboration/archive/active-claims-premature-migration-2026-08-18.json`).
-- **STANDING HAZARD until #905 merges AND the primary rebuilds**: never
-  run collaboration-state commands with a worktree-resolved agent-tools
-  binary against the home registry — the resolved binary is part of the
-  invocation (cwd is load-bearing); the home registry legitimately
-  re-migrates on first contact after the rebuild.
-- **Governing work at reopen**: the owner's five-point toolkit brief,
-  verbatim with both refinements in per-user memory node
-  `repo-architecture-brief-toolkit-five-points` and on MCP-619
-  (In Progress). The survey programme is CANCELLED at owner ruling;
-  post-mortem with salvage dispositions at
-  `.agent/reports/workspace-taxonomy-landscape-survey/post-mortem-2026-08-17.md`.
+- **Owner rulings 2026-08-19 (direct cards at this seat)**: (a) phase 2
+  GO — foundation-layer design under the five-point toolkit brief
+  (verbatim in per-user memory node
+  `repo-architecture-brief-toolkit-five-points`; MCP-619 In Progress):
+  designed finishable cores, constitutive of the conceptual shape per
+  the owner's refinement; solo seat, no fleet, no new spend class; one
+  diagram per suggested change added to the Atlas. (b) Design-first —
+  evidence pulled when a specific change needs it. FALSIFIER recorded
+  at the card: the first change proposal that cannot state its evidence
+  without whole-estate enumeration flips the order to evidence-first.
+  (c) The Atlas pixel-check runs at this seat.
+- **MCP-603 ledger: closed behind a named reopen gate.** Worktree
+  `mcp-603-ledger` PRESERVED — do not prune. The gate: a change
+  proposal that needs whole-estate enumeration evidence. The 2026-08-03
+  frozen corpus is 16+ days stale — any reopen re-freezes the corpus
+  before trusting it.
+- **STANDING HAZARD unchanged**: #905 OPEN (verified 2026-08-19; 19/19
+  checks green, review-bound; merge leg + post-merge acceptances +
+  hazard ride the Director's board). Until it merges AND the primary
+  rebuilds: never run collaboration-state commands with a
+  worktree-resolved agent-tools binary against the home registry.
 - **Delivered baseline**: Oak Toolkit Atlas v1 — repo-canonical at
   `.agent/reports/repo-architecture/oak-toolkit-atlas.html`, published
-  artifact URL bound to that file (update = edit file, republish with
-  the URL).
-- **Resume order at lane reopen**: (1) re-ground per start-right (this
-  record is hypothesis, not truth); (2) MCP-619 phase-2 warrant card
-  via the Director — foundation-layer design first (designed finishable
-  cores, constitutive of the conceptual shape per the owner's
-  refinement); solo seat, evidence collected, per-change diagrams, no
-  fleet, no new spend class; (3) MCP-603 ledger: claim and worktree
-  live, but its consumer set changed (the "fresh survey design" died
-  with the programme; the change-design/tranche consumer remains) —
-  re-derive its warrant AT the phase-2 card, never self-adjudicate;
-  (4) the Atlas's three mermaid diagrams remain PIXEL-UNVERIFIED (the
-  artifact viewer refused five scroll mechanisms 2026-08-18 morning) —
-  verify at reopen per visual-verdicts-require-rendered-proof, or ask
-  the owner for a ten-second manual scroll.
+  artifact bound to that file (update = edit file, republish with the
+  URL). Pixel-check attempt 2026-08-19 blocked BEFORE the viewer:
+  Chrome extension not connected. Re-run at next Chrome availability;
+  a ten-second owner scroll also discharges it.
+- **Next work at this seat**: draft the foundation-layer change set —
+  first the conceptual shape of the finishable cores, then one change
+  proposal at a time, each with its own diagram and its evidence
+  warrant stated before any spend beyond seat-time.
 
 ## Prior continuation — typescript-estate review execution (2026-08-03; conserved — still-live context for the MCP-603 frozen corpus)
 
