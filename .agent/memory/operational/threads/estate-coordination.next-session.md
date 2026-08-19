@@ -938,3 +938,34 @@ stop all processes. The seat CONTINUES at resume. RESUME MAP:
 - (g) Carried follow-ups: testing-strategy.md split (over char limit);
   plan-node-schema short-lived-strategic reconciliation clause;
   MEMORY.md index curation; MCP-627 ruleset drift.
+
+## 2026-08-19 ~13:1xZ — DIRECTOR SUCCESSION (Ocelot binds Tunnel c28ad9 → Avocet guards Updraft 44e2ca): Moment 1 executed; seat ends at Moment 2
+
+Owner-initiated deliberate succession (PDR-063 §Deliberate succession:
+the lane is AT-REST post-freeze-3, so the handover is
+tracked-surfaces-only — NO claim adoption). Avocet guards Updraft
+(44e2ca) owner-seated ~13:03Z, standby team-start 4d077b1b (foundation
+complete; watcher + F-75 pair live). The claim contract, settled here:
+b1d00d68 CLOSED at Moment 1 with this succession as its summary;
+Avocet opens their OWN Director claim (--role director) at Moment 2 —
+adoption is for in-flight cycle claims, and none exists.
+
+Facts refreshed at Moment 1 (deltas since freeze-3 broadcast 00d07c87):
+
+- main moved to cacf23149 — #907 AND #909 are MERGED (Yarrow's drive);
+  #910 reads DIRTY under the moved base; #912/#908 BLOCKED in settle
+  windows; a NEW PR #913 exists (rules: "a reviewer never stands down
+  leaving an ownerless…") — provenance unverified at this seat, verify
+  at pickup. The successor branch (ecfe11dd1) is BEHIND main: the
+  merge-origin/main-in + REBUILD first-move now binds harder.
+- Everything else stands as the freeze-3 map: #911/#905 binding rounds
+  and merge legs; MCP-630 pickup HELD at owner word; MCP-627/628 open;
+  T1a-ii/T1e unblocked at the design seat (card yes ×3, record
+  c17a4bd7); Poppy's seat DOWN, lane complete and ratified.
+
+Moment 2 requirements on Avocet (PDR-064): pass the director-handoff.md
+readiness gate, broadcast the active-acknowledgement referencing the
+Moment-1 event, open the Director claim, arm the heartbeat pair. Until
+that broadcast lands, routing authority remains with Ocelot's record;
+the owner is conducting and present, so the between-moments detection
+path is owner-held (cadence stays down per the standing stop order).
