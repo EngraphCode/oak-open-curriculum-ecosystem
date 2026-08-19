@@ -1142,3 +1142,28 @@ pinning-by-name, not sequencing-by-hope.
   code that no longer exists — the never-filter rule still applies, and
   the disposition is a per-item stale-against-cured verdict, not a
   re-cure.
+
+## 2026-08-19 — phase-2 opening at owner cards (Poppy lifts Bark, d427b6)
+
+- **Play seed (association, not finding): the consumer's resolver is
+  part of the claim.** The Atlas's pixel-unverified mermaid and the
+  registry premature-migration look shaped alike — in both, the
+  verification or execution ran through a resolver other than the
+  consumer's own (the artifact viewer; the resolved binary). A check
+  that does not traverse the consumer's resolution path proves a
+  different claim than the one asserted. Marked as association;
+  visual-verdicts-require-rendered-proof and the resolved-binary
+  discipline may be one pattern wearing two rules.
+- **Comms concept gate re-bite: holding-state vocabulary.** "Parked"
+  rejected on comms send a second time (first 2026-08-18); the claims
+  surface accepts the same word, so the gate is comms-only. Cure that
+  stuck both times: name the GATE (the reopen condition), never the
+  holding state. Second occurrence — distilled.md candidate at next
+  consolidation.
+- **Duplicate freeze broadcast: resolved sender-side (Director,
+  first-hand).** The first send's output was swallowed by a grep pipe,
+  read as a failed send, cross-checked against a comms list that raced
+  the event, and re-sent — both landed. The generator is the standing
+  read-the-failure-surface-never-the-pipe class
+  (exit-codes-in-band-never-piped); tooling innocent, no new lesson
+  beyond the class's reach extending to send-verification.
