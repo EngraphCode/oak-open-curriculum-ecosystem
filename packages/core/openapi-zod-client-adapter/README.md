@@ -41,8 +41,9 @@ Two standing consequences (recorded 2026-08-19, at the ratified
 
 - **Investment freeze**: no internal polish, no finish-bar work — this
   package migrates as-is with the legacy generation cell (this adapter
-  - `openapi-zod-client` + `openapi3-ts`, moved as one bounded unit)
-    at the seam migration, and is replaced whole at the Castr adoption.
+  plus `openapi-zod-client` and `openapi3-ts`, moved as one bounded
+  unit) at the seam migration, and is replaced whole at the Castr
+  adoption.
 - **The clock is owner-schedulable, not external**: Castr is the
   owner's repository and a Practice repo — focus can move to it if
   adoption becomes urgent, and it could even move into this monorepo
