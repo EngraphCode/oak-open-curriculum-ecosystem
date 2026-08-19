@@ -387,11 +387,100 @@ flowchart TD
   constitutive of the conceptual shape, not a cleanup phase; one lifecycle per package; a
   toolkit that can build any digital service. Queued for design on the evidence above:</p>
 
-  <div class="queue"><span class="tag">queued</span><h4>The foundation layer, designed</h4>
-    <p>Finishable core packages designed from each standard concept's canonical form —
-    demand evidenced by the estate's embedded instances, done-ness criteria declared at
-    birth (contract, exhaustive tests, docs, performance characterisation). The stability
-    gradient becomes measurable: finished ≈ flat clock + live consumers + green gates.</p></div>
+  <h3 id="change-1">Change 1 · The foundation layer, designed</h3>
+  <p>Establish a chartered <strong>foundation tier</strong>: a small set of packages, each the
+  canonical form of one standard concept, designed to be <em>finished</em>. This tier is the
+  constitutional part of the toolkit — brief points 3 and 5 made structural — and its design
+  is part of the repo's conceptual shape, not a cleanup phase. The estate's embedded
+  instances serve as demand evidence and test cases; each package is designed from the
+  concept's canonical form, never extracted from incumbent code (point 1 applied at code
+  scale).</p>
+  <p><strong>The charter.</strong> Admission requires a standard concept whose contract can
+  be stated without Oak, any vendor, or any consumer class; at least one embedded estate
+  instance as demand evidence (standard concepts do not wait for a second consumer); and a
+  closed public API statable without present callers. The finish bar, declared at each
+  package's birth: exhaustive tests (property-based where the concept warrants them), full
+  documentation, a performance characterisation, and tier-closed dependencies — foundation
+  depends only on foundation, preserving the one structural property the current core
+  already proves. A finished package is <em>done</em>: its clock is designed flat, and later
+  change is exceptional and deliberate. Finished is an observable, not a mood: ratified
+  contract + green exhaustive suite + perf record + flat clock over a declared window +
+  live consumers (§6 makes the clocks measurable; a flat clock alone can be abandonment).</p>
+  <p><strong>The v1 concept set, with its demand evidence.</strong> Today's core is a mixed
+  bag: genuine concept packages sit beside build infrastructure on a different clock, and
+  two of the ten name a consumer class in their own descriptions — <em>"for MCP
+  applications"</em> inside a tier that must not know its consumers.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Concept (canonical form)</th><th>Demand evidence today</th><th>Today's home → target</th></tr>
+    <tr><td>Explicit error values (result)</td><td class="num">17 internal dependents</td><td><code>core/result</code> → re-chartered to the bar</td></tr>
+    <tr><td>Typed object operations</td><td class="num">12 dependents</td><td><code>core/type-helpers</code> → re-chartered</td></tr>
+    <tr><td>Observability contract</td><td class="num">8 dependents</td><td><code>core/observability</code> → contract only; vendor glue stays outside</td></tr>
+    <tr><td>Environment resolution</td><td>two packages, both consumer-scoped by description</td><td><code>core/env</code> + <code>libs/env-resolution</code> → one package</td></tr>
+    <tr><td>Structured-logging contract</td><td class="num">6 dependents</td><td><code>libs/logger</code> → contract to foundation; sinks and vendors exit</td></tr>
+    <tr><td>Path containment</td><td>MCP app, agent substrate</td><td><code>core/safe-path</code> → re-chartered</td></tr>
+    <tr><td>Deterministic ordering / collation</td><td>duplicated inline (agent-tools comparators; estate-review <code>utf16-order</code>)</td><td>no package today → new</td></tr>
+    <tr><td>Graph primitives (RDF/JS-aligned)</td><td>corpus + curriculum graph chain</td><td><code>core/graph-core</code> → re-chartered</td></tr>
+  </table></div>
+  <p class="caption">And the exits, by lifecycle (point 4 applied at tier scale):
+  <code>oak-eslint</code>, <code>workspace-config</code>, <code>build-metadata</code> move to
+  a build tier on the dev-only clock; <code>openapi-zod-client-adapter</code> rides the
+  generation chain's clock and belongs with Change 2. Names are illustrative — each
+  package's contract is designed at its own card.</p>
+
+  <figure class="diagram">
+    <pre class="mermaid">
+flowchart TD
+  classDef moved stroke:#3E7A4E,stroke-width:2px
+  classDef newpkg stroke:#3E7A4E,stroke-width:2.5px,stroke-dasharray:6 3
+  classDef exits stroke-dasharray:4 3,opacity:0.8
+
+  BAR["the finish bar — declared at birth:<br/>closed contract · exhaustive tests · docs ·<br/>perf characterisation · tier-closed deps"]:::moved
+
+  subgraph F["foundation tier — Oak-free by contract, finishable"]
+    R["result"]
+    T["typed object ops"]
+    O["observability contract<br/>vendor glue exits"]:::moved
+    E["environment resolution<br/>core/env + libs/env-resolution → one"]:::moved
+    L["logging contract<br/>from libs/logger — sinks exit"]:::moved
+    S["safe-path"]
+    D["deterministic ordering<br/>new — today inline duplicates"]:::newpkg
+    G["graph-core"]
+  end
+
+  subgraph B["build tier — dev-only clock"]
+    ESL["oak-eslint"]:::moved
+    W["workspace-config"]:::moved
+    BM["build-metadata"]:::moved
+  end
+
+  subgraph X["exits the foundation"]
+    V["sentry-node · posthog-node<br/>vendor clock"]:::exits
+    OZ["openapi-zod-client-adapter<br/>generation clock → Change 2"]:::exits
+  end
+
+  BAR --> F
+    </pre>
+    <figcaption>Target state, with each label carrying its own delta. Green outline:
+    membership or shape changes; dashed green: a new package; dashed grey: leaves the
+    foundation on its own clock. The tier stays a closed sink — foundation depends only on
+    foundation — which is the property the finish bar's "tier-closed deps" preserves.</figcaption>
+  </figure>
+
+  <div class="callout leaf">
+    <p><strong>Warrant.</strong> Brief points 3 and 5 name this layer; the baseline shows its
+    embryo already confirmed (§2's closed core sink) and shows the defects the charter ends:
+    consumer-scoped naming inside core, the env duplication, vendor glue beside contracts,
+    and build infrastructure sharing a tier with runtime foundations. Evidence basis:
+    the manifest and dependents sweeps plus the measured clocks above — no whole-estate
+    enumeration was needed, so the design-first order holds for this change.</p>
+    <p><strong>Falsifiers.</strong> A concept whose contract cannot be stated without Oak,
+    vendor, or consumer specifics is relocated, not admitted. A concept with no embedded
+    estate instance is deferred — demand unevidenced. If a finished package's clock will not
+    go flat because consumers keep forcing contract change, the concept was mis-drawn:
+    split or re-draw it rather than reopening the contract piecemeal.</p>
+    <p><strong>Spend.</strong> This change is design; the per-package finish work (contract,
+    tests, docs, perf) is priced per package at its own card before any of it starts.</p>
+  </div>
   <div class="queue"><span class="tag">queued</span><h4>One clock per package</h4>
     <p>Unmix the codegen chain (four clocks in one workspace today); generated artefacts
     never co-resident with authored code; the 23.9 MB corpus and its siblings get

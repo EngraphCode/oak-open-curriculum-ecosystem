@@ -61,12 +61,18 @@ cure round closed with tally `822a8999`, registry incident cured
   hazard ride the Director's board). Until it merges AND the primary
   rebuilds: never run collaboration-state commands with a
   worktree-resolved agent-tools binary against the home registry.
-- **Delivered baseline**: Oak Toolkit Atlas v1 — repo-canonical at
-  `.agent/reports/repo-architecture/oak-toolkit-atlas.html`, published
-  artifact bound to that file (update = edit file, republish with the
-  URL). Pixel-check attempt 2026-08-19 blocked BEFORE the viewer:
-  Chrome extension not connected. Re-run at next Chrome availability;
-  a ten-second owner scroll also discharges it.
+- **Delivered**: Oak Toolkit Atlas — repo-canonical at
+  `.agent/reports/repo-architecture/oak-toolkit-atlas.html`; baseline
+  (7 sections, 3 diagrams) + Change 1 "The foundation layer, designed"
+  (charter, v1 concept set with demand evidence, diagram 4) drafted
+  2026-08-19. Published artifact:
+  <https://claude.ai/code/artifact/a230b6dd-e41b-474e-9f9e-22f3e84d5502>
+  (FRESH URL 2026-08-19 — the pre-compaction artifact 404s and the
+  account list was empty, so the old ec407fb3 URL is dead; republish by
+  editing the canonical file then publishing WITH this URL as `url`
+  from any session). All four diagrams PIXEL-UNVERIFIED: Chrome
+  extension not connected 2026-08-19. Re-run at next Chrome
+  availability; a ten-second owner scroll also discharges it.
 - **Next work at this seat**: draft the foundation-layer change set —
   first the conceptual shape of the finishable cores, then one change
   proposal at a time, each with its own diagram and its evidence
