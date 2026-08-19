@@ -76,6 +76,48 @@ describe('listPackFiles', () => {
   });
 });
 
+describe('listPackFiles: transient exemption binds name AND kind', () => {
+  it('lists a symlink wearing a transient name instead of exempting it', () => {
+    // REGRESSION (PR #909 round-6 thread): the name-only exemption let a
+    // symlink named node_modules ride out of the symlinks listing.
+    const fs = fakeFileSystem({
+      [`${TIER}/tango`]: [dirent('node_modules', 'symlink'), dirent('.DS_Store', 'dir')],
+      [`${TIER}/tango/.DS_Store`]: [dirent('index.ts', 'file')],
+    });
+    const { files, symlinks } = listPackFiles(fs, `${TIER}/tango`);
+    expect(symlinks).toEqual(['node_modules']);
+    // A .DS_Store DIRECTORY is not the transient shape either — its
+    // contents face the anatomy like any other committed directory.
+    expect(files).toEqual(['.DS_Store/index.ts']);
+  });
+});
+
+describe('readIdentityPackTier: transient exemption binds name AND kind', () => {
+  it('refuses a tier-level symlink wearing a transient name', () => {
+    const fs = fakeFileSystem({ [TIER]: [dirent('.turbo', 'symlink')] });
+    const { entries } = readIdentityPackTier(fs, TIER);
+    expect(entries).toEqual([
+      {
+        directoryName: '.turbo',
+        packageJson: undefined,
+        files: [],
+        symlinks: [],
+        selfIsSymlink: true,
+      },
+    ]);
+  });
+
+  it('validates a .DS_Store directory at tier level as a pack-shaped child', () => {
+    const fs = fakeFileSystem({
+      [TIER]: [dirent('.DS_Store', 'dir')],
+      [`${TIER}/.DS_Store`]: [dirent('index.ts', 'file')],
+    });
+    const { entries } = readIdentityPackTier(fs, TIER);
+    expect(entries).toHaveLength(1);
+    expect(entries[0]?.files).toEqual(['index.ts']);
+  });
+});
+
 describe('readIdentityPackTier', () => {
   it('reports a missing tier directory', () => {
     const fs = fakeFileSystem({});

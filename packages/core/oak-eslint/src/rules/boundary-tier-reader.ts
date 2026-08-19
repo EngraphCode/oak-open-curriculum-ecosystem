@@ -45,14 +45,21 @@ export interface TierFileSystem {
 const ADMITTED_TIER_ROOT_FILES: ReadonlySet<string> = new Set(['README.md']);
 
 /**
- * Every entry name the walk treats as a transient local artefact rather
- * than pack content. Enumerated, never pattern-matched: a blanket
- * dot-entry skip would hide committed content (`.npmrc`, an
- * `.eslintrc.json`, a hidden source directory) from the anatomy's
- * refusals, so anything not on this list — dot-prefixed or not — is
- * listed and validated.
+ * A transient local artefact, matched by name AND kind. Enumerated, never
+ * pattern-matched — a blanket dot-entry skip would hide committed content
+ * (`.npmrc`, an `.eslintrc.json`, a hidden source directory) from the
+ * refusals — and kind-bound, because a name-only exemption lets a SYMLINK
+ * wearing a transient name ride out of the symlink refusals, and a
+ * `.DS_Store` DIRECTORY hide committed contents: `node_modules` and
+ * `.turbo` are transient only as directories, `.DS_Store` only as a
+ * regular file; any other kind under these names faces validation.
  */
-const TRANSIENT_ENTRY_NAMES: ReadonlySet<string> = new Set(['node_modules', '.turbo', '.DS_Store']);
+function isTransientEntry(entry: TierDirent): boolean {
+  if (entry.name === '.DS_Store') {
+    return entry.isFile;
+  }
+  return (entry.name === 'node_modules' || entry.name === '.turbo') && entry.isDirectory;
+}
 
 /**
  * Pack-relative paths of every file and every symbolic link under packDir
@@ -70,7 +77,7 @@ export function listPackFiles(
   const symlinks: string[] = [];
   const walk = (dir: string, prefix: string): void => {
     for (const entry of fileSystem.readDir(dir)) {
-      if (TRANSIENT_ENTRY_NAMES.has(entry.name)) {
+      if (isTransientEntry(entry)) {
         continue;
       }
       const relativePath = prefix === '' ? entry.name : `${prefix}/${entry.name}`;
@@ -127,9 +134,7 @@ export function readIdentityPackTier(
   // would exempt a committed hidden directory (or symlink) from the
   // boundary entirely, the same hidden-content bypass listPackFiles
   // refuses at pack level.
-  const children = fileSystem
-    .readDir(tierDir)
-    .filter((entry) => !TRANSIENT_ENTRY_NAMES.has(entry.name));
+  const children = fileSystem.readDir(tierDir).filter((entry) => !isTransientEntry(entry));
 
   const strayRootEntries = children
     .filter(
