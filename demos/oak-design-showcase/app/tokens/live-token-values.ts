@@ -17,17 +17,9 @@
  * beside it, which is how a `color-mix()` or `calc()` token shows both as
  * written and as applied.
  *
- * RE-READING IS EVENT-DRIVEN, NEVER TIMED. Three things change what a token
- * resolves to, and each is watched at its cause:
- *
- * - A stylesheet joining, leaving, or changing in the cascade: a link
- *   added anywhere in the document (React places non-`precedence` links
- *   in the body), its own `load` if it arrived still in flight, and the
- *   binder retiring an adopted sheet in place (`disabled`).
- * - A theme choice writing `data-theme` on the root, as does the runtime's
- *   automatic response to an OS contrast request.
- * - An OS colour-scheme change, which moves every `light-dark()` with no DOM
- *   trace at all, so the media query itself is the event.
+ * RE-READING IS EVENT-DRIVEN, NEVER TIMED. Everything that can change what
+ * a token resolves to is watched at its cause — the cause taxonomy and its
+ * listeners live in `live-token-causes.ts`.
  *
  * BUT THE CAUSE IS NOT THE MOMENT TO READ, and that distinction is the
  * whole of what this module got wrong first time round. A `<head>` mutation
@@ -40,11 +32,9 @@
  * timeout — no duration is guessed, nothing is tuned to one machine's speed,
  * and several causes landing together coalesce into a single pass over the
  * rows instead of one pass each.
- *
- * (Measured, not assumed: a `load` listener on the window never sees a
- * stylesheet link's load event, capture phase included.)
  */
 import { createFrameScheduler } from './frame-scheduler';
+import { observe } from './live-token-causes';
 
 /** One token's current value. */
 export interface LiveValue {
@@ -101,74 +91,6 @@ export function readTokenValues(scope: ParentNode): LiveValues {
     }
   }
   return values;
-}
-
-/** Narrowed by node name rather than by `instanceof`, so a document from
- *  another realm still narrows correctly. */
-function isLinkElement(node: Node): node is HTMLLinkElement {
-  return node.nodeName === 'LINK';
-}
-
-/**
- * A stylesheet link, whether or not it looks loaded.
- *
- * The readiness is deliberately NOT tested. `link.sheet` is non-null the
- * instant the element is appended — measured in Chromium, where the object
- * exists roughly 135ms before the `load` that actually puts the rules in the
- * cascade — so treating a non-null `sheet` as "already applied" skips the
- * listener on exactly the sheet that is about to change everything. A `load`
- * listener on a genuinely-loaded link simply never fires, and `once` clears
- * it either way, so attaching unconditionally costs nothing and cannot be
- * wrong.
- */
-function stylesheetLink(node: Node): HTMLLinkElement | null {
-  return isLinkElement(node) && node.rel === 'stylesheet' ? node : null;
-}
-
-/** Watch everything that can change what a token resolves to, and report
- *  each occurrence to `onCause`. Returns the teardown; nothing here polls. */
-function observe(document: Document, onCause: () => void): () => void {
-  // Existing links first: server-rendered stylesheet links (which React
-  // places in the BODY unless given a `precedence` prop) already exist
-  // when this subscription starts, and hydration can win their load race —
-  // an immediate read would then record unbound or outgoing used values
-  // with no later event to correct them. A `load` listener on a
-  // genuinely-loaded link simply never fires (see stylesheetLink above),
-  // so attaching to every current link costs nothing and cannot be wrong.
-  for (const link of document.querySelectorAll('link[rel="stylesheet"]')) {
-    link.addEventListener('load', onCause, { once: true });
-  }
-
-  // Document-wide, not head-only, for the same body-placement reason; the
-  // attribute legs catch the binder retiring an adopted sheet in place
-  // (disabled) and any href re-point. Every cause coalesces into one read
-  // per painted frame downstream, so breadth here is not churn.
-  const linkObserver = new MutationObserver((records) => {
-    onCause();
-    for (const record of records) {
-      for (const node of record.addedNodes) {
-        // The mutation says a sheet was ASKED for; the load says it arrived.
-        // Without this the read chases an identity that is not in the
-        // cascade yet, and the page shows re-painted swatches beside stale
-        // numbers.
-        stylesheetLink(node)?.addEventListener('load', onCause, { once: true });
-      }
-    }
-  });
-  linkObserver.observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['disabled', 'href', 'data-theme', 'data-motion'],
-  });
-
-  const scheme = document.defaultView?.matchMedia('(prefers-color-scheme: dark)');
-  scheme?.addEventListener('change', onCause);
-
-  return () => {
-    linkObserver.disconnect();
-    scheme?.removeEventListener('change', onCause);
-  };
 }
 
 function liveValuesEqual(a: LiveValues, b: LiveValues): boolean {

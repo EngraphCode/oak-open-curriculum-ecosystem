@@ -77,7 +77,7 @@ function TokenControls({
         value={theme ?? ''}
         options={THEME_OPTIONS}
         labels={THEME_LABELS}
-        placeholderLabel="&mdash;"
+        placeholderLabel="—"
         disabled={theme === undefined}
         onChange={oakThemeStore.setTheme}
       />
