@@ -13,8 +13,9 @@
    the value with its expression beside it — and at monitor
    widths the rows FLOW IN TWO COLUMNS under a spanning family
    header (owner ruling 2026-08-18). Everything is visible at
-   every width: rows wrap rather than clip, and nothing on this
-   page scrolls inside itself.
+   every width: rows wrap rather than clip, and no token CONTENT
+   scrolls inside itself (the wide rail's capped nav scroll is the
+   one named exception, held for owner re-rule).
 
    PAINT. Each `.tok-paint--<kind>` rule binds ONE standard
    property to `var(--tok)`, and `--tok` is pointed at the row's
@@ -193,8 +194,9 @@
 /* --- The rows: one compact card per token, at every width ---- */
 
 /* The ROW is the unit, not the table (owner ruling 2026-08-18: two-column
-   flow is the norm at monitor widths, and nothing on this page scrolls or
-   clips inside itself). The list carries the family's frame; the wide
+   flow is the norm at monitor widths, and no token content scrolls or
+   clips inside itself — the wide rail's capped nav scroll is the named
+   exception). The list carries the family's frame; the wide
    bands below flow it into columns, and `break-inside: avoid` on the row
    is what lets a family split at ROW boundaries while no row ever
    fragments. The four-column table this replaces needed a per-family
