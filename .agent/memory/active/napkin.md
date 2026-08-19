@@ -1183,6 +1183,29 @@ pinning-by-name, not sequencing-by-hope.
   live artifact viewer) could catch it. visual-verdicts-require-
   rendered-proof, evidenced at the exact mechanism level the morning's
   play seed predicted.
+- **WRAP FINDINGS (Poppy lifts Bark, 2026-08-19 close).** (a)
+  CORRECTION to the pathspec entry below: the rule ALREADY carries
+  commit-by-pathspec (§The Commit Is Also a Sweep, five instances
+  2026-08-01→07) — my "candidate for the rule's next revision" was
+  wrong; today's two instances (this seat + the Director,
+  independently) are RECURRENCE-DESPITE-HOME evidence (PDR-098 class):
+  the home exists, the mechanism did not fire at the action moment.
+  (b) Loss-scan residue: the strategic-node altitude choice was forced
+  by the plan schema itself (delivery plans require a strategic
+  parent) — recorded here so the seam implementer knows the altitude
+  was constrained, not preferred. (c) Attribution flag: the current
+  uncommitted napkin delta's authorship is UNVERIFIED inference
+  (peers edited during this sitting); the rotation pass must git-diff
+  the window before archiving, per the rotation discipline. (d) No
+  subagent reviewers ran today — docs/plans/design surfaces only, no
+  product code; the per-cycle code-expert rule had no code to fire on.
+  (e) NAPKIN ROTATION DUE and deliberately not run at this wrap:
+  ~1250 lines, multi-seat content spanning 2026-08-17→19; the
+  rotation's per-item disposition requires first-hand context that
+  peer-seat entries' authors hold (the consolidate-docs skill's own
+  first-hand bar). Constraint falsifiable: a dedicated curation
+  sitting (any seat) can process the window; my seat's entries are
+  all self-contained above.
 - **Shared-checkout index race: commit WITH pathspec, not just add.**
   A concurrent actor's staged renames rode my commit (5916d7069, pure
   moves, surfaced df383879) because `git add -- <paths>` narrows the
@@ -1265,3 +1288,47 @@ pinning-by-name, not sequencing-by-hope.
   hold by being written down (push wrapper) held once made structural
   (push is the final command). Passive guidance loses to artefact
   gravity, again, measured twice in one day.
+
+## 2026-08-19 merge-drive sitting (Yarrow stirs Undergrowth, ab1066)
+
+- **A cell red on both sides of a cure proves nothing.** The inverted-map
+  guard's first calibration failed against the pre-cure maps — but the
+  selector also failed against the CURED state (a container element rode
+  the query), so the red was selector noise, not the scramble. Calibration
+  evidence is void unless the cell is GREEN on the cured state first and
+  red exactly on the revert. Second instance of the class same sitting:
+  the teardown cells passed with both cure arms reverted because `once`
+  had already cleared the fired listeners — the leak lives in NEVER-fired
+  listeners, and the cells had to be reshaped around that state before
+  the revert reddened them.
+- **Pipes bury exits — twice more, same sitting.** `check && echo`,
+  `cmd | tail -1`, and `$?` after a pipeline all reported the pipe's exit,
+  not the check's; a commit-message pre-check "passed" that later failed
+  in the hook, and a red lint rode a green-looking gate chain. The class
+  (exit-codes-in-band-never-piped) keeps recurring at NEW call shapes;
+  the cure that held: run the check alone and read its own output.
+- **Name-only exemptions are kind holes.** The transient allowlist
+  (node_modules/.turbo/.DS_Store) exempted by basename before kind
+  handling, so a SYMLINK wearing a transient name rode out of the symlink
+  refusals and a .DS_Store DIRECTORY could hide content. An allowlist
+  entry is a (name, kind) pair; matching half of it re-opens the hole the
+  refusal-by-kind closed. Same generator as round-2's dtcg place-only
+  admission — the admission predicate must bind EVERY axis it reasons
+  about.
+- **Shared callback identity + DOM dedupe = teardown theft.** Subscribers
+  sharing one upstream callback register identical (type, callback,
+  capture) tuples; the DOM deduplicates them, so one subscriber's
+  removeEventListener deletes the registration everyone depends on.
+  Per-subscription wrapper identity is what makes tracked removal safe —
+  and what makes the tracker load-bearing instead of belt-and-braces.
+- **JSX attribute strings decode HTML entities.** Both SWC and esbuild
+  turn `"&mdash;"` into an em dash in attribute literals — a reviewer
+  finding built on "string props render literally" was premise-false
+  (kept the edit as consistency, rejected the defect claim). Verify
+  transform-level claims AT the transform, not from the JSX mental model.
+- **The reviewer's finding can be righter than your rejection.** Round 3
+  rejected the conditional-guard class on "the expect throws first";
+  round 4's deeper look found `.not.toBeNull()` passes for `undefined`,
+  so the guarded branch WAS reachable on a passing run. A rejection
+  survives only as long as its premise — re-derive it when the same
+  finding returns with new sites.

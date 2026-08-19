@@ -30,15 +30,29 @@ applications, packages, core workspaces, and the curriculum SDK.
 | codex | GPT-5 | 019fc3 | Lichen guards Phloem | review implementer and documentation-handoff author | 2026-08-02 | 2026-08-03 |
 | claude-code | claude-fable-5 | d427b6 | Poppy lifts Bark | repo-architecture lane — phase-2 claim 67b2ad25 (prior claims 95a0678d + 875f1508 closed 2026-08-19 with reasons in the archive); governing work is the owner's five-point toolkit brief | 2026-08-17 | 2026-08-19 |
 
-## Current Continuation — repo-architecture lane (2026-08-19: phase 2 OPEN at owner cards; design-first)
+## Current Continuation — repo-architecture lane (2026-08-19 wrap: design COMPLETE and RATIFIED; next work is a fresh pickup)
 
-Seat: Poppy lifts Bark (d427b6), phase-2 claim `67b2ad25` opened
-2026-08-19 ~10:02Z. Prior claims `95a0678d` + `875f1508` CLOSED with
-reasons in the archive — both framings historical since the survey
-cancellation. Team-start `8aa3581a`; Director absorption ack on stream
-~10:04Z. The 2026-08-18 day's outcomes (#889 merged `daf56ccad`, #905
-cure round closed with tally `822a8999`, registry incident cured
-`3dd4134d`) are recorded in this file's git history at `45866d61a`.
+WRAPPED 2026-08-19 at owner word ("prepare for handoff"). The lane's
+design work is DONE: the five-change set on the Toolkit Atlas is
+complete, owner-ruled across three decision cards, and the strategic
+node `toolkit-re-architecture` is RATIFIED (owner stamp on the node;
+`workspace-reorganisation-programme` superseded by it in the same
+stamp). Claim `67b2ad25` CLOSED at this wrap — the next work is a
+FRESH PICKUP, not a resume: per the ratified node's §Delivery, the
+seam-migration delivery plan is authored at pickup by its
+implementer (`serves: toolkit-re-architecture`), carrying the
+release-mechanism owner decision and the census migration map. The
+Atlas republish mechanism, the standing #905 hazard state, and the
+artifact-viewer pixel-check mechanism are all recorded in the bullets
+below; the session's card trail is in this section's git history.
+
+Seat this session: Poppy lifts Bark (d427b6), phase-2 claim
+`67b2ad25` opened 2026-08-19 ~10:02Z, closed at wrap. Prior claims
+`95a0678d` + `875f1508` CLOSED with reasons in the archive — both
+framings historical since the survey cancellation. The 2026-08-18
+day's outcomes (#889 merged `daf56ccad`, #905 cure round closed with
+tally `822a8999`, registry incident cured `3dd4134d`) are recorded in
+this file's git history at `45866d61a`.
 
 - **Owner rulings 2026-08-19 (direct cards at this seat)**: (a) phase 2
   GO — foundation-layer design under the five-point toolkit brief
