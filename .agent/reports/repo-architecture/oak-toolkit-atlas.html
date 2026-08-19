@@ -561,10 +561,89 @@ flowchart LR
     carrier gates (clean-regen checks) are new CI surface — priced at their own card with
     the first carrier as the proving instance.</p>
   </div>
-  <div class="queue"><span class="tag">queued</span><h4>Thin Oak on reusable ground</h4>
-    <p>The census's per-row move/stay dispositions executed as designed splits — Oak-ness
-    trending to configuration and packs, the way the design system already treats
-    identities.</p></div>
+  <h3 id="change-3">Change 3 · Thin Oak on reusable ground</h3>
+  <p>Brief point 2, made structural: <strong>Oak-ness is a pack, not a home.</strong>
+  Machinery is generic and consumable by any digital service; Oak enters as identity packs,
+  content adapters, and injected configuration; each Oak workspace is a <em>thin
+  assembly</em> of toolkit parts plus packs. The design system already proves the pattern —
+  same markup, any identity — and this change applies it to the whole estate. The
+  discriminating probe for every split: <em>could a non-Oak service consume this machinery
+  unchanged?</em></p>
+  <p><strong>Where Oak-ness lives, by class.</strong> Three separable classes, each with a
+  pack form the estate already models — and the licence model (code MIT, content OGL, brand
+  reserved) lands on exactly these seams, which makes the licence boundaries structural
+  instead of policed:</p>
+  <div class="tablewrap"><table>
+    <tr><th>Oak-ness class</th><th>Pack form</th><th>Evidence in the estate today</th></tr>
+    <tr><td>Identity and brand (reserved)</td><td>identity pack</td><td>the design system's existing identity mechanism</td></tr>
+    <tr><td>Curriculum content and data (OGL)</td><td>content adapter / data pack</td><td>the SDK's upstream taps; Change 2's carrier packages</td></tr>
+    <tr><td>Service policy, names, vendor bindings</td><td>injected configuration</td><td>the census's own per-row grammar: "consumer-injected message copy", "Oak-named examples out of source TSDoc"</td></tr>
+  </table></div>
+  <p><strong>The measured ground.</strong> The workspace-classification census (45 subjects,
+  owner-carded 2026-08-14) already grades the estate for exactly this split: of 38
+  classified subjects, <strong>12 are generic-foundation</strong> (most one doc-move from
+  publishable — e.g. <code>env-resolution</code>'s only Oak residue is Oak-named example
+  schemas in TSDoc), <strong>9 are mixed</strong> (a generic core plus separable Oak
+  residue, each row carrying its named split), and <strong>17 are oak-leaf</strong> (the
+  thin assemblies this change makes official). §7's inverted-ambition instances are the
+  headline splits: OAuth-for-MCP, the OpenAPI pipeline (Change 2's authored package), and
+  the index lifecycle machinery all exit Oak leaves into consumable toolkit parts. The
+  cancelled round-2 target inventory is deliberately not used here — the owner-carded
+  classification matrix is the instrument; salvage enters as measurement only.</p>
+
+  <figure class="diagram">
+    <pre class="mermaid">
+flowchart LR
+  classDef pack stroke:#8A6A4F,stroke-width:2px
+  classDef thin stroke:#3E7A4E,stroke-width:2.5px
+
+  subgraph TK["toolkit machinery — generic, any service"]
+    direction TB
+    M1["mcp-server machinery incl. OAuth-for-MCP"]
+    M2["openapi pipeline — Change 2"]
+    M3["search and index lifecycle machinery"]
+    M4["design system — same markup, any identity"]
+  end
+
+  subgraph PACKS["Oak packs — where Oak-ness lives"]
+    direction TB
+    P1["identity pack — brand, reserved"]:::pack
+    P2["curriculum content adapter — OGL"]:::pack
+    P3["service config — names, policy, env"]:::pack
+  end
+
+  THIN["thin Oak workspace — assembly only"]:::thin
+  SVC["deployed Oak service"]
+  OTHER["any other digital service — same machinery, different packs"]
+
+  TK --> THIN
+  PACKS --> THIN
+  THIN --> SVC
+  TK -.-> OTHER
+    </pre>
+    <figcaption>The target shape of one Oak service: generic machinery consumed unchanged,
+    Oak-ness confined to three pack classes, the Oak workspace reduced to assembly. The
+    dotted edge is the toolkit ambition itself — the same machinery serving a non-Oak
+    consumer is the exercised proof, which Change 4 (the delivery plane) turns into
+    practice.</figcaption>
+  </figure>
+
+  <div class="callout leaf">
+    <p><strong>Warrant.</strong> Point 2 verbatim, measured as already latent: 12 of 38
+    classified subjects are generic today and 9 more carry named splits — the census did
+    the grading, this change executes it as designed splits rather than opportunistic
+    cleanup. The licence model lands on the same seams, so the split also converts a
+    policed boundary into a structural one.</p>
+    <p><strong>Falsifiers.</strong> An Oak element that cannot be expressed as pack or
+    configuration without forking the machinery marks one of two things: machinery that is
+    not yet generic (fix the machinery, not the pack) or genuinely Oak-constitutive
+    behaviour (it stays in the thin workspace, named as such). If in execution most mixed
+    rows resist their named split, the pack model is wrong for this estate — stop and
+    remeasure rather than forcing residue into packs.</p>
+    <p><strong>Spend.</strong> Design here; each split is a bounded per-row card priced on
+    the census disposition, and the generic-foundation rows' doc-moves are near-free
+    first parcels.</p>
+  </div>
   <div class="queue"><span class="tag">queued</span><h4>The delivery plane, opened</h4>
     <p>Building blocks that actually ship: publishing as the exercised proof of
     separability, not an aspiration — the licence model made structural.</p></div>

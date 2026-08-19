@@ -1183,6 +1183,15 @@ pinning-by-name, not sequencing-by-hope.
   live artifact viewer) could catch it. visual-verdicts-require-
   rendered-proof, evidenced at the exact mechanism level the morning's
   play seed predicted.
+- **Shared-checkout index race: commit WITH pathspec, not just add.**
+  A concurrent actor's staged renames rode my commit (5916d7069, pure
+  moves, surfaced df383879) because `git add -- <paths>` narrows the
+  ADD while `git commit` still takes the whole index. In a shared
+  primary checkout the cure is structural: `git commit -- <paths>`
+  commits only the named paths regardless of index state, plus a
+  `git diff --cached --stat` read in the commit window. Adopted at
+  this seat from now on; candidate for the stage-by-explicit-pathspec
+  rule's next revision (the rule currently binds staging only).
 
 ## 2026-08-19 output-schema truth fleet (Ocelot, Director seat)
 
