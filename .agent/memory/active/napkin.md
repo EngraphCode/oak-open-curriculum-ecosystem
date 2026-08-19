@@ -1241,3 +1241,27 @@ pinning-by-name, not sequencing-by-hope.
   guidance loses to artefact gravity. Structural cure, no vigilance:
   the push is the FINAL command of the task, nothing after it, so the
   task exit IS the push exit; verification stays read-the-remote-tip.
+
+## 2026-08-19 wrap lenses (Ocelot, Director seat)
+
+- **Play seed (kept): the shared primary checkout is one generator
+  behind this window's whole incident class** — index-lock contention,
+  a no-pathspec commit sweeping a peer's staged renames, three push
+  races in ninety minutes. Every cure we reached for is the same move
+  (name-or-own: pathspec staging, pathspec commits, named refs,
+  push-as-final-command). The concept-exploration candidate: does the
+  n≥3 window want a structural cure (per-seat worktrees for
+  coordination writes? a revived commit-warden singleton?) rather than
+  four naming disciplines. Routed as a seed, not a finding.
+- **Play discard (visible)**: "the owner's absence-pin ruling rhymes
+  with the SDK silently dropping non-object schemas — both are
+  declared absences nobody can observe" — forced at the second look;
+  the SDK drop is a defect surface, the ruling is test doctrine.
+  Discarded.
+- **Metacognition**: the day's two strongest catches came from
+  instruments, not vigilance — the pre-fan-out design review (no leg
+  observed a real payload) and the remote-tip read (false-green push).
+  Both are structure-over-vigilance instances; the lesson that DID NOT
+  hold by being written down (push wrapper) held once made structural
+  (push is the final command). Passive guidance loses to artefact
+  gravity, again, measured twice in one day.

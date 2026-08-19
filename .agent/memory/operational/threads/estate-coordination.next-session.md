@@ -843,3 +843,59 @@ freeze broadcast is intentional. RESUME MAP, priority order:
   primary rebuild). Routed at the freeze edge: MCP-628 (e2e
   static-root fixture races copyOakDs staging dir; named one-guard
   cure) — Yarrow's finding, homed as a ticket, liftable by any seat.
+
+## 2026-08-19 ~11:4xZ — WRAP (Ocelot binds Tunnel, c28ad9): output-contracts lane complete and RATIFIED; fold-to-main is the next leg; seat continues at owner word
+
+Session outcome (owner-directed, four-part): the output-schema truth
+lane ran end to end in one sitting — 14-leg verification fleet (report:
+`.agent/reports/output-schema-truth-fleet-2026-08-19.md`, the durable
+evidence record), documentation trued (testing-strategy absence-pin
+rule; schema-first §Output Contracts; index/continuity sweeps), the
+`mcp-output-contracts` plan family authored, twice-reviewed
+(assumptions HOLD cured in full; docs must-fixes cured), RATIFIED by
+the owner (stamps at `9f20ed3d0`, pushed, remote-verified), and the
+advertisement ruling folded (measure $defs dedup first, lean accept).
+MCP-630 minted (served-surface truth; the live changelog-tool 404
+defect). Prior plans archived with banners. RESUME MAP, priority order:
+
+- (a) COORDINATION FOLD TO MAIN — the branch is OVERDUE per
+  coordination-branch-24h-lifetime (stamp 08-17; now 08-19). The route
+  (rule §Action 3, converge-and-rotate): AFTER Yarrow's design merge
+  drive settles (their merges move main), merge origin/main into the
+  coordination branch (pre-merge divergence analysis), push, land the
+  branch through its fold PR at full condition (archival/record class;
+  product-gravity line in the body; binding review; bot REST-merge,
+  never squash), then cut the fresh day-stamped successor with the
+  cut-coordination-branch skill's tool and broadcast the rotation.
+  This fold is how the ratified plan family — and everything else on
+  the branch — reaches main.
+- (b) mcp-served-surface-truth (MCP-630) pickup: HELD at owner word
+  2026-08-19 ("first pick up not yet") — route ONLY at his word; it
+  sequences after PR #911 lands regardless.
+- (c) This seat's PR board: #911 awaiting binding rounds + the CodeQL
+  inline finding needs a dispositioned round (targets the sanitised
+  path; likely refutable with evidence); #905 19/19 green awaiting a
+  binding round; merge legs at settled. Matt active today — rounds may
+  land on his cadence.
+- (d) Yarrow (owner word at their seat): finish AND MERGE the design
+  PRs (#907-#910, then #912 at stack dissolution) — merge legs at
+  THEIR seat this sitting; the T1a-ii+T1e owner card routes through
+  the Director when surfaced; MCP-628 liftable by any seat.
+- (e) Poppy: MCP-619 change set COMPLETE as design at owner lens-4
+  sweep (seam centrepiece); next = owner review, then migration cards
+  in dependency order (seam first). Atlas at 3d2cdd848.
+- (f) Follow-ups with named homes: testing-strategy.md is over its
+  fitness char-limit (pre-existing; its own split_strategy is the
+  cure, own lane); plan-node-schema needs a dated short-lived-
+  strategic reconciliation clause (owner-word exception exists in the
+  mcp-output-contracts node); MCP-627 ruleset drift open; MEMORY.md
+  index still ~19KB (curator pass).
+- (g) Instruments at this wrap: heartbeat pair stopped first with
+  heartbeat-end, then F-75 poll, canonical watcher last. Lane claim
+  (output-schema truth) CLOSED — work complete. Director claim
+  b1d00d68 RETAINED-WITH-REASON: same seat resumes at the owner's
+  word; silence past the heartbeat-end is intentional stand-down.
+  Shared-checkout disciplines now standing: stage AND commit by
+  explicit pathspec; the push is a task's FINAL command (the
+  false-green echo wrapper recurred 2026-08-19 and is napkin-recorded);
+  three same-window push races say fold windows want quiet branches.
