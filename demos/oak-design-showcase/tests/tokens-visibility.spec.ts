@@ -92,6 +92,34 @@ test.describe('token reference: rows genuinely flow', () => {
   });
 });
 
+test.describe('token reference: the sticky band reserve covers its rendered height', () => {
+  for (const width of [305, 320]) {
+    test(`at ${width}px the scroll-margin reserve is at least the band height @a11y`, async ({
+      page,
+    }) => {
+      // SC 2.4.11: at one-column widths the controls stack three rows —
+      // a reserve computed for fewer rows leaves focused links and
+      // jumped-to headings landing under the sticky band (measured
+      // 144px band against a 128px two-row reserve, review round).
+      const aborted = await openRoute(page, '/tokens');
+      await page.setViewportSize({ width, height: 700 });
+      const measured = await page.evaluate(() => {
+        const band = document.querySelector('.tok-controls');
+        const probe = document.querySelector('.tok-family h3');
+        return band === null || probe === null
+          ? null
+          : {
+              bandHeight: band.getBoundingClientRect().height,
+              reserve: Number.parseFloat(getComputedStyle(probe).scrollMarginBlockStart),
+            };
+      });
+      expect(measured).not.toBeNull();
+      expect(measured?.reserve ?? 0).toBeGreaterThanOrEqual(measured?.bandHeight ?? Infinity);
+      assertOnlyKnownExternalOrigins(aborted);
+    });
+  }
+});
+
 test.describe('token reference: the narrow family nav discloses', () => {
   test('closed at narrow, every link unscrolled when open, inline at wide @a11y', async ({
     page,

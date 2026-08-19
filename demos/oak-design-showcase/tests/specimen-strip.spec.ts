@@ -69,6 +69,25 @@ test.describe('specimen strip: narrow controls disclose instead of scroll', () =
     const counterBrand = COUNTER_BRANDS[0];
     const radio = page.getByRole('radio', { name: IDENTITY_LABELS[counterBrand] });
     await expect(radio).toBeVisible();
+    // The open panel is measured scroll-free (the everything-visible
+    // rule at strip scale) — the same invariant the tokens nav carries.
+    const stripScrollBoxes = await page.locator('.strip-disclosure').evaluate(
+      (el) =>
+        [el, ...el.querySelectorAll('*')].filter((node) => {
+          // The visually-hidden pattern is a deliberate 1px clip of
+          // NON-visible content — outside the rule's scope (the same
+          // exclusion the tokens-visibility invariant carries).
+          if (node.classList.contains('oak-visually-hidden')) {
+            return false;
+          }
+          const style = getComputedStyle(node);
+          return (
+            (style.overflowY !== 'visible' || style.overflowX !== 'visible') &&
+            (node.scrollHeight > node.clientHeight || node.scrollWidth > node.clientWidth)
+          );
+        }).length,
+    );
+    expect(stripScrollBoxes, 'the open panel scrolls with the page, never in a box').toBe(0);
     await radio.check();
     await expect(
       page.locator(`link[data-oak-brand='${counterBrand}'][data-oak-brand-applied]`),
