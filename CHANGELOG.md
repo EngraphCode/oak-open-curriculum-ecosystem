@@ -1,3 +1,20 @@
+# [1.175.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.174.0...v1.175.0) (2026-08-19)
+
+
+### Bug Fixes
+
+* **design:** mcp-616 round-3 threads - tier symlinks refused by kind, never dereferenced ([b2f88f5](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/b2f88f57c0284a08389c7fdbf6f3c686070ea431))
+* **design:** mcp-616 round-5 - the tier surface is a closed shape, top down ([a0a61cd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a0a61cd021742bca048c28918e38f7f61867c84d))
+* **design:** mcp-616 round-6 - transient exemption binds name AND kind ([38e0ebb](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/38e0ebb2a6b6c9c5966e37b337e04cf78fb7e3fa))
+* **design:** mcp-616 round-7 - parseFailure means parse, README tells the kind-bound truth ([aa696f1](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aa696f111a21c7cbe8377b47760a6f5811cae72f))
+* **tooling:** mcp-616 round-2 cures - json by place, dot-entries validated, symlinks refused ([1d78525](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/1d7852517325b8f15be5f232dd2e6039624b49b9))
+
+
+### Features
+
+* **design:** mcp-616 round-1 cures - closed pack anatomy enforced, licence trim, adr-041 amendment ([83c95cc](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/83c95cc030a59eff2737cc7baf5d4614fe37bdc2)), closes [#909](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/909)
+* **design:** mint the identity-pack tier with a structural boundary leg ([cd84e49](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/cd84e490c977c68f4293daefa798462c0c505c2b))
+
 # [1.174.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.173.1...v1.174.0) (2026-08-19)
 
 
