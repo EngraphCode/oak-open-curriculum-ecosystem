@@ -114,6 +114,27 @@ this file's git history at `45866d61a`.
   carries Change 4's residue; foundation cards per-concept with
   question zero; carrier moves; gate validator). MCP-619 trued and the
   Director briefed at the full-set boundary 2026-08-19.
+- **CASTR COMPOSITION (owner facts + truing parcel, 2026-08-19
+  post-wrap)** — for the seam implementer:
+  `@engraph/castr` (the owner's repository AND a Practice repo; local
+  at his personal code root) replaces the whole generation strategy —
+  `openapi-zod-client` + `openapi3-ts` — per ADR-108, with ADR-055's
+  side-by-side validation as the adoption shape. The clocks DECOUPLE:
+  the seam migration proceeds now and moves the legacy generation cell
+  (openapi-zod-client-adapter + both libraries) AS ONE BOUNDED UNIT,
+  as-is, quarantine intact, zero internal investment (retirement
+  condition on the adapter README). Castr adoption is a POINTER, not
+  a plan, until a readiness signal — and that clock is
+  OWNER-SCHEDULABLE (owner word 2026-08-19: focus can change to
+  Castr if urgent; it could even move into this repo, though it need
+  not). At the signal, the adoption delivery plan authors at pickup
+  under the ratified node with the contract-fixture pack
+  (`.agent/plans-backlog-2026-07/sector-engagement/castr/`, status
+  banner applied) as its acceptance harness — fixtures RE-PIN at
+  validation time (upstream ticks ~29/yr). The adapter is NOT the
+  publishing proof-piece (withdrawn — successor in flight); the seam
+  card picks one without a retirement condition. Castr's repo was
+  mid-remediation-programme at 0.0.0-development when checked.
 - **RATIFIED 2026-08-19 ~12:2xZ (owner card at this seat, verbatim
   "Ratify both")**: strategic node `toolkit-re-architecture` — born
   sketch this sitting, carrying the five-change bet, both owner
