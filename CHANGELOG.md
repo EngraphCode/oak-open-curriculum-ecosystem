@@ -1,3 +1,27 @@
+# [1.174.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.173.1...v1.174.0) (2026-08-19)
+
+
+### Bug Fixes
+
+* **architecture:** atlas mermaid labels — br tags render concatenated ([c0f6e91](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c0f6e9147aef0c7a6a38a8294565f452a52581f7))
+* **design:** mcp-620 round-1 cures - reflow floor, narrow maps, applied-marker truth, a11y coverage ([62df209](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/62df2091c4bba312c38ddca3852ea6a1517efced))
+* **design:** mcp-620 round-2 cures - stale-swap authority, theme holds, measured focus stops ([5f1188f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5f1188f0a022131d5daace24e29ee2fac6dfc2e7))
+* **design:** mcp-620 round-3 - true inverted maps, one theme holder per document, honest badges ([e54be4b](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e54be4b4d5d19fbb0b4c6ecfbf3c35f37ce5ba78))
+* **design:** mcp-620 round-4 - fail-loud stage resolution, honest holder, guards that bite ([efea2fd](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/efea2fd3595ab19dfd61800460abae782461f983))
+* **design:** mcp-620 round-6 - teardown that tears down, per-subscriber cause identity ([a53594a](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/a53594ab522862cf24036cc57d7cfb1a46418a6a))
+
+
+### Features
+
+* **design:** amplify emc2 - motion tiers, glow ramp, interaction movement, wide reorder ([0cd8906](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/0cd8906addcd204c2ef864409dc47d8cc84afaf0)), closes [hi#contrast](https://github.com/hi/issues/contrast)
+* **design:** colour matrix page - every identity and theme side by side ([3b276f0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3b276f0d6651f4557174ed51da38b9238309edb6))
+* **design:** embedded controls own the pages, fixed breadcrumbs, composition v2 ([05897c0](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/05897c0768c7c548ef2eb9f37be6bb4fd8a41c1c))
+* **design:** front page doors every demo surface ([6ca3462](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6ca3462b511fe22bb4531371e302b6ea4749cb5d))
+* **design:** radio switchboard, stage dominance, strip controls, emc2 round 2 ([7473d27](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7473d2714ed6321805d0eea5250a009168b053a5))
+* **design:** token reference page - live-applied values prove the identity switch ([e0a85e8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/e0a85e842203c43cbc0ef33825fd67c064f9e06f))
+* **design:** token reference v2 - dense rows, side rail, narrow cards ([c3cc943](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/c3cc943ec537374e212871ffc931d41e6fce3303))
+* **design:** token reference v3 - craft-area navigation, sticky controls, denser narrow ([558a8e8](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/558a8e812b1fd33815097d641d2ae65d75edf817))
+
 ## [1.173.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.173.0...v1.173.1) (2026-08-19)
 
 # [1.173.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.172.2...v1.173.0) (2026-08-18)
