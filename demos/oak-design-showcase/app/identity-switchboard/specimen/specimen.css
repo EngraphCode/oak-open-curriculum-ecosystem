@@ -76,12 +76,12 @@
 }
 
 /* Theme label sits LEFT of its select (owner point 2): the labelled
-   cluster must not wrap internally, and neither may the crumbs. At WIDE
-   this keeps the one-row strip one row; at narrow the theme cluster
-   lives inside the disclosure panel, so the child combinator no longer
-   reaches it there — deliberate, since the panel stacks its groups in
-   block flow anyway and only the crumbs line still needs the nowrap. */
-[data-page='unit'] .strip-controls > .oak-cluster,
+   cluster must not wrap internally, and neither may the crumbs. The
+   cluster sits INSIDE the mounted disclosure at every width (dissolution
+   is a box-tree fact; selectors follow the DOM), so the reach is through
+   .strip-disclosure — a bare child combinator on .strip-controls misses
+   it and the wide one-row strip could wrap to two (review round 1). */
+[data-page='unit'] .strip-disclosure > .oak-cluster,
 [data-page='unit'] .strip-controls .showcase-crumbs {
   flex-wrap: nowrap;
 }

@@ -14,15 +14,12 @@
  * TWO COLUMNS ARE THE NORM (owner ruling 2026-08-18): at monitor widths a
  * family's ROWS flow across two columns under a header that spans both.
  * The ROW is the fragmentation unit — a compact card that reads at a phone
- * width, proven by the narrow band — so the old constraint that a family's
- * TABLE must never split simply dissolves: rows split, families never
- * clip, and nothing on this page scrolls inside itself (the owner's
- * everything-visible rule). The four-column table this replaces bought its
- * columns with letter-wrapped values, clipped identity chips, and a
- * per-family scroll container.
+ * width, proven by the narrow band — so rows split freely across columns,
+ * families never clip, and nothing on this page scrolls inside itself
+ * (the owner's everything-visible rule).
  *
  * LIST SEMANTICS AT EVERY WIDTH, BY DESIGN. No width renders these rows as
- * a table any more, so the markup does not claim one: each family is a
+ * a table, so the markup does not claim one: each family is a
  * list, each token an item, and the two non-self-evident parts of a row
  * are named by per-row visually-hidden labels ("Value", "Re-pointed by")
  * at every width — there is no header row anywhere to defer to. A
@@ -78,7 +75,7 @@ function TokenRow({
   );
 }
 
-interface TokenTableProps {
+interface TokenRowsProps {
   readonly area: CraftArea;
   readonly family: string;
   readonly tokens: readonly CatalogueToken[];
@@ -87,14 +84,14 @@ interface TokenTableProps {
   readonly deltas: IdentityDeltaSets;
 }
 
-export function TokenTable({
+export function TokenRows({
   area,
   family,
   tokens,
   values,
   identity,
   deltas,
-}: TokenTableProps): ReactElement {
+}: TokenRowsProps): ReactElement {
   const headingId = sectionId(area, family);
   return (
     <section className="tok-family">

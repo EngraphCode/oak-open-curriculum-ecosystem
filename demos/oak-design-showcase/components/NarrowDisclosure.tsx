@@ -26,8 +26,27 @@
  * which keeps the server snapshot honest and the client render
  * cascade-free.
  */
-import { useCallback, useState, useSyncExternalStore } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
 import type { ReactElement, ReactNode } from 'react';
+
+/** Adopt OPEN when the seam closes over the focused control: the commit
+ *  closes the details before this effect runs, but style has not
+ *  recalculated yet, so the control is still the activeElement — the
+ *  synchronous re-render before paint keeps it visible (400% zoom and
+ *  rotation cross the seam; focus continuity is the contract, review
+ *  round 1). */
+function useFocusHoldsOpen(
+  wide: boolean,
+  details: { readonly current: HTMLDetailsElement | null },
+  setChosenOpen: (open: boolean) => void,
+): void {
+  useLayoutEffect(() => {
+    const element = details.current;
+    if (!wide && element !== null && element.contains(document.activeElement)) {
+      setChosenOpen(true);
+    }
+  }, [wide, details, setChosenOpen]);
+}
 
 function useMediaQueryMatch(query: string): boolean {
   const subscribe = useCallback(
@@ -65,6 +84,8 @@ export function NarrowDisclosure({
   // The user's own narrow open/closed choice, kept OUTSIDE the element so
   // crossing the seam and back restores it.
   const [chosenOpen, setChosenOpen] = useState(false);
+  const details = useRef<HTMLDetailsElement | null>(null);
+  useFocusHoldsOpen(wide, details, setChosenOpen);
   // ONE mounted <details> at every width — never a swap to a fragment.
   // Remounting on the seam destroys focus (measured: a focused control
   // dropped to BODY) and the open state, and the seam is crossed by
@@ -78,6 +99,7 @@ export function NarrowDisclosure({
     .join(' ');
   return (
     <details
+      ref={details}
       className={classes}
       open={wide ? true : chosenOpen}
       onToggle={(event) => {

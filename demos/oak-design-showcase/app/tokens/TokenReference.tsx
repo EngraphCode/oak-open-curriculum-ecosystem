@@ -33,7 +33,7 @@ import { IDENTITY_LABELS, type IdentitySlug } from '../../components/useIdentity
 import { THEME_LABELS, THEME_OPTIONS } from '../../components/theme-vocabulary';
 
 import { FamilyNav } from './FamilyNav';
-import { TokenTable, type IdentityDeltaSets } from './TokenTable';
+import { TokenRows, type IdentityDeltaSets } from './TokenRows';
 import { liveTokenValues, type LiveValues } from './live-token-values';
 import type { CraftAreaGroup } from './token-groups';
 
@@ -112,7 +112,7 @@ function TokenSections({
           <p className="oak-body-3 tok-area-note">{group.note}</p>
           <div>
             {group.families.map(({ family, tokens }) => (
-              <TokenTable
+              <TokenRows
                 key={family}
                 area={group.area}
                 family={family}

@@ -82,6 +82,21 @@ test.describe('specimen strip: narrow controls disclose instead of scroll', () =
     await expect(page.getByRole('radio', { name: IDENTITY_LABELS[counterBrand] })).toBeVisible();
     assertOnlyKnownExternalOrigins(aborted);
   });
+
+  test('crossing wide to narrow keeps a focused control visible and focused', async ({ page }) => {
+    // The seam is crossed by accessibility paths (400% zoom, rotation): a
+    // control focused at wide must not vanish into a closed disclosure at
+    // narrow — the panel holds open for focus continuity (review round 1).
+    await interceptExternalOrigins(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}`);
+    const theme = page.locator('#specimen-strip-theme');
+    await theme.focus();
+    await expect(theme).toBeFocused();
+    await page.setViewportSize({ width: 320, height: 700 });
+    await expect(theme).toBeVisible();
+    await expect(theme).toBeFocused();
+  });
 });
 
 test.describe('specimen breadcrumbs are page furniture, not exhibit furniture', () => {
