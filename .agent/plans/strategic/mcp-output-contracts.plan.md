@@ -16,17 +16,7 @@ impact_areas:
   - conformance-and-standards
 gate_expiry_default: P3D
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      The owner rules on tools/list advertisement cost: declaring
-      outputSchema on the live surface grows tools/list by a measured
-      +78.5% (75,096 → 134,010 bytes; an estimated 15–30k tokens
-      depending on tokeniser), paid per connection on the stateless
-      transport. Options: accept as the price of SDK-native enforcement;
-      investigate $defs-deduplicated emission first; or another
-      owner-named shape.
-    expires: 2026-08-22
+owner_gates: []
 tickets: []
 last_updated: 2026-08-19
 ---
@@ -71,8 +61,8 @@ pinned to the installed SDK 1.30.0 / ext-apps 1.7.5):
    Server-side enforcement benefits every client equally and costs the
    wire nothing. Advertisement benefits only structuredContent-consuming
    clients while costing every client bytes on every connection — the
-   SDK couples the two, so the cost ruling above is this node's one
-   owner gate. Two measured anchors put the decision in the owner's
+   SDK couples the two, so the cost ruling was this node's one owner
+   gate, resolved same-day. Two measured anchors put the decision in the owner's
    court: the advertised tools/list payload alone (134,010 bytes) would
    exceed the estate's ratified 25K-token p95 response-size bar; and the
    most recent comparable ruling (ADR-058's dated update, 2026-07-29,
@@ -80,7 +70,10 @@ pinned to the installed SDK 1.30.0 / ext-apps 1.7.5):
    the new cost is per-CONNECTION, so the two equalise only in sessions
    of hundreds of tool calls, and the honest statement is per-session:
    every connection pays the full schema payload once, before any tool
-   is called.
+   is called. RULED (owner word, 2026-08-19, in-session card): measure
+   $defs-deduplicated emission first and surface the real number;
+   posture leans accept, confirmed at the measured figure — the
+   implementation plan carries the measurement slice.
 
 What we are deliberately not doing: hand-authoring per-tool output
 shapes; changing successful `structuredContent` beyond the two named
@@ -97,8 +90,9 @@ mid-landing.
   success is rejected, and dormant activation without a schema fails.
 - The served surface carries no tool whose upstream endpoint is gone,
   and the schema cache matches the live spec at landing.
-- The advertisement gate above is resolved by owner word and the
-  landing honours it.
+- The advertisement ruling (measure-then-confirm, 2026-08-19) is
+  honoured: the dedup measurement lands before the ratchet and the
+  confirmed figure is recorded durably.
 - This node and its delivery plans are archived, with the output-contract
   ADR minted as the durable record.
 

@@ -32,11 +32,11 @@ delivery node (ratified 2026-07-29; superseded 2026-08-19). Its design
 survived adversarial verification in the main; this plan conserves it
 and corrects the five points the 2026-08-19 fleet falsified or
 sharpened, each noted inline. The `blocking` edge above binds the final
-slices (todos 9–12: the refreshed cache, the truthful denominator, and
+slices (todos 9–13: the refreshed cache, the truthful denominator, and
 what builds on them); todos 1–8 are start-safe the moment this
 plan is ratified — the parallelism is real and deliberate: of the
 truth plan's two todos, only the cache refresh (its todo 1) genuinely
-gates this plan's slices 9–12; do not read the blocking edge as
+gates this plan's slices 9–13; do not read the blocking edge as
 serialising everything. The `beneficial` edge: the error-envelope plan is
 independent at the SDK level (`isError` results verified exempt from
 output validation at SDK 1.30.0) — landing it first settles
@@ -114,13 +114,11 @@ generated-artefact changeset, the unconditional ratchet last. Every
 landed state is correct: a tool either carries a true contract or
 carries none yet; no intermediate state declares a false one.
 
-**The strategic node's advertisement gate binds the ratchet**, and each
-of its options has a named consequence here: *accept* — todo 12 lands
-as written; *investigate `$defs`-deduplicated emission first* — a new
-emission-dedup slice is inserted between todos 10 and 12 and the
-measured delta re-taken; *another owner-named shape* — this plan
-returns to sketch for re-slicing. The ratchet slice lands only in the
-shape the ruling names.
+**The advertisement ruling is in** (owner word, 2026-08-19, in-session
+card): measure `$defs`-deduplicated emission first — todo 11 — and
+surface the real wire figure; the posture leans accept, confirmed at
+the measured number before the ratchet lands. The ratchet slice lands
+only at that confirmation.
 
 ## Acceptance criteria (each with a proof — required)
 
@@ -217,15 +215,22 @@ Each a single-story changeset, default budget ≤2 review rounds
     is the recorded rationale against reusing the JSON field).
     Regenerate; prove representative simple and context-bearing
     outputs.
-11. **Wire conformance instrument** — code changeset, after 4–10;
+11. **`$defs`-deduplicated emission measurement** — code changeset,
+    after 10 (owner-ruled 2026-08-19). Emit the generated contracts
+    with shared definitions deduplicated via `$defs`, measure the
+    serialised tools/list delta against both the raw (+58,914 B) and
+    deduplicated forms, and surface the figure to the owner for the
+    confirm-accept ruling. If dedup materially shrinks the wire, it
+    becomes the shipped emission form.
+12. **Wire conformance instrument** — code changeset, after 4–10;
     sequence after PR #895 lands (it owns
     `registration-proof/connected-client.ts` custody and ADR-226, the
     per-commit served-surface gate this instrument extends). Land the
     registry-total wire conformance instrument and dormant-activation
     proofs (AC 2, 5) GREEN against the state todos 4–10 reached —
     proving the surface before anything is made unconditional.
-12. **Ratchet + record** — code changeset, after 11, in the shape the
-    advertisement ruling names. Make contract presence unconditional
+13. **Ratchet + record** — code changeset, after 11–12, at the
+    confirmed advertisement figure. Make contract presence unconditional
     for live universal registration; run the credentialed witness
     drive; mint the output-contract ADR (folding in the advertisement
     ruling so the stance outlives these short-lived plans); record the

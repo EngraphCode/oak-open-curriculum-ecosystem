@@ -1215,3 +1215,11 @@ pinning-by-name, not sequencing-by-hope.
   site carries X" is evidence only when the leg publishes the site list
   it searched (four `new McpServer(` sites here). An unpublished
   enumeration is an assertion wearing a verdict.
+- **The false-green push wrapper got RECREATED a day after it was
+  recorded.** `git push > log 2>&1` followed by `echo "push-exit=$?"`
+  in a background task: the task's exit is the echo's 0; the push had
+  been remote-rejected (ref moved mid-gate-suite). The 2026-08-18
+  lesson existed in the freeze map and still lost to habit — passive
+  guidance loses to artefact gravity. Structural cure, no vigilance:
+  the push is the FINAL command of the task, nothing after it, so the
+  task exit IS the push exit; verification stays read-the-remote-tip.
