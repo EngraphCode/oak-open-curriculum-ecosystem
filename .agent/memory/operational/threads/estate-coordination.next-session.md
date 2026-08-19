@@ -899,3 +899,42 @@ defect). Prior plans archived with banners. RESUME MAP, priority order:
   explicit pathspec; the push is a task's FINAL command (the
   false-green echo wrapper recurred 2026-08-19 and is napkin-recorded);
   three same-window push races say fold windows want quiet branches.
+
+## 2026-08-19 ~12:3xZ — COMPACTION FREEZE 3 (Ocelot binds Tunnel, c28ad9): FOLD COMPLETE — plans on main, successor branch live; seat continues
+
+Owner word: fold to main, cut the successor, prepare for compaction,
+stop all processes. The seat CONTINUES at resume. RESUME MAP:
+
+- (a) FOLD COMPLETE: convergence merge bb4e4110c (clean; stale-capture
+  probe green), fold PR #914 bot-merged at full condition — merge
+  commit 1651ad2db on main. The mcp-output-contracts family, the fleet
+  evidence report, both directive amendments, and all day records are
+  ON MAIN. Successor coordination/2026-08-19-1651ad cut
+  tree-preservingly from post-fold main, pushed, tracking; the primary
+  resides there. Rotation broadcast 625eb128; the d4855c11 hold lifted.
+- (b) AT RESUME, FIRST: check whether main moved (Yarrow's design
+  merges land there); if so, merge origin/main into the successor and
+  REBUILD promptly — until then the primary's dist runs a stale
+  contract (skill step-9 note; worked instance 2026-08-01).
+- (c) Board: #911 awaiting binding rounds + the CodeQL inline finding
+  needs a dispositioned round; #905 19/19 green awaiting a binding
+  round; merge legs at this seat at settled. Design merge legs
+  (#907-#910, #912) at Yarrow's seat under owner word; the T1a-ii+T1e
+  card routes through this seat when surfaced. MCP-627/628 open.
+- (d) MCP-630 pickup HELD at owner word ("not yet") — route ONLY at
+  his word; sequences after #911. Implementation todos 1-8 start-safe
+  whenever he opens the lane.
+- (e) Poppy: mid-parcel at owner word (principles.md gradient
+  amendment, atlas extraction refinement, lane thread record, untracked
+  toolkit-re-architecture plan node) — commits on the successor at the
+  rotation; their word, their lane. Yarrow: design merge drive live.
+- (f) Instruments at this freeze: ALL STOPPED (heartbeat first with
+  heartbeat-end, watcher last). Contract note, self-caught: this
+  window's watcher ran --exclude-tag heartbeat WITHOUT the paired F-75
+  poll (both peers were demonstrably live on directed events; the gap
+  was real but unconsequential — re-arm the full triple at resume).
+  Bot token DELETED at window close. Director claim b1d00d68
+  RETAINED-WITH-REASON: same seat resumes at the owner's word.
+- (g) Carried follow-ups: testing-strategy.md split (over char limit);
+  plan-node-schema short-lived-strategic reconciliation clause;
+  MEMORY.md index curation; MCP-627 ruleset drift.

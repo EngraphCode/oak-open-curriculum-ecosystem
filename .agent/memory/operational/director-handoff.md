@@ -262,6 +262,24 @@ first-hand as of 2026-06-25.
 
 ## CURRENT HANDOFF STATE
 
+> **§FOLD ENTRY, 2026-08-19 ~12:2xZ (Ocelot binds Tunnel, `c28ad9`, estate-coordination
+> lane).** `coordination/estate-2026-08-17` FOLDED to main at owner word: convergence
+> merge `bb4e4110c` (clean; peers' in-flight files untouched), fold PR **#914**
+> bot-merged at full condition (four required checks green, zero threads) — merge
+> commit `1651ad2db` — and the day-stamped successor **`coordination/2026-08-19-1651ad`**
+> cut tree-preservingly from post-fold main (Poppy's owner-directed principles/atlas
+> parcel carried across, theirs to commit there). Product-gravity line: _moved for
+> teachers:_ the live changelog-tool defect (two served tools 404 upstream) found,
+> ticketed (MCP-630) and its ratified cure plan landed; the `mcp-output-contracts`
+> programme owner-ratified — machine-checkable, server-enforced results for every
+> assistant-facing tool. _moved for the Practice:_ the 14-leg fleet evidence record,
+> the plan-family restructure it grounded, two directive amendments (absence-pin
+> testing rule; schema-first §Output Contracts), host-portability tier amendment,
+> design-lane round records, atlas/MCP-619 design records, Director continuity.
+> Live estate-coordination state: `threads/estate-coordination.next-session.md`.
+
+---
+
 > **§LIVE-STATE POINTER, 2026-08-18 (Dormouse turns Footfall, `a54547`) — THIS
 > SUPERSEDES THE 2026-08-13 BANNER BELOW ON ONE FACT ONLY: A DIRECTOR IS SITTING.**
 > The 2026-08-13 banner records the Director lane as a make-safe pause with claim
