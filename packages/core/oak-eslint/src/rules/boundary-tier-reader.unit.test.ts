@@ -226,6 +226,16 @@ describe('readIdentityPackTier', () => {
     expect(fs.readTextFileCalls).toEqual([]);
   });
 
+  it('propagates a manifest READ failure instead of branding the pack unparseable', () => {
+    // parseFailure means exactly what it says (round-7 finding): an I/O
+    // fault on a listed file is an environment fault, reported as itself.
+    const fs = fakeFileSystem({
+      [TIER]: [dirent('tango', 'dir')],
+      [`${TIER}/tango`]: [dirent('package.json', 'file')],
+    });
+    expect(() => readIdentityPackTier(fs, TIER)).toThrow('no file at');
+  });
+
   it('reports an unparseable manifest as parseFailure, still listing the pack contents', () => {
     const fs = fakeFileSystem(
       { [TIER]: [dirent('tango', 'dir')], [`${TIER}/tango`]: [dirent('package.json', 'file')] },

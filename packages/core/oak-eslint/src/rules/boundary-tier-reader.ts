@@ -167,10 +167,13 @@ export function readIdentityPackTier(
       return [{ directoryName: entry.name, packageJson: undefined, files, symlinks }];
     }
 
+    // The read sits OUTSIDE the parse try: an I/O failure (EACCES, a
+    // deletion race) on a file the inventory just listed is an
+    // environment fault that propagates loudly — branding the pack
+    // "could not be parsed" would misreport the phase.
+    const manifestText = fileSystem.readTextFile(join(packDir, 'package.json'));
     try {
-      const packageJson: unknown = JSON.parse(
-        fileSystem.readTextFile(join(packDir, 'package.json')),
-      );
+      const packageJson: unknown = JSON.parse(manifestText);
 
       return [{ directoryName: entry.name, packageJson, files, symlinks }];
     } catch (error) {

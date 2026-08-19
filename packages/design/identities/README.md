@@ -21,8 +21,10 @@ structure:
 - the tier directory exists (a rename must fail loud, never silently
   shrink the checked surface — this tier has no `package.json`, so the
   package-keyed workspace scans cannot see it);
-- every child **directory** (local tool artefacts — dot-entries and
-  `node_modules` — excluded) is a pack workspace named
+- every child **directory** (only the enumerated transients are exempt,
+  by name AND kind: `node_modules` and `.turbo` directories, a
+  `.DS_Store` file — every other child, dot-prefixed or not, faces
+  validation) is a pack workspace named
   `@oaknational/identity-pack-<directory>`, `"private": true`, with a
   non-blank `license` declaration and **no `scripts`** (packs are
   data-only, on the `oak-design-assets` precedent, and contribute
