@@ -67,10 +67,11 @@ cure round closed with tally `822a8999`, registry incident cured
   (charter, v1 concept set with demand evidence, diagram 4) drafted
   2026-08-19. Published artifact:
   <https://claude.ai/code/artifact/a230b6dd-e41b-474e-9f9e-22f3e84d5502>
-  (FRESH URL 2026-08-19 — the pre-compaction artifact 404s and the
-  account list was empty, so the old ec407fb3 URL is dead; republish by
-  editing the canonical file then publishing WITH this URL as `url`
-  from any session). All four diagrams PIXEL-UNVERIFIED: Chrome
+  (FRESH URL 2026-08-19 — the old ec407fb3 URL lives under the
+  PREVIOUS Claude Code account (owner-explained: account change), so it
+  is unreachable from this account, not deleted; republish by editing
+  the canonical file then publishing WITH this URL as `url` from any
+  session on the current account). All four diagrams PIXEL-UNVERIFIED: Chrome
   extension not connected 2026-08-19. Re-run at next Chrome
   availability; a ten-second owner scroll also discharges it.
 - **Next work at this seat**: draft the foundation-layer change set —

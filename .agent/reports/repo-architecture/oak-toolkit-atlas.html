@@ -481,10 +481,92 @@ flowchart TD
     <p><strong>Spend.</strong> This change is design; the per-package finish work (contract,
     tests, docs, perf) is priced per package at its own card before any of it starts.</p>
   </div>
-  <div class="queue"><span class="tag">queued</span><h4>One clock per package</h4>
-    <p>Unmix the codegen chain (four clocks in one workspace today); generated artefacts
-    never co-resident with authored code; the 23.9 MB corpus and its siblings get
-    deliberate homes with regeneration contracts.</p></div>
+  <h3 id="change-2">Change 2 · One clock per package</h3>
+  <p>Brief point 4, made structural: <strong>a package's clock is the thing that changes
+  it</strong> — authored design, upstream spec, regeneration, editorial curation, vendor
+  churn — and no package holds two. Mixed clocks make every tick look like change to
+  everything in the box: clocks become unmeasurable, review rounds oversize, and Change 1's
+  "finished" observable is unreadable exactly where it matters. §4 shows the mixing is
+  universal today — no generated-only package exists, and the worst site holds four clocks
+  in one workspace.</p>
+  <p><strong>The designed concept: the carrier contract, with a disposition rule.</strong>
+  Every generated or derived artefact gets one of three homes, chosen by a rule rather
+  than case-by-case taste. <em>Tracked carrier package</em> — when consumers import it at
+  source time and the input pin is the value: the package holds the regeneration command,
+  its input pins (spec version, corpus snapshot, generator version), no authored logic,
+  and a clean-regeneration check (regenerate → empty diff) as its gate.
+  <em>Untracked build product</em> — when it is cheaply derivable at build time (the
+  widget bundle, the orientation digest): built, never committed.
+  <em>Out-of-tree store</em> — when it is a cache or input corpus (schema-cache, the
+  746&nbsp;MB bulk downloads): named location, refresh contract, never in the tree. The
+  carrier contract is itself a toolkit piece — it works for any generated surface in any
+  digital service.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Site today (§4)</th><th>Clock</th><th>Target home</th></tr>
+    <tr><td><code>sdk-codegen</code> authored generators + pipelines</td><td>authored design</td><td>an OpenAPI-pipeline package — reusable machinery, a toolkit candidate in its own right</td></tr>
+    <tr><td><code>src/synonyms/</code> curated synonyms</td><td>editorial</td><td>editorial package on its own clock</td></tr>
+    <tr><td><code>src/types/generated/</code> (2.7 MB)</td><td>upstream spec (29/yr)</td><td>tracked carrier, spec-pinned</td></tr>
+    <tr><td><code>src/generated/vocab/</code> incl. 23.9 MB corpus</td><td>regeneration (~19/yr)</td><td>tracked carrier, generator+snapshot-pinned</td></tr>
+    <tr><td><code>schema-cache/</code> · CLI <code>bulk-downloads/</code></td><td>refresh</td><td>out-of-tree store with a refresh contract</td></tr>
+    <tr><td>widget bundle · orientation digest (in app <code>src/</code>)</td><td>build</td><td>untracked build product</td></tr>
+    <tr><td>CLI <code>ground-truths/generated/</code></td><td>regeneration</td><td>tracked carrier beside its <code>generation/</code> sibling — same pattern, local scale</td></tr>
+    <tr><td>agent-surface adapter stubs (~380 files)</td><td>projection</td><td>already contract-shaped (<code>skills:generate</code>) — gains the clean-regen check only</td></tr>
+  </table></div>
+  <p class="caption">Plus one record-honesty fix that costs a line: <code>schema-bridge.ts</code>
+  drops its false <code>@generated</code> banner. The measured 95% vocab-mining ↔ corpus-data
+  co-change is engaged, not ignored: it is the expected generator-fan-out signature — when
+  the generator changes, its output regenerates in the same commit — and the split makes it
+  exemptable in the coupling measure instead of a smear across one box.</p>
+
+  <figure class="diagram">
+    <pre class="mermaid">
+flowchart LR
+  classDef gen fill-opacity:0.35,stroke-dasharray:5 4
+  classDef target stroke:#3E7A4E,stroke-width:2px
+
+  subgraph NOW["today — one workspace, four clocks, 34.3 MB"]
+    MIX["oak-sdk-codegen<br/>generators + synonyms + spec types<br/>+ mined vocab + schema cache"]
+  end
+
+  subgraph AFTER["target — one clock each"]
+    GEN["openapi-pipeline<br/>authored clock · toolkit candidate"]:::target
+    SYN["curated synonyms<br/>editorial clock"]:::target
+    TYPES["spec-types carrier<br/>upstream clock · spec-pinned"]:::gen
+    VOC["vocab + corpus carrier<br/>regeneration clock · snapshot-pinned"]:::gen
+  end
+
+  CACHE["schema cache · bulk corpus<br/>out-of-tree store"]:::gen
+  CONTRACT["carrier contract:<br/>regeneration command · input pins ·<br/>no authored logic · clean-regen gate"]:::target
+
+  MIX --> GEN
+  MIX --> SYN
+  MIX --> TYPES
+  MIX --> VOC
+  MIX --> CACHE
+  CONTRACT --- AFTER
+    </pre>
+    <figcaption>The worst site unmixed: five homes, one clock each. The same disposition
+    rule then walks the smaller sites in the table — the pattern is the change, the codegen
+    chain is its proving ground.</figcaption>
+  </figure>
+
+  <div class="callout leaf">
+    <p><strong>Warrant.</strong> Point 4 verbatim, plus two measured facts: the clocks are
+    real and separable (§6 measures five distinct rates inside today's mixed boxes), and
+    generation is 42.5% of tracked bytes — so this one change moves more of the estate's
+    mass than any other. It also feeds Change 1 directly: one-clock packages are what make
+    the stability gradient readable. Evidence basis: §4's byte census and §6's clock
+    record, re-verified against the live tree 2026-08-19 — design-first holds.</p>
+    <p><strong>Falsifiers.</strong> A carrier whose clean-regeneration check cannot be made
+    deterministic names a generator-determinism defect — fix that first; the carrier design
+    is not at fault and does not proceed around it. A carrier whose contents tick on two
+    independent causes with different review needs splits again. If vocab-mining ↔
+    corpus-data co-change persists across the new seam <em>after</em> the fan-out exemption,
+    the seam is drawn wrong — remeasure before proceeding.</p>
+    <p><strong>Spend.</strong> Design only, here; the mechanical moves are cheap but the
+    carrier gates (clean-regen checks) are new CI surface — priced at their own card with
+    the first carrier as the proving instance.</p>
+  </div>
   <div class="queue"><span class="tag">queued</span><h4>Thin Oak on reusable ground</h4>
     <p>The census's per-row move/stay dispositions executed as designed splits — Oak-ness
     trending to configuration and packs, the way the design system already treats
