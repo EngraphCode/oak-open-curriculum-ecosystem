@@ -3663,3 +3663,68 @@ artifact, URL in the session wrap-up).
   (5) post-#910 records parcel (showcase cross-ref, S4(b), R4
   attribution, POPPY-1 fold, DDR-009 305px amendment). The wide rail's
   capped nav scroll is the named owner-re-rule residue (PR #912 body).
+
+## Session close 2026-08-19 ~13:5xZ (Yarrow stirs Undergrowth, ab1066 — additive; the MERGE-DRIVE sitting; handoff to a successor at owner word)
+
+- **Owner words this sitting, in order**: (1) "please get all current
+  design work finished and merged and the rest of it safe for later pick
+  up"; (2) "if the PRs are green and clean, they should be merged";
+  (3) the components question — NOTED with its answer, not acted (the
+  answer lives in the pr-round-ledger's 2026-08-19 entry, §Owner
+  question NOTED); (4) "prepare for handoff to a successor, and then
+  stop all processes".
+- **MERGED**: #907 at `c59c1c47c` (rounds 4–7 closed; S6845 ACCEPTED in
+  SonarCloud with the WAI disposition), #909 at `f2bde54bb` (rounds 3–8;
+  the tier reader promoted to src with injected fs, the closed shape
+  proven top-down). Merge mechanism at this seat:
+  `merge-bot merge --pr <n> --expect copilot-pull-request-reviewer` at
+  SETTLE-READY — DECLARE the expected set; the observed default includes
+  the CODEOWNERS humans and never settles. Deletion sweep before every
+  leg (pr-lifecycle §5).
+- **IN REVIEW at freeze** (all threads resolved, rounds requested,
+  worktrees clean unless noted):
+  - **#912** (visual-feedback-round, tip `bbc88f1a2`): base=main (stack
+    dissolved; two folds `82c806f6b`/`b76d60a7d`); round-1 cures
+    `11691b393`; the seam focus hold went through THREE shapes — layout
+    effect (lost to CI's focus fixup), focus-in-open (raced the summary
+    click's default action), and the STANDING shape: render-time
+    previous-state latch (wide→narrow) + declarative
+    `summary:not(:focus)` (narrow→wide), both calibrated red-first
+    (`8b5c0c641`, `bbc88f1a2`). Suites 230/41/76. Merge at SETTLE-READY.
+  - **#910** (mcp-613, records truth pass): round-1 cures `242fd4c52`
+    (the FULL 840 seam — .oak-main map + counter-identity --flow-columns
+    collapse; one story per node; tombstones out). Main folded in with
+    ONE conflict — fidelity-register resolved as a UNION (11 entries,
+    ids unique); the fold commit + push were IN FLIGHT at freeze
+    (background task; if unpushed, the successor re-runs `git commit -F`
+    with the scratchpad message then `merge-bot push` from the
+    worktree). Then round + merge.
+  - **#908** (mcp-615, tango plan node): round-1 cures `727dfc15c` —
+    execution state out of the durable plan; DDR-012 corpus-true; the
+    critical-analysis report LANDED with the node
+    (confidentiality-checked); M1×P7 fixture reconciliation BY
+    INVERSION (constructed contract-complete fixture; the partial pack
+    proves admission REFUSAL); node RE-RATIFIED 2026-08-19 via the
+    owner's card answer routed through the Director (prefix
+    declared+recomputed, MAJOR derivation; provenance-marked
+    construction, defaulted-only upgrades; `oak-design identity
+    create/upgrade` as a design-tier toolkit package). Was
+    SETTLING-QUIET-WINDOW at freeze. Merge at SETTLE-READY.
+- **T1a-ii and T1e are UNBLOCKED** (the card answers above); the plan
+  carries them at the slice rows.
+- **Carried items** (ledger, same entry): colour-matrix filter-family
+  exclusion; parseFailure-test strengthening; DTCG upstream link (records
+  parcel); the wide-rail capped nav scroll = owner re-rule residue.
+- **Post-#910 records parcel** still owed after #910 merges: showcase
+  cross-ref, S4(b), R4 attribution, POPPY-1 fold, DDR-009 305px
+  classic-scrollbar amendment, DTCG upstream link.
+- **Successor resume order**: (1) re-arm per start-right; (2) confirm
+  the #910 fold landed and pushed (above); (3) run the three settle
+  watches (`pr state <n> --expect copilot-pull-request-reviewer`) and
+  fire `merge-bot merge` per PR at SETTLE-READY after the deletion
+  sweep — harvest any new round first (zero-live + suppressed:
+  disposition honestly; the owner's green-and-clean word governs);
+  (4) the post-#910 records parcel; (5) T1a-ii pickup (schema workspace)
+  is the next BUILD slice.
+- **Claim `645b9e0b` retained with a FRESH handoff record** (see
+  handoff_record_path on the claim row).

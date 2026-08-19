@@ -1332,3 +1332,21 @@ pinning-by-name, not sequencing-by-hope.
   so the guarded branch WAS reachable on a passing run. A rejection
   survives only as long as its premise — re-derive it when the same
   finding returns with new sites.
+- **The native toggle races any script-opened details.** Feeding
+  focus-within into the `open` prop opened the panel on the summary's
+  mousedown focus, so the click's own default action toggled it straight
+  back closed. Generator confirmed twice in one afternoon: state written
+  from browser-event timing (effect-vs-fixup, focus-vs-default-action)
+  is the defect even when it passes locally. The shapes that stood: the
+  render-time previous-state latch (wide→narrow), and DECLARATIVE focus
+  continuity (`summary:not(:focus)` hides — CSS holds the focused node
+  rendered until focus moves, no script at all).
+- **zsh arrays are 1-indexed.** A `for i in 0 1 …` over `declare -a`
+  silently dropped element 0 (one review thread unreplied, caught by the
+  in-band NOT_FOUND error). Iterate the array itself, never numeric
+  indices, in this shell.
+- **Registers merge as unions.** The fidelity-register conflict (both
+  branches appended entries at one position) resolves by keeping BOTH
+  sides — append-only surfaces have no "ours vs theirs". Validate the
+  merged artefact by its own contract (JSON parse + id uniqueness), not
+  by conflict-marker absence.
