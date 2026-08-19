@@ -146,9 +146,9 @@ source-run import path (B2), and a degenerate-scan check on the new
 glob.
 
 **T1a-i execution addendum (2026-08-17 evening):** EXECUTED at
-`cd84e490c` on the MCP-616 lane — in review as PR #909 since
-2026-08-18; merged-to-main is the landing bar and this slice has not
-crossed it yet. The ratified T1a-i clause's "separate
+`cd84e490c` on the MCP-616 lane; LANDED — PR #909 merged to main
+2026-08-19 (`f2bde54bb`) after its review rounds. The ratified T1a-i
+clause's "separate
 pack-imports inventory" was discharged by STRONGER means, adjudicated
 at the config review: no hand-declared tuple exists anywhere (a tuple
 would be a permanent identity-№N violation — an eighth,

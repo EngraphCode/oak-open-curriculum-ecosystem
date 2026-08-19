@@ -29,7 +29,7 @@ depends_on:
   - plan: design-showcase-experience
     kind: beneficial
 owner_gates: []
-last_updated: 2026-08-18
+last_updated: 2026-08-19
 ---
 
 # Tango identity pack — the pack mechanism proven by its first identity
@@ -170,7 +170,8 @@ self-attestation that records rather than validates — dated true-up
    media query (live today in a counter-identity sheet).
 5. **Target-size floor declared** — `--size-target` is brand-writable with
    no instrument; the manifest declares the pack's floor at or above
-   WCAG 2.5.8's 24px minimum (kit bar: 44px), schema-refused below it.
+   [WCAG 2.5.8 Target Size (Minimum)](https://www.w3.org/TR/WCAG22/#target-size-minimum)'s
+   24px minimum (kit bar: 44px), schema-refused below it.
 6. **`forced-color-adjust: none` prohibited** in pack CSS — one opt-out
    invalidates the estate's zero-opt-out forced-colours scoping argument.
 7. **Focus-ring surface untouched** — the kit's ring recipe is not on the
