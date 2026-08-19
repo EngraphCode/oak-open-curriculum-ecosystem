@@ -108,6 +108,14 @@
   z-index: var(--layer-sticky);
 }
 
+/* No strip, no strip-height reserve: the controls=none frames (the
+   side-by-side stages) omit the utility strip entirely, so the mast
+   sticks at the top edge instead of below a band that is not there
+   (review round 3). */
+[data-page='unit'][data-controls='none'] .mast {
+  inset-block-start: 0;
+}
+
 /* The kit's .oak-choice pins --text-primary, and the crumb pattern pins
    --text-subdued — both are PAGE-ground pairings that land low-contrast
    on this inverted strip (measured: choice labels light-on-light under

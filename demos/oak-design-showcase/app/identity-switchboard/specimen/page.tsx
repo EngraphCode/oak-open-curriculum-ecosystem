@@ -167,7 +167,14 @@ export default async function SpecimenPage({
           focus must LAND, and never at the cost of the Tab order. Never
           put a negative tabindex on a direct child of .oak-canvas or
           .oak-main. */}
-      <div className="oak-canvas oak-scope" data-page="unit" data-identity={identity}>
+      {/* data-controls lets CSS zero the mast's strip-height sticky offset
+          when no strip renders (round 3 — the side-by-side frames). */}
+      <div
+        className="oak-canvas oak-scope"
+        data-page="unit"
+        data-identity={identity}
+        data-controls={showControls ? undefined : 'none'}
+      >
         {showControls ? <UtilityRegion identity={identity} /> : null}
         <SpecimenBody />
       </div>

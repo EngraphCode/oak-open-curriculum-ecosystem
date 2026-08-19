@@ -15,6 +15,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ReactElement } from 'react';
 
 import { IdentityRadioGroup } from '../../components/IdentityRadioGroup';
+import { holdFrameTheme } from '../../components/apply-frame-theme';
 import {
   COMPOSITION_LAYOUTS,
   EXHIBIT_THEMES,
@@ -34,22 +35,27 @@ function applyExhibitState(
   frame: HTMLIFrameElement | null,
   layout: CompositionLayout,
   theme: ExhibitTheme,
+  themeHold: { current: (() => void) | null },
 ): void {
   // Null-check, never instanceof: the canvas lives in the FRAME's realm,
   // where it is an instance of the frame's own HTMLElement class — a
   // parent-realm instanceof silently rejects every cross-document node.
   // Theme lands on the frame's ROOT (light-dark() resolves against the
   // declaring element's scheme, so a subtree attribute cannot flip
-  // :root-declared tokens); layout on the canvas. The exhibit's accessible
-  // TEXT moves with the attribute: its heading and arrangement description
-  // were server-rendered from the original query, so a mutated data-layout
-  // without the matching text leaves assistive technology hearing the
-  // previous arrangement.
+  // :root-declared tokens) — and it is HELD, not written once: the
+  // frame's kit runtime rewrites data-theme on a live prefers-contrast
+  // change, and the framed exhibit's applier deliberately stands down so
+  // THIS stage is the document's one holder (review round 3). Layout on
+  // the canvas. The exhibit's accessible TEXT moves with the attribute:
+  // its heading and arrangement description were server-rendered from
+  // the original query, so a mutated data-layout without the matching
+  // text leaves assistive technology hearing the previous arrangement.
   const doc = frame?.contentDocument;
   const canvas = doc?.querySelector<HTMLElement>('[data-composition-frame]');
   if (doc !== null && doc !== undefined && canvas !== null && canvas !== undefined) {
     canvas.dataset['layout'] = layout;
-    doc.documentElement.dataset['theme'] = theme;
+    themeHold.current?.();
+    themeHold.current = holdFrameTheme(doc.documentElement, theme);
     applyExhibitText(doc, layout);
   }
 }
@@ -100,14 +106,33 @@ function StageControls({
   );
 }
 
+/** Owns the exhibit's applied state and its theme hold. The effect's
+ *  cleanup releases the current hold; a re-run re-installs in the same
+ *  synchronous pass, and the final cleanup covers unmount. The returned
+ *  re-apply is for the frame's load event (a fresh document). */
+function useExhibitState(
+  frameRef: { readonly current: HTMLIFrameElement | null },
+  layout: CompositionLayout,
+  theme: ExhibitTheme,
+): () => void {
+  const themeHoldRef = useRef<(() => void) | null>(null);
+  useEffect(() => {
+    applyExhibitState(frameRef.current, layout, theme, themeHoldRef);
+    return () => {
+      themeHoldRef.current?.();
+      themeHoldRef.current = null;
+    };
+  }, [frameRef, layout, theme]);
+  return useCallback(() => {
+    applyExhibitState(frameRef.current, layout, theme, themeHoldRef);
+  }, [frameRef, layout, theme]);
+}
+
 export function CompositionStage(): ReactElement {
   const frameRef = useRef<HTMLIFrameElement>(null);
   const [layout, setLayout] = useState<CompositionLayout>('document');
   const [theme, setTheme] = useState<ExhibitTheme>('light');
-
-  useEffect(() => {
-    applyExhibitState(frameRef.current, layout, theme);
-  }, [layout, theme]);
+  const reapplyExhibit = useExhibitState(frameRef, layout, theme);
 
   const chooseLayout = useCallback((value: string): void => {
     if (isCompositionLayout(value)) {
@@ -136,9 +161,7 @@ export function CompositionStage(): ReactElement {
           ref={frameRef}
           src={FRAME_SRC}
           title="Region canvas — the same markup under every layout"
-          onLoad={() => {
-            applyExhibitState(frameRef.current, layout, theme);
-          }}
+          onLoad={reapplyExhibit}
         />
       </div>
     </>
