@@ -8,12 +8,11 @@ last_reviewed: 2026-08-17
 
 # The design-review rubric — v0.1
 
-Minted by the completion plan's W0.7 (the design-review instrument), revision
-**v0**, 2026-08-08; **re-homed 2026-08-17** under the ratified
-`design-showcase-experience` node (owner ruling — the minting sketch was
-stripped of authority; see that node's §"Where the owner-held verdicts are
-recorded"). **Revision v0.1 (2026-08-17, records-truth pass MCP-613,
-three cures — no new criteria):** criterion 3's reading-order clause narrowed
+Revision **v0** authored 2026-08-08; authority settled by owner ruling
+2026-08-17 (the minting sketch was stripped of authority the same day —
+this rubric's authority is the dated owner rulings its criteria cite,
+stated here self-contained). **Revision v0.1 (2026-08-17, records-truth
+pass MCP-613, three cures — no new criteria):** criterion 3's reading-order clause narrowed
 to the `--flow-*` levers, matching owner ruling R13 and the kit DECISIONS
 narrowing landed 2026-08-13 (the v0 clause blocked the region-contract
 recomposition the owner ruled a demonstrated virtue); criterion 5's
