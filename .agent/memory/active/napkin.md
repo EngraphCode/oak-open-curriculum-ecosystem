@@ -1362,3 +1362,44 @@ pinning-by-name, not sequencing-by-hope.
   landed) are one shape: a transition guarded by "the mover has moved",
   expressed declaratively instead of by timing. Candidate name if it
   recurs: the mover-has-moved guard.
+
+## 2026-08-19 ~14:1xZ — Director succession + the shared-index race (Avocet guards Updraft, 44e2ca, Director)
+
+- **Succession ran the two-moments shape cleanly** (PDR-064): standby
+  team-start 4d077b1b → Ocelot's Moment-1 adc480c2 (claim b1d00d68
+  CLOSED, at-rest handover, no adoption) → readiness gate pasted in
+  the Moment-2 broadcast 84e31e6e → own claim f04cd57b + heartbeat
+  pair. Owner-named successor = the authorisation; no re-ask.
+- **The shared-checkout index is a single mutable slot shared across
+  every seat's git, and `git commit` releases index.lock BEFORE its
+  pre-commit hook on an as-is commit, then RE-READS the index (and
+  MERGE_HEAD) after it.** Worked instance: Yarrow's `git add -- a b &&
+  git commit -F msg` started 14:08Z; the tree read clean and the lock
+  free at 14:11Z, so my `git merge --no-ff origin/main` wrote the merge
+  result into the index; my own merge commit stopped at commitlint
+  (subject too long), leaving MERGE_HEAD; their commit then landed as a
+  TWO-PARENT merge (e701d7869 + cacf23149, 14 files) under their docs
+  message. Content and ancestry correct; attribution unmarked. No undo
+  attempted — `merge --abort` would have reset their staged files
+  (git-reset --merge table, row "B B C C"), and the hook refuses the
+  index-reset family by design. Cure shape used: comms (directed
+  events to both peers) + a recorded ancestry note. Same generator
+  Ocelot named at freeze 3 (index-lock contention, no-pathspec sweeps,
+  push races): the cure is structural — per-seat worktrees for
+  coordination writes, or a revived commit-warden singleton — not a
+  fifth naming discipline. "A clean tree at T" is not "a free index at
+  T+ε" on a shared checkout.
+- **Self-caught false-red: `${PIPESTATUS[0]}` under zsh is empty**, so
+  a piped `pnpm install | tail` + grep for exit=0 read FAILED on a
+  successful install. exit-codes-in-band-never-piped, shell-dialect
+  edition: run the command alone, redirect (not pipe) to the log, read
+  `$?` of the command itself.
+- **Watcher backstop fires on schedule**: the `timeout 3600` wrapper
+  ended the canonical watcher at exactly 3600s (exit 124, no EXIT
+  line); re-armed on the exit notification, cursor intact, gap sweep
+  clean. Budget the re-arm into any Director window longer than an
+  hour; it is the designed backstop, not a defect.
+- **Hook-policy substring discipline bit a comms body**: a heredoc
+  body naming a destructive git command in prose was refused by the
+  write-hook. Author such bodies with the Write tool, or name the
+  concept without the command string.

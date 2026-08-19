@@ -969,3 +969,42 @@ Moment-1 event, open the Director claim, arm the heartbeat pair. Until
 that broadcast lands, routing authority remains with Ocelot's record;
 the owner is conducting and present, so the between-moments detection
 path is owner-held (cadence stays down per the standing stop order).
+
+## 2026-08-19 ~14:2xZ — SUCCESSION COMPLETE (Avocet guards Updraft, 44e2ca, Director): Moment 2, main merged in, primary rebuilt
+
+Moment 2 broadcast 84e31e6e (13:18Z) in response to Ocelot's Moment-1
+adc480c2; readiness gate pasted inside it (registry: Ocelot's b1d00d68
+ABSENT/closed; peer-liveness: Ocelot's heartbeat stopped by intent at
+12:49Z). Own Director claim f04cd57b opened `--role director` on the
+successor branch; heartbeat pair armed on it (comms + claims legs,
+240s, both read back advancing); canonical watcher (heartbeat-excluded)
+paired with the F-75 delta poll. Ocelot's directed ask 1e9f10f9 is
+discharged (their d20bd0a92 + succession commit reached the remote via
+Yarrow's 5da80c1b9 push); their closeout broadcast is outstanding at
+this write.
+
+First leg done: origin/main (cacf23149, release 1.175.0, #909) is IN
+`coordination/2026-08-19-1651ad` — the merge commit is `d2dd64b69`
+(parents e701d7869 + cacf23149; 14 files = Yarrow's two design records
+plus main's 12). Attribution note for the record: the merge landed under
+Yarrow's `docs(design): final tips at the handoff cut` message because
+my merge wrote the shared index while their as-is commit sat in its
+pre-commit hook and my own merge commit stopped at commitlint; git's
+post-hook re-read of index + MERGE_HEAD made theirs the merge commit.
+Content and ancestry correct; no undo attempted (risk-of-loss against a
+peer's staged files). Pushed at 14:15Z, remote tip read back; primary
+`pnpm install && pnpm build` green 14:17Z (FULL TURBO — the pre-push
+gate had built the tree). Broadcasts: window 08e99990, done (in reply).
+
+Estate at this write: Yarrow CLOSED OUT 14:13Z at owner word (handoff to
+a successor; claim 645b9e0b RETAINED with handoff record
+`645b9e0b-design-lane-merge-drive-2026-08-19.md`, pickup by adoption);
+design merge legs #908/#910/#912 at SETTLE-READY fall to the design
+successor (or this seat at settled under the owner's standing
+"green and clean → merged" word); their post-cut 4c3bebac7 rides the
+next push. Poppy DOWN. #913 provenance verified: emgeebot (Matt's
+warden seat), +39-line amendment to `pr-comments-resolve-and-recheck`,
+all checks green, unreviewed — a Practice-rule amendment awaiting a
+review round (route to an Implementer when one frees). #911: CodeQL
+FAILURE to disposition + binding rounds; #905: green, binding round.
+MCP-630 HELD at owner word. Board otherwise as the succession entry.
