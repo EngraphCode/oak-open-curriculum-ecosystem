@@ -1,3 +1,10 @@
+## [1.175.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.175.0...v1.175.1) (2026-08-20)
+
+
+### Bug Fixes
+
+* **mcp-http:** make ALLOWED_HOSTS additive so a new host cannot evict the old ([3913a19](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/3913a19ddea9a4f784c217f00a10ae63870e5915))
+
 # [1.175.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.174.0...v1.175.0) (2026-08-19)
 
 
