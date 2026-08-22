@@ -1,6 +1,6 @@
 # Research Documents Index
 
-**Last Updated**: 14 August 2026  
+**Last Updated**: 22 August 2026  
 **Purpose**: Permanent record of research, discoveries, and insights  
 **Maintained By**: AI agents and human collaborators
 
@@ -99,6 +99,7 @@ developer-experience inputs used to improve Oak's agentic engineering system.
 | Document | Purpose | Key Insights |
 |----------|---------|--------------|
 | **[agentic-engineering/](agentic-engineering/README.md)** | Agentic-engineering lane index | Theme-based routing for operating model, reviewer systems, safety/evidence, continuity, and graph-memory research |
+| [agentic-engineering/concept-intake/](agentic-engineering/concept-intake/README.md) | Concept inventory and candidate intake | Research-only catalogues; entries may restate current authority, which remains governed by canonical sources |
 | **[developer-experience/](developer-experience/)** | Developer-experience research index | Onboarding, enforcement, and external research guide |
 | ├─ [README.md](developer-experience/README.md) | Developer-experience index | Entry point for local DX research and the local novel repair lane |
 | ├─ [architectural-enforcement-playbook.md](developer-experience/architectural-enforcement-playbook.md) | Architectural enforcement | Guardrails, prompts, and enforcement posture |
