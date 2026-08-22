@@ -1,7 +1,7 @@
 name: CI
 
-# Quality-gate pipeline for PRs targeting main or engraph, and pushes to either branch.
-# parallel jobs so each gate reports as its own check and superseded PR runs
+# Quality-gate pipeline for PRs targeting main or engraph, and pushes to
+# either branch. Parallel jobs let each gate report independently, while superseded PR runs
 # cancel. A final `run-quality-gates` fan-in job is the single required status
 # check: it fails unless EVERY gate succeeded (so a failed, cancelled, or skipped
 # gate all block), so the branch ruleset and the Release workflow's
