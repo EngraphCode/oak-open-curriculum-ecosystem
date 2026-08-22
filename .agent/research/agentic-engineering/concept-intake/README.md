@@ -19,4 +19,4 @@ This lane makes potentially useful OCE concepts visible early enough to review, 
 | --- | --- | --- | --- |
 | 2026-08-22 | [OCE significant ideas catalogue](./2026-08-22-oce-significant-ideas-catalogue.md) | 197 materially distinct concepts plus deliberate refusals and negative learning | Discovery input only |
 
-Future weekly runs add one dated intake document and one index row. A successful run with no significant new or strengthening concept adds no empty document.
+Future weekly runs normally add one dated intake document and one index row. A run may split by theme or reviewer ownership only when that materially improves reviewability; it never splits one-for-one by candidate or triggering material. A successful run with no significant new or strengthening concept adds no empty document.
