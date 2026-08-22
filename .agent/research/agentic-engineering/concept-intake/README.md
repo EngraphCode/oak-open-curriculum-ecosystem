@@ -21,8 +21,9 @@ established doctrine; normative status must be resolved from current canonical s
 - Group entries by OCE theme, not by the circumstances of discovery.
 - Inclusion in this lane neither ratifies a candidate nor changes the standing of existing
   authority.
-- Move only an unratified concept into a plan, decision, Practice surface or implementation, and
-  only through that surface's normal authority and evidence process.
+- Move an unratified candidate into a plan, decision, Practice surface or implementation only
+  through that surface's normal authority and evidence process. Ratified doctrine follows its
+  canonical authority and delivery path.
 
 ## Intake index
 
