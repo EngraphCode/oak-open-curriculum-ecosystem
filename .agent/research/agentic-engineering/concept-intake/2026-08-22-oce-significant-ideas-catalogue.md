@@ -236,11 +236,11 @@ Scope anonymous identifiers to their parsing or source domain and retain named-c
 
 Language direction should survive construction, normalisation, statement identity, serialisation and canonicalisation. A format unable to carry it should reject the value or perform an explicitly authorised, loss-recorded lowering.
 
-### OCE-IDEA-055 — Define a complete quoted-statement and reifier contract
+### OCE-IDEA-055 — Define a complete triple-term and reifier contract
 
-Specify accepted statement-term grammar, nesting limits, assertion semantics, multiple reifiers and stage-by-stage preservation or refusal. The existence of a quoted statement does not itself assert it, and a reifying resource must not collapse into the statement or a projected edge.
+Specify accepted triple-term grammar, nesting limits, assertion semantics, multiple reifiers and stage-by-stage preservation or refusal. A triple term is not asserted unless its corresponding triple is separately asserted, and a reifier must remain distinct from both the triple term and any projected edge.
 
-**Standards provenance and local variation:** This adapts the [W3C RDF 1.2 Concepts and Abstract Data Model Candidate Recommendation Snapshot of 7 April 2026](https://www.w3.org/TR/2026/CR-rdf12-concepts-20260407/), specifically its triple-term, assertion and `rdf:reifies` semantics. “Quoted statement” is local shorthand for the current RDF 1.2 triple-term model, not a claim that an older RDF-star profile governs. OCE's contract is deliberately narrower and more operational: it adds accepted-grammar and nesting bounds, explicit multiple-reifier handling, stage-by-stage preservation or typed refusal, and identity separation from projected edges. It does not adopt a complete RDF 1.2 wire profile; ADR-173's standards tripwires continue to govern draft evolution.
+**Standards provenance and local variation:** Adapted from W3C [RDF 1.2 Concepts §1.5](https://www.w3.org/TR/2026/CR-rdf12-concepts-20260407/#section-triple-terms-reification), a 7 April 2026 Candidate Recommendation Snapshot: a triple term need not be asserted, `rdf:reifies` links it to a distinct reifier, and that relationship may be many-to-many. The proposed local form takes the document's [Full RDF 1.2 profile](https://www.w3.org/TR/2026/CR-rdf12-concepts-20260407/#conformance)—not its Basic profile or an older RDF-star quoted-triple vocabulary—as the semantic reference. It retains ADR-173's RDF 1.2-internal/RDF 1.1–JSON-LD 1.1-wire split and adds bounded accepted grammar, nesting and resource use, separate triple-term/reifier/projected-edge identity, and stage-by-stage round-trip or typed refusal/loss. Those bounds and projection rules are local rather than W3C semantics; RDF/JS shape and full RDF 1.2 wire support remain tripwire-gated.
 
 ### OCE-IDEA-056 — Support several graph capability profiles
 
