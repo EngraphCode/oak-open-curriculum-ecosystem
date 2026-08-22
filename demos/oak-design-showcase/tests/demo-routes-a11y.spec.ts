@@ -17,6 +17,13 @@ import { assertResolved } from './picker-stage';
 
 const ROUTES = ['/tokens', '/tokens/colours', '/composition'] as const;
 
+/**
+ * Axe over the dense colour-token matrix can exceed the generic 30-second UI
+ * bound on shared runners. Keep a finite route-suite bound without dropping
+ * assertions, retries, themes, viewports, or workers.
+ */
+const DEMO_ROUTE_A11Y_TIMEOUT_MS = 60_000;
+
 async function openRoute(page: Page, route: string): Promise<Set<string>> {
   const aborted = await interceptExternalOrigins(page);
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -48,6 +55,7 @@ async function expectNoHorizontalOverflow(page: Page): Promise<void> {
 }
 
 test.describe('demo routes: axe', () => {
+  test.describe.configure({ timeout: DEMO_ROUTE_A11Y_TIMEOUT_MS });
   for (const route of ROUTES) {
     for (const theme of ['light', 'dark'] as const) {
       test(`${route} × ${theme} has no WCAG 2.2 AA violations @a11y`, async ({ page }) => {
@@ -63,6 +71,7 @@ test.describe('demo routes: axe', () => {
 });
 
 test.describe('demo routes: reflow at 320px', () => {
+  test.describe.configure({ timeout: DEMO_ROUTE_A11Y_TIMEOUT_MS });
   test.use({ viewport: { width: 320, height: 900 } });
   for (const route of ROUTES) {
     test(`${route} reflows to 320px without loss @a11y`, async ({ page }) => {
