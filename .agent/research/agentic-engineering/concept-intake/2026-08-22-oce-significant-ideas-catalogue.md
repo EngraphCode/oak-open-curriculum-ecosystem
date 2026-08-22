@@ -240,6 +240,8 @@ Language direction should survive construction, normalisation, statement identit
 
 Specify accepted statement-term grammar, nesting limits, assertion semantics, multiple reifiers and stage-by-stage preservation or refusal. The existence of a quoted statement does not itself assert it, and a reifying resource must not collapse into the statement or a projected edge.
 
+**Standards provenance and local variation:** This adapts the [W3C RDF 1.2 Concepts and Abstract Data Model Candidate Recommendation Snapshot of 7 April 2026](https://www.w3.org/TR/2026/CR-rdf12-concepts-20260407/), specifically its triple-term, assertion and `rdf:reifies` semantics. “Quoted statement” is local shorthand for the current RDF 1.2 triple-term model, not a claim that an older RDF-star profile governs. OCE's contract is deliberately narrower and more operational: it adds accepted-grammar and nesting bounds, explicit multiple-reifier handling, stage-by-stage preservation or typed refusal, and identity separation from projected edges. It does not adopt a complete RDF 1.2 wire profile; ADR-173's standards tripwires continue to govern draft evolution.
+
 ### OCE-IDEA-056 — Support several graph capability profiles
 
 Use RDF dataset, property graph, directed multigraph and n-ary or hypergraph profiles for different tasks. Each should state what it preserves and loses; none should become the universal canonical representation.
