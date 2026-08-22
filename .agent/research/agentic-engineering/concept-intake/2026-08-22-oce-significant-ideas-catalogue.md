@@ -1,10 +1,18 @@
 # OCE significant ideas catalogue
 
-**Status:** discovery catalogue; unprioritised; not ratified
+**Status:** discovery catalogue; unprioritised; mixed and unclassified authority
 
-**Authority:** discovery input only; no doctrinal or implementation authority
+**Catalogue authority:** discovery and indexing only; this document creates no doctrinal or
+implementation authority
 
-This document consolidates the materially distinct ideas already developed for OCE. It is an idea estate, not an implementation backlog. Some entries are architectural principles, some are product or Practice capabilities, some are research questions or experiments, and some are deliberate non-goals. Closely related ideas remain separate where they answer different questions or protect different properties.
+This document consolidates the materially distinct ideas already developed for OCE. It is a
+concept inventory, not an implementation backlog. Entries have mixed relationships to current OCE
+authority: some restate existing doctrine or implemented contracts, some extend them, and some are
+unratified candidates, questions, experiments or non-goals. This catalogue does not classify those
+relationships entry by entry. Inclusion here neither ratifies a candidate nor demotes, supersedes
+or reopens established authority. Before consequential use, resolve an entry against the current
+authoritative surfaces under repository precedence; those sources govern. Closely related ideas
+remain separate where they answer different questions or protect different properties.
 
 ## 1. Product shape and operating model
 
@@ -845,4 +853,10 @@ The following are significant design decisions in their own right:
 
 ## 10. Catalogue use
 
-This catalogue is intentionally broader than an immediate plan. The next step for any item is one of: record only, merge with an existing OCE concept, investigate, run a bounded experiment, propose for planning, or explicitly reject. Selection should preserve the full catalogue so that ideas not chosen now remain discoverable without remaining operationally active.
+This catalogue is intentionally broader than an immediate plan. For any item, first resolve its
+relationship to current authority: whether it restates, extends, conflicts with or is not yet
+represented by that authority. A restatement remains governed by its canonical source and needs no
+promotion here. An unratified item may then be recorded only, merged with an existing OCE concept,
+investigated, tested through a bounded experiment, proposed through the normal planning or decision
+path, or explicitly rejected. Preserve the full catalogue so ideas not selected now remain
+discoverable without remaining operationally active.
