@@ -236,6 +236,8 @@ Scope anonymous identifiers to their parsing or source domain and retain named-c
 
 Language direction should survive construction, normalisation, statement identity, serialisation and canonicalisation. A format unable to carry it should reject the value or perform an explicitly authorised, loss-recorded lowering.
 
+**Standards basis and local adaptation:** Directional language-tagged strings come from [RDF 1.2 Concepts and Abstract Data Model §3.4 (7 April 2026 Candidate Recommendation Snapshot)](https://www.w3.org/TR/2026/CR-rdf12-concepts-20260407/#section-Graph-Literal). OCE extends that data-model distinction across construction, normalisation, statement identity, serialisation and canonicalisation, requiring typed refusal or an explicitly authorised, recorded lowering wherever the selected profile cannot preserve it; [ADR-173](../../../../docs/architecture/architectural-decisions/173-graph-stack-topology.md#standards-evolution-and-tripwires) governs the evolving RDF 1.2-internal/RDF 1.1-wire boundary.
+
 ### OCE-IDEA-055 — Define a complete triple-term and reifier contract
 
 Specify accepted triple-term grammar, nesting limits, assertion semantics, multiple reifiers and stage-by-stage preservation or refusal. A triple term is not asserted unless its corresponding triple is separately asserted, and a reifier must remain distinct from both the triple term and any projected edge.
@@ -762,7 +764,7 @@ Compare candidate corpora for the smallest end-to-end census-to-answer slice. St
 
 ### OCE-IDEA-183 — Identity and projection conformance corpus
 
-Exercise repeated occurrences, parallel relations, named contexts, relationship properties, quoted statements and role-bearing n-ary relations. Reject any design in which consequential collapse remains silent.
+Exercise repeated occurrences, parallel relations, named contexts, relationship properties, the triple-term and reifier cases defined by OCE-IDEA-055, and role-bearing n-ary relations. Reject any design in which consequential collapse remains silent.
 
 ### OCE-IDEA-184 — Direction and transport-parity trial
 
