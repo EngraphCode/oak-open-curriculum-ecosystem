@@ -274,3 +274,12 @@ pnpm practice:fitness:informational
 pnpm practice:vocabulary
 pnpm check
 ```
+
+## Claude cloud environment
+
+Cloud (claude.ai) sessions for this repo run in the shared "Practice Repos"
+environment: a universal setup script plus a per-repo session hook at
+`.agent/setup/cloud-session-setup.sh`. Read
+`.agent/claude-harness-integrations/cloud-environment.md` before changing
+either — the environment script's source of truth lives there, not in the
+claude.ai dialog.
