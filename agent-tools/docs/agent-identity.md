@@ -279,9 +279,11 @@ see step 3). The wiring is:
    description lives in
    [Developer Experience](../../docs/engineering/developer-experience.md).
 
-The adapter is a soft surface: missing input, missing build artefact,
-unparseable JSON, or any spawn failure exits 0 with empty stdout. The
-`OAK_AGENT_IDENTITY_OVERRIDE` env var still bypasses derivation when present.
+The adapter is a soft surface: missing or unparseable stdin exits 0 with an
+empty `{}` on stdout. Missing-build and spawn failures never reach the
+adapter — the shim in front of it handles those loudly (see the Claude Code
+`SessionStart` wiring below). The `OAK_AGENT_IDENTITY_OVERRIDE` env var
+still bypasses derivation when present.
 
 Session-id seeds produce deterministic session display identities. Persistent
 PDR-027 identity across sessions requires a deliberately persistent seed or an
@@ -296,10 +298,22 @@ session or resumes one. The harness pipes a JSON object on stdin containing
 
 1. `.claude/settings.json` declares a `SessionStart` hook entry running
    `.claude/hooks/practice-session-identity.mjs`.
-2. The shim resolves the built adapter at
-   `agent-tools/dist/src/bin/claude-session-identity-hook.js`. If the build
-   artefact is missing it prints `{}` and exits 0 — the harness sees no
-   `additionalContext` and the session continues normally.
+2. The shim captures stdin, then resolves the built adapter at
+   `agent-tools/dist/src/bin/claude-session-identity-hook.js`. On any shim
+   failure — build artefact missing (a fresh checkout before `pnpm install`),
+   spawn error, signal, or non-zero adapter exit — it fails open **loudly**:
+   it still exits 0 so the session continues, but first persists what it
+   can: when `$CLAUDE_ENV_FILE` is available (it reaches the hook process
+   only, never later shell calls) and the parsed `session_id` passes a
+   shell-safe allowlist, the shim appends the
+   `PRACTICE_AGENT_SESSION_ID_CLAUDE` export itself, so identity-dependent
+   tools work as soon as the build exists. It then emits a
+   `hookSpecificOutput.additionalContext` diagnostic naming the cause and
+   the recovery — `pnpm install` plus a confirmation command when the seed
+   was persisted, or an inline `PRACTICE_AGENT_SESSION_ID_CLAUDE='<seed>'`
+   command prefix when it could not be — mirrors the message to stderr, and
+   appends it to `.claude/logs/hook-errors.log`. On success it pipes the
+   captured stdin on to the adapter unchanged.
 3. The adapter parses stdin, derives the deterministic display name, appends
    `PRACTICE_AGENT_SESSION_ID_CLAUDE` and `OAK_AGENT_IDENTITY_OVERRIDE` export
    lines to the file path given in `$CLAUDE_ENV_FILE` (per the
@@ -312,9 +326,12 @@ session or resumes one. The harness pipes a JSON object on stdin containing
    (e.g. `pnpm agent-tools:agent-identity --format display`) resolves the
    same cached session identity without `--seed`.
 
-The hook is a soft surface: missing input, missing build artefact,
-unparseable JSON, or any spawn failure exits 0 with `{}` on stdout. The
-`OAK_AGENT_IDENTITY_OVERRIDE` env var still bypasses derivation when present.
+The hook remains a soft surface for the session — every failure path exits
+0 — but shim failures are loud, not silent: the diagnostic payload above
+replaces the former empty `{}`. Only missing or unparseable stdin that
+reaches the adapter still yields the adapter's own empty `{}`. The
+`OAK_AGENT_IDENTITY_OVERRIDE` env var still bypasses derivation when
+present.
 
 ### Codex thread-id wiring
 
