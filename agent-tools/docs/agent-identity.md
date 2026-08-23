@@ -302,12 +302,18 @@ session or resumes one. The harness pipes a JSON object on stdin containing
    `agent-tools/dist/src/bin/claude-session-identity-hook.js`. On any shim
    failure — build artefact missing (a fresh checkout before `pnpm install`),
    spawn error, signal, or non-zero adapter exit — it fails open **loudly**:
-   it still exits 0 so the session continues, but emits a
-   `hookSpecificOutput.additionalContext` diagnostic naming the cause and the
-   manual recovery (including the actual `session_id` seed parsed from the
-   captured stdin), mirrors the message to stderr, and appends it to
-   `.claude/logs/hook-errors.log`. On success it pipes the captured stdin on
-   to the adapter unchanged.
+   it still exits 0 so the session continues, but first persists what it
+   can: when `$CLAUDE_ENV_FILE` is available (it reaches the hook process
+   only, never later shell calls) and the parsed `session_id` passes a
+   shell-safe allowlist, the shim appends the
+   `PRACTICE_AGENT_SESSION_ID_CLAUDE` export itself, so identity-dependent
+   tools work as soon as the build exists. It then emits a
+   `hookSpecificOutput.additionalContext` diagnostic naming the cause and
+   the recovery — `pnpm install` plus a confirmation command when the seed
+   was persisted, or an inline `PRACTICE_AGENT_SESSION_ID_CLAUDE='<seed>'`
+   command prefix when it could not be — mirrors the message to stderr, and
+   appends it to `.claude/logs/hook-errors.log`. On success it pipes the
+   captured stdin on to the adapter unchanged.
 3. The adapter parses stdin, derives the deterministic display name, appends
    `PRACTICE_AGENT_SESSION_ID_CLAUDE` and `OAK_AGENT_IDENTITY_OVERRIDE` export
    lines to the file path given in `$CLAUDE_ENV_FILE` (per the

@@ -60,30 +60,61 @@ function readSessionId(text) {
   }
 }
 
-// Only a seed that is unambiguously shell-safe may be embedded in the
-// suggested command — stdin is external input, and the diagnostic must not
-// become a quote-injection vector.
+// Only a seed that is unambiguously shell-safe may be embedded in the env
+// file or a suggested command — stdin is external input, and neither surface
+// may become a quote-injection vector.
 const SAFE_SEED = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
 
-function recovery() {
+// CLAUDE_ENV_FILE is supplied to the hook process only, not to later Bash
+// tool calls — so the hook is the last party that can persist the seed.
+// Even on a failure path the raw seed needs no derivation; write it now.
+function persistSeed() {
+  const envFile = process.env.CLAUDE_ENV_FILE;
+  if (sessionId === undefined || !SAFE_SEED.test(sessionId)) {
+    return false;
+  }
+  if (envFile === undefined || envFile.trim().length === 0) {
+    return false;
+  }
+  try {
+    appendFileSync(envFile, `export PRACTICE_AGENT_SESSION_ID_CLAUDE='${sessionId}'\n`);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function recovery(seedPersisted) {
+  if (seedPersisted) {
+    return (
+      'The session seed WAS persisted: PRACTICE_AGENT_SESSION_ID_CLAUDE is exported via ' +
+      '$CLAUDE_ENV_FILE, so identity-dependent tools resolve it as soon as the build exists. ' +
+      'Recover with `pnpm install` at the repo root (the postinstall bootstrap builds ' +
+      'agent-tools/dist), then confirm with `pnpm agent-tools:agent-identity --format display`.'
+    );
+  }
   const embeddable = sessionId !== undefined && SAFE_SEED.test(sessionId);
   const seed = embeddable ? sessionId : '<session_id>';
   const seedNote = embeddable
     ? ''
     : ' (seed = the Claude Code session UUID; this hook received no usable session_id on stdin)';
   return (
-    'Recover with `pnpm install` at the repo root (the postinstall bootstrap builds ' +
-    'agent-tools/dist); the hook has already run and will not rerun, so then persist the seed ' +
-    'yourself — identity-dependent tools resolve it from the environment, not from --seed: ' +
-    `\`echo "export PRACTICE_AGENT_SESSION_ID_CLAUDE='${seed}'" >> "$CLAUDE_ENV_FILE"\`` +
+    'The seed could NOT be persisted ($CLAUDE_ENV_FILE was unavailable to the hook, and it ' +
+    'does not reach later shell calls). Recover with `pnpm install` at the repo root (the ' +
+    'postinstall bootstrap builds agent-tools/dist), then supply the seed inline on each ' +
+    'identity-dependent command: ' +
+    `\`PRACTICE_AGENT_SESSION_ID_CLAUDE='${seed}' pnpm agent-tools:agent-identity --format display\`` +
     seedNote +
-    '. Subsequent shell calls then resolve the identity normally — confirm with ' +
-    '`pnpm agent-tools:agent-identity --format display`.'
+    '.'
   );
 }
 
 function failOpen(reason) {
-  const message = `[Practice agent identity] Identity hook could not run — identity NOT derived, PRACTICE_AGENT_SESSION_ID_CLAUDE NOT exported. Cause: ${reason}. ${recovery()}`;
+  const seedPersisted = persistSeed();
+  const seedClause = seedPersisted
+    ? 'display identity NOT derived (seed exported)'
+    : 'identity NOT derived, PRACTICE_AGENT_SESSION_ID_CLAUDE NOT exported';
+  const message = `[Practice agent identity] Identity hook could not run — ${seedClause}. Cause: ${reason}. ${recovery(seedPersisted)}`;
   process.stderr.write(`${message}\n`);
   try {
     const logDir = resolve(repoRoot, '.claude', 'logs');
