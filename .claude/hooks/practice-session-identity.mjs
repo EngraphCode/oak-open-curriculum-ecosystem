@@ -10,13 +10,16 @@
  * the agent identity row.
  *
  * The shim captures stdin itself and pipes it on to the adapter: Claude Code
- * supplies the hook payload exactly once, and the failure diagnostic must be
- * able to name the actual `session_id` (the recovery seed) even when the
- * adapter never runs.
+ * supplies the hook payload exactly once, and the failure path must be able
+ * to persist and name the actual `session_id` seed even when the adapter
+ * never runs.
  *
  * Soft surface, loud failure: every failure path (missing build artefact,
  * spawn error, signal, non-zero child exit) still exits 0 so the hook never
- * disrupts the session — but instead of a silent `{}` it emits a
+ * disrupts the session — but instead of a silent `{}` it attempts to persist
+ * the seed to `$CLAUDE_ENV_FILE` while it still holds that hook-scoped path
+ * (best-effort: skipped without a shell-safe seed or an env-file path, and
+ * the append itself can fail — the diagnostic reflects the outcome), emits a
  * `hookSpecificOutput.additionalContext` diagnostic naming the cause and the
  * recovery, mirrors it to stderr, and appends it to
  * `.claude/logs/hook-errors.log`. Exit 0 is deliberate: the harness does not
@@ -24,7 +27,13 @@
  * (see `.claude/hooks/_lib/log-hook-errors.sh`), and `SessionStart` stdout is
  * only consumed on exit 0 — additionalContext is the one channel the session
  * is guaranteed to see. Same fail-open observability pattern as
- * `run-pretooluse-guard.mjs`; a log-write failure never changes the outcome.
+ * `run-pretooluse-guard.mjs` (registered in ADR-167 §Limitations 6).
+ *
+ * The failure-path decisions (seed parsing, shell-safety gating, persistence
+ * planning, diagnostic wording) live in — and are unit-tested as —
+ * `agent-tools/src/claude/session-identity-shim-decisions.ts`, committed
+ * source this shim imports directly (Node strips the types at runtime). This
+ * file stays thin IO wiring, the same shape as `run-pretooluse-guard.mjs`.
  */
 
 import { spawn } from 'node:child_process';
@@ -37,7 +46,6 @@ const repoRoot =
 const adapterPath = resolve(repoRoot, 'agent-tools/dist/src/bin/claude-session-identity-hook.js');
 
 const stdinText = readStdin();
-const sessionId = readSessionId(stdinText);
 
 function readStdin() {
   try {
@@ -47,74 +55,38 @@ function readStdin() {
   }
 }
 
-function readSessionId(text) {
-  try {
-    const parsed = JSON.parse(text);
-    if (typeof parsed !== 'object' || parsed === null || typeof parsed.session_id !== 'string') {
-      return undefined;
+// Load the fail-open plan logic from committed source, co-located with this
+// shim (the relative specifier resolves against this file, NOT
+// CLAUDE_PROJECT_DIR). Node strips the types at runtime. A dynamic import is
+// used so a load failure degrades to a minimal diagnostic instead of a
+// non-zero exit the harness would swallow.
+let planShimFailOpen;
+try {
+  ({ planShimFailOpen } =
+    await import('../../agent-tools/src/claude/session-identity-shim-decisions.ts'));
+} catch (error) {
+  planShimFailOpen = ({ cause }) => ({
+    messageWhenPersisted: '',
+    messageWhenNotPersisted:
+      '[Practice agent identity] Identity hook could not run — identity NOT derived, and its ' +
+      `decision module failed to load (${error.message}). Cause: ${cause}. Recover with ` +
+      '`pnpm install` at the repo root, then derive the identity by hand with ' +
+      '`pnpm agent-tools:agent-identity --seed "<session_id>" --format display`.',
+  });
+}
+
+function failOpen(cause) {
+  const plan = planShimFailOpen({ cause, stdinText, envFile: process.env.CLAUDE_ENV_FILE });
+  let persisted = false;
+  if (plan.envFileWrite !== undefined) {
+    try {
+      appendFileSync(plan.envFileWrite.absolutePath, plan.envFileWrite.appendLine);
+      persisted = true;
+    } catch {
+      // Persistence is best-effort; the message reflects the actual outcome.
     }
-    const trimmed = parsed.session_id.trim();
-    return trimmed.length === 0 ? undefined : trimmed;
-  } catch {
-    return undefined;
   }
-}
-
-// Only a seed that is unambiguously shell-safe may be embedded in the env
-// file or a suggested command — stdin is external input, and neither surface
-// may become a quote-injection vector.
-const SAFE_SEED = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
-
-// CLAUDE_ENV_FILE is supplied to the hook process only, not to later Bash
-// tool calls — so the hook is the last party that can persist the seed.
-// Even on a failure path the raw seed needs no derivation; write it now.
-function persistSeed() {
-  const envFile = process.env.CLAUDE_ENV_FILE;
-  if (sessionId === undefined || !SAFE_SEED.test(sessionId)) {
-    return false;
-  }
-  if (envFile === undefined || envFile.trim().length === 0) {
-    return false;
-  }
-  try {
-    appendFileSync(envFile, `export PRACTICE_AGENT_SESSION_ID_CLAUDE='${sessionId}'\n`);
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function recovery(seedPersisted) {
-  if (seedPersisted) {
-    return (
-      'The session seed WAS persisted: PRACTICE_AGENT_SESSION_ID_CLAUDE is exported via ' +
-      '$CLAUDE_ENV_FILE, so identity-dependent tools resolve it as soon as the build exists. ' +
-      'Recover with `pnpm install` at the repo root (the postinstall bootstrap builds ' +
-      'agent-tools/dist), then confirm with `pnpm agent-tools:agent-identity --format display`.'
-    );
-  }
-  const embeddable = sessionId !== undefined && SAFE_SEED.test(sessionId);
-  const seed = embeddable ? sessionId : '<session_id>';
-  const seedNote = embeddable
-    ? ''
-    : ' (seed = the Claude Code session UUID; this hook received no usable session_id on stdin)';
-  return (
-    'The seed could NOT be persisted ($CLAUDE_ENV_FILE was unavailable to the hook, and it ' +
-    'does not reach later shell calls). Recover with `pnpm install` at the repo root (the ' +
-    'postinstall bootstrap builds agent-tools/dist), then supply the seed inline on each ' +
-    'identity-dependent command: ' +
-    `\`PRACTICE_AGENT_SESSION_ID_CLAUDE='${seed}' pnpm agent-tools:agent-identity --format display\`` +
-    seedNote +
-    '.'
-  );
-}
-
-function failOpen(reason) {
-  const seedPersisted = persistSeed();
-  const seedClause = seedPersisted
-    ? 'display identity NOT derived (seed exported)'
-    : 'identity NOT derived, PRACTICE_AGENT_SESSION_ID_CLAUDE NOT exported';
-  const message = `[Practice agent identity] Identity hook could not run — ${seedClause}. Cause: ${reason}. ${recovery(seedPersisted)}`;
+  const message = persisted ? plan.messageWhenPersisted : plan.messageWhenNotPersisted;
   process.stderr.write(`${message}\n`);
   try {
     const logDir = resolve(repoRoot, '.claude', 'logs');
