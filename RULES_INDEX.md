@@ -181,6 +181,7 @@ start; a situational rule loads at its trigger's moment.
 | `.agent/rules/oak-chrome-session-is-metered.md`                            | situational    | tool:chrome-browser                                                                                |
 | `.agent/rules/owner-attention-at-action-moments.md`                        | core           | —                                                                                                  |
 | `.agent/rules/pr-comments-resolve-and-recheck.md`                          | situational    | ceremony:pr-lifecycle                                                                              |
+| `.agent/rules/pr-target-is-engraph.md`                                     | core           | —                                                                                                  |
 | `.agent/rules/per-user-memory-is-a-buffer.md`                              | core           | —                                                                                                  |
 | `.agent/rules/permanent-doc-is-the-consolidation-record.md`                | core           | —                                                                                                  |
 | `.agent/rules/ping-before-escalate.md`                                     | situational    | session:team                                                                                       |
