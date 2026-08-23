@@ -16,8 +16,10 @@
  *
  * Soft surface, loud failure: every failure path (missing build artefact,
  * spawn error, signal, non-zero child exit) still exits 0 so the hook never
- * disrupts the session — but instead of a silent `{}` it persists the seed to
- * `$CLAUDE_ENV_FILE` while it still holds that hook-scoped path, emits a
+ * disrupts the session — but instead of a silent `{}` it attempts to persist
+ * the seed to `$CLAUDE_ENV_FILE` while it still holds that hook-scoped path
+ * (best-effort: skipped without a shell-safe seed or an env-file path, and
+ * the append itself can fail — the diagnostic reflects the outcome), emits a
  * `hookSpecificOutput.additionalContext` diagnostic naming the cause and the
  * recovery, mirrors it to stderr, and appends it to
  * `.claude/logs/hook-errors.log`. Exit 0 is deliberate: the harness does not

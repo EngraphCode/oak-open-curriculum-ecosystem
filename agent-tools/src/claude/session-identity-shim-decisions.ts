@@ -132,8 +132,9 @@ export function planShimFailOpen(input: {
     'agent-tools/dist), then confirm with `pnpm agent-tools:agent-identity --format display`.';
 
   const notPersistedRecovery =
-    'The seed could NOT be persisted ($CLAUDE_ENV_FILE was unavailable to the hook, and it ' +
-    'does not reach later shell calls). Recover with `pnpm install` at the repo root (the ' +
+    'The seed could NOT be persisted — the hook received no shell-safe session_id seed, held ' +
+    'no $CLAUDE_ENV_FILE path, or the env-file append itself failed; the path does not reach ' +
+    'later shell calls, so there is no retry surface. Recover with `pnpm install` at the repo root (the ' +
     'postinstall bootstrap builds agent-tools/dist), then supply the seed inline on each ' +
     'identity-dependent command: ' +
     `\`PRACTICE_AGENT_SESSION_ID_CLAUDE='${seed}' pnpm agent-tools:agent-identity --format display\`` +
