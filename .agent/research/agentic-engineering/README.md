@@ -49,6 +49,7 @@ sources without turning research notes into a second canon.
 
 | Lane | Best for | Starting points |
 | --- | --- | --- |
+| [concept-intake/README.md](./concept-intake/README.md) | Mixed-authority concept inventory and unratified candidate intake; normative status comes from canonical sources | significant ideas catalogue, dated weekly intake |
 | [operating-model-and-platforms/README.md](./operating-model-and-platforms/README.md) | Workbench model, platform surfaces, portability context | workbench topology, surface matrix, adapter formats |
 | [governance-planes-and-supervision/README.md](./governance-planes-and-supervision/README.md) | Repo governance planes, trust boundaries, runtime supervision | governance-plane note, mechanism-gap baseline, promoted synthesis |
 | [reviewer-systems-and-discoverability/README.md](./reviewer-systems-and-discoverability/README.md) | Reviewer gateway, discoverability, onboarding path | reviewer-gateway plan, staged reviewer notes, onboarding review |
