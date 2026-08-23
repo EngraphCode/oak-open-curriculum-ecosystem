@@ -18,6 +18,12 @@ established doctrine; normative status must be resolved from current canonical s
 - Include significance, a boundary or non-goal, and a falsifier or cheapest discriminating probe
   where the entry is developed enough to support them.
 - Preserve materially distinct alternatives and tensions; merge only true semantic duplicates.
+- Treat source-neutral expression and deduplication as publication controls, never a novelty
+  ceiling. Preserve genuinely new directions and fundamental reframings as unratified candidates;
+  explore whether and how they could be used in separate repo-grounded
+  [metacognition](../../../skills/cognition/metacognition/SKILL-CANONICAL.md) and
+  [concept-exploration](../../../skills/cognition/concept-exploration/SKILL-CANONICAL.md) sessions
+  while reserving every use decision to the destination surface's normal authority process.
 - Group entries by OCE theme, not by the circumstances of discovery.
 - Inclusion in this lane neither ratifies a candidate nor changes the standing of existing
   authority.
@@ -30,6 +36,7 @@ established doctrine; normative status must be resolved from current canonical s
 | Date | Document | Contents | Authority |
 | --- | --- | --- | --- |
 | 2026-08-22 | [OCE significant ideas catalogue](./2026-08-22-oce-significant-ideas-catalogue.md) | 197 materially distinct concepts plus deliberate refusals and negative learning | Mixed/unclassified; catalogue adds no authority |
+| 2026-08-23 | [OCE concept intake](./2026-08-23-concept-intake.md) | 10 source-neutral discovery candidates across conformance, coordination, learning, assurance, experimentation, continuity and execution evidence | Discovery input; no doctrinal authority |
 
 Future weekly runs normally add one dated intake document and one index row. A run may split by
 theme or reviewer ownership only when that materially improves reviewability; it never splits
