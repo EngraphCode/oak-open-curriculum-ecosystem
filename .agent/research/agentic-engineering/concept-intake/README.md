@@ -36,7 +36,7 @@ established doctrine; normative status must be resolved from current canonical s
 | Date | Document | Contents | Authority |
 | --- | --- | --- | --- |
 | 2026-08-22 | [OCE significant ideas catalogue](./2026-08-22-oce-significant-ideas-catalogue.md) | 197 materially distinct concepts plus deliberate refusals and negative learning | Mixed/unclassified; catalogue adds no authority |
-| 2026-08-23 | [OCE concept intake](./2026-08-23-concept-intake.md) | 10 source-neutral discovery candidates across conformance, coordination, learning, assurance, experimentation, continuity and execution evidence | Discovery input; no doctrinal authority |
+| 2026-08-23 | [OCE concept intake](./2026-08-23-concept-intake.md) | 12 source-neutral discovery candidates across conformance, coordination, learning, assurance, experimentation, continuity, execution evidence and executable-state authority | Discovery input; no doctrinal authority |
 
 Future weekly runs normally add one dated intake document and one index row. A run may split by
 theme or reviewer ownership only when that materially improves reviewability; it never splits

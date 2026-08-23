@@ -334,6 +334,8 @@ normal authority process decides.
 - **Status:** discovery input
 - **Relationship to current authority:** `candidate`. It develops transformation loss in
   [OCE-IDEA-043](./2026-08-22-oce-significant-ideas-catalogue.md#oce-idea-043--treat-loss-as-part-of-transformation-identity),
+  generation manifests in
+  [OCE-IDEA-064](./2026-08-22-oce-significant-ideas-catalogue.md#oce-idea-064--define-an-immutable-generation-manifest),
   historical-versus-current state in
   [OCE-IDEA-114](./2026-08-22-oce-significant-ideas-catalogue.md#oce-idea-114--separate-historical-truth-from-current-applicability),
   failure duals in
@@ -344,27 +346,39 @@ normal authority process decides.
   last known value as historical evidence but publish a separate freshness or maintenance-state
   transition to its declared affected dependants. The unchanged value keeps its original observation
   and validity clocks; consumers receive the failure qualifier and choose under policy whether to
-  stop, degrade or continue with an explicit old-as-of value.
+  stop, degrade or continue with an explicit old-as-of value. Absence observed through a replica,
+  projection or worker becomes deletion only when that observer proves complete possession of the
+  applicable source generation and terminal traversal under the same scope. Failed delivery,
+  restart, filtered or partial traversal and unknown generation remain typed non-observations.
 - **What becomes possible and why it matters:** a stable content identity can no longer hide loss of
   evidentiary warrant. OCE can keep useful last-known material available without letting dependent
-  decisions mistake failed maintenance for confirmation that nothing changed.
+  decisions mistake failed maintenance for confirmation that nothing changed, or letting an empty
+  worker erase authoritative state it never proved it possessed.
 - **OCE fit, tension or latent composition:** this composes multiple clocks, applicability and typed
-  failure propagation. The tension is amplification: one transient upstream fault can wake many
-  consumers or create alert storms even when none requires immediate action.
+  failure propagation, and turns generation identity into mutation warrant rather than only read
+  consistency. The tensions are amplification and liveness: one transient upstream fault can wake
+  many consumers, while deletion must wait when complete possession cannot be proved.
 - **OCE-local motivating condition:** derived OCE views and learning evidence may remain byte-for-byte
-  stable across a failed refresh. Their dependants still need to know that currency is now unknown
-  or outside its warranted interval.
+  stable across a failed refresh, and disposable workers may reconcile retrieved or derived output
+  back into durable evidence and status surfaces. Their dependants still need to know that currency
+  is now unknown, and missing output is not always evidence that the source item disappeared.
 - **Boundary, risk and what must not be inherited:** a refresh failure does not make the historical
   value false, require destructive deletion or justify indiscriminate retries. Propagation should
   be deduplicated, purpose-limited and severity-aware, and sensitive failure detail may remain behind
-  an access-controlled reference.
+  an access-controlled reference. A generation label alone is not proof of possession: bind the
+  corpus, scope, exclusions, completion and reader. A compatibility mode unable to prove those terms
+  is explicit degraded protection and cannot emit deletion.
 - **Cheapest discriminating probe:** give two fixture consumers different freshness tolerances, then
   expire the same upstream evidence and inject a failed refresh without changing its value. Require
-  both to observe one qualified transition while only the stricter consumer stops; recover once and
-  prove the qualifier closes without duplicating the underlying value.
+  both to observe one qualified transition while only the stricter consumer stops. Separately send a
+  three-item generation to a worker, then exercise failed delivery, restart, authorised filtering,
+  partial traversal, real deletion after complete possession and a late older generation. Only the
+  real same-generation deletion may erase state; every other absence preserves the prior value with
+  a distinct qualifier.
 - **Falsifier or stop condition:** merge into existing evidence-quality contracts if every consumer
-  already checks current health and validity independently before use. Stop if propagation changes
-  no decision, or if bounded polling is cheaper and equally reliable for every actual consumer.
+  already checks current health and validity independently before use and every destructive
+  reconciliation requires complete same-generation possession plus terminal traversal. Stop if
+  propagation changes no decision, or if any empty-but-unproven worker can still erase durable state.
 - **Likely OCE home:** evidence-quality and dependency research; a small multi-consumer failure
   fixture before any general eventing mechanism.
 
@@ -426,6 +440,8 @@ normal authority process decides.
   [OCE-IDEA-118](./2026-08-22-oce-significant-ideas-catalogue.md#oce-idea-118--give-prospective-memory-terminal-semantics)
   and multiple clocks in
   [OCE-IDEA-113](./2026-08-22-oce-significant-ideas-catalogue.md#oce-idea-113--give-consequential-records-multiple-clocks),
+  and materially strengthens typed episodic memory in
+  [OCE-IDEA-116](./2026-08-22-oce-significant-ideas-catalogue.md#oce-idea-116--use-typed-episodic-memory),
   alongside the explicitly proposed-only action-trace exploration recorded in
   [ADR-181](../../../../docs/architecture/architectural-decisions/181-agent-team-start-and-action-log.md);
   it does not adopt that deferred surface.
@@ -433,27 +449,141 @@ normal authority process decides.
   provides independently retrievable terminal evidence. Progress exposes sequence gaps; reconnect
   resumes by execution identity rather than resubmitting the effect; and every partial result retains
   its failed, incomplete or cancelled qualifier. Event, status and error projections reconcile to
-  one canonical terminal state for a declared availability horizon.
+  one canonical terminal state for a declared availability horizon. Bind that execution or episode
+  to purpose-bounded pre-action and post-action workspace-state identities and a declared capture
+  contract. A repository revision is sufficient only when relevant state is proven clean and fully
+  contained by it; mutable state needs an identified manifest or patch over relevant tracked,
+  staged, untracked and nested-repository surfaces, with exclusions and unavailable dimensions
+  explicit. Producer sequence and storage sequence remain distinct, and dropped, failed,
+  deliberately omitted and unknown intervals remain first-class gap states.
 - **What becomes possible and why it matters:** a client can disconnect and miss updates without
   promoting a partial stream to complete execution evidence or repeating the underlying operation.
-  Later review can recover how the execution ended even when the live presentation is gone.
+  Later review can recover how the execution ended, determine which bytes it actually observed and
+  distinguish a complete quiet interval from missing capture even when the live presentation is
+  gone.
 - **OCE fit, tension or latent composition:** this composes transport parity, terminal-state
-  semantics and evidence identity. The tension is retention and privacy cost: terminal evidence
-  should remain purpose-limited and need not preserve every live update or sensitive payload.
+  semantics, evidence identity and exact mutable-state binding. The tension is retention, capture
+  cost and privacy: exactness should use minimal manifests or protected references rather than
+  indiscriminate workspace, transcript or payload retention.
 - **OCE-local motivating condition:** agent work crosses interactive and asynchronous transports,
-  and consequential operations may outlive the connection that started them. Stream availability
-  and exact recovery therefore have different evidence obligations.
+  and consequential operations may outlive the connection that started them. Concurrent edits,
+  staging, untracked files, worktrees and nested repositories can also change independently of
+  `HEAD`. Stream availability, exact workspace state and capture coverage therefore have different
+  evidence obligations.
 - **Boundary, risk and what must not be inherited:** terminal evidence proves transport recovery and
-  recorded execution state, not plan acceptance, correct outcome or artefact provenance. Retention,
-  access withdrawal and deletion use governed lifecycle actions; an expired record leaves only the
-  minimum tombstone required to prevent accidental replay or false recovery claims.
+  recorded execution state, not plan acceptance, correct outcome, authority or artefact provenance.
+  A state hash proves identity, not meaning. Do not collect ignored secrets or full content when a
+  purpose-bounded manifest, patch or access-controlled reference suffices. Capture failure leaves a
+  partial or unknown record where possible; contiguous stored sequence never proves complete producer
+  coverage. Retention, access withdrawal and deletion use governed lifecycle actions.
 - **Cheapest discriminating probe:** run one fixture execution, drop and reorder live updates, then
   disconnect before termination. Reconnect by execution identity; require visible gaps, no repeated
   effect, one retrievable terminal state and inheritance of its non-success qualifier by every
-  partial result. Inject a conflicting event/status/error projection and require one typed conflict;
-  after the declared horizon, require governed unavailability plus the minimum anti-replay marker.
+  partial result. From the same `HEAD`, branch and `dirty=true` state, run two actions over different
+  tracked and untracked bytes and require distinct workspace identities. Change state between
+  subreads and require retry or a typed non-atomic result; kill one producer hook and corrupt one
+  append tail, then require two distinct gap states. After the declared horizon, require governed
+  unavailability plus the minimum anti-replay marker.
 - **Falsifier or stop condition:** stop if current action-log and transport contracts already provide
-  the same gap visibility, reconnect and terminal recovery, or if no actual execution outlives its
-  live connection.
+  the same gap visibility, reconnect, terminal recovery, exact mutable pre/post state and separate
+  producer-versus-storage coverage under a privacy-bounded contract. Stop if two materially different
+  relevant workspaces or a missing producer event remain observationally identical.
 - **Likely OCE home:** agent-tools execution and evidence research; a contract proposal only after a
-  two-transport fault fixture.
+  two-transport, dirty-tree and dropped-producer fault fixture.
+
+## Authority at executable boundaries
+
+### OCE-IDEA-208 — Materialise live capability only at the authorised effect boundary
+
+- **Status:** discovery input
+- **Relationship to current authority:** `candidate`. It composes
+  [OCE-IDEA-199](#oce-idea-199--keep-coordination-visibility-separate-from-actuation-authority),
+  [OCE-IDEA-201](#oce-idea-201--give-review-workers-capability-wise-least-authority),
+  [OCE-IDEA-204](#oce-idea-204--revalidate-persistent-work-at-every-activation) and
+  [OCE-IDEA-206](#oce-idea-206--fail-closed-on-unrecognised-consequential-controls). It adds a
+  distinct spatial and temporal invariant without changing current authority.
+- **OCE-native idea:** give a less-trusted worker only inert handles or compatibility affordances,
+  not live authority. At a separate trusted effect boundary, bind the exact principal, operation,
+  target, arguments, current policy and approval, resource envelope and expiry. Only after every
+  blocking term is positively resolved may the minimum live capability be materialised and attached
+  to that one downstream effect. Missing, stale, contradictory or unknown terms refuse before
+  provider read, decryption, minting, attachment or dispatch. Revocation invalidates pending handles.
+  Receipts record policy evaluation, materialisation, attachment, dispatch and terminal result as
+  distinct events; none is inferred from another.
+- **What becomes possible and why it matters:** workers can use existing clients and connected tools
+  without carrying ambient live credentials or broad capability in their environment, files or
+  runtime. Denied work can be shown to have caused no privilege-creation side effect, while allowed
+  effects remain bound to a narrow current decision.
+- **OCE fit, tension or latent composition:** this develops least authority from a static permission
+  description into an effect-time contract. The tension is concentration: the trusted effect adapter
+  can become a more valuable and more ambient authority than any worker, while compatibility shims
+  can hide semantic mismatches.
+- **OCE-local motivating condition:** an OCE work session can combine repository access, private
+  context and connected-tool affordances. Capability-wise restriction alone does not say whether live
+  privilege was already fetched, minted or exposed before approval, policy, revocation or target
+  checks stopped an effect.
+- **Boundary, risk and what must not be inherited:** sandbox presence, mediated routing, placeholder
+  shape or successful policy evaluation does not prove worker non-possession or enforcement. The
+  trusted boundary must not become an unaudited super-principal, permit direct-egress bypass, expose
+  raw capability to extension code, cache authority beyond its lease or bind a capability to an
+  ambiguous target. A receipt neither repairs premature materialisation nor proves a correct outcome.
+- **Cheapest discriminating probe:** give a fixture worker an inert compatibility handle, no direct
+  network route and no secret-readable surface. Instrument provider read, decryption, minting,
+  attachment and upstream receipt separately. Exercise an allowed request; explicit block; declined
+  and stale approval; revoked grant; missing or unknown identity/policy; wrong path; target rewrite;
+  provider failure; and direct-egress attempt. Every refusal must show zero live materialisation and
+  zero dispatch; the allowed case must bind minimum capability to the exact effect without exposing
+  it to the worker.
+- **Falsifier or stop condition:** merge into an accepted runtime contract if it already proves these
+  properties across every supported effect transport with denial-side-effect counters. Otherwise
+  stop if the boundary cannot be isolated without equivalent-or-greater ambient exposure, or if
+  measured materialisation timing changes no revocation, disclosure, provider-side-effect or audit
+  outcome.
+- **Likely OCE home:** provider-independent agent-tools capability and effect-contract research; no
+  implementation proposal before a negative fixture distinguishes current behaviour from the
+  proposed invariant.
+
+### OCE-IDEA-209 — Treat portable executable artefacts as inert until locally rebound
+
+- **Status:** discovery input
+- **Relationship to current authority:** `candidate`. It composes distinct identity layers in
+  [OCE-IDEA-028](./2026-08-22-oce-significant-ideas-catalogue.md#oce-idea-028--keep-identity-layers-distinct),
+  interoperable envelopes in
+  [OCE-IDEA-111](./2026-08-22-oce-significant-ideas-catalogue.md#oce-idea-111--interoperate-through-a-small-envelope-with-specialised-payloads),
+  purpose and standing in
+  [OCE-IDEA-131](./2026-08-22-oce-significant-ideas-catalogue.md#oce-idea-131--carry-purpose-consent-and-standing-with-relevant-memory),
+  and the current-state checks in
+  [OCE-IDEA-203](#oce-idea-203--make-durable-state-reach-an-explicit-authority-relation) and
+  [OCE-IDEA-204](#oce-idea-204--revalidate-persistent-work-at-every-activation).
+- **OCE-native idea:** when executable or effect-describing material crosses an authority boundary,
+  preserve its content, provenance, declared requirements and applicable constraints, but do not
+  transfer grants, credentials, approvals, leases, schedules, runtime handles or deployment-local
+  identity. Admit it under a fresh local identity and keep it effect-ineligible until the receiving
+  context creates a current binding for the exact principal, content revision, capability, target and
+  policy revision. Recheck that binding at activation.
+- **What becomes possible and why it matters:** OCE can exchange reusable workflows, plans, agent
+  bundles and generated tools without making portability an ambient-authority channel. Reviewers can
+  distinguish what material requests from what the receiving context currently authorises.
+- **OCE fit, tension or latent composition:** this joins provenance-preserving exchange to temporal
+  authority. Deliberate rebinding adds friction and can make a portable artefact appear broken until
+  its requirements are resolved.
+- **OCE-local motivating condition:** OCE already carries plans, evidence packets, skills,
+  prospective work and provider-independent capability descriptions across sessions and hosts. Some
+  can describe or eventually trigger effects even when their carrier is only data.
+- **Boundary, risk and what must not be inherited:** signatures, producer reputation, prior success
+  and matching content hashes establish no current permission. Do not discard provenance, licence,
+  correction state or legitimate use constraints while stripping authority. Requested capabilities
+  may travel only as visibly unresolved requirements. A fresh identifier is insufficient if an
+  authority lookup still keys on transferable fields.
+- **Cheapest discriminating probe:** export a fixture artefact carrying forged identity, grant,
+  schedule, runtime and lineage fields plus legitimate provenance and capability requirements. Import
+  it into a different work context. Require fresh local identity, preserved provenance, zero inherited
+  ability to act and a typed unresolved-requirements list. Create one exact local binding, then change
+  principal, content revision and policy in turn; only the unchanged bound case may act, and every
+  refusal must leave a receipt.
+- **Falsifier or stop condition:** merge into an accepted contract if it already strips all
+  transferable authority state, binds any reacquired capability to the exact receiving context and
+  content revision, and rechecks it on activation. Stop if a supposedly inert form can still select
+  credentials, grants, schedules or effect targets without a new local decision.
+- **Likely OCE home:** interoperable execution and authority research; no runtime adoption before a
+  hostile import-and-rebinding fixture demonstrates the boundary.
