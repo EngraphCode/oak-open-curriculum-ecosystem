@@ -9,6 +9,11 @@
  * the deterministic seed, and prints a `hookSpecificOutput` payload carrying
  * the agent identity row.
  *
+ * The shim captures stdin itself and pipes it on to the adapter: Claude Code
+ * supplies the hook payload exactly once, and the failure diagnostic must be
+ * able to name the actual `session_id` (the recovery seed) even when the
+ * adapter never runs.
+ *
  * Soft surface, loud failure: every failure path (missing build artefact,
  * spawn error, signal, non-zero child exit) still exits 0 so the hook never
  * disrupts the session — but instead of a silent `{}` it emits a
@@ -23,7 +28,7 @@
  */
 
 import { spawn } from 'node:child_process';
-import { appendFileSync, existsSync, mkdirSync } from 'node:fs';
+import { appendFileSync, existsSync, mkdirSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -31,13 +36,47 @@ const repoRoot =
   process.env.CLAUDE_PROJECT_DIR ?? resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const adapterPath = resolve(repoRoot, 'agent-tools/dist/src/bin/claude-session-identity-hook.js');
 
-const RECOVERY =
-  'Recover with `pnpm install` at the repo root (the postinstall bootstrap builds agent-tools/dist), ' +
-  'or derive the identity by hand: `pnpm agent-tools:agent-identity --seed "<session_id>" --format display` ' +
-  '(seed = the Claude Code session UUID).';
+const stdinText = readStdin();
+const sessionId = readSessionId(stdinText);
+
+function readStdin() {
+  try {
+    return readFileSync(0, 'utf8');
+  } catch {
+    return '';
+  }
+}
+
+function readSessionId(text) {
+  try {
+    const parsed = JSON.parse(text);
+    if (typeof parsed !== 'object' || parsed === null || typeof parsed.session_id !== 'string') {
+      return undefined;
+    }
+    const trimmed = parsed.session_id.trim();
+    return trimmed.length === 0 ? undefined : trimmed;
+  } catch {
+    return undefined;
+  }
+}
+
+function recovery() {
+  const seed = sessionId === undefined ? '<session_id>' : sessionId;
+  const seedNote =
+    sessionId === undefined
+      ? ' (seed = the Claude Code session UUID; this hook received no usable session_id on stdin)'
+      : '';
+  return (
+    'Recover with `pnpm install` at the repo root (the postinstall bootstrap builds ' +
+    'agent-tools/dist) and then derive the identity by hand — the hook has already run and ' +
+    `will not rerun: \`pnpm agent-tools:agent-identity --seed "${seed}" --format display\`` +
+    seedNote +
+    '.'
+  );
+}
 
 function failOpen(reason) {
-  const message = `[Practice agent identity] Identity hook could not run — identity NOT derived, PRACTICE_AGENT_SESSION_ID_CLAUDE NOT exported. Cause: ${reason}. ${RECOVERY}`;
+  const message = `[Practice agent identity] Identity hook could not run — identity NOT derived, PRACTICE_AGENT_SESSION_ID_CLAUDE NOT exported. Cause: ${reason}. ${recovery()}`;
   process.stderr.write(`${message}\n`);
   try {
     const logDir = resolve(repoRoot, '.claude', 'logs');
@@ -61,7 +100,7 @@ if (!existsSync(adapterPath)) {
 }
 
 const child = spawn(process.execPath, [adapterPath], {
-  stdio: ['inherit', 'inherit', 'inherit'],
+  stdio: ['pipe', 'inherit', 'inherit'],
 });
 
 child.on('error', (error) => {
@@ -77,3 +116,9 @@ child.on('exit', (code, signal) => {
   }
   process.exit(0);
 });
+
+// Forward the captured payload; the adapter reads it as its own stdin. An
+// early child exit makes the pipe write fail — swallow it, the exit handler
+// carries the verdict.
+child.stdin.on('error', () => {});
+child.stdin.end(stdinText);
