@@ -60,18 +60,25 @@ function readSessionId(text) {
   }
 }
 
+// Only a seed that is unambiguously shell-safe may be embedded in the
+// suggested command — stdin is external input, and the diagnostic must not
+// become a quote-injection vector.
+const SAFE_SEED = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
+
 function recovery() {
-  const seed = sessionId === undefined ? '<session_id>' : sessionId;
-  const seedNote =
-    sessionId === undefined
-      ? ' (seed = the Claude Code session UUID; this hook received no usable session_id on stdin)'
-      : '';
+  const embeddable = sessionId !== undefined && SAFE_SEED.test(sessionId);
+  const seed = embeddable ? sessionId : '<session_id>';
+  const seedNote = embeddable
+    ? ''
+    : ' (seed = the Claude Code session UUID; this hook received no usable session_id on stdin)';
   return (
     'Recover with `pnpm install` at the repo root (the postinstall bootstrap builds ' +
-    'agent-tools/dist) and then derive the identity by hand — the hook has already run and ' +
-    `will not rerun: \`pnpm agent-tools:agent-identity --seed "${seed}" --format display\`` +
+    'agent-tools/dist); the hook has already run and will not rerun, so then persist the seed ' +
+    'yourself — identity-dependent tools resolve it from the environment, not from --seed: ' +
+    `\`echo "export PRACTICE_AGENT_SESSION_ID_CLAUDE='${seed}'" >> "$CLAUDE_ENV_FILE"\`` +
     seedNote +
-    '.'
+    '. Subsequent shell calls then resolve the identity normally — confirm with ' +
+    '`pnpm agent-tools:agent-identity --format display`.'
   );
 }
 
