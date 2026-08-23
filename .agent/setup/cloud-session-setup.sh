@@ -7,11 +7,12 @@
 # fail-fast contract as the caller: any failure fails session creation.
 set -euo pipefail
 
-# Playwright browsers at the repo's pinned version, into the default cache
-# path where turbo-spawned test:ui / e2e processes actually look. The image
-# presets PLAYWRIGHT_BROWSERS_PATH and PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD for
-# its own preinstalled Chromium; both must be unset so the repo-pinned
-# version installs where the tests resolve it.
+# Playwright browsers at the repo's pinned version. PLAYWRIGHT_BROWSERS_PATH
+# is deliberately inherited: turbo-spawned test:ui / e2e processes resolve
+# browsers through whatever path the session environment carries (the cloud
+# image presets /opt/pw-browsers), so the install must target that same path
+# for install and lookup to agree — only the image's download suppression
+# (PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD) is unset.
 (cd apps/oak-curriculum-mcp-streamable-http \
-  && env -u PLAYWRIGHT_BROWSERS_PATH -u PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD \
+  && env -u PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD \
      pnpm exec playwright install --with-deps chromium)

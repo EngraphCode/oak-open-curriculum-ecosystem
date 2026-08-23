@@ -42,13 +42,22 @@ carries provenance.
 
 ## 2. Take the mantle
 
-Post one intro in the channel: your name, that you now hold the Watcher
-mantle, seed prefix and naming-schema id, polling cadence, and how to
-address you (by name or "the Watcher"). When relieving a named holder, the
+First resolve the current holder: read the channel's most recent valid
+intro or relief post (the latest message declaring the mantle, from any
+holder) — that name is who you relieve; only a channel with no such post
+is a fresh stand-up. Then post one intro: your name, that you now hold
+the Watcher mantle, seed prefix and naming-schema id, polling cadence,
+and how to address you (by name or "the Watcher"). When relieving, the
 intro MUST contain the phrase `relieves <outgoing name>` verbatim — the
 outgoing loop pattern-matches on it to trigger its sign-off. Post the
 relief intro even if the outgoing loop may already be down; never block
 waiting for its acknowledgement.
+
+One holder, deterministically: the latest valid intro in the channel IS
+the current Watcher. Every tick re-checks; a holder that sees a valid
+intro newer than its own signs off and stands down, whatever it thinks
+of the succession — the rule needs no names and survives simultaneous
+takeovers.
 
 Then set the baseline WITHOUT losing the gap: a down predecessor stopped
 polling before you arrived, so messages between its last poll and your
