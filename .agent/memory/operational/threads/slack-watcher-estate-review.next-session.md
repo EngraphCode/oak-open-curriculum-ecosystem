@@ -31,14 +31,24 @@ P1–P5 landed the same session.
   The comparative frame for leg 3 was owner-supplied: Watcher needs ≈
   normal comms needs, medium swapped (Slack channel in the
   coordination branch's role).
-- **Next**: the proposals await the owner's consolidation decision
-  (P1 tick anchor, P2 comms-channels Slack lane, P3 PDR-133
-  declaration, P4 stand-up echo-back, P5 cursor-adapter truing, P6
-  account-side deletion). Acceptance criteria 1–5 are met by the
-  report's tables; the plan can archive once the owner has read the
-  report and dispositioned the proposals (adoption was always
-  owner-held). Cross-estate pointers L1-F2/F4 still owe delivery to
-  the castr sibling when a channel to it is open.
+- **SESSION COMPLETE (2026-08-24, landed)**: the owner adopted all six
+  proposals ("agreed to all"); P1–P5 executed and docs-review-cured;
+  P6 done by the owner account-side; plan archived; the cross-estate
+  pointers DELIVERED as castr PR
+  <https://github.com/EngraphCode/castr/pull/53> (twin sync +
+  silence-is-never-liveness port + rule true-up, normalisations named
+  in its body). This estate's whole arc is OCE PR
+  <https://github.com/EngraphCode/oak-open-curriculum-ecosystem/pull/17>
+  (base `engraph`). Evidence: branch level with origin at every close;
+  every push through the full pre-push gate.
+- **What the next session on this thread owns**: (1) shepherd the two
+  PRs to merge (pr-lifecycle; neither is subscribed — this session
+  ended at owner word, so watching was deliberately not armed); (2)
+  the NOTIFY declaration row's upgrade probe at the next Watcher
+  stand-up (a dated, externally observed wake: reminder fires → agent
+  turn created, no manual poll — then edit `slack-watcher` §6); (3)
+  the reconciler-Routine input now sits in
+  `watcher-liveness-self-heal.md` for whoever runs its go/no-go.
 - **The review's question**: is the Watcher trustworthy as the estate's
   comms organ — can a fresh Watcher seat start, run, and hand off from
   the written surfaces alone, and can agents communicate with or via it

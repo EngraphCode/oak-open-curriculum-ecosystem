@@ -1403,6 +1403,44 @@ counterpart crosses the boundary, and the fold ceremony has no Slack
 analogue (nothing conserves channel-borne decisions into the estate).
 Full analysis in the review report's legs 2–5.
 
+## 2026-08-24 ~20:4xZ (Raven stirs Murmur, c4031b) — session-close captures (wrap lenses)
+
+- **candidate: "the class survives its own cure" reached n=2 measured**
+  (extends the 2026-08-13 false-green graduation candidate above): in
+  leg 2 this seat diagnosed certified-by-inference as the substrate's
+  danger class, then wrote the §6 NOTIFY declaration row AS
+  certified-by-inference the same session — caught only by the external
+  docs-adr-expert pass, exactly as instance 4 (2026-08-13) was caught
+  only by its reviewer. Two independent seats, same shape: diagnosis
+  does not immunise the diagnostician; the external-reviewer lens is
+  the working instrument. Strengthens the candidate's
+  review-lens-not-just-lesson routing.
+- **Fluency-at-the-finish-line, worked instance**: the ratification
+  stamp was edited after parcel 1 and omitted from parcel 2's explicit
+  pathspec — pushed records referenced a stamp that had not shipped.
+  Caught by the post-push `git status` ritual (verify-what-ships), not
+  vigilance. The guard held because it was ritual.
+- **Batch-cadence honesty note**: parcel 1 was pushed alone (one
+  two-file commit through a full ~10-minute gate) when batching it with
+  parcel 2 would have halved the session's gate spend — the napkin's
+  own BATCH-CADENCE lesson, read at session open, lost to the cloud
+  durability drive. Later parcels applied it. Passive guidance loses to
+  artefact gravity, n+1.
+- **Play seeds (associations, discards were visible in-chat)**: (a) the
+  re-syncing account skill behaved as declarative reconciliation — the
+  resurrection mechanic the Watcher lacks; routed as a dated input to
+  `watcher-liveness-self-heal.md`. (b) Castr's code was AHEAD of its
+  rule (routing comparator implements PDR-076a while the rule prose
+  said the old tuple) — the opposite drift polarity from OCE, where
+  doctrine leads; drift direction as a living-edge signal. Association
+  only.
+- **Handoff sweep evidence**: `~/.claude/plans/` empty in this
+  container; Claude per-user memory surface not present here (fresh
+  cloud container); comms events this session all self-authored
+  (presence + claim lifecycle) and their substance is in this napkin
+  and the thread record; entry points canonical (AGENTS.md's extra
+  block is the gate-validated generated bootstrap, not drift).
+
 Follow-through, same session: owner adopted all six proposals
 ("agreed to all") — the adoption word discharged the plan's
 execution-out-of-scope guard, and P1–P5 landed at once: the tenure
