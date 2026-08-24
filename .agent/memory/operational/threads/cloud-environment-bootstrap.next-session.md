@@ -9,7 +9,7 @@ pasted setup script's reference copy), `cloud-environment-preflight.sh`
 doc, incl. § Validating and diagnosing — the edit→preflight→paste loop).
 castr carries the twin copies; this record is the thread's single home.
 
-## Current Continuation — ENVIRONMENT FIXED 2026-08-24; PR close-out remains
+## Current Continuation — ENVIRONMENT FIXED, ARC CLOSED 2026-08-24
 
 - **Outage RESOLVED (owner-run experiments, 2026-08-24 ~13:00Z).** Root
   cause: the discovery pipeline `REPOS=$(find /home /workspace … | sed …)`
@@ -49,13 +49,16 @@ castr carries the twin copies; this record is the thread's single home.
   an in-loop cure; build the pr-lifecycle tally at PR-open for
   bot-reviewed PRs. The outage's actual cause was six characters of
   exit-status tolerance, not any probed network path.
-- **Remaining on this thread**: push rounds 25+26 + continuity (in
-  flight at record time); disposition-reply and resolve all open Codex
-  threads on OCE #12 and castr #47 (cured-in-commit vs bound/declined —
-  NO further fidelity cures); both PRs auto-merge on green; optional
-  byte-parity re-paste of the reference setup script (dialog copy
-  differs only in comment wording). Engraph OCE main == Oak OCE main
-  (1173c1adf, mirror restored 2026-08-24, owner-run force-with-lease).
+- **Nothing remains open on this thread.** All PRs MERGED 2026-08-24:
+  castr #47 12:54Z, OCE #12 13:03Z (every review thread resolved —
+  cured-in-commit or declined with recorded bounds); the owner-
+  commissioned retrospective landed via OCE PR #13. Engraph OCE main ==
+  Oak OCE main (1173c1adf, mirror restored 2026-08-24, owner-run
+  force-with-lease). One optional nicety, not a blocker: a byte-parity
+  re-paste of the reference setup script (the dialog copy differs only
+  in comment wording). The thread is quiescent; its live successors are
+  the retrospective's four proposals, which belong to the consolidation
+  pass, not this thread.
 - Standing owner rulings the thread carries: fail-fast ("we WANT it to
   fail if it fails") — note the fix above tolerates only the pipeline
   EXIT, the found-no-repo invariant still fails loudly; no version
@@ -80,8 +83,9 @@ castr carries the twin copies; this record is the thread's single home.
   harness, the § Validating and diagnosing protocol, and the
   suspected-fragile register.
 - 2026-08-24 (later): outage diagnosed and fixed via the harness's
-  first real flight (two owner pastes: preflight 12/12, then the
-  instrumented script's card naming line 57) — root cause find/pipefail
+  first real flight (three owner pastes: preflight 12/12, the
+  instrumented script's card naming line 57, then the fixed script
+  building cleanly) — root cause find/pipefail
   at discovery, present since the script's first paste; see Current
   Continuation. The harness review loop was owner-stopped at ~26 rounds
   after a proportionality reflection; the generator-recurrence lesson

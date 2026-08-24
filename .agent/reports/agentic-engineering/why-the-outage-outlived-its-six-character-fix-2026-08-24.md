@@ -23,9 +23,12 @@ characters: `|| true`.
 
 Between those ends, one session built a validation harness for the setup
 script and drove it through review. The merged OCE branch carries 29 commits
-(recomputed: 1 feat, 25 fix, 2 docs, 1 chore(continuity)); the fix commits
-run 08:29Z→11:50Z at a near-constant ~7-minute cadence — twenty-five cure
-commits in about three and a half hours. The twin PRs accumulated 51 review
+(recomputed: 1 feat, 25 fix, 2 docs, 1 chore(continuity)). The
+review-driven segment runs 08:29Z→11:50Z at a near-constant cadence —
+twenty-five review-cure commits (twenty-four fix plus the review-driven
+09:34Z docs commit) in about three and a half hours; the remaining fix
+commit (`8836e4247`, 12:34Z) is the outage cure itself, not a review
+round. The twin PRs accumulated 51 review
 threads on OCE #12 and 10 on castr #47 (PR-API totals read ~13:00Z). The
 owner stopped the loop at ~11:52Z with one question — "are we doing the right
 thing?" — after which zero further fidelity cures were pushed: fifteen
@@ -61,12 +64,13 @@ outage entered an unbounded fidelity-review generator — bot findings
 measuring a bash probe against corepack's internals — and the seat cured
 them at cadence for configurations the estate does not have (custom
 registries, dual credentials, URL pins, env files: none exist in either
-repo). The convergence machinery existed twice over — pr-lifecycle's tally
-and step-back predicate, and the 2026-07-20 retrospective's proposal 2 —
-and was never instantiated: no tally was built at PR-open, so
-non-convergence had no observable surface. That is the same "unbuilt
-instrument" the 07-20 record and PDR-132's PR #570 instance already name;
-this arc is the third occurrence.
+repo). pr-lifecycle's own contract carries the cure — the tally store and
+step-back trigger, with the warning stated in its own words: "an unbuilt
+tally store means the trigger cannot fire" — and no tally was built at
+PR-open, so non-convergence had no observable surface. pr-lifecycle's
+worked instances already name two prior no-tally arcs (PR #390, eight
+untallied fix-rounds; PR #570, 2026-07-26, ten rounds and twelve cure
+commits with nothing counting); this arc is the third.
 
 **Meta root (where the stack stops).** Two distinct generators, one shape:
 *a review whose reference surface is unbounded cannot converge by instance
@@ -95,8 +99,8 @@ hour.
 - **Diagnosis.** The three-paste endgame — preflight, instrumented script,
   fixed script — took under an hour of elapsed time and three round-trips of
   owner attention, and produced the exoneration, the root cause, and the
-  confirmed fix. The fidelity segment (08:29→11:50, twenty-five cure
-  commits) contributed nothing to the root cause. Unit cost: one paste
+  confirmed fix. The fidelity segment (08:29→11:50, twenty-five
+  review-cure commits) contributed nothing to the root cause. Unit cost: one paste
   round-trip against roughly seven review rounds.
 - **Disposition policy.** Same PRs, same reviewer, same day: under
   cure-by-default, each landed cure drew one to three fresh findings; under
@@ -104,12 +108,16 @@ hour.
   each subsequent finding terminated in a single decline reply, with no
   finding-against-a-decline observed before merge. The only changed variable
   was the policy.
-- **The cross-arc comparator.** The 07-20 retrospective proposed the tally
-  instantiation this arc needed; its clause that became an authoring-time
-  rule (the open-set clause) demonstrably held here — this record is written
-  under it — while its clause that stayed prose (build the tally) did not
-  reach this arc. Same estate, both lanes, one graduated as structure and
-  one as narrative: only the structure fired.
+- **The cross-arc comparator.** The 07-20 retrospective's proposal 1
+  graduated as structure — the authoring-time open-set clause on
+  `no-moving-targets-in-permanent-docs` — and demonstrably held here: this
+  record is written under it, and this PR's own review exercised it. The
+  tally requirement, by contrast, remained an opt-in prose contract inside
+  pr-lifecycle and went unbuilt for the third time. The 07-20 arc itself
+  supplies the complement: where the tally WAS built, its trigger fired
+  seven times that day — but only after three to four settled rounds each.
+  Built-but-late bounds the cure's best case; unbuilt, it never fires at
+  all.
 
 ## Honest credit (what the cost bought)
 
@@ -145,15 +153,17 @@ time); and the outage worked instance in the permanent operating doc.
    finding-against-cure chain (r22→r24→r25→12:52). *Falsifier*: a declined
    fidelity finding later causing a real setup failure in the estate's live
    configuration.
-2. **[FAST — pr-lifecycle entry amendment, completing 07-20 proposal 2] The
-   tally is built at PR-open, structurally.** Opening or adopting a
-   bot-reviewed PR creates the round-tally artefact before the first triage,
-   so the step-back predicate has something to read; a PR without a tally is
-   out of contract. *Warrant*: three arcs (07-20's seven firings, PDR-132's
-   PR #570, this arc's twenty-five cure commits) in which the predicate
-   existed and nothing counted. *Falsifier*: tallies built and the
-   step-back still failing to fire — which would locate the gap in the
-   predicate, not the instantiation.
+2. **[FAST — pr-lifecycle entry amendment, graduating its own opt-in cure
+   to an entry contract] The tally is built at PR-open, structurally.**
+   Opening or adopting a bot-reviewed PR creates the round-tally artefact
+   before the first triage, so the step-back trigger has something to
+   read; a PR without a tally is out of contract. *Warrant*: three
+   no-tally arcs (PR #390's eight untallied rounds, PR #570's ten, this
+   arc's twenty-five review-cure commits) in which the trigger existed and
+   nothing counted — against the 07-20 built-tally arc, where it fired
+   seven times but only after 3–4 settled rounds each. *Falsifier*:
+   tallies built and the step-back still failing to fire — which would
+   locate the gap in the trigger, not the instantiation.
 3. **[FAST — validation-strategy clause; seeded already in
    cloud-environment.md § Provenance] Strict-mode scripts are validated
    whole-file, under their own modes, from the target vantage.** Chunk-wise
@@ -166,10 +176,12 @@ time); and the outage worked instance in the permanent operating doc.
    its cure already existing as prose (this class now has three instances),
    the consolidation pass must either route the cure to a structural firing
    point — a hook, validator, or contract entry step — or record why not.
-   *Prediction*: no review arc in the next two months exceeds six settled
-   rounds without a tally-backed step-back firing; review at the next
-   retrospective. *Falsifier*: the prediction failing, or structural
-   firing points accreting as ceremony that never fires.
+   *Prediction*: no review arc through the observation window exceeds six
+   settled rounds without a tally-backed step-back firing; review
+   2026-10-24, registered as a row in
+   `.agent/memory/operational/pending-graduations.md`. *Falsifier*: the
+   prediction failing, or structural firing points accreting as ceremony
+   that never fires.
 
 Named, not re-proposed: the individual fidelity declines stand as recorded
 on the PR threads; the harness-checkpoint observation (the platform
@@ -178,8 +190,9 @@ the working-with-agentic-ai surface.
 
 ## The play harvest (bounded pass over the timeline material; guard applied)
 
-- KEPT — *cadence regularity as a non-convergence smell*: twenty-five cures
-  at a near-constant seven-minute beat for three and a half hours reads,
+- KEPT — *cadence regularity as a non-convergence smell*: twenty-five
+  review-cure commits at a near-constant beat for three and a half hours
+  reads,
   in retrospect, like machine breathing — a loop with no inner variance.
   The regularity itself was an observable the missing tally would have
   surfaced. Association, routed to the consolidation pass alongside
