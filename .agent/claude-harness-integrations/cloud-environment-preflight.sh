@@ -341,11 +341,10 @@ check_repo_pnpm_pin() {
   if [ "$has_envfile" = 0 ]; then
     case " ${PNPM_PINS_SEEN} " in
     *" ${pm} "*)
-      echo "pin already verified (${repo}): ${pm%%+*}"
+      echo "pin already verified (${repo}): $(echo "${pm%%[+#]*}" | sed -E 's|^(pnpm@[a-zA-Z][a-zA-Z0-9+.-]*://)?[^@/]*@|\1|')"
       return 0
       ;;
     esac
-    PNPM_PINS_SEEN="${PNPM_PINS_SEEN} ${pm}"
   fi
   # the env-dependent probe runs in a subshell so one repo's env file
   # never leaks into another repo's probe (corepack scopes it per project)
@@ -356,6 +355,13 @@ check_repo_pnpm_pin() {
     fi
     check_repo_pin_download "$repo" "$pm"
   )
+  local rc=$?
+  # a pin joins the verified set only on SUCCESS — recording it up front
+  # would label a failed pin "already verified" in the next repo
+  if [ "$rc" = 0 ] && [ "$has_envfile" = 0 ]; then
+    PNPM_PINS_SEEN="${PNPM_PINS_SEEN} ${pm}"
+  fi
+  return $rc
 }
 
 corepack_load_repo_env() {
@@ -767,6 +773,13 @@ probe_gitleaks_release() {
   local final
   final=$(curl -fsSL -m 120 -w '%{url_effective}' "$url" -o ${PF_TMP}/gitleaks.tgz 2>/dev/null) || {
     echo "download failed (redirect chain or egress): ${url}"
+    # curl reports the last URL it attempted even on failure — when the
+    # blocked hop is the redirect target, the failure card must name
+    # that host (it never appears in the script text), or the reader
+    # cannot know what to allow-list
+    if [ -n "$final" ] && [ "$final" != "$url" ]; then
+      echo "last attempted URL in the chain (allow-list this host): $(echo "${final%%[?#]*}" | sed -E 's|^([a-zA-Z][a-zA-Z0-9+.-]*://)?[^@/]*@|\1|')"
+    fi
     return 1
   }
   echo "redirect chain ends at host: $(echo "$final" | sed -E 's|https?://([^/]+).*|\1|')"
