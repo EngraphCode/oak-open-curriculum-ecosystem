@@ -8,18 +8,21 @@
 # output as the finding.
 set -uo pipefail
 
+# These are host-root probes (the real download paths are version-bound),
+# so origin-served 4xx codes are expected and prove reachability; the
+# failure signal is transport-level only — a proxy denial fails the
+# CONNECT tunnel itself, so curl exits non-zero (measured 2026-08-24),
+# while any completed HTTP exchange means the egress path is open.
 failed=0
 for url in \
   "https://cdn.playwright.dev/" \
   "https://playwright.download.prss.microsoft.com/"; do
-  code=$(curl -sS -o /dev/null -m 30 -w '%{http_code}' "$url" 2>/dev/null) || code=000
-  if [ "${code:-000}" = "000" ]; then
-    # one retry: a single transient transport failure must not falsify a host
-    code=$(curl -sS -o /dev/null -m 30 -w '%{http_code}' "$url" 2>/dev/null) || code=000
+  if code=$(curl -sS -o /dev/null -m 30 -w '%{http_code}' "$url" 2>/dev/null) ||
+    { sleep 2 && code=$(curl -sS -o /dev/null -m 30 -w '%{http_code}' "$url" 2>/dev/null); }; then
+    echo "HTTP ${code:-000} (origin responded — reachable): ${url}"
+  else
+    echo "TRANSPORT FAILURE (proxy CONNECT denial, DNS, or timeout): ${url}"
+    failed=1
   fi
-  echo "HTTP ${code:-000}: ${url}"
-  case "${code:-000}" in
-  000 | 403 | 407 | 502) failed=1 ;;
-  esac
 done
 exit $failed
