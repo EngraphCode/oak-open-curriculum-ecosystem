@@ -12,6 +12,22 @@ honest credit; proposals with warrant and falsifier each, routed per PDR-130.
 Counts are stated as read at their derivation instants; the underlying sets
 are open.
 
+**Review contract.** Purpose: conserve what the arc actually taught and
+route its lessons, so the estate learns from the trajectory, not only the
+outcome. Questions a review should test: are the reconstructed facts
+faithful to their named primary sources; does each causal layer's evidence
+support it; do the counterfactuals isolate the variable they claim; does
+each proposal's warrant support it and its falsifier genuinely bite?
+Evidence standard: every count and claim re-derivable from a named source;
+authority boundary: this record AUTHORISES NOTHING — proposals 1–3 are
+recommendations for the consolidation pass and proposal 4 is a registered
+slow-lane candidate; enacting any of them is the owner's or that pass's
+decision. Non-goals: re-litigating the merged PRs' individual findings;
+amending the harness. A successful review either confirms the record's
+claims against their sources or names the specific claim, source, and
+mismatch — factual corrections land as pre-merge cures while the record is
+in review, and as dated addenda after it lands.
+
 ## The arc, from primary sources
 
 The "Practice Repos" cloud environment stopped starting fresh sessions from
@@ -176,12 +192,16 @@ time); and the outage worked instance in the permanent operating doc.
    its cure already existing as prose (this class now has three instances),
    the consolidation pass must either route the cure to a structural firing
    point — a hook, validator, or contract entry step — or record why not.
-   *Prediction*: no review arc through the observation window exceeds six
-   settled rounds without a tally-backed step-back firing; review
-   2026-10-24, registered as a row in
-   `.agent/memory/operational/pending-graduations.md`. *Falsifier*: the
-   prediction failing, or structural firing points accreting as ceremony
-   that never fires.
+   *Prediction*: once proposal 2's entry contract lands, no subsequent
+   review arc exceeds six settled rounds without a tally-backed step-back
+   firing — measurement begins at that landing, not at this record's date,
+   and the prediction is decidable only after at least one qualifying arc
+   (a bot-reviewed PR reaching a settled round) has run; review 2026-10-24,
+   registered as a row in `.agent/memory/operational/pending-graduations.md`
+   (if the enabling contract has not landed or no qualifying arc has run by
+   then, the review extends rather than promotes). *Falsifier*: the
+   prediction failing on a qualifying arc, or structural firing points
+   accreting as ceremony that never fires.
 
 Named, not re-proposed: the individual fidelity declines stand as recorded
 on the PR threads; the harness-checkpoint observation (the platform
