@@ -1338,3 +1338,34 @@ pinning-by-name, not sequencing-by-hope.
   pin-dedupe recording BEFORE the probe, so a failed pin printed
   "already verified" for the next repo — caught by my own round-25
   test, the PDR-132 signature reproducing live.
+
+## 2026-08-24 ~18:2xZ (Raven stirs Murmur, c4031b, watcher-review seat) — turbo strict envMode strips the cloud sandbox's plumbing from gate children
+
+Observed 2026-08-24 on the first pre-push from a fresh fixed-environment
+cloud session (branch claude/slack-watcher-estate-review-qzwz2x): three
+suites failed with zero relation to the two-markdown-file diff, all one
+generator — turbo strict envMode passes only `globalPassThroughEnv` plus
+its built-in allowlist (PATH survives; PLAYWRIGHT_BROWSERS_PATH,
+HTTPS_PROXY, NODE_EXTRA_CA_CERTS do not):
+
+1. Both `test:ui` suites: Playwright children fell back to
+   `/root/.cache/ms-playwright` while the browsers live at
+   `/opt/pw-browsers` (the session hook HAD installed the right build,
+   chromium_headless_shell-1234 — install and lookup disagreed on path,
+   the exact agreement the hook's own comment says it relies on).
+2. `agent-tools test:e2e`: the commit-queue smoke's advisory child
+   spawns `pnpm` from a pin-less fixture dir; corepack fetched
+   `registry.npmjs.org/pnpm/latest` and died SELF_SIGNED_CERT_IN_CHAIN —
+   the sandbox's TLS interception with the CA env stripped. The same
+   call succeeds on any direct-network machine, so this class is
+   invisible everywhere except here.
+
+Session-local cures applied (no gate touched, no repo change): symlink
+`/root/.cache/ms-playwright -> /opt/pw-browsers`, plus a PATH-front
+`pnpm` shim that restores proxy/CA/browsers env to every child (PATH is
+the one variable turbo passes; probe-verified against a deprived env
+before use). Candidate repo-side cure for whoever owns the gates:
+declare the sandbox plumbing in turbo `globalPassThroughEnv` — but that
+is a gate-config change needing its own review, not this lane's.
+Same family as the 2026-08-14 "workspace-config defect belongs to
+whoever next works the corpus" routing: recorded, not absorbed.

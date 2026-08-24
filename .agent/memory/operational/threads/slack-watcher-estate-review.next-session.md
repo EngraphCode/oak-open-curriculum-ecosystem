@@ -8,18 +8,30 @@ communicating with or via it. Plan:
 and an out-of-scope guard inside). This seat REVIEWS the Watcher estate;
 it does not run a Watcher, amend its skills, or build features.
 
-## Current Continuation — NOT STARTED (fresh session picks this up)
+## Current Continuation — LEG 1 COMPLETE; legs 2–5 remain
 
-- **Opening move**: run `oak-start-right-thorough`, read the plan file
-  end to end, then obtain the owner's ratification of the sketch BEFORE
-  any review leg runs — a sketch governs no work until its stamp lands
-  (plan-node contract; precedence-is-not-approval), and the
-  commissioning word authorised the plan's authoring, not its
-  execution. Until ratified, the session may only review and refine the
-  sketch itself. Once ratified: leg 1 — the full primary-source
-  inventory (skills, rules, comms overlay, environment coupling,
-  backlog and research notes), read in full, drift recorded as
-  findings.
+- **State (2026-08-24, Raven stirs Murmur c4031b)**: plan RATIFIED
+  (stamp in frontmatter; word in §History). Leg 1 executed in full —
+  discovery-swept inventory (15 surface groups, four projection tiers +
+  the out-of-repo account-synced store + castr twins at clone
+  `89914b4`), every surface read end to end, seven drift findings
+  (L1-F1..F7) recorded in the working report
+  `.agent/reports/agentic-engineering/slack-watcher-estate-review-2026-08-24.md`
+  (review contract near its top; legs 2–5 stubs in place).
+- **Next session's opening move**: start-right, re-read the ratified
+  plan and the working report's leg-1 findings + "observations carried
+  forward", then run leg 2 (liveness/lifecycle: classify every claim
+  instrument-backed vs prose-only — the report already names the
+  candidates: the send_later chain, the "hourly cron routine"
+  fallback, the unowned Monitor restart gap, the Slack channel's
+  missing PDR-133 class declaration). Then legs 3–5 per the plan.
+- **Headline leg-1 findings for the owner** (full evidence in the
+  report): the account-synced `oce-slack-watcher` skill is a second,
+  weaker, live Watcher protocol with a colliding trigger surface and
+  hard-coded channel facts (L1-F6); castr's watcher-rule twin is
+  doctrinally behind and castr lacks `silence-is-never-liveness`
+  entirely (L1-F2/F4 — route as pointers to castr); rule-adapter
+  description drift is not instrument-checked (L1-F5).
 - **The review's question**: is the Watcher trustworthy as the estate's
   comms organ — can a fresh Watcher seat start, run, and hand off from
   the written surfaces alone, and can agents communicate with or via it
@@ -49,6 +61,16 @@ it does not run a Watcher, amend its skills, or build features.
 - 2026-08-24: thread opened; plan authored born-sketch and pushed by
   Buzzard weaves Airstream (01e90b) at owner word, alongside the
   environment-outage close-out and retrospective.
+- 2026-08-24: sketch refined pre-ratification by Raven stirs Murmur
+  (c4031b) with the PR #14 routed finding — leg 1 became a
+  discovery-based projection sweep (all adapter tiers, settings
+  permission entries, out-of-repo synced/plugin stores), the prior
+  enumeration retained as seed floor; discovery verified live
+  (projections in `.agents/`, `.cursor/`, `.claude/settings.json:79-82`,
+  plus the account-synced `oce-slack-watcher` skill). RATIFIED same day
+  by the owner, in-session to this seat, structured answer verbatim:
+  "Ratify the refined sketch" (options presented: ratify / refine
+  further / hold). Stamp applied to the plan frontmatter; legs may run.
 
 ## Participating agent identities
 
