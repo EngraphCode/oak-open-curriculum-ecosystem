@@ -329,10 +329,10 @@ session or resumes one. The harness pipes a JSON object on stdin containing
    prints a `hookSpecificOutput` JSON object whose `additionalContext`
    carries the agent identity row and a non-binding `/rename` suggestion.
 4. Subsequent Bash tool calls in the session see
-   `$PRACTICE_AGENT_SESSION_ID_CLAUDE` and
-   `$OAK_AGENT_IDENTITY_OVERRIDE`, so any tool using CLI identity resolution
-   (e.g. `pnpm agent-tools:agent-identity --format display`) resolves the
-   same cached session identity without `--seed`.
+   `$PRACTICE_AGENT_SESSION_ID_CLAUDE`, so any tool using CLI identity
+   resolution (e.g. `pnpm agent-tools:agent-identity --format display`)
+   re-derives the same session identity from the seed without `--seed` —
+   no cached name is involved.
 
 The hook remains a soft surface for the session — every failure path exits
 0 — but shim failures are loud, not silent: the diagnostic payload above
