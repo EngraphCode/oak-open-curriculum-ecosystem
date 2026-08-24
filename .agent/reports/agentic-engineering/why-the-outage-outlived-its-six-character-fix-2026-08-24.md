@@ -20,9 +20,9 @@ support it; do the counterfactuals isolate the variable they claim; does
 each proposal's warrant support it and its falsifier genuinely bite?
 Evidence standard: every count and claim re-derivable from a named source;
 authority boundary: this record AUTHORISES NOTHING — proposals 1–3 are
-recommendations for the consolidation pass and proposal 4 is a registered
-slow-lane candidate; enacting any of them is the owner's or that pass's
-decision. Non-goals: re-litigating the merged PRs' individual findings;
+recommendations for the consolidation pass, and proposal 4 records a
+routing disposition reached during this record's own review; enacting
+any of them is the owner's or that pass's decision. Non-goals: re-litigating the merged PRs' individual findings;
 amending the harness. A successful review either confirms the record's
 claims against their sources or names the specific claim, source, and
 mismatch — factual corrections land as pre-merge cures while the record is
