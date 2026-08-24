@@ -3,7 +3,7 @@ id: slack-watcher-estate-review
 node_type: delivery
 name: "Slack Watcher estate review — skills, guidance, and mechanisms for the Watcher and agents communicating with or via it"
 overview: "Owner-commissioned review of the Slack Watcher organ: the slack-watcher and talk-to-slack-watcher skills, the comms-all-channels-watcher rule, the environment coupling, liveness and lifecycle mechanics, and the guidance agents follow to communicate with or via the Watcher — verdicts and routed proposals, not execution."
-status: ratified
+status: archived
 ratified_by: "Jim Cresswell (owner)"
 ratified_date: 2026-08-24
 ratified_where: "In-session ratification word to Raven stirs Murmur (c4031b), 2026-08-24 — recorded verbatim in the thread record slack-watcher-estate-review.next-session.md §History"
@@ -133,3 +133,14 @@ unbounded.
 Sliced at pickup by the implementing session per the legs above; each
 slice a single-story PR within its round budget (PDR-132), with the
 pr-lifecycle round tally built at PR-open.
+
+## Completion record (2026-08-24)
+
+All five legs executed by Raven stirs Murmur (c4031b) in one session;
+every acceptance criterion is proven by the report's tables
+(`.agent/reports/agentic-engineering/slack-watcher-estate-review-2026-08-24.md`).
+The owner adopted all six proposals the same day ("agreed to all",
+in-session); P1–P5 were executed under that word (the out-of-scope
+guard held until adoption discharged it), P6 remains the owner's
+account-side act. Cross-estate pointers L1-F2/F4 owe delivery to the
+castr sibling when a channel opens. Archived complete.

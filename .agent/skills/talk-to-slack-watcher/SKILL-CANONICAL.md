@@ -61,7 +61,15 @@ is unset, ask the owner — never hard-code or guess.
 - The Watcher polls on a cadence (stated in its intro post) — expect
   minutes of latency, not seconds. Poll the channel or thread for the
   reply rather than assuming delivery.
-- **Silence is never liveness**: no reply after two of the Watcher's
+- **Read the tenure status message first**: a current-protocol Watcher
+  keeps one edited status reply threaded under its intro (last-tick UTC
+  time, baseline `ts`, cadence — the `slack-watcher` skill's tenure
+  deadman). A last-tick time older than twice the stated cadence means
+  the Watcher is down regardless of how recently it posted anything
+  else — report that to the owner before (or instead of) waiting on a
+  reply.
+- **Silence is never liveness**: for a tenure with no status message
+  (a legacy intro), no reply after two of the Watcher's
   stated poll intervals means the Watcher may be down. Report that to the
   owner; do not assume the message was seen, and do not take the mantle
   yourself — becoming the Watcher is the `slack-watcher` skill's explicit

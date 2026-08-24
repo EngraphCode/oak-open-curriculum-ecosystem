@@ -1402,3 +1402,17 @@ instrument-backed comms mechanism degrades to prose when its
 counterpart crosses the boundary, and the fold ceremony has no Slack
 analogue (nothing conserves channel-borne decisions into the estate).
 Full analysis in the review report's legs 2–5.
+
+Follow-through, same session: owner adopted all six proposals
+("agreed to all") — the adoption word discharged the plan's
+execution-out-of-scope guard, and P1–P5 landed at once: the tenure
+status message (one Slack reply edited per tick = deadman + durable
+baseline + the fallback's observable, three leg-2 gaps cured by one
+artefact), the Slack-via-Watcher lane and boundary-crossing mirroring
+clause in comms-channels, the PDR-133 declaration table in the
+watcher skill, the stand-up echo-back, and the trued cursor-adapter
+description. Plan archived complete. Design note worth carrying: when
+a prose-only organ cannot host estate instruments (Slack is not
+gate-reachable), put the deadman IN the organ's own medium — the
+status message is a heartbeat file in Slack's native shape, and one
+artefact can serve deadman, cursor, and fallback-observable at once.

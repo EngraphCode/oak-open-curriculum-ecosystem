@@ -2,11 +2,12 @@
 
 Owner-commissioned review of the Slack Watcher organ: the skills,
 guidance, and mechanisms behind the Watcher and behind agents
-communicating with or via it. Plan:
-[`.agent/plans/delivery/slack-watcher-estate-review.plan.md`](../../../plans/delivery/slack-watcher-estate-review.plan.md)
-(born sketch — the owner's ratification stamp governs; five review legs
-and an out-of-scope guard inside). This seat REVIEWS the Watcher estate;
-it does not run a Watcher, amend its skills, or build features.
+communicating with or via it. Plan (ratified, executed, and ARCHIVED
+complete 2026-08-24):
+`.agent/plans/archive/slack-watcher-estate-review.plan.md`.
+The review-only scope held until the owner adopted all six proposals
+("agreed to all", 2026-08-24), which discharged the execution guard;
+P1–P5 landed the same session.
 
 ## Current Continuation — ALL FIVE LEGS COMPLETE; consolidation next
 

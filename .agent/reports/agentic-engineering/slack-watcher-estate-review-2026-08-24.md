@@ -1,8 +1,8 @@
 # Slack Watcher estate review — working report
 
 **Owner-commissioned review of the Slack Watcher organ** (plan:
-[`slack-watcher-estate-review.plan.md`](../../plans/delivery/slack-watcher-estate-review.plan.md),
-ratified 2026-08-24 in-session; commissioning word 2026-08-24: "a review
+`.agent/plans/archive/slack-watcher-estate-review.plan.md` — ratified,
+executed, and archived complete 2026-08-24; commissioning word 2026-08-24: "a review
 of the skills, guidance and mechanisms behind the The Watcher of Slack
 and agents communicating with or via The Watcher"). Author: Raven stirs
 Murmur (`c4031b`), reviewing seat. **All five legs are complete** (one
@@ -294,7 +294,22 @@ intro's stated cadence is where that price is declared.
 | `slack-assistants` backlog + observability research note | **KEEP** | Adjacent organ; no Watcher authority; no drift found |
 | castr twins (watcher rule behind; `silence-is-never-liveness` absent) | **Pointer to castr** (L1-F2/F4) | ship-independent-coordinate-dependent; never absorbed here |
 
-### Proposals (each: warrant, falsifier, PDR-130 lane; adoption is the owner's consolidation decision)
+### Proposals (each: warrant, falsifier, PDR-130 lane)
+
+**Adoption record (2026-08-24, owner word in-session to this seat:
+"agreed to all").** All six proposals adopted; P1–P5 executed the same
+session by this seat: P1 as the tenure status message
+(`slack-watcher` §2/§3/§5 — one threaded reply under the intro, edited
+every tick, the deadman + durable baseline in one artefact; consumed
+by `talk-to-slack-watcher` §Receiving), P2 as the Slack-via-Watcher
+lane in `comms-channels` (table row, bridge bullet, mirroring
+obligation extended across the Slack boundary both directions, relay
+egress stated owner-mediated), P3 as `slack-watcher` §6 (the PDR-133
+declaration table for the Slack + reminder substrate), P4 folded into
+`slack-watcher` §2 (the stand-up echo-back), P5 as the trued
+`.cursor/rules/comms-all-channels-watcher.mdc` description (the
+rule-adapter drift-gate question stays routed to the skills-estate
+lane). P6 remains the owner's account-side act.
 
 - **P1 — give the Watcher a durable tick anchor.** Each tick (or tick
   batch) records baseline `ts` + timestamp somewhere durable and
