@@ -187,21 +187,24 @@ time); and the outage worked instance in the permanent operating doc.
    script. *Warrant*: a line fatal from birth passed hand-validation and
    died on every real run for a day. *Falsifier*: a whole-file strict-mode
    run in the right vantage missing a death class anyway.
-4. **[SLOW — register candidate, with prediction] Twice-recurred failure
-   classes get structural firing points.** When a failure class recurs with
-   its cure already existing as prose (this class now has three instances),
-   the consolidation pass must either route the cure to a structural firing
-   point — a hook, validator, or contract entry step — or record why not.
-   *Prediction*: once proposal 2's entry contract lands, no subsequent
-   review arc exceeds six settled rounds without a tally-backed step-back
-   firing — measurement begins at that landing, not at this record's date,
-   and the prediction is decidable only after at least one qualifying arc
-   (a bot-reviewed PR reaching a settled round) has run; review 2026-10-24,
-   registered as a row in `.agent/memory/operational/pending-graduations.md`
-   (if the enabling contract has not landed or no qualifying arc has run by
-   then, the review extends rather than promotes). *Falsifier*: the
-   prediction failing on a qualifying arc, or structural firing points
-   accreting as ceremony that never fires.
+4. **[SLOW — register candidate, with prediction] The tally-at-PR-open
+   contract graduates and holds.** The registered concept is deliberately
+   NARROW — proposal 2's entry contract, as a constitutional change to
+   how the estate reviews — so its prediction is decidable at its date
+   with no holding state (PDR-130: no third outcome). *Prediction*: by
+   2026-10-24 the entry contract has landed in pr-lifecycle AND every
+   bot-reviewed PR arc opened after that landing carries a tally built at
+   open — both observable from the repo and PR record on the day.
+   *Falsifier*: the contract not landed by review (the row is killed with
+   that reasoning, re-registerable through the normal process), or a
+   post-landing bot-reviewed arc running tally-less. Registered as a row
+   in `.agent/memory/operational/pending-graduations.md`. The broader
+   principle this instance exemplifies — twice-recurred prose-only
+   failure classes get structural firing points at consolidation — is
+   carried as narrative for the consolidation pass to weigh, NOT as the
+   register row: measuring it honestly would need an eligible-class
+   census the estate does not keep, and registering an unmeasurable
+   prediction is the vacuous-pass failure PDR-130 exists to prevent.
 
 Named, not re-proposed: the individual fidelity declines stand as recorded
 on the PR threads; the harness-checkpoint observation (the platform
