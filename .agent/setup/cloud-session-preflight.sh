@@ -8,11 +8,15 @@
 # output as the finding.
 set -uo pipefail
 
-# These are host-root probes (the real download paths are version-bound),
-# so origin-served 4xx codes are expected and prove reachability; the
-# failure signal is transport-level only — a proxy denial fails the
+# These are host-root probes: the real download paths are version-bound
+# (playwright-core/browsers.json names the build, and that file does not
+# exist before pnpm install runs), and pinning a build number here would
+# reintroduce the hard-coded version the environment scripts deliberately
+# avoid. So origin-served 4xx codes are expected and prove reachability;
+# the failure signal is transport-level only — a proxy denial fails the
 # CONNECT tunnel itself, so curl exits non-zero (measured 2026-08-24),
-# while any completed HTTP exchange means the egress path is open.
+# while any completed HTTP exchange means the egress path is open. The
+# output states this bound so a card reader knows what was NOT proven.
 failed=0
 for url in \
   "https://cdn.playwright.dev/" \
@@ -25,4 +29,5 @@ for url in \
     failed=1
   fi
 done
+echo "bound: egress reachability proven only — the versioned browser download itself is exercised by the session hook after install"
 exit $failed
