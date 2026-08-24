@@ -8,30 +8,36 @@ communicating with or via it. Plan:
 and an out-of-scope guard inside). This seat REVIEWS the Watcher estate;
 it does not run a Watcher, amend its skills, or build features.
 
-## Current Continuation — LEG 1 COMPLETE; legs 2–5 remain
+## Current Continuation — ALL FIVE LEGS COMPLETE; consolidation next
 
-- **State (2026-08-24, Raven stirs Murmur c4031b)**: plan RATIFIED
-  (stamp in frontmatter; word in §History). Leg 1 executed in full —
-  discovery-swept inventory (15 surface groups, four projection tiers +
-  the out-of-repo account-synced store + castr twins at clone
-  `89914b4`), every surface read end to end, seven drift findings
-  (L1-F1..F7) recorded in the working report
+- **State (2026-08-24, Raven stirs Murmur c4031b)**: plan RATIFIED and
+  fully executed in one session. The report
   `.agent/reports/agentic-engineering/slack-watcher-estate-review-2026-08-24.md`
-  (review contract near its top; legs 2–5 stubs in place).
-- **Next session's opening move**: start-right, re-read the ratified
-  plan and the working report's leg-1 findings + "observations carried
-  forward", then run leg 2 (liveness/lifecycle: classify every claim
-  instrument-backed vs prose-only — the report already names the
-  candidates: the send_later chain, the "hourly cron routine"
-  fallback, the unowned Monitor restart gap, the Slack channel's
-  missing PDR-133 class declaration). Then legs 3–5 per the plan.
-- **Headline leg-1 findings for the owner** (full evidence in the
-  report): the account-synced `oce-slack-watcher` skill is a second,
-  weaker, live Watcher protocol with a colliding trigger surface and
-  hard-coded channel facts (L1-F6); castr's watcher-rule twin is
-  doctrinally behind and castr lacks `silence-is-never-liveness`
-  entirely (L1-F2/F4 — route as pointers to castr); rule-adapter
-  description drift is not instrument-checked (L1-F5).
+  carries all five legs: leg-1 inventory + drift findings (L1-F1..F7),
+  leg-2 instrument-vs-prose table (3 of 11 claims instrument-backed;
+  the skill's own mandated fallback check has no observable to read),
+  leg-3 routing rows under the owner's comparative frame (every estate
+  comms need has a Watcher counterpart; the one generator behind every
+  gap is that the repo medium is instrumentable and Slack is not; two
+  silent-loss windows named), leg-4 single-sourcing verdicts
+  (fail-fast posture on unset; set-but-wrong is an undefined silent
+  limp), leg-5 verdicts per surface + proposals P1–P6 (warrant +
+  falsifier + PDR-130 lane each).
+- **Mid-review owner rulings (2026-08-24, in-session to this seat)**:
+  the account-synced `oce-slack-watcher` skill is RETIRED — "remove
+  the local skill, we will use the repo skill" — removed from this
+  container; account-side deletion is the owner's remaining act (P6).
+  The comparative frame for leg 3 was owner-supplied: Watcher needs ≈
+  normal comms needs, medium swapped (Slack channel in the
+  coordination branch's role).
+- **Next**: the proposals await the owner's consolidation decision
+  (P1 tick anchor, P2 comms-channels Slack lane, P3 PDR-133
+  declaration, P4 stand-up echo-back, P5 cursor-adapter truing, P6
+  account-side deletion). Acceptance criteria 1–5 are met by the
+  report's tables; the plan can archive once the owner has read the
+  report and dispositioned the proposals (adoption was always
+  owner-held). Cross-estate pointers L1-F2/F4 still owe delivery to
+  the castr sibling when a channel to it is open.
 - **The review's question**: is the Watcher trustworthy as the estate's
   comms organ — can a fresh Watcher seat start, run, and hand off from
   the written surfaces alone, and can agents communicate with or via it

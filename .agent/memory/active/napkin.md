@@ -1369,3 +1369,36 @@ declare the sandbox plumbing in turbo `globalPassThroughEnv` — but that
 is a gate-config change needing its own review, not this lane's.
 Same family as the 2026-08-14 "workspace-config defect belongs to
 whoever next works the corpus" routing: recorded, not absorbed.
+
+Follow-ups from the same arc, same session: the shim's first version
+omitted NO_PROXY and broke the NEXT stage (Playwright's webServer
+readiness probe routed to the proxy and never saw localhost) — an
+env-restoring shim must carry the WHOLE proxy tuple including the
+exclusions, or it converts one failure into its inverse. The one
+remaining UI red was a REAL latent defect the sandbox exposed, not a
+flake: the stale-sheet race spec was the suite's only test navigating
+without the hermetic external-origin interception, so blocked
+`fonts.googleapis.com` stalled the load event ~21s (trace-proven) and
+ate the race's margin — cured on-convention, test-expert reviewed
+(APPROVE-WITH-NOTES; the reviewer probe-verified Chromium's
+load-vs-error behaviour for aborted nested imports first-hand, and its
+discriminating `waitForResponse` gate landed with the cure). The
+restricted runner acted as a coverage sensor: the test that cannot run
+hermetically is the test with the environment coupling.
+
+## 2026-08-24 ~19:0xZ (Raven stirs Murmur, c4031b, watcher-review seat) — owner rulings landed mid-review
+
+Owner ruled in-session (2026-08-24): the account-synced
+`oce-slack-watcher` skill is retired in favour of the repo skill —
+removed from `/root/.claude/skills/synced/` this container; the synced
+store re-syncs from the claude.ai account, so account-side deletion is
+the owner's remaining act (review proposal P6 tracks the residual).
+Owner also supplied the leg-3 comparative frame (Watcher needs ≈ estate
+comms needs; medium swapped — Slack channel in the coordination
+branch's role), which the review tested need-by-need: it holds
+everywhere, and the single generator behind every Watcher gap is that
+the repo medium is instrumentable while Slack is not — every
+instrument-backed comms mechanism degrades to prose when its
+counterpart crosses the boundary, and the fold ceremony has no Slack
+analogue (nothing conserves channel-borne decisions into the estate).
+Full analysis in the review report's legs 2–5.
