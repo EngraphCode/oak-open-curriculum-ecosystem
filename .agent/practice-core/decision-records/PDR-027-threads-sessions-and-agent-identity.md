@@ -31,6 +31,34 @@ discipline binds to this PDR's tuple format).
 
 ## Amendment Log
 
+- **2026-08-24 — cloud seats seed from the platform session id; hooks never
+  pin a display name.** On a cloud seat two ids coexist: the harness-internal
+  session id and the platform session id. The platform id is the durable,
+  owner-visible unit — it is the session URL, it is what Claude-Session
+  commit trailers carry, and it survives container recycling — and it is
+  machine-readable in-container (`CLAUDE_CODE_REMOTE_SESSION_ID`,
+  `cse_`-tagged; URLs carry the same payload `session_`-tagged). The PDR-027
+  seed on a cloud seat is the UNTAGGED payload (strip exactly one leading
+  lowercase type tag), so registry rows, commit trailers, and the owner's
+  own view join on one key. CLI seats keep the harness session id — the only
+  id there is. Explicit `PRACTICE_AGENT_SESSION_ID_*` values stay ahead of
+  the ambient platform id in seed precedence: they are the operator's stated
+  contract. Prefix note: platform ids are ULID-shaped, so
+  `session_id_prefix` (first 6) is timestamp-derived and two sessions
+  started within the same ~4-minute window share it — the PDR-076a uuid
+  remains the canonical disambiguator and the visual-disambiguator token the
+  display guard (falsifier: a measured same-window mis-bind the uuid checks
+  fail to catch). This amendment SUPERSEDES the 2026-05-05 session-level
+  resolved-name cache: hooks write the seed only and never a name override.
+  The measured failure (2026-08-24, the castr estate — one seat, three
+  identity tuples in one day) is a pinned name surviving a seed change,
+  yielding a mixed-provenance tuple no single seed produces; the rename risk
+  the cache guarded against is now cured structurally by the digest-pinned
+  naming-schema registry (wordlist edits require a new schema version, and
+  rows carry `naming_schema_version`). `*_AGENT_IDENTITY_OVERRIDE` remains
+  an explicit operator override only, never hook-written. Landed under the
+  owner's cross-estate equality directive (2026-08-24); the castr landing is
+  the reference implementation.
 - **2026-08-01 — derivation-source provenance: tools derive identity values
   from claim rows only.** Where a tool DERIVES an identity value from the
   collaboration registry on an operator's behalf — the directed-send
@@ -172,7 +200,9 @@ discipline binds to this PDR's tuple format).
   when present. The legacy-fallback path remains until the sunset
   criterion in the remediation plan is met.
 
-- **2026-05-05 — session-level resolved-name cache.**
+- **2026-05-05 — session-level resolved-name cache.** (SUPERSEDED by the
+  2026-08-24 amendment: hooks no longer store the override; the variable is
+  an explicit operator control only.)
   Platform session-start hooks may derive an agent display name once from the
   session id and store that resolved name in `OAK_AGENT_IDENTITY_OVERRIDE`
   alongside the relevant Practice session-id seed
@@ -414,11 +444,13 @@ pnpm agent-tools:agent-identity --seed "<stable-session-seed>" --format display
 ```
 
 Seed precedence is explicit `--seed`, then
-`PRACTICE_AGENT_SESSION_ID_CLAUDE`, then
+`PRACTICE_AGENT_SESSION_ID_CLAUDE`, then `CLAUDE_CODE_REMOTE_SESSION_ID`
+(cloud seats — type tag stripped, per the 2026-08-24 amendment), then
 `PRACTICE_AGENT_SESSION_ID_CURSOR`, then
 `PRACTICE_AGENT_SESSION_ID_CODEX`, then `CODEX_THREAD_ID`; missing seed is a
 bad-usage error. `OAK_AGENT_IDENTITY_OVERRIDE` supplies a resolved display name
-only when a seed is also available; it is not itself a seed. There is no
+only when a seed is also available; it is not itself a seed, and no hook
+writes it (2026-08-24 amendment). There is no
 personal-email fallback. The derived value helps fill `agent_name`; it does not
 change the additive-identity rule, the identity key, or the historical record.
 

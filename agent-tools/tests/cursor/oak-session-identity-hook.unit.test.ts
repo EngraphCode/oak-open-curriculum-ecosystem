@@ -45,7 +45,6 @@ describe('planCursorSessionIdentityHook', () => {
 
     expect(plan.output.env).toStrictEqual({
       PRACTICE_AGENT_SESSION_ID_CURSOR: sessionId,
-      OAK_AGENT_IDENTITY_OVERRIDE: expectedDisplayName,
     });
     expect(plan.output.additional_context).toContain('[Practice agent identity]');
     expect(plan.output.additional_context).toContain(
@@ -81,7 +80,6 @@ describe('planCursorSessionIdentityHook', () => {
 
     expect(plan.output.env).toStrictEqual({
       PRACTICE_AGENT_SESSION_ID_CURSOR: 'unit-test-hook-seed-xyz',
-      OAK_AGENT_IDENTITY_OVERRIDE: deriveIdentity('unit-test-hook-seed-xyz').displayName,
     });
     expect(plan.mirror).toBeUndefined();
   });

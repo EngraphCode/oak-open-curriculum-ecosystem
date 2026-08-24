@@ -1,5 +1,6 @@
 import { sessionIdPrefix } from '../collaboration-state/identity.js';
 import { deriveIdentity } from '../core/agent-identity/index.js';
+import { stripSessionIdTag } from '../core/agent-identity/session-seed.js';
 import { shellSingleQuote } from '../core/shell-single-quote.js';
 
 /**
@@ -13,6 +14,14 @@ import { shellSingleQuote } from '../core/shell-single-quote.js';
  */
 export interface ClaudeSessionIdentityHookEnvironment {
   readonly CLAUDE_ENV_FILE?: string;
+  /**
+   * Cloud-seat platform session id (`cse_`-tagged). Its untagged payload is
+   * the PDR-027 seed there — the identifier the owner sees in the session
+   * URL, the one Claude-Session commit trailers carry, and the one that
+   * survives container recycling; harness stdin `session_id` remains the
+   * seed on CLI seats.
+   */
+  readonly CLAUDE_CODE_REMOTE_SESSION_ID?: string;
 }
 
 /**
@@ -60,7 +69,7 @@ export interface ClaudeSessionIdentityHookPlan {
 export function planClaudeSessionIdentityHook(
   input: ClaudeSessionIdentityHookInput,
 ): ClaudeSessionIdentityHookPlan {
-  const sessionId = readSessionId(input.stdinText);
+  const sessionId = resolveSeed(input);
   if (sessionId === undefined) {
     return { hookOutput: {} };
   }
@@ -85,11 +94,22 @@ export function planClaudeSessionIdentityHook(
     hookOutput,
     envFileWrite: {
       absolutePath: envFile,
-      appendLine:
-        `export PRACTICE_AGENT_SESSION_ID_CLAUDE=${shellSingleQuote(sessionId)}\n` +
-        `export OAK_AGENT_IDENTITY_OVERRIDE=${shellSingleQuote(displayName)}\n`,
+      // Seed only — never a pinned display name. Pinning
+      // OAK_AGENT_IDENTITY_OVERRIDE here let a later seed change produce a
+      // mixed-provenance tuple (name from the old seed, prefix and uuid
+      // from the new one); the name derives from the live seed at every
+      // point of use instead (PDR-027, 2026-08-24 amendment).
+      appendLine: `export PRACTICE_AGENT_SESSION_ID_CLAUDE=${shellSingleQuote(sessionId)}\n`,
     },
   };
+}
+
+function resolveSeed(input: ClaudeSessionIdentityHookInput): string | undefined {
+  const remoteSessionId = nonEmpty(input.environment.CLAUDE_CODE_REMOTE_SESSION_ID);
+  if (remoteSessionId !== undefined) {
+    return stripSessionIdTag(remoteSessionId);
+  }
+  return readSessionId(input.stdinText);
 }
 
 interface SessionIdPayload {

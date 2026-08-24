@@ -1,6 +1,7 @@
 import { v5 as uuidv5 } from 'uuid';
 
 import { deriveIdentity } from '../core/agent-identity/index.js';
+import { stripSessionIdTagIfPresent } from '../core/agent-identity/session-seed.js';
 
 import {
   type CollaborationAgentId,
@@ -144,6 +145,14 @@ export function validateSharedStateAgentId(input: {
 function resolveCollaborationSeed(env: CollaborationStateEnvironment): SeedCandidate | undefined {
   return firstSeed([
     { source: 'PRACTICE_AGENT_SESSION_ID_CLAUDE', value: env.PRACTICE_AGENT_SESSION_ID_CLAUDE },
+    // Cloud-seat ambient platform session id (PDR-027, 2026-08-24 cloud-seat
+    // clause): the untagged payload joins registry rows with Claude-Session
+    // commit trailers and the owner-visible session URL. Explicit PRACTICE_*
+    // seeds stay ahead of it — they are the operator's stated contract.
+    {
+      source: 'CLAUDE_CODE_REMOTE_SESSION_ID',
+      value: stripSessionIdTagIfPresent(env.CLAUDE_CODE_REMOTE_SESSION_ID),
+    },
     { source: 'PRACTICE_AGENT_SESSION_ID_CURSOR', value: env.PRACTICE_AGENT_SESSION_ID_CURSOR },
     { source: 'PRACTICE_AGENT_SESSION_ID_GEMINI', value: env.PRACTICE_AGENT_SESSION_ID_GEMINI },
     { source: 'PRACTICE_AGENT_SESSION_ID_CODEX', value: env.PRACTICE_AGENT_SESSION_ID_CODEX },
