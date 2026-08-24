@@ -87,7 +87,14 @@ class of unattended organs.
    evidence — proof: the leg-5 report enumerates them (repo-safe).
 2. Every liveness/lifecycle claim is classified instrument-backed or
    prose-only — proof: the report's leg-2 table (repo-safe).
-3. Each proposal carries warrant, falsifier, and PDR-130 lane — proof:
+3. Every communication flow in leg 3 has a routing-coherence row —
+   owning surface, mirror-to-durable verdict, and any double-delivery
+   or silent-drop window named — proof: the report's leg-3 table
+   (repo-safe).
+4. Leg 4 records a single-sourcing verdict per SLACK_WATCHER_* variable
+   and a fail-fast-or-silent-limp finding for a broken or absent
+   configuration — proof: the report's leg-4 section (repo-safe).
+5. Each proposal carries warrant, falsifier, and PDR-130 lane — proof:
    report §proposals (repo-safe); adoption is the owner's consolidation
    decision (owner-held).
 

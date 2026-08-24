@@ -10,10 +10,16 @@ it does not run a Watcher, amend its skills, or build features.
 
 ## Current Continuation — NOT STARTED (fresh session picks this up)
 
-- **Opening move**: run `oak-start-right-thorough`, read the plan file end
-  to end, then leg 1 — the full primary-source inventory (skills, rules,
-  comms overlay, environment coupling, backlog and research notes), read
-  in full, drift recorded as findings.
+- **Opening move**: run `oak-start-right-thorough`, read the plan file
+  end to end, then obtain the owner's ratification of the sketch BEFORE
+  any review leg runs — a sketch governs no work until its stamp lands
+  (plan-node contract; precedence-is-not-approval), and the
+  commissioning word authorised the plan's authoring, not its
+  execution. Until ratified, the session may only review and refine the
+  sketch itself. Once ratified: leg 1 — the full primary-source
+  inventory (skills, rules, comms overlay, environment coupling,
+  backlog and research notes), read in full, drift recorded as
+  findings.
 - **The review's question**: is the Watcher trustworthy as the estate's
   comms organ — can a fresh Watcher seat start, run, and hand off from
   the written surfaces alone, and can agents communicate with or via it

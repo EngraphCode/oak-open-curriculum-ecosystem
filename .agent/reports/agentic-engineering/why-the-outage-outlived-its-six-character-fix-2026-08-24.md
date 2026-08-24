@@ -270,8 +270,11 @@ while pr-lifecycle's standing two-class disposition already gives
 adjacent-but-valid findings one — a named ticket or Director route.
 Proposal 1 is therefore amended to compose with that route rather than
 bypass it: the decline reply carries, alongside its reopen condition, a
-pointer to the owning home (a ticket, a thread record, or an explicit
-"no home — reopen condition only" statement). Applied retroactively to
+pointer to the owning home — a ticket, a thread record, or, where
+neither exists, the arc's controlling thread record, which then records
+the decline and its reopen condition as continuity. Every declined
+finding gets a durable pointer; none survives only in a resolved PR
+thread. Applied retroactively to
 this arc, the declined corepack-fidelity findings (the r22→r24→r25
 chain and the 12:52 decline) are exactly the entries such pointers
 would have captured; today they live only in resolved PR threads. The
