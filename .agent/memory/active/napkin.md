@@ -1265,3 +1265,76 @@ pinning-by-name, not sequencing-by-hope.
   hold by being written down (push wrapper) held once made structural
   (push is the final command). Passive guidance loses to artefact
   gravity, again, measured twice in one day.
+
+## 2026-08-24 environment-breakage wrap (Buzzard weaves Airstream, 01e90b, cloud-environment-bootstrap)
+
+- **Surprise — the validation was archaeology**: expected that
+  yesterday's "verified live" environment script was sound; the
+  environment broke on the very next fresh session. The verification
+  had run in a persisted dirty container (Aug-23 timestamps, my own
+  installs on PATH) — a fossil, not a test bench. The only true fresh
+  bench is the environment builder itself, so the cure is shipping
+  instrumentation INTO the script (phase banners + ERR trap) and a
+  paste-able read-only preflight, not more careful in-session
+  rehearsal. Structural, landed this session in both repos.
+- **Surprise — the suspected host was wrong**: we carried
+  `objects.githubusercontent.com` as the gitleaks redirect target;
+  the in-session preflight resolved the real chain to
+  `release-assets.githubusercontent.com`. An assumption nobody had
+  falsified because no instrument probed the effective URL — the
+  probe invariant (every external host gets a probe in the same
+  commit, redirect chains included) exists to stop this class.
+- **Play seed (routed)**: the write-only environment dialog makes the
+  repo reference file the only authority — treat any behavioural
+  drift as the dialog's error and re-paste, never debug the unknown
+  copy. Folded into cloud-environment.md § Validating and diagnosing.
+- **Loss-scan findings (context-only until now, homed here)**: (1) the
+  castr twin of every environment artefact is intentional and must
+  stay byte-identical except the one repo-specific hook sentence in
+  cloud-environment.md — a diverger should diff against the OCE copy
+  first; (2) force-with-lease is denied by the cloud permission
+  classifier — branch restarts after a merged PR go
+  `checkout -B <branch> <base>` then plain push (fast-forward or new
+  branch), never `--force-with-lease`; (3) parallel Bash tool calls
+  share one working directory — two same-turn `cd X && …` calls
+  interleave (bit twice this session during branch restarts): serial
+  calls or absolute paths for anything stateful.
+
+## 2026-08-24 (later) — outage resolved; review-loop lesson
+
+- **Root cause of the 24h environment outage — six characters**: the
+  discovery pipeline `find /home /workspace … | sed …` exits 1 because
+  the builder ships no `/workspace` (find still prints every match),
+  and `set -euo pipefail` killed setup at that line on every fresh
+  session since the discovery script's FIRST paste (birth commit
+  a3634ea already had both). Cure: `|| true` on the pipeline; the real
+  invariant stays `test -n "$FIRST_REPO"`. Corollary worth keeping:
+  validate a strict-mode script by running the WHOLE file under its own
+  strict mode — interactive chunk-testing drops `set -euo pipefail`
+  and passes code the script will die on.
+- **The network hypothesis was a streetlight**: every probe-able
+  assumption (12/12, including the prime-suspect redirect host) passed
+  from the true builder; the killer was a shell semantic no host probe
+  could see. The preflight deliberately runs without `-e`, so this
+  class belongs to the setup script's own banners + ERR trap — the
+  instruments are a PAIR, neither covers the other's class.
+- **Mistake — unbounded fidelity review loop (owner-stopped, round ~26)**:
+  I cured ~6 rounds of corepack-internals fidelity findings
+  (auth precedence, .corepack.env, URL pins, origin normalisation) for
+  configurations this estate does not have, because each finding was
+  individually correct and arrived with the estate's own
+  verify-vendor-shapes vocabulary attached. Correct ≠ relevant ≠
+  proportionate — separate conjuncts. Cures drew findings-against-the-
+  cure (generator recurrence); the pr-lifecycle tally was never built,
+  so nothing counted. Standing disposition now: fidelity findings
+  beyond the live estate configuration get a printed `bound:` line and
+  a decline reply, never an in-loop cure.
+- **Surprise — harness checkpointing auto-committed held work**: my
+  deliberately-uncommitted round-25 edits appeared as a proper commit
+  (accurate message, bot identity) in both repos without my invoking
+  git. Held-work discipline cannot assume a dirty tree stays dirty in
+  cloud sessions; the freeze decision must account for auto-checkpoint.
+- **Cure-introduced defect instance**: round 24's env-file change moved
+  pin-dedupe recording BEFORE the probe, so a failed pin printed
+  "already verified" for the next repo — caught by my own round-25
+  test, the PDR-132 signature reproducing live.
