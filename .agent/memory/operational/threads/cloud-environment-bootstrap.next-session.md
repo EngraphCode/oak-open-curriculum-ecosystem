@@ -85,7 +85,15 @@ castr carries the twin copies; this record is the thread's single home.
   at discovery, present since the script's first paste; see Current
   Continuation. The harness review loop was owner-stopped at ~26 rounds
   after a proportionality reflection; the generator-recurrence lesson
-  is conserved above and in the napkins.
+  is conserved above and in the napkins. OCE #12 and castr #46/#47 all
+  MERGED 2026-08-24.
+- 2026-08-24 (close): owner-commissioned deep retrospective landed at
+  `.agent/reports/agentic-engineering/why-the-outage-outlived-its-six-character-fix-2026-08-24.md`
+  — causal stack, same-arc counterfactuals, and four routed proposals
+  (bounds-not-cures for unbounded-reference reviews; tally built at
+  PR-open; whole-file strict-mode validation; structural firing points
+  for twice-recurred classes, with prediction). The proposals await the
+  consolidation pass.
 
 ## Participating agent identities
 
