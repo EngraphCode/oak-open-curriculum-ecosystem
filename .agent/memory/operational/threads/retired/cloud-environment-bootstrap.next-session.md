@@ -1,3 +1,12 @@
+> **RETIRED — arc closed 2026-08-24.** The environment is FIXED (find/pipefail
+> discovery defect, fatal from the script's birth commit, cured by tolerating
+> the pipeline exit; fresh build owner-confirmed). All PRs merged 2026-08-24
+> (castr #47 12:54Z, OCE #12 13:03Z); the retrospective landed on `engraph`
+> via OCE PR #13 (`.agent/reports/agentic-engineering/why-the-outage-outlived-its-six-character-fix-2026-08-24.md`)
+> with three routed proposals plus a recorded routing disposition awaiting
+> the consolidation pass. Retained as continuity history; not a live lane.
+> Not listed in `repo-continuity.md` Active or Paused threads.
+
 # Next-Session Record - `cloud-environment-bootstrap` thread
 
 Provisioning the shared claude.ai "Practice Repos" cloud environment

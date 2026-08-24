@@ -258,3 +258,22 @@ the consolidation pass, this record was a eulogy and should be said so
 there.
 
 *Addenda land additively below this line; the record is never rewritten.*
+
+## Addendum 2026-08-24 — proposal 1 composes with the ticket route
+
+Routed here from PR #13's post-boundary review round (the finding was
+acknowledged and routed, not cured pre-merge, per the declared round
+boundary — itself an application of proposal 1's discipline to this
+record's own PR). The refinement: a `bound:` line plus a decline reply
+leaves a declined finding with no durable home outside the PR thread,
+while pr-lifecycle's standing two-class disposition already gives
+adjacent-but-valid findings one — a named ticket or Director route.
+Proposal 1 is therefore amended to compose with that route rather than
+bypass it: the decline reply carries, alongside its reopen condition, a
+pointer to the owning home (a ticket, a thread record, or an explicit
+"no home — reopen condition only" statement). Applied retroactively to
+this arc, the declined corepack-fidelity findings (the r22→r24→r25
+chain and the 12:52 decline) are exactly the entries such pointers
+would have captured; today they live only in resolved PR threads. The
+amendment changes proposal 1's mechanism, not its lane — it remains
+FAST, and its falsifier is unchanged.
