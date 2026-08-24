@@ -341,8 +341,12 @@ intro's stated cadence is where that price is declared.
   for the truing; the gate question routes to the skills-estate lane.
 - **P6 — account-side deletion of the synced skill** (owner's act; no
   agent can reach it). *Warrant*: L1-F6 + the owner's 2026-08-24
-  ruling; the local removal does not survive re-sync. *Falsifier*:
-  none needed — the ruling is made; this row only tracks the residual.
+  ruling — and a measured probe: the in-container removal was undone
+  by the account sync WITHIN THE SAME SESSION (deleted, then observed
+  restored on disk minutes later; deleted again). Local removal is not
+  a mitigation at all; the claude.ai account's skills surface is the
+  only effective deletion point. *Falsifier*: none needed — the ruling
+  is made; this row tracks the sole remaining act.
 
 ### Review-question answer (the plan's Goal, answered)
 
