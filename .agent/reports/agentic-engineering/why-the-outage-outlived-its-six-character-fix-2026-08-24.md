@@ -124,12 +124,17 @@ hour.
   rounds) contributed nothing to the root cause. The unit-cost
   comparison binds to that late sub-segment: one paste round-trip
   against roughly seven fidelity rounds.
-- **Disposition policy.** Same PRs, same reviewer, same day: under
-  cure-by-default, each landed cure drew one to three fresh findings; under
-  the post-stop disposition policy, fifteen threads closed in one pass and
-  each subsequent finding terminated in a single decline reply, with no
-  finding-against-a-decline observed before merge. The only changed variable
-  was the policy.
+- **Disposition policy (observational).** Same PRs, same reviewer, same
+  day: under cure-by-default, each landed cure drew one to three fresh
+  findings; under the post-stop disposition policy, fifteen threads
+  closed in one pass and each subsequent finding terminated in a single
+  decline reply, with no finding-against-a-decline observed before
+  merge. This is an observational comparison, not a controlled one: the
+  cure phase pushed changed artefacts for re-review while the decline
+  phase left the diff unchanged, so reviewer opportunity differed with
+  the policy — which is itself part of the mechanism (cures create the
+  re-reviewable surface findings feed on), but means the phases do not
+  isolate the policy as a single variable.
 - **The cross-arc comparator.** The 07-20 retrospective's proposal 1
   graduated as structure — the authoring-time open-set clause on
   `no-moving-targets-in-permanent-docs` — and demonstrably held here: this
@@ -245,8 +250,11 @@ the working-with-agentic-ai surface.
 Proposal 2 carries this arc's sharpest lesson — the third documented
 instance of an existing instrument going unbuilt — and proposal 1 carries
 its named mechanism (*fidelity findings against an unbounded reference
-descend into finer branches; bounds, not cures, are the exit*). If none of
-1–4 graduates, is killed, or changes a decision at the consolidation pass,
-this record was a eulogy and should be said so there.
+descend into finer branches; bounds, not cures, are the exit*). Proposal
+4's routing was already decided during this record's own review (the
+slow-lane row withdrawn as mis-laned — a decision this record's process
+produced). If none of 1–3 graduates, is killed, or changes a decision at
+the consolidation pass, this record was a eulogy and should be said so
+there.
 
 *Addenda land additively below this line; the record is never rewritten.*

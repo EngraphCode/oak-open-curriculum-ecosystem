@@ -93,10 +93,13 @@ castr carries the twin copies; this record is the thread's single home.
   MERGED 2026-08-24.
 - 2026-08-24 (close): owner-commissioned deep retrospective landed at
   `.agent/reports/agentic-engineering/why-the-outage-outlived-its-six-character-fix-2026-08-24.md`
-  — causal stack, same-arc counterfactuals, and four routed proposals
-  (bounds-not-cures for unbounded-reference reviews; tally built at
-  PR-open; whole-file strict-mode validation; structural firing points
-  for twice-recurred classes, with prediction). The proposals await the
+  — causal stack, same-arc counterfactuals, and three routed proposals
+  (bounds-not-cures for unbounded-reference reviews; the tally built at
+  PR-open, fast-lane with its prediction sentence; whole-file
+  strict-mode validation), plus a recorded routing disposition: the
+  tally contract's provisional slow-lane row was withdrawn as mis-laned
+  during the record's own review, and the broader structural-firing-
+  points principle rides as narrative only. The proposals await the
   consolidation pass.
 
 ## Participating agent identities
