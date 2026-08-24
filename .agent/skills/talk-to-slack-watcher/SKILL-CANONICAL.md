@@ -65,9 +65,11 @@ is unset, ask the owner — never hard-code or guess.
   keeps one edited status reply threaded under its intro (last-tick UTC
   time, baseline `ts`, cadence — the `slack-watcher` skill's tenure
   deadman). A last-tick time older than twice the stated cadence means
-  the Watcher is down regardless of how recently it posted anything
-  else — report that to the owner before (or instead of) waiting on a
-  reply.
+  the tick loop is out of contract — treat the watch as unreliable and
+  report that to the owner before (or instead of) waiting on a reply.
+  A recent in-channel Watcher post alongside a stale status message is
+  observed movement, not health: it opens the question (report it with
+  both facts), never closes it.
 - **Silence is never liveness**: for a tenure with no status message
   (a legacy intro), no reply after two of the Watcher's
   stated poll intervals means the Watcher may be down. Report that to the

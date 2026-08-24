@@ -27,7 +27,7 @@ description: >-
 Operationalises the owner-directed comms-landscape analysis
 (2026-08-11; see
 [`references/comms-landscape.md`](references/comms-landscape.md) for
-the full comparison and its provenance). Scope: the three
+the full comparison and its provenance). Scope: the
 DELIVERY/LATENCY lanes for live agent-to-agent messaging — one slice
 of the estate's channel model, not the whole of it. The canonical
 routing card
@@ -35,7 +35,7 @@ routing card
 remains the authority for every other shape: thread records for
 cross-session continuity, decision threads and sidebars for structured
 async decisions and evidence, reviewer dispatch, and owner questions.
-Within the delivery lanes, all three earn their place on a latency ×
+Within the delivery lanes, each earns its place on a latency ×
 durability × audience split no single lane covers; the behaviours
 below keep the fast lanes from hollowing out the record.
 
@@ -154,7 +154,7 @@ record) rather than minting per-platform behaviours.
 - [`../../rules/handoff-messages-self-contained.md`](../../rules/handoff-messages-self-contained.md)
   — composition discipline for anything decision-bearing.
 - [`references/comms-landscape.md`](references/comms-landscape.md) —
-  the full three-channel comparison, what the channels learn from each
+  the full lane-by-lane comparison, what the channels learn from each
   other, and the analysis provenance.
 - [`../slack-watcher/SKILL-CANONICAL.md`](../slack-watcher/SKILL-CANONICAL.md)
   and

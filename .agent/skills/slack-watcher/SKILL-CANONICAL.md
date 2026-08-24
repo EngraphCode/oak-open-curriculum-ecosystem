@@ -66,7 +66,10 @@ how to address you (by name or "the Watcher"), and that your sign-off
 will name this intro's `ts` — the tenure declaration the validity rule
 below relies on. Immediately after the intro, post one threaded reply
 under it — the **tenure status message** — carrying the tick cadence,
-the current baseline `ts`, and the UTC time of the last tick; you will
+the current baseline `ts`, and the UTC time of the last tick (at
+stand-up: the posting time as tick zero, and the baseline marked
+pending until the takeover sweep below completes and the first tick
+sets it); you will
 EDIT this same message every tick (§3), so it is the tenure's deadman:
 one always-current, zero-noise surface that anyone — a correspondent,
 a fallback check, the owner — can read for liveness and baseline
@@ -185,12 +188,15 @@ mantle-state post (step 2's resolver — void posts skipped) before
 signing off, and branch
 on what it is: a valid intro or relief newer than your own intro means
 a successor took the mantle mid-teardown — run the handover above
-(sign-off reply, baseline `ts`, owner notified) and post no vacancy; a
+(sign-off reply, baseline `ts`, owner notified, status final-edit) and
+post no vacancy; a
 valid vacancy, or nothing newer, means the mantle is yours to vacate —
 post the vacancy sign-off, naming your own intro's `ts` as the tenure
 it closes (step 2's tenure binding) and your last-processed baseline
 `ts` as the boundary successors sweep from, and final-edit the tenure
-status message (`tenure closed — see vacancy sign-off`) — a read and a post are
+status message (`tenure closed` — no pointer to a specific post: the
+validity rule resolves the closing post, and a race-voided vacancy may
+be deleted) — a read and a post are
 never atomic, so the post's own timestamp can overstate coverage; the
 named baseline is exact. The resolve and the post are separate
 Slack calls, so a successor's intro can land in between — but a vacancy
@@ -206,7 +212,8 @@ handover. A successor post that postdates your vacancy is classified
 by what it observed, not by ordering alone: a relief intro naming you
 (`relieves <your name>`) was prepared against your tenure — answer it
 per section 5 (sign-off reply naming the successor and the baseline
-`ts`, which is your last-processed baseline, and notify the owner),
+`ts`, which is your last-processed baseline, notify the owner, and the
+status final-edit if not already made),
 leaving the vacancy in place as history; a fresh stand-up intro with
 no relief phrase is answering the genuine vacancy — leave the vacancy
 in place (the baseline it names is the successor's sweep boundary) and
@@ -222,8 +229,13 @@ The Watcher runs on a substrate the estate's comms machinery does not
 cover: the Slack channel is the shared medium and a self-rescheduling
 platform reminder is the wake path. Per PDR-133 §8, each class below
 names the primitive that certifies it, or the proxy that substitutes
-and the residual exposure it leaves (observed facts dated 2026-08-24,
-from the Watcher estate review):
+and the residual exposure it leaves. Declared 2026-08-24 against the
+cloud harness's reminder surface, observed facts from the Watcher
+estate review of that date; re-verify the rows against the live
+surfaces at the next Watcher stand-up and upgrade any
+cannot-certify/unverified cell that gains a dated first-hand
+observation. The full declaration ledger's pointer to this table lives
+in the cross-platform agent surface matrix:
 
 | Class | Answer for this substrate |
 | --- | --- |
@@ -234,10 +246,10 @@ from the Watcher estate review):
 | `CURSOR` | The baseline `ts`, durable in the tenure status message and in sign-off posts. |
 | `INTEGRITY` | Slack history is authoritative and re-readable — a missed window is recoverable by sweeping from the baseline. Residual: edits and deletions mutate history. |
 | `DELIVERY` | Tick summaries reach the holder's transcript; owner push fires on new-message ticks. |
-| `NOTIFY` | The platform reminder wakes the session. Observed 2026-08-24: a self-bind reminder records no run history, so a silently dead chain is invisible outside the channel — status-message staleness is the detection path. |
+| `NOTIFY` | **Cannot certify from the written record** — the reminder primitive exists, but no dated, externally observed wake (reminder fires → agent turn created, no manual poll) is on record, and observed 2026-08-24: a self-bind reminder records no run history, so a silently dead chain is invisible outside the channel. Proxy: status-message staleness. This is the substrate's known-dangerous class; a first-hand observed wake with date and observer upgrades this row. |
 | `LOOP` | Cannot self-certify (PDR-133 §5). Proxy: status-message staleness, readable by any peer, cron, or the owner. |
 | `ABSORB` | In-channel replies are the acknowledgement; consequential items surface to the owner per §4. |
-| `CAPABILITY` | Slack MCP under the shared credential; a scope or auth loss fails loud at the next tick's read. |
+| `CAPABILITY` | Slack MCP under the shared credential. Expected to fail loud at the next tick's read on a scope or auth loss — an expectation, not yet a dated observation; treat as unverified until one is recorded. |
 | `EMIT` | The tenure status message edited every tick IS the heartbeat. Never consumer-absent-suspended: the owner is the standing consumer. |
-| `REGISTRY` | n/a — the mantle holds no estate claim; a holding session's other claims follow the estate's own rules. |
+| `REGISTRY` | Cannot arise — the mantle holds no claim-bearing surface to keep fresh; a holding session's other claims follow the estate's own rules. |
 | `PROGRESS` | New-message ticks show summaries and replies in-channel. On a quiet channel the status message proves presence only — the honest ceiling; nothing distinguishes attentive-quiet from wedged-but-editing. |
