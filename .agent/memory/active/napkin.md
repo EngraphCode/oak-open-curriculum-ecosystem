@@ -1265,3 +1265,37 @@ pinning-by-name, not sequencing-by-hope.
   hold by being written down (push wrapper) held once made structural
   (push is the final command). Passive guidance loses to artefact
   gravity, again, measured twice in one day.
+
+## 2026-08-24 environment-breakage wrap (Buzzard weaves Airstream, 01e90b, cloud-environment-bootstrap)
+
+- **Surprise — the validation was archaeology**: expected that
+  yesterday's "verified live" environment script was sound; the
+  environment broke on the very next fresh session. The verification
+  had run in a persisted dirty container (Aug-23 timestamps, my own
+  installs on PATH) — a fossil, not a test bench. The only true fresh
+  bench is the environment builder itself, so the cure is shipping
+  instrumentation INTO the script (phase banners + ERR trap) and a
+  paste-able read-only preflight, not more careful in-session
+  rehearsal. Structural, landed this session in both repos.
+- **Surprise — the suspected host was wrong**: we carried
+  `objects.githubusercontent.com` as the gitleaks redirect target;
+  the in-session preflight resolved the real chain to
+  `release-assets.githubusercontent.com`. An assumption nobody had
+  falsified because no instrument probed the effective URL — the
+  probe invariant (every external host gets a probe in the same
+  commit, redirect chains included) exists to stop this class.
+- **Play seed (routed)**: the write-only environment dialog makes the
+  repo reference file the only authority — treat any behavioural
+  drift as the dialog's error and re-paste, never debug the unknown
+  copy. Folded into cloud-environment.md § Validating and diagnosing.
+- **Loss-scan findings (context-only until now, homed here)**: (1) the
+  castr twin of every environment artefact is intentional and must
+  stay byte-identical except the one repo-specific hook sentence in
+  cloud-environment.md — a diverger should diff against the OCE copy
+  first; (2) force-with-lease is denied by the cloud permission
+  classifier — branch restarts after a merged PR go
+  `checkout -B <branch> <base>` then plain push (fast-forward or new
+  branch), never `--force-with-lease`; (3) parallel Bash tool calls
+  share one working directory — two same-turn `cd X && …` calls
+  interleave (bit twice this session during branch restarts): serial
+  calls or absolute paths for anything stateful.
