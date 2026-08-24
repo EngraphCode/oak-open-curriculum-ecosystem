@@ -49,8 +49,17 @@ class of unattended organs.
 ## Review legs
 
 1. **Ground on primary sources, in full**: the `slack-watcher` and
-   `talk-to-slack-watcher` skills (canonical bodies, both repos' wrappers,
-   and the `oce-slack-watcher` plugin skill), the
+   `talk-to-slack-watcher` skills — this repo's canonical bodies
+   (`.agent/skills/slack-watcher/SKILL-CANONICAL.md`,
+   `.agent/skills/talk-to-slack-watcher/SKILL-CANONICAL.md`) and
+   wrappers (`.claude/skills/oak-slack-watcher/`,
+   `.claude/skills/oak-talk-to-slack-watcher/`), plus castr's twins at
+   <https://github.com/EngraphCode/castr/blob/main/.agent/skills/slack-watcher/SKILL-CANONICAL.md>
+   and
+   <https://github.com/EngraphCode/castr/blob/main/.agent/skills/talk-to-slack-watcher/SKILL-CANONICAL.md>
+   (wrappers under
+   <https://github.com/EngraphCode/castr/tree/main/.claude/skills>) —
+   the
    `comms-all-channels-watcher` and `liveness-heartbeat-cron` and
    `silence-is-never-liveness` rules, `oak-comms-channels`,
    `cloud-environment.md` § environment variables, the
