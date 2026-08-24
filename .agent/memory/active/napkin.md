@@ -1299,3 +1299,42 @@ pinning-by-name, not sequencing-by-hope.
   share one working directory — two same-turn `cd X && …` calls
   interleave (bit twice this session during branch restarts): serial
   calls or absolute paths for anything stateful.
+
+## 2026-08-24 (later) — outage resolved; review-loop lesson
+
+- **Root cause of the 24h environment outage — six characters**: the
+  discovery pipeline `find /home /workspace … | sed …` exits 1 because
+  the builder ships no `/workspace` (find still prints every match),
+  and `set -euo pipefail` killed setup at that line on every fresh
+  session since the discovery script's FIRST paste (birth commit
+  a3634ea already had both). Cure: `|| true` on the pipeline; the real
+  invariant stays `test -n "$FIRST_REPO"`. Corollary worth keeping:
+  validate a strict-mode script by running the WHOLE file under its own
+  strict mode — interactive chunk-testing drops `set -euo pipefail`
+  and passes code the script will die on.
+- **The network hypothesis was a streetlight**: every probe-able
+  assumption (12/12, including the prime-suspect redirect host) passed
+  from the true builder; the killer was a shell semantic no host probe
+  could see. The preflight deliberately runs without `-e`, so this
+  class belongs to the setup script's own banners + ERR trap — the
+  instruments are a PAIR, neither covers the other's class.
+- **Mistake — unbounded fidelity review loop (owner-stopped, round ~26)**:
+  I cured ~6 rounds of corepack-internals fidelity findings
+  (auth precedence, .corepack.env, URL pins, origin normalisation) for
+  configurations this estate does not have, because each finding was
+  individually correct and arrived with the estate's own
+  verify-vendor-shapes vocabulary attached. Correct ≠ relevant ≠
+  proportionate — separate conjuncts. Cures drew findings-against-the-
+  cure (generator recurrence); the pr-lifecycle tally was never built,
+  so nothing counted. Standing disposition now: fidelity findings
+  beyond the live estate configuration get a printed `bound:` line and
+  a decline reply, never an in-loop cure.
+- **Surprise — harness checkpointing auto-committed held work**: my
+  deliberately-uncommitted round-25 edits appeared as a proper commit
+  (accurate message, bot identity) in both repos without my invoking
+  git. Held-work discipline cannot assume a dirty tree stays dirty in
+  cloud sessions; the freeze decision must account for auto-checkpoint.
+- **Cure-introduced defect instance**: round 24's env-file change moved
+  pin-dedupe recording BEFORE the probe, so a failed pin printed
+  "already verified" for the next repo — caught by my own round-25
+  test, the PDR-132 signature reproducing live.

@@ -9,42 +9,59 @@ pasted setup script's reference copy), `cloud-environment-preflight.sh`
 doc, incl. § Validating and diagnosing — the edit→preflight→paste loop).
 castr carries the twin copies; this record is the thread's single home.
 
-## Current Continuation — ENVIRONMENT BROKEN, DIAGNOSIS IN FLIGHT
+## Current Continuation — ENVIRONMENT FIXED 2026-08-24; PR close-out remains
 
-- **Live problem (owner report 2026-08-24): fresh sessions are NOT
-  starting.** The failure-card text has not yet been seen by any agent;
-  the dialog paste has not been verified against the merged reference
-  (the dialog is write-only — drift is undetectable from a session).
-  Diagnosis continues IN the 2026-08-24 session (Buzzard weaves
-  Airstream) because no fresh session can start while the environment
-  is down.
-- **Prime suspect (grounded 2026-08-24, in-session preflight run):**
-  gitleaks release assets redirect to
-  `release-assets.githubusercontent.com` — a host that appears nowhere
-  in the script text and was previously assumed to be
-  `objects.githubusercontent.com`. If the setup-time egress allow-list
-  lacks it, the setup dies in the gitleaks phase. Unconfirmed until a
-  setup-time preflight card or failure card is read.
-- **Next safe step**: run the diagnosis loop in
-  `cloud-environment.md § Validating and diagnosing` — (1) owner
-  supplies the failure-card text (phase banners now localise it);
-  (2) if inconclusive, owner pastes `cloud-environment-preflight.sh`
-  as a temporary environment script and reads the card (complete
-  falsification list in one round-trip); (3) fix what it names
-  (allow-list first); (4) re-paste the reference setup script.
-- **Setup-time-unconfirmed hosts register** lives in
-  `cloud-environment.md § Suspected-fragile hosts register`; retire
-  entries as setup-time cards confirm them.
+- **Outage RESOLVED (owner-run experiments, 2026-08-24 ~13:00Z).** Root
+  cause: the discovery pipeline `REPOS=$(find /home /workspace … | sed …)`
+  exits non-zero because the builder image ships no `/workspace`
+  (find still prints every match), and under `set -euo pipefail` that
+  killed setup at the discovery line on EVERY fresh session — from the
+  script's very first paste (the pipeline + strict mode are both in the
+  file's birth commit a3634ea, 2026-08-23 17:12). Nothing changed
+  vendor-side; the environment "broke" at the moment the discovery
+  script was pasted. It had looked validated because the 2026-08-23
+  validation hand-ran chunks in an interactive shell, which drops the
+  script's strict mode. Fix: tolerate the pipeline's exit (`|| true`);
+  the meaningful invariant stays `test -n "$FIRST_REPO"`. Landed in the
+  reference file (commit "tolerate find's exit in discovery"); the
+  dialog holds the functionally identical paste; a fresh environment
+  build with the fix SUCCEEDED (owner-confirmed).
+- **The diagnosis loop is now proven end-to-end**: preflight pasted as
+  temporary env script → clean 12/12 from the true fresh builder (this
+  exonerated the prime-suspect redirect host and the entire network
+  hypothesis space in one round-trip); instrumented setup script →
+  failure card named the exact phase, line, command, and PIPESTATUS;
+  one-line fix → environment builds. The suspected-fragile hosts
+  register's four entries were all POSITIVELY CONFIRMED reachable at
+  setup time and are retired in `cloud-environment.md` (evidence line
+  kept there).
+- **Known instrument gap (recorded, deliberately unfixed)**: the
+  preflight runs without `-e`/`pipefail` by design, so it cannot catch
+  strict-mode shell-semantics deaths in the setup script — exactly this
+  outage's class. The setup script's own phase banners + ERR trap are
+  the covering instrument for that class; treat the pair as one system.
+- **Review-loop lesson (proportionality, owner-stopped 2026-08-24)**:
+  ~6 late review rounds reimplemented corepack request-flow fidelity in
+  bash for configurations this estate does not have, fed by an
+  unbounded bot-review generator (each cure drew a finding against the
+  cure). Verdict conserved: fidelity findings beyond the estate's live
+  configuration get a printed `bound:` line and a decline reply, never
+  an in-loop cure; build the pr-lifecycle tally at PR-open for
+  bot-reviewed PRs. The outage's actual cause was six characters of
+  exit-status tolerance, not any probed network path.
+- **Remaining on this thread**: push rounds 25+26 + continuity (in
+  flight at record time); disposition-reply and resolve all open Codex
+  threads on OCE #12 and castr #47 (cured-in-commit vs bound/declined —
+  NO further fidelity cures); both PRs auto-merge on green; optional
+  byte-parity re-paste of the reference setup script (dialog copy
+  differs only in comment wording). Engraph OCE main == Oak OCE main
+  (1173c1adf, mirror restored 2026-08-24, owner-run force-with-lease).
 - Standing owner rulings the thread carries: fail-fast ("we WANT it to
-  fail if it fails"); no version hard-coding (Node major floats from
-  the carried repo's engines; pnpm from packageManager via Corepack);
-  SHASUMS transfer-integrity only, no keyring/pinned-digest trust
-  level ("we don't need keyring levels of trust, at least not yet");
-  OCE PRs target `engraph`, never main.
-- Landing target for the next session on this thread: a fresh session
-  starts cleanly on the current environment (positive confirmation),
-  and the suspected-fragile register is emptied or shortened by
-  evidence from real setup-time cards.
+  fail if it fails") — note the fix above tolerates only the pipeline
+  EXIT, the found-no-repo invariant still fails loudly; no version
+  hard-coding (Node major floats from engines; pnpm from packageManager
+  via Corepack); SHASUMS transfer-integrity only, no keyring-level
+  trust; OCE PRs target `engraph`, never main.
 
 ## History
 
@@ -62,6 +79,13 @@ castr carries the twin copies; this record is the thread's single home.
   card now names its phase, line, and command), the preflight probe
   harness, the § Validating and diagnosing protocol, and the
   suspected-fragile register.
+- 2026-08-24 (later): outage diagnosed and fixed via the harness's
+  first real flight (two owner pastes: preflight 12/12, then the
+  instrumented script's card naming line 57) — root cause find/pipefail
+  at discovery, present since the script's first paste; see Current
+  Continuation. The harness review loop was owner-stopped at ~26 rounds
+  after a proportionality reflection; the generator-recurrence lesson
+  is conserved above and in the napkins.
 
 ## Participating agent identities
 
