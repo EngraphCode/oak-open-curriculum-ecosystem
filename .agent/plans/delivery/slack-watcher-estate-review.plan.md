@@ -3,10 +3,10 @@ id: slack-watcher-estate-review
 node_type: delivery
 name: "Slack Watcher estate review — skills, guidance, and mechanisms for the Watcher and agents communicating with or via it"
 overview: "Owner-commissioned review of the Slack Watcher organ: the slack-watcher and talk-to-slack-watcher skills, the comms-all-channels-watcher rule, the environment coupling, liveness and lifecycle mechanics, and the guidance agents follow to communicate with or via the Watcher — verdicts and routed proposals, not execution."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell (owner)"
+ratified_date: 2026-08-24
+ratified_where: "In-session ratification word to Raven stirs Murmur (c4031b), 2026-08-24 — recorded verbatim in the thread record slack-watcher-estate-review.next-session.md §History"
 serves: coordination-substrate
 impact_areas:
   - practice-and-estate
