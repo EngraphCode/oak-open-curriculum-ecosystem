@@ -1434,6 +1434,23 @@ Full analysis in the review report's legs 2–5.
   said the old tuple) — the opposite drift polarity from OCE, where
   doctrine leads; drift direction as a living-edge signal. Association
   only.
+- **Wrap gate outcome — `pnpm check` RED on two pre-existing
+  environment couplings, surfaced-and-stopped per the standing rule**:
+  `oak-curriculum-hub#build` (turbopack's native `next/font` fetcher
+  fails to fetch Lexend — a curl through the session proxy returns
+  HTTP 200, so the fetcher is bypassing the proxy/CA env the pnpm shim
+  injects) and `oak-design-showcase#test:a11y` (one test: the creature
+  hero word measures 346px against a 288px bound — the brand's Google
+  font fails the browser's direct TLS-intercepted fetch, and the
+  FALLBACK face is what overflows; 67/68 pass). Neither task runs in
+  the pre-push gate (`test:a11y` is check-only; the hub built green
+  earlier from cache), and zero of this branch's 19 changed files
+  touch hub/fluid-type/creature/font surfaces. Third instance of this
+  session's open-egress-assumption class (after the corepack child and
+  the stale-sheet spec) — the restricted runner keeps working as a
+  coverage sensor. Candidate cures for the owning lanes, not this one:
+  self-host the hub font (`next/font/local`), and make the fluid-type
+  measurement font-hermetic or font-loaded-gated.
 - **Handoff sweep evidence**: `~/.claude/plans/` empty in this
   container; Claude per-user memory surface not present here (fresh
   cloud container); comms events this session all self-authored
