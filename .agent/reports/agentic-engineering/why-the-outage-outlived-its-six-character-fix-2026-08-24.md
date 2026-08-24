@@ -115,9 +115,15 @@ hour.
 - **Diagnosis.** The three-paste endgame — preflight, instrumented script,
   fixed script — took under an hour of elapsed time and three round-trips of
   owner attention, and produced the exoneration, the root cause, and the
-  confirmed fix. The fidelity segment (08:29→11:50, twenty-five
-  review-cure commits) contributed nothing to the root cause. Unit cost: one paste
-  round-trip against roughly seven review rounds.
+  confirmed fix. The review segment split in two: its EARLY
+  instrumentation rounds contributed materially — `9158b990f` (09:13)
+  added the per-stage PIPESTATUS attribution the failure card then used
+  to name the dying pipeline stage (`1 0`), and the 000-normalisation
+  and phase-attribution rounds hardened the same card — while the LATE
+  fidelity sub-segment (roughly 10:33→11:50, the corepack-internals
+  rounds) contributed nothing to the root cause. The unit-cost
+  comparison binds to that late sub-segment: one paste round-trip
+  against roughly seven fidelity rounds.
 - **Disposition policy.** Same PRs, same reviewer, same day: under
   cure-by-default, each landed cure drew one to three fresh findings; under
   the post-stop disposition policy, fifteen threads closed in one pass and
@@ -177,9 +183,13 @@ time); and the outage worked instance in the permanent operating doc.
    no-tally arcs (PR #390's eight untallied rounds, PR #570's ten, this
    arc's twenty-five review-cure commits) in which the trigger existed and
    nothing counted — against the 07-20 built-tally arc, where it fired
-   seven times but only after 3–4 settled rounds each. *Falsifier*:
-   tallies built and the step-back still failing to fire — which would
-   locate the gap in the trigger, not the instantiation.
+   seven times but only after 3–4 settled rounds each. *Prediction (the
+   fast-lane graduation sentence, per PDR-130 lane 1, to live in the
+   graduated amendment)*: after this lands, no bot-reviewed PR arc runs
+   tally-less; a tally-less arc after landing means the contract is not
+   working. *Falsifier*: that prediction failing, or tallies built and
+   the step-back still failing to fire — which would locate the gap in
+   the trigger, not the instantiation.
 3. **[FAST — validation-strategy clause; seeded already in
    cloud-environment.md § Provenance] Strict-mode scripts are validated
    whole-file, under their own modes, from the target vantage.** Chunk-wise
@@ -187,24 +197,25 @@ time); and the outage worked instance in the permanent operating doc.
    script. *Warrant*: a line fatal from birth passed hand-validation and
    died on every real run for a day. *Falsifier*: a whole-file strict-mode
    run in the right vantage missing a death class anyway.
-4. **[SLOW — register candidate, with prediction] The tally-at-PR-open
-   contract graduates and holds.** The registered concept is deliberately
-   NARROW — proposal 2's entry contract, as a constitutional change to
-   how the estate reviews — so its prediction is decidable at its date
-   with no holding state (PDR-130: no third outcome). *Prediction*: by
-   2026-10-24 the entry contract has landed in pr-lifecycle AND every
-   bot-reviewed PR arc opened after that landing carries a tally built at
-   open — both observable from the repo and PR record on the day.
-   *Falsifier*: the contract not landed by review (the row is killed with
-   that reasoning, re-registerable through the normal process), or a
-   post-landing bot-reviewed arc running tally-less. Registered as a row
-   in `.agent/memory/operational/pending-graduations.md`. The broader
-   principle this instance exemplifies — twice-recurred prose-only
-   failure classes get structural firing points at consolidation — is
-   carried as narrative for the consolidation pass to weigh, NOT as the
-   register row: measuring it honestly would need an eligible-class
-   census the estate does not keep, and registering an unmeasurable
-   prediction is the vacuous-pass failure PDR-130 exists to prevent.
+4. **[RE-ROUTED FAST during this record's own review — no slow-lane
+   row.]** The tally-at-PR-open contract was first registered slow-lane
+   here; the review then established the dual-route incoherence: the
+   identical change rode proposal 2's FAST lane, and the slow row's only
+   passing path required the candidate to land before its own gate —
+   pre-enactment outside review, exactly what PDR-130 forbids. The
+   mis-lane diagnosis: the contract is an OPERATIONAL tightening of
+   pr-lifecycle's existing tally requirement (the skill already states
+   "an unbuilt tally store means the trigger cannot fire"), not a change
+   to how the estate learns or decides — so PDR-130's proportionality
+   guard routes it fast, carrying its prediction sentence in proposal 2
+   above, and the provisional register row is withdrawn with this
+   reasoning retained. The broader principle this arc exemplifies —
+   twice-recurred prose-only failure classes get structural firing
+   points at consolidation — is carried as narrative for the
+   consolidation pass to weigh, not as a register row: measuring it
+   honestly would need an eligible-class census the estate does not
+   keep, and registering an unmeasurable prediction is the vacuous-pass
+   failure PDR-130 exists to prevent.
 
 Named, not re-proposed: the individual fidelity declines stand as recorded
 on the PR threads; the harness-checkpoint observation (the platform
