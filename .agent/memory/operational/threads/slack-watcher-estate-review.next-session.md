@@ -55,3 +55,4 @@ it does not run a Watcher, amend its skills, or build features.
 | platform | model | agent_name (seed) | role | last_session |
 | --- | --- | --- | --- | --- |
 | claude-code (cloud) | claude-fable-5 | Buzzard weaves Airstream (01e90b) | plan author (review not yet started) | 2026-08-24 |
+| claude-code (cloud) | claude-fable-5 | Raven stirs Murmur (c4031b) | reviewing seat (sketch refinement + ratification ask; legs pending stamp) | 2026-08-24 |

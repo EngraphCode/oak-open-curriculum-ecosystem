@@ -48,8 +48,20 @@ class of unattended organs.
 
 ## Review legs
 
-1. **Ground on primary sources, in full**: the `slack-watcher` and
-   `talk-to-slack-watcher` skills — this repo's canonical bodies
+1. **Ground on primary sources, in full — inventory by discovery, not
+   hand enumeration** (refined 2026-08-24 pre-ratification from the
+   PR #14 routed finding): the inventory is produced by a sweep for
+   watcher-named artefacts across every platform projection tier —
+   canonical (`.agent/skills/`, `.agent/rules/`), the `.agents/`
+   adapter tier (`.agents/skills/`, `.agents/rules/`), the Claude tier
+   (`.claude/skills/`, plus the `.claude/settings.json` permission
+   entries naming watcher skills), the Cursor tier (`.cursor/rules/`),
+   and any projections living outside the repo (account-synced skills
+   such as `oce-slack-watcher` under the harness's synced-skills store;
+   plugin marketplaces). The report publishes the sweep method and the
+   resulting enumeration, so absence claims are backed by a published
+   sweep. Seed checklist, known at authoring (a floor, never the
+   bound): this repo's canonical bodies
    (`.agent/skills/slack-watcher/SKILL-CANONICAL.md`,
    `.agent/skills/talk-to-slack-watcher/SKILL-CANONICAL.md`) and
    wrappers (`.claude/skills/oak-slack-watcher/`,
@@ -61,7 +73,8 @@ class of unattended organs.
    <https://github.com/EngraphCode/castr/tree/main/.claude/skills>) —
    the
    `comms-all-channels-watcher` and `liveness-heartbeat-cron` and
-   `silence-is-never-liveness` rules, `oak-comms-channels`,
+   `silence-is-never-liveness` rules (all their projections),
+   `oak-comms-channels`,
    `cloud-environment.md` § environment variables, the
    `plans-backlog-2026-07/slack-assistants` backlog, the speculative
    `watcher-liveness-self-heal.md` plan, and the
