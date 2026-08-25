@@ -9,7 +9,7 @@ The review-only scope held until the owner adopted all six proposals
 ("agreed to all", 2026-08-24), which discharged the execution guard;
 P1–P5 landed the same session.
 
-## Current Continuation — ALL FIVE LEGS COMPLETE; consolidation next
+## Current Continuation — ALL FIVE LEGS COMPLETE; PR shepherding next (deep consolidation due, routed separately)
 
 - **State (2026-08-24, Raven stirs Murmur c4031b)**: plan RATIFIED and
   fully executed in one session. The report
@@ -27,7 +27,8 @@ P1–P5 landed the same session.
 - **Mid-review owner rulings (2026-08-24, in-session to this seat)**:
   the account-synced `oce-slack-watcher` skill is RETIRED — "remove
   the local skill, we will use the repo skill" — removed from this
-  container; account-side deletion is the owner's remaining act (P6).
+  container; account-side deletion was P6 (completed by the owner
+  later the same day — see the SESSION COMPLETE bullet below).
   The comparative frame for leg 3 was owner-supplied: Watcher needs ≈
   normal comms needs, medium swapped (Slack channel in the
   coordination branch's role).

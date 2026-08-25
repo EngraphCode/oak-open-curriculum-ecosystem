@@ -84,5 +84,8 @@ changes underfoot.
   `silence-is-never-liveness` into a medium the estate's instruments
   cannot reach.
 - **The estate lanes learn a serialisation lesson from Slack**: a
-  server-ordered append-only channel gives fold-free serialisation;
-  the coordination branch pays ceremony for the same property.
+  server-ordered channel gives fold-free serialisation — ordering,
+  not immutability: edits and deletions mutate Slack history (the
+  tenure status message is edited every tick; race-voided vacancy
+  posts may be deleted) — while the coordination branch pays ceremony
+  for the same ordering property.

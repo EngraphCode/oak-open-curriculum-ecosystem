@@ -56,7 +56,21 @@ means the mantle is vacant and this is a fresh stand-up (no relief
 phrase). Before posting, read the configured channel's live metadata
 once and resolve its NAME: a set-but-wrong configuration (a stale
 channel id, the wrong workspace) otherwise fails silently — the loop
-runs diligently against the wrong channel. Then post one intro: your
+runs diligently against the wrong channel. The name echo-back alone
+cannot catch an accessible-but-wrong id — the intro lands in the
+wrong channel, where the owner is not looking — so corroborate the
+destination independently of the configured value before taking the
+mantle: the mantle-state read above doubles as that check, because
+the real Practice channel carries the mantle lineage (a prior valid
+intro, relief, or vacancy sign-off) and a wrong channel almost never
+does. A resolved channel with NO mantle-state history is treated as
+unconfirmed — post the intro as a STAND-UP PENDING CONFIRMATION
+notice and do not start the polling loop until the owner (or a
+correspondent seat) acknowledges it in-channel; that out-of-band
+acknowledgement is the only stand-up path on a genuinely fresh
+channel. Residual: a wrong channel that itself carries Watcher
+lineage (a forked or copied Practice channel) defeats both checks
+and remains owner-detectable only. Then post one intro: your
 name, that you now hold
 the Watcher mantle, seed prefix and naming-schema id, polling cadence,
 the resolved channel name and workspace (the owner-visible
@@ -230,26 +244,32 @@ cover: the Slack channel is the shared medium and a self-rescheduling
 platform reminder is the wake path. Per PDR-133 §8, each class below
 names the primitive that certifies it, or the proxy that substitutes
 and the residual exposure it leaves. Declared 2026-08-24 against the
-cloud harness's reminder surface, observed facts from the Watcher
-estate review of that date; re-verify the rows against the live
-surfaces at the next Watcher stand-up and upgrade any
-cannot-certify/unverified cell that gains a dated first-hand
-observation. The full declaration ledger's pointer to this table lives
+hosted claude.ai Claude Code surface's reminder primitive and the
+Slack MCP under the shared credential; that surface exposes no
+queryable version id, so per PDR-133 §8 discipline 1 the rows are
+DATE-pinned instead (each row names its evidence date or its honest
+unverified/cannot-certify state) and expire per discipline 5 — the
+2026-08-24 amendments (tenure status message, stand-up corroboration)
+were AUTHORED that day, not observed running, so every row leaning on
+them is unverified until a tenure runs them. Re-verify the rows at
+the next Watcher stand-up and upgrade any cannot-certify/unverified
+cell that gains a dated first-hand observation. The full declaration
+ledger's pointer to this table lives
 in the cross-platform agent surface matrix:
 
 | Class | Answer for this substrate |
 | --- | --- |
-| `DISPATCH` | Slack's send acknowledgement (`ts` returned). Residual: addressing is free text — a misdirected message is not detectable. |
-| `SUBSTRATE` | The configured channel id (environment-sourced); the §2 stand-up echo-back makes a wrong-value configuration owner-visible at the intro. |
-| `PROCESS` | Cannot certify — no persistent process exists between ticks. Proxy: the tenure status message's last-tick time. Residual: staleness is readable only after a missed cadence, not at the instant of death. |
-| `BINDING` | The mantle protocol (§2 validity rule), not the medium: the shared credential means Slack cannot distinguish holders. |
-| `CURSOR` | The baseline `ts`, durable in the tenure status message and in sign-off posts. |
-| `INTEGRITY` | Slack history is authoritative and re-readable — a missed window is recoverable by sweeping from the baseline. Residual: edits and deletions mutate history. |
-| `DELIVERY` | Tick summaries reach the holder's transcript; owner push fires on new-message ticks. |
+| `DISPATCH` | Partial, observed 2026-08-24 (review-session posts): Slack's send acknowledgement (`ts` returned) certifies dispatch to the CONFIGURED channel only. Residual: addressing is free text — the `ts` cannot certify the message reached the intended audience, and a misdirected message is not detectable by the sender. |
+| `SUBSTRATE` | Partial: the configured channel id is environment-sourced (observed set, 2026-08-24); the §2 stand-up corroboration (mantle-lineage check + name echo-back; owner acknowledgement on a lineage-free channel) makes a wrong value detectable at stand-up. Unverified: no tenure has yet run that corroboration; wrongness arising MID-tenure has no detector. |
+| `PROCESS` | Cannot certify — no persistent process exists between ticks (observed shape 2026-08-24: reminder-driven ticks only). Proxy: the tenure status message's last-tick time. Residual: staleness is readable only after a missed cadence, not at the instant of death. |
+| `BINDING` | Cannot certify — depends on `PROCESS`, which cannot be certified, and the shared credential means Slack cannot distinguish holders. Proxy: the §2 mantle protocol (validity rule + status-message custody), prose-enforced by every reader. Residual: a second seat posting or editing under the credential is indistinguishable server-side. |
+| `CURSOR` | Cannot certify — depends on `BINDING`. The baseline `ts` is durably WRITTEN (status message + sign-off posts), but nothing certifies the writer held the mantle or that ticks consumed from it without a hole. Proxy: the written baseline. Residual: a wrong baseline reads as authoritative. |
+| `INTEGRITY` | Cannot certify for any given window — depends on `CURSOR`, and re-readable history enables RECOVERY (sweep from the baseline), not proof that a past delivery had no hole or replay. Proxy: recover-by-sweep. Residual: edits and deletions mutate history, so a swept window can differ from what a live reader saw. |
+| `DELIVERY` | Unverified: tick summaries reaching the holder's transcript and owner push on new-message ticks are the design; no dated observation of either from a running tenure is on record. |
 | `NOTIFY` | **Cannot certify from the written record** — the reminder primitive exists, but no dated, externally observed wake (reminder fires → agent turn created, no manual poll) is on record, and observed 2026-08-24: a self-bind reminder records no run history, so a silently dead chain is invisible outside the channel. Proxy: status-message staleness. This is the substrate's known-dangerous class; a first-hand observed wake with date and observer upgrades this row. |
 | `LOOP` | Cannot self-certify (PDR-133 §5). Proxy: status-message staleness, readable by any peer, cron, or the owner. |
-| `ABSORB` | In-channel replies are the acknowledgement; consequential items surface to the owner per §4. |
+| `ABSORB` | Unverified (never-self-certifiable set, PDR-133 §8 discipline 3): in-channel replies are the designed acknowledgement and consequential items surface to the owner per §4, but no external observer's dated observation of a round-trip is on record. |
 | `CAPABILITY` | Slack MCP under the shared credential. Expected to fail loud at the next tick's read on a scope or auth loss — an expectation, not yet a dated observation; treat as unverified until one is recorded. |
-| `EMIT` | The tenure status message edited every tick IS the heartbeat. Never consumer-absent-suspended: the owner is the standing consumer. |
+| `EMIT` | Unverified: the tenure status message edited every tick IS the designed heartbeat, but the design landed 2026-08-24 and no tenure has yet run it — the first status-message tenure with a dated external read upgrades this row. Never consumer-absent-suspended: the owner is the standing consumer. |
 | `REGISTRY` | Cannot arise — the mantle holds no claim-bearing surface to keep fresh; a holding session's other claims follow the estate's own rules. |
-| `PROGRESS` | New-message ticks show summaries and replies in-channel. On a quiet channel the status message proves presence only — the honest ceiling; nothing distinguishes attentive-quiet from wedged-but-editing. |
+| `PROGRESS` | Cannot certify beyond presence (never-self-certifiable set): new-message ticks show summaries and replies in-channel, but on a quiet channel the status message proves presence only — the honest ceiling; nothing distinguishes attentive-quiet from wedged-but-editing. |

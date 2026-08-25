@@ -17,7 +17,9 @@ every inventoried surface; every claim carries its file evidence and
 was observed first-hand this session. Mid-review owner ruling
 (2026-08-24): the account-synced `oce-slack-watcher` skill is RETIRED
 in favour of the repo skill — removed from this container in-session;
-account-side deletion remains the owner's act (proposal P6).
+account-side deletion was proposal P6, and the owner completed it
+account-side the same day (recorded in the thread record and the
+continuity row; the adoption record below carries the arc).
 
 **Review contract.** Purpose: give the owner grounds to trust — or
 distrust, with specifics — the Watcher as the estate's comms organ: can
@@ -204,7 +206,7 @@ branch there is a Slack channel. Tested need-by-need:
 
 | Need | Estate comms organ (repo medium) | Watcher organ (Slack medium) |
 | --- | --- | --- |
-| Shared durable substrate | Comms event stream on the coordination branch: append-only JSON events, schema-validated at write, folded to main on the 24h ceremony | Slack channel history: append-only, `ts`-ordered. Slack's server is the serialiser — it does for free what the coordination branch does by ceremony (no merge races, no fold needed) but admits no schema, no gates, no estate-controlled versioning |
+| Shared durable substrate | Comms event stream on the coordination branch: append-only JSON events, schema-validated at write, folded to main on the 24h ceremony | Slack channel history: server-ordered by `ts` — ordering, not immutability (edits and deletions mutate history: the tenure status message is edited every tick, and race-voided vacancy posts may be deleted). Slack's server is the serialiser — it does for free what the coordination branch does by ceremony (no merge races, no fold needed) but admits no schema, no gates, no estate-controlled versioning |
 | Identity | PDR-076a routing key, boundary-validated by the CLI | A prose attribution marker in message text (three facts); nothing validates it |
 | Who-holds-what state | Claims registry: CLI-guarded, TTL freshness, F-95 mechanical refusals | Mantle state resolved from the latest valid channel post: rich algorithm, executor is each reader, no refusal mechanics |
 | Wake / delivery | Monitor primitive + notification path, PDR-133-classified | `send_later` chain + owner push; PDR-133 undeclared (leg 2 #10) |
@@ -309,7 +311,8 @@ declaration table for the Slack + reminder substrate), P4 folded into
 `slack-watcher` §2 (the stand-up echo-back), P5 as the trued
 `.cursor/rules/comms-all-channels-watcher.mdc` description (the
 rule-adapter drift-gate question stays routed to the skills-estate
-lane). P6 remains the owner's account-side act.
+lane). P6 — the account-side deletion — was completed by the owner during
+the same arc (2026-08-24).
 
 - **P1 — give the Watcher a durable tick anchor.** Each tick (or tick
   batch) records baseline `ts` + timestamp somewhere durable and
@@ -361,7 +364,8 @@ lane). P6 remains the owner's account-side act.
   restored on disk minutes later; deleted again). Local removal is not
   a mitigation at all; the claude.ai account's skills surface is the
   only effective deletion point. *Falsifier*: none needed — the ruling
-  is made; this row tracks the sole remaining act.
+  is made. **Completed: the owner performed the account-side deletion
+  during the same arc (2026-08-24); nothing remains open on this row.**
 
 ### Review-question answer (the plan's Goal, answered)
 
@@ -377,3 +381,11 @@ loss? **Drift and double-delivery: yes, within tick-cadence bounds**
 corpus). **Silent loss: no** — two structural windows exist (unread
 messages at a dead Watcher; inbound news conserved nowhere), and P1 +
 P2 are their smallest cures.
+
+*(The verdict above is the AS-REVIEWED answer, frozen before the
+adoption record. Post-adoption state, same day: P1 supplies the
+passive deadman and the fallback observable, and P2's mirroring
+obligation closes the conservation window — both as-designed, no
+tenure has yet run them (see `slack-watcher` §6's unverified rows).
+The remaining unattended risk is the unverified `NOTIFY` wake and
+traffic sent while the Watcher is down.)*
