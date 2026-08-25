@@ -3,10 +3,10 @@ id: slack-watcher-estate-review
 node_type: delivery
 name: "Slack Watcher estate review — skills, guidance, and mechanisms for the Watcher and agents communicating with or via it"
 overview: "Owner-commissioned review of the Slack Watcher organ: the slack-watcher and talk-to-slack-watcher skills, the comms-all-channels-watcher rule, the environment coupling, liveness and lifecycle mechanics, and the guidance agents follow to communicate with or via the Watcher — verdicts and routed proposals, not execution."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: archived
+ratified_by: "Jim Cresswell (owner)"
+ratified_date: 2026-08-24
+ratified_where: "In-session ratification word to Raven stirs Murmur (c4031b), 2026-08-24 — recorded verbatim in the thread record slack-watcher-estate-review.next-session.md §History"
 serves: coordination-substrate
 impact_areas:
   - practice-and-estate
@@ -48,8 +48,20 @@ class of unattended organs.
 
 ## Review legs
 
-1. **Ground on primary sources, in full**: the `slack-watcher` and
-   `talk-to-slack-watcher` skills — this repo's canonical bodies
+1. **Ground on primary sources, in full — inventory by discovery, not
+   hand enumeration** (refined 2026-08-24 pre-ratification from the
+   PR #14 routed finding): the inventory is produced by a sweep for
+   watcher-named artefacts across every platform projection tier —
+   canonical (`.agent/skills/`, `.agent/rules/`), the `.agents/`
+   adapter tier (`.agents/skills/`, `.agents/rules/`), the Claude tier
+   (`.claude/skills/`, plus the `.claude/settings.json` permission
+   entries naming watcher skills), the Cursor tier (`.cursor/rules/`),
+   and any projections living outside the repo (account-synced skills
+   such as `oce-slack-watcher` under the harness's synced-skills store;
+   plugin marketplaces). The report publishes the sweep method and the
+   resulting enumeration, so absence claims are backed by a published
+   sweep. Seed checklist, known at authoring (a floor, never the
+   bound): this repo's canonical bodies
    (`.agent/skills/slack-watcher/SKILL-CANONICAL.md`,
    `.agent/skills/talk-to-slack-watcher/SKILL-CANONICAL.md`) and
    wrappers (`.claude/skills/oak-slack-watcher/`,
@@ -61,7 +73,8 @@ class of unattended organs.
    <https://github.com/EngraphCode/castr/tree/main/.claude/skills>) —
    the
    `comms-all-channels-watcher` and `liveness-heartbeat-cron` and
-   `silence-is-never-liveness` rules, `oak-comms-channels`,
+   `silence-is-never-liveness` rules (all their projections),
+   `oak-comms-channels`,
    `cloud-environment.md` § environment variables, the
    `plans-backlog-2026-07/slack-assistants` backlog, the speculative
    `watcher-liveness-self-heal.md` plan, and the
@@ -120,3 +133,16 @@ unbounded.
 Sliced at pickup by the implementing session per the legs above; each
 slice a single-story PR within its round budget (PDR-132), with the
 pr-lifecycle round tally built at PR-open.
+
+## Completion record (2026-08-24)
+
+All five legs executed by Raven stirs Murmur (c4031b) in one session;
+every acceptance criterion is proven by the report's tables
+(`.agent/reports/agentic-engineering/slack-watcher-estate-review-2026-08-24.md`).
+The owner adopted all six proposals the same day ("agreed to all",
+in-session); P1–P5 were executed under that word (the out-of-scope
+guard held until adoption discharged it), and P6 — the owner's
+account-side deletion — was completed by the owner during the same
+arc (2026-08-24). Cross-estate pointers L1-F2/F4 were delivered as
+castr PR #53 (merged 2026-08-25, `e62891ee`). Nothing remains open;
+archived complete.

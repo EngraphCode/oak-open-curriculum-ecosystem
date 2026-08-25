@@ -1338,3 +1338,136 @@ pinning-by-name, not sequencing-by-hope.
   pin-dedupe recording BEFORE the probe, so a failed pin printed
   "already verified" for the next repo — caught by my own round-25
   test, the PDR-132 signature reproducing live.
+
+## 2026-08-24 ~18:2xZ (Raven stirs Murmur, c4031b, watcher-review seat) — turbo strict envMode strips the cloud sandbox's plumbing from gate children
+
+Observed 2026-08-24 on the first pre-push from a fresh fixed-environment
+cloud session (branch claude/slack-watcher-estate-review-qzwz2x): three
+suites failed with zero relation to the two-markdown-file diff, all one
+generator — turbo strict envMode passes only `globalPassThroughEnv` plus
+its built-in allowlist (PATH survives; PLAYWRIGHT_BROWSERS_PATH,
+HTTPS_PROXY, NODE_EXTRA_CA_CERTS do not):
+
+1. Both `test:ui` suites: Playwright children fell back to
+   `/root/.cache/ms-playwright` while the browsers live at
+   `/opt/pw-browsers` (the session hook HAD installed the right build,
+   chromium_headless_shell-1234 — install and lookup disagreed on path,
+   the exact agreement the hook's own comment says it relies on).
+2. `agent-tools test:e2e`: the commit-queue smoke's advisory child
+   spawns `pnpm` from a pin-less fixture dir; corepack fetched
+   `registry.npmjs.org/pnpm/latest` and died SELF_SIGNED_CERT_IN_CHAIN —
+   the sandbox's TLS interception with the CA env stripped. The same
+   call succeeds on any direct-network machine, so this class is
+   invisible everywhere except here.
+
+Session-local cures applied (no gate touched, no repo change): symlink
+`/root/.cache/ms-playwright -> /opt/pw-browsers`, plus a PATH-front
+`pnpm` shim that restores proxy/CA/browsers env to every child (PATH is
+the one variable turbo passes; probe-verified against a deprived env
+before use). Candidate repo-side cure for whoever owns the gates:
+declare the sandbox plumbing in turbo `globalPassThroughEnv` — but that
+is a gate-config change needing its own review, not this lane's.
+Same family as the 2026-08-14 "workspace-config defect belongs to
+whoever next works the corpus" routing: recorded, not absorbed.
+
+Follow-ups from the same arc, same session: the shim's first version
+omitted NO_PROXY and broke the NEXT stage (Playwright's webServer
+readiness probe routed to the proxy and never saw localhost) — an
+env-restoring shim must carry the WHOLE proxy tuple including the
+exclusions, or it converts one failure into its inverse. The one
+remaining UI red was a REAL latent defect the sandbox exposed, not a
+flake: the stale-sheet race spec was the suite's only test navigating
+without the hermetic external-origin interception, so blocked
+`fonts.googleapis.com` stalled the load event ~21s (trace-proven) and
+ate the race's margin — cured on-convention, test-expert reviewed
+(APPROVE-WITH-NOTES; the reviewer probe-verified Chromium's
+load-vs-error behaviour for aborted nested imports first-hand, and its
+discriminating `waitForResponse` gate landed with the cure). The
+restricted runner acted as a coverage sensor: the test that cannot run
+hermetically is the test with the environment coupling.
+
+## 2026-08-24 ~19:0xZ (Raven stirs Murmur, c4031b, watcher-review seat) — owner rulings landed mid-review
+
+Owner ruled in-session (2026-08-24): the account-synced
+`oce-slack-watcher` skill is retired in favour of the repo skill —
+removed from `/root/.claude/skills/synced/` this container; the synced
+store re-syncs from the claude.ai account, so account-side deletion is
+the owner's remaining act (review proposal P6 tracks the residual).
+Owner also supplied the leg-3 comparative frame (Watcher needs ≈ estate
+comms needs; medium swapped — Slack channel in the coordination
+branch's role), which the review tested need-by-need: it holds
+everywhere, and the single generator behind every Watcher gap is that
+the repo medium is instrumentable while Slack is not — every
+instrument-backed comms mechanism degrades to prose when its
+counterpart crosses the boundary, and the fold ceremony has no Slack
+analogue (nothing conserves channel-borne decisions into the estate).
+Full analysis in the review report's legs 2–5.
+
+## 2026-08-24 ~20:4xZ (Raven stirs Murmur, c4031b) — session-close captures (wrap lenses)
+
+- **candidate: "the class survives its own cure" reached n=2 measured**
+  (extends the 2026-08-13 false-green graduation candidate above): in
+  leg 2 this seat diagnosed certified-by-inference as the substrate's
+  danger class, then wrote the §6 NOTIFY declaration row AS
+  certified-by-inference the same session — caught only by the external
+  docs-adr-expert pass, exactly as instance 4 (2026-08-13) was caught
+  only by its reviewer. Two independent seats, same shape: diagnosis
+  does not immunise the diagnostician; the external-reviewer lens is
+  the working instrument. Strengthens the candidate's
+  review-lens-not-just-lesson routing.
+- **Fluency-at-the-finish-line, worked instance**: the ratification
+  stamp was edited after parcel 1 and omitted from parcel 2's explicit
+  pathspec — pushed records referenced a stamp that had not shipped.
+  Caught by the post-push `git status` ritual (verify-what-ships), not
+  vigilance. The guard held because it was ritual.
+- **Batch-cadence honesty note**: parcel 1 was pushed alone (one
+  two-file commit through a full ~10-minute gate) when batching it with
+  parcel 2 would have halved the session's gate spend — the napkin's
+  own BATCH-CADENCE lesson, read at session open, lost to the cloud
+  durability drive. Later parcels applied it. Passive guidance loses to
+  artefact gravity, n+1.
+- **Play seeds (associations, discards were visible in-chat)**: (a) the
+  re-syncing account skill behaved as declarative reconciliation — the
+  resurrection mechanic the Watcher lacks; routed as a dated input to
+  `watcher-liveness-self-heal.md`. (b) Castr's code was AHEAD of its
+  rule (routing comparator implements PDR-076a while the rule prose
+  said the old tuple) — the opposite drift polarity from OCE, where
+  doctrine leads; drift direction as a living-edge signal. Association
+  only.
+- **Wrap gate outcome — `pnpm check` RED on two pre-existing
+  environment couplings, surfaced-and-stopped per the standing rule**:
+  `oak-curriculum-hub#build` (turbopack's native `next/font` fetcher
+  fails to fetch Lexend — a curl through the session proxy returns
+  HTTP 200, so the fetcher is bypassing the proxy/CA env the pnpm shim
+  injects) and `oak-design-showcase#test:a11y` (one test: the creature
+  hero word measures 346px against a 288px bound — the brand's Google
+  font fails the browser's direct TLS-intercepted fetch, and the
+  FALLBACK face is what overflows; 67/68 pass). Neither task runs in
+  the pre-push gate (`test:a11y` is check-only; the hub built green
+  earlier from cache), and zero of this branch's 19 changed files
+  touch hub/fluid-type/creature/font surfaces. Third instance of this
+  session's open-egress-assumption class (after the corepack child and
+  the stale-sheet spec) — the restricted runner keeps working as a
+  coverage sensor. Candidate cures for the owning lanes, not this one:
+  self-host the hub font (`next/font/local`), and make the fluid-type
+  measurement font-hermetic or font-loaded-gated.
+- **Handoff sweep evidence**: `~/.claude/plans/` empty in this
+  container; Claude per-user memory surface not present here (fresh
+  cloud container); comms events this session all self-authored
+  (presence + claim lifecycle) and their substance is in this napkin
+  and the thread record; entry points canonical (AGENTS.md's extra
+  block is the gate-validated generated bootstrap, not drift).
+
+Follow-through, same session: owner adopted all six proposals
+("agreed to all") — the adoption word discharged the plan's
+execution-out-of-scope guard, and P1–P5 landed at once: the tenure
+status message (one Slack reply edited per tick = deadman + durable
+baseline + the fallback's observable, three leg-2 gaps cured by one
+artefact), the Slack-via-Watcher lane and boundary-crossing mirroring
+clause in comms-channels, the PDR-133 declaration table in the
+watcher skill, the stand-up echo-back, and the trued cursor-adapter
+description. Plan archived complete. Design note worth carrying: when
+a prose-only organ cannot host estate instruments (Slack is not
+gate-reachable), put the deadman IN the organ's own medium — the
+status message is a heartbeat file in Slack's native shape, and one
+artefact can serve deadman, cursor, and fallback-observable at once.
