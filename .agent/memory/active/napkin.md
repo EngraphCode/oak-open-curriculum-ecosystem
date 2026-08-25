@@ -1471,3 +1471,67 @@ a prose-only organ cannot host estate instruments (Slack is not
 gate-reachable), put the deadman IN the organ's own medium — the
 status message is a heartbeat file in Slack's native shape, and one
 artefact can serve deadman, cursor, and fallback-observable at once.
+
+## 2026-08-25 ~15:4xZ (Kraken calls Abyss, 0178h2, PR-drive seat) — six-PR drive closeout, OCE side
+
+- **Drive outcome**: OCE #18 merged (`42d6a6bf`) and #17 merged (`c40a4287`)
+  under the owner-commissioned drive; castr's #53/#56/#57/#58 merged the same
+  day (`e62891ee`/`b6a66e46`/`9d026d04`/`da7b290c`). Every thread on every PR
+  was replied with evidence class and resolved before merging; all merges are
+  non-admin merge commits.
+- **PR #15 BLOCKED ON OWNER — conflict resolved, gate unpassable**: the
+  commissioned "mergeable" bar (conflicts resolved + CI green) is half-met.
+  The one `repo-continuity.md` conflict was resolved as an
+  index-narrative-tables union (keep engraph's slack-watcher row + #15's
+  weekly-concept-scan row; the cloud-environment-bootstrap row stays removed
+  per its deliberate retirement in `d6f2eaeb3`; row-set diff proven lossless
+  against base/ours/theirs). But the 2-parent commit cannot pass the
+  pre-commit gate: depcruise finds 39 PRE-EXISTING `no-circular` violations in
+  #15's own `agent-tools/src/validators/scan-validation/` (~13 cycle families,
+  including a type-hub web `semantic-public-types` ↔ `receipt-types` ↔
+  `execution-*-types` ↔ `manifest-types`; every checked back-edge is
+  `import type`, so zero runtime effect; depcruise config unchanged since the
+  merge-base; build/type-check/lint/test PASSED on the merged tree). The cure
+  is a structural type re-homing across the sealed-evidence validator module —
+  the unratified tuning-lane design the owner fenced off — so it is routed to
+  the owner, not performed; `--no-verify` was not used (no fresh
+  authorisation). The resolution is deterministic from parents
+  `86e10e6bd` × `c40a4287d` and re-appliable in minutes; the local merge was
+  aborted after conservation. Owner decision needed: commission the cycle
+  refactor (this seat or #15's author lane), authorise a hook-bypassed merge
+  commit so CI dispatches and surfaces the failure platform-side, or another
+  route.
+- **#17 round-4 recorded deferrals (both resolved on-thread with the full
+  rationale)**: (a) correspondent skill has no branch for "no mantle post at
+  all" — a pending-period request relies on the unconditional poll-for-reply
+  duty + `silence-is-never-liveness` for its bound; cure shape: correspondent
+  treats no valid mantle post as no Watcher. (b) §6 `REGISTRY` row says
+  "cannot arise" but the mantle post is claim-bearing under PDR-133 §3's
+  definition; cure shape: reclassify unverified/cannot-certify with the
+  status message as proxy. Both belong to the next watcher-skill amendment
+  arc / next stand-up's §6 re-derivation, alongside the NOTIFY observed-wake
+  probe.
+- **Step-back worked as designed, both estates**: #17 tally 16→3→1→2
+  (non-shrinking fourth round → stop fix-pushing, recorded deferrals);
+  castr #58 tally 2→4→1 (clause-4 carry-forwards citing the runbook's
+  §Accepted residuals). The generator in both: doctrine-dense specs whose
+  reference corpus is unbounded — each cure opens new cross-reference
+  surface; the convergence guard, not reviewer patience, is what ends such
+  loops.
+- **Owner rulings this session needing OCE homes**: (1) single environment
+  definition serves BOTH estates — castr's
+  `.agent/claude-harness-integrations/cloud-environment.md` (post castr #58)
+  is the definition of record; follow-up: point OCE's environment doc at it
+  by GitHub URL instead of carrying a parallel definition. (2) No work is
+  safe until pushed and in a PR (draft suffices) — always true. (3) No test
+  ever performs IO — observed tolerated instance: design-showcase happy-dom
+  unit suite attempts `http://localhost:3000` fetches (`ECONNREFUSED` on a
+  restricted runner, suite still green); an owning-lane cure candidate, not
+  this drive's.
+- **Follow-ups routed (not done)**: guarded `git fetch --unshallow` in the
+  shared `cloud-environment-setup.sh` (shallow clone broke the
+  current-source validator's BASELINE_COMMIT read this session); OCE #18
+  continuity gap — the PDR-027 cloud amendment landed with no
+  repo-continuity row or thread-record touch; a default-container fallback
+  note in the start-right surfaces (this drive ran in a DEFAULT container
+  and needed six environment cures, all recorded in the plan carrier).
