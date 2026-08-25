@@ -14,6 +14,8 @@ import { shellSingleQuote } from '../core/shell-single-quote.js';
  */
 export interface ClaudeSessionIdentityHookEnvironment {
   readonly CLAUDE_ENV_FILE?: string;
+  /** Explicit operator display-name override — honoured for rendering only, never written back. */
+  readonly OAK_AGENT_IDENTITY_OVERRIDE?: string;
   /**
    * Cloud-seat platform session id (`cse_`-tagged). Its untagged payload is
    * the PDR-027 seed there — the identifier the owner sees in the session
@@ -74,7 +76,11 @@ export function planClaudeSessionIdentityHook(
     return { hookOutput: {} };
   }
 
-  const displayName = deriveIdentity(sessionId).displayName;
+  const override = nonEmpty(input.environment.OAK_AGENT_IDENTITY_OVERRIDE);
+  const displayName = deriveIdentity(
+    sessionId,
+    override === undefined ? {} : { override },
+  ).displayName;
   const prefix = sessionIdPrefix(sessionId);
   const additionalContext = identityContext({ displayName, prefix });
 
@@ -119,6 +125,9 @@ export function claudeSessionIdentityHookEnvironmentFromProcessEnv(
     ...(env.CLAUDE_CODE_REMOTE_SESSION_ID === undefined
       ? {}
       : { CLAUDE_CODE_REMOTE_SESSION_ID: env.CLAUDE_CODE_REMOTE_SESSION_ID }),
+    ...(env.OAK_AGENT_IDENTITY_OVERRIDE === undefined
+      ? {}
+      : { OAK_AGENT_IDENTITY_OVERRIDE: env.OAK_AGENT_IDENTITY_OVERRIDE }),
   };
 }
 

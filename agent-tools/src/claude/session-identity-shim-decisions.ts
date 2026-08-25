@@ -12,6 +12,8 @@
  * @packageDocumentation
  */
 
+import { stripSessionIdTagIfPresent } from '../core/agent-identity/session-seed.js';
+
 /**
  * Only a seed that is unambiguously shell-safe may be embedded in the env
  * file or a suggested command — stdin is external input, and neither surface
@@ -32,6 +34,17 @@ const SAFE_SEED = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
  * readShimSessionId('not json'); // undefined
  * ```
  */
+/**
+ * Resolve the fail-open seed: the stripped cloud platform session id when
+ * present (PDR-027 cloud-seat clause), the stdin `session_id` otherwise.
+ */
+function resolveShimSeed(
+  remoteSessionId: string | undefined,
+  stdinText: string,
+): string | undefined {
+  return stripSessionIdTagIfPresent(remoteSessionId) ?? readShimSessionId(stdinText);
+}
+
 export function readShimSessionId(stdinText: string): string | undefined {
   let parsed: unknown;
   try {
@@ -106,8 +119,10 @@ export function planShimFailOpen(input: {
   readonly cause: string;
   readonly stdinText: string;
   readonly envFile: string | undefined;
+  /** Cloud-seat platform session id (raw, possibly tagged) — preferred over stdin per PDR-027. */
+  readonly remoteSessionId?: string;
 }): ShimFailOpenPlan {
-  const sessionId = readShimSessionId(input.stdinText);
+  const sessionId = resolveShimSeed(input.remoteSessionId, input.stdinText);
   const embeddable = sessionId !== undefined && isShellSafeSeed(sessionId);
   const envFile =
     input.envFile !== undefined && input.envFile.trim().length > 0 ? input.envFile : undefined;

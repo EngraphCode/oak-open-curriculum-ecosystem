@@ -103,3 +103,18 @@ describe('planShimFailOpen', () => {
     expect(plan.messageWhenNotPersisted).toContain('<session_id>');
   });
 });
+
+describe('cloud-seat seed in the fail-open path', () => {
+  it('prefers the stripped platform session id over the stdin session_id', () => {
+    const plan = planShimFailOpen({
+      cause: 'missing build artefact',
+      stdinText: JSON.stringify({ session_id: 'harness-uuid' }),
+      envFile: '/tmp/env',
+      remoteSessionId: 'cse_01FV6rZz5BjSkApAUL6FAj72',
+    });
+
+    expect(plan.envFileWrite?.appendLine).toBe(
+      "export PRACTICE_AGENT_SESSION_ID_CLAUDE='01FV6rZz5BjSkApAUL6FAj72'\n",
+    );
+  });
+});
