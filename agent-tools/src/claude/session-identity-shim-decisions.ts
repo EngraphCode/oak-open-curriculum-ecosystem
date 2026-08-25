@@ -36,11 +36,21 @@ const SAFE_SEED = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
  * Resolve the fail-open seed: the stripped cloud platform session id when
  * present (PDR-027 cloud-seat clause), the stdin `session_id` otherwise.
  */
-function resolveShimSeed(
-  remoteSessionId: string | undefined,
-  stdinText: string,
-): string | undefined {
-  return stripShimSessionIdTag(remoteSessionId) ?? readShimSessionId(stdinText);
+function nonBlankShimValue(value: string | undefined): string | undefined {
+  const trimmed = value?.trim();
+  return trimmed === undefined || trimmed.length === 0 ? undefined : trimmed;
+}
+
+function resolveShimSeed(input: {
+  readonly explicitSeed?: string;
+  readonly remoteSessionId?: string;
+  readonly stdinText: string;
+}): string | undefined {
+  return (
+    nonBlankShimValue(input.explicitSeed) ??
+    stripShimSessionIdTag(input.remoteSessionId) ??
+    readShimSessionId(input.stdinText)
+  );
 }
 
 /**
@@ -137,10 +147,12 @@ export function planShimFailOpen(input: {
   readonly cause: string;
   readonly stdinText: string;
   readonly envFile: string | undefined;
+  /** Explicit operator seed — outranks the ambient platform id (PDR-027 precedence). */
+  readonly explicitSeed?: string;
   /** Cloud-seat platform session id (raw, possibly tagged) — preferred over stdin per PDR-027. */
   readonly remoteSessionId?: string;
 }): ShimFailOpenPlan {
-  const sessionId = resolveShimSeed(input.remoteSessionId, input.stdinText);
+  const sessionId = resolveShimSeed(input);
   const embeddable = sessionId !== undefined && isShellSafeSeed(sessionId);
   const envFile =
     input.envFile !== undefined && input.envFile.trim().length > 0 ? input.envFile : undefined;

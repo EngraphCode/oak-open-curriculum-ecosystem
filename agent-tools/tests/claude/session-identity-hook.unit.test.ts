@@ -209,3 +209,20 @@ describe('operator override rendering', () => {
     );
   });
 });
+
+describe('explicit Practice seed precedence in the hook', () => {
+  it('an explicit PRACTICE_AGENT_SESSION_ID_CLAUDE outranks the ambient platform id', () => {
+    const plan = planClaudeSessionIdentityHook({
+      stdinText: JSON.stringify({ session_id: 'harness-uuid' }),
+      environment: {
+        CLAUDE_ENV_FILE: 'mem://env-file',
+        PRACTICE_AGENT_SESSION_ID_CLAUDE: 'explicit-operator-seed',
+        CLAUDE_CODE_REMOTE_SESSION_ID: 'cse_01FV6rZz5BjSkApAUL6FAj72',
+      },
+    });
+
+    expect(plan.envFileWrite?.appendLine).toBe(
+      "export PRACTICE_AGENT_SESSION_ID_CLAUDE='explicit-operator-seed'\n",
+    );
+  });
+});

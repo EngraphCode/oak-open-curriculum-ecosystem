@@ -140,3 +140,19 @@ describe('local tag strip stays in lockstep with the canonical', () => {
     ).toBe(`export PRACTICE_AGENT_SESSION_ID_CLAUDE='${expected}'\n`);
   });
 });
+
+describe('explicit Practice seed precedence in the fail-open path', () => {
+  it('an explicit seed outranks the ambient platform id', () => {
+    const plan = planShimFailOpen({
+      cause: 'missing build artefact',
+      stdinText: '',
+      envFile: '/tmp/env',
+      explicitSeed: 'explicit-operator-seed',
+      remoteSessionId: 'cse_01FV6rZz5BjSkApAUL6FAj72',
+    });
+
+    expect(plan.envFileWrite?.appendLine).toBe(
+      "export PRACTICE_AGENT_SESSION_ID_CLAUDE='explicit-operator-seed'\n",
+    );
+  });
+});

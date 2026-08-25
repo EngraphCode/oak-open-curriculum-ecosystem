@@ -14,6 +14,8 @@ import { shellSingleQuote } from '../core/shell-single-quote.js';
  */
 export interface ClaudeSessionIdentityHookEnvironment {
   readonly CLAUDE_ENV_FILE?: string;
+  /** Explicit operator seed — outranks the ambient platform id (PDR-027 precedence). */
+  readonly PRACTICE_AGENT_SESSION_ID_CLAUDE?: string;
   /** Explicit operator display-name override — honoured for rendering only, never written back. */
   readonly OAK_AGENT_IDENTITY_OVERRIDE?: string;
   /**
@@ -122,6 +124,9 @@ export function claudeSessionIdentityHookEnvironmentFromProcessEnv(
 ): ClaudeSessionIdentityHookEnvironment {
   return {
     ...(env.CLAUDE_ENV_FILE === undefined ? {} : { CLAUDE_ENV_FILE: env.CLAUDE_ENV_FILE }),
+    ...(env.PRACTICE_AGENT_SESSION_ID_CLAUDE === undefined
+      ? {}
+      : { PRACTICE_AGENT_SESSION_ID_CLAUDE: env.PRACTICE_AGENT_SESSION_ID_CLAUDE }),
     ...(env.CLAUDE_CODE_REMOTE_SESSION_ID === undefined
       ? {}
       : { CLAUDE_CODE_REMOTE_SESSION_ID: env.CLAUDE_CODE_REMOTE_SESSION_ID }),
@@ -132,6 +137,12 @@ export function claudeSessionIdentityHookEnvironmentFromProcessEnv(
 }
 
 function resolveSeed(input: ClaudeSessionIdentityHookInput): string | undefined {
+  // PDR-027 precedence: an explicit Practice seed outranks the ambient
+  // platform id, which outranks the harness stdin session_id.
+  const explicitSeed = nonEmpty(input.environment.PRACTICE_AGENT_SESSION_ID_CLAUDE);
+  if (explicitSeed !== undefined) {
+    return explicitSeed;
+  }
   const remoteSessionId = nonEmpty(input.environment.CLAUDE_CODE_REMOTE_SESSION_ID);
   if (remoteSessionId !== undefined) {
     return stripSessionIdTag(remoteSessionId);

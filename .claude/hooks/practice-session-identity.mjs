@@ -80,6 +80,7 @@ function failOpen(cause) {
     cause,
     stdinText,
     envFile: process.env.CLAUDE_ENV_FILE,
+    explicitSeed: process.env.PRACTICE_AGENT_SESSION_ID_CLAUDE,
     remoteSessionId: process.env.CLAUDE_CODE_REMOTE_SESSION_ID,
   });
   let persisted = false;

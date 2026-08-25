@@ -102,6 +102,8 @@ interface RateLimitsField {
  * collaboration tooling derive.
  */
 export interface StatuslineEnvironment {
+  /** Explicit operator seed — outranks the ambient platform id (PDR-027 precedence). */
+  readonly PRACTICE_AGENT_SESSION_ID_CLAUDE?: string;
   readonly CLAUDE_CODE_REMOTE_SESSION_ID?: string;
 }
 
@@ -122,6 +124,7 @@ export function planStatuslineExecution(
     kind: 'render',
     inputs: {
       seed:
+        nonBlankString(environment.PRACTICE_AGENT_SESSION_ID_CLAUDE) ??
         stripSessionIdTagIfPresent(environment.CLAUDE_CODE_REMOTE_SESSION_ID) ??
         nonBlankString(payload.session_id),
       cwd: workspaceDir(payload.workspace) ?? nonBlankString(payload.cwd),

@@ -95,3 +95,23 @@ describe('cloud-seat seed through the composed path', () => {
     expect(seenSeed).toBe('01FV6rZz5BjSkApAUL6FAj72');
   });
 });
+
+describe('explicit Practice seed precedence through the composed path', () => {
+  it('an explicit PRACTICE_AGENT_SESSION_ID_CLAUDE outranks the ambient platform id', () => {
+    const { deps } = fakeDeps();
+    let seenSeed: string | undefined;
+    emitStatusline(JSON.stringify({ session_id: 'harness-uuid' }), {
+      ...deps,
+      env: {
+        PRACTICE_AGENT_SESSION_ID_CLAUDE: 'explicit-operator-seed',
+        CLAUDE_CODE_REMOTE_SESSION_ID: 'cse_01FV6rZz5BjSkApAUL6FAj72',
+      },
+      render: (inputs) => {
+        seenSeed = inputs.seed;
+        return 'RENDERED\n';
+      },
+    });
+
+    expect(seenSeed).toBe('explicit-operator-seed');
+  });
+});
