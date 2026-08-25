@@ -95,4 +95,4 @@ P1–P5 landed the same session.
 | platform | model | agent_name (seed) | role | last_session |
 | --- | --- | --- | --- | --- |
 | claude-code (cloud) | claude-fable-5 | Buzzard weaves Airstream (01e90b) | plan author (review not yet started) | 2026-08-24 |
-| claude-code (cloud) | claude-fable-5 | Raven stirs Murmur (c4031b) | reviewing seat (sketch refinement + ratification ask; legs pending stamp) | 2026-08-24 |
+| claude-code (cloud) | claude-fable-5 | Raven stirs Murmur (c4031b) | reviewing + executing seat (plan ratified; all five legs executed; P1–P5 landed; arc closed) | 2026-08-24 |

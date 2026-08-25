@@ -64,11 +64,21 @@ mantle: the mantle-state read above doubles as that check, because
 the real Practice channel carries the mantle lineage (a prior valid
 intro, relief, or vacancy sign-off) and a wrong channel almost never
 does. A resolved channel with NO mantle-state history is treated as
-unconfirmed — post the intro as a STAND-UP PENDING CONFIRMATION
-notice and do not start the polling loop until the owner (or a
-correspondent seat) acknowledges it in-channel; that out-of-band
-acknowledgement is the only stand-up path on a genuinely fresh
-channel. Residual: a wrong channel that itself carries Watcher
+unconfirmed — post a STAND-UP PENDING CONFIRMATION notice that
+states in its text that it is NOT a tenure declaration and NOT a
+valid mantle-state post (correspondents and successors resolve
+mantle state as if it were absent), post NO tenure status message
+(a fresh status edit would read as liveness to the correspondent
+skill while nothing is polling), and do not start the polling loop
+until the OWNER acknowledges the notice in-channel. Owner
+acknowledgement is the only independent confirmation on a
+lineage-free channel: a correspondent seat reads the same
+`SLACK_WATCHER_*` environment values, so it can walk into the same
+wrong channel and approve it — its acknowledgement is not
+independent evidence. Only after the owner's acknowledgement does
+the seat post the real intro (which becomes the tenure declaration)
+and its threaded status message, and start the loop. Residual: a
+wrong channel that itself carries Watcher
 lineage (a forked or copied Practice channel) defeats both checks
 and remains owner-detectable only. Then post one intro: your
 name, that you now hold
