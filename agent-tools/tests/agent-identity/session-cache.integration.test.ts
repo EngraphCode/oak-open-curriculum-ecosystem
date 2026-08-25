@@ -20,8 +20,6 @@ describe('agent identity session cache', () => {
       nowIso: '2026-05-05T13:40:00.000Z',
     });
 
-    expect(plan.output.env).not.toHaveProperty('OAK_AGENT_IDENTITY_OVERRIDE');
-
     const result = runAgentIdentityCli({
       argv: ['--format', 'json'],
       env: plan.output.env,

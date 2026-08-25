@@ -62,6 +62,28 @@ interface CursorSessionIdentityHookPlan {
 /**
  * Plan Cursor `sessionStart` output from stdin and injected environment.
  */
+/**
+ * Select the process-environment values the Cursor session identity hook
+ * consumes. The executable adapter MUST build its planner environment
+ * through this function — hand-picking variables at the bin boundary is
+ * the class of defect that silently dropped the remote session id and the
+ * operator override from production hook runs.
+ */
+export function cursorSessionIdentityHookEnvironmentFromProcessEnv(
+  env: NodeJS.ProcessEnv,
+): CursorSessionIdentityHookEnvironment {
+  return {
+    ...(env.CURSOR_PROJECT_DIR === undefined ? {} : { CURSOR_PROJECT_DIR: env.CURSOR_PROJECT_DIR }),
+    ...(env.CLAUDE_PROJECT_DIR === undefined ? {} : { CLAUDE_PROJECT_DIR: env.CLAUDE_PROJECT_DIR }),
+    ...(env.OAK_SKIP_COMPOSER_SESSION_MIRROR === undefined
+      ? {}
+      : { OAK_SKIP_COMPOSER_SESSION_MIRROR: env.OAK_SKIP_COMPOSER_SESSION_MIRROR }),
+    ...(env.OAK_AGENT_IDENTITY_OVERRIDE === undefined
+      ? {}
+      : { OAK_AGENT_IDENTITY_OVERRIDE: env.OAK_AGENT_IDENTITY_OVERRIDE }),
+  };
+}
+
 export function planCursorSessionIdentityHook(
   input: CursorSessionIdentityHookInput,
 ): CursorSessionIdentityHookPlan {
