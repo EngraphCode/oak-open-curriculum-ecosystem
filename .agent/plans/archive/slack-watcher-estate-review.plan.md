@@ -141,6 +141,8 @@ every acceptance criterion is proven by the report's tables
 (`.agent/reports/agentic-engineering/slack-watcher-estate-review-2026-08-24.md`).
 The owner adopted all six proposals the same day ("agreed to all",
 in-session); P1–P5 were executed under that word (the out-of-scope
-guard held until adoption discharged it), P6 remains the owner's
-account-side act. Cross-estate pointers L1-F2/F4 owe delivery to the
-castr sibling when a channel opens. Archived complete.
+guard held until adoption discharged it), and P6 — the owner's
+account-side deletion — was completed by the owner during the same
+arc (2026-08-24). Cross-estate pointers L1-F2/F4 were delivered as
+castr PR #53 (merged 2026-08-25, `e62891ee`). Nothing remains open;
+archived complete.
