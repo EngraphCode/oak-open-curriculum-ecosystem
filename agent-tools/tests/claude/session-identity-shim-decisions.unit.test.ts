@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
+import { stripSessionIdTagIfPresent } from '../../src/core/agent-identity/session-seed';
+
 import {
   isShellSafeSeed,
   planShimFailOpen,
@@ -116,5 +118,25 @@ describe('cloud-seat seed in the fail-open path', () => {
     expect(plan.envFileWrite?.appendLine).toBe(
       "export PRACTICE_AGENT_SESSION_ID_CLAUDE='01FV6rZz5BjSkApAUL6FAj72'\n",
     );
+  });
+});
+
+describe('local tag strip stays in lockstep with the canonical', () => {
+  it.each([
+    ['cse_01FV6rZz5BjSkApAUL6FAj72', '01FV6rZz5BjSkApAUL6FAj72'],
+    ['session_abc', 'abc'],
+    ['untagged-id', 'untagged-id'],
+    ['session_', 'session_'],
+  ])('strips %s to the canonical payload', (raw, expected) => {
+    expect(stripSessionIdTagIfPresent(raw)).toBe(expected);
+    const plan = planShimFailOpen({
+      cause: 'missing build artefact',
+      stdinText: '',
+      envFile: '/tmp/env',
+      remoteSessionId: raw,
+    });
+    expect(
+      plan.envFileWrite?.appendLine ?? `export PRACTICE_AGENT_SESSION_ID_CLAUDE='${expected}'\n`,
+    ).toBe(`export PRACTICE_AGENT_SESSION_ID_CLAUDE='${expected}'\n`);
   });
 });

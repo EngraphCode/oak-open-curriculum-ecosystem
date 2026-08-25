@@ -12,8 +12,6 @@
  * @packageDocumentation
  */
 
-import { stripSessionIdTagIfPresent } from '../core/agent-identity/session-seed.js';
-
 /**
  * Only a seed that is unambiguously shell-safe may be embedded in the env
  * file or a suggested command — stdin is external input, and neither surface
@@ -42,7 +40,27 @@ function resolveShimSeed(
   remoteSessionId: string | undefined,
   stdinText: string,
 ): string | undefined {
-  return stripSessionIdTagIfPresent(remoteSessionId) ?? readShimSessionId(stdinText);
+  return stripShimSessionIdTag(remoteSessionId) ?? readShimSessionId(stdinText);
+}
+
+/**
+ * Local copy of the PDR-027 session-id tag strip (canonical:
+ * \`core/agent-identity/session-seed.ts\`). Duplicated deliberately: the shim
+ * imports THIS module from raw source before any build exists, so it must
+ * stay dependency-free — a \`.js\` relative import cannot resolve in the
+ * source tree and would collapse the whole fail-open path to the minimal
+ * diagnostic. The unit tests pin both copies to the same behaviour.
+ */
+function stripShimSessionIdTag(value: string | undefined): string | undefined {
+  const trimmed = value?.trim();
+  if (trimmed === undefined || trimmed.length === 0) {
+    return undefined;
+  }
+  const payload = /^[a-z]+_(?<payload>.+)$/u.exec(trimmed)?.groups?.['payload'];
+  if (payload === undefined || payload.length === 0) {
+    return trimmed;
+  }
+  return payload;
 }
 
 export function readShimSessionId(stdinText: string): string | undefined {
