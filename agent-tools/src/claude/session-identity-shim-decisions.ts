@@ -32,6 +32,47 @@ const SAFE_SEED = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
  * readShimSessionId('not json'); // undefined
  * ```
  */
+/**
+ * Resolve the fail-open seed: the stripped cloud platform session id when
+ * present (PDR-027 cloud-seat clause), the stdin `session_id` otherwise.
+ */
+function nonBlankShimValue(value: string | undefined): string | undefined {
+  const trimmed = value?.trim();
+  return trimmed === undefined || trimmed.length === 0 ? undefined : trimmed;
+}
+
+function resolveShimSeed(input: {
+  readonly explicitSeed?: string;
+  readonly remoteSessionId?: string;
+  readonly stdinText: string;
+}): string | undefined {
+  return (
+    nonBlankShimValue(input.explicitSeed) ??
+    stripShimSessionIdTag(input.remoteSessionId) ??
+    readShimSessionId(input.stdinText)
+  );
+}
+
+/**
+ * Local copy of the PDR-027 session-id tag strip (canonical:
+ * \`core/agent-identity/session-seed.ts\`). Duplicated deliberately: the shim
+ * imports THIS module from raw source before any build exists, so it must
+ * stay dependency-free — a \`.js\` relative import cannot resolve in the
+ * source tree and would collapse the whole fail-open path to the minimal
+ * diagnostic. The unit tests pin both copies to the same behaviour.
+ */
+function stripShimSessionIdTag(value: string | undefined): string | undefined {
+  const trimmed = value?.trim();
+  if (trimmed === undefined || trimmed.length === 0) {
+    return undefined;
+  }
+  const payload = /^[a-z]+_(?<payload>.+)$/u.exec(trimmed)?.groups?.['payload'];
+  if (payload === undefined || payload.length === 0) {
+    return trimmed;
+  }
+  return payload;
+}
+
 export function readShimSessionId(stdinText: string): string | undefined {
   let parsed: unknown;
   try {
@@ -106,8 +147,12 @@ export function planShimFailOpen(input: {
   readonly cause: string;
   readonly stdinText: string;
   readonly envFile: string | undefined;
+  /** Explicit operator seed — outranks the ambient platform id (PDR-027 precedence). */
+  readonly explicitSeed?: string;
+  /** Cloud-seat platform session id (raw, possibly tagged) — preferred over stdin per PDR-027. */
+  readonly remoteSessionId?: string;
 }): ShimFailOpenPlan {
-  const sessionId = readShimSessionId(input.stdinText);
+  const sessionId = resolveShimSeed(input);
   const embeddable = sessionId !== undefined && isShellSafeSeed(sessionId);
   const envFile =
     input.envFile !== undefined && input.envFile.trim().length > 0 ? input.envFile : undefined;
