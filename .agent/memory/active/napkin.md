@@ -1615,3 +1615,21 @@ instrument.
   pipe under `node_modules/.tmp` fails `EINVAL` and `pnpm install`'s
   postinstall dies. Worktrees needing installs must live at a short path
   (e.g. `/tmp/<name>`); the scratchpad stays right for plain files.
+
+## 2026-08-26 ~13:1xZ (Cricket hunts Quietude, dbb74c, remote skill-bring lane) — dependency-currency skill brought from castr
+
+Landed the reusable `dependency-currency` skill in this estate under the
+owner's 2026-08-24 bidirectional-equality directive and 2026-08-26 landing
+instruction. Provenance: castr `main` @ `3066b3f` (the PR #62 merge — the
+nine-cycle worked instance the skill graduated from) — byte-identical at the
+skill file with the PR #64 lane branch head `11c6b15` (JSONC/estate/
+consolidation refinements already folded to main), verified by diff at the
+fetch moment, so "newest content" was unambiguous. Copy is verbatim
+(`cmp`-proven after every gate); castr-local citations (ADR-049, PDR-097)
+retained deliberately — substantive divergence routes back through the
+cross-pollination route, never a silent fork. Adapters generated with
+`pnpm skills:generate` (oak- prefix; `.claude/` + `.agents/` projections),
+`Skill(oak-dependency-currency)` pair added to `.claude/settings.json`
+allow list at its alphabetical slot; `skills:check`, `portability:check`
+(59 canonical skills), markdownlint, format, repo-validators, type-check,
+lint all green first-hand in this container.
