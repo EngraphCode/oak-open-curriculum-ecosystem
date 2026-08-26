@@ -702,7 +702,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/test-helpers/static-root-fixture.ts",
-      "semanticSha256": "c015f386674e82f3873ee3706db2a4a7936cab025b4c687455230113b2ff3fd5",
+      "semanticSha256": "78b57eba221092500c36905578dbd3cfddf1087224ab2d1ab1736914b59a07b8",
       "itemIds": [],
       "exclusionReason": "Test support only; this file does not reach an MCP consumer."
     },
