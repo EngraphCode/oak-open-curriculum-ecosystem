@@ -1535,3 +1535,21 @@ artefact can serve deadman, cursor, and fallback-observable at once.
   repo-continuity row or thread-record touch; a default-container fallback
   note in the start-right surfaces (this drive ran in a DEFAULT container
   and needed six environment cures, all recorded in the plan carrier).
+
+## 2026-08-26 (Tarsier binds Rime, 01TAff, versioning-strategy lane) — survey-front read: the ratified successor is not on any main
+
+While grounding the public-packages-release strategic node (born sketch this
+session), the survey-front review found the estate's plan files lag the owner's
+word in two places, verified first-hand against upstream: (1)
+`workspace-taxonomy-landscape-survey.plan.md` still reads `status: sketch`
+with a live framing, while the upstream thread record
+(typescript-estate-consolidation-review, 2026-08-19) records the survey lane
+CANCELLED and its claims closed; (2) `toolkit-re-architecture` — ratified
+2026-08-19, superseding `workspace-reorganisation-programme` — existed only on
+upstream coordination branch `coordination/2026-08-19-1651ad` (draft fold PR
+oaknational#915, frozen at the 2026-08-19 week-sleep) at the read date, so
+BOTH repos' main lines still present the superseded programme as standing.
+A reader trusting this fork's plan corpus alone inherits a superseded target
+architecture — same family as the stale-capture class. The new node's
+§Alignment carries the dated provenance so the binding self-corrects when the
+fold lands.
