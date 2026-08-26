@@ -1555,3 +1555,22 @@ A reader trusting this fork's plan corpus alone inherits a superseded target
 architecture — same family as the stale-capture class. The new node's
 §Alignment carries the dated provenance so the binding self-corrects when the
 fold lands.
+
+## 2026-08-26 ~11:2xZ (Tarsier binds Rime, 01TAff, versioning-strategy lane) — owner correction: tests prove product behaviour, not configuration; batch the parcels
+
+Owner interjection mid-PR-drive (verbatim core: "Tests are for proving
+product behaviour not configuration"). Two misses this seat had accumulated
+by then, both self-verified against the directives on the correction: (1)
+INSTRUMENT — configuration properties (turbo env passthrough, corepack
+default resolution) were narrated as "proven" by product test suites (the
+showcase test:ui run; pre-push gate runs in the PR validation section).
+validation-strategy §Right tool: the subject dictates the instrument — a
+config property is proven by exercising its own boundary once at cure time
+and guaranteed by construction (declarative config, fail-fast hook,
+preflight probes), never by a product suite passing over it, and never by a
+test written to pin config. (2) CADENCE — five full gate-suite cycles for
+parcels as small as a one-line marker, against the 2026-08-17 BATCH-CADENCE
+owner correction already on this file; adjacent small parcels batch into
+one commit cycle per sitting. Cure applied same hour: remaining PR-20 cures
+batched into one ceremony, thread replies restated with the honest
+instrument.

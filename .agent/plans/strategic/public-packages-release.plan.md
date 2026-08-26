@@ -46,7 +46,14 @@ published with versions a stranger can trust. Three linked wagers:
    fully automatic here — semantic-release over enforced conventional
    commits, chained behind green CI (`.releaserc.mjs`,
    `.github/workflows/release.yml`, the ratified `release-process`
-   runbook). Neither pnpm workspaces nor Turbo does version
+   runbook). One recorded defect qualifies that chain and stands as a
+   publish-day precondition: the release workflow's checkout pins no
+   `ref`, so it releases the default branch's current tip rather than
+   the CI-validated `workflow_run` head SHA — a merge racing the CI
+   run could be versioned unvalidated. Tolerable while nothing
+   publishes; the checkout is pinned to the triggering SHA (or the
+   tip revalidated) before the first real publish. Neither pnpm
+   workspaces nor Turbo does version
    computation, and no third tool (Changesets, Lerna-family,
    multi-semantic-release) earns admission while the estate publishes
    nothing: Changesets trades away full automation by design
@@ -119,9 +126,12 @@ itself.
 ## Success looks like
 
 - A releasable merge to the default line publishes the public packages
-  with no human step, and a rollback-free failure path: a failed
-  publish is loud (the existing release-failure alerting), never
-  half-shipped.
+  with no human step, and failure handling is honest about npm's
+  non-transactional registry: a failed publish is loud (the existing
+  release-failure alerting) and convergent — per-package publishes are
+  idempotent to retry, so an interrupted multi-package group resumes to
+  completion on re-run rather than claiming an atomicity npm does not
+  offer.
 - The published stream's bump rate matches real change — measurable as
   zero releases minted from internal-only merges (docs, chore, CI)
   after the refinement lands, against ~every-merge today.
