@@ -1538,6 +1538,8 @@ artefact can serve deadman, cursor, and fallback-observable at once.
 
 ## 2026-08-26 (Tarsier binds Rime, 01TAff, versioning-strategy lane) — survey-front read: the ratified successor is not on any main
 
+<!-- fitness exceeded by 1256 lines; needs consolidation -->
+
 While grounding the public-packages-release strategic node (born sketch this
 session), the survey-front review found the estate's plan files lag the owner's
 word in two places, verified first-hand against upstream: (1)
