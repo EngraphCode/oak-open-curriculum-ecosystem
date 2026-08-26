@@ -42,6 +42,8 @@
       "Skill(oak-cricket:*)",
       "Skill(oak-cut-coordination-branch)",
       "Skill(oak-cut-coordination-branch:*)",
+      "Skill(oak-dependency-currency)",
+      "Skill(oak-dependency-currency:*)",
       "Skill(oak-reason)",
       "Skill(oak-reason:*)",
       "Skill(oak-parallax)",
