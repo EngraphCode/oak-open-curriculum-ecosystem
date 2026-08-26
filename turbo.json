@@ -8,6 +8,12 @@
     "OAK_API_KEY",
     "LOG_LEVEL",
     "OAK_API_URL",
+    // Machine-local browser-store location (cloud images preset
+    // /opt/pw-browsers; unset locally). Passed through — never hashed — so
+    // Playwright inside test:ui/e2e tasks resolves the same store the
+    // session installed into; hashing it (globalEnv) would needlessly split
+    // the remote cache between local and cloud runs over a path that never
+    // enters any output (browser SEMANTICS are pinned by the lockfile).
     "PLAYWRIGHT_BROWSERS_PATH",
     "CLERK_PUBLISHABLE_KEY",
     "CLERK_SECRET_KEY",
