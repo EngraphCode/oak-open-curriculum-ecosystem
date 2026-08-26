@@ -17,6 +17,15 @@ import { assertResolved } from './picker-stage';
 
 const ROUTES = ['/tokens', '/tokens/colours', '/composition'] as const;
 
+/** The colour-matrix route renders the full token grid — by far the largest
+ *  DOM in the suite, and axe walks all of it. Measured 15–20s per case on a
+ *  warm fast machine against the 30s cap, which cold two-core CI runners
+ *  exceed (main runs 2026-08-17/23 red on exactly these cases). `test.slow()`
+ *  triples the budget for these cases only; every assertion is unchanged. */
+const slowWhenHeaviestRoute = (route: string): void => {
+  test.slow(route === '/tokens/colours', 'colour token grid: largest DOM, full axe walk');
+};
+
 async function openRoute(page: Page, route: string): Promise<Set<string>> {
   const aborted = await interceptExternalOrigins(page);
   await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -51,6 +60,7 @@ test.describe('demo routes: axe', () => {
   for (const route of ROUTES) {
     for (const theme of ['light', 'dark'] as const) {
       test(`${route} × ${theme} has no WCAG 2.2 AA violations @a11y`, async ({ page }) => {
+        slowWhenHeaviestRoute(route);
         const aborted = await openRoute(page, route);
         await page.evaluate((value) => {
           document.documentElement.dataset['theme'] = value;
@@ -66,6 +76,7 @@ test.describe('demo routes: reflow at 320px', () => {
   test.use({ viewport: { width: 320, height: 900 } });
   for (const route of ROUTES) {
     test(`${route} reflows to 320px without loss @a11y`, async ({ page }) => {
+      slowWhenHeaviestRoute(route);
       const aborted = await openRoute(page, route);
       await expectNoHorizontalOverflow(page);
       await expectNoAxeViolations(page);
