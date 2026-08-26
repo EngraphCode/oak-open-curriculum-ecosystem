@@ -61,9 +61,15 @@ published with versions a stranger can trust. Three linked wagers:
    `chore`, `style`, `test`, `ci`, `build` all bump — hence a 1.175.x
    counter). That is fine for an internal release identity and wrong
    for a published stream, where every bump is a notification to
-   consumers. The refined policy: a published package's version moves
-   only on consumer-meaningful change (features, fixes, performance,
-   breaking), while internal-only commit types stop minting releases.
+   consumers. The refined policy has two conjuncts, both required: a
+   published package's version moves only when a change actually
+   reaches that package's shipped surface (releaseability derives from
+   the affected published packages — an internal `fix` or `feat` that
+   touches no published package mints nothing, whatever its type), and
+   the conventional-commit type then grades the bump for the packages
+   the change does reach. Type alone gates nothing: narrowing the
+   type→release mapping without the affected-package test would keep
+   minting public releases from internal fixes.
    The internal release-identity chain (deploy attribution, Sentry
    release identifiers per ADR-163) keeps whatever counter it needs —
    refining the public stream must not blind the internal one.
