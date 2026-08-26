@@ -1535,3 +1535,42 @@ artefact can serve deadman, cursor, and fallback-observable at once.
   repo-continuity row or thread-record touch; a default-container fallback
   note in the start-right surfaces (this drive ran in a DEFAULT container
   and needed six environment cures, all recorded in the plan carrier).
+
+## 2026-08-26 (Tarsier binds Rime, 01TAff, versioning-strategy lane) — survey-front read: the ratified successor is not on any main
+
+<!-- fitness exceeded by 1256 lines; needs consolidation -->
+
+While grounding the public-packages-release strategic node (born sketch this
+session), the survey-front review found the estate's plan files lag the owner's
+word in two places, verified first-hand against upstream: (1)
+`workspace-taxonomy-landscape-survey.plan.md` still reads `status: sketch`
+with a live framing, while the upstream thread record
+(typescript-estate-consolidation-review, 2026-08-19) records the survey lane
+CANCELLED and its claims closed; (2) `toolkit-re-architecture` — ratified
+2026-08-19, superseding `workspace-reorganisation-programme` — existed only on
+upstream coordination branch `coordination/2026-08-19-1651ad` (draft fold PR
+oaknational#915, frozen at the 2026-08-19 week-sleep) at the read date, so
+BOTH repos' main lines still present the superseded programme as standing.
+A reader trusting this fork's plan corpus alone inherits a superseded target
+architecture — same family as the stale-capture class. The new node's
+§Alignment carries the dated provenance so the binding self-corrects when the
+fold lands.
+
+## 2026-08-26 ~11:2xZ (Tarsier binds Rime, 01TAff, versioning-strategy lane) — owner correction: tests prove product behaviour, not configuration; batch the parcels
+
+Owner interjection mid-PR-drive (verbatim core: "Tests are for proving
+product behaviour not configuration"). Two misses this seat had accumulated
+by then, both self-verified against the directives on the correction: (1)
+INSTRUMENT — configuration properties (turbo env passthrough, corepack
+default resolution) were narrated as "proven" by product test suites (the
+showcase test:ui run; pre-push gate runs in the PR validation section).
+validation-strategy §Right tool: the subject dictates the instrument — a
+config property is proven by exercising its own boundary once at cure time
+and guaranteed by construction (declarative config, fail-fast hook,
+preflight probes), never by a product suite passing over it, and never by a
+test written to pin config. (2) CADENCE — five full gate-suite cycles for
+parcels as small as a one-line marker, against the 2026-08-17 BATCH-CADENCE
+owner correction already on this file; adjacent small parcels batch into
+one commit cycle per sitting. Cure applied same hour: remaining PR-20 cures
+batched into one ceremony, thread replies restated with the honest
+instrument.
