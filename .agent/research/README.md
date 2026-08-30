@@ -1,6 +1,6 @@
 # Research Documents Index
 
-**Last Updated**: 22 August 2026  
+**Last Updated**: 30 August 2026
 **Purpose**: Permanent record of research, discoveries, and insights  
 **Maintained By**: AI agents and human collaborators
 
@@ -23,6 +23,17 @@
 ---
 
 ## Research by Topic
+
+### ✨ Oak Innovation Kit & demonstrations
+
+Research that informs the fourth value stream's open-ended demonstration portfolio,
+idea-to-evidence path, and exercised-reuse discipline. Strategy authority remains in
+[`docs/strategy/`](../../docs/strategy/README.md).
+
+| Document | Purpose | Key insights |
+| --- | --- | --- |
+| [innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md](innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md) | Eve + MCP agentic-chat feasibility and value investigation | One bounded peer demo; dual-plane architecture hypothesis; public-capability value thesis; portfolio evidence and claim boundaries |
+| [innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md](innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md) | Dynamic, interactive graph-experience technology and evidence landscape | Representation before renderer; 2D, animation, linked views, 2.5D, 3D and immersive options; task-dependent perception; projection integrity; accessibility parity; evidence-led evaluation |
 
 ### 🔍 Semantic Search & Elasticsearch
 
@@ -47,7 +58,7 @@ Understanding Oak's curriculum structure and knowledge representation.
 | Document | Purpose | Key Insights |
 |----------|---------|--------------|
 | [curriculum-ontology.md](curriculum-ontology.md) | Curriculum knowledge model | Subjects, key stages, threads, units, lessons |
-| [curriculum-structure-3d-model.md](curriculum-structure-3d-model.md) | 3D curriculum visualization | Spatial metaphor for curriculum navigation |
+| [curriculum-structure-3d-model.md](curriculum-structure-3d-model.md) | Spatial curriculum model | Three-axis metaphor for curriculum navigation |
 | [ONTOLOGY_RESEARCH_SUMMARY.md](ONTOLOGY_RESEARCH_SUMMARY.md) | Ontology research summary | |
 | [official-api-ontology-comparison.md](official-api-ontology-comparison.md) | API vs ontology comparison | |
 | [kg-neo4j-stardog-product-creation/kg-neo4j-stardog-product-creation-clean.md](kg-neo4j-stardog-product-creation/kg-neo4j-stardog-product-creation-clean.md) | Graph-serving platform comparison | Direct-use baseline plus Neo4j/Stardog strengths, weaknesses, unknowns, and prototype-worthy use cases for external features |
@@ -160,6 +171,13 @@ Research on API structure and data analysis.
 | [approaches-to-knowledge-strategic-report.md](approaches-to-knowledge-strategic-report.md) | Knowledge strategy | |
 
 ---
+
+## Recent Additions (2026-08-30)
+
+| Document | Summary |
+| --- | --- |
+| [innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md](innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md) | Value and technical investigation for an Eve + MCP agentic-chat experience as one bounded peer in the Oak Innovation Kit portfolio; records architecture options, evidence limits, and the deeper public-capability thesis. |
+| [innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md](innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md) | Evidence-led landscape for graph experiences beyond flat, static diagrams; compares interactive 2D, animation, linked views, 2.5D, 3D, spatial and immersive options without selecting an implementation. |
 
 ## Recent Additions (2026-08-13)
 
