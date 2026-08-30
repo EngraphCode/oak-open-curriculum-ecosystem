@@ -1574,3 +1574,44 @@ owner correction already on this file; adjacent small parcels batch into
 one commit cycle per sitting. Cure applied same hour: remaining PR-20 cures
 batched into one ceremony, thread replies restated with the honest
 instrument.
+
+## 2026-08-30 ~13:5xZ (Pyre rides Brilliance, 01BGpt, PR-15 truing lane) — the #15 "owner-gated" block was stale within 90 minutes of being written; records trued, branch brought current
+
+- STALE-RECORD CORRECTION (trues the 2026-08-25 Kraken entry above and the
+  #19 closeout's "#15 block routed" line): the recorded blockers on PR #15
+  were all cured the SAME EVENING they were recorded — `6e25e6a` (17:02Z)
+  removed all 39 scan-validation `no-circular` violations by type-only
+  re-homing, `8d0a4d2` (17:09Z) resolved the repo-continuity conflict, CI
+  went 13/13 green on `55d0047` at 18:09Z. The napkin entry (~15:4xZ) was
+  never marked superseded, so this seat relayed "blocked on owner" to the
+  owner five days later as live fact. The owner's challenge ("typically it
+  is an excuse") was correct in effect: re-measured first-hand 2026-08-30,
+  zero blockers existed. Class: false-green's sibling — a blocked-state
+  record with no supersession marker reads as authoritative precisely
+  because nothing contradicts it in place. Cure applied at the record, not
+  just in chat: this entry, plus a dated Status section on the PR body
+  (stale "CI pending" and "current head" lines corrected there).
+- ACTIONS 2026-08-30: update merge of engraph (12 commits) into the #15
+  branch pushed as `ec09a09` — automatic, zero conflicts; merged tree
+  verified first-hand before push (build 33/33, type-check green, depcruise
+  zero violations, knip green, encoding 0 critical, agent-tools
+  4964/4964). The one genuinely open item on #15 is the author's
+  adjudication of the proposal content itself (draft by design,
+  preparation NOT_STARTED per its own Standing section).
+- WORKTREE HOOKS SILENTLY ABSENT (half-armed class, own hands): in a fresh
+  linked worktree, `pnpm install` reported `prepare$ husky … Done` yet
+  created NO `.husky/_` shim directory, so `core.hooksPath=.husky/_`
+  pointed at nothing and git skipped pre-commit AND pre-push with zero
+  output — the push log was two lines and the gate never ran. Detection:
+  the log's silence, checked against the hook's expected banner.
+  Compensation that session: the substantive gates were run by hand before
+  the push and CI ran the full suite on the new head. Standing cure shape
+  for successors: after install in any linked worktree, verify
+  `ls .husky/_/pre-push` exists before trusting hook coverage — install
+  reporting Done is not evidence the shims exist (verify the instrument,
+  not the target state).
+- TOOLING FACT (cloud containers): the session scratchpad path (~150
+  chars) exceeds the 108-byte Unix-socket `sun_path` limit, so tsx's IPC
+  pipe under `node_modules/.tmp` fails `EINVAL` and `pnpm install`'s
+  postinstall dies. Worktrees needing installs must live at a short path
+  (e.g. `/tmp/<name>`); the scratchpad stays right for plain files.
