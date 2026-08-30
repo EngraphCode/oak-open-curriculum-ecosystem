@@ -239,8 +239,9 @@ accepted, revised, merged or rejected independently through normal OCE authority
 - **Boundary, risk and what must not be inherited:** do not inherit "every artefact needs a
   producer immediately" — the claim is that readiness reporting must track producer coverage, not
   that coverage must be instantly total.
-- **Cheapest discriminating probe:** delete one required artefact from a fixture package and
-  require the package check to fail on completeness rather than pass on structure.
+- **Cheapest discriminating probe:** from a clean fixture, run the shipped tool end to end and
+  assert it produces every required artefact; then delete one required artefact and require the
+  package check to fail on completeness rather than pass on structure.
 - **Falsifier or stop condition:** if existing gates already distinguish structural validity from
   lifecycle completeness everywhere it matters, mark this a duplicate.
 - **Likely OCE home:** agent-tools validator conventions; CLI acceptance checklists.
@@ -254,8 +255,10 @@ accepted, revised, merged or rejected independently through normal OCE authority
   [OCE-IDEA-098](./2026-08-22-oce-significant-ideas-catalogue.md#oce-idea-098--include-negative-controls-for-intentional-duplication);
   neither states the independence condition.
 - **OCE-native idea:** reviewers or agents that share sources, models, prompts or priors constitute
-  correlated review: their agreement is one lens repeated, not accumulated assurance. Independence
-  is earned by disjoint evidence bases, method diversity, or genuinely adversarial briefs — and
+  correlated review: their agreement is one lens repeated, not accumulated assurance. Disjoint
+  evidence bases, method diversity and genuinely adversarial briefs reduce correlation but do not
+  by themselves establish independence — an independence claim is earned by evidence of distinct
+  failure-mode coverage, with the remaining dependence between legs modelled explicitly, and
   assurance is counted by independent failure modes covered, never by reviewer headcount.
 - **What becomes possible and why it matters:** panel design becomes deliberate. Agreement stops
   being over-read, and the marginal reviewer is chosen for the failure mode they uniquely cover.
@@ -359,8 +362,9 @@ accepted, revised, merged or rejected independently through normal OCE authority
 - **Boundary, risk and what must not be inherited:** atomicity applies to the accepted tree, not
   necessarily to one commit of implementation work; behaviour-first pairs may land separately while
   everything remains non-canonical.
-- **Cheapest discriminating probe:** attempt a fixture cutover that leaves one reader link on the
-  old surface and require the acceptance check to refuse it.
+- **Cheapest discriminating probe:** attempt three fixture cutovers and require refusal of each:
+  one leaving a reader link on the old surface, one whose acceptance commit has a parent other
+  than the reviewed candidate, and one whose acceptance commit carries an implementation change.
 - **Falsifier or stop condition:** if transition tooling with these properties already exists for
   the surfaces that matter, record this as practice documentation rather than a new mechanism.
 - **Likely OCE home:** decision-record and canonicalisation conventions; release checklists.
