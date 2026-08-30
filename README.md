@@ -13,8 +13,8 @@ for the wider ecosystem to build with — a generated, type-safe TypeScript SDK,
 search service, graph tools generated from Oak data, and evidence surfaces grounded in the
 wider education sector; an [openly documented framework for agentic engineering](docs/strategy/stream-agentic-framework.md)
 that delivers AI-amplified innovation without trading away rigour or excellence; and the
-[Oak Innovation Kit](docs/strategy/stream-innovation-kit.md), which turns those latent
-capabilities into excellent working experiences that expand understanding, generate
+[Oak Innovation Kit](docs/strategy/stream-innovation-kit.md), which exists to turn those
+latent capabilities into excellent working experiences that expand understanding, generate
 trustworthy evidence, and compound what real use proves reusable.
 
 > **We're turning Oak's open curriculum into AI-native infrastructure — for teachers and the wider ecosystem — and transforming how we build and curate digital products, agent-first, to do it well.**
@@ -29,7 +29,7 @@ to build on. Public goods, built in the open.
 **Building capabilities.** Representing knowledge as graphs is a strength we apply
 across domains — Oak's curriculum, the EEF evidence surface, AI-enhanced
 development, and how we run our own work.
-The Oak Innovation Kit brings these capabilities, the design system, and the
+The Oak Innovation Kit is intended to bring these capabilities, the design system, and the
 agent-first Practice together to make ambitious possibilities tangible and testable.
 
 **Vision and strategy**: Start with [VISION.md](VISION.md) — the two-part vision (Oak's curriculum made AI-native for teachers and the ecosystem; and how we build and curate it, agent-first). Then the [strategy](docs/strategy/README.md) — the diagnosis, the four value streams, and how we'll know it's working. For the live delivery roadmap, see the [release-planning corpus](.agent/plans/README.md) (the prior estate is conserved in [the 2026-07 backlog](.agent/plans-backlog-2026-07/BACKLOG.md)).

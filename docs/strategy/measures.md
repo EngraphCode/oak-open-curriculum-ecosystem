@@ -17,12 +17,12 @@ Measures are an Oak input — defined and measured with Oak's analytics and rese
 — never invented here. So this is a **well-formed checkpoint, not a blank and not invented
 numbers**: each stream carries the shape below, and the owner and Oak fill the signal.
 
-| Stream             | Candidate signal (provisional)                                                                                                                                                                                                                                                                                                                                                             | Who grounds it                    | Status               |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------- | -------------------- |
-| MCP app            | _Impact_ (lagging): real-use adoption + observed positive impact for teachers / curriculum leaders (K1). _Delivery_ (leading): DORA software-delivery metrics, designed as an in-repo projection under ADR-207.                                                                                                                                                                            | Oak (impact) + in-repo (delivery) | Owner/Oak checkpoint |
-| Engineering tools  | Ecosystem adoption of the SDK / search / graph                                                                                                                                                                                                                                                                                                                                             | Oak + owner                       | Owner/Oak checkpoint |
-| Agentic framework  | _Delivery_ (leading): DORA-shaped delivery metrics over the Practice's own output, and the seven DORA AI-capabilities as leading indicators, designed as an in-repo projection under ADR-207. _Impact_: internal uplift + external adoption.                                                                                                                                               | Oak (impact) + in-repo (delivery) | Owner/Oak checkpoint |
-| Oak Innovation Kit | _Possibility_: changed understanding, accurate recall of real capability, and materially new ideas or collaborations. _Evidence economics_: idea-to-declared-evidence effort and first-pass quality conformance. _Portfolio learning_: distinct propositions, decisions changed, negative findings retained, exercised reuse, bespoke forks, semantic drift, and changing marginal effort. | Oak + owner + in-repo evidence    | Owner/Oak checkpoint |
+| Stream             | Candidate signal (provisional)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Who grounds it                    | Status               |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | -------------------- |
+| MCP app            | _Impact_ (lagging): real-use adoption + observed positive impact for teachers / curriculum leaders (K1). _Delivery_ (leading): DORA software-delivery metrics, designed as an in-repo projection under ADR-207.                                                                                                                                                                                                                                                                                                                  | Oak (impact) + in-repo (delivery) | Owner/Oak checkpoint |
+| Engineering tools  | Ecosystem adoption of the SDK / search / graph                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Oak + owner                       | Owner/Oak checkpoint |
+| Agentic framework  | _Delivery_ (leading): DORA-shaped delivery metrics over the Practice's own output, and the seven DORA AI-capabilities as leading indicators, designed as an in-repo projection under ADR-207. _Impact_: internal uplift + external adoption.                                                                                                                                                                                                                                                                                     | Oak (impact) + in-repo (delivery) | Owner/Oak checkpoint |
+| Oak Innovation Kit | _KIT-1 possibility_: reception, accurate comprehension, generativity, and separately activation. _KIT-2 evidence economics_: total effort per decision-relevant uncertainty resolved, including assurance and retirement. _KIT-3 demo-portfolio learning_: distinct propositions and evidence-linked dispositions, including confirmation and no change. _KIT-4 exercised commonality_: unlike reuse and legitimate non-use, independent consumption where claimed, bespoke forks, semantic drift, and changing marginal effort. | Oak + owner + in-repo evidence    | Owner/Oak checkpoint |
 
 Impact is measured at Oak, not instrumented in-repo (launch keystone K1). This checkpoint
 names where each signal will live; the owner and Oak's analytics and research experts
@@ -32,6 +32,24 @@ For the Innovation Kit, raw demo count, applause, traffic, visual polish, or sha
 percentage alone are not success measures. A possibility showcase may legitimately measure
 changed understanding and inspiration; those signals must not be promoted into evidence of
 task utility, adoption, teacher impact, or pupil outcomes.
+
+Possibility signals remain separated: reception and attention; accurate comprehension of the
+real mechanism and its limits; materially new questions or ideas; activation through a mutually
+agreed next action; and consequential use or an evidence-linked decision. A showpiece need not
+traverse the whole chain to succeed, but evidence from one state cannot be promoted into the
+next. An idea, request, or introduction is not yet collaboration evidence.
+
+Every Innovation Kit signal is interpreted against a named audience or population, baseline or
+comparator, exposure and non-use, collection method, decision owner, review point, and losing
+condition. Evidence-linked dispositions include advance, confirm, narrow, reshape, stop, retire,
+defer, and preserve as unresolved; “decision changed” is not privileged over a warranted
+no-change result. False mental models, abandonment, delayed effects, verification burden, harms,
+and exclusions are retained alongside successes.
+
+Where a public-capability or stewardship claim is pursued, provenance and authority retention,
+export and provider exit, independent-consumer success, challenge hand-off, and—only where a
+real institutional service is exercised—correction closure are examined separately. A complete
+causal bridge is readiness to test public value, not evidence that public value has occurred.
 
 ## Delivery-performance metrics (DORA) — designed as an in-repo projection
 

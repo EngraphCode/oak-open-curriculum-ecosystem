@@ -100,8 +100,9 @@ need. Supporting the wider ecosystem includes supporting its engineering
 parts — paying the cost of a genuinely shared responsibility once, so product
 effort concentrates where it creates value for people.
 
-The [Oak Innovation Kit](docs/strategy/stream-innovation-kit.md) makes those capabilities
-tangible. It brings Oak's data, tools, design system, and agent-first Practice together in
+The [Oak Innovation Kit](docs/strategy/stream-innovation-kit.md) exists to make those
+capabilities tangible. It is intended to bring Oak's data, tools, design system, and
+agent-first Practice together in
 excellent working experiences that show what is possible, generate trustworthy evidence
 before larger commitments, and let learning compound across deliberately different
 demonstrations. Inspiring and impressing people is valuable here when it opens new

@@ -22,7 +22,7 @@ last_reviewed: 2026-08-30
   **four co-equal value streams** — the teacher-facing MCP app, engineering
   tools for the wider ecosystem (SDK, semantic search, curriculum graph,
   evidence surfaces), the agentic-engineering Practice, and the
-  [Oak Innovation Kit](strategy/stream-innovation-kit.md), which turns shared
+  [Oak Innovation Kit](strategy/stream-innovation-kit.md), which is intended to turn shared
   capability into excellent working experiences and trustworthy evidence. Then read the
   latest snapshot in the [reports surface](../.agent/reports/) and the live
   [high-level plan](../.agent/plans-backlog-2026-07/high-level-plan.md)

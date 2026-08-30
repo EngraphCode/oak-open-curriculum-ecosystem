@@ -15,9 +15,9 @@ _Part of the [Strategy corpus](README.md); derives from the [vision](../../VISIO
 Serves Oak's **ecosystem** goal — and, inward, Oak's capability to discover how new products
 and experiences could serve teachers and builders._
 
-The Oak Innovation Kit turns latent public capability into excellent working experiences
-that expand understanding, generate trustworthy evidence, and compound what real use proves
-reusable.
+The Oak Innovation Kit exists to turn latent public capability into excellent working
+experiences that expand understanding, generate trustworthy evidence, and compound what real
+use proves reusable.
 
 The stream creates two connected value paths. **Outward**, partners, curriculum and product
 practitioners, and ecosystem builders can see, interrogate, and build on possibilities that
@@ -32,28 +32,78 @@ boundaries. The Kit is not merely a component library, a design system, a demo c
 the general agentic Practice. It composes those assets into real experiences and learns from
 what survives contact with different concepts, audiences, and hosts.
 
+At its deepest defensible level, the Kit is a public-interest research and development
+capability. It lets Oak and the ecosystem materialise possible futures, interrogate them before
+commitment, and retain or transmit what is learned without ceding curriculum meaning,
+professional judgement, or future provider choice. It tests whether publicly funded curriculum
+capability can remain identifiable, contestable, and portable across changing product and AI
+hosts. That creates institutional option value and stewardship capacity; it does not by itself
+establish adoption, effective remedy, teacher benefit, or pupil benefit.
+
+The unit of value is not a demonstration shipped. It is a real capability made newly legible,
+a named decision improved before commitment, or reusable capability proven through unlike use.
+Demonstrations are instruments for producing those outcomes.
+
 The seams with the other streams are explicit: `FRAME-*` compounds the general delivery
 Practice; `TOOLS-*` owns reusable curriculum capability; `APP-*` governs one teacher-facing
 channel; `KIT-*` composes real capabilities into bounded experiences and evidence.
 
-## Four related objects, kept distinct
+## Five related objects, kept distinct
 
 - **The value stream** is the end-to-end flow that turns Oak capability and ideas into
   excellent working experiences, honest evidence, and reusable learning for Oak and the
   ecosystem. This document governs that flow through the `KIT-*` choices.
+- **The `innovation-kit` strategic node** is one outcome-bearing node in the plan estate. Its
+  current sketch proposes that it serves `KIT-2`; it neither contains this whole stream nor
+  governs work until owner-ratified.
 - **The Innovation Kit** is the evolving shared capability, design, assurance, and
   experimentation substrate used by real experiences.
 - **The demo portfolio** is an open-ended set of independently scoped experiences. Each has
   its own proposition, interaction grammar, evidence class, claim boundary, and losing
   condition.
-- **The evidence ledger** records what each implemented demo demonstrates, contradicts, or
-  leaves unresolved, and what later consumers actually reuse.
+- **The proposed evidence ledger** would record what each implemented demo demonstrates,
+  contradicts, or leaves unresolved, and what later consumers actually reuse.
 
-A **strategic node** is different again: it is an outcome-bearing node in the plan estate,
-and its shape governs work only once owner-ratified. The first
-[Innovation Kit node](../../.agent/plans/strategic/innovation-kit.plan.md) is a sketch that
-proposes `KIT-2` as its parent choice; it does not contain this whole stream or silently
-ratify every possible demo.
+Here, the OCE strategy portfolio is the four-stream system; the Innovation Kit demo portfolio
+is the open-ended set of experiences within this stream. “Demo portfolio” below always means
+the latter. See the first
+[Innovation Kit node](../../.agent/plans/strategic/innovation-kit.plan.md).
+
+## The value flow
+
+The flow is:
+
+> latent capability or a consequential question → declared audience, proposition, and evidence
+> class → excellent working experience using real capability → observation against a comparator
+> and claim boundary → explicit disposition → learning returned to its legitimate owning layer
+> and, where warranted, published for independent use
+
+An explicit disposition may advance, confirm, narrow, reshape, stop, retire, defer, or preserve
+the proposition as unresolved. A demo that ends at “shipped” or “impressive” has not completed
+the stream. Evidence creates value when a legitimate decision owner can act on it, when accurate
+understanding changes the available questions or collaborations, or when tested capability
+becomes genuinely usable elsewhere. Salience, reuse, and accumulated records never confer
+authority by themselves.
+
+Each evidence-led finding routes first to its legitimate owner: curriculum semantics and public
+tool contracts to the engineering-tools stream, general delivery Practice to the agentic
+framework stream, design primitives to the Oak Design System, and concept-specific machinery to
+the demo. Only deliberately owned composition and assurance capability enters the Kit; a later
+unlike consumer tests any portability or commonality claim.
+
+The proposed evidence ledger would be versioned and supersedable. Its minimum record would link
+to primary evidence and name the demo and tested configuration, proposition and evidence class, intended
+audience or beneficiary, source versions, comparator and method, threshold and falsifier,
+positive, negative, or ambiguous result, claim boundary, decision owner and disposition, return
+target and owning layer, and next test or revalidation trigger. The ledger remains a learning
+instrument only while those records change decisions, understanding, retirement, or exercised
+reuse.
+
+The contract is proportionate to the claim, never to the polish. A `KIT-1` possibility
+showcase can complete with a named audience, the real capability and truth boundary it makes
+legible, evidence of comprehension or generativity, and a disposition. Comparators, full
+experience research, and deeper governance follow only when the demo makes utility, product,
+portability, stewardship, or mission claims.
 
 ## How we win
 
@@ -70,16 +120,18 @@ the living-strategy discipline (PDR-018).
 - **KIT-2 — Move from idea to trustworthy evidence at Oak quality.** Put accessibility,
   provenance, semantic integrity, design quality, verification, and repository standards
   into the path from concept to evidence, so speed and excellence reinforce one another.
-  _Advantage:_ recurring integration and assurance costs can be paid once, concentrating
-  more effort on the novel idea and the people it could serve.
+  _Advantage:_ recurring requirements, tested primitives, integration machinery, and
+  verification automation can be encoded once and exercised repeatedly, reducing reinvention
+  while each composition still re-establishes its own quality and assurance evidence.
 - **KIT-3 — Keep the portfolio deliberately plural.** Give each independently scoped demo
   a distinct proposition, evidence class, interaction grammar, claim boundary, and losing
   condition; use the open-ended portfolio to explore range and improve decisions without
   prematurely authorising products. _Advantage:_ unlike experiences expose opportunities
   and capability boundaries that the first successful composition could never reveal.
-- **KIT-4 — Test commonality through exercised reuse.** Place capability in the Kit when
-  meaning, semantic authority, invariants, lifecycle, isolation, or assurance justify
-  deliberate framework ownership; treat portability and commonality as hypotheses until
+- **KIT-4 — Test commonality through exercised reuse.** Place cross-demo composition or
+  assurance capability in the Kit when preserving externally owned meaning and semantic
+  authority, or holding invariants, lifecycle, isolation, or assurance, justifies deliberate
+  framework ownership; treat portability and commonality as hypotheses until
   unlike implemented consumers reuse, reject, or revise them. _Advantage:_ principled
   boundaries avoid product-local reconstruction, while real recomposition tests the reach of
   what the Kit claims without homogenising the demos.
@@ -129,14 +181,27 @@ support.
 
 ## Measures — proposed candidates (Oak grounds)
 
-- **Possibility:** changed understanding, accurate recall of the real mechanism, and
-  materially new questions, ideas, or collaborations.
-- **Evidence economics:** time and effort from idea to a declared evidence level, first-pass
-  quality conformance, and repeated plumbing versus novel-concept effort.
-- **Portfolio range and decision yield:** distinct propositions and falsifiers, decisions
-  changed or work stopped, and negative findings retained.
-- **Exercised reuse:** reuse across unlike implemented demos, cold and independent consumer
-  success where claimed, bespoke forks, semantic drift, and changing marginal effort.
+- **KIT-1 — possibility:** reception; accurate comprehension of the real mechanism and its
+  limits; materially new questions and ideas; then, separately, activation through a mutually
+  agreed next action. Possibility can be a complete outcome without implying later use.
+- **KIT-2 — evidence economics:** total effort per decision-relevant uncertainty resolved,
+  including human verification, rework, maintenance, and retirement; first-pass quality
+  conformance; and repeated plumbing versus novel-concept effort.
+- **KIT-3 — demo-portfolio range and decision yield:** distinct propositions and falsifiers;
+  evidence-linked dispositions including confirmation or no change; work advanced, narrowed,
+  reshaped, stopped, or deferred; and negative findings retained.
+- **KIT-4 — Kit-substrate commonality through exercised reuse:** reuse across unlike implemented
+  demos, cold and independent consumer success where claimed, legitimate non-use, bespoke forks,
+  semantic drift, and changing marginal effort.
+
+Every signal is interpreted against a named audience or population, baseline or comparator,
+exposure and non-use, collection method, decision owner, review point, and losing condition.
+False mental models, abandonment, delayed effects, verification burden, harms, and exclusions
+sit beside successes. Collaboration evidence begins at a mutually agreed next action; an idea,
+request, or introduction remains a generativity signal. Public-capability and stewardship claims
+separately examine provenance and authority retention, export and provider exit, independent use,
+challenge hand-off, and—only where a real institutional service is exercised—correction closure.
+None of these are teacher- or pupil-outcome measures.
 
 Targets remain Oak- and owner-grounded. See the [measures checkpoint](measures.md).
 

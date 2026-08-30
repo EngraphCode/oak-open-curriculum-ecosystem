@@ -52,14 +52,15 @@ our own words):
 ## The four value streams as a system
 
 The streams aren't four separate tracks — they reinforce each other, and the cross-stream
-cohesion is carried here at the portfolio tier:
+cohesion is carried here at the strategy-portfolio tier. This four-stream strategy portfolio
+is distinct from the open-ended demo portfolio inside the Innovation Kit stream:
 
 - **The agentic framework is the engine.** It builds the app, the tools, and the Innovation
   Kit's working experiences faster and more safely, and it's a value stream others adopt.
 - **The engineering tools are the foundation.** The SDK, semantic search, the curriculum
   graph, and the evidence surfaces are what the app stands on.
-- **The app proves the foundation.** It reaches teachers and demonstrates the whole system
-  delivering real value.
+- **The app exercises the foundation.** It reaches teachers and provides one implementation
+  proof of the system in a teacher-facing channel; value and impact require their own evidence.
 - **The Innovation Kit is the lens and laboratory.** It composes the engine and foundation
   into deliberately different working experiences, makes latent possibilities visible, and
   returns bounded evidence and tests portability and commonality through exercised reuse
@@ -71,3 +72,10 @@ the app tests one teacher channel; and the Kit explores unlike possibilities and
 can travel between them. The Innovation Kit is a peer stream, not a container above the other
 three. Its value depends on using their real capabilities and returning learning without
 absorbing their distinct outcomes or evidence claims.
+
+A finding from an Innovation Kit demo routes first to the legitimate owner: curriculum
+semantics and reusable tool contracts to engineering tools, general delivery Practice to the
+agentic framework, design primitives to the Oak Design System, and concept-specific machinery
+to the demo. Only deliberately owned cross-demo composition and assurance capability enters the
+Kit. The proposed evidence ledger records that disposition, and a later unlike consumer tests
+any portability or commonality claim.

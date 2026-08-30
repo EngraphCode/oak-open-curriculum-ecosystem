@@ -1,8 +1,8 @@
 ---
 id: innovation-kit
 node_type: strategic
-name: "Oak Innovation Kit"
-overview: "Oak can move a concept from idea to an explicit evidence state quickly, to Oak standards, through a repeatable composition and assurance path."
+name: 'Oak Innovation Kit'
+overview: 'Oak can move a concept from idea to an explicit evidence state quickly, to Oak standards, through a repeatable composition and assurance path.'
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -33,6 +33,9 @@ Oak can turn an idea into an excellent working experience quickly enough to enco
 evidence before making a larger commitment. Each experience reaches an explicit, honest
 evidence state: people can distinguish what is real, what is inferred, what remains a
 hypothesis, what evidence was collected, and what the demonstration cannot establish.
+A legitimate decision owner can then continue, redirect, stop, or declare the evidence
+insufficient without reconstructing the experiment or promoting a demo claim beyond its
+boundary.
 
 The repeatable composition and assurance path preserves Oak's semantic integrity, provenance,
 accessibility, openness, visual and interaction quality, and human decision authority. It
@@ -58,9 +61,10 @@ constrain how success is interpreted, but this node does not masquerade as their
 The Kit, the demo portfolio, and the evidence ledger also remain separate. The Kit is the
 deliberate framework and shared substrate; independently scoped demos are consumers and
 probes; the ledger records what each implemented demo actually demonstrates, contradicts,
-or leaves open. Kit ownership follows meaning, semantic authority, invariants, lifecycle,
-isolation, and assurance — not consumer count. Planned consumers establish intent but cannot
-prove portability or commonality.
+or leaves open. A Kit-placement decision must preserve and reference the semantic authority,
+meaning, invariants, lifecycle, isolation, and assurance held by the legitimate owning layer;
+it never transfers curriculum meaning, design-system semantics, or Practice doctrine into the
+Kit. Planned consumers establish intent but cannot prove portability or commonality.
 
 ## Success looks like
 
@@ -73,8 +77,12 @@ prove portability or commonality.
 - The evidence record names the proposition, baseline or comparator, method, result, negative
   or ambiguous findings, and claim boundary clearly enough that a later decision need not
   reconstruct the experiment.
+- Each experiment ends with an authorised disposition — advance, confirm, narrow, reshape,
+  stop, retire, defer, or preserve as unresolved — and a next-review trigger where uncertainty
+  remains. The record names why no action follows when that is the outcome.
 - Repeating the path does not require product-local reconstruction of semantic authority or
-  policy that already belongs to the Kit, its tools, or an upstream source.
+  policy that already belongs to its legitimate owning layer—the Kit, a tool, the Oak Design
+  System, the Practice, or an upstream source.
 
 ## Sibling-choice guardrails
 
@@ -91,7 +99,10 @@ The bet fails or must narrow if a working demonstration relies on staged behavio
 evidence state or claim boundary remains ambiguous; if quality or authority boundaries arrive
 after the concept; if speed comes from lowering Oak's standards; if recurring integration and
 assurance remain opaque or must be reconstructed for each concept; or if the composition path
-duplicates or overrides legitimate semantic authority.
+duplicates or overrides legitimate semantic authority. It also fails or must narrow if evidence
+accumulates without affecting a decision or accurate understanding; if verification,
+maintenance, and retirement burden exceed the declared comparator; or if only successful and
+exposed cases enter the record.
 
 The node does not select an implementation architecture, authorise a product, prescribe the
 membership or order of the open-ended portfolio, or claim that the existing Kit has already
@@ -108,9 +119,12 @@ that report, or its unimplemented chat specimen as evidence that the outcome has
 
 ## Delivery
 
-Delivery plans serving this node declare `serves: innovation-kit` and are enumerated by
-search, never by a hand-kept list. Each names the concept-specific uncertainty, declared
-evidence level, quality and authority boundaries, falsifier or stop condition, and what it
-expects to return to — or deliberately keep out of — the shared Kit. Milestones live in the
-repository's designated execution system as named observable states; this node does not
-mirror implementation tasks.
+Only delivery plans whose primary outcome changes or proves the shared `KIT-2`
+idea-to-evidence composition and assurance path declare `serves: innovation-kit`; they are
+enumerated by search, never by a hand-kept list. A demo or programme primarily pursuing
+`KIT-1`, `KIT-3`, or `KIT-4` needs its own born-sketch strategic parent when that work is
+planned rather than being routed here for convenience. Each child names the uncertainty,
+declared evidence level, quality and authority boundaries, falsifier or stop condition, and
+what it expects to return to — or deliberately keep out of — the shared Kit. Milestones live
+in the repository's designated execution system as named observable states; this node does
+not mirror implementation tasks.

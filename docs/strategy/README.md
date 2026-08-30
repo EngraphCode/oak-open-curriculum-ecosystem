@@ -34,7 +34,7 @@ strategy's first organising principle is the **four value streams** — the [Mod
 engineering tools, the agentic framework, and the Oak Innovation Kit — held together at a
 portfolio tier. The two-part vision and the four-stream strategy are the same picture at two
 zooms: the app and the tools serve the mission; the framework is both the engine that builds
-them and a value stream in its own right; and the Innovation Kit turns their latent capability
+them and a value stream in its own right; and the Innovation Kit exists to turn their latent capability
 into excellent working experiences that expand understanding, generate trustworthy evidence,
 and compound what real use proves reusable.
 
