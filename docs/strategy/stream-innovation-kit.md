@@ -56,8 +56,10 @@ channel; `KIT-*` composes real capabilities into bounded experiences and evidenc
 - **The `innovation-kit` strategic node** is the stable identity of one outcome in the plan
   estate. Its plan record owns its current shape, ratification state, and typed parent edge;
   the node neither contains nor governs this whole stream.
-- **The Innovation Kit** is the evolving shared capability, design, assurance, and
-  experimentation substrate used by real experiences.
+- **The Innovation Kit** is the evolving capability-composition, product-creation, lifecycle,
+  developer-workflow and assurance substrate used by real experiences. It prepares recurring
+  product and operational obligations while leaving curriculum, design, policy and each
+  proposition's semantic authority with their legitimate owners.
 - **The demo portfolio** is an open-ended set of independently scoped experiences. Each has
   its own proposition, interaction grammar, evidence class, claim boundary, and losing
   condition.
@@ -116,10 +118,13 @@ the living-strategy discipline (PDR-018).
   _Advantage:_ Oak has unusually rich, trusted capability; making it perceptible and
   memorable creates understanding and collaboration that APIs and documentation alone
   cannot.
-- **KIT-2 — Move from idea to trustworthy evidence at Oak quality.** Put accessibility,
-  provenance, semantic integrity, design quality, verification, and repository standards
-  into the path from concept to evidence, so speed and excellence reinforce one another.
-  _Advantage:_ recurring requirements, tested primitives, integration machinery, and
+- **KIT-2 — Move from idea to trustworthy evidence at Oak quality.** Put capability composition,
+  product and service foundations, accessibility, provenance, semantic integrity, design quality,
+  trust, lifecycle, operation, recovery, verification and repository standards into the path
+  from concept to evidence, so speed and excellence reinforce one another. A production-ready
+  demonstration is complete for its declared obligations; later elevation activates new
+  obligations without replacing the unchanged semantic core. _Advantage:_ recurring
+  requirements, tested primitives, integration and lifecycle machinery, developer workflows and
   verification automation can be encoded once and exercised repeatedly, reducing reinvention
   while each composition still re-establishes its own quality and assurance evidence.
 - **KIT-3 — Keep the portfolio deliberately plural.** Give each independently scoped demo
@@ -177,6 +182,8 @@ support.
   demo or a planned future consumer as proof of portability or commonality.
 - Won't defer accessibility, provenance, semantic integrity, openness, or human authority
   until after the interesting work.
+- Won't call a disposable prototype production-ready, treat operation and recovery as later
+  hardening, or describe a semantic rewrite as trivial elevation.
 - Won't make the Kit dependent on one model, agent framework, protocol, or host.
 
 ## Measures — proposed candidates (Oak grounds)
@@ -206,6 +213,12 @@ None of these are teacher- or pupil-outcome measures.
 Targets remain Oak- and owner-grounded. See the [measures checkpoint](measures.md).
 
 ## Research inputs
+
+The
+[whole-system Innovation Kit capability architecture](../../.agent/research/innovation-kit/innovation-kit-capability-architecture-2026-08-30.md)
+is a bounded input to what the Kit may need to compose, scaffold, assure, elevate and retire in
+order to make fast and good reinforce one another. It is not strategy authority, a package or
+provider decision, or proof that the current Kit already supplies those capabilities.
 
 The
 [Eve + MCP agentic-chat investigation](../../.agent/research/innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md)

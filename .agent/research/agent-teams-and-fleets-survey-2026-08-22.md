@@ -169,7 +169,7 @@ The dominant pattern is PDR↔ADR pairing (portable doctrine ↔ repo phenotype)
 - `docs/explorations/2026-08-04-multi-account-max-lane-envelopes.md` — the multi-account fleet-capacity model: accounts as capacity envelopes per lane of work, the compliance invariant, the attention aggregation plane, window-aware scheduling for heavy fleet sweeps.
 - `docs/strategy/stream-agentic-framework.md` — the strategy home: the framework as both outward offering and inward transformation, with the amplifier ethic.
 - `docs/design/design-review/` — a live worked example of a blind expert-panel protocol outside the engineering estate.
-- `research/web-app-deconstruction/.agent/collaboration/comms-protocol.md` — the minimal n=3 sibling-estate protocol derived from this estate's doctrine, with an explicit scale rule: at a fourth concurrent agent, adopt the structured surfaces.
+- [Minimal n=3 sibling-estate protocol](./agentic-engineering/minimal-peer-comms-protocol-n3-2026-07-20.md) — a preserved example derived from this estate's doctrine, with an explicit scale rule: at a fourth concurrent agent, adopt the structured surfaces.
 
 ## 10. Cross-cutting themes (what the estate has concluded)
 

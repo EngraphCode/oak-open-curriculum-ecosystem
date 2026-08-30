@@ -3,7 +3,7 @@ boundary: B2-Architecture
 doc_role: index
 authority: adr-navigation
 status: active
-last_reviewed: 2026-04-29
+last_reviewed: 2026-08-30
 ---
 
 # Architectural Decision Records
@@ -431,14 +431,6 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   retro-edited — with a loud-failing validator whose blocking-gate wiring lands with the
   grammar; strictness preserves the protocol's zero-per-message-ceremony property;
   Proposed 2026-07-20, Decision items 3–4 amended 2026-07-20 per owner ruling)
-- [ADR-215: Top-level `research/` surface for imported research records](215-top-level-research-surface.md)
-  (introduces `research/` as an out-of-band research surface outside the ADR-041 product
-  dependency lattice, which is unchanged; records are imported as public projections
-  preserved byte-faithfully except that private-repo permalinks are reduced to plain-text
-  citations resolved via a stable index in the private source repository; house formatting
-  and analysis are exempted while repository-wide integrity gates still apply; only a
-  record's dependency-free leaf packages register in the workspace; first occupant: the
-  web-app-deconstruction deconstruction study; Proposed 2026-07-20)
 - [ADR-216: The plan-node estate](216-plan-node-estate.md)
   (three node types — strategic, delivery, runbook — with born-sketch owner
   ratification and delivery state as a Linear projection; supersedes ADR-117's
