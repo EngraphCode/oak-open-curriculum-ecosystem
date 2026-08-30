@@ -21,12 +21,12 @@ accepted, revised, merged or rejected independently through normal OCE authority
   [OCE-IDEA-028](./2026-08-22-oce-significant-ideas-catalogue.md#oce-idea-028--keep-identity-layers-distinct)
   with activation-time authority checks in
   [OCE-IDEA-204](./2026-08-23-concept-intake.md#oce-idea-204--revalidate-persistent-work-at-every-activation),
-  but neither discovery input currently requires those distinctions to survive durable and nested
+  but neither referenced entry currently requires those distinctions to survive durable and nested
   execution boundaries.
 - **OCE-native idea:** carry a versioned, validated acting-identity record through queueing, retries,
-  suspension, resumption and child work. Name what actually acts — person, agent, schedule, governed
-  trigger or deployment — without replacing a non-human kind merely to complete an audit or
-  accounting schema. Record current authorisation independently from the audit claim about the act;
+  suspension, resumption and child work. Name what actually acts — person, agent, service or deployment — and record an initiating
+  schedule or governed trigger as its own relation rather than as the actor, without replacing a
+  non-human kind merely to complete an audit or accounting schema. Record current authorisation independently from the audit claim about the act;
   any represented person or service and any cost owner remain additional relations, never fallback
   actors. Bind non-interactive execution to the exact trigger, deployment, workspace and task scope;
   revalidate that scope before each effect. Unknown or ambiguous identity forms fail closed, and an
@@ -34,7 +34,7 @@ accepted, revised, merged or rejected independently through normal OCE authority
 - **What becomes possible and why it matters:** OCE could pause, move and resume long-lived work, or
   delegate a bounded child operation, without laundering authority through a convenient user field
   or falsely attributing an automated effect to a person. Reviewers could reconstruct both who or
-  what was authorised to act and whom the resulting record claims actually acted.
+  what was authorised to act and who or what the resulting record claims actually acted.
 - **OCE fit, tension or latent composition:** this closes a gap between temporal authority and
   identity-layer discipline. A fresh eligibility decision does not by itself prove that a restored
   execution retained the right actor, subject and attribution semantics. The tension is migration:
@@ -52,9 +52,11 @@ accepted, revised, merged or rejected independently through normal OCE authority
 - **Cheapest discriminating probe:** run one fixture from a person and one from a governed trigger;
   queue, suspend, resume and delegate a child operation from each. Revoke the deployment or trigger
   scope before one resume, corrupt one stored identity version and offer an accounting owner where
-  no human actor exists. Require the valid child to retain the correct identity relations, the stale
-  and malformed cases to refuse before effects, the automated case to remain non-human and
-  accounting attribution never to alter access.
+  no human actor exists. Give one fixture a represented subject distinct from its actor and one an audit attribution
+  that conflicts with the acting principal. Require the valid child to retain the correct identity
+  relations, the stale and malformed cases to refuse before effects, the automated case to remain
+  non-human, each represented-subject and audit-attribution relation to survive independently
+  rather than collapsing into the actor, and accounting attribution never to alter access.
 - **Falsifier or stop condition:** merge into the existing identity or persistent-work candidates if
   an accepted execution contract already preserves and negatively tests all four distinctions
   across durable and nested boundaries. Otherwise stop if the distinctions change no authority,
@@ -279,7 +281,9 @@ accepted, revised, merged or rejected independently through normal OCE authority
   [OCE-IDEA-098](./2026-08-22-oce-significant-ideas-catalogue.md#oce-idea-098--include-negative-controls-for-intentional-duplication).
 - **OCE-native idea:** rehearsal and synthetic material is marked non-evidential at creation, and
   the mark is mechanical — a schema field or path class the tooling refuses to promote — so no
-  later process can quietly convert synthetic outputs into empirical claims. Rehearsal proves
+  later process can quietly convert synthetic outputs into empirical claims. Test and calibration
+  runs still accept marked synthetic material and retain bounded, non-evidential machinery
+  evidence; the refusal binds at promotion into empirical outcome results. Rehearsal proves
   machinery; it never proves outcomes.
 - **What becomes possible and why it matters:** fixtures and dry runs can be rich and realistic
   without any risk of laundering into results, because the boundary is enforced where data flows,
@@ -290,8 +294,9 @@ accepted, revised, merged or rejected independently through normal OCE authority
   that resemble real evidence closely enough to be mistaken for it under context pressure.
 - **Boundary, risk and what must not be inherited:** non-evidential does not mean unmaintained —
   synthetic material still earns review; it just never earns standing.
-- **Cheapest discriminating probe:** feed a marked synthetic artefact to a scoring path and
-  require typed refusal.
+- **Cheapest discriminating probe:** score a marked synthetic artefact in a calibration run and
+  assert its results stay marked non-evidential, then attempt to promote it into an empirical
+  outcome result and require typed refusal.
 - **Falsifier or stop condition:** if no OCE scoring path can currently reach synthetic material,
   record this as a guard to add at the first path that can.
 - **Likely OCE home:** testing-strategy conventions; evidence tooling schemas.
@@ -316,12 +321,15 @@ accepted, revised, merged or rejected independently through normal OCE authority
   trade-offs chosen deliberately instead of discovered.
 - **OCE fit, tension or latent composition:** extends manifest discipline with confidentiality;
   composes naturally with atomic publication, since class is part of each artefact's identity.
-- **OCE-local motivating condition:** some OCE evidence involves third-party constraints or
-  personal data yet must survive machine and account loss; ad-hoc choices between "keep it local"
+- **OCE-local motivating condition:** some OCE evidence involves third-party
+  confidentiality constraints yet must survive machine and account loss; ad-hoc choices between "keep it local"
   and "publish it" lose either durability or confidentiality.
 - **Boundary, risk and what must not be inherited:** the encrypted class is basic confidentiality,
   not a threat-model claim against a malicious platform administrator; stronger properties need a
-  separate decision.
+  separate decision. Personal data is excluded from every repository class, encrypted included —
+  committed ciphertext cannot honour erasure once a key is exposed, so the estate's prohibition on
+  personal data in the versioned estate governs and access-controlled external stores own such
+  material.
 - **Cheapest discriminating probe:** classify one mixed evidence set; verify a fresh clone
   reproduces sealed bytes exactly and validates encrypted integrity without the key.
 - **Falsifier or stop condition:** if no OCE evidence genuinely needs the encrypted class, keep
