@@ -1,8 +1,8 @@
 # Composition profiles and elevation
 
 - **Status:** proposed definition
-- **Owns:** applicability, obligation activation, composition declarations, profile semantics,
-  semantic-core preservation and elevation boundaries
+- **Owns:** applicability, obligation activation, composition declarations, the creator's input
+  boundary, profile semantics, semantic-core preservation and elevation boundaries
 - **Does not own:** capability meaning, current bindings, quality authority or a universal
   prototype-to-production roadmap
 
@@ -37,6 +37,10 @@ may activate fewer capabilities. It may not lower the quality of the claims it s
 Applicability is a fact about the real situation, not a preference of the implementation team.
 Where competence is required, the relevant authority decides whether an obligation is met,
 transformed or genuinely inapplicable.
+
+Each activation answer also has a **binding time** — authoring, composition, release or runtime —
+and an authority who may change it. Declaring both keeps valid combinations and their ownership
+legible as propositions vary, experiments run and contexts change.
 
 ## Named presets are conveniences
 
@@ -96,6 +100,42 @@ Before an experience can claim profile completeness, its composition must identi
 The composition is complete when every applicable obligation is satisfied or explicitly blocked,
 not when every known capability exists. An unavailable required capability stops or changes the
 claim; it cannot be converted to an omission by documentation.
+
+## The creator's input and the decision budget
+
+The Kit's investment thesis is generative: most of any product is recurring machinery the Kit
+settles once through deliberate up-front excellence, and the creator authors the thin layer where
+meaning, audience, authority, rights and outcome genuinely differ. The creator's input is
+therefore a first-class design object with its own boundary contract.
+
+A creator authors:
+
+- the proposition: audience, affected people, outcome, claim and authorities;
+- the activation facts of the real context, and any competent omission decisions;
+- domain meaning, source selections and rights decisions owned by their authorities;
+- proposition-specific interaction grammar, product language and design intent whose semantic
+  purpose can be stated; and
+- the evidence thresholds and dispositions the claim requires.
+
+Everything else defaults from the Kit: recurring composition, bindings, assurance plumbing,
+operational scaffolding and lifecycle mechanics arrive settled, inspectable and reopenable. The
+creator's input is expressed through the existing proposition record and composition profile,
+together with the decisions owned by domain and design authorities.
+
+The boundary rule: the Kit asks the creator only for decisions whose answer can change human
+outcome, semantic meaning, authority, rights, state identity, evidence or stewardship. A decision
+the machinery can settle without changing any of those belongs to the Kit.
+
+Because the creator's decisions are enumerable, the seam is observable as a **decision budget**.
+A composition can record the decisions its creator actually made, distinguishing
+proposition-shaped decisions — the authored layer working as designed — from machinery-shaped
+decisions the creator had to re-make. Recurring machinery-shaped decisions are the
+seam-correction signal: they route to the Kit-placement inquiry as observed recurring burden
+through the [operating pipelines](operating-pipelines.md).
+
+Falsifier: if creators of unlike propositions repeatedly author machinery-shaped decisions, or
+the enumerated creator input grows toward the size of the machinery it composes, the seam is
+misplaced and the placement model must change.
 
 ## Semantic core
 

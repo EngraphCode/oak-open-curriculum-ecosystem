@@ -289,6 +289,23 @@ When you discover something valuable:
 3. **Link from plans** — Reference the research
 4. **Update "Recent Additions"** — Date and summarize
 
+### Importing External Research Records
+
+An externally authored research record enters this surface as a faithful public
+projection (pattern established by ADR-215, whose surface has since retired here):
+
+1. **Copy content faithfully** — a record is evidence; its documents keep their
+   source bytes and stay exempt from house prose formatting.
+2. **Exclude owner-directed private material** — the presumption is publication;
+   only content with a specific shown harm is withheld.
+3. **Reduce private-repository permalinks to plain-text citations** — keep the
+   file name, line range and pinned revision; point to a stable index in the
+   private source repository that resolves the citations and records the withheld
+   minimum. Permalinks into public repositories stay live.
+4. **Keep the record's own integrity discipline authoritative** — any executable
+   content is held to OCE gates, and only dependency-free leaf packages are
+   registered in the workspace.
+
 ### Research Document Template
 
 ```markdown

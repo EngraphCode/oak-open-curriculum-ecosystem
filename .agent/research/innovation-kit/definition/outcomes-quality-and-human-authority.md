@@ -38,7 +38,7 @@ any dimension judged inapplicable.
 | **Content and information design** | Preserve comprehensible language, hierarchy, status, provenance, attribution, version, rights, uncertainty and recovery meaning across channels |
 | **Interaction and visual design** | Provide semantic interaction, perceptual clarity, responsive behaviour, coherent Oak expression and equivalent action and understanding across input and assistive modes |
 | **Trust, safety and rights** | Make identity, authorisation, safeguarding, privacy, consent, security, abuse resistance, challenge, correction and accountable remedy explicit |
-| **Software and operational quality** | Preserve correctness, state/effect truth, determinism where needed, validation, diagnostic clarity, reliability, capacity, recoverability, supportability and evolvability |
+| **Software and operational quality** | Preserve correctness, state/effect truth, determinism where needed, validation, diagnostic clarity, reliability, performance within declared latency, device, network and resource budgets, capacity, recoverability, supportability and evolvability |
 | **Framework-consumer quality** | Provide coherent concepts, types, errors, examples, diagnostics, compatibility, migration and governed product-specific substitution without hidden policy or repository archaeology |
 | **Evidence quality** | Bind observations to the exact claim, population, configuration, method, comparator and limitations; preserve negative, ambiguous and delayed outcomes |
 | **Stewardship and sustainability** | Account for ownership, maintenance, provider exit, cost and resource externalities, licensing, preservation, retirement and lawful disposal |

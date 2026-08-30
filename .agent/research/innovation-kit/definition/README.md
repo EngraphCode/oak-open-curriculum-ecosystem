@@ -22,12 +22,12 @@ not mean the repository already implements the capability or that the proposal h
 | [System and authority model](system-and-authority-model.md) | Core vocabulary, correspondence planes, authority boundaries, seam rule and relationship between the model's axes |
 | [Outcomes, quality and human authority](outcomes-quality-and-human-authority.md) | Human, educational, public, service, accessibility, trust, difficult-state and remedy obligations |
 | [Capability and contract model](capability-and-contract-model.md) | What a capability means, the complete obligation envelope, capability families, explicit absence and adapter/binding boundaries |
-| [Composition profiles and elevation](composition-profiles-and-elevation.md) | Applicability, obligation activation, declared profiles, semantic-core preservation and the boundary between elevation and redesign |
+| [Composition profiles and elevation](composition-profiles-and-elevation.md) | Applicability, obligation activation, declared profiles, the creator's input and decision budget, semantic-core preservation and the boundary between elevation and redesign |
 | [Core records and interfaces](core-records-and-interfaces.md) | The stable conceptual records that let the other parts refer to one another without copying prose |
 | [Operating pipelines](operating-pipelines.md) | Closed proposition, operation, authority/release and Kit-evolution loops through time |
 | [Evidence, learning and decision](evidence-learning-and-decision.md) | Claim classes, evidence discipline, falsifiers, dispositions, return routes and evaluation of the fast-and-good thesis |
 | [Developer and agent experience](developer-and-agent-experience.md) | The end-to-end experience of discovering, declaring, composing, diagnosing, changing and contributing safely |
-| [Stewardship, evolution and adoption](stewardship-evolution-and-adoption.md) | Placement, contribution, reuse, divergence, compatibility, migration, provider exit, deprecation, preservation and retirement |
+| [Stewardship, evolution and adoption](stewardship-evolution-and-adoption.md) | Investment posture, placement, contribution, reuse, divergence, compatibility, migration, provider exit, deprecation, preservation and retirement |
 
 Supporting material is deliberately outside the definition:
 

@@ -155,6 +155,9 @@ fixed technology stack, provider bundle or generic engineering Practice. It does
 curriculum meaning, pedagogical judgment, design authority, product propositions, rights policy or
 service decisions. It does not make every demonstration a product commitment, and it does not
 claim that an interface, a public deployment or a second consumer proves portability or value.
+Oak's propositions are free at the point of use, so commercial transaction capability — payment,
+subscription and entitlement mechanics — sits outside the current definition; a proposition that
+needs it brings its own competent authorities and obligations.
 
 The Kit owns only the deliberately recurring composition, lifecycle, invariant and assurance work
 that it can hold without taking another layer's meaning. The

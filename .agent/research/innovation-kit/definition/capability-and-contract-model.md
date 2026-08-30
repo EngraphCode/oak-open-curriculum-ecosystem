@@ -68,10 +68,11 @@ professional authorities retain their meaning.
 
 ### 3. Product, experience and service composition
 
-The system should support host/control-boundary profiles; shell and navigation; design-system
-consumption; proposition-specific interaction grammar; content and information design;
-accessibility; localisation; service continuity; backstage support; experimentation and humane
-terminal states.
+The system should support host/control-boundary profiles; shell and navigation; public web
+discovery and canonical addressing; design-system consumption; proposition-specific interaction
+grammar; content and information design; accessibility; localisation; outbound notification and
+messaging to people; service continuity; backstage support; experimentation and humane terminal
+states.
 
 ### 4. Identity, trust, rights and human authority
 
@@ -96,8 +97,9 @@ knowledge—not because the Kit should prebuild every technology family.
 
 The system should support reproducible builds; supply and provenance assurance; preview,
 promotion and release identity; traffic and compatibility transitions; observability and semantic
-health; objectives and capacity; incident response; repair; backup/restore; continuity; cost and
-resource controls; support and operational retirement.
+health; objectives, performance and capacity within declared latency and resource budgets;
+incident response; repair; backup/restore; continuity; cost and resource controls; support and
+operational retirement.
 
 ### 7. Creation, evolution and stewardship
 

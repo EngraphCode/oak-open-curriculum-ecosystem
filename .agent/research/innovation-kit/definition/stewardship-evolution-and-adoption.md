@@ -1,8 +1,9 @@
 # Stewardship, evolution and adoption
 
 - **Status:** proposed definition
-- **Owns:** context placement, Kit admission, contribution, reuse, divergence, compatibility,
-  migration, provider exit, deprecation, preservation, adoption and retirement
+- **Owns:** investment posture, context placement, Kit admission, contribution, reuse,
+  divergence, compatibility, migration, provider exit, deprecation, preservation, adoption and
+  retirement
 - **Does not own:** domain semantics, organisational staffing, release tooling or provider choice
 
 ## The Kit must remain a living boundary
@@ -28,7 +29,9 @@ Responsibility is considered across four contexts:
 Implementation may be deliberately placed toward the reusable end before several consumers exist
 when isolation, invariant, lifecycle or assurance makes that the coherent responsibility. Its
 claim to **generality** remains provisional until unlike use or a meaningful counter-instance
-tests it.
+tests it. This placement judgement governs Kit capabilities; estate-wide code and documentation
+consolidation keep their own triggers in their own governing surfaces, such as
+[consolidate-at-second-consumer](../../../rules/consolidate-at-second-consumer.md).
 
 Mechanism placement is a separate axis: semantic contract, adapter, provider binding and host may
 sit at different contextual levels.
@@ -175,6 +178,14 @@ Adoption paths differ by consumer:
 Installing a package or copying a template is not adoption. Useful evidence includes activated
 use, reduced archaeology, correct independent composition, retained divergence, successful
 upgrade/exit, and decisions or outcomes improved without authority drift.
+
+## Investment posture
+
+The Kit is deliberate public infrastructure. Capability is built ahead of the propositions that
+will use it, as a conscious investment whose return is long-term public benefit: creators reach
+truthful, excellent experiences with most recurring work already settled. Effort-collapse for
+creators is a designed consequence of investing in excellence up front, and prioritisation weighs
+one investment of effort against another within that public-benefit frame.
 
 ## Sustainability
 

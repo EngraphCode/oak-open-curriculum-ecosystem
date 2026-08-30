@@ -431,6 +431,10 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   retro-edited — with a loud-failing validator whose blocking-gate wiring lands with the
   grammar; strictness preserves the protocol's zero-per-message-ceremony property;
   Proposed 2026-07-20, Decision items 3–4 amended 2026-07-20 per owner ruling)
+- [ADR-215: Top-level `research/` surface for imported research records](215-top-level-research-surface.md)
+  ← **Superseded** (2026-08-30: the imported record relocated to
+  `.agent/research/innovation-kit/web-app-deconstruction/` and the top-level surface
+  retired with it; the research-import pattern lives on in the research index)
 - [ADR-216: The plan-node estate](216-plan-node-estate.md)
   (three node types — strategic, delivery, runbook — with born-sketch owner
   ratification and delivery state as a Linear projection; supersedes ADR-117's
