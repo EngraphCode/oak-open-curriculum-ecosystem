@@ -1,6 +1,6 @@
 # Research Documents Index
 
-**Last Updated**: 22 August 2026  
+**Last Updated**: 30 August 2026
 **Purpose**: Permanent record of research, discoveries, and insights  
 **Maintained By**: AI agents and human collaborators
 
@@ -23,6 +23,16 @@
 ---
 
 ## Research by Topic
+
+### ✨ Oak Innovation Kit & demonstrations
+
+Research that informs the fourth value stream's open-ended demonstration portfolio,
+idea-to-evidence path, and exercised-reuse discipline. Strategy authority remains in
+[`docs/strategy/`](../../docs/strategy/README.md).
+
+| Document | Purpose | Key insights |
+| --- | --- | --- |
+| [innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md](innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md) | Eve + MCP agentic-chat feasibility and value investigation | One bounded peer demo; dual-plane architecture hypothesis; public-capability value thesis; portfolio evidence and claim boundaries |
 
 ### 🔍 Semantic Search & Elasticsearch
 
@@ -160,6 +170,12 @@ Research on API structure and data analysis.
 | [approaches-to-knowledge-strategic-report.md](approaches-to-knowledge-strategic-report.md) | Knowledge strategy | |
 
 ---
+
+## Recent Additions (2026-08-30)
+
+| Document | Summary |
+| --- | --- |
+| [innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md](innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md) | Value and technical investigation for an Eve + MCP agentic-chat experience as one bounded peer in the Oak Innovation Kit portfolio; records architecture options, evidence limits, and the deeper public-capability thesis. |
 
 ## Recent Additions (2026-08-13)
 
