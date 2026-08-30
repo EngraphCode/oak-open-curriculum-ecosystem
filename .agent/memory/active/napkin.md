@@ -1615,3 +1615,67 @@ instrument.
   pipe under `node_modules/.tmp` fails `EINVAL` and `pnpm install`'s
   postinstall dies. Worktrees needing installs must live at a short path
   (e.g. `/tmp/<name>`); the scratchpad stays right for plain files.
+
+## 2026-08-26 ~13:1xZ (Cricket hunts Quietude, dbb74c, remote skill-bring lane) — dependency-currency skill brought from castr
+
+Landed the reusable `dependency-currency` skill in this estate under the
+owner's 2026-08-24 bidirectional-equality directive and 2026-08-26 landing
+instruction. Provenance: castr `main` @ `3066b3f` (the PR #62 merge — the
+nine-cycle worked instance the skill graduated from) — byte-identical at the
+skill file with the PR #64 lane branch head `11c6b15` (JSONC/estate/
+consolidation refinements already folded to main), verified by diff at the
+fetch moment, so "newest content" was unambiguous. Copy is verbatim
+(`cmp`-proven after every gate); castr-local citations (ADR-049, PDR-097)
+retained deliberately — substantive divergence routes back through the
+cross-pollination route, never a silent fork. Adapters generated with
+`pnpm skills:generate` (oak- prefix; `.claude/` + `.agents/` projections),
+`Skill(oak-dependency-currency)` pair added to `.claude/settings.json`
+allow list at its alphabetical slot; `skills:check`, `portability:check`
+(59 canonical skills), markdownlint, format, repo-validators, type-check,
+lint all green first-hand in this container.
+
+## 2026-08-26 ~14:3xZ (Cricket hunts Quietude, dbb74c, remote skill-bring lane) — remote-container gate cures: three environment classes, zero gates narrowed
+
+The first push of the skill-bring branch failed its pre-push turbo leg on three
+tasks. All three were environment defects of this remote container, each cured
+at the environment so the gates genuinely ran green; owner ruling re-confirmed
+mid-lane (2026-08-26, verbatim: "We NEVER disabled checks, don't ask again") —
+the ask itself was the error; policy already covered it. Cures, for any future
+remote-container seat:
+
+1. **Playwright browser-build mismatch**: the container pre-installs build 1194
+   at `/opt/pw-browsers` (PLAYWRIGHT_BROWSERS_PATH) while the repo's pinned
+   Playwright 1.62.1 wants build 1234, and hook-context processes looked in
+   `~/.cache/ms-playwright`. Cure: `pnpm exec playwright install
+   chromium-headless-shell` from an app dir with PLAYWRIGHT_BROWSERS_PATH
+   unset (lands in `~/.cache`), plus a symlink of the 1234 build into
+   `/opt/pw-browsers` so both resolution paths hold.
+2. **Corepack egress**: agent-tools `test:e2e` smoke tests spawn pnpm outside
+   the repo; corepack fetched `registry.npmjs.org/pnpm/latest` through the
+   proxy and died on `SELF_SIGNED_CERT_IN_CHAIN`. Cure:
+   `COREPACK_DEFAULT_TO_LATEST=0` (no network needed; uses known version).
+3. **Chromium-vs-proxy stylesheet hang** — the deep one. The showcase
+   stale-load race test (`identity-picker.spec.ts:169`) failed
+   deterministically here (verified identically at a clean origin/main
+   worktree, on both headless-shell and full Chromium 1234) while passing on
+   CI. Mechanism, probe-proven: the released `route.continue()` request
+   completes at the network level, but the link element's `load` event fires
+   only after the FULL `@import` chain resolves, and
+   `brand.css → brand-a.css → @import fonts.googleapis.com` hung: headless
+   Chromium on Linux honours the env proxy but does not trust its MITM CA, so
+   its CONNECT tunnels die slowly (`ERR_TUNNEL_CONNECTION_FAILED`). Direct
+   egress to the font/CDN hosts works (curl 200 in 78ms). Cure: append
+   `fonts.googleapis.com,fonts.gstatic.com,cdn.jsdelivr.net` to
+   `NO_PROXY`/`no_proxy` so Chromium fetches those direct, as CI does. Effect:
+   the failing test green AND the whole showcase suite dropped 1.7m → 16.4s —
+   every test had been dragging hung font fetches. General lesson: a browser
+   test that is slow-or-flaky ONLY in a proxied container is a proxy-CA
+   mismatch until proven otherwise; probe with a request-lifecycle logger
+   before touching the test.
+
+Meta-lesson, owner-corrected: the block was framed as "base-red, needs
+authorisation" when it was actually FIXABLE — the verify-at-origin/main pass
+proved not-mine but was read as the end of the road instead of the start of
+the environment diagnosis. A deterministic local-only failure with a green CI
+twin is an environment defect with a findable mechanism; fix it, don't ask to
+route around it.
