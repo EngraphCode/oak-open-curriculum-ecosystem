@@ -292,7 +292,8 @@ When you discover something valuable:
 ### Importing External Research Records
 
 An externally authored research record enters this surface as a faithful public
-projection (pattern established by ADR-215, whose surface has since retired here):
+projection
+([ADR-226](../../docs/architecture/architectural-decisions/226-agent-research-surface-for-imported-records.md)):
 
 1. **Copy content faithfully** — a record is evidence; its documents keep their
    source bytes and stay exempt from house prose formatting.
@@ -302,9 +303,10 @@ projection (pattern established by ADR-215, whose surface has since retired here
    file name, line range and pinned revision; point to a stable index in the
    private source repository that resolves the citations and records the withheld
    minimum. Permalinks into public repositories stay live.
-4. **Keep the record's own integrity discipline authoritative** — any executable
-   content is held to OCE gates, and only dependency-free leaf packages are
-   registered in the workspace.
+4. **Keep the record self-contained and its integrity discipline authoritative**
+   — no product workspace imports from a record and a record imports no product
+   workspace; any executable content is held to OCE gates, and only
+   dependency-free leaf packages are registered in the workspace.
 
 ### Research Document Template
 

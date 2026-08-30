@@ -76,7 +76,9 @@ composition.
 Minimum content:
 
 - proposition, audience, claim, exposure and control-boundary references;
-- activation facts and the derived applicable obligations;
+- activation facts, each with its binding time and change authority, and the derived applicable
+  obligations;
+- the creator's authored decisions, classified proposition-shaped or machinery-shaped;
 - capability contract versions and state: activated, reduced, omitted, unavailable or unknown;
 - supported runtime degradation policies and terminal semantics;
 - competent reason and authority for each material omission or transformation;

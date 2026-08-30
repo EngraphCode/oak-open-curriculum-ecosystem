@@ -103,10 +103,10 @@ claim; it cannot be converted to an omission by documentation.
 
 ## The creator's input and the decision budget
 
-The Kit's investment thesis is generative: most of any product is recurring machinery the Kit
-settles once through deliberate up-front excellence, and the creator authors the thin layer where
-meaning, audience, authority, rights and outcome genuinely differ. The creator's input is
-therefore a first-class design object with its own boundary contract.
+The creator authors the thin layer where meaning, audience, authority, rights and outcome
+genuinely differ; the [foundational thesis](concept-lineage-and-thesis.md) states why the Kit
+invests ahead so that everything recurring arrives settled. The creator's input is a first-class
+design object with its own boundary contract.
 
 A creator authors:
 
@@ -115,23 +115,25 @@ A creator authors:
 - domain meaning, source selections and rights decisions owned by their authorities;
 - proposition-specific interaction grammar, product language and design intent whose semantic
   purpose can be stated; and
-- the evidence thresholds and dispositions the claim requires.
+- the evidence thresholds the claim requires and the dispositions it must route to, with their
+  legitimate owners.
 
 Everything else defaults from the Kit: recurring composition, bindings, assurance plumbing,
 operational scaffolding and lifecycle mechanics arrive settled, inspectable and reopenable. The
 creator's input is expressed through the existing proposition record and composition profile,
 together with the decisions owned by domain and design authorities.
 
-The boundary rule: the Kit asks the creator only for decisions whose answer can change human
-outcome, semantic meaning, authority, rights, state identity, evidence or stewardship. A decision
-the machinery can settle without changing any of those belongs to the Kit.
+The boundary rule applies the [seam rule](system-and-authority-model.md#the-seam-rule): the Kit
+asks the creator only for decisions that sit on a material seam. A decision the machinery can
+settle without crossing a material seam belongs to the Kit.
 
 Because the creator's decisions are enumerable, the seam is observable as a **decision budget**.
-A composition can record the decisions its creator actually made, distinguishing
+A composition records the decisions its creator actually made, distinguishing
 proposition-shaped decisions — the authored layer working as designed — from machinery-shaped
 decisions the creator had to re-make. Recurring machinery-shaped decisions are the
-seam-correction signal: they route to the Kit-placement inquiry as observed recurring burden
-through the [operating pipelines](operating-pipelines.md).
+seam-correction signal: they route to the
+[Kit-placement inquiry](operating-pipelines.md#5-local-burden-to-governed-kit-capability) as
+observed recurring burden.
 
 Falsifier: if creators of unlike propositions repeatedly author machinery-shaped decisions, or
 the enumerated creator input grows toward the size of the machinery it composes, the seam is

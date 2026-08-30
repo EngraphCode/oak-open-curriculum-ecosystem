@@ -27,11 +27,13 @@ Responsibility is considered across four contexts:
 | **Proposition/product** | Audience, situated outcome, interaction grammar, product language, local policy choices, state schema and claim-specific evidence |
 
 Implementation may be deliberately placed toward the reusable end before several consumers exist
-when isolation, invariant, lifecycle or assurance makes that the coherent responsibility. Its
+when isolation, invariant, lifecycle or assurance makes that the coherent responsibility; the
+[investment posture](#investment-posture) below states the frame that funds such placement. Its
 claim to **generality** remains provisional until unlike use or a meaningful counter-instance
 tests it. This placement judgement governs Kit capabilities; estate-wide code and documentation
 consolidation keep their own triggers in their own governing surfaces, such as
-[consolidate-at-second-consumer](../../../rules/consolidate-at-second-consumer.md).
+[consolidate-at-second-consumer](../../../rules/consolidate-at-second-consumer.md) and
+[closed-shape-design-optionality](../../../rules/closed-shape-design-optionality.md).
 
 Mechanism placement is a separate axis: semantic contract, adapter, provider binding and host may
 sit at different contextual levels.
@@ -182,10 +184,12 @@ upgrade/exit, and decisions or outcomes improved without authority drift.
 ## Investment posture
 
 The Kit is deliberate public infrastructure. Capability is built ahead of the propositions that
-will use it, as a conscious investment whose return is long-term public benefit: creators reach
-truthful, excellent experiences with most recurring work already settled. Effort-collapse for
-creators is a designed consequence of investing in excellence up front, and prioritisation weighs
-one investment of effort against another within that public-benefit frame.
+will use it, through the admission and placement discipline this document defines, as a conscious
+investment whose return is long-term public benefit: creators reach truthful, excellent
+experiences with most recurring work already settled. Effort-collapse for creators is a designed
+consequence of the up-front excellence the
+[foundational thesis](concept-lineage-and-thesis.md) states, and prioritisation weighs one
+investment of effort against another within that public-benefit frame.
 
 ## Sustainability
 

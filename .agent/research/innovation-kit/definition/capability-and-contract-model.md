@@ -97,9 +97,9 @@ knowledge—not because the Kit should prebuild every technology family.
 
 The system should support reproducible builds; supply and provenance assurance; preview,
 promotion and release identity; traffic and compatibility transitions; observability and semantic
-health; objectives, performance and capacity within declared latency and resource budgets;
-incident response; repair; backup/restore; continuity; cost and resource controls; support and
-operational retirement.
+health; objectives, performance and capacity within the profile's declared budgets; incident
+response; repair; backup/restore; continuity; cost and resource controls; support and operational
+retirement.
 
 ### 7. Creation, evolution and stewardship
 

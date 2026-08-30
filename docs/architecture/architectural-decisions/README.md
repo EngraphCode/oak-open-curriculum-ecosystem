@@ -432,9 +432,10 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   grammar; strictness preserves the protocol's zero-per-message-ceremony property;
   Proposed 2026-07-20, Decision items 3–4 amended 2026-07-20 per owner ruling)
 - [ADR-215: Top-level `research/` surface for imported research records](215-top-level-research-surface.md)
-  ← **Superseded** (2026-08-30: the imported record relocated to
+  ← **Superseded by [ADR-226](226-agent-research-surface-for-imported-records.md)**
+  (2026-08-30: the imported record relocated to
   `.agent/research/innovation-kit/web-app-deconstruction/` and the top-level surface
-  retired with it; the research-import pattern lives on in the research index)
+  retired with it)
 - [ADR-216: The plan-node estate](216-plan-node-estate.md)
   (three node types — strategic, delivery, runbook — with born-sketch owner
   ratification and delivery state as a Linear projection; supersedes ADR-117's
@@ -476,6 +477,11 @@ New to the repo? Read these five ADRs first for the architectural foundations:
 - [ADR-223: Perishable external-surface claims carry risk-based freshness metadata](223-perishable-claims-carry-risk-based-freshness-metadata.md)
 - [ADR-224: Restricted-lesson exclusion is a documented, configurable switch](224-restricted-lesson-exclusion-configurable-switch.md)
 - [ADR-225: Adopt provider-independent capability composition for runtime services](225-provider-independent-capability-contracts.md) ← **Proposed**
+- [ADR-226: `.agent/research/` as the research surface for imported records](226-agent-research-surface-for-imported-records.md)
+  ← **Proposed** (supersedes ADR-215: records enter as faithful public projections —
+  byte-preserved documents, publication presumption with owner-directed withholding,
+  private-permalink reduction with a private-source index, self-contained records, and
+  leaf-package-only workspace registration)
 
 ## Key Architectural Decisions
 
