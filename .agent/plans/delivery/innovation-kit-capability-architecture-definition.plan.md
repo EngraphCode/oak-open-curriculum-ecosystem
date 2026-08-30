@@ -1,10 +1,10 @@
 ---
 id: innovation-kit-capability-architecture-definition
 node_type: delivery
-name: Innovation Kit capability architecture definition
+name: Innovation Kit product-creation-system definition
 overview: >-
-  Make the whole fast-and-good capability, composition, elevation and proof system decision-ready
-  without selecting providers or implementing a horizontal platform.
+  Make the full intellectual lineage and proposed product-creation system durable, navigable and
+  reviewable before any implementation proof or provider selection narrows the concept.
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -17,100 +17,112 @@ depends_on: []
 owner_gates:
   - awaiting: owner-decision
     clears_when: >-
-      The owner reviews the whole-system synthesis and records both decisions: accept or amend the
-      fast-and-good claim, capability/pipeline and current-evidence boundary; and select the first
-      discriminating vertical proof (or explicitly decline to start one). No provider selection
-      or horizontal Kit implementation starts while either decision is open.
+      The owner reviews the proposed definition corpus and records acceptance or amendment of its
+      foundational thesis, authority boundary, product-creation-system model and documentation
+      responsibilities. This gate does not require selecting an implementation proof or provider.
     expires: 2026-09-20
 last_updated: 2026-08-30
 ---
 
-# Innovation Kit capability architecture definition
+# Innovation Kit product-creation-system definition
 
 ## Goal
 
-Oak has one decision-ready, evidence-backed definition of the Innovation Kit as the complete
-path from proposition to excellent working experience, trustworthy evidence, authorised
-disposition, elevation or retirement. The definition makes the claim that quality can be
-structural and elevation can preserve an unchanged semantic core falsifiable, while keeping
-domain authority, provider choice and implementation topology open.
+Oak has a durable, progressively disclosed definition of the Innovation Kit that conserves the
+owner's preceding philosophy—exceptional quality, modularity and developer experience invested up
+front—and makes the complete product-creation system legible before implementation choices narrow
+it.
+
+People and agents can determine why the Kit exists; how people, outcomes, meaning, authority,
+capabilities, profiles, operation, evidence and stewardship relate; what remains consumer- or
+authority-specific; what current OCE evidence does and does not establish; and which claims would
+falsify the model. Conventional product foundations remain visible as examples inside the whole
+system rather than becoming its organising subject.
 
 ## Mechanism
 
-Use the
-[whole-system research synthesis](../../research/innovation-kit/innovation-kit-capability-architecture-2026-08-30.md)
-as the single working architecture. Reconcile it with the Innovation Kit strategy, the current
-repository estate, the relocated web-app deconstruction and first-hand proof. Define semantic
-capability and ownership boundaries, cross-cutting contract dimensions, explicit composition and
-elevation profiles, closed lifecycle pipelines, a source-backed current-state map and the first
-discriminating vertical proof. Owner review settles the claim boundary and first proof before any
-provider selection or horizontal Kit implementation begins.
+Use the [Innovation Kit research index](../../research/innovation-kit/README.md) to route between:
+
+- the durable strategy and strategic-node authority;
+- a proposed [definition corpus](../../research/innovation-kit/definition/README.md) with one
+  canonical home per concern;
+- dated current-estate and provenance evidence;
+- non-normative worked scenarios; and
+- the relocated web-app deconstruction as historical analysis and examples.
+
+The definition begins at the front of the chain—concept lineage, people, outcomes and competent
+authority—then states the system grammar, capability contracts, composition/elevation model,
+records, closed pipelines, evidence/decision contract, consumer experience and stewardship. The
+former single synthesis remains only as a migration/provenance pointer. This separates durable
+meaning from mutable evidence and examples, prevents a capability atlas from becoming a package
+backlog and lets later implementation planning consume a reviewed contract rather than define it
+by accident.
 
 ## Acceptance criteria (each with a proof — required)
 
-1. **The whole system is defined without implying module topology.** One indexed research report
-   covers all seven capability bands—intent/evidence, Oak semantic/educational capability,
-   product/experience, identity/trust, state/data/integration, delivery/operation and
-   creation/evolution—plus the
-   transverse contract dimensions. Proof: **repo-safe** for presence and navigability — the
-   committed report, research index and Markdown/link validators; **owner-held** for
-   decision-relevant completeness — the owner records acceptance or amendment in the ratification
-   record.
-2. **Fast-to-good elevation is an explicit, bounded claim.** The composition profiles distinguish
-   the unchanged semantic core, newly activated capabilities and rights, legitimate binding or
-   topology changes, and stronger evidence budgets; “production-ready” and “cheap to elevate” have
-   falsifiers. Proof: **owner-held** — the owner confirms the claim boundary in the review record that
-   ratifies or amends this plan.
-3. **The operating loops are closed.** Idea-to-disposition, authority-to-projection,
-   contract/schema-to-compatible-release, operation-to-repair and demo-local-to-governed-Kit
-   pipelines each name authority, inputs/outputs, gates, failure/recovery, evidence and legitimate
-   owner. Proof: **repo-safe** for the explicit closure fields — the report's pipeline closure
-   table and documentation checks; **owner-held** for whether those fields are semantically
-   sufficient — the owner records acceptance or amendment in the ratification record.
-4. **Current capability is reported honestly across the whole estate.** Every band uses
-   exactly one implementation-evidence state—`demonstrated`, `partial`, `proposed`, `absent` or
-   `unknown`—while separately stating reach/placement and a repository path or bounded-scan method
-   for implementation claims. Proof: **repo-safe** for traceability — cited current files, the
-   recorded scan boundary and link validation; **owner-held** for acceptance of the claim boundary
-   — the owner records acceptance or amendment in the ratification record.
-5. **The first proof can disprove the architecture.** A premise/alternatives gate precedes a
-   complete vertical slice and unlike consumer/proposition. Together they name the human,
-   educational or public outcome, difficult states, external evidence, comparator, equal-quality
-   boundary, owner-set threshold, success and failure conditions, profile transitions,
-   fault/recovery/exit probes, lifecycle-cost measures and stop conditions. Proof:
-   **owner-held** — the owner selects and accepts the first proof boundary in the ratification or
-   amendment record; later implementation evidence belongs in its own delivery plan.
-6. **The durable strategy surfaces describe one coherent product-creation system.** The strategy,
-   strategic node and research index point to the report without importing its provider examples
-   or presenting research as ratified architecture. Proof: **repo-safe** for structure and
-   authority wording — plan-corpus, reference-direction, Markdown-link and documentation checks;
-   **owner-held** for strategic coherence — the owner's ratification record accepts or amends the
-   synthesis.
-7. **The earlier research remains usable without remaining runnable.** The web-app-deconstruction
-   analysis and examples live under `.agent/research`, the accidental top-level `research/`
-   surface and executable harness are absent, and provenance/limitations remain legible. Proof:
-   **repo-safe** — tracked-tree inspection, workspace/config validators and documentation checks.
+1. **The preceding concept and central thesis are conserved.** The definition states the owner's
+   multi-year quality/modularity/DX proposition, how OCE, the deconstruction and the Innovation Kit
+   strategy contributed, the compromise being removed, governed compression, the fast-and-good
+   claim, non-goals and whole-model falsifiers. Proof: **repo-safe** for the indexed lineage/thesis
+   document and source references; **owner-held** for whether it faithfully expresses the intended
+   concept.
+2. **Documentation is an interface rather than a god-document.** A stable local index routes
+   readers by question; purpose, system/authority, human quality, capability contracts, profiles,
+   records, pipelines, evidence, developer/agent experience, stewardship, dated evidence and
+   scenarios each have one explicit responsibility. Proof: **repo-safe** for the committed corpus,
+   links and stated ownership boundaries; **owner-held** for whether the decomposition matches the
+   decisions people need to make.
+3. **The complete product-creation system is defined without implying implementation topology.**
+   The corpus relates correspondence planes, context specificity, mechanism binding, obligation
+   activation, evidence states, capability families, transverse contracts, profiles and temporal
+   pipelines while explicitly rejecting package/team/provider inference. Proof: **repo-safe** for
+   the system and contract documents; **owner-held** for conceptual completeness and usefulness.
+4. **Human, educational, product, service and institutional promises are first-class.** The
+   definition covers competent authority, affected people, educational validity, accessibility,
+   rights, difficult states, whole-service operation, challenge, correction, remedy, preservation
+   and retirement rather than reducing quality to software conformance. Proof: **repo-safe** for
+   the outcomes/quality document and worked scenarios; **owner-held** for the legitimate scope,
+   with later specialist review required where competence is external to this work.
+5. **Fast-to-good composition and elevation are explicit, bounded claims.** Profiles derive from
+   real activation facts and maintain an invariant quality floor; the semantic core, obligation
+   delta, elevation-versus-redesign boundary, equal-quality cost comparison and falsifiers are
+   named. Proof: **repo-safe** for the composition and record interfaces; **owner-held** for the
+   intended meaning of production-ready and cheap elevation.
+6. **The consumer and stewardship system is usable in principle.** Cold humans and agents have a
+   defined journey through discovery, declaration, composition, inspection, diagnosis, evidence,
+   change, contribution, divergence and retirement; record interfaces prevent repeated prose and
+   hidden authority. Proof: **repo-safe** for the reader routes, records and developer/agent
+   experience; **owner-held** for whether this is the right foundation for later real-use
+   evaluation.
+7. **Current evidence and examples cannot govern the target.** The dated estate snapshot uses one
+   evidence vocabulary and bounded scan; conventional foundations are present but subordinate;
+   provenance limitations are explicit; scenarios reference contracts and remain illustrative.
+   Proof: **repo-safe** for the separate evidence/scenario homes and migration map;
+   **owner-held** for whether material source knowledge has been lost or promoted beyond evidence.
+8. **The current lane selects no implementation.** The plan and corpus do not select a framework,
+   package topology, provider, first proof or horizontal platform. Proof: **repo-safe** for the
+   explicit boundaries and absence of a selected implementation; **owner-held** for any later
+   decision to ratify the definition or authorise a separate proposition-led implementation plan.
 
 ## Todos
 
-1. **Definition and selection (one single-story PR, default review budget: no more than two
-   rounds):** reconcile independent reviews, obtain the owner verdict on the claim boundary and
-   first vertical proof, record any amendment, and leave implementation to a new born-sketch plan
-   for the selected proposition-led slice. Its capabilities follow from the selected claim; state,
-   managed bindings or any other technology family enter only when that proposition activates
-   their obligations.
+1. Reconcile substantive owner or competent-authority amendments into the single-responsibility
+   definition homes, keeping evidence and examples separate from rules.
+2. When the definition is accepted or amended, promote any genuinely ratified architecture or
+   Practice decisions to their legitimate canonical surfaces; leave this research corpus as the
+   evidence and conceptual source.
+3. Author a separate born-sketch delivery plan only if the owner later selects a proposition-led
+   implementation or discriminating proof. That plan must consume the definition and derive its
+   capabilities from the proposition rather than from the current gap list.
 
 ## Out of scope
 
-- Implementing the capability bands; this step defines and tests the whole boundary first.
-- Selecting an application framework, database, managed PostgreSQL provider, ORM/query tool,
-  vector store, queue, object store, identity provider, observability provider or host; those
-  choices require the selected vertical slice and first-party option research.
-- Creating a universal database, storage, service or provider abstraction; contracts stay
-  capability-specific and evidence-led.
-- Treating every atlas row as a Kit-owned package or mandatory capability; profiles activate only
-  what their proposition and obligations require.
-- Ratifying the Innovation Kit strategic node, ADR-225 or PDR-139; their own governance remains
-  authoritative.
-- Preserving the deconstruction's executable research harness; the owner directed retention of
-  analysis and examples only.
+- Implementing, scaffolding or locally validating any Kit capability.
+- Selecting the first vertical proof or portfolio priority.
+- Selecting an application framework, host, database, managed PostgreSQL provider, SQL/ORM/query
+  tool, migration library, vector store, object store, queue, identity system, observability
+  provider or agent framework.
+- Creating a universal abstraction or package for every capability family.
+- Ratifying the Innovation Kit strategy, strategic node, ADR or PDR through this plan.
+- Preserving the deconstruction as runnable code; its retained value is analysis, examples,
+  methods, difficult cases and evidence limits.

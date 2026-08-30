@@ -32,10 +32,7 @@ idea-to-evidence path, and exercised-reuse discipline. Strategy authority remain
 
 | Document | Purpose | Key insights |
 | --- | --- | --- |
-| [innovation-kit/innovation-kit-capability-architecture-2026-08-30.md](innovation-kit/innovation-kit-capability-architecture-2026-08-30.md) | Whole-system Innovation Kit capability, composition, elevation and proof architecture | Seven capability bands; transverse contracts; ownership; explicit profiles; five closed pipelines; current OCE map; falsifiable proof programme |
-| [innovation-kit/web-app-deconstruction/README.md](innovation-kit/web-app-deconstruction/README.md) | Pinned web-app deconstruction retained as analysis and examples | OWA, Oak Components, Database/API/OCE authority chains, 112 analytical lenses, H001–H012 and decisive experiments; no runnable harness |
-| [innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md](innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md) | Eve + MCP agentic-chat feasibility and value investigation | One bounded peer demo; dual-plane architecture hypothesis; public-capability value thesis; portfolio evidence and claim boundaries |
-| [innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md](innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md) | Dynamic, interactive graph-experience technology and evidence landscape | Representation before renderer; 2D, animation, linked views, 2.5D, 3D and immersive options; task-dependent perception; projection integrity; accessibility parity; evidence-led evaluation |
+| [innovation-kit/README.md](innovation-kit/README.md) | Local entry point for the proposed definition, dated evidence, worked scenarios, bounded investigations and historical deconstruction | The Kit as the governed, portable part of a complete product-creation system; fast and good through governed compression, explicit obligations, truthful operation and stewardship |
 
 ### 🔍 Semantic Search & Elasticsearch
 
@@ -178,10 +175,7 @@ Research on API structure and data analysis.
 
 | Document | Summary |
 | --- | --- |
-| [innovation-kit/innovation-kit-capability-architecture-2026-08-30.md](innovation-kit/innovation-kit-capability-architecture-2026-08-30.md) | Whole-system synthesis of what the Kit must discover, compose, scaffold, operate, assure, elevate and retire to make fast and good reinforce one another; conventional foundations are one band, not the organising subject. |
-| [innovation-kit/web-app-deconstruction/README.md](innovation-kit/web-app-deconstruction/README.md) | Analysis-only home for the deconstruction of OWA, Oak Components and the Database/API/OCE authority chain; preserves findings, examples, hypotheses, methods and evidence limits without the former runnable workspace. |
-| [innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md](innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md) | Value and technical investigation for an Eve + MCP agentic-chat experience as one bounded peer in the Oak Innovation Kit portfolio; records architecture options, evidence limits, and the deeper public-capability thesis. |
-| [innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md](innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md) | Evidence-led landscape for graph experiences beyond flat, static diagrams; compares interactive 2D, animation, linked views, 2.5D, 3D, spatial and immersive options without selecting an implementation. |
+| [innovation-kit/README.md](innovation-kit/README.md) | Local router for the decomposed Innovation Kit definition, dated current-estate evidence, source/provenance map, worked analytical scenarios, bounded investigations and analysis-only web-app deconstruction. |
 
 ## Recent Additions (2026-08-13)
 

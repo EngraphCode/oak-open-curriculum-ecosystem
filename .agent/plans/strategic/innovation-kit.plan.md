@@ -127,11 +127,12 @@ reached the outcome.
 ## Research inputs
 
 The
-[whole-system Innovation Kit capability architecture](../../research/innovation-kit/innovation-kit-capability-architecture-2026-08-30.md)
-maps the capability bands, transverse contracts, ownership boundaries, composition/elevation
-profiles, lifecycle pipelines, current OCE evidence and first falsifying proofs needed to make
-the fast-and-good claim credible. It is a non-normative research input: it does not select a
-provider, package topology or implementation and does not ratify this strategic node.
+[proposed Innovation Kit definition](../../research/innovation-kit/definition/README.md)
+separates the concept lineage, system and authority model, human/product promises, capability
+contracts, composition/elevation profiles, record interfaces, operating loops, evidence,
+developer/agent experience and stewardship from dated current-estate evidence and illustrative
+scenarios. It is a non-normative research input: it does not select a provider, package topology,
+first proof or implementation and does not ratify this strategic node.
 
 The
 [Eve + MCP agentic-chat investigation](../../research/innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md)

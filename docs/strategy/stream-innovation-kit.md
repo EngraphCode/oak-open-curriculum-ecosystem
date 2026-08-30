@@ -215,9 +215,11 @@ Targets remain Oak- and owner-grounded. See the [measures checkpoint](measures.m
 ## Research inputs
 
 The
-[whole-system Innovation Kit capability architecture](../../.agent/research/innovation-kit/innovation-kit-capability-architecture-2026-08-30.md)
-is a bounded input to what the Kit may need to compose, scaffold, assure, elevate and retire in
-order to make fast and good reinforce one another. It is not strategy authority, a package or
+[proposed Innovation Kit definition](../../.agent/research/innovation-kit/definition/README.md)
+is a bounded, reader-routed account of the complete product-creation system: its concept lineage,
+authority model, human and product promises, capability contracts, composition profiles,
+operating loops, evidence, consumer experience and stewardship. Dated current-estate evidence and
+worked scenarios remain separate from that definition. None is strategy authority, a package or
 provider decision, or proof that the current Kit already supplies those capabilities.
 
 The
