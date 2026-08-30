@@ -53,9 +53,9 @@ channel; `KIT-*` composes real capabilities into bounded experiences and evidenc
 - **The value stream** is the end-to-end flow that turns Oak capability and ideas into
   excellent working experiences, honest evidence, and reusable learning for Oak and the
   ecosystem. This document governs that flow through the `KIT-*` choices.
-- **The `innovation-kit` strategic node** is one outcome-bearing node in the plan estate. Its
-  current sketch proposes that it serves `KIT-2`; it neither contains this whole stream nor
-  governs work until owner-ratified.
+- **The `innovation-kit` strategic node** is the stable identity of one outcome in the plan
+  estate. Its plan record owns its current shape, ratification state, and typed parent edge;
+  the node neither contains nor governs this whole stream.
 - **The Innovation Kit** is the evolving shared capability, design, assurance, and
   experimentation substrate used by real experiences.
 - **The demo portfolio** is an open-ended set of independently scoped experiences. Each has
@@ -66,8 +66,7 @@ channel; `KIT-*` composes real capabilities into bounded experiences and evidenc
 
 Here, the OCE strategy portfolio is the four-stream system; the Innovation Kit demo portfolio
 is the open-ended set of experiences within this stream. “Demo portfolio” below always means
-the latter. See the first
-[Innovation Kit node](../../.agent/plans/strategic/innovation-kit.plan.md).
+the latter.
 
 ## The value flow
 

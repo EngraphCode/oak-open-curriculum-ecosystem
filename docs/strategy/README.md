@@ -56,11 +56,9 @@ The **Oak Innovation Kit** began here as another such capability (owner-named, 2
 the tools and knowledge to create an Oak experience to production standards at pace. The owner
 declared it the **fourth value stream** and a **first-class strategic node** on 2026-08-30. Those
 are distinct structures: the [value stream](stream-innovation-kit.md) publishes the durable
-`KIT-*` choices; the
-[strategic node](../../.agent/plans/strategic/innovation-kit.plan.md) is one first-class
-outcome sketch in the plan estate and proposes `KIT-2` as its parent choice. The node's
-identity is owner-declared; its drafted shape and parent edge await explicit review. The
-Curriculum Hub programme is a
+`KIT-*` choices; `innovation-kit` is the stable identity of one first-class outcome in the
+plan estate. The plan corpus owns the node's current shape, ratification state, and typed
+parent edge; the node does not contain the value stream. The Curriculum Hub programme is a
 historical worked instance. The stream now carries an open-ended portfolio of independently
 scoped demonstrations and the evidence discipline that lets their learning compound.
 
@@ -104,22 +102,22 @@ conformance rather than strategy content.
 
 ## Open decisions
 
-| Decision                                          | Owner                                          | Status / note                                                                                                                                                                                                                 |
-| ------------------------------------------------- | ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| The diagnosis                                     | Owner                                          | **Settled** — "deliver Oak's rigour at reach and at pace" ([diagnosis](diagnosis.md))                                                                                                                                         |
-| Strategic-choice granularity                      | Owner                                          | **Settled** — per-stream choices                                                                                                                                                                                              |
-| How we win, per stream                            | Owner ("the advantages" — a larger discussion) | First three **signed off** — owner 2026-06-20; initial `KIT-*` articulation published 2026-08-30 under the owner-declared fourth stream                                                                                       |
-| What we won't do, per stream                      | Owner                                          | First three **signed off** — owner 2026-06-20; Innovation Kit boundaries initially articulated 2026-08-30                                                                                                                     |
-| Measures                                          | Owner + Oak analytics/research                 | Open — [measures](measures.md)                                                                                                                                                                                                |
-| Search / graph / EEF — external vs internal-reuse | Owner                                          | **Settled** 2026-06-20 — general reuse, both faces; layered architecture, no trade-off ([engineering tools](stream-engineering-tools.md))                                                                                     |
-| Internal-transformation alignment rationale       | Owner                                          | **Settled** 2026-06-20 — internal improvement maps to the external goals ([agentic framework](stream-agentic-framework.md))                                                                                                   |
-| Oak Innovation Kit — fourth stream or capability? | Owner                                          | **Settled 2026-08-30** — fourth value stream and first-class strategic node; the stream and node remain distinct structures ([stream](stream-innovation-kit.md), [node](../../.agent/plans/strategic/innovation-kit.plan.md)) |
+| Decision                                          | Owner                                          | Status / note                                                                                                                                                                                    |
+| ------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| The diagnosis                                     | Owner                                          | **Settled** — "deliver Oak's rigour at reach and at pace" ([diagnosis](diagnosis.md))                                                                                                            |
+| Strategic-choice granularity                      | Owner                                          | **Settled** — per-stream choices                                                                                                                                                                 |
+| How we win, per stream                            | Owner ("the advantages" — a larger discussion) | First three **signed off** — owner 2026-06-20; initial `KIT-*` articulation published 2026-08-30 under the owner-declared fourth stream                                                          |
+| What we won't do, per stream                      | Owner                                          | First three **signed off** — owner 2026-06-20; Innovation Kit boundaries initially articulated 2026-08-30                                                                                        |
+| Measures                                          | Owner + Oak analytics/research                 | Open — [measures](measures.md)                                                                                                                                                                   |
+| Search / graph / EEF — external vs internal-reuse | Owner                                          | **Settled** 2026-06-20 — general reuse, both faces; layered architecture, no trade-off ([engineering tools](stream-engineering-tools.md))                                                        |
+| Internal-transformation alignment rationale       | Owner                                          | **Settled** 2026-06-20 — internal improvement maps to the external goals ([agentic framework](stream-agentic-framework.md))                                                                      |
+| Oak Innovation Kit — fourth stream or capability? | Owner                                          | **Settled 2026-08-30** — fourth value stream and first-class strategic node; the stream and node remain distinct structures ([stream](stream-innovation-kit.md), node identity `innovation-kit`) |
 
 ## Related
 
 - [Vision](../../VISION.md) — the change and the two parts.
-- [Innovation Kit strategic node](../../.agent/plans/strategic/innovation-kit.plan.md) —
-  the first-class idea-to-evidence outcome sketch proposing `KIT-2` as its parent.
+- **Strategic node identity:** `innovation-kit` — one plan-estate outcome; its plan record
+  owns current shape, ratification state, and typed parent edge.
 - [Eve + MCP agentic-chat research](../../.agent/research/innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md) —
   one bounded research input to the stream, not strategy authority or implementation proof.
 - [Dynamic, interactive graph-experience research](../../.agent/research/innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md) —
