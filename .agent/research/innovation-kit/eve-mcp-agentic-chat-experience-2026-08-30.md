@@ -6,7 +6,7 @@
 - **Status:** Value exploration and technical investigation complete; implementation not started
 - **Decision class:** Bounded experiment recommendation, not a product or strategy ratification
 - **Strategic relationship:** Research input to the owner-declared Oak Innovation Kit fourth value stream and first-class strategic node (2026-08-30); strategy authority remains in `docs/strategy/`
-- **Evidence pin:** OCE `engraph` commit [`6f0aecf5d9326658409ee8e199e9dfc2af0f9951`](https://github.com/EngraphCode/oak-open-curriculum-ecosystem/commit/6f0aecf5d9326658409ee8e199e9dfc2af0f9951), `eve@0.47.3`, `@modelcontextprotocol/ext-apps@1.7.5`
+- **Evidence pin:** OCE `engraph` commit [`6f0aecf5d9326658409ee8e199e9dfc2af0f9951`](https://github.com/EngraphCode/oak-open-curriculum-ecosystem/commit/6f0aecf5d9326658409ee8e199e9dfc2af0f9951), [`eve@0.47.3`](https://github.com/vercel/eve/blob/3012ae0429edc19373cd9dd4a05ca3baf9dddeaf/packages/eve/package.json), [`@modelcontextprotocol/ext-apps@1.7.5`](https://github.com/modelcontextprotocol/ext-apps/blob/92f46a574568a3ddac7600343b7d3c4c4ed7b588/package.json)
 - **Supersedes:** `oce-eve-in-app-mcp-chat-demo-investigation-2026-08-29.md`
 
 ## Executive conclusion
@@ -22,7 +22,7 @@ This report concerns one member of a wider, open-ended portfolio of currently id
 1. **Curriculum Studio** as one distinct demo;
 2. **a full semantic-search showcase**;
 3. **a design-system showcase**;
-4. **a visual, interactive graph exploration** likely combining some subset of prerequisites, sequencing, misconceptions, learning outcomes, conceptual and wrong-turn trajectories, non-linear time, knowledge transfer through curriculum and potentially 3D form; and
+4. **a visual, interactive graph exploration** likely combining some subset of prerequisites, sequencing, misconceptions, learning outcomes, conceptual and wrong-turn trajectories, non-linear time, knowledge transfer through curriculum and options such as dynamic 2D, animation, linked views, 2.5D, 3D or immersive form; and
 5. **the Eve + MCP agentic chat experience** examined here.
 
 The portfolio is open-ended, with further demos expected as new capabilities and concepts emerge. Its independently scoped, implemented demos become repeated consumers where they actually reuse shared capability. They should remain deliberately heterogeneous: some exhibit a capability fully, some test a novel representation, some integrate several systems, and some instantiate a possible product. Some are intentionally showpieces: they exist to make latent capability visible, inspire and impress, expand what people understand the data and tools can do, and provoke possibilities that would not emerge from documentation or abstract explanation.
@@ -151,7 +151,7 @@ This is neither an apology for polish nor a disguised product experiment. A poss
 
 Audience excitement, recall, generated ideas, requests to explore or integrate, and changed understanding are proportionate signals for that purpose. They are not evidence of task utility, adoption or pupil impact. **Showmanship becomes evidence theatre only when the capability is fake or excitement is promoted into a claim it cannot support.**
 
-The graph experience is intentionally still exploratory. Three-dimensional form, a school-career trajectory, wrong turns and non-linear time are candidate directions, not landed functionality or claims that the system possesses a faithful model of an individual learner. Prerequisite, sequence, misconception, outcome, temporal and transfer relations may carry different semantics and must not be collapsed merely because they can be drawn in one space. The semantic-search showcase is likewise distinct from lexical/IDF graph traversal or agent-mediated lookup. Dedicated search and graph showcases test depth and edge cases; using search or graph tools inside chat supplies integration evidence, not a substitute for those showcases.
+The graph experience is intentionally still exploratory. Representational options such as dynamic 2D, animation, linked views, 2.5D, 3D and immersive form, alongside a school-career trajectory, wrong turns and non-linear time, are candidate directions—not landed functionality or claims that the system possesses a faithful model of an individual learner. The [dedicated graph-experience landscape](dynamic-interactive-graph-experience-landscape-2026-08-30.md) frames that possibility space and its evidence boundaries. Prerequisite, sequence, misconception, outcome, temporal and transfer relations may carry different semantics and must not be collapsed merely because they can be drawn in one space. The semantic-search showcase is likewise distinct from lexical/IDF graph traversal or agent-mediated lookup. Dedicated search and graph showcases test depth and edge cases; using search or graph tools inside chat supplies integration evidence, not a substitute for those showcases.
 
 Keep the five objects separate in every claim:
 

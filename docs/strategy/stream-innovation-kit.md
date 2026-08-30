@@ -6,7 +6,7 @@ last_updated: 2026-08-30
 derives_from:
   - VISION.md
 governed_by:
-  - .agent/plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md
+  - docs/strategy/README.md
 ---
 
 # Stream — the Oak Innovation Kit (responsible imagination and evidence)
@@ -148,7 +148,8 @@ The currently identified peers are intentions, not automatically evidence:
 - **the visual, interactive graph exploration** — an exploratory combination of some subset
   of prerequisite learning, sequencing, misconceptions, learning outcomes, concept and
   wrong-turn trajectories, non-linear time, knowledge transfer through curriculum, and
-  potentially three-dimensional form; and
+  representational options such as dynamic 2D, animation, semantic zoom, linked views,
+  2.5D, 3D, spatial or immersive forms where evidence supports them; and
 - **the agentic-chat experience** — durable multi-turn composition of OCE capabilities,
   including the specific value of Eve, MCP, MCP Apps, and WebMCP where the implementation
   evidence warrants it.
@@ -205,10 +206,17 @@ None of these are teacher- or pupil-outcome measures.
 
 Targets remain Oak- and owner-grounded. See the [measures checkpoint](measures.md).
 
-## Research input
+## Research inputs
 
 The
 [Eve + MCP agentic-chat investigation](../../.agent/research/innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md)
 is one bounded input to the portfolio model, evidence boundaries, and one peer-demo
 architecture. It is not strategy authority, proof that the Kit already works, or a decision
 to make the chat experience a product.
+
+The
+[dynamic, interactive graph-experience landscape](../../.agent/research/innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md)
+is a bounded input to the graph peer demo's representational possibility space,
+accessibility obligations, and evaluation boundaries. It is not strategy authority, a
+rendering-stack decision, proof that any form is effective, or a commitment to any
+dimensional form.

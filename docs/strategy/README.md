@@ -5,8 +5,6 @@ doc_role: index
 status: active
 last_updated: 2026-08-30
 audience: 'Oak leadership (decide) and the delivery team (build)'
-governed_by:
-  - .agent/plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md
 derives_from:
   - VISION.md
 ---
@@ -91,11 +89,11 @@ equally, one stream is advanced by several threads. Neither contains the other.
 The first three streams' strategic choices were **signed off** by the owner (2026-06-20).
 The owner declared the Innovation Kit the fourth stream on 2026-08-30; its `KIT-*` choices are
 the repository's initial articulation of that direction and remain subject to the living-strategy
-discipline. The ID **contract** — how IDs
-behave (stable, additive, resolvable), the typed `serves` field, and the validator
-— is governance machinery, owned by **Body 3** of the
-[controlling plan](../../.agent/plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md).
-The strategy lists the choices; governance owns the contract.
+discipline. The ID **contract** — how IDs behave (stable, additive, resolvable), the typed
+`serves` field, and the validator — is governance machinery defined by the current
+[plan-node schema](../../.agent/plans/plan-node-schema.md). This strategy lists the choices and
+is the current governing index for its detail pages; the plan estate owns plan-node
+conformance rather than strategy content.
 
 | Stream             | Choice IDs                                                            | Status                                                |
 | ------------------ | --------------------------------------------------------------------- | ----------------------------------------------------- |
@@ -124,8 +122,11 @@ The strategy lists the choices; governance owns the contract.
   the first-class idea-to-evidence outcome sketch proposing `KIT-2` as its parent.
 - [Eve + MCP agentic-chat research](../../.agent/research/innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md) —
   one bounded research input to the stream, not strategy authority or implementation proof.
-- [Controlling plan](../../.agent/plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md) —
-  scope, sequencing, and acceptance for this corpus (Body 2).
+- [Dynamic, interactive graph-experience research](../../.agent/research/innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md) —
+  one bounded evidence landscape for a peer demonstration, not strategy authority or an
+  implementation choice.
+- [Plan-node schema](../../.agent/plans/plan-node-schema.md) — the current typed
+  plan-edge contract; it does not replace this strategy's authority over published choices.
 - [Launch-readiness framework](../../.agent/plans-backlog-2026-07/curriculum-mcp-path-to-ga/launch-readiness-framework.md)
   — the app's K1–K3 and Groups A–D readiness catalogue.
 - [Compliance roadmap](../../.agent/plans-backlog-2026-07/compliance/roadmap.md) — the production-blocking

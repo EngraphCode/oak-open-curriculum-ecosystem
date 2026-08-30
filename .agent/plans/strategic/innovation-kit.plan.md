@@ -108,7 +108,7 @@ The node does not select an implementation architecture, authorise a product, pr
 membership or order of the open-ended portfolio, or claim that the existing Kit has already
 reached the outcome.
 
-## Research input
+## Research inputs
 
 The
 [Eve + MCP agentic-chat investigation](../../research/innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md)
@@ -116,6 +116,12 @@ is one bounded research input to the portfolio model, claim ladder, and possible
 architecture. The owner declaration establishes this first-class node and settles the
 fourth-stream decision; it does not ratify this drafted plan shape, every recommendation in
 that report, or its unimplemented chat specimen as evidence that the outcome has been reached.
+
+The
+[dynamic, interactive graph-experience landscape](../../research/innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md)
+informs the graph peer demo's representational possibility space, accessibility obligations,
+and evaluation boundaries. It does not select a rendering stack, establish that any form is
+effective, or commit the demonstration to any dimensional form.
 
 ## Delivery
 

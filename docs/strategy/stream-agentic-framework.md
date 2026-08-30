@@ -6,7 +6,7 @@ last_updated: 2026-08-30
 derives_from:
   - VISION.md
 governed_by:
-  - .agent/plans-backlog-2026-07/product-development-governance/vision-strategy-and-plan-estate.plan.md
+  - docs/strategy/README.md
 ---
 
 # Stream — the agentic framework (ecosystem, and our own transformation)
