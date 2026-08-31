@@ -33,12 +33,16 @@ makes any pickup-class home a real verifier.
    class. The bar decides WHERE the cure lands, never WHETHER truth
    matters.
 3. **Below the bar**: reply with the disposition — a route to a named
-   home, or a rejection with rationale — resolve the thread, and land
+   home, or a rejection with rationale — resolve the thread, and queue
    the durable write the home's consuming step reads (a ledger line in
    the plan artefact or its ticket for pickup-homed findings; the
    ticket for ticket-homed ones). This is
-   `pr-comments-resolve-and-recheck`'s disposition leg; only cure
-   landing is batched. No push.
+   `pr-comments-resolve-and-recheck`'s disposition leg; only the write
+   landing is batched, no per-finding push. Queued ledger writes ride
+   the next settlement push; if none is otherwise needed by
+   settled-READY, the ledger write itself is the final settlement push
+   (consuming budget normally) — a PR never merges with a queued write
+   unlanded.
 4. **Over the bar**: add the cure to the settlement batch; it lands in
    the next batched settlement push within the declared budget. Only a
    defect exposed on a served or live surface now fast-tracks an

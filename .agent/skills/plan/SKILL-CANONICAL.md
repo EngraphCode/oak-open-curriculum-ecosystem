@@ -152,11 +152,16 @@ Every non-trivial plan MUST define:
    round budgets bind at authoring time; slicing at plan time is free,
    slicing at the first over-budget review round is the measured
    expensive path). Slicing at pickup CONSUMES the plan's disposition
-   ledger — the routed review findings recorded in the plan or its
-   ticket
+   ledger
    ([PDR-140](../../practice-core/decision-records/PDR-140-review-response-pricing.md)):
-   each ledger row is read and dispositioned before implementation
-   begins.
+   the canonical ledger surface is a `## Review dispositions` section
+   in the plan file itself — one dated row per routed finding, naming
+   the source PR, the finding in one line, and the routing rationale —
+   with the plan's linked ticket as the carrier only when the ticket
+   exists and the disposition says so. At pickup the implementer
+   enumerates that section (and the named ticket, when cited), reading
+   and dispositioning every row before implementation begins; an
+   absent section means an empty ledger, never an unchecked one.
 
 Plans are public-repository artefacts: **mechanism only**. Anything
 internal — dates, vendor detail, organisational specifics — rides the

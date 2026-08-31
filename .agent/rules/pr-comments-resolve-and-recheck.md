@@ -44,14 +44,18 @@ frequently creates the condition for another. Never assume the previous round wa
 The loop is:
 
 1. Pull all comments (every surface above).
-2. For each: fix in code, or reject explicitly; reply; resolve the thread.
-3. Push.
-4. **Re-fetch all comments.** If the push produced any new comment, or any thread is
-   unresolved, return to step 2.
-5. The PR is comment-clean only when a push yields **zero undispositioned comments and
-   zero unresolved threads** (amended 2026-08-31 with PDR-140: a new comment answered by
-   a valid disposition-with-resolution counts as clean; a new comment nobody has
-   dispositioned never does).
+2. For each: fix in code, or route/reject with a disposition (PDR-140); reply; resolve
+   the thread.
+3. Push if the pass produced a cure or a queued ledger write to land (batched per
+   PDR-140 on bot-lane prose changesets); a disposition-only pass lands no push.
+4. **Re-fetch all comments** — after a push, or after a disposition-only pass (bots post
+   asynchronously either way). If the harvest shows any undispositioned comment, or any
+   thread is unresolved, return to step 2. Cleanliness is judged from the latest
+   harvest, never from a push having happened.
+5. The PR is comment-clean only when the latest harvest shows **zero undispositioned
+   comments and zero unresolved threads** (amended 2026-08-31 with PDR-140: a new
+   comment answered by a valid disposition-with-resolution counts as clean; a new
+   comment nobody has dispositioned never does).
 
 Do not merge, and do not report the PR ready, until step 5 holds.
 

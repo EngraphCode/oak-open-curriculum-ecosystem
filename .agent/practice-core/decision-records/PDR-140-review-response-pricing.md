@@ -146,7 +146,16 @@ scope widens by dated amendment, never by improvisation.
    consumes settlement budget. Pushes that change no reviewed content
    (a CI cure, a sync, a rebase) sit outside the budget and never carry
    cures; pending cures ride only declared settlement pushes or
-   human-lane pushes (clause 6).
+   human-lane pushes (clause 6). A queued ledger write (clause 1) rides
+   the next settlement push; if none is otherwise pending at
+   settled-READY, the ledger write itself is the final settlement push.
+   **Budget exhaustion with a mandatory cure pending is never a
+   deadlock and never a silent overrun**: it is the step-back moment —
+   record budget-exceeded, run the generator question over the full
+   raised set, and rebudget by recorded decision (one further
+   settlement push with its reason in the working notes). The budget is
+   a tripwire forcing that deliberate decision; the cure obligation
+   (clause 2) always survives it.
 
 5. **Age-out, scoped to below-bar findings.** A below-bar finding that
    binds to text unchanged since the last reviewed head reveals the

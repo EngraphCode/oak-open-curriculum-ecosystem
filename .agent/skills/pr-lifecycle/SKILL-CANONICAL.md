@@ -454,7 +454,12 @@ against this skill — file it as one.
    reconstruct round history — rows vanish from the connection whenever a
    reviewer posts again.
 2. **The tally store.** One row per settled round, `{round commit SHA,
-   count of findings in reviews bound to that commit}`, PERSISTED in the
+   raised count, cure-worthy count}` — the raised count is every finding
+   in reviews bound to that commit (the sampler record); the cure-worthy
+   count is the subset that cleared the PDR-140 worthiness bar, and it
+   is the count `c[n]`, the terminal-zero test, and both step-back arms
+   read (a round can settle at raised > 0, cure-worthy = 0: that IS the
+   terminal success state under triage). Rows are PERSISTED in the
    shepherd's working notes and built from the Phase 3 full harvest — each
    review thread's originating review carries its commit binding
    (`comments.nodes[0].pullRequestReview.commit.oid`). Findings are counted
