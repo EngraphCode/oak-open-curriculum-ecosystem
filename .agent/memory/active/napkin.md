@@ -1753,3 +1753,34 @@ expiries owner-waived for this focused session.
   Selection rationale difference worth carrying: effort-to-evidence was the
   wrong optimisation target once the Kit is settled — usefulness of the
   resulting Kit is the target.
+
+## 2026-08-31 ~09:4xZ (Dahlia tracks Blossom, 01Pb31, innovation-kit direction session) — plan authored; cricket caught a deferred deliverable; two further owner rulings
+
+- **Owner rulings this session (both applied, both graduation candidates)**: (1) cloud
+  sessions set their own names using the Practice identity — applied via the remote
+  session-title tool ("Dahlia tracks Blossom - Innovation Kit first direction: semantic
+  search"); home candidate: the cloud-environment operating doc / PDR-027 cloud amendment.
+  (2) Search results primarily have discovery value: the semantic-search demo links out to
+  equivalent pages on `www.thenational.academy` rather than growing curriculum-app behaviour;
+  the ruling is anchored verbatim in the plan's §Authority anchors.
+- **Cricket earned its invocation, measured**: normal ON-TRACK and adversarial DRIFTING
+  converged on the same defect — the owner said *planning* must determine
+  resources/provision/gaps/seams, and the draft plan had deferred that determination to a
+  build-time register (AC 6 / todo 5). A no-implementation session would have ended owing its
+  own primary deliverable. Cure applied before any owner sight: §First-pass determination
+  authored into the plan body (11 rows, keep/change verdicts), AC 6 demoted to
+  verify-and-extend. Lesson shape: when an owner directive names the PHASE a deliverable
+  belongs to ("part of planning..."), check the draft delivers it in that phase, not as a
+  future promise — same family as scope-from-goal.
+- **Linkability warrant grounded first-hand**: generated
+  `api-schema/routing/url-helpers.ts` derives `www.thenational.academy` URLs for all five
+  search content types (lesson, unit, subject, sequence, thread); unit needs `sequenceSlug`
+  context, subject a key stage — held as model, falsifier owned by the plan's slice-2 audit.
+- **Second-consumer trigger spotted at planning time**: the Curriculum Hub's app-local
+  host/env/search wiring meets its second consumer in this showcase —
+  consolidate-at-second-consumer names extraction as the change candidate; decision taken at
+  slice 3 through the decision budget, owner-visible.
+- Fresh-container mechanics: active-claims and closed-claims archives both needed seeding
+  (CLI refuses until seeded — worked as designed); a compound claim-close + push chain hit
+  the 2-minute foreground timeout at the pre-push gate suite — push runs backgrounded with a
+  log, per the push-log-to-file practice.
