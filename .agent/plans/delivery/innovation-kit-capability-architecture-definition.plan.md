@@ -20,8 +20,11 @@ owner_gates:
       The owner reviews the proposed definition corpus and records acceptance or amendment of its
       foundational thesis, authority boundary, product-creation-system model and documentation
       responsibilities. This gate does not require selecting an implementation proof or provider.
+      Owner word 2026-08-31: this review runs jointly with the semantic-search-showcase Stage-0
+      review — one owner moment covers the definition and the first concrete instantiation of its
+      record interfaces.
     expires: 2026-09-20
-last_updated: 2026-08-30
+last_updated: 2026-08-31
 ---
 
 # Innovation Kit product-creation-system definition
@@ -38,6 +41,21 @@ capabilities, profiles, operation, evidence and stewardship relate; what remains
 authority-specific; what current OCE evidence does and does not establish; and which claims would
 falsify the model. Conventional product foundations remain visible as examples inside the whole
 system rather than becoming its organising subject.
+
+## User groups and value
+
+Added at the 2026-08-31 material amendment, per the plan-estate common requirement of the
+same date. The definition's value is offered, not need-proven (the innovation clause):
+
+- **Product and demo creators** (developer or agent seats composing from the Kit): a
+  reviewed definition of what the Kit is, what it provides, and where authority boundaries
+  sit — composition without archaeology, and gaps routed to their legitimate owners
+  instead of absorbed locally.
+- **The owner**: a durable, reviewable statement of the product-creation system to accept
+  or amend at the joint gate — governance grip on the Kit's shape before implementation
+  narrows it.
+- **Future Kit stewards**: the conserved lineage — why the Kit exists and which claims
+  would falsify its model — so later curation amends deliberately rather than rediscovers.
 
 ## Mechanism
 

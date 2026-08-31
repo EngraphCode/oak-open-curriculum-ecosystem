@@ -138,6 +138,97 @@ Re-add an entry only when a setup-time card implicates a host.
   using the environment; channel ids are not secrets, and no secret may be
   added here.
 
+## Git-hook policy for cloud agent sessions (HUSKY=0)
+
+Owner ruling, 2026-08-31 (trialled the same session, then adopted with a
+companion profiling commission): **cloud agent sessions commit and push with
+`HUSKY=0`**, relying on GitHub CI as the quality gate. This relocates the
+checks, it does not remove them — the adoption was conditional on CI being
+comprehensive, and that premise was verified first-hand against `ci.yml`
+(secret-scan; format, markdownlint, runtime and shell lint, subagents,
+portability, repo-validators, skills, encoding; build with schema-drift
+check; type-check, lint, test; knip and dependency-cruiser; browser suites;
+a `run-quality-gates` rollup). That comprehensiveness covers **tree-state**
+gates only — CI runs no commit-message-class checks, which is why the
+in-session validation below is non-optional. Measured effect at adoption:
+seconds per commit-push cycle against ~15 minutes with local hooks.
+
+Conditions that keep the policy honest:
+
+- Scope is **agent cloud sessions**; local human development keeps hooks. The
+  canonical [`no-verify-requires-fresh-authorisation`](../rules/no-verify-requires-fresh-authorisation.md)
+  rule carries this standing ruling as its one scoped narrowing — outside this
+  scope its per-invocation requirement is unchanged.
+- **The blocking in-session substitute set** — the skipped hooks' checks are
+  enumerated here once, each mapped to its substitute; skipping any of the
+  in-session four recreates the gap `HUSKY=0` opens:
+
+  1. **Branch guard** (`.husky/pre-commit` sources
+     `refuse-commit-on-main.sh`): run the same guard before every commit —
+     `bash -c 'GUARD_BRANCH="" GUARD_HINT="…" . .husky/refuse-commit-on-main.sh'`
+     — because CI cannot prevent a local-`main` commit after the ref has
+     advanced.
+  2. **Commitlint** (`.husky/commit-msg`):
+     `pnpm agent-tools:check-commit-message -F <draft>`.
+  3. **Accidental-major-release guard** (`.husky/commit-msg`):
+     `pnpm exec tsx agent-tools/src/version-guard/prevent-accidental-major-version.ts <draft>`.
+     Its path-safety contract only accepts files under the real git
+     directory: resolve with `git rev-parse --absolute-git-dir` (in a linked
+     worktree `.git` is a file) and make the draft **intent-scoped** — a
+     shared fixed name races between agents on one worktree (the commit
+     skill's proven concurrency class) — e.g.
+     `"$(git rev-parse --absolute-git-dir)/COMMIT_MSG_<intent-id>"`.
+
+  4. **Pre-push secret scan** (`.husky/pre-push` runs gitleaks before
+     transfer): scan **the outgoing commits only, before every push** —
+     CI's secret-scan job starts only after GitHub has received the commits,
+     so it can block the PR but cannot stop a credential leaving the
+     machine; only the pre-transfer scan can. The instrument mirrors the
+     hook's own scope (pushed commits, not history — CI's full
+     `--branches --tags` scan is the comprehensive backstop):
+     `gitleaks detect --redact=100 --source . --log-opts="origin/<branch>..HEAD"`
+     (first push of a branch: range from `origin/engraph`). That range covers
+     the one push shape this policy authorises — the checked-out branch to its
+     matching `origin` branch. A push naming anything else (a tag, another
+     branch, multiple refs) is outside that shape: scan it with the repo's
+     ref-aware scanner instead — `pnpm agent-tools:secret-scan --remote origin
+     --refs-file <file>`, feeding one pre-push-format line
+     (`<local_ref> <local_sha> <remote_ref> <remote_sha>`) per pushed ref, the
+     same tested range logic (`compute-push-scan-ranges.ts`) the hook runs.
+     Running the full-history `pnpm secrets:scan` per push is the wrong
+     instrument — minutes of re-scanning already-pushed history for zero
+     marginal coverage (owner ruling 2026-08-31). gitleaks is installed by the
+     cloud environment setup.
+
+  Everything else the hooks ran maps to CI: staged prettier/markdownlint →
+  the static-checks job; the turbo suites → the build/test/browser jobs.
+  History-rewriting guards (`.husky/pre-rebase`'s main-in-range check and
+  kin) are not substituted because history rewriting stays governed by the
+  estate's never-rewrite doctrine; the rare session that must rebase runs
+  the applicable `.husky` guard explicitly first.
+- Every push lands on a CI-gated PR; an un-PR'd branch push has no gate
+  (CI's push trigger covers only `main`/`engraph`), so cloud work stays on
+  PR branches — and the gate condition is an **OPEN** PR: a branch whose PR
+  has merged or closed (a stale worktree, a recreated merged branch) gets
+  no `pull_request` run on push, so before pushing, confirm the branch's PR
+  is open; when it is not, open one first — or run the local gates for that
+  push. **First-push caveat**: a fresh lane's first push necessarily
+  precedes its PR (the spawn tool pushes, then opens the draft PR), so if
+  PR creation fails, open the PR before any further work — or run the
+  local gates for that push — rather than leaving an ungated remote branch.
+- If CI's coverage narrows relative to the local suite, the premise fails
+  and the policy is re-decided — the comprehensiveness check above is the
+  revalidation instrument.
+- `HUSKY=0` is the mechanism; `--no-verify` remains blocked and separately
+  governed by `no-verify-requires-fresh-authorisation`.
+
+**Companion commission (same ruling): the check-performance profiling
+lane.** The owner also commissioned profiling and improving full-check
+performance so local (hooked) cycles get faster too. The lane awaits
+pickup; its delivery plan is authored by its implementer at pickup per the
+plan estate's own doctrine. First measurements to beat: ~15 minutes for a
+cold full suite, minutes warm, dominated by the turbo build/test legs.
+
 ## Fail-fast contract
 
 The script exits non-zero on any failure and session creation then fails

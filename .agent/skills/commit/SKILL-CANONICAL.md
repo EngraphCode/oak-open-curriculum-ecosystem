@@ -139,7 +139,15 @@ Run these steps **before** formulating the commit message.
    **The `commit-msg` hook is the real gate — do not test the checker.** The
    `.husky/commit-msg` hook runs commitlint on every commit unconditionally; the
    pre-draft `check-commit-message` script is an optional convenience to catch a
-   format slip ~30s earlier, not a gate. **Never run a per-commit negative
+   format slip ~30s earlier, not a gate. **Exception — sessions committing
+   under a standing owner hook-policy ruling (e.g. `HUSKY=0` cloud agent
+   sessions per the ruling recorded in
+   `no-verify-requires-fresh-authorisation`):** there the hooks do not run, so
+   the ruling's operational surface (this repo: the cloud-environment doc's
+   "blocking in-session substitute set") is the gate — every check it
+   enumerates is BLOCKING per commit, with exit codes read in-band (never
+   through a pipe). That enumeration is the single source of truth for what
+   substitutes for the hooks; do not work from a remembered subset of it. **Never run a per-commit negative
    control** (a deliberately-bad message to "prove the checker is live") — that
    tests the tool, not your message, and has no bridge to landing a conforming
    commit. If you run the checker, trust its exit code; if a given invocation
@@ -312,6 +320,11 @@ direct CLI commands for inspection and recovery.
 
    ```bash
    MSGFILE="$(mktemp -t "commit-msg-<intent-id>")"
+   # Under a standing hook-policy ruling (hooks skipped), use instead:
+   #   MSGFILE="$(git rev-parse --absolute-git-dir)/COMMIT_MSG_<intent-id>"
+   # — the major-version guard in the blocking substitute set only accepts
+   # files under the real git directory, and the SAME file must feed both
+   # substitute checks and this commit command.
    # write the drafted message to "$MSGFILE", then:
    pnpm agent-tools:commit-queue -- commit \
      --intent-id "<intent-id>" \

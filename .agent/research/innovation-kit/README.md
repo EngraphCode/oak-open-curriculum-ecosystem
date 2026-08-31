@@ -49,6 +49,7 @@ centre.
 
 - [Eve + MCP agentic-chat experience](eve-mcp-agentic-chat-experience-2026-08-30.md)
 - [Dynamic interactive graph-experience landscape](dynamic-interactive-graph-experience-landscape-2026-08-30.md)
+- [Sequencing, threads and prerequisites — first-hand survey](sequencing-threads-and-prerequisites-2026-08-31.md)
 - [Provider-independent capability architecture](../provider-independent-capability-architecture.md)
 
 These are bounded research inputs. A product idea, provider investigation or impressive demo does
