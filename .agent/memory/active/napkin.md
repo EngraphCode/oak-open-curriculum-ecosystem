@@ -1996,6 +1996,8 @@ recorded as the survey's owner-disposition note. The threads layout renders veri
 only (year grouping); threads[].order stays unrendered until the bulk-data lane adjudicates
 its contested semantics — beneficial dependency, not blocking.
 
+<!-- fitness exceeded by ~1740 lines; needs consolidation -->
+
 ## 2026-08-31 ~11 (Dahlia tracks Blossom, 01Pb31) — Owner ruling: review-cure bar raised to P1/serious only
 
 Owner (verbatim-core): "do not address any more comments with code changes unless you
@@ -2005,6 +2007,8 @@ bar for this loop: sub-serious findings get a disposition reply and, when worth 
 row in the appropriate remediation node (plan-estate node owning that surface) — never a
 per-round cure push. The round-13 cure (98b9dad: open-PR push gate P1 + thread-layout data
 seam P2) predates the ruling and ships as committed.
+
+<!-- fitness exceeded by ~1740 lines; needs consolidation -->
 
 ## 2026-08-31 ~12 (Dahlia tracks Blossom, 01Pb31) — Cadence-cancellation de-gated the whole review loop
 
