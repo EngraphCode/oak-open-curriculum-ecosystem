@@ -104,6 +104,19 @@ Three consequences:
 
 ## Owner disposition (dated note, 2026-08-31)
 
+> **Superseded in part (dated note, 2026-08-31, later the same day).** The
+> owner reworked item 1's framing in the pickup session: the repair is
+> governed by the `honest-curriculum-structure` strategic node and its
+> three delivery plans (`prerequisite-claim-removal`,
+> `curriculum-structure-true-views`, `upstream-curriculum-data-exposure`),
+> authored from first-hand grounding in the oak-openapi and
+> database-tools sources. The `threads[].order` contest is adjudicated
+> (it is the thread's display index — `MIN(programme_threads.order)` in
+> the sequence view; `thread-extractor.ts`'s reading is wrong), the edge
+> minting is removed rather than renamed, and the vocabulary rule is Oak
+> names only. Decision record:
+> `.agent/research/plan-estate-remediation-node-decision-2026-08-31.md`.
+
 The owner read the findings and ruled:
 
 1. **The `prerequisiteFor` conflation is a serious data defect, not a demo opportunity.**

@@ -2066,3 +2066,113 @@ merge-bot front door cannot run in this cloud session: the bot's machine-local p
 is absent here, and .github/merge-bot.json names the upstream repo, not this fork). The
 ACT was owner-authorised; the CREDENTIAL gap is an environment fact routed to the
 cloud-environment surface at consolidation, not a worked success to normalise.
+
+## 2026-08-31 (curriculum-data-defect lane, remote session, ordering-data-defect-investigation branch) — remediation-node decision harvest
+
+- OWNER-CORRECTED decision offloading: three "owner decisions" I surfaced
+  (node-type adoption, tool rename-vs-retire, user-story validation) were
+  all resolvable by the decision lenses; the owner's verbatim redirect —
+  "I don't think I'm needed for any of those decisions, read
+  principles.md… apply the decision matrix". The rename framing was also
+  invented: nobody proposed preserving or renaming the misleading tool;
+  Strict-and-Complete already forces pure removal + new true tools. Tell
+  for next time: a "decision for the owner" whose answer a principle has
+  already forced is an evasion, not an escalation (principles
+  §Architectural Excellence, the deferential opt-out clause).
+- PANEL-OVERTURNS-AUTHOR, worked instance: my remediation-node verdict
+  (option a) was refuted by all three anti-deference reviewers on a
+  premise I could have checked — I tested "no honest strategic parent
+  exists" against only PRE-EXISTING nodes while my own division authored
+  the honest parent, and I missed the twelve-day-old precedent
+  (`mcp-served-surface-truth`, same defect class, delivery-under-
+  strategic, ratified 2026-08-19). Generator: arguing from the corpus as
+  it was, not as the proposal changes it. The panel-before-adoption
+  discipline paid for itself again (same lesson class as the 2026-08-14
+  PR-886 panel evidence).
+- DEFECT-CLASS NOTE: the `get-prior-knowledge-graph` fabricated-edges
+  defect is the false-green surface class at product scale (a published
+  surface answering authoritatively with fabricated structure); the
+  cure landed as plan `prerequisite-claim-removal` with a recomputable
+  guard (edge types cite their bulk-schema source field) — the
+  authoring-time-legibility cure shape the class entry prescribes.
+- OVERBROAD-SURFACE CLAIM, own hands, Codex-caught (2026-08-31, PR #32
+  round 3): I generalised "thread_units.order is unpublished" from the
+  BULK schema + sequence-view SQL to "the open API does not serve it" —
+  while GET /threads/{threadSlug}/units serves units in thread order
+  with unitOrder (generated tool descriptor + oak-openapi
+  threads.ts:71). Lesson: an absence proven on ONE surface (bulk
+  export) licenses a claim about that surface only; sweep the API's
+  endpoint inventory before writing "the API does not serve X". Cure
+  pushed: the exposure request is now bulk-parity-with-endpoint, and
+  the thread-view note names both surfaces.
+- UNBUILT-TALLY, owner-caught (2026-08-31, PR #32): the owner's
+  "are the PR comments converging?" exposed that I ran seven review
+  rounds with no tally store — the exact failure proportionality's
+  worked instance names ("not an absent framework, but an unbuilt
+  instrument", PR #570). I substituted a self-invented narrative
+  tripwire ("if the next round reshapes rather than shrinks") for
+  pr-lifecycle's mechanical predicate. Tally built retroactively
+  (session-record provenance; rounds 6-7 verified in-context):
+  c = 9, 3, 2, 1, 2, 1, 1 over rounds 1-7, single epoch. The
+  4-settled-rounds arm has stood since round 4; strict decrease broke
+  at round 5 (1→2). Governing instrument: the born-sketch PLAN-PR
+  convergence cap (owner ruling 2026-07-25) — after round 4,
+  reviewer waves disposition to named homes unless a finding shows an
+  actual falsehood. Retro-audit: rounds 5-7 cures each qualify as
+  falsehood-cures (unsupported band-count claim; false absent-views
+  premise; AC citing a validator that could not cover its artefact),
+  so the edits were cap-legal, but the cap should have been DECLARED
+  at round 4, not discovered at round 7. Generator note: rounds 6-7
+  share one generator — plan text asserting estate facts not verified
+  first-hand at authoring (round 7's defect was introduced by round
+  6's cure). From round 8: disposition-only unless actual falsehood;
+  merge at any settle-green tip whose deltas are cap-dispositions or
+  falsehood-cures. Lesson: when a domain instrument exists, build it
+  at LOOP START — a convergence question answerable only by memory
+  means the instrument was never built.
+- CORRECTION to OVERBROAD-SURFACE CLAIM above, Codex-caught (2026-08-31,
+  PR #32 round 8): the round-3 "cure" replaced one overclaim with
+  another — I sourced "the endpoint returns units in thread order with
+  unitOrder" from the endpoint's DESCRIPTION string (threads.ts:71),
+  while the response schema returns only {unitTitle, unitSlug} and the
+  handler reads the sequence view filtered by thread membership,
+  never thread_units.order (oak-adapter-threads.ts:33-37 in our own
+  estate already recorded unitOrder as removed upstream). So
+  authoritative within-thread order is published on NO surface, and
+  the upstream request is now "expose thread_units.order itself", not
+  endpoint parity. Same generator as rounds 6-7: an estate fact
+  asserted from an intermediate surface (a descriptor string) instead
+  of the source of truth (schema + handler). Verify at the rung that
+  binds: response schemas and handler code, never description text —
+  descriptions are claims, not evidence.
+- ROUND-9 SAME GENERATOR, Codex-caught (2026-08-31, PR #32): the plan's
+  unit-connections claim cited mv_openapi_unit_curriculum_content as
+  "materialized for the API" — the estate's OWN database research
+  (database-authority-and-projections.md:184-190) records that view as
+  an undeployed schema-doc proposal (no migration, Hasura metadata,
+  Drizzle relation, or test). Re-verified: the connection ids and
+  descriptions are columns on public.units (Drizzle, Hasura metadata,
+  and the init migration), and the description/title fields ride the
+  DEPLOYED mv_curriculum_sequence_b_13_0_21 — the exact view
+  owaClient.ts queries — selected by nothing. Corrected evidence is
+  stronger than the original claim. Fourth instance of the one
+  generator (unverified estate facts at authoring); the round-3
+  investigation cited the first plausible artefact bearing the right
+  columns without checking its deployment status. Check-the-checker
+  move that would have caught it: search the estate's own research
+  corpus for the artefact name before citing it.
+- TAIL-COST RULING, owner-caught (2026-08-31, PR #32, "enough, these
+  long tails are costing us hours, what are they providing?"): rounds
+  7-10 of the review loop delivered evidence-polish on SKETCH plans
+  whose own acceptance criteria re-verify every polished claim at
+  pickup — the guards already owned the moment of truth. Two compound
+  errors: (1) the convergence cap engaged at round 8 instead of round
+  4 because the tally was unbuilt; (2) I read the cap's falsehood
+  exception as an OBLIGATION to cure every imprecision, when it is a
+  permission for falsehoods that would mislead if merged — a sketch's
+  imprecise citation misleads nobody whose pickup step re-verifies it.
+  The exit the cap always licensed: merge at any settle-green tip
+  whose deltas are cap-dispositions or falsehood-cures. Rule of thumb
+  minted: on a born-sketch plan PR, after the cap engages, weigh each
+  falsehood by WHO IT COULD MISLEAD BEFORE PICKUP; if the answer is
+  nobody, disposition it to the pickup step instead of curing.
