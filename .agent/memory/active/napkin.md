@@ -1871,3 +1871,19 @@ entry.
   full-check performance (~15 min/cycle measured this session, cold cache; warm still
   minutes). Both belong to the next consolidation/owner planning moment; the trial's outcome
   is the evidence.
+
+## 2026-08-31 ~6 (Dahlia tracks Blossom, 01Pb31) — owner seeds held for exploration (acknowledged, deliberately not yet run)
+
+Owner word, held verbatim-core for the next working stretch (owner instructed acknowledge-
+then-stop): (1) if OWA (github.com/oaknational/Oak-Web-Application) genuinely has no thread
+view, a thread view in the showcase is HIGH VALUE — as is making the programme-vs-thread
+difference visible "visually, viscerally". Verify OWA's actual thread surface first-hand
+before claiming absence. (2) Open question: what sequencing data exists in the bulk
+downloads — and the sharp conceptual concern: teaching order is an editorial CHOICE;
+prerequisites are a necessary CONSTRAINT that contributed to that choice — "separate pieces
+of information with different lifecycles and authorities and implications" — and the estate
+may be conflating them under the label "sequencing". Concept-exploration owed on this before
+it hardens into demo design; metacognition note: the estate's own vocabulary ("sequences" =
+curriculum programmes, ADR-097; thread progressions and prerequisite graphs as separate
+graph tools) suggests the distinction partially exists in the machinery but may not be held
+in the WORDS — a capability-polysemy sibling (the 2026-08-14 comparison entry's class).
