@@ -1728,3 +1728,162 @@ session-start drift alert. Free-play seed (association, not finding): this
 session's own shape measured machinery ≫ judgment — the estate's process
 could be decision-budgeted exactly as the Kit proposes; relevant to "keep it
 simple".
+
+## 2026-08-31 (Dahlia tracks Blossom, 01Pb31, innovation-kit direction session) — owner selected the first direction: semantic search; Kit-necessity framing corrected
+
+Fresh cloud container; collaboration state empty — bootstrap fast-path applied
+(no other agents present). Session commission: explore and choose an initial
+direction for the Innovation Kit, no implementation; Practice box and gate
+expiries owner-waived for this focused session.
+
+- **Owner direction (2026-08-31, at the direction question)**: "Semantic
+  search, making use of what we have where appropriate and changing what we
+  should change. The goal is not to prove we need the Innovation Kit, that is
+  the settled, the goal is to build the best and most useful Innovation Kit."
+- **Framing correction absorbed**: this seat's recommendation logic (and the
+  2026-08-31 tee-up's "first proposition is the empirical test of least
+  possible effort") treated the first proposition as a test of the Kit
+  thesis. The owner ruled the Kit's necessity settled; the first proposition
+  is a *vehicle for building* the best and most useful Kit, not an
+  experiment on whether the Kit should exist. The definition corpus's
+  decision-budget and placement instruments still apply as build discipline,
+  not as a verdict gate on the Kit itself.
+- The seat had recommended the agentic chat experience on a
+  least-effort-to-first-evidence basis; the owner chose semantic search.
+  Selection rationale difference worth carrying: effort-to-evidence was the
+  wrong optimisation target once the Kit is settled — usefulness of the
+  resulting Kit is the target.
+
+## 2026-08-31 ~09:4xZ (Dahlia tracks Blossom, 01Pb31, innovation-kit direction session) — plan authored; cricket caught a deferred deliverable; two further owner rulings
+
+- **Owner rulings this session (both applied, both graduation candidates)**: (1) cloud
+  sessions set their own names using the Practice identity — applied via the remote
+  session-title tool ("Dahlia tracks Blossom - Innovation Kit first direction: semantic
+  search"); home candidate: the cloud-environment operating doc / PDR-027 cloud amendment.
+  (2) Search results primarily have discovery value: the semantic-search demo links out to
+  equivalent pages on `www.thenational.academy` rather than growing curriculum-app behaviour;
+  the ruling is anchored verbatim in the plan's §Authority anchors.
+- **Cricket earned its invocation, measured**: normal ON-TRACK and adversarial DRIFTING
+  converged on the same defect — the owner said *planning* must determine
+  resources/provision/gaps/seams, and the draft plan had deferred that determination to a
+  build-time register (AC 6 / todo 5). A no-implementation session would have ended owing its
+  own primary deliverable. Cure applied before any owner sight: §First-pass determination
+  authored into the plan body (11 rows, keep/change verdicts), AC 6 demoted to
+  verify-and-extend. Lesson shape: when an owner directive names the PHASE a deliverable
+  belongs to ("part of planning..."), check the draft delivers it in that phase, not as a
+  future promise — same family as scope-from-goal.
+- **Linkability warrant grounded first-hand**: generated
+  `api-schema/routing/url-helpers.ts` derives `www.thenational.academy` URLs for all five
+  search content types (lesson, unit, subject, sequence, thread); unit needs `sequenceSlug`
+  context, subject a key stage — held as model, falsifier owned by the plan's slice-2 audit.
+- **Second-consumer trigger spotted at planning time**: the Curriculum Hub's app-local
+  host/env/search wiring meets its second consumer in this showcase —
+  consolidate-at-second-consumer names extraction as the change candidate; decision taken at
+  slice 3 through the decision budget, owner-visible.
+- Fresh-container mechanics: active-claims and closed-claims archives both needed seeding
+  (CLI refuses until seeded — worked as designed); a compound claim-close + push chain hit
+  the 2-minute foreground timeout at the pre-push gate suite — push runs backgrounded with a
+  log, per the push-log-to-file practice.
+
+## 2026-08-31 ~2 (Dahlia tracks Blossom, 01Pb31) — owner: plan incomplete without user journeys; machinery≫judgment reproduced WITH the seed in context
+
+- **Owner correction (verbatim core)**: "until we have some key user journeys defined, in
+  terms of user experience and value, it is incomplete" — three groups: "devs working with
+  the Innovation Kit, stakeholders who should be wowed and educated in what is possible and
+  inspired by the demo, and the somewhat pretend end users of a search service who in this
+  case would be teachers". Cure landed same session: journeys as first-class plan content
+  (experience arc + value + measure + losing condition each), wired into criterion 8 and the
+  slices.
+- **Recurrence-despite-capture, named as a class**: the PR #27 close-out free-play seed
+  ("this session's own shape measured machinery ≫ judgment") was IN CONTEXT when this seat
+  authored a plan strong on governance instruments and thin on humans. A passively-held seed
+  did not fire at authoring time — same shape as PDR-098 recurrence-despite-home. Candidate
+  structural cure for plan authoring: the oak-plan skill's body requirements name goal,
+  mechanism, acceptance — none forces "who experiences this and what do they get"; a
+  user-journey requirement for user-facing plan nodes would convert the seed into a firing
+  gate. Routed to next consolidation, not self-landed (new-rule-vs-pdr-clause discipline).
+- **Mapping insight that made the cure cheap**: the three groups were already in the estate's
+  vocabulary — teachers = the proposition's declared proxy audience (ground-truth corpus:
+  "realistic teacher queries with expected results"); stakeholders = the strategy's KIT-1
+  possibility chain (reception/comprehension/generativity/activation, states kept separate);
+  devs = the definition's consumer journey (discover→declare→compose→inspect). Defining
+  journeys was assembly, not invention — evidence the corpus decomposition is pulling its
+  weight.
+- **Use-what-we-have find**: the search CLI's ground-truth corpus doubles as the teacher
+  journey seed AND honest in-demo example searches — the "somewhat pretend" user becomes a
+  declared claim boundary backed by a real instrument rather than a wink.
+
+## 2026-08-31 ~3 (Dahlia tracks Blossom, 01Pb31) — three captures: Linear ruling, planning-skill amendment landed at owner word, index.lock race
+
+- **Owner ruling on ticket minting (verbatim core)**: "there is no need or desire to produce
+  linear tickets for everything, just because an MCP server isn't authenticated it doesn't
+  mean we should use it". Behaviour change applied immediately: stop surfacing the Linear
+  connector's auth state unprompted; tickets are minted at owner word, not as a default
+  session output. Available ≠ wanted — a capability's presence in the environment is not a
+  request to use it.
+- **Planning-skill amendment, owner-authorised**: the user-groups-and-value body requirement
+  landed in the plan skill AND the delivery template (structural cure — the template is the
+  copy-time firing surface; the 2026-08-31 ~2 entry's "route to consolidation" hold was
+  discharged by the owner's direct word). The innovation clause is constitutive, not a
+  softener: pure innovation is often not meeting a pre-existing need, so the requirement is
+  identification and value description, never need-proof. Named falsifier in the requirement
+  itself: boilerplate filling means ceremony — reshape, never silent-delete. Free-play
+  discard, visible per the confabulation guard: a forced mapping of the three user groups
+  onto the definition README's reader routes.
+- **index.lock race, own hands (2026-08-31)**: a background commit-workflow's inner
+  `git commit` failed on `.git/index.lock` because this seat ran `git status`/`git log`
+  probes in the same window (and the stop-hook's git check also fires between turns). Cure
+  applied: re-ran the commit FOREGROUND so the turn holds the window; no git probes while a
+  commit workflow is in flight. The lock cleaned up on failure; staged bundle and queue
+  intent survived intact — recovery was one re-run.
+
+## 2026-08-31 ~4 (Dahlia tracks Blossom, 01Pb31) — owner correction: per-parcel commit cycles, THIRD instance of the recorded BATCH-CADENCE class
+
+Owner interrupted the fourth gate cycle of the session (verbatim core: committing "takes
+nearly 15 minutes, if you commit every change then we are limiting ourselves to four or five
+changes per hour... a massive waste of tokens"). The 2026-08-17 BATCH-CADENCE ruling and the
+2026-08-26 recurrence were both IN THIS NAPKIN and did not fire — same
+recurrence-despite-capture class as the ~2 entry, now with two members in one session
+(machinery≫judgment at authoring; cadence at landing). Behaviour applied from the correction:
+parcels accumulate in the working tree; ONE commit ceremony at the session safety boundary;
+push once per boundary; the stop-hook's uncommitted-changes nag is not a commit trigger.
+Structural-cure candidate for consolidation: the commit skill could open with a cadence check
+("is this parcel's sitting over?") the way start-right opens with grounding — the recorded
+ruling needs a firing surface at the reach-for-commit moment, not a napkin line. PR #28
+opened to engraph (base explicit per pr-target-is-engraph); the closing bundle carries this
+entry.
+
+## 2026-08-31 ~5 (Dahlia tracks Blossom, 01Pb31) — owner authorises HUSKY=0 trial for cloud sessions (this session); CI comprehensiveness verified first
+
+- **Owner authorisation (scoped, verbatim core)**: "For the remainder of this session I want
+  to try a potential solution, run commit and push in cloud environments with HUSKY=0 and
+  rely on GitHub CI to catch issues... as long as the GitHub CI is comprehensive." This IS
+  the fresh authorisation `no-verify-requires-fresh-authorisation` requires — scoped to this
+  session, cloud-environment rationale, checks relocated to CI rather than removed.
+- **Premise verified before adoption** (verify-dont-trust): ci.yml runs secret-scan, the full
+  static-check set (format, markdownlint, lint runtime+shell, subagents, portability,
+  repo-validators, skills, encoding), build + schema-drift, type-check/lint/test,
+  knip+depcruise, browser suites, and a run-quality-gates rollup — superset-equivalent of the
+  local hook chain. HUSKY=0 persisted to the session env file.
+- **Two owner hypotheses routed as candidate follow-ups** (not built now): (1) pre-commit/
+  pre-push gates may be more relevant to human developers than to cloud agent sessions whose
+  every push lands on a CI-gated PR; (2) alternatively set aside time to profile and improve
+  full-check performance (~15 min/cycle measured this session, cold cache; warm still
+  minutes). Both belong to the next consolidation/owner planning moment; the trial's outcome
+  is the evidence.
+
+## 2026-08-31 ~6 (Dahlia tracks Blossom, 01Pb31) — owner seeds held for exploration (acknowledged, deliberately not yet run)
+
+Owner word, held verbatim-core for the next working stretch (owner instructed acknowledge-
+then-stop): (1) if OWA (github.com/oaknational/Oak-Web-Application) genuinely has no thread
+view, a thread view in the showcase is HIGH VALUE — as is making the programme-vs-thread
+difference visible "visually, viscerally". Verify OWA's actual thread surface first-hand
+before claiming absence. (2) Open question: what sequencing data exists in the bulk
+downloads — and the sharp conceptual concern: teaching order is an editorial CHOICE;
+prerequisites are a necessary CONSTRAINT that contributed to that choice — "separate pieces
+of information with different lifecycles and authorities and implications" — and the estate
+may be conflating them under the label "sequencing". Concept-exploration owed on this before
+it hardens into demo design; metacognition note: the estate's own vocabulary ("sequences" =
+curriculum programmes, ADR-097; thread progressions and prerequisite graphs as separate
+graph tools) suggests the distinction partially exists in the machinery but may not be held
+in the WORDS — a capability-polysemy sibling (the 2026-08-14 comparison entry's class).
