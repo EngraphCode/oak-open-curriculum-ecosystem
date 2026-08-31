@@ -127,12 +127,26 @@ is not ratified.
 Every non-trivial plan MUST define:
 
 1. **Goal** — the user-impact outcome sought.
-2. **Mechanism** — why the named means produce that outcome.
-3. **Acceptance criteria, each with a proof** — outcome-measuring, not
+2. **User groups and value** — the groups who will experience or consume
+   the outcome (end users — including deliberately proxy ones with an
+   honest claim boundary, stakeholders and audiences, developers and
+   agents, operators), and for each group the value provided, stated in
+   experience terms. Pure innovation is often not meeting a pre-existing
+   need, so pricing or proving a need in advance is not required where
+   the work's purpose is to reveal possibility: declared offered or
+   hypothesised value (possibility, comprehension, inspiration) with an
+   honest claim boundary satisfies this requirement (owner ruling,
+   2026-08-31; worked instance: the semantic-search-showcase plan, whose
+   first sketch met every then-current requirement while missing its
+   users). Falsifier: if this section fills with interchangeable
+   boilerplate rather than decision-bearing content, the requirement has
+   become ceremony and must be reshaped, not deleted silently.
+3. **Mechanism** — why the named means produce that outcome.
+4. **Acceptance criteria, each with a proof** — outcome-measuring, not
    activity-measuring, and each proof typed (`repo-safe` for
    test/CI-provable, `owner-held` for the owner's confirming act).
-4. **Out of scope** — what the plan explicitly will not do (YAGNI).
-5. **Todos** — sliced at pickup by the implementer, each slice a
+5. **Out of scope** — what the plan explicitly will not do (YAGNI).
+6. **Todos** — sliced at pickup by the implementer, each slice a
    single-story PR within its round budget
    ([PDR-132](../../practice-core/decision-records/PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md):
    round budgets bind at authoring time; slicing at plan time is free,

@@ -1812,3 +1812,27 @@ expiries owner-waived for this focused session.
 - **Use-what-we-have find**: the search CLI's ground-truth corpus doubles as the teacher
   journey seed AND honest in-demo example searches — the "somewhat pretend" user becomes a
   declared claim boundary backed by a real instrument rather than a wink.
+
+## 2026-08-31 ~3 (Dahlia tracks Blossom, 01Pb31) — three captures: Linear ruling, planning-skill amendment landed at owner word, index.lock race
+
+- **Owner ruling on ticket minting (verbatim core)**: "there is no need or desire to produce
+  linear tickets for everything, just because an MCP server isn't authenticated it doesn't
+  mean we should use it". Behaviour change applied immediately: stop surfacing the Linear
+  connector's auth state unprompted; tickets are minted at owner word, not as a default
+  session output. Available ≠ wanted — a capability's presence in the environment is not a
+  request to use it.
+- **Planning-skill amendment, owner-authorised**: the user-groups-and-value body requirement
+  landed in the plan skill AND the delivery template (structural cure — the template is the
+  copy-time firing surface; the 2026-08-31 ~2 entry's "route to consolidation" hold was
+  discharged by the owner's direct word). The innovation clause is constitutive, not a
+  softener: pure innovation is often not meeting a pre-existing need, so the requirement is
+  identification and value description, never need-proof. Named falsifier in the requirement
+  itself: boilerplate filling means ceremony — reshape, never silent-delete. Free-play
+  discard, visible per the confabulation guard: a forced mapping of the three user groups
+  onto the definition README's reader routes.
+- **index.lock race, own hands (2026-08-31)**: a background commit-workflow's inner
+  `git commit` failed on `.git/index.lock` because this seat ran `git status`/`git log`
+  probes in the same window (and the stop-hook's git check also fires between turns). Cure
+  applied: re-ran the commit FOREGROUND so the turn holds the window; no git probes while a
+  commit workflow is in flight. The lock cleaned up on failure; staged bundle and queue
+  intent survived intact — recovery was one re-run.
