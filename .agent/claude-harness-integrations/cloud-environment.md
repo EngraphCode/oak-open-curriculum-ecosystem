@@ -161,7 +161,7 @@ Conditions that keep the policy honest:
   scope its per-invocation requirement is unchanged.
 - **The blocking in-session substitute set** — the skipped hooks' checks are
   enumerated here once, each mapped to its substitute; skipping any of the
-  in-session three recreates the gap `HUSKY=0` opens:
+  in-session four recreates the gap `HUSKY=0` opens:
 
   1. **Branch guard** (`.husky/pre-commit` sources
      `refuse-commit-on-main.sh`): run the same guard before every commit —
