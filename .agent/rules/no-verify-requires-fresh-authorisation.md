@@ -23,7 +23,8 @@ above counts as a skip whether the owner's authorisation language named that
 specific spelling or not.
 
 **A standing owner ruling may narrow this rule's scope for a named session
-class.** Where the owner has recorded such a ruling in the repository's
+class** (authority model: PDR-025 §Gate binding and policy authority — the
+agent is bound absolutely; policy change is the owner's power alone). Where the owner has recorded such a ruling in the repository's
 operational surfaces — naming the session class, the substitute gates that
 carry every check the skipped hooks provided, and the condition that
 re-opens the decision — the standing ruling *is* the owner authorisation
