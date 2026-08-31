@@ -1951,3 +1951,29 @@ checks. Read the comments." What happened, honestly:
    stated, "pricing a need" reworded, user-groups requirement propagated to plan-node-schema
    and the strategic/runbook templates). The ratified plan changed materially post-stamp:
    flagged to the owner for re-confirmation at the joint gate.
+
+## 2026-08-31 ~9 (Dahlia tracks Blossom, 01Pb31) — Owner correction: superseded-head noise + full-history secret scan per push
+
+Owner (verbatim-core): "what is this constant reporting of superseded heads? why are you
+pushing so much, why aren't pushes cancelling superseded jobs?" and "there is ZERO value in
+running the full gitleaks survey every time." Grounded findings:
+
+1. **Cancellation was never broken.** `ci.yml` sets `concurrency: ci-${{ github.ref }}`
+   with `cancel-in-progress: true` on pull_request events — every push DOES cancel the
+   in-flight run. The noise was this seat's own making, twice over: (a) push cadence —
+   one push per review round (9 pushes on PR #29), each minting a superseded head; (b)
+   reporting artefacts as signal — a cancelled run's rollup reads "failure" on the old
+   head, and this seat narrated those to the owner instead of filtering them. Standing
+   habit: the batch-cadence ruling covers PUSHES, not just commits — one push per safety
+   boundary; and a rollup on a non-current head with conclusion `cancelled` is never
+   reported, only the current head's genuine result is.
+2. **Wrong substitute instrument for the pre-push secret scan.** The HUSKY=0 substitute
+   set prescribed full-history `pnpm secrets:scan` (`--branches --tags`, minutes) when
+   the hook it substitutes (`.husky/pre-push`) scans PUSHED COMMITS ONLY (the range scan
+   ran in 195ms). Already-pushed history has already left the machine — re-scanning it
+   pre-push has zero marginal coverage; CI's full scan is the backstop. Cure applied:
+   cloud-environment.md item 4 now prescribes
+   `gitleaks detect --log-opts="origin/<branch>..HEAD"`. Class note: when substituting
+   a gate, copy the gate's SCOPE, not just its instrument — the substitute must mirror
+   what the hook actually checked, and the hook source is the contract file (same
+   truth-surface habit as ~8).

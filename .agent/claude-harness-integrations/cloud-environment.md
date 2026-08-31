@@ -180,10 +180,17 @@ Conditions that keep the policy honest:
      `"$(git rev-parse --absolute-git-dir)/COMMIT_MSG_<intent-id>"`.
 
   4. **Pre-push secret scan** (`.husky/pre-push` runs gitleaks before
-     transfer): run `pnpm secrets:scan` in-session **before every push** —
+     transfer): scan **the outgoing commits only, before every push** —
      CI's secret-scan job starts only after GitHub has received the commits,
      so it can block the PR but cannot stop a credential leaving the
-     machine; only the pre-transfer scan can. gitleaks is installed by the
+     machine; only the pre-transfer scan can. The instrument mirrors the
+     hook's own scope (pushed commits, not history — CI's full
+     `--branches --tags` scan is the comprehensive backstop):
+     `gitleaks detect --redact=100 --source . --log-opts="origin/<branch>..HEAD"`
+     (first push of a branch: range from `origin/engraph`). Running the
+     full-history `pnpm secrets:scan` per push is the wrong instrument —
+     minutes of re-scanning already-pushed history for zero marginal
+     coverage (owner ruling 2026-08-31). gitleaks is installed by the
      cloud environment setup.
 
   Everything else the hooks ran maps to CI: staged prettier/markdownlint →
