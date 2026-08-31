@@ -52,7 +52,7 @@ in this case would be teachers". The journeys below carry that ruling.
 Ratification state: the owner ratified an earlier shape of this plan on 2026-08-31 ("Ratify
 now" at the decision round, napkin entry "~7"). The plan then changed materially under the
 PR #28 review-finding cures (linkability rewritten around result-carried URLs, criterion
-re-scoping, smoke taxonomy, extraction-as-outcome), so per the plan schema's scope-change
+re-scoping, evidence taxonomy, extraction-as-outcome), so per the plan schema's scope-change
 rule it returns to `sketch` until the owner re-ratifies the amended shape — the intended
 moment is the joint Stage-0/definition review.
 
@@ -127,7 +127,7 @@ perspective; no teacher-value claim is made without separate research.
 
 **Measure / losing condition.** Each seeded journey completes end-to-end in the
 fixture-backed e2e suite, and the live-index confirmation of the same journeys is a recorded
-smoke evidence run. Losing: a journey needs insider knowledge, a fabricated link, or a
+operator evidence run. Losing: a journey needs insider knowledge, a fabricated link, or a
 curated golden path to complete.
 
 ### Stakeholders — wowed, educated, inspired
@@ -207,7 +207,7 @@ retuning, no new search features, no admin surfaces.
    not results) resolves via its result-carried URL field or surfaces a declared, truthful
    absence (threads where `thread_url` is absent). Proof: **repo-safe** — a linkability
    audit instrument over a real index sample plus tests on the truthful-absence path; the
-   live URL-resolution check runs as a standalone smoke/operator evidence script (never in
+   live URL-resolution check runs as a standalone operator evidence script (never in
    the e2e suite), its record committed with the audit.
 2. **The discovery loop is complete and truthful.** Intent → results with source, relevance
    and provenance legibility → hand-off link; zero-hit, error and degraded states are
@@ -235,7 +235,7 @@ retuning, no new search features, no admin surfaces.
    surfaces from the demo. Proof: **repo-safe** — dependency-cruiser/import rules.
 8. **Each key journey is completable and evidenced at its declared measure.** Teacher:
    ground-truth-seeded journeys complete end-to-end in the fixture-backed e2e suite, with
-   the live-index confirmation as recorded smoke evidence. Stakeholder: the
+   the live-index confirmation as recorded operator evidence. Stakeholder: the
    mechanism-legibility layer exists over live data and the possibility-chain states are
    recorded separately at a real showing. Developer: a cold-consumer probe reaches a useful
    recomposition from the documented path alone. Proof: **repo-safe** for the teacher e2e
@@ -252,11 +252,14 @@ archaeology:
   governs nothing from a feature branch.
 - **Live-backend access**: the demo needs `ELASTICSEARCH_URL`, `ELASTICSEARCH_API_KEY`,
   `OAK_API_KEY` and `SEARCH_INDEX_TARGET` (Curriculum Hub env precedent); these are present
-  in the cloud session environment. Live-index proofs are **smoke/operator evidence
-  scripts** under the repository's test taxonomy (testing-strategy; ADR-161): network-backed
-  runs never sit in the e2e suite. CI stays IO-free per the standing no-test-IO ruling
-  (2026-08-25) — the e2e suite proves the loop over fixtures; the smoke scripts' recorded
-  outputs are the committed live evidence.
+  in the cloud session environment. Live-index proofs are **operator evidence scripts** —
+  deliberately outside the smoke tier: under the repository's test taxonomy
+  (testing-strategy §Smoke Tests; ADR-161) a smoke test proves shipped-artefact viability,
+  must be reachable from a CI-run task, and never carries feature assertions, none of which
+  a network-backed feature confirmation can satisfy. Network-backed runs never sit in the
+  e2e suite. CI stays IO-free per the standing no-test-IO ruling (2026-08-25) — the e2e
+  suite proves the loop over fixtures; the operator scripts' recorded outputs are the
+  committed live evidence.
 - **Record-instrument home**: where the composition declaration, decision budget and ledger
   entry live is precedent-setting for every later Kit consumer; it is Stage 0's first
   decision-budget entry and the owner gate reviews it.
