@@ -144,10 +144,15 @@ at plan time):
    slices at minimum; the inventory is the checklist the slices draw
    from, never one PR's scope.
 2. **Serving-chain removal** — the callers come out while the corpus
-   still carries the edges: `prior-knowledge-view.ts`, the
-   `get-prior-knowledge-graph` tool and its registry entries, and
-   their tests. Green intermediate: the corpus emits edges nothing
-   reads or serves; the authored-file count sits within the bands.
+   still carries the edges. The chain spans several independently
+   removable surfaces (the HTTP served-surface rows and E2E tests, the
+   SDK tool and its registry entries, the graph view and its tests),
+   so this step is itself sliced at pickup into independently green
+   PRs within the sizing bands; this plan fixes the ORDER — every
+   caller gone before the generator narrows — and asserts no PR
+   count. Green intermediate after each slice: whatever remains still
+   compiles and serves; after the last, the corpus emits edges nothing
+   reads.
 3. **Generator narrowing and guard** — with every caller gone, the
    final slice is the generator files alone: stop minting, narrow the
    closed union and stats shape, regenerate the corpus, land the

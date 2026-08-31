@@ -56,13 +56,12 @@ structure citing its source fields per the recurrence guard landed by
   units for the subject sequence"), filterable by the unit's programme
   factors (year, key stage, tier, exam board, pathway) — what the
   sequence teaches before/after a unit.
-- **Thread views**: thread membership plus the thread's units in
-  sequence order — a declared projection (the sequence's order
-  restricted to the thread), documented as such, never presented as a
-  thread-specific editorial order. Oak serves that editorial order via
-  the per-thread API endpoint (`GET /threads/{threadSlug}/units`,
-  `unitOrder`), but it is absent from the bulk export this corpus
-  consumes — bulk parity is requested in
+- **Thread order is NOT rebuilt here**: the live `get-threads-units`
+  tool already serves every unit in a thread in Oak's authoritative
+  editorial order (`unitOrder`); a sequence-restricted projection
+  would be a second, weaker thread view competing with it, so none is
+  built. The existing tool is the thread-order surface; bulk-export
+  parity for that data is requested in
   `upstream-curriculum-data-exposure`.
 - **Lesson order**: `unitLessons[].lessonOrder` within a unit.
 - **Prior knowledge statements**: a unit's `priorKnowledgeRequirements`
@@ -92,10 +91,10 @@ criterion 2 commits only to the scope that check verifies.
    against fixture data drawn from a real bulk file. Proof:
    `repo-safe` — the recorded verification note plus unit/integration
    tests.
-3. The thread view's contract states its derivation (sequence order
-   restricted to thread membership) and asserts no thread-specific
-   order. Proof: `repo-safe` — contract test on the served description
-   plus review.
+3. No served view built by this plan presents thread order; the
+   contracts of the new views point thread-order questions at the
+   existing `get-threads-units` tool. Proof: `repo-safe` — review of
+   the served contracts plus the existing tool's own tests.
 4. Prior knowledge statements and shared-statement queries serve
    exactly the published strings, with the shared-statement grouping
    presented as a declared projection keyed by string identity. Proof:
