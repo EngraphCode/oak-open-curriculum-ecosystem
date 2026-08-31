@@ -5,7 +5,8 @@
 - **Commission:** owner word, 2026-08-31 — "the order units are taught in is a completely
   separate concept from a graph of prerequisite units… I wonder if we are conflating them
   under the label 'sequencing'" — with the companion verification of OWA's thread surfaces
-- **Evidence pins:** this repository at the PR #28 head line; OWA
+- **Evidence pins:** this repository at `a77260ea` (the PR #28 merge commit; the review-cure
+  re-verifications ran on this PR's own heads); OWA
   [`oaknational/Oak-Web-Application`](https://github.com/oaknational/Oak-Web-Application)
   shallow clone at `91662d8` (2026-08-31)
 

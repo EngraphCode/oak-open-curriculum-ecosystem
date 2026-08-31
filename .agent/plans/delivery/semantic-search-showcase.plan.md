@@ -6,13 +6,10 @@ overview: >-
   Build the Innovation Kit's first proposition: a discovery-to-resource semantic-search
   showcase that reveals the search capability honestly and produces the Kit's first
   gap-and-seam register.
-status: ratified
-ratified_by: Jim Cresswell
-ratified_date: 2026-08-31
-ratified_where: >-
-  Owner decision in session Dahlia tracks Blossom (01Pb31), 2026-08-31 — "Ratify now" at the
-  decision round recorded verbatim in the napkin entry "~7" of the same date; the Stage-0
-  owner gate below remains the build go/no-go.
+status: sketch
+ratified_by: null
+ratified_date: null
+ratified_where: null
 serves: innovation-kit
 impact_areas:
   - innovation-kit
@@ -51,6 +48,13 @@ journeys are defined in terms of user experience and value, for three user group
 working with the Innovation Kit, stakeholders who should be wowed and educated in what is
 possible and inspired by the demo, and the somewhat pretend end users of a search service who
 in this case would be teachers". The journeys below carry that ruling.
+
+Ratification state: the owner ratified an earlier shape of this plan on 2026-08-31 ("Ratify
+now" at the decision round, napkin entry "~7"). The plan then changed materially under the
+PR #28 review-finding cures (linkability rewritten around result-carried URLs, criterion
+re-scoping, smoke taxonomy, extraction-as-outcome), so per the plan schema's scope-change
+rule it returns to `sketch` until the owner re-ratifies the amended shape — the intended
+moment is the joint Stage-0/definition review.
 
 ## Goal
 
@@ -121,8 +125,9 @@ journey is claimed.
 "Somewhat pretend" is a declared claim boundary: the journey is designed from the teacher
 perspective; no teacher-value claim is made without separate research.
 
-**Measure / losing condition.** Each seeded journey completes end-to-end against the live
-index (e2e-proven). Losing: a journey needs insider knowledge, a fabricated link, or a
+**Measure / losing condition.** Each seeded journey completes end-to-end in the
+fixture-backed e2e suite, and the live-index confirmation of the same journeys is a recorded
+smoke evidence run. Losing: a journey needs insider knowledge, a fabricated link, or a
 curated golden path to complete.
 
 ### Stakeholders — wowed, educated, inspired
@@ -229,7 +234,8 @@ retuning, no new search features, no admin surfaces.
 7. **Public-surface-only consumption held.** No deep imports into SDK internals or admin
    surfaces from the demo. Proof: **repo-safe** — dependency-cruiser/import rules.
 8. **Each key journey is completable and evidenced at its declared measure.** Teacher:
-   ground-truth-seeded journeys complete end-to-end against the live index. Stakeholder: the
+   ground-truth-seeded journeys complete end-to-end in the fixture-backed e2e suite, with
+   the live-index confirmation as recorded smoke evidence. Stakeholder: the
    mechanism-legibility layer exists over live data and the possibility-chain states are
    recorded separately at a real showing. Developer: a cold-consumer probe reaches a useful
    recomposition from the documented path alone. Proof: **repo-safe** for the teacher e2e
