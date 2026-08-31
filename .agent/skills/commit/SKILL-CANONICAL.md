@@ -320,6 +320,11 @@ direct CLI commands for inspection and recovery.
 
    ```bash
    MSGFILE="$(mktemp -t "commit-msg-<intent-id>")"
+   # Under a standing hook-policy ruling (hooks skipped), use instead:
+   #   MSGFILE="$(git rev-parse --absolute-git-dir)/COMMIT_MSG_<intent-id>"
+   # — the major-version guard in the blocking substitute set only accepts
+   # files under the real git directory, and the SAME file must feed both
+   # substitute checks and this commit command.
    # write the drafted message to "$MSGFILE", then:
    pnpm agent-tools:commit-queue -- commit \
      --intent-id "<intent-id>" \

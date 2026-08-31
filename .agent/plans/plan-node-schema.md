@@ -104,6 +104,15 @@ its delivery timescales — that fact lives in the node, not here.)
 
 ## Per-type contracts
 
+Common to **every** plan type (owner ruling 2026-08-31): the body names
+its **user groups and value** — who experiences or consumes the outcome
+and what each group gets, in experience terms; the plan skill carries
+the full requirement, including the innovation clause (offered or
+hypothesised value with an honest claim boundary satisfies it — advance
+need-proof is not required) and the one-line routing form for outcomes
+nobody experiences directly. The three authoring templates each carry
+the matching section.
+
 ### Strategic
 
 The why and the what: the outcome sought, the bet it rests on, what
@@ -122,13 +131,7 @@ onto the plan estate and the schedule. The body carries (PDR-018:
 narrative in the body, never frontmatter):
 
 - **Goal** — what is true when this lands that is not true now.
-- **User groups and value** — who experiences or consumes the outcome,
-  and what each group gets, in experience terms (owner ruling
-  2026-08-31; the plan skill carries the full requirement, including
-  the innovation clause: declared offered or hypothesised value with an
-  honest claim boundary satisfies it — advance need-proof is not
-  required). Where genuinely nobody experiences the outcome directly,
-  one line says so and names where the value routes.
+- **User groups and value** — the common requirement above, in full.
 - **Mechanism** — how, briefly.
 - **Acceptance criteria — each with a proof, required.** A proof names
   its evidence class: `repo-safe` (a test, validator, or CI check —
