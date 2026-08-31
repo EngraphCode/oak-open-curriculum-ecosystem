@@ -305,7 +305,13 @@ Slices at pickup, each a single-story PR within the default round budget (PDR-13
    contracts (sequencing survey 2026-08-31) and stay unrendered until the bulk-data
    investigation lane adjudicates them (a `beneficial`, not blocking, dependency — the
    layouts ship on verified fields alone). Neither layout ever surfaces the graph corpus's
-   `prerequisiteFor` edges.
+   `prerequisiteFor` edges. **Named data seam for the layouts' unit link-outs**: a thread's
+   search document carries no member-unit URLs, so the layouts need an exact unit-lookup
+   seam on the public read surface returning canonical `unit_url` values. Whether that seam
+   exists is verified first-hand at Stage 0; if it does not, that is a registered gap
+   routed to the search stream (the placement rule), and until the seam is proven, a layout
+   unit entry without a resolvable URL takes the truthful-absence path — never a
+   fabricated or derived-without-context link.
 5. **Evidence close** — decision-budget and gap-and-seam consolidation, dispositions routed,
    composition declaration reverified, the developer cold-consumer probe run, owner review.
 

@@ -208,7 +208,11 @@ Conditions that keep the policy honest:
   the applicable `.husky` guard explicitly first.
 - Every push lands on a CI-gated PR; an un-PR'd branch push has no gate
   (CI's push trigger covers only `main`/`engraph`), so cloud work stays on
-  PR branches. **First-push caveat**: a fresh lane's first push necessarily
+  PR branches — and the gate condition is an **OPEN** PR: a branch whose PR
+  has merged or closed (a stale worktree, a recreated merged branch) gets
+  no `pull_request` run on push, so before pushing, confirm the branch's PR
+  is open; when it is not, open one first — or run the local gates for that
+  push. **First-push caveat**: a fresh lane's first push necessarily
   precedes its PR (the spawn tool pushes, then opens the draft PR), so if
   PR creation fails, open the PR before any further work — or run the
   local gates for that push — rather than leaving an ungated remote branch.
