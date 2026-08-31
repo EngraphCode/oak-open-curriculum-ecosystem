@@ -2042,3 +2042,16 @@ required-check conclusion on the previous head or an in-session
 full `pnpm check`; the check-performance profiling lane (already commissioned in that doc)
 is the owning node and should also weigh cancel-in-progress economics. Endgame hold
 applied: no pushes to a branch whose merge-deciding CI run is in flight.
+
+<!-- fitness exceeded by ~1750 lines; needs consolidation -->
+
+## 2026-08-31 ~13 (Dahlia tracks Blossom, 01Pb31) — Owner ruling: green and clean merges without owner
+
+Owner (verbatim): "green and clean gets merged, there is no requirement for me to merge."
+Standing refinement of the ~8 merge doctrine: a PR that is GREEN (genuine required-check
+success on its current head) and CLEAN (all review threads resolved, no merge conflict)
+merges without owner involvement — auto-merge while checks are pending, or a direct merge
+THROUGH already-satisfied protections when they have passed. The ~8 prohibition stands
+unchanged where it always applied: an admin-credential merge past UNSATISFIED protections
+(mergeable_state blocked) remains the --no-verify-class bypass. Applied same turn: PR #30
+merged directly at mergeable_state clean (merge commit 6081660).
