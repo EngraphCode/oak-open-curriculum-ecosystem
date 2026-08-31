@@ -27,11 +27,10 @@ class.** Where the owner has recorded such a ruling in the repository's
 operational surfaces — naming the session class, the substitute gates that
 carry every check the skipped hooks provided, and the condition that
 re-opens the decision — the standing ruling *is* the owner authorisation
-within that exact scope. The ruling's mechanics live in the repo-bound
-operational surface it names, never in this portable rule. One such ruling
-exists in this repository (2026-08-31, agent cloud sessions; see the
-cloud-environment operating doc). Everywhere outside a recorded ruling's
-scope, this rule's per-invocation requirement stands unchanged.
+within that exact scope. The ruling itself and its mechanics live in the
+repo-bound operational surface it names, never in this portable rule.
+Everywhere outside a recorded ruling's scope, this rule's per-invocation
+requirement stands unchanged.
 
 If a hook is failing:
 

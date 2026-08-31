@@ -192,8 +192,12 @@ Conditions that keep the policy honest:
   kin) are not substituted because history rewriting stays governed by the
   estate's never-rewrite doctrine; the rare session that must rebase runs
   the applicable `.husky` guard explicitly first.
-- Every push lands on a CI-gated PR; an un-PR'd branch push has no gate, so
-  cloud work stays on PR branches (standing practice anyway).
+- Every push lands on a CI-gated PR; an un-PR'd branch push has no gate
+  (CI's push trigger covers only `main`/`engraph`), so cloud work stays on
+  PR branches. **First-push caveat**: a fresh lane's first push necessarily
+  precedes its PR (the spawn tool pushes, then opens the draft PR), so if
+  PR creation fails, open the PR before any further work — or run the
+  local gates for that push — rather than leaving an ungated remote branch.
 - If CI's coverage narrows relative to the local suite, the premise fails
   and the policy is re-decided — the comprehensiveness check above is the
   revalidation instrument.
