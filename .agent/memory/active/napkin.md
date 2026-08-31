@@ -2005,3 +2005,28 @@ bar for this loop: sub-serious findings get a disposition reply and, when worth 
 row in the appropriate remediation node (plan-estate node owning that surface) — never a
 per-round cure push. The round-13 cure (98b9dad: open-PR push gate P1 + thread-layout data
 seam P2) predates the ruling and ships as committed.
+
+## 2026-08-31 ~12 (Dahlia tracks Blossom, 01Pb31) — Cadence-cancellation de-gated the whole review loop
+
+Owner: "several hours of GitHub runner that I have paid for that produced no value
+whatsoever, and also, since we disabled local hooks, we have no idea if we are building on
+broken foundations." Grounded accounting: CI takes ~15-20 min; Codex rounds arrived every
+~10-15 min; this seat cured per round, and each push cancelled the in-flight run
+(concurrency group). Result: EIGHT runs started after 13:07, ZERO completed — the last
+full-suite verification of any head was d0df43f (13:02). Nine commits landed with only the
+four in-session substitute checks plus ad-hoc prettier/markdownlint/plan-corpus on touched
+files; type-check, tests, build, knip/depcruise, and the workspace validators never ran to
+completion on any of them. Mitigation run at discovery: `pnpm check` (full canonical gate)
+on the final tree, in-session.
+
+Structural lesson (extends ~9's scope lesson): a substitute gate must copy the hook's
+scope AND its COMPLETION SEMANTICS. Local hooks were serialized and blocking — every
+commit's checks finished before the next could exist. CI-with-cancel-in-progress has no
+such guarantee: its gating value is conditional on a run completing per meaningful state,
+and a push cadence at or below CI duration silently removes the gate entirely while
+burning paid runners. Review rounds are NOT safety boundaries. Cure (remediation-routed,
+not pushed mid-run): cloud-environment.md gains a push-cadence clause — under HUSKY=0 the
+minimum spacing between pushes is a COMPLETED CI run on the previous head or an in-session
+full `pnpm check`; the check-performance profiling lane (already commissioned in that doc)
+is the owning node and should also weigh cancel-in-progress economics. Endgame hold
+applied: no pushes to a branch whose merge-deciding CI run is in flight.
