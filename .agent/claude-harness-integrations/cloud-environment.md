@@ -216,16 +216,21 @@ Conditions that keep the policy honest:
   precedes its PR (the spawn tool pushes, then opens the draft PR), so if
   PR creation fails, open the PR before any further work — or run the
   local gates for that push — rather than leaving an ungated remote branch.
-- **Push cadence — a completed run is part of the gate** (worked instance
-  2026-08-31): CI's concurrency group cancels the in-flight run on every
-  push, so the relocated gates only bind if a run COMPLETES per meaningful
-  state. A push cadence at or below CI duration (~15-20 min) silently
-  removes the gate for the whole series while burning paid runners — eight
-  consecutive runs were cancelled with zero completed verification before
-  this clause was learned. Minimum spacing between pushes: a completed CI
-  run on the previous head, or an in-session full `pnpm check`. Review
-  rounds are NOT safety boundaries; and never push to a branch whose
-  merge-deciding CI run is in flight.
+- **Push cadence — a concluded required check is part of the gate** (worked
+  instance 2026-08-31): CI's concurrency group cancels the in-flight run on
+  every push, so the relocated gates only bind if the required check reaches
+  a genuine conclusion. A push cadence at or below CI duration (~15-20 min)
+  silently removes the gate for the series while burning paid runners —
+  eight consecutive runs were cancelled at workflow level; seven ended with
+  no genuine conclusion on the required check, and the one that did finish
+  (its `run-quality-gates` succeeded one second before the cancel landed)
+  was still labelled cancelled. Neither workflow status (`completed`
+  includes cancelled runs) nor the rollup's colour is the boundary: the
+  boundary is the required check (`run-quality-gates`) reaching a genuine
+  conclusion — success or failure; cancellation is neither. Minimum spacing
+  between pushes: that conclusion on the previous head, or an in-session
+  full `pnpm check`. Review rounds are NOT safety boundaries; and never
+  push to a branch whose merge-deciding CI run is in flight.
 - If CI's coverage narrows relative to the local suite, the premise fails
   and the policy is re-decided — the comprehensiveness check above is the
   revalidation instrument.
