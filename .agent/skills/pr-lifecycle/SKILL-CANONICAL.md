@@ -679,12 +679,16 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    fires. The recomputed full gate:
    the round reads SETTLED per item 4 for the current tip; zero unresolved
    threads;
-   a finding count of ZERO on BOTH tally surfaces (threads AND review
-   bodies, item 2 — zero unresolved threads alone can coexist with a
-   non-zero body tally) AND zero NEWLY HARVESTED findings regardless of
+   zero UNDISPOSITIONED findings on BOTH tally surfaces (threads AND
+   review bodies, item 2 — zero unresolved threads alone can coexist
+   with an undispositioned body tally) and a cure-worthy count of ZERO
+   (item 2's PDR-140 semantics: a finding validly
+   dispositioned-with-resolution does not block the gate; an
+   undispositioned or cure-worthy one always does) AND zero NEWLY
+   HARVESTED undispositioned findings regardless of
    which round they bucket to (an out-of-order summary-only review bound
    to an older tip lands late: it buckets to its own prior round yet still
-   blocks THIS merge moment); **every REQUIRED check from the base branch's
+   blocks THIS merge moment until dispositioned); **every REQUIRED check from the base branch's
    ruleset PRESENT in the tip's check list BY NAME and green — an
    expected-but-never-created check is simply absent from `gh pr checks`,
    so an all-visible-terminal-green read looks settled while the merge
@@ -704,8 +708,10 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    between eligible PRs is free; quality binds at settled-READY, and the
    2026-07-20 cascade — eleven settled+green PRs landing in ~6 minutes,
    gate green, every Phase-8 clean — is the measured evidence) — only
-   on the item-4 settled verdict — zero threads AND zero body-tally
-   findings on the tip, every expected reviewer leg SATISFIED/SKIPPED,
+   on the item-4 settled verdict — zero threads AND zero
+   undispositioned body-tally findings on the tip with a cure-worthy
+   count of zero (item 2's PDR-140 semantics), every expected reviewer
+   leg SATISFIED/SKIPPED,
    a full quiet window since the latest tip-bound review, checks green —
    because a grant is read downstream as authorisation-to-act-now, and
    "the executing seat will recompute" is hope, not a gate, under grant
