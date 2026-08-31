@@ -179,9 +179,19 @@ Conditions that keep the policy honest:
      skill's proven concurrency class) — e.g.
      `"$(git rev-parse --absolute-git-dir)/COMMIT_MSG_<intent-id>"`.
 
+  4. **Pre-push secret scan** (`.husky/pre-push` runs gitleaks before
+     transfer): run `pnpm secrets:scan` in-session **before every push** —
+     CI's secret-scan job starts only after GitHub has received the commits,
+     so it can block the PR but cannot stop a credential leaving the
+     machine; only the pre-transfer scan can. gitleaks is installed by the
+     cloud environment setup.
+
   Everything else the hooks ran maps to CI: staged prettier/markdownlint →
-  the static-checks job; gitleaks → the secret-scan job; the turbo suites →
-  the build/test/browser jobs.
+  the static-checks job; the turbo suites → the build/test/browser jobs.
+  History-rewriting guards (`.husky/pre-rebase`'s main-in-range check and
+  kin) are not substituted because history rewriting stays governed by the
+  estate's never-rewrite doctrine; the rare session that must rebase runs
+  the applicable `.husky` guard explicitly first.
 - Every push lands on a CI-gated PR; an un-PR'd branch push has no gate, so
   cloud work stays on PR branches (standing practice anyway).
 - If CI's coverage narrows relative to the local suite, the premise fails
