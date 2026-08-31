@@ -2050,11 +2050,13 @@ applied: no pushes to a branch whose merge-deciding CI run is in flight.
 Owner (verbatim): "green and clean gets merged, there is no requirement for me to merge."
 Standing refinement of the ~8 merge doctrine: a PR that is GREEN (genuine required-check
 success on its current head) and CLEAN (all review threads resolved, no merge conflict)
-merges without owner involvement — a direct merge THROUGH already-satisfied protections at
-green-and-clean, or auto-merge armed only at settled-READY (PDR-131: every expected review
-arrived and every thread resolved; CLEAN includes reviews settled, so arming before a bot
-review lands risks merging past a finding still in flight — this seat did exactly that on
-PR #31, caught by Codex the same round). The ~8 prohibition stands
+merges without owner involvement. BOTH merge shapes — arming auto-merge and a direct
+merge through satisfied protections — require the full settled-READY gate exactly as
+PDR-131 and the pr-lifecycle skill define it; those canonical definitions govern and this
+entry deliberately does not restate them (restating the state machine here drew three
+rounds of divergence findings on PR #31, including this seat arming auto-merge before a
+bot review landed — GitHub's protections do not enforce the review-round legs, so no
+merge shape fires on protections alone). The ~8 prohibition stands
 unchanged where it always applied: an admin-credential merge past UNSATISFIED protections
 (mergeable_state blocked) remains the --no-verify-class bypass. Applied same turn: PR #30
 merged directly at mergeable_state clean (merge commit 6081660).
