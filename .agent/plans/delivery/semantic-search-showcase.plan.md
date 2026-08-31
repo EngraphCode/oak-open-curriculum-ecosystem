@@ -43,6 +43,12 @@ and what seams those gaps reveal. The Kit's necessity is settled — the
 as a verdict gate on the Kit itself. The owner gate's expiry derives from the governing
 strategic node's `gate_expiry_default` (P21D from authoring).
 
+A third ruling (same day, on reviewing the first sketch): the plan is incomplete until key user
+journeys are defined in terms of user experience and value, for three user groups — "devs
+working with the Innovation Kit, stakeholders who should be wowed and educated in what is
+possible and inspired by the demo, and the somewhat pretend end users of a search service who
+in this case would be teachers". The journeys below carry that ruling.
+
 ## Goal
 
 Two outcomes, both first-class. (1) Oak's deepest capability becomes honestly legible: a
@@ -51,7 +57,9 @@ legibility, hand-off to the real resource on `www.thenational.academy` — that 
 depth, behaviour and limits of search by meaning, including its zero-hit, degraded and
 limit states. (2) The Kit grows through a real consumer: the build produces the estate's first
 decision-budget record and a gap-and-seam register naming what the proposition needed, what
-the Kit provided, what was missing, and which seams the gaps reveal.
+the Kit provided, what was missing, and which seams the gaps reveal. Both outcomes are held to
+three defined user journeys — teacher, stakeholder, developer — each with its own experience
+arc, value statement, measure and losing condition.
 
 ## Mechanism
 
@@ -67,6 +75,77 @@ gap finding. Estate defaults (demos tier, Next.js, the hub's live-stack wiring p
 enter the decision budget as reopenable defaults-from-precedent, not baked assumptions.
 Link-out is the structural guard against curriculum-app drift: the resource destination is
 always the equivalent `www.thenational.academy` page.
+
+## User groups and key journeys
+
+Three user groups, three journeys — each defined in experience and value terms with its own
+measure and losing condition (owner ruling, 2026-08-31). The journeys are plan content, not
+build-time discoveries; Stage 0 carries them into the composition declaration and every slice
+is testable against them.
+
+### Teachers — the declared (honestly proxy) end users
+
+**Journey.** A teacher arrives with a real intent in their own professional language
+("fractions unlike denominators", "algebra progression") → search understands meaning, not
+just keywords → results carry enough curriculum context to judge fit — what it is, where it
+sits, why it matched → one step lands them on the real resource at `www.thenational.academy`
+→ dead ends are honest: zero hits say so and help reframe; a degraded backend says what it is.
+
+**Value.** Found the right thing quickly, judged its fit without leaving the results, and
+finished on the actual resource — discovery, not another destination.
+
+**Experience.** Professional vocabulary in, curriculum-shaped results out; relevance and
+provenance legible at the result; one-interaction hand-off; truthful difficult states; every
+step keyboard- and screen-reader-complete.
+
+**Grounding and claim boundary.** Journeys are seeded from the search estate's ground-truth
+corpus — realistic teacher queries with expected results, built to answer "does search help
+teachers find what they need?" — so the proxy is honest and example searches can be real.
+"Somewhat pretend" is a declared claim boundary: the journey is designed from the teacher
+perspective; no teacher-value claim is made without separate research.
+
+**Measure / losing condition.** Each seeded journey completes end-to-end against the live
+index (e2e-proven). Losing: a journey needs insider knowledge, a fabricated link, or a
+curated golden path to complete.
+
+### Stakeholders — wowed, educated, inspired
+
+**Journey.** Encounter the demo with minimal preamble → an immediate "I didn't know Oak could
+do this" moment on a real query → the surface teaches the mechanism honestly through
+progressive disclosure — why these results, what the index knows, what it cannot know → they
+leave with an accurate, memorable model of the capability and new questions or ideas.
+
+**Value.** Accurate expanded understanding of what Oak's open capability makes possible, and
+raised ambition for what could be built on it.
+
+**Experience.** An excellence bar worthy of the public asset; impressive because real — no
+staged behaviour; the wow degrades gracefully into education (a mechanism-legibility layer
+over live data, not a technology label parade).
+
+**Measure / losing condition.** The strategy's possibility chain, states kept separate:
+reception, comprehension, generativity; activation only at a mutually agreed next action.
+Losing: the audience remembers only "a nice search box", misunderstands what the system can
+do, or the impressive behaviour turns out staged.
+
+### Developers — working with the Innovation Kit
+
+**Journey.** A developer (or agent) meets the demo as the Kit's reference consumer → discovers
+from its records what the Kit supplied versus what is demo-local — the composition declaration
+and decision budget read as working artefacts, not ceremony → recomposes: runs it from a fresh
+checkout, changes a binding or the results surface, or starts their own composition down the
+same path → routes findings back through the register.
+
+**Value.** From seeing to building without repository archaeology — the demo is the worked
+example the Kit definition promises its consumers.
+
+**Experience.** The definition's consumer journey (discover → declare → compose → inspect)
+made concrete: the shortest route for a real proposition is visible, defaults explain their
+guarantee and omission, and what the Kit supplies versus what the product owns is legible.
+
+**Measure / losing condition.** A cold-consumer probe: someone not involved in the build
+reaches a useful recomposition from the documented path alone; the decision budget shows
+machinery-shaped burden trending into the Kit. Losing: only the build seat can operate it, or
+hidden policy is needed to succeed.
 
 ## First-pass determination: resources, Kit provision, gaps, seams
 
@@ -128,23 +207,34 @@ relevance retuning, no new search features, no admin surfaces.
    placement rulings.
 7. **Public-surface-only consumption held.** No deep imports into SDK internals or admin
    surfaces from the demo. Proof: **repo-safe** — dependency-cruiser/import rules.
+8. **Each key journey is completable and evidenced at its declared measure.** Teacher:
+   ground-truth-seeded journeys complete end-to-end against the live index. Stakeholder: the
+   mechanism-legibility layer exists over live data and the possibility-chain states are
+   recorded separately at a real showing. Developer: a cold-consumer probe reaches a useful
+   recomposition from the documented path alone. Proof: **repo-safe** for the teacher e2e
+   suite, the legibility layer and the documented fresh-checkout path; **owner-held** for the
+   stakeholder showing and the cold-probe verdict.
 
 ## Todos
 
 Slices at pickup, each a single-story PR within the default round budget (PDR-132):
 
-1. **Stage 0** — proposition record, composition declaration, decision-budget seed, and the
-   evidence-ledger entry stub. Docs only; carries the owner gate.
+1. **Stage 0** — proposition record, composition declaration (carrying the three journeys),
+   decision-budget seed, and the evidence-ledger entry stub. Docs only; carries the owner
+   gate.
 2. **Linkability audit** — the instrument, the real-sample evidence run, and the
    truthful-absence contract.
-3. **Smallest vertical slice** — query → results → link-out at the demos tier, consuming the
-   public read surface, design-system styled, accessible from the first render. The
-   host-composition extraction decision (the second-consumer seam above) is taken at this
-   slice through the decision budget, owner-visible, not silently either way.
-4. **Depth and limits surfaces** — relevance and provenance legibility, suggestions and
-   facets where they serve discovery, zero-hit/degraded/limit truthfulness.
+3. **Smallest vertical slice** — the teacher journey's spine: query → results → link-out at
+   the demos tier, consuming the public read surface, design-system styled, accessible from
+   the first render; first ground-truth-seeded e2e journeys land here. The host-composition
+   extraction decision (the second-consumer seam above) is taken at this slice through the
+   decision budget, owner-visible, not silently either way.
+4. **Depth, limits and mechanism-legibility surfaces** — relevance and provenance legibility,
+   suggestions and facets where they serve discovery, zero-hit/degraded/limit truthfulness,
+   and the stakeholder journey's progressive-disclosure "how this works" layer over live
+   data.
 5. **Evidence close** — decision-budget and gap-and-seam consolidation, dispositions routed,
-   composition declaration reverified, owner review.
+   composition declaration reverified, the developer cold-consumer probe run, owner review.
 
 ## Out of scope
 

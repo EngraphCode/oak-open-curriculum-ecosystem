@@ -1784,3 +1784,31 @@ expiries owner-waived for this focused session.
   (CLI refuses until seeded — worked as designed); a compound claim-close + push chain hit
   the 2-minute foreground timeout at the pre-push gate suite — push runs backgrounded with a
   log, per the push-log-to-file practice.
+
+## 2026-08-31 ~2 (Dahlia tracks Blossom, 01Pb31) — owner: plan incomplete without user journeys; machinery≫judgment reproduced WITH the seed in context
+
+- **Owner correction (verbatim core)**: "until we have some key user journeys defined, in
+  terms of user experience and value, it is incomplete" — three groups: "devs working with
+  the Innovation Kit, stakeholders who should be wowed and educated in what is possible and
+  inspired by the demo, and the somewhat pretend end users of a search service who in this
+  case would be teachers". Cure landed same session: journeys as first-class plan content
+  (experience arc + value + measure + losing condition each), wired into criterion 8 and the
+  slices.
+- **Recurrence-despite-capture, named as a class**: the PR #27 close-out free-play seed
+  ("this session's own shape measured machinery ≫ judgment") was IN CONTEXT when this seat
+  authored a plan strong on governance instruments and thin on humans. A passively-held seed
+  did not fire at authoring time — same shape as PDR-098 recurrence-despite-home. Candidate
+  structural cure for plan authoring: the oak-plan skill's body requirements name goal,
+  mechanism, acceptance — none forces "who experiences this and what do they get"; a
+  user-journey requirement for user-facing plan nodes would convert the seed into a firing
+  gate. Routed to next consolidation, not self-landed (new-rule-vs-pdr-clause discipline).
+- **Mapping insight that made the cure cheap**: the three groups were already in the estate's
+  vocabulary — teachers = the proposition's declared proxy audience (ground-truth corpus:
+  "realistic teacher queries with expected results"); stakeholders = the strategy's KIT-1
+  possibility chain (reception/comprehension/generativity/activation, states kept separate);
+  devs = the definition's consumer journey (discover→declare→compose→inspect). Defining
+  journeys was assembly, not invention — evidence the corpus decomposition is pulling its
+  weight.
+- **Use-what-we-have find**: the search CLI's ground-truth corpus doubles as the teacher
+  journey seed AND honest in-demo example searches — the "somewhat pretend" user becomes a
+  declared claim boundary backed by a real instrument rather than a wink.
