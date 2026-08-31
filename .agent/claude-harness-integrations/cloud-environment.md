@@ -159,16 +159,29 @@ Conditions that keep the policy honest:
   canonical [`no-verify-requires-fresh-authorisation`](../rules/no-verify-requires-fresh-authorisation.md)
   rule carries this standing ruling as its one scoped narrowing — outside this
   scope its per-invocation requirement is unchanged.
-- Commit-message-class checks are **not in CI** and therefore run in-session,
-  non-optionally, per commit: `pnpm agent-tools:check-commit-message -F <file>`
-  (commitlint) **and** the accidental-major-release guard
-  `.husky/commit-msg` would otherwise provide —
-  `pnpm exec tsx agent-tools/src/version-guard/prevent-accidental-major-version.ts <file>`,
-  whose path-safety contract only accepts message files under the real git
-  directory — resolve it with `git rev-parse --absolute-git-dir` (in a linked
-  worktree `.git` is a file, so a literal `.git/` path fails) and write the
-  draft there, e.g. `"$(git rev-parse --absolute-git-dir)/COMMIT_MSG_DRAFT"`.
-  Skipping either check recreates the gap `HUSKY=0` opens.
+- **The blocking in-session substitute set** — the skipped hooks' checks are
+  enumerated here once, each mapped to its substitute; skipping any of the
+  in-session three recreates the gap `HUSKY=0` opens:
+
+  1. **Branch guard** (`.husky/pre-commit` sources
+     `refuse-commit-on-main.sh`): run the same guard before every commit —
+     `bash -c 'GUARD_BRANCH="" GUARD_HINT="…" . .husky/refuse-commit-on-main.sh'`
+     — because CI cannot prevent a local-`main` commit after the ref has
+     advanced.
+  2. **Commitlint** (`.husky/commit-msg`):
+     `pnpm agent-tools:check-commit-message -F <draft>`.
+  3. **Accidental-major-release guard** (`.husky/commit-msg`):
+     `pnpm exec tsx agent-tools/src/version-guard/prevent-accidental-major-version.ts <draft>`.
+     Its path-safety contract only accepts files under the real git
+     directory: resolve with `git rev-parse --absolute-git-dir` (in a linked
+     worktree `.git` is a file) and make the draft **intent-scoped** — a
+     shared fixed name races between agents on one worktree (the commit
+     skill's proven concurrency class) — e.g.
+     `"$(git rev-parse --absolute-git-dir)/COMMIT_MSG_<intent-id>"`.
+
+  Everything else the hooks ran maps to CI: staged prettier/markdownlint →
+  the static-checks job; gitleaks → the secret-scan job; the turbo suites →
+  the build/test/browser jobs.
 - Every push lands on a CI-gated PR; an un-PR'd branch push has no gate, so
   cloud work stays on PR branches (standing practice anyway).
 - If CI's coverage narrows relative to the local suite, the premise fails
