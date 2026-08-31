@@ -24,7 +24,7 @@ owner_gates:
       review — one owner moment covers the definition and the first concrete instantiation of its
       record interfaces.
     expires: 2026-09-20
-last_updated: 2026-08-30
+last_updated: 2026-08-31
 ---
 
 # Innovation Kit product-creation-system definition

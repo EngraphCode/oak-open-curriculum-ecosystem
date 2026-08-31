@@ -148,15 +148,23 @@ comprehensive, and that premise was verified first-hand against `ci.yml`
 (secret-scan; format, markdownlint, runtime and shell lint, subagents,
 portability, repo-validators, skills, encoding; build with schema-drift
 check; type-check, lint, test; knip and dependency-cruiser; browser suites;
-a `run-quality-gates` rollup). Measured effect at adoption: seconds per
-commit-push cycle against ~15 minutes with local hooks.
+a `run-quality-gates` rollup). That comprehensiveness covers **tree-state**
+gates only — CI runs no commit-message-class checks, which is why the
+in-session validation below is non-optional. Measured effect at adoption:
+seconds per commit-push cycle against ~15 minutes with local hooks.
 
 Conditions that keep the policy honest:
 
-- Scope is **agent cloud sessions**; local human development keeps hooks.
-- Commit-message validation still runs in-session
-  (`pnpm agent-tools:check-commit-message`) — it is fast and CI's commitlint
-  gate is post-push.
+- Scope is **agent cloud sessions**; local human development keeps hooks. The
+  canonical [`no-verify-requires-fresh-authorisation`](../rules/no-verify-requires-fresh-authorisation.md)
+  rule carries this standing ruling as its one scoped narrowing — outside this
+  scope its per-invocation requirement is unchanged.
+- Commit-message-class checks are **not in CI** and therefore run in-session,
+  non-optionally, per commit: `pnpm agent-tools:check-commit-message`
+  (commitlint) **and**
+  `pnpm --filter @oaknational/agent-tools prevent-accidental-major-version <message-file>`
+  (the accidental-major-release guard `.husky/commit-msg` would otherwise
+  provide). Skipping either recreates the gap `HUSKY=0` opens.
 - Every push lands on a CI-gated PR; an un-PR'd branch push has no gate, so
   cloud work stays on PR branches (standing practice anyway).
 - If CI's coverage narrows relative to the local suite, the premise fails

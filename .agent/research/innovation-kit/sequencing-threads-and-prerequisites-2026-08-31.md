@@ -29,7 +29,7 @@ Per subject-phase file (`packages/sdks/oak-sdk-codegen/src/types/generated/bulk/
 | --- | --- | --- | --- |
 | `sequence: unit[]` | positional array — "array of units in teaching order" (schema doc, :397) | **Teaching order — editorial choice** | Curriculum design; changes when a sequence is re-authored |
 | `unitLessons[].lessonOrder` | number per lesson (:164) | **Teaching order — editorial choice** | Same |
-| `threads[]` per unit, with `order` | thread membership; `order` is the **thread's display index**, constant across placements — the bulk exports **no authoritative within-thread unit ordering** (generator header, `graph-corpus-sequences.ts:5-7`) | **Membership + display metadata**; within-thread progression must be derived (currently `(year, unitId)`) | Curriculum design; the derived progression is a projection, not source truth |
+| `threads[]` per unit, with `order` | thread membership plus an `order` number whose meaning is **contested between two in-repo contracts**: `thread-extractor.ts:20,92` treats it as the unit's order *within* the thread and sorts by it, while `graph-corpus-sequences.ts:5-7` documents it as the thread's constant display index and derives progression by `(year, unitId)` instead | The contradiction is unadjudicated — representative bulk records are the discriminating evidence, not yet inspected | If the extractor's reading is right, an authoritative within-thread order **does** exist in bulk data and the corpus's `(year, unitId)` derivation ignores real source ordering; if the generator's is right, within-thread progression is a projection. Either way the resolution belongs to the graph estate's owners |
 | `priorKnowledgeRequirements: string[]` | free-text prose statements per unit (:283) | **Prerequisite constraint — the genuine article**, unlinked: no typed references to the units that satisfy them | Curriculum design as domain claims; persists across re-sequencing |
 | `whyThisWhyNow?: string` | prose per unit (:289) | **The bridge artefact** — editorial rationale connecting the choice to its constraints | Curriculum design |
 | `nationalCurriculumContent: string[]` | prose anchors (:284) | **External statutory constraint** | DfE national curriculum; changes on statutory revision |
@@ -54,9 +54,15 @@ Three consequences:
    `priorKnowledgeRequirements` statement to the unit(s) that satisfy it is an inference
    or authoring task nobody has done; until it is done, no honest typed prerequisite graph
    exists in the estate.
-3. **Lifecycles diverge exactly as the owner said.** Re-sequencing a curriculum changes
-   the order arrays and thread placements without touching one prerequisite statement;
-   the corpus's "prerequisite" edges would all move anyway.
+3. **Lifecycles diverge exactly as the owner said — and the edges track neither concept
+   faithfully.** `threadOrderingPairs` sorts by `(year, unitId)` and ignores the positional
+   `sequence` array entirely (`graph-corpus-edges.ts:65-77`): a within-year re-ordering of
+   teaching order moves **no** edges, while a year-placement or membership change moves
+   them — so the edges are year-granular placement facts, not teaching order. Between
+   same-year units the chain order is unitId-alphabetical, documented in the generator
+   itself as "a stated-arbitrary tie-break… within one year the order is not curricular" —
+   yet those pairs are emitted under the `prerequisiteFor` label. No prerequisite
+   statement is touched by any of these moves.
 
 ## OWA thread surfaces (first-hand, `91662d8`)
 

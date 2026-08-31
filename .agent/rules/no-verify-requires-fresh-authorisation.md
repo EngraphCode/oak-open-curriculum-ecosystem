@@ -22,6 +22,17 @@ syntax used to achieve the skip is the agent's responsibility, and any mechanism
 above counts as a skip whether the owner's authorisation language named that
 specific spelling or not.
 
+**One standing owner ruling narrows this rule's scope (2026-08-31).** The owner
+ruled that **agent cloud sessions** commit and push with `HUSKY=0`, relying on
+GitHub CI as the tree-state gate, under the conditions recorded in
+[`cloud-environment.md` §Git-hook policy](../claude-harness-integrations/cloud-environment.md)
+— non-optional in-session commit-message validation (commitlint and the
+accidental-major-version guard, which CI does not run), PR-gated pushes, and
+re-decision if CI's coverage narrows. Within that exact scope the standing
+ruling *is* the owner authorisation; everywhere else — local development, any
+other mechanism, any session outside the cloud-agent scope — this rule's
+per-invocation requirement stands unchanged.
+
 If a hook is failing:
 
 1. **Fix the cause.** The hook is failing because something is wrong. Find what.
