@@ -42,6 +42,21 @@ authority-specific; what current OCE evidence does and does not establish; and w
 falsify the model. Conventional product foundations remain visible as examples inside the whole
 system rather than becoming its organising subject.
 
+## User groups and value
+
+Added at the 2026-08-31 material amendment, per the plan-estate common requirement of the
+same date. The definition's value is offered, not need-proven (the innovation clause):
+
+- **Product and demo creators** (developer or agent seats composing from the Kit): a
+  reviewed definition of what the Kit is, what it provides, and where authority boundaries
+  sit — composition without archaeology, and gaps routed to their legitimate owners
+  instead of absorbed locally.
+- **The owner**: a durable, reviewable statement of the product-creation system to accept
+  or amend at the joint gate — governance grip on the Kit's shape before implementation
+  narrows it.
+- **Future Kit stewards**: the conserved lineage — why the Kit exists and which claims
+  would falsify its model — so later curation amends deliberately rather than rediscovers.
+
 ## Mechanism
 
 Use the [Innovation Kit research index](../../research/innovation-kit/README.md) to route between:

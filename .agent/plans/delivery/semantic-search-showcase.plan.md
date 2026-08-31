@@ -108,14 +108,19 @@ is testable against them.
 **Journey.** A teacher arrives with a real intent in their own professional language
 ("fractions unlike denominators", "algebra progression") → search understands meaning, not
 just keywords → results carry enough curriculum context to judge fit — what it is, where it
-sits, why it matched → one step lands them on the real resource at `www.thenational.academy`
-→ dead ends are honest: zero hits say so and help reframe; a degraded backend says what it is.
+sits, why it matched → a lesson or unit result lands them on the real resource at
+`www.thenational.academy` in one step; a sequence or thread result opens its in-demo layout
+(the programme layout, the threads layout — those scopes' destination, since OWA has no
+thread page), which links out at unit level and below → dead ends are honest: zero hits say
+so and help reframe; a degraded backend says what it is.
 
 **Value.** Found the right thing quickly, judged its fit without leaving the results, and
-finished on the actual resource — discovery, not another destination.
+finished on the actual resource — or, for sequences and threads, on the layout that renders
+what `www` cannot show — discovery, not another destination.
 
 **Experience.** Professional vocabulary in, curriculum-shaped results out; relevance and
-provenance legible at the result; one-interaction hand-off; truthful difficult states; every
+provenance legible at the result; one-interaction hand-off at lesson and unit scope
+(layout-then-link-out for sequences and threads); truthful difficult states; every
 step keyboard- and screen-reader-complete.
 
 **Grounding and claim boundary.** Journeys are seeded from the search estate's ground-truth
