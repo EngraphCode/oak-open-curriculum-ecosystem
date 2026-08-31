@@ -20,6 +20,9 @@ owner_gates:
       The owner reviews the proposed definition corpus and records acceptance or amendment of its
       foundational thesis, authority boundary, product-creation-system model and documentation
       responsibilities. This gate does not require selecting an implementation proof or provider.
+      Owner word 2026-08-31: this review runs jointly with the semantic-search-showcase Stage-0
+      review — one owner moment covers the definition and the first concrete instantiation of its
+      record interfaces.
     expires: 2026-09-20
 last_updated: 2026-08-30
 ---

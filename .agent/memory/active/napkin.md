@@ -1887,3 +1887,31 @@ it hardens into demo design; metacognition note: the estate's own vocabulary ("s
 curriculum programmes, ADR-097; thread progressions and prerequisite graphs as separate
 graph tools) suggests the distinction partially exists in the machinery but may not be held
 in the WORDS — a capability-polysemy sibling (the 2026-08-14 comparison entry's class).
+
+## 2026-08-31 ~7 (Dahlia tracks Blossom, 01Pb31) — five decisions taken at the decision round; one question owner-rejected for premature premises
+
+Owner answers at the AskUserQuestion round (decision-board follow-through), verbatim-core:
+
+- **PR #28**: "Merge it now" — executed as auto-merge-on-green (normal merge commit), PR
+  subscribed for the merge wake.
+- **Showcase plan**: "Ratify now" — stamp applied (ratified_by Jim Cresswell, 2026-08-31,
+  ratified_where this entry + the follow-up PR); the Stage-0 owner gate remains the build
+  go/no-go.
+- **Definition corpus**: "Jointly with plan" — one owner moment covers the definition
+  acceptance and the Stage-0 declaration; gate clears_when amended to carry the word.
+- **HUSKY trial**: "Adopt + profile lane" — policy encoded in
+  cloud-environment.md §Git-hook policy (scope: agent cloud sessions; premise-revalidation
+  condition named); the check-performance profiling lane is commissioned and awaits pickup,
+  its plan authored by its implementer at pickup (no strategic parent forced today — none
+  fits, and mis-parenting is worse than deferring).
+- **Thread UX — REJECTED as premature, three corrections (owner verbatim-core)**: "Asking
+  this question before looking at the owa code is a waste of time"; the claim that a thread
+  page linking out to programme pages is a "visceral exploration of the differences" "is a
+  nonsense"; "we absolutely need to understand 'sequencing' first". Class: this seat put a
+  decision to the owner on an UNVERIFIED premise (OWA thread-view absence inferred from the
+  URL helpers, not from the OWA code) and dressed a design shrug in confident language.
+  read-before-asking violated in spirit — the verification WAS named as pending inside the
+  recommendation, which is worse, not better: a known-unverified premise disqualifies the
+  question. Sequencing order: (1) read OWA code for thread surfaces, (2) bulk-download
+  sequencing-data survey + the order-vs-prerequisite concept exploration, (3) only then any
+  thread-UX design. The thread-UX decision card is void until then.

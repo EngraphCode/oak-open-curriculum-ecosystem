@@ -138,6 +138,40 @@ Re-add an entry only when a setup-time card implicates a host.
   using the environment; channel ids are not secrets, and no secret may be
   added here.
 
+## Git-hook policy for cloud agent sessions (HUSKY=0)
+
+Owner ruling, 2026-08-31 (trialled the same session, then adopted with a
+companion profiling commission): **cloud agent sessions commit and push with
+`HUSKY=0`**, relying on GitHub CI as the quality gate. This relocates the
+checks, it does not remove them — the adoption was conditional on CI being
+comprehensive, and that premise was verified first-hand against `ci.yml`
+(secret-scan; format, markdownlint, runtime and shell lint, subagents,
+portability, repo-validators, skills, encoding; build with schema-drift
+check; type-check, lint, test; knip and dependency-cruiser; browser suites;
+a `run-quality-gates` rollup). Measured effect at adoption: seconds per
+commit-push cycle against ~15 minutes with local hooks.
+
+Conditions that keep the policy honest:
+
+- Scope is **agent cloud sessions**; local human development keeps hooks.
+- Commit-message validation still runs in-session
+  (`pnpm agent-tools:check-commit-message`) — it is fast and CI's commitlint
+  gate is post-push.
+- Every push lands on a CI-gated PR; an un-PR'd branch push has no gate, so
+  cloud work stays on PR branches (standing practice anyway).
+- If CI's coverage narrows relative to the local suite, the premise fails
+  and the policy is re-decided — the comprehensiveness check above is the
+  revalidation instrument.
+- `HUSKY=0` is the mechanism; `--no-verify` remains blocked and separately
+  governed by `no-verify-requires-fresh-authorisation`.
+
+**Companion commission (same ruling): the check-performance profiling
+lane.** The owner also commissioned profiling and improving full-check
+performance so local (hooked) cycles get faster too. The lane awaits
+pickup; its delivery plan is authored by its implementer at pickup per the
+plan estate's own doctrine. First measurements to beat: ~15 minutes for a
+cold full suite, minutes warm, dominated by the turbo build/test legs.
+
 ## Fail-fast contract
 
 The script exits non-zero on any failure and session creation then fails

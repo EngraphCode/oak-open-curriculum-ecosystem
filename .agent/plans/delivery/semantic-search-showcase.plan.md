@@ -6,10 +6,13 @@ overview: >-
   Build the Innovation Kit's first proposition: a discovery-to-resource semantic-search
   showcase that reveals the search capability honestly and produces the Kit's first
   gap-and-seam register.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: Jim Cresswell
+ratified_date: 2026-08-31
+ratified_where: >-
+  Owner decision in session Dahlia tracks Blossom (01Pb31), 2026-08-31 — "Ratify now" at the
+  decision round recorded verbatim in the napkin entry "~7" of the same date; the Stage-0
+  owner gate below remains the build go/no-go.
 serves: innovation-kit
 impact_areas:
   - innovation-kit
