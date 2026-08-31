@@ -12,9 +12,11 @@ state-machine behaviour).
 
 ## Trigger
 
-Review feedback arrives on a prose-class PR this session shepherds — a
-bot review wave, a review comment, a re-review after a push. Fires per
-wave, before any cure is drafted. At PR-open, the companion moment:
+Review feedback arrives on a PR this session shepherds whose changeset
+is prose-class — or, on a mixed code-and-prose changeset, the feedback
+binds a prose artefact (PDR-140 binds the prose findings of mixed
+changesets; code findings keep the existing state-machine behaviour).
+Fires per wave, before any cure is drafted. At PR-open, the companion moment:
 declare the intake contract (artefact class, next verification point,
 worthiness-bar reading, settlement-push budget) in the working notes
 before the first review arrives, citing the acceptance criterion that

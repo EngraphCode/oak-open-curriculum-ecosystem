@@ -409,7 +409,9 @@ review wave, the opening working notes declare the intake contract:
 artefact class, next verification point, the worthiness-bar reading
 that follows from those two, and the settlement-push budget. Thereafter
 triage per PDR-140 and
-[`review-feedback-defaults-to-triage`](../../rules/review-feedback-defaults-to-triage.md):
+[`review-feedback-defaults-to-triage`](../../rules/review-feedback-defaults-to-triage.md)
+(on mixed changesets, the prose findings take this contract; code
+findings keep the machine's existing behaviour):
 disposition-and-route (with the durable ledger write) or
 reject-with-rationale is the default, cures batch into settlement
 pushes, and bot lanes batch while human reviewers keep this machine's
@@ -635,7 +637,9 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
 4. **Round settled; merge-ready.** A round is SETTLED when every expected
    reviewer leg reads SATISFIED or SKIPPED for the current tip AND a quiet
    window LONGER than the async lag has elapsed since the latest review
-   binding to the tip — never since the push (>10 min; 12 used on #330)
+   binding to the tip — never since the push, and a disposition-only
+   pass anchors the window exactly as a push does (>10 min; 12 used on
+   #330)
    (round-3 correction, 2026-07-16: without the skip clause a timed-out
    reviewer stays bound to an older commit and the settled state is
    unreachable). **The quiet window is a PROXY for review-run-boundary
@@ -645,8 +649,12 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    breach** (owner word 2026-07-25; #518 and #534 were owner-merged inside
    the window, correctly). Agents keep the proxy. On a tip where every leg settled via SKIPPED (no review
    ever bound to the tip), the quiet window anchors on the checks-green
-   window from item 3. MERGE-READY is a settled round that landed zero new
-   findings, plus every Phase 7 gate leg.
+   window from item 3. MERGE-READY is a settled round with zero
+   UNDISPOSITIONED findings and a cure-worthy count of zero (item 2's
+   semantics under PDR-140: a round whose raised findings are all
+   validly dispositioned-with-resolution is merge-ready without another
+   push — the pre-triage "zero new findings" reading recreated the
+   cycle PDR-140 retires), plus every Phase 7 gate leg.
 5. **The merge boundary.** Merging takes exactly three sanctioned shapes,
    all issued at a freshly RECOMPUTED full gate. For BOT merges the front
    door is `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>`
