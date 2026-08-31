@@ -164,10 +164,11 @@ Conditions that keep the policy honest:
   (commitlint) **and** the accidental-major-release guard
   `.husky/commit-msg` would otherwise provide —
   `pnpm exec tsx agent-tools/src/version-guard/prevent-accidental-major-version.ts <file>`,
-  whose path-safety contract only accepts message files under `.git/` (write
-  the draft to e.g. `.git/COMMIT_MSG_DRAFT`, or run the guard on
-  `git log -1 --format=%B` written there post-commit and amend-free re-land on
-  a trip). Skipping either recreates the gap `HUSKY=0` opens.
+  whose path-safety contract only accepts message files under the real git
+  directory — resolve it with `git rev-parse --absolute-git-dir` (in a linked
+  worktree `.git` is a file, so a literal `.git/` path fails) and write the
+  draft there, e.g. `"$(git rev-parse --absolute-git-dir)/COMMIT_MSG_DRAFT"`.
+  Skipping either check recreates the gap `HUSKY=0` opens.
 - Every push lands on a CI-gated PR; an un-PR'd branch push has no gate, so
   cloud work stays on PR branches (standing practice anyway).
 - If CI's coverage narrows relative to the local suite, the premise fails

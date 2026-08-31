@@ -139,7 +139,15 @@ Run these steps **before** formulating the commit message.
    **The `commit-msg` hook is the real gate — do not test the checker.** The
    `.husky/commit-msg` hook runs commitlint on every commit unconditionally; the
    pre-draft `check-commit-message` script is an optional convenience to catch a
-   format slip ~30s earlier, not a gate. **Never run a per-commit negative
+   format slip ~30s earlier, not a gate. **Exception — sessions committing
+   under a standing owner hook-policy ruling (e.g. `HUSKY=0` cloud agent
+   sessions per the ruling recorded in
+   `no-verify-requires-fresh-authorisation`):** there the hook does not run and
+   CI validates no commit-message class, so the in-session checks become the
+   gate and are BLOCKING, both of them, per commit: `check-commit-message -F
+   <file>` AND the accidental-major-version guard, with exit codes read
+   in-band (never through a pipe). The operational invocation details live in
+   the repo's cloud-environment doc. **Never run a per-commit negative
    control** (a deliberately-bad message to "prove the checker is live") — that
    tests the tool, not your message, and has no bridge to landing a conforming
    commit. If you run the checker, trust its exit code; if a given invocation
