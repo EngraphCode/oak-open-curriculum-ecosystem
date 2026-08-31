@@ -63,37 +63,54 @@ structure citing its source fields per the recurrence guard landed by
   unpublished — see `upstream-curriculum-data-exposure`).
 - **Lesson order**: `unitLessons[].lessonOrder` within a unit.
 - **Prior knowledge statements**: a unit's `priorKnowledgeRequirements`
-  as first-class served content, plus the shared-statement structure
-  (units sharing a statement by string identity — published fact, no
-  inference), and `whyThisWhyNow` as the unit's placement rationale.
+  as first-class served content, plus the shared-statement structure —
+  a **declared projection** grouping units by string-identical
+  requirement statements (the strings are published facts; the grouping
+  is derived, implies no authored relationship, and its contract says
+  so) — and `whyThisWhyNow` as the unit's placement rationale.
 
-Tool naming follows the data (Oak names only); one open semantic
-detail — whether `sequence` array position stays meaningful within a
-year when programme forks share a file — is checked against a real
-downloaded bulk file at pickup, before the sequence-order contract is
-worded.
+Tool naming follows the data (Oak names only). The sequence-order
+contract rests on one data premise the schema leaves open — whether
+`sequence` array position stays meaningful within a year when programme
+forks share a file — so establishing that premise against real bulk
+files is this plan's first todo, blocking the contract wording:
+criterion 2 commits only to the scope that check verifies.
 
 ## Acceptance criteria (each with a proof — required)
 
 1. Each served view names, in its contract and its generated types, the
    bulk-schema fields it derives from; the source-citation validator
    passes. Proof: `repo-safe` — validator plus contract tests.
-2. Sequence-order queries return units in the `sequence` array's order
-   under programme-factor filters, proven against fixture data drawn
-   from a real bulk file. Proof: `repo-safe` — unit/integration tests.
+2. The within-year meaning of `sequence` array position across
+   programme forks is established against real bulk files and recorded
+   in the plan before any ordering contract is worded; sequence-order
+   queries then return units in the `sequence` array's order under
+   programme-factor filters, within exactly the verified scope, proven
+   against fixture data drawn from a real bulk file. Proof:
+   `repo-safe` — the recorded verification note plus unit/integration
+   tests.
 3. The thread view's contract states its derivation (sequence order
    restricted to thread membership) and asserts no thread-specific
    order. Proof: `repo-safe` — contract test on the served description
    plus review.
 4. Prior knowledge statements and shared-statement queries serve
-   exactly the published strings, keyed by string identity. Proof:
-   `repo-safe` — tests against fixtures.
+   exactly the published strings, with the shared-statement grouping
+   presented as a declared projection keyed by string identity. Proof:
+   `repo-safe` — tests against fixtures plus the contract's projection
+   statement.
+5. Lesson-order queries return a unit's lessons ordered by
+   `unitLessons[].lessonOrder`. Proof: `repo-safe` — unit/integration
+   tests against fixtures.
 
 ## Todos
 
-Sliced at pickup by the implementer; this plan is expected to split
-into two or more single-story PRs (ordering views; prior-knowledge
-statement serving), each within the default round budget.
+Todo 1, blocking all contract wording: verify the within-year
+sequence-position semantics against real downloaded bulk files and
+record the verified scope in this plan (dated note). The remaining
+slices are cut at pickup by the implementer; this plan is expected to
+split into two or more single-story PRs (ordering views;
+prior-knowledge statement serving), each within the default round
+budget.
 
 ## Out of scope
 

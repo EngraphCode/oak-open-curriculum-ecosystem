@@ -15,12 +15,7 @@ impact_areas:
   - served-surface
 tickets: []
 depends_on: []
-owner_gates:
-  - awaiting: external-input
-    clears_when: >-
-      oaknational/oak-openapi maintainers respond to the filed exposure
-      requests (accept, decline, or counter-propose)
-    expires: 2026-09-21
+owner_gates: []
 last_updated: 2026-08-31
 ---
 
@@ -59,10 +54,12 @@ first-hand evidence paths (the sequence view SQL that drops
 of any consuming query; the bulk schema's closed shape), written as
 exposure requests against data Oak already materializes — never as
 schema loosening. The consumption contingency stays prose in this plan
-until data exists (no speculative code shapes): the owner gate above
-holds the follow-up honestly, with an absolute expiry, after which the
-outcome (renew, consume, or record-and-close) is decided on what
-actually happened.
+until data exists (no speculative code shapes). A gate records a
+current wait, so none is held before the wait exists: at the moment
+the issues are filed, this plan gains a dated `external-input` owner
+gate whose absolute expiry is set three weeks from the filing date,
+after which the outcome (renew, consume, or record-and-close) is
+decided on what actually happened.
 
 ## Acceptance criteria (each with a proof — required)
 
@@ -75,12 +72,14 @@ actually happened.
    would enable) without committing Oak to anything. Proof:
    `repo-safe` — issue drafts reviewed in-repo before posting.
 3. The outcome at gate expiry is recorded (accepted / declined / no
-   response) with the follow-on disposition. Proof: `repo-safe` — the
-   dated note in this plan at archival.
+   response) with the follow-on disposition. Proof: `owner-held` — the
+   issue states live on GitHub, so the owner verifies them there; the
+   dated note in this plan records the verified outcome at archival.
 
 ## Todos
 
-Draft the three issues in-repo for review; file them; record URLs;
+Draft the three issues in-repo for review; file them; record URLs and
+add the dated external-input gate (expiry three weeks from filing);
 hold the gate.
 
 ## Out of scope

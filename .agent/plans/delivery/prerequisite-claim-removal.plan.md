@@ -65,18 +65,26 @@ under the same strategic node; this plan only takes the lie out.
   is traversal of the removed edges), the `get-prior-knowledge-graph`
   tool, and their tests; regenerate the emitted corpus.
 - **Prose claim surfaces** (the same claim published in words —
-  completion is false without them): `tool-guidance-data.ts` entries
-  directing assistants to the prerequisite subgraph; the
-  `learning-progression` guidance resource's "map prerequisite
-  dependencies" instruction; cross-references in
+  completion is false without them). Verified inventory at authoring
+  (2026-08-31): `tool-guidance-data.ts` entries directing assistants to
+  the prerequisite subgraph; `tool-guidance-workflows.ts` steps invoking
+  the tool; the `learning-progression`, `curriculum-mapping`, and
+  `continue-progression` guidance resources; cross-references in
   `aggregated-misconception-graph.ts` and
   `aggregated-thread-progressions.ts` descriptions;
-  `curriculum-model-resource.ts`; `served-tool-table.md`, the app
-  README, and `docs/manual-uat-guide.md`.
+  `curriculum-model-resource.ts`; `agent-support-tool-metadata.ts`;
+  `served-tool-table.md`; the root `README.md` and the app README;
+  `docs/manual-uat-guide.md`. Prose strings do not become compile
+  errors, so this inventory is completed at execution by the repo-wide
+  claim-vocabulary sweep that acceptance criterion 2 requires — the
+  list above is the starting set, never the boundary.
 - **Recurrence guard**: every emitted corpus edge type carries the
   bulk-schema source field it derives from, checked by a validator that
-  recomputes membership (validators-must-recompute); plus a test
-  asserting `prerequisiteFor` is structurally absent. The semantic
+  recomputes membership (validators-must-recompute). The guard is
+  proven behaviourally, red-first: supply an edge type without a valid
+  source-field citation and observe the validator reject it — never by
+  pinning the absence of `prerequisiteFor` (testing-strategy: pinning
+  an absence proves configuration, not behaviour). The semantic
   invariant — no edge asserts meaning its source field does not carry —
   lands as a dated amendment on ADR-086 (the corpus extraction
   methodology record) in the same change.
@@ -85,25 +93,40 @@ under the same strategic node; this plan only takes the lie out.
 
 1. No generated corpus artefact contains a `prerequisiteFor` edge or
    edge type. Proof: `repo-safe` — the narrowed closed union
-   type-checks estate-wide, and a unit test on the emitted corpus
-   asserts the edge type set exactly.
+   type-checks estate-wide and the regenerated corpus passes its
+   existing integrity gates (the compile error on the removed member
+   is the red-first signal; no absence pin is added).
 2. No served tool, resource, guidance entry, or repository doc claims
    prerequisite data or directs consumers to it. Proof: `repo-safe` —
    the served-surface tests pass with the tool absent, and a repo-wide
    search for the retired claim vocabulary in served content is clean
    at review (content-quality half: construction plus review, never a
    grep gate).
-3. Every remaining emitted edge type cites its bulk-schema source
-   field, recomputed by validator. Proof: `repo-safe` — the validator
-   run red-first against the pre-removal corpus, green after.
+3. Every emitted edge type cites its bulk-schema source field,
+   recomputed by validator, and the validator rejects an edge type
+   without a valid citation. Proof: `repo-safe` — the behavioural
+   red-first run: an uncited edge type supplied to the validator is
+   rejected; the emitted corpus passes.
 4. ADR-086 carries the dated invariant amendment. Proof: `repo-safe` —
    the amendment text in the same PR.
 
 ## Todos
 
-Sliced at pickup; expected single-story PR within the default round
-budget (removal is one coherent story: generator + chain + prose +
-guard land atomically with the regenerated corpus).
+Sliced as a safe stack of two single-story PRs, each with a green
+intermediate state (design-work-for-small-prs: the sizing bands bind
+at plan time):
+
+1. **Prose claim removal** — the guidance, metadata, and doc surfaces
+   above stop directing consumers to prerequisite structure while the
+   tool still functions. Green intermediate: nothing oversells; the
+   technical surface is unchanged.
+2. **Technical removal and guard** — the compile-coupled core
+   (generator, closed union, corpus regeneration, view, tool, their
+   tests), the source-citation validator, and the ADR-086 amendment.
+   These land atomically because the narrowed union breaks every
+   downstream reference in one compile — no smaller green state exists
+   within this set; generated corpus artefacts are excluded from the
+   band count.
 
 ## Out of scope
 

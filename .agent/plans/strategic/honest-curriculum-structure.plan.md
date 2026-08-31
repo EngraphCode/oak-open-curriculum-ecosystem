@@ -65,8 +65,9 @@ approximating it locally.
 ## Success looks like
 
 - The served surface carries zero structural claims unsupported by the
-  published bulk data, guarded by validators that recompute the claim
-  (every served edge type cites its source field).
+  published bulk data, and an unsupported claim cannot silently return —
+  recurrence prevention is an obligation each delivering plan designs
+  and proves.
 - Sequence order, thread membership, lesson order, and prior knowledge
   requirement statements are served under Oak names, each surface
   documenting exactly what it does and does not assert.
