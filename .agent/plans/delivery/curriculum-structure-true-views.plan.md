@@ -63,9 +63,14 @@ fields; nothing serves inferred relationships.
   **declared projection** (the strings are published facts; the
   grouping is derived by string identity, implies no authored
   relationship, and its contract says so). Derived at sdk-codegen time
-  from the bulk data (cardinal rule), with the emitted structure
-  citing its source field per the recurrence guard landed by
-  `prerequisite-claim-removal`.
+  from the bulk data (cardinal rule). The source-citation guard landed
+  by `prerequisite-claim-removal` covers emitted corpus edge types
+  only, so this plan extends it to emitted non-edge projections: the
+  projection artefact carries the bulk-schema source field it derives
+  from, the validator recomputes that coverage exactly as it does for
+  edge types (validators-must-recompute), and the extension is proven
+  red-first — an uncited projection supplied to the validator is
+  rejected.
 - **Gap check at pickup**: if a structural contract surfaces that the
   existing tools genuinely cannot satisfy, it is named as a contract
   gap with the tool that fails it and routed as its own decision —
@@ -76,8 +81,10 @@ fields; nothing serves inferred relationships.
 1. The shared-statement tool's contract and generated types name the
    bulk-schema field they derive from and present the grouping as a
    declared projection keyed by string identity; the source-citation
-   validator passes. Proof: `repo-safe` — validator plus contract
-   tests.
+   guard, extended by this plan to cover emitted non-edge projections,
+   recomputes the projection's citation and passes, with the extension
+   proven red-first (an uncited projection is rejected). Proof:
+   `repo-safe` — the red-first validator run plus contract tests.
 2. Shared-statement queries serve exactly the published strings,
    grouped by string identity, proven against fixture data drawn from
    a real bulk file. Proof: `repo-safe` — unit/integration tests.
