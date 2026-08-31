@@ -1,6 +1,6 @@
 # ADR-226: `.agent/research/` as the Research Surface for Imported Records
 
-- **Status:** Proposed (lands with PR #27; owner ratification via PR review)
+- **Status:** Accepted (2026-08-31; owner-ratified via PR #27 review and merge)
 - **Date:** 2026-08-30
 - **Related:** [ADR-215](215-top-level-research-surface.md) — superseded by this
   decision; [ADR-041](041-workspace-structure-option-a.md) — workspace tier

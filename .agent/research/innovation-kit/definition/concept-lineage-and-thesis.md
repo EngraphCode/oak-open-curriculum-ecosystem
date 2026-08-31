@@ -72,8 +72,8 @@ experience activates only the obligations its real context makes applicable.
 The core value mechanism is **governed compression**:
 
 - safely hide solved recurring detail behind strong defaults and coherent contracts;
-- expose any seam that can change human outcome, semantic meaning, authority, state clock,
-  projection loss, rights, failure, evidence or stewardship;
+- expose every seam the [seam rule](system-and-authority-model.md#the-seam-rule) makes
+  material;
 - explain what a default guarantees, what it omits and what condition reopens the decision; and
 - retain difficult and negative knowledge without forcing old mechanisms on new products.
 

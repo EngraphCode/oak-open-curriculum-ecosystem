@@ -478,7 +478,7 @@ New to the repo? Read these five ADRs first for the architectural foundations:
 - [ADR-224: Restricted-lesson exclusion is a documented, configurable switch](224-restricted-lesson-exclusion-configurable-switch.md)
 - [ADR-225: Adopt provider-independent capability composition for runtime services](225-provider-independent-capability-contracts.md) ← **Proposed**
 - [ADR-226: `.agent/research/` as the research surface for imported records](226-agent-research-surface-for-imported-records.md)
-  ← **Proposed** (supersedes ADR-215: records enter as faithful public projections —
+  (Accepted 2026-08-31; supersedes ADR-215: records enter as faithful public projections —
   byte-preserved documents, publication presumption with owner-directed withholding,
   private-permalink reduction with a private-source index, self-contained records, and
   leaf-package-only workspace registration)
