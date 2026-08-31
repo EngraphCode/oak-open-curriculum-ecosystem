@@ -1728,3 +1728,28 @@ session-start drift alert. Free-play seed (association, not finding): this
 session's own shape measured machinery ≫ judgment — the estate's process
 could be decision-budgeted exactly as the Kit proposes; relevant to "keep it
 simple".
+
+## 2026-08-31 (Dahlia tracks Blossom, 01Pb31, innovation-kit direction session) — owner selected the first direction: semantic search; Kit-necessity framing corrected
+
+Fresh cloud container; collaboration state empty — bootstrap fast-path applied
+(no other agents present). Session commission: explore and choose an initial
+direction for the Innovation Kit, no implementation; Practice box and gate
+expiries owner-waived for this focused session.
+
+- **Owner direction (2026-08-31, at the direction question)**: "Semantic
+  search, making use of what we have where appropriate and changing what we
+  should change. The goal is not to prove we need the Innovation Kit, that is
+  the settled, the goal is to build the best and most useful Innovation Kit."
+- **Framing correction absorbed**: this seat's recommendation logic (and the
+  2026-08-31 tee-up's "first proposition is the empirical test of least
+  possible effort") treated the first proposition as a test of the Kit
+  thesis. The owner ruled the Kit's necessity settled; the first proposition
+  is a *vehicle for building* the best and most useful Kit, not an
+  experiment on whether the Kit should exist. The definition corpus's
+  decision-budget and placement instruments still apply as build discipline,
+  not as a verdict gate on the Kit itself.
+- The seat had recommended the agentic chat experience on a
+  least-effort-to-first-evidence basis; the owner chose semantic search.
+  Selection rationale difference worth carrying: effort-to-evidence was the
+  wrong optimisation target once the Kit is settled — usefulness of the
+  resulting Kit is the target.
