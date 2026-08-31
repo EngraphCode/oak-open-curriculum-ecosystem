@@ -55,10 +55,12 @@ kept alive as an option). Replacement views are separate deliveries
 under the same strategic node; this plan only takes the lie out.
 
 - **Generator**: stop minting `prerequisiteFor`; remove the member from
-  the closed `GraphCorpusEdgeType` union and the edge-type counts shape
-  (`graph-corpus-types.ts`), and delete the thread-ordering pair
-  derivation that exists only to feed it (`graph-corpus-sequences.ts`
-  usage). The narrowed union turns every downstream reference into a
+  the closed `GraphCorpusEdgeType` union, the edge-type counts shape,
+  and the prerequisite-specific stats field
+  (`GraphCorpusStats.collapsedIdenticalPrerequisiteEdges`) with its
+  generator and generated-data references (`graph-corpus-types.ts`),
+  and delete the thread-ordering pair derivation that exists only to
+  feed it (`graph-corpus-sequences.ts` usage). The narrowed union turns every downstream reference into a
   compile error — the red-first signal, the same pattern
   `mcp-served-surface-truth` used deliberately.
 - **Serving chain**: delete `prior-knowledge-view.ts` (its only meaning
@@ -68,10 +70,11 @@ under the same strategic node; this plan only takes the lie out.
   completion is false without them). Verified inventory at authoring
   (2026-08-31): `tool-guidance-data.ts` entries directing assistants to
   the prerequisite subgraph; `tool-guidance-workflows.ts` steps invoking
-  the tool; the `learning-progression`, `curriculum-mapping`, and
-  `continue-progression` guidance resources; cross-references in
-  `aggregated-misconception-graph.ts` and
-  `aggregated-thread-progressions.ts` descriptions;
+  the tool; the `learning-progression`, `curriculum-mapping`,
+  `continue-progression`, and `adapt-lesson` guidance resources;
+  cross-references in `aggregated-misconception-graph.ts`,
+  `aggregated-thread-progressions.ts`, and
+  `aggregated-search/tool-definition.ts` descriptions;
   `curriculum-model-resource.ts`; `agent-support-tool-metadata.ts`;
   `served-tool-table.md`; the root `README.md` and the app README;
   `docs/manual-uat-guide.md`. Prose strings do not become compile
@@ -96,12 +99,16 @@ under the same strategic node; this plan only takes the lie out.
    type-checks estate-wide and the regenerated corpus passes its
    existing integrity gates (the compile error on the removed member
    is the red-first signal; no absence pin is added).
-2. No served tool, resource, guidance entry, or repository doc claims
-   prerequisite data or directs consumers to it. Proof: `repo-safe` —
-   the served-surface tests pass with the tool absent, and a repo-wide
-   search for the retired claim vocabulary in served content is clean
-   at review (content-quality half: construction plus review, never a
-   grep gate).
+2. No served tool, resource, or guidance entry, and no current
+   normative repository doc, claims prerequisite data or directs
+   consumers to it. Dated historical records that accurately describe
+   past behaviour (UAT reports, dated spike and research notes) are
+   out of this criterion's scope — history is never rewritten. Proof:
+   `repo-safe` — the served-surface tests pass with the tool absent,
+   and a repo-wide search for the retired claim vocabulary in served
+   content and current normative docs is clean at review
+   (content-quality half: construction plus review, never a grep
+   gate).
 3. Every emitted edge type cites its bulk-schema source field,
    recomputed by validator, and the validator rejects an edge type
    without a valid citation. Proof: `repo-safe` — the behavioural
