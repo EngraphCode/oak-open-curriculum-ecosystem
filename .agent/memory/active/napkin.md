@@ -2237,3 +2237,11 @@ cloud-environment surface at consolidation, not a worked success to normalise.
   semantic change; point external scrutiny there first. Outstanding
   owner acts: ratification stamp on the four PR #32 plan nodes;
   PDR-140 text ratification via PR #33's merge.
+- PDR-140 NAMED FOLLOW-UP (2026-08-31, Codex catch on PR #33): the
+  merge-bot executable (agent-tools pr-watch settlement.ts /
+  merge-decision.ts) is leg-driven and does not consume tally or
+  disposition state — the zero-undispositioned / cure-worthy-zero gate
+  legs are the merging seat's own recomputation until the tool learns
+  them. Follow-up: pass machine-readable disposition state into the
+  settlement verdict. Skill text now states the tool's actual
+  behaviour honestly.

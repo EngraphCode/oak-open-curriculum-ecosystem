@@ -461,7 +461,11 @@ against this skill — file it as one.
    count is the subset that cleared the PDR-140 worthiness bar, and it
    is the count `c[n]`, the terminal-zero test, and both step-back arms
    read (a round can settle at raised > 0, cure-worthy = 0: that IS the
-   terminal success state under triage). Rows are PERSISTED in the
+   terminal success state under triage). In lanes PDR-140 excludes
+   (code-class changesets; human and code findings of mixed ones) no
+   routing disposition exists — every verified-correct finding is
+   cure-worthy by definition — so the two counts coincide there and the
+   pre-PDR-140 reading of `c[n]` is unchanged. Rows are PERSISTED in the
    shepherd's working notes and built from the Phase 3 full harvest — each
    review thread's originating review carries its commit binding
    (`comments.nodes[0].pullRequestReview.commit.oid`). Findings are counted
@@ -658,9 +662,15 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
 5. **The merge boundary.** Merging takes exactly three sanctioned shapes,
    all issued at a freshly RECOMPUTED full gate. For BOT merges the front
    door is `pnpm agent-tools merge-bot merge --pr <n> --expect <reviewer>`
-   (MCP-508): it recomputes this settlement verdict itself, merges only on
-   SETTLE-READY with the verdicted tip's sha pinned, and refuses by
-   verdict name — including SETTLED-NO-REVIEW, the timeout-settled round
+   (MCP-508): it recomputes the LEG-DRIVEN settlement verdict itself,
+   merges only on SETTLE-READY with the verdicted tip's sha pinned, and
+   refuses by verdict name — but it does NOT yet consume the tally or
+   disposition state, so the zero-undispositioned and cure-worthy-zero
+   legs above are the MERGING SEAT'S own recomputation at the boundary
+   until the tool learns them (named follow-up on PDR-140: pass
+   machine-readable disposition state into the verdict); a summary-only
+   review carrying an undispositioned body finding is exactly the case
+   the tool cannot see today — including SETTLED-NO-REVIEW, the timeout-settled round
    this SKILL's item 4 anchor describes, which is watch-endable but NEVER
    merge-eligible. The two non-bot shapes remain: the explicit
    `gh pr merge --merge` command, or ARMING auto-merge — permitted

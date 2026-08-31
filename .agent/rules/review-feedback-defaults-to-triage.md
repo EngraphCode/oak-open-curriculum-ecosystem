@@ -35,10 +35,12 @@ makes any pickup-class home a real verifier.
    class. The bar decides WHERE the cure lands, never WHETHER truth
    matters.
 3. **Below the bar**: reply with the disposition — a route to a named
-   home, or a rejection with rationale — resolve the thread, and queue
-   the durable write the home's consuming step reads (a ledger line in
-   the plan artefact or its ticket for pickup-homed findings; the
-   ticket for ticket-homed ones). This is
+   home, or a rejection with rationale — and resolve the thread. A
+   ROUTE additionally queues the durable write the home's consuming
+   step reads (a ledger line in the plan artefact or its ticket for
+   pickup-homed findings; the ticket for ticket-homed ones); a
+   REJECTION needs no write — the reply's verified rationale is its
+   whole record. This is
    `pr-comments-resolve-and-recheck`'s disposition leg; only the write
    landing is batched, no per-finding push. Queued ledger writes ride
    the next settlement push; if none is otherwise needed by
