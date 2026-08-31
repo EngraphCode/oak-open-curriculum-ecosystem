@@ -309,6 +309,16 @@ surfaces. Partial reads produce false "no problems" verdicts:
   irrelevant. "This predates my change" / "nothing new since T" is not
   addressed, and a fresh finding introduced by the fix commit itself is an
   open finding, never a side-tangent.
+- **Bot lanes on prose-class changesets read this phase through
+  PDR-140** (the state machine's firing-gate block): state 2's
+  "address, fixed at source" lands via the worthiness bar and batched
+  settlement pushes, state 3's ticket leg carries the durable ledger
+  write, and the timestamp clause composes with PDR-140's below-bar
+  age-out (the finding is still triaged; only settlement accounting is
+  untouched). Two distinct triage layers exist and both bind: this
+  phase's three-way ruling (owner, 2026-07-27) decides each finding's
+  terminal state; PDR-140 and `review-feedback-defaults-to-triage`
+  decide when and how a state-2 cure lands. Human lanes are unchanged.
 - Sonar reflects fixes only after the next pushed scan — verify fixes with
   local gates at source; never poll Sonar immediately after an edit.
 - Diagnose a failed CI run from the failed **step name**
@@ -392,6 +402,34 @@ Phases 5–7 drive one coupled loop over review rounds. The contract lives
 here, once; the phases reference it. Amendments land in this section, never
 as phase-local restatements.
 
+**Response pricing — the intake contract
+([PDR-140](../../practice-core/decision-records/PDR-140-review-response-pricing.md),
+owner-ratified 2026-08-31; prose-class changesets).** Before the first
+review wave, the opening working notes declare the intake contract:
+artefact class, next verification point, the worthiness-bar reading
+that follows from those two, and the settlement-push budget. Thereafter
+triage per PDR-140 and
+[`review-feedback-defaults-to-triage`](../../rules/review-feedback-defaults-to-triage.md):
+disposition-and-route (with the durable ledger write) or
+reject-with-rationale is the default, cures batch into settlement
+pushes, and bot lanes batch while human reviewers keep this machine's
+existing small/large ask dispositions. PDR-140 owns the clauses; this
+block is the firing gate, and the tally (item 2) plus the declaration
+are built at PR-open, never reconstructed mid-loop. **Tally semantics
+under triage**: the tally keeps counting RAISED findings per settled
+round (it measures the sampler); the step-back arms and the
+terminal-success state (item 2) read the CURE-WORTHY count — findings
+that cleared the bar; and the generator classification runs over each
+settlement round's FULL raised set, dispositioned findings included —
+an accumulated disposition set that jointly changes what gets built
+escalates to a class assessment even at a cure-worthy count of zero.
+The settlement clock is the countdown to the next batched settlement
+push; pushes changing no reviewed content (a CI cure, a sync) sit
+outside the budget and never carry cures. In-loop, this machine is
+sufficient by design (PDR-140 clause 8): needing an out-of-band
+cognitive-skill invocation to correct a running loop is a defect
+against this skill — file it as one.
+
 1. **The compound read.** One GraphQL selection is the BASELINE compound
    state — it answers most PR-state questions, but two inputs come from
    elsewhere and are added on top of it: the reviewer-leg SATISFIED verdict
@@ -458,12 +496,19 @@ as phase-local restatements.
    2026-07-16 — on #390 a review for `861bb8924` arrived after `783c567af`
    was pushed; arrival-order tallying charges findings to the wrong round
    and can falsely trigger, or mask, non-convergence). Convergence is the
-   per-round count strictly decreasing. Born-sketch PLAN PRs carry an owner
-convergence-cap ruling (2026-07-25): after round 4, further reviewer waves
-DISPOSITION to named homes rather than editing plan text — unless a finding
-shows an actual falsehood in the plan; merge at any settle-green tip whose
-deltas are cap-dispositions or falsehood-cures; hard-stop only for new
-owner parameters. **The step-back trigger is
+   per-round count strictly decreasing (under PDR-140 triage, read on
+   the cure-worthy count per the firing-gate block above). The
+born-sketch plan-PR convergence cap (owner ruling 2026-07-25) is
+subsumed by PDR-140's intake contract. The cap's terms — after round 4,
+disposition to named homes unless a finding shows an actual falsehood;
+merge at any settle-green tip whose deltas are cap-dispositions or
+falsehood-cures; hard-stop only for new owner parameters — now read
+through the bar: for plan-class artefacts the verification point is
+pickup, so a falsehood earns a cure only if it would mislead before
+pickup (PR #32, 2026-08-31: reading every technical falsehood as
+cure-worthy ran the loop to eleven waves; the bar reading is what lets
+the loop terminate). The cap's four-round full-engagement grace is
+deliberately gone — triage binds from wave one. **The step-back trigger is
    mechanical, with the exact predicate `c[n] >= c[n-1] AND
    c[n-1] >= c[n-2]` (two consecutive non-decreasing transitions across
    three settled counts) OR 4 total settled rounds in the epoch — and

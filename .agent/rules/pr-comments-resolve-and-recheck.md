@@ -48,8 +48,10 @@ The loop is:
 3. Push.
 4. **Re-fetch all comments.** If the push produced any new comment, or any thread is
    unresolved, return to step 2.
-5. The PR is comment-clean only when a push yields **zero new comments and zero unresolved
-   threads**.
+5. The PR is comment-clean only when a push yields **zero undispositioned comments and
+   zero unresolved threads** (amended 2026-08-31 with PDR-140: a new comment answered by
+   a valid disposition-with-resolution counts as clean; a new comment nobody has
+   dispositioned never does).
 
 Do not merge, and do not report the PR ready, until step 5 holds.
 
@@ -93,7 +95,13 @@ downstream layer compensates" or on style-level reasoning: across a
 plus one context-blind pass), every disposition later proven wrong was
 grounded in compensating-layer or style-level reasoning, and every
 disposition that survived re-raises was grounded in a verified concrete
-failure scenario or its verified absence. The test discriminates in both
+failure scenario or its verified absence. Truth-verification and cure-placement are
+separate questions (amended 2026-08-31 with PDR-140): the compensating-layer ban governs
+the first — a finding is never refuted by assuming a downstream layer catches it; a
+downstream verification point is a valid cure-placement HOME only when the verifying
+property is cited from the artefact's own acceptance criteria or disposition ledger,
+quoted in the disposition — a verified property, never an assumed one. The test
+discriminates in both
 directions: the estate errs both by over-curing style findings (each
 cure-push mints a fresh review round) and by under-curing real ones behind
 routing language. Durable boundary enforcement beats live-path compensation

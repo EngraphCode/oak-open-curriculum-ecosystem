@@ -151,7 +151,12 @@ Every non-trivial plan MUST define:
    ([PDR-132](../../practice-core/decision-records/PDR-132-changeset-health-round-budgets-bind-at-authoring-time.md):
    round budgets bind at authoring time; slicing at plan time is free,
    slicing at the first over-budget review round is the measured
-   expensive path).
+   expensive path). Slicing at pickup CONSUMES the plan's disposition
+   ledger — the routed review findings recorded in the plan or its
+   ticket
+   ([PDR-140](../../practice-core/decision-records/PDR-140-review-response-pricing.md)):
+   each ledger row is read and dispositioned before implementation
+   begins.
 
 Plans are public-repository artefacts: **mechanism only**. Anything
 internal — dates, vendor detail, organisational specifics — rides the

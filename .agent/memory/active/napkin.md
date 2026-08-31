@@ -2176,3 +2176,40 @@ cloud-environment surface at consolidation, not a worked success to normalise.
   minted: on a born-sketch plan PR, after the cap engages, weigh each
   falsehood by WHO IT COULD MISLEAD BEFORE PICKUP; if the answer is
   nobody, disposition it to the pickup step instead of curing.
+- PDR-140 AUTHORED (2026-08-31, owner-ratified in-session: "this is
+  ratification, write it up now"): review-response pricing — feedback
+  defaults to triage-to-disposition; cures only over the worthiness bar
+  (misleads before the next verification point, or changes what gets
+  built); settlement-push batching with the intake contract declared at
+  PR-open; age-out for findings on unchanged text; bots batch, humans
+  conversational. New rule review-feedback-defaults-to-triage (all four
+  on-disk forms + RULES_INDEX row); pr-lifecycle state machine gained
+  the firing-gate block and the born-sketch cap is subsumed;
+  proportionality's review-loops instance points at the PDR. The
+  dispositioned one-word fix in prerequisite-claim-removal Todos
+  ("two single-story PRs" → ordered stack) landed here as its recorded
+  first-pickup-edit moment. No ADR — practice-process substance per
+  new-rule-vs-pdr-clause. This parcel dogfoods PDR-140: intake contract
+  declared in its own PR body.
+- PDR-140 PANEL ABSORBED (2026-08-31, four reviewers, all
+  pass/sound-with-fixes, one batch cure — the parcel dogfooded its own
+  doctrine): the four structural catches were (1) a ledger with a
+  producer and no consumer — cured by the durable-write requirement
+  (pickup-homed dispositions land in the plan artefact or its ticket)
+  plus the plan skill's consume-at-slicing step; (2) tally semantics
+  silently forked under triage — pinned: tally counts RAISED, arms read
+  CURE-WORTHY, generator classification runs over the full raised set;
+  (3) "pr-comments-resolve-and-recheck unchanged" was false — two
+  surgical amendments landed (zero-UNDISPOSITIONED terminal condition;
+  truth-verification split from cure-placement with the
+  cited-AC-property requirement); (4) triple restatement — PDR owns
+  clauses, rule and skill block trimmed to firing-gate form. Scope
+  narrowed to prose-class changesets (the code contrast is a
+  hypothesis, not a measurement). Owner sufficiency ruling landed as
+  clause 8 + proportionality proper-use note: a mid-loop cognitive-
+  skill poke is a defect report against the loop's skill. Lesson for
+  authoring: I violated practice-core-portability (outgoing Core link)
+  and skipped both indexes on first draft — the panel-before-landing
+  discipline caught all of it pre-commit, at four agents for ~4 min
+  wall each, versus eleven post-push review waves this morning. Review
+  BEFORE the artefact is public beats review cycles after.
