@@ -143,13 +143,22 @@ at plan time):
    bands — served guidance content and repository docs as separate
    slices at minimum; the inventory is the checklist the slices draw
    from, never one PR's scope.
-2. **Technical removal and guard** — the compile-coupled core
-   (generator, closed union, corpus regeneration, view, tool, their
-   tests), the source-citation validator, and the ADR-086 amendment.
-   These land atomically because the narrowed union breaks every
-   downstream reference in one compile — no smaller green state exists
-   within this set; generated corpus artefacts are excluded from the
-   band count.
+2. **Serving-chain removal** — the callers come out while the corpus
+   still carries the edges: `prior-knowledge-view.ts`, the
+   `get-prior-knowledge-graph` tool and its registry entries, and
+   their tests. Green intermediate: the corpus emits edges nothing
+   reads or serves; the authored-file count sits within the bands.
+3. **Generator narrowing and guard** — with every caller gone, the
+   final slice is the generator files alone: stop minting, narrow the
+   closed union and stats shape, regenerate the corpus, land the
+   source-citation validator red-first, and carry the ADR-086
+   amendment. The union narrowing compiles cleanly because slice 2
+   removed its readers; generated corpus artefacts are excluded from
+   the band count. The validator lands here, not earlier — landing it
+   while `prerequisiteFor` still exists would require granting the
+   fabricated edge a passing citation (its derivation fields are
+   real; its defect is semantic), briefly certifying the defect as
+   provenance-legible.
 
 ## Out of scope
 
