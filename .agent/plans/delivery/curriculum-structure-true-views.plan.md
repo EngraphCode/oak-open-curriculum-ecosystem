@@ -3,9 +3,9 @@ id: curriculum-structure-true-views
 node_type: delivery
 name: "Curriculum structure true views"
 overview: >-
-  Serve the ordering and prior-knowledge structure the bulk data really
-  carries — sequence order, thread membership, lesson order, prior
-  knowledge statements — as new tools under Oak names.
+  Point structural questions at the live generated tools that already
+  serve them, and add the one absent structure — the shared
+  prior-knowledge-statement projection — under Oak names.
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -25,16 +25,21 @@ last_updated: 2026-08-31
 
 ## Goal
 
-The service serves the structural relationships the published bulk data
-actually carries, as new tools named for what they serve. Today that
-structure is either buried (prior knowledge requirement statements ride
-node content beneath fabricated edges), ignored (the ordered `sequence`
-array is unused by the corpus), or absent from the served surface
-entirely. When this lands, consumers can ask what the sequence teaches
-before and after a unit, which units a thread contains and in what
-sequence order, what a unit's lessons are in teaching order, and what
-prior knowledge a unit's authors state it assumes — every answer
-grounded in a named bulk-schema field.
+Every structural question the fabricated prerequisite surface pretended
+to answer has a named, honest, already-served answer — and the one
+genuinely absent structure is added. The estate's live generated tools
+already serve the true relationships: `get-programmes-units` and
+`get-sequences-units` return units in unit sequence order with
+programme factors; `get-units-summary` returns a unit's prior-knowledge
+requirement statements, threads, national-curriculum statements, and
+its lessons in order; `get-threads-units` returns a thread's units in
+Oak's authoritative thread order; `get-thread-progressions` serves the
+year-derived thread progression with its derivation honestly stated.
+Rebuilding any of those from bulk data would create competing surfaces
+that can drift (first question: simpler without compromise — reuse).
+When this lands, the served guidance points structural questions at
+those tools by name, and the one absent structure — the shared
+prior-knowledge-statement projection — is served as a new tool.
 
 ## User groups and value
 
@@ -42,82 +47,59 @@ Teachers via assistants, assistants, and agent developers, as the
 strategic node states. Value here is offered/hypothesised under the
 innovation clause (owner ruling 2026-08-31): exposing the true
 relationships in Oak's data needs no advance need-proof. Claim
-boundary: each view serves a published field or a declared projection
-of published fields; none serves inferred relationships.
+boundary: the new view serves a declared projection of published
+fields; nothing serves inferred relationships.
 
 ## Mechanism
 
-All views derive from the authoritative bulk schema, in the generator
-(cardinal rule: heavy lifting at sdk-codegen time), each emitted
-structure citing its source fields per the recurrence guard landed by
-`prerequisite-claim-removal`:
-
-- **Sequence order**: the `sequence` array's position ("ordered list of
-  units for the subject sequence"), filterable by the unit's programme
-  factors (year, key stage, tier, exam board, pathway) — what the
-  sequence teaches before/after a unit.
-- **Thread order is NOT rebuilt here**: the live `get-threads-units`
-  tool already serves every unit in a thread in Oak's authoritative
-  editorial order (`unitOrder`); a sequence-restricted projection
-  would be a second, weaker thread view competing with it, so none is
-  built. The existing tool is the thread-order surface; bulk-export
-  parity for that data is requested in
-  `upstream-curriculum-data-exposure`.
-- **Lesson order**: `unitLessons[].lessonOrder` within a unit.
-- **Prior knowledge statements**: a unit's `priorKnowledgeRequirements`
-  as first-class served content, plus the shared-statement structure —
-  a **declared projection** grouping units by string-identical
-  requirement statements (the strings are published facts; the grouping
-  is derived, implies no authored relationship, and its contract says
-  so) — and `whyThisWhyNow` as the unit's placement rationale.
-
-Tool naming follows the data (Oak names only). The sequence-order
-contract rests on one data premise the schema leaves open — whether
-`sequence` array position stays meaningful within a year when programme
-forks share a file — so establishing that premise against real bulk
-files is this plan's first todo, blocking the contract wording:
-criterion 2 commits only to the scope that check verifies.
+- **Reuse, named**: the existing generated tools above are the served
+  surfaces for sequence order, lesson order, thread order and
+  membership, and per-unit prior-knowledge statements. This plan
+  builds none of them again; its guidance work re-points the
+  post-removal tool guidance at them explicitly.
+- **Shared prior-knowledge statements** (the genuinely absent
+  structure): a new tool serving the cross-unit grouping of
+  string-identical `priorKnowledgeRequirements` statements — a
+  **declared projection** (the strings are published facts; the
+  grouping is derived by string identity, implies no authored
+  relationship, and its contract says so). Derived at sdk-codegen time
+  from the bulk data (cardinal rule), with the emitted structure
+  citing its source field per the recurrence guard landed by
+  `prerequisite-claim-removal`.
+- **Gap check at pickup**: if a structural contract surfaces that the
+  existing tools genuinely cannot satisfy, it is named as a contract
+  gap with the tool that fails it and routed as its own decision —
+  never absorbed here as a duplicate view.
 
 ## Acceptance criteria (each with a proof — required)
 
-1. Each served view names, in its contract and its generated types, the
-   bulk-schema fields it derives from; the source-citation validator
-   passes. Proof: `repo-safe` — validator plus contract tests.
-2. The within-year meaning of `sequence` array position across
-   programme forks is established against real bulk files and recorded
-   in the plan before any ordering contract is worded; sequence-order
-   queries then return units in the `sequence` array's order under
-   programme-factor filters, within exactly the verified scope, proven
-   against fixture data drawn from a real bulk file. Proof:
-   `repo-safe` — the recorded verification note plus unit/integration
+1. The shared-statement tool's contract and generated types name the
+   bulk-schema field they derive from and present the grouping as a
+   declared projection keyed by string identity; the source-citation
+   validator passes. Proof: `repo-safe` — validator plus contract
    tests.
-3. No served view built by this plan presents thread order; the
-   contracts of the new views point thread-order questions at the
-   existing `get-threads-units` tool. Proof: `repo-safe` — review of
-   the served contracts plus the existing tool's own tests.
-4. Prior knowledge statements and shared-statement queries serve
-   exactly the published strings, with the shared-statement grouping
-   presented as a declared projection keyed by string identity. Proof:
-   `repo-safe` — tests against fixtures plus the contract's projection
-   statement.
-5. Lesson-order queries return a unit's lessons ordered by
-   `unitLessons[].lessonOrder`. Proof: `repo-safe` — unit/integration
-   tests against fixtures.
+2. Shared-statement queries serve exactly the published strings,
+   grouped by string identity, proven against fixture data drawn from
+   a real bulk file. Proof: `repo-safe` — unit/integration tests.
+3. Post-removal served guidance points sequence-order, lesson-order,
+   thread-order, and per-unit prior-knowledge questions at the
+   existing generated tools by name, and no served view built by this
+   plan duplicates them. Proof: `repo-safe` — review of the served
+   guidance and contracts plus the existing tools' own tests.
 
 ## Todos
 
-Todo 1, blocking all contract wording: verify the within-year
-sequence-position semantics against real downloaded bulk files and
-record the verified scope in this plan (dated note). The remaining
-slices are cut at pickup by the implementer; this plan is expected to
-split into two or more single-story PRs (ordering views;
-prior-knowledge statement serving), each within the default round
-budget.
+Sliced at pickup by the implementer; expected shape is one
+single-story PR for the shared-statement tool and one for the guidance
+re-pointing, each within the default round budget.
 
 ## Out of scope
 
+- Rebuilding sequence-order, lesson-order, thread-order, or per-unit
+  prior-knowledge serving — the live generated tools own those
+  surfaces.
 - Any inferred relationship (statement-to-unit linking, prerequisite
   guessing) — excluded by the strategic node's claim boundary.
-- Consuming upstream data not yet published (thread unit order, unit
-  connections) — `upstream-curriculum-data-exposure`.
+- Consuming upstream data not yet published (thread unit order in the
+  bulk export, unit connections) — `upstream-curriculum-data-exposure`.
 - Presentation/UI; this plan is served-surface structure only.
