@@ -187,10 +187,17 @@ Conditions that keep the policy honest:
      hook's own scope (pushed commits, not history — CI's full
      `--branches --tags` scan is the comprehensive backstop):
      `gitleaks detect --redact=100 --source . --log-opts="origin/<branch>..HEAD"`
-     (first push of a branch: range from `origin/engraph`). Running the
-     full-history `pnpm secrets:scan` per push is the wrong instrument —
-     minutes of re-scanning already-pushed history for zero marginal
-     coverage (owner ruling 2026-08-31). gitleaks is installed by the
+     (first push of a branch: range from `origin/engraph`). That range covers
+     the one push shape this policy authorises — the checked-out branch to its
+     matching `origin` branch. A push naming anything else (a tag, another
+     branch, multiple refs) is outside that shape: scan it with the repo's
+     ref-aware scanner instead — `pnpm agent-tools:secret-scan --remote origin
+     --refs-file <file>`, feeding one pre-push-format line
+     (`<local_ref> <local_sha> <remote_ref> <remote_sha>`) per pushed ref, the
+     same tested range logic (`compute-push-scan-ranges.ts`) the hook runs.
+     Running the full-history `pnpm secrets:scan` per push is the wrong
+     instrument — minutes of re-scanning already-pushed history for zero
+     marginal coverage (owner ruling 2026-08-31). gitleaks is installed by the
      cloud environment setup.
 
   Everything else the hooks ran maps to CI: staged prettier/markdownlint →

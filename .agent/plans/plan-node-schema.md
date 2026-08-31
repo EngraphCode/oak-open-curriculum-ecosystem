@@ -111,7 +111,11 @@ the full requirement, including the innovation clause (offered or
 hypothesised value with an honest claim boundary satisfies it — advance
 need-proof is not required) and the one-line routing form for outcomes
 nobody experiences directly. The three authoring templates each carry
-the matching section.
+the matching section. The requirement binds plans authored or
+materially amended from the ruling date onward; the pre-existing estate
+is not retroactively invalidated — each earlier plan gains the section
+at its next material amendment, never by bulk retrofit (the
+dated-amendment discipline above).
 
 ### Strategic
 
