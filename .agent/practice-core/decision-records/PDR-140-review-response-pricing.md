@@ -184,7 +184,11 @@ scope widens by dated amendment, never by improvisation.
    fixed-size random sample of below-bar dispositions against their
    declared bars; an over-bar finding found routed is a recorded breach
    counting toward the falsifier — bar erosion becomes observable
-   before an incident, not after one.
+   before an incident, not after one. A finding raised only in a
+   review BODY has no thread to resolve: its disposition lands as a PR
+   comment answering that review and the tally row records it
+   dispositioned — that is this record's dispositioned-with-resolution
+   for summary-only findings.
 
 8. **Sufficiency.** The pr-lifecycle state machine carries every
    checkpoint this record requires as transitions of its own loop — the
