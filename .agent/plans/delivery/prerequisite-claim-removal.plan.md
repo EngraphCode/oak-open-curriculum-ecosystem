@@ -136,7 +136,13 @@ at plan time):
 1. **Prose claim removal** — the guidance, metadata, and doc surfaces
    above stop directing consumers to prerequisite structure while the
    tool still functions. Green intermediate: nothing oversells; the
-   technical surface is unchanged.
+   technical surface is unchanged. The inventory spans more authored
+   files than the ten-file band, and every prose surface is
+   independently removable (no compile coupling), so this sweep is
+   itself sliced at pickup into independently green PRs within the
+   bands — served guidance content and repository docs as separate
+   slices at minimum; the inventory is the checklist the slices draw
+   from, never one PR's scope.
 2. **Technical removal and guard** — the compile-coupled core
    (generator, closed union, corpus regeneration, view, tool, their
    tests), the source-citation validator, and the ADR-086 amendment.
