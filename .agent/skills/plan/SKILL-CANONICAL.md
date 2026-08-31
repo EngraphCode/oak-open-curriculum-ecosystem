@@ -132,7 +132,7 @@ Every non-trivial plan MUST define:
    honest claim boundary, stakeholders and audiences, developers and
    agents, operators), and for each group the value provided, stated in
    experience terms. Pure innovation is often not meeting a pre-existing
-   need, so pricing or proving a need in advance is not required where
+   need, so proving a pre-existing need in advance is not required where
    the work's purpose is to reveal possibility: declared offered or
    hypothesised value (possibility, comprehension, inspiration) with an
    honest claim boundary satisfies this requirement (owner ruling,

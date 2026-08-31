@@ -122,6 +122,13 @@ onto the plan estate and the schedule. The body carries (PDR-018:
 narrative in the body, never frontmatter):
 
 - **Goal** — what is true when this lands that is not true now.
+- **User groups and value** — who experiences or consumes the outcome,
+  and what each group gets, in experience terms (owner ruling
+  2026-08-31; the plan skill carries the full requirement, including
+  the innovation clause: declared offered or hypothesised value with an
+  honest claim boundary satisfies it — advance need-proof is not
+  required). Where genuinely nobody experiences the outcome directly,
+  one line says so and names where the value routes.
 - **Mechanism** — how, briefly.
 - **Acceptance criteria — each with a proof, required.** A proof names
   its evidence class: `repo-safe` (a test, validator, or CI check —

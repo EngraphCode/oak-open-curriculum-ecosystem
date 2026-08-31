@@ -77,7 +77,15 @@ helpers, and the Oak Design System — so any private import it turns out to nee
 gap finding. Estate defaults (demos tier, Next.js, the hub's live-stack wiring precedents)
 enter the decision budget as reopenable defaults-from-precedent, not baked assumptions.
 Link-out is the structural guard against curriculum-app drift: the resource destination is
-always the equivalent `www.thenational.academy` page.
+the equivalent `www.thenational.academy` page wherever one exists; a result whose type has no
+equivalent page (threads, where `thread_url` is absent) takes the declared truthful-absence
+path — never a fabricated link.
+
+Dependency note (minimum shippable shape without the `beneficial` definition-plan edge): if
+the definition corpus is not yet owner-accepted, Stage 0 instantiates the composition
+declaration, decision budget and ledger entry from the proposed corpus as-is, marked
+provisional; the joint review gate is where amendment risk lands, and no other part of this
+plan consumes the definition. The edge stays `beneficial` because that shape ships.
 
 ## User groups and key journeys
 
@@ -104,9 +112,12 @@ step keyboard- and screen-reader-complete.
 **Grounding and claim boundary.** Journeys are seeded from the search estate's ground-truth
 corpus — realistic teacher queries with expected results, built to answer "does search help
 teachers find what they need?" — so the proxy is honest and example searches can be real.
-The corpus is lessons-only, so seeded expected-result journeys cover lesson discovery;
-unit, sequence, thread and subject journeys are e2e-evidenced without seeded expected
-results, and that narrowing is declared rather than implied.
+The corpus seeds all four result scopes — lessons deeply (about thirty known-answer
+entries) and units, sequences and threads more thinly (two, one and eight entries at
+authoring) — so seeded expected-result journeys exist for every searchable scope, with
+declared depth variance. Subjects are not a search-result type (the retrieval surface
+exposes lessons, units, sequences and threads; subjects act as filters), so no subject
+journey is claimed.
 "Somewhat pretend" is a declared claim boundary: the journey is designed from the teacher
 perspective; no teacher-value claim is made without separate research.
 
@@ -165,13 +176,13 @@ does not replace it.
 | Resource the proposition needs | Kit/estate provides today | Gap | Seam the gap reveals |
 | --- | --- | --- | --- |
 | Hybrid retrieval: lessons, units, threads, sequences, suggest, facets | `oak-search-sdk/read` — demonstrated, typed capability surface (ADR-134) | None for retrieval itself | Capability-surface pattern is the reusable seam; the showcase tests it cold |
-| Result → resource URL on `www.thenational.academy` | Generated `url-helpers` cover all five content types; index docs carry most needed context (`subject_slug`, `key_stage`, `phase_slug`) | `phase_slug` is optional on unit docs; threads return no Oak URL by design | If underivable, a declared augmentation at the search-result boundary — never link fabrication. Thread results take the truthful-absence path, and their in-demo UX is a named design task, not an edge case |
-| Search-by-meaning claim holds per result type | Lessons/units 4-way RRF, threads 2-way RRF (semantic) | Sequences are lexical-only until `sequence_semantic` is populated (ADR-110) — a reduced capability state | The Stage-0 declaration and the mechanism-legibility layer carry the reduced state honestly; no retuning in this lane |
+| Result → resource URL on `www.thenational.academy` | Search index documents carry their own URLs: `lesson_url`, `unit_url` and `sequence_url` required, `thread_url` optional (generated index contracts; the Curriculum Hub already consumes `unit_url`) | Whether every live document's URL resolves, and what `thread_url` carries when present, is unverified | The audit starts from the result-carried URL fields; generated-helper derivation is fallback for genuinely missing cases only — never link fabrication. Threads without a URL take the truthful-absence path, and their in-demo UX is a named design task |
+| Search-by-meaning claim holds per result type | Lessons/units 4-way RRF; threads 2-way RRF; the current ingestion populates `sequence_semantic` and sequence retrieval always combines BM25 with a semantic retriever over it | The deployed index's actual state is unverified from source alone; the search SDK README still describes sequences as lexical-only (ADR-110's historical state) — routed as a stale-doc finding to the search stream | Stage 0 verifies the deployed retrieval state first-hand and the mechanism-legibility layer describes what is measured, not what a document says |
 | Web host composition: routing, env, error envelope, live-stack wiring | Curriculum Hub precedent — app-specific (evidence row: no reusable host profile exists) | The wiring would be rebuilt app-locally a second time | Second consumer met: extract the recurring demo-host composition as Kit-owned capability (consolidate-at-second-consumer) |
 | Design language | Oak Design System — demonstrated; both consumption paths proven (Tailwind-mapped, plain-CSS) | None blocking | Path choice is a decision-budget entry, not a fork |
 | Composition declaration and profile | Proposed only (definition corpus) | No concrete record instrument exists | First instantiation of the record interfaces — the Kit's first real declaration artefact |
 | Decision-budget record | Proposed only | No instrument | Lightweight Kit-owned record format, seeded here |
-| Evidence-ledger entry | Proposed only (strategy names the minimum fields) | Ledger absent | First entry authored by this demo, to the strategy's minimum record shape |
+| Evidence-ledger entry | Proposed only (strategy names the minimum fields) | Ledger absent | First entry authored by this demo, to the strategy's minimum record shape. Named readers and the decisions the reading changes: the joint owner review (Stage-0/definition gate verdict) and the next demo's Stage 0 (its reuse choices). Completion is criterion 6's proof — a completed record, never a write-only stub |
 | Observability for a public read-only demo | Reusable observability/logger packages; zero-hit recording in the search SDK | Whole-Kit health contracts absent — not activated by this profile | Register only if build observes recurring burden |
 | Typed environment and bindings | `@oaknational/env` + `env-resolution` | Provider composition and capability discovery absent (evidence row) | Candidate seam; confirm through the decision budget rather than pre-build |
 | Deployment of a public demo | App-specific Vercel path (MCP app) exists | No demo-tier host/release profile | Candidate seam, observed at the deploy slice |
@@ -181,18 +192,18 @@ does not replace it.
 demos-tier standards, existing a11y and fidelity machinery. **Change** (what we should
 change): the app-local host/env/search wiring becomes Kit-owned at this second consumer; the
 definition's record interfaces move from prose to first concrete instruments (declaration,
-decision budget, ledger entry); the unit/subject URL-context handling changes only if the
-audit proves current results insufficient. The proposition licenses no other change: no
-relevance retuning, no new search features, no admin surfaces.
+decision budget, ledger entry). The proposition licenses no other change: no relevance
+retuning, no new search features, no admin surfaces.
 
 ## Acceptance criteria (each with a proof — required)
 
-1. **Linkability holds for every result type.** Every search-result type (lesson, unit,
-   subject, sequence, thread) resolves to an Oak URL via the generated helpers or surfaces a
-   declared, truthful absence; the two contextual dependencies (unit → `sequenceSlug`,
-   subject → key stage) are proven satisfied or handled. Proof: **repo-safe** — a linkability
-   audit instrument over a real index sample, plus tests on the truthful-absence path; a live
-   URL-resolution evidence run recorded with the audit.
+1. **Linkability holds for every result type.** Every searchable result scope (lessons,
+   units, sequences, threads — the retrieval surface's actual scopes; subjects are filters,
+   not results) resolves via its result-carried URL field or surfaces a declared, truthful
+   absence (threads where `thread_url` is absent). Proof: **repo-safe** — a linkability
+   audit instrument over a real index sample plus tests on the truthful-absence path; the
+   live URL-resolution check runs as a standalone smoke/operator evidence script (never in
+   the e2e suite), its record committed with the audit.
 2. **The discovery loop is complete and truthful.** Intent → results with source, relevance
    and provenance legibility → hand-off link; zero-hit, error and degraded states are
    first-class truthful content, not hidden failure. Proof: **repo-safe** — e2e and unit
@@ -207,10 +218,13 @@ relevance retuning, no new search features, no admin surfaces.
 5. **The decision budget is recorded.** Every creator decision captured and classified
    proposition-shaped or machinery-shaped. Proof: **repo-safe** for the record;
    **owner-held** for the review that reads it as the Kit's seam evidence.
-6. **The gap-and-seam register verifies and extends the first-pass determination.** Each
-   planning-time row confirmed, corrected or retired by build evidence; new gaps appended;
-   each gap carrying a disposition routed to its legitimate owner (Kit-placement inquiry,
-   owning stream, or demo-local). Proof: **repo-safe** for the register; **owner-held** for
+6. **The gap-and-seam register verifies and extends the first-pass determination, and the
+   evidence-ledger entry completes.** Each planning-time row confirmed, corrected or retired
+   by build evidence; new gaps appended; each gap carrying a disposition routed to its
+   legitimate owner (Kit-placement inquiry, owning stream, or demo-local). The ledger entry
+   is a completed record to the strategy's minimum shape, read by its named readers (the
+   joint owner review; the next demo's Stage 0) — a write-only stub fails this criterion.
+   Proof: **repo-safe** for the register and the completed entry; **owner-held** for
    placement rulings.
 7. **Public-surface-only consumption held.** No deep imports into SDK internals or admin
    surfaces from the demo. Proof: **repo-safe** — dependency-cruiser/import rules.
@@ -232,16 +246,17 @@ archaeology:
   governs nothing from a feature branch.
 - **Live-backend access**: the demo needs `ELASTICSEARCH_URL`, `ELASTICSEARCH_API_KEY`,
   `OAK_API_KEY` and `SEARCH_INDEX_TARGET` (Curriculum Hub env precedent); these are present
-  in the cloud session environment. Live-index runs (the linkability evidence run, the
-  seeded teacher e2e) execute as recorded evidence runs by the build seat — CI stays
-  IO-free per the standing no-test-IO ruling (2026-08-25), so CI covers the loop with
-  fixtures and the evidence runs are committed artefacts.
+  in the cloud session environment. Live-index proofs are **smoke/operator evidence
+  scripts** under the repository's test taxonomy (testing-strategy; ADR-161): network-backed
+  runs never sit in the e2e suite. CI stays IO-free per the standing no-test-IO ruling
+  (2026-08-25) — the e2e suite proves the loop over fixtures; the smoke scripts' recorded
+  outputs are the committed live evidence.
 - **Record-instrument home**: where the composition declaration, decision budget and ledger
   entry live is precedent-setting for every later Kit consumer; it is Stage 0's first
   decision-budget entry and the owner gate reviews it.
-- **Slice sizing pre-commitments**: if the slice-3 host-composition decision resolves to
-  extract, the extraction lands as its own PR, never bundled with the demo slice; slice 4
-  is expected to split at pickup (the mechanism-legibility layer is its own story).
+- **Slice sizing pre-commitments**: the host-composition extraction lands as its own PR,
+  never bundled with the demo slice; slice 4 is expected to split at pickup (the
+  mechanism-legibility layer is its own story).
 
 ## Todos
 
@@ -255,8 +270,11 @@ Slices at pickup, each a single-story PR within the default round budget (PDR-13
 3. **Smallest vertical slice** — the teacher journey's spine: query → results → link-out at
    the demos tier, consuming the public read surface, design-system styled, accessible from
    the first render; first ground-truth-seeded e2e journeys land here. The host-composition
-   extraction decision (the second-consumer seam above) is taken at this slice through the
-   decision budget, owner-visible, not silently either way.
+   **extraction is the slice outcome** (consolidate-at-second-consumer): the recurring
+   demo-host composition moves to Kit ownership in its own PR before or alongside this
+   slice, and this demo consumes it. The only alternative is Stage 0 falsifying the
+   second-consumer premise first-hand, in which case the claim is retracted plan-wide —
+   a second app-local copy never lands silently.
 4. **Depth, limits and mechanism-legibility surfaces** — relevance and provenance legibility,
    suggestions and facets where they serve discovery, zero-hit/degraded/limit truthfulness,
    and the stakeholder journey's progressive-disclosure "how this works" layer over live
