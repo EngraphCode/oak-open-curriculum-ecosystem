@@ -74,7 +74,11 @@ approximating it locally.
 - Upstream exposure requests for Oak-held, unpublished structure are
   filed with first-hand evidence; their outcomes are recorded either
   way. This node does not claim Oak will expose the data — only that
-  the request is made honestly and the service consumes it if it lands.
+  the request is made honestly. If Oak publishes any of it, consuming
+  that data becomes a new delivery plan authored under this node at
+  that moment; deliberately, no consumption plan exists in advance
+  (verify-data-supports-shape-before-building), so accepted data has a
+  named delivery path without an imaginary flow.
 
 ## Delivery
 
