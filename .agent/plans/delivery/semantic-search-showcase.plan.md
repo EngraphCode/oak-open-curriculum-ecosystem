@@ -101,6 +101,9 @@ step keyboard- and screen-reader-complete.
 **Grounding and claim boundary.** Journeys are seeded from the search estate's ground-truth
 corpus — realistic teacher queries with expected results, built to answer "does search help
 teachers find what they need?" — so the proxy is honest and example searches can be real.
+The corpus is lessons-only, so seeded expected-result journeys cover lesson discovery;
+unit, sequence, thread and subject journeys are e2e-evidenced without seeded expected
+results, and that narrowing is declared rather than implied.
 "Somewhat pretend" is a declared claim boundary: the journey is designed from the teacher
 perspective; no teacher-value claim is made without separate research.
 
@@ -159,7 +162,8 @@ does not replace it.
 | Resource the proposition needs | Kit/estate provides today | Gap | Seam the gap reveals |
 | --- | --- | --- | --- |
 | Hybrid retrieval: lessons, units, threads, sequences, suggest, facets | `oak-search-sdk/read` — demonstrated, typed capability surface (ADR-134) | None for retrieval itself | Capability-surface pattern is the reusable seam; the showcase tests it cold |
-| Result → resource URL on `www.thenational.academy` | Generated `url-helpers` cover all five content types | Units need `sequenceSlug`, subjects a key stage; whether search results carry that context is unverified | If underivable from results, a declared augmentation at the search-result boundary — never link fabrication |
+| Result → resource URL on `www.thenational.academy` | Generated `url-helpers` cover all five content types; index docs carry most needed context (`subject_slug`, `key_stage`, `phase_slug`) | `phase_slug` is optional on unit docs; threads return no Oak URL by design | If underivable, a declared augmentation at the search-result boundary — never link fabrication. Thread results take the truthful-absence path, and their in-demo UX is a named design task, not an edge case |
+| Search-by-meaning claim holds per result type | Lessons/units 4-way RRF, threads 2-way RRF (semantic) | Sequences are lexical-only until `sequence_semantic` is populated (ADR-110) — a reduced capability state | The Stage-0 declaration and the mechanism-legibility layer carry the reduced state honestly; no retuning in this lane |
 | Web host composition: routing, env, error envelope, live-stack wiring | Curriculum Hub precedent — app-specific (evidence row: no reusable host profile exists) | The wiring would be rebuilt app-locally a second time | Second consumer met: extract the recurring demo-host composition as Kit-owned capability (consolidate-at-second-consumer) |
 | Design language | Oak Design System — demonstrated; both consumption paths proven (Tailwind-mapped, plain-CSS) | None blocking | Path choice is a decision-budget entry, not a fork |
 | Composition declaration and profile | Proposed only (definition corpus) | No concrete record instrument exists | First instantiation of the record interfaces — the Kit's first real declaration artefact |
@@ -214,6 +218,27 @@ relevance retuning, no new search features, no admin surfaces.
    recomposition from the documented path alone. Proof: **repo-safe** for the teacher e2e
    suite, the legibility layer and the documented fresh-checkout path; **owner-held** for the
    stakeholder showing and the cold-probe verdict.
+
+## Execution preparation (named, from the 2026-08-31 readiness review)
+
+The plan-readiness review (assumptions-expert, 2026-08-31) returned
+READY-WITH-NAMED-PREPARATION. The preparation, so the build seat's first hour is not
+archaeology:
+
+- **Base**: implementation starts from `engraph` after this plan's PR merges; the plan
+  governs nothing from a feature branch.
+- **Live-backend access**: the demo needs `ELASTICSEARCH_URL`, `ELASTICSEARCH_API_KEY`,
+  `OAK_API_KEY` and `SEARCH_INDEX_TARGET` (Curriculum Hub env precedent); these are present
+  in the cloud session environment. Live-index runs (the linkability evidence run, the
+  seeded teacher e2e) execute as recorded evidence runs by the build seat — CI stays
+  IO-free per the standing no-test-IO ruling (2026-08-25), so CI covers the loop with
+  fixtures and the evidence runs are committed artefacts.
+- **Record-instrument home**: where the composition declaration, decision budget and ledger
+  entry live is precedent-setting for every later Kit consumer; it is Stage 0's first
+  decision-budget entry and the owner gate reviews it.
+- **Slice sizing pre-commitments**: if the slice-3 host-composition decision resolves to
+  extract, the extraction lands as its own PR, never bundled with the demo slice; slice 4
+  is expected to split at pickup (the mechanism-legibility layer is its own story).
 
 ## Todos
 
