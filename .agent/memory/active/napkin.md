@@ -1836,3 +1836,38 @@ expiries owner-waived for this focused session.
   applied: re-ran the commit FOREGROUND so the turn holds the window; no git probes while a
   commit workflow is in flight. The lock cleaned up on failure; staged bundle and queue
   intent survived intact — recovery was one re-run.
+
+## 2026-08-31 ~4 (Dahlia tracks Blossom, 01Pb31) — owner correction: per-parcel commit cycles, THIRD instance of the recorded BATCH-CADENCE class
+
+Owner interrupted the fourth gate cycle of the session (verbatim core: committing "takes
+nearly 15 minutes, if you commit every change then we are limiting ourselves to four or five
+changes per hour... a massive waste of tokens"). The 2026-08-17 BATCH-CADENCE ruling and the
+2026-08-26 recurrence were both IN THIS NAPKIN and did not fire — same
+recurrence-despite-capture class as the ~2 entry, now with two members in one session
+(machinery≫judgment at authoring; cadence at landing). Behaviour applied from the correction:
+parcels accumulate in the working tree; ONE commit ceremony at the session safety boundary;
+push once per boundary; the stop-hook's uncommitted-changes nag is not a commit trigger.
+Structural-cure candidate for consolidation: the commit skill could open with a cadence check
+("is this parcel's sitting over?") the way start-right opens with grounding — the recorded
+ruling needs a firing surface at the reach-for-commit moment, not a napkin line. PR #28
+opened to engraph (base explicit per pr-target-is-engraph); the closing bundle carries this
+entry.
+
+## 2026-08-31 ~5 (Dahlia tracks Blossom, 01Pb31) — owner authorises HUSKY=0 trial for cloud sessions (this session); CI comprehensiveness verified first
+
+- **Owner authorisation (scoped, verbatim core)**: "For the remainder of this session I want
+  to try a potential solution, run commit and push in cloud environments with HUSKY=0 and
+  rely on GitHub CI to catch issues... as long as the GitHub CI is comprehensive." This IS
+  the fresh authorisation `no-verify-requires-fresh-authorisation` requires — scoped to this
+  session, cloud-environment rationale, checks relocated to CI rather than removed.
+- **Premise verified before adoption** (verify-dont-trust): ci.yml runs secret-scan, the full
+  static-check set (format, markdownlint, lint runtime+shell, subagents, portability,
+  repo-validators, skills, encoding), build + schema-drift, type-check/lint/test,
+  knip+depcruise, browser suites, and a run-quality-gates rollup — superset-equivalent of the
+  local hook chain. HUSKY=0 persisted to the session env file.
+- **Two owner hypotheses routed as candidate follow-ups** (not built now): (1) pre-commit/
+  pre-push gates may be more relevant to human developers than to cloud agent sessions whose
+  every push lands on a CI-gated PR; (2) alternatively set aside time to profile and improve
+  full-check performance (~15 min/cycle measured this session, cold cache; warm still
+  minutes). Both belong to the next consolidation/owner planning moment; the trial's outcome
+  is the evidence.
