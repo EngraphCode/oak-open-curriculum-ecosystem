@@ -65,7 +65,11 @@ fields; nothing serves inferred relationships.
   string-identical `priorKnowledgeRequirements` statements — a
   **declared projection** (the strings are published facts; the
   grouping is derived by string identity, implies no authored
-  relationship, and its contract says so). Derived at sdk-codegen time
+  relationship, and its contract says so). Output contract: each
+  group carries the statement and the units whose published
+  `priorKnowledgeRequirements` arrays contain it — that membership is
+  published containment read directly from the bulk data, never an
+  inferred relationship. Derived at sdk-codegen time
   from the bulk data (cardinal rule). The source-citation guard landed
   by `prerequisite-claim-removal` covers emitted corpus edge types
   only, so this plan extends it to emitted non-edge projections: the
@@ -111,8 +115,13 @@ re-pointing, each within the default round budget.
 - Rebuilding sequence-order, lesson-order, thread-membership, or
   per-unit prior-knowledge serving — the live generated tools own
   those surfaces.
-- Any inferred relationship (statement-to-unit linking, prerequisite
-  guessing) — excluded by the strategic node's claim boundary.
+- Any inferred relationship — resolving a prior-knowledge statement
+  to the unit that teaches it, semantic statement matching beyond
+  string identity, prerequisite guessing — excluded by the strategic
+  node's claim boundary. The shared-statement groups' unit membership
+  is not this exclusion: which units require a statement is published
+  containment (each unit's own `priorKnowledgeRequirements` array),
+  and the mechanism serves exactly that.
 - Consuming upstream data not yet published (thread unit order on any
   surface, unit connections) — `upstream-curriculum-data-exposure`.
 - Presentation/UI; this plan is served-surface structure only.
