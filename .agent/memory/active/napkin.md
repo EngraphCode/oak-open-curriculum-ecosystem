@@ -2161,3 +2161,18 @@ cloud-environment surface at consolidation, not a worked success to normalise.
   columns without checking its deployment status. Check-the-checker
   move that would have caught it: search the estate's own research
   corpus for the artefact name before citing it.
+- TAIL-COST RULING, owner-caught (2026-08-31, PR #32, "enough, these
+  long tails are costing us hours, what are they providing?"): rounds
+  7-10 of the review loop delivered evidence-polish on SKETCH plans
+  whose own acceptance criteria re-verify every polished claim at
+  pickup — the guards already owned the moment of truth. Two compound
+  errors: (1) the convergence cap engaged at round 8 instead of round
+  4 because the tally was unbuilt; (2) I read the cap's falsehood
+  exception as an OBLIGATION to cure every imprecision, when it is a
+  permission for falsehoods that would mislead if merged — a sketch's
+  imprecise citation misleads nobody whose pickup step re-verifies it.
+  The exit the cap always licensed: merge at any settle-green tip
+  whose deltas are cap-dispositions or falsehood-cures. Rule of thumb
+  minted: on a born-sketch plan PR, after the cap engages, weigh each
+  falsehood by WHO IT COULD MISLEAD BEFORE PICKUP; if the answer is
+  nobody, disposition it to the pickup step instead of curing.
