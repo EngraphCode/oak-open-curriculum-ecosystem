@@ -1977,3 +1977,21 @@ running the full gitleaks survey every time." Grounded findings:
    a gate, copy the gate's SCOPE, not just its instrument — the substitute must mirror
    what the hook actually checked, and the hook source is the contract file (same
    truth-surface habit as ~8).
+
+## 2026-08-31 ~10 (Dahlia tracks Blossom, 01Pb31) — Owner rulings: graph defect is a defect, demo gets in-demo layouts
+
+Correction of this seat's framing: I presented the prerequisiteFor conflation as "the
+strongest demo material" (semantic search constructing the real prerequisite graph as a
+stakeholder wow). Owner: "we have identified a profound error in one of our graphs, that is
+not an opportunity for wow, that is a serious issue to address in a separate session and
+separate PR." Class lesson: a DATA-INTEGRITY DEFECT is a defect first — repair routes to an
+owning lane with proper grounding (here: oaknational/oak-openapi as the upstream contract
+authority), never gets repackaged as showcase content. Wow-framing a defect both trivialises
+the repair and builds the demo on contested ground.
+
+Demo scope ruled the same turn: the showcase includes a programme layout and a threads
+layout; anything at unit level or below links out to `www.thenational.academy`. Applied to the
+showcase plan (mechanism, criterion 1, slice 4, determination row 2, out-of-scope) and
+recorded as the survey's owner-disposition note. The threads layout renders verified fields
+only (year grouping); threads[].order stays unrendered until the bulk-data lane adjudicates
+its contested semantics — beneficial dependency, not blocking.

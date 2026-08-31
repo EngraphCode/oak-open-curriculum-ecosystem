@@ -101,3 +101,24 @@ Three consequences:
   a sibling repo) would falsify the thread-as-filter-only claim; the scan covered
   `src/pages`, `src/app` and the URL registry at `91662d8` (shallow clone — no history
   claims).
+
+## Owner disposition (dated note, 2026-08-31)
+
+The owner read the findings and ruled:
+
+1. **The `prerequisiteFor` conflation is a serious data defect, not a demo opportunity.**
+   Its repair is a separate lane — its own session and its own PR — and that lane's first
+   move is grounding in the upstream contract: attach `oaknational/oak-openapi` and
+   establish first-hand exactly what the bulk data contains and does not contain, before
+   touching the generators. The lane's work, from this survey's findings: adjudicate the
+   contested `threads[].order` contract against bulk records and the upstream schema;
+   root-cause and repair the edge minting in `graph-corpus-edges.ts` (rename to honest
+   teaching-order semantics or remove — the survey's derived-thread-progression framing is
+   the candidate); decide whether and how the unlinked `priorKnowledgeRequirements` prose
+   is represented; and route any data-vs-published-schema mismatch upstream as a bug
+   report (ADR-222 authority ordering). The lane authors its own delivery plan at pickup.
+2. **The demo's answer to thread/sequence linkability is in-demo layouts.** The showcase
+   includes a programme layout and a threads layout; anything at unit level or below links
+   out to `www.thenational.academy`. Carried into the showcase plan (mechanism, criterion
+   1, slice 4, out-of-scope) the same day. The layouts render verified bulk fields only
+   and never surface the fabricated edges.

@@ -80,10 +80,15 @@ rather than being absorbed locally. The demo consumes public capability surfaces
 helpers, and the Oak Design System — so any private import it turns out to need is itself a
 gap finding. Estate defaults (demos tier, Next.js, the hub's live-stack wiring precedents)
 enter the decision budget as reopenable defaults-from-precedent, not baked assumptions.
-Link-out is the structural guard against curriculum-app drift: the resource destination is
-the equivalent `www.thenational.academy` page wherever one exists; a result whose type has no
-equivalent page (threads, where `thread_url` is absent) takes the declared truthful-absence
-path — never a fabricated link.
+Link-out is the structural guard against curriculum-app drift, and the split is by scope
+(owner ruling, 2026-08-31): **anything at unit level or below — units and lessons — links out
+to its `www.thenational.academy` page** via its result-carried URL field. **Sequence and
+thread results open in-demo layouts** — a programme layout for sequences and a threads
+layout for threads — because meaningful link-out is what makes the search wow real, and OWA
+has no thread-addressed page to link to (first-hand verification, sequencing survey
+2026-08-31). Each in-demo layout itself links out at unit level and below. A result whose
+expected URL field is absent takes the declared truthful-absence path — never a fabricated
+link.
 
 Dependency note (minimum shippable shape without the `beneficial` definition-plan edge): if
 the definition corpus is not yet owner-accepted, Stage 0 instantiates the composition
@@ -181,7 +186,7 @@ does not replace it.
 | Resource the proposition needs | Kit/estate provides today | Gap | Seam the gap reveals |
 | --- | --- | --- | --- |
 | Hybrid retrieval: lessons, units, threads, sequences, suggest, facets | `oak-search-sdk/read` — demonstrated, typed capability surface (ADR-134) | None for retrieval itself | Capability-surface pattern is the reusable seam; the showcase tests it cold |
-| Result → resource URL on `www.thenational.academy` | Search index documents carry their own URLs: `lesson_url`, `unit_url` and `sequence_url` required, `thread_url` optional (generated index contracts; the Curriculum Hub already consumes `unit_url`) | Whether every live document's URL resolves, and what `thread_url` carries when present, is unverified | The audit starts from the result-carried URL fields; generated-helper derivation is fallback for genuinely missing cases only — never link fabrication. Threads without a URL take the truthful-absence path, and their in-demo UX is a named design task |
+| Result → resource URL on `www.thenational.academy` | Search index documents carry their own URLs: `lesson_url`, `unit_url` and `sequence_url` required, `thread_url` optional (generated index contracts; the Curriculum Hub already consumes `unit_url`) | Whether every live document's URL resolves, and what `thread_url` carries when present, is unverified | The audit starts from the result-carried URL fields; generated-helper derivation is fallback for genuinely missing cases only — never link fabrication. Sequences and threads resolve to the in-demo programme/threads layouts (owner ruling 2026-08-31); missing expected URLs take the truthful-absence path |
 | Search-by-meaning claim holds per result type | Lessons/units 4-way RRF; threads 2-way RRF; the current ingestion populates `sequence_semantic` and sequence retrieval always combines BM25 with a semantic retriever over it | The deployed index's actual state is unverified from source alone; the search SDK README still describes sequences as lexical-only (ADR-110's historical state) — routed as a stale-doc finding to the search stream | Stage 0 verifies the deployed retrieval state first-hand and the mechanism-legibility layer describes what is measured, not what a document says |
 | Web host composition: routing, env, error envelope, live-stack wiring | Curriculum Hub precedent — app-specific (evidence row: no reusable host profile exists) | The wiring would be rebuilt app-locally a second time | Second consumer met: extract the recurring demo-host composition as Kit-owned capability (consolidate-at-second-consumer) |
 | Design language | Oak Design System — demonstrated; both consumption paths proven (Tailwind-mapped, plain-CSS) | None blocking | Path choice is a decision-budget entry, not a fork |
@@ -202,11 +207,13 @@ retuning, no new search features, no admin surfaces.
 
 ## Acceptance criteria (each with a proof — required)
 
-1. **Linkability holds for every result type.** Every searchable result scope (lessons,
-   units, sequences, threads — the retrieval surface's actual scopes; subjects are filters,
-   not results) resolves via its result-carried URL field or surfaces a declared, truthful
-   absence (threads where `thread_url` is absent). Proof: **repo-safe** — a linkability
-   audit instrument over a real index sample plus tests on the truthful-absence path; the
+1. **Every result type resolves meaningfully.** Lesson and unit results resolve via their
+   result-carried URL fields to `www.thenational.academy`; sequence and thread results
+   resolve to their in-demo layouts (the programme layout, the threads layout — owner
+   ruling 2026-08-31), whose unit-and-below content links out the same way; a result whose
+   expected URL field is absent surfaces a declared, truthful absence. (Subjects are
+   filters, not results.) Proof: **repo-safe** — a linkability audit instrument over a real
+   index sample plus tests on the truthful-absence path and the two layout routes; the
    live URL-resolution check runs as a standalone operator evidence script (never in
    the e2e suite), its record committed with the audit.
 2. **The discovery loop is complete and truthful.** Intent → results with source, relevance
@@ -287,7 +294,13 @@ Slices at pickup, each a single-story PR within the default round budget (PDR-13
 4. **Depth, limits and mechanism-legibility surfaces** — relevance and provenance legibility,
    suggestions and facets where they serve discovery, zero-hit/degraded/limit truthfulness,
    and the stakeholder journey's progressive-disclosure "how this works" layer over live
-   data.
+   data. Carries the **programme layout and threads layout** (owner ruling 2026-08-31):
+   both render only verified bulk fields — thread membership grouped by year is solid;
+   the `threads[].order` field's semantics are CONTESTED between two of our own source
+   contracts (sequencing survey 2026-08-31) and stay unrendered until the bulk-data
+   investigation lane adjudicates them (a `beneficial`, not blocking, dependency — the
+   layouts ship on verified fields alone). Neither layout ever surfaces the graph corpus's
+   `prerequisiteFor` edges.
 5. **Evidence close** — decision-budget and gap-and-seam consolidation, dispositions routed,
    composition declaration reverified, the developer cold-consumer probe run, owner review.
 
@@ -302,5 +315,11 @@ Slices at pickup, each a single-story PR within the default round budget (PDR-13
   claims only.
 - Building Kit capabilities beyond what this proposition activates — gaps are registered and
   routed, never absorbed (the definition's placement rule).
+- Repairing the graph corpus's fabricated `prerequisiteFor` edges, adjudicating the
+  contested `threads[].order` contract, or any prerequisite representation. The conflation
+  is a serious data defect, not demo material (owner ruling, 2026-08-31); it is owned by a
+  separate bulk-data-construction investigation lane — its own session and PR, grounded in
+  the upstream `oaknational/oak-openapi` contract so what the bulk data does and does not
+  contain is known first-hand. The demo never surfaces those edges.
 - Search-relevance retuning or provider changes; findings about search quality route to the
   search-owning stream.
