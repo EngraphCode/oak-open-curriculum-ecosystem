@@ -28,12 +28,16 @@ three pieces of curriculum structure their database already holds but
 does not reach the surfaces this estate consumes, and this estate has
 a recorded outcome either way. Established first-hand (2026-08-31,
 oaknational/oak-openapi and oaknational/database-tools checkouts):
-`thread_units.order` — served today by the per-thread API endpoint
-(`GET /threads/{threadSlug}/units` returns units in thread order with
-`unitOrder`) but absent from the bulk sequence export, whose
-`threads[].order` carries the thread display index
-(`programme_threads.order`) instead — this request seeks bulk-export
-parity with the existing endpoint, never new data; the unit
+`thread_units.order` — published on no served surface: the per-thread
+endpoint (`GET /threads/{threadSlug}/units`) reads the sequence view
+filtered by thread membership and returns only `unitTitle` and
+`unitSlug` with no order field (`threads.ts` handler and
+`threadUnitsResponse` schema; the endpoint's description still
+advertises a removed `unitOrder` — an overclaim the issue should also
+name), and the bulk sequence export's `threads[].order` carries the
+thread display index (`programme_threads.order`) instead — this
+request asks Oak to expose `thread_units.order` itself, data the
+database already holds; the unit
 connections — `connection_prior_unit_id`, `connection_future_unit_id`
 and their descriptions, materialized for the API in
 `mv_openapi_unit_curriculum_content` yet queried by no API code path

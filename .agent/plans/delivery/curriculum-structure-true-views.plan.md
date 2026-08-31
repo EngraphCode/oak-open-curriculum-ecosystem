@@ -32,9 +32,12 @@ already serve the true relationships: `get-programmes-units` and
 `get-sequences-units` return units in unit sequence order with
 programme factors; `get-units-summary` returns a unit's prior-knowledge
 requirement statements, threads, national-curriculum statements, and
-its lessons in order; `get-threads-units` returns a thread's units in
-Oak's authoritative thread order; `get-thread-progressions` serves the
-year-derived thread progression with its derivation honestly stated.
+its lessons in order; `get-threads-units` returns a thread's unit
+membership (its response carries no order field — the authoritative
+within-thread order `thread_units.order` is published on no surface,
+which is `upstream-curriculum-data-exposure`'s first request);
+`get-thread-progressions` serves the year-derived thread progression
+with its derivation honestly stated.
 Rebuilding any of those from bulk data would create competing surfaces
 that can drift (first question: simpler without compromise — reuse).
 When this lands, the served guidance points structural questions at
@@ -53,8 +56,8 @@ fields; nothing serves inferred relationships.
 ## Mechanism
 
 - **Reuse, named**: the existing generated tools above are the served
-  surfaces for sequence order, lesson order, thread order and
-  membership, and per-unit prior-knowledge statements. This plan
+  surfaces for sequence order, lesson order, thread membership, and
+  per-unit prior-knowledge statements. This plan
   builds none of them again; its guidance work re-points the
   post-removal tool guidance at them explicitly.
 - **Shared prior-knowledge statements** (the genuinely absent
@@ -89,10 +92,13 @@ fields; nothing serves inferred relationships.
    grouped by string identity, proven against fixture data drawn from
    a real bulk file. Proof: `repo-safe` — unit/integration tests.
 3. Post-removal served guidance points sequence-order, lesson-order,
-   thread-order, and per-unit prior-knowledge questions at the
-   existing generated tools by name, and no served view built by this
-   plan duplicates them. Proof: `repo-safe` — review of the served
-   guidance and contracts plus the existing tools' own tests.
+   thread-membership, and per-unit prior-knowledge questions at the
+   existing generated tools by name, states that authoritative
+   within-thread order is published on no surface (the claim boundary
+   until upstream exposure lands), and no served view built by this
+   plan duplicates the existing tools. Proof: `repo-safe` — review of
+   the served guidance and contracts plus the existing tools' own
+   tests.
 
 ## Todos
 
@@ -102,11 +108,11 @@ re-pointing, each within the default round budget.
 
 ## Out of scope
 
-- Rebuilding sequence-order, lesson-order, thread-order, or per-unit
-  prior-knowledge serving — the live generated tools own those
-  surfaces.
+- Rebuilding sequence-order, lesson-order, thread-membership, or
+  per-unit prior-knowledge serving — the live generated tools own
+  those surfaces.
 - Any inferred relationship (statement-to-unit linking, prerequisite
   guessing) — excluded by the strategic node's claim boundary.
-- Consuming upstream data not yet published (thread unit order in the
-  bulk export, unit connections) — `upstream-curriculum-data-exposure`.
+- Consuming upstream data not yet published (thread unit order on any
+  surface, unit connections) — `upstream-curriculum-data-exposure`.
 - Presentation/UI; this plan is served-surface structure only.

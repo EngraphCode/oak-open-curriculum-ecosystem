@@ -2130,3 +2130,18 @@ cloud-environment surface at consolidation, not a worked success to normalise.
   falsehood-cures. Lesson: when a domain instrument exists, build it
   at LOOP START — a convergence question answerable only by memory
   means the instrument was never built.
+- CORRECTION to OVERBROAD-SURFACE CLAIM above, Codex-caught (2026-08-31,
+  PR #32 round 8): the round-3 "cure" replaced one overclaim with
+  another — I sourced "the endpoint returns units in thread order with
+  unitOrder" from the endpoint's DESCRIPTION string (threads.ts:71),
+  while the response schema returns only {unitTitle, unitSlug} and the
+  handler reads the sequence view filtered by thread membership,
+  never thread_units.order (oak-adapter-threads.ts:33-37 in our own
+  estate already recorded unitOrder as removed upstream). So
+  authoritative within-thread order is published on NO surface, and
+  the upstream request is now "expose thread_units.order itself", not
+  endpoint parity. Same generator as rounds 6-7: an estate fact
+  asserted from an intermediate surface (a descriptor string) instead
+  of the source of truth (schema + handler). Verify at the rung that
+  binds: response schemas and handler code, never description text —
+  descriptions are claims, not evidence.
