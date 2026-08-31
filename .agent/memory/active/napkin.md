@@ -2176,3 +2176,72 @@ cloud-environment surface at consolidation, not a worked success to normalise.
   minted: on a born-sketch plan PR, after the cap engages, weigh each
   falsehood by WHO IT COULD MISLEAD BEFORE PICKUP; if the answer is
   nobody, disposition it to the pickup step instead of curing.
+- PDR-140 AUTHORED (2026-08-31, owner-ratified in-session: "this is
+  ratification, write it up now"): review-response pricing — feedback
+  defaults to triage-to-disposition; cures only over the worthiness bar
+  (misleads before the next verification point, or changes what gets
+  built); settlement-push batching with the intake contract declared at
+  PR-open; age-out for findings on unchanged text; bots batch, humans
+  conversational. New rule review-feedback-defaults-to-triage (all four
+  on-disk forms + RULES_INDEX row); pr-lifecycle state machine gained
+  the firing-gate block and the born-sketch cap is subsumed;
+  proportionality's review-loops instance points at the PDR. The
+  dispositioned one-word fix in prerequisite-claim-removal Todos
+  ("two single-story PRs" → ordered stack) landed here as its recorded
+  first-pickup-edit moment. No ADR — practice-process substance per
+  new-rule-vs-pdr-clause. This parcel dogfoods PDR-140: intake contract
+  declared in its own PR body.
+- PDR-140 PANEL ABSORBED (2026-08-31, four reviewers, all
+  pass/sound-with-fixes, one batch cure — the parcel dogfooded its own
+  doctrine): the four structural catches were (1) a ledger with a
+  producer and no consumer — cured by the durable-write requirement
+  (pickup-homed dispositions land in the plan artefact or its ticket)
+  plus the plan skill's consume-at-slicing step; (2) tally semantics
+  silently forked under triage — pinned: tally counts RAISED, arms read
+  CURE-WORTHY, generator classification runs over the full raised set;
+  (3) "pr-comments-resolve-and-recheck unchanged" was false — two
+  surgical amendments landed (zero-UNDISPOSITIONED terminal condition;
+  truth-verification split from cure-placement with the
+  cited-AC-property requirement); (4) triple restatement — PDR owns
+  clauses, rule and skill block trimmed to firing-gate form. Scope
+  narrowed to prose-class changesets (the code contrast is a
+  hypothesis, not a measurement). Owner sufficiency ruling landed as
+  clause 8 + proportionality proper-use note: a mid-loop cognitive-
+  skill poke is a defect report against the loop's skill. Lesson for
+  authoring: I violated practice-core-portability (outgoing Core link)
+  and skipped both indexes on first draft — the panel-before-landing
+  discipline caught all of it pre-commit, at four agents for ~4 min
+  wall each, versus eleven post-push review waves this morning. Review
+  BEFORE the artefact is public beats review cycles after.
+- WRAP CLOSEOUT (2026-08-31, curriculum-defect lane, session
+  01W6yQhSR8qao75hp14qf5A1). Promises sweep discharges: (1) the
+  cloud-environment provisioning defects surfaced this session and
+  never routed — PNPM_HOME unset breaks the spawn guard; shallow clone
+  lacks the validate-mcp-content BASELINE_COMMIT (needs fetch
+  --depth=2000); gitleaks absent (installed 8.24.3 to ~/.local/bin);
+  Playwright headless-shell revision 1234 missing from /opt/pw-browsers;
+  container git lacks --no-lazy-fetch — named home: the
+  cloud-environment doc, next session that touches it; (2) wilma's
+  recommendation to route the tally-semantics pin through
+  architecture-expert-fred was DECLINED with reason (the pinned
+  predicate text is untouched; only its input gained a definition, the
+  same additive shape as the 2026-07-16 pinning) — recorded so the
+  declination is a fact, not a silent drop; (3) the four panel reports
+  exist in full only in session task files — their substance is
+  absorbed into the PR #33 cures and the PDR-140 named follow-up
+  (retro-triage calibration corpus); the compression is
+  decision-sufficient and this row is the record of that judgement.
+  Error signature for successors: this seat's misses clustered at
+  "asserted from the wrong rung" — descriptor strings over schemas,
+  unbuilt instruments over built ones, adjacent text unupdated after a
+  semantic change; point external scrutiny there first. Outstanding
+  owner acts: ratification stamp on the four PR #32 plan nodes;
+  PDR-140 text ratification via PR #33's merge.
+- PDR-140 NAMED FOLLOW-UP (2026-08-31, Codex catch on PR #33): the
+  merge-bot executable (agent-tools pr-watch settlement.ts /
+  merge-decision.ts) is leg-driven and does not consume tally or
+  disposition state — the zero-undispositioned / cure-worthy-zero gate
+  legs are the merging seat's own recomputation until the tool learns
+  them. Follow-up: pass machine-readable disposition state into the
+  settlement verdict. Skill text now states the tool's actual
+  behaviour honestly.

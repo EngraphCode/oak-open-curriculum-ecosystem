@@ -129,9 +129,10 @@ under the same strategic node; this plan only takes the lie out.
 
 ## Todos
 
-Sliced as a safe stack of two single-story PRs, each with a green
-intermediate state (design-work-for-small-prs: the sizing bands bind
-at plan time):
+Sliced as a safe ordered stack of independently green slices
+(design-work-for-small-prs: the sizing bands bind at plan time; the
+items below fix the order, further slicing happens at pickup, and no
+PR count is asserted):
 
 1. **Prose claim removal** — the guidance, metadata, and doc surfaces
    above stop directing consumers to prerequisite structure while the
