@@ -2005,3 +2005,32 @@ bar for this loop: sub-serious findings get a disposition reply and, when worth 
 row in the appropriate remediation node (plan-estate node owning that surface) — never a
 per-round cure push. The round-13 cure (98b9dad: open-PR push gate P1 + thread-layout data
 seam P2) predates the ruling and ships as committed.
+
+## 2026-08-31 (curriculum-data-defect lane, remote session, ordering-data-defect-investigation branch) — remediation-node decision harvest
+
+- OWNER-CORRECTED decision offloading: three "owner decisions" I surfaced
+  (node-type adoption, tool rename-vs-retire, user-story validation) were
+  all resolvable by the decision lenses; the owner's verbatim redirect —
+  "I don't think I'm needed for any of those decisions, read
+  principles.md… apply the decision matrix". The rename framing was also
+  invented: nobody proposed preserving or renaming the misleading tool;
+  Strict-and-Complete already forces pure removal + new true tools. Tell
+  for next time: a "decision for the owner" whose answer a principle has
+  already forced is an evasion, not an escalation (principles
+  §Architectural Excellence, the deferential opt-out clause).
+- PANEL-OVERTURNS-AUTHOR, worked instance: my remediation-node verdict
+  (option a) was refuted by all three anti-deference reviewers on a
+  premise I could have checked — I tested "no honest strategic parent
+  exists" against only PRE-EXISTING nodes while my own division authored
+  the honest parent, and I missed the twelve-day-old precedent
+  (`mcp-served-surface-truth`, same defect class, delivery-under-
+  strategic, ratified 2026-08-19). Generator: arguing from the corpus as
+  it was, not as the proposal changes it. The panel-before-adoption
+  discipline paid for itself again (same lesson class as the 2026-08-14
+  PR-886 panel evidence).
+- DEFECT-CLASS NOTE: the `get-prior-knowledge-graph` fabricated-edges
+  defect is the false-green surface class at product scale (a published
+  surface answering authoritatively with fabricated structure); the
+  cure landed as plan `prerequisite-claim-removal` with a recomputable
+  guard (edge types cite their bulk-schema source field) — the
+  authoring-time-legibility cure shape the class entry prescribes.
