@@ -2213,3 +2213,27 @@ cloud-environment surface at consolidation, not a worked success to normalise.
   discipline caught all of it pre-commit, at four agents for ~4 min
   wall each, versus eleven post-push review waves this morning. Review
   BEFORE the artefact is public beats review cycles after.
+- WRAP CLOSEOUT (2026-08-31, curriculum-defect lane, session
+  01W6yQhSR8qao75hp14qf5A1). Promises sweep discharges: (1) the
+  cloud-environment provisioning defects surfaced this session and
+  never routed — PNPM_HOME unset breaks the spawn guard; shallow clone
+  lacks the validate-mcp-content BASELINE_COMMIT (needs fetch
+  --depth=2000); gitleaks absent (installed 8.24.3 to ~/.local/bin);
+  Playwright headless-shell revision 1234 missing from /opt/pw-browsers;
+  container git lacks --no-lazy-fetch — named home: the
+  cloud-environment doc, next session that touches it; (2) wilma's
+  recommendation to route the tally-semantics pin through
+  architecture-expert-fred was DECLINED with reason (the pinned
+  predicate text is untouched; only its input gained a definition, the
+  same additive shape as the 2026-07-16 pinning) — recorded so the
+  declination is a fact, not a silent drop; (3) the four panel reports
+  exist in full only in session task files — their substance is
+  absorbed into the PR #33 cures and the PDR-140 named follow-up
+  (retro-triage calibration corpus); the compression is
+  decision-sufficient and this row is the record of that judgement.
+  Error signature for successors: this seat's misses clustered at
+  "asserted from the wrong rung" — descriptor strings over schemas,
+  unbuilt instruments over built ones, adjacent text unupdated after a
+  semantic change; point external scrutiny there first. Outstanding
+  owner acts: ratification stamp on the four PR #32 plan nodes;
+  PDR-140 text ratification via PR #33's merge.
