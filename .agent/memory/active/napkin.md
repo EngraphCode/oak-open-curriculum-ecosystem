@@ -2105,3 +2105,28 @@ cloud-environment surface at consolidation, not a worked success to normalise.
   endpoint inventory before writing "the API does not serve X". Cure
   pushed: the exposure request is now bulk-parity-with-endpoint, and
   the thread-view note names both surfaces.
+- UNBUILT-TALLY, owner-caught (2026-08-31, PR #32): the owner's
+  "are the PR comments converging?" exposed that I ran seven review
+  rounds with no tally store — the exact failure proportionality's
+  worked instance names ("not an absent framework, but an unbuilt
+  instrument", PR #570). I substituted a self-invented narrative
+  tripwire ("if the next round reshapes rather than shrinks") for
+  pr-lifecycle's mechanical predicate. Tally built retroactively
+  (session-record provenance; rounds 6-7 verified in-context):
+  c = 9, 3, 2, 1, 2, 1, 1 over rounds 1-7, single epoch. The
+  4-settled-rounds arm has stood since round 4; strict decrease broke
+  at round 5 (1→2). Governing instrument: the born-sketch PLAN-PR
+  convergence cap (owner ruling 2026-07-25) — after round 4,
+  reviewer waves disposition to named homes unless a finding shows an
+  actual falsehood. Retro-audit: rounds 5-7 cures each qualify as
+  falsehood-cures (unsupported band-count claim; false absent-views
+  premise; AC citing a validator that could not cover its artefact),
+  so the edits were cap-legal, but the cap should have been DECLARED
+  at round 4, not discovered at round 7. Generator note: rounds 6-7
+  share one generator — plan text asserting estate facts not verified
+  first-hand at authoring (round 7's defect was introduced by round
+  6's cure). From round 8: disposition-only unless actual falsehood;
+  merge at any settle-green tip whose deltas are cap-dispositions or
+  falsehood-cures. Lesson: when a domain instrument exists, build it
+  at LOOP START — a convergence question answerable only by memory
+  means the instrument was never built.
