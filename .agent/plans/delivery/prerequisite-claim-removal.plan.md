@@ -81,16 +81,24 @@ under the same strategic node; this plan only takes the lie out.
   errors, so this inventory is completed at execution by the repo-wide
   claim-vocabulary sweep that acceptance criterion 2 requires — the
   list above is the starting set, never the boundary.
-- **Recurrence guard**: every emitted corpus edge type carries the
+- **Recurrence guard**, in two halves with an honest claim boundary.
+  The mechanical half: every emitted corpus edge type carries the
   bulk-schema source field it derives from, checked by a validator that
-  recomputes membership (validators-must-recompute). The guard is
-  proven behaviourally, red-first: supply an edge type without a valid
-  source-field citation and observe the validator reject it — never by
-  pinning the absence of `prerequisiteFor` (testing-strategy: pinning
-  an absence proves configuration, not behaviour). The semantic
-  invariant — no edge asserts meaning its source field does not carry —
-  lands as a dated amendment on ADR-086 (the corpus extraction
-  methodology record) in the same change.
+  recomputes membership (validators-must-recompute), proven
+  behaviourally red-first — supply an edge type without a valid
+  source-field citation and observe rejection — never by pinning the
+  absence of `prerequisiteFor` (testing-strategy: pinning an absence
+  proves configuration, not behaviour). This half guarantees
+  provenance legibility only: it cannot judge whether a cited field
+  supports an edge's asserted meaning (the original defect cited real
+  thread data); what it guarantees is that every edge's derivation is
+  a visible, reviewable claim rather than silent fabrication. The
+  semantic half — no edge asserts meaning its source field does not
+  carry — is a content-quality invariant, so its enforcement is
+  construction plus human review (the estate's check kind for that
+  class, never a false-positive-prone mechanical test): it lands as a
+  dated amendment on ADR-086 (the corpus extraction methodology
+  record) in the same change, binding every future edge-type review.
 
 ## Acceptance criteria (each with a proof — required)
 
@@ -111,9 +119,11 @@ under the same strategic node; this plan only takes the lie out.
    gate).
 3. Every emitted edge type cites its bulk-schema source field,
    recomputed by validator, and the validator rejects an edge type
-   without a valid citation. Proof: `repo-safe` — the behavioural
-   red-first run: an uncited edge type supplied to the validator is
-   rejected; the emitted corpus passes.
+   without a valid citation. The validator's claim is provenance
+   legibility; the valid-citation/false-semantics case is criterion
+   4's invariant, enforced at review. Proof: `repo-safe` — the
+   behavioural red-first run: an uncited edge type supplied to the
+   validator is rejected; the emitted corpus passes.
 4. ADR-086 carries the dated invariant amendment. Proof: `repo-safe` —
    the amendment text in the same PR.
 
