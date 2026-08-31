@@ -59,8 +59,11 @@ structure citing its source fields per the recurrence guard landed by
 - **Thread views**: thread membership plus the thread's units in
   sequence order — a declared projection (the sequence's order
   restricted to the thread), documented as such, never presented as a
-  thread-specific editorial order (that data exists upstream,
-  unpublished — see `upstream-curriculum-data-exposure`).
+  thread-specific editorial order. Oak serves that editorial order via
+  the per-thread API endpoint (`GET /threads/{threadSlug}/units`,
+  `unitOrder`), but it is absent from the bulk export this corpus
+  consumes — bulk parity is requested in
+  `upstream-curriculum-data-exposure`.
 - **Lesson order**: `unitLessons[].lessonOrder` within a unit.
 - **Prior knowledge statements**: a unit's `priorKnowledgeRequirements`
   as first-class served content, plus the shared-statement structure —

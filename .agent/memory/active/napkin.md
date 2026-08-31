@@ -2034,3 +2034,13 @@ seam P2) predates the ruling and ships as committed.
   cure landed as plan `prerequisite-claim-removal` with a recomputable
   guard (edge types cite their bulk-schema source field) — the
   authoring-time-legibility cure shape the class entry prescribes.
+- OVERBROAD-SURFACE CLAIM, own hands, Codex-caught (2026-08-31, PR #32
+  round 3): I generalised "thread_units.order is unpublished" from the
+  BULK schema + sequence-view SQL to "the open API does not serve it" —
+  while GET /threads/{threadSlug}/units serves units in thread order
+  with unitOrder (generated tool descriptor + oak-openapi
+  threads.ts:71). Lesson: an absence proven on ONE surface (bulk
+  export) licenses a claim about that surface only; sweep the API's
+  endpoint inventory before writing "the API does not serve X". Cure
+  pushed: the exposure request is now bulk-parity-with-endpoint, and
+  the thread-view note names both surfaces.

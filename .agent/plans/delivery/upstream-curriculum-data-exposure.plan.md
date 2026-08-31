@@ -25,15 +25,19 @@ last_updated: 2026-08-31
 
 Oak's maintainers have well-evidenced, actionable requests to publish
 three pieces of curriculum structure their database already holds but
-the open API does not serve, and this estate has a recorded outcome
-either way. Established first-hand (2026-08-31, oaknational/oak-openapi
-and oaknational/database-tools checkouts): `thread_units.order` — a
-unit-within-thread order column the published sequence view drops (it
-serves `programme_threads.order`, the thread display index, instead);
-the unit connections — `connection_prior_unit_id`,
-`connection_future_unit_id` and their descriptions, materialized for
-the API in `mv_openapi_unit_curriculum_content` yet queried by no API
-code path; and `cross_subject_links`. These are the genuine
+does not reach the surfaces this estate consumes, and this estate has
+a recorded outcome either way. Established first-hand (2026-08-31,
+oaknational/oak-openapi and oaknational/database-tools checkouts):
+`thread_units.order` — served today by the per-thread API endpoint
+(`GET /threads/{threadSlug}/units` returns units in thread order with
+`unitOrder`) but absent from the bulk sequence export, whose
+`threads[].order` carries the thread display index
+(`programme_threads.order`) instead — this request seeks bulk-export
+parity with the existing endpoint, never new data; the unit
+connections — `connection_prior_unit_id`, `connection_future_unit_id`
+and their descriptions, materialized for the API in
+`mv_openapi_unit_curriculum_content` yet queried by no API code path
+and absent from every served surface; and `cross_subject_links`. These are the genuine
 prerequisite-direction and thread-order data whose absence forces the
 served surface to stay modest; exposure upstream is the honest route to
 richer structure — never local inference.
