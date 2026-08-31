@@ -160,11 +160,14 @@ Conditions that keep the policy honest:
   rule carries this standing ruling as its one scoped narrowing — outside this
   scope its per-invocation requirement is unchanged.
 - Commit-message-class checks are **not in CI** and therefore run in-session,
-  non-optionally, per commit: `pnpm agent-tools:check-commit-message`
-  (commitlint) **and**
-  `pnpm --filter @oaknational/agent-tools prevent-accidental-major-version <message-file>`
-  (the accidental-major-release guard `.husky/commit-msg` would otherwise
-  provide). Skipping either recreates the gap `HUSKY=0` opens.
+  non-optionally, per commit: `pnpm agent-tools:check-commit-message -F <file>`
+  (commitlint) **and** the accidental-major-release guard
+  `.husky/commit-msg` would otherwise provide —
+  `pnpm exec tsx agent-tools/src/version-guard/prevent-accidental-major-version.ts <file>`,
+  whose path-safety contract only accepts message files under `.git/` (write
+  the draft to e.g. `.git/COMMIT_MSG_DRAFT`, or run the guard on
+  `git log -1 --format=%B` written there post-commit and amend-free re-land on
+  a trip). Skipping either recreates the gap `HUSKY=0` opens.
 - Every push lands on a CI-gated PR; an un-PR'd branch push has no gate, so
   cloud work stays on PR branches (standing practice anyway).
 - If CI's coverage narrows relative to the local suite, the premise fails
