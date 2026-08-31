@@ -44,10 +44,12 @@ frequently creates the condition for another. Never assume the previous round wa
 The loop is:
 
 1. Pull all comments (every surface above).
-2. For each: fix in code, or reject explicitly with verified rationale; reply; resolve
-   the thread. The ROUTE disposition exists only in PDR-140's lane — bot-reviewed
-   findings on prose-class artefacts; code-class findings and human-review findings keep
-   fix-or-reject, never routing.
+2. For each: fix in code, or reject explicitly with verified rationale, or — per the
+   pr-lifecycle Phase 4 three-way ruling — ticket-and-close a correct-but-out-of-story
+   finding (Director notified, ticket referenced in the reply); reply; resolve the
+   thread. PDR-140's pickup-home ROUTE disposition additionally exists only in its
+   lane — bot-reviewed findings on prose-class artefacts; excluded lanes keep exactly
+   the Phase 4 dispositions, with no pickup routing.
 3. Push if the pass produced a cure or a queued ledger write to land (batched per
    PDR-140 on bot-lane prose changesets); a disposition-only pass lands no push.
 4. **Re-fetch all comments** — after a push, or after a disposition-only pass (bots post
