@@ -106,6 +106,9 @@ sources without turning research notes into a second canon.
   — focused research note on `start-right-team`, emergent temporary
   responsibilities, team handoff routing, and the proposed action-trace
   surface.
+- [minimal-peer-comms-protocol-n3-2026-07-20.md](./minimal-peer-comms-protocol-n3-2026-07-20.md)
+  — historical analysis/example of a three-agent peer protocol retained from
+  the deconstruction corpus; explicitly not active Practice doctrine.
 
 ## Human-Facing Discovery Surfaces
 

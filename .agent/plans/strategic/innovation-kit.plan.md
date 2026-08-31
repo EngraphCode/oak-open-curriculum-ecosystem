@@ -2,7 +2,7 @@
 id: innovation-kit
 node_type: strategic
 name: 'Oak Innovation Kit'
-overview: 'Oak can move a concept from idea to an explicit evidence state quickly, to Oak standards, through a repeatable composition and assurance path.'
+overview: 'Oak can move a concept from idea to an excellent production-ready working experience and explicit evidence state quickly, with a bounded path to live-product obligations that preserves its unchanged semantic core.'
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -37,19 +37,25 @@ A legitimate decision owner can then continue, redirect, stop, or declare the ev
 insufficient without reconstructing the experiment or promoting a demo claim beyond its
 boundary.
 
-The repeatable composition and assurance path preserves Oak's semantic integrity, provenance,
-accessibility, openness, visual and interaction quality, and human decision authority. It
-makes recurring integration and verification available without predetermining the concept's
-product shape, host, model, or interaction grammar.
+The repeatable capability, composition, creation, lifecycle and assurance path preserves Oak's
+semantic integrity, provenance, accessibility, openness, visual and interaction quality, trust,
+operability, recovery and human decision authority. A production-ready demonstration is complete
+for its declared audience, claims and activated capabilities. If it is later elevated, unchanged
+semantic contracts and authority identities survive; new audiences, writes, rights, risks, scale
+or service obligations are activated explicitly rather than hidden as a later rewrite. The path
+does not predetermine the concept's product shape, host, model or interaction grammar.
 
 ## The bet
 
 The `KIT-2` bet is that the recurring cost of composing and assuring Oak capability can be
 made part of the idea-to-evidence path, so pace and excellence reinforce one another. Oak's
-data, SDKs, search, graph, design system, agent infrastructure, and delivery Practice already
-contain much of the difficult substrate. Bringing them together as an Innovation Kit should
-concentrate more effort on the novel proposition and the people it could serve while making
-the quality floor structural rather than aspirational.
+data, SDKs, search, graph, design system, agent infrastructure and delivery Practice provide
+important ingredients, but they do not yet form the whole product-creation and elevation system.
+Experience composition, identity and trust, state and data, integration, delivery, operation,
+recovery, developer workflow and evidence capability are uneven, app-specific, proposed or
+absent. Investing in that complete recurring substrate should concentrate more effort on the
+novel proposition and the people it could serve while making the quality floor structural rather
+than aspirational.
 
 This node is not the Innovation Kit value stream. The
 [stream](../../../docs/strategy/stream-innovation-kit.md) is the durable strategic front and
@@ -71,9 +77,16 @@ Kit. Planned consumers establish intent but cannot prove portability or commonal
 - A concept reaches a declared evidence state through a documented, repeatable composition
   and assurance path; recurring integration and verification effort is distinguished from
   concept-specific work rather than hidden in one aggregate.
+- Every experience declares its activated, omitted and reduced capabilities, provider bindings,
+  claim boundary and evidence profile; a smaller profile never means silent or lower-quality
+  behaviour for the claims it does make.
 - Accessibility, provenance, semantic integrity, design quality, repository conformance,
-  and human-authority boundaries are present in the working path and reverified in each
-  composed host; they are not deferred as productionisation work.
+  trust, operational visibility, recovery and human-authority boundaries are present in the
+  working path and reverified in each composed host; they are not deferred as productionisation
+  work.
+- Elevation preserves unchanged semantic capability contracts, authority identities and
+  evidence vocabulary; newly activated product obligations and legitimate binding, topology or
+  budget changes remain explicit and measurable.
 - The evidence record names the proposition, baseline or comparator, method, result, negative
   or ambiguous findings, and claim boundary clearly enough that a later decision need not
   reconstruct the experiment.
@@ -102,13 +115,24 @@ assurance remain opaque or must be reconstructed for each concept; or if the com
 duplicates or overrides legitimate semantic authority. It also fails or must narrow if evidence
 accumulates without affecting a decision or accurate understanding; if verification,
 maintenance, and retirement burden exceed the declared comparator; or if only successful and
-exposed cases enter the record.
+exposed cases enter the record. It also fails if an unchanged user or domain obligation needs a
+new semantic core during elevation; if a stateful experience must invent persistence, migration,
+recovery or operational meaning outside the declared path; or if a profile reports capability
+that its selected bindings do not actually serve.
 
 The node does not select an implementation architecture, authorise a product, prescribe the
 membership or order of the open-ended portfolio, or claim that the existing Kit has already
 reached the outcome.
 
 ## Research inputs
+
+The
+[proposed Innovation Kit definition](../../research/innovation-kit/definition/README.md)
+separates the concept lineage, system and authority model, human/product promises, capability
+contracts, composition/elevation profiles, record interfaces, operating loops, evidence,
+developer/agent experience and stewardship from dated current-estate evidence and illustrative
+scenarios. It is a non-normative research input: it does not select a provider, package topology,
+first proof or implementation and does not ratify this strategic node.
 
 The
 [Eve + MCP agentic-chat investigation](../../research/innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md)
@@ -126,7 +150,8 @@ effective, or commit the demonstration to any dimensional form.
 ## Delivery
 
 Only delivery plans whose primary outcome changes or proves the shared `KIT-2`
-idea-to-evidence composition and assurance path declare `serves: innovation-kit`; they are
+idea-to-production-ready-evidence composition, elevation or assurance path declare
+`serves: innovation-kit`; they are
 enumerated by search, never by a hand-kept list. A demo or programme primarily pursuing
 `KIT-1`, `KIT-3`, or `KIT-4` needs its own born-sketch strategic parent when that work is
 planned rather than being routed here for convenience. Each child names the uncertainty,

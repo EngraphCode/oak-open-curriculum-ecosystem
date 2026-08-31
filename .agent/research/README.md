@@ -32,8 +32,7 @@ idea-to-evidence path, and exercised-reuse discipline. Strategy authority remain
 
 | Document | Purpose | Key insights |
 | --- | --- | --- |
-| [innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md](innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md) | Eve + MCP agentic-chat feasibility and value investigation | One bounded peer demo; dual-plane architecture hypothesis; public-capability value thesis; portfolio evidence and claim boundaries |
-| [innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md](innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md) | Dynamic, interactive graph-experience technology and evidence landscape | Representation before renderer; 2D, animation, linked views, 2.5D, 3D and immersive options; task-dependent perception; projection integrity; accessibility parity; evidence-led evaluation |
+| [innovation-kit/README.md](innovation-kit/README.md) | Local entry point for the proposed definition, dated evidence, worked scenarios, bounded investigations and historical deconstruction | The Kit as the governed, portable part of a complete product-creation system; fast and good through governed compression, explicit obligations, truthful operation and stewardship |
 
 ### 🔍 Semantic Search & Elasticsearch
 
@@ -176,8 +175,7 @@ Research on API structure and data analysis.
 
 | Document | Summary |
 | --- | --- |
-| [innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md](innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md) | Value and technical investigation for an Eve + MCP agentic-chat experience as one bounded peer in the Oak Innovation Kit portfolio; records architecture options, evidence limits, and the deeper public-capability thesis. |
-| [innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md](innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md) | Evidence-led landscape for graph experiences beyond flat, static diagrams; compares interactive 2D, animation, linked views, 2.5D, 3D, spatial and immersive options without selecting an implementation. |
+| [innovation-kit/README.md](innovation-kit/README.md) | Local router for the decomposed Innovation Kit definition, dated current-estate evidence, source/provenance map, worked analytical scenarios, bounded investigations and analysis-only web-app deconstruction. |
 
 ## Recent Additions (2026-08-13)
 
@@ -290,6 +288,25 @@ When you discover something valuable:
 2. **Add to this index** — Categorize appropriately
 3. **Link from plans** — Reference the research
 4. **Update "Recent Additions"** — Date and summarize
+
+### Importing External Research Records
+
+An externally authored research record enters this surface as a faithful public
+projection
+([ADR-226](../../docs/architecture/architectural-decisions/226-agent-research-surface-for-imported-records.md)):
+
+1. **Copy content faithfully** — a record is evidence; its documents keep their
+   source bytes and stay exempt from house prose formatting.
+2. **Exclude owner-directed private material** — the presumption is publication;
+   only content with a specific shown harm is withheld.
+3. **Reduce private-repository permalinks to plain-text citations** — keep the
+   file name, line range and pinned revision; point to a stable index in the
+   private source repository that resolves the citations and records the withheld
+   minimum. Permalinks into public repositories stay live.
+4. **Keep the record self-contained and its integrity discipline authoritative**
+   — no product workspace imports from a record and a record imports no product
+   workspace; any executable content is held to OCE gates, and only
+   dependency-free leaf packages are registered in the workspace.
 
 ### Research Document Template
 

@@ -1679,3 +1679,52 @@ proved not-mine but was read as the end of the road instead of the start of
 the environment diagnosis. A deterministic local-only failure with a green CI
 twin is an environment defect with a findable mechanism; fix it, don't ask to
 route around it.
+
+## 2026-08-31 ~02:5xZ (Pyre rides Brilliance, 01BGpt, 9e0953, PR #27 definition arc close) — ADR dispositions come from the lifecycle grammar; review register is the owner's frame
+
+Arc: PR #27 deep review → owner-agreed amendments (creator's input + decision
+budget, binding time, performance in declared budgets, web discovery +
+outbound messaging, investment posture, commerce scope) → four-expert cure
+round (assumptions, docs-adr, architecture betty + fred) → ADR-226 minted as
+live authority for the `.agent/research/` imported-records surface, ADR-215
+reinstated full-body under a superseded-by banner → update-merge → merge.
+
+1. **ADR dispositions are decided by the index's §Lifecycle grammar, not by
+   intuition in either direction.** This arc held three wrong sizes for one
+   finding: doctrine-cited "restore as Superseded" (overweighted, unread
+   grammar), measured downgrade to "five-line stub" (underweighted — violated
+   keep-the-file), and the conformant landing (successor ADR + full original
+   body under banner) which only appeared after checking every Superseded
+   precedent row. Read §Lifecycle before proposing any ADR disposition.
+2. **Review register is the owner's frame; findings and register fail
+   independently.** Two same-arc corrections were register-only: effort
+   economics belong in the design register (seam placement), never the
+   justification register (public infrastructure needs no business case); and
+   investment posture is stated as positives — no venture/boardroom contrast,
+   which is politically unwise even when analytically apt. Check the register
+   the context demands before writing the verdict.
+3. **Hook-substring instance:** the word "restore" inside a commit-message
+   heredoc tripped the git-restore worktree-destruction block and the whole
+   compound command was lost. Author commit messages with the file-write
+   tool; keep trigger-adjacent vocabulary out of shell-visible text.
+4. **Cancelled-leg artefact, second instance this session-line:** a
+   run-quality-gates "failure" whose RESULTS row contains `cancelled` on a
+   just-superseded head is the superseding push's own cancellation; check the
+   head sha before diagnosing.
+
+Next-session tee-up (owner commission: examine the path forward, keep it
+simple, progress over palaces): the anti-palace instruments are now inside
+the corpus itself — the decision budget (composition-profiles §creator's
+input), the pipeline ceremony test, per-document reopening conditions, and
+the placement rule that capabilities derive from the first proposition and
+never from the gap list. The route is deliberately unwritten: the delivery
+plan authors a proposition-led implementation plan only when the owner
+selects a first proposition, and that first proposition is the empirical
+test of "least possible effort" via the decision budget. Owner-plane items
+left deliberately unstamped: the delivery plan's owner gate (expires
+2026-09-20) and the strategic node's sketch status await owner-present
+ratification stamps; five unrelated expired plan gates remain flagged by the
+session-start drift alert. Free-play seed (association, not finding): this
+session's own shape measured machinery ≫ judgment — the estate's process
+could be decision-budgeted exactly as the Kit proposes; relevant to "keep it
+simple".

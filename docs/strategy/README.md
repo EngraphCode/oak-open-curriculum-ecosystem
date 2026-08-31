@@ -118,6 +118,9 @@ conformance rather than strategy content.
 - [Vision](../../VISION.md) — the change and the two parts.
 - **Strategic node identity:** `innovation-kit` — one plan-estate outcome; its plan record
   owns current shape, ratification state, and typed parent edge.
+- [Innovation Kit research and proposed definition](../../.agent/research/innovation-kit/README.md) —
+  reader-routed product-creation-system definition, dated evidence, scenarios and historical
+  sources; not strategy authority or an implementation selection.
 - [Eve + MCP agentic-chat research](../../.agent/research/innovation-kit/eve-mcp-agentic-chat-experience-2026-08-30.md) —
   one bounded research input to the stream, not strategy authority or implementation proof.
 - [Dynamic, interactive graph-experience research](../../.agent/research/innovation-kit/dynamic-interactive-graph-experience-landscape-2026-08-30.md) —
