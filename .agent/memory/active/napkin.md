@@ -2145,3 +2145,19 @@ cloud-environment surface at consolidation, not a worked success to normalise.
   of the source of truth (schema + handler). Verify at the rung that
   binds: response schemas and handler code, never description text —
   descriptions are claims, not evidence.
+- ROUND-9 SAME GENERATOR, Codex-caught (2026-08-31, PR #32): the plan's
+  unit-connections claim cited mv_openapi_unit_curriculum_content as
+  "materialized for the API" — the estate's OWN database research
+  (database-authority-and-projections.md:184-190) records that view as
+  an undeployed schema-doc proposal (no migration, Hasura metadata,
+  Drizzle relation, or test). Re-verified: the connection ids +
+  descriptions are columns on public.units (Drizzle + Hasura metadata
+  + init migration), and the description/title fields ride the
+  DEPLOYED mv_curriculum_sequence_b_13_0_21 — the exact view
+  owaClient.ts queries — selected by nothing. Corrected evidence is
+  stronger than the original claim. Fourth instance of the one
+  generator (unverified estate facts at authoring); the round-3
+  investigation cited the first plausible artefact bearing the right
+  columns without checking its deployment status. Check-the-checker
+  move that would have caught it: search the estate's own research
+  corpus for the artefact name before citing it.

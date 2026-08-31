@@ -38,10 +38,18 @@ name), and the bulk sequence export's `threads[].order` carries the
 thread display index (`programme_threads.order`) instead — this
 request asks Oak to expose `thread_units.order` itself, data the
 database already holds; the unit
-connections — `connection_prior_unit_id`, `connection_future_unit_id`
-and their descriptions, materialized for the API in
-`mv_openapi_unit_curriculum_content` yet queried by no API code path
-and absent from every served surface; and `cross_subject_links`. These are the genuine
+connections — `connection_prior_unit_id` and
+`connection_future_unit_id` with their descriptions are columns on
+`public.units` (Drizzle schema, Hasura metadata, init migration), and
+the connection description and title fields are carried by the very
+materialized view the API already queries
+(`published.mv_curriculum_sequence_b_13_0_21`, named in
+`owaClient.ts`) yet selected by no API query and absent from every
+served surface (the schema-doc view
+`mv_openapi_unit_curriculum_content` is not citable evidence — the
+estate's database research records it as an undeployed proposal with
+no migration, Hasura metadata, Drizzle relation, or test); and
+`cross_subject_links`. These are the genuine
 prerequisite-direction and thread-order data whose absence forces the
 served surface to stay modest; exposure upstream is the honest route to
 richer structure — never local inference.
@@ -58,8 +66,9 @@ service's documented claim boundaries stand as the honest maximum.
 
 One issue per dataset on `oaknational/oak-openapi`, each citing the
 first-hand evidence paths (the sequence view SQL that drops
-`thread_units.order`; the materialized view definition and the absence
-of any consuming query; the bulk schema's closed shape), written as
+`thread_units.order`; the deployed sequence materialized view's
+unselected connection fields and the absence of any consuming query;
+the bulk schema's closed shape), written as
 exposure requests against data Oak already materializes — never as
 schema loosening. The consumption contingency stays prose in this plan
 until data exists (no speculative code shapes). A gate records a
