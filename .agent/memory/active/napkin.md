@@ -2256,3 +2256,18 @@ fails only because the cloud image leaves PNPM_HOME unset while pnpm lives at
 42952a6a9 — the substitute-gate workaround was unnecessary for code commits and the
 provisioning-defect list in the wrap record should absorb this as the verified cure
 (candidate home: cloud-session-setup.sh exporting PNPM_HOME).
+
+## Push-side correction: PNPM_HOME cures commit hooks only (2026-09-01, Genet mends Lamplight, 01W6yQ)
+
+The entry above over-reached. With PNPM_HOME set, the commit-side chain (repo-check
+prettier-staged, commitlint, version-guard) runs natively and passed on 42952a6a9 and
+37a042d6f. The PRE-PUSH chain still cannot complete in this container: the full turbo gate
+fails on three environmental defects first-hand-verified today — agent-tools test:e2e dies on
+`git --no-lazy-fetch` (image git 2.43.0, flag needs ≥2.45), and both test:ui suites die on
+Playwright wanting chromium revision 1234 while the image ships 1194 with browser-download
+egress blocked (the repo's own cloud-session-setup.sh install command fails the same way).
+Push therefore proceeds under the adopted cloud HUSKY=0 policy
+(cloud-environment.md §Git-hook policy) with the pre-push substitute (outgoing-range
+gitleaks) run first; commit-side hooks stay native. Provisioning-defect list addition: the
+PNPM_HOME export belongs in the cloud image or setup script; git ≥2.45 and the 1234 browser
+store remain open defects.
