@@ -2245,3 +2245,14 @@ cloud-environment surface at consolidation, not a worked success to normalise.
   them. Follow-up: pass machine-readable disposition state into the
   settlement verdict. Skill text now states the tool's actual
   behaviour honestly.
+
+## Cloud husky gate cured by PNPM_HOME, not bypass (2026-09-01, Genet mends Lamplight, 01W6yQ)
+
+The cloud-seat pre-commit failure previously worked around under the owner's docs-only
+HUSKY=0 grant was root-caused this session: `repo-check`'s trusted-location pnpm probe
+fails only because the cloud image leaves PNPM_HOME unset while pnpm lives at
+`/opt/node22/bin/pnpm`. `export PNPM_HOME=/opt/node22/bin` made the full hook chain
+(repo-check prettier-staged, commitlint, version-guard) pass first-hand on commit
+42952a6a9 — the substitute-gate workaround was unnecessary for code commits and the
+provisioning-defect list in the wrap record should absorb this as the verified cure
+(candidate home: cloud-session-setup.sh exporting PNPM_HOME).
