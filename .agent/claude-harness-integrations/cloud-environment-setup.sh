@@ -35,9 +35,12 @@ export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 # and diagnosing).
 PHASE="init"
 phase() {
-  PHASE="$1"
+  local phase_name="$1"
+  # PHASE stays global: the ERR trap below reads it at the point of death
+  PHASE="$phase_name"
   echo ""
   echo "=== PHASE: ${PHASE} ==="
+  return 0
 }
 # the pipe-status list distinguishes which stage of a pipeline failed —
 # BASH_COMMAND alone names the whole assignment or the final stage, which
@@ -70,8 +73,11 @@ phase "repo discovery"
 # this line on every fresh session from this script's first paste, the
 # root cause of the 2026-08-23/24 environment outage. The pipeline's
 # exit is therefore tolerated; the meaningful invariant stays the
-# test -n FIRST_REPO check below, which still fails loudly when no
-# Practice repo is actually found.
+# FIRST_REPO check below, which still fails loudly when no Practice repo
+# is actually found. The check routes through fail() rather than standing
+# alone: [[ ]] is a shell keyword and leaves PIPESTATUS at the previous
+# pipeline's value, so a bare test would print "pipe status: 0" on the
+# failure card beside a fatal failure.
 REPOS=$(find /home /workspace -maxdepth 4 -type d -name .git \
   -not -path '*/node_modules/*' 2>/dev/null | sed 's|/\.git$||') || true
 FIRST_REPO=""
@@ -84,7 +90,7 @@ for repo in $REPOS; do
     break
   fi
 done
-[[ -n "$FIRST_REPO" ]]
+[[ -n "$FIRST_REPO" ]] || fail "no Practice repo (pnpm-lock.yaml + .agent/directives/AGENT.md) found under /home or /workspace"
 
 # Node major from the carried repo's engines declaration (single-source per
 # the repos' runtime-version doctrine); the explicit default only covers a
@@ -108,7 +114,7 @@ phase "node install (nodejs.org)"
 # status), so a curl failure must fail on its own line to be attributable
 curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/" -o /tmp/node-index.html
 NODE_TGZ=$(grep -o "node-v${NODE_MAJOR}[0-9.]*-linux-x64.tar.gz" /tmp/node-index.html | head -1)
-[[ -n "$NODE_TGZ" ]]
+[[ -n "$NODE_TGZ" ]] || fail "no node-v${NODE_MAJOR} linux-x64 tarball listed in the nodejs.org index"
 curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/${NODE_TGZ}" -o /tmp/node.tgz
 curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/SHASUMS256.txt" -o /tmp/node-shasums.txt
 grep " ${NODE_TGZ}\$" /tmp/node-shasums.txt | sed "s|  ${NODE_TGZ}\$|  /tmp/node.tgz|" | sha256sum -c -
