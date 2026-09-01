@@ -2270,3 +2270,41 @@ correction, bare SHAs, and an unsafe durable-home recommendation.)
   with the outgoing-range gitleaks substitute run first; commit-side hooks stay native.
   Open provisioning defects: PNPM_HOME (safe homes above), git ≥2.45, the revision-1234
   browser store.
+
+## Compaction-boundary continuity: upstream 943 drive state (2026-09-01 ~09:35Z, Genet mends Lamplight, 01W6yQ)
+
+Owner-invoked wrap at a compaction boundary — seat stays LIVE (943 subscription active;
+fallback trigger trig_01Q6u5dFzfR3iRUUeoMXtfp7 fires 09:31Z with the self-contained drive
+prompt). State a successor or the post-compaction window needs:
+
+- oaknational#943 (upstream landing, head = fork engraph): fork settlement PR
+  EngraphCode#35 MERGED as SHA:cb8315ec after a clean full harvest; 943's head advanced
+  with it. On that head: CI fully green (run-quality-gates SUCCESS), Vercel preview
+  DEPLOYED/Ready (the authorization failure cleared on the advance, per owner word),
+  Copilot's five threads cured + replied + resolved, and four Codex waves (code+security
+  on each of two heads) completed with zero findings — an INFERENCE from Codex's stated
+  protocol (completed status, no review posted, "comments if it has suggestions"), not a
+  directly observed verdict. Sole red gate: SonarCloud (MAJOR vulnerabilities on new code,
+  required < MINOR; CRITICAL code smells, required < MAJOR).
+- Sonar enumeration is org-policy egress-blocked, proven at the proxy (CONNECT 403 for
+  sonarcloud.io, api.sonarcloud.io, sonarqube.cloud in recentRelayFailures; README:
+  report, never route around). Owner handed two unblock paths: add sonarcloud.io to the
+  environment network policy, or run the prepared public-API curl
+  (issues/search, componentKeys=oaknational_oak-open-curriculum-ecosystem,
+  pullRequest=943, issueStatuses=OPEN,CONFIRMED, ps=500,
+  facets=severities,types,rules,files) and paste. Owner word: "Sonar is the real
+  challenge... we will need some analysis rather than simple one at a time fix train."
+  Agreed plan: cluster by rule × file area from facets, treat the two gate conditions
+  separately, per-cluster dispositions (fix-at-source vs server-side accept/falsepositive
+  per sonarqube-mcp-instructions discipline), ONE batched settlement push — 943's
+  declared budget stands at one spent (the #35 parcel), one remaining.
+- PDR-140 first full live cycle ran on EngraphCode#35 and settled in ONE wave: intake
+  contract declared at open, four Copilot findings all verified and cured (raised 4,
+  cure-worthy 4 — one a description-edit at zero push cost after Copilot correctly
+  caught my "asserts strictly more" overclaim), settlement push held for the
+  run-quality-gates conclusion on the prior head (push-cadence ruling exercised), zero
+  tail. Evidence row for PDR-140's trailing-month prediction.
+- Branch claude/ordering-data-defect-investigation-lsgilt = SHA:945824617, level with
+  origin, PR merged; next parcel restarts it from origin/engraph carrying any unmerged
+  continuity commits forward (merged-history rule). Owner acts outstanding: Sonar data
+  (above) and mantagen's human review of 943.
