@@ -115,18 +115,18 @@ describe('cloud-seat seed resolution', () => {
       CLAUDE_CODE_REMOTE_SESSION_ID: 'cse_01FV6rZz5BjSkApAUL6FAj72',
     });
 
-    expect(plan.kind).toBe('render');
-    if (plan.kind === 'render') {
-      expect(plan.inputs.seed).toBe('01FV6rZz5BjSkApAUL6FAj72');
-    }
+    expect(plan).toMatchObject({
+      kind: 'render',
+      inputs: { seed: '01FV6rZz5BjSkApAUL6FAj72' },
+    });
   });
 
   it('keeps the payload session_id when no platform id is present', () => {
     const plan = planStatuslineExecution(JSON.stringify({ session_id: 'harness-uuid' }));
 
-    expect(plan.kind).toBe('render');
-    if (plan.kind === 'render') {
-      expect(plan.inputs.seed).toBe('harness-uuid');
-    }
+    expect(plan).toMatchObject({
+      kind: 'render',
+      inputs: { seed: 'harness-uuid' },
+    });
   });
 });

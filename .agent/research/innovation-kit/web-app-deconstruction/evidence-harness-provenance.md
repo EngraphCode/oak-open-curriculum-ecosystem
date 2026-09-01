@@ -15,7 +15,7 @@ current checkout and not a continuing reproducibility claim.
 ## Historical research gates
 
 The retired package checked internal links and record structure, exercised its
-inventory/comparison helpers, and recorded normalized JSON rather than
+inventory/comparison helpers, and recorded normalised JSON rather than
 committing generated results. The current repository's documentation gates now
 protect the retained Markdown corpus; they do not recreate the old probes.
 
@@ -68,6 +68,6 @@ supported the recorded package-artifact and host-runtime observations.
 The
 [redirect probe](https://github.com/EngraphCode/oak-open-curriculum-ecosystem/blob/4915fe1826372d9b0b6ee18322500c811128f41c/research/web-app-deconstruction/packages/research-evidence/scripts/curriculum-export-redirect.ts)
 and
-[characterization fixture](https://github.com/EngraphCode/oak-open-curriculum-ecosystem/blob/4915fe1826372d9b0b6ee18322500c811128f41c/research/web-app-deconstruction/packages/research-evidence/fixtures/curriculum-export/missing-mv-refresh.test.ts.template)
+[characterisation fixture](https://github.com/EngraphCode/oak-open-curriculum-ecosystem/blob/4915fe1826372d9b0b6ee18322500c811128f41c/research/web-app-deconstruction/packages/research-evidence/fixtures/curriculum-export/missing-mv-refresh.test.ts.template)
 established the two assertions described in the experiment record at its pinned
 revision.
