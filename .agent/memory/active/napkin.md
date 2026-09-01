@@ -1286,3 +1286,13 @@ pinning-by-name, not sequencing-by-hope.
   `report.unit.test.ts`, provenance-coupled by an in-file comment), UAT
   reports, milestones, ADR context, and archives keep the old domains as
   records; every forward-looking surface moved.
+- **Mistake (identity)**: opened PR #944 and added its label with a bare
+  `gh` call — `gh api user` here resolves to `jimCresswell`, so the PR's
+  author line and the label event display the owner, not the bot, even
+  though every commit is bot-committed. The bot path is
+  `GH_TOKEN=$(node agent-tools/dist/src/bin/agent-tools.js merge-bot
+  mint-token --scope pull-request-work) gh …` (the token never printed;
+  `/user` 403s for an installation token — read the timeline actor
+  instead). Applied from the first thread reply onward; a peer seat's
+  stale label read is what prompted the check. Ask before every GitHub
+  write: whose name displays?
