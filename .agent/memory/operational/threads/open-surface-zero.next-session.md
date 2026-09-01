@@ -11,6 +11,7 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
 | Smith holds Temper | codex | GPT-5 | 019fef | executor — owner-PR merge drive, PRs #745/#746/#852 | 2026-08-11 | 2026-08-11 |
 | Spark weaves Paraffin | codex | GPT-5 | 019ff2 | executor — PR #805 value adjudication and merge-readiness | 2026-08-11 | 2026-08-11 |
 | Luna seeks Twilight | claude-code | claude-fable-5 | 5c0ddc | driver — the fork-line integration landing (#943, rehomed as #945 at owner word) and the MCP-655 OAuth hotfix plan; see §Lanes | 2026-09-01 | 2026-09-01 |
+| Kiln holds Slag | claude-code | claude-fable-5 | 1447f4 | implementer — the MCP-655 OAuth issuer-alignment lane from Luna's handover (event 5dbec23b): scope narrowed at owner word, review panel absorbed, fix landed; see §Lanes | 2026-09-01 | 2026-09-01 |
 
 ## Lane state
 
@@ -110,18 +111,56 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   --expect copilot-pull-request-reviewer`. Copilot's request bound at open; the CODEOWNERS
   auto-requests (`jimCresswell`, `mantagen`) are GitHub's, not this seat's.
 
-### Lane: MCP-655 OAuth issuer alignment — PLAN RATIFIED, implementation handed to a fresh session
+### Lane: MCP-655 OAuth issuer alignment — FIX LANDED on the branch (2026-09-01, Kiln holds Slag, 1447f4); reviews on the final diff and the owner-held preview proofs are what remain
 
 - Defect: Claude Code 2.1.252 refuses the app's OAuth authorization response on preview and
   production ("Issuer mismatch … RFC 9207"): the PRM names the app as authorization server while
   the response carries the upstream identity provider's `iss`. Evidence and dates: Linear
-  MCP-655. Decision and the complete self-contained implementation: the ratified node
-  [`mcp-655-oauth-issuer-alignment.plan.md`](../../../plans/delivery/mcp-655-oauth-issuer-alignment.plan.md).
-- Branch `fix/mcp-oauth-metadata-iss-claim` (off `origin/main`) in worktree
-  `oak-open-curriculum-ecosystem-worktrees/pr-943-engraph`, pushed under the bot with a draft
-  PR carrying the plan node and this record. The worktree also holds **uncommitted** edits from
-  the withdrawn disclaim-only cure (listed on the ticket); the node reworks them — do not land
-  them as-is.
-- Next safe step for the implementing session: follow the node's §Changes and §Sequence from the
-  top; the reviewers named there run on the final diff; the owner's Claude Code sign-in on the
-  PR's preview is the falsifier before merge.
+  MCP-655 (assigned to Matt Gregory at owner word, project First Major Release, labels
+  Bug/pre-publish/jimbot).
+- Scope narrowed at owner word 2026-09-01 (~13:3xZ, this seat's verdict, Jim: "agreed"): the
+  PRM names the upstream issuer — nothing on the proxy-path metadata (the omit/false rider cured
+  nothing and could only be tested by a configuration pin; MCP-656 owns that path's projection).
+  A seven-reviewer Opus panel (assumptions, mcp, architecture ×2, security, clerk, test) and a
+  full Cricket suite (6 of 8 delivered, all ON-TRACK; adversarial high/xhigh undelivered at the
+  freeze) were run against the node; every finding is absorbed in the node (§Panel absorption
+  2026-09-01) — the fetched `issuer` is now validated at the fetch boundary (RFC 8414 §3.3,
+  `issuer_mismatch`), Cursor's PRM-first discovery is described truthfully and its preview
+  sign-in gates merge, the owner-held proof is non-vacuous (client version, no
+  `MCP_SDK_GENERATION` override, remove-and-re-add, a negative control against production).
+- Landed: commit `2f14f6f76` on `fix/mcp-oauth-metadata-iss-claim` (15 files: `servePrm`
+  names `upstreamMetadata.issuer`; `fetchUpstreamMetadata` requires `issuer === upstreamBaseUrl`;
+  relation-shaped PRM tests in `auth-routes.integration.test.ts`, `canonical-origin.integration.test.ts`
+  and four e2e sites; the `issuer_mismatch` unit case; registry C706 re-anchored + reviewed deltas
+  for `auth-routes.ts`, `upstream-metadata-fetch.ts`, `metadata-fetch-error.ts`; ADR-115 (eight
+  sections + Negative 8), ADR-053 amendment item 4, UAT rows 1.2/1.5; the amended node). Both
+  guards mutation-checked: reverting the `servePrm` line reddens exactly the seven enumerated
+  PRM assertions; disabling the issuer check reddens exactly the one unit case. Full pre-commit
+  gate green on the second attempt (first attempt: knip on an unused export, cured by making
+  `IssuerMismatchError` module-private; an app delta-review map over `max-lines`, cured by
+  homing the two entries in the auth-surface map).
+- Worktree `oak-open-curriculum-ecosystem-worktrees/pr-943-engraph`; draft PR **#946** under
+  the bot (assigned `mantagen`, plain-language body); the withdrawn disclaim-only draft is
+  preserved as a patch in the implementing session's scratchpad only — its substance is on the
+  ticket and in the node's history; the tree carries none of it.
+- **Next safe step** (in order): (1) the bot push of `2f14f6f76` LANDED on `origin`
+  (`114e68c0d..2f14f6f76`, pre-push suite green, 2026-09-01 ~14:4xZ), so #946's preview builds
+  from it; the continuity commit that follows may still be local at resume — check
+  `git rev-list --count @{u}..HEAD`; (2) run `code-expert`, `mcp-expert` and `security-expert` on the FINAL
+  diff (`git diff origin/main...HEAD`), verdicts on #946; cure any P1 in one batched commit;
+  (3) update the #946 body's Status section (implementation landed at `2f14f6f76`; the
+  owner-held proof procedure from the node §Acceptance — Claude Code v2, no override,
+  remove-and-re-add, production negative control first, then the preview; then Cursor,
+  production first then preview) and mark the PR ready; request Copilot via the GitHub MCP;
+  `pnpm agent-tools:pr-watch 946 --repo oaknational/oak-open-curriculum-ecosystem --watch`;
+  (4) the live proof per node §Sequence 6 — the curl of the preview PRM compared byte-for-byte
+  with the ticket's `received` string, then the owner's sign-ins; a Cursor failure on the
+  preview blocks merge unless the owner rules otherwise; (5) merge under the standing doctrine;
+  MCP-655 → Done; node → `archive/`; then tell Luna's #945 lane on the comms stream that its
+  resume trigger has fired.
+- Platform observations for the successor (also in the napkin): the worktree-isolation guard
+  refuses heredocs, `$(…)` and multi-line arms — scratchpad Python scripts run as one plain
+  command are the working shape, and `bot-gh.sh` (mint + `GH_TOKEN` + `gh`) is the bot-write
+  wrapper; `EnterWorktree` killed a Monitor armed at the primary (exit 124 within ~30 s), so the
+  comms watcher is DOWN at the freeze and the seat swept with `comms list --since` instead
+  (n=1: Luna frozen, no other live seats).

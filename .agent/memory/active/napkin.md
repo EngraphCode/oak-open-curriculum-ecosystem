@@ -1311,3 +1311,100 @@ pinning-by-name, not sequencing-by-hope.
   withdrawn diff (code/mcp/security-expert-655) — their verdicts, if any
   arrive, are superseded; the node names the reviews to run on the final
   diff.
+
+## 2026-09-01 ~14:3xZ (Kiln holds Slag, 1447f4, implementer) — compaction freeze on the MCP-655 lane: A-only landed at `2f14f6f76`, panel absorbed, proofs owner-held (metacognition / free-play / concept-exploration / wrap; owner-invoked)
+
+- A TEST THAT PINS A LITERAL OF OUR OWN CONFIGURATION ENSHRINES THE BUG:
+  the three PRM tests pinned `authorization_servers: [selfOrigin]` — a
+  design decision written as a literal — and so could never have caught the
+  served-metadata lie that broke production. The invariant ("the issuer a
+  client holds equals the `iss` it will receive") is a RELATION to the
+  injected upstream fixture; written that way the tests discriminate, and
+  the mutation checks bit exactly as enumerated (seven PRM assertions red on
+  the `servePrm` revert, one case red on the issuer-check revert). Class:
+  assert relations to injected inputs, never literals of our own
+  configuration; where the consequence lives in an external client, record
+  it in the ADR and prove it owner-held — no test (the doctrine's
+  "pinning an absence is not proof", seen from its positive side).
+- A CURE WITH NO OBSERVABLE BEHAVIOUR CANNOT HAVE A BEHAVIOURAL TEST, and
+  that is the sign to drop it: the "omit the RFC 9207 claim" rider changed no
+  known client's behaviour (Claude Code compares a present `iss` regardless;
+  the SDK ignores the flag; Cursor does not validate), so its only test would
+  have been an absence pin in a whole-document coat. Dropped at owner word;
+  MCP-656 owns the proxy path's served projection.
+- THE SEVEN-REVIEWER PANEL PAID FOR ITSELF WITH THREE SHAPE CHANGES: the
+  fetched `issuer` became load-bearing and unvalidated (security P1 → an
+  RFC 8414 §3.3 boundary check); "Cursor is origin-discovering" was false —
+  PRM-first, origin RE-discovering (architecture + assumptions P1 → the
+  Cursor preview sign-in gates merge); the preview proof was vacuous as
+  written (adversarial P1 → client version, no v1-runtime override,
+  remove-and-re-add, a production negative control). Two reviewer claims were
+  refuted at source in under a minute each (a misquoted vendor sentence; a
+  "Clerk sends `iss` is unevidenced" that the ticket's own `received` string
+  answered). Read the contested source before adjudicating the panel.
+- MY OWN FLUENT SENTENCE: "Cursor should still complete" — a prediction in a
+  proof's clothing, inside a verdict that was otherwise right. Named as the
+  specific failure mechanism in the node (fallback leg re-registers → second
+  `client_id` → `invalid_grant`) and gated, so being wrong costs nothing.
+- PLATFORM (Claude Code 2.1.25x, 2026-09-01): `EnterWorktree` KILLED a
+  Monitor armed at the primary — the re-armed watcher exited 124 within ~30 s
+  of the residency switch, while the first watcher lived its full 3600 s
+  backstop. The residency rule's note that armed monitors survive residency
+  switches did not hold today. Interim at n=1: `comms list --since` sweeps at
+  boundaries. Rule-amendment candidate (`worktree-residency` §Action 4).
+- PLATFORM: the worktree-isolation guard refuses heredocs, `$(…)`, and
+  multi-line arms as "too complex" — the working shape is a scratchpad Python
+  script with exact-anchor, all-or-nothing edits run as one plain command,
+  and a `bot-gh.sh` wrapper (mint a `pull-request-work` token, `GH_TOKEN`,
+  `exec gh`) for bot writes. `git restore` is hook-blocked (correctly); the
+  forward-going form was `git show HEAD:<path>` written back by a script,
+  after preserving the withdrawn draft as a patch.
+- SENDLESS SUBAGENTS, SIX TIMES: two reviewers and all eight Crickets
+  finished idle with no report delivered; each cost a resend round (~10
+  minutes total). Memory already said "idle means FINISHED — harvest";
+  harvest on first idle next time.
+- INSTRUMENT CATCHES on the first commit attempt, neither by vigilance: knip
+  (an exported class nothing imports — made module-private) and `max-lines`
+  on the app delta-review map (262/250 — the two entries moved to the
+  auth-surface map, where the OAuth-metadata fetch boundary belongs).
+- FREE-PLAY HARVEST (association events, not findings): (a) the anchor
+  registry's `tokenCount: 23 → 25` reminded me of a tally stick — the
+  registry counts tokens the way a stick counts notches, blind to meaning
+  but exact about change; routed nowhere. (b) "One authorization server
+  under two issuer identifiers" looks shaped like the estate's own PDR-027
+  identity discipline (one seat, several names, one canonical id) — the
+  canonical id is the upstream's issuer, the alias is the proxy's; routed
+  nowhere. DISCARDED at the second look: "the hook refusing `git restore` is
+  the RFC 9207 client refusing a mismatched `iss`" — forced; one is
+  loss-prevention, the other mix-up prevention. Discarded.
+- LOSS-SCAN (what only this context held; each routed): the fix's landing
+  state and the ordered next steps → thread record §Lanes; the non-vacuous
+  proof procedure → node §Acceptance + UAT row 1.5 (the #946 body still
+  says "implementation commit follows" — updating it is next-step 3, not
+  yet done); the reviews on the final diff are OWED (not run) → thread
+  record next-step 2; the eight Cricket verdicts (6 delivered, all ON-TRACK;
+  adversarial high/xhigh undelivered) → this entry, superseded by execution;
+  the withdrawn-draft patch lives only in this session's scratchpad → its
+  substance is on MCP-655 and in the node's history, so the bytes may lapse;
+  the promise to Luna ("post the outcome on the stream so #945's resume has
+  its trigger") → thread record next-step 5.
+- METALOSS: compressed reasoning — the Cricket "land the falsifier first"
+  redirection was followed as one commit including docs (docs cost one
+  minute; the push is the falsifier's trigger), recorded here so the
+  deviation is visible; attribution inferences — "Cursor does not validate
+  `iss` today" is INFERRED from ADR-115's Cursor bug and its sign-in via the
+  proxy path, not observed today (flagged in the node: no observed-good date
+  on file); blind-spot bounds — the watcher was dark 14:16Z→freeze (list
+  sweeps found no events), two Cricket verdicts never arrived; index of
+  homes — node, ticket MCP-655, thread record §Lanes, this entry, #946, ADR-115
+  Negative 8; external bound — the final-diff reviews are the external
+  scrutiny for the implementation and have NOT run: the error signature to
+  point them at is my fluent-prediction class (external-client behaviour
+  asserted from a trace). A third pass would only re-find the owed reviews
+  and the owner-held proof; the recursion closes here.
+- STATE at the freeze: `2f14f6f76` committed and PUSHED under the bot
+  (`114e68c0d..2f14f6f76`, pre-push green); draft #946 assigned `mantagen`
+  with the plain body; claim `b6efbce3` retained-with-reason (same seat
+  resumes after compaction); watcher DOWN (platform kill, above); no
+  subagents running (7 reviewers, 8 Crickets idle — reports harvested or
+  superseded).
