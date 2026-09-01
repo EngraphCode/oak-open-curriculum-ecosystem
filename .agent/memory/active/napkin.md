@@ -2440,3 +2440,38 @@ rule, carrying unmerged continuity commits forward.
   fork PR → `engraph` with the PDR-140 intake contract (last settlement
   push); Copilot requested; merge; then #943 settlement and bot merge.
   Lane state: the open-surface-zero thread record §Lanes.
+
+## 2026-09-01 11:47Z (Luna seeks Twilight, 5c0ddc) — post-compaction resume: the stopped reviewer had reported; two findings would have sunk the last settlement push
+
+- A STOPPED SUBAGENT'S REPORT IS NOT LOST: the code-expert stopped at the
+  owner's "stop all processes" word had already written its verdict to
+  the mailbox; it was delivered on the first post-compaction turn. The
+  freeze record said "no verdict harvested" — true at the instant, false
+  ten minutes later. Before declaring a review lost, read the mailbox (or
+  the subagent transcript — the 2026-08 "harvest reports from
+  transcripts" entry) once more at resume.
+- THE CURE THAT READS LIKE THE RULE'S OWN EXAMPLE CAN STILL BE INVISIBLE
+  TO THE RULE: the S6506 cure put `--proto '=https' --proto-redir '=https'`
+  in a bash array and expanded it at every curl. Shell is behaviour-
+  identical; the analyser matches command TEXT (evidence: the ten
+  literal-URL curls were flagged, the six variable-URL curls were not), so
+  the option tokens were most likely invisible and every finding would
+  have stood on #943's LAST settlement push — the one with no budget left.
+  Cure `717ccc4cf`: share only the value (`HTTPS_ONLY='=https'`), write the
+  options literally at each site (SonarSource's own installer idiom). The
+  fluency tell: the array was the "clean" refactor; smoothness was the
+  warning (metacognition §Fluency).
+- A MECHANICAL `test`→`[[ ]]` REWRITE CHANGES WHAT AN ERR TRAP CAN SEE:
+  `[[` is a keyword, so `PIPESTATUS` keeps the previous pipeline's value
+  and setup's failure card printed `pipe status: 0` beside a fatal failure
+  (RUN-proven both ways in the scratchpad `trap-proof-*.sh`). Cure
+  `aac6a00fb`: route the presence checks through the script's own `fail()`.
+  Class: "behaviour-identical" claims must include the instrumentation's
+  behaviour, not only the control flow.
+- LANDED: branch pushed to the fork under the owner's credential with the
+  canonical marker; fork PR EngraphCode#36 → `engraph` open with the
+  PDR-140 intake contract; review record posted (comment 5493455967);
+  watch = `pnpm agent-tools:pr-watch 36 --repo EngraphCode/... --watch`.
+  The GitHub MCP `request_copilot_review` returned 403 on the fork
+  (personal access token); the REST request under the owner's `gh`
+  credential was the fallback — verify the reviewer appears.

@@ -110,24 +110,36 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   before/after; the two suppressed Copilot findings verified real and cured; commit messages
   drafted and commitlint-clean in the session scratchpad; full agent-tools suite, repo
   validators, Prettier, markdownlint green; ESLint 0 errors once `identity.ts` is split.
-- Landed on the branch (2026-09-01 ~13:xxZ, hooks green each time): `ddd5fae5a` the shell
-  cure; `c93ac7be0` the seed-definition truings with `identity.ts` split at its
-  seed-resolution seam into `collaboration-seed.ts` (public exports unchanged); the third
-  commit carries the plan evidence, this record, and the napkin. The code-expert review
-  dispatched on the pre-split parcel was stopped at the owner's "stop all processes" word
-  before it reported — no verdict harvested; the fork PR's Copilot round and the gates stand as
-  the review record, and a bounded re-dispatch is the successor's call.
-- Next safe step: (1) push the branch to the `engraph` remote under the owner's credential with
-  the agent marker (owner ruling 2026-09-01: the bot app has no access to EngraphCode) — 600 s
-  timeout, the push as the task's final command, pre-push suite runs; (2) fork PR → `engraph`
-  (base explicit) from the drafted body (session scratchpad `fork-pr-body.md`, re-derived from
-  the diff at open) carrying the PDR-140 intake contract — this is #943's second and last
-  settlement push; request Copilot via the GitHub MCP; drive to merge under the fork's
-  `engraph` ruleset (run-quality-gates + CodeQL strict, threads resolved); (3) #943
-  settlement: Sonar rescans the new head, full-surface harvest, reviewer legs
-  SATISFIED/SKIPPED (mantagen requested at PR-open by the cloud seat), code-owner leg, bot REST
-  merge at settled-READY, Phase-8 harvest; re-arm the watch with `pnpm agent-tools:pr-watch`,
-  never a hand-rolled script.
+- Landed on the branch (2026-09-01, hooks green each time): `ddd5fae5a` the shell cure;
+  `c93ac7be0` the seed-definition truings with `identity.ts` split at its seed-resolution
+  seam into `collaboration-seed.ts` (public exports unchanged); `867d2c644` the plan evidence,
+  this record, and the napkin; `717ccc4cf` the https-only curl options written literally at
+  every call site (the code-expert's blocking finding: an array expansion hides `--proto`
+  from a text-matching analyser — the ten literal-URL sites were flagged, the six
+  variable-URL sites were not) with the preflight's gitleaks probe carrying the same
+  constraint as setup's fetch; `aac6a00fb` the `fail()`-routed presence checks in setup (a
+  bare `[[ ]]` leaves `PIPESTATUS` stale on the ERR-trap failure card — RUN-proven both
+  ways), `phase()`'s local/return, and PDR-076/076a on the one prefix definition. The
+  code-expert review dispatched pre-compaction reported after all (its mailbox delivered
+  post-compaction): the split APPROVED at line granularity, seven findings, all dispositioned
+  on the fork PR record; a second bounded dispatch ran on the pushed parcel.
+- Pushed to the fork under the owner's credential with the canonical shared-credential marker
+  (owner ruling 2026-09-01: the bot app has no access to EngraphCode). Fork PR
+  **EngraphCode#36** → `engraph` (base explicit) open 2026-09-01 with the PDR-140 intake
+  contract — #943's second and LAST settlement push; Copilot requested via the GitHub MCP at
+  open (the ruleset's `copilot_code_review` rule did not auto-request); watch armed with
+  `pnpm agent-tools:pr-watch 36 --repo EngraphCode/oak-open-curriculum-ecosystem --watch`.
+- Next safe step: (1) #36 to green-and-clean under the fork ruleset (`run-quality-gates` +
+  `CodeQL` strict, every thread resolved, zero approvals required; commits attributed — the
+  bot app, and `noreply@anthropic.com` maps to login `claude`) and merge with a merge commit
+  under the owner's credential as #35 was; Copilot findings triaged under the intake
+  contract; (2) #943 settlement: Sonar rescans the new head, full-surface harvest, reviewer
+  legs SATISFIED/SKIPPED (mantagen requested at PR-open by the cloud seat — a colleague on
+  trust, never chased), code-owner leg (auto-satisfied: the author is the owner), bot REST
+  merge at settled-READY, Phase-8 harvest; watch with `pnpm agent-tools:pr-watch`, never a
+  hand-rolled script. Not this parcel, homed here as a pointer: `lint:shell:syntax` covers
+  neither cloud-environment script, so CI has no syntax gate on them — a package.json gate
+  change for its own small PR.
 - Acceptance bar: SonarCloud passes on #943's new head; zero undispositioned findings across
   threads and review bodies at the merge instant; the shell change proven behaviour-identical;
   no file in the parcel loses documentation to a limit.
