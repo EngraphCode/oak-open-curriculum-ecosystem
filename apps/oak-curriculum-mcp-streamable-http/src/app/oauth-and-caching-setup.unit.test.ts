@@ -77,6 +77,25 @@ describe('fetchUpstreamMetadata', () => {
     }
   });
 
+  it('returns err with issuer_mismatch when the document names an issuer other than the URL it was fetched from', async () => {
+    // RFC 8414 Section 3.3: the issuer is the URL the well-known path was
+    // inserted into. The PRM publishes this value to every client, so a
+    // document that names another issuer fails bootstrap (MCP-655).
+    const fakeFetch = createFakeFetch({
+      ok: true,
+      status: 200,
+      body: { ...VALID_METADATA, issuer: 'https://other.example.com' },
+    });
+    const result = await fetchUpstreamMetadata('https://clerk.example.com', fakeFetch);
+
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error.type).toBe('issuer_mismatch');
+      expect(result.error.message).toContain('https://other.example.com');
+      expect(result.error.message).toContain('https://clerk.example.com');
+    }
+  });
+
   it('retries on transient failure then returns ok', async () => {
     const fakeFetch = vi
       .fn<FetchFn>()
