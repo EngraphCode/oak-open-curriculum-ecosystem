@@ -383,7 +383,7 @@ an identity row:
 | `id` | Canonical disambiguator — full UUID assigned at session-identity-derivation time (per 2026-05-26 amendment) | `<UUID v5 derived from session seed>` |
 | `platform` | Agent harness / host (classification context, not routing key) | `claude-code`, `cursor`, `codex`, `gemini` |
 | `model` | Canonical model identifier (classification context, not routing key) | `claude-opus-4-7-1m`, `gpt-5-codex`, `gemini-2.5-pro` |
-| `session_id_prefix` | Chat-readable short form derived from the harness session id (first 6 characters, or `unknown`); no longer the canonical disambiguator (per 2026-05-26 amendment) | `f9d5b0`, `unknown` |
+| `session_id_prefix` | Chat-readable short form: the first 6 characters of the PDR-027 seed (the untagged platform session id on cloud seats; the harness session id otherwise — 2026-08-24 amendment), or `unknown`; no longer the canonical disambiguator (per 2026-05-26 amendment) | `f9d5b0`, `unknown` |
 | `role` | Free-form short label describing the agent's role on this thread | `drafter`, `executor`, `reviewer`, `initiator` |
 | `first_session` | Date this identity first touched the thread | `2026-04-21` |
 | `last_session` | Date this identity most recently touched the thread | `2026-04-21` |
@@ -489,7 +489,7 @@ it uses a full identity block, not a display name alone:
 | `id` | Canonical disambiguator — full UUID derived at session-identity-derivation time (per 2026-05-26 amendment; UUID v5 namespaced on the stable session seed) |
 | `platform` | Agent harness / host (classification context, not routing key per 2026-05-26 amendment) |
 | `model` | Canonical model identifier used by the session (classification context, not routing key per 2026-05-26 amendment) |
-| `session_id_prefix` | Chat-readable short form derived from the harness session id (first 6 characters, or `unknown`); no longer the canonical disambiguator (per 2026-05-26 amendment) |
+| `session_id_prefix` | Chat-readable short form: the first 6 characters of the PDR-027 seed (the untagged platform session id on cloud seats; the harness session id otherwise — 2026-08-24 amendment), or `unknown`; no longer the canonical disambiguator (per 2026-05-26 amendment) |
 | `seed_source` | The source used to derive the session identity seed |
 
 For Codex in a Practice-bearing host repo, the canonical
