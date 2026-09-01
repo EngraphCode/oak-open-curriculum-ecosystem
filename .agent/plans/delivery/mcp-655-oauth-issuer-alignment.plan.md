@@ -128,12 +128,12 @@ audience validation and the `/mcp` endpoint are untouched.
 Reviewer evidence (three read-only reviews, verdicts on the ticket): Claude Code's own error
 reference states that a redirect carrying no `iss` passes unless the metadata sets the claim,
 and that a present `iss` is always compared — the flag governs only the absent-`iss` branch;
-the dated 2025-11-25 MCP authorization revision does not mention RFC 9207, while the draft
-revision makes the RFC 9207 §2.4 client validation normative — a four-row table: a present
+the current dated MCP authorization revision (2026-07-28) makes the RFC 9207 §2.4 client
+validation normative (the prior dated revision, 2025-11-25, did not mention RFC 9207) — a four-row table: a present
 `iss` is compared regardless of the metadata flag, an absent `iss` is rejected only when the
 flag is `true` — and asks authorization servers to include `iss` (SHOULD, expected to become
 MUST); the published `@modelcontextprotocol/client@2.0.0` (`validateAuthorizationResponseIssuer`)
-implements exactly that table, so for draft-conformant clients the proxy path's gap is
+implements exactly that table, so for spec-conformant clients the proxy path's gap is
 normative, and MCP-656 defers a normative gap, not a stylistic one; the
 disclaim-only shape adds no security exposure but cures nothing; the redirect-target broker
 would add a state store, an open-redirect surface and code transit through our logs for
@@ -246,7 +246,7 @@ Tests (test first — red for the right reason, then green; each test names a sy
   fixture issuer is `https://test-instance.clerk.accounts.dev`):
   - the helper `validatePrmSelfOrigin` (≈:105) becomes `validatePrmNamesUpstream` and asserts
     `asUrl` **equals** `TEST_UPSTREAM_METADATA.issuer` byte-for-byte (RFC 9207 §2.4 and the
-    draft MCP revision forbid normalisation before comparison);
+    2026-07-28 MCP revision forbid normalisation before comparison);
   - the flow test `PRM authorization_servers points to self-origin, not Clerk` (≈:257) becomes
     `PRM authorization_servers names the upstream authorization server`, its
     `not.toContain('clerk')` and loopback-regex pair replaced by the same equality;
@@ -307,8 +307,8 @@ Documentation:
   - The Implementation table's e2e row: the suite asserts the PRM names the upstream and the
     origin's AS metadata and proxy routes are unchanged.
   - Positive consequence 4 cross-referenced to the new Negative consequence, and that
-    consequence: the proxy path cannot satisfy RFC 9207 (normative for clients in the draft
-    MCP authorization revision; absent from 2025-11-25) — the passed-through
+    consequence: the proxy path cannot satisfy RFC 9207 (normative for clients in the
+    2026-07-28 MCP authorization revision; absent from the prior dated 2025-11-25) — the passed-through
     `authorization_response_iss_parameter_supported: true` is a promise that path cannot keep,
     with the served projection decided at MCP-656; one upstream AS is now presented under two
     issuer identifiers (RFC 9207 §4 forbids the converse, not this; a client consulting both
@@ -370,7 +370,7 @@ MCP-188 refusal) on the final diff, verdicts posted on the pull request before m
    `pnpm agent-tools:pr-watch 946 --repo oaknational/oak-open-curriculum-ecosystem --watch`.
 6. Live proof on the preview: `curl <preview>/.well-known/oauth-protected-resource/mcp` names
    the upstream issuer — compared byte-for-byte with the `received` string in the ticket's
-   recorded Claude Code error, since neither RFC 9207 §2.4 nor the draft MCP revision permits
+   recorded Claude Code error, since neither RFC 9207 §2.4 nor the 2026-07-28 MCP revision permits
    normalisation — and `curl <preview>/.well-known/oauth-authorization-server` still names the
    app origin as `issuer` with the proxy endpoints (unchanged by this fix); then the owner-held
    sign-ins, each with the server removed and re-added first and the client version recorded:

@@ -46,9 +46,10 @@ forward-asks remain.
   **PR #945** is PAUSED behind **MCP-655** — Claude Code's OAuth sign-in to
   the MCP app fails on preview and production (RFC 9207 issuer mismatch).
   The fix is LANDED on `fix/mcp-oauth-metadata-iss-claim` at `2f14f6f76`
-  (draft PR #946 under the bot, assigned Matt); what remains is the
-  final-diff reviews, the owner-held preview proofs (Claude Code, then
-  Cursor — both gate merge), then merge and release. The node
+  (PR #946 under the bot, assigned Matt, READY since 2026-09-01
+  ~19:0xZ; final-diff reviews done and absorbed at `50f76873e`); what
+  remains is the owner-held preview proofs (Claude Code, then Cursor —
+  both gate merge) and the Copilot round, then merge and release. The node
   `.agent/plans/delivery/mcp-655-oauth-issuer-alignment.plan.md` (amended
   2026-09-01 to the PRM-only scope) and the thread record §Lanes carry the
   ordered next steps. Older slice: PRs

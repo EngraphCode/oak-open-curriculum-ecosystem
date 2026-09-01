@@ -1408,3 +1408,23 @@ pinning-by-name, not sequencing-by-hope.
   resumes after compaction); watcher DOWN (platform kill, above); no
   subagents running (7 reviewers, 8 Crickets idle — reports harvested or
   superseded).
+
+## 2026-09-01 post-resume — the final-diff review round (Kiln holds Slag, 1447f4)
+
+- Review round: code-expert FINDINGS (the P1 was the node's registry sentence claiming a
+  `registry.md` re-render that cannot happen — registry.md/json are the immutable
+  phase-(a) baseline; the implementation was right, the plan sentence wrong); mcp-expert
+  and security-expert CLEAN. Eight cures in one batched commit `50f76873e`; three
+  recorded-no-change; one declined with reason (docs-adr readability pass).
+- Conserved facts awaiting homes: (a) the plain PRM route's `resource` is not RFC 9728
+  §3.3-identical to the plain resource identifier (pre-existing; the 401 advertises the
+  path-qualified route; home = any future plain-route back-compat decision); (b) RFC 8707
+  audience validation is a no-op on the upstream's opaque tokens (TSDoc-documented;
+  decision-relevant, not a defect); (c) `invalid_shape` still classifies by message
+  substring (module idiom, out of story).
+- Platform: subagent idle-notification results truncate around 4KB; harvest by
+  SendMessage resend-request per tail (three tails for one review). The notification cap,
+  not the subagent, is the binding constraint on report size.
+- Cricket (medium) redirection taken: hand the owner the preview proof BEFORE the review
+  round settles — the owner-held leg is the longest-latency item on the merge path; never
+  serialise the owner behind agent work.

@@ -88,12 +88,11 @@ describe('fetchUpstreamMetadata', () => {
     });
     const result = await fetchUpstreamMetadata('https://clerk.example.com', fakeFetch);
 
+    const error = result.ok ? null : result.error;
     expect(result.ok).toBe(false);
-    if (!result.ok) {
-      expect(result.error.type).toBe('issuer_mismatch');
-      expect(result.error.message).toContain('https://other.example.com');
-      expect(result.error.message).toContain('https://clerk.example.com');
-    }
+    expect(error?.type).toBe('issuer_mismatch');
+    expect(error?.message).toContain('https://other.example.com');
+    expect(error?.message).toContain('https://clerk.example.com');
     // A mismatch is terminal: retrying a document that named a foreign issuer
     // could only re-fetch the same misconfiguration.
     expect(fakeFetch).toHaveBeenCalledTimes(1);

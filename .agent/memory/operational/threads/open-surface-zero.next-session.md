@@ -143,21 +143,20 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   the bot (assigned `mantagen`, plain-language body); the withdrawn disclaim-only draft is
   preserved as a patch in the implementing session's scratchpad only — its substance is on the
   ticket and in the node's history; the tree carries none of it.
-- **Next safe step** (in order): (1) the bot push of `2f14f6f76` LANDED on `origin`
-  (`114e68c0d..2f14f6f76`, pre-push suite green, 2026-09-01 ~14:4xZ), so #946's preview builds
-  from it; the continuity commit that follows may still be local at resume — check
-  `git rev-list --count @{u}..HEAD`; (2) run `code-expert`, `mcp-expert` and `security-expert` on the FINAL
-  diff (`git diff origin/main...HEAD`), verdicts on #946; cure any P1 in one batched commit;
-  (3) update the #946 body's Status section (implementation landed at `2f14f6f76`; the
-  owner-held proof procedure from the node §Acceptance — Claude Code v2, no override,
-  remove-and-re-add, production negative control first, then the preview; then Cursor,
-  production first then preview) and mark the PR ready; request Copilot via the GitHub MCP;
-  `pnpm agent-tools:pr-watch 946 --repo oaknational/oak-open-curriculum-ecosystem --watch`;
-  (4) the live proof per node §Sequence 6 — the curl of the preview PRM compared byte-for-byte
-  with the ticket's `received` string, then the owner's sign-ins; a Cursor failure on the
-  preview blocks merge unless the owner rules otherwise; (5) merge under the standing doctrine;
-  MCP-655 → Done; node → `archive/`; then tell Luna's #945 lane on the comms stream that its
-  resume trigger has fired.
+- **Next safe step** (in order; trued post-resume 2026-09-01 ~19:0xZ — the review round is
+  DONE): the final-diff reviews ran (code-expert one P1 — the node's registry sentence,
+  trued — plus advisory P3s; mcp-expert and security-expert clean); every finding is
+  absorbed in cure commit `50f76873e` (pushed `ad92ee688..50f76873e`, pre-push green) or
+  dispositioned on #946's verdict comment; #946 is READY with its Status refreshed,
+  Copilot requested, pr-watch armed; the preview curl proof PASSED (both PRM variants
+  serve the dev-instance issuer byte-for-byte; the origin's proxy AS document unchanged).
+  Remaining: (1) the owner-held sign-ins per node §Acceptance (Claude Code v2, no
+  override, remove-and-re-add, production negative control first, then the preview; then
+  Cursor, production first then preview — a Cursor failure on the preview blocks merge
+  unless the owner rules otherwise); (2) the Copilot round settled by triage; (3) merge
+  under the standing doctrine; MCP-655 → Done (the landed-state comment for Matt is still
+  owed — the Linear token expired, retry after re-auth); node → `archive/`; then tell
+  Luna's #945 lane on the comms stream that its resume trigger has fired.
 - Platform observations for the successor (also in the napkin): the worktree-isolation guard
   refuses heredocs, `$(…)` and multi-line arms — scratchpad Python scripts run as one plain
   command are the working shape, and `bot-gh.sh` (mint + `GH_TOKEN` + `gh`) is the bot-write
