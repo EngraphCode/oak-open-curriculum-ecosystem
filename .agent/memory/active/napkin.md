@@ -2246,28 +2246,27 @@ cloud-environment surface at consolidation, not a worked success to normalise.
   settlement verdict. Skill text now states the tool's actual
   behaviour honestly.
 
-## Cloud husky gate cured by PNPM_HOME, not bypass (2026-09-01, Genet mends Lamplight, 01W6yQ)
+## Cloud hook-chain findings: PNPM_HOME cures commit side; pre-push stays env-blocked (2026-09-01, Genet mends Lamplight, 01W6yQ)
 
-The cloud-seat pre-commit failure previously worked around under the owner's docs-only
-HUSKY=0 grant was root-caused this session: `repo-check`'s trusted-location pnpm probe
-fails only because the cloud image leaves PNPM_HOME unset while pnpm lives at
-`/opt/node22/bin/pnpm`. `export PNPM_HOME=/opt/node22/bin` made the full hook chain
-(repo-check prettier-staged, commitlint, version-guard) pass first-hand on commit
-42952a6a9 — the substitute-gate workaround was unnecessary for code commits and the
-provisioning-defect list in the wrap record should absorb this as the verified cure
-(candidate home: cloud-session-setup.sh exporting PNPM_HOME).
+(Entry rewritten in place 2026-09-01 — the napkin header's exact-match-anchor lane —
+after a PR #35 review wave caught its first draft holding a stale overclaim above its own
+correction, bare SHAs, and an unsafe durable-home recommendation.)
 
-## Push-side correction: PNPM_HOME cures commit hooks only (2026-09-01, Genet mends Lamplight, 01W6yQ)
-
-The entry above over-reached. With PNPM_HOME set, the commit-side chain (repo-check
-prettier-staged, commitlint, version-guard) runs natively and passed on 42952a6a9 and
-37a042d6f. The PRE-PUSH chain still cannot complete in this container: the full turbo gate
-fails on three environmental defects first-hand-verified today — agent-tools test:e2e dies on
-`git --no-lazy-fetch` (image git 2.43.0, flag needs ≥2.45), and both test:ui suites die on
-Playwright wanting chromium revision 1234 while the image ships 1194 with browser-download
-egress blocked (the repo's own cloud-session-setup.sh install command fails the same way).
-Push therefore proceeds under the adopted cloud HUSKY=0 policy
-(cloud-environment.md §Git-hook policy) with the pre-push substitute (outgoing-range
-gitleaks) run first; commit-side hooks stay native. Provisioning-defect list addition: the
-PNPM_HOME export belongs in the cloud image or setup script; git ≥2.45 and the 1234 browser
-store remain open defects.
+- Commit side, cured: `repo-check`'s trusted-location pnpm probe failed because the cloud
+  image leaves PNPM_HOME unset while pnpm lives at `/opt/node22/bin/pnpm`. With
+  `PNPM_HOME=/opt/node22/bin` exported, the native commit chain (repo-check
+  prettier-staged, commitlint, version-guard) passed first-hand on commits SHA:42952a6a9
+  and SHA:37a042d6f. Durable home for the cure: image-level (pre-install) configuration,
+  or adding `/opt/node22/bin/pnpm` to `resolvePnpm`'s trusted candidates — NOT the
+  post-install cloud-session-setup.sh, where a late export re-points pnpm's store root
+  after `node_modules` exists (the set-up-worktree-lane skill's 2026-08-04 store-rebind
+  class).
+- Push side, still blocked: the pre-push turbo gate cannot complete in this container —
+  agent-tools test:e2e dies on `git --no-lazy-fetch` (image git 2.43.0; the flag needs
+  ≥2.45), and both test:ui suites die on Playwright chromium revision 1234 being absent
+  (image ships 1194; browser downloads egress-blocked; the repo's own
+  cloud-session-setup.sh install command fails the same way, verified first-hand). Pushes
+  proceed under the adopted cloud HUSKY=0 policy (cloud-environment.md §Git-hook policy)
+  with the outgoing-range gitleaks substitute run first; commit-side hooks stay native.
+  Open provisioning defects: PNPM_HOME (safe homes above), git ≥2.45, the revision-1234
+  browser store.
