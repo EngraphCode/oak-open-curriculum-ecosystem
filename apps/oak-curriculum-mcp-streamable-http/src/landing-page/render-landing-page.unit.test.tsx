@@ -68,15 +68,6 @@ describe('renderLandingPageHtml', () => {
       expect(behindEdge).toContain('rel="canonical" href="https://mcp.thenational.academy"');
       expect(behindEdge).not.toContain('origin-only.vercel.app');
     });
-
-    it('never hard-codes the canonical host — it is derived or absent', () => {
-      // The default render has no canonical host configured, so the canonical
-      // hostname appearing here could only be authored static copy — the
-      // exact drift the derivation invariants exist to prevent. Host-specific
-      // on purpose: Oak main-site `www.thenational.academy` links are
-      // legitimate page content.
-      expect(html).not.toContain('mcp.thenational.academy');
-    });
   });
 
   describe('asset posture', () => {

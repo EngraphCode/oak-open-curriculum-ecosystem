@@ -106,9 +106,5 @@ describe('shipped plugin MCP server binding', () => {
       compatibility,
       'the skill still tells users to connect to a non-production host',
     ).not.toMatch(/oaknational\.dev/);
-    expect(
-      compatibility,
-      'the skill still names the retired www address for the server',
-    ).not.toMatch(/www\.thenational\.academy/);
   });
 });

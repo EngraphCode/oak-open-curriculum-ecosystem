@@ -36,9 +36,9 @@ on the ticket; the load-bearing ones are in §Mechanism.
 **One path, three behaviours** (owner-set, do-not-re-decide): requests
 are told apart by method + Content-Type + Accept together — POST with a
 JSON body is MCP; GET accepting `text/event-stream` is the SSE leg; GET
-accepting `text/html` is a person and receives the human page. Probed:
-today the app returns 406 to a browser-shaped GET on `/mcp`, so the
-triple is app code this plan adds, not just edge routing.
+accepting `text/html` is a person and receives the human page. The
+triple is app code, not edge routing — live in production since
+v1.82.0 and domain-agnostic.
 
 **Edge**: a dedicated subdomain, `mcp.thenational.academy`, fronts the
 app through the Cloudflare edge (MCP-172), which presents the app's own
