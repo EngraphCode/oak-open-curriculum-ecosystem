@@ -2292,7 +2292,9 @@ prompt). State a successor or the post-compaction window needs:
   environment network policy, or run the prepared public-API curl
   (issues/search, componentKeys=oaknational_oak-open-curriculum-ecosystem,
   pullRequest=943, issueStatuses=OPEN,CONFIRMED, ps=500,
-  facets=severities,types,rules,files) and paste. Owner word: "Sonar is the real
+  facets=severities,types,rules,directories — the first handed command used the
+  invalid facet 'files' and returned only an error body (owner ran it faithfully;
+  corrected 2026-09-01 ~09:40Z)) and paste. Owner word: "Sonar is the real
   challenge... we will need some analysis rather than simple one at a time fix train."
   Agreed plan: cluster by rule × file area from facets, treat the two gate conditions
   separately, per-cluster dispositions (fix-at-source vs server-side accept/falsepositive
