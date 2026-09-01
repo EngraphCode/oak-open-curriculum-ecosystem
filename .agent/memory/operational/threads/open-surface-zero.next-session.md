@@ -10,6 +10,7 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
 | --- | --- | --- | --- | --- | --- | --- |
 | Smith holds Temper | codex | GPT-5 | 019fef | executor — owner-PR merge drive, PRs #745/#746/#852 | 2026-08-11 | 2026-08-11 |
 | Spark weaves Paraffin | codex | GPT-5 | 019ff2 | executor — PR #805 value adjudication and merge-readiness | 2026-08-11 | 2026-08-11 |
+| Luna seeks Twilight | claude-code | claude-fable-5 | 5c0ddc | driver — PR #943 (EngraphCode fork `engraph` → `main`): full drive taken at owner word 2026-09-01 by handoff from Genet mends Lamplight (cloud seat); Sonar-gate cure parcel + review truings via fork PR, then settlement and bot merge | 2026-09-01 | 2026-09-01 |
 
 ## Lane state
 
@@ -87,3 +88,57 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
 - Claims `9b5ef380-af81-4bbc-9fdc-898c73d770f8` and
   `2f503217-50a7-4837-918f-ad6feb2620d4` were explicitly closed at 2026-08-11T13:36:45Z;
   `claims mine` returned `[]`. No claim or monitor is retained.
+
+## Lanes
+
+### Lane: upstream PR #943 drive — active (owner word 2026-09-01, "yes, we execute the plan")
+
+- Branch: `fix/pr-943-sonar-gate-and-review-truings` in worktree
+  `oak-open-curriculum-ecosystem-worktrees/pr-943-engraph` (sibling of the primary), cut from
+  the fork's `engraph` tip `cb8315ecc` with the predecessor's four continuity commits merged in
+  (`2c1da2ae6`); remote `engraph` = `https://github.com/EngraphCode/oak-open-curriculum-ecosystem.git`.
+- Invocation pointer: this section plus the napkin entry "compaction-freeze harvest" of
+  2026-09-01 ~13:0xZ (Luna seeks Twilight, 5c0ddc).
+- Controlling plan: stated in-session and owner-approved 2026-09-01 (no plan node; the drive is
+  one PR). Goal — #943 merges to `main` as the integration of the owner's `engraph` line: gate
+  green, every finding dispositioned with evidence. The decisions the PR carries are the owner's
+  (the fork's 30 PRs, all his; commit history is the record) and are not re-opened by this lane.
+- Completed prerequisites: handoff from Genet mends Lamplight absorbed and acked on the #943
+  record (comments 5492784311 / 5492821280); `jimbot` label on #943; identity row above; claim
+  on this thread (areas `engraph`, `pr:943`); Sonar set enumerated (100 findings, two
+  cloud-environment scripts) and cured at source with the local preflight run byte-identical
+  before/after; the two suppressed Copilot findings verified real and cured; commit messages
+  drafted and commitlint-clean in the session scratchpad; full agent-tools suite, repo
+  validators, Prettier, markdownlint green; ESLint 0 errors once `identity.ts` is split.
+- Landed on the branch (2026-09-01 ~13:xxZ, hooks green each time): `ddd5fae5a` the shell
+  cure; `c93ac7be0` the seed-definition truings with `identity.ts` split at its
+  seed-resolution seam into `collaboration-seed.ts` (public exports unchanged); the third
+  commit carries the plan evidence, this record, and the napkin. The code-expert review
+  dispatched on the pre-split parcel was stopped at the owner's "stop all processes" word
+  before it reported — no verdict harvested; the fork PR's Copilot round and the gates stand as
+  the review record, and a bounded re-dispatch is the successor's call.
+- Next safe step: (1) push the branch to the `engraph` remote under the owner's credential with
+  the agent marker (owner ruling 2026-09-01: the bot app has no access to EngraphCode) — 600 s
+  timeout, the push as the task's final command, pre-push suite runs; (2) fork PR → `engraph`
+  (base explicit) from the drafted body (session scratchpad `fork-pr-body.md`, re-derived from
+  the diff at open) carrying the PDR-140 intake contract — this is #943's second and last
+  settlement push; request Copilot via the GitHub MCP; drive to merge under the fork's
+  `engraph` ruleset (run-quality-gates + CodeQL strict, threads resolved); (3) #943
+  settlement: Sonar rescans the new head, full-surface harvest, reviewer legs
+  SATISFIED/SKIPPED (mantagen requested at PR-open by the cloud seat), code-owner leg, bot REST
+  merge at settled-READY, Phase-8 harvest; re-arm the watch with `pnpm agent-tools:pr-watch`,
+  never a hand-rolled script.
+- Acceptance bar: SonarCloud passes on #943's new head; zero undispositioned findings across
+  threads and review bodies at the merge instant; the shell change proven behaviour-identical;
+  no file in the parcel loses documentation to a limit.
+- Team expectation: solo lane. Peer Rowan calls Dewfall (39eb53) holds #944 (MCP-122) in its own
+  worktree; the Director seat (Avocet guards Updraft, claim f04cd57b) is frozen from the
+  2026-08-19 week-sleep; the cloud seat stood down its automation. The primary checkout is on
+  `main` (not the coordination branch) with two uncommitted MCP-122 edits and an untracked
+  `sonar-943.json` that pre-date every live seat — left alone.
+- Known facts for the successor: `sonar verify --file` is unavailable to this org (403 "Vortex
+  Analysis"); the gate proof is the PR scan; `lint:shell` does not cover
+  `.agent/claude-harness-integrations/*.sh`, so shellcheck is run by hand; fork PRs get a
+  base-repo `startup_failure` run on `deployment_status` (fork-only head; not a required check,
+  recorded on the PR); the fork's `engraph` ruleset requires `run-quality-gates` + CodeQL
+  (strict up-to-date) and thread resolution, no auto Copilot.

@@ -49,7 +49,9 @@ served surface (the schema-doc view
 `mv_openapi_unit_curriculum_content` is not citable evidence — the
 estate's database research records it as an undeployed proposal with
 no migration, Hasura metadata, Drizzle relation, or test); and
-`cross_subject_links`. These are the genuine
+`cross_subject_links`, carried by that same deployed materialized view and
+likewise selected by no served query (the database read recorded on
+EngraphCode#32). These are the genuine
 prerequisite-direction and thread-order data whose absence forces the
 served surface to stay modest; exposure upstream is the honest route to
 richer structure — never local inference.
@@ -67,7 +69,8 @@ service's documented claim boundaries stand as the honest maximum.
 One issue per dataset on `oaknational/oak-openapi`, each citing the
 first-hand evidence paths (the sequence view SQL that drops
 `thread_units.order`; the deployed sequence materialized view's
-unselected connection fields and the absence of any consuming query;
+unselected connection fields and `cross_subject_links`, and the absence of
+any consuming query;
 the bulk schema's closed shape), written as
 exposure requests against data Oak already materializes — never as
 schema loosening. The consumption contingency stays prose in this plan
