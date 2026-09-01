@@ -57,8 +57,10 @@ GITLEAKS_VERSION=8.30.0
 GITLEAKS_SHA256_LINUX_X64=79a3ab579b53f71efd634f3aaf7e04a0fa0cf206b7ed434638d1547a2470a66e
 
 # every fetch refuses a downgrade: the request AND any redirect hop must
-# stay on https (Sonar S6506)
-CURL_HTTPS_ONLY=(--proto '=https' --proto-redir '=https')
+# stay on https (Sonar S6506). The option names are spelled out at every
+# call site and only the value is shared, because the analyser matches the
+# command text: an array expansion would hide them
+HTTPS_ONLY='=https'
 
 # ---------- discovery first: the carried repo declares the toolchain ----------
 phase "repo discovery"
@@ -104,11 +106,11 @@ phase "node install (nodejs.org)"
 # substitution: PIPESTATUS in the ERR trap cannot see through an
 # assignment-substitution (x=$(a | b) traps with only the assignment
 # status), so a curl failure must fail on its own line to be attributable
-curl -fsSL "${CURL_HTTPS_ONLY[@]}" "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/" -o /tmp/node-index.html
+curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/" -o /tmp/node-index.html
 NODE_TGZ=$(grep -o "node-v${NODE_MAJOR}[0-9.]*-linux-x64.tar.gz" /tmp/node-index.html | head -1)
 [[ -n "$NODE_TGZ" ]]
-curl -fsSL "${CURL_HTTPS_ONLY[@]}" "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/${NODE_TGZ}" -o /tmp/node.tgz
-curl -fsSL "${CURL_HTTPS_ONLY[@]}" "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/SHASUMS256.txt" -o /tmp/node-shasums.txt
+curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/${NODE_TGZ}" -o /tmp/node.tgz
+curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/SHASUMS256.txt" -o /tmp/node-shasums.txt
 grep " ${NODE_TGZ}\$" /tmp/node-shasums.txt | sed "s|  ${NODE_TGZ}\$|  /tmp/node.tgz|" | sha256sum -c -
 tar xzf /tmp/node.tgz -C /usr/local --strip-components=1
 
@@ -128,7 +130,7 @@ done
 phase "git from git-core PPA (keyserver.ubuntu.com, ppa.launchpadcontent.net)"
 # git >= 2.45 from the git-core PPA (manual sources — add-apt-repository's
 # python apt_pkg binding is broken on this image)
-curl -fsSL "${CURL_HTTPS_ONLY[@]}" "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xA1715D88E1DF1F24" \
+curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xA1715D88E1DF1F24" \
   -o /etc/apt/trusted.gpg.d/git-core-ppa.asc
 echo "deb https://ppa.launchpadcontent.net/git-core/ppa/ubuntu noble main" \
   > /etc/apt/sources.list.d/git-core-ppa.list
@@ -138,7 +140,7 @@ git --version
 
 phase "gitleaks (github.com release asset)"
 # gitleaks for pre-push secret scans — checksum-verified before install
-curl -fsSL "${CURL_HTTPS_ONLY[@]}" "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
   -o /tmp/gitleaks.tgz
 echo "${GITLEAKS_SHA256_LINUX_X64}  /tmp/gitleaks.tgz" | sha256sum -c -
 tar xzf /tmp/gitleaks.tgz -C /usr/local/bin gitleaks

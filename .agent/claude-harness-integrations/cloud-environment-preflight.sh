@@ -40,8 +40,10 @@ GITLEAKS_SHA256_LINUX_X64=79a3ab579b53f71efd634f3aaf7e04a0fa0cf206b7ed434638d154
 # every literal-URL fetch refuses a downgrade: the request AND any redirect
 # hop must stay on https (Sonar S6506) — probes of operator-supplied URLs
 # (apt sources, a custom registry) keep curl's default scheme handling
-# because those values may legitimately be plain http
-CURL_HTTPS_ONLY=(--proto '=https' --proto-redir '=https')
+# because those values may legitimately be plain http. The option names are
+# spelled out at every call site and only the value is shared, because the
+# analyser matches the command text: an array expansion would hide them
+HTTPS_ONLY='=https'
 
 # URL userinfo must never reach the persisted failure card this output
 # lands on: an apt source, proxy value, registry, or pre-signed tarball URL
@@ -313,7 +315,7 @@ probe_node_major() {
 
 probe_nodejs_org() {
   local major="${NODE_MAJOR:-24}" index tgz
-  index=$(curl -fsSL "${CURL_HTTPS_ONLY[@]}" -m 60 "https://nodejs.org/dist/latest-v${major}.x/") || {
+  index=$(curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" -m 60 "https://nodejs.org/dist/latest-v${major}.x/") || {
     echo "index fetch failed: https://nodejs.org/dist/latest-v${major}.x/"
     return 1
   }
@@ -323,7 +325,7 @@ probe_nodejs_org() {
     return 1
   }
   echo "tarball resolved: ${tgz}"
-  curl -fsSL "${CURL_HTTPS_ONLY[@]}" -m 60 "https://nodejs.org/dist/latest-v${major}.x/SHASUMS256.txt" -o "${PF_TMP}/shasums.txt" || {
+  curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" -m 60 "https://nodejs.org/dist/latest-v${major}.x/SHASUMS256.txt" -o "${PF_TMP}/shasums.txt" || {
     echo "SHASUMS256.txt fetch failed"
     return 1
   }
@@ -335,7 +337,7 @@ probe_nodejs_org() {
   # the exact check setup performs (validators recompute, never just
   # record): a truncated or drifted archive must fail here, not only at
   # setup's sha256sum -c
-  curl -fsSL "${CURL_HTTPS_ONLY[@]}" -m 300 "https://nodejs.org/dist/latest-v${major}.x/${tgz}" -o "${PF_TMP}/node.tgz" || {
+  curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" -m 300 "https://nodejs.org/dist/latest-v${major}.x/${tgz}" -o "${PF_TMP}/node.tgz" || {
     echo "tarball download failed"
     return 1
   }
@@ -654,7 +656,7 @@ probe_npm_registry() {
 }
 
 probe_keyserver() {
-  curl -fsSL "${CURL_HTTPS_ONLY[@]}" -m 60 "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xA1715D88E1DF1F24" \
+  curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" -m 60 "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xA1715D88E1DF1F24" \
     -o "${PF_TMP}/gitcore-key.asc" || {
     echo "key fetch failed from keyserver.ubuntu.com"
     return 1
@@ -671,7 +673,7 @@ probe_git_core_ppa() {
   # probe fetched — setup relies on exactly that relationship (the key it
   # writes must verify the metadata apt then fetches), so two independent
   # payload checks would miss a rotated or revoked key
-  curl -fsSL "${CURL_HTTPS_ONLY[@]}" -m 60 "https://ppa.launchpadcontent.net/git-core/ppa/ubuntu/dists/noble/InRelease" \
+  curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" -m 60 "https://ppa.launchpadcontent.net/git-core/ppa/ubuntu/dists/noble/InRelease" \
     -o "${PF_TMP}/gitcore-inrelease" || {
     echo "git-core PPA InRelease fetch failed"
     return 1
@@ -807,10 +809,12 @@ probe_gitleaks_release() {
   # the effective URL, never just the named host. The asset is downloaded in
   # full and its digest recomputed against the pin (validators must
   # recompute, not just record): a reachable URL carrying a drifted payload
-  # or a stale pin would otherwise pass here and fail setup at sha256sum -c
+  # or a stale pin would otherwise pass here and fail setup at sha256sum -c.
+  # The fetch carries the same https-only constraint as setup's, so a
+  # downgrade hop in the chain fails here first instead of in setup
   local url="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
   local final
-  final=$(curl -fsSL -m 120 -w '%{url_effective}' "$url" -o "${PF_TMP}/gitleaks.tgz" 2>/dev/null) || {
+  final=$(curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" -m 120 -w '%{url_effective}' "$url" -o "${PF_TMP}/gitleaks.tgz" 2>/dev/null) || {
     echo "download failed (redirect chain or egress): ${url}"
     # curl reports the last URL it attempted even on failure — when the
     # blocked hop is the redirect target, the failure card must name
