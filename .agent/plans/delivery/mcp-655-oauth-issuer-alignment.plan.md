@@ -66,9 +66,20 @@ own PRM helper names by default). A client following the PRM then reads the upst
 metadata, registers and exchanges tokens there, and receives an `iss` equal to the issuer it
 holds. The app-origin AS metadata and the three `/oauth/*` proxy endpoints remain unchanged
 for clients that discover the AS from the resource origin (the ADR-115 case); that proxy path
-cannot satisfy RFC 9207, so its metadata never claims support
-(`authorization_response_iss_parameter_supported` is always served `false`). Tokens (the
-upstream's opaque tokens), RFC 8707 audience validation and the `/mcp` endpoint are untouched.
+cannot satisfy RFC 9207, so its served metadata **omits** the
+`authorization_response_iss_parameter_supported` claim the upstream declares (RFC 9207 §3: an
+omitted claim defaults to false; the claim is omitted rather than served `false` because
+Claude Code's error reference reads the key by presence — "unless the server's metadata sets
+`authorization_response_iss_parameter_supported`"). Tokens (the upstream's opaque tokens),
+RFC 8707 audience validation and the `/mcp` endpoint are untouched.
+
+Reviewer evidence (three read-only reviews, verdicts on the ticket): Claude Code's own error
+reference states that a redirect carrying no `iss` passes unless the metadata sets the claim,
+and that a present `iss` is always compared — the flag governs only the absent-`iss` branch;
+the MCP authorization spec requires RFC 9207 nowhere (the check is client policy); the
+disclaim-only shape adds no security exposure but cures nothing; the redirect-target broker
+would add a state store, an open-redirect surface and code transit through our logs for
+negligible marginal value.
 
 Rejected shapes, so they are not re-proposed: disclaim-only (insufficient per the RFC text
 above); the proxy as redirect target re-issuing responses with its own `iss` (a stateful
@@ -85,7 +96,7 @@ conformance check now grades the upstream's DCR on that path.
 ## Acceptance criteria (each with a proof — required)
 
 - The served PRM names the upstream authorization server and the served app-origin AS
-  metadata disclaims RFC 9207 support — `repo-safe`: route integration tests in
+  metadata carries no RFC 9207 claim — `repo-safe`: route integration tests in
   `apps/oak-curriculum-mcp-streamable-http/src/auth-routes.integration.test.ts` and
   `canonical-origin.integration.test.ts`, the e2e discovery suite in
   `apps/oak-curriculum-mcp-streamable-http/e2e-tests/auth-enforcement.e2e.test.ts`, and the
@@ -110,22 +121,25 @@ Product code:
    `authorization_servers: [upstreamMetadata.issuer]`; TSDoc states why (RFC 9207 §2.4) and
    that the app-origin AS metadata remains for origin-discovering clients.
 2. `src/oauth-proxy/oauth-proxy-upstream.ts`: schema gains
-   `authorization_response_iss_parameter_supported: z.boolean().optional()`;
-   `rewriteAuthServerMetadata` sets it to `false`; TSDoc states that the proxy path cannot
-   satisfy RFC 9207 and that validating clients are served by the PRM naming the upstream —
-   never that `false` is a cure.
+   `authorization_response_iss_parameter_supported: z.boolean().optional()` (so the field is
+   typed at the boundary); `rewriteAuthServerMetadata` destructures that key out of the
+   upstream document before the spread, so the served document omits it whatever the upstream
+   declares; TSDoc states that the proxy path cannot satisfy RFC 9207 and that validating
+   clients are served by the PRM naming the upstream — never that omission is a cure.
 
 Tests (test first — red for the right reason, then green; each test names a system state):
 
 - `src/auth-routes.integration.test.ts`: the `authorization_servers` assertions in the
   `authorization_servers field` describe block and the path-qualified PRM test expect
   `[TEST_UPSTREAM_METADATA.issuer]` (the fixture's issuer) for both hosts; `resource` stays on
-  self-origin; the AS-metadata test asserts
-  `authorization_response_iss_parameter_supported: false`.
+  self-origin; the AS-metadata test asserts the **whole served document** strictly equals the
+  rewritten fixture without the RFC 9207 claim (a positive shape proof — never an absence pin
+  on a single key, per the tests-prove-behaviour doctrine).
 - `src/canonical-origin.integration.test.ts`: the PRM `authorization_servers` assertion expects
   the fixture's issuer; `resource` stays on the canonical origin.
-- `src/oauth-proxy/oauth-proxy-upstream.unit.test.ts`: two tests pin the `false` claim (with
-  an upstream declaring `true`, and with an upstream silent on it).
+- `src/oauth-proxy/oauth-proxy-upstream.unit.test.ts`: the rewrite's output is asserted as a
+  whole for an upstream declaring the claim `true` and for one silent on it — both yield the
+  same document, and neither carries the key.
 - `src/test-helpers/upstream-metadata-fixture.ts`: the fixture declares
   `authorization_response_iss_parameter_supported: true`, as the upstream does.
 - `e2e-tests/auth-enforcement.e2e.test.ts`: the PRM helper and the test asserting self-origin
@@ -155,10 +169,13 @@ source fragments; every changed governed file is re-attested — machinery in
 
 Documentation:
 
-- ADR-115: §Metadata Rewriting (PRM names the upstream AS; app-origin AS metadata unchanged),
-  §Always-On (two standard discovery mechanisms, no client detection), and a dated Negative
-  consequence: the proxy path cannot satisfy RFC 9207; PRM-following clients hold the
-  upstream's issuer; the MCP-188 refusal no longer covers their registrations.
+- ADR-115: §Metadata Rewriting (PRM names the upstream AS; the app-origin AS metadata's
+  "all capability fields pass through unchanged" sentence gains the one exception — the
+  RFC 9207 claim is omitted), §Always-On (two standard discovery mechanisms, no client
+  detection), Positive consequence 4 cross-referenced to the new Negative consequence, and
+  that dated Negative consequence: the proxy path cannot satisfy RFC 9207; PRM-following
+  clients hold the upstream's issuer; the MCP-188 refusal no longer covers their
+  registrations; the passthrough generator is ticketed (MCP-656).
 - ADR-053 §Discovery: one-line note that the PRM names the upstream while the app-origin AS
   metadata remains the proxy's.
 - `apps/oak-curriculum-mcp-streamable-http/docs/manual-uat-guide.md` row 1.2: expected
@@ -214,3 +231,6 @@ MCP-188 refusal) on the final diff, verdicts posted on the pull request before m
   new state and redirect surface, not needed once clients hold the real issuer.
 - Any change to the upstream identity provider's configuration.
 - The paused innovation-kit landing pull request's own diff; it resumes after this lands.
+- The passthrough generator — the metadata fetch returns raw JSON and the schema only narrows
+  the type, so any undeclared upstream field is served under our issuer; strict parse versus
+  passthrough is an ADR-115 decision on its own ticket (MCP-656).
