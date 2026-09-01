@@ -1265,3 +1265,49 @@ pinning-by-name, not sequencing-by-hope.
   hold by being written down (push wrapper) held once made structural
   (push is the final command). Passive guidance loses to artefact
   gravity, again, measured twice in one day.
+
+## 2026-09-01 ~13:1xZ (Luna seeks Twilight, 5c0ddc, local seat) — session close on the MCP-655 hotfix branch: the reflection that overturned the cure (metacognition / concept-exploration / wrap; owner-invoked)
+
+- THE FIRST CURE READ THE RULE'S EXAMPLE, NOT THE RULE: Claude Code
+  2.1.252 refused the app's OAuth authorization response ("Issuer
+  mismatch … RFC 9207") because the app-origin AS metadata inherited
+  Clerk's `authorization_response_iss_parameter_supported: true` while
+  the response carries Clerk's `iss`. I built "disclaim it (`false`)",
+  with red-then-green tests, and was minutes from committing it. The
+  owner asked for a deep reflection first; fetching RFC 9207 §2.4
+  showed a client "MUST extract the value of the `iss` parameter … if
+  the parameter is present" and compare it — regardless of the flag —
+  and "SHOULD discard" responses whose AS does not declare support. The
+  disclaim was honest and would not have fixed a single user. Class:
+  a cure derived from a rule's compliant example is a hypothesis until
+  the rule's normative text is read; the falsifier I had planned (deploy
+  and try) would have cost a release cycle to learn what one fetch
+  taught. Cure landed as a plan, not code: the PRM names the upstream
+  authorization server (the Clerk MCP library's own default, overridden
+  by ADR-115 for Cursor) so the issuer the client holds equals the `iss`
+  it receives; the proxy path stays for origin-discovering clients with
+  the honest `false`. Node: `.agent/plans/delivery/mcp-655-oauth-issuer-alignment.plan.md`.
+- A PLAN THAT A FRESH SESSION MUST IMPLEMENT IS A REPO ARTEFACT, NOT A
+  CHAT ARTEFACT (owner, verbatim: "it must be copied to the repo, so a
+  fresh session can implement it, that means it needs to be self
+  contained and not rely on hidden context"): mechanism, exact files,
+  tests, the registry ceremony, sequence and proofs in the node; dates,
+  versions and deployment URLs on the ticket; the seat-facing state
+  (branch, worktree, uncommitted edits) on the thread record. Three
+  homes, no hidden context.
+- THE CONTENT REGISTRY IS A REAL GATE ON AUTH SURFACES: changing
+  `rewriteAuthServerMetadata` failed pre-commit on
+  `validate-mcp-content-current-source` (item C408's immutable fragment).
+  The ceremony — anchor override, `'modified'` revision, semantic-hash
+  reviewed deltas, `refresh-mcp-content-current-source-anchors` — is in
+  the node so the next seat does not rediscover it three errors at a
+  time as I did.
+- STATE: #945 paused at owner word (head `16d87a7cf`, pushed with an
+  owner-authorised `HUSKY=0`); MCP-655 minted Urgent; plan ratified;
+  branch `fix/mcp-oauth-metadata-iss-claim` pushed under the bot with a
+  draft PR carrying the node and this continuity; the disclaim-only edits
+  left uncommitted in the worktree (listed on the ticket). Claim
+  `2c939d42` closed at this wrap. Three reviewers dispatched on the
+  withdrawn diff (code/mcp/security-expert-655) — their verdicts, if any
+  arrive, are superseded; the node names the reviews to run on the final
+  diff.

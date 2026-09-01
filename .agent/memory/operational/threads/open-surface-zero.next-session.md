@@ -10,6 +10,7 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
 | --- | --- | --- | --- | --- | --- | --- |
 | Smith holds Temper | codex | GPT-5 | 019fef | executor — owner-PR merge drive, PRs #745/#746/#852 | 2026-08-11 | 2026-08-11 |
 | Spark weaves Paraffin | codex | GPT-5 | 019ff2 | executor — PR #805 value adjudication and merge-readiness | 2026-08-11 | 2026-08-11 |
+| Luna seeks Twilight | claude-code | claude-fable-5 | 5c0ddc | driver — the fork-line integration landing (#943, rehomed as #945 at owner word) and the MCP-655 OAuth hotfix plan; see §Lanes | 2026-09-01 | 2026-09-01 |
 
 ## Lane state
 
@@ -87,3 +88,40 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
 - Claims `9b5ef380-af81-4bbc-9fdc-898c73d770f8` and
   `2f503217-50a7-4837-918f-ad6feb2620d4` were explicitly closed at 2026-08-11T13:36:45Z;
   `claims mine` returned `[]`. No claim or monitor is retained.
+
+## Lanes (2026-09-01, Luna seeks Twilight, 5c0ddc)
+
+### Lane: fork-line integration landing — PR #945, PAUSED at owner word
+
+- The owner's fork integration line (220 commits, 324 files) was driven as upstream #943 from a
+  fork branch; every settlement cure needed a fork-side PR first (an hour per hop, multiplicative
+  with the dependency), so at owner word the tip was rehomed into this repository as
+  `feat/innovation-kit-updates` and opened as **#945** under the bot; #943 closed with its
+  dispositions and a pointer. #945's head is `16d87a7cf` (the continuity commit pushed with
+  `HUSKY=0` under explicit owner authorisation when the pause was ordered); SonarCloud, CodeQL,
+  Vercel, `preview-serves` and the code tests were green on the head before it.
+- **Paused** 2026-09-01 until MCP-655 lands: the live-service validation it needs (the app UAT
+  runbook smoke subset through an authenticated Claude Code session) is blocked by the OAuth
+  defect below. The fuller lane history (the fork settlement PRs, the review records, the
+  dispositions) is on that branch's copy of this record.
+- Resume: merge `main` (with MCP-655) into the branch; run the UAT runbook smoke subset and
+  Section 0 inventory reconciliation against its preview; post the run record on #945; the
+  owner's code-owner approval (bot-authored); `pnpm agent-tools merge-bot merge --pr 945
+  --expect copilot-pull-request-reviewer`. Copilot's request bound at open; the CODEOWNERS
+  auto-requests (`jimCresswell`, `mantagen`) are GitHub's, not this seat's.
+
+### Lane: MCP-655 OAuth issuer alignment — PLAN RATIFIED, implementation handed to a fresh session
+
+- Defect: Claude Code 2.1.252 refuses the app's OAuth authorization response on preview and
+  production ("Issuer mismatch … RFC 9207"): the PRM names the app as authorization server while
+  the response carries the upstream identity provider's `iss`. Evidence and dates: Linear
+  MCP-655. Decision and the complete self-contained implementation: the ratified node
+  [`mcp-655-oauth-issuer-alignment.plan.md`](../../../plans/delivery/mcp-655-oauth-issuer-alignment.plan.md).
+- Branch `fix/mcp-oauth-metadata-iss-claim` (off `origin/main`) in worktree
+  `oak-open-curriculum-ecosystem-worktrees/pr-943-engraph`, pushed under the bot with a draft
+  PR carrying the plan node and this record. The worktree also holds **uncommitted** edits from
+  the withdrawn disclaim-only cure (listed on the ticket); the node reworks them — do not land
+  them as-is.
+- Next safe step for the implementing session: follow the node's §Changes and §Sequence from the
+  top; the reviewers named there run on the final diff; the owner's Claude Code sign-in on the
+  PR's preview is the falsifier before merge.
