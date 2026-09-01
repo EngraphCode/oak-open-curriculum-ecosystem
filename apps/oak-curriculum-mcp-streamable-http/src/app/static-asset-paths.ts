@@ -58,7 +58,7 @@ import { MCP_RESOURCE_PATH } from '../served-origin.js';
  * the Clerk handshake before ever reaching this mount. That is why these
  * asset prefixes are named in `clerk-skip-surfaces.ts`: the ordering argument
  * above rules out a 401, not a redirect. Both mounted copies of each tree are
- * named there — the routed one and the root one the alpha host serves from.
+ * named there — the routed one and the root one root-served deployments use.
  */
 export const ROUTED_ASSET_BASE = MCP_RESOURCE_PATH;
 

@@ -19,7 +19,7 @@ owner_gates:
   - awaiting: owner-decision
     clears_when: "Edge mechanism chosen (zone-level IaC route vs main-site platform rewrite) and the owning team engaged with a dated change window; the gate re-prices when the domain-move lane opens"
     expires: 2026-08-31
-last_updated: 2026-08-02
+last_updated: 2026-09-01
 ---
 
 # Domain move: `www.thenational.academy/mcp`
@@ -119,6 +119,19 @@ Each a single-story PR, default round budget:
   submission-conn handover; the gate's expiry is renewed and the
   decision re-prices from current facts when the domain-move lane
   opens. All probed facts and dates in this plan are as of 2026-07-23.
+- **2026-09-01** — Overtaken by events, recorded at owner word: the
+  canonical address landed as `mcp.thenational.academy/mcp`, served
+  behind the Cloudflare edge (MCP-172) with `CANONICAL_HOST` naming
+  it. Probed 2026-09-01: the canonical host serves MCP, the browser
+  page, and both PRM forms at root and `/mcp*`;
+  `www.thenational.academy/mcp` returns 404; the earlier alpha
+  endpoint still serves and self-describes the canonical origin. The
+  estate-wide reference sweep (this lane) re-points MCP server
+  references to the canonical address and retires `oaknational.dev`
+  mentions from live surfaces. The plan's www-based goal and the
+  expired edge-mechanism gate await owner disposition (archive or
+  re-scope). The authoritative record is the MCP-122 ticket comment
+  (2026-09-01).
 
 ## Out of scope
 

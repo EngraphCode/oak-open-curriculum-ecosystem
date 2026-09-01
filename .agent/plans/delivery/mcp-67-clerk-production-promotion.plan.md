@@ -14,7 +14,7 @@ tickets:
   - MCP-67
 depends_on: []
 owner_gates: []
-last_updated: 2026-07-31
+last_updated: 2026-09-01
 ---
 
 # Clerk production promotion
@@ -68,6 +68,9 @@ added or changed:
   holds V1 on the current URL; MCP-122 (in flight) may mint
   `www.thenational.academy/mcp` as the canonical address — hence the
   named domain gate above. This plan never re-decides the origin.
+  (Settled 2026-09-01, owner word recorded on the MCP-122 ticket
+  comment of 2026-09-01: the canonical address is
+  `mcp.thenational.academy/mcp`.)
 
 ## Mechanism
 

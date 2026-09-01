@@ -43,7 +43,7 @@ export const DEFAULT_LOCAL_PORT = '3333';
  */
 export interface ServedOriginInputs {
   /**
-   * Configured canonical origin (e.g. `https://www.thenational.academy`),
+   * Configured canonical origin (e.g. `https://mcp.thenational.academy`),
    * or `undefined` when no canonical host is configured.
    */
   readonly canonicalOrigin?: string;
@@ -62,8 +62,8 @@ export interface ServedOriginInputs {
  *
  * @example
  * ```typescript
- * resolveServedOrigin({ canonicalOrigin: 'https://www.thenational.academy' });
- * // 'https://www.thenational.academy'
+ * resolveServedOrigin({ canonicalOrigin: 'https://mcp.thenational.academy' });
+ * // 'https://mcp.thenational.academy'
  * resolveServedOrigin({ displayHostname: 'my-app.vercel.app' });
  * // 'https://my-app.vercel.app'
  * resolveServedOrigin({ portEnv: '4000' }); // 'http://localhost:4000'
@@ -101,13 +101,12 @@ export const PROTECTED_RESOURCE_METADATA_PREFIX = '/.well-known/oauth-protected-
  * metadata at `/.well-known/oauth-protected-resource/mcp`.
  *
  * The app answers the unqualified path too (see `auth-routes.ts`), and that is
- * correct — RFC 9728 describes both. But only one of them is a truthful
- * description of THIS resource, and only one of them reaches this app on the
- * canonical deployment: the Cloudflare origin rule forwards `/mcp` and
- * `/mcp/*`, so the unqualified path stays on the main website and returns its
- * 404 HTML. Anything that hands a human or a client a metadata URL must use
- * this one. The unqualified route remains for clients that construct it
- * themselves against a root-served deployment, such as the alpha host.
+ * correct — RFC 9728 describes both, and both forms serve on the canonical
+ * deployment (verified 2026-09-01: the canonical host fronts this app at its
+ * root as well as under `/mcp*`). But only the path-qualified form is a
+ * truthful description of THIS resource, so anything that hands a human or a
+ * client a metadata URL must use this one. The unqualified route also answers
+ * clients that construct it themselves against any root-served deployment.
  */
 export function resolveServedPrmUrl(inputs: ServedOriginInputs): string {
   return `${resolveServedOrigin(inputs)}${PROTECTED_RESOURCE_METADATA_PREFIX}${MCP_RESOURCE_PATH}`;
