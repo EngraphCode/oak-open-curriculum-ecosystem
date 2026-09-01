@@ -2477,3 +2477,63 @@ rule, carrying unmerged continuity commits forward.
   The GitHub MCP `request_copilot_review` returned 403 on the fork
   (personal access token); the REST request under the owner's `gh`
   credential was the fallback — verify the reviewer appears.
+
+## 2026-09-01 ~12:4xZ (Luna seeks Twilight, 5c0ddc) — session close, written ahead of the last cure round so the continuity commit rides its push (wrap: metacognition / free-play / concept-exploration; owner-invoked)
+
+- THE TWO-PR LOOP WAS A PROPERTY OF WHERE THE HEAD LIVED, AND EVERY
+  INSTRUMENT FAILURE OF THE MORNING WAS THE SAME FACT: bot with no fork
+  access, GitHub MCP 403 on the fork, REST silently dropping the Copilot
+  handle, a fork PR per cure before the landing PR could move. I explained
+  the loop correctly when asked ("why are we opening PRs on the fork?") and
+  defended it as the mechanism; the owner named it unsustainable (an hour
+  per PR, twice, multiplicative with the dependency) and asked how to close
+  it. Cure: rehome the integration tip into the shared repository as a
+  same-repo branch under the bot; #943 → #945. Under an hour; every
+  instrument worked at once. Class: when two tools fail the same way in one
+  hour, find the one fact beneath them before working around either.
+- HINDSIGHT IN A POINTER'S CLOTHING (owner correction, verbatim: "so your
+  suggestion is go into the past and do it differently?"): my rehome answer
+  carried a paragraph on how smaller landings would have dissolved the loop,
+  plus a conditional ("only if another change is needed") that bet an hour
+  to save two minutes. Both withdrawn. When the owner asks how, the answer is
+  the forward move; the generator observation is a memory entry, not a
+  reply.
+- DEPENDENT-PR TAIL RISK IS MULTIPLICATIVE (owner ruling, verbatim: "treat
+  the risk of long tails in PRs as multiplicative, and we are now dealing
+  with two PRs with a dependency between them"): on the upstream PR of a
+  pair cure only gate-changers and false statements, drop non-required
+  instruments that fail (Copilot on the fork, three ways), merge the instant
+  green-and-clean, settle the downstream by disposition. Applied: #36 took
+  two cure pushes, both batched; Copilot on the fork was dropped after the
+  third failed mechanism (the ruleset then requested it anyway, at open).
+  Per-user memory `pr-long-tail-risk-is-multiplicative` carries the
+  principle.
+- THE DISPOSITIONS THAT WERE NOT CURES (concept-exploration, movement 3 —
+  the fluent first answer was "cure them all before the rehome"): of #943's
+  last Copilot round, one finding was the owner's decided practice (declined,
+  never re-priced), one had a false premise for a fresh container (declined
+  with its falsifier), one was a dated record (stands), one was real
+  (cured at source). Individual validity was not sufficiency; three of four
+  were correct and still not cures. The pr-lifecycle's two-class ruling and
+  proportionality's level axis did the sorting.
+- FREE-PLAY HARVEST (associations, not findings): (kept) the PDR-140
+  settlement budget and the fork ruleset's PR requirement are shaped alike —
+  both are counters that make every push expensive, and both bit on the same
+  afternoon; (kept) "the mailbox is patient even when you were not" — a
+  stopped subagent's report waited in the mailbox through a compaction;
+  (discarded, forced) "the analyser that matches text is like a reviewer
+  that reads titles" — pleasing, but it explains nothing the Sonar finding
+  did not already state.
+- UNRESOLVED EVIDENCE that could change the synthesis: `cloud-environment-
+  setup.sh` has not been executed since its refactor (READ + shellcheck +
+  harness only; it needs root, apt and /usr/local) — its first real run is
+  the first cloud provisioning after #945 lands. Named in the PR body.
+- STATE AT THIS ENTRY: #945 open under the bot at `04be09cc8`, CI running,
+  Copilot bound at 12:24:44Z, `pr state` CHECKS-RUNNING; #943 closed with
+  dispositions; fork #36 merged by the owner (`f042d46e0`, Sonar green).
+  The continuity commit (this entry, the thread record §Lanes, the
+  experience letter `2026-09-01-luna-seeks-twilight-the-loop-i-explained-
+  instead-of-closing.md`) is prepared ahead of the first cure round so the
+  round's push carries it; if no round comes, it is the minimal follow-on.
+  Claim `2c939d42` stays open to the merge; the seat-end comms event and
+  claim close follow the merge.

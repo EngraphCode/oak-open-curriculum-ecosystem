@@ -123,23 +123,52 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   code-expert review dispatched pre-compaction reported after all (its mailbox delivered
   post-compaction): the split APPROVED at line granularity, seven findings, all dispositioned
   on the fork PR record; a second bounded dispatch ran on the pushed parcel.
-- Pushed to the fork under the owner's credential with the canonical shared-credential marker
-  (owner ruling 2026-09-01: the bot app has no access to EngraphCode). Fork PR
-  **EngraphCode#36** → `engraph` (base explicit) open 2026-09-01 with the PDR-140 intake
-  contract — #943's second and LAST settlement push; Copilot requested via the GitHub MCP at
-  open (the ruleset's `copilot_code_review` rule did not auto-request); watch armed with
-  `pnpm agent-tools:pr-watch 36 --repo EngraphCode/oak-open-curriculum-ecosystem --watch`.
-- Next safe step: (1) #36 to green-and-clean under the fork ruleset (`run-quality-gates` +
-  `CodeQL` strict, every thread resolved, zero approvals required; commits attributed — the
-  bot app, and `noreply@anthropic.com` maps to login `claude`) and merge with a merge commit
-  under the owner's credential as #35 was; Copilot findings triaged under the intake
-  contract; (2) #943 settlement: Sonar rescans the new head, full-surface harvest, reviewer
-  legs SATISFIED/SKIPPED (mantagen requested at PR-open by the cloud seat — a colleague on
-  trust, never chased), code-owner leg (auto-satisfied: the author is the owner), bot REST
-  merge at settled-READY, Phase-8 harvest; watch with `pnpm agent-tools:pr-watch`, never a
-  hand-rolled script. Not this parcel, homed here as a pointer: `lint:shell:syntax` covers
-  neither cloud-environment script, so CI has no syntax gate on them — a package.json gate
-  change for its own small PR.
+- Fork settlement PR **EngraphCode#36** → `engraph` (the parcel above plus `717ccc4cf`,
+  `aac6a00fb`, `11916575a`, `ccfdd16be` — two review cures, the lane truing, the bot round's
+  four threads cured or outdated) was merged by the owner at 12:13Z as `f042d46e0`; #943's
+  head advanced to it and **SonarCloud's Quality Gate passed** there at 12:15Z, after failing
+  on the 100 findings this line cures.
+- **REHOME (owner rulings 2026-09-01 ~12:2xZ).** The two-PR loop — every cure needing a fork
+  PR and then the landing PR, an hour each, multiplicative with the dependency — was ruled
+  unsustainable: no further fork-side PRs for this landing; the integration tip lives in
+  `oaknational` from here. Done under the bot identity: `feat/innovation-kit-updates` =
+  `f042d46e0` + `04be09cc8` (the last suppressed Copilot finding on #943 cured at source —
+  `strip_userinfo` drops a URL's query and fragment before its userinfo), pushed via
+  `merge-bot push`; **#945** opened by the bot (`jimbot` label) from a body re-derived from
+  the diff (221 commits, 324 files, +17,310/−8,758; the retired `research/web-app-deconstruction`
+  workspace named first); **#943 closed** by the bot with the dispositions of its last Copilot
+  round (fork-branch scan instruction: declined — ratified fork-first practice; root `/tmp`
+  symlink hazard in setup: declined with falsifier — fresh container; stale commit count in the
+  experience letter: dated record, PR body re-derived; query-credential leak: cured) and the
+  pointer to #945. Owner ruling: no fork name in any PR title, description or comment.
+- #945 merge gate, from `main`'s ruleset (read 2026-09-01): required checks `CodeQL`,
+  `SonarCloud Code Analysis`, `run-quality-gates`, `Vercel`; every review thread resolved;
+  **code-owner review required** — the PR is bot-authored, so the owner's approval is the one
+  leg only he can satisfy; Copilot reviews on every push (`review_on_push: true`), so it is the
+  expected reviewer for the settlement read. CODEOWNERS auto-requested `jimCresswell` and
+  `mantagen` (GitHub's mechanism; mantagen is a colleague on trust, never chased). Copilot's
+  request bound at 12:24:44Z (timeline). Codex is at its usage limit — a scope-declared skip.
+  Instruments: `pnpm agent-tools:pr-watch 945 --repo oaknational/oak-open-curriculum-ecosystem --watch`;
+  `pnpm agent-tools pr state 945 --expect copilot-pull-request-reviewer` (read
+  CHECKS-RUNNING 9/13 at 12:30Z); `pnpm agent-tools merge-bot merge --pr 945 --expect
+  copilot-pull-request-reviewer` at SETTLE-READY. Bot-identity GitHub writes go through
+  `merge-bot mint-token --scope pull-request-work` assigned first, then `GH_TOKEN` on the
+  `gh` call — never the prefix-substitution form (docs/engineering/merge-bot.md).
+- Next safe step: (1) harvest #945's first full Copilot round and its CI when they land;
+  triage under the PDR-140 intake contract on the PR — cure only what would land a false
+  statement or change a gate outcome, batch every cure into ONE push so Copilot re-reviews
+  once (owner ruling: dependent-PR tail risk is multiplicative), disposition the rest on the
+  record with reasons; (2) resolve threads against that head, read `pr state` to
+  SETTLE-READY-but-for-the-code-owner leg, and notify the owner for his approval at that
+  action moment; (3) `merge-bot merge` (merge commit, never squash); Phase-8 harvest; (4) the
+  seat's continuity commit rides the cure push (this record, the napkin, the experience
+  letter); claim `2c939d42` closes at the true seat end with a comms event. If a successor
+  finds #945 already MERGED, the landing is complete: the open-surface-zero remainder is the
+  older slice above (#805, #818/#819). Pointers, not this PR: `lint:shell:syntax` covers
+  neither cloud-environment script (a package.json gate change for its own small PR);
+  `cloud-environment-setup.sh` has READ + shellcheck + harness evidence only until its first
+  cloud provisioning after this lands; the fork-branch scan instruction in
+  `cloud-environment.md` could select the PR's actual base at the practice's next revision.
 - Acceptance bar: SonarCloud passes on #943's new head; zero undispositioned findings across
   threads and review bodies at the merge instant; the shell change proven behaviour-identical;
   no file in the parcel loses documentation to a limit.
