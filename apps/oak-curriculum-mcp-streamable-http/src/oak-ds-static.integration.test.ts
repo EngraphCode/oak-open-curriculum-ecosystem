@@ -213,12 +213,12 @@ describe('Oak Open Curriculum Design System static serving', () => {
   });
 
   it('references every first-party subresource inside the routed surface, and serves each', async () => {
-    // MCP-509. The canonical deployment reaches this app through a Cloudflare
-    // origin rule scoped to `/mcp` and `/mcp/*`. A root-relative reference
-    // therefore never arrives here at all — it stays on the main website and
-    // returns its 404 HTML, so the canonical page renders unstyled with no
-    // logo and no favicon while every request this app *does* receive is
-    // healthy.
+    // MCP-509. Under a path-scoped edge (the release-era `www` rule forwarded
+    // only `/mcp` and `/mcp/*`) a root-relative reference never arrives here
+    // at all — it stays on the fronting site and returns its 404 HTML, so the
+    // page renders unstyled with no logo and no favicon while every request
+    // this app *does* receive is healthy. The canonical `mcp.` host serves the
+    // root too, but the page must render behind either edge shape.
     //
     // ONE test asserts both halves on ONE set, and that is the point. This
     // suite previously had two scrapes: one proved references resolve over

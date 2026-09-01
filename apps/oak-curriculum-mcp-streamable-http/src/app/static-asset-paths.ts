@@ -14,11 +14,12 @@ import { MCP_RESOURCE_PATH } from '../served-origin.js';
  * URL prefix every first-party asset reference sits beneath.
  *
  * @remarks
- * MCP-509. The canonical deployment reaches this app through a Cloudflare
- * origin rule scoped to `/mcp` and `/mcp/*`; a root-relative asset request
- * never arrives here at all, it stays on the main website and gets that
- * site's 404 HTML. So the page's own references must live inside the routed
- * surface, and the static mount must answer there.
+ * MCP-509. Under a path-scoped edge (the release-era `www` rule forwarded
+ * only `/mcp` and `/mcp/*`) a root-relative asset request never arrives here
+ * at all — it stays on the fronting site and gets that site's 404 HTML. So the
+ * page's own references live inside the routed surface, and the static mount
+ * answers there; the canonical `mcp.` host serves the root too, and the page
+ * stays portable across both edge shapes.
  *
  * **Derived, not a fourth copy of `'/mcp'`.** The edge rule is scoped to the
  * path this app publishes as its MCP resource, so that path — not a literal

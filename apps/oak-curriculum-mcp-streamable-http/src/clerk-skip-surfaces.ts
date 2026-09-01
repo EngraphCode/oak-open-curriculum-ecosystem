@@ -32,12 +32,12 @@ import {
  *
  * @remarks
  * The health paths are spread from {@link HEALTH_PATHS} rather than listed,
- * because there are now two of them (MCP-580) and only the routed one is
- * reachable on the canonical host. Naming the root one alone would leave the
- * canonical probe — the only probe that measures the surface users actually
- * hit — running through the auth vendor on every poll: a needless dependency
- * inside a liveness check, and the handshake-redirect exposure the root path
- * was exempted from in the first place. Composing from the constant means a
+ * because there are two of them (MCP-580): the routed one is the only one a
+ * path-scoped edge forwards (the release-era `www` rule sent only `/mcp*`),
+ * and the canonical host serves both. Naming the root one alone would leave
+ * the routed probe running through the auth vendor on every poll: a needless
+ * dependency inside a liveness check, and the handshake-redirect exposure the
+ * root path was exempted from in the first place. Composing from the constant means a
  * change to the served health layout moves the skip with it instead of leaving
  * a stale literal behind.
  */

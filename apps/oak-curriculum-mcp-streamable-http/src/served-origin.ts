@@ -100,13 +100,14 @@ export const PROTECTED_RESOURCE_METADATA_PREFIX = '/.well-known/oauth-protected-
  * is appended to the well-known prefix, so a resource at `/mcp` publishes its
  * metadata at `/.well-known/oauth-protected-resource/mcp`.
  *
- * The app answers the unqualified path too (see `auth-routes.ts`), and that is
- * correct — RFC 9728 describes both, and both forms serve on the canonical
- * deployment (verified 2026-09-01: the canonical host fronts this app at its
- * root as well as under `/mcp*`). But only the path-qualified form is a
- * truthful description of THIS resource, so anything that hands a human or a
- * client a metadata URL must use this one. The unqualified route also answers
- * clients that construct it themselves against any root-served deployment.
+ * The app answers the unqualified path too (see `auth-routes.ts`) as a
+ * compatibility alias: the same handler serves both, so the documents are
+ * identical, and both routes serve on the canonical deployment (verified
+ * 2026-09-01: the canonical host fronts this app at its root as well as under
+ * `/mcp*`). The path-qualified form is the one RFC 9728 §3.1 derives for a
+ * resource at `/mcp` and the one that survives a path-scoped edge, so anything
+ * that hands a human or a client a metadata URL uses this one; the alias
+ * answers clients that construct the unqualified path themselves.
  */
 export function resolveServedPrmUrl(inputs: ServedOriginInputs): string {
   return `${resolveServedOrigin(inputs)}${PROTECTED_RESOURCE_METADATA_PREFIX}${MCP_RESOURCE_PATH}`;
