@@ -35,9 +35,12 @@ export COREPACK_ENABLE_DOWNLOAD_PROMPT=0
 # and diagnosing).
 PHASE="init"
 phase() {
-  PHASE="$1"
+  local phase_name="$1"
+  # PHASE stays global: the ERR trap below reads it at the point of death
+  PHASE="$phase_name"
   echo ""
   echo "=== PHASE: ${PHASE} ==="
+  return 0
 }
 # the pipe-status list distinguishes which stage of a pipeline failed —
 # BASH_COMMAND alone names the whole assignment or the final stage, which
@@ -56,6 +59,12 @@ fail() {
 GITLEAKS_VERSION=8.30.0
 GITLEAKS_SHA256_LINUX_X64=79a3ab579b53f71efd634f3aaf7e04a0fa0cf206b7ed434638d1547a2470a66e
 
+# every fetch refuses a downgrade: the request AND any redirect hop must
+# stay on https (Sonar S6506). The option names are spelled out at every
+# call site and only the value is shared, because the analyser matches the
+# command text: an array expansion would hide them
+HTTPS_ONLY='=https'
+
 # ---------- discovery first: the carried repo declares the toolchain ----------
 phase "repo discovery"
 # find exits non-zero when any search root is missing or partially
@@ -64,8 +73,12 @@ phase "repo discovery"
 # this line on every fresh session from this script's first paste, the
 # root cause of the 2026-08-23/24 environment outage. The pipeline's
 # exit is therefore tolerated; the meaningful invariant stays the
-# test -n FIRST_REPO check below, which still fails loudly when no
-# Practice repo is actually found.
+# FIRST_REPO check below, which still fails loudly when no Practice repo
+# is actually found. The check routes through fail() rather than standing
+# alone: a failing bare [[ ]] reaches the ERR trap with PIPESTATUS reading
+# 0 (a keyword's status does not land there the way test's does), so the
+# failure card would print "pipe status: 0" beside a fatal failure —
+# verified by running both forms.
 REPOS=$(find /home /workspace -maxdepth 4 -type d -name .git \
   -not -path '*/node_modules/*' 2>/dev/null | sed 's|/\.git$||') || true
 FIRST_REPO=""
@@ -73,12 +86,12 @@ for repo in $REPOS; do
   # A Practice repo is identified by its committed Practice substrate plus a
   # pnpm workspace — a lockfile alone is not identity (a plugin cache or
   # stray clone with a pnpm-lock.yaml must not be provisioned or mutated)
-  if [ -f "$repo/pnpm-lock.yaml" ] && [ -f "$repo/.agent/directives/AGENT.md" ]; then
+  if [[ -f "$repo/pnpm-lock.yaml" ]] && [[ -f "$repo/.agent/directives/AGENT.md" ]]; then
     FIRST_REPO="$repo"
     break
   fi
 done
-test -n "$FIRST_REPO"
+[[ -n "$FIRST_REPO" ]] || fail "no Practice repo (pnpm-lock.yaml + .agent/directives/AGENT.md) found under /home or /workspace"
 
 # Node major from the carried repo's engines declaration (single-source per
 # the repos' runtime-version doctrine); the explicit default only covers a
@@ -100,11 +113,11 @@ phase "node install (nodejs.org)"
 # substitution: PIPESTATUS in the ERR trap cannot see through an
 # assignment-substitution (x=$(a | b) traps with only the assignment
 # status), so a curl failure must fail on its own line to be attributable
-curl -fsSL "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/" -o /tmp/node-index.html
+curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/" -o /tmp/node-index.html
 NODE_TGZ=$(grep -o "node-v${NODE_MAJOR}[0-9.]*-linux-x64.tar.gz" /tmp/node-index.html | head -1)
-test -n "$NODE_TGZ"
-curl -fsSL "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/${NODE_TGZ}" -o /tmp/node.tgz
-curl -fsSL "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/SHASUMS256.txt" -o /tmp/node-shasums.txt
+[[ -n "$NODE_TGZ" ]] || fail "no node-v${NODE_MAJOR} linux-x64 tarball listed in the nodejs.org index"
+curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/${NODE_TGZ}" -o /tmp/node.tgz
+curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" "https://nodejs.org/dist/latest-v${NODE_MAJOR}.x/SHASUMS256.txt" -o /tmp/node-shasums.txt
 grep " ${NODE_TGZ}\$" /tmp/node-shasums.txt | sed "s|  ${NODE_TGZ}\$|  /tmp/node.tgz|" | sha256sum -c -
 tar xzf /tmp/node.tgz -C /usr/local --strip-components=1
 
@@ -124,7 +137,7 @@ done
 phase "git from git-core PPA (keyserver.ubuntu.com, ppa.launchpadcontent.net)"
 # git >= 2.45 from the git-core PPA (manual sources — add-apt-repository's
 # python apt_pkg binding is broken on this image)
-curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xA1715D88E1DF1F24" \
+curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xA1715D88E1DF1F24" \
   -o /etc/apt/trusted.gpg.d/git-core-ppa.asc
 echo "deb https://ppa.launchpadcontent.net/git-core/ppa/ubuntu noble main" \
   > /etc/apt/sources.list.d/git-core-ppa.list
@@ -134,7 +147,7 @@ git --version
 
 phase "gitleaks (github.com release asset)"
 # gitleaks for pre-push secret scans — checksum-verified before install
-curl -fsSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
   -o /tmp/gitleaks.tgz
 echo "${GITLEAKS_SHA256_LINUX_X64}  /tmp/gitleaks.tgz" | sha256sum -c -
 tar xzf /tmp/gitleaks.tgz -C /usr/local/bin gitleaks
@@ -142,7 +155,7 @@ gitleaks version
 
 # ---------- per-repo setup ----------
 for repo in $REPOS; do
-  if [ ! -f "$repo/pnpm-lock.yaml" ] || [ ! -f "$repo/.agent/directives/AGENT.md" ]; then
+  if [[ ! -f "$repo/pnpm-lock.yaml" ]] || [[ ! -f "$repo/.agent/directives/AGENT.md" ]]; then
     continue
   fi
   name=$(basename "$repo")
@@ -150,7 +163,7 @@ for repo in $REPOS; do
   cd "$repo"
 
   # full history: validators read pinned baseline commits shallow clones lack
-  if [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
+  if [[ "$(git rev-parse --is-shallow-repository)" = "true" ]]; then
     git fetch --unshallow origin
   fi
 
@@ -168,8 +181,8 @@ for repo in $REPOS; do
   # common-ability extension point: a Practice repo needing more than
   # install commits its own hook. Absence is the only benign skip — a hook
   # that exists but is not executable is a broken contract, not a no-op.
-  if [ -e .agent/setup/cloud-session-setup.sh ]; then
-    if [ ! -x .agent/setup/cloud-session-setup.sh ]; then
+  if [[ -e .agent/setup/cloud-session-setup.sh ]]; then
+    if [[ ! -x .agent/setup/cloud-session-setup.sh ]]; then
       fail "${name}/.agent/setup/cloud-session-setup.sh exists but is not executable"
     fi
     ./.agent/setup/cloud-session-setup.sh

@@ -2340,3 +2340,140 @@ Branch claude/ordering-data-defect-investigation-lsgilt carries only continuity
 orphans past merged #35; this entry and the formation letter are its last commits
 from this seat. Next parcel restarts it from origin/engraph per the merged-history
 rule, carrying unmerged continuity commits forward.
+
+## 2026-09-01 ~12:1xZ (Luna seeks Twilight, 5c0ddc, local seat — upstream 943 drive, Sonar-cure parcel)
+
+- HANDOFF-BY-RECORD WORKS ONE-WAY: the cloud seat cannot message a local
+  seat, so its full handoff landed as a comment on the pull-request record
+  and a persistent watch on that record (plus the fork's tip, branches, and
+  open PRs; 45s cadence, one line per new event) was the wake path — it
+  caught the handoff comment within a minute. The same watch then echoed
+  this seat's own ack back as an event; exclude the acting bot's comments
+  from the filter next time.
+- A HANDOFF'S "DEEP STATE HOMES" CAN SIT ON AN UNMERGED BRANCH: the
+  predecessor's closeout napkin entries lived on the fork branch that #35
+  had ALREADY merged — four later commits beside the merge, not on top of
+  it, so `--ff-only` refused and a real merge (clean, union verified by
+  duplicate-heading and marker greps) was needed before the parcel could
+  carry them.
+- ALL-OR-NOTHING TRANSFORMS EARNED THEIR KEEP TWICE IN ONE HOUR: a
+  regex `[ … ]`→`[[ … ]]` rewrite over-reached (converted `[[` lines it
+  had itself inserted and grep char classes like `[: ]`), and a
+  `${PF_TMP}` quoting regex split two already-quoted strings; the final
+  asserts refused the first write outright and shellcheck named the second.
+  Restoring from the pre-cure copies saved in the scratchpad (never a git
+  overwrite) cost one command. Keep saving pre-transform copies before any
+  scripted rewrite, and keep the asserts at the END of the script, not per
+  edit.
+- A READ-ONLY PROBE HARNESS IS ITS OWN REGRESSION TEST: the cloud
+  preflight runs on macOS (5/12 probes pass, the rest fail for host
+  reasons); baseline-then-cured output diffed byte-identical apart from
+  temp paths — RUN-class evidence for a script that otherwise only runs in
+  a fresh cloud container. The paired setup script has no such path; its
+  cure is READ-class and the commit says so.
+- LOCAL SONAR VERIFICATION IS NOT AVAILABLE HERE: `sonar verify --file`
+  answers 403 "Vortex Analysis is not available for this organization";
+  the class proof is greps per rule plus shellcheck, and the gate proof is
+  the PR scan after the push. Also: the repo's `lint:shell` gate
+  syntax-checks only `apps/**/scripts/*.sh` and `.husky/*` — the
+  `.agent/claude-harness-integrations/*.sh` pair is outside it, so
+  shellcheck is run by hand for these files.
+- FORK PULL REQUESTS GET A `startup_failure` RUN ON `deployment_status`:
+  on upstream #943 the head `cb8315ecc` shows an unnamed workflow run with
+  `path: BuildFailed`, `head_branch: null`, while every branch-native
+  `deployment_status` run is `preview-serves success` and the workflow file
+  is unchanged on `engraph` — the base repo cannot resolve a fork-only head
+  for that event. Not a required check; recorded on the PR, no cure in the
+  parcel.
+
+## 2026-09-01 ~13:0xZ (Luna seeks Twilight, 5c0ddc) — compaction-freeze harvest: three owner corrections, one generator (metacognition, owner-invoked)
+
+- TARGET-CHASING TRIMMED INFORMATION (owner correction, verbatim: "we do not
+  trim information to meet targets, we maximise developer experience"): a
+  three-line TSDoc in `agent-tools/src/collaboration-state/identity.ts` was
+  shortened to fit `max-lines` (249→251→250). Principles §Refactoring already
+  names the cure — a file past the limit is SPLIT at a responsibility seam —
+  and the estate's memory said never trim docs to fit limits. Restored to the
+  full text (251 lines); the split at the seed-resolution seam is the next
+  edit. The same generator ran under the whole parcel: Sonar counts, line
+  limits and body widths were optimised as targets; the smoothness of a
+  50-site regex rewrite (it over-reached twice) was the warning, not the
+  confirmation.
+- RE-OPENED THE OWNER'S RATIFIED DECISIONS AS "CARDS" (owner correction,
+  verbatim: "it's my forking fork, the decisions are mine, look at the commit
+  history on the Engraph branch"): three questions were proposed on #943 —
+  fork-only config landing upstream, the served prerequisite-claim pacing,
+  a panel before PDR-140/PDR-025 land — every one already ruled and merged
+  by the owner on the fork (30 fork PRs, all authored and merged by him,
+  2026-08-22→09-01; 44 commits in his own hand; rulings named in commit
+  subjects). A landing PR from the owner's integration line carries
+  ratified decisions; a seat arriving later reads the history for the
+  decisions, it does not re-price them. Withdrawn; the plan is the drive
+  only.
+- TOOL AND CONTEXT DISCIPLINE (owner correction, verbatim: "Use the proper
+  tools for finding content, and generally sort out the discipline here"):
+  ~430 KB of `git diff`/`cat` output was dumped into context and paged from
+  saved files, when Read/Grep/Glob and an Explore subagent returning
+  conclusions were the tools; a PR watch was hand-rolled while
+  `pnpm agent-tools:pr-watch` sat in `--help` (the "re-create X inherits
+  X's old form" entry of 2026-08-17, re-committed with the lesson loaded);
+  no visible work-shape artefact preceded the first edit, so a 14-file
+  parcel accreted with no shape the owner could see. Cure adopted: proper
+  tools for content; built tools before scripts; the plan stated before
+  mutation; the first question re-asked at each elaboration boundary.
+- RESUME MAP (freeze; seat continues at owner word "yes, we execute the
+  plan"): the drive of upstream #943 is this seat's (handoff comment
+  5492784311, ack 5492821280). Worktree
+  `oak-open-curriculum-ecosystem-worktrees/pr-943-engraph`, branch
+  `fix/pr-943-sonar-gate-and-review-truings` = `engraph` tip cb8315ecc +
+  Genet's four continuity commits (merge 2c1da2ae6) + three commits landed
+  by explicit pathspec in the worktree with hooks green (this thread's
+  standing direction: no shared-checkout queue in a dedicated worktree):
+  `ddd5fae5a` the shell cure (behaviour byte-identical on the local
+  preflight run), `c93ac7be0` the seed-definition truings with identity.ts
+  split at its seed-resolution seam into collaboration-seed.ts, and the
+  third carrying the plan evidence, the lane state, and this napkin. The
+  code-expert subagent dispatched on the pre-split parcel was stopped at
+  the owner's "stop all processes" word before reporting — no verdict
+  harvested. Next: push under the owner's credential with the agent marker
+  (owner ruling 2026-09-01 — the bot app has no access to EngraphCode);
+  fork PR → `engraph` with the PDR-140 intake contract (last settlement
+  push); Copilot requested; merge; then #943 settlement and bot merge.
+  Lane state: the open-surface-zero thread record §Lanes.
+
+## 2026-09-01 11:47Z (Luna seeks Twilight, 5c0ddc) — post-compaction resume: the stopped reviewer had reported; two findings would have sunk the last settlement push
+
+- A STOPPED SUBAGENT'S REPORT IS NOT LOST: the code-expert stopped at the
+  owner's "stop all processes" word had already written its verdict to
+  the mailbox; it was delivered on the first post-compaction turn. The
+  freeze record said "no verdict harvested" — true at the instant, false
+  ten minutes later. Before declaring a review lost, read the mailbox (or
+  the subagent transcript — the 2026-08 "harvest reports from
+  transcripts" entry) once more at resume.
+- THE CURE THAT READS LIKE THE RULE'S OWN EXAMPLE CAN STILL BE INVISIBLE
+  TO THE RULE: the S6506 cure put `--proto '=https' --proto-redir '=https'`
+  in a bash array and expanded it at every curl. Shell is behaviour-
+  identical; the analyser matches command TEXT (evidence: the ten
+  literal-URL curls were flagged, the six variable-URL curls were not), so
+  the option tokens were most likely invisible and every finding would
+  have stood on #943's LAST settlement push — the one with no budget left.
+  Cure `717ccc4cf`: share only the value (`HTTPS_ONLY='=https'`), write the
+  options literally at each site (SonarSource's own installer idiom). The
+  fluency tell: the array was the "clean" refactor; smoothness was the
+  warning (metacognition §Fluency).
+- A MECHANICAL `test`→`[[ ]]` REWRITE CHANGES WHAT AN ERR TRAP CAN SEE:
+  a failing bare `[[ ]]` reaches the trap with `PIPESTATUS` reading 0 (a
+  keyword's status does not land there the way `test`'s does — a second
+  reviewer checked it is a lone 0, not the previous pipeline's values),
+  so setup's failure card printed `pipe status: 0` beside a fatal failure
+  (RUN-proven both ways in the scratchpad `trap-proof-*.sh`). Cure
+  `aac6a00fb`: route the presence checks through the script's own `fail()`.
+  Class: "behaviour-identical" claims must include the instrumentation's
+  behaviour, not only the control flow.
+- LANDED: branch pushed to the fork under the owner's credential with the
+  canonical marker; fork PR EngraphCode#36 → `engraph` open with the
+  PDR-140 intake contract; review record posted (comment 5493455967);
+  watch = `pnpm agent-tools:pr-watch 36 --repo EngraphCode/... --watch`.
+  The GitHub MCP `request_copilot_review` returned 403 on the fork
+  (personal access token); the REST request under the owner's `gh`
+  credential was the fallback — verify the reviewer appears.

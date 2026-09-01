@@ -37,6 +37,59 @@ trap 'rm -rf "${PF_TMP}"' EXIT
 GITLEAKS_VERSION=8.30.0
 GITLEAKS_SHA256_LINUX_X64=79a3ab579b53f71efd634f3aaf7e04a0fa0cf206b7ed434638d1547a2470a66e
 
+# every literal-URL fetch refuses a downgrade: the request AND any redirect
+# hop must stay on https (Sonar S6506) — probes of operator-supplied URLs
+# (apt sources, a custom registry) keep curl's default scheme handling
+# because those values may legitimately be plain http. The option names are
+# spelled out at every call site and only the value is shared, because the
+# analyser matches the command text: an array expansion would hide them
+HTTPS_ONLY='=https'
+
+# URL userinfo must never reach the persisted failure card this output
+# lands on: an apt source, proxy value, registry, or pre-signed tarball URL
+# can embed credentials, and the scheme prefix is optional in proxy values
+# (curl accepts user:token@proxy:8080), so strip userinfo with or without one
+USERINFO_STRIP_SED='s|^([a-zA-Z][a-zA-Z0-9+.-]*://)?[^@/]*@|\1|'
+strip_userinfo() {
+  local value="$1"
+  echo "$value" | sed -E "$USERINFO_STRIP_SED"
+  return 0
+}
+
+# repo discovery, shared by every per-repo probe: git checkouts under the
+# cloud session's two workspace roots, excluding vendored trees; a Practice
+# repo is identified by its committed Practice substrate plus a pnpm
+# workspace — a lockfile alone is not identity (a plugin cache or stray
+# clone with a pnpm-lock.yaml must not be provisioned or mutated)
+list_git_repos() {
+  find /home /workspace -maxdepth 4 -type d -name .git \
+    -not -path '*/node_modules/*' 2>/dev/null | sed 's|/\.git$||'
+  return 0
+}
+is_practice_repo() {
+  local repo="$1"
+  if [[ -f "$repo/pnpm-lock.yaml" && -f "$repo/.agent/directives/AGENT.md" ]]; then
+    return 0
+  fi
+  return 1
+}
+list_practice_repos() {
+  local repo
+  for repo in $(list_git_repos); do
+    is_practice_repo "$repo" && echo "$repo"
+  done
+  return 0
+}
+# per-repo probes cannot run without a discovered Practice repo; the skip
+# is a FAIL (the discovery probe already named why), never a silent pass
+require_practice_repo() {
+  if [[ -n "$FIRST_REPO" ]]; then
+    return 0
+  fi
+  echo "skipped: no Practice repo"
+  return 1
+}
+
 PROBES=0
 FAILURES=()
 probe() {
@@ -51,6 +104,7 @@ probe() {
     echo "FAIL: ${name}"
     FAILURES+=("${name}")
   fi
+  return 0
 }
 
 # HTTP reachability with the measured egress discriminator (2026-08-24):
@@ -66,7 +120,8 @@ probe() {
 # never appended to.
 try_url() {
   # sets TRY_CODE; returns curl's own success/failure
-  TRY_CODE=$(curl -sSL -o /dev/null -m 30 -w '%{http_code}' "$1" 2>/dev/null)
+  local url="$1"
+  TRY_CODE=$(curl -sSL -o /dev/null -m 30 -w '%{http_code}' "$url" 2>/dev/null)
   local rc=$?
   TRY_CODE=${TRY_CODE:-000}
   return $rc
@@ -100,14 +155,16 @@ normalise_origin() {
   # the scheme and host, drops userinfo, and omits a scheme-default port
   # — a raw string comparison would treat HTTPS://HOST:443 and
   # https://host as different origins and mis-scope the Bearer token
-  local scheme hostport
-  scheme=$(echo "$1" | sed -E 's|^([a-zA-Z][a-zA-Z0-9+.-]*)://.*|\1|' | tr '[:upper:]' '[:lower:]')
-  hostport=$(echo "$1" | sed -E 's|^[a-zA-Z][a-zA-Z0-9+.-]*://([^@/]*@)?([^/]+).*|\2|' | tr '[:upper:]' '[:lower:]')
+  local url="$1" scheme hostport
+  scheme=$(echo "$url" | sed -E 's|^([a-zA-Z][a-zA-Z0-9+.-]*)://.*|\1|' | tr '[:upper:]' '[:lower:]')
+  hostport=$(echo "$url" | sed -E 's|^[a-zA-Z][a-zA-Z0-9+.-]*://([^@/]*@)?([^/]+).*|\2|' | tr '[:upper:]' '[:lower:]')
   case "${scheme}:${hostport}" in
   https:*:443) hostport=${hostport%:443} ;;
   http:*:80) hostport=${hostport%:80} ;;
+  *) ;;
   esac
   echo "${scheme}://${hostport}"
+  return 0
 }
 
 FIRST_REPO=""
@@ -119,16 +176,16 @@ probe_vantage() {
   echo "user: $(id 2>/dev/null || echo unknown)"
   echo "pwd: $(pwd)"
   echo "PATH: ${PATH}"
-  # URL userinfo is stripped — an authenticated proxy's credentials must
-  # never reach the persisted failure card this output lands on
+  # an authenticated proxy's credentials must never reach the persisted
+  # failure card this output lands on; an unset value reads as "unset"
   redact_url() {
-    test -n "${1:-}" || {
+    local value="${1:-}"
+    if [[ -z "$value" ]]; then
       echo "unset"
-      return
-    }
-    # the scheme prefix is optional in proxy values (curl accepts
-    # user:token@proxy:8080), so strip userinfo with or without one
-    echo "$1" | sed -E 's|^([a-zA-Z][a-zA-Z0-9+.-]*://)?[^@/]*@|\1|'
+      return 0
+    fi
+    strip_userinfo "$value"
+    return 0
   }
   # report the EFFECTIVE values under curl's precedence: lowercase wins,
   # and http_proxy exists only in lowercase — a card showing a variable
@@ -146,22 +203,21 @@ probe_vantage() {
 
 probe_discovery() {
   local repos repo found=0
-  repos=$(find /home /workspace -maxdepth 4 -type d -name .git \
-    -not -path '*/node_modules/*' 2>/dev/null | sed 's|/\.git$||')
-  test -n "$repos" || {
+  repos=$(list_git_repos)
+  [[ -n "$repos" ]] || {
     echo "no git repositories under /home or /workspace"
     return 1
   }
   for repo in $repos; do
-    if [ -f "$repo/pnpm-lock.yaml" ] && [ -f "$repo/.agent/directives/AGENT.md" ]; then
+    if is_practice_repo "$repo"; then
       echo "Practice repo: ${repo}"
       found=1
-      [ -n "$FIRST_REPO" ] || FIRST_REPO="$repo"
+      [[ -n "$FIRST_REPO" ]] || FIRST_REPO="$repo"
     else
       echo "non-Practice repo (would be skipped): ${repo}"
     fi
   done
-  [ "$found" = 1 ] || {
+  [[ "$found" = 1 ]] || {
     echo "no Practice repo (pnpm-lock.yaml + .agent/directives/AGENT.md) found"
     return 1
   }
@@ -169,17 +225,12 @@ probe_discovery() {
 
 probe_hook_contract() {
   # exists-but-not-executable is the one hook state the setup script hard-fails on
-  test -n "$FIRST_REPO" || {
-    echo "skipped: no Practice repo"
-    return 1
-  }
+  require_practice_repo || return 1
   local repo hook ok=0
-  for repo in $(find /home /workspace -maxdepth 4 -type d -name .git \
-    -not -path '*/node_modules/*' 2>/dev/null | sed 's|/\.git$||'); do
-    [ -f "$repo/pnpm-lock.yaml" ] && [ -f "$repo/.agent/directives/AGENT.md" ] || continue
+  for repo in $(list_practice_repos); do
     hook="$repo/.agent/setup/cloud-session-setup.sh"
-    if [ -e "$hook" ]; then
-      if [ -x "$hook" ]; then
+    if [[ -e "$hook" ]]; then
+      if [[ -x "$hook" ]]; then
         echo "hook present and executable: ${hook}"
       else
         echo "hook exists but is NOT executable (setup would exit 1): ${hook}"
@@ -196,18 +247,13 @@ probe_git_origins() {
   # the setup script runs `git fetch --unshallow origin` in shallow Practice
   # repos — a blocked origin or unusable credentials must not hide behind a
   # clean summary; ls-remote is the read-only equivalent contact
-  test -n "$FIRST_REPO" || {
-    echo "skipped: no Practice repo"
-    return 1
-  }
+  require_practice_repo || return 1
   local repo failed=0
-  for repo in $(find /home /workspace -maxdepth 4 -type d -name .git \
-    -not -path '*/node_modules/*' 2>/dev/null | sed 's|/\.git$||'); do
-    [ -f "$repo/pnpm-lock.yaml" ] && [ -f "$repo/.agent/directives/AGENT.md" ] || continue
+  for repo in $(list_practice_repos); do
     # mirror the setup script's guard: it contacts origin only when the
     # clone is shallow, so probing a full clone's origin would falsify an
     # assumption setup never makes (and false-fail on an absent remote)
-    if [ "$(git -C "$repo" rev-parse --is-shallow-repository 2>/dev/null)" != "true" ]; then
+    if [[ "$(git -C "$repo" rev-parse --is-shallow-repository 2>/dev/null)" != "true" ]]; then
       echo "not shallow — setup contacts no origin here (skipped): ${repo}"
       continue
     fi
@@ -230,17 +276,12 @@ probe_session_hook_preflights() {
   # needs extra hosts commits the read-only twin
   # .agent/setup/cloud-session-preflight.sh beside it (the hook-preflight
   # contract); absence is the only benign skip
-  test -n "$FIRST_REPO" || {
-    echo "skipped: no Practice repo"
-    return 1
-  }
+  require_practice_repo || return 1
   local repo pf failed=0
-  for repo in $(find /home /workspace -maxdepth 4 -type d -name .git \
-    -not -path '*/node_modules/*' 2>/dev/null | sed 's|/\.git$||'); do
-    [ -f "$repo/pnpm-lock.yaml" ] && [ -f "$repo/.agent/directives/AGENT.md" ] || continue
+  for repo in $(list_practice_repos); do
     pf="$repo/.agent/setup/cloud-session-preflight.sh"
-    if [ -e "$pf" ]; then
-      if [ ! -x "$pf" ]; then
+    if [[ -e "$pf" ]]; then
+      if [[ ! -x "$pf" ]]; then
         echo "hook preflight exists but is NOT executable: ${pf}"
         failed=1
       # subshell rooted at the repo: the setup script cds into the repo
@@ -266,10 +307,7 @@ probe_session_hook_preflights() {
 }
 
 probe_node_major() {
-  test -n "$FIRST_REPO" || {
-    echo "skipped: no Practice repo"
-    return 1
-  }
+  require_practice_repo || return 1
   NODE_MAJOR=$(grep -o '"node"[: ]*"[^"]*"' "$FIRST_REPO/package.json" | grep -o '[0-9][0-9]*' | head -1 || true)
   NODE_MAJOR=${NODE_MAJOR:-24}
   echo "node major: ${NODE_MAJOR} (from ${FIRST_REPO}/package.json engines; default 24)"
@@ -277,21 +315,21 @@ probe_node_major() {
 
 probe_nodejs_org() {
   local major="${NODE_MAJOR:-24}" index tgz
-  index=$(curl -fsSL -m 60 "https://nodejs.org/dist/latest-v${major}.x/") || {
+  index=$(curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" -m 60 "https://nodejs.org/dist/latest-v${major}.x/") || {
     echo "index fetch failed: https://nodejs.org/dist/latest-v${major}.x/"
     return 1
   }
   tgz=$(echo "$index" | grep -o "node-v${major}[0-9.]*-linux-x64.tar.gz" | head -1)
-  test -n "$tgz" || {
+  [[ -n "$tgz" ]] || {
     echo "index fetched but no linux-x64 tarball name parsed from it"
     return 1
   }
   echo "tarball resolved: ${tgz}"
-  curl -fsSL -m 60 "https://nodejs.org/dist/latest-v${major}.x/SHASUMS256.txt" -o ${PF_TMP}/shasums.txt || {
+  curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" -m 60 "https://nodejs.org/dist/latest-v${major}.x/SHASUMS256.txt" -o "${PF_TMP}/shasums.txt" || {
     echo "SHASUMS256.txt fetch failed"
     return 1
   }
-  grep -q " ${tgz}\$" ${PF_TMP}/shasums.txt || {
+  grep -q " ${tgz}\$" "${PF_TMP}/shasums.txt" || {
     echo "resolved tarball missing from SHASUMS256.txt"
     return 1
   }
@@ -299,11 +337,11 @@ probe_nodejs_org() {
   # the exact check setup performs (validators recompute, never just
   # record): a truncated or drifted archive must fail here, not only at
   # setup's sha256sum -c
-  curl -fsSL -m 300 "https://nodejs.org/dist/latest-v${major}.x/${tgz}" -o ${PF_TMP}/node.tgz || {
+  curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" -m 300 "https://nodejs.org/dist/latest-v${major}.x/${tgz}" -o "${PF_TMP}/node.tgz" || {
     echo "tarball download failed"
     return 1
   }
-  grep " ${tgz}\$" ${PF_TMP}/shasums.txt |
+  grep " ${tgz}\$" "${PF_TMP}/shasums.txt" |
     sed "s|  ${tgz}\$|  ${PF_TMP}/node.tgz|" | sha256sum -c -
 }
 
@@ -312,7 +350,7 @@ check_repo_pnpm_pin() {
   # way `corepack install` would fetch it in that repo
   local repo="$1" pm envfile="" has_envfile=0
   pm=$(grep -o '"packageManager"[: ]*"[^"]*"' "$repo/package.json" | sed -E 's/.*"packageManager"[: ]*"([^"]*)".*/\1/')
-  test -n "$pm" || {
+  [[ -n "$pm" ]] || {
     echo "no packageManager pin in ${repo}/package.json"
     return 1
   }
@@ -327,29 +365,30 @@ check_repo_pnpm_pin() {
   # 0.34 source: path.resolve(currCwd, COREPACK_ENV_FILE ?? ".corepack.env");
   # "0" disables it): only COREPACK_* keys load, and the process
   # environment wins over the file
-  if [ "${COREPACK_ENV_FILE:-}" != "0" ]; then
+  if [[ "${COREPACK_ENV_FILE:-}" != "0" ]]; then
     case "${COREPACK_ENV_FILE:-}" in
     /*) envfile="${COREPACK_ENV_FILE}" ;;
     *) envfile="${repo}/${COREPACK_ENV_FILE:-.corepack.env}" ;;
     esac
-    [ -f "$envfile" ] && has_envfile=1
+    [[ -f "$envfile" ]] && has_envfile=1
   fi
   # identical pins across repos need verifying once, not re-downloading —
   # but only when the repo carries no corepack env file: an env file can
   # change the registry, auth, or network posture for the same pin, so
   # such a repo is always probed under its own effective environment
-  if [ "$has_envfile" = 0 ]; then
+  if [[ "$has_envfile" = 0 ]]; then
     case " ${PNPM_PINS_SEEN} " in
     *" ${pm} "*)
       echo "pin already verified (${repo}): $(echo "${pm%%[+#]*}" | sed -E 's|^(pnpm@[a-zA-Z][a-zA-Z0-9+.-]*://)?[^@/]*@|\1|')"
       return 0
       ;;
+    *) ;;
     esac
   fi
   # the env-dependent probe runs in a subshell so one repo's env file
   # never leaks into another repo's probe (corepack scopes it per project)
   (
-    if [ "$has_envfile" = 1 ]; then
+    if [[ "$has_envfile" = 1 ]]; then
       echo "corepack env file loaded: ${envfile} (COREPACK_* keys only; process env wins)"
       corepack_load_repo_env "$envfile"
     fi
@@ -358,7 +397,7 @@ check_repo_pnpm_pin() {
   local rc=$?
   # a pin joins the verified set only on SUCCESS — recording it up front
   # would label a failed pin "already verified" in the next repo
-  if [ "$rc" = 0 ] && [ "$has_envfile" = 0 ]; then
+  if [[ "$rc" = 0 ]] && [[ "$has_envfile" = 0 ]]; then
     PNPM_PINS_SEEN="${PNPM_PINS_SEEN} ${pm}"
   fi
   return $rc
@@ -369,22 +408,24 @@ corepack_load_repo_env() {
   # COREPACK_* keys, and let an already-set process variable win (corepack
   # spreads {...fileEntries, ...process.env}); one layer of matching
   # quotes is stripped the way util.parseEnv does
-  local line key val
-  while IFS= read -r line || [ -n "$line" ]; do
+  local envfile="$1" line key val
+  while IFS= read -r line || [[ -n "$line" ]]; do
     case "$line" in
     COREPACK_[A-Za-z0-9_]*=*) ;;
     *) continue ;;
     esac
     key=${line%%=*}
-    if [ "${!key+set}" != set ]; then
+    if [[ "${!key+set}" != set ]]; then
       val=${line#*=}
       case "$val" in
       \"*\") val=${val#\"} && val=${val%\"} ;;
       \'*\') val=${val#\'} && val=${val%\'} ;;
+      *) ;;
       esac
       export "${key}=${val}"
     fi
-  done <"$1"
+  done <"$envfile"
+  return 0
 }
 
 verify_pin_digest() {
@@ -394,7 +435,7 @@ verify_pin_digest() {
   # canonical example is sha224 — dispatch on the declared algorithm,
   # never assume sha512
   local pin_hash="$1" algo expected computed
-  if [ -z "$pin_hash" ]; then
+  if [[ -z "$pin_hash" ]]; then
     echo "packageManager pin carries no digest — download verified reachable, digest not pinned"
     return 0
   fi
@@ -408,11 +449,11 @@ verify_pin_digest() {
     echo "no tool available to compute a ${algo} digest — pin cannot be verified"
     return 1
   fi
-  test -n "$computed" || {
+  [[ -n "$computed" ]] || {
     echo "computing the ${algo} digest failed (unsupported algorithm?)"
     return 1
   }
-  if [ "$computed" = "$expected" ]; then
+  if [[ "$computed" = "$expected" ]]; then
     echo "pnpm tarball ${algo} digest matches the packageManager pin"
   else
     echo "pnpm tarball ${algo} digest MISMATCH against the packageManager pin"
@@ -426,7 +467,7 @@ check_repo_pin_download() {
   version=${version%%+*}
   # an env file can disable corepack's network access for this repo only —
   # the same refusal `corepack install` would hit in setup
-  if [ "${COREPACK_ENABLE_NETWORK:-1}" = "0" ]; then
+  if [[ "${COREPACK_ENABLE_NETWORK:-1}" = "0" ]]; then
     echo "COREPACK_ENABLE_NETWORK=0 in effect for ${repo##*/}: corepack install cannot download the pinned pnpm on a fresh builder"
     return 1
   fi
@@ -440,16 +481,16 @@ check_repo_pin_download() {
   # presence-based header is never overwritten
   local registry auth=() auth_kind=none meta tarball tarball_auth
   registry=${COREPACK_NPM_REGISTRY:-https://registry.npmjs.org}
-  if [ -n "${COREPACK_NPM_TOKEN:-}" ]; then
+  if [[ -n "${COREPACK_NPM_TOKEN:-}" ]]; then
     auth=(-H "Authorization: Bearer ${COREPACK_NPM_TOKEN}")
     auth_kind=bearer
-  elif [ -n "${COREPACK_NPM_USERNAME:-}" ] || [ -n "${COREPACK_NPM_PASSWORD:-}" ]; then
+  elif [[ -n "${COREPACK_NPM_USERNAME:-}" ]] || [[ -n "${COREPACK_NPM_PASSWORD:-}" ]]; then
     auth=(-H "Authorization: Basic $(printf '%s:%s' "${COREPACK_NPM_USERNAME-undefined}" "${COREPACK_NPM_PASSWORD-undefined}" | base64 | tr -d '\n')")
     auth_kind=basic
-  elif [ "${COREPACK_NPM_TOKEN+set}" = set ]; then
+  elif [[ "${COREPACK_NPM_TOKEN+set}" = set ]]; then
     auth=(-H "Authorization: Bearer ")
     auth_kind=bearer-empty
-  elif [ "${COREPACK_NPM_USERNAME+set}" = set ] && [ "${COREPACK_NPM_PASSWORD+set}" = set ]; then
+  elif [[ "${COREPACK_NPM_USERNAME+set}" = set ]] && [[ "${COREPACK_NPM_PASSWORD+set}" = set ]]; then
     auth=(-H "Authorization: Basic $(printf ':' | base64 | tr -d '\n')")
     auth_kind=basic-empty
   fi
@@ -462,7 +503,7 @@ check_repo_pin_download() {
   # follows the same httpUtils rules as the registry path
   case "$pm" in
   pnpm@*://*)
-    if [ "${COREPACK_ENABLE_UNSAFE_CUSTOM_URLS:-}" != "1" ]; then
+    if [[ "${COREPACK_ENABLE_UNSAFE_CUSTOM_URLS:-}" != "1" ]]; then
       echo "URL packageManager pin in ${repo##*/} without COREPACK_ENABLE_UNSAFE_CUSTOM_URLS=1 — corepack install rejects the pin outright"
       return 1
     fi
@@ -473,17 +514,19 @@ check_repo_pin_download() {
       url_hash=${tarball#*#}
       tarball=${tarball%%#*}
       ;;
+    *) ;;
     esac
     echo "pinned pnpm (${repo##*/}): custom URL pin"
-    echo "tarball: $(echo "${tarball%%[?#]*}" | sed -E 's|^([a-zA-Z][a-zA-Z0-9+.-]*://)?[^@/]*@|\1|')"
+    echo "tarball: $(strip_userinfo "${tarball%%[?#]*}")"
     tarball_auth=()
     case "$auth_kind" in
     basic) tarball_auth=("${auth[@]}") ;;
     bearer)
-      if [ "$(normalise_origin "$tarball")" = "$(normalise_origin "$registry")" ]; then
+      if [[ "$(normalise_origin "$tarball")" = "$(normalise_origin "$registry")" ]]; then
         tarball_auth=("${auth[@]}")
       fi
       ;;
+    *) ;;
     esac
     curl -fsSL -m 120 "${tarball_auth[@]}" "$tarball" -o "${PF_TMP}/pnpm.tgz" || {
       echo "custom-URL pnpm tarball download failed"
@@ -492,9 +535,10 @@ check_repo_pin_download() {
     verify_pin_digest "$url_hash"
     return $?
     ;;
+  *) ;;
   esac
-  echo "pinned pnpm (${repo##*/}): ${version} (registry: $(echo "$registry" | sed -E 's|^([a-zA-Z][a-zA-Z0-9+.-]*://)?[^@/]*@|\1|'))"
-  if [ -z "${COREPACK_NPM_REGISTRY:-}" ]; then
+  echo "pinned pnpm (${repo##*/}): ${version} (registry: $(strip_userinfo "$registry"))"
+  if [[ -z "${COREPACK_NPM_REGISTRY:-}" ]]; then
     tarball="https://registry.npmjs.org/pnpm/-/pnpm-${version}.tgz"
     case "$pm" in
     *+*.*)
@@ -505,8 +549,8 @@ check_repo_pin_download() {
       echo "default registry: static tarball URL (hashed pin — corepack makes no metadata request)"
       ;;
     *)
-      if [ "${COREPACK_INTEGRITY_KEYS+set}" = set ] &&
-        { [ -z "${COREPACK_INTEGRITY_KEYS}" ] || [ "${COREPACK_INTEGRITY_KEYS}" = "0" ]; }; then
+      if [[ "${COREPACK_INTEGRITY_KEYS+set}" = set ]] &&
+        { [[ -z "${COREPACK_INTEGRITY_KEYS}" ]] || [[ "${COREPACK_INTEGRITY_KEYS}" = "0" ]]; }; then
         echo "default registry: static tarball URL (hashless pin, integrity checking disabled — no metadata request)"
       else
         # a hashless pin with integrity checking enabled makes corepack
@@ -542,7 +586,7 @@ check_repo_pin_download() {
     else
       tarball=$(echo "$meta" | grep -oE '"tarball":[[:space:]]*"[^"]+"' | head -1 | sed -E 's/.*"tarball":[[:space:]]*"([^"]+)".*/\1/' | sed 's|\\/|/|g')
     fi
-    test -n "$tarball" || {
+    [[ -n "$tarball" ]] || {
       echo "no dist.tarball URL in registry metadata"
       return 1
     }
@@ -558,7 +602,7 @@ check_repo_pin_download() {
   fi
   # display strips userinfo AND the query/fragment — a pre-signed tarball
   # URL can carry its credential in the query string
-  echo "tarball: $(echo "${tarball%%[?#]*}" | sed -E 's|^([a-zA-Z][a-zA-Z0-9+.-]*://)?[^@/]*@|\1|')"
+  echo "tarball: $(strip_userinfo "${tarball%%[?#]*}")"
   # mirror corepack's download-auth rules exactly: non-empty Basic
   # credentials go on EVERY request (httpUtils.fetch applies
   # username/password to all input URLs), the non-empty Bearer token is
@@ -569,10 +613,11 @@ check_repo_pin_download() {
   case "$auth_kind" in
   basic) tarball_auth=("${auth[@]}") ;;
   bearer)
-    if [ "$(normalise_origin "$tarball")" = "$(normalise_origin "$registry")" ]; then
+    if [[ "$(normalise_origin "$tarball")" = "$(normalise_origin "$registry")" ]]; then
       tarball_auth=("${auth[@]}")
     fi
     ;;
+  *) ;;
   esac
   curl -fsSL -m 120 "${tarball_auth[@]}" "$tarball" -o "${PF_TMP}/pnpm.tgz" || {
     echo "pinned pnpm tarball download failed"
@@ -581,6 +626,7 @@ check_repo_pin_download() {
   local pin_hash=""
   case "$pm" in
   *+*.*) pin_hash=${pm#*+} ;;
+  *) ;;
   esac
   verify_pin_digest "$pin_hash"
 }
@@ -589,22 +635,17 @@ probe_npm_registry() {
   # setup runs `corepack install` in EVERY discovered Practice repo, so
   # every repo's pin is probed (validate the full target estate), and a
   # registry ping proves nothing about the path corepack install takes
-  test -n "$FIRST_REPO" || {
-    echo "skipped: no Practice repo"
-    return 1
-  }
+  require_practice_repo || return 1
   # corepack refuses all network access under COREPACK_ENABLE_NETWORK=0 —
   # on a fresh builder with an empty corepack cache, setup's
   # `corepack install` then aborts however reachable the tarball is
-  if [ "${COREPACK_ENABLE_NETWORK:-1}" = "0" ]; then
+  if [[ "${COREPACK_ENABLE_NETWORK:-1}" = "0" ]]; then
     echo "COREPACK_ENABLE_NETWORK=0 is set: corepack install cannot download the pinned pnpm on a fresh builder"
     return 1
   fi
   PNPM_PINS_SEEN=""
   local repo failed=0
-  for repo in $(find /home /workspace -maxdepth 4 -type d -name .git \
-    -not -path '*/node_modules/*' 2>/dev/null | sed 's|/\.git$||'); do
-    [ -f "$repo/pnpm-lock.yaml" ] && [ -f "$repo/.agent/directives/AGENT.md" ] || continue
+  for repo in $(list_practice_repos); do
     check_repo_pnpm_pin "$repo" || failed=1
   done
   # this probe proves the corepack/pnpm acquisition path only — setup's
@@ -615,12 +656,12 @@ probe_npm_registry() {
 }
 
 probe_keyserver() {
-  curl -fsSL -m 60 "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xA1715D88E1DF1F24" \
-    -o ${PF_TMP}/gitcore-key.asc || {
+  curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" -m 60 "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xA1715D88E1DF1F24" \
+    -o "${PF_TMP}/gitcore-key.asc" || {
     echo "key fetch failed from keyserver.ubuntu.com"
     return 1
   }
-  grep -q "BEGIN PGP PUBLIC KEY BLOCK" ${PF_TMP}/gitcore-key.asc || {
+  grep -q "BEGIN PGP PUBLIC KEY BLOCK" "${PF_TMP}/gitcore-key.asc" || {
     echo "response is not a PGP public key block"
     return 1
   }
@@ -632,17 +673,17 @@ probe_git_core_ppa() {
   # probe fetched — setup relies on exactly that relationship (the key it
   # writes must verify the metadata apt then fetches), so two independent
   # payload checks would miss a rotated or revoked key
-  curl -fsSL -m 60 "https://ppa.launchpadcontent.net/git-core/ppa/ubuntu/dists/noble/InRelease" \
-    -o ${PF_TMP}/gitcore-inrelease || {
+  curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" -m 60 "https://ppa.launchpadcontent.net/git-core/ppa/ubuntu/dists/noble/InRelease" \
+    -o "${PF_TMP}/gitcore-inrelease" || {
     echo "git-core PPA InRelease fetch failed"
     return 1
   }
-  test -s ${PF_TMP}/gitcore-key.asc || {
+  [[ -s "${PF_TMP}/gitcore-key.asc" ]] || {
     echo "signing key missing (keyserver probe runs first and must pass)"
     return 1
   }
   if command -v gpg >/dev/null 2>&1 && command -v gpgv >/dev/null 2>&1; then
-    gpg --dearmor <${PF_TMP}/gitcore-key.asc >${PF_TMP}/gitcore-keyring.gpg 2>/dev/null || {
+    gpg --dearmor <"${PF_TMP}/gitcore-key.asc" >"${PF_TMP}/gitcore-keyring.gpg" 2>/dev/null || {
       echo "key dearmor failed"
       return 1
     }
@@ -655,14 +696,14 @@ probe_git_core_ppa() {
     # also accompany an expired key, which apt classifies as invalid, so
     # require GOODSIG and reject the expiry/revocation/bad statuses apt
     # rejects (EXPKEYSIG, REVKEYSIG, EXPSIG, BADSIG)
-    gpgv --status-fd 3 --keyring ${PF_TMP}/gitcore-keyring.gpg \
-      ${PF_TMP}/gitcore-inrelease >/dev/null 2>&1 3>${PF_TMP}/gpgv-status || true
-    if grep -q "^\[GNUPG:\] GOODSIG" ${PF_TMP}/gpgv-status &&
-      ! grep -qE "^\[GNUPG:\] (EXPKEYSIG|REVKEYSIG|EXPSIG|BADSIG)" ${PF_TMP}/gpgv-status; then
+    gpgv --status-fd 3 --keyring "${PF_TMP}/gitcore-keyring.gpg" \
+      "${PF_TMP}/gitcore-inrelease" >/dev/null 2>&1 3>"${PF_TMP}/gpgv-status" || true
+    if grep -q "^\[GNUPG:\] GOODSIG" "${PF_TMP}/gpgv-status" &&
+      ! grep -qE "^\[GNUPG:\] (EXPKEYSIG|REVKEYSIG|EXPSIG|BADSIG)" "${PF_TMP}/gpgv-status"; then
       echo "InRelease carries a good, unexpired signature from the fetched key"
     else
       echo "InRelease has NO acceptable signature from the fetched key (rotated, expired, or revoked?):"
-      grep "^\[GNUPG:\]" ${PF_TMP}/gpgv-status | tail -5
+      grep "^\[GNUPG:\]" "${PF_TMP}/gpgv-status" | tail -5
       return 1
     fi
   else
@@ -687,7 +728,7 @@ probe_base_image_apt_sources() {
   # pointer), which apt never contacts, and misattribute an unrelated block
   # to apt sources. Each pair probes the exact InRelease path `apt-get
   # update` fetches — roots and index pages are not what apt requests.
-  local pairs pair url suite target inrelease_code failed=0
+  local pairs url suite target inrelease_code failed=0
   pairs=$({
     awk '/^[[:space:]]*deb(-src)?[[:space:]]/ {
       for (i = 2; i <= NF; i++)
@@ -721,12 +762,12 @@ probe_base_image_apt_sources() {
       }
     }' /etc/apt/sources.list.d/*.sources 2>/dev/null
   } | sort -u)
-  test -n "$pairs" || {
+  [[ -n "$pairs" ]] || {
     echo "no active apt source entries found on image (unexpected but not a network failure)"
     return 0
   }
   while read -r url suite; do
-    [ -n "$url" ] && [ -n "$suite" ] || continue
+    [[ -n "$url" ]] && [[ -n "$suite" ]] || continue
     # an exact-path suite (trailing slash) gets no dists/ segment — apt
     # fetches <url>/<suite>InRelease for those, <url>/InRelease for "./"
     case "$suite" in
@@ -750,7 +791,7 @@ probe_base_image_apt_sources() {
       inrelease_code=$TRY_CODE
       if host_reachable "${target}/Release" && host_reachable "${target}/Release.gpg"; then
         echo "no InRelease but signed Release (+ Release.gpg) present — apt's fallback succeeds here"
-      elif [ "$inrelease_code" = "000" ]; then
+      elif [[ "$inrelease_code" = "000" ]]; then
         echo "WARNING: source transport-unreachable — apt-get update warns (exit 0) and setup continues"
       else
         echo "active source answers HTTP ${inrelease_code} for its metadata — apt-get update exits non-zero on this and setup aborts"
@@ -768,17 +809,19 @@ probe_gitleaks_release() {
   # the effective URL, never just the named host. The asset is downloaded in
   # full and its digest recomputed against the pin (validators must
   # recompute, not just record): a reachable URL carrying a drifted payload
-  # or a stale pin would otherwise pass here and fail setup at sha256sum -c
+  # or a stale pin would otherwise pass here and fail setup at sha256sum -c.
+  # The fetch carries the same https-only constraint as setup's, so a
+  # downgrade hop in the chain fails here first instead of in setup
   local url="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
   local final
-  final=$(curl -fsSL -m 120 -w '%{url_effective}' "$url" -o ${PF_TMP}/gitleaks.tgz 2>/dev/null) || {
+  final=$(curl -fsSL --proto "$HTTPS_ONLY" --proto-redir "$HTTPS_ONLY" -m 120 -w '%{url_effective}' "$url" -o "${PF_TMP}/gitleaks.tgz" 2>/dev/null) || {
     echo "download failed (redirect chain or egress): ${url}"
     # curl reports the last URL it attempted even on failure — when the
     # blocked hop is the redirect target, the failure card must name
     # that host (it never appears in the script text), or the reader
     # cannot know what to allow-list
-    if [ -n "$final" ] && [ "$final" != "$url" ]; then
-      echo "last attempted URL in the chain (allow-list this host): $(echo "${final%%[?#]*}" | sed -E 's|^([a-zA-Z][a-zA-Z0-9+.-]*://)?[^@/]*@|\1|')"
+    if [[ -n "$final" ]] && [[ "$final" != "$url" ]]; then
+      echo "last attempted URL in the chain (allow-list this host): $(strip_userinfo "${final%%[?#]*}")"
     fi
     return 1
   }
@@ -802,7 +845,7 @@ probe "gitleaks release asset (redirect chain)" probe_gitleaks_release
 
 echo ""
 echo "=== PREFLIGHT SUMMARY: $((PROBES - ${#FAILURES[@]}))/${PROBES} probes passed ==="
-if [ ${#FAILURES[@]} -gt 0 ]; then
+if [[ ${#FAILURES[@]} -gt 0 ]]; then
   for f in "${FAILURES[@]}"; do echo "FAILED ASSUMPTION: ${f}"; done
   exit 1
 fi
