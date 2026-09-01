@@ -8,7 +8,8 @@
  * and must depend on this contract rather than the other way around.
  *
  * Non-API-derived types (SecurityScheme, SourceAttribution, ToolAnnotations,
- * ToolMeta, StatusDiscriminant, InvokeResult, DOCUMENTED_ERROR_PREFIX) are
+ * ToolMeta, StatusDiscriminant, InvokeResult, PaginationEcho,
+ * DOCUMENTED_ERROR_PREFIX, derivePaginationFromLinkHeader) are
  * imported from the hand-authored mcp-protocol-types module rather than
  * duplicated here. See src/types/mcp-protocol-types.ts for definitions.
  *
@@ -24,11 +25,12 @@ import type {
   ToolMeta,
   StatusDiscriminant,
   InvokeResult,
+  PaginationEcho,
 } from '../../../../mcp-protocol-types.js';
-import { DOCUMENTED_ERROR_PREFIX } from '../../../../mcp-protocol-types.js';
+import { DOCUMENTED_ERROR_PREFIX, derivePaginationFromLinkHeader } from '../../../../mcp-protocol-types.js';
 
-export { DOCUMENTED_ERROR_PREFIX };
-export type { SecurityScheme, SourceAttribution, ToolAnnotations, ToolMeta, StatusDiscriminant, InvokeResult };
+export { DOCUMENTED_ERROR_PREFIX, derivePaginationFromLinkHeader };
+export type { SecurityScheme, SourceAttribution, ToolAnnotations, ToolMeta, StatusDiscriminant, InvokeResult, PaginationEcho };
 
 export interface ToolDescriptor<
   TName extends string,

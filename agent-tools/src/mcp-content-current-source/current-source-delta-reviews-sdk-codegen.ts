@@ -75,8 +75,10 @@ export const SDK_CODEGEN_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
   // MCP-462: reads upstream's numeric bounds off the parameter schema and
   // refuses to emit input surfaces that would silently drop a validation
   // keyword. No change to the served tool prose this file carries.
+  // Pagination echo (2026-09-01 payload audit): collects the offset/limit
+  // operations into the paginated set threaded to the execute-file emitter.
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/mcp-tool-generator.ts': reviewed(
-    'b206fa818bae3b41f2db081076b1a46d92d25bfcaa28c50b39c3477e09e6df78',
+    'ba9d423ddd3c014bd1f63a0a2c9a80c2ea11b5ddc5182603e5087649fd2f77c2',
     ['C471'],
   ),
   // MCP-462: numeric-bound propagation into the tools/list JSON Schema and
@@ -104,10 +106,33 @@ export const SDK_CODEGEN_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
       'ac36fbb5a03d7d0abcda97628333ab655d4a6c183e9781a1bd934e8eb11e857d',
       IMPLEMENTATION_ONLY,
     ),
+  // Pagination echo (2026-09-01 payload audit): paginated invokes derive
+  // {hasMore, nextOffset, nextLimit} from the upstream Link header. Emitted
+  // runtime plumbing; the served prose the cited items pin is unchanged.
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/emit-index.ts': reviewed(
-    '30f6ee06bf550046782e898b3b4416aa99f693eec8b097f0b97674f586d11390',
+    'cfd851fc8306cd8fcd02975e7d39c756f23824f759a3ab175d07202f0c4e8766',
     ['C475', 'C476', 'C477', 'C478'],
   ),
+  // Pagination echo (2026-09-01 payload audit): the four emitters below gained
+  // the pagination wiring (per-tool passthrough, contract re-export, value
+  // import, optional result field). No authored agent-facing prose.
+  'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/generate-execute-file.ts':
+    excluded(
+      '87f0611682b13d74b0530b2d0dc4cb10cdb068f58211b62e7cba2ef2906cd062',
+      IMPLEMENTATION_ONLY,
+    ),
+  'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/generate-tool-descriptor-file.ts':
+    excluded(
+      '4b53c3f68697cd8b80d8b33bac3dea4e378155cf7940ea6416ddfe5ced5334aa',
+      IMPLEMENTATION_ONLY,
+    ),
+  'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/generate-tool-file.ts':
+    excluded(
+      '77a7a1a80c0faa9b0e59b215601626ec50f084059b731df1befdc61ba8079051',
+      IMPLEMENTATION_ONLY,
+    ),
+  'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/generate-types-file.ts':
+    excluded('9f653c2ed20ce865621dac2fea454fe2e04d0c04b8d6ef143bd992848ee4a17c', TYPE_ONLY),
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/widget-uri-suffix.ts': excluded(
     '8c8c63616d88ddc3a467810c92fb899b241b539e958110d09a1013cdc332238a',
     IMPLEMENTATION_ONLY,

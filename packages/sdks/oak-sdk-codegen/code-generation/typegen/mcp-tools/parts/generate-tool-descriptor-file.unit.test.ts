@@ -14,24 +14,26 @@ describe('generateToolDescriptorFile', () => {
     const generated = generateToolDescriptorFile();
 
     expect(generated).toContain(
-      "import type {\n  SecurityScheme,\n  SourceAttribution,\n  ToolAnnotations,\n  ToolMeta,\n  StatusDiscriminant,\n  InvokeResult,\n} from '../../../../mcp-protocol-types.js';",
+      "import type {\n  SecurityScheme,\n  SourceAttribution,\n  ToolAnnotations,\n  ToolMeta,\n  StatusDiscriminant,\n  InvokeResult,\n  PaginationEcho,\n} from '../../../../mcp-protocol-types.js';",
     );
   });
 
-  it('imports DOCUMENTED_ERROR_PREFIX value from mcp-protocol-types', () => {
+  it('imports DOCUMENTED_ERROR_PREFIX and the pagination helper values from mcp-protocol-types', () => {
     const generated = generateToolDescriptorFile();
 
     expect(generated).toContain(
-      "import { DOCUMENTED_ERROR_PREFIX } from '../../../../mcp-protocol-types.js';",
+      "import { DOCUMENTED_ERROR_PREFIX, derivePaginationFromLinkHeader } from '../../../../mcp-protocol-types.js';",
     );
   });
 
   it('re-exports all imported non-API-derived types', () => {
     const generated = generateToolDescriptorFile();
 
-    expect(generated).toContain('export { DOCUMENTED_ERROR_PREFIX };');
     expect(generated).toContain(
-      'export type { SecurityScheme, SourceAttribution, ToolAnnotations, ToolMeta, StatusDiscriminant, InvokeResult };',
+      'export { DOCUMENTED_ERROR_PREFIX, derivePaginationFromLinkHeader };',
+    );
+    expect(generated).toContain(
+      'export type { SecurityScheme, SourceAttribution, ToolAnnotations, ToolMeta, StatusDiscriminant, InvokeResult, PaginationEcho };',
     );
   });
 
