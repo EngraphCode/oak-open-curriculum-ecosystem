@@ -275,9 +275,7 @@ describe('Auth Enforcement (E2E - Production Equivalent)', () => {
       expect(step1.status).toBe(401);
       expect(step1.headers['www-authenticate']).toContain('resource_metadata=');
 
-      const asUrl = await validatePrmNamesUpstream(oauthApp);
-
-      expect(asUrl).toBe(TEST_UPSTREAM_METADATA.issuer);
+      await validatePrmNamesUpstream(oauthApp);
     });
 
     it('AS metadata endpoints point to self-origin, not Clerk', async () => {

@@ -46,7 +46,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/oauth-and-caching-setup.ts': excluded(
-    '98eed582f23cb0bba00b08099e3c1c16000b3e3e649fd22ea723a91348924689',
+    'a1c8473aaa764c3d7fbfd27f158f05ce11e1e25f940ed82b29727f3144c34f53',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/orchestration.ts': excluded(

@@ -35,7 +35,13 @@ function createNoCacheErrorMiddleware(): RequestHandler {
   };
 }
 
-/** Resolves upstream metadata, either from injection or a live Clerk fetch. */
+/**
+ * Resolves upstream metadata, either from injection or a live Clerk fetch.
+ *
+ * The injection branch is test-only DI (ADR-078) and bypasses the RFC 8414
+ * Section 3.3 issuer check, so a production caller must route through
+ * `fetchUpstreamMetadata`, where the check applies (MCP-655).
+ */
 async function resolveUpstreamMetadata(
   runtimeConfig: RuntimeConfig,
   log: Logger,
@@ -63,7 +69,7 @@ async function resolveUpstreamMetadata(
     observability,
   );
   if (!metadataResult.ok) {
-    throw new Error(metadataResult.error.message);
+    throw new Error(metadataResult.error.message, { cause: metadataResult.error });
   }
   return { upstreamBaseUrl, upstreamMetadata: metadataResult.value };
 }

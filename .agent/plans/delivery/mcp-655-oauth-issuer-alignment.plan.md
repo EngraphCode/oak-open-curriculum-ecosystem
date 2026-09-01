@@ -208,7 +208,8 @@ Product code:
    into), and both Clerk instances satisfy it byte-for-byte (verified 2026-09-01:
    `https://clerk.thenational.academy`, `https://native-hippo-15.clerk.accounts.dev`). The
    mismatch is its own error class, and `src/app/metadata-fetch-error.ts` gains the
-   `issuer_mismatch` discriminant, classified by class, never by message substring. Why here:
+   `issuer_mismatch` discriminant, classified by the error's `name` (the module's
+   existing discriminant idiom), never by message substring. Why here:
    the fetched `issuer` was inert while the rewrite overwrote it; item 1 makes it the value
    every PRM-following client trusts for registration, authorization and token exchange, so
    it is validated at the boundary it now crosses (`strict-validation-at-boundary`). The
@@ -315,8 +316,14 @@ Documentation:
     PRM-following clients hold the upstream's issuer; their registration and token legs no
     longer transit Oak's logs and spans (less code transit through our infrastructure, and
     less observability of those legs).
-- The regenerated registry artefacts under `.agent/reports/mcp-agent-facing-content-audit/`
-  (`registry.md` renders C706's new body) ride the refresh step, never a hand edit.
+- The refresh step rewrites `current-source-anchors.json` and
+  `current-source-delta-inventory.json` under
+  `.agent/reports/mcp-agent-facing-content-audit/`, never by hand. `registry.md`
+  and `registry.json` in that directory are the immutable phase-(a) baseline,
+  pinned by `BASELINE_REGISTRY_SHA256`
+  (`agent-tools/src/mcp-content-current-source/current-source-config.ts`), so
+  they keep rendering C706's baseline body; editing them fails the validator
+  with "phase-(a) is immutable".
 - ADR-053 "Amendment: Proxy OAuth AS Role" item 4: the PRM names the upstream while the
   app-origin AS metadata remains the proxy's.
 - `apps/oak-curriculum-mcp-streamable-http/docs/manual-uat-guide.md` row 1.2 gains the expected
