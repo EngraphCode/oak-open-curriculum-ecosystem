@@ -2245,3 +2245,28 @@ cloud-environment surface at consolidation, not a worked success to normalise.
   them. Follow-up: pass machine-readable disposition state into the
   settlement verdict. Skill text now states the tool's actual
   behaviour honestly.
+
+## Cloud hook-chain findings: PNPM_HOME cures commit side; pre-push stays env-blocked (2026-09-01, Genet mends Lamplight, 01W6yQ)
+
+(Entry rewritten in place 2026-09-01 — the napkin header's exact-match-anchor lane —
+after a PR #35 review wave caught its first draft holding a stale overclaim above its own
+correction, bare SHAs, and an unsafe durable-home recommendation.)
+
+- Commit side, cured: `repo-check`'s trusted-location pnpm probe failed because the cloud
+  image leaves PNPM_HOME unset while pnpm lives at `/opt/node22/bin/pnpm`. With
+  `PNPM_HOME=/opt/node22/bin` exported, the native commit chain (repo-check
+  prettier-staged, commitlint, version-guard) passed first-hand on commits SHA:42952a6a9
+  and SHA:37a042d6f. Durable home for the cure: image-level (pre-install) configuration,
+  or adding `/opt/node22/bin/pnpm` to `resolvePnpm`'s trusted candidates — NOT the
+  post-install cloud-session-setup.sh, where a late export re-points pnpm's store root
+  after `node_modules` exists (the set-up-worktree-lane skill's 2026-08-04 store-rebind
+  class).
+- Push side, still blocked: the pre-push turbo gate cannot complete in this container —
+  agent-tools test:e2e dies on `git --no-lazy-fetch` (image git 2.43.0; the flag needs
+  ≥2.45), and both test:ui suites die on Playwright chromium revision 1234 being absent
+  (image ships 1194; browser downloads egress-blocked; the repo's own
+  cloud-session-setup.sh install command fails the same way, verified first-hand). Pushes
+  proceed under the adopted cloud HUSKY=0 policy (cloud-environment.md §Git-hook policy)
+  with the outgoing-range gitleaks substitute run first; commit-side hooks stay native.
+  Open provisioning defects: PNPM_HOME (safe homes above), git ≥2.45, the revision-1234
+  browser store.

@@ -60,9 +60,6 @@ interface CursorSessionIdentityHookPlan {
 }
 
 /**
- * Plan Cursor `sessionStart` output from stdin and injected environment.
- */
-/**
  * Select the process-environment values the Cursor session identity hook
  * consumes. The executable adapter MUST build its planner environment
  * through this function — hand-picking variables at the bin boundary is
@@ -84,6 +81,9 @@ export function cursorSessionIdentityHookEnvironmentFromProcessEnv(
   };
 }
 
+/**
+ * Plan Cursor `sessionStart` output from stdin and injected environment.
+ */
 export function planCursorSessionIdentityHook(
   input: CursorSessionIdentityHookInput,
 ): CursorSessionIdentityHookPlan {

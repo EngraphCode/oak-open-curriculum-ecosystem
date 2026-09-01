@@ -76,23 +76,6 @@ interface RateLimitsField {
 }
 
 /**
- * Translate Claude Code statusline stdin JSON into an execution plan.
- *
- * @param rawJson - The raw JSON text Claude Code passes on stdin.
- * @returns `noop` when the payload is empty, invalid JSON, or not a JSON
- *   object; otherwise `render` with whatever fields could be extracted. Each
- *   field is narrowed from `unknown` through an explicit guard, so a malformed
- *   field renders as absent rather than failing the whole parse.
- *
- * @example
- * ```ts
- * const plan = planStatuslineExecution('{"session_id":"abc-123"}');
- * if (plan.kind === 'render') {
- *   // derive identity from plan.inputs.seed, gather git, render
- * }
- * ```
- */
-/**
  * Environment values the statusline consumes for seed resolution.
  *
  * @remarks
@@ -107,6 +90,26 @@ export interface StatuslineEnvironment {
   readonly CLAUDE_CODE_REMOTE_SESSION_ID?: string;
 }
 
+/**
+ * Translate Claude Code statusline stdin JSON into an execution plan.
+ *
+ * @param rawJson - The raw JSON text Claude Code passes on stdin.
+ * @param environment - Environment values consulted for seed resolution
+ *   (operator override, then platform session id, then payload
+ *   `session_id`).
+ * @returns `noop` when the payload is empty, invalid JSON, or not a JSON
+ *   object; otherwise `render` with whatever fields could be extracted. Each
+ *   field is narrowed from `unknown` through an explicit guard, so a malformed
+ *   field renders as absent rather than failing the whole parse.
+ *
+ * @example
+ * ```ts
+ * const plan = planStatuslineExecution('{"session_id":"abc-123"}');
+ * if (plan.kind === 'render') {
+ *   // derive identity from plan.inputs.seed, gather git, render
+ * }
+ * ```
+ */
 export function planStatuslineExecution(
   rawJson: string,
   environment: StatuslineEnvironment = {},
