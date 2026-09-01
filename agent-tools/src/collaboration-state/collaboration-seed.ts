@@ -16,6 +16,8 @@
  * fallbacks (`CODEX_THREAD_ID`, Antigravity `conversationId`). Every explicit
  * Practice seed outranks the ambient cloud id — they are the operator's
  * stated contract.
+ *
+ * @packageDocumentation
  */
 
 import { stripSessionIdTagIfPresent } from '../core/agent-identity/session-seed.js';
@@ -68,9 +70,12 @@ export function resolveCollaborationSeed(
 }
 
 /**
- * The fail-fast message for a seat with no resolvable seed: names every
- * accepted variable and, where the platform is known, the primary Practice
- * seed for that platform.
+ * The fail-fast message for a seat with no resolvable seed: names the seeds
+ * an operator can set — the four Practice variables and the harness-native
+ * fallbacks — and, where the platform is known, the primary Practice seed
+ * for that platform. The cloud seat's ambient `CLAUDE_CODE_REMOTE_SESSION_ID`
+ * is supplied by the harness, never set by hand, so the hint does not name
+ * it.
  *
  * @param platform - The seat's platform label (e.g. `claude`, `codex`), used
  * only to point at the right variable in the hint.

@@ -2462,8 +2462,10 @@ rule, carrying unmerged continuity commits forward.
   fluency tell: the array was the "clean" refactor; smoothness was the
   warning (metacognition §Fluency).
 - A MECHANICAL `test`→`[[ ]]` REWRITE CHANGES WHAT AN ERR TRAP CAN SEE:
-  `[[` is a keyword, so `PIPESTATUS` keeps the previous pipeline's value
-  and setup's failure card printed `pipe status: 0` beside a fatal failure
+  a failing bare `[[ ]]` reaches the trap with `PIPESTATUS` reading 0 (a
+  keyword's status does not land there the way `test`'s does — a second
+  reviewer checked it is a lone 0, not the previous pipeline's values),
+  so setup's failure card printed `pipe status: 0` beside a fatal failure
   (RUN-proven both ways in the scratchpad `trap-proof-*.sh`). Cure
   `aac6a00fb`: route the presence checks through the script's own `fail()`.
   Class: "behaviour-identical" claims must include the instrumentation's

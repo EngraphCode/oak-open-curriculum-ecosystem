@@ -75,9 +75,10 @@ phase "repo discovery"
 # exit is therefore tolerated; the meaningful invariant stays the
 # FIRST_REPO check below, which still fails loudly when no Practice repo
 # is actually found. The check routes through fail() rather than standing
-# alone: [[ ]] is a shell keyword and leaves PIPESTATUS at the previous
-# pipeline's value, so a bare test would print "pipe status: 0" on the
-# failure card beside a fatal failure.
+# alone: a failing bare [[ ]] reaches the ERR trap with PIPESTATUS reading
+# 0 (a keyword's status does not land there the way test's does), so the
+# failure card would print "pipe status: 0" beside a fatal failure —
+# verified by running both forms.
 REPOS=$(find /home /workspace -maxdepth 4 -type d -name .git \
   -not -path '*/node_modules/*' 2>/dev/null | sed 's|/\.git$||') || true
 FIRST_REPO=""

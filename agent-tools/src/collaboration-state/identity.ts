@@ -7,6 +7,8 @@
  * shapes, and the Codex anonymous-write guard. Which environment value IS
  * the seed, and in what precedence, is the other half — the sibling module
  * `collaboration-seed.ts` — which this module consumes.
+ *
+ * @packageDocumentation
  */
 
 import { v5 as uuidv5 } from 'uuid';
