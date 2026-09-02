@@ -36,7 +36,12 @@ prior-kept mechanisms recurred within four weeks). The since-marker run recipe i
 corpus-analysis runbook. Open at close: the main-merge into `handoff/jim-september` after
 Finch's #915 fold lands is the rotation-versus-appends shape — carry the 2026-08-19 napkin
 additions into the fresh napkin and process them; both napkin and repo-continuity need
-semantic merges.
+semantic merges. Deep handoff taken at the owner's word ~13:4xZ with the seat kept live: the
+machine-local handoff record is
+`.agent/state/collaboration/handoffs/d88ab157-curator-napkin-only-consolidation-2026-09-02.md`
+(attached to claim d88ab157), the formation letter is
+`.agent/experience/2026-09-02-kiln-holds-slag-the-corpus-i-was-meant-to-query.md`, and the
+napkin's ~13:4xZ entry carries the lens harvest and the loss scan.
 
 Owner-launched consolidate-until-done pass, scoped by owner word to the current napkin and
 the five archived napkins before it: distilled appended to, never curated; every non-napkin

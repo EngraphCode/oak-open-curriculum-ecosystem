@@ -232,3 +232,56 @@ second seat reproduces them.
 - Owner-scope check at close: distilled appended to only; no non-napkin fitness acted on;
   the four older archives entered through the prior run's checkpoint, never re-read at
   this seat.
+
+## 2026-09-02 ~13:4xZ (Kiln holds Slag, 1447f4, curator) — deep handoff at owner word, seat live: lens harvest and loss scan
+
+METACOGNITION (retrospective, the whole sitting): three corrections, one generator. The
+context-read redirect (harvested above); the identity-tuple collision at the first `comms
+send` (the watcher script's `claude / claude-fable-5` against the registry's `claude-code /
+claude-fable-5-1` — a lookalike key that F-95 accepts by display name and the send guard
+refuses); and three CLI invocations typed from memory that the tools refused (`claims open
+--kind`, `comms direct` without `--active`/`--to-id`, the send tuple). The generator is
+values-typed-from-memory at three grains: corpus, identity, flag. What held: every catch
+was structural (the owner, the identity guard, the usage error), none was vigilance. What
+changed at this seat, standing: read the runbook before the first archive line; read
+`--help` before the first invocation of any subcommand this session; confirm the identity
+tuple at the first write. Bridge to impact: the pass's most valuable output is a number
+(16 of 19 mechanisms recurred despite verified homes), because it moves the interrupt thesis
+from anecdote to measurement, and it cost less than the seat's own aborted read.
+
+FREE PLAY (harvest with visible discards): kept — (a) the napkin has a drain ritual and
+stayed healthy; a session's context is an append surface with none, and compaction is its
+unplanned lossy rotation — the consolidation prompt's "start with all the raw sources"
+forgot that the reader is also an append surface (association: the engine IS the reader's
+rotation policy); (b) the adversary quorum killed every absence and regime claim and kept
+only recurrences and one trajectory — shaped like a court that can try individuals but
+never institutions; the four tests are tuned for mechanisms, so shape-of-the-corpus claims
+die by construction (association; the report already states it as a kill class); (c) a
+word gate refusing "parked" made the ack to Finch say "carried", the more accurate verb —
+the pathogen filter as free copy-editor, second recorded instance. Discarded visibly: a
+52/72/19 numerology; the archive-as-sediment reading (third discard on record).
+
+CONCEPT-EXPLORATION (formed): "critically assess subagent output" at pipeline scale cannot
+mean re-reading the corpus — that is the failure it replaces. It means verifying each
+stage's CONTRACT over the whole population (mapper read ranges against line counts; every
+leaf's quote anchoring verbatim; the driver's zero-diff recompute) plus a seat read at the
+two judgement points the engine leaves open (the dedup rows; the homes). Sampling is the
+fluent answer and is worse: a sample cannot find a zero-leaf window, and the population
+checks cost minutes. Proposal landed in the corpus-analysis runbook. Falsifier: a leaf that
+passes both checks yet misreads its anchored quote — caught at candidate grain by the
+`grounded` test, unchecked for leaves that never cluster, which route nowhere.
+
+LOSS SCAN (if this context ceased now): everything load-bearing has a durable home — the
+thread record's top section, the resume memory's 13:1xZ block, the machine-local handoff
+record for claim d88ab157, the report, the checkpoints, the comms events (team-start
+22970035, ack 26f5e167, lane state c8949fb7). Context-only and accepted: the scratchpad's
+working files (dedup tsv, flattened archives, check logs — substance in the report) and
+the exact wording of the owner's chat redirect beyond the verbatim quoted above.
+Attribution inferences flagged: "Finch will send the directed event" is Finch's stated
+next act, not a promise; "the owner is editing the consolidation prompt" is inferred from
+an unstaged file; every kill reason in the report is the seat's reading of the four-test
+grid. Blind-spot bounds: ~60 seconds of watcher death at the hourly backstop (gap sweep
+clean); Finch's worktree; voter rationales. External bound and error signature: this seat's
+failures were all instrument-choice-before-spend and lookalike identity at the first write
+— point outside scrutiny there. A further pass re-finds the tuple mismatch, the claim's
+15:42Z freshness, and the rationale bound; the recursion closes here.
