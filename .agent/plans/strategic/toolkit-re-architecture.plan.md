@@ -46,6 +46,40 @@ foundations admitted adopt-first; one clock per package with
 untracked derivation as the default home; the seam itself; publishing
 as the toolkit side's default state; and the workspace-liveness gate.
 
+## User groups and value
+
+*(Added 2026-09-02 as a dated additive amendment, routed off PR #915's
+review: the strategic template gained this section at the owner's ruling
+of 2026-08-31, after this node's ratification. Presented for the owner's
+word with the split delivery plan, MCP-661; the ledger row below records
+the routing.)*
+
+- **Oak's in-repo services** (the MCP server, the search CLI, the
+  demos): consume the toolkit the way any consumer would, so a change to
+  machinery reaches them as a versioned dependency rather than a co-edit.
+  Claim boundary: rung 1 of the ladder — proven when the services build
+  from the published toolkit.
+- **The extracted product squad**: a repository they own end to end —
+  the knobs (configuration, styling, experience tuning) and the
+  assemblies — with the levers arriving as published packages they never
+  edit. In experience terms: a product change is one PR in one repo; an
+  upstream need is a contribution to a library with its own release, not
+  a visit to the Practice. Claim boundary: rung 2 (the extraction test);
+  the residual upstream class is measured, never assumed (the split
+  delivery plan's replay criterion).
+- **An arriving non-Oak builder**: the published toolkit plus its
+  documentation assembles a new service without Oak context. Offered
+  value, not yet demonstrated — rung 3 is the honest test and no such
+  builder exists yet; the claim is hypothesised until a greenfield
+  demonstration service lands.
+- **Teachers using Oak's product**: no experience change from the
+  topology itself; the value routes through the squad's cycle time
+  (fixes and features arrive sooner) and is claimed there, never here.
+- **Agents working the estate**: the Practice stays with the toolkit,
+  and the seam's three gates turn a review question ("could a non-Oak
+  service consume this unchanged?") into a construction fact, so
+  attention goes to product and machinery instead of classification.
+
 ## The bet
 
 Serving TOOLS-2 (open by default, no lock-in), and carrying two
@@ -141,3 +175,4 @@ implementer enumerates and dispositions every row before implementation.
 | Date | Source | Finding | Routing |
 | --- | --- | --- | --- |
 | 2026-09-02 | PR #915 Copilot review (comment on this node's §The bet) | The node carries no "User groups and value" section; the strategic template (amended at owner ruling 2026-08-31, after this node's 2026-08-19 ratification) requires one, mapping the outcome's consumers (Oak's in-repo services, the extracted product squad, an arriving non-Oak builder — the demonstration ladder's three rungs) to experience-level value with claim boundaries. | Routed to the plan-corpus consolidation session that follows the split delivery plan (owner objective 2026-09-02: "make sure that the repo strategy is consistent and cohesive around that plan"): the section is authored there as a dated additive amendment presented for the owner's word, never inserted at a landing seat into a ratified node. |
+| 2026-09-02 | Owner word on the #915 post-merge routings ("all of that goes into the same branch as the delivery plan, to minimise the total number of prs") | The row above: the "User groups and value" section. | Discharged on MCP-661's branch: authored as the dated additive amendment §User groups and value above, presented for the owner's word with the split delivery plan `oak-open-curriculum-mcp-extraction`. |
