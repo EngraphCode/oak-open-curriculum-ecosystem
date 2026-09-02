@@ -32,7 +32,7 @@ These principles are educational, not proprietary. Use them for Oak work or for 
 
 ## The stance behind the principles
 
-Everything below rests on a few commitments. Hold these first; the six principles are how they show up in practice.
+Everything below rests on a few commitments. Hold these first; the six principles are how they show up in practice. Where this stance comes from — Oak's published principles and the evidence Oak cites — is documented in `references/sources.md`.
 
 - **Ambitious for every pupil.** The default is that _all_ pupils study the same rich content. You adapt the route, not the destination. "A low floor and a high ceiling," not separate tracks that quietly lower expectations.
 - **Models to adapt, not scripts to follow.** A curriculum is a high-quality starting point, never a finished product. The people closest to the pupils — teachers and schools — know their context best and must be able to adapt safely. Oak's own line: _"It is the teacher, not the resource, that does the teaching."_

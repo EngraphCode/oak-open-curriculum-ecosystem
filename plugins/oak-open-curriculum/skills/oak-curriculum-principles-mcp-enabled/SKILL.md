@@ -30,7 +30,7 @@ This skill does one thing the self-contained `oak-curriculum-principles` skill c
 
 Use it to move from "this looks well-sequenced" to "this matches Oak's _Number_ thread progression and the prior-knowledge graph," and from "anticipate misconceptions" to "here are the misconceptions Oak has documented for this exact topic."
 
-For the _meaning_ of each principle, the evidence base, and the subject guiding principles for 15 subjects, use `oak-curriculum-principles`. This skill assumes those principles and focuses on grounding them in data.
+For the _meaning_ of each principle, the evidence base, and the subject guiding principles for 15 subjects, use `oak-curriculum-principles`. This skill assumes those principles and focuses on grounding them in data. Where the principles come from — Oak's published materials and the evidence Oak cites — is documented in `references/sources.md`.
 
 ## Before you start
 
