@@ -40,7 +40,8 @@ for the EEF-specific tool and prompt guidance.
   - selects the matching descriptor (`2xx` maps to `.data`, everything else uses `.error`),
   - fails fast if the status wasn’t documented, pointing to the operation id and the known statuses,
   - validates the payload against each documented schema and returns the discriminant `{ status, data }` when a match succeeds.
-- Authored runtime code does **not** guess or branch on status codes; it simply forwards to the generated executor and surfaces the resulting success or failure envelope.
+- Operations the schema classifies as paginated (an `offset` and a `limit` query parameter) also carry a **pagination echo**: the generated `invoke` derives `{ hasMore: false }` or `{ hasMore: true, nextOffset?, nextLimit? }` from the upstream `Link: rel="next"` response header, and the executor result becomes `{ status, data, pagination }`. Non-paginated operations return `{ status, data }` with no `pagination` field; the classification is read from the OpenAPI schema at sdk-codegen time, not from a hand-maintained list.
+- Authored runtime code does **not** guess or branch on status codes; it simply forwards to the generated executor and surfaces the resulting success or failure envelope, including the `pagination` field when present, so an agent can tell from the payload alone whether more pages exist.
 
 ### Why separate?
 
