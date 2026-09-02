@@ -40,6 +40,14 @@ function parseNonNegativeInteger(value: string | null): number | undefined {
  * Matches the `rel` link-param of one Link value, in either RFC 8288 §3
  * form: a quoted string (`rel="next"`) or a bare token (`rel=next`),
  * case-insensitively and tolerating whitespace around `=`.
+ *
+ * @see https://www.rfc-editor.org/rfc/rfc8288#section-3 — the Link header
+ * field: target, relation type (`rel`), and the quoted-string / token
+ * parameter forms this module accepts. Adapted, not a full parser: the
+ * module splits link-params on `;` without quoted-string awareness (a
+ * `;` inside another quoted param value is not handled; tracked as
+ * MCP-670), and resolves relative targets against a synthetic base
+ * because only the query parameters are read.
  */
 const REL_PARAM = /(?:^|;)\s*rel\s*=\s*(?:"([^"]*)"|([^;,\s]+))/i;
 
