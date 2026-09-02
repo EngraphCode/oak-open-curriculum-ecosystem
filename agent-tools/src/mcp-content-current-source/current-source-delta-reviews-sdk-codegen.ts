@@ -24,8 +24,10 @@ export const SDK_CODEGEN_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
     '1dadef4f96511ba3a7c8ed3defb8db835173e856dc034a816efe74c6617a81e9',
     IMPLEMENTATION_ONLY,
   ),
+  // MCP-653: DEFERRED_PATHS gained the dead changelog pair (retired by the
+  // MCP-630 schema-cache refresh); SKIPPED_PATHS unchanged.
   'packages/sdks/oak-sdk-codegen/code-generation/excluded-paths.ts': reviewed(
-    '54696cd55ab5ebc2c2015fc30ab3b022f00e97c8a642a101060d0156b34f9aec',
+    '850f69ab6b7bc73763ad1bead4571f98cf49056af83877e5b33f81e17b59d05f',
     ['A002', 'C470'],
   ),
   'packages/sdks/oak-sdk-codegen/code-generation/resolve-schema-source.ts': excluded(
@@ -134,4 +136,10 @@ export const SDK_CODEGEN_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
       'C462',
       'C463',
     ]),
+  // MCP-653: the dead changelog pair left PUBLIC_TOOLS with the tools'
+  // disable; no new authored agent-facing content.
+  'packages/sdks/oak-sdk-codegen/code-generation/mcp-security-policy.ts': excluded(
+    'c42fd325da92d26edb5673528079b3747e205756a12cad6431712c5c0f40ad11',
+    IMPLEMENTATION_ONLY,
+  ),
 };
