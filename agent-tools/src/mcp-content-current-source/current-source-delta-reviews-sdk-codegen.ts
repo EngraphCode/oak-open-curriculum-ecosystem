@@ -113,6 +113,11 @@ export const SDK_CODEGEN_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
     'cfd851fc8306cd8fcd02975e7d39c756f23824f759a3ab175d07202f0c4e8766',
     ['C475', 'C476', 'C477', 'C478'],
   ),
+  // PR 949 review cure: the public mcp-tools barrel now exports the
+  // PaginationEcho type consumers see on ToolResultForName. Type export
+  // only; no authored agent-facing prose.
+  'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/generate-index-file.ts':
+    excluded('f3aec45038f81fd15fd0a5ab8ab6278cedd440a4852dcdd49ae7f0c99465ec15', TYPE_ONLY),
   // Pagination echo (2026-09-01 payload audit): the four emitters below gained
   // the pagination wiring (per-tool passthrough, contract re-export, value
   // import, optional result field). No authored agent-facing prose.

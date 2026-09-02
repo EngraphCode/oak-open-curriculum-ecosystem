@@ -18,6 +18,12 @@ export const SDK_GENERATED_RUNTIME_DELTA_REVIEWS: Readonly<
 > = {
   'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/aliases/types.ts':
     excluded('fb9f88dab2aa595bd9066c625f7bdcc99bd68e16950c5ad928c6d3e59d759ee0', TYPE_ONLY),
+  // PR 949 review cure: the generated barrel gained the PaginationEcho type
+  // export (public reachability of a public result-shape type).
+  'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/index.ts': excluded(
+    '87a28a7983aea360a1256439b28e975e9f8d48e18c1f90c142f390a18d49c976',
+    TYPE_ONLY,
+  ),
   'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/contract/tool-descriptor.contract.ts':
     excluded(
       'a2042994fb991fe4039a3474638e6afb745a7b5f32e9066076bda140329474d7',

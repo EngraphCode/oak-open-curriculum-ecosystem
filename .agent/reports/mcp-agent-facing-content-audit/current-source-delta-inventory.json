@@ -1313,6 +1313,12 @@
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/generate-index-file.ts",
+      "semanticSha256": "f3aec45038f81fd15fd0a5ab8ab6278cedd440a4852dcdd49ae7f0c99465ec15",
+      "itemIds": [],
+      "exclusionReason": "Type-only change; no authored agent-facing content."
+    },
+    {
       "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/generate-tool-descriptor-file.ts",
       "semanticSha256": "7b3efb0ee10a132148b6d2eb4339b326e44b2921cd6a844260500296d70cc8c9",
       "itemIds": [],
@@ -1395,6 +1401,12 @@
       "semanticSha256": "a2042994fb991fe4039a3474638e6afb745a7b5f32e9066076bda140329474d7",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/index.ts",
+      "semanticSha256": "87a28a7983aea360a1256439b28e975e9f8d48e18c1f90c142f390a18d49c976",
+      "itemIds": [],
+      "exclusionReason": "Type-only change; no authored agent-facing content."
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/runtime/execute.ts",

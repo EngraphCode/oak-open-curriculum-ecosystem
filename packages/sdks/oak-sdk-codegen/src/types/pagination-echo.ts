@@ -25,7 +25,11 @@ function parseNonNegativeInteger(value: string | null): number | undefined {
   if (value === null || !/^\d+$/.test(value)) {
     return undefined;
   }
-  return Number(value);
+  const parsed = Number(value);
+  // A digit-only string can still exceed the safe-integer range, where
+  // Number() silently loses precision — omit the field rather than echo a
+  // wrong offset; hasMore stays true from the rel="next" presence.
+  return Number.isSafeInteger(parsed) ? parsed : undefined;
 }
 
 /**

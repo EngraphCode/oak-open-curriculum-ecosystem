@@ -51,6 +51,12 @@ describe('derivePaginationFromLinkHeader', () => {
     expect(derivePaginationFromLinkHeader(header)).toEqual({ hasMore: true });
   });
 
+  it('omits digit strings beyond the safe-integer range rather than echoing a lossy number', () => {
+    const oversized = '9'.repeat(25);
+    const header = `<https://example.test/things?offset=${oversized}&limit=20>; rel="next"`;
+    expect(derivePaginationFromLinkHeader(header)).toEqual({ hasMore: true, nextLimit: 20 });
+  });
+
   it('still reports hasMore when the next link URL is unparseable', () => {
     const header = '<not a url>; rel="next"';
     expect(derivePaginationFromLinkHeader(header)).toEqual({ hasMore: true });
