@@ -48,10 +48,13 @@ HTTPS_ONLY='=https'
 # URL userinfo must never reach the persisted failure card this output
 # lands on: an apt source, proxy value, registry, or pre-signed tarball URL
 # can embed credentials, and the scheme prefix is optional in proxy values
-# (curl accepts user:token@proxy:8080), so strip userinfo with or without one
+# (curl accepts user:token@proxy:8080), so strip userinfo with or without one.
+# A query string or fragment can carry a token just as userinfo can (a
+# pre-signed URL, a registry with ?token=), so both are dropped first — the
+# diagnostics only ever need the host and path
 USERINFO_STRIP_SED='s|^([a-zA-Z][a-zA-Z0-9+.-]*://)?[^@/]*@|\1|'
 strip_userinfo() {
-  local value="$1"
+  local value="${1%%[?#]*}"
   echo "$value" | sed -E "$USERINFO_STRIP_SED"
   return 0
 }

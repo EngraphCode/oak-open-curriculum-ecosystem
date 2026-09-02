@@ -71,6 +71,28 @@ Commit-attempt logging is currently paused. Do not call or recreate a root
 owner re-enables commit-attempt logging, route the implementation through a
 workspace-owned tool surface and document the new command here.
 
+## Cadence Gate — Is This Parcel's Sitting Over?
+
+Owner-ratified, three corrections in a fortnight (2026-08-17
+"BATCH-CADENCE"; 2026-08-26; 2026-08-31, verbatim core: committing "takes
+nearly 15 minutes, if you commit every change then we are limiting
+ourselves to four or five changes per hour... a massive waste of
+tokens"). The ruling sat in the napkin each time and did not fire at the
+reach-for-commit moment; this section is its firing surface.
+
+Before drafting a message, answer one question: **is this parcel's
+sitting over?** Parcels accumulate in the working tree across a sitting;
+ONE commit ceremony lands at the safety boundary (a session close, a
+handoff or freeze, a merge-readiness point, a review round's settlement
+push); push once per boundary. Small commits stay small — the cure is
+cadence, never squashed scope — and adjacent small parcels batch into one
+cycle. The stop-hook's uncommitted-changes nag is not a commit trigger; a
+review round is not a safety boundary; freezes and handoffs are never left
+unpushed. Under relocated gates (`HUSKY=0` cloud sessions) the same ruling
+covers PUSHES: the minimum spacing is a genuine required-check conclusion
+on the previous head, and a rollup on a superseded head is never reported
+(`cloud-environment.md` §Push cadence).
+
 ## Before You Draft — Load the Live Constraints
 
 Run these steps **before** formulating the commit message.
@@ -134,7 +156,14 @@ Run these steps **before** formulating the commit message.
    an unpushed commit carrying it is amended (which the safety rules permit)
    — but read the amend precondition below before doing so: a pushed commit is
    never amended to clear a cosmetic warning, and one seat inverted exactly
-   that proportion under this pressure.
+   that proportion under this pressure. The permission is that narrow: a
+   cosmetic message cure on an UNPUSHED commit. `--amend` as a
+   content-evolution mechanism is owner-forbidden, absolute (2026-08-17): a
+   seat amended one unpushed commit four times folding new substance in, and
+   every amend invalidated shas already published to a ticket, the comms
+   stream and a rapid channel, manufacturing its own correction churn.
+   Commits only append; the PR body maps the trail once at open. A "one
+   clean commit" aesthetic is a squash instinct in a never-squash estate.
 
    **The `commit-msg` hook is the real gate — do not test the checker.** The
    `.husky/commit-msg` hook runs commitlint on every commit unconditionally; the
@@ -490,6 +519,19 @@ catastrophic shape. A foreign lock means another agent is mid-commit:
 
 The `commit_queue`, `git:index/head` active claim, and shared-log entry are
 the coordination surfaces; the lock file is never one of them.
+
+**A free lock is not a free index.** On a shared checkout `git commit`
+releases `index.lock` BEFORE its pre-commit hook runs on an as-is commit
+and RE-READS the index (and `MERGE_HEAD`) after the hook returns, so a
+clean tree and a free lock at T say nothing about the index at T+ε.
+Worked instance (2026-08-19): a peer's `git merge` wrote its result into
+the index while the first seat's hook was running; the peer's own commit
+stopped at commitlint, leaving `MERGE_HEAD`; the first seat's docs commit
+then landed as a two-parent merge under the docs message — content and
+ancestry correct, attribution unmarked, and no undo attempted because
+the index-reset family is banned. The cure is structural, not a further
+naming discipline: per-seat worktrees for coordination writes (PDR-117),
+or the commit-warden singleton owning `git:index/head`.
 
 ## Process
 
