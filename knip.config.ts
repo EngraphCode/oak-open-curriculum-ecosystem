@@ -93,6 +93,7 @@ const config: KnipConfig = {
         'src/repo-check/repo-check.ts',
         'src/commit-advisories/check-commit-message.ts',
         'src/commit-advisories/check-commit-skill-advisories.ts',
+        'src/workspace-census/cli.ts',
         'src/secret-scan/run-push-secret-scan.ts',
         'src/version-guard/prevent-accidental-major-version.ts',
         'src/validators/fitness-vocabulary/validate-fitness-vocabulary.ts',
@@ -370,17 +371,6 @@ const config: KnipConfig = {
         'src/internal/**/*.ts',
       ],
       project: ['src/**/*.ts'],
-    },
-    // Imported research-evidence tooling (ADR-215). CLI-driven: the scripts are
-    // tsx-invoked entry points and the tests are the other entries; lib is
-    // import-reachable. fixtures/ is illustrative source data, not project code.
-    'research/web-app-deconstruction/packages/research-evidence': {
-      // lib/ is the recomputable-evidence API surface (its exported analysis
-      // functions and result types are the reusable public interface, not all
-      // consumed by this package's own scripts); scripts are the CLI entries and
-      // tests are the other entries.
-      entry: ['lib/**/*.ts', 'scripts/**/*.ts', 'tests/**/*.test.ts', '*.config.ts'],
-      project: ['lib/**/*.ts', 'scripts/**/*.ts', 'tests/**/*.ts'],
     },
   },
 };
