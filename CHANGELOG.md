@@ -1,3 +1,11 @@
+## [1.175.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.175.1...v1.175.2) (2026-09-02)
+
+
+### Bug Fixes
+
+* **mcp:** re-point server references to mcp.thenational.academy (MCP-122) ([6b06ab2](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/6b06ab2a149a33014f6f99da2066379ef4a6e9d6))
+* **mcp:** true the remaining root-path rationale and the monitor pickup URL (MCP-122) ([616f477](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/616f477c0305105466ef6fdfcda9dbaa9bf54620))
+
 ## [1.175.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.175.0...v1.175.1) (2026-08-20)
 
 
