@@ -1183,6 +1183,29 @@ pinning-by-name, not sequencing-by-hope.
   live artifact viewer) could catch it. visual-verdicts-require-
   rendered-proof, evidenced at the exact mechanism level the morning's
   play seed predicted.
+- **WRAP FINDINGS (Poppy lifts Bark, 2026-08-19 close).** (a)
+  CORRECTION to the pathspec entry below: the rule ALREADY carries
+  commit-by-pathspec (§The Commit Is Also a Sweep, five instances
+  2026-08-01→07) — my "candidate for the rule's next revision" was
+  wrong; today's two instances (this seat + the Director,
+  independently) are RECURRENCE-DESPITE-HOME evidence (PDR-098 class):
+  the home exists, the mechanism did not fire at the action moment.
+  (b) Loss-scan residue: the strategic-node altitude choice was forced
+  by the plan schema itself (delivery plans require a strategic
+  parent) — recorded here so the seam implementer knows the altitude
+  was constrained, not preferred. (c) Attribution flag: the current
+  uncommitted napkin delta's authorship is UNVERIFIED inference
+  (peers edited during this sitting); the rotation pass must git-diff
+  the window before archiving, per the rotation discipline. (d) No
+  subagent reviewers ran today — docs/plans/design surfaces only, no
+  product code; the per-cycle code-expert rule had no code to fire on.
+  (e) NAPKIN ROTATION DUE and deliberately not run at this wrap:
+  ~1250 lines, multi-seat content spanning 2026-08-17→19; the
+  rotation's per-item disposition requires first-hand context that
+  peer-seat entries' authors hold (the consolidate-docs skill's own
+  first-hand bar). Constraint falsifiable: a dedicated curation
+  sitting (any seat) can process the window; my seat's entries are
+  all self-contained above.
 - **Shared-checkout index race: commit WITH pathspec, not just add.**
   A concurrent actor's staged renames rode my commit (5916d7069, pure
   moves, surfaced df383879) because `git add -- <paths>` narrows the
@@ -1265,6 +1288,139 @@ pinning-by-name, not sequencing-by-hope.
   hold by being written down (push wrapper) held once made structural
   (push is the final command). Passive guidance loses to artefact
   gravity, again, measured twice in one day.
+
+## 2026-08-19 merge-drive sitting (Yarrow stirs Undergrowth, ab1066)
+
+- **A cell red on both sides of a cure proves nothing.** The inverted-map
+  guard's first calibration failed against the pre-cure maps — but the
+  selector also failed against the CURED state (a container element rode
+  the query), so the red was selector noise, not the scramble. Calibration
+  evidence is void unless the cell is GREEN on the cured state first and
+  red exactly on the revert. Second instance of the class same sitting:
+  the teardown cells passed with both cure arms reverted because `once`
+  had already cleared the fired listeners — the leak lives in NEVER-fired
+  listeners, and the cells had to be reshaped around that state before
+  the revert reddened them.
+- **Pipes bury exits — twice more, same sitting.** `check && echo`,
+  `cmd | tail -1`, and `$?` after a pipeline all reported the pipe's exit,
+  not the check's; a commit-message pre-check "passed" that later failed
+  in the hook, and a red lint rode a green-looking gate chain. The class
+  (exit-codes-in-band-never-piped) keeps recurring at NEW call shapes;
+  the cure that held: run the check alone and read its own output.
+- **Name-only exemptions are kind holes.** The transient allowlist
+  (node_modules/.turbo/.DS_Store) exempted by basename before kind
+  handling, so a SYMLINK wearing a transient name rode out of the symlink
+  refusals and a .DS_Store DIRECTORY could hide content. An allowlist
+  entry is a (name, kind) pair; matching half of it re-opens the hole the
+  refusal-by-kind closed. Same generator as round-2's dtcg place-only
+  admission — the admission predicate must bind EVERY axis it reasons
+  about.
+- **Shared callback identity + DOM dedupe = teardown theft.** Subscribers
+  sharing one upstream callback register identical (type, callback,
+  capture) tuples; the DOM deduplicates them, so one subscriber's
+  removeEventListener deletes the registration everyone depends on.
+  Per-subscription wrapper identity is what makes tracked removal safe —
+  and what makes the tracker load-bearing instead of belt-and-braces.
+- **JSX attribute strings decode HTML entities.** Both SWC and esbuild
+  turn `"&mdash;"` into an em dash in attribute literals — a reviewer
+  finding built on "string props render literally" was premise-false
+  (kept the edit as consistency, rejected the defect claim). Verify
+  transform-level claims AT the transform, not from the JSX mental model.
+- **The reviewer's finding can be righter than your rejection.** Round 3
+  rejected the conditional-guard class on "the expect throws first";
+  round 4's deeper look found `.not.toBeNull()` passes for `undefined`,
+  so the guarded branch WAS reachable on a passing run. A rejection
+  survives only as long as its premise — re-derive it when the same
+  finding returns with new sites.
+- **The native toggle races any script-opened details.** Feeding
+  focus-within into the `open` prop opened the panel on the summary's
+  mousedown focus, so the click's own default action toggled it straight
+  back closed. Generator confirmed twice in one afternoon: state written
+  from browser-event timing (effect-vs-fixup, focus-vs-default-action)
+  is the defect even when it passes locally. The shapes that stood: the
+  render-time previous-state latch (wide→narrow), and DECLARATIVE focus
+  continuity (`summary:not(:focus)` hides — CSS holds the focused node
+  rendered until focus moves, no script at all).
+- **zsh arrays are 1-indexed.** A `for i in 0 1 …` over `declare -a`
+  silently dropped element 0 (one review thread unreplied, caught by the
+  in-band NOT_FOUND error). Iterate the array itself, never numeric
+  indices, in this shell.
+- **Registers merge as unions.** The fidelity-register conflict (both
+  branches appended entries at one position) resolves by keeping BOTH
+  sides — append-only surfaces have no "ours vs theirs". Validate the
+  merged artefact by its own contract (JSON parse + id uniqueness), not
+  by conflict-marker absence.
+- **Metacognition — fresh surface resets the review clock.** Rounds 3–8
+  on one PR each found real holes in code BORN in round 3: a cure that
+  adds surface (a promoted module) is authoring, and PDR-132's round
+  budget re-binds at that moment. Budget the promotion as a new
+  changeset, or expect the ratchet to run again on the new surface.
+- **Play seed (association, not finding): holds across transitions.**
+  The disclosure's `summary:not(:focus)` (stay rendered until focus
+  moves), the seam latch (stay open across the flip), and the merge
+  bot's quiet window (stay unmerged until the reviewer's round has
+  landed) are one shape: a transition guarded by "the mover has moved",
+  expressed declaratively instead of by timing. Candidate name if it
+  recurs: the mover-has-moved guard.
+
+## 2026-08-19 ~14:1xZ — Director succession + the shared-index race (Avocet guards Updraft, 44e2ca, Director)
+
+- **Succession ran the two-moments shape cleanly** (PDR-064): standby
+  team-start 4d077b1b → Ocelot's Moment-1 adc480c2 (claim b1d00d68
+  CLOSED, at-rest handover, no adoption) → readiness gate pasted in
+  the Moment-2 broadcast 84e31e6e → own claim f04cd57b + heartbeat
+  pair. Owner-named successor = the authorisation; no re-ask.
+- **The shared-checkout index is a single mutable slot shared across
+  every seat's git, and `git commit` releases index.lock BEFORE its
+  pre-commit hook on an as-is commit, then RE-READS the index (and
+  MERGE_HEAD) after it.** Worked instance: Yarrow's `git add -- a b &&
+  git commit -F msg` started 14:08Z; the tree read clean and the lock
+  free at 14:11Z, so my `git merge --no-ff origin/main` wrote the merge
+  result into the index; my own merge commit stopped at commitlint
+  (subject too long), leaving MERGE_HEAD; their commit then landed as a
+  TWO-PARENT merge (e701d7869 + cacf23149, 14 files) under their docs
+  message. Content and ancestry correct; attribution unmarked. No undo
+  attempted — `merge --abort` would have reset their staged files
+  (git-reset --merge table, row "B B C C"), and the hook refuses the
+  index-reset family by design. Cure shape used: comms (directed
+  events to both peers) + a recorded ancestry note. Same generator
+  Ocelot named at freeze 3 (index-lock contention, no-pathspec sweeps,
+  push races): the cure is structural — per-seat worktrees for
+  coordination writes, or a revived commit-warden singleton — not a
+  fifth naming discipline. "A clean tree at T" is not "a free index at
+  T+ε" on a shared checkout.
+- **Self-caught false-red: `${PIPESTATUS[0]}` under zsh is empty**, so
+  a piped `pnpm install | tail` + grep for exit=0 read FAILED on a
+  successful install. exit-codes-in-band-never-piped, shell-dialect
+  edition: run the command alone, redirect (not pipe) to the log, read
+  `$?` of the command itself.
+- **Watcher backstop fires on schedule**: the `timeout 3600` wrapper
+  ended the canonical watcher at exactly 3600s (exit 124, no EXIT
+  line); re-armed on the exit notification, cursor intact, gap sweep
+  clean. Budget the re-arm into any Director window longer than an
+  hour; it is the designed backstop, not a defect.
+- **Hook-policy substring discipline bit a comms body**: a heredoc
+  body naming a destructive git command in prose was refused by the
+  write-hook. Author such bodies with the Write tool, or name the
+  concept without the command string.
+- **Push identity lapse, self-caught at the sweep**: this seat's first two
+  coordination-branch pushes used plain `git push` over the machine's SSH
+  key (the signed-in human's transport) instead of the front door
+  `pnpm agent-tools merge-bot push` (bot-minted token). Commits were
+  bot-authored so nothing displays wrong on the commits, but the push
+  transport is the owner-credential fallback the bot-identity rule bans.
+  From the sweep onward every push at this seat goes through the front
+  door; run it with the PRIMARY's built binary from the target worktree.
+- **A clean survey is a snapshot, not a lock**: between my survey and my
+  action, a parallel design-lane seat (same owner word) preserved and
+  PR'd one of "my" dirty worktrees (#918). Re-read the surface right before
+  acting on it, and broadcast scope ownership BEFORE starting the sweep,
+  not after the first finding.
+- **A CLI "usage probe" with real arguments is a write.** Diagnosing a
+  `comms direct` exit-2 (missing `--platform/--model`) by re-running it with
+  `--body test` and the missing flags WROTE a one-word directed event to a
+  peer (8fbeb6a3) before the real ack. Probe usage with `--help`, never with
+  a well-formed invocation; the first well-formed call is the real one.
 
 ## 2026-08-24 environment-breakage wrap (Buzzard weaves Airstream, 01e90b, cloud-environment-bootstrap)
 

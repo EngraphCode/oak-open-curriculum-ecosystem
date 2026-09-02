@@ -9,9 +9,9 @@ edges:
   depends_on: [DDR-001, DDR-007]
   supersedes: []
   informed_by:
-    - 'Owner ruling 2026-08-18 at the design seat — verbatim in §Provenance below'
-    - 'The 2026-08-18 demo-day defect ledger: reduced-motion collapse defeated by a bare later-sheet override; a stranded server-rendered brand sheet; cascade-order and specificity fights; light-dark() resolving at the declaring root'
-    - 'Owner ruling 2026-08-17 — the eventual state is all identities represented purely as canonical identity packs'
+    - '.agent/reports/design/design-lane-critical-analysis-2026-08-17.md — the 2026-08-17 sitting whose rulings the 2026-08-18 decision builds on (the eventual state: all identities as canonical identity packs)'
+    - '.agent/reports/design/tango-pack-plan-readiness-reviews-2026-08-17.md §Addendum 2026-08-18 — the demo-day defect ledger (reduced-motion collapse defeated by a bare later-sheet override; a stranded server-rendered brand sheet; cascade-order and specificity fights; light-dark() resolving at the declaring root) and the P7 ruling that reshaped T1a-ii'
+    - 'PR #908 — the landing that carried this record, the tango-identity-pack node and its review record to main (2026-09-02)'
   related: [DDR-003, DDR-004]
 ---
 
