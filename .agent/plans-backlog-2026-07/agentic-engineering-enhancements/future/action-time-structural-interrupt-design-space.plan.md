@@ -178,6 +178,24 @@ recognition speed (bites got cheaper and self-caught over the week —
 patterns/passive-guidance §value-model) — the gap the mechanism must close is
 prevention at flow moments, not awareness.
 
+**Recurrence-evidence ledger routed from the 2026-09-02 napkin-only consolidation**
+(the window 2026-08-14 → 2026-09-02; PDR-098 recurrence-despite-home): the
+BATCH-CADENCE ruling recurred four times under owner correction (2026-08-17,
+2026-08-24, 2026-08-26, 2026-08-31 — the last at a seat whose napkin held both
+prior corrections in context), and its cure now has a firing surface (the commit
+skill's cadence gate) whose traction this ledger will measure next; the
+false-green push wrapper was recreated at the same seat one day after its own
+record (2026-08-18 → 19) and held only once made structural (push as the final
+command); the "machinery ≫ judgment" play seed was IN CONTEXT when the same
+seat authored a plan thin on humans (2026-08-31); a decision whose answer a
+principle had already forced was offloaded to the owner despite the deferential
+opt-out clause (2026-08-31); the false-green surface class was rebuilt inside
+its own cure by two independent seats who had just diagnosed it (2026-08-13,
+2026-08-24); the code-owner gate was asserted from a stale record by two seats
+with `query-the-value-never-the-lookalike` loaded (2026-09-02). The calibration
+holds: every bite was cheaper and mostly externally caught, and none was
+prevented by the passive home.
+
 ## The Reconciliation (the distinct value)
 
 The register item demands reconciliation with metacognition and immune-system

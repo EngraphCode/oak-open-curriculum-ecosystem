@@ -947,21 +947,49 @@ posted, then fired within the minute — fully auditable). Then:
   owner grant or the owner's own merge — the gate opens the button, the
   boundary says who may press it). `--admin` is FORBIDDEN: it bypasses the
   gate instead of satisfying it. Proven twice 2026-07-06 (#306, #305 both merged cleanly
-  once threads resolved). Notify the owner at this action moment (send the
+  once threads resolved). The same class wears an API coat: a merge call
+  (REST, or a GitHub connector's merge tool) issued under the owner's ADMIN
+  credential against `mergeable_state: blocked` is not a probe of the refusal
+  reason — under admin credentials there is no probe, it merges past the
+  protections (worked instance 2026-08-31, a fork PR with a required review
+  and fifteen unresolved threads; owner correction, verbatim: "I am an admin,
+  you use my credentials, you bypassed the checks"). "Merge it now"
+  authorises a merge THROUGH the protections, never past them; only fresh,
+  explicit, per-instance owner authorisation naming the bypass is the
+  exception. Notify the owner at this action moment (send the
   notification; never suppress it on inferred presence —
   `owner-attention-at-action-moments`).
+- **A cancelled run is not a conclusion.** CI's concurrency group cancels the
+  in-flight run on every push, so a rollup on a superseded head reading
+  `failure` or `cancelled` is the superseding push's own cancellation, never a
+  verdict to diagnose or report (check the head sha before reading any
+  result); the merge-deciding evidence is the required check reaching a
+  genuine conclusion on the CURRENT head, and no push lands on a branch whose
+  merge-deciding run is in flight (owner-corrected 2026-08-31 after eight
+  consecutive runs were cancelled inside one review loop).
 - `BLOCKED` normally means the gate is genuinely unsatisfied — unresolved
   threads, a failing or pending check, or a genuinely required review that
   has not landed — with two known divergences from the full gate: the
   never-fires case above (PR #391: a required context nothing posts holds
   `BLOCKED` at green-everything) and the converse CLEAN-with-OWED-reviewer
   case (state machine item 3). It never means "any agent merge is
-  prohibited". The required-review leg is author-dependent (verified
-  2026-06-24): a
-  bot-authored PR shows `BLOCKED` until the code-owner approval lands; a PR
+  prohibited". The required-review leg is author-dependent, and its live
+  configuration is the RULESET, never a paragraph's memory of it: since the
+  owner's 2026-07-21 ruling, ruleset 19395183 ("Code-owner review gate
+  (bot-exempt by owner ruling 2026-07-21)") exempts bot-authored PRs from the
+  code-owner review requirement, so a bot-authored PR waits on no owner
+  approval click — the review legs that bind it are the settlement machine's
+  own (a requested reviewer must bind the tip; merge-bot's
+  `SILENT-WAIT-NO-REVIEWER` is that leg, not a missing approval). A PR
   authored under the owner's own auth shows `CLEAN` and merges directly —
   GitHub auto-satisfies the code-owner requirement when the author IS the
-  sole code owner, and forbids self-approval.
+  sole code owner, and forbids self-approval. Read the live ruleset before
+  asserting the gate to anyone: on 2026-09-02 two seats relayed a stale
+  version of this leg to the owner as a live blocker, one from doctrine
+  prose and one from an inherited lane record (owner correction, verbatim:
+  "I think the bot is on the bypass list") — a rule's worked instance is
+  never the current configuration (`query-the-value-never-the-lookalike`),
+  and the ruleset's own title carried the fact.
 - **The truly-green gate authorises merge-READINESS, not every merge**
   (worked instance PR #323, 2026-07-08): a PR the agent AUTHORED in-session
   whose reviews are the agent's own sub-agents sits behind a second,

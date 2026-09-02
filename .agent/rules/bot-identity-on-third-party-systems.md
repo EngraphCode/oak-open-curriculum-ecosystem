@@ -146,7 +146,12 @@ the first hop. Confirm the id from the API, never from prose:
      `.user.login` / `.user.type` in the same call and read it before
      proceeding. An empty `GH_TOKEN` is invisible at the call site; the
      echo-back is the only reliable detector, and it converts a silent
-     misattribution into a same-call stop.
+     misattribution into a same-call stop. Sequenced LATE it detects and
+     cures nothing: a PR created under the ambient owner credential was
+     caught by an echo that ran AFTER the write, and the cure was
+     close-and-recreate under the bot (2026-08-18); the tripwire's whole
+     value is before the first write. For an installation token `/user`
+     answers 403 — read the timeline actor instead (2026-09-01).
 
 ## Action (all other systems)
 
