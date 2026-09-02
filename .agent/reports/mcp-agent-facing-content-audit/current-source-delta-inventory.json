@@ -1364,7 +1364,7 @@
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.ts",
-      "semanticSha256": "b9d5b7fb4c8023b7103be5c47af1cd46d0e93298ff27c14d1f22e3b1e261b426",
+      "semanticSha256": "f4ebac6b2dd5ae1d705d3e3b51e4af905d75b268845238cd8f60703c026f4355",
       "itemIds": [
         "C453",
         "C454",
@@ -1497,7 +1497,7 @@
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-keywords.ts",
-      "semanticSha256": "f0058210584f2279a9337e549790da2d10e5f5a1ae2728bf01bbf9c648a572b3",
+      "semanticSha256": "6438ad06c80f66dd74f82ebb52172e2abb9cb6b8621c9838d2ad720b31d6c9eb",
       "itemIds": [
         "C543",
         "C544",

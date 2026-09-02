@@ -151,8 +151,12 @@ export const SDK_CODEGEN_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
   // consumer; test infrastructure only.
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/test-helpers/schema-cache-reader.ts':
     excluded('f5b9dab9db0897facc78f5d565844ec2ce84e40dd6621eb6f843d19d182988cc', TEST_ONLY),
+  // PR 949 review cure (Claude review finding): the get-keywords pagination
+  // note now points agents at the result's pagination signal (hasMore /
+  // nextOffset) instead of prescribing a blind limit-300 walk — the note's
+  // own removal condition ("when that signal exists") arrived with the echo.
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.ts':
-    reviewed('b9d5b7fb4c8023b7103be5c47af1cd46d0e93298ff27c14d1f22e3b1e261b426', [
+    reviewed('f4ebac6b2dd5ae1d705d3e3b51e4af905d75b268845238cd8f60703c026f4355', [
       'C453',
       'C454',
       'C456',

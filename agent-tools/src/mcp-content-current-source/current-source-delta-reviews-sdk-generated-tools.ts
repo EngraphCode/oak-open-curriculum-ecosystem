@@ -62,7 +62,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C542',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-keywords.ts':
-      reviewed('f0058210584f2279a9337e549790da2d10e5f5a1ae2728bf01bbf9c648a572b3', [
+      reviewed('6438ad06c80f66dd74f82ebb52172e2abb9cb6b8621c9838d2ad720b31d6c9eb', [
         'C543',
         'C544',
         'C546',
