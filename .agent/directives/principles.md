@@ -34,7 +34,11 @@ scope):
 3. **Could it be simpler without compromising functionality or quality?** — the
    [§First Question](#first-question).
 4. **Would it be simpler if the system changed?** Ask whether moving the system
-   dissolves the problem, rather than solving it inside the current shape.
+   dissolves the problem, rather than solving it inside the current shape. A
+   classification instrument is often a symptom of the system it grades: a
+   census existed because the tree did not sort, and asking this question of
+   each of its findings flipped four of five proposed changes from standing
+   activities into constructed properties (2026-08-19).
 5. **Optimise for user value.**
 
 A question arriving as an either/or is usually a false frame (owner standing

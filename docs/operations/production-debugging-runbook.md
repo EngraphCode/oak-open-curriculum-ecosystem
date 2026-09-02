@@ -520,6 +520,35 @@ grep '"level":"error"' logs.txt | jq .
 grep '"correlationId":"req_123"' logs.txt | jq .
 ```
 
+### Clerk instance identification
+
+When a token path fails while metadata looks right, identify WHICH Clerk
+instance each side is bound to before theorising (a preview environment
+ran with mispaired publishable and secret keys for weeks, invisible because
+the unauthenticated probes never exercised the token path; found
+2026-09-02, guarded at bootstrap since). Three facts that make the check
+one command each, without exposing a key:
+
+- A JWKS `kid` IS the instance id — the frontend API and the backend API
+  agree on it, so the `kid` in a served JWKS names the instance behind a
+  publishable key.
+- `clerk api /instance` identifies the instance a secret key belongs to
+  without printing the key.
+- The backend verify endpoint answers `404 not found` for a VALID key of
+  ANOTHER instance and `clerk_key_invalid` for a malformed key — the two
+  failures are distinguishable, so a 404 on a known-good key is the
+  mispairing signature.
+
+A "transparent" relay retired from a path needs an END-TO-END token proof,
+never a metadata proof: the metadata was correct while every token was
+refused.
+
+Two evidence traps from the same investigation: `vercel env pull` writes the
+literal placeholder `[SENSITIVE]` for sensitive variables, so any pairing
+"proof" built on that file proves nothing (one was withdrawn); and full-text
+runtime-log queries match loosely — a "28 signed-in" count assembled from a
+substring query was noise. Count from a structured field, or not at all.
+
 ### grep Patterns for Stdio Logs
 
 ```bash

@@ -151,16 +151,27 @@ serialised `content` blocks AND the decorated `structuredContent`. This is the
 contract that keeps the server renderable across the whole client population.
 
 > **Client rendering varies — and that is exactly why the dual shape matters.**
-> Different hosts surface different halves of the response: Cursor surfaces only
-> `content` blocks; Claude Code surfaces only `structuredContent`; claude.ai and
-> ChatGPT surface both. A tool that emitted `content: []` (structuredContent
-> only) was historically invisible in content-only clients (rendered
-> `(omitted)`) — the EEF tool's `content: []` shape was aligned onto the dual
-> shape for this reason. When validating in a single host, judge "did the data
-> arrive" by what _that host_ renders, but treat a missing `content[1]`
-> serialised block on a success as a **P1 contract regression**, not a client
-> quirk. Over curl (Appendix B) you always see the full envelope regardless of
-> host.
+> Different hosts surface different halves of the response, and which half is
+> a DATED observation per client version, never a standing fact: Cursor
+> surfaces only `content` blocks; Claude Code on its v2 MCP runtime (2.1.25x,
+> observed 2026-09-02 on an OAuth seat) renders only the `content` text and
+> does not surface `structuredContent`; claude.ai and ChatGPT surface both. A
+> tool that emitted `content: []` (structuredContent only) was historically
+> invisible in content-only clients (rendered `(omitted)`) — the EEF tool's
+> `content: []` shape was aligned onto the dual shape for this reason. When
+> validating in a single host, judge "did the data arrive" by what _that
+> host_ renders, but treat a missing `content[1]` serialised block on a
+> success as a **P1 contract regression**, not a client quirk. Over curl
+> (Appendix B) you always see the full envelope regardless of host.
+>
+> **What a Claude Code seat can and cannot observe** (2026-09-02, same run):
+> `tools/list` yes — the loaded tool set IS the inventory; `resources/list`
+> yes (the resource-listing tool); `prompts/list` NO — a raw JSON-RPC error is
+> not surfaced, only the absence of slash commands; `structuredContent` NO;
+> the server-side `-32602` YES — an empty-args call reaches the server and the
+> SDK's "Input validation error: Invalid arguments for tool …" comes back
+> verbatim. Record every unobservable row as N-A / unverified, never as PASS
+> by inference.
 
 ---
 

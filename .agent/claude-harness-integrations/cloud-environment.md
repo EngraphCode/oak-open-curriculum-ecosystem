@@ -244,6 +244,95 @@ pickup; its delivery plan is authored by its implementer at pickup per the
 plan estate's own doctrine. First measurements to beat: ~15 minutes for a
 cold full suite, minutes warm, dominated by the turbo build/test legs.
 
+## Known provisioning defects and in-session cures (dated)
+
+Recorded first-hand by cloud seats between 2026-08-24 and 2026-09-01. Each
+is a defect of the image or the sandbox, never a gate to narrow (owner
+re-confirmed 2026-08-26, verbatim: "We NEVER disabled checks, don't ask
+again"). **A deterministic local-only failure with a green CI twin is an
+environment defect with a findable mechanism — fix it at the environment;
+never ask to route around it.**
+
+- **`PNPM_HOME` unset** while pnpm lives at `/opt/node22/bin/pnpm`, so
+  `repo-check`'s trusted-location probe fails on the commit chain. Safe
+  homes for the cure: image-level (pre-install) configuration, or adding
+  `/opt/node22/bin/pnpm` to `resolvePnpm`'s trusted candidates — never a
+  late export in the post-install session script, which re-points pnpm's
+  store root after `node_modules` exists (the store-rebind class).
+- **Image git 2.43** lacks `--no-lazy-fetch` (needs ≥ 2.45), on which
+  `agent-tools test:e2e` dies. A shallow clone also lacks the
+  `validate-mcp-content` `BASELINE_COMMIT`; `git fetch --depth=2000`
+  restores it (a guarded unshallow in the setup script is the candidate
+  cure).
+- **Playwright chromium revision mismatch**: the image ships build 1194
+  at `/opt/pw-browsers`; the repo's pin wants 1234; browser downloads are
+  egress-blocked on some sessions. Where egress allows,
+  `pnpm exec playwright install chromium-headless-shell` from an app
+  directory with `PLAYWRIGHT_BROWSERS_PATH` unset (it lands in `~/.cache`)
+  plus a symlink of the 1234 build into `/opt/pw-browsers` satisfies both
+  lookup paths.
+- **turbo strict `envMode` strips the sandbox's plumbing from gate
+  children**: only `globalPassThroughEnv` plus turbo's built-in allowlist
+  survive (PATH does; `PLAYWRIGHT_BROWSERS_PATH`, `HTTPS_PROXY`,
+  `NODE_EXTRA_CA_CERTS` do not), so `test:ui` children look in the wrong
+  browser cache and corepack children die on `SELF_SIGNED_CERT_IN_CHAIN`.
+  Session-side cures: `COREPACK_DEFAULT_TO_LATEST=0` (no network; the
+  pinned version) and a PATH-front `pnpm` shim restoring the WHOLE proxy
+  tuple including `NO_PROXY` — a shim that omits the exclusions converts
+  the failure into its inverse (Playwright's webServer readiness probe
+  routed to the proxy and never saw localhost). Repo-side candidate:
+  declare the plumbing in turbo `globalPassThroughEnv`, a gate-config
+  change that needs its own review.
+- **Headless Chromium honours the env proxy but not its MITM CA**, so
+  CONNECT tunnels to font and CDN hosts die slowly: a browser test that is
+  slow or flaky ONLY in a proxied container is a proxy-CA mismatch until
+  proven otherwise — probe with a request-lifecycle logger before touching
+  the test. Cure: append `fonts.googleapis.com,fonts.gstatic.com,cdn.jsdelivr.net`
+  to `NO_PROXY`/`no_proxy`; the one failing test went green and the whole
+  showcase suite dropped from 1.7 minutes to 16 seconds. The restricted
+  runner doubles as a coverage sensor: the test that cannot run
+  hermetically is the test with the environment coupling (a stale-sheet
+  race spec navigating without the hermetic external-origin interception,
+  cured on-convention).
+- **The session scratchpad path exceeds the 108-byte Unix-socket
+  `sun_path` limit** (~150 characters), so tsx's IPC pipe under
+  `node_modules/.tmp` fails `EINVAL` and `pnpm install`'s postinstall dies.
+  Worktrees that need installs live at a short path (`/tmp/<name>`); the
+  scratchpad stays right for plain files.
+- **`--force-with-lease` is denied by the cloud permission classifier**;
+  a branch restart after a merged PR goes `git checkout -B <branch> <base>`
+  then a plain push.
+- **Harness checkpointing auto-commits held work** with an accurate
+  message under the bot identity and without the seat invoking git:
+  held-work discipline cannot assume a dirty tree stays dirty in a cloud
+  session, and a freeze decision accounts for auto-checkpoint.
+- **The merge-bot front door cannot run in a cloud session**: the bot's
+  machine-local private key is absent and `.github/merge-bot.json` names
+  the upstream repo, so an owner-authorised merge executed through the
+  session's GitHub connector runs under the OPERATOR credential — a
+  credential-selection gap against `bot-identity-on-third-party-systems`,
+  recorded as an environment fact, never a practice to normalise.
+- **A cloud seat cannot message a local seat**, so a cloud-to-local
+  handoff rides the pull-request record: the full handoff landed as a
+  comment on the PR, and the local seat's persistent watch on that record
+  (fork tip, branches, open PRs; one line per new event) was the wake path
+  that caught it within a minute (2026-09-01). Exclude the acting bot's
+  own comments from such a watch's filter, or it echoes the ack back as an
+  event.
+- **`cloud-environment-setup.sh` has not executed since its 2026-09-01
+  shell-hygiene refactor** (READ, shellcheck and the local preflight
+  harness only — it needs root, apt and `/usr/local`); its first real run
+  is the first fresh provisioning after that change lands, and that run is
+  the refactor's falsifier.
+
+Two operating rulings pair with the list. **Cloud sessions set their own
+session name from the Practice identity** via the remote session-title
+tool (`<agent name> - <intent>`; owner ruling 2026-08-31). **One
+environment definition serves both estates**: castr's copy of this document
+is the definition of record for the shared script (owner ruling
+2026-08-25); at the time of writing this document still carries a parallel
+definition rather than a reference to that copy.
+
 ## Fail-fast contract
 
 The script exits non-zero on any failure and session creation then fails
