@@ -605,8 +605,9 @@ because both touch the same plan files.
   design-lane ARC channel, 2026-08-17), so the card ruling is the mint's
   warrant and the executing tranche PR cites this node's §Mechanism.
   Under the successor node the identities tier is `oak/`-family pack
-  territory (packs: identity · content · config); the seam migration
-  re-homes it with the rest of `oak/` when that delivery plan executes.
+  territory (packs: identity · content · config · experience-tuning, the
+  Atlas's four classes); the seam migration re-homes it with the rest of
+  `oak/` when that delivery plan executes.
 - **`design-system-completion`** (sketch; authority stripped, knowledge
   conserved — owner ruling 7 of 2026-08-17, landing with MCP-613): its
   W2.0–W2.9 story tables were consulted as conserved knowledge for the

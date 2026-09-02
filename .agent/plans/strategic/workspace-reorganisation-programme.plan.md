@@ -17,7 +17,7 @@ depends_on:
     kind: beneficial
 owner_gates: []
 tickets: []
-last_updated: 2026-08-14
+last_updated: 2026-08-19
 ---
 
 # Workspace reorganisation programme

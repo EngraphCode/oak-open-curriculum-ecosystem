@@ -1162,7 +1162,13 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
   for the session, never a landing-seat re-grade. (3) The Castr fixture-pack README says
   ADR-108's step ordering "is amended by the seam migration" while ADR-108 is unchanged:
   a sequenced deferral, named, not a hidden one — the ADR amendment lands with the
-  seam-migration delivery plan (ADRs state should-be; means live in plans).
+  seam-migration delivery plan (ADRs state should-be; means live in plans). (4) Second
+  round, 13:33Z: the Atlas text names four `oak/` pack classes (identity · content ·
+  config · experience-tuning) while its seam diagram renders three — a rendered
+  artefact's diagram edit needs a rendered re-verification, so it is the session's;
+  the tango node's restatement was corrected to four in this fold. Also noted, not
+  cured: the week-sleep sweep report's headline worktree total (47) disagrees with its
+  44 + 5 rows; a dated archival report of a retired seat.
 - **Retired seats' claims.** `f04cd57b` and `645b9e0b` closed at this landing; their
   handoff records stay on disk under `.agent/state/collaboration/handoffs/` as the
   instance-tier record of what those seats froze.
