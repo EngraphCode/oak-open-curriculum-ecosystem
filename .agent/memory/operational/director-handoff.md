@@ -264,8 +264,10 @@ first-hand as of 2026-06-25.
 
 > **§FOLD LANDED, 2026-09-02 ~13:xxZ (Finch calls Pinnacle, `c91bd4`, implementer at the
 > #915 landing seat) — THIS SUPERSEDES THE WEEK-SLEEP BANNER BELOW.** The 2026-08-19 fold
-> (`coordination/2026-08-19-1651ad`, PR #915) lands on main by that PR's merge commit at
-> owner word: the toolkit-re-architecture node is on main, `workspace-reorganisation-programme`
+> (`coordination/2026-08-19-1651ad`, PR #915) LANDED on main as `777e9131c` (the PR's merge
+> commit, owner-merged 2026-09-02T14:05Z); the lane that follows at owner word is MCP-661 on
+> `jimcresswell/mcp-661-split-delivery-plan` (the split delivery plan, the #915 routings, one
+> PR). At the fold: the toolkit-re-architecture node is on main, `workspace-reorganisation-programme`
 > is `superseded`, the principles gradient amendments, three graduations and the atlas
 > five-change set ride with it. NO DIRECTOR IS SEATED. The week-sleep ended at owner word on
 > 2026-09-02; Director claim `f04cd57b` (Avocet) and design-lane claim `645b9e0b` (Yarrow)

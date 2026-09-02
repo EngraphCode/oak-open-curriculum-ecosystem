@@ -1172,3 +1172,32 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
 - **Retired seats' claims.** `f04cd57b` and `645b9e0b` closed at this landing; their
   handoff records stay on disk under `.agent/state/collaboration/handoffs/` as the
   instance-tier record of what those seats froze.
+- **LANDED, and the lane that follows (2026-09-02 ~14:2xZ, same seat).** #915 merged as
+  `777e9131c` (the PR's merge commit, owner-merged 14:05:45Z on this seat's final head
+  `475a8193d`). Four Copilot rounds settled (raised 9 → 3 → 2 → 0 open); rounds 3 and 4 were
+  re-raises and housekeeping. Owner word mid-loop, verbatim: "keep 915 tight" (with the
+  pr-lifecycle and proportionality skills invoked — read as this seat's loop checkpoint having
+  failed: no PDR-140 intake declaration or tally at PR-open; failure-mode event `9874ce04`;
+  the curator conserved it as recurrence-despite-home, the declaration clause already living
+  in `review-feedback-defaults-to-triage` §Trigger). Owner word after the merge, verbatim:
+  "for the post-merge routings, take any unaddressed 915 comments as well, then all of that
+  goes into the same branch as the delivery plan, to minimise the total number of prs."
+  Claims `6ce14377` (this seat), `f04cd57b` and `645b9e0b` closed; the #908 Copilot thread
+  replied to and resolved. Kiln merged main into `handoff/jim-september` at `ba7e37d78`
+  (their event 14:24Z; the fold's 156 napkin lines carried and processed).
+  **The lane: MCP-661**, branch `jimcresswell/mcp-661-split-delivery-plan` from main at
+  `777e9131c`, claim `188c28b1`, one PR carrying (a) these record true-ups, (b) the uncured
+  #915 items, (c) the split delivery plan node `oak-open-curriculum-mcp-extraction`
+  (serving `toolkit-re-architecture`). Dispositions of the routings above on that branch:
+  (1) the "User groups and value" section authored on the toolkit node as a dated additive
+  amendment presented for the owner's word (moved off "the consolidation session" at the
+  one-branch word); (2) the patterns README barrier row gains a dated clause admitting
+  decision-move patterns proven by an executed, owner-ruled decision; (3) the Castr README
+  names the amending instrument by id (the delivery plan carries the ADR-108 amendment as a
+  slice; ADR-108 stands until it lands); (4) the Atlas diagram gains `experience-tuning`
+  with a rendered proof in the plan's readiness record; the sweep report gains a dated
+  addendum stating that its 44 + 5 rows cannot re-derive the headline 47. Round 3's cures
+  landed on #915 itself (`475a8193d`: the tango node's `ratified_date`, §Mechanism item 2,
+  AC3; the toolkit node's `last_updated`). Fresh dependency map at this seat (manifests at
+  `777e9131c`): 33 members; the two apps' runtime closure 17 packages, 25 with dev-time
+  deps; 8 outside; nothing published — the delivery plan carries the table.

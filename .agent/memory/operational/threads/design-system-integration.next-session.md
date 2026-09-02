@@ -3778,3 +3778,10 @@ seat and the #915 fold landing seat, at direct owner word; no Director seated.
   CLOSED at this fold** at the owner's plan-gate answer of 2026-09-02; the handoff record
   stays on disk. The lane's next pickup (T1a-ii onward, per the node) opens at owner
   word from a fresh claim.
+- **Rounds 3 and 4 on #915 (13:45Z, 13:58Z) and the merge.** Round 3 found the machine-readable
+  stamp behind the prose: `ratified_date` moved to 2026-09-02 (the node's own convention — the
+  field moved 08-17 → 08-19 at the previous re-ratification), §Mechanism item 2 is marked as the
+  end-state architecture with K2 stating what this node lands, and AC3 is narrowed to the derived
+  roster module (the demo's consumption of it is the completing node's work) — commit `475a8193d`.
+  Round 4 raised nothing on this node. #915 merged as `777e9131c` (owner-merged 14:05Z); the #908
+  Copilot thread replied to and resolved under the bot. This node is settled at that head.
