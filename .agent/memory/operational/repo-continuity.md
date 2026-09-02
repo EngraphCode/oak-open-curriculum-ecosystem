@@ -51,7 +51,10 @@ forward-asks remain.
   defect — mispaired Clerk keys in the preview environment — cured by the
   owner's key correction plus a bootstrap key-pairing guard at `7579d4269`;
   what remains is the owner's Cursor proof and approval, then merge and
-  release. The node
+  release. At owner word (2026-09-02, "option 2") the fix commit is
+  cherry-picked onto #945's branch as `6028ac95c` so its preview can
+  authenticate a Claude Code v2 session before #946 merges; #945 stays
+  paused on its resume steps. The node
   `.agent/plans/delivery/mcp-655-oauth-issuer-alignment.plan.md` (amended
   2026-09-01 to the PRM-only scope) and the thread record §Lanes carry the
   ordered next steps. Older slice: PRs

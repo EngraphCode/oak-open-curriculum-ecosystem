@@ -1461,3 +1461,69 @@ pinning-by-name, not sequencing-by-hope.
   `clerk api /instance` identifies a secret key's instance without exposing it; the BAPI
   verify endpoint answers `404 not found` for a valid key of another instance and
   `clerk_key_invalid` for a bad key.
+
+## 2026-09-02 ~09:1xZ (Kiln holds Slag, 1447f4, implementer) — compaction freeze after the proof day: #946 with Matt, fix cherry-picked onto #945 (metacognition / free-play / concept-exploration / wrap; owner-invoked)
+
+- Landed since the proof-day block: PR #946 description rewritten for the reader (problem /
+  fix / second defect + guard / proof / what to review / follow-ups); Linear MCP-655 trued
+  (landed-state comment incl. the owner's SDK v2 exploration note — "do not move to v2 yet");
+  at owner word ("let's do option 2") the fix commit `2f14f6f76` cherry-picked onto
+  `feat/innovation-kit-updates` as `6028ac95c` and bot-pushed (`16d87a7cf..6028ac95c`); its
+  branch-alias preview rebuilt and the PRM names Clerk (probed 08:57Z); bot comment on #945
+  (issuecomment-5507061660); Luna updated by directed event `250ccdbb`; freeze broadcast
+  `944ab610`; formation letter
+  `.agent/experience/2026-09-02-kiln-holds-slag-the-proof-that-found-the-second-defect.md`.
+- Concept-exploration (the option-2 decision, compressed): three ways to make #945 testable —
+  wait for #946 to merge (blocks on the owner's Cursor proof and Matt), cherry-pick the one
+  fix commit (self-contained; the identical patch reconciles at the later merge of `main`), or
+  merge the whole fix branch into #945 (drags the guard, the records and the plan node — an
+  add/add conflict at the next merge of `main`). The owner chose the cherry-pick; the plan node
+  was left out for exactly that conflict reason. Decision-sufficient as recorded on #945 and in
+  Luna's update.
+- Free-play seeds (not acted on, not promised): (1) `preview-serves` could send one
+  authenticated request with a throwaway token and assert the 401 reason is
+  token-invalid-shaped rather than `OAuth token not found` — cheap, but the bootstrap guard
+  already fails the build on the same condition, so it only pays if a THIRD env-drift class
+  appears; (2) the `.mcp.json` untracking PR is a five-minute change that removes a whole
+  class of "which worktree's config am I on" confusion — owner-worded, pointer only.
+- Loss scan (what only this context held, and where it went): the mcpjam invocation shapes →
+  the `mcp-inspector` skill already carries them; the bot-write wrapper recipe → the merge-bot
+  doc; the isolation-guard cures → thread record §Lanes platform bullet + the proof-day block
+  above; the withdrawn `[SENSITIVE]` "proof" and its correction → proof-day block; the
+  Cursor-proof gate and merge doctrine → thread record + PR description §Merging; the SDK v2
+  exploration → PR §Follow-ups + Linear comment. Deliberately context-only: the scratchpad
+  shell wrappers and the replay/verify scripts (their method is recorded; their bytes are
+  trivial to re-derive), the Vercel runtime-log queries (none decision-bearing), the withdrawn
+  disclaim patch (substance on the ticket).
+- Promises sweep: "keep Luna updated" → discharged (`250ccdbb`, `944ab610`); SDK v2 note on PR
+  + Linear → discharged 2026-09-01; #945 comment → discharged; untrack `.mcp.json` → forwarded
+  as a PR §Follow-ups pointer, ticket un-minted (owner's call); merge #946 at approval → this
+  seat at resume (or the Director if one is live); the owner's Cursor proof → owner-held, not
+  a seat promise; the seven expired plan gates in the session-start alert → NOT surfaced today
+  (outside the narrow lane at the owner's "get out of the rabbit hole"; the alert repeats
+  mechanically at every session start, so nothing is lost by the omission — but it is an
+  omission, named here).
+- Attribution inferences flagged: "every fresh preview build since 2026-08-05 refused every
+  token" — the 2026-08-05 date is observed (the owner's Vercel screenshot); "every build
+  since" is inference from the guard's failure mode, no intermediate build was tested; the
+  `/reload-plugins` reset as the cause of the cwd drift — inference (marked `?` above); "Matt
+  has #946" — observed (assignee); whether he has started is unknown.
+- Blind-spot bounds: no comms watcher today (n=1, owner in the terminal — swept by hand); Luna
+  is frozen, so no reply is expected and none would be seen; yesterday's panel subagents are
+  dead contexts; the Cursor path is unproven by this seat (owner-held); production is unproven
+  post-merge until release; on the REBUILT preview the proxy path was proven by this session's
+  own `oak-preview` Connected and the direct path by mcpjam.
+- Index of homes (conserved here and in the thread record §Lanes): thread record §Lanes (both
+  lanes) = the map; PR #946 description (§Follow-ups, §Merging) = the reader's contract; Linear
+  MCP-655 = visibility; napkin blocks 2026-09-01 ~14:3xZ, post-resume, 2026-09-02 proof day,
+  this block; formation letters 2026-09-01 and 2026-09-02; comms events `5dbec23b` (handover
+  in), `250ccdbb` (Luna update), `944ab610` (freeze); claim `b6efbce3` retained-with-reason.
+- External bound and error signature: every correction today came from the owner, none from
+  my own checks — passive waiting, PR bloat, Python-for-edits, the placeholder "proof", the
+  unproven token path; three Cricket checks returned ON-TRACK across the same window. Cricket
+  is a lens on priority and proportion, not on method or evidence provenance. Point external
+  scrutiny at those two: "which tool did you use, and where did that evidence actually come
+  from?"
+- Metaloss fixed point: a second pass re-found only the 2026-08-05 inference and the
+  unsurfaced gate alert, both named above; a third pass would only re-find them. The
+  recursion closes here.

@@ -110,6 +110,18 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   owner's code-owner approval (bot-authored); `pnpm agent-tools merge-bot merge --pr 945
   --expect copilot-pull-request-reviewer`. Copilot's request bound at open; the CODEOWNERS
   auto-requests (`jimCresswell`, `mantagen`) are GitHub's, not this seat's.
+- **2026-09-02 ~08:5xZ (Kiln holds Slag, at owner word "let's do option 2"):** the MCP-655 fix
+  commit `2f14f6f76` is cherry-picked onto the branch as `6028ac95c` (worktree
+  `.claude/worktrees/pr-945-innovation-kit`; the plan node deliberately not carried — `main`
+  brings its final version with #946 and a stale copy would add/add-conflict at the later merge;
+  registry regenerated on the tree and validated; picked tests green) and bot-pushed
+  (`16d87a7cf..6028ac95c`, local == origin, worktree clean). The branch-alias preview rebuilt
+  on the corrected preview keys and its PRM names `https://native-hippo-15.clerk.accounts.dev`
+  (probed 08:57Z), so a Claude Code v2 session can authenticate against it for the UAT smoke
+  subset BEFORE #946 merges. The key-pairing guard is NOT on this branch — the preview relies on
+  the corrected key alone. Bot comment on #945 (issuecomment-5507061660) explains the pick; Luna's
+  copy of this lane was updated by directed event `250ccdbb`. The merge of `main` (with #946)
+  reconciles the identical patch trivially. The lane remains Luna's; the resume steps above stand.
 
 ### Lane: MCP-655 OAuth issuer alignment — FIX LANDED on the branch (2026-09-01, Kiln holds Slag, 1447f4); reviews on the final diff and the owner-held preview proofs are what remain
 
@@ -155,15 +167,26 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   bootstrap naming both instance ids, never the secret; unit + mutation + live proofs).
   Rebuilt preview attests `Clerk keys paired {instanceId: ins_349N…}`; mcpjam direct-path
   sign-in → `initialize` 200 → tools list. Linear MCP-655 carries the landed-state comment
-  and a trued description. Remaining: (1) owner confirms `oak-preview` shows its tools in
-  `/mcp` (the Claude Code proof); Cursor — production first, then the preview (a preview
-  failure blocks merge unless the owner rules otherwise); (2) owner approval → merge under
+  and a trued description. Remaining: (1) the Claude Code proof is DONE (this seat's own
+  `oak-preview` Connected on the rebuilt preview, 2026-09-02, v2 runtime, no override);
+  Cursor — production first, then the preview (a preview failure blocks merge unless the
+  owner rules otherwise); (2) owner approval → merge under
   the standing doctrine; MCP-655 → Done; node → `archive/`; #945 resume trigger on the
   comms stream. Follow-ups queued as pointers (PR description §Follow-ups): MCP-656; the
   SDK v2 exploration (owner's word 2026-09-01); untracking `.mcp.json`.
+- **Freeze 2026-09-02 ~09:1xZ (compaction freeze at owner word; the seat continues):** claim
+  `b6efbce3` retained-with-reason (the same seat resumes; a successor adopts via this section);
+  freeze broadcast event `944ab610`; the PR description is the reader's contract (§Follow-ups:
+  MCP-656, the SDK v2 exploration, untracking `.mcp.json`, #945); the fix branch carries this
+  continuity commit on top of `8f59bae98`. Nothing is armed: no watcher, no cron, no Monitor;
+  the local dev server is stopped; subagents idle.
 - Platform observations for the successor (also in the napkin): the worktree-isolation guard
-  refuses heredocs, `$(…)` and multi-line arms — scratchpad Python scripts run as one plain
-  command are the working shape, and `bot-gh.sh` (mint + `GH_TOKEN` + `gh`) is the bot-write
-  wrapper; `EnterWorktree` killed a Monitor armed at the primary (exit 124 within ~30 s), so the
-  comms watcher is DOWN at the freeze and the seat swept with `comms list --since` instead
-  (n=1: Luna frozen, no other live seats).
+  refuses compound commands, `$(…)`, `env VAR=… pnpm …` and `--dir` — a scratch SHELL wrapper run
+  as one plain command is the working shape (the 2026-09-01 "Python scripts" shape was banned by
+  the owner on 2026-09-02: edits go through the Edit tool, never a script); `bot-gh.sh` (mint +
+  `GH_TOKEN` + `gh`) is the bot-write wrapper; from inside a `.claude/worktrees/` checkout
+  `EnterWorktree` refuses sibling-directory worktrees — `ExitWorktree` (keep) then `EnterWorktree`
+  by path from the launch directory; the shell cwd resets to the launch directory between
+  commands after an exit — check `pwd` before trusting a "local" result; `EnterWorktree` killed a
+  Monitor armed at the primary on 2026-09-01 (exit 124 within ~30 s); no comms watcher was armed
+  on 2026-09-02 (n=1: Luna frozen, owner in the terminal — the seat swept by hand).
