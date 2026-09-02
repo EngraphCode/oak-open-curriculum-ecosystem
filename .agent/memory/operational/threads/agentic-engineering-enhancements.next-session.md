@@ -39,8 +39,11 @@ additions into the fresh napkin and process them; both napkin and repo-continuit
 semantic merges. DONE 2026-09-02 ~14:3xZ after #915 landed: merge commit on
 `handoff/jim-september` (the napkin the one conflict; the fold's 156-line delta carried under a
 dated heading and routed into eight homes in the following commit, five items on distilled
-with candidate homes, dispositions on the napkin); branch pushed under the bot. Next on this
-lane: the owner's merge word on #951. Deep handoff taken at the owner's word ~13:4xZ with the seat kept live: the
+with candidate homes, dispositions on the napkin); branch pushed under the bot. WRAPPED
+2026-09-02 ~14:5xZ: #951 ready, all checks green, the owner merges; any post-merge true-up
+rides #954 at owner word; the seat stayed live only for a local-only data export (MCP-662,
+untracked). The next consolidation session starts from main's fresh napkin and the
+distilled entries' candidate homes (the owner named the distilled pass as the next session). Deep handoff taken at the owner's word ~13:4xZ with the seat kept live: the
 machine-local handoff record is
 `.agent/state/collaboration/handoffs/d88ab157-curator-napkin-only-consolidation-2026-09-02.md`
 (attached to claim d88ab157), the formation letter is

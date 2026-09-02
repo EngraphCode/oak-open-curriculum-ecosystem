@@ -537,3 +537,38 @@ is the Avocet heading.
   Recurrence-despite-home, one day after that clause landed on main; the plan template,
   not the rule, is where the step was missing. Conserved here at Finch's word (the curator
   conserves or drops); the interrupt ledger gets it at the next synthesis, not now.
+
+## 2026-09-02T14:5xZ (Kiln holds Slag, 1447f4, curator) — WRAP, seat live for the local export; #951 ready for the owner's merge
+
+- Landed since the resume: main merged into this branch as pre-computed (the dry run's
+  one conflict was the one conflict); the fold's 156 lines carried and processed into eight
+  homes; thread record trued; the owner's prompt-line edit committed owner-authored; #951
+  out of draft, all checks green, blocked only on the owner's approval. Owner word at the
+  wrap: merge #951, any final closeout rides #954 (Finch's MCP-661 branch, which touches
+  repo-continuity and two thread records but never the napkin — its post-#951 main-merge is
+  line-level). This entry and the three record lines below are the closeout, landed here so
+  #954 carries nothing of this seat's.
+- A second lane at owner word ("pull down the last 90 days of actions data, and store it
+  in-repo"): MCP-662. What the ask meant changed at the first sighting of its cost: "keep
+  the files locally but out of version control, they are ephemeral and for analysis". The
+  scaffolding built before that word (worktree, branch, ticket text saying gzipped-and-
+  committed, a README saying the same) was cheap and is being unwound, but the retention
+  question — tracked, or local-and-ephemeral? — was answerable at the ask, before any
+  scaffolding, by one card naming the size. Candidate clause for the data-drop shape:
+  surface retention and size at the plan, not at the landing.
+- Instrument facts, for the local dataset's README and any refresh: the runs listing caps
+  at 1,000 results per query (2026-07-20 has 1,325 runs; the day file held 1,000 and no
+  error was raised) — the cure is per-day counting against the API's own total plus
+  sub-day windows when a day exceeds the cap, and a coverage check per day; a bot
+  installation token reads Actions and gives a second 5,000/hour bucket, re-minted each
+  hour by a wrapper that re-runs the resumable script on exit 124; the performance-metrics
+  page has no API. Dataset home when the shards finish: `.agent/reference-local/
+  github-actions-90d-2026-09-02/` (gitignored); counts in its manifest.
+- Small recurrences this stretch, all self-caught: the grep census with no positive
+  control (homed above); a merge attempted over a dirty tracked file (git refuses; the fix
+  was a commit ahead of the merge, not the banned index-reset family); the watcher's
+  hourly backstop firing mid-wrap (re-armed, gap swept). None needed a new home.
+- Owner-decision items still open, one card each, unchanged: the duplicate staged wrap
+  edits on `chore/continuity-kiln-2026-09-02` in worktree `pr-943-engraph`; the four
+  product-defect pointers on this file's live-items block. `.cursor/mcp.json` lands with
+  #951 at the owner's merge — no separate card.

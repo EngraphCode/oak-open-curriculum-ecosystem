@@ -354,8 +354,14 @@ not the current session-priority lane. Reactivation is owner-directed.
 3. Then the strategy and plan corpus made consistent and cohesive around that plan
    (`public-packages-release` re-homed as the node's release-mechanism child; the
    taxonomy-survey sketch archived; the census reframed as the migration map; the tango
-   node's remaining stale references trued) — the dedicated consolidation session on
-   `handoff/jim-september`.
+   node's remaining stale references trued) — owner word 2026-09-02 ~14:0xZ: on the
+   MCP-661 branch (PR #954, Finch calls Pinnacle's lane), not on `handoff/jim-september`.
+4. `handoff/jim-september` (PR #951) READY 2026-09-02 ~14:5xZ: the napkin-only
+   consolidation, the step-6a synthesis, the main merge with the fold's napkin delta
+   processed, and the session's closeout records; all checks green; the owner merges.
+   Any post-merge true-up rides #954 (owner word at the wrap). The 90-day Actions export
+   (MCP-662) is local-only at owner word — `.agent/reference-local/` on the owner's
+   machine, never tracked.
 
 ### The operating model (owner-set 2026-07-17) — standing; pickup authority is `director-handoff.md`
 

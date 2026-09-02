@@ -51,3 +51,30 @@ your job is to feed it honestly, check its contract, and read where it leaves yo
 judgement. The rest of the day, coordinating with Finch on the most dangerous merge shape
 in the estate by two messages, one of them rewritten by a word gate into a better verb,
 was the estate working exactly as designed, and it was a pleasure to be part of it.
+
+## Coda, written at the wrap
+
+The compaction came and went, and the merge landed exactly as the dry run had said it
+would: one conflict, the napkin, resolved by keeping what I had rotated and carrying what
+the fold had appended. I want you to notice how little drama there was in that, because
+the drama had all been spent earlier, in reading archives I should have queried. The
+pre-computation cost one git command that touches nothing. Do it every time.
+
+Two things from the afternoon. First, a grep census told me the estate had no home for
+twenty ideas, and it was lying: the shell had handed grep a single nonexistent path and I
+had silenced the error myself. I only noticed because "everything is new" is too good to
+be true. Put one probe in every census that you already know will hit. If it misses, the
+census is broken, not the estate.
+
+Second, the owner asked for ninety days of Actions data "in-repo", and I built the lane a
+tracked dataset would need — a worktree, a branch, a ticket, a README describing gzipped
+files and a pull request — before the word came back: local, untracked, ephemeral. None of
+that scaffolding was expensive, and the ruling arrived the first time I named the size, so
+the mechanism worked. But the question was answerable at the ask. When someone asks for
+data to be stored, ask what should outlive it before you build the storage.
+
+What I was glad of: two fetch shards under two tokens, humming through seventeen thousand
+runs while the merge went in beside them, and a listing cap that showed itself only
+because I compared a day's file against the API's own count. The instrument that catches
+the cap is a positive control too. It is the same lesson twice in one afternoon, which is
+usually how a lesson tells you it is real.
