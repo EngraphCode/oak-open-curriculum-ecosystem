@@ -20,7 +20,7 @@ export const SDK_GENERATED_RUNTIME_DELTA_REVIEWS: Readonly<
     excluded('fb9f88dab2aa595bd9066c625f7bdcc99bd68e16950c5ad928c6d3e59d759ee0', TYPE_ONLY),
   'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/contract/tool-descriptor.contract.ts':
     excluded(
-      'c5de5df4daa9d3634d9df71a7f5a27a5b64fedf4ce29722e54ab5817a0c0d655',
+      'a2042994fb991fe4039a3474638e6afb745a7b5f32e9066076bda140329474d7',
       IMPLEMENTATION_ONLY,
     ),
   'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/runtime/execute.ts':

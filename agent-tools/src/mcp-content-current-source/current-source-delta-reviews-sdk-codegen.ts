@@ -123,7 +123,7 @@ export const SDK_CODEGEN_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDel
     ),
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/generate-tool-descriptor-file.ts':
     excluded(
-      '4b53c3f68697cd8b80d8b33bac3dea4e378155cf7940ea6416ddfe5ced5334aa',
+      '7b3efb0ee10a132148b6d2eb4339b326e44b2921cd6a844260500296d70cc8c9',
       IMPLEMENTATION_ONLY,
     ),
   'packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/generate-tool-file.ts':

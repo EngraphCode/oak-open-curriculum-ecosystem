@@ -20,17 +20,14 @@ import type { Tool } from '@modelcontextprotocol/sdk/types.js';
 import type { ZodType, core } from 'zod';
 import type {
   SecurityScheme,
-  SourceAttribution,
   ToolAnnotations,
   ToolMeta,
   StatusDiscriminant,
   InvokeResult,
-  PaginationEcho,
 } from '../../../../mcp-protocol-types.js';
-import { DOCUMENTED_ERROR_PREFIX, derivePaginationFromLinkHeader } from '../../../../mcp-protocol-types.js';
 
-export { DOCUMENTED_ERROR_PREFIX, derivePaginationFromLinkHeader };
-export type { SecurityScheme, SourceAttribution, ToolAnnotations, ToolMeta, StatusDiscriminant, InvokeResult, PaginationEcho };
+export { DOCUMENTED_ERROR_PREFIX, derivePaginationFromLinkHeader } from '../../../../mcp-protocol-types.js';
+export type { SecurityScheme, SourceAttribution, ToolAnnotations, ToolMeta, StatusDiscriminant, InvokeResult, PaginationEcho } from '../../../../mcp-protocol-types.js';
 
 export interface ToolDescriptor<
   TName extends string,

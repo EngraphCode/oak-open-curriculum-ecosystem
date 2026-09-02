@@ -18,6 +18,11 @@
  * @packageDocumentation
  */
 
+import type { PaginationEcho } from './pagination-echo.js';
+
+export { derivePaginationFromLinkHeader } from './pagination-echo.js';
+export type { PaginationEcho } from './pagination-echo.js';
+
 // ---------------------------------------------------------------------------
 // Security schemes
 // ---------------------------------------------------------------------------
@@ -152,20 +157,6 @@ export interface ToolMeta {
 export type StatusDiscriminant<T extends string> = T extends `${infer N extends number}` ? N : T;
 
 /**
- * Structured echo of the upstream API's pagination signal.
- *
- * The upstream API signals further pages solely through an HTTP
- * `Link: <url>; rel="next"` response header, which MCP tool results
- * cannot carry. Paginated tools surface the signal here instead, so an
- * agent can tell from the payload alone whether more data exists.
- */
-export interface PaginationEcho {
-  readonly hasMore: boolean;
-  readonly nextOffset?: number;
-  readonly nextLimit?: number;
-}
-
-/**
  * Return shape of the generated invoke method.
  *
  * Preserves the HTTP status alongside the response payload so that
@@ -178,45 +169,6 @@ export interface InvokeResult {
   readonly httpStatus: number;
   readonly payload: unknown;
   readonly pagination?: PaginationEcho;
-}
-
-function parseNonNegativeInteger(value: string | null): number | undefined {
-  if (value === null || !/^\d+$/.test(value)) {
-    return undefined;
-  }
-  return Number(value);
-}
-
-/**
- * Derives the {@link PaginationEcho} for a paginated operation from its
- * upstream `Link` response header.
- *
- * Presence of a `rel="next"` link means more pages exist; its URL's
- * `offset` and `limit` query parameters, when well-formed, name the next
- * page. A malformed next-link URL still reports `hasMore: true` — the
- * relation is the signal, the URL parameters are a convenience.
- */
-export function derivePaginationFromLinkHeader(linkHeader: string | null): PaginationEcho {
-  if (linkHeader === null) {
-    return { hasMore: false };
-  }
-  const nextMatch = /<([^>]*)>\s*;\s*rel="next"/.exec(linkHeader);
-  if (!nextMatch || nextMatch[1] === undefined) {
-    return { hasMore: false };
-  }
-  let nextUrl: URL;
-  try {
-    nextUrl = new URL(nextMatch[1]);
-  } catch {
-    return { hasMore: true };
-  }
-  const nextOffset = parseNonNegativeInteger(nextUrl.searchParams.get('offset'));
-  const nextLimit = parseNonNegativeInteger(nextUrl.searchParams.get('limit'));
-  return {
-    hasMore: true,
-    ...(nextOffset === undefined ? {} : { nextOffset }),
-    ...(nextLimit === undefined ? {} : { nextLimit }),
-  };
 }
 
 // ---------------------------------------------------------------------------
