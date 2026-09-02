@@ -285,3 +285,48 @@ clean); Finch's worktree; voter rationales. External bound and error signature: 
 failures were all instrument-choice-before-spend and lookalike identity at the first write
 — point outside scrutiny there. A further pass re-finds the tuple mismatch, the claim's
 15:42Z freshness, and the rationale bound; the recursion closes here.
+
+## 2026-09-02T13:48:36Z (Kiln holds Slag, 1447f4, curator) — COMPACTION FREEZE at owner word; seat continues; processes stopped
+
+Owner word: "prepare for compaction /oak-metacognition /oak-wrap then stop all processes."
+The deep handoff taken minutes earlier is the record; this entry is the boundary delta only.
+
+METACOGNITION at the boundary: the inherited shape is the summary the harness will write,
+and a summary is a silent twin (evidence-shaped, loss unknown to its reader) — the
+post-compaction seat re-grounds from LIVE surfaces first: git status/log on the primary,
+claims mine, a comms gap sweep from this timestamp, the handoff record attached to claim
+d88ab157, then the thread record's top section. Nothing in the summary outranks those. The
+freeze binds until compaction lands: answering is in order, starting anything is not.
+
+RESUME MAP (post-compaction, same seat): (1) re-arm the canonical watcher FIRST (Monitor,
+persistent, the scratchpad script; F-95 assert; send under the registry tuple
+claude-code / claude-fable-5-1); (2) gap-sweep comms from 2026-09-02T13:48:36Z; (3) refresh or re-open
+claim d88ab157 if stale (fresh until 15:42Z at freeze); (4) the one open step: after #915
+lands, merge main into handoff/jim-september per the handoff record's shape (napkin
+rotation-vs-appends carry + process; repo-continuity semantic merge; merge commit only;
+full gate; bot push); (5) this freeze entry rides that commit. Work safety at freeze:
+handoff/jim-september at 433a4fca6 = origin; the only dirt is this entry and the owner's
+own prompt edit.
+
+PROCESS STOPS (canonical order): no heartbeat cron (PDR-082 n=2); no F-75 poll; the
+watcher stops LAST, after the freeze broadcast. No background tasks in flight (the last
+commit and push completed). No fleets, no subagents.
+
+## 2026-09-02T14:0xZ (Kiln holds Slag, 1447f4, curator) — post-compaction resume; #915 landed; the zsh census that read all-NONE
+
+- Resumed at owner word ("wait for 915 to merge"): watcher re-armed first (F-95 green), gap
+  sweep clean, resume broadcast c6e74539, a state-change monitor on #915 as the wake. #915
+  merged 14:05:45Z (merge commit's second parent = the dry-run head 475a8193d, so the
+  pre-computed merge shape holds: one conflict, this file).
+- RECURRENCE-DESPITE-HOME, shell-dialect edition: a grep census over a space-joined path
+  list in `$H` returned NONE for every probe — zsh does not word-split an unquoted variable,
+  so grep searched one nonexistent path and `2>/dev/null` hid the error. The fact is homed
+  twice already (`harness-shell-and-commit-edge-cases` L26; `verify-dont-trust` L391); the
+  mechanism that would have fired is "an all-NONE census is a probe failure until one known
+  positive is in the set" — the census had no positive control. Same class as Avocet's
+  `${PIPESTATUS[0]}` false-red in the block main brings in. Cure used: literal path list;
+  re-run showed hits. Candidate clause for the exit-codes / verify-dont-trust family: every
+  census carries one known-positive probe.
+- The merge cannot start over an uncommitted napkin (git refuses to overwrite a dirty
+  tracked file the merge touches; the index-reset family is banned), so the freeze entry
+  and this one land in their own commit ahead of the merge rather than riding it.
