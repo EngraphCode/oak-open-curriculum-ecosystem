@@ -1,3 +1,14 @@
+## [1.175.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.175.2...v1.175.3) (2026-09-02)
+
+
+### Bug Fixes
+
+* **continuity:** land the napkin list-style cure the index missed; true the .mcp.json follow-up ([aac9162](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/aac916222c30e52860e080fd8426dbecf2d9f6ba))
+* **mcp-http:** absorb the MCP-655 final-diff review round ([50f7687](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/50f76873e849e2e5c59dfe7da0c6d229a4700561))
+* **mcp-http:** fail bootstrap when the Clerk secret key is not paired with the publishable key ([7579d42](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7579d42693d83919f95324f27ca49aa0e61cea0b))
+* **mcp-http:** name the upstream authorization server in the PRM so RFC 9207 clients can sign in ([2f14f6f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/2f14f6f76d35332a59a495ee7f4ae67edb5a0f20))
+* **mcp-http:** settle the Copilot review round on the MCP-655 fix ([63ede62](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/63ede626348c76ffe73a6f727293d1943fd1cda8))
+
 ## [1.175.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.175.1...v1.175.2) (2026-09-02)
 
 
