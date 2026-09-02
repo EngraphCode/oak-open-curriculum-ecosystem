@@ -1,3 +1,10 @@
+## [1.176.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.176.3...v1.176.4) (2026-09-02)
+
+
+### Bug Fixes
+
+* **mcp-tools:** disable the two dead changelog tools ahead of the cache refresh ([62fc40f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/62fc40ffa1cbe4e15835713d0fb21330f2f4ea41))
+
 ## [1.176.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.176.2...v1.176.3) (2026-09-02)
 
 ## [1.176.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.176.1...v1.176.2) (2026-09-02)
