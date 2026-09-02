@@ -503,8 +503,10 @@ must match the mechanism): T1a-i → T1a-ii → {T1b, T1c, T1d}
 (independent of one another once the schema exists); T1e opens after
 T1a-ii + T1b; T2 opens last — it consumes T1b's admission arms (a pack
 must not be able to render ungated), T1c's serving/URL answer for the
-demo shape, T1d's roster + a11y derivation (pickup with zero source
-edits), and T1e's constructor (P7: Tango is born through it). The
+demo shape, T1d's derived roster module (pickup with zero source
+edits; the a11y-matrix derivation is the completing node's, per T1d's
+dated amendment — re-trued 2026-09-02), and T1e's constructor (P7:
+Tango is born through it). The
 MCP-613 records pass precedes any sibling-plan amendment this node owes,
 because both touch the same plan files.
 
@@ -672,8 +674,8 @@ because both touch the same plan files.
 | Expressive-value generator out of scope | Seat verdict | First question — authored CSS + validating manifest is the complete correct state; asset-property emission reuses the existing emitter; conditional generated-tier consequence stated, not foreclosed |
 | Structure before design (T1→T2 before T3→T4) | Seat verdict | Every rendered checkpoint exercises the shipping mechanism; first pixels stay close because T1 is six bounded slices (T1a-i…T1e), not one large one |
 | Admission = the G1 instrument extended, closure-scoped, manifest-driven | Owner (P3) + ratified sibling (G1) | One instrument, no second regime; the shared-instrument reading confirmed at the ratification card (2026-08-17) |
-| Tango proves №N in vivo on the showcase roster | Seat verdict | K2's falsifier exercised by the commissioning act itself, under sibling governance |
-| The a11y matrix derives from the installed roster | Review-driven (readiness record Y1) | A pack must not be able to render ungated; the same data act that adds visibility adds cells |
+| Tango proves №N in vivo — in this node through the derived roster module and the T1c static fixture consumer; on the showcase roster at the completing node (re-trued 2026-09-02 to the T1d amendment) | Seat verdict; re-trued at owner word 2026-09-02 | K2's falsifier exercised by the commissioning act itself; the showcase arm under sibling governance when the completing node lands |
+| The a11y matrix derives from the installed roster (the derivation lands at the completing node per the T1d amendment; in this node Tango's cells run over the static fixture consumer) | Review-driven (readiness record Y1); landing re-trued 2026-09-02 | A pack must not be able to render ungated; the same data act that adds visibility adds cells |
 | Identities are self-contained; the contract is the invariant; defaults bind at construction via the T1e constructor | Owner (P7, 2026-08-18) | The runtime override was the switching demo's mechanism persisting past its warrant (the 2026-08-18 defect ledger is the evidence); contract invariance is what makes new identities cheap; doctrine in DDR-012 |
 
 ## Ratification record (the card, asked and answered 2026-08-17)

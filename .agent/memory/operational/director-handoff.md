@@ -264,7 +264,7 @@ first-hand as of 2026-06-25.
 
 > **§FOLD LANDED, 2026-09-02 ~13:xxZ (Finch calls Pinnacle, `c91bd4`, implementer at the
 > #915 landing seat) — THIS SUPERSEDES THE WEEK-SLEEP BANNER BELOW.** The 2026-08-19 fold
-> (`coordination/2026-08-19-1651ad`, draft PR #915) is landing on main by merge commit at
+> (`coordination/2026-08-19-1651ad`, PR #915) lands on main by that PR's merge commit at
 > owner word: the toolkit-re-architecture node is on main, `workspace-reorganisation-programme`
 > is `superseded`, the principles gradient amendments, three graduations and the atlas
 > five-change set ride with it. NO DIRECTOR IS SEATED. The week-sleep ended at owner word on
@@ -274,7 +274,8 @@ first-hand as of 2026-06-25.
 > long-running shape is `handoff/jim-september` (draft PR #951), the primary checkout's branch,
 > where Kiln holds Slag (`1447f4`) runs the napkin-only consolidation as curator and where the
 > dedicated plan-consolidation session works next at the owner's word. Board at the fold:
-> #946, #948, #945 and #908 merged 2026-09-02; open bot PRs #951 and #915. Product-gravity
+> #946, #948, #945, #908 and this fold (#915) merged 2026-09-02; the open bot PR after it
+> is #951. Product-gravity
 > line for this fold's window — _moved for teachers:_ nothing in this fold's own commits (the
 > window's teacher-facing moves, the MCP-655 sign-in cure and the innovation-kit landing, rode
 > their own PRs #946 and #945); _moved for the Practice:_ the ratified toolkit node and its

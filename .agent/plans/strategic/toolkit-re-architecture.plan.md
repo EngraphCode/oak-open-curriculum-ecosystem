@@ -132,3 +132,12 @@ inverted default, and the liveness-gate validator. Each delivery plan
 is authored by its implementer at pickup and sliced to two-round
 PR-shaped units at authoring time. Milestones live in Linear as named
 observable states; this node points at them, never mirrors them.
+
+## Review dispositions
+
+One dated row per routed finding (PDR-140 ledger surface); the picking-up
+implementer enumerates and dispositions every row before implementation.
+
+| Date | Source | Finding | Routing |
+| --- | --- | --- | --- |
+| 2026-09-02 | PR #915 Copilot review (comment on this node's §The bet) | The node carries no "User groups and value" section; the strategic template (amended at owner ruling 2026-08-31, after this node's 2026-08-19 ratification) requires one, mapping the outcome's consumers (Oak's in-repo services, the extracted product squad, an arriving non-Oak builder — the demonstration ladder's three rungs) to experience-level value with claim boundaries. | Routed to the plan-corpus consolidation session that follows the split delivery plan (owner objective 2026-09-02: "make sure that the repo strategy is consistent and cohesive around that plan"): the section is authored there as a dated additive amendment presented for the owner's word, never inserted at a landing seat into a ratified node. |

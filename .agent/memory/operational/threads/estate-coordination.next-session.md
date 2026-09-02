@@ -1149,6 +1149,20 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
   a dozen root-level couplings; Practice content reaching the product through the
   `oak-under-the-hood` tool) — both in owner chat and the seat's per-user memory; the
   plan re-derives from the corpus and a fresh map, never from the chat.
+- **Review-round routings for the consolidation session (Copilot round on #915,
+  2026-09-02 13:19Z; dispositioned on the PR, recorded here as the session's input).**
+  (1) `toolkit-re-architecture` has no "User groups and value" section — the template
+  requirement (owner ruling 2026-08-31) postdates the node's ratification; the node
+  carries the ledger row; the section is authored at the consolidation session as a
+  dated amendment for the owner's word. (2) The pattern
+  `classification-instrument-is-a-symptom` declares `proven_by_implementation: true` on
+  the strength of an owner-ruled design sweep, while the patterns README defines that
+  barrier as "real shipped code"; the corpus admits decision-move patterns on executed
+  decisions, so the README's barrier wording versus decision patterns is the question
+  for the session, never a landing-seat re-grade. (3) The Castr fixture-pack README says
+  ADR-108's step ordering "is amended by the seam migration" while ADR-108 is unchanged:
+  a sequenced deferral, named, not a hidden one — the ADR amendment lands with the
+  seam-migration delivery plan (ADRs state should-be; means live in plans).
 - **Retired seats' claims.** `f04cd57b` and `645b9e0b` closed at this landing; their
   handoff records stay on disk under `.agent/state/collaboration/handoffs/` as the
   instance-tier record of what those seats froze.
