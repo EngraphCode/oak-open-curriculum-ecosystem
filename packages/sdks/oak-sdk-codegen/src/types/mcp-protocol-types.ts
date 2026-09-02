@@ -28,10 +28,11 @@
 export type SecuritySchemeType = 'noauth' | 'oauth2';
 
 /**
- * No authentication required.
+ * No per-tool OAuth scope requirement.
  *
- * Tools with this scheme can be called without a Bearer token.
- * Typically used for public metadata or discovery endpoints.
+ * Tools with this scheme skip the per-tool scope check; the HTTP transport
+ * still requires a bearer token for every tool call. Typically used for
+ * metadata or discovery tools with no scope-gated content.
  */
 export interface NoAuthScheme {
   readonly type: 'noauth';
