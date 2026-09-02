@@ -171,7 +171,7 @@ Run first. The live server is the source of truth; reconcile against
 
 | #   | Method           | How             | Expected result                                                                                                                                 |
 | --- | ---------------- | --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| 0.1 | `tools/list`     | List tools.     | The expected tool set is present (Appendix A lists 40 served: 39 live universal + 1 app-local). Note any **addition or removal**.               |
+| 0.1 | `tools/list`     | List tools.     | The expected tool set is present (Appendix A lists 38 served: 37 live universal + 1 app-local). Note any **addition or removal**.               |
 | 0.2 | `resources/list` | List resources. | `curriculum://model`, `docs://oak/getting-started.md`, the three `docs://oak/guidance/*` navigation documents, and the MCP App `ui://…` widget. |
 | 0.3 | `prompts/list`   | Probe prompts.  | JSON-RPC error `-32601` Method not found — the app serves zero prompts (D11); a result listing ANY prompt is a defect.                          |
 
@@ -482,7 +482,7 @@ Verdict: GO / NO-GO   (no open P0/P1 to ship)
 ## Appendix A: expected live inventory
 
 The reconciliation reference for Section 0. The live `*/list` methods are
-authoritative; this is the expected full surface (40 served tools / 6 served
+authoritative; this is the expected full surface (38 served tools / 6 served
 resources / 0 prompts, plus the dormant rows noted inline). Tool definitions
 are generated from the OpenAPI schema + aggregated tools, so this list
 changes via `pnpm sdk-codegen` — update this appendix when Section 0 shows a

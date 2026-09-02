@@ -63,7 +63,9 @@ Security policy is defined in:
 
 The policy specifies:
 
-- **PUBLIC_TOOLS**: Tools that do not require authentication (e.g., `get-rate-limit`)
+- **PUBLIC_TOOLS**: Tools that skip the tool-level OAuth scope check (`noauth`), e.g.
+  `get-rate-limit`. HTTP bearer authentication at the transport still applies — an
+  unauthenticated call returns 401; `noauth` means no scope check, not no token.
 - **DEFAULT_AUTH_SCHEME**: OAuth 2.1 configuration for protected tools
 
 Current configuration:
@@ -74,7 +76,7 @@ Current configuration:
 
 ### Making a Tool Public
 
-To make a tool publicly accessible without authentication:
+To exempt a tool from the OAuth scope check (transport authentication still applies):
 
 1. Edit `code-generation/mcp-security-policy.ts`
 2. Add the tool name to the `PUBLIC_TOOLS` array:
