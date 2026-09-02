@@ -10,7 +10,8 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
 | --- | --- | --- | --- | --- | --- | --- |
 | Smith holds Temper | codex | GPT-5 | 019fef | executor — owner-PR merge drive, PRs #745/#746/#852 | 2026-08-11 | 2026-08-11 |
 | Spark weaves Paraffin | codex | GPT-5 | 019ff2 | executor — PR #805 value adjudication and merge-readiness | 2026-08-11 | 2026-08-11 |
-| Luna seeks Twilight | claude-code | claude-fable-5 | 5c0ddc | driver — PR #943 (EngraphCode fork `engraph` → `main`): full drive taken at owner word 2026-09-01 by handoff from Genet mends Lamplight (cloud seat); Sonar-gate cure parcel + review truings via fork PR, then settlement and bot merge | 2026-09-01 | 2026-09-01 |
+| Luna seeks Twilight | claude-code | claude-fable-5 | 5c0ddc | driver — PR #943 (EngraphCode fork `engraph` → `main`): full drive taken at owner word 2026-09-01 by handoff from Genet mends Lamplight (cloud seat); Sonar-gate cure parcel + review truings via fork PR; rehomed as #945 and paused behind the MCP-655 auth fix; resumed 2026-09-02 for the live-service validation and the bot merge | 2026-09-01 | 2026-09-02 |
+| Kiln holds Slag | claude-code | claude-fable-5 | 1447f4 | implementer — MCP-655 (#946) at owner word 2026-09-01; cherry-picked the PRM fix onto `feat/innovation-kit-updates` at owner word 2026-09-02 ("option 2") so #945 could be validated before #946 merges; support seat for the #945 landing from 09:10Z (ARC channel `2026-09-02-pr-945-landing-luna-seeks-twilight-and-kiln-holds-slag.md`) | 2026-09-01 | 2026-09-02 |
 
 ## Lane state
 
@@ -154,17 +155,41 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   copilot-pull-request-reviewer` at SETTLE-READY. Bot-identity GitHub writes go through
   `merge-bot mint-token --scope pull-request-work` assigned first, then `GH_TOKEN` on the
   `gh` call — never the prefix-substitution form (docs/engineering/merge-bot.md).
-- Next safe step: (1) harvest #945's first full Copilot round and its CI when they land;
-  triage under the PDR-140 intake contract on the PR — cure only what would land a false
-  statement or change a gate outcome, batch every cure into ONE push so Copilot re-reviews
-  once (owner ruling: dependent-PR tail risk is multiplicative), disposition the rest on the
-  record with reasons; (2) resolve threads against that head, read `pr state` to
-  SETTLE-READY-but-for-the-code-owner leg, and notify the owner for his approval at that
-  action moment; (3) `merge-bot merge` (merge commit, never squash); Phase-8 harvest; (4) the
-  seat's continuity commit rides the cure push (this record, the napkin, the experience
-  letter); claim `2c939d42` closes at the true seat end with a comms event. If a successor
-  finds #945 already MERGED, the landing is complete: the open-surface-zero remainder is the
-  older slice above (#805, #818/#819). Pointers, not this PR: `lint:shell:syntax` covers
+- **PAUSE and RESUME (2026-09-01 → 2026-09-02).** #945 was paused at owner word on
+  2026-09-01 because the live-service validation it needs (the app UAT runbook through an
+  authenticated Claude Code session) was blocked by an OAuth defect on every preview and on
+  production (Claude Code refuses the authorisation response: the PRM named the app as the
+  authorisation server while the response carried Clerk's `iss`; Linear MCP-655). The cure
+   — the PRM names the upstream issuer — was planned by this seat, handed to Kiln holds Slag
+  and landed on #946. At owner word 2026-09-02 ("option 2") Kiln cherry-picked that fix
+  (`2f14f6f76` → `6028ac95c` here; the plan node deliberately not carried) onto this branch
+  and pushed, so this preview could authenticate before #946 merges. This seat resumed from
+  the primary checkout with custody of worktree `.claude/worktrees/pr-945-innovation-kit`
+  (never `EnterWorktree`: it kills armed Monitors), claim `9894f5a2` on this thread (areas:
+  the run record, this record, the napkin, repo-continuity).
+- **LIVE-SERVICE VALIDATION DONE 2026-09-02 09:03–09:06Z, verdict GO.** The owner signed in
+  to the `.mcp.json` server `oak-preview-945` (the branch-alias preview of `6028ac95c`) from
+  Claude Code 2.1.258 on the first attempt — row 1.5 PASS, the RFC 9207 mismatch gone on
+  this line. Through that session: Section 0 (40 tools = Appendix A, 6 resources;
+  `prompts/list` N-A on this client), Section 1 by curl (1.1–1.4 PASS), the smoke subset
+  2.1, 4.1, 5.2, 7.2, 12.2 PASS. One P2, pre-existing and owned elsewhere: the changelog
+  tools answer "Not found - non existent endpoint" — identical on the #946 preview
+  (control), upstream 404s `/api/v0/changelog*` while `/key-stages` 401s, live
+  swagger.json 0.11.0 has no changelog path (MCP-626 + MCP-630 behind MCP-653). Record:
+  `apps/oak-curriculum-mcp-streamable-http/docs/uat-reports/2026-09-02-preview.md`
+  (`f4cfb994c`, bot push 09:08Z); summary on #945 as a bot comment (issuecomment-5507228301).
+- Next safe step: (1) the owner's code-owner approval of #945 (asked for at 09:2xZ with the
+  merge-order verdict: #946 first, then #945 merges `main` and rows 1.1–1.3 are re-checked
+  on the rebuilt preview; if #945 is approved first it merges and Kiln reconciles #946 —
+  ARC channel item 3); (2) read `pr state 945 --expect copilot-pull-request-reviewer` to
+  SETTLE-READY (Copilot's round on `6028ac95c`/`f4cfb994c` settles by the state machine's
+  quiet window if it never posts), every thread resolved; (3) `merge-bot merge --pr 945
+  --expect copilot-pull-request-reviewer` (merge commit, never squash); Phase-8 harvest;
+  (4) claim `9894f5a2` closes at the true seat end with a comms event; the wrap's
+  continuity lands on `main` afterwards through the coordination branch, not on this PR.
+  If a successor finds #945 already MERGED, the landing is complete: the open-surface-zero
+  remainder is the older slice above (#805, #818/#819). Pointers, not this PR: the runbook's
+  row 2.2 cell is trued by MCP-630, not here; `lint:shell:syntax` covers
   neither cloud-environment script (a package.json gate change for its own small PR);
   `cloud-environment-setup.sh` has READ + shellcheck + harness evidence only until its first
   cloud provisioning after this lands; the fork-branch scan instruction in

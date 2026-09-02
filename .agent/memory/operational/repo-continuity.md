@@ -46,9 +46,14 @@ forward-asks remain.
   `main` — **PR #945** (`feat/innovation-kit-updates`, bot-authored, 221
   commits / 324 files), driven by Luna seeks Twilight (5c0ddc); #943 (the
   same content from the fork branch) is closed in its favour after its
-  SonarCloud gate went green at `f042d46e0`. Merge gate: `main`'s required
-  checks + thread resolution + the owner's code-owner approval; instruments
-  and dispositions in the thread record §Lanes. Older slice: PRs #745 and
+  SonarCloud gate went green at `f042d46e0`. Paused 2026-09-01 behind the
+  MCP-655 OAuth fix (#946, Kiln holds Slag); resumed 2026-09-02 once that
+  fix was cherry-picked onto the branch (`6028ac95c`): the live-service
+  validation through the owner's authenticated Claude Code session passed
+  (verdict GO, record `uat-reports/2026-09-02-preview.md`). Merge gate:
+  `main`'s required checks + thread resolution + the owner's code-owner
+  approval; instruments and dispositions in the thread record §Lanes.
+  Older slice: PRs #745 and
   #746 are merged (`236a8e3437`, `9dbf78328c`); #839/#840 were correctly
   recomposed as atomic replacement #852, **merged 2026-08-11 13:10:40Z
   (`52bfdfb4d`)** — fold correction. Resume that slice at #805, then the

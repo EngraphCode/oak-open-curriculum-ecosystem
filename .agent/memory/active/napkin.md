@@ -2537,3 +2537,37 @@ rule, carrying unmerged continuity commits forward.
   round's push carries it; if no round comes, it is the minimal follow-on.
   Claim `2c939d42` stays open to the merge; the seat-end comms event and
   claim close follow the merge.
+
+## 2026-09-02 ~09:2xZ (Luna seeks Twilight, 5c0ddc) — #945 resumed after the auth fix: live-service validation done through the owner's Claude Code sign-in
+
+- Resume shape that worked: the owner cherry-picked the cure onto the paused branch (via
+  Kiln holds Slag) instead of waiting for the hotfix PR to merge, so the paused lane's
+  preview could be validated in parallel with the hotfix's own owner proofs. Two PRs with an
+  identical patch reconcile trivially at the second merge of main; the dependency that made
+  the tail multiplicative was the ORDER, not the content.
+- The UAT channel: Claude Code's own MCP client on the owner's OAuth seat. What it can and
+  cannot observe — tools/list yes (the loaded tool set IS the inventory); resources/list
+  yes (`ListMcpResourcesTool`); prompts/list NO (the raw JSON-RPC error is not surfaced,
+  only the absence of slash commands); structuredContent NO (only the text content
+  renders). Record the unobservable rows as N-A / unverified, never as PASS by inference.
+  The server-side `-32602` IS observable: an empty-args call reaches the server and the
+  SDK's "Input validation error: Invalid arguments for tool …" comes back verbatim.
+- Characterise a live finding against a control before ticketing: the changelog 404 looked
+  like a #945 regression for one call; the #946 preview (main + fix) failed identically,
+  upstream 404s the route while a sibling route 401s, and the live swagger.json (0.11.0)
+  has no changelog path — already MCP-626/630/653. Search Linear BEFORE minting; the
+  finding was two weeks old.
+- zsh: `--proto =https` unquoted is an `=cmd` expansion ("https not found"); quote it
+  (`'=https'`). Same class as the earlier `${VAR:+…}` word-split trap.
+- Claim hygiene: the areas named a run-record path that broke the archive's filename
+  convention (`YYYY-MM-DD-<target>.md`); close + reopen was the honest cure (no amend verb
+  exists), recorded in the closure summary.
+- Platform: after a session restore the cwd is the primary again and every background task
+  (watcher, pr-watch) is gone — re-arm before reading the stream, and `claude mcp list`
+  shows whether a new `.mcp.json` server is recognised and whether it needs auth. The
+  post-restore `oak-preview` (#946) server was already Connected from the owner's earlier
+  sign-in: tokens are per server URL and survive restores.
+- n=2 → n=3 transition observed live (Finch calls Pinnacle registered, Kiln returned): the
+  heartbeat loop armed within minutes, the validated argument set being `comms send --tag
+  heartbeat --title … --claim-id … --intent-id … --branch … --current-cycle-label …` and
+  `claims heartbeat --active … --claim-id … --now <iso>` (no platform/model on the second).
