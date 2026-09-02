@@ -78,6 +78,14 @@ function nextLinkTarget(linkHeader: string): string | undefined {
 }
 
 /**
+ * Base for resolving a relative Link target. RFC 8288 permits relative
+ * targets (`<?offset=40&limit=20>`), and `new URL` rejects them without a
+ * base; only the query parameters are read, so the base's origin never
+ * surfaces. Absolute targets ignore the base.
+ */
+const RELATIVE_TARGET_BASE = 'https://link.invalid/';
+
+/**
  * Derives the {@link PaginationEcho} for a paginated operation from its
  * upstream `Link` response header.
  *
@@ -96,7 +104,7 @@ export function derivePaginationFromLinkHeader(linkHeader: string | null): Pagin
   }
   let nextUrl: URL;
   try {
-    nextUrl = new URL(target);
+    nextUrl = new URL(target, RELATIVE_TARGET_BASE);
   } catch {
     return { hasMore: true };
   }

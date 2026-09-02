@@ -58,8 +58,26 @@ describe('derivePaginationFromLinkHeader', () => {
   });
 
   it('still reports hasMore when the next link URL is unparseable', () => {
-    const header = '<not a url>; rel="next"';
+    const header = '<https://exa mple.test/things?offset=40&limit=20>; rel="next"';
     expect(derivePaginationFromLinkHeader(header)).toEqual({ hasMore: true });
+  });
+
+  it('reads offset and limit from a relative next link target', () => {
+    const header = '<?offset=40&limit=20>; rel="next"';
+    expect(derivePaginationFromLinkHeader(header)).toEqual({
+      hasMore: true,
+      nextOffset: 40,
+      nextLimit: 20,
+    });
+  });
+
+  it('reads offset and limit from a path-only next link target', () => {
+    const header = '</api/v0/things?offset=40&limit=20>; rel="next"';
+    expect(derivePaginationFromLinkHeader(header)).toEqual({
+      hasMore: true,
+      nextOffset: 40,
+      nextLimit: 20,
+    });
   });
 
   it('accepts the bare-token rel form', () => {
