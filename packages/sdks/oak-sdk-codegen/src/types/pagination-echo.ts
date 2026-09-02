@@ -19,6 +19,12 @@ export type PaginationEcho =
   | { readonly hasMore: false }
   | { readonly hasMore: true; readonly nextOffset?: number; readonly nextLimit?: number };
 
+/**
+ * Parses one next-page query value as a non-negative integer: accepted only
+ * when the string is digits-only and within the safe-integer range;
+ * anything else (absent, signed, fractional, non-numeric, oversized)
+ * yields `undefined` so the field is omitted rather than guessed.
+ */
 function parseNonNegativeInteger(value: string | null): number | undefined {
   if (value === null || !/^\d+$/.test(value)) {
     return undefined;
