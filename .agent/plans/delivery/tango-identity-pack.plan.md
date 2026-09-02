@@ -19,7 +19,15 @@ ratified_where: >-
   completeness/provenance arms): owner card answer at the Director's
   seat, routed via Director session Ocelot binds Tunnel (c28ad9) —
   yes on all three card decisions with the re-ratification rider
-  carried.
+  carried. Re-stamp 2026-09-02 covering the T1d deferral amendment of
+  2026-08-19 as ratified scope (the seven showcase roster surfaces and
+  the a11y-matrix derivation move to the programme's completing node)
+  and its consolidation through §Mechanism, AC2, AC4 and T2 under the
+  owner's reading "Fixture consumer first light": owner word at the
+  #915 landing seat (Finch calls Pinnacle, c91bd4), 2026-09-02 — "fix
+  the issues as part of the 915 work" and the plan-gate answer selecting
+  that reading — recorded verbatim in the design-system-integration
+  thread record §Session update 2026-09-02.
 serves: design-system-as-configured-framework
 impact_areas:
   - design-system
@@ -29,7 +37,7 @@ depends_on:
   - plan: design-showcase-experience
     kind: beneficial
 owner_gates: []
-last_updated: 2026-08-19
+last_updated: 2026-09-02
 ---
 
 # Tango identity pack — the pack mechanism proven by its first identity
@@ -102,8 +110,10 @@ specimen's served-path convention, and the kit-asset parity manifest).
 **The pack.** Each identity is its own workspace under
 `packages/design/identities/` (exact package naming settled at T1a within
 the `@oaknational` scope). The path mints a new directory tier against the
-ratified workspace-reorganisation programme — named on the ratification
-card with its enforcement warrant: the per-pack licensing surface (M1,
+workspace programme of record at the card (`workspace-reorganisation-programme`,
+superseded 2026-08-19 by `toolkit-re-architecture`, under which the identities
+tier is `oak/`-family pack territory; re-pointed 2026-09-02) — named on the
+ratification card with its enforcement warrant: the per-pack licensing surface (M1,
 DDR-005) is a boundary the flat tier cannot express. A pack contains:
 
 - **`manifest`** — a zod-validated data file (plain JSON — deliberately NOT
@@ -223,17 +233,21 @@ seeded fixture before it guards anything.
    asset-property layer; no expressive-value generator — see §Out of
    scope).
 
-**The identity-№N regression (K2).** The zero-edit property is the END
-STATE the one-time re-plumb creates, and the plan says so: T1d converts
-the seven hand-maintained roster surfaces to the generated module, and
-FROM THEN ON adding a pack requires zero framework or demo source edits —
-proven red-first by the minimal CONSTRUCTED fixture pack —
+**The identity-№N regression (K2).** *(Re-trued 2026-09-02 to the T1d
+amendment of 2026-08-19; owner word in the design-system-integration
+thread record §Session update 2026-09-02.)* The zero-edit property is
+the END STATE the one-time re-plumb creates. In THIS node, T1d lands the
+build-time-generated roster MODULE and the №N regression against the
+tier's real contents: the minimal CONSTRUCTED fixture pack —
 contract-complete with values provenance-marked defaulted-at-creation
 (P7; M1's fallback-proof reading inverts under it: an INCOMPLETE pack
 is proven REFUSED at admission, demonstrating no fallback path can
-render) — and proven in vivo by Tango's own
-arrival on the showcase roster (§Relationships for that surface's
-governance).
+render) — joins the derived roster with zero source edits, red-first,
+and Tango joins it the same way, rendered through the T1c static
+fixture consumer. The conversion of the seven hand-maintained showcase
+surfaces to that module, and the FROM-THEN-ON zero-edit end state on
+the showcase, are the programme's completing node's outcome (T1d's
+dated amendment; §Relationships for the showcase surface's governance).
 
 **Tango itself.** Tango is described on every tracked surface in its own
 terms (P2): a contemporary, product-led identity whose character is set by
@@ -303,15 +317,17 @@ pixels before value authoring begins.
    a seeded fixture, red-first, in the one shared instrument. Proof:
    `repo-safe` — the extended `agent-tools` validator on the
    `repo-validators:check` chain.
-2. **Identity-№N is mechanical, and gating rides it.** After T1d's
-   re-plumb, the constructed fixture pack (contract-complete, values
-   defaulted-at-creation) renders, and an incomplete variant is REFUSED
-   at admission; adding a pack requires zero framework or demo source
-   edits;
-   and the a11y matrix derives from the installed roster so an added pack
-   arrives WITH its cells — proven by the fixture pack appearing in the
-   test matrix without a source edit. Proof: `repo-safe` — the №N
-   regression and the roster-derivation tests this node lands.
+2. **Identity-№N is mechanical, and gating rides it.** *(Re-trued
+   2026-09-02 to the T1d amendment.)* The constructed fixture pack
+   (contract-complete, values defaulted-at-creation) is enumerated by
+   the derived roster module with zero framework or demo source edits
+   and renders through the static fixture consumer (AC3); an incomplete
+   variant is REFUSED at admission. The showcase's zero-edit end state
+   and the a11y matrix deriving from the installed roster (an added pack
+   arriving WITH its cells) are proven at the programme's completing
+   node, after the three existing-identity migrations. Proof:
+   `repo-safe` — the №N regression and the roster-derivation tests this
+   node lands; the showcase-side proofs at the completing node.
 3. **Both R16 shapes consume.** The static fixture consumer serves the kit
    base plus exactly one pack with zero bytes from any other pack
    (behaviour-proven at the served surface), and the demo roster derives
@@ -319,7 +335,9 @@ pixels before value authoring begins.
    Oak-pack node's outcome, not silently claimed here. Proof: `repo-safe`
    — consuming tests in the kit/demo test estates.
 4. **Tango renders green, instruments named honestly.** *Extended*
-   instruments (roster-parametrised once T1d lands): the specimen
+   instruments, run in this node over the T1c static fixture consumer
+   for Tango (re-trued 2026-09-02 to the T1d amendment; their
+   showcase-roster parametrisation is the completing node's work): the
    identity × theme axe matrix, forced-colours, and 320px reflow cells.
    *Built by this node*: per-pack contrast pairings validated at the
    ratified levels — AAA for high-contrast, AA floor elsewhere — through
@@ -451,12 +469,18 @@ pixels before value authoring begins.
   author, never build-time generation from the manifest. Sequenced
   after T1a-ii and T1b; T2 consumes it.
 - **T2 — Tango first light** (class: content, minimal). The minimal Tango
-  pack (four themes at structurally-valid starter values); the roster
-  picks it up with zero source edits (the №N proof in vivo) **and its
-  derived a11y cells arrive with it, red-first, at arrival — not later**;
-  rendered checkpoint to the owner. *(Dated note 2026-08-18, P7: the
-  minimal pack is created VIA T1e's constructor — the first identity
-  born self-contained, proving the tool with its first pixels.)*
+  pack (four themes at structurally-valid starter values), created VIA
+  T1e's constructor *(dated note 2026-08-18, P7: the first identity born
+  self-contained, proving the tool with its first pixels)*; the derived
+  roster module enumerates it with zero source edits (the №N proof in
+  vivo); first light renders through the T1c static fixture consumer,
+  gated red-first by the T1b admission arms and the fixture-consumer
+  cells (AC4) **at arrival — not later**; rendered checkpoint to the
+  owner. Tango's showcase-roster arrival rides the programme's
+  completing node (owner word 2026-09-02, plan-gate answer "Fixture
+  consumer first light"; keeps first-principles clause 6: Tango never
+  exists in the legacy shape). *(Re-trued 2026-09-02 to the T1d
+  amendment.)*
 - **T3 — Tango design definition** (class: content + design record). The
   public related-design survey (trackable genre survey, light and dark
   exemplars); Tango's palette, type, motion, and tilt stances authored in
@@ -535,10 +559,14 @@ because both touch the same plan files.
   `beneficial` edge): Tango's appearance on the switchboard roster is a
   showcase-surface change executed under that plan's governance — and it
   is deliberately the №N proof in vivo: if the mechanism is right, the
-  change is a pack installation, not a page edit. Minimum shippable shape
+  change is a pack installation, not a page edit. *(Re-trued 2026-09-02
+  to the T1d amendment: that appearance lands with the programme's
+  completing node after the three migrations; in this node the in-vivo
+  №N proof is the derived roster module enumerating Tango and the T1c
+  static fixture consumer rendering it.)* Minimum shippable shape
   without it: the pack mechanism, fixture consumer, and static shape
-  (T1a–T1c) land and prove AC1/AC3 with fixtures alone — only the in-vivo
-  arm of AC2 and the demo cells of AC4 ride the showcase surface. G1's
+  (T1a–T1c) land and prove AC1/AC3 with fixtures alone — the showcase
+  arms of AC2 and AC4 ride the completing node. G1's
   admission guard is that plan's W1 slice B instrument, extended here,
   never duplicated. A dated cross-reference amendment to that plan rides
   at the owner's ratification word, sequenced after the MCP-613 PR merges
@@ -561,16 +589,22 @@ because both touch the same plan files.
   The dated in-place amendment to that plan is named work riding the
   same post-MCP-613 window as the sibling amendment above. Its ratified
   mechanics (M1) bind this node either way.
-- **`workspace-reorganisation-programme`** (strategic, ratified
-  2026-08-14): `packages/design/identities/*` mints a directory tier
-  beyond the current `packages/design/*` glob and adds workspaces beyond
-  the census target inventory. The warrant offered: the per-pack
+- **`toolkit-re-architecture`** (strategic, ratified 2026-08-19;
+  supersedes `workspace-reorganisation-programme`, ratified 2026-08-14,
+  against which the tier was originally warranted — re-pointed
+  2026-09-02 when the successor node reached main):
+  `packages/design/identities/*` mints a directory tier beyond the
+  current `packages/design/*` glob and adds workspaces beyond the
+  (now historical) census inventory. The warrant offered: the per-pack
   licensing surface (M1, DDR-005) is a real enforcement boundary, and
   pack workspaces share one capability-and-lifecycle class. The path was
   ruled at this node's ratification card (2026-08-17); the census target
   inventory is owner-re-graded as historical data (Director map note,
   design-lane ARC channel, 2026-08-17), so the card ruling is the mint's
   warrant and the executing tranche PR cites this node's §Mechanism.
+  Under the successor node the identities tier is `oak/`-family pack
+  territory (packs: identity · content · config); the seam migration
+  re-homes it with the rest of `oak/` when that delivery plan executes.
 - **`design-system-completion`** (sketch; authority stripped, knowledge
   conserved — owner ruling 7 of 2026-08-17, landing with MCP-613): its
   W2.0–W2.9 story tables were consulted as conserved knowledge for the
