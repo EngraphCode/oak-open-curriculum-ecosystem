@@ -124,3 +124,111 @@ The archive-scale historical synthesis over this archive and the five before it
   napkin-only scope.
 - Fitness at the rotation, signal only: the napkin read critical at 3,085 lines against a
   220 target; the number routed nothing — the item-level read did.
+
+## 2026-09-02 ~12:2xZ (Kiln holds Slag, 1447f4, curator) — owner redirect: the seat read the corpus it was meant to query; lens harvest
+
+OWNER CORRECTION (verbatim substance, 2026-09-02 ~12:1xZ): "you used up the entire context
+window reading huge, old napkins, we need a different approach ... the information you read is
+now compromised by compaction." Instance: this seat Read ~16,400 lines (1.19MB) of six archived
+napkins into its own context for the step-6a historical synthesis, compacted mid-corpus, and now
+holds four of the six reads only as a summary paragraph of "emerging arcs".
+
+METACOGNITION (retrospective): the inherited shape was "raw sources first-hand" (the
+dedicated-consolidation prompt) generalised to "every byte through the seat's own context". That
+generalisation was never ratified; the estate's ratified form for archive-scale reads is the
+corpus-analysis engine (the 2026-08-07 pass ran 2.8MB through 11 mapper windows precisely because
+a seat cannot hold it; the 2026-08-07 napkin named that engine as the sized instrument, and this
+seat read that sentence and still chose the in-context read). Fluency-as-warning, worked:
+"first-hand" arrived smoothly and the situational check (corpus size vs window) never fired.
+Sharpened reading, standing at this seat: FIRST-HAND binds the verifier, not the byte path. A
+mapper leg that reads a file in full IS a first-hand read for the estate; the seat's first-hand
+obligation is at the point of USE (spot-read the cited leaf before accepting a claim), never a
+pre-read of the whole corpus. Second inherited shape: four of the owner's six napkins (07-26,
+07-30, 08-06, 08-07) were already in the 2026-08-07 pipeline corpus (processed marker
+2026-08-07); re-reading them raw re-derived a processed corpus. Reliability ladder: the
+pre-compaction arcs (merge-authority, liveness-impersonation, authority decay, shared-substrate
+contention, review-loop dynamics, false-green-survives-its-cure, recurrence-despite-capture) sit
+at the STORY rung with the observations gone — carried as hypotheses for the engine to test,
+never as findings.
+
+CONCEPT-EXPLORATION (the different approach; problem frame: a map-reduce over dated narrative
+with a longitudinal question and a seat-side critical-assessment duty, without the seat ingesting
+the corpus): the engine, honestly scoped — (1) map only the two post-marker archives (08-14,
+09-02; ~450KB) with corpus-mapper legs; (2) take the four older files' leaves from the committed
+2026-08-07 map checkpoint by file provenance, so the owner's six-file window is honoured as the
+reduce corpus without a re-map; (3) reduce over the union; (4) validate with banked-verdict dedup
+against the 2026-08-07 run so already-adjudicated candidates are not re-voted; (5) meta plus the
+deterministic post-run driver; (6) the seat critically assesses every kept candidate against its
+cited leaves (spot-read by line range) before routing. The longitudinal question the marker
+sharpens: does the 2026-08-07 report's finding 1 (prose cures do not move recurrence; only
+interface changes do) hold in the post-marker window? Warrant: checkpoints make any failure a
+resume, and the post-run driver is the independent check by construction. Falsifier: if the
+2026-08-07 map checkpoint carries no per-file leaf provenance, step (2) is impossible and the
+four older files re-map (one window each). Budget: map plus reduce is small; validate is sized
+from the candidate projection (plan amendment 5) and stated to the owner before dispatch.
+
+FREE-PLAY (harvest with visible discards): kept — (a) the corpus this seat swallowed whole says,
+as its headline finding, that reading does not inhibit; the seat proved it on itself
+(association: ouroboros); (b) an archive is a log, and a seat reading a log end-to-end is a client
+tailing a database — the query belongs to the engine, the judgement to the seat (association
+only); (c) a compaction summary is a silent twin: evidence-shaped text whose loss is unknown to its
+reader, the query-the-lookalike class at the memory layer. Discarded: a strata/geology reading of
+the archive (decorative; the estate has discarded it twice before) and a six-files/six-arcs
+numerology.
+
+## 2026-09-02 ~12:3xZ (Kiln holds Slag, 1447f4, curator) — three merge-bot observations received from Finch calls Pinnacle (c91bd4) at the #908 merge; conserved as received, not verified at this seat
+
+Routed by broadcast 1cf287ba (2026-09-02T12:24:37Z) after #908 merged to main as a8aa13da1
+(owner-merged 12:19:54Z). Attribution: Finch-observed, Kiln-recorded, uncured; each is a
+candidate merge-bot tool-feedback item for the tooling lane, and F-164/F-165 siblings if a
+second seat reproduces them.
+
+1. `merge-bot merge` printed "review-run liveness unavailable: pullRequestNumber expected
+   number, received null" inside its verdict evidence — a parse failure in the review-run
+   liveness read, so the WAITING-REVIEW-RUN-LIVE state was unreachable and the verdict
+   degraded to SILENT-WAIT-NO-REVIEWER (one instance, #908, 2026-09-02).
+2. Copilot automatic review did not bind a tip that was only a merge commit of main, so a
+   "merge main in, then merge-bot merge" landing needed the Copilot request step explicitly
+   (one instance, #908, 2026-09-02; the 2026-08-11 Forge finding "Copilot does not
+   auto-re-review on push" is the sibling — this narrows it to merge-only tips).
+3. merge-bot's 45-minute poll budget outlives a 10-minute background shell bound — the
+   landing seat ran it under a session-length monitor (one instance; the 2026-08-12 Plover
+   entry "merge-bot polls outlive the Bash default" is the earlier form of the same shape).
+
+## 2026-09-02 ~12:4xZ (Kiln holds Slag, 1447f4, curator) — step-6a run record so far, and the owner's validate-scope word
+
+- Engine run over the owner's six-napkin window, honestly scoped against the 2026-08-07
+  processed marker: map re-ran only 07-26 (clean file boundary) plus the two post-marker
+  archives (08-14, 09-02) — three sonnet-low legs, 146 leaves, every window read end to end
+  in contiguous line ranges (checked against wc -l per file), 306k subagent tokens, 3.3 min.
+  The 07-30, 08-06 and 08-07 leaves (107) were spliced from the committed 2026-08-07 map
+  checkpoint by window (w10, w11 are exactly those files), giving a 253-leaf union without a
+  re-map. Reduce: one opus leg, 72 candidates, 80k tokens, 8 min.
+- Seat dedup against all 80 prior-run candidates (kept and killed), recorded as a table in
+  the scratchpad and carried into the report: 19 same-mechanism duplicates of 2026-08-07
+  keeps (not re-voted; post-marker recurrence reported against the prior verdict), 1
+  prior-killed pre-marker-only candidate (not re-voted), 37 post-marker candidates and 15
+  pre-marker singles to validate.
+- OWNER WORD at the spend card (2026-09-02 ~12:5xZ, card answer): validate ALL 52 (post-marker
+  plus the pre-marker singles), ceiling 16.25M hard-abort, expected ~4.8M at the measured
+  92k-per-candidate actual from the 2026-08-07 run. Dispatched 12:41Z.
+- Instrument note: the reduce leg's first transcript write came ~6 min after dispatch and the
+  structured output ~2 min after that; a freeze detector keyed on transcript mtime (warn at
+  15 min, stop at 30) was the health check, never process liveness.
+
+## 2026-09-02 ~13:1xZ (Kiln holds Slag, 1447f4, curator) — step-6a synthesis complete; pass record
+
+- Engine run closed green: validate 52/52 (11 keep, 41 kill, 208 legs, 4.77M tokens), meta
+  18 baselines (Choice-B MISS by the June-fixture construction, as on 2026-08-07), driver
+  integrity empty with 52/52 zero-diff recompute and all claimed homes verified on disk.
+  Report written with the processed marker 2026-09-02 and the full dedup mapping; one
+  graduation (`patterns/claim-before-check.md`); distilled, the interrupt plan's ledger and
+  the corpus-analysis runbook appended; nine keeps duplicate-of-home; one novel keep (C36)
+  homed by the seat in the cricket skill.
+- Instrument bound recorded: voter free-text rationales are not in the transcripts (the
+  thinking blocks are empty), so kill reasons in the report are the seat's reading of the
+  four-test grid. Meta's claimed home paths arrive absolute and were rewritten
+  repo-relative before commit.
+- Owner-scope check at close: distilled appended to only; no non-napkin fitness acted on;
+  the four older archives entered through the prior run's checkpoint, never re-read at
+  this seat.

@@ -128,3 +128,37 @@ and the homes are the record. -->
   proper tools for finding content, and generally sort out the discipline
   here, this is serious work. What is the plan?"). Candidate home: the
   `start-right-quick` grounding line, beside `use-built-agent-tools-cli`.
+
+## 2026-09-02 historical synthesis (Kiln holds Slag, 1447f4)
+
+Step-6a pass over the owner's six-napkin window through the corpus-analysis engine;
+report `historical-napkin-synthesis-2026-09-02.md`, processed marker 2026-09-02.
+
+- **The piped-exit class recurred through both post-marker windows while its cure gained
+  a fourth generation** (six instances after 2026-08-07 at four seats; the cure text
+  hardened after the last recurrence, never before one). Second measurement of the flat
+  arc the 2026-08-07 pass found. Candidate home: the action-time-interrupt plan's ledger
+  (appended this pass) and, at the doctrine window, a PDR-098 evidence clause.
+- **Sixteen of nineteen mechanisms the 2026-08-07 quorum kept recurred within four weeks
+  of having verified homes.** The three that did not are actuators that went quiet, not
+  classes shown extinguished. Candidate home: PDR-098 (recurrence-despite-home as a
+  measured rate, not an anecdote) at the next doctrine window.
+- **Claim-before-check graduated** as `patterns/claim-before-check.md` — nine grounded
+  instances over five windows, every catch external, two variants (target-versus-actual;
+  recorded-then-believed) that the basic tripwire misses. Home landed; this entry is the
+  record that the archive flagged the gap twice before it closed.
+- **The fabricated-value trajectory closed into the one-law on 2026-08-08 and recurred
+  five days later** (fabricated timestamps misleading four Cricket legs). Home exists
+  (`values-enter-by-first-hand-right-frame-read`); the fact is recurrence after the law.
+  Candidate home: the interrupt ledger (appended).
+- **A napkin corpus measures recurrence and cannot measure extinction**: a cured class
+  leaves no entry when it stops firing, so "did the cure work" needs a designed
+  surface-signature census per window. Candidate home: `consolidate-docs` step 6a
+  limitations, and the interrupt plan's measurement design.
+- **Since-marker engine runs are file-shaped, not machinery changes**: map only the
+  post-marker files, splice prior leaves by window from the committed map checkpoint,
+  dedup candidates in-seat against the prior run's full adjudicated set, validate the
+  remainder — 5.25M tokens against 9.1M, same instrument. The seat's assessment of a map
+  checkpoint is two mechanical checks: contiguous read ranges against each file's line
+  count, and every leaf's quote anchoring verbatim after whitespace collapse. Home landed
+  this pass in the corpus-analysis runbook.

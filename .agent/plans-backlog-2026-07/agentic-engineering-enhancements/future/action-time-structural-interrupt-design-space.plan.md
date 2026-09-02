@@ -816,3 +816,27 @@ mechanism lane a matched pair — one with the cure landed, one still passive �
   cure; the composition variety is wider, so the fingerprint set needs design rather than one
   pattern. Napkin-first discipline held: this note graduates the recurrence evidence at the
   consolidation the capture promised.
+
+## Worked Instance — 2026-09-02 historical synthesis: recurrence-despite-home measured across five napkin windows
+
+The step-6a engine run over the six napkins from 2026-07-26 to 2026-09-02 (report
+`historical-napkin-synthesis-2026-09-02.md`) carries the ledger's first RATE rather than
+its next anecdote:
+
+- **Pipe-masked verdicts, fourth cure generation.** After the propagated in-band idiom
+  (2026-07-29) and the "guarded command is the task's final command" form (2026-08-18/19),
+  the class still fired at least six times between 2026-08-08 and 2026-08-18 at four seats,
+  and the exit-codes rule was amended again on 2026-09-02 on a fresh instance. Every
+  generation followed a recurrence; none preceded one. The prior run's flat arc holds.
+- **Sixteen of nineteen prior-kept mechanisms recurred within four weeks of the run that
+  verified their homes** — the first measurement of the rate this plan's thesis predicts.
+  The three non-recurrences are quiet actuators, not extinguished classes.
+- **The fabricated-value one-law (2026-08-08) was followed within five days by fabricated
+  timestamps** (2026-08-13) at a different seat; owner-attention items surfaced as prose
+  recurred twice after the card rule and its memory existed (2026-08-07, 2026-08-12).
+- **Measurement gap named.** A napkin corpus can count recurrences but cannot show a cure
+  extinguishing its class (no entry is written when a class stops firing). The mechanism
+  lane's success criterion therefore needs a designed instrument: a per-window census of
+  each class's literal surface signature (pipe-after-gate, exit-echo-after-pipeline,
+  sha-typed-not-substituted), run over the archive, so an interrupt's landing can be
+  followed by a measured absence.

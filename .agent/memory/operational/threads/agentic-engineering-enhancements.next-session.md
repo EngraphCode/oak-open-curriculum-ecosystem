@@ -26,6 +26,18 @@ work brief and the recent identity stretch, per
 
 ## DEDICATED CONSOLIDATION, NAPKIN-ONLY — EXECUTED (2026-09-02, Kiln holds Slag, 1447f4, curator)
 
+**Step-6a synthesis landed the same day** (owner redirect ~12:1xZ: the seat had read the six
+archives into its own context and compacted; the different approach was the corpus-analysis
+engine, scoped against the 2026-08-07 processed marker). Report:
+`research/agentic-engineering/continuity-memory-and-knowledge-flow/historical-napkin-synthesis-2026-09-02.md`,
+processed marker 2026-09-02; one graduation (`patterns/claim-before-check.md`); the
+interrupt plan's ledger carries the first measured recurrence-despite-home rate (16 of 19
+prior-kept mechanisms recurred within four weeks). The since-marker run recipe is in the
+corpus-analysis runbook. Open at close: the main-merge into `handoff/jim-september` after
+Finch's #915 fold lands is the rotation-versus-appends shape — carry the 2026-08-19 napkin
+additions into the fresh napkin and process them; both napkin and repo-continuity need
+semantic merges.
+
 Owner-launched consolidate-until-done pass, scoped by owner word to the current napkin and
 the five archived napkins before it: distilled appended to, never curated; every non-napkin
 fitness signal ignored; the comms watermarks left where the 2026-08-14 pass set them. Run
