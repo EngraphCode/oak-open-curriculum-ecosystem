@@ -13554,8 +13554,8 @@
             "file": "apps/oak-curriculum-mcp-streamable-http/src/auth-routes.ts",
             "anchors": [
               {
-                "tokenCount": 23,
-                "tokenSha256": "0fe403d058390c0b4dd5a1f23ee1e5c3db86e1573b4e9ff814d5ffbb93300eaa",
+                "tokenCount": 25,
+                "tokenSha256": "2a34c026658ce60a252aee47a9be0b8074723bfd79bd624b25e6a4af7987d1b8",
                 "indexToken": "authorization_servers",
                 "indexOffset": 13
               }

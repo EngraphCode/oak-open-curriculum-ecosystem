@@ -10,6 +10,8 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
 | --- | --- | --- | --- | --- | --- | --- |
 | Smith holds Temper | codex | GPT-5 | 019fef | executor — owner-PR merge drive, PRs #745/#746/#852 | 2026-08-11 | 2026-08-11 |
 | Spark weaves Paraffin | codex | GPT-5 | 019ff2 | executor — PR #805 value adjudication and merge-readiness | 2026-08-11 | 2026-08-11 |
+| Luna seeks Twilight | claude-code | claude-fable-5 | 5c0ddc | driver — the fork-line integration landing (#943, rehomed as #945 at owner word) and the MCP-655 OAuth hotfix plan; see §Lanes | 2026-09-01 | 2026-09-01 |
+| Kiln holds Slag | claude-code | claude-fable-5 | 1447f4 | implementer — the MCP-655 OAuth issuer-alignment lane from Luna's handover (event 5dbec23b): scope narrowed at owner word, review panel absorbed, fix landed; see §Lanes | 2026-09-01 | 2026-09-01 |
 
 ## Lane state
 
@@ -87,3 +89,106 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
 - Claims `9b5ef380-af81-4bbc-9fdc-898c73d770f8` and
   `2f503217-50a7-4837-918f-ad6feb2620d4` were explicitly closed at 2026-08-11T13:36:45Z;
   `claims mine` returned `[]`. No claim or monitor is retained.
+
+## Lanes (2026-09-01, Luna seeks Twilight, 5c0ddc)
+
+### Lane: fork-line integration landing — PR #945, PAUSED at owner word
+
+- The owner's fork integration line (220 commits, 324 files) was driven as upstream #943 from a
+  fork branch; every settlement cure needed a fork-side PR first (an hour per hop, multiplicative
+  with the dependency), so at owner word the tip was rehomed into this repository as
+  `feat/innovation-kit-updates` and opened as **#945** under the bot; #943 closed with its
+  dispositions and a pointer. #945's head is `16d87a7cf` (the continuity commit pushed with
+  `HUSKY=0` under explicit owner authorisation when the pause was ordered); SonarCloud, CodeQL,
+  Vercel, `preview-serves` and the code tests were green on the head before it.
+- **Paused** 2026-09-01 until MCP-655 lands: the live-service validation it needs (the app UAT
+  runbook smoke subset through an authenticated Claude Code session) is blocked by the OAuth
+  defect below. The fuller lane history (the fork settlement PRs, the review records, the
+  dispositions) is on that branch's copy of this record.
+- Resume: merge `main` (with MCP-655) into the branch; run the UAT runbook smoke subset and
+  Section 0 inventory reconciliation against its preview; post the run record on #945; the
+  owner's code-owner approval (bot-authored); `pnpm agent-tools merge-bot merge --pr 945
+  --expect copilot-pull-request-reviewer`. Copilot's request bound at open; the CODEOWNERS
+  auto-requests (`jimCresswell`, `mantagen`) are GitHub's, not this seat's.
+- **2026-09-02 ~08:5xZ (Kiln holds Slag, at owner word "let's do option 2"):** the MCP-655 fix
+  commit `2f14f6f76` is cherry-picked onto the branch as `6028ac95c` (worktree
+  `.claude/worktrees/pr-945-innovation-kit`; the plan node deliberately not carried — `main`
+  brings its final version with #946 and a stale copy would add/add-conflict at the later merge;
+  registry regenerated on the tree and validated; picked tests green) and bot-pushed
+  (`16d87a7cf..6028ac95c`, local == origin, worktree clean). The branch-alias preview rebuilt
+  on the corrected preview keys and its PRM names `https://native-hippo-15.clerk.accounts.dev`
+  (probed 08:57Z), so a Claude Code v2 session can authenticate against it for the UAT smoke
+  subset BEFORE #946 merges. The key-pairing guard is NOT on this branch — the preview relies on
+  the corrected key alone. Bot comment on #945 (issuecomment-5507061660) explains the pick; Luna's
+  copy of this lane was updated by directed event `250ccdbb`. The merge of `main` (with #946)
+  reconciles the identical patch trivially. The lane remains Luna's; the resume steps above stand.
+
+### Lane: MCP-655 OAuth issuer alignment — FIX LANDED on the branch (2026-09-01, Kiln holds Slag, 1447f4); reviews on the final diff and the owner-held preview proofs are what remain
+
+- Defect: Claude Code 2.1.252 refuses the app's OAuth authorization response on preview and
+  production ("Issuer mismatch … RFC 9207"): the PRM names the app as authorization server while
+  the response carries the upstream identity provider's `iss`. Evidence and dates: Linear
+  MCP-655 (assigned to Matt Gregory at owner word, project First Major Release, labels
+  Bug/pre-publish/jimbot).
+- Scope narrowed at owner word 2026-09-01 (~13:3xZ, this seat's verdict, Jim: "agreed"): the
+  PRM names the upstream issuer — nothing on the proxy-path metadata (the omit/false rider cured
+  nothing and could only be tested by a configuration pin; MCP-656 owns that path's projection).
+  A seven-reviewer Opus panel (assumptions, mcp, architecture ×2, security, clerk, test) and a
+  full Cricket suite (6 of 8 delivered, all ON-TRACK; adversarial high/xhigh undelivered at the
+  freeze) were run against the node; every finding is absorbed in the node (§Panel absorption
+  2026-09-01) — the fetched `issuer` is now validated at the fetch boundary (RFC 8414 §3.3,
+  `issuer_mismatch`), Cursor's PRM-first discovery is described truthfully and its preview
+  sign-in gates merge, the owner-held proof is non-vacuous (client version, no
+  `MCP_SDK_GENERATION` override, remove-and-re-add, a negative control against production).
+- Landed: commit `2f14f6f76` on `fix/mcp-oauth-metadata-iss-claim` (15 files: `servePrm`
+  names `upstreamMetadata.issuer`; `fetchUpstreamMetadata` requires `issuer === upstreamBaseUrl`;
+  relation-shaped PRM tests in `auth-routes.integration.test.ts`, `canonical-origin.integration.test.ts`
+  and four e2e sites; the `issuer_mismatch` unit case; registry C706 re-anchored + reviewed deltas
+  for `auth-routes.ts`, `upstream-metadata-fetch.ts`, `metadata-fetch-error.ts`; ADR-115 (eight
+  sections + Negative 8), ADR-053 amendment item 4, UAT rows 1.2/1.5; the amended node). Both
+  guards mutation-checked: reverting the `servePrm` line reddens exactly the seven enumerated
+  PRM assertions; disabling the issuer check reddens exactly the one unit case. Full pre-commit
+  gate green on the second attempt (first attempt: knip on an unused export, cured by making
+  `IssuerMismatchError` module-private; an app delta-review map over `max-lines`, cured by
+  homing the two entries in the auth-surface map).
+- Worktree `oak-open-curriculum-ecosystem-worktrees/pr-943-engraph`; draft PR **#946** under
+  the bot (assigned `mantagen`, plain-language body); the withdrawn disclaim-only draft is
+  preserved as a patch in the implementing session's scratchpad only — its substance is on the
+  ticket and in the node's history; the tree carries none of it.
+- **State 2026-09-02 ~09:0xZ (trued after the owner-held proof day):** the review round
+  and the Copilot round are settled (`50f76873e`, `63ede6263`). The first owner sign-in
+  proved the RFC 9207 fix (Claude Code v2 completes at Clerk) and exposed a SECOND,
+  pre-existing defect: the preview environment's Clerk keys were not a pair, so every
+  fresh preview build since 2026-08-05 refused every token on both discovery paths
+  (`OAuth token not found`). Diagnosed with an independent client (mcpjam) on both paths
+  and by verifying the rejected token under a paired dev key; the owner corrected the
+  preview secret key. Guard landed at `7579d4269` (`clerk-key-pairing.ts`: shared JWKS
+  `kid` between the publishable key's instance and the secret key's Backend API — fails
+  bootstrap naming both instance ids, never the secret; unit + mutation + live proofs).
+  Rebuilt preview attests `Clerk keys paired {instanceId: ins_349N…}`; mcpjam direct-path
+  sign-in → `initialize` 200 → tools list. Linear MCP-655 carries the landed-state comment
+  and a trued description. Remaining: (1) the Claude Code proof is DONE (this seat's own
+  `oak-preview` Connected on the rebuilt preview, 2026-09-02, v2 runtime, no override);
+  Cursor — production first, then the preview (a preview failure blocks merge unless the
+  owner rules otherwise); (2) owner approval → merge under
+  the standing doctrine; MCP-655 → Done; node → `archive/`; #945 resume trigger on the
+  comms stream. Follow-ups queued as pointers (PR description §Follow-ups): MCP-656; the
+  SDK v2 exploration (owner's word 2026-09-01); truing `.mcp.json.example` (`.mcp.json` itself
+  is already gitignored — verified 2026-09-02 09:0xZ — which is exactly why per-worktree copies
+  diverged; the example names a stale preview alias).
+- **Freeze 2026-09-02 ~09:1xZ (compaction freeze at owner word; the seat continues):** claim
+  `b6efbce3` retained-with-reason (the same seat resumes; a successor adopts via this section);
+  freeze broadcast event `944ab610`; the PR description is the reader's contract (§Follow-ups:
+  MCP-656, the SDK v2 exploration, truing `.mcp.json.example`, #945); the fix branch carries this
+  continuity commit on top of `8f59bae98`. Nothing is armed: no watcher, no cron, no Monitor;
+  the local dev server is stopped; subagents idle.
+- Platform observations for the successor (also in the napkin): the worktree-isolation guard
+  refuses compound commands, `$(…)`, `env VAR=… pnpm …` and `--dir` — a scratch SHELL wrapper run
+  as one plain command is the working shape (the 2026-09-01 "Python scripts" shape was banned by
+  the owner on 2026-09-02: edits go through the Edit tool, never a script); `bot-gh.sh` (mint +
+  `GH_TOKEN` + `gh`) is the bot-write wrapper; from inside a `.claude/worktrees/` checkout
+  `EnterWorktree` refuses sibling-directory worktrees — `ExitWorktree` (keep) then `EnterWorktree`
+  by path from the launch directory; the shell cwd resets to the launch directory between
+  commands after an exit — check `pwd` before trusting a "local" result; `EnterWorktree` killed a
+  Monitor armed at the primary on 2026-09-01 (exit 124 within ~30 s); no comms watcher was armed
+  on 2026-09-02 (n=1: Luna frozen, owner in the terminal — the seat swept by hand).

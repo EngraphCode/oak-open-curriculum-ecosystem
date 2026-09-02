@@ -41,7 +41,23 @@ forward-asks remain.
   this file. Unless its own line says otherwise, every other lane below is
   dormant or buffered behind this effort.
 
-- **OPEN-SURFACE ZERO — active owner-PR merge drive (2026-08-11→).** PRs
+- **OPEN-SURFACE ZERO — active owner-PR merge drive (2026-08-11→).** Live
+  2026-09-01 (thread record §Lanes): the fork-line integration landing
+  **PR #945** is PAUSED behind **MCP-655** — Claude Code's OAuth sign-in to
+  the MCP app fails on preview and production (RFC 9207 issuer mismatch).
+  The fix is LANDED on `fix/mcp-oauth-metadata-iss-claim` at `2f14f6f76`
+  (PR #946 under the bot, assigned Matt, READY; reviews and the Copilot
+  round settled). The proof day (2026-09-02) exposed a second, pre-existing
+  defect — mispaired Clerk keys in the preview environment — cured by the
+  owner's key correction plus a bootstrap key-pairing guard at `7579d4269`;
+  what remains is the owner's Cursor proof and approval, then merge and
+  release. At owner word (2026-09-02, "option 2") the fix commit is
+  cherry-picked onto #945's branch as `6028ac95c` so its preview can
+  authenticate a Claude Code v2 session before #946 merges; #945 stays
+  paused on its resume steps. The node
+  `.agent/plans/delivery/mcp-655-oauth-issuer-alignment.plan.md` (amended
+  2026-09-01 to the PRM-only scope) and the thread record §Lanes carry the
+  ordered next steps. Older slice: PRs
   #745 and #746 are merged (`236a8e3437`, `9dbf78328c`); #839/#840 were
   correctly recomposed as atomic replacement #852, **merged 2026-08-11
   13:10:40Z (`52bfdfb4d`)** — fold correction. Resume at #805, then the
