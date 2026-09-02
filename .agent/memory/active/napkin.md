@@ -3035,3 +3035,59 @@ rule, carrying unmerged continuity commits forward.
   WHO ACTS, and about WHERE records land.
 - Metaloss fixed point: a second pass re-found only the 1.175.4 provenance and the unverified
   carries, both named; a third pass would only re-find them. The recursion closes here.
+
+## 2026-09-02 ~11:3xZ (Kiln holds Slag, 1447f4) — compaction freeze; the seat continues as the NAPKIN-ONLY CONSOLIDATION SESSION on `handoff/jim-september` (metacognition / concept-exploration / wrap; owner-invoked)
+
+- Owner word, verbatim: "prepare for compaction … post-compaction this becomes a napkin only
+  consolidation session, then we will look at distilled, and so on". Earlier the same hour:
+  "create a new primary checkout branch `handoff/jim-september`, that is where any
+  uncommitted changes on main will go … we will later run the dedicated consolidation
+  session on that branch".
+- STATE AT THE FREEZE (read first-hand): the PRIMARY checkout is on `handoff/jim-september`,
+  clean, head `493cc55b6` = origin (parents `a8d3e3f54` the parked records, `cbcd76231` =
+  main at release 1.176.0); draft PR #951 (bot, `jimbot`) is the visibility surface, not a
+  merge target yet. Processes: none (heartbeat, ARC tail, watcher all stopped; claim
+  `b6efbce3` closed 11:25Z). Finch calls Pinnacle is PAUSED at owner word ("just stop until
+  I say otherwise"); Luna's seat ended 11:16Z. Worktree `pr-943-engraph` holds a DUPLICATE
+  of my wrap edits staged-uncommitted on throwaway branch `chore/continuity-kiln-2026-09-02`
+  — discard at owner word, never silently. The owner's `.cursor/mcp.json` test config is ON
+  this branch (two preview entries beyond main) — whether it lands is his call at the
+  consolidation.
+- RESUME MAP for the consolidation session (this seat, post-compaction): (1) re-ground with
+  `start-right-quick`, then declare the goal with `consolidate-until-done` (napkin first;
+  distilled next at owner word; then the other buffers) and run it through
+  `consolidate-docs` + `curator-pass` + the `napkin` skill; read `continuity-practice.md`
+  §Disposition of Continuity Surfaces. (2) READ THE PRECEDENT FIRST: the "Napkin rotated
+  (2026-08-14 dedicated consolidation, Quasar wakes Nadir)" block at the top of this file —
+  processed window archived verbatim at `archive/napkin-2026-08-14.md`, `cmp`-proven
+  byte-identical at the move; every behaviour-changing item read and dispositioned to its
+  home BEFORE the rotation (patterns, pending-graduations rows homed, rule clauses,
+  distilled entries); PDR-094 comms watermarks declared; archive moves loss-count-verified.
+  Rotation is the step AFTER processing, never a fitness-relief move (frontmatter line 16,
+  owner correction 2026-07-06). (3) SIZE BEFORE DRAINING (proportionality): the unrotated
+  window is 2026-08-14 06:08Z → 2026-09-02 11:3xZ, ~3,000 lines, ~45 dated blocks, a dozen
+  seats. Plan by era or by seat-lane with one gate-green commit per batch on THIS branch
+  (bot committer; commits go through the full gate — the HUSKY=0 word covered the handoff
+  push only); PR #951 stays the landing surface and its description is trued at the end.
+  (4) Claim: open one on `.agent/memory/active/napkin.md`, `distilled.md`,
+  `.agent/memory/archive/**`, `pending-graduations.md` with `--role curator` before the
+  first edit; watcher per the rules (n=1 unless Finch wakes). (5) Never trim to fit: fitness
+  numbers (target 220 / limit 300 lines; 18,000 chars) route work, never gate it; a concept
+  is dropped only when its home is verified live.
+- Metacognition at the boundary: the inherited shape "consolidate = shrink the file" was
+  rejected — the napkin is the CAPTURE stage of PDR-014's capture → distil → graduate →
+  enforce pipeline, so draining it FEEDS distilled and the graduation register; the owner's
+  order "napkin, then distilled" is that pipeline's order, not a fitness order. Falsifier for
+  the era-batching plan: the 2026-08-14 pass drained 3,490 lines in one session — if its
+  record shows that was sound, one pass may do; read it before planning.
+- Concept-exploration seed for the session (not a promise): the day's corrections cluster
+  into one class — SENTENCES ASSERTED ABOUT THE WORLD WITHOUT A FIRST-HAND READ (a gate from
+  doctrine prose; a proof from a `[SENSITIVE]` placeholder; a release number relayed; "support"
+  read as assignment). Distilled may already hold this class under another name
+  (`verify-dont-trust`, `query-the-value-never-the-lookalike`); the consolidation decides
+  whether today adds instances or a sharper statement.
+- Loss scan for this freeze: everything decision-bearing is on the branch, PR #951, Linear
+  MCP-655, the archived node, the comms stream (freeze event follows), and the per-user
+  RESUME HEADS memory (updated at this freeze). Context-only by design: scratchpad scripts and
+  bodies. Metaloss: a second pass re-finds only "the duplicate staged edits in pr-943-engraph"
+  and "the `.cursor/mcp.json` owner question", both named above; the recursion closes here.
