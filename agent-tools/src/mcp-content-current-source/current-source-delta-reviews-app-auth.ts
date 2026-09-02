@@ -35,6 +35,14 @@ export const APP_AUTH_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaR
     '06e90c915721be676bb603c583bfc020fb57a0b1490754350a0de5f73c1d47b6',
     IMPLEMENTATION_ONLY,
   ),
+  // MCP-655: the Clerk key-pairing guard — the secret key must belong to the
+  // instance the publishable key names (a shared JWKS `kid`), or bootstrap
+  // fails instead of every sign-in being refused after it succeeds. Boot-time
+  // boundary validation only; serves no agent-facing content.
+  'apps/oak-curriculum-mcp-streamable-http/src/app/clerk-key-pairing.ts': excluded(
+    '916664a0ff27167375629179970db20207357d8f9d2a739a2264b2f0703ba754',
+    IMPLEMENTATION_ONLY,
+  ),
   // MCP-351: the published PRM resource composes the shared
   // MCP_RESOURCE_PATH constant; the served document is byte-identical.
   // MCP-545: both GET /mcp mounts now serve the 405 standalone-stream

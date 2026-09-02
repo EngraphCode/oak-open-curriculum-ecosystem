@@ -11,7 +11,7 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
 | Smith holds Temper | codex | GPT-5 | 019fef | executor — owner-PR merge drive, PRs #745/#746/#852 | 2026-08-11 | 2026-08-11 |
 | Spark weaves Paraffin | codex | GPT-5 | 019ff2 | executor — PR #805 value adjudication and merge-readiness | 2026-08-11 | 2026-08-11 |
 | Luna seeks Twilight | claude-code | claude-fable-5 | 5c0ddc | driver — PR #943 (EngraphCode fork `engraph` → `main`): full drive taken at owner word 2026-09-01 by handoff from Genet mends Lamplight (cloud seat); Sonar-gate cure parcel + review truings via fork PR; rehomed as #945 and paused behind the MCP-655 auth fix; resumed 2026-09-02 for the live-service validation and the bot merge | 2026-09-01 | 2026-09-02 |
-| Kiln holds Slag | claude-code | claude-fable-5 | 1447f4 | implementer — MCP-655 (#946) at owner word 2026-09-01; cherry-picked the PRM fix onto `feat/innovation-kit-updates` at owner word 2026-09-02 ("option 2") so #945 could be validated before #946 merges; support seat for the #945 landing from 09:10Z (ARC channel `2026-09-02-pr-945-landing-luna-seeks-twilight-and-kiln-holds-slag.md`) | 2026-09-01 | 2026-09-02 |
+| Kiln holds Slag | claude-code | claude-fable-5 | 1447f4 | implementer — the MCP-655 OAuth issuer-alignment lane from Luna's handover (event 5dbec23b): scope narrowed at owner word, review panel absorbed, fix landed and merged as #946 (2026-09-02 10:42Z, `55f7a457c`); cherry-picked the PRM fix onto `feat/innovation-kit-updates` at owner word 2026-09-02 ("option 2") so #945 could be validated before #946 merged; support seat for the #945 landing (ARC channel `2026-09-02-pr-945-landing-luna-seeks-twilight-and-kiln-holds-slag.md`); see §Lanes | 2026-09-01 | 2026-09-02 |
 
 ## Lane state
 
@@ -90,7 +90,7 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   `2f503217-50a7-4837-918f-ad6feb2620d4` were explicitly closed at 2026-08-11T13:36:45Z;
   `claims mine` returned `[]`. No claim or monitor is retained.
 
-## Lanes
+## Lanes (2026-09-01, Luna seeks Twilight, 5c0ddc)
 
 ### Lane: upstream PR #943 drive — active (owner word 2026-09-01, "yes, we execute the plan")
 
@@ -159,11 +159,15 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   2026-09-01 because the live-service validation it needs (the app UAT runbook through an
   authenticated Claude Code session) was blocked by an OAuth defect on every preview and on
   production (Claude Code refuses the authorisation response: the PRM named the app as the
-  authorisation server while the response carried Clerk's `iss`; Linear MCP-655). The cure
+  authorisation server while the response carried Clerk's `iss`; Linear MCP-655). The pause
+  head `16d87a7cf` (the continuity commit) was pushed with `HUSKY=0` under explicit owner
+  authorisation given when the pause was ordered — a hook bypass on record, not a standing
+  grant. The cure
    — the PRM names the upstream issuer — was planned by this seat, handed to Kiln holds Slag
   and landed on #946. At owner word 2026-09-02 ("option 2") Kiln cherry-picked that fix
   (`2f14f6f76` → `6028ac95c` here; the plan node deliberately not carried) onto this branch
-  and pushed, so this preview could authenticate before #946 merges. This seat resumed from
+  and pushed, explained on #945 (issuecomment-5507061660) and to this seat (event
+  `250ccdbb`), so this preview could authenticate before #946 merges. This seat resumed from
   the primary checkout with custody of worktree `.claude/worktrees/pr-945-innovation-kit`
   (never `EnterWorktree`: it kills armed Monitors), claim `9894f5a2` on this thread (areas:
   the run record, this record, the napkin, repo-continuity).
@@ -208,3 +212,73 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   base-repo `startup_failure` run on `deployment_status` (fork-only head; not a required check,
   recorded on the PR); the fork's `engraph` ruleset requires `run-quality-gates` + CodeQL
   (strict up-to-date) and thread resolution, no auto Copilot.
+
+### Lane: MCP-655 OAuth issuer alignment — FIX LANDED on the branch (2026-09-01, Kiln holds Slag, 1447f4); reviews on the final diff and the owner-held preview proofs are what remain
+
+- Defect: Claude Code 2.1.252 refuses the app's OAuth authorization response on preview and
+  production ("Issuer mismatch … RFC 9207"): the PRM names the app as authorization server while
+  the response carries the upstream identity provider's `iss`. Evidence and dates: Linear
+  MCP-655 (assigned to Matt Gregory at owner word, project First Major Release, labels
+  Bug/pre-publish/jimbot).
+- Scope narrowed at owner word 2026-09-01 (~13:3xZ, this seat's verdict, Jim: "agreed"): the
+  PRM names the upstream issuer — nothing on the proxy-path metadata (the omit/false rider cured
+  nothing and could only be tested by a configuration pin; MCP-656 owns that path's projection).
+  A seven-reviewer Opus panel (assumptions, mcp, architecture ×2, security, clerk, test) and a
+  full Cricket suite (6 of 8 delivered, all ON-TRACK; adversarial high/xhigh undelivered at the
+  freeze) were run against the node; every finding is absorbed in the node (§Panel absorption
+  2026-09-01) — the fetched `issuer` is now validated at the fetch boundary (RFC 8414 §3.3,
+  `issuer_mismatch`), Cursor's PRM-first discovery is described truthfully and its preview
+  sign-in gates merge, the owner-held proof is non-vacuous (client version, no
+  `MCP_SDK_GENERATION` override, remove-and-re-add, a negative control against production).
+- Landed: commit `2f14f6f76` on `fix/mcp-oauth-metadata-iss-claim` (15 files: `servePrm`
+  names `upstreamMetadata.issuer`; `fetchUpstreamMetadata` requires `issuer === upstreamBaseUrl`;
+  relation-shaped PRM tests in `auth-routes.integration.test.ts`, `canonical-origin.integration.test.ts`
+  and four e2e sites; the `issuer_mismatch` unit case; registry C706 re-anchored + reviewed deltas
+  for `auth-routes.ts`, `upstream-metadata-fetch.ts`, `metadata-fetch-error.ts`; ADR-115 (eight
+  sections + Negative 8), ADR-053 amendment item 4, UAT rows 1.2/1.5; the amended node). Both
+  guards mutation-checked: reverting the `servePrm` line reddens exactly the seven enumerated
+  PRM assertions; disabling the issuer check reddens exactly the one unit case. Full pre-commit
+  gate green on the second attempt (first attempt: knip on an unused export, cured by making
+  `IssuerMismatchError` module-private; an app delta-review map over `max-lines`, cured by
+  homing the two entries in the auth-surface map).
+- Worktree `oak-open-curriculum-ecosystem-worktrees/pr-943-engraph`; draft PR **#946** under
+  the bot (assigned `mantagen`, plain-language body); the withdrawn disclaim-only draft is
+  preserved as a patch in the implementing session's scratchpad only — its substance is on the
+  ticket and in the node's history; the tree carries none of it.
+- **State 2026-09-02 ~09:0xZ (trued after the owner-held proof day):** the review round
+  and the Copilot round are settled (`50f76873e`, `63ede6263`). The first owner sign-in
+  proved the RFC 9207 fix (Claude Code v2 completes at Clerk) and exposed a SECOND,
+  pre-existing defect: the preview environment's Clerk keys were not a pair, so every
+  fresh preview build since 2026-08-05 refused every token on both discovery paths
+  (`OAuth token not found`). Diagnosed with an independent client (mcpjam) on both paths
+  and by verifying the rejected token under a paired dev key; the owner corrected the
+  preview secret key. Guard landed at `7579d4269` (`clerk-key-pairing.ts`: shared JWKS
+  `kid` between the publishable key's instance and the secret key's Backend API — fails
+  bootstrap naming both instance ids, never the secret; unit + mutation + live proofs).
+  Rebuilt preview attests `Clerk keys paired {instanceId: ins_349N…}`; mcpjam direct-path
+  sign-in → `initialize` 200 → tools list. Linear MCP-655 carries the landed-state comment
+  and a trued description. Remaining: (1) the Claude Code proof is DONE (this seat's own
+  `oak-preview` Connected on the rebuilt preview, 2026-09-02, v2 runtime, no override);
+  Cursor — production first, then the preview (a preview failure blocks merge unless the
+  owner rules otherwise); (2) owner approval → merge under
+  the standing doctrine; MCP-655 → Done; node → `archive/`; #945 resume trigger on the
+  comms stream. Follow-ups queued as pointers (PR description §Follow-ups): MCP-656; the
+  SDK v2 exploration (owner's word 2026-09-01); truing `.mcp.json.example` (`.mcp.json` itself
+  is already gitignored — verified 2026-09-02 09:0xZ — which is exactly why per-worktree copies
+  diverged; the example names a stale preview alias).
+- **Freeze 2026-09-02 ~09:1xZ (compaction freeze at owner word; the seat continues):** claim
+  `b6efbce3` retained-with-reason (the same seat resumes; a successor adopts via this section);
+  freeze broadcast event `944ab610`; the PR description is the reader's contract (§Follow-ups:
+  MCP-656, the SDK v2 exploration, truing `.mcp.json.example`, #945); the fix branch carries this
+  continuity commit on top of `8f59bae98`. Nothing is armed: no watcher, no cron, no Monitor;
+  the local dev server is stopped; subagents idle.
+- Platform observations for the successor (also in the napkin): the worktree-isolation guard
+  refuses compound commands, `$(…)`, `env VAR=… pnpm …` and `--dir` — a scratch SHELL wrapper run
+  as one plain command is the working shape (the 2026-09-01 "Python scripts" shape was banned by
+  the owner on 2026-09-02: edits go through the Edit tool, never a script); `bot-gh.sh` (mint +
+  `GH_TOKEN` + `gh`) is the bot-write wrapper; from inside a `.claude/worktrees/` checkout
+  `EnterWorktree` refuses sibling-directory worktrees — `ExitWorktree` (keep) then `EnterWorktree`
+  by path from the launch directory; the shell cwd resets to the launch directory between
+  commands after an exit — check `pwd` before trusting a "local" result; `EnterWorktree` killed a
+  Monitor armed at the primary on 2026-09-01 (exit 124 within ~30 s); no comms watcher was armed
+  on 2026-09-02 (n=1: Luna frozen, owner in the terminal — the seat swept by hand).

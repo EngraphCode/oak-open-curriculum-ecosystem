@@ -16,13 +16,19 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/app/bootstrap-helpers.ts",
-      "semanticSha256": "7be12317e396d81f6ba729ecea321750646b91927f52671e0d07d31b4dde7912",
+      "semanticSha256": "c822d0405b9787892cc1b42dcc1cbdf92d426a9eb65863fcaaafeb79cfb13e27",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/app/bootstrap-security.ts",
       "semanticSha256": "dc2928ae4481038f30a4d19abc3c81747cf73f37b1711b284acdc568e59f8d02",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/app/clerk-key-pairing.ts",
+      "semanticSha256": "916664a0ff27167375629179970db20207357d8f9d2a739a2264b2f0703ba754",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -72,7 +78,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/app/oauth-and-caching-setup.ts",
-      "semanticSha256": "98eed582f23cb0bba00b08099e3c1c16000b3e3e649fd22ea723a91348924689",
+      "semanticSha256": "6a51f6cdd0e09c55cbd1e0af0f9a7048a15cc13310d60dd89c3b82098ba9fd43",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
