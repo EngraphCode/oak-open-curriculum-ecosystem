@@ -63,6 +63,10 @@ extraction plan `oak-open-curriculum-mcp-extraction` depends on.
   flight for that exact tip; when the tip is newer than the validated head it
   exits cleanly and lets the newer run release; when it cannot establish
   either it fails loudly, so a validated release is never dropped in silence.
+  A head left unreleased because a later tip's CI failed is not lost: the
+  release tool versions every commit since the last tag, so the next
+  successful run releases it together with the fix, and a broken tip
+  releasing nothing is the correct outcome, not a dropped release.
 - **Stamping.** The release configuration bumps two manifests today (the root
   and the curriculum SDK) and every other package sits at
   `0.0.0-development`. A stamping step writes the release version into every
@@ -73,23 +77,29 @@ extraction plan `oak-open-curriculum-mcp-extraction` depends on.
   `workspace:*` to exact versions. The step publishes in topological order,
   treats each package's publish as idempotent, re-runs to completion after a
   partial failure, and marks the release done only when the whole published
-  set resolves from a clean store. Provenance needs `id-token: write` on the
-  release job, which it does not grant today: the job grants it, or the
-  release makes no provenance claim.
+  set resolves from a clean store. Provenance is required for a public
+  publish: the release job grants `id-token: write` (it does not today) and
+  publishes with provenance, and AC1 checks the attestation on the registry.
 - **Installability.** The packed-form smoke the curriculum SDK already runs
   generalises to every publishable package and installs under a real pnpm
   store layout, not only from a tarball: module-load path arithmetic that
   reaches the monorepo root passes a tarball check and fails an install.
-- **Consumers and the release-age floor.** A consumer inside Oak excludes the
-  `@oaknational` scope from any minimum-release-age floor it sets, so a
-  release here is installable the same hour; the package READMEs say so.
+- **Consumers and the release-age floor.** A consumer keeps its
+  minimum-release-age floor in force for the `@oaknational` scope — a
+  compromised first-party publish is exactly what the floor's detection
+  window is for — so a release here is installable the following day; a
+  genuinely urgent fix is allow-listed for that one package at the owner's
+  word, as the floor's own comment permits, never by a standing scope
+  exclusion. The package READMEs say so.
 
 ## Acceptance criteria (each with a proof — required)
 
 - **AC1 — automatic publish.** A releasable merge publishes every publishable
-  workspace at the release version with no human step, and a clean-store
-  install of the whole set resolves. Proof: `repo-safe` — the release run
-  and the resolve check it ends with.
+  workspace at the release version with no human step, every published
+  package carries a registry provenance attestation, and a clean-store
+  install of the whole set resolves. Proof: `repo-safe` — the release run,
+  the attestation read back from the registry per package, and the resolve
+  check the run ends with.
 - **AC2 — the validated tip.** A run where the default branch advanced during
   CI exits without releasing; the next run releases; a run that cannot find
   a CI result for the tip fails. Proof: `repo-safe` — the three workflow
@@ -104,14 +114,15 @@ extraction plan `oak-open-curriculum-mcp-extraction` depends on.
 ## Todos
 
 1. **P1** The validated-tip assertion on the release job. Proof: AC2.
-2. **P2** The stamping step, topological publish, clean-store resolve check,
-   convergent re-run and the provenance permission or its absence, first as
-   a dry run listing the set, then live at the next release; asserts publish
-   rights at its start (gate). Proof: AC1, AC4.
+2. **P2** The stamping step, topological publish with provenance,
+   clean-store resolve check and convergent re-run, first as a dry run
+   listing the set, then live at the next release; asserts publish rights at
+   its start (gate). Proof: AC1, AC4.
 3. **P3** The packed-form smoke generalised to every publishable package
    under a pnpm store layout. Proof: AC3.
-4. **P4** The consumer note on the release-age floor in the package README
-   template. Proof: the docs validators.
+4. **P4** The consumer note on the release-age floor (the floor stays in
+   force for the scope; per-package allow-listing is the exception) in the
+   package README template. Proof: the docs validators.
 
 ## Out of scope
 

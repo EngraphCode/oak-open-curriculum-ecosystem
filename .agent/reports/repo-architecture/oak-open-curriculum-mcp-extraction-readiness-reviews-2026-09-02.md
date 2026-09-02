@@ -18,13 +18,21 @@ Dispositions: **cured** (the named draft carries the cure at the named section),
 
 The Oak Toolkit Atlas's seam diagram (`.agent/reports/repo-architecture/oak-toolkit-atlas.html`,
 Change 3) named three `oak/` pack classes while the prose above it names four. The diagram line
-now reads `packs — identity · content · config · experience-tuning`. Rendered proof: the Atlas
-was rendered on 2026-09-02 (Playwright, Chromium, 1400px viewport, mermaid 11 loaded onto a
-scratch copy of the canonical file; the repository file carries no loader) and the diagram
-cropped to
-[`oak-toolkit-atlas-seam-diagram-render-2026-09-02.png`](oak-toolkit-atlas-seam-diagram-render-2026-09-02.png):
-the packs box shows all four classes; the three gate boxes and the two family boxes are
-unchanged.
+now reads `packs — identity · content · config · experience-tuning`. Rendered proof, regenerated
+never archived (PDR-138; the artefact stays in scratch space, the instrument and the verdict
+persist here): on 2026-09-02 the seat rendered the diagram and read the pixels first-hand — the
+packs box shows all four classes; the three gate boxes and the two family boxes are unchanged.
+The instrument, reproducible from a clean checkout:
+
+```text
+1. Copy oak-toolkit-atlas.html to scratch space (the repository file carries no
+   mermaid loader; it renders on the artifact platform).
+2. Insert before </body> a script tag loading mermaid 11 (ESM from a CDN) that
+   calls mermaid.initialize({ startOnLoad: true }).
+3. Open the copy in Playwright Chromium at a 1400px-wide viewport; wait for the
+   seam diagram's SVG; screenshot the full page; crop to the SVG's bounding box.
+4. Read the crop: the packs node text and the five neighbouring boxes.
+```
 
 ## Review 1 — assumptions-expert (proportionality, assumption validity, blocking legitimacy)
 
@@ -35,7 +43,7 @@ Verdict on the second draft: NOT READY. Fifteen findings.
 | A-1 | blocking | The MCP server carries generic MCP/OAuth and index-lifecycle machinery the census and the Atlas place on the toolkit side; the draft moved the app whole | **cured** — the apps are now cut, not moved: §The decision per box; E1 (server framework), E2 (OAuth-for-MCP), E5 (index lifecycle) |
 | A-2 | blocking | The ordering thesis's falsifier tested publishing automation, not the ordering | **cured** — §Decision log names two falsifiers of the ordering itself, each at a named slice (M1's extraction test; P4's gates) |
 | A-3 | serious | Owner gate 2 (the ordering word at ratification) was auto-satisfied by ratification | **cured** — removed; gate 1 is now the design record's ratification (D0a), a real mid-plan decision |
-| A-4 | serious | The deploy word had no `owner_gates` row | **cured** — gate 3 (deploy project and DNS), expiring 2026-09-23 |
+| A-4 | serious | The deploy word had no `owner_gates` row | **cured** — a deploy-target gate on the fourth draft; after the design-step reframe (PR round 1, T8) the gate rides the cut-over step's node authored at D0a, named in the extraction node's C1 and gate 2 |
 | A-5 | serious | The stated partition rules did not generate the table | **cured** — §The decision per box states the operative rule (the dispositions, the per-box measurement); census and co-change are evidence columns |
 | A-6 | serious | "Eight members outside the closure" contradicted the hub's move | **cured** — six named; the demos take their dispositions in the table (ruling 9) |
 | A-7 | serious | The 90% claim boundary excluded the class that decides it; the replay script did not exist | **overtaken** — the claim boundary is now the thinness ceiling (AC3a) and the dip rate (AC8); the co-change stays as evidence with the retirement mechanism named; D0b lands the scripts |
@@ -59,7 +67,7 @@ over all 33 workspaces and import-specifier counts.
 | W-2 | blocking | The hub demo depends on `oak-design-react` and `fidelity-review`, neither in the publish set | **overtaken** — the hub stays (ruling 9); the closure arithmetic (25 of 33) is the two apps' and unchanged |
 | W-3 | blocking | The MCP conformance harness is agent tooling and stays; AC1 and the rails needed it there | **cured** — T1 re-provides the check (the harness's generic core published, or a plain check written there), decided at T1 |
 | W-4 | blocking | `.releaserc.mjs` names the curriculum SDK's path; the first release after the move fails; stamping absent | **cured** — the curriculum SDK stays; the publish mechanism's stamping replaces its entry (W2-8); the version discontinuity is recorded (§Decision log) |
-| W-5 | serious | The 24-hour release-age floor blocks same-day installs of toolkit releases | **cured** — the new repository excludes the `@oaknational` scope from the floor (§Publish first, with the floor's behaviour cited from its own comment — W2-11) |
+| W-5 | serious | The 24-hour release-age floor blocks same-day installs of toolkit releases | **re-dispositioned** — the fourth draft excluded the scope from the floor; PR round 1 (T1, T4) showed a scope exclusion removes the detection window the floor exists for; the floor stays in force, the bot batches after maturity, and an urgent fix is allow-listed per package (§Publish first; the publish node's consumer note) |
 | W-6 | serious | `pnpm -r publish` is not atomic; provenance needs `id-token: write` | **cured** — topological publish, clean-store resolve check, convergent re-run; the permission or no provenance claim (`toolkit-publish-mechanism`) |
 | W-7 | serious | Pinning the release checkout would break the release plugin's push | **cured** — the validated-tip assertion, which fails loudly when it cannot find a CI result for the tip (W2-7; `toolkit-publish-mechanism` P1) |
 | W-8 | serious | The codegen chain is consumed through many subpaths; one sentence assigned sides | **cured** — D0b's per-subpath table first; P4's import gate runs at subpath granularity |
@@ -112,7 +120,7 @@ Verdict on the fourth draft: NOT READY. Thirteen findings.
 | A2-1 | blocking | The Atlas's lexeme gate refuses "curriculum terms" in toolkit sources, so the curriculum-toolkit class conflicts with P4 and AC2 | **cured** — §Cut over scopes the gate per class; **routed** — the Atlas's text takes a dated amendment at A2 (ledger row) |
 | A2-2 | blocking | "Rare dips" must be measured before M1, not only after cut-over | **cured** — the change-class map re-runs over the thinned tree; M1 opens at D0a's threshold (first cut nine in ten); §Rare dips, M1 |
 | A2-3 | blocking | The finish bar is unreachable for `graph-corpus-sdk` (licence pending), the codegen chain (Castr-deferred) and the design packs (the design lane's programme) | **cured** — the finish list records dated, surface-scoped exemptions at the owner's word with the dip named (§Rare dips; F) |
-| A2-4 | blocking | This is a lane, not a node: split into four nodes | **cured in part** — the publish mechanism is its own delivery node (`toolkit-publish-mechanism`, serving `public-packages-release`, a blocking edge); **rejected in part** — the corpus pack and the app template stay: one consumer today, one outcome, and the schema slices at pickup (§Decision log, "The lane's shape") |
+| A2-4 | blocking | This is a lane, not a node: split into four nodes | **cured** — the publish mechanism is its own delivery node (`toolkit-publish-mechanism`, serving `public-packages-release`, a blocking edge); and after PR round 1 (T8, with the schema's "one step of a lane, never the lane itself") the extraction node is the lane's design step, whose D0a slice authors a one-page node per later step from the slices banked in §The lane's steps — the corpus pack and the app template become steps, not separate lanes (§Decision log, "The lane's shape") |
 | A2-5 | serious | D0 is four slices | **cured** — D0b (instruments) then D0a (decisions); further slicing at pickup |
 | A2-6 | serious | "Stay whole with relocations" is a fourth disposition; "too thin to be worth a seam" has no threshold | **cured** — the fourth disposition named; the first cut's threshold (one hundred lines) stated, D0a sets the number |
 | A2-7 | serious | The census classes three rows as oak-leaf with no split; overrides need a dated per-row record, and the census is generated | **routed** — D0a records the per-row override with its measurement; the census regenerates (ledger row) |
@@ -197,12 +205,32 @@ Verdict on the fourth draft: READY WITH CURES. Fourteen findings and one verific
 | D2-14 | minor | One workspace, two names (`oak-eslint`; `@oaknational/eslint-plugin-standards`) | **cured** — `oak-eslint` throughout; the published name glossed once under §Evidence |
 | note | — | The ruled repository name is the current app's error-reporting project name (ADR-159, ADR-163) | **routed** — the owner, at gate 2 (ledger row) |
 
+## PR #954 review round 1 (tip `faf0ef792`, Copilot and the Claude review)
+
+Ten threads: nine from Copilot's requested review, one optional nit from the Claude review.
+Triage under the PDR-140 intake bar (a finding cures in the PR only if it changes what the
+implementing session would build, or lands a false statement that would mislead before
+pickup). All READ unless stated.
+
+| ID | Source | Finding (one line) | Disposition |
+| --- | --- | --- | --- |
+| T1 | Copilot | Excluding the `@oaknational` scope from the release-age floor removes the detection window for a compromised first-party publish | **cured** — the floor stays in force; the bot batches after maturity; per-package allow-listing at the owner's word is the exception (extraction node §Publish first, S2; publish node §Mechanism, P4; W-5 re-dispositioned) |
+| T2 | Copilot | The validated-tip hand-off can drop a release when a later tip's CI fails and the release job is skipped | **rejected** — RUN: `release.yml` skips on a failed run by design (a broken tip must not release); the release tool versions every commit since the last tag, so the unreleased head ships with the next successful run — nothing is dropped, only deferred; the publish node's mechanism now says so |
+| T3 | Copilot | Provenance is promised in one place and optional in another, and never verified | **cured** — provenance is required; P2 grants the token permission and publishes with provenance; AC1 reads the attestation back per package |
+| T4 | Copilot | As T1, on the publish node's consumer note | **cured** — as T1 |
+| T5 | Copilot | AC5's proof covered tool metadata only; the served surface includes resources, and auth, widget, landing-page and asset paths also change | **cured** — RUN: `served-surface.ts` classifies resources as well as tools; AC5's proof is now the served-surface manifest diff (tools and resources), the conformance check, the server's end-to-end suite against the new production for the four paths, and the search benchmark at the same baselines |
+| T6 | Copilot | AC8 spans a quarter but the node archived after the first month | **cured** — the retirement step's node carries AC8 and stays live until the third reading; nothing archives on a partial reading |
+| T7 | Copilot | The experience letter characterises the owner's emotional state | **cured** — the adjective removed; the correction stated factually |
+| T8 | Copilot | The node is the whole lane; the schema requires one step of a lane, and decomposition belongs at authoring | **cured** — the node is reframed as the lane's design step; D0a authors a one-page node per later step from the slices and criteria banked in §The lane's steps, because those contents depend on D0a's decisions; nothing is deferred to pickup (§Decision log, "The lane's shape") |
+| T9 | Copilot | The committed PNG contradicts the estate's regenerate-never-archive contract for visual proof | **cured** — the PNG is removed from the change (a copy stays in the seat's scratch space); the record keeps the first-hand verdict and a reproducible render procedure |
+| T10 | Claude (optional) | The MCP server's line-count categories sum to ~12,500, not ~20,500 | **cured** — §Evidence names the ~8,000 uncategorised lines and makes D0b's line-count output the superseding figure |
+
 ## Readiness verdict
 
-Presented for the owner's ratification: the fifth draft of
-`oak-open-curriculum-mcp-extraction` and the new delivery node
-`toolkit-publish-mechanism`, with every finding of both suites dispositioned above and the
-routed ones carried on the node's ledger. Three things remain the owner's beyond ratification:
-the design record D0a will produce (gate 1), the repository's creation and the name collision
-(gate 2), and the deploy target (gate 3); the publish node's own gate is the scope's publish
-rights.
+Presented for the owner's ratification: `oak-open-curriculum-mcp-extraction` as the lane's
+design step (with the lane's steps, slices and criteria banked in it for D0a to project into
+one-page nodes) and the delivery node `toolkit-publish-mechanism`, with every finding of both
+suites and the pull request's first round dispositioned above and the routed ones carried on
+the node's ledger. Beyond ratification the owner holds: the design record D0a will produce
+(gate 1); the repository's creation and the name collision (gate 2); the scope's publish rights
+(the publish node's gate); and, on the cut-over node D0a authors, the deploy target.

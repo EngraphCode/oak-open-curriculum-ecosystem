@@ -1,14 +1,16 @@
 ---
 id: oak-open-curriculum-mcp-extraction
 node_type: delivery
-name: "Extract the MCP app product into oak-open-curriculum-mcp"
+name: "Design the extraction of the MCP app product into oak-open-curriculum-mcp"
 overview: >-
-  Cut the Oak MCP product out of this repository along the line that runs
-  through every workspace it touches — the thin product slice above, the
-  reusable and Oak-org parts below — and assemble the slices in the public
-  repository oaknational/oak-open-curriculum-mcp, aimed at junior developers,
-  building from registry dependencies alone and rarely needing this
-  repository; everything below the line stays here and is published.
+  The design step of the extraction lane: cut the Oak MCP product out of
+  this repository along the line that runs through every workspace it
+  touches — the thin product slice above, the reusable and Oak-org parts
+  below — and assemble the slices in the public repository
+  oaknational/oak-open-curriculum-mcp, aimed at junior developers, building
+  from registry dependencies alone and rarely needing this repository. This
+  node delivers the ratified design record, the measuring instruments and
+  the one-page delivery node for every later step of the lane.
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -34,27 +36,33 @@ owner_gates:
       target workspace set of the new repository, the thinness ceilings, the
       finish list with any dated exemptions, the search instance boundary
       (including project-per-app or shared), the tool split, the template's
-      form and the dip threshold M1 must meet — or amends it on the ticket.
+      form and the dip threshold the move step must meet — together with the
+      delivery nodes D0a authors for the lane's later steps — or amends it on
+      the ticket.
     expires: 2026-09-23
   - awaiting: owner-decision
     clears_when: >-
       At ratification the owner names who creates the public repository
       oaknational/oak-open-curriculum-mcp and says whether the existing
       error-reporting project of the same name (ADR-159, ADR-163) is renamed
-      or shared; S1a asserts the repository exists at its start.
-    expires: 2026-09-23
-  - awaiting: owner-decision
-    clears_when: >-
-      At ratification, or on the ticket before C1 opens, the owner names the
-      production deploy project and DNS for the new repository's MCP server,
-      so that the cut-over slice has a target.
+      or shared; the scaffold step asserts the repository exists at its
+      start, and the cut-over step's own node carries the deploy-target gate.
     expires: 2026-09-23
 last_updated: 2026-09-02
 ---
 
-# Extract the MCP app product into oak-open-curriculum-mcp
+# Design the extraction of the MCP app product into oak-open-curriculum-mcp
 
 ## Goal
+
+This node is the design step of the extraction lane — a delivery node is one
+step of a lane, never the lane itself (the plan-node schema) — and it
+delivers three things: the design record the owner ratifies, the instruments
+that measure the lane, and a one-page delivery node for every later step,
+chained by `depends_on`, each carrying the slices and the lane criteria this
+node banks for it under §The lane's steps. The later steps' contents depend
+on the design decisions, which is why their nodes are this step's output and
+not authored ahead of it. The lane's outcome, which those steps then land:
 
 The Oak MCP product — the MCP server and its search instance (ruling 1) —
 lives in the public repository `oaknational/oak-open-curriculum-mcp` as a
@@ -428,11 +436,13 @@ contributes two observations when they occur — a second app releasing from
 here daily, and a breaking change the product consumes. The release-age floor
 this repository's workspace sets (a 24-hour minimum age, which silently
 resolves to an older mature version when one exists and refuses loudly when
-none does; its own comment names the allow-list for a genuinely needed young
-package) does not travel: the new repository excludes the `@oaknational` scope
-from its floor, since a compromised publish under Oak's own scope is the case
-the floor cannot help with and the exclusion removes the ageing window for a
-release the platform just made on the squad's behalf.
+none does; its own comment names the per-package allow-list for a genuinely
+needed young release) travels with the template and stays in force for the
+`@oaknational` scope: a compromised publish under Oak's own scope is exactly
+the case the floor's detection window exists for, so a release here reaches
+the product's dependency bot the following day, inside the upstream
+contract's week, and a genuinely urgent fix is allow-listed for that one
+package at the owner's word, never by a standing scope exclusion.
 
 ### Scaffold the new repository functional — the app template
 
@@ -564,6 +574,25 @@ because the package is its adapter.
 
 ## Acceptance criteria (each with a proof — required)
 
+This node's own criteria — the design step's:
+
+- **AC-D1 — the design record is ratified.** The record D0a produces
+  carries every decision gate 1 names, with its measurements, and the
+  owner's word is on it. Proof: `owner-held` — the ratification stamp on
+  the record, pointed at from the ticket.
+- **AC-D2 — the instruments run.** The line-count and change-class scripts
+  run in this repository and their outputs are committed beside the record.
+  Proof: `repo-safe` — the scripts and their committed outputs.
+- **AC-D3 — the lane's steps exist as nodes.** Every group under §The lane's
+  steps has a one-page delivery node, chained by `depends_on`, each carrying
+  its slices and the lane criteria assigned to it, and the plan-corpus
+  validator accepts the set. Proof: `repo-safe` — the validator and the
+  `serves:` search that enumerates the nodes.
+
+The lane's criteria, which D0a assigns to the step nodes (each step node
+carries the ones its outcome proves; the retirement step's node stays live
+until the last of them is recorded):
+
 - **AC1 — the extraction test.** A clean clone of `oaknational/oak-open-curriculum-mcp`
   installs from the registry, builds, passes its unit, end-to-end and
   conformance checks, and serves a preview, with no dependency on anything in
@@ -588,9 +617,13 @@ because the package is its adapter.
   `repo-safe` — the box's suites and the line-count script in this repository.
 - **AC5 — production from the new repository.** The served surface is
   identical before and after cut-over, and production serves from the new
-  deploy. Proof: `owner-held` — the conformance check run against production
-  and a diff of the served tool table taken before and after, recorded on the
-  ticket, with the owner's deploy word (gate 3).
+  deploy. Proof: `owner-held` — recorded on the ticket, with the owner's
+  deploy word (the cut-over node's gate): a diff of the served-surface
+  manifest (tools and resources, live and dormant) taken before and after;
+  the conformance check against production; the server's end-to-end suite
+  pointed at the new production for the auth, widget, landing-page and
+  asset-download paths; and the search instance's benchmark against its
+  index at the same baselines.
 - **AC6 — a squad-shaped change.** The first real product change after
   cut-over lands in the new repository without a commit here. Proof:
   `owner-held` — the PR named on the ticket.
@@ -613,34 +646,43 @@ because the package is its adapter.
   arrived as an agent-authored update PR (`owner-held` — the issue list and
   its resolutions on the ticket). At authoring, D0b's change-class map is the
   estimate (`repo-safe`, the classification script and its output landed
-  with the design record). The node archives when AC1–AC7 are proven and the
-  first month's AC8 reading is recorded; the quarter's remaining readings
-  ride the ticket.
+  with the design record). The retirement step's node carries AC8 and stays
+  live until the quarter's third reading is recorded; nothing archives on a
+  partial reading.
 
 ## Todos
 
-Each slice is a single-story PR within the PDR-132 default of two review
-rounds; the big extractions are sliced further at their own authoring, and the
-implementer slices further at pickup. A slice names its proof. Execution order
-is the order below; the publish mechanism (`toolkit-publish-mechanism`) lands
-before any publish slice here.
-
-Design:
+This node's two slices, each a single-story PR within the PDR-132 default of
+two review rounds:
 
 1. **D0b** The instruments, landed beside this node: the line-count script and
    the change-class script (the last quarter's app changes classified by kind
    and by band, with the four dip-looking classes named above resolved), the
    finish list with each package's checks and status, the lever inventory in
    extraction order, the codegen chain's per-subpath disposition table, and
-   the per-row measurements the census overrides need. Proof: the scripts run
-   in `agent-tools` and their outputs are committed with the record.
+   the per-row measurements the census overrides need. Proof: AC-D2.
 2. **D0a** The design record the owner ratifies (gate 1): the per-box
    dispositions with their measurements and thresholds, the target workspace
    set and file tree, the thinness ceiling per workspace, the search instance
    boundary (project per app or shared, the pack's substrate and size, the
    overlay's contents, the injected type surfaces), the tool split, the
-   template's form, the finish list's exemptions, and the dip threshold M1
-   must meet. Proof: the owner's word; the record lands beside this node.
+   template's form, the finish list's exemptions, and the dip threshold the
+   move step must meet — and, in the same slice, the one-page delivery nodes
+   for the groups below, chained by `depends_on`, each carrying its slices,
+   its proofs and the lane criteria assigned to it (the cut-over node
+   carrying the deploy-target gate). Proof: AC-D1 and AC-D3.
+
+## The lane's steps (banked here; each becomes a delivery node at D0a)
+
+Each group below is one step of the lane and one node at D0a; each slice
+inside it is a single-story PR within the PDR-132 default of two review
+rounds, sliced further at its own authoring. A slice names its proof.
+Execution order is the order below; the publish mechanism
+(`toolkit-publish-mechanism`) lands before any publish slice.
+
+Design (this node):
+
+1. **D0b** and **D0a**, as §Todos above.
 
 Finishing and relocating (this repository; each package's finish slice
 precedes its publish):
@@ -748,9 +790,10 @@ Scaffold (the new repository; gate 2; after E7):
    path and the issue template on this repository. Proof: clone to running
    server by the README alone, timed.
 5. **S2** Release at one version per repository, with the dependency-update
-   bot configured for the `@oaknational` scope on a batching schedule. Proof:
-   a tagged pre-release from a no-op commit class; the bot opens one grouped
-   PR for a toolkit release.
+   bot configured for the `@oaknational` scope on a batching schedule that
+   runs after the release-age floor's day. Proof: a tagged pre-release from
+   a no-op commit class; the bot opens one grouped PR for a toolkit release
+   once it has aged.
 
 Moves, cut-over and retirement:
 
@@ -762,7 +805,9 @@ Moves, cut-over and retirement:
 2. **S3** The product repository's minimal Practice, authored once the
    product's real tasks are in that repository. Proof: AC7a and AC7b.
 3. **C1** Production deploy from the new repository, with the old deploy
-   serving as rollback until AC5 is recorded. Proof: AC5. Gate 3.
+   serving as rollback until AC5 is recorded. Proof: AC5. The cut-over
+   node's owner gate: the production deploy project and DNS, named on the
+   ticket before C1 opens.
 4. **M2** The retirement PR here: the two app workspaces and every root
    surface that named them go; the old deploy retires; carries A1. Proof:
    this repository's full check green; the served surface unchanged (AC5).
@@ -787,6 +832,8 @@ Amendments:
 
 ## Out of scope
 
+- Executing any later step of the lane — each is its own delivery node,
+  authored at D0a; this node designs and instruments.
 - Moving today's apps as they are — the product is their product band, not
   the workspace.
 - The publish mechanism itself — `toolkit-publish-mechanism` owns it; this
@@ -867,13 +914,15 @@ thread record
   closure that can be neither published nor moved; or P4 cannot enforce the
   gates per package over a published subset. Either reopens the order in
   favour of the estate-wide re-home first.
-- **The lane's shape (authoring seat, after the second review suite).** The
-  publish mechanism is its own delivery node, `toolkit-publish-mechanism`,
+- **The lane's shape (authoring seat, after the second review suite and the
+  pull request's first round).** A delivery node is one step of a lane,
+  never the lane itself (the plan-node schema), so this node is the lane's
+  design step and the later steps become one-page nodes at D0a, whose
+  decisions their contents depend on; the lane's full sequence, slices and
+  criteria are banked here so nothing is deferred to pickup. The publish
+  mechanism is already its own delivery node, `toolkit-publish-mechanism`,
   serving `public-packages-release`, because it is reusable and that
-  strategic node's banked order already names it; this node depends on it.
-  The corpus pack and the app template stay in this node: they have one
-  consumer today and one outcome, and the schema's own mechanism — slicing at
-  pickup — bounds the work without a second node.
+  strategic node's banked order names it; this node depends on it.
 - **Search: infrastructure, corpus, instance (§Search).** Ruling 1 holds as
   given: the search app that leaves is the MCP instance. The corpus is an
   Oak-org pack built once here, source-shaped and self-sufficient, carrying
@@ -940,7 +989,10 @@ record named under §Evidence; the rows below are the ones routed onward.
   composition (~1,850), build scripts and widget build (~2,100), OAuth proxy
   and auth (~1,700), observability, logging, correlation and test-error
   plumbing (~1,800), landing page (~1,050), registration proof and asset
-  download (~1,000), scripts, operations and test helpers (~2,300); the search
+  download (~1,000), scripts, operations and test helpers (~2,300), and
+  roughly 8,000 further hand-written lines across the remaining modules that
+  the seat's ad hoc count did not categorise — D0b's line-count script
+  classifies every file, and its output supersedes these figures; the search
   CLI ~31,500 across `adapters`, `cli`, `lib`, `observability` and
   `test-helpers`; the curriculum SDK ~12,000, of which the MCP tool layer,
   guidance and metadata are ~8,500 and the generic client, config and
@@ -970,5 +1022,5 @@ record named under §Evidence; the rows below are the ones routed onward.
   replaced by the publish mechanism's stamping, not removed.
 - The lexeme gate's text: the Oak Toolkit Atlas
   (`.agent/reports/repo-architecture/oak-toolkit-atlas.html`, Change 3).
-- Readiness reviews (dispositioned by ID) and the Atlas render proof:
+- Readiness reviews (dispositioned by ID) and the Atlas render record:
   `.agent/reports/repo-architecture/oak-open-curriculum-mcp-extraction-readiness-reviews-2026-09-02.md`.

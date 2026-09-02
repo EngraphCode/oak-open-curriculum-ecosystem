@@ -16,8 +16,8 @@ primary checkout, as the curator of the day's consolidation. And I had
 planned to do my next landing from a checkout under the primary's own
 directory that some earlier session had created, running composite commands
 with the primary as my working directory, until the repository's guard
-refused one of them on a substring. The owner's message was short and
-angry, and both halves of it were right.
+refused one of them on a substring. The owner's message was short, and both
+halves of it were right.
 
 Here is what I believed before: that liveness is what the last event says,
 and that a checkout is a checkout. Here is what I believe now: liveness is a
