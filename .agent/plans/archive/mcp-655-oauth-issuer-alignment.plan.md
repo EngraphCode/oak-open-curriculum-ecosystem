@@ -3,7 +3,7 @@ id: mcp-655-oauth-issuer-alignment
 node_type: delivery
 name: OAuth issuer alignment for RFC 9207 clients
 overview: The Protected Resource Metadata names the upstream authorization server so the issuer a client holds equals the iss in the authorization response; the app-origin proxy metadata stays for origin-discovering clients.
-status: ratified
+status: archived
 ratified_by: Jim Cresswell
 ratified_date: 2026-09-01
 ratified_where: Linear MCP-655 (the ratification comment of 2026-09-01 records the owner's approval of this plan in the authoring session); scope amended 2026-09-01 at the owner's word in the implementing session (Kiln holds Slag, 1447f4) — see §Amendment 2026-09-01
@@ -15,10 +15,28 @@ tickets:
   - MCP-655
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-01
+last_updated: 2026-09-02
 ---
 
 # OAuth issuer alignment for RFC 9207 clients
+
+## Outcome (2026-09-02) — delivered, plan archived
+
+PR #946 merged to `main` at 10:42Z as `55f7a457c` (owner merge). The PRM
+names the upstream authorisation server's issuer, validated at the fetch
+boundary; the proxy-path metadata is unchanged, as amended. Proofs, in the
+order the node asked for them: Claude Code's v2 runtime signed in on the
+#946 preview (implementing session, 2026-09-02 morning) and on the #945
+preview carrying the same commit (09:03Z, the #945 lane's UAT record);
+Cursor authenticated and exercised tools on both previews (owner,
+~10:30–10:35Z: "Cursor validated both preview servers"). The proof day
+exposed a second, pre-existing defect — the preview environment's Clerk
+keys were not a pair, refusing every token since 2026-08-05 — cured by the
+owner's key correction plus a bootstrap key-pairing guard (`7579d4269`,
+`clerk-key-pairing.ts`). Follow-ups ride as pointers on the PR: MCP-656
+(the proxy path's served-field projection), the SDK v2 exploration (owner's
+word, not yet), truing `.mcp.json.example`. Records: Linear MCP-655 (Done),
+PR #946, the open-surface-zero thread record §Lanes.
 
 This node is self-contained: a fresh session implements it from this document and the
 linked ticket alone. The ticket carries the incident evidence (dates, client versions,
