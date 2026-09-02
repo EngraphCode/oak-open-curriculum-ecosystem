@@ -15,11 +15,9 @@
  * cannot carry. Paginated tools surface the signal here instead, so an
  * agent can tell from the payload alone whether more data exists.
  */
-export interface PaginationEcho {
-  readonly hasMore: boolean;
-  readonly nextOffset?: number;
-  readonly nextLimit?: number;
-}
+export type PaginationEcho =
+  | { readonly hasMore: false }
+  | { readonly hasMore: true; readonly nextOffset?: number; readonly nextLimit?: number };
 
 function parseNonNegativeInteger(value: string | null): number | undefined {
   if (value === null || !/^\d+$/.test(value)) {
@@ -33,9 +31,31 @@ function parseNonNegativeInteger(value: string | null): number | undefined {
 }
 
 /**
- * Finds the `<target>` of the `rel="next"` segment in a `Link` header, by
- * linear scan — each `<target>` is paired with the parameter text up to the
- * following `<` (or the header's end).
+ * Matches the `rel` link-param of one Link value, in either RFC 8288 §3
+ * form: a quoted string (`rel="next"`) or a bare token (`rel=next`),
+ * case-insensitively and tolerating whitespace around `=`.
+ */
+const REL_PARAM = /(?:^|;)\s*rel\s*=\s*(?:"([^"]*)"|([^;,\s]+))/i;
+
+/**
+ * Reports whether a Link value's parameter text declares the `next`
+ * relation. `rel` carries a space-separated relation-type list, so
+ * `rel="next last"` counts; scoping the match to the rel param keeps an
+ * unrelated param (a `title` quoting the word) from matching.
+ */
+function declaresNextRelation(params: string): boolean {
+  const match = REL_PARAM.exec(params);
+  if (!match) {
+    return false;
+  }
+  const relations = (match[1] ?? match[2] ?? '').toLowerCase().split(/\s+/);
+  return relations.includes('next');
+}
+
+/**
+ * Finds the `<target>` of the `next`-relation segment in a `Link` header,
+ * by linear scan — each `<target>` is paired with the parameter text up to
+ * the following `<` (or the header's end).
  */
 function nextLinkTarget(linkHeader: string): string | undefined {
   let cursor = 0;
@@ -50,7 +70,7 @@ function nextLinkTarget(linkHeader: string): string | undefined {
     }
     const paramsEnd = linkHeader.indexOf('<', close + 1);
     const params = linkHeader.slice(close + 1, paramsEnd === -1 ? linkHeader.length : paramsEnd);
-    if (params.includes('rel="next"')) {
+    if (declaresNextRelation(params)) {
       return linkHeader.slice(open + 1, close);
     }
     cursor = close + 1;

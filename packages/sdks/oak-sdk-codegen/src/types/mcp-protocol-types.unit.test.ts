@@ -61,4 +61,36 @@ describe('derivePaginationFromLinkHeader', () => {
     const header = '<not a url>; rel="next"';
     expect(derivePaginationFromLinkHeader(header)).toEqual({ hasMore: true });
   });
+
+  it('accepts the bare-token rel form', () => {
+    const header = '<https://example.test/things?offset=40&limit=20>; rel=next';
+    expect(derivePaginationFromLinkHeader(header)).toEqual({
+      hasMore: true,
+      nextOffset: 40,
+      nextLimit: 20,
+    });
+  });
+
+  it('accepts next within a space-separated relation-type list', () => {
+    const header = '<https://example.test/things?offset=40&limit=20>; rel="next last"';
+    expect(derivePaginationFromLinkHeader(header)).toEqual({
+      hasMore: true,
+      nextOffset: 40,
+      nextLimit: 20,
+    });
+  });
+
+  it('matches the rel parameter case-insensitively and around whitespace', () => {
+    const header = '<https://example.test/things?offset=40&limit=20>; REL = "NEXT"';
+    expect(derivePaginationFromLinkHeader(header)).toEqual({
+      hasMore: true,
+      nextOffset: 40,
+      nextLimit: 20,
+    });
+  });
+
+  it('does not match the next relation quoted inside an unrelated parameter', () => {
+    const header = String.raw`<https://example.test/things?offset=0&limit=20>; rel="prev"; title="see rel=\"next\""`;
+    expect(derivePaginationFromLinkHeader(header)).toEqual({ hasMore: false });
+  });
 });
