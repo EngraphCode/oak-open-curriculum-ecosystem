@@ -111,6 +111,13 @@ the first hop. Confirm the id from the API, never from prose:
   pnpm agent-tools merge-bot push
   ```
 
+  A plain `git push` over the machine's SSH key or stored credential is
+  the owner-credential fallback this rule bans, even when every commit is
+  bot-authored: the transport is the identity that displays on the push
+  (self-caught 2026-08-19 after two coordination-branch pushes; every
+  push from that seat went through the front door thereafter). Run it
+  with the primary's built binary from the target worktree.
+
 - **PR creation, PR and issue comments, standalone inline review comments and
   thread replies, thread resolution** — every bot-credential row of the map: a
   minted installation token exported as `GH_TOKEN` for the `gh` invocation.

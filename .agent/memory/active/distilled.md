@@ -162,3 +162,39 @@ report `historical-napkin-synthesis-2026-09-02.md`, processed marker 2026-09-02.
   checkpoint is two mechanical checks: contiguous read ranges against each file's line
   count, and every leaf's quote anchoring verbatim after whitespace collapse. Home landed
   this pass in the corpus-analysis runbook.
+
+## 2026-09-02 fold-carry (Kiln holds Slag, 1447f4)
+
+Items from the 2026-08-19 fold's napkin blocks (carried at the main merge into
+`handoff/jim-september`) that have no permanent home yet; the rest of the block
+routed to rules, skills, the gotchas reference, and the interrupt plan.
+
+- **The admission predicate must bind every axis it reasons about.** A transient
+  allowlist exempted by basename before kind handling, so a symlink wearing a transient
+  name rode out of the symlink refusals; same generator as a place-only dtcg admission
+  the same sitting. An allowlist entry is a (name, kind) pair. Candidate home: a pattern
+  file at the third instance, or a clause in `strict-validation-at-boundary` if the
+  boundary reading holds.
+- **State written from browser-event timing is the defect even when it passes locally**
+  (two instances one afternoon: effect-vs-fixup, focus-vs-default-action; the native
+  `details` toggle races any script-opened panel). The shapes that stood were a
+  render-time previous-state latch and DECLARATIVE focus continuity (`summary:not(:focus)`
+  keeps the focused node rendered with no script). The owner's principle "nothing we do
+  should ever rely on timing or races" (2026-08-17) has no estate home either —
+  candidate: one pattern, `timing-derived-state-is-the-defect`, carrying both.
+- **Shared callback identity plus DOM dedupe is teardown theft.** Subscribers sharing one
+  upstream callback register identical (type, callback, capture) tuples; the DOM
+  deduplicates them, so one subscriber's `removeEventListener` deletes the registration
+  everyone depends on. Per-subscription wrapper identity makes tracked removal safe.
+  Candidate home: the design-react package's implementation notes, once that surface
+  exists (the disclosure code is not on this branch).
+- **A cell red on both sides of a cure proves nothing.** A guard's calibration evidence
+  is void unless the cell is GREEN on the cured state first and red exactly on the
+  revert; a second instance the same sitting passed with both cure arms reverted because
+  `once` had already cleared the fired listeners. Candidate home: `testing-strategy`'s
+  red-before-green passage (fail for the RIGHT reason), or `test-immediate-fails` as a
+  new item.
+- **Play seed — the mover-has-moved guard.** A transition guarded by "the mover has
+  moved", expressed declaratively instead of by timing: `summary:not(:focus)`, the seam's
+  previous-state latch, the merge bot's quiet window. A name to use if it recurs; no
+  graduation from one association.

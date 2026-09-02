@@ -840,3 +840,9 @@ its next anecdote:
   each class's literal surface signature (pipe-after-gate, exit-echo-after-pipeline,
   sha-typed-not-substituted), run over the archive, so an interrupt's landing can be
   followed by a measured absence.
+- **Third-party corroboration from the 2026-08-19 fold, carried at the 2026-09-02
+  merge.** Poppy lifts Bark's wrap that day recorded two same-day instances of
+  commit-by-pathspec recurring at two seats (their own and the Director's) while the
+  rule's five-instance section already existed — and corrected their own draft that
+  had proposed the clause as new. Independent of this session's corpus run, the same
+  shape: the home exists, the mechanism did not fire at the action moment.

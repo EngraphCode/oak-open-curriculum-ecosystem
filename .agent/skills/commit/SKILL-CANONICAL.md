@@ -520,6 +520,19 @@ catastrophic shape. A foreign lock means another agent is mid-commit:
 The `commit_queue`, `git:index/head` active claim, and shared-log entry are
 the coordination surfaces; the lock file is never one of them.
 
+**A free lock is not a free index.** On a shared checkout `git commit`
+releases `index.lock` BEFORE its pre-commit hook runs on an as-is commit
+and RE-READS the index (and `MERGE_HEAD`) after the hook returns, so a
+clean tree and a free lock at T say nothing about the index at T+ε.
+Worked instance (2026-08-19): a peer's `git merge` wrote its result into
+the index while the first seat's hook was running; the peer's own commit
+stopped at commitlint, leaving `MERGE_HEAD`; the first seat's docs commit
+then landed as a two-parent merge under the docs message — content and
+ancestry correct, attribution unmarked, and no undo attempted because
+the index-reset family is banned. The cure is structural, not a further
+naming discipline: per-seat worktrees for coordination writes (PDR-117),
+or the commit-warden singleton owning `git:index/head`.
+
 ## Process
 
 Before opening the four-move protocol above:

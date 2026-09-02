@@ -587,7 +587,12 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    ignoring, not dispositioning. The durable lesson sits upstream: a round
    budget is a SIZE constraint in disguise (PDR-132 binds it at authoring
    time; single-story PRs are the generator fix) — this ruling is the
-   in-flight recovery, never a licence to open multi-story PRs.
+   in-flight recovery, never a licence to open multi-story PRs. A cure
+   that ADDS surface (a promoted module, a new file) is authoring, and
+   the budget re-binds at that moment: budget the promotion as a new
+   changeset, or expect the ratchet to run again over the new surface
+   (2026-08-19: rounds 3–8 on one PR each found real holes in code born
+   in round 3's cure).
 3. **Reviewer-leg states**, computed per (reviewer, tip): **SATISFIED** —
    ANY harvested review by the reviewer binds to the current tip (the
    Phase 3 harvest is the source; the compound read's `latestReviews` alone

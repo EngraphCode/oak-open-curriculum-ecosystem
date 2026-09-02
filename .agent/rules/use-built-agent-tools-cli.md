@@ -117,6 +117,20 @@ primary's dist is rebuilt immediately after merging main** — main may name
 artefacts the old dist lacks, and every dist-binding surface degrades
 silently until the rebuild.
 
+## Probe Usage With `--help`, Never With a Well-Formed Call
+
+A CLI "usage probe" with real arguments is a write. Diagnosing a `comms
+direct` exit-2 (missing `--platform`/`--model`) by re-running it with
+`--body test` and the missing flags WROTE a one-word directed event to a
+peer before the real acknowledgement (2026-08-19); a second seat
+re-derived the same discipline independently two weeks later after its
+own usage errors (2026-09-02: `--help` before the first invocation of
+any subcommand in the session). The rule: read `<topic> <action> --help`
+before a subcommand's first use; the first well-formed invocation is the
+real one. Where a subcommand rejects `--help` (the merge-bot token mint
+does), read its source or the topic help — never invoke it to learn its
+flags.
+
 ## Related Surfaces
 
 - [`agent-tools/README.md`](../../agent-tools/README.md) §Unified entrypoint —

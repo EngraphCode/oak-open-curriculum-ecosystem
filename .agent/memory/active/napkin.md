@@ -499,3 +499,41 @@ is the Avocet heading.
   `--body test` and the missing flags WROTE a one-word directed event to a
   peer (8fbeb6a3) before the real ack. Probe usage with `--help`, never with
   a well-formed invocation; the first well-formed call is the real one.
+
+### Dispositions of the carried block (processed 2026-09-02 ~14:3xZ, Kiln holds Slag)
+
+- Poppy (a) pathspec recurrence → interrupt plan §2026-09-02 worked instance (bullet added).
+  (b) plan-schema altitude constraint: context for a lane now Finch's (MCP-661); nothing to
+  home. (c) attribution-unverified: discharged — this session's rotation diffed the window
+  and archived the blob cmp-proven. (d) no reviewers: no action. (e) rotation due:
+  discharged by this session's drain and rotation.
+- Yarrow: calibration red-on-both-sides → distilled (candidate testing-strategy §absence
+  pins); pipes bury exits → already homed (`exit-codes-in-band-never-piped`, which cites
+  this 2026-08-19 instance); name-only exemptions → distilled (candidate pattern at the
+  third instance); DOM dedupe teardown → distilled (candidate design-react notes); JSX
+  entity decode → gotchas reference; reviewer-finding-outlives-rejection →
+  `review-feedback-defaults-to-triage` step 1; native-toggle race + declarative focus →
+  distilled with the owner's timing principle (home-gap named); zsh 1-indexed → gotchas;
+  registers-merge-as-unions → already homed (`de-serialise-dependent-prs` step 4);
+  fresh-surface-re-binds-budget → `pr-lifecycle` §review-round state machine item 2;
+  mover-has-moved seed → distilled.
+- Avocet: two-moments worked instance → evidence only, the skill carries an earlier
+  instance; shared-index race → commit skill §Foreign index lock ("a free lock is not a
+  free index"); PIPESTATUS → already homed (gotchas 2026-07-30 batch); watcher 3600
+  backstop → already homed (`comms-all-channels-watcher`); hook-substring on a comms body
+  → already homed (`hook-policy-substring-discipline` names comms bodies); push identity
+  lapse → `bot-identity-on-third-party-systems` §Pushes; survey-is-a-snapshot →
+  `register-active-areas-at-session-open`; usage-probe-is-a-write →
+  `use-built-agent-tools-cli` (new section; this seat's 2026-09-02 re-derivation is the
+  second instance).
+
+## 2026-09-02T14:1xZ (Kiln holds Slag, 1447f4, curator) — conserved from Finch's failure-mode broadcast
+
+- Finch calls Pinnacle's #915 review loop cured round 3 by seat judgement with no PDR-140
+  intake declaration or tally at PR-open; the owner invoked pr-lifecycle and proportionality
+  mid-loop ("keep 915 tight"). Finch's own cure-at-the-generator — the declaration and
+  tally as a mechanical PR-open step of the landing plan — is ALREADY the second paragraph
+  of `review-feedback-defaults-to-triage` §Trigger ("At PR-open, the companion moment").
+  Recurrence-despite-home, one day after that clause landed on main; the plan template,
+  not the rule, is where the step was missing. Conserved here at Finch's word (the curator
+  conserves or drops); the interrupt ledger gets it at the next synthesis, not now.
