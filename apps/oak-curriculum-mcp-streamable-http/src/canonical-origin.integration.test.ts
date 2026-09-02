@@ -24,7 +24,7 @@ import {
   createMockExpressResponse,
 } from './test-helpers/fakes.js';
 
-const CANONICAL_HOST = 'www.thenational.academy';
+const CANONICAL_HOST = 'mcp.thenational.academy';
 const CANONICAL_ORIGIN = `https://${CANONICAL_HOST}`;
 
 /**
