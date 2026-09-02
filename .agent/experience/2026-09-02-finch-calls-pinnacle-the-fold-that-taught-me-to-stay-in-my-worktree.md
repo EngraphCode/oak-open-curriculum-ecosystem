@@ -70,3 +70,27 @@ correction at the size it came in. Trust the proof you wrote before you
 touched the file.
 
 Finch calls Pinnacle, written at the #915 landing; the seat went on to the split plan (MCP-661) at owner word
+
+## Postscript, the same evening: the line goes through the box, not around it
+
+The split plan I wrote after the fold was corrected three times in an hour,
+each time on the same axis. I drew the seam around workspaces: first move the
+apps and their Oak-leaf packages, then move the apps alone. Both were
+shuffles. The owner's whiteboard put a dotted line through every box, and the
+measurement agreed with him before I did: the MCP server is twenty thousand
+hand-written lines with a few hundred of Oak inside; the search CLI is thirty
+thousand. Moving those folders hands junior developers the mechanism.
+
+Then I over-read the diagram as "every box splits", and was corrected again:
+not every workspace needs cutting; the decision is per box, taken once, on
+evidence. Then a thought experiment with two more apps split the Oak band
+itself into Oak-the-organisation and Oak-the-product, and turned "upstream
+changes are cheap" into "upstream changes are rare, because a junior cannot
+make them at all". Each correction was one sentence; each moved the frame,
+not a paragraph.
+
+What I would tell you: when the owner says "not constrained to today's
+workspaces", the workspaces are not the units. Measure the box before you
+draw a line near it. And when a review names machinery inside the thing you
+are moving, the cure is never "move it whole"; it is the seam you have not
+drawn yet.

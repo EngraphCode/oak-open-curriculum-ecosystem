@@ -103,7 +103,7 @@ A pattern is admitted only when **all four criteria** are met:
 | Criterion | Meaning |
 |---|---|
 | **Broadly applicable** | Not domain-specific; applies across codebases |
-| **Proven by implementation** | Backed by real shipped code, not theoretical. *Amended 2026-09-02 (routed off PR #915's review at owner word):* for decision-move and process patterns the implementation is an executed decision or sitting with a recorded outcome — the precedents are Different-Lens Reviewer Divergence and Coordinator as Slice Runner, whose `proven_in` cite sittings, not code — and `proven_in` names the decision, its date, and who ruled it. |
+| **Proven by implementation** | Backed by real shipped code, not theoretical. *Amended 2026-09-02 (routed off PR #915's review at owner word):* for patterns whose subject is a decision or a working practice rather than code, the implementation is an executed decision or sitting with a recorded outcome — the existing precedents (Different-Lens Reviewer Divergence cites a session; Coordinator as Slice Runner cites a single instance, and remains provisional) stand as admitted — and, for admissions from this date on, `proven_in` names the sitting or decision, its date, and who ruled it. |
 | **Prevents a recurring mistake** | Addresses a problem likely to recur. "Occurred more than once" is the default heuristic, **not a gate**: per [PDR-100](../../../practice-core/decision-records/PDR-100-decision-debt-as-a-first-class-pillar.md) a single-instance lesson graduates when the lenses (long-term architectural excellence / strict-everywhere / improve-DX) give a clear answer — provenance and adaptation are the safety net, not a second instance. |
 | **Stable** | Not expected to change soon |
 
