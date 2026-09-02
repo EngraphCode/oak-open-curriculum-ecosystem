@@ -27,6 +27,7 @@ recompute live state from claims/comms/git at pickup.
 | 2026-08-02 | Corsair hunts Surf | claude-code / claude-fable-5 | `4d3282` | Design-lane successor seat at direct owner word (evening, post-Moss retirement); standby, warm pause — activation gated on the ratified design-system completion plan node + Director/owner word |
 | 2026-08-07 | Civet spins Cavern | claude-code / claude-fable-5 | `054f5e` | Design-lane successor (Saffron→Civet, PDR-063 deliberate succession at owner word, Director ACTIVATE 20:46Z); claim `645b9e0b` adopted 20:46Z after the handoff record read end to end |
 | 2026-08-17 | Yarrow stirs Undergrowth | claude-code / claude-fable-5 | `ab1066` | Critical-analysis sitting + records-truth pass (MCP-613) at direct owner word; claim `645b9e0b` adopted after the winddown record + this record read end to end |
+| 2026-09-02 | Finch calls Pinnacle | claude-code / claude-fable-5 | `c91bd4` | #908 landing seat at direct owner word (merged a8aa13da1); the post-merge Copilot round consolidated through the tango node in the #915 fold; claim `645b9e0b` closed at owner word (no adoption — a fresh claim opens the lane's next pickup) |
 
 ## Board state at writing (recompute, do not trust)
 
@@ -3734,3 +3735,46 @@ artifact, URL in the session wrap-up).
   is the next BUILD slice.
 - **Claim `645b9e0b` retained with a FRESH handoff record** (see
   handoff_record_path on the claim row).
+
+## Session update 2026-09-02 ~13:xxZ (Finch calls Pinnacle, c91bd4 — additive; #908 MERGED a8aa13da1; the post-merge Copilot finding consolidated through the node at owner word; claim 645b9e0b closed at owner word)
+
+Seat: Finch calls Pinnacle (`c91bd4`, claude-code / claude-fable-5), the #908 landing
+seat and the #915 fold landing seat, at direct owner word; no Director seated.
+
+- **#908 LANDED.** Merged by the owner 2026-09-02T12:19:54Z as `a8aa13da1` on this seat's
+  merged head `5e5ff75f8` (origin/main merged into the branch under the bot; CI 19/19;
+  approval in the owner identity under the standing 2026-08-04 permission after a
+  first-hand read; all ten review threads resolved). The tango-identity-pack node, its
+  readiness record, DDR-012 and the DDR index are on main. The design lane's #908 merge
+  leg named in handoff record `645b9e0b-design-lane-merge-drive-2026-08-19.md` is
+  DISCHARGED.
+- **Post-merge Copilot round (12:24Z on the merged tip).** One inline comment (T2) plus two
+  suppressed comments (§Mechanism identity-№N paragraph; AC2–AC4): the dated T1d
+  amendment of 2026-08-19 defers the seven showcase roster surfaces and the a11y-matrix
+  derivation to the programme's completing node, but four passages still said this node
+  does that work; and that deferral is a scope change the 19 August stamp does not cover.
+  Both points were raised in suppressed form on 19 August (13:59Z and 14:14Z rounds) and
+  never dispositioned; the 19 August cure had updated the readiness record's
+  discharge-route addendum but not the node's own dependent passages.
+- **Owner word, verbatim (2026-09-02, after the harvest):** "fix the issues as part of the
+  915 work. Plan the 915 work before starting". At the plan gate the owner selected, on
+  the question "Consolidating the T1d deferral through the tango node re-scopes T2 and
+  AC4. Which reading do I write into the node?", the option **"Fixture consumer first
+  light"** — in this node Tango renders and is a11y-gated through the T1c static fixture
+  consumer; its showcase-roster arrival and the derived a11y matrix come with the
+  completing node; the node's own clause "Tango never exists in the legacy shape" holds.
+  This entry is the `ratified_where` target for the node's 2026-09-02 re-stamp covering
+  the T1d deferral as ratified scope.
+- **Cure landed in the #915 fold's third commit:** §Mechanism (identity-№N paragraph), AC2,
+  AC4, T2 and the `design-showcase-experience` relationship re-trued to the amendment with
+  dated markers; the two `workspace-reorganisation-programme` references re-pointed to
+  `toolkit-re-architecture` (which supersedes the programme in the same fold);
+  `ratified_where` extended and `last_updated` set to 2026-09-02; the readiness record
+  gains a post-merge review addendum; DDR-012's `informed_by` edges now cite artefacts
+  (the critical-analysis report, the readiness record's 2026-08-18 addendum, PR #908)
+  instead of lifecycle moments. The Copilot thread on #908 is replied to and resolved
+  under the bot once the fold is on main.
+- **Claim 645b9e0b (Yarrow stirs Undergrowth, retained 2026-08-19 for a design successor)
+  CLOSED at this fold** at the owner's plan-gate answer of 2026-09-02; the handoff record
+  stays on disk. The lane's next pickup (T1a-ii onward, per the node) opens at owner
+  word from a fresh claim.
