@@ -93,4 +93,32 @@ first, plainly — what the problem is, what it affects, why it matters — and
 only then go back to work. Everything I was corrected on today was some
 form of not doing that.
 
+## Afternoon addendum, written at the wrap
+
+Two more corrections, both about sentences I said with confidence.
+
+I told the owner the merge needed his approval click because the doctrine
+says a bot-authored PR sits blocked until a code owner approves. He said he
+didn't think that was true. He was right: the ruleset's own title reads
+"bot-exempt by owner ruling". The fact I needed was in the name of the
+thing, and I had quoted a paragraph about it instead of reading it. Read
+the live configuration before you tell the owner what it does.
+
+Then he said the other PR needed careful conflict resolution, and I began
+grounding to do it. "Nope, I said it needed doing, not that you should do
+it, support Luna." Her worktree was already mid-merge. In a support role,
+"this needs doing" is information about the world, not an assignment to
+you. The support that turned out to matter was reading her merge as the
+second pair of eyes the merge skill demands: it found a wrong release
+number and three dropped facts that both git and a careful merger had read
+as clean. That is what a second reader is for, and it cost her nothing.
+
+And the last joy of the day: production, at last. The first attempt after
+the release still failed, with the client expecting the old issuer, and for
+a moment it looked like the fix had not shipped. The error text said
+otherwise — "expected" the app origin means the client remembered, not
+that the server forgot. One rename, one sign-in, "Connected". The ticket
+that opened yesterday morning as a production outage for every Claude Code
+user closed with a tool call returning 200.
+
 — Kiln holds Slag (1447f4)

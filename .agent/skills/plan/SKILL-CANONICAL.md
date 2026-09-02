@@ -167,6 +167,15 @@ Plans are public-repository artefacts: **mechanism only**. Anything
 internal — dates, vendor detail, organisational specifics — rides the
 linked Linear ticket, never the plan body.
 
+A plan that a FRESH session must implement is a self-contained repo
+artefact, never a chat artefact (owner ruling 2026-09-01, verbatim: "it
+must be copied to the repo, so a fresh session can implement it, that
+means it needs to be self contained and not rely on hidden context"):
+mechanism, exact files, tests, any registry ceremony, sequence and proofs
+in the node; dates, versions and deployment URLs on the ticket; the
+seat-facing state (branch, worktree, uncommitted edits) on the thread
+record — three homes, no hidden context.
+
 ## Authoring Disciplines (unchanged by estate structure)
 
 ### Build-vs-Buy Before Build-Shape

@@ -63,26 +63,26 @@ Security policy is defined in:
 
 The policy specifies:
 
-- **PUBLIC_TOOLS**: Tools that do not require authentication (e.g., `get-changelog`, `get-rate-limit`)
+- **PUBLIC_TOOLS**: Tools that skip the tool-level OAuth scope check (`noauth`), e.g.
+  `get-rate-limit`. HTTP bearer authentication at the transport still applies — an
+  unauthenticated call returns 401; `noauth` means no scope check, not no token.
 - **DEFAULT_AUTH_SCHEME**: OAuth 2.1 configuration for protected tools
 
 Current configuration:
 
-- Public tools: `get-changelog`, `get-changelog-latest`, `get-rate-limit`
+- Public tools: `get-rate-limit`
 - Protected tools: All others
-- Required scopes: `openid`, `email`
+- Required scopes: `email` (the policy deliberately excludes `openid`; see the `DEFAULT_AUTH_SCHEME` remarks in `mcp-security-policy.ts`)
 
 ### Making a Tool Public
 
-To make a tool publicly accessible without authentication:
+To exempt a tool from the OAuth scope check (transport authentication still applies):
 
 1. Edit `code-generation/mcp-security-policy.ts`
 2. Add the tool name to the `PUBLIC_TOOLS` array:
 
 ```typescript
 export const PUBLIC_TOOLS = [
-  'get-changelog',
-  'get-changelog-latest',
   'get-rate-limit',
   'your-tool-name', // Add here
 ] as const;
@@ -104,7 +104,7 @@ securitySchemes: [{ type: 'noauth' }];
 **Protected tools**:
 
 ```typescript
-securitySchemes: [{ type: 'oauth2', scopes: ['openid', 'email'] }];
+securitySchemes: [{ type: 'oauth2', scopes: ['email'] }];
 ```
 
 Runtime uses this metadata to enforce per-tool authorization.

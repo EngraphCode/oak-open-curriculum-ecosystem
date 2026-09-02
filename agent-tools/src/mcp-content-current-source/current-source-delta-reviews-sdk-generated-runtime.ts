@@ -31,7 +31,7 @@ export const SDK_GENERATED_RUNTIME_DELTA_REVIEWS: Readonly<
     ),
   'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/runtime/execute.ts':
     excluded(
-      '6f836ac597d992ede4d35c42f31f454268bd2a2c733582b282f764bf81196f33',
+      '4d89ab01ff55059c0d1c3f6e297df31d073d45dd29a4b9ff88f504517918a1a6',
       IMPLEMENTATION_ONLY,
     ),
 };

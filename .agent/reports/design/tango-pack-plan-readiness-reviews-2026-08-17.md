@@ -201,3 +201,22 @@ declaring root) — each an artefact of the runtime-override mechanism
 this ruling retires, kept as legacy-demo until the migration nodes.
 Number correction absorbed here too: the asset-strategy DDR the T1a-ii
 row once called "DDR-012" mints at the next free number at authoring.
+
+**Post-merge review addendum (2026-09-02, the #915 fold, Finch calls Pinnacle c91bd4):**
+Copilot's review of the merged tip (12:24Z, after the owner merged #908 as `a8aa13da1`)
+re-raised, as one inline comment and two suppressed ones, a pair of 19 August suppressed
+findings that this record had not dispositioned: the T1d deferral amendment had not been
+consolidated through the node's §Mechanism identity-№N paragraph, AC2, AC4 and T2, and the
+deferral was a scope change outside the 19 August stamp. Disposition: **absorbed** — the
+four passages and the `design-showcase-experience` relationship are re-trued to the
+amendment with dated markers, under the owner's 2026-09-02 reading "Fixture consumer first
+light" (Tango's first light and a11y gating through the T1c static fixture consumer in
+this node; showcase arrival and the derived a11y matrix at the completing node); the node
+is re-stamped with `ratified_where` citing the owner word recorded in the
+design-system-integration thread record §Session update 2026-09-02. The Y1/Y7/D3/D5/D20
+re-route recorded in the discharge-route addendum above is unchanged by this. Also
+absorbed in the same fold: DDR-012's `informed_by` edges (the 19 August suppressed finding
+that they named lifecycle moments) now cite artefacts. No mechanical gate guards prose
+consistency between a dated amendment and the passages that depend on it; the guard is
+this record's readiness discipline, and the lesson is that an amendment consolidates into
+the text it changes rather than sitting beside it.

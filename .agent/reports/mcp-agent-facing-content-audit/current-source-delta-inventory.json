@@ -647,7 +647,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts",
-      "semanticSha256": "15c76f4100bec4a96aa51d7b082262b02043666b8fb74a3cf2d1b6250ad09efb",
+      "semanticSha256": "052f0d2ec448f8b8c3eb7d98eb044a60baf74db34be3931451028cca889a1edd",
       "itemIds": [
         "A001"
       ]
@@ -1212,11 +1212,17 @@
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/code-generation/excluded-paths.ts",
-      "semanticSha256": "54696cd55ab5ebc2c2015fc30ab3b022f00e97c8a642a101060d0156b34f9aec",
+      "semanticSha256": "850f69ab6b7bc73763ad1bead4571f98cf49056af83877e5b33f81e17b59d05f",
       "itemIds": [
         "A002",
         "C470"
       ]
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/code-generation/mcp-security-policy.ts",
+      "semanticSha256": "c42fd325da92d26edb5673528079b3747e205756a12cad6431712c5c0f40ad11",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/code-generation/resolve-schema-source.ts",
@@ -1403,6 +1409,16 @@
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
+      "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/definitions.ts",
+      "semanticSha256": "78e630df5fca0a39861bd3b290cd8ead01cadc85887952b4999acc8931ae957b",
+      "itemIds": [
+        "C677",
+        "C678",
+        "C679",
+        "C680"
+      ]
+    },
+    {
       "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/index.ts",
       "semanticSha256": "87a28a7983aea360a1256439b28e975e9f8d48e18c1f90c142f390a18d49c976",
       "itemIds": [],
@@ -1410,9 +1426,21 @@
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/runtime/execute.ts",
-      "semanticSha256": "6f836ac597d992ede4d35c42f31f454268bd2a2c733582b282f764bf81196f33",
+      "semanticSha256": "4d89ab01ff55059c0d1c3f6e297df31d073d45dd29a4b9ff88f504517918a1a6",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/stubs/tools/get-changelog-latest.ts",
+      "semanticSha256": "f4b610f94f82a4f1501fc14eabefe9a9ce938fca6c66a2e6a4cadf49016c8ce3",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/stubs/tools/get-changelog.ts",
+      "semanticSha256": "4a1cdb7a62fd3b85de9ef96e88dec8c199c10166e019fb165ad86432047fba31",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/stubs/tools/get-threads-units.ts",
@@ -1425,6 +1453,24 @@
       "semanticSha256": "9d1880bf2a71fa11164344cd91000cfffb415b07c39d8e3fbde4a9b2f730b775",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/stubs/tools/index.ts",
+      "semanticSha256": "96938351932409c50b9599d02966cc9d57b651b6281134051c86f0c5a245f3d8",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts",
+      "semanticSha256": "badcff725f64ce53610f60241f68c52a82cab44dcec309ec3ff78f2ef28de8d0",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
+    },
+    {
+      "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts",
+      "semanticSha256": "c93921c255d001f89b661af93c692cc54563db108e0ab07f356128282d313cd6",
+      "itemIds": [],
+      "exclusionReason": "Governed source deleted from the tree; the baseline-content hash is the tombstone and item lineage records each item retirement or relocation."
     },
     {
       "file": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-assets.ts",
