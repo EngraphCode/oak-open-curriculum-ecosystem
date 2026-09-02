@@ -72,7 +72,7 @@ Current configuration:
 
 - Public tools: `get-rate-limit`
 - Protected tools: All others
-- Required scopes: `openid`, `email`
+- Required scopes: `email` (the policy deliberately excludes `openid`; see the `DEFAULT_AUTH_SCHEME` remarks in `mcp-security-policy.ts`)
 
 ### Making a Tool Public
 
@@ -104,7 +104,7 @@ securitySchemes: [{ type: 'noauth' }];
 **Protected tools**:
 
 ```typescript
-securitySchemes: [{ type: 'oauth2', scopes: ['openid', 'email'] }];
+securitySchemes: [{ type: 'oauth2', scopes: ['email'] }];
 ```
 
 Runtime uses this metadata to enforce per-tool authorization.

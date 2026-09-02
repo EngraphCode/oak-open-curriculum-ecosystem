@@ -5,9 +5,10 @@
  * and consumed by runtime authorization logic.
  *
  * @remarks
- * Security schemes determine whether a tool requires OAuth authentication:
- * - NoAuthScheme: Tool is publicly accessible
- * - OAuth2Scheme: Tool requires OAuth 2.1 authentication
+ * Security schemes determine a tool's per-tool OAuth scope requirement:
+ * - NoAuthScheme: no per-tool scope check (the HTTP transport still
+ *   requires a bearer token for every tool call)
+ * - OAuth2Scheme: Tool requires OAuth 2.1 authentication with the listed scopes
  *
  * The SecurityScheme union type allows tools to specify their auth requirements.
  */
