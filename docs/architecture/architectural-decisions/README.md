@@ -646,6 +646,14 @@ Include migration impact if replacing a prior approach.}
   sequence indicates a withdrawal. The withdrawal and its rationale are
   recoverable from version control; no tombstone is kept in this index.
 
+Before proposing any disposition, read this section and the index's
+precedent rows for the same status. One finding held three wrong sizes in
+one arc — a doctrine-cited "restore as Superseded", a measured downgrade to
+a five-line stub that violated keep-the-file, and the conformant landing (a
+successor ADR plus the full original body under a superseded-by banner),
+which appeared only after every Superseded precedent row had been checked
+(2026-08-31).
+
 ### Creating an ADR
 
 ADRs are created when a decision is significant enough to shape future

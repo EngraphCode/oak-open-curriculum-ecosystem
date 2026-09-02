@@ -26,7 +26,13 @@ makes any pickup-class home a real verifier.
 
 1. **Verify first-hand**, per `pr-comments-resolve-and-recheck` — a
    concrete failure scenario or its verified absence, never
-   compensating-layer reasoning.
+   compensating-layer reasoning. A rejection survives only as long as
+   its premise: when the same finding returns with new sites, re-derive
+   the premise instead of re-issuing the rejection (2026-08-19: a
+   round-3 rejection of a conditional-guard class rested on "the expect
+   throws first"; round 4 found `.not.toBeNull()` passes for
+   `undefined`, so the guarded branch was reachable on a passing run —
+   the reviewer's finding was righter than the rejection).
 2. **Classify against the declared bar** (PDR-140 clause 2): does the
    defect mislead a consumer before the artefact's next verification
    point, or change what gets built? Evaluate against the surface where

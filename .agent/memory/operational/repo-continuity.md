@@ -69,16 +69,20 @@ forward-asks remain.
   Clerk keys in the preview environment — cured by the owner's key
   correction plus a bootstrap key-pairing guard at `7579d4269`; **#946
   merged 2026-09-02 10:42Z as `55f7a457c`**, shipped in release 1.175.3
-  (`555fe6587`, 10:47Z; production PRM verified naming Clerk). The node
-  `.agent/plans/delivery/mcp-655-oauth-issuer-alignment.plan.md` (amended
-  2026-09-01 to the PRM-only scope) carries that lane's close-out and moves
-  to `.agent/plans/archive/` with #948. #945
+  (`555fe6587`, 10:47Z; production PRM verified naming Clerk); the Claude
+  Code production sign-in proved at 11:07Z after a stale-client rename;
+  MCP-655 Done; the node is archived at
+  `.agent/plans/archive/mcp-655-oauth-issuer-alignment.plan.md` (#948,
+  `995eb0aa6`) and carries that lane's close-out. #945
   resumed 2026-09-02 once the fix was cherry-picked onto its branch
   (`6028ac95c`, owner word "option 2"): the live-service validation through
   the owner's authenticated Claude Code session passed (verdict GO, record
   `uat-reports/2026-09-02-preview.md`); `main` merged in after #944 and
-  again after #946. Merge gate: `main`'s required checks + thread
-  resolution + the owner's code-owner approval; instruments and
+  again after #946 (unions second-read by Kiln holds Slag). **#945 MERGED by
+  the owner 2026-09-02 11:04:45Z as `bf8db3a8e`; branch deleted; the
+  fork-line landing is complete;** release 1.176.0 (`cbcd76231`) carries it
+  and production rows 1.1–1.3 passed at 11:13Z (thread record §Lanes). The
+  open-surface-zero remainder is the older slice below; instruments and
   dispositions in the thread record §Lanes.
   Older slice: PRs #745 and
   #746 are merged (`236a8e3437`, `9dbf78328c`); #839/#840 were correctly
@@ -336,6 +340,9 @@ not the current session-priority lane. Reactivation is owner-directed.
 1. Kiln holds Slag merges main into `handoff/jim-september` by semantic merge (the napkin
    is rotated there and appended on main: prove the drain lossless, carry the fold's two
    2026-08-19 tail blocks and the 23-line insertion across; repo-continuity by concept).
+   DONE 2026-09-02 ~14:2xZ by merge commit on `handoff/jim-september`: the 156-line delta
+   carried verbatim under a dated napkin heading and processed in the following commit;
+   the patterns index regenerated over both sides' new pattern files.
 2. The split delivery plan, authored at pickup as a self-contained repo artefact serving
    `toolkit-re-architecture`, with the extraction as the product: the MCP app and the
    Oak-leaf workspaces it needs (the search app included, owner ruling 2026-09-02) building
@@ -347,8 +354,14 @@ not the current session-priority lane. Reactivation is owner-directed.
 3. Then the strategy and plan corpus made consistent and cohesive around that plan
    (`public-packages-release` re-homed as the node's release-mechanism child; the
    taxonomy-survey sketch archived; the census reframed as the migration map; the tango
-   node's remaining stale references trued) — the dedicated consolidation session on
-   `handoff/jim-september`.
+   node's remaining stale references trued) — owner word 2026-09-02 ~14:0xZ: on the
+   MCP-661 branch (PR #954, Finch calls Pinnacle's lane), not on `handoff/jim-september`.
+4. `handoff/jim-september` (PR #951) READY 2026-09-02 ~14:5xZ: the napkin-only
+   consolidation, the step-6a synthesis, the main merge with the fold's napkin delta
+   processed, and the session's closeout records; all checks green; the owner merges.
+   Any post-merge true-up rides #954 (owner word at the wrap). The 90-day Actions export
+   (MCP-662) is local-only at owner word — `.agent/reference-local/` on the owner's
+   machine, never tracked.
 
 ### The operating model (owner-set 2026-07-17) — standing; pickup authority is `director-handoff.md`
 
