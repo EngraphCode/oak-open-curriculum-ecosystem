@@ -470,26 +470,6 @@ describe('Auth Enforcement - RFC Compliance', () => {
 });
 
 describe('All Tools Require HTTP Auth (noauth = no scope check, not no token)', () => {
-  it('returns HTTP 401 for get-changelog without auth', async () => {
-    const res = await request(await createAuthApp())
-      .post('/mcp')
-      .set('Host', 'localhost')
-      .set('Accept', 'application/json, text/event-stream')
-      .send({
-        jsonrpc: '2.0',
-        id: '1',
-        method: 'tools/call',
-        params: { name: 'get-changelog', arguments: {} },
-      });
-
-    expect(res.status).toBe(401);
-
-    const wwwAuth = res.headers['www-authenticate'];
-    expect(wwwAuth).toBeDefined();
-    expect(wwwAuth).toContain('Bearer');
-    expect(wwwAuth).toContain('resource_metadata=');
-  });
-
   it('returns HTTP 401 for get-rate-limit without auth', async () => {
     const res = await request(await createAuthApp())
       .post('/mcp')

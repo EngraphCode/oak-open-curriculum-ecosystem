@@ -28,7 +28,7 @@ import type { SecurityScheme } from './security-types.js';
  * @example
  * ```typescript
  * // Public tool
- * const publicSchemes = getSecuritySchemeForTool('get-changelog');
+ * const publicSchemes = getSecuritySchemeForTool('get-rate-limit');
  * // Returns: [{ type: 'noauth' }]
  *
  * // Protected tool

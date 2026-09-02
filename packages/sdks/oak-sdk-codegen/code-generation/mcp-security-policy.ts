@@ -24,8 +24,6 @@
 export const PUBLIC_TOOLS: readonly string[] = [
   // Add tool names here to make them public
   // By default, all tools require authentication
-  'get-changelog',
-  'get-changelog-latest',
   'get-rate-limit',
 ] as const;
 

@@ -63,12 +63,12 @@ Security policy is defined in:
 
 The policy specifies:
 
-- **PUBLIC_TOOLS**: Tools that do not require authentication (e.g., `get-changelog`, `get-rate-limit`)
+- **PUBLIC_TOOLS**: Tools that do not require authentication (e.g., `get-rate-limit`)
 - **DEFAULT_AUTH_SCHEME**: OAuth 2.1 configuration for protected tools
 
 Current configuration:
 
-- Public tools: `get-changelog`, `get-changelog-latest`, `get-rate-limit`
+- Public tools: `get-rate-limit`
 - Protected tools: All others
 - Required scopes: `openid`, `email`
 
@@ -81,8 +81,6 @@ To make a tool publicly accessible without authentication:
 
 ```typescript
 export const PUBLIC_TOOLS = [
-  'get-changelog',
-  'get-changelog-latest',
   'get-rate-limit',
   'your-tool-name', // Add here
 ] as const;

@@ -11,7 +11,7 @@ describe('getSecuritySchemeForTool', () => {
   describe('tools in PUBLIC_TOOLS', () => {
     it('returns noauth scheme for public tools', () => {
       // Test with actual PUBLIC_TOOLS entries
-      // PUBLIC_TOOLS currently has: 'get-changelog', 'get-changelog-latest', 'get-rate-limit'
+      // PUBLIC_TOOLS currently has: 'get-rate-limit'
       if (PUBLIC_TOOLS.length > 0) {
         const publicToolName = PUBLIC_TOOLS[0];
         const result = getSecuritySchemeForTool(publicToolName);
@@ -81,7 +81,7 @@ describe('getSecuritySchemeForTool', () => {
     });
 
     it('maintains consistency across multiple calls with different inputs', () => {
-      const publicTool = PUBLIC_TOOLS.length > 0 ? PUBLIC_TOOLS[0] : 'get-changelog';
+      const publicTool = PUBLIC_TOOLS.length > 0 ? PUBLIC_TOOLS[0] : 'get-rate-limit';
       const protectedTool = 'get-lessons';
 
       const publicResult1 = getSecuritySchemeForTool(publicTool);
@@ -115,7 +115,7 @@ describe('getSecuritySchemeForTool', () => {
       const publicToolResult =
         PUBLIC_TOOLS.length > 0
           ? getSecuritySchemeForTool(PUBLIC_TOOLS[0])
-          : getSecuritySchemeForTool('get-changelog');
+          : getSecuritySchemeForTool('get-rate-limit');
       const protectedToolResult = getSecuritySchemeForTool('get-lessons');
 
       expect(publicToolResult).toHaveLength(1);

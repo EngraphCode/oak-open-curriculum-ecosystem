@@ -25,7 +25,7 @@
  * toolRequiresAuth('get-lessons')  // => true
  *
  * // Generated public tool
- * toolRequiresAuth('get-changelog')  // => false
+ * toolRequiresAuth('get-rate-limit')  // => false
  *
  * // Aggregated OAuth-protected tool
  * toolRequiresAuth('search')  // => true

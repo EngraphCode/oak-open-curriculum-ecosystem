@@ -103,7 +103,7 @@ matrix** (Sections 1–13) for a release gate.
 
 1. **0.1** `tools/list` — the expected tools are present.
 2. **2.1** `get-curriculum-model` `{}` — orientation returns.
-3. **2.2** `get-changelog-latest` `{}` — upstream API reachable; record the version.
+3. **2.2** `get-rate-limit` `{}` — upstream API reachable; live limit/remaining/reset returned.
 4. **4.1** `search` `{ scope: 'lessons', query: 'photosynthesis', subject: 'science', keyStage: 'ks3' }` — ranked hits with fetchable slugs.
 5. **5.2** `fetch` a lesson id from step 4.
 6. **7.2** `get-prior-knowledge-graph` `{ unitSlugs: ['<a unit slug>'], depth: 1 }` — bounded subgraph, anchors echoed.
@@ -215,12 +215,10 @@ token returns `200` SSE-wrapped JSON-RPC.
 Call these **first** in any session (the server requires `get-curriculum-model`
 before other curriculum tools).
 
-| #   | Tool                   | How  | Expected result                                                                                                      |
-| --- | ---------------------- | ---- | -------------------------------------------------------------------------------------------------------------------- |
-| 2.1 | `get-curriculum-model` | `{}` | Domain model + tool guidance (key stages, subjects, entity hierarchy, tool categories, workflows, tips). Dual shape. |
-| 2.2 | `get-changelog-latest` | `{}` | Latest upstream API version string + date — confirms upstream Oak API reachability. **Record the version.**          |
-| 2.3 | `get-changelog`        | `{}` | Changelog entries (list form of 2.2).                                                                                |
-| 2.4 | `get-rate-limit`       | `{}` | Rate-limit status for the authenticated principal (may be unlimited for internal users).                             |
+| #   | Tool                   | How  | Expected result                                                                                                                   |
+| --- | ---------------------- | ---- | --------------------------------------------------------------------------------------------------------------------------------- |
+| 2.1 | `get-curriculum-model` | `{}` | Domain model + tool guidance (key stages, subjects, entity hierarchy, tool categories, workflows, tips). Dual shape.              |
+| 2.2 | `get-rate-limit`       | `{}` | Rate-limit status for the authenticated principal (may be unlimited for internal users) — confirms upstream Oak API reachability. |
 
 ---
 
@@ -451,7 +449,7 @@ runbook and the server. See
 ```text
 Oak Curriculum MCP — UAT run record
 Target:        <url or localhost:3333>
-Upstream API:  <version from 2.2 get-changelog-latest>
+Upstream API:  <reachable per 2.2 get-rate-limit; version not exposed via MCP>
 App version:   <x-app-version / get-curriculum-model build, if exposed>
 Date (UTC):    <YYYY-MM-DD>
 Run by:        <engineer / agent + host/client>
@@ -490,8 +488,7 @@ are generated from the OpenAPI schema + aggregated tools, so this list
 changes via `pnpm sdk-codegen` — update this appendix when Section 0 shows a
 drift.
 
-**Tools — orientation (4):** `get-curriculum-model`, `get-changelog-latest`,
-`get-changelog`, `get-rate-limit`.
+**Tools — orientation (2):** `get-curriculum-model`, `get-rate-limit`.
 
 **Tools — discovery & browse (10):** `browse-curriculum`, `explore-topic`,
 `get-subjects`, `get-subjects-key-stages`, `get-subjects-years`,

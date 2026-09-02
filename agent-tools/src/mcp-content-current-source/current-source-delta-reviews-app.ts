@@ -212,7 +212,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts': reviewed(
-    '15c76f4100bec4a96aa51d7b082262b02043666b8fb74a3cf2d1b6250ad09efb',
+    '052f0d2ec448f8b8c3eb7d98eb044a60baf74db34be3931451028cca889a1edd',
     ['A001'],
   ),
   // MCP-243: HTTP server bootstrap wiring the close funnel into every exit
