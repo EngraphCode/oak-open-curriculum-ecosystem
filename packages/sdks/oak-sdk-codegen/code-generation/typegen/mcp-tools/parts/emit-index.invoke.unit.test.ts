@@ -214,7 +214,7 @@ describe('emitIndex (invoke wrapper emission)', () => {
       responses: { '200': { description: 'ok' } },
     };
 
-    const code = emitIndex(toolName, path, method, 'getChangelog', operation);
+    const code = emitIndex(toolName, path, method, 'getRateLimit', operation);
 
     // Emitted to satisfy the descriptor contract; no runtime consumer
     // reads the field (retirement tracked as MCP-375).
