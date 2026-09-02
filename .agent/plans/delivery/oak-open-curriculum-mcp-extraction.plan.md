@@ -580,9 +580,13 @@ This node's own criteria — the design step's:
   carries every decision gate 1 names, with its measurements, and the
   owner's word is on it. Proof: `owner-held` — the ratification stamp on
   the record, pointed at from the ticket.
-- **AC-D2 — the instruments run.** The line-count and change-class scripts
-  run in this repository and their outputs are committed beside the record.
-  Proof: `repo-safe` — the scripts and their committed outputs.
+- **AC-D2 — the instruments and inputs land.** The line-count and
+  change-class scripts run in this repository, and every artefact D0b names
+  is committed beside the record: the two scripts' outputs, the finish list
+  with each package's checks and status, the lever inventory, the codegen
+  chain's per-subpath disposition table, and the per-row measurements the
+  census overrides need. Proof: `repo-safe` — the scripts, and each named
+  artefact present as a file beside the record.
 - **AC-D3 — the lane's steps exist as nodes.** Every group under §The lane's
   steps has a one-page delivery node, chained by `depends_on`, each carrying
   its slices and the lane criteria assigned to it, and the plan-corpus
@@ -638,13 +642,15 @@ until the last of them is recorded):
   through the published extension point — by following the documented path,
   and cuts a release. Proof: `owner-held` — the rehearsal recorded on the
   ticket, with the time taken and every point where the reader had to ask.
-- **AC8 — dips are rare.** Three arms over the first quarter after cut-over:
-  no squad member commits to this repository (read from this repository's
-  history; `repo-safe`); the squad's upstream issues here number at most one
-  a month, each resolved within the upstream contract's week by a release
-  here and a bot PR there, and every breaking change the product consumed
-  arrived as an agent-authored update PR (`owner-held` — the issue list and
-  its resolutions on the ticket). At authoring, D0b's change-class map is the
+- **AC8 — dips are rare.** Three arms over the first quarter after cut-over,
+  all `owner-held` on the ticket, which records the squad's dated roster for
+  the quarter: no squad member commits to this repository (the roster
+  compared against this repository's history for the quarter, bot identities
+  excluded, the comparison recorded on the ticket); the squad's upstream
+  issues here number at most one a month, each resolved within the upstream
+  contract's week by a release here and a bot PR there; and every breaking
+  change the product consumed arrived as an agent-authored update PR (the
+  issue list and its resolutions on the ticket). At authoring, D0b's change-class map is the
   estimate (`repo-safe`, the classification script and its output landed
   with the design record). The retirement step's node carries AC8 and stays
   live until the quarter's third reading is recorded; nothing archives on a

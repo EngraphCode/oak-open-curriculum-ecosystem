@@ -26,7 +26,7 @@ The instrument, reproducible from a clean checkout:
 
 ```text
 1. Copy oak-toolkit-atlas.html to scratch space (the repository file carries no
-   mermaid loader; it renders on the artifact platform).
+   mermaid loader; it renders on its hosting platform).
 2. Insert before </body> a script tag loading mermaid 11 (ESM from a CDN) that
    calls mermaid.initialize({ startOnLoad: true }).
 3. Open the copy in Playwright Chromium at a 1400px-wide viewport; wait for the
@@ -165,7 +165,7 @@ Verdict on the fourth draft: NOT READY. Eleven findings.
 | B2-7 | serious | The upstream contract named no latency class, seat, breaking-change notice or resolution-time arm | **cured** — §Rare dips names all four; AC8 carries the resolution-time arm |
 | B2-8 | serious | D0 mixes instruments and decisions | **cured** — D0b then D0a; gate 1's text aligned |
 | B2-9 | serious | The app template's form was unnamed; "cannot drift" was unbacked | **cured** — a published skeleton package with a drift check, plus conventions as packages (§Scaffold) |
-| B2-10 | minor | Gate 2 conflated the decision with the prerequisite assert | **cured** — the gate names the holder; S1a and the publish node's P2 assert at their start |
+| B2-10 | minor | Gate 2 conflated the decision with the prerequisite assert | **cured** — the gate names the holder; S1a and the publish node's live-publish slice (P4) assert at their start |
 | B2-11 | minor | The lifecycle claim conflicted with the Innovation Kit's own declaration | **cured** — framed as this plan's proposal with the Kit's declaration cited (§The lifecycle) |
 
 ### Review 7 — elasticsearch-expert
@@ -216,7 +216,7 @@ pickup). All READ unless stated.
 | --- | --- | --- | --- |
 | T1 | Copilot | Excluding the `@oaknational` scope from the release-age floor removes the detection window for a compromised first-party publish | **cured** — the floor stays in force; the bot batches after maturity; per-package allow-listing at the owner's word is the exception (extraction node §Publish first, S2; publish node §Mechanism, P4; W-5 re-dispositioned) |
 | T2 | Copilot | The validated-tip hand-off can drop a release when a later tip's CI fails and the release job is skipped | **rejected** — RUN: `release.yml` skips on a failed run by design (a broken tip must not release); the release tool versions every commit since the last tag, so the unreleased head ships with the next successful run — nothing is dropped, only deferred; the publish node's mechanism now says so |
-| T3 | Copilot | Provenance is promised in one place and optional in another, and never verified | **cured** — provenance is required; P2 grants the token permission and publishes with provenance; AC1 reads the attestation back per package |
+| T3 | Copilot | Provenance is promised in one place and optional in another, and never verified | **cured** — provenance is required; the publish step grants the token permission and publishes with provenance (P3 rehearses it, P4 goes live); AC1 reads the attestation back per package |
 | T4 | Copilot | As T1, on the publish node's consumer note | **cured** — as T1 |
 | T5 | Copilot | AC5's proof covered tool metadata only; the served surface includes resources, and auth, widget, landing-page and asset paths also change | **cured** — RUN: `served-surface.ts` classifies resources as well as tools; AC5's proof is now the served-surface manifest diff (tools and resources), the conformance check, the server's end-to-end suite against the new production for the four paths, and the search benchmark at the same baselines |
 | T6 | Copilot | AC8 spans a quarter but the node archived after the first month | **cured** — the retirement step's node carries AC8 and stays live until the third reading; nothing archives on a partial reading |
@@ -224,6 +224,20 @@ pickup). All READ unless stated.
 | T8 | Copilot | The node is the whole lane; the schema requires one step of a lane, and decomposition belongs at authoring | **cured** — the node is reframed as the lane's design step; D0a authors a one-page node per later step from the slices and criteria banked in §The lane's steps, because those contents depend on D0a's decisions; nothing is deferred to pickup (§Decision log, "The lane's shape") |
 | T9 | Copilot | The committed PNG contradicts the estate's regenerate-never-archive contract for visual proof | **cured** — the PNG is removed from the change (a copy stays in the seat's scratch space); the record keeps the first-hand verdict and a reproducible render procedure |
 | T10 | Claude (optional) | The MCP server's line-count categories sum to ~12,500, not ~20,500 | **cured** — §Evidence names the ~8,000 uncategorised lines and makes D0b's line-count output the superseding figure |
+
+## PR #954 review round 2 (tip `7c1ca9bcc`, Copilot)
+
+Five findings on the round-1 cure push — the last budgeted round (PDR-132: two). The reserve
+settlement push declared at intake carries these five; after it the budget is spent, and any
+later finding is dispositioned in a reply and routed, never cured in this pull request.
+
+| ID | Source | Finding (one line) | Disposition |
+| --- | --- | --- | --- |
+| R2-1 | Copilot | AC-D2 proved only the two scripts, while D0b names four more artefacts | **cured** — AC-D2 names every D0b artefact as a file beside the record |
+| R2-2 | Copilot | AC8's "no squad commits" arm is not reproducible in-repo without a squad roster | **cured** — the arm is owner-held: the ticket records the dated roster and the comparison against history, bot identities excluded |
+| R2-3 | Copilot | "A rehearsed interruption against a dry-run registry" cannot exercise the resume path | **cured** — AC4's proof names a persistent local test registry, the injected interruption point, the re-run and the three assertions |
+| R2-4 | Copilot | The first live publish ran before installability was proven under a store layout; a broken version cannot be withdrawn | **cured** — the publish node's slices are reordered: the installability smoke (P2) is green for every package before the first live publish (P4); the mechanics rehearse offline (P3) |
+| R2-5 | Copilot | Spelling: "artifact" | **cured** — the sentence no longer uses the word; it named a hosting product's feature, and the plain phrase serves |
 
 ## Readiness verdict
 

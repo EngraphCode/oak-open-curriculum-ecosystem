@@ -22,7 +22,7 @@ owner_gates:
     clears_when: >-
       The owner confirms on the ticket that this repository's release
       workflow holds publish rights for the @oaknational npm scope, or names
-      who grants them; P2 asserts the right at its start.
+      who grants them; P4 asserts the right at its start.
     expires: 2026-09-23
 last_updated: 2026-09-02
 ---
@@ -80,6 +80,8 @@ extraction plan `oak-open-curriculum-mcp-extraction` depends on.
   set resolves from a clean store. Provenance is required for a public
   publish: the release job grants `id-token: write` (it does not today) and
   publishes with provenance, and AC1 checks the attestation on the registry.
+  Nothing publishes live until the installability smoke below is green for
+  every package in the set.
 - **Installability.** The packed-form smoke the curriculum SDK already runs
   generalises to every publishable package and installs under a real pnpm
   store layout, not only from a tarball: module-load path arithmetic that
@@ -109,18 +111,28 @@ extraction plan `oak-open-curriculum-mcp-extraction` depends on.
   package.
 - **AC4 — convergent.** A publish interrupted after part of the set resumes
   to completion on re-run without republishing what landed. Proof:
-  `repo-safe` — a rehearsed interruption against a dry-run registry.
+  `repo-safe` — a rehearsal against a persistent local test registry (one
+  that keeps published versions and rejects a duplicate, which a
+  package-manager dry run does not): the step is interrupted at an injected
+  point after the first package lands, re-run, and the assertions hold —
+  the versions already present are skipped, the missing ones publish, and
+  the whole set resolves from a clean store.
 
 ## Todos
 
 1. **P1** The validated-tip assertion on the release job. Proof: AC2.
-2. **P2** The stamping step, topological publish with provenance,
-   clean-store resolve check and convergent re-run, first as a dry run
-   listing the set, then live at the next release; asserts publish rights at
-   its start (gate). Proof: AC1, AC4.
-3. **P3** The packed-form smoke generalised to every publishable package
-   under a pnpm store layout. Proof: AC3.
-4. **P4** The consumer note on the release-age floor (the floor stays in
+2. **P2** The packed-form smoke generalised to every publishable package
+   under a pnpm store layout, run in CI on every change; green is the
+   precondition of any live publish, because a published version cannot be
+   withdrawn. Proof: AC3.
+3. **P3** The stamping step, topological publish with provenance,
+   clean-store resolve check and convergent re-run, proven as a dry run
+   listing the set and as the AC4 rehearsal against the local test
+   registry, with no live publish. Proof: AC4; the dry-run listing.
+4. **P4** The first live publish at the next release, after P2 is green
+   for every package in the set; asserts publish rights at its start (gate).
+   Proof: AC1.
+5. **P5** The consumer note on the release-age floor (the floor stays in
    force for the scope; per-package allow-listing is the exception) in the
    package README template. Proof: the docs validators.
 
