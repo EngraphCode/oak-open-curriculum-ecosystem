@@ -10,6 +10,7 @@ import {
 } from '../oauth-proxy/index.js';
 import type { HttpObservability } from '../observability/http-observability.js';
 import { fetchUpstreamMetadata } from './upstream-metadata-fetch.js';
+import { verifyClerkKeyPairing } from './clerk-key-pairing.js';
 
 export type { FetchFn } from './upstream-metadata-fetch.js';
 export { fetchUpstreamMetadata } from './upstream-metadata-fetch.js';
@@ -71,6 +72,27 @@ async function resolveUpstreamMetadata(
   if (!metadataResult.ok) {
     throw new Error(metadataResult.error.message, { cause: metadataResult.error });
   }
+
+  // The secret key must verify tokens the publishable key's instance issues;
+  // a mispaired deployment fails here, not after every sign-in (MCP-655).
+  const secretKey = runtimeConfig.env.CLERK_SECRET_KEY;
+  if (!secretKey) {
+    throw new Error('CLERK_SECRET_KEY is required for OAuth proxy');
+  }
+  const publicJwksUrl = metadataResult.value.jwks_uri ?? `${upstreamBaseUrl}/.well-known/jwks.json`;
+  const pairingResult = await runAsyncBootstrapPhase(
+    log,
+    bootstrapTimer,
+    'verifyClerkKeyPairing',
+    appCounter,
+    () => verifyClerkKeyPairing({ publicJwksUrl, secretKey }, fetch, observability),
+    observability,
+  );
+  if (!pairingResult.ok) {
+    throw new Error(pairingResult.error.message, { cause: pairingResult.error });
+  }
+  log.info('Clerk keys paired', { instanceId: pairingResult.value.instanceId });
+
   return { upstreamBaseUrl, upstreamMetadata: metadataResult.value };
 }
 

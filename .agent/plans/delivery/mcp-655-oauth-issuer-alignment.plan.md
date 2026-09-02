@@ -218,7 +218,21 @@ Product code:
    declared its issuer with a trailing slash or on another host would break every
    PRM-following client while every fixture-fed test stayed green; with it, bootstrap fails
    loudly and names both values.
-3. Nothing else in product code. `src/oauth-proxy/oauth-proxy-upstream.ts` is untouched
+3. `src/app/clerk-key-pairing.ts` (added 2026-09-02 at the owner's word, after the preview
+   proof): at bootstrap the secret key must belong to the instance the publishable key
+   names — a `kid` shared between the publishable key's public JWKS and the secret key's
+   Backend API JWKS (each instance's `kid` is its instance id), or bootstrap fails naming
+   both instance ids and never the secret. Why: the publishable key decides which instance
+   issues every token and the secret key which instance verifies them; a mispaired pair
+   lets every sign-in complete and refuses every token as "OAuth token not found" — the
+   state the preview environment sat in for four weeks, invisible to every metadata probe,
+   and the state this fix would have shipped into had production been mispaired.
+   `src/app/oauth-and-caching-setup.ts` runs it as the `verifyClerkKeyPairing` bootstrap
+   phase after the metadata fetch; `bootstrap-helpers.ts` names the phase. Proven by
+   `clerk-key-pairing.unit.test.ts` (paired, unpaired, key rejected, malformed JWKS,
+   network failure; the secret appears only as the Backend API bearer credential) and
+   live: a wrong secret key fails startup with the JWKS 401.
+4. Nothing else in product code. `src/oauth-proxy/oauth-proxy-upstream.ts` is untouched
    (§Amendment 2026-09-01).
 
 Tests (test first — red for the right reason, then green; each test names a system state):
