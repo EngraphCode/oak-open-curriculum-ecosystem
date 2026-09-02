@@ -1484,8 +1484,11 @@ pinning-by-name, not sequencing-by-hope.
   authenticated request with a throwaway token and assert the 401 reason is
   token-invalid-shaped rather than `OAuth token not found` — cheap, but the bootstrap guard
   already fails the build on the same condition, so it only pays if a THIRD env-drift class
-  appears; (2) the `.mcp.json` untracking PR is a five-minute change that removes a whole
-  class of "which worktree's config am I on" confusion — owner-worded, pointer only.
+  appears; (2) CORRECTED 09:0xZ: `.mcp.json` is already gitignored (`.gitignore:27`), so the
+  "untracking PR" was a false premise carried from the owner's remark — the per-worktree
+  divergence is the CONSEQUENCE of being ignored, not of being tracked; the real five-minute
+  change is truing `.mcp.json.example` (its `oak-preview` names a stale branch alias) — pointer
+  only.
 - Loss scan (what only this context held, and where it went): the mcpjam invocation shapes →
   the `mcp-inspector` skill already carries them; the bot-write wrapper recipe → the merge-bot
   doc; the isolation-guard cures → thread record §Lanes platform bullet + the proof-day block
@@ -1495,8 +1498,8 @@ pinning-by-name, not sequencing-by-hope.
   shell wrappers and the replay/verify scripts (their method is recorded; their bytes are
   trivial to re-derive), the Vercel runtime-log queries (none decision-bearing), the withdrawn
   disclaim patch (substance on the ticket).
-- Promises sweep: "keep Luna updated" → discharged (`250ccdbb`, `944ab610`); SDK v2 note on PR
-  + Linear → discharged 2026-09-01; #945 comment → discharged; untrack `.mcp.json` → forwarded
+- Promises sweep: "keep Luna updated" → discharged (`250ccdbb`, `944ab610`); the SDK v2 note
+  on the PR and Linear → discharged 2026-09-01; #945 comment → discharged; true `.mcp.json.example` → forwarded
   as a PR §Follow-ups pointer, ticket un-minted (owner's call); merge #946 at approval → this
   seat at resume (or the Director if one is live); the owner's Cursor proof → owner-held, not
   a seat promise; the seven expired plan gates in the session-start alert → NOT surfaced today

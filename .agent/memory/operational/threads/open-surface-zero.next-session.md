@@ -173,11 +173,13 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   owner rules otherwise); (2) owner approval → merge under
   the standing doctrine; MCP-655 → Done; node → `archive/`; #945 resume trigger on the
   comms stream. Follow-ups queued as pointers (PR description §Follow-ups): MCP-656; the
-  SDK v2 exploration (owner's word 2026-09-01); untracking `.mcp.json`.
+  SDK v2 exploration (owner's word 2026-09-01); truing `.mcp.json.example` (`.mcp.json` itself
+  is already gitignored — verified 2026-09-02 09:0xZ — which is exactly why per-worktree copies
+  diverged; the example names a stale preview alias).
 - **Freeze 2026-09-02 ~09:1xZ (compaction freeze at owner word; the seat continues):** claim
   `b6efbce3` retained-with-reason (the same seat resumes; a successor adopts via this section);
   freeze broadcast event `944ab610`; the PR description is the reader's contract (§Follow-ups:
-  MCP-656, the SDK v2 exploration, untracking `.mcp.json`, #945); the fix branch carries this
+  MCP-656, the SDK v2 exploration, truing `.mcp.json.example`, #945); the fix branch carries this
   continuity commit on top of `8f59bae98`. Nothing is armed: no watcher, no cron, no Monitor;
   the local dev server is stopped; subagents idle.
 - Platform observations for the successor (also in the napkin): the worktree-isolation guard
