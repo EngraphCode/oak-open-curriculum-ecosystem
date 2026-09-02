@@ -25,7 +25,7 @@ depends_on: []
 owner_gates: []
 tickets:
   - MCP-619
-last_updated: 2026-08-19
+last_updated: 2026-09-02
 ---
 
 # Toolkit re-architecture

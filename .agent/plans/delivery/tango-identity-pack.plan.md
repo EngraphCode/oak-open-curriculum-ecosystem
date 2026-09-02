@@ -8,7 +8,7 @@ overview: >-
   owner-commissioned fourth identity, as its first and proving consumer.
 status: ratified
 ratified_by: "Jim Cresswell (owner)"
-ratified_date: 2026-08-19
+ratified_date: 2026-09-02
 ratified_where: >-
   Two owner words compose the stamp. Original ratification 2026-08-17:
   owner card answers, design-lane session ab1066 (Yarrow stirs
@@ -216,7 +216,9 @@ seeded fixture before it guards anything.
    values leaving the base bytes entirely — is the Oak-pack migration
    node's outcome (AC3), not this one's. The proof consumer is a minimal
    fixture app (T1c) — no static single-identity consumer exists today.
-2. **Demo runtime switching** (the demo-equipment shape): a
+2. **Demo runtime switching** (the demo-equipment shape, stated here as
+   the END-STATE architecture; K2 below states what THIS node lands of
+   it — re-trued 2026-09-02 to the T1d amendment): a
    **build-time-generated roster module** (zod-parsed at module init, the
    demo's existing precedent) derives from installed pack manifests and
    feeds every roster surface — the product union and labels, the
@@ -330,10 +332,13 @@ pixels before value authoring begins.
    node lands; the showcase-side proofs at the completing node.
 3. **Both R16 shapes consume.** The static fixture consumer serves the kit
    base plus exactly one pack with zero bytes from any other pack
-   (behaviour-proven at the served surface), and the demo roster derives
-   from installed manifests. The Oak-as-base residue is recorded as the
-   Oak-pack node's outcome, not silently claimed here. Proof: `repo-safe`
-   — consuming tests in the kit/demo test estates.
+   (behaviour-proven at the served surface), and the derived roster
+   MODULE enumerates the installed manifests (the demo's roster surfaces
+   consuming that module is the completing node's work — re-trued
+   2026-09-02 to the T1d amendment). The Oak-as-base residue is recorded
+   as the Oak-pack node's outcome, not silently claimed here. Proof:
+   `repo-safe` — consuming tests in the kit test estate and the
+   roster-derivation tests this node lands.
 4. **Tango renders green, instruments named honestly.** *Extended*
    instruments, run in this node over the T1c static fixture consumer
    for Tango (re-trued 2026-09-02 to the T1d amendment; their
