@@ -51,7 +51,7 @@ Work through each principle. For each, the **probe questions** drive the judgeme
 
 - Probe: Whose voices and perspectives are present, and whose are missing? Are there both windows and mirrors? Is diversity woven through or bolted on? Is ambition maintained?
 - Strong: deliberate, justified selection; genuine windows and mirrors; range of voices without tokenism; breadth _and_ rigour.
-- Weak: unexamined default canon; one-off tokenistic inclusion; diversity claimed but not in the content; homogeneous sources.
+- Weak: unexamined default canon; one-off tokenistic inclusion; diversity claimed but not in the content; homogeneous sources; use of gendered language.
 
 ### 6. Accessible
 
