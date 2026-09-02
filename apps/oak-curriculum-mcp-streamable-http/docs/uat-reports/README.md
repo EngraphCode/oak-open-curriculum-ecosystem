@@ -42,3 +42,6 @@ or a follow-up change:
 - [2026-06-23 — local](./2026-06-23-local.md) — full matrix via the MCP-tool channel
   (auth-enabled local dev, app 1.34.1, upstream 0.7.0); GO. §11 prompts / §13 widget render
   N-A on this channel.
+- [2026-09-02 — preview (PR #945)](./2026-09-02-preview.md) — smoke subset + Sections 0 and 1
+  through an authenticated Claude Code session on the #945 preview carrying the MCP-655 PRM fix
+  (upstream 0.11.0); GO. One P2: the changelog tools 404 upstream (pre-existing; MCP-626/630).
