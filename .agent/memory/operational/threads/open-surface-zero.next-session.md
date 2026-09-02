@@ -143,20 +143,24 @@ immediately. Preserve pushed work through a PR or an explicit disposition.
   the bot (assigned `mantagen`, plain-language body); the withdrawn disclaim-only draft is
   preserved as a patch in the implementing session's scratchpad only — its substance is on the
   ticket and in the node's history; the tree carries none of it.
-- **Next safe step** (in order; trued post-resume 2026-09-01 ~19:0xZ — the review round is
-  DONE): the final-diff reviews ran (code-expert one P1 — the node's registry sentence,
-  trued — plus advisory P3s; mcp-expert and security-expert clean); every finding is
-  absorbed in cure commit `50f76873e` (pushed `ad92ee688..50f76873e`, pre-push green) or
-  dispositioned on #946's verdict comment; #946 is READY with its Status refreshed,
-  Copilot requested, pr-watch armed; the preview curl proof PASSED (both PRM variants
-  serve the dev-instance issuer byte-for-byte; the origin's proxy AS document unchanged).
-  Remaining: (1) the owner-held sign-ins per node §Acceptance (Claude Code v2, no
-  override, remove-and-re-add, production negative control first, then the preview; then
-  Cursor, production first then preview — a Cursor failure on the preview blocks merge
-  unless the owner rules otherwise); (2) the Copilot round settled by triage; (3) merge
-  under the standing doctrine; MCP-655 → Done (the landed-state comment for Matt is still
-  owed — the Linear token expired, retry after re-auth); node → `archive/`; then tell
-  Luna's #945 lane on the comms stream that its resume trigger has fired.
+- **State 2026-09-02 ~09:0xZ (trued after the owner-held proof day):** the review round
+  and the Copilot round are settled (`50f76873e`, `63ede6263`). The first owner sign-in
+  proved the RFC 9207 fix (Claude Code v2 completes at Clerk) and exposed a SECOND,
+  pre-existing defect: the preview environment's Clerk keys were not a pair, so every
+  fresh preview build since 2026-08-05 refused every token on both discovery paths
+  (`OAuth token not found`). Diagnosed with an independent client (mcpjam) on both paths
+  and by verifying the rejected token under a paired dev key; the owner corrected the
+  preview secret key. Guard landed at `7579d4269` (`clerk-key-pairing.ts`: shared JWKS
+  `kid` between the publishable key's instance and the secret key's Backend API — fails
+  bootstrap naming both instance ids, never the secret; unit + mutation + live proofs).
+  Rebuilt preview attests `Clerk keys paired {instanceId: ins_349N…}`; mcpjam direct-path
+  sign-in → `initialize` 200 → tools list. Linear MCP-655 carries the landed-state comment
+  and a trued description. Remaining: (1) owner confirms `oak-preview` shows its tools in
+  `/mcp` (the Claude Code proof); Cursor — production first, then the preview (a preview
+  failure blocks merge unless the owner rules otherwise); (2) owner approval → merge under
+  the standing doctrine; MCP-655 → Done; node → `archive/`; #945 resume trigger on the
+  comms stream. Follow-ups queued as pointers (PR description §Follow-ups): MCP-656; the
+  SDK v2 exploration (owner's word 2026-09-01); untracking `.mcp.json`.
 - Platform observations for the successor (also in the napkin): the worktree-isolation guard
   refuses heredocs, `$(…)` and multi-line arms — scratchpad Python scripts run as one plain
   command are the working shape, and `bot-gh.sh` (mint + `GH_TOKEN` + `gh`) is the bot-write

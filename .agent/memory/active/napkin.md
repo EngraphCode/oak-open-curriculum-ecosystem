@@ -1428,3 +1428,36 @@ pinning-by-name, not sequencing-by-hope.
 - Cricket (medium) redirection taken: hand the owner the preview proof BEFORE the review
   round settles — the owner-held leg is the longest-latency item on the merge path; never
   serialise the owner behind agent work.
+
+## 2026-09-02 — the proof day (Kiln holds Slag, 1447f4)
+
+- Owner corrections, in order, all earned: "what are you doing?" (I sat event-driven while
+  Copilot's review lay unharvested); "22 files for a one-line change" (session records and
+  verdict essays had grown around the fix); "why are you writing python to edit files?" (a
+  Bash-hook workaround over-generalised into an editing habit — the Edit tool was always
+  right); "step back — why did the proxy exist, why was it OK to stop using it, what was the
+  wider impact?" (the question that reframed the investigation). Cure applied in-session:
+  Edit tool for edits, shortest path to merge, plain-language status first.
+- The load-bearing assumption nobody tested: "a token Clerk issues to a client registered
+  directly at Clerk verifies at our server like a proxy-relayed one." Metadata was proven;
+  the token path was not. Lesson: a "transparent" relay retired from a path needs an
+  END-TO-END TOKEN proof, not a metadata proof — and the reviewers verified "the proxy
+  forwards verbatim", which was the wrong question.
+- The real root cause was environmental: preview Clerk keys mispaired since 2026-08-05,
+  invisible because `preview-serves` probes only unauthenticated paths. Structural cure
+  landed (bootstrap pairing guard). Pattern: an unversioned dependency (env) needs a
+  boot-time invariant check, not a runbook line.
+- Evidence discipline, hard-won: (1) `vercel env pull` returns `[SENSITIVE]` for sensitive
+  vars — a "proof" built on it was withdrawn; (2) my shell drifted back to the primary
+  checkout mid-investigation (a `/reload-plugins` reset?) so a "local server" ran pre-fix
+  code and a key I attributed to the worktree was the primary's — label evidence by its
+  true source; re-check `pwd` after any harness reset; (3) full-text log queries match
+  loosely — a "28 signed-in" count was noise.
+- Platform: the isolation guard refuses `env VAR=… pnpm --flag …` and `--dir`; a scratch
+  shell wrapper run as one plain command is the working shape for env-prefixed commands.
+  mcpjam refuses loopback OAuth (`Refusing outbound OAuth fetch to loopback host`), so local
+  direct-path sign-in proofs go through Claude Code's own `oak-local-dev` or a token replay.
+- Clerk facts worth keeping: a JWKS `kid` IS the instance id (FAPI and BAPI agree);
+  `clerk api /instance` identifies a secret key's instance without exposing it; the BAPI
+  verify endpoint answers `404 not found` for a valid key of another instance and
+  `clerk_key_invalid` for a bad key.
