@@ -2341,6 +2341,37 @@ orphans past merged #35; this entry and the formation letter are its last commit
 from this seat. Next parcel restarts it from origin/engraph per the merged-history
 rule, carrying unmerged continuity commits forward.
 
+## 2026-09-01 domain-reference sweep (Rowan calls Dewfall)
+
+- **Surprise: the principal checkout carried uncommitted edits
+  matching the very change I was asked to make** — `canonical-origin.ts`
+  and the plugin `.mcp.json` read `mcp.thenational.academy` on the
+  principal while origin/main (and my clean worktree) still said `www.`.
+  First reads happened on the principal, so I briefly believed the move
+  had partly landed. Lesson: before classifying "already done", read the
+  file at the branch base, not the shared dirty checkout — the principal
+  is a working surface, not a state authority.
+- **What worked**: probing the live hosts before rewriting doc claims
+  (www/mcp → 404; mcp serves MCP + page + both PRM forms; alpha still
+  serves and self-describes mcp) meant every rewritten runbook/UAT claim
+  carries a same-day verification instead of an inherited one — including
+  catching the stale MCP-347 "root PRM unrouted" residue and the
+  dissolved MCP-580 path-scoping caveat.
+- **Scoping line that held**: dated captures (conformance fixtures +
+  `report.unit.test.ts`, provenance-coupled by an in-file comment), UAT
+  reports, milestones, ADR context, and archives keep the old domains as
+  records; every forward-looking surface moved.
+- **Mistake (identity)**: opened PR #944 and added its label with a bare
+  `gh` call — `gh api user` here resolves to `jimCresswell`, so the PR's
+  author line and the label event display the owner, not the bot, even
+  though every commit is bot-committed. The bot path is
+  `GH_TOKEN=$(node agent-tools/dist/src/bin/agent-tools.js merge-bot
+  mint-token --scope pull-request-work) gh …` (the token never printed;
+  `/user` 403s for an installation token — read the timeline actor
+  instead). Applied from the first thread reply onward; a peer seat's
+  stale label read is what prompted the check. Ask before every GitHub
+  write: whose name displays?
+
 ## 2026-09-01 ~12:1xZ (Luna seeks Twilight, 5c0ddc, local seat — upstream 943 drive, Sonar-cure parcel)
 
 - HANDOFF-BY-RECORD WORKS ONE-WAY: the cloud seat cannot message a local

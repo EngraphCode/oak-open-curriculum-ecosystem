@@ -38,7 +38,7 @@ agent-first Practice together to make ambitious possibilities tangible and testa
 
 ---
 
-**Current status: Public Beta** — The MCP app server is live at `www.thenational.academy/mcp`. Anyone can create an Oak account to connect; there is no invitation or allowlist. The `curriculum-mcp-alpha.oaknational.dev` host remains available as a compatibility surface.
+**Current status: Public Beta** — The MCP app server is live at `mcp.thenational.academy/mcp`. Anyone can create an Oak account to connect; there is no invitation or allowlist.
 
 ---
 
