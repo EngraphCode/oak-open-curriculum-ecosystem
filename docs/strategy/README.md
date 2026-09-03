@@ -40,9 +40,9 @@ _Dated line, 2026-09-03 (owner word on the card of that day: "Also state it as t
 priority"): the repository's current structural commitment, and its current first priority for
 structural work, is the extraction of the MCP app product into its own public repository,
 `oaknational/oak-open-curriculum-mcp`, as thin workspaces over packages published from here —
-the decision recorded in [ADR-227](../architecture/architectural-decisions/227-oak-product-in-its-own-repository.md). In the plan
-estate the strategic node `toolkit-re-architecture` carries that lane, and its delivery order
-names the extraction as the lane's first step._
+the decision recorded in [ADR-227](../architecture/architectural-decisions/227-oak-product-in-its-own-repository.md). The plan
+estate (`.agent/plans/`, its index the entry point) carries the lane whose delivery order puts
+the extraction first._
 
 | Read                                                                           | For                                                                                                                |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |

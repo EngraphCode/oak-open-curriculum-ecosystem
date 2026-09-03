@@ -1330,3 +1330,58 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
 - **Claims.** ed9ec042 (this seat, the corpus files) closes at wrap; Vesta's claims cover
   #961's and PR C's files. The seat chain gains Chinook seeks Cloud (lead) and Vesta rides
   Solstice (second seat), both 2026-09-03.
+
+## 2026-09-03 ~12:1xZ — COMPACTION BOUNDARY (Chinook seeks Cloud, 661556, lead): rulings landed; three PRs open at green, merge is the next act; Vesta paused at owner word
+
+- **Owner rulings this stretch, verbatim.** "I don't want a third PR. PRs are SLOW. I see no
+  reason the wrap cannot be part of PR B"; "We don't HAVE to do what copilot says, apply some
+  critical awareness and thinking"; "Give me all outstanding owner questions as cards, right
+  now"; "You are the lead, you are responsible for stopping Vesta from being dumb"; cards:
+  merge policy "Change the merge policy instead" (docs-only bot PRs merge at checks-green with
+  threads resolved and the Claude Code Review's standing verdict, no Copilot leg — the merge
+  tool must learn the class, follow-up ticket owed); publish rights "Yes we have the rights, no
+  we do not need them yet…"; skills scan "No install, anywhere" / "Harvest mechanisms, never
+  vendor" / "Drop the scan: archive the plan"; design item 14 "strict everywhere, all the time,
+  and long-term architectural excellence, run it through the decision matrix via the
+  principles.md file and the cognitive skills" (ruling being derived by a design-system-expert
+  subagent, `item14-lenses`; result lands on the design plan's gate — the ONE gate still
+  alerting); liveness "Slack is the right answer, but the config must be left to the person
+  who does the final implementation, not a now thing"; skills estate "Ratify the annotated
+  corpus"; override contingency "Archive the plan"; directions "Ratify the shape and all five
+  triggers"; then "prepare for compaction … wrap then stop all non-agent processes".
+- **PR #959 (this seat)** — tip after this entry's commit; all checks green on the previous
+  tip; Copilot round 1 on ed0f353: two threads, both cured here (the truing node's
+  `last_updated` instruction qualified; the Atlas block's intro no longer names plan ids) and
+  the strategy index no longer names a plan node by id (PDR-105; owner: plans are ephemeral).
+  Carries: ADR-227 Accepted; the ten amendments; the truing node ARCHIVED with its stamps and
+  disposition; the two MCP-661 nodes ratified; the publish node's gate discharged with the
+  owner's words; the skills-scan and override plans archived with dispositions; liveness,
+  skills-estate and directions gates discharged with the owner's words (directions stamped
+  ratified). NEXT ACT: verify checks green by name and zero unresolved threads, then merge as
+  the bot through the sanctioned REST endpoint (the pulls/959/merge endpoint, merge method,
+  sha pinned, under a pull-request-merge token) — the new policy; the merge tool refuses
+  SETTLED-NO-REVIEW by name until it learns the docs-only class.
+- **PR #962 (this seat, consolidation)** — four rule/skill homes plus the merge-policy clause
+  on the pr-lifecycle skill; Copilot round 1: three threads, all cured (the estate's remaining
+  `tail` pipes in codex-helper, complex-merge and the commit skill trued; the strategic-node
+  "exception" removed from the no-moving-targets row; the channels paragraph re-formed to
+  behaviours 2 and 6). Same NEXT ACT as #959.
+- **PR #961 (Vesta, PAUSED at the owner's word after compaction)** — tip 81c21278e, checks
+  green, Copilot round 4 posted 11:37Z (two threads, four suppressed, untouched). Vesta's
+  claim 01e418de stays open, paused not abandoned; her worktree
+  `../oak-open-curriculum-ecosystem-worktrees/mcp-673-true-ups` has nothing uncommitted. The
+  closer folds into #961 at the owner's word: plan-node pointers at ADR-227, the extraction
+  plan's decision-log sentence, Vesta's tally file (untracked in the PRIMARY at
+  `.agent/reports/agentic-engineering/cricket-quartet-tally-2026-09-03-mcp-673-second-seat.md`
+  — do not lose it; it rides #961). Round-4 threads: triage on the merits under the ratchet
+  rule (three look like real false-today claims per Vesta), reply-and-resolve the rest, merge
+  at green as the bot. Whoever resumes first (Vesta at owner word, or this seat taking the
+  index at Vesta's standing offer) does it.
+- **Open follow-ups, owned:** (1) merge tool: accept the docs-only bot class at timeout-settled
+  (ticket to mint at resume, MCP team); (2) the design plan's item-14 gate: land the subagent's
+  ruling (gate row removed or renewed with the precondition); (3) the strategy index still
+  names `innovation-kit` by id — a pre-existing PDR-105 defect to retire in a later true-up;
+  (4) the bot cannot request Copilot (collaborator refusal) — moot under the new policy, noted.
+- **Processes at this boundary:** the two Monitors (ARC tail, comms watch) and no background
+  shells; claim ed9ec042 open; worktrees `mcp-673-consolidation` (mine, #962) and
+  `mcp-673-true-ups` (Vesta) live; the local memory block carries the resume map.

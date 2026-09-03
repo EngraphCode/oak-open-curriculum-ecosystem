@@ -8,7 +8,7 @@ overview: >-
   of it the plan supersedes — so that anyone choosing work here reads one
   consistent intent, and the owner's single word over an enumerated list of
   acts closes the loop.
-status: ratified
+status: archived
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-09-03
 ratified_where: >-
@@ -27,6 +27,21 @@ last_updated: 2026-09-03
 ---
 
 # True the planning and intent corpus around the extraction plan
+
+## Disposition (archived 2026-09-03)
+
+Completed at the owner's word "Ratify all thirteen" over PR #959's numbered list
+(2026-09-03): AC1, AC2, AC3 and AC5 proven on that pull request (the greps and the
+validators quoted in its body and comments), AC4 by the word itself. T5's factual
+true-ups landed on the plan's second pull request (#961). Archived on the same pull
+request at the owner's word that no further pull request opens for the closer. Three
+deviations from the text below, each ruled during execution: the vision's frontmatter
+carries `last_reviewed`, the owner's stamp, not `last_updated`, so it was left
+untouched; the strategy index's reading-path line names no plan node by id — the
+citation-directionality rule (PDR-105) and the owner's ruling that plans are ephemeral
+bind the owner-signed tier, so AC3's "by id" was met by describing the lane — and the
+decision itself gained a durable home the plan had not foreseen, ADR-227, which every
+permanent page cites instead of the extraction plan.
 
 ## Goal
 
@@ -100,7 +115,7 @@ Three tiers, each with its own carrier and its own authority:
 
 | Tier | Surfaces | Authority | How it is amended |
 | --- | --- | --- | --- |
-| Vision and strategy pages | `VISION.md`, `docs/strategy/*.md` | Owner-signed (the streams' choices and boundaries 2026-06-20; the Kit 2026-08-30); the strategy index calls itself a living strategy and iterates by dated change | A dated additive note beside the signed text, one numbered item each; `last_updated` bumped |
+| Vision and strategy pages | `VISION.md`, `docs/strategy/*.md` | Owner-signed (the streams' choices and boundaries 2026-06-20; the Kit 2026-08-30); the strategy index calls itself a living strategy and iterates by dated change | A dated additive note beside the signed text, one numbered item each; `last_updated` bumped where the page carries the field (the vision carries `last_reviewed`, the owner's stamp, which stays) |
 | Ratified nodes | `toolkit-re-architecture`, the ratified runbooks | Bind | The schema's in-place form: the passage restated, a dated note naming what it replaced, a ledger row, one numbered item; `last_updated` bumped |
 | Sketch nodes | `public-packages-release`, `oak-open-curriculum-mcp-extraction`, `toolkit-publish-mechanism`, `workspace-taxonomy-landscape-survey` | Bind nothing | Edited in place with `last_updated` bumped; archival at the owner's word with a one-line disposition note |
 | Design reports and lane records | The Oak Toolkit Atlas; the readiness record; the estate-coordination thread record | Reports are the design authority the nodes cite; records are contemporaneous capture | A dated amendments block in the report (one numbered item); a true-up entry in the record |

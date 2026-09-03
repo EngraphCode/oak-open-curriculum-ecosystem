@@ -738,3 +738,130 @@ is the Avocet heading.
 - Instrument: a stale `commit-queue` intent (enqueued, never committed) blocks a peer's
   `guard` with "multiple fresh matching commit-queue intents" until `phase --phase abandoned`;
   commitlint `subject-case` rejects an uppercase token ("ADR-227") right after the type.
+- Instrument (2026-09-03 ~11:2xZ, PR #959/#962): the bot installation token CANNOT request a
+  Copilot review — `POST …/requested_reviewers` with `copilot-pull-request-reviewer` answers
+  "Reviews may only be requested from collaborators", and the `[bot]`-suffixed form returns 200
+  while registering nothing (the timeline shows no `review_requested` event). Every Copilot
+  request that bound today ran through the GitHub MCP `request_copilot_review` tool under the
+  owner's identity (timeline: "by jimCresswell -> Copilot", ~10 min to bind, no tool output).
+  Consequence for the merge tool: with `--expect claude` the Claude Code Review leg never
+  SATISFIES on a tip with no findings (the check passes, no review posts) — only a Copilot
+  review bound to the current tip settles the round. Structural cure candidate (owner item):
+  grant the merge bot whatever collaborator standing lets it request Copilot, so the
+  owner-identity call stops being the only path; until then the MCP call is the recorded path.
+
+## 2026-09-03T11:34:13Z (Vesta rides Solstice, 9e26e6, second seat at n=2) — COMPACTION FREEZE at owner word; seat continues; processes stopped
+
+Owner word: "prepare for compaction, /oak-metacognition /oak-free-play /oak-concept-exploration
+/oak-wrap then stop all processes." Freeze binds until compaction lands: answers only, no starts.
+
+WORK SAFETY (verbatim status at the freeze): PR B worktree `mcp-673-true-ups` on
+`jimcresswell/mcp-673-corpus-factual-true-ups` — clean, HEAD 81c21278e, remote branch at the same
+sha (pushed; the upstream shown is origin/main, ahead 4, because the branch was cut from it);
+open as #961 (BLOCKED = review legs pending; checks running on the round-4 tip). ADR worktree
+`mcp-673-adr` on `jimcresswell/mcp-673-adr-oak-product-extraction` — clean, one unpushed commit
+by design: its content rides #959, stamped Accepted there. Primary (the lead's tree): my two
+appended surfaces uncommitted — the ARC channel file's entries after the lead's staging, and the
+untracked tally `cricket-quartet-tally-2026-09-03-mcp-673-second-seat.md`; my two napkin blocks
+are already in #959's napkin (verified on its tip). No queue entries of mine active; two claims
+open (ADR 2334967c — closed at this freeze, its work is folded; PR B 01e418de — retained, work
+continues). All threads on #961 resolved with dispositions; rounds 1–3 cured; round 4 binding.
+
+OWNER WORD RECEIVED AT THE FREEZE (via the lead, ARC 11:40Z entry — read it verbatim before any
+push): no PR C; fold the closer into #961 (plan-node pointers at ADR-227; the extraction plan's
+decision-log sentence; the tally file); the truing node's archival rides #959 (do not touch it on
+PR #961); the Copilot ratchet stops — cure only gate-changers, reply-and-resolve the rest without
+moving the tip, reject any flag on the strategy index naming a strategic node by id; merge at
+green with dispositions, `--expect copilot-pull-request-reviewer`. Acknowledged; executes after
+compaction. My napkin blocks stay on #959 (already there); duplicating them on #961 would collide.
+
+METACOGNITION (retrospective, the sitting): three corrections reached this seat, one generator.
+The no-pipes ruling (I had piped head/tail/cut freely; cured structurally: capture, print whole).
+"Plans are ephemeral" (my first PR A row asked the plan to be trued as if it were the record; the
+cure became ADR-227). The proportionality invocation into #961's fourth round (I cured every
+Copilot round with a push — counts 6, 3, 7 as each cure added surface — with no tally and no
+intake contract at PR-open: the PDR-140 clause-8 defect, now recorded on the channel with the
+tally built late). The generator is fluency at the finish line: correct findings arrived smoothly
+and I answered each with a push instead of sizing the loop. Every catch was external (owner,
+lead, a tool's typed refusal); none self-caught — the error signature for outside scrutiny. The
+reviewer-becomes-implementer drift I recorded against the Haiku leg was also mine in miniature:
+authoring cures the story did not need. Bridge to impact: ADR-227 is the decision's durable home
+and Accepted on #959; PR B's eight true-ups are true and reviewed; the cost was one hour of
+rounds over budget.
+
+FREE PLAY (harvest, discards visible): kept — (a) the settlement machine and the ADR question
+are shaped alike: the machine refuses a tip no review binds, the owner refused a decision no ADR
+binds (association only); (b) each Copilot round reviewed my previous round's cure — round 2's
+findings were round 1's sentences, round 3's were round 2's — the reviewer as a mirror of the
+last cure, shaped like chisel marks that show the last stroke; (c) two seats with clocks thirty
+minutes apart coordinated without error because the channel's rule is that file position
+arbitrates — reminded me of ordering by causality rather than by clock. Discarded: a 6/3/7
+numerology; "the ADR is the merge commit of the plan estate" (forced).
+
+CONCEPT-EXPLORATION (formed enough to name): decisions homed in ephemeral surfaces recurred twice
+today in two shapes — a plan's decision log calling itself the durable home (owner correction →
+ADR-227), and permanent pages citing plan ids (the owner's refused push on #959; Copilot's round
+3 on #961). Problem frame: the rules exist and fire at REVIEW; nothing at AUTHORING time asks
+where a decision or a pointer durably lives, so the plan-node template's decision-log section
+reads as a home and page authors reach for the plan id that is in their hand. Harm: dead
+pointers after archival; two owner refusals in one day. Proposals — (1) one line in the plan-node
+template's decision-log section: rows are captures; the durable home is an ADR or PDR named in
+the row (warrant: PDR-132's thesis, reach work at planning time; falsifier: a later plan whose
+rows still lack a home after the template change — then the line is passive guidance and needs a
+validator); (2) extend `validate-reference-direction`'s policed set to permanent engineering and
+strategy pages for plan PATHS and delivery-plan ids only — never strategic-node ids, which the
+owner has just ruled the strategy index may name by its own convention (warrant: the rule's
+spirit clause and today's two instances; falsifier: the validator flagging a citation the owner
+rules durable). Route: the lead's #962 carries the rule row and a plan-skill paragraph; the
+template line and the validator scope are for the consolidation pass.
+
+PROCESS STOPS (canonical order): no heartbeat cron (n=2); the #961 watch; the ARC tail; the ten
+idle Cricket teammates; the canonical comms watcher LAST, after the freeze broadcast.
+
+RESUME MAP (post-compaction, same seat): (1) re-arm the canonical watcher FIRST (Monitor,
+persistent; `--supervisor-pid 93545`; claude-code / claude-fable-5-1; F-95 assert; gap sweep
+from this entry's timestamp); (2) re-arm the ARC tail and the #961 watch with
+`--expect copilot-pull-request-reviewer`; (3) read the lead's 11:40Z ARC entry verbatim; (4)
+harvest #961's round 4 (tip 81c21278e): cure only gate-changers, reply-and-resolve the rest, no
+tip move for non-gate items; (5) fold the closer into #961 in one queue-ceremony commit from the
+PR B worktree — pointers at ADR-227 on `public-packages-release`, `toolkit-publish-mechanism`
+and the extraction plan (its decision-log sentence: the log is the contemporaneous capture, the
+ADR is the home), plus the tally file copied from the primary (then remove the primary's
+untracked copy with rm, never git); NOT the truing node, NOT the napkin; (6) push under the bot,
+one Copilot request, merge at green with dispositions; (7) team-member closeout broadcast, close
+claim 01e418de, remove the ADR worktree after #959 merges (branch stays), formation letter at
+the real close. The freeze entry rides #961's fold commit or the lead's next primary commit.
+
+PAUSE ADDENDUM 2026-09-03T11:42:05Z: compaction landed; the owner's next word is "pause" (`/oak-start-right-team
+pause`, `/oak-concept-exploration pause`, `/oak-metacognition pause`). The resume map's premise
+"executes after compaction" is superseded: the map holds unchanged, the trigger is the owner's next
+word, not compaction. Re-grounded read-only: nothing moved except Copilot's round 4 on 81c21278e
+(11:37:03Z; two threads, four suppressed; three candidate false-today claims — the `workspace:*`
+note's scope for an external reader, "two review rounds" against #954's third, "the plan estate
+carries the schedule" against the plan-node schema — sized at resume). No stream event after
+327022d6; claim 01e418de retained, paused. Pause notice: one ARC entry and one s2s line to the
+lead; no stream event (the n=2 budget; the freeze broadcast already reads frozen). Metacognition:
+the fluent move at compaction-landing was to execute the map; the owner's word arrived first, and
+the liveness rule's owner-input clause names "pause" as superseding task continuation — the map was
+written under completion drive and assumed compaction = resume authority, which it is not.
+Concept: the estate names freeze, stop, mid-cycle retirement, standby and closeout, but no PAUSED
+seat-state (claim held, watchers down at owner word, resume = owner word); the nearest, the standby
+seat, holds no claim. Proposal for the consolidation pass: one sentence in the liveness rule's
+owner-input clause — a paused seat retains its claim with the pause recorded on the claim's
+channel, re-arms nothing, and resumes only on owner word; a peer needing its surface asks over the
+direct route. Falsifier: a paused seat whose retained claim blocks a peer that could not reach it.
+
+- OWNER RULINGS (cards, ~11:5xZ): (1) merge policy — "Change the merge policy instead": docs-only
+  bot PRs merge at checks-green with threads resolved and the Claude Code Review's standing
+  verdict, no Copilot leg expected; the merge tool must learn that class (follow-up ticket);
+  until then the merging seat recomputes the gate by name and lands the sanctioned REST merge as
+  the bot. (2) publish rights: "Yes we have the rights, no we do not need them yet, we are
+  writing a plan, part of implementing the plan will be to make the publish step work in the
+  correct and safe way" — the publish node's gate discharged. (3) agent-skills scan: no install
+  anywhere; harvest never vendor; the scan dropped and the plan archived. (4) design item 14:
+  "strict everywhere, all the time, and long-term architectural excellence, run it through the
+  decision matrix via the principles.md file and the cognitive skills" — the ruling is derived
+  by the seat through the lenses (design-system-expert dispatched), not given by the owner.
+  Also: "I don't want a third PR. PRs are SLOW" — the closer folds into #961 and the truing
+  node's archival rides #959; and "We don't HAVE to do what copilot says" — the five Copilot
+  threads were triaged on their merits (two real errors, one partial, two doctrine-correct).

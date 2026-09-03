@@ -21,13 +21,7 @@ impact_areas:
 tickets:
   - MCP-661
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      The owner confirms on the ticket that this repository's release
-      workflow holds publish rights for the @oaknational npm scope, or names
-      who grants them; P4 asserts the right at its start.
-    expires: 2026-09-23
+owner_gates: []
 last_updated: 2026-09-02
 ---
 
@@ -151,3 +145,11 @@ extraction plan `oak-open-curriculum-mcp-extraction` depends on.
   split.
 - A second versioning or publishing tool — admitted only on the evidence the
   strategic node names.
+
+## Review dispositions
+
+One dated row per routed finding (PDR-140 ledger surface).
+
+| Date | Source | Finding | Routing |
+| --- | --- | --- | --- |
+| 2026-09-03 | Owner card (the MCP-673 implementing session) | The publish-rights gate: does the release workflow hold publish rights on the @oaknational scope? | Discharged — owner verbatim: "Yes we have the rights, no we do not need them yet, we are writing a plan, part of implementing the plan will be to make the publish step work in the correct and safe way"; the gate row is removed; P4 still asserts the right at its start |
