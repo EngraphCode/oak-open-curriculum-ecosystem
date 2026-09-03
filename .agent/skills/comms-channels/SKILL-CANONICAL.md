@@ -57,7 +57,9 @@ finding, a ruling relayed, a review row, a landing record, a handover of repo st
 the stream, SHA-pinned where it names repo state (behaviour 6), at occurrence (behaviour 2),
 even when a live peer is waiting, because s2s leaves no record any future seat can find. The
 proven shape is both at once: the fact on ARC or the stream, the s2s message pointing at it.
-When in doubt the content is knowledge-bearing.
+When in doubt the content is knowledge-bearing. Prediction (PDR-130): with this test loaded, no
+SHA-bearing fact or ruling relay travels s2s-only within the review window; if a later seat has
+to reconstruct one from a peer's transcript, the test is not biting and the s2s row narrows.
 
 The split, in one line each:
 

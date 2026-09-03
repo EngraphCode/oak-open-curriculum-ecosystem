@@ -689,7 +689,10 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    owner's own credentials — the fallback the bot-identity rule bans. Until
    the merge tool learns the class (a named follow-up), the merging seat
    recomputes that gate by name and lands the merge through the sanctioned
-   REST endpoint as the bot. The two non-bot shapes remain: the explicit
+   REST endpoint as the bot (prediction, PDR-130: every docs-only bot pull
+   request merges within one CI round of green with no owner action; if one
+   waits on a reviewer leg again, the merge tool learns the class). The two
+   non-bot shapes remain: the explicit
    `gh pr merge --merge` command, or ARMING auto-merge — permitted
    exactly and only **at settled-READY under a Director grant**
    (PDR-131, 2026-07-20; arming before settlement remains forbidden —

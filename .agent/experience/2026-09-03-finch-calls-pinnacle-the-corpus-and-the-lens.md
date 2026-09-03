@@ -43,8 +43,8 @@ node is not yet the right node." Eight seats had said ON-TRACK and been
 right; the value was in the one that read the gate mechanism. Consensus told
 me nothing I did not know; the disagreement told me what to fix.
 
-One more. The owner said the split is existential and asked me to keep that
-off the repository. Holding a fact that shapes every priority while writing
+One more. The owner gave me a word about the split's weight and asked me to keep
+it off the repository. Holding a fact that shapes every priority while writing
 surfaces that must not carry it is a discipline of its own: the node says
 "order and intent", never "priority", and the strategy index names a
 commitment, not a rank. If you feel the pull to write his words where they

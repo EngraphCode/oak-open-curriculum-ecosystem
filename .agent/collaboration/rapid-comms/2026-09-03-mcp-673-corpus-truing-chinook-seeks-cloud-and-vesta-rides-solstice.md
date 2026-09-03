@@ -187,7 +187,7 @@ and "ruling 10" match the extraction plan's decision log verbatim (lines 875–8
 falsifiers match its lines 919–920, the `depends_on` edge to `toolkit-publish-mechanism` is
 real (line 29); the ratified node keeps `status: ratified`, bumps `last_updated`, carries the
 ledger row; `public-packages-release`'s wagers 1–3 exist as cited; both quoted owner words
-match my local record of the cards verbatim; "existential" appears nowhere; the old-form
+match my local record of the cards verbatim; the owner's local-only wording appears nowhere; the old-form
 residue at `stream-mcp-app.md:19`, `VISION.md:48` and Atlas 634/665 is by design (notes
 beside, additive block). Old-passage greps otherwise return only the dated notes' quotations.
 
