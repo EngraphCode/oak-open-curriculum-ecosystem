@@ -78,6 +78,14 @@ shell reading `PIPESTATUS`) is in the napkin.
     clean; executable bit preserved) are recorded verbatim in §Appendix B for
     whoever reopens vendored projection. Worktree left as found.
 
+> **Addendum (2026-09-02, Finch calls Pinnacle, routed off PR #915's review):** the
+> heading above says 47 worktrees; the section records 44 clean, the primary, and 5
+> dirty at survey time (one of the five became clean during the sweep), without
+> stating which rows the heading's total counts. The 44 are not enumerated here and
+> the worktrees have since been pruned, so the total cannot be re-derived from the
+> rows: read the heading as recorded and the per-class figures as the evidence. The
+> 19 August text stands unedited.
+
 ### Pushed branches without a PR
 
 - **Our fleet (jimbot-authored), now carried by drafts opened at this seat:**

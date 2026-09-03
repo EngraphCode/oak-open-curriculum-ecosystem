@@ -25,7 +25,7 @@ depends_on: []
 owner_gates: []
 tickets:
   - MCP-619
-last_updated: 2026-09-02
+last_updated: 2026-09-03
 ---
 
 # Toolkit re-architecture
@@ -45,6 +45,40 @@ properties of the estate rather than programmes: finishable
 foundations admitted adopt-first; one clock per package with
 untracked derivation as the default home; the seam itself; publishing
 as the toolkit side's default state; and the workspace-liveness gate.
+
+## User groups and value
+
+*(Added 2026-09-02 as a dated additive amendment, routed off PR #915's
+review: the strategic template gained this section at the owner's ruling
+of 2026-08-31, after this node's ratification. Presented for the owner's
+word with the split delivery plan, MCP-661; the ledger row below records
+the routing.)*
+
+- **Oak's in-repo services** (the MCP server, the search CLI, the
+  demos): consume the toolkit the way any consumer would, so a change to
+  machinery reaches them as a versioned dependency rather than a co-edit.
+  Claim boundary: rung 1 of the ladder — proven when the services build
+  from the published toolkit.
+- **The extracted product squad**: a repository they own end to end —
+  the knobs (configuration, styling, experience tuning) and the
+  assemblies — with the levers arriving as published packages they never
+  edit. In experience terms: a product change is one PR in one repo; an
+  upstream need is a contribution to a library with its own release, not
+  a visit to the Practice. Claim boundary: rung 2 (the extraction test);
+  the residual upstream class is measured, never assumed (the split
+  delivery plan's replay criterion).
+- **An arriving non-Oak builder**: the published toolkit plus its
+  documentation assembles a new service without Oak context. Offered
+  value, not yet demonstrated — rung 3 is the honest test and no such
+  builder exists yet; the claim is hypothesised until a greenfield
+  demonstration service lands.
+- **Teachers using Oak's product**: no experience change from the
+  topology itself; the value routes through the squad's cycle time
+  (fixes and features arrive sooner) and is claimed there, never here.
+- **Agents working the estate**: the Practice stays with the toolkit,
+  and the seam's three gates turn a review question ("could a non-Oak
+  service consume this unchanged?") into a construction fact, so
+  attention goes to product and machinery instead of classification.
 
 ## The bet
 
@@ -100,9 +134,13 @@ changeset per the round-budget doctrine.
 - `oak/`'s size is a reported number with a trend — the owner's
   "thinnest possible Oak" made measurable — and every oak product
   workspace passes the extraction test at its migration tranche.
-- Rung-2 proof: at least one Oak product workspace
-  extraction-rehearsed — built in a fresh repo from registry
-  dependencies alone. Rung-3 proof: one greenfield non-Oak
+- Rung-2 proof: the extraction itself — the Oak MCP product, as thin
+  workspaces over published packages, built in
+  `oaknational/oak-open-curriculum-mcp` from registry dependencies
+  alone (the delivery plan `oak-open-curriculum-mcp-extraction`; the
+  product, not a rehearsal — restated 2026-09-03, MCP-673, replacing
+  "at least one Oak product workspace extraction-rehearsed").
+  Rung-3 proof: one greenfield non-Oak
   demonstration service assembled from published toolkit packages and
   their documentation alone, authored without Oak context as the
   honest test.
@@ -114,7 +152,10 @@ changeset per the round-budget doctrine.
   from its first run.
 - Not claimed: npm naming and licence-edge decisions per package
   (owner questions at their tranches); the release mechanism
-  (an owner decision carried by the seam delivery plan); that every
+  (`public-packages-release`'s decision, delivered by
+  `toolkit-publish-mechanism` — restated 2026-09-03, MCP-673,
+  replacing "an owner decision carried by the seam delivery plan");
+  that every
   current mixed workspace splits cleanly — the seam's falsifier
   stands, and true hybrids stop the line for remeasure rather than
   forcing residue into packs.
@@ -123,15 +164,42 @@ changeset per the round-budget doctrine.
 
 Delivery plans serving this node declare
 `serves: toolkit-re-architecture` — enumerate them by search, never
-by a hand-kept list. The banked dependency order from the owner-ruled
-change set: the seam migration first (it carries the
-release-mechanism owner decision and executes the census migration
-map), then foundation cards per concept (question zero answered
-first, per concept, at its own card), carrier moves under the
-inverted default, and the liveness-gate validator. Each delivery plan
-is authored by its implementer at pickup and sliced to two-round
-PR-shaped units at authoring time. Milestones live in Linear as named
-observable states; this node points at them, never mirrors them.
+by a hand-kept list. The dependency order (restated 2026-09-03; the
+dated note below names what it replaced): the extraction lane first —
+its design step `oak-open-curriculum-mcp-extraction`, then the publish
+mechanism `toolkit-publish-mechanism` (serving
+`public-packages-release`), then the lane's finish, publish, cut,
+scaffold, move and cut-over steps as that design step banks them —
+and, after it, the seam migration of the members outside the
+product's closure (the census migration map for the remainder), then
+foundation cards per concept (question zero answered first, per
+concept, at its own card), carrier moves under the inverted default,
+and the liveness-gate validator. Each delivery plan is authored by its
+implementer at pickup and sliced to two-round PR-shaped units at
+authoring time. Milestones live in Linear as named observable states;
+this node points at them, never mirrors them.
+
+*(Restated 2026-09-03 as a dated in-place amendment — MCP-673, the
+delivery plan `intent-corpus-truing-around-the-extraction-plan`, at
+the owner's word on the card of that day: "Extraction first. That
+change of priority is the point of this planning work." It replaced
+the banked order of the owner-ruled change set of 2026-08-19 — "the
+seam migration first (it carries the release-mechanism owner decision
+and executes the census migration map)" — on the extraction plan's
+ordering thesis: cutting the product's boxes is the seam for the part
+of the estate that carries most of the Oak-mixed mechanism, and the
+gates apply per package, so a published subset is checkable. The
+order reopens in favour of the estate-wide re-home first if either
+falsifier fires at its slice: the extraction test (M1) finds the
+product reaching a member outside its closure that can be neither
+published nor moved, or the seam-gate slice (P4) cannot enforce the
+gates per package over a published subset. The release-mechanism
+decision the banked order carried is `public-packages-release`'s,
+delivered by `toolkit-publish-mechanism`. The outcome, the bet and the
+three gates are unchanged. The decision this order serves — the Oak
+product built in its own public repository from packages published
+here — is recorded in ADR-227; this node and the extraction plan
+carry its means.)*
 
 ## Review dispositions
 
@@ -141,3 +209,5 @@ implementer enumerates and dispositions every row before implementation.
 | Date | Source | Finding | Routing |
 | --- | --- | --- | --- |
 | 2026-09-02 | PR #915 Copilot review (comment on this node's §The bet) | The node carries no "User groups and value" section; the strategic template (amended at owner ruling 2026-08-31, after this node's 2026-08-19 ratification) requires one, mapping the outcome's consumers (Oak's in-repo services, the extracted product squad, an arriving non-Oak builder — the demonstration ladder's three rungs) to experience-level value with claim boundaries. | Routed to the plan-corpus consolidation session that follows the split delivery plan (owner objective 2026-09-02: "make sure that the repo strategy is consistent and cohesive around that plan"): the section is authored there as a dated additive amendment presented for the owner's word, never inserted at a landing seat into a ratified node. |
+| 2026-09-02 | Owner word on the #915 post-merge routings ("all of that goes into the same branch as the delivery plan, to minimise the total number of prs") | The row above: the "User groups and value" section. | Discharged on MCP-661's branch: authored as the dated additive amendment §User groups and value above, presented for the owner's word with the split delivery plan `oak-open-curriculum-mcp-extraction`. |
+| 2026-09-03 | MCP-673 — the truing node `intent-corpus-truing-around-the-extraction-plan`, discharging the extraction plan's amendment item A2 | §Delivery's banked order ("the seam migration first") and §Success's rung-2 and release-mechanism clauses contradicted the merged extraction plan; the §User groups and value amendment above still awaited the owner's word. | Restated in place with dated notes on PR #959. The ordering item is the one decision on that PR's numbered list, ruled on the owner's card of 2026-09-03 ("Extraction first. That change of priority is the point of this planning work"); the other items confirm rulings already given. The owner's word over the list is the locatable act for every item it covers, this row's included. |

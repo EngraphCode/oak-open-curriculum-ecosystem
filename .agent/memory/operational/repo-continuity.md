@@ -49,6 +49,15 @@ forward-asks remain.
   objective, verbatim: "merge 915, then provide a plan, then make sure that the repo
   strategy is consistent and cohesive around that plan"; the five owner rulings for the
   split plan are in the estate-coordination thread record §2026-09-02 FOLD LANDED.
+- **2026-09-02 ~14:2xZ — #915 MERGED as `777e9131c`; lane MCP-661 open (same seat).** The fold
+  is on main (owner-merged 14:05Z on `475a8193d`, four Copilot rounds settled at owner word
+  "keep 915 tight"). Kiln merged main into `handoff/jim-september` (`ba7e37d78`). The next
+  objective item runs on ONE branch at owner word ("all of that goes into the same branch as
+  the delivery plan, to minimise the total number of prs"): `jimcresswell/mcp-661-split-delivery-plan`
+  carries these record true-ups, the five review items routed off #915, and the split delivery
+  plan node `oak-open-curriculum-mcp-extraction` (serving `toolkit-re-architecture`, born
+  sketch, presented for the owner's word). Pickup map: the estate-coordination thread record
+  §2026-09-02 FOLD LANDED, last block.
 - **MCP APP FIRST MAJOR RELEASE — THE PRIMARY LIVE EFFORT (2026-07-21→).**
   Canonical state lives in the first-major-release strategic plan (the
   owner-authored decisions register) on `main`, the Linear project, and
@@ -287,7 +296,7 @@ each thread record; this table is the repo-level index.
 | Thread | Purpose | Record | Latest identity |
 | --- | --- | --- | --- |
 | `mcp-submission-drive` | **The estate's live priority thread.** Oak's MCP app to public beta, publicised 2026-09-06; the connector was submitted to Anthropic 2026-08-07 and the acceptance bar is a verified tag from them. Landing target **MCP-597** (re-point + enable production uptime monitor 1593267, prove checks ran). MCP-614's provider COMPARISON is answered — Pingdom takes AC1 at £0, do not re-run it — but MCP-614 itself is still `In Progress` and its blockedBy edge on MCP-597 is TRUE, pending the owner's Pingdom-interval and Sentry-plan answers. Owner availability is the governing constraint: MG away ~22-31 Aug, so anything needing him routes SAME-DAY, never batched | [record](threads/mcp-submission-drive.next-session.md) | claude / claude-opus-5[1m] / Dormouse turns Footfall (a54547) / director — seated 2026-08-17 LATE evening at owner word, after Skunk stirs Cavern (db8b9b) stood down 17:42Z; resumed 2026-08-18; PR #903/#902 CHANGES_REQUESTED blockers under cure / 2026-08-18 (seat chain: thread record) |
-| `estate-coordination` | The Director lane's thread record (founded 2026-08-13 by the director-continuity-surface-redesign plan): journal, board, seat chain; director-handoff.md keeps only the role brief + live snapshot. FOLD LANDED 2026-09-02 (#915 to main; no Director seated; no successor branch; claim f04cd57b closed at owner word) — pickup map §2026-09-02 FOLD LANDED | [record](threads/estate-coordination.next-session.md) | claude-code / claude-fable-5 / Finch calls Pinnacle (c91bd4) / implementer at owner word — #908 and #915 landed; next = the split plan, then the strategy consolidation / 2026-09-02 |
+| `estate-coordination` | The Director lane's thread record (founded 2026-08-13 by the director-continuity-surface-redesign plan): journal, board, seat chain; director-handoff.md keeps only the role brief + live snapshot. FOLD LANDED 2026-09-02 (#915 to main); MCP-661 landed 2026-09-02 (#954, the split delivery plan); MCP-673 CLOSED 2026-09-03 — the strategy and intent corpus trued around the extraction plan, ADR-227 accepted, six expired owner gates discharged at card words, #962 / #959 / #961 on main (b3c9742f8, ec7cb3fa8, c616a354c) with a docs-only wrap PR after at the owner's card word — pickup map §2026-09-03 MCP-673 CLOSED and §WRAP PR after the close. Deep consolidation status: due — the truing node archived as completed; the napkin near 1,000 lines against its rotation threshold; eight graduation candidates registered 2026-09-03; this row was stale for a day; not well-bounded for this closeout (the owner's zero-PR word), routed to a dedicated consolidation pass. | [record](threads/estate-coordination.next-session.md) | claude-code / claude-fable-5-1 / Chinook seeks Cloud (661556) / lead at n=2 with Vesta rides Solstice (9e26e6), then solo for the wrap / 2026-09-03 |
 | `workspace-config-isolation` | Config-boundary cure lane: @oaknational/workspace-config package, depcruise boundary rules under the three owner rulings, de-hatch arc, census todos. #836/#865 merged; Bucket-1 successor work handed onward; de-hatch + census todos remain the lane's pickup | [record](threads/workspace-config-isolation.next-session.md) | claude-code / claude-fable-5 / Wren calls Downdraft (6b29b5) / implementer — #865 closed out, seat closed at owner word / 2026-08-13 |
 | `open-surface-zero` | Oldest-first disposition and merging of Jim-owned open PRs; every feedback surface harvested, all checks green, then immediate merge. 2026-09-01: the fork-line integration landing (#943 → rehomed as #945) runs on this thread | [record](threads/open-surface-zero.next-session.md) | claude-code / claude-fable-5 / Luna seeks Twilight (5c0ddc) / driver — #943 Sonar-gate cure landed via the fork, rehomed as #945 at owner word, driving to the bot merge / 2026-09-01 (prior: codex / GPT-5 / Smith holds Temper (019fef) — #745/#746/#852 merged / 2026-08-11) |
 | `typescript-estate-consolidation-review` | Repo-architecture lane, design COMPLETE and RATIFIED: strategic node `toolkit-re-architecture` (owner stamp 2026-08-19) governs execution — five-change set on the Toolkit Atlas, seam centrepiece; `workspace-reorganisation-programme` superseded by it; next work = seam-migration delivery plan authored at pickup by its implementer | [record](threads/typescript-estate-consolidation-review.next-session.md) | claude-code / claude-fable-5 / Poppy lifts Bark (d427b6) / repo-architecture lane — change set + strategic node ratified at owner cards 2026-08-19; claim closed at wrap, fresh pickup next / 2026-08-19 |
@@ -336,6 +345,10 @@ not the current session-priority lane. Reactivation is owner-directed.
 ## Next Safe Steps
 
 ### The 2026-09-02 fold landed — next at owner word (2026-09-02)
+
+Status 2026-09-02 ~14:2xZ: step 1 done by Kiln (`ba7e37d78`); step 2 in flight as MCP-661
+on `jimcresswell/mcp-661-split-delivery-plan` (the routed #915 review items ride the same
+branch at owner word); step 3 follows at the owner's word.
 
 1. Kiln holds Slag merges main into `handoff/jim-september` by semantic merge (the napkin
    is rotated there and appended on main: prove the drain lossless, carry the fold's two

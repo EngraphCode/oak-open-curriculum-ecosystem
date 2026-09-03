@@ -12,8 +12,11 @@
 > **owner-schedulable** (Castr is the owner's repository and a
 > Practice repo — focus can move to it, or it could move into this
 > monorepo, at the owner's call). Sequencing prose elsewhere
-> (ADR-108's step ordering) is amended by the seam migration; this
-> pack's contract content is not superseded by it.
+> (ADR-108's step ordering) is to be amended by the delivery plan
+> `oak-open-curriculum-mcp-extraction` (2026-09-02; the ADR-108
+> amendment is one of that plan's slices, and ADR-108 stands as
+> written until the slice lands); this pack's contract content is not
+> superseded by it.
 
 ## Intent
 
