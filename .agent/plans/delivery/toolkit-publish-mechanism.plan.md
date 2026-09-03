@@ -24,7 +24,7 @@ owner_gates:
       workflow holds publish rights for the @oaknational npm scope, or names
       who grants them; P4 asserts the right at its start.
     expires: 2026-09-23
-last_updated: 2026-09-02
+last_updated: 2026-09-03
 ---
 
 # Publish the toolkit from this repository at one version
@@ -131,6 +131,11 @@ extraction plan `oak-open-curriculum-mcp-extraction` depends on.
    registry, with no live publish. Proof: AC4; the dry-run listing.
 4. **P4** The first live publish at the next release, after P2 is green
    for every package in the set; asserts publish rights at its start (gate).
+   P4 also amends the ratified `release-process` runbook's rollback clause,
+   which today rests on publishing being disabled (`npmPublish: false` in
+   `.releaserc.mjs`), to cover published packages — a published version is
+   never unpublished; the forward path is a new release — with a dated note and
+   the runbook's re-ratification per the plan-node schema.
    Proof: AC1.
 5. **P5** The consumer note on the release-age floor (the floor stays in
    force for the scope; per-package allow-listing is the exception) in the

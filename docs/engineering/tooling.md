@@ -56,8 +56,8 @@ the command is missing.
 
 ## Publishing
 
-- [npm](https://www.npmjs.com) - Packages are published to npm with semantic versions.
-- [semantic-release](https://github.com/semantic-release/semantic-release) - Semantic Release is used to AUTOMATICALLY publish packages to npm.
+- [npm](https://www.npmjs.com) - The registry public packages will be published to. Nothing is published today (`npmPublish: false` in `.releaserc.mjs`); the delivery plan `toolkit-publish-mechanism` lands the first publish.
+- [semantic-release](https://github.com/semantic-release/semantic-release) - Versions, tags and GitHub releases are minted automatically on merge to `main`; npm publishing is disabled until the publish mechanism lands.
 
 ## TSDoc Compliance
 

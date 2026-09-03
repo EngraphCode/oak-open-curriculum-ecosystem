@@ -17,6 +17,8 @@ search, and knowledge graph surfaces without copying Oak-specific schema logic.
 npm install @oaknational/curriculum-sdk
 ```
 
+> _Not yet on the registry (checked 2026-09-03: `npm view @oaknational/curriculum-sdk` returns not-found; publishing is disabled in the repository's release configuration). Until the first publish, consume the package from this repository as a workspace dependency. This note is removed at the first publish._
+
 ## Usage
 
 ```typescript

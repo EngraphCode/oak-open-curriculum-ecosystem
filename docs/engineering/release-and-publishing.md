@@ -6,14 +6,19 @@ go/no-go, rollout safety), see
 
 ## Published Packages
 
-Only `@oaknational/curriculum-sdk` is published to npm. All other
-workspaces have `"private": true` in their `package.json` and are
-not published.
+No package is published to a registry today (`npmPublish: false` on both npm
+plugin entries in `.releaserc.mjs`; `npm view @oaknational/curriculum-sdk`
+returns not-found, checked 2026-09-03). The curriculum SDK
+(`@oaknational/curriculum-sdk`) carries the only publishable manifest in the
+repository. All other workspaces have `"private": true` in their
+`package.json` and are not published. The delivery plan
+`toolkit-publish-mechanism` is the mechanism that will publish every
+publishable workspace at the repository's release version.
 
-| Package                       | Scope          | Registry  | Status  |
-| ----------------------------- | -------------- | --------- | ------- |
-| `@oaknational/curriculum-sdk` | `@oaknational` | npmjs.com | Public  |
-| All other workspaces          | n/a            | n/a       | Private |
+| Package                       | Scope          | Registry  | Status                                  |
+| ----------------------------- | -------------- | --------- | --------------------------------------- |
+| `@oaknational/curriculum-sdk` | `@oaknational` | npmjs.com | Publishable manifest; not yet published |
+| All other workspaces          | n/a            | n/a       | Private                                 |
 
 ## Versioning
 

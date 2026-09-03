@@ -48,7 +48,7 @@ owner_gates:
       or shared; the scaffold step asserts the repository exists at its
       start, and the cut-over step's own node carries the deploy-target gate.
     expires: 2026-09-23
-last_updated: 2026-09-02
+last_updated: 2026-09-03
 ---
 
 # Design the extraction of the MCP app product into oak-open-curriculum-mcp
@@ -985,6 +985,7 @@ record named under §Evidence; the rows below are the ones routed onward.
 | 2026-09-02 | Readiness suite 2, A2-1, B2-1, W2-3 | The Atlas's lexeme-gate text refuses the curriculum toolkit its domain | A2 carries the Atlas's dated amendment; P4 implements the per-class scope |
 | 2026-09-02 | Readiness suite 2, A2-11, B2-3 | The clock trigger was a conditional; one version hides breaking changes | The clock decision to `public-packages-release` (wager 3); the breaking-change clause into the upstream contract and AC8 |
 | 2026-09-02 | Readiness suite 2, docs verification note | The repository name collides with the error-reporting project name | The owner, at gate 2 |
+| 2026-09-03 | Amendment item A2 (§The lane's steps, Amendments) | A2 — the strategic node's ordering amendment, the Atlas's lexeme-gate amendment, and public-packages-release §Alignment and §Delivery — needed a consolidation carrier so that D0a mints no amendments node of its own. | Discharged by the delivery plan `intent-corpus-truing-around-the-extraction-plan` (MCP-673, PR #959): every A2 surface carries its dated amendment there, and the owner's word over that PR's numbered list is A2's stamp; D0a authors no amendments node. |
 
 ## Evidence at authoring (2026-09-02, tree at `777e9131c`)
 

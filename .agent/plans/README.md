@@ -20,6 +20,15 @@ complete owner-ratification stamp (`ratified_by` + `ratified_date` +
 `ratified_where`). Executed is not ratified; the stamp is the
 difference, and the estate validator enforces it.
 
+_Reading path (2026-09-03, MCP-673): the strategy index
+([`docs/strategy/README.md`](../../docs/strategy/README.md) §How to read
+this) names the repository's current structural commitment — the
+extraction of the MCP app product into its own public repository — and
+the strategic node `toolkit-re-architecture` that carries it; that
+node's §Delivery names `oak-open-curriculum-mcp-extraction` as the
+lane's first step. Start there for the estate's current shape; this
+index is the mechanism's home._
+
 ## Layout
 
 | Path | Holds |
@@ -30,7 +39,7 @@ difference, and the estate validator enforces it.
 | `delivery/` | Delivery plans (steps of the live lanes) |
 | `runbooks/` | Operational procedures |
 | [`templates/`](templates/README.md) | The three authoring templates, each opening with its ratification block |
-| `archive/` | Terminal plans (completed, superseded, or abandoned — each with its disposition) |
+| `archive/` | Terminal plans (completed or abandoned, each with its disposition); a superseded node keeps its place and names its successor (the schema's status axis) |
 
 Plans are public-repository artefacts: **mechanism only**; anything
 internal rides the linked Linear ticket (sensitivity by construction).
