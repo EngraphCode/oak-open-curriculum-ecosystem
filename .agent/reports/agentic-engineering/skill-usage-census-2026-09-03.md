@@ -23,10 +23,11 @@ it run from 2026-06-12.
 | Fact | Value |
 | --- | --- |
 | Repo skills (canonical `SKILL-CANONICAL.md` files) | 61 |
-| Skills ever invoked under the `oak-` prefix | 35 |
-| Skills never invoked under the `oak-` prefix | 29 (26 of them never invoked in the 30-day window either) |
-| Total `oak-` invocations recorded by the harness | 3,118 |
-| Invocations carried by the top 15 skills | 3,069 (98.4%) |
+| Current repo skills ever invoked under the `oak-` prefix | 32 |
+| Current repo skills never invoked under the `oak-` prefix | 29 (none of them invoked in the 30-day window either) |
+| `oak-` invocations recorded by the harness on current repo skills | 3,112 |
+| Invocations carried by the top 15 skills | 3,069 (98.6%) |
+| Retired `oak-` names still in the harness record (not in the table) | 3 names, 6 invocations (the record holds 35 `oak-` keys and 3,118 invocations in all) |
 | Skills with no trace at all in the 30-day window (neither invoked nor appeared) | 8 |
 | Sessions in the window with at least one explicit invocation | 38 of 53 |
 
@@ -127,7 +128,7 @@ The 29 never-invoked skills fall into classes with different meanings:
 | Class | Skills | What the zero means |
 | --- | --- | --- |
 | Event-driven runbooks | `update-upstream-api-spec`, `update-dependencies`, `dependency-currency`, `cut-coordination-branch`, `undo-change`, `knowledge-safety-sweep` | Fire on an event that did not occur in the window; frequency is not their measure |
-| The parallax family | `parallax-audit`, `parallax-decide`, `parallax-design-experiment`, `parallax-design-inquiry`, `parallax-frame`, `parallax-learn`, `parallax-product-experiment`, `parallax-synthesise` (the orchestrator `parallax`: 3) | Seven of eight never invoked, ever: the largest idle block, eight skill listings for one instrument |
+| The parallax family | `parallax-audit`, `parallax-decide`, `parallax-design-experiment`, `parallax-design-inquiry`, `parallax-frame`, `parallax-learn`, `parallax-product-experiment`, `parallax-synthesise` (the orchestrator `parallax`: 3) | All eight components never invoked, ever; only the orchestrator has been used: the largest idle block, nine skill listings for one instrument |
 | Design and visual | `claude-design-pipeline`, `ui-visual-design`, `visual-comparison`, `visual-verification` (`design-system-usage`: 5) | Idle since the design lane paused; four of the eight no-trace skills |
 | Search quality | `ground-truth-design`, `ground-truth-evaluation` | Idle with the search-quality lane |
 | Multi-seat and cross-vendor instruments | `slack-watcher`, `talk-to-slack-watcher`, `sif`, `codex-helper` (`the-codex-dialogues`: 1, `inter-practice-collaboration`: 1, `comms-channels`: 1) | Need a second seat or a second vendor; recent sessions were solo |
@@ -184,8 +185,8 @@ the generator emits a projection per host precisely so each host reads one.
   readable projection into `.agents/skills/` (or emit it under a non-colliding name); a manual
   deletion regenerates on the next `skills:generate`. Falsifier: `/doctor` attributes the
   listing cost to one directory only, in which case the cost is the 70-entry listing itself.
-- **Collapse the parallax family to its orchestrator plus reference files.** Eight listings for
-  one instrument, seven never invoked. Falsifier: a user of the family who invokes the parts
+- **Collapse the parallax family to its orchestrator plus reference files.** Nine listings for
+  one instrument, eight never invoked. Falsifier: a user of the family who invokes the parts
   directly, which the harness record would show under their names.
 - **Fold `session-handoff` into `wrap` structurally.** The ruling already made wrap the only
   close; the separate listing is a residue. Falsifier: a platform that runs handoff without
