@@ -641,6 +641,7 @@ freeze-2 map remains the work queue; item (a) is at the push/PR stage.
 | claude-code | claude-fable-5 | c28ad9 | Ocelot binds Tunnel | Director — adopted b1d00d68 at Moment 2 `a91c1177` | 2026-08-17 | 2026-08-17 |
 | claude-code | claude-fable-5-1 | 661556 | Chinook seeks Cloud | implementer, lead at n=2 — MCP-673 corpus truing: PR A (#959, owner-word amendments) and PR B (factual true-ups), claim ed9ec042 | 2026-09-03 | 2026-09-03 |
 | claude-code | claude-fable-5-1 | 9e26e6 | Vesta rides Solstice | second seat at n=2 (Chinook seeks Cloud 661556 leads) — MCP-673 corpus truing; boundary set by the lead | 2026-09-03 | 2026-09-03 |
+| claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | solo implementer at owner word — checkout operations under the owner's custody; the merge-bot per-checkout config lane (owner ruling 2026-09-03); claims 2778f573, 442de9ff | 2026-09-03 | 2026-09-03 |
 
 ## 2026-08-17 ~20:0xZ — OVERNIGHT STAND-DOWN (Ocelot binds Tunnel, c28ad9): both lanes down clean; Director down last at owner word
 
@@ -1451,3 +1452,23 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
   checkout still on the merged #959 branch; the local branch
   `jimcresswell/mcp-673-adr-oak-product-extraction` left in place (a peer's surface; the owner
   refused its removal by the lead).
+
+## 2026-09-03 ~15:xxZ — OWNER RULINGS LANDED FROM A SOLO SEAT (Flounder turns Estuary, c5cc2c, implementer)
+
+- **Two owner rulings, verbatim where the words are his.** (1) The merge-bot identity file
+  is per-checkout: "this is per-checkout config, it should not be in version control" —
+  `.github/merge-bot.json` leaves version control, `.github/merge-bot.json.example` is the
+  tracked template, and the tools read the file at the clone's primary checkout so every
+  linked worktree shares one copy (lane `chore/merge-bot-config-per-checkout`, two commits;
+  the first bot push from the worktree proved the topic dispatcher's explicit root had
+  short-circuited the resolution, and the second commit separates the two roots). (2) "green
+  and clean PRs get merged, they don't wait on me unless I explicitly say so, somewhere the
+  wrong behaviour is recorded" — the pr-lifecycle skill's self-authored-PR grant clause was
+  that record; cured in this seat's landing branch with the ruling quoted at the site.
+- **Lane state.** The config lane is at review; its code-expert review did not run (three
+  API-overload deaths in twenty minutes across two model tiers) and is the next act before
+  its merge. The seat's other operations are checkout-local and live in its per-user memory
+  and the machine-local handoff record, not in tracked surfaces, by the same per-checkout
+  principle the first ruling states.
+- **Correction recorded on the napkin (this date):** the seat ran three owner asks before
+  grounding; cured mid-session at the owner's word.
