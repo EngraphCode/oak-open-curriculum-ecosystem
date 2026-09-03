@@ -209,6 +209,7 @@ THEM"*.
 | "Cite the post-mortem incident" | bare SHA in prose | Date + a one-line summary; full SHA in the napkin archive |
 | "Pin the version" | "v3.7.2 introduces…" | "the version that introduced X (see `package.json`)" |
 | "Reference a commit for historical context" | bare backticked SHA | Add the explicit `(historical reference)` marker on the same line, so the citation is a deliberate audit trail |
+| "Point the vision or a strategy page at the plan that carries a decision" | a dated note naming a delivery-plan id or a ticket | Name the ADR that records the decision (author it first if none exists — "durable homes for decisions are ADRs", owner 2026-09-03); a strategy index may name a long-lived strategic node by id where that is its own precedent; a delivery node is a dead pointer at archival. Worked instance 2026-09-03: a corpus-truing pull request's notes on the vision and three strategy pages cited a delivery plan and a ticket; the owner refused the push, an adversarial review found the rule, and the cure was an ADR folded into the same pull request with every permanent page re-pointed at it |
 
 ## Doctrinal Anchors
 

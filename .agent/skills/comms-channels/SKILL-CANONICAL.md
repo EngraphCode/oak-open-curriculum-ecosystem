@@ -48,6 +48,16 @@ below keep the fast lanes from hollowing out the record.
 | A message whose audience is the owner or humans on the Practice Slack channel, or a question to the live Slack Watcher | **Slack-via-Watcher** (the `talk-to-slack-watcher` skill; the channel is the durable substrate on its side of the boundary) |
 | Cross-session narrative continuity, a durable multi-session hand-off, structured evidence for a decision, specialist review, or a question only the owner can answer | **Not a delivery lane** — route per the [canonical card](../../memory/executive/agent-collaboration-channels.md): thread record, decision thread/sidebar, reviewer dispatch, or an owner card |
 
+The test that separates the first row from the next two (owner ruling 2026-09-03, verbatim:
+"for quick questions it makes sense to use the native inter-agent communication, for anything
+that might eventually be or lead to institutional knowledge, the comms and ARC systems are
+appropriate"): ask whether the content could become, or lead to, institutional knowledge. A
+quick question, an ack, a "diff is in" handover word — s2s. A boundary, a split, a finding, a
+ruling relayed, a review row, a landing record — ARC or the stream, even when a live peer is
+waiting, because s2s leaves no record any future seat can find. When in doubt the content is
+knowledge-bearing: post it on ARC or the stream and, if latency matters, nudge over s2s that it
+is there.
+
 The split, in one line each:
 
 - **s2s is the interrupt line.** Seconds latency, wakes the receiver;
