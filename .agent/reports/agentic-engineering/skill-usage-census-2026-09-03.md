@@ -63,8 +63,10 @@ for f in ~/.claude/projects/<project-dir>*/*.jsonl; do sid=$(basename "$f" .json
 
 # Instrument B2: sessions in which a skill's canonical path appeared (a read or a reference)
 for f in ~/.claude/projects/<project-dir>*/*.jsonl; do sid=$(basename "$f" .jsonl); \
-  grep -a -o -E 'skills/(cognition/)?[a-z0-9-]+/SKILL-CANONICAL\.md' "$f" \
-  | sed -E 's#skills/(cognition/)?([a-z0-9-]+)/SKILL-CANONICAL\.md#\2#' | sort -u | sed "s/^/$sid /"; done
+  grep -a -o -E 'skills/([a-z0-9-]+/)*[a-z0-9-]+/SKILL-CANONICAL\.md' "$f" \
+  | sed -E 's#.*/([a-z0-9-]+)/SKILL-CANONICAL\.md#\1#' | sort -u | sed "s/^/$sid /"; done
+# (canonical files sit at any depth under .agent/skills — cognition/, knowledge/,
+#  domain-craft/ui-design/ — so the pattern must accept any number of directory segments)
 
 # The double-loading probe: one non-interactive run with --debug, then the skill lines of its log
 claude -p 'reply with the single word ok' --debug --output-format text > /dev/null
@@ -84,7 +86,7 @@ session counts. The transcript window is whatever the harness's retention leaves
 | `oak-` invocations recorded by the harness on current repo skills | 3,112 |
 | Invocations carried by the top 15 skills | 3,069 (98.6%) |
 | Retired `oak-` names still in the harness record (not in the table) | 3 names, 6 invocations (the record holds 35 `oak-` keys and 3,118 invocations in all) |
-| Skills with no trace at all in the 30-day window (neither invoked nor appeared) | 8 |
+| Skills with no trace at all in the 30-day window (neither invoked nor appeared) | 4 |
 | Sessions in the window with at least one explicit invocation | 38 of 53 |
 
 ## The full table
@@ -96,14 +98,14 @@ appeared. Sorted by harness invocations, ascending.
 | Skill | Harness uses | Last used | 30-day sessions invoked | 30-day sessions appeared |
 | --- | --- | --- | --- | --- |
 | `chatgpt-report-normalisation` | 0 | never | 0 | 1 |
-| `claude-design-pipeline` | 0 | never | 0 | 0 |
+| `claude-design-pipeline` | 0 | never | 0 | 3 |
 | `codex-helper` | 0 | never | 0 | 3 |
 | `cut-coordination-branch` | 0 | never | 0 | 3 |
-| `dependency-currency` | 0 | never | 0 | 3 |
+| `dependency-currency` | 0 | never | 0 | 4 |
 | `gates` | 0 | never | 0 | 4 |
 | `ground-truth-design` | 0 | never | 0 | 0 |
 | `ground-truth-evaluation` | 0 | never | 0 | 0 |
-| `knowledge-safety-sweep` | 0 | never | 0 | 1 |
+| `knowledge-safety-sweep` | 0 | never | 0 | 2 |
 | `parallax-audit` | 0 | never | 0 | 3 |
 | `parallax-decide` | 0 | never | 0 | 2 |
 | `parallax-design-experiment` | 0 | never | 0 | 1 |
@@ -117,33 +119,33 @@ appeared. Sorted by harness invocations, ascending.
 | `talk-to-slack-watcher` | 0 | never | 0 | 1 |
 | `ticket-management` | 0 | never | 0 | 8 |
 | `tsdoc` | 0 | never | 0 | 0 |
-| `ui-visual-design` | 0 | never | 0 | 0 |
+| `ui-visual-design` | 0 | never | 0 | 2 |
 | `undo-change` | 0 | never | 0 | 2 |
 | `update-dependencies` | 0 | never | 0 | 4 |
 | `update-upstream-api-spec` | 0 | never | 0 | 0 |
-| `visual-comparison` | 0 | never | 0 | 0 |
-| `visual-verification` | 0 | never | 0 | 0 |
+| `visual-comparison` | 0 | never | 0 | 1 |
+| `visual-verification` | 0 | never | 0 | 3 |
 | `working-with-agentic-ai` | 0 | never | 0 | 33 |
 | `complex-merge` | 1 | 2026-06-13 | 0 | 9 |
 | `go` | 1 | 2026-06-24 | 0 | 2 |
 | `under-the-hood` | 1 | 2026-06-28 | 0 | 33 |
 | `retrospective` | 1 | 2026-07-23 | 0 | 1 |
 | `the-codex-dialogues` | 1 | 2026-08-06 | 1 | 7 |
-| `curator-pass` | 1 | 2026-08-07 | 1 | 4 |
+| `curator-pass` | 1 | 2026-08-07 | 1 | 5 |
 | `working-with-graphs` | 1 | 2026-08-07 | 1 | 2 |
 | `inter-practice-collaboration` | 1 | 2026-08-08 | 0 | 2 |
 | `update-bulk-download-schema` | 1 | 2026-08-12 | 1 | 3 |
-| `napkin` | 1 | 2026-08-13 | 0 | 2 |
+| `napkin` | 1 | 2026-08-13 | 0 | 4 |
 | `comms-channels` | 1 | 2026-09-03 | 1 | 9 |
-| `parallax` | 3 | 2026-09-02 | 3 | 5 |
+| `parallax` | 3 | 2026-09-02 | 3 | 6 |
 | `coordination-fold` | 4 | 2026-08-19 | 2 | 5 |
-| `design-system-usage` | 5 | 2026-08-13 | 4 | 6 |
+| `design-system-usage` | 5 | 2026-08-13 | 4 | 10 |
 | `cricket` | 5 | 2026-09-03 | 4 | 33 |
 | `set-up-worktree-lane` | 7 | 2026-09-03 | 6 | 14 |
 | `semantic-merge` | 8 | 2026-07-20 | 0 | 11 |
 | `proportionality` | 15 | 2026-09-03 | 12 | 25 |
 | `pr-lifecycle` | 30 | 2026-09-03 | 10 | 22 |
-| `consolidate-until-done` | 35 | 2026-08-14 | 2 | 2 |
+| `consolidate-until-done` | 35 | 2026-08-14 | 2 | 4 |
 | `start-right-thorough` | 64 | 2026-09-03 | 8 | 10 |
 | `wrap` | 66 | 2026-09-03 | 20 | 27 |
 | `free-play` | 78 | 2026-09-03 | 27 | 30 |
@@ -151,7 +153,7 @@ appeared. Sorted by harness invocations, ascending.
 | `concept-exploration` | 177 | 2026-09-03 | 30 | 33 |
 | `reason` | 182 | 2026-09-03 | 7 | 32 |
 | `plan` | 196 | 2026-09-03 | 20 | 25 |
-| `consolidate-docs` | 203 | 2026-09-03 | 5 | 8 |
+| `consolidate-docs` | 203 | 2026-09-03 | 5 | 17 |
 | `commit` | 251 | 2026-09-03 | 13 | 35 |
 | `session-handoff` | 364 | 2026-07-26 | 0 | 15 |
 | `start-right-team` | 627 | 2026-09-03 | 34 | 34 |
@@ -185,7 +187,7 @@ The 29 never-invoked skills fall into classes with different meanings:
 | --- | --- | --- |
 | Event-driven runbooks | `update-upstream-api-spec`, `update-dependencies`, `dependency-currency`, `cut-coordination-branch`, `undo-change`, `knowledge-safety-sweep` | Frequency is not their measure, and the zeros differ in kind. No upstream spec change fired in the window. The dependency event DID fire: the MCP-549 wave of 2026-08-11 (23 lockfile-touching commits in the window). `update-dependencies` was added that same day (63482f961) and `dependency-currency` on 2026-08-26 (7a44d9d84), after the wave, so their zeros are "introduced during or after the event", and whether the next dependency event routes through them is the open question |
 | The parallax family | `parallax-audit`, `parallax-decide`, `parallax-design-experiment`, `parallax-design-inquiry`, `parallax-frame`, `parallax-learn`, `parallax-product-experiment`, `parallax-synthesise` (the orchestrator `parallax`: 3) | All eight components never invoked, ever; only the orchestrator has been used: the largest idle block, nine skill listings for one instrument |
-| Design and visual | `claude-design-pipeline`, `ui-visual-design`, `visual-comparison`, `visual-verification` (`design-system-usage`: 5) | Idle since the design lane paused; four of the eight no-trace skills |
+| Design and visual | `claude-design-pipeline`, `ui-visual-design`, `visual-comparison`, `visual-verification` (`design-system-usage`: 5) | Never invoked; their canonical files were still read or referenced in a few sessions, so they are known but idle since the design lane paused |
 | Search quality | `ground-truth-design`, `ground-truth-evaluation` | Idle with the search-quality lane |
 | Multi-seat and cross-vendor instruments | `slack-watcher`, `talk-to-slack-watcher`, `sif`, `codex-helper` (`the-codex-dialogues`: 1, `inter-practice-collaboration`: 1, `comms-channels`: 1) | Need a second seat or a second vendor. Seat count per session was not measured: `start-right-team` (34 sessions) is the standard opener at any seat count, so its count says nothing about team size; the claims register's concurrent-seat history is the measure not taken. Until it is, the zero is either "no second seat" or a routing gap |
 | Authoring and orientation aids | `tsdoc`, `chatgpt-report-normalisation`, `working-with-agentic-ai`, `gates`, `ticket-management` (`go`: 1, `under-the-hood`: 1, `retrospective`: 1) | `working-with-agentic-ai` and `under-the-hood` are read by people, not invoked; `tsdoc` is the anomaly, since code shipped in the window |
@@ -254,9 +256,12 @@ data says about it. None is decided here.
   matching the ruling that made wrap the only close. Factors: it still appeared in 15 sessions'
   context in the window; a platform that runs handoff without wrap would need it. The call
   sits with the wrap and handoff doctrine, not here.
-- **How to value the event-driven runbooks and safety skills.** Zero invocations in a window
-  in which their events did not fire. Factor: their measure is whether they are found when the
-  event fires, which usage frequency cannot show; an event handled without the skill would.
+- **How to value the event-driven runbooks and safety skills.** Their measure is whether they
+  are found when their event fires, which usage frequency cannot show. Two kinds of zero sit
+  in the class: no event in the window (`update-upstream-api-spec`), and an event that did
+  fire (the dependency wave of 2026-08-11) while the skills that now cover it were younger
+  than the event (`update-dependencies`, `dependency-currency`). Only the second kind can be
+  tested, at the next dependency event: handled through the skill, or without it.
 - **Whether idle families follow their lanes.** The design, visual and search-quality skills
   are idle while those lanes are paused. Factor: their status is a consequence of the lane
   decisions already recorded elsewhere, not a separate question this data can answer.
