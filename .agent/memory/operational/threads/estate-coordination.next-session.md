@@ -12,9 +12,10 @@ state**, under the same conventions as every other thread.
 
 ## Current Continuation — MAKE-SAFE PAUSE (owner word 2026-08-13 ~19:40Z; multi-day quiet; NOT a closeout)
 
-> **Pointer (2026-09-02, Finch calls Pinnacle c91bd4): the CURRENT state is the last
-> journal section, §2026-09-02 ~13:xxZ — FOLD LANDED. The block below is the 2026-08-13
-> pause, kept as history; every section between is journal.**
+> **Pointer (2026-09-03, Flounder turns Estuary c5cc2c): the CURRENT state is the last
+> journal section, §2026-09-03 ~19:xxZ — A STRATEGIC NODE SKETCHED, A REVIEW LOOP STOPPED,
+> whose closing bullet names every live lane, its seat and its next step. The block below
+> is the 2026-08-13 pause, kept as history; every section between is journal.**
 
 - State at pause: fleet wind-down executed at owner word ("no work will
   happen over the next few days … everything safe and trivial to pick back
@@ -642,7 +643,7 @@ freeze-2 map remains the work queue; item (a) is at the push/PR stage.
 | claude-code | claude-fable-5-1 | 661556 | Chinook seeks Cloud | implementer, lead at n=2 — MCP-673 corpus truing: PR A (#959, owner-word amendments) and PR B (factual true-ups), claim ed9ec042 | 2026-09-03 | 2026-09-03 |
 | claude-code | claude-fable-5-1 | 9e26e6 | Vesta rides Solstice | second seat at n=2 (Chinook seeks Cloud 661556 leads) — MCP-673 corpus truing; boundary set by the lead | 2026-09-03 | 2026-09-03 |
 | claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | lead from ~19:3xZ at owner word (Buzzard lifts Eyrie 326bcb joins in support): custody of the strategic node PR and the compaction records; earlier solo implementer — checkout operations, the merge-bot per-checkout config lane, the census report, the Sonar access; claims 2778f573, 442de9ff closed | 2026-09-03 | 2026-09-03 |
-| claude-code | (at join) | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; proposed scope (adopt by claim): the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot, harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
+| claude-code | claude-fable-5-1 | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; adopted by claim 691d26b3: the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot (81ca79913), harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
 
 ## 2026-08-17 ~20:0xZ — OVERNIGHT STAND-DOWN (Ocelot binds Tunnel, c28ad9): both lanes down clean; Director down last at owner word
 
@@ -1488,8 +1489,18 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
   skill's PDR-140 reading (disposition-and-route by default, one settlement push, step back at
   four rounds) binds and was breached by this seat; a step-back is posted on the PR and the
   lesson is on the napkin and in the seat's memory.
-- **Lane state at the second compaction boundary.** PR #50 at e304ac959 awaiting a CI re-run of
-  a runner race, two dispositions owed, then merge at green as the bot. PR #51 green at
-  a6a8e94bf with its round-one cures edited but uncommitted on its lane, one acceptance-criteria
-  edit remaining, then one settlement push. The exact steps are in the seat's machine-local
-  handoff record. Repo-continuity's estate row is owed a truing at the next continuity landing.
+- **Lane state after the second compaction boundary (trued at this landing's round one).**
+  PR #50 (the census report): the support seat's by claim 691d26b3 — merged into `engraph` as
+  81ca79913 by the bot at 19:56Z after the two Codex dispositions; harvest and prune its own.
+  PR #51 (the strategic node and its first slice): the round-one cures and the last
+  acceptance-criteria edit landed as one settlement commit a7750418c with the `engraph` sync
+  merged in; next, reply to and resolve the fourteen threads citing it, merge at green as the
+  bot. PR #52 (this landing): six round-one threads, all correct, cured in one push — the
+  support seat's model id, the pointer at the head of this record, the repo-continuity estate
+  row, the napkin's overflow marker, this bullet. The seven pre-estate PRs #38–#44 (re-homed
+  from upstream on 2026-09-02, none merged there) are evaluated first-hand by the lead and the
+  verdicts carded to the owner before any close; the merge-track ones become owned lanes. The
+  lead's machine-local handoff record (gitignored, on the authoring machine only) is
+  `.agent/state/collaboration/handoffs/2778f573-flounder-turns-estuary-compaction-2026-09-03.md`;
+  it carries the same lanes in command-level detail and one finding the owner holds: the
+  primary checkout's four tracked files rewritten by the Sonar CLI's login step.

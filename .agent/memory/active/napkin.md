@@ -1199,6 +1199,8 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
 
 ## 2026-09-03 ~19:xxZ (Flounder turns Estuary, c5cc2c, solo implementer at owner word) — Sonar access, the census report's review loop, the strategic node, second compaction boundary
 
+<!-- fitness exceeded by 995 lines; needs consolidation -->
+
 - OWNER DIRECTION (verbatim, ~17:0xZ): "in general, what we are doing here is making the repo
   more readily usable by other orgs, so accidentally pinned Oak specific config should be
   replaced with non-pinned config, and example files"; and "I think we need a new strategic
@@ -1293,3 +1295,14 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   pass over this scan finds the approximate time labels and one inference ("the fifth
   directory gained a file" was verified by a count, not by naming the file) — recorded as
   such; a third pass adds nothing; the recursion closes here.
+- **Relayed from the support seat (Buzzard lifts Eyrie, 326bcb) at the boundary, adopted here:**
+  transcripts DO carry a rule-load record. The harness injects a nested-memory attachment
+  whenever a session reads under a nested checkout, and each one re-injects that checkout's
+  `.claude/rules/*.md` pointers; one 2026-08 transcript holds 1,056 such injections across
+  eight worktrees under the repository's own `.claude/worktrees/`, 121 rule names each. That is
+  the measured mechanism behind the owner's "loads twice" observation on this host: nested
+  worktrees, not the `.agents/` mirror; neither of this day's two sessions shows any. Two
+  instrument facts from the same seat: zsh does not word-split an unquoted variable in
+  `set -- $pair`, so a loop packing two arguments into one string posts nothing and the GraphQL
+  calls fail on a mangled node id (explicit variables per call); `comms inbox` has no `--since`
+  flag, so the post-arm foreground sweep is the inbox default over the seen-file.
