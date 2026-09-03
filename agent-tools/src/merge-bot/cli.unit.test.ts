@@ -216,7 +216,7 @@ describe('runMergeBotCli mint-token', () => {
     expect(run.out()).toBe('');
   });
 
-  it("resolves the config at the clone's primary checkout when no repo root is given, so every linked worktree reads the one copy", async () => {
+  it("resolves the config at the clone's primary checkout when no config root is given, so every linked worktree reads the one copy", async () => {
     const configReads: string[] = [];
     const gitCalls: { args: readonly string[]; cwd: string }[] = [];
     const run = runWith({
@@ -260,6 +260,8 @@ describe('runMergeBotCli mint-token', () => {
     expect(await run.exit).toBe(2);
     expect(run.errText()).toContain('primary checkout');
     expect(run.errText()).toContain('not a git repository');
+    // The guidance names merge-bot's own overrides, never a flag this CLI lacks.
+    expect(run.errText()).toContain('--app-id');
     expect(run.out()).toBe('');
   });
 

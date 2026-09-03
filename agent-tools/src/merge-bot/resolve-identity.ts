@@ -78,14 +78,16 @@ interface IdentityValues {
   readonly repo: string;
 }
 
-/** Render an error with its cause chain, so the root failure survives the wrap. */
-function describeFailure(cause: unknown): string {
+/**
+ * The innermost cause's message — git's own words — so the root failure
+ * survives the wrap while the resolver's advisory text (which names a flag
+ * this CLI does not accept) does not.
+ */
+function rootCause(cause: unknown): string {
   if (!(cause instanceof Error)) {
     return String(cause);
   }
-  return cause.cause instanceof Error
-    ? `${cause.message}; cause: ${describeFailure(cause.cause)}`
-    : cause.message;
+  return cause.cause instanceof Error ? rootCause(cause.cause) : cause.message;
 }
 
 /**
@@ -107,7 +109,7 @@ function resolveConfigRoot(input: MergeBotResolveInput): Result<string, Error> {
   } catch (cause) {
     return err(
       new Error(
-        `cannot locate this clone's primary checkout to read ${MERGE_BOT_CONFIG_RELATIVE_PATH}: ${describeFailure(cause)}`,
+        `cannot locate this clone's primary checkout to read ${MERGE_BOT_CONFIG_RELATIVE_PATH}: run from inside the clone (any worktree), or pass --app-id, --private-key-path and --repo as explicit overrides; git said: ${rootCause(cause)}`,
       ),
     );
   }
