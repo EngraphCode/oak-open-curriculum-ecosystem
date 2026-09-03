@@ -46,7 +46,11 @@ it run from 2026-06-12.
 Run from the repository root on the machine whose sessions are being measured. Paths use the
 harness's own locations; `<project-dir>` is the directory the harness keeps for this checkout
 under `~/.claude/projects/` (its name is the checkout path with separators replaced), and the
-worktree checkouts each have their own.
+worktree checkouts each have their own. Only a directory's top-level `*.jsonl` files are
+sessions (`-maxdepth 1`); the `<session>/subagents/` trees beneath them hold sub-agent
+transcripts and are excluded. Enumerate the project directories by hand before running: this
+report's cohort was five directories (the checkout and four worktrees) holding 53 session
+files; a worktree kept under a differently named parent directory needs adding to the list.
 
 ```bash
 # The canonical skill ids (the population of the table)
@@ -62,14 +66,14 @@ jq -r '.skillUsage | to_entries[] | "\(.value.usageCount) \(.value.lastUsedAt/10
 SINCE=2026-08-04; UNTIL=2026-09-04
 
 # Instrument B1: sessions that invoked a skill (the Skill tool or a slash command), one row per session and skill
-for f in $(find ~/.claude/projects/<project-dir>* -name '*.jsonl' -newermt "$SINCE" ! -newermt "$UNTIL"); do sid=$(basename "$f" .jsonl); \
+for f in $(find ~/.claude/projects/<project-dir>* -maxdepth 1 -name '*.jsonl' -newermt "$SINCE" ! -newermt "$UNTIL"); do sid=$(basename "$f" .jsonl); \
   grep -a -o -E '"name":"Skill","input":\{"skill":"[^"]+"|<command-name>/[a-z0-9-]+</command-name>' "$f" \
   | sed -E 's/.*"skill":"([^"]+)".*/\1/; s#<command-name>/([a-z0-9-]+)</command-name>#\1#' \
   | sed -E 's/^(oak|jc|engraph)-//' | sort -u | sed "s/^/$sid /"; done
 # (every prefix era maps to the canonical id; this report's window held oak- keys only)
 
 # Instrument B2: sessions in which a skill's canonical path appeared (a read or a reference)
-for f in $(find ~/.claude/projects/<project-dir>* -name '*.jsonl' -newermt "$SINCE" ! -newermt "$UNTIL"); do sid=$(basename "$f" .jsonl); \
+for f in $(find ~/.claude/projects/<project-dir>* -maxdepth 1 -name '*.jsonl' -newermt "$SINCE" ! -newermt "$UNTIL"); do sid=$(basename "$f" .jsonl); \
   grep -a -o -E 'skills/([a-z0-9-]+/)*[a-z0-9-]+/SKILL-CANONICAL\.md' "$f" \
   | sed -E 's#.*/([a-z0-9-]+)/SKILL-CANONICAL\.md#\1#' | sort -u | sed "s/^/$sid /"; done
 # (canonical files sit at any depth under .agent/skills — cognition/, knowledge/,
