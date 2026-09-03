@@ -55,14 +55,17 @@ find .agent/skills -name SKILL-CANONICAL.md -exec grep -m1 '^name:' {} \; | sed 
 # Instrument A: the harness usage record, by invoked name, with the last-used time
 jq -r '.skillUsage | to_entries[] | "\(.value.usageCount) \(.value.lastUsedAt/1000|floor|strftime("%Y-%m-%d")) \(.key)"' ~/.claude.json | sort -rn
 
+# The census window, applied to transcript modification times (this report: 53 files, all inside it)
+SINCE=2026-08-04; UNTIL=2026-09-04
+
 # Instrument B1: sessions that invoked a skill (the Skill tool or a slash command), one row per session and skill
-for f in ~/.claude/projects/<project-dir>*/*.jsonl; do sid=$(basename "$f" .jsonl); \
+for f in $(find ~/.claude/projects/<project-dir>* -name '*.jsonl' -newermt "$SINCE" ! -newermt "$UNTIL"); do sid=$(basename "$f" .jsonl); \
   grep -a -o -E '"name":"Skill","input":\{"skill":"[^"]+"|<command-name>/[a-z0-9-]+</command-name>' "$f" \
   | sed -E 's/.*"skill":"([^"]+)".*/\1/; s#<command-name>/([a-z0-9-]+)</command-name>#\1#' \
   | sed 's/^oak-//' | sort -u | sed "s/^/$sid /"; done
 
 # Instrument B2: sessions in which a skill's canonical path appeared (a read or a reference)
-for f in ~/.claude/projects/<project-dir>*/*.jsonl; do sid=$(basename "$f" .jsonl); \
+for f in $(find ~/.claude/projects/<project-dir>* -name '*.jsonl' -newermt "$SINCE" ! -newermt "$UNTIL"); do sid=$(basename "$f" .jsonl); \
   grep -a -o -E 'skills/([a-z0-9-]+/)*[a-z0-9-]+/SKILL-CANONICAL\.md' "$f" \
   | sed -E 's#.*/([a-z0-9-]+)/SKILL-CANONICAL\.md#\1#' | sort -u | sed "s/^/$sid /"; done
 # (canonical files sit at any depth under .agent/skills — cognition/, knowledge/,
@@ -190,7 +193,7 @@ The 29 never-invoked skills fall into classes with different meanings:
 | Design and visual | `claude-design-pipeline`, `ui-visual-design`, `visual-comparison`, `visual-verification` (`design-system-usage`: 5) | Never invoked; their canonical files were still read or referenced in a few sessions, so they are known but idle since the design lane paused |
 | Search quality | `ground-truth-design`, `ground-truth-evaluation` | Idle with the search-quality lane |
 | Multi-seat and cross-vendor instruments | `slack-watcher`, `talk-to-slack-watcher`, `sif`, `codex-helper` (`the-codex-dialogues`: 1, `inter-practice-collaboration`: 1, `comms-channels`: 1) | Need a second seat or a second vendor. Seat count per session was not measured: `start-right-team` (34 sessions) is the standard opener at any seat count, so its count says nothing about team size; the claims register's concurrent-seat history is the measure not taken. Until it is, the zero is either "no second seat" or a routing gap |
-| Authoring and orientation aids | `tsdoc`, `chatgpt-report-normalisation`, `working-with-agentic-ai`, `gates`, `ticket-management` (`go`: 1, `under-the-hood`: 1, `retrospective`: 1) | `working-with-agentic-ai` and `under-the-hood` are read by people, not invoked; `tsdoc` is the anomaly, since code shipped in the window |
+| Authoring and orientation aids | `tsdoc`, `chatgpt-report-normalisation`, `working-with-agentic-ai`, `gates`, `ticket-management` (`go`: 1, `under-the-hood`: 1, `retrospective`: 1) | `working-with-agentic-ai` is read by people and has never been invoked; `under-the-hood` is the directed orientation entry and was invoked once (2026-06-28), otherwise read; `tsdoc` is the anomaly, since code shipped in the window |
 
 ## Skills and rules present in two locations
 
@@ -257,11 +260,15 @@ data says about it. None is decided here.
   context in the window; a platform that runs handoff without wrap would need it. The call
   sits with the wrap and handoff doctrine, not here.
 - **How to value the event-driven runbooks and safety skills.** Their measure is whether they
-  are found when their event fires, which usage frequency cannot show. Two kinds of zero sit
-  in the class: no event in the window (`update-upstream-api-spec`), and an event that did
+  are found when their event fires, which usage frequency cannot show. Three kinds of zero
+  sit in the class: no event in the window (`update-upstream-api-spec`); an event that did
   fire (the dependency wave of 2026-08-11) while the skills that now cover it were younger
-  than the event (`update-dependencies`, `dependency-currency`). Only the second kind can be
-  tested, at the next dependency event: handled through the skill, or without it.
+  than the event (`update-dependencies`, `dependency-currency`); and composed use, where a
+  parent skill runs the skill as one of its steps and no direct counter sees it
+  (`coordination-fold`, invoked in two sessions, runs `cut-coordination-branch` as a mandatory
+  step, which the census records only as appearances). Only the second kind can be tested, at
+  the next dependency event: handled through the skill, or without it; the third kind needs a
+  counter at the step, not at the slash command.
 - **Whether idle families follow their lanes.** The design, visual and search-quality skills
   are idle while those lanes are paused. Factor: their status is a consequence of the lane
   decisions already recorded elsewhere, not a separate question this data can answer.
