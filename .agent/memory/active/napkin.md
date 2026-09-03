@@ -885,3 +885,101 @@ merge main into #961 in the PR B worktree (known textual conflict: the publish n
 PR #959's owner_gates removal adjacent to my last_updated), push, checks green, REST-merge. Cricket
 pre-merge pair skipped on proportionality: the reviewer-leg question it settled last time is now
 policy. This entry and the pause addendum ride #959 if the lead stages the napkin; else the close.
+
+## 2026-09-03T12:28:17Z (Vesta rides Solstice, 9e26e6, second seat at n=2) — FINAL WRAP at owner word; the tail handed to the lead; session complete
+
+Owner word: "hand all of your remaining work to Chinook, with this little left the overhead of
+coordinating two agents is greater than the benefit … this is the final wrap and then this session
+is complete." Handed by record-plus-adoption (PDR-063 §Deliberate succession): the handoff record
+under `.agent/state/collaboration/handoffs/` (prefix `01e418de-`), pointer set on claim 01e418de,
+one s2s note and one closeout broadcast. What the lead holds: #961 at its pushed tip (this commit),
+checks green by name, zero unresolved threads → REST-merge as the bot with the sha pinned; then the
+post-merge harvest, prune `mcp-673-true-ups`, close 01e418de, Linear MCP-673 → Done.
+
+WORK SAFETY (verbatim at the wrap): worktree `mcp-673-true-ups` on
+`jimcresswell/mcp-673-corpus-factual-true-ups` — c0e0aac35 = merge of origin/main (ec7cb3fa8) into
+1c51ba368, then this wrap commit; pushed under the bot in the same act as this entry; PR #961. ADR
+worktree `mcp-673-adr` pruned (its commit is on main via #959). Primary: clean of my edits. Claims:
+git window a5b0eb1d closed; 01e418de handed, open for adoption.
+
+METACOGNITION (retrospective, this boundary): the owner made the fold-check call I could have
+proposed at the merge ping. `start-right-team` §6 says apply the dissolution test to your own
+seat at every team-size change; I read "team-size" literally and missed the trigger that actually
+fired — the WORK-SHAPE change, when the remaining tail serialised onto the lead's critical path and
+my seat's residual value was one merge. Doctrine-by-analogy: the right rule, the wrong trigger.
+Falsifier: an n=2 tail whose two remaining slices stay parallel needs no dissolution. Fluency check
+on this wrap itself: the smooth move was "finish it, it is only a push and a merge" against the
+owner's handoff word; the bridge is a SAFE, minimal handoff, so the push (safety) is mine and the
+merge (work) is the lead's.
+
+FREE PLAY (harvest, discards visible): kept — (a) the merge conflict predicted by a dry-run two
+hours early and resolved in one line reminded me of an appointment rather than an accident: the
+pre-merge divergence rule turns merges from events into appointments; (b) the owner's
+pause → continue → ask-and-pause → hand-off sequence looked shaped like a clutch being feathered —
+engagement modulated by word while the estate names no clutch state; the practice ran ahead of the
+mechanism; (c) the reviewer-as-mirror recurred (round 4's suppressed findings were about round 3's
+cures) — a recurrence, not a new seed. Discarded: "the merge commit as the seats' handshake"
+(forced); "three PRs, a three-body problem" (numerology).
+
+CONCEPT-EXPLORATION (the shape that grew across the day): a seat's lifecycle has states the estate
+names — active, standby, retired-pending-confirmation, closed — and two the owner drove today by word
+alone: PAUSED (claim held, watchers down, resume on word) and DISSOLVED-INTO-PEER (an owner-initiated
+succession with no budget signal, which PDR-063 §Deliberate succession covers mechanically but no
+trigger in the team skill fires for). Problem frame: liveness and succession doctrine key on budget
+signals and team-size changes; the owner's actual levers were work-shape and coordination cost.
+Proposals, for the consolidation pass (no carrier now under the zero-PR word): one sentence in the
+liveness rule's owner-input clause naming the paused state; one clause in `start-right-team` §6
+adding work-shape serialisation as a self-dissolution trigger. Warrant: two instances in one
+session, both owner-driven. Falsifier: a later n=2 session whose serialised tail is closed by a seat
+proposing its own dissolution unprompted.
+
+METALOSS (to the fixed point): compressed reasoning — round 4's sizing lives in the thread replies
+with evidence classes, the conflict's union in the closing entry. Promises — "I take the merge of
+main": discharged (c0e0aac35); "I merge #961 myself": superseded by the owner's word, forwarded to
+the lead with the record; the post-merge harvest, the true-ups worktree prune and the claim close:
+forwarded to the lead; the ADR worktree prune: done. Attribution — the Copilot re-requests running
+under the owner's identity is the lead's account, not observed; the pre-compaction ARC replay's
+cause is unverified. Bounds — my polls and watcher stop at this close; anything landing on #961
+after it is the lead's to see. Index of homes — this entry, the thread record's closing entry, the
+handoff record, the channel entry, the formation letter `.agent/experience/2026-09-03-vesta-rides-
+solstice-the-second-seat-and-the-clutch.md`, the per-user resume memory. External bound — every
+correction today was external (owner, lead, a tool's typed refusal), none self-caught; point outside
+eyes at my cure loops and at the dissolution I did not propose. A further pass would only re-find the
+two unverified attributions; the recursion closes here.
+
+## 2026-09-03 ~12:5xZ (Chinook seeks Cloud, 661556, lead at n=2) — post-compaction close: three merges under the handoff word
+
+Owner words after compaction, verbatim: "continue, and make sure we are keeping things tight, the goal
+is to finish this handoff, if you have commits add them to one of our existing PRs, do not add more
+PRs"; then "I want those three PRs merged, and I want ZERO additional PRs. This is not just landing the
+plan to split the repo, this is my handoff. I want it done"; then "begin your wrap, this is not the end
+of your session". Landed: PR 962 merged b3c9742f8 (release 1.178.1 followed); PR 959 cured at 0274984f6
+and merged ec7cb3fa8; PR 961 closes last (Vesta, REST as the bot). Both merges REST as the bot, sha
+pinned, at checks green by name and zero unresolved threads (the docs-only bot-PR policy, pr-lifecycle §5).
+
+- Mechanism: the markdown-links validator treats `**/archive/**` as non-live targets (SOURCE_IGNORE_GLOBS
+  plus isExcludedPath), so archiving a plan node breaks every inbound link to its old path AND a re-point
+  to the archive path is refused too; the cure is plain text naming the archived node. Archival is a
+  multi-surface move: sweep inbound links before the commit. Instance: the research index's link to
+  `agent-skills-detailed-scan` failed static-checks on PR 959's HUSKY=0 tip.
+- Cost: HUSKY=0 at the compaction boundary (owner-authorised for that instance) moved the pre-commit
+  gate's cost to a full CI round on the critical path (the link above). Skipping a gate relocates its
+  cost; it never removes it.
+- Gate class: the design plan's expired item-14 owner gate was not an owner decision but a missing
+  enforcement of the design system's 2026-07-26 invariant (DECISIONS.md, composed properties re-declared
+  wherever inputs are overridden); its "stated default on expiry" would have shipped the defect. Landed as
+  a closure-check ruling with a delivery slice at W0.2(b). Before carding an expired gate, test whether it
+  is a decision at all (principles.md on what is and is not the owner's).
+- Tickets: the merge-tool follow-up (merge-bot merge must learn the docs-only class) got NO ticket —
+  tickets mint at owner word (rule 2026-08-31); the pointer is pr-lifecycle §5's "named follow-up" and
+  MCP-673's closing comment.
+- Prune grant scope: the owner refused a command that would have removed a PEER's dormant worktree
+  (`mcp-673-adr`) and force-deleted its local branch although content-superseded on main. Instance-scoped
+  reading: the standing prune grant applies to worktrees and branches the seat owns; a peer's are theirs.
+  My own merged worktree (`mcp-673-consolidation`) pruned under the grant with the two proofs recorded.
+- Tooling: zsh does not word-split an unquoted `$VAR` in `for f in $VAR`; a content-proof loop ran on
+  nothing until the paths were spelled explicitly. A napkin line opening with a PR number and hash
+  (`#959's …`) is an ATX heading to markdownlint (MD018); write `PR #959's`.
+- n=2 practice: s2s for the quick questions and the merge pings; the canonical stream for merge-landed;
+  the ARC file for dialogue. Vesta held her closing push so the lead's formation letter and this entry
+  could ride PR 961 under the zero-PR word.

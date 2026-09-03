@@ -1385,3 +1385,39 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
 - **Processes at this boundary:** the two Monitors (ARC tail, comms watch) and no background
   shells; claim ed9ec042 open; worktrees `mcp-673-consolidation` (mine, #962) and
   `mcp-673-true-ups` (Vesta) live; the local memory block carries the resume map.
+
+## 2026-09-03 ~12:3xZ — MCP-673 CLOSED (Chinook seeks Cloud, 661556, lead; Vesta rides Solstice, 9e26e6, second seat): three pull requests merged, zero additional; the owner's handoff
+
+- **2026-09-03 ~12:3xZ MCP-673 CLOSED (Chinook seeks Cloud 661556, lead; Vesta rides Solstice
+  9e26e6, second seat).** Owner word 12:0xZ: "I want those three PRs merged, and I want ZERO
+  additional PRs … this is my handoff." #962 merged b3c9742f8 (release 1.178.1 followed); #959
+  merged ec7cb3fa8 (cure tip 0274984f6: the design plan's item-14 gate discharged at the card
+  word, the closure-check ruling and its slice recorded, zero expired gates on live plans); #961
+  merges last — by the lead, REST as the bot, sha pinned, at the owner's later word handing the
+  second seat's tail to the lead ("with this little left the overhead of coordinating two agents
+  is greater than the benefit"). Docs-only bot-PR merge policy lives in pr-lifecycle §5; the
+  merge tool must still learn the class (named follow-up, no ticket minted: tickets mint at owner
+  word). Primary checkout left on the merged #959 branch (never switch the primary); worktrees
+  mcp-673-consolidation and mcp-673-true-ups pruned at close. Linear MCP-673 → Done at the last
+  merge.
+- **The second seat's additions.** #961 carries the eight factual true-ups, four Copilot rounds
+  dispositioned (tally rows 7/5, 3/3, 7/3, 6/4 raised/cure-worthy), and the closer: plain-id
+  pointers at ADR-227 on `public-packages-release`, `toolkit-publish-mechanism` and the
+  extraction plan's decision-log opening (the ADR is the home; the log and this record are the
+  contemporaneous captures), the second-seat Cricket tally, this entry, the handoff record and
+  both seats' formation letters; `origin/main` at ec7cb3fa8 merged in as c0e0aac35, the
+  publish node's frontmatter conflict resolved as the union (the gate row discharged,
+  `last_updated` today). Follow-ups without a carrier until a lane takes them: the publish
+  node's P4 proof row for its runbook leg (MCP-661 comment R4-1, beside R3-1 and R3-2); the
+  strategy index naming `innovation-kit` by id (a pre-existing PDR-105 defect); two seat-state
+  gaps for the consolidation pass — a named PAUSED state for the liveness rule's owner-input
+  clause (claim held, watchers down at owner word, resume only on owner word) and a
+  work-shape trigger for `start-right-team` §6's self-dissolution test (when the remaining work
+  serialises onto one seat, the other proposes its own dissolution before the owner has to).
+  Instruments: the commit-queue ceremony and merge-bot push run cleanly from a linked worktree
+  with the registry at the primary; `gh api --jq` takes no `--arg` (bind inside jq with
+  `. as $x`); an installation token answers 403 on `/user` and 401 on `/app`, neither an
+  identity failure; `git merge-tree --write-tree` predicted the one conflict two hours before
+  the merge. Claim 01e418de is handed to the lead by record-plus-adoption (PDR-063 §Deliberate
+  succession; record at `.agent/state/collaboration/handoffs/`, name prefixed `01e418de-`);
+  worktree `mcp-673-adr` pruned by the second seat (its one commit rode #959 as 753cdf455).

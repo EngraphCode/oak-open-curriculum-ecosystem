@@ -22,7 +22,7 @@ tickets:
   - MCP-661
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-02
+last_updated: 2026-09-03
 ---
 
 # Publish the toolkit from this repository at one version
@@ -36,8 +36,12 @@ a tip whose CI run succeeded, and every published package installs and
 imports under a real pnpm store layout. Nothing publishes today. This is the
 "first-publish behind the manifest gate" step of `public-packages-release`'s
 banked order, deliverable against the single-version estate (the owner's
-ruling for now: one release version per repository), and the mechanism the
-extraction plan `oak-open-curriculum-mcp-extraction` depends on.
+ruling for now, recorded in ADR-227: one release version per repository),
+and the mechanism the extraction plan `oak-open-curriculum-mcp-extraction`
+depends on. ADR-227 is the durable home of the rulings this node executes:
+the boundary between the two repositories is the published `@oaknational`
+packages, code MIT and content OGL, published from here at this
+repository's release version.
 
 ## User groups and value
 
@@ -129,6 +133,12 @@ extraction plan `oak-open-curriculum-mcp-extraction` depends on.
    registry, with no live publish. Proof: AC4; the dry-run listing.
 4. **P4** The first live publish at the next release, after P2 is green
    for every package in the set; asserts publish rights at its start (gate).
+   (Dated addition, 2026-09-03, a factual true-up from the corpus truing's
+   T5: P4 also amends the ratified `release-process` runbook's rollback
+   clause, which today rests on publishing being disabled (`npmPublish:
+   false` in `.releaserc.mjs`), to cover published packages — a published
+   version is never unpublished; the forward path is a new release — with a
+   dated note and the runbook's re-ratification per the plan-node schema.)
    Proof: AC1.
 5. **P5** The consumer note on the release-age floor (the floor stays in
    force for the scope; per-package allow-listing is the exception) in the
