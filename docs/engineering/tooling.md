@@ -56,8 +56,8 @@ the command is missing.
 
 ## Publishing
 
-- [npm](https://www.npmjs.com) - The target registry for public packages. Nothing is published today (`npmPublish: false` in `.releaserc.mjs`); the delivery plan `toolkit-publish-mechanism` lands the first publish.
-- [semantic-release](https://github.com/semantic-release/semantic-release) - Versions, tags and GitHub releases are minted automatically on merge to `main`; npm publishing is disabled until the publish mechanism lands.
+- [npm](https://www.npmjs.com) - The target registry for public packages. Nothing is published today (`npmPublish: false` in `.releaserc.mjs`); the first publish lands as one multi-package publish at the repository's release version, never a manual toggle.
+- [semantic-release](https://github.com/semantic-release/semantic-release) - Versions, tags and GitHub releases are minted automatically on merge to `main`; npm publishing is disabled until that first publish.
 
 ## TSDoc Compliance
 
