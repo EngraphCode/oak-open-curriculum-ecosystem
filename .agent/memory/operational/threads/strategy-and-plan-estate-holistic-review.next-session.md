@@ -328,7 +328,7 @@ refounding but the WS6 HARVEST reads ALL live + ALL archived plans in full — o
 also in `planning-estate-rewrite.plan.md` §ws6). PR #322 carries the ratification record
 (merge it truly-green if still open at pickup). Two owner corrections now structural:
 doc↔code sync checks are validator work (`validate-ratified-lists`, three lists guarded);
-truly-green PRs merge by the shepherding agent (pr-lifecycle Phase 7 IS the authorisation) — [SCOPED 2026-07-08: Phase 7 now bounds this — a self-authored, sub-agent-reviewed PR is merge-READY only; it additionally needs an in-session owner grant or the owner's own merge (worked instance PR #323)].
+truly-green PRs merge by the shepherding agent (pr-lifecycle Phase 7 IS the authorisation) — [RE-TRUED 2026-09-03 at owner word: a self-authored, sub-agent-reviewed PR merges at truly-green by the shepherding seat exactly as any other; pr-lifecycle Phase 7 carries the ruling].
 The Walk-A derivation input (few thread-level plans + implementation collections + a holding
 bucket; zero concepts lost) is recorded in §9. **Next: R0b** (plan-state engine; Stoat's §3
 contracts BINDING; first truing = the `r0a-mechanical-instrument` todo still reading

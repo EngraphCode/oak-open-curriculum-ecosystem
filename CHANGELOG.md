@@ -1,3 +1,49 @@
+## [1.178.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.3...v1.178.4) (2026-09-03)
+
+## [1.178.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.2...v1.178.3) (2026-09-03)
+
+## [1.178.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.1...v1.178.2) (2026-09-03)
+
+## [1.178.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.178.0...v1.178.1) (2026-09-03)
+
+# [1.178.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.177.2...v1.178.0) (2026-09-03)
+
+
+### Bug Fixes
+
+* **mcp-tools:** export PaginationEcho publicly, parse rel per RFC 8288, discriminate the echo ([af44ea4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/af44ea4fd4b52b612253f4b69a71234103dc0405))
+* **mcp-tools:** reject unsafe-integer offsets in the pagination echo; export PaginationEcho publicly ([5aabafe](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5aabafe3a4d085f6903b80fa3b2f08e77ce3d614))
+* **sdk-codegen:** resolve relative Link targets so the pagination echo keeps offset and limit ([9de3eac](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9de3eac9b82a0f6ea32d516096c6dd3d20d1c109))
+
+
+### Features
+
+* **mcp-tools:** carry the upstream pagination signal into paginated tool results ([acdd8d4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/acdd8d434bbed5dcb2f16be57c2908a3a04f5b1d))
+
+## [1.177.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.177.1...v1.177.2) (2026-09-03)
+
+## [1.177.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.177.0...v1.177.1) (2026-09-02)
+
+# [1.177.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.176.4...v1.177.0) (2026-09-02)
+
+
+### Bug Fixes
+
+* **plugin:** complete the evidence-informed port and the rubric red flag ([df614ab](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/df614abea827b41748c4deae561351b8a89164ba)), closes [#892](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/892)
+
+
+### Features
+
+* **plugin:** add the upstream sources-pointer sentences the port missed ([15b009c](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/15b009c83c3fdbdaf0bcde9a1b66aa4c7b25c15f))
+* **plugin:** apply Emma's skill feedback to the bundled copies ([7046e9d](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/7046e9d372ef1967b0d2b2357406e4a877c715c4)), closes [#844](https://github.com/oaknational/oak-open-curriculum-ecosystem/issues/844)
+
+## [1.176.4](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.176.3...v1.176.4) (2026-09-02)
+
+
+### Bug Fixes
+
+* **mcp-tools:** disable the two dead changelog tools ahead of the cache refresh ([62fc40f](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/62fc40ffa1cbe4e15835713d0fb21330f2f4ea41))
+
 ## [1.176.3](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.176.2...v1.176.3) (2026-09-02)
 
 ## [1.176.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.176.1...v1.176.2) (2026-09-02)
