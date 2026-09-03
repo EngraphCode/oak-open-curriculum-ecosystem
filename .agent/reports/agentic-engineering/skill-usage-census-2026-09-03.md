@@ -208,7 +208,7 @@ What is on disk at f88be5afe:
 
 | Surface | `.claude/` | `.agents/` | `.cursor/` | Canonical |
 | --- | --- | --- | --- | --- |
-| Skills | 70 dirs | 70 dirs, the same 70 names | — | 61 under `.agent/skills` (plus 9 vendored) |
+| Skills | 70 entries: 61 directories plus 9 symlinks that resolve into `.agents/skills` (the vendored `clerk*`, `mcp-inspector`, `skill-creator`) | 70 directories, the same 70 names | — | 61 under `.agent/skills` (plus 9 vendored) |
 | Rules | 125 files | 125 files | 127 files | 125 under `.agent/rules` |
 
 The two skill adapters for one name differ only in their heading line ("(Claude Code)" versus
@@ -232,13 +232,17 @@ the machine-local path prefixes replaced by their portable forms:
 - "Loading skills from: managed=…, user=~/.claude/skills, project=[<repo>/.claude/skills]" —
   one project directory.
 - "Loaded 72 unique skills (72 unconditional, 0 conditional, managed: 0, user: 2, project: 70,
-  additional: 0, legacy commands: 0)" — the 70 are `.claude/skills` exactly.
+  additional: 0, legacy commands: 0)" — the 70 are the entries of `.claude/skills`: its 61
+  directories plus the 9 vendored skills reached through its symlinks into `.agents/skills`,
+  each loaded once.
 - "Total plugin skills loaded: 38 (0 duplicate/user-owned entries skipped)" — figma 14,
   cloudflare 11, sonarqube 9, mcp-server-dev 3, frontend-design 1.
 - No line in the log names `.agents/skills`; the directory is not scanned by this version.
 
-So on this host the repo's skills are not loaded twice: `.agents/skills` and `.cursor/rules`
-are projections for other hosts and cost Claude Code nothing. What the 70-entry listing
+So on this host the repo's skills are not loaded twice: `.agents/skills` is not scanned as a
+directory, and the only entries Claude Code takes from it are the nine it reaches through the
+`.claude/skills` symlinks, once each; `.cursor/rules` is a projection for another host. What
+the 70-entry listing
 does cost is its description budget (above). If the doubled loading was observed on another
 host (Codex or Cursor reading both `.agents/` and `.claude/`), that is the place to measure;
 the generator emits a projection per host precisely so each host reads one.
