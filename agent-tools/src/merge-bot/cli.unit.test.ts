@@ -207,10 +207,55 @@ describe('runMergeBotCli mint-token', () => {
     });
   });
 
-  it('fails loudly, naming the authority, when the repo config is unreadable and no override given', async () => {
+  it('fails loudly, naming the authority and the template, when the repo config is unreadable and no override given', async () => {
     const run = runWith({ args: ['mint-token', '--scope', 'pull-request-work'] });
     expect(await run.exit).toBe(2);
     expect(run.errText()).toContain('.github/merge-bot.json is the single authority');
+    expect(run.errText()).toContain('.github/merge-bot.json.example');
+    expect(run.out()).toBe('');
+  });
+
+  it("resolves the config at the clone's primary checkout when no repo root is given, so every linked worktree reads the one copy", async () => {
+    const configReads: string[] = [];
+    const gitArgs: (readonly string[])[] = [];
+    const run = runWith({
+      args: ['mint-token', '--scope', 'pull-request-work'],
+      env: { HOME: '/test-home' },
+      repoRoot: undefined,
+      runGitImpl: (args) => {
+        gitArgs.push(args);
+        return [
+          'worktree /primary',
+          'HEAD 0000000000000000000000000000000000000000',
+          'branch refs/heads/main',
+          '',
+          'worktree /primary-worktrees/lane',
+          'HEAD 1111111111111111111111111111111111111111',
+          'branch refs/heads/lane',
+          '',
+        ].join('\n');
+      },
+      readConfigFileImpl: (filePath) => {
+        configReads.push(filePath);
+        return JSON.stringify({ appSlug: 'jimbot-oakington-iii', appId: '4352989', repo: 'o/r' });
+      },
+    });
+    expect(await run.exit).toBe(0);
+    expect(gitArgs).toEqual([['worktree', 'list', '--porcelain']]);
+    expect(configReads).toEqual(['/primary/.github/merge-bot.json']);
+  });
+
+  it('fails with exit 2 naming the primary checkout when git cannot locate it and no repo root is given', async () => {
+    const run = runWith({
+      args: ['mint-token', '--scope', 'pull-request-work'],
+      repoRoot: undefined,
+      runGitImpl: () => {
+        throw new Error('fatal: not a git repository');
+      },
+    });
+    expect(await run.exit).toBe(2);
+    expect(run.errText()).toContain('primary checkout');
+    expect(run.errText()).toContain('not a git repository');
     expect(run.out()).toBe('');
   });
 

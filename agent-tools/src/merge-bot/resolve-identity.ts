@@ -1,22 +1,36 @@
 import { err, ok, type Result } from '@oaknational/result';
 
-import { defaultPrivateKeyPath, loadMergeBotRepoConfig } from './repo-config.js';
+import {
+  resolveCoordinationHome,
+  type GitRunner,
+} from '../collaboration-state/coordination-home.js';
+import {
+  defaultPrivateKeyPath,
+  loadMergeBotRepoConfig,
+  MERGE_BOT_CONFIG_RELATIVE_PATH,
+} from './repo-config.js';
 
 /**
  * Bot-identity resolution shared by every merge-bot action.
  *
- * `.github/merge-bot.json` is the single AUTHORITY for the bot identity;
- * flags are explicit operator overrides (cross-repo invocation, tests) —
- * never a resolution tier. Split from `resolve-config.ts` when the `merge`
- * action became the second consumer (`consolidate-at-second-consumer`):
+ * The clone's `.github/merge-bot.json` is the single AUTHORITY for the bot
+ * identity (per-checkout, never tracked — see `repo-config.ts`); flags are
+ * explicit operator overrides (cross-repo invocation, tests) — never a
+ * resolution tier. The file is read at the clone's PRIMARY checkout, so a
+ * linked worktree, which holds no copy of an untracked file, reads the same
+ * one every other worktree does. Split from `resolve-config.ts` when the
+ * `merge` action became the second consumer (`consolidate-at-second-consumer`):
  * scope handling stays with each action (mint-token requires `--scope`;
  * `merge` fixes its scope internally), identity resolution lives once here.
  */
 
 export interface MergeBotResolveInput {
   readonly envHome?: string;
+  /** Explicit config root. Absent in production: the clone's primary checkout is resolved through git. */
   readonly repoRoot?: string;
   readonly readConfigFileImpl?: (filePath: string) => string;
+  /** Git runner seam for the primary-checkout resolution; tests inject it, production runs git. */
+  readonly runGitImpl?: GitRunner;
 }
 
 /** The resolved bot identity: app, key, and the owner/name split repo. */
@@ -54,6 +68,39 @@ interface IdentityValues {
   readonly repo: string;
 }
 
+/** Render an error with its cause chain, so the root failure survives the wrap. */
+function describeFailure(cause: unknown): string {
+  if (!(cause instanceof Error)) {
+    return String(cause);
+  }
+  return cause.cause instanceof Error
+    ? `${cause.message}; cause: ${describeFailure(cause.cause)}`
+    : cause.message;
+}
+
+/**
+ * Where the per-checkout config lives: an explicit root when given, else the
+ * clone's primary checkout — the one location every linked worktree shares,
+ * the same home the collaboration substrate resolves to. The declared
+ * coordination-home option is deliberately NOT passed: an inter-Practice
+ * session's coordination home is another repository, and this config belongs
+ * to this repository's clone.
+ */
+function resolveConfigRoot(input: MergeBotResolveInput): Result<string, Error> {
+  if (!isBlank(input.repoRoot)) {
+    return ok(input.repoRoot);
+  }
+  try {
+    return ok(resolveCoordinationHome(process.cwd(), { runGit: input.runGitImpl }));
+  } catch (cause) {
+    return err(
+      new Error(
+        `cannot locate this clone's primary checkout to read ${MERGE_BOT_CONFIG_RELATIVE_PATH}: ${describeFailure(cause)}`,
+      ),
+    );
+  }
+}
+
 /**
  * The repo config is the AUTHORITY for the bot identity, not a tier a
  * resolution ladder lands on; an override is an explicit flag choice.
@@ -62,14 +109,18 @@ function applyAuthority(
   partial: { appId?: string; keyPath?: string; repo?: string },
   input: MergeBotResolveInput,
 ): Result<IdentityValues, Error> {
+  const configRoot = resolveConfigRoot(input);
+  if (!configRoot.ok) {
+    return err(configRoot.error);
+  }
   const repoConfig = loadMergeBotRepoConfig({
-    repoRoot: input.repoRoot ?? process.cwd(),
+    repoRoot: configRoot.value,
     readFileImpl: input.readConfigFileImpl,
   });
   if (!repoConfig.ok) {
     return err(
       new Error(
-        `the repo's merge-bot identity is unreadable — .github/merge-bot.json is the single authority; fix it (${repoConfig.error.message}); flags exist only as explicit overrides`,
+        `the clone's merge-bot identity is unreadable — .github/merge-bot.json is the single authority (per-checkout, never tracked); fix it (${repoConfig.error.message}); flags exist only as explicit overrides`,
       ),
     );
   }

@@ -307,8 +307,10 @@ never ask to route around it.**
   held-work discipline cannot assume a dirty tree stays dirty in a cloud
   session, and a freeze decision accounts for auto-checkpoint.
 - **The merge-bot front door cannot run in a cloud session**: the bot's
-  machine-local private key is absent and `.github/merge-bot.json` names
-  the upstream repo, so an owner-authorised merge executed through the
+  machine-local private key is absent and the per-checkout
+  `.github/merge-bot.json` (never tracked; template at
+  `.github/merge-bot.json.example`) does not exist in a fresh cloud checkout,
+  so an owner-authorised merge executed through the
   session's GitHub connector runs under the OPERATOR credential — a
   credential-selection gap against `bot-identity-on-third-party-systems`,
   recorded as an environment fact, never a practice to normalise.

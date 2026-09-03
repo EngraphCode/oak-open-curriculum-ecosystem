@@ -10,6 +10,7 @@ import { PUSH_USAGE } from './push-args.js';
 import { runPushAction, type PushActionInput } from './push-cli.js';
 import type { GitExecutor } from './git-executor.js';
 import type { TokenFileStore } from './push-git.js';
+import type { GitRunner } from '../collaboration-state/coordination-home.js';
 import { resolveMintTokenConfig } from './resolve-config.js';
 import { permissionNamesFor, TOKEN_SCOPE_NAMES } from './token-scopes.js';
 
@@ -58,9 +59,11 @@ interface MergeBotEnvironment {
 export interface MergeBotCliInput {
   readonly args: readonly string[];
   readonly env: MergeBotEnvironment;
-  /** Repo root for `.github/merge-bot.json` resolution (usually the cwd's repo). */
+  /** Explicit root for `.github/merge-bot.json`; absent in production, where the clone's primary checkout is resolved through git. */
   readonly repoRoot?: string;
   readonly readConfigFileImpl?: (filePath: string) => string;
+  /** Git runner seam for that primary-checkout resolution (tests inject; production runs git). */
+  readonly runGitImpl?: GitRunner;
   readonly stdout: Pick<NodeJS.WriteStream, 'write'>;
   readonly stderr: Pick<NodeJS.WriteStream, 'write'>;
   /** Injection seams for tests. */
@@ -81,10 +84,12 @@ export interface MergeBotCliInput {
 const USAGE = `merge-bot mint-token --scope <${TOKEN_SCOPE_NAMES.join('|')}> [--app-id <id>] [--private-key-path <pem-path>] [--repo <owner/name>] [--json]
   Prints a short-lived GitHub App installation token (stdout carries ONLY the
   token unless --json, which bundles the token into the printed object). The
-  repo's .github/merge-bot.json is the single authority for the bot identity;
-  the private key lives at ~/.config/<appSlug>/private-key.pem, derived from
-  it. Flags are explicit operator overrides (cross-repo invocation, tests) —
-  not a resolution tier.
+  clone's .github/merge-bot.json is the single authority for the bot identity:
+  per-checkout and never tracked (create it from .github/merge-bot.json.example),
+  read at the clone's primary checkout so every worktree sees the one copy; the
+  private key lives at ~/.config/<appSlug>/private-key.pem, derived from it.
+  Flags are explicit operator overrides (cross-repo invocation, tests) — not a
+  resolution tier.
 
   --scope is REQUIRED and has no default: a token carries only the permissions
   its mint requests, so defaulting would make the most privileged scope the
@@ -104,6 +109,7 @@ function mergeActionInputFrom(input: MergeBotCliInput): MergeActionInput {
       envHome: input.env.HOME,
       repoRoot: input.repoRoot,
       readConfigFileImpl: input.readConfigFileImpl,
+      runGitImpl: input.runGitImpl,
     },
     stdout: input.stdout,
     stderr: input.stderr,
@@ -123,6 +129,7 @@ function pushActionInputFrom(input: MergeBotCliInput): PushActionInput {
       envHome: input.env.HOME,
       repoRoot: input.repoRoot,
       readConfigFileImpl: input.readConfigFileImpl,
+      runGitImpl: input.runGitImpl,
     },
     repoRoot: input.repoRoot ?? process.cwd(),
     stdout: input.stdout,
@@ -177,6 +184,7 @@ async function runMintTokenAction(
     envHome: input.env.HOME,
     repoRoot: input.repoRoot,
     readConfigFileImpl: input.readConfigFileImpl,
+    runGitImpl: input.runGitImpl,
   });
   if (!config.ok) {
     input.stderr.write(`merge-bot mint-token: ${config.error.message}\n`);

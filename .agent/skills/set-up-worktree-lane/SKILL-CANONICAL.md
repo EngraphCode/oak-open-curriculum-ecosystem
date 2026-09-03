@@ -73,7 +73,10 @@ If that is wrong or absent, fix the SHARED config once. Never patch this worktre
 reintroduces the exact drift this step exists to catch.
 
 ```bash
-BOT_SLUG=$(jq -r .appSlug .github/merge-bot.json)
+# The merge-bot config is per-checkout and never tracked, so it lives only at
+# the clone's primary checkout; a linked worktree holds no copy of it.
+PRIMARY="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
+BOT_SLUG=$(jq -r .appSlug "$PRIMARY/.github/merge-bot.json")
 BOT_ID=$(gh api "users/${BOT_SLUG}%5Bbot%5D" --jq .id)
 
 git config user.name  "${BOT_SLUG}[bot]"
