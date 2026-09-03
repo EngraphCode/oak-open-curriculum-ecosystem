@@ -91,7 +91,8 @@ for f in $(for d in $DIRS; do find "$d" -maxdepth 1 -name '*.jsonl' -newermt "$S
 #   per-skill 30-day session counts:      awk '{print $2}' uses.txt | sort | uniq -c   (same for reads.txt)
 #   the table row for one skill:          grep -c " <id>$" uses.txt ; grep -c " <id>$" reads.txt ;
 #                                          grep " oak-<id>$" harness.txt   (count and last-used)
-#   sessions with any invocation:         awk '{print $1}' uses.txt | sort -u | wc -l          (38)
+#   sessions with any repo-skill invocation: awk 'NR==FNR{ids[$1]=1;next} ($2 in ids){print $1}' ids.txt uses.txt | sort -u | wc -l   (37)
+#     (uses.txt also carries built-in commands such as compact and rename, which the pattern matches; restrict to ids)
 #   sessions in the cohort:               the file count the loops iterated                     (53)
 #   no trace at all:                      ids in ids.txt absent from both uses.txt and reads.txt (4)
 #   never invoked under oak-:             ids in ids.txt with no "oak-<id>" key in harness.txt (29)
@@ -116,7 +117,7 @@ session counts. The transcript window is whatever the harness's retention leaves
 | Invocations carried by the top 15 skills | 3,069 (98.6%) |
 | Retired `oak-` names still in the harness record (not in the table) | 3 names, 6 invocations (the record holds 35 `oak-` keys and 3,118 invocations in all) |
 | Skills with no trace at all in the 30-day window (neither invoked nor appeared) | 4 |
-| Sessions in the window with at least one explicit invocation | 38 of 53 |
+| Sessions in the window with at least one explicit invocation of a repo skill | 37 of 53 (a 38th session ran only built-in commands such as `/compact`, which the invocation pattern also matches; the count is restricted to canonical ids) |
 
 ## The full table
 
@@ -222,7 +223,7 @@ The 29 never-invoked skills fall into classes with different meanings:
 | --- | --- | --- |
 | Event-driven runbooks | `update-upstream-api-spec`, `update-dependencies`, `dependency-currency`, `cut-coordination-branch`, `undo-change`, `knowledge-safety-sweep` | Frequency is not their measure, and the zeros differ in kind. No upstream spec change fired in the window. The dependency event DID fire: the MCP-549 wave of 2026-08-11 (23 lockfile-touching commits in the window). `update-dependencies` landed mid-wave that day (63482f961 at 16:25; two further dependency fixes followed at 17:53 and 18:31, 73f9c4335 and 2671dc2e9) and `dependency-currency` on 2026-08-26 (7a44d9d84), after the wave. So `dependency-currency`'s zero is "introduced after the event", while `update-dependencies`' zero already contains dependency work done after it existed, on the lane that had just written it; whether the next dependency event routes through them is the open question |
 | The parallax family | `parallax-audit`, `parallax-decide`, `parallax-design-experiment`, `parallax-design-inquiry`, `parallax-frame`, `parallax-learn`, `parallax-product-experiment`, `parallax-synthesise` (the orchestrator `parallax`: 3) | All eight components never invoked, ever; only the orchestrator has been used: the largest idle block, nine skill listings for one instrument |
-| Design and visual | `claude-design-pipeline`, `ui-visual-design`, `visual-comparison`, `visual-verification` (`design-system-usage`: 5) | Never invoked; their canonical files were still read or referenced in a few sessions, so they are known but idle since the design lane paused |
+| Design and visual | `claude-design-pipeline`, `ui-visual-design`, `visual-comparison`, `visual-verification` (`design-system-usage`: 5) | Never invoked, though their canonical files were read or referenced in a few sessions. Not explained by the lane's later pause: `ui-visual-design` landed 2026-08-12 (612bb7f3a) and `visual-verification` 2026-08-13 (d46242a41), and the lane shipped visual work on 2026-08-18 and 19 (05897c076, 3b276f0d6, e54be4b4d) matching their stated triggers without invoking them — the same bypass shape as the dependency wave |
 | Search quality | `ground-truth-design`, `ground-truth-evaluation` | Idle with the search-quality lane |
 | Multi-seat and cross-vendor instruments | `slack-watcher`, `talk-to-slack-watcher`, `sif`, `codex-helper` (`the-codex-dialogues`: 1, `inter-practice-collaboration`: 1, `comms-channels`: 1) | Need a second seat or a second vendor. Seat count per session was not measured: `start-right-team` (34 sessions) is the standard opener at any seat count, so its count says nothing about team size; the claims register's concurrent-seat history is the measure not taken. Until it is, the zero is either "no second seat" or a routing gap |
 | Authoring and orientation aids | `tsdoc`, `chatgpt-report-normalisation`, `working-with-agentic-ai`, `gates`, `ticket-management` (`go`: 1, `under-the-hood`: 1, `retrospective`: 1) | `working-with-agentic-ai` is a primer whose path sits in every session's boilerplate (hence its 33 appearances) and which has never been invoked; whether people read it, these instruments cannot say. `under-the-hood` is the directed orientation entry and was invoked once (2026-06-28), otherwise its path appeared. `tsdoc` is the anomaly, since code shipped in the window |
@@ -243,7 +244,9 @@ The two skill adapters for one name differ only in their heading line ("(Claude 
 "(Cross-tool)"); both point at the same canonical file. Every rule file under `.claude/rules`
 is a one-line pointer to its canonical.
 
-What the Claude Code documentation states (skills page, read 2026-09-03): project skills load
+What the Claude Code documentation states (the skills page,
+<https://code.claude.com/docs/en/skills>, read 2026-09-03 against Claude Code 2.1.259; the
+page carries no version stamp, so the quoted wording is as of that date): project skills load
 from `.claude/skills/`; same-name conflicts resolve by source level (enterprise over personal
 over project), plugin skills carry a `plugin:skill` namespace so they cannot collide, and
 nested `.claude/skills/` directories surface under a directory-qualified name. The page does
@@ -307,9 +310,12 @@ data says about it. None is decided here.
   step, which the census records only as appearances). Only the second kind can be tested, at
   the next dependency event: handled through the skill, or without it; the third kind needs a
   counter at the step, not at the slash command.
-- **Whether idle families follow their lanes.** The design, visual and search-quality skills
-  are idle while those lanes are paused. Factor: their status is a consequence of the lane
-  decisions already recorded elsewhere, not a separate question this data can answer.
+- **Whether idle families follow their lanes.** The search-quality skills are idle while
+  that lane is paused, and their status follows the lane decisions recorded elsewhere. The
+  design and visual family is different: two of its skills existed for a week of active
+  visual work that did not invoke them (the class table has the commits), so for that
+  family the data shows a routing gap during activity, not inactivity, and the question is
+  whether the lane's next visual work routes through them.
 - **Why `tsdoc` was never touched while code shipped.** Either the code-expert path covers its
   purpose or the skill is not on the authoring path it was written for. Discriminating
   evidence: the transcripts of the sessions that shipped code in the window.
