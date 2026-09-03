@@ -4,7 +4,29 @@ Owner ask, verbatim: "which repo skills have rarely or never been used?" then "r
 skills data in a report, that is a lot of skills we are not using, and note that claude loads
 some skills or rules twice because they appear in two locations and it doesn't appear to be
 able to dedupe them." Recorded 2026-09-03 ~17:2xZ from two instruments on the owner's machine.
-Nothing here is a decision; the dispositions at the end are recommendations with falsifiers.
+Nothing here is a decision; the closing section names the decisions the data surfaces and
+lays out the factors for each.
+
+## Review contract
+
+- **Purpose and impact.** Give the owner a first-hand measurement of which repo skills are
+  used, how often, and by which signal, so that the shape of the skills estate can be decided
+  from data rather than impression. The report changes nothing itself.
+- **Questions a review should test.** Do the headline counts reconcile to the full table and to
+  the stated instruments? Are the bounds of each instrument stated honestly, including what it
+  cannot see? Is the double-loading finding supported by the cited debug evidence and the
+  documentation quoted? Does any line pick an answer to a call reserved for an owner-ratified
+  deliverable rather than laying out the factors?
+- **Evidence standard and authority.** Every number derives from the harness's own usage
+  record, the local transcripts, or a logged debug run, by the commands named in the text;
+  the data files are machine-local and the report is the record. The report has no authority
+  over the skills estate; its shape is decided in owner-ratified plans and rulings.
+- **Non-goals.** This is not a retirement list, not a measure of any skill's quality or
+  correctness, and not a census of Codex or Cursor sessions.
+- **A successful review** establishes that the counts reconcile and that every line stays on
+  the considerations side of the line the reports README draws. Missing evidence or a
+  contract mismatch is reported as a review thread on the carrying pull request naming the
+  line; it is cured in the report, never argued down.
 
 ## Instruments and their bounds
 
@@ -178,25 +200,34 @@ does cost is its description budget (above). If the doubled loading was observed
 host (Codex or Cursor reading both `.agents/` and `.claude/`), that is the place to measure;
 the generator emits a projection per host precisely so each host reads one.
 
-## Recommended dispositions, with falsifiers
+## Decisions this census surfaces, with the factors
 
-- **Confirm the double-load first, then cure it in the generator, not by hand.** If `/doctor`
-  shows both projections contributing, the adapter generator should stop emitting a Claude-
-  readable projection into `.agents/skills/` (or emit it under a non-colliding name); a manual
-  deletion regenerates on the next `skills:generate`. Falsifier: `/doctor` attributes the
-  listing cost to one directory only, in which case the cost is the 70-entry listing itself.
-- **Collapse the parallax family to its orchestrator plus reference files.** Nine listings for
-  one instrument, eight never invoked. Falsifier: a user of the family who invokes the parts
-  directly, which the harness record would show under their names.
-- **Fold `session-handoff` into `wrap` structurally.** The ruling already made wrap the only
-  close; the separate listing is a residue. Falsifier: a platform that runs handoff without
-  wrap.
-- **Keep the event-driven runbooks and the safety skills regardless of frequency.** Their
-  measure is whether they are found when their event fires. Falsifier: an event that fired
-  and was handled without the skill, which would show the skill is not on the path.
-- **Let the design, visual and search-quality families follow their lanes.** They are idle
-  because the lanes are; retiring them ahead of a lane decision is a decision by omission.
-- **Look at `tsdoc`.** Code shipped in the window and the skill was never touched. Either the
-  code-expert path covers it, or it is not on the authoring path it was written for.
+Each item names a call that belongs to an owner-ratified deliverable and lays out what the
+data says about it. None is decided here.
+
+- **Whether the doubled projections cost anything on other hosts.** On this host the debug
+  log settles it: one directory is scanned. Factors: the `.agents/` and `.cursor/` projections
+  exist for Codex and Cursor, whose discovery rules were not measured; the generator emits one
+  projection per host, so any cure belongs in the generator rather than in a hand deletion
+  that regenerates on the next `skills:generate`. Discriminating evidence: the same debug-style
+  probe on each other host.
+- **What to do with the parallax family.** Nine listings for one instrument; the eight
+  components have never been invoked and the orchestrator three times. Factors: the family
+  was designed as a capability graph whose parts the orchestrator routes to, so the parts'
+  zero may be by design; every listing costs description budget. Discriminating evidence: a
+  session that invokes a part directly would appear under its name in the harness record.
+- **Whether `session-handoff` keeps its own listing.** Its invocations stop on 2026-07-26,
+  matching the ruling that made wrap the only close. Factors: it still appeared in 15 sessions'
+  context in the window; a platform that runs handoff without wrap would need it. The call
+  sits with the wrap and handoff doctrine, not here.
+- **How to value the event-driven runbooks and safety skills.** Zero invocations in a window
+  in which their events did not fire. Factor: their measure is whether they are found when the
+  event fires, which usage frequency cannot show; an event handled without the skill would.
+- **Whether idle families follow their lanes.** The design, visual and search-quality skills
+  are idle while those lanes are paused. Factor: their status is a consequence of the lane
+  decisions already recorded elsewhere, not a separate question this data can answer.
+- **Why `tsdoc` was never touched while code shipped.** Either the code-expert path covers its
+  purpose or the skill is not on the authoring path it was written for. Discriminating
+  evidence: the transcripts of the sessions that shipped code in the window.
 
 Data files for this census are machine-local and not tracked; this report is the record.
