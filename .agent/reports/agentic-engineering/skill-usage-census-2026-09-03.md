@@ -65,19 +65,37 @@ jq -r '.skillUsage | to_entries[] | "\(.value.usageCount) \(.value.lastUsedAt/10
 # all inside the window, none older than the retention boundary.
 SINCE=2026-08-04; UNTIL=2026-09-04
 
+# The cohort's project directories, listed by hand (the harness's encoded names). This report's
+# five, written relative to the checkout: the checkout itself (41 files); its
+# .claude/worktrees/design-plan-truings (1), .claude/worktrees/merge-bot-merge (2) and
+# .claude/worktrees/merge-bot-merge/agent-tools (8); and the sibling
+# ../oak-open-curriculum-ecosystem-worktrees/typescript-estate-review-019fc3 (2).
+DIRS="~/.claude/projects/<checkout-dir> ~/.claude/projects/<worktree-dir-1> ..."
+
 # Instrument B1: sessions that invoked a skill (the Skill tool or a slash command), one row per session and skill
-for f in $(find ~/.claude/projects/<project-dir>* -maxdepth 1 -name '*.jsonl' -newermt "$SINCE" ! -newermt "$UNTIL"); do sid=$(basename "$f" .jsonl); \
+for f in $(for d in $DIRS; do find "$d" -maxdepth 1 -name '*.jsonl' -newermt "$SINCE" ! -newermt "$UNTIL"; done); do sid=$(basename "$f" .jsonl); \
   grep -a -o -E '"name":"Skill","input":\{"skill":"[^"]+"|<command-name>/[a-z0-9-]+</command-name>' "$f" \
   | sed -E 's/.*"skill":"([^"]+)".*/\1/; s#<command-name>/([a-z0-9-]+)</command-name>#\1#' \
   | sed -E 's/^(oak|jc|engraph)-//' | sort -u | sed "s/^/$sid /"; done
 # (every prefix era maps to the canonical id; this report's window held oak- keys only)
 
 # Instrument B2: sessions in which a skill's canonical path appeared (a read or a reference)
-for f in $(find ~/.claude/projects/<project-dir>* -maxdepth 1 -name '*.jsonl' -newermt "$SINCE" ! -newermt "$UNTIL"); do sid=$(basename "$f" .jsonl); \
+for f in $(for d in $DIRS; do find "$d" -maxdepth 1 -name '*.jsonl' -newermt "$SINCE" ! -newermt "$UNTIL"; done); do sid=$(basename "$f" .jsonl); \
   grep -a -o -E 'skills/([a-z0-9-]+/)*[a-z0-9-]+/SKILL-CANONICAL\.md' "$f" \
   | sed -E 's#.*/([a-z0-9-]+)/SKILL-CANONICAL\.md#\1#' | sort -u | sed "s/^/$sid /"; done
 # (canonical files sit at any depth under .agent/skills — cognition/, knowledge/,
 #  domain-craft/ui-design/ — so the pattern must accept any number of directory segments)
+
+# Aggregation. With B1's rows in uses.txt and B2's in reads.txt (each "session skill"), the ids
+# in ids.txt, and Instrument A's rows in harness.txt ("count date key"):
+#   per-skill 30-day session counts:      awk '{print $2}' uses.txt | sort | uniq -c   (same for reads.txt)
+#   the table row for one skill:          grep -c " <id>$" uses.txt ; grep -c " <id>$" reads.txt ;
+#                                          grep " oak-<id>$" harness.txt   (count and last-used)
+#   sessions with any invocation:         awk '{print $1}' uses.txt | sort -u | wc -l          (38)
+#   sessions in the cohort:               the file count the loops iterated                     (53)
+#   no trace at all:                      ids in ids.txt absent from both uses.txt and reads.txt (4)
+#   never invoked under oak-:             ids in ids.txt with no "oak-<id>" key in harness.txt (29)
+#   top-15 share:                         sum of the 15 largest harness counts over their total (3,069 / 3,112)
 
 # The double-loading probe: one non-interactive run with --debug, then the skill lines of its log
 claude -p 'reply with the single word ok' --debug --output-format text > /dev/null
@@ -93,7 +111,7 @@ session counts. The transcript window is whatever the harness's retention leaves
 | --- | --- |
 | Repo skills (canonical `SKILL-CANONICAL.md` files) | 61 |
 | Current repo skills ever invoked under the `oak-` prefix | 32 |
-| Current repo skills never invoked under the `oak-` prefix | 29 (none of them invoked in the 30-day window either) |
+| Current repo skills never invoked under the `oak-` prefix | 29 (none of them invoked in the 30-day window either; three of them, `codex-helper`, `gates` and `ground-truth-design`, carry one invocation each under the earlier `jc-` prefix, see the eras section) |
 | `oak-` invocations recorded by the harness on current repo skills | 3,112 |
 | Invocations carried by the top 15 skills | 3,069 (98.6%) |
 | Retired `oak-` names still in the harness record (not in the table) | 3 names, 6 invocations (the record holds 35 `oak-` keys and 3,118 invocations in all) |
@@ -182,7 +200,13 @@ The harness keys usage by the invoked name, so the estate's earlier prefixes rem
 
 An `engraph-` prefixed estate ran on this machine through July; its 18 skills are the same
 core that dominates the `oak-` era. `jc-` invocations after the 2026-05-22 migration come from
-a checkout that kept the old adapters.
+a checkout that kept the old adapters. The table's "harness uses" column is the `oak-` era by
+construction, and every never-invoked reading in this report is scoped to it: mapping the
+earlier prefixes to canonical ids adds their 1,269 uses onto the same core, and touches the
+never-invoked set in exactly three places, each a single invocation — `jc-gates` (2026-03-08),
+`jc-ground-truth-design` (2026-05-11) and `jc-codex-helper` (2026-05-12). Five old-era names
+(`decide`, `design-brief`, `lean-task-subagents`, `start-right`, `wrap-up`) are not current
+skills.
 
 ## Reading the shape
 
