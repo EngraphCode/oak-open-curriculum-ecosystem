@@ -52,11 +52,12 @@ The test that separates the first row from the next two (owner ruling 2026-09-03
 "for quick questions it makes sense to use the native inter-agent communication, for anything
 that might eventually be or lead to institutional knowledge, the comms and ARC systems are
 appropriate"): ask whether the content could become, or lead to, institutional knowledge. A
-quick question, an ack, a "diff is in" handover word — s2s. A boundary, a split, a finding, a
-ruling relayed, a review row, a landing record — ARC or the stream, even when a live peer is
-waiting, because s2s leaves no record any future seat can find. When in doubt the content is
-knowledge-bearing: post it on ARC or the stream and, if latency matters, nudge over s2s that it
-is there.
+quick question, an ack, a nudge that a record has landed — s2s. A boundary, a split, a
+finding, a ruling relayed, a review row, a landing record, a handover of repo state — ARC or
+the stream, SHA-pinned where it names repo state (behaviour 6), at occurrence (behaviour 2),
+even when a live peer is waiting, because s2s leaves no record any future seat can find. The
+proven shape is both at once: the fact on ARC or the stream, the s2s message pointing at it.
+When in doubt the content is knowledge-bearing.
 
 The split, in one line each:
 
