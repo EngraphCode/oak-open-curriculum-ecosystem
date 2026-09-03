@@ -865,3 +865,23 @@ direct route. Falsifier: a paused seat whose retained claim blocks a peer that c
   Also: "I don't want a third PR. PRs are SLOW" — the closer folds into #961 and the truing
   node's archival rides #959; and "We don't HAVE to do what copilot says" — the five Copilot
   threads were triaged on their merits (two real errors, one partial, two doctrine-correct).
+
+RESUME ADDENDUM 2026-09-03T12:04:23Z: the owner's word "continue" at ~11:4xZ ended the pause; watcher re-armed
+FIRST (F-95 green; the lead's compaction broadcast delivered through it), ARC tail re-armed. The
+closer folded into #961 as 1c51ba368 (queue ceremony from the PR B worktree, every gate green, pushed
+under the bot): plain-id pointers at ADR-227 on `public-packages-release` (wager 3 and the
+not-doing paragraph), `toolkit-publish-mechanism` (Goal) and the extraction plan's decision-log
+opening (the ADR is the home, the log and the thread record the captures); the second-seat tally
+(primary copy removed with rm); round 4's three false-today cures (the SDK README's workspace-protocol
+scope for an external reader; "two review rounds" against #954's third round on 621e5135b, verified
+RUN; the schedule wording against the plan-node schema's sorting test, twice). R4-1 (P4 proof) routed
+to MCP-661 (comment written) and resolved; R4-2 cured and resolved; the four suppressed dispositioned
+in a PR comment; the description re-derived from the diff. Tally row round 4: raised 6, cure-worthy 4.
+Owner word via the lead at 12:0xZ: three PRs merged, ZERO additional PRs, "this is my handoff"; the
+docs-only bot-PR merge policy (checks green by name, zero threads, no Copilot leg, REST-merge as the
+bot, sha pinned) is #962's pr-lifecycle clause, #962 on main as b3c9742f8. Route confirmed by the
+lead: #961 merges AFTER #959 (its pointers name ADR-227, which #959 lands), by me, on their merge ping:
+merge main into #961 in the PR B worktree (known textual conflict: the publish node's frontmatter —
+PR #959's owner_gates removal adjacent to my last_updated), push, checks green, REST-merge. Cricket
+pre-merge pair skipped on proportionality: the reviewer-leg question it settled last time is now
+policy. This entry and the pause addendum ride #959 if the lead stages the napkin; else the close.
