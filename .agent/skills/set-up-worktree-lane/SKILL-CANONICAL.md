@@ -85,7 +85,7 @@ BOT_SLUG=$(jq -r .appSlug "$CONFIG")
 [ -n "$BOT_SLUG" ] && [ "$BOT_SLUG" != null ] \
   || { echo "appSlug missing from $CONFIG"; exit 1; }
 BOT_ID=$(gh api "users/${BOT_SLUG}%5Bbot%5D" --jq .id)
-[ -n "$BOT_ID" ] \
+[ -n "$BOT_ID" ] && [ "$BOT_ID" != null ] \
   || { echo "no bot user id for ${BOT_SLUG}[bot] from the GitHub API"; exit 1; }
 
 git config user.name  "${BOT_SLUG}[bot]"

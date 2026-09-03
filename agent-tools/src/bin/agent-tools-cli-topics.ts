@@ -1,6 +1,9 @@
 import { runBranchTouchedFilesCli } from '../branch-touched-files/cli.js';
 import { runCodexExecCli } from '../codex-exec/cli.js';
-import { resolveCoordinationHome } from '../collaboration-state/coordination-home.js';
+import {
+  defaultRunGit,
+  resolveCoordinationHome,
+} from '../collaboration-state/coordination-home.js';
 import {
   parseCommitQueueArgs,
   resolveInvokingGitRoot,
@@ -179,7 +182,14 @@ export async function runMergeBotTopic(
     const message = cause instanceof Error ? cause.message : String(cause);
     return { exitCode: 2, stdout: '', stderr: `merge-bot: ${message}\n` };
   }
-  const exitCode = await runMergeBotCli({ args, env: input.env, repoRoot: root, stdout, stderr });
+  const exitCode = await runMergeBotCli({
+    args,
+    env: input.env,
+    repoRoot: root,
+    runGitImpl: defaultRunGit,
+    stdout,
+    stderr,
+  });
   return { exitCode, stdout: buffer.text(), stderr: stderr.text() };
 }
 

@@ -165,7 +165,7 @@ function runPush(input: {
     readConfigFileImpl: () =>
       JSON.stringify({ appSlug: 'jimbot-oakington-iii', appId: '4352989', repo: 'acme/widgets' }),
     repoRoot: '/repo',
-    configRoot: '/repo',
+    runGitImpl: () => 'worktree /repo\n',
     nowEpochSeconds: () => 1_800_000_000,
     gitExecutor,
     gitPath: GIT_PATH,
@@ -577,6 +577,9 @@ describe('merge-bot push outcomes and refusals', () => {
     const exit = runMergeBotCli({
       args: ['--help'],
       env: {},
+      runGitImpl: () => {
+        throw new Error('git must not run for --help');
+      },
       stdout: out.sink,
       stderr: errSink.sink,
     });

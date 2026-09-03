@@ -54,7 +54,9 @@ function runWith(overrides: Partial<MergeBotCliInput> & { args: readonly string[
       throw new Error('ENOENT (no repo config in this test)');
     },
     repoRoot: '/repo',
-    configRoot: '/repo',
+    // The clone's primary checkout, as git would report it from '/repo'.
+    runGitImpl: () =>
+      'worktree /repo\nHEAD 0000000000000000000000000000000000000000\nbranch refs/heads/main\n\n',
     nowEpochSeconds: () => 1_800_000_000,
     ...overrides,
   });
@@ -216,16 +218,15 @@ describe('runMergeBotCli mint-token', () => {
     expect(run.out()).toBe('');
   });
 
-  it("resolves the config at the clone's primary checkout when no config root is given, so every linked worktree reads the one copy", async () => {
+  it("resolves the config at the clone's primary checkout, starting from the invoking root, so every linked worktree reads the one copy", async () => {
     const configReads: string[] = [];
-    const gitCalls: { args: readonly string[]; cwd: string }[] = [];
+    const gitCwds: string[] = [];
     const run = runWith({
       args: ['mint-token', '--scope', 'pull-request-work'],
       env: { HOME: '/test-home' },
       repoRoot: '/primary-worktrees/lane',
-      configRoot: undefined,
-      runGitImpl: (args, cwd) => {
-        gitCalls.push({ args, cwd });
+      runGitImpl: (_args, cwd) => {
+        gitCwds.push(cwd);
         return [
           'worktree /primary',
           'HEAD 0000000000000000000000000000000000000000',
@@ -243,16 +244,13 @@ describe('runMergeBotCli mint-token', () => {
       },
     });
     expect(await run.exit).toBe(0);
-    expect(gitCalls).toEqual([
-      { args: ['worktree', 'list', '--porcelain'], cwd: '/primary-worktrees/lane' },
-    ]);
+    expect(gitCwds).toEqual(['/primary-worktrees/lane']);
     expect(configReads).toEqual(['/primary/.github/merge-bot.json']);
   });
 
-  it('fails with exit 2 naming the primary checkout when git cannot locate it and no config root is given', async () => {
+  it('fails with exit 2 naming the primary checkout, with guidance every action can follow, when git cannot locate it', async () => {
     const run = runWith({
       args: ['mint-token', '--scope', 'pull-request-work'],
-      configRoot: undefined,
       runGitImpl: () => {
         throw new Error('fatal: not a git repository');
       },
@@ -260,8 +258,7 @@ describe('runMergeBotCli mint-token', () => {
     expect(await run.exit).toBe(2);
     expect(run.errText()).toContain('primary checkout');
     expect(run.errText()).toContain('not a git repository');
-    // The guidance names merge-bot's own overrides, never a flag this CLI lacks.
-    expect(run.errText()).toContain('--app-id');
+    expect(run.errText()).toContain('run from inside the clone');
     expect(run.out()).toBe('');
   });
 

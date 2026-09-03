@@ -32,15 +32,14 @@ export interface MergeBotResolveInput {
    * deliberately. Defaults to the process cwd.
    */
   readonly repoRoot?: string;
-  /**
-   * Explicit root holding `.github/merge-bot.json` — an operator or test
-   * override. Absent in production: the clone's primary checkout is resolved
-   * through git from `repoRoot`.
-   */
-  readonly configRoot?: string;
   readonly readConfigFileImpl?: (filePath: string) => string;
-  /** Git runner seam for the primary-checkout resolution; tests inject it, production runs git. */
-  readonly runGitImpl?: GitRunner;
+  /**
+   * The git runner the primary-checkout resolution uses. REQUIRED, injected
+   * at the composition edge (the bin passes the real one; tests pass a fake),
+   * so no path can resolve the config anywhere but the clone's primary
+   * checkout and no test can reach a real git process by omission.
+   */
+  readonly runGitImpl: GitRunner;
 }
 
 /** The resolved bot identity: app, key, and the owner/name split repo. */
@@ -91,17 +90,14 @@ function rootCause(cause: unknown): string {
 }
 
 /**
- * Where the per-checkout config lives: an explicit root when given, else the
- * clone's primary checkout — the one location every linked worktree shares,
- * the same home the collaboration substrate resolves to. The declared
- * coordination-home option is deliberately NOT passed: an inter-Practice
- * session's coordination home is another repository, and this config belongs
- * to this repository's clone.
+ * Where the per-checkout config lives: the clone's primary checkout — the one
+ * location every linked worktree shares, the same home the collaboration
+ * substrate resolves to — resolved unconditionally, starting from the
+ * invoking repository's root. The declared coordination-home option is
+ * deliberately NOT passed: an inter-Practice session's coordination home is
+ * another repository, and this config belongs to this repository's clone.
  */
-function resolveConfigRoot(input: MergeBotResolveInput): Result<string, Error> {
-  if (!isBlank(input.configRoot)) {
-    return ok(input.configRoot);
-  }
+function resolvePrimaryConfigRoot(input: MergeBotResolveInput): Result<string, Error> {
   try {
     return ok(
       resolveCoordinationHome(input.repoRoot ?? process.cwd(), { runGit: input.runGitImpl }),
@@ -109,7 +105,8 @@ function resolveConfigRoot(input: MergeBotResolveInput): Result<string, Error> {
   } catch (cause) {
     return err(
       new Error(
-        `cannot locate this clone's primary checkout to read ${MERGE_BOT_CONFIG_RELATIVE_PATH}: run from inside the clone (any worktree), or pass --app-id, --private-key-path and --repo as explicit overrides; git said: ${rootCause(cause)}`,
+        `cannot locate this clone's primary checkout to read ${MERGE_BOT_CONFIG_RELATIVE_PATH}: run from inside the clone (any worktree); git said: ${rootCause(cause)}`,
+        { cause },
       ),
     );
   }
@@ -123,7 +120,7 @@ function applyAuthority(
   partial: { appId?: string; keyPath?: string; repo?: string },
   input: MergeBotResolveInput,
 ): Result<IdentityValues, Error> {
-  const configRoot = resolveConfigRoot(input);
+  const configRoot = resolvePrimaryConfigRoot(input);
   if (!configRoot.ok) {
     return err(configRoot.error);
   }
@@ -134,7 +131,8 @@ function applyAuthority(
   if (!repoConfig.ok) {
     return err(
       new Error(
-        `the clone's merge-bot identity is unreadable — .github/merge-bot.json is the single authority (per-checkout, never tracked); fix it (${repoConfig.error.message}); flags exist only as explicit overrides`,
+        `the clone's merge-bot identity is unreadable — .github/merge-bot.json is the single authority (per-checkout, never tracked); fix it (${repoConfig.error.message})`,
+        { cause: repoConfig.error },
       ),
     );
   }
