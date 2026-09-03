@@ -52,6 +52,10 @@ discipline held for expensive chains gets skipped.
   the file whole; when the output is genuinely large, read it in full from
   the file (read-diagnostic-artefacts-in-full) rather than trimming it at
   the pipe. The capture snippet above prints the whole file for this reason.
+  Prediction (PDR-130): with this clause loaded, no landing step consumes a
+  truncated verdict again within the review window; if a `tail`- or
+  `head`-swallowed failure recurs, promote the clause to a hook policy on
+  the pipe shape.
 - **Propagate as well as print** when a wrapper (harness task, Monitor,
   background shell) will summarise the invocation:
   `cmd; rc=$?; echo "CMD_EXIT:$rc"; exit $rc`. The bare in-band echo

@@ -329,7 +329,9 @@ is split accordingly (§Sequencing, FR4 r3).
   `--surface-red-subtle` freezing over the overridden `--bg-error-subtle` in
   colour-safe is accessibility-class, so its ONE disposition is FIX; the two
   hand re-declarations already in `colors_and_type.css` (their comments name
-  the mechanism) are subsumed by the check. New dated triage entry (W0.5 sitting item 6,
+  the mechanism) are subsumed by the check; the enumerated frozen sets, the
+  evidence anchors and the check's mechanism are recorded in
+  `.agent/reports/design/item-14-closure-residue-2026-09-03.md`. New dated triage entry (W0.5 sitting item 6,
   owner-confirmed 2026-08-06): the creature (EMC²) whitelabel page does not
   honour reduced motion — accessibility-class, so its ONE disposition is
   FIX, BLOCKING wherever that page renders; the cured pair must be

@@ -1421,3 +1421,33 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
   the merge. Claim 01e418de is handed to the lead by record-plus-adoption (PDR-063 §Deliberate
   succession; record at `.agent/state/collaboration/handoffs/`, name prefixed `01e418de-`);
   worktree `mcp-673-adr` pruned by the second seat (its one commit rode #959 as 753cdf455).
+
+## 2026-09-03 ~13:0xZ — WRAP PR after the close (Chinook seeks Cloud, 661556, solo): the consolidation's carrier, at the owner's card word
+
+- **The instance, recorded plainly.** The owner said three times that #961 was the last pull
+  request and that anything bound for the remote must ride it. The lead launched the wrap
+  workflow while #961 was open and then merged #961 at green (c616a354c, 12:39Z) before the
+  workflow returned, so its consolidation had no carrier. The owner's correction ("how do you
+  expect the workflow results to persist?") and his card word ("One docs-only wrap PR") produced
+  this pull request. The generator: merge-at-green applied as a default without checking that
+  every pending output had a carrier; the cure at the boundary: before merging a PR the owner has
+  named as the last, enumerate every in-flight output that needs the remote and hold the merge
+  until each has ridden or been explicitly released.
+- **What this pull request carries.** The wrap workflow's consolidation entry on the napkin
+  (eight surface readers, three verification lenses per candidate, a free-play harvest and a
+  concept exploration on gate classification); the item-14 closure residue as a repo report
+  (`.agent/reports/design/item-14-closure-residue-2026-09-03.md`: the enumerated frozen sets,
+  evidence anchors, the check's mechanism, and the five open points) with a pointer from the
+  design plan's W0.2(b); this entry. Nothing else. Merged as the bot under pr-lifecycle §5 with
+  no owner action.
+- **Attribution corrected at the wrap.** GitHub records #959 as merged by jimCresswell at
+  12:16:23Z after his APPROVED review; the lead's REST merge call at the same moment returned
+  `merged: true` with the same sha (ec7cb3fa8), so the earlier entries' "REST as the bot" for #959
+  is an inference the API refutes — the owner merged #959 by hand. #962 (b3c9742f8) and #961
+  (c616a354c) are recorded by GitHub as merged by the bot app.
+- **State at this entry.** Linear MCP-673 Done; claims 01e418de and ed9ec042 closed, a new claim
+  for this pull request's files open until its merge; worktrees `mcp-673-consolidation` and
+  `mcp-673-true-ups` pruned; `mcp-673-wrap` (this branch) pruned at its merge; the primary
+  checkout still on the merged #959 branch; the local branch
+  `jimcresswell/mcp-673-adr-oak-product-extraction` left in place (a peer's surface; the owner
+  refused its removal by the lead).
