@@ -105,6 +105,10 @@ grep -i -E 'Loaded .* skills|Loading skills from|plugin skills loaded' ~/.claude
 
 Counting a session once per skill (`sort -u` per file) is what makes the 30-day columns
 session counts. The transcript window is whatever the harness's retention leaves on disk.
+Instrument A is a live record: the next invocation changes it, and there is no as-of-date
+query. The full table below IS the snapshot of that record as read on 2026-09-03 (every `oak-`
+key that is a current skill, with the three retired keys and the era totals stated in the
+eras section), so a later reconciliation is against the table, not against the live file.
 
 ## Headline
 
@@ -199,9 +203,14 @@ The harness keys usage by the invoked name, so the estate's earlier prefixes rem
 | `engraph-` | 18 | 359 | 2026-07-19 |
 | `oak-` | 35 | 3,118 | 2026-09-03 |
 
-An `engraph-` prefixed estate ran on this machine through July; its 18 skills are the same
-core that dominates the `oak-` era. `jc-` invocations after the 2026-05-22 migration come from
-a checkout that kept the old adapters. The table's "harness uses" column is the `oak-` era by
+The harness record is per machine, not per repository, so the earlier eras are not all this
+repository's history. An `engraph-` prefixed estate ran on this machine through July; its 18
+skills are the same core that dominates the `oak-` era. The `jc-` invocations after the
+2026-05-22 migration, including the six keys last used on 2026-08-08 and 09, come from a
+personal repository on the same machine that runs its own `jc-` prefixed copy of the Practice
+(verified: the only in-window transcript holding a `jc-` invocation sits under that
+repository's project directory, and none under this repository's five), so this cohort is
+complete and held `oak-` keys only. The table's "harness uses" column is the `oak-` era by
 construction, and every never-invoked reading in this report is scoped to it: mapping the
 earlier prefixes to canonical ids adds their 1,269 uses onto the same core, and touches the
 never-invoked set in exactly three places, each a single invocation — `jc-gates` (2026-03-08),
