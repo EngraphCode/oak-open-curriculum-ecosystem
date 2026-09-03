@@ -1135,3 +1135,64 @@ wording about the split; the seat's resume map.
 
 **Fixed point.** A third pass would only re-find the approximate time labels, the stopped
 workflow's unrun stages and the peer-reported facts already flagged; the recursion closes here.
+
+## 2026-09-03 ~15:xxZ (Flounder turns Estuary, c5cc2c, solo implementer at owner word) — checkout operations, the merge-bot per-checkout config lane, two corrections
+
+- OWNER CORRECTION (verbatim "do things properly please", delivered through
+  `/oak-start-right-quick` at ~14:5xZ): this seat had executed three owner asks with no
+  start-right grounding, no claim, no comms event and no napkin entry. Generator: the first
+  ask read as a one-line git-config task, and each later ask elaborated it without a
+  re-ground at the boundary (`re-apply-first-question-at-elaboration-boundaries`); the rule
+  pointers the platform auto-loads were treated as the rules read. Cure applied mid-session:
+  the full grounding read, claim 2778f573, bootstrap event e9d75d17, this entry.
+- OWNER RULING (verbatim "green and clean PRs get merged, they don't wait on me unless I
+  explicitly say so, somewhere the wrong behaviour is recorded", ~15:1xZ): this seat had
+  declared merge-READY on its own lane PR and announced it would wait for a grant, reading
+  pr-lifecycle §Phase 7's self-authored-PR clause as governing over the same skill's head
+  doctrine (owner verbatim 2026-07-26/29). Generator: the specific-over-general reflex applied
+  as doctrine-by-analogy, with the caution move arriving fluently as the safe one. The
+  owner-verbatim, later-dated clause governs; two clauses in one file that disagree are a
+  defect to cure at the file. Cured in this seat's landing (the clause rewritten with the
+  ruling and its instance).
+- A resolution designed from a module's callers missed the composition root: the merge-bot
+  topic dispatcher passes the invoking repository's root explicitly, and the CLI forwarded
+  that value as the config root, so the new primary-checkout resolution never ran; the first
+  bot push from a worktree proved it (ENOENT at the worktree path) after unit tests, type-check
+  and lint had all passed. Cure: two roots with two names (`repoRoot`, the git working root
+  and the resolution's start; `configRoot`, the explicit override). Trace to the production
+  composition root before declaring a resolution design complete; the end-to-end proof is the
+  test that the unit seams cannot be.
+- `claude mcp logout <name>` cannot see a server already rejected in settings or whose plugin
+  is switched off: the first pass answered "No MCP server named" for every disabled server,
+  and the disables were lifted briefly to clear the stored OAuth tokens. Order a disconnect
+  as clear-tokens-then-disable (2026-09-03; Claude Code 2.1.25x).
+- `vercel whoami` after `vercel logout` blocks on an interactive login prompt: a batched
+  logout chain timed out on it and the later commands never ran. CLI logouts run one per
+  call, stdin closed, under `timeout`.
+- The Bash hook's worktree-destruction guard blocked a heredoc writing a per-user memory
+  file whose prose put the file-restoring verb beside "git" (the prose-body substring class,
+  third recorded instance after 2026-08-19 and 2026-08-31); the Write tool carried the same
+  text unchanged.
+- A sibling worktree needs `pnpm install` before its first commit (the commit-msg hook runs
+  commitlint from the workspace), and `pnpm build` before lint or knip read true; the
+  commit-message checker takes `-F <file>`, a bare path exits 2; a `cd` into the worktree
+  inside one Bash call produced the harness cwd-reset line (the `worktree-residency` signal).
+- A grep census over hyphenated names with `\b` boundaries returned zero on this platform's
+  git grep while the known positive existed; the census was re-run with explicit
+  character-class boundaries and the positive present — "an all-NONE census is a probe
+  failure until one known positive is in the set", second worked instance in two days.
+- A subagent reviewer died three times in twenty minutes on HTTP 529 across two model tiers;
+  the review was recorded as not run and carried as an obligation on the lane, never read as
+  a green.
+- LOSS SCAN at the wrap (findings at the boundary, per the standing rule): (1) the lane's
+  code-expert review is an unmet obligation, named on the thread record; (2) this checkout's
+  own resume facts live in the seat's per-user memory and the machine-local handoff record,
+  deliberately not in tracked prose that the upstream line edits daily; (3) attribution
+  inference flagged: "fixes for the schema update are in upstream's pipeline" is the owner's
+  statement, not this seat's observation; (4) the standing `pnpm check` at close was not run
+  standalone on the primary checkout — that tree was seventy-seven commits behind and blocked
+  on this landing — and the evidence offered instead is the full pre-commit and pre-push gate
+  chains that ran green on both branches this seat landed; (5) blind-spot bounds: no live peer
+  sessions, so the comms delivery path had no probe; the dead reviewer transcripts were not
+  read. METALOSS: a second pass re-finds only the approximate time labels in this entry and
+  the reviewer bound; the recursion closes here.
