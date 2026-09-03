@@ -940,7 +940,7 @@ posted, then fired within the minute — fully auditable). Then:
   below unchanged. A PR sitting unmerged at truly-green because nobody
   issued the merge is the shepherd's unfinished work (PR #325, 2026-07-08)
   — a PR the seat authored itself included: settlement is the
-  authorisation, not an owner grant.
+  authorisation.
   If a merge attempt bundled with other actions is harness-denied, retry
   the bare `gh pr merge <n> --merge` alone before concluding the
   capability is gated — on #325 a denied composite was over-generalised to
@@ -1021,14 +1021,9 @@ posted, then fired within the minute — fully auditable). Then:
   any other. The seat merges as the bot and notifies the owner at the
   action moment (`owner-attention-at-action-moments`); it holds only when
   the owner has EXPLICITLY said to wait on a named PR, a freeze binds, or a
-  rule reserves the surface to the owner. The clause this replaces — that a
-  self-authored, sub-agent-reviewed PR sat behind a harness-level boundary
-  needing an in-session owner grant or the owner's own click (PR #323,
-  2026-07-08) — recorded the wrong behaviour: on 2026-09-03 a seat read it
-  as governing over the head doctrine, declared merge-READY on its own
-  lane and announced it would wait, and the owner corrected it within the
-  hour. Two clauses in one file that disagree are a defect to cure at the
-  file, never a fork to route to the owner.
+  rule reserves the surface to the owner. When two clauses of one doctrine
+  file disagree, the later, owner-verbatim one governs and the file is cured
+  at the site; the disagreement is never routed to the owner as a question.
 - An owner grant of merge authority to a team seat (for example a Director,
   owner word 2026-06-29) is a routing grant inside a coordinated drive —
   per-session, never standing — not a precondition for merging green work;
