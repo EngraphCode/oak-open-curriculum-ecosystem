@@ -17,9 +17,7 @@ impact_areas:
   - practice-and-estate
 tickets:
   - MCP-673
-depends_on:
-  - plan: oak-open-curriculum-mcp-extraction
-    kind: beneficial
+depends_on: []
 owner_gates:
   - awaiting: owner-decision
     clears_when: >-
@@ -57,7 +55,17 @@ This plan also discharges the extraction plan's own amendment item A2 (the
 strategic node's ordering amendment, the Atlas's lexeme-gate amendment, and
 `public-packages-release`'s alignment and delivery sections), so that the
 design step D0a mints no amendments node of its own; the extraction plan's
-ledger records the discharge.
+ledger records the discharge. The extraction plan is already on main, so it
+is cited here by id rather than carried as a dependency edge, which would
+encode provenance and never clear.
+
+It serves `planning-and-intent-estate` because its outcome is the corpus's
+coherence — that node's territory ("what serves what, what was intended and
+never came to pass") — even though every surface it amends belongs to the
+re-architecture's lane and it discharges an item of a plan that serves
+`toolkit-re-architecture`; the ticket is visibility metadata, optional
+everywhere since the schema's 2026-08-07 amendment, as the planning estate's
+own delivery section records.
 
 ## User groups and value
 
@@ -220,7 +228,10 @@ dated note beside it carries the change story.
   read this" naming the extraction of the MCP app product into its own
   repository as the current structural commitment, linking to the strategic
   node `toolkit-re-architecture` (a stable address) whose delivery order
-  names the plan — the reading path AC3 measures; `last_updated`.
+  names the plan — the reading path AC3 measures; `last_updated`. This line
+  is index prose, not one of the signed choices of 2026-06-20, so the owner's
+  word on it is a glance rather than a re-signing; it is still presented as
+  its own item.
 - **Factual true-ups, no owner word needed** (the second pull request): the
   readiness record's verdict sentence says both pull-request rounds (routed
   from PR #954's third round, where the record named only the first); the
@@ -341,7 +352,8 @@ implementer enumerates and dispositions every row before implementation.
 | --- | --- | --- | --- |
 | 2026-09-03 | Corpus survey at authoring | The ratified release-process runbook's rollback clause rests on publishing being disabled | `toolkit-publish-mechanism`'s live-publish slice amends it (this plan adds the line at T2) |
 | 2026-09-03 | Corpus survey at authoring | The census matrix's MCP-app row says "never publish it from here" | The extraction plan's D0a per-box override; the matrix regenerates |
-| 2026-09-03 | Readiness reviews at authoring (assumptions, docs) | Cured in this draft: the parent node, the instrument without a ledger, the amendment class and fallback, the stable reading path, one act per surface, the archival's note and path, the Atlas form, the split into two pull requests | None routed onward |
+| 2026-09-03 | Readiness reviews at authoring (assumptions, docs) | Cured in this draft: the instrument without a ledger, the amendment class and fallback, the stable reading path, one act per surface, the archival's note and path, the Atlas form, the split into two pull requests, the provenance-only dependency edge dropped | None routed onward |
+| 2026-09-03 | The two reviews disagreed on the parent node (the docs review: `planning-and-intent-estate`; the assumptions review: `toolkit-re-architecture`) | The author chose the planning estate on the outcome axis (§Goal states the reason); the owner may re-point it at ratification | Presented with the node |
 
 ## Inventory at authoring (2026-09-03, main at `b9601ab40`)
 
