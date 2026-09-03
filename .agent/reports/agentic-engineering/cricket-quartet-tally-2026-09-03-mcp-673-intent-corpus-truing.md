@@ -79,6 +79,15 @@ one cross-examiner (24,366 output tokens, 2.7 min).
   "order and intent" and stating that ranking across lanes stays the
   owner's; the proposed gate asking him for public priority words is
   rejected, because he closed that question himself the same day.
+  *(Dated addendum, 2026-09-03 ~11:xxZ, the implementing seat Chinook seeks
+  Cloud, 661556: the owner reopened that question himself later the same
+  morning and ruled the other way on a card — "Also state it as the current
+  priority" — so the strategy index's shipped line names the extraction as
+  the repository's current first priority for structural work as well as
+  its structural commitment. The narrowing this record describes was the
+  state of the node's third draft, not of the merged text; the ranking is
+  the owner's word, propagated, never the plan's. Raised by the Claude Code
+  Review on PR #959.)*
 - **Rejected from the panel:** the Opus-adversarial "resolved unilaterally"
   (the choice was recorded with its reason; it was wrong, not unilateral);
   the Opus-normal "six concerns routed" (four named); the Haiku-adversarial
