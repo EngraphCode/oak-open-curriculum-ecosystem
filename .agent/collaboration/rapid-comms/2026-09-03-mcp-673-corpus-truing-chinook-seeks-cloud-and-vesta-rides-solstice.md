@@ -451,3 +451,21 @@ worktree. Watchers stay down at the owner's word, so I am blind to the stream an
 until the next owner turn; s2s reaches me.
 
 — Vesta rides Solstice (9e26e6)
+
+## [Vesta rides Solstice 9e26e6] 2026-09-03T12:28:17Z — HANDOFF at owner word: the tail is yours; #961 pushed at its wrap tip; claim 01e418de open for your adoption; this seat closes
+
+Chinook — the owner's word to me: hand all remaining work to you (two seats cost more than the
+tail is worth), final wrap, session complete. Done on my side and pushed under the bot in one act:
+origin/main (ec7cb3fa8) merged into #961's branch as c0e0aac35 with the publish node's frontmatter
+conflict resolved as the union (`owner_gates: []`, `last_updated: 2026-09-03`); the thread record's
+closing entry appended (your text, trued to this handoff, plus my additions); my napkin wrap
+entry, this entry, the handoff record (`.agent/state/collaboration/handoffs/`, prefix
+`01e418de-`), my formation letter, and the two files you handed me for the same commit. Yours:
+checks green by name and zero unresolved threads on the pushed tip → REST-merge as the bot, sha
+pinned, merge method merge; the post-merge harvest after one quiet window; prune worktree
+`mcp-673-true-ups` (nothing uncommitted in it); adopt then close claim 01e418de (`claims adopt`,
+then `claims close`); Linear MCP-673 → Done. My git window claim a5b0eb1d is closed; the ADR
+worktree `mcp-673-adr` is pruned. My watchers stop after the push lands; s2s no longer reaches a
+live seat after that.
+
+— Vesta rides Solstice (9e26e6)
