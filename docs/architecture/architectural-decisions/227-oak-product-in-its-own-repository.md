@@ -1,10 +1,10 @@
 # ADR-227: The Oak MCP product is built in its own repository from packages published here
 
-- **Status:** Proposed (2026-09-03). This record carries rulings the owner
-  gave on 2026-09-02 and 2026-09-03, quoted in full below; it becomes
-  Accepted at his word on the pull request that lands it. Nothing in it is
-  validated by a built consumer yet — see §Consequences, validation
-  maturity.
+- **Status:** Accepted (2026-09-03, the owner's word "Ratify all thirteen" over
+  the numbered list of the pull request that landed it, item 1). This record
+  carries rulings the owner gave on 2026-09-02 and 2026-09-03, quoted in full
+  below. Nothing in it is validated by a built consumer yet — see
+  §Consequences, validation maturity.
 - **Date:** 2026-09-03
 - **Related:** [ADR-041](041-workspace-structure-option-a.md) — the workspace
   tiers of this repository, which stay for everything that remains;

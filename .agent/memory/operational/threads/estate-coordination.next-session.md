@@ -1274,3 +1274,59 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
   lines at 100 characters; `git grep -E` does not honour `\b`; the merge tool's review-run
   liveness probe can fail and exit early — arm a bind-wait around it; Copilot's on-push
   review does not fire for `.agent` plan paths, request it explicitly.
+
+## 2026-09-03 ~11:5xZ — OBJECTIVE STEP 3 AT THE OWNER'S WORD (Chinook seeks Cloud, 661556, lead at n=2 with Vesta rides Solstice, 9e26e6): PR #959 ratified "all thirteen"; PR #961 open; PR C to follow
+
+- **Objective state.** The owner's three-step objective of 2026-09-02: steps 1 (#915) and 2
+  (#954) landed earlier; step 3 (MCP-673) is on two pull requests plus a closer. PR A (#959,
+  this seat): ADR-227 as the extraction decision's durable home, the ten owner-word
+  amendments of the truing node, and the node itself — ratified at the owner's card word
+  "Ratify all thirteen" (~11:4xZ, no declines); the stamps land in this entry's commit and the
+  bot merges at settled (`merge-bot merge --pr 959 --expect claude`). PR B (#961, Vesta): the
+  eight factual true-ups, open under the bot, its Copilot round being cured, bot-merge at
+  settled. PR C (Vesta, cut from post-merge main after both): archive the completed truing
+  node, point the plan nodes at ADR-227, true the extraction plan's decision-log sentence
+  (the ADR is the home; the log is the contemporaneous capture), carry the second-seat tally.
+  MCP-673 closes at PR C's merge. Nothing else is deferred.
+- **Owner rulings this window, verbatim.** (1) ~09:3xZ: "this session will complete the
+  planning corpus alignment with the priority of splitting out new, thin apps as the plan
+  describes … All of the work needs doing, the target is one hour, we will assess in about 45
+  minutes"; (2) "there are no leftovers, as I said, all of the work needs to be done, that is
+  the invariant"; (3) card: "Extraction first. That change of priority is the point of this
+  planning work"; (4) card: "Also state it as the current priority"; (5) ~10:10Z
+  start-right-team: "Vesta rides Solstice (9e26e6) will join you, making this an n=2 session,
+  you are the lead, split the work as appropriate. All team members should use cognitive and
+  planning skills as appropriate at all times"; (6) to the second seat ~10:1xZ: "plans are not
+  durable, plans are ephemeral … Durable homes for decisions are ADRs"; (7) ~10:30Z: "for quick
+  questions it makes sense to use the native inter-agent communication, for anything that
+  might eventually be or lead to institutional knowledge, the comms and ARC systems are
+  appropriate"; (8) ~10:35Z: "I think we need to stop using tail, it causes this same issue
+  over and over and over"; (9) ~10:42Z: the PR A push tool call refused, then "run a full
+  Cricket suite"; (10) card: "Fold ADR-227 into PR A and re-point"; (11) card: "Ratify all
+  thirteen".
+- **What landed on #959.** 3175e9a30 (the eight surfaces + identity rows); dc65c204f (the
+  second read's two cures: the truing node trued to the card rulings, the alignment note
+  re-formed); 753cdf455 (ADR-227 cherry-picked from Vesta's 2130c0a93; the vision, the three
+  strategy pages, the Atlas block and the strategic node's note cite the ADR — the refusal's
+  reason, found by the adversarial fable Cricket seat and verified against
+  `no-moving-targets-in-permanent-docs` §Citation directionality); this entry's commit (the
+  stamps; ADR Accepted; the thread record; the napkin; the Cricket tally; the ARC channel).
+- **Cricket.** Two owner-invoked suites, eight legs each: this seat's (tally
+  `cricket-quartet-tally-2026-09-03-mcp-673-truing-execution.md`) converged on asking the
+  refusal reason, with the fable adversarial seat supplying the hypothesis that held; Vesta's
+  (tally `…-second-seat.md`) 8/8 ON-TRACK. Both tallies record a haiku procedure seat acting
+  outside its lens.
+- **Instruments learned** (napkin carries the detail): zsh `pipestatus`; pnpm's literal `--`
+  on `check-commit-message` (feed stdin); a wildcard-staging hook false positive on a bare
+  `.`; `git mv` then `git add` of the deleted path refuses; enqueue output swallowed by
+  `tail`; a stale enqueue blocks a peer's guard ("multiple fresh matching intents") until
+  phased `abandoned`; commitlint subject-case rejects an uppercase token after the type;
+  the automatic reviewer that binds a docs-only bot PR is `claude`, Copilot binds late or
+  not at all.
+- **What the owner holds after this.** The extraction plan's gate 1 (the D0a design record)
+  and gate 2 (the repository's creation; the error-reporting project sharing its name,
+  ADR-159/163); the publish node's publish-rights gate. The ordering and the public priority
+  are ruled and landed; no owner item remains on MCP-673.
+- **Claims.** ed9ec042 (this seat, the corpus files) closes at wrap; Vesta's claims cover
+  #961's and PR C's files. The seat chain gains Chinook seeks Cloud (lead) and Vesta rides
+  Solstice (second seat), both 2026-09-03.

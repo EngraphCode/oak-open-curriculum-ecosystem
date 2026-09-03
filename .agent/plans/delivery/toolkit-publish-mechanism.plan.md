@@ -6,10 +6,14 @@ overview: >-
   Make the existing release workflow publish every workspace whose manifest
   is publishable, at the repository's release version, from a validated tip,
   installable under a real package-store layout — with no human step.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-09-03
+ratified_where: >-
+  In-session owner decision card at the MCP-673 implementing seat (Chinook seeks Cloud,
+  661556), 2026-09-03 ~11:4xZ, answer verbatim "Ratify all thirteen" over PR #959's
+  numbered list (item 13 names this node); recorded in the pull request body and in the estate-coordination
+  thread record's entry of the same day.
 serves: public-packages-release
 impact_areas:
   - packaging-and-distribution

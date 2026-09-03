@@ -8,30 +8,21 @@ overview: >-
   of it the plan supersedes — so that anyone choosing work here reads one
   consistent intent, and the owner's single word over an enumerated list of
   acts closes the loop.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-09-03
+ratified_where: >-
+  In-session owner decision card at the MCP-673 implementing seat (Chinook seeks Cloud,
+  661556), 2026-09-03 ~11:4xZ, answer verbatim "Ratify all thirteen" over PR #959's
+  numbered list (item 12, the node itself); recorded in the pull request body and in the estate-coordination
+  thread record's entry of the same day.
 serves: toolkit-re-architecture
 impact_areas:
   - practice-and-estate
 tickets:
   - MCP-673
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      The owner gives one word on the first pull request over its numbered
-      list of acts — the dated notes on the owner-signed vision and strategy
-      pages, the in-place dated amendment to the ratified strategic node
-      (marked as the one decision among confirmations), the Atlas's
-      amendments block, and the archival of the sketch that serves the
-      superseded programme — with any declines stated by item number; the
-      same word may stamp the two sketch nodes the extraction lane landed if
-      he includes them. That word is the locatable act for every item it
-      covers; a declined item's amendment reverts to the standing text before
-      the pull request merges.
-    expires: 2026-09-24
+owner_gates: []
 last_updated: 2026-09-03
 ---
 
@@ -408,6 +399,8 @@ implementer enumerates and dispositions every row before implementation.
 | 2026-09-03 | Corpus survey at authoring | The census matrix's MCP-app row says "never publish it from here" | The extraction plan's D0a per-box override; the matrix regenerates |
 | 2026-09-03 | Readiness reviews at authoring (assumptions, docs), then a Cricket suite and an adversarial assumptions review on Fable with two-lens refutation and cross-examination | Cured across the drafts: the instrument without a ledger; the amendment class, its in-place form and fallback; the reading path by id on stable surfaces; one owner word over a numbered list with declines by number; the archival's note and path; the Atlas form as the verdict; the two-pull-request split with file counts; per-todo estimates against the owner's band; the vision added to the amendment set; the parent node settled by the lane's own enumeration rule; AC1 scoped to the sweep; the publishing-truth pages added to the true-ups; "priority" narrowed to order and intent | None routed onward; the run is recorded in the Cricket tally of 2026-09-03 |
 | 2026-09-03 | Second reader on PR A (Vesta rides Solstice, 9e26e6; ARC channel 10:07Z) | (1) The node still called the ordering item "presented" and excluded ranking after the owner's two card rulings of the same morning; (2) the alignment page's clause was spliced into the signed sentence in a false-today present tense; (3) VISION carries `last_reviewed`, not `last_updated`; (4) the archival's disposition is written as already ruled | (1) and (2) cured on PR #959 in the same session (this section, §User groups, §The amendments, §Out of scope; the alignment page's note re-formed as a dated future-tensed note beside the bullet); (3) accepted — VISION's frontmatter is untouched and the PR body says so; (4) no cure — true at merge, the revert path stands |
+| 2026-09-03 | Owner-refused push of PR A, then an owner-invoked full Cricket suite (eight seats; the adversarial fable seat's finding) and the owner's card | The permanent pages' dated notes cited a delivery-plan id and a ticket, against `no-moving-targets-in-permanent-docs` §Citation directionality, and the decision had no durable home | Owner card: "Fold ADR-227 into PR A and re-point" — ADR-227 (authored by Vesta rides Solstice) cherry-picked onto #959; the vision, the three strategy pages, the Atlas block and the strategic node's note cite the ADR; the strategy index keeps the strategic node by id per its own convention |
+| 2026-09-03 | The owner's word on PR #959 | The numbered list of thirteen items (ADR-227; the ten amendments; this node; the two MCP-661 nodes) | "Ratify all thirteen" — every stamp landed in the same session; no declines |
 
 ## Inventory at authoring (2026-09-03, main at `b9601ab40`)
 

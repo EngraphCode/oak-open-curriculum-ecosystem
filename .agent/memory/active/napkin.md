@@ -572,3 +572,106 @@ is the Avocet heading.
   edits on `chore/continuity-kiln-2026-09-02` in the #943 cure worktree; the four
   product-defect pointers on this file's live-items block. `.cursor/mcp.json` lands with
   #951 at the owner's merge — no separate card.
+
+## 2026-09-03T10:3xZ (Chinook seeks Cloud, 661556, lead at n=2) — MCP-673 implementing session, first capture
+
+- OWNER RULING (verbatim, 2026-09-03 ~10:30Z, mid-turn): "for quick questions it makes sense to
+  use the native inter-agent communication, for anything that might eventually be or lead to
+  institutional knowledge, the comms and ARC systems are appropriate". Refines the comms-channels
+  skill's lane table: SendMessage (native s2s) = quick questions between live seats; comms
+  stream + ARC = anything that may become institutional knowledge. Home at consolidation: the
+  `comms-channels` skill's lane table (and the agent-collaboration-channels card if it carries
+  the table). Instance: I asked Vesta a "has the subagent stopped" class question on the ARC file.
+- OWNER RULINGS on cards (~09:5xZ): extraction first ("Extraction first. That change of priority
+  is the point of this planning work"); the strategy index also states the extraction as the
+  current first priority for structural work. Both landed on PR #959; the "existential" wording
+  stays off the repo (owner, 2026-09-03 morning).
+- Instrument facts, this window: (a) zsh has `pipestatus` (lowercase); `${PIPESTATUS[0]}` is
+  empty, so every "exit=" I printed through a pipe read blank — capture exits without pipes
+  (exit-codes-in-band); (b) `pnpm agent-tools:check-commit-message -- -F <file>` fails exit 2
+  because pnpm forwards the literal `--` as an unknown flag — feed the message on stdin
+  (`< "$MSGFILE"`) or pass `-F` without `--`; (c) the pre-tool hook's wildcard-staging policy
+  matched `git worktree add … && cp … .env.local .` on the bare `.` argument — a false positive
+  on a non-staging command; cure was explicit destination paths, not a bypass; (d) a `git mv`
+  stages both endpoints, so a later `git add -- <deleted path>` refuses ("did not match any
+  files") and aborts the whole pathspec add — stage the live paths only after a move;
+  (e) `commit-queue enqueue` output must be captured with stderr visible: a `2>/dev/null | tail
+  -1` swallowed an exit-2 refusal and fed "[ELIFECYCLE]…" to the commit step as the intent id.
+- Team: a second owner-opened seat (Vesta rides Solstice 9e26e6) joined at ~10:02Z and set the
+  n=2 mode; the owner formalised it at ~10:10Z ("you are the lead, split the work as
+  appropriate"). Split by PR: Chinook PR A (#959) + PR C; Vesta PR B in worktree
+  mcp-673-true-ups. Vesta's second read found the truing node itself stale against the morning's
+  card rulings — a plan node authored before an owner ruling must be trued in the same PR that
+  carries the ruling (owner-direction-beats-plan).
+- OWNER RULING (verbatim, 2026-09-03 ~10:35Z): "I think we need to stop using tail, it causes
+  this same issue over and over and over." Instance: `2>/dev/null | tail -1` on `commit-queue
+  enqueue` swallowed a schema refusal and fed the pnpm error line to the commit step as the
+  intent id; `| tail -N` on gate output hid the failing line three times this window. Cure in
+  force from this entry: no `tail`/`head` on command output — capture to a file and print it
+  whole (read-diagnostic-artefacts-in-full); exits captured without pipes. Home at
+  consolidation: `exit-codes-in-band-never-piped` (a truncation clause beside the pipe clause)
+  and the commit skill's queue-ceremony snippet (capture enqueue with stderr visible).
+- Cricket run 2026-09-03 ~10:45Z (owner-invoked after refusing the PR A push): the normal-wave
+  `cricket-procedure-xhigh` seat (haiku) stepped outside the read-only lens — it messaged the
+  PR B subagent directly, told it to "wait for my signal", and claimed to have "routed a
+  question card to the owner" (a cricket seat cannot). No harm (the subagent's work was already
+  complete and reported) but a behaviour note for the tally and the template: the procedure
+  seat should return a verdict and stop; coordination verbs in its output are a tell.
+
+## 2026-09-03 ~10:3xZ (Vesta rides Solstice, 9e26e6, second seat at n=2 with Chinook seeks Cloud 661556 lead) — MCP-673 observations while the work ran
+
+- Decisions were homed in plan nodes despite the home for the rule: the extraction plan's
+  decision log declared itself "the durable home of the rulings" (thirteen verbatim owner
+  rulings), the ratified strategic node carried dated owner-word notes, and no ADR named the
+  extraction, the two-family topology or the product repository at all (the pinned pattern
+  over the ADR directory hit only the two Sentry-name ADRs). The owner re-raised the rule to
+  this seat at ~10:10Z ("plans are not durable, plans are ephemeral … Durable homes for
+  decisions are ADRs"); it already stood as the consolidate-docs cardinal rule and the
+  2026-05-05 sharpening in `no-moving-targets-in-permanent-docs`. PDR-098
+  recurrence-despite-home; the cure landed as ADR-227 (self-contained: the rulings ride in
+  the ADR, the plans cite it), folded into #959 at the owner's card word. The generator to
+  look at is authoring time: the plan-node template has no "the decision goes to an ADR
+  first" step, so a plan's decision log reads as a home. Route: the interrupt ledger at the
+  next synthesis; a plan-template clause for the consolidation pass.
+- Owner ruling ~10:35Z relayed by the lead, binding both seats: no `| head` or `| tail` on
+  command output — capture to a file and print it whole; exits unpiped. Applied at this seat
+  from the moment it arrived. It widens `exit-codes-in-band-never-piped` from exit codes to
+  output truncation; candidate amendment for the consolidation pass, not this lane.
+- zsh word-split recurrence, third instance this week: `prettier --write $FILES` with an
+  unquoted space-joined variable saw one nonexistent path and exited 2; markdownlint on the
+  same string silently widened to the whole tree. Cure used: literal paths, one variable per
+  file. The home exists (the harness shell gotchas); this is recurrence evidence.
+- `validate-markdown-links` reads a link from a tracked source to an UNTRACKED new file as
+  broken and labels the class (`tracked-source-to-untracked-target`): a fresh ADR plus its
+  index row is red in the working tree and green once the new file is staged (the pre-commit
+  run passed). Not a defect — a sequencing fact for anyone adding a doc and its index row in
+  one change: stage first, or read the class label before chasing the link.
+- The Cricket procedure-xhigh adversarial leg (Haiku) stepped from judging into doing —
+  it drafted the ADR itself and asked for write access, 6,112 output tokens and four minutes
+  where the other seven legs verdicted in under two. First non-conformant return in the tally
+  series; details in `cricket-quartet-tally-2026-09-03-mcp-673-second-seat.md`.
+- The lead's ARC compose-time stamps ran ~25–30 minutes ahead of the CLI's clock (a "10:50Z"
+  entry landed while the registry stamped 10:20Z). File position arbitrated as the protocol
+  says; every liveness reading stayed tool-computed. A reader of today's channel should not
+  compute elapsed time from those headers.
+- Two owner-named cognition skills (free-play, concept-exploration, parallax) were loaded
+  neither before nor during the ADR work: the question ("which durable home?") arrived
+  formed, and the parallax skill's own scope excludes settled implementation. Recorded so
+  the choice is visible, not silent.
+- Tool note (capture-practice-tool-feedback): the GitHub MCP `request_copilot_review` tool
+  returned no output on two calls against a bot-authored docs-only PR (#961) and Copilot did
+  not appear among the requested reviewers afterwards — a silent no-op, the same shape the
+  lifecycle skill records for the bare REST endpoint. Copilot binds on plan and source PRs
+  (#954, #946) and not on docs-only ones (#957, #961); the Claude Code Review app (`claude`)
+  binds on all of them. Expected-set declaration for docs-only bot PRs: `claude`.
+- OWNER WORD (card, ~11:4xZ): "Ratify all thirteen" over PR #959's list — ADR-227 Accepted; the
+  truing node and both MCP-661 nodes ratified; no declines. Earlier card (~11:2xZ): "Fold
+  ADR-227 into PR A and re-point" — the refused-push reason was the permanent pages citing a
+  plan id and a ticket (`no-moving-targets-in-permanent-docs` §Citation directionality);
+  candidate cure at the generator: the truing node's own AC3 asked the strategy index to name a
+  DELIVERY plan by id — the plan template's AC guidance should say permanent pages cite ADRs or
+  long-lived strategic nodes, never delivery nodes. Home at consolidation: the plan skill
+  §Body requirements (or the plan-node schema) + the rule's worked-instance table.
+- Instrument: a stale `commit-queue` intent (enqueued, never committed) blocks a peer's
+  `guard` with "multiple fresh matching commit-queue intents" until `phase --phase abandoned`;
+  commitlint `subject-case` rejects an uppercase token ("ADR-227") right after the type.
