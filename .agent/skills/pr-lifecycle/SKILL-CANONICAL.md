@@ -730,7 +730,10 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    missing run, and the 405 text itself names the missing check: read it);
    every Phase 7 gate leg green INCLUDING
    checks GitHub does not enforce; the Sonar gate passing. The command
-   inherits Phase 7's merge-authorisation boundary unchanged.
+   inherits Phase 7's merge boundary unchanged: at settled-READY the seat
+   merges as the bot and notifies the owner at the action moment; it never
+   waits on the owner unless the owner has explicitly said to wait (owner
+   ruling 2026-09-03, quoted in Phase 7).
    **In a coordinated drive, the settled-round predicate binds GRANTS,
    not just merges**: a routing seat (Director) grants MERGE-ELIGIBILITY
    — the predicate verdict, never a queue position (serial one-at-a-time
@@ -933,12 +936,11 @@ posted, then fired within the minute — fully auditable). Then:
   GitHub enforces neither the round-owed nor the body-finding leg — so the
   gate NARROWS the merge-race window without closing it, and that residual
   race is ACCEPTED and covered, never claimed away: Phase 8's post-merge
-  harvest is its named recovery. The command inherits the
-  merge-authorisation boundary below unchanged (on a SELF-AUTHORED,
-  sub-agent-reviewed PR with no in-session owner grant, broadcast
-  merge-READY and leave the mechanism to the owner). A PR sitting unmerged
-  at truly-green because nobody issued the merge (where merging was
-  authorised) is the shepherd's unfinished work (PR #325, 2026-07-08).
+  harvest is its named recovery. The command inherits the merge boundary
+  below unchanged. A PR sitting unmerged at truly-green because nobody
+  issued the merge is the shepherd's unfinished work (PR #325, 2026-07-08)
+  — a PR the seat authored itself included: settlement is the
+  authorisation, not an owner grant.
   If a merge attempt bundled with other actions is harness-denied, retry
   the bare `gh pr merge <n> --merge` alone before concluding the
   capability is gated — on #325 a denied composite was over-generalised to
@@ -962,10 +964,10 @@ posted, then fired within the minute — fully auditable). Then:
 - **The merge gate is merge-button-active-for-a-non-admin**: a truly-green
   PR — MERGE-READY per the state machine's item 4, plus every gate leg
   above — merges via a normal
-  non-admin `gh pr merge`, SUBJECT to the merge-readiness boundary below (a
-  self-authored, sub-agent-reviewed PR additionally needs an in-session
-  owner grant or the owner's own merge — the gate opens the button, the
-  boundary says who may press it). `--admin` is FORBIDDEN: it bypasses the
+  non-admin `gh pr merge` (or the merge-bot front door), issued by the
+  shepherding seat itself, a self-authored and sub-agent-reviewed PR
+  included: the gate opens the button and the seat presses it (owner
+  ruling 2026-09-03, below). `--admin` is FORBIDDEN: it bypasses the
   gate instead of satisfying it. Proven twice 2026-07-06 (#306, #305 both merged cleanly
   once threads resolved). The same class wears an API coat: a merge call
   (REST, or a GitHub connector's merge tool) issued under the owner's ADMIN
@@ -1010,19 +1012,28 @@ posted, then fired within the minute — fully auditable). Then:
   "I think the bot is on the bypass list") — a rule's worked instance is
   never the current configuration (`query-the-value-never-the-lookalike`),
   and the ruleset's own title carried the fact.
-- **The truly-green gate authorises merge-READINESS, not every merge**
-  (worked instance PR #323, 2026-07-08): a PR the agent AUTHORED in-session
-  whose reviews are the agent's own sub-agents sits behind a second,
-  harness-level boundary — the auto-mode classifier requires an in-session
-  owner grant (or the owner's own click) before `gh pr merge` executes,
-  independent of the gate. Broadcast "merge-READY at truly-green", never a
-  promise to merge; surface the merge as an owner action moment unless a
-  named in-session grant exists. (The #306/#305 precedent above is not a
-  licence for self-authored, self-reviewed merges.)
-- An owner grant of merge authority (for example to a team session's
-  Director) is per-session, never standing (owner, 2026-06-29); absent a
-  fresh grant, the truly-green gate above governs unchanged — the merge
-  waits on whichever leg is genuinely unsatisfied.
+- **A green and clean PR merges without waiting on the owner** (owner
+  ruling 2026-09-03, verbatim: "green and clean PRs get merged, they don't
+  wait on me unless I explicitly say so" — the 2026-07-26/29 standing
+  doctrine at the head of this skill, restated). Truly-green and SETTLED
+  per the state machine is the whole authorisation, for a PR the seat
+  authored itself and whose reviews are its own sub-agents exactly as for
+  any other. The seat merges as the bot and notifies the owner at the
+  action moment (`owner-attention-at-action-moments`); it holds only when
+  the owner has EXPLICITLY said to wait on a named PR, a freeze binds, or a
+  rule reserves the surface to the owner. The clause this replaces — that a
+  self-authored, sub-agent-reviewed PR sat behind a harness-level boundary
+  needing an in-session owner grant or the owner's own click (PR #323,
+  2026-07-08) — recorded the wrong behaviour: on 2026-09-03 a seat read it
+  as governing over the head doctrine, declared merge-READY on its own
+  lane and announced it would wait, and the owner corrected it within the
+  hour. Two clauses in one file that disagree are a defect to cure at the
+  file, never a fork to route to the owner.
+- An owner grant of merge authority to a team seat (for example a Director,
+  owner word 2026-06-29) is a routing grant inside a coordinated drive —
+  per-session, never standing — not a precondition for merging green work;
+  absent one, the truly-green gate above governs unchanged and the merge
+  waits only on a leg that is genuinely unsatisfied.
 - **Never run `gh pr merge --delete-branch` while the local checkout carries
   uncommitted changes**: the flag switches the local checkout to the base
   branch as cleanup, and with a dirty tree the local fast-forward aborts —
