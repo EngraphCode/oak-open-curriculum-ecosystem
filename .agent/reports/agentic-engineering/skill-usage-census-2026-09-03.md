@@ -70,7 +70,7 @@ SINCE=2026-08-04; UNTIL=2026-09-04
 # .claude/worktrees/design-plan-truings (1), .claude/worktrees/merge-bot-merge (2) and
 # .claude/worktrees/merge-bot-merge/agent-tools (8); and the sibling
 # ../oak-open-curriculum-ecosystem-worktrees/typescript-estate-review-019fc3 (2).
-DIRS="~/.claude/projects/<checkout-dir> ~/.claude/projects/<worktree-dir-1> ..."
+DIRS="$HOME/.claude/projects/<checkout-dir> $HOME/.claude/projects/<worktree-dir-1> ..."
 
 # Instrument B1: sessions that invoked a skill (the Skill tool or a slash command), one row per session and skill
 for f in $(for d in $DIRS; do find "$d" -maxdepth 1 -name '*.jsonl' -newermt "$SINCE" ! -newermt "$UNTIL"; done); do sid=$(basename "$f" .jsonl); \
@@ -225,7 +225,7 @@ The 29 never-invoked skills fall into classes with different meanings:
 | Design and visual | `claude-design-pipeline`, `ui-visual-design`, `visual-comparison`, `visual-verification` (`design-system-usage`: 5) | Never invoked; their canonical files were still read or referenced in a few sessions, so they are known but idle since the design lane paused |
 | Search quality | `ground-truth-design`, `ground-truth-evaluation` | Idle with the search-quality lane |
 | Multi-seat and cross-vendor instruments | `slack-watcher`, `talk-to-slack-watcher`, `sif`, `codex-helper` (`the-codex-dialogues`: 1, `inter-practice-collaboration`: 1, `comms-channels`: 1) | Need a second seat or a second vendor. Seat count per session was not measured: `start-right-team` (34 sessions) is the standard opener at any seat count, so its count says nothing about team size; the claims register's concurrent-seat history is the measure not taken. Until it is, the zero is either "no second seat" or a routing gap |
-| Authoring and orientation aids | `tsdoc`, `chatgpt-report-normalisation`, `working-with-agentic-ai`, `gates`, `ticket-management` (`go`: 1, `under-the-hood`: 1, `retrospective`: 1) | `working-with-agentic-ai` is read by people and has never been invoked; `under-the-hood` is the directed orientation entry and was invoked once (2026-06-28), otherwise read; `tsdoc` is the anomaly, since code shipped in the window |
+| Authoring and orientation aids | `tsdoc`, `chatgpt-report-normalisation`, `working-with-agentic-ai`, `gates`, `ticket-management` (`go`: 1, `under-the-hood`: 1, `retrospective`: 1) | `working-with-agentic-ai` is a primer whose path sits in every session's boilerplate (hence its 33 appearances) and which has never been invoked; whether people read it, these instruments cannot say. `under-the-hood` is the directed orientation entry and was invoked once (2026-06-28), otherwise its path appeared. `tsdoc` is the anomaly, since code shipped in the window |
 
 ## Skills and rules present in two locations
 
