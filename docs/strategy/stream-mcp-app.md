@@ -26,13 +26,13 @@ support the major assistants even-handedly and never partner with one over anoth
 four are the **required minimum** we support, not the limit: accessibility includes the
 teacher's choice of platform, so support extends to any popular assistant, even-handedly.
 
-> _Dated note, 2026-09-03 (MCP-673; the delivery plan `oak-open-curriculum-mcp-extraction`,
-> merged 2026-09-02, at the owner's word; the same note sits beside the vision's sentence this
-> paragraph derives from): once that plan executes, the MCP app is delivered from its own public
-> repository, `oaknational/oak-open-curriculum-mcp`, as thin workspaces over packages published
-> from here. This repository delivers the platform beneath it — the toolkit and Oak's
-> organisation-wide packs — and the app itself until cut-over. The stream's bets and keystones
-> are unchanged._
+> _Dated note, 2026-09-03 (the same note sits beside the vision's sentence this paragraph
+> derives from): the decision that the MCP app is built in its own public repository,
+> `oaknational/oak-open-curriculum-mcp`, from packages published here is recorded in
+> [ADR-227](../architecture/architectural-decisions/227-oak-product-in-its-own-repository.md). Once it executes, the app is
+> delivered from that repository as thin workspaces over published packages; this repository
+> delivers the platform beneath it — the toolkit and Oak's organisation-wide packs — and the
+> app itself until cut-over. The stream's bets and keystones are unchanged._
 
 ## How we win
 

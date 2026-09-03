@@ -196,7 +196,10 @@ published nor moved, or the seam-gate slice (P4) cannot enforce the
 gates per package over a published subset. The release-mechanism
 decision the banked order carried is `public-packages-release`'s,
 delivered by `toolkit-publish-mechanism`. The outcome, the bet and the
-three gates are unchanged.)*
+three gates are unchanged. The decision this order serves — the Oak
+product built in its own public repository from packages published
+here — is recorded in ADR-227; this node and the extraction plan
+carry its means.)*
 
 ## Review dispositions
 

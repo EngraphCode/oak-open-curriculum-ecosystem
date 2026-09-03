@@ -482,6 +482,11 @@ New to the repo? Read these five ADRs first for the architectural foundations:
   byte-preserved documents, publication presumption with owner-directed withholding,
   private-permalink reduction with a private-source index, self-contained records, and
   leaf-package-only workspace registration)
+- [ADR-227: The Oak MCP product is built in its own repository from packages published here](227-oak-product-in-its-own-repository.md) ← **Proposed**
+  (records the owner's rulings of 2026-09-02 and 2026-09-03 verbatim: two repositories with
+  published `@oaknational` packages as the one boundary; a per-box cut, never a move of today's
+  workspaces; a junior-developer product repository; one version per repository for now; the
+  extraction before the estate-wide seam migration)
 
 ## Key Architectural Decisions
 

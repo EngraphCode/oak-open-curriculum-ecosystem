@@ -39,9 +39,10 @@ and compound what real use proves reusable.
 _Dated line, 2026-09-03 (owner word on the card of that day: "Also state it as the current
 priority"): the repository's current structural commitment, and its current first priority for
 structural work, is the extraction of the MCP app product into its own public repository,
-`oaknational/oak-open-curriculum-mcp`, as thin workspaces over packages published from here.
-The strategic node `toolkit-re-architecture` carries that lane; its delivery order names the
-extraction plan `oak-open-curriculum-mcp-extraction` as the lane's first step._
+`oaknational/oak-open-curriculum-mcp`, as thin workspaces over packages published from here —
+the decision recorded in [ADR-227](../architecture/architectural-decisions/227-oak-product-in-its-own-repository.md). In the plan
+estate the strategic node `toolkit-re-architecture` carries that lane, and its delivery order
+names the extraction as the lane's first step._
 
 | Read                                                                           | For                                                                                                                |
 | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
