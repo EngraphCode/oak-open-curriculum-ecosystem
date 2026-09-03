@@ -85,8 +85,10 @@ this plan from the lane it serves.)
   page that say the app is delivered from this repository; two parents that
   call the extraction a rehearsal). The strategy index names the strategic
   node whose delivery order says what comes first in this lane. Ranking
-  this lane against the estate's other lanes stays the owner's, and is not
-  what this plan delivers.
+  this lane against the estate's other lanes stays the owner's: his ranking
+  word of 2026-09-03 (the card: "Also state it as the current priority") is
+  carried on the strategy index as his dated line, and this plan propagates
+  it, never makes it.
 - **The next implementer of the extraction lane** (D0b and D0a). The
   instruments and design record they produce sit under a strategic node
   whose delivery order names their lane first, and the publish-mechanism
@@ -164,15 +166,20 @@ are unchanged; §Delivery is the projection of order onto delivery plans, and
 the decision is. The schema's status axis keeps the node `ratified`, the
 restated passage carries the new position and the dated note beside it names
 the banked order it replaced; the owner's word over the list is what makes
-it binding. The ordering item is the one decision on the list — it rests on
-the extraction plan's ordering thesis, which that plan presents for the
-owner's word with two named falsifiers, not on a ruling — and it is marked
-so; the other items confirm rulings already given (rulings 2, 3, 5 and 10 of
-the extraction plan's decision log) or true stale facts. If the owner declines
-the ordering item by number, its restatement reverts to the standing text
-before the pull request merges, the extraction plan's ordering thesis stays
-"presented", and the banked order stands — nothing else in this plan depends
-on it.
+it binding. The ordering item was the one decision on the list — it rests
+on the extraction plan's ordering thesis, which that plan presented for the
+owner's word with two named falsifiers — and the owner ruled it on the card
+of 2026-09-03, before the first pull request was authored: "Extraction
+first. That change of priority is the point of this planning work." The
+list therefore presents the item as ruled and the restatement carries that
+word; the other items confirm rulings already given (rulings 2, 3, 5 and 10
+of the extraction plan's decision log) or true stale facts. The schema's
+revert path stays available: if the owner declines any item by number, its
+amendment reverts to the standing text before the pull request merges — for
+the ordering item that would return the banked order and set the extraction
+plan's thesis back to "presented" — and nothing else in this plan depends on
+it. (Trued 2026-09-03 at the implementing session's checkpoint; the text
+above had called the item "presented".)
 
 ### The amendments this plan lands
 
@@ -199,8 +206,12 @@ on the first pull request unless marked as a factual true-up.
   own repository as the current structural commitment and naming the
   strategic node `toolkit-re-architecture` by id, as the index's own
   convention names nodes, whose delivery order says what comes first in
-  that lane; this is the reading path AC3 measures. It says nothing about
-  ranking this lane against other lanes, which the owner keeps his own.
+  that lane; this is the reading path AC3 measures. The same line carries
+  the owner's ranking word of 2026-09-03 — the extraction is the
+  repository's current first priority for structural work — as his dated
+  quoted line (the card: "Also state it as the current priority"); the
+  ranking is his, propagated here, never made here (trued 2026-09-03; the
+  text above had said the line says nothing about ranking).
 - **`toolkit-re-architecture`** (ratified; the in-place form): §Delivery
   restated — the extraction lane first (its design step
   `oak-open-curriculum-mcp-extraction`, then the publish mechanism, then the
@@ -376,8 +387,10 @@ files and ten minutes.
 - The directions register (`engineering-directions`) — a chartered outcome
   is not duplicated there by its own rule; its expired gate is a separate
   owner item the drift alert already carries.
-- Ranking this lane against the estate's other lanes — the owner's, held
-  where he keeps it; this plan delivers order and intent within the lane.
+- Making any ranking of this lane against the estate's other lanes — the
+  ranking is the owner's; his word of 2026-09-03 is propagated to the
+  strategy index as his dated line, and this plan delivers order and intent
+  within the lane plus that propagation, never a ranking of its own.
 - The conserved planning corpora — untouched by the estate's loss guarantee.
 - A truing record or disposition ledger — the amendments and their commits
   are the record.
@@ -394,6 +407,7 @@ implementer enumerates and dispositions every row before implementation.
 | 2026-09-03 | Corpus survey at authoring | The ratified release-process runbook's rollback clause rests on publishing being disabled | `toolkit-publish-mechanism`'s live-publish slice amends it (this plan adds the line at T5) |
 | 2026-09-03 | Corpus survey at authoring | The census matrix's MCP-app row says "never publish it from here" | The extraction plan's D0a per-box override; the matrix regenerates |
 | 2026-09-03 | Readiness reviews at authoring (assumptions, docs), then a Cricket suite and an adversarial assumptions review on Fable with two-lens refutation and cross-examination | Cured across the drafts: the instrument without a ledger; the amendment class, its in-place form and fallback; the reading path by id on stable surfaces; one owner word over a numbered list with declines by number; the archival's note and path; the Atlas form as the verdict; the two-pull-request split with file counts; per-todo estimates against the owner's band; the vision added to the amendment set; the parent node settled by the lane's own enumeration rule; AC1 scoped to the sweep; the publishing-truth pages added to the true-ups; "priority" narrowed to order and intent | None routed onward; the run is recorded in the Cricket tally of 2026-09-03 |
+| 2026-09-03 | Second reader on PR A (Vesta rides Solstice, 9e26e6; ARC channel 10:07Z) | (1) The node still called the ordering item "presented" and excluded ranking after the owner's two card rulings of the same morning; (2) the alignment page's clause was spliced into the signed sentence in a false-today present tense; (3) VISION carries `last_reviewed`, not `last_updated`; (4) the archival's disposition is written as already ruled | (1) and (2) cured on PR #959 in the same session (this section, §User groups, §The amendments, §Out of scope; the alignment page's note re-formed as a dated future-tensed note beside the bullet); (3) accepted — VISION's frontmatter is untouched and the PR body says so; (4) no cure — true at merge, the revert path stands |
 
 ## Inventory at authoring (2026-09-03, main at `b9601ab40`)
 

@@ -58,10 +58,11 @@ is distinct from the open-ended demo portfolio inside the Innovation Kit stream:
 - **The agentic framework is the engine.** It builds the app, the tools, and the Innovation
   Kit's working experiences faster and more safely, and it's a value stream others adopt.
 - **The engineering tools are the foundation.** The SDK, semantic search, the curriculum
-  graph, and the evidence surfaces are what the app stands on — and, from 2026-09-03
-  (MCP-673; the delivery plan `oak-open-curriculum-mcp-extraction`), the foundation is
-  published as packages the app's own repository installs, which is how the app exercises
-  it once the extraction executes.
+  graph, and the evidence surfaces are what the app stands on.
+  _Dated note, 2026-09-03 (MCP-673; the delivery plan `oak-open-curriculum-mcp-extraction`,
+  merged 2026-09-02): once that plan executes, the foundation will be published as packages
+  the app's own repository installs, which is how the app will exercise it from there.
+  Nothing is published today._
 - **The app exercises the foundation.** It reaches teachers and provides one implementation
   proof of the system in a teacher-facing channel; value and impact require their own evidence.
 - **The Innovation Kit is the lens and laboratory.** It composes the engine and foundation
