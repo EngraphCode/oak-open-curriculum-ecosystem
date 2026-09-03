@@ -10,6 +10,7 @@ ratified_where: null
 serves: FRAME-2
 impact_areas:
   - practice-and-estate
+  - design-system
 gate_expiry_default: P21D
 depends_on: []
 owner_gates: []
@@ -81,27 +82,24 @@ written.
 
 Why this way, the rung ladder, applied to the generator rather than the instance:
 
-- **Derive** from an authoritative source already present: the repository from the
-  per-checkout identity config that already names it, the publishing scope from the root
-  manifest's name, the default branch and repository URL from the CI event, the bot user id
-  from a live lookup of the configured app slug, the adapter prefix from its one setting.
-- **Per-checkout file**: untracked and gitignored, a tracked `.example` with placeholder
-  values, a strict closed schema at the boundary, an error that names the template,
-  resolved at the primary checkout so every linked worktree reads one copy — one shared
-  resolver extracted from the merge-bot module at its second consumer, each identity file a
-  schema on it. Where the reader is an IDE or a vendor CLI rather than agent tooling, the
-  tree-side shape is identical and no resolver is needed: the readers are heterogeneous,
-  the tree shape is one.
-- **Environment** via `.env.example` where the value is deployment-time.
-- **Service-side binding** where the service owns the relationship: repository variables
-  for workflow-level targets and channels, the code-quality project bound to the
-  repository, the repository's default branch as the trigger authority (trigger filters
-  admit no contexts, so the derived shapes are a base-filter-free pull-request trigger and
-  a push trigger gated in-job on the event's default branch).
+- **Derive** the value from a source already present in the checkout, the manifest or the
+  CI event, so that nothing restates what something else already knows.
+- **Per-checkout file**: a file the tree never tracks, behind a tracked example, read the
+  same way by every reader that needs it; the merge-bot instance is the proven shape, and
+  the delivery nodes carry its mechanics. Where the reader is an IDE or a vendor CLI rather
+  than agent tooling, the tree-side shape is the same and no shared reader is needed: the
+  readers are heterogeneous, the tree shape is one.
+- **Environment** where the value is deployment-time.
+- **Service-side binding** where the service owns the relationship: repository variables,
+  the code-quality project bound to the repository, the repository's own default branch as
+  the authority for what its workflows run on.
 - **Tree-bound residue**: the few surfaces the platform reads from the tree with no lower
   home (code-owner routing, README badges, manifest provenance, licence attribution),
   enumerated in one adoption note written for an unnamed reader, edited once and
   deliberately, and held under the validator so the list cannot grow unnoticed.
+
+How each rung is built — file formats, schemas, resolution points, trigger shapes — is the
+delivery nodes' to design at pickup; this node fixes only which rung a pin takes and why.
 
 Declared identity homes are exempt by enumeration, never by per-file allowlist: the Oak
 identity pack, the corpus and curriculum types, the product band per ADR-227, package
@@ -109,11 +107,13 @@ provenance and the publishing scope, `.example` files, generated adapter carrier
 dated-record directories. Genericising any of these is the frame misapplied.
 
 The ratchet is structure, not vigilance: a validator in the existing identity-naming
-family, with a committed census as its contract (count-based per file and kind, so peer
-edits never break it on line drift), refusing a count above the census as a new pin and a
-count below it as a stale census; strict with zero exclusions once the census is empty;
-wired into the aggregate the pre-push hook and CI already run, beside the machine-local-
-paths and identity-naming validators — the three arms of Any User, Any Machine.
+family that knows the set of organisation-identity literals still standing in mechanism
+layers and refuses both growth and substitution — a new literal, or one organisation's
+literal swapped for another's in the same place, reddens at pre-push and on the PR — and
+that runs strict once only the enumerated residue remains. It sits in the aggregate the
+pre-push hook and CI already run, beside the machine-local-paths and identity-naming
+validators: the three arms of Any User, Any Machine. Its contract is the delivery node's to
+design; the property it must hold is stated here.
 
 What we deliberately do not do: build a per-fork re-identification tool that rewrites
 tracked files from a manifest (it makes the fork the permanent carrier of divergence, a
@@ -137,10 +137,11 @@ beside it, and the product-band deletions ride the extraction lane's per-box des
 - Every cured tool, given a fixture identity naming a never-used organisation, emits that
   organisation's values; given no identity file, it fails naming the example. A silent
   fallback to the canonical organisation anywhere is the defect restated.
-- One resolver, N schemas among the agent-tools readers; the IDE and vendor-CLI files share
-  the tree shape without one.
-- The validator's committed census reaches empty and runs strict; a re-introduced literal
-  reddens at pre-push or on the PR, never first on a contributor's machine.
+- Every agent-tools reader takes identity the same way, from the same per-checkout source;
+  the IDE and vendor-CLI files share the tree shape.
+- The validator's standing set shrinks to the enumerated residue and runs strict from
+  there; a re-introduced or substituted literal reddens at pre-push or on the PR, never
+  first on a contributor's machine.
 - A cold clone under a third organisation's name reaches green on the local gate estate
   through the adoption note alone, with a clean working tree. This is the executable proof
   of the outcome; until it is run, the outcome is asserted, not measured.
@@ -179,18 +180,17 @@ the third arm of Any User, Any Machine.
   binding, mints its merge bot and measures its own PR register with a clean working tree.
   Any tracked-file edit needed outside the enumerated residue falsifies the node and names
   a missed pin.
-- **Ratchet.** The validator's census count rises, or a literal lands in a mechanism layer
-  with the validator green; either means the vocabulary or the path-class scope is wrong.
-  The mechanical form is a three-arm known-positive test (an organisation slug, a numeric
-  bot id, a branch name, the `<prefix><id>` path form; passes on placeholder forms and on a
-  product name sharing the prefix), run over the pre-cure tree, which must report exactly
-  the censused pins and nothing in the exempt homes.
+- **Ratchet.** The validator's standing set grows, a literal is substituted for another
+  organisation's in place, or a literal lands in a mechanism layer with the validator
+  green; any of these means the vocabulary or the scope is wrong. The delivery node that
+  builds the validator carries the mechanical form: a known-positive test over the
+  pre-cure tree that reports exactly the censused pins and nothing in the exempt homes.
 - **Per-tool proof.** A cured tool given no identity file falls back to the canonical
   organisation instead of failing with the example's name, or given a fixture identity
   emits any value it did not read from it.
-- **The constrained surface grows.** The residue list gains a member, or a new
-  `.example`-and-resolver pair is minted outside the shared resolver — the design node's
-  "constrained surface growing faster than the mechanism beneath it".
+- **The constrained surface grows.** The residue list gains a member, or a second
+  mechanism is minted for a class one already serves — the design node's "constrained
+  surface growing faster than the mechanism beneath it".
 - **Sync cost.** The next three upstream syncs conflict inside the identity set, or the
   fork needs a regeneration-and-commit step per sync for a tracked identity value. A
   conflict in a tracked identity file is a pin; recurring regeneration re-opens the
