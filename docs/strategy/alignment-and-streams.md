@@ -2,7 +2,7 @@
 title: 'Strategy — How we align with Oak, and the streams as a system'
 type: strategy
 status: active
-last_updated: 2026-08-30
+last_updated: 2026-09-03
 derives_from:
   - VISION.md
 governed_by:
@@ -58,7 +58,10 @@ is distinct from the open-ended demo portfolio inside the Innovation Kit stream:
 - **The agentic framework is the engine.** It builds the app, the tools, and the Innovation
   Kit's working experiences faster and more safely, and it's a value stream others adopt.
 - **The engineering tools are the foundation.** The SDK, semantic search, the curriculum
-  graph, and the evidence surfaces are what the app stands on.
+  graph, and the evidence surfaces are what the app stands on — and, from 2026-09-03
+  (MCP-673; the delivery plan `oak-open-curriculum-mcp-extraction`), the foundation is
+  published as packages the app's own repository installs, which is how the app exercises
+  it once the extraction executes.
 - **The app exercises the foundation.** It reaches teachers and provides one implementation
   proof of the system in a teacher-facing channel; value and impact require their own evidence.
 - **The Innovation Kit is the lens and laboratory.** It composes the engine and foundation

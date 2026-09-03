@@ -2,7 +2,7 @@
 title: 'Strategy — Stream: the MCP app (teachers)'
 type: strategy
 status: active
-last_updated: 2026-08-30
+last_updated: 2026-09-03
 derives_from:
   - VISION.md
 governed_by:
@@ -25,6 +25,14 @@ choice, not ours — as a public body we serve the public good, not any one prov
 support the major assistants even-handedly and never partner with one over another. These
 four are the **required minimum** we support, not the limit: accessibility includes the
 teacher's choice of platform, so support extends to any popular assistant, even-handedly.
+
+> _Dated note, 2026-09-03 (MCP-673; the delivery plan `oak-open-curriculum-mcp-extraction`,
+> merged 2026-09-02, at the owner's word; the same note sits beside the vision's sentence this
+> paragraph derives from): once that plan executes, the MCP app is delivered from its own public
+> repository, `oaknational/oak-open-curriculum-mcp`, as thin workspaces over packages published
+> from here. This repository delivers the platform beneath it — the toolkit and Oak's
+> organisation-wide packs — and the app itself until cut-over. The stream's bets and keystones
+> are unchanged._
 
 ## How we win
 
