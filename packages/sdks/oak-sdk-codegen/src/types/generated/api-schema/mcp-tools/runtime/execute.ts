@@ -105,7 +105,7 @@ async function invokeGetKeyStagesSubjectLessonsTool(
       },
     });
   }
-  return { status: validation.status, data: validation.data };
+  return { status: validation.status, data: validation.data, pagination: invokeResult.pagination };
 }
 
 async function invokeGetKeyStagesSubjectQuestionsTool(
@@ -135,7 +135,7 @@ async function invokeGetKeyStagesSubjectQuestionsTool(
       },
     });
   }
-  return { status: validation.status, data: validation.data };
+  return { status: validation.status, data: validation.data, pagination: invokeResult.pagination };
 }
 
 async function invokeGetKeyStagesSubjectUnitsTool(
@@ -195,7 +195,7 @@ async function invokeGetKeywordsTool(
       },
     });
   }
-  return { status: validation.status, data: validation.data };
+  return { status: validation.status, data: validation.data, pagination: invokeResult.pagination };
 }
 
 async function invokeGetLessonsAssetsTool(
@@ -375,7 +375,7 @@ async function invokeGetProgrammesAssetsTool(
       },
     });
   }
-  return { status: validation.status, data: validation.data };
+  return { status: validation.status, data: validation.data, pagination: invokeResult.pagination };
 }
 
 async function invokeGetProgrammesQuestionsTool(
@@ -405,7 +405,7 @@ async function invokeGetProgrammesQuestionsTool(
       },
     });
   }
-  return { status: validation.status, data: validation.data };
+  return { status: validation.status, data: validation.data, pagination: invokeResult.pagination };
 }
 
 async function invokeGetProgrammesUnitsTool(
@@ -555,7 +555,7 @@ async function invokeGetSequencesQuestionsTool(
       },
     });
   }
-  return { status: validation.status, data: validation.data };
+  return { status: validation.status, data: validation.data, pagination: invokeResult.pagination };
 }
 
 async function invokeGetSequencesUnitsTool(

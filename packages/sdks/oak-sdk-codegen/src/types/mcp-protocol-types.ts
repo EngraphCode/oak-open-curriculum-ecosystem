@@ -18,6 +18,11 @@
  * @packageDocumentation
  */
 
+import type { PaginationEcho } from './pagination-echo.js';
+
+export { derivePaginationFromLinkHeader } from './pagination-echo.js';
+export type { PaginationEcho } from './pagination-echo.js';
+
 // ---------------------------------------------------------------------------
 // Security schemes
 // ---------------------------------------------------------------------------
@@ -158,10 +163,13 @@ export type StatusDiscriminant<T extends string> = T extends `${infer N extends 
  * Preserves the HTTP status alongside the response payload so that
  * consumers can distinguish error statuses (400/401/404) even when
  * the response body validates against multiple documented schemas.
+ * Paginated operations also carry the upstream pagination signal;
+ * non-paginated operations leave it undefined.
  */
 export interface InvokeResult {
   readonly httpStatus: number;
   readonly payload: unknown;
+  readonly pagination?: PaginationEcho;
 }
 
 // ---------------------------------------------------------------------------
