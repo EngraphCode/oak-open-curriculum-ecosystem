@@ -15,7 +15,7 @@ repository. All other workspaces have `"private": true` in their
 comes, is one multi-package publish of every publishable workspace at the
 repository's release version, behind per-package finish checks and an
 asserted publish right, with no manual toggle; the plan estate carries its
-schedule.
+mechanism and Linear its schedule.
 
 | Package                       | Scope          | Registry  | Status                                  |
 | ----------------------------- | -------------- | --------- | --------------------------------------- |
@@ -264,4 +264,4 @@ default `Revert "…"` message (the analyser's built-in
 Publishing every publishable workspace (the MCP-family packages, the
 logger, the transport and the rest) as public npm packages at the
 repository's release version is planned and not yet implemented; the plan
-estate's index carries the schedule.
+estate's index points at its mechanism, and Linear carries the schedule.

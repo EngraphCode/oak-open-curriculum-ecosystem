@@ -38,8 +38,12 @@ a tip whose CI run succeeded, and every published package installs and
 imports under a real pnpm store layout. Nothing publishes today. This is the
 "first-publish behind the manifest gate" step of `public-packages-release`'s
 banked order, deliverable against the single-version estate (the owner's
-ruling for now: one release version per repository), and the mechanism the
-extraction plan `oak-open-curriculum-mcp-extraction` depends on.
+ruling for now, recorded in ADR-227: one release version per repository),
+and the mechanism the extraction plan `oak-open-curriculum-mcp-extraction`
+depends on. ADR-227 is the durable home of the rulings this node executes:
+the boundary between the two repositories is the published `@oaknational`
+packages, code MIT and content OGL, published from here at this
+repository's release version.
 
 ## User groups and value
 

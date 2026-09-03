@@ -19,7 +19,7 @@ gate_expiry_default: P21D
 depends_on: []
 owner_gates: []
 tickets: []
-last_updated: 2026-08-26
+last_updated: 2026-09-03
 ---
 
 # Public packages — clock-aligned versioning and automatic publishing
@@ -91,14 +91,18 @@ published with versions a stranger can trust. Three linked wagers:
    that residue's home. As the estate splits along clock groupings,
    versioning groups follow the same seams — one version stream per
    clock-group, lockstep within, independent across — so the grouping
-   decision is made once, structurally, instead of per release.
+   decision is made once, structurally, instead of per release. Until
+   the split, one release version per repository stands: the owner's
+   ruling for now, recorded in ADR-227.
 
 Deliberately not doing: adopting a second versioning/publishing tool
 now; publishing before a package carries a publishable manifest and a
 deliberate licence surface; independent per-package semver ahead of any
 consumer who needs it; re-deciding the repo-split question (that
-decision and its flip condition live with the toolkit re-architecture,
-not here).
+decision is recorded in ADR-227 — the Oak MCP product is built in its
+own repository from the packages this node publishes, the boundary
+being those published packages — and its flip condition lives with the
+toolkit re-architecture, not here).
 
 ## Alignment — the survey line this node rides
 

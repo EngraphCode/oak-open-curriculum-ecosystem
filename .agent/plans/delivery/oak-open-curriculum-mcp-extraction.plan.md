@@ -867,10 +867,11 @@ Amendments:
 
 ## Decision log
 
-This log is the durable home of the rulings below; the estate-coordination
-thread record
+The durable home of the rulings below is ADR-227 (the Oak MCP product is
+built in its own repository from packages published here), which carries
+them verbatim; this log and the estate-coordination thread record
 (`.agent/memory/operational/threads/estate-coordination.next-session.md`,
-§"2026-09-02 ~13:xxZ — FOLD LANDED") is their contemporaneous capture.
+§"2026-09-02 ~13:xxZ — FOLD LANDED") are their contemporaneous captures.
 
 - **Owner rulings, verbatim (2026-09-02):** (1) "yes the search app is
   effectively part of the MCP app"; (2) "the published packages will be on

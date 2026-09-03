@@ -17,7 +17,7 @@ search, and knowledge graph surfaces without copying Oak-specific schema logic.
 npm install @oaknational/curriculum-sdk
 ```
 
-> _Not yet on the registry (checked 2026-09-03: `npm view @oaknational/curriculum-sdk` returns not-found; publishing is disabled in the repository's release configuration). The `npm install` line above is the post-publish form and fails today. Until the first publish, consume the package from this repository as a workspace dependency — `"@oaknational/curriculum-sdk": "workspace:*"` in the dependent workspace's `package.json`. This note is removed at the first publish._
+> _Not yet on the registry (checked 2026-09-03: `npm view @oaknational/curriculum-sdk` returns not-found; publishing is disabled in the repository's release configuration). The `npm install` line above is the post-publish form and fails today. Until the first publish there is no installation path from outside this repository; a workspace inside this repository depends on the package with `"@oaknational/curriculum-sdk": "workspace:*"` in its `package.json`. This note is removed at the first publish._
 
 ## Usage
 
