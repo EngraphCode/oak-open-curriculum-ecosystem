@@ -641,7 +641,8 @@ freeze-2 map remains the work queue; item (a) is at the push/PR stage.
 | claude-code | claude-fable-5 | c28ad9 | Ocelot binds Tunnel | Director — adopted b1d00d68 at Moment 2 `a91c1177` | 2026-08-17 | 2026-08-17 |
 | claude-code | claude-fable-5-1 | 661556 | Chinook seeks Cloud | implementer, lead at n=2 — MCP-673 corpus truing: PR A (#959, owner-word amendments) and PR B (factual true-ups), claim ed9ec042 | 2026-09-03 | 2026-09-03 |
 | claude-code | claude-fable-5-1 | 9e26e6 | Vesta rides Solstice | second seat at n=2 (Chinook seeks Cloud 661556 leads) — MCP-673 corpus truing; boundary set by the lead | 2026-09-03 | 2026-09-03 |
-| claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | solo implementer at owner word — checkout operations under the owner's custody; the merge-bot per-checkout config lane (owner ruling 2026-09-03); claims 2778f573, 442de9ff | 2026-09-03 | 2026-09-03 |
+| claude-code | claude-fable-5-1 | c5cc2c | Flounder turns Estuary | lead from ~19:3xZ at owner word (Buzzard lifts Eyrie 326bcb joins in support): custody of the strategic node PR and the compaction records; earlier solo implementer — checkout operations, the merge-bot per-checkout config lane, the census report, the Sonar access; claims 2778f573, 442de9ff closed | 2026-09-03 | 2026-09-03 |
+| claude-code | (at join) | 326bcb | Buzzard lifts Eyrie | support seat at owner word ~19:3xZ; proposed scope (adopt by claim): the census report PR's closeout — two dispositions, the CI re-run watch, gate, merge as the bot, harvest, prune — as the lead's handoff record states it | 2026-09-03 | 2026-09-03 |
 
 ## 2026-08-17 ~20:0xZ — OVERNIGHT STAND-DOWN (Ocelot binds Tunnel, c28ad9): both lanes down clean; Director down last at owner word
 
@@ -1472,3 +1473,23 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
   principle the first ruling states.
 - **Correction recorded on the napkin (this date):** the seat ran three owner asks before
   grounding; cured mid-session at the owner's word.
+
+## 2026-09-03 ~19:xxZ — A STRATEGIC NODE SKETCHED, A REVIEW LOOP STOPPED (Flounder turns Estuary, c5cc2c, implementer)
+
+- **Owner direction, verbatim:** "making the repo more readily usable by other orgs, so
+  accidentally pinned Oak specific config should be replaced with non-pinned config, and
+  example files"; "I think we need a new strategic node for this". Sketched as
+  `organisational-identity-below-the-tree` (serves FRAME-2) with the owner-named first slice
+  `code-quality-binding-per-checkout`, both born sketch, PR #51; the node presents six owner
+  decisions rather than absorbing them, among them the adapter prefix's home, which subsumes
+  the pending `oak-` to `e-` ask. Grounded by a parallax inquiry run as a workflow.
+- **Owner correction by skill invocation** (`/oak-pr-lifecycle /oak-proportionality
+  /oak-metacognition`): the census report PR #50 had run eleven cure rounds; the lifecycle
+  skill's PDR-140 reading (disposition-and-route by default, one settlement push, step back at
+  four rounds) binds and was breached by this seat; a step-back is posted on the PR and the
+  lesson is on the napkin and in the seat's memory.
+- **Lane state at the second compaction boundary.** PR #50 at e304ac959 awaiting a CI re-run of
+  a runner race, two dispositions owed, then merge at green as the bot. PR #51 green at
+  a6a8e94bf with its round-one cures edited but uncommitted on its lane, one acceptance-criteria
+  edit remaining, then one settlement push. The exact steps are in the seat's machine-local
+  handoff record. Repo-continuity's estate row is owed a truing at the next continuity landing.

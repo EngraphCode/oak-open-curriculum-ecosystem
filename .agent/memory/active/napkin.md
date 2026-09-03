@@ -1196,3 +1196,100 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   sessions, so the comms delivery path had no probe; the dead reviewer transcripts were not
   read. METALOSS: a second pass re-finds only the approximate time labels in this entry and
   the reviewer bound; the recursion closes here.
+
+## 2026-09-03 ~19:xxZ (Flounder turns Estuary, c5cc2c, solo implementer at owner word) — Sonar access, the census report's review loop, the strategic node, second compaction boundary
+
+- OWNER DIRECTION (verbatim, ~17:0xZ): "in general, what we are doing here is making the repo
+  more readily usable by other orgs, so accidentally pinned Oak specific config should be
+  replaced with non-pinned config, and example files"; and "I think we need a new strategic
+  node for this". This corrected this seat's earlier verdict ("leave the tree as it is",
+  reached by applying the afternoon's own concept — identity below the tree — to the fork
+  only). Generator: a freshly minted concept was applied as a reason for inaction on the
+  fork when its consequence is action on the tree for every organisation, Oak included;
+  the fluent line "every pin is an upstream fact" was the tell (identity capture of a new
+  concept, metacognition directive §Fluency). Cure: the concept now runs upstream, as a
+  strategic node (`organisational-identity-below-the-tree`, serves FRAME-2, sketch, PR #51)
+  with an owner-named first slice (`code-quality-binding-per-checkout`). Grounded by a
+  parallax workflow: three protected frames, a five-class pin census each adversarially
+  verified, the prefix design and its refutation, a synthesis and a completeness critic.
+- OWNER CORRECTION BY SKILL INVOCATION (~19:1xZ, `/oak-pr-lifecycle /oak-proportionality
+  /oak-metacognition`): the census report PR (#50) had run to ELEVEN review rounds, 28
+  findings, every one cured in its own push, each with a fresh monitor. The doctrine in
+  pr-lifecycle §Phase 4 and §state machine (PDR-140) says the opposite for prose-class
+  changesets: disposition-and-route is the default, cures batch into one settlement push,
+  the step-back arm fires at four settled rounds, a second firing ends fix-pushing; "for
+  plan-class artefacts the verification point is pickup, so a falsehood earns a cure only if
+  it would mislead before pickup" — PR #32 ran to eleven waves the same way. Generator: I
+  conflated "zero unresolved threads" (a merge gate) with "every finding cured" (a thread
+  resolves by disposition too), and each finding's individual correctness read as
+  sufficiency, which the loop-dynamics rule names as the divergence mechanism. The
+  sampling-finder shape was in the skill AND in my own step-back comment at round four, and
+  I kept curing. Cure: step-back posted on #50 (final head e304ac959, no further
+  fix-pushes; dispositions only); #51's first round (14 correct findings) is ONE batched
+  settlement push. PDR-140 clause 8: needing an out-of-band invocation to correct a running
+  loop is a defect against the seat's reading of the skill — filed here.
+- WHAT THE ELEVEN ROUNDS FOUND, so the instrument lessons survive the breach: the headline
+  mixed populations (retired harness keys among current skills); a census pattern that
+  matched one nesting depth missed every canonical file under two deeper directories and
+  changed twelve rows (a census needs a known positive at EVERY depth it claims); "the event
+  did not occur" needs the disconfirming search first (the dependency wave had fired; the
+  skill landed mid-wave); a session-shape claim needs a measure, not an inference from a
+  skill that runs at any seat count; "read by people" is not what a path-appearance count
+  shows; a reproduction block must carry the cohort list, the window, the depth limit, the
+  prefix mapping and the aggregation, and its tilde must expand; and the harness usage
+  record is per machine, so an earlier era's counts may belong to another repository's
+  estate entirely. Also: `.claude/skills` is 61 directories plus 9 symlinks into
+  `.agents/skills`; Claude Code 2.1.259 scans one project directory; nothing loads twice on
+  this host.
+- WORKFLOW STALL: the parallax workflow sat at 14/15 agents for fifteen minutes because the
+  prefix refuter ran a recursive delete inside a trial it built in the scratchpad; the repo's
+  hook policy held the command for an approval nobody can give inside a background agent.
+  Diagnosis: journal `started` versus `result` counts, then the newest agent transcript's
+  last event (a Bash tool use with no result), then no process running. Cure: stop the run,
+  add a hard read-only constraint to the prompt, resume from the run id — the cached agents
+  returned instantly. Research prompts must name the held command classes, not just "do not
+  modify files".
+- SONAR MCP: SonarQube Cloud hosts an MCP endpoint, so no Docker; a user-scope HTTP server
+  named `sonarqube` (the name the plugin's tools and the rule expect) with the organisation
+  as a request header, a dedicated token generated through the logged-in CLI, health
+  Connected. The owner's earlier docker entry failed on two counts at once (daemon not
+  running; org pinned to the canonical one) — read the whole entry before diagnosing the
+  connection. A logout's exit line is not the state: the CLI's keychain connection to the
+  canonical org survived a recorded logout and was found by the status command.
+- FREE PLAY (visible, discards named): wandered across the day's three loops — the review
+  loop that would not close, the workflow that would not finish, the fast-forward that would
+  not proceed. Juxtaposed: all three stalled on a held action nobody present could release
+  (a thread I kept curing, a shell command nobody could approve, a file git would not
+  clobber). Inversion tried and DISCARDED: "hold everything and wait for the owner" — no,
+  each had a mechanical release the doctrine already named. Analogy tried and DISCARDED: a
+  fixed-point iteration that oscillates — pretty, but the loop did not oscillate, it grew.
+  Kept as a seed, routed to concept exploration: the common shape is a gate mistaken for a
+  goal.
+- CONCEPT EXPLORATION → "a gate mistaken for a goal": zero unresolved threads is a gate on
+  merge, not a goal of review; a green hook is a gate on a commit, not a goal of the
+  change; a clean index is a gate on a fast-forward, not a goal of the sync. When a gate is
+  read as a goal, every satisfying move looks like progress and the loop cannot see itself
+  diverge. The falsifiable check: before the fourth repetition of any gate-satisfying move,
+  name the goal the gate serves and ask whether the move advanced it. Warranted proposal: the
+  pr-lifecycle tally already does this for review rounds; the same counter belongs on any
+  repeated gate-satisfying move a seat makes (hook re-runs, monitor re-arms). Falsifier: a
+  loop that converges without the counter in three moves, which is most loops — the counter
+  costs nothing until the fourth.
+- WRAP: work-safety — every edit is on a lane worktree or a machine-local record; the
+  primary is clean on `engraph` at f88be5afe; PR #51's cures are edited but UNCOMMITTED in
+  its worktree (named in the handoff record with the one edit remaining); PR #50 awaits a CI
+  re-run of a runner race (a transient tsup config bundle read by ESLint). Session-handoff:
+  the machine-local handoff record's "COMPACTION BOUNDARY 2" block is the resume surface;
+  per-user memory carries the five lessons of the arc. LOSS SCAN: (1) the thread record's
+  journal entry for this arc rides this same commit; (2) the two Codex threads open on #50
+  are dispositions owed, not cures — the record says which and why; (3) no claim was opened
+  for this arc — a breach of register-at-session-open, cured by opening one at resume; (4)
+  the parallax result JSON is machine-local (scratchpad); its substance is in the node and
+  the PR body, the rest is not owed; (5) the workflow's per-agent transcripts are the only
+  record of the census's line citations beyond the synthesis — a successor who needs a
+  citation reads the journal, named in the handoff record; (6) attribution: the "54 not 53"
+  finding is TRUE as of now and FALSE as of the census — the fifth directory gained a file
+  during the afternoon; the disposition must say so rather than re-count. METALOSS: a second
+  pass over this scan finds the approximate time labels and one inference ("the fifth
+  directory gained a file" was verified by a count, not by naming the file) — recorded as
+  such; a third pass adds nothing; the recursion closes here.
