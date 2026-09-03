@@ -200,15 +200,19 @@ release-process runbook's rollback clause.
 
 #### Unpublishing (npm mechanics, reference only)
 
-npm allows unpublishing within 72 hours of publication:
+Whether a version can be unpublished, and when, is npm's policy, not this
+page's: it depends on the package's age, its public dependants, its download
+volume and its ownership, and the current terms are the
+[npm unpublish policy](https://docs.npmjs.com/policies/unpublish). The
+command, for reference:
 
 ```bash
 npm unpublish @oaknational/curriculum-sdk@VERSION
 ```
 
-After 72 hours a version cannot be unpublished; the cure is a new patch
-version carrying the fix, which is also this repository's discipline from
-the first publish onward.
+This repository does not rely on any unpublish window: from the first
+publish onward the cure for a broken release is a new version carrying the
+fix, with the broken version deprecated.
 
 #### Deprecating a Version
 
