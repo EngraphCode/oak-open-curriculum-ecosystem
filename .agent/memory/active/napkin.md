@@ -569,6 +569,6 @@ is the Avocet heading.
   was a commit ahead of the merge, not the banned index-reset family); the watcher's
   hourly backstop firing mid-wrap (re-armed, gap swept). None needed a new home.
 - Owner-decision items still open, one card each, unchanged: the duplicate staged wrap
-  edits on `chore/continuity-kiln-2026-09-02` in worktree `pr-943-engraph`; the four
+  edits on `chore/continuity-kiln-2026-09-02` in the #943 cure worktree; the four
   product-defect pointers on this file's live-items block. `.cursor/mcp.json` lands with
   #951 at the owner's merge — no separate card.
