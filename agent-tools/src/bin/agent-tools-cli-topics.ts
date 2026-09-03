@@ -167,9 +167,11 @@ export async function runMergeBotTopic(
   const buffer = new OutputBuffer();
   const stdout = input.stdout ?? buffer;
   const stderr = new OutputBuffer();
-  // The authority file lives at the INVOKING repo's root, not the cwd — a
-  // subdirectory invocation must still find it, and a cwd inside another
-  // repo must resolve THAT repo deliberately, never accidentally.
+  // The INVOKING repo's root is the cwd every git call runs in, and the
+  // start point from which the per-checkout authority file is resolved to
+  // the clone's primary checkout (resolve-identity.ts) — a subdirectory
+  // invocation must still find it, and a cwd inside another repo must
+  // resolve THAT repo deliberately, never accidentally.
   let root: string;
   try {
     root = input.repoRoot ?? repoRoot();

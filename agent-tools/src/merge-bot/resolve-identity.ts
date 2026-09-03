@@ -26,8 +26,18 @@ import {
 
 export interface MergeBotResolveInput {
   readonly envHome?: string;
-  /** Explicit config root. Absent in production: the clone's primary checkout is resolved through git. */
+  /**
+   * The invoking repository's root — where the primary-checkout resolution
+   * runs git from, so a cwd inside another repository resolves THAT clone
+   * deliberately. Defaults to the process cwd.
+   */
   readonly repoRoot?: string;
+  /**
+   * Explicit root holding `.github/merge-bot.json` — an operator or test
+   * override. Absent in production: the clone's primary checkout is resolved
+   * through git from `repoRoot`.
+   */
+  readonly configRoot?: string;
   readonly readConfigFileImpl?: (filePath: string) => string;
   /** Git runner seam for the primary-checkout resolution; tests inject it, production runs git. */
   readonly runGitImpl?: GitRunner;
@@ -87,11 +97,13 @@ function describeFailure(cause: unknown): string {
  * to this repository's clone.
  */
 function resolveConfigRoot(input: MergeBotResolveInput): Result<string, Error> {
-  if (!isBlank(input.repoRoot)) {
-    return ok(input.repoRoot);
+  if (!isBlank(input.configRoot)) {
+    return ok(input.configRoot);
   }
   try {
-    return ok(resolveCoordinationHome(process.cwd(), { runGit: input.runGitImpl }));
+    return ok(
+      resolveCoordinationHome(input.repoRoot ?? process.cwd(), { runGit: input.runGitImpl }),
+    );
   } catch (cause) {
     return err(
       new Error(

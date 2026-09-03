@@ -59,8 +59,10 @@ interface MergeBotEnvironment {
 export interface MergeBotCliInput {
   readonly args: readonly string[];
   readonly env: MergeBotEnvironment;
-  /** Explicit root for `.github/merge-bot.json`; absent in production, where the clone's primary checkout is resolved through git. */
+  /** The invoking repository's root: the cwd every git call runs in, and where the primary-checkout resolution starts. */
   readonly repoRoot?: string;
+  /** Explicit root for `.github/merge-bot.json` (tests, cross-repo operators); absent in production, where the clone's primary checkout is resolved through git. */
+  readonly configRoot?: string;
   readonly readConfigFileImpl?: (filePath: string) => string;
   /** Git runner seam for that primary-checkout resolution (tests inject; production runs git). */
   readonly runGitImpl?: GitRunner;
@@ -108,6 +110,7 @@ function mergeActionInputFrom(input: MergeBotCliInput): MergeActionInput {
     identityInput: {
       envHome: input.env.HOME,
       repoRoot: input.repoRoot,
+      configRoot: input.configRoot,
       readConfigFileImpl: input.readConfigFileImpl,
       runGitImpl: input.runGitImpl,
     },
@@ -128,6 +131,7 @@ function pushActionInputFrom(input: MergeBotCliInput): PushActionInput {
     identityInput: {
       envHome: input.env.HOME,
       repoRoot: input.repoRoot,
+      configRoot: input.configRoot,
       readConfigFileImpl: input.readConfigFileImpl,
       runGitImpl: input.runGitImpl,
     },
@@ -183,6 +187,7 @@ async function runMintTokenAction(
   const config = resolveMintTokenConfig(rest, {
     envHome: input.env.HOME,
     repoRoot: input.repoRoot,
+    configRoot: input.configRoot,
     readConfigFileImpl: input.readConfigFileImpl,
     runGitImpl: input.runGitImpl,
   });

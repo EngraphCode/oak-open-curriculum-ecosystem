@@ -54,6 +54,7 @@ function runWith(overrides: Partial<MergeBotCliInput> & { args: readonly string[
       throw new Error('ENOENT (no repo config in this test)');
     },
     repoRoot: '/repo',
+    configRoot: '/repo',
     nowEpochSeconds: () => 1_800_000_000,
     ...overrides,
   });
@@ -217,13 +218,14 @@ describe('runMergeBotCli mint-token', () => {
 
   it("resolves the config at the clone's primary checkout when no repo root is given, so every linked worktree reads the one copy", async () => {
     const configReads: string[] = [];
-    const gitArgs: (readonly string[])[] = [];
+    const gitCalls: { args: readonly string[]; cwd: string }[] = [];
     const run = runWith({
       args: ['mint-token', '--scope', 'pull-request-work'],
       env: { HOME: '/test-home' },
-      repoRoot: undefined,
-      runGitImpl: (args) => {
-        gitArgs.push(args);
+      repoRoot: '/primary-worktrees/lane',
+      configRoot: undefined,
+      runGitImpl: (args, cwd) => {
+        gitCalls.push({ args, cwd });
         return [
           'worktree /primary',
           'HEAD 0000000000000000000000000000000000000000',
@@ -241,14 +243,16 @@ describe('runMergeBotCli mint-token', () => {
       },
     });
     expect(await run.exit).toBe(0);
-    expect(gitArgs).toEqual([['worktree', 'list', '--porcelain']]);
+    expect(gitCalls).toEqual([
+      { args: ['worktree', 'list', '--porcelain'], cwd: '/primary-worktrees/lane' },
+    ]);
     expect(configReads).toEqual(['/primary/.github/merge-bot.json']);
   });
 
-  it('fails with exit 2 naming the primary checkout when git cannot locate it and no repo root is given', async () => {
+  it('fails with exit 2 naming the primary checkout when git cannot locate it and no config root is given', async () => {
     const run = runWith({
       args: ['mint-token', '--scope', 'pull-request-work'],
-      repoRoot: undefined,
+      configRoot: undefined,
       runGitImpl: () => {
         throw new Error('fatal: not a git repository');
       },
