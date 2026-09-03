@@ -1201,3 +1201,74 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
   AC3; the toolkit node's `last_updated`). Fresh dependency map at this seat (manifests at
   `777e9131c`): 33 members; the two apps' runtime closure 17 packages, 25 with dev-time
   deps; 8 outside; nothing published — the delivery plan carries the table.
+
+## 2026-09-03 ~10:2xZ — HANDOFF to the implementing session (Finch calls Pinnacle, c91bd4): MCP-661 landed; MCP-673 node on draft PR #959; the next session implements it
+
+- **Objective state.** The owner's three-step objective of 2026-09-02 ("merge 915, then
+  provide a plan, then make sure that the repo strategy is consistent and cohesive around
+  that plan"): step 1 landed (#915, `777e9131c`); step 2 landed (#954, merge `c844bcf60`,
+  released 1.177.1 — the delivery nodes `oak-open-curriculum-mcp-extraction` and
+  `toolkit-publish-mechanism`, both sketches awaiting the owner's ratification; the
+  readiness record with two suites and three PR rounds dispositioned by ID; round-3
+  routings on MCP-661); step 3 is MCP-673, whose delivery node
+  `intent-corpus-truing-around-the-extraction-plan` (third draft, `9aa5e011e`) sits on draft
+  PR #959 under the bot. The owner said the next session is the last of the objective and
+  sized the work at 30 to 90 minutes; the node carries per-todo estimates (85 minutes of
+  authoring plus two gates) and a named drop candidate.
+- **Where the seat-facing state is.** The primary checkout is on
+  `jimcresswell/mcp-673-strategy-corpus-consistency` at `9aa5e011e` = origin, clean, at the
+  owner's word ("We can work in the primary checkout for this one"); the MCP-661 worktree is
+  removed and its branch deleted (merged). Claim `2c11756e` (this seat, the corpus files)
+  closes with this handoff; the next session opens its own. No Director seated; n=1.
+- **Reviews on the node.** Two Opus readiness reviews (assumptions, docs), then an
+  owner-invoked full Cricket suite (eight seats, all ON-TRACK) with an adversarial
+  assumptions review on Fable, two-lens refutation and a cross-examiner, recorded in
+  `.agent/reports/agentic-engineering/cricket-quartet-tally-2026-09-03-mcp-673-intent-corpus-truing.md`.
+  Every accepted finding is cured in the third draft; the rejected ones are named in the
+  tally's adjudication.
+- **Assumptions the next session should investigate before or while executing** (each
+  with its check):
+  1. *Coverage of the sweep.* The pinned scan plus the judged list finds every surface that
+     states a superseded or false-today position. The Fable adversary found two the
+     second draft had missed (the vision; the engineering and SDK pages on publishing).
+     Check: run the pinned scan and, once, the same pattern over `docs/engineering`,
+     `docs/operations`, `packages/**/README.md` and `apps/**/README.md`; read every hit.
+  2. *The registry state.* The node says the curriculum SDK is not on the registry. That
+     was verified by subagents (`npm view @oaknational/curriculum-sdk version` returning
+     not-found), not by this seat. Check first-hand before editing the publishing pages.
+  3. *One word over a numbered list is the owner's act.* The gate rests on the estate's
+     precedent ("Ratify both" over an enumerated scope). Check: the owner's answer form on
+     PR A; if he answers per item, record each; if he declines by number, revert that item
+     before merge.
+  4. *The in-place form for the ratified node.* The schema's "smaller amendments are made
+     in place with dated notes" is read as covering a reversal of the banked delivery
+     order because the outcome and bet are unchanged. Check: the owner may read the
+     ordering item as a scope change; the node's fallback (revert, banked order stands)
+     is written for that.
+  5. *The parent node.* Two Opus reviewers disagreed; the adversary, both refuters and the
+     cross-examiner settled `serves: toolkit-re-architecture` on the lane's own
+     enumeration rule. Check: nothing, unless the owner re-points it.
+  6. *The estimate.* 85 minutes of authoring is this seat's estimate, untested. Check: time
+     T1 and T2; if over pace, take the drop candidate (the three publishing-truth pages to
+     a third small PR).
+  7. *The Atlas amendments block.* No precedent in the file; the form is stated in the
+     node and covered by the owner's word. Check: keep the ruled prose intact; do not
+     touch the diagrams (the seam diagram's text line must stay identical).
+  8. *The extraction plan's ordering thesis is still presented, not ruled.* The truing
+     propagates it as the one decision item on the list. Check: it is marked as such in
+     the PR body; the confirmations cite rulings 2, 3, 5 and 10.
+  9. *The last session.* PR A waits on the owner's word; if he is not live, PR A stays open
+     past the session and "the last session" fails on the calendar, not the work. Check:
+     sequence PR B (no word needed) first when the owner is absent; leave PR A ready.
+  10. *The owner's local-only priority ruling* (2026-09-03) exists only in this seat's local
+      memory at his word and must not reach any repository surface, including the
+      strategy index's reading-path line, which names the structural commitment and
+      nothing about ranking.
+- **What the owner holds.** Ratification of the three sketch nodes (the two from #954, the
+  truing node on #959); the extraction plan's gate 1 (the D0a design record) and gate 2
+  (repository creation; the error-reporting project of the same name in ADR-159/163); the
+  publish node's publish-rights gate; the numbered list on PR A.
+- **Instruments this seat learned this window:** commitlint caps commit subjects and body
+  lines at 100 characters; `git grep -E` does not honour `\b`; the merge tool's review-run
+  liveness probe can fail and exit early — arm a bind-wait around it; Copilot's on-push
+  review does not fire for `.agent` plan paths, request it explicitly.
