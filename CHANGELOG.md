@@ -1,3 +1,17 @@
+# [1.178.0](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.177.2...v1.178.0) (2026-09-03)
+
+
+### Bug Fixes
+
+* **mcp-tools:** export PaginationEcho publicly, parse rel per RFC 8288, discriminate the echo ([af44ea4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/af44ea4fd4b52b612253f4b69a71234103dc0405))
+* **mcp-tools:** reject unsafe-integer offsets in the pagination echo; export PaginationEcho publicly ([5aabafe](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/5aabafe3a4d085f6903b80fa3b2f08e77ce3d614))
+* **sdk-codegen:** resolve relative Link targets so the pagination echo keeps offset and limit ([9de3eac](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/9de3eac9b82a0f6ea32d516096c6dd3d20d1c109))
+
+
+### Features
+
+* **mcp-tools:** carry the upstream pagination signal into paginated tool results ([acdd8d4](https://github.com/oaknational/oak-open-curriculum-ecosystem/commit/acdd8d434bbed5dcb2f16be57c2908a3a04f5b1d))
+
 ## [1.177.2](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.177.1...v1.177.2) (2026-09-03)
 
 ## [1.177.1](https://github.com/oaknational/oak-open-curriculum-ecosystem/compare/v1.177.0...v1.177.1) (2026-09-02)
