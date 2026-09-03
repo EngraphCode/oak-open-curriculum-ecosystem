@@ -34,7 +34,7 @@ lays out the factors for each.
 | Instrument | What it counts | Window | Bound |
 | --- | --- | --- | --- |
 | Harness record: the `skillUsage` map in the Claude Code user config | Explicit invocations of a skill by name (the Skill tool or a slash command), summed per name, with the last-used time | Since the record began; every project on the machine | Claude Code only; Codex and Cursor sessions are invisible; a skill invoked under an earlier prefix is counted under that prefix (see the eras table) |
-| Transcript census: the 53 local session transcripts for this repo and its worktrees | Sessions that invoked a skill (as above) and, separately, sessions in which the skill's canonical file path appeared (a read or a reference) | 2026-08-04 to 2026-09-03 (the 30-day transcript retention) | Sessions, not calls; the "appeared" column is inflated for skills whose path sits in every session's boilerplate (`commit`, `under-the-hood`, `working-with-agentic-ai`) |
+| Transcript census: the 53 local session transcripts for this repo and its worktrees | Sessions that invoked a skill (as above) and, separately, sessions in which the skill's canonical file path appeared (a read or a reference) | 2026-08-04 to 2026-09-03: the sessions whose transcript was last written in that span (the 30-day retention leaves no older ones); records inside a transcript are not filtered by their own timestamps | Sessions, not calls; the "appeared" column is inflated for skills whose path sits in every session's boilerplate (`commit`, `under-the-hood`, `working-with-agentic-ai`) |
 
 Neither instrument sees passive loading: an always-active skill such as `napkin` or
 `comms-channels` shapes a session without ever being invoked, so a low count there is not
@@ -55,14 +55,18 @@ find .agent/skills -name SKILL-CANONICAL.md -exec grep -m1 '^name:' {} \; | sed 
 # Instrument A: the harness usage record, by invoked name, with the last-used time
 jq -r '.skillUsage | to_entries[] | "\(.value.usageCount) \(.value.lastUsedAt/1000|floor|strftime("%Y-%m-%d")) \(.key)"' ~/.claude.json | sort -rn
 
-# The census window, applied to transcript modification times (this report: 53 files, all inside it)
+# The census window. A session is in the cohort when its transcript was last written inside the
+# window (file modification time); records are not filtered by their own timestamps, so a session
+# that began before SINCE and was still active after it contributes whole. This report: 53 files,
+# all inside the window, none older than the retention boundary.
 SINCE=2026-08-04; UNTIL=2026-09-04
 
 # Instrument B1: sessions that invoked a skill (the Skill tool or a slash command), one row per session and skill
 for f in $(find ~/.claude/projects/<project-dir>* -name '*.jsonl' -newermt "$SINCE" ! -newermt "$UNTIL"); do sid=$(basename "$f" .jsonl); \
   grep -a -o -E '"name":"Skill","input":\{"skill":"[^"]+"|<command-name>/[a-z0-9-]+</command-name>' "$f" \
   | sed -E 's/.*"skill":"([^"]+)".*/\1/; s#<command-name>/([a-z0-9-]+)</command-name>#\1#' \
-  | sed 's/^oak-//' | sort -u | sed "s/^/$sid /"; done
+  | sed -E 's/^(oak|jc|engraph)-//' | sort -u | sed "s/^/$sid /"; done
+# (every prefix era maps to the canonical id; this report's window held oak- keys only)
 
 # Instrument B2: sessions in which a skill's canonical path appeared (a read or a reference)
 for f in $(find ~/.claude/projects/<project-dir>* -name '*.jsonl' -newermt "$SINCE" ! -newermt "$UNTIL"); do sid=$(basename "$f" .jsonl); \
@@ -188,7 +192,7 @@ The 29 never-invoked skills fall into classes with different meanings:
 
 | Class | Skills | What the zero means |
 | --- | --- | --- |
-| Event-driven runbooks | `update-upstream-api-spec`, `update-dependencies`, `dependency-currency`, `cut-coordination-branch`, `undo-change`, `knowledge-safety-sweep` | Frequency is not their measure, and the zeros differ in kind. No upstream spec change fired in the window. The dependency event DID fire: the MCP-549 wave of 2026-08-11 (23 lockfile-touching commits in the window). `update-dependencies` was added that same day (63482f961) and `dependency-currency` on 2026-08-26 (7a44d9d84), after the wave, so their zeros are "introduced during or after the event", and whether the next dependency event routes through them is the open question |
+| Event-driven runbooks | `update-upstream-api-spec`, `update-dependencies`, `dependency-currency`, `cut-coordination-branch`, `undo-change`, `knowledge-safety-sweep` | Frequency is not their measure, and the zeros differ in kind. No upstream spec change fired in the window. The dependency event DID fire: the MCP-549 wave of 2026-08-11 (23 lockfile-touching commits in the window). `update-dependencies` landed mid-wave that day (63482f961 at 16:25; two further dependency fixes followed at 17:53 and 18:31, 73f9c4335 and 2671dc2e9) and `dependency-currency` on 2026-08-26 (7a44d9d84), after the wave. So `dependency-currency`'s zero is "introduced after the event", while `update-dependencies`' zero already contains dependency work done after it existed, on the lane that had just written it; whether the next dependency event routes through them is the open question |
 | The parallax family | `parallax-audit`, `parallax-decide`, `parallax-design-experiment`, `parallax-design-inquiry`, `parallax-frame`, `parallax-learn`, `parallax-product-experiment`, `parallax-synthesise` (the orchestrator `parallax`: 3) | All eight components never invoked, ever; only the orchestrator has been used: the largest idle block, nine skill listings for one instrument |
 | Design and visual | `claude-design-pipeline`, `ui-visual-design`, `visual-comparison`, `visual-verification` (`design-system-usage`: 5) | Never invoked; their canonical files were still read or referenced in a few sessions, so they are known but idle since the design lane paused |
 | Search quality | `ground-truth-design`, `ground-truth-evaluation` | Idle with the search-quality lane |
@@ -262,8 +266,10 @@ data says about it. None is decided here.
 - **How to value the event-driven runbooks and safety skills.** Their measure is whether they
   are found when their event fires, which usage frequency cannot show. Three kinds of zero
   sit in the class: no event in the window (`update-upstream-api-spec`); an event that did
-  fire (the dependency wave of 2026-08-11) while the skills that now cover it were younger
-  than the event (`update-dependencies`, `dependency-currency`); and composed use, where a
+  fire (the dependency wave of 2026-08-11) around the skills that now cover it, with
+  `dependency-currency` arriving after the wave and `update-dependencies` landing mid-wave
+  and then unused by the two dependency fixes that followed it the same afternoon, which is
+  the one observed instance of dependency work bypassing the skill; and composed use, where a
   parent skill runs the skill as one of its steps and no direct counter sees it
   (`coordination-fold`, invoked in two sessions, runs `cut-coordination-branch` as a mandatory
   step, which the census records only as appearances). Only the second kind can be tested, at
