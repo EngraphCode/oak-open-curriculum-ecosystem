@@ -107,6 +107,29 @@ describe('emitIndex (invoke wrapper emission)', () => {
     expect(code).not.toContain('return payload;');
   });
 
+  it('non-paginated operations carry no pagination echo', () => {
+    const operation: OperationObject = {
+      responses: { '200': { description: 'ok' } },
+    };
+    const code = emitIndex('get-subjects', '/subjects', 'GET', 'op-plain-list', operation);
+
+    expect(code).not.toContain('derivePaginationFromLinkHeader');
+    expect(code).not.toContain('pagination');
+  });
+
+  it('paginated operations derive the pagination echo from the Link header', () => {
+    const operation: OperationObject = {
+      responses: { '200': { description: 'ok' } },
+    };
+    const code = emitIndex('get-keywords', '/keywords', 'GET', 'op-paginated', operation, true);
+
+    expect(code).toContain(
+      "const pagination = derivePaginationFromLinkHeader(response.response.headers.get('link'));",
+    );
+    expect(code).toContain('return { httpStatus: status, payload, pagination };');
+    expect(code).not.toContain('return { httpStatus: status, payload };');
+  });
+
   it('emits zero non-const type assertions anywhere in output', () => {
     const operation: OperationObject = {
       responses: {
