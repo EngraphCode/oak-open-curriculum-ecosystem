@@ -54,6 +54,9 @@ function runWith(overrides: Partial<MergeBotCliInput> & { args: readonly string[
       throw new Error('ENOENT (no repo config in this test)');
     },
     repoRoot: '/repo',
+    // The clone's primary checkout, as git would report it from '/repo'.
+    runGitImpl: () =>
+      'worktree /repo\nHEAD 0000000000000000000000000000000000000000\nbranch refs/heads/main\n\n',
     nowEpochSeconds: () => 1_800_000_000,
     ...overrides,
   });
@@ -207,10 +210,55 @@ describe('runMergeBotCli mint-token', () => {
     });
   });
 
-  it('fails loudly, naming the authority, when the repo config is unreadable and no override given', async () => {
+  it('fails loudly, naming the authority and the template, when the repo config is unreadable and no override given', async () => {
     const run = runWith({ args: ['mint-token', '--scope', 'pull-request-work'] });
     expect(await run.exit).toBe(2);
     expect(run.errText()).toContain('.github/merge-bot.json is the single authority');
+    expect(run.errText()).toContain('.github/merge-bot.json.example');
+    expect(run.out()).toBe('');
+  });
+
+  it("resolves the config at the clone's primary checkout, starting from the invoking root, so every linked worktree reads the one copy", async () => {
+    const configReads: string[] = [];
+    const gitCwds: string[] = [];
+    const run = runWith({
+      args: ['mint-token', '--scope', 'pull-request-work'],
+      env: { HOME: '/test-home' },
+      repoRoot: '/primary-worktrees/lane',
+      runGitImpl: (_args, cwd) => {
+        gitCwds.push(cwd);
+        return [
+          'worktree /primary',
+          'HEAD 0000000000000000000000000000000000000000',
+          'branch refs/heads/main',
+          '',
+          'worktree /primary-worktrees/lane',
+          'HEAD 1111111111111111111111111111111111111111',
+          'branch refs/heads/lane',
+          '',
+        ].join('\n');
+      },
+      readConfigFileImpl: (filePath) => {
+        configReads.push(filePath);
+        return JSON.stringify({ appSlug: 'jimbot-oakington-iii', appId: '4352989', repo: 'o/r' });
+      },
+    });
+    expect(await run.exit).toBe(0);
+    expect(gitCwds).toEqual(['/primary-worktrees/lane']);
+    expect(configReads).toEqual(['/primary/.github/merge-bot.json']);
+  });
+
+  it('fails with exit 2 naming the primary checkout, with guidance every action can follow, when git cannot locate it', async () => {
+    const run = runWith({
+      args: ['mint-token', '--scope', 'pull-request-work'],
+      runGitImpl: () => {
+        throw new Error('fatal: not a git repository');
+      },
+    });
+    expect(await run.exit).toBe(2);
+    expect(run.errText()).toContain('primary checkout');
+    expect(run.errText()).toContain('not a git repository');
+    expect(run.errText()).toContain('run from inside the clone');
     expect(run.out()).toBe('');
   });
 
