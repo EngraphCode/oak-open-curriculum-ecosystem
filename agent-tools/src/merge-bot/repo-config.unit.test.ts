@@ -44,7 +44,7 @@ describe('loadMergeBotRepoConfig', () => {
     }
   });
 
-  it('names the config path when unreadable and rejects invalid JSON', () => {
+  it('names the config path and the template to copy when unreadable, and rejects invalid JSON', () => {
     const missing = loadMergeBotRepoConfig({
       repoRoot: '/repo',
       readFileImpl: () => {
@@ -54,6 +54,8 @@ describe('loadMergeBotRepoConfig', () => {
     expect(missing.ok).toBe(false);
     if (!missing.ok) {
       expect(missing.error.message).toContain('.github/merge-bot.json');
+      expect(missing.error.message).toContain('.github/merge-bot.json.example');
+      expect(missing.error.message).toContain('ENOENT');
     }
 
     const invalid = loadMergeBotRepoConfig({ repoRoot: '/repo', readFileImpl: () => '{nope' });

@@ -34,6 +34,9 @@ ONBOARDING.md
 # Local settings contain user-specific paths and one-off permissions.
 .claude/settings.local.json
 .github/copilot/settings.local.json
+# Merge-bot identity is per-checkout (each clone names its own GitHub App) and
+# never tracked; the tracked template is .github/merge-bot.json.example.
+.github/merge-bot.json
 .cursor/settings.local.json
 # Cursor sessionStart hook: human-readable mirror (gitignored; not committed)
 .cursor/oak-composer-session.local.json
