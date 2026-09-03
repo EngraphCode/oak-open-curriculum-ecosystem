@@ -11,10 +11,14 @@ overview: >-
   from registry dependencies alone and rarely needing this repository. This
   node delivers the ratified design record, the measuring instruments and
   the one-page delivery node for every later step of the lane.
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell"
+ratified_date: 2026-09-03
+ratified_where: >-
+  In-session owner decision card at the MCP-673 implementing seat (Chinook seeks Cloud,
+  661556), 2026-09-03 ~11:4xZ, answer verbatim "Ratify all thirteen" over PR #959's
+  numbered list (item 13 names this node); recorded in the pull request body and in the estate-coordination
+  thread record's entry of the same day.
 serves: toolkit-re-architecture
 impact_areas:
   - packaging-and-distribution
