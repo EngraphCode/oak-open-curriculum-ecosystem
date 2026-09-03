@@ -159,6 +159,13 @@ Verify:
 
 ### First Real Release
 
+_Dated note, 2026-09-03: the steps below describe the single-package
+configuration as it stands today. The first live publish is the publish
+mechanism's own slice — every publishable workspace at the repository's
+release version, with publish rights asserted at its start (the delivery
+plan `toolkit-publish-mechanism`) — which replaces step 2's manual toggle
+as the operator act._
+
 1. Confirm the `NPM_TOKEN` secret is set in GitHub repository settings
 2. Set `npmPublish: true` in `.releaserc.mjs`
 3. Commit and push to `main`:
@@ -183,17 +190,25 @@ Verify:
 
 ### Rollback Procedures
 
-#### Unpublishing (within 72 hours)
+No package is published today (2026-09-03), so no published version
+exists to roll back and the unpublish mechanics below are not operable;
+they stay as npm reference. The rollback discipline for published packages
+— forward-fix by a new release, never unpublishing a version consumers may
+already have resolved, with the broken version deprecated so installs
+steer past it — lands with the publish mechanism, which also amends the
+release-process runbook's rollback clause.
 
-npm allows unpublishing within 72 hours of publication. This is a
-last resort for accidental or broken releases:
+#### Unpublishing (npm mechanics, reference only)
+
+npm allows unpublishing within 72 hours of publication:
 
 ```bash
 npm unpublish @oaknational/curriculum-sdk@VERSION
 ```
 
-After 72 hours, you cannot unpublish. Instead, publish a new patch
-version with the fix.
+After 72 hours a version cannot be unpublished; the cure is a new patch
+version carrying the fix, which is also this repository's discipline from
+the first publish onward.
 
 #### Deprecating a Version
 
