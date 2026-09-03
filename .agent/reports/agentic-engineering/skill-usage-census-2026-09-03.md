@@ -18,8 +18,9 @@ lays out the factors for each.
   documentation quoted? Does any line pick an answer to a call reserved for an owner-ratified
   deliverable rather than laying out the factors?
 - **Evidence standard and authority.** Every number derives from the harness's own usage
-  record, the local transcripts, or a logged debug run, by the commands named in the text;
-  the data files are machine-local and the report is the record. The report has no authority
+  record, the local transcripts, or a logged debug run, by the commands in the Reproduction
+  section below; the intermediate files are machine-local and the report is the record. The
+  report has no authority
   over the skills estate; its shape is decided in owner-ratified plans and rulings.
 - **Non-goals.** This is not a retirement list, not a measure of any skill's quality or
   correctness, and not a census of Codex or Cursor sessions.
@@ -39,6 +40,39 @@ Neither instrument sees passive loading: an always-active skill such as `napkin`
 `comms-channels` shapes a session without ever being invoked, so a low count there is not
 evidence of disuse. The `oak-` prefix dates from 2026-05-22 (ff8254336); harness counts under
 it run from 2026-06-12.
+
+## Reproduction
+
+Run from the repository root on the machine whose sessions are being measured. Paths use the
+harness's own locations; `<project-dir>` is the directory the harness keeps for this checkout
+under `~/.claude/projects/` (its name is the checkout path with separators replaced), and the
+worktree checkouts each have their own.
+
+```bash
+# The canonical skill ids (the population of the table)
+find .agent/skills -name SKILL-CANONICAL.md -exec grep -m1 '^name:' {} \; | sed 's/^name: *//' | sort -u
+
+# Instrument A: the harness usage record, by invoked name, with the last-used time
+jq -r '.skillUsage | to_entries[] | "\(.value.usageCount) \(.value.lastUsedAt/1000|floor|strftime("%Y-%m-%d")) \(.key)"' ~/.claude.json | sort -rn
+
+# Instrument B1: sessions that invoked a skill (the Skill tool or a slash command), one row per session and skill
+for f in ~/.claude/projects/<project-dir>*/*.jsonl; do sid=$(basename "$f" .jsonl); \
+  grep -a -o -E '"name":"Skill","input":\{"skill":"[^"]+"|<command-name>/[a-z0-9-]+</command-name>' "$f" \
+  | sed -E 's/.*"skill":"([^"]+)".*/\1/; s#<command-name>/([a-z0-9-]+)</command-name>#\1#' \
+  | sed 's/^oak-//' | sort -u | sed "s/^/$sid /"; done
+
+# Instrument B2: sessions in which a skill's canonical path appeared (a read or a reference)
+for f in ~/.claude/projects/<project-dir>*/*.jsonl; do sid=$(basename "$f" .jsonl); \
+  grep -a -o -E 'skills/(cognition/)?[a-z0-9-]+/SKILL-CANONICAL\.md' "$f" \
+  | sed -E 's#skills/(cognition/)?([a-z0-9-]+)/SKILL-CANONICAL\.md#\2#' | sort -u | sed "s/^/$sid /"; done
+
+# The double-loading probe: one non-interactive run with --debug, then the skill lines of its log
+claude -p 'reply with the single word ok' --debug --output-format text > /dev/null
+grep -i -E 'Loaded .* skills|Loading skills from|plugin skills loaded' ~/.claude/debug/"$(ls -t ~/.claude/debug | head -1)"
+```
+
+Counting a session once per skill (`sort -u` per file) is what makes the 30-day columns
+session counts. The transcript window is whatever the harness's retention leaves on disk.
 
 ## Headline
 
@@ -149,11 +183,11 @@ The 29 never-invoked skills fall into classes with different meanings:
 
 | Class | Skills | What the zero means |
 | --- | --- | --- |
-| Event-driven runbooks | `update-upstream-api-spec`, `update-dependencies`, `dependency-currency`, `cut-coordination-branch`, `undo-change`, `knowledge-safety-sweep` | Fire on an event that did not occur in the window; frequency is not their measure |
+| Event-driven runbooks | `update-upstream-api-spec`, `update-dependencies`, `dependency-currency`, `cut-coordination-branch`, `undo-change`, `knowledge-safety-sweep` | Frequency is not their measure, and the zeros differ in kind. No upstream spec change fired in the window. The dependency event DID fire: the MCP-549 wave of 2026-08-11 (23 lockfile-touching commits in the window). `update-dependencies` was added that same day (63482f961) and `dependency-currency` on 2026-08-26 (7a44d9d84), after the wave, so their zeros are "introduced during or after the event", and whether the next dependency event routes through them is the open question |
 | The parallax family | `parallax-audit`, `parallax-decide`, `parallax-design-experiment`, `parallax-design-inquiry`, `parallax-frame`, `parallax-learn`, `parallax-product-experiment`, `parallax-synthesise` (the orchestrator `parallax`: 3) | All eight components never invoked, ever; only the orchestrator has been used: the largest idle block, nine skill listings for one instrument |
 | Design and visual | `claude-design-pipeline`, `ui-visual-design`, `visual-comparison`, `visual-verification` (`design-system-usage`: 5) | Idle since the design lane paused; four of the eight no-trace skills |
 | Search quality | `ground-truth-design`, `ground-truth-evaluation` | Idle with the search-quality lane |
-| Multi-seat and cross-vendor instruments | `slack-watcher`, `talk-to-slack-watcher`, `sif`, `codex-helper` (`the-codex-dialogues`: 1, `inter-practice-collaboration`: 1, `comms-channels`: 1) | Need a second seat or a second vendor; recent sessions were solo |
+| Multi-seat and cross-vendor instruments | `slack-watcher`, `talk-to-slack-watcher`, `sif`, `codex-helper` (`the-codex-dialogues`: 1, `inter-practice-collaboration`: 1, `comms-channels`: 1) | Need a second seat or a second vendor. Seat count per session was not measured: `start-right-team` (34 sessions) is the standard opener at any seat count, so its count says nothing about team size; the claims register's concurrent-seat history is the measure not taken. Until it is, the zero is either "no second seat" or a routing gap |
 | Authoring and orientation aids | `tsdoc`, `chatgpt-report-normalisation`, `working-with-agentic-ai`, `gates`, `ticket-management` (`go`: 1, `under-the-hood`: 1, `retrospective`: 1) | `working-with-agentic-ai` and `under-the-hood` are read by people, not invoked; `tsdoc` is the anomaly, since code shipped in the window |
 
 ## Skills and rules present in two locations
