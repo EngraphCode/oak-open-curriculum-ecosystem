@@ -18,7 +18,7 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-09-03
+last_updated: 2026-09-04
 ---
 
 # Skills-estate organisation
@@ -350,7 +350,14 @@ a core owner value).
 7. **WS7 — Estate migration.** One PR per concern group moving the
    flat canonicals into their concern, each proven conservation-clean
    per the WS6-proven instrument (clause amended 2026-08-09,
-   discharging note (e)): adapter directory names + frontmatter
+   discharging note (e); amended again 2026-09-04 for wave 1: the three
+   mechanical groups — change-custody, planning, orientation — land in
+   ONE PR of three atomic commits, the shape the 2026-08-17
+   pre-execution review chose because concurrent group PRs conflict at
+   hunk level in `practice-bootstrap.md` and on one `practice-index.md`
+   row, and sequential PRs would serialise on those same hunks for no
+   review benefit; the per-group proof obligations below hold per
+   commit, and later groups return to one PR each): adapter directory names + frontmatter
    byte-identical, the moved group's adapter bodies differing ONLY in
    the canonical-pointer line, every other skill's adapters
    byte-identical; plus `portability:check` green, full gates green.

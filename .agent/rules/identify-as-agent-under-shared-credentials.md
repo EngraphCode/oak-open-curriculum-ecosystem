@@ -88,7 +88,7 @@ content itself. It protects:
 
 This is the GitHub-surface complement to two mechanisms that already attribute
 agent work elsewhere: the `Co-Authored-By` trailer that the
-[commit skill](../skills/commit/SKILL-CANONICAL.md) adds to commit messages, and
+[commit skill](../skills/change-custody/commit/SKILL-CANONICAL.md) adds to commit messages, and
 the PDR-027 name+UUID identity that
 [`register-identity-on-thread-join`](./register-identity-on-thread-join.md)
 carries on internal collaboration state. Outward posts via shared credentials
@@ -141,5 +141,5 @@ no-exceptions discipline ([`rules-have-no-exceptions`](./rules-have-no-exception
   — threads, sessions, and agent identity (the source of the display name).
 - [agent-collaboration directive](../directives/agent-collaboration.md) —
   identity vs liveness.
-- [commit skill](../skills/commit/SKILL-CANONICAL.md) — the `Co-Authored-By`
+- [commit skill](../skills/change-custody/commit/SKILL-CANONICAL.md) — the `Co-Authored-By`
   trailer, the commit-surface analogue of this rule.

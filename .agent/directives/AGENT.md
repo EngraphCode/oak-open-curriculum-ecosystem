@@ -129,8 +129,8 @@ directly, with no primer detour.
 
 On a loader platform invoke the skill (`/oak-working-with-agentic-ai`,
 `/oak-under-the-hood`); on a non-loader platform read and follow the canonical
-`.agent/skills/working-with-agentic-ai/SKILL-CANONICAL.md` or
-`.agent/skills/under-the-hood/SKILL-CANONICAL.md`.
+`.agent/skills/orientation/working-with-agentic-ai/SKILL-CANONICAL.md` or
+`.agent/skills/orientation/under-the-hood/SKILL-CANONICAL.md`.
 
 ## Project Context
 
@@ -173,7 +173,7 @@ Agent artefacts follow ADR-125's three-layer model: canonical content in
 [docs/engineering/extending.md](../../docs/engineering/extending.md) before
 adding rules, skills, commands, sub-agents, adapters, or ADRs.
 
-Use the [commit skill canonical](../skills/commit/SKILL-CANONICAL.md) for
+Use the [commit skill canonical](../skills/change-custody/commit/SKILL-CANONICAL.md) for
 commits. It enumerates live commitlint constraints and validates the drafted
 message via `pnpm agent-tools:check-commit-message` before `git commit`.
 

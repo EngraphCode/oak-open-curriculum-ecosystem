@@ -155,7 +155,7 @@ owns the foreign-record boundary.
   Stricter again, and nothing here loosens it.
 - [`bot-identity-on-third-party-systems`](./bot-identity-on-third-party-systems.md)
   — whose name a permitted write displays.
-- [`ticket-management` SKILL](../skills/ticket-management/SKILL-CANONICAL.md)
+- [`ticket-management` SKILL](../skills/planning/ticket-management/SKILL-CANONICAL.md)
   — the authoring discipline for the ticket graph the permitted links
   belong to.
 

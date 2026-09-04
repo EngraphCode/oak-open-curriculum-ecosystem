@@ -89,5 +89,5 @@ not agent-facing knowledge.
 - [`never-use-git-to-remove-work`](never-use-git-to-remove-work.md) — the
   recovery shape preserves the stranded commits on a branch; nothing is
   discarded.
-- [The commit skill](../skills/commit/SKILL-CANONICAL.md) — carries this
+- [The commit skill](../skills/change-custody/commit/SKILL-CANONICAL.md) — carries this
   prohibition at the workflow moment.

@@ -202,7 +202,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/compose-product-analytics-runtime.ts",
-      "semanticSha256": "df0cfab0201177986caa0454d94407077f5930f45a8e34d6d15f6ea4b625b35b",
+      "semanticSha256": "8bcb76a70eeea86ca61785cc8d8356a97ef99088d75705934b3220c7bfd08fca",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -226,7 +226,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/env.ts",
-      "semanticSha256": "0537f72528f0ae1c0de9ff41f1e43e99b16fdc5a26890885bee7d6f16288723b",
+      "semanticSha256": "245b6c38115a8d51b938600a6e5a06b2d6519a68a677e08af7af6eeadf22d6aa",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -479,6 +479,18 @@
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/observability/http-observability.ts",
+      "semanticSha256": "693382049ffc860fea742247d64989d89cb34c9dcca0421f71d1eaf9cf6f4dae",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/observability/http-sentry-config.ts",
+      "semanticSha256": "eaf3732eae1b1a2d1ee6d20ef5c55e793d0cdb3c0f23e7aed37850bf9819bd14",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/observe-resource-reads.ts",
       "semanticSha256": "4b471edd5b7083591b78c83a0cd934671de69a225fd3215415da52a1aa93af30",
       "itemIds": [],
@@ -492,7 +504,7 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/product-analytics-config.ts",
-      "semanticSha256": "19d598ca413c7eeb9e509ddc38d44e006b761f8654c0a7e641b68b232d7c8610",
+      "semanticSha256": "acf0514a156b306d043efe49e2f23cd6b4db9e68a6456461c4cf0afb2375d73d",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
@@ -604,19 +616,19 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/runtime-config-from-validated-env.ts",
-      "semanticSha256": "1b0a02d27b6f29e88a0cc9c4aa5576ee72bbf0770f44a56ccab423668acb1043",
+      "semanticSha256": "2778049b88b9d21ade05d98c8e7138adc46bcd64bf88151cf3e53426b3342675",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/runtime-config-support.ts",
-      "semanticSha256": "4b9051b733ea0e6cef7e072352c597117d24b330c3df3697978332bf0c6af4f3",
+      "semanticSha256": "cab5bc9f248d8eb9f34a21e940e53edc97fa01d7ae767f8b50b4f955f4c3169b",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/runtime-config.ts",
-      "semanticSha256": "d0efa55d83f113991bacb5f629c918067ae1907665b4df12670ccae605c603da",
+      "semanticSha256": "5f14fbc2372b85d7d0b39c834139a20e51a805a2fe3e6e65c092676b8e209988",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },

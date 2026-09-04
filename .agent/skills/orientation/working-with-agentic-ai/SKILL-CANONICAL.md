@@ -12,7 +12,7 @@ description: >-
 # Working with Agentic AI
 
 **Governance**: This is the portable agentic-AI-literacy primer — the lead-in
-member of the teaching-surface family ([PDR-112](../../practice-core/decision-records/PDR-112-teaching-surface-family-across-a-portability-seam.md)).
+member of the teaching-surface family ([PDR-112](../../../practice-core/decision-records/PDR-112-teaching-surface-family-across-a-portability-seam.md)).
 Its body carries no host specifics and reads its content from nowhere else; it
 ends at a single named hand-off edge into the host's own guidance. The agent
 guiding a newcomer uses this primer to give them footing, then hands off at the

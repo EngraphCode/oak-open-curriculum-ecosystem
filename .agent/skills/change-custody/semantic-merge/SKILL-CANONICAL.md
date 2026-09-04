@@ -37,7 +37,7 @@ loses meaning. Both parties fail the same way: **confident and wrong.**
   conflict marker — a felt completeness that was never grounded. Completeness here is
   **structurally unprovable**, for the same reason a handoff author cannot self-verify its own
   loss-scan
-  ([PDR-011](../../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md),
+  ([PDR-011](../../../practice-core/decision-records/PDR-011-continuity-surfaces-and-surprise-pipeline.md),
   `verify-dont-trust`, [[ground-convenient-claims]]): the party who performed the merge shares
   the frame whose gaps it would have to stand outside to see.
 
@@ -52,7 +52,7 @@ Two mandatory consequences:
    a duplicated index block or table/identity row; an additive-identity row that should have
    coalesced; an ADR/PDR/plan/friction **numbering collision** (different filenames make it
    invisible to the merge) — resolve per
-   [PDR-049 §Sequential-identifier collisions](../../practice-core/decision-records/PDR-049-memory-and-state-file-merge-semantics.md):
+   [PDR-049 §Sequential-identifier collisions](../../../practice-core/decision-records/PDR-049-memory-and-state-file-merge-semantics.md):
    the trunk side keeps the number, the other side renumbers to the next free number
    re-derived at merge time, and every index and reference updates in the same change; a
    moved/deleted-file **reference cascade** (navigation or
