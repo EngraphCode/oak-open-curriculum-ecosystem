@@ -56,14 +56,14 @@ runs in CI and at pre-commit.
    the framing before committing to plan shape.
 
 2. Read the directives:
-   - `../../directives/principles.md`
-   - `../../directives/testing-strategy.md`
-   - `../../directives/schema-first-execution.md`
+   - `../../../directives/principles.md`
+   - `../../../directives/testing-strategy.md`
+   - `../../../directives/schema-first-execution.md`
 
 3. Read the estate contract and templates:
-   - `../../plans/plan-node-schema.md` (the contract)
-   - `../../plans/templates/README.md` (one template per node type)
-   - `../../plans/impact-areas.md` (the closed registry)
+   - `../../../plans/plan-node-schema.md` (the contract)
+   - `../../../plans/templates/README.md` (one template per node type)
+   - `../../../plans/impact-areas.md` (the closed registry)
 
 4. Resolve discoverable unknowns before asking the owner. Search the
    repo, relevant plans, ADRs/PDRs, vendor docs or CLIs, and existing
@@ -89,7 +89,7 @@ when the schedule moves, it lives in Linear; if it only moves when the
 product moves, it lives in the repo.
 
 Copy the skeleton from the matching template in
-[`../../plans/templates/README.md`](../../../plans/templates/README.md),
+[`../../../plans/templates/README.md`](../../../plans/templates/README.md),
 fill it, delete the guidance text.
 
 ## Born-Sketch Ratification
