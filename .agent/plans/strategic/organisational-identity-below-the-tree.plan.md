@@ -103,8 +103,10 @@ delivery nodes' to design at pickup; this node fixes only which rung a pin takes
 
 Declared identity homes are exempt by enumeration, never by per-file allowlist: the Oak
 identity pack, the corpus and curriculum types, the product band per ADR-227, package
-provenance and the publishing scope, `.example` files, generated adapter carriers, and
-dated-record directories. Genericising any of these is the frame misapplied.
+provenance and the publishing scope, generated adapter carriers, and dated-record
+directories. Genericising any of these is the frame misapplied. `.example` files are
+templates, not homes: the validator holds them to placeholder-only values instead of
+exempting them, so a canonical key cannot creep back into what a cold clone copies.
 
 The ratchet is structure, not vigilance: a validator in the existing identity-naming
 family that knows the set of organisation-identity literals still standing in mechanism
