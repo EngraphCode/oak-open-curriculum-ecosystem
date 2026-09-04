@@ -172,8 +172,11 @@ already deployed. Preview builds run on every commit pushed to a branch
 with an open PR.
 
 **Inside the Vercel Build Command** (§L-8, 2026-04-21 onwards): Vercel
-runs the workspace's default `build` script (no `vercel.json`
-`buildCommand` override). The script invokes
+runs the workspace's `build` task (no `vercel.json` `buildCommand`
+override). Turbo runs the never-cached `deploy-config-gate` task first
+(MCP-475): the server's own configuration resolution against the deploy
+environment, red before any release side effect when the function would
+not boot. The `build` script then invokes
 [`esbuild.config.ts`](../../apps/oak-curriculum-mcp-streamable-http/esbuild.config.ts)
 via `tsx`. The composition root reads `process.env`, asks
 `createSentryBuildPlugin` to map ADR-163 §3 / §4 policy onto the

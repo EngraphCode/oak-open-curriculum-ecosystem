@@ -95,7 +95,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // refactor of a startup validation rule; disposition unchanged — no authored
   // agent-facing content reaches an MCP consumer from this file.
   'apps/oak-curriculum-mcp-streamable-http/src/env.ts': excluded(
-    '0537f72528f0ae1c0de9ff41f1e43e99b16fdc5a26890885bee7d6f16288723b',
+    '245b6c38115a8d51b938600a6e5a06b2d6519a68a677e08af7af6eeadf22d6aa',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/feature-flags.ts': excluded(

@@ -2,24 +2,25 @@
  * Executable entry for the deploy-config validation gate (MCP-475).
  *
  * @remarks
- * Runs FIRST in the app's `build` script — before esbuild and the Sentry
- * build plugin — so an invalid deploy environment fails the build before
- * any release side effect. Composition root: the environment and the
- * package root are read once here and handed to
- * {@link runDeployConfigValidation}; everything decidable lives behind that
- * seam and is proven by `validate-deploy-config.integration.test.ts`.
+ * Runs as the `deploy-config-gate` Turbo task the app's `build` task
+ * depends on — never cached, so it executes on every build including a
+ * same-commit redeploy — and before esbuild and the Sentry build plugin,
+ * so an invalid deploy environment fails the build before any release
+ * side effect. Composition root: the environment is read once here and
+ * handed to {@link runDeployConfigValidation}, which filters it to the
+ * validated surface; everything decidable lives behind that seam and is
+ * proven by `validate-deploy-config.integration.test.ts` and the
+ * orchestration contract test beside it.
  */
 
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { runDeployConfigValidation } from './validate-deploy-config.js';
-
-const packageRoot = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 
 process.exitCode = runDeployConfigValidation({
   processEnv: process.env,
-  startDir: packageRoot,
-  writeLine: (line) => {
+  writeOut: (line) => {
     process.stdout.write(`${line}\n`);
+  },
+  writeErr: (line) => {
+    process.stderr.write(`${line}\n`);
   },
 });

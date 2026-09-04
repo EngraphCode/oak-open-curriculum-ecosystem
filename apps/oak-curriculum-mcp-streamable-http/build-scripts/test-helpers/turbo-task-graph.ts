@@ -1,0 +1,51 @@
+/**
+ * Test helper: the resolved Turbo task graph for this workspace's build, as
+ * Turbo itself reports it (`--dry-run=json`). Real process IO lives here,
+ * behind the test-helpers seam, so the contract test stays IO-free.
+ */
+import { execFileSync } from 'node:child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { z } from 'zod';
+
+const packageRoot = path.resolve(fileURLToPath(new URL('../..', import.meta.url)));
+const repoRoot = path.resolve(packageRoot, '../..');
+
+/** The fields of a dry-run task the contract reads; `resolvedTaskDefinition` is the config. */
+const TurboDryRunTaskSchema = z.object({
+  taskId: z.string(),
+  command: z.string(),
+  dependencies: z.array(z.string()),
+  resolvedTaskDefinition: z.object({
+    cache: z.boolean(),
+    dependsOn: z.array(z.string()),
+    passThroughEnv: z.array(z.string()).nullable(),
+  }),
+});
+
+const TurboDryRunSchema = z.object({ tasks: z.array(TurboDryRunTaskSchema) });
+
+/** One task as Turbo's dry run describes it. */
+export type TurboDryRunTask = z.output<typeof TurboDryRunTaskSchema>;
+
+/**
+ * Resolve the task graph Turbo would run for this workspace's `build`.
+ *
+ * @returns Every task in the graph, keyed by Turbo's task id.
+ */
+export function resolveBuildTaskGraph(): ReadonlyMap<string, TurboDryRunTask> {
+  const raw = execFileSync(
+    'pnpm',
+    [
+      'exec',
+      'turbo',
+      'run',
+      'build',
+      '--filter=@oaknational/oak-curriculum-mcp-streamable-http',
+      '--dry-run=json',
+    ],
+    { cwd: repoRoot, encoding: 'utf8' },
+  );
+  const parsed = TurboDryRunSchema.parse(JSON.parse(raw));
+  return new Map(parsed.tasks.map((task) => [task.taskId, task]));
+}

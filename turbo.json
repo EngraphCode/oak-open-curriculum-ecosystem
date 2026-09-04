@@ -79,8 +79,62 @@
         "!src/**/*.spec.ts"
       ]
     },
+    "@oaknational/oak-curriculum-mcp-streamable-http#deploy-config-gate": {
+      // MCP-475: the deploy-config gate runs on EVERY build, including a
+      // same-commit redeploy that replays the cached build task — a cache hit
+      // would otherwise skip the one step that turns an invalid deploy
+      // environment red. Never cached, no outputs; the build task depends on
+      // it. The validated surface is passed THROUGH (visible under strict
+      // envMode, never hashed — pass-through does not enter the task hash);
+      // the gate's contract test holds this list in lockstep with the HTTP
+      // env schema (HTTP_ENV_KEYS), so a schema addition reddens here.
+      "cache": false,
+      "outputs": [],
+      "passThroughEnv": [
+        "ALLOWED_HOSTS",
+        "APP_VERSION_OVERRIDE",
+        "CANONICAL_HOST",
+        "CLERK_PUBLISHABLE_KEY",
+        "CLERK_SECRET_KEY",
+        "DANGEROUSLY_DISABLE_AUTH",
+        "ELASTICSEARCH_API_KEY",
+        "ELASTICSEARCH_URL",
+        "ENVIRONMENT_OVERRIDE",
+        "GIT_SHA_OVERRIDE",
+        "LOG_LEVEL",
+        "NODE_ENV",
+        "OAK_API_BASE_URL",
+        "OAK_API_KEY",
+        "OAK_CURRICULUM_MCP_USE_STUB_TOOLS",
+        "OBSERVABILITY_SINKS",
+        "PORT",
+        "POSTHOG_CAPTURE_MODE",
+        "POSTHOG_HOST",
+        "POSTHOG_PROJECT_API_KEY",
+        "POSTHOG_PSEUDONYM_ACTIVE_KEY_ID",
+        "POSTHOG_PSEUDONYM_KEYRING",
+        "REMOTE_MCP_MODE",
+        "SENTRY_DEBUG",
+        "SENTRY_DSN",
+        "SENTRY_ENABLE_LOGS",
+        "SENTRY_ENVIRONMENT_OVERRIDE",
+        "SENTRY_MODE",
+        "SENTRY_RELEASE_OVERRIDE",
+        "SENTRY_SEND_DEFAULT_PII",
+        "SENTRY_TRACES_SAMPLE_RATE",
+        "TEST_ERROR_SECRET",
+        "VERCEL",
+        "VERCEL_BRANCH_URL",
+        "VERCEL_ENV",
+        "VERCEL_GIT_COMMIT_REF",
+        "VERCEL_GIT_COMMIT_SHA",
+        "VERCEL_GIT_PREVIOUS_SHA",
+        "VERCEL_PROJECT_PRODUCTION_URL",
+        "VERCEL_URL"
+      ]
+    },
     "@oaknational/oak-curriculum-mcp-streamable-http#build": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build", "deploy-config-gate"],
       "cache": true,
       // The bake writes these values into .generated/landing-page.html, so
       // they must be hash-bearing (a cache hit across deployments would

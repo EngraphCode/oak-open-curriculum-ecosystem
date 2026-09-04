@@ -12,17 +12,29 @@
  * boot-dead function.
  *
  * Everything decidable lives here behind injectable seams: the pure
- * decision (`evaluateDeployConfigValidation`), the configuration preflight
+ * decision (`evaluateDeployConfigValidation`), the environment filter
+ * (`filterDeployGateEnv`), the configuration preflight
  * (`preflightDeployConfig` — the boot-time verdicts that need no runtime)
  * and the runner (`runDeployConfigValidation`). The executable entry
  * `run-validate-deploy-config.ts` is the build's composition root and only
- * supplies `process.env`, the package root and stdout. Enforcement is scoped
- * to Vercel builds (the `VERCEL` system env is always present there); local
+ * supplies `process.env` and the two output sinks. Enforcement is scoped to
+ * Vercel builds (the `VERCEL` system env is always present there); local
  * builds lack the deploy environment by design and are skipped with an
  * explicit line, never silently.
+ *
+ * The four clauses of the gate's execution contract (the deploy-config plan
+ * node): always executed, never cached — the orchestration side, a
+ * non-cacheable Turbo task the build depends on, proven by the contract
+ * test beside this module; narrow import, filtered credentials — the gate
+ * imports the runtime-config composition module directly and sees only
+ * the validated variables; explicit deployment environment — the rehearsal
+ * reads the process environment alone, never `.env` files; output
+ * discipline — the verdict lines carry key names and refusal text, never
+ * values, proven by the secrets test.
  */
 
 import { err, ok, type Result } from '@oaknational/result';
+import { HTTP_ENV_KEYS } from '../src/env.js';
 import { describeHttpObservabilityError } from '../src/observability/http-observability-error.js';
 import { parseHttpSentryConfig } from '../src/observability/http-sentry-config.js';
 import { loadRuntimeConfig } from '../src/runtime-config.js';
@@ -74,16 +86,48 @@ export function evaluateDeployConfigValidation(
 
   return {
     exitCode: 0,
-    message: 'deploy configuration is valid: the deployed server will boot with this environment',
+    message:
+      'deploy configuration is valid: the environment resolves and the observability configuration parses (runtime initialisation — the Sentry SDK and the analytics client — is not exercised here)',
   };
+}
+
+/**
+ * The variables the gate is allowed to see: exactly the validated surface.
+ * Build-only credentials the platform injects (a Sentry auth token, a
+ * remote-cache token) are outside it, so the gate process's reachable
+ * secret set is the validated set and nothing more.
+ */
+export const DEPLOY_GATE_ENV_KEYS: readonly string[] = HTTP_ENV_KEYS;
+
+/**
+ * A start directory that exists nowhere: env-file resolution walks up from
+ * it, finds no repository root and loads no `.env` file, so the rehearsal
+ * reads the process environment alone — Vercel's deployment condition,
+ * with no local file precedence able to change the verdict.
+ */
+export const DEPLOY_REHEARSAL_START_DIR = '/deploy-config-gate-rehearsal';
+
+/**
+ * Keep only the validated variables of an environment.
+ *
+ * @param env - The environment to filter (the build's, or a fixture).
+ * @returns A fresh environment carrying the validated keys that were set.
+ */
+export function filterDeployGateEnv(env: NodeJS.ProcessEnv): NodeJS.ProcessEnv {
+  const filtered: Record<string, string> = {};
+  for (const key of DEPLOY_GATE_ENV_KEYS) {
+    const value = env[key];
+    if (typeof value === 'string') {
+      filtered[key] = value;
+    }
+  }
+  return filtered;
 }
 
 /** The environment seam the preflight reads: injected, never `process.env` here. */
 export interface DeployConfigPreflightInput {
-  /** The environment to resolve from (the build's, or a test fixture). */
+  /** The (already filtered) environment to resolve from. */
   readonly processEnv: NodeJS.ProcessEnv;
-  /** Where env-file resolution starts (the package root on a real build). */
-  readonly startDir: string;
 }
 
 /**
@@ -94,13 +138,16 @@ export interface DeployConfigPreflightInput {
  * Not exercised, by design: SDK initialisation and the analytics client —
  * runtime composition, not configuration.
  *
- * @param input - The environment and env-file start directory.
- * @returns Ok when the deployed server would boot on this configuration.
+ * @param input - The environment to rehearse.
+ * @returns Ok when the deployed server's configuration resolves.
  */
 export function preflightDeployConfig(
   input: DeployConfigPreflightInput,
 ): Result<void, { readonly message: string }> {
-  const loaded = loadRuntimeConfig(input);
+  const loaded = loadRuntimeConfig({
+    processEnv: input.processEnv,
+    startDir: DEPLOY_REHEARSAL_START_DIR,
+  });
 
   if (!loaded.ok) {
     return err({ message: loaded.error.message });
@@ -115,28 +162,37 @@ export function preflightDeployConfig(
   return ok(undefined);
 }
 
-/** The runner's seams: the environment, the env-file start directory and the build-log sink. */
-export interface RunDeployConfigValidationInput extends DeployConfigPreflightInput {
-  /** Receives the one verdict line the build log shows. */
-  readonly writeLine: (line: string) => void;
+/** The runner's seams: the environment and the two build-log sinks. */
+export interface RunDeployConfigValidationInput {
+  /** The build's environment; the runner filters it to the validated keys. */
+  readonly processEnv: NodeJS.ProcessEnv;
+  /** Receives the verdict line when the build proceeds (pass or skip). */
+  readonly writeOut: (line: string) => void;
+  /** Receives the verdict line when the build fails. */
+  readonly writeErr: (line: string) => void;
 }
 
 /**
- * The whole gate behind one seam: read the Vercel flag from the injected
- * environment, decide, print the verdict line, return the exit code.
+ * The whole gate behind one seam: filter the environment to the validated
+ * surface, read the Vercel flag, decide, print the verdict line to the sink
+ * the outcome belongs on, return the exit code.
  *
- * @param input - The environment, start directory and line sink.
+ * @param input - The environment and the two line sinks.
  * @returns The process exit code the entry sets.
  */
 export function runDeployConfigValidation(input: RunDeployConfigValidationInput): 0 | 1 {
-  const vercel = input.processEnv['VERCEL'];
+  const env = filterDeployGateEnv(input.processEnv);
+  const vercel = env['VERCEL'];
   const verdict = evaluateDeployConfigValidation({
     isVercelBuild: typeof vercel === 'string' && vercel.length > 0,
-    loadConfig: () =>
-      preflightDeployConfig({ processEnv: input.processEnv, startDir: input.startDir }),
+    loadConfig: () => preflightDeployConfig({ processEnv: env }),
   });
 
-  input.writeLine(verdict.message);
+  if (verdict.exitCode === 0) {
+    input.writeOut(verdict.message);
+  } else {
+    input.writeErr(verdict.message);
+  }
 
   return verdict.exitCode;
 }
