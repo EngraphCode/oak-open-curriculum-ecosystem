@@ -137,6 +137,32 @@ describe('deploy-config validation gate — output discipline', () => {
     expectNoSecretBytes([...out, ...err]);
   });
 
+  for (const field of [
+    'SENTRY_TRACES_SAMPLE_RATE',
+    'SENTRY_MODE',
+    'OBSERVABILITY_SINKS',
+  ] as const) {
+    it(`prints no secret bytes when a credential is pasted into ${field}`, () => {
+      // A value in the wrong field is refused by the schema or the Sentry
+      // parser; both refusal paths would echo the value, so the gate
+      // renders variable names and refusal kinds only.
+      const pasted = 'sk_live_PASTED_INTO_THE_WRONG_FIELD_9f8e7d6c';
+      // Sentry mode on with a DSN, so the Sentry parser reaches the sample
+      // rate; the other two fields are refused by the env schema itself.
+      const { exitCode, out, err } = runGate({
+        VERCEL: '1',
+        ...minimalBootEnv,
+        SENTRY_MODE: 'sentry',
+        SENTRY_DSN: liveShapedSecrets.SENTRY_DSN,
+        [field]: pasted,
+      });
+
+      expect(exitCode).toBe(1);
+      expect([...out, ...err].join('\n')).not.toContain(pasted);
+      expect(err[0]).toMatch(field === 'OBSERVABILITY_SINKS' ? /OBSERVABILITY_SINKS/ : /sentry/i);
+    });
+  }
+
   it('prints no secret bytes when observability composition refuses', () => {
     const { exitCode, out, err } = runGate({
       VERCEL: '1',

@@ -27,6 +27,13 @@ function resolveValidatedEnv(
     return err({
       message: envResult.error.message,
       diagnostics: envResult.error.diagnostics,
+      failingKeys: [
+        ...new Set(
+          envResult.error.zodIssues
+            .map((issue) => issue.path[0])
+            .filter((segment): segment is string => typeof segment === 'string'),
+        ),
+      ],
     });
   }
 

@@ -29,15 +29,16 @@
  * imports the runtime-config composition module directly and sees only
  * the validated variables; explicit deployment environment — the rehearsal
  * reads the process environment alone, never `.env` files; output
- * discipline — the verdict lines carry key names and refusal text, never
- * values, proven by the secrets test.
+ * discipline — the verdict lines carry variable names and refusal kinds,
+ * never values, proven by the secrets test.
  */
 
 import { err, ok, type Result } from '@oaknational/result';
+import type { ObservabilityConfigError } from '@oaknational/sentry-node';
 import { HTTP_ENV_KEYS } from '../src/env.js';
-import { describeHttpObservabilityError } from '../src/observability/http-observability-error.js';
 import { parseHttpSentryConfig } from '../src/observability/http-sentry-config.js';
 import { loadRuntimeConfig } from '../src/runtime-config.js';
+import type { ConfigError } from '../src/runtime-config-support.js';
 
 /** The gate's decision: an exit code and the line to print. */
 export interface DeployConfigVerdict {
@@ -150,16 +151,43 @@ export function preflightDeployConfig(
   });
 
   if (!loaded.ok) {
-    return err({ message: loaded.error.message });
+    return err({ message: describeEnvRefusal(loaded.error) });
   }
 
   const sentryConfig = parseHttpSentryConfig(loaded.value.runtimeConfig);
 
   if (!sentryConfig.ok) {
-    return err({ message: describeHttpObservabilityError(sentryConfig.error) });
+    return err({ message: describeSentryRefusal(sentryConfig.error) });
   }
 
   return ok(undefined);
+}
+
+/**
+ * Value-free rendering of an env-schema refusal: the variable NAMES the
+ * schema refused, never the messages, which carry the supplied values
+ * (a credential pasted into a loosely typed field would otherwise reach
+ * the build log). Absent keys come from the diagnostics when the error
+ * carries no schema issues.
+ */
+function describeEnvRefusal(error: ConfigError): string {
+  const keys =
+    error.failingKeys && error.failingKeys.length > 0
+      ? error.failingKeys
+      : error.diagnostics.filter((diagnostic) => !diagnostic.present).map((d) => d.key);
+  return keys.length > 0
+    ? `environment validation failed for ${keys.join(', ')} (values withheld from the build log)`
+    : 'environment validation failed (details withheld from the build log)';
+}
+
+/**
+ * Value-free rendering of a Sentry configuration refusal: the error KIND,
+ * plus the flag name where the kind carries one — never the value the
+ * parser rejected, which the shared describer would echo.
+ */
+function describeSentryRefusal(error: ObservabilityConfigError): string {
+  const detail = 'name' in error ? ` for ${error.name}` : '';
+  return `Sentry configuration refused: ${error.kind}${detail} (values withheld from the build log)`;
 }
 
 /** The runner's seams: the environment and the two build-log sinks. */

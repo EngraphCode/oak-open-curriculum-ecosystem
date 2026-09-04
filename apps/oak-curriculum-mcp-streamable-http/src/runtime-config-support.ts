@@ -53,6 +53,12 @@ export type RuntimeConfig = AuthEnabledRuntimeConfig | AuthDisabledRuntimeConfig
 export interface ConfigError {
   readonly message: string;
   readonly diagnostics: EnvResolutionError['diagnostics'];
+  /**
+   * The variable names the schema refused, when the error came from env
+   * resolution — a value-free rendering surface for boundaries (the build
+   * gate) that must never echo a supplied value.
+   */
+  readonly failingKeys?: readonly string[];
 }
 
 /**
