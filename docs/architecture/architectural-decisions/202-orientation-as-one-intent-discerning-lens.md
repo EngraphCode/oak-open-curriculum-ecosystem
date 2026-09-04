@@ -98,7 +98,7 @@ setup distinct; seam unchanged); the skill is the source of truth for how that s
 Two changes land together (PR #243), both consistent with the original Decision:
 
 1. **Name.** The lens's interim name (`explain` / `/oak-explain`) is superseded by **Oak: Under the
-   Hood** (command `/oak-under-the-hood`; canonical dir `.agent/skills/orientation/under-the-hood/` — the bare
+   Hood** (command `/oak-under-the-hood`; canonical dir `.agent/skills/under-the-hood/` — the bare
    concept name, since the `oak-` prefix is adapter-only). The earlier name was a placeholder; "Oak:
    Under the Hood" names the behaviour the lens performs — exploring THIS repository through the facet
    that fits the visitor (its impact, intent, mechanisms, or value), framed by Oak's public mission. The

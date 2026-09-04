@@ -1,6 +1,6 @@
 ---
 name: "Oak Under the Hood — one behaviour, two channels, no carried content"
-status: DONE — W1+W2+W3 all merged to main via PR #243 (merge commit `a0a85f60c`, 2026-06-27), plus follow-ups `7704a7bff` / `180e9b0f2`. Verified first-hand 2026-06-28 (Clover mends Hedgerow): bake apparatus absent; skill dir `.agent/skills/orientation/under-the-hood/`; MCP tool `oak-under-the-hood`; resource URI `docs://oak/under-the-hood.md`; settings allowlist + ADR-202 + ADR-205 landed. SUPERSEDED IN PART (2026-07-29, MCP-353, owner-confirmed): W2's pointer shape violated Anthropic directory policy §2.F — the tool now serves a baked, parity-gated digest (generator in agent-tools/src/under-the-hood-content-generate/) and the pointer resource is deleted; ADR-202 §Amendment (2026-07-29) carries the record. The plan's outcome otherwise stands. NEXT: archive-move to `archive/completed/`. The MCP-surfaced discoverability follow-on (orientation invisible to an agent via the MCP app) is NOT part of this plan — it is owned by `../current/mcp-tool-taxonomy-and-orientation.plan.md`.
+status: DONE — W1+W2+W3 all merged to main via PR #243 (merge commit `a0a85f60c`, 2026-06-27), plus follow-ups `7704a7bff` / `180e9b0f2`. Verified first-hand 2026-06-28 (Clover mends Hedgerow): bake apparatus absent; skill dir `.agent/skills/under-the-hood/`; MCP tool `oak-under-the-hood`; resource URI `docs://oak/under-the-hood.md`; settings allowlist + ADR-202 + ADR-205 landed. SUPERSEDED IN PART (2026-07-29, MCP-353, owner-confirmed): W2's pointer shape violated Anthropic directory policy §2.F — the tool now serves a baked, parity-gated digest (generator in agent-tools/src/under-the-hood-content-generate/) and the pointer resource is deleted; ADR-202 §Amendment (2026-07-29) carries the record. The plan's outcome otherwise stands. NEXT: archive-move to `archive/completed/`. The MCP-surfaced discoverability follow-on (orientation invisible to an agent via the MCP app) is NOT part of this plan — it is owned by `../current/mcp-tool-taxonomy-and-orientation.plan.md`.
 lineage:
   serves_thread: orientation-skills-family
   serves_stream: teaching-surface family across the PDR-112 portability seam
@@ -61,7 +61,7 @@ todos:
 > **DONE (2026-06-28, verified first-hand by Clover mends Hedgerow).** W1+W2+W3 all
 > merged to `main` via PR #243 (merge commit `a0a85f60c`), plus follow-ups
 > `7704a7bff` / `180e9b0f2`. Confirmed in the tree: bake apparatus deleted; skill
-> renamed to `.agent/skills/orientation/under-the-hood/`; MCP tool `oak-under-the-hood`; resource
+> renamed to `.agent/skills/under-the-hood/`; MCP tool `oak-under-the-hood`; resource
 > `docs://oak/under-the-hood.md`; ADR-202 + ADR-205 landed. **The "NOT STARTED" prose
 > in the W2/W3 todos below is the pre-merge record — superseded by this banner.**
 > The **MCP-surfaced discoverability follow-on** (orientation practically invisible to
@@ -100,7 +100,7 @@ deleted, out of scope by design (all parts work at all times; sources always rea
 
 ## W1 — The behaviour (DONE, uncommitted)
 
-Authored in `.agent/skills/orientation/under-the-hood/SKILL-CANONICAL.md` (renamed from `.agent/skills/explain/` in W3):
+Authored in `.agent/skills/under-the-hood/SKILL-CANONICAL.md` (renamed from `.agent/skills/explain/` in W3):
 facets folded into §What-to-discern; the §Router Principle gained the access-aware
 public-locator paragraph (`raw.githubusercontent.com/oaknational/oak-open-curriculum-ecosystem/main/<path>`)
 and two Oak-org public-site rows (`who-we-are`; `meet-the-team#documents`); the
@@ -195,7 +195,7 @@ structural; tests behaviour-only. **Review:** mcp-expert + test-expert, critical
 ## W3 — Rename everywhere (replace, don't bridge)
 
 `explain` / `oak-explain` / `effort` → `oak-under-the-hood`, one concept one name: the
-skill dir `.agent/skills/explain/` → `.agent/skills/orientation/under-the-hood/` (the **bare** concept
+skill dir `.agent/skills/explain/` → `.agent/skills/under-the-hood/` (the **bare** concept
 name — the adapter generator prepends the `oak-` prefix, so the canonical must NOT carry it,
 or adapters double-prefix to `oak-oak-…`; the generated adapters and the `/oak-under-the-hood`
 command are `oak-`-prefixed; the W2 pointer URL was corrected to the bare path); **the

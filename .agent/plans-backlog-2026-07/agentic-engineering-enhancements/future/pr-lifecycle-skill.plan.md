@@ -54,7 +54,7 @@ The skill must enforce these constraints:
 
 ## Candidate Deliverables
 
-1. Canonical skill: `.agent/skills/change-custody/pr-lifecycle/SKILL.md`
+1. Canonical skill: `.agent/skills/change-custody/pr-lifecycle/SKILL-CANONICAL.md`
 2. Optional command wrapper for repo-local PR closeout if repeated manual steps
    justify one.
 3. Documentation updates in the reviewer/commit/finishing-branch surfaces that

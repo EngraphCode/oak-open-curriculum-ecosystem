@@ -176,7 +176,7 @@ After Commit 1 specifically: `pnpm portability:check` must transition from curre
 - `.agent/skills/chatgpt-report-normalisation/SKILL-CANONICAL.md` — merge 46 substantive lines (PUA table, positional mapping, output contract) into existing canonical
 - `.agent/skills/metacognition/SKILL-CANONICAL.md` — body points at `.agent/directives/metacognition.md` directly
 - `.agent/skills/ephemeral-to-permanent-homing/SKILL-CANONICAL.md` — new (classification: passive); inline 130 lines
-- `.agent/skills/finishing-branch/SKILL-CANONICAL.md` — fix two stale cross-refs (`.agent/commands/gates.md` + `.agent/skills/change-custody/commit/SKILL.md`)
+- `.agent/skills/finishing-branch/SKILL-CANONICAL.md` — fix two stale cross-refs (`.agent/commands/gates.md` + `.agent/skills/change-custody/commit/SKILL-CANONICAL.md`)
 - `.agent/skills/{consolidate-docs,session-handoff}/SKILL-CANONICAL.md` — update body references to `.agent/skills/ephemeral-to-permanent-homing/SKILL-CANONICAL.md`
 
 **Files** (deletions):
