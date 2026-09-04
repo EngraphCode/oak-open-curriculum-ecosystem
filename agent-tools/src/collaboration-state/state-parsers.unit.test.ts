@@ -172,6 +172,54 @@ describe('parseCommitQueueIntentText — PDR-076a intent identity boundary', () 
       unwrapErr(parseCommitQueueIntentText(intentText, 'commit-queue intent')).message,
     ).toContain('updated_at');
   });
+
+  // The rejection legs below pinned the claims-file intent rows before the
+  // per-intent store (registry schema 1.4.0); they are the store file's
+  // public failure surface now, so they live at this parser.
+  it('rejects an intent without a recognised phase, naming the leg', () => {
+    const intentText = JSON.stringify({ ...validIntentRow(), phase: 'mystery' });
+
+    expect(unwrapErr(parseCommitQueueIntentText(intentText, 'commit-queue intent')).message).toBe(
+      'unsupported commit queue phase',
+    );
+  });
+
+  it('rejects an intent without a files array, naming the field', () => {
+    const withoutFiles = Object.fromEntries(
+      Object.entries(validIntentRow()).filter(([key]) => key !== 'files'),
+    );
+    const intentText = JSON.stringify(withoutFiles);
+
+    expect(unwrapErr(parseCommitQueueIntentText(intentText, 'commit-queue intent')).message).toBe(
+      'files must be an array of strings',
+    );
+  });
+
+  it('rejects a sparse files array: a hole is never admitted as a string', () => {
+    // JSON.stringify renders a hole as null, and null is not a string — the
+    // dense check must refuse it rather than let `every` skip the hole.
+    const intentText = JSON.stringify({ ...validIntentRow(), files: new Array(1) });
+
+    expect(unwrapErr(parseCommitQueueIntentText(intentText, 'commit-queue intent')).message).toBe(
+      'files must be an array of strings',
+    );
+  });
+
+  it.each([
+    ['a negative order key', -1],
+    ['a fractional order key', 1.5],
+    ['a string order key', '0'],
+    ['a missing order key', undefined],
+  ])(
+    'rejects %s: the order key that keeps queue order alive across rewrites',
+    (_label, queuedSeq) => {
+      const intentText = JSON.stringify({ ...validIntentRow(), queued_seq: queuedSeq });
+
+      expect(unwrapErr(parseCommitQueueIntentText(intentText, 'commit-queue intent')).message).toBe(
+        'queued_seq must be a non-negative integer',
+      );
+    },
+  );
 });
 
 describe('parseCollaborationRegistry — claim preservation', () => {

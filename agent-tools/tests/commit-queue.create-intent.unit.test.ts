@@ -54,11 +54,11 @@ describe('createIntent — write-side identity contract (Cycle 5)', () => {
   it('rejects a malformed --intent-id before it can become a store filename', () => {
     // The intent_id IS the per-intent store filename: a non-UUID value must
     // refuse at this boundary, never rely on a later write-validator step.
-    expect(() => createIntent(options({ 'intent-id': 'not-a-uuid' }))).toThrow();
+    expect(() => createIntent(options({ 'intent-id': 'not-a-uuid' }))).toThrow('Invalid UUID');
   });
 
-  it('rejects a path-traversal --intent-id outright', () => {
-    expect(() => createIntent(options({ 'intent-id': '../../escape' }))).toThrow();
+  it('rejects a path-traversal --intent-id outright, as a UUID refusal and nothing later', () => {
+    expect(() => createIntent(options({ 'intent-id': '../../escape' }))).toThrow('Invalid UUID');
   });
 
   it('refuses a non-lowercase --intent-id rather than canonicalising it, naming the canonical form', () => {
