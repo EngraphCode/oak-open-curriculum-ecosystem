@@ -2581,6 +2581,86 @@ below is a cross-reference index, not a second source of truth.
 
 ---
 
+### F-161 — no tool mints the coordination successor-branch name
+
+- **Source**: owner question 2026-08-17 ("why is the branch name missing
+  its uuid, are we missing a rule, and tool?") after the Director cut
+  `coordination/estate-2026-08-17` by following the fold skill's literal
+  (wrong-since-birth) name form.
+- **Surface**: coordination-fold ceremony step 9; no agent-tools action
+  exists for it.
+- **Observed**: the convention — `coordination/<utc-date>-<sha6 of the
+  post-fold tip>` — is deliberate owner policy (multi-checkout
+  collision safety on a real repo) and WAS automated as a mechanical
+  recipe (`date -u +%F` + `git rev-parse --short=6 origin/main`), but
+  the recipe was carried in continuity records only; the skill's step 9
+  named a different, wrong form since the skill's birth. Automation
+  that lives outside the doctrine home is invisible to a
+  literal-reading seat — the same failure class as F-162's session
+  (hand-rolling what is already built).
+- **Expected**: the doctrine home carries the automation. Cured
+  same day: the recipe one-liner now lives verbatim in the skill's
+  step 9.
+- **Candidate cure (optional hardening)**: lift the recipe into a named
+  action beside the merge-bot's REST-merge helper (which holds the
+  merge sha at the right moment), so the mint is one command with a
+  typed refusal on a dirty premise.
+- **Target surface**: `.agent/skills/coordination-fold/SKILL-CANONICAL.md`
+  (done); `agent-tools/src/merge-bot/` (optional).
+- **Status**: mitigated 2026-08-17 (recipe in the skill); named action
+  optional.
+
+### F-162 — pr-watch all-green exit ignores merge and review state
+
+- **Source**: Director seat, 2026-08-17, first pr-watch arm after the
+  hand-rolled-watcher correction.
+- **Surface**: `pnpm agent-tools pr-watch <n> --watch`.
+- **Observed**: `pr-watch 890 --watch` exited on ALL GREEN (every check
+  passed, every thread resolved) while the PR stood
+  `merge=CONFLICTING/DIRTY` and `review=CHANGES_REQUESTED` — the state
+  where a watch is most wanted. The watch declared green and ended on a
+  PR that cannot merge.
+- **Expected**: ALL GREEN requires mergeable and no standing
+  change-request; or a `--hold-until-merged` mode that exits only on
+  merged/closed.
+- **Candidate cure**: extend the exit predicate with mergeStateStatus
+  and reviewDecision; keep the current predicate available behind a flag
+  for callers that genuinely only care about checks+threads.
+- **Target surface**: `agent-tools/src/pr-watch/`.
+- **Status**: open.
+
+### F-163 — abandoned commit-queue intents have no drain; active-claims.json is 4.4MB
+
+- **Source**: owner question 2026-08-17 ("why are there 4MB of active
+  claims?").
+- **Surface**: `.agent/state/collaboration/active-claims.json`; the
+  `commit-queue` CLI topic.
+- **Observed** (measured): 4,388,290 bytes, of which 4,338,153 is the
+  `commit_queue` array — 227 entries, 226 `abandoned` (2026-07-03 →
+  2026-08-14, ~19KB each: full staged-file listings and fingerprints
+  ride every entry). Live claims: 4 rows, 3,655 bytes. Claims have an
+  archive surface (`closed-claims.archive.json`, `claims
+  archive-stale`); the queue has NONE — the topic ships
+  enqueue/commit/status/list/show only, so abandoned intents accumulate
+  forever, and every claims/comms CLI invocation re-reads the full file
+  per call.
+- **Expected**: an archive action symmetric with claims —
+  `commit-queue archive [--phase abandoned] [--before <iso>]` moving
+  entries loss-free to a dated archive beside the claims archive, with
+  the same recompute-don't-just-record validation the estate expects.
+- **Candidate cure**: build the action (MCP-609-shape micro-lane:
+  TDD, reviews, small PR); wire the warden-hygiene duty to run it at
+  fold boundaries so the drain is a ceremony step, not vigilance.
+- **Status**: SUPERSEDED same day by the owner's QUEUE-LOCAL ruling
+  (rulings ledger): no archive action — the queue leaves the flat file
+  entirely (per-intent event files like comms, 1-hour TTL, list as a
+  view, machine-local never-in-VC). Interim split executed 2026-08-17
+  (live file 4.4MB→4KB; the legacy blob retained loss-free in the
+  gitignored local archive until the MCP-612 landing's verification
+  read, then owner-disposed); the re-shape is plan
+  `commit-queue-local-ephemera` / MCP-612.
+- **Target surface**: `agent-tools/src/commit-queue/`.
+
 ## Mitigated / Addressed Frictions
 
 - F-03 — addressed by current CLI validation ordering.
@@ -3715,3 +3795,30 @@ commit SHA and the closing plan reference.
   exactly as emission does). The curator-pass archive cadence (PDR-094)
   remains the companion pressure valve — ~3,600 live events means the
   archive pass is overdue. Route: agent-tooling backlog.
+
+### F-164 — `pr-watch --watch` is silent across head and check transitions and exits ALL-GREEN on a conflicting, changes-requested PR
+
+- **Observed**: 2026-08-17 (Director seat): `pr-watch 890 --watch` exited
+  on ALL-GREEN (checks passed, threads resolved) while the PR sat
+  CONFLICTING + CHANGES_REQUESTED — the one state where the watch is most
+  wanted. 2026-09-02 (Luna seeks Twilight, 5c0ddc): armed as a Monitor on
+  #945, it emitted nothing across two pushes and a full green check run
+  (~30 minutes); its silence was indistinguishable from "no change", and a
+  60 s `gh pr view` poll emitting only on reviewDecision / mergeStateStatus
+  / head change, terminating on MERGED/CLOSED, caught the owner's merge
+  within a minute.
+- **Expected**: one line per head change and per check-state transition; a
+  heartbeat line at a fixed cadence so a dead watcher is visible; ALL-GREEN
+  requires mergeable plus no standing change-request, or a
+  `--hold-until-merged` mode.
+- **Route**: agent-tooling backlog (the watch-commands node).
+
+### F-165 — `claims open` has no amend verb; a mis-named area path forces close + reopen
+
+- **Observed**: 2026-09-02 (Luna seeks Twilight, 5c0ddc): a claim's areas
+  named a run-record path that broke the archive's filename convention
+  (`YYYY-MM-DD-<target>.md`); the only honest cure was close + reopen,
+  recorded in the closure summary.
+- **Expected**: `claims amend --area` (or an equivalent single-row edit)
+  that preserves the claim id and history.
+- **Route**: agent-tooling backlog.

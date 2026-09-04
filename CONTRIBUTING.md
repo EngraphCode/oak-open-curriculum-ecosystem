@@ -381,7 +381,9 @@ git push origin feat/your-feature-name
 If you hit a push failure due to missing `gitleaks`, install it first:
 
 - `brew install gitleaks` (macOS)
-- `go install github.com/gitleaks/gitleaks/v8@latest` (Go)
+- `go install github.com/zricethezav/gitleaks/v8@latest` (Go — gitleaks'
+  go.mod declares the `zricethezav` module path, and `go install` refuses
+  the `github.com/gitleaks/...` form as a path mismatch)
 
 Then create a Pull Request on GitHub.
 
@@ -513,7 +515,10 @@ detailed solutions. Quick fixes:
 ## Release Process
 
 Semantic-release handles automated releases: PRs merged to `main` trigger
-version bumps, GitHub releases, and npm publishing based on commit types.
+version bumps and GitHub releases based on commit types. No package is
+published to a registry today (`npmPublish: false` in `.releaserc.mjs`); see
+[Release and Publishing](docs/engineering/release-and-publishing.md) for the
+present state and the publish mechanism that will change it.
 
 ## Security
 
