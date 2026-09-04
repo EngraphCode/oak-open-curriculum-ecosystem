@@ -156,45 +156,59 @@ jobs:
       - name: Report Turbo summary
         if: always()
         run: pnpm --filter @oaknational/agent-tools ci-turbo-report >> "$GITHUB_STEP_SUMMARY"
-  # Advisory schema-drift signal in its own job: it needs no build output
-  # (tsx runs it from source over a committed file + a public fetch), and the
-  # status-writing token must NEVER ride the build job — build-time code
-  # could otherwise mint an Actions-attributed status for a required context
-  # (the same risk class preview-serves.yml guards explicitly). The job row
-  # itself appears in the PR checks list; the commit status carries the
+  # Advisory schema-drift signal, split so the status-writing token never
+  # shares a job with PR-controlled code. `schema-drift` computes the verdict
+  # under `contents: read` — it needs no build output (tsx runs it from source
+  # over a committed file + a public fetch) — and hands the description up as
+  # a job output. `schema-drift-status` publishes it under `statuses: write`
+  # with NO checkout and NO install, the shape preview-serves.yml uses for the
+  # same reason: a job that checks out and installs the PR head runs PR code
+  # (postinstall scripts, the script itself), and PR code beside a status
+  # token could mint an Actions-attributed status for a required context.
+  # Both job rows appear in the PR checks list; the commit status carries the
   # version verdict.
   schema-drift:
     name: schema-drift
     permissions:
       contents: read
-      statuses: write
     needs: install
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    outputs:
+      description: ${{ steps.drift.outputs.description }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - uses: ./.github/actions/setup
       - name: Check schema cache drift (advisory)
         id: drift
         # Stream contract: stdout is the step-summary markdown; the
         # `::warning`/`::notice` workflow commands ride stderr so this
         # redirect cannot swallow them; the status description rides
-        # $GITHUB_OUTPUT.
+        # $GITHUB_OUTPUT and is re-exported above as the job output.
         run: pnpm --filter @oaknational/agent-tools ci-schema-drift-check >> "$GITHUB_STEP_SUMMARY"
+  schema-drift-status:
+    name: schema-drift-status
+    # Fork PRs carry a read-only token regardless of the permissions block;
+    # skipping the job structurally beats a misleading failure notice on
+    # every fork run. The annotation and step summary still render there.
+    if: github.event.pull_request.head.repo.fork != true
+    permissions:
+      statuses: write
+    needs: schema-drift
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
       - name: Publish informational commit status
-        # Fork PRs carry a read-only token regardless of the permissions
-        # block; skipping the step structurally beats a misleading failure
-        # notice on every fork run. The annotation and step summary still
-        # render there.
-        if: github.event.pull_request.head.repo.fork != true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # PR events target the PR HEAD sha so the status lands on the PR's
-          # checks surface; pushes target the pushed sha. Note the checkout
-          # above is the PR MERGE ref, so the verdict describes the merge
-          # result attributed to the head SHA — the more useful reading.
+          # checks surface; pushes target the pushed sha. Note the compute
+          # job checks out the PR MERGE ref, so the verdict describes the
+          # merge result attributed to the head SHA — the more useful reading.
           DRIFT_STATUS_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-          DRIFT_DESCRIPTION: ${{ steps.drift.outputs.description }}
+          DRIFT_DESCRIPTION: ${{ needs.schema-drift.outputs.description }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           publish() {

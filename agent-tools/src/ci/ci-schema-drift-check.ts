@@ -60,9 +60,15 @@ function writeWorkflowCommand(message: string): void {
 }
 
 /**
- * Hand the verdict to the workflow's status-publish step. `$GITHUB_OUTPUT`
+ * Hand the verdict to the workflow's status-publish job. `$GITHUB_OUTPUT`
  * is the one channel with no stdout alternative, so the script writes it
  * directly; local and pre-push runs (no env) skip silently.
+ *
+ * Line format: one `key=value` per line, so the description must never
+ * carry a line break — the report builder percent-encodes CR and LF before
+ * it caps the length, which is what keeps a second key or a heredoc
+ * delimiter from being injected through upstream text (the invariant
+ * `ci-schema-drift-report.unit.test.ts` pins).
  */
 async function writeStepOutputs(report: SchemaDriftReport): Promise<void> {
   const outputPath = process.env['GITHUB_OUTPUT'] ?? '';
@@ -70,11 +76,7 @@ async function writeStepOutputs(report: SchemaDriftReport): Promise<void> {
     return;
   }
   try {
-    await appendFile(
-      outputPath,
-      `description=${report.statusDescription}\noutcome=${report.outcome}\n`,
-      'utf8',
-    );
+    await appendFile(outputPath, `description=${report.statusDescription}\n`, 'utf8');
   } catch (error) {
     writeWorkflowCommand(`::notice::Schema drift outputs not written: ${String(error)}`);
   }

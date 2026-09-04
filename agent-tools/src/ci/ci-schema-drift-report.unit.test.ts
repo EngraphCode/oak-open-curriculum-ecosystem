@@ -84,7 +84,7 @@ describe('buildSchemaDriftReport', () => {
     expect(report.statusDescription).not.toContain('\n');
   });
 
-  it('keeps BOTH version numbers inside the status description at the cap — truncation eats only the tail', () => {
+  it('keeps BOTH version numbers inside the status description under the version cap', () => {
     const cached = JSON.stringify({ info: { version: `0.7.0-${'y'.repeat(80)}` }, paths: {} });
     const live = JSON.stringify({
       info: { version: `0.11.0-${'x'.repeat(80)}` },
@@ -110,5 +110,28 @@ describe('buildSkippedSchemaDriftReport', () => {
     expect(report.summaryMarkdown).toContain('HTTP 503');
     expect(report.statusDescription.startsWith('Skipped')).toBe(true);
     expect(report.statusDescription.length).toBeLessThanOrEqual(STATUS_DESCRIPTION_LIMIT);
+  });
+
+  // The skipped path is the one surface whose input is not length-capped
+  // before composing, so it is where the status-description limit bites.
+  const fill =
+    STATUS_DESCRIPTION_LIMIT - buildSkippedSchemaDriftReport('').statusDescription.length;
+
+  it('leaves a status description that exactly fills the limit untouched', () => {
+    const report = buildSkippedSchemaDriftReport('r'.repeat(fill));
+
+    expect(report.statusDescription.length).toBe(STATUS_DESCRIPTION_LIMIT);
+    expect(report.statusDescription.endsWith('…')).toBe(false);
+  });
+
+  it('truncates a status description one character over the limit back to the limit, eating only the tail', () => {
+    const exact = buildSkippedSchemaDriftReport('r'.repeat(fill));
+    const report = buildSkippedSchemaDriftReport('r'.repeat(fill + 1));
+
+    expect(report.statusDescription.length).toBe(STATUS_DESCRIPTION_LIMIT);
+    expect(report.statusDescription.endsWith('…')).toBe(true);
+    expect(report.statusDescription.slice(0, -1)).toBe(
+      exact.statusDescription.slice(0, STATUS_DESCRIPTION_LIMIT - 1),
+    );
   });
 });
