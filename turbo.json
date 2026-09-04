@@ -87,7 +87,10 @@
       // it. The validated surface is passed THROUGH (visible under strict
       // envMode, never hashed — pass-through does not enter the task hash);
       // the gate's contract test holds this list in lockstep with the HTTP
-      // env schema (HTTP_ENV_KEYS), so a schema addition reddens here.
+      // env schema (HTTP_ENV_KEYS), so a schema addition reddens here. It
+      // imports the server's runtime-config composition, so it runs after
+      // the workspace packages that composition imports are built.
+      "dependsOn": ["^build"],
       "cache": false,
       "outputs": [],
       "passThroughEnv": [

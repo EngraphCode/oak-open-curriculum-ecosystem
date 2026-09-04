@@ -27,6 +27,18 @@ describe('deploy-config gate — always executed, never cached, on the build pat
     expect(build?.dependencies).toContain(GATE_TASK);
   });
 
+  it('runs after the workspace packages the runtime-config composition imports are built', () => {
+    // The gate imports the server's runtime-config module, which imports
+    // workspace packages resolved from their built output; without this
+    // dependency a cold runner executes the gate before those builds and
+    // fails on a missing module (measured on the fork's first CI run).
+    const gate = graph.get(GATE_TASK);
+
+    expect(gate?.resolvedTaskDefinition.dependsOn).toContain('^build');
+    expect(gate?.dependencies).toContain('@oaknational/env-resolution#build');
+    expect(gate?.dependencies).toContain('@oaknational/sentry-node#build');
+  });
+
   it('is never cached, so a same-commit redeploy still runs it', () => {
     const gate = graph.get(GATE_TASK);
     const build = graph.get(BUILD_TASK);
