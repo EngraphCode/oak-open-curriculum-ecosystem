@@ -190,7 +190,7 @@ describe('verifyStagedBundle', () => {
     });
   });
 
-  it('warns when active-claims keeps the fingerprint as an unstaged split', () => {
+  it('warns when active-claims is staged with further unstaged changes after record-staged', () => {
     const stagedNameStatus = 'M\t.agent/state/collaboration/active-claims.json\n';
     const stagedPatch =
       'diff --git a/.agent/state/collaboration/active-claims.json ' +
@@ -216,8 +216,9 @@ describe('verifyStagedBundle', () => {
       ok: true,
       fingerprint: stagedBundleFingerprint,
       warning:
-        '.agent/state/collaboration/active-claims.json has an unstaged ' +
-        'commit-queue fingerprint after record-staged; do not re-stage it.',
+        '.agent/state/collaboration/active-claims.json is staged with further unstaged ' +
+        'changes after record-staged; the claims registry is coordination state, not part of ' +
+        'this authorial bundle — do not re-stage it.',
     });
   });
 
@@ -247,9 +248,9 @@ describe('verifyStagedBundle', () => {
     expect(result).toStrictEqual({
       ok: false,
       reason:
-        'active-claims.json was re-staged after record-staged; the queue ' +
-        'fingerprint changes its own staged payload. Leave the working-tree ' +
-        'fingerprint unstaged and rerun verify-staged.',
+        'active-claims.json was re-staged after record-staged; the claims registry ' +
+        'is coordination state written by claim open, heartbeat and close, never ' +
+        'part of the authorial bundle. Unstage it and rerun verify-staged.',
     });
   });
 });

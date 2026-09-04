@@ -138,11 +138,13 @@ contract:
 ```
 
 `active-claims.schema.json` uses `index-narrative-tables` because its
-top-level object contains multiple keyed registers. Merge `claims[]` by
-`claim_id` and `commit_queue[]` by `intent_id`. If one side closed or
-completed an entry and the corresponding evidence exists in the closed archive
-or commit history, do not resurrect it as active merely because it still
-appears on the other side.
+top-level object is a keyed register. Merge `claims[]` by `claim_id`. Since
+registry schema 1.4.0 the file carries no `commit_queue`: the queue is the
+machine-local per-intent `commit-queue/` store beside it (owner ruling
+QUEUE-LOCAL, 2026-08-17), never versioned and therefore never merged. If
+one side closed an entry and the corresponding evidence exists in the closed
+archive or commit history, do not resurrect it as active merely because it
+still appears on the other side.
 
 **Per-event JSON fragment directories** (one file per event, never
 modified after creation) declare the class on the directory's
@@ -385,3 +387,12 @@ repo-continuity index. The PDR was written *before* the merge resolution
 to ensure the resolution follows the doctrine rather than the doctrine
 being shaped to ratify the resolution after the fact — the
 authoring-discipline rule from PDR-047.
+
+## Revision history
+
+- 2026-09-04 — The `active-claims.schema.json` merge rule trued for registry
+  schema 1.4.0 (PR #38 / MCP-612): the file carries claims only; the commit
+  queue is machine-local ephemera outside version control and outside these
+  merge semantics. Falsifiability axis: falsified if a versioned
+  collaboration-state file carries queue entries again, or if any merge path
+  is asked to reconcile per-intent store files.
