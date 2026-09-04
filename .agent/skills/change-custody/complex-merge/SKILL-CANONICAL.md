@@ -11,7 +11,7 @@ description: >-
 
 ## Goal
 
-Load `.agent/skills/complex-merge/shared/complex-merge.md` and enforce its
+Load `.agent/skills/change-custody/complex-merge/shared/complex-merge.md` and enforce its
 7-phase process in the current session.
 
 ## When to Use
@@ -24,7 +24,7 @@ Load `.agent/skills/complex-merge/shared/complex-merge.md` and enforce its
 
 ## Workflow
 
-1. Read `.agent/skills/complex-merge/shared/complex-merge.md`.
+1. Read `.agent/skills/change-custody/complex-merge/shared/complex-merge.md`.
 2. Resolve and read the referenced documents:
    - `.agent/rules/pre-merge-divergence-analysis.md`
    - `docs/engineering/pre-merge-analysis.md`
