@@ -32,6 +32,7 @@ import {
   buildSkippedSchemaDriftReport,
   type SchemaDriftReport,
 } from './ci-schema-drift-report.js';
+import { escapeAnnotationMessage } from './ci-turbo-report-formatting.js';
 
 const SCHEMA_URL = 'https://open-api.thenational.academy/api/v0/swagger.json';
 const CACHE_PATH = resolve(
@@ -60,6 +61,16 @@ function writeWorkflowCommand(message: string): void {
 }
 
 /**
+ * Error text that rides a workflow command is escaped like every other
+ * untrusted surface: a malformed upstream body reaches `JSON.parse`'s
+ * message, which quotes raw bytes of the document (a line break included),
+ * and an unescaped line break would end the `::notice::` line early.
+ */
+function describeError(error: unknown): string {
+  return escapeAnnotationMessage(String(error));
+}
+
+/**
  * Hand the verdict to the workflow's status-publish job. `$GITHUB_OUTPUT`
  * is the one channel with no stdout alternative, so the script writes it
  * directly; local and pre-push runs (no env) skip silently.
@@ -78,7 +89,7 @@ async function writeStepOutputs(report: SchemaDriftReport): Promise<void> {
   try {
     await appendFile(outputPath, `description=${report.statusDescription}\n`, 'utf8');
   } catch (error) {
-    writeWorkflowCommand(`::notice::Schema drift outputs not written: ${String(error)}`);
+    writeWorkflowCommand(`::notice::Schema drift outputs not written: ${describeError(error)}`);
   }
 }
 
@@ -115,7 +126,7 @@ async function computeReport(): Promise<SchemaDriftReport> {
     liveText = await fetchLiveSchema();
   } catch (error) {
     writeWorkflowCommand(
-      `::notice::Schema drift check skipped — failed to fetch upstream schema: ${String(error)}`,
+      `::notice::Schema drift check skipped — failed to fetch upstream schema: ${describeError(error)}`,
     );
     return buildSkippedSchemaDriftReport('upstream schema fetch failed');
   }
@@ -144,5 +155,7 @@ async function main(): Promise<void> {
 try {
   await main();
 } catch (error) {
-  process.stderr.write(`::notice::Schema drift check failed unexpectedly: ${String(error)}\n`);
+  process.stderr.write(
+    `::notice::Schema drift check failed unexpectedly: ${describeError(error)}\n`,
+  );
 }
