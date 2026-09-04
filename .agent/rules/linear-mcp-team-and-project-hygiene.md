@@ -67,7 +67,7 @@ project is being chosen.
 ## Why a Rule, Not a Memory
 
 The ruling lived only in per-user vendor memory, while
-[`ticket-management`](../skills/ticket-management/SKILL-CANONICAL.md)
+[`ticket-management`](../skills/planning/ticket-management/SKILL-CANONICAL.md)
 already cited this rule by name — a dangling doctrine pointer, found by
 the 2026-08-05 vendor-memory graduation audit. Per-user memory is
 platform-scoped and rotates; a ruling every seat must obey at every
@@ -76,7 +76,7 @@ already pointing at.
 
 ## Related Surfaces
 
-- [`ticket-management` SKILL](../skills/ticket-management/SKILL-CANONICAL.md)
+- [`ticket-management` SKILL](../skills/planning/ticket-management/SKILL-CANONICAL.md)
   — the authoring discipline that cites this rule for team and project
   hygiene.
 - [`bot-identity-on-third-party-systems`](./bot-identity-on-third-party-systems.md)

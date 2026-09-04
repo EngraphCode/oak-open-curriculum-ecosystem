@@ -9,7 +9,7 @@ last_updated: 2026-03-31
 # Complex Merge Workflow
 
 Structured process for merging significantly diverged branches. This workflow
-wraps the [Pre-Merge Divergence Analysis](../../../../docs/engineering/pre-merge-analysis.md)
+wraps the [Pre-Merge Divergence Analysis](../../../../../docs/engineering/pre-merge-analysis.md)
 guide into an agent-executable process, enhanced with operational patterns
 learned from the WS3 merge (2026-03-30).
 

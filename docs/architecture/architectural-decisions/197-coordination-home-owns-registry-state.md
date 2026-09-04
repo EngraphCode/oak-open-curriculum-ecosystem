@@ -11,7 +11,7 @@ polarity is unchanged here);
 [ADR-177](177-asymmetric-cure-enforcement-in-staging.md) — asymmetric-cure enforcement for
 staging; the per-commit bundle-boundary discipline that this ADR extends to the branch level
 (a feature branch, like a staged bundle, carries exactly its authored content);
-the [commit-skill canonical](../../../.agent/skills/commit/SKILL-CANONICAL.md) — its four
+the [commit-skill canonical](../../../.agent/skills/change-custody/commit/SKILL-CANONICAL.md) — its four
 operational moves write the shared registries on every commit, and its "collaboration-state
 commit residue exception" is the single-checkout precursor of this decision;
 [PDR-064](../../../.agent/practice-core/decision-records/PDR-064-coordinator-handoff-two-moments.md)

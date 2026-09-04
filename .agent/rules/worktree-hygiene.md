@@ -256,7 +256,7 @@ holding a worktree.
   — the Implementer owns one bounded lane in its own worktree.
 - [`never-use-git-to-remove-work`](never-use-git-to-remove-work.md) — destructive
   removal is gated and content-verified; deletion never removes unpreserved work.
-- [`semantic-merge` skill](../skills/semantic-merge/SKILL-CANONICAL.md) — the
+- [`semantic-merge` skill](../skills/change-custody/semantic-merge/SKILL-CANONICAL.md) — the
   concept-union discipline for memory/state files at branch→main.
 - [ADR-197 (coordination-home checkout owns shared registry state)](../../docs/architecture/architectural-decisions/197-coordination-home-owns-registry-state.md)
   — the accepted decision that one checkout owns `.agent/state/collaboration/` and feature

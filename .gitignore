@@ -298,7 +298,7 @@ vite.config.ts.timestamp-*
 packages/sdks/oak-sdk-codegen/code-generation/utils/ingest-pipeline.md
 
 # Personal onboarding walkthrough state (individual-scoped, never shared;
-# one checkout = one individual — see .agent/skills/under-the-hood/SKILL-CANONICAL.md)
+# one checkout = one individual — see .agent/skills/orientation/under-the-hood/SKILL-CANONICAL.md)
 .agent/state/onboarding/
 
 # Curriculum-hub vendor reference material is untracked inside the workspace —

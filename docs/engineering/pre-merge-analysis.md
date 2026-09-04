@@ -16,7 +16,7 @@ This guide codifies a systematic analysis process that surfaces those hidden
 risks before the merge begins.
 
 For an agent-executable workflow wrapping this guide, see the
-[complex-merge skill](../../.agent/skills/complex-merge/SKILL-CANONICAL.md).
+[complex-merge skill](../../.agent/skills/change-custody/complex-merge/SKILL-CANONICAL.md).
 
 ## When to Use This Guide
 
