@@ -133,7 +133,7 @@ with the platform's task intake.
 
 | Surface | Watch for | Route |
 | --- | --- | --- |
-| Git index / `HEAD` | `git add -A`, bare `git commit`, or peer-staged files getting absorbed into a bundle | Use the commit skill, `commit_queue`, short-lived `git:index/head` claim, and explicit pathspec staging and commit |
+| Git index / `HEAD` | `git add -A`, bare `git commit`, or peer-staged files getting absorbed into a bundle | Use the commit skill, the advisory commit queue, short-lived `git:index/head` claim, and explicit pathspec staging and commit |
 | Whole-tree hooks | Hook failure on files outside the staged bundle | Fix minor style/format issues immediately; route substantial failures as the next named work item, not as a hook bypass |
 | Shared `.agent` state | Treating active claims as commit blockers or leaving current-session state as residue | Land current-session `.agent` state that belongs to the bundle; re-read peer claims after helper-mediated state writes |
 | PR closeout | Inferring reviewer-comment state from green checks | Harvest and classify comments, review summaries, and thread state separately from gates |
