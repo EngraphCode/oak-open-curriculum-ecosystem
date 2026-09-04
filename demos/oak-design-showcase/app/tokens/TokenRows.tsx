@@ -103,7 +103,8 @@ export function TokenRows({
           {tokens.length} {tokens.length === 1 ? 'token' : 'tokens'}
         </span>
       </h3>
-      <ul className="tok-rows" aria-labelledby={headingId}>
+      {/* list-style: none drops native list semantics in WebKit; the role keeps the contract. */}
+      <ul className="tok-rows" role="list" aria-labelledby={headingId}>
         {tokens.map((token) => (
           <TokenRow
             key={token.name}

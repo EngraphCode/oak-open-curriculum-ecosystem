@@ -27,7 +27,7 @@
  * cascade-free.
  */
 import { useCallback, useState, useSyncExternalStore } from 'react';
-import type { FocusEvent, ReactElement, ReactNode } from 'react';
+import type { FocusEvent, MouseEvent, ReactElement, ReactNode } from 'react';
 
 /** Focus-within, fed by the focus events. Deliberately NEVER read by the
  *  `open` prop — a version that fed `open` directly opened the panel on
@@ -73,6 +73,21 @@ function useSeamFocusLatch(
   }
 }
 
+/** At wide the summary is reachable only by a focus that predates the
+ *  dissolution; activating it would natively remove `open` beneath the
+ *  forced-open panel (React sees no toggle while wide), so the default
+ *  toggle is cancelled until the seam is crossed back. */
+function useDissolvedSummaryGuard(wide: boolean): (event: MouseEvent<HTMLElement>) => void {
+  return useCallback(
+    (event: MouseEvent<HTMLElement>) => {
+      if (wide) {
+        event.preventDefault();
+      }
+    },
+    [wide],
+  );
+}
+
 function useMediaQueryMatch(query: string): boolean {
   const subscribe = useCallback(
     (onChange: () => void): (() => void) => {
@@ -111,6 +126,7 @@ export function NarrowDisclosure({
   const [chosenOpen, setChosenOpen] = useState(false);
   const { focusWithin, onFocus, onBlur } = useFocusWithin();
   useSeamFocusLatch(wide, focusWithin, setChosenOpen);
+  const onSummaryClick = useDissolvedSummaryGuard(wide);
   // ONE mounted <details> at every width — never a swap to a fragment.
   // Remounting on the seam destroys focus (measured: a focused control
   // dropped to BODY) and the open state, and the seam is crossed by
@@ -134,7 +150,7 @@ export function NarrowDisclosure({
         }
       }}
     >
-      <summary>{summary}</summary>
+      <summary onClick={onSummaryClick}>{summary}</summary>
       {children}
     </details>
   );

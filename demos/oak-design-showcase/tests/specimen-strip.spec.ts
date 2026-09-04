@@ -151,6 +151,12 @@ test.describe('specimen strip: focus continuity across the disclosure seam', () 
     await page.setViewportSize({ width: 1280, height: 900 });
     await expect(summary).toBeFocused();
     await expect(summary).toBeVisible();
+    // Activating the still-focused summary must not collapse the dissolved
+    // panel: the native toggle is cancelled while wide, so the inline
+    // controls stay rendered and open.
+    await page.keyboard.press('Enter');
+    await expect(summary.locator('..')).toHaveAttribute('open', '');
+    await expect(page.locator('#specimen-strip-theme')).toBeVisible();
     await page.keyboard.press('Tab');
     await expect(summary).toBeHidden();
   });
