@@ -29,7 +29,7 @@ ADR-200
 (intent as a living idea-graph — the same documents-as-projections-of-a-graph-SSOT
 move; the convergence point for the index-narrative tail).
 Phenotype skill superseded for one class: `semantic-merge`
-(`.agent/skills/semantic-merge/SKILL-CANONICAL.md`).
+(`.agent/skills/change-custody/semantic-merge/SKILL-CANONICAL.md`).
 
 ## Context
 

@@ -14,11 +14,11 @@ description: >-
 
 **Governance**: executes the first slice of the `pr-lifecycle-skill` strategic
 plan (owner-requested). Operationalises
-[`pr-comments-resolve-and-recheck`](../../rules/pr-comments-resolve-and-recheck.md),
+[`pr-comments-resolve-and-recheck`](../../../rules/pr-comments-resolve-and-recheck.md),
 composes with the [`commit` skill](../commit/SKILL-CANONICAL.md) (which owns
-landing commits), [`worktree-hygiene`](../../rules/worktree-hygiene.md) (which
+landing commits), [`worktree-hygiene`](../../../rules/worktree-hygiene.md) (which
 owns the branch/worktree lifecycle around the PR), and the
-[`sonarqube-mcp-instructions`](../../rules/sonarqube-mcp-instructions.md)
+[`sonarqube-mcp-instructions`](../../../rules/sonarqube-mcp-instructions.md)
 per-finding discipline. Every gate constraint here inherits
 `never-disable-checks` and `all quality gates blocking, always`.
 
@@ -118,7 +118,7 @@ into the permanent record):
    changeset crossing the PDR's warning thresholds is re-examined for
    hidden second stories NOW — at open, splitting is cheap; over budget,
    it is expensive. The general form of this check is the
-   [`proportionality`](../cognition/proportionality/SKILL-CANONICAL.md) gate's SCOPE
+   [`proportionality`](../../cognition/proportionality/SKILL-CANONICAL.md) gate's SCOPE
    axis; run it here when the changeset's size is genuinely in question,
    and note that its LEVEL axis also applies at open — a question standing
    owner word already answers is not an escalation.
@@ -364,7 +364,7 @@ select(.conclusion=="failure")'`), never from the `--log-failed` tail — an
   Phase 3 harvest is the authoritative read on every wake, and extending
   pr-watch to the full compound floor is tracked as the
   `ws6-pr-watch-compound-floor` item in
-  [`pr-merge-readiness-discipline.plan.md`](../../plans-backlog-2026-07/agent-tooling/current/pr-merge-readiness-discipline.plan.md).
+  [`pr-merge-readiness-discipline.plan.md`](../../../plans-backlog-2026-07/agent-tooling/current/pr-merge-readiness-discipline.plan.md).
   Passing checks alone are not green — an
   unresolved thread blocks merge-readiness just as hard. The Phase 3 GraphQL
   harvest remains the authoritative read for which threads and what they say.
@@ -403,13 +403,13 @@ here, once; the phases reference it. Amendments land in this section, never
 as phase-local restatements.
 
 **Response pricing — the intake contract
-([PDR-140](../../practice-core/decision-records/PDR-140-review-response-pricing.md),
+([PDR-140](../../../practice-core/decision-records/PDR-140-review-response-pricing.md),
 owner-ratified 2026-08-31; prose-class changesets).** Before the first
 review wave, the opening working notes declare the intake contract:
 artefact class, next verification point, the worthiness-bar reading
 that follows from those two, and the settlement-push budget. Thereafter
 triage per PDR-140 and
-[`review-feedback-defaults-to-triage`](../../rules/review-feedback-defaults-to-triage.md)
+[`review-feedback-defaults-to-triage`](../../../rules/review-feedback-defaults-to-triage.md)
 (on mixed changesets, the prose findings take this contract; code
 findings keep the machine's existing behaviour):
 disposition-and-route (with the durable ledger write) or
@@ -862,7 +862,7 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
   trigger fires: **STOP
   fix-pushing.** Step back and run concept exploration over the FULL finding
   corpus for the shared generator, paired with the
-  [`proportionality`](../cognition/proportionality/SKILL-CANONICAL.md) gate over the PR
+  [`proportionality`](../../cognition/proportionality/SKILL-CANONICAL.md) gate over the PR
   itself — the exploration finds the generator, the gate asks whether the
   changeset, the review instrument, or the seat answering is the wrong size,
   which is the question a corpus read alone does not pose. Fix the CLASS in
