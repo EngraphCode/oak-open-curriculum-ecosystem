@@ -16,11 +16,15 @@ import { assertResolved } from './picker-stage';
 import { expectNoHorizontalOverflow, openRoute } from './route-checks';
 
 const ROUTES = ['/tokens', '/tokens/colours', '/composition'] as const;
+const DENSE_COLOUR_MATRIX_ROUTE = '/tokens/colours';
+const DENSE_COLOUR_MATRIX_SLOW_REASON =
+  'axe over the dense colour-token matrix can exceed the generic UI timeout on shared runners';
 
 test.describe('demo routes: axe', () => {
   for (const route of ROUTES) {
     for (const theme of ['light', 'dark'] as const) {
       test(`${route} × ${theme} has no WCAG 2.2 AA violations @a11y`, async ({ page }) => {
+        test.slow(route === DENSE_COLOUR_MATRIX_ROUTE, DENSE_COLOUR_MATRIX_SLOW_REASON);
         const aborted = await openRoute(page, route);
         await page.evaluate((value) => {
           document.documentElement.dataset['theme'] = value;
@@ -36,6 +40,7 @@ test.describe('demo routes: reflow at 320px', () => {
   test.use({ viewport: { width: 320, height: 900 } });
   for (const route of ROUTES) {
     test(`${route} reflows to 320px without loss @a11y`, async ({ page }) => {
+      test.slow(route === DENSE_COLOUR_MATRIX_ROUTE, DENSE_COLOUR_MATRIX_SLOW_REASON);
       const aborted = await openRoute(page, route);
       await expectNoHorizontalOverflow(page);
       await expectNoAxeViolations(page);

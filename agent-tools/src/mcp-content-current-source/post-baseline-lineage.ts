@@ -187,6 +187,25 @@ const RATE_LIMITER_REMOVAL_RETIREMENTS = [
  */
 const PRESENTATION_DIRECTIVE_RETIREMENTS = [['C163', []]] as const;
 
+/**
+ * MCP-653/MCP-630: upstream removed /changelog and /changelog/latest (live
+ * spec 0.11.0; both endpoints returned 404), so the two dead tools were
+ * disabled ahead of the schema-cache refresh via DEFERRED_PATHS entries.
+ * The eight rows anchored in the two deleted generated tool files retired
+ * with the tools; regeneration re-adds tools and rows only if upstream
+ * restores the paths.
+ */
+const DEAD_CHANGELOG_TOOL_RETIREMENTS = [
+  ['C491', []],
+  ['C492', []],
+  ['C493', []],
+  ['C494', []],
+  ['C495', []],
+  ['C496', []],
+  ['C497', []],
+  ['C498', []],
+] as const;
+
 /** All post-baseline lineage, composed for the current-item lineage map. */
 export const POST_BASELINE_LINEAGE_ENTRIES = [
   ...ORIENTATION_ERA_LINEAGE_ENTRIES,
@@ -199,4 +218,5 @@ export const POST_BASELINE_LINEAGE_ENTRIES = [
   ...MCP_AUTH_RESPONSE_RELOCATIONS,
   ...RATE_LIMITER_REMOVAL_RETIREMENTS,
   ...PRESENTATION_DIRECTIVE_RETIREMENTS,
+  ...DEAD_CHANGELOG_TOOL_RETIREMENTS,
 ] as const;
