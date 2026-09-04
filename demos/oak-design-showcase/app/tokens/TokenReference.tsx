@@ -110,7 +110,7 @@ function TokenSections({
         <section key={group.area} className="tok-area">
           <h2 className="oak-heading-6">{group.title}</h2>
           <p className="oak-body-3 tok-area-note">{group.note}</p>
-          <div>
+          <div className="tok-area-families">
             {group.families.map(({ family, tokens }) => (
               <TokenRows
                 key={family}

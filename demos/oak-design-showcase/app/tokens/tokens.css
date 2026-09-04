@@ -518,10 +518,8 @@
     break-inside: avoid;
   }
 
-  /* Families stack full width and each family's ROWS use the columns —
-     the header spans by construction (it sits above the flow), and no
-     family ever needs a whole-row exemption because rows, not tables, are
-     what fragment. */
+  /* Families stack full width and each family's ROWS use the columns; the
+     header sits above the flow and spans by construction. */
 }
 
 /* Short viewport (the kit's documented 500px constant): a sticky rail on a

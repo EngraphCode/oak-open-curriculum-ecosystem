@@ -96,6 +96,21 @@
   flex: 0 0 auto;
 }
 
+/* The two sticky bars' heights, derived once from the tokens that build
+   them and read by the masthead's sticky offset AND the page's 2.4.11
+   reserve, so the two cannot drift (a hand-summed offset was two rules
+   short of the rendered row — the strip's tallest control is the theme
+   select, the target height plus its two rules). */
+html {
+  --specimen-strip-row: calc(var(--size-target) + var(--border-solid-s) * 2);
+  --specimen-strip-height: calc(
+    var(--specimen-strip-row) + var(--space-16) + var(--border-solid-s)
+  );
+  --specimen-mast-height: calc(
+    var(--space-16) * 2 + var(--size-target) + var(--border-solid-m) * 3
+  );
+}
+
 /* Sticky masthead, as the reference has it — stacking BELOW the strip:
    its offset is one strip row at the kit's target height plus the strip's
    block padding and rule (a second .mast block once re-declared
@@ -107,7 +122,7 @@
    dominate the screen. */
 [data-page='unit'] .mast {
   position: sticky;
-  inset-block-start: calc(var(--size-target) + var(--space-16) + var(--border-solid-s));
+  inset-block-start: var(--specimen-strip-height);
   z-index: var(--layer-sticky);
 }
 
@@ -124,10 +139,12 @@
    the two must not drift) */
 
 @media (max-width: 959px) {
-  /* The one-row in-strip scroll is replaced by the controls disclosure
-     (owner ruling 2026-08-18), so the band may wrap: crumbs line, then
-     the disclosure line, then — open — the stacked controls, everything
-     visible. */
+  /* The CONTROLS' one-row in-strip scroll is replaced by the controls
+     disclosure (owner ruling 2026-08-18), so the band may wrap: crumbs
+     line, then the disclosure line, then — open — the stacked controls,
+     everything visible. The crumb line keeps its own nowrap scroll
+     container (`.util-inner` above): a long trail still scrolls in its
+     row, by design, and is outside this claim. */
   [data-page='unit'] .strip-controls {
     flex-wrap: wrap;
   }
@@ -205,15 +222,17 @@
   border-block-end: var(--border-solid-m) solid var(--border-primary);
 }
 
-/* Focus-not-obscured (2.4.11): the masthead's own height, derived from
-   the tokens that build it — block padding both sides plus the control
-   row's target height. Scoped to the band where anything actually
-   sticks: below the seam both the strip and the mast follow the flow,
-   so a reserve there would push focused controls AWAY from a bar that
-   is not one. */
+/* Focus-not-obscured (2.4.11): above the seam BOTH bars stick — the
+   strip at the top edge and the masthead beneath it — so the reserve is
+   their stacked height, the two named bar heights above (the mast's
+   tallest control is the search input: the target height plus its two
+   rules, then the mast's own rule). Proven by the switchboard spec,
+   which measures the rendered stack against this value. Scoped to the band where anything actually sticks: below the
+   seam both the strip and the mast follow the flow, so a reserve there
+   would push focused controls AWAY from a bar that is not one. */
 @media (min-width: 960px) {
   html {
-    scroll-padding-block-start: calc(var(--space-16) * 2 + var(--size-target));
+    scroll-padding-block-start: calc(var(--specimen-strip-height) + var(--specimen-mast-height));
   }
 }
 
