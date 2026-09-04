@@ -45,10 +45,13 @@ export function parseRegistry(
       ),
     );
   }
-  if (Array.isArray(record.commit_queue)) {
+  // Any own `commit_queue` property, whatever its type: the write path
+  // strips the key by name, so admitting a non-array here would drop a
+  // malformed or forward-shaped value in silence on the next queue write.
+  if (Object.hasOwn(record, 'commit_queue')) {
     return err(
       new TypeError(
-        `${registryPath} must not carry a top-level commit_queue array: the queue is ` +
+        `${registryPath} must not carry a top-level commit_queue property: the queue is ` +
           'machine-local ephemera in the commit-queue/ per-intent store',
       ),
     );

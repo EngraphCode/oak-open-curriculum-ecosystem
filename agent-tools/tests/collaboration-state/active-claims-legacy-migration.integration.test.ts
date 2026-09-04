@@ -254,6 +254,22 @@ describe('legacy active-claims migration', () => {
     expect(entries.map((entry) => entry.notes)).toStrictEqual(['carry me']);
   });
 
+  it('refuses a live legacy row that already carries queued_seq, instead of overwriting it with the position', async () => {
+    const legacyText = `${JSON.stringify(
+      { ...legacyRegistry(), commit_queue: [legacyEntry({ queued_seq: 7 })] },
+      null,
+      2,
+    )}\n`;
+    await writeText(activePath, legacyText);
+
+    await expect(migrateLegacyActiveClaimsFile({ activePath, nowIso: NOW })).rejects.toThrow(
+      `${activePath} commit_queue[0]: legacy rows carry no queued_seq`,
+    );
+
+    expect(await readText(activePath)).toBe(legacyText);
+    expect(await readCommitQueueEntries({ queueDir, nowIso: NOW })).toStrictEqual([]);
+  });
+
   it('refuses a legacy queue row with a malformed timestamp instead of silently deleting it', async () => {
     // A malformed updated_at parses to NaN, and NaN fails every liveness
     // comparison — without strict timestamp validation the row reads as

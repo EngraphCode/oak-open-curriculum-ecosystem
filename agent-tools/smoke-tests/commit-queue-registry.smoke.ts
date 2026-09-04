@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 import { unwrapOrThrow } from '@oaknational/result';
+import { typeSafeEntries } from '@oaknational/type-helpers';
 
 import { uuidV5Schema } from '../src/collaboration-state/agent-id';
 import {
@@ -139,7 +140,15 @@ async function proveLegacyMigrationJudgesLivenessOnTheWallClock(): Promise<void>
   try {
     const activePath = join(dir, 'active-claims.json');
     const liveUpdatedAt = new Date(Date.now() - 60 * 1000).toISOString();
-    const legacyRow = { ...validIntentRow(), queued_at: liveUpdatedAt, updated_at: liveUpdatedAt };
+    // A 1.3.0 row carries no queued_seq (its array position is the order
+    // key), and the migration refuses one that does.
+    const legacyRow = {
+      ...Object.fromEntries(
+        typeSafeEntries(validIntentRow()).filter(([key]) => key !== 'queued_seq'),
+      ),
+      queued_at: liveUpdatedAt,
+      updated_at: liveUpdatedAt,
+    };
     await writeFile(
       activePath,
       `${JSON.stringify(

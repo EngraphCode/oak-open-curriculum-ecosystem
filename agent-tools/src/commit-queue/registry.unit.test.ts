@@ -91,16 +91,29 @@ describe('parseRegistry', () => {
     );
   });
 
-  it('rejects a claims file that still carries a commit_queue array, naming the per-intent store', () => {
-    const result = parseRegistry({ ...registryValue(), commit_queue: [] }, REGISTRY_PATH);
+  it.each([
+    ['an array', []],
+    ['a string', 'legacy'],
+    ['an object', {}],
+    ['null', null],
+  ])(
+    'rejects a claims file carrying commit_queue as %s, naming the per-intent store',
+    (_label, commitQueue) => {
+      // The write path strips the key by name, so a non-array admitted here
+      // would be dropped in silence on the next queue write.
+      const result = parseRegistry(
+        { ...registryValue(), commit_queue: commitQueue },
+        REGISTRY_PATH,
+      );
 
-    const error = unwrapErr(result);
-    expect(error).toBeInstanceOf(TypeError);
-    expect(error.message).toBe(
-      'active-claims.json must not carry a top-level commit_queue array: the queue is ' +
-        'machine-local ephemera in the commit-queue/ per-intent store',
-    );
-  });
+      const error = unwrapErr(result);
+      expect(error).toBeInstanceOf(TypeError);
+      expect(error.message).toBe(
+        'active-claims.json must not carry a top-level commit_queue property: the queue is ' +
+          'machine-local ephemera in the commit-queue/ per-intent store',
+      );
+    },
+  );
 
   it('rejects a missing claims array naming the registry path', () => {
     const result = parseRegistry(withoutKey(registryValue(), 'claims'), REGISTRY_PATH);

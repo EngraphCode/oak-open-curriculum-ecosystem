@@ -28,8 +28,11 @@ Four-term taxonomy used across this surface family:
 - **orphaned** — a fresh-but-quiet claim whose owning session is known or
   suspected to have ended. Cleanup ethics in
   [`agent-collaboration.md`][directive] §d.
-- **expired** — wall-clock past `expires_at` (commit-queue intents and
-  sidebars). Stale-reporting only; never auto-resolves.
+- **expired** — wall-clock past `expires_at`. For sidebars: stale-reporting
+  only; never auto-resolves. For commit-queue intents (the per-intent
+  `commit-queue/` store since 1.4.0): read as absent and swept by the next
+  queue write — ephemera by the QUEUE-LOCAL owner ruling (2026-08-17), not
+  inspectable after expiry.
 
 `closure.kind: "stale"` is the archive label for any claim leaving through
 staleness, including orphan archival.
