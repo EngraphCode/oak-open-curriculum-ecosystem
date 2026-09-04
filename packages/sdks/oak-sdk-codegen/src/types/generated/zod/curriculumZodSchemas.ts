@@ -41,8 +41,6 @@ const OPERATION_ID_BY_METHOD_AND_PATH = {
   "get /units/:unit/summary": "getUnits-getUnit",
   "get /threads": "getThreads-getAllThreads",
   "get /threads/:threadSlug/units": "getThreads-getThreadUnits",
-  "get /changelog": "changelog-changelog",
-  "get /changelog/latest": "changelog-latest",
   "get /rate-limit": "getRateLimit-getRateLimit",
 } as const;
 const PRIMARY_RESPONSE_STATUS_BY_OPERATION_ID = {
@@ -75,8 +73,6 @@ const PRIMARY_RESPONSE_STATUS_BY_OPERATION_ID = {
   "getUnits-getUnit": "200",
   "getThreads-getAllThreads": "200",
   "getThreads-getThreadUnits": "200",
-  "changelog-changelog": "200",
-  "changelog-latest": "200",
   "getRateLimit-getRateLimit": "200",
 } as const;
 
@@ -821,6 +817,17 @@ const ProgrammeUnitsResponseSchema = z.array(
       unitTitle: z.string(),
       unitOrder: z.number(),
       oakUrl: z.url().optional(),
+    })
+    .strict()
+);
+const KeywordsResponseSchema = z.array(
+  z
+    .object({
+      keyword: z.string(),
+      description: z.string(),
+      keyStageSlug: z.string(),
+      subjectSlug: z.string(),
+      lessonSlugs: z.array(z.string()),
     })
     .strict()
 );
@@ -1973,6 +1980,7 @@ const UnitSummaryResponseSchema = z
       .partial()
       .strict()
       .optional(),
+    unitOptionsGroup: z.string().optional(),
     unitLessons: z.array(
       z
         .object({
@@ -2049,6 +2057,7 @@ export const rawCurriculumSchemas = {
   SubjectProgrammesResponseSchema,
   ProgrammeResponseSchema,
   ProgrammeUnitsResponseSchema,
+  KeywordsResponseSchema,
   QuestionForLessonsResponseSchema,
   QuestionsForSequenceResponseSchema,
   QuestionsForKeyStageAndSubjectResponseSchema,
@@ -2098,72 +2107,6 @@ function buildCurriculumSchemas(endpoints: readonly Endpoint[]): CurriculumSchem
 }
 
 export const endpoints: readonly Endpoint[] = ([
-  {
-    method: "get",
-    path: "/changelog",
-    description: `Use when you need the full history of API changes — for surfacing release notes or checking which version introduced a field. Returns every changelog entry with version and date.
-
-Not for: the current version (GET /changelog/latest).`,
-    requestFormat: "json",
-    response: z.array(
-      z
-        .object({
-          version: z.string(),
-          date: z.string(),
-          changes: z.array(z.string()),
-        })
-        .strict()
-    ),
-    errors: [
-      {
-        status: 400,
-        description: `Bad request - e.g. &quot;Content is blocked for copyright reasons&quot;`,
-        schema: error_BAD_REQUEST,
-      },
-      {
-        status: 401,
-        description: `API token not provided or invalid`,
-        schema: error_UNAUTHORIZED,
-      },
-      {
-        status: 404,
-        description: `Detail of the request causing the 404, e.g. &quot;Lesson not found&quot;`,
-        schema: error_NOT_FOUND,
-      },
-    ],
-  },
-  {
-    method: "get",
-    path: "/changelog/latest",
-    description: `Use when you only need the current API version — e.g. a version banner or deployment check. Returns the most recent changelog entry.
-
-Not for: full version history (GET /changelog).`,
-    requestFormat: "json",
-    response: z
-      .object({
-        version: z.string(),
-        date: z.string(),
-        changes: z.array(z.string()),
-      })
-      .strict(),
-    errors: [
-      {
-        status: 400,
-        description: `Bad request - e.g. &quot;Content is blocked for copyright reasons&quot;`,
-        schema: error_BAD_REQUEST,
-      },
-      {
-        status: 401,
-        description: `API token not provided or invalid`,
-        schema: error_UNAUTHORIZED,
-      },
-      {
-        status: 404,
-        description: `Detail of the request causing the 404, e.g. &quot;Lesson not found&quot;`,
-        schema: error_NOT_FOUND,
-      },
-    ],
-  },
   {
     method: "get",
     path: "/key-stages",
@@ -2478,7 +2421,11 @@ Not for: all units across a sequence (GET /sequences/{sequence}/units); units in
   {
     method: "get",
     path: "/keywords",
-    description: `Use when you want the vocabulary for a key stage, subject, unit, lesson, or phase — e.g. to build a glossary or attach definitions to content. Returns keywords with definition, the subject + key stage they appear in, and the lessons that use them, sorted alphabetically. All filters are optional, but pass at least one of keyStage, subject, unit, lesson, or phase.`,
+    description: `Use when you want the vocabulary for a key stage, subject, unit, lesson, or phase — e.g. to build a glossary or attach definitions to content. Returns keywords with definition, the subject + key stage they appear in, and the lessons that use them, sorted alphabetically. All filters are optional, but pass at least one of keyStage, subject, unit, lesson, or phase.
+
+Request rules:
+
+- At least one of subject, keyStage, phase, unit or lesson must be provided - note that they are all the slug form of the values (e.g. &quot;ks2&quot; for key stage 2, &quot;science&quot; for the science subject, and &quot;forces-and-magnets&quot; for the forces and magnets unit), and that casing is important (always lowercase).`,
     requestFormat: "json",
     parameters: [
       {
@@ -2526,18 +2473,18 @@ Not for: all units across a sequence (GET /sequences/{sequence}/units); units in
         type: "Query",
         schema: z.string().optional(),
       },
+      {
+        name: "offset",
+        type: "Query",
+        schema: z.number().optional().default(0),
+      },
+      {
+        name: "limit",
+        type: "Query",
+        schema: z.number().lte(300).optional().default(20),
+      },
     ],
-    response: z.array(
-      z
-        .object({
-          keyword: z.string(),
-          description: z.string(),
-          keyStageSlug: z.string(),
-          subjectSlug: z.string(),
-          lessonSlugs: z.array(z.string()),
-        })
-        .strict()
-    ),
+    response: KeywordsResponseSchema,
   },
   {
     method: "get",

@@ -7,7 +7,7 @@ import type {
 } from 'openapi3-ts/oas31';
 
 import { generateMcpToolName } from './name-generator.js';
-import { generateToolFile } from './parts/generate-tool-file.js';
+import { generateToolFile, isPaginatedQueryMetadata } from './parts/generate-tool-file.js';
 import { generateTypesFile } from './parts/generate-types-file.js';
 import { generateExecuteFile } from './parts/generate-execute-file.js';
 import { generateRuntimeIndexFile } from './parts/generate-runtime-index-file.js';
@@ -15,6 +15,7 @@ import { generateDefinitionsFile } from './parts/generate-definitions-file.js';
 import { generateScopesSupportedFile } from './parts/generate-scopes-supported-file.js';
 import { generateRootIndexFile } from './parts/generate-index-file.js';
 import { getParameterPrimitiveType, extractExampleValue } from './parts/param-utils.js';
+import { assertConstraintsArePropagated, readNumericBound } from './parts/param-constraints.js';
 import type { ParamMetadata, ParamMetadataMap } from './parts/param-metadata.js';
 import { createMutableParamMetadata } from './parts/param-metadata.js';
 import { generateToolDescriptorFile } from './parts/generate-tool-descriptor-file.js';
@@ -96,6 +97,7 @@ function extractParamMetadata(param: ParameterObject): ParamMetadata {
   const primitiveType = getParameterPrimitiveType(param);
   const isRequired = param.required === true;
   const schema = getSchema(param);
+  assertConstraintsArePropagated(param.name, schema);
   const enumValues = Array.isArray(schema?.enum) ? schema.enum : undefined;
   const primitiveEnumValues = enumValues
     ?.map((value) => {
@@ -122,6 +124,8 @@ function extractParamMetadata(param: ParameterObject): ParamMetadata {
     description: paramDescription ?? schemaDescription,
     default: schema && 'default' in schema ? schema.default : undefined,
     example: paramExample ?? schemaExample,
+    minimum: readNumericBound(schema, 'minimum'),
+    maximum: readNumericBound(schema, 'maximum'),
   };
 }
 
@@ -192,6 +196,7 @@ export function generateCompleteMcpTools(schema: OpenAPIObject): GeneratedMcpToo
 
   const operationToToolEntries: { operationId: string; toolName: string }[] = [];
   const toolNamesSet = new Set<string>();
+  const paginatedToolNames = new Set<string>();
   const stubPayloads = new Map<string, unknown>();
   const resolveSchemaRef = createSchemaResolver(schema);
 
@@ -203,6 +208,9 @@ export function generateCompleteMcpTools(schema: OpenAPIObject): GeneratedMcpToo
 
     const { pathParamMetadata, queryParamMetadata } = buildParamMetadataForOperation(operation);
     applyParamDescriptionOverrides(path, pathParamMetadata, queryParamMetadata);
+    if (isPaginatedQueryMetadata(queryParamMetadata)) {
+      paginatedToolNames.add(toolName);
+    }
     const toolFile = generateToolFile(
       toolName,
       path,
@@ -224,7 +232,7 @@ export function generateCompleteMcpTools(schema: OpenAPIObject): GeneratedMcpToo
   const toolNames = Array.from(toolNamesSet).toSorted(compareCodeUnits);
 
   result.aliases['types.ts'] = generateTypesFile();
-  result.runtime['execute.ts'] = generateExecuteFile(toolNames);
+  result.runtime['execute.ts'] = generateExecuteFile(toolNames, paginatedToolNames);
   result.runtime['index.ts'] = generateRuntimeIndexFile();
   result.data['definitions.ts'] = generateDefinitionsFile(toolNames, operationToToolEntries);
   result.data['scopes-supported.ts'] = generateScopesSupportedFile();

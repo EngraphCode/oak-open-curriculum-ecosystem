@@ -7,6 +7,16 @@
  * `editorial-tone` directive's terminology and British-English spelling rules
  * to four strings. No wording on this page is agent-authored.
  *
+ * The 2026-08-06 pass retired the invite-only positioning at the owner's word
+ * (MCP-509, carrying the copy work raised under MCP-128): the status tag now
+ * reads "Public Beta", and the access line asks the reader to sign in with
+ * their Oak account rather than naming internal staff or an invitation. Both
+ * statements are true as read — Clerk is on production and sign-in is open,
+ * which the owner verified against production with a non-Oak email and no
+ * invitation. That is the condition these words depend on: if access is ever
+ * narrowed again, this page states something false and both strings must
+ * change with it.
+ *
  * The one value that is not authored is the connection snippet's URL, which
  * arrives through the view-props seam (`mcpEndpointUrl`), derived ONCE at
  * BUILD time by `derive-view-props.ts` from the build environment — the
@@ -65,7 +75,7 @@ export function PageHero(): JSX.Element {
           <span aria-hidden="true">›</span>
           <span aria-current="page">Oak Curriculum MCP</span>
         </nav>
-        <span className="oak-tag oak-tag--white">Invite Only Private Beta</span>
+        <span className="oak-tag oak-tag--white">Public Beta</span>
         <h1 id="title" className="oak-heading-1">
           Oak Curriculum MCP
         </h1>
@@ -90,11 +100,17 @@ export function PageHero(): JSX.Element {
  * Connection instructions, including the per-deployment config snippet.
  *
  * @param mcpEndpointUrl - The endpoint URL, derived once on the build side.
+ * @param protectedResourceMetadataUrl - Path-qualified PRM URL, likewise derived
+ *   once (MCP-511): the RFC 9728 §3.1 discovery URI for a resource at `/mcp`,
+ *   and the form that survives a path-scoped edge. The unqualified path is a
+ *   compatibility alias serving the identical document.
  */
 export function ConnectSection({
   mcpEndpointUrl,
+  protectedResourceMetadataUrl,
 }: {
   readonly mcpEndpointUrl: string;
+  readonly protectedResourceMetadataUrl: string;
 }): JSX.Element {
   return (
     <section className="oak-stack oak-stack--s oak-prose connect" aria-labelledby="connect-title">
@@ -126,11 +142,11 @@ export function ConnectSection({
       </pre>
       <p>
         This server uses{' '}
-        <a className="oak-link" href="/.well-known/oauth-protected-resource">
+        <a className="oak-link" href={protectedResourceMetadataUrl}>
           OAuth 2.1 authorisation
         </a>
         {'. '}
-        You will be prompted to log in. Access is currently for internal staff or by invitation.
+        You will be prompted to sign in with your Oak account.
       </p>
     </section>
   );

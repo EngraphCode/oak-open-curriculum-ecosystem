@@ -20,10 +20,23 @@
  * @packageDocumentation
  */
 
-import { OAK_ASSETS_MARKER } from '../../app/static-asset-paths.js';
+import {
+  OAK_ASSETS_MARKER,
+  OAK_DS_PUBLIC_DIRNAME,
+  ROUTED_ASSET_BASE,
+} from '../../app/static-asset-paths.js';
 
-/** Where `copy-oak-ds.ts` publishes the design system's runtime files. */
-export const OAK_DS_BASE = '/oak-ds';
+/**
+ * Where `copy-oak-ds.ts` publishes the design system's runtime files, as the
+ * canonical host can actually reach them.
+ *
+ * @remarks
+ * DERIVED from {@link ROUTED_ASSET_BASE} and the copier's own directory name,
+ * never re-typed: a literal here could drift from either the static mount or
+ * the copy step, and a root-relative drift would keep rendering on any
+ * root-served deployment while breaking a path-scoped front.
+ */
+export const OAK_DS_BASE = `${ROUTED_ASSET_BASE}/${OAK_DS_PUBLIC_DIRNAME}`;
 
 /**
  * `--oak-mint` as a literal, for the one attribute that cannot resolve a
@@ -52,7 +65,7 @@ export const OAK_SITE_NAME = 'Oak National Academy';
  * a freestanding copy of this path could drift from the copy step's real
  * output and 404 every share card with the whole suite green.
  */
-export const SHARE_IMAGE_PATH = `/${OAK_ASSETS_MARKER}`;
+export const SHARE_IMAGE_PATH = `${ROUTED_ASSET_BASE}/${OAK_ASSETS_MARKER}`;
 
 /** Edge length of {@link SHARE_IMAGE_PATH}, declared for the card. */
 export const SHARE_IMAGE_SIZE = 512;

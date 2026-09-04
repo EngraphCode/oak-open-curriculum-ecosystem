@@ -56,6 +56,15 @@ export interface LandingPageViewProps {
   readonly siteOrigin: string;
   /** The MCP endpoint URL — the one string the page exists to convey. */
   readonly mcpEndpointUrl: string;
+  /**
+   * Absolute, path-qualified protected-resource metadata URL (MCP-511).
+   *
+   * Derived at the seam rather than in a component: it is another
+   * "where is this deployed" value, and the path-qualified form is this
+   * resource's own metadata URL (RFC 9728 §3.1) — the one that survives a
+   * path-scoped edge, unlike the unqualified form the page used to link to.
+   */
+  readonly protectedResourceMetadataUrl: string;
   /** App build identity, emitted as HTML metadata when known. */
   readonly appVersion?: string;
 }

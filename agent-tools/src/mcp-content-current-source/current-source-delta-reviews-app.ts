@@ -46,7 +46,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/oauth-and-caching-setup.ts': excluded(
-    '98eed582f23cb0bba00b08099e3c1c16000b3e3e649fd22ea723a91348924689',
+    '6a51f6cdd0e09c55cbd1e0af0f9a7048a15cc13310d60dd89c3b82098ba9fd43',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/orchestration.ts': excluded(
@@ -54,15 +54,24 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/app/static-asset-paths.ts': excluded(
-    '75ec72e78389124bcb0f7e881e0ae45f8ce0e0df1b4e5f1ef035e9a77e842c03',
+    'ff135d5160da12e36b0f4ae6f7acd42e61748d3f21315e2bb0b7a75474197bfe',
     IMPLEMENTATION_ONLY,
   ),
+  // MCP-518: `/` now sets the `Vary: Accept` and `no-store` its `/mcp` twin
+  // already sets. Response headers only; the document is byte-identical.
   'apps/oak-curriculum-mcp-streamable-http/src/app/static-content.ts': excluded(
-    '17ed6c9d1d12ef8bbd0b953c3a0b52213867066699100632b548962b1c055299',
+    '80673279324e14c6ffc5b83aa97a96f6850b591f8d5baa458fc254e36fa6475b',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/application.ts': excluded(
     'f16f8e80a7f92af82f82408e5365e92a6f2758afdd6d2d6d43886a212bb11f67',
+    IMPLEMENTATION_ONLY,
+  ),
+  // MCP-517: states the configured canonical origin in the forwarded headers
+  // origin-deriving middleware reads. Request plumbing only — it authors no
+  // served text and reaches no MCP consumer's content.
+  'apps/oak-curriculum-mcp-streamable-http/src/canonical-forwarded-headers.ts': excluded(
+    '8bc762cc936a9cc86a398a6f2009700f8c1a196977dabd6fe56ecad7076321fd',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/canonical-origin.ts': excluded(
@@ -73,12 +82,20 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     'df0cfab0201177986caa0454d94407077f5930f45a8e34d6d15f6ea4b625b35b',
     IMPLEMENTATION_ONLY,
   ),
-  'apps/oak-curriculum-mcp-streamable-http/src/env-product-analytics.ts': excluded(
-    '5db6bd709ae01cd9ed1e9a51fe063d01f41669e3d0e9fb0e3fc924f9a5676d39',
+  'apps/oak-curriculum-mcp-streamable-http/src/env-clerk-guards.ts': excluded(
+    'fceb09166d44b587a2093664fd9595c3a9741662ad5efb3efd197ce59e083274',
     IMPLEMENTATION_ONLY,
   ),
+  'apps/oak-curriculum-mcp-streamable-http/src/env-product-analytics.ts': excluded(
+    '8a67d2cb8ce836a2b2c34bb7782d8b0bee67dadf437ba9e0a60b0be0baf62a36',
+    IMPLEMENTATION_ONLY,
+  ),
+  // MCP-143 pull request 759: Guard 1b's auth-valve condition restated as its
+  // allowed set negated (isLocalRun) for reviewer clarity. Behaviour-identical
+  // refactor of a startup validation rule; disposition unchanged — no authored
+  // agent-facing content reaches an MCP consumer from this file.
   'apps/oak-curriculum-mcp-streamable-http/src/env.ts': excluded(
-    'e60da305584aefe3084546c39cd659024329a099645b3eceb1139e31fd1364ad',
+    '0537f72528f0ae1c0de9ff41f1e43e99b16fdc5a26890885bee7d6f16288723b',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/feature-flags.ts': excluded(
@@ -171,7 +188,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/security-config.ts': excluded(
-    'df1573e40a58a0957ffce6c145f29b19951e28c7bf90a6772ddb736033e03b50',
+    '5ffd8c944b7485aa399b8c317db92acfb636b40e1ae4963f8dd028dcf33e4f19',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/security-headers.ts': excluded(
@@ -181,8 +198,13 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
   // MCP-351: the landing page's canonical-URL resolution promoted here as the
   // one per-deployment self-description derivation; C355's endpoint URL
   // strings relocated with it.
+  // MCP-511: adds `resolveServedPrmUrl` and the well-known prefix constant, so
+  // this module is now the one home for both self-descriptions — the endpoint
+  // and its protected-resource metadata URL. C355 re-anchors on the same
+  // endpoint construction; the addition is a derived address built from the
+  // constants already here, carrying no new authored text.
   'apps/oak-curriculum-mcp-streamable-http/src/served-origin.ts': reviewed(
-    '0cc2add70d350afd3957791b29b4663bc4cc56813e6e6865c4d4900977cb4b70',
+    '24c3c95488ee833c38c519badc175eab7d37406fd7276b7014013eee4aa61bee',
     ['C355'],
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/served-surface/filter-guidance-content.ts': excluded(
@@ -190,7 +212,7 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts': reviewed(
-    '15c76f4100bec4a96aa51d7b082262b02043666b8fb74a3cf2d1b6250ad09efb',
+    '052f0d2ec448f8b8c3eb7d98eb044a60baf74db34be3931451028cca889a1edd',
     ['A001'],
   ),
   // MCP-243: HTTP server bootstrap wiring the close funnel into every exit

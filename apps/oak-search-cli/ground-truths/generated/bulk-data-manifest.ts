@@ -2,7 +2,8 @@
  * Bulk data manifest with generation metadata.
  *
  * @generated - DO NOT EDIT
- * Generated at: 2026-06-10T17:29:14.394Z
+ * Generated at: 2026-08-12T10:50:16.231Z
+ * Data downloaded at: 2026-08-12T10:50:13.421Z
  */
 
 /**
@@ -29,13 +30,13 @@ export const BULK_DATA_MANIFEST: readonly SubjectPhaseMetadata[] = [
     subject: 'art',
     phase: 'secondary',
     sequenceSlug: 'art-secondary',
-    lessonCount: 200,
+    lessonCount: 323,
   },
   {
     subject: 'citizenship',
     phase: 'secondary',
     sequenceSlug: 'citizenship-secondary',
-    lessonCount: 318,
+    lessonCount: 322,
   },
   {
     subject: 'computing',
@@ -71,19 +72,19 @@ export const BULK_DATA_MANIFEST: readonly SubjectPhaseMetadata[] = [
     subject: 'design-technology',
     phase: 'secondary',
     sequenceSlug: 'design-technology-secondary',
-    lessonCount: 216,
+    lessonCount: 282,
   },
   {
     subject: 'english',
     phase: 'primary',
     sequenceSlug: 'english-primary',
-    lessonCount: 1518,
+    lessonCount: 1589,
   },
   {
     subject: 'english',
     phase: 'secondary',
     sequenceSlug: 'english-secondary',
-    lessonCount: 1041,
+    lessonCount: 1238,
   },
   {
     subject: 'french',
@@ -101,13 +102,13 @@ export const BULK_DATA_MANIFEST: readonly SubjectPhaseMetadata[] = [
     subject: 'geography',
     phase: 'primary',
     sequenceSlug: 'geography-primary',
-    lessonCount: 234,
+    lessonCount: 246,
   },
   {
     subject: 'geography',
     phase: 'secondary',
     sequenceSlug: 'geography-secondary',
-    lessonCount: 459,
+    lessonCount: 485,
   },
   {
     subject: 'german',
@@ -119,13 +120,13 @@ export const BULK_DATA_MANIFEST: readonly SubjectPhaseMetadata[] = [
     subject: 'history',
     phase: 'primary',
     sequenceSlug: 'history-primary',
-    lessonCount: 216,
+    lessonCount: 246,
   },
   {
     subject: 'history',
     phase: 'secondary',
     sequenceSlug: 'history-secondary',
-    lessonCount: 463,
+    lessonCount: 588,
   },
   {
     subject: 'maths',
@@ -143,25 +144,25 @@ export const BULK_DATA_MANIFEST: readonly SubjectPhaseMetadata[] = [
     subject: 'music',
     phase: 'primary',
     sequenceSlug: 'music-primary',
-    lessonCount: 216,
+    lessonCount: 228,
   },
   {
     subject: 'music',
     phase: 'secondary',
     sequenceSlug: 'music-secondary',
-    lessonCount: 218,
+    lessonCount: 279,
   },
   {
     subject: 'physical-education',
     phase: 'primary',
     sequenceSlug: 'physical-education-primary',
-    lessonCount: 432,
+    lessonCount: 468,
   },
   {
     subject: 'physical-education',
     phase: 'secondary',
     sequenceSlug: 'physical-education-secondary',
-    lessonCount: 560,
+    lessonCount: 588,
   },
   {
     subject: 'religious-education',
@@ -173,7 +174,19 @@ export const BULK_DATA_MANIFEST: readonly SubjectPhaseMetadata[] = [
     subject: 'religious-education',
     phase: 'secondary',
     sequenceSlug: 'religious-education-secondary',
-    lessonCount: 395,
+    lessonCount: 493,
+  },
+  {
+    subject: 'rshe-pshe',
+    phase: 'primary',
+    sequenceSlug: 'rshe-pshe-primary',
+    lessonCount: 216,
+  },
+  {
+    subject: 'rshe-pshe',
+    phase: 'secondary',
+    sequenceSlug: 'rshe-pshe-secondary',
+    lessonCount: 172,
   },
   {
     subject: 'science',
@@ -185,7 +198,7 @@ export const BULK_DATA_MANIFEST: readonly SubjectPhaseMetadata[] = [
     subject: 'science',
     phase: 'secondary',
     sequenceSlug: 'science-secondary',
-    lessonCount: 888,
+    lessonCount: 889,
   },
   {
     subject: 'spanish',
@@ -202,4 +215,4 @@ export const BULK_DATA_MANIFEST: readonly SubjectPhaseMetadata[] = [
 ] as const;
 
 /** Number of subject/phase combinations */
-export const SUBJECT_PHASE_COUNT = 30 as const;
+export const SUBJECT_PHASE_COUNT = 32 as const;

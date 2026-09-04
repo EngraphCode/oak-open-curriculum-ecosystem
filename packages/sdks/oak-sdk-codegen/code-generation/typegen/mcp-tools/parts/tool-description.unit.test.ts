@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import type { OperationObject } from 'openapi3-ts/oas31';
+
+import { loadSchemaCachePaths } from '../test-helpers/schema-cache-reader.js';
+
 import {
   toToolDescription,
   appendToolEnhancements,
@@ -222,6 +225,32 @@ describe('appendToolEnhancements', () => {
       expect(result).toContain('get-keyword-graph');
       expect(result).toContain('LIVE');
       expect(result).toContain('snapshot');
+    });
+
+    it('quotes the schema cache’s current keywords limit default and maximum in the paging guidance', () => {
+      // Expectations derive from the generation source, so this reddens
+      // exactly when the served guidance diverges from what the server
+      // enforces (e.g. upstream lowers the max and the note would instruct
+      // agents to skip records) — the cure is re-truing the note's numbers.
+      const parameters = loadSchemaCachePaths()['/keywords']?.get?.parameters ?? [];
+      const limit = parameters.find((param) => param.name === 'limit');
+      expect(
+        limit?.schema?.default,
+        'keywords limit default missing from schema cache',
+      ).toBeDefined();
+      expect(
+        limit?.schema?.maximum,
+        'keywords limit maximum missing from schema cache',
+      ).toBeDefined();
+
+      const result = appendToolEnhancements('Base description', 'get-keywords');
+      expect(result).toContain(`at most ${String(limit?.schema?.default)} keywords`);
+      expect(result).toContain(`\`limit\` (max ${String(limit?.schema?.maximum)})`);
+      // Since the pagination echo (PR 949), the guidance points at the
+      // result's structural signal instead of a blind max-limit page walk.
+      expect(result).toContain('`hasMore`');
+      expect(result).toContain('`nextOffset`');
+      expect(result).not.toContain(`limit: ${String(limit?.schema?.maximum)}`);
     });
   });
 

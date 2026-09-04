@@ -13,6 +13,8 @@ import {
   buildSchemaWithSchemaLevelExample,
   buildSchemaWithBothExampleLevels,
   buildSchemaWithNoExample,
+  buildSchemaWithNumericConstraintParam,
+  buildSchemaWithUnpropagatedConstraintParam,
 } from '../../test-fixtures.js';
 import { generateMcpToolName } from './name-generator.js';
 
@@ -124,14 +126,14 @@ describe('generateCompleteMcpTools (schema-first execution DAG)', () => {
   });
 
   it('emits noauth scheme for tools in PUBLIC_TOOLS', () => {
-    // Create schema with a tool that will generate 'get-changelog' name
+    // Create schema with a tool that will generate 'get-rate-limit' name
     const schemaWithPublicTool: OpenAPIObject = {
       openapi: '3.0.0',
       info: { title: 'Test', version: '1.0.0' },
       paths: {
-        '/changelog': {
+        '/rate-limit': {
           get: {
-            operationId: 'getChangelog',
+            operationId: 'getRateLimit',
             responses: { '200': { description: 'Success' } },
           },
         },
@@ -139,12 +141,12 @@ describe('generateCompleteMcpTools (schema-first execution DAG)', () => {
     };
 
     const output = generateCompleteMcpTools(schemaWithPublicTool);
-    const changelogToolFile = output.data.tools['get-changelog.ts'];
+    const rateLimitToolFile = output.data.tools['get-rate-limit.ts'];
 
-    expect(changelogToolFile).toBeDefined();
-    expect(changelogToolFile).toContain('securitySchemes:');
-    expect(changelogToolFile).toContain("type: 'noauth'");
-    expect(changelogToolFile).not.toContain("type: 'oauth2'");
+    expect(rateLimitToolFile).toBeDefined();
+    expect(rateLimitToolFile).toContain('securitySchemes:');
+    expect(rateLimitToolFile).toContain("type: 'noauth'");
+    expect(rateLimitToolFile).not.toContain("type: 'oauth2'");
   });
 });
 
@@ -207,6 +209,38 @@ describe('parameter description extraction behaviour', () => {
     // It should just be z.number().optional() without describe
     expect(toolFile).toContain('limit: z.number()');
     expect(toolFile).not.toContain('limit: z.number().describe');
+  });
+});
+
+/**
+ * Tests specifying propagation of OpenAPI parameter validation keywords.
+ *
+ * `getKeywords.invoke` validates against `toolZodSchema` before it reaches
+ * the raw openapi-fetch client, so the request validator's own bound is
+ * never consulted on the MCP path. Every input surface the generator emits
+ * therefore has to carry the upstream constraint itself, or an MCP caller
+ * can send `limit: 5000` and `tools/list` advertises a contract the API
+ * does not honour.
+ */
+describe('parameter validation keyword propagation', () => {
+  it('carries an upstream maximum into every emitted input surface', () => {
+    const files = generateCompleteMcpTools(buildSchemaWithNumericConstraintParam());
+    const toolName = generateMcpToolName('/keywords', 'get');
+    const toolFile = files.data.tools[`${toolName}.ts`];
+
+    expect(toolFile).toBeDefined();
+    // tools/list JSON Schema
+    expect(toolFile).toContain('"limit":{"type":"number"');
+    expect(toolFile).toContain('"maximum":300');
+    // nested SDK-invoke Zod schema and flat MCP Zod schema
+    expect(toolFile).toContain('limit: z.number().lte(300)');
+    expect(toolFile).toContain('limit: z.number().lte(300).describe(');
+  });
+
+  it('fails generation when a parameter carries a validation keyword it cannot propagate', () => {
+    expect(() => generateCompleteMcpTools(buildSchemaWithUnpropagatedConstraintParam())).toThrow(
+      /unit.*pattern/s,
+    );
   });
 });
 

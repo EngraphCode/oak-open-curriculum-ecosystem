@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import type { ToolDescriptor } from '../contract/tool-descriptor.contract.js';
+import { derivePaginationFromLinkHeader } from '../contract/tool-descriptor.contract.js';
 import { UndocumentedResponseError } from '../contract/undocumented-response-error.js';
 import { getResponseDescriptorsByOperationId } from '../../response-map.js';
 import type { OakApiPathBasedClient } from '../../client-types.js';
@@ -22,14 +23,20 @@ const method = 'GET' as const;
  * Query parameters derived from the OpenAPI schema.
  */
 export interface ToolQueryParams {
-  /** Allowed values: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish */
+  /** Subject slug to search by, e.g. 'science' - note that casing is important here (always lowercase) Allowed values: art, citizenship, computing, cooking-nutrition, design-technology, english, french, geography, german, history, maths, music, physical-education, religious-education, rshe-pshe, science, spanish */
   readonly subject?: 'art' | 'citizenship' | 'computing' | 'cooking-nutrition' | 'design-technology' | 'english' | 'french' | 'geography' | 'german' | 'history' | 'maths' | 'music' | 'physical-education' | 'religious-education' | 'rshe-pshe' | 'science' | 'spanish';
-  /** Allowed values: ks1, ks2, ks3, ks4 */
+  /** Key stage slug to filter by, e.g. 'ks2' Allowed values: ks1, ks2, ks3, ks4 */
   readonly keyStage?: 'ks1' | 'ks2' | 'ks3' | 'ks4';
-  /** Allowed values: primary, secondary */
+  /** Phase to filter by, e.g. 'primary' or 'secondary'. Cannot be combined with keyStage. Allowed values: primary, secondary */
   readonly phase?: 'primary' | 'secondary';
+  /** Unit slug to search by, e.g. 'forces-and-magnets' - note that casing is important here (always lowercase) */
   readonly unit?: string;
+  /** Lesson slug to search by, e.g. 'animating-text' - note that casing is important here (always lowercase) */
   readonly lesson?: string;
+  /** If limiting results returned, this allows you to return the next set of results, starting at the given offset point Default: 0 */
+  readonly offset?: number;
+  /** Limit the number of keywords, e.g. return a maximum of 300 keywords Default: 20 */
+  readonly limit?: number;
 }
 export interface ToolParams {
   readonly query?: ToolQueryParams;
@@ -37,11 +44,11 @@ export interface ToolParams {
 
 export interface ToolArgs { readonly params: ToolParams; }
 
-export const toolInputJsonSchema = { type: 'object' as const, properties: {"subject":{"type":"string","enum":["art","citizenship","computing","cooking-nutrition","design-technology","english","french","geography","german","history","maths","music","physical-education","religious-education","rshe-pshe","science","spanish"]},"keyStage":{"type":"string","enum":["ks1","ks2","ks3","ks4"]},"phase":{"type":"string","enum":["primary","secondary"]},"unit":{"type":"string"},"lesson":{"type":"string"}} as const, additionalProperties: false as const };
-export const toolZodSchema = z.object({ params: z.object({ query: z.object({ subject: z.enum(["art", "citizenship", "computing", "cooking-nutrition", "design-technology", "english", "french", "geography", "german", "history", "maths", "music", "physical-education", "religious-education", "rshe-pshe", "science", "spanish"] as const).optional(), keyStage: z.enum(["ks1", "ks2", "ks3", "ks4"] as const).optional(), phase: z.enum(["primary", "secondary"] as const).optional(), unit: z.string().optional(), lesson: z.string().optional() }).optional() }) });
-export const toolMcpFlatInputSchema = z.strictObject({ subject: z.enum(["art", "citizenship", "computing", "cooking-nutrition", "design-technology", "english", "french", "geography", "german", "history", "maths", "music", "physical-education", "religious-education", "rshe-pshe", "science", "spanish"] as const).optional(), keyStage: z.enum(["ks1", "ks2", "ks3", "ks4"] as const).optional(), phase: z.enum(["primary", "secondary"] as const).optional(), unit: z.string().optional(), lesson: z.string().optional() });
+export const toolInputJsonSchema = { type: 'object' as const, properties: {"subject":{"type":"string","description":"Subject slug to search by, e.g. 'science' - note that casing is important here (always lowercase)","examples":["english"],"enum":["art","citizenship","computing","cooking-nutrition","design-technology","english","french","geography","german","history","maths","music","physical-education","religious-education","rshe-pshe","science","spanish"]},"keyStage":{"type":"string","description":"Key stage slug to filter by, e.g. 'ks2'","examples":["ks1"],"enum":["ks1","ks2","ks3","ks4"]},"phase":{"type":"string","description":"Phase to filter by, e.g. 'primary' or 'secondary'. Cannot be combined with keyStage.","enum":["primary","secondary"]},"unit":{"type":"string","description":"Unit slug to search by, e.g. 'forces-and-magnets' - note that casing is important here (always lowercase)"},"lesson":{"type":"string","description":"Lesson slug to search by, e.g. 'animating-text' - note that casing is important here (always lowercase)"},"offset":{"type":"number","description":"If limiting results returned, this allows you to return the next set of results, starting at the given offset point","default":0,"examples":[0]},"limit":{"type":"number","description":"Limit the number of keywords, e.g. return a maximum of 300 keywords","default":20,"examples":[20],"maximum":300}} as const, additionalProperties: false as const };
+export const toolZodSchema = z.object({ params: z.object({ query: z.object({ subject: z.enum(["art", "citizenship", "computing", "cooking-nutrition", "design-technology", "english", "french", "geography", "german", "history", "maths", "music", "physical-education", "religious-education", "rshe-pshe", "science", "spanish"] as const).describe("Subject slug to search by, e.g. 'science' - note that casing is important here (always lowercase)").optional(), keyStage: z.enum(["ks1", "ks2", "ks3", "ks4"] as const).describe("Key stage slug to filter by, e.g. 'ks2'").optional(), phase: z.enum(["primary", "secondary"] as const).describe("Phase to filter by, e.g. 'primary' or 'secondary'. Cannot be combined with keyStage.").optional(), unit: z.string().describe("Unit slug to search by, e.g. 'forces-and-magnets' - note that casing is important here (always lowercase)").optional(), lesson: z.string().describe("Lesson slug to search by, e.g. 'animating-text' - note that casing is important here (always lowercase)").optional(), offset: z.number().describe("If limiting results returned, this allows you to return the next set of results, starting at the given offset point").optional(), limit: z.number().lte(300).describe("Limit the number of keywords, e.g. return a maximum of 300 keywords").optional() }).optional() }) });
+export const toolMcpFlatInputSchema = z.strictObject({ subject: z.enum(["art", "citizenship", "computing", "cooking-nutrition", "design-technology", "english", "french", "geography", "german", "history", "maths", "music", "physical-education", "religious-education", "rshe-pshe", "science", "spanish"] as const).describe("Subject slug to search by, e.g. 'science' - note that casing is important here (always lowercase)").meta({ examples: ["english"] }).optional(), keyStage: z.enum(["ks1", "ks2", "ks3", "ks4"] as const).describe("Key stage slug to filter by, e.g. 'ks2'").meta({ examples: ["ks1"] }).optional(), phase: z.enum(["primary", "secondary"] as const).describe("Phase to filter by, e.g. 'primary' or 'secondary'. Cannot be combined with keyStage.").optional(), unit: z.string().describe("Unit slug to search by, e.g. 'forces-and-magnets' - note that casing is important here (always lowercase)").optional(), lesson: z.string().describe("Lesson slug to search by, e.g. 'animating-text' - note that casing is important here (always lowercase)").optional(), offset: z.number().describe("If limiting results returned, this allows you to return the next set of results, starting at the given offset point").meta({ examples: [0] }).optional(), limit: z.number().lte(300).describe("Limit the number of keywords, e.g. return a maximum of 300 keywords").meta({ examples: [20] }).optional() });
 export type ToolInputSchema = z.infer<typeof toolZodSchema>;
-const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"subject":{"type":"string","enum":["art","citizenship","computing","cooking-nutrition","design-technology","english","french","geography","german","history","maths","music","physical-education","religious-education","rshe-pshe","science","spanish"]},"keyStage":{"type":"string","enum":["ks1","ks2","ks3","ks4"]},"phase":{"type":"string","enum":["primary","secondary"]},"unit":{"type":"string"},"lesson":{"type":"string"}},"additionalProperties":false}\nRequired: (none)';
+const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{"subject":{"type":"string","description":"Subject slug to search by, e.g. \'science\' - note that casing is important here (always lowercase)","examples":["english"],"enum":["art","citizenship","computing","cooking-nutrition","design-technology","english","french","geography","german","history","maths","music","physical-education","religious-education","rshe-pshe","science","spanish"]},"keyStage":{"type":"string","description":"Key stage slug to filter by, e.g. \'ks2\'","examples":["ks1"],"enum":["ks1","ks2","ks3","ks4"]},"phase":{"type":"string","description":"Phase to filter by, e.g. \'primary\' or \'secondary\'. Cannot be combined with keyStage.","enum":["primary","secondary"]},"unit":{"type":"string","description":"Unit slug to search by, e.g. \'forces-and-magnets\' - note that casing is important here (always lowercase)"},"lesson":{"type":"string","description":"Lesson slug to search by, e.g. \'animating-text\' - note that casing is important here (always lowercase)"},"offset":{"type":"number","description":"If limiting results returned, this allows you to return the next set of results, starting at the given offset point","default":0,"examples":[0]},"limit":{"type":"number","description":"Limit the number of keywords, e.g. return a maximum of 300 keywords","default":20,"examples":[20],"maximum":300}},"additionalProperties":false}\nRequired: (none)';
 export const describeToolArgs = () => toolArgsDescription;
 /**
  * Transform flat MCP arguments to nested SDK format.
@@ -60,6 +67,8 @@ export function transformFlatToNestedArgs(flatArgs: z.infer<typeof toolMcpFlatIn
       phase: flatArgs.phase,
       unit: flatArgs.unit,
       lesson: flatArgs.lesson,
+      offset: flatArgs.offset,
+      limit: flatArgs.limit,
     },
   };
   return { params };
@@ -111,7 +120,8 @@ export const getKeywords = {
       throw new UndocumentedResponseError(status, 'getKeywords-getKeywords', documentedStatuses, responseBody);
     }
     const payload = status >= 200 && status < 300 ? response.data : response.error;
-    return { httpStatus: status, payload };
+    const pagination = derivePaginationFromLinkHeader(response.response.headers.get('link'));
+    return { httpStatus: status, payload, pagination };
   },
   toolZodSchema,
   toolInputJsonSchema,
@@ -123,7 +133,7 @@ export const getKeywords = {
   inputSchema: toolInputJsonSchema,
   operationId,
   name,
-  description: "Keywords by subject and key stage\n\nUse when you want the vocabulary for a key stage, subject, unit, lesson, or phase — e.g. to build a glossary or attach definitions to content. Returns keywords with definition, the subject + key stage they appear in, and the lessons that use them, sorted alphabetically. All filters are optional, but pass at least one of keyStage, subject, unit, lesson, or phase.\n\nWHEN TO PREFER WHICH KEYWORDS TOOL: this tool returns the LIVE full keyword set for a key stage + subject — fresh and authoritative (including KS4 during curriculum restructures), alphabetical, unranked, and large at subject scope. For a bounded frequency-ranked subset with lesson connections (token economy + relationship navigation over the curriculum graph), prefer get-keyword-graph, which serves a point-in-time curriculum snapshot.",
+  description: "Keywords by subject and key stage\n\nUse when you want the vocabulary for a key stage, subject, unit, lesson, or phase — e.g. to build a glossary or attach definitions to content. Returns keywords with definition, the subject + key stage they appear in, and the lessons that use them, sorted alphabetically. All filters are optional, but pass at least one of keyStage, subject, unit, lesson, or phase. Request rules: - At least one of subject, keyStage, phase, unit or lesson must be provided - note that they are all the slug form of the values (e.g. \"ks2\" for key stage 2, \"science\" for the science subject, and \"forces-and-magnets\" for the forces and magnets unit), and that casing is important (always lowercase).\n\nWHEN TO PREFER WHICH KEYWORDS TOOL: this tool returns the LIVE keyword set for a key stage + subject — fresh and authoritative (including KS4 during curriculum restructures), alphabetical, unranked, and large at subject scope. For a bounded frequency-ranked subset with lesson connections (token economy + relationship navigation over the curriculum graph), prefer get-keyword-graph, which serves a point-in-time curriculum snapshot.\n\nNOTE: This tool is paginated — the server returns at most 20 keywords unless you pass `limit` (max 300). The result's `pagination` field reports `hasMore` and, when more pages exist, the `nextOffset`/`nextLimit` to pass; follow it until `hasMore` is false. Do not infer completeness by counting items against your limit.",
   path,
   method,
   documentedStatuses,

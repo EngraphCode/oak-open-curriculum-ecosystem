@@ -8,7 +8,7 @@ export const schemaBase = {
   "openapi": "3.1.0",
   "info": {
     "title": "Oak OpenAPI",
-    "version": "0.7.0-c83593cab07dd1550105e1dabc5218f0f883f3e1"
+    "version": "0.7.0-3b4b01e6a7677713b21d997f2c20d42b86ff9b46"
   },
   "servers": [
     {
@@ -69,7 +69,7 @@ export const schemaBase = {
             "schema": {
               "type": "string",
               "description": "The sequence slug identifier",
-              "example": "english-secondary"
+              "example": "english-secondary-aqa"
             },
             "required": true,
             "description": "The sequence slug identifier"
@@ -166,7 +166,8 @@ export const schemaBase = {
               ],
               "description": "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used.",
               "example": "1"
-            }
+            },
+            "description": "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used."
           }
         ],
         "responses": {
@@ -374,7 +375,7 @@ export const schemaBase = {
             "schema": {
               "type": "string",
               "description": "The sequence slug identifier, including the key stage 4 option where relevant.",
-              "example": "english-primary"
+              "example": "maths-primary"
             },
             "required": true,
             "description": "The sequence slug identifier, including the key stage 4 option where relevant."
@@ -386,7 +387,8 @@ export const schemaBase = {
               "type": "number",
               "description": "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used.",
               "example": 3
-            }
+            },
+            "description": "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used."
           },
           {
             "in": "query",
@@ -404,9 +406,10 @@ export const schemaBase = {
                 "worksheet",
                 "worksheetAnswers"
               ],
-              "description": "Optional asset type specifier\n\nAvailable values: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers",
+              "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
               "example": "slideDeck"
-            }
+            },
+            "description": "Optional asset type specifier\n\nAvailable values: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers"
           }
         ],
         "responses": {
@@ -530,9 +533,10 @@ export const schemaBase = {
                 "worksheet",
                 "worksheetAnswers"
               ],
-              "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+              "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
               "example": "slideDeck"
-            }
+            },
+            "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint"
           },
           {
             "in": "query",
@@ -541,7 +545,8 @@ export const schemaBase = {
               "type": "string",
               "description": "Optional unit slug to additionally filter by",
               "example": "word-class"
-            }
+            },
+            "description": "Optional unit slug to additionally filter by"
           }
         ],
         "responses": {
@@ -609,7 +614,7 @@ export const schemaBase = {
             "schema": {
               "type": "string",
               "description": "The lesson slug identifier",
-              "example": "child-workers-in-the-victorian-era"
+              "example": "creating-a-new-word"
             },
             "required": true,
             "description": "The lesson slug identifier"
@@ -630,9 +635,10 @@ export const schemaBase = {
                 "worksheet",
                 "worksheetAnswers"
               ],
-              "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+              "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
               "example": "slideDeck"
-            }
+            },
+            "description": "Optional asset type specifier\n\nAvailable values: slideDeck, exitQuiz, exitQuizAnswers, starterQuiz, starterQuizAnswers, supplementaryResource, video, worksheet, worksheetAnswers"
           }
         ],
         "responses": {
@@ -713,7 +719,8 @@ export const schemaBase = {
               "type": "number",
               "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
               "example": 0
-            }
+            },
+            "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point"
           },
           {
             "in": "query",
@@ -724,7 +731,8 @@ export const schemaBase = {
               "maximum": 300,
               "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
               "example": 20
-            }
+            },
+            "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons"
           },
           {
             "in": "query",
@@ -742,9 +750,10 @@ export const schemaBase = {
                 "worksheet",
                 "worksheetAnswers"
               ],
-              "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+              "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
               "example": "slideDeck"
-            }
+            },
+            "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint"
           }
         ],
         "responses": {
@@ -812,7 +821,7 @@ export const schemaBase = {
             "schema": {
               "type": "string",
               "description": "The lesson slug",
-              "example": "child-workers-in-the-victorian-era"
+              "example": "creating-a-new-word"
             },
             "required": true,
             "description": "The lesson slug"
@@ -833,11 +842,11 @@ export const schemaBase = {
                 "worksheet",
                 "worksheetAnswers"
               ],
-              "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+              "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
               "example": "slideDeck"
             },
             "required": true,
-            "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint"
+            "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint"
           }
         ],
         "responses": {
@@ -1334,28 +1343,31 @@ export const schemaBase = {
               "type": "string",
               "description": "Optional unit slug to additionally filter by",
               "example": "word-class"
-            }
+            },
+            "description": "Optional unit slug to additionally filter by"
           },
           {
             "in": "query",
             "name": "offset",
             "schema": {
               "default": 0,
-              "description": "Limit the number of lessons returned per unit. Units with zero lessons after limiting are omitted.",
+              "example": 11,
               "type": "number",
-              "example": 0
-            }
+              "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point"
+            },
+            "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point"
           },
           {
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 20,
-              "description": "Offset applied to lessons within each unit (not to the unit list).",
+              "example": 10,
               "type": "number",
               "maximum": 300,
-              "example": 20
-            }
+              "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons"
+            },
+            "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons"
           }
         ],
         "responses": {
@@ -1477,7 +1489,8 @@ export const schemaBase = {
                 "wjec",
                 "edexcelb"
               ]
-            }
+            },
+            "description": "Optional exam board slug to filter units by, e.g. 'aqa'. Only meaningful at KS4 where subjects are broken down by exam board."
           }
         ],
         "responses": {
@@ -1758,7 +1771,7 @@ export const schemaBase = {
       "get": {
         "operationId": "getKeywords-getKeywords",
         "summary": "Keywords by subject and key stage",
-        "description": "Use when you want the vocabulary for a key stage, subject, unit, lesson, or phase — e.g. to build a glossary or attach definitions to content. Returns keywords with definition, the subject + key stage they appear in, and the lessons that use them, sorted alphabetically. All filters are optional, but pass at least one of keyStage, subject, unit, lesson, or phase.",
+        "description": "Use when you want the vocabulary for a key stage, subject, unit, lesson, or phase — e.g. to build a glossary or attach definitions to content. Returns keywords with definition, the subject + key stage they appear in, and the lessons that use them, sorted alphabetically. All filters are optional, but pass at least one of keyStage, subject, unit, lesson, or phase.\n\nRequest rules:\n\n- At least one of subject, keyStage, phase, unit or lesson must be provided - note that they are all the slug form of the values (e.g. \"ks2\" for key stage 2, \"science\" for the science subject, and \"forces-and-magnets\" for the forces and magnets unit), and that casing is important (always lowercase).",
         "tags": [
           "lists"
         ],
@@ -1791,8 +1804,10 @@ export const schemaBase = {
                 "rshe-pshe",
                 "science",
                 "spanish"
-              ]
-            }
+              ],
+              "example": "english"
+            },
+            "description": "Subject slug to search by, e.g. 'science' - note that casing is important here (always lowercase)"
           },
           {
             "in": "query",
@@ -1804,8 +1819,10 @@ export const schemaBase = {
                 "ks2",
                 "ks3",
                 "ks4"
-              ]
-            }
+              ],
+              "example": "ks1"
+            },
+            "description": "Key stage slug to filter by, e.g. 'ks2'"
           },
           {
             "in": "query",
@@ -1816,21 +1833,47 @@ export const schemaBase = {
                 "primary",
                 "secondary"
               ]
-            }
+            },
+            "description": "Phase to filter by, e.g. 'primary' or 'secondary'. Cannot be combined with keyStage."
           },
           {
             "in": "query",
             "name": "unit",
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "Unit slug to search by, e.g. 'forces-and-magnets' - note that casing is important here (always lowercase)"
           },
           {
             "in": "query",
             "name": "lesson",
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "Lesson slug to search by, e.g. 'animating-text' - note that casing is important here (always lowercase)"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "default": 0,
+              "type": "number",
+              "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
+              "example": 0
+            },
+            "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 20,
+              "description": "Limit the number of keywords, e.g. return a maximum of 300 keywords",
+              "type": "number",
+              "maximum": 300,
+              "example": 20
+            },
+            "description": "Limit the number of keywords, e.g. return a maximum of 300 keywords"
           }
         ],
         "responses": {
@@ -1839,74 +1882,7 @@ export const schemaBase = {
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "keyword": {
-                        "type": "string",
-                        "example": "non-finite clause",
-                        "description": "The keyword text"
-                      },
-                      "description": {
-                        "type": "string",
-                        "example": "a type of subordinate clause that can start with a verb in the progressive tense",
-                        "description": "A description of the keyword"
-                      },
-                      "keyStageSlug": {
-                        "type": "string",
-                        "example": "ks2",
-                        "description": "The key stage slug associated with this keyword"
-                      },
-                      "subjectSlug": {
-                        "type": "string",
-                        "example": "science",
-                        "description": "The subject slug associated with this keyword"
-                      },
-                      "lessonSlugs": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        },
-                        "example": [
-                          "a-new-sentence-structure-the-non-finite-complex-sentence",
-                          "using-the-comma-rules-in-non-finite-complex-sentences",
-                          "a-new-subordinate-clause-the-non-finite-ing-clause"
-                        ],
-                        "description": "The different lesson slugs where this keyword is used"
-                      }
-                    },
-                    "required": [
-                      "keyword",
-                      "description",
-                      "keyStageSlug",
-                      "subjectSlug",
-                      "lessonSlugs"
-                    ],
-                    "additionalProperties": false
-                  },
-                  "ref": "KeyStageSubjectKeywordsResponseSchema",
-                  "example": [
-                    {
-                      "keyword": "animate",
-                      "description": "to make something move or change its appearance",
-                      "keyStageSlug": "ks2",
-                      "subjectSlug": "computing",
-                      "lessonSlugs": [
-                        "animating-text"
-                      ]
-                    },
-                    {
-                      "keyword": "animation",
-                      "description": "a way of making pictures or objects look as if they are moving by showing them quickly one after another",
-                      "keyStageSlug": "ks2",
-                      "subjectSlug": "computing",
-                      "lessonSlugs": [
-                        "introduction-to-animation",
-                        "programming-using-command-blocks"
-                      ]
-                    }
-                  ]
+                  "$ref": "#/components/schemas/KeywordsResponseSchema"
                 }
               }
             }
@@ -1949,7 +1925,8 @@ export const schemaBase = {
                 "images"
               ],
               "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer."
-            }
+            },
+            "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer."
           }
         ],
         "responses": {
@@ -2017,7 +1994,7 @@ export const schemaBase = {
             "schema": {
               "type": "string",
               "description": "The sequence slug identifier, including the key stage 4 option where relevant.",
-              "example": "english-primary"
+              "example": "maths-secondary"
             },
             "required": true,
             "description": "The sequence slug identifier, including the key stage 4 option where relevant."
@@ -2029,28 +2006,31 @@ export const schemaBase = {
               "type": "number",
               "description": "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used.",
               "example": 3
-            }
+            },
+            "description": "The year group to filter by. For the physical-education-primary sequence, a value of all-years can also be used."
           },
           {
             "in": "query",
             "name": "offset",
             "schema": {
               "default": 0,
+              "example": 101,
               "type": "number",
-              "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
-              "example": 0
-            }
+              "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point"
+            },
+            "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point"
           },
           {
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 20,
+              "example": 100,
               "type": "number",
               "maximum": 300,
-              "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
-              "example": 20
-            }
+              "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons"
+            },
+            "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons"
           },
           {
             "in": "query",
@@ -2061,7 +2041,8 @@ export const schemaBase = {
                 "images"
               ],
               "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer."
-            }
+            },
+            "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer."
           }
         ],
         "responses": {
@@ -2174,21 +2155,23 @@ export const schemaBase = {
             "name": "offset",
             "schema": {
               "default": 0,
+              "example": 11,
               "type": "number",
-              "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
-              "example": 0
-            }
+              "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point"
+            },
+            "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point"
           },
           {
             "in": "query",
             "name": "limit",
             "schema": {
               "default": 20,
+              "example": 10,
               "type": "number",
               "maximum": 300,
-              "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
-              "example": 20
-            }
+              "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons"
+            },
+            "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons"
           },
           {
             "in": "query",
@@ -2199,7 +2182,8 @@ export const schemaBase = {
                 "images"
               ],
               "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer."
-            }
+            },
+            "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer."
           }
         ],
         "responses": {
@@ -2280,7 +2264,8 @@ export const schemaBase = {
               "type": "number",
               "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point",
               "example": 0
-            }
+            },
+            "description": "If limiting results returned, this allows you to return the next set of results, starting at the given offset point"
           },
           {
             "in": "query",
@@ -2291,7 +2276,8 @@ export const schemaBase = {
               "maximum": 300,
               "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons",
               "example": 20
-            }
+            },
+            "description": "Limit the number of lessons, e.g. return a maximum of 300 lessons"
           },
           {
             "in": "query",
@@ -2302,7 +2288,8 @@ export const schemaBase = {
                 "images"
               ],
               "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer."
-            }
+            },
+            "description": "Optional filter for question results. Use `images` to return only questions with a question image or image answer."
           }
         ],
         "responses": {
@@ -2369,7 +2356,7 @@ export const schemaBase = {
             "schema": {
               "type": "string",
               "description": "The slug of the lesson",
-              "example": "joining-using-and"
+              "example": "using-vector-tools-to-draw-and-modify-shapes"
             },
             "required": true,
             "description": "The slug of the lesson"
@@ -2458,7 +2445,8 @@ export const schemaBase = {
               ],
               "description": "Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase",
               "example": "ks2"
-            }
+            },
+            "description": "Key stage slug to filter by, e.g. 'ks2' - note that casing is important here, and should be lowercase"
           },
           {
             "in": "query",
@@ -2486,7 +2474,8 @@ export const schemaBase = {
               ],
               "description": "Subject slug to filter by, e.g. 'english' - note that casing is important here, and should be lowercase",
               "example": "english"
-            }
+            },
+            "description": "Subject slug to filter by, e.g. 'english' - note that casing is important here, and should be lowercase"
           },
           {
             "in": "query",
@@ -2495,7 +2484,8 @@ export const schemaBase = {
               "type": "string",
               "description": "Optional unit slug to additionally filter by",
               "example": "Gothic poetry"
-            }
+            },
+            "description": "Optional unit slug to additionally filter by"
           }
         ],
         "responses": {
@@ -2579,8 +2569,10 @@ export const schemaBase = {
                 "ocr",
                 "wjec",
                 "edexcelb"
-              ]
-            }
+              ],
+              "example": "aqa"
+            },
+            "description": "Optional exam board slug to narrow the unit to a specific programme variant, e.g. 'aqa'."
           },
           {
             "in": "query",
@@ -2591,7 +2583,8 @@ export const schemaBase = {
                 "core",
                 "gcse"
               ]
-            }
+            },
+            "description": "Optional pathway slug to narrow the unit to a specific programme variant, e.g. 'gcse'."
           },
           {
             "in": "query",
@@ -2603,7 +2596,8 @@ export const schemaBase = {
                 "foundation",
                 "higher"
               ]
-            }
+            },
+            "description": "Optional tier slug to narrow the unit to a specific programme variant, e.g. 'foundation'."
           },
           {
             "in": "query",
@@ -2616,7 +2610,8 @@ export const schemaBase = {
                 "combined-science",
                 "physics"
               ]
-            }
+            },
+            "description": "Optional science child subject slug to narrow the unit to a specific programme variant. Only available for science units, e.g. 'biology'."
           }
         ],
         "responses": {
@@ -2739,9 +2734,11 @@ export const schemaBase = {
             "name": "threadSlug",
             "schema": {
               "type": "string",
+              "description": "The thread identifier for a given unit",
               "example": "number-multiplication-and-division"
             },
-            "required": true
+            "required": true,
+            "description": "The thread identifier for a given unit"
           }
         ],
         "responses": {
@@ -2751,188 +2748,6 @@ export const schemaBase = {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ThreadUnitsResponseSchema"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error.BAD_REQUEST"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "API token not provided or invalid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error.NOT_FOUND"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/changelog": {
-      "get": {
-        "operationId": "changelog-changelog",
-        "summary": "API changelog",
-        "description": "Use when you need the full history of API changes — for surfacing release notes or checking which version introduced a field. Returns every changelog entry with version and date.\n\nNot for: the current version (GET /changelog/latest).",
-        "tags": [
-          "internal"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "version": {
-                        "type": "string"
-                      },
-                      "date": {
-                        "type": "string"
-                      },
-                      "changes": {
-                        "type": "array",
-                        "items": {
-                          "type": "string"
-                        }
-                      }
-                    },
-                    "required": [
-                      "version",
-                      "date",
-                      "changes"
-                    ],
-                    "additionalProperties": false
-                  },
-                  "example": [
-                    {
-                      "version": "0.7.0",
-                      "date": "2026-05-21",
-                      "changes": [
-                        "/subjects/{subject} now exposes `ks4ProgrammeFactors.childSubject` for subjects split into child subjects at KS4 (currently science → biology, chemistry, combined-science, physics)",
-                        "Removed the per-sequence `ks4Options` field from `sequenceSlugs[]` in /subjects, /subjects/{subject}, and /subjects/{subject}/sequences responses; the variant is still encoded in the sequenceSlug suffix"
-                      ]
-                    },
-                    {
-                      "version": "0.6.0",
-                      "date": "2026-02-19",
-                      "changes": [
-                        "Change to how blocked content is handled, using BAD_REQUEST & .data.cause instead of 451"
-                      ]
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad request - e.g. \"Content is blocked for copyright reasons\"",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error.BAD_REQUEST"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "API token not provided or invalid",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error.UNAUTHORIZED"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Detail of the request causing the 404, e.g. \"Lesson not found\"",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error.NOT_FOUND"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/changelog/latest": {
-      "get": {
-        "operationId": "changelog-latest",
-        "summary": "Latest API version",
-        "description": "Use when you only need the current API version — e.g. a version banner or deployment check. Returns the most recent changelog entry.\n\nNot for: full version history (GET /changelog).",
-        "tags": [
-          "internal"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "version": {
-                      "type": "string"
-                    },
-                    "date": {
-                      "type": "string"
-                    },
-                    "changes": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "required": [
-                    "version",
-                    "date",
-                    "changes"
-                  ],
-                  "additionalProperties": false,
-                  "example": {
-                    "version": "0.7.0",
-                    "date": "2026-05-21",
-                    "changes": [
-                      "/subjects/{subject} now exposes `ks4ProgrammeFactors.childSubject` for subjects split into child subjects at KS4 (currently science → biology, chemistry, combined-science, physics)",
-                      "Removed the per-sequence `ks4Options` field from `sequenceSlugs[]` in /subjects, /subjects/{subject}, and /subjects/{subject}/sequences responses; the variant is still encoded in the sequenceSlug suffix"
-                    ]
-                  }
                 }
               }
             }
@@ -3035,14 +2850,22 @@ export const schemaBase = {
         "properties": {
           "sequenceSlug": {
             "type": "string",
-            "description": "The unique identifier for each sequence"
+            "description": "The unique identifier for each sequence",
+            "example": "computing-secondary-core"
           },
           "years": {
             "type": "array",
             "items": {
               "type": "number"
             },
-            "description": "The years for which this subject has content available for"
+            "description": "The years for which this subject has content available for",
+            "example": [
+              7,
+              8,
+              9,
+              10,
+              11
+            ]
           },
           "keyStages": {
             "type": "array",
@@ -3064,15 +2887,27 @@ export const schemaBase = {
               ],
               "additionalProperties": false
             },
-            "description": "The key stage slug identifiers for which this subject has content available for."
+            "description": "The key stage slug identifiers for which this subject has content available for.",
+            "example": [
+              {
+                "keyStageTitle": "Key Stage 3",
+                "keyStageSlug": "ks3"
+              },
+              {
+                "keyStageTitle": "Key Stage 4",
+                "keyStageSlug": "ks4"
+              }
+            ]
           },
           "phaseSlug": {
             "type": "string",
-            "description": "The unique identifier for the phase to which this sequence belongs"
+            "description": "The unique identifier for the phase to which this sequence belongs",
+            "example": "secondary"
           },
           "phaseTitle": {
             "type": "string",
-            "description": "The title for the phase to which this sequence belongs"
+            "description": "The title for the phase to which this sequence belongs",
+            "example": "Secondary"
           },
           "ks4ProgrammeFactors": {
             "type": "object",
@@ -3167,7 +3002,39 @@ export const schemaBase = {
               }
             },
             "additionalProperties": false,
-            "description": "The programme factors that apply to this subject at key stage 4, with the valid values for each factor."
+            "description": "The programme factors that apply to this subject at key stage 4, with the valid values for each factor.",
+            "example": {
+              "examBoard": [
+                {
+                  "title": "AQA",
+                  "slug": "aqa"
+                },
+                {
+                  "title": "Edexcel",
+                  "slug": "edexcel"
+                },
+                {
+                  "title": "OCR",
+                  "slug": "ocr"
+                }
+              ],
+              "pathway": [
+                {
+                  "title": "Core",
+                  "slug": "core"
+                }
+              ],
+              "tier": [
+                {
+                  "title": "Foundation",
+                  "slug": "foundation"
+                },
+                {
+                  "title": "Higher",
+                  "slug": "higher"
+                }
+              ]
+            }
           },
           "oakUrl": {
             "type": "string",
@@ -4389,11 +4256,13 @@ export const schemaBase = {
         "properties": {
           "transcript": {
             "type": "string",
-            "description": "The transcript for the lesson video"
+            "description": "The transcript for the lesson video",
+            "example": "Hello, I'm Mrs. Lashley. I'm looking forward to guiding you through your learning today..."
           },
           "vtt": {
             "type": "string",
-            "description": "The contents of the .vtt file for the lesson video, which maps captions to video timestamps."
+            "description": "The contents of the .vtt file for the lesson video, which maps captions to video timestamps.",
+            "example": "WEBVTT\n\n1\n00:00:06.300 --> 00:00:08.070\n<v ->Hello, I'm Mrs. Lashley.</v>\n\n2\n00:00:08.070 --> 00:00:09.240\nI'm looking forward to guiding you\n\n3\n00:00:09.240 --> 00:00:10.980\nthrough your learning today..."
           },
           "oakUrl": {
             "type": "string",
@@ -4428,9 +4297,9 @@ export const schemaBase = {
               "example": "the-roman-invasion-of-britain"
             },
             "transcriptSnippet": {
+              "example": "The Romans were ready,",
               "type": "string",
-              "description": "The snippet of the transcript that matched the search term",
-              "example": "The Romans were ready,"
+              "description": "The snippet of the transcript that matched the search term"
             },
             "oakUrl": {
               "type": "string",
@@ -4506,7 +4375,7 @@ export const schemaBase = {
                       "worksheet",
                       "worksheetAnswers"
                     ],
-                    "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+                    "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
                     "example": "slideDeck"
                   },
                   "label": {
@@ -4603,7 +4472,7 @@ export const schemaBase = {
                       "worksheet",
                       "worksheetAnswers"
                     ],
-                    "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+                    "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
                     "example": "slideDeck"
                   },
                   "label": {
@@ -4696,7 +4565,7 @@ export const schemaBase = {
                     "worksheet",
                     "worksheetAnswers"
                   ],
-                  "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+                  "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
                   "example": "slideDeck"
                 },
                 "label": {
@@ -4784,7 +4653,7 @@ export const schemaBase = {
                       "worksheet",
                       "worksheetAnswers"
                     ],
-                    "description": "Use the this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
+                    "description": "Use this type and the lesson slug in conjunction to get a signed download URL to the asset type from the /api/lessons/{slug}/assets/{type} endpoint",
                     "example": "slideDeck"
                   },
                   "label": {
@@ -5452,11 +5321,13 @@ export const schemaBase = {
                 "properties": {
                   "unitSlug": {
                     "type": "string",
-                    "description": "The unit slug identifier"
+                    "description": "The unit slug identifier",
+                    "example": "2-4-and-8-times-tables-using-times-tables-to-solve-problems"
                   },
                   "unitTitle": {
                     "type": "string",
-                    "description": "The unit title"
+                    "description": "The unit title",
+                    "example": "2, 4 and 8 times tables: using times tables to solve problems"
                   },
                   "examBoards": {
                     "description": "The exam boards the unit appears in. Only populated for KS4 subjects when the request does not supply an `examBoard` filter.",
@@ -5487,7 +5358,17 @@ export const schemaBase = {
                 ],
                 "additionalProperties": false
               },
-              "description": "List of units for the specified year"
+              "description": "List of units for the specified year",
+              "example": [
+                {
+                  "unitSlug": "2-4-and-8-times-tables-using-times-tables-to-solve-problems",
+                  "unitTitle": "2, 4 and 8 times tables: using times tables to solve problems"
+                },
+                {
+                  "unitSlug": "bridging-100-counting-on-and-back-in-10s-adding-subtracting-multiples-of-10",
+                  "unitTitle": "Bridging 100: counting on and back in 10s, adding/subtracting multiples of 10"
+                }
+              ]
             },
             "oakUrl": {
               "type": "string",
@@ -5709,6 +5590,73 @@ export const schemaBase = {
             "unitSlug": "algorithms",
             "unitTitle": "Algorithms",
             "unitOrder": 2
+          }
+        ]
+      },
+      "KeywordsResponseSchema": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "keyword": {
+              "type": "string",
+              "description": "The keyword text",
+              "example": "animate"
+            },
+            "description": {
+              "type": "string",
+              "description": "A description of the keyword",
+              "example": "to make something move or change its appearance"
+            },
+            "keyStageSlug": {
+              "type": "string",
+              "description": "The key stage slug associated with the keyword",
+              "example": "ks2"
+            },
+            "subjectSlug": {
+              "type": "string",
+              "description": "The subject slug associated with the keyword",
+              "example": "computing"
+            },
+            "lessonSlugs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "The different lesson slugs where this keyword is used",
+              "example": [
+                "animating-text"
+              ]
+            }
+          },
+          "required": [
+            "keyword",
+            "description",
+            "keyStageSlug",
+            "subjectSlug",
+            "lessonSlugs"
+          ],
+          "additionalProperties": false
+        },
+        "example": [
+          {
+            "keyword": "animate",
+            "description": "to make something move or change its appearance",
+            "keyStageSlug": "ks2",
+            "subjectSlug": "computing",
+            "lessonSlugs": [
+              "animating-text"
+            ]
+          },
+          {
+            "keyword": "animation",
+            "description": "a way of making pictures or objects look as if they are moving by showing them quickly one after another",
+            "keyStageSlug": "ks2",
+            "subjectSlug": "computing",
+            "lessonSlugs": [
+              "introduction-to-animation",
+              "programming-using-command-blocks"
+            ]
           }
         ]
       },
@@ -6117,7 +6065,35 @@ export const schemaBase = {
               ],
               "type": "object"
             },
-            "description": "The starter quiz questions - which test prior knowledge"
+            "description": "The starter quiz questions - which test prior knowledge",
+            "example": [
+              {
+                "question": "Tick the sentence with the correct punctuation.",
+                "questionType": "multiple-choice",
+                "answers": [
+                  {
+                    "distractor": true,
+                    "type": "text",
+                    "content": "the baby cried"
+                  },
+                  {
+                    "distractor": true,
+                    "type": "text",
+                    "content": "The baby cried"
+                  },
+                  {
+                    "distractor": false,
+                    "type": "text",
+                    "content": "The baby cried."
+                  },
+                  {
+                    "distractor": true,
+                    "type": "text",
+                    "content": "the baby cried."
+                  }
+                ]
+              }
+            ]
           },
           "exitQuiz": {
             "type": "array",
@@ -6521,7 +6497,35 @@ export const schemaBase = {
               ],
               "type": "object"
             },
-            "description": "The exit quiz questions - which test on the knowledge learned in the lesson"
+            "description": "The exit quiz questions - which test on the knowledge learned in the lesson",
+            "example": [
+              {
+                "question": "Which word is a verb?",
+                "questionType": "multiple-choice",
+                "answers": [
+                  {
+                    "distractor": true,
+                    "type": "text",
+                    "content": "shops"
+                  },
+                  {
+                    "distractor": true,
+                    "type": "text",
+                    "content": "Jun"
+                  },
+                  {
+                    "distractor": true,
+                    "type": "text",
+                    "content": "I"
+                  },
+                  {
+                    "distractor": false,
+                    "type": "text",
+                    "content": "shout"
+                  }
+                ]
+              }
+            ]
           },
           "oakUrl": {
             "type": "string",
@@ -9336,17 +9340,20 @@ export const schemaBase = {
         "properties": {
           "lessonTitle": {
             "type": "string",
-            "description": "The lesson title"
+            "description": "The lesson title",
+            "example": "Using vector tools to draw and modify shapes"
           },
           "canonicalUrl": {
             "type": "string",
             "format": "uri",
-            "description": "The canonical Oak National URL for the lesson"
+            "description": "The canonical Oak National URL for the lesson",
+            "example": "https://www.thenational.academy/teachers/lessons/using-vector-tools-to-draw-and-modify-shapes"
           },
           "oakUrl": {
             "type": "string",
             "format": "uri",
-            "description": "The Oak National URL for the lesson"
+            "description": "The Oak National URL for the lesson",
+            "example": "https://www.thenational.academy/teachers/lessons/using-vector-tools-to-draw-and-modify-shapes"
           },
           "units": {
             "type": "array",
@@ -9355,11 +9362,13 @@ export const schemaBase = {
               "properties": {
                 "unitSlug": {
                   "type": "string",
-                  "description": "The unit slug identifier"
+                  "description": "The unit slug identifier",
+                  "example": "developing-vector-graphics"
                 },
                 "unitTitle": {
                   "type": "string",
-                  "description": "The unit title"
+                  "description": "The unit title",
+                  "example": "Developing vector graphics"
                 },
                 "programmeFactors": {
                   "type": "object",
@@ -9467,19 +9476,23 @@ export const schemaBase = {
           },
           "subjectSlug": {
             "type": "string",
-            "description": "The subject slug identifier"
+            "description": "The subject slug identifier",
+            "example": "computing"
           },
           "subjectTitle": {
             "type": "string",
-            "description": "The subject slug identifier"
+            "description": "The subject slug identifier",
+            "example": "Computing"
           },
           "keyStageSlug": {
             "type": "string",
-            "description": "The key stage slug identifier"
+            "description": "The key stage slug identifier",
+            "example": "ks3"
           },
           "keyStageTitle": {
             "type": "string",
-            "description": "The key stage title"
+            "description": "The key stage title",
+            "example": "Key Stage 3"
           },
           "lessonKeywords": {
             "type": "array",
@@ -9488,11 +9501,13 @@ export const schemaBase = {
               "properties": {
                 "keyword": {
                   "type": "string",
-                  "description": "The keyword"
+                  "description": "The keyword",
+                  "example": "vector graphic"
                 },
                 "description": {
                   "type": "string",
-                  "description": "A definition of the keyword"
+                  "description": "A definition of the keyword",
+                  "example": "an image made up of lines and shapes"
                 }
               },
               "required": [
@@ -9501,7 +9516,21 @@ export const schemaBase = {
               ],
               "additionalProperties": false
             },
-            "description": "The lesson's keywords and their descriptions"
+            "description": "The lesson's keywords and their descriptions",
+            "example": [
+              {
+                "keyword": "vector graphic",
+                "description": "an image made up of lines and shapes"
+              },
+              {
+                "keyword": "z-order",
+                "description": "the order of overlapping objects"
+              },
+              {
+                "keyword": "layer",
+                "description": "the level on which an object (e.g. text, shapes and photos) can be placed relative to other objects"
+              }
+            ]
           },
           "keyLearningPoints": {
             "type": "array",
@@ -9510,7 +9539,8 @@ export const schemaBase = {
               "properties": {
                 "keyLearningPoint": {
                   "type": "string",
-                  "description": "A key learning point"
+                  "description": "A key learning point",
+                  "example": "Vector graphics are made from shapes described by coordinates, not pixels."
                 }
               },
               "required": [
@@ -9518,7 +9548,18 @@ export const schemaBase = {
               ],
               "additionalProperties": false
             },
-            "description": "The lesson's key learning points"
+            "description": "The lesson's key learning points",
+            "example": [
+              {
+                "keyLearningPoint": "Vector graphics are made from shapes described by coordinates, not pixels."
+              },
+              {
+                "keyLearningPoint": "Vector illustrations are built using simple shapes."
+              },
+              {
+                "keyLearningPoint": "Vector graphics use z-order to show which shapes are in front and are visible."
+              }
+            ]
           },
           "misconceptionsAndCommonMistakes": {
             "type": "array",
@@ -9527,11 +9568,13 @@ export const schemaBase = {
               "properties": {
                 "misconception": {
                   "type": "string",
-                  "description": "A common misconception"
+                  "description": "A common misconception",
+                  "example": "Vector graphics are made from pixels and can lose quality when resized."
                 },
                 "response": {
                   "type": "string",
-                  "description": "Suggested teacher response to a common misconception"
+                  "description": "Suggested teacher response to a common misconception",
+                  "example": "Vector graphics are made from lines and shapes. They do not lose quality when resized."
                 }
               },
               "required": [
@@ -9540,10 +9583,17 @@ export const schemaBase = {
               ],
               "additionalProperties": false
             },
-            "description": "The lesson’s anticipated common misconceptions and suggested teacher responses"
+            "description": "The lesson’s anticipated common misconceptions and suggested teacher responses",
+            "example": [
+              {
+                "misconception": "Vector graphics are made from pixels and can lose quality when resized.",
+                "response": "Vector graphics are made from lines and shapes. They do not lose quality when resized."
+              }
+            ]
           },
           "pupilLessonOutcome": {
             "description": "Suggested teacher response to a common misconception",
+            "example": "I can use software to draw and modify vector shapes.",
             "type": "string"
           },
           "teacherTips": {
@@ -9552,7 +9602,8 @@ export const schemaBase = {
               "type": "object",
               "properties": {
                 "teacherTip": {
-                  "type": "string"
+                  "type": "string",
+                  "example": "You need to be familiar with the basic tools and features of vector editing software. The Inkscape tutorials may be useful — oak.link/inkscape-tutorials"
                 }
               },
               "required": [
@@ -9561,7 +9612,12 @@ export const schemaBase = {
               "additionalProperties": false,
               "description": "A teaching tip"
             },
-            "description": "Helpful teaching tips for the lesson"
+            "description": "Helpful teaching tips for the lesson",
+            "example": [
+              {
+                "teacherTip": "You need to be familiar with the basic tools and features of vector editing software. The Inkscape tutorials may be useful — oak.link/inkscape-tutorials"
+              }
+            ]
           },
           "contentGuidance": {
             "anyOf": [
@@ -9600,7 +9656,8 @@ export const schemaBase = {
                 "type": "null"
               }
             ],
-            "description": "Full guidance about the types of lesson content for the teacher to consider (where appropriate)"
+            "description": "Full guidance about the types of lesson content for the teacher to consider (where appropriate)",
+            "example": null
           },
           "supervisionLevel": {
             "anyOf": [
@@ -9611,11 +9668,13 @@ export const schemaBase = {
                 "type": "null"
               }
             ],
-            "description": "The ID of the supervision level for the identified type of content. See ‘What are the types of content guidance?’ for more information."
+            "description": "The ID of the supervision level for the identified type of content. See ‘What are the types of content guidance?’ for more information.",
+            "example": null
           },
           "downloadsAvailable": {
             "type": "boolean",
-            "description": "Whether the lesson currently has any downloadable assets available."
+            "description": "Whether the lesson currently has any downloadable assets available.",
+            "example": true
           }
         },
         "required": [
@@ -9802,17 +9861,17 @@ export const schemaBase = {
           "unitSlug": {
             "type": "string",
             "description": "The unit slug identifier",
-            "example": "simple-compound-and-adverbial-complex-sentences"
+            "example": "programming-subroutines"
           },
           "unitTitle": {
             "type": "string",
             "description": "The unit title",
-            "example": "Simple, compound and adverbial complex sentences"
+            "example": "Programming subroutines"
           },
           "yearSlug": {
             "type": "string",
             "description": "The slug identifier for the year to which the unit belongs",
-            "example": "year-3"
+            "example": "year-10"
           },
           "year": {
             "anyOf": [
@@ -9825,22 +9884,22 @@ export const schemaBase = {
               }
             ],
             "description": "The year to which the unit belongs",
-            "example": 3
+            "example": 10
           },
           "phaseSlug": {
             "type": "string",
             "description": "The slug identifier for the phase to which the unit belongs",
-            "example": "primary"
+            "example": "secondary"
           },
           "subjectSlug": {
             "type": "string",
             "description": "The subject identifier",
-            "example": "english"
+            "example": "computing"
           },
           "keyStageSlug": {
             "type": "string",
             "description": "The slug identifier for the the key stage to which the unit belongs",
-            "example": "ks2"
+            "example": "ks4"
           },
           "notes": {
             "type": "string",
@@ -9857,9 +9916,9 @@ export const schemaBase = {
             },
             "description": "The prior knowledge required for the unit",
             "example": [
-              "A simple sentence is about one idea and makes complete sense.",
-              "Any simple sentence contains one verb and at least one noun.",
-              "Two simple sentences can be joined with a co-ordinating conjunction to form a compound sentence."
+              "Variables can be used to store values in a program.",
+              "Selection can be used to choose between paths in a program.",
+              "Iteration can be used to repeat a set of instructions."
             ]
           },
           "nationalCurriculumContent": {
@@ -9869,9 +9928,9 @@ export const schemaBase = {
             },
             "description": "National curriculum attainment statements covered in this unit",
             "example": [
-              "Ask relevant questions to extend their understanding and knowledge",
-              "Articulate and justify answers, arguments and opinions",
-              "Speak audibly and fluently with an increasing command of Standard English"
+              "Use two or more programming languages, at least one of which is textual, to solve a variety of computational problems.",
+              "Make appropriate use of data structures.",
+              "Design and develop modular programs."
             ]
           },
           "whyThisWhyNow": {
@@ -9900,14 +9959,7 @@ export const schemaBase = {
               ],
               "additionalProperties": false
             },
-            "description": "The threads that are associated with the unit",
-            "example": [
-              {
-                "slug": "developing-grammatical-knowledge",
-                "title": "Developing grammatical knowledge",
-                "order": 10
-              }
-            ]
+            "description": "The threads that are associated with the unit"
           },
           "categories": {
             "type": "array",
@@ -9929,6 +9981,16 @@ export const schemaBase = {
             "description": "The categories (if any) that are assigned to the unit. If the unit does not have any categories, this property is omitted."
           },
           "programmeFactors": {
+            "example": {
+              "examBoard": {
+                "slug": "aqa",
+                "title": "AQA"
+              },
+              "pathway": {
+                "slug": "gcse",
+                "title": "GCSE"
+              }
+            },
             "type": "object",
             "properties": {
               "examBoard": {
@@ -10015,17 +10077,11 @@ export const schemaBase = {
               }
             },
             "additionalProperties": false,
-            "description": "The programme-factor values that identify which variant of this unit is returned. Omitted when the unit has no programme factors.",
-            "example": {
-              "examBoard": {
-                "slug": "aqa",
-                "title": "AQA"
-              },
-              "pathway": {
-                "slug": "gcse",
-                "title": "GCSE"
-              }
-            }
+            "description": "The programme-factor values that identify which variant of this unit is returned. Omitted when the unit has no programme factors."
+          },
+          "unitOptionsGroup": {
+            "description": "If the unit is unit variant, then this is the unit's \"parent\" unit slug",
+            "type": "string"
           },
           "unitLessons": {
             "type": "array",
@@ -10035,17 +10091,17 @@ export const schemaBase = {
                 "lessonSlug": {
                   "type": "string",
                   "description": "The lesson slug identifier",
-                  "example": "four-types-of-simple-sentence"
+                  "example": "structured-programs"
                 },
                 "lessonTitle": {
                   "type": "string",
                   "description": "The title for the lesson",
-                  "example": "Four types of simple sentence"
+                  "example": "Structured programs"
                 },
                 "lessonOrder": {
+                  "example": 1,
                   "type": "number",
-                  "description": "Indicates the ordering of the lesson",
-                  "example": 1
+                  "description": "Indicates the ordering of the lesson"
                 },
                 "state": {
                   "type": "string",
@@ -10064,7 +10120,21 @@ export const schemaBase = {
               ],
               "additionalProperties": false,
               "description": "All the lessons contained in the unit"
-            }
+            },
+            "example": [
+              {
+                "lessonSlug": "structured-programs",
+                "lessonTitle": "Structured programs",
+                "lessonOrder": 1,
+                "state": "published"
+              },
+              {
+                "lessonSlug": "subroutines-with-parameters",
+                "lessonTitle": "Subroutines with parameters",
+                "lessonOrder": 2,
+                "state": "new"
+              }
+            ]
           },
           "oakUrl": {
             "type": "string",
@@ -10164,6 +10234,11 @@ export const schemaBase = {
             "title": "Number: Multiplication and division",
             "slug": "number-multiplication-and-division",
             "unitCount": 78
+          },
+          {
+            "title": "Number: Place value",
+            "slug": "number-place-value",
+            "unitCount": 56
           }
         ]
       },
@@ -10197,12 +10272,8 @@ export const schemaBase = {
             "unitSlug": "unitising-and-coin-recognitions-counting-in-2s-5s-and-10s"
           },
           {
-            "unitTitle": "Programming subroutines",
-            "unitSlug": "programming-subroutines"
-          },
-          {
-            "unitTitle": "Programming subroutines",
-            "unitSlug": "programming-subroutines"
+            "unitTitle": "Solving problems in a range of contexts",
+            "unitSlug": "unitising-and-coin-recognition-solving-problems-involving-money"
           }
         ]
       },

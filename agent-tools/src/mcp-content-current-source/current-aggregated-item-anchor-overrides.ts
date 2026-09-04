@@ -51,7 +51,9 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
     [UNIVERSAL_EXECUTOR]: ['summary: `${title}: ${String(result.value.status)}`,'],
   },
   C066: {
-    [SEARCH_DEF]: ["description: `Search Oak's curriculum using semantic search across all four"],
+    [SEARCH_DEF]: [
+      'description: `Hybrid lexical and semantic search across lessons, units, threads and sequences,',
+    ],
   },
   C067: {
     [SEARCH_DEF]: ["title: 'Search Curriculum',"],
@@ -138,6 +140,14 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
       "securitySchemes: [{ type: 'oauth2', scopes: [...SCOPES_SUPPORTED] }] as const,",
     ],
   },
+  // MCP-462: the description's get-keywords references dropped "full" —
+  // the keywords endpoint is now server-paginated, so "full keyword set"
+  // was no longer accurate; this item re-pins on its unchanged opening line.
+  C222: {
+    [KEYWORD_GRAPH]: [
+      'Returns the key vocabulary for one teaching context: a bounded, frequency-ranked page of curriculum keywords, each decorated with its in-scope placing lessons.',
+    ],
+  },
   C223: {
     [KEYWORD_GRAPH]: [
       '.describe(\'Anchor subject slug (corpus key), e.g. "maths". Required, with keyStage.\')',
@@ -221,10 +231,13 @@ export const CURRENT_AGGREGATED_ITEM_ANCHOR_OVERRIDES = {
   },
   // MCP-351: the published PRM resource now composes the shared
   // MCP_RESOURCE_PATH constant, so it cannot diverge from the RFC 8707
-  // expected audience. The served document's shape is unchanged.
+  // expected audience.
+  // MCP-655: `authorization_servers` names the upstream authorization
+  // server's issuer instead of this origin, so a PRM-following client holds
+  // the issuer the authorization response's `iss` carries (RFC 9207 §2.4).
   C706: {
     [AUTH_ROUTES]: [
-      'resource: `${selfOrigin}${MCP_RESOURCE_PATH}`,\n      authorization_servers: [selfOrigin],\n      scopes_supported: SCOPES_SUPPORTED,',
+      'resource: `${selfOrigin}${MCP_RESOURCE_PATH}`,\n      authorization_servers: [upstreamMetadata.issuer],\n      scopes_supported: SCOPES_SUPPORTED,',
     ],
   },
 } as const;

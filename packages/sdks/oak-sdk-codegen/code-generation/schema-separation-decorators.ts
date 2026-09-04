@@ -16,6 +16,28 @@ function isThreadSchema(schemaName: string): boolean {
 }
 
 /**
+ * Schema names describing payloads that are not website resources, so no
+ * `oakUrl` — string-typed or null-typed — may be advertised on them.
+ *
+ * Keywords are vocabulary records rather than resources: the SDK's runtime
+ * augmentation resolves a content type from the request path, `/keywords`
+ * resolves to none, and `augmentArrayResponseWithOakUrl` therefore returns
+ * keyword records untouched. Advertising the field would promise consumers
+ * and the MCP output schema something that can never arrive.
+ *
+ * This list is an exclusion, not the full decoration policy. A wider audit
+ * found further named response schemas whose paths the runtime cannot
+ * classify either; changing those removes a field the published SDK already
+ * advertises, so it is a deliberate contract decision tracked on its own
+ * ticket rather than folded in here.
+ */
+const NON_RESOURCE_SCHEMA_NAMES = new Set(['KeywordsResponseSchema']);
+
+function isNonResourceSchema(schemaName: string): boolean {
+  return NON_RESOURCE_SCHEMA_NAMES.has(schemaName);
+}
+
+/**
  * Decorate response schemas with an `oakUrl` field where the upstream
  * schema does not already provide one. Preserves upstream-defined
  * `oakUrl` and `canonicalUrl` fields unchanged.
@@ -35,6 +57,9 @@ export function decorateOakUrls(schema: OpenAPIObject): OpenAPIObject {
   const entries = Object.entries(clone.components.schemas);
   for (const [schemaName, schemaDef] of entries) {
     if (!schemaName.includes('Response') && !schemaName.includes('Schema')) {
+      continue;
+    }
+    if (isNonResourceSchema(schemaName)) {
       continue;
     }
     const useNullType = isThreadSchema(schemaName);

@@ -72,8 +72,10 @@ export ELASTICSEARCH_URL=https://your-es-url
 export ELASTICSEARCH_API_KEY=your_es_api_key
 export DANGEROUSLY_DISABLE_AUTH=true
 export SENTRY_MODE=off
-export ALLOWED_HOSTS=localhost,127.0.0.1,::1
 ```
+
+`ALLOWED_HOSTS` is not needed locally: `localhost`, `127.0.0.1` and `::1` are
+always allowed. Set it only to name an _extra_ host.
 
 2. Run dev server:
 
@@ -224,11 +226,10 @@ Summary:
   - `OAK_API_KEY` — Oak Curriculum API key
   - `ELASTICSEARCH_URL` — Elasticsearch endpoint (server fails at startup without this)
   - `ELASTICSEARCH_API_KEY` — Elasticsearch API key (server fails at startup without this)
-  - `CLERK_PUBLISHABLE_KEY` — Clerk publishable key for OAuth (not required when `DANGEROUSLY_DISABLE_AUTH=true`)
-  - `CLERK_SECRET_KEY` — Clerk secret key for auth middleware (not required when `DANGEROUSLY_DISABLE_AUTH=true`)
+  - `CLERK_PUBLISHABLE_KEY` — Clerk publishable key for OAuth
+  - `CLERK_SECRET_KEY` — Clerk secret key for auth middleware
 - Optional env:
-  - `DANGEROUSLY_DISABLE_AUTH` — set to `true` to disable auth (makes Clerk keys optional)
-  - `ALLOWED_HOSTS` (comma-separated, must include your primary hostname; supports `*` wildcards). Applied consistently to OAuth metadata endpoints and `/mcp` auth challenge/resource URL generation — unless `CANONICAL_HOST` is set, which supersedes per-request derivation for those URLs.
+  - `ALLOWED_HOSTS` (comma-separated, additive, supports `*` wildcards). Names hosts to allow **in addition to** the Vercel system hostnames and `localhost`/`127.0.0.1`/`::1`; it cannot remove a host from the allow-list. It gates two things: the DNS-rebinding guard on the HTML surfaces (`GET /` and the `/mcp` HTML-negotiation leg), and the Host a request may be self-described from in OAuth metadata and `/mcp` auth challenge/resource URLs. When `CANONICAL_HOST` is set it supersedes that second use entirely — self-description then reads the configured origin and never consults this list. Narrowing self-description is `CANONICAL_HOST`'s job, never this variable's.
   - `CANONICAL_HOST` — the address this server is served at when an edge presents a different Host to the origin (see [Canonical address](#canonical-address)). Bare hostname; startup-validated.
   - `LOG_LEVEL` (default `info`, use `debug` for staging)
   - `SENTRY_MODE` — `off` (default), `fixture`, or `sentry`
@@ -257,10 +258,15 @@ Runtime metadata is resolved fail-fast where the selected mode needs it:
 Vercel production builds have an additional repo-owned gate:
 
 - previews and development builds always continue
-- production continues only when the root repo `package.json` version is greater
-  than the previous successful production deployment version
-- production builds that would reuse the previous semantic-release version are
-  cancelled via `vercel.json` `ignoreCommand`, rather than failing during build
+- production continues when the root repo `package.json` version is greater than
+  the previous successful production deployment version, **or** when the build is
+  a redeploy of the commit already in production
+  (`VERCEL_GIT_COMMIT_SHA == VERCEL_GIT_PREVIOUS_SHA`) — rebuilding a
+  known-good release is the recovery path, and cancelling it was the defect
+  MCP-479 cured (ADR-163 §10, fourth amendment)
+- production builds that would reuse the previous semantic-release version on a
+  **different** commit are cancelled via `vercel.json` `ignoreCommand`, rather
+  than failing during build
 - the gate reads the previous deployed root `package.json` via
   `VERCEL_GIT_PREVIOUS_SHA`
 
@@ -290,7 +296,7 @@ signing off a release. Replaces the retired `pnpm smoke:remote` harness
 
 The server normally describes itself from each request's `Host` header. When an
 edge serves it at a different address — Cloudflare serves
-`https://www.thenational.academy/mcp` and overrides the `Host` to the app's own
+`https://mcp.thenational.academy/mcp` and overrides the `Host` to the app's own
 Vercel hostname, which is how Vercel selects the serving project — that
 derivation would advertise the origin hostname instead.
 
@@ -338,10 +344,13 @@ The server uses **Clerk OAuth** for production authentication. All requests to `
 
 ### Development Authentication
 
-For local development only:
+A local-development valve only:
 
-- Set `DANGEROUSLY_DISABLE_AUTH=true` to bypass authentication
-- **NEVER** enable this in production or preview environments
+- Set `DANGEROUSLY_DISABLE_AUTH=true` to bypass authentication on a local run
+- **Every deployed environment rejects it.** This is enforced, not advised: when
+  `VERCEL_ENV` names any deployed environment (including one that does not exist
+  yet), `DANGEROUSLY_DISABLE_AUTH=true` fails startup rather than serving
+  unauthenticated. A local run means `VERCEL_ENV` unset or `development`.
 
 ### MCP Client Configuration
 
@@ -361,7 +370,7 @@ See `docs/dev-server-management.md` for local development and OAuth server setup
   - Ensure Vercel framework is Express and the deployed build is using
     `dist/server.js` via `package.json` `main`. The local listener entry remains
     `dist/index.js`, but that is not the deployed artefact.
-  - Verify `ALLOWED_HOSTS` includes your alias host (e.g. `curriculum-mcp-alpha.oaknational.dev`).
+  - Verify the host is either Vercel-derived (`VERCEL_URL`, `VERCEL_BRANCH_URL`, `VERCEL_PROJECT_PRODUCTION_URL` — all allowed automatically) or named in `ALLOWED_HOSTS`.
   - If auth is enabled, verify `CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` are set and that Clerk metadata discovery succeeds at startup.
 - 401 without `Authorization`: the client must either follow the OAuth discovery flow or send a valid Clerk-issued Bearer token. For local smoke tests, either use a real Clerk token or set `DANGEROUSLY_DISABLE_AUTH=true` and retry without the `Authorization` header.
 - Host blocked: add host to `ALLOWED_HOSTS`

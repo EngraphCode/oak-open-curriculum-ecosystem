@@ -10,43 +10,17 @@
  */
 import { describe, it, expect, vi } from 'vitest';
 import { withEsClient } from './with-es-client.js';
+import { createFakeCliDeps, createFakeLogger } from '../../test-helpers/fake-cli-deps.js';
 
 /** Minimal fake ES client satisfying the close contract. */
 function createFakeEsClient(closeImpl?: () => Promise<void>) {
   return { close: vi.fn(closeImpl ?? (() => Promise.resolve())) };
 }
 
-/** Minimal fake logger satisfying the Logger interface. */
-function createFakeLogger() {
-  return {
-    trace: vi.fn(),
-    debug: vi.fn(),
-    info: vi.fn(),
-    warn: vi.fn(),
-    error: vi.fn(),
-    fatal: vi.fn(),
-  };
-}
-
-/** Minimal fake deps for withEsClient. */
-function createFakeDeps(overrides?: {
-  logger?: ReturnType<typeof createFakeLogger>;
-  captureHandledError?: (error: unknown, context?: Record<string, unknown>) => void;
-}) {
-  return {
-    logger: overrides?.logger ?? createFakeLogger(),
-    printError: vi.fn(),
-    setExitCode: vi.fn(),
-    ...(overrides?.captureHandledError
-      ? { captureHandledError: overrides.captureHandledError }
-      : {}),
-  };
-}
-
 describe('withEsClient', () => {
   it('calls esClient.close() after a successful handler', async () => {
     const esClient = createFakeEsClient();
-    const deps = createFakeDeps();
+    const deps = createFakeCliDeps();
 
     await withEsClient(
       esClient,
@@ -61,7 +35,7 @@ describe('withEsClient', () => {
 
   it('calls esClient.close() when the handler throws', async () => {
     const esClient = createFakeEsClient();
-    const deps = createFakeDeps();
+    const deps = createFakeCliDeps();
 
     await withEsClient(
       esClient,
@@ -77,7 +51,7 @@ describe('withEsClient', () => {
   it('logs structurally when the handler throws', async () => {
     const esClient = createFakeEsClient();
     const logger = createFakeLogger();
-    const deps = createFakeDeps({ logger });
+    const deps = createFakeCliDeps({ logger });
     const error = new Error('handler boom');
 
     await withEsClient(
@@ -99,7 +73,7 @@ describe('withEsClient', () => {
 
   it('calls printError with the error message when the handler throws', async () => {
     const esClient = createFakeEsClient();
-    const deps = createFakeDeps();
+    const deps = createFakeCliDeps();
 
     await withEsClient(
       esClient,
@@ -114,7 +88,7 @@ describe('withEsClient', () => {
 
   it('calls printError with String(error) for non-Error throws', async () => {
     const esClient = createFakeEsClient();
-    const deps = createFakeDeps();
+    const deps = createFakeCliDeps();
 
     await withEsClient(
       esClient,
@@ -129,7 +103,7 @@ describe('withEsClient', () => {
 
   it('calls setExitCode(1) when the handler throws', async () => {
     const esClient = createFakeEsClient();
-    const deps = createFakeDeps();
+    const deps = createFakeCliDeps();
 
     await withEsClient(
       esClient,
@@ -144,7 +118,7 @@ describe('withEsClient', () => {
 
   it('does not call setExitCode on success', async () => {
     const esClient = createFakeEsClient();
-    const deps = createFakeDeps();
+    const deps = createFakeCliDeps();
 
     await withEsClient(
       esClient,
@@ -161,7 +135,7 @@ describe('withEsClient', () => {
     const closeError = new Error('close boom');
     const esClient = createFakeEsClient(() => Promise.reject(closeError));
     const logger = createFakeLogger();
-    const deps = createFakeDeps({ logger });
+    const deps = createFakeCliDeps({ logger });
 
     await withEsClient(
       esClient,
@@ -184,7 +158,7 @@ describe('withEsClient', () => {
 
   it('does not re-throw when esClient.close() throws', async () => {
     const esClient = createFakeEsClient(() => Promise.reject(new Error('close boom')));
-    const deps = createFakeDeps();
+    const deps = createFakeCliDeps();
 
     // The wrapper swallows close() errors: the call resolves (no re-throw).
     await expect(
@@ -201,7 +175,7 @@ describe('withEsClient', () => {
   it('calls captureHandledError when handler throws and capture is provided', async () => {
     const esClient = createFakeEsClient();
     const captureHandledError = vi.fn();
-    const deps = createFakeDeps({ captureHandledError });
+    const deps = createFakeCliDeps({ captureHandledError });
 
     await withEsClient(
       esClient,
@@ -219,7 +193,7 @@ describe('withEsClient', () => {
 
   it('does not throw when captureHandledError is undefined', async () => {
     const esClient = createFakeEsClient();
-    const deps = createFakeDeps();
+    const deps = createFakeCliDeps();
 
     await withEsClient(
       esClient,

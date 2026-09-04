@@ -83,6 +83,8 @@ export const REQUEST_PARAMETER_SCHEMAS = {
     "phase": z.enum(["primary", "secondary"]).optional(),
     "unit": z.string().optional(),
     "lesson": z.string().optional(),
+    "offset": z.number().optional().default(0),
+    "limit": z.number().lte(300).optional().default(20),
   }),
   "GET:/lessons/:lesson/quiz": z.object({
     "lesson": z.string(),
@@ -128,8 +130,6 @@ export const REQUEST_PARAMETER_SCHEMAS = {
   "GET:/threads/:threadSlug/units": z.object({
     "threadSlug": z.string(),
   }),
-  "GET:/changelog": z.object({}),
-  "GET:/changelog/latest": z.object({}),
   "GET:/rate-limit": z.object({}),
 } as const;
 

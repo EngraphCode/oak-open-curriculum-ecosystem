@@ -8,7 +8,7 @@ Fill in the bracketed prompts and delete this intro line when done.
 
 ## [Title] — curriculum rationale
 
-**What this is:** [curriculum map / unit / lesson / resource]
+**What this is:** [curriculum sequence / unit / lesson / resource]
 **Subject & phase:** [e.g. Year 5 maths]
 **Place in the curriculum:** [which thread(s) it belongs to; what comes immediately before and after]
 **Mapped to:** [national curriculum statements / statutory framework references]
@@ -27,7 +27,7 @@ Fill in the bracketed prompts and delete this intro line when done.
 
 ### 4. Flexible
 
-[What is core and what is adaptable? How can a teacher localise or adjust this without breaking the sequence? Where is the NC mapping that supports safe adaptation?]
+[What is core and what is adaptable? How can a teacher localise or adjust this without breaking the sequence? Where is the mapping to the national curriculum statements that supports safe adaptation?]
 
 ### 5. Diverse
 

@@ -25,11 +25,11 @@
     "itemCount": 728,
     "baselineItemCount": 717,
     "additionCount": 11,
-    "availableCount": 684,
-    "retiredCount": 44,
-    "unchangedCount": 518,
+    "availableCount": 676,
+    "retiredCount": 52,
+    "unchangedCount": 486,
     "expandedCount": 0,
-    "modifiedCount": 86,
+    "modifiedCount": 110,
     "relocatedCount": 68,
     "addedCount": 12,
     "workspaceScopeInCount": 612,
@@ -58,8 +58,6 @@
             "download-asset",
             "explore-topic",
             "fetch",
-            "get-changelog",
-            "get-changelog-latest",
             "get-curriculum-model",
             "get-key-stages",
             "get-key-stages-subject-assets",
@@ -5403,7 +5401,7 @@
           "packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -10302,7 +10300,7 @@
           "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -10428,7 +10426,7 @@
           "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/param-description-overrides.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -10449,7 +10447,7 @@
           "packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/param-description-overrides.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -10990,18 +10988,11 @@
       "authority": "upstream-api",
       "workspaceScope": "out-upstream-api",
       "source": {
-        "state": "available",
-        "files": [
-          "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts"
       },
       "registrations": []
@@ -11011,18 +11002,11 @@
       "authority": "upstream-api",
       "workspaceScope": "out-upstream-api",
       "source": {
-        "state": "available",
-        "files": [
-          "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts"
       },
       "registrations": []
@@ -11032,18 +11016,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts"
       },
       "registrations": []
@@ -11053,18 +11030,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts"
       },
       "registrations": []
@@ -11074,18 +11044,11 @@
       "authority": "upstream-api",
       "workspaceScope": "out-upstream-api",
       "source": {
-        "state": "available",
-        "files": [
-          "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts"
       },
       "registrations": []
@@ -11095,18 +11058,11 @@
       "authority": "upstream-api",
       "workspaceScope": "out-upstream-api",
       "source": {
-        "state": "available",
-        "files": [
-          "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts"
       },
       "registrations": []
@@ -11116,18 +11072,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts"
       },
       "registrations": []
@@ -11137,18 +11086,11 @@
       "authority": "workspace",
       "workspaceScope": "in",
       "source": {
-        "state": "available",
-        "files": [
-          "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts"
-        ],
-        "evidence": {
-          "revision": "unchanged",
-          "anchorTargetCount": 1,
-          "anchorCount": 1
-        }
+        "state": "retired",
+        "files": []
       },
       "lineage": {
-        "disposition": "retained",
+        "disposition": "retired",
         "baselineFile": "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts"
       },
       "registrations": []
@@ -11324,7 +11266,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -11366,9 +11308,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -11912,9 +11854,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-units.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -12129,9 +12071,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-keywords.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -12290,9 +12232,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -12311,9 +12253,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -12570,9 +12512,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-summary.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -12892,7 +12834,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 1
         }
@@ -13487,7 +13429,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 2
         }
@@ -13508,7 +13450,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 2
         }
@@ -13529,7 +13471,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 2
         }
@@ -13550,9 +13492,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -13949,7 +13891,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 2
         }
@@ -13970,9 +13912,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -14558,9 +14500,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads-units.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -14579,9 +14521,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads-units.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -14747,7 +14689,7 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-units-summary.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
           "anchorCount": 2
         }
@@ -14768,9 +14710,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-units-summary.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 1
+          "anchorCount": 2
         }
       },
       "lineage": {
@@ -14810,9 +14752,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/definitions.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 4
+          "anchorCount": 1
         }
       },
       "lineage": {
@@ -14831,9 +14773,9 @@
           "packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/definitions.ts"
         ],
         "evidence": {
-          "revision": "unchanged",
+          "revision": "modified",
           "anchorTargetCount": 1,
-          "anchorCount": 3
+          "anchorCount": 1
         }
       },
       "lineage": {
@@ -15712,7 +15654,7 @@
         "title": "Deferred upstream API paths",
         "reviewDomain": "engineering-structural",
         "impactTier": "high-impact",
-        "behaviouralIntent": "Temporarily exclude the check-restricted API family from generated schemas and MCP tools until MCP-214 lifts the deferral."
+        "behaviouralIntent": "Exclude paths whole-pipeline from generated schemas and MCP tools: the check-restricted family until MCP-214 lifts the deferral, and the upstream-removed changelog pair until the MCP-630 schema-cache refresh erases them (MCP-653)."
       }
     },
     {

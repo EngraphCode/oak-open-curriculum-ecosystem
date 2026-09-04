@@ -441,7 +441,7 @@ defined boundary:
   session replay and fingerprinting. The pseudonym is pseudonymised
   personal data, not anonymous data: it carries transparency, access,
   retention and erasure duties. ADR-218 §5 commits this processing to
-  a maximum 12-month retention period across PostHog and every
+  a maximum 5-year (60-month) retention period across PostHog and every
   authorised copy, and to a tested person-scoped deletion route. Both
   are commitments whose operational proof is outstanding — ADR-218's
   maturity note states that acceptance does not assert retention,

@@ -8,7 +8,7 @@ import { reviewed, type CurrentSourceDeltaReview } from './current-source-delta-
 export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview>> =
   {
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-assets.ts':
-      reviewed('cd515b61b7b6b7881c3335bdbc7fe986d03a60880262633d8df3d56da268d33f', [
+      reviewed('5d933eb1f2665521ca407e42d212747d8a556ef4f40bb026323902f79482432a', [
         'C499',
         'C500',
         'C501',
@@ -22,7 +22,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C510',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-lessons.ts':
-      reviewed('3195fbc97516d5ce2d94b515f4fed0618be2afde6950549d84e69df08f024978', [
+      reviewed('1c1d6ac7231278f3f0647f48bd60457bd3e3a9368a3f6e01d0c97b3ecc21ed18', [
         'C511',
         'C512',
         'C514',
@@ -34,7 +34,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C520',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-questions.ts':
-      reviewed('42779838f6d86e52955829daa937640db7bbacb1d82de83c150d57070623af99', [
+      reviewed('900e4c88e856c1654ac448f0e3890bd1a6050eafd6845600d2e8b2d31bc21afc', [
         'C521',
         'C522',
         'C524',
@@ -46,7 +46,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C530',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-key-stages-subject-units.ts':
-      reviewed('c865da032a48fea139446ff3ad891a739acee36acb5b331937171af33f716cf3', [
+      reviewed('e156274a83485148ddc216235c6d53afaa2449ee1195e7eebd0e0fbe96052c93', [
         'C531',
         'C532',
         'C534',
@@ -62,7 +62,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C542',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-keywords.ts':
-      reviewed('a293286627f2b28477e908ef4400fd400e8177976f71cbf049c455bab7e5e73b', [
+      reviewed('6438ad06c80f66dd74f82ebb52172e2abb9cb6b8621c9838d2ad720b31d6c9eb', [
         'C543',
         'C544',
         'C546',
@@ -70,7 +70,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C548',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-assets.ts':
-      reviewed('ca06ce1df834c60f68722320cd136ef002f1ecef82a302d670c3ebcb22f5c332', [
+      reviewed('88ec8ec35fef5d78ed77ac4421e84709123d1bf172709fa409e98ff2f4aef77e', [
         'C549',
         'C550',
         'C551',
@@ -90,7 +90,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C564',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-lessons-summary.ts':
-      reviewed('fbb59cfc8b58b96d67eb5b778d635d041c0e93f8e1b49c71945aa49200ba051a', [
+      reviewed('b3ed1f878f5870cc727fd9c4907cec0cf4a7de93cea7d241829556db572114df', [
         'C565',
         'C566',
         'C568',
@@ -106,7 +106,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C576',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-assets.ts':
-      reviewed('ddc58cdfedbaae3b9ca247df805171a7d055db71b0c16821db7560292b1aabb9', [
+      reviewed('7312b08407a932c9ca519a7f078ee88cf863dcda6a85ac5332b9ec56f09bab82', [
         'C577',
         'C578',
         'C579',
@@ -119,7 +119,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C587',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-programmes-questions.ts':
-      reviewed('c86a18fb77f1552cee196a92c4f3a3c351b27f88c1b03e2e19068aad4df367b9', [
+      reviewed('c0d8fc66ea62ba7e37e8ef826f1803519fd9e9226911fd6fbbd68c1abbb3011b', [
         'C588',
         'C589',
         'C591',
@@ -146,7 +146,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C607',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-assets.ts':
-      reviewed('f15597aaef99ddee06de5d7c71d8c6d31c136a7bbf6990f983d9ba26c000458a', [
+      reviewed('f0e8c1b94606074101a9d2ce8f934642c2dc1713eeb1ff7f9b1a797f21e16790', [
         'C612',
         'C613',
         'C614',
@@ -156,7 +156,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C618',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences-questions.ts':
-      reviewed('334f83b4d8079eee4510a4b6338f2de8bb6ae19785a7380f445a42a61717b696', [
+      reviewed('0bb231c30ae5cd4997386507f145ac74c7e7a4f40e3a927760233e5485000ae2', [
         'C619',
         'C620',
         'C621',
@@ -177,7 +177,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C633',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-sequences.ts':
-      reviewed('7521e9ac9a731184cdfe61436bfd80b20b2ebf72cdc058b5fa0729bc451f6e51', [
+      reviewed('8d889645b1b5dcede5684e993f216ce169b65aa16067e31bd1e32ffa9eebb4d7', [
         'C634',
         'C635',
         'C636',
@@ -224,7 +224,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C662',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-threads-units.ts':
-      reviewed('414db5a6ee909a5873f0deda73a2bf06c508ec7158ffc1223697557833c89c2c', [
+      reviewed('9068a377f265d7764ed033bf022c29854fc7358fca3ccaf4f0ebd5627b7c5a0d', [
         'C663',
         'C664',
         'C665',
@@ -239,7 +239,7 @@ export const SDK_GENERATED_TOOLS_DELTA_REVIEWS: Readonly<Record<string, CurrentS
         'C671',
       ]),
     'packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-units-summary.ts':
-      reviewed('5b5724d7fa1d2087983ef921e7435fe855e57d4d343fcba4616f236fa35bbfef', [
+      reviewed('9e61e514ec28f32f06d0316bbc9110c7a4f5dc491b34b7024ccae4aa85de779b', [
         'C672',
         'C673',
         'C674',

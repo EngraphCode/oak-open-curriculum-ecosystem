@@ -1,5 +1,5 @@
 {
-  "downloadedAt": "2026-07-27T07:48:39.755Z",
+  "downloadedAt": "2026-08-12T10:50:13.421Z",
   "source": "https://open-api.thenational.academy/api/bulk",
   "files": [
     {
@@ -8,7 +8,7 @@
     },
     {
       "file": "art-secondary.json",
-      "sizeBytes": 11789971
+      "sizeBytes": 11709767
     },
     {
       "file": "citizenship-secondary.json",
@@ -36,15 +36,15 @@
     },
     {
       "file": "design-technology-secondary.json",
-      "sizeBytes": 12822906
+      "sizeBytes": 12822280
     },
     {
       "file": "english-primary.json",
-      "sizeBytes": 82554676
+      "sizeBytes": 82555008
     },
     {
       "file": "english-secondary.json",
-      "sizeBytes": 133575763
+      "sizeBytes": 133575227
     },
     {
       "file": "french-primary.json",
@@ -56,23 +56,27 @@
     },
     {
       "file": "geography-primary.json",
-      "sizeBytes": 6499102
+      "sizeBytes": 6456547
     },
     {
       "file": "geography-secondary.json",
-      "sizeBytes": 19294008
+      "sizeBytes": 19299180
     },
     {
       "file": "german-secondary.json",
-      "sizeBytes": 1953612
+      "sizeBytes": 1953548
     },
     {
       "file": "history-primary.json",
-      "sizeBytes": 12419607
+      "sizeBytes": 12342902
     },
     {
       "file": "history-secondary.json",
       "sizeBytes": 31001546
+    },
+    {
+      "file": "manifest.json",
+      "sizeBytes": 2889
     },
     {
       "file": "maths-primary.json",
@@ -84,11 +88,11 @@
     },
     {
       "file": "music-primary.json",
-      "sizeBytes": 7543009
+      "sizeBytes": 7543002
     },
     {
       "file": "music-secondary.json",
-      "sizeBytes": 27120328
+      "sizeBytes": 27227015
     },
     {
       "file": "physical-education-primary.json",
@@ -104,15 +108,15 @@
     },
     {
       "file": "religious-education-secondary.json",
-      "sizeBytes": 18935294
+      "sizeBytes": 19271525
     },
     {
       "file": "rshe-pshe-primary.json",
-      "sizeBytes": 9336123
+      "sizeBytes": 9322783
     },
     {
       "file": "rshe-pshe-secondary.json",
-      "sizeBytes": 8840114
+      "sizeBytes": 8890921
     },
     {
       "file": "schema.json",
@@ -120,11 +124,11 @@
     },
     {
       "file": "science-primary.json",
-      "sizeBytes": 19168031
+      "sizeBytes": 19075206
     },
     {
       "file": "science-secondary.json",
-      "sizeBytes": 142656364
+      "sizeBytes": 142432183
     },
     {
       "file": "spanish-primary.json",

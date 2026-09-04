@@ -58,7 +58,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C151', 'C152', 'C153', 'C154', 'C155', 'C156', 'C157', 'C158', 'C159'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-keyword-graph.ts': reviewed(
-    '78cdabb13aea1d85623db86cc2e95424e7bbf1da5fa2b7bb175d8bc041c4bca3',
+    '0d540c388d80a7aed260e7b5cbe1329736d38ec5b6e95a5e040c6c0a59fceee4',
     [
       'C221',
       'C222',
@@ -83,7 +83,7 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     ['C246', 'C247', 'C248', 'C249', 'C250', 'C251'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-search/tool-definition.ts': reviewed(
-    '31efd948175661a2eeccf1020a56288617179e607517727ee75564cd5f6e775c',
+    '592fe681cd227863d083916ad74e380dcfd0e18605d694965232f89f3e078cef',
     ['C065', 'C066', 'C067', 'C068'],
   ),
   'packages/sdks/oak-curriculum-sdk/src/mcp/aggregated-thread-progressions.ts': reviewed(
@@ -129,8 +129,11 @@ export const SDK_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     'da82fc8370788eefc4a61b2778b78a2f6b56ec457dec7a146bd50fa774937f65',
     IMPLEMENTATION_ONLY,
   ),
+  // Pagination echo (2026-09-01 payload audit): the generated-tool envelope
+  // now surfaces the upstream Link-header signal beside status and data.
+  // Plumbing only; the served prose the cited items pin is unchanged.
   'packages/sdks/oak-curriculum-sdk/src/mcp/universal-tools/executor.ts': reviewed(
-    '97b08a93960272d7b636afcd2e1f9ed76b0512227688912d4135bc9eb90b01da',
+    'c83e633368cd3ccb5791e97dac57e58d586b9afa187a47040173dfd02ca57f03',
     ['C057', 'C058'],
   ),
   // MCP-366: requiresDomainContext removed from the registry-descriptor
