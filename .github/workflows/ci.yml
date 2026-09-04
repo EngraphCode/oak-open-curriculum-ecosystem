@@ -172,9 +172,14 @@ jobs:
   # and NO install, the shape preview-serves.yml uses for the same reason: a
   # job that checks out and installs the PR head runs PR code (postinstall
   # scripts, the script itself), and PR code beside a status token could mint
-  # an Actions-attributed status for a required context. Both job rows appear
-  # in the PR checks list; the commit status carries the version verdict.
-  # Neither job is in the `run-quality-gates` fan-in: advisory by design.
+  # an Actions-attributed status for a required context. The boundary this
+  # draws is against installed and fetched code, not against a collaborator
+  # with push rights: a `pull_request` run takes its workflow definition from
+  # the PR merge ref, so anyone who can push a branch here can already declare
+  # any permission the workflow can — that is the repository's trust model,
+  # not a gap this split can close. Both job rows appear in the PR checks
+  # list; the commit status carries the version verdict. Neither job is in
+  # the `run-quality-gates` fan-in: advisory by design.
   schema-drift:
     name: schema-drift
     permissions:
@@ -211,8 +216,9 @@ jobs:
     # there). The test is "same repository as this one", never
     # `head.repo.fork`: when the repository running the workflow is itself a
     # fork, every one of its own PRs reads `fork: true` and the status would
-    # never publish (observed on run 33619051950).
-    if: always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    # never publish (observed on run 33619051950). Dependabot's own PRs live
+    # in this repository but run with a read-only token, so they skip too.
+    if: always() && github.actor != 'dependabot[bot]' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     permissions:
       statuses: write
     needs: schema-drift
@@ -247,8 +253,11 @@ jobs:
               sleep 5
             fi
           done
-          echo "::notice::Schema drift status not published after 3 attempts (advisory only)."
-          exit 0
+          # A publish that never lands must be visible: this job is outside the
+          # required fan-in, so its red row surfaces the failure without
+          # blocking merge, where a green row would hide the absent status.
+          echo "::error::Schema drift status not published after 3 attempts." >&2
+          exit 1
 
   # Type-check, ESLint, and unit tests. Turbo restores the build outputs from
   # the remote cache warmed by `build`.

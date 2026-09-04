@@ -41,6 +41,19 @@ describe('buildSchemaDriftReport', () => {
     expect(report.statusDescription).toContain('0.9.0');
   });
 
+  it('judges version equality on the raw strings, so two versions that differ only beyond the render cap still read as a gap', () => {
+    const sharedPrefix = `0.7.0-${'a'.repeat(40)}`;
+    const cached = JSON.stringify({ info: { version: `${sharedPrefix}-cached` }, paths: {} });
+    const live = JSON.stringify({ info: { version: `${sharedPrefix}-live` }, paths: { '/a': {} } });
+
+    const report = buildSchemaDriftReport(cached, live);
+
+    expect(report.outcome).toBe('drifted');
+    expect(report.annotation).not.toContain('Both are version');
+    expect(report.annotation).toContain('Cached: ');
+    expect(report.cachedVersion).toBe(report.liveVersion);
+  });
+
   it('reports in-sync with a positive statement, never an empty signal', () => {
     const text = '{"info":{"version":"0.11.0"},"paths":{}}';
 

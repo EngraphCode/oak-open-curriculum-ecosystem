@@ -58,13 +58,19 @@ function sanitiseVersion(rawVersion: string): string {
   return escaped.length <= VERSION_LENGTH_CAP ? escaped : escaped.slice(0, VERSION_LENGTH_CAP);
 }
 
-function extractVersion(schemaText: string): string {
+/**
+ * The raw `info.version`, untouched: equality is judged on this value, so two
+ * versions that differ only beyond the render cap still read as different.
+ * Rendering goes through {@link sanitiseVersion}; never compare the rendered
+ * forms.
+ */
+function extractRawVersion(schemaText: string): string {
   try {
     const parsed: unknown = JSON.parse(schemaText);
     if (isJsonObject(parsed) && isJsonObject(parsed['info'])) {
       const version: unknown = parsed['info']['version'];
       if (typeof version === 'string') {
-        return sanitiseVersion(version);
+        return version;
       }
     }
   } catch {
@@ -94,8 +100,10 @@ export function buildSkippedSchemaDriftReport(reason: string): SchemaDriftReport
 
 /** Build the single drift verdict every signal surface renders from. */
 export function buildSchemaDriftReport(cachedText: string, liveText: string): SchemaDriftReport {
-  const cachedVersion = extractVersion(cachedText);
-  const liveVersion = extractVersion(liveText);
+  const rawCachedVersion = extractRawVersion(cachedText);
+  const rawLiveVersion = extractRawVersion(liveText);
+  const cachedVersion = sanitiseVersion(rawCachedVersion);
+  const liveVersion = sanitiseVersion(rawLiveVersion);
   const { drifted } = evaluateSchemaDrift(cachedText, liveText);
 
   if (!drifted) {
@@ -110,7 +118,7 @@ export function buildSchemaDriftReport(cachedText: string, liveText: string): Sc
   }
 
   const versionNote =
-    liveVersion === cachedVersion
+    rawLiveVersion === rawCachedVersion
       ? `Both are version ${liveVersion} but content differs (upstream may have changed without a version bump).`
       : `Cached: ${cachedVersion}, live: ${liveVersion}.`;
 
