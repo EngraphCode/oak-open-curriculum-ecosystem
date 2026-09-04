@@ -4,13 +4,16 @@ import { evaluateDeployConfigValidation } from './validate-deploy-config.js';
 
 describe('evaluateDeployConfigValidation', () => {
   it('skips with exit 0 outside Vercel builds and never loads config', () => {
+    let configLoaded = false;
     const verdict = evaluateDeployConfigValidation({
       isVercelBuild: false,
       loadConfig: () => {
-        throw new Error('config must not be loaded outside Vercel builds');
+        configLoaded = true;
+        return err({ message: 'config must not be loaded outside Vercel builds' });
       },
     });
 
+    expect(configLoaded).toBe(false);
     expect(verdict.exitCode).toBe(0);
     expect(verdict.message).toContain('skipped');
     expect(verdict.message).toContain('VERCEL');

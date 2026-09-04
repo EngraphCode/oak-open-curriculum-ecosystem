@@ -12,8 +12,7 @@
  * boot-dead function.
  *
  * Pure decision logic only — the executable entry is
- * {@link ./run-validate-deploy-config.ts | run-validate-deploy-config},
- * which composes the real `loadRuntimeConfig` at the build's
+ * `run-validate-deploy-config.ts`, which composes the real `loadRuntimeConfig` at the build's
  * composition root. Enforcement is scoped to Vercel builds (the
  * `VERCEL` system env is always present there); local builds lack the
  * deploy environment by design and are skipped with an explicit line,

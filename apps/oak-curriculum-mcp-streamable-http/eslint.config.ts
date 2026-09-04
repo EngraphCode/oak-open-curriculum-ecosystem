@@ -213,6 +213,11 @@ const config = defineConfigArray(
       // The rest of the gate logic stays in pure helpers under
       // build-scripts/sentry-configured-build-gate.ts.
       'build-scripts/run-sentry-configured-build.ts',
+      // Repo-owned deploy-config validation gate (MCP-475): reads
+      // process.env once at the build's composition root and hands it to
+      // the server's own `loadRuntimeConfig`; the decision logic stays in
+      // the pure helper build-scripts/validate-deploy-config.ts.
+      'build-scripts/run-validate-deploy-config.ts',
       // Workspace tooling scripts (dev/test harness CLIs, e.g.
       // `run-requests.ts`, `server-harness.ts`, `embed-widget-html.ts`).
       // These are not product code — they read env vars at startup as
