@@ -104,6 +104,7 @@ reviewer applies when resolving a conflict, and a canonical
 | `mostly-append-register` | pending-graduations register; per-thread participating-agent identity tables | Structured entries with a stable schema; entries are added far more often than they are edited | **Union by entry identity.** New entries on either side survive. Edits to the *same existing entry* on both sides are genuine conflicts requiring per-entry semantic merging — apply the field-level rules from the surface's own conventions when present, otherwise route to the entry's owning agent or the next-session reviewer. |
 | `index-narrative-tables` | repo-continuity (per-thread tables, narrative session-close notes, status fields, deep-consolidation status) | Multiple sections, each with its own shape | **Section-aware reconciliation.** Treat each section as belonging to its own class above and apply that class's semantic. Tables merge row-by-row by stable row key (e.g. thread name). Narrative blocks union by identity. Status fields prefer the more recent timestamped status; older statuses move into the file's chronological history if the file maintains one. |
 | `exclusive-create-fragments` | per-event comms-event JSON files; per-session experience files | One file per event/session, written exactly once with a UUID filename, never modified | **No merge needed.** Concurrent branches write disjoint files. Git sees two adds in different paths — there is no conflict by construction. Recorded as a `merge_class` value so directory-level conventions are explicit and so audit tooling can confirm "no edits after creation". |
+| `machine-local-ephemera` | the per-intent commit-queue store (`.agent/state/collaboration/commit-queue/`) | One file per intent, machine-local, never in version control; created exclusively, replaced atomically on phase changes, swept at TTL expiry | **Never merged.** Nothing under this class reaches a branch, so no merge path exists; validity is the schema's and lifecycle is the TTL's. Recorded so the substrate inventory can declare such a surface truthfully instead of borrowing a versioned class. |
 
 ### File-Level Metadata Contract
 
@@ -151,13 +152,14 @@ modified after creation) declare the class on the directory's
 `README.md` frontmatter as `merge_class: exclusive-create-fragments`.
 Individual fragments need no metadata.
 
-The five permitted values are exactly the five `merge_class` tokens
+The six permitted values are exactly the six `merge_class` tokens
 named in the per-class table above:
 `append-only-narrative`,
 `append-only-structured-by-<key>`,
 `mostly-append-register`,
 `index-narrative-tables`,
-`exclusive-create-fragments`.
+`exclusive-create-fragments`,
+`machine-local-ephemera`.
 
 For `append-only-structured-by-<key>`, the `<key>` token names the
 field carrying the entry identity (e.g.
@@ -393,6 +395,8 @@ authoring-discipline rule from PDR-047.
 - 2026-09-04 — The `active-claims.schema.json` merge rule trued for registry
   schema 1.4.0 (PR #38 / MCP-612): the file carries claims only; the commit
   queue is machine-local ephemera outside version control and outside these
-  merge semantics. Falsifiability axis: falsified if a versioned
-  collaboration-state file carries queue entries again, or if any merge path
-  is asked to reconcile per-intent store files.
+  merge semantics. The sixth class, `machine-local-ephemera`, names that
+  store truthfully in the substrate inventory. Falsifiability axis: falsified
+  if a versioned collaboration-state file carries queue entries again, if any
+  merge path is asked to reconcile per-intent store files, or if a file under
+  the sixth class is ever found in version control.

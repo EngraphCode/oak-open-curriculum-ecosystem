@@ -327,6 +327,58 @@
       "owner_reviewer_route": "agent-tooling + architecture"
     },
     {
+      "id": "collaboration-commit-queue",
+      "path": ".agent/state/collaboration/commit-queue/",
+      "plane": "state",
+      "purpose": "Machine-local per-intent commit-queue store beside the claims file (registry schema 1.4.0; owner ruling QUEUE-LOCAL, 2026-08-17): one JSON file per advisory commit intent, the observable artefact of the shared git transaction tripwire (PDR-029 Class A.3).",
+      "authority": [
+        "PDR-050-state-memory-substrate-contracts",
+        "PDR-049-memory-and-state-file-merge-semantics",
+        "PDR-029-perturbation-mechanism-bundle"
+      ],
+      "lifecycle": "machine-local ephemera: absent until the first enqueue; each intent file expires one hour after its last write (expires_at is updated_at plus the TTL), reads treat an expired file as absent, every queue write sweeps expired peers, complete removes a landed intent; never in version control (the collaboration-state ignore file covers the directory)",
+      "writer_or_write_api": "pnpm agent-tools:commit-queue -- enqueue|phase|record-staged|verify-staged|complete (atomic per-file publish under the claims-file transaction lock; the one-time 1.3.0 migration on first contact)",
+      "entry_identity": "intent_id, which is also the file basename (<intent_id>.json)",
+      "merge_class": "machine-local-ephemera",
+      "schema_or_parser": "agent-tools/src/collaboration-state/schemas/commit-queue-intent.schema.json; agent-tools/src/collaboration-state/registry-entry-parser.ts (parseCommitQueueIntentText)",
+      "generated_outputs": [],
+      "validator": "pnpm agent-tools:collaboration-state -- comms validate (the state-integrity validator: schema, contract parser, filename/intent_id correspondence, expires_at relation); every store read re-judges the same relations",
+      "severity": [
+        {
+          "invariant": "invalid JSON/schema (unknown key, empty files, bad timestamp)",
+          "severity": "blocking"
+        },
+        {
+          "invariant": "filename disagrees with intent_id",
+          "severity": "blocking"
+        },
+        {
+          "invariant": "expires_at disagrees with updated_at plus the TTL",
+          "severity": "blocking"
+        },
+        {
+          "invariant": "abandoned intent left in place",
+          "severity": "informational"
+        }
+      ],
+      "repair_path": [
+        {
+          "action": "rerun the queue write (phase, record-staged, complete) so the store re-validates and sweeps expired peers",
+          "repair_class": "deterministic"
+        },
+        {
+          "action": "delete a corrupt or misnamed intent file by hand (machine-local ephemera by owner ruling; record the deletion on the comms log)",
+          "repair_class": "manual-with-provenance"
+        },
+        {
+          "action": "hand-edit an intent file's content",
+          "repair_class": "forbidden"
+        }
+      ],
+      "portability_tier": "repo-local-contract",
+      "owner_reviewer_route": "agent-tooling + architecture"
+    },
+    {
       "id": "collaboration-closed-claims",
       "path": ".agent/state/collaboration/closed-claims.archive.json",
       "plane": "state",
