@@ -4,12 +4,15 @@
  * behind the test-helpers seam, so the contract test stays IO-free.
  */
 import { execFileSync } from 'node:child_process';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { z } from 'zod';
 
 const packageRoot = path.resolve(fileURLToPath(new URL('../..', import.meta.url)));
 const repoRoot = path.resolve(packageRoot, '../..');
+/** Turbo's own entry script, resolved by module resolution — no PATH lookup of any binary. */
+const turboEntry = createRequire(import.meta.url).resolve('turbo/bin/turbo');
 
 /** The fields of a dry-run task the contract reads; `resolvedTaskDefinition` is the config. */
 const TurboDryRunTaskSchema = z.object({
@@ -35,10 +38,9 @@ export type TurboDryRunTask = z.output<typeof TurboDryRunTaskSchema>;
  */
 export function resolveBuildTaskGraph(): ReadonlyMap<string, TurboDryRunTask> {
   const raw = execFileSync(
-    'pnpm',
+    process.execPath,
     [
-      'exec',
-      'turbo',
+      turboEntry,
       'run',
       'build',
       '--filter=@oaknational/oak-curriculum-mcp-streamable-http',
