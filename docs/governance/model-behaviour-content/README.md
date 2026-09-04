@@ -16,7 +16,7 @@ This is every piece of writing this repository puts in front of an AI agent, in 
 
 ## What is in here
 
-**728 items** of content, every one of them listed. 684 are shown with the wording the system uses today, read straight from the code. 44 have been retired since the audit and are listed with their last known wording so nothing vanishes silently. Anything this pass could not render from current source is named in [unrendered items](./unrendered.md) — the list is never quietly shortened.
+**728 items** of content, every one of them listed. 676 are shown with the wording the system uses today, read straight from the code. 52 have been retired since the audit and are listed with their last known wording so nothing vanishes silently. Anything this pass could not render from current source is named in [unrendered items](./unrendered.md) — the list is never quietly shortened.
 
 Whether an agent can actually see an item is derived, not declared: see [what an agent sees today](./served-surface.md).
 

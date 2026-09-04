@@ -16,7 +16,7 @@ How an agent discovers and uses the tools — titles, descriptions, parameter de
 
 This page holds only the **tool-title** items of that view, so it can be reviewed in one sitting.
 
-**42 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, and 0 no longer exist in the codebase. The rest live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**42 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, and 2 no longer exist in the codebase. The rest live in code that ships, but this pass has not traced which registered surface carries them — each says so.
 
 [Back to the tool-usability view](./tool-usability.md) · [Back to the workspace index](../README.md)
 
@@ -257,43 +257,9 @@ export function kebabToTitleCase(name: unknown): string {
 - **Since the audit baseline:** Unchanged since the audit baseline.
 - **Kind of surface:** tool-title · **Impact tier:** high-impact
 
-## Words owned elsewhere (29)
+## Words owned elsewhere (27)
 
 These reach agents through this system but are authored somewhere else. Each item names the repository that owns it; raise changes there, not here.
-
-### C491 — get-changelog-latest annotations.title (+ tool name)
-
-**What it says now:**
-
-```text
-title: "Get Changelog Latest",
-```
-
-**What it is for:** Label used for tool selection in listings/pickers.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Flagged for a closer look:** upstream-owned-base-text
-- **Where it lives:** `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts`
-- **Who owns the words:** The Oak Open Curriculum API spec, in the `oaknational/oak-api` repository. The copy here is generated from it, so editing this repository would be overwritten — change the spec.
-- **Since the audit baseline:** Unchanged since the audit baseline.
-- **Kind of surface:** tool-title · **Impact tier:** high-impact
-
-### C495 — get-changelog annotations.title (+ tool name)
-
-**What it says now:**
-
-```text
-title: "Get Changelog",
-```
-
-**What it is for:** Label used for tool selection in listings/pickers.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Flagged for a closer look:** upstream-owned-base-text
-- **Where it lives:** `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts`
-- **Who owns the words:** The Oak Open Curriculum API spec, in the `oaknational/oak-api` repository. The copy here is generated from it, so editing this repository would be overwritten — change the spec.
-- **Since the audit baseline:** Unchanged since the audit baseline.
-- **Kind of surface:** tool-title · **Impact tier:** high-impact
 
 ### C499 — get-key-stages-subject-assets annotations.title (+ tool name)
 
@@ -754,4 +720,42 @@ title: "Get Units Summary",
 - **Where it lives:** `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-units-summary.ts`
 - **Who owns the words:** The Oak Open Curriculum API spec, in the `oaknational/oak-api` repository. The copy here is generated from it, so editing this repository would be overwritten — change the spec.
 - **Since the audit baseline:** Unchanged since the audit baseline.
+- **Kind of surface:** tool-title · **Impact tier:** high-impact
+
+## Retired (2)
+
+These existed at the audit baseline and have since been removed. They are listed so nothing disappears without a trace.
+
+### C491 — get-changelog-latest annotations.title (+ tool name)
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+name: 'get-changelog-latest'; annotations.title: "Get Changelog Latest"
+```
+
+**What it is for:** Label used for tool selection in listings/pickers.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Flagged for a closer look:** upstream-owned-base-text
+- **Where it lives:** nowhere — retired (it was in `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts`).
+- **Who owns the words:** The Oak Open Curriculum API spec, in the `oaknational/oak-api` repository. The copy here is generated from it, so editing this repository would be overwritten — change the spec.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** tool-title · **Impact tier:** high-impact
+
+### C495 — get-changelog annotations.title (+ tool name)
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+name: 'get-changelog'; annotations.title: "Get Changelog"
+```
+
+**What it is for:** Label used for tool selection in listings/pickers.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Flagged for a closer look:** upstream-owned-base-text
+- **Where it lives:** nowhere — retired (it was in `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts`).
+- **Who owns the words:** The Oak Open Curriculum API spec, in the `oaknational/oak-api` repository. The copy here is generated from it, so editing this repository would be overwritten — change the spec.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
 - **Kind of surface:** tool-title · **Impact tier:** high-impact

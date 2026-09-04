@@ -18,14 +18,12 @@ A **live** surface is one an agent can use right now. A **dormant** surface exis
 
 ## Tools
 
-### Live (40)
+### Live (38)
 
 - `browse-curriculum`
 - `download-asset`
 - `explore-topic`
 - `fetch`
-- `get-changelog`
-- `get-changelog-latest`
 - `get-curriculum-model`
 - `get-key-stages`
 - `get-key-stages-subject-assets`

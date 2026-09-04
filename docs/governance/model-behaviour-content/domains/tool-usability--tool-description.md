@@ -16,7 +16,7 @@ How an agent discovers and uses the tools — titles, descriptions, parameter de
 
 This page holds only the **tool-description** items of that view, so it can be reviewed in one sitting.
 
-**46 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, and 1 no longer exists in the codebase. The rest live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**46 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, and 3 no longer exist in the codebase. The rest live in code that ships, but this pass has not traced which registered surface carries them — each says so.
 
 [Back to the tool-usability view](./tool-usability.md) · [Back to the workspace index](../README.md)
 
@@ -85,7 +85,7 @@ provides: [
 **What it says now:**
 
 ```text
-description: `Search Oak's curriculum using semantic search across all four
+description: `Hybrid lexical and semantic search across lessons, units, threads and sequences,
 ```
 
 **What it is for:** Primary agent guidance: required params, scope-selection rules, do-NOT-use routing to fetch/orientation/browse/explore, NL-to-structured mapping examples, scope limitations, cross-tool workflows, and a large-payload/pagination caution. Interpolates AGGREGATED\_PREREQUISITE\_GUIDANCE and PRIMARY\_ORIENTATION\_TOOL\_NAME from a sibling module.
@@ -358,7 +358,7 @@ const OAK_UNDER_THE_HOOD_TOOL_DESCRIPTION =
 - **Since the audit baseline:** Unchanged since the audit baseline.
 - **Kind of surface:** tool-description · **Impact tier:** high-impact
 
-## Words owned elsewhere (31)
+## Words owned elsewhere (29)
 
 These reach agents through this system but are authored somewhere else. Each item names the repository that owns it; raise changes there, not here.
 
@@ -416,40 +416,6 @@ export function toToolDescription(operation: OperationObject): string | undefine
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** upstream-owned-base-text
 - **Where it lives:** `packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/tool-description.ts`
-- **Who owns the words:** The Oak Open Curriculum API spec, in the `oaknational/oak-api` repository. The copy here is generated from it, so editing this repository would be overwritten — change the spec.
-- **Since the audit baseline:** Unchanged since the audit baseline.
-- **Kind of surface:** tool-description · **Impact tier:** high-impact
-
-### C492 — get-changelog-latest description (base prose, noauth)
-
-**What it says now:**
-
-```text
-description: "Latest API version\n\nUse when you only need the current API version — e.g. a version banner or deployment check. Returns the most recent changelog entry. Not for: full version history (GET /changelog).",
-```
-
-**What it is for:** Route agent to/away from this tool (Use-when / Returns / Not-for).
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Flagged for a closer look:** user-input-interpolation, upstream-owned-base-text
-- **Where it lives:** `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts`
-- **Who owns the words:** The Oak Open Curriculum API spec, in the `oaknational/oak-api` repository. The copy here is generated from it, so editing this repository would be overwritten — change the spec.
-- **Since the audit baseline:** Unchanged since the audit baseline.
-- **Kind of surface:** tool-description · **Impact tier:** high-impact
-
-### C496 — get-changelog description (base prose, noauth)
-
-**What it says now:**
-
-```text
-description: "API changelog\n\nUse when you need the full history of API changes — for surfacing release notes or checking which version introduced a field. Returns every changelog entry with version and date. Not for: the current version (GET /changelog/latest).",
-```
-
-**What it is for:** Route agent to/away from this tool (Use-when / Returns / Not-for).
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Flagged for a closer look:** user-input-interpolation, upstream-owned-base-text
-- **Where it lives:** `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts`
 - **Who owns the words:** The Oak Open Curriculum API spec, in the `oaknational/oak-api` repository. The copy here is generated from it, so editing this repository would be overwritten — change the spec.
 - **Since the audit baseline:** Unchanged since the audit baseline.
 - **Kind of surface:** tool-description · **Impact tier:** high-impact
@@ -913,7 +879,7 @@ description: "Unit summary by slug
 - **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** tool-description · **Impact tier:** high-impact
 
-## Retired (1)
+## Retired (3)
 
 These existed at the audit baseline and have since been removed. They are listed so nothing disappears without a trace.
 
@@ -930,5 +896,39 @@ You MUST call this tool before using other curriculum tools.
 - **Can an agent see it?** Retired — the words no longer exist in the codebase
 - **Where it lives:** nowhere — retired (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/prerequisite-guidance.ts`).
 - **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** tool-description · **Impact tier:** high-impact
+
+### C492 — get-changelog-latest description (base prose, noauth)
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+Latest API version\n\nUse when you only need the current API version — e.g. a version banner or deployment check. Returns the most recent changelog entry. Not for: full version history (GET /changelog).
+```
+
+**What it is for:** Route agent to/away from this tool (Use-when / Returns / Not-for).
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Flagged for a closer look:** user-input-interpolation, upstream-owned-base-text
+- **Where it lives:** nowhere — retired (it was in `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts`).
+- **Who owns the words:** The Oak Open Curriculum API spec, in the `oaknational/oak-api` repository. The copy here is generated from it, so editing this repository would be overwritten — change the spec.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** tool-description · **Impact tier:** high-impact
+
+### C496 — get-changelog description (base prose, noauth)
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+API changelog\n\nUse when you need the full history of API changes... Returns every changelog entry with version and date. Not for: the current version (GET /changelog/latest).
+```
+
+**What it is for:** Route agent to/away from this tool (Use-when / Returns / Not-for).
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Flagged for a closer look:** user-input-interpolation, upstream-owned-base-text
+- **Where it lives:** nowhere — retired (it was in `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts`).
+- **Who owns the words:** The Oak Open Curriculum API spec, in the `oaknational/oak-api` repository. The copy here is generated from it, so editing this repository would be overwritten — change the spec.
 - **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
 - **Kind of surface:** tool-description · **Impact tier:** high-impact

@@ -73,8 +73,20 @@ If that is wrong or absent, fix the SHARED config once. Never patch this worktre
 reintroduces the exact drift this step exists to catch.
 
 ```bash
-BOT_SLUG=$(jq -r .appSlug .github/merge-bot.json)
+# The merge-bot config is per-checkout and never tracked, so it lives only at
+# the clone's primary checkout; a linked worktree holds no copy of it. Every
+# derivation is checked before the shared identity is written: an empty slug
+# or id would otherwise land as "[bot]" while the block exits clean.
+PRIMARY="$(git worktree list --porcelain | head -1 | sed 's/^worktree //')"
+CONFIG="$PRIMARY/.github/merge-bot.json"
+[ -n "$PRIMARY" ] && [ -f "$CONFIG" ] \
+  || { echo "no per-checkout config at $CONFIG (copy .github/merge-bot.json.example there)"; exit 1; }
+BOT_SLUG=$(jq -r .appSlug "$CONFIG")
+[ -n "$BOT_SLUG" ] && [ "$BOT_SLUG" != null ] \
+  || { echo "appSlug missing from $CONFIG"; exit 1; }
 BOT_ID=$(gh api "users/${BOT_SLUG}%5Bbot%5D" --jq .id)
+[ -n "$BOT_ID" ] && [ "$BOT_ID" != null ] \
+  || { echo "no bot user id for ${BOT_SLUG}[bot] from the GitHub API"; exit 1; }
 
 git config user.name  "${BOT_SLUG}[bot]"
 git config user.email "${BOT_ID}+${BOT_SLUG}[bot]@users.noreply.github.com"

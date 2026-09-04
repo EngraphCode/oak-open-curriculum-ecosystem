@@ -8,7 +8,7 @@ IDs for `fetch` are prefixed: `lesson:<slug>`, `unit:<slug>`, `thread:<slug>`, `
 
 ## 1. Knowledge and vocabulary rich
 
-**Grounding data.** Oak lessons carry vocabulary _with pupil-facing definitions_, a short list of key learning points, and a single pupil outcome — a concrete model of "rich."
+**Grounding data.** Oak lessons carry vocabulary _with definitions_, a short list of key learning points, and a single learning outcome — a concrete model of "rich."
 
 **Tools.** `get-lessons-summary`, `get-keywords`, `get-units-summary`, `fetch` (`lesson:` / `unit:`).
 
@@ -86,16 +86,16 @@ misconceptionsAndCommonMistakes: [
 
 **Tools.** `get-units-summary`, `browse-curriculum` (structure/facets), `get-sequences`, `fetch` (`unit:`).
 
-**What to look for.** National-curriculum coverage you can map your own material to; `unitOptions` as a model for offering teacher choice without fragmenting entitlement; how Oak signposts threads so adaptation stays coherent.
+**What to look for.** The national-curriculum statements Oak's units record, which you can map your own material to; `unitOptions` as a model for offering teacher choice without fragmenting entitlement — flexibility as **multiple routes through the same sequence** (e.g. alternative units such as a choice of early civilisation to study), rather than an expectation of re-sequencing; how Oak signposts threads so adaptation stays coherent.
 
 **Example.**
 
 ```text
 browse-curriculum({ subject: "history", keyStage: "ks4" })   // see options/structure
-get-units-summary({ ... })                                    // read NC coverage + options
+get-units-summary({ ... })                                    // read national curriculum statements + options
 ```
 
-**Use it:** make your material modular and NC-mapped the way Oak's is, so a teacher can localise an example without breaking the sequence.
+**Use it:** make your material modular and mapped to the national curriculum the way Oak's is, so a teacher can localise an example without breaking the sequence.
 
 ---
 

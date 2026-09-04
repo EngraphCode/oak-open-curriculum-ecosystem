@@ -15,7 +15,7 @@ describe('createSnippet', () => {
     const snippet = createSnippet('https://my-app.vercel.app/mcp');
 
     expect(snippet).toContain('"mcpServers"');
-    expect(snippet).toContain('"oak-curriculum"');
+    expect(snippet).toContain('"oak-open-curriculum"');
     expect(snippet).toContain('"type": "http"');
     expect(snippet).toContain('"url": "https://my-app.vercel.app/mcp"');
   });

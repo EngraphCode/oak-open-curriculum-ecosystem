@@ -55,7 +55,7 @@ export const CURRENT_LANDING_ITEM_ANCHOR_OVERRIDES = {
   },
   C354: {
     [`${LANDING_ROOT}/create-snippet.ts`]: [
-      '"mcpServers": {\n    "oak-curriculum": {\n      "type": "http",',
+      '"mcpServers": {\n    "oak-open-curriculum": {\n      "type": "http",',
     ],
   },
   C355: {

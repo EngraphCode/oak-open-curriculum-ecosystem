@@ -1284,7 +1284,7 @@ Add this to your MCP client configuration:
 
 ```text
 "mcpServers": {
-    "oak-curriculum": {
+    "oak-open-curriculum": {
       "type": "http",
 ```
 

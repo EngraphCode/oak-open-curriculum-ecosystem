@@ -14,7 +14,7 @@ last_reviewed: 2026-08-06
 
 Annotations, schemas, authorisation scopes, and discovery or branding metadata.
 
-**93 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, and 4 no longer exist in the codebase. The rest live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**93 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, and 6 no longer exist in the codebase. The rest live in code that ships, but this pass has not traced which registered surface carries them — each says so.
 
 [Back to the workspace index](../README.md)
 
@@ -31,7 +31,7 @@ git log -p --follow -- packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guid
 
 </details>
 
-## Words owned in this repository (85)
+## Words owned in this repository (83)
 
 These are ours to change. An edit here is a normal change to this repository, reviewed like any other.
 
@@ -1048,50 +1048,6 @@ export const WIDGET_TOOL_NAMES: ReadonlySet<string> = new Set([
 - **Since the audit baseline:** Unchanged since the audit baseline.
 - **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
 
-### C494 — get-changelog-latest annotations (behaviour hints)
-
-**What it says now:**
-
-```text
-annotations: {
-    readOnlyHint: true,
-    destructiveHint: false,
-    idempotentHint: true,
-    openWorldHint: false,
-    title: "Get Changelog Latest",
-  },
-```
-
-**What it is for:** Advertise read-only/non-destructive/idempotent/closed-world so hosts can auto-approve and reason about safety.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
-- **Kind of surface:** tool-annotations · **Impact tier:** high-impact
-
-### C498 — get-changelog annotations (behaviour hints)
-
-**What it says now:**
-
-```text
-annotations: {
-    readOnlyHint: true,
-    destructiveHint: false,
-    idempotentHint: true,
-    openWorldHint: false,
-    title: "Get Changelog",
-  },
-```
-
-**What it is for:** Advertise read-only/non-destructive/idempotent/closed-world.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Where it lives:** `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
-- **Kind of surface:** tool-annotations · **Impact tier:** high-impact
-
 ### C510 — get-key-stages-subject-assets annotations (behaviour hints)
 
 **What it says now:**
@@ -1715,7 +1671,7 @@ function generateMetadataUrl(resourceUrl: string): string {
 
 ```text
 resource: `${selfOrigin}${MCP_RESOURCE_PATH}`,
-      authorization_servers: [selfOrigin],
+      authorization_servers: [upstreamMetadata.issuer],
       scopes_supported: SCOPES_SUPPORTED,
 ```
 
@@ -1838,10 +1794,12 @@ user-search': 'dormant',
 export const DEFERRED_PATHS: readonly DeferredPathEntry[] = [
   { path: '/key-stages/{keyStage}/subject/{subject}/check-restricted', ticket: 'MCP-214' },
   { path: '/lessons/check-restricted', ticket: 'MCP-214' },
+  { path: '/changelog', ticket: 'MCP-630' },
+  { path: '/changelog/latest', ticket: 'MCP-630' },
 ];
 ```
 
-**What it is for:** Temporarily exclude the check-restricted API family from generated schemas and MCP tools until MCP-214 lifts the deferral.
+**What it is for:** Exclude paths whole-pipeline from generated schemas and MCP tools: the check-restricted family until MCP-214 lifts the deferral, and the upstream-removed changelog pair until the MCP-630 schema-cache refresh erases them (MCP-653).
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-sdk-codegen/code-generation/excluded-paths.ts`
@@ -1875,8 +1833,6 @@ These reach agents through this system but are authored somewhere else. Each ite
 
 ```text
 export const MCP_TOOL_ENTRIES = [
-  { name: 'get-changelog', descriptor: getChangelog, operationId: 'changelog-changelog' },
-  { name: 'get-changelog-latest', descriptor: getChangelogLatest, operationId: 'changelog-latest' },
   { name: 'get-key-stages', descriptor: getKeyStages, operationId: 'getKeyStages-getKeyStages' },
   { name: 'get-key-stages-subject-assets', descriptor: getKeyStagesSubjectAssets, operationId: 'getAssets-getSubjectAssets' },
   { name: 'get-key-stages-subject-lessons', descriptor: getKeyStagesSubjectLessons, operationId: 'getKeyStageSubjectLessons-getKeyStageSubjectLessons' },
@@ -1887,6 +1843,8 @@ export const MCP_TOOL_ENTRIES = [
   { name: 'get-lessons-quiz', descriptor: getLessonsQuiz, operationId: 'getQuestions-getQuestionsForLessons' },
   { name: 'get-lessons-summary', descriptor: getLessonsSummary, operationId: 'getLessons-getLesson' },
   { name: 'get-lessons-transcript', descriptor: getLessonsTranscript, operationId: 'getLessonTranscript-getLessonTranscript' },
+  { name: 'get-programmes', descriptor: getProgrammes, operationId: 'getAllProgrammesForSubject-getProgramme' },
+  { name: 'get-programmes-assets', descriptor: getProgrammesAssets, operationId: 'getAssets-getProgrammeAssets' },
 ```
 
 *Shown in part only — read the full text in the source file below.*
@@ -1896,7 +1854,7 @@ export const MCP_TOOL_ENTRIES = [
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/definitions.ts`
 - **Who owns the words:** The Oak Open Curriculum API spec, in the `oaknational/oak-api` repository. The copy here is generated from it, so editing this repository would be overwritten — change the spec.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
 
 ### C678 — operationId identifiers per tool (29)
@@ -1904,8 +1862,7 @@ export const MCP_TOOL_ENTRIES = [
 **What it says now:**
 
 ```text
-{ name: 'get-changelog', descriptor: getChangelog, operationId: 'changelog-changelog' },
-  { name: 'get-changelog-latest', descriptor: getChangelogLatest, operationId: 'changelog-latest' },
+export const MCP_TOOL_ENTRIES = [
   { name: 'get-key-stages', descriptor: getKeyStages, operationId: 'getKeyStages-getKeyStages' },
   { name: 'get-key-stages-subject-assets', descriptor: getKeyStagesSubjectAssets, operationId: 'getAssets-getSubjectAssets' },
   { name: 'get-key-stages-subject-lessons', descriptor: getKeyStagesSubjectLessons, operationId: 'getKeyStageSubjectLessons-getKeyStageSubjectLessons' },
@@ -1916,6 +1873,8 @@ export const MCP_TOOL_ENTRIES = [
   { name: 'get-lessons-quiz', descriptor: getLessonsQuiz, operationId: 'getQuestions-getQuestionsForLessons' },
   { name: 'get-lessons-summary', descriptor: getLessonsSummary, operationId: 'getLessons-getLesson' },
   { name: 'get-lessons-transcript', descriptor: getLessonsTranscript, operationId: 'getLessonTranscript-getLessonTranscript' },
+  { name: 'get-programmes', descriptor: getProgrammes, operationId: 'getAllProgrammesForSubject-getProgramme' },
+  { name: 'get-programmes-assets', descriptor: getProgrammesAssets, operationId: 'getAssets-getProgrammeAssets' },
 ```
 
 *Shown in part only — read the full text in the source file below.*
@@ -1925,7 +1884,7 @@ export const MCP_TOOL_ENTRIES = [
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/definitions.ts`
 - **Who owns the words:** The Oak Open Curriculum API spec, in the `oaknational/oak-api` repository. The copy here is generated from it, so editing this repository would be overwritten — change the spec.
-- **Since the audit baseline:** Unchanged since the audit baseline.
+- **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
 
 ### C681 — SCOPES\_SUPPORTED = ['email']
@@ -1961,7 +1920,7 @@ app.get('/.well-known/oauth-protected-resource', servePrm);
 - **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
 
-## Retired (4)
+## Retired (6)
 
 These existed at the audit baseline and have since been removed. They are listed so nothing disappears without a trace.
 
@@ -2028,3 +1987,35 @@ const PUBLIC_RESOURCE_URIS = [...DOCUMENTATION_RESOURCES.map(r=>r.uri), WIDGET_U
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
 - **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
+
+### C494 — get-changelog-latest annotations (behaviour hints)
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+```
+
+**What it is for:** Advertise read-only/non-destructive/idempotent/closed-world so hosts can auto-approve and reason about safety.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** tool-annotations · **Impact tier:** high-impact
+
+### C498 — get-changelog annotations (behaviour hints)
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+readOnlyHint:true, destructiveHint:false, idempotentHint:true, openWorldHint:false
+```
+
+**What it is for:** Advertise read-only/non-destructive/idempotent/closed-world.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Where it lives:** nowhere — retired (it was in `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** tool-annotations · **Impact tier:** high-impact

@@ -16,7 +16,7 @@ What an agent receives when something fails or returns nothing — validation, e
 
 This page holds only the **error-message** items of that view, so it can be reviewed in one sitting.
 
-**126 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, and 0 no longer exist in the codebase. The rest live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**126 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, and 2 no longer exist in the codebase. The rest live in code that ships, but this pass has not traced which registered surface carries them — each says so.
 
 [Back to the recovery-copy view](./recovery-copy.md) · [Back to the workspace index](../README.md)
 
@@ -33,7 +33,7 @@ git log -p --follow -- packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guid
 
 </details>
 
-## Words owned in this repository (126)
+## Words owned in this repository (124)
 
 These are ours to change. An edit here is a normal change to this repository, reviewed like any other.
 
@@ -1766,40 +1766,6 @@ lines.push(
 - **Since the audit baseline:** Unchanged since the audit baseline.
 - **Kind of surface:** error-message · **Impact tier:** high-impact
 
-### C493 — get-changelog-latest toolArgsDescription (validation template)
-
-**What it says now:**
-
-```text
-const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{},"additionalProperties":false}\nRequired: (none)';
-```
-
-**What it is for:** Tell caller how to fix invalid args (schema + required list).
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Flagged for a closer look:** user-input-interpolation
-- **Where it lives:** `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
-- **Kind of surface:** error-message · **Impact tier:** high-impact
-
-### C497 — get-changelog toolArgsDescription (validation template)
-
-**What it says now:**
-
-```text
-const toolArgsDescription = 'Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{},"additionalProperties":false}\nRequired: (none)';
-```
-
-**What it is for:** Tell caller how to fix invalid args.
-
-- **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
-- **Flagged for a closer look:** user-input-interpolation
-- **Where it lives:** `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts`
-- **Who owns the words:** This repository — the words are authored here.
-- **Since the audit baseline:** Unchanged since the audit baseline.
-- **Kind of surface:** error-message · **Impact tier:** high-impact
-
 ### C509 — get-key-stages-subject-assets toolArgsDescription (validation template)
 
 **What it says now:**
@@ -2568,4 +2534,42 @@ export function assertStubAvailable(name: unknown): asserts name is ToolName {
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/stub-tool-executor.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Unchanged since the audit baseline.
+- **Kind of surface:** error-message · **Impact tier:** high-impact
+
+## Retired (2)
+
+These existed at the audit baseline and have since been removed. They are listed so nothing disappears without a trace.
+
+### C493 — get-changelog-latest toolArgsDescription (validation template)
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{},"additionalProperties":false}\nRequired: (none)
+```
+
+**What it is for:** Tell caller how to fix invalid args (schema + required list).
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Flagged for a closer look:** user-input-interpolation
+- **Where it lives:** nowhere — retired (it was in `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog-latest.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
+- **Kind of surface:** error-message · **Impact tier:** high-impact
+
+### C497 — get-changelog toolArgsDescription (validation template)
+
+**What it said at the audit baseline** (the current wording could not be located automatically — read the source file):
+
+```text
+Invalid request parameters. Please match the following schema:\nSchema: {"type":"object","properties":{},"additionalProperties":false}\nRequired: (none)
+```
+
+**What it is for:** Tell caller how to fix invalid args.
+
+- **Can an agent see it?** Retired — the words no longer exist in the codebase
+- **Flagged for a closer look:** user-input-interpolation
+- **Where it lives:** nowhere — retired (it was in `packages/sdks/oak-sdk-codegen/src/types/generated/api-schema/mcp-tools/tools/get-changelog.ts`).
+- **Who owns the words:** This repository — the words are authored here.
+- **Since the audit baseline:** Retired — these words were removed from the codebase after the audit baseline.
 - **Kind of surface:** error-message · **Impact tier:** high-impact
