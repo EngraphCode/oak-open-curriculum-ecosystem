@@ -45,14 +45,21 @@ describe('parseCollaborationRegistry', () => {
     ).toBe('active claims registry must contain a claims array');
   });
 
-  it('rejects a current-version registry that still carries a commit_queue array', () => {
+  it.each([
+    ['an array', []],
+    ['a string', 'legacy'],
+    ['an object', {}],
+    ['null', null],
+  ])('rejects a current-version registry carrying commit_queue as %s', (_label, commitQueue) => {
+    // The parser reconstructs {schema_version, claims}, so a non-array
+    // admitted here would be dropped in silence on the next write.
     expect(
       unwrapErr(
         parseCollaborationRegistry(
-          JSON.stringify({ schema_version: '1.4.0', commit_queue: [], claims: [] }),
+          JSON.stringify({ schema_version: '1.4.0', commit_queue: commitQueue, claims: [] }),
         ),
       ).message,
-    ).toContain('must not carry a commit_queue array');
+    ).toContain('must not carry a commit_queue property');
   });
 });
 

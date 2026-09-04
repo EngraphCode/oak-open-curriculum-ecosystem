@@ -53,10 +53,13 @@ function parseRegistryValue(parsed: unknown): Result<CollaborationRegistry, Erro
   if (!Array.isArray(claims)) {
     return err(new Error('active claims registry must contain a claims array'));
   }
-  if (Array.isArray(getJsonValue(parsed, 'commit_queue'))) {
+  // Any own `commit_queue` property, whatever its type: this parser
+  // reconstructs {schema_version, claims}, so a non-array admitted here
+  // would be dropped in silence on the next collaboration-state write.
+  if (Object.hasOwn(parsed, 'commit_queue')) {
     return err(
       new Error(
-        'active claims registry must not carry a commit_queue array: the queue is ' +
+        'active claims registry must not carry a commit_queue property: the queue is ' +
           'machine-local ephemera in .agent/state/collaboration/commit-queue/ ' +
           '(one JSON file per intent)',
       ),

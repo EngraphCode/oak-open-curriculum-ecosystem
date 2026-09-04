@@ -77,10 +77,12 @@ Use `pnpm agent-tools:commit-queue --` through the commit skill:
    clears the claim pointer. A successful git commit is the durable record.
 6. `phase --phase abandoned` if the attempt stops before success.
 
-`expires_at` is the wall-clock **expired**-reporting timestamp (per the
-four-term vocabulary in conventions.md). Expiry never auto-removes a queue
-entry and never blocks another agent by itself.
-`session_counter` is intentionally absent from v1.3.0.
+`expires_at` is the derived wall-clock expiry, `updated_at` plus the
+one-hour TTL (the **expired** term of the four-term vocabulary in
+conventions.md). Since 1.4.0 an expired intent is read as absent and swept
+by the next queue write — ephemera by the QUEUE-LOCAL owner ruling, not
+inspectable after expiry — and expiry never blocks another agent by itself.
+`session_counter` is intentionally absent from the intent schema.
 
 Commit-queue mutations reuse the same JSON transaction helper as active
 claims so parallel enqueue/phase/complete operations re-read current state
