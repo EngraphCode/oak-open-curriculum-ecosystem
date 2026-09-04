@@ -1495,12 +1495,17 @@ direct owner word (no Director seated; the week-sleep ended at owner word 2026-0
   PR #51 (the strategic node and its first slice): the round-one cures and the last
   acceptance-criteria edit landed as one settlement commit a7750418c with the `engraph` sync
   merged in; next, reply to and resolve the fourteen threads citing it, merge at green as the
-  bot. PR #52 (this landing): six round-one threads, all correct, cured in one push — the
-  support seat's model id, the pointer at the head of this record, the repo-continuity estate
-  row, the napkin's overflow marker, this bullet. The seven pre-estate PRs #38–#44 (re-homed
+  bot. PR #52 (this landing): six round-one threads,
+  all correct, cured in one push (the support seat's model id, the pointer at the head of
+  this record, the repo-continuity estate row, the napkin's overflow marker, this bullet);
+  round two's two truings land in one further push; then reply to and resolve its threads,
+  merge at green as the bot, harvest, prune worktree `continuity-flounder-2` and its branches. The seven pre-estate PRs #38–#44 (re-homed
   from upstream on 2026-09-02, none merged there) are evaluated first-hand by the lead and the
   verdicts carded to the owner before any close; the merge-track ones become owned lanes. The
-  lead's machine-local handoff record (gitignored, on the authoring machine only) is
-  `.agent/state/collaboration/handoffs/2778f573-flounder-turns-estuary-compaction-2026-09-03.md`;
-  it carries the same lanes in command-level detail and one finding the owner holds: the
-  primary checkout's four tracked files rewritten by the Sonar CLI's login step.
+  four tracked files the Sonar CLI's login step had rewritten on the primary checkout (the
+  two sonar-secrets hook scripts, their hook lines in the harness settings, the SonarLint
+  block in the IDE settings) were restored from HEAD at the owner's word ("discard the
+  overwrite"); the lesson, that a vendor CLI's integrate step overwrites tracked estate
+  customisations in place, is a second kind of pin for the strategic node's residue list.
+  The merge mechanics every lane uses are the pr-lifecycle skill's and the merge-bot doc's;
+  the lead's machine-local handoff record adds nothing a pickup needs beyond this bullet.
