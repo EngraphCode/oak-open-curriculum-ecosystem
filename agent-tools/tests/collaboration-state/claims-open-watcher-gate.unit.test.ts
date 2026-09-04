@@ -62,14 +62,21 @@ function claimOf(agent: CollaborationAgentId, claimId: string): CollaborationCla
   };
 }
 
+interface GateState {
+  readonly registry: CollaborationRegistry;
+  readonly commitQueue: readonly CollaborationCommitQueueEntry[];
+}
+
 function registry(input: {
   readonly claims?: readonly CollaborationClaim[];
   readonly queue?: readonly CollaborationCommitQueueEntry[];
-}): CollaborationRegistry {
+}): GateState {
   return {
-    schema_version: '1.3.0',
-    commit_queue: input.queue ?? [],
-    claims: input.claims ?? [],
+    registry: {
+      schema_version: '1.4.0',
+      claims: input.claims ?? [],
+    },
+    commitQueue: input.queue ?? [],
   };
 }
 
@@ -98,7 +105,7 @@ function io(mtime: number | 'missing', text = heartbeatText(nowIso)): WatcherSta
 // Compose both gate steps as `claims open` does: classify the watcher (IO,
 // outside the lock) then assert against the locked registry snapshot.
 async function run(input: {
-  readonly registry: CollaborationRegistry;
+  readonly registry: GateState;
   readonly io: WatcherStalenessIo;
 }): Promise<void> {
   const watcherVerdict = await resolveWatcherVerdict({
@@ -109,7 +116,8 @@ async function run(input: {
     io: input.io,
   });
   assertNotBlindWithOtherAgents({
-    registry: input.registry,
+    registry: input.registry.registry,
+    commitQueue: input.registry.commitQueue,
     nowIso,
     selfIdentity: self,
     watcherVerdict,
@@ -177,6 +185,7 @@ describe('claims-open watcher gate (resolve + assert)', () => {
       updated_at: nowIso,
       expires_at: '2026-06-25T12:00:00.000Z',
       phase: 'queued',
+      queued_seq: 0,
     };
     await expect(
       run({ registry: registry({ queue: [queueEntry] }), io: io('missing') }),

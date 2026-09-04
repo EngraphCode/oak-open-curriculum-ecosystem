@@ -46,7 +46,6 @@ function registryWithClaim(
 ): CollaborationRegistry {
   return {
     schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
-    commit_queue: [],
     claims: [
       {
         claim_id: claimId,
@@ -511,7 +510,6 @@ describe('comms heartbeat mode — ADR-186 lifecycle shape (append/send emitter)
     const sharedLogPath = 'state/shared-log.md';
     const seededRegistry: CollaborationRegistry = {
       schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
-      commit_queue: [],
       claims: [
         {
           claim_id: 'claim-send',

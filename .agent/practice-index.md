@@ -77,7 +77,8 @@ Representative rules:
 Collaboration state lives under
 [`state/collaboration/`](state/collaboration/). It is this repo's local
 operational instance of Practice-owned coordination concepts: shared log
-entries, active claims, the root `commit_queue`, closed claim history,
+entries, active claims, the per-intent commit-queue store beside them
+(machine-local since registry schema 1.4.0), closed claim history,
 decision threads, sidebars, joint decisions, and escalations. The
 at-a-glance channel register lives in
 [`memory/executive/agent-collaboration-channels.md`](memory/executive/agent-collaboration-channels.md).
@@ -350,7 +351,7 @@ example in this repo:
 | [`.agent/directives/`](directives/)                                                           | Doctrine — read-and-internalise; sets stance (AGENT.md, principles, collaboration, testing-strategy, schema-first-execution, metacognition, orientation) |
 | [`.agent/plans/`](plans/)                                                                     | The plan-node estate (ADR-216) — strategic, delivery, and runbook nodes, born-sketch until owner-ratified, with the schema contract and per-type templates |
 | [`.agent/memory/`](memory/)                                                                   | Three-mode memory: [`active/`](memory/active/) (learning loop — napkin, distilled, patterns, archive), [`operational/`](memory/operational/) (continuity — repo-continuity, workstreams, tracks), [`executive/`](memory/executive/) (contracts — artefact inventory, reviewer catalogue, platform-adapter matrix). See [`memory/README.md`](memory/README.md). |
-| [`.agent/state/`](state/)                                                                     | Live coordination state — shared communication log, active claims + `commit_queue`, closed claims, decision threads, sidebars, joint decisions, and escalations |
+| [`.agent/state/`](state/)                                                                     | Live coordination state — shared communication log, active claims + the per-intent `commit-queue/` store, closed claims, decision threads, sidebars, joint decisions, and escalations |
 | [`.agent/experience/`](experience/)                                                           | Experiential records across sessions                                        |
 | [`.agent/prompts/`](prompts/)                                                                 | Domain-specific handover prompts — stateful session context                 |
 | [`.agent/sub-agents/`](sub-agents/)                                                           | Reviewer prompt architecture (components, templates)                        |

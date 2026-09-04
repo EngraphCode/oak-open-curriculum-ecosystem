@@ -87,7 +87,6 @@ describe('comms write commands report their writes', () => {
     const fake = createFakeCollaborationRuntime({
       activeClaims: {
         schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
-        commit_queue: [],
         claims: [
           {
             claim_id: seededClaimId,
@@ -527,8 +526,7 @@ async function seedActiveClaim(
   overrides: { readonly claimed_at?: string; readonly freshness_seconds?: number } = {},
 ): Promise<void> {
   await writeJson(activePath, {
-    schema_version: '1.3.0',
-    commit_queue: [],
+    schema_version: '1.4.0',
     claims: [
       {
         claim_id: seededClaimId,

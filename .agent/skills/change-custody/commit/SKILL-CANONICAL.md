@@ -57,9 +57,11 @@ These scripts make this skill actionable end-to-end:
   script as the third (message) gate; call it directly only when iterating
   on a draft message in isolation from the tree-state gates.
 - **`pnpm agent-tools:commit-queue --`** — runs the `agent-tools` TypeScript
-  commit-queue CLI for advisory `commit_queue` entries in
-  `active-claims.json` (the surface's current schema version — pinned by
-  the named constant in `agent-tools`, not by prose here; PDR-050
+  commit-queue CLI for advisory commit-queue intents in the machine-local
+  per-intent store under `.agent/state/collaboration/commit-queue/`
+  (owner-ruled 2026-08-17: queue state is local ephemera with a 1-hour
+  TTL, never in version control; the store's schema is pinned by the
+  named constant in `agent-tools`, not by prose here; PDR-050
   §Latest-schema-version-only). Use it to enqueue the intended file bundle
   before staging, record the staged-bundle fingerprint after staging, verify
   the staged set immediately before `git commit`, and clear the queue entry
@@ -262,9 +264,10 @@ direct CLI commands for inspection and recovery.
      --platform <platform> --model <model> --now "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
    ```
 
-   Before opening: read
+   Before opening: list the advisory commit queue
+   (`pnpm agent-tools:commit-queue -- list`) for fresh intents, and read
    `.agent/state/collaboration/active-claims.json`
-   for fresh `commit_queue` entries and any peer `git:index/head` claim.
+   for any peer `git:index/head` claim.
    Inspect `git diff --staged --no-renames --name-only` and treat every
    reported path as a changed endpoint; if that endpoint set is non-empty
    and not wholly within your intended scope, pause and coordinate or ask
@@ -511,14 +514,14 @@ catastrophic shape. A foreign lock means another agent is mid-commit:
 
 1. Stop the commit attempt cleanly (a failed `git add`/`git commit` on a
    foreign lock fails safe — nothing is corrupted).
-2. Diagnose without touching the lock: inspect the `commit_queue`, active
-   claims, and `git log` for the live committer.
+2. Diagnose without touching the lock: inspect the commit-queue `list`
+   view, active claims, and `git log` for the live committer.
 3. Surface the foreign lock to the owner with the diagnostics and the
    wait-vs-handoff options. The owner decides; the agent never loops on the
    lock file.
 
-The `commit_queue`, `git:index/head` active claim, and shared-log entry are
-the coordination surfaces; the lock file is never one of them.
+The advisory commit queue, `git:index/head` active claim, and shared-log
+entry are the coordination surfaces; the lock file is never one of them.
 
 **A free lock is not a free index.** On a shared checkout `git commit`
 releases `index.lock` BEFORE its pre-commit hook runs on an as-is commit

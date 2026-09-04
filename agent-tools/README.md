@@ -419,12 +419,13 @@ pnpm agent-tools commit-queue status
   `abandoned`.
 - `record-staged` / `verify-staged` — capture and verify the exact staged
   bundle before committing.
-- `complete` — remove a landed intent and clear the owning claim pointer.
-- `status` — print queued, active, expired, and abandoned entries as JSON
-  without parsing `active-claims.json` manually.
+- `complete` — remove a landed intent.
+- `status` — print the live entries as JSON from the per-intent store,
+  counted as active or abandoned (a TTL-expired file reads as absent, so it
+  never appears in any view).
 - `list [--prefix <intent-prefix>]
 [--phase <queued|staging|pre_commit|abandoned>]
-[--agent-name <prefix>] [--queue-status <active|expired|abandoned>]` —
+[--agent-name <prefix>] [--queue-status <active|abandoned>]` —
   print matching queue entries only.
 - `show --intent-id <uuid>` — print one exact queue entry.
 

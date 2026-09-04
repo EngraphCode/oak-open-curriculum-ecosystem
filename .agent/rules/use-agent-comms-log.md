@@ -92,13 +92,13 @@ announce intent per the write-minimum in item 3 below.
    delegating work to another agent, opening a commit or staging window outside
    your claim bundle, or editing paths another peer names in a fresh log
    heading or active claim; **(c)** at turn-close **only when** this turn
-   mutated collaboration state (claims, comms events, `commit_queue`,
+   mutated collaboration state (claims, comms events, commit-queue intents,
    conversations, escalations) or chose overlap-risk paths. Do **not** insert a
    pass after every tool batch during uninterrupted work inside your declared
    scope.
 
-2. **Read order (every pass)** — (1) `active-claims.json`
-   (includes advisory root `commit_queue`); (2) the newest slice of
+2. **Read order (every pass)** — (1) `active-claims.json` and the advisory
+   per-intent commit-queue store beside it (`commit-queue list`); (2) the newest slice of
    `shared-comms-log.md` until
    recent peer intent is clear (typically the latest handful of headings,
    expanding into bodies only when overlap is plausible); (3) **only if** the
@@ -115,7 +115,7 @@ announce intent per the write-minimum in item 3 below.
 
 4. **Coordinator vs worker** — workers follow 1–3. An agent claiming the
    coordinator role uses the same checkpoints but **also** posts
-   bounded-deadline comms and ordering signals (`commit_queue`, pause/resume
+   bounded-deadline comms and ordering signals (commit-queue intents, pause/resume
    notes) as defined in [`agent-collaboration.md`](../directives/agent-collaboration.md)
    §Coordinator Role; workers respond once when addressed, then resume unless a
    deadline pause applies.

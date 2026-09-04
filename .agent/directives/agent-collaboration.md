@@ -21,7 +21,8 @@ silently choosing one.
 
 This directive is grown by the `multi-agent-collaboration-protocol`. It
 installs vocabulary, the shared log, claims, schemas, durable closure history,
-short-lived `git` claims, advisory `commit_queue` order, sidebars, owner
+short-lived `git` claims, advisory commit-queue order (a per-intent,
+machine-local store beside the claims file), sidebars, owner
 escalations, joint decisions, and WS5 evidence harvest. Details live in
 [`collaboration-state-conventions.md`](../memory/operational/collaboration-state-conventions.md).
 
@@ -121,7 +122,7 @@ The role is a *commitment to coordinate*, not a new primitive. Any
 agent observing the chain claims it by posting a shared-comms-log
 entry naming the role and the chain symptom. Authority is bounded:
 pause peers via canonical comms events with deadlines, queue commits via
-`commit_queue`, resume once the chain clears. Conflicts between two
+commit-queue intents, resume once the chain clears. Conflicts between two
 claimants resolve by sidebar. Termination is automatic — when the
 chain clears the role dissolves; the opening shared-comms-log entry
 is the durable record.
