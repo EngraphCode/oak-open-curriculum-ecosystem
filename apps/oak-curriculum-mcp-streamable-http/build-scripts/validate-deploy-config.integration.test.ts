@@ -163,6 +163,46 @@ describe('deploy-config validation gate — output discipline', () => {
     });
   }
 
+  it('names the variable, never the value, when a post-schema check refuses the version override', () => {
+    const pasted = 'sk_live_NOT_A_VERSION_9f8e7d6c';
+    const { exitCode, out, err } = runGate({
+      VERCEL: '1',
+      ...minimalBootEnv,
+      APP_VERSION_OVERRIDE: pasted,
+    });
+
+    expect(exitCode).toBe(1);
+    expect([...out, ...err].join('\n')).not.toContain(pasted);
+    expect(err[0]).toContain('APP_VERSION_OVERRIDE');
+  });
+
+  it('names the variable family, never the value, when the pseudonym keyring fails its deep parse', () => {
+    const pasted = 'sk_live_NOT_A_KEYRING_9f8e7d6c';
+    // Schema-valid PostHog selection (the closed configuration the env
+    // schema accepts: verified auth on, Sentry and PostHog both selected),
+    // with a keyring entry whose key is not canonical key material: the
+    // schema passes it as a string, the deep parse refuses it.
+    const { exitCode, out, err } = runGate({
+      VERCEL: '1',
+      ...minimalBootEnv,
+      DANGEROUSLY_DISABLE_AUTH: 'false',
+      CLERK_PUBLISHABLE_KEY: 'pk_test_dGVzdC5leGFtcGxlJA',
+      CLERK_SECRET_KEY: 'sk_test_0123456789abcdefghijklmnop',
+      OBSERVABILITY_SINKS: '["sentry","posthog"]',
+      SENTRY_MODE: 'sentry',
+      SENTRY_DSN: liveShapedSecrets.SENTRY_DSN,
+      POSTHOG_PROJECT_API_KEY: liveShapedSecrets.POSTHOG_PROJECT_API_KEY,
+      POSTHOG_HOST: 'https://eu.i.posthog.com',
+      POSTHOG_PSEUDONYM_ACTIVE_KEY_ID: 'k2026_01',
+      POSTHOG_PSEUDONYM_KEYRING: JSON.stringify([{ id: 'k2026_01', key: pasted }]),
+    });
+
+    expect(exitCode).toBe(1);
+    expect([...out, ...err].join('\n')).not.toContain(pasted);
+    expect([...out, ...err].join('\n')).not.toContain(liveShapedSecrets.POSTHOG_PROJECT_API_KEY);
+    expect(err[0]).toContain('POSTHOG_PSEUDONYM_KEYRING');
+  });
+
   it('prints no secret bytes when observability composition refuses', () => {
     const { exitCode, out, err } = runGate({
       VERCEL: '1',
