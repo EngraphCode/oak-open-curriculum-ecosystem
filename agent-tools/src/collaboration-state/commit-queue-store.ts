@@ -170,12 +170,20 @@ async function readIntentFile(
   return parseIntentFileText(queueDir, filename, text);
 }
 
-function parseIntentFileText(
+/**
+ * The read boundary is as strict as the write gate: the raw text is validated
+ * against the intent schema before reconstruction (an unknown key must fail
+ * loudly, not vanish on the next rewrite), then the two relations the schema
+ * cannot express are checked: the filename carries the id, and `expires_at`
+ * is exactly `updated_at` plus the TTL (liveness reads one, guards the other).
+ */
+async function parseIntentFileText(
   queueDir: string,
   filename: string,
   text: string,
-): CollaborationCommitQueueEntry {
+): Promise<CollaborationCommitQueueEntry> {
   const path = join(queueDir, filename);
+  unwrapOrThrow(await commitQueueIntentWriteValidator(path)(text));
   const entry = unwrapOrThrow(parseCommitQueueIntentText(text, path));
   // Filenames are `<intent_id>.json` (the comms-store convention): the id is
   // known from the listing alone, and delete-by-id depends on the equality.
@@ -183,6 +191,13 @@ function parseIntentFileText(
     throw new Error(
       `commit-queue intent file ${path} carries intent_id ${entry.intent_id}, ` +
         `which disagrees with its filename`,
+    );
+  }
+  const derivedExpiresAt = commitQueueEntryExpiresAt(entry.updated_at);
+  if (entry.expires_at !== derivedExpiresAt) {
+    throw new Error(
+      `commit-queue intent file ${path} carries expires_at ${entry.expires_at}, ` +
+        `which disagrees with updated_at plus the TTL (${derivedExpiresAt})`,
     );
   }
   return entry;

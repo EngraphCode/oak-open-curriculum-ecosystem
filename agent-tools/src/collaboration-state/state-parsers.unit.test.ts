@@ -206,6 +206,17 @@ describe('parseCommitQueueIntentText — PDR-076a intent identity boundary', () 
   });
 
   it.each([
+    ['an empty files array', []],
+    ['a files array holding an empty path', ['']],
+  ])('rejects %s: an intent names at least one file, as the schema requires', (_label, files) => {
+    const intentText = JSON.stringify({ ...validIntentRow(), files });
+
+    expect(unwrapErr(parseCommitQueueIntentText(intentText, 'commit-queue intent')).message).toBe(
+      'files must be a non-empty array of non-empty strings',
+    );
+  });
+
+  it.each([
     ['a negative order key', -1],
     ['a fractional order key', 1.5],
     ['a string order key', '0'],

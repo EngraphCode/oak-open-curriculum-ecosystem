@@ -315,6 +315,36 @@ describe('commit-queue per-intent store', () => {
       '33333333-3333-4333-8333-333333333333.json',
     );
   });
+
+  it('rejects an intent file whose stored expires_at disagrees with updated_at plus the TTL', async () => {
+    // Liveness reads updated_at while the guards and views read expires_at:
+    // a file where the two disagree would be live to one and expired to the
+    // other, so the read boundary refuses it by name.
+    await ensureDirectory(queueDir);
+    const path = join(queueDir, '11111111-1111-4111-8111-111111111111.json');
+    await writeText(
+      path,
+      `${JSON.stringify(entry({ expires_at: secondsAfter(NOW, COMMIT_QUEUE_TTL_SECONDS + 1) }), null, 2)}\n`,
+    );
+
+    await expect(readCommitQueueEntries({ queueDir, nowIso: NOW })).rejects.toThrow(
+      /carries expires_at .* which disagrees with updated_at plus the TTL/,
+    );
+  });
+
+  it('rejects an intent file carrying a field the intent schema does not know, before any rewrite could drop it', async () => {
+    // Per-intent files carry no version pin of their own; the read boundary
+    // validates the raw text against the intent schema so an unknown key
+    // fails loudly instead of vanishing on the next phase rewrite.
+    await ensureDirectory(queueDir);
+    const path = join(queueDir, '11111111-1111-4111-8111-111111111111.json');
+    const consistent = entry({ expires_at: secondsAfter(NOW, COMMIT_QUEUE_TTL_SECONDS) });
+    await writeText(path, `${JSON.stringify({ ...consistent, stowaway: true }, null, 2)}\n`);
+
+    await expect(readCommitQueueEntries({ queueDir, nowIso: NOW })).rejects.toThrow(
+      /must NOT have additional properties/,
+    );
+  });
 });
 
 // Re-read after write proves durable content, not in-memory echo.

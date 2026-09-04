@@ -10,10 +10,11 @@
  */
 import { readFile } from 'node:fs/promises';
 
-import { collect, err, flatMap, map, unwrapOrThrow, type Result } from '@oaknational/result';
+import { collect, err, flatMap, map, ok, unwrapOrThrow, type Result } from '@oaknational/result';
 import { typeSafeEntries } from '@oaknational/type-helpers';
 
 import { getJsonValue, isJsonObject, parseJsonTextResult } from '../core/json.js';
+import { type CollaborationCommitQueueEntryDraft } from './commit-queue-entry-types.js';
 import {
   commitQueueDirForActivePath,
   isCommitQueueEntryLive,
@@ -80,32 +81,59 @@ function planLegacyActiveClaimsMigration(input: {
     // Queue-row parse failures carry the file path, matching the store's
     // path-labelled convention: this failure names a machine-local file the
     // operator must find, and the parser's message alone does not say which.
-    const entries = collect(Array.from(commitQueue, parseStrictCommitQueueEntryDraft));
-    if (!entries.ok) {
-      return err(new Error(`${input.path} commit_queue: ${entries.error.message}`));
+    const parsedRows = collect(Array.from(commitQueue, parseStrictCommitQueueEntryDraft));
+    if (!parsedRows.ok) {
+      return err(new Error(`${input.path} commit_queue: ${parsedRows.error.message}`));
     }
+    const entries = parsedRows.value;
     // Spread, never reconstruct: every sibling write preserves unrecognised
     // top-level fields so the write gate can refuse them loudly, and the
     // migration is not the one write allowed to drop them in silence.
     const preservedTopLevel = Object.fromEntries(
       typeSafeEntries(parsed).filter(([key]) => key !== 'commit_queue'),
     );
-    return map(entries, (rows) => ({
+    return map(planLiveQueueEntries(entries, input), (liveEntries) => ({
       claimsFileValue: {
         ...preservedTopLevel,
         schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
         claims,
       },
-      // The legacy schema declared the ARRAY order to BE the queue order, so
-      // the index is the order key. It is taken before the liveness filter,
-      // so dropping an expired row leaves a gap rather than promoting the
-      // rows behind it past each other; `queued_seq` is relative, and gaps
-      // are as ordered as a dense run.
-      liveEntries: rows
-        .map((entry, index) => ({ ...entry, queued_seq: index }))
-        .filter((entry) => isCommitQueueEntryLive(entry, input.nowIso)),
+      liveEntries,
     }));
   });
+}
+
+/**
+ * The legacy schema declared the ARRAY order to BE the queue order, so the
+ * index is the order key. It is taken before the liveness filter, so dropping
+ * an expired row leaves a gap rather than promoting the rows behind it past
+ * each other; `queued_seq` is relative, and gaps are as ordered as a dense
+ * run. The legacy array never required unique ids (its enqueue appended),
+ * while the store publishes one file per id: two live rows sharing an id
+ * would land on one filename and the later would silently replace the
+ * earlier, so the plan refuses before any file is written.
+ */
+function planLiveQueueEntries(
+  rows: readonly CollaborationCommitQueueEntryDraft[],
+  input: { readonly path: string; readonly nowIso: string },
+): Result<readonly CollaborationCommitQueueEntry[], Error> {
+  const liveEntries = rows
+    .map((entry, index) => ({ ...entry, queued_seq: index }))
+    .filter((entry) => isCommitQueueEntryLive(entry, input.nowIso));
+  const seen = new Set<string>();
+  for (const entry of liveEntries) {
+    if (seen.has(entry.intent_id)) {
+      return err(
+        new Error(
+          `${input.path} commit_queue: two live entries share intent_id ${entry.intent_id}; ` +
+            `the per-intent store keeps one file per id, so the file cannot migrate until ` +
+            `one of them is removed by hand`,
+        ),
+      );
+    }
+    seen.add(entry.intent_id);
+  }
+  return ok(liveEntries);
 }
 
 /**

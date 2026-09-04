@@ -71,12 +71,20 @@ function parseEntryIdentity(record: JsonObject): Result<EntryIdentity, Error> {
     return agentId;
   }
 
-  return map(parseStringArray(getJsonValue(record, 'files'), 'files'), (files) => ({
-    intentId: intentId.value,
-    claimId: claimId.value,
-    agentId: agentId.value,
-    files,
-  }));
+  return flatMap(parseStringArray(getJsonValue(record, 'files'), 'files'), (files) => {
+    // The schema requires at least one non-empty path (`minItems: 1`,
+    // `minLength: 1`); the parser holds the same invariant so a store read
+    // and the legacy migration never admit an intent naming no file.
+    if (files.length === 0 || files.some((file) => file.length === 0)) {
+      return err(new Error('files must be a non-empty array of non-empty strings'));
+    }
+    return ok({
+      intentId: intentId.value,
+      claimId: claimId.value,
+      agentId: agentId.value,
+      files,
+    });
+  });
 }
 
 interface EntryStrings {

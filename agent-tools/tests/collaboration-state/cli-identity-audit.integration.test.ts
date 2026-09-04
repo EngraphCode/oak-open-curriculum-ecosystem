@@ -59,6 +59,10 @@ describe('identity audit CLI', () => {
     });
 
     expect(result.exitCode).toBe(0);
+    // The audit consults the migrating claims reader before it parses the raw
+    // text, so a legacy flat-queue file migrates on this first contact like
+    // every other path instead of meeting the version pin.
+    expect(fake.readActiveClaimsPaths()).toStrictEqual(['state/active-claims.json']);
     expect(JSON.parse(result.stdout)).toMatchObject({
       summary: {
         total: 1,

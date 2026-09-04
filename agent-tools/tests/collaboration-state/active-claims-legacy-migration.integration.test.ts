@@ -182,6 +182,25 @@ describe('legacy active-claims migration', () => {
     expect(await readCommitQueueEntries({ queueDir, nowIso: NOW })).toStrictEqual([]);
   });
 
+  it('refuses a legacy file whose live rows share an intent_id, migrating nothing', async () => {
+    // The legacy array never required unique ids; the store keeps one file
+    // per id, so two live rows sharing one would collapse to a single file
+    // and the later row would silently replace the earlier.
+    const legacyText = `${JSON.stringify(
+      { ...legacyRegistry(), commit_queue: [legacyEntry(), legacyEntry()] },
+      null,
+      2,
+    )}\n`;
+    await writeText(activePath, legacyText);
+
+    await expect(migrateLegacyActiveClaimsFile({ activePath, nowIso: NOW })).rejects.toThrow(
+      `${activePath} commit_queue: two live entries share intent_id 11111111-1111-4111-8111-111111111111`,
+    );
+
+    expect(await readText(activePath)).toBe(legacyText);
+    expect(await readCommitQueueEntries({ queueDir, nowIso: NOW })).toStrictEqual([]);
+  });
+
   it('refuses a legacy queue row with a malformed timestamp instead of silently deleting it', async () => {
     // A malformed updated_at parses to NaN, and NaN fails every liveness
     // comparison — without strict timestamp validation the row reads as
