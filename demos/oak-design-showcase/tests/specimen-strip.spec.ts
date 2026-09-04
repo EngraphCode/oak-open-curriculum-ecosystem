@@ -167,6 +167,12 @@ test.describe('specimen strip: focus continuity across the disclosure seam', () 
     const aborted = await interceptExternalOrigins(page);
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto(`/identity-switchboard/specimen?brand=${BASE_IDENTITY}`);
+    // The server renders the disclosure CLOSED (narrow first); hydration
+    // dissolves it at wide. Until then the control sits inside a closed
+    // details and a programmatic focus is silently a no-op — measured on a
+    // loaded CI runner, where this test focused before hydration and read
+    // "inactive". Wait for the wide face, then focus.
+    await page.locator('.narrow-disclosure-dissolved').waitFor({ state: 'attached' });
     const theme = page.locator('#specimen-strip-theme');
     await theme.focus();
     await expect(theme).toBeFocused();
