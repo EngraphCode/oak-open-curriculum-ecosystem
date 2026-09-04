@@ -1,6 +1,7 @@
 import { basename, join } from 'node:path';
 
 import { isLegacyActiveClaimsText } from './active-claims-legacy-migration.js';
+import { checkCommitQueueEntryExpiry } from './commit-queue-expiry.js';
 import {
   createCollaborationJsonSchemaValidator,
   type CollaborationJsonSchemaValidator,
@@ -130,7 +131,10 @@ function contractFindings(
  * path, so a file named for one id and carrying another is unreachable
  * through the store's own API — and it makes every read of the whole
  * directory throw. Content-only validation cannot see it: such a file
- * satisfies both its schema and its contract parser exactly.
+ * satisfies both its schema and its contract parser exactly. The expiry
+ * relation (`expires_at` is exactly `updated_at` plus the TTL) is judged
+ * here by the store's own check for the same reason: the schema sees two
+ * well-formed timestamps, and only the runtime's read refuses their drift.
  *
  * Home decision: this lives here rather than in `surface-contract.ts`
  * because CONTRACT_PARSERS is a deliberately compile-time-typed seam whose
@@ -154,7 +158,8 @@ function filenameCorrespondenceFindings(
   }
   const expected = `${parsed.value.intent_id}.json`;
   if (expected === basename(surface.path)) {
-    return [];
+    const expiry = checkCommitQueueEntryExpiry(parsed.value, findingPath);
+    return expiry.ok ? [] : [finding(findingPath, expiry.error.message)];
   }
 
   return [

@@ -499,7 +499,9 @@ describe('completeCommitIntent', () => {
 });
 
 describe('formatCommitQueueStatus', () => {
-  it('classifies active, expired, and abandoned queue entries', () => {
+  it('classifies queue entries as active or abandoned by phase alone', () => {
+    // The store reads a TTL-expired file as absent, so the status view never
+    // meets one; the report carries no expired count and no expired status.
     const registry: CommitQueueRegistry = {
       schema_version: '1.4.0',
       claims: [],
@@ -510,11 +512,6 @@ describe('formatCommitQueueStatus', () => {
           expires_at: '2026-04-27T07:35:00Z',
         }),
         intent({
-          intent_id: '22222222-2222-4222-8222-222222222222',
-          phase: 'pre_commit',
-          expires_at: '2026-04-27T07:00:00Z',
-        }),
-        intent({
           intent_id: '33333333-3333-4333-8333-333333333333',
           phase: 'abandoned',
           expires_at: '2026-04-27T07:35:00Z',
@@ -522,17 +519,17 @@ describe('formatCommitQueueStatus', () => {
       ],
     };
 
-    expect(formatCommitQueueStatus(registry, now)).toMatchObject({
-      total: 3,
+    const report = formatCommitQueueStatus(registry, now);
+    expect(report).toMatchObject({
+      total: 2,
       active: 1,
-      expired: 1,
       abandoned: 1,
       entries: [
         { intent_id: '11111111-1111-4111-8111-111111111111', queue_status: 'active' },
-        { intent_id: '22222222-2222-4222-8222-222222222222', queue_status: 'expired' },
         { intent_id: '33333333-3333-4333-8333-333333333333', queue_status: 'abandoned' },
       ],
     });
+    expect(report).not.toHaveProperty('expired');
   });
 
   it('formats commit-queue status as JSON text', () => {
@@ -545,7 +542,6 @@ describe('formatCommitQueueStatus', () => {
     expect(JSON.parse(formatCommitQueueStatusText(registry, now))).toMatchObject({
       total: 1,
       active: 1,
-      expired: 0,
       abandoned: 0,
       entries: [{ intent_id: '11111111-1111-4111-8111-111111111111' }],
     });
@@ -576,7 +572,6 @@ describe('commit-queue read APIs', () => {
           ...agentId,
           agent_name: 'Prismatic Waxing Anchor',
         },
-        expires_at: '2026-04-27T07:00:00Z',
       }),
     ],
   };
@@ -603,14 +598,14 @@ describe('commit-queue read APIs', () => {
       JSON.parse(
         formatCommitQueueListText(registry, now, {
           agentName: 'Prismatic Waxing A',
-          queueStatus: 'expired',
+          queueStatus: 'active',
         }),
       ),
     ).toMatchObject([
       {
         intent_id: '44444444-4444-4444-8444-444444444444',
         agent_id: { agent_name: 'Prismatic Waxing Anchor' },
-        queue_status: 'expired',
+        queue_status: 'active',
       },
     ]);
   });

@@ -9,7 +9,9 @@ import { type ACTIVE_CLAIMS_SCHEMA_VERSION } from '../collaboration-state/types.
 
 const ACTIVE_COMMIT_QUEUE_PHASES = ['queued', 'staging', 'pre_commit'] as const;
 const COMMIT_QUEUE_PHASES = [...ACTIVE_COMMIT_QUEUE_PHASES, 'abandoned'] as const;
-const COMMIT_QUEUE_ENTRY_STATUSES = ['active', 'expired', 'abandoned'] as const;
+// No `expired` status: the per-intent store reads a TTL-expired file as
+// absent (QUEUE-LOCAL, 2026-08-17), so no read view can ever classify one.
+const COMMIT_QUEUE_ENTRY_STATUSES = ['active', 'abandoned'] as const;
 
 type ActiveCommitQueuePhase = (typeof ACTIVE_COMMIT_QUEUE_PHASES)[number];
 export type CommitQueuePhase = (typeof COMMIT_QUEUE_PHASES)[number];

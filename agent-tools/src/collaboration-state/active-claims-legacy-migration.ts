@@ -14,6 +14,7 @@ import { collect, err, flatMap, map, ok, unwrapOrThrow, type Result } from '@oak
 import { typeSafeEntries } from '@oaknational/type-helpers';
 
 import { getJsonValue, isJsonObject, parseJsonTextResult } from '../core/json.js';
+import { createCollaborationJsonSchemaValidator } from './collaboration-json-validation.js';
 import { type CollaborationCommitQueueEntryDraft } from './commit-queue-entry-types.js';
 import {
   commitQueueDirForActivePath,
@@ -50,6 +51,17 @@ interface LegacyActiveClaimsMigrationPlan {
   };
   /** Queue entries still live by TTL, bound for per-intent files. */
   readonly liveEntries: readonly CollaborationCommitQueueEntry[];
+  /**
+   * The same live rows as their RAW legacy JSON with the order key added:
+   * exactly the file each is about to become, for the schema check that
+   * must run before reconstruction.
+   */
+  readonly liveRawRows: readonly LiveRawRow[];
+}
+
+interface LiveRawRow {
+  readonly index: number;
+  readonly text: string;
 }
 
 /**
@@ -68,7 +80,7 @@ function planLegacyActiveClaimsMigration(input: {
     if (!isJsonObject(parsed)) {
       return err(new Error(`${input.path} must contain a JSON object`));
     }
-    const commitQueue = getJsonValue(parsed, 'commit_queue');
+    const commitQueue: unknown = getJsonValue(parsed, 'commit_queue');
     const claims = getJsonValue(parsed, 'claims');
     if (!Array.isArray(commitQueue) || !Array.isArray(claims)) {
       return err(
@@ -92,15 +104,44 @@ function planLegacyActiveClaimsMigration(input: {
     const preservedTopLevel = Object.fromEntries(
       typeSafeEntries(parsed).filter(([key]) => key !== 'commit_queue'),
     );
-    return map(planLiveQueueEntries(entries, input), (liveEntries) => ({
-      claimsFileValue: {
-        ...preservedTopLevel,
-        schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
-        claims,
-      },
-      liveEntries,
-    }));
+    return flatMap(planLiveQueueEntries(entries, input), (liveEntries) =>
+      map(liveRawRows(commitQueue, liveEntries, input.path), (rawRows) => ({
+        claimsFileValue: {
+          ...preservedTopLevel,
+          schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
+          claims,
+        },
+        liveEntries,
+        liveRawRows: rawRows,
+      })),
+    );
   });
+}
+
+/**
+ * The parser RECONSTRUCTS known fields, so an unknown key or an ill-typed
+ * optional field on a live legacy row would be destroyed by the migration
+ * in silence; the raw row (with its order key) is kept for a schema check
+ * against the exact file it becomes. Expired rows drop as ephemera and are
+ * not judged.
+ */
+function liveRawRows(
+  rawRows: readonly unknown[],
+  liveEntries: readonly CollaborationCommitQueueEntry[],
+  path: string,
+): Result<readonly LiveRawRow[], Error> {
+  return collect(
+    liveEntries.map((entry) => {
+      const raw = rawRows[entry.queued_seq];
+      if (!isJsonObject(raw)) {
+        return err(new Error(`${path} commit_queue[${entry.queued_seq}]: entries must be objects`));
+      }
+      return ok({
+        index: entry.queued_seq,
+        text: JSON.stringify({ ...raw, queued_seq: entry.queued_seq }),
+      });
+    }),
+  );
 }
 
 /**
@@ -159,6 +200,23 @@ export async function migrateLegacyActiveClaimsFile(input: {
           nowIso: input.nowIso,
         }),
       );
+
+      // Strict at the boundary: each live raw row must satisfy the intent
+      // schema as the file it is about to become, BEFORE reconstruction
+      // can drop what the parser does not read.
+      const validator = await createCollaborationJsonSchemaValidator();
+      for (const row of plan.liveRawRows) {
+        const validated = validator.validateText('commit-queue-intent.schema.json', row.text);
+        if (!validated.ok) {
+          unwrapOrThrow(
+            err(
+              new Error(
+                `${input.activePath} commit_queue[${row.index}]: ${validated.error.message}`,
+              ),
+            ),
+          );
+        }
+      }
 
       const queueDir = commitQueueDirForActivePath(input.activePath);
       for (const entry of plan.liveEntries) {

@@ -8,6 +8,10 @@ import {
   validateCollaborationStateIntegrity,
 } from '../../src/collaboration-state/state-integrity';
 import {
+  jsonSurfaces,
+  readSurfaceText,
+} from '../../src/collaboration-state/state-integrity-surfaces';
+import {
   makeTempCollaborationRepo,
   removeDirectory,
   writeJson,
@@ -147,6 +151,78 @@ describe('collaboration state integrity validator', () => {
       // deleting the mismatched file is a legitimate operator cure — and
       // the finding must say so, or the operator has a fault and no remedy.
       expect(report.findings[0]?.message).toMatch(/delete/i);
+    } finally {
+      await removeDirectory(repoRoot);
+    }
+  });
+
+  it('reports a commit-queue intent file whose expires_at disagrees with updated_at plus the TTL', async () => {
+    // Two well-formed timestamps satisfy the schema; only their relation is
+    // wrong. The runtime's every read refuses such a file, so the validator
+    // must recompute the same relation rather than record two valid strings.
+    const repoRoot = await makeTempCollaborationRepo();
+    try {
+      await mkdir(join(repoRoot, '.agent/state/collaboration/commit-queue'), { recursive: true });
+      await writeJson(
+        join(
+          repoRoot,
+          '.agent/state/collaboration/commit-queue/55555555-5555-4555-8555-555555555555.json',
+        ),
+        {
+          intent_id: '55555555-5555-4555-8555-555555555555',
+          claim_id: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',
+          agent_id: {
+            agent_name: 'Prismatic Waxing Constellation',
+            platform: 'codex',
+            model: 'gpt-5.5',
+            session_id_prefix: '019dcd',
+            id: 'e2e793c7-923e-5baa-97f0-2bedfb9b6b50',
+          },
+          files: ['agent-tools/src/commit-queue/index.ts'],
+          commit_subject: 'feat(queue): exercise the expiry relation check',
+          queued_at: '2026-04-27T07:20:00Z',
+          updated_at: '2026-04-27T07:20:00Z',
+          expires_at: '2026-04-27T07:35:00Z',
+          phase: 'queued',
+          queued_seq: 0,
+        },
+      );
+
+      const report = await validateCollaborationStateIntegrity({
+        repoRoot,
+        coordinationHome: repoRoot,
+      });
+
+      expect(report.findings).toHaveLength(1);
+      expect(report.findings[0]?.path).toBe(
+        '.agent/state/collaboration/commit-queue/55555555-5555-4555-8555-555555555555.json',
+      );
+      expect(report.findings[0]?.message).toContain('disagrees with updated_at plus the TTL');
+    } finally {
+      await removeDirectory(repoRoot);
+    }
+  });
+
+  it('reads a queue intent file that vanished between the listing and the read as absent, not as a fault', async () => {
+    // Queue files are mutable ephemera: a peer completing or sweeping an
+    // intent between readdir and the read is the store's ordinary absence,
+    // and the enumerated surface carries the directory's optionality.
+    const repoRoot = await makeTempCollaborationRepo();
+    try {
+      const queueDir = join(repoRoot, '.agent/state/collaboration/commit-queue');
+      await mkdir(queueDir, { recursive: true });
+      const intentPath = join(queueDir, '66666666-6666-4666-8666-666666666666.json');
+      await writeText(intentPath, '{}');
+
+      const intentSurfaces = (await jsonSurfaces(repoRoot, repoRoot)).filter((surface) =>
+        surface.path.endsWith('66666666-6666-4666-8666-666666666666.json'),
+      );
+      expect(intentSurfaces.map((surface) => surface.optionalWhenAbsent)).toStrictEqual([true]);
+
+      await rm(intentPath);
+      for (const surface of intentSurfaces) {
+        expect(await readSurfaceText(surface)).toBeUndefined();
+      }
     } finally {
       await removeDirectory(repoRoot);
     }

@@ -104,15 +104,21 @@ async function directorySurfaces(input: {
     join(input.root, input.directory),
     input.optionalWhenAbsent === true,
   );
-  return entries
-    .filter((entry) => entry.endsWith('.json'))
-    .filter((entry) => input.excludeExamples !== true || !entry.endsWith('.example.json'))
-    .toSorted((left, right) => left.localeCompare(right))
-    .map((entry) => ({
-      root: input.root,
-      path: `${input.directory}/${entry}`,
-      schemaId: input.schemaId,
-    }));
+  return (
+    entries
+      .filter((entry) => entry.endsWith('.json'))
+      .filter((entry) => input.excludeExamples !== true || !entry.endsWith('.example.json'))
+      .toSorted((left, right) => left.localeCompare(right))
+      // The directory's optionality carries to each file: a machine-local
+      // ephemeron (a queue intent completed or swept between the listing and
+      // the read) vanishing is the store's ordinary absence, not a fault.
+      .map((entry) => ({
+        root: input.root,
+        path: `${input.directory}/${entry}`,
+        schemaId: input.schemaId,
+        ...(input.optionalWhenAbsent === true ? { optionalWhenAbsent: true } : {}),
+      }))
+  );
 }
 
 async function readDirOrEmpty(

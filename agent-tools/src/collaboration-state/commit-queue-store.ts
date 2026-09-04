@@ -20,37 +20,30 @@ import { dirname, join } from 'node:path';
 import { unwrapOrThrow } from '@oaknational/result';
 
 import { failureAsError } from '../core/failure-as-error.js';
+import {
+  checkCommitQueueEntryExpiry,
+  commitQueueEntryExpiresAt,
+  isCommitQueueEntryLive,
+} from './commit-queue-expiry.js';
 import { publishIntentFile, type CommitQueuePublishMode } from './commit-queue-publish.js';
 import { isErrnoCode } from './errno.js';
 import { parseCommitQueueIntentText } from './registry-entry-parser.js';
 import { commitQueueIntentWriteValidator } from './state-io-write-validators.js';
 import { type CollaborationCommitQueueEntry } from './types.js';
 
-/** Queue entries expire one hour after their last write (owner ruling). */
-export const COMMIT_QUEUE_TTL_SECONDS = 3600;
+// The TTL arithmetic lives in commit-queue-expiry.ts; re-exported here so
+// the store stays the one import for its callers.
+export {
+  COMMIT_QUEUE_TTL_SECONDS,
+  commitQueueEntryExpiresAt,
+  isCommitQueueEntryLive,
+} from './commit-queue-expiry.js';
 
 const COMMIT_QUEUE_DIRNAME = 'commit-queue';
 
 /** The store directory is the claims file's `commit-queue/` sibling. */
 export function commitQueueDirForActivePath(activePath: string): string {
   return join(dirname(activePath), COMMIT_QUEUE_DIRNAME);
-}
-
-/** The derived view-parity expiry: `updated_at` plus exactly the TTL. */
-export function commitQueueEntryExpiresAt(updatedAtIso: string): string {
-  return new Date(Date.parse(updatedAtIso) + COMMIT_QUEUE_TTL_SECONDS * 1000).toISOString();
-}
-
-/**
- * Liveness by TTL: live up to and including one TTL after `updated_at`
- * (matching the pre-split `secondsUntilExpiry >= 0` boundary), expired
- * strictly after it.
- */
-export function isCommitQueueEntryLive(
-  entry: CollaborationCommitQueueEntry,
-  nowIso: string,
-): boolean {
-  return Date.parse(nowIso) <= Date.parse(entry.updated_at) + COMMIT_QUEUE_TTL_SECONDS * 1000;
 }
 
 /**
@@ -193,13 +186,7 @@ async function parseIntentFileText(
         `which disagrees with its filename`,
     );
   }
-  const derivedExpiresAt = commitQueueEntryExpiresAt(entry.updated_at);
-  if (entry.expires_at !== derivedExpiresAt) {
-    throw new Error(
-      `commit-queue intent file ${path} carries expires_at ${entry.expires_at}, ` +
-        `which disagrees with updated_at plus the TTL (${derivedExpiresAt})`,
-    );
-  }
+  unwrapOrThrow(checkCommitQueueEntryExpiry(entry, path));
   return entry;
 }
 

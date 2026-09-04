@@ -201,6 +201,56 @@ describe('legacy active-claims migration', () => {
     expect(await readCommitQueueEntries({ queueDir, nowIso: NOW })).toStrictEqual([]);
   });
 
+  it('refuses a live legacy row carrying a field the intent schema does not know, migrating nothing', async () => {
+    // The parser reconstructs known fields only; without a schema check on
+    // the raw row, the unknown field would be destroyed in silence.
+    const legacyText = `${JSON.stringify(
+      { ...legacyRegistry(), commit_queue: [legacyEntry({ stowaway: true })] },
+      null,
+      2,
+    )}\n`;
+    await writeText(activePath, legacyText);
+
+    await expect(migrateLegacyActiveClaimsFile({ activePath, nowIso: NOW })).rejects.toThrow(
+      `${activePath} commit_queue[0]: schema validation failed at /: must NOT have additional properties`,
+    );
+
+    expect(await readText(activePath)).toBe(legacyText);
+    expect(await readCommitQueueEntries({ queueDir, nowIso: NOW })).toStrictEqual([]);
+  });
+
+  it('refuses a live legacy row whose optional note is not a string, instead of dropping it', async () => {
+    const legacyText = `${JSON.stringify(
+      { ...legacyRegistry(), commit_queue: [legacyEntry({ notes: 123 })] },
+      null,
+      2,
+    )}\n`;
+    await writeText(activePath, legacyText);
+
+    await expect(migrateLegacyActiveClaimsFile({ activePath, nowIso: NOW })).rejects.toThrow(
+      `${activePath} commit_queue[0]: schema validation failed at /notes: must be string`,
+    );
+
+    expect(await readText(activePath)).toBe(legacyText);
+    expect(await readCommitQueueEntries({ queueDir, nowIso: NOW })).toStrictEqual([]);
+  });
+
+  it("carries a live row's optional note into the store", async () => {
+    await writeText(
+      activePath,
+      `${JSON.stringify(
+        { ...legacyRegistry(), commit_queue: [legacyEntry({ notes: 'carry me' })] },
+        null,
+        2,
+      )}\n`,
+    );
+
+    await migrateLegacyActiveClaimsFile({ activePath, nowIso: NOW });
+
+    const entries = await readCommitQueueEntries({ queueDir, nowIso: NOW });
+    expect(entries.map((entry) => entry.notes)).toStrictEqual(['carry me']);
+  });
+
   it('refuses a legacy queue row with a malformed timestamp instead of silently deleting it', async () => {
     // A malformed updated_at parses to NaN, and NaN fails every liveness
     // comparison — without strict timestamp validation the row reads as

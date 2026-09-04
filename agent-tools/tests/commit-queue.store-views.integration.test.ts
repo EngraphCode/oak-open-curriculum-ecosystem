@@ -131,11 +131,7 @@ describe('commit-queue directory-backed views', () => {
 
   it('status derives exactly the flat-registry report shape from the directory', async () => {
     expect(await runRead('status', {})).toBe(
-      `${JSON.stringify(
-        { total: 1, active: 1, expired: 0, abandoned: 0, entries: [VIEW_ENTRY] },
-        null,
-        2,
-      )}\n`,
+      `${JSON.stringify({ total: 1, active: 1, abandoned: 0, entries: [VIEW_ENTRY] }, null, 2)}\n`,
     );
   });
 
@@ -167,7 +163,6 @@ describe('commit-queue directory-backed views', () => {
     expect(JSON.parse(output.text())).toStrictEqual({
       total: 0,
       active: 0,
-      expired: 0,
       abandoned: 0,
       entries: [],
     });
