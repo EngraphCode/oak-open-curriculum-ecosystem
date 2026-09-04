@@ -47,14 +47,18 @@ pnpm agent-tools:collaboration-state -- identity preflight --platform codex --mo
    refresh `heartbeat_at`.
 4. Before staging or committing, open a short-lived `git:index/head`
    claim with `freshness_seconds: 900`, append a shared-log note when
-   useful, post a `commit_queue` entry for the intended bundle, and close it
+   useful, post a commit-queue intent for the intended bundle
+   (`pnpm agent-tools commit-queue enqueue`), and close it
    immediately after success, failure, or abort.
 
 ## Commit Queue
 
-`active-claims.json` v1.3.0 carries a root `commit_queue` array. The array is
-FIFO and advisory: agents use it to decide whose commit turn is next, but it
-does not mechanically refuse work. PDR-029 defines the queue as the
+Since registry schema 1.4.0 the queue is a per-intent, machine-local store
+beside `active-claims.json` (`commit-queue/`, one file per intent with a
+one-hour TTL from its last write; `commit-queue list` is the view; owner
+ruling QUEUE-LOCAL, 2026-08-17 — the queue is never in version control). The
+queue is FIFO by `queued_seq` and advisory: agents use it to decide whose
+commit turn is next, but it does not mechanically refuse work. PDR-029 defines the queue as the
 observable artefact for the shared git transaction / authorial-bundle
 tripwire; this file records the operational recipe.
 

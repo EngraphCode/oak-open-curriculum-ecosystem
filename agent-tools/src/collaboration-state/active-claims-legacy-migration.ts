@@ -11,6 +11,7 @@
 import { readFile } from 'node:fs/promises';
 
 import { collect, err, flatMap, map, unwrapOrThrow, type Result } from '@oaknational/result';
+import { typeSafeEntries } from '@oaknational/type-helpers';
 
 import { getJsonValue, isJsonObject, parseJsonTextResult } from '../core/json.js';
 import {
@@ -83,8 +84,15 @@ function planLegacyActiveClaimsMigration(input: {
     if (!entries.ok) {
       return err(new Error(`${input.path} commit_queue: ${entries.error.message}`));
     }
+    // Spread, never reconstruct: every sibling write preserves unrecognised
+    // top-level fields so the write gate can refuse them loudly, and the
+    // migration is not the one write allowed to drop them in silence.
+    const preservedTopLevel = Object.fromEntries(
+      typeSafeEntries(parsed).filter(([key]) => key !== 'commit_queue'),
+    );
     return map(entries, (rows) => ({
       claimsFileValue: {
+        ...preservedTopLevel,
         schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
         claims,
       },

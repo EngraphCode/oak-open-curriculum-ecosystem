@@ -161,6 +161,27 @@ describe('legacy active-claims migration', () => {
     expect(await readCommitQueueEntries({ queueDir, nowIso: NOW })).toStrictEqual([]);
   });
 
+  it('refuses a legacy file carrying an unknown top-level field loudly, never dropping it on the way through', async () => {
+    // The migration spreads the top level like every sibling write, so a
+    // field the schema does not know reaches the write gate and is refused
+    // there (the gate's own additional-properties verdict at the document
+    // root); a reconstruction that rebuilt {schema_version, claims} would
+    // have dropped it in silence and migrated anyway.
+    const legacyText = `${JSON.stringify(
+      { ...legacyRegistry(), unexpected_top_level: 'kept, then refused' },
+      null,
+      2,
+    )}\n`;
+    await writeText(activePath, legacyText);
+
+    await expect(readActiveClaimsFile(activePath)).rejects.toThrow(
+      /schema validation failed at \/: must NOT have additional properties/,
+    );
+
+    expect(await readText(activePath)).toBe(legacyText);
+    expect(await readCommitQueueEntries({ queueDir, nowIso: NOW })).toStrictEqual([]);
+  });
+
   it('refuses a legacy queue row with a malformed timestamp instead of silently deleting it', async () => {
     // A malformed updated_at parses to NaN, and NaN fails every liveness
     // comparison — without strict timestamp validation the row reads as

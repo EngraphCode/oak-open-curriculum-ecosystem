@@ -4,6 +4,8 @@
  * claims-file transaction (`updateRegistry` calls it as its transform),
  * which is what makes deriving the order key from the live queue safe.
  */
+import { err, unwrapOrThrow } from '@oaknational/result';
+
 import { type CommitIntent, type CommitIntentDraft, type CommitQueueRegistry } from './types.js';
 
 /**
@@ -29,7 +31,11 @@ export function enqueueCommitIntent(input: {
   readonly draft: CommitIntentDraft;
 }): CommitQueueRegistry {
   if (input.registry.commit_queue.some((entry) => entry.intent_id === input.draft.intent_id)) {
-    throw new Error(`commit queue intent already exists: ${input.draft.intent_id}`);
+    // A pure gate inside the transaction: the single sanctioned edge from
+    // the Result channel, the shape `assertNotBlindWithOtherAgents` uses.
+    return unwrapOrThrow<never>(
+      err(new Error(`commit queue intent already exists: ${input.draft.intent_id}`)),
+    );
   }
 
   return {

@@ -690,11 +690,15 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
       in place of `claimed_at` if present and more recent. Report
       `[active] <claim_id> <thread> <agent_name>: fresh|stale; areas=<n>`.
       If any area is `git:index/head`, mark it as a commit-window claim.
-   2. **Intent-to-commit snapshot**: read the root `commit_queue` array. For
+   2. **Intent-to-commit snapshot**: read the per-intent commit-queue store
+      beside the claims file (`commit-queue/` under the coordination home,
+      one machine-local file per intent since registry schema 1.4.0;
+      `pnpm agent-tools commit-queue list` is the view). For
       every entry, compare `expires_at` with now and report
       `[intent] <intent_id> <claim_id> <phase> fresh|stale; files=<n>`.
       If a fresh entry is in `queued`, `staging`, or `pre_commit`, mark it as
-      an active advisory commit-turn signal; array order is FIFO. Stale or
+      an active advisory commit-turn signal; `queued_seq` carries the FIFO
+      order. Stale or
       `abandoned` entries are cleanup signals, not blockers. Do not auto-clear
       them unless this consolidation deliberately records the cleanup and
       cites evidence.
