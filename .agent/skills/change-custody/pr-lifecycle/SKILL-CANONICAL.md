@@ -403,13 +403,13 @@ here, once; the phases reference it. Amendments land in this section, never
 as phase-local restatements.
 
 **Response pricing — the intake contract
-([PDR-140](../../practice-core/decision-records/PDR-140-review-response-pricing.md),
+([PDR-140](../../../practice-core/decision-records/PDR-140-review-response-pricing.md),
 owner-ratified 2026-08-31; prose-class changesets).** Before the first
 review wave, the opening working notes declare the intake contract:
 artefact class, next verification point, the worthiness-bar reading
 that follows from those two, and the settlement-push budget. Thereafter
 triage per PDR-140 and
-[`review-feedback-defaults-to-triage`](../../rules/review-feedback-defaults-to-triage.md)
+[`review-feedback-defaults-to-triage`](../../../rules/review-feedback-defaults-to-triage.md)
 (on mixed changesets, the prose findings take this contract; code
 findings keep the machine's existing behaviour):
 disposition-and-route (with the durable ledger write) or

@@ -153,7 +153,7 @@ Every non-trivial plan MUST define:
    slicing at the first over-budget review round is the measured
    expensive path). Slicing at pickup CONSUMES the plan's disposition
    ledger
-   ([PDR-140](../../practice-core/decision-records/PDR-140-review-response-pricing.md)):
+   ([PDR-140](../../../practice-core/decision-records/PDR-140-review-response-pricing.md)):
    the canonical ledger surface is a `## Review dispositions` section
    in the plan file itself — one dated row per routed finding, naming
    the source PR, the finding in one line, and the routing rationale —
