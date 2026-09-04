@@ -20,7 +20,8 @@ credential:
 
 ## How the bot works
 
-A GitHub App (this repo's is named in [`.github/merge-bot.json`](../../.github/merge-bot.json))
+A GitHub App (this clone's is named in its per-checkout `.github/merge-bot.json`,
+created from [`.github/merge-bot.json.example`](../../.github/merge-bot.json.example))
 is installed on the repository and is **deliberately absent from the
 protections ruleset's bypass list** ("Protect default branch": required
 checks, threads, code scanning, code quality, Copilot review) — GitHub
@@ -148,10 +149,30 @@ need it; the observations behind that, and behind every other scope member,
 live in `token-scopes.ts` beside the decisions they justify.
 
 `.github/merge-bot.json` is the **single authority** for which app is this
-repo's bot (`appSlug`, `appId`, `repo`); the private key lives outside every
-repo at `~/.config/<appSlug>/private-key.pem`, derived from that config.
-Command-line flags (`--app-id`, `--private-key-path`, `--repo`) are explicit
-operator overrides for cross-repo use or testing — not a resolution tier.
+clone's bot (`appSlug`, `appId`, `repo`). It is **per-checkout and never
+tracked** (owner ruling 2026-09-03): each clone names its own app, so the file
+is gitignored and the tracked surface is the template
+`.github/merge-bot.json.example`, copied and filled in once per clone. The
+tools read it at the clone's **primary checkout** — a linked worktree holds no
+copy of an untracked file, so resolving there is what lets every worktree
+share the one copy, the same way the collaboration home resolves. The private
+key lives outside every repo at `~/.config/<appSlug>/private-key.pem`, derived
+from that config. The `mint-token` flags (`--app-id`, `--private-key-path`,
+`--repo`) are explicit operator overrides for cross-repo use or testing — not
+a resolution tier; `merge` and `push` take no identity flags.
+
+The file is machine state, not a secret: it holds only the app's public
+identity, and the schema is strict (`appSlug` is a lowercase slug, so it can
+only ever name a directory under `~/.config/`). Because it is untracked, a
+clone's copy is not diffable or restorable from history — recreate it from
+the template.
+
+**Clones that predate the untracking** (the file used to be tracked): the
+merge that removed it from version control also removes the working-tree
+copy on the next fast-forward, and the ignore rule then hides its absence, so
+the very next `merge-bot` command exits 2 with the config-not-readable
+message. Recreate the file at the primary checkout from the template, naming
+the app that clone used, before the next merge or push.
 
 ## Setting up a bot (requires org-admin rights)
 
@@ -204,7 +225,9 @@ for admin credentials, and optional for everyone else.
    ```
 
 5. **Install App** → your org → **Only select repositories** → this repo.
-6. Update `.github/merge-bot.json` if this bot replaces the repo's bot, and
+6. Create this clone's `.github/merge-bot.json` from
+   `.github/merge-bot.json.example`, naming the app (the file is per-checkout
+   and never tracked; a clone whose bot changes edits its own copy), and
    **never add the app to the ruleset's bypass actors** — a bypass-capable
    bot is the disease this design cures.
 7. Prove it: `pnpm agent-tools merge-bot mint-token --scope pull-request-work` exits 0 and prints a
