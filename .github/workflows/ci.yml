@@ -6,6 +6,9 @@ name: CI
 # check: it fails unless EVERY gate succeeded (so a failed, cancelled, or skipped
 # gate all block), so the branch ruleset and the Release workflow's
 # `workflow_run: [CI]` trigger need no change while every split job is blocking.
+# The one deliberate exception is the advisory `schema-drift` pair below: they
+# sit outside the fan-in by design (a stale schema cache is a signal, never a
+# gate — ADR-121 §Rationale for exclusions), so their rows never block merge.
 #
 # Caching strategy (avoids a cold-cache network stampede): the `install` job
 # performs the one network install on a changed lockfile and populates the pnpm
@@ -16,6 +19,8 @@ name: CI
 #   secret-scan        — no pnpm install (gitleaks binary); runs from t=0 in parallel
 #   install            — warms the pnpm store cache
 #     static-checks    — needs install (no build): format, markdown, shell, validators
+#     schema-drift     — needs install (no build): ADVISORY, outside the fan-in
+#       schema-drift-status — needs schema-drift: ADVISORY, publishes the commit status
 #     build            — needs install: warms the Turbo remote cache
 #       unit-tests     — needs build: type-check, lint, unit tests
 #       knip-depcruise — needs build: unused-code + dependency-direction checks
@@ -156,18 +161,20 @@ jobs:
       - name: Report Turbo summary
         if: always()
         run: pnpm --filter @oaknational/agent-tools ci-turbo-report >> "$GITHUB_STEP_SUMMARY"
+
   # Advisory schema-drift signal, split so the status-writing token never
   # shares a job with PR-controlled code. `schema-drift` computes the verdict
   # under `contents: read` — it needs no orchestrated build (tsx runs it from
   # source over a committed file + a public fetch; the dist-only core packages
   # it imports are built by the root postinstall bootstrap that the setup
-  # action's install runs) — and hands the description up as a job output. `schema-drift-status` publishes it under `statuses: write`
-  # with NO checkout and NO install, the shape preview-serves.yml uses for the
-  # same reason: a job that checks out and installs the PR head runs PR code
-  # (postinstall scripts, the script itself), and PR code beside a status
-  # token could mint an Actions-attributed status for a required context.
-  # Both job rows appear in the PR checks list; the commit status carries the
-  # version verdict.
+  # action's install runs) — and hands the description up as a job output.
+  # `schema-drift-status` publishes it under `statuses: write` with NO checkout
+  # and NO install, the shape preview-serves.yml uses for the same reason: a
+  # job that checks out and installs the PR head runs PR code (postinstall
+  # scripts, the script itself), and PR code beside a status token could mint
+  # an Actions-attributed status for a required context. Both job rows appear
+  # in the PR checks list; the commit status carries the version verdict.
+  # Neither job is in the `run-quality-gates` fan-in: advisory by design.
   schema-drift:
     name: schema-drift
     permissions:
@@ -180,6 +187,8 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          # No git write follows the checkout, so the read token has no reason
+          # to sit in .git/config beside PR-run code (release.yml does the same).
           persist-credentials: false
       - uses: ./.github/actions/setup
       - name: Check schema cache drift (advisory)
@@ -189,16 +198,21 @@ jobs:
         # redirect cannot swallow them; the status description rides
         # $GITHUB_OUTPUT and is re-exported above as the job output.
         run: pnpm --filter @oaknational/agent-tools ci-schema-drift-check >> "$GITHUB_STEP_SUMMARY"
+
   schema-drift-status:
     name: schema-drift-status
-    # A PR whose head lives in another repository carries a read-only token
-    # regardless of the permissions block; skipping the job structurally beats
-    # a misleading failure notice on every such run. The annotation and step
-    # summary still render there. The test is "same repository as this one",
-    # never `head.repo.fork`: when the repository running the workflow is
-    # itself a fork, every one of its own PRs reads `fork: true` and the
-    # status would never publish (observed on run 33619051950).
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    # `always()` first: a bare condition implies `success()` over `needs`, so a
+    # failed or cancelled compute job would skip this one and the "no verdict"
+    # fallback below could never publish — the missing-status class this signal
+    # exists to remove. Then the repository test: a PR whose head lives in
+    # another repository carries a read-only token regardless of the
+    # permissions block, so skipping structurally beats a misleading failure
+    # notice on every such run (the annotation and step summary still render
+    # there). The test is "same repository as this one", never
+    # `head.repo.fork`: when the repository running the workflow is itself a
+    # fork, every one of its own PRs reads `fork: true` and the status would
+    # never publish (observed on run 33619051950).
+    if: always() && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
     permissions:
       statuses: write
     needs: schema-drift
@@ -216,19 +230,22 @@ jobs:
           DRIFT_DESCRIPTION: ${{ needs.schema-drift.outputs.description }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
+          set -euo pipefail
           publish() {
             gh api "repos/${GITHUB_REPOSITORY}/statuses/${DRIFT_STATUS_SHA}" \
               -f state=success \
               -f context='schema-drift (advisory)' \
               -f description="${DRIFT_DESCRIPTION:-Schema drift check produced no verdict}" \
-              -f target_url="${RUN_URL}"
+              -f target_url="${RUN_URL}" >/dev/null
           }
           for attempt in 1 2 3; do
             if publish; then
               exit 0
             fi
-            echo "::notice::Schema drift status publish attempt ${attempt} failed; retrying." >&2
-            sleep 5
+            if [ "${attempt}" -lt 3 ]; then
+              echo "::notice::Schema drift status publish attempt ${attempt} failed; retrying." >&2
+              sleep 5
+            fi
           done
           echo "::notice::Schema drift status not published after 3 attempts (advisory only)."
           exit 0
@@ -308,7 +325,8 @@ jobs:
         if: always()
         run: pnpm --filter @oaknational/agent-tools ci-turbo-report >> "$GITHUB_STEP_SUMMARY"
 
-  # Single required status check: fans in every gate above and fails unless every
+  # Single required status check: fans in every gate above (the advisory
+  # schema-drift pair excepted, by design) and fails unless every
   # one succeeded — failed, cancelled, AND skipped results all block (fail-closed,
   # so adding an `if:` guard to a gate later cannot silently bypass it). Reusing
   # the existing `run-quality-gates` context keeps the branch ruleset unchanged
