@@ -693,15 +693,16 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
    2. **Intent-to-commit snapshot**: read the per-intent commit-queue store
       beside the claims file (`commit-queue/` under the coordination home,
       one machine-local file per intent since registry schema 1.4.0;
-      `pnpm agent-tools commit-queue list` is the view). For
-      every entry, compare `expires_at` with now and report
-      `[intent] <intent_id> <claim_id> <phase> fresh|stale; files=<n>`.
-      If a fresh entry is in `queued`, `staging`, or `pre_commit`, mark it as
-      an active advisory commit-turn signal; `queued_seq` carries the FIFO
-      order. Stale or
-      `abandoned` entries are cleanup signals, not blockers. Do not auto-clear
-      them unless this consolidation deliberately records the cleanup and
-      cites evidence.
+      `pnpm agent-tools commit-queue list` is the view). Every entry the
+      view shows is live: a TTL-expired intent is read as absent and swept
+      by the next queue write (ephemera by the QUEUE-LOCAL owner ruling), so
+      the snapshot never meets one and reports no stale leg. For every entry
+      report `[intent] <intent_id> <claim_id> <phase> live; files=<n>;
+      expires_at=<iso>`. If an entry is in `queued`, `staging`, or
+      `pre_commit`, mark it as an active advisory commit-turn signal;
+      `queued_seq` carries the FIFO order. `abandoned` entries are cleanup
+      signals, not blockers. Do not clear them unless this consolidation
+      deliberately records the cleanup and cites evidence.
    3. **Stale entries**: any claim where `staleness_threshold < now()`.
       Move each stale entry to
       `closed-claims.archive.json`,
