@@ -101,14 +101,6 @@ export function evaluateDeployConfigValidation(
 export const DEPLOY_GATE_ENV_KEYS: readonly string[] = HTTP_ENV_KEYS;
 
 /**
- * A start directory that exists nowhere: env-file resolution walks up from
- * it, finds no repository root and loads no `.env` file, so the rehearsal
- * reads the process environment alone — Vercel's deployment condition,
- * with no local file precedence able to change the verdict.
- */
-export const DEPLOY_REHEARSAL_START_DIR = '/deploy-config-gate-rehearsal';
-
-/**
  * Keep only the validated variables of an environment.
  *
  * @param env - The environment to filter (the build's, or a fixture).
@@ -139,16 +131,17 @@ export interface DeployConfigPreflightInput {
  * Not exercised, by design: SDK initialisation and the analytics client —
  * runtime composition, not configuration.
  *
+ * The rehearsal reads the process environment alone (`envFiles: 'none'`):
+ * no `.env` discovery, so no local file can change the verdict — Vercel's
+ * deployment condition exactly.
+ *
  * @param input - The environment to rehearse.
  * @returns Ok when the deployed server's configuration resolves.
  */
 export function preflightDeployConfig(
   input: DeployConfigPreflightInput,
 ): Result<void, { readonly message: string }> {
-  const loaded = loadRuntimeConfig({
-    processEnv: input.processEnv,
-    startDir: DEPLOY_REHEARSAL_START_DIR,
-  });
+  const loaded = loadRuntimeConfig({ processEnv: input.processEnv, envFiles: 'none' });
 
   if (!loaded.ok) {
     return err({ message: describeEnvRefusal(loaded.error) });

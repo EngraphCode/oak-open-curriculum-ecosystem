@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it } from 'vitest';
 import { HTTP_ENV_KEYS } from '../src/env.js';
-import { resolveBuildTaskGraph, type TurboDryRunTask } from './test-helpers/turbo-task-graph.js';
+import { resolveBuildTaskGraph, type TurboDryRunTask } from './helpers/turbo-task-graph.js';
 
 const APP = '@oaknational/oak-curriculum-mcp-streamable-http';
 const GATE_TASK = `${APP}#deploy-config-gate`;
@@ -11,6 +11,9 @@ const BUILD_TASK = `${APP}#build`;
  * the production build entrypoint invokes the gate as an always-executed
  * step outside the cached build task. Read from Turbo's own resolution of
  * the graph, not from the config text, so what is asserted is what runs.
+ * Homed in the e2e tier because asking Turbo means running it — a real
+ * child process, which the testing strategy keeps out of the in-process
+ * suites.
  */
 describe('deploy-config gate — always executed, never cached, on the build path', () => {
   let graph: ReadonlyMap<string, TurboDryRunTask>;

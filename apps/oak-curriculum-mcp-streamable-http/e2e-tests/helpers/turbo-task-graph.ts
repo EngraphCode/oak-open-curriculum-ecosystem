@@ -1,7 +1,8 @@
 /**
- * Test helper: the resolved Turbo task graph for this workspace's build, as
- * Turbo itself reports it (`--dry-run=json`). Real process IO lives here,
- * behind the test-helpers seam, so the contract test stays IO-free.
+ * E2E-tier helper: the resolved Turbo task graph for this workspace's
+ * build, as Turbo itself reports it (`--dry-run=json`). Turbo runs as a
+ * real child process here, which is why the contract that reads this
+ * graph lives in the e2e tier and not in the in-process suites.
  */
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';

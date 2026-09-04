@@ -622,13 +622,13 @@
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/runtime-config-support.ts",
-      "semanticSha256": "b4afd0e694bcd6fc3e26049081f10172bfd81d34760b4230df8a915920f282f3",
+      "semanticSha256": "cab5bc9f248d8eb9f34a21e940e53edc97fa01d7ae767f8b50b4f955f4c3169b",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/runtime-config.ts",
-      "semanticSha256": "c427ce590a0bf5cef969afe71224288b495d9ea57d0ecb45ea8c0a6ecb581093",
+      "semanticSha256": "5f14fbc2372b85d7d0b39c834139a20e51a805a2fe3e6e65c092676b8e209988",
       "itemIds": [],
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },

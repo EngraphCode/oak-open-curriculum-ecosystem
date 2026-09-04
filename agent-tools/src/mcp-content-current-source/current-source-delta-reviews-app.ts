@@ -180,11 +180,11 @@ export const APP_DELTA_REVIEWS: Readonly<Record<string, CurrentSourceDeltaReview
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/runtime-config-support.ts': excluded(
-    'b4afd0e694bcd6fc3e26049081f10172bfd81d34760b4230df8a915920f282f3',
+    'cab5bc9f248d8eb9f34a21e940e53edc97fa01d7ae767f8b50b4f955f4c3169b',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/runtime-config.ts': excluded(
-    'c427ce590a0bf5cef969afe71224288b495d9ea57d0ecb45ea8c0a6ecb581093',
+    '5f14fbc2372b85d7d0b39c834139a20e51a805a2fe3e6e65c092676b8e209988',
     IMPLEMENTATION_ONLY,
   ),
   'apps/oak-curriculum-mcp-streamable-http/src/security-config.ts': excluded(
