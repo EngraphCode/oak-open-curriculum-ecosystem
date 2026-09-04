@@ -166,7 +166,10 @@ describe('legacy active-claims migration', () => {
     // field the schema does not know reaches the write gate and is refused
     // there (the gate's own additional-properties verdict at the document
     // root); a reconstruction that rebuilt {schema_version, claims} would
-    // have dropped it in silence and migrated anyway.
+    // have dropped it in silence and migrated anyway. Driven at NOW, so the
+    // fixture's live row IS live: the empty store below proves the claims
+    // document is judged before the first store write, not that the row
+    // happened to be expired by the wall clock.
     const legacyText = `${JSON.stringify(
       { ...legacyRegistry(), unexpected_top_level: 'kept, then refused' },
       null,
@@ -174,7 +177,7 @@ describe('legacy active-claims migration', () => {
     )}\n`;
     await writeText(activePath, legacyText);
 
-    await expect(readActiveClaimsFile(activePath)).rejects.toThrow(
+    await expect(migrateLegacyActiveClaimsFile({ activePath, nowIso: NOW })).rejects.toThrow(
       /schema validation failed at \/: must NOT have additional properties/,
     );
 

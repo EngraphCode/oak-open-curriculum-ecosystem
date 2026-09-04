@@ -23,7 +23,11 @@ import {
 } from './commit-queue-store.js';
 import { parseStrictCommitQueueEntryDraft } from './registry-entry-parser.js';
 import { activeClaimsWriteValidator } from './state-io-write-validators.js';
-import { runJsonStateTransaction, writeJsonFileWithinTransaction } from './transaction.js';
+import {
+  runJsonStateTransaction,
+  serializeJson,
+  writeJsonFileWithinTransaction,
+} from './transaction.js';
 import { ACTIVE_CLAIMS_SCHEMA_VERSION, type CollaborationCommitQueueEntry } from './types.js';
 
 /**
@@ -178,6 +182,30 @@ function planLiveQueueEntries(
 }
 
 /**
+ * Every write of the migration is judged BEFORE its first write, so a refusal
+ * anywhere leaves the store as untouched as the legacy file (no partial
+ * publish): each live raw row must satisfy the intent schema as the file it
+ * is about to become (strict at the boundary, before reconstruction can drop
+ * what the parser does not read), and the rewritten claims document must
+ * pass the claims write gate (an unknown top-level field, an invalid claim).
+ */
+async function refuseUnlessEveryWriteWouldPass(
+  plan: LegacyActiveClaimsMigrationPlan,
+  activePath: string,
+): Promise<void> {
+  const validator = await createCollaborationJsonSchemaValidator();
+  for (const row of plan.liveRawRows) {
+    const validated = validator.validateText('commit-queue-intent.schema.json', row.text);
+    if (!validated.ok) {
+      unwrapOrThrow(
+        err(new Error(`${activePath} commit_queue[${row.index}]: ${validated.error.message}`)),
+      );
+    }
+  }
+  await serializeJson(plan.claimsFileValue, activeClaimsWriteValidator(activePath));
+}
+
+/**
  * Execute the migration under the claims file's transaction lock. The text
  * is re-read and re-detected inside the lock, so a concurrent reader that
  * migrated first turns this call into a no-op instead of a double-write.
@@ -201,22 +229,7 @@ export async function migrateLegacyActiveClaimsFile(input: {
         }),
       );
 
-      // Strict at the boundary: each live raw row must satisfy the intent
-      // schema as the file it is about to become, BEFORE reconstruction
-      // can drop what the parser does not read.
-      const validator = await createCollaborationJsonSchemaValidator();
-      for (const row of plan.liveRawRows) {
-        const validated = validator.validateText('commit-queue-intent.schema.json', row.text);
-        if (!validated.ok) {
-          unwrapOrThrow(
-            err(
-              new Error(
-                `${input.activePath} commit_queue[${row.index}]: ${validated.error.message}`,
-              ),
-            ),
-          );
-        }
-      }
+      await refuseUnlessEveryWriteWouldPass(plan, input.activePath);
 
       const queueDir = commitQueueDirForActivePath(input.activePath);
       for (const entry of plan.liveEntries) {
