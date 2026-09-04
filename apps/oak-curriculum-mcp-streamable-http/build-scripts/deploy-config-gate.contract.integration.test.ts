@@ -27,6 +27,19 @@ describe('deploy-config gate — always executed, never cached, on the build pat
     expect(build?.dependencies).toContain(GATE_TASK);
   });
 
+  it('is also the first step of the workspace build script, for a build that never enters Turbo', () => {
+    // Vercel's default build invokes the workspace's `build` script; whether
+    // that enters the Turbo graph is a dashboard setting the tree cannot see.
+    // So the script itself runs the gate before esbuild, and the task above
+    // covers the cached-replay path the script alone cannot.
+    const command = graph.get(BUILD_TASK)?.command ?? '';
+
+    expect(command.indexOf('deploy-config-gate')).toBeGreaterThanOrEqual(0);
+    expect(command.indexOf('deploy-config-gate')).toBeLessThan(
+      command.indexOf('esbuild.config.ts'),
+    );
+  });
+
   it('runs after the workspace packages the runtime-config composition imports are built', () => {
     // The gate imports the server's runtime-config module, which imports
     // workspace packages resolved from their built output; without this

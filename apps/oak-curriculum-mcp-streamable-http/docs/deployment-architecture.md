@@ -283,15 +283,19 @@ change, commit the result, and the runtime build consumes it as normal TypeScrip
 ### Runtime Build (`build`)
 
 ```json
-"build": "pnpm exec tsx esbuild.config.ts",
+"build": "pnpm run deploy-config-gate && pnpm exec tsx esbuild.config.ts",
 "deploy-config-gate": "pnpm exec tsx build-scripts/run-validate-deploy-config.ts"
 ```
 
-The deploy-config gate (MCP-475) is its own Turbo task,
-`deploy-config-gate`, which the `build` task depends on: never cached, so
-it runs on every build including a same-commit redeploy that replays the
-cached build, and before esbuild, so a refusal precedes any Sentry release
-side effect. On a Vercel build (`VERCEL` is set) it runs the server's own
+The deploy-config gate (MCP-475) runs on both build paths. The `build`
+script runs it first, so a build that invokes the workspace script
+directly — Vercel's default when no `buildCommand` enters the Turbo graph,
+a dashboard setting the tree cannot see — is gated before esbuild. It is
+also its own Turbo task, `deploy-config-gate`, which the `build` task
+depends on: never cached, so a same-commit redeploy that replays the cached
+build still runs it (the script inside the replayed task never executes).
+On a real Turbo build the gate therefore runs twice, seconds each, by
+design. Either way a refusal precedes any Sentry release side effect. On a Vercel build (`VERCEL` is set) it runs the server's own
 configuration resolution — the env schema, the product-analytics bootstrap
 and the Sentry configuration parse — against the process environment
 alone (no `.env` file can change the rehearsal), seeing only the validated
