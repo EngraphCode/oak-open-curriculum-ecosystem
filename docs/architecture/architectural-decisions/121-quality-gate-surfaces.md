@@ -2,7 +2,7 @@
 
 **Status**: Accepted
 **Date**: 2026-02-25
-**Updated**: 2026-07-15
+**Updated**: 2026-09-04
 **Related**: [ADR-013 (Husky and lint-staged)](013-husky-and-lint-staged.md), [ADR-043 (Type Generation in Build and CI)](043-codegen-in-build-and-ci.md), [ADR-111 (Secret Scanning Quality Gate)](111-secret-scanning-quality-gate.md), [ADR-147 (Browser Accessibility)](147-browser-accessibility-as-blocking-quality-gate.md), [ADR-161 (Network-Free PR Checks)](161-network-free-pr-check-ci-boundary.md), [ADR-174 (Dependency Vulnerability Scanning)](174-dependency-vulnerability-scanning-quality-gate.md), [ADR-204 (Merge-Gate Strategy)](204-merge-gate-strategy-require-up-to-date-not-merge-queue.md)
 
 ## Context
@@ -69,8 +69,25 @@ or configuration issue, never a missing check.
 | test:a11y         | --         | --       | Yes         | Yes                           |
 | SonarCloud        | --         | --       | PR analysis | --                            |
 | dependency-review | --         | --       | PR advisory | --                            |
+| schema-drift      | --         | advisory | advisory    | --                            |
 
 ### Rationale for exclusions
+
+- **The schema-cache drift signal is advisory on every surface, by design.**
+  `ci-schema-drift-check` compares the committed OpenAPI schema cache with the
+  live upstream spec and renders one verdict onto the step summary, a
+  `::warning` annotation, and an informational commit status
+  (`schema-drift (advisory)`); pre-push runs it under `|| true`, and in CI the
+  `schema-drift` / `schema-drift-status` pair sits outside the
+  `run-quality-gates` fan-in, so no PR or push check depends on the upstream
+  fetch (ADR-161's boundary holds: a stale cache is a signal to refresh, never
+  a merge gate). Two consequences are recorded rather than solved here: the
+  check-CI parity validator's premise that every `ci.yml` job gates merge is
+  no longer literally true (it collects every `run:` scalar without a job
+  filter; no false pass exists today because the drift check is not a `check`
+  leg), and PR-watch tooling that treats any red or pending row as blocking
+  will read a red advisory row the same way. Both are named follow-ups on the
+  landing pull request.
 
 - **Pre-commit catches what it cheaply can; it excludes only the genuinely
   expensive or network-bound surfaces** (secret scanning and the heavier
@@ -233,7 +250,12 @@ type-check lint test test:e2e test:ui`), then `depcruise`,
   (`knip:gate`, `depcruise`),
   and `browser-tests` (the Playwright suites, with the browser download cached and
   keyed on the Playwright version). The check set is unchanged from the prior single-job
-  workflow — only the structure, caching, and gitleaks provisioning changed.
+  workflow — only the structure, caching, and gitleaks provisioning changed. Two
+  advisory jobs sit outside the fan-in by design: `schema-drift` (the upstream
+  schema-cache drift verdict, computed under `contents: read`) and
+  `schema-drift-status` (its informational commit status, published under
+  `statuses: write` from a job that checks out and installs nothing, so no
+  PR-controlled code ever runs beside the status token).
 - `pnpm check` runs the broadest verify-only set after a clean rebuild.
 - `pnpm check:docs` runs root Prettier and Markdownlint checks plus the
   documentation-specific reference-direction, machine-local-path, internal-link,
@@ -268,3 +290,4 @@ type-check lint test test:e2e test:ui`), then `depcruise`,
 | 2026-07-15 | Added the focused, verify-only `pnpm check:docs` aggregate for general documentation work. It composes root Prettier and Markdownlint checks with the documentation validator collection, while builds, product tests, browser suites, specialised-surface validators, and informational fitness reports remain outside this focused boundary. Reconciled adjacent stale `pnpm check` claims with executable truth: the full check uses verify-only format, Markdown, and lint commands and has no `doc-gen` stage.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | 2026-07-15 | Expanded internal-link validation from Markdown-file targets to every internal file and directory target, and made tracked-source to untracked-target references blocking under PDR-105's availability invariant. Removed checkout-local collaboration state from the stable-address allowlist and repaired the live documentation estate.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | 2026-07-20 | knip invocation replaced by `pnpm knip:gate` (`repo-check knip-gate`) on all four surfaces (pre-commit, pre-push, CI `knip-depcruise` job, `pnpm check`). knip exits 0 after a swallowed per-workspace config-load crash (F-147), so a crashed analysis could read as a pass; the gate wrapper re-runs knip, detects the crash-class output, and fails. The check SET is unchanged — this hardens the existing knip row's invocation.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| 2026-09-04 | Added the `schema-drift` row (pre-push advisory under `\|\| true`; CI advisory) and recorded the advisory pair `schema-drift` / `schema-drift-status` as the first `ci.yml` jobs deliberately outside the `run-quality-gates` fan-in (MCP-626: the drift verdict now renders on the step summary, a warning annotation, and an informational commit status published from a job that runs no PR-controlled code). Named two consequences as follow-ups: the check-CI parity validator's every-job-gates premise, and PR-watch tooling reading an advisory red row as blocking. The gate SET is unchanged.                                                                                                                                                                                                                                                                                                                                                                                               |
