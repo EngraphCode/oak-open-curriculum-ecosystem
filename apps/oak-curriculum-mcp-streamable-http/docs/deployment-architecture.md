@@ -279,10 +279,20 @@ change, commit the result, and the runtime build consumes it as normal TypeScrip
 ### Runtime Build (`build`)
 
 ```json
-"build": "tsx esbuild.config.ts"
+"build": "pnpm exec tsx build-scripts/run-validate-deploy-config.ts && pnpm exec tsx esbuild.config.ts"
 ```
 
-The esbuild composition root compiles `src/` to `dist/`. The committed
+The deploy-config gate runs first (MCP-475). On a Vercel build (`VERCEL`
+is set) it runs the server's own configuration resolution — the env
+schema, the product-analytics bootstrap and the Sentry configuration
+parse — and exits non-zero on refusal, so an invalid deploy environment
+turns the build red before esbuild runs and before the Sentry build
+plugin can finalise a release or register a deploy for a function that
+would never boot (the 2026-07-31 preview outage). Outside Vercel the gate
+prints a skip line and exits 0; `build:sentry:configured` spawns
+`esbuild.config.ts` directly and is not gated.
+
+Then the esbuild composition root compiles `src/` to `dist/`. The committed
 `src/generated/widget-html-content.ts` is bundled into the `server.js` and
 `index.js` artefacts via the normal import chain. No separate Vite step runs
 during `build`.

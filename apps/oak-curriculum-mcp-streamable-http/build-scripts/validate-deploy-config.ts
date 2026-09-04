@@ -11,15 +11,21 @@
  * environment turns the Vercel build red instead of shipping a
  * boot-dead function.
  *
- * Pure decision logic only — the executable entry is
- * `run-validate-deploy-config.ts`, which composes the real `loadRuntimeConfig` at the build's
- * composition root. Enforcement is scoped to Vercel builds (the
- * `VERCEL` system env is always present there); local builds lack the
- * deploy environment by design and are skipped with an explicit line,
- * never silently.
+ * Everything decidable lives here behind injectable seams: the pure
+ * decision (`evaluateDeployConfigValidation`), the configuration preflight
+ * (`preflightDeployConfig` — the boot-time verdicts that need no runtime)
+ * and the runner (`runDeployConfigValidation`). The executable entry
+ * `run-validate-deploy-config.ts` is the build's composition root and only
+ * supplies `process.env`, the package root and stdout. Enforcement is scoped
+ * to Vercel builds (the `VERCEL` system env is always present there); local
+ * builds lack the deploy environment by design and are skipped with an
+ * explicit line, never silently.
  */
 
-import type { Result } from '@oaknational/result';
+import { err, ok, type Result } from '@oaknational/result';
+import { describeHttpObservabilityError } from '../src/observability/http-observability-error.js';
+import { parseHttpSentryConfig } from '../src/observability/http-sentry-config.js';
+import { loadRuntimeConfig } from '../src/runtime-config.js';
 
 /** The gate's decision: an exit code and the line to print. */
 export interface DeployConfigVerdict {
@@ -70,4 +76,67 @@ export function evaluateDeployConfigValidation(
     exitCode: 0,
     message: 'deploy configuration is valid: the deployed server will boot with this environment',
   };
+}
+
+/** The environment seam the preflight reads: injected, never `process.env` here. */
+export interface DeployConfigPreflightInput {
+  /** The environment to resolve from (the build's, or a test fixture). */
+  readonly processEnv: NodeJS.ProcessEnv;
+  /** Where env-file resolution starts (the package root on a real build). */
+  readonly startDir: string;
+}
+
+/**
+ * The boot-time configuration verdicts that need no runtime, in boot order:
+ * the env schema and the product-analytics bootstrap (`loadRuntimeConfig`,
+ * the deploy entry's first step) and the Sentry configuration parse
+ * (`parseHttpSentryConfig`, the pure half of `createHttpObservability`).
+ * Not exercised, by design: SDK initialisation and the analytics client —
+ * runtime composition, not configuration.
+ *
+ * @param input - The environment and env-file start directory.
+ * @returns Ok when the deployed server would boot on this configuration.
+ */
+export function preflightDeployConfig(
+  input: DeployConfigPreflightInput,
+): Result<void, { readonly message: string }> {
+  const loaded = loadRuntimeConfig(input);
+
+  if (!loaded.ok) {
+    return err({ message: loaded.error.message });
+  }
+
+  const sentryConfig = parseHttpSentryConfig(loaded.value.runtimeConfig);
+
+  if (!sentryConfig.ok) {
+    return err({ message: describeHttpObservabilityError(sentryConfig.error) });
+  }
+
+  return ok(undefined);
+}
+
+/** The runner's seams: the environment, the env-file start directory and the build-log sink. */
+export interface RunDeployConfigValidationInput extends DeployConfigPreflightInput {
+  /** Receives the one verdict line the build log shows. */
+  readonly writeLine: (line: string) => void;
+}
+
+/**
+ * The whole gate behind one seam: read the Vercel flag from the injected
+ * environment, decide, print the verdict line, return the exit code.
+ *
+ * @param input - The environment, start directory and line sink.
+ * @returns The process exit code the entry sets.
+ */
+export function runDeployConfigValidation(input: RunDeployConfigValidationInput): 0 | 1 {
+  const vercel = input.processEnv['VERCEL'];
+  const verdict = evaluateDeployConfigValidation({
+    isVercelBuild: typeof vercel === 'string' && vercel.length > 0,
+    loadConfig: () =>
+      preflightDeployConfig({ processEnv: input.processEnv, startDir: input.startDir }),
+  });
+
+  input.writeLine(verdict.message);
+
+  return verdict.exitCode;
 }

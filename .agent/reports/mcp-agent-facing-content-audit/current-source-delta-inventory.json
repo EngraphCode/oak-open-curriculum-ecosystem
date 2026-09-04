@@ -479,6 +479,18 @@
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/observability/http-observability.ts",
+      "semanticSha256": "693382049ffc860fea742247d64989d89cb34c9dcca0421f71d1eaf9cf6f4dae",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "apps/oak-curriculum-mcp-streamable-http/src/observability/http-sentry-config.ts",
+      "semanticSha256": "eaf3732eae1b1a2d1ee6d20ef5c55e793d0cdb3c0f23e7aed37850bf9819bd14",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
       "file": "apps/oak-curriculum-mcp-streamable-http/src/observe-resource-reads.ts",
       "semanticSha256": "4b471edd5b7083591b78c83a0cd934671de69a225fd3215415da52a1aa93af30",
       "itemIds": [],
