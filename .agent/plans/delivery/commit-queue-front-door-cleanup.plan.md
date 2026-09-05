@@ -29,6 +29,16 @@ attached by owner direction.
 
 ## Goal
 
+> **Status note, 2026-09-04 (PR #38 / MCP-612):** the premise below is
+> superseded. Since registry schema 1.4.0 the queue is the machine-local
+> per-intent `commit-queue/` store beside `active-claims.json` (owner ruling
+> QUEUE-LOCAL, 2026-08-17): a TTL-expired intent reads as absent and is
+> swept by the next queue write, `complete` removes a landed intent, and the
+> standing debt named here was dropped as expired rows by the one-time
+> migration. No drain command is needed. The node keeps its ratified status
+> until the owner disposes of it (archive), which the plan-node schema
+> reserves to the owner.
+
 The `commit_queue` in `active-claims.json` holds only live intents.
 Today it carries 190 expired entries (accumulating since July) because
 no front-door command can drain them and hand-editing the live

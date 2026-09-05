@@ -38,11 +38,11 @@ retirement broadcast and direct-ping them instead.
    Active commit work is the strongest counter-signal to a
    retirement hypothesis — an agent landing commits within the
    silence window is unambiguously alive.
-2. **Commit-queue entries**: read
-   `.agent/state/collaboration/active-claims.json`'s `commit_queue`
-   for entries authored by the suspected-silent agent within the
-   silence window. An unexpired queued intent means the agent was
-   actively staging when last seen.
+2. **Commit-queue intents**: list the machine-local advisory commit
+   queue (`pnpm agent-tools:commit-queue -- list`) for intents
+   authored by the suspected-silent agent within the silence window.
+   An unexpired queued intent means the agent was actively staging
+   when last seen.
 3. **Directed-comms inbox**: scan recent comms events for
    directed messages addressed to the agent inside the silence
    window. If they have an unread directed message, route through

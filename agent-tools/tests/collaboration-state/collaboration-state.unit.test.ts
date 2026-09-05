@@ -574,8 +574,7 @@ describe('createCommsEvent', () => {
 describe('archiveStaleClaims', () => {
   it('archives stale claims without marking work successful', () => {
     const active: CollaborationRegistry = {
-      schema_version: '1.3.0',
-      commit_queue: [],
+      schema_version: '1.4.0',
       claims: [
         claim({
           claimed_at: '2026-04-28T08:00:00Z',

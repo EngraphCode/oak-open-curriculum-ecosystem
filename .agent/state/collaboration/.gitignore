@@ -10,6 +10,10 @@ comms-seen/*
 *-seen.json
 *.heartbeat.json
 comms-draft/*
+# Machine-local per-intent commit-queue store (owner ruling 2026-08-17,
+# QUEUE-LOCAL): queue state is ephemera with a 1-hour TTL and must never
+# enter version control.
+commit-queue/*
 handoffs/*
 !handoffs/README.md
 active-claims.json

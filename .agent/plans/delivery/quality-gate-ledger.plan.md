@@ -316,7 +316,7 @@ were taken with evidence in that plan; D7 has since been superseded (see
 - D14 precision: 22 test files sit under script directories; 21 are matched by
   some glob and exactly one was orphaned (the Vercel guard suite, since moved
   and running via PR #751's branch).
-- D15: `.agent/skills/gates/SKILL-CANONICAL.md` hand-lists a check sequence
+- D15: `.agent/skills/change-custody/gates/SKILL-CANONICAL.md` hand-lists a check sequence
   already drifted from the live scripts. D16: `docs/engineering/workflow.md`
   points at a build-system quick-reference table that does not exist and names
   retired smoke tests. Both are hand-maintained duplicates for step 6's

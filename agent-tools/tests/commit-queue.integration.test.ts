@@ -31,13 +31,14 @@ function intent(overrides: Partial<CommitIntent> = {}): CommitIntent {
     updated_at: '2026-04-27T07:20:00Z',
     expires_at: '2026-04-27T07:35:00Z',
     phase: 'queued',
+    queued_seq: 0,
     ...overrides,
   };
 }
 
 function registry(): CommitQueueRegistry {
   return {
-    schema_version: '1.3.0',
+    schema_version: '1.4.0',
     claims: [],
     commit_queue: [
       intent(),
@@ -48,7 +49,7 @@ function registry(): CommitQueueRegistry {
           agent_name: 'Prismatic Waxing Anchor',
         },
         phase: 'pre_commit',
-        expires_at: '2026-04-27T07:00:00Z',
+        queued_seq: 0,
       }),
     ],
   };
@@ -149,8 +150,8 @@ describe('commit-queue CLI read commands', () => {
 
     expect(JSON.parse(output.text())).toMatchObject({
       total: 2,
-      active: 1,
-      expired: 1,
+      active: 2,
+      abandoned: 0,
     });
   });
 
@@ -165,7 +166,7 @@ describe('commit-queue CLI read commands', () => {
           prefix: '2222',
           phase: 'pre_commit',
           'agent-name': 'Prismatic Waxing A',
-          'queue-status': 'expired',
+          'queue-status': 'active',
           now: '2026-04-27T07:25:00Z',
         },
         repoRoot: '/repo',
@@ -200,7 +201,7 @@ describe('commit-queue CLI read commands', () => {
 
     expect(JSON.parse(output.text())).toMatchObject({
       intent_id: '22222222-2222-4222-8222-222222222222',
-      queue_status: 'expired',
+      queue_status: 'active',
     });
   });
 
@@ -223,7 +224,7 @@ describe('commit-queue CLI read commands', () => {
         resolveGitRoot: rejectGitRootResolution,
         readRegistry: async () =>
           ok({
-            schema_version: '1.3.0',
+            schema_version: '1.4.0',
             claims: [
               {
                 claim_id: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
