@@ -90,12 +90,13 @@ export async function appendComms(
   if (!validation.ok) {
     throw new Error(validation.reason);
   }
-  const registry = await registryForIdentityWrite({
+  const { registry } = await registryForIdentityWrite({
     options,
     agentId: identity.agent_id,
     nowIso,
     surface: 'comms append',
     readActiveClaimsFile: io.readActiveClaimsFile,
+    readCommitQueueEntries: io.readCommitQueueEntries,
   });
 
   const tags = validateCommsEventTags(options.tags);

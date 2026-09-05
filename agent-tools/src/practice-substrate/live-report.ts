@@ -22,7 +22,7 @@ import { type SubstrateFinding } from './types.js';
 // owner-authored estate restructure (#213, 2026-06-23) retired
 // memory-operational-tracks wholesale; update this constant in the same PR as
 // any future surface addition or retirement.
-const EXPECTED_MANIFEST_SURFACES = 21;
+const EXPECTED_MANIFEST_SURFACES = 22;
 
 /**
  * Build the read-only report from live repo state.

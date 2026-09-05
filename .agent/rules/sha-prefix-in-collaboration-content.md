@@ -73,6 +73,6 @@ push blocks.
 
 - [`.agent/rules/no-moving-targets-in-permanent-docs.md`](./no-moving-targets-in-permanent-docs.md)
   — the broader principle for permanent-doc surfaces.
-- [`.agent/skills/commit/SKILL-CANONICAL.md`](../skills/commit/SKILL-CANONICAL.md)
+- [`.agent/skills/change-custody/commit/SKILL-CANONICAL.md`](../skills/change-custody/commit/SKILL-CANONICAL.md)
   — commit workflow that fires the pre-push hook.
 - `.gitleaks.toml` — the runtime allowlist that honours this rule.

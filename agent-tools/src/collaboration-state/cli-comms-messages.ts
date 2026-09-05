@@ -22,6 +22,7 @@ import { registryForIdentityWrite } from './identity-write-guard.js';
 import { validateSharedStateAgentId } from './identity.js';
 import {
   type CollaborationAgentIdWrite,
+  type CollaborationCommitQueueEntry,
   type CollaborationRegistry,
   type CollaborationStateEnvironment,
   type DirectedCommsMessage,
@@ -43,13 +44,17 @@ export async function directComms(
   const inResponseTo = optional(options, 'in-response-to');
   // Sender resolution is hoisted so its write-guard registry read can be
   // reused for the recipient-prefix derivation — one read per invocation.
-  const { agentId: from, registry } = await currentAgent(options, env, 'comms direct', io, nowIso);
+  const {
+    agentId: from,
+    registry,
+    commitQueue,
+  } = await currentAgent(options, env, 'comms direct', io, nowIso);
   const message = createDirectedCommsMessage({
     eventId,
     createdAt: nowIso,
     messageKind: nonEmptyRequired(options, 'kind'),
     from,
-    to: recipientAgent(options, registry, nowIso),
+    to: recipientAgent(options, registry, commitQueue, nowIso),
     subject: nonEmptyRequired(options, 'subject'),
     body: await resolveNonEmptyBody(options, io),
     // `in_response_to` threads a directed message to an antecedent event —
@@ -156,21 +161,23 @@ async function currentAgent(
 ): Promise<{
   readonly agentId: CollaborationAgentIdWrite;
   readonly registry: CollaborationRegistry;
+  readonly commitQueue: readonly CollaborationCommitQueueEntry[];
 }> {
   const identity = resolveIdentity(options, env);
   const validation = validateSharedStateAgentId({ agentId: identity.agent_id, env });
   if (!validation.ok) {
     throw new Error(validation.reason);
   }
-  const registry = await registryForIdentityWrite({
+  const { registry, commitQueue } = await registryForIdentityWrite({
     options,
     agentId: identity.agent_id,
     nowIso,
     surface,
     readActiveClaimsFile: io.readActiveClaimsFile,
+    readCommitQueueEntries: io.readCommitQueueEntries,
   });
 
-  return { agentId: identity.agent_id, registry };
+  return { agentId: identity.agent_id, registry, commitQueue };
 }
 
 async function resolveNonEmptyBody(options: Options, io: CollaborationStateCliIo): Promise<string> {

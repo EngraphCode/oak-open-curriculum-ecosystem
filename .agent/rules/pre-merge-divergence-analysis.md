@@ -43,12 +43,12 @@ from how many files appear in a name-status listing. The raw list is a
 discovery hint; the verdict comes from the content.
 
 For the full agent-executable workflow, use the
-[complex-merge skill](../skills/complex-merge/SKILL-CANONICAL.md).
+[complex-merge skill](../skills/change-custody/complex-merge/SKILL-CANONICAL.md).
 
 For **agent memory and state files** (`napkin.md`, `repo-continuity.md`, thread
 `*.next-session.md` records, registers — anything carrying a `merge_class:`
 frontmatter key), the hazard is different in kind: git line-merges silently
 corrupt the *meaning* even when no conflict marker appears, and both git AND the
 merging agent can be "confident and wrong". Reconcile those by CONCEPT via the
-[semantic-merge skill](../skills/semantic-merge/SKILL-CANONICAL.md), never by
+[semantic-merge skill](../skills/change-custody/semantic-merge/SKILL-CANONICAL.md), never by
 trusting the conflict count.

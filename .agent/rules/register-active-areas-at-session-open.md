@@ -66,7 +66,8 @@ answer.
 ## Commit-window claims
 
 Before staging or committing, repeat the consultation step for the shared git
-transaction surface and the root `commit_queue`. If a fresh queue entry is
+transaction surface and the advisory commit queue
+(`pnpm agent-tools:commit-queue -- list`). If a fresh queue entry is
 ahead of yours, coordinate rather than racing the index. If no fresh
 `git:index/head` claim exists, register a short-lived claim entry under
 `claims[]`:
@@ -188,8 +189,9 @@ The authoritative schema is
 Every entry carries: `claim_id`, `agent_id` block (PDR-027 identity), `thread`
 slug, `areas` array, `claimed_at`, `freshness_seconds` (default 14400 = 4
 hours), optional `heartbeat_at`, `sidebar_open` (whether a sidebar is
-open against the claim), optional `intent_to_commit` pointer to the root queue,
-`intent` prose, and optional `notes`. Commit-window claims normally use
+open against the claim), `intent` prose, and optional `notes` (a legacy
+`intent_to_commit` pointer may survive on pre-MCP-612 rows; no live writer
+sets it — queue linkage is the store entry's own `claim_id`). Commit-window claims normally use
 `areas.kind: "git"` with `patterns: ["index/head"]` and
 `freshness_seconds: 900`.
 

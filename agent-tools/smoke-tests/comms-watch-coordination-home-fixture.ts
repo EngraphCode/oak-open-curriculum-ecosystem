@@ -65,7 +65,6 @@ function eventFixture(nowIso: string): unknown {
 function registryFixture(nowIso: string): unknown {
   return {
     schema_version: ACTIVE_CLAIMS_SCHEMA_VERSION,
-    commit_queue: [],
     claims: [
       {
         claim_id: 'aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee',

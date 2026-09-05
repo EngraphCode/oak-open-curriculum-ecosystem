@@ -88,7 +88,7 @@ separate, legitimate concerns.)
 - `principles.md §Architectural Excellence Over Expediency` —
   upstream principle this rule operationalises against invented
   urgency.
-- `.agent/skills/commit/SKILL.md` — the commit-skill substrate
+- `.agent/skills/change-custody/commit/SKILL-CANONICAL.md` — the commit-skill substrate
   whose bypass is the most common expression of this failure mode.
 - `.agent/rules/stage-by-explicit-pathspec.md` — named source
   incident class produced by speed-pressure-driven shortcuts.

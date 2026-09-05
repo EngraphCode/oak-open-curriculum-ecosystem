@@ -76,6 +76,7 @@ describe('collaboration-state tui CLI integration', () => {
           reads.push(filePath);
           return ok(activeClaims());
         },
+        readCommitQueueEntries: async () => [],
         readClosedClaimsFile: async (filePath) => {
           reads.push(filePath);
           return ok({ schema_version: '1.3.0', claims: [] });
@@ -139,8 +140,7 @@ describe('collaboration-state tui CLI integration', () => {
 
 function activeClaims(): CollaborationRegistry {
   return {
-    schema_version: '1.3.0',
-    commit_queue: [],
+    schema_version: '1.4.0',
     claims: [
       {
         claim_id: 'claim-1',

@@ -82,7 +82,7 @@ violation [§Documentation Is Infrastructure](../../../directives/principles.md#
 names as a real defect.
 
 - **Review loops** —
-  [`pr-lifecycle`](../../pr-lifecycle/SKILL-CANONICAL.md) §"The review-round state machine"
+  [`pr-lifecycle`](../../change-custody/pr-lifecycle/SKILL-CANONICAL.md) §"The review-round state machine"
   item 2 owns convergence: the tally store, the mechanical step-back predicate, the epoch
   reset, and the generator-recurrence classification. It is the fully-worked instrument;
   build the tally, or the trigger cannot fire. Response-side economics — what answering a

@@ -224,9 +224,11 @@ rounds; the cure is stated so the next round does not re-derive it.
   breadcrumbs, holds.
 - **Three stacked cures on one element is a solution-class signal**:
   containing-block positioning, an artifact-axis close, and measured
-  conditional focusability on `tok-scroll` are each correct; their
-  accumulation is the trigger for a design look at "every family is its
-  own scroll container" BEFORE a fourth cure lands.
+  conditional focusability on the per-family scroll container were each
+  correct; their accumulation was the trigger for a design look at "every
+  family is its own scroll container", taken in the owner's visual-feedback
+  round: the scroll container and its table are gone, and each family's
+  rows flow in the page's own columns instead.
 
 ## Fidelity review
 

@@ -117,7 +117,7 @@ the action that information enabled.
 
 - [PDR-057 (empirical-answerability)](../practice-core/decision-records/PDR-057-empirical-answerability.md)
   — the doctrinal frame this rule implements.
-- [`undo-change` skill](../skills/undo-change/SKILL-CANONICAL.md) — the same
+- [`undo-change` skill](../skills/change-custody/undo-change/SKILL-CANONICAL.md) — the same
   *render the diagnosis, then halt-ask* shape applied to undo
   operations.
 - [Quarantined apply-don't-ask doctrine](../memory/operational/quarantine/apply-dont-ask-doctrine.md)

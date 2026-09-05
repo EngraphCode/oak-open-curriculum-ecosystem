@@ -534,7 +534,7 @@ After renaming or adding commands in `package.json`:
    - `CONTRIBUTING.md`
    - `docs/governance/development-practice.md`
    - `.agent/directives/AGENT.md`
-   - `.agent/skills/gates/SKILL-CANONICAL.md`
+   - `.agent/skills/change-custody/gates/SKILL-CANONICAL.md`
 
 ## Documentation Link Integrity
 

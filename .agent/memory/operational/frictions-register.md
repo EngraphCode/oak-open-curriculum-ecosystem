@@ -350,7 +350,7 @@ below is a cross-reference index, not a second source of truth.
   with a write-freeze or isolation rule for repo-tracked coordination artefacts
   during a peer's commit attempt; pair with B-02/B-03 build-prelude decoupling
   and B-11 directed-message authoring to reduce hand-authored file churn.
-- **Target surface**: commit protocol docs / `.agent/skills/commit/` /
+- **Target surface**: commit protocol docs / `.agent/skills/change-custody/commit/` /
   collaboration-state comms tooling / possible PDR-059 follow-on.
 - **Status**: open — evidence captured; no cure landed.
 - **Owner direction**: standing.
@@ -615,11 +615,11 @@ below is a cross-reference index, not a second source of truth.
 - **Candidate cure**: (a) refactor fingerprint storage to a sibling
   file (`active-claims.fingerprint`) that is gitignored or carries
   its own claim-window discipline; (b) failing that, add explicit
-  protocol documentation in `.agent/skills/commit/SKILL-CANONICAL.md`
+  protocol documentation in `.agent/skills/change-custody/commit/SKILL-CANONICAL.md`
   Pre-Commit Validation section and a CLI warning in `verify-staged`
   if active-claims.json shows `MM` after `record-staged`.
 - **Target surface**: `agent-tools/src/commit-queue/`;
-  `.agent/skills/commit/SKILL-CANONICAL.md`; commit-queue CLI help
+  `.agent/skills/change-custody/commit/SKILL-CANONICAL.md`; commit-queue CLI help
   text.
 - **Review 2026-05-10**: still open. `record-staged` still writes the
   fingerprint into the registry entry and `verify-staged` still verifies
@@ -2991,7 +2991,7 @@ commit SHA and the closing plan reference.
   supervisor-pid pattern the comms watcher already uses) so an interrupted commit reaps its
   tree; (c) the load-check-before-heavy-chain step from the cross-estate one-heavy-chain
   agreement becomes a commit-skill preflight.
-- **Target surface**: `.agent/skills/commit/SKILL-CANONICAL.md` + the commit-queue workflow's
+- **Target surface**: `.agent/skills/change-custody/commit/SKILL-CANONICAL.md` + the commit-queue workflow's
   spawn path (`runInheritedProcess`).
 - **Status**: open.
 - **Owner direction status**: captured at session closeout under record-all-frictions.
