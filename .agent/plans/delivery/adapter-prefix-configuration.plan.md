@@ -182,8 +182,8 @@ it will rest on.
 
 ## Todos
 
-Four PR-shaped units, each within the small-PR bands and safe on its own, in this order
-(each `blocking` on the one before it):
+Three PR-shaped units, each safe on its own, in this order (each `blocking` on the one
+before it):
 
 1. **The shared checkout-config helper.** `agent-tools/src/core/` gains the
    read-parse-name-the-example helper with its unit tests, and the merge-bot loader is
@@ -196,15 +196,17 @@ Four PR-shaped units, each within the small-PR bands and safe on its own, in thi
    lands as an internal seam with only tests of itself, the scaffolding shape the
    design-by-tests directive forbids. Generation and checking still take the pinned flag
    in this unit; the tree's projections are unchanged.
-3. **The switch.** `--prefix` becomes optional and the generator and checker resolve
-   through the same resolver; the root scripts, the agent-tools script, the pre-push hint
-   and the header comment drop the literal; the flag-parser tests and the isolated-root
-   `e-` smoke proof land here: about seven files, the one PR whose body carries the `git
-   grep` proofs, the `pnpm skills:prefix` output, the placeholder refusal and the
-   diff-stat proof that no projection moved.
-4. **The record.** ADR-125's three sites with one change-log entry, the commit skill's
-   canonical, the agent-tools README and the engineering doc: about four files, landing
-   after the mechanism it describes.
+3. **The switch, with its record.** `--prefix` becomes optional and the generator and
+   checker resolve through the same resolver; the root scripts, the agent-tools script,
+   the pre-push hint and the header comment drop the literal; the flag-parser tests and
+   the isolated-root `e-` smoke proof land here, and so does every permanent statement the
+   switch falsifies: ADR-125's three sites with one change-log entry, the commit skill's
+   canonical, the agent-tools README and the engineering doc. About eleven files, seven of
+   mechanism and four carrying one-sentence record corrections; the record cannot land
+   later, because ADR-125 would then state a pin the tree no longer has, and it cannot
+   land earlier, because it would describe a resolver generation does not yet use. This
+   is the one PR whose body carries the `git grep` proofs, the `pnpm skills:prefix`
+   output, the placeholder refusal and the diff-stat proof that no projection moved.
 
 ## Out of scope
 
@@ -238,12 +240,14 @@ The six clauses of the plan-body first-principles check, applied at authoring:
   and no validator today forbids a JSON file at the Practice home's top level — each
   checked against the tree on 2026-09-05, and each re-verified at pickup.
 - **Optionality.** One observable signal, the `pnpm skills:prefix` line; the sequence is
-  four ordered PRs; the one deferral is named as the owner's decision on projections, not
+  three ordered PRs; the one deferral is named as the owner's decision on projections, not
   a bare deferred status.
 - **Record consumer.** The disposition ledger below is read by the pickup implementer,
   and reading it decides which findings are already applied and which are routed.
 - **Rules tier.** `--prefix` survives as an explicit override, not a compatibility alias
-  (replace-dont-bridge); the work is shaped as four small PRs (design-work-for-small-prs);
+  (replace-dont-bridge); the work is shaped as three small PRs, the third above the
+  acceptable band only by the record lines that would otherwise land false
+  (design-work-for-small-prs);
   `skills:check` is neither weakened nor bypassed (never-disable-checks); both files are
   validated by a strict schema at the read boundary (strict-validation-at-boundary).
 
@@ -273,3 +277,4 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-09-05 | PR #54 round three | The inertness snapshot passes if the generator rewrites byte-identically | Applied: one projection made stale first; reaching the generator repairs it and fails the proof |
 | 2026-09-05 | PR #54 round three | Unit 2 landed the resolver with tests of an internal seam only (the scaffolding shape) | Applied: the resolver lands with `--print-prefix`, its root script and its smoke proofs; the switch is unit 3 |
 | 2026-09-05 | PR #54 round three | Flag precedence was proven only in the parser | Applied: a built-binary run with an invalid override and no usable default prints `e-` from the flag |
+| 2026-09-05 | PR #54 round four | The switch (unit 3) dropped the pins while the record (unit 4) corrected ADR-125 later, so one landed state left the ADR false | Applied: the record rides the switch; three units |
