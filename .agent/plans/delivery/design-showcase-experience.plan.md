@@ -30,7 +30,7 @@ owner_gates: []
 # owner must clear is its own failure mode. The one gate above is different in
 # kind: it re-opens a RATIFIED kit clause the owner's R14 word now contradicts
 # — precisely the class only he can settle.
-last_updated: 2026-09-04
+last_updated: 2026-09-05
 ---
 
 # The showcase experience — a UX-first public face for the design system
@@ -227,12 +227,14 @@ the current route pending its owner-specced rebuild."
 | --- | --- | --- |
 | 1. Purge the old showcase | **Landed** `a967f8979` | Nothing. §"What the purge did not remove" is a standing boundary on future work, not an instruction to act |
 | 2. A new, good front page | **Landed** `a967f8979` — `app/page.tsx` is that landing | No workstream builds it. W1's ramp cure re-verifies it at 320px in all three identities; an owner verdict row completes it |
-| 3. The identity + theme switching demo | Largely landed — the narrow-first stage `a967f8979` (owner-verified); the PDS masthead cascade cure `d2c4e4e24` (the six declared reds green, suite 70/70, 2026-08-13); fluid display type across all three identities `8b89ad988` | W3 controls v2 (the native radio group); W5 tail items only (see §W5's dated landed note) |
-| 4. The composition demo | Stub only — the route exists, the demonstration does not | **W2**, the largest remaining build |
+| 3. The identity + theme switching demo | Largely landed — the narrow-first stage `a967f8979` (owner-verified); the PDS masthead cascade cure `d2c4e4e24` (the six declared reds green, suite 70/70, 2026-08-13); fluid display type across all three identities `8b89ad988` | W3's native radio group **landed** 2026-08-18 (`7473d2714`, `components/IdentityRadioGroup.tsx`); W5 tail items only (see §W5's dated landed note) |
+| 4. The composition demo | **Landed** 2026-08-18 (`05897c076`, composition v2 to the owner's spec of that day: one embedded exhibit of eleven region boxes under a four-extreme parent layout control and a light/dark ground, the same markup re-arranged by CSS alone; the exhibit and its maps live at `/composition/frame`) | W6 true-ups only — §W2 below is the specification it was built to |
 
-So this plan's remaining scope is one new page, the controls around an existing
-one, the W1 remainder (rhythm + the slice-B unit conversions), and the record
-true-ups that ride those changes.
+So this plan's remaining scope (re-trued 2026-09-05) is the W1 remainder
+(rhythm + the slice-B unit conversions; the admission instrument's
+manifest-driven arms land at `tango-identity-pack` T1b), W4, the W5 tail, and
+the record true-ups that ride those changes — the composition page and the
+switching demo's radio group landed on 2026-08-18.
 
 ### Landed-state surface (dated — updated as the first act of every landing)
 
@@ -247,6 +249,8 @@ the present tense — the row wins.
 | 2026-08-13/14 | **W1 slice A (fluid display type, tranche 1)** — kit bounds + derived clamp, both counter-identity sheets migrated, nine DTCG leaves, print arm, brand.css §1b + CHANGELOG + DECISIONS edits; **W5's masthead cure** (`d2c4e4e24`, six declared reds green); the tri-state `clear()`; the keyboard-blackout cure — all merged in PR #846 (`c0d49fc04`, tranche commit `8b89ad988`) | main |
 | 2026-08-14 | pr-watch settlement reader (#885 `a73f99f77`); the visual-verification governance set — PDR-138, DDR-011, rule, skill, probe (#887 `d6b0c7eb0`) | main |
 | 2026-08-17 | Records-truth pass (MCP-613): R16 landed as a rulings row; the false brand-admission guard claim struck from the kit contract; A2's mechanism re-cut under R15; sibling-plan governance amendments; `design-system-completion` stripped of authority (conserved inputs); spent nodes retired. Same day, owner rulings AT the seat: a **fourth identity, Tango, commissioned** — all four identities to be brought up to standard as identity PACKS, Tango first (admission via pack manifest; Tango's anchor owner-private); narrow-range ruling = capability + per-identity choice; **this plan governs the showcase surface**. Durable homes: the design-system-integration thread record's 2026-08-17 entry + comms event ec2c307b; the pack programme gets its own plan node at planning | this commit |
+| 2026-08-18 | **A1** the front page doors every demo surface (`6ca3462b5`); **A2** the generated token reference at `/tokens` — live-applied values prove the identity switch (`e0a85e842`) — and the colour matrix at `/tokens/colours` (`3b276f0d6`); **W3's native radio group**, stage dominance, strip controls, EMC² round 2 (`7473d2714`); **W2** composition v2, embedded controls owning the pages, fixed breadcrumbs (`05897c076`) | main |
+| 2026-09-04 | The disclosure's content box dissolved at wide and the reserve sized to both bars (`42494dda5`, PR #40); the specimen-strip focus spec waits for the dissolved wide face (PR #53) | engraph |
 
 **One precondition governs all six.** ADR-213 §3 arms a hard gate on the **first
 component export consumed from `@oaknational/oak-design-react`**: the ADR-147
@@ -525,13 +529,20 @@ the owner-held cell.
   identity, a fluid slot computes at its maximum (the plain `:root` arm wins
   — trued 2026-08-17 to mechanism point 8; the earlier `html:root` wording
   contradicted the shipped, deliberate form).
-- SUPERSEDED (owner ruling 2026-08-17): the brand-admission guard acceptance
-  row. Admission checking moves to the identity-pack manifest (schema +
-  generated CSS make the two failure modes unauthorable); the false
-  present-tense guard claim was struck from `brand.css` §1b and the
-  CHANGELOG in the same pass. Slice B keeps its remaining substance — the
-  EMC² px→rem slot conversions under the contract's own "Slots stay in rem"
-  rule.
+- `repo-safe` — the brand-admission guard is red-first on both fatal arms
+  against the extended `failing-example.css` fixture: a unit-bearing bound
+  part fails; a sheet declaring both a slot's shorthand and its parts fails.
+  *Re-trued 2026-09-05 (owner ruling 4 of 2026-08-17 read with the
+  `tango-identity-pack` ratification card of the same day, re-stamped
+  2026-08-19 and 2026-09-02): this guard stays THE admission instrument —
+  all-fatal, no warn arm, in `agent-tools/src/validators/` on the
+  `repo-validators:check` chain — and gains manifest-driven arms at that
+  node's T1b (its G1: one instrument, never a second admission regime). What
+  the ruling struck was the false present-tense claim that the guard already
+  existed (`brand.css` §1b and the CHANGELOG, cured in the 2026-08-17 records
+  pass); what it moved was admission's source of truth, to the identity-pack
+  manifest. Slice B keeps its remaining substance — the EMC² px→rem slot
+  conversions under the contract's own "Slots stay in rem" rule.*
 - `repo-safe` — the DTCG consistency validator green with the nine new
   `number` leaves and the `dtcg/README.md` functional-set restatement
   (21 → 24) in the same commit.
@@ -541,6 +552,10 @@ the owner-held cell.
 ---
 
 ### W2 — The composition page, rebuilt from scratch
+
+**Landed 2026-08-18** (`05897c076`, composition v2 to the owner's spec of that
+day). The section below is the specification it was built to; where its prose
+still speaks of the stub, the landed-state surface above wins.
 
 **Serves:** S1, S3, S5. **Ruling:** R6, R7, R4, R11, R12.
 
@@ -1030,9 +1045,10 @@ after it:
    `:root:not([data-motion='full'])` plus a matching `[data-motion='reduced']`
    arm; and `brand.css`'s override comment re-pointed from the kit-internal
    names to the `-full` names. (The third item — a brand-admission guard arm
-   rejecting the four kit-internal motion names — is superseded by the
-   2026-08-17 owner ruling: admission checking lives in the identity-pack
-   manifest when packs land.) It lands here because W4 puts a motion control
+   rejecting the four kit-internal motion names — is one of the
+   manifest-driven arms the admission instrument gains at
+   `tango-identity-pack` T1b, under the 2026-08-17 ruling that admission's
+   source of truth is the identity-pack manifest; it lands there, not here.) It lands here because W4 puts a motion control
    in front of visitors, and the floor is what makes that control honest.
 
 **Acceptance.**
@@ -1231,6 +1247,9 @@ condition that returns it to scope.
   this later-ratified plan ruled it out of scope) are re-sequenced to the
   owner's word — the contradiction is resolved in this plan's favour, and
   that node carries a matching dated amendment from the same records pass.
+  Both then landed under this plan's governance on 2026-08-18 — A1 as the
+  front page's doors (`6ca3462b5`), A2 as `/tokens` (`e0a85e842`, with
+  `/tokens/colours` `3b276f0d6`).
 - **`oak-identity-recognisability`** (ratified 2026-08-13, morning card; row
   added 2026-08-17) — owns the origin-referenced measurement basis and the
   Oak-face re-truing; its S3+ slices unblocked when #846 merged. Its
@@ -1523,7 +1542,7 @@ at its level against the strategy's taxonomy.
 | Fluid slots carry a `rem` term | Seat verdict — WCAG 2.2 SC 1.4.4; a `vw`-only clamp is immune to zoom |
 | W1 decomposes `--type-heading-*` rather than clamping `--font-size-*` | Seat verdict, 2026-08-13 — verified in the brand sheets that both counter-identities re-point the whole slot with literal sizes, so clamping the primitives would cure the Oak base alone |
 | The decomposition ships as a compatible MINOR under `brand.css`'s own deprecation path | The contract's stability clause governs (`brand.css` §1b — [owner-ratified doc]); the earlier MINOR-or-MAJOR owner escalation was withdrawn as manufactured ceremony (§Questions that turned out not to be his, row 2) |
-| The brand-admission guard enforces `rem`-ness; the whole-slot arm warns | STALE ROW, retained for provenance — superseded twice: first by the all-fatal no-warn-arm re-cut (see the later row "Nothing deprecated … guard all-fatal"), then by the owner's 2026-08-17 ruling that admission checking lives in the identity-pack manifest and no CSS-text guard is built |
+| The brand-admission guard enforces `rem`-ness; the whole-slot arm warns | STALE ROW, retained for provenance — superseded by the all-fatal no-warn-arm re-cut (see the later row "Nothing deprecated … guard all-fatal"); the owner's 2026-08-17 ruling then homed admission's source of truth in the identity-pack manifest, and the guard gains manifest-driven arms at `tango-identity-pack` T1b — one instrument (its G1), never retired (re-trued 2026-09-05) |
 | EMC²'s px body slots are corrected inside W1 | Reversed at review, 2026-08-13 — an earlier draft routed this out as a separate finding. The kit contract already rules it ("Slots stay in rem"), and W1's guard is the instrument, so it belongs here |
 | Rhythm fluidity is Oak-base-only in this scope | Seat verdict — both counter-identities override the derived spacing tokens with literals, and constraining that would contradict a ratified affordance. Stated with a cell that measures it rather than left to surprise |
 | W1's proof cells run in the showcase's Playwright suite | Seat verdict — the kit workspace runs happy-dom with no Playwright dependency and cannot evaluate viewport-dependent CSS. The cure lives in the kit; the proof runs where a browser is |

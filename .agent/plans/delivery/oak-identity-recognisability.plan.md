@@ -194,19 +194,32 @@ impossible. Canonical home: a design decision record authored in S1;
 this plan cites it once landed.
 
 **Relationship to design-system-completion.plan.md (corrected 2026-08-17,
-records-truth pass MCP-613).** The original sentence here called that plan
+records-truth pass MCP-613; re-trued 2026-09-05 to the ratified programme
+node).** The original sentence here called that plan
 "ratified" — **false when written**: it is and was `status: sketch`,
 `ratified_by: null`, and on 2026-08-17 it was formally stripped of
 authority (owner ruling: gates retired, instruments re-homed, conserved as
 story-open inputs). Its prose binds nothing. The workstream stories this
 paragraph routed into it (the showcase page set, identity asset delivery,
 identity authorship under the DDR-007 protocol, the token-reference page)
-re-home when the **identity-pack programme node** is authored — the owner
-commissioned a fourth identity (Tango) on 2026-08-17 with all four
-identities to be brought up to standard as identity packs, and that
-programme is these stories' natural owner. Until it exists, this plan's S4
-stories carry their own mechanism at story-open under pre-execution review,
-routing into no other node. Governance: `design-showcase-experience`
+re-homed when the **identity-pack programme node** was authored and
+ratified — `tango-identity-pack` (ratified 2026-08-17, re-stamped
+2026-08-19 and 2026-09-02; the owner commissioned a fourth identity, Tango,
+on 2026-08-17 with all four identities to be brought up to standard as
+identity packs). The split that node states: the pack boundary, manifest
+schema and kit consumption surface land there (Tango first, its P1), and
+this plan's S4(b) consumes that mechanism for the Oak pack rather than
+building it (owner ruling at that node's ratification card, 2026-08-17);
+identity asset delivery rides the per-pack asset manifest (its M1);
+identity authorship under DDR-007 is pack authorship in that programme;
+the token-reference page landed on 2026-08-18 as `/tokens` (`e0a85e842`,
+the IA node's A2); the showcase page set stays under
+`design-showcase-experience`, with Tango's appearance on the showcase
+roster and the a11y-matrix derivation deferred to the programme's
+completing node (its T1d amendment, 2026-09-02). This plan's S4 stories
+therefore route into `tango-identity-pack` for mechanism and into
+`design-showcase-experience` for surface; none carries its own mechanism
+at story-open. Governance: `design-showcase-experience`
 governs the showcase surface (owner ruling 2026-08-17) and carries the
 mirror row for this node.
 

@@ -40,10 +40,17 @@ browser.
   reference.
 - **`/identity-white-labelling`** — the three identities side by side in
   scaled frames.
-- **`/composition`** — a stub pending its owner-specced rebuild (one page
-  type recomposed BY IDENTITY — the ratified showcase-experience plan's
-  W2; the current stub compares page types, which is not the
-  demonstration).
+- **`/composition`** — the composition demonstration, v2 (owner spec
+  2026-08-18, the showcase-experience plan's W2): eleven region boxes
+  rendered once, in one order, re-arranged by composition maps under a
+  four-extreme parent layout control and a light/dark ground — the same
+  markup under every map, re-arranged by CSS alone; the exhibit and its maps
+  live at `/composition/frame`.
+- **`/tokens`** — the generated token reference: every token the design
+  system publishes, shown as the value it currently has under the chosen
+  identity and theme (live-applied values prove the identity switch), with
+  the colour matrix at `/tokens/colours` (every identity and theme side by
+  side).
 
 The switching demo drives its axes through the kit contract:
 
