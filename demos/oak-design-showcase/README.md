@@ -41,7 +41,7 @@ browser.
 - **`/identity-white-labelling`** — the three identities side by side in
   scaled frames.
 - **`/composition`** — the composition demonstration, v2 (owner spec
-  2026-08-18, the showcase-experience plan's W2): eleven region boxes
+  2026-08-18): eleven region boxes
   rendered once, in one order, re-arranged by composition maps under a
   four-extreme parent layout control and a light/dark ground — the same
   markup under every map, re-arranged by CSS alone; the exhibit and its maps
