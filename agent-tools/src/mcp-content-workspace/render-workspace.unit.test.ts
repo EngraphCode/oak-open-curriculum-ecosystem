@@ -43,6 +43,13 @@ describe('renderItem', () => {
     expect(rendered).toContain('user-input-interpolation');
   });
 
+  it('escapes angle brackets so a placeholder title survives Markdown rendering', () => {
+    const page = renderItem(workspaceItem({ title: 'The <name> placeholder in <h1>' }));
+
+    expect(page).toContain(String.raw`\<name\>`);
+    expect(page).not.toContain('<h1>');
+  });
+
   it('sends a reviewer to the owning repository when the words are authored upstream', () => {
     const rendered = renderItem(workspaceItem({ authority: 'upstream-api' }));
 

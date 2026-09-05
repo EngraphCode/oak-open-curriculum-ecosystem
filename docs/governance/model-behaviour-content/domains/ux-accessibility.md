@@ -119,7 +119,7 @@ How to use<span className="oak-visually-hidden"> {tool.name}</span>
 - **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/landing-page/render-tools-section.ts`).
 - **Kind of surface:** widget-ui-content · **Impact tier:** simple-config
 
-### C385 — visually-hidden <h1> heading
+### C385 — visually-hidden \<h1\> heading
 
 **What it says now:**
 
@@ -222,7 +222,7 @@ export function sendInvalidFormatResponse(res: Response, prmUrl: string): void {
 message: 'Invalid Authorization header format.',
 ```
 
-**What it is for:** Tells the client its Authorization header format is wrong and instructs the correct form ("Bearer <token>"); error code invalid\_request in the challenge, plus a human-readable body message.
+**What it is for:** Tells the client its Authorization header format is wrong and instructs the correct form ("Bearer \<token\>"); error code invalid\_request in the challenge, plus a human-readable body message.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `apps/oak-curriculum-mcp-streamable-http/src/auth/mcp-auth/mcp-auth-responses.ts`

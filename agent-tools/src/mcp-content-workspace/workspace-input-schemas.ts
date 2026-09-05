@@ -1,21 +1,31 @@
 /**
- * Schemas for the artefacts the workspace renders.
+ * Schemas for the two artefacts the workspace renders, strict at every level.
  *
  * @remarks
- * Each schema validates every field the renderer consumes and tolerates fields
- * it does not. That asymmetry is deliberate: a renamed or missing field would
- * silently blank part of a reviewer's page, so it must fail loudly here, while
- * an extra field added by a later slice of the audit machinery is no threat to
- * a rendering and must not brick the gate.
+ * Both files are read back from disk and parsed here, so this is the boundary
+ * where producer drift must fail visibly: a field added, renamed or dropped by
+ * the audit machinery or the projection builder refuses the read rather than
+ * being silently ignored by a rendering that never learns of it
+ * (`strict-validation-at-boundary`). The projection schema is the producer's
+ * own ({@link currentSourceTruthSetSchema}), narrowed here by the one invariant
+ * the workspace adds: an item added after the baseline must classify itself.
  *
  * @packageDocumentation
  */
-
 import { z } from 'zod';
-
+import {
+  addedLineageSchema,
+  baselineLineageSchema,
+  currentSourceTruthItemBase,
+  currentSourceTruthSetSchema,
+  reviewContextSchema,
+} from '../mcp-content-current-source/current-source-truth-set-schema.js';
 import type { BaselineRegistry, WorkspaceInputs } from './content-workspace-model.js';
 
-const baselineItemSchema = z.looseObject({
+const countByCategory = z.record(z.string(), z.number().int().nonnegative());
+
+/** One row of the immutable phase-(a) audit registry, every field it carries. */
+const baselineItemSchema = z.strictObject({
   id: z.string().min(1),
   file: z.string(),
   lines: z.string(),
@@ -25,49 +35,46 @@ const baselineItemSchema = z.looseObject({
   review_domain: z.string().min(1),
   extraction_kind: z.string(),
   source_locus: z.string(),
+  upstream_source: z.string().nullable(),
+  provenance: z.string(),
+  audience: z.string(),
+  exemption: z.string(),
   behavioural_intent: z.string(),
+  reasoning: z.string(),
   snippet: z.string(),
+  measurability: z.string(),
   flags: z.array(z.string()),
+  source_pass: z.number().int(),
   workspace_scope: z.enum(['in', 'out-upstream-api']),
+  ruling_note: z.string().optional(),
 });
 
-const baselineRegistrySchema = z.looseObject({
-  meta: z.looseObject({ upstream_pointers: z.record(z.string(), z.string().nullable()) }),
+const baselineRegistrySchema = z.strictObject({
+  meta: z.strictObject({
+    title: z.string(),
+    generated_from: z.string(),
+    note: z.string(),
+    item_count: z.number().int().nonnegative(),
+    impact_tiers: countByCategory,
+    protocol_note: z.string(),
+    source_loci: countByCategory,
+    upstream_pointers: z.record(z.string(), z.string().nullable()),
+    review_domains: countByCategory,
+    extraction_kinds: countByCategory,
+    surface_types: countByCategory,
+    audiences: countByCategory,
+    exemption: countByCategory,
+    flags: countByCategory,
+    workspace_scope: countByCategory,
+    refresh_2026_07_22: z.strictObject({
+      ticket: z.string(),
+      summary: z.string(),
+      deltas: z.array(z.string()),
+      code_state_at_refresh: z.string(),
+    }),
+  }),
   items: z.array(baselineItemSchema).min(1),
 });
-
-const registrationSchema = z.looseObject({
-  rootId: z.string(),
-  state: z.enum(['live', 'dormant']),
-  primitive: z.enum(['initialize', 'tool', 'resource', 'prompt']),
-  selector: z.string(),
-  anchorSurfaces: z.array(z.looseObject({})),
-  channels: z.array(z.string()),
-});
-
-const revisionSchema = z.enum(['unchanged', 'expanded', 'modified', 'relocated', 'added']);
-
-const reviewContextSchema = z.looseObject({
-  title: z.string(),
-  reviewDomain: z.string().min(1),
-  impactTier: z.enum(['high-impact', 'simple-config']),
-  behaviouralIntent: z.string(),
-});
-
-const truthItemBase = {
-  id: z.string().min(1),
-  authority: z.enum(['workspace', 'upstream-api', 'upstream-skills', 'external-third-party']),
-  workspaceScope: z.enum(['in', 'out-upstream-api']),
-  source: z.union([
-    z.looseObject({
-      state: z.literal('available'),
-      files: z.array(z.string()),
-      evidence: z.looseObject({ revision: revisionSchema }),
-    }),
-    z.looseObject({ state: z.literal('retired'), files: z.array(z.string()).max(0) }),
-  ]),
-  registrations: z.array(registrationSchema),
-};
 
 /**
  * Two closed item shapes: a baseline-lineage item may carry a review context;
@@ -75,46 +82,20 @@ const truthItemBase = {
  * addition without one is refused here rather than rendered blank.
  */
 const truthItemSchema = z.union([
-  z.looseObject({
-    ...truthItemBase,
-    lineage: z.looseObject({
-      disposition: z.enum(['retained', 'relocated', 'split', 'retired']),
-      baselineFile: z.string(),
-    }),
+  z.strictObject({
+    ...currentSourceTruthItemBase,
+    lineage: baselineLineageSchema,
     reviewContext: reviewContextSchema.optional(),
   }),
-  z.looseObject({
-    ...truthItemBase,
-    lineage: z.looseObject({
-      disposition: z.literal('added'),
-      addedAfterBaselineCommit: z.string(),
-    }),
+  z.strictObject({
+    ...currentSourceTruthItemBase,
+    lineage: addedLineageSchema,
     reviewContext: reviewContextSchema,
   }),
 ]);
 
-const servedNamesSchema = z.looseObject({
-  live: z.array(z.string()),
-  dormant: z.array(z.string()),
-});
-
-const truthSetSchema = z.looseObject({
-  provenance: z.looseObject({ baselineCommit: z.string() }),
+const truthSetSchema = currentSourceTruthSetSchema.extend({
   items: z.array(truthItemSchema).min(1),
-  registrationRoots: z.array(
-    z.looseObject({
-      id: z.string(),
-      observation: z.looseObject({
-        initialize: z.looseObject({ instructions: z.enum(['present', 'absent']) }),
-        tools: servedNamesSchema,
-        resources: servedNamesSchema,
-        prompts: z.looseObject({
-          capability: z.enum(['present', 'absent']),
-          list: z.enum(['available', 'method-not-found']),
-        }),
-      }),
-    }),
-  ),
 });
 
 /** Parse the immutable phase-(a) audit registry. */

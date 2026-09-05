@@ -543,7 +543,7 @@ findLessons: {
   } satisfies Workflow,
 ```
 
-**What it is for:** 3-step recipe: search(scope:lessons) -> select from results (slugs usable with fetch) -> fetch(lesson:slug) for full details.
+**What it is for:** 3-step recipe: search(scope:lessons) -\> select from results (slugs usable with fetch) -\> fetch(lesson:slug) for full details.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-workflows.ts`
@@ -597,7 +597,7 @@ lessonPlanning: {
 
 *Shown in part only — read the full text in the source file below.*
 
-**What it is for:** 6-step lesson-planning recipe: search -> get-lessons-summary -> get-lessons-transcript -> get-lessons-quiz -> get-lessons-assets -> download-asset, with per-step returns.
+**What it is for:** 6-step lesson-planning recipe: search -\> get-lessons-summary -\> get-lessons-transcript -\> get-lessons-quiz -\> get-lessons-assets -\> download-asset, with per-step returns.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-workflows.ts`
@@ -656,7 +656,7 @@ browseSubject: {
   } satisfies Workflow,
 ```
 
-**What it is for:** 3-step browse recipe: get-subjects -> get-key-stages-subject-units -> get-key-stages-subject-lessons, with returns per step.
+**What it is for:** 3-step browse recipe: get-subjects -\> get-key-stages-subject-units -\> get-key-stages-subject-lessons, with returns per step.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-workflows.ts`
@@ -701,7 +701,7 @@ trackProgression: {
   } satisfies Workflow,
 ```
 
-**What it is for:** 3-step progression recipe: search(scope:threads) -> get-thread-progressions(threadSlug) -> get-prior-knowledge-graph(unitSlugs); caveats that within a year the order is not curricular and the subgraph is bounded.
+**What it is for:** 3-step progression recipe: search(scope:threads) -\> get-thread-progressions(threadSlug) -\> get-prior-knowledge-graph(unitSlugs); caveats that within a year the order is not curricular and the subgraph is bounded.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-workflows.ts`
@@ -744,7 +744,7 @@ exploreTopic: {
   } satisfies Workflow,
 ```
 
-**What it is for:** 3-step exploration recipe: explore-topic (parallel unified map) -> search (drill into best scope) -> fetch full details.
+**What it is for:** 3-step exploration recipe: explore-topic (parallel unified map) -\> search (drill into best scope) -\> fetch full details.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-workflows.ts`
@@ -780,7 +780,7 @@ discoverCurriculum: {
   } satisfies Workflow,
 ```
 
-**What it is for:** 2-step discovery recipe: browse-curriculum (facets, lesson counts) -> explore-topic to find relevant content within the subject.
+**What it is for:** 2-step discovery recipe: browse-curriculum (facets, lesson counts) -\> explore-topic to find relevant content within the subject.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-workflows.ts`
@@ -828,7 +828,7 @@ export const programmeWorkflows = {
 
 *Shown in part only — read the full text in the source file below.*
 
-**What it is for:** 3-step programme recipe: get-subjects-programmes (flat slug array, slugs only) -> get-programmes (metadata: year group, key stage, phase, nullable tier/exam board/pathway) -> get-programmes-units (companions: questions, assets).
+**What it is for:** 3-step programme recipe: get-subjects-programmes (flat slug array, slugs only) -\> get-programmes (metadata: year group, key stage, phase, nullable tier/exam board/pathway) -\> get-programmes-units (companions: questions, assets).
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/tool-guidance-workflows-programmes.ts`

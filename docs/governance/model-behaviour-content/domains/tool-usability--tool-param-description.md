@@ -1054,7 +1054,7 @@ export function normaliseParamName(openApiName: string): string {
 }
 ```
 
-**What it is for:** Strip the `Slug` suffix so agents see cleaner MCP param names (threadSlug -> thread) in the input schema; canonical name preserved internally.
+**What it is for:** Strip the `Slug` suffix so agents see cleaner MCP param names (threadSlug -\> thread) in the input schema; canonical name preserved internally.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** upstream-owned-base-text

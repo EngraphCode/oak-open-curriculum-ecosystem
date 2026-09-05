@@ -37,7 +37,7 @@ git log -p --follow -- packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guid
 
 These are ours to change. An edit here is a normal change to this repository, reviewed like any other.
 
-### C059 — formatUnknownTool string-name copy `Unknown tool: <name>`
+### C059 — formatUnknownTool string-name copy `Unknown tool: \<name\>`
 
 **What it says now:**
 
@@ -328,7 +328,7 @@ error: `${scopeName} search failed: ${result.error?.message ?? 'unknown error'}`
     return { ok: false, error: `${scopeName} search error: ${message}` };
 ```
 
-**What it is for:** Reports a single scope's failure ('<Scope> search failed/error: <message>') so the agent knows which scope degraded while others still returned (partial-success path).
+**What it is for:** Reports a single scope's failure ('\<Scope\> search failed/error: \<message\>') so the agent knows which scope degraded while others still returned (partial-success path).
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** user-input-interpolation
@@ -349,7 +349,7 @@ if (allFailed) {
     return formatError(`All searches failed: ${errors}`);
 ```
 
-**What it is for:** When every scope fails, returns a combined 'All searches failed: <errors>' error so the agent surfaces a total failure rather than an empty success.
+**What it is for:** When every scope fails, returns a combined 'All searches failed: \<errors\>' error so the agent surfaces a total failure rather than an empty success.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** user-input-interpolation
@@ -1038,7 +1038,7 @@ return new McpToolError(message ?? 'Resource not found', toolName, {
 return new McpToolError(message ?? `Upstream API error (${String(httpStatus)})`, toolName, {
 ```
 
-**What it is for:** Fallback template for unclassified 4xx that embeds the numeric HTTP status ('Upstream API error (<status>)') so the agent can see which status was returned.
+**What it is for:** Fallback template for unclassified 4xx that embeds the numeric HTTP status ('Upstream API error (\<status\>)') so the agent can see which status was returned.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** user-input-interpolation
@@ -1127,7 +1127,7 @@ export class McpParameterError extends Error {
 new McpToolError(`Execution failed: ${error.message}`, toolName, {
 ```
 
-**What it is for:** Wraps any non-classified Error into 'Execution failed: <message>' with code EXECUTION\_ERROR, telling the agent the tool run failed for an internal reason (identical template also used at line 116 for the documented-error fallback).
+**What it is for:** Wraps any non-classified Error into 'Execution failed: \<message\>' with code EXECUTION\_ERROR, telling the agent the tool run failed for an internal reason (identical template also used at line 116 for the documented-error fallback).
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** user-input-interpolation
@@ -1144,7 +1144,7 @@ new McpToolError(`Execution failed: ${error.message}`, toolName, {
 new McpToolError(`Execution failed: UNKNOWN ERROR: ${String(error)}`, toolName, {
 ```
 
-**What it is for:** Handles thrown non-Error values, surfacing 'Execution failed: UNKNOWN ERROR: <stringified>' with EXECUTION\_ERROR so the agent still receives a structured failure rather than a crash.
+**What it is for:** Handles thrown non-Error values, surfacing 'Execution failed: UNKNOWN ERROR: \<stringified\>' with EXECUTION\_ERROR so the agent still receives a structured failure rather than a crash.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/execute-tool-call.ts`
@@ -1168,7 +1168,7 @@ if (error.message.startsWith('Output validation error: ')) {
   }
 ```
 
-**What it is for:** Detects the generated 'Output validation error: ' prefix, strips it, and re-frames as 'Execution failed: <message>' with code OUTPUT\_VALIDATION\_ERROR, telling the agent the upstream response failed schema validation (server-side, not agent's parameters).
+**What it is for:** Detects the generated 'Output validation error: ' prefix, strips it, and re-frames as 'Execution failed: \<message\>' with code OUTPUT\_VALIDATION\_ERROR, telling the agent the upstream response failed schema validation (server-side, not agent's parameters).
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** user-input-interpolation
@@ -1190,7 +1190,7 @@ if (!isToolName(maybeToolName)) {
     );
 ```
 
-**What it is for:** Rejects an unrecognised tool name with 'Unknown tool: <name>' and code UNKNOWN\_TOOL, telling the agent the requested tool does not exist so it should consult the tool catalog.
+**What it is for:** Rejects an unrecognised tool name with 'Unknown tool: \<name\>' and code UNKNOWN\_TOOL, telling the agent the requested tool does not exist so it should consult the tool catalog.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** user-input-interpolation
@@ -1484,7 +1484,7 @@ try {
   }
 ```
 
-**What it is for:** Build-time failure listing each Zod validation issue as '- <path>: <message>' under a 'TypeDoc JSON validation failed:' heading, guiding the developer to the offending fields.
+**What it is for:** Build-time failure listing each Zod validation issue as '- \<path\>: \<message\>' under a 'TypeDoc JSON validation failed:' heading, guiding the developer to the offending fields.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-sdk-codegen/code-generation/generate-markdown-docs.ts`

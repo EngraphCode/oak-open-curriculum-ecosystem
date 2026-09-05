@@ -416,7 +416,7 @@ Key prerequisites at each stage
 How concepts build on previous learning
 ```
 
-**What it is for:** Directs the agent through search scope 'threads' -> get-thread-progressions -> get-prior-knowledge-graph, then to map progression, prerequisites, conceptual jumps and scaffolding for the interpolated concept/subject.
+**What it is for:** Directs the agent through search scope 'threads' -\> get-thread-progressions -\> get-prior-knowledge-graph, then to map progression, prerequisites, conceptual jumps and scaffolding for the interpolated concept/subject.
 
 - **Can an agent see it?** Live — an agent can reach these words today
 - **Reaches an agent through:** `docs://oak/guidance/learning-progression.md`
@@ -448,7 +448,7 @@ Give the teacher the adapted lesson as evidence-calibrated options and
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/adapt-lesson.ts`).
 - **Kind of surface:** prompt-message-template · **Impact tier:** high-impact
 
-### C203 — getContinueProgressionMessages — user message template (position->next)
+### C203 — getContinueProgressionMessages — user message template (position-\>next)
 
 **What it says now:**
 
@@ -480,7 +480,7 @@ If
    anything the class may not have secured
 ```
 
-**What it is for:** When classNotes is supplied, appends 'Notes on how the class did: <notes>' and instructs the agent to check the readiness list against those notes and flag unsecured items.
+**What it is for:** When classNotes is supplied, appends 'Notes on how the class did: \<notes\>' and instructs the agent to check the readiness list against those notes and flag unsecured items.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
 - **Reaches an agent through:** `docs://oak/guidance/continue-progression.md`
@@ -2007,7 +2007,7 @@ function renderSections(grouped: Map<string, TDReflection[]>): string[] {
   return sections;
 ```
 
-**What it is for:** Pluralise TypeDoc kind names into section headings in the AI doc (Class->Classes, Type alias->Type Aliases, etc.).
+**What it is for:** Pluralise TypeDoc kind names into section headings in the AI doc (Class-\>Classes, Type alias-\>Type Aliases, etc.).
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-sdk-codegen/code-generation/generate-ai-doc.ts`
@@ -2116,7 +2116,7 @@ export function groupByKind(reflections: TDReflection[]): Map<string, TDReflecti
 }
 ```
 
-**What it is for:** Map TypeDoc numeric kinds to human labels for AI-doc grouping (Namespace/Enum/Variable/Function/Class/Interface/Type literal/Type alias/Reference) with 'Kind:<n>'/'Symbol' fallbacks.
+**What it is for:** Map TypeDoc numeric kinds to human labels for AI-doc grouping (Namespace/Enum/Variable/Function/Class/Interface/Type literal/Type alias/Reference) with 'Kind:\<n\>'/'Symbol' fallbacks.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-sdk-codegen/code-generation/lib/ai-doc-render.ts`

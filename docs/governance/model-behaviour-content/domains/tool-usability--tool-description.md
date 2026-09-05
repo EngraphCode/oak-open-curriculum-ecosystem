@@ -183,7 +183,7 @@ with search controls directly.`,
 description: `Browse what's available in Oak's curriculum without searching.
 ```
 
-**What it is for:** Steers tool selection: use-when list, do-NOT-use list (defers to search/fetch/orientation tool), NL->args mapping examples, and a NOTE that unfiltered calls can exceed host token limits so pass subject/keyStage.
+**What it is for:** Steers tool selection: use-when list, do-NOT-use list (defers to search/fetch/orientation tool), NL-\>args mapping examples, and a NOTE that unfiltered calls can exceed host token limits so pass subject/keyStage.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** user-input-interpolation
@@ -377,7 +377,7 @@ export function normaliseUpstreamDescription(rawDescription: string): string {
 }
 ```
 
-**What it is for:** Reframes upstream OpenAPI endpoint prose as tool-centric ('This endpoint'->'This tool', case-preserving) plus whitespace collapse, so the agent reads the surface as an MCP tool, not an HTTP endpoint.
+**What it is for:** Reframes upstream OpenAPI endpoint prose as tool-centric ('This endpoint'-\>'This tool', case-preserving) plus whitespace collapse, so the agent reads the surface as an MCP tool, not an HTTP endpoint.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** upstream-owned-base-text

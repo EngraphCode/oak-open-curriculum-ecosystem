@@ -49,16 +49,20 @@ function revisionSentence(item: WorkspaceItem): string {
 }
 
 /**
- * Neutralise Markdown emphasis characters in text quoted from the registry.
+ * Neutralise the Markdown characters that would change how quoted registry
+ * text renders.
  *
  * @remarks
  * Item titles and intents carry code identifiers — `_No parameters_`,
- * `snake_case` names — where an underscore or asterisk is a literal character,
- * never emphasis. Left raw, a pair of them silently italicises the heading and
- * fails the Markdown gate. Escaping renders the character unchanged.
+ * `snake_case` names, placeholders such as `<name>` and element names such as
+ * `<h1>` — where an underscore, asterisk or angle bracket is a literal
+ * character, never emphasis or HTML. Left raw, a pair of them silently
+ * italicises the heading, or a renderer swallows the placeholder as a tag and
+ * the reviewer never sees the audited identifier. Backslash-escaping renders
+ * each character unchanged.
  */
-function escapeEmphasis(text: string): string {
-  return text.replaceAll(/[_*]/g, String.raw`\$&`);
+function escapeInline(text: string): string {
+  return text.replaceAll(/[_*<>]/g, String.raw`\$&`);
 }
 
 /** A fence longer than any backtick run inside the excerpt. */
@@ -109,11 +113,11 @@ function optionalLines(item: WorkspaceItem): readonly string[] {
 /** Render one item as a Markdown section. */
 export function renderItem(item: WorkspaceItem): string {
   return [
-    `### ${item.id} — ${escapeEmphasis(item.title)}`,
+    `### ${item.id} — ${escapeInline(item.title)}`,
     '',
     ...excerptBlock(item),
     '',
-    `**What it is for:** ${escapeEmphasis(item.behaviouralIntent)}`,
+    `**What it is for:** ${escapeInline(item.behaviouralIntent)}`,
     '',
     `- **Can an agent see it?** ${servedStatusLabel(item.status)}`,
     ...optionalLines(item),

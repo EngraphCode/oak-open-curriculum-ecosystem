@@ -51,7 +51,7 @@ In scope: everything this repository controls that reaches an AI agent and can s
 
 Not in scope: the curriculum data itself — lesson, quiz, and unit content fetched from the Oak Open Curriculum API. Those are the bytes we pass through, not words we author. Where we wrap that data in a sentence of our own, the sentence is in scope and the data is not.
 
-116 items are served by this system but authored in the Oak Open Curriculum API specification. They are listed in full, marked as owned elsewhere, so the review is complete even where the fix is not local.
+116 items are authored in the Oak Open Curriculum API specification rather than here. They are listed in full, marked as owned elsewhere, so the review is complete even where the fix is not local. Of them, 0 are traced to a surface an agent can reach today and 4 are retired; the rest live in code that ships but are not traced to a registered surface by this pass.
 
 ## Where this comes from
 

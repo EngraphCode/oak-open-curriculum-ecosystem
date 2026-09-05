@@ -249,7 +249,7 @@ export function kebabToTitleCase(name: unknown): string {
 }
 ```
 
-**What it is for:** Derive the human-readable annotations.title from the kebab tool name (get-key-stages -> 'Get Key Stages') for host display.
+**What it is for:** Derive the human-readable annotations.title from the kebab tool name (get-key-stages -\> 'Get Key Stages') for host display.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/parts/kebab-to-title-case.ts`

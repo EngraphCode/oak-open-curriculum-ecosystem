@@ -62,7 +62,11 @@ const HOW_TO_REVIEW = [
 ] as const;
 
 function scopeSection(items: readonly WorkspaceItem[]): readonly string[] {
-  const outOfScope = items.filter((item) => item.workspaceScope === 'out-upstream-api').length;
+  const upstream = items.filter((item) => item.workspaceScope === 'out-upstream-api');
+  const reachable = upstream.filter(
+    (item) => item.status === 'live' || item.status === 'mixed',
+  ).length;
+  const retired = upstream.filter((item) => item.status === 'retired').length;
   return [
     '## What counts as content here',
     '',
@@ -75,9 +79,12 @@ function scopeSection(items: readonly WorkspaceItem[]): readonly string[] {
       'Oak Open Curriculum API. Those are the bytes we pass through, not words we author. Where ' +
       'we wrap that data in a sentence of our own, the sentence is in scope and the data is not.',
     '',
-    `${String(outOfScope)} items are served by this system but authored in the Oak Open ` +
-      'Curriculum API specification. They are listed in full, marked as owned elsewhere, so the ' +
-      'review is complete even where the fix is not local.',
+    `${String(upstream.length)} items are authored in the Oak Open Curriculum API ` +
+      'specification rather than here. They are listed in full, marked as owned elsewhere, so ' +
+      `the review is complete even where the fix is not local. Of them, ${String(reachable)} ` +
+      `${reachable === 1 ? 'is' : 'are'} traced to a surface an agent can reach today and ` +
+      `${String(retired)} ${retired === 1 ? 'is' : 'are'} retired; the rest live in code that ` +
+      'ships but are not traced to a registered surface by this pass.',
     '',
   ];
 }

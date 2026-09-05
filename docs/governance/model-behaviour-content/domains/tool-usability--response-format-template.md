@@ -197,7 +197,7 @@ const filterText = filterParts.length > 0 ? ` for ${filterParts.join(' ')}` : ''
   return `Found ${String(count)} curriculum ${word}${filterText}`;
 ```
 
-**What it is for:** Frames a count of matching programmes with correct singular/plural ('programme'/'programmes') and an optional ' for <subject> <KS>' filter echo.
+**What it is for:** Frames a count of matching programmes with correct singular/plural ('programme'/'programmes') and an optional ' for \<subject\> \<KS\>' filter echo.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** user-input-interpolation
@@ -217,7 +217,7 @@ function buildFetchSummary(type: ContentType, slug: string, oakUrl: string | nul
   return `Fetched ${typeName}: ${slug}${urlPart}`;
 ```
 
-**What it is for:** Frames a successful fetch as 'Fetched <Type>: <slug>' with an optional trailing '(<oakUrl>)' — capitalises the content type and surfaces a canonical Oak URL when derivable.
+**What it is for:** Frames a successful fetch as 'Fetched \<Type\>: \<slug\>' with an optional trailing '(\<oakUrl\>)' — capitalises the content type and surfaces a canonical Oak URL when derivable.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** user-input-interpolation
@@ -561,7 +561,7 @@ function mapNonJsonErrorResponse(
 }
 ```
 
-**What it is for:** Maps a non-JSON upstream error to an OAuth error: 429->temporarily\_unavailable (with sanitised/forwarded Retry-After) else 502->server\_error; error\_description is the sanitised upstream text or the authored fallback 'Upstream returned <status>'.
+**What it is for:** Maps a non-JSON upstream error to an OAuth error: 429-\>temporarily\_unavailable (with sanitised/forwarded Retry-After) else 502-\>server\_error; error\_description is the sanitised upstream text or the authored fallback 'Upstream returned \<status\>'.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** user-input-interpolation
@@ -633,7 +633,7 @@ function renderParamLine(info: RenderableParamInfo): string {
   return `- ${info.loc} ${info.name} (${info.typeName}${enumText})${requiredText}`;
 ```
 
-**What it is for:** Encodes each parameter as '- <in> <name> (<type> enum:N) - required', teaching the agent the location, type, enum cardinality and requiredness of every parameter.
+**What it is for:** Encodes each parameter as '- \<in\> \<name\> (\<type\> enum:N) - required', teaching the agent the location, type, enum cardinality and requiredness of every parameter.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-sdk-codegen/code-generation/generate-ai-doc-catalog.ts`
@@ -660,7 +660,7 @@ const response: ResponseObject = {
     operation.responses = { ...responses, '404': response };
 ```
 
-**What it is for:** Authored template injected as the OpenAPI 404 ResponseObject.description — 'Temporary: Documented locally until the upstream schema captures this legitimate 404…', the descriptor.reason, and 'Tracking: <ref>' — documenting to agents/devs when a 404 is a legitimate response.
+**What it is for:** Authored template injected as the OpenAPI 404 ResponseObject.description — 'Temporary: Documented locally until the upstream schema captures this legitimate 404…', the descriptor.reason, and 'Tracking: \<ref\>' — documenting to agents/devs when a 404 is a legitimate response.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** user-input-interpolation

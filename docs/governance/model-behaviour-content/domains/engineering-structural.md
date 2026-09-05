@@ -543,7 +543,7 @@ const OAK_ACORN_PATH =
 - **Since the audit baseline:** Unchanged since the audit baseline.
 - **Kind of surface:** server-branding · **Impact tier:** simple-config
 
-### C341 — HTML\_HEAD <title>
+### C341 — HTML\_HEAD \<title\>
 
 **What it says now:**
 
@@ -784,7 +784,7 @@ for (const name of entries) {
     );
 ```
 
-**What it is for:** Frames each MCP tool as '### <name>' followed by authored labelled lines (path, method, operationId, path params, query params) so agents can map a tool name to its HTTP binding and inputs.
+**What it is for:** Frames each MCP tool as '### \<name\>' followed by authored labelled lines (path, method, operationId, path params, query params) so agents can map a tool name to its HTTP binding and inputs.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Flagged for a closer look:** user-input-interpolation
@@ -809,7 +809,7 @@ export const TOOL_DESCRIPTION_ADDITIONS: ReadonlyMap<string, string> = new Map([
 - **Since the audit baseline:** The wording has changed since the audit baseline.
 - **Kind of surface:** discovery-or-catalog-metadata · **Impact tier:** high-impact
 
-### C469 — generateMcpToolName (endpoint->tool rewrite + special cases)
+### C469 — generateMcpToolName (endpoint-\>tool rewrite + special cases)
 
 **What it says now:**
 
@@ -839,7 +839,7 @@ export function generateMcpToolName(path: string, method: string): string {
 }
 ```
 
-**What it is for:** Deterministic endpoint->tool-name rewrite that becomes the identifier the agent invokes; special cases avoid duplicates/reserved words.
+**What it is for:** Deterministic endpoint-\>tool-name rewrite that becomes the identifier the agent invokes; special cases avoid duplicates/reserved words.
 
 - **Can an agent see it?** Not separately traced — the words are in live code, but this pass has not traced which registered surface carries them
 - **Where it lives:** `packages/sdks/oak-sdk-codegen/code-generation/typegen/mcp-tools/name-generator.ts`
