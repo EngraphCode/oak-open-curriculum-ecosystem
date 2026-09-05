@@ -69,10 +69,15 @@ Amendment is by warrant: adding a width means naming the failure class the
 current set misses; removing one means naming which remaining cell now
 covers its class.
 
-## Dated amendment — the warrant re-grounded narrow-first (2026-08-17, records-truth pass MCP-613; specified by the ratified showcase-experience plan's coherence check, 2026-08-13)
+## Dated amendment — the warrant re-grounded narrow-first (2026-08-17)
 
 Three parts; the SET is unchanged and the derived-never-invented discipline
 stands untouched.
+
+Warrant: the owner's responsive doctrine of 2026-08-13 — narrow first, wide
+follows, always, everywhere — applied to this record's own seam clause, which
+had described the kit's seam from the wide side and attributed it to the canvas
+grid, which never switches.
 
 1. **The seam clause states the full seam behaviour.** Two things happen at
    the kit's single `max-width: 840px` seam: `.oak-main`'s map switches to

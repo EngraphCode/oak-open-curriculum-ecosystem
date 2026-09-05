@@ -1013,9 +1013,11 @@ after it:
    (`DECISIONS.md`, dated); the `brand.css` §1b + CHANGELOG contract edits
    LANDED with W1 tranche 1 (their false guard clause cured 2026-08-17);
    DDR-009's warrant amendment and DDR-004's pointer to DDR-003's sixth
-   control value LANDED with this records pass. Still genuinely riding its
-   cause: ADR-213 §3's first-named-binding amendment (W2 — the composition
-   demo does not yet exist). DDR-010 needs no edit, and the reason is
+   control value LANDED with this records pass. ADR-213 §3's
+   first-named-binding amendment LANDED 2026-09-05 with this pass: the
+   composition demonstration landed on 2026-08-18 (`05897c076`), and its
+   region boxes at `/composition/frame` are the region contract's first
+   shipped binding (the hub shell binds at its convergence lane). DDR-010 needs no edit, and the reason is
    recorded so nobody runs a fidelity comparison against a page that has no
    reference. Standing correction to the mechanism itself: record true-ups
    land AT the landing boundary as part of the same change's checklist — a
