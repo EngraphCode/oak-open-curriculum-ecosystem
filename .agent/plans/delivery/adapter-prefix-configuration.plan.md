@@ -62,9 +62,11 @@ or not that node has landed.
 
 1. **The resolver**, `agent-tools/src/skills-adapter-generate/prefix-config.ts`:
    `resolveAdapterPrefix({ repoRoot, primaryRoot, readFileImpl })` returns a `Result`
-   carrying the prefix and its source (`override` or `default`); `readFileImpl` is the
-   injected reader the merge-bot loader already takes, defaulting to the real one, so the
-   resolver's unit tests read injected strings and no filesystem. The override, `.agent/skills-projection.local.json`,
+   carrying the prefix and its source (`override` or `default`). It composes two pieces
+   the tests tell apart: a pure core, `resolvePrefixFromContents`, that takes the two
+   files' contents (each present or absent) and returns the prefix with its source or the
+   refusal, and a thin reader composition over `readFileImpl`, the injected reader the
+   merge-bot loader already takes, defaulting to the real one. The override, `.agent/skills-projection.local.json`,
    is read at the primary checkout (the first entry of `git worktree list`, the same
    resolution the merge-bot and the collaboration substrate use) because an untracked file
    does not travel to a linked worktree; the tracked default, `.agent/skills-projection.json`,
@@ -81,9 +83,9 @@ or not that node has landed.
    estate; a missing or invalid default names the tracked file. The read-parse-name-the-
    example step is the same one `agent-tools/src/merge-bot/repo-config.ts` already performs
    for the merge-bot identity file, so it is extracted into one shared helper under
-   `agent-tools/src/core/` (read a JSON file at a path through the injected reader, parse
-   with a strict schema, and on failure name the file and its example), which both readers
-   call; the merge-bot loader's
+   `agent-tools/src/core/` (a pure parse of file contents against a strict schema that
+   names the file and its example on failure, composed over the injected reader), which
+   both readers call; the merge-bot loader's
    messages and tests stay as they are.
 2. **The tracked default and the example.** `.agent/skills-projection.json` holds
    `{"prefix": "oak-"}`; `.agent/skills-projection.local.json.example` holds
@@ -116,14 +118,15 @@ or not that node has landed.
    tracked default and overridable per checkout, with one dated change-log entry; its
    committed-adapters decision is untouched. The agent-tools README's skills section and the engineering doc's
    per-checkout file list say the same in one sentence each.
-6. **Tests.** Unit tests on the shared helper (a readable valid file parses; a missing file
-   names the file and its example; invalid JSON and a schema breach each name the file) and
-   on the resolver: default only; override wins; an invalid override refuses naming the
-   file and the example; the placeholder refuses; a missing default names the tracked
-   file; each through an injected reader in the shape of the loader's existing unit
-   tests, so none touches the filesystem, as the testing directive requires of a unit
-   test; the merge-bot loader's existing tests stay green through the extraction. The
-   flag-parser tests cover the optional flag and
+6. **Tests.** Unit tests, pure and without fakes, on the helper's parse core (valid
+   contents parse; absent contents name the file and its example; invalid JSON and a
+   schema breach each name the file) and on the resolver's core: default only; override
+   wins; an invalid override refuses naming the file and the example; the placeholder
+   refuses; a missing default names the tracked file. Integration tests, in the
+   directive's shape of a simple fake injected as an argument, on the two reader
+   compositions: each reads through `readFileImpl` and hands the contents to its core, so
+   none touches the filesystem; the merge-bot loader's existing tests stay green through
+   the extraction. The flag-parser tests cover the optional flag and
    `--print-prefix`. Three proofs drive the built binary against real temporary trees,
    so they live in the smoke tier (`agent-tools/smoke-tests/`, gated by `test:e2e`, the
    home of the commit-queue proofs that spawn git), never in the in-process integration
@@ -162,7 +165,7 @@ it will rest on.
   because it exercises the surviving override, and the dated records under `.agent/reports`
   and `.agent/plans-old-archive` stay as written. Proof: `repo-safe`, the command and the
   output in the PR body.
-- **Resolution order holds.** The resolver's unit tests prove: default alone resolves
+- **Resolution order holds.** The resolver core's unit tests prove: default alone resolves
   `oak-` with source `default`; an override resolves its value with source `override`;
   an invalid override, the unedited example placeholder, and a missing default each
   refuse with a message naming the file to fix. Proof: `repo-safe`, the agent-tools unit
@@ -188,31 +191,39 @@ it will rest on.
 
 ## Todos
 
-Three PR-shaped units, each safe on its own, in this order (each `blocking` on the one
-before it):
+Four PR-shaped units, each inside the sizing bands and safe on its own, in this order
+(each `blocking` on the one before it):
 
-1. **The shared checkout-config helper.** `agent-tools/src/core/` gains the
-   read-parse-name-the-example helper with its unit tests, and the merge-bot loader is
-   re-pointed at it with its existing tests green: a pure refactor, about four files.
-2. **The resolver with its observable surface.** `prefix-config.ts` with its unit tests,
-   the tracked default, the example, the ignore line, and the minimal consumer that makes
-   the resolver observable: `--print-prefix` in the flag parser and the binary, the
-   `skills:prefix` root script, and the smoke proofs that drive it (the linked-worktree
-   pair, the inertness run, the precedence run): about nine files, so the resolver never
-   lands as an internal seam with only tests of itself, the scaffolding shape the
-   design-by-tests directive forbids. Generation and checking still take the pinned flag
-   in this unit; the tree's projections are unchanged.
-3. **The switch, with its record.** `--prefix` becomes optional and the generator and
-   checker resolve through the same resolver; the root scripts, the agent-tools script,
-   the pre-push hint and the header comment drop the literal; the flag-parser tests and
-   the isolated-root `e-` smoke proof land here, and so does every permanent statement the
-   switch falsifies: ADR-125's three sites with one change-log entry, the commit skill's
-   canonical, the agent-tools README and the engineering doc. About eleven files, seven of
-   mechanism and four carrying one-sentence record corrections; the record cannot land
-   later, because ADR-125 would then state a pin the tree no longer has, and it cannot
-   land earlier, because it would describe a resolver generation does not yet use. This
-   is the one PR whose body carries the `git grep` proofs, the `pnpm skills:prefix`
-   output, the placeholder refusal and the diff-stat proof that no projection moved.
+1. **The shared checkout-config helper.** `agent-tools/src/core/` gains the parse core
+   with its unit tests and the reader composition with its integration test, and the
+   merge-bot loader is re-pointed at it with its existing tests green: a pure refactor,
+   about four files.
+2. **The resolver with its observable surface.** `prefix-config.ts` with its unit and
+   integration tests, the tracked default, the example, the ignore line, and the minimal
+   consumer that makes the resolver observable from any checkout: `--print-prefix` in the
+   flag parser and the binary with the parser's tests, and the `skills:prefix` root
+   script: about ten files, at the band, so the resolver never lands as an internal seam
+   with only tests of itself, the scaffolding shape the design-by-tests directive
+   forbids. Generation and checking still take the pinned flag in this unit; the tree's
+   projections are unchanged.
+3. **The switch, with the smoke proofs.** `--prefix` becomes optional and the generator
+   and checker resolve through the same resolver when it is absent; the flag-parser tests,
+   the one smoke file carrying the four built-binary proofs (the linked-worktree pair,
+   the inertness run, the precedence run and the isolated-root `e-` generation) and the
+   one permanent statement the switch falsifies, ADR-125's sentence that the CLI refuses
+   an unprefixed run, land here: about five files. The root scripts, the agent-tools
+   script and the pre-push hint still pass `--prefix=oak-`, an explicit flag with source
+   `flag`, so every statement about the pins stays true and the tree's projections are
+   unchanged.
+4. **The pins drop, with their record.** The root `skills:check` and `skills:generate`
+   scripts, the agent-tools script, the pre-push hint and the flag parser's usage, error
+   and header text drop the literal, and every permanent statement that drop falsifies
+   lands with it: ADR-125's two remaining sites with one change-log entry, the commit
+   skill's canonical, the agent-tools README and the engineering doc. About eight files,
+   four of mechanism and four carrying one-sentence record corrections; the record cannot
+   land later, because ADR-125 would then state a pin the tree no longer has. This is the
+   one PR whose body carries the `git grep` proofs, the `pnpm skills:prefix` output, the
+   placeholder refusal and the diff-stat proof that no projection moved.
 
 ## Out of scope
 
@@ -236,8 +247,9 @@ The six clauses of the plan-body first-principles check, applied at authoring:
 - **Shape.** The tests prove Oak-authored behaviour — precedence, the refusal messages,
   the primary-versus-worktree wiring, and that `--print-prefix` is inert — never that
   JSON parses or that a schema library works.
-- **Landing path.** In-process tests take the estate's `*.unit.test.ts` name so the
-  existing runner includes them; the binary-driving proofs take the smoke tier's
+- **Landing path.** In-process tests take the estate's `*.unit.test.ts` name for the
+  pure cores and `*.integration.test.ts` for the reader compositions with their injected
+  fake, so the existing runner includes them; the binary-driving proofs take the smoke tier's
   `*.smoke.ts` name and its `test:e2e` gate, because the integration runner is spawn-free
   by rule; the scripts keep the names CI and the pre-push hook already invoke; the override
   is ignored by an explicit line, never a glob, so the example beside it stays tracked.
@@ -246,13 +258,12 @@ The six clauses of the plan-body first-principles check, applied at authoring:
   and no validator today forbids a JSON file at the Practice home's top level — each
   checked against the tree on 2026-09-05, and each re-verified at pickup.
 - **Optionality.** One observable signal, the `pnpm skills:prefix` line; the sequence is
-  three ordered PRs; the one deferral is named as the owner's decision on projections, not
+  four ordered PRs; the one deferral is named as the owner's decision on projections, not
   a bare deferred status.
 - **Record consumer.** The disposition ledger below is read by the pickup implementer,
   and reading it decides which findings are already applied and which are routed.
 - **Rules tier.** `--prefix` survives as an explicit override, not a compatibility alias
-  (replace-dont-bridge); the work is shaped as three small PRs, the third above the
-  acceptable band only by the record lines that would otherwise land false
+  (replace-dont-bridge); the work is shaped as four small PRs, each inside the bands
   (design-work-for-small-prs);
   `skills:check` is neither weakened nor bypassed (never-disable-checks); both files are
   validated by a strict schema at the read boundary (strict-validation-at-boundary).
@@ -286,3 +297,5 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-09-05 | PR #54 round four | The switch (unit 3) dropped the pins while the record (unit 4) corrected ADR-125 later, so one landed state left the ADR false | Applied: the record rides the switch; three units |
 | 2026-09-05 | PR #54 round five | The resolver's unit tests would read the filesystem, which the testing directive forbids a unit test | Applied: the helper keeps the loader's injected reader and the resolver passes it through |
 | 2026-09-05 | PR #54 round five | The second-prefix acceptance criterion still called the smoke proof an integration test at two sites | Applied: smoke proof at both; tier-word sweep found no other mismatch |
+| 2026-09-05 | PR #54 round six | Tests with an injected reader are integration tests by the directive (a unit test contains no fakes), whatever the loader's precedent is named | Applied: pure cores under unit tests; the reader compositions under integration tests with an injected fake |
+| 2026-09-05 | PR #54 round six | The eleven-file switch exceeded the ten-file band, which re-decomposes before a branch is cut | Applied: the switch (about five files, with the one ADR sentence it falsifies) and the pin drop with its record (about eight); four units |
