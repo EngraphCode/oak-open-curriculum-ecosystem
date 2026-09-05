@@ -129,9 +129,13 @@ or not that node has landed.
    the current directory into both roots, or the primary into both, fails one of the two
    runs. The second generates into a temporary root overridden to `e-`, asserts every
    projection lands under `e-*` with the class marker, and asserts the checker is green
-   there. The third proves `--print-prefix` is inert by snapshotting both projection
-   roots, running the binary with the flag, and asserting the output line and an identical
-   tree afterwards. The real tree's checker stays green with no override present, which CI
+   there. The third proves `--print-prefix` is inert by making one projection
+   deliberately stale, running the binary with the flag, and asserting the output line and
+   that the stale projection is still stale afterwards — a byte-identical regeneration
+   would repair it, so reaching the generator at all fails the proof. A fourth run proves
+   precedence at the layer that resolves: `--print-prefix --prefix=e-` with an invalid
+   override present and no usable default prints `e-` with source `flag`, so a composition
+   root that resolved the files before applying the flag would fail it. The real tree's checker stays green with no override present, which CI
    proves on the landing PR.
 
 What this slice deliberately does not decide: whether projections remain committed when a
@@ -184,13 +188,19 @@ Four PR-shaped units, each within the small-PR bands and safe on its own, in thi
 1. **The shared checkout-config helper.** `agent-tools/src/core/` gains the
    read-parse-name-the-example helper with its unit tests, and the merge-bot loader is
    re-pointed at it with its existing tests green: a pure refactor, about four files.
-2. **The resolver and its files.** `prefix-config.ts` with its unit tests, the tracked
-   default, the example, and the ignore line: about six files, nothing reading the
-   resolver yet, so the tree's behaviour is unchanged.
-3. **The CLI switch.** `cli-flags.ts`, the binary, the root scripts including
-   `skills:prefix`, the agent-tools script, the pre-push hint, the flag-parser tests and
-   the smoke file carrying the three binary-driving proofs: about nine files, the one PR whose body carries
-   the `git grep` proofs, the `pnpm skills:prefix` output, the placeholder refusal and the
+2. **The resolver with its observable surface.** `prefix-config.ts` with its unit tests,
+   the tracked default, the example, the ignore line, and the minimal consumer that makes
+   the resolver observable: `--print-prefix` in the flag parser and the binary, the
+   `skills:prefix` root script, and the smoke proofs that drive it (the linked-worktree
+   pair, the inertness run, the precedence run): about nine files, so the resolver never
+   lands as an internal seam with only tests of itself, the scaffolding shape the
+   design-by-tests directive forbids. Generation and checking still take the pinned flag
+   in this unit; the tree's projections are unchanged.
+3. **The switch.** `--prefix` becomes optional and the generator and checker resolve
+   through the same resolver; the root scripts, the agent-tools script, the pre-push hint
+   and the header comment drop the literal; the flag-parser tests and the isolated-root
+   `e-` smoke proof land here: about seven files, the one PR whose body carries the `git
+   grep` proofs, the `pnpm skills:prefix` output, the placeholder refusal and the
    diff-stat proof that no projection moved.
 4. **The record.** ADR-125's three sites with one change-log entry, the commit skill's
    canonical, the agent-tools README and the engineering doc: about four files, landing
@@ -260,3 +270,6 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-09-05 | PR #54 round one | `--print-prefix` could still reach the generator undetected | Applied: the inertness test through the entry point |
 | 2026-09-05 | PR #54 round two | The worktree fixture's primary override masked the default-root wiring | Applied: two runs, one with no override and distinct defaults per branch |
 | 2026-09-05 | PR #54 round two | Binary-driving proofs were prescribed for the spawn-free integration runner | Applied: they live in the smoke tier under `test:e2e` |
+| 2026-09-05 | PR #54 round three | The inertness snapshot passes if the generator rewrites byte-identically | Applied: one projection made stale first; reaching the generator repairs it and fails the proof |
+| 2026-09-05 | PR #54 round three | Unit 2 landed the resolver with tests of an internal seam only (the scaffolding shape) | Applied: the resolver lands with `--print-prefix`, its root script and its smoke proofs; the switch is unit 3 |
+| 2026-09-05 | PR #54 round three | Flag precedence was proven only in the parser | Applied: a built-binary run with an invalid override and no usable default prints `e-` from the flag |
