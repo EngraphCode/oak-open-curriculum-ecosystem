@@ -3,7 +3,7 @@ id: public-digital-service-identity
 node_type: delivery
 name: "Public Digital Service identity — total naming replacement of the outgoing counter-identity"
 overview: "Replace the outgoing counter-identity's name everywhere with the owner's new naming universe — Public Digital Service (PDS), a clear nod to GDS, serving the Office of Education (OoE) — as a pure naming-and-identity change: visuals unchanged (the design is near perfect), zero occurrences of the outgoing word in the tracked tree at completion, enforced by a standing census-driven validator."
-status: archived
+status: ratified
 ratified_by: "Jim Cresswell (owner)"
 ratified_date: 2026-08-03
 ratified_where: "Owner card answers (AskUserQuestion), Corsair session 4d3282, 2026-08-03: ~06:04Z ratify-and-execute + mapping + records policy; ~06:27Z archive conditional-removal + tracked-tree boundary; decision-complete plan approved via plan-mode ExitPlanMode same sitting"
@@ -21,18 +21,20 @@ owner_gates: []
 # §2026-08-07 amendment, PR #817), so the gate DISCHARGED 2026-08-07
 # with tickets left [] — a visibility ticket remains optional working
 # practice.
-last_updated: 2026-08-17
+last_updated: 2026-09-05
 ---
 
 # Public Digital Service identity — total naming replacement
 
-**RETIRED (archived 2026-08-17, records-truth pass MCP-613).** The rename
-landed across the design surfaces (`a967f8979` and the arc around it) and
-is enforced by the standing census-driven validator
-(`agent-tools/src/validators/identity-naming/`); residual occurrences of
-the outgoing word survive only in dated `.agent` records under the plan's
-own records policy. Conserved as the naming-universe and census-method
-record.
+**Landed state (re-trued 2026-09-05, records-truth pass MCP-613).** The
+rename landed across the design surfaces (`a967f8979` and the arc around
+it), and the census-driven validator
+(`agent-tools/src/validators/identity-naming/`) holds every remaining
+occurrence to its census row in ratchet mode. Open, and the reason this
+plan stays ratified rather than archived: PR5's tail — the archive
+value-parity audit and removal, the census emptied and deleted, the
+validator flipped to strict — is AC4, and the census still carries rows,
+all under `.agent/` records. Archival follows AC4.
 
 **Dated note (2026-08-03).** Authored, ratified, and taken to DECISION-COMPLETE
 in one sitting at the owner's word by the executing design seat (Corsair hunts
