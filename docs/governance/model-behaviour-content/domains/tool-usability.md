@@ -18,13 +18,13 @@ This view holds **304 items** — too many to read in one sitting, so it is divi
 
 [Back to the workspace index](../README.md)
 
-| Section | Items | Ours to change | Owned elsewhere |
-| --- | ---: | ---: | ---: |
-| [tool-param-description](./tool-usability--tool-param-description.md) | 101 | 51 | 50 |
-| [tool-guidance](./tool-usability--tool-guidance.md) | 70 | 70 | 0 |
-| [tool-description](./tool-usability--tool-description.md) | 46 | 15 | 31 |
-| [tool-title](./tool-usability--tool-title.md) | 42 | 13 | 29 |
-| [response-format-template](./tool-usability--response-format-template.md) | 30 | 30 | 0 |
-| [resource-name-or-description](./tool-usability--resource-name-or-description.md) | 9 | 9 | 0 |
-| [server-instructions](./tool-usability--server-instructions.md) | 5 | 5 | 0 |
-| [resource-content](./tool-usability--resource-content.md) | 1 | 1 | 0 |
+| Section | Items | Ours to change | Owned elsewhere | Retired |
+| --- | ---: | ---: | ---: | ---: |
+| [tool-param-description](./tool-usability--tool-param-description.md) | 101 | 51 | 50 | 0 |
+| [tool-guidance](./tool-usability--tool-guidance.md) | 70 | 49 | 0 | 21 |
+| [tool-description](./tool-usability--tool-description.md) | 46 | 14 | 29 | 3 |
+| [tool-title](./tool-usability--tool-title.md) | 42 | 13 | 27 | 2 |
+| [response-format-template](./tool-usability--response-format-template.md) | 30 | 28 | 0 | 2 |
+| [resource-name-or-description](./tool-usability--resource-name-or-description.md) | 9 | 4 | 0 | 5 |
+| [server-instructions](./tool-usability--server-instructions.md) | 5 | 5 | 0 | 0 |
+| [resource-content](./tool-usability--resource-content.md) | 1 | 1 | 0 | 0 |

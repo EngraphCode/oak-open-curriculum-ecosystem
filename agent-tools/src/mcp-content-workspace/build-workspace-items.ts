@@ -15,13 +15,14 @@
 
 import { locateAnchoredText } from '../mcp-content-current-source/item-anchor-evidence.js';
 import { EXCERPT_CHARACTER_LIMIT } from './content-workspace-config.js';
-import type {
-  AnchorTargets,
-  BaselineRegistryItem,
-  ExcerptProvenance,
-  ProjectionItem,
-  WorkspaceInputs,
-  WorkspaceItem,
+import {
+  isAddedItem,
+  type AnchorTargets,
+  type BaselineRegistryItem,
+  type ExcerptProvenance,
+  type ProjectionItem,
+  type WorkspaceInputs,
+  type WorkspaceItem,
 } from './content-workspace-model.js';
 import { deriveServedStatus, registrationSelectors } from './derive-served-status.js';
 
@@ -44,8 +45,10 @@ function truncateExcerpt(text: string): Excerpt {
 /**
  * The item's words as they read in current source.
  *
- * @returns `null` when no anchor resolves, so the caller can fall back to the
- * baseline snippet rather than show nothing.
+ * @returns `null` unless EVERY target file is present and EVERY anchor resolves.
+ * A partly resolved item must not pass as current wording — grouped content
+ * would silently lose a member — so the caller falls back to the baseline
+ * snippet and the item is named on the unrendered page instead.
  */
 function currentText(
   anchors: AnchorTargets | undefined,
@@ -58,13 +61,14 @@ function currentText(
   for (const target of anchors.targets) {
     const content = sourceText.get(target.file);
     if (content === undefined) {
-      continue;
+      return null;
     }
     for (const anchor of target.anchors) {
       const text = locateAnchoredText(anchor, content);
-      if (text !== null) {
-        located.push(text);
+      if (text === null) {
+        return null;
       }
+      located.push(text);
     }
   }
   // An item with several anchors onto identical wording (the same sentence
@@ -118,18 +122,36 @@ function classification(
       behaviouralIntent: baseline.behavioural_intent,
     };
   }
-  const context = current.reviewContext ?? {
-    reviewDomain: 'other',
-    impactTier: 'high-impact' as const,
-    behaviouralIntent: '',
-    title: '',
-  };
+  if (isAddedItem(current)) {
+    return {
+      reviewDomain: current.reviewContext.reviewDomain,
+      impactTier: current.reviewContext.impactTier,
+      surfaceType: 'post-baseline-addition',
+      behaviouralIntent: current.reviewContext.behaviouralIntent,
+    };
+  }
+  // A baseline-lineage item with no registry row cannot be classified. The
+  // build entry refuses that state before anything renders (see
+  // `unclassifiableItems`); this arm keeps the function total and names the
+  // defect rather than inventing a domain for it.
   return {
-    reviewDomain: context.reviewDomain,
-    impactTier: context.impactTier,
-    surfaceType: 'post-baseline-addition',
-    behaviouralIntent: context.behaviouralIntent,
+    reviewDomain: 'other',
+    impactTier: 'high-impact',
+    surfaceType: 'unclassified',
+    behaviouralIntent: '',
   };
+}
+
+/**
+ * Ids of items that carry a baseline lineage but have no registry row — the
+ * one join failure no schema can see, because it spans two inputs. The build
+ * refuses to render while any exist.
+ */
+export function unclassifiableItems(inputs: WorkspaceInputs): readonly string[] {
+  const baselineIds = new Set(inputs.registry.items.map((item) => item.id));
+  return inputs.current.items
+    .filter((item) => !isAddedItem(item) && !baselineIds.has(item.id))
+    .map((item) => item.id);
 }
 
 function buildWorkspaceItem(

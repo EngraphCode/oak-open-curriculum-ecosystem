@@ -1,9 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import type {
-  CurrentSourceTruthItem,
-  RegistrationEvidence,
-} from '../mcp-content-current-source/current-source-model.js';
+import type { RegistrationEvidence } from '../mcp-content-current-source/current-source-model.js';
+import type { BaselineLineageItem } from './content-workspace-model.js';
 import {
   deriveServedStatus,
   registrationSelectors,
@@ -21,7 +19,7 @@ function registration(state: 'live' | 'dormant', selector: string): Registration
   };
 }
 
-function item(overrides: Partial<CurrentSourceTruthItem> = {}): CurrentSourceTruthItem {
+function item(overrides: Partial<BaselineLineageItem> = {}): BaselineLineageItem {
   return {
     id: 'C001',
     authority: 'workspace',
@@ -29,7 +27,7 @@ function item(overrides: Partial<CurrentSourceTruthItem> = {}): CurrentSourceTru
     source: {
       state: 'available',
       files: ['packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts'],
-      evidence: { revision: 'unchanged', anchorTargetCount: 1, anchorCount: 1 },
+      evidence: { revision: 'unchanged' },
     },
     lineage: { disposition: 'retained', baselineFile: 'a.ts' },
     registrations: [],

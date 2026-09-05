@@ -47,7 +47,14 @@ const registrationSchema = z.looseObject({
 
 const revisionSchema = z.enum(['unchanged', 'expanded', 'modified', 'relocated', 'added']);
 
-const truthItemSchema = z.looseObject({
+const reviewContextSchema = z.looseObject({
+  title: z.string(),
+  reviewDomain: z.string().min(1),
+  impactTier: z.enum(['high-impact', 'simple-config']),
+  behaviouralIntent: z.string(),
+});
+
+const truthItemBase = {
   id: z.string().min(1),
   authority: z.enum(['workspace', 'upstream-api', 'upstream-skills', 'external-third-party']),
   workspaceScope: z.enum(['in', 'out-upstream-api']),
@@ -59,23 +66,32 @@ const truthItemSchema = z.looseObject({
     }),
     z.looseObject({ state: z.literal('retired'), files: z.array(z.string()).max(0) }),
   ]),
-  lineage: z.union([
-    z.looseObject({
+  registrations: z.array(registrationSchema),
+};
+
+/**
+ * Two closed item shapes: a baseline-lineage item may carry a review context;
+ * a post-baseline addition MUST, because no registry row can classify it — an
+ * addition without one is refused here rather than rendered blank.
+ */
+const truthItemSchema = z.union([
+  z.looseObject({
+    ...truthItemBase,
+    lineage: z.looseObject({
       disposition: z.enum(['retained', 'relocated', 'split', 'retired']),
       baselineFile: z.string(),
     }),
-    z.looseObject({ disposition: z.literal('added'), addedAfterBaselineCommit: z.string() }),
-  ]),
-  registrations: z.array(registrationSchema),
-  reviewContext: z
-    .looseObject({
-      title: z.string(),
-      reviewDomain: z.string().min(1),
-      impactTier: z.enum(['high-impact', 'simple-config']),
-      behaviouralIntent: z.string(),
-    })
-    .optional(),
-});
+    reviewContext: reviewContextSchema.optional(),
+  }),
+  z.looseObject({
+    ...truthItemBase,
+    lineage: z.looseObject({
+      disposition: z.literal('added'),
+      addedAfterBaselineCommit: z.string(),
+    }),
+    reviewContext: reviewContextSchema,
+  }),
+]);
 
 const servedNamesSchema = z.looseObject({
   live: z.array(z.string()),
@@ -88,7 +104,15 @@ const truthSetSchema = z.looseObject({
   registrationRoots: z.array(
     z.looseObject({
       id: z.string(),
-      observation: z.looseObject({ tools: servedNamesSchema, resources: servedNamesSchema }),
+      observation: z.looseObject({
+        initialize: z.looseObject({ instructions: z.enum(['present', 'absent']) }),
+        tools: servedNamesSchema,
+        resources: servedNamesSchema,
+        prompts: z.looseObject({
+          capability: z.enum(['present', 'absent']),
+          list: z.enum(['available', 'method-not-found']),
+        }),
+      }),
     }),
   ),
 });

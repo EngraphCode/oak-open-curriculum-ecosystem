@@ -4,6 +4,9 @@ import type { WorkspaceItem, WorkspacePage } from './content-workspace-model.js'
 import { renderItem } from './render-item.js';
 import { renderDomainPages } from './render-domain-index.js';
 import { orphanedPages, stalePages } from './render-workspace.js';
+import { renderServedSurfacePage } from './render-auxiliary-pages.js';
+import { domainCounts } from './workspace-counts.js';
+import type { WorkspaceInputs } from './content-workspace-model.js';
 
 function workspaceItem(overrides: Partial<WorkspaceItem> = {}): WorkspaceItem {
   return {
@@ -132,5 +135,105 @@ describe('staleness detection', () => {
 
   it('catches a committed page the generator no longer produces', () => {
     expect(orphanedPages([page], ['docs/a.md', 'docs/gone.md'])).toEqual(['docs/gone.md']);
+  });
+});
+
+describe('retired-item accounting', () => {
+  it('counts a retired item once, as retired, never as ours to change', () => {
+    const [count] = domainCounts([
+      workspaceItem({ id: 'C001', authority: 'workspace', status: 'live' }),
+      workspaceItem({ id: 'C002', authority: 'workspace', status: 'retired' }),
+      workspaceItem({ id: 'C003', authority: 'upstream-api', status: 'unbound' }),
+    ]);
+
+    expect(count).toMatchObject({ total: 3, ownedHere: 1, ownedUpstream: 1, retired: 1 });
+  });
+
+  it('keeps a retired item out of the split-domain ownership columns', () => {
+    const items = Array.from({ length: 120 }, (_, index) =>
+      workspaceItem({
+        id: `C${String(index).padStart(3, '0')}`,
+        surfaceType: index < 80 ? 'tool-guidance' : 'error-message',
+        status: index === 0 ? 'retired' : 'live',
+      }),
+    );
+
+    const index = renderDomainPages('pedagogy', items).find((page) =>
+      page.path.endsWith('pedagogy.md'),
+    );
+
+    expect(index?.content).toContain(
+      '| Section | Items | Ours to change | Owned elsewhere | Retired |',
+    );
+    expect(index?.content).toContain('| 80 | 79 | 0 | 1 |');
+  });
+});
+
+describe('domain summary sentence', () => {
+  it('counts an item reaching both live and dormant surfaces separately from the untraced', () => {
+    const [page] = renderDomainPages('pedagogy', [
+      workspaceItem({ id: 'C001', status: 'mixed' }),
+      workspaceItem({ id: 'C002', status: 'unbound' }),
+      workspaceItem({ id: 'C003', status: 'unbound' }),
+    ]);
+
+    expect(page?.content).toContain('1 to both a reachable and a switched-off surface');
+    expect(page?.content).toContain('2 live in code that ships, but this pass has not traced');
+  });
+});
+
+describe('renderServedSurfacePage', () => {
+  const inputs: WorkspaceInputs = {
+    registry: { meta: { upstream_pointers: {} }, items: [] },
+    current: {
+      provenance: { baselineCommit: 'abc123' },
+      items: [],
+      registrationRoots: [
+        {
+          id: 'oak-curriculum-http',
+          observation: {
+            initialize: { instructions: 'present' },
+            tools: { live: ['search'], dormant: ['legacy-search'] },
+            resources: { live: [], dormant: ['docs://old'] },
+            prompts: { capability: 'absent', list: 'method-not-found' },
+          },
+        },
+        {
+          id: 'second-root',
+          observation: {
+            initialize: { instructions: 'absent' },
+            tools: { live: [], dormant: [] },
+            resources: { live: [], dormant: [] },
+            prompts: { capability: 'present', list: 'available' },
+          },
+        },
+      ],
+    },
+    sourceText: new Map(),
+    anchorsById: new Map(),
+    additionTextById: new Map(),
+  };
+
+  it('renders every root with its instructions, tools, resources and prompts', () => {
+    const page = renderServedSurfacePage(inputs);
+
+    expect(page).toContain('## Registration root `oak-curriculum-http`');
+    expect(page).toContain('## Registration root `second-root`');
+    expect(page).toContain('### Instructions sent on connection — present');
+    expect(page).toContain('### Instructions sent on connection — absent');
+    expect(page).toContain('legacy-search');
+    expect(page).toContain(
+      '### Prompts — capability absent; listing not offered (method not found)',
+    );
+    expect(page).toContain('### Prompts — capability present; listing available');
+  });
+
+  it('says when no root was observed rather than rendering nothing', () => {
+    const page = renderServedSurfacePage({
+      ...inputs,
+      current: { ...inputs.current, registrationRoots: [] },
+    });
+
+    expect(page).toContain('No registration root was observed');
   });
 });

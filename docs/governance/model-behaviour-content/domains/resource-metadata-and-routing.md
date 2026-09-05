@@ -14,7 +14,7 @@ last_reviewed: 2026-08-06
 
 How each guidance document announces itself — its name, address, audience, and freshness — which decides when an agent reaches for it.
 
-**7 items.** Of those, 3 are traced to a surface an agent can reach today, 3 to a surface that is retained but switched off, and 0 no longer exist in the codebase. The rest live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**7 items.** Of those, 3 are traced to a surface an agent can reach today, 3 to a surface that is retained but switched off, 0 to both a reachable and a switched-off surface, and 0 no longer exist in the codebase. 1 lives in code that ships, but this pass has not traced which registered surface carries it — it says so.
 
 [Back to the workspace index](../README.md)
 

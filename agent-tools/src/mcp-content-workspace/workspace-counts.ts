@@ -14,7 +14,12 @@
 import { REVIEW_DOMAIN_ORDER } from './content-workspace-config.js';
 import type { ServedStatus, WorkspaceItem } from './content-workspace-model.js';
 
-/** Per-domain tallies, in presentation order. */
+/**
+ * Per-domain tallies, in presentation order. The two ownership counts cover
+ * items still in the codebase; a retired item is counted once, as retired,
+ * so "ours to change" never asks a reviewer to change words that no longer
+ * exist.
+ */
 export interface DomainCount {
   readonly domain: string;
   readonly total: number;
@@ -60,8 +65,12 @@ export function domainCounts(items: readonly WorkspaceItem[]): readonly DomainCo
     return {
       domain,
       total: inDomain.length,
-      ownedHere: inDomain.filter((item) => item.authority === 'workspace').length,
-      ownedUpstream: inDomain.filter((item) => item.authority !== 'workspace').length,
+      ownedHere: inDomain.filter(
+        (item) => item.status !== 'retired' && item.authority === 'workspace',
+      ).length,
+      ownedUpstream: inDomain.filter(
+        (item) => item.status !== 'retired' && item.authority !== 'workspace',
+      ).length,
       retired: inDomain.filter((item) => item.status === 'retired').length,
     };
   });

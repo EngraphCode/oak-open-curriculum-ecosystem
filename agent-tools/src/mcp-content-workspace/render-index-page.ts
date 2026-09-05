@@ -13,12 +13,12 @@ const AUDIT_REPORT_LINK = `../../../${AUDIT_REPORT_PATH}`;
 
 function domainTable(items: readonly WorkspaceItem[]): readonly string[] {
   return [
-    '| Review view | Items | Ours to change | Owned elsewhere | What it covers |',
-    '| --- | ---: | ---: | ---: | --- |',
+    '| Review view | Items | Ours to change | Owned elsewhere | Retired | What it covers |',
+    '| --- | ---: | ---: | ---: | ---: | --- |',
     ...domainCounts(items).map((count) => {
       const gloss = REVIEW_DOMAIN_GLOSS[count.domain] ?? 'Items assigned to this review domain.';
       const link = `[${count.domain}](./domains/${domainSlug(count.domain)}.md)`;
-      return `| ${link} | ${String(count.total)} | ${String(count.ownedHere)} | ${String(count.ownedUpstream)} | ${gloss} |`;
+      return `| ${link} | ${String(count.total)} | ${String(count.ownedHere)} | ${String(count.ownedUpstream)} | ${String(count.retired)} | ${gloss} |`;
     }),
   ];
 }

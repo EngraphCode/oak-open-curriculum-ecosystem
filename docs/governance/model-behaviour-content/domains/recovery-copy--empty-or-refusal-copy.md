@@ -16,7 +16,7 @@ What an agent receives when something fails or returns nothing — validation, e
 
 This page holds only the **empty-or-refusal-copy** items of that view, so it can be reviewed in one sitting.
 
-**14 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, and 0 no longer exist in the codebase. The rest live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**14 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, 0 to both a reachable and a switched-off surface, and 0 no longer exist in the codebase. 14 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
 
 [Back to the recovery-copy view](./recovery-copy.md) · [Back to the workspace index](../README.md)
 

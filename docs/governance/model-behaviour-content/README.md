@@ -31,19 +31,19 @@ You do not need to read any code to do this. If an item makes no sense without i
 
 ## The review views
 
-| Review view | Items | Ours to change | Owned elsewhere | What it covers |
-| --- | ---: | ---: | ---: | --- |
-| [pedagogy](./domains/pedagogy.md) | 99 | 97 | 2 | Prompts, orientation, and curriculum-model doctrine — how the content teaches an agent to teach. Reviewed by Oak education experts. |
-| [curriculum-accuracy](./domains/curriculum-accuracy.md) | 27 | 27 | 0 | The authored conceptual model — ontology, domain concepts, subject and key-stage vocabulary. Reviewed by Oak curriculum experts. |
-| [pedagogy-external](./domains/pedagogy-external.md) | 8 | 0 | 8 | External EEF Teaching and Learning Toolkit material carrying Oak editorial framing. The corpus is cited, not rewritten; the framing around it is ours to review. |
-| [legal-licensing](./domains/legal-licensing.md) | 20 | 17 | 3 | Attribution, Open Government Licence v3.0 notices, trademark, and EEF citation obligations. |
-| [ux-accessibility](./domains/ux-accessibility.md) | 16 | 16 | 0 | Human-facing surfaces — the landing page, the widget, and authorisation and consent copy. WCAG 2.2 AA applies. |
-| [tool-usability](./domains/tool-usability.md) | 304 | 194 | 110 | How an agent discovers and uses the tools — titles, descriptions, parameter descriptions, and the orientation directives that steer a first call. |
-| [recovery-copy](./domains/recovery-copy.md) | 151 | 151 | 0 | What an agent receives when something fails or returns nothing — validation, empty-state, and degradation messages. This copy shapes whether an agent recovers or fabricates. |
-| [engineering-structural](./domains/engineering-structural.md) | 93 | 89 | 4 | Annotations, schemas, authorisation scopes, and discovery or branding metadata. |
-| [other](./domains/other.md) | 2 | 2 | 0 | Items whose review domain is mixed or uncategorised. |
-| [owner-signed-copy](./domains/owner-signed-copy.md) | 1 | 1 | 0 | Copy carrying an explicit owner sign-off, held apart so a change to it is never routine. |
-| [resource-metadata-and-routing](./domains/resource-metadata-and-routing.md) | 7 | 7 | 0 | How each guidance document announces itself — its name, address, audience, and freshness — which decides when an agent reaches for it. |
+| Review view | Items | Ours to change | Owned elsewhere | Retired | What it covers |
+| --- | ---: | ---: | ---: | ---: | --- |
+| [pedagogy](./domains/pedagogy.md) | 99 | 93 | 1 | 5 | Prompts, orientation, and curriculum-model doctrine — how the content teaches an agent to teach. Reviewed by Oak education experts. |
+| [curriculum-accuracy](./domains/curriculum-accuracy.md) | 27 | 27 | 0 | 0 | The authored conceptual model — ontology, domain concepts, subject and key-stage vocabulary. Reviewed by Oak curriculum experts. |
+| [pedagogy-external](./domains/pedagogy-external.md) | 8 | 0 | 8 | 0 | External EEF Teaching and Learning Toolkit material carrying Oak editorial framing. The corpus is cited, not rewritten; the framing around it is ours to review. |
+| [legal-licensing](./domains/legal-licensing.md) | 20 | 16 | 3 | 1 | Attribution, Open Government Licence v3.0 notices, trademark, and EEF citation obligations. |
+| [ux-accessibility](./domains/ux-accessibility.md) | 16 | 15 | 0 | 1 | Human-facing surfaces — the landing page, the widget, and authorisation and consent copy. WCAG 2.2 AA applies. |
+| [tool-usability](./domains/tool-usability.md) | 304 | 165 | 106 | 33 | How an agent discovers and uses the tools — titles, descriptions, parameter descriptions, and the orientation directives that steer a first call. |
+| [recovery-copy](./domains/recovery-copy.md) | 151 | 145 | 0 | 6 | What an agent receives when something fails or returns nothing — validation, empty-state, and degradation messages. This copy shapes whether an agent recovers or fabricates. |
+| [engineering-structural](./domains/engineering-structural.md) | 93 | 83 | 4 | 6 | Annotations, schemas, authorisation scopes, and discovery or branding metadata. |
+| [other](./domains/other.md) | 2 | 2 | 0 | 0 | Items whose review domain is mixed or uncategorised. |
+| [owner-signed-copy](./domains/owner-signed-copy.md) | 1 | 1 | 0 | 0 | Copy carrying an explicit owner sign-off, held apart so a change to it is never routine. |
+| [resource-metadata-and-routing](./domains/resource-metadata-and-routing.md) | 7 | 7 | 0 | 0 | How each guidance document announces itself — its name, address, audience, and freshness — which decides when an agent reaches for it. |
 
 ## What counts as content here
 

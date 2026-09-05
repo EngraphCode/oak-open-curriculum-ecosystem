@@ -14,7 +14,7 @@ last_reviewed: 2026-08-06
 
 Prompts, orientation, and curriculum-model doctrine — how the content teaches an agent to teach. Reviewed by Oak education experts.
 
-**99 items.** Of those, 14 are traced to a surface an agent can reach today, 18 to a surface that is retained but switched off, and 5 no longer exist in the codebase. The rest live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**99 items.** Of those, 14 are traced to a surface an agent can reach today, 18 to a surface that is retained but switched off, 2 to both a reachable and a switched-off surface, and 5 no longer exist in the codebase. 60 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
 
 [Back to the workspace index](../README.md)
 

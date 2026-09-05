@@ -13,13 +13,14 @@
  * @packageDocumentation
  */
 
-import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { resolveRepoRoot } from '../core/repo-root.js';
 import { writeErrorLine, writeLine } from '../core/terminal-output.js';
 import { WORKSPACE_INDEX, WORKSPACE_ROOT } from './content-workspace-config.js';
 import { loadWorkspaceInputs } from './load-workspace-inputs.js';
+import { unclassifiableItems } from './build-workspace-items.js';
 import { orphanedPages, renderWorkspace, stalePages } from './render-workspace.js';
 import type { WorkspacePage } from './content-workspace-model.js';
 
@@ -49,6 +50,29 @@ async function writePages(pages: readonly WorkspacePage[]): Promise<void> {
   }
 }
 
+/**
+ * Remove committed pages the generator no longer produces, so a rebuild after
+ * a domain disappears, shrinks below the split threshold, or loses a surface
+ * type leaves exactly the generated tree behind — the same set `--check` then
+ * accepts.
+ */
+async function removeOrphans(orphans: readonly string[]): Promise<void> {
+  for (const pagePath of orphans) {
+    await rm(path.join(repoRoot, pagePath));
+  }
+}
+
+function refuseUnclassifiable(ids: readonly string[]): void {
+  writeErrorLine(
+    `build-mcp-content-workspace: ${String(ids.length)} item(s) carry a baseline lineage but ` +
+      'have no registry row, so they cannot be classified into a review view:',
+  );
+  for (const id of ids) {
+    writeErrorLine(`  ${id}`);
+  }
+  writeErrorLine('  Add the registry row or record the item as a post-baseline addition.');
+}
+
 function reportDrift(stale: readonly string[], orphans: readonly string[]): void {
   writeErrorLine(
     'build-mcp-content-workspace: the content workspace is stale against the content registry.',
@@ -66,17 +90,32 @@ function reportDrift(stale: readonly string[], orphans: readonly string[]): void
 
 async function main(): Promise<void> {
   const inputs = await loadWorkspaceInputs(repoRoot);
+  const unclassifiable = unclassifiableItems(inputs);
+  if (unclassifiable.length > 0) {
+    refuseUnclassifiable(unclassifiable);
+    process.exitCode = 1;
+    return;
+  }
   const pages = renderWorkspace(inputs);
 
   if (!CHECK_ONLY) {
+    const orphans = orphanedPages(pages, await committedPagePaths());
+    await removeOrphans(orphans);
     await writePages(pages);
+    const removed =
+      orphans.length === 0 ? '' : `; removed ${String(orphans.length)} no longer generated`;
     writeLine(
       `build-mcp-content-workspace: wrote ${String(pages.length)} pages covering ` +
-        `${String(inputs.current.items.length)} items. Entry point: ${WORKSPACE_INDEX}`,
+        `${String(inputs.current.items.length)} items${removed}. Entry point: ${WORKSPACE_INDEX}`,
     );
     return;
   }
 
+  await checkMode(pages);
+}
+
+/** `--check`: compare a fresh render with the committed pages and report drift in-band. */
+async function checkMode(pages: readonly WorkspacePage[]): Promise<void> {
   const committed = new Map(
     await Promise.all(
       pages.map(async (page) => [page.path, await readCommitted(page.path)] as const),

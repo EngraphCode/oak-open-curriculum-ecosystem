@@ -12,4 +12,4 @@ last_reviewed: 2026-08-06
 
 [Back to the workspace index](./README.md)
 
-Every item in the corpus is rendered with the wording the system uses today. There is nothing outstanding.
+Every one of the 676 items still in the codebase is rendered with the wording the system uses today. The 52 retired items are listed in their review views with their audit-baseline wording, since no current wording exists. There is nothing outstanding.

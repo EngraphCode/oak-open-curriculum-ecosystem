@@ -18,8 +18,8 @@ This view holds **151 items** — too many to read in one sitting, so it is divi
 
 [Back to the workspace index](../README.md)
 
-| Section | Items | Ours to change | Owned elsewhere |
-| --- | ---: | ---: | ---: |
-| [error-message](./recovery-copy--error-message.md) | 126 | 126 | 0 |
-| [empty-or-refusal-copy](./recovery-copy--empty-or-refusal-copy.md) | 14 | 14 | 0 |
-| [rate-limit-or-degradation-message](./recovery-copy--rate-limit-or-degradation-message.md) | 11 | 11 | 0 |
+| Section | Items | Ours to change | Owned elsewhere | Retired |
+| --- | ---: | ---: | ---: | ---: |
+| [error-message](./recovery-copy--error-message.md) | 126 | 124 | 0 | 2 |
+| [empty-or-refusal-copy](./recovery-copy--empty-or-refusal-copy.md) | 14 | 14 | 0 | 0 |
+| [rate-limit-or-degradation-message](./recovery-copy--rate-limit-or-degradation-message.md) | 11 | 7 | 0 | 4 |

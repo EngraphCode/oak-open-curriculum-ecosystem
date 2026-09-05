@@ -47,12 +47,14 @@ function groupBySurfaceType(items: readonly WorkspaceItem[]): readonly SurfaceGr
 
 function groupTable(domain: string, groups: readonly SurfaceGroup[]): readonly string[] {
   return [
-    '| Section | Items | Ours to change | Owned elsewhere |',
-    '| --- | ---: | ---: | ---: |',
+    '| Section | Items | Ours to change | Owned elsewhere | Retired |',
+    '| --- | ---: | ---: | ---: | ---: |',
     ...groups.map((group) => {
       const href = `./${domainSlug(domain)}--${domainSlug(group.surfaceType)}.md`;
-      const ours = group.items.filter((item) => item.authority === 'workspace').length;
-      return `| [${group.surfaceType}](${href}) | ${String(group.items.length)} | ${String(ours)} | ${String(group.items.length - ours)} |`;
+      const present = group.items.filter((item) => item.status !== 'retired');
+      const ours = present.filter((item) => item.authority === 'workspace').length;
+      const retired = group.items.length - present.length;
+      return `| [${group.surfaceType}](${href}) | ${String(group.items.length)} | ${String(ours)} | ${String(present.length - ours)} | ${String(retired)} |`;
     }),
   ];
 }

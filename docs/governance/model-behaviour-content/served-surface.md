@@ -16,7 +16,11 @@ A **live** surface is one an agent can use right now. A **dormant** surface exis
 
 [Back to the workspace index](./README.md)
 
-## Tools
+## Registration root `oak-curriculum-http`
+
+### Instructions sent on connection — present
+
+### Tools
 
 ### Live (38)
 
@@ -65,7 +69,7 @@ A **live** surface is one an agent can use right now. A **dormant** surface exis
 - `user-search`
 - `user-search-query`
 
-## Documents and other resources
+### Documents and other resources
 
 ### Live (6)
 
@@ -82,6 +86,8 @@ A **live** surface is one an agent can use right now. A **dormant** surface exis
 - `docs://oak/guidance/continue-progression.md`
 - `docs://oak/guidance/curriculum-mapping.md`
 - `eef://interpretation`
+
+### Prompts — capability absent; listing not offered (method not found)
 
 ## How this is worked out
 

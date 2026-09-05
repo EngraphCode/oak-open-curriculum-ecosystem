@@ -16,7 +16,7 @@ How an agent discovers and uses the tools — titles, descriptions, parameter de
 
 This page holds only the **tool-description** items of that view, so it can be reviewed in one sitting.
 
-**46 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, and 3 no longer exist in the codebase. The rest live in code that ships, but this pass has not traced which registered surface carries them — each says so.
+**46 items.** Of those, 0 are traced to a surface an agent can reach today, 0 to a surface that is retained but switched off, 0 to both a reachable and a switched-off surface, and 3 no longer exist in the codebase. 43 live in code that ships, but this pass has not traced which registered surface carries them — each says so.
 
 [Back to the tool-usability view](./tool-usability.md) · [Back to the workspace index](../README.md)
 

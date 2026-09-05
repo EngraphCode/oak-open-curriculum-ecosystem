@@ -1,9 +1,13 @@
 import { describe, expect, it } from 'vitest';
 
 import { buildTokenAnchor } from '../mcp-content-current-source/item-anchor-evidence.js';
-import { buildWorkspaceItems } from './build-workspace-items.js';
-import type { BaselineRegistryItem, WorkspaceInputs } from './content-workspace-model.js';
-import type { CurrentSourceTruthItem } from '../mcp-content-current-source/current-source-model.js';
+import { buildWorkspaceItems, unclassifiableItems } from './build-workspace-items.js';
+import type {
+  AddedItem,
+  BaselineLineageItem,
+  BaselineRegistryItem,
+  WorkspaceInputs,
+} from './content-workspace-model.js';
 
 const SOURCE_FILE = 'packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts';
 const CURRENT_WORDING = "export const GREETING = 'Call get-curriculum-model first.';";
@@ -28,7 +32,7 @@ function baselineItem(overrides: Partial<BaselineRegistryItem> = {}): BaselineRe
   };
 }
 
-function currentItem(overrides: Partial<CurrentSourceTruthItem> = {}): CurrentSourceTruthItem {
+function currentItem(overrides: Partial<BaselineLineageItem> = {}): BaselineLineageItem {
   return {
     id: 'C001',
     authority: 'workspace',
@@ -36,7 +40,7 @@ function currentItem(overrides: Partial<CurrentSourceTruthItem> = {}): CurrentSo
     source: {
       state: 'available',
       files: [SOURCE_FILE],
-      evidence: { revision: 'modified', anchorTargetCount: 1, anchorCount: 1 },
+      evidence: { revision: 'modified' },
     },
     lineage: { disposition: 'retained', baselineFile: SOURCE_FILE },
     registrations: [],
@@ -86,16 +90,58 @@ describe('buildWorkspaceItems', () => {
     expect(item?.excerptProvenance).toBe('baseline-snippet');
   });
 
+  it("falls back to the baseline when any one of an item's anchors fails to resolve", () => {
+    const [item] = buildWorkspaceItems(
+      inputs({
+        anchorsById: new Map([
+          [
+            'C001',
+            {
+              revision: 'modified' as const,
+              targets: [
+                { file: SOURCE_FILE, anchors: [buildTokenAnchor(CURRENT_WORDING, SOURCE_TEXT)] },
+                {
+                  file: 'packages/sdks/oak-curriculum-sdk/src/mcp/missing-sibling.ts',
+                  anchors: [buildTokenAnchor(CURRENT_WORDING, SOURCE_TEXT)],
+                },
+              ],
+            },
+          ],
+        ]),
+      }),
+    );
+
+    expect(item?.excerptProvenance).toBe('baseline-snippet');
+    expect(item?.excerpt).toContain('Call the orientation tool first.');
+  });
+
+  it('names a baseline-lineage item that has no registry row as unclassifiable', () => {
+    const orphan = currentItem({ id: 'C999' });
+
+    const ids = unclassifiableItems(
+      inputs({
+        current: {
+          provenance: { baselineCommit: 'abc123' },
+          items: [currentItem(), orphan],
+          registrationRoots: [],
+        },
+      }),
+    );
+
+    expect(ids).toEqual(['C999']);
+  });
+
   it('quotes a post-baseline addition from its reviewed content', () => {
-    const addition = currentItem({
-      id: 'A001',
+    const addition: AddedItem = {
+      ...currentItem({ id: 'A001' }),
+      lineage: { disposition: 'added', addedAfterBaselineCommit: 'abc123' },
       reviewContext: {
         title: 'Served-surface allowlist',
         reviewDomain: 'engineering-structural',
         impactTier: 'high-impact',
         behaviouralIntent: 'Classify every surface as live or dormant.',
       },
-    });
+    };
     const built = buildWorkspaceItems(
       inputs({
         registry: { meta: { upstream_pointers: {} }, items: [] },

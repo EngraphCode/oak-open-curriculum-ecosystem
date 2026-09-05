@@ -36,11 +36,6 @@ function nameList(heading: string, names: readonly string[]): readonly string[] 
  * register.
  */
 export function renderServedSurfacePage(inputs: WorkspaceInputs): string {
-  const empty = { live: [], dormant: [] } as const;
-  const observation = inputs.current.registrationRoots[0]?.observation ?? {
-    tools: empty,
-    resources: empty,
-  };
   return [
     ...frontmatter('register', 'model-behaviour-content-served-surface'),
     '# What an agent sees today',
@@ -57,14 +52,7 @@ export function renderServedSurfacePage(inputs: WorkspaceInputs): string {
     '',
     '[Back to the workspace index](./README.md)',
     '',
-    '## Tools',
-    ...nameList('Live', observation.tools.live),
-    ...nameList('Dormant', observation.tools.dormant),
-    '',
-    '## Documents and other resources',
-    ...nameList('Live', observation.resources.live),
-    ...nameList('Dormant', observation.resources.dormant),
-    '',
+    ...renderRegistrationRoots(inputs.current.registrationRoots),
     '## How this is worked out',
     '',
     'One file decides it: `' +
@@ -78,6 +66,45 @@ export function renderServedSurfacePage(inputs: WorkspaceInputs): string {
       '`validate-mcp-content-current-source` check keeps that record honest against the code.',
     '',
   ].join('\n');
+}
+
+/**
+ * Every registration root the projection observed, each with all four MCP
+ * primitives it records — the initialisation instructions, tools, resources
+ * and prompts. Nothing observed is dropped: a later root or a newly present
+ * capability appears here without a code change, and an empty observation
+ * says so rather than rendering nothing.
+ */
+function renderRegistrationRoots(
+  roots: WorkspaceInputs['current']['registrationRoots'],
+): readonly string[] {
+  if (roots.length === 0) {
+    return [
+      '## Registration roots',
+      '',
+      'No registration root was observed by this projection.',
+      '',
+    ];
+  }
+  return roots.flatMap((root) => {
+    const { initialize, tools, resources, prompts } = root.observation;
+    return [
+      `## Registration root \`${root.id}\``,
+      '',
+      `### Instructions sent on connection — ${initialize.instructions}`,
+      '',
+      '### Tools',
+      ...nameList('Live', tools.live),
+      ...nameList('Dormant', tools.dormant),
+      '',
+      '### Documents and other resources',
+      ...nameList('Live', resources.live),
+      ...nameList('Dormant', resources.dormant),
+      '',
+      `### Prompts — capability ${prompts.capability}; listing ${prompts.list === 'available' ? 'available' : 'not offered (method not found)'}`,
+      '',
+    ];
+  });
 }
 
 function unrenderedRow(item: WorkspaceItem): string {
@@ -99,16 +126,22 @@ function unrenderedRow(item: WorkspaceItem): string {
  */
 export function renderUnrenderedPage(items: readonly WorkspaceItem[]): string {
   const outstanding = unrenderedItems(items);
+  const retired = items.filter((item) => item.status === 'retired').length;
+  const inCode = items.length - retired;
+  const retiredNote =
+    `The ${String(retired)} retired ${retired === 1 ? 'item is' : 'items are'} listed in ` +
+    'their review views with their audit-baseline wording, since no current wording exists.';
   const body =
     outstanding.length === 0
       ? [
-          'Every item in the corpus is rendered with the wording the system uses today. There is ' +
-            'nothing outstanding.',
+          `Every one of the ${String(inCode)} items still in the codebase is rendered with the ` +
+            `wording the system uses today. ${retiredNote} There is nothing outstanding.`,
         ]
       : [
-          `${String(outstanding.length)} of ${String(items.length)} items are listed in their ` +
-            'review view but could not be shown with current wording. They are named here rather ' +
-            'than dropped. Each is still reviewable by opening the file named against it.',
+          `${String(outstanding.length)} of the ${String(inCode)} items still in the codebase ` +
+            'are listed in their review view but could not be shown with current wording. They ' +
+            'are named here rather than dropped. Each is still reviewable by opening the file ' +
+            `named against it. ${retiredNote}`,
           '',
           '| Item | Review view | Why | File to read |',
           '| --- | --- | --- | --- |',

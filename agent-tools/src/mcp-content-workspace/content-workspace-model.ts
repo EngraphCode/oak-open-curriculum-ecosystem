@@ -14,7 +14,11 @@
 import type {
   ContentAuthority,
   ContentRevision,
+  RegistrationRoot,
 } from '../mcp-content-current-source/current-source-model.js';
+
+/** What the projection observed at one registration root — the projection's own shape, reused whole. */
+type RegistrationObservation = RegistrationRoot['observation'];
 
 /**
  * The part of a registration the workspace reads.
@@ -31,7 +35,16 @@ export interface ProjectionRegistration {
 }
 
 /** The part of a projection item the workspace reads. */
-export interface ProjectionItem {
+/** The reviewer-facing classification an item carries when no registry row can supply it. */
+interface ProjectionReviewContext {
+  readonly title: string;
+  readonly reviewDomain: string;
+  readonly impactTier: 'high-impact' | 'simple-config';
+  readonly behaviouralIntent: string;
+}
+
+/** The fields every projection item carries regardless of lineage. */
+interface ProjectionItemBase {
   readonly id: string;
   readonly authority: ContentAuthority;
   readonly workspaceScope: 'in' | 'out-upstream-api';
@@ -42,16 +55,29 @@ export interface ProjectionItem {
         readonly evidence: { readonly revision: ContentRevision };
       }
     | { readonly state: 'retired'; readonly files: readonly string[] };
-  readonly lineage:
-    | { readonly disposition: string; readonly baselineFile: string }
-    | { readonly disposition: 'added'; readonly addedAfterBaselineCommit: string };
   readonly registrations: readonly ProjectionRegistration[];
-  readonly reviewContext?: {
-    readonly title: string;
-    readonly reviewDomain: string;
-    readonly impactTier: 'high-impact' | 'simple-config';
-    readonly behaviouralIntent: string;
-  };
+}
+
+/** An item the audit baseline knew: its classification is the registry row's. */
+export interface BaselineLineageItem extends ProjectionItemBase {
+  readonly lineage: { readonly disposition: string; readonly baselineFile: string };
+  readonly reviewContext?: ProjectionReviewContext;
+}
+
+/**
+ * An item added after the baseline: no registry row exists, so it must carry
+ * its own classification — the input schema refuses one that does not.
+ */
+export interface AddedItem extends ProjectionItemBase {
+  readonly lineage: { readonly disposition: 'added'; readonly addedAfterBaselineCommit: string };
+  readonly reviewContext: ProjectionReviewContext;
+}
+
+export type ProjectionItem = BaselineLineageItem | AddedItem;
+
+/** Narrow a projection item to the post-baseline variant. */
+export function isAddedItem(item: ProjectionItem): item is AddedItem {
+  return 'addedAfterBaselineCommit' in item.lineage;
 }
 
 /** A row of the immutable phase-(a) audit registry (`registry.json`). */
@@ -138,13 +164,7 @@ export interface WorkspaceInputs {
     readonly items: readonly ProjectionItem[];
     readonly registrationRoots: readonly {
       readonly id: string;
-      readonly observation: {
-        readonly tools: { readonly live: readonly string[]; readonly dormant: readonly string[] };
-        readonly resources: {
-          readonly live: readonly string[];
-          readonly dormant: readonly string[];
-        };
-      };
+      readonly observation: RegistrationObservation;
     }[];
   };
   /** Current source text keyed by repo-relative path. */

@@ -121,15 +121,20 @@ function plural(count: number, noun: string): string {
 }
 
 function statusSentence(items: readonly WorkspaceItem[]): string {
-  const live = items.filter((item) => item.status === 'live').length;
-  const dormant = items.filter((item) => item.status === 'dormant').length;
-  const retired = items.filter((item) => item.status === 'retired').length;
+  const count = (status: WorkspaceItem['status']): number =>
+    items.filter((item) => item.status === status).length;
+  const live = count('live');
+  const mixed = count('mixed');
+  const retired = count('retired');
+  const unbound = count('unbound');
   return (
     `**${plural(items.length, 'item')}.** Of those, ${String(live)} ${live === 1 ? 'is' : 'are'} ` +
-    `traced to a surface an agent can reach today, ${String(dormant)} to a surface that is ` +
-    `retained but switched off, and ${String(retired)} no longer ` +
-    `${retired === 1 ? 'exists' : 'exist'} in the codebase. The rest live in code that ships, ` +
-    'but this pass has not traced which registered surface carries them — each says so.'
+    `traced to a surface an agent can reach today, ${String(count('dormant'))} to a surface ` +
+    `that is retained but switched off, ${String(mixed)} to both a reachable and a ` +
+    `switched-off surface, and ${String(retired)} no longer ` +
+    `${retired === 1 ? 'exists' : 'exist'} in the codebase. ${String(unbound)} ` +
+    `${unbound === 1 ? 'lives' : 'live'} in code that ships, but this pass has not traced ` +
+    `which registered surface ${unbound === 1 ? 'carries it — it says' : 'carries them — each says'} so.`
   );
 }
 
