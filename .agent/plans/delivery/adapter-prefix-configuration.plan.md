@@ -61,8 +61,10 @@ which this node copies; it ships alone, carrying its own ignore line and example
 or not that node has landed.
 
 1. **The resolver**, `agent-tools/src/skills-adapter-generate/prefix-config.ts`:
-   `resolveAdapterPrefix({ repoRoot, primaryRoot })` returns a `Result` carrying the prefix
-   and its source (`override` or `default`). The override, `.agent/skills-projection.local.json`,
+   `resolveAdapterPrefix({ repoRoot, primaryRoot, readFileImpl })` returns a `Result`
+   carrying the prefix and its source (`override` or `default`); `readFileImpl` is the
+   injected reader the merge-bot loader already takes, defaulting to the real one, so the
+   resolver's unit tests read injected strings and no filesystem. The override, `.agent/skills-projection.local.json`,
    is read at the primary checkout (the first entry of `git worktree list`, the same
    resolution the merge-bot and the collaboration substrate use) because an untracked file
    does not travel to a linked worktree; the tracked default, `.agent/skills-projection.json`,
@@ -79,8 +81,9 @@ or not that node has landed.
    estate; a missing or invalid default names the tracked file. The read-parse-name-the-
    example step is the same one `agent-tools/src/merge-bot/repo-config.ts` already performs
    for the merge-bot identity file, so it is extracted into one shared helper under
-   `agent-tools/src/core/` (read a JSON file at a path, parse with a strict schema, and on
-   failure name the file and its example), which both readers call; the merge-bot loader's
+   `agent-tools/src/core/` (read a JSON file at a path through the injected reader, parse
+   with a strict schema, and on failure name the file and its example), which both readers
+   call; the merge-bot loader's
    messages and tests stay as they are.
 2. **The tracked default and the example.** `.agent/skills-projection.json` holds
    `{"prefix": "oak-"}`; `.agent/skills-projection.local.json.example` holds
@@ -117,7 +120,10 @@ or not that node has landed.
    names the file and its example; invalid JSON and a schema breach each name the file) and
    on the resolver: default only; override wins; an invalid override refuses naming the
    file and the example; the placeholder refuses; a missing default names the tracked
-   file; the merge-bot loader's existing tests stay green through the extraction. The flag-parser tests cover the optional flag and
+   file; each through an injected reader in the shape of the loader's existing unit
+   tests, so none touches the filesystem, as the testing directive requires of a unit
+   test; the merge-bot loader's existing tests stay green through the extraction. The
+   flag-parser tests cover the optional flag and
    `--print-prefix`. Three proofs drive the built binary against real temporary trees,
    so they live in the smoke tier (`agent-tools/smoke-tests/`, gated by `test:e2e`, the
    home of the commit-queue proofs that spawn git), never in the in-process integration
@@ -161,11 +167,11 @@ it will rest on.
   an invalid override, the unedited example placeholder, and a missing default each
   refuse with a message naming the file to fix. Proof: `repo-safe`, the agent-tools unit
   suite.
-- **The mechanism works for a second prefix without touching this tree.** The
-  integration test generates into a temporary root overridden to `e-` and finds every
-  projection under `e-*`, checker green; on this checkout `pnpm skills:prefix` prints
-  `oak-` with source `default`. Proof:
-  `repo-safe`, the integration test and the command's output quoted in the PR body.
+- **The mechanism works for a second prefix without touching this tree.** The smoke
+  proof generates into a temporary root overridden to `e-` and finds every projection
+  under `e-*`, checker green; on this checkout `pnpm skills:prefix` prints `oak-` with
+  source `default`. Proof: `repo-safe`, the smoke proof and the command's output quoted in
+  the PR body.
 - **No projected name changes.** The landing PR's diff touches no file under
   `.claude/skills/` or `.agents/skills/`, and the pull-request workflow's `skills:check`
   passes on the head. Proof: `repo-safe`, `git diff --stat` on the PR and the check by
@@ -278,3 +284,5 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-09-05 | PR #54 round three | Unit 2 landed the resolver with tests of an internal seam only (the scaffolding shape) | Applied: the resolver lands with `--print-prefix`, its root script and its smoke proofs; the switch is unit 3 |
 | 2026-09-05 | PR #54 round three | Flag precedence was proven only in the parser | Applied: a built-binary run with an invalid override and no usable default prints `e-` from the flag |
 | 2026-09-05 | PR #54 round four | The switch (unit 3) dropped the pins while the record (unit 4) corrected ADR-125 later, so one landed state left the ADR false | Applied: the record rides the switch; three units |
+| 2026-09-05 | PR #54 round five | The resolver's unit tests would read the filesystem, which the testing directive forbids a unit test | Applied: the helper keeps the loader's injected reader and the resolver passes it through |
+| 2026-09-05 | PR #54 round five | The second-prefix acceptance criterion still called the smoke proof an integration test at two sites | Applied: smoke proof at both; tier-word sweep found no other mismatch |
