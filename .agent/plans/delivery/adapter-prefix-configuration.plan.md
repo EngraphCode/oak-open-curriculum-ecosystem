@@ -34,9 +34,11 @@ easier to change later, do not change them yet.
 
 ## User groups and value
 
-- **An organisation running this repository as its own**: changing the projected skill
-  names becomes one untracked file copied from an example, with no tracked edit; the cost
-  and the timing of actually making that change stay theirs to choose.
+- **An organisation running this repository as its own**: the mechanism for choosing its
+  own projected skill names exists and is proven, so the later switch is a decision about
+  one untracked file rather than a rename sweep; how projections behave on an overriding
+  checkout is the deferred decision below, so this slice enables the switch and does not
+  claim it is already a no-tracked-edit operation.
 - **Contributors on any machine**: `pnpm skills:generate` and `pnpm skills:check` need no
   argument and cannot disagree with each other about the prefix, because both read the
   same resolver.
@@ -87,16 +89,21 @@ or not that node has landed.
    shape. The Practice home holds only Markdown at its top level today; the two JSON files
    sit there because the projection they configure is a Practice-wide fact, not a package's.
 3. **The CLI.** In `cli-flags.ts`, `--prefix=<value>` becomes an explicit override for a
-   single run and is no longer required; an omitted flag means "resolve". A new
-   `--print-prefix` flag prints the resolved prefix and its source on one line and exits
-   without reading or writing any projection: the proof instrument for any checkout. The
-   traversal guard on an explicit `--prefix` stays. `bin/skills-adapter-generate.ts`
-   resolves once and passes the prefix to `checkAdapters` and `generateAdapters`, whose
-   signatures do not change.
+   single run and is no longer required; an omitted flag means "resolve". Precedence is
+   fixed: an explicit flag wins over the override file, which wins over the tracked
+   default, and the source label has three values, `flag`, `override`, `default`. A new
+   `--print-prefix` flag prints the effective prefix and its source on one line and exits
+   before either the checker or the generator is called, so it reads and writes no
+   projection: the proof instrument for any checkout, and `--print-prefix --prefix=e-`
+   prints `e-` with source `flag`. The traversal guard on an explicit `--prefix` stays.
+   `bin/skills-adapter-generate.ts` resolves once and passes the prefix to `checkAdapters`
+   and `generateAdapters`, whose signatures do not change.
 4. **The pinned sites.** The root `skills:check` and `skills:generate` scripts, the
    `agent-tools` `skills-adapter-generate` script, the pre-push hook's regenerate hint, the
    generator's header comment and the flag parser's own usage and error text drop the
-   literal `--prefix=oak-`; the hint says `pnpm skills:generate`. The commit skill's
+   literal `--prefix=oak-`; the hint says `pnpm skills:generate`. A root script,
+   `skills:prefix`, builds the package and runs the binary with `--print-prefix`, so the
+   proof command exists in a fresh checkout as `pnpm skills:prefix`. The commit skill's
    canonical, which tells agents the root script pins the required prefix, says instead
    that the prefix is read from the tracked default and the per-checkout override.
 5. **The permanent record.** ADR-125 names the pin at three sites — the skill-adapter
@@ -111,9 +118,16 @@ or not that node has landed.
    on the resolver: default only; override wins; an invalid override refuses naming the
    file and the example; the placeholder refuses; a missing default names the tracked
    file; the merge-bot loader's existing tests stay green through the extraction. The flag-parser tests cover the optional flag and
-   `--print-prefix`. One integration test generates into a temporary repository root
-   whose override says `e-`, asserts every projection lands under `e-*` with the class
-   marker, and asserts the checker is green against that root. The real tree's checker
+   `--print-prefix`. Three integration tests run through the CLI entry point, never a
+   supplied resolver: the first builds a temporary git repository with a linked worktree,
+   places an override saying `e-` at the primary and a tracked default in the worktree's
+   own branch, runs the binary from the linked worktree, and asserts the override was read
+   from the primary while the default was read from the worktree (so wiring the current
+   directory into both roots fails the test); the second generates into a temporary root
+   overridden to `e-`, asserts every projection lands under `e-*` with the class marker,
+   and asserts the checker is green there; the third proves `--print-prefix` is inert by
+   snapshotting both projection roots, running the entry point with the flag, and
+   asserting the output line and an identical tree afterwards. The real tree's checker
    stays green with no override present, which CI proves on the landing PR.
 
 What this slice deliberately does not decide: whether projections remain committed when a
@@ -129,7 +143,7 @@ it will rest on.
 - **One point of configuration.** `git grep -n -- '--prefix=oak-' -- package.json
   agent-tools/package.json .husky agent-tools/src agent-tools/README.md docs/architecture
   .agent/skills .agent/rules .agent/directives` returns nothing, and on this checkout
-  `skills-adapter-generate --print-prefix` reports `oak-` with source `default`. The named
+  `pnpm skills:prefix` reports `oak-` with source `default`. The named
   residue outside that scope: the flag parser's unit test keeps explicit `--prefix` values
   because it exercises the surviving override, and the dated records under `.agent/reports`
   and `.agent/plans-old-archive` stay as written. Proof: `repo-safe`, the command and the
@@ -141,15 +155,15 @@ it will rest on.
   suite.
 - **The mechanism works for a second prefix without touching this tree.** The
   integration test generates into a temporary root overridden to `e-` and finds every
-  projection under `e-*`, checker green; on this checkout
-  `skills-adapter-generate --print-prefix` prints `oak-` with source `default`. Proof:
+  projection under `e-*`, checker green; on this checkout `pnpm skills:prefix` prints
+  `oak-` with source `default`. Proof:
   `repo-safe`, the integration test and the command's output quoted in the PR body.
 - **No projected name changes.** The landing PR's diff touches no file under
   `.claude/skills/` or `.agents/skills/`, and the pull-request workflow's `skills:check`
   passes on the head. Proof: `repo-safe`, `git diff --stat` on the PR and the check by
   name.
 - **The example is a template, not a home.** `.agent/skills-projection.local.json.example`
-  parses as JSON, and copying it unedited to the override name makes `--print-prefix`
+  parses as JSON, and copying it unedited to the override name makes `pnpm skills:prefix`
   refuse, because `<prefix->` fails the lowercase name-fragment grammar, with the message
   that names the override, the example and the field to edit. Proof: `repo-safe`, the resolver's placeholder
   test and the command in the PR body.
@@ -160,9 +174,23 @@ it will rest on.
 
 ## Todos
 
-One single-story PR within the default round budget: the six mechanism steps above, with
-the PR body carrying the two `git grep` proofs, the `--print-prefix` output on this
-checkout, the placeholder refusal, and the diff-stat proof that no projection moved.
+Four PR-shaped units, each within the small-PR bands and safe on its own, in this order
+(each `blocking` on the one before it):
+
+1. **The shared checkout-config helper.** `agent-tools/src/core/` gains the
+   read-parse-name-the-example helper with its unit tests, and the merge-bot loader is
+   re-pointed at it with its existing tests green: a pure refactor, about four files.
+2. **The resolver and its files.** `prefix-config.ts` with its unit tests, the tracked
+   default, the example, and the ignore line: about six files, nothing reading the
+   resolver yet, so the tree's behaviour is unchanged.
+3. **The CLI switch.** `cli-flags.ts`, the binary, the root scripts including
+   `skills:prefix`, the agent-tools script, the pre-push hint, the flag-parser tests and
+   the three CLI-level integration tests: about nine files, the one PR whose body carries
+   the `git grep` proofs, the `pnpm skills:prefix` output, the placeholder refusal and the
+   diff-stat proof that no projection moved.
+4. **The record.** ADR-125's three sites with one change-log entry, the commit skill's
+   canonical, the agent-tools README and the engineering doc: about four files, landing
+   after the mechanism it describes.
 
 ## Out of scope
 
@@ -179,13 +207,49 @@ checkout, the placeholder refusal, and the diff-stat proof that no projection mo
 - The identity-literal census validator: its own slice; this slice reduces the
   hand-pinned count it will be seeded with.
 
+## First-principles check
+
+The six clauses of the plan-body first-principles check, applied at authoring:
+
+- **Shape.** The tests prove Oak-authored behaviour — precedence, the refusal messages,
+  the primary-versus-worktree wiring, and that `--print-prefix` is inert — never that
+  JSON parses or that a schema library works.
+- **Landing path.** Test files take the estate's `*.unit.test.ts` and
+  `*.integration.test.ts` names so the existing runner includes them; the scripts keep the
+  names CI and the pre-push hook already invoke; the override is ignored by an explicit
+  line, never a glob, so the example beside it stays tracked.
+- **Vendor literal and locus.** `pnpm` forwards arguments after a script name, `git
+  worktree list` names the primary first (the resolution the merge-bot already relies on),
+  and no validator today forbids a JSON file at the Practice home's top level — each
+  checked against the tree on 2026-09-05, and each re-verified at pickup.
+- **Optionality.** One observable signal, the `pnpm skills:prefix` line; the sequence is
+  four ordered PRs; the one deferral is named as the owner's decision on projections, not
+  a bare deferred status.
+- **Record consumer.** The disposition ledger below is read by the pickup implementer,
+  and reading it decides which findings are already applied and which are routed.
+- **Rules tier.** `--prefix` survives as an explicit override, not a compatibility alias
+  (replace-dont-bridge); the work is shaped as four small PRs (design-work-for-small-prs);
+  `skills:check` is neither weakened nor bypassed (never-disable-checks); both files are
+  validated by a strict schema at the read boundary (strict-validation-at-boundary).
+
 ## Review dispositions
 
-- 2026-09-05 — assumptions-expert readiness review of the sketch (READY-WITH-CHANGES),
-  all seven findings applied in place before ratification: the tracked default resolves at
-  the generator's own root and only the override at the primary; the placeholder fails a
-  tightened lowercase grammar rather than the CLI's traversal guard; the one-point-of-
-  configuration proof is scoped to live mechanism surfaces with the residue named; the
-  commit skill's canonical joins the pinned sites; ADR-125's three sites are named; the
-  merge-bot loader is the first per-checkout reader, so the shared helper is extracted at
-  this second consumer; the beneficial dependency is stated in the body.
+One row per finding; "applied" means folded into this node before ratification.
+
+| Date | Source | Finding | Disposition |
+| --- | --- | --- | --- |
+| 2026-09-05 | readiness review | The tracked default resolved at the primary checkout, which reads another branch's file from a worktree | Applied: default at the generator's own root, override at the primary |
+| 2026-09-05 | readiness review | The example placeholder passed the CLI's traversal guard | Applied: a lowercase name-fragment grammar the placeholder fails |
+| 2026-09-05 | readiness review | The one-point-of-configuration grep was unachievable over the whole tree | Applied: scoped to live mechanism surfaces, residue named |
+| 2026-09-05 | readiness review | The commit skill's canonical also pins the prefix | Applied: added to the pinned sites |
+| 2026-09-05 | readiness review | ADR-125 names the pin at three sites, not one | Applied: all three named |
+| 2026-09-05 | readiness review | The merge-bot loader is already a per-checkout reader; second consumer | Applied: shared helper extracted, first unit of the Todos |
+| 2026-09-05 | readiness review | The beneficial dependency was absent from the body | Applied: stated under Mechanism |
+| 2026-09-05 | PR #54 round one | `--print-prefix --prefix=<value>` precedence and source label unspecified | Applied: flag wins, source `flag`, covered in the CLI tests |
+| 2026-09-05 | PR #54 round one | The proof named a binary the repository does not expose | Applied: the `skills:prefix` root script is the reproducible command |
+| 2026-09-05 | PR #54 round one | The value claim overstated the switch as already a no-tracked-edit operation | Applied: reworded as enabling the later switch |
+| 2026-09-05 | PR #54 round one | One PR of about twenty files breaches the small-PR bands (raised twice) | Applied: four ordered PR-shaped units |
+| 2026-09-05 | PR #54 round one | The ledger collapsed seven findings into one row | Applied: one row per finding |
+| 2026-09-05 | PR #54 round one | The first-principles check was not stated | Applied: the section above |
+| 2026-09-05 | PR #54 round one | The worktree wiring was untested at the CLI level | Applied: the linked-worktree fixture through the entry point |
+| 2026-09-05 | PR #54 round one | `--print-prefix` could still reach the generator undetected | Applied: the inertness test through the entry point |
