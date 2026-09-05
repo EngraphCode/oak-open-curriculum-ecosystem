@@ -14,11 +14,9 @@ edges:
 
 # DDR-010 — Comparison is visual first, statistics direct the looking
 
-(Frontmatter added 2026-08-17, records-truth pass MCP-613: this was the one
-record of eleven carrying its identity in prose bullets, breaking the
-corpus's machine-readable-edges contract — the exact fail-closed case the
-review-debt plan's unbuilt slice-2 validator specifies. Status, IRI, and
-edge unchanged from the original prose form.)
+(Frontmatter added 2026-08-17: this record had carried its identity in
+prose bullets, against the corpus's machine-readable-edges contract. Status,
+IRI, and edge are unchanged from the original prose form.)
 
 ## Decision
 
