@@ -3,7 +3,10 @@ id: design-system-completion
 node_type: delivery
 name: "Design-system completion — five demos, identity contract, React tier, the wow bar (v2.2)"
 overview: "Complete the Oak Open Curriculum Design System as a layered identity-agnostic framework, proven by five demos at the owner's wow bar: a path-named generated census with per-page dispositions, first light on the plain demo AND an early showcase probe before machinery spend, a schema'd identity/theme contract (orthogonal contrast/colour-vision axes, base-plus-overlay token trees, an emitter with a defined Oak input), the curated React tier on the ADR-213 §3 shape with a packaging story (the hub gaining identity switching through it), the showcase rebuilt inside a design grammar with density as a designed quantity, the layout-range zen demo proving expressive range over layout, and cross-demo theme behaviour stated as resolved-rendering observables."
-status: sketch
+status: archived
+# Disposition (2026-08-18, MCP-613 review round 1): abandoned sketch —
+# authority stripped 2026-08-17; archived as a conserved knowledge store
+# for the identity-pack programme.
 ratified_by: null
 ratified_date: null
 ratified_where: null
@@ -23,17 +26,44 @@ depends_on: []
 # obligation removed by the plan-node schema §2026-08-07 amendment,
 # PR #817), so the gate DISCHARGED 2026-08-07 with tickets left [] — a
 # visibility ticket remains optional working practice.
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      At W3.0 open the owner confirms the coverage reading of "full
-      optional React component set" — full mapping-decision coverage with
-      curated component minting (§Decision log, flagged seat reading).
-    expires: 2026-09-07
-last_updated: 2026-09-03
+owner_gates: []
+# Both former gates RETIRED 2026-08-17 (owner ruling at the records-truth
+# pass, MCP-613: an unratified sketch holds no decisions on the owner's
+# clock). Their records, conserved: (1) the KNOWN-ISSUES item-14
+# subtree-alias ruling (was to expire 2026-08-21) — moot today, no surface
+# renders a high-contrast or colour-safe subtree; it re-cards if one ever
+# will. (2) The W3.0 "full optional React component set" coverage reading
+# (was to expire 2026-09-07) — re-cards at whatever node opens a React-tier
+# story (expected: the identity-pack programme node). The 2026-09-03 MCP-673
+# truing, landed without this record, discharged the item-14 gate at the
+# owner's card word — consistent with (1) — and left the W3.0 reading
+# standing; this record's retirement of it holds under the same ruling.
+last_updated: 2026-09-04
 ---
 
 # Design-system completion — five demos, identity contract, React tier, the wow bar (v2.2)
+
+**ARCHIVED 2026-08-18 (MCP-613 review round 1)** — an abandoned sketch is
+archived per the plan-node schema's lifecycle; the authority strip below
+already made the boundary structural, and the archive makes the corpus
+state it. Everything conserved here remains exactly as conserved.
+
+**AUTHORITY STRIPPED — CONSERVED STORY-OPEN INPUTS (owner ruling
+2026-08-17, records-truth pass MCP-613).** This node was `status: sketch`,
+was never ratified, and its prose binds nothing — a lesson already paid
+for once (the invented "composition envelope" was enforced for two review
+rounds on the strength of reviewer prose in this document; owner
+correction R13). The 2026-08-17 ruling makes the boundary structural:
+both owner gates are retired (see the frontmatter note); the landed W0.7
+instruments (the design-review rubric, the wow-verdict register, and its
+validator) are re-homed under the ratified `design-showcase-experience`
+node (whose §"Where the owner-held verdicts are recorded" is their
+governing consumer); and the far-horizon W-arc plus the §Story-open
+pointer tables are CONSERVED INPUTS for the successor programme — the
+owner commissioned a fourth identity (Tango) the same day, with all four
+identities to be brought up to standard as identity PACKS, and the pack
+programme node re-homes what it needs from here at its authoring. Read
+this document as a knowledge store, never as an owner of work.
 
 **v2.2 (dated note, 2026-08-03) — the partition restructure.** Round 3 (31 agents,
 `wf_121bcbac-abe`; `findings.v3.json` + `adjudication.v3.md`) returned a DIVERGING
@@ -1232,7 +1262,7 @@ W4.7/W5.5/W6.2 whole-demo checkpoints.
 ## Decision log (owner word unless marked seat-verdict)
 
 Design decisions carried canonically by the
-[Design Decision Record corpus](../../../docs/design/README.md) are listed
+[Design Decision Record corpus](../../../../docs/design/README.md) are listed
 here with their record — whether or not a log row below restates them: the
 configured-framework frame → DDR-001; CSS-first/one-behaviour →
 DDR-002; the theme choice model → DDR-003; the five-theme roster with

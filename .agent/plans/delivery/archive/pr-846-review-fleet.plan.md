@@ -8,7 +8,7 @@ overview: >-
   sufficient to decide open-for-review readiness — produced by a goal-blind
   reviewer fleet with category-routed adversarial verification and a
   two-verdict synthesis.
-status: ratified
+status: archived
 ratified_by: "Jim Cresswell (owner)"
 ratified_date: "2026-08-12"
 ratified_where: >-
@@ -23,10 +23,35 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-13
+last_updated: 2026-08-17
 ---
 
 # PR #846 review fleet — multi-lens, multi-scale review
+
+**RETIRED (archived 2026-08-17, records-truth pass MCP-613; disposition
+re-trued 2026-09-05).** The node's object — PR #846 — merged 2026-08-14
+(`c0d49fc04`). W1 executed 2026-08-13 as MCP-591 (findings ledger:
+`.agent/reports/design/pr-846-review-fleet/report.md`; its cure bundles
+merged inside #846); the W2 synthesis never ran and no W2+ was sequenced —
+with the object merged there is nothing left for it to review. Conserved as
+the record of the fleet design and its measured findings.
+
+**Lifecycle path and the acceptance criteria, dispositioned.** This is not
+a completed delivery plan: its scope collapsed when its object merged, so
+it takes the schema's `ratified → sketch` transition (a scope change — here
+to nothing) and is archived as an abandoned sketch with this disposition
+note; the ratification fields below are kept as history of the word that
+sanctioned W1. Against the four criteria: AC1 (every manifest cell reviewed
+or excluded-with-reason) — met only to W1's depth; the completeness critic
+that would have proven "no unnamed gap" never ran, so the manifest table's
+exclusions stand as W1's leg-level record, unproven complete. AC2 (every
+finding carries a verdict or a marked exception) — met for W1's findings by
+the report's cross-check output. AC3 (every planted known engaged or its
+miss named) — met by the same recomputed attention table. AC4 (both
+verdicts delivered and decidable) — the review verdict was delivered by the
+owner's act of merging #846 with the cure bundles inside it; the doctrine
+verdict was never ruled and is not carried forward by any node — anyone
+reopening that question starts from the report, not from this plan.
 
 **Gate discharged 2026-08-12.** The owner sanctioned W1 at the decision card
 ("Sanction W1 now", ~19:47Z, recorded in the ratification stamp); the
