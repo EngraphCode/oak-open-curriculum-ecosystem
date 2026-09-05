@@ -116,12 +116,17 @@ the completion plan at his word.
 
 ## Todos (slices, each a single-story PR, default round budget)
 
-- **A2 generated reference** — **landed 2026-08-18** (`e0a85e842`; `/tokens/colours` `3b276f0d6`): the reference route with
-  cell verification, completeness check, private-tier separation, and
-  a11y coverage.
-- **A1 landing** — **landed 2026-08-18** (`6ca3462b5`): front page restructure —
-  landing composition, doors, unified self-descriptions, route
-  registry.
+- **A2 generated reference** — **landed in part 2026-08-18**
+  (`e0a85e842`; `/tokens/colours` `3b276f0d6`): the reference route,
+  private-tier separation, and a11y coverage. Open: AC1's proof — no
+  test renders every public role across the fifteen identity × theme
+  cells and checks computed style, no completeness check compares the
+  rendered set with the kit's declared public vocabulary, and the route
+  shows one cell at a time.
+- **A1 landing** — **landed in part 2026-08-18** (`6ca3462b5`): landing
+  composition, doors, and unified self-descriptions. Open: the route
+  registry and AC2's closure property — the doors are written by hand in
+  `app/page.tsx`, so an unregistered or undescribed route does not fail.
 - **A3 demo self-descriptions** (with A1): switchboard and
   white-labelling routes state their falsifier; default face stays
   Oak (owner decision 2026-08-13).
