@@ -31,7 +31,9 @@ dependency graph, never a library.
 - [`oak-design-showcase/`](oak-design-showcase/README.md) — **Oak Design
   Showcase**: the design system's public face — a front page plus demo
   routes (the identity/theme switching demo with its framed specimen, the
-  side-by-side white-labelling view, and the composition demo's route) —
+  side-by-side white-labelling view, the composition demonstration, and the
+  generated token reference at `/tokens` with its `/tokens/colours`
+  matrix) —
   consuming the kit the plain-CSS way: the aggregate stylesheet and the
   kit's own classes, tokens, and self-hosted fonts, with no Tailwind and no
   mapping layer. The plain-path counterpart to the hub's Tailwind-mapped

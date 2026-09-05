@@ -117,9 +117,9 @@ cell.
 ### 5. Composition grammar
 
 Pages compose the export's region model: named regions in a deliberate
-order (the shipped front-page instance since `a967f8979`: masthead → hero
-thesis → demo door cards → footer — the v0 instance described the purged
-page; corrected at v0.1), built from the kit's layout classes
+order (the shipped front page: masthead → hero thesis → demo door cards →
+footer; the v0 instance described the purged page and was corrected at
+v0.1), built from the kit's layout classes
 (`oak-canvas` / `oak-region` / `oak-container` and the composition
 classes). Components sit inside regions; nothing free-floats.
 **Fail**: structure outside the grammar without a recorded reason; regions
@@ -172,9 +172,9 @@ none.
 
 - The export's composed pages (`packages/design/oak-design-system/`
   `studio-source/`: `ui_kits/oak/` and the two `whitelabel/` identity
-  directories — EMC²'s `creature/` and PDS's `pds/` (renamed at
-  `a967f8979`; a v0 note claiming a pre-rename name was corrected at
-  v0.1)) — the region model and composition grammar.
+  directories — EMC²'s `creature/` and PDS's `pds/` (a v0 note claiming a
+  pre-rename name was corrected at v0.1)) — the region model and
+  composition grammar.
 - The system's own token estate — the dtcg sources (`dtcg/`) and the
   class vocabulary of `colors_and_type.css` / `components.css`.
 - The owner's sitting words of 2026-08-05
