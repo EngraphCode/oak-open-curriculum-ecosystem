@@ -19,7 +19,7 @@ function workspaceItem(overrides: Partial<WorkspaceItem> = {}): WorkspaceItem {
     authority: 'workspace',
     workspaceScope: 'in',
     status: 'live',
-    registrationSelectors: ['docs://oak/guidance/find-lessons.md'],
+    registrationSelectors: [{ selector: 'docs://oak/guidance/find-lessons.md', state: 'live' }],
     sourceFiles: ['packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guidance.ts'],
     baselineFile: 'packages/sdks/oak-curriculum-sdk/src/mcp/prerequisite-guidance.ts',
     revision: 'relocated',
@@ -48,6 +48,33 @@ describe('renderItem', () => {
 
     expect(page).toContain(String.raw`\<name\>`);
     expect(page).not.toContain('<h1>');
+  });
+
+  it('lists a dormant registration as switched off, never as reaching an agent', () => {
+    const page = renderItem(
+      workspaceItem({
+        status: 'dormant',
+        registrationSelectors: [{ selector: 'docs://oak/legacy.md', state: 'dormant' }],
+      }),
+    );
+
+    expect(page).toContain('**Registered but switched off at:** `docs://oak/legacy.md`');
+    expect(page).not.toContain('Reaches an agent through');
+  });
+
+  it('labels each surface of a mixed item by its own state', () => {
+    const page = renderItem(
+      workspaceItem({
+        status: 'mixed',
+        registrationSelectors: [
+          { selector: 'search', state: 'live' },
+          { selector: 'legacy-search', state: 'dormant' },
+        ],
+      }),
+    );
+
+    expect(page).toContain('**Reaches an agent through:** `search`');
+    expect(page).toContain('**Registered but switched off at:** `legacy-search`');
   });
 
   it('sends a reviewer to the owning repository when the words are authored upstream', () => {
@@ -173,6 +200,19 @@ describe('retired-item accounting', () => {
       '| Section | Items | Ours to change | Owned elsewhere | Retired |',
     );
     expect(index?.content).toContain('| 80 | 79 | 0 | 1 |');
+  });
+});
+
+describe('page banner', () => {
+  it('states the sign-off on the owner-signed view instead of denying it', () => {
+    const [signed] = renderDomainPages('owner-signed-copy', [
+      workspaceItem({ id: 'A011', reviewDomain: 'owner-signed-copy' }),
+    ]);
+    const [other] = renderDomainPages('pedagogy', [workspaceItem()]);
+
+    expect(signed?.content).toContain('carry an explicit owner sign-off');
+    expect(signed?.content).not.toContain('not what anyone has signed off');
+    expect(other?.content).toContain('Nothing here has been approved yet');
   });
 });
 

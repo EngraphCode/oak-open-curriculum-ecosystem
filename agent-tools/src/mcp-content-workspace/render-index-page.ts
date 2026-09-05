@@ -6,7 +6,7 @@
 
 import { AUDIT_REPORT_PATH, REVIEW_DOMAIN_GLOSS, domainSlug } from './content-workspace-config.js';
 import type { WorkspaceItem } from './content-workspace-model.js';
-import { PAGE_BANNER, frontmatter } from './render-domain-page.js';
+import { frontmatter, pageBanner } from './render-domain-page.js';
 import { domainCounts, excerptProvenanceCounts, statusCounts } from './workspace-counts.js';
 
 const AUDIT_REPORT_LINK = `../../../${AUDIT_REPORT_PATH}`;
@@ -95,7 +95,7 @@ export function renderIndexPage(items: readonly WorkspaceItem[]): string {
     ...frontmatter('index', 'model-behaviour-content-navigation'),
     '# Model-behaviour content — the review workspace',
     '',
-    PAGE_BANNER,
+    pageBanner(),
     '',
     'This is every piece of writing this repository puts in front of an AI agent, in one place, ' +
       'in plain view. It exists so that the people best placed to judge that writing — ' +

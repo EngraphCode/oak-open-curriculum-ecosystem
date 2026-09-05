@@ -100,9 +100,18 @@ function sourceSentence(item: WorkspaceItem): string {
 
 function optionalLines(item: WorkspaceItem): readonly string[] {
   const lines: string[] = [];
-  if (item.registrationSelectors.length > 0) {
-    const selectors = item.registrationSelectors.map((name) => `\`${name}\``).join(', ');
-    lines.push(`- **Reaches an agent through:** ${selectors}`);
+  const named = (state: 'live' | 'dormant'): string =>
+    item.registrationSelectors
+      .filter((registered) => registered.state === state)
+      .map((registered) => `\`${registered.selector}\``)
+      .join(', ');
+  const live = named('live');
+  const dormant = named('dormant');
+  if (live !== '') {
+    lines.push(`- **Reaches an agent through:** ${live}`);
+  }
+  if (dormant !== '') {
+    lines.push(`- **Registered but switched off at:** ${dormant}`);
   }
   if (item.flags.length > 0) {
     lines.push(`- **Flagged for a closer look:** ${item.flags.join(', ')}`);

@@ -10,7 +10,7 @@ last_reviewed: 2026-08-06
 
 > **Generated file — do not edit by hand.** It is rebuilt from the content registry by `pnpm --filter @oaknational/agent-tools build-mcp-content-workspace`. Editing a page here changes nothing an agent sees; change the source file each item names.
 >
-> **Nothing here has been approved yet.** This workspace exists so the content *can* be reviewed. Wording that appears here is what the system says today, not what anyone has signed off.
+> **The items in this view carry an explicit owner sign-off**, recorded at their source and held apart so a change to them is never routine. The wording shown is what the system says today; re-review it only where it has changed since the sign-off.
 
 Copy carrying an explicit owner sign-off, held apart so a change to it is never routine.
 

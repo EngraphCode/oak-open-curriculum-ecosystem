@@ -116,6 +116,12 @@ export interface BaselineRegistry {
  */
 export type ServedStatus = 'live' | 'dormant' | 'mixed' | 'unbound' | 'retired';
 
+/** One registered selector and whether that registration is live or dormant. */
+export interface RegisteredSelector {
+  readonly selector: string;
+  readonly state: 'live' | 'dormant';
+}
+
 /** Where the excerpt shown to a reviewer came from. */
 export type ExcerptProvenance =
   /** Extracted from current source at the item's verified token anchor. */
@@ -137,7 +143,8 @@ export interface WorkspaceItem {
   readonly workspaceScope: 'in' | 'out-upstream-api';
   readonly status: ServedStatus;
   /** Registered selectors (tool names / resource URIs) this item's words reach. */
-  readonly registrationSelectors: readonly string[];
+  /** Every selector the item's words reach, each with the state it was registered in. */
+  readonly registrationSelectors: readonly RegisteredSelector[];
   /** Repo-relative current source files, empty when retired. */
   readonly sourceFiles: readonly string[];
   /** The baseline file, for a reviewer tracing a relocation. */

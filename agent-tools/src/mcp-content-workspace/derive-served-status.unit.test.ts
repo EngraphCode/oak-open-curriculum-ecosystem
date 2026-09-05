@@ -77,6 +77,9 @@ describe('registrationSelectors', () => {
       registration('dormant', 'docs://a'),
       registration('live', 'docs://b'),
     ];
-    expect(registrationSelectors(registrations)).toEqual(['docs://a', 'docs://b']);
+    expect(registrationSelectors(registrations)).toEqual([
+      { selector: 'docs://b', state: 'live' },
+      { selector: 'docs://a', state: 'dormant' },
+    ]);
   });
 });

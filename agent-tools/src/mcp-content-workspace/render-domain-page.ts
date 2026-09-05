@@ -11,7 +11,7 @@
  * @packageDocumentation
  */
 
-import { REVIEW_DOMAIN_GLOSS } from './content-workspace-config.js';
+import { OWNER_SIGNED_DOMAIN, REVIEW_DOMAIN_GLOSS } from './content-workspace-config.js';
 import type { WorkspaceItem } from './content-workspace-model.js';
 import { renderItem } from './render-item.js';
 
@@ -43,13 +43,22 @@ export const GENERATED_BANNER =
  * ambiguity the lint gate rejects, and the two notes belong together anyway —
  * "generated" and "not yet approved" are the same warning to a reader.
  */
-export const PAGE_BANNER = [
-  GENERATED_BANNER,
-  '>',
-  '> **Nothing here has been approved yet.** This workspace exists so the content *can* be ' +
-    'reviewed. Wording that appears here is what the system says today, not what anyone has ' +
-    'signed off.',
-].join('\n');
+/**
+ * The banner every review page opens with. The approval line depends on the
+ * domain: the owner-signed domain holds copy that already carries an explicit
+ * sign-off, so its banner says so instead of denying it.
+ */
+export function pageBanner(domain?: string): string {
+  const approval =
+    domain === OWNER_SIGNED_DOMAIN
+      ? '> **The items in this view carry an explicit owner sign-off**, recorded at their ' +
+        'source and held apart so a change to them is never routine. The wording shown is what ' +
+        'the system says today; re-review it only where it has changed since the sign-off.'
+      : '> **Nothing here has been approved yet.** This workspace exists so the content *can* be ' +
+        'reviewed. Wording that appears here is what the system says today, not what anyone has ' +
+        'signed off.';
+  return [GENERATED_BANNER, '>', approval].join('\n');
+}
 
 /** How to see the history of any item, stated once per page. */
 const CHANGE_HISTORY_NOTE = [
@@ -139,6 +148,7 @@ function statusSentence(items: readonly WorkspaceItem[]): string {
 }
 
 function pageHead(
+  domain: string,
   title: string,
   intro: string,
   items: readonly WorkspaceItem[],
@@ -148,7 +158,7 @@ function pageHead(
     ...frontmatter('register', 'model-behaviour-content-review'),
     `# ${title}`,
     '',
-    PAGE_BANNER,
+    pageBanner(domain),
     '',
     intro,
     '',
@@ -169,6 +179,7 @@ export function domainGloss(domain: string): string {
 export function renderDomainPage(domain: string, items: readonly WorkspaceItem[]): string {
   return [
     ...pageHead(
+      domain,
       `${domain} — content review view`,
       domainGloss(domain),
       items,
@@ -187,6 +198,7 @@ export function renderSurfacePage(
 ): string {
   return [
     ...pageHead(
+      domain,
       `${surfaceType} — part of the ${domain} review view`,
       `${domainGloss(domain)}\n\nThis page holds only the **${surfaceType}** items of that view, ` +
         'so it can be reviewed in one sitting.',

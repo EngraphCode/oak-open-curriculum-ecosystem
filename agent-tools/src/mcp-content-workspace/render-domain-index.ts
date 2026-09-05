@@ -13,7 +13,7 @@ import {
 } from './content-workspace-config.js';
 import type { WorkspaceItem, WorkspacePage } from './content-workspace-model.js';
 import {
-  PAGE_BANNER,
+  pageBanner,
   domainGloss,
   frontmatter,
   renderDomainPage,
@@ -69,7 +69,7 @@ function renderDomainIndex(
     ...frontmatter('index', 'model-behaviour-content-review'),
     `# ${domain} — content review view`,
     '',
-    PAGE_BANNER,
+    pageBanner(domain),
     '',
     domainGloss(domain),
     '',

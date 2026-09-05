@@ -33,6 +33,9 @@ export const AUDIT_REPORT_PATH = '.agent/reports/mcp-agent-facing-content-audit/
 export const EXCERPT_CHARACTER_LIMIT = 1500;
 
 /** Plain-English gloss for each review domain, shown at the head of its view. */
+/** The one review domain whose items already carry an explicit owner sign-off. */
+export const OWNER_SIGNED_DOMAIN = 'owner-signed-copy';
+
 export const REVIEW_DOMAIN_GLOSS: Readonly<Record<string, string>> = {
   pedagogy:
     'Prompts, orientation, and curriculum-model doctrine — how the content teaches an agent to teach. Reviewed by Oak education experts.',

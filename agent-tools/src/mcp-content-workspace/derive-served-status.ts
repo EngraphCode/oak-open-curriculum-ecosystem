@@ -16,6 +16,7 @@
 import type {
   ProjectionItem,
   ProjectionRegistration,
+  RegisteredSelector,
   ServedStatus,
 } from './content-workspace-model.js';
 
@@ -43,13 +44,31 @@ export function deriveServedStatus(item: ProjectionItem): ServedStatus {
   return states.has('live') ? 'live' : 'dormant';
 }
 
-/** The registered selectors an item's words reach, deduplicated and ordered. */
+/**
+ * The registered selectors an item's words reach, each with its registration
+ * state, deduplicated and ordered live-first then by selector — so a page can
+ * say which surfaces reach an agent and which are switched off, instead of
+ * listing both under one label.
+ */
 export function registrationSelectors(
   registrations: readonly ProjectionRegistration[],
-): readonly string[] {
-  return [...new Set(registrations.map((registration) => registration.selector))].sort(
-    (left, right) => left.localeCompare(right),
-  );
+): readonly RegisteredSelector[] {
+  const seen = new Set<string>();
+  const distinct = registrations.filter((registration) => {
+    const key = `${registration.state}\u0000${registration.selector}`;
+    if (seen.has(key)) {
+      return false;
+    }
+    seen.add(key);
+    return true;
+  });
+  return distinct
+    .map(({ selector, state }) => ({ selector, state }))
+    .sort(
+      (left, right) =>
+        Number(left.state === 'dormant') - Number(right.state === 'dormant') ||
+        left.selector.localeCompare(right.selector),
+    );
 }
 
 /** Reviewer-facing wording for a served status. */
