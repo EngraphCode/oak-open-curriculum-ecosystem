@@ -111,7 +111,7 @@ function optionalLines(item: WorkspaceItem): readonly string[] {
     lines.push(`- **Reaches an agent through:** ${live}`);
   }
   if (dormant !== '') {
-    lines.push(`- **Registered but switched off at:** ${dormant}`);
+    lines.push(`- **Retained but not registered at:** ${dormant}`);
   }
   if (item.flags.length > 0) {
     lines.push(`- **Flagged for a closer look:** ${item.flags.join(', ')}`);

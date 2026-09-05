@@ -93,4 +93,4 @@ A **live** surface is one an agent can use right now. A **dormant** surface exis
 
 One file decides it: `apps/oak-curriculum-mcp-streamable-http/src/served-surface/served-surface.ts` classifies every tool and resource as live or dormant, and the server registers from that one definition. Turning a surface on or off is a one-word change there, reviewed like any other change.
 
-The lists above are not read from that file. They are recorded by starting the server and asking it what it offers, so they are evidence of what is actually registered. The `validate-mcp-content-current-source` check keeps that record honest against the code.
+The live lists above are recorded by starting the server and asking it what it offers, so they are evidence of what is actually registered. The dormant lists are read from that file, and the same run checks that none of those names is offered. The `validate-mcp-content-current-source` check keeps that record honest against the code.

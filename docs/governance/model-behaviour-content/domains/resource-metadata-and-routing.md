@@ -132,7 +132,7 @@ provenance:
 **What it is for:** Define the guidance resource identity and route, assistant audience and priority, presentation type, and freshness metadata exposed through MCP resource discovery and reads. Preserve the source provenance notice as reviewed lineage context.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/curriculum-mapping.md`
+- **Retained but not registered at:** `docs://oak/guidance/curriculum-mapping.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Added after the audit baseline.
@@ -157,7 +157,7 @@ lastModified: '2026-07-23T00:00:00Z'
 **What it is for:** Define the guidance resource identity and route, assistant audience and priority, presentation type, and freshness metadata exposed through MCP resource discovery and reads.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/adapt-lesson.md`
+- **Retained but not registered at:** `docs://oak/guidance/adapt-lesson.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Added after the audit baseline.
@@ -182,7 +182,7 @@ lastModified: '2026-07-23T00:00:00Z'
 **What it is for:** Define the guidance resource identity and route, assistant audience and priority, presentation type, and freshness metadata exposed through MCP resource discovery and reads.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/continue-progression.md`
+- **Retained but not registered at:** `docs://oak/guidance/continue-progression.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Added after the audit baseline.

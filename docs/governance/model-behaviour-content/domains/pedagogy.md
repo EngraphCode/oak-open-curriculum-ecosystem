@@ -97,7 +97,7 @@ build or audit a curriculum map — unit order across a year or key stage — gr
 **What it is for:** Frames a prompt to build/audit a curriculum map grounded in Oak threads, prior-knowledge graph, and national-curriculum coverage.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/curriculum-mapping.md`
+- **Retained but not registered at:** `docs://oak/guidance/curriculum-mapping.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts`).
@@ -114,7 +114,7 @@ adapt an Oak lesson grounded in EEF Teaching and Learning Toolkit evidence
 **What it is for:** Frames a prompt to adapt an Oak lesson grounded in EEF Teaching and Learning Toolkit evidence, promising evidence-calibrated options with caveats and attribution.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/adapt-lesson.md`
+- **Retained but not registered at:** `docs://oak/guidance/adapt-lesson.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts`).
@@ -131,7 +131,7 @@ plan the next step from where the teacher's class is — resolve the next unit f
 **What it is for:** Frames a position-anchored prompt: teacher states what class just covered, and the workflow plans the next step with readiness list and anticipated misconceptions.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/continue-progression.md`
+- **Retained but not registered at:** `docs://oak/guidance/continue-progression.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts`).
@@ -187,7 +187,7 @@ year group
 **What it is for:** Prompts the user to name a lesson topic with examples; shapes the search anchor for lesson build/adapt flows.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/adapt-lesson.md`
+- **Retained but not registered at:** `docs://oak/guidance/adapt-lesson.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts`).
@@ -208,7 +208,7 @@ subject, year group, and just-covered topic where the placeholders appear
 **What it is for:** Prompts the user for a year group with examples ('Year 4', 'Year 9'); downstream templates convert this to a numeric year filter.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/adapt-lesson.md`, `docs://oak/guidance/continue-progression.md`
+- **Retained but not registered at:** `docs://oak/guidance/adapt-lesson.md`, `docs://oak/guidance/continue-progression.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts`).
@@ -286,7 +286,7 @@ subject, year group, and just-covered topic where the placeholders appear
 
 - **Can an agent see it?** Mixed — reaches both live and dormant surfaces
 - **Reaches an agent through:** `docs://oak/guidance/learning-progression.md`
-- **Registered but switched off at:** `docs://oak/guidance/continue-progression.md`, `docs://oak/guidance/curriculum-mapping.md`
+- **Retained but not registered at:** `docs://oak/guidance/continue-progression.md`, `docs://oak/guidance/curriculum-mapping.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/learning-progression.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts`).
@@ -304,7 +304,7 @@ map for a subject at a key stage
 **What it is for:** Prompts for the key stage to map, enumerating accepted token forms ks1..ks4.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/curriculum-mapping.md`
+- **Retained but not registered at:** `docs://oak/guidance/curriculum-mapping.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts`).
@@ -321,7 +321,7 @@ map for a subject at a key stage
 **What it is for:** Offers optional narrowing of the map to one year group, with an example.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/curriculum-mapping.md`
+- **Retained but not registered at:** `docs://oak/guidance/curriculum-mapping.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts`).
@@ -338,7 +338,7 @@ what their class just covered
 **What it is for:** Prompts the teacher to state what the class just completed (topic/unit/lesson), anchoring the position-resolution step of the workflow.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/continue-progression.md`
+- **Retained but not registered at:** `docs://oak/guidance/continue-progression.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/mcp-prompts.ts`).
@@ -356,7 +356,7 @@ with notes on how the class did
 **What it is for:** Offers optional free-text class notes; when provided, the template adds a readiness cross-check against these notes.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/continue-progression.md`
+- **Retained but not registered at:** `docs://oak/guidance/continue-progression.md`
 - **Flagged for a closer look:** user-input-interpolation, pii-adjacent
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts`
 - **Who owns the words:** This repository — the words are authored here.
@@ -442,7 +442,7 @@ Give the teacher the adapted lesson as evidence-calibrated options and
 **What it is for:** Orchestrates a 5-step EEF-evidence-grounded adaptation: find Oak material, surface pedagogical signals via misconception/prior-knowledge graphs, map to EEF strand ids from eef://interpretation, call get-eef-evidence, present options with caveats.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/adapt-lesson.md`
+- **Retained but not registered at:** `docs://oak/guidance/adapt-lesson.md`
 - **Flagged for a closer look:** user-input-interpolation
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts`
 - **Who owns the words:** This repository — the words are authored here.
@@ -464,7 +464,7 @@ its assumed prior knowledge is exactly what the class should now have
 **What it is for:** Orchestrates a 5-step position-anchored workflow: resolve position via unit search (confirm ambiguous matches, never select silently), derive next via get-thread-progressions, check readiness, anticipate misconceptions, then chain into lesson-planning.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/continue-progression.md`
+- **Retained but not registered at:** `docs://oak/guidance/continue-progression.md`
 - **Flagged for a closer look:** user-input-interpolation
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts`
 - **Who owns the words:** This repository — the words are authored here.
@@ -484,7 +484,7 @@ If
 **What it is for:** When classNotes is supplied, appends 'Notes on how the class did: \<notes\>' and instructs the agent to check the readiness list against those notes and flag unsecured items.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/continue-progression.md`
+- **Retained but not registered at:** `docs://oak/guidance/continue-progression.md`
 - **Flagged for a closer look:** user-input-interpolation, pii-adjacent
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts`
 - **Who owns the words:** This repository — the words are authored here.
@@ -511,7 +511,7 @@ MCP tool names may appear prefixed
 
 - **Can an agent see it?** Mixed — reaches both live and dormant surfaces
 - **Reaches an agent through:** `docs://oak/guidance/explore-curriculum.md`, `docs://oak/guidance/find-lessons.md`, `docs://oak/guidance/learning-progression.md`
-- **Registered but switched off at:** `docs://oak/guidance/adapt-lesson.md`, `docs://oak/guidance/continue-progression.md`, `docs://oak/guidance/curriculum-mapping.md`
+- **Retained but not registered at:** `docs://oak/guidance/adapt-lesson.md`, `docs://oak/guidance/continue-progression.md`, `docs://oak/guidance/curriculum-mapping.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/explore-curriculum.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/find-lessons.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/learning-progression.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/lesson-planning.ts`).
@@ -532,7 +532,7 @@ quizzes, meet WCAG 2.2 AA (alt text, heading/reading order, contrast)
 **What it is for:** Requires any produced slides/worksheets/quizzes to meet WCAG 2.2 AA (alt text, heading/reading order, contrast); constrains the accessibility of agent output.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/adapt-lesson.md`, `docs://oak/guidance/curriculum-mapping.md`
+- **Retained but not registered at:** `docs://oak/guidance/adapt-lesson.md`, `docs://oak/guidance/curriculum-mapping.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/lesson-planning.ts`).
@@ -558,7 +558,7 @@ the teaching decision is the teacher's to make
 **What it is for:** Instructs the agent to present outputs as teacher-owned recommendations with alternatives rather than a single mandated selection, preserving human decision authority.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/adapt-lesson.md`, `docs://oak/guidance/continue-progression.md`, `docs://oak/guidance/curriculum-mapping.md`
+- **Retained but not registered at:** `docs://oak/guidance/adapt-lesson.md`, `docs://oak/guidance/continue-progression.md`, `docs://oak/guidance/curriculum-mapping.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/continue-progression.ts`).
@@ -1160,7 +1160,7 @@ Agent guidance: curriculum mapping
 **What it is for:** Frames build/audit of a curriculum map (unit order across a year/key stage) grounded in Oak threads, prerequisites and national-curriculum coverage.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/curriculum-mapping.md`
+- **Retained but not registered at:** `docs://oak/guidance/curriculum-mapping.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/register-prompts.ts`).
@@ -1177,7 +1177,7 @@ Agent guidance: adapt a lesson with EEF evidence
 **What it is for:** Frames an EEF-evidence-grounded lesson adaptation that must present evidence-calibrated options with caveats and attribution intact; EEF flag co-gated so it disappears when disabled.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/adapt-lesson.md`
+- **Retained but not registered at:** `docs://oak/guidance/adapt-lesson.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/register-prompts.ts`).
@@ -1194,7 +1194,7 @@ Agent guidance: continue the progression
 **What it is for:** Frames a 'what next' workflow: from what a class just covered, return the next unit from Oak's sequence plus a checkable readiness list and misconceptions to anticipate.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/continue-progression.md`
+- **Retained but not registered at:** `docs://oak/guidance/continue-progression.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `apps/oak-curriculum-mcp-streamable-http/src/register-prompts.ts`).
@@ -2155,7 +2155,7 @@ export function renderReflection(r: TDReflection): string {
 
 ## Words owned elsewhere (1)
 
-These reach agents through this system but are authored somewhere else. Each item names the repository that owns it; raise changes there, not here.
+These are authored somewhere else. Each item names the repository that owns it; raise changes there, not here. Whether an item reaches an agent today is stated on the item itself.
 
 ### C201 — getCurriculumMappingMessages — user message template (map build/audit)
 
@@ -2173,7 +2173,7 @@ national curriculum coverage)
 **What it is for:** Orchestrates a 6-step build/audit of a curriculum map (scope, backbone threads, prerequisite ordering, coverage, breadth balance, audit) with a prescribed output table format and KS4/sequences caveat.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/curriculum-mapping.md`
+- **Retained but not registered at:** `docs://oak/guidance/curriculum-mapping.md`
 - **Flagged for a closer look:** user-input-interpolation
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts`
 - **Who owns the words:** Oak Skills, in the `oaknational/oak-skills` repository. The workflow here is adapted from a named skill; the authoritative pedagogy lives there.

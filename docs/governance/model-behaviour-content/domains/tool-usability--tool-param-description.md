@@ -1065,7 +1065,7 @@ export function normaliseParamName(openApiName: string): string {
 
 ## Words owned elsewhere (50)
 
-These reach agents through this system but are authored somewhere else. Each item names the repository that owns it; raise changes there, not here.
+These are authored somewhere else. Each item names the repository that owns it; raise changes there, not here. Whether an item reaches an agent today is stated on the item itself.
 
 ### C505 — get-key-stages-subject-assets param keyStage
 

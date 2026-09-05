@@ -1825,7 +1825,7 @@ export const OAK_UNDER_THE_HOOD_ORIENTATION =
 
 ## Words owned elsewhere (4)
 
-These reach agents through this system but are authored somewhere else. Each item names the repository that owns it; raise changes there, not here.
+These are authored somewhere else. Each item names the repository that owns it; raise changes there, not here. Whether an item reaches an agent today is stated on the item itself.
 
 ### C677 — MCP\_TOOL\_ENTRIES tool-name catalogue (29 kebab-case tool names)
 

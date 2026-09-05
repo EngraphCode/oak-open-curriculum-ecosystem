@@ -1,12 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import type { WorkspaceItem, WorkspacePage } from './content-workspace-model.js';
+import type { WorkspaceInputs, WorkspaceItem, WorkspacePage } from './content-workspace-model.js';
 import { renderItem } from './render-item.js';
 import { renderDomainPages } from './render-domain-index.js';
 import { orphanedPages, stalePages } from './render-workspace.js';
 import { renderServedSurfacePage } from './render-auxiliary-pages.js';
 import { domainCounts } from './workspace-counts.js';
-import type { WorkspaceInputs } from './content-workspace-model.js';
 
 function workspaceItem(overrides: Partial<WorkspaceItem> = {}): WorkspaceItem {
   return {
@@ -58,7 +57,7 @@ describe('renderItem', () => {
       }),
     );
 
-    expect(page).toContain('**Registered but switched off at:** `docs://oak/legacy.md`');
+    expect(page).toContain('**Retained but not registered at:** `docs://oak/legacy.md`');
     expect(page).not.toContain('Reaches an agent through');
   });
 
@@ -74,7 +73,7 @@ describe('renderItem', () => {
     );
 
     expect(page).toContain('**Reaches an agent through:** `search`');
-    expect(page).toContain('**Registered but switched off at:** `legacy-search`');
+    expect(page).toContain('**Retained but not registered at:** `legacy-search`');
   });
 
   it('sends a reviewer to the owning repository when the words are authored upstream', () => {

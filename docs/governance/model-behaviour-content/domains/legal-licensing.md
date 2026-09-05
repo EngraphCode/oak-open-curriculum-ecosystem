@@ -124,7 +124,7 @@ Oak material
 **What it is for:** Requires the agent to attribute reproduced Oak material to Oak National Academy under Open Government Licence v3.0 with a link, and notes the Oak name/logo are trademarks not covered by OGL.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/adapt-lesson.md`, `docs://oak/guidance/continue-progression.md`, `docs://oak/guidance/curriculum-mapping.md`
+- **Retained but not registered at:** `docs://oak/guidance/adapt-lesson.md`, `docs://oak/guidance/continue-progression.md`, `docs://oak/guidance/curriculum-mapping.md`
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/continue-progression.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts`
 - **Who owns the words:** This repository — the words are authored here.
 - **Since the audit baseline:** Moved since the audit baseline (it was in `packages/sdks/oak-curriculum-sdk/src/mcp/prompt-messages/lesson-planning.ts`).
@@ -145,7 +145,7 @@ cite EEF for the evidence
 **What it is for:** Grounds the workflow in named Oak pedagogy sources (Emma McCrea's six curriculum principles, Mary Myatt threads) and, in adapt-lesson, requires citing EEF organisation/page/named authors.
 
 - **Can an agent see it?** Dormant — retained in the codebase but not registered, so no agent sees it
-- **Registered but switched off at:** `docs://oak/guidance/adapt-lesson.md`, `docs://oak/guidance/curriculum-mapping.md`
+- **Retained but not registered at:** `docs://oak/guidance/adapt-lesson.md`, `docs://oak/guidance/curriculum-mapping.md`
 - **Flagged for a closer look:** pii-adjacent
 - **Where it lives:** `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/adapt-lesson.ts`, `packages/sdks/oak-curriculum-sdk/src/mcp/guidance-resources/curriculum-mapping.ts`
 - **Who owns the words:** This repository — the words are authored here.
@@ -376,7 +376,7 @@ This service is experimental. It uses Oak National Academy content, but AI can m
 
 ## Words owned elsewhere (3)
 
-These reach agents through this system but are authored somewhere else. Each item names the repository that owns it; raise changes there, not here.
+These are authored somewhere else. Each item names the repository that owns it; raise changes there, not here. Whether an item reaches an agent today is stated on the item itself.
 
 ### C501 — get-key-stages-subject-assets licensing/attribution sentence
 

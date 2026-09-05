@@ -33,7 +33,7 @@ git log -p --follow -- packages/sdks/oak-curriculum-sdk/src/mcp/orientation-guid
 
 ## Words owned elsewhere (8)
 
-These reach agents through this system but are authored somewhere else. Each item names the repository that owns it; raise changes there, not here.
+These are authored somewhere else. Each item names the repository that owns it; raise changes there, not here. Whether an item reaches an agent today is stated on the item itself.
 
 ### C438 — methodology.cost\_measure.scale (labels + GBP per-pupil/per-class ranges)
 

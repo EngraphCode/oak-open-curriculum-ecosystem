@@ -113,7 +113,7 @@ function renderOwnershipSections(items: readonly WorkspaceItem[]): readonly stri
     ),
     ...ownershipSection(
       'Words owned elsewhere',
-      'These reach agents through this system but are authored somewhere else. Each item names the repository that owns it; raise changes there, not here.',
+      'These are authored somewhere else. Each item names the repository that owns it; raise changes there, not here. Whether an item reaches an agent today is stated on the item itself.',
       present.filter((item) => item.authority !== 'workspace'),
     ),
     ...ownershipSection(

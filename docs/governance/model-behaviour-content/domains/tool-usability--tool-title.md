@@ -259,7 +259,7 @@ export function kebabToTitleCase(name: unknown): string {
 
 ## Words owned elsewhere (27)
 
-These reach agents through this system but are authored somewhere else. Each item names the repository that owns it; raise changes there, not here.
+These are authored somewhere else. Each item names the repository that owns it; raise changes there, not here. Whether an item reaches an agent today is stated on the item itself.
 
 ### C499 — get-key-stages-subject-assets annotations.title (+ tool name)
 
