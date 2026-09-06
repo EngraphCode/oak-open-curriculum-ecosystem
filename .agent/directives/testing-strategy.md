@@ -273,7 +273,12 @@ time out, restore byte-identical (2026-08-18). **A repro must fail for the
 RIGHT reason**: a crash-window fixture that crashed at the pre-read was
 green by accident; the cure landed the failure inside the true window and
 pinned the matcher to the window's own signature (`EACCES` at the queue
-path) so a too-early failure cannot green it vacuously (2026-08-18).
+path) so a too-early failure cannot green it vacuously (2026-08-18). **A
+cell red on both sides of a cure proves nothing**: a guard's calibration
+evidence is void unless the cell is GREEN on the cured state first and red
+exactly on the revert — a second instance the same sitting passed with both
+cure arms reverted because `once` had already cleared the fired listeners
+(2026-08-19).
 
 ### Test doubles model the boundary, never the engine
 

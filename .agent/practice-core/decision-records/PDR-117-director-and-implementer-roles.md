@@ -637,3 +637,39 @@ zero-deliverable windows within one cycle boundary; falsified if a
 rabbit-hole arc recurs that passed all five mechanisms — which would mean
 the detection surface needs an instrument outside the Director's own
 judgment loop.
+
+## Amendment (2026-09-06) — Role-scoped value lens and the seat deliverable
+
+Authored at the 2026-09-06 dedicated consolidation from three owner
+corrections on one axis; the rule is the owner's, the wording is the
+seat's.
+
+**Three corrections, one shape.** 2026-08-10: a Director executed a fold
+cascade itself instead of routing it. 2026-08-14: a curator seat
+self-executed a merge-back onto a shared checkout. 2026-09-02: a support
+seat read the owner's "X needs doing" as its own assignment and started;
+the owner, verbatim: "nope, I said it needed doing, not that you should do
+it, support [the peer seat]". In each the seat's licence to act was real —
+the work was allowed, safe and useful — and the seat still acted wrongly,
+because the first question it asked was "may I?" rather than "is this my
+role's output?". The dated narratives live on the host's own napkin
+archives and bridge surfaces; this record carries the structural rule.
+
+**The rule.** On self-initiated work the value lens runs role-scoped BEFORE
+the licensing and safety lenses: a seat asks first whether the work is its
+role's deliverable — the Director's is a routed map and an owner interface;
+an Implementer's is its lane's landed artefact; a support seat's is what the
+seat it supports asks of it — and only then whether the work is allowed. A
+seat's deliverable is its role's output, never legible effort: activity that
+is licensed, safe and useful but belongs to another role is not value from
+this seat. Shared-git-state operations (folds, merge-backs, commits on the
+primary checkout) route to the warden or the Director from any non-warden
+seat, whatever that seat's licence. A routing fact ("this needs doing") is
+not a seat assignment; the assignment is the owner's or the Director's word
+naming the executor.
+
+Expected observable effect + falsifier (PDR-130 fast-lane obligation): a
+seat that catches itself starting another role's work records the catch and
+routes the work; falsified if a fourth owner correction on this axis lands
+after this amendment — which would say the lens needs an action-time
+instrument, not a clause.
