@@ -78,10 +78,20 @@ server-side action.
 
 - **Network data written to a file.** The drift check writes a status description derived
   from the upstream document to the workflow's output file; the schema cache writes the
-  validated document itself. The cure makes the written bytes independent of upstream text:
-  the description becomes a closed enumeration plus counts computed from the validated
-  parse, and the cache write takes the re-serialised output of the structural validator,
-  so the analyser's taint path ends at the validator.
+  validated document itself. The drift check's cure makes the written bytes independent of
+  upstream text: the description becomes a closed enumeration plus counts computed from the
+  validated parse. The schema cache already writes the structural validator's re-serialised
+  output (`packages/sdks/oak-sdk-codegen/code-generation/schema-cache.ts`, whose comment
+  names these alerts), and its alert stands because validation returns the fetched document,
+  so the analyser's taint path runs through the validator to the write; no rewrite of that
+  write which keeps the cache's contract can end the path. Its cure is the analyser's
+  documented barrier model (its JavaScript library-model guide, read 2026-09-06): a tracked
+  data extension naming the validator's return value as a barrier for this rule's taint
+  kind, with the rationale at the site (a constant path, and the written value is the
+  validated document, which is the cache's contract). The alert closes on the next analysis
+  of the resting branch or the model is wrong; if the rule's own configuration consults no
+  barrier kind, the unit records that finding on this node rather than dismissing the alert
+  in the hosting service.
 - **Executable searched on PATH.** Fix-only under the policy, tooling included: every site
   resolves its executable to an absolute path from a fixed allowlist of well-known
   directories without consulting PATH — the existing trusted-git atom for `git`, and the
@@ -148,9 +158,11 @@ independent unless stated:
    configuration.
 2. **The regular expression.** The script-body extraction rewritten linear-time with the
    pathological-input test: two files.
-3. **Network data written to a file.** The drift check's closed-vocabulary description and
-   the cache's validated write, with tests; the data-flow model only if the first arm leaves
-   the alert standing, with its reason: about six files.
+3. **Network data written to a file.** The drift check's closed-vocabulary description with
+   its test, and the schema cache's tracked barrier model with its site rationale; the
+   cache's validated write already exists and does not change. The drift check takes the
+   same model only if the closed vocabulary leaves its alert standing, with its reason:
+   about five files.
 4. **Executables on PATH — the runtime and server sites.** The trusted-executable atom
    generalised from the trusted-git shape, with its refusal test, adopted at the runtime
    sites: about six files.
@@ -189,3 +201,5 @@ One row per finding; "applied" means folded into this node before ratification.
 
 | Date | Source | Finding | Disposition |
 | --- | --- | --- | --- |
+| 2026-09-06 | PR #56 round one (Codex) | The executable-on-PATH arm proposed a tooling exception and an accepted-risk state that the Sonar disposition policy excludes. | Applied: the mechanism follows the policy's two-outcome rule — fix-only for that class through the trusted-git shape, site-rationalised SAFE only where the policy's class criteria hold, no path exclusions. |
+| 2026-09-06 | PR #56 round two (Codex) | Unit 3's cache arm proposed the validated write that `schema-cache.ts` already performs, so the arm could not clear the alert. | Applied: the mechanism and unit 3 state the fact and take the analyser's documented barrier model, with the no-model outcome recorded on the node rather than a dismissal. |
