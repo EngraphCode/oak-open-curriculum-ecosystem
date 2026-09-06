@@ -54,6 +54,17 @@ stamp the lifetime) and at session-open (to check it).
    [`worktree-hygiene`](worktree-hygiene.md) and the owner's standing
    word (2026-07-28: work in worktrees where reasonable). A coordination
    branch that accumulates work products cannot converge in a day.
+5. **Keep the branch reasonably clean between rotations** (owner,
+   2026-07-25: "periodic commits, not too many, just don't let things
+   build up"): the accruing shared-state surfaces (memory, handoff maps,
+   tally ledgers) commit at occurrence in sensible batches under the bot
+   identity by explicit pathspec, and the default branch merges in at
+   quiet windows so the gap stays small. Uncommitted state on the shared
+   primary is lost with the session, invisible to peers, and blocks other
+   seats' operations. And the coordination branch IS the primary
+   checkout's own branch, always — never a snapshot worktree (owner,
+   2026-08-06, verbatim: "the coordination branch shouldn't be a
+   worktree, it should be the branch in the primary checkout, always").
 
 ## Why This Rule Exists (Worked Instance)
 

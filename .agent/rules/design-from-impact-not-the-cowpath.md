@@ -119,6 +119,25 @@ and your own context for the tells; (4) **re-project** each through
 impact — the existing artefact becomes a view or flow on the one
 model, or it dissolves.
 
+## No Design by Review in Pull Requests
+
+A review bot sees a diff, never the vision, so a finding that argues design
+INTENT — what the system should allow, what a demonstration should show — is
+outside its visibility. Owner, 2026-09-06, verbatim, on a proposal to narrow
+a reading-order exemption: "We do NOT allow design by review in PRs, we have
+a vision that PR bots have no visibility of. Of course visual design should
+be bloody coherent, that is not in question, but the fact that the
+mechanism is capable of producing incoherent designs is not a failure, it
+is power, that must be used appropriately and well, the reviewer is mixing
+concerns myopically." Capability and use are separate concerns: coherence
+is enforced where designs are made and judged (the vision, the rubric's
+owner-held rows), never by narrowing the mechanism. On design surfaces a
+review finding that proposes a design-policy narrowing is dispositioned by
+reference to the vision and the standing rulings — never cured, never
+carded to the owner as a refinement, never carried as residue. Findings
+about falsifiable facts (a wrong count, a broken link, a rule violation)
+remain cures.
+
 ## Related Surfaces
 
 - [`principles.md` §Decision Lenses](../directives/principles.md#decision-lenses--order-of-resolution)

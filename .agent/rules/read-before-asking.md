@@ -40,6 +40,16 @@ absence inferred from URL helpers, never from the product's code). Read
 the source that the premise rests on first; a question is the residue of a
 verified gap, never the substitute for reading.
 
+**Owner-decision-class facts are read, then asked — never surveyed.** Repo
+purpose, edit authority, audience and priority are the owner's facts; they
+live in his word and his ratified records, never in the bytes. A survey or
+instrument built to infer them ratifies its own model and returns zero
+evidence — instrument ratification is not weak evidence, it is none
+(2026-08-17: a landscape survey of about thirteen million tokens guessed at
+what the owner wanted while an earlier plan of his already stated it;
+recurrence 2026-09-01). Read the ratified record first; if it is silent,
+ask him directly, in one card.
+
 ## Two Structural Guards
 
 Both guards are non-negotiable. A version of this rule that lacks

@@ -197,6 +197,32 @@ the n=2 mode (PDR-082) first scoped from *team-size* to
 *consumer-presence*: n=2 owner-visible mode is the special case
 where chat-visibility makes the async-detection consumer absent.
 
+A fifth exemption, added 2026-09-06, is a **declared-state** class:
+it suspends both emission and the threshold for a seat the owner
+has stood down by word, and it is distinguished from silence by
+its opening event.
+
+- **Owner-word stand-down (paused seat)** — a seat the owner has
+  paused by word (an overnight stand-down, a declared sleep, a
+  "stop all processes" at a compaction boundary) stops its
+  heartbeat and its watcher BY INTENT, emits a final heartbeat-end
+  event naming the owner's word and the stand-down, and RETAINS
+  its claim (with a handoff record attached when work is in
+  flight). Staleness past that event is the declared state, not a
+  retirement signal: the threshold does not fire on it, no peer
+  adopts the claim, and the seat resumes only at the owner's next
+  word, re-arming its watcher and then its heartbeat before its
+  first act. In a paused team the coordinator stands down last and
+  resumes first. The opening event is the heartbeat-end that names
+  the owner's word; without it the exemption does not apply and
+  the threshold fires normally. Graduated on five instances between
+  2026-08-17 (an overnight cold-pause of three seats, coordinator
+  last) and 2026-09-06 (compaction-boundary stand-downs at owner
+  word), with a declared week-sleep and an owner-word pause of a
+  second seat between; the host liveness rule carries the
+  operational form, the instance list and the seat-state
+  vocabulary.
+
 ### 5. Substrate category: heartbeats are liveness infrastructure
 
 Heartbeat events are categorically **liveness-signal
@@ -348,7 +374,8 @@ shape diverges, the threshold widens proportionately.
 
 The named exemptions are the observed-class set (three
 threshold-suspension classes; one emit-side consumer-absent
-class). New exemption classes graduate from worked-instance
+class; one declared-state owner-word stand-down class, graduated
+2026-09-06). New exemption classes graduate from worked-instance
 evidence via the host's pending-graduations discipline; the
 contract is updated as exemption classes graduate, not pre-empted
 with hypothetical classes. The consumer-absent class graduated
@@ -496,6 +523,14 @@ rerouted.
 
 ## Revision history
 
+- 2026-09-06 — Added a fifth, declared-state exemption class to §4
+  ("Owner-word stand-down / paused seat"), graduated from the host
+  liveness rule's §Exemptions on three instances, and updated the
+  §"Forward-extensible exemption list" note. The class is distinguished
+  from silence by its opening event (the heartbeat-end naming the owner's
+  word) and from consumer-absence by suspending the threshold as well as
+  emission while the claim is retained. Cadence (§1), threshold (§3), and
+  the substrate-category invariant (§5) unchanged.
 - 2026-06-15 — Added a fourth, emit-side exemption class to §4
   ("Consumer-absent / no observing peer"), updated the
   §"Forward-extensible exemption list" note to record its graduation on
