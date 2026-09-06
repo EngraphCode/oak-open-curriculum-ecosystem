@@ -19,7 +19,7 @@ one event. The lesson I carry: a file edit is a hypothesis about the owner's int
 that received the words holds the fact. Say so plainly and quickly; the Director will thank you.
 
 Most of my hours went into the comms stream. The skill says the sweep is non-optional, the previous
-curator had read her window whole, and I read mine whole too: two hundred and eighteen events,
+curator had read their window whole, and I read mine whole too: two hundred and eighteen events,
 every page written to disk before the next was opened, because the owner had just told me — and I
 had just read the previous seat's correction — that a context fills faster than it feels and
 compaction takes the unwritten with it. That discipline held; what it protected was thinner than I
