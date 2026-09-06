@@ -11,24 +11,34 @@ recompute live state from claims/comms/git at pickup.
 
 ## Participating identities (additive — joiners append a row, never replace)
 
-| Date (UTC) | Agent | Platform / model | Session prefix | Role on thread |
-| --- | --- | --- | --- | --- |
-| 2026-07-20 | Salmon binds Undertow | claude-code / fable-5 | `de5c10` | first writer (compaction boundary) |
-| 2026-07-20 | Caracal wakes Tunnel | claude-code / fable-5 | `265648` | Stage-A import lane |
-| 2026-07-20 | Harrier rides Updraft | claude-code / fable-5 | `416a38` | cycle-3 four-theme gate lane |
-| 2026-07-20 | Heron seeks Bluff | claude-code / fable-5 | `ef3eb0` | design-system lane (second-generation cast) |
-| 2026-07-20 | Foehn rides Flight | claude-code / fable-5 | `3e9afa` | lane successor; fold + Layer-3 distillations |
-| 2026-07-20 | Tornado tracks Apex | claude-code / fable-5 | `daace4` | Director — identity-table cure at #434 adjudication |
-| 2026-07-26 | Triton mends Void | claude-code / Opus 5 (1M) | `9f070b` | MCP-128 landing lane — design-system consumption in the MCP app |
-| 2026-07-26 | Skipper tracks Abyss | claude-code / fable-5 | `4144b4` | MCP-128 lane successor (Lavender→Skipper); executes the owner-ratified #565 restack |
-| 2026-07-26 | Schooner binds Trench | claude-code / claude-fable-5 | `5492d7` | MCP-128 restack successor (Skipper→Schooner, PDR-063 at owner word); continues PR-3 from the frozen inventory |
-| 2026-07-30 | Thyme weaves Hedgerow | claude-code / claude-fable-5 | `762020` | design-showcase lane (adopted claim `ebb3efe2` from Altair turns Infinity `7a97a1` at owner word 2026-07-29 — Altair held the lane 2026-07-29 unregistered on this table); landed #637 + #641; MCP-372 carrier at owner ruling; deliberate succession → Sycamore herds Xylem `028dc4` 2026-07-30 |
-| 2026-08-02 | Moss calls Loam | claude-code / claude-fable-5 | `79b433` | Design-lane seat at direct owner word (Director: Falcon hunts Flight `52841f`); movement 1: PR #710 MERGED `58e5be461` — kit 1.8.0 TS-runtime + choice() on main |
-| 2026-08-02 | Corsair hunts Surf | claude-code / claude-fable-5 | `4d3282` | Design-lane successor seat at direct owner word (evening, post-Moss retirement); standby, warm pause — activation gated on the ratified design-system completion plan node + Director/owner word |
-| 2026-08-07 | Civet spins Cavern | claude-code / claude-fable-5 | `054f5e` | Design-lane successor (Saffron→Civet, PDR-063 deliberate succession at owner word, Director ACTIVATE 20:46Z); claim `645b9e0b` adopted 20:46Z after the handoff record read end to end |
-| 2026-08-17 | Yarrow stirs Undergrowth | claude-code / claude-fable-5 | `ab1066` | Critical-analysis sitting + records-truth pass (MCP-613) at direct owner word; claim `645b9e0b` adopted after the winddown record + this record read end to end |
-| 2026-09-02 | Finch calls Pinnacle | claude-code / claude-fable-5 | `c91bd4` | #908 landing seat at direct owner word (merged a8aa13da1); the post-merge Copilot round consolidated through the tango node in the #915 fold; claim `645b9e0b` closed at owner word (no adoption — a fresh claim opens the lane's next pickup) |
-| 2026-09-05 | Flounder turns Estuary | claude-code / claude-fable-5-1 | `c5cc2c` | Lead seat at the owner's PR-count-to-zero goal: PR #41 (MCP-613 records-truth pass) landed SHA:8b2b5ee03 after nine review rounds; the seven-item records residue routed on this record §2026-09-05; claim `b627b5af` closed (a fresh claim opens the lane's next pickup) |
+| agent_name | platform | model | session_id_prefix | role | first_session | last_session |
+| --- | --- | --- | --- | --- | --- | --- |
+| Salmon binds Undertow | claude-code | fable-5 | `de5c10` | first writer (compaction boundary) | 2026-07-20 | 2026-07-20 |
+| Caracal wakes Tunnel | claude-code | fable-5 | `265648` | Stage-A import lane | 2026-07-20 | 2026-07-20 |
+| Harrier rides Updraft | claude-code | fable-5 | `416a38` | cycle-3 four-theme gate lane | 2026-07-20 | 2026-07-20 |
+| Heron seeks Bluff | claude-code | fable-5 | `ef3eb0` | design-system lane (second-generation cast) | 2026-07-20 | 2026-07-20 |
+| Foehn rides Flight | claude-code | fable-5 | `3e9afa` | lane successor; fold + Layer-3 distillations | 2026-07-20 | 2026-07-20 |
+| Tornado tracks Apex | claude-code | fable-5 | `daace4` | Director — identity-table cure at #434 adjudication | 2026-07-20 | 2026-07-20 |
+| Triton mends Void | claude-code | Opus 5 (1M) | `9f070b` | MCP-128 landing lane — design-system consumption in the MCP app | 2026-07-26 | 2026-07-26 |
+| Skipper tracks Abyss | claude-code | fable-5 | `4144b4` | MCP-128 lane successor (Lavender→Skipper); executes the owner-ratified #565 restack | 2026-07-26 | 2026-07-26 |
+| Schooner binds Trench | claude-code | claude-fable-5 | `5492d7` | MCP-128 restack successor (Skipper→Schooner, PDR-063 at owner word); continues PR-3 from the frozen inventory | 2026-07-26 | 2026-07-26 |
+| Thyme weaves Hedgerow | claude-code | claude-fable-5 | `762020` | design-showcase lane (adopted claim `ebb3efe2` from Altair turns Infinity `7a97a1` at owner word 2026-07-29 — Altair held the lane 2026-07-29 unregistered on this table); landed #637 + #641; MCP-372 carrier at owner ruling; deliberate succession → Sycamore herds Xylem `028dc4` 2026-07-30 | 2026-07-30 | 2026-07-30 |
+| Moss calls Loam | claude-code | claude-fable-5 | `79b433` | Design-lane seat at direct owner word (Director: Falcon hunts Flight `52841f`); movement 1: PR #710 MERGED `58e5be461` — kit 1.8.0 TS-runtime + choice() on main | 2026-08-02 | 2026-08-05 |
+| Corsair hunts Surf | claude-code | claude-fable-5 | `4d3282` | Design-lane successor seat at direct owner word (evening, post-Moss retirement); standby, warm pause — activation gated on the ratified design-system completion plan node + Director/owner word | 2026-08-02 | 2026-08-03 |
+| Civet spins Cavern | claude-code | claude-fable-5 | `054f5e` | Design-lane successor (Saffron→Civet, PDR-063 deliberate succession at owner word, Director ACTIVATE 20:46Z); claim `645b9e0b` adopted 20:46Z after the handoff record read end to end | 2026-08-07 | 2026-08-10 |
+| Yarrow stirs Undergrowth | claude-code | claude-fable-5 | `ab1066` | Critical-analysis sitting + records-truth pass (MCP-613) at direct owner word; claim `645b9e0b` adopted after the winddown record + this record read end to end | 2026-08-17 | 2026-08-19 |
+| Finch calls Pinnacle | claude-code | claude-fable-5 | `c91bd4` | #908 landing seat at direct owner word (merged a8aa13da1); the post-merge Copilot round consolidated through the tango node in the #915 fold; claim `645b9e0b` closed at owner word (no adoption — a fresh claim opens the lane's next pickup) | 2026-09-02 | 2026-09-02 |
+| Flounder turns Estuary | claude-code | claude-fable-5-1 | `c5cc2c` | Lead seat at the owner's PR-count-to-zero goal: PR #41 (MCP-613 records-truth pass) landed SHA:8b2b5ee03 after nine review rounds; the seven-item records residue routed on this record §2026-09-05; claim `b627b5af` closed (a fresh claim opens the lane's next pickup) | 2026-09-05 | 2026-09-05 |
+| Lavender turns Pollen | claude-code | unrecorded | `f00cf6` | MCP-128 lane tenure, owner-called handoff (Lavender→Skipper) (projected 2026-09-06 from the narrative) | 2026-07-26 | 2026-07-26 |
+| Altair turns Infinity | claude-code | unrecorded | `7a97a1` | design-showcase lane holder before Thyme; held the lane unregistered on this table (projected 2026-09-06 from the narrative) | 2026-07-29 | 2026-07-30 |
+| Sycamore herds Xylem | claude-code | unrecorded | `028dc4` | deliberate succession from Thyme; seat at standby with claims open (projected 2026-09-06 from the narrative) | 2026-07-30 | 2026-07-30 |
+| Saffron guards Hedgerow | claude-code | unrecorded | `8a4280` | design-lane predecessor to Civet; froze the lane to a handoff record (projected 2026-09-06 from the narrative) | 2026-08-07 | 2026-08-07 |
+| Swordfish wakes Trench | claude-code | unrecorded | `d0274e` | design-lane successor to Civet: plan outline, σ-calibration slice design, S2b, W1 fleet, cure arc (projected 2026-09-06 from the narrative) | 2026-08-10 | 2026-08-13 |
+| Skua binds Leeward | claude-code | unrecorded | `e2b222` | compaction and wind-down seat; merge drive live mid-freeze (projected 2026-09-06 from the narrative) | 2026-08-13 | 2026-08-13 |
+
+_Re-shaped to the PDR-027 columns at the 2026-09-06 consolidation (Director ruling 1920a22f): the rows above the
+projected ones are the original additive rows with their dates as first_session and the narrative's latest
+mention as last_session; Directors who ruled on the lane are named in role cells, not as joiners._
 
 ## Board state at writing (recompute, do not trust)
 
@@ -189,8 +199,8 @@ rides Flight 3e9afa at the owner's wrap, record
   hub branch's next currency update. The motion-cascade authority item stays on the
   sync-back batch (comms 1d615a4b: components.css belt-and-braces defeats
   data-motion='full' — verified, cure choice owner/studio-gated).
-  *(Fold-time truth: #431 MERGED 13:08:22Z, merge `SHA:2ef5ee3bd`, Phase-8 clean; the hub
-  parity copy refreshed byte-identically on the hub branch at 13:21Z.)*
+  _(Fold-time truth: #431 MERGED 13:08:22Z, merge `SHA:2ef5ee3bd`, Phase-8 clean; the hub
+  parity copy refreshed byte-identically on the hub branch at 13:21Z.)_
 - **#420** completed as the Director's mechanical cycle (ping default during this seat's
   10:53–11:57Z harness suspension — the heartbeat-during-suspension false-liveness
   class, comms 65c1b504).
@@ -633,13 +643,13 @@ adjudication (`.agent/reports/design/plan-review-2026-08-02/`, on origin at
 - **Owner taste evidence from the day (the wow bar's only calibration data):**
   REJECTED out of hand: the current showcase page — bare type-ramp specimens, native
   form-control switchboard, monochrome first paint ("a piece of crap… visually I would
-  reject it out of hand as incompetent"; "it is a *design* showcase"). CALLED GOOD
+  reject it out of hand as incompetent"; "it is a _design_ showcase"). CALLED GOOD
   (with unenumerated tweaks pending): the canonical export's own pages — the Identity
   Switchboard switching a REAL lesson-page specimen ("The water cycle", masthead, nav,
   breadcrumb, brand panel), proper toggle-button identity controls. The bar phrase
   evolved in one day: "a professional designer would look at and think 'wow, that
   looks good'" → "I want to look at each and every demo and think 'wow, that looks
-  *amazing*'". The export's visual language is the demonstrated taste anchor.
+  _amazing_'". The export's visual language is the demonstrated taste anchor.
 - **The viewing context behind the verdict:** three tabs in the owner's Chrome —
   hub dev server port 3010 (`pnpm --filter @oaknational/oak-curriculum-hub dev`),
   showcase port 3020 (`pnpm --filter @oaknational/oak-design-showcase dev`), and the

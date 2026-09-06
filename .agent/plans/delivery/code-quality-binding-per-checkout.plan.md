@@ -27,7 +27,12 @@ design-studio sync config (an account-bound project id). After this lands, both 
 untracked per-checkout files behind tracked `.example` twins, this checkout's copies name
 its own projects, the IDE's workspace settings no longer carry a duplicate binding, and the
 one rule that spelled a project key points at the binding file. This is the owner-named
-first slice of the strategic node and the shape every later slice reuses.
+first slice of the strategic node and the shape every later slice reuses. A link to the
+design studio is optional tooling for a checkout, never a design-system expectation — the
+owner's word (2026-09-05, on this slice's "design-studio project id"): nothing in this
+project is linked to Claude Design; it can be, but that is not part of the design system,
+it is not an expectation — so the sync config this slice untracks is a per-checkout choice
+and its absence is a valid state.
 
 ## User groups and value
 
