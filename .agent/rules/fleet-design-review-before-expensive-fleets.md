@@ -85,3 +85,12 @@ the tier it died inside: a finisher's "green" omitted the pre-push-only
 smoke chain, and the stale fixture literal sat exactly at the original
 builder's death seam (2026-08-18). Brief the finisher to re-run every gate
 tier above the death point before it reports green.
+
+## Research prompts name the held command classes
+
+A background agent cannot answer a hook's approval prompt: a refuter that
+ran a recursive delete inside its own scratch trial held a fifteen-agent
+workflow at 14/15 for fifteen minutes (2026-09-03). A research prompt names
+the held command classes — recursive deletes, network writes, anything the
+hook policy approves interactively — not only "do not modify files"; the
+resume from the run id returned the cached agents instantly.

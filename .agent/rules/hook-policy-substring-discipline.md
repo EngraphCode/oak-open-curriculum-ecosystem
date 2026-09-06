@@ -127,7 +127,10 @@ form to use rather than a bypass:
   the whole compound command is lost (the worktree-destruction guard on
   the verb for restoring files, inside a message body, 2026-08-31): author
   commit messages with the file-write tool and keep trigger-adjacent
-  vocabulary out of shell-visible text.
+  vocabulary out of shell-visible text. The commit-message major-version
+  guard fires the same way on a message BODY that names the breaking-change
+  marker while declining it (2026-09-02): describe the decision without the
+  marker vocabulary.
 - The wildcard-staging guard fires on a bare `.` ARGUMENT to any command,
   not only on `git add .`: `cp <file> .` was blocked (2026-09-03). Name the
   destination path instead of `.`.

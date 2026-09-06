@@ -92,6 +92,9 @@ line-merge them: a git auto-merge silently corrupts concept-bearing files
 (drops/duplicates/stacks entries, often with no conflict marker). Author the union by
 hand per the `semantic-merge` skill. The visible git conflict is the easy case; the
 silent auto-merge of a both-sides-edited memory file is the dangerous one.
+A merge cannot start over an uncommitted tracked file it touches — git
+refuses, and the index-reset family is banned — so those edits land in their
+own commit ahead of the merge (2026-09-02; 2026-09-06).
 
 ### 5. Do not commit on another agent's worktree branch
 
@@ -154,9 +157,11 @@ registrations, and plain branch deletion for proven local branches. A
 content-superseded branch (every file proven present newer on main by
 content comparison, not SHA ancestry) also deletes, with the comparison
 recorded first. Anything failing either proof, the active lanes, and
-platform-managed `.claude/worktrees/*` are NEVER touched. Worked instance:
-2026-07-21, 50 → 9 registrations (37 proven removals + 5 stale prunes),
-zero losses.
+platform-managed `.claude/worktrees/*` are NEVER touched. The grant covers
+the worktrees and branches the seat owns: a peer's dormant worktree is
+theirs even when its content is superseded on the base (owner refusal,
+2026-09-03). Worked instance: 2026-07-21, 50 → 9 registrations (37 proven
+removals + 5 stale prunes), zero losses.
 
 Destructive removal OUTSIDE the proven class (`git worktree remove` of
 anything dirty or unmerged, deletion of any branch not ancestor- or
