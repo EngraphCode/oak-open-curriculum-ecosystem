@@ -1905,3 +1905,71 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
 - **Skill structure (owner question, answered):** the substrate skill is a hand-authored
   `SKILL.md` plus the projection rendered into `references/`; the Agent Skills spec permits
   `references/strands/`, the one-level rule is oak-skills' validator convention.
+
+## 2026-09-06 ~19:2xZ (Flounder turns Estuary, c5cc2c, Director) — the Director window: wrap at the owner's compaction word
+
+- **Three mechanisms written from memory of a rule, in one day.** The scanning sketch's rate-limiting cure contradicted accepted ADR-219; the watcher I armed as a self-re-arming wrapper loop is forbidden by the comms-all-channels-watcher rule (§Supervision on the notification path, never a wrapper loop) and I recommended it to a peer before Juno caught it; the comms concept gate refused a ruling for "park it" under the no-hedging vocabulary. The generator is the same each time: naming a mechanism before reading the document that governs it. Cure applied from here: before arming any process shape or naming any cure, read the governing rule or record first, and cite it in the event.
+- **A watcher's hourly exit inside a failing operation is a blind window.** 15:26–16:10Z: the watcher's timeout notification arrived while the seat was inside a refused merge and was not acted on; the seat looked watcher-dead to the fleet for forty minutes. The canonical cure is re-arming on the exit notification first, before anything else, never a wrapper loop.
+- **Inferring owner intent from an artefact is not routing evidence.** The consolidation-prompt edit on the primary read as "the owner is opening a dedicated consolidation seat" and I re-routed Juno to remit 2; the owner had confirmed consolidation for Juno directly in their session. The owner's in-session word overrides; the map takes the correction, not the inference.
+- **The outflow steer works when it is an integral, not a per-PR nudge.** Six opens and zero landings since 13:41Z drew one steer (outflow first, un-draft one at a time, no further opens until two landed); Juno landed six of seven in the next four hours with the step-back applied at five rounds on #61.
+- **The owner-item filter held.** Two implementer packets proposed owner cards and "standing owner items"; every item dissolved under the lenses (already answered by configuration; unit-time acts on an unratified sketch; the exact dismissal item the owner had refused that morning). Nothing reached the owner that the owner had not asked for, except the one owner-only action: waking an absorption-dark seat.
+- **Coordination branch on this fork:** cut `coordination/2026-09-06-f1a142` from the engraph tip at the owner's word (tool base must be `--base origin/engraph`; the default `origin/main` is the upstream mirror); ownership-aware sweep (owner edit and peers' ride-alongs in; the harness-rewritten `.claude/settings.json` held out until its contract is verified); the branch syncs by merge-in after landings, folds at UTC rollover. The harness rewrite moved `enabledPlugins`/`skillOverrides` from the tracked project settings into the user-level settings at 13:18–13:21Z; folding that diff would strip the fleet's plugin enablement from the repo.
+- **Seat liveness has three surfaces and they disagree.** Finch's heartbeat legs ran green for three hours while the watcher was dead and #58 sat untouched with one unresolved thread: heartbeat-fresh, absorption-dark. Two pings with ack windows, then the owner carded to wake the seat; the watcher re-armed at 19:23Z. Read all three before routing to a seat.
+
+## 2026-09-06 ~19:3xZ (Finch binds Sundog, 47f9d2, implementer) — #58 rounds three and four; the idle gap; compaction boundary 3
+
+- **State at the boundary:** #58 head 33257932e (round-three cure + sync), every check green,
+  ten threads with ONE unresolved (round four); its one-line cure (the no-follow flag must be
+  nonzero, not merely present) is authored on the lane and UNCOMMITTED — the ceremony's guard
+  collided twice with a peer's fresh queue entries on the shared bare `index/head`, and the
+  owner's NOW word ended the retry; the diff is reproduced on the handoff record. The
+  successor commits, syncs (41 behind), pushes once, replies signed, and lands at green with
+  signed dispositions only (the Director's step-back steer at 17:22Z). Tally 7 → 2 → 1 → 1.
+- **The writer's final containment shape** (the class-kill that ended the sampler's family):
+  lexical `startsWith(base + sep)` on the resolved `--out`; `realpath` of the nearest EXISTING
+  ancestor checked before any `mkdir` (a recursive mkdir follows a symlinked component and
+  creates outside first); `realpath` again once it exists; each target opened
+  `O_WRONLY|O_CREAT|O_NOFOLLOW|O_NONBLOCK` (no `O_TRUNC`), `fstat` through the descriptor
+  must say regular file, then `ftruncate` and `writeFileSync(fd, text)` — a FIFO refuses
+  ENXIO instead of hanging, a directory EISDIR, a link ELOOP; and the flag must be present
+  AND nonzero (a platform can expose `O_NOFOLLOW` as 0, where it is inert). Two of the four
+  rounds were my own earlier cures' residue (lstat-then-write → CodeQL race; O_TRUNC on a
+  FIFO → hang): a cure is a claim that earns the next round.
+- **Code-class changesets have no PDR-140 budget.** I declared "two settlement pushes then
+  dispositions" in the body — a prose-class contract; the machine says every verified-correct
+  code finding is cure-worthy until the ~4-round step-back. Round three's hang was cured as a
+  third push with the correction recorded on the PR's working-notes tally; round four's
+  one-line cure is the last push under the Director's step-back steer.
+- **The idle gap (17:25Z → 19:23Z):** no turn ran for two hours while the heartbeat loop,
+  which lives outside the turn, kept both liveness legs fresh — heartbeat-fresh and
+  absorption-dark, exactly the shape the liveness rule's F-92/F-75 pair cannot distinguish
+  from work. The Director pinged twice (16:15Z acked at 16:16Z; 17:22Z acked at 19:25Z); the
+  watcher's hourly exit notifications also arrived into the dark. Cause unknown to this seat
+  (the harness idled the session; not a held action). Falsifier for a future rule: a
+  heartbeat body that carries the seat's last TURN time, not only the loop's tick, would
+  have shown the gap at 17:3xZ.
+- **Bare `index/head` collides across worktrees:** Juno's open window (19:23:30Z) failed my
+  guard with "fresh queue entries ahead"; the queue's ordering is the cure (wait, retry), and
+  the worktree-suffixed spelling F-132 rejects would have been the right key. Skills-lane
+  candidate, already on Juno's frictions list.
+- **Owner asks this window:** the oak-skills comparison (delivered 14:2xZ) and the skill-
+  structure question (answered 14:3xZ: substrate = hand-authored SKILL.md + the projection
+  rendered into `references/`; the spec permits `references/strands/`; the one-level rule is
+  oak-skills' validator convention; toolchain TS-only by residency; namespace and licence are
+  the library node's gates). Recorded in one sentence on the projection node; the library's
+  strategic node takes the rulings when given.
+- FREE PLAY: the writer's open-as-regular-file-through-the-descriptor is the third place the
+  estate has wanted "write a file safely inside a base" (safe-path's assertPathWithinBase,
+  the served-tool-table generator, this script); at the second consumer it becomes a
+  safe-path helper (`openRegularFileWithin(base, relative)`), not now. The pedagogy library's
+  substrate skill is the first consumer of the projection and its first delivery node.
+- CONCEPT EXPLORATION: the right next question is not "round five" but "the library's first
+  delivery node" — the substrate skill: SKILL.md (index of strands with one-line summaries,
+  how to cite, the caveats block, the provenance pin), `references/` from the projection,
+  evals in oak-skills' shape; then the runbook's records PR (three residue lines, mirrored
+  into the runbook before that lane closes).
+- LOSS SCAN: the reviewer thread texts (on the PR); the merge-bot refusal objects (task
+  outputs); the scenario-run transcripts (reproduction named on the PR working notes); the
+  Director's two pings and my acks (comms); the guard-collision log (scratchpad). METALOSS:
+  the second pass re-finds only the idle gap's unknown cause and the sampler's next shape;
+  the recursion closes here.
