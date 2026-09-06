@@ -587,9 +587,10 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    2026-09-03). A code-class finding is outside this pricing altogether: a
    verified defect follows the code-review state machine's own transitions
    (PDR-132's round budget and the step-back arms above), never a
-   settlement-push cap. The second
-   settlement push's tip is the FINAL HEAD, named on the PR when that push
-   lands. A binding worth declaring names its exception in advance (a
+   settlement-push cap. The tip of the LAST budgeted settlement push — the
+   declared budget (two by default, PDR-140 clause 4) plus any rebudget
+   recorded when exhaustion left a mandatory cure pending — is the FINAL
+   HEAD, named on the PR when that push lands. A binding worth declaring names its exception in advance (a
    statement a rule falsifies, cured with a sweep) or is owner-gated from
    the start: a "no further cure push" declared before reading what the
    next round could hold broke one round later, and on a sibling PR a
@@ -687,13 +688,17 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    The gate never waits more than one quiet window for any single reviewer.
    CRITICAL first-round rule: the EXPECTED reviewer set is not just "bots
    that previously reviewed this PR" — on a repo whose ruleset configures
-   bot review on push (Copilot here, and on this fork the Codex connector,
-   which reviews every push by its own configuration), the first round is
-   ALWAYS expected, so before any bot has reviewed, every configured bot is
-   OWED until it posts or the checks-green quiet-window timeout fires. A
-   leg is standing BY CONFIGURATION, never assumed by doctrine (owner,
-   2026-08-09: "route through the rules process, not assumed"); PDR-140's
-   loop discipline governs its rounds like any other leg's. This closes the
+   bot review on push, the first round is ALWAYS expected, so before any
+   bot has reviewed, every configured bot is OWED until it posts or the
+   checks-green quiet-window timeout fires. A leg is standing BY
+   CONFIGURATION, never assumed by doctrine (owner, 2026-08-09: "route
+   through the rules process, not assumed"): Phase 1 reads the set from
+   the repository's live automatic-review configuration at each PR-open,
+   and a dated example is not an input to the state machine — Copilot on
+   push, and on one line a review connector that reviewed every push by
+   its own configuration (2026-09-06), were the configured set the day
+   this was written; PDR-140's loop discipline governs each leg's rounds
+   like any other's. This closes the
    vacuous-predicate hole where an initial tip could read merge-ready
    before the first bot round ever lands. The expected set's SOURCE is explicit,
    never inferred from the compound read (`latestReviews` only names
