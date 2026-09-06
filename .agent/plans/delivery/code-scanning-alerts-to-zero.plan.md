@@ -197,8 +197,12 @@ independent unless stated:
 7. **The generator's code-safe serialiser.** The inlined values escaped, with the
    line-separator test: two files.
 8. **The gate proof.** The two probe pull requests and the reading command, recorded on the
-   lane's closing event; no tree change unless a required check turns out to be missing,
-   in which case that change is this unit.
+   lane's closing event, plus one tree change this unit always makes: the ADR-121 amendment
+   recording the repository's trust model (a collaborator with push rights already holds
+   every permission a `pull_request` workflow can declare, so a compute/publish job split is
+   not a security boundary against a same-repository collaborator — the dispositions row of
+   2026-09-06 carries it until then). A required check found missing is a second change in
+   the same unit.
 
 ## First-principles check
 
@@ -233,6 +237,7 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-09-06 | PR #56 round five (Codex) | Units 4–5 named "the atom" without saying how each binary resolves, leaving a system-directory allowlist extended to per-user installs as a reading. | Applied at the consolidation fold: units 4–5 state the resolution per binary — `git` via the trusted-git atom, `pnpm` via `pnpm-path.ts`, `gitleaks` via `refound-gitleaks.ts`, `typedoc` and `tsx` via `node_modules/.bin` or `process.execPath` — and exclude the allowlist reading. |
 | 2026-09-06 | PR #59 round one (Codex, Copilot) | The per-binary wording in units 4–5 contradicted the Mechanism bullet, which still prescribed one fixed allowlist for every binary. | Applied: the Mechanism bullet carries the same per-binary resolution; one design. |
 | 2026-09-06 | PR #59 round two (Codex) | `gitleaks` was filed under `node_modules/.bin`, which no workspace provides; CI installs a pinned standalone binary and `refound-gitleaks.ts` already resolves it. | Applied: `gitleaks` resolves through that existing resolver at the Mechanism bullet, unit 5 and the row above; `typedoc` and `tsx` keep the workspace bin or `process.execPath` path. |
+| 2026-09-06 | consolidation sweep (a review finding on PR #39, comms event ba2a02c1) | A collaborator with push rights already holds every permission a `pull_request` workflow can declare, so splitting a workflow into compute and publish jobs is not a security boundary against a same-repository collaborator; it is the repository's trust model. | Carried: unit 8 (the gate proof) authors this as an ADR-121 amendment inside its PR; until then any "split the job for security" proposal is checked against the fact here. |
 
 Round five's two findings were dispositioned on PR #56's replies under the PDR-140 step-back and
 named only on the lane-closed comms event of 2026-09-06 until the consolidation fold the same day

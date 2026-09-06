@@ -1872,3 +1872,103 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
 - LOSS SCAN: the merge-bot's full refusal object (verdict evidence, on the task output);
   round five's reply texts (on the PR threads); the eleven semantic hashes (in the ledger
   file, tracked on the lane). METALOSS: nothing new beyond the boundary-2 pass.
+
+## 2026-09-06 ~16:xxZ (Juno seeks Apogee, a693fb, dedicated consolidation seat) — the fold's lessons, recorded once
+
+- Reference-direction validator: a DIRECTIVE may not link into `.agent/memory/**` (patterns included); doctrine
+  names a pattern in backticks (the #59 cure commit's hook refused on a riding principles.md link, 14:2xZ).
+- Switching branches with dirty doctrine files carried a broken validator state into another lane's hook run
+  twice (reference-direction; markdown-links on a tracked README → an untracked pattern): commit or leave,
+  never carry; two failed ceremonies of about eight minutes of gates each. Parking the untracked file in the
+  scratchpad and regenerating the index was the loss-free cure.
+- A count typed from memory ("twelve") propagated through three comms events, the Director's ruling, the
+  letter and the napkin before a reviewer added 9+2+3 (now read-diagnostic-artefacts-in-full §Read the Full
+  Value).
+- Round two on #59: the Director's residue wording filed gitleaks under `node_modules/.bin` and I transmitted
+  it; the tree (`refound-gitleaks.ts`, CI's pinned binary) was the authority. Round three: "her" for the prior
+  curator (agents-default-no-gender) and present-tense "still open" with dated incidents on a permanent page
+  (no-moving-targets) — both cured under the over-budget ratchet. The incidents live here now: the tsup
+  bundled-config lint race on #50 (2026-09-03) and #51 (2026-09-04); a secret-scan curl reset once on
+  2026-09-05; a static-checks job cancelled at its job-level ten-minute budget inside a late step, cause
+  unmeasured (2026-09-04, three sightings including an a11y 30 s timeout on a slow runner); the merge-bot
+  token cannot re-run jobs.
+- Three same-window instances of one generator, with times: 19:15Z, round two on the records PR found the
+  napkin's incident line still carrying the cold-cache cause round one had cured on the troubleshooting page
+  (one home cured, the other missed); 19:23Z, commitlint refused a commit whose message file lacked its
+  subject line, after some twenty clean commits; 19:38Z, a Cricket leg reading the round-two cure found the
+  validators step called "the seventh" above a list of eight (it is the ninth in the job). The reviewer, the
+  hook and the panel each caught one; the seat self-caught none.
+- Three times in one day the tree refuted a mechanism I had transmitted from a record: gitleaks' resolver
+  (above); the merge bot's quiet window listed as a structural cure in the new timing pattern when the
+  pr-lifecycle contract calls it a timed proxy (Codex, #60 round two); the wildcard-staging guard described as
+  firing on any bare `.` argument when the matcher tests the pattern's tokens as a subsequence of the whole
+  command line — a compound worktree-add-then-copy assembled `git add .` across its parts (Codex, #61 round
+  one; verified in `blocked-patterns.ts`). A pattern's cure list and a rule's mechanism row are checked against
+  the governing document and the code, never against the napkin line that carried them.
+- A rule that prescribes MACHINE behaviour is checked against the machine: the liveness rule's paused-seat
+  bullet promised that no reader retires a paused seat or adopts its claim; that is true of every peer reading
+  the stream and false of the tools — `peer-liveness.ts` reads heartbeats only (retired at ten minutes) and the
+  stale-claim sweep archives a retained claim at its freshness expiry, as the 2026-09-02 fold did to two claims
+  last heartbeated on the 2026-08-19 sleep day (Codex, #61 round two; F-173; PDR-078's new exemption carries
+  the same reader distinction). The bullet had been graduated from three seats' practice and was true of every
+  human reader.
+- Commit ceremony: a guard refusal leaves a FRESH intent in the queue and the next enqueue's guard refuses on
+  "multiple fresh matching commit-queue intents" (F-172); the ceremony now moves its intent to `abandoned` on
+  every pre-commit failure. F-132 recurred a third time this session (the window label is bare `index/head`).
+  A `cd` inside one Bash call persists into the next; the identity preflight and the token mint both resolve
+  the repository from the working directory and fail outside the worktree (two instances in one window;
+  Buzzard's first on 2026-09-04).
+- The docs-only bot-PR class landed twice by REST merge with the head pinned (#59 on SILENT-WAIT, #60 on
+  SETTLED-NO-REVIEW — the Copilot leg timed out unbound one quiet window after checks green); each with a
+  fresh compound read, the merge-base deletion sweep and the grounds on the PR record. `merge-bot merge` cannot
+  read review-run liveness (F-166) and its 45-minute poll outlives a background shell (F-168): the landing
+  chains ran as retry loops under persistent monitors.
+- GitHub Actions trust model (Buzzard, #39 review, event ba2a02c1): a collaborator with push rights already
+  holds every permission a `pull_request` workflow can declare — a compute/publish job split is not a security
+  boundary against a same-repository collaborator. Carried on the scanning node's ledger to its gate-proof unit
+  as an ADR-121 amendment; here as the dated record.
+- Extractors as the engine (owner method word: write intermediate findings to disk): three comms-window
+  extractors, an experience-letter audit (24 letters), a per-user memory audit (48 files) and a Codex memory
+  audit, each writing its report to disk and each read critically by the seat — the memory audit's absence
+  claims were made against a tree without this session's batches (five of twenty-two were already homed by
+  them), two extractor reports arrived truncated in transit and were re-requested to disk, and one tripped the
+  machine-local-path hook by quoting an absolute path inside its report body (cite by basename). The engine
+  maps; the seat verifies each kept leaf at the point of use.
+- 7c thread-register audit: seventeen Active threads carry identity rows older than fourteen days (the first
+  flag for most; the Oak-line threads are frozen by the fork's no-Oak-surface ruling), one record has no
+  PDR-027 identity table, the retired records all carry their banners (the script's first pass read the banner
+  position wrong — a parser is verified against a known positive before its findings are believed). 7d: every
+  claim fresh, schema check ok, one example fixture under `conversations/` is the only stale open thread.
+- pr-lifecycle instruments built late on #59 (the tally comment and signed replies came after a peer's
+  behaviour note, not at PR-open): the same PDR-140 clause-8 defect as #58; cured in the loop and declared at
+  open on every PR since.
+- Codex per-user memory audit (three files, 121 KB, read by an extractor and re-verified here): eighteen facts
+  homed, three not — two reviewer-mechanics facts (draft→ready as a reviewer-discovery boundary; Copilot's
+  three-hundred-file ceiling) now in pr-lifecycle; the third is an OPEN QUESTION, not doctrine: when the declared
+  Practice model, the user-reported model, the harness-observed model and a platform config file's model setting
+  disagree, PDR-027's `model` field names no precedence (a Codex config file named a model the CLI silently
+  overrode, 2026-07). One STALE entry in that surface (the Cricket checkpoint field list predates the six-field
+  frame) is the Codex seat's to fix in its own memory.
+- Owner-invoked full Cricket suite at 16:1xZ, mid-programme: eight of eight ON-TRACK on one frame; the accepted
+  redirection was to stop holding the records PR behind #62 on no forcing fact (three legs converged); the
+  rejected one was "disposition, never cure" past the budget, which the ratchet's own text does not say. Tally
+  with per-leg tokens and runtime: `reports/agentic-engineering/cricket-quartet-tally-2026-09-06-consolidation-seat.md`.
+- Review rounds on the chain's last three PRs found one generator in my own clauses four times: a single instance
+  written as a universal. The fork-head cure (a seat's own head on a repository the bot did not cover) written as
+  "re-home any fork head" would have handed an external contributor's head the shared repository's secrets — the
+  workflows run a cross-repository head without secrets by design, which one read of the workflow file would have
+  shown. A rule clause about repositories and credentials is checked against the workflow before it is written.
+- Three attempts at the over-budget ratchet paragraph each re-derived PDR-140 from memory of a lead's ruling; the
+  record's clause 2 (the two-prong bar) and clause 3 (declared at open) were one grep away, and the code-class
+  scope line was another. The verify-dont-trust bullet graduated the same morning — a mechanism written from memory
+  of a rule is a claim about the rule — applied to its author within hours.
+- A drain in a PR chain rides the PR that carries the home, or lands after it: two distilled entries and a register
+  row drained on the buffers PR ahead of their homes on the skills PR, and a reviewer caught the window in which no
+  landed state would have held them. Restored and re-drained beside the homes.
+- The merge-only commit path ran on this seat's chain with no window claim for four landings (the update-merge
+  script skipped it); the commit skill's merge path wants the scoped `index/head@<worktree>` claim, opened and
+  closed with the SHA. Nobody shared the worktree, so nothing collided; the rule is the rule and the script now
+  opens it.
+- Five of seven consolidation PRs landed by the docs-only REST class in one afternoon; the merge tool's verdicts
+  were SILENT-WAIT-NO-REVIEWER (four) and SETTLED-NO-REVIEW (one), never a settle-ready — the class's known shape
+  on a line where no Copilot leg is requested for docs.
