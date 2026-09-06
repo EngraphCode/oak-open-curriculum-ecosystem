@@ -1307,10 +1307,10 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   calls fail on a mangled node id (explicit variables per call); `comms inbox` has no `--since`
   flag, so the post-arm foreground sweep is the inbox default over the seen-file.
 - **Support seat (Buzzard lifts Eyrie, 326bcb) — WRAP at compaction boundary, 2026-09-05 ~15:0xZ.**
-  Work-safety: primary clean on `engraph` at 05ee4f092 (`## engraph...origin/engraph`); lane
-  `docs/adapter-prefix-configuration-plan` at 7e3e2d689 = remote, on PR #54 (three review rounds
+  Work-safety: primary clean on `engraph` at SHA:05ee4f092 (`## engraph...origin/engraph`); lane
+  `docs/adapter-prefix-configuration-plan` at SHA:7e3e2d689 = remote, on PR #54 (three review rounds
   settled, 0 open, CI green 14:53Z; merges on resume by either seat, nothing unattended under the
-  freeze). Landed: PR #38 (MCP-612) as 05ee4f092 after eleven bot rounds. LOSS SCAN: (1) the
+  freeze). Landed: PR #38 (MCP-612) as SHA:05ee4f092 after eleven bot rounds. LOSS SCAN: (1) the
   resume surface is the machine-local handoff record `326bcb86-…-compaction-2026-09-05.md`
   (premises text, merge steps, owner items, promises sweep); (2) three attribution inferences
   flagged there (who rebuilt the dist; which write was the first touch; that Codex searches by
@@ -1335,7 +1335,7 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
 
 - Session opened through start-right-team at owner word "please look at PR 919 in the Oak fork".
   No peers registered (both 2026-09-05 seats closed at the compaction boundary ~14:5xZ); claims
-  and queue empty; the primary clean on `engraph` at 05ee4f092 apart from the prior seat's
+  and queue empty; the primary clean on `engraph` at SHA:05ee4f092 apart from the prior seat's
   napkin block and formation letter. Read-only assessment: no claim opened (pure-reading work),
   no source edit, nothing posted to GitHub.
 - "PR 919 in the Oak fork" resolved to the oaknational UPSTREAM (the fork's numbering stands at
@@ -1411,7 +1411,7 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   pushed round six anyway; the declaration was made before reading what a sixth round could hold.
   A binding worth declaring names its exception in advance (a defect the directive or a rule
   falsifies, cured with a sweep) or is owner-gated from the start. SURPRISE: secret-scan failed
-  on b5f3dfa08 with `curl: (35) Recv failure` downloading gitleaks — runner-side, no leak; the
+  on SHA:b5f3dfa08 with `curl: (35) Recv failure` downloading gitleaks — runner-side, no leak; the
   bot's scopes carry no `actions: write`, so a re-run of failed jobs is not a bot action.
 - OWNER CONTEXT (2026-09-05, three points, after the first plan node): (1) "I want to explore
   creating a set of skills around not what to teach but how to teach, pedagogy skills, and the
@@ -1427,7 +1427,7 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   intent had finished arriving; the plan skill's altitude warning is exactly this. Cheap cure
   because both nodes are born sketch; the lesson is to hold the parent open in the report until
   the owner's framing lands, which the first report did ("re-parented in one line").
-- **Support seat (326bcb) — PR #54 LANDED 2026-09-05 16:11Z as f11d811a2 (bot; head pinned 0ca29cfa0).**
+- **Support seat (326bcb) — PR #54 LANDED 2026-09-05 16:11Z as SHA:f11d811a2 (bot; head pinned SHA:0ca29cfa0).**
   Eight review rounds on a one-file sketch: 19 applied, 3 dispositioned with falsifiers on the PR
   (rows ride the first implementation PR). WORKS: the lead's "final head" steer plus disposition-
   with-falsifier stopped the loop where my own binding had not; the class sweep after round six
@@ -1441,8 +1441,8 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
 
 ## 2026-09-05 ~16:4xZ (Flounder turns Estuary, c5cc2c, lead) — PR COUNT 0; the #41/#42 landing arc's facts
 
-- Landed this window: #42 as 7cd25a921 (15:43Z), #54 as f11d811a2 (Buzzard, 16:11Z), #41 as
-  8b2b5ee03 (16:39Z). Twelve PRs landed across the arc since 2026-09-04; open count 0.
+- Landed this window: #42 as SHA:7cd25a921 (15:43Z), #54 as SHA:f11d811a2 (Buzzard, 16:11Z), #41 as
+  SHA:8b2b5ee03 (16:39Z). Twelve PRs landed across the arc since 2026-09-04; open count 0.
 - Bindings and their exceptions, measured: #41 ran nine Codex rounds. The round-six binding
   read "dispositions unless a falsifiable defect"; round seven produced three falsifiable
   defects in the lane's own added wording and was cured (a misfiled ratified plan, an
@@ -1470,9 +1470,14 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   atomically; a standby seat with no claim at n=3 has no consumer and was released rather
   than held. The lead steer that landed with the support seat, in their words: the
   final-head one.
+- Instrument (fold #55, round two): the SHA-prefix rule for collaboration content bound nineteen
+  bare commit hashes across the napkin, the thread record and the continuity index in this
+  fold's added lines — every hash written into a collaboration surface takes the `SHA:` prefix
+  at writing time; the day's comms event bodies carry the bare form and stay as written
+  (events are immutable), so the rule is applied at the next write, never by editing history.
 - **Support seat (Buzzard lifts Eyrie, 326bcb) — FINAL WRAP 2026-09-06 08:2xZ, handover to the lead.**
-  Live state at wrap: open PR count 0 (#41 merged 16:40Z as 8b2b5ee03 by the lead; #54 as
-  f11d811a2; #42 as 7cd25a921); registry holds only Finch's claim 61a50ff9 (pedagogy plan lane,
+  Live state at wrap: open PR count 0 (#41 merged 16:40Z as SHA:8b2b5ee03 by the lead; #54 as
+  SHA:f11d811a2; #42 as SHA:7cd25a921); registry holds only Finch's claim 61a50ff9 (pedagogy plan lane,
   live, heartbeat stopped under the n=1 exemption at 08:18Z); primary clean against origin except
   three UNCOMMITTED record files awaiting the lead's fold (this napkin, the lead's
   design-system-integration thread record, the formation letter). MISTAKE (found by
@@ -1481,7 +1486,9 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   I never recorded budget-exceeded — the "final head" the lead supplied at round six is the move
   the state machine already owed at round three. The doctrine was complete; the application
   failed, twice in two days on the same seat. Cure shape for a successor: at round three on any
-  PR, write "budget exceeded" on the PR and switch to disposition mode; on a SKETCH, every
+  PR, write "budget exceeded" on the PR and run PDR-132's generator question; on a PROSE-class PR
+  switch to disposition mode (PDR-140 leaves the code-class state machine unchanged); on a
+  SKETCH, every
   post-budget finding is pickup-shaped by construction (it describes work not yet done) and gets
   a falsifier row, never a cure push. Napkin is over its fitness limit (1,472 lines / 300;
   117k chars / 18k): the consolidation gate FIRES; a dedicated consolidation is owner-named and

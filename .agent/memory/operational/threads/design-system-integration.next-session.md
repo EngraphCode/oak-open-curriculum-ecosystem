@@ -28,7 +28,7 @@ recompute live state from claims/comms/git at pickup.
 | 2026-08-07 | Civet spins Cavern | claude-code / claude-fable-5 | `054f5e` | Design-lane successor (Saffron→Civet, PDR-063 deliberate succession at owner word, Director ACTIVATE 20:46Z); claim `645b9e0b` adopted 20:46Z after the handoff record read end to end |
 | 2026-08-17 | Yarrow stirs Undergrowth | claude-code / claude-fable-5 | `ab1066` | Critical-analysis sitting + records-truth pass (MCP-613) at direct owner word; claim `645b9e0b` adopted after the winddown record + this record read end to end |
 | 2026-09-02 | Finch calls Pinnacle | claude-code / claude-fable-5 | `c91bd4` | #908 landing seat at direct owner word (merged a8aa13da1); the post-merge Copilot round consolidated through the tango node in the #915 fold; claim `645b9e0b` closed at owner word (no adoption — a fresh claim opens the lane's next pickup) |
-| 2026-09-05 | Flounder turns Estuary | claude-code / claude-fable-5-1 | `c5cc2c` | Lead seat at the owner's PR-count-to-zero goal: PR #41 (MCP-613 records-truth pass) landed 8b2b5ee03 after nine review rounds; the seven-item records residue routed on this record §2026-09-05; claim `b627b5af` closed (a fresh claim opens the lane's next pickup) |
+| 2026-09-05 | Flounder turns Estuary | claude-code / claude-fable-5-1 | `c5cc2c` | Lead seat at the owner's PR-count-to-zero goal: PR #41 (MCP-613 records-truth pass) landed SHA:8b2b5ee03 after nine review rounds; the seven-item records residue routed on this record §2026-09-05; claim `b627b5af` closed (a fresh claim opens the lane's next pickup) |
 
 ## Board state at writing (recompute, do not trust)
 
@@ -3787,9 +3787,9 @@ seat and the #915 fold landing seat, at direct owner word; no Director seated.
   Round 4 raised nothing on this node. #915 merged as `777e9131c` (owner-merged 14:05Z); the #908
   Copilot thread replied to and resolved under the bot. This node is settled at that head.
 
-## Session update 2026-09-05 ~16:0xZ (Flounder turns Estuary, c5cc2c — additive; PR #41 records-truth pass at its final content head 940cbce32; the records residue after the second step-back, routed here)
+## Session update 2026-09-05 ~16:0xZ (Flounder turns Estuary, c5cc2c — additive; PR #41 records-truth pass at its final content head SHA:940cbce32; the records residue after the second step-back, routed here)
 
-- **What #41 lands (content head 940cbce32; sync merge be8f700d5 over engraph 7cd25a921):**
+- **What #41 lands (content head SHA:940cbce32; sync merge SHA:be8f700d5 over engraph SHA:7cd25a921):**
   the design plan's landed-state rows and R16 (owner verbatim; seat gloss narrowed to one
   identity's CSS per served page, the multi-tenant reading labelled a seat reading); the
   showcase IA plan's A1/A2 rows as landed in part with the open remainder named (no route
