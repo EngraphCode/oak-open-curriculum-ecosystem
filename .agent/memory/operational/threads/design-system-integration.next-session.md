@@ -3785,3 +3785,51 @@ seat and the #915 fold landing seat, at direct owner word; no Director seated.
   roster module (the demo's consumption of it is the completing node's work) — commit `475a8193d`.
   Round 4 raised nothing on this node. #915 merged as `777e9131c` (owner-merged 14:05Z); the #908
   Copilot thread replied to and resolved under the bot. This node is settled at that head.
+
+## Session update 2026-09-05 ~16:0xZ (Flounder turns Estuary, c5cc2c — additive; PR #41 records-truth pass at its final content head 940cbce32; the records residue after the second step-back, routed here)
+
+- **What #41 lands (content head 940cbce32; sync merge be8f700d5 over engraph 7cd25a921):**
+  the design plan's landed-state rows and R16 (owner verbatim; seat gloss narrowed to one
+  identity's CSS per served page, the multi-tenant reading labelled a seat reading); the
+  showcase IA plan's A1/A2 rows as landed in part with the open remainder named (no route
+  registry; no fifteen-cell computed-style proof); the Public Digital Service identity plan
+  back in `delivery/` as ratified with AC4 open; two tombstone rows removed from the decision
+  log; DDR-009/010, ADR-213, the rubric and the preservation README re-trued. Seven review
+  rounds; the PDR-140 step-back fired at round four and a second time at round seven, which
+  ended fix-pushing on this lane.
+- **Records residue after PR #41 — one follow-up bundle for the design lane's next records
+  PR (first act of whichever seat next edits these plans):**
+  1. `design-showcase-experience.plan.md` relationship inventory: the row for
+     `public-digital-service-identity` still reads archived with records-only residue; the
+     plan file is ratified with AC4 (archive audit, census emptied, validator strict) open.
+     Re-true the row to the plan.
+  2. `showcase-information-architecture.plan.md` §sequencing (~line 89): the ratification-time
+     paragraph (A2 starts at ratification; W4.4 re-homed from `design-system-completion`) sits
+     beside the amendment that supersedes it. Rewrite as the current sequencing of the
+     remaining A1/A2/A3 work when that work is picked up.
+  3. `archive/identity-switchboard-first-pixels.plan.md`: archived with its `owner-held`
+     browse-verdict criterion unmet (the wow-verdict register's only showcase row is the
+     earlier `/` FAIL). Same class as the rename plan: return it to `delivery/` as ratified
+     with the owner-held verdict named open, or the owner records the verdict.
+  4. `docs/design/design-review/rubric.md` reading-order exemption: implements R13; refine
+     it to recompositions whose reading and focus narrative stays coherent (R13 × R15), with
+     the accessibility reviewer's pass, and re-true the consuming guide's reading-order
+     clause to the same synthesis. Falsifier: an inverted composition passing seven criteria
+     while its focus order contradicts its visual order.
+  5. `public-digital-service-identity.plan.md` body (~lines 192–194 and 264–268): the
+     sequencing still says the rename precedes `design-system-completion` implementation
+     and calls that node "this seat's executing node" with a future PR4 true-up; the same
+     PR archives `design-system-completion`. Re-true to the archived/current relationship
+     with PR5's tail as the only open item.
+  6. `demos/oak-design-showcase/README.md` (`/tokens/colours` line): the route renders the
+     four palette themes (light, dark, high-contrast, colour-safe) plus each identity's
+     default, not every identity × theme; `system` (match-device) is not a column. Say so.
+  7. `docs/design/design-review/rubric.md` calibration authority: (a) blocking is restored
+     on a recorded v0.1 calibration with no measurable acceptance threshold — define one
+     (miss rate and false-positive bound) and restore blocking only when it is met; (b) the
+     v0 calibration record's restaging recipe copies the current `app/page.tsx`, which is
+     now the replacement landing, so the owner-rejected MUST-FAIL specimen cannot be
+     re-staged — commit a stable fixture or relabel that cell. Both with the accessibility
+     reviewer's pass alongside item 4.
+  Each item was dispositioned on the PR with its falsifier (Codex rounds eight and nine,
+  15:44Z–16:20Z) and resolved under the bot; none was pushed, by the lane's binding.
