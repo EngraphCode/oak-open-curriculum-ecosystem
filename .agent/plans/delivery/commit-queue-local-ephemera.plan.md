@@ -15,7 +15,7 @@ tickets:
   - MCP-612
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-17
+last_updated: 2026-09-06
 ---
 
 # Commit queue as machine-local ephemera
@@ -156,10 +156,17 @@ the owner's disposition.
   "carry it out now" (ticket MCP-612 carries execution state, In
   Progress).
 - 2026-09-04: the work landed on the fork's `engraph` as PR #38, merge commit `05ee4f092`
-  (head `f373cded1`), by the merge bot. Acceptance 2 met: the live registry migrated from
-  1.3.0 to 1.4.0 under the first transactional touch, a comms append at 19:46Z, before any
-  archive copy of that day's file was taken. Acceptance 3 therefore cannot be met for the
-  2026-09-04 file (no pre-migration copy exists); the 2026-08-17 pre-split archive remains the
-  owner's disposition item. The status field stays the owner's to change.
+  (head `f373cded1`), by the merge bot. Acceptance 2, with its three probes: the primary
+  was rebuilt before the first touch (the migrating reader is the new store's code), under
+  which the live registry migrated from 1.3.0 to 1.4.0 — a comms append at 19:46Z, before
+  any archive copy of that day's file was taken; real enqueue round-trips through the store
+  on 2026-09-06 (intents `f9f62f39` and `4fdd0659`, enqueued, staged, fingerprinted and
+  committed by the queue's own commit workflow); and on the primary checkout no store file
+  is tracked and every one is ignored by the collaboration state's own rule
+  (`commit-queue/*` in `.agent/state/collaboration/.gitignore`), read with `git ls-files`
+  and `git check-ignore -v` on 2026-09-06. Acceptance 3 cannot be met for the 2026-09-04
+  file (no pre-migration copy
+  exists); the 2026-08-17 pre-split archive remains the owner's disposition item. The status
+  field stays the owner's to change.
 - 2026-09-06: the nine follow-up pointers and the owner items above mirrored from the
   lane-closed comms event into this tracked record (consolidation fold).

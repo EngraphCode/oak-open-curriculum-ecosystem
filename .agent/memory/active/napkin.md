@@ -1823,7 +1823,8 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   and the 09-06 ruling both name the lane-closed event as a home, but comms events are untracked-by-design
   and rotate. Proposal: a pointer named at lane close is mirrored into a TRACKED home (the owning plan
   node's dispositions, or the thread record) before the lane closes; falsifier: a ruling that the comms
-  archive is a pickup-readable home. First act on resume: home the twelve.
+  archive is a pickup-readable home. First act on resume: home the fourteen (nine, two and three;
+  the seat's own events said "twelve" — a count typed from memory, corrected at review).
 - PROPORTIONALITY: the previous pass's measured yield (zero un-homed signals in 496 events) predicted this
   one; a sample of lane-closed and owner-word events would have found the loss-risk class at a fraction
   of the cost. The full read was defensible under the skill's body-read bar; the value of this pass is in

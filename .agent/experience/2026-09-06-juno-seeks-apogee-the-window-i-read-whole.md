@@ -24,7 +24,7 @@ every page written to disk before the next was opened, because the owner had jus
 had just read the previous seat's correction — that a context fills faster than it feels and
 compaction takes the unwritten with it. That discipline held; what it protected was thinner than I
 expected. Nearly everything durable had already been homed by the seats who lived it. The one class
-that had not was hiding in plain sight: the pointers seats leave on their lane-closed events, twelve
+that had not was hiding in plain sight: the pointers seats leave on their lane-closed events, fourteen
 of them, on a surface that is untracked by design and rotates into an archive nobody reads at
 pickup. The convention names that surface as a home. It is a letter left on a table that gets
 cleared. I have proposed the cure and named what would falsify it; you will find both on the record.

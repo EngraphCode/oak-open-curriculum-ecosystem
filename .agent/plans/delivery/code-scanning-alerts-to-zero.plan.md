@@ -101,10 +101,14 @@ server-side action.
   barrier kind, the unit records that finding on this node rather than dismissing the alert
   in the hosting service.
 - **Executable searched on PATH.** Fix-only under the policy, tooling included: every site
-  resolves its executable to an absolute path from a fixed allowlist of well-known
-  directories without consulting PATH — the existing trusted-git atom for `git`, and the
-  same shape extended to the other binaries — unit-tested for the refusal of an unresolved
-  name.
+  resolves its executable to an absolute path without consulting PATH, and each binary
+  resolves by its own existing mechanism — `git` through the trusted-git atom (the fixed
+  allowlist of well-known directories that atom already carries), `pnpm` through the
+  existing `agent-tools/src/spawn/pnpm-path.ts` resolver, and node-run tools (`gitleaks`,
+  `typedoc`, `tsx`) through the workspace's `node_modules/.bin` absolute path or
+  `process.execPath` with the script. The trusted-git allowlist is never extended to
+  per-user installs to cover the other binaries. Each resolver is unit-tested for the
+  refusal of an unresolved name.
 - **Pseudo-random number generator.** The correlation id takes its random part from the
   platform's cryptographic generator; the backoff jitter and the chunking helper take a
   cryptographic integer where the analyser requires it, since the cost is nil and the cure
