@@ -72,3 +72,13 @@ The `mcp__sonarqube__*` tool prefix comes from a separately-provisioned user-sco
 ### Code analysis issues
 
 Ensure the language parameter is correct when invoking `analyze_code_snippet`. Snippet analysis does not replace full project scans — it is best for one-off snippet reasoning, not gate clearance.
+
+### A vendor integrate step rewrites tracked files
+
+Re-enabling the plugin rewrote four tracked hook and settings files in place
+(2026-09-03), and a harness restart rewrote `.claude/settings.json`
+(2026-09-06): an integrate, enable or migrate step of a vendor tool
+overwrites tracked estate customisations without a diff. After any plugin
+enable, disable or harness upgrade, read `git status` on the primary before
+the next commit and restore the tracked blocks the tool stripped; never fold
+a harness rewrite into a records change.

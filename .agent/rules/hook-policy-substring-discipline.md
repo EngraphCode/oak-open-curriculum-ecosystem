@@ -128,6 +128,12 @@ form to use rather than a bypass:
   the verb for restoring files, inside a message body, 2026-08-31): author
   commit messages with the file-write tool and keep trigger-adjacent
   vocabulary out of shell-visible text.
+- The wildcard-staging guard fires on a bare `.` ARGUMENT to any command,
+  not only on `git add .`: `cp <file> .` was blocked (2026-09-03). Name the
+  destination path instead of `.`.
+- The force-push guard's `push` + `-f` co-occurrence (frictions F-102)
+  recurred on a merge-bot push chained with `gh api -f` (2026-09-03). A push
+  is its task's final command and stands alone in its own call.
 
 These are refinement candidates for the hook (flag-parsing over
 substring), never bypass justifications — use the safe form.

@@ -133,6 +133,13 @@ retired:
 - unique information NOT in `main` and not worth keeping → consciously drop it ("if
   there is no information worth preserving, that is fine").
 
+A follow-up pointer named at lane close is a record-binding question of the same kind:
+it is mirrored into a TRACKED home — the owning plan node's dispositions table, or the
+thread record the pickup seat reads — before the lane closes, and the lane-closed comms
+event points at that home. Comms events are untracked by design and rotate, so a pointer
+that lives only on one is orphaned work in prose (fourteen pointers from three lanes,
+2026-09-04/05, recovered by the consolidation of 2026-09-06).
+
 **Standing prune policy for the proven class** (owner grant 2026-07-21:
 "Pruning worktrees that are provably safe to remove should absolutely be
 standing policy"; widened 2026-08-05: "anything proven on main can be

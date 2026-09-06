@@ -76,3 +76,12 @@ Budget the READ traffic. Repo-direct walker legs are dominated by
 tool-read tokens, not output: the 2026-08-17 survey round missed its
 estimate threefold (3.5M spent against ≤1.1M estimated) because reads
 were unpriced. A fleet estimate names its read model per leg.
+
+## A killed builder's seam is re-verified at the next gate tier
+
+Fleet design includes the hand from a builder to its finisher. A builder
+killed by quota hands its seam to the NEXT gate tier's re-verify, not only
+the tier it died inside: a finisher's "green" omitted the pre-push-only
+smoke chain, and the stale fixture literal sat exactly at the original
+builder's death seam (2026-08-18). Brief the finisher to re-run every gate
+tier above the death point before it reports green.

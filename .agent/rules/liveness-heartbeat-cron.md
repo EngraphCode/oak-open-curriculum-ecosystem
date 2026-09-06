@@ -497,6 +497,24 @@ not a retirement signal:
     Adopting the claim flips the seat to active and arms the heartbeat in the
     same move. Minting a marker-claim purely to anchor a heartbeat re-creates
     the consumer the exemption removes; do not.
+- **Owner-word stand-down — the PAUSED seat state.** A seat the owner has
+  paused by word ("prepare for compaction … then stop all processes";
+  "acknowledge then stop"; an overnight "stand down"; a declared
+  week-sleep) stops its heartbeat and its watcher BY INTENT, emits a final
+  heartbeat-end event naming the owner's word and the stand-down, and
+  RETAINS its claim (with a handoff record attached when work is in
+  flight). Staleness past that event is the declared state, not a
+  retirement signal: the ten-minute rule does not fire on it, no peer
+  adopts the claim, and the seat resumes only at the owner's next word,
+  re-arming watcher then heartbeat before its first act. In a paused team
+  the Director stands down last and resumes first. Instances: the
+  2026-08-17 overnight cold-pause (three seats, Director last); a declared
+  week-sleep of 2026-08-19 ("staleness past this event is intentional
+  sleep, never retirement"); an owner-word pause of a second seat on
+  2026-09-03; the Director's and the consolidation seat's compaction
+  stand-downs of 2026-09-05 and 2026-09-06. This composes with
+  `silence-is-never-liveness`: the stand-down is announced before it
+  begins, which is what makes it not silence.
 
 ## Worked Instance
 

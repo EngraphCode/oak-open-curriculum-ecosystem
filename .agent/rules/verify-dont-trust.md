@@ -251,6 +251,24 @@ Four points, each paid for in this estate:
   consequence — make falsification cheap and make its absence loud — is the
   pattern `falsification-cost-determines-claim-quality`.
 
+Three later refinements, each paid for:
+
+- **The consumer's resolver is part of the claim.** A verification that ran
+  through a resolver other than the consumer's own proved a different claim:
+  a mermaid diagram every local renderer passed lost the `<br>` inside every
+  node label in the live viewer (2026-08-19); a read-shaped command run
+  through a worktree-resolved binary migrated the home registry it was only
+  meant to read (2026-08-18). Name the resolver with the instrument, and run
+  the proof through the consumer's own.
+- **Read the normative clause, never its example.** A cure built from a
+  specification's worked example was overturned by the clause the example
+  illustrated, before it shipped (RFC 9207 §2.4, 2026-08-19). The example is
+  one instance of the rule; the claim is about the rule.
+- **A by-construction claim is verified on every package it names.**
+  "Correct under both orders, harmless if the flow changes" is the
+  survivability tell: a claim that a shape holds by construction across N
+  packages is N checks, never one sentence (2026-09-06).
+
 The personal form, at the moment of wanting to assert: not *"am I confident?"*
 but **"what is the cheapest thing that would prove me wrong, and have I run
 it?"**
