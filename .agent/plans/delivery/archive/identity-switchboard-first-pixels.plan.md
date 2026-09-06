@@ -31,9 +31,9 @@ design record.
 
 **Owner verdict on the owner-held criterion (2026-09-06, verbatim):** "The
 switchboard is wow enough for today. It will need to be more wow in future."
-The verdict is the criterion's proof; the register row is minted once the
-viewed identity × theme cell is known, because the register's schema requires
-one.
+The verdict is given; the criterion's proof as written — a register row — is
+open until the viewed identity × theme cell is known, because the register's
+schema requires one, and it is the only open item on this node.
 
 Authored at the owner's word (2026-08-09 morning, plan-mode build selection):
 a decision-complete pull-forward that takes the estate to the showcase app

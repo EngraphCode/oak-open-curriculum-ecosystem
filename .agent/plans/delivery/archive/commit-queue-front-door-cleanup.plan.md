@@ -25,9 +25,10 @@ last_updated: 2026-09-06
 
 **Superseded (2026-09-06)** by `commit-queue-local-ephemera`, which replaced the shared
 commit-queue registry this command was to clean with per-intent, machine-local queue
-files (landed 2026-09-04); there is no shared registry left to archive entries from. The
-transition is the seat's under the plan-node schema's lifecycle; the support seat routed
-it at that lane's close.
+files (landed 2026-09-04); there is no shared registry left to archive entries from. This
+is a plan-lifecycle transition (`ratified → superseded`, then the archive directory, the
+placement every superseded delivery node takes), executed by the closing lead seat after
+the support seat that landed the successor routed it at that lane's close.
 
 Owner word commissioning this plan (2026-08-07, decision card at the
 Director seat, verbatim): "Create a repo plan for it, not all work needs
@@ -42,9 +43,10 @@ attached by owner direction.
 > QUEUE-LOCAL, 2026-08-17): a TTL-expired intent reads as absent and is
 > swept by the next queue write, `complete` removes a landed intent, and the
 > standing debt named here was dropped as expired rows by the one-time
-> migration. No drain command is needed. The node keeps its ratified status
-> until the owner disposes of it (archive), which the plan-node schema
-> reserves to the owner.
+> migration. No drain command is needed. The node is superseded and archived
+> (the note at the top); the plan-node schema makes that transition the
+> seat's, and the owner confirmed on 2026-09-06 that lifecycle moves need no
+> sign-off.
 
 The `commit_queue` in `active-claims.json` holds only live intents.
 Today it carries 190 expired entries (accumulating since July) because

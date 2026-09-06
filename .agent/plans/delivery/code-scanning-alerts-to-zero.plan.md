@@ -2,7 +2,7 @@
 id: code-scanning-alerts-to-zero
 node_type: delivery
 name: "Code-scanning alerts to zero on the resting branch, and held there"
-overview: "Every open code-scanning alert on the resting branch is cured in code or answered by a reviewed, tracked analysis configuration with its rationale, never dismissed by hand, and the pull-request gate keeps the count at zero."
+overview: "Every open code-scanning alert on the resting branch resolves under the Sonar disposition policy — fixed in code, or a site-rationalised false-positive or safe disposition recorded in the tree — never an accepted risk or a hand dismissal, and the pull-request gate keeps the count at zero."
 status: sketch
 ratified_by: null
 ratified_date: null
@@ -23,9 +23,12 @@ last_updated: 2026-09-06
 ## Goal
 
 The repository's code-scanning surface reads zero open alerts on the resting branch, and
-stays there: each alert is either cured in code, with a test that pins the cure, or is
-answered by a reviewed change to the analysis configuration that records why the finding is
-not a defect for this code. No alert is dismissed by hand in the hosting service. A reader of
+stays there: each alert resolves under the estate's Sonar disposition policy
+(`docs/governance/sonar-disposition-policy.md`) — fixed in code with a test that pins the
+cure, or, only where that policy's class criteria hold, a false-positive or safe
+disposition carrying the policy's canonical rationale plus the site path and line, recorded
+in the tree. Accepted-risk dispositions and hand dismissals in the hosting service are
+excluded by that policy and by this node. A reader of
 the security tab, an auditor of the release, or an agent picking up a lane sees a surface
 whose every line is a fact about the code, not an unread signal.
 
@@ -65,27 +68,25 @@ gate refuses new findings.
 
 ## Mechanism
 
-One disposition per class, decided by a single test applied at pickup: **is the flagged code
-a runtime that handles untrusted input, or developer and CI tooling running on a trusted
-machine?** Runtime code is cured in code. Tooling whose threat model the rule does not
-describe is answered by configuration — a tracked, reviewed exclusion or model with its
-rationale in the same change — because the estate configures its checks rather than obeying
-or silencing them. A hand dismissal in the hosting service is neither: it is a signal made
-to go away with nothing in the tree to say why, and it is out of scope by design.
+One disposition per class, taken from the Sonar disposition policy's two-outcome rule: a
+finding is FIXED in code, or it is a FALSE_POSITIVE or SAFE only where the policy's
+documented class criteria hold at that site, with the canonical rationale plus path and
+line recorded in the tree. Nothing is excluded by path, no rule is narrowed, and no
+accepted-risk state exists. Where a fix is cheap it is taken even when the policy would
+allow a safe disposition, because a fix clears both analysers' surfaces without any
+server-side action.
 
 - **Network data written to a file.** The drift check writes a status description derived
   from the upstream document to the workflow's output file; the schema cache writes the
   validated document itself. The cure makes the written bytes independent of upstream text:
   the description becomes a closed enumeration plus counts computed from the validated
-  parse, and the cache write takes the re-serialised output of the structural validator. If
-  the analyser still traces taint through the validator, the second arm is a tracked
-  data-flow model naming the validator as the sanitiser, with the model and its reason in
-  the tree.
-- **Executable searched on PATH.** Runtime sites resolve their executable through one small
-  atom that returns an absolute path from a trusted candidate list and refuses otherwise,
-  unit-tested for the refusal. Developer and CI tooling that legitimately uses the caller's
-  own PATH is answered by a rule configuration scoped to those tooling paths, with the
-  threat-model statement beside it.
+  parse, and the cache write takes the re-serialised output of the structural validator,
+  so the analyser's taint path ends at the validator.
+- **Executable searched on PATH.** Fix-only under the policy, tooling included: every site
+  resolves its executable to an absolute path from a fixed allowlist of well-known
+  directories without consulting PATH — the existing trusted-git atom for `git`, and the
+  same shape extended to the other binaries — unit-tested for the refusal of an unresolved
+  name.
 - **Pseudo-random number generator.** The correlation id takes its random part from the
   platform's cryptographic generator; the backoff jitter and the chunking helper take a
   cryptographic integer where the analyser requires it, since the cost is nil and the cure
@@ -94,8 +95,9 @@ to go away with nothing in the tree to say why, and it is out of scope by design
   identifier, not a secret — and moves to a current hash truncated to the identifier's width,
   with a test that pins the width and the stability of the mapping.
 - **Clear-text protocol literal.** Fixtures that never dial their host take an `https`
-  literal; helpers that address a local development server keep `http` under a rule
-  configuration scoped to test paths, with the reason stated.
+  literal, a fix. A localhost loopback in a test helper or test-runner configuration meets
+  the policy's SAFE criteria for this class and takes its canonical rationale, recorded per
+  site.
 - **Polynomial regular expression.** The script body is located by an index scan for the
   opening tag and the closing tag, or by a linear-time expression, with a test over a long
   pathological input.
@@ -117,9 +119,10 @@ the gate turns "zero" from a snapshot into an invariant.
    non-absolute executable, the cryptographic source of the random part, the trace-id width
    and stability, the linear-time extraction over a pathological input, the output
    description's closed vocabulary. Proof: `repo-safe` — the tests, named in each unit.
-3. Every configured answer is a tracked change carrying its rationale beside the
-   configuration, and no alert on the resting branch carries a hand-dismissal state. Proof:
-   `repo-safe` — the configuration diffs and the alerts query's dismissal field.
+3. Every non-fix disposition is one the policy's class criteria permit, carries the
+   canonical rationale with the site path and line in the tree, and no alert on the resting
+   branch carries an accepted-risk or hand-dismissal state. Proof: `repo-safe` — the
+   recorded rationales and the alerts query's dismissal field.
 4. A pull request introducing one new instance of each class is blocked by a required check.
    Proof: `repo-safe` — one probe pull request per analyser, closed unmerged, cited by number
    on the lane's closing event.
@@ -132,7 +135,8 @@ the gate turns "zero" from a snapshot into an invariant.
   has its own tracking thread and plan lineage; this node touches only findings that reach
   the code-scanning surface.
 - Rewriting the drift check's or the schema cache's purpose; both keep their contracts.
-- Raising or lowering the analysers' rule sets; this node clears what they report today.
+- Raising or lowering the analysers' rule sets, or excluding any path from them; this node
+  clears what they report today.
 
 ## Todos
 
@@ -147,11 +151,14 @@ independent unless stated:
 3. **Network data written to a file.** The drift check's closed-vocabulary description and
    the cache's validated write, with tests; the data-flow model only if the first arm leaves
    the alert standing, with its reason: about six files.
-4. **Executables on PATH — runtime sites.** The executable-resolution atom with its refusal
-   test, adopted at the runtime sites the class test names: about six files.
-5. **Executables on PATH and clear-text literals — tooling and tests.** The fixture literals
-   switched where the host is never dialled; the scoped rule configurations with their
-   rationale for the remaining tooling and test-helper sites: about six files.
+4. **Executables on PATH — the runtime and server sites.** The trusted-executable atom
+   generalised from the trusted-git shape, with its refusal test, adopted at the runtime
+   sites: about six files.
+5. **Executables on PATH — the tooling sites, and clear-text literals.** The remaining
+   spawn sites take the same atom (fix-only, no exception for tooling); fixture literals
+   switch to `https` where the host is never dialled; the localhost helper sites take the
+   policy's SAFE disposition with its canonical rationale recorded per site: about seven
+   files.
 6. **The gate proof.** The two probe pull requests and the reading command, recorded on the
    lane's closing event; no tree change unless a required check turns out to be missing,
    in which case that change is this unit.
@@ -172,9 +179,9 @@ The six clauses of the plan-body first-principles check, applied at authoring:
   test the Mechanism states; each unit names its cure shape and its fallback.
 - **Record consumer.** The lane's closing event is the only accounting surface added, and
   the alerts query is its consumer.
-- **Rules tier.** The node presupposes only standing rules — checks are configured, not
-  blindly obeyed; validation is strict at the boundary; no escape hatches in enforcement —
-  and adds none.
+- **Rules tier.** The node presupposes only standing doctrine — the Sonar disposition
+  policy's two-outcome rule; checks are never disabled; validation is strict at the
+  boundary; no escape hatches in enforcement — and adds none.
 
 ## Review dispositions
 
