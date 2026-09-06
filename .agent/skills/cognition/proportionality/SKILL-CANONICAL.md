@@ -150,6 +150,24 @@ Read the failure precisely: **not an absent framework, but an unbuilt instrument
 unasked sizing question.** That is the generator this gate exists to catch, and it is why
 the gate runs before the work rather than as a review of it.
 
+## Worked instance — the dependency sweep that became an audit
+
+A dependency-update lane grew, step by defensible step, into a security
+engagement: an audit surfaced advisories, advisories invited exposure
+questions, exposure questions invited import-graph tracing, deployment
+checks and an environment question routed to the owner. The owner's word
+(2026-07-25, verbatim in substance): **"this MCP is a means of putting free
+educational material in the hands of teachers, not preventing terrible
+things — I asked for an update of deps, not an overhaul of settled
+architecture."** The threat model is the product's own, and a defensible
+discovery is not a mandate to keep digging: "update the deps" ends when the
+deps are updated, and anything alarming found outside the ask is stated in
+one sentence and routed, never opened as a lane. The same pricing from the
+other side, 2026-09-02 ("not important enough to spend a cycle on!"): once a
+landing is in reach, a further edit to its records earns a cycle only if it
+changes what a successor would DO — a factual cure yes, a pointer or a
+heading date no.
+
 ## The success test
 
 This gate has paid its way only if it **changed the size of the work, the weight of the

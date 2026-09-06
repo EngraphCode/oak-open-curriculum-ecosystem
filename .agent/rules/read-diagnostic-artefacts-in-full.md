@@ -38,3 +38,13 @@ pre-push banner while the transfer itself had died on a dropped SSH
 connection, costing two blind reruns). The scope is EVERY such command,
 not just expensive ones; the exit-code half of the discipline is
 [`exit-codes-in-band-never-piped`](exit-codes-in-band-never-piped.md).
+
+## Read the Full Value, Always — Your Own Output Included
+
+The same discipline covers a value read from your own truncated output. An
+identifier's tail typed from memory after a truncated read, twice in one
+sitting, was refused by a mechanical equality check (2026-09-04); a count of
+one's own list is a value too — nine, two and three were carried as "twelve"
+through three comms events, a ruling and two records before a reviewer added
+them (2026-09-06). Read the full value first; count the list before naming
+the count.
