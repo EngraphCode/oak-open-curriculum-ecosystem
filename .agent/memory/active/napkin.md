@@ -1470,3 +1470,46 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   atomically; a standby seat with no claim at n=3 has no consumer and was released rather
   than held. The lead steer that landed with the support seat, in their words: the
   final-head one.
+- **Support seat (Buzzard lifts Eyrie, 326bcb) — FINAL WRAP 2026-09-06 08:2xZ, handover to the lead.**
+  Live state at wrap: open PR count 0 (#41 merged 16:40Z as 8b2b5ee03 by the lead; #54 as
+  f11d811a2; #42 as 7cd25a921); registry holds only Finch's claim 61a50ff9 (pedagogy plan lane,
+  live, heartbeat stopped under the n=1 exemption at 08:18Z); primary clean against origin except
+  three UNCOMMITTED record files awaiting the lead's fold (this napkin, the lead's
+  design-system-integration thread record, the formation letter). MISTAKE (found by
+  metacognition at wrap, not during): PDR-132 binds a TWO-round budget on every changeset class and
+  tells the shepherd to record budget-exceeded when a third round opens; #54 ran eight rounds and
+  I never recorded budget-exceeded — the "final head" the lead supplied at round six is the move
+  the state machine already owed at round three. The doctrine was complete; the application
+  failed, twice in two days on the same seat. Cure shape for a successor: at round three on any
+  PR, write "budget exceeded" on the PR and switch to disposition mode; on a SKETCH, every
+  post-budget finding is pickup-shaped by construction (it describes work not yet done) and gets
+  a falsifier row, never a cure push. Napkin is over its fitness limit (1,472 lines / 300;
+  117k chars / 18k): the consolidation gate FIRES; a dedicated consolidation is owner-named and
+  lands through the lead's fold, so it is routed, not run here.
+- **Play seeds (associations, not findings; 2026-09-06 wrap):** (a) INVERTED: a bot reviewer's
+  unbounded findings on a sketch look shaped like a free pre-mortem of the implementation — rounds
+  four to eight each named a real hazard of work not yet done; what made it a fight was the push
+  per finding, not the findings. Crossed into concept-exploration (below). (b) Finch's loop emitted
+  239 heartbeats overnight with no consumer until the seat applied the exemption by hand at 08:18Z
+  — this reminded me of a switch that keeps ticking after everyone left; the registry knows when a
+  seat is alone (one claim), so the loop could read its own consumer-absence. Small, sharp, routed
+  nowhere yet. (c) The bot cannot re-run a failed CI job (no scope carries actions: write), so the
+  only bot-shaped cure for a runner-side failure is a new push, which re-opens review; a pointer
+  for the merge-bot scope split (MCP-391). DISCARDED visibly: the auction "going once" analogy for
+  the settle window (forced, adds nothing); the dead-man's-switch framing (a weaker twin of b).
+- **Concept-exploration pointer (2026-09-06 wrap):** frame — a DYNAMICS defect, not a state one:
+  a sketch PR's review loop has no reachable exit because a sketch describes future work, so every
+  finding is real and the cure-if-real reflex never terminates; each cure changes counted or
+  classified properties and seeds the next finding. Load-bearing observations: eight rounds on one
+  file; convergence only at a peer's final-head declaration; PDR-132's two-round budget unapplied.
+  Changed assumption: "a real finding earns a cure" (refuted twice) and "the loop exits when the
+  reviewer runs dry" (false by construction for sketches). Proposal, warrant, falsifier: (1) no new
+  rule — PDR-132 + pr-lifecycle's settlement-push budget already bound this; the contribution is
+  the worked instance and one sharpened line in the review-loop memory ("at round three, record
+  budget-exceeded and switch modes; on a sketch, always"); falsifier: a future sketch PR whose
+  shepherd records budget-exceeded at round three and still cure-pushes — then the defect is the
+  seat and the line belongs in a rule, not a memory. (2) Routed to the lead: whether pr-lifecycle's
+  state machine names the final-head declaration as an explicit move (it names step-back and the
+  settlement push; a peer's "final head" was the operative event twice today); falsifier: the
+  state machine already has an equivalent transition, in which case only the worked instance is
+  owed. Unresolved evidence: pr-lifecycle §review-round state machine read in full.
