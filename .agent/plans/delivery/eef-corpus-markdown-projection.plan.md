@@ -32,7 +32,8 @@ EEF page (`.eef_url`); and one corpus-reference file carrying the source and att
 block (`meta.source`, `meta.licence`, `meta.coverage`), the methodology (`methodology`),
 every caveat (`meta.caveats`) and the complete strand index (`strands[].name`,
 `.headline.headline_summary`, `.eef_url`). The curation index
-`strands[].school_context_relevance` is deliberately not rendered. Every rendered line is
+`strands[].school_context_relevance` is deliberately not rendered, and both the module and
+the corpus reference say so. Every rendered line is
 corpus text read from one of those source paths or a fixed structural label, and nothing is
 authored or paraphrased (the `eef-corpus-grounding` rule's cite-or-tag discipline, applied
 by construction); the output is already in the formatter's normal form; and nothing is
@@ -78,25 +79,41 @@ no-server reference.
 - **A version stamp.** Each rendered file opens with the corpus data version from
   `corpusMeta.data_version`, so a consumer's provenance pin has a value to name.
 - **A thin writer** at `scripts/render-eef-markdown.ts` taking `--out <dir>`
-  (`pnpm render:eef-markdown --out <dir>`): it writes the file set and nothing else,
-  asserting each target directory sits inside the output root before writing, and it never
-  deletes: a consumer's own drift check compares its committed set against the file-set
-  function. It is the corpus package's twin of the MCP app's served-tool-table generator.
+  (`pnpm render:eef-markdown --out <dir>`): it writes the file set and nothing else. The
+  output root must sit inside the directory the command runs from, checked lexically before
+  anything is created, canonically through its nearest existing ancestor before it is
+  created, and canonically once it exists; each target directory gets the same checks before
+  a write; each target is opened without following symbolic links and without blocking,
+  checked through its own descriptor to be a regular file with a single link, and only then
+  truncated and written, so a symbolic link, a hard link to another file, a directory, a pipe,
+  a socket or a device in a target's place is refused with no window and no hang. It never deletes: a consumer's own drift check compares its committed set against the file-set
+  function, and a file an earlier render produced that the current corpus no longer does is
+  the caller's to remove. It verifies every written file against the repository's formatter
+  configuration resolved from the script's own location, so a drift between the renderer's
+  normal form and the repository settings fails at the write, and a filesystem failure is
+  one stderr line and a non-zero exit. It imports the file-set module directly, never the
+  package barrel. It is the corpus package's twin of the MCP app's served-tool-table
+  generator.
   The script sits inside both of the package's tsconfig includes so type-check and lint
   cover it, runs under `tsx` declared by the package, and the package's existing knip block
   gains `scripts/**/*.ts` in its entry and project globs.
 - **Tests, in the shared vitest include.** The rendered file set equals the reference plus
-  `EEF_STRAND_IDS`, with no orphan and no gap. Each strand's rendering carries its headline
-  impact or the no-figure wording, cost label, evidence-strength label, every key finding
-  and its EEF page. A leaf-completeness walk asserts every string and number value reachable
-  in a strand outside the omitted keys (`school_context_relevance`, `slug`) appears in that
-  strand's rendering, so a corpus refresh that adds a field reddens a test rather than
-  dropping data silently; named cases cover the heterogeneous `by_phase` key set and
-  per-phase months. The corpus-reference rendering carries the source, every author, the
-  licence, the attribution note, every caveat, every cost band, every evidence factor,
-  every conversion row and every index entry verbatim. Every rendered text equals its own
-  formatter-normalised form, with the formatter's options loaded from the repository config,
-  which makes `prettier` a devDependency of the package. No test touches the filesystem.
+  `EEF_STRAND_IDS`, with no orphan and no gap, and every rendered path is relative, carries
+  no parent segment and resolves under the output root. Each strand's rendering carries its
+  headline impact or the no-figure wording, cost label, evidence-strength label, every key
+  finding and its EEF page. The key set each renderer reads — strand sections and fields,
+  corpus metadata and methodology alike — is pinned at compile time by `satisfies` coverage
+  maps in the source that name every key the corpus carries as rendered or omitted, so a
+  corpus refresh that adds or drops a field fails the build naming it; no test tests a type.
+  The tests derive their omission sets from those maps, and a leaf-completeness walk over
+  every string and number value outside them is the prose catch-all behind the pins; named
+  cases cover the heterogeneous `by_phase` key set and per-phase months. The
+  corpus-reference rendering carries the source, every author, the licence, the attribution
+  note, every caveat, every cost band, every evidence factor, every conversion row and every
+  index entry verbatim. Every rendered text equals its own formatter-normalised form under
+  the formatter's defaults; the writer script, not a test, verifies every written file
+  against the repository's resolved configuration, which makes `prettier` a devDependency of
+  the package. No test touches the filesystem.
 
 ### Where the first-principles check fires
 
@@ -121,11 +138,19 @@ no-server reference.
   pre-push suite.
 - **Normal form by construction.** Each rendered text equals its formatter-normalised form.
   Proof: `repo-safe` — the test.
-- **The file set is a pure function.** The file-set function returns the reference plus one
-  entry per strand, each with its relative path, and the script writes only what it
-  returns. Proof: `repo-safe` — the set-equality and id-shape tests; the write itself is
-  exercised by running the script into a scratch directory and linting the output with the
-  repository's markdown rules, named in the PR.
+- **Writable to any directory inside the invocation directory.** Every rendered path is
+  relative, carries no parent segment and resolves under the output root; the script writes
+  only what the file-set function returns and refuses an output root outside the directory
+  it runs from, a target directory that resolves outside the root (through its nearest
+  existing ancestor before creation), or anything but a single-link regular file in a target's
+  place.
+  Proof: `repo-safe` — the set-equality and path-shape tests;
+  the write itself is exercised by running the script into a scratch directory, where its
+  own verification checks every written file against the repository formatter
+  configuration, by linting the output with the repository's markdown rules, and by the
+  refusal runs (outside root, symbolic-link ancestor of the root, symbolic-link target,
+  directory in a target's place, named pipe in a target's place, hard-linked target,
+  symbolic-link target directory), all named in the PR.
 - **Faithful to the corpus.** Every value reachable in a strand outside the omitted keys
   appears in its rendering. Proof: `repo-safe` — the leaf-completeness test.
 
@@ -137,9 +162,20 @@ with their tests, the writer script, the knip entry.
 ## Out of scope
 
 - Any consumer of the rendering: a plugin skill, a skills library entry, a document. Each is
-  its own artefact in its own home and commits the rendered files with a provenance pin.
+  its own artefact in its own home and commits the rendered files with a provenance pin. A
+  consumer that is itself an agent skill renders the set into its `references/` directory
+  (the reference file and `strands/` beneath it, which the Agent Skills specification
+  permits) and authors its own `SKILL.md`; the layout needs no change for that.
 - The interpretation resource adopting the corpus-reference renderer: a follow-up
   consolidation at the second consumer, its own small change.
+- The writer's containment helpers (canonicalising the nearest existing ancestor before a
+  directory is created; opening a target as a regular file through its own descriptor without
+  following links) moving into `@oaknational/safe-path`: a consolidation at the second consumer
+  that needs them, its own small change; the script keeps them local until then.
+- The `school_context_relevance` block: it is the selector the evidence tools use, and on
+  some strands it also carries per-phase and per-application impact figures and a study
+  count. Rendering those figures is a named follow-up, its own small change to this
+  projection, not a silent drop; the module and the corpus reference state the omission.
 - Rendered output in this tree: none is committed here. The PR's diff scope shows it, and
   no repository check pins an absence in a consumer's own path.
 - The served surface, the served tool and the resource rows: unchanged.

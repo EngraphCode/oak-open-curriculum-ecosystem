@@ -770,6 +770,72 @@
       "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
+      "file": "packages/sdks/graph-corpus-sdk/src/eef-strands/eef-corpus-reference-markdown.ts",
+      "semanticSha256": "eb53f4ff105f3e4266c96397025d0acf5e860b0e429ea041c476603a3c9bc179",
+      "itemIds": [],
+      "exclusionReason": "Markdown projection for a file export: corpus text verbatim plus fixed structural labels; registered on no served surface and reached by no MCP consumer (ADR-179 amendment, 2026-09-06)."
+    },
+    {
+      "file": "packages/sdks/graph-corpus-sdk/src/eef-strands/eef-markdown-blocks.ts",
+      "semanticSha256": "fe8e128ad18285b4adda70b7def3190147738739c2711221a875368b0ff4c58e",
+      "itemIds": [],
+      "exclusionReason": "Markdown projection for a file export: corpus text verbatim plus fixed structural labels; registered on no served surface and reached by no MCP consumer (ADR-179 amendment, 2026-09-06)."
+    },
+    {
+      "file": "packages/sdks/graph-corpus-sdk/src/eef-strands/eef-markdown-files.ts",
+      "semanticSha256": "55edcd943cd84e81c3cc46039fbb8da77423f27a719d754e4f869adc33226489",
+      "itemIds": [],
+      "exclusionReason": "Markdown projection for a file export: corpus text verbatim plus fixed structural labels; registered on no served surface and reached by no MCP consumer (ADR-179 amendment, 2026-09-06)."
+    },
+    {
+      "file": "packages/sdks/graph-corpus-sdk/src/eef-strands/eef-markdown-paths.ts",
+      "semanticSha256": "670ead32b5c400af4cb64acd7e04aa79ad514e23e8860788fa787c82ab976f99",
+      "itemIds": [],
+      "exclusionReason": "Markdown projection for a file export: corpus text verbatim plus fixed structural labels; registered on no served surface and reached by no MCP consumer (ADR-179 amendment, 2026-09-06)."
+    },
+    {
+      "file": "packages/sdks/graph-corpus-sdk/src/eef-strands/eef-markdown-rendered-keys.ts",
+      "semanticSha256": "b4d1c6b972661979988b05c811be0b633290616c2586d15994dd292867e3b819",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/graph-corpus-sdk/src/eef-strands/eef-strand-markdown-sections.ts",
+      "semanticSha256": "e88c1144f005f80ef76bfe02870d2d181d93f69d9a5675cb41dbbd0106db7cdd",
+      "itemIds": [],
+      "exclusionReason": "Markdown projection for a file export: corpus text verbatim plus fixed structural labels; registered on no served surface and reached by no MCP consumer (ADR-179 amendment, 2026-09-06)."
+    },
+    {
+      "file": "packages/sdks/graph-corpus-sdk/src/eef-strands/eef-strand-markdown.ts",
+      "semanticSha256": "d73b8134cf7537fc1671445872dc0d64d6995967727983c4d2eda4a0722b59e6",
+      "itemIds": [],
+      "exclusionReason": "Markdown projection for a file export: corpus text verbatim plus fixed structural labels; registered on no served surface and reached by no MCP consumer (ADR-179 amendment, 2026-09-06)."
+    },
+    {
+      "file": "packages/sdks/graph-corpus-sdk/src/eef-strands/index.ts",
+      "semanticSha256": "fe0db030560b4683e9303e304de79511f98c103b57c9f485c846b653b2c15b28",
+      "itemIds": [],
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/graph-corpus-sdk/src/eef-strands/raw-domains.ts",
+      "semanticSha256": "54791063b7359c2a9bde96e3961b43a9441029fe0481839da8d71c90b73a49bd",
+      "itemIds": [],
+      "exclusionReason": "Type-only change; no authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/graph-corpus-sdk/src/eef-strands/strand-lookup.ts",
+      "semanticSha256": "cae7308d2fb96d1d8688cf7755122005afdfb89f647d9a4ac0b8596e51d695bc",
+      "itemIds": [],
+      "exclusionReason": "Type-only change; no authored agent-facing content."
+    },
+    {
+      "file": "packages/sdks/graph-corpus-sdk/src/eef-strands/test-helpers.ts",
+      "semanticSha256": "c9196fb3e2d230b705faaef15f6af93e487217da6827c7c35c614cd573069e7b",
+      "itemIds": [],
+      "exclusionReason": "Test support only; this file does not reach an MCP consumer."
+    },
+    {
       "file": "packages/sdks/oak-curriculum-sdk/src/mcp/agent-support-tool-metadata.ts",
       "semanticSha256": "2d86bf6b1cf6241114656a1a2909fbb47ecd0b6f34d5ccd8b9f44c0215301606",
       "itemIds": [

@@ -8,6 +8,7 @@ import { APP_REGISTRATION_DELTA_REVIEWS } from './current-source-delta-reviews-a
 import { APP_TEST_HELPERS_DELTA_REVIEWS } from './current-source-delta-reviews-app-test-helpers.js';
 import { SDK_DELTA_REVIEWS } from './current-source-delta-reviews-sdk.js';
 import { SDK_CODEGEN_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-codegen.js';
+import { SDK_CORPUS_PROJECTION_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-corpus-projection.js';
 import { SDK_GUIDANCE_RESOURCES_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-guidance-resources.js';
 import { SDK_GENERATED_REGISTRY_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-generated-registry.js';
 import { SDK_GENERATED_RUNTIME_DELTA_REVIEWS } from './current-source-delta-reviews-sdk-generated-runtime.js';
@@ -35,6 +36,7 @@ export const CURRENT_SOURCE_DELTA_REVIEWS: Readonly<Record<string, CurrentSource
   ...APP_TEST_HELPERS_DELTA_REVIEWS,
   ...SDK_DELTA_REVIEWS,
   ...SDK_CODEGEN_DELTA_REVIEWS,
+  ...SDK_CORPUS_PROJECTION_DELTA_REVIEWS,
   ...SDK_GENERATED_REGISTRY_DELTA_REVIEWS,
   ...SDK_GENERATED_RUNTIME_DELTA_REVIEWS,
   ...SDK_GENERATED_STUBS_DELTA_REVIEWS,
