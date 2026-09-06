@@ -316,17 +316,22 @@ connection reset while a local gitleaks run over the whole history reports no
 leaks. Re-run the job; a real finding names a commit and a rule, a reset names
 neither.
 
-### CI job cancelled at its timeout before the validators ran
+### CI job cancelled at its timeout inside a late step
 
 A static-checks job can be cancelled at its ten-minute budget inside "Run
-workspace-owned repo validators". The dependency install is not the cause: the
-separate `install` job populates the pnpm store on a cold key and every later
-job restores it and installs offline, so the budget went to the validators
-themselves on a slow runner or with their own caches cold. The discriminator
-is that step's duration against a warm run's; a re-run passes. Sibling: a
-browser suite timing out at 30 s on a runner where the whole suite took
-several minutes against tens of seconds locally. Neither names the branch;
-re-run, and if the slow window recurs the budget is a card, not a code change.
+workspace-owned repo validators". The budget is the JOB's, not the step's
+(`timeout-minutes` sits on the job in `.github/workflows/ci.yml`), and that
+step is the ninth in the job: a full-history checkout, the setup action's
+install from the restored store, and six check steps (formatting, Markdown, two
+lints, sub-agent validation, portability validation) all draw on the same ten
+minutes, so the cancelled step is only where the clock ran out. Diagnose from the run's per-step
+timings against a warm run's: every step slow says runner or cold caches, and
+a re-run passes; one step slow says that step, and if the branch changed the
+validator behind it, run the validator locally on the branch before
+re-running. Sibling: a browser suite timing out at 30 s on a runner where the
+whole suite took several minutes against tens of seconds locally. Neither
+names the branch by itself; when the slow window recurs with every step slow,
+the budget is a card, not a code change.
 
 ### Pre-Commit Hook Output Too Large
 

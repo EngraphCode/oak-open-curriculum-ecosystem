@@ -1889,8 +1889,15 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   curator (agents-default-no-gender) and present-tense "still open" with dated incidents on a permanent page
   (no-moving-targets) — both cured under the over-budget ratchet. The incidents live here now: the tsup
   bundled-config lint race on #50 (2026-09-03) and #51 (2026-09-04); a secret-scan curl reset once on
-  2026-09-05; a static-checks job cancelled at its ten-minute budget on a cold pnpm cache (2026-09-04, three
-  sightings including an a11y 30 s timeout on a slow runner); the merge-bot token cannot re-run jobs.
+  2026-09-05; a static-checks job cancelled at its job-level ten-minute budget inside a late step, cause
+  unmeasured (2026-09-04, three sightings including an a11y 30 s timeout on a slow runner); the merge-bot
+  token cannot re-run jobs.
+- Three same-window instances of one generator, with times: 19:15Z, round two on the records PR found the
+  napkin's incident line still carrying the cold-cache cause round one had cured on the troubleshooting page
+  (one home cured, the other missed); 19:23Z, commitlint refused a commit whose message file lacked its
+  subject line, after some twenty clean commits; 19:38Z, a Cricket leg reading the round-two cure found the
+  validators step called "the seventh" above a list of eight (it is the ninth in the job). The reviewer, the
+  hook and the panel each caught one; the seat self-caught none.
 - Three times in one day the tree refuted a mechanism I had transmitted from a record: gitleaks' resolver
   (above); the merge bot's quiet window listed as a structural cure in the new timing pattern when the
   pr-lifecycle contract calls it a timed proxy (Codex, #60 round two); the wildcard-staging guard described as
