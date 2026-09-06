@@ -143,12 +143,15 @@ touches the queue store, its migration, or the live-report scan picks these up f
    (`updateCommitIntentPhase`), `commit-workflow.ts` / an intent expiring between `loadIntent`
    and the phase write no-ops silently and the commit proceeds.
 
-Owner items named at the same close: the two CodeQL `js/http-to-file-access` alerts (#12, #31)
-are the owner's to dismiss (the merge bot holds no `security_events` scope); the superseded
-ratified plan `commit-queue-front-door-cleanup` was archived by the owner's rulings fold of
-2026-09-06 (PR #56); the stale platform-managed nested worktree registrations
-`.claude/worktrees/mcp-612-queue-ephemera` and `.claude/worktrees/mcp-626-drift-signal` await
-the owner's disposition.
+Items named at the same close, re-trued at the consolidation of 2026-09-06 (Director ruling
+1f67ddd7): the two CodeQL `js/http-to-file-access` alerts (#12, #31) are not dismissed by
+anyone — the owner refused a blanket dismissal on 2026-09-06 and the `code-scanning-alerts-to-zero`
+node cures the class in the tree (the analyser's barrier model for the schema cache; a closed
+vocabulary for the drift check); the superseded ratified plan `commit-queue-front-door-cleanup`
+was archived by the owner's rulings fold of 2026-09-06 (PR #56); the two nested
+`.claude/worktrees/*` registrations stay under the prune rule's platform-managed clause
+(removing them is a rules-process amendment carrying evidence that the harness tolerates
+removal, not an owner item).
 
 ## Amendment trail
 
@@ -170,3 +173,9 @@ the owner's disposition.
   field stays the owner's to change.
 - 2026-09-06: the nine follow-up pointers and the owner items above mirrored from the
   lane-closed comms event into this tracked record (consolidation fold).
+- 2026-09-06: acceptance 3 decided at the consolidation (Director ruling 1f67ddd7 returned it
+  to the seat): the 2026-08-17 pre-split archive blob (the gitignored copy taken at the interim
+  split) held only queue entries whose one-hour TTL had expired long before the 2026-09-04
+  landing, so no live entry could have been lost; the blob stays as machine-local ephemera
+  under the collaboration state's ignore rule and needs no owner act. Acceptance 3 is met by
+  that reading; the 2026-09-04 file has no pre-migration copy, as recorded above.

@@ -316,6 +316,16 @@ connection reset while a local gitleaks run over the whole history reports no
 leaks. Re-run the job; a real finding names a commit and a rule, a reset names
 neither.
 
+### CI job cancelled at its timeout before the validators ran
+
+A static-checks job can be cancelled at its ten-minute budget inside "Run
+workspace-owned repo validators" when the budget went to `pnpm install` on a
+cold store cache or a slow registry. The discriminator is the setup step's
+duration against a warm run's; a re-run passes once the cache restore is warm.
+Sibling: a browser suite timing out at 30 s on a runner where the whole suite
+took several minutes against tens of seconds locally. Neither names the branch;
+re-run, and if the cold window recurs the budget is a card, not a code change.
+
 ### Pre-Commit Hook Output Too Large
 
 Turbo replays all cached logs during the hook. Redirect output
