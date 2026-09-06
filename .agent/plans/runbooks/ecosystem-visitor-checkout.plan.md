@@ -12,7 +12,15 @@ impact_areas:
   - practice-and-estate
 tickets: []
 depends_on: []
-owner_gates: []
+owner_gates:
+  - awaiting: owner-decision
+    clears_when: >-
+      The owner re-ratifies the procedure after its first review revision (explicit
+      addressing of the visitor on every command in step 4; the visitor's own hooks and CI
+      as its only commit and push gates in step 6; default-branch creation through the
+      hosting service's API in step 7; rollback for steps 6 and 7, the latter a no-rollback
+      step), and accepts the no-rollback step for pushed history.
+    expires: 2026-09-27
 last_updated: 2026-09-06
 ---
 
@@ -64,21 +72,30 @@ held here as a working name, not doctrine.
 3. `agent` — Add the visitor's one Practice file: a root agent entry point that says the
    repository is worked as a visitor of this host and that sessions launch at the host root.
    Verify: the file exists and carries no other instruction.
-4. `agent` — Work the visitor from a session launched at the host root. The shell's working
-   directory persists inside the host project directory, so `cd visitors/<name>` holds
-   across calls; the host's rules, skills, hooks and agent-tools apply to every tool call.
-   Verify: a forbidden operation inside the visitor is refused by the host's hook policy.
+4. `agent` — Work the visitor from a session launched at the host root. Address the visitor
+   explicitly on every command (`git -C visitors/<name>`, paths under `visitors/<name>`): a
+   shell whose working directory persists across tool calls (Claude Code, verified
+   2026-09-06) also honours a `cd`, but a harness that runs each call in a fresh process
+   would send an unqualified command to the host. The host's rules, skills, hooks and
+   agent-tools apply to every tool call because they load from the launch project. Verify: a
+   forbidden operation inside the visitor is refused by the host's hook policy.
 5. `agent` — Declare the coordination home before any collaboration-state command. From
    inside the visitor, git-native resolution names the visitor itself as primary and would
    seed a decoy substrate there; set `PRACTICE_COORDINATION_HOME` to the host's primary
    checkout root, or run the commands from the host root. Verify: the claims file the
    command touches is the host's.
 6. `agent` — Gate the visitor's artefacts with its own minimal checks (format, markdown lint,
-   plugin validation where it is a plugin) in its own CI; the host's gates never run on it.
-   Verify: the visitor's CI is green on its default branch.
-7. `agent` — Commit and push inside the visitor with the host's commit discipline and the
-   visitor's identity; open its pull requests against the visitor's own default branch.
-   Verify: `git -C visitors/<name> status --branch` reads up to date with its upstream.
+   plugin validation where it is a plugin) in its own CI, and its own git hooks where it
+   wants commit-time gates: the host's hooks and gate suite never run inside the visitor,
+   which has its own `.git`; only the host's tool-call policy governs the agent's commands
+   there. Verify: the visitor's CI is green on its default branch.
+7. `agent` — Commit and push inside the visitor with the host's commit discipline carried as
+   behaviour (conventional message, explicit pathspecs, the bot as committer) and the
+   visitor's identity; open its pull requests against the visitor's own default branch. On
+   an empty repository, create the default branch through the hosting service's API as the
+   bot before the first pull request: the bot push tool refuses a direct push to a default
+   branch. Verify: `git -C visitors/<name> status --branch` reads up to date with its
+   upstream.
 
 ## Verification
 
@@ -97,6 +114,11 @@ held here as a working name, not doctrine.
   lost, so push first.
 - Step 5: unset the declared home; a decoy substrate seeded by mistake inside the visitor is
   removed by hand and named in the napkin.
+- Step 6: the CI file is the visitor's own; revert it with a forward commit in the visitor.
+- Step 7: no rollback for pushed history, which is never unwound (the estate's rule against
+  using git to remove work): a wrong push is corrected by a further commit, and a pull
+  request opened in error is closed in the visitor. Owner acceptance of this no-rollback
+  step is the gate in the frontmatter.
 - The ignore line stays: it is generic and harmless when the directory is absent.
 
 ## Known limits
@@ -107,5 +129,8 @@ held here as a working name, not doctrine.
   that needs it, or work the visitor from the primary checkout.
 - The host's plan-corpus validator does not read a visitor's plan nodes; a visitor's records
   are its own plain files until a validator can be pointed at it.
-- The merge-bot and commit tooling resolving against the visitor's own git root is unprobed
-  as of 2026-09-06; step 2 names the expected shape.
+- The host's git hooks never run inside the visitor; its own hooks and CI are its commit and
+  push gates (step 6).
+- The bot's push tool resolves the visitor's own bot configuration when run from inside the
+  visitor (probed 2026-09-06 on the first visitor); the host's commit-queue tooling has not
+  been run against a visitor's index.
