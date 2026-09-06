@@ -39,6 +39,10 @@ declared contract; stylistic preference alone is not a contract failure.
 
 ## Current Structure
 
+- [public-service-ai-tuition/pr-66-review-2026-09-06.md](./public-service-ai-tuition/pr-66-review-2026-09-06.md)
+  — dated review of PR 66: faithful transfer, source authority, integration,
+  evidence qualifications and seven bounded findings; the draft hold remains
+
 - `oak-ecosystem-progress-*` — the progress-report family: point-in-time
   syntheses of where the whole effort stands, for readers who ask "where is it
   now?". Resolve the newest by the date in the filename — and where several
