@@ -167,6 +167,10 @@ with their tests, the writer script, the knip entry.
   permits) and authors its own `SKILL.md`; the layout needs no change for that.
 - The interpretation resource adopting the corpus-reference renderer: a follow-up
   consolidation at the second consumer, its own small change.
+- The writer's containment helpers (canonicalising the nearest existing ancestor before a
+  directory is created; opening a target as a regular file through its own descriptor without
+  following links) moving into `@oaknational/safe-path`: a consolidation at the second consumer
+  that needs them, its own small change; the script keeps them local until then.
 - The `school_context_relevance` block: it is the selector the evidence tools use, and on
   some strands it also carries per-phase and per-application impact figures and a study
   count. Rendering those figures is a named follow-up, its own small change to this
