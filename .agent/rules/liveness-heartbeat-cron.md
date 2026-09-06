@@ -14,7 +14,10 @@ exemption**: suspend heartbeat emission when no consuming peer is observable on
 the registry (a solo session, or a live owner/coordinator detecting retirement
 directly from ground-truth surfaces), and resume the moment a consuming peer
 appears, the conductor goes async, or the cast rotates. PDR-082 (Adopted) is
-the n=2 owner-visible special case of this exemption.
+the n=2 owner-visible special case of this exemption. As of 2026-09-06 the
+owner-word stand-down (the PAUSED seat state, §Exemptions below) is PDR-078
+§4's fifth exemption class, a declared-state class distinguished from silence
+by its opening event.
 
 The portable contract — cadence, threshold, redundancy rule, exemption
 set, and the structural cure they compose — is authoritatively specified
