@@ -159,11 +159,12 @@ DROPS the Copilot handle — 200 response, no error, handle absent from
 the resulting request — so request Copilot through the GitHub MCP
 `request_copilot_review` tool (or the web UI), never the bare REST
 endpoint, and verify the reviewer actually appears on the PR. A third scope
-fact: Copilot declines a full review above roughly three hundred files (on a
-sibling repository it reported only that 544 files exceeded its limit,
-2026-08-08) — a pull request past that ceiling gets a different verification
-story, because Copilot's silence there is a capability ceiling, never a clean
-review.
+fact: Copilot has a changed-file ceiling and says so — on a sibling
+repository it posted only that 544 files exceeded its review limit, naming
+the limit itself (2026-08-08). Key the fallback to that explicit refusal on
+the PR, never to a file count assumed in advance: a pull request Copilot
+has refused for size gets a different verification story, because its
+silence there is a capability ceiling, never a clean review.
 
 ### Title and description are CLAIMS about the diff — derive them from it
 
@@ -573,11 +574,18 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    binding a tip after the budgeted number of rounds has settled, NOT
    when that round's tally row settles — recording budget-exceeded in the
    working notes and running the generator question before the round's
-   findings are cured. Past the budget the ratchet binds: only a statement
-   that is wrong today, a broken link or a validator failure earns a cure,
-   and everything else is dispositioned without a diff (the lead's ratchet
-   ruling on #961's round four and the owner's word on its wrap PR — "ignore
-   bot comments … less than a P1 or equivalent" — 2026-09-03). The second
+   findings are cured. Past the budget, on a prose-class changeset or the
+   prose findings of a mixed one (PDR-140 §Decision's scope), the ratchet
+   binds: only a statement that is wrong today, a broken link or a
+   validator failure earns a cure, and everything else is dispositioned
+   without a diff (the lead's ratchet ruling on #961's round four and the
+   owner's word on its wrap PR — "ignore bot comments … less than a P1 or
+   equivalent" — 2026-09-03). A code-class finding that is a verified
+   defect is never priced away by the budget: its cure obligation survives
+   exhaustion through PDR-140's recorded rebudget (budget-exceeded noted,
+   the generator question run, one further settlement push with its
+   reason in the working notes), and the code-review state machine stays
+   unchanged. The second
    settlement push's tip is the FINAL HEAD, named on the PR when that push
    lands. A binding worth declaring names its exception in advance (a
    statement a rule falsifies, cured with a sweep) or is owner-gated from

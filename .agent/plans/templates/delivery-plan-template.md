@@ -70,10 +70,13 @@ Each criterion names its proof and the proof's evidence class:
 
 <Slices, each a single-story PR carrying its round-budget class
 (PDR-132: default ≤2 review rounds; name the budget if it differs and
-why). Each PR opens with the pr-lifecycle instruments: a working-notes
-comment carrying the PDR-140 intake contract and the round tally,
-declared at PR-open — the step that was missing from this template when
-a review loop was cured by seat judgement instead (2026-09-02).>
+why). Each PR opens with the pr-lifecycle instruments declared at
+PR-open in a working-notes comment: the round tally on every PR, and the
+PDR-140 intake contract where the changeset is prose-class or carries
+prose findings (PDR-140 §Decision scopes it so; code-class changesets keep
+the review-round state machine unchanged) — the step that was missing
+from this template when a review loop was cured by seat judgement instead
+(2026-09-02).>
 
 ## Out of scope
 

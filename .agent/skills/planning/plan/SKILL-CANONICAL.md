@@ -188,10 +188,11 @@ gzipped-and-committed before the owner's first sighting of the size
 changed the answer to local and ephemeral (2026-09-03).
 
 A plan that amends a permanent page (the vision, a strategy page, an
-ADR) never has that page cite the plan: permanent docs cite ADRs or
-long-lived strategic nodes, never delivery nodes, and a plan carrying a
-decision worth a permanent page's note authors or names the ADR that
-records it (`no-moving-targets-in-permanent-docs`
+ADR) never has that page cite the plan: permanent docs cite ADRs (or
+other permanent doctrine), never a plan node of any type by id — a
+strategic node is still a plan that can archive, rename, split or merge —
+and a plan carrying a decision worth a permanent page's note authors or
+names the ADR that records it (`no-moving-targets-in-permanent-docs`
 §Citation directionality). An acceptance criterion that asks a
 permanent page to name a delivery node by id is a moving target at
 authoring time — a truing node's own AC did exactly that on 2026-09-03
