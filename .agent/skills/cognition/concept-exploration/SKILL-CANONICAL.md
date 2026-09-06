@@ -45,6 +45,10 @@ rounds, cure cycles (owner-ratified 2026-07-27, from the four-seat review-loop i
 - **Cure-class separation.** Work the current story does not require is routed to its own named
   home (a pointer ticket, a sibling exploration, a later movement) — never absorbed. Absorbing
   adjacent valid work is the mechanism by which loops diverge.
+- **Stacked symptoms share a generator.** Before a fourth cure on one element or a second
+  workaround for one tool, find the one fact beneath: three stacked cures on one element
+  (2026-08-18) and two tools failing the same way in one hour (one fact — where the PR's head
+  lived, 2026-09-01) were each one generator. The fluent first answer is "cure them all".
 - **Every loop names its exit criteria** before it runs (`loop-exit-criteria-required`), and the
   operational forms live where the loops live: review rounds in `pr-lifecycle` §Phase 4 (the
   triage discipline and convergence-as-the-test) AND §"The review-round state machine" items 2

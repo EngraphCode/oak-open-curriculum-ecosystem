@@ -39,7 +39,10 @@ all-channels comms watcher, claims on substantive source/doctrine edits,
 commit-queue intents, the substantive cross-agent broadcasts (tree-green,
 push-landed, gate-state, merge-ready, blocker), mid-cycle retirement, and
 closeout broadcasts. A third agent joining re-activates the full protocol
-atomically; declare the mode in your team-start broadcast.
+atomically; declare the mode in your team-start broadcast. The n=2 lead is
+accountable for the second seat's judgement, not only for the split of work
+(owner to the lead, 2026-09-03: "You are the lead, you are responsible for
+stopping Vesta from being dumb").
 
 ## Goal
 
@@ -701,7 +704,11 @@ coordinator seat at n=2 owner-visible is default-absent (per
 [PDR-082](../../practice-core/decision-records/PDR-082-n2-collaboration-mode.md)'s
 n=2 owner-visible mode, explicit owner opt-in aside), and the right move is
 to propose dissolving it yourself rather than waiting for the owner to make
-the call.
+the call. The trigger is the WORK SHAPE, not the calendar: when the
+remaining work serialises onto one seat, the other proposes its own
+dissolution before the owner has to (2026-09-03: the owner dissolved the
+second seat by word — "the overhead of coordinating two agents is greater
+than the benefit" — before either seat proposed it).
 
 If multiple viable routes remain, use a bounded proposal:
 

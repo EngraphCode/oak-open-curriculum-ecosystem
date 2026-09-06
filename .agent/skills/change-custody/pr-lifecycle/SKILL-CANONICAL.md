@@ -547,7 +547,11 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    binding a tip after the budgeted number of rounds has settled, NOT
    when that round's tally row settles — recording budget-exceeded in the
    working notes and running the generator question before the round's
-   findings are cured. The arms above stay the mechanical backstop, not
+   findings are cured. Past the budget the ratchet binds: only a statement
+   that is wrong today, a broken link or a validator failure earns a cure,
+   and everything else is dispositioned without a diff (the lead's ratchet
+   ruling on #961's round four and the owner's word on its wrap PR — "ignore
+   bot comments … less than a P1 or equivalent" — 2026-09-03). The arms above stay the mechanical backstop, not
    the first alarm. **The arms fire on GENERATOR recurrence, not singleton
    noise**: before acting on a fired arm, classify the round's findings —
    a stream of distinct, unrelated mechanical singletons (each with a
@@ -632,9 +636,13 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    The gate never waits more than one quiet window for any single reviewer.
    CRITICAL first-round rule: the EXPECTED reviewer set is not just "bots
    that previously reviewed this PR" — on a repo whose ruleset configures
-   bot review on push (Copilot here), the first round is ALWAYS expected,
-   so before any bot has reviewed, every configured bot is OWED until it
-   posts or the checks-green quiet-window timeout fires. This closes the
+   bot review on push (Copilot here, and on this fork the Codex connector,
+   which reviews every push by its own configuration), the first round is
+   ALWAYS expected, so before any bot has reviewed, every configured bot is
+   OWED until it posts or the checks-green quiet-window timeout fires. A
+   leg is standing BY CONFIGURATION, never assumed by doctrine (owner,
+   2026-08-09: "route through the rules process, not assumed"); PDR-140's
+   loop discipline governs its rounds like any other leg's. This closes the
    vacuous-predicate hole where an initial tip could read merge-ready
    before the first bot round ever lands. The expected set's SOURCE is explicit,
    never inferred from the compound read (`latestReviews` only names
@@ -914,6 +922,12 @@ future audit; post it as a PR comment first (worked instance 2026-08-07:
 a grant was withheld until the in-session code-expert adjudication was
 posted, then fired within the minute — fully auditable). Then:
 
+- **A PR the owner has named as the last carrier is not merge-at-green.**
+  Before merging it, enumerate every in-flight output that needs the remote
+  and hold the merge until each has ridden or been released by name (owner
+  correction at the MCP-673 wrap, 2026-09-03: #961 merged at green while a
+  wrap workflow's output was still owed, and a fourth PR had to be
+  authorised).
 - **`mergeable` means POSSIBLE to merge; it does NOT mean READY to merge**
   (owner, 2026-07-08). GitHub's `mergeable: MERGEABLE` asserts only
   conflict-freeness and reads TRUE on a PR with failing checks and open
@@ -1100,6 +1114,15 @@ says it is settled, it is settled, and the window is not re-imposed on him.
 `worktree-hygiene` §3/§6 owns the cleanup: remove the worktree and delete the
 branch (content-verified, owner-authorisation-gated for destructive ops);
 update continuity surfaces; close claims.
+
+**A follow-up pointer named at lane close is mirrored into a TRACKED home
+before the lane closes** — the owning plan node's dispositions table, or the
+thread record the pickup seat reads — and the lane-closed comms event points
+at that home rather than carrying the pointer alone. Comms events are
+untracked by design and rotate (ADR-199, PDR-094); fourteen pointers from
+three lanes (2026-09-04/05) lived only on lane-closed events until the
+consolidation of 2026-09-06 recovered them. The Director applies this to its
+own closes from 2026-09-06.
 
 ## Failure modes this skill exists to prevent (all observed)
 

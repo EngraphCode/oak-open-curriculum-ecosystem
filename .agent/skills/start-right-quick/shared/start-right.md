@@ -13,6 +13,14 @@ step leads to the surfaces the next step assumes.
 
 ## Ground First (reading order)
 
+Ground with the proper instruments. Dumping a corpus into context (`cat`, whole
+diffs) is unreadable at the altitude the work needs and forces compaction; the
+instruments are `Read` at offsets, `Grep`/`Glob`, and an Explore subagent
+returning a conclusion — with the plan visible before the first mutation
+(owner correction 2026-09-01, verbatim: "Use the proper tools for finding
+content, and generally sort out the discipline here, this is serious work.
+What is the plan?").
+
 ### 1. Durable directives
 
 Read and internalise. **This foundation-directive reading is the

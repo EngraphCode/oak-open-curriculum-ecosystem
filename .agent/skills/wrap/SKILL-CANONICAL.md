@@ -60,6 +60,12 @@ correction 2026-08-17, verbatim: "nope, you have to compact first"). Never
 launch a long fleet into a context about to compact; its harvest lands in
 the thin post-compaction window.
 
+Wrap invoked non-terminally at the owner's word ("begin your wrap, this is
+not the end of your session", 2026-09-03) runs the programme and the seat
+stays live: the routing of non-terminal boundaries to
+`knowledge-safety-sweep` applies when the seat chooses the instrument,
+never when the owner names wrap.
+
 ## The Programme
 
 1. **Enter the modes.** Genuinely enter
