@@ -6,21 +6,15 @@
  * itself is the pure `renderEefMarkdownFiles` in `src/`; this script only
  * writes, then verifies.
  *
- * Containment: the output root must sit inside the directory the command
- * runs from (`process.cwd()`: this package's directory under
- * `pnpm --filter … render:eef-markdown`, or wherever `pnpm exec tsx` is run).
- * The root is checked lexically before anything is created, canonically
- * through its nearest existing ancestor before it is created (so a symbolic
- * link already on the path cannot carry the creation outside), and canonically
- * once it exists; every target directory gets the same three checks before a
- * byte is written; each target is opened without following
- * symbolic links and without blocking, checked through its own descriptor to
- * be a regular file, and only then truncated and written, so a symbolic link,
- * a directory, a named pipe, a socket or a device in the target's place is
- * refused with no check-then-write window and no hang; a platform whose
- * no-follow flag is absent or inert (present with the value 0) is refused
- * outright. Every
- * written file is then checked against this repository's own formatter
+ * Containment (the mechanism lives in `write-contained.ts`): the output root
+ * must sit inside the directory the command runs from (`process.cwd()`: this
+ * package's directory under `pnpm --filter … render:eef-markdown`, or wherever
+ * `pnpm exec tsx` is run) — checked lexically before anything is created,
+ * canonically through its nearest existing ancestor before it is created, and
+ * canonically once it exists; every target directory gets the same checks, and
+ * every target is written only through a descriptor verified to be a
+ * single-link regular file, so anything else in a target's place is refused.
+ * Every written file is then checked against this repository's own formatter
  * configuration (resolved from the script's location, never from the output
  * directory), so a drift between the renderer's normal form and the
  * repository's formatter settings fails here rather than in a consumer's gate.
@@ -36,105 +30,15 @@
  * inside, the directory the command runs from.
  */
 
-import {
-  closeSync,
-  constants,
-  fstatSync,
-  ftruncateSync,
-  mkdirSync,
-  openSync,
-  realpathSync,
-  writeFileSync,
-} from 'node:fs';
-import { basename, dirname, join, resolve, sep } from 'node:path';
+import { resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
-import { assertPathWithinBase } from '@oaknational/safe-path';
 import { check, resolveConfig, type Options } from 'prettier';
 import {
   renderEefMarkdownFiles,
   type RenderedMarkdownFile,
 } from '../src/eef-strands/eef-markdown-files.js';
-
-/** The reason a run writes nothing more. */
-interface Refusal {
-  readonly refused: string;
-}
-
-/** The `code` of a system error, when the thrown value carries one. */
-function errorCode(error: unknown): string | undefined {
-  return error instanceof Error && 'code' in error && typeof error.code === 'string'
-    ? error.code
-    : undefined;
-}
-
-/** The canonical path of the nearest existing ancestor of `path` (`path` itself when it exists). */
-function canonicalNearestExisting(path: string): string | Refusal {
-  let current = path;
-  while (current !== dirname(current)) {
-    try {
-      return realpathSync(current);
-    } catch (error) {
-      const code = errorCode(error);
-      if (code !== 'ENOENT') {
-        return { refused: `${current} could not be canonicalised (${code ?? String(error)})` };
-      }
-      current = dirname(current);
-    }
-  }
-  return realpathSync(current);
-}
-
-/**
- * Create `directory` inside `base` and return its canonical path: the nearest
- * existing ancestor is canonicalised and checked before anything is created,
- * and the created directory is checked again once it exists.
- */
-function ensureContainedDirectory(directory: string, base: string): string | Refusal {
-  const nearest = canonicalNearestExisting(directory);
-  if (typeof nearest !== 'string') {
-    return nearest;
-  }
-  assertPathWithinBase(nearest, base);
-  mkdirSync(directory, { recursive: true });
-  return assertPathWithinBase(directory, base);
-}
-
-/**
- * Open `target` for writing as a regular file: without following a symbolic
- * link in its place and without blocking on a pipe, then verified through the
- * descriptor itself and truncated only once it is known to be a regular file,
- * so the refusal, the open and the truncation leave no window between them.
- */
-function openRegularFileForWriting(target: string, relativePath: string): number | Refusal {
-  // Presence is not support: a platform can expose the flag with the value 0,
-  // where it does nothing and a link would be followed.
-  if (!Object.hasOwn(constants, 'O_NOFOLLOW') || constants.O_NOFOLLOW === 0) {
-    return {
-      refused:
-        'this platform cannot open a file without following symbolic links; run under a POSIX shell',
-    };
-  }
-  const flags =
-    constants.O_WRONLY | constants.O_CREAT | constants.O_NOFOLLOW | constants.O_NONBLOCK;
-  let descriptor: number;
-  try {
-    descriptor = openSync(target, flags, 0o644);
-  } catch (error) {
-    const code = errorCode(error);
-    const reason =
-      code === 'ELOOP'
-        ? 'is a symbolic link; not followed'
-        : `could not be opened for writing (${code ?? String(error)})`;
-    return { refused: `${relativePath} ${reason}` };
-  }
-  if (!fstatSync(descriptor).isFile()) {
-    closeSync(descriptor);
-    return { refused: `${relativePath} exists and is not a regular file; not written` };
-  }
-  ftruncateSync(descriptor, 0);
-  return descriptor;
-}
+import { ensureContainedDirectory, type Refusal, writeContained } from './write-contained.js';
 
 /** This repository's formatter configuration, resolved from where this script lives. */
 async function repositoryFormatterOptions(): Promise<Options | null> {
@@ -153,30 +57,6 @@ function containedOutputRoot(outArgument: string): string | Refusal {
     return { refused: `--out '${outArgument}' resolves outside the working directory '${base}'` };
   }
   return ensureContainedDirectory(candidate, base);
-}
-
-/**
- * Write one rendered file under the output root: the target directory is
- * canonicalised and checked against the root first, and the target is opened
- * as a regular file (no link following, no blocking) and written through that
- * descriptor.
- */
-function writeContained(outputRoot: string, file: RenderedMarkdownFile): string | Refusal {
-  const directory = ensureContainedDirectory(join(outputRoot, dirname(file.path)), outputRoot);
-  if (typeof directory !== 'string') {
-    return directory;
-  }
-  const target = join(directory, basename(file.path));
-  const descriptor = openRegularFileForWriting(target, file.path);
-  if (typeof descriptor !== 'number') {
-    return descriptor;
-  }
-  try {
-    writeFileSync(descriptor, file.text);
-  } finally {
-    closeSync(descriptor);
-  }
-  return target;
 }
 
 /**

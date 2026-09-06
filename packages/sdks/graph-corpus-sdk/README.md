@@ -41,9 +41,10 @@ The `eef-strands` module is the typed raw-data foundation over
   root or a target directory that resolves outside it (checked through its
   nearest existing ancestor before anything is created, and again once it
   exists), opening each target without following symbolic links or blocking
-  and checking through the descriptor that it is a regular file before
-  truncating it (a link, a directory, a pipe, a socket or a device in a
-  target's place is refused), and verifies every written file against the
+  and checking through the descriptor that it is a regular file with a
+  single link before truncating it (a symbolic link, a hard link to another
+  file, a directory, a pipe, a socket or a device in a target's place is
+  refused), and verifies every written file against the
   repository's formatter configuration. It only writes: a file an earlier
   render produced that the current corpus no longer does is the caller's to
   remove.
