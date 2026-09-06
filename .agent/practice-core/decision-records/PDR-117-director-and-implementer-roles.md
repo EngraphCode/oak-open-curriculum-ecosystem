@@ -644,16 +644,16 @@ Authored at the 2026-09-06 dedicated consolidation from three owner
 corrections on one axis; the rule is the owner's, the wording is the
 seat's.
 
-**Three corrections, one shape.** 2026-08-10: the Director executed a fold
+**Three corrections, one shape.** 2026-08-10: a Director executed a fold
 cascade itself instead of routing it. 2026-08-14: a curator seat
-self-executed a merge-back onto the shared checkout
-(`archive/napkin-2026-08-14.md`, 06:08Z entry). 2026-09-02: a support seat
-read the owner's "X needs doing" as its own assignment and started; the
-owner, verbatim: "nope, I said it needed doing, not that you should do it,
-support Luna" (`archive/napkin-2026-09-02.md`, 11:2xZ entry). In each the
-seat's licence to act was real — the work was allowed, safe and useful —
-and the seat still acted wrongly, because the first question it asked was
-"may I?" rather than "is this my role's output?".
+self-executed a merge-back onto a shared checkout. 2026-09-02: a support
+seat read the owner's "X needs doing" as its own assignment and started;
+the owner, verbatim: "nope, I said it needed doing, not that you should do
+it, support [the peer seat]". In each the seat's licence to act was real —
+the work was allowed, safe and useful — and the seat still acted wrongly,
+because the first question it asked was "may I?" rather than "is this my
+role's output?". The dated narratives live on the host's own napkin
+archives and bridge surfaces; this record carries the structural rule.
 
 **The rule.** On self-initiated work the value lens runs role-scoped BEFORE
 the licensing and safety lenses: a seat asks first whether the work is its

@@ -327,14 +327,17 @@ this way produces cleaner boundaries and simpler classification.
   "usually", or an ordering assumption names a defect. The worked shapes
   are the anti-pattern `timing-derived-state-is-the-defect`; its
   read-side dual is the pattern `timing-artefact-read-as-state`.
-- **Exactly one holder** - any singleton-authority state (a coordinator
-  role, a commit window, a document root's theme, an index) has exactly
-  one holder at all times: never zero, never two. Ownership is decided by
-  context up front, never negotiated at runtime between two well-meaning
-  holders — two theme holds on one root corrected each other forever
-  until context (standalone: the page; framed: the parent) chose the
-  owner (2026-08-19); the coordinator two-moments invariant of PDR-064 is
-  the same rule for roles.
+- **At most one holder, and for continuously owned authority exactly
+  one** - a singleton-authority state never has two holders. A
+  continuously owned authority (a coordinator role, a document root's
+  theme, a shared index between windows' owner) has exactly one holder at
+  all times, never zero; a windowed authority (a commit window on
+  `git:index/head`) has one holder while it is open and none between
+  windows, by design. Ownership is decided by context up front, never
+  negotiated at runtime between two well-meaning holders — two theme holds
+  on one root corrected each other forever until context (standalone: the
+  page; framed: the parent) chose the owner (2026-08-19); the coordinator
+  two-moments invariant of PDR-064 is the same rule for roles.
 - **Pure functions first** - Use TDD to design (*test first*, red,
   green, refactor), no side effects, no I/O
 - **Consistent Naming** - Use consistent naming conventions for
