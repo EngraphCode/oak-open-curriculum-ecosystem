@@ -131,9 +131,14 @@ form to use rather than a bypass:
   guard fires the same way on a message BODY that names the breaking-change
   marker while declining it (2026-09-02): describe the decision without the
   marker vocabulary.
-- The wildcard-staging guard fires on a bare `.` ARGUMENT to any command,
-  not only on `git add .`: `cp <file> .` was blocked (2026-09-03). Name the
-  destination path instead of `.`.
+- The wildcard-staging guard matches its pattern's tokens as a SUBSEQUENCE
+  of the whole command line, so a compound call can assemble the pattern
+  across its parts: `git worktree add … && cp … .env.local .` matched
+  `git add .` — `git` and `add` from the worktree command, the trailing
+  `.` from the copy (2026-09-03). A bare `.` argument alone does not trip
+  it; a bare `.` in a call that also carries `git` and `add` tokens does.
+  Name the destination path instead of `.`, and keep the copy in its own
+  call.
 - The force-push guard's `push` + `-f` co-occurrence (frictions F-102)
   recurred on a merge-bot push chained with `gh api -f` (2026-09-03). A push
   is its task's final command and stands alone in its own call.

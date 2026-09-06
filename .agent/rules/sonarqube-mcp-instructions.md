@@ -83,13 +83,16 @@ enable, disable or harness upgrade, read `git status` on the primary before
 the next commit and restore the tracked blocks the tool stripped; never fold
 a harness rewrite into a records change.
 
-### The hosted MCP endpoint, not Docker
+### The Claude Code entry is the hosted MCP endpoint
 
-SonarQube Cloud hosts an MCP endpoint: a user-scope HTTP server entry named
-`sonarqube` (the name the plugin's tools and this rule expect) with the
-organisation as a request header and a dedicated token generated through the
-logged-in CLI; health reads Connected (2026-09-03). A failing entry can be
-wrong on two counts at once (a daemon not running; the organisation pinned to
+For Claude Code, the user-scope server entry named `sonarqube` (the name the
+plugin's tools and this rule expect) points at SonarQube Cloud's own hosted
+MCP endpoint over HTTP, with the organisation as a request header and a
+dedicated token generated through the logged-in CLI; health reads Connected
+(2026-09-03). This describes that one entry only: the Docker MCP gateway in
+the section above remains the Codex-session fallback exactly as the
+quality-tooling coupling document states. A failing entry can be wrong on
+two counts at once (a gateway daemon not running; the organisation pinned to
 the canonical one) — read the whole entry before diagnosing the connection.
 A logout's exit line is not the state: the CLI's keychain connection to the
 canonical organisation survived a recorded logout and was found by the
