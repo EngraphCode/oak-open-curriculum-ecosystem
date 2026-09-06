@@ -46,6 +46,13 @@ If a hook is failing:
 
 The point of pre-commit hooks is precisely to be unskippable by the agent. Skipping them silently re-introduces the failure mode the hook was installed to prevent.
 
+Skipping a gate relocates its cost; it never removes it. Commits made with
+`HUSKY=0` at a compaction boundary under a per-invocation owner
+authorisation (2026-09-03) pushed a one-line markdown-links failure into a
+full CI round on the critical path of a three-PR merge train: the cure was
+one line, the cost was the round. When an authorised skip is weighed, weigh
+the round, not the minute.
+
 ## Why this rule exists
 
 Quality-gate hooks are the operational arm of the principles in `.agent/directives/principles.md` § Code Quality. The principle prohibits `--no-verify` in foundational language. This rule converts the prohibition from passive guidance into an owner-initiated per-invocation gate: the agent has no authority to skip a hook or solicit a skip, regardless of how confident it is that the skip is harmless.

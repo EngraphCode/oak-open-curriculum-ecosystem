@@ -72,3 +72,31 @@ The `mcp__sonarqube__*` tool prefix comes from a separately-provisioned user-sco
 ### Code analysis issues
 
 Ensure the language parameter is correct when invoking `analyze_code_snippet`. Snippet analysis does not replace full project scans — it is best for one-off snippet reasoning, not gate clearance.
+
+### A vendor integrate step rewrites tracked files
+
+Re-enabling the plugin rewrote four tracked hook and settings files in place
+(2026-09-03), and a harness restart rewrote `.claude/settings.json`
+(2026-09-06): the Sonar plugin's integrate, enable or migrate step
+overwrote tracked estate customisations without a diff. After enabling,
+disabling or migrating the Sonar plugin, or upgrading the harness that hosts
+its server entry, read `git status` on the primary before the next commit
+and restore the tracked blocks the step stripped; never fold that rewrite
+into a records change. (The same shape in any other vendor integration is a
+candidate for a rule with an integration trigger; this file loads only on
+the Sonar signal.)
+
+### The Claude Code entry is the hosted MCP endpoint
+
+For Claude Code, the user-scope server entry named `sonarqube` (the name the
+plugin's tools and this rule expect) points at SonarQube Cloud's own hosted
+MCP endpoint over HTTP, with the organisation as a request header and a
+dedicated token generated through the logged-in CLI; health reads Connected
+(2026-09-03). This describes that one entry only: the Docker MCP gateway in
+the section above remains the Codex-session fallback exactly as the
+quality-tooling coupling document states. A failing entry can be wrong on
+two counts at once (a gateway daemon not running; the organisation pinned to
+the canonical one) — read the whole entry before diagnosing the connection.
+A logout's exit line is not the state: the CLI's keychain connection to the
+canonical organisation survived a recorded logout and was found by the
+status command.

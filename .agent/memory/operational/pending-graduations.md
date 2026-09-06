@@ -165,17 +165,6 @@ not-yet-minted concepts.**
 | Close-time single-lesson graduation (retrospective 2026-07-20 proposal 1): a captured lesson that is single-instance sufficient (PDR-100), has a nameable doctrine home, and needs no cross-seat synthesis graduates AT session close; the frozen-corpus constraint gates rotation and cross-seat synthesis only. Promotion target: `session-handoff` step 6b, landed under the PDR-101 quorum. Provenance: authored FAST-enacted in the retrospective, reclassified slow-lane at PR #450 review (PDR-130 §§2/4; Director-ratified 2026-07-20) | Pre-promotion observable, accrued in this row during the quarter: each clause-eligible lesson that recurs between capture and its homing is logged here as it occurs — the measured cost of batching while the clause stays unenacted (worked warrant: a June-documented class re-surfaced 2026-07-17 and re-bit three seats before homing, ~3 days from that re-surfacing). At review: promote if at least one recurrence class accrued; the post-promotion prediction (recurrence drops to ~zero) binds only after enactment | No recurrence accrues by review (the batching frame carries no measured cost — the entry is killed), or the accrual log itself goes untouched (the row is theatre; kill it by the register's own rule) | 2026-10-20 |
 | Blame-referent calibration (retrospective 2026-07-26, PDR-094 arc): agents calibrate to the most salient blame signal (accreted caution, or the last correction), not the standing policy, whenever the policy exists only in the owner's head; a WRITTEN owner-ratified policy line converts reversal-grade corrections on that axis into calibration-grade refinements. Provenance: `.agent/reports/agentic-engineering/2026-07-26-pdr-094-retention-arc-retrospective.md` §Meta root (v1–v2 hoard, v3 over-delete, v4 co-authored referent, all one arc) | By review: NO reversal-grade owner correction on the retention axis (the axis now carries its written line, PDR-094 v4); any retention correction observed is a refinement, not a reversal | A reversal-grade retention correction lands despite the written line — the written-referent cure is insufficient and the mechanism needs an action-time instrument (kill this row into that finding) | 2026-10-26 |
 
-- **PDR-117 missing axes: role-scoped value lens and seat-deliverable framing**
-  `[captured: 2026-08-14 | source: owner corrections 2026-08-10 (Director fold cascade),
-  2026-08-14 (curator self-executed merge-back; archive/napkin-2026-08-14.md 06:08Z entry)
-  and 2026-09-02 ("X needs doing" in a support role read as an assignment — a routing fact,
-  not a seat deliverable; archive/napkin-2026-09-02.md 11:2xZ entry) |
-  target: PDR-117 amendment — the value lens runs role-scoped BEFORE the licensing/safety
-  lens on self-initiated work; a seat's deliverable is its role's output, never legible
-  effort; shared-git-state operations route to the warden/Director from non-warden seats |
-  trigger: owner ratification (amendment authored at next consolidation or Director PDR
-  pass; two owner-correction instances already recorded) | size: S | status: pending]`
-
 - **Codex review leg as a standing member of significant-PR review rounds**
   `[captured: 2026-08-14 | source: owner rating 2026-08-09 (high-value; "route through the
   rules process, not assumed") | target: rule — review-round composition (pr-lifecycle
@@ -203,12 +192,6 @@ not-yet-minted concepts.**
   `[captured: 2026-09-03 | source: #959 static-checks red on the research index's link to
   the archived skills-scan plan | target: plan skill "Completion and Archival", one
   sentence | trigger: next plan-skill lane | size: S | status: pending]`
-- **PAUSED seat state for the liveness rule's owner-input clause (claim held, watchers
-  down at owner word, resume only on owner word)**
-  `[captured: 2026-09-03 | source: Vesta rides Solstice's napkin wrap entry (the owner
-  paused the second seat by word; the estate names no such state) | target:
-  liveness-heartbeat-cron / silence-is-never-liveness clause | trigger: next
-  collaboration-doctrine lane | size: S | status: pending]`
 - **Work-shape trigger for start-right-team §6's self-dissolution test (when the
   remaining work serialises onto one seat, the other proposes its own dissolution)**
   `[captured: 2026-09-03 | source: the owner dissolved the second seat by word ("the
@@ -226,11 +209,6 @@ not-yet-minted concepts.**
   remains | target: the validator's policed-doctrine set, or a PDR-105 clause naming the
   check | trigger: next validators lane, after the innovation-kit true-up | size: M |
   status: pending]`
-- **PDR-063 deliberate-succession trigger named (owner-initiated, no budget signal)**
-  `[captured: 2026-09-03 | source: Vesta's handoff record for claim 01e418de (record plus
-  adoption at owner word) | target: PDR-063 §Deliberate succession worked instance, or
-  start-right-team move 7 | trigger: next collaboration-doctrine lane | size: S | status:
-  pending]`
 - **Cricket procedure seat (haiku, xhigh) stays inside the read-only lens: no messaging peers,
   no drafting, no write-access requests**
   `[captured: 2026-09-03 | source: both owner-invoked Cricket suites of the MCP-673 day recorded
@@ -261,8 +239,11 @@ not-yet-minted concepts.**
   session" against the wrap skill's routing of non-terminal boundaries to
   knowledge-safety-sweep | target: wrap skill §Use When, one sentence | trigger: next Practice
   lane | size: S | status: pending]`
-- **Hook substring policies: worked false positives for hook-policy-substring-discipline**
-  `[captured: 2026-09-03 | source: the wildcard-staging policy fired on a bare "." argument to
-  cp; the git-push-force policy fired on any command containing both "push" and "-f" (merge-bot
-  push chained with gh api -f) | target: hook-policy-substring-discipline worked instances, or
-  the two policies' matchers | trigger: next hooks lane | size: S | status: pending]`
+
+- **PDR-063 deliberate-succession trigger named (owner-initiated, no budget signal)**
+  `[captured: 2026-09-03 | source: Vesta's handoff record for claim 01e418de (record plus
+  adoption at owner word) | target: PDR-063 §Deliberate succession worked instance, or
+  start-right-team move 7 | trigger: next collaboration-doctrine lane | size: S | status:
+  pending]`
+
+<!-- Drained at the 2026-09-06 dedicated consolidation; the commits and the homes are the record. -->

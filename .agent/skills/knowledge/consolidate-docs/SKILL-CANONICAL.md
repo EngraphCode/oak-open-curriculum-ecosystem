@@ -538,6 +538,10 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
     Read the selected current + archived napkins as one historical corpus after
     their ordinary per-napkin processing has happened. Ask: "What does the
     archive know now that no individual rotation could have known then?"
+    Know the corpus's limit: a napkin corpus measures recurrence and cannot
+    measure extinction — a cured class leaves no entry when it stops firing —
+    so "did the cure work" needs a designed surface-signature census per
+    window, never an absence read (2026-09-02).
 
     Keep the pass bounded. Before reading, name the corpus window: either all
     napkins since the last historical-synthesis marker, the last N archived
