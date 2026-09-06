@@ -576,25 +576,30 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    working notes and running the generator question before the round's
    findings are cured. Past the budget, on a prose-class changeset or the
    prose findings of a mixed one (PDR-140 §Decision's scope), the ratchet
-   binds: only a statement that is wrong today, a broken link or a
-   validator failure earns a cure, and everything else is dispositioned
-   without a diff (the lead's ratchet ruling on #961's round four and the
-   owner's word on its wrap PR — "ignore bot comments … less than a P1 or
-   equivalent" — 2026-09-03). A code-class finding that is a verified
-   defect is never priced away by the budget: its cure obligation survives
-   exhaustion through PDR-140's recorded rebudget (budget-exceeded noted,
-   the generator question run, one further settlement push with its
-   reason in the working notes), and the code-review state machine stays
-   unchanged. The second
+   binds: a finding earns a cure only over PDR-140's two-prong worthiness
+   bar — it would mislead a consumer of the artefact before its next
+   verification point, or it changes what gets built — evaluated on the
+   surface where the defect lives; a statement wrong today, a broken link
+   and a validator failure are the common instances, never the whole
+   test. Everything below the bar is dispositioned without a diff (the
+   lead's ratchet ruling on #961's round four and the owner's word on its
+   wrap PR — "ignore bot comments … less than a P1 or equivalent" —
+   2026-09-03). A code-class finding is outside this pricing altogether: a
+   verified defect follows the code-review state machine's own transitions
+   (PDR-132's round budget and the step-back arms above), never a
+   settlement-push cap. The second
    settlement push's tip is the FINAL HEAD, named on the PR when that push
    lands. A binding worth declaring names its exception in advance (a
    statement a rule falsifies, cured with a sweep) or is owner-gated from
    the start: a "no further cure push" declared before reading what the
    next round could hold broke one round later, and on a sibling PR a
    binding with an unnamed exception clause broke at round six while the
-   absolute one held (2026-09-05). On a SKETCH-class PR every post-budget
+   absolute one held (2026-09-05). On a SKETCH-class PR a post-budget
    finding is pickup-shaped by construction — it describes work not yet
-   done — and gets a falsifier row, never a cure push; a sketch's loop
+   done — and gets a falsifier row rather than a cure push, unless it
+   clears the bar's second prong (it would change what gets built at
+   pickup) or names a defect on an already-served surface, which cure
+   where the bar says; a sketch's loop
    converges only when someone names the final head, because a reviewer's
    supply of next-site findings on undone work is unbounded (eight rounds
    on a one-file sketch, 2026-09-05). The arms above stay the mechanical backstop, not
