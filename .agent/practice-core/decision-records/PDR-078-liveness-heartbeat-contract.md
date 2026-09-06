@@ -451,7 +451,7 @@ PDR-082's second-instance path."
 
 ## Falsifiability
 
-This contract is falsifiable on six axes:
+This contract is falsifiable on seven axes:
 
 - (Axis retired with §2, 2026-08-02 — it measured suppression
   consistency for a clause that never reached tooling; its firing
@@ -482,6 +482,13 @@ This contract is falsifiable on six axes:
   role looked retired — direct evidence the consumer-absence opening
   fact was misread (a consuming peer was present) and the exemption
   was claimed when emission was still load-bearing.
+- A seat paused at owner word (a heartbeat-end naming the word,
+  claim retained) whose claim a peer adopts, or whose silence a
+  peer reads as retirement, before the owner's resume word —
+  the peer-reader clause of the fifth exemption failing; or a
+  paused seat's claim swept by the host's machine readers with
+  no handoff record to re-open from — the loss-free claim
+  failing (added 2026-09-06).
 
 The contract succeeds when liveness is structurally observable
 without owner intervention, exemption classes apply cleanly to
