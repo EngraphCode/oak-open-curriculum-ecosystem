@@ -1828,3 +1828,36 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
 - LOSS SCAN: the merge-bot's full refusal object (verdict evidence, on the task output);
   round five's reply texts (on the PR threads); the eleven semantic hashes (in the ledger
   file, tracked on the lane). METALOSS: nothing new beyond the boundary-2 pass.
+
+## 2026-09-06 ~14:3xZ (Finch binds Sundog, 47f9d2, implementer) — #58 rounds one and two; the writer's review story
+
+- **Sizing lesson:** nine of the ten findings across #58's two rounds hit the one
+  filesystem-touching script (Sonar S8707 on the `--out` root, two symlink-target
+  findings, CodeQL's check-then-write race, a symlinked-ancestor `mkdir` leak). The 26-path
+  changeset was read as one story because the node said so; the writer plus the ADR
+  amendment was a second review story a split at open would have isolated. A script that
+  touches the filesystem earns its own PR beside pure renderers.
+- **The containment shape that survived three reviewers:** lexical `startsWith(base + sep)`
+  on the resolved `--out` before anything is created (Sonar's S2083/S8707 sanitizer shape);
+  `realpath` of the nearest EXISTING ancestor checked against the base before `mkdirSync`
+  (a recursive mkdir follows a symlinked component and creates outside first); `realpath`
+  again once it exists; each target opened `O_WRONLY|O_CREAT|O_TRUNC|O_NOFOLLOW` and
+  written through the descriptor (`writeFileSync(fd, text)`), so ELOOP/EISDIR refuse in the
+  same operation as the open and CodeQL's race query has no check-then-use pair to flag.
+  `lstat`-then-write is exactly what it flags. A platform without `O_NOFOLLOW` is refused
+  outright, never degraded silently.
+- **Type tests:** `testing-strategy.md` §"Do not test types" forbids `expectTypeOf` pins;
+  the sanctioned compile-time anchor is `satisfies` (§Refactoring TDD). Coverage maps
+  (`{ key: 'rendered' | 'omitted' } as const satisfies Record<AllKeys, …>`) pin
+  completeness in the SOURCE, fail `tsc` on an added or dropped key, and give the tests
+  their omission sets as runtime values — no unused-export knip noise, no type test.
+- **Loop instruments I failed to build at open (PDR-140 c8, behaviour-note cd8ccd55):** the
+  persisted tally on the PR and the agent signature on bot-visible replies. The owner's
+  /oak-pr-lifecycle + /oak-proportionality invocation into the running loop was the
+  rescue the skill names as a defect; both instruments exist now on #58.
+- **`pr-watch --watch` emitted nothing through a full round** with six threads and two red
+  checks (failure-mode 21e75a03); a direct-read change poll (gh pr view + reviewThreads
+  GraphQL, 60 s, emit-on-change, exit on MERGED/CLOSED) is what the lane relies on.
+- **Skill structure (owner question, answered):** the substrate skill is a hand-authored
+  `SKILL.md` plus the projection rendered into `references/`; the Agent Skills spec permits
+  `references/strands/`, the one-level rule is oak-skills' validator convention.
