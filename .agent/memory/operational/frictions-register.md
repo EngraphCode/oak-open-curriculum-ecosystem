@@ -3840,16 +3840,24 @@ commit SHA and the closing plan reference.
 
 - **Observed**: 2026-09-02 (Finch calls Pinnacle, c91bd4, PR #908 on the
   canonical line; conserved as received); reproduced 2026-09-06 (Juno seeks
-  Apogee, a693fb, PRs #59 and #60 on this line). The verdict evidence carries
-  `review-run liveness unavailable: … "pullRequestNumber" expected number,
-  received null` (and `pullRequestUrl` expected string, received null), so
-  the WAITING-REVIEW-RUN-LIVE state is unreachable and the verdict degrades
-  to SILENT-WAIT-NO-REVIEWER whenever a configured reviewer has not yet bound
-  the tip; the tool does not poll that state, so the seat retries by hand.
-- **Expected**: the liveness read parses the hosting service's check-run
-  payload for a review app (or names the field it could not read), and a
-  reviewer that is running reaches the wait-class verdict the tool polls.
-- **Route**: agent-tooling backlog (merge-bot).
+  Apogee, a693fb, PRs #59, #60 and #61 on this line). The review-run leg
+  reads `gh agent-task view … --json id,completedAt,pullRequestNumber,pullRequestUrl`
+  through the boundary parser in `agent-task-fields.ts`; when the view
+  returns `pullRequestNumber` and `pullRequestUrl` as null the parse fails
+  and the leg degrades to a typed `unavailable` (the verdict evidence
+  carries `review-run liveness unavailable: … expected number, received
+  null`), so WAITING-REVIEW-RUN-LIVE is unreachable. With the runs
+  unreadable the most-blocking leg reads SILENT-WAIT-RUNS-UNREADABLE for a
+  reviewer that was requested and SILENT-WAIT-NO-REVIEWER for one that was
+  not (the docs-only class requests none — the state these instances saw);
+  the tool polls neither, so the seat retries by hand.
+- **Expected**: the view parser tolerates null `pullRequestNumber` /
+  `pullRequestUrl` (a run not yet bound to a pull request is a live run, not
+  an unreadable surface), so a running reviewer reaches the wait-class
+  verdict the tool polls; the cure sits in `agent-task-fields.ts`, not in a
+  new hosting-service integration.
+- **Route**: agent-tooling backlog (pr-watch review-runs leg, consumed by
+  merge-bot).
 
 ### F-167 — Copilot's automatic review does not bind a tip that is only a merge commit of the base
 
@@ -3898,9 +3906,14 @@ commit SHA and the closing plan reference.
   loop beats every four minutes until a seat stops it by hand; the registry
   already shows when the seat is alone (one claim), which is PDR-078 §4's
   consumer-absent condition.
-- **Expected**: the loop reads the registry each tick and exits (with a
-  heartbeat-end event) after N consecutive ticks with no other live claim;
-  a seat beating for an owner watching the stream is not a consumer by the
+- **Expected**: the loop reads the registry each tick and, after N
+  consecutive ticks with no other live claim, SUSPENDS emission (with a
+  heartbeat-end event) while keeping its registry read alive as a
+  lightweight detector, resuming emission the tick a consuming peer's
+  claim appears — PDR-078 §4's consumer-absent exemption is self-healing by
+  contract, so an exit that leaves no detector would show the new peer a
+  silent active seat and open the retirement protocol at ten minutes. A
+  seat beating for an owner watching the stream is not a consumer by the
   exemption's own text.
 - **Route**: agent-tooling backlog (heartbeat mode); the liveness rule's
   exemption already names the condition.

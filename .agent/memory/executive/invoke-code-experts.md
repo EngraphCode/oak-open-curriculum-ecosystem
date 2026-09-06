@@ -141,12 +141,18 @@ exported function were settled by one direct read of the source).
 
 ## Reviewer Reports Arrive Only on Request
 
-Reviewer subagents deliver their reports ONLY on an explicit SendMessage
-request — a summary-less idle notification means NO report was emitted
-(6/6 instances, late July 2026): request the report, never infer one from
-the idle. And a long-silent consult (~12 minutes) is a DEFECTIVE dispatch —
-kill it and re-dispatch; a seat idling on a dead consult is the failure,
-not patience. Known mechanism (MCP-386, until cured): the Agent tool's
+Two reviewer shapes, two procedures — read the dispatched definition's
+tool list before choosing. A reviewer that CARRIES a message tool delivers
+its report ONLY on an explicit SendMessage request — a summary-less idle
+notification means NO report was emitted (6/6 instances, late July 2026):
+request the report, never infer one from the idle. A reviewer that carries
+NO message tool (the expert reviewers and the Cricket legs declared with
+Read/Grep/Glob/Bash only) cannot send anything: its idle IS the finish and
+the transcript is the report — the two harvest routes at the end of this
+section are authoritative for that shape, and re-dispatching such a
+reviewer on its idle discards a verdict already written. For the message-capable shape, a long-silent consult (~12 minutes) is a
+DEFECTIVE dispatch — kill it and re-dispatch; a seat idling on a dead
+consult is the failure, not patience. Known mechanism (MCP-386, until cured): the Agent tool's
 `name` parameter correlates with dark dispatches — named dispatches went
 dark 10/10 while unnamed ones reported; prefer unnamed reviewer dispatches
 while the ticket is open.
