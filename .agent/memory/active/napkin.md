@@ -1946,3 +1946,22 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   redirection was to stop holding the records PR behind #62 on no forcing fact (three legs converged); the
   rejected one was "disposition, never cure" past the budget, which the ratchet's own text does not say. Tally
   with per-leg tokens and runtime: `reports/agentic-engineering/cricket-quartet-tally-2026-09-06-consolidation-seat.md`.
+- Review rounds on the chain's last three PRs found one generator in my own clauses four times: a single instance
+  written as a universal. The fork-head cure (a seat's own head on a repository the bot did not cover) written as
+  "re-home any fork head" would have handed an external contributor's head the shared repository's secrets — the
+  workflows run a cross-repository head without secrets by design, which one read of the workflow file would have
+  shown. A rule clause about repositories and credentials is checked against the workflow before it is written.
+- Three attempts at the over-budget ratchet paragraph each re-derived PDR-140 from memory of a lead's ruling; the
+  record's clause 2 (the two-prong bar) and clause 3 (declared at open) were one grep away, and the code-class
+  scope line was another. The verify-dont-trust bullet graduated the same morning — a mechanism written from memory
+  of a rule is a claim about the rule — applied to its author within hours.
+- A drain in a PR chain rides the PR that carries the home, or lands after it: two distilled entries and a register
+  row drained on the buffers PR ahead of their homes on the skills PR, and a reviewer caught the window in which no
+  landed state would have held them. Restored and re-drained beside the homes.
+- The merge-only commit path ran on this seat's chain with no window claim for four landings (the update-merge
+  script skipped it); the commit skill's merge path wants the scoped `index/head@<worktree>` claim, opened and
+  closed with the SHA. Nobody shared the worktree, so nothing collided; the rule is the rule and the script now
+  opens it.
+- Five of seven consolidation PRs landed by the docs-only REST class in one afternoon; the merge tool's verdicts
+  were SILENT-WAIT-NO-REVIEWER (four) and SETTLED-NO-REVIEW (one), never a settle-ready — the class's known shape
+  on a line where no Copilot leg is requested for docs.
