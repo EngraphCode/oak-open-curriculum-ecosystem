@@ -77,11 +77,14 @@ Ensure the language parameter is correct when invoking `analyze_code_snippet`. S
 
 Re-enabling the plugin rewrote four tracked hook and settings files in place
 (2026-09-03), and a harness restart rewrote `.claude/settings.json`
-(2026-09-06): an integrate, enable or migrate step of a vendor tool
-overwrites tracked estate customisations without a diff. After any plugin
-enable, disable or harness upgrade, read `git status` on the primary before
-the next commit and restore the tracked blocks the tool stripped; never fold
-a harness rewrite into a records change.
+(2026-09-06): the Sonar plugin's integrate, enable or migrate step
+overwrote tracked estate customisations without a diff. After enabling,
+disabling or migrating the Sonar plugin, or upgrading the harness that hosts
+its server entry, read `git status` on the primary before the next commit
+and restore the tracked blocks the step stripped; never fold that rewrite
+into a records change. (The same shape in any other vendor integration is a
+candidate for a rule with an integration trigger; this file loads only on
+the Sonar signal.)
 
 ### The Claude Code entry is the hosted MCP endpoint
 

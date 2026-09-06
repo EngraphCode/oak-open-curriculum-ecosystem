@@ -538,7 +538,7 @@ rerouted.
 
 - 2026-09-06 — Added a fifth, declared-state exemption class to §4
   ("Owner-word stand-down / paused seat"), graduated from the host
-  liveness rule's §Exemptions on three instances, and updated the
+  liveness rule's §Exemptions on five instances, and updated the
   §"Forward-extensible exemption list" note. The class is distinguished
   from silence by its opening event (the heartbeat-end naming the owner's
   word) and from consumer-absence by suspending the threshold as well as
