@@ -3,11 +3,13 @@ import { describe, expect, it } from 'vitest';
 
 import { corpusCaveats, corpusMeta, corpusMethodology } from './corpus-meta.js';
 import { renderCorpusReferenceMarkdown } from './eef-corpus-reference-markdown.js';
+import { omittedKeys, RENDERED_KEY_COVERAGE } from './eef-markdown-rendered-keys.js';
 import { EEF_STRAND_IDS, strandById } from './strand-lookup.js';
 import { leafValues } from './test-helpers.js';
 
 const text = renderCorpusReferenceMarkdown();
-const NO_OMISSIONS: ReadonlySet<string> = new Set();
+const META_OMISSIONS = omittedKeys(RENDERED_KEY_COVERAGE.meta);
+const METHODOLOGY_OMISSIONS = omittedKeys(RENDERED_KEY_COVERAGE.methodology);
 
 describe('renderCorpusReferenceMarkdown', () => {
   it('opens with the corpus versions and says which corpus sections it does not render', () => {
@@ -84,8 +86,8 @@ describe('renderCorpusReferenceMarkdown', () => {
 
   it('renders every value of the corpus metadata and methodology', () => {
     const missing = [
-      ...leafValues(corpusMeta, NO_OMISSIONS),
-      ...leafValues(corpusMethodology, NO_OMISSIONS),
+      ...leafValues(corpusMeta, META_OMISSIONS),
+      ...leafValues(corpusMethodology, METHODOLOGY_OMISSIONS),
     ].filter((leaf) => !text.includes(leaf));
 
     expect(missing).toEqual([]);

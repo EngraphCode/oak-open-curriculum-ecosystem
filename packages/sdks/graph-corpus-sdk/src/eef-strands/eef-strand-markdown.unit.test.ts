@@ -1,31 +1,18 @@
 import { typeSafeEntries } from '@oaknational/type-helpers';
-import { describe, expect, expectTypeOf, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import { corpusMeta } from './corpus-meta.js';
-import type {
-  UnrenderedBehindTheAverageKey,
-  UnrenderedDefinitionKey,
-  UnrenderedDisadvantageGapKey,
-  UnrenderedEffectivenessKey,
-  UnrenderedGuidanceReportField,
-  UnrenderedHeadlineKey,
-  UnrenderedImplementationKey,
-  UnrenderedPhaseField,
-  UnrenderedStrandKey,
-  UnrenderedSubjectField,
-  UnrenderedUpdateHistoryField,
-} from './eef-markdown-rendered-keys.js';
+import { omittedKeys, RENDERED_KEY_COVERAGE } from './eef-markdown-rendered-keys.js';
 import type { PhaseDetail } from './eef-strand-markdown-sections.js';
 import { renderStrandMarkdown } from './eef-strand-markdown.js';
 import { EEF_STRAND_IDS, strandById } from './strand-lookup.js';
 import { leafValues } from './test-helpers.js';
 
 /**
- * Corpus keys whose values the rendering omits: the evidence tools' selector
- * block (whose impact figures on some strands are a named follow-up), and the
- * URL slug (the EEF page URL carries it).
+ * Corpus keys whose values the rendering omits, read from the same coverage
+ * map that pins the strand's key set at compile time.
  */
-const OMITTED_KEYS: ReadonlySet<string> = new Set(['school_context_relevance', 'slug']);
+const OMITTED_KEYS = omittedKeys(RENDERED_KEY_COVERAGE.strand);
 
 const cases = EEF_STRAND_IDS.map((id) => ({
   id,
@@ -68,20 +55,6 @@ function phaseBullet(text: string, phase: string): string {
 }
 
 describe('renderStrandMarkdown', () => {
-  it('renders or names as omitted every key the corpus carries, pinned at compile time', () => {
-    expectTypeOf<UnrenderedStrandKey>().toEqualTypeOf<never>();
-    expectTypeOf<UnrenderedHeadlineKey>().toEqualTypeOf<never>();
-    expectTypeOf<UnrenderedDefinitionKey>().toEqualTypeOf<never>();
-    expectTypeOf<UnrenderedEffectivenessKey>().toEqualTypeOf<never>();
-    expectTypeOf<UnrenderedBehindTheAverageKey>().toEqualTypeOf<never>();
-    expectTypeOf<UnrenderedPhaseField>().toEqualTypeOf<never>();
-    expectTypeOf<UnrenderedSubjectField>().toEqualTypeOf<never>();
-    expectTypeOf<UnrenderedDisadvantageGapKey>().toEqualTypeOf<never>();
-    expectTypeOf<UnrenderedImplementationKey>().toEqualTypeOf<never>();
-    expectTypeOf<UnrenderedGuidanceReportField>().toEqualTypeOf<never>();
-    expectTypeOf<UnrenderedUpdateHistoryField>().toEqualTypeOf<never>();
-  });
-
   it.each(cases)('$id opens with its name and its provenance block', ({ strand, text }) => {
     expect(text.startsWith(`# ${strand.name}\n\n`)).toBe(true);
     expect(text).toContain(

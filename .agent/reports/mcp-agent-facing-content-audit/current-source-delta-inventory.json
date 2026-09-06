@@ -795,9 +795,9 @@
     },
     {
       "file": "packages/sdks/graph-corpus-sdk/src/eef-strands/eef-markdown-rendered-keys.ts",
-      "semanticSha256": "2984c4248b79cd3d55afd26ff24db6ca06a4e27b582df8716792506e33ad83de",
+      "semanticSha256": "b4d1c6b972661979988b05c811be0b633290616c2586d15994dd292867e3b819",
       "itemIds": [],
-      "exclusionReason": "Type-only change; no authored agent-facing content."
+      "exclusionReason": "Reviewed engineering implementation change; no new authored agent-facing content."
     },
     {
       "file": "packages/sdks/graph-corpus-sdk/src/eef-strands/eef-strand-markdown-sections.ts",

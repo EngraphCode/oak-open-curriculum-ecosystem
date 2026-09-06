@@ -43,10 +43,11 @@ export const SDK_CORPUS_PROJECTION_DELTA_REVIEWS: Readonly<
     '670ead32b5c400af4cb64acd7e04aa79ad514e23e8860788fa787c82ab976f99',
     PROJECTION_ONLY,
   ),
-  // Compile-time key pins over the corpus shapes; no runtime value.
+  // Key-coverage maps pinned by `satisfies` over the corpus shapes; the tests
+  // derive their omission sets from them. No authored agent-facing content.
   'packages/sdks/graph-corpus-sdk/src/eef-strands/eef-markdown-rendered-keys.ts': excluded(
-    '2984c4248b79cd3d55afd26ff24db6ca06a4e27b582df8716792506e33ad83de',
-    TYPE_ONLY,
+    'b4d1c6b972661979988b05c811be0b633290616c2586d15994dd292867e3b819',
+    IMPLEMENTATION_ONLY,
   ),
   'packages/sdks/graph-corpus-sdk/src/eef-strands/eef-strand-markdown-sections.ts': excluded(
     'e88c1144f005f80ef76bfe02870d2d181d93f69d9a5675cb41dbbd0106db7cdd',

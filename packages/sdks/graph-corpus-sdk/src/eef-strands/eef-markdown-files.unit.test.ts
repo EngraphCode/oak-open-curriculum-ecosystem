@@ -55,7 +55,7 @@ describe('renderEefMarkdownFiles', () => {
     expect(text.startsWith('# ')).toBe(true);
     expect(text.endsWith('\n')).toBe(true);
     expect(text.endsWith('\n\n')).toBe(false);
-    expect(text.includes('\n\n\n')).toBe(false);
+    expect(text).not.toContain('\n\n\n');
     expect(lines.some((line) => /\s$/.test(line))).toBe(false);
     expect(lines.some((line) => /^[*+] /.test(line))).toBe(false);
   });

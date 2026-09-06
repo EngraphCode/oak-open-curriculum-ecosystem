@@ -36,10 +36,12 @@ The `eef-strands` module is the typed raw-data foundation over
   `renderCorpusReferenceMarkdown`: pure, formatter-normal renderings of the
   corpus for consumers that commit the evidence as files with a provenance
   pin naming `corpusMeta.data_version`. The renderers return text and paths;
-  the package script `render:eef-markdown` (see §Scripts) writes the set
-  where it is told and verifies every file against the repository's
-  formatter configuration. It only writes: a file an earlier render
-  produced that the current corpus no longer does is the caller's to
+  the script `scripts/render-eef-markdown.ts` (see §Scripts) writes the set
+  into a directory inside the one the command runs from, refusing an output
+  root, a target directory or an existing target that resolves outside it or
+  is not a regular file, and verifies every written file against the
+  repository's formatter configuration. It only writes: a file an earlier
+  render produced that the current corpus no longer does is the caller's to
   remove.
 
 The MCP schemas are built downstream in their consumer layers; this package
@@ -72,7 +74,8 @@ pnpm --filter @oaknational/graph-corpus-sdk type-check
 pnpm --filter @oaknational/graph-corpus-sdk lint
 pnpm --filter @oaknational/graph-corpus-sdk test
 pnpm --filter @oaknational/graph-corpus-sdk build
-pnpm --filter @oaknational/graph-corpus-sdk render:eef-markdown --out <dir>
+pnpm --filter @oaknational/graph-corpus-sdk render:eef-markdown --out <dir>   # <dir> inside this package
+pnpm exec tsx packages/sdks/graph-corpus-sdk/scripts/render-eef-markdown.ts --out <dir>   # from the root
 ```
 
 ## License

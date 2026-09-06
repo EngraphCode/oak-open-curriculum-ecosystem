@@ -79,9 +79,11 @@ no-server reference.
 - **A version stamp.** Each rendered file opens with the corpus data version from
   `corpusMeta.data_version`, so a consumer's provenance pin has a value to name.
 - **A thin writer** at `scripts/render-eef-markdown.ts` taking `--out <dir>`
-  (`pnpm render:eef-markdown --out <dir>`): it writes the file set and nothing else,
-  asserting each target directory sits inside the output root before writing, and it never
-  deletes: a consumer's own drift check compares its committed set against the file-set
+  (`pnpm render:eef-markdown --out <dir>`): it writes the file set and nothing else. The
+  output root must sit inside the directory the command runs from, checked lexically before
+  anything is created and canonically once it exists; each target directory is canonicalised
+  and checked against the root before a write; an existing target that is not a regular file
+  (a symbolic link or a directory) is refused rather than followed. It never deletes: a consumer's own drift check compares its committed set against the file-set
   function, and a file an earlier render produced that the current corpus no longer does is
   the caller's to remove. It verifies every written file against the repository's formatter
   configuration resolved from the script's own location, so a drift between the renderer's
@@ -96,11 +98,13 @@ no-server reference.
   `EEF_STRAND_IDS`, with no orphan and no gap, and every rendered path is relative, carries
   no parent segment and resolves under the output root. Each strand's rendering carries its
   headline impact or the no-figure wording, cost label, evidence-strength label, every key
-  finding and its EEF page. The key set each renderer reads is pinned at compile time
-  against the keys the corpus carries, so a corpus refresh that adds a field fails the build
-  naming it; a leaf-completeness walk over every string and number value outside the
-  omitted keys (`school_context_relevance`, `slug`) is the prose catch-all behind those
-  pins; named cases cover the heterogeneous `by_phase` key set and per-phase months. The
+  finding and its EEF page. The key set each renderer reads — strand sections and fields,
+  corpus metadata and methodology alike — is pinned at compile time by `satisfies` coverage
+  maps in the source that name every key the corpus carries as rendered or omitted, so a
+  corpus refresh that adds or drops a field fails the build naming it; no test tests a type.
+  The tests derive their omission sets from those maps, and a leaf-completeness walk over
+  every string and number value outside them is the prose catch-all behind the pins; named
+  cases cover the heterogeneous `by_phase` key set and per-phase months. The
   corpus-reference rendering carries the source, every author, the licence, the attribution
   note, every caveat, every cost band, every evidence factor, every conversion row and every
   index entry verbatim. Every rendered text equals its own formatter-normalised form under
@@ -131,12 +135,16 @@ no-server reference.
   pre-push suite.
 - **Normal form by construction.** Each rendered text equals its formatter-normalised form.
   Proof: `repo-safe` — the test.
-- **Writable to any directory.** Every rendered path is relative, carries no parent segment
-  and resolves under the output root, and the script writes only what the file-set function
-  returns. Proof: `repo-safe` — the set-equality and path-shape tests; the write itself is
-  exercised by running the script into a scratch directory, where its own verification
-  checks every written file against the repository formatter configuration, and by linting
-  the output with the repository's markdown rules, named in the PR.
+- **Writable to any directory inside the invocation directory.** Every rendered path is
+  relative, carries no parent segment and resolves under the output root; the script writes
+  only what the file-set function returns and refuses an output root outside the directory
+  it runs from, a target directory that resolves outside the root, or an existing target
+  that is not a regular file. Proof: `repo-safe` — the set-equality and path-shape tests;
+  the write itself is exercised by running the script into a scratch directory, where its
+  own verification checks every written file against the repository formatter
+  configuration, by linting the output with the repository's markdown rules, and by the
+  three refusal runs (outside root, symbolic-link target, symbolic-link directory), all
+  named in the PR.
 - **Faithful to the corpus.** Every value reachable in a strand outside the omitted keys
   appears in its rendering. Proof: `repo-safe` — the leaf-completeness test.
 
