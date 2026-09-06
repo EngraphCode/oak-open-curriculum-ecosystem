@@ -14,10 +14,11 @@
  * link already on the path cannot carry the creation outside), and canonically
  * once it exists; every target directory gets the same three checks before a
  * byte is written; each target is opened without following
- * symbolic links and written through that descriptor, so a symbolic link or a
- * directory in the target's place is refused in the same operation as the open
- * (no check-then-write window), and a platform that cannot open a file without
- * following links is refused outright. Every
+ * symbolic links and without blocking, checked through its own descriptor to
+ * be a regular file, and only then truncated and written, so a symbolic link,
+ * a directory, a named pipe, a socket or a device in the target's place is
+ * refused with no check-then-write window and no hang; a platform that cannot
+ * open a file without following links is refused outright. Every
  * written file is then checked against this repository's own formatter
  * configuration (resolved from the script's location, never from the output
  * directory), so a drift between the renderer's normal form and the
@@ -34,7 +35,16 @@
  * inside, the directory the command runs from.
  */
 
-import { closeSync, constants, mkdirSync, openSync, realpathSync, writeFileSync } from 'node:fs';
+import {
+  closeSync,
+  constants,
+  fstatSync,
+  ftruncateSync,
+  mkdirSync,
+  openSync,
+  realpathSync,
+  writeFileSync,
+} from 'node:fs';
 import { basename, dirname, join, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
@@ -90,19 +100,23 @@ function ensureContainedDirectory(directory: string, base: string): string | Ref
 }
 
 /**
- * Open `target` for writing (create or truncate) without following a symbolic
- * link in its place, so the refusal and the open are one operation.
+ * Open `target` for writing as a regular file: without following a symbolic
+ * link in its place and without blocking on a pipe, then verified through the
+ * descriptor itself and truncated only once it is known to be a regular file,
+ * so the refusal, the open and the truncation leave no window between them.
  */
-function openWithoutFollowing(target: string, relativePath: string): number | Refusal {
+function openRegularFileForWriting(target: string, relativePath: string): number | Refusal {
   if (!Object.hasOwn(constants, 'O_NOFOLLOW')) {
     return {
       refused:
         'this platform cannot open a file without following symbolic links; run under a POSIX shell',
     };
   }
-  const flags = constants.O_WRONLY | constants.O_CREAT | constants.O_TRUNC | constants.O_NOFOLLOW;
+  const flags =
+    constants.O_WRONLY | constants.O_CREAT | constants.O_NOFOLLOW | constants.O_NONBLOCK;
+  let descriptor: number;
   try {
-    return openSync(target, flags, 0o644);
+    descriptor = openSync(target, flags, 0o644);
   } catch (error) {
     const code = errorCode(error);
     const reason =
@@ -111,6 +125,12 @@ function openWithoutFollowing(target: string, relativePath: string): number | Re
         : `could not be opened for writing (${code ?? String(error)})`;
     return { refused: `${relativePath} ${reason}` };
   }
+  if (!fstatSync(descriptor).isFile()) {
+    closeSync(descriptor);
+    return { refused: `${relativePath} exists and is not a regular file; not written` };
+  }
+  ftruncateSync(descriptor, 0);
+  return descriptor;
 }
 
 /** This repository's formatter configuration, resolved from where this script lives. */
@@ -135,7 +155,8 @@ function containedOutputRoot(outArgument: string): string | Refusal {
 /**
  * Write one rendered file under the output root: the target directory is
  * canonicalised and checked against the root first, and the target is opened
- * without following symbolic links and written through that descriptor.
+ * as a regular file (no link following, no blocking) and written through that
+ * descriptor.
  */
 function writeContained(outputRoot: string, file: RenderedMarkdownFile): string | Refusal {
   const directory = ensureContainedDirectory(join(outputRoot, dirname(file.path)), outputRoot);
@@ -143,7 +164,7 @@ function writeContained(outputRoot: string, file: RenderedMarkdownFile): string 
     return directory;
   }
   const target = join(directory, basename(file.path));
-  const descriptor = openWithoutFollowing(target, file.path);
+  const descriptor = openRegularFileForWriting(target, file.path);
   if (typeof descriptor !== 'number') {
     return descriptor;
   }

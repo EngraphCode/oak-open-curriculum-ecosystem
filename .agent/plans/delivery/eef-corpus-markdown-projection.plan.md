@@ -83,9 +83,10 @@ no-server reference.
   output root must sit inside the directory the command runs from, checked lexically before
   anything is created, canonically through its nearest existing ancestor before it is
   created, and canonically once it exists; each target directory gets the same checks before
-  a write; each target is opened without following symbolic links and written through that
-  descriptor, so a link or a directory in a target's place is refused in the same operation
-  as the open. It never deletes: a consumer's own drift check compares its committed set against the file-set
+  a write; each target is opened without following symbolic links and without blocking,
+  checked through its own descriptor to be a regular file, and only then truncated and
+  written, so a link, a directory, a pipe, a socket or a device in a target's place is
+  refused with no window and no hang. It never deletes: a consumer's own drift check compares its committed set against the file-set
   function, and a file an earlier render produced that the current corpus no longer does is
   the caller's to remove. It verifies every written file against the repository's formatter
   configuration resolved from the script's own location, so a drift between the renderer's
@@ -141,13 +142,14 @@ no-server reference.
   relative, carries no parent segment and resolves under the output root; the script writes
   only what the file-set function returns and refuses an output root outside the directory
   it runs from, a target directory that resolves outside the root (through its nearest
-  existing ancestor before creation), or a symbolic link or directory in a target's place.
+  existing ancestor before creation), or anything but a regular file in a target's place.
   Proof: `repo-safe` — the set-equality and path-shape tests;
   the write itself is exercised by running the script into a scratch directory, where its
   own verification checks every written file against the repository formatter
   configuration, by linting the output with the repository's markdown rules, and by the
   refusal runs (outside root, symbolic-link ancestor of the root, symbolic-link target,
-  directory in a target's place, symbolic-link target directory), all named in the PR.
+  directory in a target's place, named pipe in a target's place, symbolic-link target
+  directory), all named in the PR.
 - **Faithful to the corpus.** Every value reachable in a strand outside the omitted keys
   appears in its rendering. Proof: `repo-safe` — the leaf-completeness test.
 
