@@ -3814,8 +3814,9 @@ seat and the #915 fold landing seat, at direct owner word; no Director seated.
      with the owner-held verdict named open, or the owner records the verdict.
      **Owner verdict 2026-09-06, verbatim: "The switchboard is wow enough for today. It will
      need to be more wow in future."** The criterion is met: the owner viewed every identity ×
-     theme cell ("obviously I looked at all the combinations"), and the register row covers all
-     fifteen; the node stays archived with nothing open.
+     theme cell ("obviously I looked at all the combinations"), and the register row (a pre-read row:
+     no instrument legs ran) covers all fifteen; the node stays archived with nothing open
+     at the owner's word.
   4. `docs/design/design-review/rubric.md` reading-order exemption: implements R13; refine
      it to recompositions whose reading and focus narrative stays coherent (R13 × R15), with
      the accessibility reviewer's pass, and re-true the consuming guide's reading-order

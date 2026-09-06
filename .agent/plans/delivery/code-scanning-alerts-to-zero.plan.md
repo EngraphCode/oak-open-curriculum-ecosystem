@@ -37,8 +37,8 @@ whose every line is a fact about the code, not an unread signal.
 - **The owner and release readiness.** A zero surface is a release property that can be
   read at a glance; a non-zero surface with unreviewed findings cannot be told apart from a
   real vulnerability. Value: one number that means what it says.
-- **Agents working the estate.** Every seat that opens the security tab today meets twenty
-  findings it cannot tell from the last seat's backlog; each re-reads them. Value: the
+- **Agents working the estate.** Every seat that opens the security tab today meets
+  twenty-seven findings it cannot tell from the last seat's backlog; each re-reads them. Value: the
   backlog is gone and the gate keeps it gone, so the next seat reads only what its own change
   introduced.
 - **Consumers of the atoms the findings sit in** — the agent-tools runtime, the logger's
@@ -48,19 +48,22 @@ whose every line is a fact about the code, not an unread signal.
 
 ## Problem
 
-Twenty alerts are open on the resting branch from two analysers whose findings both land in
-the hosting service's code-scanning surface: two from CodeQL and eighteen from the
-code-quality analyser's security rules, uploaded alongside its own quality gate. They fall
-into six classes:
+Twenty-seven alerts are open on the resting branch (the hosting service's alerts query for
+that branch, read 2026-09-06) from two analysers whose findings both land in the hosting
+service's code-scanning surface: nine from CodeQL and eighteen from the code-quality
+analyser's security rules, uploaded alongside its own quality gate. They fall into eight
+classes:
 
 | Class | Rule | Sites | What the rule sees |
 | --- | --- | --- | --- |
-| Network data written to a file | `js/http-to-file-access` | 2 | a fetched document, or text derived from it, reaches a file write |
-| Executable searched on PATH | `S4036` | 8 | `spawn`/`exec` of `git`, `pnpm`, `node` and others by bare name |
+| Network data written to a file | `js/http-to-file-access` | 3 | a fetched document, or text derived from it, reaches a file write: two writes in the schema cache, one in the drift check |
+| Executable searched on PATH | `S4036` | 9 | `spawn`/`exec` of `git`, `pnpm`, `node` and others by bare name, in the runtime, the server's bundler configuration and tooling |
 | Pseudo-random number generator | `S2245` | 3 | `Math.random` in a correlation id, a retry backoff, a chunking helper |
 | Weak hash | `S4790` | 1 | MD5 deriving a trace id from a correlation id |
 | Clear-text protocol literal | `S5332` | 4 | `http://` literals in test configuration and helpers |
-| Polynomial regular expression | `js/polynomial-redos` | 1 | a lazy match inside a bracketed quantifier over untrusted HTML |
+| Polynomial regular expression | `js/polynomial-redos` | 2 | a lazy match inside a bracketed quantifier over untrusted HTML, and the report generator's keyword pattern matched over fetched definitions |
+| Missing rate limiting | `js/missing-rate-limiting` | 4 | route handlers on the MCP server (two in the authorisation routes, one in the proxy's routes, one registered by the bootstrap helpers) with no rate limit the analyser recognises |
+| Unsafe code construction | `js/bad-code-sanitization` | 1 | the type generator inlines serialised values into generated source through a JSON serialiser |
 
 The two analysers are independent instruments over the same tree; both keep reporting on
 every pull request, so the surface only reads zero if the resting branch is cleared and the
@@ -110,9 +113,19 @@ server-side action.
   site.
 - **Polynomial regular expression.** The script body is located by an index scan for the
   opening tag and the closing tag, or by a linear-time expression, with a test over a long
-  pathological input.
+  pathological input; the report generator's keyword pattern is rewritten linear-time with
+  the same test shape.
+- **Missing rate limiting.** The four route handlers take a per-client rate limit at the
+  application layer, one middleware shared by the authorisation, proxy and bootstrap routes,
+  with a test that the limit refuses above its threshold; the edge's own limits in front of
+  the server inform the threshold's value and are never the cure, because the analyser reads
+  the application.
+- **Unsafe code construction.** The type generator emits its inlined values through a
+  code-safe serialiser that escapes the line-separator characters a JSON serialiser leaves
+  raw, with a test over a value carrying them; the generated output is byte-identical for
+  every value the generator inlines today.
 - **The gate.** The pull-request workflow already runs both analysers as required checks;
-  this node adds the proof that a new alert of any of the six classes blocks a merge, and
+  this node adds the proof that a new alert of any of the eight classes blocks a merge, and
   the reading command that shows the resting branch at zero.
 
 Why this produces the outcome: each class is cured at its root (the atom, the fixture, the
@@ -128,7 +141,8 @@ the gate turns "zero" from a snapshot into an invariant.
 2. Every cured site has a test that fails on the previous behaviour: the refusal of a
    non-absolute executable, the cryptographic source of the random part, the trace-id width
    and stability, the linear-time extraction over a pathological input, the output
-   description's closed vocabulary. Proof: `repo-safe` — the tests, named in each unit.
+   description's closed vocabulary, the limiter's refusal above its threshold, the generator's
+   escaping of a line separator. Proof: `repo-safe` — the tests, named in each unit.
 3. Every non-fix disposition is one the policy's class criteria permit, carries the
    canonical rationale with the site path and line in the tree, and no alert on the resting
    branch carries an accepted-risk or hand-dismissal state. Proof: `repo-safe` — the
@@ -150,14 +164,14 @@ the gate turns "zero" from a snapshot into an invariant.
 
 ## Todos
 
-Six PR-shaped units, each a single story inside the small-PR bands and its round budget,
+Eight PR-shaped units, each a single story inside the small-PR bands and its round budget,
 independent unless stated:
 
 1. **Random and hash primitives.** The correlation id, the backoff jitter, the chunking
    helper and the trace-id derivation, with their tests: about eight files, no
    configuration.
-2. **The regular expression.** The script-body extraction rewritten linear-time with the
-   pathological-input test: two files.
+2. **The regular expressions.** The script-body extraction and the report generator's
+   keyword pattern rewritten linear-time, each with its pathological-input test: four files.
 3. **Network data written to a file.** The drift check's closed-vocabulary description with
    its test, and the schema cache's tracked barrier model with its site rationale; the
    cache's validated write already exists and does not change. The drift check takes the
@@ -171,7 +185,11 @@ independent unless stated:
    switch to `https` where the host is never dialled; the localhost helper sites take the
    policy's SAFE disposition with its canonical rationale recorded per site: about seven
    files.
-6. **The gate proof.** The two probe pull requests and the reading command, recorded on the
+6. **Rate limiting on the server routes.** One limiter middleware on the four route
+   handlers, with its refusal test and the threshold's recorded basis: about four files.
+7. **The generator's code-safe serialiser.** The inlined values escaped, with the
+   line-separator test: two files.
+8. **The gate proof.** The two probe pull requests and the reading command, recorded on the
    lane's closing event; no tree change unless a required check turns out to be missing,
    in which case that change is this unit.
 
@@ -203,3 +221,4 @@ One row per finding; "applied" means folded into this node before ratification.
 | --- | --- | --- | --- |
 | 2026-09-06 | PR #56 round one (Codex) | The executable-on-PATH arm proposed a tooling exception and an accepted-risk state that the Sonar disposition policy excludes. | Applied: the mechanism follows the policy's two-outcome rule — fix-only for that class through the trusted-git shape, site-rationalised SAFE only where the policy's class criteria hold, no path exclusions. |
 | 2026-09-06 | PR #56 round two (Codex) | Unit 3's cache arm proposed the validated write that `schema-cache.ts` already performs, so the arm could not clear the alert. | Applied: the mechanism and unit 3 state the fact and take the analyser's documented barrier model, with the no-model outcome recorded on the node rather than a dismissal. |
+| 2026-09-06 | PR #56 round three (Codex) | The census summed to nineteen sites against twenty alerts. | Applied: the census re-read from the hosting service's alerts query for the resting branch — twenty-seven alerts in eight classes; two classes and three sites were missing, and the table, mechanism, criteria and units now carry them. |
