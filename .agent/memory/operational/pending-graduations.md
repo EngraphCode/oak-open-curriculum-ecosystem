@@ -240,11 +240,10 @@ not-yet-minted concepts.**
   knowledge-safety-sweep | target: wrap skill §Use When, one sentence | trigger: next Practice
   lane | size: S | status: pending]`
 
-<!-- Partial drain at the 2026-09-06 dedicated consolidation (Juno seeks Apogee, a693fb):
-the PDR-117 axes row graduated as the PDR-117 amendment of 2026-09-06 (role-scoped value
-lens and the seat deliverable); the PDR-063 deliberate-succession row as the worked instance
-in PDR-063 §Deliberate succession; the PAUSED seat state row as the owner-word stand-down
-exemption in liveness-heartbeat-cron §Exemptions with its pointer sentence in
-silence-is-never-liveness; the hook-substring false-positives row as two worked instances in
-hook-policy-substring-discipline §Known Over-Blocks. Homes verified live at drain. The
-commits and the homes are the record. -->
+- **PDR-063 deliberate-succession trigger named (owner-initiated, no budget signal)**
+  `[captured: 2026-09-03 | source: Vesta's handoff record for claim 01e418de (record plus
+  adoption at owner word) | target: PDR-063 §Deliberate succession worked instance, or
+  start-right-team move 7 | trigger: next collaboration-doctrine lane | size: S | status:
+  pending]`
+
+<!-- Drained at the 2026-09-06 dedicated consolidation; the commits and the homes are the record. -->

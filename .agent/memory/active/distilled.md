@@ -58,22 +58,25 @@ reclassification-is-the-event to `consolidate-at-second-consumer`
 the `pr-lifecycle` skill Phase 7. Homes verified live at drain. The commits
 and the homes are the record. -->
 
-<!-- Partial drain at the 2026-09-06 dedicated consolidation (Juno seeks Apogee, a693fb):
-the no-timing-dependence entry (with the browser-event-timing and mover-has-moved entries)
-graduated to principles.md §Code Design and the new anti-pattern
-patterns/timing-derived-state-is-the-defect.md; one-document-one-holder to principles.md
-§Code Design ("Exactly one holder"); the demo-mechanism generator to principles.md §Separate
-Framework from Consumer; the consumer's-resolver entry, "read the normative clause" and the
-by-construction clause to verify-dont-trust §Name the Instrument; the admission-predicate
-entry to strict-validation-at-boundary; the red-on-both-sides entry to testing-strategy;
-the HUSKY=0 measured instance to no-verify-requires-fresh-authorisation; findings-and-
-register to user-collaboration §Working Model; the recurrence measurements (16/19, the
-piped-exit class, the fabricated-value recurrence) to PDR-098 §Evidence; the corpus-cannot-
-measure-extinction limit to consolidate-docs step 6a; the killed-builder seam to
-fleet-design-review-before-expensive-fleets; the demo-falsifier, teardown-theft and
-forced-colours seeds to the design-system-integration thread record; claim-before-check
-and the since-marker engine notes were already landed; the stacked-symptoms entry graduated
-to concept-exploration §Loop Dynamics and the proper-tools entry to the start-right shared
-grounding order (the skills PR of the same consolidation). The expired-gate, last-carrier and
-archival entries were duplicates of pending-graduations rows and drained with them. Homes
-verified live at drain. The commits and the homes are the record. -->
+## 2026-09-02 rotation (Kiln holds Slag, 1447f4)
+
+- **Stacked symptoms share a generator.** Three stacked cures on one
+  element (containing-block positioning, an artifact-axis close, measured
+  conditional focusability, 2026-08-18); two tools failing the same way in
+  one hour (bot without fork access, a connector 403, a REST call silently
+  dropping a reviewer handle — all one fact: where the PR's head lived,
+  2026-09-01); cure-in-place review rounds accreting three expressions of
+  one rule. Before a fourth cure or a second workaround, find the one fact
+  beneath — the fluent first answer is always "cure them all". Candidate
+  home: `concept-exploration` §Loop Dynamics, beside "a round that grows
+  the surface is a routing failure".
+- **Proper tools for content.** Dumping a corpus into context (`cat`,
+  whole diffs) is unreadable at the altitude the work needs and forces
+  compaction; the instruments are `Read` at offsets, `Grep`/`Glob`, and an
+  Explore subagent returning a conclusion — with the plan visible before
+  the first mutation (owner correction 2026-09-01, verbatim: "Use the
+  proper tools for finding content, and generally sort out the discipline
+  here, this is serious work. What is the plan?"). Candidate home: the
+  `start-right-quick` grounding line, beside `use-built-agent-tools-cli`.
+
+<!-- Drained at the 2026-09-06 dedicated consolidation; the commits and the homes are the record. -->
