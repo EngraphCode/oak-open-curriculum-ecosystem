@@ -97,3 +97,30 @@ corrected that the direction was scoped to its one session. Apply it as:
 Scope (this section) and supersession (the stream above) are orthogonal
 axes: one governs whether a direction is still live across sessions, the
 other governs which turn wins within the stream.
+
+## Owner-Attributed Text Carries Only the Owner's Words
+
+An owner-attributed row, clause or ruling carries the owner's words
+verbatim, or a seat-reading mark, and nothing in between. Inference wearing
+verbatim clothing is the attribution-drift class, and its signature is a
+correction cascade: a rule that keeps shrinking under successive corrections
+(full prohibition → may share → coincidence → void from birth) was never the
+owner's rule — the founding inscription was a seat's reading. Trace
+provenance at the FIRST correction, never the third. Three instances: a PR
+heading of 2026-08-14 that stated as an owner rule what the seat had
+inferred; the design lane's "narrow sameness" ruling of 2026-08-13, which
+three corrections shrank to void by 2026-08-17 (the cure recorded that day:
+every owner-attributed clause carries a verbatim quote or a seat-reading
+mark); and the design plan's R16 gloss, narrowed at PR #41's seventh round
+on 2026-09-05 to the owner's verbatim with the multi-tenant reading labelled
+a seat reading. The mechanical form — every owner-attributed clause carries
+a quotation or a mark — is a validator candidate for the rulings tables.
+
+The scope corollary sits with §Direction Scope above: the bound of a
+direction is the SITUATION it addressed, which can be narrower than the
+session. A quota limit set for one day's situation was refused when a later
+session re-applied it (owner, 2026-08-14, verbatim: "drop the quota limit,
+that applied to a specific situation on a different day"), and a routing
+fact spoken inside one support arrangement did not become a standing
+assignment (2026-09-02). Ask what situation a direction served before
+carrying it into another.

@@ -1793,6 +1793,50 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   (Codex rounds after this stop; the visitor's future reviews). A third pass adds nothing;
   the recursion closes here.
 
+## 2026-09-06 ~13:4xZ (Juno seeks Apogee, a693fb, consolidation seat under Director c5cc2c) — foundation, the comms sweep, a compaction boundary
+
+- OWNER RULING (verbatim, typed into this seat at ~13:1xZ): "This is the Engraph fork, do not access the
+  Oak repo without permission and NEVER write to the Oak repo, to Linear, or any other Oak surface". The
+  instance that drew it: `gh pr list` with no `--repo` on a checkout with three remotes resolves to the
+  remote named `upstream` (oaknational) — a read of the Oak repository's PR list. Cure applied: `gh repo
+  set-default EngraphCode/open-curriculum-ecosystem` (machine-local); every gh call carries `--repo`.
+- The hook's machine-local-path fingerprint fires on the CONTENT of a script written to the scratchpad
+  (second instance after Finch's 09-06 entry): derive the primary inside the script from `git worktree
+  list --porcelain` and pass every other path as an argument. Under worktree residency the working shape
+  held: one plain command per call, `bash <script>` for anything compound.
+- A residency switch did NOT kill the primary-armed monitors this time (watcher heartbeat file and the
+  two-leg heartbeat both advanced after `EnterWorktree`) — a counter-instance to the 2026-09-01 exit-124
+  observation; the kill is not deterministic, so the post-switch verification stays a named step.
+- The Director's re-route of this seat to remit 2 was overtaken by the owner's in-session opener eight
+  minutes earlier; the upward/downward asymmetry worked as written (follow the owner, inform the Director;
+  map corrected in one event). The lesson for a routing seat: a file edit is a hypothesis about the
+  owner's intent, never the intent.
+- DECLARED-VS-LANDED at the state layer: Kiln's 2026-09-02 pass record declares 4,420 archive moves and
+  watermarks (substantive through 2026-08-14T06:16:28Z; heartbeats through 2026-08-12T06:29Z), but this
+  checkout's `comms-archive/` newest event is 2026-08-12 and the live stream still holds the 537 swept
+  substantive events and 2,034 heartbeats. A pass record can be true where it was written and false where
+  it is read — the stale-capture-wins shape one layer down. The counts for this machine are recomputed
+  here; the moves run under the gates on this seat's resume.
+- COMMS SWEEP YIELD (218 high-value events after the watermark, read first-hand, ~120k tokens): eight
+  un-homed items; ONE class carries loss risk — follow-up pointers that live only on untracked lane-closed
+  events (#38's nine on fdbc82a5, #42's two on 9bcf4767, #54's three on 476c499e). The estate's convention
+  and the 09-06 ruling both name the lane-closed event as a home, but comms events are untracked-by-design
+  and rotate. Proposal: a pointer named at lane close is mirrored into a TRACKED home (the owning plan
+  node's dispositions, or the thread record) before the lane closes; falsifier: a ruling that the comms
+  archive is a pickup-readable home. First act on resume: home the fourteen (nine, two and three;
+  the seat's own events said "twelve" — a count typed from memory, corrected at review).
+- PROPORTIONALITY: the previous pass's measured yield (zero un-homed signals in 496 events) predicted this
+  one; a sample of lane-closed and owner-word events would have found the loss-risk class at a fraction
+  of the cost. The full read was defensible under the skill's body-read bar; the value of this pass is in
+  the napkin, distilled and the register, none yet started.
+- Play seeds (associations, discards visible): kept — "a lane-closed event is a letter left on a table
+  that gets cleared" (crossed into the proposal above); "declared moves that never landed" (the entry
+  above). Discarded: a strata reading of the comms window; an archivist-versus-curator riff.
+- Three Sonnet extractor subagents were dispatched over the routine windows (58k bytes each); at the
+  boundary one had reported in full (nothing new to home beyond two verifications) and two had arrived
+  truncated in transit. The two are re-collected as files on resume and every kept leaf is spot-read
+  against the event file before use.
+
 ## 2026-09-06 ~13:5xZ (Finch binds Sundog, 47f9d2, implementer) — resume after compaction boundary 2; #57 landed, #58 open
 
 - **#57 landed** as f1a142841 (13:41Z): round five dispositioned by reply (three Codex P2s on
