@@ -6,22 +6,13 @@ overview: "Check a satellite repository out under the gitignored `visitors/` dir
 status: ratified
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-09-06
-ratified_where: "Owner decision card at the lane seat (Finch binds Sundog, 47f9d2), 2026-09-06 ~10:3xZ, answer 'Ratify' to the card describing the ignore line, the clone under visitors/, host-root sessions, the bot's org-wide installation and the known limits"
+ratified_where: "Owner decision cards at the lane seat (Finch binds Sundog, 47f9d2), 2026-09-06: ~10:3xZ, answer 'Ratify' to the card describing the ignore line, the clone under visitors/, host-root sessions, the bot's org-wide installation and the known limits; ~11:5xZ, answer 'Re-ratify, accept the no-rollback step' to the card listing the review revisions to steps 3, 4, 6 and 7 and the rollback for steps 6 and 7"
 serves: organisational-identity-below-the-tree
 impact_areas:
   - practice-and-estate
 tickets: []
 depends_on: []
-owner_gates:
-  - awaiting: owner-decision
-    clears_when: >-
-      The owner re-ratifies the procedure after its review revisions (the entry point's two
-      placements in step 3; explicit addressing of the visitor on every command in step 4;
-      the visitor's own hooks and CI as its only commit and push gates in step 6; the host
-      binary invocation, default-branch creation through the hosting service's API and the
-      remote-ref verification in step 7; rollback for steps 6 and 7, the latter a
-      no-rollback step), and accepts the no-rollback step for pushed history.
-    expires: 2026-09-27
+owner_gates: []
 last_updated: 2026-09-06
 ---
 
@@ -126,8 +117,8 @@ held here as a working name, not doctrine.
 - Step 6: the CI file is the visitor's own; revert it with a forward commit in the visitor.
 - Step 7: no rollback for pushed history, which is never unwound (the estate's rule against
   using git to remove work): a wrong push is corrected by a further commit, and a pull
-  request opened in error is closed in the visitor. Owner acceptance of this no-rollback
-  step is the gate in the frontmatter.
+  request opened in error is closed in the visitor. The owner accepted this no-rollback
+  step at the re-ratification recorded in the frontmatter.
 - The ignore line stays: it is generic and harmless when the directory is absent.
 
 ## Known limits
