@@ -60,8 +60,9 @@ stamp the lifetime) and at session-open (to check it).
    tally ledgers) commit at occurrence in sensible batches under the bot
    identity by explicit pathspec, and the default branch merges in at
    quiet windows so the gap stays small. Uncommitted state on the shared
-   primary is lost with the session, invisible to peers, and blocks other
-   seats' operations. And the coordination branch IS the primary
+   primary is absent from the branch every other seat reads, invisible to
+   peers, and blocks other seats' operations on that tree (a merge or a
+   branch switch refuses over it). And the coordination branch IS the primary
    checkout's own branch, always — never a snapshot worktree (owner,
    2026-08-06, verbatim: "the coordination branch shouldn't be a
    worktree, it should be the branch in the primary checkout, always").

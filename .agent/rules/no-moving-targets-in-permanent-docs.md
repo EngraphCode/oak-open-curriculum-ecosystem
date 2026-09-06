@@ -220,7 +220,8 @@ every finding in the seat's own new wording). Before the push, in the same
 commit:
 
 - grep the diff's ADDED lines on durable surfaces for plan-file names,
-  "plan's", "slice", "unbuilt", nine-hex commit references, "previously
+  "plan's", "slice", "unbuilt", SHA-shaped hexadecimal tokens (seven to
+  forty characters, the range the write-time hook matches), "previously
   read" and "superseded twice"; state the owner ruling and its date, never
   the vehicle that carried it;
 - for every mechanism claim, read the code path once and state only what
@@ -236,13 +237,15 @@ commit:
   and re-true each (two such passages survived a ratification note three
   sections away in the same file, 2026-09-06).
 
-A tracked continuity record never narrates its own pull request's future:
-a lane-state bullet saying what "this PR" will do next goes stale at every
-settlement push, and each round asks for the update (three rounds, 6 → 2 →
-1, on a continuity landing, 2026-09-04). Write the record's own state in
-the past tense as of the commit and name next actions only for OTHER
-lanes; a reviewer asking to refresh the self-narration is dispositioned,
-never cured.
+A tracked continuity record never forecasts the pull request that carries
+it: a lane-state bullet saying what "this PR" will do next goes stale at
+every settlement push, and each round asks for the update (three rounds,
+6 → 2 → 1, on a continuity landing, 2026-09-04). Write the record's own
+state in the past tense as of the commit; the thread's next safe step and
+next-session landing target stay, because the record contract requires
+them, phrased as the lane's state at that commit rather than as this PR's
+remaining steps. A reviewer asking to refresh the self-narration of the
+carrying PR is dispositioned, never cured.
 
 ## Doctrinal Anchors
 
