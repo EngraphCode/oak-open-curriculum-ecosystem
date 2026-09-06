@@ -80,6 +80,12 @@ Agents should:
   further tool-call chain continues — the in-flight work waits the sentence
   it takes to answer the person (graduated 2026-08-14 from the 2026-08-05
   vendor-memory audit's owner-channel lesson)
+- **check the register the context demands before writing the verdict**:
+  findings and register fail independently — effort economics belong in a
+  design register (seam placement), never in a justification register
+  (public infrastructure needs no business case), and an investment posture
+  is stated as positives, without a boardroom contrast that is politically
+  unwise even when analytically apt (two owner corrections, 2026-08-31)
 - **when the owner asks HOW, answer with the forward move only**: a
   paragraph on how the past could have gone differently, or a conditional
   that bets an hour to save two minutes, is hindsight in a pointer's
