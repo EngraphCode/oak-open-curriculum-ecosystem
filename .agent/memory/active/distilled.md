@@ -58,25 +58,4 @@ reclassification-is-the-event to `consolidate-at-second-consumer`
 the `pr-lifecycle` skill Phase 7. Homes verified live at drain. The commits
 and the homes are the record. -->
 
-## 2026-09-02 rotation (Kiln holds Slag, 1447f4)
-
-- **Stacked symptoms share a generator.** Three stacked cures on one
-  element (containing-block positioning, an artifact-axis close, measured
-  conditional focusability, 2026-08-18); two tools failing the same way in
-  one hour (bot without fork access, a connector 403, a REST call silently
-  dropping a reviewer handle — all one fact: where the PR's head lived,
-  2026-09-01); cure-in-place review rounds accreting three expressions of
-  one rule. Before a fourth cure or a second workaround, find the one fact
-  beneath — the fluent first answer is always "cure them all". Candidate
-  home: `concept-exploration` §Loop Dynamics, beside "a round that grows
-  the surface is a routing failure".
-- **Proper tools for content.** Dumping a corpus into context (`cat`,
-  whole diffs) is unreadable at the altitude the work needs and forces
-  compaction; the instruments are `Read` at offsets, `Grep`/`Glob`, and an
-  Explore subagent returning a conclusion — with the plan visible before
-  the first mutation (owner correction 2026-09-01, verbatim: "Use the
-  proper tools for finding content, and generally sort out the discipline
-  here, this is serious work. What is the plan?"). Candidate home: the
-  `start-right-quick` grounding line, beside `use-built-agent-tools-cli`.
-
 <!-- Drained at the 2026-09-06 dedicated consolidation; the commits and the homes are the record. -->
