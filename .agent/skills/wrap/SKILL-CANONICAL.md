@@ -60,6 +60,17 @@ correction 2026-08-17, verbatim: "nope, you have to compact first"). Never
 launch a long fleet into a context about to compact; its harvest lands in
 the thin post-compaction window.
 
+Wrap invoked non-terminally at the owner's word ("begin your wrap, this is
+not the end of your session", 2026-09-03) runs the programme's
+knowledge-safety steps — the modes, the work-safety proof, the
+consolidation gate, the arc check, the metaloss recursion and the owner
+report — and SKIPS the terminal acts: session-handoff's closeout broadcasts
+and its final heartbeat-end, and the claims and monitors disposition. The
+seat stays live with its claim held, its watcher and heartbeat running,
+and its handoff record written as a boundary record, not a retirement. The
+routing of non-terminal boundaries to `knowledge-safety-sweep` applies when
+the seat chooses the instrument, never when the owner names wrap.
+
 ## The Programme
 
 1. **Enter the modes.** Genuinely enter

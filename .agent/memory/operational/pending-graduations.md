@@ -240,10 +240,4 @@ not-yet-minted concepts.**
   knowledge-safety-sweep | target: wrap skill §Use When, one sentence | trigger: next Practice
   lane | size: S | status: pending]`
 
-- **PDR-063 deliberate-succession trigger named (owner-initiated, no budget signal)**
-  `[captured: 2026-09-03 | source: Vesta's handoff record for claim 01e418de (record plus
-  adoption at owner word) | target: PDR-063 §Deliberate succession worked instance, or
-  start-right-team move 7 | trigger: next collaboration-doctrine lane | size: S | status:
-  pending]`
-
 <!-- Drained at the 2026-09-06 dedicated consolidation; the commits and the homes are the record. -->
