@@ -296,6 +296,25 @@ Check CI logs for "cache hit, replaying logs" — stale remote
 Turbo cache. Ensure `turbo.json` `inputs` use `**/*.ts` not
 directory enumeration.
 
+### CI job red with ENOENT on a tsup bundled config, no test failed
+
+A runner race, not the branch: ESLint in `@oaknational/eslint-plugin-standards`
+(`packages/core/oak-eslint`, whose `lint` is `eslint .`) reads tsup's transient
+`tsup.config.bundled_*.mjs` after tsup has removed it, so the job fails with
+ENOENT while every test passes. Seen twice in two days on docs-only PRs
+(#50 on 2026-09-03, #51 on 2026-09-04) against a green trunk. Re-run the failed
+job under the checkout's own `gh` auth (the merge-bot token cannot re-run jobs);
+a chain waiting on the PR resumes when the re-run clears. The cure is
+repo-level and still open at the time of writing: exclude
+`**/tsup.config.bundled_*.mjs` from that package's lint inputs (its
+`eslint.config.ts` ignores only `dist`, `node_modules` and `**/*.d.ts`) or order
+lint after build in the job.
+
+A sibling runner-side signature: the secret-scan job failing on a curl
+connection reset while a local gitleaks run over the whole history reports no
+leaks (one instance, 2026-09-05). Re-run the job; a real finding names a
+commit and a rule, a reset names neither.
+
 ### Pre-Commit Hook Output Too Large
 
 Turbo replays all cached logs during the hook. Redirect output

@@ -106,8 +106,60 @@ existing consumer behaves identically at its surface.
    2026-08-17); primary rebuild; live verification (acceptance 2);
    legacy-blob verification read and owner disposition (acceptance 3).
 
+## Follow-ups from the landing (PR #38, fork `engraph`)
+
+Pointers, not specifications (each line: defect / file / falsifying scenario), dispositioned on
+PR #38's review replies and named on its lane-closed comms event of 2026-09-04; mirrored here
+at the consolidation fold of 2026-09-06 because that event is untracked. The next seat that
+touches the queue store, its migration, or the live-report scan picks these up first.
+
+1. Dead `expired` queue status in the TUI and the active-agents view /
+   `agent-tools/src/collaboration-state/active-agents.ts`, `tui/snapshot.ts`,
+   `tui/operator-value.ts`, `tui/panes.tsx`, `tui/entry-types.ts` / no store read ever yields an
+   expired entry, so the classification, count and attention copy cannot fire.
+2. Migration safe by call order, not by construction /
+   `agent-tools/src/collaboration-state/active-claims-legacy-migration.ts` / an in-lock read
+   meeting legacy text would spin about 9.6 s and throw could-not-acquire, unreachable today
+   only because every caller migrates pre-transaction.
+3. Real-IO test tier and the temp-collaboration-state helper's allowlist /
+   `agent-tools/tests/collaboration-state/*.integration.test.ts` / integration-tier suites do
+   real filesystem IO through an allowlisted helper invisible to the lint rule.
+4. Wedged claims file / `active-claims-legacy-migration.ts`, `state-io-write-validators.ts` / a
+   legacy claim row that reads today but fails the Ajv write gate blocks migration permanently
+   with no in-tool recovery path.
+5. Duplicate `queued_seq` / `agent-tools/src/collaboration-state/commit-queue-store.ts`
+   (`compareQueueOrder`), `state-integrity.ts` / two hand-edited live files sharing a sequence
+   tie and fall to directory order.
+6. Sweep per write / `agent-tools/src/commit-queue/registry.ts` (`reconcileQueueStore`) / N live
+   intents cost N rewrites and N×N directory reads per composed operation.
+7. Retired-path scan home, TTL and ENOENT / `agent-tools/src/practice-substrate/live-report.ts`,
+   `live-retired-paths.ts`, `live-retired-path-lifecycle.ts` / from a linked worktree the scan
+   never sees claims, comms or the queue at the coordination home; an expired-unswept intent
+   naming a retired path counts as live evidence; a queue file deleted between the listing and
+   the unconditional read throws ENOENT and reports a blocking live-reader-failure.
+8. Migration replace overwrite / `active-claims-legacy-migration.ts` / a restored 1.3.0
+   registry beside a populated store overwrites a newer intent file with the older row.
+9. Phase transition on an expired intent / `agent-tools/src/commit-queue/core.ts`
+   (`updateCommitIntentPhase`), `commit-workflow.ts` / an intent expiring between `loadIntent`
+   and the phase write no-ops silently and the commit proceeds.
+
+Owner items named at the same close: the two CodeQL `js/http-to-file-access` alerts (#12, #31)
+are the owner's to dismiss (the merge bot holds no `security_events` scope); the superseded
+ratified plan `commit-queue-front-door-cleanup` was archived by the owner's rulings fold of
+2026-09-06 (PR #56); the stale platform-managed nested worktree registrations
+`.claude/worktrees/mcp-612-queue-ephemera` and `.claude/worktrees/mcp-626-drift-signal` await
+the owner's disposition.
+
 ## Amendment trail
 
 - Born sketch 2026-08-17, executing immediately at the owner's
   "carry it out now" (ticket MCP-612 carries execution state, In
   Progress).
+- 2026-09-04: the work landed on the fork's `engraph` as PR #38, merge commit `05ee4f092`
+  (head `f373cded1`), by the merge bot. Acceptance 2 met: the live registry migrated from
+  1.3.0 to 1.4.0 under the first transactional touch, a comms append at 19:46Z, before any
+  archive copy of that day's file was taken. Acceptance 3 therefore cannot be met for the
+  2026-09-04 file (no pre-migration copy exists); the 2026-08-17 pre-split archive remains the
+  owner's disposition item. The status field stays the owner's to change.
+- 2026-09-06: the nine follow-up pointers and the owner items above mirrored from the
+  lane-closed comms event into this tracked record (consolidation fold).
