@@ -81,6 +81,15 @@ into the permanent record):
 - **The PR exists to structure shared attention** so nobody has to chase state;
   making the owner chase threads defeats the artefact even when the diff is
   perfect.
+- **The open-PR count is a standing objective at zero, kept there by
+  LANDING** (owner, 2026-09-03, verbatim: "a secondary but important goal is
+  always to work to reduce the total number of PRs to zero"; sharpened
+  2026-09-06: "this never prevents PRs from being created, but it does mean
+  that landing work that is in a non-draft PR is a priority"). A non-draft
+  PR is its seat's landing priority over starting the next unit; drafts are
+  inventory a seat may hold; the count is reported at every wrap and acted
+  on at every boundary — merged when green and clean, closed with its
+  reason, or owned with a named seat and a next step.
 
 ## Phase 1 — Before opening
 
@@ -149,7 +158,13 @@ PRs #829/#830): GitHub's REST `requested_reviewers` endpoint SILENTLY
 DROPS the Copilot handle — 200 response, no error, handle absent from
 the resulting request — so request Copilot through the GitHub MCP
 `request_copilot_review` tool (or the web UI), never the bare REST
-endpoint, and verify the reviewer actually appears on the PR.
+endpoint, and verify the reviewer actually appears on the PR. A third scope
+fact: Copilot has a changed-file ceiling and says so — on a sibling
+repository it posted only that 544 files exceeded its review limit, naming
+the limit itself (2026-08-08). Key the fallback to that explicit refusal on
+the PR, never to a file count assumed in advance: a pull request Copilot
+has refused for size gets a different verification story, because its
+silence there is a capability ceiling, never a clean review.
 
 ### Title and description are CLAIMS about the diff — derive them from it
 
@@ -294,7 +309,15 @@ surfaces. Partial reads produce false "no problems" verdicts:
   gate-narrowed, never warning-downgraded, never suppressed.
 - Fix the class, not the instance: a spelling finding on two lines gets a
   repo-wide sweep of the class; a stale literal gets checked against its
-  source constant convention.
+  source constant convention. The class sweep that ends a loop re-runs
+  every COUNTED and every CLASSIFIED property after each cure and greps
+  every other mention of a changed fact in the same commit — never only
+  the phrasing the finding used (two of one round's four findings were
+  stale mirrors of the previous round's own cure on a 1,500-line plan,
+  2026-09-05), and it records the grep patterns and hit counts on the PR
+  so the next round is dispositioned against them (the lead's steer on a
+  PR whose rounds five to eight each cured one more surface of the same
+  class, 2026-09-04).
 - **A cure is a claim: it gets the same verification tier as the finding it
   cures, and it carries its paired test.** Review-round cures are the next
   round's most likely defect surface (one round's Sonar failures were ALL
@@ -541,13 +564,46 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    a verdict (round-6 correction, 2026-07-16: "4 total rounds" is
    monotonic — without the epoch reset the trigger stays true after the
    mandated class-fix push and the machine has no executable next
-   transition). **Ahead of these failure arms sits the round-budget
+   transition). The second step-back is an absolute binding, and its
+   residue gets ONE named home before the next round arrives — otherwise
+   every later finding re-opens the "is this one falsifiable" question
+   (rounds eight and nine on one PR, eight findings dispositioned with
+   falsifiers and homed as one bundle, 2026-09-05). **Ahead of these failure arms sits the round-budget
    expectation (PDR-132, which owns the budget value)**: the transition
    fires when an over-budget round OPENS — the first review activity
    binding a tip after the budgeted number of rounds has settled, NOT
    when that round's tally row settles — recording budget-exceeded in the
    working notes and running the generator question before the round's
-   findings are cured. The arms above stay the mechanical backstop, not
+   findings are cured. Past the budget, on a prose-class changeset or the
+   prose findings of a mixed one (PDR-140 §Decision's scope), the ratchet
+   binds: a finding earns a cure only over PDR-140's two-prong worthiness
+   bar — it would mislead a consumer of the artefact before its next
+   verification point, or it changes what gets built — evaluated on the
+   surface where the defect lives; a statement wrong today, a broken link
+   and a validator failure are the common instances, never the whole
+   test. Everything below the bar is dispositioned without a diff (the
+   lead's ratchet ruling on #961's round four and the owner's word on its
+   wrap PR — "ignore bot comments … less than a P1 or equivalent" —
+   2026-09-03). A code-class finding is outside this pricing altogether: a
+   verified defect follows the code-review state machine's own transitions
+   (PDR-132's round budget and the step-back arms above), never a
+   settlement-push cap. The tip of the LAST budgeted settlement push — the
+   declared budget (two by default, PDR-140 clause 4) plus any rebudget
+   recorded when exhaustion left a mandatory cure pending — is the FINAL
+   HEAD, named on the PR when that push lands. A binding worth declaring names its exception in advance (a
+   statement a rule falsifies, cured with a sweep) or is owner-gated from
+   the start: a "no further cure push" declared before reading what the
+   next round could hold broke one round later, and on a sibling PR a
+   binding with an unnamed exception clause broke at round six while the
+   absolute one held (2026-09-05). On a SKETCH-class PR a post-budget
+   finding is pickup-shaped by construction — it describes work not yet
+   done — and gets a falsifier row rather than a cure push, unless it
+   clears the bar's second prong (it would change what gets built at
+   pickup) or names a defect on an already-served surface, which cure
+   where the bar says; a sketch's loop
+   converges only when someone names the final head, because a reviewer's
+   supply of next-site findings on undone work is unbounded (eight rounds
+   on a one-file sketch, 2026-09-05). The arms above stay the mechanical backstop, not
    the first alarm. **The arms fire on GENERATOR recurrence, not singleton
    noise**: before acting on a fired arm, classify the round's findings —
    a stream of distinct, unrelated mechanical singletons (each with a
@@ -632,9 +688,17 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    The gate never waits more than one quiet window for any single reviewer.
    CRITICAL first-round rule: the EXPECTED reviewer set is not just "bots
    that previously reviewed this PR" — on a repo whose ruleset configures
-   bot review on push (Copilot here), the first round is ALWAYS expected,
-   so before any bot has reviewed, every configured bot is OWED until it
-   posts or the checks-green quiet-window timeout fires. This closes the
+   bot review on push, the first round is ALWAYS expected, so before any
+   bot has reviewed, every configured bot is OWED until it posts or the
+   checks-green quiet-window timeout fires. A leg is standing BY
+   CONFIGURATION, never assumed by doctrine (owner, 2026-08-09: "route
+   through the rules process, not assumed"): Phase 1 reads the set from
+   the repository's live automatic-review configuration at each PR-open,
+   and a dated example is not an input to the state machine — Copilot on
+   push, and on one line a review connector that reviewed every push by
+   its own configuration (2026-09-06), were the configured set the day
+   this was written; PDR-140's loop discipline governs each leg's rounds
+   like any other's. This closes the
    vacuous-predicate hole where an initial tip could read merge-ready
    before the first bot round ever lands. The expected set's SOURCE is explicit,
    never inferred from the compound read (`latestReviews` only names
@@ -814,7 +878,12 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
 - Bots re-review each push asynchronously: **"0 unresolved" is a moment, not
   a state.** Re-fetch `reviewThreads` and checks after every push and again
   at the instant of any ready/merge-ready declaration — a finding can land
-  seconds after your last look.
+  seconds after your last look. Marking a draft READY is itself a
+  reviewer-discovery boundary: reviewer assignment fires anew at the
+  transition, so the timeline, requested reviewers, review rows, threads and
+  checks are re-harvested immediately after it — "zero current threads"
+  before readiness proves nothing about the reviewer set (a late review
+  arrived after a ready-marking on a sibling repository, 2026-08-09).
 - Reply to each thread with the fix evidence (commit SHA + what changed),
   then resolve it. "Resolved" is a settled-concern state, never a button
   clicked to clear `mergeStateStatus`.
@@ -914,6 +983,12 @@ future audit; post it as a PR comment first (worked instance 2026-08-07:
 a grant was withheld until the in-session code-expert adjudication was
 posted, then fired within the minute — fully auditable). Then:
 
+- **A PR the owner has named as the last carrier is not merge-at-green.**
+  Before merging it, enumerate every in-flight output that needs the remote
+  and hold the merge until each has ridden or been released by name (owner
+  correction at the MCP-673 wrap, 2026-09-03: #961 merged at green while a
+  wrap workflow's output was still owed, and a fourth PR had to be
+  authorised).
 - **`mergeable` means POSSIBLE to merge; it does NOT mean READY to merge**
   (owner, 2026-07-08). GitHub's `mergeable: MERGEABLE` asserts only
   conflict-freeness and reads TRUE on a PR with failing checks and open
@@ -1100,6 +1175,15 @@ says it is settled, it is settled, and the window is not re-imposed on him.
 `worktree-hygiene` §3/§6 owns the cleanup: remove the worktree and delete the
 branch (content-verified, owner-authorisation-gated for destructive ops);
 update continuity surfaces; close claims.
+
+**A follow-up pointer named at lane close is mirrored into a TRACKED home
+before the lane closes** — the owning plan node's dispositions table, or the
+thread record the pickup seat reads — and the lane-closed comms event points
+at that home rather than carrying the pointer alone. Comms events are
+untracked by design and rotate (ADR-199, PDR-094); fourteen pointers from
+three lanes (2026-09-04/05) lived only on lane-closed events until the
+consolidation of 2026-09-06 recovered them. The Director applies this to its
+own closes from 2026-09-06.
 
 ## Failure modes this skill exists to prevent (all observed)
 

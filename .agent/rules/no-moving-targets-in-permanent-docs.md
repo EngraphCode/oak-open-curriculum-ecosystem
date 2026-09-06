@@ -211,6 +211,42 @@ THEM"*.
 | "Reference a commit for historical context" | bare backticked SHA | Add the explicit `(historical reference)` marker on the same line, so the citation is a deliberate audit trail |
 | "Point the vision or a strategy page at the plan that carries a decision" | a dated note naming a delivery-plan id or a ticket | Name the ADR that records the decision (author it first if none exists — "durable homes for decisions are ADRs", owner 2026-09-03) and describe the lane, never a plan node of any type by id — an existing citation of one on a permanent page is a defect to retire, not a precedent (PDR-105 §Axis 1). Worked instance 2026-09-03: a corpus-truing pull request's notes on the vision and three strategy pages cited a delivery plan and a ticket; the owner refused the push, an adversarial review found the rule, and the cure was an ADR folded into the same pull request with every permanent page re-pointed at it. Prediction (PDR-130): no new plan-node id lands on a permanent page within the review window and the pre-existing strategy-index citation is retired at its true-up; if one lands, `validate-reference-direction` extends to plan ids on permanent pages |
 
+## Pre-Push Sweep for Durable-Doc Edits
+
+A re-true written from a plan surface imports the plan's vocabulary into
+the permanent document, and each imported word is the next review round's
+finding (five consecutive rounds on one design records true-up, 2026-09-05,
+every finding in the seat's own new wording). Before the push, in the same
+commit:
+
+- grep the diff's ADDED lines on durable surfaces for plan-file names,
+  "plan's", "slice", "unbuilt", SHA-shaped hexadecimal tokens (seven to
+  forty characters, the range the write-time hook matches), "previously
+  read" and "superseded twice"; state the owner ruling and its date, never
+  the vehicle that carried it;
+- for every mechanism claim, read the code path once and state only what
+  it guarantees;
+- when a cure changes a FACT (a status, a landed-or-open state, a ruling's
+  scope), grep the same document and its sibling plans for every other
+  sentence carrying that fact — relationship inventories, sequencing
+  paragraphs and decision-log rows mirror it, and each stale mirror is the
+  next round's finding (rounds seven and eight, 2026-09-05);
+- when a note CLOSES a question (a ratification, a supersession, a
+  verdict), grep the whole node for every passage still calling it open —
+  "the decision that remains", "deferred", "later, separate decision" —
+  and re-true each (two such passages survived a ratification note three
+  sections away in the same file, 2026-09-06).
+
+A tracked continuity record never forecasts the pull request that carries
+it: a lane-state bullet saying what "this PR" will do next goes stale at
+every settlement push, and each round asks for the update (three rounds,
+6 → 2 → 1, on a continuity landing, 2026-09-04). Write the record's own
+state in the past tense as of the commit; the thread's next safe step and
+next-session landing target stay, because the record contract requires
+them, phrased as the lane's state at that commit rather than as this PR's
+remaining steps. A reviewer asking to refresh the self-narration of the
+carrying PR is dispositioned, never cured.
+
 ## Doctrinal Anchors
 
 - [PDR-105](../practice-core/decision-records/PDR-105-reference-direction-invariants.md)

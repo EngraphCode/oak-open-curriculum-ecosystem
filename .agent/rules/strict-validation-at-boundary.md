@@ -13,6 +13,16 @@ The correct pattern:
 3. Use the validated, fully-typed result from then on
 4. If the shape is genuinely open-ended, that is a design problem to fix, not a type problem to work around
 
+An admission predicate binds every axis it reasons about. Where kind is an
+admission axis, an allowlist entry is a (name, kind) pair, never the name
+alone: a transient-file allowlist that exempted by basename before kind
+handling let a symlink wearing a transient name ride out of the symlink
+refusals, and a place-only design-token admission did the same in the same
+sitting (2026-08-19). An allowlist that deliberately admits along one axis (a
+string-only token allowlist; a path-only stale-invocation allowlist) binds
+that one axis and invents no other. Validate each axis the decision depends
+on, at the boundary the value crosses.
+
 Owner ruling on tool surfaces (2026-07-28): **"Strict, all the time,
 everywhere"** — every MCP tool carries proper input AND output schemas, with
 realistic examples drawn from real data (graph tools were the founding

@@ -88,6 +88,10 @@ Linear projection, never a repo field — the sorting test: if it moves
 when the schedule moves, it lives in Linear; if it only moves when the
 product moves, it lives in the repo.
 
+A delivery node is one step of a lane, never the lane: a node reframed as
+"the lane's design step" authors the per-step nodes rather than absorbing
+them (2026-09-02).
+
 Copy the skeleton from the matching template in
 [`../../../plans/templates/README.md`](../../../plans/templates/README.md),
 fill it, delete the guidance text.
@@ -100,7 +104,10 @@ Every plan is born `status: sketch` — however green its checks — and
 traceable pointer to where the owner's word lives). The `status` enum
 (`sketch | ratified | superseded | archived`) carries ratification state
 only; `superseded` requires a named `superseded_by` successor. Executed
-is not ratified.
+is not ratified. An owner gate that spans many items is presented as ONE
+numbered list taking one word, with declines by item number (PR #959's
+"Ratify all thirteen", 2026-09-03, on the estate's earlier one-word
+precedent over an enumerated scope).
 
 ## Frontmatter Contract (validator-enforced)
 
@@ -120,7 +127,13 @@ is not ratified.
 - `owner_gates` — every gate names `awaiting`, `clears_when`, and an
   absolute `expires` date. No open-ended holding states; the default
   expiry horizon is set by the governing strategic node
-  (`gate_expiry_default`), not by a schema constant.
+  (`gate_expiry_default`), not by a schema constant. Before writing
+  `awaiting: owner-decision`, name the standing ruling, ADR or lens that
+  would resolve the gate; if one exists the plan carries the enforcement
+  story instead of a gate (the design plan's item-14 gate, 2026-09-03:
+  expired, carded, and found to be a missing enforcement of a 2026-07-26
+  ruling). The "stated default on expiry" idiom is retired: no schema field
+  authorises it, and it converts owner silence into a shipped decision.
 
 ## Body Requirements
 
@@ -167,9 +180,18 @@ Plans are public-repository artefacts: **mechanism only**. Anything
 internal — dates, vendor detail, organisational specifics — rides the
 linked Linear ticket, never the plan body.
 
+A plan whose deliverable is data names retention and size in the node
+— tracked or local-and-ephemeral, and roughly how large — because that
+question is answerable at the ask and decides the scaffolding: a
+data-drop lane built a worktree, a ticket and a README saying
+gzipped-and-committed before the owner's first sighting of the size
+changed the answer to local and ephemeral (2026-09-03).
+
 A plan that amends a permanent page (the vision, a strategy page, an
-ADR) never has that page cite the plan: permanent docs cite ADRs, and
-a plan carrying a decision worth a permanent page's note authors or
+ADR) never has that page cite the plan: permanent docs cite ADRs (or
+other permanent doctrine), never a plan node of any type by id — a
+strategic node is still a plan that can archive, rename, split or merge —
+and a plan carrying a decision worth a permanent page's note authors or
 names the ADR that records it (`no-moving-targets-in-permanent-docs`
 §Citation directionality). An acceptance criterion that asks a
 permanent page to name a delivery node by id is a moving target at
@@ -264,6 +286,10 @@ execution cycle:
 - **Counts derived from the input list are derivation-anchored** —
   re-derive at execution time and let substance preservation outrank
   stale arithmetic.
+- **Ledger and decision-log rows are captures.** The durable home of a
+  decision is an ADR or PDR, never the row (the extraction plan's "this
+  log is the durable home" sentence re-pointed at ADR-227, #961,
+  2026-09-03).
 
 ## Readiness and Review
 
@@ -287,6 +313,11 @@ successor). Completion claims follow the proof contract — a landed
 slice, session close, or green gate is not completion unless the
 acceptance criteria for the scope are proven. Plan completion and
 archival reference the consolidation workflow so learning is conserved.
+Archival is a multi-surface move: the markdown-links validator treats
+`**/archive/**` as non-live, so every inbound link to the old path breaks
+and a re-point to the archive path is refused too — sweep inbound links to
+plain text naming the archived node BEFORE the archiving commit (#959,
+2026-09-03).
 
 ## First Question
 

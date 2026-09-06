@@ -94,6 +94,16 @@ the point of action, not a fact to inherit. And it covers your own arithmetic:
 recompute any asserted total from its parts before it leaves your output — a
 noise-inclusive grep once asserted 318 blocks where the genuine total was 214,
 with the per-type census right and only the summary total unrecomputed.
+A census carries one probe already known to hit: an all-NONE sweep with no
+known positive is a probe failure, never a finding (a space-joined path list
+the shell did not split, 2026-09-02; a word boundary that missed hyphenated
+names, 2026-09-03; a pattern matching one nesting depth that missed two
+deeper directories and changed twelve rows, 2026-09-03 — a census needs a
+known positive at EVERY depth it claims). A census in a record is re-derived
+from the live query at authoring, never carried from a snapshot: a scanning
+census of twenty alerts in six classes was twenty-seven in eight when the
+query was run (2026-09-06). And instrument-leg results are never invented to
+satisfy a record's class — a row whose legs did not run says so (2026-09-06).
 
 **Self-state is the category where this discipline is most often skipped.** Agents
 reliably verify a peer's, a sub-agent's, or a bot's claim first-hand, then accept
@@ -250,6 +260,34 @@ Four points, each paid for in this estate:
   but costs "remember at the right moment" is not a mechanism. The design
   consequence — make falsification cheap and make its absence loud — is the
   pattern `falsification-cost-determines-claim-quality`.
+
+Three later refinements, each paid for:
+
+- **The consumer's resolver is part of the claim.** A verification that ran
+  through a resolver other than the consumer's own proved a different claim:
+  a mermaid diagram every local renderer passed lost the `<br>` inside every
+  node label in the live viewer (2026-08-19); a read-shaped command run
+  through a worktree-resolved binary migrated the home registry it was only
+  meant to read (2026-08-18). Name the resolver with the instrument, and run
+  the proof through the consumer's own.
+- **Read the normative clause, never its example.** A cure built from a
+  specification's worked example was overturned by the clause the example
+  illustrated, before it shipped (RFC 9207 §2.4, 2026-08-19). The example is
+  one instance of the rule; the claim is about the rule.
+- **A by-construction claim is verified on every package it names.**
+  "Correct under both orders, harmless if the flow changes" is the
+  survivability tell: a claim that a shape holds by construction across N
+  packages is N checks, never one sentence (2026-09-06). A resolution
+  designed from a module's callers is proven at the production composition
+  root: a config-root override forwarded by the CLI made a new
+  primary-checkout resolution never run, after unit tests, type-check and
+  lint had all passed (2026-09-03).
+- **A claim about what a live system emits is proven by watching it emit.**
+  Reading the code says where to look, never what it did (2026-08-19).
+- **A mechanism written from memory of a rule is a claim about the rule.**
+  Before naming a class's cure in a plan, read the governing policy and the
+  decision-record index for the class: two mechanisms in one node written
+  from memory of a rule each cost a review round (2026-09-06).
 
 The personal form, at the moment of wanting to assert: not *"am I confident?"*
 but **"what is the cheapest thing that would prove me wrong, and have I run

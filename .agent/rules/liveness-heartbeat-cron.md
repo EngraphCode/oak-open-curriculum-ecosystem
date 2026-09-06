@@ -14,7 +14,10 @@ exemption**: suspend heartbeat emission when no consuming peer is observable on
 the registry (a solo session, or a live owner/coordinator detecting retirement
 directly from ground-truth surfaces), and resume the moment a consuming peer
 appears, the conductor goes async, or the cast rotates. PDR-082 (Adopted) is
-the n=2 owner-visible special case of this exemption.
+the n=2 owner-visible special case of this exemption. As of 2026-09-06 the
+owner-word stand-down (the PAUSED seat state, §Exemptions below) is PDR-078
+§4's fifth exemption class, a declared-state class distinguished from silence
+by its opening event.
 
 The portable contract — cadence, threshold, redundancy rule, exemption
 set, and the structural cure they compose — is authoritatively specified
@@ -497,6 +500,41 @@ not a retirement signal:
     Adopting the claim flips the seat to active and arms the heartbeat in the
     same move. Minting a marker-claim purely to anchor a heartbeat re-creates
     the consumer the exemption removes; do not.
+- **Owner-word stand-down — the PAUSED seat state.** A seat the owner has
+  paused by word ("prepare for compaction … then stop all processes";
+  "acknowledge then stop"; an overnight "stand down"; a declared
+  week-sleep) stops its heartbeat and its watcher BY INTENT, emits a final
+  heartbeat-end event naming the owner's word and the stand-down, and
+  RETAINS its claim (with a handoff record attached when work is in
+  flight). For every reader of the stream, staleness past that event is
+  the declared state, not a retirement signal: a peer who has read the
+  heartbeat-end does not treat the silence as retirement and does not
+  adopt the claim, and the seat resumes only at the owner's next word,
+  re-arming watcher then heartbeat before its first act. In a paused team
+  the Director stands down last and resumes first. The machine readers do
+  not yet see the pause: the peer-liveness classifier reads heartbeats
+  only and reports the seat retired at ten minutes, and claim freshness
+  stays the registry's authority (`respect-active-agent-claims`), so a
+  pause longer than the claim's freshness window (four hours by default)
+  expects the next stale-archive sweep to move its claim to the archive as
+  `stale` — two claims whose last heartbeat fell on the declared sleep day
+  of 2026-08-19 were swept by the 2026-09-02 fold, their handoff records
+  intact on disk. The resuming seat re-opens its claim from the archived
+  row and re-attaches the record; the sweep is loss-free because the
+  record, not the row, carries the work. A machine-readable paused state
+  on the claim and in both readers is the cure (frictions register
+  F-173). Instances: the
+  2026-08-17 overnight cold-pause (three seats, Director last); a declared
+  week-sleep of 2026-08-19 ("staleness past this event is intentional
+  sleep, never retirement"); an owner-word pause of a second seat on
+  2026-09-03; the Director's and the consolidation seat's compaction
+  stand-downs of 2026-09-05 and 2026-09-06. This composes with
+  `silence-is-never-liveness`: the stand-down is announced before it
+  begins, which is what makes it not silence. The seat states the estate
+  names, for the record: active; standby (no claim, watcher only); paused
+  at owner word (claim held, monitors down); retiring mid-cycle on a
+  measured budget signal (PDR-063); dissolved into a peer by owner-directed
+  succession (PDR-063 §Deliberate succession); closed.
 
 ## Worked Instance
 
