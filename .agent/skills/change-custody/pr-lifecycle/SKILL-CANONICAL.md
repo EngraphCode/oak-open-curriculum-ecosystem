@@ -158,7 +158,12 @@ PRs #829/#830): GitHub's REST `requested_reviewers` endpoint SILENTLY
 DROPS the Copilot handle — 200 response, no error, handle absent from
 the resulting request — so request Copilot through the GitHub MCP
 `request_copilot_review` tool (or the web UI), never the bare REST
-endpoint, and verify the reviewer actually appears on the PR.
+endpoint, and verify the reviewer actually appears on the PR. A third scope
+fact: Copilot declines a full review above roughly three hundred files (on a
+sibling repository it reported only that 544 files exceeded its limit,
+2026-08-08) — a pull request past that ceiling gets a different verification
+story, because Copilot's silence there is a capability ceiling, never a clean
+review.
 
 ### Title and description are CLAIMS about the diff — derive them from it
 
@@ -855,7 +860,12 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
 - Bots re-review each push asynchronously: **"0 unresolved" is a moment, not
   a state.** Re-fetch `reviewThreads` and checks after every push and again
   at the instant of any ready/merge-ready declaration — a finding can land
-  seconds after your last look.
+  seconds after your last look. Marking a draft READY is itself a
+  reviewer-discovery boundary: reviewer assignment fires anew at the
+  transition, so the timeline, requested reviewers, review rows, threads and
+  checks are re-harvested immediately after it — "zero current threads"
+  before readiness proves nothing about the reviewer set (a late review
+  arrived after a ready-marking on a sibling repository, 2026-08-09).
 - Reply to each thread with the fix evidence (commit SHA + what changed),
   then resolve it. "Resolved" is a settled-concern state, never a button
   clicked to clear `mergeStateStatus`.
