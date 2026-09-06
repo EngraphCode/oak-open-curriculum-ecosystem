@@ -28,6 +28,7 @@ recompute live state from claims/comms/git at pickup.
 | 2026-08-07 | Civet spins Cavern | claude-code / claude-fable-5 | `054f5e` | Design-lane successor (Saffron→Civet, PDR-063 deliberate succession at owner word, Director ACTIVATE 20:46Z); claim `645b9e0b` adopted 20:46Z after the handoff record read end to end |
 | 2026-08-17 | Yarrow stirs Undergrowth | claude-code / claude-fable-5 | `ab1066` | Critical-analysis sitting + records-truth pass (MCP-613) at direct owner word; claim `645b9e0b` adopted after the winddown record + this record read end to end |
 | 2026-09-02 | Finch calls Pinnacle | claude-code / claude-fable-5 | `c91bd4` | #908 landing seat at direct owner word (merged a8aa13da1); the post-merge Copilot round consolidated through the tango node in the #915 fold; claim `645b9e0b` closed at owner word (no adoption — a fresh claim opens the lane's next pickup) |
+| 2026-09-05 | Flounder turns Estuary | claude-code / claude-fable-5-1 | `c5cc2c` | Lead seat at the owner's PR-count-to-zero goal: PR #41 (MCP-613 records-truth pass) landed 8b2b5ee03 after nine review rounds; the seven-item records residue routed on this record §2026-09-05; claim `b627b5af` closed (a fresh claim opens the lane's next pickup) |
 
 ## Board state at writing (recompute, do not trust)
 
