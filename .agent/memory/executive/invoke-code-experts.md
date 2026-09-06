@@ -162,6 +162,20 @@ lost — a stopped code-expert's verdict arrived on the first
 post-compaction turn carrying two findings that would have sunk the last
 settlement push (2026-09-01).
 
+Two harvest routes when no message can arrive. (a) The expert reviewer
+subagents and the Cricket legs carry Read/Grep/Glob/Bash only — no
+SendMessage tool at all — so such a reviewer emits its report as its final
+long assistant text and then idles: the idle IS the finish, never "stuck"
+(read that way by the owner on 2026-08-06), and the report is the last long
+assistant text block of the newest transcript under the project's
+directory. Stand the agent down afterwards; it cannot answer the shutdown
+either. (b) A NAMED teammate agent that reports "delivered via SendMessage"
+may have reached nothing (TaskOutput by name answered "No task found"): its
+full report is the SendMessage tool-use payload in its own transcript under
+the session's subagents directory, and the last plain-text turn is only a
+summary — three Opus code-expert reports were harvested that way in one
+pass on 2026-09-04.
+
 ## Doctrine and Plan Artefacts Get the Panel Before They Are Public
 
 Measured three times in one window. Two opus adversarial legs on a
