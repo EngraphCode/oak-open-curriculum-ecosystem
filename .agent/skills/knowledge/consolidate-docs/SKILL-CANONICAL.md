@@ -543,7 +543,14 @@ Rule; the standalone crosswalk plan was archived in the same pass.)
     napkins since the last historical-synthesis marker, the last N archived
     napkins, or the napkins matching a specific thread / theme. Do not reread
     the whole archive by default unless the consolidation is explicitly a
-    historical pass.
+    historical pass. Even then, an archive-scale corpus is never read into
+    the seat's own context: an engine (the corpus-analysis workflow's map
+    stage, or dispatched extractors writing their reports to disk) maps
+    the windows, and the seat verifies each kept leaf first-hand at the
+    point of use (owner correction 2026-09-02: a curator read about
+    16,400 lines of six archived napkins into its context for this step,
+    compacted mid-corpus, and kept four of the six only as a summary
+    paragraph).
 
     Write a synthesis report before mutating doctrine. Default home:
     `.agent/research/agentic-engineering/continuity-memory-and-knowledge-flow/`

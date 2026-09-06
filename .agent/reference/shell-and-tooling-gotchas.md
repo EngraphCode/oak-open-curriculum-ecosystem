@@ -238,3 +238,53 @@ tool retires them.
   finding built on "string props render literally" was premise-false.
   Verify transform-level claims AT the transform, not from the JSX
   mental model.
+
+## 2026-09-06 consolidation batch (2026-09-02→06 instances, each measured first-hand by the seat named in the napkin)
+
+- **pnpm forwards a literal `--` to some scripts as an unknown flag.**
+  `pnpm agent-tools:check-commit-message -- -F <file>` exits 2; feed the
+  message on stdin (`< "$MSGFILE"`) or pass `-F` without the `--`
+  (2026-09-03).
+- **A rename through the version-control CLI stages both endpoints.** A
+  later staging call naming the deleted path refuses ("did not match any
+  files") and aborts the WHOLE pathspec add; after a move, stage the live
+  paths only (2026-09-03).
+- **A stale commit-queue intent blocks the next guard.** An intent that was
+  enqueued and never committed (a failed guard, an abandoned ceremony)
+  makes every later guard on overlapping files refuse with "multiple fresh
+  matching commit-queue intents" until `phase --intent-id … --phase
+  abandoned` (2026-09-03; 2026-09-06, frictions F-172).
+- **commitlint `subject-case` rejects an uppercase token right after the
+  type**: a subject beginning "ADR-227 …" fails; lead with a lowercase word
+  (2026-09-03).
+- **A markdown line opening with `#959's` is an ATX heading** to
+  markdownlint (MD018); write `PR #959's` (2026-09-03).
+- **zsh globs an unquoted `--include=*.md`** before grep sees it and fails
+  with "no matches found"; quote the pattern (2026-09-05).
+- **`claude mcp logout <name>` cannot see a server disabled in settings or
+  whose plugin is off**: it answers "No MCP server named" for every disabled
+  server. Order a disconnect clear-tokens-then-disable (2026-09-03, Claude
+  Code 2.1.25x).
+- **`vercel whoami` after `vercel logout` blocks on an interactive login
+  prompt**: a batched logout chain timed out on it and the later commands
+  never ran. CLI logouts run one per call, stdin closed, under `timeout`
+  (2026-09-03).
+- **The harness re-injects a nested checkout's rule pointers on every read
+  under it.** One 2026-08 transcript holds 1,056 nested-memory attachments
+  across eight worktrees under the repository's own platform worktree
+  directory, 121 rule names each — the measured mechanism behind "the
+  rules load twice" (2026-09-05).
+- **The bot merge token expires hourly**; a 401 mid-batch is the tell —
+  mint, then repeat the batch (2026-09-05).
+- **`ls -1` hides dotfiles**, so it reports a just-copied dotfile as absent.
+  **The ignore-check verb prints the matching pattern for a NEGATED path
+  too**, so its output cannot say whether a file is ignored — ask the
+  status command what the tree actually sees. **A background task's "exit
+  code 0" is the wrapper's status**, not the command's. **A validator's
+  file flag was `-F`, not `--file`** — read the tool's help before guessing
+  the flag (experience letter, the MCP submission drive, 2026-08).
+- **`cd` inside one Bash call persists into the next call.** The identity
+  preflight and the bot token mint both resolve the repository from the
+  working directory and fail outside the worktree ("not a git repository"
+  → IDENTITY PREFLIGHT FAILED / TOKEN MINT FAILED); use absolute paths and
+  never change directory (2026-09-06, twice in one window).

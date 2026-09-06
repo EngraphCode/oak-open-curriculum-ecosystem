@@ -294,7 +294,12 @@ surfaces. Partial reads produce false "no problems" verdicts:
   gate-narrowed, never warning-downgraded, never suppressed.
 - Fix the class, not the instance: a spelling finding on two lines gets a
   repo-wide sweep of the class; a stale literal gets checked against its
-  source constant convention.
+  source constant convention. The class sweep that ends a loop re-runs
+  every COUNTED and every CLASSIFIED property after each cure and greps
+  every other mention of a changed fact in the same commit — never only
+  the phrasing the finding used (two of one round's four findings were
+  stale mirrors of the previous round's own cure on a 1,500-line plan,
+  2026-09-05).
 - **A cure is a claim: it gets the same verification tier as the finding it
   cures, and it carries its paired test.** Review-round cures are the next
   round's most likely defect surface (one round's Sonar failures were ALL
@@ -541,7 +546,11 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    a verdict (round-6 correction, 2026-07-16: "4 total rounds" is
    monotonic — without the epoch reset the trigger stays true after the
    mandated class-fix push and the machine has no executable next
-   transition). **Ahead of these failure arms sits the round-budget
+   transition). The second step-back is an absolute binding, and its
+   residue gets ONE named home before the next round arrives — otherwise
+   every later finding re-opens the "is this one falsifiable" question
+   (rounds eight and nine on one PR, eight findings dispositioned with
+   falsifiers and homed as one bundle, 2026-09-05). **Ahead of these failure arms sits the round-budget
    expectation (PDR-132, which owns the budget value)**: the transition
    fires when an over-budget round OPENS — the first review activity
    binding a tip after the budgeted number of rounds has settled, NOT
@@ -551,7 +560,19 @@ deliberately gone — triage binds from wave one. **The step-back trigger is
    that is wrong today, a broken link or a validator failure earns a cure,
    and everything else is dispositioned without a diff (the lead's ratchet
    ruling on #961's round four and the owner's word on its wrap PR — "ignore
-   bot comments … less than a P1 or equivalent" — 2026-09-03). The arms above stay the mechanical backstop, not
+   bot comments … less than a P1 or equivalent" — 2026-09-03). The second
+   settlement push's tip is the FINAL HEAD, named on the PR when that push
+   lands. A binding worth declaring names its exception in advance (a
+   statement a rule falsifies, cured with a sweep) or is owner-gated from
+   the start: a "no further cure push" declared before reading what the
+   next round could hold broke one round later, and on a sibling PR a
+   binding with an unnamed exception clause broke at round six while the
+   absolute one held (2026-09-05). On a SKETCH-class PR every post-budget
+   finding is pickup-shaped by construction — it describes work not yet
+   done — and gets a falsifier row, never a cure push; a sketch's loop
+   converges only when someone names the final head, because a reviewer's
+   supply of next-site findings on undone work is unbounded (eight rounds
+   on a one-file sketch, 2026-09-05). The arms above stay the mechanical backstop, not
    the first alarm. **The arms fire on GENERATOR recurrence, not singleton
    noise**: before acting on a fired arm, classify the round's findings —
    a stream of distinct, unrelated mechanical singletons (each with a

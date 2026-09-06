@@ -189,7 +189,13 @@ the special case. Run both unless that exemption applies.
    <id> --platform <p> --model <m>` — it rewrites the claim's `agent_id` to
    your identity in place (never a duplicate row, never a hand-edit); the
    retiring agent records the pointer with `claims set-handoff --active
-   <active-claims-path> --claim-id <id> --path <record>`.
+   <active-claims-path> --claim-id <id> --path <record>`. Worked
+   instance (2026-09-03): the owner's word alone started a succession with
+   no budget signal in play; the outgoing seat wrote the record
+   (`01e418de-vesta-rides-solstice-to-chinook-seeks-cloud-2026-09-03.md`)
+   and the successor adopted the claim against it — the PDR-063
+   §Deliberate succession path, landing through exactly this pickup
+   contract.
    **An adopted claim gets its PREMISE recomputed at adoption, not just its
    ownership**: verify first-hand that the work the claim names is still
    live and undone before continuing it (worked instance 2026-08-13: a

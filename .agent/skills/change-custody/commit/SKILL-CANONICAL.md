@@ -313,7 +313,13 @@ direct CLI commands for inspection and recovery.
      2>/dev/null | jq -r '.agent_id.id')
 
    # Note: enqueue prints a bare intent UUID (not JSON) — capture it
-   # directly, do not pipe it to jq.
+   # directly, do not pipe it to jq, and keep stderr VISIBLE: a
+   # `2>/dev/null | tail -1` swallowed an exit-2 refusal and fed a pnpm
+   # lifecycle line to the commit step as the intent id (2026-09-03).
+   # A guard refusal leaves the intent fresh, and the next enqueue's
+   # guard then refuses on "multiple fresh matching commit-queue
+   # intents": every failure branch after enqueue moves the intent to
+   # `phase --phase abandoned` before the window claim closes (F-172).
    pnpm agent-tools:commit-queue -- enqueue \
      --claim-id "<claim-id>" \
      --agent-name "<name>" --platform "<platform>" --model "<model>" \

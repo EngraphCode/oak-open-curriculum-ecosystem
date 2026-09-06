@@ -180,10 +180,18 @@ Plans are public-repository artefacts: **mechanism only**. Anything
 internal — dates, vendor detail, organisational specifics — rides the
 linked Linear ticket, never the plan body.
 
+A plan whose deliverable is data names retention and size in the node
+— tracked or local-and-ephemeral, and roughly how large — because that
+question is answerable at the ask and decides the scaffolding: a
+data-drop lane built a worktree, a ticket and a README saying
+gzipped-and-committed before the owner's first sighting of the size
+changed the answer to local and ephemeral (2026-09-03).
+
 A plan that amends a permanent page (the vision, a strategy page, an
-ADR) never has that page cite the plan: permanent docs cite ADRs, and
-a plan carrying a decision worth a permanent page's note authors or
-names the ADR that records it (`no-moving-targets-in-permanent-docs`
+ADR) never has that page cite the plan: permanent docs cite ADRs or
+long-lived strategic nodes, never delivery nodes, and a plan carrying a
+decision worth a permanent page's note authors or names the ADR that
+records it (`no-moving-targets-in-permanent-docs`
 §Citation directionality). An acceptance criterion that asks a
 permanent page to name a delivery node by id is a moving target at
 authoring time — a truing node's own AC did exactly that on 2026-09-03
