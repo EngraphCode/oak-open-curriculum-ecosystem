@@ -3,10 +3,10 @@ id: adapter-prefix-configuration
 node_type: delivery
 name: "The adapter prefix resolves from one point of configuration"
 overview: "Replace the hand-pinned adapter prefix with one resolver over a tracked default and an untracked per-checkout override behind a tracked example, proven for a second prefix in isolation while the projected skill names stay exactly as they are."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell (owner)"
+ratified_date: 2026-09-06
+ratified_where: "Owner answers at the lead seat (Flounder turns Estuary, c5cc2c), 2026-09-06 ~09:5xZ: 'ratified with notes below'; the notes are quoted verbatim in this node's Ratification notes and on the comms event of the same hour"
 serves: organisational-identity-below-the-tree
 impact_areas:
   - practice-and-estate
@@ -15,7 +15,7 @@ depends_on:
   - plan: code-quality-binding-per-checkout
     kind: beneficial
 owner_gates: []
-last_updated: 2026-09-05
+last_updated: 2026-09-06
 ---
 
 # The adapter prefix resolves from one point of configuration
@@ -28,17 +28,33 @@ prefix is read from one tracked default file, overridable by one untracked per-c
 file that a tracked example describes, and both the generator and its checker resolve it
 the same way. The mechanism is proven for a second prefix in an isolated root. Nothing
 projected changes: this checkout keeps `oak-`, every adapter directory stays committed
-and byte-identical, and the switch to another prefix on any checkout is a later, separate
-decision. The owner's word on 2026-09-05: build and prove the mechanism, make the names
-easier to change later, do not change them yet.
+and byte-identical, and no checkout switches prefix: the owner's word, on 2026-09-05 and
+again at ratification on 2026-09-06, is to build and prove the mechanism with no configuration
+change, so the names stay exactly as they are.
+
+## Ratification notes (2026-09-06)
+
+The owner ratified this node with two notes, verbatim:
+
+1. "we don't want a dirty tree or doubled skills, those are both obviously terrible ideas,
+   that is why I already decided, and told you, that what I want is the mechanism
+   implementing, but no config changes yet, so the output continues to be exactly what it
+   is today, just using the improved code that makes future changes easy."
+2. "this checkout will not switch to e-"
+
+Consequences carried into this node: every unit lands the mechanism and nothing else — no
+override file is created on any checkout, the tracked default holds `oak-`, and the
+projected adapters stay byte-identical. The question the earlier draft held open, whether
+the committed projections should become install-generated, is dissolved by the first note:
+with no override there is nothing to double and no tree to dirty, and ADR-125's committed
+adapters stand. The isolated-root proof is the only place a second prefix appears.
 
 ## User groups and value
 
 - **An organisation running this repository as its own**: the mechanism for choosing its
-  own projected skill names exists and is proven, so the later switch is a decision about
-  one untracked file rather than a rename sweep; how projections behave on an overriding
-  checkout is the deferred decision below, so this slice enables the switch and does not
-  claim it is already a no-tracked-edit operation.
+  own projected skill names exists and is proven, so a future switch would be one untracked
+  file rather than a rename sweep; no checkout makes that switch under this node, and the
+  slice claims nothing about how an overriding checkout's projections would behave.
 - **Contributors on any machine**: `pnpm skills:generate` and `pnpm skills:check` need no
   argument and cannot disagree with each other about the prefix, because both read the
   same resolver.
@@ -48,9 +64,9 @@ easier to change later, do not change them yet.
   resolved at the primary checkout — and the read-parse-name-the-example helper the two
   readers share is extracted here, so every later identity pin that takes the per-checkout
   rung reuses one helper instead of a third copy.
-- **The owner**: the decision that remains — whether projections stay committed when a
-  checkout overrides the prefix — is taken with a working mechanism in hand rather than on
-  paper.
+- **The owner**: the mechanism lands with no configuration change and the projected output
+  byte-identical, as ruled at ratification; a working, proven resolver is what any later
+  word on prefixes would rest on.
 
 ## Mechanism
 
@@ -150,10 +166,10 @@ or not that node has landed.
 What this slice deliberately does not decide: whether projections remain committed when a
 checkout overrides the prefix. With committed projections, an override checkout would
 either list both the tracked `oak-*` set and its generated set, or clear the tracked set
-and leave the tree permanently dirty; the coherent shape is untracked, install-generated
-projections, an amendment to ADR-125. The owner deferred that on 2026-09-05; this slice
-makes it a decision about a working mechanism, and the isolated-root proof is the evidence
-it will rest on.
+and leave the tree permanently dirty. The owner's ratification note closes this: no
+configuration changes, so no checkout overrides, nothing is doubled and no tree is dirtied;
+ADR-125's committed adapters stand, and the isolated-root proof is the only place a second
+prefix appears.
 
 ## Acceptance criteria (each with a proof — required)
 
@@ -227,11 +243,12 @@ Four PR-shaped units, each inside the sizing bands and safe on its own, in this 
 
 ## Out of scope
 
-- Switching this checkout, or any checkout, to another prefix: the owner's deferral; the
-  override file is not created here, and the isolated-root test is the only place `e-`
-  appears.
-- Untracking the projections and amending ADR-125's committed-adapters decision: the
-  decision this slice informs, taken separately.
+- Switching this checkout, or any checkout, to another prefix: the owner's ruling of
+  2026-09-06 is that this checkout will not switch; the override file is not created
+  anywhere, and the isolated-root test is the only place `e-` appears.
+- Untracking the projections and amending ADR-125's committed-adapters decision: dissolved
+  by the owner's ruling of 2026-09-06 that no configuration changes yet — with no override
+  there is nothing to double and no tree to dirty, so the committed adapters stand.
 - The `Skill(oak-*)` pre-approval entries in the tracked harness settings, the prose that
   names projected skills, and the four runtime strings that name `/oak-start-right-team`
   and `oak-consolidate-docs`: none is wrong while the names stand; they belong to the
@@ -258,8 +275,8 @@ The six clauses of the plan-body first-principles check, applied at authoring:
   and no validator today forbids a JSON file at the Practice home's top level — each
   checked against the tree on 2026-09-05, and each re-verified at pickup.
 - **Optionality.** One observable signal, the `pnpm skills:prefix` line; the sequence is
-  four ordered PRs; the one deferral is named as the owner's decision on projections, not
-  a bare deferred status.
+  four ordered PRs; no deferral remains — the projections question is closed by the
+  ratification note.
 - **Record consumer.** The disposition ledger below is read by the pickup implementer,
   and reading it decides which findings are already applied and which are routed.
 - **Rules tier.** `--prefix` survives as an explicit override, not a compatibility alias

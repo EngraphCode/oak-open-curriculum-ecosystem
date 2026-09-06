@@ -3795,9 +3795,9 @@ seat and the #915 fold landing seat, at direct owner word; no Director seated.
   showcase IA plan's A1/A2 rows as landed in part with the open remainder named (no route
   registry; no fifteen-cell computed-style proof); the Public Digital Service identity plan
   back in `delivery/` as ratified with AC4 open; two tombstone rows removed from the decision
-  log; DDR-009/010, ADR-213, the rubric and the preservation README re-trued. Seven review
-  rounds; the PDR-140 step-back fired at round four and a second time at round seven, which
-  ended fix-pushing on this lane.
+  log; DDR-009/010, ADR-213, the rubric and the preservation README re-trued. Nine review rounds:
+  the PDR-140 step-back fired at round four and a second time at round seven, which ended
+  fix-pushing on this lane; rounds eight and nine were dispositions.
 - **Records residue after PR #41 — one follow-up bundle for the design lane's next records
   PR (first act of whichever seat next edits these plans):**
   1. `design-showcase-experience.plan.md` relationship inventory: the row for
@@ -3812,11 +3812,23 @@ seat and the #915 fold landing seat, at direct owner word; no Director seated.
      browse-verdict criterion unmet (the wow-verdict register's only showcase row is the
      earlier `/` FAIL). Same class as the rename plan: return it to `delivery/` as ratified
      with the owner-held verdict named open, or the owner records the verdict.
+     **Owner verdict 2026-09-06, verbatim: "The switchboard is wow enough for today. It will
+     need to be more wow in future."** The criterion is met: the owner viewed every identity ×
+     theme cell ("obviously I looked at all the combinations"), and the register row (a pre-read row:
+     no instrument legs ran) covers all fifteen; the node stays archived with nothing open
+     at the owner's word.
   4. `docs/design/design-review/rubric.md` reading-order exemption: implements R13; refine
      it to recompositions whose reading and focus narrative stays coherent (R13 × R15), with
      the accessibility reviewer's pass, and re-true the consuming guide's reading-order
      clause to the same synthesis. Falsifier: an inverted composition passing seven criteria
      while its focus order contradicts its visual order.
+     **REJECTED by owner ruling 2026-09-06, verbatim: "We do NOT allow design by review in
+     PRs, we have a vision that PR bots have no visibility of. Of course visual design should
+     be bloody coherent, that is not in question, but the fact that the mechanism is capable
+     of producing incoherent designs is not a failure, it is power, that must be used
+     appropriately and well, the reviewer is mixing concerns myopically."** The exemption
+     stands as it implements R13; no refinement is owed, and no design-intent finding from a
+     review bot is carried as residue on this lane again.
   5. `public-digital-service-identity.plan.md` body (~lines 192–194 and 264–268): the
      sequencing still says the rename precedes `design-system-completion` implementation
      and calls that node "this seat's executing node" with a future PR4 true-up; the same
