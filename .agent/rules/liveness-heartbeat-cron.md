@@ -503,11 +503,24 @@ not a retirement signal:
   week-sleep) stops its heartbeat and its watcher BY INTENT, emits a final
   heartbeat-end event naming the owner's word and the stand-down, and
   RETAINS its claim (with a handoff record attached when work is in
-  flight). Staleness past that event is the declared state, not a
-  retirement signal: the ten-minute rule does not fire on it, no peer
-  adopts the claim, and the seat resumes only at the owner's next word,
+  flight). For every reader of the stream, staleness past that event is
+  the declared state, not a retirement signal: a peer who has read the
+  heartbeat-end does not treat the silence as retirement and does not
+  adopt the claim, and the seat resumes only at the owner's next word,
   re-arming watcher then heartbeat before its first act. In a paused team
-  the Director stands down last and resumes first. Instances: the
+  the Director stands down last and resumes first. The machine readers do
+  not yet see the pause: the peer-liveness classifier reads heartbeats
+  only and reports the seat retired at ten minutes, and claim freshness
+  stays the registry's authority (`respect-active-agent-claims`), so a
+  pause longer than the claim's freshness window (four hours by default)
+  expects the next stale-archive sweep to move its claim to the archive as
+  `stale` — two claims whose last heartbeat fell on the declared sleep day
+  of 2026-08-19 were swept by the 2026-09-02 fold, their handoff records
+  intact on disk. The resuming seat re-opens its claim from the archived
+  row and re-attaches the record; the sweep is loss-free because the
+  record, not the row, carries the work. A machine-readable paused state
+  on the claim and in both readers is the cure (frictions register
+  F-173). Instances: the
   2026-08-17 overnight cold-pause (three seats, Director last); a declared
   week-sleep of 2026-08-19 ("staleness past this event is intentional
   sleep, never retirement"); an owner-word pause of a second seat on
