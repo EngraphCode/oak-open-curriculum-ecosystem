@@ -92,6 +92,9 @@ line-merge them: a git auto-merge silently corrupts concept-bearing files
 (drops/duplicates/stacks entries, often with no conflict marker). Author the union by
 hand per the `semantic-merge` skill. The visible git conflict is the easy case; the
 silent auto-merge of a both-sides-edited memory file is the dangerous one.
+A merge cannot start over an uncommitted tracked file it touches — git
+refuses, and the index-reset family is banned — so those edits land in their
+own commit ahead of the merge (2026-09-02; 2026-09-06).
 
 ### 5. Do not commit on another agent's worktree branch
 
@@ -133,6 +136,13 @@ retired:
 - unique information NOT in `main` and not worth keeping → consciously drop it ("if
   there is no information worth preserving, that is fine").
 
+A follow-up pointer named at lane close is a record-binding question of the same kind:
+it is mirrored into a TRACKED home — the owning plan node's dispositions table, or the
+thread record the pickup seat reads — before the lane closes, and the lane-closed comms
+event points at that home. Comms events are untracked by design and rotate, so a pointer
+that lives only on one is orphaned work in prose (fourteen pointers from three lanes,
+2026-09-04/05, recovered by the consolidation of 2026-09-06).
+
 **Standing prune policy for the proven class** (owner grant 2026-07-21:
 "Pruning worktrees that are provably safe to remove should absolutely be
 standing policy"; widened 2026-08-05: "anything proven on main can be
@@ -147,9 +157,11 @@ registrations, and plain branch deletion for proven local branches. A
 content-superseded branch (every file proven present newer on main by
 content comparison, not SHA ancestry) also deletes, with the comparison
 recorded first. Anything failing either proof, the active lanes, and
-platform-managed `.claude/worktrees/*` are NEVER touched. Worked instance:
-2026-07-21, 50 → 9 registrations (37 proven removals + 5 stale prunes),
-zero losses.
+platform-managed `.claude/worktrees/*` are NEVER touched. The grant covers
+the worktrees and branches the seat owns: a peer's dormant worktree is
+theirs even when its content is superseded on the base (owner refusal,
+2026-09-03). Worked instance: 2026-07-21, 50 → 9 registrations (37 proven
+removals + 5 stale prunes), zero losses.
 
 Destructive removal OUTSIDE the proven class (`git worktree remove` of
 anything dirty or unmerged, deletion of any branch not ancestor- or
