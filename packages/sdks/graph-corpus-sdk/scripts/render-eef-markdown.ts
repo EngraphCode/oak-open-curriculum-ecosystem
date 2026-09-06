@@ -9,10 +9,15 @@
  * Containment: the output root must sit inside the directory the command
  * runs from (`process.cwd()`: this package's directory under
  * `pnpm --filter … render:eef-markdown`, or wherever `pnpm exec tsx` is run).
- * The root is checked lexically before anything is created and canonically
- * once it exists; every target directory is canonicalised and checked against
- * the root before a byte is written; an existing target that is not a regular
- * file (a symbolic link or a directory) is refused rather than followed. Every
+ * The root is checked lexically before anything is created, canonically
+ * through its nearest existing ancestor before it is created (so a symbolic
+ * link already on the path cannot carry the creation outside), and canonically
+ * once it exists; every target directory gets the same three checks before a
+ * byte is written; each target is opened without following
+ * symbolic links and written through that descriptor, so a symbolic link or a
+ * directory in the target's place is refused in the same operation as the open
+ * (no check-then-write window), and a platform that cannot open a file without
+ * following links is refused outright. Every
  * written file is then checked against this repository's own formatter
  * configuration (resolved from the script's location, never from the output
  * directory), so a drift between the renderer's normal form and the
@@ -29,7 +34,7 @@
  * inside, the directory the command runs from.
  */
 
-import { lstatSync, mkdirSync, writeFileSync } from 'node:fs';
+import { closeSync, constants, mkdirSync, openSync, realpathSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
@@ -45,6 +50,69 @@ interface Refusal {
   readonly refused: string;
 }
 
+/** The `code` of a system error, when the thrown value carries one. */
+function errorCode(error: unknown): string | undefined {
+  return error instanceof Error && 'code' in error && typeof error.code === 'string'
+    ? error.code
+    : undefined;
+}
+
+/** The canonical path of the nearest existing ancestor of `path` (`path` itself when it exists). */
+function canonicalNearestExisting(path: string): string | Refusal {
+  let current = path;
+  while (current !== dirname(current)) {
+    try {
+      return realpathSync(current);
+    } catch (error) {
+      const code = errorCode(error);
+      if (code !== 'ENOENT') {
+        return { refused: `${current} could not be canonicalised (${code ?? String(error)})` };
+      }
+      current = dirname(current);
+    }
+  }
+  return realpathSync(current);
+}
+
+/**
+ * Create `directory` inside `base` and return its canonical path: the nearest
+ * existing ancestor is canonicalised and checked before anything is created,
+ * and the created directory is checked again once it exists.
+ */
+function ensureContainedDirectory(directory: string, base: string): string | Refusal {
+  const nearest = canonicalNearestExisting(directory);
+  if (typeof nearest !== 'string') {
+    return nearest;
+  }
+  assertPathWithinBase(nearest, base);
+  mkdirSync(directory, { recursive: true });
+  return assertPathWithinBase(directory, base);
+}
+
+/**
+ * Open `target` for writing (create or truncate) without following a symbolic
+ * link in its place, so the refusal and the open are one operation.
+ */
+function openWithoutFollowing(target: string, relativePath: string): number | Refusal {
+  if (!Object.hasOwn(constants, 'O_NOFOLLOW')) {
+    return {
+      refused:
+        'this platform cannot open a file without following symbolic links; run under a POSIX shell',
+    };
+  }
+  const flags = constants.O_WRONLY | constants.O_CREAT | constants.O_TRUNC | constants.O_NOFOLLOW;
+  try {
+    return openSync(target, flags, 0o644);
+  } catch (error) {
+    const code = errorCode(error);
+    const reason =
+      code === 'ELOOP'
+        ? 'is a symbolic link; not followed'
+        : `could not be opened for writing (${code ?? String(error)})`;
+    return { refused: `${relativePath} ${reason}` };
+  }
+}
+
 /** This repository's formatter configuration, resolved from where this script lives. */
 async function repositoryFormatterOptions(): Promise<Options | null> {
   return resolveConfig(fileURLToPath(import.meta.url));
@@ -52,7 +120,8 @@ async function repositoryFormatterOptions(): Promise<Options | null> {
 
 /**
  * Resolve `--out` against the working directory and refuse it outside that
- * directory: lexically before anything is created, canonically once it exists.
+ * directory: lexically before anything is created, canonically through its
+ * nearest existing ancestor, and canonically once it exists.
  */
 function containedOutputRoot(outArgument: string): string | Refusal {
   const base = process.cwd();
@@ -60,26 +129,29 @@ function containedOutputRoot(outArgument: string): string | Refusal {
   if (candidate !== base && !candidate.startsWith(`${base}${sep}`)) {
     return { refused: `--out '${outArgument}' resolves outside the working directory '${base}'` };
   }
-  mkdirSync(candidate, { recursive: true });
-  return assertPathWithinBase(candidate, base);
+  return ensureContainedDirectory(candidate, base);
 }
 
 /**
  * Write one rendered file under the output root: the target directory is
- * canonicalised and checked against the root first, and an existing target
- * that is not a regular file is refused rather than followed.
+ * canonicalised and checked against the root first, and the target is opened
+ * without following symbolic links and written through that descriptor.
  */
 function writeContained(outputRoot: string, file: RenderedMarkdownFile): string | Refusal {
-  const directory = join(outputRoot, dirname(file.path));
-  mkdirSync(directory, { recursive: true });
-  const target = join(assertPathWithinBase(directory, outputRoot), basename(file.path));
-  const existing = lstatSync(target, { throwIfNoEntry: false });
-  if (existing !== undefined && !existing.isFile()) {
-    return {
-      refused: `${file.path} already exists and is not a regular file (a symbolic link or a directory); not overwritten`,
-    };
+  const directory = ensureContainedDirectory(join(outputRoot, dirname(file.path)), outputRoot);
+  if (typeof directory !== 'string') {
+    return directory;
   }
-  writeFileSync(target, file.text);
+  const target = join(directory, basename(file.path));
+  const descriptor = openWithoutFollowing(target, file.path);
+  if (typeof descriptor !== 'number') {
+    return descriptor;
+  }
+  try {
+    writeFileSync(descriptor, file.text);
+  } finally {
+    closeSync(descriptor);
+  }
   return target;
 }
 

@@ -38,9 +38,12 @@ The `eef-strands` module is the typed raw-data foundation over
   pin naming `corpusMeta.data_version`. The renderers return text and paths;
   the script `scripts/render-eef-markdown.ts` (see §Scripts) writes the set
   into a directory inside the one the command runs from, refusing an output
-  root, a target directory or an existing target that resolves outside it or
-  is not a regular file, and verifies every written file against the
-  repository's formatter configuration. It only writes: a file an earlier
+  root or a target directory that resolves outside it (checked through its
+  nearest existing ancestor before anything is created, and again once it
+  exists), opening each target without following symbolic links (a link or a
+  directory in a target's place is refused in the same operation), and
+  verifies every written file against the repository's formatter
+  configuration. It only writes: a file an earlier
   render produced that the current corpus no longer does is the caller's to
   remove.
 

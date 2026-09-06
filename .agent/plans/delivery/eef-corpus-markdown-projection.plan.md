@@ -81,9 +81,11 @@ no-server reference.
 - **A thin writer** at `scripts/render-eef-markdown.ts` taking `--out <dir>`
   (`pnpm render:eef-markdown --out <dir>`): it writes the file set and nothing else. The
   output root must sit inside the directory the command runs from, checked lexically before
-  anything is created and canonically once it exists; each target directory is canonicalised
-  and checked against the root before a write; an existing target that is not a regular file
-  (a symbolic link or a directory) is refused rather than followed. It never deletes: a consumer's own drift check compares its committed set against the file-set
+  anything is created, canonically through its nearest existing ancestor before it is
+  created, and canonically once it exists; each target directory gets the same checks before
+  a write; each target is opened without following symbolic links and written through that
+  descriptor, so a link or a directory in a target's place is refused in the same operation
+  as the open. It never deletes: a consumer's own drift check compares its committed set against the file-set
   function, and a file an earlier render produced that the current corpus no longer does is
   the caller's to remove. It verifies every written file against the repository's formatter
   configuration resolved from the script's own location, so a drift between the renderer's
@@ -138,13 +140,14 @@ no-server reference.
 - **Writable to any directory inside the invocation directory.** Every rendered path is
   relative, carries no parent segment and resolves under the output root; the script writes
   only what the file-set function returns and refuses an output root outside the directory
-  it runs from, a target directory that resolves outside the root, or an existing target
-  that is not a regular file. Proof: `repo-safe` — the set-equality and path-shape tests;
+  it runs from, a target directory that resolves outside the root (through its nearest
+  existing ancestor before creation), or a symbolic link or directory in a target's place.
+  Proof: `repo-safe` — the set-equality and path-shape tests;
   the write itself is exercised by running the script into a scratch directory, where its
   own verification checks every written file against the repository formatter
   configuration, by linting the output with the repository's markdown rules, and by the
-  three refusal runs (outside root, symbolic-link target, symbolic-link directory), all
-  named in the PR.
+  refusal runs (outside root, symbolic-link ancestor of the root, symbolic-link target,
+  directory in a target's place, symbolic-link target directory), all named in the PR.
 - **Faithful to the corpus.** Every value reachable in a strand outside the omitted keys
   appears in its rendering. Proof: `repo-safe` — the leaf-completeness test.
 
@@ -156,7 +159,10 @@ with their tests, the writer script, the knip entry.
 ## Out of scope
 
 - Any consumer of the rendering: a plugin skill, a skills library entry, a document. Each is
-  its own artefact in its own home and commits the rendered files with a provenance pin.
+  its own artefact in its own home and commits the rendered files with a provenance pin. A
+  consumer that is itself an agent skill renders the set into its `references/` directory
+  (the reference file and `strands/` beneath it, which the Agent Skills specification
+  permits) and authors its own `SKILL.md`; the layout needs no change for that.
 - The interpretation resource adopting the corpus-reference renderer: a follow-up
   consolidation at the second consumer, its own small change.
 - The `school_context_relevance` block: it is the selector the evidence tools use, and on
