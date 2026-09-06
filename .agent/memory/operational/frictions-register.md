@@ -3868,10 +3868,12 @@ commit SHA and the closing plan reference.
   does not auto-re-review on push" is the sibling; this narrows it to
   merge-only tips.
 - **Expected**: the landing chain's docs-only class (pr-lifecycle item 5)
-  expects no Copilot leg; on other classes the chain requests the review
-  explicitly after an update merge, or the expected set declares it absent
-  for merge-only tips.
-- **Route**: pr-lifecycle worked instance; merge-bot expected-set handling.
+  expects no Copilot leg by repository configuration; on other classes the
+  expected set still comes from that configuration, so after an update
+  merge the chain requests the configured review explicitly, or the
+  quiet-window timeout settles the leg as the settlement contract provides
+  — a merge-only tip never removes a configured reviewer from the set.
+- **Route**: pr-lifecycle worked instance.
 
 ### F-168 — `merge-bot merge`'s 45-minute poll budget outlives a 10-minute background-shell bound
 
