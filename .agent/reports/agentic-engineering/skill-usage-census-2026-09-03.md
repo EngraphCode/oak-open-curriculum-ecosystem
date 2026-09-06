@@ -331,11 +331,12 @@ data says about it. None is decided here.
 
 ## Two instrument findings from the same survey (added at the 2026-09-06 consolidation)
 
-- **Demand versus registration.** For the lens skills the owner types the skill name four
-  to six times more often than the harness registers an invocation (metacognition 2,984
-  typed prompts against 643 registered uses; concept-exploration 1,163 against 177;
-  reason 854 against 182; free-play 571 against 78 — the prompt history against the
-  harness's per-name usage store, same survey, same machine); cadence skills agree; the
+- **Demand versus registration.** For the lens skills the owner types the skill name
+  between 4.6 and 7.3 times more often than the harness registers an invocation
+  (metacognition 2,984 typed prompts against 643 registered uses, 4.6×; concept-exploration
+  1,163 against 177, 6.6×; reason 854 against 182, 4.7×; free-play 571 against 78, 7.3× —
+  the prompt history against the harness's per-name usage store, same survey, same
+  machine); cadence skills agree; the
   model-chosen skills (commit, the worktree-lane set-up, the Cricket legs) run with
   near-zero typing. Likely mechanism, unverified: only the leading slash command
   registers, trailing names only when the model invokes them. The table above counts
