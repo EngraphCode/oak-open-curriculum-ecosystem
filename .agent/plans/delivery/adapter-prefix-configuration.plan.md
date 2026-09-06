@@ -316,3 +316,10 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-09-05 | PR #54 round five | The second-prefix acceptance criterion still called the smoke proof an integration test at two sites | Applied: smoke proof at both; tier-word sweep found no other mismatch |
 | 2026-09-05 | PR #54 round six | Tests with an injected reader are integration tests by the directive (a unit test contains no fakes), whatever the loader's precedent is named | Applied: pure cores under unit tests; the reader compositions under integration tests with an injected fake |
 | 2026-09-05 | PR #54 round six | The eleven-file switch exceeded the ten-file band, which re-decomposes before a branch is cut | Applied: the switch (about five files, with the one ADR sentence it falsifies) and the pin drop with its record (about eight); four units |
+| 2026-09-05 | PR #54 rounds seven–eight | Unit 2 lands `--print-prefix` without the three non-generation smoke proofs | Dispositioned on the PR reply, carried to the pickup: carry the proofs into unit 2 as a stated indivisibility, or record the linked-worktree and inertness scenarios as manual runs in its PR body |
+| 2026-09-05 | PR #54 rounds seven–eight | `test:e2e` chains named `smoke:*` scripts with no glob, so a new smoke script is not run by the chain | Dispositioned on the PR reply, carried to the pickup: unit 3 adds `smoke:skills-prefix` and appends it to the chain |
+| 2026-09-05 | PR #54 rounds seven–eight | A valid override with an absent or malformed default must resolve to the override | Dispositioned on the PR reply, carried to the pickup: one core unit case and one integration case asserting the reader never asks for the default |
+
+The three carried rows were dispositioned on PR #54's replies and named only on the lane-closed
+comms event of 2026-09-05 until the consolidation fold of 2026-09-06 mirrored them here; the
+pickup seat's first act on unit 2 is to honour them, not to rediscover them.

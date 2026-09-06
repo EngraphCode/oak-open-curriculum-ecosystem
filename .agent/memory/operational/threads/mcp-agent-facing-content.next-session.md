@@ -265,6 +265,15 @@ stale "lessons" wording on question `limit` params (C624); `download-asset` `ide
 - **Next safe step:** see below.
 - **Promotion watchlist:** the content-workspace SSOT architecture is an ADR candidate; "content as a first-class
   governed surface" + "visibility before validation" are PDR/pattern candidates (see pending-graduations).
+- **Follow-ups from the workspace generator's landing (fork `engraph`, PR #42, merged `7cd25a921` on
+  2026-09-05; mirrored here 2026-09-06 from the lane-closed comms event, which is untracked):** for the next
+  seat that touches `refresh-mcp-content-current-source-anchors` or the workspace generator — (1) a per-tier
+  split of each domain page's ownership sections, or tier-specific views: the audit contract's decision 4 asks
+  for the separation and leaves the stratification axis open, and the tier is on every item today
+  (dispositioned on the PR's round five); (2) fold
+  `pnpm --filter @oaknational/agent-tools build-mcp-content-workspace` into the current-source refresh
+  workflow so a governed content change regenerates the 25 pages in the same step (`--check` already guards
+  drift in `repo-validators:check`).
 
 ## Next Safe Step
 

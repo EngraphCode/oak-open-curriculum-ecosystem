@@ -1738,3 +1738,137 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
 - **Record re-true is not reclassification.** The switchboard verdict row is `pre-read` because the owner browsed directly and no instrument legs ran; the archived node and the design-lane record say so and that the node is closed at the owner's word. Inventing leg results to satisfy the `checkpoint` class was excluded. The LOSS SCAN entry above that names "the one owner fact still open — the viewed identity × theme cell" is CLOSED: the owner viewed every cell ("obviously I looked at all the combinations"), and the row covers all fifteen.
 - **Commit-header limit is 100 characters; measure before the ceremony.** A 101-character header was refused by the commit-msg hook after the full pre-commit run. `check-commit-message -F <msgfile>` takes one second and now runs inside the session's commit script before the window claim opens. When a hook refuses after staging, commit from the index through the same ceremony; never unstage — the hook policy blocks `git restore --staged` as work-removal, and it is right.
 - **PDR-140 state on #56:** four cure rounds landed; from here any further round is dispositions only, residue homed on the scanning node's review-dispositions table or the design-lane residue bundle.
+
+## 2026-09-06 ~13:2xZ (Finch binds Sundog, 47f9d2, implementer) — cards answered, visitor bootstrapped, projection built and gated; compaction boundary 2
+
+- **A chained script must gate every step on the previous step's exit.** A commit refused
+  by the commit-msg hook (a 101-character header) did not stop the chain: the push moved
+  nothing and the reply script posted "Cured in f9264bd55" on three threads for a cure that
+  head did not carry. Corrected on the threads within the hour with the real SHA
+  (7bbe1fc74). Generator: `;`-joined follow-on steps. Cure: capture the exit, gate every
+  dependent step on it, and measure the header before the ceremony.
+- **"Precedence is not correctness" was in my context as an always-applied rule (PDR-091)
+  and I routed it upward anyway.** The gateway code-expert cited the no-real-io rule's
+  test-helpers allowlist and a shipped IO sandbox as permission for a writer filesystem
+  test; I forwarded it as an owner question with my verdict against. Owner: IO tests are
+  errors; non-test validation, kept minimal, proves what tests cannot. Discriminator: a
+  collision with ratified structure earns a card; a precedent claim earns a refutation at
+  the seat.
+- **Facts that surprised:** the bot app is installed organisation-wide; `merge-bot push`
+  refuses a default branch by design (an empty repository's `main` is created through the
+  contents API as the bot, then everything lands through PRs) and sets no upstream; the
+  vocabulary walker skips any nested directory carrying `.git`, so a visitor needs only the
+  ignore line; prettier's `resolveConfig` from a path outside the repository returns null,
+  so a self-check that resolved from its output directory checked nothing until it resolved
+  from the script's own location; pnpm forwards `--` to the script and a strict `parseArgs`
+  rejects it; `keyof` over a union of `by_phase` shapes is the intersection, so
+  `early_years` vanishes at the type level while the runtime yields it; the evidence
+  scale runs 1 to 5 but four strands carry rating 0, so "rating N of 5" invented a scale
+  point; `school_context_relevance` is not only curation — on some strands it carries
+  per-phase and per-application impact months and a study count.
+- **What worked:** self-contained owner cards (three sets, each answered within minutes); a
+  fan-from-verdict panel of five Opus reviewers on a small package change, every one of
+  which changed the artefact (compile-time key pins over every rendered key set; a derived
+  phase-entry type; a typed corpus-value walker; the SDK boundary block widened over
+  scripts/; an ADR collision surfaced as a decision rather than settled in a README); the
+  first ecosystem visitor bootstrapped end to end under the host's Practice with the bot's
+  identity; the ADR-179 amendment landing at the owner's word in the same PR as the code.
+- **PDR-140 on #57:** rounds one to three cured in batched pushes (nine, then three
+  threads), round four dispositioned without a push, round five (three Codex P2s on the
+  runbook: harness-scoped hook refusal, the join ceremony versus host-root commands, CI on
+  the pushed branch) awaits dispositions after compaction; residue home is the runbook's
+  next edit; then land.
+- **Owner rulings this window:** IO tests are errors, precedence is not correctness (per-user
+  memory); no Oak surface read without permission, none written (relayed); PRs-to-zero with
+  open-one-land-one; the Director seat routes owner-facing decisions while it is live.
+- LOSS SCAN: the five reviewer transcripts (findings absorbed into the code, the node text
+  and this block; two code-expert cures still open, named on the handoff record); the
+  scratchpad scripts and drafts (reply scripts, PR bodies, the ADR amendment, the visitor
+  entry point) conserved by description; the visitor's untracked bot config, volatile by
+  design; round five's thread ids, on the handoff record; the decision cards' texts, whose
+  answers live in the stamps and the ADR; the lock's xmldom deprecation line, a PR-body note.
+- METALOSS: a second pass re-finds only inferences already flagged (that the consolidation
+  seat's fold merges this block semantically rests on that seat's own statement; that the
+  code-expert's eighth cure is optional rests on its severity label) and the blind spots
+  (Codex rounds after this stop; the visitor's future reviews). A third pass adds nothing;
+  the recursion closes here.
+
+## 2026-09-06 ~13:4xZ (Juno seeks Apogee, a693fb, consolidation seat under Director c5cc2c) — foundation, the comms sweep, a compaction boundary
+
+- OWNER RULING (verbatim, typed into this seat at ~13:1xZ): "This is the Engraph fork, do not access the
+  Oak repo without permission and NEVER write to the Oak repo, to Linear, or any other Oak surface". The
+  instance that drew it: `gh pr list` with no `--repo` on a checkout with three remotes resolves to the
+  remote named `upstream` (oaknational) — a read of the Oak repository's PR list. Cure applied: `gh repo
+  set-default EngraphCode/open-curriculum-ecosystem` (machine-local); every gh call carries `--repo`.
+- The hook's machine-local-path fingerprint fires on the CONTENT of a script written to the scratchpad
+  (second instance after Finch's 09-06 entry): derive the primary inside the script from `git worktree
+  list --porcelain` and pass every other path as an argument. Under worktree residency the working shape
+  held: one plain command per call, `bash <script>` for anything compound.
+- A residency switch did NOT kill the primary-armed monitors this time (watcher heartbeat file and the
+  two-leg heartbeat both advanced after `EnterWorktree`) — a counter-instance to the 2026-09-01 exit-124
+  observation; the kill is not deterministic, so the post-switch verification stays a named step.
+- The Director's re-route of this seat to remit 2 was overtaken by the owner's in-session opener eight
+  minutes earlier; the upward/downward asymmetry worked as written (follow the owner, inform the Director;
+  map corrected in one event). The lesson for a routing seat: a file edit is a hypothesis about the
+  owner's intent, never the intent.
+- DECLARED-VS-LANDED at the state layer: Kiln's 2026-09-02 pass record declares 4,420 archive moves and
+  watermarks (substantive through 2026-08-14T06:16:28Z; heartbeats through 2026-08-12T06:29Z), but this
+  checkout's `comms-archive/` newest event is 2026-08-12 and the live stream still holds the 537 swept
+  substantive events and 2,034 heartbeats. A pass record can be true where it was written and false where
+  it is read — the stale-capture-wins shape one layer down. The counts for this machine are recomputed
+  here; the moves run under the gates on this seat's resume.
+- COMMS SWEEP YIELD (218 high-value events after the watermark, read first-hand, ~120k tokens): eight
+  un-homed items; ONE class carries loss risk — follow-up pointers that live only on untracked lane-closed
+  events (#38's nine on fdbc82a5, #42's two on 9bcf4767, #54's three on 476c499e). The estate's convention
+  and the 09-06 ruling both name the lane-closed event as a home, but comms events are untracked-by-design
+  and rotate. Proposal: a pointer named at lane close is mirrored into a TRACKED home (the owning plan
+  node's dispositions, or the thread record) before the lane closes; falsifier: a ruling that the comms
+  archive is a pickup-readable home. First act on resume: home the fourteen (nine, two and three;
+  the seat's own events said "twelve" — a count typed from memory, corrected at review).
+- PROPORTIONALITY: the previous pass's measured yield (zero un-homed signals in 496 events) predicted this
+  one; a sample of lane-closed and owner-word events would have found the loss-risk class at a fraction
+  of the cost. The full read was defensible under the skill's body-read bar; the value of this pass is in
+  the napkin, distilled and the register, none yet started.
+- Play seeds (associations, discards visible): kept — "a lane-closed event is a letter left on a table
+  that gets cleared" (crossed into the proposal above); "declared moves that never landed" (the entry
+  above). Discarded: a strata reading of the comms window; an archivist-versus-curator riff.
+- Three Sonnet extractor subagents were dispatched over the routine windows (58k bytes each); at the
+  boundary one had reported in full (nothing new to home beyond two verifications) and two had arrived
+  truncated in transit. The two are re-collected as files on resume and every kept leaf is spot-read
+  against the event file before use.
+
+## 2026-09-06 ~13:5xZ (Finch binds Sundog, 47f9d2, implementer) — resume after compaction boundary 2; #57 landed, #58 open
+
+- **#57 landed** as f1a142841 (13:41Z): round five dispositioned by reply (three Codex P2s on
+  the runbook; residue home the runbook's next edit, a later records PR); the merge-bot's
+  verdict was SETTLED-NO-REVIEW (Codex tip-bound, Copilot skipped on the quiet-window
+  timeout), so the sanctioned bot REST merge landed it after a fresh compound read (checks
+  by name, threads zero, head pinned). Chain: remote branch deleted, primary fast-forwarded,
+  the visitor clone moved to the primary's `visitors/` BEFORE the records worktree and merged
+  branch were pruned, claim closed, successor claim opened on the code lane's paths.
+- **Governed scope surprise:** `packages/sdks/graph-corpus-sdk/src/eef-strands` is a
+  `DELTA_SCOPE_PATHS` entry of the MCP current-source ledger, so the pre-commit gate
+  `validate-mcp-content-current-source` refused the projection's first commit ("Reviewed
+  semantic-delta files differ", eleven files). The package gates never run that validator;
+  a lane touching a governed path must run it as a lane gate BEFORE the ceremony. Cure shape:
+  one review-ledger file per concern (`current-source-delta-reviews-sdk-corpus-projection.ts`,
+  eleven `excluded(...)` dispositions with the semantic hashes, wired into the aggregator),
+  then `refresh-mcp-content-current-source-anchors`; only the delta inventory changed.
+  Honest dispositions: the renderers are a projection for a file export on no served
+  surface (ADR-179 amendment), key pins and type helpers type-only, the barrel
+  implementation-only, the test helper test-only.
+- **Ceremony facts:** the commit-window claim pattern must be the bare `index/head` — the
+  guard rejects `index/head@<worktree>` ("not an active git:index/head claim"); one failed
+  run, self-cleaned by the script's abandon path. Owner author rides as `GIT_AUTHOR_NAME`
+  and `GIT_AUTHOR_EMAIL` env on `commit-queue commit`; bot committer from the shared config.
+  Every chained step gated on its exit code this time; both ceremonies reported truthfully.
+- **#58 open** (13:48Z), non-draft, head cc34e66e3: the projection code, ADR-179 amendment,
+  the review ledger and the node re-true (Tests bullet, "Writable to any directory", writer
+  behaviour, the `school_context_relevance` follow-up). PDR-140 intake budget in the body.
+  Count 1 under open-one-land-one; the runbook's records PR waits for #58's landing.
+- **Primary hygiene:** the `.claude/settings.json` modification is a harness rewrite at my
+  13:21Z restart (the Director's read, 13:45Z) — held out of folds, not this seat's to
+  touch. My stderr sinks are moved off `.agent/state/collaboration/` to the scratchpad.
+- LOSS SCAN: the merge-bot's full refusal object (verdict evidence, on the task output);
+  round five's reply texts (on the PR threads); the eleven semantic hashes (in the ledger
+  file, tracked on the lane). METALOSS: nothing new beyond the boundary-2 pass.
