@@ -179,6 +179,15 @@ Director, or to the owner at an action moment — never a licence to fall back
 to owner credentials. The fallback happens only when the owner explicitly
 permits it, and the owner generally instigates it.
 
+Before surfacing a blocker, check where the pull request's HEAD lives. Bot
+and reviewer tooling act on the repository they are installed on, so a pull
+request whose head sits on a fork refuses three ways at once — the bot with
+no fork access, the review-request tool with a 403, the REST reviewer
+endpoint silently dropping the handle — and the cure is re-homing the head
+onto a branch of the shared repository, after which every instrument works
+unchanged (under an hour, 2026-09-01). Three failures with one cause are a
+topology fact, never three blockers.
+
 ## The action map (owner ruling 2026-08-17) — general, not per-seat
 
 Owner ruling, MG, 2026-08-17, verbatim:
