@@ -179,7 +179,7 @@ drift. After adding or changing a pattern file, regenerate with
 
 ## Pattern Index
 
-### Code (32)
+### Code (33)
 
 - **\"Widen\" Is a Type Smell — Discriminate Model-Wrong From Correct-and-Violated** *(anti-pattern)* -- Use this when: About to widen a list, type, union, or allowlist to make a case pass (or an owner/reviewer flags a 'widen') — the reach for a wider shape is usually hiding a type problem. → [widen-is-a-type-smell.md](widen-is-a-type-smell.md)
 - **A Lint-Rule Pincer Is a Design Signal, Not an Obstacle** -- Use this when: Two (or more) lint rules jointly ban every shape you can think of for an in-component or in-function implementation, and the reflex is to disable one rule or contort past them. → [lint-rule-pincer-is-a-design-signal.md](lint-rule-pincer-is-a-design-signal.md)
@@ -209,6 +209,7 @@ drift. After adding or changing a pattern file, regenerate with
 - **Pure Leaf Module Extraction** -- Use this when: Pure functions and I/O functions coexist in a module, and other modules need only the pure functions. → [pure-leaf-extraction.md](pure-leaf-extraction.md)
 - **String-Based Codegen Type-Safety Gap** *(anti-pattern)* -- Use this when: A code generator emits code as string templates rather than AST nodes, and the output includes API calls with specific argument names or shapes. → [string-codegen-type-safety-gap.md](string-codegen-type-safety-gap.md)
 - **Template Literal Derived Union with Builder** -- Use this when: A string union type is the cross-product of two smaller unions joined by a separator, and code constructs members at runtime via template literals. → [template-literal-derived-union.md](template-literal-derived-union.md)
+- **timing-derived-state-is-the-defect** *(anti-pattern)* -- Use this when: >-. → [timing-derived-state-is-the-defect.md](timing-derived-state-is-the-defect.md)
 - **Unknown Until Validated** -- Use this when: a function produces data whose type cannot be statically verified and a validation boundary exists downstream. → [unknown-until-validated.md](unknown-until-validated.md)
 - **Validate a Sampled Schema Against the Complete Corpus** -- Use this when: A type, union, schema, or universal claim was derived from a SAMPLE of the data it describes — and you are about to trust it for the whole corpus (build on it, verify with it, or assert it). → [validate-sampled-schema-against-complete-corpus.md](validate-sampled-schema-against-complete-corpus.md)
 - **Validation Error Severity Separation** -- Use this when: A schema validation error message lists all absent fields alongside actually failing fields, making operators debug the wrong variables. → [validation-error-severity-separation.md](validation-error-severity-separation.md)

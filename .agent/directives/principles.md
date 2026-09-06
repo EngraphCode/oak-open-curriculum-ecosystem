@@ -227,6 +227,14 @@ architecture keeps it extractable. A component whose licence cannot
 be named in one word is one where general mechanism and Oak identity
 cohabit.
 
+A mechanism built to prove a capability is a consumer of the
+framework, never the framework: check its warrant when it outlives its
+demonstration. An identity built as an override sheet to prove live
+switching quietly became the architecture until the owner read the
+substitution off the page's own badges (2026-08-18); the day's defect
+ledger argued for self-containment, and the demonstration instrument
+was retired with its demo.
+
 ### Context Specificity Gradient
 
 Every capability decomposes by context specificity. Push functionality
@@ -308,6 +316,25 @@ this way produces cleaner boundaries and simpler classification.
   command MUST target the canonical surface and fail loudly when that
   surface is absent or invalid; it must not quietly scan an old location,
   skip a missing canonical directory, or keep a migration path alive.
+- **No timing dependence** - nothing we build relies on timing, ordering
+  luck, or a race being unlikely (owner principle, 2026-08-17, verbatim:
+  "nothing we do should ever, ever rely on timing or races, we build
+  things so they WORK" — "an important principle of fleet mechanics, and
+  also in general"). Eliminate the shared mutable resource instead of
+  shrinking its window; make the correct order structural (a render-time
+  latch, a declarative guard, a per-seat directory) instead of scheduled;
+  in review, a correctness argument that contains "the window is small",
+  "usually", or an ordering assumption names a defect. The worked shapes
+  are the anti-pattern `timing-derived-state-is-the-defect`; its
+  read-side dual is the pattern `timing-artefact-read-as-state`.
+- **Exactly one holder** - any singleton-authority state (a coordinator
+  role, a commit window, a document root's theme, an index) has exactly
+  one holder at all times: never zero, never two. Ownership is decided by
+  context up front, never negotiated at runtime between two well-meaning
+  holders — two theme holds on one root corrected each other forever
+  until context (standalone: the page; framed: the parent) chose the
+  owner (2026-08-19); the coordinator two-moments invariant of PDR-064 is
+  the same rule for roles.
 - **Pure functions first** - Use TDD to design (*test first*, red,
   green, refactor), no side effects, no I/O
 - **Consistent Naming** - Use consistent naming conventions for

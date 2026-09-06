@@ -376,7 +376,11 @@ protocol's five steps):
   decisions): the record substrate plus claim ADOPTION carry the
   succession — the predecessor's handoff record and claim transfer to
   the successor (worked instances at the peer estate: the 2026-07-07
-  standby→successor adoption; the 2026-07-08 in-flight succession).
+  standby→successor adoption; the 2026-07-08 in-flight succession; at
+  this estate: the 2026-09-03 swap Vesta rides Solstice → Chinook seeks
+  Cloud, record `01e418de-vesta-rides-solstice-to-chinook-seeks-cloud-2026-09-03.md`,
+  where the owner's word alone started the succession with no budget
+  signal in play and the claim was adopted against the record).
 - **The lane is AT REST** (work landed, claim closed, no open
   decisions): the hand is TRACKED-SURFACES-ONLY — there is NO claim
   to adopt and NO handoff record; the successor opens their OWN claim
