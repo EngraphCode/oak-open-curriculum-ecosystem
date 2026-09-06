@@ -17,8 +17,9 @@
  * symbolic links and without blocking, checked through its own descriptor to
  * be a regular file, and only then truncated and written, so a symbolic link,
  * a directory, a named pipe, a socket or a device in the target's place is
- * refused with no check-then-write window and no hang; a platform that cannot
- * open a file without following links is refused outright. Every
+ * refused with no check-then-write window and no hang; a platform whose
+ * no-follow flag is absent or inert (present with the value 0) is refused
+ * outright. Every
  * written file is then checked against this repository's own formatter
  * configuration (resolved from the script's location, never from the output
  * directory), so a drift between the renderer's normal form and the
@@ -106,7 +107,9 @@ function ensureContainedDirectory(directory: string, base: string): string | Ref
  * so the refusal, the open and the truncation leave no window between them.
  */
 function openRegularFileForWriting(target: string, relativePath: string): number | Refusal {
-  if (!Object.hasOwn(constants, 'O_NOFOLLOW')) {
+  // Presence is not support: a platform can expose the flag with the value 0,
+  // where it does nothing and a link would be followed.
+  if (!Object.hasOwn(constants, 'O_NOFOLLOW') || constants.O_NOFOLLOW === 0) {
     return {
       refused:
         'this platform cannot open a file without following symbolic links; run under a POSIX shell',
