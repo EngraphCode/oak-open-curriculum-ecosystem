@@ -54,9 +54,11 @@ const config = defineConfigArray(
   },
 
   // SDK runtime boundary rules (ADR-108): block deep imports into the
-  // generation workspace; permit single-level subpath exports only.
+  // generation workspace; permit single-level subpath exports only. The
+  // writer script under scripts/ imports this package's own src and is held
+  // to the same boundary.
   {
-    files: ['src/**/*.ts'],
+    files: ['src/**/*.ts', 'scripts/**/*.ts'],
     rules: {
       ...createSdkBoundaryRules('runtime'),
     },

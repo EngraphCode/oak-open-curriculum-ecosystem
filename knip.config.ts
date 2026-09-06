@@ -331,8 +331,14 @@ const config: KnipConfig = {
       // Source entries behind the dist-pointing exports map, one per subpath
       // (see oak-eslint note on the removed `development` condition — the
       // former exports-map auto-detection resolved that condition to src).
-      entry: ['src/index.ts', 'src/eef-strands/index.ts', 'src/curriculum/index.ts'],
-      project: ['src/**/*.ts'],
+      entry: [
+        'src/index.ts',
+        'src/eef-strands/index.ts',
+        'src/curriculum/index.ts',
+        // The markdown-projection writer, run via `pnpm render:eef-markdown`.
+        'scripts/**/*.ts',
+      ],
+      project: ['src/**/*.ts', 'scripts/**/*.ts'],
     },
     'packages/sdks/oak-curriculum-sdk': {
       // Knip cannot resolve entries through createSdkConfig() factory.

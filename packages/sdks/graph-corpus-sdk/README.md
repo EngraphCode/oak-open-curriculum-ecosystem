@@ -30,10 +30,21 @@ The `eef-strands` module is the typed raw-data foundation over
   `related_strands`.
 - **Corpus-level provenance** — `corpusMeta`, `corpusCaveats`,
   `corpusMethodology`, `lastUpdated`.
+- **Markdown projection** — `renderEefMarkdownFiles` (the corpus reference
+  plus one file per strand, with paths from `strandFilePath` and
+  `CORPUS_REFERENCE_FILE`), built on `renderStrandMarkdown` and
+  `renderCorpusReferenceMarkdown`: pure, formatter-normal renderings of the
+  corpus for consumers that commit the evidence as files with a provenance
+  pin naming `corpusMeta.data_version`. The renderers return text and paths;
+  the package script `render:eef-markdown` (see §Scripts) writes the set
+  where it is told and verifies every file against the repository's
+  formatter configuration. It only writes: a file an earlier render
+  produced that the current corpus no longer does is the caller's to
+  remove.
 
-The graph-native projection, graph query layer, and MCP schemas are built
-downstream in their consumer layers; this package owns the corpus types
-only.
+The MCP schemas are built downstream in their consumer layers; this package
+owns the corpus types, the graph-native view and query layer over them, and
+their transport-free projections.
 
 ## Architectural decisions
 
@@ -61,6 +72,7 @@ pnpm --filter @oaknational/graph-corpus-sdk type-check
 pnpm --filter @oaknational/graph-corpus-sdk lint
 pnpm --filter @oaknational/graph-corpus-sdk test
 pnpm --filter @oaknational/graph-corpus-sdk build
+pnpm --filter @oaknational/graph-corpus-sdk render:eef-markdown --out <dir>
 ```
 
 ## License
