@@ -3,10 +3,10 @@ id: adapter-prefix-configuration
 node_type: delivery
 name: "The adapter prefix resolves from one point of configuration"
 overview: "Replace the hand-pinned adapter prefix with one resolver over a tracked default and an untracked per-checkout override behind a tracked example, proven for a second prefix in isolation while the projected skill names stay exactly as they are."
-status: sketch
-ratified_by: null
-ratified_date: null
-ratified_where: null
+status: ratified
+ratified_by: "Jim Cresswell (owner)"
+ratified_date: 2026-09-06
+ratified_where: "Owner answers at the lead seat (Flounder turns Estuary, c5cc2c), 2026-09-06 ~09:5xZ: 'ratified with notes below'; the notes are quoted verbatim in this node's Ratification notes and on the comms event of the same hour"
 serves: organisational-identity-below-the-tree
 impact_areas:
   - practice-and-estate
@@ -15,7 +15,7 @@ depends_on:
   - plan: code-quality-binding-per-checkout
     kind: beneficial
 owner_gates: []
-last_updated: 2026-09-05
+last_updated: 2026-09-06
 ---
 
 # The adapter prefix resolves from one point of configuration
@@ -31,6 +31,23 @@ projected changes: this checkout keeps `oak-`, every adapter directory stays com
 and byte-identical, and the switch to another prefix on any checkout is a later, separate
 decision. The owner's word on 2026-09-05: build and prove the mechanism, make the names
 easier to change later, do not change them yet.
+
+## Ratification notes (2026-09-06)
+
+The owner ratified this node with two notes, verbatim:
+
+1. "we don't want a dirty tree or doubled skills, those are both obviously terrible ideas,
+   that is why I already decided, and told you, that what I want is the mechanism
+   implementing, but no config changes yet, so the output continues to be exactly what it
+   is today, just using the improved code that makes future changes easy."
+2. "this checkout will not switch to e-"
+
+Consequences carried into this node: every unit lands the mechanism and nothing else — no
+override file is created on any checkout, the tracked default holds `oak-`, and the
+projected adapters stay byte-identical. The question the earlier draft held open, whether
+the committed projections should become install-generated, is dissolved by the first note:
+with no override there is nothing to double and no tree to dirty, and ADR-125's committed
+adapters stand. The isolated-root proof is the only place a second prefix appears.
 
 ## User groups and value
 
@@ -227,11 +244,12 @@ Four PR-shaped units, each inside the sizing bands and safe on its own, in this 
 
 ## Out of scope
 
-- Switching this checkout, or any checkout, to another prefix: the owner's deferral; the
-  override file is not created here, and the isolated-root test is the only place `e-`
-  appears.
-- Untracking the projections and amending ADR-125's committed-adapters decision: the
-  decision this slice informs, taken separately.
+- Switching this checkout, or any checkout, to another prefix: the owner's ruling of
+  2026-09-06 is that this checkout will not switch; the override file is not created
+  anywhere, and the isolated-root test is the only place `e-` appears.
+- Untracking the projections and amending ADR-125's committed-adapters decision: dissolved
+  by the owner's ruling of 2026-09-06 that no configuration changes yet — with no override
+  there is nothing to double and no tree to dirty, so the committed adapters stand.
 - The `Skill(oak-*)` pre-approval entries in the tracked harness settings, the prose that
   names projected skills, and the four runtime strings that name `/oak-start-right-team`
   and `oak-consolidate-docs`: none is wrong while the names stand; they belong to the

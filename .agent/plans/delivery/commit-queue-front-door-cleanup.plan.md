@@ -5,7 +5,8 @@ name: Commit-queue front-door cleanup command
 overview: >-
   A front-door agent-tools command that archives terminal and expired
   commit-queue entries so the live registry reads clean without hand-editing.
-status: ratified
+status: superseded
+superseded_by: commit-queue-local-ephemera
 ratified_by: "Jim Cresswell"
 ratified_date: 2026-08-08
 ratified_where: >-
@@ -17,10 +18,16 @@ impact_areas:
 tickets: []
 depends_on: []
 owner_gates: []
-last_updated: 2026-08-07
+last_updated: 2026-09-06
 ---
 
 # Commit-queue front-door cleanup command
+
+**Superseded (2026-09-06)** by `commit-queue-local-ephemera`, which replaced the shared
+commit-queue registry this command was to clean with per-intent, machine-local queue
+files (landed 2026-09-04); there is no shared registry left to archive entries from. The
+transition is the seat's under the plan-node schema's lifecycle; the support seat routed
+it at that lane's close.
 
 Owner word commissioning this plan (2026-08-07, decision card at the
 Director seat, verbatim): "Create a repo plan for it, not all work needs
