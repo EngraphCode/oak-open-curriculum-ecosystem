@@ -75,8 +75,7 @@ Make the order structural, or remove the need for one:
   at all.
 - **The mover-has-moved guard** — express a transition as "the mover has
   moved" instead of "enough time has passed": the seam's previous-state
-  latch, the declarative focus guard, and the merge bot's head-pinned quiet
-  window are one shape.
+  latch and the declarative focus guard are one shape.
 - **Verify a disposition at the guard site.** A rationale quoted from an
   adjacent surface (a claims-advisory doctrine, for a queue guard's
   mechanical refusal) is refuted by the guard itself; read the guard.
@@ -86,4 +85,10 @@ Make the order structural, or remove the need for one:
 A case where the structural cure costs more over the system's life than
 the race's measured harm — that would argue for a bounded, measured window
 with an in-band detector that makes cross-contamination visible when it
-happens, never for a bare probability argument.
+happens, never for a bare probability argument. The merge bot's quiet
+window is that bounded shape, not a structural cure: the pr-lifecycle
+contract names it a proxy for review-run-boundary visibility that agents
+lack, sized longer than the measured async lag and anchored on the latest
+review binding; the head pin beside it is the structural part (a different
+revision cannot merge), and an owner word issued from direct visibility of
+the run boundary supersedes the proxy.
