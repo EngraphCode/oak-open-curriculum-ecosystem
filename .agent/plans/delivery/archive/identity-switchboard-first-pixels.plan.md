@@ -29,6 +29,16 @@ whose W3 carries the controls' next form and whose §Relationships row
 records the two decided states R9/R8 moved. Conserved as the pull-forward's
 design record.
 
+**Owner verdict on the owner-held criterion (2026-09-06, verbatim):** "The
+switchboard is wow enough for today. It will need to be more wow in future."
+The verdict is recorded as a pre-read register row covering every identity ×
+theme cell: the owner viewed all of them directly, so no instrument legs ran
+and the checkpoint class (which requires their results) does not apply, and no
+screenshot baselines were captured at that browse. The criterion's substance —
+the owner's verdict in the register with the owner's words as source — is
+proven, and at the owner's word nothing further is required; nothing on this
+node is open.
+
 Authored at the owner's word (2026-08-09 morning, plan-mode build selection):
 a decision-complete pull-forward that takes the estate to the showcase app
 serving a design-system-built version of the export's identity-picker page
