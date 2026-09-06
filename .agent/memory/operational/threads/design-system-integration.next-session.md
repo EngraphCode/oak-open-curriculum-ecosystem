@@ -3846,3 +3846,20 @@ seat and the #915 fold landing seat, at direct owner word; no Director seated.
      reviewer's pass alongside item 4.
   Each item was dispositioned on the PR with its falsifier (Codex rounds eight and nine,
   15:44Z–16:20Z) and resolved under the bot; none was pushed, by the lane's binding.
+
+## Consolidation fold 2026-09-06 (Juno seeks Apogee, a693fb — additive; three seeds from the 2026-08-18/19 window, homed here for the lane's next records PR)
+
+- **Lead an owner demo with the falsifier.** Showing a defect DIE on camera (the
+  reduced-motion leak, 2026-08-18) turned it into narrative capital; a demo that opens on the
+  failing case and closes on the cure carries its own proof. One instance; a
+  demo-preparation note for this lane's plan estate if it recurs.
+- **Shared callback identity plus DOM dedupe is teardown theft.** Subscribers sharing one
+  upstream callback register identical (type, callback, capture) tuples; the DOM
+  deduplicates them, so one subscriber's `removeEventListener` deletes the registration
+  everyone depends on. Per-subscription wrapper identity makes tracked removal safe. Home
+  when the surface exists: the design-react package's implementation notes (the disclosure
+  code is not on this branch).
+- **The forced-colours radio regression has no automated sensor.** axe disables its
+  colour-contrast rule under forced colours, so that regression class is caught only by a
+  rendered read (2026-08-18); a known limit for the accessibility practice's rendered-proof
+  step.

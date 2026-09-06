@@ -3014,6 +3014,10 @@ commit SHA and the closing plan reference.
   commit-queue guard.
 - **Status**: open. Worked around via the skill's sanctioned worktree shape (plain
   `git commit -F`, pathspec-staged, first-hand staged-set verification, background task).
+  Recurred 2026-09-06 at two seats (Finch binds Sundog 47f9d2, 13:5xZ; Juno seeks Apogee
+  a693fb, 14:0xZ): the bare `index/head` opened from the worktree is the working shape and
+  the queue ceremony then runs end to end; the commit skill's merge-commit section still
+  prescribes the rejected spelling (skills-lane true-up named at the consolidation).
 - **Owner direction status**: standing (record-all-frictions).
 
 ### F-133 — the `commit-queue commit` workflow verifies staged state against the PRIMARY checkout, so worktree seats structurally cannot ride it
@@ -3806,7 +3810,13 @@ commit SHA and the closing plan reference.
   (~30 minutes); its silence was indistinguishable from "no change", and a
   60 s `gh pr view` poll emitting only on reviewDecision / mergeStateStatus
   / head change, terminating on MERGED/CLOSED, caught the owner's merge
-  within a minute.
+  within a minute. 2026-09-06 (Finch binds Sundog, 47f9d2): `pr-watch 58
+  --watch --interval 60` under a Monitor emitted nothing for 33 minutes
+  across three reviewer submissions, six threads and two failing checks;
+  replaced by a direct `gh` read poll. The consolidation seat the same day
+  armed a 60 s change-emitting `gh` poll from the start (head, merge state,
+  review decision, check rollup, unresolved-thread count) and never the
+  tool.
 - **Expected**: one line per head change and per check-state transition; a
   heartbeat line at a fixed cadence so a dead watcher is visible; ALL-GREEN
   requires mergeable plus no standing change-request, or a
@@ -3818,7 +3828,10 @@ commit SHA and the closing plan reference.
 - **Observed**: 2026-09-02 (Luna seeks Twilight, 5c0ddc): a claim's areas
   named a run-record path that broke the archive's filename convention
   (`YYYY-MM-DD-<target>.md`); the only honest cure was close + reopen,
-  recorded in the closure summary.
+  recorded in the closure summary. 2026-09-06 (Juno seeks Apogee, a693fb): a
+  Director-approved extension of a consolidation claim to four more paths
+  was close + reopen again (38ec1aaf → bf754a27), the handoff record
+  re-attached by hand and the heartbeat loop restarted on the new id.
 - **Expected**: `claims amend --area` (or an equivalent single-row edit)
   that preserves the claim id and history.
 - **Route**: agent-tooling backlog.
