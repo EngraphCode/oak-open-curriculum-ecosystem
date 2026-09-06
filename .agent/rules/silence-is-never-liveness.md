@@ -27,7 +27,10 @@ any gap in an expected signal.
    re-armed (hourly watcher rotations, post-restart recovery) is
    watched by something else or bounded by a declared
    next-active-turn fallback, so a missed re-arm surfaces instead of
-   accumulating.
+   accumulating. The one re-arm whose deadline is the owner's word is the
+   paused seat (the liveness rule's owner-word stand-down exemption): its
+   quiet is declared by a heartbeat-end event before it begins, and that
+   declaration is what makes it not silence.
 4. **Before relying on any watch, verify the positive signal**, not
    the absence of alarms: stat the heartbeat file, run the assert, read
    the cursor movement. "No alerts" is not a health check.

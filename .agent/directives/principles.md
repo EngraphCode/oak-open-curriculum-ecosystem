@@ -428,6 +428,16 @@ this way produces cleaner boundaries and simpler classification.
   of responsibility, keeping boundaries and public API clear with
   index.ts files, using TDD. Run lint after every substantive edit
   to catch violations early.
+- **Never trim documentation to fit a limit** — size and complexity
+  limits exist for developer experience, and documentation IS
+  developer experience; a file over its limit is a signal of an
+  unsplit seam, never of excess explanation. Split at a meaningful
+  responsibility seam with each half fully documented; never
+  condense TSDoc, comments or docs to satisfy the number (owner,
+  2026-08-03: "we never trim to hit complexity limits … the
+  approved approach is to split files by identifying fundamentally
+  meaningful seams"; 2026-09-01: "we do not trim information to
+  meet targets, we maximise developer experience").
 - **Splitting long functions** - If a function exceeds 50 lines
   (`max-lines-per-function`), split it into smaller, pure functions
   with a single responsibility, using TDD. Extract conditional

@@ -3014,6 +3014,10 @@ commit SHA and the closing plan reference.
   commit-queue guard.
 - **Status**: open. Worked around via the skill's sanctioned worktree shape (plain
   `git commit -F`, pathspec-staged, first-hand staged-set verification, background task).
+  Recurred 2026-09-06 at two seats (Finch binds Sundog 47f9d2, 13:5xZ; Juno seeks Apogee
+  a693fb, 14:0xZ): the bare `index/head` opened from the worktree is the working shape and
+  the queue ceremony then runs end to end; the commit skill's merge-commit section still
+  prescribes the rejected spelling (skills-lane true-up named at the consolidation).
 - **Owner direction status**: standing (record-all-frictions).
 
 ### F-133 — the `commit-queue commit` workflow verifies staged state against the PRIMARY checkout, so worktree seats structurally cannot ride it
@@ -3806,7 +3810,13 @@ commit SHA and the closing plan reference.
   (~30 minutes); its silence was indistinguishable from "no change", and a
   60 s `gh pr view` poll emitting only on reviewDecision / mergeStateStatus
   / head change, terminating on MERGED/CLOSED, caught the owner's merge
-  within a minute.
+  within a minute. 2026-09-06 (Finch binds Sundog, 47f9d2): `pr-watch 58
+  --watch --interval 60` under a Monitor emitted nothing for 33 minutes
+  across three reviewer submissions, six threads and two failing checks;
+  replaced by a direct `gh` read poll. The consolidation seat the same day
+  armed a 60 s change-emitting `gh` poll from the start (head, merge state,
+  review decision, check rollup, unresolved-thread count) and never the
+  tool.
 - **Expected**: one line per head change and per check-state transition; a
   heartbeat line at a fixed cadence so a dead watcher is visible; ALL-GREEN
   requires mergeable plus no standing change-request, or a
@@ -3818,7 +3828,137 @@ commit SHA and the closing plan reference.
 - **Observed**: 2026-09-02 (Luna seeks Twilight, 5c0ddc): a claim's areas
   named a run-record path that broke the archive's filename convention
   (`YYYY-MM-DD-<target>.md`); the only honest cure was close + reopen,
-  recorded in the closure summary.
+  recorded in the closure summary. 2026-09-06 (Juno seeks Apogee, a693fb): a
+  Director-approved extension of a consolidation claim to four more paths
+  was close + reopen again (38ec1aaf → bf754a27), the handoff record
+  re-attached by hand and the heartbeat loop restarted on the new id.
 - **Expected**: `claims amend --area` (or an equivalent single-row edit)
   that preserves the claim id and history.
 - **Route**: agent-tooling backlog.
+
+### F-166 — `merge-bot merge` cannot read review-run liveness and degrades the verdict to SILENT-WAIT
+
+- **Observed**: 2026-09-02 (Finch calls Pinnacle, c91bd4, PR #908 on the
+  canonical line; conserved as received); reproduced 2026-09-06 (Juno seeks
+  Apogee, a693fb, PRs #59, #60 and #61 on this line). The review-run leg
+  reads `gh agent-task view … --json id,completedAt,pullRequestNumber,pullRequestUrl`
+  through the boundary parser in `agent-task-fields.ts`; when the view
+  returns `pullRequestNumber` and `pullRequestUrl` as null the parse fails
+  and the leg degrades to a typed `unavailable` (the verdict evidence
+  carries `review-run liveness unavailable: … expected number, received
+  null`), so WAITING-REVIEW-RUN-LIVE is unreachable. With the runs
+  unreadable the most-blocking leg reads SILENT-WAIT-RUNS-UNREADABLE for a
+  reviewer that was requested and SILENT-WAIT-NO-REVIEWER for one that was
+  not (the docs-only class requests none — the state these instances saw);
+  the tool polls neither, so the seat retries by hand.
+- **Expected**: the view parser tolerates null `pullRequestNumber` /
+  `pullRequestUrl` (a run not yet bound to a pull request is a live run, not
+  an unreadable surface), so a running reviewer reaches the wait-class
+  verdict the tool polls; the cure sits in `agent-task-fields.ts`, not in a
+  new hosting-service integration.
+- **Route**: agent-tooling backlog (pr-watch review-runs leg, consumed by
+  merge-bot).
+
+### F-167 — Copilot's automatic review does not bind a tip that is only a merge commit of the base
+
+- **Observed**: 2026-09-02 (Finch calls Pinnacle, c91bd4, PR #908; conserved
+  as received, not reproduced). After a "merge base in, then land" push,
+  Copilot posted no review on the merge-only tip, so the Copilot leg read
+  OWED until it was requested explicitly. The 2026-08-11 finding "Copilot
+  does not auto-re-review on push" is the sibling; this narrows it to
+  merge-only tips.
+- **Expected**: the landing chain's docs-only class (pr-lifecycle item 5)
+  expects no Copilot leg by repository configuration; on other classes the
+  expected set still comes from that configuration, so after an update
+  merge the chain requests the configured review explicitly, or the
+  quiet-window timeout settles the leg as the settlement contract provides
+  — a merge-only tip never removes a configured reviewer from the set.
+- **Route**: pr-lifecycle worked instance.
+
+### F-168 — `merge-bot merge`'s 45-minute poll budget outlives a 10-minute background-shell bound
+
+- **Observed**: 2026-09-02 (Finch calls Pinnacle, c91bd4; the 2026-08-12 entry
+  "merge-bot polls outlive the Bash default" is the earlier form); met by
+  design 2026-09-06 (Juno seeks Apogee, a693fb): the chains run under a
+  persistent monitor with a retry loop. The tool's poll loop (30 s × 90)
+  outlives a harness background task's maximum bound, so a chain started as
+  a background shell is killed before the tool's own budget ends; the
+  tool's non-wait refusals (SILENT-WAIT, THREADS-OPEN) also return at once,
+  so a landing needs an outer loop.
+- **Expected**: the tool documents that it must run under a session-length
+  monitor, or takes a `--wait-for-reviewer` mode that polls SILENT-WAIT too.
+- **Route**: merge-bot documentation; the landing-loop shape in the
+  pr-lifecycle skill.
+
+### F-169 — the commit queue serialises commit windows ACROSS worktrees even with disjoint files
+
+- **Observed**: 2026-09-05 (Flounder turns Estuary, c5cc2c, the #41/#42
+  landing arc). `commit-queue guard` refuses a fresh intent ahead of yours
+  even when its files are disjoint and it was enqueued from another
+  worktree, so parallel lanes commit in sequence and publish in parallel.
+- **Expected**: the guard scopes contention to the invoking tree (F-132's
+  same-tree reading) or to overlapping files.
+- **Route**: agent-tooling backlog (commit-queue), beside F-132.
+
+### F-170 — the liveness heartbeat loop has no consumer-absence exit
+
+- **Observed**: 2026-09-05/06 (Finch binds Sundog, 47f9d2: about 240
+  heartbeat events overnight with no consumer after the lead closed at
+  16:40Z; Buzzard lifts Eyrie, 326bcb, the same night's seed). The two-leg
+  loop beats every four minutes until a seat stops it by hand; the registry
+  already shows when the seat is alone (one claim), which is PDR-078 §4's
+  consumer-absent condition.
+- **Expected**: the loop reads the registry each tick and, after N
+  consecutive ticks with no other live claim, SUSPENDS emission (with a
+  heartbeat-end event) while keeping its registry read alive as a
+  lightweight detector, resuming emission the tick a consuming peer's
+  claim appears — PDR-078 §4's consumer-absent exemption is self-healing by
+  contract, so an exit that leaves no detector would show the new peer a
+  silent active seat and open the retirement protocol at ten minutes. A
+  seat beating for an owner watching the stream is not a consumer by the
+  exemption's own text.
+- **Route**: agent-tooling backlog (heartbeat mode); the liveness rule's
+  exemption already names the condition.
+
+### F-171 — `comms inbox` has no `--since` flag
+
+- **Observed**: 2026-09-03 (Buzzard lifts Eyrie, 326bcb), relayed at the
+  boundary. The post-arm foreground gap sweep has to read the whole inbox or
+  rely on the seen-file cursor; a `--since <iso>` would make the sweep from
+  a freeze timestamp one call.
+- **Expected**: `comms inbox --since <iso>` (and `comms list --since`
+  parity).
+- **Route**: agent-tooling backlog (comms CLI).
+
+### F-172 — a failed pre-commit step leaves a fresh intent that blocks the next enqueue
+
+- **Observed**: 2026-09-06 (Juno seeks Apogee, a693fb). A guard refusal
+  (the window claim opened under the wrong label, F-132) left the enqueued
+  intent fresh; the retry's guard then refused on "multiple fresh matching
+  commit-queue intents" until both were moved to `abandoned` by hand with
+  `phase --intent-id … --phase abandoned`. There is no `abandon` verb and
+  the ceremony had no failure branch that abandoned its own intent.
+- **Expected**: `guard` failure abandons the intent it was guarding (or a
+  documented `abandon` verb exists), and the ceremony's failure branches
+  call it.
+- **Route**: agent-tooling backlog (commit-queue); the commit skill's
+  ceremony text.
+
+### F-173 — the liveness readers cannot see a paused seat: retired at ten minutes, claim swept at freshness expiry
+
+- **Observed**: 2026-09-06 (Juno seeks Apogee, a693fb; raised by the Codex
+  connector on the rules PR and verified in the tree). `peer-liveness.ts`
+  classifies from heartbeat events only (retired at or above ten minutes)
+  and never reads a heartbeat-end that names an owner-word stand-down; the
+  stale-claim sweep archives a retained claim once `freshness_seconds`
+  (four hours by default) expires. Two claims whose last heartbeat fell on
+  the declared sleep day of 2026-08-19 were archived as `stale` by the
+  2026-09-02 fold, handoff records intact. The liveness rule's paused-seat
+  bullet now states this; the promise "no reader retires a paused seat"
+  holds for peers reading the stream, not for the tools.
+- **Expected**: a machine-readable paused state — a claim field set by the
+  stand-down (with the owner-word event id) that the liveness classifier
+  reports as `paused` and the stale sweep skips until the claim's own
+  declared resume horizon, or until the seat closes it.
+- **Route**: agent-tools backlog (collaboration-state: claims + peer-liveness),
+  beside F-170.

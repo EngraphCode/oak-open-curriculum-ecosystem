@@ -141,12 +141,18 @@ exported function were settled by one direct read of the source).
 
 ## Reviewer Reports Arrive Only on Request
 
-Reviewer subagents deliver their reports ONLY on an explicit SendMessage
-request — a summary-less idle notification means NO report was emitted
-(6/6 instances, late July 2026): request the report, never infer one from
-the idle. And a long-silent consult (~12 minutes) is a DEFECTIVE dispatch —
-kill it and re-dispatch; a seat idling on a dead consult is the failure,
-not patience. Known mechanism (MCP-386, until cured): the Agent tool's
+Two reviewer shapes, two procedures — read the dispatched definition's
+tool list before choosing. A reviewer that CARRIES a message tool delivers
+its report ONLY on an explicit SendMessage request — a summary-less idle
+notification means NO report was emitted (6/6 instances, late July 2026):
+request the report, never infer one from the idle. A reviewer that carries
+NO message tool (the expert reviewers and the Cricket legs declared with
+Read/Grep/Glob/Bash only) cannot send anything: its idle IS the finish and
+the transcript is the report — the two harvest routes at the end of this
+section are authoritative for that shape, and re-dispatching such a
+reviewer on its idle discards a verdict already written. For the message-capable shape, a long-silent consult (~12 minutes) is a
+DEFECTIVE dispatch — kill it and re-dispatch; a seat idling on a dead
+consult is the failure, not patience. Known mechanism (MCP-386, until cured): the Agent tool's
 `name` parameter correlates with dark dispatches — named dispatches went
 dark 10/10 while unnamed ones reported; prefer unnamed reviewer dispatches
 while the ticket is open.
@@ -161,6 +167,20 @@ mailbox (or the transcript) once more at resume before declaring a review
 lost — a stopped code-expert's verdict arrived on the first
 post-compaction turn carrying two findings that would have sunk the last
 settlement push (2026-09-01).
+
+Two harvest routes when no message can arrive. (a) The expert reviewer
+subagents and the Cricket legs carry Read/Grep/Glob/Bash only — no
+SendMessage tool at all — so such a reviewer emits its report as its final
+long assistant text and then idles: the idle IS the finish, never "stuck"
+(read that way by the owner on 2026-08-06), and the report is the last long
+assistant text block of the newest transcript under the project's
+directory. Stand the agent down afterwards; it cannot answer the shutdown
+either. (b) A NAMED teammate agent that reports "delivered via SendMessage"
+may have reached nothing (TaskOutput by name answered "No task found"): its
+full report is the SendMessage tool-use payload in its own transcript under
+the session's subagents directory, and the last plain-text turn is only a
+summary — three Opus code-expert reports were harvested that way in one
+pass on 2026-09-04.
 
 ## Doctrine and Plan Artefacts Get the Panel Before They Are Public
 
