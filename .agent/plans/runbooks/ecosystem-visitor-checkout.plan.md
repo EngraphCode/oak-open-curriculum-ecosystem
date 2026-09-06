@@ -15,11 +15,12 @@ depends_on: []
 owner_gates:
   - awaiting: owner-decision
     clears_when: >-
-      The owner re-ratifies the procedure after its first review revision (explicit
-      addressing of the visitor on every command in step 4; the visitor's own hooks and CI
-      as its only commit and push gates in step 6; default-branch creation through the
-      hosting service's API in step 7; rollback for steps 6 and 7, the latter a no-rollback
-      step), and accepts the no-rollback step for pushed history.
+      The owner re-ratifies the procedure after its review revisions (the entry point's two
+      placements in step 3; explicit addressing of the visitor on every command in step 4;
+      the visitor's own hooks and CI as its only commit and push gates in step 6; the host
+      binary invocation, default-branch creation through the hosting service's API and the
+      remote-ref verification in step 7; rollback for steps 6 and 7, the latter a
+      no-rollback step), and accepts the no-rollback step for pushed history.
     expires: 2026-09-27
 last_updated: 2026-09-06
 ---
@@ -69,9 +70,12 @@ held here as a working name, not doctrine.
    inside `visitors/<name>` (its own `.git/config`, its own untracked bot config behind a
    tracked example, following the host's merge-bot shape). Verify: `git -C visitors/<name>
    config user.email` names the satellite's bot, never the host's.
-3. `agent` — Add the visitor's one Practice file: a root agent entry point that says the
-   repository is worked as a visitor of this host and that sessions launch at the host root.
-   Verify: the file exists and carries no other instruction.
+3. `agent` — Add the visitor's one Practice file: a root agent entry point that says how the
+   repository is worked in either placement — as a visitor when it is checked out under a
+   host (sessions launch at the host root and the host's Practice applies) and standalone
+   otherwise (it carries only what it declares itself) — so the file stays true after a
+   lift-out. Verify: the file exists, names both placements and carries no other
+   instruction.
 4. `agent` — Work the visitor from a session launched at the host root. Address the visitor
    explicitly on every command (`git -C visitors/<name>`, paths under `visitors/<name>`): a
    shell whose working directory persists across tool calls (Claude Code, verified
@@ -91,11 +95,16 @@ held here as a working name, not doctrine.
    there. Verify: the visitor's CI is green on its default branch.
 7. `agent` — Commit and push inside the visitor with the host's commit discipline carried as
    behaviour (conventional message, explicit pathspecs, the bot as committer) and the
-   visitor's identity; open its pull requests against the visitor's own default branch. On
-   an empty repository, create the default branch through the hosting service's API as the
-   bot before the first pull request: the bot push tool refuses a direct push to a default
-   branch. Verify: `git -C visitors/<name> status --branch` reads up to date with its
-   upstream.
+   visitor's identity; open its pull requests against the visitor's own default branch. Run
+   the host's built agent-tools binary with the visitor as the working directory, because
+   the host's root `pnpm` scripts act on the host whatever the shell's directory: from
+   `visitors/<name>`, `node <host root>/agent-tools/dist/src/bin/agent-tools.js merge-bot
+   push --branch <branch>` resolves the visitor's own bot configuration. On an empty
+   repository, create the default branch through the hosting service's API as the bot
+   before the first pull request: the bot push tool refuses a direct push to a default
+   branch. The bot push sets no upstream, so verify the remote ref directly: after
+   `git -C visitors/<name> fetch origin`, `git -C visitors/<name> rev-parse HEAD` equals
+   `git -C visitors/<name> rev-parse origin/<branch>`.
 
 ## Verification
 
