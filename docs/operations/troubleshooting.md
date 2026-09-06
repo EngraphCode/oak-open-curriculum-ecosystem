@@ -319,12 +319,14 @@ neither.
 ### CI job cancelled at its timeout before the validators ran
 
 A static-checks job can be cancelled at its ten-minute budget inside "Run
-workspace-owned repo validators" when the budget went to `pnpm install` on a
-cold store cache or a slow registry. The discriminator is the setup step's
-duration against a warm run's; a re-run passes once the cache restore is warm.
-Sibling: a browser suite timing out at 30 s on a runner where the whole suite
-took several minutes against tens of seconds locally. Neither names the branch;
-re-run, and if the cold window recurs the budget is a card, not a code change.
+workspace-owned repo validators". The dependency install is not the cause: the
+separate `install` job populates the pnpm store on a cold key and every later
+job restores it and installs offline, so the budget went to the validators
+themselves on a slow runner or with their own caches cold. The discriminator
+is that step's duration against a warm run's; a re-run passes. Sibling: a
+browser suite timing out at 30 s on a runner where the whole suite took
+several minutes against tens of seconds locally. Neither names the branch;
+re-run, and if the slow window recurs the budget is a card, not a code change.
 
 ### Pre-Commit Hook Output Too Large
 

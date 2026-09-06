@@ -50,10 +50,10 @@ report and corrected itself in a second turn; the substance was unaffected.
   trigger that cannot fire on its file's loading signal) were both that shape. The FRAME
   under-stated the ratchet ("dispositions only"), which is the inconsistency the leg caught;
   the frame wording, not the action, was wrong.
-- Ungrounded, as the legs said: ruling texts, merge SHAs and check names were taken on the
-  frame's provenance by seven of eight legs; only the high seats spent no verification reads by
-  design and said so. Nothing load-bearing rests on an unverified claim: every fact in the
-  frame is on the PR records and the comms stream.
+- Ungrounded, as the legs said: every leg took the ruling texts, merge SHAs and check names on
+  the frame's provenance and, by its own report, spent no verification reads. Nothing
+  load-bearing rests on an unverified claim: every fact in the frame is on the PR records and
+  the comms stream.
 
 ## Verdict-quality notes for the experiment record
 

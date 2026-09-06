@@ -197,8 +197,12 @@ independent unless stated:
 7. **The generator's code-safe serialiser.** The inlined values escaped, with the
    line-separator test: two files.
 8. **The gate proof.** The two probe pull requests and the reading command, recorded on the
-   lane's closing event; no tree change unless a required check turns out to be missing,
-   in which case that change is this unit.
+   lane's closing event, plus one tree change this unit always makes: the ADR-121 amendment
+   recording the repository's trust model (a collaborator with push rights already holds
+   every permission a `pull_request` workflow can declare, so a compute/publish job split is
+   not a security boundary against a same-repository collaborator — the dispositions row of
+   2026-09-06 carries it until then). A required check found missing is a second change in
+   the same unit.
 
 ## First-principles check
 

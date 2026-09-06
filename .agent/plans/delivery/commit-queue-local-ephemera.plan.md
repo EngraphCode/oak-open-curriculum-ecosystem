@@ -85,9 +85,12 @@ existing consumer behaves identically at its surface.
 2. The live estate runs the new shape: primary rebuilt, a real enqueue
    round-trips, `git status` shows no queue file as trackable. Proof:
    repo-safe, recorded in this plan's amendment trail.
-3. The legacy blob's verification read at landing confirms zero live
-   (unexpired) entries were lost, then its disposition goes to the
-   owner. Proof: owner-held.
+3. The legacy blob's verification read confirms zero live (unexpired)
+   entries at the instant the pre-split copy was taken and zero at
+   landing; the blob then stays as machine-local ephemera under the
+   collaboration state's ignore rule. Proof: repo-safe — the read is
+   recorded in this plan's amendment trail (decided by the seat at the
+   2026-09-06 consolidation, Director ruling 1f67ddd7; no owner act).
 
 ## Out of scope
 
@@ -104,7 +107,7 @@ existing consumer behaves identically at its surface.
    (code-expert, test-expert), atomic landing.
 3. PR; merge at trustworthy checks (GitHub incident caveat stands
    2026-08-17); primary rebuild; live verification (acceptance 2);
-   legacy-blob verification read and owner disposition (acceptance 3).
+   legacy-blob verification read (acceptance 3, done 2026-09-06).
 
 ## Follow-ups from the landing (PR #38, fork `engraph`)
 
@@ -146,8 +149,9 @@ touches the queue store, its migration, or the live-report scan picks these up f
 Items named at the same close, re-trued at the consolidation of 2026-09-06 (Director ruling
 1f67ddd7): the two CodeQL `js/http-to-file-access` alerts (#12, #31) are not dismissed by
 anyone — the owner refused a blanket dismissal on 2026-09-06 and the `code-scanning-alerts-to-zero`
-node cures the class in the tree (the analyser's barrier model for the schema cache; a closed
-vocabulary for the drift check); the superseded ratified plan `commit-queue-front-door-cleanup`
+node (a sketch; its unit 3 is future work) prescribes the cure in the tree (the analyser's
+barrier model for the schema cache; a closed vocabulary for the drift check), so the alerts
+close when that unit lands; the superseded ratified plan `commit-queue-front-door-cleanup`
 was archived by the owner's rulings fold of 2026-09-06 (PR #56); the two nested
 `.claude/worktrees/*` registrations stay under the prune rule's platform-managed clause
 (removing them is a rules-process amendment carrying evidence that the harness tolerates
@@ -174,8 +178,11 @@ removal, not an owner item).
 - 2026-09-06: the nine follow-up pointers and the owner items above mirrored from the
   lane-closed comms event into this tracked record (consolidation fold).
 - 2026-09-06: acceptance 3 decided at the consolidation (Director ruling 1f67ddd7 returned it
-  to the seat): the 2026-08-17 pre-split archive blob (the gitignored copy taken at the interim
-  split) held only queue entries whose one-hour TTL had expired long before the 2026-09-04
-  landing, so no live entry could have been lost; the blob stays as machine-local ephemera
-  under the collaboration state's ignore rule and needs no owner act. Acceptance 3 is met by
-  that reading; the 2026-09-04 file has no pre-migration copy, as recorded above.
+  to the seat), by comparing every entry of the 2026-08-17 pre-split archive blob (the
+  gitignored copy taken at the interim split) with the copy's own instant: 227 entries, the
+  newest expiry 2026-08-14T08:05Z against a copy taken 2026-08-17T14:30Z, so zero entries
+  were live when the copy was taken and zero at the 2026-09-04 landing; nothing could have
+  been lost at either moment. The blob stays as machine-local ephemera under the
+  collaboration state's ignore rule and needs no owner act; the criterion and todo 3 above
+  are re-trued to that reading. The 2026-09-04 file has no pre-migration copy, as recorded
+  above.
