@@ -746,6 +746,8 @@ This can increase compositional freedom, but it should not be the foundation of 
 
 Treat it as an optional advanced theme technique, not as general CSS reparenting.
 
+A `<details>` element is the measured exception to "the wrapper box is absent": the browser renders its content through a user-agent shadow slot whose box (`::details-content`) survives `display: contents` on the element and becomes the single flex item, so a disclosure dissolved with `display: contents` alone still stacks its controls in a column (measured on the showcase, 2026-09-04: a two-row strip under a one-row sticky offset, while the lane's spec passed because it asserted only "summary hidden, radio visible"). Dissolve both — the element and its `::details-content` — and prove the wide face with geometry: the controls share one horizontal band and the strip's height equals its one-row height.
+
 ---
 
 ## 14. Subgrid

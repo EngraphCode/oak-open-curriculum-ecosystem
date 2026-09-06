@@ -329,4 +329,23 @@ data says about it. None is decided here.
   purpose or the skill is not on the authoring path it was written for. Discriminating
   evidence: the transcripts of the sessions that shipped code in the window.
 
+## Two instrument findings from the same survey (added at the 2026-09-06 consolidation)
+
+- **Demand versus registration.** For the lens skills the owner types the skill name
+  between 4.6 and 7.3 times more often than the harness registers an invocation
+  (metacognition 2,984 typed prompts against 643 registered uses, 4.6×; concept-exploration
+  1,163 against 177, 6.6×; reason 854 against 182, 4.7×; free-play 571 against 78, 7.3× —
+  the prompt history against the harness's per-name usage store, same survey, same
+  machine); cadence skills agree; the
+  model-chosen skills (commit, the worktree-lane set-up, the Cricket legs) run with
+  near-zero typing. Likely mechanism, unverified: only the leading slash command
+  registers, trailing names only when the model invokes them. The table above counts
+  registrations, so it under-reads the lenses by that factor.
+- **The real "loads twice".** Transcripts record rule injections as nested-memory
+  attachments: one 2026-08 session (prefix b10c37fe) carries 1,056 rule re-injections
+  across eight worktrees under the repository's own platform worktree directory, 121 rule
+  names each — reading a file under a nested checkout re-injects that checkout's whole
+  rules directory. The cure direction, worktrees in the sibling directory rather than
+  under the repository root, is the shape the worktree-residency rule already requires.
+
 Data files for this census are machine-local and not tracked; this report is the record.

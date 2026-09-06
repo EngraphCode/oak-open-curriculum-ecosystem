@@ -3077,7 +3077,11 @@ commit SHA and the closing plan reference.
   CLI-ergonomics plan (`agent-tools-cli-ergonomics.plan.md`) — this friction is that
   plan's highest-priority item by owner direction.
 - **Target surface**: `agent-tools/src/collaboration-state/` (inbox command).
-- **Status**: open — OWNER PRIORITY.
+- **Status**: open — OWNER PRIORITY. Second instance 2026-09-03 (Buzzard lifts
+  Eyrie, 326bcb, relayed at a boundary): the post-arm gap sweep had to read the
+  whole inbox or rely on the seen-file cursor; the ask now includes
+  `comms list --since` parity (folded here from a duplicate entry at the
+  2026-09-06 consolidation).
 - **Owner direction status**: owner-directed 2026-07-08.
 
 ### F-136 — practice-core CONTENT has no portability scanner (`portability:check` covers adapters only)
@@ -3896,9 +3900,13 @@ commit SHA and the closing plan reference.
   landing arc). `commit-queue guard` refuses a fresh intent ahead of yours
   even when its files are disjoint and it was enqueued from another
   worktree, so parallel lanes commit in sequence and publish in parallel.
-- **Expected**: the guard scopes contention to the invoking tree (F-132's
-  same-tree reading) or to overlapping files.
-- **Route**: agent-tooling backlog (commit-queue), beside F-132.
+- **Expected**: sequence commits, publish in parallel — the guard's rejection of
+  any fresh entry ahead (`guard.ts`, the fresh-entries-ahead check) and the
+  commit skill's sequential commit windows are one intentional invariant, so
+  any change to the ordering contract is a commit-skill amendment first, never
+  a guard patch.
+- **Route**: cost of the contract; no backlog item (re-trued at the 2026-09-06
+  consolidation against the guard source and the skill text).
 
 ### F-170 — the liveness heartbeat loop has no consumer-absence exit
 
@@ -3919,16 +3927,6 @@ commit SHA and the closing plan reference.
   exemption's own text.
 - **Route**: agent-tooling backlog (heartbeat mode); the liveness rule's
   exemption already names the condition.
-
-### F-171 — `comms inbox` has no `--since` flag
-
-- **Observed**: 2026-09-03 (Buzzard lifts Eyrie, 326bcb), relayed at the
-  boundary. The post-arm foreground gap sweep has to read the whole inbox or
-  rely on the seen-file cursor; a `--since <iso>` would make the sweep from
-  a freeze timestamp one call.
-- **Expected**: `comms inbox --since <iso>` (and `comms list --since`
-  parity).
-- **Route**: agent-tooling backlog (comms CLI).
 
 ### F-172 — a failed pre-commit step leaves a fresh intent that blocks the next enqueue
 

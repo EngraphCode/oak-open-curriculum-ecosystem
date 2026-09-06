@@ -120,7 +120,7 @@ below as superseded spend, its four returns kept as evidence of premise-dependen
 
 ### Adjudication (the seat's decision; verdicts were evidence)
 
-- Convergence: eight ON-TRACK on frame 3. Six of eight legs spent evidence reads; one (high,
+- Convergence: eight ON-TRACK on frame 3. Seven of eight legs spent evidence reads; one (high,
   adversarial) verified two frame claims outside the offered set — the job-level timeout in the
   workflow file and the empty path overlap between the two branches — which is the first
   first-hand verification by a Cricket leg in this seat's two suites.
