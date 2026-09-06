@@ -287,4 +287,18 @@ tool retires them.
   preflight and the bot token mint both resolve the repository from the
   working directory and fail outside the worktree ("not a git repository"
   → IDENTITY PREFLIGHT FAILED / TOKEN MINT FAILED); use absolute paths and
-  never change directory (2026-09-06, twice in one window).
+  never change directory (2026-09-04, relative paths reading "file
+  missing" after one directory change; 2026-09-06, twice in one window).
+- **A lowercase `path` variable clobbers PATH in zsh.** zsh ties the
+  lowercase `path` array to `PATH` (likewise `cdpath`, `fpath`, `manpath`),
+  so `path=…` in a loop silently empties PATH and every later binary reports
+  "command not found" until a fresh call; name scratch variables anything
+  else (2026-09-04).
+- **A comms append is a transactional touch on the claims registry.** The
+  `collaboration-state comms append` path reads the active-claims file
+  through the migrating reader, so the first CLI use after a rebuild runs
+  any pending one-time registry migration: on 2026-09-04 the 1.3.0 → 1.4.0
+  queue split ran under a merge-landed broadcast, seconds after the
+  rebuilt dist appeared and BEFORE the planned by-hand archive copy, so no
+  pre-migration copy of that day's file exists. Take the archive copy
+  before ANY CLI call after a rebuild — a comms send included.

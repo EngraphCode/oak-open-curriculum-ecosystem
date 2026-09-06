@@ -81,6 +81,15 @@ into the permanent record):
 - **The PR exists to structure shared attention** so nobody has to chase state;
   making the owner chase threads defeats the artefact even when the diff is
   perfect.
+- **The open-PR count is a standing objective at zero, kept there by
+  LANDING** (owner, 2026-09-03, verbatim: "a secondary but important goal is
+  always to work to reduce the total number of PRs to zero"; sharpened
+  2026-09-06: "this never prevents PRs from being created, but it does mean
+  that landing work that is in a non-draft PR is a priority"). A non-draft
+  PR is its seat's landing priority over starting the next unit; drafts are
+  inventory a seat may hold; the count is reported at every wrap and acted
+  on at every boundary — merged when green and clean, closed with its
+  reason, or owned with a named seat and a next step.
 
 ## Phase 1 — Before opening
 
@@ -299,7 +308,10 @@ surfaces. Partial reads produce false "no problems" verdicts:
   every other mention of a changed fact in the same commit — never only
   the phrasing the finding used (two of one round's four findings were
   stale mirrors of the previous round's own cure on a 1,500-line plan,
-  2026-09-05).
+  2026-09-05), and it records the grep patterns and hit counts on the PR
+  so the next round is dispositioned against them (the lead's steer on a
+  PR whose rounds five to eight each cured one more surface of the same
+  class, 2026-09-04).
 - **A cure is a claim: it gets the same verification tier as the finding it
   cures, and it carries its paired test.** Review-round cures are the next
   round's most likely defect surface (one round's Sonar failures were ALL
