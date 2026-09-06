@@ -1676,3 +1676,56 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   the archived node and the design-lane thread record (the register row waits for the viewed
   identity × theme cell — its schema requires one, and inventing a cell is out); the
   design-lane residue bundle: item 3 met, item 4 rejected by the ruling.
+
+## 2026-09-06 ~10:3xZ (Flounder turns Estuary, c5cc2c, lead) — WRAP at the owner's compaction word; PR #56 round one; processes stopped
+
+- WORK SAFETY (verbatim evidence): worktree `rulings-2026-09-06` on `docs/owner-rulings-2026-09-06`
+  `[ahead N]` of origin/engraph with local head == remote head after the settlement push; PR #56
+  open by the bot, both required checks green on the previous head, six review threads cured in
+  one push and resolved; the primary `## engraph...origin/engraph` carrying three record files
+  each byte-identical to the branch's blob (proven by `cat-file` + `cmp`), so the post-merge
+  fast-forward is one staged-identical step. Nothing merges unattended: every chain and the
+  watcher are stopped at the owner's word; the successor re-arms from the handoff record.
+- ROUND ONE ON #56 (six findings, all cures in the fold's own lines): a plan sketch prescribed a
+  path-scoped analysis configuration for tooling sites of a fix-only class — the estate's own
+  Sonar disposition policy (docs/governance) refutes it (S4036 is FIXED, never SAFE; the
+  trusted-git atom is the canonical shape) and excludes accepted-risk states altogether; the
+  node now follows that policy's two-outcome rule verbatim. Instance for `verify-dont-trust`:
+  I authored a plan mechanism from general knowledge of the rules without reading the
+  governing policy doc the estate already holds — the read cost thirty seconds, the round cost
+  a CI cycle. The other five: two passages a ratification note had left contradicting it
+  (search the whole node for the closed question, not just the section you edited — the
+  same mirror lesson as the #41 rounds), a superseded node left in the live directory (every
+  superseded delivery node lives in `archive/`), an "is the proof" claim that overstated an
+  owner verdict against an acceptance criterion that names a register row, an ungrammatical
+  sentence, and two gendered pronouns for an agent reviewer in a peer's letter
+  (`agents-default-no-gender`; corrected in place because conduct corrections are immediate).
+- METACOGNITION: two of the six were the same failure I had just written a memory about
+  (mirrors left standing after a records cure). Writing the lesson did not install it; the
+  grep-for-every-mention step has to be a mechanical pre-push line, which the durable-doc
+  checklist memory now carries as its fifth item.
+- CONCEPT EXPLORATION — "the primary as a live document with snapshots": continuity records are
+  edited on the primary by every seat, while a fold snapshots them onto a branch; every edit
+  after the snapshot re-dirties the primary and the fast-forward only succeeds when the copies
+  are byte-identical. Two folds today converged only because the closing lead took the
+  snapshot LAST and mirrored every later record edit into the worktree by hand. Warranted
+  proposal: the fold's continuity commit is the closing seat's final act after all other seats
+  have closed, and any record edit made after it is a defect of sequencing, not of content;
+  the mechanical tell is a `DIFFERS` line from the blob comparison before the fast-forward.
+  Falsifier: a fold that needed a second continuity commit because a seat wrote after the
+  snapshot — which happened once today (the support seat's postscript), so the proposal is
+  already one instance strong and one instance weak.
+- LOSS SCAN (classes): volatile scripts (`commit-and-publish.sh` with its bundle override and
+  publish skip, `land-lane.sh` with the quiet-window head re-check, `prune.sh`,
+  `primary-ff.sh`) — conserved by description on the handoff record, their functions named;
+  the bot token files — volatile by design; the prune's per-item proof table — on comms;
+  the code-scanning alert census — in the plan node; the owner's ten answers — verbatim in
+  per-user memory, on comms and in this napkin; the one owner fact still open — the viewed
+  identity × theme cell for the switchboard row — on the handoff and the archived node.
+- METALOSS (second pass over the scan): it re-finds the inferences already flagged (that the
+  register row is the only open item on the switchboard node rests on my reading of its
+  acceptance list; that every superseded delivery node lives in `archive/` rests on two
+  instances) and the blind spots (Codex rounds bound after this stop are unseen; the
+  platform-managed worktrees were counted, not opened). A third pass would only re-find
+  these; the recursion closes here. External bound: the six findings this morning were the
+  outside eyes; point the next scrutiny at any plan mechanism written from memory of a rule.

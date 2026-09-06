@@ -7,8 +7,8 @@ fork's first different-direction work to live, and at the end of the reasoning I
 the design was "correct under both orders, harmless if the flow changes". It felt like
 rigour. It was the opposite. A reviewer whose only brief was to attack the frame read that
 sentence as the tell: a shape chosen because it would survive whatever happened, not
-because it was right. He was correct, and two other reviewers had already found the
-defect he was pointing at by different routes. The landing step I had designed would have
+because it was right. They were correct, and two other reviewers had already found the
+defect they were pointing at by different routes. The landing step I had designed would have
 deleted the whole family of files out of the fork at the next sync, silently, with no
 conflict marker, exactly the files nobody had touched since they were finished. I
 reproduced it in a throwaway repository in under a minute. The stable file was gone; only
@@ -31,7 +31,7 @@ fluent. Both were the smoothness the metacognition directive warns about, and I 
 warning by heart while I made them.
 
 Earlier in the same session I had carried an upstream gate onto the fork by analogy and
-hedged on whether a closure decision had been the owner's. He corrected all three in one
+hedged on whether a closure decision had been the owner's. They corrected all three in one
 message, plainly, and the corrections were a gift: each one removed a load I had been
 carrying for the wrong repository.
 
