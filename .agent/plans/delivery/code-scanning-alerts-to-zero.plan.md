@@ -104,11 +104,13 @@ server-side action.
   resolves its executable to an absolute path without consulting PATH, and each binary
   resolves by its own existing mechanism — `git` through the trusted-git atom (the fixed
   allowlist of well-known directories that atom already carries), `pnpm` through the
-  existing `agent-tools/src/spawn/pnpm-path.ts` resolver, and node-run tools (`gitleaks`,
-  `typedoc`, `tsx`) through the workspace's `node_modules/.bin` absolute path or
-  `process.execPath` with the script. The trusted-git allowlist is never extended to
-  per-user installs to cover the other binaries. Each resolver is unit-tested for the
-  refusal of an unresolved name.
+  existing `agent-tools/src/spawn/pnpm-path.ts` resolver, `gitleaks` through the existing
+  `agent-tools/src/refounding/refound-gitleaks.ts` resolver (a standalone binary — CI
+  installs it pinned to `/usr/local/bin` with no `pnpm install`, and no workspace carries a
+  `node_modules/.bin/gitleaks`), and the node-run tools `typedoc` and `tsx` through the
+  owning workspace's `node_modules/.bin` absolute path or `process.execPath` with the
+  script. The trusted-git allowlist is never extended to per-user installs to cover the
+  other binaries. Each resolver is unit-tested for the refusal of an unresolved name.
 - **Pseudo-random number generator.** The correlation id takes its random part from the
   platform's cryptographic generator; the backoff jitter and the chunking helper take a
   cryptographic integer where the analyser requires it, since the cost is nil and the cure
@@ -185,7 +187,9 @@ independent unless stated:
    files.
 5. **Executables on PATH — the tooling sites, and clear-text literals.** The remaining
    spawn sites take the same per-binary resolution (fix-only, no exception for tooling:
-   `gitleaks`, `typedoc` and `tsx` through `node_modules/.bin` or `process.execPath`);
+   `gitleaks` through its existing standalone resolver `refound-gitleaks.ts`, the CI-pinned
+   binary having no `node_modules/.bin` entry; `typedoc` and `tsx` through the owning
+   workspace's `node_modules/.bin` or `process.execPath`);
    fixture literals switch to `https` where the host is never dialled; the localhost helper
    sites take the policy's SAFE disposition with its canonical rationale recorded per site,
    the UI act being the owner's (first owner gate): about seven files.
@@ -226,7 +230,9 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-09-06 | PR #56 round three (Codex) | The census summed to nineteen sites against twenty alerts. | Applied: the census re-read from the hosting service's alerts query for the resting branch — twenty-seven alerts in eight classes; two classes and three sites were missing, and the table, mechanism, criteria and units now carry them. |
 | 2026-09-06 | PR #56 round four (Codex) | The rate-limiting cure prescribed middleware that accepted ADR-219 forbids; the ADR already dispositions the class. | Applied: the class takes the ADR's per-alert false-positive dismissal citing the ADR; the node's dismissal clauses (goal, out of scope, criterion 3) re-trued to permit exactly that shape and nothing else. |
 | 2026-09-06 | PR #56 round five (Codex) | Units 5 and 6 carry owner UI acts (the Sonar SAFE dispositions; the four CodeQL dismissals) with no owner gate declared on the node. | Applied at the consolidation fold: `owner_gates` declares the two gates as facts with absolute expiries; the status field is untouched (ratification is the owner's act). |
-| 2026-09-06 | PR #56 round five (Codex) | Units 4–5 named "the atom" without saying how each binary resolves, leaving a system-directory allowlist extended to per-user installs as a reading. | Applied at the consolidation fold: units 4–5 state the resolution per binary — `git` via the trusted-git atom, `pnpm` via `pnpm-path.ts`, node-run tools via `node_modules/.bin` or `process.execPath` — and exclude the allowlist reading. |
+| 2026-09-06 | PR #56 round five (Codex) | Units 4–5 named "the atom" without saying how each binary resolves, leaving a system-directory allowlist extended to per-user installs as a reading. | Applied at the consolidation fold: units 4–5 state the resolution per binary — `git` via the trusted-git atom, `pnpm` via `pnpm-path.ts`, `gitleaks` via `refound-gitleaks.ts`, `typedoc` and `tsx` via `node_modules/.bin` or `process.execPath` — and exclude the allowlist reading. |
+| 2026-09-06 | PR #59 round one (Codex, Copilot) | The per-binary wording in units 4–5 contradicted the Mechanism bullet, which still prescribed one fixed allowlist for every binary. | Applied: the Mechanism bullet carries the same per-binary resolution; one design. |
+| 2026-09-06 | PR #59 round two (Codex) | `gitleaks` was filed under `node_modules/.bin`, which no workspace provides; CI installs a pinned standalone binary and `refound-gitleaks.ts` already resolves it. | Applied: `gitleaks` resolves through that existing resolver at the Mechanism bullet, unit 5 and the row above; `typedoc` and `tsx` keep the workspace bin or `process.execPath` path. |
 
 Round five's two findings were dispositioned on PR #56's replies under the PDR-140 step-back and
 named only on the lane-closed comms event of 2026-09-06 until the consolidation fold the same day
