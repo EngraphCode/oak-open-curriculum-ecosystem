@@ -358,3 +358,7 @@ packages/design/oak-design-system/.sync-staging/
 # the bytes preserved in the branch history that merged via PR #569)
 packages/design/oak-open-curriculum-design-system-tna-24072026-1141/
 .env*
+
+# Ecosystem visitors: satellite repositories checked out under this tree, each with its
+# own git history and remote; never part of this tree.
+/visitors/
