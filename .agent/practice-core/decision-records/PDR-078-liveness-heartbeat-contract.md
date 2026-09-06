@@ -208,14 +208,20 @@ its opening event.
   heartbeat and its watcher BY INTENT, emits a final heartbeat-end
   event naming the owner's word and the stand-down, and RETAINS
   its claim (with a handoff record attached when work is in
-  flight). Staleness past that event is the declared state, not a
-  retirement signal: the threshold does not fire on it, no peer
-  adopts the claim, and the seat resumes only at the owner's next
-  word, re-arming its watcher and then its heartbeat before its
-  first act. In a paused team the coordinator stands down last and
-  resumes first. The opening event is the heartbeat-end that names
-  the owner's word; without it the exemption does not apply and
-  the threshold fires normally. Graduated on five instances between
+  flight). For every peer reading the stream, staleness past that
+  event is the declared state, not a retirement signal: the
+  threshold does not fire on it, no peer adopts the claim, and the
+  seat resumes only at the owner's next word, re-arming its watcher
+  and then its heartbeat before its first act. In a paused team the
+  coordinator stands down last and resumes first. The opening event
+  is the heartbeat-end that names the owner's word; without it the
+  exemption does not apply and the threshold fires normally. A host
+  whose machine readers (the liveness classifier, the stale-claim
+  sweep) do not yet read the opening event will archive the
+  retained claim at its freshness expiry; that sweep is loss-free
+  when the handoff record carries the work and the resuming seat
+  re-opens from the archived row, and the host names the gap as a
+  tooling item until the paused state is machine-readable. Graduated on five instances between
   2026-08-17 (an overnight cold-pause of three seats, coordinator
   last) and 2026-09-06 (compaction-boundary stand-downs at owner
   word), with a declared week-sleep and an owner-word pause of a
