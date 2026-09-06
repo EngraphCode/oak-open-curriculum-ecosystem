@@ -27,8 +27,7 @@ stays there: each alert resolves under the estate's Sonar disposition policy
 (`docs/governance/sonar-disposition-policy.md`) — fixed in code with a test that pins the
 cure, or, only where that policy's class criteria hold, a false-positive or safe
 disposition carrying the policy's canonical rationale plus the site path and line, recorded
-in the tree. Accepted-risk dispositions and hand dismissals in the hosting service are
-excluded by that policy and by this node. A reader of
+in the tree. Accepted-risk and won't-fix states in the hosting service are excluded by that policy and by this node; a false-positive dismissal there is taken only where an accepted decision record dispositions the class, its comment citing that record (today: ADR-219 for missing rate limiting). A reader of
 the security tab, an auditor of the release, or an agent picking up a lane sees a surface
 whose every line is a fact about the code, not an unread signal.
 
@@ -62,7 +61,7 @@ classes:
 | Weak hash | `S4790` | 1 | MD5 deriving a trace id from a correlation id |
 | Clear-text protocol literal | `S5332` | 4 | `http://` literals in test configuration and helpers |
 | Polynomial regular expression | `js/polynomial-redos` | 2 | a lazy match inside a bracketed quantifier over untrusted HTML, and the report generator's keyword pattern matched over fetched definitions |
-| Missing rate limiting | `js/missing-rate-limiting` | 4 | route handlers on the MCP server (two in the authorisation routes, one in the proxy's routes, one registered by the bootstrap helpers) with no rate limit the analyser recognises |
+| Missing rate limiting | `js/missing-rate-limiting` | 4 | route handlers on the MCP server (two in the authorisation routes, one in the proxy's routes, one registered by the bootstrap helpers) with no in-process limiter, by decision: ADR-219 places the control at the edge |
 | Unsafe code construction | `js/bad-code-sanitization` | 1 | the type generator inlines serialised values into generated source through a JSON serialiser |
 
 The two analysers are independent instruments over the same tree; both keep reporting on
@@ -115,11 +114,7 @@ server-side action.
   opening tag and the closing tag, or by a linear-time expression, with a test over a long
   pathological input; the report generator's keyword pattern is rewritten linear-time with
   the same test shape.
-- **Missing rate limiting.** The four route handlers take a per-client rate limit at the
-  application layer, one middleware shared by the authorisation, proxy and bootstrap routes,
-  with a test that the limit refuses above its threshold; the edge's own limits in front of
-  the server inform the threshold's value and are never the cure, because the analyser reads
-  the application.
+- **Missing rate limiting.** An accepted decision record already owns this class: ADR-219 (2026-07-30) places rate limiting at the edge, forbids an in-process limiter (instances are short-lived, routing is not client-affine, the forwarded address is the edge's egress), and dispositions every occurrence of this finding as an individual false-positive dismissal in code scanning citing the ADR — never middleware, never a query exclusion. The four alerts, all dated the ADR's own day and never dispositioned, take exactly that: one dismissal each naming the route and the edge control, with the ADR's falsifier restated (the edge configuration is load-bearing; if it weakens, the dismissal is wrong).
 - **Unsafe code construction.** The type generator emits its inlined values through a
   code-safe serialiser that escapes the line-separator characters a JSON serialiser leaves
   raw, with a test over a value carrying them; the generated output is byte-identical for
@@ -140,21 +135,15 @@ the gate turns "zero" from a snapshot into an invariant.
    landing seat and recorded on the lane's closing event.
 2. Every cured site has a test that fails on the previous behaviour: the refusal of a
    non-absolute executable, the cryptographic source of the random part, the trace-id width
-   and stability, the linear-time extraction over a pathological input, the output
-   description's closed vocabulary, the limiter's refusal above its threshold, the generator's
-   escaping of a line separator. Proof: `repo-safe` — the tests, named in each unit.
-3. Every non-fix disposition is one the policy's class criteria permit, carries the
-   canonical rationale with the site path and line in the tree, and no alert on the resting
-   branch carries an accepted-risk or hand-dismissal state. Proof: `repo-safe` — the
-   recorded rationales and the alerts query's dismissal field.
+   and stability, the linear-time extraction over a pathological input, the output description's closed vocabulary, the generator's escaping of a line separator. Proof: `repo-safe` — the tests, named in each unit.
+3. Every non-fix disposition is one the policy's class criteria or an accepted decision record permit, carries the canonical rationale with the site path and line in the tree (for the ADR-219 class, the dismissal comment citing the ADR), and no alert on the resting branch carries an accepted-risk or won't-fix state. Proof: `repo-safe` — the recorded rationales and the alerts query's dismissal-reason and comment fields.
 4. A pull request introducing one new instance of each class is blocked by a required check.
    Proof: `repo-safe` — one probe pull request per analyser, closed unmerged, cited by number
    on the lane's closing event.
 
 ## Out of scope
 
-- Hand-dismissing, snoozing or marking "won't fix" in the hosting service or the analyser's
-  own console: no state lives there that the tree cannot explain.
+- Snoozing, marking "won't fix" or dismissing without a citation in the hosting service or the analyser's own console: no state lives there that the tree cannot explain; the ADR-219 false-positive dismissals are explained by the ADR and are the one dismissal shape this node takes.
 - The code-quality analyser's non-security quality backlog (its own quality profile), which
   has its own tracking thread and plan lineage; this node touches only findings that reach
   the code-scanning surface.
@@ -185,8 +174,7 @@ independent unless stated:
    switch to `https` where the host is never dialled; the localhost helper sites take the
    policy's SAFE disposition with its canonical rationale recorded per site: about seven
    files.
-6. **Rate limiting on the server routes.** One limiter middleware on the four route
-   handlers, with its refusal test and the threshold's recorded basis: about four files.
+6. **Rate limiting: the ADR-219 dispositions.** The four alerts dismissed as false positives in code scanning, each comment citing the ADR and naming the route and the edge control; no tree change. If the ADR's premise is found false at pickup, the finding routes to a supersession of the ADR, not to middleware here.
 7. **The generator's code-safe serialiser.** The inlined values escaped, with the
    line-separator test: two files.
 8. **The gate proof.** The two probe pull requests and the reading command, recorded on the
@@ -209,8 +197,7 @@ The six clauses of the plan-body first-principles check, applied at authoring:
   test the Mechanism states; each unit names its cure shape and its fallback.
 - **Record consumer.** The lane's closing event is the only accounting surface added, and
   the alerts query is its consumer.
-- **Rules tier.** The node presupposes only standing doctrine — the Sonar disposition
-  policy's two-outcome rule; checks are never disabled; validation is strict at the
+- **Rules tier.** The node presupposes only standing doctrine — the Sonar disposition policy's two-outcome rule; ADR-219 for the rate-limiting class; checks are never disabled; validation is strict at the
   boundary; no escape hatches in enforcement — and adds none.
 
 ## Review dispositions
@@ -222,3 +209,4 @@ One row per finding; "applied" means folded into this node before ratification.
 | 2026-09-06 | PR #56 round one (Codex) | The executable-on-PATH arm proposed a tooling exception and an accepted-risk state that the Sonar disposition policy excludes. | Applied: the mechanism follows the policy's two-outcome rule — fix-only for that class through the trusted-git shape, site-rationalised SAFE only where the policy's class criteria hold, no path exclusions. |
 | 2026-09-06 | PR #56 round two (Codex) | Unit 3's cache arm proposed the validated write that `schema-cache.ts` already performs, so the arm could not clear the alert. | Applied: the mechanism and unit 3 state the fact and take the analyser's documented barrier model, with the no-model outcome recorded on the node rather than a dismissal. |
 | 2026-09-06 | PR #56 round three (Codex) | The census summed to nineteen sites against twenty alerts. | Applied: the census re-read from the hosting service's alerts query for the resting branch — twenty-seven alerts in eight classes; two classes and three sites were missing, and the table, mechanism, criteria and units now carry them. |
+| 2026-09-06 | PR #56 round four (Codex) | The rate-limiting cure prescribed middleware that accepted ADR-219 forbids; the ADR already dispositions the class. | Applied: the class takes the ADR's per-alert false-positive dismissal citing the ADR; the node's dismissal clauses (goal, out of scope, criterion 3) re-trued to permit exactly that shape and nothing else. |
