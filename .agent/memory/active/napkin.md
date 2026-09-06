@@ -1520,3 +1520,221 @@ workflow's unrun stages and the peer-reported facts already flagged; the recursi
   settlement push; a peer's "final head" was the operative event twice today); falsifier: the
   state machine already has an equivalent transition, in which case only the worked instance is
   owed. Unresolved evidence: pr-lifecycle §review-round state machine read in full.
+
+## 2026-09-06 ~09:xxZ (Finch binds Sundog, 47f9d2, solo since the lead's claim closed 2026-09-05 16:40Z) — the frame that survived both orders; the visitor; wrap at the compaction boundary
+
+- OWNER ASK (2026-09-06, verbatim): "let's explore that, the non new-repo questions first, and when we
+  get to the new repo, my only hesitation is that we have no current way of easily transferring the
+  full Practice to a new repo, so we either need to fix that in some foundational way, or keep the
+  new repo incredibly simple, and probably checked out in a gitignored subdirectory of this checkout,
+  so it can exist as a semi-independent ecosystem visitor in OCE's Practice". Then: "Please fully
+  update all relevant documentation, and then prepare for compaction, then stop all processes".
+- REFUTED FRAME (mine): a fork-only top-level family directory holding the pedagogy workspace and
+  plugin, removed on a landing branch before any upstream landing, lifting out when the corpus
+  package publishes. Four Opus reviewers ran on it (assumptions-expert, architecture-expert-fred,
+  architecture-expert-barney, architecture-expert-wilma as mandate-only frame challenger); THREE
+  independently found the landing step deletes the family back out of the fork at the next sync
+  (delete on their side, untouched on ours, resolves deleted with no conflict). Reproduced in a
+  throwaway repository: the untouched file staged as deleted, only the edited file conflicting.
+  Convergence of independent lenses on one defect is the strongest signal the estate names; it held.
+- WHAT ELSE THE PANEL FOUND, verified first-hand where I could: a new top-level tier is not admitted
+  by ADR-041 and has no boundary factory, so "under every gate" was false without upstream-owned
+  edits (the census root constant, two depcruise regexes, the workspace list, an ADR row); a
+  two-level workspace glob is invisible to the isolation validator (single-level only); the census
+  vocabulary cannot classify a fork-owned subject; the identity-below-the-tree node's exempt homes
+  are the CANONICAL organisation's, so a tracked fork-named directory is that node's falsifier, not
+  its exemption (I had over-read it); the interpretation guide's renderer IS public but its later
+  layers name the served tool, so it is not shippable verbatim in a no-server skill; the corpus
+  constant is not a public export (its accessors are); prettier pads pipe tables, so byte-pinned
+  generated markdown avoids tables; knip defaults cover unlisted workspaces (seven exist today);
+  `depcruise <root>` fails loudly on a missing root.
+- GENERATOR (mine): "correct under both orders, harmless if the flow changes" was written as a
+  virtue; the frame challenger read it as the tell of a shape chosen for survivability rather than
+  rightness. Second generator: I wrote a within-tree scope limit into `consolidate-at-second-
+  consumer` to fit my decision; its own clause 2 (route to a named consolidation lane) already
+  covered routing upstream. Narrowing a rule to fit a decision is the doctrine-authoring failure the
+  PDR-047 tests exist for. Third: "enforced by construction" was claimed from one package's exports
+  map while the other SDK the design leaned on publishes wildcard subpaths — a by-construction claim
+  is verified on every package it names.
+- LANDING-FLOW FACT corrected: upstream's history holds 26 per-lane landings from this line's
+  branches and ONE wholesale landing (PR 945, 221 commits on one feature branch). "Given wholesale
+  landings" was one instance stated as the pattern.
+- THE VISITOR (owner's shape), probed twice in the lane worktree, cleaned up, tree verified clean:
+  (1) an untracked nested repository is visible to git status, markdownlint and prettier; a
+  per-checkout exclude (`info/exclude`) hides it from git ONLY — both text gates read the tracked
+  ignore file; (2) one tracked line `/visitors/` makes git status, markdownlint (`gitignore: true`)
+  and prettier all skip it; (3) the shell cwd persists inside the project directory, so a nested
+  repository is worked in place from a session launched at the host root, and git inside it sees only
+  itself; (4) the filesystem-walking validators start from enumerated roots that never reach a
+  top-level visitors directory, except the vocabulary walker (root start, exclusion list, not in the
+  aggregate check); (5) git-native coordination-home resolution from inside a nested repository names
+  the NESTED repository as primary and would seed a decoy substrate there — the declared home
+  (`PRACTICE_COORDINATION_HOME`) is a required step, not an option. Recorded as runbook sketch
+  `ecosystem-visitor-checkout` (serves the identity node). In the Practice's exchange vocabulary it
+  is a third mode beside transformation and conjugation — an episome, replicating inside the host
+  without joining its genome; a working name, PDR candidate at a second instance.
+- THE FOUNDATIONAL FIX (sized, not started): PDR-005's transplant manifest and four audits are
+  manual; PDR-134's strata are the portability truth per artefact; the skills-estate node already
+  plans stratum annotations. A mechanical exporter over those annotations is the fix, it is same-
+  direction, and the canonical organisation's extraction needs it too (a product repository with a
+  minimal Practice of its own). Routed as a candidate, not a lane.
+- DOCUMENTATION UPDATED at the owner's word: delivery node `eef-corpus-markdown-projection` (sketch,
+  serves the seam node, org-neutral renderer in the corpus package) replaces the earlier
+  `eef-evidence-generated-capability` (removed, substance conserved in per-user memory); runbook
+  `ecosystem-visitor-checkout` (sketch) authored; the strategic node `pedagogy-skills-how-to-teach`
+  LEAVES the tree (it names the fork and is the fork's bet) — full text conserved in this seat's
+  machine-local handoff record, to become the visitor's first record. Validators green on the lane:
+  plan corpus 114 conformant, markdownlint 0, prettier clean. Nothing committed; the nodes are
+  untracked on the lane worktree.
+- INSTRUMENT FACTS: worktree isolation refuses `git -C <primary>` and compound commands; a script
+  in the session scratchpad run as one plain `bash <path>` is the working shape; the hook's
+  machine-local-path fingerprint fires on script CONTENT carrying the scratchpad's absolute path
+  (use `mktemp -d` or paths derived from `git rev-parse`); ExitWorktree with keep is the sanctioned
+  path to primary writes at a boundary. Reviewer seats cost 130–230k tokens and 7–14 minutes each.
+- HEARTBEAT INTO AN EMPTY ROOM: the loop armed 2026-09-05 15:5xZ beat every four minutes until
+  2026-09-06 08:1xZ with no consumer after 16:40Z (some 240 events). Proposal with warrant and
+  falsifier: the loop exits itself when the registry holds no other claim for N ticks (consumer-
+  absent by construction, PDR-078 §4); falsifier — a seat that must beat for an owner watching the
+  stream directly, which the exemption text already names as not a consumer.
+- LOSS SCAN at this boundary (context minus durable surfaces): (1) the reviewer reports live only
+  in their transcripts under the session's task directory and in the 2026-09-06 dispositions
+  message; the load-bearing findings are in this block and the two nodes; (2) the decision-matrix
+  document is a superseded scratchpad buffer, never a home; (3) the inquiry charter is copied into
+  the handoff record; (4) the strategic node's text is in the handoff record; (5) the three
+  owner-held decisions (name and creation of the visitor repository; whether to mint a TOOLS-3
+  strategic node; whether the renderer is same-direction work bound upstream) are in the handoff
+  record and per-user memory; (6) the EEF publisher's terms remain unverified (its site refuses the
+  fetcher). ATTRIBUTION INFERENCES flagged: who decided PR 919's closure is unknown (the owner's
+  word is only that it lacked authority); PR 945 as the wholesale instance is this seat's memory
+  record, not re-read on GitHub this session; "Oak's skills library wants EEF grounding" is a June
+  feature-request file in this tree, not a current statement; the lead's wrap after 16:40Z is
+  inferred from its heartbeat-end, not observed. BLIND-SPOT BOUNDS: the reviewers' transcripts
+  beyond their reports; the visitor's merge-bot resolution and plan-corpus validation are
+  unprobed; the EEF terms; Oak-side decisions. PROMISES: build result reported; dispositions
+  delivered; lane reshaped; the ignore line, the walker exclusion and the visitor runbook's landing
+  are the lane's next PR (forwarded, this record); the TOOLS-3 node and the repository are the
+  owner's; the audit seat is available on word. Zero silent drops. INDEX OF HOMES: this block; the
+  handoff record `.agent/state/collaboration/handoffs/47f9d2-finch-binds-sundog-compaction-
+  2026-09-06.md`; per-user memory (three files); the two lane nodes on the worktree. METALOSS: a
+  second pass finds the approximate time labels and the unprobed items already named; a third would
+  re-find them; the recursion closes here.
+
+## 2026-09-06 ~10:xxZ (Flounder turns Estuary, c5cc2c, lead) — the owner's ten answers; four corrections; the prune; the rulings fold
+
+- OWNER CORRECTIONS (verbatim, 09:5xZ), each against an item I had listed as "his": (2) "we
+  don't want a dirty tree or doubled skills, those are both obviously terrible ideas, that is
+  why I already decided, and told you, that what I want is the mechanism implementing, but no
+  config changes yet, so the output continues to be exactly what it is today"; (8) "Plan
+  lifecycles are well laid out, they do not need my sign off"; (9) "Dismiss code quality
+  alerts, does that sound like the right answer to you? Have you been failing to question
+  things handed to you?"; (10) "Worktrees and branches that are proven safe to remove must be
+  removed, this is already policy, it does NOT require anything from me". Also: "this checkout
+  will not switch to e-"; "The Engraph fork does NOT use Linear, ever"; "We do NOT allow design
+  by review in PRs, we have a vision that PR bots have no visibility of … the fact that the
+  mechanism is capable of producing incoherent designs is not a failure, it is power";
+  "The switchboard is wow enough for today. It will need to be more wow in future."
+- METACOGNITION — the generator under (2), (8), (9), (10) is one: an "owner items" list carried
+  across four closeouts, most of it inherited verbatim from a peer's handover, none of it
+  re-derived. A label that was once true ("open consequence", "owner item") travelled as an
+  invariant — the stale-gating-label shape of 2026-09-05 again, one level up. Item (9) is the
+  sharper case: a wrong ANSWER ("dismiss") carried as a question; carrying it made me its
+  author. Cure, now in per-user memory: the owner-facing list is rebuilt from nothing at every
+  boundary and each candidate passes three tests (constitutively his, with no prior word;
+  not already answered by policy; the proposed answer itself right) or leaves the list.
+- CONCEPT EXPLORATION — "make the signal go away" verbs. Close (a PR), dismiss (an alert),
+  stash (a tree), defer (to a ticketing surface this line does not have), archive-to-hide (a
+  plan with an open criterion): five verbs, one move — the signal is treated as the problem.
+  The estate's rules already refuse each one separately (worthwhile stays open; never disable
+  checks; never use git to remove work; the repo is the record; archival is terminal only on
+  proven acceptance). The general statement: a signal is cleared by landing, fixing, routing
+  to a named home, or refuting with evidence; a verb that clears it any other way is a tell.
+  Falsifiable: a future "owner items" line carrying one of those verbs is a defect on sight.
+- FREE PLAY (discards named): juxtaposed the review bot's design-intent finding with the
+  owner's "capability is power": the bot reads a diff, the owner reads a vision; a
+  mechanism's reach and its use are different concerns, and a reviewer collapsing them is
+  what "myopic" names. Tried the inversion "then no bot finding on design surfaces is worth
+  reading" — DISCARDED: factual findings (a wrong count, a broken link, a rule violation) on
+  design surfaces stayed cures all week. Tried the analogy to inbox-zero — DISCARDED: pretty,
+  not load-bearing. Kept as a seed, routed to the memory `no-design-by-review-in-prs`:
+  design-intent findings are dispositioned by reference to the vision, never cured, never
+  carded.
+- PRUNE (standing policy, per-item proofs on comms): five sibling-directory worktrees removed
+  (each clean and an ancestor of origin/engraph), 78 merged local branches deleted with
+  `branch -d`, one merged remote branch deleted as the bot. Residue, NOT proven safe and left
+  alone: 39 platform-managed registrations under `.claude/worktrees/` (the rule excludes them
+  by name; most are clean ancestors), five dirty trees, Finch's active lane, two `-d`
+  refusals (`heads/pr834head`, `sync/upstream-2026-09-02` — merged into HEAD, refused for a
+  name and an upstream respectively), eleven unmerged local branches and one unmerged remote
+  Copilot branch that need the content check of the hygiene rule §6 before any deletion.
+- CODE-SCANNING: the "dismiss #12/#31" item was two CodeQL http-to-file findings among
+  TWENTY open alerts on engraph across six rule classes (two analysers report into one
+  surface). The answer is a plan node, born sketch: cure in code or configure the check with
+  its rationale, never a hand dismissal; six PR-shaped units.
+- RECORDS FOLD: adapter-prefix-configuration RATIFIED with the notes verbatim; the projections
+  question dissolved by "no config changes"; commit-queue-front-door-cleanup SUPERSEDED by
+  commit-queue-local-ephemera (the seat's lifecycle move); the switchboard verdict recorded on
+  the archived node and the design-lane thread record (the register row waits for the viewed
+  identity × theme cell — its schema requires one, and inventing a cell is out); the
+  design-lane residue bundle: item 3 met, item 4 rejected by the ruling.
+
+## 2026-09-06 ~10:3xZ (Flounder turns Estuary, c5cc2c, lead) — WRAP at the owner's compaction word; PR #56 round one; processes stopped
+
+- WORK SAFETY (verbatim evidence): worktree `rulings-2026-09-06` on `docs/owner-rulings-2026-09-06`
+  `[ahead N]` of origin/engraph with local head == remote head after the settlement push; PR #56
+  open by the bot, both required checks green on the previous head, six review threads cured in
+  one push and resolved; the primary `## engraph...origin/engraph` carrying three record files
+  each byte-identical to the branch's blob (proven by `cat-file` + `cmp`), so the post-merge
+  fast-forward is one staged-identical step. Nothing merges unattended: every chain and the
+  watcher are stopped at the owner's word; the successor re-arms from the handoff record.
+- ROUND ONE ON #56 (six findings, all cures in the fold's own lines): a plan sketch prescribed a
+  path-scoped analysis configuration for tooling sites of a fix-only class — the estate's own
+  Sonar disposition policy (docs/governance) refutes it (S4036 is FIXED, never SAFE; the
+  trusted-git atom is the canonical shape) and excludes accepted-risk states altogether; the
+  node now follows that policy's two-outcome rule verbatim. Instance for `verify-dont-trust`:
+  I authored a plan mechanism from general knowledge of the rules without reading the
+  governing policy doc the estate already holds — the read cost thirty seconds, the round cost
+  a CI cycle. The other five: two passages a ratification note had left contradicting it
+  (search the whole node for the closed question, not just the section you edited — the
+  same mirror lesson as the #41 rounds), a superseded node left in the live directory (every
+  superseded delivery node lives in `archive/`), an "is the proof" claim that overstated an
+  owner verdict against an acceptance criterion that names a register row, an ungrammatical
+  sentence, and two gendered pronouns for an agent reviewer in a peer's letter
+  (`agents-default-no-gender`; corrected in place because conduct corrections are immediate).
+- METACOGNITION: two of the six were the same failure I had just written a memory about
+  (mirrors left standing after a records cure). Writing the lesson did not install it; the
+  grep-for-every-mention step has to be a mechanical pre-push line, which the durable-doc
+  checklist memory now carries as its fifth item.
+- CONCEPT EXPLORATION — "the primary as a live document with snapshots": continuity records are
+  edited on the primary by every seat, while a fold snapshots them onto a branch; every edit
+  after the snapshot re-dirties the primary and the fast-forward only succeeds when the copies
+  are byte-identical. Two folds today converged only because the closing lead took the
+  snapshot LAST and mirrored every later record edit into the worktree by hand. Warranted
+  proposal: the fold's continuity commit is the closing seat's final act after all other seats
+  have closed, and any record edit made after it is a defect of sequencing, not of content;
+  the mechanical tell is a `DIFFERS` line from the blob comparison before the fast-forward.
+  Falsifier: a fold that needed a second continuity commit because a seat wrote after the
+  snapshot — which happened once today (the support seat's postscript), so the proposal is
+  already one instance strong and one instance weak.
+- LOSS SCAN (classes): volatile scripts (`commit-and-publish.sh` with its bundle override and
+  publish skip, `land-lane.sh` with the quiet-window head re-check, `prune.sh`,
+  `primary-ff.sh`) — conserved by description on the handoff record, their functions named;
+  the bot token files — volatile by design; the prune's per-item proof table — on comms;
+  the code-scanning alert census — in the plan node; the owner's ten answers — verbatim in
+  per-user memory, on comms and in this napkin; the one owner fact still open — the viewed
+  identity × theme cell for the switchboard row — on the handoff and the archived node.
+- METALOSS (second pass over the scan): it re-finds the inferences already flagged (that the
+  register row is the only open item on the switchboard node rests on my reading of its
+  acceptance list; that every superseded delivery node lives in `archive/` rests on two
+  instances) and the blind spots (Codex rounds bound after this stop are unseen; the
+  platform-managed worktrees were counted, not opened). A third pass would only re-find
+  these; the recursion closes here. External bound: the six findings this morning were the
+  outside eyes; point the next scrutiny at any plan mechanism written from memory of a rule.
+
+## 2026-09-06 ~11:2xZ (Flounder turns Estuary, c5cc2c, lead) — resume after compaction boundary 4; #56 rounds two to four
+
+- **A census in a sketch is re-derived from the live query at authoring, never carried.** The CODE-SCANNING entry of ~09:5xZ above (twenty alerts, six classes, six units) is corrected: the hosting service's alerts query for the resting branch returns twenty-seven open alerts in eight classes — eight CodeQL alerts dated 2026-07-30 (missing rate limiting on four MCP server routes, unsafe code construction in the Zod type generator, a second schema-cache write, a second polynomial regex) were outside the earlier snapshot's filter. A reviewer's arithmetic (nineteen sites against twenty alerts) exposed it; the query would have, in one call. The plan node now carries eight classes and eight units (SHA:7a73b5023).
+- **A cure that already exists is a no-op unit.** The sketch proposed, as the cache's cure, the validated write `schema-cache.ts` already performs; the alert stands because validation returns the fetched document. The analyser's documented barrier model for JavaScript (`barrierModel(type, path, kind)` in a tracked data extension; library-model guide read 2026-09-06) is the cure class; the no-model outcome is recorded on the node, never a dismissal (SHA:45b35f75e).
+- **A mechanism written from memory of a rule, again, in the same node.** The wrap's external bound said to point the next scrutiny at exactly this. The census re-true added a rate-limiting cure (application middleware) that accepted ADR-219 (2026-07-30) forbids: the edge owns the control, the deployment cannot count per client in process, and the ADR dispositions every occurrence of the finding as a per-alert false-positive dismissal citing it, never a query exclusion. The node now takes the ADR's shape and its dismissal clauses permit exactly that and nothing else (the round-four push). Before naming a class's cure, read the decision-record index for the class.
+- **Record re-true is not reclassification.** The switchboard verdict row is `pre-read` because the owner browsed directly and no instrument legs ran; the archived node and the design-lane record say so and that the node is closed at the owner's word. Inventing leg results to satisfy the `checkpoint` class was excluded. The LOSS SCAN entry above that names "the one owner fact still open — the viewed identity × theme cell" is CLOSED: the owner viewed every cell ("obviously I looked at all the combinations"), and the row covers all fifteen.
+- **Commit-header limit is 100 characters; measure before the ceremony.** A 101-character header was refused by the commit-msg hook after the full pre-commit run. `check-commit-message -F <msgfile>` takes one second and now runs inside the session's commit script before the window claim opens. When a hook refuses after staging, commit from the index through the same ceremony; never unstage — the hook policy blocks `git restore --staged` as work-removal, and it is right.
+- **PDR-140 state on #56:** four cure rounds landed; from here any further round is dispositions only, residue homed on the scanning node's review-dispositions table or the design-lane residue bundle.
